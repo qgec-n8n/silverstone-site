@@ -1922,11 +1922,15 @@ j0px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 .calendly-inline-iframe {
-  width: 100%;
-  height: 900px;
-  border: 0;
-  display: block;
+  width: 100% !important;
+  height: 2000px !important;
+  position: static !important;
+  border: 0 !important;
+  display: block !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
+
 
 /* Smaller height on mobile to paint quicker */
 @media (max-width: 768px) {
@@ -1964,3 +1968,6 @@ j0px;
 @media (max-width: 600px) {
   
 }
+
+/* Override generic iframe rule for Calendly */
+.calendly-inline-iframe { position: static !important; }
