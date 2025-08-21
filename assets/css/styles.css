@@ -1973,7 +1973,7 @@ j0px;
 .calendly-inline-iframe { position: static !important; }
 
 
-/* Calendly initial mask: hide the calendar grid portion on load */
+
 .calendly-mask{
   overflow: hidden;
   /* Show only the header/whitespace portion; adjust height as needed */
@@ -1990,3 +1990,95 @@ j0px;
   border: 0 !important;
   background: #fff !important;
 }
+
+
+/* === Calendly Layout Adjustments === */
+
+/* Right-aligned, vertically centered Calendly panel */
+.booking-hero .booking-panel {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 480px;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Container with internal scroll */
+.calendly-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+/* Iframe fills container, taller than container to allow internal scroll */
+.calendly-container > .calendly-inline-iframe {
+  width: 100% !important;
+  height: 1200px !important;
+  border: 0 !important;
+  display: block !important;
+  background: #fff !important;
+}
+
+
+/* --- Calendly layout (v3) --- */
+
+/* Position the booking panel just to the right of the midline and vertically centered */
+.booking-hero .booking-panel{
+  position: absolute;
+  top: 50%;
+  left: 55%;              /* ensures panel starts to the right of the midline */
+  transform: translateY(-50%);
+  width: clamp(420px, 36vw, 560px);  /* slightly narrow to match screenshot */
+  height: min(78vh, 820px);          /* visible area; container is fully visible */
+  background: transparent;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Scrollable container that shows header initially and reveals calendar with internal scroll */
+.calendly-container{
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;       /* internal scroll */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+}
+
+/* Iframe is tall so content (including calendar) exists below fold inside the container */
+.calendly-container > .calendly-inline-iframe{
+  width: 100% !important;
+  height: 1600px !important;  /* taller than container -> enables internal scroll */
+  border: 0 !important;
+  display: block !important;
+  background: #fff !important;
+}
+
+/* On very small screens, keep usability */
+@media (max-width: 768px){
+  .booking-hero .booking-panel{
+    left: auto;
+    right: 4%;
+    width: min(92vw, 560px);
+    height: 72vh;
+  }
+}
+
+/* Ensure background artwork doesn't overlay the white panel */
+.booking-hero .booking-bg{ z-index: 0; }
