@@ -1951,7 +1951,18 @@ j0px;
 
 /* Calendly clipped view: show ~2 boxes high, require scroll for rest */
 .calendly-frame-wrap {
-  height: 520px; /* just tall enough to show two booking rows */
+  height:  360px; /* just tall enough to show two booking rows */
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Calendly clipped view: responsive heights */
+@media (max-width: 1200px) {
+  .calendly-frame-wrap { height: 400px; }
+}
+@media (max-width: 900px) {
+  .calendly-frame-wrap { height: 420px; }
+}
+@media (max-width: 600px) {
+  .calendly-frame-wrap { height: 460px; }
 }
