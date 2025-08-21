@@ -2137,3 +2137,49 @@ j0px;
     background-position: center;
   }
 }
+
+
+/* --- Mobile Booking Page Adjustments --- */
+@media (max-width: 768px) {
+  /* Use simpler booking hero background on mobile */
+  body.page-book .booking-hero {
+    background-image: url('assets/images/internet/hero/book-hero-final-sm.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+
+  /* Center Calendly panel on mobile */
+  .booking-hero .booking-panel {
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 92vw !important;
+    max-width: 560px;
+    height: 72vh !important;
+  }
+
+  /* Shift hamburger menu button to far right */
+  .site-header .menu-toggle {
+    margin-left: auto !important;
+  }
+}
+
+
+/* --- Mobile overrides: booking background, panel centering, menu button alignment --- */
+@media (max-width: 768px){
+  /* Swap to a simpler background image on the booking page and hide the heavy img */
+  body.page-book .booking-hero .booking-bg{ display: none !important; }
+  body.page-book .booking-hero{
+    background-image: url('assets/images/internet/hero/book-hero-final-sm.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  /* Center Calendly panel on mobile only */
+  .booking-hero .booking-panel{
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(92vw, 560px) !important;
+  }
+  /* Push hamburger menu all the way to the right on mobile */
+  .site-header .nav-toggle{ margin-left: auto !important; }
+  .site-header .container.header-inner{ display: flex; align-items: center; }
+}
