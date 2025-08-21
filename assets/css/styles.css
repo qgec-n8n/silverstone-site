@@ -1911,3 +1911,41 @@ iframe[src*="google.com/maps"] {
 
 /* Ensure heroes fill the window without extra top padding from title-band */
 .hero.title-band { padding-top: 0 !important; }
+
+
+/* --- Performance: lean Calendly iframe embed & internal scroll --- */
+.calendly-frame-wrap {
+  max-width: 980px;
+  height: 680px;
+  margin: 0 auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.calendly-inline-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Smaller height on mobile to paint quicker */
+@media (max-width: 768px) {
+  .calendly-frame-wrap { height: 560px; }
+}
+
+/* --- Mobile header: push menu button to the far right --- */
+@media (max-width: 768px) {
+  .header-inner {
+    display: flex;
+    align-items: center;
+  }
+  .header-inner .nav-toggle {
+    margin-left: auto;
+    order: 2;
+  }
+  .header-inner .logo {
+    order: 1;
+  }
+}
