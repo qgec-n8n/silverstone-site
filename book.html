@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Book a Consultation – Silverstone</title>
 <!-- Prevent indexing on preview builds -->
-<meta content="noindex, nofollow" name="robots"/>
+<meta content="noindex, nofollow" name="robots">
 <!-- Fonts and icons -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Open+Sans:wght@400;500&amp;family=Montserrat:wght@600&amp;display=swap" rel="stylesheet"/>
-<link href="assets/css/styles.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Open+Sans:wght@400;500&amp;family=Montserrat:wght@600&amp;display=swap" rel="stylesheet">
+<link href="assets/css/styles.css" rel="stylesheet">
 <!-- Calendly performance: preconnect & dns-prefetch -->
-<link crossorigin="" href="https://assets.calendly.com" rel="preconnect"/>
-<link crossorigin="" href="https://calendly.com" rel="preconnect"/>
-<link href="https://assets.calendly.com" rel="dns-prefetch"/>
-<link href="https://calendly.com" rel="dns-prefetch"/>
-<link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p1J1l+ChOWuC2DdvexO3YOk1GMqtUx24TAL7E6H28uGcvo95DaEIbX4QK1s4xM4piw24+rMpp4IPuu8m4IS7Dw==" referrerpolicy="no-referrer" rel="stylesheet"/>
+<link crossorigin="" href="https://assets.calendly.com" rel="preconnect">
+<link crossorigin="" href="https://calendly.com" rel="preconnect">
+<link href="https://assets.calendly.com" rel="dns-prefetch">
+<link href="https://calendly.com" rel="dns-prefetch">
+<link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p1J1l+ChOWuC2DdvexO3YOk1GMqtUx24TAL7E6H28uGcvo95DaEIbX4QK1s4xM4piw24+rMpp4IPuu8m4IS7Dw==" referrerpolicy="no-referrer" rel="stylesheet">
 <!-- Neon overlay/stacking isolation fix -->
 <style id="neon-fix">
     /* Create a local stacking context so the overlay sits between bg and content */
@@ -43,13 +41,13 @@
       }
     }
   </style>
-<link as="style" href="https://assets.calendly.com/assets/external/widget.css" rel="preload"/><link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/></head>
+<link as="style" href="https://assets.calendly.com/assets/external/widget.css" rel="preload"><link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"></head>
 <body class="page-book">
 <!-- Header -->
 <header class="site-header">
 <div class="container header-inner">
 <a class="logo" href="index.html">
-<img alt="Silverstone Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"/>
+<img alt="Silverstone Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x">
 </a>
 <div aria-label="Open navigation" class="nav-toggle" tabindex="0">
 <span></span>
@@ -111,35 +109,27 @@
 
   /* Right-aligned panel that vertically centers and fits within the image height */
   .booking-hero .booking-panel {
-    position: absolute;
-    top: 50%;
-    right: var(--panel-side-gap);
-    transform: translateY(-50%);
-    z-index: 1;
-    /* Slightly reduced width so it sits neatly on the right */
-    width: min( 900px, 80vw );
-    /* Ensure the panel (and thus Calendly) fits entirely inside the image */
-    height: auto;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    box-sizing: border-box;
-    /* Optional subtle backdrop for readability */
-    background: transparent;
-    border-radius: 0;
-    
-  }
+  position: absolute;
+  top: 52%;
+  left: 55%;
+  transform: translateY(-50%);
+  width: clamp(420px, 36vw, 560px);
+  height: min(78vh, 820px);
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
 
   /* Calendly widget fills the panel and is fully visible (no internal scrolling) */
-  .booking-hero .calendly-inline-widget {
-    width: 100% !important;
-    height: 1200px !important;
-    
-    border: 0;
-  overflow: visible !important;
-  }
+  /* removed old widget margin rule */
 
   @media (max-width: 1024px) {
     /* On tablets/phones, stack and keep readability. */
@@ -163,32 +153,21 @@
       margin: 0 auto;
       background: rgba(0,0,0,0.2);
     }
-    .booking-hero .calendly-inline-widget {
-      height: 1200px !important; /* keep it usable on mobile */
-    overflow: visible !important;
-  }
+    /* removed old widget margin rule */
   }
 
 
   /* Extra spacing above Calendly to create visible padding from the top */
-  .booking-hero .calendly-inline-widget {
-    margin-top: clamp(24px, 6vh, 96px);
-  }
+  /* removed old widget margin rule */
 
 </style>
 <section class="booking-hero" id="booking-hero">
-<img alt="Booking background" class="booking-bg" decoding="async" fetchpriority="high" sizes="100vw" src="assets/images/zip/Silverstone_12_new.jpg" srcset="assets/images/zip/Silverstone_12_new.jpg 1536w, assets/images/zip/Silverstone_12_new-sm.jpg 1200w"/>
+<img alt="Booking background" class="booking-bg" decoding="async" fetchpriority="high" sizes="100vw" src="assets/images/zip/Silverstone_12_new.jpg" srcset="assets/images/zip/Silverstone_12_new.jpg 1536w, assets/images/zip/Silverstone_12_new-sm.jpg 1200w">
 <div class="booking-panel">
-  <div class="calendly-container">
-    <iframe
-      class="calendly-inline-iframe"
-      src="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1"
-      loading="eager"
-      fetchpriority="high"
-      referrerpolicy="no-referrer-when-downgrade"
-      title="Schedule time with Silverstone">
+  
+  <iframe class="calendly-inline-iframe" src="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1" loading="eager" fetchpriority="high" referrerpolicy="no-referrer-when-downgrade" title="Schedule time with Silverstone">
     </iframe>
-  </div>
+  
 </div>
 </section>
 

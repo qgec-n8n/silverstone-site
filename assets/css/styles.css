@@ -1996,13 +1996,14 @@ j0px;
 
 /* Right-aligned, vertically centered Calendly panel */
 
+
 .booking-hero .booking-panel{
   position: absolute;
-  top: 52%;               /* nudge down a touch so its midline aligns with the background image */
-  left: 55%;              /* right of midline */
+  top: 52%;               /* align midlines by nudging down */
+  left: 55%;              /* right of the midline */
   transform: translateY(-50%);
   width: clamp(420px, 36vw, 560px);
-  height: min(78vh, 820px);
+  height: min(78vh, 820px);      /* viewport-bounded container */
   background: transparent !important;
   box-shadow: none !important;
   border: 0 !important;
@@ -2011,30 +2012,18 @@ j0px;
   align-items: stretch;
   justify-content: center;
   z-index: 2;
+  overflow-y: auto;               /* INTERNAL SCROLL lives on the panel itself */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Container with internal scroll */
 
-.calendly-container{
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;             /* internal scroll */
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  background: transparent !important;   /* remove white box */
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
+
 
 /* Iframe fills container, taller than container to allow internal scroll */
 
-.calendly-container > .calendly-inline-iframe{
-  width: 100% !important;
-  height: 1600px !important;  /* taller than container to enable internal scroll */
-  border: 0 !important;
-  display: block !important;
-  background: transparent !important;   /* no white fill */
-}
+
 
 
 /* Position the booking panel just to the right of the midline and vertically centered */
@@ -2056,25 +2045,10 @@ j0px;
 }
 
 /* Scrollable container that shows header initially and reveals calendar with internal scroll */
-.calendly-container{
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;       /* internal scroll */
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
-}
+
 
 /* Iframe is tall so content (including calendar) exists below fold inside the container */
-.calendly-container > .calendly-inline-iframe{
-  width: 100% !important;
-  height: 1600px !important;  /* taller than container -> enables internal scroll */
-  border: 0 !important;
-  display: block !important;
-  background: #fff !important;
-}
+
 
 /* On very small screens, keep usability */
 @media (max-width: 768px){
@@ -2111,25 +2085,10 @@ j0px;
 }
 
 /* Transparent container, only provides scroll */
-.calendly-container{
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  background: transparent !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
+
 
 /* Iframe directly over background, transparent edges */
-.calendly-container > .calendly-inline-iframe{
-  width: 100% !important;
-  height: 1600px !important;  /* tall enough to scroll to calendar */
-  border: 0 !important;
-  display: block !important;
-  background: transparent !important;
-}
+
 
 /* On small screens keep usability */
 @media (max-width: 768px){
@@ -2139,4 +2098,32 @@ j0px;
     width: min(92vw, 560px);
     height: 72vh;
   }
+}
+
+
+/* --- Calendly direct iframe overlay --- */
+.booking-hero .booking-panel {
+  position: absolute;
+  top: 52%;    /* vertically aligned with background image */
+  left: 55%;   /* right of midline */
+  transform: translateY(-50%);
+  width: clamp(420px, 36vw, 560px);
+  height: min(78vh, 820px);
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  z-index: 2;
+}
+
+
+.booking-panel > .calendly-inline-iframe{
+  width: 100% !important;
+  height: 1600px !important;   /* taller than the panel to enable internal scroll */
+  border: 0 !important;
+  display: block !important;
+  background: transparent !important;  /* no white fill */
 }
