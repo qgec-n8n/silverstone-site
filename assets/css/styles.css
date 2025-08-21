@@ -2183,3 +2183,21 @@ j0px;
   .site-header .nav-toggle{ margin-left: auto !important; }
   .site-header .container.header-inner{ display: flex; align-items: center; }
 }
+
+
+/* --- Mobile overrides: vibrant background & taller Calendly --- */
+@media (max-width: 768px){
+  body.page-book .booking-hero .booking-bg{ display: none !important; }
+  body.page-book .booking-hero{
+    background-image: url('assets/images/internet/hero/book-hero-vibrant-mobile.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  /* Calendly panel fills viewport height on mobile */
+  .booking-hero .booking-panel{
+    height: 100vh !important;
+  }
+  .booking-hero .booking-panel > .calendly-inline-iframe{
+    height: 2000px !important;
+  }
+}
