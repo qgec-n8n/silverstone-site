@@ -41,6 +41,14 @@
     }
   </style>
 
+
+  <link rel="preconnect" href="https://assets.calendly.com" crossorigin>
+  <link rel="dns-prefetch" href="https://assets.calendly.com">
+  <link rel="preconnect" href="https://calendly.com" crossorigin>
+  <link rel="dns-prefetch" href="https://calendly.com">
+
+  <link rel="preload" as="image" href="assets/images/internet/hero/contact-hero-final.webp">
+  <link rel="preload" as="image" href="assets/images/internet/hero/contact-hero-final.jpg">
 </head>
 <body class="page-contact">
   <!-- Header -->
@@ -52,7 +60,7 @@
           srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"
           alt="Silverstone Logo"
           class="site-logo"
-        />
+        / decoding="async" loading="eager" fetchpriority="high" width="628" height="339">
       </a>
       <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
         <span></span>
@@ -74,7 +82,7 @@
   <!-- Hero -->
   <!-- Updated hero background for Contact to a circuit image for a tech feel -->
   <!-- Updated hero image for Contact: circuit with bokeh for seamless blend -->
-  <section class="hero title-band" style="background-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);">
+  <section class="hero title-band" style="background-image: image-set( url("assets/images/internet/hero/contact-hero-final.webp") type("image/webp") 1x, url("assets/images/internet/hero/contact-hero-final.jpg") type("image/jpeg") 1x ); background-image: image-set( url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);">
     <div class="content">
       <h1>Get In Touch</h1>
       <p>We’d love to hear from you. Whether you have a question about our services or need support, our team is ready to help.</p>
