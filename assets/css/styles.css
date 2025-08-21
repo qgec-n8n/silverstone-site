@@ -1914,9 +1914,7 @@ iframe[src*="google.com/maps"] {
 
 
 /* --- Performance: lean Calendly iframe embed & internal scroll --- */
-.calendly-frame-wrap {
-  max-width: 980px;
-  height: 680px;
+j0px;
   margin: 0 auto;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -1932,7 +1930,7 @@ iframe[src*="google.com/maps"] {
 
 /* Smaller height on mobile to paint quicker */
 @media (max-width: 768px) {
-  .calendly-frame-wrap { height: 560px; }
+  j0px; }
 }
 
 /* --- Mobile header: push menu button to the far right --- */
@@ -1948,4 +1946,12 @@ iframe[src*="google.com/maps"] {
   .header-inner .logo {
     order: 1;
   }
+}
+
+
+/* Calendly clipped view: show ~2 boxes high, require scroll for rest */
+.calendly-frame-wrap {
+  height: 520px; /* just tall enough to show two booking rows */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
