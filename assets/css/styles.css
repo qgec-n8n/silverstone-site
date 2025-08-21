@@ -1995,41 +1995,47 @@ j0px;
 /* === Calendly Layout Adjustments === */
 
 /* Right-aligned, vertically centered Calendly panel */
-.booking-hero .booking-panel {
+
+.booking-hero .booking-panel{
   position: absolute;
-  top: 50%;
-  right: 5%;
+  top: 52%;               /* nudge down a touch so its midline aligns with the background image */
+  left: 55%;              /* right of midline */
   transform: translateY(-50%);
-  width: 480px;
-  height: 80vh;
+  width: clamp(420px, 36vw, 560px);
+  height: min(78vh, 820px);
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0;
   display: flex;
+  align-items: stretch;
   justify-content: center;
-  align-items: center;
-  background: transparent;
-  box-shadow: none;
+  z-index: 2;
 }
 
 /* Container with internal scroll */
-.calendly-container {
+
+.calendly-container{
   width: 100%;
   height: 100%;
-  overflow-y: auto;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  overflow-y: auto;             /* internal scroll */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: transparent !important;   /* remove white box */
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 /* Iframe fills container, taller than container to allow internal scroll */
-.calendly-container > .calendly-inline-iframe {
+
+.calendly-container > .calendly-inline-iframe{
   width: 100% !important;
-  height: 1200px !important;
+  height: 1600px !important;  /* taller than container to enable internal scroll */
   border: 0 !important;
   display: block !important;
-  background: #fff !important;
+  background: transparent !important;   /* no white fill */
 }
 
-
-/* --- Calendly layout (v3) --- */
 
 /* Position the booking panel just to the right of the midline and vertically centered */
 .booking-hero .booking-panel{
@@ -2082,3 +2088,55 @@ j0px;
 
 /* Ensure background artwork doesn't overlay the white panel */
 .booking-hero .booking-bg{ z-index: 0; }
+
+
+/* --- Calendly layout (v4 refined) --- */
+
+/* Booking panel positioned to the right and vertically centered relative to bg image */
+.booking-hero .booking-panel{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* ensures Calendly midline aligns with background midline */
+  left: 55%;
+  width: clamp(420px, 36vw, 560px);
+  height: min(78vh, 820px);
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Transparent container, only provides scroll */
+.calendly-container{
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Iframe directly over background, transparent edges */
+.calendly-container > .calendly-inline-iframe{
+  width: 100% !important;
+  height: 1600px !important;  /* tall enough to scroll to calendar */
+  border: 0 !important;
+  display: block !important;
+  background: transparent !important;
+}
+
+/* On small screens keep usability */
+@media (max-width: 768px){
+  .booking-hero .booking-panel{
+    left: auto;
+    right: 4%;
+    width: min(92vw, 560px);
+    height: 72vh;
+  }
+}
