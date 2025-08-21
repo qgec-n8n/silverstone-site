@@ -2122,7 +2122,7 @@ j0px;
 
 .booking-panel > .calendly-inline-iframe{
   width: 100% !important;
-  height: 1600px !important;   /* taller than the panel to enable internal scroll */
+  height: 800px !important;   /* taller than the panel to enable internal scroll */
   border: 0 !important;
   display: block !important;
   background: transparent !important;  /* no white fill */
