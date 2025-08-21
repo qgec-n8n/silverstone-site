@@ -1924,7 +1924,6 @@ j0px;
 .calendly-inline-iframe {
   width: 100%;
   height: 100%;
-  min-height: 100%;
   border: 0;
   display: block;
 }
@@ -1951,32 +1950,23 @@ j0px;
 
 
 /* Calendly clipped view: show ~2 boxes high, require scroll for rest */
-
+.calendly-frame-wrap {
+   /* tall enough for header & times, not the calendar grid */
+  overflow: hidden; /* hide anything beyond the box */
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+height: 420px; overflow: hidden; -webkit-overflow-scrolling: touch;}
 
 
 
 /* Calendly clipped view: responsive heights */
 @media (max-width: 1200px) {
-  
+  .calendly-frame-wrap { height: 440px; }
 }
 @media (max-width: 900px) {
-  
+  .calendly-frame-wrap { height: 480px; }
 }
 @media (max-width: 600px) {
-  
+  .calendly-frame-wrap { height: 520px; }
 }
-
-/* Booking panel responsive heights */
-@media (max-width: 1200px) {
-  .booking-panel { height: 440px; }
-}
-@media (max-width: 900px) {
-  .booking-panel { height: 480px; }
-}
-@media (max-width: 600px) {
-  .booking-panel { height: 520px; }
-}
-
-.booking-panel { overflow: hidden; }
-
-.booking-embed { width: 100%; height: 100%; display: block; }
