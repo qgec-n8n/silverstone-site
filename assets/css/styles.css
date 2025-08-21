@@ -2127,3 +2127,13 @@ j0px;
   display: block !important;
   background: transparent !important;  /* no white fill */
 }
+
+
+/* --- Mobile Booking Page Background Override --- */
+@media (max-width: 768px) {
+  body.page-book .booking-hero {
+    background-image: url('assets/images/internet/hero/book-hero-simple-mobile.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+}
