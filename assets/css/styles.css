@@ -11,7 +11,7 @@
   balance across pages.
 */
 
-:root{--calendly-height:1600px;--calendly-width:clamp(340px,88vw,980px);
+:root {
   --color-blue: #00AEEF;
   --color-purple: #9D4EDD;
   --color-green: #00FF9D;
@@ -1921,10 +1921,21 @@ j0px;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
-.calendly-inline-iframe { width: 100% !important; height: var(--calendly-height) !important; border: 0 !important; display: block !important; background: #fff !important; }
+.calendly-inline-iframe {
+  width: 100% !important;
+  height: 2000px !important;
+  position: static !important;
+  border: 0 !important;
+  display: block !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
 
 
-/* cleaned malformed media query */
+/* Smaller height on mobile to paint quicker */
+@media (max-width: 768px) {
+  j0px; }
+}
 
 /* --- Mobile header: push menu button to the far right --- */
 @media (max-width: 768px) {
@@ -1959,26 +1970,23 @@ j0px;
 }
 
 /* Override generic iframe rule for Calendly */
-.calendly-inline-iframe { width: 100% !important; height: var(--calendly-height) !important; border: 0 !important; display: block !important; background: #fff !important; }
+.calendly-inline-iframe { position: static !important; }
 
-.booking-hero .booking-panel{ width: var(--calendly-width); margin: 0 auto; }
 
-/* Calendly container layout */
-.calendly-wrap{
-  width: var(--calendly-width);
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 0;
-  padding: 0;
+/* Calendly initial mask: hide the calendar grid portion on load */
+.calendly-mask{
   overflow: hidden;
-  box-shadow: none;
-}
-.booking-hero .booking-panel{
-  background: transparent !important;
-  padding: 0 !important;
-  box-shadow: none !important;
-  border: 0 !important;
+  /* Show only the header/whitespace portion; adjust height as needed */
+  height: 220px;
+  border-radius: 12px;
+  background: #fff;
 }
 
-.booking-hero .booking-bg{ filter: none; }
-.booking-hero .calendly-inline-iframe{ background:#fff !important; }
+/* Keep iframe full size inside the mask without altering its src or behavior */
+.calendly-mask > .calendly-inline-iframe{
+  width: 100% !important;
+  height: 1000px !important; /* tall enough so header exists above fold; masked by container */
+  display: block !important;
+  border: 0 !important;
+  background: #fff !important;
+}
