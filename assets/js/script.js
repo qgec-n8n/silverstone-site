@@ -197,16 +197,15 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
   }
 })();
 /* === End mobile hero dynamic height fallback === */
-
 // === Parallax Scroll between First and Second Section (re-entrant, both directions, all pages) ===
 document.addEventListener('DOMContentLoaded', function () {
   try {
     const hero = document.querySelector('section.hero.title-band');
     if (!hero) return;
 
-    // Find the immediate next <section> after the hero (ignores non-section siblings)
+    // Find immediate next <section> sibling
     let second = hero.nextElementSibling;
-    while (second && !(second.tagName && second.tagName.toLowerCase() === 'section')) {
+    while (second && second.tagName && second.tagName.toLowerCase() !== 'section') {
       second = second.nextElementSibling;
     }
     if (!second) return;
@@ -214,152 +213,133 @@ document.addEventListener('DOMContentLoaded', function () {
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
 
-    // Utility helpers
-    const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+    // Prepare once
+    hero.classList.add('parallax-hero');
+    second.classList.add('parallax-second');
+
     const getY = () => window.pageYOffset || document.documentElement.scrollTop || 0;
+    const secondTopAbs = () => second.getBoundingClientRect().top + getY();
 
-    // State for current transition
     let isAnimating = false;
-    let touchStartY = null;
+    let lastDirection = null; // 'down' | 'up'
+    let lastEndTime = 0;
+    const COOLDOWN_MS = 500; // prevent immediate reverse trigger
 
-    // Prepare CSS classes only once
-    function prepare() {
-      hero.classList.add('parallax-hero');
-      second.classList.add('parallax-second');
+    function now() { return Date.now(); }
+
+    function inCooldown(opposite) {
+      return lastDirection === opposite && (now() - lastEndTime) < COOLDOWN_MS;
     }
-    prepare();
 
-    function lockScroll() {
+    function lock() {
       document.body.classList.add('parallax-active');
       document.documentElement.style.overflow = 'hidden';
     }
-    function unlockScroll() {
+    function unlock() {
       document.body.classList.remove('parallax-active');
       document.documentElement.style.overflow = '';
     }
 
-    function scrollSnapTo(targetY) {
-      window.scrollTo({ top: targetY, behavior: 'auto' });
-    }
-
-    function secondTopAbs() {
-      const rect = second.getBoundingClientRect();
-      return rect.top + getY();
-    }
-
-    function doParallaxDown() {
+    function animateDown() {
       if (isAnimating) return;
+      if (inCooldown('up')) return;
       isAnimating = true;
-      lockScroll();
+      lock();
 
-      // Force reflow
+      // Reflow
       void hero.offsetWidth; void second.offsetWidth;
 
-      // Hero slower up, second faster up
+      // Downward parallax: hero slower up, second faster up
       hero.style.transform = 'translateY(-30%)';
       second.style.transform = 'translateY(-100%)';
 
       setTimeout(() => {
         hero.style.transform = '';
         second.style.transform = '';
-        const y = secondTopAbs();
-        scrollSnapTo(y);
-        unlockScroll();
+        window.scrollTo({ top: secondTopAbs(), behavior: 'auto' });
+        unlock();
         isAnimating = false;
+        lastDirection = 'down';
+        lastEndTime = now();
       }, 900);
     }
 
-    function doParallaxUp() {
+    function animateUp() {
       if (isAnimating) return;
+      if (inCooldown('down')) return;
       isAnimating = true;
-      lockScroll();
+      lock();
 
-      // Force reflow
+      // Reflow
       void hero.offsetWidth; void second.offsetWidth;
 
-      // Reverse direction: hero down slightly, second down faster
-      hero.style.transform = 'translateY(0%)'; // hero returns
-      second.style.transform = 'translateY(0%)'; // second returns from above
+      // Upward parallax: hero slower down, second faster down (reverse of down)
+      hero.style.transform = 'translateY(30%)';
+      second.style.transform = 'translateY(100%)';
 
-      // Animate from second to hero by moving the visual layers opposite
-      hero.style.transform = 'translateY(-30%)';
-      second.style.transform = 'translateY(-100%)';
-
-      // For reverse, we want to land at top of page (hero start)
       setTimeout(() => {
         hero.style.transform = '';
         second.style.transform = '';
-        scrollSnapTo(0);
-        unlockScroll();
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        unlock();
         isAnimating = false;
+        lastDirection = 'up';
+        lastEndTime = now();
       }, 900);
     }
 
-    // Trigger conditions
     function canTriggerDown() {
-      // If we're visibly within the hero (upper portion), allow down parallax
-      const heroH = hero.offsetHeight || 0;
-      return getY() < heroH * 0.5;
+      return getY() < (hero.offsetHeight * 0.5);
     }
     function canTriggerUp() {
-      // If we're near the top of the second section and scrolling up
       const top = secondTopAbs();
       const y = getY();
-      return y >= top && y <= top + 60;
+      return y >= top && y <= top + 30;
     }
 
+    // INPUT HANDLERS
     function wheelHandler(e) {
       if (isAnimating) return;
       const dy = e.deltaY;
-      if (dy > 0 && canTriggerDown()) {
+      if (dy > 10 && canTriggerDown()) {
         e.preventDefault();
-        doParallaxDown();
-      } else if (dy < 0 && canTriggerUp()) {
+        animateDown();
+      } else if (dy < -10 && canTriggerUp()) {
         e.preventDefault();
-        doParallaxUp();
+        animateUp();
       }
     }
 
     function keyHandler(e) {
       if (isAnimating) return;
-      const y = getY();
-      // Down keys
       if (['PageDown','ArrowDown',' '].includes(e.key) && canTriggerDown()) {
         e.preventDefault();
-        doParallaxDown();
-      }
-      // Up keys
-      if (['PageUp','ArrowUp'].includes(e.key) && canTriggerUp()) {
+        animateDown();
+      } else if (['PageUp','ArrowUp'].includes(e.key) && canTriggerUp()) {
         e.preventDefault();
-        doParallaxUp();
-      }
-      // Home/End snap
-      if (e.key === 'Home') {
-        scrollSnapTo(0);
-      } else if (e.key === 'End') {
-        scrollSnapTo(secondTopAbs());
+        animateUp();
       }
     }
 
+    let touchStartY = null;
     function touchStart(e) {
       if (isAnimating) return;
       touchStartY = e.touches && e.touches.length ? e.touches[0].clientY : null;
     }
     function touchMove(e) {
       if (isAnimating || touchStartY === null) return;
-      const currentY = e.touches && e.touches.length ? e.touches[0].clientY : null;
-      if (currentY === null) return;
-      const delta = touchStartY - currentY; // positive => swipe up (scroll down)
+      const y = e.touches && e.touches.length ? e.touches[0].clientY : null;
+      if (y === null) return;
+      const delta = touchStartY - y;
       if (delta > 20 && canTriggerDown()) {
         e.preventDefault();
-        doParallaxDown();
+        animateDown();
       } else if (delta < -20 && canTriggerUp()) {
         e.preventDefault();
-        doParallaxUp();
+        animateUp();
       }
     }
 
-    // Attach as non-passive so we can preventDefault
     window.addEventListener('wheel', wheelHandler, { passive: false });
     window.addEventListener('keydown', keyHandler, { passive: false });
     window.addEventListener('touchstart', touchStart, { passive: false });
@@ -369,3 +349,4 @@ document.addEventListener('DOMContentLoaded', function () {
     console.error('Parallax init error:', err);
   }
 });
+
