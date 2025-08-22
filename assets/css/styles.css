@@ -2485,14 +2485,11 @@ j0px;
 }
 /* === End v6.1.2 === */
 
-
 /* === Parallax Scroll Effect (one-time) === */
-.parallax-active {
-  overflow: hidden;
-}
+.parallax-active { overflow: hidden; }
 
 .parallax-hero,
 .parallax-second {
-  transition: transform 1s ease-in-out;
+  transition: transform 900ms ease-in-out;
   will-change: transform;
 }

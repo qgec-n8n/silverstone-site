@@ -17,45 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navToggle) {
     navToggle.addEventListener('click', () => {
       navMenu.classList.toggle('open');
-    
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
+    });
   }
 
   // Close menu when clicking link (mobile)
@@ -64,84 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navMenu.classList.contains('open')) {
         navMenu.classList.remove('open');
       }
-    
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
-  
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
+    });
+  });
 
   // Simple form submission handler
   // Forms with the class `js-form` will show a confirmation message
@@ -156,84 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         message.style.display = 'block';
       }
       form.reset();
-    
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
-  
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
+    });
+  });
 
   // Header show/hide on scroll
   const header = document.querySelector('header');
@@ -251,45 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     lastScrollY = currentScrollY;
-  
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
+  });
 
   // Adjust scroll padding and top spacing to prevent overlap with the fixed header.
   // Adds extra breathing room for page titles by adding 20px to the computed
@@ -307,44 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!el.classList.contains('hero')) {
     el.style.paddingTop = `${headerHeight + 24}px`;
   }
-
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
 });
   };
   // Run on load
@@ -364,129 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
         }
-      
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
+      });
     }, observerOptions);
     animatedElements.forEach(el => observer.observe(el));
   }
-
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
 });
 
 // v17 patch: ensure Innovation Gallery tiles are visible immediately
 document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
   document.querySelectorAll('.gallery-grid .neon-card').forEach(el => el.classList.add('visible'));
-
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
 });
 
 /* === v21: Services image midline alignment ===
@@ -526,90 +146,14 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
           }
         }
       }
-    
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
+    });
   }
   document.addEventListener('DOMContentLoaded', equalizeServiceRows);
   window.addEventListener('resize', function(){ 
     // debounce-lite
     clearTimeout(window.__svc_eqt);
     window.__svc_eqt = setTimeout(equalizeServiceRows, 120);
-  
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
+  });
 })();
 
 
@@ -634,45 +178,7 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
       }
       // Always keep at least small viewport height as minimum
       el.style.minHeight = '100svh';
-    
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
+    });
   }
 
   // Initial set (after DOM ready)
@@ -684,86 +190,114 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
 
   // Update on viewport changes (address bar hide/show, orientation, resize, scroll)
   ['resize', 'orientationchange', 'scroll'].forEach(evt => {
-    window.addEventListener(evt, setHeroHeights, { passive: true 
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
-  
-  // === One-time Parallax Scroll from Hero to Second Section ===
-  const hero = document.querySelector('.hero.title-band');
-  const second = document.querySelector('.section.bg-lines');
-
-  if (hero && second) {
-    let parallaxDone = false;
-
-    window.addEventListener('wheel', function handleParallax(e) {
-      if (parallaxDone) return;
-
-      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
-        e.preventDefault();
-
-        // Lock body scroll
-        document.body.classList.add('parallax-active');
-
-        // Apply transforms
-        hero.classList.add('parallax-hero');
-        second.classList.add('parallax-second');
-
-        hero.style.transform = 'translateY(-30%)';
-        second.style.transform = 'translateY(-100%)';
-
-        // After animation, reset + allow normal scroll
-        setTimeout(() => {
-          hero.style.transform = '';
-          second.style.transform = '';
-          document.body.classList.remove('parallax-active');
-          parallaxDone = true;
-        }, 1000);
-
-        // Remove listener to avoid re-trigger
-        window.removeEventListener('wheel', handleParallax, { passive: false });
-      }
-    }, { passive: false });
-  }
-
-});
+    window.addEventListener(evt, setHeroHeights, { passive: true });
+  });
   if (window.visualViewport) {
     window.visualViewport.addEventListener('resize', setHeroHeights);
   }
 })();
 /* === End mobile hero dynamic height fallback === */
+
+// === One-time Parallax Scroll from Hero to Second Section ===
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    const hero = document.querySelector('.hero.title-band');
+    const second = document.querySelector('.section.bg-lines');
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!hero || !second || prefersReduced) return;
+
+    let parallaxDone = false;
+    let isAnimating = false;
+    let touchStartY = null;
+
+    function atTop() {
+      return (window.scrollY || window.pageYOffset || document.documentElement.scrollTop) <= 10;
+    }
+
+    function doParallax() {
+      if (parallaxDone || isAnimating) return;
+      isAnimating = true;
+
+      // Lock scroll
+      document.body.classList.add('parallax-active');
+
+      // Prepare elements for transform
+      hero.classList.add('parallax-hero');
+      second.classList.add('parallax-second');
+
+      // Force a reflow so transitions apply after setting transforms
+      void hero.offsetWidth; void second.offsetWidth;
+
+      // Layered motion: hero slower, second faster
+      hero.style.transform = 'translateY(-30%)';
+      second.style.transform = 'translateY(-100%)';
+
+      // After animation, reset and jump to second section
+      setTimeout(() => {
+        hero.style.transform = '';
+        second.style.transform = '';
+        document.body.classList.remove('parallax-active');
+
+        // Mark as done and clean up
+        parallaxDone = true;
+        removeListeners();
+
+        // Ensure we land exactly at the second section
+        const y = second.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: y, behavior: 'auto' });
+
+        isAnimating = false;
+      }, 950);
+    }
+
+    function wheelHandler(e) {
+      if (parallaxDone || isAnimating) return;
+      if (e.deltaY > 0 && atTop()) {
+        e.preventDefault();
+        doParallax();
+      }
+    }
+
+    function keyHandler(e) {
+      if (parallaxDone || isAnimating) return;
+      const keys = ['PageDown','ArrowDown',' '];
+      if (keys.includes(e.key) && atTop()) {
+        e.preventDefault();
+        doParallax();
+      }
+    }
+
+    function touchStart(e) {
+      if (parallaxDone || isAnimating) return;
+      if (!atTop()) return;
+      touchStartY = e.touches && e.touches.length ? e.touches[0].clientY : null;
+    }
+
+    function touchMove(e) {
+      if (parallaxDone || isAnimating || touchStartY === null) return;
+      const currentY = e.touches && e.touches.length ? e.touches[0].clientY : null;
+      if (currentY === null) return;
+      const delta = touchStartY - currentY; // positive if user swipes up (scroll down)
+      if (delta > 25 && atTop()) {
+        e.preventDefault();
+        doParallax();
+      }
+    }
+
+    function removeListeners() {
+      window.removeEventListener('wheel', wheelHandler, { passive: false });
+      window.removeEventListener('keydown', keyHandler, { passive: false });
+      window.removeEventListener('touchstart', touchStart, { passive: false });
+      window.removeEventListener('touchmove', touchMove, { passive: false });
+    }
+
+    // Attach listeners as non-passive so we can preventDefault
+    window.addEventListener('wheel', wheelHandler, { passive: false });
+    window.addEventListener('keydown', keyHandler, { passive: false });
+    window.addEventListener('touchstart', touchStart, { passive: false });
+    window.addEventListener('touchmove', touchMove, { passive: false });
+  } catch (err) {
+    console.error('Parallax init error:', err);
+  }
+});
