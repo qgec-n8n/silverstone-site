@@ -203,6 +203,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const hero = document.querySelector('section.hero.title-band');
     if (!hero) return;
 
+    const header = document.querySelector('header');
+
     // Find immediate next <section>
     let second = hero.nextElementSibling;
     while (second && second.tagName && second.tagName.toLowerCase() !== 'section') {
@@ -239,7 +241,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Stick guard state
     let guardTimer = null;
-    let guardTarget = null;
 
     function now(){ return Date.now(); }
 
@@ -254,11 +255,20 @@ document.addEventListener('DOMContentLoaded', function () {
       root.style.scrollBehavior = prev || '';
     }
 
-    function guardOn(targetY, ms=400) {
-      guardTarget = targetY;
+    // Pause header auto-hide during animation to avoid flicker
+    function headerForceHidden(on) {
+      if (!header) return;
+      if (on) {
+        header.classList.add('header-hidden');
+        header.dataset.parallaxLock = '1';
+      } else {
+        header.dataset.parallaxLock = '';
+      }
+    }
+
+    function guardOn(targetY, ms=450) {
       const block = (e) => { e.preventDefault(); };
       const pin = () => {
-        // If drifted away from target a bit, re-pin
         const y = getY();
         if (Math.abs(y - targetY) > 2) snapTo(targetY);
       };
@@ -272,13 +282,14 @@ document.addEventListener('DOMContentLoaded', function () {
         window.removeEventListener('touchmove', block, { passive: false });
         window.removeEventListener('keydown', block, { passive: false });
         window.removeEventListener('scroll', pin, { passive: true });
-        guardTarget = null;
+        // allow header handler to resume naturally
       }, ms);
     }
 
     function animateDown() {
       if (isAnimating) return;
       isAnimating = true;
+      headerForceHidden(true);
       lock();
       void hero.offsetWidth; void second.offsetWidth;
 
@@ -290,18 +301,20 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(() => {
         hero.style.transform = '';
         second.style.transform = '';
-        // Set cooldown BEFORE snap+unlock to swallow residuals
-        suppressUpUntil = now() + SUPPRESS_MS;
+        suppressUpUntil = now() + SUPPRESS_MS; // set before releasing inputs
         snapTo(target);
         unlock();
         guardOn(target, 450);
         isAnimating = false;
+        // release header lock after guard
+        setTimeout(() => headerForceHidden(false), 460);
       }, 900);
     }
 
     function animateUp() {
       if (isAnimating) return;
       isAnimating = true;
+      headerForceHidden(true);
       lock();
       void hero.offsetWidth; void second.offsetWidth;
 
@@ -318,6 +331,7 @@ document.addEventListener('DOMContentLoaded', function () {
         unlock();
         guardOn(target, 450);
         isAnimating = false;
+        setTimeout(() => headerForceHidden(false), 460);
       }, 900);
     }
 
