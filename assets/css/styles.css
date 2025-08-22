@@ -2132,7 +2132,7 @@ j0px;
 /* --- Mobile Booking Page Background Override --- */
 @media (max-width: 768px) {
   body.page-book .booking-hero {
-    background-image: url('assets/images/internet/hero/book-hero-simple-mobile.jpg');
+    background-image: url('assets/images/internet/hero/book-hero-calendly-mobile-2025.png');
     background-size: cover;
     background-position: center;
   }
@@ -2143,7 +2143,7 @@ j0px;
 @media (max-width: 768px) {
   /* Use simpler booking hero background on mobile */
   body.page-book .booking-hero {
-    background-image: url('assets/images/internet/hero/book-hero-final-sm.jpg') !important;
+    background-image: url('assets/images/internet/hero/book-hero-calendly-mobile-2025.png') !important;
     background-size: cover !important;
     background-position: center !important;
   }
@@ -2169,7 +2169,7 @@ j0px;
   /* Swap to a simpler background image on the booking page and hide the heavy img */
   body.page-book .booking-hero .booking-bg{ display: none !important; }
   body.page-book .booking-hero{
-    background-image: url('assets/images/internet/hero/book-hero-final-sm.jpg') !important;
+    background-image: url('assets/images/internet/hero/book-hero-calendly-mobile-2025.png') !important;
     background-size: cover !important;
     background-position: center !important;
   }
@@ -2189,7 +2189,7 @@ j0px;
 @media (max-width: 768px){
   body.page-book .booking-hero .booking-bg{ display: none !important; }
   body.page-book .booking-hero{
-    background-image: url('assets/images/internet/hero/book-hero-vibrant-mobile.jpg') !important;
+    background-image: url('assets/images/internet/hero/book-hero-calendly-mobile-2025.png') !important;
     background-size: cover !important;
     background-position: center !important;
   }
