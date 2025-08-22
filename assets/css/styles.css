@@ -2194,12 +2194,8 @@ j0px;
     background-position: center !important;
   }
   /* Calendly panel fills viewport height on mobile */
-  .booking-hero .booking-panel{
-    height: 100vh !important;
-  }
-  .booking-hero .booking-panel > .calendly-inline-iframe{
-    height: 2000px !important;
-  }
+  
+  
 }
 
 
@@ -2218,13 +2214,7 @@ j0px;
     overflow: visible !important;         /* remove internal scroll */
     -webkit-overflow-scrolling: auto !important;
   }
-  body.page-book .booking-hero .booking-panel > .calendly-inline-iframe{
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;              /* let the iframe fit its content height */
-    min-height: 1600px !important;        /* ensure full Calendly UI is visible */
-    border: 0 !important;
-  }
+  body.page-book 
 }
 
 
@@ -2252,13 +2242,7 @@ j0px;
     top: auto !important;
     left: auto !important;
   }
-  body.page-book .booking-hero .booking-panel > .calendly-inline-iframe{
-    display: block !important;
-    width: 100% !important;
-    height: 1000px !important;          /* reduced height */
-    min-height: 1000px !important;
-    margin: 0 auto !important;
-  }
+  body.page-book 
 }
 
 
@@ -2279,8 +2263,74 @@ j0px;
     margin: 0 auto !important;                 /* center horizontally */
     height: auto !important;                   /* let panel fit iframe */
   }
+  body.page-book 
+}
+
+
+/* === Mobile-only: Book page Calendly sizing + background === */
+@media (max-width: 768px){
+  body.page-book .booking-hero{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 32px 0 !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    min-height: 100vh !important;         /* extend bg full length */
+  }
+  body.page-book .booking-hero .booking-panel{
+    position: static !important;
+    transform: none !important;
+    width: min(82vw, 360px) !important;   /* narrower to reveal bg around */
+    margin: 0 auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
   body.page-book .booking-hero .booking-panel > .calendly-inline-iframe{
     width: 100% !important;
-    height: 1200px !important;                 /* reduced height */
+    height: 900px !important;             /* cropped to hide below cookie settings */
+    border: 0 !important;
+    display: block !important;
+  }
+}
+
+
+/* === Mobile-only: Book page — full-bleed bg, smaller centered Calendly, no internal scroll === */
+@media (max-width: 768px){
+  /* Ensure the background image covers the entire section height */
+  body.page-book .booking-hero{
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 48px 0 !important;
+    min-height: 100vh !important;        /* section at least viewport height so bg fully shows */
+  }
+
+  /* Make panel flow and center; no internal scrolling */
+  body.page-book .booking-hero .booking-panel{
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    overflow: visible !important;
+    -webkit-overflow-scrolling: auto !important;
+    width: min(84vw, 380px) !important;  /* narrower so bg peeks around */
+    margin: 0 auto !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  /* Shrink Calendly iframe so anything below "Cookie settings" is cropped out */
+  body.page-book .booking-hero .booking-panel > .calendly-inline-iframe{
+    display: block !important;
+    width: 100% !important;
+    height: 960px !important;            /* tune this if needed to crop just below the cookie settings */
+    border: 0 !important;
   }
 }
