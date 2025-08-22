@@ -2226,3 +2226,61 @@ j0px;
     border: 0 !important;
   }
 }
+
+
+/* === Mobile-only Calendly adjustments: shrink, center, fit background (Book page only) === */
+@media (max-width: 768px){
+  body.page-book .booking-hero{
+    background-size: cover !important;   /* ensure background fills container */
+    background-position: center center !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;  /* align from top */
+    padding: 2rem 0 !important;
+  }
+  body.page-book .booking-hero .booking-panel{
+    position: relative !important;
+    width: 90% !important;              /* narrower than full viewport */
+    max-width: 420px !important;        /* shrink width */
+    margin: 0 auto !important;
+    height: auto !important;            /* auto height, no scroll */
+    overflow: visible !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+  }
+  body.page-book .booking-hero .booking-panel > .calendly-inline-iframe{
+    display: block !important;
+    width: 100% !important;
+    height: 1000px !important;          /* reduced height */
+    min-height: 1000px !important;
+    margin: 0 auto !important;
+  }
+}
+
+
+/* === Mobile-only: shrink + center Calendly and ensure bg covers section (Book page only) === */
+@media (max-width: 768px){
+  body.page-book .booking-hero{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 48px 0 !important;               /* give breathing room */
+    background-size: cover !important;        /* fill entire section */
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    min-height: 100vh;                         /* keep section tall enough so bg fully shows */
+  }
+  body.page-book .booking-hero .booking-panel{
+    width: min(88vw, 420px) !important;        /* narrower than before */
+    margin: 0 auto !important;                 /* center horizontally */
+    height: auto !important;                   /* let panel fit iframe */
+  }
+  body.page-book .booking-hero .booking-panel > .calendly-inline-iframe{
+    width: 100% !important;
+    height: 1200px !important;                 /* reduced height */
+  }
+}
