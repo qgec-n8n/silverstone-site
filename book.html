@@ -124,7 +124,30 @@
   /* Calendly widget fills the panel and is fully visible (no internal scrolling) */
   /* removed old widget margin rule */
 
-  /* removed conflicting inline booking-panel media overrides */
+  @media (max-width: 1024px) {
+    /* On tablets/phones, stack and keep readability. */
+    .booking-hero {
+      height: 1200px;
+      max-height: none;
+      aspect-ratio: auto;
+      padding: clamp(48px, 8vw, 80px) var(--panel-side-gap);
+    }
+    .booking-hero .booking-bg {
+      position: absolute;
+      inset: 0;
+    }
+    .booking-hero .booking-panel {
+      position: relative;
+      top: auto;
+      right: auto;
+      transform: none;
+      width: min(100%, 720px);
+      height: auto;
+      margin: 0 auto;
+      background: rgba(0,0,0,0.2);
+    }
+    /* removed old widget margin rule */
+  }
 
 
   /* Extra spacing above Calendly to create visible padding from the top */

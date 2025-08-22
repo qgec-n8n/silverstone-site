@@ -2164,7 +2164,11 @@ j0px;
 }
 
 
-body.page-book .booking-hero{
+/* --- Mobile overrides: booking background, panel centering, menu button alignment --- */
+@media (max-width: 768px){
+  /* Swap to a simpler background image on the booking page and hide the heavy img */
+  body.page-book .booking-hero .booking-bg{ display: none !important; }
+  body.page-book .booking-hero{
     background-image: url('assets/images/internet/hero/book-hero-final-sm.jpg') !important;
     background-size: cover !important;
     background-position: center !important;
@@ -2181,7 +2185,10 @@ body.page-book .booking-hero{
 }
 
 
-body.page-book .booking-hero{
+/* --- Mobile overrides: vibrant background & taller Calendly --- */
+@media (max-width: 768px){
+  body.page-book .booking-hero .booking-bg{ display: none !important; }
+  body.page-book .booking-hero{
     background-image: url('assets/images/internet/hero/book-hero-vibrant-mobile.jpg') !important;
     background-size: cover !important;
     background-position: center !important;
@@ -2192,33 +2199,5 @@ body.page-book .booking-hero{
   }
   .booking-hero .booking-panel > .calendly-inline-iframe{
     height: 2000px !important;
-  }
-}
-
-
-/* --- Mobile fixes: force vibrant background, center panel, full-height panel, visible Calendly header --- */
-@media (max-width: 768px){
-  /* Ensure heavy image node is hidden and CSS background takes over */
-  body.page-book .booking-hero .booking-bg{ display: none !important; }
-  html body.page-book .booking-hero{
-    background-image: url('assets/images/internet/hero/book-hero-vibrant-mobile.jpg') !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-  }
-  /* Center panel and make it fill the viewport */
-  .booking-hero .booking-panel{
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: min(92vw, 560px) !important;
-    height: 100vh !important;
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-    background: transparent !important;
-  }
-  /* Make iframe tall so the Calendly header is fully visible and content scrolls inside */
-  .booking-hero .booking-panel > .calendly-inline-iframe{
-    height: 2200px !important;
-    margin: 0;
   }
 }
