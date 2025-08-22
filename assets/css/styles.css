@@ -559,12 +559,13 @@ nav a.active {
   background-color: transparent;
 }
 
-.service-image .ratio {
+.service-image {
   width: 100%;
   padding-top: 56.25%; /* 16:9 aspect ratio */
   position: relative;
   background-color: transparent;
 }
+
 
 .service-image img {
   position: absolute;
@@ -1920,7 +1921,7 @@ j0px;
   -webkit-overflow-scrolling: touch;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-}
+
 .calendly-inline-iframe {
   width: 100% !important;
   height: 2000px !important;
@@ -1935,7 +1936,7 @@ j0px;
 /* Smaller height on mobile to paint quicker */
 @media (max-width: 768px) {
   j0px; }
-}
+
 
 /* --- Mobile header: push menu button to the far right --- */
 @media (max-width: 768px) {
@@ -2465,3 +2466,21 @@ j0px;
   }
 }
 /* === End v6.1.1 === */
+
+
+/* === Mobile-only overrides v6.1.2 (2025-08-22) — Fix absolute images in About collage === */
+@media (max-width: 768px) {
+  .drives-grid.collage .service-image {
+    padding-top: 0 !important;
+    position: static !important;
+    height: auto !important;
+  }
+  .drives-grid.collage .service-image img {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+  }
+}
+/* === End v6.1.2 === */
