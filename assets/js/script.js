@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastScrollY = window.pageYOffset;
   window.addEventListener('scroll', () => {
     const currentScrollY = window.pageYOffset;
+    // Skip header auto-hide while parallax locks the viewport
+    if (document.body.style.position === 'fixed') { lastScrollY = currentScrollY; return; }
     // Only apply behaviour on larger screens to avoid jitter on mobile
     if (window.innerWidth > 768) {
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -163,6 +165,8 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
   const supportsDVH = () => (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('height', '100dvh'));
 
   function setHeroHeights() {
+    // Avoid layout churn while parallax locks viewport
+    if (document.body && document.body.style.position === 'fixed') return;
     if (!isMobile()) return;
     const heroes = document.querySelectorAll('.hero.title-band');
     if (!heroes.length) return;
@@ -237,63 +241,48 @@ document.addEventListener('DOMContentLoaded', function () {
     let isAnimating = false;
     let suppressUpUntil = 0;
     let suppressDownUntil = 0;
-    const SUPPRESS_MS = 1000;
+    const SUPPRESS_MS = 700;
 
-    // Stick guard state
-    let guardTimer = null;
-
-    function now(){ return Date.now(); }
-
-    function lock() { document.body.classList.add('parallax-active'); }
-    function unlock() { document.body.classList.remove('parallax-active'); }
-
-    function snapTo(y) {
+    // Lock page by fixing body to prevent any native scroll during animation
+    let savedY = 0;
+    function lockViewport() {
+      savedY = getY();
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${savedY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    }
+    function unlockViewport(targetY) {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
       const root = document.documentElement;
       const prev = root.style.scrollBehavior;
       root.style.scrollBehavior = 'auto';
-      window.scrollTo({ top: y, behavior: 'auto' });
+      window.scrollTo({ top: (typeof targetY === 'number' ? targetY : savedY), behavior: 'auto' });
       root.style.scrollBehavior = prev || '';
     }
 
-    // Pause header auto-hide during animation to avoid flicker
+    // Hide header during animation to prevent flicker
     function headerForceHidden(on) {
       if (!header) return;
-      if (on) {
-        header.classList.add('header-hidden');
-        header.dataset.parallaxLock = '1';
-      } else {
-        header.dataset.parallaxLock = '';
-      }
-    }
-
-    function guardOn(targetY, ms=450) {
-      const block = (e) => { e.preventDefault(); };
-      const pin = () => {
-        const y = getY();
-        if (Math.abs(y - targetY) > 2) snapTo(targetY);
-      };
-      window.addEventListener('wheel', block, { passive: false });
-      window.addEventListener('touchmove', block, { passive: false });
-      window.addEventListener('keydown', block, { passive: false });
-      window.addEventListener('scroll', pin, { passive: true });
-      clearTimeout(guardTimer);
-      guardTimer = setTimeout(() => {
-        window.removeEventListener('wheel', block, { passive: false });
-        window.removeEventListener('touchmove', block, { passive: false });
-        window.removeEventListener('keydown', block, { passive: false });
-        window.removeEventListener('scroll', pin, { passive: true });
-        // allow header handler to resume naturally
-      }, ms);
+      if (on) header.classList.add('header-hidden');
+      else header.classList.remove('header-hidden');
     }
 
     function animateDown() {
       if (isAnimating) return;
       isAnimating = true;
-      headerForceHidden(true);
-      lock();
-      void hero.offsetWidth; void second.offsetWidth;
+      const target = secondTopAbs();  // compute BEFORE locking
 
-      const target = secondTopAbs();
+      headerForceHidden(true);
+      lockViewport();                 // pin scroll instantly
+
+      // Ensure any native smooth scrolling doesn't interfere
+      void hero.offsetWidth; void second.offsetWidth;
 
       hero.style.transform = 'translateY(-30%)';
       second.style.transform = 'translateY(-100%)';
@@ -301,24 +290,22 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(() => {
         hero.style.transform = '';
         second.style.transform = '';
-        suppressUpUntil = now() + SUPPRESS_MS; // set before releasing inputs
-        snapTo(target);
-        unlock();
-        guardOn(target, 450);
+        suppressUpUntil = Date.now() + SUPPRESS_MS;
+        unlockViewport(target);       // release at exact target (no snap-back)
         isAnimating = false;
-        // release header lock after guard
-        setTimeout(() => headerForceHidden(false), 460);
+        // header returns to normal auto-hide after release
       }, 900);
     }
 
     function animateUp() {
       if (isAnimating) return;
       isAnimating = true;
-      headerForceHidden(true);
-      lock();
-      void hero.offsetWidth; void second.offsetWidth;
-
       const target = 0;
+
+      headerForceHidden(true);
+      lockViewport();
+
+      void hero.offsetWidth; void second.offsetWidth;
 
       hero.style.transform = 'translateY(30%)';
       second.style.transform = 'translateY(100%)';
@@ -326,12 +313,9 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(() => {
         hero.style.transform = '';
         second.style.transform = '';
-        suppressDownUntil = now() + SUPPRESS_MS;
-        snapTo(target);
-        unlock();
-        guardOn(target, 450);
+        suppressDownUntil = Date.now() + SUPPRESS_MS;
+        unlockViewport(target);
         isAnimating = false;
-        setTimeout(() => headerForceHidden(false), 460);
       }, 900);
     }
 
@@ -339,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (isAnimating) return;
       const dy = e.deltaY || 0;
       const r = region();
-      const t = now();
+      const t = Date.now();
 
       if (dy > WHEEL_THRESH && r === 'above' && t >= suppressDownUntil) {
         e.preventDefault();
@@ -353,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function keyHandler(e) {
       if (isAnimating) return;
       const r = region();
-      const t = now();
+      const t = Date.now();
       if (['PageDown','ArrowDown',' '].includes(e.key) && r === 'above' && t >= suppressDownUntil) {
         e.preventDefault();
         animateDown();
@@ -374,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (y === null) return;
       const delta = touchStartY - y;
       const r = region();
-      const t = now();
+      const t = Date.now();
       if (delta > 20 && r === 'above' && t >= suppressDownUntil) {
         e.preventDefault();
         animateDown();
