@@ -2201,3 +2201,28 @@ j0px;
     height: 2000px !important;
   }
 }
+
+
+/* === Mobile-only Calendly panel: show full integration, no internal scroll (Book page only) === */
+@media (max-width: 768px){
+  body.page-book .booking-hero .booking-panel{
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: min(96vw, 600px) !important;
+    margin: 0 auto !important;
+    height: auto !important;              /* allow panel to grow with content */
+    max-height: none !important;
+    overflow: visible !important;         /* remove internal scroll */
+    -webkit-overflow-scrolling: auto !important;
+  }
+  body.page-book .booking-hero .booking-panel > .calendly-inline-iframe{
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;              /* let the iframe fit its content height */
+    min-height: 1600px !important;        /* ensure full Calendly UI is visible */
+    border: 0 !important;
+  }
+}
