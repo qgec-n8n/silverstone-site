@@ -237,24 +237,43 @@ document.addEventListener('DOMContentLoaded', function () {
     let suppressDownUntil = 0;
     const SUPPRESS_MS = 1000;
 
+    // Stick guard state
+    let guardTimer = null;
+    let guardTarget = null;
+
     function now(){ return Date.now(); }
 
-    function lock() {
-      document.body.classList.add('parallax-active');
-      // No html overflow lock to avoid browser snap quirks
-    }
-    function unlock() {
-      document.body.classList.remove('parallax-active');
-    }
+    function lock() { document.body.classList.add('parallax-active'); }
+    function unlock() { document.body.classList.remove('parallax-active'); }
 
     function snapTo(y) {
-      // Ensure programmatic snap is instant regardless of global css smooth scroll
       const root = document.documentElement;
       const prev = root.style.scrollBehavior;
       root.style.scrollBehavior = 'auto';
       window.scrollTo({ top: y, behavior: 'auto' });
-      // Restore
       root.style.scrollBehavior = prev || '';
+    }
+
+    function guardOn(targetY, ms=400) {
+      guardTarget = targetY;
+      const block = (e) => { e.preventDefault(); };
+      const pin = () => {
+        // If drifted away from target a bit, re-pin
+        const y = getY();
+        if (Math.abs(y - targetY) > 2) snapTo(targetY);
+      };
+      window.addEventListener('wheel', block, { passive: false });
+      window.addEventListener('touchmove', block, { passive: false });
+      window.addEventListener('keydown', block, { passive: false });
+      window.addEventListener('scroll', pin, { passive: true });
+      clearTimeout(guardTimer);
+      guardTimer = setTimeout(() => {
+        window.removeEventListener('wheel', block, { passive: false });
+        window.removeEventListener('touchmove', block, { passive: false });
+        window.removeEventListener('keydown', block, { passive: false });
+        window.removeEventListener('scroll', pin, { passive: true });
+        guardTarget = null;
+      }, ms);
     }
 
     function animateDown() {
@@ -263,16 +282,20 @@ document.addEventListener('DOMContentLoaded', function () {
       lock();
       void hero.offsetWidth; void second.offsetWidth;
 
+      const target = secondTopAbs();
+
       hero.style.transform = 'translateY(-30%)';
       second.style.transform = 'translateY(-100%)';
 
       setTimeout(() => {
         hero.style.transform = '';
         second.style.transform = '';
-        snapTo(secondTopAbs());
-        unlock();
-        isAnimating = false;
+        // Set cooldown BEFORE snap+unlock to swallow residuals
         suppressUpUntil = now() + SUPPRESS_MS;
+        snapTo(target);
+        unlock();
+        guardOn(target, 450);
+        isAnimating = false;
       }, 900);
     }
 
@@ -282,16 +305,19 @@ document.addEventListener('DOMContentLoaded', function () {
       lock();
       void hero.offsetWidth; void second.offsetWidth;
 
+      const target = 0;
+
       hero.style.transform = 'translateY(30%)';
       second.style.transform = 'translateY(100%)';
 
       setTimeout(() => {
         hero.style.transform = '';
         second.style.transform = '';
-        snapTo(0);
-        unlock();
-        isAnimating = false;
         suppressDownUntil = now() + SUPPRESS_MS;
+        snapTo(target);
+        unlock();
+        guardOn(target, 450);
+        isAnimating = false;
       }, 900);
     }
 
@@ -349,9 +375,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('touchstart', touchStart, { passive: false });
     window.addEventListener('touchmove', touchMove, { passive: false });
 
-    // Recompute on resize/orientation changes (secondTopAbs depends on layout)
     window.addEventListener('resize', () => {
-      // no-op: region() computes dynamically; ensure transforms are cleared
       hero.style.transform = '';
       second.style.transform = '';
     });

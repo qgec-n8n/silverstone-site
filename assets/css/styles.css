@@ -2493,3 +2493,6 @@ j0px;
   transition: transform 900ms ease-in-out;
   will-change: transform;
 }
+
+/* Parallax guard: prevent scroll chaining during animation */
+.parallax-active { overscroll-behavior: none; }
