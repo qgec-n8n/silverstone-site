@@ -2484,12 +2484,3 @@ j0px;
   }
 }
 /* === End v6.1.2 === */
-
-/* === Parallax Scroll Effect (one-time) === */
-.parallax-hero,
-.parallax-second {
-  transition: transform 900ms ease-in-out;
-  will-change: transform;
-}
-
-/* Parallax guard: prevent scroll chaining during animation */
