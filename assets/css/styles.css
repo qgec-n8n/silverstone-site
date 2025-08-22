@@ -1974,25 +1974,7 @@ iframe[src*="google.com/maps"] {
 /* Right-aligned, vertically centered Calendly panel */
 
 
-.booking-hero .booking-panel{
-  position: absolute;
-  top: 52%;               /* align midlines by nudging down */
-  left: 55%;              /* right of the midline */
-  transform: translateY(-50%);
-  width: clamp(420px, 36vw, 560px);
-  height: min(78vh, 820px);      /* viewport-bounded container */
-  background: transparent !important;
-  box-shadow: none !important;
-  border: 0 !important;
-  padding: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  z-index: 2;
-  overflow-y: auto;               /* INTERNAL SCROLL lives on the panel itself */
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-}
+
 
 /* Container with internal scroll */
 
@@ -2004,22 +1986,7 @@ iframe[src*="google.com/maps"] {
 
 
 /* Position the booking panel just to the right of the midline and vertically centered */
-.booking-hero .booking-panel{
-  position: absolute;
-  top: 50%;
-  left: 55%;              /* ensures panel starts to the right of the midline */
-  transform: translateY(-50%);
-  width: clamp(420px, 36vw, 560px);  /* slightly narrow to match screenshot */
-  height: min(78vh, 820px);          /* visible area; container is fully visible */
-  background: transparent;
-  padding: 0;
-  border: 0;
-  box-shadow: none;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  z-index: 1;
-}
+
 
 /* Scrollable container that shows header initially and reveals calendar with internal scroll */
 
@@ -2029,12 +1996,7 @@ iframe[src*="google.com/maps"] {
 
 /* On very small screens, keep usability */
 @media (max-width: 768px){
-  .booking-hero .booking-panel{
-    left: auto;
-    right: 4%;
-    width: min(92vw, 560px);
-    height: 72vh;
-  }
+  
 }
 
 /* Ensure background artwork doesn't overlay the white panel */
@@ -2044,22 +2006,7 @@ iframe[src*="google.com/maps"] {
 /* --- Calendly layout (v4 refined) --- */
 
 /* Booking panel positioned to the right and vertically centered relative to bg image */
-.booking-hero .booking-panel{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%); /* ensures Calendly midline aligns with background midline */
-  left: 55%;
-  width: clamp(420px, 36vw, 560px);
-  height: min(78vh, 820px);
-  background: transparent !important;
-  box-shadow: none !important;
-  border: 0 !important;
-  padding: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  z-index: 2;
-}
+
 
 /* Transparent container, only provides scroll */
 
@@ -2069,32 +2016,12 @@ iframe[src*="google.com/maps"] {
 
 /* On small screens keep usability */
 @media (max-width: 768px){
-  .booking-hero .booking-panel{
-    left: auto;
-    right: 4%;
-    width: min(92vw, 560px);
-    height: 72vh;
-  }
+  
 }
 
 
 /* --- Calendly direct iframe overlay --- */
-.booking-hero .booking-panel {
-  position: absolute;
-  top: 52%;    /* vertically aligned with background image */
-  left: 55%;   /* right of midline */
-  transform: translateY(-50%);
-  width: clamp(420px, 36vw, 560px);
-  height: min(78vh, 820px);
-  background: transparent !important;
-  box-shadow: none !important;
-  border: 0 !important;
-  padding: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  z-index: 2;
-}
+
 
 
 .booking-panel > 
@@ -2120,13 +2047,7 @@ iframe[src*="google.com/maps"] {
   }
 
   /* Center Calendly panel on mobile */
-  .booking-hero .booking-panel {
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 92vw !important;
-    max-width: 560px;
-    height: 72vh !important;
-  }
+  
 
   /* Shift hamburger menu button to far right */
   .site-header .menu-toggle {
@@ -2145,11 +2066,7 @@ iframe[src*="google.com/maps"] {
     background-position: center !important;
   }
   /* Center Calendly panel on mobile only */
-  .booking-hero .booking-panel{
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: min(92vw, 560px) !important;
-  }
+  
   /* Push hamburger menu all the way to the right on mobile */
   .site-header .nav-toggle{ margin-left: auto !important; }
   .site-header .container.header-inner{ display: flex; align-items: center; }
@@ -2172,19 +2089,7 @@ iframe[src*="google.com/maps"] {
 
 /* === Mobile-only Calendly panel: show full integration, no internal scroll (Book page only) === */
 @media (max-width: 768px){
-  body.page-book .booking-hero .booking-panel{
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    width: min(96vw, 600px) !important;
-    margin: 0 auto !important;
-    height: auto !important;              /* allow panel to grow with content */
-    max-height: none !important;
-    overflow: visible !important;         /* remove internal scroll */
-    -webkit-overflow-scrolling: auto !important;
-  }
+  body.page-book 
   body.page-book 
 }
 
@@ -2199,20 +2104,7 @@ iframe[src*="google.com/maps"] {
     align-items: flex-start !important;  /* align from top */
     padding: 2rem 0 !important;
   }
-  body.page-book .booking-hero .booking-panel{
-    position: relative !important;
-    width: 90% !important;              /* narrower than full viewport */
-    max-width: 420px !important;        /* shrink width */
-    margin: 0 auto !important;
-    height: auto !important;            /* auto height, no scroll */
-    overflow: visible !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: 0 !important;
-    transform: none !important;
-    top: auto !important;
-    left: auto !important;
-  }
+  body.page-book 
   body.page-book 
 }
 
@@ -2229,11 +2121,7 @@ iframe[src*="google.com/maps"] {
     background-repeat: no-repeat !important;
     min-                         /* keep section tall enough so bg fully shows */
   }
-  body.page-book .booking-hero .booking-panel{
-    width: min(88vw, 420px) !important;        /* narrower than before */
-    margin: 0 auto !important;                 /* center horizontally */
-    height: auto !important;                   /* let panel fit iframe */
-  }
+  body.page-book 
   body.page-book 
 }
 
@@ -2251,14 +2139,7 @@ iframe[src*="google.com/maps"] {
     background-repeat: no-repeat !important;
     min-         /* extend bg full length */
   }
-  body.page-book .booking-hero .booking-panel{
-    position: static !important;
-    transform: none !important;
-    width: min(82vw, 360px) !important;   /* narrower to reveal bg around */
-    margin: 0 auto !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
+  body.page-book 
   body.page-book .booking-hero .booking-panel > 
 }
 
@@ -2278,19 +2159,7 @@ iframe[src*="google.com/maps"] {
   }
 
   /* Make panel flow and center; no internal scrolling */
-  body.page-book .booking-hero .booking-panel{
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    overflow: visible !important;
-    -webkit-overflow-scrolling: auto !important;
-    width: min(84vw, 380px) !important;  /* narrower so bg peeks around */
-    margin: 0 auto !important;
-    height: auto !important;
-    max-height: none !important;
-  }
+  body.page-book 
 
   /* Shrink Calendly iframe so anything below "Cookie settings" is cropped out */
   body.page-book .booking-hero .booking-panel > 
@@ -2317,20 +2186,7 @@ iframe[src*="google.com/maps"] {
 }
 
 
-/* === Mobile-only: ensure first-page heroes with headings fill their section === */
-@media (max-width: 768px){
-  /* Applies to the top hero band on each page */
-  .hero.title-band{
-    min-height: 100vh !important;
-    height: 100dvh !important;        /* account for mobile dynamic viewport */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    padding-top: 0 !important;        /* keep heading vertically centered */
-  }
+
 }
 
 
@@ -2369,10 +2225,79 @@ iframe[src*="google.com/maps"] {
 
 /* === Mobile-only Calendly sizing (Book page) === */
 @media (max-width: 768px){
-  body.page-book .booking-hero .booking-panel > .calendly-inline-iframe{
-    width: 100% !important;
-    height: 960px !important;
-    border: 0 !important;
-    display: block !important;
+  body.page-book .booking-hero .booking-panel > 
+}
+
+.booking-hero .booking-panel{
+  position: absolute;
+  top: 52%;
+  left: 55%;
+  transform: translateY(-50%);
+  width: clamp(420px, 36vw, 560px);
+  height: min(78vh, 820px);
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* === Mobile-only Calendly sizing (Book page only) === */
+@media (max-width: 768px){
+  body.page-book .booking-hero .booking-panel{
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    overflow: visible !important;
+    -webkit-overflow-scrolling: auto !important;
+    width: min(84vw, 380px) !important;
+    margin: 0 auto !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+  body.page-book .booking-hero .booking-panel > 
+}
+
+
+/* === Mobile-only hero fix for iOS URL bar behaviour === */
+@media (max-width: 768px){
+  .hero.title-band{
+    min-height: 100lvh !important;  /* full length when URL bar hidden */
+    height: 100dvh !important;      /* adjust dynamically as bar hides/shows */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    padding-top: 0 !important;
+    overflow: visible !important;
+  }
+}
+
+
+/* === Mobile-only hero fix (first hero sections with headings) === */
+@media (max-width: 768px){
+  .hero.title-band{
+    /* Use large and dynamic viewport heights for iOS/Android URL bar behavior */
+    min-height: 100lvh !important;   /* when URL bar is hidden */
+    height: 100dvh !important;       /* dynamically adjust as bars show/hide */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    padding-top: 0 !important;
+    overflow: visible !important;     /* avoid clipping */
   }
 }
