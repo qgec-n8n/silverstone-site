@@ -2256,7 +2256,7 @@ j0px;
     background-size: cover !important;        /* fill entire section */
     background-position: center !important;
     background-repeat: no-repeat !important;
-    min-height: 100vh;                         /* keep section tall enough so bg fully shows */
+    min-                         /* keep section tall enough so bg fully shows */
   }
   body.page-book .booking-hero .booking-panel{
     width: min(88vw, 420px) !important;        /* narrower than before */
@@ -2278,7 +2278,7 @@ j0px;
     background-size: cover !important;
     background-position: center top !important;
     background-repeat: no-repeat !important;
-    min-height: 100vh !important;         /* extend bg full length */
+    min-         /* extend bg full length */
   }
   body.page-book .booking-hero .booking-panel{
     position: static !important;
@@ -2308,7 +2308,7 @@ j0px;
     align-items: center !important;
     justify-content: center !important;
     padding: 48px 0 !important;
-    min-height: 100vh !important;        /* section at least viewport height so bg fully shows */
+    min-        /* section at least viewport height so bg fully shows */
   }
 
   /* Make panel flow and center; no internal scrolling */
@@ -2332,5 +2332,42 @@ j0px;
     width: 100% !important;
     height: 960px !important;            /* tune this if needed to crop just below the cookie settings */
     border: 0 !important;
+  }
+}
+
+
+/* === Mobile-only: Ensure hero sections (first sections with headings) stretch full length === */
+@media (max-width: 768px){
+  .home-hero,
+  .about-hero,
+  .services-hero,
+  .contact-hero,
+  .booking-hero{
+    min-height: 100vh !important;        /* hero fills viewport height */
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;  /* center heading vertically */
+    padding: 0 16px !important;          /* keep safe side padding */
+  }
+}
+
+
+/* === Mobile-only: ensure first-page heroes with headings fill their section === */
+@media (max-width: 768px){
+  /* Applies to the top hero band on each page */
+  .hero.title-band{
+    min-height: 100vh !important;
+    height: 100dvh !important;        /* account for mobile dynamic viewport */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    padding-top: 0 !important;        /* keep heading vertically centered */
   }
 }
