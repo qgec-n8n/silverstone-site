@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const hero = document.querySelector('section.hero.title-band');
     if (!hero) return;
 
-    // Find immediate next <section> sibling
+    // Find immediate next <section>
     let second = hero.nextElementSibling;
     while (second && second.tagName && second.tagName.toLowerCase() !== 'section') {
       second = second.nextElementSibling;
@@ -213,98 +213,98 @@ document.addEventListener('DOMContentLoaded', function () {
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
 
-    // Prepare once
+    // Prepare classes once
     hero.classList.add('parallax-hero');
     second.classList.add('parallax-second');
 
+    // Helpers
     const getY = () => window.pageYOffset || document.documentElement.scrollTop || 0;
     const secondTopAbs = () => second.getBoundingClientRect().top + getY();
+    const BOUNDARY_TOL = 20;
+    const WHEEL_THRESH = 10;
 
-    let isAnimating = false;
-    let lastDirection = null; // 'down' | 'up'
-    let lastEndTime = 0;
-    const COOLDOWN_MS = 500; // prevent immediate reverse trigger
-
-    function now() { return Date.now(); }
-
-    function inCooldown(opposite) {
-      return lastDirection === opposite && (now() - lastEndTime) < COOLDOWN_MS;
+    function region() {
+      const y = getY();
+      const top = secondTopAbs();
+      if (y < top - BOUNDARY_TOL) return 'above';
+      if (y > top + BOUNDARY_TOL) return 'below';
+      return 'at';
     }
+
+    // State & cooldowns
+    let isAnimating = false;
+    let suppressUpUntil = 0;
+    let suppressDownUntil = 0;
+    const SUPPRESS_MS = 1000;
+
+    function now(){ return Date.now(); }
 
     function lock() {
       document.body.classList.add('parallax-active');
-      document.documentElement.style.overflow = 'hidden';
+      // No html overflow lock to avoid browser snap quirks
     }
     function unlock() {
       document.body.classList.remove('parallax-active');
-      document.documentElement.style.overflow = '';
+    }
+
+    function snapTo(y) {
+      // Ensure programmatic snap is instant regardless of global css smooth scroll
+      const root = document.documentElement;
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo({ top: y, behavior: 'auto' });
+      // Restore
+      root.style.scrollBehavior = prev || '';
     }
 
     function animateDown() {
       if (isAnimating) return;
-      if (inCooldown('up')) return;
       isAnimating = true;
       lock();
-
-      // Reflow
       void hero.offsetWidth; void second.offsetWidth;
 
-      // Downward parallax: hero slower up, second faster up
       hero.style.transform = 'translateY(-30%)';
       second.style.transform = 'translateY(-100%)';
 
       setTimeout(() => {
         hero.style.transform = '';
         second.style.transform = '';
-        window.scrollTo({ top: secondTopAbs(), behavior: 'auto' });
+        snapTo(secondTopAbs());
         unlock();
         isAnimating = false;
-        lastDirection = 'down';
-        lastEndTime = now();
+        suppressUpUntil = now() + SUPPRESS_MS;
       }, 900);
     }
 
     function animateUp() {
       if (isAnimating) return;
-      if (inCooldown('down')) return;
       isAnimating = true;
       lock();
-
-      // Reflow
       void hero.offsetWidth; void second.offsetWidth;
 
-      // Upward parallax: hero slower down, second faster down (reverse of down)
       hero.style.transform = 'translateY(30%)';
       second.style.transform = 'translateY(100%)';
 
       setTimeout(() => {
         hero.style.transform = '';
         second.style.transform = '';
-        window.scrollTo({ top: 0, behavior: 'auto' });
+        snapTo(0);
         unlock();
         isAnimating = false;
-        lastDirection = 'up';
-        lastEndTime = now();
+        suppressDownUntil = now() + SUPPRESS_MS;
       }, 900);
     }
 
-    function canTriggerDown() {
-      return getY() < (hero.offsetHeight * 0.5);
-    }
-    function canTriggerUp() {
-      const top = secondTopAbs();
-      const y = getY();
-      return y >= top && y <= top + 30;
-    }
-
-    // INPUT HANDLERS
     function wheelHandler(e) {
       if (isAnimating) return;
-      const dy = e.deltaY;
-      if (dy > 10 && canTriggerDown()) {
+      const dy = e.deltaY || 0;
+      const r = region();
+      const t = now();
+
+      if (dy > WHEEL_THRESH && r === 'above' && t >= suppressDownUntil) {
         e.preventDefault();
         animateDown();
-      } else if (dy < -10 && canTriggerUp()) {
+      } else if (dy < -WHEEL_THRESH && (r === 'below' || (r === 'at' && t >= suppressUpUntil)) && t >= suppressUpUntil) {
         e.preventDefault();
         animateUp();
       }
@@ -312,10 +312,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function keyHandler(e) {
       if (isAnimating) return;
-      if (['PageDown','ArrowDown',' '].includes(e.key) && canTriggerDown()) {
+      const r = region();
+      const t = now();
+      if (['PageDown','ArrowDown',' '].includes(e.key) && r === 'above' && t >= suppressDownUntil) {
         e.preventDefault();
         animateDown();
-      } else if (['PageUp','ArrowUp'].includes(e.key) && canTriggerUp()) {
+      } else if (['PageUp','ArrowUp'].includes(e.key) && (r === 'below' || (r === 'at' && t >= suppressUpUntil)) && t >= suppressUpUntil) {
         e.preventDefault();
         animateUp();
       }
@@ -331,10 +333,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const y = e.touches && e.touches.length ? e.touches[0].clientY : null;
       if (y === null) return;
       const delta = touchStartY - y;
-      if (delta > 20 && canTriggerDown()) {
+      const r = region();
+      const t = now();
+      if (delta > 20 && r === 'above' && t >= suppressDownUntil) {
         e.preventDefault();
         animateDown();
-      } else if (delta < -20 && canTriggerUp()) {
+      } else if (delta < -20 && (r === 'below' || (r === 'at' && t >= suppressUpUntil)) && t >= suppressUpUntil) {
         e.preventDefault();
         animateUp();
       }
@@ -344,6 +348,13 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('keydown', keyHandler, { passive: false });
     window.addEventListener('touchstart', touchStart, { passive: false });
     window.addEventListener('touchmove', touchMove, { passive: false });
+
+    // Recompute on resize/orientation changes (secondTopAbs depends on layout)
+    window.addEventListener('resize', () => {
+      // no-op: region() computes dynamically; ensure transforms are cleared
+      hero.style.transform = '';
+      second.style.transform = '';
+    });
 
   } catch (err) {
     console.error('Parallax init error:', err);
