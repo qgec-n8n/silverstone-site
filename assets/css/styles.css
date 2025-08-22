@@ -2424,3 +2424,44 @@ j0px;
   }
 }
 /* === End mobile-only overrides v6.1 === */
+
+
+/* === Mobile-only overrides v6.1.1 (2025-08-22) — About collage hardening === */
+@media (max-width: 768px) {
+  /* Force a simple block flow to guarantee natural document height */
+  .drives-grid.collage {
+    display: block !important;
+    position: static !important;
+    z-index: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .drives-grid.collage > * {
+    display: block !important;
+    position: static !important;
+    z-index: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 0 1rem 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  .drives-grid.collage > *:last-child {
+    margin-bottom: 0 !important;
+  }
+  /* Images: natural height only; no max-height clamps */
+  .drives-grid.collage img,
+  .drives-grid.collage .neon-card img,
+  .drives-grid.collage .service-image img,
+  .drives-grid.collage .gallery-card img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    border: 0 !important;             /* let card border be the frame */
+    border-radius: inherit !important;
+  }
+}
+/* === End v6.1.1 === */
