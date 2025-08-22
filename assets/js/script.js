@@ -17,7 +17,45 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navToggle) {
     navToggle.addEventListener('click', () => {
       navMenu.classList.toggle('open');
-    });
+    
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
   }
 
   // Close menu when clicking link (mobile)
@@ -26,8 +64,84 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navMenu.classList.contains('open')) {
         navMenu.classList.remove('open');
       }
-    });
-  });
+    
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
+  
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
 
   // Simple form submission handler
   // Forms with the class `js-form` will show a confirmation message
@@ -42,8 +156,84 @@ document.addEventListener('DOMContentLoaded', () => {
         message.style.display = 'block';
       }
       form.reset();
-    });
-  });
+    
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
+  
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
 
   // Header show/hide on scroll
   const header = document.querySelector('header');
@@ -61,7 +251,45 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     lastScrollY = currentScrollY;
-  });
+  
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
 
   // Adjust scroll padding and top spacing to prevent overlap with the fixed header.
   // Adds extra breathing room for page titles by adding 20px to the computed
@@ -79,6 +307,44 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!el.classList.contains('hero')) {
     el.style.paddingTop = `${headerHeight + 24}px`;
   }
+
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
 });
   };
   // Run on load
@@ -98,15 +364,129 @@ document.addEventListener('DOMContentLoaded', () => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
         }
-      });
+      
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
     }, observerOptions);
     animatedElements.forEach(el => observer.observe(el));
   }
+
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
 });
 
 // v17 patch: ensure Innovation Gallery tiles are visible immediately
 document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
   document.querySelectorAll('.gallery-grid .neon-card').forEach(el => el.classList.add('visible'));
+
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
 });
 
 /* === v21: Services image midline alignment ===
@@ -146,14 +526,90 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
           }
         }
       }
-    });
+    
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
   }
   document.addEventListener('DOMContentLoaded', equalizeServiceRows);
   window.addEventListener('resize', function(){ 
     // debounce-lite
     clearTimeout(window.__svc_eqt);
     window.__svc_eqt = setTimeout(equalizeServiceRows, 120);
-  });
+  
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
 })();
 
 
@@ -178,7 +634,45 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
       }
       // Always keep at least small viewport height as minimum
       el.style.minHeight = '100svh';
-    });
+    
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
   }
 
   // Initial set (after DOM ready)
@@ -190,8 +684,84 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
 
   // Update on viewport changes (address bar hide/show, orientation, resize, scroll)
   ['resize', 'orientationchange', 'scroll'].forEach(evt => {
-    window.addEventListener(evt, setHeroHeights, { passive: true });
-  });
+    window.addEventListener(evt, setHeroHeights, { passive: true 
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
+  
+  // === One-time Parallax Scroll from Hero to Second Section ===
+  const hero = document.querySelector('.hero.title-band');
+  const second = document.querySelector('.section.bg-lines');
+
+  if (hero && second) {
+    let parallaxDone = false;
+
+    window.addEventListener('wheel', function handleParallax(e) {
+      if (parallaxDone) return;
+
+      if (e.deltaY > 0 && window.scrollY < hero.offsetHeight) {
+        e.preventDefault();
+
+        // Lock body scroll
+        document.body.classList.add('parallax-active');
+
+        // Apply transforms
+        hero.classList.add('parallax-hero');
+        second.classList.add('parallax-second');
+
+        hero.style.transform = 'translateY(-30%)';
+        second.style.transform = 'translateY(-100%)';
+
+        // After animation, reset + allow normal scroll
+        setTimeout(() => {
+          hero.style.transform = '';
+          second.style.transform = '';
+          document.body.classList.remove('parallax-active');
+          parallaxDone = true;
+        }, 1000);
+
+        // Remove listener to avoid re-trigger
+        window.removeEventListener('wheel', handleParallax, { passive: false });
+      }
+    }, { passive: false });
+  }
+
+});
   if (window.visualViewport) {
     window.visualViewport.addEventListener('resize', setHeroHeights);
   }
