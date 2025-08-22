@@ -155,3 +155,45 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
     window.__svc_eqt = setTimeout(equalizeServiceRows, 120);
   });
 })();
+
+
+/* === Mobile hero dynamic height fallback (v6.1, 2025-08-22) === */
+(function() {
+  const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+  const supportsDVH = () => (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('height', '100dvh'));
+
+  function setHeroHeights() {
+    if (!isMobile()) return;
+    const heroes = document.querySelectorAll('.hero.title-band');
+    if (!heroes.length) return;
+
+    const vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+    heroes.forEach(el => {
+      // Only set inline height when dvh is not supported
+      if (!supportsDVH()) {
+        el.style.height = vh + 'px';
+      } else {
+        // Ensure we don't clamp modern browsers; let CSS handle dvh
+        el.style.removeProperty('height');
+      }
+      // Always keep at least small viewport height as minimum
+      el.style.minHeight = '100svh';
+    });
+  }
+
+  // Initial set (after DOM ready)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setHeroHeights);
+  } else {
+    setHeroHeights();
+  }
+
+  // Update on viewport changes (address bar hide/show, orientation, resize, scroll)
+  ['resize', 'orientationchange', 'scroll'].forEach(evt => {
+    window.addEventListener(evt, setHeroHeights, { passive: true });
+  });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setHeroHeights);
+  }
+})();
+/* === End mobile hero dynamic height fallback === */

@@ -274,7 +274,7 @@ nav a.active {
 /* Hero section */
 .hero {
   min-height: 100vh; height: 100svh; height: 100dvh;
-  min-
+  /* removed stray min- */
   position: relative;
   color: var(--color-white);
   display: flex;
@@ -2371,3 +2371,56 @@ j0px;
     padding-top: 0 !important;        /* keep heading vertically centered */
   }
 }
+
+
+/* === Mobile-only overrides v6.1 (2025-08-22) === */
+@media (max-width: 768px) {
+
+  /* (1) Title hero sections: track dynamic viewport height on mobile. */
+  .hero.title-band {
+    /* Fallback ensures at least the "small" viewport height */
+    min-height: 100svh !important;
+    /* Allow height to grow with disappearing browser chrome */
+    height: auto !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  @supports (height: 100dvh) {
+    .hero.title-band {
+      /* On modern mobile Safari/Chrome, follow the dynamic viewport */
+      height: 100dvh !important;
+    }
+  }
+
+  /* (2) About page – "What Drives Us" images stacked and fully visible */
+  .drives-grid.collage {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: auto !important;
+    gap: 1rem !important;
+  }
+  .drives-grid.collage > * {
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .drives-grid.collage img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover;
+  }
+  /* Ensure no container artificially limits the height */
+  .drives-grid, .collage {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* (3) Home hero CTA spacing when buttons stack */
+  .hero.title-band .content a + a {
+    margin-left: 0 !important;       /* remove inline left margin on stack */
+    margin-top: 0.75rem !important;  /* add vertical spacing */
+    display: inline-block;
+  }
+}
+/* === End mobile-only overrides v6.1 === */
