@@ -198,197 +198,195 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
 })();
 /* === End mobile hero dynamic height fallback === */
 
+/* === Parallax + Snap between first and second section (ever.ru‑style) === */
+(function() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isNarrow = () => window.innerWidth < 768;
+  const header = document.querySelector('header');
+  const firstHero = document.querySelector('section.hero');
+  if (!firstHero) return;
 
+  // Find the first section *after* the hero
+  let secondSection = firstHero.nextElementSibling;
+  while (secondSection && secondSection.tagName !== 'SECTION') {
+    secondSection = secondSection.nextElementSibling;
+  }
+  if (!secondSection) return;
 
+  // Inject CSS variables + stronger parallax visuals
+  const style = document.createElement('style');
+  style.innerHTML = `
+    :root {
+      --parallax-p: 0;
+      --parallax-hero-ty: 0px;
+      --parallax-hero-scale: 1;
+      --parallax-second-ty: 0px;
+      --parallax-content-ty: 0px;
+      --parallax-content-opacity: 1;
+    }
+    /* Stronger parallax on the first hero's background/content */
+    section.hero {
+      will-change: transform;
+      transform: translate3d(0, var(--parallax-hero-ty), 0) scale(var(--parallax-hero-scale));
+      transform-origin: center top;
+    }
+    section.hero .container, section.hero .content, section.hero .title, section.hero h1, section.hero p {
+      transform: translate3d(0, calc(var(--parallax-content-ty) * 0.6), 0);
+      opacity: var(--parallax-content-opacity);
+      transition: opacity 0.2s linear;
+    }
+    /* Opposing motion on the second section for depth */
+    section:not(.hero) {
+      will-change: transform;
+      transform: translate3d(0, var(--parallax-second-ty), 0);
+    }
+    /* Ensure no layout shift once snapped */
+    .parallax-snapping body { scroll-behavior: auto !important; }
+  `;
+  document.head.appendChild(style);
 
-/* === Slide Scroll Parallax: Hero #1 -> Hero #2 (v1) ===
-   Adds a full‑viewport "secondary hero" (the first <section> after the initial .hero)
-   and creates a slide-scroll parallax effect between the two sections.
-   - Triggers on first user scroll (wheel/touch) while inside the first hero.
-   - Smoothly scrolls to the top of the second hero.
-   - During the scroll, backgrounds/content of both sections move at different rates (parallax).
-   - Applied on all pages that contain a ".hero" followed by another <section>.
-   - Degrades gracefully on small screens (disabled < 768px width).
-*/
-(function(){
-  function ready(fn){ if(document.readyState!=='loading'){fn();} else { document.addEventListener('DOMContentLoaded',fn); } }
+  let snapping = false;
+  let rafId = null;
 
-  function getHeaderHeight(){
-    var h = 0, header = document.querySelector('header');
-    if(header){ h = header.getBoundingClientRect().height; }
-    // Fallback to CSS var if present
-    var style = getComputedStyle(document.documentElement);
-    var cssVar = style.getPropertyValue('--headerH');
-    var v = parseFloat(cssVar);
-    if(!isNaN(v) && v > 0){ h = v; }
-    return h;
+  function lerp(a,b,t){ return a + (b-a)*t; }
+  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+  function getHeaderBottom() {
+    const rect = header ? header.getBoundingClientRect() : {bottom:0};
+    return rect.bottom;
   }
 
-  function findNextSection(el){
-    var n = el;
-    while(n && n.nextElementSibling){
-      n = n.nextElementSibling;
-      if(n.tagName && n.tagName.toLowerCase()==='section'){ return n; }
-    }
-    return null;
+  function computeEndY() {
+    // Target is the *visual* top of secondSection aligned to the window top (under header)
+    const secRect = secondSection.getBoundingClientRect();
+    const currentY = window.scrollY;
+    const targetScreenTop = secRect.top + currentY;
+    // After snap, header may be hidden (header-hidden) when scrolling down; correct at the end.
+    // We use current header height for initial target and then do a precise correction at completion.
+    const headerH = header ? header.offsetHeight : 0;
+    return Math.max(0, targetScreenTop - headerH);
   }
 
-  function insertParallaxStyles(){
-    if(document.getElementById('hero-parallax-styles')) return;
-    var css = `
-      /* --- Parallax helpers --- */
-      .hero, .hero--secondary { background-position: center calc(50% + var(--bg-shift, 0px)); }
-      /* Support pages that draw section background on ::before */
-      .section::before { background-position: center calc(50% + var(--bg2-shift, 0px)) !important; }
-      .hero .content, .hero--secondary .content { will-change: transform, opacity; }
-      /* Ensure our second section behaves like a hero */
-      .hero--secondary { min-height: 100vh; height: 100svh; position: relative; overflow: hidden; }
-      /* Inherit the band padding so content isn't hidden under the fixed header */
-      .hero--secondary.title-band { padding-top: calc(var(--headerH, 64px) + 80px); }
-      /* Allow "section" layouts to expand full height when promoted to hero */
-      .hero--secondary.section { display: block; }
-      /* Avoid jumpiness on mobile where we do nothing special */
-      @media (max-width: 767.98px){
-        .hero--secondary { min-height: auto; height: auto; }
-      }
-    `;
-    var tag = document.createElement('style');
-    tag.id = 'hero-parallax-styles';
-    tag.textContent = css;
-    document.head.appendChild(tag);
+  function applyParallax(progress) {
+    // progress 0..1 while traveling from firstHero bottom to secondSection top
+    const p = clamp(progress, 0, 1);
+    // Stronger effect per request
+    const heroTy = lerp(0, -window.innerHeight * 0.25, p);   // -25vh
+    const heroScale = lerp(1, 1.08, p);                       // up to 8% scale
+    const secondTy = lerp(window.innerHeight * 0.20, 0, p);   // 20vh down -> 0
+    const contentTy = lerp(0, -window.innerHeight * 0.10, p); // content floats up to -10vh
+    const contentOpacity = lerp(1, 0.85, p);
+
+    document.documentElement.style.setProperty('--parallax-hero-ty', `${heroTy}px`);
+    document.documentElement.style.setProperty('--parallax-hero-scale', `${heroScale}`);
+    document.documentElement.style.setProperty('--parallax-second-ty', `${secondTy}px`);
+    document.documentElement.style.setProperty('--parallax-content-ty', `${contentTy}px`);
+    document.documentElement.style.setProperty('--parallax-content-opacity', `${contentOpacity}`);
   }
 
-  function enableParallax(){
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if(window.innerWidth < 768) return; // keep mobile simple
-    var firstHero = document.querySelector('section.hero');
-    if(!firstHero) return;
-    var second = findNextSection(firstHero);
-    if(!second) return;
+  function measureProgress() {
+    const startY = firstHero.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
+    const endY = secondSection.getBoundingClientRect().top + window.scrollY;
+    const y = window.scrollY;
+    const span = Math.max(1, endY - startY);
+    return clamp((y - startY) / span, 0, 1);
+  }
 
-    // Promote second section to a full-viewport "secondary hero"
-    if(!second.classList.contains('hero')){
-      second.classList.add('hero', 'hero--secondary', 'title-band'); // title-band creates consistent top padding
-    } else {
-      second.classList.add('hero--secondary');
+  function monitorParallax() {
+    applyParallax(measureProgress());
+    rafId = requestAnimationFrame(monitorParallax);
+  }
+
+  function preciseSnapCorrection() {
+    // Align second section *exactly* so its top is at the viewport top (under the header)
+    const secTop = secondSection.getBoundingClientRect().top;
+    const headBottom = getHeaderBottom();
+    const delta = Math.round(secTop - headBottom);
+    if (Math.abs(delta) > 1) {
+      window.scrollBy({ top: delta, left: 0, behavior: 'auto' });
+    }
+  }
+
+  function startSnap() {
+    if (snapping || prefersReduced || isNarrow()) return;
+    snapping = true;
+    document.documentElement.classList.add('parallax-snapping');
+
+    const endY = computeEndY();
+
+    // Start RAF parallax monitor
+    if (!rafId) rafId = requestAnimationFrame(monitorParallax);
+
+    // Smooth scroll to approximate target
+    try {
+      window.scrollTo({ top: endY, behavior: 'smooth' });
+    } catch(e) {
+      window.scrollTo(0, endY);
     }
 
-    // Make sure natural scroll lands with the section fully visible
-    second.style.scrollMarginTop = '0px';
-
-    var snapping = false;
-    var headerH = getHeaderHeight();
-    var nextTop = Math.round(second.getBoundingClientRect().top + window.pageYOffset);
-
-    // Update "nextTop" after images/fonts load or on resize
-    function recalcPositions(){
-      headerH = getHeaderHeight();
-      nextTop = Math.round(second.getBoundingClientRect().top + window.pageYOffset);
-      // Apply one frame of parallax using current scroll
-      onScroll();
-    }
-
-    var ticking = false;
-    function onScroll(){
-      if(ticking) return;
-      ticking = true;
-      requestAnimationFrame(function(){
-        ticking = false;
-        var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-        var distance = Math.max(1, nextTop); // avoid division by 0
-        var p = Math.min(1, Math.max(0, y / distance)); // 0..1 progress from hero-1 to hero-2 top
-
-        // Background parallax (first hero moves faster upward, second moves slower upward)
-        // Move first hero background up to -80px; scale subtlely
-        firstHero.style.setProperty('--bg-shift', (-80 * p).toFixed(2)+'px');
-        firstHero.style.transform = 'translateZ(0) scale(' + (1 + 0.03 * p).toFixed(4) + ')';
-
-        // If second section draws bg on ::before, use --bg2-shift, otherwise use --bg-shift on the section itself.
-        second.style.setProperty('--bg2-shift', (40 * (1 - p)).toFixed(2)+'px');
-        second.style.setProperty('--bg-shift', (40 * (1 - p)).toFixed(2)+'px');
-
-        // Content parallax / fade
-        var h1 = firstHero.querySelector('.content') || firstHero;
-        var h2 = second.querySelector('.content') || second;
-        if(h1){
-          h1.style.transform = 'translateY(' + (-40 * p).toFixed(2) + 'px)';
-          h1.style.opacity = (1 - 0.25*p).toFixed(3);
-        }
-        if(h2){
-          h2.style.transform = 'translateY(' + (60 * (1 - p)).toFixed(2) + 'px)';
-          h2.style.opacity = (0.05 + 0.95*p).toFixed(3);
-        }
-      });
-    }
-
-    // Scroll-triggered snap from hero-1 to hero-2
-    function onIntentToScrollDown(e){
-      if(snapping) return;
-      var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-      // Only if we're still in (roughly) the first hero viewport
-      if(y < nextTop - 10){
-        // Determine direction for touch events
-        var deltaY;
-        if(e.type === 'wheel'){
-          deltaY = e.deltaY;
-        } else if(e.type === 'keydown'){
-          // Only react to keys that imply "next"
-          var keyNext = (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ');
-          if(!keyNext) return;
-          deltaY = 100; // pretend it's a positive scroll
-        } else if(e.type === 'touchstart'){
-          // record touch Y for comparison on touchend
-          lastTouchY = e.touches && e.touches.length ? e.touches[0].clientY : null;
-          return; // wait until touchend
-        } else if(e.type === 'touchend'){
-          if(lastTouchY == null) return;
-          var endY = (e.changedTouches && e.changedTouches.length) ? e.changedTouches[0].clientY : null;
-          if(endY == null) return;
-          deltaY = (lastTouchY - endY); // positive if swiping up (scroll down)
-        } else {
-          return;
-        }
-
-        if(deltaY > 8){ // scrolling down
-          snapping = true;
-          // Let the native scroll animate while we paint parallax onScroll
-          window.scrollTo({ top: nextTop, behavior: 'smooth' });
-          // Stop snapping once we arrive (or after a timeout safeguard)
-          var start = performance.now();
-          function checkDone(){
-            var yNow = window.pageYOffset || document.documentElement.scrollTop || 0;
-            if(Math.abs(yNow - nextTop) < 2 || (performance.now() - start) > 1500){
-              snapping = false;
-              recalcPositions(); // refresh positions
-              return;
-            }
-            requestAnimationFrame(checkDone);
-          }
-          requestAnimationFrame(checkDone);
-        }
+    // Watch until we're near the target, then do a precise correction to handle header hide/show
+    const startTime = performance.now();
+    function check() {
+      const near = Math.abs(window.scrollY - endY) < 4;
+      if (near || performance.now() - startTime > 1500) {
+        preciseSnapCorrection();
+        // Finish sequence
+        setTimeout(() => {
+          snapping = false;
+          document.documentElement.classList.remove('parallax-snapping');
+          // Ensure parallax lands at 1
+          applyParallax(1);
+        }, 0);
+      } else {
+        requestAnimationFrame(check);
       }
     }
-    var lastTouchY = null;
-
-    // Listeners
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', recalcPositions);
-    window.addEventListener('orientationchange', recalcPositions);
-    window.addEventListener('load', recalcPositions);
-
-    // Initiation triggers to "jump" when user first scrolls down
-    window.addEventListener('wheel', onIntentToScrollDown, { passive: true });
-    window.addEventListener('keydown', onIntentToScrollDown);
-    window.addEventListener('touchstart', onIntentToScrollDown, { passive: true });
-    window.addEventListener('touchend', onIntentToScrollDown, { passive: true });
-
-    // First paint
-    recalcPositions();
+    requestAnimationFrame(check);
   }
 
-  ready(function(){
-    insertParallaxStyles();
-    enableParallax();
+  // Trigger: wheel/touch while inside the first hero
+  function inFirstHeroViewport() {
+    const rect = firstHero.getBoundingClientRect();
+    return rect.top <= 0 && rect.bottom > 0; // hero intersects viewport
+  }
+
+  function onWheel(e) {
+    if (e.deltaY > 0 && inFirstHeroViewport() && !snapping && !prefersReduced && !isNarrow()) {
+      e.preventDefault();
+      startSnap();
+    }
+  }
+
+  let touchStartY = null;
+  function onTouchStart(e) { touchStartY = e.touches ? e.touches[0].clientY : null; }
+  function onTouchMove(e) {
+    if (touchStartY == null) return;
+    const dy = touchStartY - (e.touches ? e.touches[0].clientY : 0);
+    if (dy > 10 && inFirstHeroViewport() && !snapping && !prefersReduced && !isNarrow()) {
+      // prevent native over-scroll and start snap
+      e.preventDefault();
+      startSnap();
+    }
+  }
+  function onTouchEnd(){ touchStartY = null; }
+
+  // Attach listeners (passive: false to allow preventDefault)
+  window.addEventListener('wheel', onWheel, { passive: false });
+  window.addEventListener('touchstart', onTouchStart, { passive: true });
+  window.addEventListener('touchmove', onTouchMove, { passive: false });
+  window.addEventListener('touchend', onTouchEnd, { passive: true });
+
+  // Also keep parallax in sync with manual scroll between sections
+  window.addEventListener('scroll', () => {
+    if (!prefersReduced) applyParallax(measureProgress());
+  }, { passive: true });
+
+  // Recompute on resize
+  window.addEventListener('resize', () => {
+    applyParallax(measureProgress());
   });
-})();
 
+  // Initialize
+  applyParallax(0);
+})();
+/* === End Parallax + Snap === */
