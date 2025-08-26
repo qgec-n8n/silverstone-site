@@ -1,0 +1,48 @@
+/* Custom styles for Silverstone site enhancements */
+
+/* Enable a subtle parallax effect on hero sections by fixing the background
+   attachment. This creates the impression that the background image scrolls
+   more slowly than the foreground content. We restrict this effect to larger
+   screens and users who have not requested reduced motion. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  .hero.title-band {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+/* Cookie consent banner styles – required for GDPR compliance. The banner
+   appears fixed at the bottom of the viewport and can be dismissed by the
+   user. The colours inherit from the existing design system where
+   appropriate. */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.cookie-banner p {
+  margin: 0;
+  flex: 1 1 auto;
+  margin-right: 0.5rem;
+}
+.cookie-banner a {
+  color: var(--color-primary, #0ea5e9);
+  text-decoration: underline;
+}
+.cookie-banner button {
+  flex: 0 0 auto;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+}
