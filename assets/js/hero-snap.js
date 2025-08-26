@@ -1,10 +1,8 @@
 
-/*! Hero Snap Scroll (GSAP Observer) — minimal, non-intrusive
-   - Adds a smooth, single-step scroll transition between the first
-     `.hero` section and the immediately following `<section>`.
-   - No layout/styles/images are changed.
-   - Works on wheel, trackpad, and touch.
-   - Does nothing if GSAP isn't available.
+/*! Hero⇄Second snap (GSAP + Observer)
+    - Non-destructive: no DOM, CSS, or layout changes.
+    - Runs on all pages that have a `.hero` followed by a `<section>`.
+    - Only "grabs" wheel/touch while the viewport is inside the hero or near the second section's top.
 */
 (function(){
   var onReady = function(fn){
@@ -15,96 +13,140 @@
   onReady(function(){
     var hero = document.querySelector("section.hero");
     if(!hero) return;
+
+    // find the next <section> sibling
     var second = hero.nextElementSibling;
-    while(second && second.tagName && second.tagName.toLowerCase() !== "section"){
+    while(second && (second.nodeType !== 1 || second.tagName.toLowerCase() !== "section")){
       second = second.nextElementSibling;
     }
     if(!second) return;
 
-    // Guard: don't run twice
     if(window.__heroSnapInit) return;
     window.__heroSnapInit = true;
 
-    // Bail gracefully if GSAP is missing
-    if(typeof window.gsap === "undefined" || !window.gsap) return;
-
-    // Optional: register plugins if present
+    // require gsap
+    if(typeof window.gsap === "undefined"){ return; }
     if(window.ScrollToPlugin){ gsap.registerPlugin(ScrollToPlugin); }
     if(window.Observer){ gsap.registerPlugin(Observer); }
 
-    var isAnimating = false;
-    var dur = 0.8;
+    var state = { animating:false, heroTop:0, heroH:0, secondTop:0 };
 
-    function scrollToEl(el){
-      if(isAnimating) return;
-      isAnimating = true;
-      var y = el.getBoundingClientRect().top + window.pageYOffset;
-      // prefer ScrollToPlugin if available
+    function refresh(){
+      state.heroTop = hero.getBoundingClientRect().top + window.pageYOffset;
+      state.heroH = hero.offsetHeight || window.innerHeight;
+      state.secondTop = second.getBoundingClientRect().top + window.pageYOffset;
+    }
+    refresh();
+
+    function inControlZone(){
+      var y = window.pageYOffset;
+      // While we're within the hero, or within 40% of hero height above the second section
+      return (y <= state.heroTop + state.heroH * 0.9) || (y < state.secondTop + state.heroH * 0.4);
+    }
+    function atOrAboveHeroTop(){
+      return window.pageYOffset <= state.heroTop + 10;
+    }
+    function nearSecondTop(){
+      var y = window.pageYOffset;
+      return (y >= state.secondTop - state.heroH * 0.4) && (y <= state.secondTop + state.heroH * 0.4);
+    }
+    function scrollToY(y){
+      if(state.animating) return;
+      state.animating = true;
+      var opts = { duration: 0.9, ease: "power2.out", onComplete: function(){ state.animating=false; }};
       if(window.ScrollToPlugin){
-        gsap.to(window, { duration: dur, scrollTo: { y: y, autoKill: true }, ease: "power2.out", onComplete: function(){ isAnimating=false; }});
+        opts.scrollTo = { y:y, autoKill:true };
+        gsap.to(window, opts);
       } else {
-        gsap.to({pos: window.pageYOffset}, {pos: y, duration: dur, ease: "power2.out", onUpdate: function(){
-          window.scrollTo(0, this.targets()[0].pos);
-        }, onComplete: function(){ isAnimating=false; }});
+        var t = { p: window.pageYOffset };
+        gsap.to(t, { p: y, duration: opts.duration, ease: opts.ease, onUpdate: function(){ window.scrollTo(0, t.p); }, onComplete: opts.onComplete });
+      }
+    }
+    function snapDown(){ scrollToY(state.secondTop); }
+    function snapUp(){ scrollToY(state.heroTop); }
+
+    // Observer that is only enabled while in hero/second band
+    var obs = null;
+    function ensureObserver(){
+      if(!window.Observer){
+        // fallback listeners (no preventDefault) always attached
+        return;
+      }
+      if(!obs){
+        obs = Observer.create({
+          target: window,
+          type: "wheel,touch,pointer",
+          wheelSpeed: 1,
+          preventDefault: true,   // only while enabled (see toggleObserver)
+          allowClicks: true,
+          onChangeY: function(self){
+            if(state.animating) return;
+            var dy = self.deltaY;
+            if(dy > 0 && inControlZone() && atOrAboveHeroTop()){
+              snapDown();
+            } else if(dy < 0 && inControlZone() && nearSecondTop()){
+              snapUp();
+            }
+          }
+        });
+        obs.disable();
+      }
+    }
+    ensureObserver();
+
+    function toggleObserver(){
+      if(!obs) return;
+      if(inControlZone() && !state.animating){
+        obs.enable();
+      } else {
+        obs.disable();
       }
     }
 
-    // Helper to know where we are
-    function atHeroTop(){
-      return window.pageYOffset < hero.offsetHeight * 0.5;
-    }
-    function nearSecondTop(){
-      var rect = second.getBoundingClientRect();
-      return rect.top > -hero.offsetHeight*0.25 && rect.top < hero.offsetHeight*0.5;
-    }
-
-    // If Observer exists, use it for robust input capture
-    if(window.Observer){
-      Observer.create({
-        target: window, // window-level
-        type: "wheel,touch,pointer",
-        // Only intercept when user is within hero (top half) or near second's top
-        onChangeY: function(self){
-          if(isAnimating) return;
-          var delta = self.deltaY;
-          if(delta > 0 && atHeroTop()){
-            // scrolling down from hero -> snap to second
-            scrollToEl(second);
-          } else if(delta < 0 && nearSecondTop()){
-            // scrolling up near second's start -> snap back to hero
-            scrollToEl(hero);
-          }
-        },
-        tolerance: 8,
-        preventDefault: false, // don't block native scrolling in general
-        // only active for large screens / normal flow
-        onEnable: function(){ /* noop */ }
-      });
-    } else {
-      // Fallback: minimal wheel/touch handler without preventing defaults
-      var touchStartY = 0;
+    // Fallback listeners (in case Observer plugin isn't available)
+    if(!window.Observer){
       window.addEventListener("wheel", function(e){
-        if(isAnimating) return;
-        if(e.deltaY > 0 && atHeroTop()){
-          scrollToEl(second);
-        } else if(e.deltaY < 0 && nearSecondTop()){
-          scrollToEl(hero);
+        if(state.animating) return;
+        if(e.deltaY > 0 && inControlZone() && atOrAboveHeroTop()){
+          snapDown();
+        } else if(e.deltaY < 0 && inControlZone() && nearSecondTop()){
+          snapUp();
         }
-      }, {passive:true});
-
+      }, { passive:true });
       window.addEventListener("touchstart", function(e){
-        if(e.touches && e.touches.length){ touchStartY = e.touches[0].clientY; }
-      }, {passive:true});
+        state._touchY = (e.touches && e.touches.length) ? e.touches[0].clientY : 0;
+      }, { passive:true });
       window.addEventListener("touchmove", function(e){
-        if(isAnimating) return;
-        if(!e.touches || !e.touches.length) return;
-        var dy = touchStartY - e.touches[0].clientY;
-        if(dy > 12 && atHeroTop()){
-          scrollToEl(second);
-        } else if(dy < -12 && nearSecondTop()){
-          scrollToEl(hero);
+        if(state.animating || !state._touchY) return;
+        var dy = state._touchY - e.touches[0].clientY;
+        if(dy > 12 && inControlZone() && atOrAboveHeroTop()){
+          snapDown();
+        } else if(dy < -12 && inControlZone() && nearSecondTop()){
+          snapUp();
         }
-      }, {passive:true});
+      }, { passive:true });
     }
+
+    // Keyboard support
+    window.addEventListener("keydown", function(e){
+      if(state.animating) return;
+      var key = e.key;
+      if(!inControlZone()) return;
+      if((key === "PageDown" || key === " " || key === "ArrowDown") && atOrAboveHeroTop()){
+        e.preventDefault();
+        snapDown();
+      } else if((key === "PageUp" || key === "ArrowUp") && nearSecondTop()){
+        e.preventDefault();
+        snapUp();
+      }
+    });
+
+    // Keep measurements fresh
+    window.addEventListener("resize", function(){ refresh(); toggleObserver(); }, { passive:true });
+    window.addEventListener("scroll", function(){ toggleObserver(); }, { passive:true });
+    if(window.visualViewport){ window.visualViewport.addEventListener("resize", function(){ refresh(); toggleObserver(); }); }
+
+    // initial toggle
+    toggleObserver();
   });
 })();
