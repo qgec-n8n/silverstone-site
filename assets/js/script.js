@@ -1,4 +1,5 @@
 /*
+
   Silverstone website JavaScript
 
   Handles interactive behaviour including mobile navigation toggle
@@ -197,3 +198,30 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
   }
 })();
 /* === End mobile hero dynamic height fallback === */
+
+// Parallax scrolling effect for hero and first section
+(function () {
+  function applyParallax() {
+    const hero = document.querySelector('section.hero');
+    const next = document.querySelector('.section.bg-lines');
+    if (!hero) return;
+    if (window.innerWidth <= 768) {
+      // Reset background positions on small screens
+      hero.style.backgroundPositionY = '';
+      if (next) next.style.backgroundPositionY = '';
+      return;
+    }
+    const scrollY = window.pageYOffset;
+    hero.style.backgroundPositionY = -(scrollY * 0.3) + 'px';
+    if (next) {
+      const offset = scrollY - next.offsetTop;
+      next.style.backgroundPositionY = -(offset * 0.2) + 'px';
+    }
+  }
+  window.addEventListener('scroll', () => {
+    window.requestAnimationFrame(applyParallax);
+  }, { passive: true });
+  window.addEventListener('resize', applyParallax);
+  // Initial call
+  applyParallax();
+})();
