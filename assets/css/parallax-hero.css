@@ -1,0 +1,9 @@
+/* Parallax hero – only affects the first hero band on the homepage */
+section.hero.title-band{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 0;
+  /* Avoid creating a new stacking context to keep z-index consistent */
+}
+/* Optional: gives a slightly taller feel to accentuate parallax without layout jumps */
+section.hero.title-band{ min-height: clamp(70vh, 85vh, 92vh); }
