@@ -33,7 +33,8 @@
   justify-content: space-between;
   z-index: 1000;
   font-size: 0.875rem;
-  line-height: 1.4;
+
+   line-height: 1.4;
 }
 
 
@@ -101,11 +102,25 @@
 
 /* Enable scroll snapping between hero and next sections */
 body {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
+    
+   
 
+
+
+   
+}
 .hero.title-band,
 .section {
-  scroll-snap-align: start;
+  
+}
+body {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  .hero.title-band {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+  }
 }
