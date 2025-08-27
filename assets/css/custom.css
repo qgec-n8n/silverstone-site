@@ -6,7 +6,8 @@
    screens and users who have not requested reduced motion. */
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
   .hero.title-band {
-    background-attachment: fixed;
+    backbackground-attachment: scroll;
+  
     background-position: center;
     background-size: cover;
   }
