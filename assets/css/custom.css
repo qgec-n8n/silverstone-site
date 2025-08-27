@@ -32,6 +32,54 @@
   font-size: 0.875rem;
   line-height: 1.4;
 }
+
+
+/* Ensure header and logo maintain consistent size across pages and screen sizes */
+.site-header {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.site-logo {
+    height: auto;
+    max-width: 200px;
+}
+
+@media (max-width: 768px) {
+    .site-logo {
+        max-width: 150px;
+    }
+}
+
+/* Ensure images scale proportionally instead of cropping */
+.service-image img,
+.service-row .service-image img,
+.section .service-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Smaller font and bullet indent for privacy policy and other text-heavy content */
+.neon-card ul,
+.section .neon-card ul {
+    padding-left: 1.5rem;
+    margin-left: 0;
+}
+
+.neon-card li,
+.section .neon-card li {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .neon-card p,
+    .neon-card li {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+}
+
 .cookie-banner p {
   margin: 0;
   flex: 1 1 auto;
