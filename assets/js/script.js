@@ -63,14 +63,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const offset = window.pageYOffset;
     const heroHeight = hero.offsetHeight;
     const progress = Math.min(offset / heroHeight, 1);
-    // Slow parallax: background moves at 10% of scroll rate
-    hero.style.backgroundPositionY = -(offset * 0.1) + 'px';
-    // Exaggerated scale and brightness adjustments
-    hero.style.transform = 'scale(' + (1 + progress * 0.10).toFixed(3) + ')';
-    hero.style.filter = 'brightness(' + (1 - progress * 0.50).toFixed(3) + ')';
+    /*
+     * Make the parallax effect far more pronounced. The background moves
+     * at 20% of the scroll rate instead of 10%, the hero scales up by
+     * up to 20% and darkens significantly.  We also update a CSS
+     * custom property (--overlay-opacity) used by the ::after pseudo
+     * element to create a tinted overlay (defined in custom.css).
+     * Finally, the following section slides up a greater distance for
+     * a more cinematic reveal.
+     */
+    hero.style.backgroundPositionY = -(offset * 0.2) + 'px';
+    hero.style.transform = 'scale(' + (1 + progress * 0.20).toFixed(3) + ')';
+    hero.style.filter = 'brightness(' + (1 - progress * 0.60).toFixed(3) + ')';
+    hero.style.setProperty('--overlay-opacity', (progress * 0.6).toFixed(3));
     // Fade in and slide up the next section
     nextSection.style.opacity = progress.toFixed(3);
-    const translateY = (1 - progress) * 50;
+    const translateY = (1 - progress) * 100;
     nextSection.style.transform = 'translateY(' + translateY.toFixed(1) + 'px)';
   }, { passive: true });
 
@@ -86,7 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerHeight = header.offsetHeight;
     const scrollY = window.pageYOffset;
     const nextTop = nextSection.offsetTop;
-    const threshold = heroHeight * 0.10;
+    // Use a larger threshold (50% of the hero height) to delay auto‑scroll
+    // until the visitor has experienced more of the parallax animation.
+    const threshold = heroHeight * 0.50;
     if (direction > 0 && scrollY < heroHeight - threshold) {
       evt.preventDefault();
       animateScrollTo(nextTop - headerHeight, 2500);

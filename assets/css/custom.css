@@ -18,6 +18,31 @@
   }
 }
 
+/*
+ * Provide a darkening overlay for the hero to enhance the premium
+ * parallax effect.  The overlay's opacity is controlled via the
+ * CSS custom property --overlay-opacity, which is updated in
+ * script.js as the user scrolls.  We ensure the hero is relatively
+ * positioned so the pseudo element can cover it, and we layer the
+ * textual content above the overlay via z-index.
+ */
+.hero {
+  position: relative;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, var(--overlay-opacity, 0));
+  pointer-events: none;
+  z-index: 0;
+  transition: background-color 0.3s ease-out;
+}
+.hero .content {
+  position: relative;
+  z-index: 1;
+}
+
 /* Cookie consent banner styles – required for GDPR compliance. The banner
    appears fixed at the bottom of the viewport and can be dismissed by the
    user. The colours inherit from the existing design system where
@@ -103,4 +128,12 @@ body {
 .hero.title-band,
 .section {
   /* remove scroll-snap-align to avoid conflict */
+}
+
+/* Override the base html scroll-behaviour defined in styles.css.  Using
+   automatic smooth scrolling can interfere with the custom scroll
+   animation implemented in script.js.  Setting it to auto prevents
+   double-smoothing and keeps the timing consistent. */
+html {
+  scroll-behavior: auto;
 }
