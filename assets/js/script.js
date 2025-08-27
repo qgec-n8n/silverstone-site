@@ -1,16 +1,19 @@
 /*
-  Customised Silverstone JavaScript (v24)
+  Customised Silverstone JavaScript (v24 with CTA fix)
 
-  This version provides a refined parallax and auto‑scroll experience across
-  all pages. The hero background moves more slowly relative to the scroll,
-  scales up further and dims more dramatically, and the following section
-  fades in and slides up as the user scrolls. A custom smooth scroll
-  animation prevents the user from interrupting the transition when moving
-  between sections and accounts for the header height when aligning
-  sections. All animations are disabled when the user prefers reduced
-  motion.
+  This script enhances the hero parallax scroll effect introduced in v24
+  while restoring the fade‑in animations used throughout the site.  The
+  parallax effect causes the hero background to move more slowly than
+  the scroll, scales and darkens as you scroll, and automatically
+  transitions to the next section.  At the same time, we reinstate the
+  Intersection Observer used in earlier versions of the site to reveal
+  elements marked with the `.animate` class.  Without this observer
+  the call‑to‑action sections at the bottom of each page remained
+  hidden.  By running the observer separately from the parallax logic
+  the CTAs and other animated elements become visible again.
 */
 
+// Parallax and auto‑scroll logic
 document.addEventListener('DOMContentLoaded', () => {
   // Respect user motion preferences; exit early if reduced motion is requested
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -59,50 +62,89 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Parallax and cross‑fade on scroll
-  window.addEventListener('scroll', () => {
-    const offset = window.pageYOffset;
-    const heroHeight = hero.offsetHeight;
-    const progress = Math.min(offset / heroHeight, 1);
-    /*
-     * Make the parallax effect far more pronounced. The background moves
-     * at 20% of the scroll rate instead of 10%, the hero scales up by
-     * up to 20% and darkens significantly.  We also update a CSS
-     * custom property (--overlay-opacity) used by the ::after pseudo
-     * element to create a tinted overlay (defined in custom.css).
-     * Finally, the following section slides up a greater distance for
-     * a more cinematic reveal.
-     */
-    hero.style.backgroundPositionY = -(offset * 0.2) + 'px';
-    hero.style.transform = 'scale(' + (1 + progress * 0.20).toFixed(3) + ')';
-    hero.style.filter = 'brightness(' + (1 - progress * 0.60).toFixed(3) + ')';
-    hero.style.setProperty('--overlay-opacity', (progress * 0.6).toFixed(3));
-    // Fade in and slide up the next section
-    nextSection.style.opacity = progress.toFixed(3);
-    const translateY = (1 - progress) * 100;
-    nextSection.style.transform = 'translateY(' + translateY.toFixed(1) + 'px)';
-  }, { passive: true });
+  window.addEventListener(
+    'scroll',
+    () => {
+      const offset = window.pageYOffset;
+      const heroHeight = hero.offsetHeight;
+      const progress = Math.min(offset / heroHeight, 1);
+      /*
+       * Make the parallax effect far more pronounced. The background moves
+       * at 20% of the scroll rate instead of 10%, the hero scales up by
+       * up to 20% and darkens significantly.  We also update a CSS
+       * custom property (--overlay-opacity) used by the ::after pseudo
+       * element to create a tinted overlay (defined in custom.css).
+       * Finally, the following section slides up a greater distance for
+       * a more cinematic reveal.
+       */
+      hero.style.backgroundPositionY = -(offset * 0.2) + 'px';
+      hero.style.transform =
+        'scale(' + (1 + progress * 0.2).toFixed(3) + ')';
+      hero.style.filter =
+        'brightness(' + (1 - progress * 0.6).toFixed(3) + ')';
+      hero.style.setProperty('--overlay-opacity', (progress * 0.6).toFixed(3));
+      // Fade in and slide up the next section
+      nextSection.style.opacity = progress.toFixed(3);
+      const translateY = (1 - progress) * 100;
+      nextSection.style.transform = 'translateY(' + translateY.toFixed(1) + 'px)';
+    },
+    { passive: true }
+  );
 
   // Trigger auto‑scroll on wheel events
-  window.addEventListener('wheel', (evt) => {
-    // Block user scroll input during auto scroll to maintain the effect
-    if (autoScrolling) {
-      evt.preventDefault();
-      return;
-    }
-    const direction = evt.deltaY;
-    const heroHeight = hero.offsetHeight;
-    const headerHeight = header.offsetHeight;
-    const scrollY = window.pageYOffset;
-    const nextTop = nextSection.offsetTop;
-    // Use a larger threshold (50% of the hero height) to delay auto‑scroll
-    // until the visitor has experienced more of the parallax animation.
-    const threshold = heroHeight * 0.50;
-    if (direction > 0 && scrollY < heroHeight - threshold) {
-      evt.preventDefault();
-      animateScrollTo(nextTop - headerHeight, 2500);
-    } else if (direction < 0 && scrollY >= nextTop && scrollY < nextTop + nextSection.offsetHeight) {
-      evt.preventDefault();
-      animateScrollTo(0, 2500);
-    }
-  }, { passive: false });
+  window.addEventListener(
+    'wheel',
+    (evt) => {
+      // Block user scroll input during auto scroll to maintain the effect
+      if (autoScrolling) {
+        evt.preventDefault();
+        return;
+      }
+      const direction = evt.deltaY;
+      const heroHeight = hero.offsetHeight;
+      const headerHeight = header.offsetHeight;
+      const scrollY = window.pageYOffset;
+      const nextTop = nextSection.offsetTop;
+      // Use a larger threshold (50% of the hero height) to delay auto‑scroll
+      // until the visitor has experienced more of the parallax animation.
+      const threshold = heroHeight * 0.5;
+      if (direction > 0 && scrollY < heroHeight - threshold) {
+        evt.preventDefault();
+        animateScrollTo(nextTop - headerHeight, 2500);
+      } else if (
+        direction < 0 &&
+        scrollY >= nextTop &&
+        scrollY < nextTop + nextSection.offsetHeight
+      ) {
+        evt.preventDefault();
+        animateScrollTo(0, 2500);
+      }
+    },
+    { passive: false }
+  );
+});
+
+// Fade‑in animations for elements marked with `.animate`
+// The parallax code above no longer manages these elements, so without
+// restoring the observer the CTAs at the bottom of pages remain hidden.
+document.addEventListener('DOMContentLoaded', () => {
+  const animatedElements = document.querySelectorAll('.animate');
+  if (animatedElements.length > 0) {
+    const observerOptions = { root: null, threshold: 0.15 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    animatedElements.forEach((el) => observer.observe(el));
+  }
+});
+
+// Ensure Innovation Gallery cards are visible immediately (v17 patch)
+document.addEventListener('DOMContentLoaded', () => {
+  document
+    .querySelectorAll('.gallery-grid .neon-card')
+    .forEach((el) => el.classList.add('visible'));
 });
