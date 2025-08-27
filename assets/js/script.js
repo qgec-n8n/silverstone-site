@@ -197,3 +197,45 @@ document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
   }
 })();
 /* === End mobile hero dynamic height fallback === */
+/* === Parallax and auto scroll for home page (v22) === */
+document.addEventListener('DOMContentLoaded', function() {
+  // Only execute on the homepage (root or index.html)
+  var path = window.location.pathname.replace(/\/+$/, '');
+  if (path === '' || path === '/' || path.endsWith('/index.html') || path.endsWith('index.html')) {
+    var hero = document.querySelector('.hero');
+    var nextSection = hero ? hero.nextElementSibling : null;
+    if (hero && nextSection) {
+      // Stronger parallax effect on scroll
+      window.addEventListener('scroll', function() {
+        var offset = window.pageYOffset;
+        // Adjust multiplier to make effect more pronounced
+        hero.style.backgroundPositionY = -(offset * 0.5) + 'px';
+      }, { passive: true });
+
+      // Auto-scroll between sections on wheel
+      var autoScrolling = false;
+      window.addEventListener('wheel', function(evt) {
+        if (autoScrolling) return;
+        var direction = evt.deltaY;
+        var heroHeight = hero.offsetHeight;
+        var scrollY = window.pageYOffset;
+        var nextTop = nextSection.offsetTop;
+        var threshold = heroHeight * 0.3;
+        // Scroll down from hero to next section
+        if (direction > 0 && scrollY < heroHeight - threshold) {
+          autoScrolling = true;
+          nextSection.scrollIntoView({ behavior: 'smooth' });
+          setTimeout(function() { autoScrolling = false; }, 1000);
+        }
+        // Scroll up from second section back to hero
+        else if (direction < 0 && scrollY > nextTop - threshold && scrollY < nextTop + nextSection.offsetHeight) {
+          autoScrolling = true;
+          hero.scrollIntoView({ behavior: 'smooth' });
+          setTimeout(function() { autoScrolling = false; }, 1000);
+        }
+      }, { passive: true });
+    }
+  }
+});
+/* === End parallax and auto scroll === */
+
