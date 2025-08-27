@@ -1,17 +1,20 @@
+/*
+  Customised styles for Silverstone site (v23)
 
-/* Custom styles for Silverstone site enhancements */
+  These changes complement the improved parallax and scroll behaviour. The hero
+  section is given overflow:hidden so the scaling effect doesn't cause the
+  image to bleed outside its container. Scroll snapping has been disabled to
+  avoid conflicts with the custom auto‑scroll animation; the browser will no
+  longer forcibly snap between sections. Other existing styles remain
+  unchanged.
+*/
 
-/* Enable a subtle parallax effect on hero sections by fixing the background
-   attachment. This creates the impression that the background image scrolls
-   more slowly than the foreground content. We restrict this effect to larger
-   screens and users who have not requested reduced motion. */
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
   .hero.title-band {
-    
-             background-attachment: fixed;
-  
+    background-attachment: fixed;
     background-position: center;
     background-size: cover;
+    overflow: hidden; /* ensure scaled background doesn't overflow */
   }
 }
 
@@ -33,57 +36,50 @@
   justify-content: space-between;
   z-index: 1000;
   font-size: 0.875rem;
-
-   line-height: 1.4;
+  line-height: 1.4;
 }
-
 
 /* Ensure header and logo maintain consistent size across pages and screen sizes */
 .site-header {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
-
 .site-logo {
-    height: auto;
-    max-width: 200px;
+  height: auto;
+  max-width: 200px;
 }
-
 @media (max-width: 768px) {
-    .site-logo {
-        max-width: 150px;
-    }
+  .site-logo {
+    max-width: 150px;
+  }
 }
 
 /* Ensure images scale proportionally instead of cropping */
 .service-image img,
 .service-row .service-image img,
 .section .service-image img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 /* Smaller font and bullet indent for privacy policy and other text-heavy content */
 .neon-card ul,
 .section .neon-card ul {
-    padding-left: 1.5rem;
-    margin-left: 0;
+  padding-left: 1.5rem;
+  margin-left: 0;
 }
-
 .neon-card li,
 .section .neon-card li {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
-
 @media (max-width: 768px) {
-    .neon-card p,
-    .neon-card li {
-        font-size: 0.9rem;
-        line-height: 1.4;
-    }
+  .neon-card p,
+  .neon-card li {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
 }
-
 .cookie-banner p {
   margin: 0;
   flex: 1 1 auto;
@@ -99,28 +95,12 @@
   margin-left: 1rem;
 }
 
-
-/* Enable scroll snapping between hero and next sections */
+/* Remove scroll snapping (was mandatory); allow smooth behaviour without force */
 body {
-    
-   
-
-
-
-   
+  scroll-behavior: smooth;
+  /* intentionally not setting scroll-snap-type so custom JS controls transitions */
 }
 .hero.title-band,
 .section {
-  
-}
-body {
-  scroll-behavior: smooth;
-}
-@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
-  .hero.title-band {
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    overflow: hidden;
-  }
+  /* remove scroll-snap-align to avoid conflict */
 }

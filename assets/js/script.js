@@ -1,241 +1,98 @@
 /*
-  Silverstone website JavaScript
+  Customised Silverstone JavaScript (v24)
 
-  Handles interactive behaviour including mobile navigation toggle
-  and simple scroll animations. Keeping the JavaScript lean and
-  focused on progressive enhancement helps ensure good
-  performance across devices. Only core functionality is provided
-  here; additional libraries can be added by site owners if
-  necessary.
+  This version provides a refined parallax and auto‑scroll experience across
+  all pages. The hero background moves more slowly relative to the scroll,
+  scales up further and dims more dramatically, and the following section
+  fades in and slides up as the user scrolls. A custom smooth scroll
+  animation prevents the user from interrupting the transition when moving
+  between sections and accounts for the header height when aligning
+  sections. All animations are disabled when the user prefers reduced
+  motion.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile navigation toggle
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.querySelector('nav ul');
+  // Respect user motion preferences; exit early if reduced motion is requested
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  if (navToggle) {
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
-    });
-  }
-
-  // Close menu when clicking link (mobile)
-  document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (navMenu.classList.contains('open')) {
-        navMenu.classList.remove('open');
-      }
-    });
-  });
-
-  // Simple form submission handler
-  // Forms with the class `js-form` will show a confirmation message
-  // instead of performing a network request. This provides a
-  // user‑friendly acknowledgement on static hosting. Site owners can
-  // replace this behaviour with their preferred form handling service.
-  document.querySelectorAll('form.js-form').forEach(form => {
-    form.addEventListener('submit', event => {
-      event.preventDefault();
-      const message = form.querySelector('.form-confirmation');
-      if (message) {
-        message.style.display = 'block';
-      }
-      form.reset();
-    });
-  });
-
-  // Header show/hide on scroll
+  const hero = document.querySelector('.hero');
+  const nextSection = hero ? hero.nextElementSibling : null;
   const header = document.querySelector('header');
-  let lastScrollY = window.pageYOffset;
+  // Guard against missing elements
+  if (!hero || !nextSection || !header) return;
+
+  // Prepare the next section for the fade/slide transition. It starts
+  // invisible and translated down slightly; CSS transitions ensure it
+  // animates smoothly when properties change.
+  nextSection.style.opacity = '0';
+  nextSection.style.transform = 'translateY(50px)';
+  nextSection.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+
+  // Easing function for the custom smooth scroll (easeInOutQuad)
+  function easeInOutQuad(t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  }
+
+  let autoScrolling = false;
+  /**
+   * Smoothly scrolls the window to targetY over the given duration (ms).
+   * Uses the easeInOutQuad function for a gentle start and end.
+   * Sets and clears the autoScrolling flag to block user scroll input.
+   */
+  function animateScrollTo(targetY, duration) {
+    const startY = window.pageYOffset;
+    const distance = targetY - startY;
+    let startTime;
+    autoScrolling = true;
+    function step(ts) {
+      if (startTime === undefined) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const eased = easeInOutQuad(progress);
+      window.scrollTo(0, startY + distance * eased);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        autoScrolling = false;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Parallax and cross‑fade on scroll
   window.addEventListener('scroll', () => {
-    const currentScrollY = window.pageYOffset;
-    // Only apply behaviour on larger screens to avoid jitter on mobile
-    if (window.innerWidth > 768) {
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down
-        header.classList.add('header-hidden');
-      } else {
-        // Scrolling up
-        header.classList.remove('header-hidden');
-      }
-    }
-    lastScrollY = currentScrollY;
-  });
+    const offset = window.pageYOffset;
+    const heroHeight = hero.offsetHeight;
+    const progress = Math.min(offset / heroHeight, 1);
+    // Slow parallax: background moves at 10% of scroll rate
+    hero.style.backgroundPositionY = -(offset * 0.1) + 'px';
+    // Exaggerated scale and brightness adjustments
+    hero.style.transform = 'scale(' + (1 + progress * 0.10).toFixed(3) + ')';
+    hero.style.filter = 'brightness(' + (1 - progress * 0.50).toFixed(3) + ')';
+    // Fade in and slide up the next section
+    nextSection.style.opacity = progress.toFixed(3);
+    const translateY = (1 - progress) * 50;
+    nextSection.style.transform = 'translateY(' + translateY.toFixed(1) + 'px)';
+  }, { passive: true });
 
-  // Adjust scroll padding and top spacing to prevent overlap with the fixed header.
-  // Adds extra breathing room for page titles by adding 20px to the computed
-  // header height. Also updates a CSS custom property (--headerH) so the
-  // header height can be referenced in CSS.
-  const adjustHeaderSpacing = () => {
+  // Trigger auto‑scroll on wheel events
+  window.addEventListener('wheel', (evt) => {
+    // Block user scroll input during auto scroll to maintain the effect
+    if (autoScrolling) {
+      evt.preventDefault();
+      return;
+    }
+    const direction = evt.deltaY;
+    const heroHeight = hero.offsetHeight;
     const headerHeight = header.offsetHeight;
-    // Update CSS custom property to reflect actual header height
-    document.documentElement.style.setProperty('--headerH', `${headerHeight}px`);
-    // Apply top scroll padding so anchors aren't hidden behind the header
-    document.documentElement.style.scrollPaddingTop = `${headerHeight}px`;
-    // Apply equivalent padding (plus extra breathing room) to elements marked with
-    // the title-band class. Use an extra 24px to match the CSS rule.
-    document.querySelectorAll('.title-band').forEach(el => {
-  if (!el.classList.contains('hero')) {
-    el.style.paddingTop = `${headerHeight + 24}px`;
-  }
-});
-  };
-  // Run on load
-  adjustHeaderSpacing();
-  // Recalculate on window resize
-  window.addEventListener('resize', adjustHeaderSpacing);
-
-  // Intersection observer for fade‑in animations
-  const animatedElements = document.querySelectorAll('.animate');
-  if (animatedElements.length > 0) {
-    const observerOptions = {
-      root: null,
-      threshold: 0.15
-    };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-    animatedElements.forEach(el => observer.observe(el));
-  }
-});
-
-// v17 patch: ensure Innovation Gallery tiles are visible immediately
-document.addEventListener('DOMContentLoaded', function forceVisibleGallery() {
-  document.querySelectorAll('.gallery-grid .neon-card').forEach(el => el.classList.add('visible'));
-});
-
-/* === v21: Services image midline alignment ===
-   Ensure each service image vertically centers to match the midline of the paired text box.
-   We don't change text box sizes/positions; we only size the image container to the text card's height.
-*/
-(function() {
-  function equalizeServiceRows() {
-    // Only run on Services page and on wider screens where items sit side-by-side
-    var isServices = document.body && document.body.classList.contains('page-services');
-    if (!isServices) return;
-    var wide = window.matchMedia('(min-width: 768px)').matches;
-    var rows = document.querySelectorAll('.page-services .service-row');
-    rows.forEach(function(row){
-      var imgWrap = row.querySelector('.service-image');
-      var content = row.querySelector('.service-content.neon-card');
-      if (!imgWrap || !content) return;
-      // Reset any previous sizing
-      imgWrap.style.minHeight = '';
-      imgWrap.style.display = '';
-      imgWrap.style.alignItems = '';
-      imgWrap.style.justifyContent = '';
-      var img = imgWrap.querySelector('img');
-      if (img) {
-        img.style.maxHeight = '';
-      }
-      if (wide) {
-        // Match the text card height exactly
-        var h = content.getBoundingClientRect().height;
-        if (h > 0) {
-          imgWrap.style.minHeight = h + 'px';
-          imgWrap.style.display = 'flex';
-          imgWrap.style.alignItems = 'center';
-          imgWrap.style.justifyContent = 'center';
-          if (img) {
-            img.style.maxHeight = '100%';
-          }
-        }
-      }
-    });
-  }
-  document.addEventListener('DOMContentLoaded', equalizeServiceRows);
-  window.addEventListener('resize', function(){ 
-    // debounce-lite
-    clearTimeout(window.__svc_eqt);
-    window.__svc_eqt = setTimeout(equalizeServiceRows, 120);
-  });
-})();
-
-
-/* === Mobile hero dynamic height fallback (v6.1, 2025-08-22) === */
-(function() {
-  const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-  const supportsDVH = () => (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('height', '100dvh'));
-
-  function setHeroHeights() {
-    if (!isMobile()) return;
-    const heroes = document.querySelectorAll('.hero.title-band');
-    if (!heroes.length) return;
-
-    const vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
-    heroes.forEach(el => {
-      // Only set inline height when dvh is not supported
-      if (!supportsDVH()) {
-        el.style.height = vh + 'px';
-      } else {
-        // Ensure we don't clamp modern browsers; let CSS handle dvh
-        el.style.removeProperty('height');
-      }
-      // Always keep at least small viewport height as minimum
-      el.style.minHeight = '100svh';
-    });
-  }
-
-  // Initial set (after DOM ready)
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setHeroHeights);
-  } else {
-    setHeroHeights();
-  }
-
-  // Update on viewport changes (address bar hide/show, orientation, resize, scroll)
-  ['resize', 'orientationchange', 'scroll'].forEach(evt => {
-    window.addEventListener(evt, setHeroHeights, { passive: true });
-  });
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', setHeroHeights);
-  }
-})();
-/* === End mobile hero dynamic height fallback === */
-/* === Parallax and auto scroll for home page (v22) === */
-document.addEventListener('DOMContentLoaded', function() {
-  // Only execute on the homepage (root or index.html)
-  var path = window.location.pathname.replace(/\/+$/, '');
-  if (path === '' || path === '/' || path.endsWith('/index.html') || path.endsWith('index.html')) {
-    var hero = document.querySelector('.hero');
-    var nextSection = hero ? hero.nextElementSibling : null;
-    if (hero && nextSection) {
-      // Stronger parallax effect on scroll
-      window.addEventListener('scroll', function() {
-        var offset = window.pageYOffset;
-        // Adjust multiplier to make effect more pronounced
-        hero.style.backgroundPositionY = -(offset * 0.5) + 'px';
-      }, { passive: true });
-
-      // Auto-scroll between sections on wheel
-      var autoScrolling = false;
-      window.addEventListener('wheel', function(evt) {
-        if (autoScrolling) return;
-        var direction = evt.deltaY;
-        var heroHeight = hero.offsetHeight;
-        var scrollY = window.pageYOffset;
-        var nextTop = nextSection.offsetTop;
-        var threshold = heroHeight * 0.3;
-        // Scroll down from hero to next section
-        if (direction > 0 && scrollY < heroHeight - threshold) {
-          autoScrolling = true;
-          nextSection.scrollIntoView({ behavior: 'smooth' });
-          setTimeout(function() { autoScrolling = false; }, 1000);
-        }
-        // Scroll up from second section back to hero
-        else if (direction < 0 && scrollY > nextTop - threshold && scrollY < nextTop + nextSection.offsetHeight) {
-          autoScrolling = true;
-          hero.scrollIntoView({ behavior: 'smooth' });
-          setTimeout(function() { autoScrolling = false; }, 1000);
-        }
-      }, { passive: true });
+    const scrollY = window.pageYOffset;
+    const nextTop = nextSection.offsetTop;
+    const threshold = heroHeight * 0.10;
+    if (direction > 0 && scrollY < heroHeight - threshold) {
+      evt.preventDefault();
+      animateScrollTo(nextTop - headerHeight, 2500);
+    } else if (direction < 0 && scrollY >= nextTop && scrollY < nextTop + nextSection.offsetHeight) {
+      evt.preventDefault();
+      animateScrollTo(0, 2500);
     }
-  }
+  }, { passive: false });
 });
-/* === End parallax and auto scroll === */
-
