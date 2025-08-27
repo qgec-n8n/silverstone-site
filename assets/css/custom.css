@@ -7,8 +7,8 @@
    screens and users who have not requested reduced motion. */
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
   .hero.title-band {
-    backbabround-attachment: scroll;
-       background-attachment: scroll;
+    
+             background-attachment: fixed;
   
     background-position: center;
     background-size: cover;
@@ -96,4 +96,16 @@
   flex: 0 0 auto;
   margin-top: 0.5rem;
   margin-left: 1rem;
+}
+
+
+/* Enable scroll snapping between hero and next sections */
+body {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.hero.title-band,
+.section {
+  scroll-snap-align: start;
 }
