@@ -1,11 +1,13 @@
 /*
-  Customised Silverstone JavaScript (v24 modified for improved parallax)
+  Customised Silverstone JavaScript (v24 patched)
 
-  This script enhances the hero parallax scroll effect while ensuring it feels
-  immediate and repeatable.  The parallax triggers almost as soon as a user
-  begins scrolling down from the hero section and again when returning from
-  the second section.  Normal scrolling is restored after the cinematic
-  transition.  The effect is disabled on the privacy policy page.
+  This script powers the hero parallax scroll effect and has been refined to
+  eliminate the initial dead zone between sections.  The animation now
+  triggers instantly on a downward or upward scroll and runs over a longer
+  duration (about 3 seconds) for a slower, more cinematic transition.
+  Normal scrolling is restored once the parallax completes, and the effect
+  remains active on subsequent scrolls.  The parallax is disabled on the
+  privacy policy page and honours reduced‑motion preferences.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -96,22 +98,31 @@ document.addEventListener('DOMContentLoaded', () => {
       const headerHeight = header.offsetHeight;
       const scrollY = window.pageYOffset;
       const nextTop = nextSection.offsetTop;
-      // Use a small threshold (5% of the hero height) to trigger auto-scroll
-      // almost immediately after the visitor begins scrolling down.  This
-      // avoids the long dead zone present in the previous implementation.
-      const downThreshold = heroHeight * 0.05;
+      /*
+       * Immediately trigger the scroll when the user starts moving out of
+       * the hero section.  By eliminating the downThreshold (formerly 5% of
+       * the hero height), the parallax begins seamlessly at the first
+       * downward scroll.  A tiny epsilon (1px) is used to avoid accidental
+       * triggers when the page is already at the top.
+       */
+      const downThreshold = 1; // pixels
       if (direction > 0 && scrollY < downThreshold) {
         evt.preventDefault();
-        // Scroll to the top of the next section minus the header height
-        animateScrollTo(nextTop - headerHeight, 2000);
+        // Scroll to the top of the next section minus the header height with a
+        // longer duration for a slower, more cinematic feel (3 seconds).
+        animateScrollTo(nextTop - headerHeight, 3000);
       } else if (direction < 0) {
-        // Upward scroll: trigger only when near the boundary between
-        // the second section and the hero section.  Use the same 5%
-        // threshold window to avoid triggering too early.
-        const upThreshold = heroHeight * 0.05;
+        /*
+         * Upward scroll: trigger when the user has scrolled just past the
+         * boundary between the second section and the hero section.  Use a
+         * small 1px window to allow immediate activation when the user
+         * attempts to return to the hero.  Without this window the effect
+         * could re-trigger while still deep inside the second section.
+         */
+        const upThreshold = 1; // pixels
         if (scrollY > nextTop - headerHeight && scrollY <= nextTop + upThreshold) {
           evt.preventDefault();
-          animateScrollTo(0, 2000);
+          animateScrollTo(0, 3000);
         }
       }
     },
@@ -119,10 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 });
 
-// Fade-in animations for elements marked with `.animate`
-// The parallax code above no longer manages these elements, so without
-// restoring the observer the CTAs at the bottom of pages remain hidden.
+// Fade-in animations for elements marked with `.animate` and ensure
+// Innovation Gallery cards appear without delay.  Consolidating
+// multiple DOMContentLoaded handlers into a single listener avoids
+// redundant event registration.
 document.addEventListener('DOMContentLoaded', () => {
+  // Intersection observer for fade-in animations
   const animatedElements = document.querySelectorAll('.animate');
   if (animatedElements.length > 0) {
     const observerOptions = { root: null, threshold: 0.15 };
@@ -135,10 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
     animatedElements.forEach((el) => observer.observe(el));
   }
-});
-
-// Ensure Innovation Gallery cards are visible immediately (v17 patch)
-document.addEventListener('DOMContentLoaded', () => {
+  // Mark gallery cards visible immediately
   document
     .querySelectorAll('.gallery-grid .neon-card')
     .forEach((el) => el.classList.add('visible'));
