@@ -140,3 +140,14 @@ html {
 .hero {
   background-attachment: scroll !important;
 }
+
+/* Contact page: make the contact form section fill the viewport height.
+   The contact page uses a .page-contact class on the body and defines
+   its form/map row using .service-row.  By setting a minimum height
+   of 100vh, the row scales proportionally to the browser window. */
+/* Apply only to the first service-row on the contact page.  Using nth-of-type
+   ensures that additional service sections (e.g. map or FAQs) are not forced
+   to full-height. */
+.page-contact .service-row:nth-of-type(1) {
+  min-height: 100vh;
+}
