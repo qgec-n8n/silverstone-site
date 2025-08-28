@@ -1,22 +1,20 @@
 /*
-  Customised Silverstone JavaScript (v24 with CTA fix)
+  Customised Silverstone JavaScript (v24 modified for improved parallax)
 
-  This script enhances the hero parallax scroll effect introduced in v24
-  while restoring the fade‑in animations used throughout the site.  The
-  parallax effect causes the hero background to move more slowly than
-  the scroll, scales and darkens as you scroll, and automatically
-  transitions to the next section.  At the same time, we reinstate the
-  Intersection Observer used in earlier versions of the site to reveal
-  elements marked with the `.animate` class.  Without this observer
-  the call‑to‑action sections at the bottom of each page remained
-  hidden.  By running the observer separately from the parallax logic
-  the CTAs and other animated elements become visible again.
+  This script enhances the hero parallax scroll effect while ensuring it feels
+  immediate and repeatable.  The parallax triggers almost as soon as a user
+  begins scrolling down from the hero section and again when returning from
+  the second section.  Normal scrolling is restored after the cinematic
+  transition.  The effect is disabled on the privacy policy page.
 */
 
-// Parallax and auto‑scroll logic
 document.addEventListener('DOMContentLoaded', () => {
   // Respect user motion preferences; exit early if reduced motion is requested
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Prevent parallax on the privacy policy page
+  const pathname = window.location.pathname;
+  if (pathname.includes('privacy')) return;
 
   const hero = document.querySelector('.hero');
   const nextSection = hero ? hero.nextElementSibling : null;
@@ -61,27 +59,20 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(step);
   }
 
-  // Parallax and cross‑fade on scroll
+  // Parallax and cross-fade on scroll
   window.addEventListener(
     'scroll',
     () => {
       const offset = window.pageYOffset;
       const heroHeight = hero.offsetHeight;
       const progress = Math.min(offset / heroHeight, 1);
-      /*
-       * Make the parallax effect far more pronounced. The background moves
-       * at 20% of the scroll rate instead of 10%, the hero scales up by
-       * up to 20% and darkens significantly.  We also update a CSS
-       * custom property (--overlay-opacity) used by the ::after pseudo
-       * element to create a tinted overlay (defined in custom.css).
-       * Finally, the following section slides up a greater distance for
-       * a more cinematic reveal.
-       */
+      // Make the parallax effect pronounced.  The background moves
+      // at 20% of the scroll rate, the hero scales up by up to 20%
+      // and darkens significantly.  Update the overlay opacity via
+      // CSS custom property --overlay-opacity defined in custom.css.
       hero.style.backgroundPositionY = -(offset * 0.2) + 'px';
-      hero.style.transform =
-        'scale(' + (1 + progress * 0.2).toFixed(3) + ')';
-      hero.style.filter =
-        'brightness(' + (1 - progress * 0.6).toFixed(3) + ')';
+      hero.style.transform = 'scale(' + (1 + progress * 0.2).toFixed(3) + ')';
+      hero.style.filter = 'brightness(' + (1 - progress * 0.6).toFixed(3) + ')';
       hero.style.setProperty('--overlay-opacity', (progress * 0.6).toFixed(3));
       // Fade in and slide up the next section
       nextSection.style.opacity = progress.toFixed(3);
@@ -91,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { passive: true }
   );
 
-  // Trigger auto‑scroll on wheel events
+  // Trigger auto-scroll on wheel events
   window.addEventListener(
     'wheel',
     (evt) => {
@@ -105,30 +96,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const headerHeight = header.offsetHeight;
       const scrollY = window.pageYOffset;
       const nextTop = nextSection.offsetTop;
-      // Use a larger threshold (50% of the hero height) to delay auto‑scroll
-      // until the visitor has experienced more of the parallax animation.
-      const threshold = heroHeight * 0.5;
-      if (direction > 0 && scrollY < heroHeight - threshold) {
+      // Use a small threshold (5% of the hero height) to trigger auto-scroll
+      // almost immediately after the visitor begins scrolling down.  This
+      // avoids the long dead zone present in the previous implementation.
+      const downThreshold = heroHeight * 0.05;
+      if (direction > 0 && scrollY < downThreshold) {
         evt.preventDefault();
-        animateScrollTo(nextTop - headerHeight, 2500);
+        // Scroll to the top of the next section minus the header height
+        animateScrollTo(nextTop - headerHeight, 2000);
       } else if (direction < 0) {
-        /*
-         * Only trigger the upward auto‑scroll when the visitor is near the
-         * top of the second section.  Previously the effect would engage
-         * whenever the user scrolled up anywhere inside the next section,
-         * which could be disorienting.  We compute a small window at
-         * the beginning of the section (25% of the hero height) and only
-         * animate back to the hero when the current scroll position falls
-         * within that window.  This ensures the parallax return effect
-         * happens just as the user reaches the start of the second section.
-         */
-        const upThreshold = heroHeight * 0.25;
-        if (
-          scrollY > nextTop - headerHeight &&
-          scrollY <= nextTop + upThreshold
-        ) {
+        // Upward scroll: trigger only when near the boundary between
+        // the second section and the hero section.  Use the same 5%
+        // threshold window to avoid triggering too early.
+        const upThreshold = heroHeight * 0.05;
+        if (scrollY > nextTop - headerHeight && scrollY <= nextTop + upThreshold) {
           evt.preventDefault();
-          animateScrollTo(0, 2500);
+          animateScrollTo(0, 2000);
         }
       }
     },
@@ -136,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 });
 
-// Fade‑in animations for elements marked with `.animate`
+// Fade-in animations for elements marked with `.animate`
 // The parallax code above no longer manages these elements, so without
 // restoring the observer the CTAs at the bottom of pages remain hidden.
 document.addEventListener('DOMContentLoaded', () => {
