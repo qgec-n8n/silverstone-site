@@ -12,7 +12,12 @@
 
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
   .hero.title-band {
-    background-attachment: fixed;
+    /* Attach the background to the element rather than the viewport.  When
+       background-attachment is fixed, scaling the hero element causes the
+       background to remain static relative to the viewport, which appears as
+       though the image is changing.  Use scroll so the background scales
+       consistently with its container. */
+    background-attachment: scroll;
     background-position: center;
     background-size: cover;
     overflow: hidden;
@@ -125,4 +130,13 @@ html {
    JavaScript‑controlled overlay via ::after is clearly visible. */
 .hero::before {
   background: none !important;
+}
+
+/* Force all hero backgrounds to scroll with the element by default.  This
+   override prevents backgrounds from being fixed to the viewport on pages
+   where styles.css might specify background-attachment: fixed; and ensures
+   that scaling the hero does not cause the image to appear to change or
+   rotate. */
+.hero {
+  background-attachment: scroll !important;
 }

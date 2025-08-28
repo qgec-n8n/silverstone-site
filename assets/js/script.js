@@ -90,11 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const heroHeight = hero.offsetHeight;
       const progress = Math.min(offset / heroHeight, 1);
 
-      // Background moves more slowly than the scroll position to create depth.
-      // Use backgroundPosition to preserve the X position (center) while moving
-      // the Y offset.  Setting backgroundPositionY directly can reset the
-      // background-image on some browsers when image-set() is used.
-      hero.style.backgroundPosition = 'center ' + (-(offset * 0.25)).toFixed(0) + 'px';
+      // We intentionally avoid shifting the background image on scroll.
+      // Changing background-position when the hero uses an image-set() can
+      // trigger Safari and Chrome to reload or swap the image, which caused
+      // the hero backgrounds to rotate or change unexpectedly.  The parallax
+      // effect instead relies on scaling and darkening the hero while
+      // sliding in the next section.
       // Scale up the hero slightly as the user scrolls further down
       hero.style.transform = 'scale(' + (1 + progress * 0.25).toFixed(3) + ')';
       // Darken the hero for a dramatic look by adjusting the brightness filter
