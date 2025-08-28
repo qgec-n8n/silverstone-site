@@ -22,6 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const pathname = window.location.pathname;
   if (pathname.includes('privacy')) return;
 
+  // Dynamically inject the custom CSS if it's not already present.  This ensures
+  // that our parallax styles (overlay, scroll-behaviour overrides) apply on
+  // every page without needing to manually edit each HTML file.  The privacy
+  // policy page already includes custom.css so we skip injection there above.
+  const hasCustom = document.querySelector('link[href*="assets/css/custom.css"]');
+  if (!hasCustom) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'assets/css/custom.css';
+    document.head.appendChild(link);
+  }
+
   const hero = document.querySelector('.hero');
   const nextSection = hero ? hero.nextElementSibling : null;
   const header = document.querySelector('header');

@@ -113,9 +113,16 @@
 }
 
 /* Remove scroll snapping to allow the custom auto-scroll effect to control movement */
-body {
-  scroll-behavior: smooth;
-}
+/* Override the default smooth scrolling defined in the base stylesheet.
+   The custom parallax animation needs full control over scroll behaviour,
+   so both the html and body elements are set to use automatic scrolling. */
+body,
 html {
-  scroll-behavior: auto;
+  scroll-behavior: auto !important;
+}
+
+/* Remove the default gradient overlay defined in styles.css so the
+   JavaScript‑controlled overlay via ::after is clearly visible. */
+.hero::before {
+  background: none !important;
 }
