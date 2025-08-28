@@ -51,6 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
   nextSection.style.transform = 'translateY(80px)';
   nextSection.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
 
+  // If we're on the contact page, make the next section fill the viewport height.
+  // This ensures the contact form/map area scales to the browser window after
+  // the parallax transition.  Update on resize to maintain proportions.
+  if (pathname.includes('contact')) {
+    const setContactHeight = () => {
+      nextSection.style.minHeight = `${window.innerHeight}px`;
+    };
+    setContactHeight();
+    window.addEventListener('resize', setContactHeight);
+  }
+
   // Quadratic easing for a smooth start and end to the auto-scroll animation
   function easeInOutQuad(t) {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
@@ -68,6 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const distance = targetY - startY;
     let startTime;
     autoScrolling = true;
+    // Disable native scrolling during the animation to prevent users from
+    // overshooting the trigger point.  By hiding overflow on the body we
+    // ensure no additional scroll input is applied until the animation ends.
+    document.body.style.overflowY = 'hidden';
     function step(timestamp) {
       if (startTime === undefined) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
@@ -77,6 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(step);
       } else {
         autoScrolling = false;
+        // Restore native scrolling once the animation completes.
+        document.body.style.overflowY = '';
       }
     }
     requestAnimationFrame(step);
