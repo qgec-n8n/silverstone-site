@@ -35,7 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const hero = document.querySelector('.hero');
-  const nextSection = hero ? hero.nextElementSibling : null;
+  // Find the first actual section following the hero.  Skip over any style or
+  // other non‑section elements so the parallax works on pages like Booking
+  // where a <style> tag sits between the hero and the next section.
+  let nextSection = hero ? hero.nextElementSibling : null;
+  while (nextSection && nextSection.tagName.toLowerCase() !== 'section') {
+    nextSection = nextSection.nextElementSibling;
+  }
   const header = document.querySelector('header');
   // If any of these elements are missing bail early
   if (!hero || !nextSection || !header) return;
@@ -84,8 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const heroHeight = hero.offsetHeight;
       const progress = Math.min(offset / heroHeight, 1);
 
-      // Background moves more slowly than the scroll position to create depth
-      hero.style.backgroundPositionY = -(offset * 0.25) + 'px';
+      // Background moves more slowly than the scroll position to create depth.
+      // Use backgroundPosition to preserve the X position (center) while moving
+      // the Y offset.  Setting backgroundPositionY directly can reset the
+      // background-image on some browsers when image-set() is used.
+      hero.style.backgroundPosition = 'center ' + (-(offset * 0.25)).toFixed(0) + 'px';
       // Scale up the hero slightly as the user scrolls further down
       hero.style.transform = 'scale(' + (1 + progress * 0.25).toFixed(3) + ')';
       // Darken the hero for a dramatic look by adjusting the brightness filter
@@ -113,17 +122,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const headerHeight = header.offsetHeight;
       const scrollY = window.pageYOffset;
       const nextTop = nextSection.offsetTop;
+      const heroHeight = hero.offsetHeight;
 
-      // Downward scroll: trigger immediately when leaving the top of the page
-      const downThreshold = 0;
-      if (direction > 0 && scrollY <= downThreshold) {
+      // Downward scroll: trigger immediately when leaving the very top of the page
+      if (direction > 0 && scrollY <= 0) {
         evt.preventDefault();
-        // Scroll down over 2.5 seconds to just above the next section (accounting for header height)
+        // Smoothly scroll to just above the next section (accounting for header height)
         animateScrollTo(nextTop - headerHeight, 2500);
       } else if (direction < 0) {
-        // Upward scroll: only trigger when the user is between the next section and the hero
-        const upThreshold = 0;
-        if (scrollY > nextTop - headerHeight && scrollY <= nextTop + upThreshold) {
+        // Upward scroll: trigger when the user is within the region between the next
+        // section and the hero.  This ensures the reverse parallax plays as soon as
+        // the user starts scrolling back up toward the hero.
+        if (scrollY > headerHeight && scrollY <= nextTop) {
           evt.preventDefault();
           animateScrollTo(0, 2500);
         }
