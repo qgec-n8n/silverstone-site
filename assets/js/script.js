@@ -100,29 +100,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const nextTop = nextSection.offsetTop;
       /*
        * Immediately trigger the scroll when the user starts moving out of
-       * the hero section.  By eliminating the downThreshold (formerly 5% of
-       * the hero height), the parallax begins seamlessly at the first
-       * downward scroll.  A tiny epsilon (1px) is used to avoid accidental
-       * triggers when the page is already at the top.
+       * the hero section. By using a zero threshold the parallax begins
+       * seamlessly at the first downward scroll without any perceptible delay.
+       * No epsilon is necessary because we intentionally allow the effect
+       * to activate as soon as the user attempts to leave the hero.
        */
-      const downThreshold = 1; // pixels
-      if (direction > 0 && scrollY < downThreshold) {
+      const downThreshold = 0; // start parallax instantly
+      if (direction > 0 && scrollY <= downThreshold) {
         evt.preventDefault();
-        // Scroll to the top of the next section minus the header height with a
-        // longer duration for a slower, more cinematic feel (3 seconds).
-        animateScrollTo(nextTop - headerHeight, 3000);
+        // Scroll to the top of the next section minus the header height.
+        // Use a shorter duration (1.5 seconds) for a responsive yet premium effect.
+        animateScrollTo(nextTop - headerHeight, 1500);
       } else if (direction < 0) {
         /*
          * Upward scroll: trigger when the user has scrolled just past the
-         * boundary between the second section and the hero section.  Use a
-         * small 1px window to allow immediate activation when the user
-         * attempts to return to the hero.  Without this window the effect
-         * could re-trigger while still deep inside the second section.
+         * boundary between the second section and the hero section. A zero
+         * pixel window allows immediate activation when the user attempts
+         * to return to the hero without any perceptible delay.
          */
-        const upThreshold = 1; // pixels
+        const upThreshold = 0;
         if (scrollY > nextTop - headerHeight && scrollY <= nextTop + upThreshold) {
           evt.preventDefault();
-          animateScrollTo(0, 3000);
+          animateScrollTo(0, 1500);
         }
       }
     },
