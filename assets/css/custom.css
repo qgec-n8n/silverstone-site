@@ -1,12 +1,13 @@
 /*
-  Customised styles for Silverstone site (v23)
+  Customised styles for Silverstone site (v24)
 
-  These changes complement the improved parallax and scroll behaviour. The hero
-  section is given overflow:hidden so the scaling effect doesn't cause the
-  image to bleed outside its container. Scroll snapping has been disabled to
-  avoid conflicts with the custom auto‑scroll animation; the browser will no
-  longer forcibly snap between sections. Other existing styles remain
-  unchanged.
+  These styles complement the improved parallax and scroll behaviour introduced
+  in script.js (v25).  The hero section uses overflow:hidden so that scaling
+  doesn't cause the image to bleed outside its container.  Scroll snapping is
+  disabled to avoid conflicts with the custom auto‑scroll animation.  The darkening
+  overlay is controlled via the CSS custom property --overlay-opacity, which is
+  updated in the JavaScript as the user scrolls.  We also lengthen the overlay
+  transition to match the extended animation duration for a smoother, cinematic fade.
 */
 
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
@@ -14,18 +15,12 @@
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    overflow: hidden; /* ensure scaled background doesn't overflow */
+    overflow: hidden;
   }
 }
 
-/*
- * Provide a darkening overlay for the hero to enhance the premium
- * parallax effect.  The overlay's opacity is controlled via the
- * CSS custom property --overlay-opacity, which is updated in
- * script.js as the user scrolls.  We ensure the hero is relatively
- * positioned so the pseudo element can cover it, and we layer the
- * textual content above the overlay via z-index.
- */
+/* Darkening overlay for the hero.  The overlay opacity is animated via JS.
+   Lengthen the transition for a smoother, more cinematic fade. */
 .hero {
   position: relative;
 }
@@ -36,17 +31,14 @@
   background-color: rgba(0, 0, 0, var(--overlay-opacity, 0));
   pointer-events: none;
   z-index: 0;
-  transition: background-color 0.3s ease-out;
+  transition: background-color 0.7s ease-out;
 }
 .hero .content {
   position: relative;
   z-index: 1;
 }
 
-/* Cookie consent banner styles – required for GDPR compliance. The banner
-   appears fixed at the bottom of the viewport and can be dismissed by the
-   user. The colours inherit from the existing design system where
-   appropriate. */
+/* Cookie consent banner styles – required for GDPR compliance. */
 .cookie-banner {
   position: fixed;
   bottom: 0;
@@ -120,20 +112,10 @@
   margin-left: 1rem;
 }
 
-/* Remove scroll snapping (was mandatory); allow smooth behaviour without force */
+/* Remove scroll snapping to allow the custom auto-scroll effect to control movement */
 body {
   scroll-behavior: smooth;
-  /* intentionally not setting scroll-snap-type so custom JS controls transitions */
 }
-.hero.title-band,
-.section {
-  /* remove scroll-snap-align to avoid conflict */
-}
-
-/* Override the base html scroll-behaviour defined in styles.css.  Using
-   automatic smooth scrolling can interfere with the custom scroll
-   animation implemented in script.js.  Setting it to auto prevents
-   double-smoothing and keeps the timing consistent. */
 html {
   scroll-behavior: auto;
 }
