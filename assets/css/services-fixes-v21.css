@@ -1,0 +1,120 @@
+/*
+ * Streamlined services page fixes and enhancements
+ *
+ * This stylesheet consolidates a number of small layout tweaks that were
+ * previously scattered throughout several revisions of this file.  It
+ * ensures the services page and contact page behave consistently across
+ * devices while maintaining the vibrant neon gallery effect.  Duplicate
+ * rules from earlier versions have been removed for clarity and better
+ * maintainability.  No visual changes have been made relative to the
+ * original site – all colours, sizes and effects are preserved.
+ */
+
+/* Center service images vertically on the services page */
+.page-services .service-row .service-image {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Ensure analytics images are contained within their column */
+.page-services #analytics .service-image img,
+.page-services #analytics .service-image .service-img {
+  object-fit: contain !important;
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+/*
+ * Innovation gallery neon borders
+ *
+ * Each gallery image receives a coloured border and multi‑layered glow.  The
+ * intensity and hue values were taken from the final revision of the
+ * original stylesheet to match the existing design.  If additional neon
+ * colours are required, new classes can be defined following this pattern.
+ */
+.gallery-img {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.gallery-img.neon1 {
+  border-color: rgba(0, 234, 255, 0.45);
+  box-shadow: 0 0 8px rgba(0, 234, 255, 0.6),
+              0 0 28px rgba(0, 234, 255, 0.5),
+              0 0 60px rgba(0, 234, 255, 0.35);
+}
+.gallery-img.neon2 {
+  border-color: rgba(255, 0, 230, 0.45);
+  box-shadow: 0 0 8px rgba(255, 0, 230, 0.6),
+              0 0 28px rgba(255, 0, 230, 0.5),
+              0 0 60px rgba(255, 0, 230, 0.35);
+}
+.gallery-img.neon3 {
+  border-color: rgba(57, 255, 20, 0.45);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.6),
+              0 0 28px rgba(57, 255, 20, 0.5),
+              0 0 60px rgba(57, 255, 20, 0.35);
+}
+.gallery-img.neon4 {
+  border-color: rgba(255, 230, 0, 0.45);
+  box-shadow: 0 0 8px rgba(255, 230, 0, 0.6),
+              0 0 28px rgba(255, 230, 0, 0.5),
+              0 0 60px rgba(255, 230, 0, 0.35);
+}
+.gallery-img.neon5 {
+  border-color: rgba(255, 106, 0, 0.45);
+  box-shadow: 0 0 8px rgba(255, 106, 0, 0.6),
+              0 0 28px rgba(255, 106, 0, 0.5),
+              0 0 60px rgba(255, 106, 0, 0.35);
+}
+.gallery-img.neon6 {
+  border-color: rgba(0, 255, 213, 0.45);
+  box-shadow: 0 0 8px rgba(0, 255, 213, 0.6),
+              0 0 28px rgba(0, 255, 213, 0.5),
+              0 0 60px rgba(0, 255, 213, 0.35);
+}
+.gallery-img.neon7 {
+  border-color: rgba(255, 0, 93, 0.45);
+  box-shadow: 0 0 8px rgba(255, 0, 93, 0.6),
+              0 0 28px rgba(255, 0, 93, 0.5),
+              0 0 60px rgba(255, 0, 93, 0.35);
+}
+.gallery-img.neon8 {
+  border-color: rgba(157, 0, 255, 0.45);
+  box-shadow: 0 0 8px rgba(157, 0, 255, 0.6),
+              0 0 28px rgba(157, 0, 255, 0.5),
+              0 0 60px rgba(157, 0, 255, 0.35);
+}
+
+/* Adjust spacing around the innovation gallery and CTA */
+#innovation-gallery {
+  margin-bottom: 1rem !important;
+}
+
+.section.brand-gradient.animate {
+  padding-top: 2rem !important;
+}
+
+/* Contact page: form and map side‑by‑side layout */
+.contact-row {
+  display: flex;
+  align-items: stretch;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.contact-form,
+.contact-map {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .contact-row {
+    flex-direction: column;
+  }
+}
