@@ -142,16 +142,26 @@ document.addEventListener('DOMContentLoaded', () => {
       const nextTop = nextSection.offsetTop;
       const heroHeight = hero.offsetHeight;
 
-      // Downward scroll: trigger immediately when leaving the very top of the page
-      if (direction > 0 && scrollY <= 0) {
-        evt.preventDefault();
-        // Smoothly scroll to just above the next section (accounting for header height)
-        animateScrollTo(nextTop - headerHeight, 2500);
+      /*
+        Trigger the parallax scroll as soon as the user starts moving the wheel.
+        Previously we waited until the viewport was exactly at the top (scrollY <= 0)
+        or within a narrow region between sections.  That created a tiny “dead zone”
+        where a small amount of manual scrolling was required before the animation
+        began.  By checking whether the current scroll position is still within the
+        hero (i.e. less than heroHeight) for downward scrolls and between the header
+        and next section for upward scrolls we guarantee an immediate, premium
+        transition that feels responsive but doesn’t fire repeatedly outside of the
+        intended range.
+      */
+      if (direction > 0) {
+        // If we’re still within the hero, start the downward auto‑scroll
+        if (scrollY < heroHeight) {
+          evt.preventDefault();
+          animateScrollTo(nextTop - headerHeight, 2500);
+        }
       } else if (direction < 0) {
-        // Upward scroll: trigger when the user is within the region between the next
-        // section and the hero.  This ensures the reverse parallax plays as soon as
-        // the user starts scrolling back up toward the hero.
-        if (scrollY > headerHeight && scrollY <= nextTop) {
+        // If we’re between the header and the next section, scroll back to the top
+        if (scrollY > headerHeight && scrollY < nextTop) {
           evt.preventDefault();
           animateScrollTo(0, 2500);
         }
