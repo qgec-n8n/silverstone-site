@@ -42,3 +42,35 @@
   grid-template-columns: repeat(4, 1fr) !important;
   gap: 1rem !important;
 }
+
+/*
+  Parallax animation classes
+
+  When the body receives `.scrolling-down` or `.scrolling-up` these
+  rules animate the hero and adjacent section to create a long,
+  cinematic transition.  The transformations defined here should
+  mirror the duration in script.js (2.5s).  Adjust the scale,
+  brightness or translation values to tweak the intensity of the
+  effect.
+*/
+
+body.scrolling-down .hero,
+body.scrolling-up .hero {
+  transform: scale(1.15);
+  filter: brightness(0.6);
+  transition: transform 2.5s ease, filter 2.5s ease;
+}
+
+body.scrolling-down .hero .content,
+body.scrolling-up .hero .content {
+  transform: translateY(-20%);
+  opacity: 0;
+  transition: transform 2.5s ease, opacity 2.5s ease;
+}
+
+body.scrolling-down .hero + section,
+body.scrolling-up .hero + section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: transform 2.5s ease, opacity 2.5s ease;
+}

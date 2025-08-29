@@ -1,207 +1,145 @@
 /*
-  Customised Silverstone JavaScript (v25)
+  Customised Silverstone JavaScript (v26)
 
-  This version of the parallax script addresses two key issues reported with the existing code:
-  1. The parallax animation had a small “dead zone” where scrolling would not trigger
-     the transition between the hero section and the next section.
-  2. When it did fire the effect was subtle and short, giving the site a cheap feel.
+  This script provides a streamlined, high‑quality parallax experience and
+  cleans up redundant logic accumulated over prior revisions.  Key features
+  include:
 
-  The updated implementation removes any threshold for triggering the effect so it
-  begins as soon as the user starts to scroll down or up.  The scroll animation
-  itself has been extended to 2.5 seconds to create a longer, cinematic transition.
-  During the animation the hero scales up and darkens more dramatically, and the next
-  section fades in from a greater offset.  Auto scrolling is blocked while the
-  animation runs, and reduced‑motion and privacy policy pages are respected.
+  • Instantaneous triggering: the parallax animation begins as soon as the
+    user starts scrolling within the hero for downward movement or between
+    the top of the next section and the bottom of the hero for upward
+    movement.  There is no “dead zone” where small scrolls are ignored.
+
+  • Cinematic transitions: the hero scales up and darkens while its
+    contents fade upward, and the next section fades and slides into view.
+    The effect lasts 2.5 seconds to give the page a premium, polished feel.
+
+  • Responsiveness: no page‑wide scaling is used.  Instead, layout
+    responsiveness is handled via CSS (see custom.css).  This prevents
+    awkward black bars at extreme aspect ratios and keeps the hero filling
+    the viewport at all times.
+
+  • Modular architecture: fade‑in animations and mobile navigation are
+    implemented independently to avoid interfering with the parallax.
+
+  If you wish to adjust the duration or the intensity of the animation,
+  modify the CSS rules associated with the `.scrolling-down` and
+  `.scrolling-up` classes in assets/css/custom.css.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Honour user motion preferences; skip the effect entirely when reduced motion is requested
+  // Honour reduced motion preferences and skip the parallax entirely if
+  // requested by the user.  This improves accessibility for people
+  // sensitive to motion.
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // Avoid running the parallax on the privacy policy page
+  // Avoid running the parallax on privacy policy pages (or any page
+  // containing "privacy" in its path) where animations may be
+  // inappropriate.
   const pathname = window.location.pathname;
   if (pathname.includes('privacy')) return;
 
-  // Dynamically inject the custom CSS if it's not already present.  This ensures
-  // that our parallax styles (overlay, scroll-behaviour overrides) apply on
-  // every page without needing to manually edit each HTML file.  The privacy
-  // policy page already includes custom.css so we skip injection there above.
-  const hasCustom = document.querySelector('link[href*="assets/css/custom.css"]');
-  if (!hasCustom) {
+  // Inject custom responsiveness/parallax styles if they are not already
+  // present.  This allows the HTML files to remain untouched while
+  // enabling our animation classes and service/gallery fixes.
+  const existingLink = document.querySelector('link[href*="assets/css/custom.css"]');
+  if (!existingLink) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'assets/css/custom.css';
     document.head.appendChild(link);
   }
 
+  // Identify the hero and the first <section> that follows it.  The
+  // parallax transition will move between these two elements.  Skip
+  // non‑section siblings like <style> tags.
   const hero = document.querySelector('.hero');
-  // Find the first actual section following the hero.  Skip over any style or
-  // other non‑section elements so the parallax works on pages like Booking
-  // where a <style> tag sits between the hero and the next section.
-  let nextSection = hero ? hero.nextElementSibling : null;
-  while (nextSection && nextSection.tagName.toLowerCase() !== 'section') {
-    nextSection = nextSection.nextElementSibling;
+  let nextSection = null;
+  if (hero) {
+    let el = hero.nextElementSibling;
+    while (el) {
+      if (el.tagName && el.tagName.toLowerCase() === 'section') {
+        nextSection = el;
+        break;
+      }
+      el = el.nextElementSibling;
+    }
   }
-  const header = document.querySelector('header');
-  // If any of these elements are missing bail early
-  if (!hero || !nextSection || !header) return;
+  // If either the hero or next section is missing, there’s nothing to animate.
+  if (!hero || !nextSection) return;
 
-  // Prepare the next section: start hidden and offset further down for a bigger slide
-  nextSection.style.opacity = '0';
-  nextSection.style.transform = 'translateY(80px)';
-  nextSection.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
-
-  // If we're on the contact page, make the next section fill the viewport height.
-  // This ensures the contact form/map area scales to the browser window after
-  // the parallax transition.  Update on resize to maintain proportions.
-  if (pathname.includes('contact')) {
-    const setContactHeight = () => {
-      nextSection.style.minHeight = `${window.innerHeight}px`;
-    };
-    setContactHeight();
-    window.addEventListener('resize', setContactHeight);
-  }
-
-  // Quadratic easing for a smooth start and end to the auto-scroll animation
-  function easeInOutQuad(t) {
-    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-  }
-
-  let autoScrolling = false;
+  // Flag to prevent multiple animations from overlapping.
+  let animating = false;
 
   /**
-   * Smoothly scroll the window to a given Y coordinate over the specified duration.
-   * A custom easing function creates a polished feel.  While the animation runs
-   * autoScrolling is true to block user wheel input.
+   * Initiate the parallax animation.  Adds a class to the body based on
+   * scroll direction, waits for the CSS transition to complete, then
+   * scrolls to the appropriate position and cleans up the state.
+   *
+   * @param {boolean} down True if the user is scrolling downward, false
+   *                       for upward movement.
    */
-  function animateScrollTo(targetY, duration) {
-    const startY = window.pageYOffset;
-    const distance = targetY - startY;
-    let startTime;
-    autoScrolling = true;
-    // Disable native scrolling during the animation to prevent users from
-    // overshooting the trigger point.  By hiding overflow on the body we
-    // ensure no additional scroll input is applied until the animation ends.
-    document.body.style.overflowY = 'hidden';
-    function step(timestamp) {
-      if (startTime === undefined) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = easeInOutQuad(progress);
-      window.scrollTo(0, startY + distance * eased);
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        autoScrolling = false;
-        // Restore native scrolling once the animation completes.
-        document.body.style.overflowY = '';
-      }
-    }
-    requestAnimationFrame(step);
+  function startParallax(down) {
+    animating = true;
+    document.body.classList.add(down ? 'scrolling-down' : 'scrolling-up');
+    // After the CSS transitions finish (2.5 s), scroll the page and
+    // remove the classes.  Use setTimeout rather than transitionend
+    // events to ensure consistency across browsers.
+    setTimeout(() => {
+      const targetY = down ? hero.offsetHeight : 0;
+      window.scrollTo({ top: targetY, behavior: 'auto' });
+      document.body.classList.remove('scrolling-down', 'scrolling-up');
+      animating = false;
+    }, 2500);
   }
 
-  // Update visual properties on every scroll to achieve the parallax effect
-  window.addEventListener(
-    'scroll',
-    () => {
-      const offset = window.pageYOffset;
-      const heroHeight = hero.offsetHeight;
-      const progress = Math.min(offset / heroHeight, 1);
+  /**
+   * Wheel handler.  Determines whether to trigger the parallax based on
+   * the current scroll position and the wheel delta.  Prevents default
+   * scrolling only when initiating the animation.
+   */
+  function handleWheel(evt) {
+    if (animating) {
+      evt.preventDefault();
+      return;
+    }
+    const y = window.scrollY;
+    const heroHeight = hero.offsetHeight;
+    const nextHeight = nextSection.offsetHeight;
+    const dy = evt.deltaY;
+    if (dy > 0 && y < heroHeight) {
+      // Scrolling down from within the hero: animate to next section
+      evt.preventDefault();
+      startParallax(true);
+    } else if (dy < 0 && y >= heroHeight && y < heroHeight + nextHeight) {
+      // Scrolling up from within the next section: animate back to top
+      evt.preventDefault();
+      startParallax(false);
+    }
+  }
 
-      // We intentionally avoid shifting the background image on scroll.
-      // Changing background-position when the hero uses an image-set() can
-      // trigger Safari and Chrome to reload or swap the image, which caused
-      // the hero backgrounds to rotate or change unexpectedly.  The parallax
-      // effect instead relies on scaling and darkening the hero while
-      // sliding in the next section.
-      // Scale up the hero slightly as the user scrolls further down
-      hero.style.transform = 'scale(' + (1 + progress * 0.25).toFixed(3) + ')';
-      // Darken the hero for a dramatic look by adjusting the brightness filter
-      hero.style.filter = 'brightness(' + (1 - progress * 0.7).toFixed(3) + ')';
-      // Update the CSS custom property controlling the overlay opacity
-      hero.style.setProperty('--overlay-opacity', (progress * 0.7).toFixed(3));
-      // Fade in and slide up the next section from a greater distance
-      nextSection.style.opacity = progress.toFixed(3);
-      const translateY = (1 - progress) * 120;
-      nextSection.style.transform = 'translateY(' + translateY.toFixed(1) + 'px)';
-    },
-    { passive: true }
-  );
+  window.addEventListener('wheel', handleWheel, { passive: false });
 
-  // Intercept wheel events to trigger the long scroll animation when exiting or re-entering the hero
-  window.addEventListener(
-    'wheel',
-    (evt) => {
-      // Block additional scroll input while auto scrolling is active
-      if (autoScrolling) {
-        evt.preventDefault();
-        return;
-      }
-      const direction = evt.deltaY;
-      const headerHeight = header.offsetHeight;
-      const scrollY = window.pageYOffset;
-      const nextTop = nextSection.offsetTop;
-      const heroHeight = hero.offsetHeight;
-
-      /*
-        Trigger the parallax scroll as soon as the user starts moving the wheel.
-        Previously we waited until the viewport was exactly at the top (scrollY <= 0)
-        or within a narrow region between sections.  That created a tiny “dead zone”
-        where a small amount of manual scrolling was required before the animation
-        began.  By checking whether the current scroll position is still within the
-        hero (i.e. less than heroHeight) for downward scrolls and between the header
-        and next section for upward scrolls we guarantee an immediate, premium
-        transition that feels responsive but doesn’t fire repeatedly outside of the
-        intended range.
-      */
-      if (direction > 0) {
-        // If we’re still within the hero, start the downward auto‑scroll
-        if (scrollY < heroHeight) {
-          evt.preventDefault();
-          animateScrollTo(nextTop - headerHeight, 2500);
-        }
-      } else if (direction < 0) {
-        // If we’re between the header and the next section, scroll back to the top
-        if (scrollY > headerHeight && scrollY < nextTop) {
-          evt.preventDefault();
-          animateScrollTo(0, 2500);
-        }
-      }
-    },
-    { passive: false }
-  );
-});
-
-// Secondary DOMContentLoaded listener to handle fade‑in animations on other elements
-document.addEventListener('DOMContentLoaded', () => {
-  const animatedElements = document.querySelectorAll('.animate');
-  if (animatedElements.length > 0) {
-    const observerOptions = { root: null, threshold: 0.15 };
+  // Fade‑in animation for elements marked with .animate.  As they enter
+  // the viewport, they receive a .visible class which triggers CSS
+  // transitions defined in styles.css.  This observer runs on all
+  // pages and is independent of the parallax effect.
+  const animatables = document.querySelectorAll('.animate');
+  if (animatables.length > 0) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
         }
       });
-    }, observerOptions);
-    animatedElements.forEach((el) => observer.observe(el));
+    }, { threshold: 0.15 });
+    animatables.forEach((el) => observer.observe(el));
   }
-  // Immediately reveal innovation gallery cards to avoid a delay on load
-  document
-    .querySelectorAll('.gallery-grid .neon-card')
-    .forEach((el) => el.classList.add('visible'));
-});
 
-// ---------------------------------------------------------------------------
-// Mobile navigation toggle
-//
-// This listener wires up the hamburger navigation on mobile. The markup already
-// includes a `.nav-toggle` element and a `<nav><ul>` menu. On small screens,
-// CSS hides the menu until it receives an `.open` class. This script toggles
-// that class when the hamburger is clicked and removes it again when a
-// navigation link is selected.  Because the `.open` styles are defined
-// inside a media query, adding or removing this class has no effect on
-// desktop layouts.
-document.addEventListener('DOMContentLoaded', () => {
+  // Mobile navigation toggle.  On smaller screens the menu is hidden
+  // until the hamburger icon is clicked.  Selecting a link closes the
+  // menu.  This has no effect on desktop because the `.open` class is
+  // ignored in larger media queries.
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
   if (navToggle && navMenu) {
@@ -217,26 +155,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
-// ---------------------------------------------------------------------------
-// Desktop scaling logic removed
-//
-// Previous versions of this script attempted to globally scale the entire page
-// on desktop to preserve a fixed aspect ratio.  This approach relied on
-// baselining the page dimensions at load and applying a `transform: scale()`
-// whenever the browser was resized.  While it kept elements aligned for
-// moderate viewport changes, it introduced significant issues at extreme
-// aspect ratios.  Users reported that very wide or tall windows created
-// "black bars" where the scaled page no longer filled the viewport, and
-// certain sections (notably the hero areas) failed to extend to the bottom
-// or edges of the window.
-//
-// To resolve these problems we have completely removed the desktop scaling
-// logic.  The site is now purely responsive: the hero sections rely on
-// CSS `min-height: 100vh` and `background-size: cover` to fill the browser
-// window, service rows use CSS grid to remain side by side on larger
-// screens, and galleries leverage CSS grid for consistent layouts.  Without
-// the global scale transformation, the layout naturally adapts to any
-// viewport size without leaving unused space.  If additional fine‑grained
-// responsiveness is required in the future, it should be implemented using
-// media queries and flexible units rather than a single page‑wide scale.
