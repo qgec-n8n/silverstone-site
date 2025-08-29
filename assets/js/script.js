@@ -180,3 +180,30 @@ document.addEventListener('DOMContentLoaded', () => {
     .querySelectorAll('.gallery-grid .neon-card')
     .forEach((el) => el.classList.add('visible'));
 });
+
+// ---------------------------------------------------------------------------
+// Mobile navigation toggle
+//
+// This listener wires up the hamburger navigation on mobile. The markup already
+// includes a `.nav-toggle` element and a `<nav><ul>` menu. On small screens,
+// CSS hides the menu until it receives an `.open` class. This script toggles
+// that class when the hamburger is clicked and removes it again when a
+// navigation link is selected.  Because the `.open` styles are defined
+// inside a media query, adding or removing this class has no effect on
+// desktop layouts.
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('nav ul');
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      navToggle.classList.toggle('active');
+    });
+    navMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        navToggle.classList.remove('active');
+      });
+    });
+  }
+});
