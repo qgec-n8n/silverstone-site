@@ -1,145 +1,206 @@
 /*
-  Customised Silverstone JavaScript (v26)
+  Silverstone site JavaScript (restored parallax)
 
-  This script provides a streamlined, high‑quality parallax experience and
-  cleans up redundant logic accumulated over prior revisions.  Key features
-  include:
+  This version reinstates the original cinematic parallax behaviour
+  captured in the provided v25 script while preserving the
+  responsiveness and scaling improvements made previously.  The hero
+  section scales and darkens as the user begins to scroll, and the
+  subsequent section fades and slides into view.  An easing
+  auto‑scroll transitions the viewport over 2.5 seconds.  The header
+  hides when scrolling down and reappears when scrolling up.  Mobile
+  navigation toggling and fade‑in animations for elements marked with
+  `.animate` are also included.
 
-  • Instantaneous triggering: the parallax animation begins as soon as the
-    user starts scrolling within the hero for downward movement or between
-    the top of the next section and the bottom of the hero for upward
-    movement.  There is no “dead zone” where small scrolls are ignored.
-
-  • Cinematic transitions: the hero scales up and darkens while its
-    contents fade upward, and the next section fades and slides into view.
-    The effect lasts 2.5 seconds to give the page a premium, polished feel.
-
-  • Responsiveness: no page‑wide scaling is used.  Instead, layout
-    responsiveness is handled via CSS (see custom.css).  This prevents
-    awkward black bars at extreme aspect ratios and keeps the hero filling
-    the viewport at all times.
-
-  • Modular architecture: fade‑in animations and mobile navigation are
-    implemented independently to avoid interfering with the parallax.
-
-  If you wish to adjust the duration or the intensity of the animation,
-  modify the CSS rules associated with the `.scrolling-down` and
-  `.scrolling-up` classes in assets/css/custom.css.
+  The script dynamically injects `assets/css/custom.css` if it is not
+  already present.  Ensure that custom.css merges the scaling
+  overrides (service rows and gallery grid) with any parallax styling
+  defined in earlier versions.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Honour reduced motion preferences and skip the parallax entirely if
-  // requested by the user.  This improves accessibility for people
-  // sensitive to motion.
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Respect reduced‑motion settings and bail out early if the user
+  // prefers less motion.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
 
-  // Avoid running the parallax on privacy policy pages (or any page
-  // containing "privacy" in its path) where animations may be
-  // inappropriate.
+  // Skip the parallax entirely on privacy policy pages.
   const pathname = window.location.pathname;
   if (pathname.includes('privacy')) return;
 
-  // Inject custom responsiveness/parallax styles if they are not already
-  // present.  This allows the HTML files to remain untouched while
-  // enabling our animation classes and service/gallery fixes.
-  const existingLink = document.querySelector('link[href*="assets/css/custom.css"]');
-  if (!existingLink) {
+  // Inject custom.css if it hasn't been loaded yet.  This keeps HTML
+  // files clean and allows CSS overrides to apply universally.
+  if (!document.querySelector('link[href*="assets/css/custom.css"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'assets/css/custom.css';
     document.head.appendChild(link);
   }
 
-  // Identify the hero and the first <section> that follows it.  The
-  // parallax transition will move between these two elements.  Skip
-  // non‑section siblings like <style> tags.
   const hero = document.querySelector('.hero');
+  // Find the first <section> after the hero.  Some pages insert
+  // <style> tags or other elements between sections, so skip over
+  // anything that isn’t a section.
   let nextSection = null;
   if (hero) {
-    let el = hero.nextElementSibling;
-    while (el) {
-      if (el.tagName && el.tagName.toLowerCase() === 'section') {
-        nextSection = el;
+    let node = hero.nextElementSibling;
+    while (node) {
+      if (node.tagName && node.tagName.toLowerCase() === 'section') {
+        nextSection = node;
         break;
       }
-      el = el.nextElementSibling;
+      node = node.nextElementSibling;
     }
   }
-  // If either the hero or next section is missing, there’s nothing to animate.
-  if (!hero || !nextSection) return;
+  const header = document.querySelector('header');
+  if (!hero || !nextSection || !header) return;
 
-  // Flag to prevent multiple animations from overlapping.
-  let animating = false;
+  // Initialise the next section so it starts hidden and lower on the page.
+  nextSection.style.opacity = '0';
+  nextSection.style.transform = 'translateY(80px)';
+  nextSection.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
+
+  // On the contact page ensure the first service row fills the viewport.
+  if (pathname.includes('contact')) {
+    const setContactHeight = () => {
+      nextSection.style.minHeight = `${window.innerHeight}px`;
+    };
+    setContactHeight();
+    window.addEventListener('resize', setContactHeight);
+  }
+
+  // Quadratic easing for the auto‑scroll animation.
+  function easeInOutQuad(t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  }
+
+  let autoScrolling = false;
 
   /**
-   * Initiate the parallax animation.  Adds a class to the body based on
-   * scroll direction, waits for the CSS transition to complete, then
-   * scrolls to the appropriate position and cleans up the state.
+   * Smoothly scroll the document to the given Y position.  While the
+   * animation runs the body’s overflow is hidden to prevent user input
+   * from interfering.  Once finished, overflow is restored.
    *
-   * @param {boolean} down True if the user is scrolling downward, false
-   *                       for upward movement.
+   * @param {number} targetY The vertical pixel coordinate to scroll to.
+   * @param {number} duration Duration of the animation in milliseconds.
    */
-  function startParallax(down) {
-    animating = true;
-    document.body.classList.add(down ? 'scrolling-down' : 'scrolling-up');
-    // After the CSS transitions finish (2.5 s), scroll the page and
-    // remove the classes.  Use setTimeout rather than transitionend
-    // events to ensure consistency across browsers.
-    setTimeout(() => {
-      const targetY = down ? hero.offsetHeight : 0;
-      window.scrollTo({ top: targetY, behavior: 'auto' });
-      document.body.classList.remove('scrolling-down', 'scrolling-up');
-      animating = false;
-    }, 2500);
+  function animateScrollTo(targetY, duration) {
+    const startY = window.pageYOffset;
+    const distance = targetY - startY;
+    let startTime;
+    autoScrolling = true;
+    document.body.style.overflowY = 'hidden';
+    function step(timestamp) {
+      if (startTime === undefined) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = easeInOutQuad(progress);
+      window.scrollTo(0, startY + distance * eased);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        autoScrolling = false;
+        document.body.style.overflowY = '';
+      }
+    }
+    requestAnimationFrame(step);
   }
 
   /**
-   * Wheel handler.  Determines whether to trigger the parallax based on
-   * the current scroll position and the wheel delta.  Prevents default
-   * scrolling only when initiating the animation.
+   * Update the parallax visuals based on scroll position.  As the user
+   * scrolls down within the hero, scale and darken it; simultaneously
+   * fade and slide the next section upward.  The overlay opacity is
+   * controlled via a CSS variable (--overlay-opacity) defined in
+   * custom.css.  This handler runs on every scroll event.
    */
-  function handleWheel(evt) {
-    if (animating) {
+  function updateParallax() {
+    const offset = window.pageYOffset;
+    const heroHeight = hero.offsetHeight;
+    const progress = Math.min(offset / heroHeight, 1);
+    // Scale the hero up to 1.25x at full progress
+    hero.style.transform = `scale(${(1 + progress * 0.25).toFixed(3)})`;
+    // Darken the hero by reducing brightness
+    hero.style.filter = `brightness(${(1 - progress * 0.7).toFixed(3)})`;
+    // Update overlay opacity via CSS variable
+    hero.style.setProperty('--overlay-opacity', (progress * 0.7).toFixed(3));
+    // Fade and translate the next section
+    nextSection.style.opacity = progress.toFixed(3);
+    const translateY = (1 - progress) * 120;
+    nextSection.style.transform = `translateY(${translateY.toFixed(1)}px)`;
+  }
+  // Run once to apply initial state
+  updateParallax();
+  window.addEventListener('scroll', updateParallax, { passive: true });
+
+  /**
+   * Wheel event handler.  Triggers the auto‑scroll animation when the
+   * user begins scrolling off the top of the page (downward) or
+   * between the hero and next section (upward).  This replicates the
+   * original behaviour: downward scrolling only triggers from the very
+   * top, and upward scrolling triggers when the user is between the
+   * header and the next section.  If autoScrolling is true we block
+   * the wheel input.
+   */
+  window.addEventListener('wheel', (evt) => {
+    if (autoScrolling) {
       evt.preventDefault();
       return;
     }
-    const y = window.scrollY;
-    const heroHeight = hero.offsetHeight;
-    const nextHeight = nextSection.offsetHeight;
-    const dy = evt.deltaY;
-    if (dy > 0 && y < heroHeight) {
-      // Scrolling down from within the hero: animate to next section
-      evt.preventDefault();
-      startParallax(true);
-    } else if (dy < 0 && y >= heroHeight && y < heroHeight + nextHeight) {
-      // Scrolling up from within the next section: animate back to top
-      evt.preventDefault();
-      startParallax(false);
+    const delta = evt.deltaY;
+    const scrollY = window.pageYOffset;
+    const headerHeight = header.offsetHeight;
+    const nextTop = nextSection.offsetTop;
+    if (delta > 0) {
+      // Downward scroll: trigger when leaving the very top of the page
+      if (scrollY <= 0) {
+        evt.preventDefault();
+        animateScrollTo(nextTop - headerHeight, 2500);
+      }
+    } else if (delta < 0) {
+      // Upward scroll: trigger when between the header and the next section
+      if (scrollY > headerHeight && scrollY <= nextTop) {
+        evt.preventDefault();
+        animateScrollTo(0, 2500);
+      }
     }
-  }
+  }, { passive: false });
 
-  window.addEventListener('wheel', handleWheel, { passive: false });
+  /**
+   * Hide the header when scrolling down and show it when scrolling up.
+   * Adds the `.header-hidden` class defined in styles.css to translate
+   * the header off‑screen.  This behaviour only applies after the
+   * header has been scrolled past its own height.
+   */
+  let lastScrollY = 0;
+  window.addEventListener('scroll', () => {
+    const currentY = window.pageYOffset;
+    if (currentY > lastScrollY && currentY > header.offsetHeight) {
+      header.classList.add('header-hidden');
+    } else {
+      header.classList.remove('header-hidden');
+    }
+    lastScrollY = currentY;
+  });
 
-  // Fade‑in animation for elements marked with .animate.  As they enter
-  // the viewport, they receive a .visible class which triggers CSS
-  // transitions defined in styles.css.  This observer runs on all
-  // pages and is independent of the parallax effect.
-  const animatables = document.querySelectorAll('.animate');
-  if (animatables.length > 0) {
-    const observer = new IntersectionObserver((entries) => {
+  // Fade‑in animations for elements with the .animate class.  Use an
+  // IntersectionObserver to add the .visible class when elements
+  // approach the viewport.
+  const animatedEls = document.querySelectorAll('.animate');
+  if (animatedEls.length > 0) {
+    const obs = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
         }
       });
     }, { threshold: 0.15 });
-    animatables.forEach((el) => observer.observe(el));
+    animatedEls.forEach((el) => obs.observe(el));
   }
+  // Immediately show cards in the gallery grid to avoid delayed fade‑in.
+  document.querySelectorAll('.gallery-grid .neon-card').forEach((el) => {
+    el.classList.add('visible');
+  });
 
-  // Mobile navigation toggle.  On smaller screens the menu is hidden
-  // until the hamburger icon is clicked.  Selecting a link closes the
-  // menu.  This has no effect on desktop because the `.open` class is
-  // ignored in larger media queries.
+  // Mobile navigation toggle: show/hide the nav menu on small screens.
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
   if (navToggle && navMenu) {

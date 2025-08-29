@@ -1,19 +1,148 @@
 /*
-  Custom responsiveness overrides
+  Customised styles for Silverstone site
 
-  This stylesheet contains overrides to ensure the layout scales gracefully
-  across all desktop viewport sizes without relying on a global page‑wide
-  transform.  The hero sections already occupy the full viewport height via
-  the base styles.  These rules enforce a consistent two‑column layout for
-  service rows regardless of window width, and a fixed four‑column grid for
-  the Innovation Gallery.  They use `!important` to supersede conflicting
-  declarations in the main stylesheet.
+  This stylesheet merges the bespoke parallax styling from the v24
+  custom.css with the responsive layout fixes introduced later.  It
+  ensures hero sections behave correctly during the cinematic scroll
+  animation while maintaining a consistent two‑column layout for
+  service rows and a fixed four‑column grid for the innovation
+  gallery.  Additional tweaks improve image scaling, cookie banner
+  presentation and header/logo sizing.  Scroll snapping is disabled
+  to avoid conflicts with the auto‑scroll logic in script.js.
 */
 
-/* Always display service rows as two columns.  The site’s base CSS
-   collapses these to a single column on narrow viewports.  By defining
-   `grid-template-columns: 1fr 1fr` globally with `!important`, we ensure
-   service images and text remain side by side even on very narrow windows. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  .hero.title-band {
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+  }
+}
+
+/* Darkening overlay for the hero.  The overlay opacity is animated via JS.
+   Lengthen the transition for a smoother, more cinematic fade. */
+.hero {
+  position: relative;
+  background-attachment: scroll !important;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, var(--overlay-opacity, 0));
+  pointer-events: none;
+  z-index: 0;
+  transition: background-color 0.7s ease-out;
+}
+.hero .content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cookie consent banner styles – required for GDPR compliance. */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.cookie-banner p {
+  margin: 0;
+  flex: 1 1 auto;
+  margin-right: 0.5rem;
+}
+.cookie-banner a {
+  color: var(--color-primary, #0ea5e9);
+  text-decoration: underline;
+}
+.cookie-banner button {
+  flex: 0 0 auto;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+}
+
+/* Ensure header and logo maintain consistent size across pages and screen sizes */
+.site-header {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.site-logo {
+  height: auto;
+  max-width: 200px;
+}
+@media (max-width: 768px) {
+  .site-logo {
+    max-width: 150px;
+  }
+}
+
+/* Ensure images scale proportionally instead of cropping */
+.service-image img,
+.service-row .service-image img,
+.section .service-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Smaller font and bullet indent for privacy policy and other text-heavy content */
+.neon-card ul,
+.section .neon-card ul {
+  padding-left: 1.5rem;
+  margin-left: 0;
+}
+.neon-card li,
+.section .neon-card li {
+  margin-bottom: 0.5rem;
+}
+@media (max-width: 768px) {
+  .neon-card p,
+  .neon-card li {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+
+/* Remove scroll snapping and override smooth scrolling to allow JS control */
+body,
+html {
+  scroll-behavior: auto !important;
+}
+
+/* Remove the default gradient overlay defined in styles.css so the
+   JavaScript-controlled overlay via ::after is clearly visible. */
+.hero::before {
+  background: none !important;
+}
+
+/* Contact page: make the contact form section fill the viewport height. */
+.page-contact .service-row:nth-of-type(1) {
+  min-height: 100vh;
+}
+
+/* ------------------------------------------------------------------
+   Responsive layout overrides
+
+   These rules ensure the services section and innovation gallery retain
+   their intended structures on desktop screens.  Service rows are
+   forced into two columns and alternate their content order on even
+   rows.  The gallery grid is fixed at four columns across all
+   viewport widths.  The !important flag ensures these overrides
+   supersede conflicting declarations in the base stylesheet.
+   ------------------------------------------------------------------ */
+
+/* Always display service rows as two columns. */
 .service-row {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
@@ -21,10 +150,7 @@
   align-items: stretch !important;
 }
 
-/* Maintain alternating order on even service rows.  When a service row is
-   displayed as a grid, the `order` property still applies.  This ensures
-   the image and text swap positions every other row to preserve the
-   designed rhythm. */
+/* Maintain alternating order on even service rows. */
 .service-row:nth-of-type(even) .service-image {
   order: 2 !important;
 }
@@ -32,45 +158,9 @@
   order: 1 !important;
 }
 
-/* Always force the Innovation Gallery into a 4×2 grid.  The base styles
-   use `auto-fit` to change the number of columns based on available
-   space, but for a uniform look we fix it at four columns at all
-   viewport sizes.  Images will automatically scale down to fit but
-   maintain their aspect ratio. */
+/* Force the Innovation Gallery into a 4×2 grid. */
 .gallery-grid {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
   gap: 1rem !important;
-}
-
-/*
-  Parallax animation classes
-
-  When the body receives `.scrolling-down` or `.scrolling-up` these
-  rules animate the hero and adjacent section to create a long,
-  cinematic transition.  The transformations defined here should
-  mirror the duration in script.js (2.5s).  Adjust the scale,
-  brightness or translation values to tweak the intensity of the
-  effect.
-*/
-
-body.scrolling-down .hero,
-body.scrolling-up .hero {
-  transform: scale(1.15);
-  filter: brightness(0.6);
-  transition: transform 2.5s ease, filter 2.5s ease;
-}
-
-body.scrolling-down .hero .content,
-body.scrolling-up .hero .content {
-  transform: translateY(-20%);
-  opacity: 0;
-  transition: transform 2.5s ease, opacity 2.5s ease;
-}
-
-body.scrolling-down .hero + section,
-body.scrolling-up .hero + section {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: transform 2.5s ease, opacity 2.5s ease;
 }
