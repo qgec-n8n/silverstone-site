@@ -207,3 +207,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ---------------------------------------------------------------------------
+// Desktop scaling logic
+//
+// On desktop screens the site layout is designed for a specific aspect ratio.
+// When the browser window is resized smaller or taller, we scale the entire
+// page proportionally so that the relative positioning and dimensions of text
+// and images remain consistent.  This scaling is applied only when the
+// viewport width exceeds 768px (i.e. not on mobile) and uses the window
+// dimensions at load time as the baseline.  The smaller of the horizontal and
+// vertical scale factors is used to preserve aspect ratio.
+(function() {
+  let baseWidth;
+  let baseHeight;
+  function initScaling() {
+    // Record the initial viewport size as the base dimensions for scaling.
+    baseWidth = window.innerWidth;
+    baseHeight = window.innerHeight;
+    applyScale();
+  }
+  function applyScale() {
+    // Only apply scaling on wider viewports (desktop).  On smaller screens
+    // we remove any scaling so the mobile layout can adapt naturally.
+    if (window.innerWidth <= 768) {
+      document.body.style.transform = '';
+      document.body.style.transformOrigin = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+      // Restore scrolling when not scaling on mobile sizes
+      document.body.style.overflow = '';
+      return;
+    }
+    // Compute scale factors relative to the base dimensions and choose the
+    // smaller to maintain aspect ratio.
+    const scaleX = window.innerWidth / baseWidth;
+    const scaleY = window.innerHeight / baseHeight;
+    const scale = Math.min(scaleX, scaleY);
+    document.body.style.transform = `scale(${scale})`;
+    document.body.style.transformOrigin = 'top left';
+    // Set the body’s intrinsic size so that scaling occurs relative to
+    // the original dimensions.  Without these, the scaled content may
+    // accumulate additional scrollbars.
+    document.body.style.width = `${baseWidth}px`;
+    document.body.style.height = `${baseHeight}px`;
+    // Hide overflow to avoid scrollbars on the scaled content
+    document.body.style.overflow = 'hidden';
+  }
+  document.addEventListener('DOMContentLoaded', initScaling);
+  window.addEventListener('resize', applyScale);
+})();
