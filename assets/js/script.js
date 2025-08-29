@@ -230,15 +230,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyScale() {
     // Only apply scaling on wider viewports (desktop).  On smaller screens
     // we remove any scaling so the mobile layout can adapt naturally.
-    if (window.innerWidth <= 768) {
-      document.body.style.transform = '';
-      document.body.style.transformOrigin = '';
-      document.body.style.width = '';
-      document.body.style.height = '';
-      // Restore scrolling when not scaling on mobile sizes
-      document.body.style.overflow = '';
-      return;
-    }
+    // Note: we previously disabled scaling on small screens. This prevented
+    // proportional scaling below certain widths.  To ensure the layout
+    // continuously scales no matter how small the viewport becomes, we no
+    // longer bail out when the width is below a threshold.  Instead, we
+    // always compute a scale factor and apply it.
     // Compute scale factors relative to the base dimensions and choose the
     // smaller to maintain aspect ratio.
     const scaleX = window.innerWidth / baseWidth;
