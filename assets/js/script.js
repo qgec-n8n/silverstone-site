@@ -209,47 +209,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Desktop scaling logic
+// Desktop scaling logic removed
 //
-// On desktop screens the site layout is designed for a specific aspect ratio.
-// When the browser window is resized smaller or taller, we scale the entire
-// page proportionally so that the relative positioning and dimensions of text
-// and images remain consistent.  This scaling is applied only when the
-// viewport width exceeds 768px (i.e. not on mobile) and uses the window
-// dimensions at load time as the baseline.  The smaller of the horizontal and
-// vertical scale factors is used to preserve aspect ratio.
-(function() {
-  let baseWidth;
-  let baseHeight;
-  function initScaling() {
-    // Record the initial viewport size as the base dimensions for scaling.
-    baseWidth = window.innerWidth;
-    baseHeight = window.innerHeight;
-    applyScale();
-  }
-  function applyScale() {
-    // Only apply scaling on wider viewports (desktop).  On smaller screens
-    // we remove any scaling so the mobile layout can adapt naturally.
-    // Note: we previously disabled scaling on small screens. This prevented
-    // proportional scaling below certain widths.  To ensure the layout
-    // continuously scales no matter how small the viewport becomes, we no
-    // longer bail out when the width is below a threshold.  Instead, we
-    // always compute a scale factor and apply it.
-    // Compute scale factors relative to the base dimensions and choose the
-    // smaller to maintain aspect ratio.
-    const scaleX = window.innerWidth / baseWidth;
-    const scaleY = window.innerHeight / baseHeight;
-    const scale = Math.min(scaleX, scaleY);
-    document.body.style.transform = `scale(${scale})`;
-    document.body.style.transformOrigin = 'top left';
-    // Set the body’s intrinsic size so that scaling occurs relative to
-    // the original dimensions.  Without these, the scaled content may
-    // accumulate additional scrollbars.
-    document.body.style.width = `${baseWidth}px`;
-    document.body.style.height = `${baseHeight}px`;
-    // Hide overflow to avoid scrollbars on the scaled content
-    document.body.style.overflow = 'hidden';
-  }
-  document.addEventListener('DOMContentLoaded', initScaling);
-  window.addEventListener('resize', applyScale);
-})();
+// Previous versions of this script attempted to globally scale the entire page
+// on desktop to preserve a fixed aspect ratio.  This approach relied on
+// baselining the page dimensions at load and applying a `transform: scale()`
+// whenever the browser was resized.  While it kept elements aligned for
+// moderate viewport changes, it introduced significant issues at extreme
+// aspect ratios.  Users reported that very wide or tall windows created
+// "black bars" where the scaled page no longer filled the viewport, and
+// certain sections (notably the hero areas) failed to extend to the bottom
+// or edges of the window.
+//
+// To resolve these problems we have completely removed the desktop scaling
+// logic.  The site is now purely responsive: the hero sections rely on
+// CSS `min-height: 100vh` and `background-size: cover` to fill the browser
+// window, service rows use CSS grid to remain side by side on larger
+// screens, and galleries leverage CSS grid for consistent layouts.  Without
+// the global scale transformation, the layout naturally adapts to any
+// viewport size without leaving unused space.  If additional fine‑grained
+// responsiveness is required in the future, it should be implemented using
+// media queries and flexible units rather than a single page‑wide scale.

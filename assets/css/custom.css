@@ -1,153 +1,44 @@
 /*
-  Customised styles for Silverstone site (v24)
+  Custom responsiveness overrides
 
-  These styles complement the improved parallax and scroll behaviour introduced
-  in script.js (v25).  The hero section uses overflow:hidden so that scaling
-  doesn't cause the image to bleed outside its container.  Scroll snapping is
-  disabled to avoid conflicts with the custom auto‑scroll animation.  The darkening
-  overlay is controlled via the CSS custom property --overlay-opacity, which is
-  updated in the JavaScript as the user scrolls.  We also lengthen the overlay
-  transition to match the extended animation duration for a smoother, cinematic fade.
+  This stylesheet contains overrides to ensure the layout scales gracefully
+  across all desktop viewport sizes without relying on a global page‑wide
+  transform.  The hero sections already occupy the full viewport height via
+  the base styles.  These rules enforce a consistent two‑column layout for
+  service rows regardless of window width, and a fixed four‑column grid for
+  the Innovation Gallery.  They use `!important` to supersede conflicting
+  declarations in the main stylesheet.
 */
 
-@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
-  .hero.title-band {
-    /* Attach the background to the element rather than the viewport.  When
-       background-attachment is fixed, scaling the hero element causes the
-       background to remain static relative to the viewport, which appears as
-       though the image is changing.  Use scroll so the background scales
-       consistently with its container. */
-    background-attachment: scroll;
-    background-position: center;
-    background-size: cover;
-    overflow: hidden;
-  }
+/* Always display service rows as two columns.  The site’s base CSS
+   collapses these to a single column on narrow viewports.  By defining
+   `grid-template-columns: 1fr 1fr` globally with `!important`, we ensure
+   service images and text remain side by side even on very narrow windows. */
+.service-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 2rem !important;
+  align-items: stretch !important;
 }
 
-/* Darkening overlay for the hero.  The overlay opacity is animated via JS.
-   Lengthen the transition for a smoother, more cinematic fade. */
-.hero {
-  position: relative;
+/* Maintain alternating order on even service rows.  When a service row is
+   displayed as a grid, the `order` property still applies.  This ensures
+   the image and text swap positions every other row to preserve the
+   designed rhythm. */
+.service-row:nth-of-type(even) .service-image {
+  order: 2 !important;
 }
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, var(--overlay-opacity, 0));
-  pointer-events: none;
-  z-index: 0;
-  transition: background-color 0.7s ease-out;
-}
-.hero .content {
-  position: relative;
-  z-index: 1;
+.service-row:nth-of-type(even) .service-content {
+  order: 1 !important;
 }
 
-/* Cookie consent banner styles – required for GDPR compliance. */
-.cookie-banner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.9);
-  color: #fff;
-  padding: 1rem 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1000;
-  font-size: 0.875rem;
-  line-height: 1.4;
-}
-
-/* Ensure header and logo maintain consistent size across pages and screen sizes */
-.site-header {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-.site-logo {
-  height: auto;
-  max-width: 200px;
-}
-@media (max-width: 768px) {
-  .site-logo {
-    max-width: 150px;
-  }
-}
-
-/* Ensure images scale proportionally instead of cropping */
-.service-image img,
-.service-row .service-image img,
-.section .service-image img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-/* Smaller font and bullet indent for privacy policy and other text-heavy content */
-.neon-card ul,
-.section .neon-card ul {
-  padding-left: 1.5rem;
-  margin-left: 0;
-}
-.neon-card li,
-.section .neon-card li {
-  margin-bottom: 0.5rem;
-}
-@media (max-width: 768px) {
-  .neon-card p,
-  .neon-card li {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-}
-.cookie-banner p {
-  margin: 0;
-  flex: 1 1 auto;
-  margin-right: 0.5rem;
-}
-.cookie-banner a {
-  color: var(--color-primary, #0ea5e9);
-  text-decoration: underline;
-}
-.cookie-banner button {
-  flex: 0 0 auto;
-  margin-top: 0.5rem;
-  margin-left: 1rem;
-}
-
-/* Remove scroll snapping to allow the custom auto-scroll effect to control movement */
-/* Override the default smooth scrolling defined in the base stylesheet.
-   The custom parallax animation needs full control over scroll behaviour,
-   so both the html and body elements are set to use automatic scrolling. */
-body,
-html {
-  scroll-behavior: auto !important;
-}
-
-/* Remove the default gradient overlay defined in styles.css so the
-   JavaScript‑controlled overlay via ::after is clearly visible. */
-.hero::before {
-  background: none !important;
-}
-
-/* Force all hero backgrounds to scroll with the element by default.  This
-   override prevents backgrounds from being fixed to the viewport on pages
-   where styles.css might specify background-attachment: fixed; and ensures
-   that scaling the hero does not cause the image to appear to change or
-   rotate. */
-.hero {
-  background-attachment: scroll !important;
-}
-
-/* Contact page: make the contact form section fill the viewport height.
-   The contact page uses a .page-contact class on the body and defines
-   its form/map row using .service-row.  By setting a minimum height
-   of 100vh, the row scales proportionally to the browser window. */
-/* Apply only to the first service-row on the contact page.  Using nth-of-type
-   ensures that additional service sections (e.g. map or FAQs) are not forced
-   to full-height. */
-.page-contact .service-row:nth-of-type(1) {
-  min-height: 100vh;
+/* Always force the Innovation Gallery into a 4×2 grid.  The base styles
+   use `auto-fit` to change the number of columns based on available
+   space, but for a uniform look we fix it at four columns at all
+   viewport sizes.  Images will automatically scale down to fit but
+   maintain their aspect ratio. */
+.gallery-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 1rem !important;
 }
