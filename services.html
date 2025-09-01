@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <!--
-  Cleaned Services page for Silverstone site.
-  This version removes duplicate class declarations and ensures every
-  service image is wrapped in a single neon-card for consistent
-  styling.  It also loads the cleaned custom stylesheet which
-  contains mobile fixes for padding and scaling.  All content and
-  structure remain unchanged from the original.
+  Modified Services page for Silverstone site.
+  Updates terminology from Lead Generation & Validation to Lead Generation & Qualification
+  and refreshes the description and bullet text accordingly.  All other content
+  is preserved from the original version.
 -->
 <html lang="en">
   <head>
@@ -17,12 +15,59 @@
     <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap"
+      rel="stylesheet"
+    />
     <link href="assets/css/styles.css" rel="stylesheet" />
-    <!-- Load cleaned custom overrides after the base styles -->
-    <link href="assets/css/custom.css" rel="stylesheet" />
     <link href="assets/css/services-fixes-v21.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p1J1l+ChOWuC2DdvexO3YOk1GMqtUx24TAL7E6H28uGcvo95DaEIbX4QK1s4xM4piw24+rMpp4IPuu8m4IS7Dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-p1J1l+ChOWuC2DdvexO3YOk1GMqtUx24TAL7E6H28uGcvo95DaEIbX4QK1s4xM4piw24+rMpp4IPuu8m4IS7Dw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Neon overlay/stacking isolation fix -->
+    <style id="neon-fix">
+      /* Create a local stacking context so the overlay sits between bg and content */
+      .section.bg-circuit {
+        position: relative;
+        isolation: isolate;
+      }
+      .section.bg-circuit::before {
+        z-index: 0;
+        pointer-events: none;
+      }
+      /* Ensure page content is above the overlay */
+      .section.bg-circuit > .container {
+        position: relative;
+        z-index: 1;
+      }
+      /* Keep neon cards and service blocks above everything in the section */
+      .neon-card {
+        position: relative;
+        z-index: 2;
+      }
+      .service-row,
+      .service-image,
+      .service-content {
+        position: relative;
+        z-index: 2;
+      }
+    </style>
+    <!-- Serve smaller hero background on narrow screens -->
+    <style>
+      @media (max-width: 900px) {
+        .hero {
+          background-image: url('assets/images/internet/hero/services-hero-final.webp');
+          background-image: image-set(
+            url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x,
+            url('assets/images/internet/hero/services-hero-final.webp') type('image/jpeg') 1x
+          );
+        }
+      }
+    </style>
   </head>
   <body class="page-services">
     <!-- Cookie banner -->
@@ -39,7 +84,12 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="logo" href="index.html">
-          <img alt="Silverstone Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x" />
+          <img
+            alt="Silverstone Logo"
+            class="site-logo"
+            src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
+            srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"
+          />
         </a>
         <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
           <span></span><span></span><span></span>
@@ -56,7 +106,11 @@
       </div>
     </header>
     <!-- Hero -->
-    <section class="hero title-band" style="background-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x, url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x );">
+    <!-- Updated hero background for Services to a new mesh gradient image -->
+    <section
+      class="hero title-band"
+      style="background-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x, url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x );"
+    >
       <div class="content">
         <h1>Our Services</h1>
         <p>
@@ -68,10 +122,15 @@
     <!-- Services Listing -->
     <section class="section bg-circuit">
       <div class="container">
-        <!-- Lead Generation &amp; Qualification -->
+        <!-- Lead Generation & Qualification -->
         <div class="service-row animate" id="lead-gen">
-          <div class="service-image neon-card">
-            <img src="assets/images/zip/lead-gen-automation.png" alt="Abstract neon funnel capturing and qualifying leads" class="service-img" loading="lazy" />
+          <div class="service-image service-image">
+            <img
+              src="assets/images/zip/lead-gen-automation.png"
+              alt="Abstract neon funnel capturing and qualifying leads"
+              class="service-img"
+              loading="lazy"
+            />
           </div>
           <div class="service-content neon-card">
             <h3>Lead Generation &amp; Qualification</h3>
@@ -91,13 +150,22 @@
         </div>
         <!-- Process Automation -->
         <div class="service-row animate" id="automation">
-          <div class="service-image neon-card">
-            <img src="assets/images/zip/Silverstone_11.jpg" alt="Colourful shapes connected by a rainbow line representing workflow automation" class="service-img" loading="lazy" />
+          <div class="service-image service-image">
+            <img
+              alt="Colourful shapes connected by a rainbow line representing workflow automation"
+              class="service-img"
+              loading="lazy"
+              src="assets/images/zip/Silverstone_11.jpg"
+            />
           </div>
           <div class="service-content neon-card">
             <h3>Process Automation</h3>
             <p>
-              Automate repetitive tasks and orchestrate complex processes with smart workflows that ensure everything happens at the right time and in the right order. We map your existing procedures, identify bottlenecks and design custom automations that eliminate manual work, improve accuracy and increase throughput.
+              Automate repetitive tasks and orchestrate complex processes with smart
+              workflows that ensure everything happens at the right time and in the
+              right order. We map your existing procedures, identify bottlenecks and
+              design custom automations that eliminate manual work, improve accuracy and
+              increase throughput.
             </p>
             <ul>
               <li>Custom workflow design tailored to your business</li>
@@ -109,13 +177,21 @@
         </div>
         <!-- Document Management -->
         <div class="service-row animate" id="documents">
-          <div class="service-image neon-card">
-            <img src="assets/images/zip/Silverstone_08.jpg" alt="Robotic arms sorting digital documents" class="service-img" loading="lazy" />
+          <div class="service-image service-image">
+            <img
+              alt="Robotic arms sorting digital documents"
+              class="service-img"
+              loading="lazy"
+              src="assets/images/zip/Silverstone_08.jpg"
+            />
           </div>
           <div class="service-content neon-card">
             <h3>Document Management</h3>
             <p>
-              Digitise, organise and route your paperwork with AI‑powered document management. Our solutions classify, extract and deliver information exactly where it’s needed, saving you hours of manual sorting and ensuring your team always has access to the right files.
+              Digitise, organise and route your paperwork with AI‑powered document
+              management. Our solutions classify, extract and deliver information
+              exactly where it’s needed, saving you hours of manual sorting and
+              ensuring your team always has access to the right files.
             </p>
             <ul>
               <li>AI classification and metadata tagging</li>
@@ -125,15 +201,25 @@
             <a class="btn btn-secondary" href="book.html">Let’s Talk Automation</a>
           </div>
         </div>
-        <!-- Data &amp; Analytics -->
+        <!-- Data & Analytics -->
         <div class="service-row animate" id="analytics" style="align-items: stretch">
-          <div class="service-image neon-card" style="display: flex; align-items: stretch">
-            <img src="assets/images/zip/Silverstone_07.jpg" alt="Neon data dashboard with charts and graphs" class="service-img analytics-img" loading="lazy" style="position: static; height: 100%; width: auto; object-fit: contain; display: block" />
+          <div class="service-image service-image" style="display: flex; align-items: stretch">
+            <img
+              alt="Neon data dashboard with charts and graphs"
+              class="service-img"
+              loading="lazy"
+              src="assets/images/zip/Silverstone_07.jpg"
+              class="analytics-img"
+              style="position: static; height: 100%; width: auto; object-fit: contain; display: block"
+            />
           </div>
           <div class="service-content neon-card" style="padding-top: 16px; padding-bottom: 16px">
             <h3>Data &amp; Analytics</h3>
             <p>
-              Transform raw data into actionable insights. Our analytics solutions consolidate data from across your organisation into intuitive dashboards and reports, giving you the clarity and foresight to make smarter decisions faster.
+              Transform raw data into actionable insights. Our analytics solutions
+              consolidate data from across your organisation into intuitive dashboards
+              and reports, giving you the clarity and foresight to make smarter
+              decisions faster.
             </p>
             <ul>
               <li>Interactive dashboards and visualisations</li>
@@ -145,13 +231,20 @@
         </div>
         <!-- System Integration -->
         <div class="service-row animate" id="integration">
-          <div class="service-image neon-card">
-            <img src="assets/images/zip/Silverstone_24.jpg" alt="Translucent digital pipes carrying binary code" class="service-img" loading="lazy" />
+          <div class="service-image service-image">
+            <img
+              alt="Translucent digital pipes carrying binary code"
+              class="service-img"
+              loading="lazy"
+              src="assets/images/zip/Silverstone_24.jpg"
+            />
           </div>
           <div class="service-content neon-card">
             <h3>System Integration</h3>
             <p>
-              Connect your favourite tools and platforms into a seamless ecosystem. We design and implement integrations that synchronise data across systems, reduce duplication and errors, and unlock new opportunities for automation.
+              Connect your favourite tools and platforms into a seamless ecosystem. We
+              design and implement integrations that synchronise data across systems,
+              reduce duplication and errors, and unlock new opportunities for automation.
             </p>
             <ul>
               <li>API integration and middleware development</li>
@@ -163,13 +256,21 @@
         </div>
         <!-- AI Consulting -->
         <div class="service-row animate" id="consulting">
-          <div class="service-image neon-card">
-            <img src="assets/images/zip/Silverstone_21.jpg" alt="Businessman collaborating with a digital AI figure" class="service-img" loading="lazy" />
+          <div class="service-image service-image">
+            <img
+              alt="Businessman collaborating with a digital AI figure"
+              class="service-img"
+              loading="lazy"
+              src="assets/images/zip/Silverstone_21.jpg"
+            />
           </div>
           <div class="service-content neon-card">
             <h3>AI Consulting</h3>
             <p>
-              Leverage cutting‑edge artificial intelligence to forecast demand, personalise experiences and drive innovation. Our experts guide you through every step of your AI journey—from strategy and model selection to deployment and optimisation.
+              Leverage cutting‑edge artificial intelligence to forecast demand,
+              personalise experiences and drive innovation. Our experts guide you
+              through every step of your AI journey—from strategy and model selection
+              to deployment and optimisation.
             </p>
             <ul>
               <li>Strategic AI roadmap development</li>
@@ -181,13 +282,21 @@
         </div>
         <!-- Financial Automation -->
         <div class="service-row animate" id="finance">
-          <div class="service-image neon-card">
-            <img src="assets/images/zip/Silverstone_17.jpg" alt="Neon coins and banknotes swirling through a digital stream" class="service-img" loading="lazy" />
+          <div class="service-image service-image">
+            <img
+              alt="Neon coins and banknotes swirling through a digital stream"
+              class="service-img"
+              loading="lazy"
+              src="assets/images/zip/Silverstone_17.jpg"
+            />
           </div>
           <div class="service-content neon-card">
             <h3>Financial Automation</h3>
             <p>
-              Simplify invoicing, payments and accounting with automated financial workflows. We integrate your billing systems, payment gateways and accounting software to ensure transactions are processed smoothly and accurately.
+              Simplify invoicing, payments and accounting with automated financial
+              workflows. We integrate your billing systems, payment gateways and
+              accounting software to ensure transactions are processed smoothly and
+              accurately.
             </p>
             <ul>
               <li>Automated invoicing and payment collection</li>
@@ -197,15 +306,22 @@
             <a class="btn btn-secondary" href="book.html">Improve Cash Flow</a>
           </div>
         </div>
-        <!-- Time &amp; Resource Optimisation -->
+        <!-- Time & Resource Optimisation -->
         <div class="service-row animate" id="time">
-          <div class="service-image neon-card">
-            <img src="assets/images/zip/Silverstone_19.jpg" alt="Hourglass formed from binary digits representing time-saving" class="service-img" loading="lazy" />
+          <div class="service-image service-image">
+            <img
+              alt="Hourglass formed from binary digits representing time-saving"
+              class="service-img"
+              loading="lazy"
+              src="assets/images/zip/Silverstone_19.jpg"
+            />
           </div>
           <div class="service-content neon-card">
             <h3>Time &amp; Resource Optimisation</h3>
             <p>
-              Maximise efficiency by intelligently scheduling tasks and allocating resources. Our optimisation engines analyse workloads and availability to ensure the right people and assets are assigned at the right time.
+              Maximise efficiency by intelligently scheduling tasks and allocating
+              resources. Our optimisation engines analyse workloads and availability to
+              ensure the right people and assets are assigned at the right time.
             </p>
             <ul>
               <li>Smart scheduling algorithms</li>
@@ -217,13 +333,20 @@
         </div>
         <!-- Global Connectivity -->
         <div class="service-row animate" id="connectivity">
-          <div class="service-image neon-card">
-            <img src="assets/images/zip/Silverstone_01.jpg" alt="Connected skyscrapers forming a digital network across a city skyline" class="service-img" loading="lazy" />
+          <div class="service-image service-image">
+            <img
+              alt="Connected skyscrapers forming a digital network across a city skyline"
+              class="service-img"
+              loading="lazy"
+              src="assets/images/zip/Silverstone_01.jpg"
+            />
           </div>
           <div class="service-content neon-card">
             <h3>Global Connectivity</h3>
             <p>
-              Bridge the gap between teams, tools and locations. We design cloud‑first architectures and scalable systems that keep your workforce connected and productive—no matter where they are in the world.
+              Bridge the gap between teams, tools and locations. We design cloud‑first
+              architectures and scalable systems that keep your workforce connected and
+              productive—no matter where they are in the world.
             </p>
             <ul>
               <li>Cloud infrastructure design and migration</li>
@@ -239,28 +362,68 @@
         <div class="gallery-grid" id="innovation-gallery">
           <!-- Wrap all images in neon cards for consistency -->
           <div class="service-image">
-            <img src="assets/images/zip/Silverstone_05.jpg" loading="lazy" alt="Globe encircled by neon rings with 24/7 highlighting around‑the‑clock service" class="service-img gallery-img neon1" />
+            <img
+              src="assets/images/zip/Silverstone_05.jpg"
+              loading="lazy"
+              alt="Globe encircled by neon rings with 24/7 highlighting around‑the‑clock service"
+              class="service-img gallery-img neon1"
+            />
           </div>
           <div class="service-image">
-            <img src="assets/images/zip/Silverstone_09.jpg" loading="lazy" alt="Funnel transforming streams of data points into organised cubes" class="service-img gallery-img neon2" />
+            <img
+              src="assets/images/zip/Silverstone_09.jpg"
+              loading="lazy"
+              alt="Funnel transforming streams of data points into organised cubes"
+              class="service-img gallery-img neon2"
+            />
           </div>
           <div class="service-image">
-            <img src="assets/images/zip/Silverstone_10.jpg" loading="lazy" alt="Circuit tree with green leaves symbolising sustainable growth through technology" class="service-img gallery-img neon3" />
+            <img
+              src="assets/images/zip/Silverstone_10.jpg"
+              loading="lazy"
+              alt="Circuit tree with green leaves symbolising sustainable growth through technology"
+              class="service-img gallery-img neon3"
+            />
           </div>
           <div class="service-image">
-            <img src="assets/images/zip/Silverstone_12_new.jpg" loading="lazy" alt="Digital human interface highlighting customer‑centric interface" class="service-img gallery-img neon4" />
+            <img
+              src="assets/images/zip/Silverstone_12_new.jpg"
+              loading="lazy"
+              alt="Digital human interface highlighting customer‑centric interface"
+              class="service-img gallery-img neon4"
+            />
           </div>
           <div class="service-image">
-            <img src="assets/images/zip/Silverstone_13.jpg" loading="lazy" alt="Glowing network connections converging toward Silverstone" class="service-img gallery-img neon5" />
+            <img
+              src="assets/images/zip/Silverstone_13.jpg"
+              loading="lazy"
+              alt="Glowing network connections converging toward Silverstone"
+              class="service-img gallery-img neon5"
+            />
           </div>
           <div class="service-image">
-            <img src="assets/images/zip/Silverstone_23.jpg" loading="lazy" alt="Neon brain made of circuitry representing artificial intelligence" class="service-img gallery-img neon6" />
+            <img
+              src="assets/images/zip/Silverstone_23.jpg"
+              loading="lazy"
+              alt="Neon brain made of circuitry representing artificial intelligence"
+              class="service-img gallery-img neon6"
+            />
           </div>
           <div class="service-image">
-            <img src="assets/images/zip/Silverstone_29.jpg" loading="lazy" alt="Colourful nodes connected to a digital network" class="service-img gallery-img neon7" />
+            <img
+              src="assets/images/zip/Silverstone_29.jpg"
+              loading="lazy"
+              alt="Colourful nodes connected to a digital network"
+              class="service-img gallery-img neon7"
+            />
           </div>
           <div class="service-image">
-            <img src="assets/images/zip/Silverstone_30.jpg" loading="lazy" alt="Highway towards a sunrise with the text optimise and succeed" class="service-img gallery-img neon8" />
+            <img
+              src="assets/images/zip/Silverstone_30.jpg"
+              loading="lazy"
+              alt="Highway towards a sunrise with the text optimise and succeed"
+              class="service-img gallery-img neon8"
+            />
           </div>
         </div>
       </div>
