@@ -41,12 +41,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // Determine if the current viewport is considered "mobile".
   // On small screens we disable the cinematic parallax behaviour entirely
   // and allow the page to scroll normally.  The threshold of 900px aligns
-  // with the breakpoints used in the CSS.  Safari on macOS has trouble
-  // restoring scrollability after the auto‑scroll animation, so we treat
-  // that browser as mobile as well to disable the parallax.
+  // with the breakpoints used in the CSS.
+  //
+  // Safari historically had issues restoring scrollability after the
+  // parallax auto‑scroll sequence, but recent versions (18 and later)
+  // resolve this.  Parse the version number from the user agent and
+  // only disable parallax on Safari releases prior to 18.  This allows
+  // Safari 18.4 and newer to enjoy the same experience as Chrome.
   const ua = navigator.userAgent || '';
+  const safariMatch = ua.match(/Version\/(\d+)\.(\d+)/);
+  let safariVersion = 0;
+  if (safariMatch) {
+    safariVersion = parseFloat(`${safariMatch[1]}.${safariMatch[2]}`);
+  }
   const isSafari = /safari/i.test(ua) && !/chrome|crios|android/i.test(ua);
-  const isMobile = window.innerWidth <= 900 || isSafari;
+  const disableParallax = isSafari && safariVersion < 18;
+  const isMobile = window.innerWidth <= 900 || disableParallax;
 
   const hero = document.querySelector('.hero');
   // Find the first <section> after the hero.  Some pages insert
