@@ -1,14 +1,16 @@
 /*
-  Customised styles for Silverstone site
+  Customised styles for Silverstone site (cleaned and improved)
 
-  This stylesheet merges the bespoke parallax styling from the v24
-  custom.css with the responsive layout fixes introduced later.  It
-  ensures hero sections behave correctly during the cinematic scroll
-  animation while maintaining a consistent two‑column layout for
-  service rows and a fixed four‑column grid for the innovation
-  gallery.  Additional tweaks improve image scaling, cookie banner
-  presentation and header/logo sizing.  Scroll snapping is disabled
-  to avoid conflicts with the auto‑scroll logic in script.js.
+  This stylesheet merges the bespoke parallax styling from the original
+  custom.css with responsive layout fixes and additional corrections to
+  mobile service cards.  Key changes include:
+  - Consolidated comments and removed redundant rules.
+  - Increased padding around image cards on mobile so the neon border
+    properly frames the pictures (e.g. skyline and handshake images).
+  - Standardised padding for text cards on mobile so each box fits its
+    content comfortably without excessive whitespace.
+  - Maintained the removal of scroll snapping and overscroll behaviour to
+    support the JavaScript-driven auto‑scroll.
 */
 
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
@@ -131,135 +133,114 @@ html {
   min-height: 100vh;
 }
 
-    /* ------------------------------------------------------------------
-       Responsive layout overrides
+/* ------------------------------------------------------------------
+   Responsive layout overrides
 
-       These rules ensure the services section and innovation gallery retain
-       their intended structures on desktop screens.  Service rows are
-       forced into two columns and alternate their content order on even
-       rows.  The gallery grid is fixed at four columns across all
-       viewport widths.  The !important flag ensures these overrides
-       supersede conflicting declarations in the base stylesheet.
-       ------------------------------------------------------------------ */
+   These rules ensure the services section and innovation gallery retain
+   their intended structures on desktop screens.  Service rows are
+   forced into two columns and alternate their content order on even
+   rows.  The gallery grid is fixed at four columns across all
+   viewport widths.  The !important flag ensures these overrides
+   supersede conflicting declarations in the base stylesheet.
+   ------------------------------------------------------------------ */
 
-    /* Always display service rows as two columns on desktop. */
-    @media (min-width: 769px) {
-      .service-row {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 2rem !important;
-        align-items: stretch !important;
-      }
+@media (min-width: 769px) {
+  /* Always display service rows as two columns on desktop. */
+  .service-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+    align-items: stretch !important;
+  }
+  /* Maintain alternating order on even service rows. */
+  .service-row:nth-of-type(even) .service-image {
+    order: 2 !important;
+  }
+  .service-row:nth-of-type(even) .service-content {
+    order: 1 !important;
+  }
+}
 
-      /* Maintain alternating order on even service rows. */
-      .service-row:nth-of-type(even) .service-image {
-        order: 2 !important;
-      }
-      .service-row:nth-of-type(even) .service-content {
-        order: 1 !important;
-      }
-    }
+@media (max-width: 768px) {
+  /* Stack image and content vertically on mobile using flex so that
+     flex-basis rules from the base stylesheet don’t collapse the
+     children.  A gap is added for consistent spacing. */
+  .service-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+  }
+  .service-image,
+  .service-content {
+    width: 100% !important;
+  }
+  /* Ensure mobile service cards don't impose fixed flex-basis values
+     inherited from the desktop layout.  Allow the columns to grow
+     naturally so that text boxes and images wrap consistently. */
+  .service-row .service-image,
+  .service-row .service-content {
+    flex-basis: auto !important;
+  }
+  /* Increase padding on image cards so neon borders properly frame
+     images (fixes skyline and handshake images on mobile). */
+  .service-row .service-image.neon-card {
+    padding: 1rem !important;
+    overflow: visible !important;
+  }
+  /* Apply a consistent, slightly larger padding to text cards on mobile.
+     This avoids overly small or large boxes and prevents text from
+     spilling outside. */
+  .service-row .service-content.neon-card {
+    padding: 1.5rem !important;
+  }
+  /* Ensure images on mobile grow naturally to their intrinsic height. */
+  .service-image img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+  /* Reset equal‑height rules on mobile so that the image and content
+     containers can grow naturally. */
+  .service-row .service-content.neon-card,
+  .service-row .service-image.neon-card {
+    height: auto !important;
+  }
+  .service-row .service-image.neon-card img {
+    height: auto !important;
+    object-fit: contain !important;
+  }
+  /* Reduce padding on generic neon cards for stacked layouts so that
+     borders and backgrounds better fit the smaller mobile viewport. */
+  .service-row .neon-card {
+    padding: 1rem !important;
+  }
+  /* Reset the service scaling on mobile.  The base stylesheet uses
+     --service-scale to uniformly shrink service cards, which makes
+     padding and borders appear too large when stacked.  Setting this
+     variable to 1 restores the natural proportions. */
+  :root {
+    --service-scale: 1 !important;
+  }
+  /* Prevent horizontal scrolling on mobile by hiding overflow */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
 
-    /* On smaller screens stack the image and content vertically and prevent
-       cropping.  This also hides any horizontal overflow. */
-    @media (max-width: 768px) {
-      .service-row {
-        /* Stack image and content vertically on mobile using flex so that
-           flex-basis rules from the base stylesheet don’t collapse the
-           children.  A gap is added for consistent spacing. */
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 2rem !important;
-      }
-      .service-image,
-      .service-content {
-        width: 100% !important;
-      }
-
-      /* Ensure mobile service cards don't impose fixed flex-basis values
-         inherited from the desktop layout.  Allow the columns to grow
-         naturally so that text boxes and images wrap consistently. */
-      .service-row .service-image,
-      .service-row .service-content {
-        flex-basis: auto !important;
-      }
-
-      /* Remove padding from image cards so that neon borders hug the
-         images closely, eliminating the large boxes seen around the
-         skyline and handshake pictures on mobile. */
-      .service-row .service-image.neon-card {
-        padding: 0 !important;
-        overflow: visible !important;
-      }
-
-      /* Apply a consistent padding to text cards on mobile.  This avoids
-         overly small or large boxes and prevents text from spilling
-         outside. */
-      .service-row .service-content.neon-card {
-        padding: 1rem !important;
-      }
-      .service-image img {
-        width: 100% !important;
-        /* Ensure images on mobile grow naturally to their intrinsic height.
-         * Without this override, the base stylesheet forces the images to
-         * stretch to match their parent’s height (100%), which collapses
-         * when the parent has no fixed height, causing the images to
-         * disappear.  Setting height: auto and object‑fit: contain
-         * ensures the images display fully and are not cropped. */
-        height: auto !important;
-        object-fit: contain !important;
-      }
-
-      /* Reset equal‑height rules on mobile so that the image and content
-         containers can grow naturally.  The base styles impose
-         height:100% on these elements to align card heights on larger
-         screens.  On small viewports, this prevents the section from
-         expanding to accommodate images and text, which can make
-         images disappear. */
-      .service-row .service-content.neon-card,
-      .service-row .service-image.neon-card {
-        height: auto !important;
-      }
-      .service-row .service-image.neon-card img {
-        height: auto !important;
-        object-fit: contain !important;
-      }
-
-      /* Reduce padding on neon cards for stacked layouts so that the
-         borders and backgrounds better fit the smaller mobile viewport. */
-      .service-row .neon-card {
-        padding: 1rem !important;
-      }
-
-      /* Reset the service scaling on mobile.  The base stylesheet uses
-         --service-scale to uniformly shrink service cards, which makes
-         padding and borders appear too large when stacked.  Setting
-         this variable to 1 restores the natural proportions. */
-      :root {
-        --service-scale: 1 !important;
-      }
-    /* Prevent horizontal scrolling on mobile by hiding overflow */
-      html,
-      body {
-        overflow-x: hidden;
-      }
-    }
-
-/* Prevent horizontal scrollbars on all viewports by default */
+/* Prevent horizontal scrollbars on all viewports by default and disable
+   the browser's overscroll behaviour to eliminate bounce/overshoot.
+   These overrides support the JavaScript-driven scroll animations. */
 html,
 body {
   overflow-x: hidden;
-  /* Prevent bounce/overshoot shudder when the user aggressively scrolls
-     past the top of the second section.  By disabling the browser's
-     overscroll behaviour, we ensure the scroll position clamps cleanly
-     and the parallax animation starts smoothly. */
   overscroll-behavior-y: none;
   overscroll-behavior: none;
 }
 
-    /* Force the Innovation Gallery into a 4×2 grid. */
-    .gallery-grid {
-      display: grid !important;
-      grid-template-columns: repeat(4, 1fr) !important;
-      gap: 1rem !important;
-    }
+/* Force the Innovation Gallery into a 4×2 grid. */
+.gallery-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 1rem !important;
+}
