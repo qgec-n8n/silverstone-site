@@ -154,35 +154,60 @@ document.addEventListener('DOMContentLoaded', () => {
    * the wheel input.
    */
       if (!isMobile) {
-        window.addEventListener('wheel', (evt) => {
-          if (autoScrolling) {
-            evt.preventDefault();
-            return;
-          }
-          const delta = evt.deltaY;
-          const scrollY = window.pageYOffset;
-          const nextTop = nextSection.offsetTop;
-          if (delta > 0) {
-            // Downward scroll: trigger when leaving the very top of the page.
-            if (scrollY <= 0) {
+        window.addEventListener(
+          'wheel',
+          (evt) => {
+            // If an auto‑scroll animation is currently running, block all
+            // wheel inputs to prevent the user from interfering.
+            if (autoScrolling) {
               evt.preventDefault();
-              // Scroll directly to the top of the next section.  Do not
-              // subtract the header height because the header animates out
-              // of view; this ensures the section ends flush at the top.
-              animateScrollTo(nextTop, 2500);
+              return;
             }
-          } else if (delta < 0) {
-            // Upward scroll: trigger when returning from the second section
-            // towards the hero.  If the current position is within or above
-            // the next section (but not already at the top), force an
-            // auto‑scroll back to the hero to prevent manual scrolling from
-            // revealing the hero prematurely.
-            if (scrollY <= nextTop && scrollY > 0) {
-              evt.preventDefault();
-              animateScrollTo(0, 2500);
+            const delta = evt.deltaY;
+            const scrollY = window.pageYOffset;
+            const nextTop = nextSection.offsetTop;
+
+            // Downward scroll: initiate the parallax transition from the hero
+            // to the second section only when the user is at the very top of
+            // the page.  Do not subtract the header height because the header
+            // animates out of view; this ensures the second section lands
+            // flush at the top of the viewport.
+            if (delta > 0) {
+              if (scrollY <= 0) {
+                evt.preventDefault();
+                animateScrollTo(nextTop, 2500);
+              }
+              return;
             }
-          }
-        }, { passive: false });
+
+            // Upward scroll: prevent the user from overshooting the top of
+            // the second section and revealing the hero before the parallax
+            // animation plays.  We calculate the predicted scroll position
+            // after applying the wheel delta.  If the predicted position
+            // crosses into the hero region (<= nextTop), clamp the scroll
+            // position to the top of the second section and trigger the
+            // parallax return.
+            if (delta < 0) {
+              if (scrollY > 0) {
+                const predicted = scrollY + delta;
+                if (predicted <= nextTop) {
+                  evt.preventDefault();
+                  // Snap to the top of the second section to avoid any
+                  // momentary exposure of the hero during the wheel fling.
+                  window.scrollTo(0, nextTop);
+                  // Kick off the parallax return on the next tick.  Using
+                  // setTimeout ensures the browser completes the snap
+                  // scroll before we start the smooth animation back to the
+                  // top of the hero.
+                  setTimeout(() => {
+                    animateScrollTo(0, 2500);
+                  }, 0);
+                }
+              }
+            }
+          },
+          { passive: false }
+        );
       }
 
   /**

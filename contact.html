@@ -43,6 +43,16 @@
 
 </head>
 <body class="page-contact">
+  <!-- Cookie banner -->
+  <div id="cookie-banner" class="cookie-banner">
+    <p>
+      We use cookies to improve your browsing experience and to analyse website
+      traffic. By clicking “Accept”, you consent to our use of cookies. For
+      more details, please read our
+      <a href="privacy-policy.html">Privacy Policy</a>.
+    </p>
+    <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+  </div>
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
@@ -129,12 +139,15 @@ Email: info@silverstone-ai.com</p>
     </div>
   </section>
 <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Silverstone. All rights reserved.</p>
-    <p><a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
-  </footer>
+      <footer>
+        <p>&copy; 2025 Silverstone. All rights reserved.</p>
+        <p><a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+        <p><a href="privacy-policy.html">Privacy Policy</a></p>
+      </footer>
 
-  <script src="assets/js/script.js"></script>
+      <script src="assets/js/script.js"></script>
+      <!-- Cookie consent script: handles hiding banner after acceptance -->
+      <script defer src="assets/js/cookie-consent.js"></script>
 
   <script>
     (function() {

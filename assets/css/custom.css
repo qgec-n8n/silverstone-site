@@ -164,7 +164,12 @@ html {
        cropping.  This also hides any horizontal overflow. */
     @media (max-width: 768px) {
       .service-row {
-        display: block !important;
+        /* Stack image and content vertically on mobile using flex so that
+           flex-basis rules from the base stylesheet don’t collapse the
+           children.  A gap is added for consistent spacing. */
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem !important;
       }
       .service-image,
       .service-content {
@@ -172,6 +177,27 @@ html {
       }
       .service-image img {
         width: 100% !important;
+        /* Ensure images on mobile grow naturally to their intrinsic height.
+         * Without this override, the base stylesheet forces the images to
+         * stretch to match their parent’s height (100%), which collapses
+         * when the parent has no fixed height, causing the images to
+         * disappear.  Setting height: auto and object‑fit: contain
+         * ensures the images display fully and are not cropped. */
+        height: auto !important;
+        object-fit: contain !important;
+      }
+
+      /* Reset equal‑height rules on mobile so that the image and content
+         containers can grow naturally.  The base styles impose
+         height:100% on these elements to align card heights on larger
+         screens.  On small viewports, this prevents the section from
+         expanding to accommodate images and text, which can make
+         images disappear. */
+      .service-row .service-content.neon-card,
+      .service-row .service-image.neon-card {
+        height: auto !important;
+      }
+      .service-row .service-image.neon-card img {
         height: auto !important;
         object-fit: contain !important;
       }
