@@ -300,6 +300,24 @@ body {
   overscroll-behavior: none;
 }
 
+/*
+  Safari-specific override: the overscroll-behaviour rules above prevent
+  Safari from restoring scrollability after the hero parallax animation,
+  causing the page to lock at the top.  Newer Safari releases (18 and
+  later) handle parallax correctly without this workaround.  Use a
+  feature-detection media query to re-enable overscroll for Safari so
+  users can continue scrolling after the parallax animation.  The
+  -webkit-touch-callout property is only supported by WebKit-based
+  browsers, providing a convenient hook.
+*/
+@supports (-webkit-touch-callout: none) {
+  html,
+  body {
+    overscroll-behavior-y: auto !important;
+    overscroll-behavior: auto !important;
+  }
+}
+
 /* Force the Innovation Gallery into a 4×2 grid. */
 .gallery-grid {
   display: grid !important;

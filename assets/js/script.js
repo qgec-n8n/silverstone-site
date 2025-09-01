@@ -195,19 +195,26 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        // Upward scroll: clamp overshoots so the user must perform a second scroll
-        // before the parallax return.  Compute the predicted scroll position.  If
-        // the user is below the second section and their scroll would carry them
-        // past its top, clamp to its top so a subsequent scroll is required to enter
-        // the hero.  Once they are within the range between the hero and second
-        // section, trigger the parallax return to the hero.
+        // Upward scroll: gracefully handle overshoots.  When the user is
+        // reading below the second section and performs an aggressive upward
+        // scroll, we interpret the gesture as a desire to return to the hero.
+        // Compute the predicted scroll position: if it would take the viewport
+        // past the top of the second section, then we animate all the way
+        // back to the hero in one cinematic motion.  This replicates the
+        // premium behaviour found in high‑end product pages.  Likewise, if the
+        // user is currently between the hero and second section and scrolls
+        // upwards, we trigger the same parallax return.  Otherwise we allow
+        // the native scroll to continue normally.
         if (delta < 0) {
           const predictedY = scrollY + delta;
-          // If we're below the second section and the next scroll would cross its top,
-          // clamp to its top so a subsequent scroll is required to enter the hero.
+          // If the user is below the second section and their scroll would
+          // overshoot past its top, gently animate all the way back to the hero
+          // rather than merely clamping to the top of the section.  This creates
+          // a more premium interaction: a single aggressive upward gesture returns
+          // the viewer to the hero with a cinematic transition.
           if (scrollY > nextTop && predictedY < nextTop) {
             evt.preventDefault();
-            window.scrollTo(0, nextTop);
+            animateScrollTo(0, 2500);
             return;
           }
           // If currently between the hero and second section, trigger parallax return.
