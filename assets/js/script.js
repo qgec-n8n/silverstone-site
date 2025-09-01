@@ -37,37 +37,48 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(link);
   }
 
-  const hero = document.querySelector('.hero');
-  // Find the first <section> after the hero.  Some pages insert
-  // <style> tags or other elements between sections, so skip over
-  // anything that isn’t a section.
-  let nextSection = null;
-  if (hero) {
-    let node = hero.nextElementSibling;
-    while (node) {
-      if (node.tagName && node.tagName.toLowerCase() === 'section') {
-        nextSection = node;
-        break;
+      // Determine if the current viewport is considered "mobile".  On small
+      // screens we disable the cinematic parallax behaviour entirely and
+      // allow the page to scroll normally.  The threshold of 900px aligns
+      // with the breakpoints used in the CSS.
+      const isMobile = window.innerWidth <= 900;
+
+      const hero = document.querySelector('.hero');
+      // Find the first <section> after the hero.  Some pages insert
+      // <style> tags or other elements between sections, so skip over
+      // anything that isn’t a section.
+      let nextSection = null;
+      if (hero) {
+        let node = hero.nextElementSibling;
+        while (node) {
+          if (node.tagName && node.tagName.toLowerCase() === 'section') {
+            nextSection = node;
+            break;
+          }
+          node = node.nextElementSibling;
+        }
       }
-      node = node.nextElementSibling;
-    }
-  }
-  const header = document.querySelector('header');
-  if (!hero || !nextSection || !header) return;
+      const header = document.querySelector('header');
+      // If any of the key elements are missing there's nothing to animate.
+      if (!hero || !nextSection || !header) return;
 
-  // Initialise the next section so it starts hidden and lower on the page.
-  nextSection.style.opacity = '0';
-  nextSection.style.transform = 'translateY(80px)';
-  nextSection.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
+      // Initialise the next section so it starts hidden and lower on the page.
+      // Only apply the fade/slide animations when the parallax is active.
+      if (!isMobile) {
+        nextSection.style.opacity = '0';
+        nextSection.style.transform = 'translateY(80px)';
+        nextSection.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
+      }
 
-  // On the contact page ensure the first service row fills the viewport.
-  if (pathname.includes('contact')) {
-    const setContactHeight = () => {
-      nextSection.style.minHeight = `${window.innerHeight}px`;
-    };
-    setContactHeight();
-    window.addEventListener('resize', setContactHeight);
-  }
+      // On the contact page ensure the first service row fills the viewport.
+      // This applies regardless of the parallax state.
+      if (pathname.includes('contact')) {
+        const setContactHeight = () => {
+          nextSection.style.minHeight = `${window.innerHeight}px`;
+        };
+        setContactHeight();
+        window.addEventListener('resize', setContactHeight);
+      }
 
   // Quadratic easing for the auto‑scroll animation.
   function easeInOutQuad(t) {
@@ -127,9 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const translateY = (1 - progress) * 120;
     nextSection.style.transform = `translateY(${translateY.toFixed(1)}px)`;
   }
-  // Run once to apply initial state
-  updateParallax();
-  window.addEventListener('scroll', updateParallax, { passive: true });
+      // Run once to apply initial state
+      if (!isMobile) {
+        updateParallax();
+        window.addEventListener('scroll', updateParallax, { passive: true });
+      }
 
   /**
    * Wheel event handler.  Triggers the auto‑scroll animation when the
@@ -140,29 +153,37 @@ document.addEventListener('DOMContentLoaded', () => {
    * header and the next section.  If autoScrolling is true we block
    * the wheel input.
    */
-  window.addEventListener('wheel', (evt) => {
-    if (autoScrolling) {
-      evt.preventDefault();
-      return;
-    }
-    const delta = evt.deltaY;
-    const scrollY = window.pageYOffset;
-    const headerHeight = header.offsetHeight;
-    const nextTop = nextSection.offsetTop;
-    if (delta > 0) {
-      // Downward scroll: trigger when leaving the very top of the page
-      if (scrollY <= 0) {
-        evt.preventDefault();
-        animateScrollTo(nextTop - headerHeight, 2500);
+      if (!isMobile) {
+        window.addEventListener('wheel', (evt) => {
+          if (autoScrolling) {
+            evt.preventDefault();
+            return;
+          }
+          const delta = evt.deltaY;
+          const scrollY = window.pageYOffset;
+          const nextTop = nextSection.offsetTop;
+          if (delta > 0) {
+            // Downward scroll: trigger when leaving the very top of the page.
+            if (scrollY <= 0) {
+              evt.preventDefault();
+              // Scroll directly to the top of the next section.  Do not
+              // subtract the header height because the header animates out
+              // of view; this ensures the section ends flush at the top.
+              animateScrollTo(nextTop, 2500);
+            }
+          } else if (delta < 0) {
+            // Upward scroll: trigger when returning from the second section
+            // towards the hero.  If the current position is within or above
+            // the next section (but not already at the top), force an
+            // auto‑scroll back to the hero to prevent manual scrolling from
+            // revealing the hero prematurely.
+            if (scrollY <= nextTop && scrollY > 0) {
+              evt.preventDefault();
+              animateScrollTo(0, 2500);
+            }
+          }
+        }, { passive: false });
       }
-    } else if (delta < 0) {
-      // Upward scroll: trigger when between the header and the next section
-      if (scrollY > headerHeight && scrollY <= nextTop) {
-        evt.preventDefault();
-        animateScrollTo(0, 2500);
-      }
-    }
-  }, { passive: false });
 
   /**
    * Hide the header when scrolling down and show it when scrolling up.
@@ -170,16 +191,18 @@ document.addEventListener('DOMContentLoaded', () => {
    * the header off‑screen.  This behaviour only applies after the
    * header has been scrolled past its own height.
    */
-  let lastScrollY = 0;
-  window.addEventListener('scroll', () => {
-    const currentY = window.pageYOffset;
-    if (currentY > lastScrollY && currentY > header.offsetHeight) {
-      header.classList.add('header-hidden');
-    } else {
-      header.classList.remove('header-hidden');
-    }
-    lastScrollY = currentY;
-  });
+      // Hide the header when scrolling down and show it when scrolling up.
+      // This applies to all viewports, even when the parallax is disabled.
+      let lastScrollY = 0;
+      window.addEventListener('scroll', () => {
+        const currentY = window.pageYOffset;
+        if (currentY > lastScrollY && currentY > header.offsetHeight) {
+          header.classList.add('header-hidden');
+        } else {
+          header.classList.remove('header-hidden');
+        }
+        lastScrollY = currentY;
+      });
 
   // Fade‑in animations for elements with the .animate class.  Use an
   // IntersectionObserver to add the .visible class when elements

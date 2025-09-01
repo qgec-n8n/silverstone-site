@@ -131,36 +131,60 @@ html {
   min-height: 100vh;
 }
 
-/* ------------------------------------------------------------------
-   Responsive layout overrides
+    /* ------------------------------------------------------------------
+       Responsive layout overrides
 
-   These rules ensure the services section and innovation gallery retain
-   their intended structures on desktop screens.  Service rows are
-   forced into two columns and alternate their content order on even
-   rows.  The gallery grid is fixed at four columns across all
-   viewport widths.  The !important flag ensures these overrides
-   supersede conflicting declarations in the base stylesheet.
-   ------------------------------------------------------------------ */
+       These rules ensure the services section and innovation gallery retain
+       their intended structures on desktop screens.  Service rows are
+       forced into two columns and alternate their content order on even
+       rows.  The gallery grid is fixed at four columns across all
+       viewport widths.  The !important flag ensures these overrides
+       supersede conflicting declarations in the base stylesheet.
+       ------------------------------------------------------------------ */
 
-/* Always display service rows as two columns. */
-.service-row {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 2rem !important;
-  align-items: stretch !important;
-}
+    /* Always display service rows as two columns on desktop. */
+    @media (min-width: 769px) {
+      .service-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 2rem !important;
+        align-items: stretch !important;
+      }
 
-/* Maintain alternating order on even service rows. */
-.service-row:nth-of-type(even) .service-image {
-  order: 2 !important;
-}
-.service-row:nth-of-type(even) .service-content {
-  order: 1 !important;
-}
+      /* Maintain alternating order on even service rows. */
+      .service-row:nth-of-type(even) .service-image {
+        order: 2 !important;
+      }
+      .service-row:nth-of-type(even) .service-content {
+        order: 1 !important;
+      }
+    }
 
-/* Force the Innovation Gallery into a 4×2 grid. */
-.gallery-grid {
-  display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 1rem !important;
-}
+    /* On smaller screens stack the image and content vertically and prevent
+       cropping.  This also hides any horizontal overflow. */
+    @media (max-width: 768px) {
+      .service-row {
+        display: block !important;
+      }
+      .service-image,
+      .service-content {
+        width: 100% !important;
+      }
+      .service-image img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+      }
+      /* Prevent horizontal scrolling on mobile by hiding overflow */
+      html,
+      body {
+        overflow-x: hidden;
+      }
+    }
+
+    /* Force the Innovation Gallery into a 4×2 grid. */
+    .gallery-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 1rem !important;
+    }
