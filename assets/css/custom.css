@@ -175,6 +175,29 @@ html {
       .service-content {
         width: 100% !important;
       }
+
+      /* Ensure mobile service cards don't impose fixed flex-basis values
+         inherited from the desktop layout.  Allow the columns to grow
+         naturally so that text boxes and images wrap consistently. */
+      .service-row .service-image,
+      .service-row .service-content {
+        flex-basis: auto !important;
+      }
+
+      /* Remove padding from image cards so that neon borders hug the
+         images closely, eliminating the large boxes seen around the
+         skyline and handshake pictures on mobile. */
+      .service-row .service-image.neon-card {
+        padding: 0 !important;
+        overflow: visible !important;
+      }
+
+      /* Apply a consistent padding to text cards on mobile.  This avoids
+         overly small or large boxes and prevents text from spilling
+         outside. */
+      .service-row .service-content.neon-card {
+        padding: 1rem !important;
+      }
       .service-image img {
         width: 100% !important;
         /* Ensure images on mobile grow naturally to their intrinsic height.

@@ -189,28 +189,18 @@ document.addEventListener('DOMContentLoaded', () => {
             // position to the top of the second section and trigger the
             // parallax return.
             if (delta < 0) {
-              // User is scrolling up. If they are past the hero/first section and
-              // the predicted position would cross back into the hero, clamp to
-              // the top of the second section and smoothly animate back. We
-              // avoid setting overflow here – instead we rely on the scroll
-              // animation to manage overflow and prevent jitter.
-              if (scrollY > 0) {
-                const predicted = scrollY + delta;
-                if (predicted <= nextTop) {
-                  evt.preventDefault();
-                  // Snap instantly to the top of the second section. This
-                  // ensures no portion of the hero is exposed before the
-                  // animation begins.
-                  window.scrollTo({ top: nextTop, behavior: 'instant' });
-                  // Give the browser one frame to settle the snapped scroll
-                  // position. Without this delay some devices will still
-                  // produce a small bounce. Then initiate the parallax
-                  // return. animateScrollTo hides the overflow and restores
-                  // it when complete.
-                  requestAnimationFrame(() => {
-                    animateScrollTo(0, 2500);
-                  });
-                }
+              /*
+               * User is scrolling up.  As soon as they are within the
+               * range of the hero and second section (i.e. below nextTop),
+               * immediately intercept the scroll and trigger the parallax
+               * return.  We do not clamp to an intermediate position –
+               * instead, the smooth animation plays from the current
+               * offset.  Preventing the default scroll input stops any
+               * overshoot or bounce before it starts.
+               */
+              if (scrollY > 0 && scrollY <= nextTop) {
+                evt.preventDefault();
+                animateScrollTo(0, 2500);
               }
             }
           },
