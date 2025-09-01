@@ -205,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       { passive: false }
     );
+
   }
 
   /**

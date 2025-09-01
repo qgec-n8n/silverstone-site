@@ -233,6 +233,20 @@ html {
     padding: 1rem !important;
   }
 
+  /* Remove neon backgrounds and pseudo-elements on image cards when
+     stacked on mobile.  Without this override the neon card styling
+     introduces an extra blurred backdrop that sits behind the
+     photograph and causes it to appear overlapped by the text.
+     Clearing the background and hiding the ::before/::after layers
+     ensures the image displays cleanly above the accompanying text. */
+  .service-row .service-image.neon-card {
+    background: transparent !important;
+  }
+  .service-row .service-image.neon-card::before,
+  .service-row .service-image.neon-card::after {
+    display: none !important;
+  }
+
   /* Reset the service scaling on mobile.  The base stylesheet uses
      --service-scale to uniformly shrink service cards, which makes
      padding and borders appear too large when stacked.  Setting
