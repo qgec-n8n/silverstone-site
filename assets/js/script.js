@@ -1,21 +1,21 @@
 /*
-  Silverstone site JavaScript (restored parallax)
+      Silverstone site JavaScript (restored parallax)
 
-  This version reinstates the original cinematic parallax behaviour
-  captured in the provided v25 script while preserving the
-  responsiveness and scaling improvements made previously.  The hero
-  section scales and darkens as the user begins to scroll, and the
-  subsequent section fades and slides into view.  An easing
-  auto‑scroll transitions the viewport over 2.5 seconds.  The header
-  hides when scrolling down and reappears when scrolling up.  Mobile
-  navigation toggling and fade‑in animations for elements marked with
-  `.animate` are also included.
+      This version reinstates the original cinematic parallax behaviour
+      captured in the provided v25 script while preserving the
+      responsiveness and scaling improvements made previously.  The hero
+      section scales and darkens as the user begins to scroll, and the
+      subsequent section fades and slides into view.  An easing
+      auto‑scroll transitions the viewport over 2.5 seconds.  The header
+      hides when scrolling down and reappears when scrolling up.  Mobile
+      navigation toggling and fade‑in animations for elements marked with
+      `.animate` are also included.
 
-  The script dynamically injects `assets/css/custom.css` if it is not
-  already present.  Ensure that custom.css merges the scaling
-  overrides (service rows and gallery grid) with any parallax styling
-  defined in earlier versions.
-*/
+      The script dynamically injects `assets/css/custom.css` if it is not
+      already present.  Ensure that custom.css merges the scaling
+      overrides (service rows and gallery grid) with any parallax styling
+      defined in earlier versions.
+    */
 
 document.addEventListener('DOMContentLoaded', () => {
   // Respect reduced‑motion settings and bail out early if the user
@@ -38,11 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(link);
   }
 
-  // Determine if the current viewport is considered "mobile".  On small
-  // screens we disable the cinematic parallax behaviour entirely and
-  // allow the page to scroll normally.  The threshold of 900px aligns
-  // with the breakpoints used in the CSS.
-  const isMobile = window.innerWidth <= 900;
+  // Determine if the current viewport is considered "mobile".
+  // On small screens we disable the cinematic parallax behaviour entirely
+  // and allow the page to scroll normally.  The threshold of 900px aligns
+  // with the breakpoints used in the CSS.  Safari on macOS has trouble
+  // restoring scrollability after the auto‑scroll animation, so we treat
+  // that browser as mobile as well to disable the parallax.
+  const ua = navigator.userAgent || '';
+  const isSafari = /safari/i.test(ua) && !/chrome|crios|android/i.test(ua);
+  const isMobile = window.innerWidth <= 900 || isSafari;
 
   const hero = document.querySelector('.hero');
   // Find the first <section> after the hero.  Some pages insert
@@ -184,9 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Upward scroll: clamp overshoots so the user must perform a second scroll
         // before the parallax return.  Compute the predicted scroll position.  If
         // the user is below the second section and their scroll would carry them
-        // past its top, clamp to the top of the second section.  Once they are
-        // within the range between the hero and second section, trigger the
-        // parallax return to the hero.
+        // past its top, clamp to its top so a subsequent scroll is required to enter
+        // the hero.  Once they are within the range between the hero and second
+        // section, trigger the parallax return to the hero.
         if (delta < 0) {
           const predictedY = scrollY + delta;
           // If we're below the second section and the next scroll would cross its top,
@@ -205,7 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       { passive: false }
     );
-
   }
 
   /**
@@ -214,8 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
    * the header off‑screen.  This behaviour only applies after the
    * header has been scrolled past its own height.
    */
-  // Hide the header when scrolling down and show it when scrolling up.
-  // This applies to all viewports, even when the parallax is disabled.
   let lastScrollY = 0;
   window.addEventListener('scroll', () => {
     const currentY = window.pageYOffset;

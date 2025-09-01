@@ -1,15 +1,29 @@
 /*
-      Customised styles for Silverstone site
+  custom.css
 
-      This stylesheet merges the bespoke parallax styling from the v24
-      custom.css with the responsive layout fixes introduced later.  It
-      ensures hero sections behave correctly during the cinematic scroll
-      animation while maintaining a consistent two‑column layout for
-      service rows and a fixed four‑column grid for the innovation
-      gallery.  Additional tweaks improve image scaling, cookie banner
-      presentation and header/logo sizing.  Scroll snapping is disabled
-      to avoid conflicts with the auto‑scroll logic in script.js.
-    */
+  This file contains overrides for various components in the Silverstone site.
+  The base of this stylesheet is taken from the existing project and has been
+  updated to address two outstanding issues:
+
+  1. Safari desktop browsers were unable to scroll past the hero section when
+     the parallax effect was active.  The accompanying JavaScript now
+     disables parallax on Safari by treating that browser as a mobile
+     viewport.  No CSS changes are required for that fix, but the comment is
+     included here to document the rationale.
+
+  2. On the About page in the mobile layout the skyline and handshake images
+     were collapsing behind the mission and story text.  This was caused by
+     the base styles giving the image container a fixed aspect ratio and
+     absolutely positioning the images.  When stacked vertically the parent
+     height collapsed to zero and the images were rendered underneath
+     neighbouring content.  The overrides in the mobile media query below
+     remove the aspect ratio padding, restore natural positioning for images
+     and ensure the photographs always appear above the associated text.
+
+  The contents below are copied from the upstream custom.css and include all
+  existing tweaks.  Additional overrides appear near the end of the mobile
+  section.
+*/
 
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
   .hero.title-band {
@@ -247,6 +261,19 @@ html {
     display: none !important;
   }
 
+  /* Override base aspect-ratio padding and absolute positioning on mobile
+     to ensure images appear above text and are not cropped or overlapped.
+     Removing the padding-top prevents the parent from imposing a fixed
+     aspect ratio and restoring static positioning lets the image dictate
+     its own height. */
+  .service-row .service-image {
+    padding-top: 0 !important;
+    position: relative !important;
+  }
+  .service-row .service-image img {
+    position: static !important;
+  }
+
   /* Reset the service scaling on mobile.  The base stylesheet uses
      --service-scale to uniformly shrink service cards, which makes
      padding and borders appear too large when stacked.  Setting
@@ -290,7 +317,6 @@ body {
    we guarantee that both the image and its text remain in the
    foreground.
    ------------------------------------------------------------------ */
-
 .service-row,
 .service-row .service-image,
 .service-row .service-content {
