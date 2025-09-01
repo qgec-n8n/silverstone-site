@@ -192,16 +192,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const predicted = scrollY + delta;
                 if (predicted <= nextTop) {
                   evt.preventDefault();
-                  // Snap to the top of the second section to avoid any
-                  // momentary exposure of the hero during the wheel fling.
-                  window.scrollTo(0, nextTop);
-                  // Kick off the parallax return on the next tick.  Using
-                  // setTimeout ensures the browser completes the snap
-                  // scroll before we start the smooth animation back to the
-                  // top of the hero.
-                  setTimeout(() => {
-                    animateScrollTo(0, 2500);
-                  }, 0);
+                  /*
+                   * Start the parallax return immediately from the current
+                   * scroll position.  We rely on preventDefault() to stop
+                   * the browser from updating the scroll position, so we
+                   * avoid any jarring snap before the animation begins.  The
+                   * easing function will smoothly carry the user back to the
+                   * top of the hero section.  Removing the explicit snap
+                   * eliminates the subtle shudder that occurred when
+                   * repositioning to nextTop first.
+                   */
+                  animateScrollTo(0, 2500);
                 }
               }
             }
@@ -227,6 +228,35 @@ document.addEventListener('DOMContentLoaded', () => {
           header.classList.remove('header-hidden');
         }
         lastScrollY = currentY;
+      });
+
+      /**
+       * Show the header when the user hovers near the top of the viewport
+       * after scrolling past the hero section.  When the mouse enters
+       * the top area (within the header’s height) and the page is
+       * scrolled beyond the first section, remove the `header-hidden`
+       * class to reveal the navigation bar.  When the mouse leaves
+       * this area, reapply `header-hidden` so the header hides again
+       * until the user scrolls up.  This allows users to access the
+       * menu while reading lower sections of the page without changing
+       * the underlying scroll behaviour.
+       */
+      document.addEventListener('mousemove', (e) => {
+        if (isMobile) return;
+        const hoverY = e.clientY;
+        const headerHeight = header.offsetHeight;
+        const scrolledPastHero = window.pageYOffset >= nextSection.offsetTop;
+        // If cursor is within the header area and we are below the hero, show the header
+        if (scrolledPastHero && hoverY <= headerHeight) {
+          header.classList.remove('header-hidden');
+        } else {
+          // Otherwise, if we're still below the hero and not already hiding via scroll up/down,
+          // reapply the hidden state.  This avoids leaving the header visible
+          // after the cursor moves away from the top edge.
+          if (scrolledPastHero && !autoScrolling) {
+            header.classList.add('header-hidden');
+          }
+        }
       });
 
   // Fade‑in animations for elements with the .animate class.  Use an
