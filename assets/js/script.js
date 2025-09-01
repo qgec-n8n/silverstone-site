@@ -73,12 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // On the contact page ensure the first service row fills the viewport.
       // This applies regardless of the parallax state.
-      if (pathname.includes('contact')) {
-        const setContactHeight = () => {
+      if (pathname.includes('contact') || pathname.includes('privacy')) {
+        const setPageSectionHeight = () => {
           nextSection.style.minHeight = `${window.innerHeight}px`;
         };
-        setContactHeight();
-        window.addEventListener('resize', setContactHeight);
+        setPageSectionHeight();
+        window.addEventListener('resize', setPageSectionHeight);
       }
 
   // Quadratic easing for the auto‑scroll animation.
@@ -189,21 +189,27 @@ document.addEventListener('DOMContentLoaded', () => {
             // position to the top of the second section and trigger the
             // parallax return.
             if (delta < 0) {
+              // User is scrolling up. If they are past the hero/first section and
+              // the predicted position would cross back into the hero, clamp to
+              // the top of the second section and smoothly animate back. We
+              // avoid setting overflow here – instead we rely on the scroll
+              // animation to manage overflow and prevent jitter.
               if (scrollY > 0) {
                 const predicted = scrollY + delta;
                 if (predicted <= nextTop) {
                   evt.preventDefault();
-                  /*
-                   * To eliminate any bounce or shudder during an aggressive
-                   * upward flick, temporarily freeze the page’s vertical
-                   * overflow and snap the scroll position to the top of
-                   * the second section.  Then trigger the parallax return.
-                   * animateScrollTo() will restore the overflow property
-                   * when the animation completes.
-                   */
-                  document.body.style.overflowY = 'hidden';
-                  window.scrollTo(0, nextTop);
-                  animateScrollTo(0, 2500);
+                  // Snap instantly to the top of the second section. This
+                  // ensures no portion of the hero is exposed before the
+                  // animation begins.
+                  window.scrollTo({ top: nextTop, behavior: 'instant' });
+                  // Give the browser one frame to settle the snapped scroll
+                  // position. Without this delay some devices will still
+                  // produce a small bounce. Then initiate the parallax
+                  // return. animateScrollTo hides the overflow and restores
+                  // it when complete.
+                  requestAnimationFrame(() => {
+                    animateScrollTo(0, 2500);
+                  });
                 }
               }
             }

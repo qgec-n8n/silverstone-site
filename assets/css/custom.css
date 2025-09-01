@@ -207,6 +207,14 @@ html {
       .service-row .neon-card {
         padding: 1rem !important;
       }
+
+      /* Reset the service scaling on mobile.  The base stylesheet uses
+         --service-scale to uniformly shrink service cards, which makes
+         padding and borders appear too large when stacked.  Setting
+         this variable to 1 restores the natural proportions. */
+      :root {
+        --service-scale: 1 !important;
+      }
     /* Prevent horizontal scrolling on mobile by hiding overflow */
       html,
       body {
@@ -218,6 +226,12 @@ html {
 html,
 body {
   overflow-x: hidden;
+  /* Prevent bounce/overshoot shudder when the user aggressively scrolls
+     past the top of the second section.  By disabling the browser's
+     overscroll behaviour, we ensure the scroll position clamps cleanly
+     and the parallax animation starts smoothly. */
+  overscroll-behavior-y: none;
+  overscroll-behavior: none;
 }
 
     /* Force the Innovation Gallery into a 4×2 grid. */
