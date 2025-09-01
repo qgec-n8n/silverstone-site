@@ -201,12 +201,24 @@ html {
         height: auto !important;
         object-fit: contain !important;
       }
-      /* Prevent horizontal scrolling on mobile by hiding overflow */
+
+      /* Reduce padding on neon cards for stacked layouts so that the
+         borders and backgrounds better fit the smaller mobile viewport. */
+      .service-row .neon-card {
+        padding: 1rem !important;
+      }
+    /* Prevent horizontal scrolling on mobile by hiding overflow */
       html,
       body {
         overflow-x: hidden;
       }
     }
+
+/* Prevent horizontal scrollbars on all viewports by default */
+html,
+body {
+  overflow-x: hidden;
+}
 
     /* Force the Innovation Gallery into a 4×2 grid. */
     .gallery-grid {

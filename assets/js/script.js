@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // Skip the parallax entirely on privacy policy pages.
+  // Determine the current pathname.  We no longer skip parallax on
+  // privacy policy pages so that the hero and second section animate
+  // consistently across the site.
   const pathname = window.location.pathname;
-  if (pathname.includes('privacy')) return;
 
   // Inject custom.css if it hasn't been loaded yet.  This keeps HTML
   // files clean and allows CSS overrides to apply universally.
@@ -193,15 +194,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (predicted <= nextTop) {
                   evt.preventDefault();
                   /*
-                   * Start the parallax return immediately from the current
-                   * scroll position.  We rely on preventDefault() to stop
-                   * the browser from updating the scroll position, so we
-                   * avoid any jarring snap before the animation begins.  The
-                   * easing function will smoothly carry the user back to the
-                   * top of the hero section.  Removing the explicit snap
-                   * eliminates the subtle shudder that occurred when
-                   * repositioning to nextTop first.
+                   * To eliminate any bounce or shudder during an aggressive
+                   * upward flick, temporarily freeze the page’s vertical
+                   * overflow and snap the scroll position to the top of
+                   * the second section.  Then trigger the parallax return.
+                   * animateScrollTo() will restore the overflow property
+                   * when the animation completes.
                    */
+                  document.body.style.overflowY = 'hidden';
+                  window.scrollTo(0, nextTop);
                   animateScrollTo(0, 2500);
                 }
               }
