@@ -156,31 +156,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextTop = nextSection.offsetTop;
         const headerH = header.offsetHeight;
 
-        // Downward scroll: scroll from hero to the next section.  Clamp
-        // overshoot so the viewport lands flush with the top of the next
-        // section.  If the predicted scroll would pass the next section,
-        // intercept and animate to the target.  Otherwise, allow the user
-        // to scroll normally until they reach the threshold (<= 0).
+        // Downward scroll: when the user starts scrolling down from the top of
+        // the page (within the hero), trigger a smooth scroll to the next
+        // section.  We do not clamp predicted overshoot here to preserve the
+        // original parallax behaviour — the overshoot prevention now only
+        // applies when scrolling up from the second section back into the
+        // hero.  Once the animation runs, the user must initiate a new scroll
+        // to continue the parallax effect.
         if (delta > 0) {
-          const predicted = scrollY + delta;
-          // If we are currently within the hero region and the predicted
-          // scroll goes beyond the top of the next section, clamp.
-          if (scrollY <= nextTop && predicted >= nextTop) {
-            evt.preventDefault();
-            // Scroll to the top of the next section minus the header to
-            // align the section flush with the viewport.
-            animateScrollTo(nextTop - headerH, 2500);
-          } else if (scrollY <= 0) {
+          // If we're at or above the top of the page, move to the next section.
+          if (scrollY <= 0) {
             evt.preventDefault();
             animateScrollTo(nextTop - headerH, 2500);
           }
           return;
         }
 
-        // Upward scroll: prevent the user from overshooting the top of
-        // the second section and revealing the hero before the parallax
-        // animation plays.  When scrolling up within the range below
-        // nextTop, trigger a smooth return to the top of the page.
+        // Upward scroll: prevent the user from overshooting the top of the
+        // second section and revealing the hero abruptly.  When scrolling
+        // up within the range between the page top and the next section, we
+        // animate back to the top of the page.  This ensures an aggressive
+        // upward scroll stops at the beginning of the second section and
+        // requires a subsequent scroll to re‑enter the hero section and
+        // trigger the parallax effect.
         if (delta < 0) {
           if (scrollY > 0 && scrollY <= nextTop) {
             evt.preventDefault();
