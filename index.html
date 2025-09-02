@@ -65,19 +65,36 @@
       /* Custom grids for grouped services and pricing */
       .packages-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        /* Use wider minimum column size so each package fills the row evenly on desktop */
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
         gap: 2rem;
-        max-width: 900px;
+        max-width: 1000px;
         margin: 0 auto;
       }
       .packages-grid .neon-card {
         padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      /* Icon styling for service packages */
+      .packages-grid .service-icon {
+        font-size: 2rem;
+        color: var(--color-green);
+        margin-bottom: 0.75rem;
       }
       .packages-grid .neon-card h3 {
         font-family: var(--font-heading);
-        font-size: 1.5rem;
-        margin-bottom: 0.75rem;
+        font-size: 1.6rem;
+        margin-bottom: 0.25rem;
         color: var(--color-green);
+        text-align: left;
+      }
+      .packages-grid .tagline {
+        font-size: 0.95rem;
+        color: var(--color-silver);
+        margin-bottom: 0.75rem;
+        font-style: italic;
         text-align: left;
       }
       .packages-grid .neon-card p {
@@ -91,10 +108,12 @@
       }
       .packages-grid .neon-card p i {
         color: var(--color-green);
+        margin-right: 0.5rem;
       }
       .pricing-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        /* Three columns on larger screens */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 2rem;
         max-width: 1000px;
         margin: 0 auto;
@@ -119,7 +138,7 @@
       .pricing-grid .neon-card p {
         font-size: 0.9rem;
         color: var(--color-silver);
-        margin-bottom: 0;
+        margin-bottom: 0.5rem;
       }
     </style>
   </head>
@@ -215,70 +234,93 @@
         <h2 class="section-title" style="margin-top: 3rem">Our Services</h2>
         <p class="section-subtitle">Discover how we transform businesses through bespoke solutions.</p>
         <div class="packages-grid">
-          <!-- Package 1 -->
+          <!-- Lead & Process Automation -->
           <div class="feature-card neon-card">
+            <!-- icon for package -->
+            <i class="fa-solid fa-magnet service-icon"></i>
             <h3>Lead &amp; Process Automation</h3>
+            <p class="tagline">Maximise your sales pipeline with automated lead capture.</p>
             <p><i class="fa-solid fa-check"></i> Automate lead capture &amp; qualification</p>
-            <p><i class="fa-solid fa-check"></i> Streamline core workflows &amp; financial tasks</p>
-            <p><i class="fa-solid fa-check"></i> Powered by n8n &amp; Zapier</p>
+            <p><i class="fa-solid fa-check"></i> Streamline core workflows &amp; tasks</p>
+            <p><i class="fa-solid fa-check"></i> Built on n8n &amp; Zapier</p>
           </div>
-          <!-- Package 2 -->
+          <!-- Workflow & Document Automation -->
           <div class="feature-card neon-card">
+            <i class="fa-solid fa-file-lines service-icon"></i>
             <h3>Workflow &amp; Document Automation</h3>
-            <p><i class="fa-solid fa-check"></i> Intelligent workflows that eliminate manual work</p>
-            <p><i class="fa-solid fa-check"></i> AI-powered document management &amp; routing</p>
-            <p><i class="fa-solid fa-check"></i> Seamless app integrations with n8n &amp; Zapier</p>
+            <p class="tagline">Automate your manual processes &amp; document flows.</p>
+            <p><i class="fa-solid fa-check"></i> Intelligent workflows eliminate busywork</p>
+            <p><i class="fa-solid fa-check"></i> AI‑powered document management &amp; routing</p>
+            <p><i class="fa-solid fa-check"></i> Seamless app integration with n8n &amp; Zapier</p>
           </div>
-          <!-- Package 3 -->
+          <!-- Data, Analytics & AI -->
           <div class="feature-card neon-card">
+            <i class="fa-solid fa-chart-line service-icon"></i>
             <h3>Data, Analytics &amp; AI</h3>
-            <p><i class="fa-solid fa-check"></i> Interactive dashboards &amp; real-time reporting</p>
-            <p><i class="fa-solid fa-check"></i> Predictive analytics &amp; AI-driven insights</p>
+            <p class="tagline">Turn data into actionable insights.</p>
+            <p><i class="fa-solid fa-check"></i> Interactive dashboards &amp; real‑time reporting</p>
+            <p><i class="fa-solid fa-check"></i> Predictive analytics &amp; AI‑driven insights</p>
             <p><i class="fa-solid fa-check"></i> Custom AI models for personalisation &amp; forecasting</p>
           </div>
-          <!-- Package 4 -->
+          <!-- Integration & Resource Optimisation -->
           <div class="feature-card neon-card">
+            <i class="fa-solid fa-plug service-icon"></i>
             <h3>Integration &amp; Resource Optimisation</h3>
-            <p><i class="fa-solid fa-check"></i> Connect your systems &amp; apps into one ecosystem</p>
-            <p><i class="fa-solid fa-check"></i> Smart scheduling &amp; resource allocation</p>
-            <p><i class="fa-solid fa-check"></i> Built with n8n &amp; Zapier for seamless synchronisation</p>
+            <p class="tagline">Connect and optimise your entire stack.</p>
+            <p><i class="fa-solid fa-check"></i> Unify your systems &amp; apps into one ecosystem</p>
+            <p><i class="fa-solid fa-check"></i> Smart scheduling &amp; resource management</p>
+            <p><i class="fa-solid fa-check"></i> Seamless synchronisation with n8n &amp; Zapier</p>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Pricing section -->
-    <section class="section brand-gradient animate">
-      <div class="container">
-        <h2 class="section-title">Transparent, Affordable Pricing</h2>
+        <!-- Pricing integrated into the same section -->
+        <h2 class="section-title" style="margin-top: 4rem">Transparent, Affordable Pricing</h2>
         <p class="section-subtitle">Get the automation you need without breaking the bank.</p>
         <div class="pricing-grid">
-          <!-- Pricing for Package 1 -->
+          <!-- Automation Strategy -->
           <div class="neon-card pricing-card">
-            <h3>Lead &amp; Process Automation</h3>
-            <span class="price">From £600</span>
-            <p>Maximise your sales pipeline and efficiency by automating lead capture, qualification and core workflows.</p>
+            <h3>Automation Strategy</h3>
+            <span class="price">From £1,600</span>
+            <p>Discover new ways to optimise your tech stack &amp; resources to maximise ROI.</p>
+            <p style="font-size: 0.8rem; color: var(--color-silver);">Best for businesses seeking all‑round efficiency gains or unsure where to start.</p>
           </div>
-          <!-- Pricing for Package 2 -->
+          <!-- Automation Set‑Up -->
           <div class="neon-card pricing-card">
-            <h3>Workflow &amp; Document Automation</h3>
+            <h3>Automation Set‑Up</h3>
+            <span class="price">From £400</span>
+            <p>We build and launch custom automation solutions to meet your requirements.</p>
+            <p style="font-size: 0.8rem; color: var(--color-silver);">Best for companies/teams with a specific need and clearly defined scope.</p>
+          </div>
+          <!-- Retained Services -->
+          <div class="neon-card pricing-card">
+            <h3>Retained Services</h3>
+            <span class="price">From £100/month</span>
+            <p>Drive ongoing growth with a flexible pot of engineer time each month.</p>
+            <p style="font-size: 0.8rem; color: var(--color-silver);">Best for new and existing clients looking for continuous improvement.</p>
+          </div>
+        </div>
+        <h3 class="section-title" style="margin-top: 3rem">Popular Solutions</h3>
+        <div class="pricing-grid">
+          <!-- AI Agents -->
+          <div class="neon-card pricing-card">
+            <h3>AI Agents</h3>
             <span class="price">From £2,000</span>
-            <p>Eliminate manual tasks and paperwork with intelligent workflows, document management &amp; financial automation.</p>
+            <p>Delegate work to AI through digital agents that can take actions automatically.</p>
           </div>
-          <!-- Pricing for Package 3 -->
+          <!-- Live Data Dashboards -->
           <div class="neon-card pricing-card">
-            <h3>Data, Analytics &amp; AI</h3>
-            <span class="price">From £1,800</span>
-            <p>Transform raw data into actionable insights and leverage AI to forecast demand and personalise experiences.</p>
+            <h3>Live Data Dashboards</h3>
+            <span class="price">From £1,200</span>
+            <p>Connect your data sources into a custom dashboard for real‑time reporting.</p>
           </div>
-          <!-- Pricing for Package 4 -->
+          <!-- Personalised Outreach -->
           <div class="neon-card pricing-card">
-            <h3>Integration &amp; Resource Optimisation</h3>
-            <span class="price">From £900</span>
-            <p>Connect your systems, optimise resource scheduling and ensure seamless collaboration across your tools.</p>
+            <h3>Personalised Outreach</h3>
+            <span class="price">From £600</span>
+            <p>Automate personalisation at scale to outperform templated email campaigns.</p>
           </div>
         </div>
         <p class="section-subtitle" style="margin-top: 2rem">
-          All packages are built using n8n and Zapier to seamlessly integrate your apps and automate your workflows.
+          All costs subject to scope, priced at a day rate of £400. Excludes software usage fees (where applicable).
         </p>
       </div>
     </section>
