@@ -113,26 +113,30 @@
     z-index: 2;
   }
 
-  /* The calendar panel now lives within .booking-right.  It is a
-     perfect square (width equals height) so that the calendar grid
-     appears proportionate.  It no longer relies on absolute
-     positioning. */
-  .booking-hero .booking-panel {
+  /*
+    The calendar wrapper lives within .booking-right.  It keeps a
+    square aspect ratio by matching its height to its width.  Using
+    our own class (.booking-calendar) avoids the conflicting base
+    styles that target .booking-panel and .calendly-inline-iframe.
+  */
+  .booking-hero .booking-calendar {
     flex: 0 0 auto;
-    /* The aspect-ratio property ensures that height matches width. */
+    width: 100%;
+    height: auto;
     aspect-ratio: 1 / 1;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: 0 !important;
-    padding: 0;
     overflow: hidden;
-    display: block;
+    position: relative;
   }
 
-  .booking-hero .booking-panel iframe {
+  .booking-hero .booking-calendar iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border: 0;
+    background: transparent;
+    display: block;
   }
 
   /* Calendly widget fills the panel and is fully visible (no internal scrolling) */
@@ -161,7 +165,7 @@
       max-height: none;
       margin: 0 auto;
     }
-    .booking-hero .booking-panel {
+    .booking-hero .booking-calendar {
       width: 100%;
       /* Preserve the square aspect ratio on smaller screens. */
       aspect-ratio: 1 / 1;
@@ -261,10 +265,12 @@
            hand side of the hero.  On mobile the container stacks and centers
            to maintain readability. -->
       <div class="booking-right">
-        <!-- Informational blurb about the consultation.  Positioned above the
-             calendar on larger screens and stacked on smaller screens.  It
-             introduces the free consultation, sets expectations and
-             encourages visitors to book. -->
+        <!--
+          Informational blurb about the consultation.  On larger screens
+          this sits above the calendar and on smaller screens the
+          container will stack vertically.  See the custom CSS below
+          for layout details.
+        -->
         <div class="booking-info neon-card">
           <h2>Let’s find a time to talk</h2>
           <h3>Take the first step to working smarter with AI and automation</h3>
@@ -276,8 +282,19 @@
             <li>Find out if automation is the right fit for your business</li>
           </ul>
         </div>
-        <div class="booking-panel">
-          <iframe class="calendly-inline-iframe" src="https://calendly.com/silverstone-ai/30min?hide_event_type_details=1&amp;hide_gdpr_banner=1" loading="eager" fetchpriority="high" referrerpolicy="no-referrer-when-downgrade" title="Schedule time with Silverstone"></iframe>
+        <!--
+          Custom calendar wrapper.  We avoid using the original
+          .booking-panel and .calendly-inline-iframe classes from the
+          base stylesheet because they include absolute positioning and
+          fixed heights that override our square layout.  Instead we
+          create our own wrapper (.booking-calendar) and embed the
+          Calendly iframe directly without any class so that only our
+          styles apply.  The iframe parameters hide the event type
+          details and GDPR banner and set the primary and text colours
+          to match the Silverstone brand.
+        -->
+        <div class="booking-calendar">
+          <iframe src="https://calendly.com/silverstone-ai/30min?hide_event_type_details=1&amp;hide_gdpr_banner=1&amp;primary_color=00AEEF&amp;text_color=FFFFFF&amp;background_color=0B0C10" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Schedule time with Silverstone" allowtransparency="true"></iframe>
         </div>
       </div>
 </section>
