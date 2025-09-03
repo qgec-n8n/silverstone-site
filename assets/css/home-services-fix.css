@@ -156,7 +156,10 @@
   cursor:pointer;
   position:relative;
   outline:none;
-  padding-right:2rem;
+  /* Reduce the right padding so that the summary text padding is more
+     balanced with the left side. This still reserves space for the
+     toggle icon. */
+  padding-right:1.25rem;
 }
 .faq-section summary::-webkit-details-marker{
   display:none;
@@ -164,7 +167,9 @@
 .faq-section summary::after{
   content:'+';
   position:absolute;
-  right:0;
+  /* Position the icon with a slight inset so that it aligns nicely
+     with the reduced padding on the summary */
+  right:0.25rem;
   top:0;
   font-size:1.2rem;
   color:var(--color-green);
@@ -202,6 +207,9 @@
 .faq-section details[open]{
   transform:scale(1.04);
   padding-bottom:1rem;
+  /* Expand the width slightly when open to provide more room for the
+     content. The grid column will adjust for the largest open card. */
+  width:calc(100% + 1.5rem);
 }
 
 /*
