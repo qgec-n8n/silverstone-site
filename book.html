@@ -93,26 +93,44 @@
     object-fit: cover;
     z-index: 0;
   }
-  /* Right-aligned panel that vertically centers and fits within the image height */
+  /* Container that holds the blurb and calendar on the right.  It is
+     absolutely positioned on larger screens so that it floats over
+     the decorative background.  The content within stacks in a
+     column, placing the informational blurb directly above the
+     Calendly embed. */
+  .booking-hero .booking-right {
+    position: absolute;
+    top: 52%;
+    left: 55%;
+    transform: translateY(-50%);
+    width: clamp(420px, 36vw, 560px);
+    max-height: min(78vh, 820px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: stretch;
+    z-index: 2;
+  }
+
+  /* The calendar panel now lives within .booking-right and simply
+     stretches to fill the remaining vertical space.  It no longer
+     relies on absolute positioning. */
   .booking-hero .booking-panel {
-  position: absolute;
-  top: 52%;
-  left: 55%;
-  transform: translateY(-50%);
-  width: clamp(420px, 36vw, 560px);
-  height: min(78vh, 820px);
-  background: transparent !important;
-  box-shadow: none !important;
-  border: 0 !important;
-  padding: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  z-index: 2;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-}
+    flex: 1 1 auto;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    padding: 0;
+    overflow: hidden;
+    display: block;
+  }
+
+  .booking-hero .booking-panel iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
   /* Calendly widget fills the panel and is fully visible (no internal scrolling) */
   /* removed old widget margin rule */
   @media (max-width: 1024px) {
@@ -127,15 +145,27 @@
       position: absolute;
       inset: 0;
     }
-    .booking-hero .booking-panel {
+    /* On narrower screens, the blurb and calendar are contained within
+       a single wrapper that is centred on the page.  Remove absolute
+       positioning on the wrapper and allow it to flow naturally. */
+    .booking-hero .booking-right {
       position: relative;
       top: auto;
-      right: auto;
+      left: auto;
       transform: none;
       width: min(100%, 720px);
-      height: auto;
+      max-height: none;
       margin: 0 auto;
-      background: rgba(0,0,0,0.2);
+    }
+    .booking-hero .booking-panel {
+      width: 100%;
+      height: auto;
+    }
+    /* Provide spacing below the blurb on mobile. */
+    .booking-hero .booking-info {
+      width: 100%;
+      max-width: none;
+      margin: 0 auto 1.5rem auto;
     }
     /* removed old widget margin rule */
   }
@@ -150,13 +180,13 @@
     premium feel.
   */
   .booking-hero .booking-info {
-    position: absolute;
-    /* Position near the top of the hero and centred horizontally so it
-       sits above the calendar artwork without covering it. */
-    top: clamp(32px, 6vw, 120px);
-    left: 50%;
-    transform: translateX(-50%);
-    width: clamp(360px, 50vw, 600px);
+    /* The consultation blurb fills the width of its container and
+       inherits positioning from .booking-right.  It keeps the
+       semi‑transparent neon styling but no longer uses absolute
+       positioning. */
+    position: static;
+    transform: none;
+    width: 100%;
     background: rgba(12, 16, 24, 0.65);
     backdrop-filter: blur(6px);
     border: 1px solid rgba(0, 174, 239, 0.25);
@@ -220,25 +250,30 @@
 </style>
 <section class="booking-hero" id="booking-hero">
 <img alt="Booking background" class="booking-bg" decoding="async" fetchpriority="high" sizes="100vw" src="assets/images/zip/Silverstone_12_new.jpg" srcset="assets/images/zip/Silverstone_12_new.jpg 1536w, assets/images/zip/Silverstone_12_new-sm.jpg 1200w">
-      <!-- Informational blurb about the consultation. This panel sits to the left
-           of the Calendly embed on larger screens and stacks above on mobile.
-           It introduces the free consultation, sets expectations and
-           encourages visitors to book. -->
-      <div class="booking-info neon-card">
-        <h2>Let’s find a time to talk</h2>
-        <h3>Take the first step to working smarter with AI and automation</h3>
-        <p>Book your no‑obligation discovery call today and discover how our AI and automation experts can help streamline your business. There’s no email ping‑pong — choose a time that suits you and it goes straight into our calendar.</p>
-        <h3>What to expect:</h3>
-        <ul>
-          <li>Get your questions about AI and automation answered by our consultants</li>
-          <li>Learn more about our services and how we work</li>
-          <li>Find out if automation is the right fit for your business</li>
-        </ul>
+      <!-- Wrap the blurb and calendar in a single container.  This allows the
+           description to sit directly above the Calendly iframe on the right
+           hand side of the hero.  On mobile the container stacks and centers
+           to maintain readability. -->
+      <div class="booking-right">
+        <!-- Informational blurb about the consultation.  Positioned above the
+             calendar on larger screens and stacked on smaller screens.  It
+             introduces the free consultation, sets expectations and
+             encourages visitors to book. -->
+        <div class="booking-info neon-card">
+          <h2>Let’s find a time to talk</h2>
+          <h3>Take the first step to working smarter with AI and automation</h3>
+          <p>Book your no‑obligation discovery call today and discover how our AI and automation experts can help streamline your business. There’s no email ping‑pong — choose a time that suits you and it goes straight into our calendar.</p>
+          <h3>What to expect:</h3>
+          <ul>
+            <li>Get your questions about AI and automation answered by our consultants</li>
+            <li>Learn more about our services and how we work</li>
+            <li>Find out if automation is the right fit for your business</li>
+          </ul>
+        </div>
+        <div class="booking-panel">
+          <iframe class="calendly-inline-iframe" src="https://calendly.com/silverstone-ai/30min?hide_event_type_details=1&amp;hide_gdpr_banner=1" loading="eager" fetchpriority="high" referrerpolicy="no-referrer-when-downgrade" title="Schedule time with Silverstone"></iframe>
+        </div>
       </div>
-<div class="booking-panel">
-  <iframe class="calendly-inline-iframe" src="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1" loading="eager" fetchpriority="high" referrerpolicy="no-referrer-when-downgrade" title="Schedule time with Silverstone">
-    </iframe>
-</div>
 </section>
 <section class="section brand-gradient animate">
 <div class="container">
