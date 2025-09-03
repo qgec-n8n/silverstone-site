@@ -100,20 +100,41 @@
 .faq-section{
   margin-top:3rem;
 }
+/*
+  Arrange FAQ items in a vertical list without forcing them to stretch to
+  the full container width. Setting align-items to flex-start ensures
+  each item only grows to fit its content. The gap property controls
+  spacing between items.
+*/
 .faq-section .faq-list{
   display:flex;
   flex-direction:column;
   gap:1rem;
+  align-items:flex-start;
 }
+/*
+  Each FAQ entry is a neon card that should wrap to the width of its
+  summary text rather than spanning the entire container. By making
+  them inline-blocks with an automatic width, the cards shrink to the
+  length of the question while still wrapping at the container edge on
+  smaller screens. A max-width of 100% prevents overflow.
+*/
 .faq-section details{
   border-radius:18px;
-  /* ensure the neon-card wrapper fills its container */
-  width:100%;
+  width:auto;
+  max-width:100%;
+  display:inline-block;
 }
+/*
+  Style the FAQ question headers. Reduce the font size slightly to
+  signal that these questions are subordinate to section titles. Keep
+  the same heading family and colours for consistency. We also retain
+  the padding on the right to accommodate the plus/minus icon.
+*/
 .faq-section summary{
   list-style:none;
   font-family:var(--font-heading);
-  font-size:1.2rem;
+  font-size:1.1rem;
   color:var(--color-blue);
   cursor:pointer;
   position:relative;
@@ -140,6 +161,17 @@
   font-size:0.95rem;
   color:var(--color-silver);
   line-height:1.5;
+}
+
+/*
+  Reduce the size of the FAQ section heading so that it remains
+  distinguishable as a title but does not compete with the primary
+  section headings on the page. The colour is inherited from
+  the default .section-title.
+*/
+.faq-section .section-title{
+  font-size:1.6rem;
+  margin-bottom:1rem;
 }
 
 /* Minor spacing/alignments to keep the bullets tidy */
