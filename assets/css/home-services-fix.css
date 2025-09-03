@@ -9,6 +9,23 @@
   width:100%;
   max-width:none; /* override any card max-width from global styles */
   height:100%;
+  /*
+    Use flexbox to align the contents of each service card vertically.
+    Setting display:flex and flex-direction:column ensures that the
+    button can be pushed to the bottom of the card, allowing all
+    buttons in a row to align horizontally regardless of content
+    length.
+  */
+  display:flex;
+  flex-direction:column;
+}
+
+/* Push the call-to-action button to the bottom of each card so they
+   align horizontally across rows. This selector targets the anchor
+   elements styled as buttons inside the feature cards. */
+.section.bg-lines .packages-grid .feature-card a.btn{
+  margin-top:auto;
+  align-self:flex-start;
 }
 
 /* Keep it one column on narrow screens */
