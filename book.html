@@ -141,9 +141,98 @@
   }
   /* Extra spacing above Calendly to create visible padding from the top */
   /* removed old widget margin rule */
+
+  /*
+    Booking info panel styling. Positions the consultation blurb on the
+    left side of the hero on desktop and stacks it on top on tablets
+    and phones. The panel uses a semi‑transparent neon card style
+    inspired by the rest of the site, with blur and border for a
+    premium feel.
+  */
+  .booking-hero .booking-info {
+    position: absolute;
+    top: 50%;
+    left: var(--panel-side-gap);
+    transform: translateY(-50%);
+    width: clamp(340px, 32vw, 480px);
+    background: rgba(12, 16, 24, 0.65);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(0, 174, 239, 0.25);
+    box-shadow: 0 0 0 1px rgba(157, 78, 221, 0.25) inset, 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 24px rgba(0, 174, 239, 0.25);
+    border-radius: 18px;
+    padding: clamp(16px, 2vw, 32px);
+    color: var(--color-white);
+    z-index: 2;
+  }
+  .booking-hero .booking-info h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--color-blue);
+    margin-bottom: 0.5rem;
+  }
+  .booking-hero .booking-info h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--color-green);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .booking-hero .booking-info p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-silver);
+  }
+  .booking-hero .booking-info ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  .booking-hero .booking-info ul li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--color-silver);
+  }
+  .booking-hero .booking-info ul li::before {
+    content: '\f058'; /* Font Awesome check icon */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--color-green);
+    position: absolute;
+    left: 0;
+    top: 0.15rem;
+  }
+  @media (max-width: 1024px) {
+    .booking-hero .booking-info {
+      position: static;
+      transform: none;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto 2rem auto;
+    }
+    .booking-hero .booking-info ul li {
+      padding-left: 1rem;
+    }
+  }
 </style>
 <section class="booking-hero" id="booking-hero">
 <img alt="Booking background" class="booking-bg" decoding="async" fetchpriority="high" sizes="100vw" src="assets/images/zip/Silverstone_12_new.jpg" srcset="assets/images/zip/Silverstone_12_new.jpg 1536w, assets/images/zip/Silverstone_12_new-sm.jpg 1200w">
+      <!-- Informational blurb about the consultation. This panel sits to the left
+           of the Calendly embed on larger screens and stacks above on mobile.
+           It introduces the free consultation, sets expectations and
+           encourages visitors to book. -->
+      <div class="booking-info neon-card">
+        <h2>Let’s find a time to talk</h2>
+        <h3>Take the first step to working smarter with AI and automation</h3>
+        <p>Book your no‑obligation discovery call today and discover how our AI and automation experts can help streamline your business. There’s no email ping‑pong — choose a time that suits you and it goes straight into our calendar.</p>
+        <h3>What to expect:</h3>
+        <ul>
+          <li>Get your questions about AI and automation answered by our consultants</li>
+          <li>Learn more about our services and how we work</li>
+          <li>Find out if automation is the right fit for your business</li>
+        </ul>
+      </div>
 <div class="booking-panel">
   <iframe class="calendly-inline-iframe" src="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1" loading="eager" fetchpriority="high" referrerpolicy="no-referrer-when-downgrade" title="Schedule time with Silverstone">
     </iframe>
