@@ -186,13 +186,10 @@
   /* Allow answer text to wrap naturally across multiple lines */
   white-space:normal;
   overflow-wrap:break-word;
-  /*
-    Constrain the width of the answer text so it wraps onto multiple
-    lines even when the overall card is wide. Using a character-based
-    max-width keeps lines at a comfortable reading length while still
-    respecting the card’s available space.
-  */
-  max-width:60ch;
+  /* Ensure the answer fills the available width of the card. By
+     allowing the paragraph to grow freely (without max-width), the
+     text will wrap naturally and make better use of horizontal space
+     when the card expands on open. */
 }
 
 /*
