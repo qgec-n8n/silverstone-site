@@ -103,8 +103,9 @@
     top: 52%;
     left: 55%;
     transform: translateY(-50%);
-    width: clamp(420px, 36vw, 560px);
-    max-height: min(78vh, 820px);
+    /* Reduce the overall width so the Calendly widget appears smaller. */
+    width: clamp(360px, 30vw, 460px);
+    /* Height is determined by its children (info panel height plus square calendar). */
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
@@ -112,11 +113,14 @@
     z-index: 2;
   }
 
-  /* The calendar panel now lives within .booking-right and simply
-     stretches to fill the remaining vertical space.  It no longer
-     relies on absolute positioning. */
+  /* The calendar panel now lives within .booking-right.  It is a
+     perfect square (width equals height) so that the calendar grid
+     appears proportionate.  It no longer relies on absolute
+     positioning. */
   .booking-hero .booking-panel {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
+    /* The aspect-ratio property ensures that height matches width. */
+    aspect-ratio: 1 / 1;
     background: transparent !important;
     box-shadow: none !important;
     border: 0 !important;
@@ -159,6 +163,8 @@
     }
     .booking-hero .booking-panel {
       width: 100%;
+      /* Preserve the square aspect ratio on smaller screens. */
+      aspect-ratio: 1 / 1;
       height: auto;
     }
     /* Provide spacing below the blurb on mobile. */
