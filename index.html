@@ -65,8 +65,9 @@
       /* Custom grids for grouped services and pricing */
       .packages-grid {
         display: grid;
-        /* Use wider minimum column size so each package fills the row evenly on desktop */
-        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+        /* Force two columns on larger screens so the service cards form a 2×2 grid. 480px minimum
+           ensures each card stretches to fill the available width without leaving large gaps. */
+        grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
         gap: 2rem;
         max-width: 1000px;
         margin: 0 auto;
@@ -77,11 +78,15 @@
         flex-direction: column;
         align-items: flex-start;
       }
-      /* Icon styling for service packages */
-      .packages-grid .service-icon {
-        font-size: 2rem;
-        color: var(--color-green);
+      /* Icon styling for service packages
+         The icons are now custom images rather than Font Awesome glyphs. They are
+         sized consistently and aligned with the text. */
+      .packages-grid .service-icon-img {
+        width: 2.5rem;
+        height: 2.5rem;
         margin-bottom: 0.75rem;
+        object-fit: contain;
+        display: block;
       }
       .packages-grid .neon-card h3 {
         font-family: var(--font-heading);
@@ -128,12 +133,26 @@
         margin-bottom: 0.5rem;
         color: var(--color-blue);
       }
+      /* Style for price labels and values to mirror competitor layout */
+      .pricing-grid .price-label {
+        font-size: 0.8rem;
+        color: var(--color-silver);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 0.25rem;
+        display: block;
+      }
       .pricing-grid .price {
         font-size: 2rem;
         font-weight: 700;
         color: var(--color-green);
         margin-bottom: 0.5rem;
         display: block;
+      }
+      .pricing-grid .best-for {
+        font-size: 0.8rem;
+        color: var(--color-silver);
+        margin-top: 0.25rem;
       }
       .pricing-grid .neon-card p {
         font-size: 0.9rem;
@@ -234,42 +253,45 @@
         <h2 class="section-title" style="margin-top: 3rem">Our Services</h2>
         <p class="section-subtitle">Discover how we transform businesses through bespoke solutions.</p>
         <div class="packages-grid">
-          <!-- Lead & Process Automation -->
+          <!-- AI Consulting for Small Business -->
           <div class="feature-card neon-card">
-            <!-- icon for package -->
-            <i class="fa-solid fa-magnet service-icon"></i>
-            <h3>Lead &amp; Process Automation</h3>
-            <p class="tagline">Maximise your sales pipeline with automated lead capture.</p>
-            <p><i class="fa-solid fa-check"></i> Automate lead capture &amp; qualification</p>
-            <p><i class="fa-solid fa-check"></i> Streamline core workflows &amp; tasks</p>
-            <p><i class="fa-solid fa-check"></i> Built on n8n &amp; Zapier</p>
+            <img src="assets/icons/ai-consulting.png" alt="AI Consulting Icon" class="service-icon-img" />
+            <h3>AI Consulting for Small Business</h3>
+            <p class="tagline">We make AI accessible for smaller companies without deep pockets or in‑house expertise.</p>
+            <p><i class="fa-solid fa-check"></i> Cut through the noise to identify the best AI models and tools for your needs</p>
+            <p><i class="fa-solid fa-check"></i> Build AI agents and automations to increase productivity and profits</p>
+            <p><i class="fa-solid fa-check"></i> Understand the potential of AI and how to mitigate risks</p>
+            <a href="services.html#consulting" class="btn btn-secondary">Level‑Up With AI</a>
           </div>
-          <!-- Workflow & Document Automation -->
+          <!-- Marketing Automation -->
           <div class="feature-card neon-card">
-            <i class="fa-solid fa-file-lines service-icon"></i>
-            <h3>Workflow &amp; Document Automation</h3>
-            <p class="tagline">Automate your manual processes &amp; document flows.</p>
+            <img src="assets/icons/marketing-automation.png" alt="Marketing Automation Icon" class="service-icon-img" />
+            <h3>Marketing Automation</h3>
+            <p class="tagline">Boost customer attraction and drive sales with targeted, automated marketing workflows.</p>
+            <p><i class="fa-solid fa-check"></i> Design and build streamlined processes to increase your team’s capacity</p>
+            <p><i class="fa-solid fa-check"></i> Weave GenAI into workflows to create, publish and repurpose assets on autopilot</p>
+            <p><i class="fa-solid fa-check"></i> Optimise campaign performance and improve personalisation to maximise ROI</p>
+            <a href="services.html#marketing" class="btn btn-secondary">Automate Marketing</a>
+          </div>
+          <!-- Workflow & Data Automation -->
+          <div class="feature-card neon-card">
+            <img src="assets/icons/workflow-data.png" alt="Workflow & Data Icon" class="service-icon-img" />
+            <h3>Workflow &amp; Data Automation</h3>
+            <p class="tagline">Create automated workflows and data systems to optimise resources and increase ROI.</p>
             <p><i class="fa-solid fa-check"></i> Intelligent workflows eliminate busywork</p>
-            <p><i class="fa-solid fa-check"></i> AI‑powered document management &amp; routing</p>
-            <p><i class="fa-solid fa-check"></i> Seamless app integration with n8n &amp; Zapier</p>
-          </div>
-          <!-- Data, Analytics & AI -->
-          <div class="feature-card neon-card">
-            <i class="fa-solid fa-chart-line service-icon"></i>
-            <h3>Data, Analytics &amp; AI</h3>
-            <p class="tagline">Turn data into actionable insights.</p>
             <p><i class="fa-solid fa-check"></i> Interactive dashboards &amp; real‑time reporting</p>
-            <p><i class="fa-solid fa-check"></i> Predictive analytics &amp; AI‑driven insights</p>
-            <p><i class="fa-solid fa-check"></i> Custom AI models for personalisation &amp; forecasting</p>
-          </div>
-          <!-- Integration & Resource Optimisation -->
-          <div class="feature-card neon-card">
-            <i class="fa-solid fa-plug service-icon"></i>
-            <h3>Integration &amp; Resource Optimisation</h3>
-            <p class="tagline">Connect and optimise your entire stack.</p>
-            <p><i class="fa-solid fa-check"></i> Unify your systems &amp; apps into one ecosystem</p>
             <p><i class="fa-solid fa-check"></i> Smart scheduling &amp; resource management</p>
-            <p><i class="fa-solid fa-check"></i> Seamless synchronisation with n8n &amp; Zapier</p>
+            <a href="services.html#workflow-data" class="btn btn-secondary">Optimise Workflows</a>
+          </div>
+          <!-- Systems & Data Integration -->
+          <div class="feature-card neon-card">
+            <img src="assets/icons/systems-integration.png" alt="Systems Integration Icon" class="service-icon-img" />
+            <h3>Systems &amp; Data Integration</h3>
+            <p class="tagline">Connect your tools and platforms into one seamless ecosystem.</p>
+            <p><i class="fa-solid fa-check"></i> Unify your systems &amp; apps into one ecosystem</p>
+            <p><i class="fa-solid fa-check"></i> Seamless app integration with n8n &amp; Zapier</p>
+            <p><i class="fa-solid fa-check"></i> API integration and middleware development</p>
+            <a href="services.html#integration" class="btn btn-secondary">Integrate Systems</a>
           </div>
         </div>
         <!-- Pricing integrated into the same section -->
@@ -279,23 +301,26 @@
           <!-- Automation Strategy -->
           <div class="neon-card pricing-card">
             <h3>Automation Strategy</h3>
-            <span class="price">From £1,600</span>
             <p>Discover new ways to optimise your tech stack &amp; resources to maximise ROI.</p>
-            <p style="font-size: 0.8rem; color: var(--color-silver);">Best for businesses seeking all‑round efficiency gains or unsure where to start.</p>
+            <span class="price-label">From</span>
+            <span class="price">£2,400</span>
+            <p class="best-for">Best for businesses seeking all‑round efficiency gains or unsure where to start.</p>
           </div>
           <!-- Automation Set‑Up -->
           <div class="neon-card pricing-card">
             <h3>Automation Set‑Up</h3>
-            <span class="price">From £400</span>
             <p>We build and launch custom automation solutions to meet your requirements.</p>
-            <p style="font-size: 0.8rem; color: var(--color-silver);">Best for companies/teams with a specific need and clearly defined scope.</p>
+            <span class="price-label">From</span>
+            <span class="price">£600</span>
+            <p class="best-for">Best for companies/teams with a specific need and clearly defined scope.</p>
           </div>
           <!-- Retained Services -->
           <div class="neon-card pricing-card">
             <h3>Retained Services</h3>
-            <span class="price">From £100/month</span>
             <p>Drive ongoing growth with a flexible pot of engineer time each month.</p>
-            <p style="font-size: 0.8rem; color: var(--color-silver);">Best for new and existing clients looking for continuous improvement.</p>
+            <span class="price-label">From</span>
+            <span class="price">£200/month</span>
+            <p class="best-for">Best for new and existing clients looking for continuous improvement.</p>
           </div>
         </div>
         <h3 class="section-title" style="margin-top: 3rem">Popular Solutions</h3>
@@ -303,24 +328,27 @@
           <!-- AI Agents -->
           <div class="neon-card pricing-card">
             <h3>AI Agents</h3>
-            <span class="price">From £2,000</span>
             <p>Delegate work to AI through digital agents that can take actions automatically.</p>
+            <span class="price-label">From</span>
+            <span class="price">£3,000</span>
           </div>
           <!-- Live Data Dashboards -->
           <div class="neon-card pricing-card">
             <h3>Live Data Dashboards</h3>
-            <span class="price">From £1,200</span>
             <p>Connect your data sources into a custom dashboard for real‑time reporting.</p>
+            <span class="price-label">From</span>
+            <span class="price">£1,800</span>
           </div>
           <!-- Personalised Outreach -->
           <div class="neon-card pricing-card">
             <h3>Personalised Outreach</h3>
-            <span class="price">From £600</span>
             <p>Automate personalisation at scale to outperform templated email campaigns.</p>
+            <span class="price-label">From</span>
+            <span class="price">£900</span>
           </div>
         </div>
         <p class="section-subtitle" style="margin-top: 2rem">
-          All costs subject to scope, priced at a day rate of £400. Excludes software usage fees (where applicable).
+          All costs subject to scope, priced at a day rate of £600. Excludes software usage fees (where applicable).
         </p>
       </div>
     </section>
