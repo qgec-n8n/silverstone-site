@@ -133,8 +133,13 @@
 .faq-section details{
   border-radius:18px;
   width:100%;
+  /* Limit the maximum width of each FAQ card so that both questions and
+     answers wrap onto multiple lines when they exceed this width. This
+     prevents excessively long single‑line answers and ensures a
+     consistent card size across the list. */
+  max-width:65ch;
   /* Animate subtle scaling when the answer is revealed */
-  transition:transform 0.3s ease,padding 0.3s ease;
+  transition:transform 0.3s ease,padding 0.3s ease,width 0.3s ease;
 }
 /*
   Style the FAQ question headers. Reduce the font size slightly to
@@ -202,11 +207,11 @@
   expansion without making the card excessively large.
 */
 .faq-section details[open]{
-  transform:scale(1.04);
+  transform:scale(1.03);
   padding-bottom:1rem;
-  /* Expand the width slightly when open to provide more room for the
-     content. The grid column will adjust for the largest open card. */
-  width:calc(100% + 1.5rem);
+  /* Expand the maximum width slightly when open to provide more room for
+     the answer while maintaining a tidy layout. */
+  max-width:70ch;
 }
 
 /*
