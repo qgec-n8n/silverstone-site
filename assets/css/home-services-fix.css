@@ -106,11 +106,16 @@
   each item only grows to fit its content. The gap property controls
   spacing between items.
 */
+/*
+  Use a single-column CSS grid for the FAQ list. The column width is
+  determined by the widest question (max-content), ensuring all cards
+  share the same width. The grid is centered within its container.
+*/
 .faq-section .faq-list{
-  display:flex;
-  flex-direction:column;
+  display:grid;
+  grid-template-columns:max-content;
   gap:1rem;
-  align-items:flex-start;
+  justify-content:center;
 }
 /*
   Each FAQ entry is a neon card that should wrap to the width of its
@@ -119,11 +124,15 @@
   length of the question while still wrapping at the container edge on
   smaller screens. A max-width of 100% prevents overflow.
 */
+/*
+  Grid items expand to fill the single column width set by the grid. We
+  only need to apply the border radius here; the grid will handle
+  alignment and width. Setting width:100% ensures each card fills the
+  grid column uniformly.
+*/
 .faq-section details{
   border-radius:18px;
-  width:auto;
-  max-width:100%;
-  display:inline-block;
+  width:100%;
 }
 /*
   Style the FAQ question headers. Reduce the font size slightly to
@@ -131,10 +140,16 @@
   the same heading family and colours for consistency. We also retain
   the padding on the right to accommodate the plus/minus icon.
 */
+/*
+  FAQ question headers: reduce the font size further (in line with the
+  proportion used to scale down the section title) so the questions
+  remain readable but subordinate to the main content. The right padding
+  leaves room for the plus/minus toggle icon.
+*/
 .faq-section summary{
   list-style:none;
   font-family:var(--font-heading);
-  font-size:1.1rem;
+  font-size:1rem;
   color:var(--color-blue);
   cursor:pointer;
   position:relative;
