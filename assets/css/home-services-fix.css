@@ -1,0 +1,40 @@
+/* Home page only: fix "Our Services" grid and bullets */
+.section.bg-lines .packages-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:2rem; /* match the row above */
+  align-items:stretch;
+}
+.section.bg-lines .packages-grid .feature-card{
+  width:100%;
+  max-width:none; /* override any card max-width from global styles */
+  height:100%;
+}
+
+/* Keep it one column on narrow screens */
+@media (max-width: 768px){
+  .section.bg-lines .packages-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* Make "bullet" paragraphs (the ones with the green check icon) stay on one line on desktop,
+   while keeping the rest of the text unaffected. Uses :has() which is supported in modern browsers. */
+@media (min-width: 992px){
+  @supports selector(p:has(img.check-icon)){
+    .section.bg-lines .packages-grid .feature-card p:has(img.check-icon){
+      white-space:nowrap;
+      font-size:clamp(0.85rem, 0.8rem + 0.25vw, 0.95rem);
+      line-height:1.35;
+    }
+  }
+}
+
+/* Minor spacing/alignments to keep the bullets tidy */
+.section.bg-lines .packages-grid .feature-card p img.check-icon{
+  display:inline-block;
+  vertical-align:middle;
+  margin-right:0.5rem;
+  max-width:18px;
+  height:auto;
+}
