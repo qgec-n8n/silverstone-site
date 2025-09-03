@@ -22,12 +22,71 @@
    while keeping the rest of the text unaffected. Uses :has() which is supported in modern browsers. */
 @media (min-width: 992px){
   @supports selector(p:has(img.check-icon)){
+    /*
+      Allow bullet text to wrap naturally on larger screens. Previously
+      the white-space property forced the content to remain on a single
+      line which caused overflow issues when long sentences exceeded the
+      available width. Setting white-space to normal restores automatic
+      wrapping. Font-size and line-height tweaks are preserved for
+      readability.
+    */
     .section.bg-lines .packages-grid .feature-card p:has(img.check-icon){
-      white-space:nowrap;
+      white-space:normal;
       font-size:clamp(0.85rem, 0.8rem + 0.25vw, 0.95rem);
       line-height:1.35;
     }
   }
+}
+
+/*
+  Align the service icons and headings on the same line. A new wrapper
+  (.service-title) is added around the icon and <h3> in index.html. The
+  wrapper uses flexbox to align its children horizontally. Remove the
+  default bottom margin on the heading so it sits vertically centred.
+*/
+.packages-grid .feature-card .service-title{
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  margin-bottom:0.5rem;
+}
+.packages-grid .feature-card .service-title h3{
+  margin-bottom:0;
+}
+.packages-grid .feature-card .service-title .service-icon-img{
+  /* Ensure the icon retains its original size without affecting layout */
+  width:3.25rem;
+  height:3.25rem;
+  object-fit:contain;
+  display:block;
+  margin-bottom:0;
+}
+
+/* Prevent long words or URLs from overflowing their container. */
+.packages-grid .feature-card p{
+  overflow-wrap:break-word;
+}
+
+/*
+  Pricing section adjustments: left‑align all text within pricing cards,
+  widen the columns on larger screens, reduce the heading size so titles
+  remain on a single line, and decrease the font size of the “best for”
+  description. These styles apply to both the “Transparent, Affordable
+  Pricing” and “Popular Solutions” grids.
+*/
+.pricing-grid{
+  /* Use wider minimum widths to reduce wrapping of long titles */
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  max-width:var(--max-width);
+}
+.pricing-grid .neon-card{
+  text-align:left;
+}
+.pricing-grid .neon-card h3{
+  font-size:1.3rem;
+}
+.pricing-grid .neon-card .best-for{
+  font-size:0.75rem;
 }
 
 /* Minor spacing/alignments to keep the bullets tidy */
