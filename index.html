@@ -170,82 +170,10 @@
         color: var(--color-silver);
         margin-bottom: 0.5rem;
       }
-
-/* === Our Services fixes (inline, page-scoped) === */
-
-/* 2×2 grid that matches the width rhythm of the feature row above */
-.section.bg-lines .packages-grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:2rem;
-  align-items:stretch;
-}
-
-/* Fill columns and allow taller cards on desktop */
-.section.bg-lines .packages-grid .feature-card.neon-card{
-  max-width:none;
-  width:100%;
-}
-@media (min-width: 992px){
-  .section.bg-lines .packages-grid .feature-card.neon-card{
-    padding:2.2rem;
-    min-height:540px;
-  }
-}
-@media (max-width: 768px){
-  .section.bg-lines .packages-grid{ grid-template-columns:1fr; }
-  .section.bg-lines .packages-grid .feature-card.neon-card{ min-height:initial; padding:1.6rem; }
-}
-
-/* Typography adjustments: smaller font + larger line spacing so all text is contained and readable */
-.section.bg-lines .packages-grid .feature-card.neon-card h3{
-  /* Make titles line up with the icon (set inline-block) */
-  display:inline-block;
-  vertical-align:middle;
-  margin:0 0 0.35rem 0;
-  font-size:clamp(1.05rem, 0.9rem + 0.6vw, 1.35rem);
-  line-height:1.3;
-}
-.section.bg-lines .packages-grid .feature-card.neon-card .service-icon-img{
-  display:inline-block;
-  vertical-align:middle;
-  width:1.2rem;
-  height:1.2rem;
-  margin-right:0.55rem;
-  flex-shrink:0;
-}
-.section.bg-lines .packages-grid .feature-card.neon-card .tagline{
-  font-size:clamp(0.9rem, 0.85rem + 0.3vw, 1.05rem);
-  line-height:1.6;
-  margin-bottom:0.6rem;
-}
-.section.bg-lines .packages-grid .feature-card.neon-card p{
-  font-size:clamp(0.82rem, 0.78rem + 0.25vw, 0.95rem);
-  line-height:1.65;
-  margin:0.45rem 0;
-}
-
-/* Keep bullet items to a single line on desktop */
-@media (min-width: 992px){
-  .section.bg-lines .packages-grid .feature-card.neon-card p:has(img.check-icon){
-    white-space:nowrap;
-    text-wrap:nowrap;
-    line-height:1.7;
-    margin:0.5rem 0;
-    font-size:clamp(0.74rem, 0.7rem + 0.22vw, 0.9rem);
-  }
-}
-.section.bg-lines .packages-grid .feature-card.neon-card p img.check-icon{
-  display:inline-block;
-  vertical-align:middle;
-  margin-right:0.55rem;
-  max-width:18px;
-  height:auto;
-}
-/* === end Our Services fixes === */
-
-</style>
-  </head>
+    </style>
+  
+  <link rel="stylesheet" href="assets/css/home-services-fix.css" />
+</head>
   <body>
     <!-- Cookie consent banner -->
     <div id="cookie-banner" class="cookie-banner">
