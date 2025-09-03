@@ -65,28 +65,38 @@
       /* Custom grids for grouped services and pricing */
       .packages-grid {
         display: grid;
-        /* Force two columns on larger screens so the service cards form a 2×2 grid. 480px minimum
-           ensures each card stretches to fill the available width without leaving large gaps. */
-        grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
-        gap: 2rem;
-        max-width: 1000px;
+        /* Two wider cards per row so the combined width (including the gap) matches
+           the row of three feature cards above. Increasing the minimum size helps
+           the boxes span more of the container on larger screens, while the gap
+           brings them closer together. */
+        grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+        gap: 1rem;
+        max-width: var(--max-width);
         margin: 0 auto;
       }
       .packages-grid .neon-card {
-        padding: 2rem;
+        /* Slightly reduce padding to shorten card height while retaining breathing space */
+        padding: 1.25rem;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
       }
-      /* Icon styling for service packages
-         The icons are now custom images rather than Font Awesome glyphs. They are
-         sized consistently and aligned with the text. */
+      /* Icon styling for service packages when using image icons. Increase the size
+         for better visibility and remove any background so only the neon green
+         artwork appears. */
       .packages-grid .service-icon-img {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 3.25rem;
+        height: 3.25rem;
         margin-bottom: 0.75rem;
         object-fit: contain;
         display: block;
+      }
+      /* Styling for custom checkmark icons used in the service lists */
+      .packages-grid .check-icon {
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-right: 0.5rem;
+        flex-shrink: 0;
       }
       .packages-grid .neon-card h3 {
         font-family: var(--font-heading);
@@ -105,15 +115,16 @@
       .packages-grid .neon-card p {
         display: flex;
         align-items: flex-start;
-        gap: 0.5rem;
+        gap: 0.55rem;
         font-size: 0.9rem;
         color: var(--color-silver);
         margin-bottom: 0.5rem;
         text-align: left;
       }
       .packages-grid .neon-card p i {
+        font-size: 1.15rem;
         color: var(--color-green);
-        margin-right: 0.5rem;
+        margin-top: 0.15rem;
       }
       .pricing-grid {
         display: grid;
@@ -255,42 +266,46 @@
         <div class="packages-grid">
           <!-- AI Consulting for Small Business -->
           <div class="feature-card neon-card">
-            <img src="assets/icons/ai-consulting.png" alt="AI Consulting Icon" class="service-icon-img" />
+            <!-- Neon green brain icon with transparent background -->
+            <img src="assets/icons/ai-consulting-transparent.png" alt="AI Consulting Icon" class="service-icon-img" />
             <h3>AI Consulting for Small Business</h3>
             <p class="tagline">We make AI accessible for smaller companies without deep pockets or in‑house expertise.</p>
-            <p><i class="fa-solid fa-check"></i> Cut through the noise to identify the best AI models and tools for your needs</p>
-            <p><i class="fa-solid fa-check"></i> Build AI agents and automations to increase productivity and profits</p>
-            <p><i class="fa-solid fa-check"></i> Understand the potential of AI and how to mitigate risks</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Cut through the noise to identify the best AI models and tools for your needs</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Build AI agents and automations to increase productivity and profits</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Understand the potential of AI and how to mitigate risks</p>
             <a href="services.html#consulting" class="btn btn-secondary">Level‑Up With AI</a>
           </div>
           <!-- Marketing Automation -->
           <div class="feature-card neon-card">
-            <img src="assets/icons/marketing-automation.png" alt="Marketing Automation Icon" class="service-icon-img" />
+            <!-- Neon green marketing automation icon with transparent background -->
+            <img src="assets/icons/marketing-automation-transparent.png" alt="Marketing Automation Icon" class="service-icon-img" />
             <h3>Marketing Automation</h3>
             <p class="tagline">Boost customer attraction and drive sales with targeted, automated marketing workflows.</p>
-            <p><i class="fa-solid fa-check"></i> Design and build streamlined processes to increase your team’s capacity</p>
-            <p><i class="fa-solid fa-check"></i> Weave GenAI into workflows to create, publish and repurpose assets on autopilot</p>
-            <p><i class="fa-solid fa-check"></i> Optimise campaign performance and improve personalisation to maximise ROI</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Design and build streamlined processes to increase your team’s capacity</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Weave GenAI into workflows to create, publish and repurpose assets on autopilot</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Optimise campaign performance and improve personalisation to maximise ROI</p>
             <a href="services.html#marketing" class="btn btn-secondary">Automate Marketing</a>
           </div>
           <!-- Workflow & Data Automation -->
           <div class="feature-card neon-card">
-            <img src="assets/icons/workflow-data.png" alt="Workflow & Data Icon" class="service-icon-img" />
+            <!-- Neon green workflow & data icon with transparent background -->
+            <img src="assets/icons/workflow-data-transparent.png" alt="Workflow & Data Icon" class="service-icon-img" />
             <h3>Workflow &amp; Data Automation</h3>
             <p class="tagline">Create automated workflows and data systems to optimise resources and increase ROI.</p>
-            <p><i class="fa-solid fa-check"></i> Intelligent workflows eliminate busywork</p>
-            <p><i class="fa-solid fa-check"></i> Interactive dashboards &amp; real‑time reporting</p>
-            <p><i class="fa-solid fa-check"></i> Smart scheduling &amp; resource management</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Intelligent workflows eliminate busywork</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Interactive dashboards &amp; real‑time reporting</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Smart scheduling &amp; resource management</p>
             <a href="services.html#workflow-data" class="btn btn-secondary">Optimise Workflows</a>
           </div>
           <!-- Systems & Data Integration -->
           <div class="feature-card neon-card">
-            <img src="assets/icons/systems-integration.png" alt="Systems Integration Icon" class="service-icon-img" />
+            <!-- Custom neon green network icon created via Python drawing -->
+            <img src="assets/icons/systems-integration-new.png" alt="Systems Integration Icon" class="service-icon-img" />
             <h3>Systems &amp; Data Integration</h3>
             <p class="tagline">Connect your tools and platforms into one seamless ecosystem.</p>
-            <p><i class="fa-solid fa-check"></i> Unify your systems &amp; apps into one ecosystem</p>
-            <p><i class="fa-solid fa-check"></i> Seamless app integration with n8n &amp; Zapier</p>
-            <p><i class="fa-solid fa-check"></i> API integration and middleware development</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Unify your systems &amp; apps into one ecosystem</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />Seamless app integration with n8n &amp; Zapier</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" />API integration and middleware development</p>
             <a href="services.html#integration" class="btn btn-secondary">Integrate Systems</a>
           </div>
         </div>
