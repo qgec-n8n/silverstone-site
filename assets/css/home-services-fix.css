@@ -133,6 +133,8 @@
 .faq-section details{
   border-radius:18px;
   width:100%;
+  /* Animate subtle scaling when the answer is revealed */
+  transition:transform 0.3s ease,padding 0.3s ease;
 }
 /*
   Style the FAQ question headers. Reduce the font size slightly to
@@ -176,6 +178,17 @@
   font-size:0.95rem;
   color:var(--color-silver);
   line-height:1.5;
+  /* Allow answer text to wrap naturally across multiple lines */
+  white-space:normal;
+  overflow-wrap:break-word;
+}
+
+/*
+  On open, slightly enlarge the FAQ card. Increasing scale makes the box
+  feel more spacious without causing a drastic size difference.
+*/
+.faq-section details[open]{
+  transform:scale(1.02);
 }
 
 /*
