@@ -77,10 +77,10 @@
     position: relative;
     width: 100%;
     margin: 0;
-    /* Maintain the image's 3:2 aspect ratio so the Calendly height reliably fits. */
-    /* Do not let it get too tiny on small laptops; also avoid being absurdly tall on ultrawide screens */
-    min-height: 1200px;
-    height: 1200px;
+    /* Extend the height to provide extra space above the calendar image so the
+       informational blurb can sit comfortably without covering the view. */
+    min-height: 1400px;
+    height: 1400px;
     overflow: hidden;
     background: transparent;
   }
@@ -151,34 +151,36 @@
   */
   .booking-hero .booking-info {
     position: absolute;
-    top: 50%;
-    left: var(--panel-side-gap);
-    transform: translateY(-50%);
-    width: clamp(340px, 32vw, 480px);
+    /* Position near the top of the hero and centred horizontally so it
+       sits above the calendar artwork without covering it. */
+    top: clamp(32px, 6vw, 120px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(360px, 50vw, 600px);
     background: rgba(12, 16, 24, 0.65);
     backdrop-filter: blur(6px);
     border: 1px solid rgba(0, 174, 239, 0.25);
     box-shadow: 0 0 0 1px rgba(157, 78, 221, 0.25) inset, 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 24px rgba(0, 174, 239, 0.25);
     border-radius: 18px;
-    padding: clamp(16px, 2vw, 32px);
+    padding: clamp(12px, 2vw, 28px);
     color: var(--color-white);
     z-index: 2;
   }
   .booking-hero .booking-info h2 {
     font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: var(--color-blue);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
   }
   .booking-hero .booking-info h3 {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--color-green);
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.4rem;
   }
   .booking-hero .booking-info p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.5;
     color: var(--color-silver);
   }
@@ -189,9 +191,9 @@
   }
   .booking-hero .booking-info ul li {
     position: relative;
-    padding-left: 1.25rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
+    padding-left: 1rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
     color: var(--color-silver);
   }
   .booking-hero .booking-info ul li::before {
@@ -201,7 +203,7 @@
     color: var(--color-green);
     position: absolute;
     left: 0;
-    top: 0.15rem;
+    top: 0.1rem;
   }
   @media (max-width: 1024px) {
     .booking-hero .booking-info {
