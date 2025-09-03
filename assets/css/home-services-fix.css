@@ -181,14 +181,27 @@
   /* Allow answer text to wrap naturally across multiple lines */
   white-space:normal;
   overflow-wrap:break-word;
+  /*
+    Constrain the width of the answer text so it wraps onto multiple
+    lines even when the overall card is wide. Using a character-based
+    max-width keeps lines at a comfortable reading length while still
+    respecting the card’s available space.
+  */
+  max-width:60ch;
 }
 
 /*
   On open, slightly enlarge the FAQ card. Increasing scale makes the box
   feel more spacious without causing a drastic size difference.
 */
+/*
+  When opened, slightly enlarge the card and add extra padding at the
+  bottom. A modest scaling factor creates a subtle but noticeable
+  expansion without making the card excessively large.
+*/
 .faq-section details[open]{
-  transform:scale(1.02);
+  transform:scale(1.04);
+  padding-bottom:1rem;
 }
 
 /*
