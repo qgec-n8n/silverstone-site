@@ -66,100 +66,130 @@
 <p>Let’s explore how automation can transform your business. Provide a few details and we’ll schedule a personalised session.</p>
 </div>
 </section>
+<!-- Discovery call section -->
 <style>
-  /* Booking section with right-aligned Calendly over decorative background.
-     The entire Calendly embed fits within the visible height of the background. */
-  :root {
-    --panel-side-gap: clamp(16px, 4vw, 64px);
-    --panel-pad: clamp(8px, 1.5vw, 16px);
-  }
-  .booking-hero {
+  /* New discovery call section styling */
+  .discovery-call-section {
     position: relative;
-    width: 100%;
-    margin: 0;
-    /* Maintain the image's 3:2 aspect ratio so the Calendly height reliably fits. */
-    /* Do not let it get too tiny on small laptops; also avoid being absurdly tall on ultrawide screens */
-    min-height: 1200px;
-    height: 1200px;
+    padding: 4rem 1rem;
+    background-image: url('assets/images/zip/book_page_calendly_background.jpg');
+    background-size: cover;
+    background-position: center;
     overflow: hidden;
-    background: transparent;
   }
-  /* Decorative background image fills the section */
-  .booking-hero .booking-bg {
+  /* Dark overlay to improve text contrast on the background image */
+  .discovery-call-section::before {
+    content: '';
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background: rgba(0, 0, 0, 0.65);
     z-index: 0;
   }
-  /* Right-aligned panel that vertically centers and fits within the image height */
-  .booking-hero .booking-panel {
-  position: absolute;
-  top: 52%;
-  left: 55%;
-  transform: translateY(-50%);
-  width: clamp(420px, 36vw, 560px);
-  height: min(78vh, 820px);
-  background: transparent !important;
-  box-shadow: none !important;
-  border: 0 !important;
-  padding: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  z-index: 2;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-}
-  /* Calendly widget fills the panel and is fully visible (no internal scrolling) */
-  /* removed old widget margin rule */
-  @media (max-width: 1024px) {
-    /* On tablets/phones, stack and keep readability. */
-    .booking-hero {
-      height: 1200px;
-      max-height: none;
-      aspect-ratio: auto;
-      padding: clamp(48px, 8vw, 80px) var(--panel-side-gap);
-    }
-    .booking-hero .booking-bg {
-      position: absolute;
-      inset: 0;
-    }
-    .booking-hero .booking-panel {
-      position: relative;
-      top: auto;
-      right: auto;
-      transform: none;
-      width: min(100%, 720px);
-      height: auto;
-      margin: 0 auto;
-      background: rgba(0,0,0,0.2);
-    }
-    /* removed old widget margin rule */
+  .discovery-call-section > .container {
+    position: relative;
+    z-index: 1;
   }
-  /* Extra spacing above Calendly to create visible padding from the top */
-  /* removed old widget margin rule */
+  .discovery-call-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .discovery-call-content .info,
+  .discovery-call-content .widget {
+    flex: 1 1 45%;
+    min-width: 320px;
+  }
+  .discovery-call-content .info {
+    background: rgba(12, 16, 24, 0.6);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 2rem;
+    color: var(--color-white);
+  }
+  .discovery-call-content .info h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-blue);
+  }
+  .discovery-call-content .info p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: var(--color-silver);
+  }
+  .discovery-call-content .info ul {
+    list-style: none;
+    margin-bottom: 1rem;
+    padding-left: 0;
+  }
+  .discovery-call-content .info ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-silver);
+    font-size: 0.95rem;
+  }
+  .discovery-call-content .info ul li::before {
+    /* Use a simple check mark rather than a Font Awesome icon to ensure it renders correctly */
+    content: '✓';
+    font-family: inherit;
+    font-weight: 700;
+    color: var(--color-green);
+    margin-right: 0.5rem;
+  }
+  .discovery-call-content .info a {
+    color: var(--color-green);
+    text-decoration: underline;
+  }
+  .discovery-call-content .widget {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .discovery-call-content .widget .calendly-inline-widget {
+    width: 100%;
+    height: 630px;
+    min-height: 630px;
+    border: 0;
+  }
+  @media (max-width: 900px) {
+    .discovery-call-content {
+      flex-direction: column;
+    }
+    .discovery-call-content .info,
+    .discovery-call-content .widget {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+    .discovery-call-content .widget .calendly-inline-widget {
+      height: 700px;
+    }
+  }
 </style>
-<section class="booking-hero" id="booking-hero">
-    <!-- Updated background image for the Calendly section. Use the new
-         book_page_calendly_background.jpg asset for both the default and
-         high‑resolution sources. The smaller image from the previous design is
-         still referenced for legacy breakpoints. -->
-    <img
-      alt="Booking background"
-      class="booking-bg"
-      decoding="async"
-      fetchpriority="high"
-      sizes="100vw"
-      src="assets/images/zip/book_page_calendly_background.jpg"
-      srcset="assets/images/zip/book_page_calendly_background.jpg 1536w, assets/images/zip/book_page_calendly_background.jpg 1200w"
-    >
-<div class="booking-panel">
-  <iframe class="calendly-inline-iframe" src="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1" loading="eager" fetchpriority="high" referrerpolicy="no-referrer-when-downgrade" title="Schedule time with Silverstone">
-    </iframe>
-</div>
+<section class="discovery-call-section" id="discovery-call-section">
+  <div class="container">
+    <div class="discovery-call-content">
+      <div class="info">
+        <h2>Schedule your 30‑Minute Discovery Call</h2>
+        <p>Take the first step to working smarter with AI and automation by booking a no‑obligation consultation. We love automation, so there’s no back and forth with emails to find a convenient time – just put it straight in our calendar and we’ll be there!</p>
+        <ul>
+          <li>Get your questions about AI and automation answered by an expert consultant</li>
+          <li>Discover more about our services and processes</li>
+          <li>Find out if automation is right for your business</li>
+        </ul>
+        <p>If there are no suitable time slots, please <a href="contact.html">use our contact form</a> and we’ll arrange a time that suits your schedule — we know business owners are busy and we always make time for you, no matter the day or hour.</p>
+      </div>
+      <div class="widget">
+        <div class="calendly-inline-widget" data-url="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1&hide_event_type_details=1&primary_color=00FF9D" style="min-width:320px;"></div>
+      </div>
+    </div>
+  </div>
 </section>
 <section class="section brand-gradient animate">
 <div class="container">
@@ -178,7 +208,7 @@
 <script src="assets/js/script.js"></script>
 <script defer src="assets/js/cookie-consent.js"></script>
 <script>
-    // Lazy-load Calendly when the booking section approaches the viewport
+    // Lazy-load Calendly when the discovery call section approaches the viewport
     (function() {
       var injected = false;
       function injectCalendly() {
@@ -189,7 +219,7 @@
         s.async = true;
         document.body.appendChild(s);
       }
-      var target = document.getElementById('booking-hero') || document.querySelector('.calendly-inline-widget');
+      var target = document.getElementById('discovery-call-section') || document.querySelector('.calendly-inline-widget');
       if (!target) return;
       if ('IntersectionObserver' in window) {
         var io = new IntersectionObserver(function(entries) {
