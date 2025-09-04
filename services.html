@@ -47,6 +47,17 @@
         z-index: 2;
       }
     </style>
+    <!-- Ensure the Data & Analytics image uses the same aspect ratio and rounded
+         corners as other service images. This override forces the image to fill
+         its container (which already has padding-top for the aspect ratio) and
+         maintain its aspect ratio via object-fit. -->
+    <style id="analytics-img-fix">
+      .page-services #analytics .service-image img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+      }
+    </style>
     <style>
       @media (max-width: 900px) {
         .hero {
@@ -176,15 +187,20 @@
             <a class="btn btn-secondary" href="book.html">Let’s Talk Automation</a>
           </div>
         </div>
-        <div class="service-row animate" id="analytics" style="align-items: stretch">
-          <div class="service-image service-image" style="display: flex; align-items: stretch">
+        <!-- The analytics block previously used custom inline styles which
+             resulted in a different aspect ratio and no border radius on the
+             image. To ensure the Data & Analytics illustration has the same
+             dimensions and rounded corners as the other service images, we
+             remove those overrides and rely on the global service-image and
+             service-img styles. -->
+        <div class="service-row animate" id="analytics">
+          <div class="service-image">
             <img
               alt="Neon data dashboard with charts and graphs"
               class="service-img"
               loading="lazy"
               src="assets/images/zip/Silverstone_07.jpg"
-              class="analytics-img"
-              style="position: static; height: 100%; width: auto; object-fit: contain; display: block"
+              style="width: 100% !important; height: 100% !important; object-fit: contain !important;"
             />
           </div>
           <div class="service-content neon-card" style="padding-top: 16px; padding-bottom: 16px">
