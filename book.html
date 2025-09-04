@@ -69,34 +69,33 @@
 <!-- Discovery call section -->
 <style>
   /* New discovery call section styling */
+  /* Discovery call section styling */
   .discovery-call-section {
     position: relative;
+    /* Fill the viewport similar to the contact page */
+    min-height: 100vh;
     padding: 4rem 1rem;
+    display: flex;
+    align-items: center;
+    /* Use the same background image across desktop and mobile without an overlay */
     background-image: url('assets/images/zip/book_page_calendly_background.jpg');
     background-size: cover;
     background-position: center;
     overflow: hidden;
   }
-  /* Dark overlay to improve text contrast on the background image */
-  .discovery-call-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.65);
-    z-index: 0;
-  }
+  /* Ensure content sits above the background */
   .discovery-call-section > .container {
     position: relative;
     z-index: 1;
+    width: 100%;
   }
   .discovery-call-content {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 2rem;
     flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
   }
   .discovery-call-content .info,
   .discovery-call-content .widget {
@@ -154,8 +153,9 @@
   }
   .discovery-call-content .widget .calendly-inline-widget {
     width: 100%;
-    height: 630px;
-    min-height: 630px;
+    height: 100%;
+    /* Provide a sensible minimum height to display the calendar without scrolling */
+    min-height: 600px;
     border: 0;
   }
   @media (max-width: 900px) {
@@ -168,7 +168,8 @@
       max-width: 100%;
     }
     .discovery-call-content .widget .calendly-inline-widget {
-      height: 700px;
+      /* On mobile, provide a reasonable height for the calendar while avoiding internal scroll */
+      height: 600px;
     }
   }
 </style>
