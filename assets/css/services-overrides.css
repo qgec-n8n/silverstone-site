@@ -1,0 +1,34 @@
+/*
+ * Overrides for the Services page
+ *
+ * When the Data & Analytics illustration (previously Silverstone_07.jpg)
+ * was much taller than the other service images, the site used custom
+ * CSS rules and JavaScript to centre and resize that image. The new
+ * illustration (Silverstone_07_resized.jpg) has the same aspect ratio
+ * as the other service graphics, so those overrides are no longer
+ * necessary. To ensure all service images—including Data & Analytics—
+ * share the same dimensions, border radius and behaviour, we undo
+ * those earlier overrides here. This stylesheet should be included
+ * after `services-fixes-v21.css` so that it takes precedence.
+ */
+
+/* Reset any flexbox centring on service images introduced by the v21
+   fixes. Restoring `display:block` allows the base styles (which use
+   percentage padding for aspect ratio) to work correctly. */
+.page-services .service-row .service-image {
+  display: block !important;
+  align-items: initial !important;
+  justify-content: initial !important;
+}
+
+/* Ensure the Data & Analytics illustration fills its container just
+   like the others. We set explicit width and height to 100% so the
+   absolutely positioned image inside the `.service-image` wrapper
+   covers the 16:9 area defined by the wrapper's padding. */
+.page-services #analytics .service-image img,
+.page-services #analytics .service-image .service-img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}

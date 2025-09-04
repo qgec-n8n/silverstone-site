@@ -13,6 +13,9 @@
     />
     <link href="assets/css/styles.css" rel="stylesheet" />
     <link href="assets/css/services-fixes-v21.css" rel="stylesheet" />
+    <!-- Load our overrides after the v21 fixes so that the Data & Analytics
+         illustration behaves like the other service images -->
+    <link href="assets/css/services-overrides.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -47,17 +50,11 @@
         z-index: 2;
       }
     </style>
-    <!-- Ensure the Data & Analytics image uses the same aspect ratio and rounded
-         corners as other service images. This override forces the image to fill
-         its container (which already has padding-top for the aspect ratio) and
-         maintain its aspect ratio via object-fit. -->
-    <style id="analytics-img-fix">
-      .page-services #analytics .service-image img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: contain !important;
-      }
-    </style>
+    <!-- Removed old per‑service overrides for the analytics illustration. The
+         Data & Analytics image now relies entirely on the global
+         `.service-image` styles defined in our CSS, ensuring it shares
+         the same aspect ratio, border radius and sizing as the other
+         service illustrations. -->
     <style>
       @media (max-width: 900px) {
         .hero {
@@ -199,11 +196,10 @@
               alt="Neon data dashboard with charts and graphs"
               class="service-img"
               loading="lazy"
-              src="assets/images/zip/Silverstone_07.jpg"
-              style="width: 100% !important; height: 100% !important; object-fit: contain !important;"
+              src="assets/images/zip/Silverstone_07_resized.jpg"
             />
           </div>
-          <div class="service-content neon-card" style="padding-top: 16px; padding-bottom: 16px">
+          <div class="service-content neon-card">
             <h3>Data &amp; Analytics</h3>
             <p>
               Transform raw data into actionable insights. Our analytics solutions
@@ -423,7 +419,9 @@
       <p><a href="privacy-policy.html">Privacy Policy</a></p>
     </footer>
     <script src="assets/js/script.js"></script>
-    <script src="assets/js/services-fixes-v21.js"></script>
+    <!-- Removed the analytics height normalisation script. The Data & Analytics
+         illustration now has the correct aspect ratio and height via CSS,
+         so this script is no longer necessary. -->
     <script defer src="assets/js/cookie-consent.js"></script>
   </body>
 </html>
