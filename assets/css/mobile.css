@@ -1,0 +1,120 @@
+/* Mobile overrides for Silverstone site */
+/*
+  This stylesheet contains mobile‑specific refinements to improve the
+  layout and usability of the Silverstone website on small screens.
+  Desktop styles remain untouched; everything here is wrapped in a
+  media query targeting devices 768px wide or narrower. These
+  overrides stack grids, adjust typography and spacing, and provide
+  full‑width menus and buttons to create a premium mobile experience.
+*/
+
+@media (max-width: 768px) {
+  /* Reduce default section padding to avoid excessive vertical space on small screens */
+  .section {
+    padding: 2.5rem 1rem;
+  }
+
+  /* Navigation menu: expand to full width and improve tap targets */
+  nav ul {
+    width: 100%;
+    max-width: none;
+    right: 0;
+    left: 0;
+    top: 100%;
+    text-align: left;
+    gap: 1rem;
+  }
+  nav ul li {
+    width: 100%;
+  }
+  nav ul li a {
+    display: block;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    color: var(--color-black);
+  }
+
+  /* Features section: stack cards vertically */
+  .features {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .feature-card {
+    max-width: 100%;
+  }
+
+  /* Packages grid (Our Services on the home page) */
+  .packages-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Pricing grid on home and services pages */
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Values cards: convert to a single column */
+  .values {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .value-card {
+    max-width: 100%;
+  }
+
+  /* Hero typography adjustments for better readability */
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+
+  /* Buttons in hero: stack vertically and span full width */
+  .hero .content a + a {
+    margin-left: 0;
+    margin-top: 0.75rem;
+  }
+  .hero .content a {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Contact page grid: stack form and map */
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .contact-grid > * {
+    width: 100%;
+  }
+  .contact-form-card,
+  .contact-map-card {
+    margin-bottom: 0;
+  }
+
+  /* Service page rows: adjust spacing and typography */
+  .service-row {
+    margin-bottom: 3rem;
+  }
+  .service-content {
+    padding: 1.5rem;
+  }
+  .service-content h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Pricing cards: adjust padding */
+  .pricing-grid .neon-card {
+    padding: 1.5rem;
+  }
+
+  /* Centre footer content on mobile */
+  footer {
+    text-align: center;
+  }
+}
