@@ -100,12 +100,47 @@
   /* Service page rows: adjust spacing and typography */
   .service-row {
     margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+  .service-row .service-image,
+  .service-row .service-content {
+    width: 100%;
+  }
+  .service-row .service-image {
+    padding: 0;
+  }
+  .service-row .service-image img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
   .service-content {
     padding: 1.5rem;
   }
   .service-content h3 {
     font-size: 1.5rem;
+  }
+
+  /* About page grids */
+  .values {
+    gap: 1.5rem;
+    text-align: left;
+  }
+  .value-card {
+    text-align: left;
+  }
+  .drives-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Ensure animated sections are visible without relying on desktop parallax JS */
+  .animate {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   /* Pricing cards: adjust padding */
