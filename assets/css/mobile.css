@@ -100,47 +100,12 @@
   /* Service page rows: adjust spacing and typography */
   .service-row {
     margin-bottom: 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-  }
-  .service-row .service-image,
-  .service-row .service-content {
-    width: 100%;
-  }
-  .service-row .service-image {
-    padding: 0;
-  }
-  .service-row .service-image img {
-    width: 100%;
-    height: auto;
-    display: block;
   }
   .service-content {
     padding: 1.5rem;
   }
   .service-content h3 {
     font-size: 1.5rem;
-  }
-
-  /* About page grids */
-  .values {
-    gap: 1.5rem;
-    text-align: left;
-  }
-  .value-card {
-    text-align: left;
-  }
-  .drives-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  /* Ensure animated sections are visible without relying on desktop parallax JS */
-  .animate {
-    opacity: 1 !important;
-    transform: none !important;
   }
 
   /* Pricing cards: adjust padding */
@@ -152,4 +117,43 @@
   footer {
     text-align: center;
   }
+
+/*
+ * Mobile parallax effect for hero backgrounds
+ *
+ * The DC Performance Coaching site implements a mobile parallax effect by
+ * layering a fixed pseudo‑element behind the page contents.  This
+ * technique avoids the limitations of `background‑attachment: fixed` on
+ * iOS Safari while still giving the impression that the hero image
+ * remains static as the user scrolls.  We adapt the same approach here
+ * for the Silverstone site.  Each hero section defines a custom
+ * `--mobile-hero-image` variable inline that points at its background
+ * image.  On screens up to 900px wide the original background on the
+ * hero is hidden and a `::before` element is positioned fixed with
+ * this image.  The result is a smooth parallax effect on mobile
+ * devices without affecting desktop behaviour.
+ */
+
+@media (max-width: 900px) {
+  /* Remove the regular background on mobile so only the fixed layer shows */
+  .hero {
+    background-image: none !important;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Fixed background layer using the CSS custom property defined on each hero */
+  .hero::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: var(--mobile-hero-image);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    z-index: -999;
+    pointer-events: none;
+    /* Force GPU composition to ensure smooth scrolling */
+    transform: translateZ(0);
+  }
+}
 }
