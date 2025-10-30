@@ -118,42 +118,135 @@
     text-align: center;
   }
 
-/*
- * Mobile parallax effect for hero backgrounds
- *
- * The DC Performance Coaching site implements a mobile parallax effect by
- * layering a fixed pseudo‑element behind the page contents.  This
- * technique avoids the limitations of `background‑attachment: fixed` on
- * iOS Safari while still giving the impression that the hero image
- * remains static as the user scrolls.  We adapt the same approach here
- * for the Silverstone site.  Each hero section defines a custom
- * `--mobile-hero-image` variable inline that points at its background
- * image.  On screens up to 900px wide the original background on the
- * hero is hidden and a `::before` element is positioned fixed with
- * this image.  The result is a smooth parallax effect on mobile
- * devices without affecting desktop behaviour.
- */
+  /*
+   * Mobile parallax effect for hero backgrounds
+   *
+   * The DC Performance Coaching site implements a mobile parallax effect by
+   * layering a fixed pseudo‑element behind the page contents.  This
+   * technique avoids the limitations of `background‑attachment: fixed` on
+   * iOS Safari while still giving the impression that the hero image
+   * remains static as the user scrolls.  We adapt the same approach here
+   * for the Silverstone site.  Each hero section defines a custom
+   * `--mobile-hero-image` variable inline that points at its background
+   * image.  On screens up to 900px wide the original background on the
+   * hero is hidden and a `::before` element is positioned fixed with
+   * this image.  The result is a smooth parallax effect on mobile
+   * devices without affecting desktop behaviour.
+   */
 
-@media (max-width: 900px) {
-  /* Remove the regular background on mobile so only the fixed layer shows */
+  @media (max-width: 900px) {
+    /* Remove the regular background on mobile so only the fixed layer shows */
+    .hero {
+      background-image: none !important;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Fixed background layer using the CSS custom property defined on each hero */
+    .hero::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: var(--mobile-hero-image);
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      z-index: -999;
+      pointer-events: none;
+      /* Force GPU composition to ensure smooth scrolling */
+      transform: translateZ(0);
+    }
+  }
+
+  /*
+   * Additional improvements for mobile navigation and layout
+   *
+   * The desktop navigation is positioned absolutely and hidden via opacity in the
+   * base CSS. On mobile we want it to be hidden entirely until the user
+   * taps the hamburger button. Here we explicitly hide the nav menu by
+   * default and reveal it only when the `.open` class is present. This
+   * prevents accidental taps and removes horizontal scroll caused by
+   * overflowing menus. We also ensure there is no horizontal overflow on
+   * the entire page.
+   */
+  body {
+    overflow-x: hidden;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+  nav ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-white);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  nav ul.open {
+    display: block;
+  }
+  nav ul li {
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  nav ul li:last-child {
+    border-bottom: none;
+  }
+  nav ul li a {
+    padding: 0.75rem 1rem;
+    color: var(--color-black);
+    display: block;
+  }
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: var(--color-purple);
+  }
+
+  /* Resize hero section height on mobile: allow content to define height */
   .hero {
-    background-image: none !important;
-    position: relative;
-    overflow: hidden;
+    min-height: auto;
+    height: auto;
+    padding-top: calc(var(--headerH) + 2rem);
+    padding-bottom: 4rem;
   }
-  /* Fixed background layer using the CSS custom property defined on each hero */
-  .hero::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: var(--mobile-hero-image);
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    z-index: -999;
-    pointer-events: none;
-    /* Force GPU composition to ensure smooth scrolling */
-    transform: translateZ(0);
+  .hero .content {
+    margin-top: 0;
   }
-}
+
+  /* Services gallery on mobile: single column for better readability */
+  .page-services .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Discovery call section (book page): reduce excessive height and stack content */
+  .page-book .discovery-call-section {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+  .page-book .discovery-call-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .page-book .discovery-call-content .info,
+  .page-book .discovery-call-content .widget {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .page-book .discovery-call-content .widget .calendly-inline-widget {
+    min-height: 500px;
+  }
+
+  /* Contact page map: constrain height for mobile */
+  .contact-map-card .map-container {
+    padding-top: 56.25%;
+    height: auto;
+  }
+  .map-iframe {
+    height: 300px;
+  }
 }
