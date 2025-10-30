@@ -119,6 +119,106 @@
   }
 
   /*
+   * Mobile hero background fallback
+   *
+   * On some mobile browsers the parallax technique using a fixed ::before
+   * layer can fail to display the hero image.  As a safeguard we assign
+   * the mobile hero image directly to the `.hero` element so there is
+   * always a visible background.  The custom property `--mobile-hero-image`
+   * is defined inline on each page.  Background sizing and positioning
+   * mirror the desktop layout and ensure the image covers the hero area.
+   */
+  .hero {
+    background-image: var(--mobile-hero-image);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+
+  /*
+   * FAQ section mobile layout
+   *
+   * The default home page FAQ uses a single-column grid sized to the
+   * widest question.  On narrow screens this can cause the cards to
+   * overflow the viewport.  We switch the container to a vertical flex
+   * layout so each item spans the full width of the page.  Each
+   * `<details>` element is allowed to grow to 100% width, preventing
+   * horizontal scrolling.  The existing neon-card styles still apply.
+   */
+  .faq-section .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+    width: 100%;
+  }
+  .faq-section .faq-list details {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /*
+   * Feature and value cards padding
+   *
+   * Reduce the internal padding on the Streamline/Optimize/Succeed cards
+   * (home page) and Our Values cards (about page) so the coloured
+   * neon border closely hugs the content.  This adjustment tightens
+   * the boxes on mobile without affecting the desktop layout.
+   */
+  .features .feature-card,
+  .values .value-card {
+    padding: 1.25rem;
+  }
+
+  /*
+   * Service page stacking and spacing
+   *
+   * When service rows stack on top of each other, the default styles
+   * leave a large gap between the image and the text.  We convert the
+   * row into a column flex container, specify a smaller gap and reduce
+   * the overall bottom margin.  The content padding is decreased to
+   * align with the tightened feature cards.  These changes apply only
+   * to the Services page via the `.page-services` class.
+   */
+  .page-services .service-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .page-services .service-row .service-content {
+    padding: 1.25rem;
+  }
+  .page-services .service-row .service-image {
+    margin-bottom: 0;
+  }
+
+  /*
+   * Contact page map
+   *
+   * Ensure the Google Maps iframe is contained within its card on mobile.
+   * We use a responsive wrapper with a 16:9 aspect ratio to maintain
+   * consistent sizing across devices.  The iframe fills the wrapper,
+   * avoids horizontal overflow and has no border.  A modest maximum
+   * height prevents the map from dominating the page.
+   */
+  .contact-map-card .map-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+  }
+  .contact-map-card .map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /*
    * Mobile parallax effect for hero backgrounds
    *
    * The DC Performance Coaching site implements a mobile parallax effect by
@@ -241,12 +341,4 @@
     min-height: 500px;
   }
 
-  /* Contact page map: constrain height for mobile */
-  .contact-map-card .map-container {
-    padding-top: 56.25%;
-    height: auto;
-  }
-  .map-iframe {
-    height: 300px;
-  }
 }
