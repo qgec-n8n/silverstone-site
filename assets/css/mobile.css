@@ -180,6 +180,26 @@
     margin-bottom: 0.5rem;
   }
 
+  /* Further tighten heading margins in feature and value cards */
+  .features .feature-card.neon-card h3,
+  .values .value-card.neon-card h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Remove extra margin on service images and contents to collapse gaps */
+  .page-services .service-row .service-image,
+  .page-services .service-row .service-content {
+    margin: 0 !important;
+  }
+
+  /* Increase map size and ensure spacing before footer */
+  .contact-map-card {
+    margin-bottom: 2rem;
+  }
+  .contact-map-card .map-container iframe {
+    height: 350px;
+  }
+
   /*
    * Service page stacking and spacing
    *
