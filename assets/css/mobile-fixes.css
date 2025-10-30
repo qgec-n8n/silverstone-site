@@ -52,43 +52,13 @@
    * custom variable used to compute service gaps.  These overrides
    * ensure a premium, tighter layout while maintaining readability.
    */
-  /* Override default service row spacing across the site on mobile */
-  .service-row {
-    /* A modest gap to separate image and text without leaving a large void */
-    gap: 0.5rem !important;
-    /* Reduce bottom margin to tighten vertical rhythm between rows */
-    margin-bottom: 1rem !important;
-  }
-  /* Specifically target the Services page rows to ensure our tighter spacing supersedes custom.css */
-  .page-services .service-row {
-    gap: 0.5rem !important;
-    margin-bottom: 1rem !important;
-  }
-  :root {
-    --service-gap: 0.5rem !important;
-  }
-
-  /*
-   * Unite the service image and content into a cohesive card
-   *
-   * On mobile, the image and description should feel like parts of the
-   * same component rather than two disconnected panels.  By setting
-   * overflow:hidden on the parent row and coordinating the border
-   * radii of the image and the neon card, the image appears flush with
-   * the card below.  This adjustment does not affect the desktop
-   * layout because it only applies within this media query.
-   */
-  .page-services .service-row {
-    border-radius: 18px !important;
-    overflow: hidden !important;
-  }
-  .page-services .service-row .service-image img {
-    border-radius: 18px 18px 0 0 !important;
-  }
-  .page-services .service-row .service-content.neon-card {
-    border-radius: 0 0 18px 18px !important;
-  }
-
+    /* Override default service row spacing across the site on mobile */
+    body:not(.page-services) .service-row {
+      /* A modest gap to separate image and text without leaving a large void */
+      gap: 0.5rem !important;
+      /* Reduce bottom margin to tighten vertical rhythm between rows */
+      margin-bottom: 1rem !important;
+    }
   /*
    * Contact page map adjustments
    *
@@ -115,13 +85,4 @@
     display: block !important;
   }
 
-  /* Reduce padding on service content blocks to align with tighter cards */
-  .page-services .service-row .service-content {
-    padding: 0.75rem !important;
-  }
-
-  /* Ensure service images stack flush with their content by removing bottom margin */
-  .page-services .service-row .service-image {
-    margin-bottom: 0 !important;
-  }
 }
