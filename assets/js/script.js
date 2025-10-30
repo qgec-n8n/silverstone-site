@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!document.querySelector('link[href*="assets/css/custom.css"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'assets/css/custom.css';
+    // Use a relative path anchored at the current location to ensure the file
+    // resolves correctly regardless of which page is open (e.g. about.html, services.html).
+    // Prefixing with "./" makes the path relative to the site root when pages live at the root.
+    link.href = './assets/css/custom.css';
     document.head.appendChild(link);
   }
   // Always append the mobile fixes stylesheet after custom.css so its
@@ -48,7 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!document.querySelector('link[href*="assets/css/mobile-fixes.css"]')) {
     const fixesLink = document.createElement('link');
     fixesLink.rel = 'stylesheet';
-    fixesLink.href = 'assets/css/mobile-fixes.css';
+    // Use a relative path anchored at the current location to ensure the file
+    // resolves correctly on all pages.  Prefixing with "./" avoids resolving
+    // inside nested directories (if any) and consistently points to the root assets folder.
+    fixesLink.href = './assets/css/mobile-fixes.css';
     document.head.appendChild(fixesLink);
   }
 

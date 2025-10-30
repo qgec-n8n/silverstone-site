@@ -21,17 +21,26 @@
    */
   .features .feature-card.neon-card,
   .values .value-card.neon-card {
-    padding: 0.75rem !important;
+    /* Further reduce internal padding so the neon border closely hugs the text */
+    padding: 0.5rem !important;
   }
   .features .feature-card.neon-card p,
   .values .value-card.neon-card p {
+    /* Remove most bottom margin on paragraphs to collapse extra space */
     margin-bottom: 0.25rem !important;
+  }
+  .features .feature-card.neon-card h3,
+  .values .value-card.neon-card h4 {
+    /* Tighten heading spacing as well */
+    margin-bottom: 0.4rem !important;
   }
   /* Remove forced equal height on mobile; let cards grow to their content */
   .features .feature-card,
   .values .value-card {
     display: block !important;
     height: auto !important;
+    /* Reset flex properties to avoid stretching */
+    flex: none !important;
   }
 
   /*
@@ -43,12 +52,18 @@
    * custom variable used to compute service gaps.  These overrides
    * ensure a premium, tighter layout while maintaining readability.
    */
+  /* Override default service row spacing across the site on mobile */
   .service-row {
-    gap: 1rem !important;
-    margin-bottom: 1.5rem !important;
+    gap: 0.75rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  /* Specifically target the Services page rows to ensure our tighter spacing supersedes custom.css */
+  .page-services .service-row {
+    gap: 0.75rem !important;
+    margin-bottom: 1.25rem !important;
   }
   :root {
-    --service-gap: 1rem !important;
+    --service-gap: 0.75rem !important;
   }
 
   /*
@@ -75,5 +90,15 @@
     height: 100% !important;
     border: 0 !important;
     display: block !important;
+  }
+
+  /* Reduce padding on service content blocks to align with tighter cards */
+  .page-services .service-row .service-content {
+    padding: 0.75rem !important;
+  }
+
+  /* Ensure service images stack flush with their content by removing bottom margin */
+  .page-services .service-row .service-image {
+    margin-bottom: 0 !important;
   }
 }
