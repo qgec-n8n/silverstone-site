@@ -32,12 +32,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const pathname = window.location.pathname;
 
   // Inject custom.css if it hasn't been loaded yet.  This keeps HTML
-  // files clean and allows CSS overrides to apply universally.
+  // files clean and allows CSS overrides to apply universally.  After
+  // injecting custom.css we also load mobile-fixes.css to override any
+  // rules that conflict on small screens.  Both stylesheets are only
+  // added once per page.
   if (!document.querySelector('link[href*="assets/css/custom.css"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'assets/css/custom.css';
     document.head.appendChild(link);
+  }
+  // Always append the mobile fixes stylesheet after custom.css so its
+  // rules override earlier declarations.  Only inject if not already
+  // present to avoid duplicate links.
+  if (!document.querySelector('link[href*="assets/css/mobile-fixes.css"]')) {
+    const fixesLink = document.createElement('link');
+    fixesLink.rel = 'stylesheet';
+    fixesLink.href = 'assets/css/mobile-fixes.css';
+    document.head.appendChild(fixesLink);
   }
 
   // Determine if the current viewport is considered "mobile".
