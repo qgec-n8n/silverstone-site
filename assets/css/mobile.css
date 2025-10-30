@@ -274,9 +274,9 @@
     filter: saturate(1.05) contrast(1.05);
   }
   .page-services .service-row .service-content.neon-card {
-    background: transparent;
-    box-shadow: none;
-    border: none;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
     padding: 0 !important;
   }
   .page-services .service-row .service-content {
