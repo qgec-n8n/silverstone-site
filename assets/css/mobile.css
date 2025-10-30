@@ -165,9 +165,19 @@
    * neon border closely hugs the content.  This adjustment tightens
    * the boxes on mobile without affecting the desktop layout.
    */
-  .features .feature-card,
-  .values .value-card {
-    padding: 1.25rem;
+  /*
+   * Override neon-card padding on feature and value cards.
+   * Use a more specific selector and `!important` to supersede
+   * the base `.neon-card` padding defined in the global styles.
+   */
+  .features .feature-card.neon-card,
+  .values .value-card.neon-card {
+    padding: 1rem !important;
+  }
+  /* Slightly reduce bottom margins on paragraphs within the cards */
+  .features .feature-card.neon-card p,
+  .values .value-card.neon-card p {
+    margin-bottom: 0.5rem;
   }
 
   /*
@@ -183,11 +193,11 @@
   .page-services .service-row {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
   .page-services .service-row .service-content {
-    padding: 1.25rem;
+    padding: 1rem !important;
   }
   .page-services .service-row .service-image {
     margin-bottom: 0;
@@ -203,19 +213,15 @@
    * height prevents the map from dominating the page.
    */
   .contact-map-card .map-container {
-    position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
+    padding-top: 0;
+    height: auto;
   }
   .contact-map-card .map-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
+    height: 300px;
     border: 0;
+    display: block;
   }
 
   /*
@@ -234,28 +240,12 @@
    * devices without affecting desktop behaviour.
    */
 
-  @media (max-width: 900px) {
-    /* Remove the regular background on mobile so only the fixed layer shows */
-    .hero {
-      background-image: none !important;
-      position: relative;
-      overflow: hidden;
-    }
-    /* Fixed background layer using the CSS custom property defined on each hero */
-    .hero::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: var(--mobile-hero-image);
-      background-size: cover;
-      background-position: center top;
-      background-repeat: no-repeat;
-      z-index: -999;
-      pointer-events: none;
-      /* Force GPU composition to ensure smooth scrolling */
-      transform: translateZ(0);
-    }
-  }
+  /*
+   * Remove the original mobile parallax override that hid hero backgrounds.
+   * The fallback `.hero` background defined above now displays the hero
+   * images correctly.  Eliminating this block prevents the hero
+   * backgrounds from being removed on small screens.
+   */
 
   /*
    * Additional improvements for mobile navigation and layout
