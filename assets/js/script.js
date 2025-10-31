@@ -171,13 +171,105 @@ document.addEventListener('DOMContentLoaded', () => {
         overlayEl = document.createElement('div');
         overlayEl.className = 'cinematic-transition';
         overlayEl.innerHTML = `
+          <div class="cinematic-transition__vignette"></div>
           <div class="cinematic-transition__veil"></div>
+          <div class="cinematic-transition__rays"></div>
+          <div class="cinematic-transition__bloom"></div>
           <div class="cinematic-transition__beam"></div>
+          <div class="cinematic-transition__particles"></div>
           <div class="cinematic-transition__sparkles"></div>
+          <div class="cinematic-transition__grain"></div>
         `;
         body.appendChild(overlayEl);
+
+        // Create dynamic particle elements for premium effect
+        const particlesContainer = overlayEl.querySelector('.cinematic-transition__particles');
+        const particleCount = 25;
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'cinematic-particle';
+          const size = Math.random() * 6 + 2;
+          const left = Math.random() * 100;
+          const delay = Math.random() * 0.8;
+          const duration = Math.random() * 1.5 + 1.2;
+          const colors = [
+            'rgba(147, 197, 253, 0.9)',
+            'rgba(191, 219, 254, 0.8)',
+            'rgba(255, 255, 255, 0.95)',
+            'rgba(96, 165, 250, 0.7)',
+            'rgba(59, 130, 246, 0.85)'
+          ];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+
+          particle.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${left}%;
+            top: ${Math.random() * 100}%;
+            background: radial-gradient(circle, ${color} 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            filter: blur(${size > 4 ? 1 : 0.5}px);
+            box-shadow: 0 0 ${size * 2}px ${size}px ${color};
+            animation: particleFloat${i % 2 === 0 ? 'Down' : 'Up'} ${duration}s ease-in-out ${delay}s forwards;
+          `;
+          particlesContainer.appendChild(particle);
+        }
+
         return overlayEl;
       };
+
+      // Add particle animation styles dynamically
+      const addParticleStyles = () => {
+        if (document.getElementById('particle-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'particle-styles';
+        style.textContent = `
+          @keyframes particleFloatDown {
+            0% {
+              opacity: 0;
+              transform: translateY(-30vh) translateX(0) scale(0.8);
+            }
+            15% {
+              opacity: 1;
+            }
+            50% {
+              transform: translateY(20vh) translateX(${Math.random() * 40 - 20}px) scale(1);
+            }
+            85% {
+              opacity: 0.8;
+            }
+            100% {
+              opacity: 0;
+              transform: translateY(60vh) translateX(${Math.random() * 60 - 30}px) scale(0.6);
+            }
+          }
+          @keyframes particleFloatUp {
+            0% {
+              opacity: 0;
+              transform: translateY(30vh) translateX(0) scale(0.8);
+            }
+            15% {
+              opacity: 1;
+            }
+            50% {
+              transform: translateY(-20vh) translateX(${Math.random() * 40 - 20}px) scale(1);
+            }
+            85% {
+              opacity: 0.8;
+            }
+            100% {
+              opacity: 0;
+              transform: translateY(-60vh) translateX(${Math.random() * 60 - 30}px) scale(0.6);
+            }
+          }
+        `;
+        document.head.appendChild(style);
+      };
+
+      addParticleStyles();
 
       const overlay = ensureCinematicOverlay();
       let overlayTimer = null;
@@ -205,32 +297,46 @@ document.addEventListener('DOMContentLoaded', () => {
         const heroHeight = hero.offsetHeight || 1;
         const offset = window.pageYOffset;
         const progress = clamp(offset / heroHeight, 0, 1);
-        const baseScale = 1 + progress * 0.25;
+
+        // Enhanced hero transformation with dramatic perspective
+        const baseScale = 1 + progress * 0.3;
         const heroScale = baseScale * heroVisualState.extraScale;
         const heroTilt = heroVisualState.tilt;
-        hero.style.transform = `perspective(1600px) translateZ(0) scale(${heroScale.toFixed(
+        const heroRotateY = progress * heroVisualState.tilt * 0.3;
+        hero.style.transform = `perspective(2000px) translateZ(0) scale(${heroScale.toFixed(
           3
-        )}) rotateX(${heroTilt.toFixed(2)}deg)`;
-        const baseBrightness = 1 - progress * 0.7;
+        )}) rotateX(${heroTilt.toFixed(2)}deg) rotateY(${heroRotateY.toFixed(2)}deg)`;
+
+        // Premium brightness and saturation with color grading
+        const baseBrightness = 1 - progress * 0.75;
         const heroBrightness = clamp(
           baseBrightness * heroVisualState.extraBrightness,
-          0.25,
-          1.1
+          0.2,
+          1.15
         );
+        const contrast = 1 + progress * 0.15;
         hero.style.filter = `brightness(${heroBrightness.toFixed(3)}) saturate(${heroVisualState.saturate.toFixed(
           3
-        )})`;
-        const overlayValue = clamp(progress * 0.7 + heroVisualState.overlayBoost, 0, 1);
+        )}) contrast(${contrast.toFixed(3)})`;
+
+        // Enhanced overlay with smoother transition
+        const overlayValue = clamp(progress * 0.75 + heroVisualState.overlayBoost, 0, 1);
         hero.style.setProperty('--overlay-opacity', overlayValue.toFixed(3));
 
-        const baseTranslate = (1 - progress) * 120;
+        // Premium section transformation with depth
+        const baseTranslate = (1 - progress) * 140;
         const sectionTranslate = baseTranslate + sectionVisualState.extraLift;
+        const sectionRotateX = (1 - progress) * -3;
         nextSection.style.transform = `translateY(${sectionTranslate.toFixed(1)}px) scale(${sectionVisualState.extraScale.toFixed(
           3
-        )})`;
+        )}) rotateX(${sectionRotateX.toFixed(2)}deg) translateZ(${((1 - progress) * 50).toFixed(1)}px)`;
+
+        // Smoother opacity curve
         const sectionOpacity = clamp(progress * sectionVisualState.opacityMultiplier, 0, 1);
         nextSection.style.opacity = sectionOpacity.toFixed(3);
-        const sectionGlow = clamp(progress + sectionVisualState.glow, 0, 1);
+
+        // Enhanced glow effect
+        const sectionGlow = clamp(progress * 0.8 + sectionVisualState.glow, 0, 1.2);
         nextSection.style.setProperty('--section-glow', sectionGlow.toFixed(3));
       };
 
@@ -287,31 +393,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const animateHeroState = createStateAnimator(heroVisualState);
       const animateSectionState = createStateAnimator(sectionVisualState);
 
+      // Premium cinematic states with enhanced 3D depth
       const heroDownState = {
-        extraScale: 1.08,
-        extraBrightness: 0.78,
-        saturate: 1.3,
-        tilt: 6,
-        overlayBoost: 0.18,
+        extraScale: 1.12,
+        extraBrightness: 0.70,
+        saturate: 1.4,
+        tilt: 8,
+        overlayBoost: 0.25,
       };
       const heroUpState = {
-        extraScale: 1.06,
-        extraBrightness: 0.82,
-        saturate: 1.22,
-        tilt: -5,
-        overlayBoost: 0.12,
+        extraScale: 1.08,
+        extraBrightness: 0.78,
+        saturate: 1.35,
+        tilt: -7,
+        overlayBoost: 0.18,
       };
       const sectionDownState = {
-        extraScale: 1.03,
-        extraLift: -60,
-        opacityMultiplier: 1.35,
-        glow: 0.65,
+        extraScale: 1.06,
+        extraLift: -80,
+        opacityMultiplier: 1.5,
+        glow: 0.85,
       };
       const sectionUpState = {
-        extraScale: 0.97,
-        extraLift: 55,
-        opacityMultiplier: 0.58,
-        glow: 0.4,
+        extraScale: 0.94,
+        extraLift: 70,
+        opacityMultiplier: 0.45,
+        glow: 0.5,
       };
 
       renderParallax();
@@ -320,37 +427,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let transitionInProgress = false;
       let lastGuardScrollY = window.pageYOffset;
+      let scrollVelocity = 0;
+      let lastScrollTime = Date.now();
+
+      // Enhanced scroll velocity tracker for overshooting prevention
+      const trackScrollVelocity = () => {
+        const currentY = window.pageYOffset;
+        const currentTime = Date.now();
+        const timeDelta = currentTime - lastScrollTime;
+        const scrollDelta = currentY - lastGuardScrollY;
+
+        if (timeDelta > 0) {
+          scrollVelocity = scrollDelta / timeDelta;
+        }
+
+        lastScrollTime = currentTime;
+        lastGuardScrollY = currentY;
+      };
+
+      window.addEventListener('scroll', trackScrollVelocity, { passive: true });
 
       function triggerCinematic(direction) {
         if (transitionInProgress) return;
         transitionInProgress = true;
+
+        // Aggressive scroll lock to prevent overshooting
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.position = 'relative';
+
         const dirClass = direction === 'down' ? 'cinematic-down' : 'cinematic-up';
         body.classList.add('cinematic-transitioning', dirClass);
         overlay.classList.remove('dir-down', 'dir-up');
         overlay.classList.add('is-active', direction === 'down' ? 'dir-down' : 'dir-up');
+
         if (overlayTimer) {
           clearTimeout(overlayTimer);
         }
+
+        // Updated timing for premium 1.8s animation duration
         overlayTimer = window.setTimeout(() => {
           overlay.classList.remove('is-active', 'dir-down', 'dir-up');
-        }, 1600);
+        }, 2000);
 
         const heroTarget = direction === 'down' ? heroDownState : heroUpState;
         const sectionTarget = direction === 'down' ? sectionDownState : sectionUpState;
-        const heroAnim = animateHeroState(heroTarget, 900, easeOutCubic);
-        const sectionAnim = animateSectionState(sectionTarget, 900, easeOutCubic);
+
+        // Enhanced animation with longer, more cinematic timing
+        const heroAnim = animateHeroState(heroTarget, 1100, easeOutCubic);
+        const sectionAnim = animateSectionState(sectionTarget, 1100, easeOutCubic);
         const targetY = direction === 'down' ? nextSection.offsetTop : 0;
-        const scrollDuration = direction === 'down' ? 1800 : 1700;
+        const scrollDuration = direction === 'down' ? 2000 : 1900;
         const scrollPromise = animateScrollTo(targetY, scrollDuration);
 
         const settleStates = () =>
           Promise.all([
-            animateHeroState(baseHeroState, 700, easeInOutQuad),
-            animateSectionState(baseSectionState, 700, easeInOutQuad),
+            animateHeroState(baseHeroState, 800, easeInOutQuad),
+            animateSectionState(baseSectionState, 800, easeInOutQuad),
           ]);
 
         Promise.all([heroAnim, sectionAnim, scrollPromise])
-          .then(() => new Promise((resolve) => setTimeout(resolve, 150)))
+          .then(() => new Promise((resolve) => setTimeout(resolve, 200)))
           .then(settleStates)
           .finally(() => {
             if (overlayTimer) {
@@ -358,50 +495,111 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             overlayTimer = window.setTimeout(() => {
               overlay.classList.remove('is-active', 'dir-down', 'dir-up');
-            }, 400);
+            }, 500);
+
+            // Restore scroll capabilities
             body.classList.remove('cinematic-transitioning', dirClass);
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+            document.body.style.position = '';
             document.body.style.overflowY = '';
+
+            // Reset velocity tracking
+            scrollVelocity = 0;
+            lastGuardScrollY = window.pageYOffset;
+
             transitionInProgress = false;
           });
       }
 
+      // Enhanced guard scroll with velocity-based boundary protection
       const guardScroll = () => {
+        if (autoScrolling || transitionInProgress) return;
+
         const currentY = window.pageYOffset;
         const nextTop = nextSection.offsetTop;
-        if (!autoScrolling && !transitionInProgress && currentY > 0 && currentY < nextTop) {
+
+        // Only trigger if actually in the narrow transition zone
+        // This prevents triggering when user is scrolling normally in hero or body
+
+        // Prevent overshooting from top
+        if (currentY > 0 && currentY < 30) {
           const direction = currentY > lastGuardScrollY ? 'down' : 'up';
-          triggerCinematic(direction === 'down' ? 'down' : 'up');
+          if (direction === 'down' && Math.abs(scrollVelocity) > 0.3) {
+            triggerCinematic('down');
+          }
         }
-        lastGuardScrollY = currentY;
+
+        // Prevent overshooting from bottom
+        if (currentY >= nextTop - 50 && currentY < nextTop + 10) {
+          const direction = currentY > lastGuardScrollY ? 'down' : 'up';
+          if (direction === 'up' && Math.abs(scrollVelocity) > 0.3) {
+            triggerCinematic('up');
+          }
+        }
       };
+
       window.addEventListener('scroll', guardScroll, { passive: true });
 
+      // Enhanced wheel handler with aggressive boundary protection
       window.addEventListener(
         'wheel',
         (evt) => {
           if (autoScrolling || transitionInProgress) {
             evt.preventDefault();
+            evt.stopPropagation();
             return;
           }
+
           const delta = evt.deltaY;
           const scrollY = window.pageYOffset;
           const nextTop = nextSection.offsetTop;
+          const heroHeight = hero.offsetHeight;
+
+          // Scrolling down
           if (delta > 0) {
-            if (scrollY <= 1) {
+            // At top of hero - trigger cinematic
+            if (scrollY <= 5) {
               evt.preventDefault();
+              evt.stopPropagation();
               triggerCinematic('down');
+              return;
             }
-            return;
+
+            // In transition zone - prevent natural scroll
+            if (scrollY > 0 && scrollY < nextTop - 50) {
+              evt.preventDefault();
+              evt.stopPropagation();
+              if (scrollY < 100) {
+                triggerCinematic('down');
+              }
+            }
           }
+
+          // Scrolling up
           if (delta < 0) {
             const predictedY = scrollY + delta;
+
+            // Approaching transition zone from below
             if (scrollY >= nextTop && predictedY < nextTop) {
               evt.preventDefault();
+              evt.stopPropagation();
               triggerCinematic('up');
               return;
             }
-            if (scrollY > 0 && scrollY <= nextTop) {
+
+            // Already in transition zone
+            if (scrollY > 5 && scrollY < nextTop) {
               evt.preventDefault();
+              evt.stopPropagation();
+              triggerCinematic('up');
+              return;
+            }
+
+            // Near top of section boundary
+            if (scrollY >= nextTop - 100 && scrollY < nextTop + 50) {
+              evt.preventDefault();
+              evt.stopPropagation();
               triggerCinematic('up');
             }
           }
@@ -413,28 +611,56 @@ document.addEventListener('DOMContentLoaded', () => {
       const upKeys = new Set(['ArrowUp', 'PageUp', 'Home']);
       window.addEventListener('keydown', (evt) => {
         if (evt.defaultPrevented) return;
+
         const key = evt.key;
         const code = evt.code;
         const scrollY = window.pageYOffset;
         const nextTop = nextSection.offsetTop;
         const isDownKey = downKeys.has(code) || downKeys.has(key);
         const isUpKey = upKeys.has(code) || upKeys.has(key);
+
         if (isDownKey) {
           if (autoScrolling || transitionInProgress) {
             evt.preventDefault();
+            evt.stopPropagation();
             return;
           }
-          if (scrollY <= 1) {
+
+          // At top of hero
+          if (scrollY <= 5) {
             evt.preventDefault();
+            evt.stopPropagation();
             triggerCinematic('down');
+            return;
+          }
+
+          // In transition zone
+          if (scrollY > 0 && scrollY < nextTop - 50) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            if (scrollY < 100) {
+              triggerCinematic('down');
+            }
           }
         } else if (isUpKey) {
           if (autoScrolling || transitionInProgress) {
             evt.preventDefault();
+            evt.stopPropagation();
             return;
           }
-          if (scrollY >= nextTop - 1) {
+
+          // At or near top of body section
+          if (scrollY >= nextTop - 10) {
             evt.preventDefault();
+            evt.stopPropagation();
+            triggerCinematic('up');
+            return;
+          }
+
+          // In transition zone
+          if (scrollY > 5 && scrollY < nextTop) {
+            evt.preventDefault();
+            evt.stopPropagation();
             triggerCinematic('up');
           }
         }
