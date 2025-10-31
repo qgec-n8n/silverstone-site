@@ -201,21 +201,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
-      // Performance: Use RAF to batch rendering updates and prevent layout thrashing
-      let rafId = null;
+      // Performance: cache hero height and smoothly interpolate parallax
+      // progress so that transforms glide toward their targets instead of
+      // snapping directly to the scroll position.
       let cachedHeroHeight = null;
       let needsHeightRecalc = true;
+      let targetProgress = 0;
+      let currentProgress = 0;
+      let parallaxRaf = null;
+      let parallaxActive = false;
 
-      const renderParallax = () => {
-        // Read phase - batch all DOM reads first
+      const ensureHeroMetrics = () => {
         if (needsHeightRecalc) {
           cachedHeroHeight = hero.offsetHeight || 1;
           needsHeightRecalc = false;
         }
-        const offset = window.pageYOffset;
-        const progress = clamp(offset / cachedHeroHeight, 0, 1);
+      };
 
-        // Calculate all values before any DOM writes
+      const applyParallax = (progress) => {
         const baseScale = 1 + progress * 0.3;
         const heroScale = baseScale * heroVisualState.extraScale;
         const heroTilt = heroVisualState.tilt;
@@ -239,24 +242,51 @@ document.addEventListener('DOMContentLoaded', () => {
         const sectionOpacity = clamp(progress * sectionVisualState.opacityMultiplier, 0, 1);
         const sectionGlow = clamp(progress * 0.8 + sectionVisualState.glow, 0, 1.2);
 
-        // Write phase - batch all DOM writes together (reduces precision for performance)
-        hero.style.transform = `perspective(2000px) translate3d(0,0,0) scale(${heroScale.toFixed(2)}) rotateX(${heroTilt.toFixed(1)}deg) rotateY(${heroRotateY.toFixed(1)}deg)`;
-        hero.style.filter = `brightness(${heroBrightness.toFixed(2)}) saturate(${heroVisualState.saturate.toFixed(2)}) contrast(${contrast.toFixed(2)})`;
-        hero.style.setProperty('--overlay-opacity', overlayValue.toFixed(2));
+        hero.style.transform = `perspective(2000px) translate3d(0,0,0) scale(${heroScale.toFixed(3)}) rotateX(${heroTilt.toFixed(1)}deg) rotateY(${heroRotateY.toFixed(2)}deg)`;
+        hero.style.filter = `brightness(${heroBrightness.toFixed(3)}) saturate(${heroVisualState.saturate.toFixed(3)}) contrast(${contrast.toFixed(3)})`;
+        hero.style.setProperty('--overlay-opacity', overlayValue.toFixed(3));
 
-        nextSection.style.transform = `translate3d(0,${sectionTranslate.toFixed(0)}px,${sectionDepth.toFixed(0)}px) scale(${sectionVisualState.extraScale.toFixed(2)}) rotateX(${sectionRotateX.toFixed(1)}deg)`;
-        nextSection.style.opacity = sectionOpacity.toFixed(2);
-        nextSection.style.setProperty('--section-glow', sectionGlow.toFixed(2));
+        nextSection.style.transform = `translate3d(0,${sectionTranslate.toFixed(1)}px,${sectionDepth.toFixed(1)}px) scale(${sectionVisualState.extraScale.toFixed(3)}) rotateX(${sectionRotateX.toFixed(2)}deg)`;
+        nextSection.style.opacity = sectionOpacity.toFixed(3);
+        nextSection.style.setProperty('--section-glow', sectionGlow.toFixed(3));
       };
 
-      // Throttle scroll updates using RAF for buttery smooth performance
-      const scheduleRender = () => {
-        if (rafId === null) {
-          rafId = requestAnimationFrame(() => {
-            renderParallax();
-            rafId = null;
-          });
+      const parallaxTick = () => {
+        ensureHeroMetrics();
+        const delta = targetProgress - currentProgress;
+        if (Math.abs(delta) <= 0.0005) {
+          currentProgress = targetProgress;
+          applyParallax(currentProgress);
+          parallaxActive = false;
+          parallaxRaf = null;
+          return;
         }
+
+        currentProgress += delta * 0.12;
+        applyParallax(currentProgress);
+        parallaxRaf = requestAnimationFrame(parallaxTick);
+      };
+
+      const ensureParallaxLoop = () => {
+        if (parallaxActive) return;
+        parallaxActive = true;
+        parallaxRaf = requestAnimationFrame(parallaxTick);
+      };
+
+      const scheduleRender = (force = false) => {
+        ensureHeroMetrics();
+        targetProgress = clamp(window.pageYOffset / cachedHeroHeight, 0, 1);
+        if (force) {
+          currentProgress = targetProgress;
+          applyParallax(currentProgress);
+          parallaxActive = false;
+          if (parallaxRaf) {
+            cancelAnimationFrame(parallaxRaf);
+            parallaxRaf = null;
+          }
+          return;
+        }
+        ensureParallaxLoop();
       };
 
       const createStateAnimator = (state) => {
@@ -281,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
               keys.forEach((key) => {
                 state[key] = target[key];
               });
-              renderParallax();
+              applyParallax(currentProgress);
               resolve();
               return;
             }
@@ -296,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const to = target[key];
                 state[key] = from + (to - from) * eased;
               });
-              renderParallax();
+              applyParallax(currentProgress);
               if (progress < 1) {
                 frameId = requestAnimationFrame(step);
               } else {
@@ -340,11 +370,17 @@ document.addEventListener('DOMContentLoaded', () => {
         glow: 0.45,
       };
 
-      renderParallax();
-      window.addEventListener('scroll', scheduleRender, { passive: true });
+      scheduleRender(true);
+      window.addEventListener(
+        'scroll',
+        () => {
+          scheduleRender();
+        },
+        { passive: true }
+      );
       window.addEventListener('resize', () => {
         needsHeightRecalc = true;
-        scheduleRender();
+        scheduleRender(true);
       });
 
       let transitionInProgress = false;
