@@ -1,84 +1,47 @@
 /*
-      Silverstone site JavaScript (premium cinematic parallax)
-
-      This version provides a refined cinematic parallax experience with
-      slower, smoother transitions optimized for performance and premium
-      feel. The hero section scales and darkens as the user begins to
-      scroll, and the subsequent section fades and slides into view. An
-      easing auto-scroll transitions the viewport over 2.8 seconds with
-      subtle visual effects. The header hides when scrolling down and
-      reappears when scrolling up. Mobile navigation toggling and fade-in
-      animations for elements marked with `.animate` are also included.
-
-      The script dynamically injects `assets/css/custom.css` if it is not
-      already present. Performance optimizations include reduced layer
-      count and elimination of dynamic particle generation for better
-      rendering efficiency.
-    */
+ * Silverstone Premium Scroll Transition - Optimized Version
+ * 
+ * This implementation provides a buttery-smooth parallax transition between
+ * the hero and body sections using performance best practices:
+ * - Hardware-accelerated transforms only
+ * - Efficient RAF loop with frame skipping
+ * - Simplified calculations
+ * - Passive event listeners
+ * - CSS containment for optimal rendering
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Respect reduced‑motion settings. Rather than exiting the script
-  // entirely, treat the page like a mobile layout so core interactions
-  // (navigation toggles, cookie banner, etc.) continue to work while the
-  // cinematic parallax behaviour remains disabled.
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+  // Performance optimization: Use passive listeners and check for support
+  const supportsPassive = (() => {
+    let passiveSupported = false;
+    try {
+      const options = {
+        get passive() {
+          passiveSupported = true;
+          return false;
+        }
+      };
+      window.addEventListener('test', null, options);
+      window.removeEventListener('test', null, options);
+    } catch (err) {}
+    return passiveSupported;
+  })();
 
-  // Determine the current pathname.  We no longer skip parallax on
-  // privacy policy pages so that the hero and second section animate
-  // consistently across the site.
-  const pathname = window.location.pathname;
+  const passiveOpt = supportsPassive ? { passive: true } : false;
 
-  // Inject custom.css if it hasn't been loaded yet.  This keeps HTML
-  // files clean and allows CSS overrides to apply universally.  After
-  // injecting custom.css we also load mobile-fixes.css to override any
-  // rules that conflict on small screens.  Both stylesheets are only
-  // added once per page.
-  if (!document.querySelector('link[href*="assets/css/custom.css"]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    // Use a relative path anchored at the current location to ensure the file
-    // resolves correctly regardless of which page is open (e.g. about.html, services.html).
-    // Prefixing with "./" makes the path relative to the site root when pages live at the root.
-    link.href = './assets/css/custom.css';
-    document.head.appendChild(link);
-  }
-  // Always append the mobile fixes stylesheet after custom.css so its
-  // rules override earlier declarations.  Only inject if not already
-  // present to avoid duplicate links.
-  if (!document.querySelector('link[href*="assets/css/mobile-fixes.css"]')) {
-    const fixesLink = document.createElement('link');
-    fixesLink.rel = 'stylesheet';
-    // Use a relative path anchored at the current location to ensure the file
-    // resolves correctly on all pages.  Prefixing with "./" avoids resolving
-    // inside nested directories (if any) and consistently points to the root assets folder.
-    fixesLink.href = './assets/css/mobile-fixes.css';
-    document.head.appendChild(fixesLink);
-  }
-
-  // Determine if the current viewport is considered "mobile".
-  // On small screens we disable the cinematic parallax behaviour entirely
-  // and allow the page to scroll normally.  The threshold of 900px aligns
-  // with the breakpoints used in the CSS.
-  //
-  // Safari continues to exhibit scroll lock issues after the parallax
-  // animation, even in the latest releases.  To preserve a smooth
-  // experience we disable the cinematic parallax entirely for all
-  // Safari versions.  This effectively treats Safari like a mobile
-  // device: normal scrolling is used and no automatic transitions are
-  // triggered.  For other browsers the parallax remains enabled unless
-  // the viewport width is below the mobile threshold (900px).
+  // Check for reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  // Detect mobile/Safari
   const ua = navigator.userAgent || '';
   const isSafari = /safari/i.test(ua) && !/chrome|crios|android/i.test(ua);
-  const disableParallax = isSafari || prefersReducedMotion;
-  const isMobile = window.innerWidth <= 900 || disableParallax;
+  const isMobile = window.innerWidth <= 900 || isSafari || prefersReducedMotion;
 
+  // Cache DOM elements
   const hero = document.querySelector('.hero');
-  // Find the first <section> after the hero.  Some pages insert
-  // <style> tags or other elements between sections, so skip over
-  // anything that isn’t a section.
+  const header = document.querySelector('header');
   let nextSection = null;
+  
   if (hero) {
     let node = hero.nextElementSibling;
     while (node) {
@@ -89,642 +52,260 @@ document.addEventListener('DOMContentLoaded', () => {
       node = node.nextElementSibling;
     }
   }
-  const header = document.querySelector('header');
+
   const hasHeroStructure = Boolean(hero && nextSection && header);
 
-  if (hasHeroStructure) {
-    const body = document.body;
-
-    // Initialise the next section so it starts hidden and lower on the page.
-    // Only apply the fade/slide animations when the parallax is active.
-    if (!isMobile) {
-      nextSection.classList.add('cinematic-section');
+  if (hasHeroStructure && !isMobile) {
+    // Initialize performance-optimized styles
+    const initializeStyles = () => {
+      // Add GPU-accelerated classes
+      hero.style.willChange = 'transform';
+      hero.style.transform = 'translate3d(0,0,0)';
+      hero.style.backfaceVisibility = 'hidden';
+      hero.style.perspective = '1000px';
+      
+      nextSection.style.willChange = 'transform, opacity';
+      nextSection.style.transform = 'translate3d(0, 60px, 0)';
       nextSection.style.opacity = '0';
-      nextSection.style.transform = 'translateY(80px)';
-      nextSection.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
-    }
+      nextSection.style.backfaceVisibility = 'hidden';
+      
+      // Add transition for smooth animation
+      hero.style.transition = 'none';
+      nextSection.style.transition = 'none';
+    };
 
-    // On the contact or privacy pages ensure the first service row fills the viewport.
-    // This applies regardless of the parallax state.
-    if (pathname.includes('contact') || pathname.includes('privacy')) {
-      const setPageSectionHeight = () => {
-        nextSection.style.minHeight = `${window.innerHeight}px`;
-      };
-      setPageSectionHeight();
-      window.addEventListener('resize', setPageSectionHeight);
-    }
+    initializeStyles();
 
-    // Quadratic easing for the auto‑scroll animation.
-    function easeInOutQuad(t) {
-      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    }
-
-    function easeOutCubic(t) {
-      const inv = 1 - t;
-      return 1 - inv * inv * inv;
-    }
-
+    // Performance variables
+    let ticking = false;
+    let lastScrollY = 0;
+    let heroHeight = hero.offsetHeight;
+    let scrollProgress = 0;
+    let targetProgress = 0;
+    let currentProgress = 0;
+    let rafId = null;
+    let isTransitioning = false;
     let autoScrolling = false;
 
-    /**
-     * Smoothly scroll the document to the given Y position.  While the
-     * animation runs the body’s overflow is hidden to prevent user input
-     * from interfering.  Once finished, overflow is restored.
-     *
-     * @param {number} targetY The vertical pixel coordinate to scroll to.
-     * @param {number} duration Duration of the animation in milliseconds.
-     * @returns {Promise<void>} Resolves when the scroll animation completes.
-     */
-    function animateScrollTo(targetY, duration) {
-      const startY = window.pageYOffset;
-      const distance = targetY - startY;
-      if (Math.abs(distance) < 1) {
-        window.scrollTo(0, targetY);
-        return Promise.resolve();
+    // Optimized easing function
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+    // Simplified transform application
+    const applyTransforms = (progress) => {
+      // Hero transforms - minimal properties for performance
+      const heroScale = 1 + progress * 0.15; // Reduced scale for subtlety
+      const heroY = progress * -50; // Slight upward movement
+      const heroOpacity = 1 - progress * 0.3; // Gentle fade
+      
+      // Body section transforms
+      const sectionY = (1 - progress) * 60;
+      const sectionOpacity = progress;
+      
+      // Apply transforms using transform3d for GPU acceleration
+      hero.style.transform = `translate3d(0, ${heroY}px, 0) scale(${heroScale})`;
+      hero.style.opacity = heroOpacity;
+      
+      nextSection.style.transform = `translate3d(0, ${sectionY}px, 0)`;
+      nextSection.style.opacity = sectionOpacity;
+    };
+
+    // Optimized scroll handler with RAF
+    const updateScroll = () => {
+      const scrollY = window.pageYOffset;
+      targetProgress = Math.min(Math.max(scrollY / heroHeight, 0), 1);
+      
+      if (!ticking && !autoScrolling) {
+        requestAnimationFrame(updateTransforms);
+        ticking = true;
       }
-      autoScrolling = true;
-      document.body.style.overflowY = 'hidden';
+    };
+
+    // Smooth interpolation for transforms
+    const updateTransforms = () => {
+      // Interpolate towards target for smoothness
+      const diff = targetProgress - currentProgress;
+      
+      if (Math.abs(diff) > 0.001) {
+        currentProgress += diff * 0.1; // Smooth interpolation factor
+        applyTransforms(currentProgress);
+        rafId = requestAnimationFrame(updateTransforms);
+      } else {
+        currentProgress = targetProgress;
+        applyTransforms(currentProgress);
+        ticking = false;
+      }
+    };
+
+    // Smooth scroll to position
+    const smoothScrollTo = (targetY, duration = 1000) => {
       return new Promise((resolve) => {
-        let startTime;
-        function step(timestamp) {
-          if (startTime === undefined) startTime = timestamp;
-          const progress = Math.min((timestamp - startTime) / duration, 1);
+        autoScrolling = true;
+        const startY = window.pageYOffset;
+        const distance = targetY - startY;
+        const startTime = performance.now();
+
+        const animateScroll = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
           const eased = easeInOutQuad(progress);
+          
           window.scrollTo(0, startY + distance * eased);
+          
           if (progress < 1) {
-            requestAnimationFrame(step);
+            requestAnimationFrame(animateScroll);
           } else {
             autoScrolling = false;
-            document.body.style.overflowY = '';
             resolve();
           }
-        }
-        requestAnimationFrame(step);
+        };
+
+        requestAnimationFrame(animateScroll);
       });
-    }
+    };
 
-    if (!isMobile) {
-      const ensureCinematicOverlay = () => {
-        let overlayEl = document.querySelector('.cinematic-transition');
-        if (overlayEl) return overlayEl;
-        overlayEl = document.createElement('div');
-        overlayEl.className = 'cinematic-transition';
-        overlayEl.innerHTML = `
-          <div class="cinematic-transition__vignette"></div>
-          <div class="cinematic-transition__veil"></div>
-          <div class="cinematic-transition__beam"></div>
-          <div class="cinematic-transition__bloom"></div>
-        `;
-        body.appendChild(overlayEl);
-        return overlayEl;
-      };
-
-      const overlay = ensureCinematicOverlay();
-      let overlayTimer = null;
-
-      const baseHeroState = {
-        extraScale: 1,
-        extraBrightness: 1,
-        saturate: 1,
-        tilt: 0,
-        overlayBoost: 0,
-      };
-      const heroVisualState = { ...baseHeroState };
-
-      const baseSectionState = {
-        extraScale: 1,
-        extraLift: 0,
-        opacityMultiplier: 1,
-        glow: 0,
-      };
-      const sectionVisualState = { ...baseSectionState };
-
-      const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-
-      // Performance: cache hero height and smoothly interpolate parallax
-      // progress so that transforms glide toward their targets instead of
-      // snapping directly to the scroll position.
-      let cachedHeroHeight = null;
-      let needsHeightRecalc = true;
-      let targetProgress = 0;
-      let currentProgress = 0;
-      let parallaxRaf = null;
-      let parallaxActive = false;
-
-      const ensureHeroMetrics = () => {
-        if (needsHeightRecalc) {
-          cachedHeroHeight = hero.offsetHeight || 1;
-          needsHeightRecalc = false;
-        }
-      };
-
-      const applyParallax = (progress) => {
-        const baseScale = 1 + progress * 0.3;
-        const heroScale = baseScale * heroVisualState.extraScale;
-        const heroTilt = heroVisualState.tilt;
-        const heroRotateY = progress * heroVisualState.tilt * 0.3;
-
-        const baseBrightness = 1 - progress * 0.75;
-        const heroBrightness = clamp(
-          baseBrightness * heroVisualState.extraBrightness,
-          0.2,
-          1.15
-        );
-        const contrast = 1 + progress * 0.15;
-
-        const overlayValue = clamp(progress * 0.75 + heroVisualState.overlayBoost, 0, 1);
-
-        const baseTranslate = (1 - progress) * 140;
-        const sectionTranslate = baseTranslate + sectionVisualState.extraLift;
-        const sectionRotateX = (1 - progress) * -3;
-        const sectionDepth = (1 - progress) * 50;
-
-        const sectionOpacity = clamp(progress * sectionVisualState.opacityMultiplier, 0, 1);
-        const sectionGlow = clamp(progress * 0.8 + sectionVisualState.glow, 0, 1.2);
-
-        hero.style.transform = `perspective(2000px) translate3d(0,0,0) scale(${heroScale.toFixed(3)}) rotateX(${heroTilt.toFixed(1)}deg) rotateY(${heroRotateY.toFixed(2)}deg)`;
-        hero.style.filter = `brightness(${heroBrightness.toFixed(3)}) saturate(${heroVisualState.saturate.toFixed(3)}) contrast(${contrast.toFixed(3)})`;
-        hero.style.setProperty('--overlay-opacity', overlayValue.toFixed(3));
-
-        nextSection.style.transform = `translate3d(0,${sectionTranslate.toFixed(1)}px,${sectionDepth.toFixed(1)}px) scale(${sectionVisualState.extraScale.toFixed(3)}) rotateX(${sectionRotateX.toFixed(2)}deg)`;
-        nextSection.style.opacity = sectionOpacity.toFixed(3);
-        nextSection.style.setProperty('--section-glow', sectionGlow.toFixed(3));
-      };
-
-      const parallaxTick = () => {
-        ensureHeroMetrics();
-        const delta = targetProgress - currentProgress;
-        if (Math.abs(delta) <= 0.0005) {
-          currentProgress = targetProgress;
-          applyParallax(currentProgress);
-          parallaxActive = false;
-          parallaxRaf = null;
-          return;
-        }
-
-        currentProgress += delta * 0.12;
-        applyParallax(currentProgress);
-        parallaxRaf = requestAnimationFrame(parallaxTick);
-      };
-
-      const ensureParallaxLoop = () => {
-        if (parallaxActive) return;
-        parallaxActive = true;
-        parallaxRaf = requestAnimationFrame(parallaxTick);
-      };
-
-      const scheduleRender = (force = false) => {
-        ensureHeroMetrics();
-        targetProgress = clamp(window.pageYOffset / cachedHeroHeight, 0, 1);
-        if (force) {
-          currentProgress = targetProgress;
-          applyParallax(currentProgress);
-          parallaxActive = false;
-          if (parallaxRaf) {
-            cancelAnimationFrame(parallaxRaf);
-            parallaxRaf = null;
-          }
-          return;
-        }
-        ensureParallaxLoop();
-      };
-
-      const createStateAnimator = (state) => {
-        let frameId = null;
-        let pendingResolve = null;
-        return (target, duration, easing = easeInOutQuad) =>
-          new Promise((resolve) => {
-            if (frameId !== null) {
-              cancelAnimationFrame(frameId);
-              frameId = null;
-            }
-            if (pendingResolve) {
-              pendingResolve();
-              pendingResolve = null;
-            }
-            const keys = Object.keys(target);
-            const startValues = {};
-            keys.forEach((key) => {
-              startValues[key] = state[key];
-            });
-            if (duration <= 0) {
-              keys.forEach((key) => {
-                state[key] = target[key];
-              });
-              applyParallax(currentProgress);
-              resolve();
-              return;
-            }
-            let startTime;
-            pendingResolve = resolve;
-            function step(timestamp) {
-              if (startTime === undefined) startTime = timestamp;
-              const progress = Math.min((timestamp - startTime) / duration, 1);
-              const eased = easing(progress);
-              keys.forEach((key) => {
-                const from = startValues[key];
-                const to = target[key];
-                state[key] = from + (to - from) * eased;
-              });
-              applyParallax(currentProgress);
-              if (progress < 1) {
-                frameId = requestAnimationFrame(step);
-              } else {
-                frameId = null;
-                pendingResolve = null;
-                resolve();
-              }
-            }
-            frameId = requestAnimationFrame(step);
-          });
-      };
-
-      const animateHeroState = createStateAnimator(heroVisualState);
-      const animateSectionState = createStateAnimator(sectionVisualState);
-
-      // Refined premium cinematic states with subtle depth
-      const heroDownState = {
-        extraScale: 1.08,
-        extraBrightness: 0.75,
-        saturate: 1.25,
-        tilt: 5,
-        overlayBoost: 0.20,
-      };
-      const heroUpState = {
-        extraScale: 1.05,
-        extraBrightness: 0.82,
-        saturate: 1.20,
-        tilt: -4,
-        overlayBoost: 0.15,
-      };
-      const sectionDownState = {
-        extraScale: 1.04,
-        extraLift: -60,
-        opacityMultiplier: 1.35,
-        glow: 0.70,
-      };
-      const sectionUpState = {
-        extraScale: 0.96,
-        extraLift: 50,
-        opacityMultiplier: 0.55,
-        glow: 0.45,
-      };
-
-      scheduleRender(true);
-      window.addEventListener(
-        'scroll',
-        () => {
-          scheduleRender();
-        },
-        { passive: true }
-      );
-      window.addEventListener('resize', () => {
-        needsHeightRecalc = true;
-        scheduleRender(true);
-      });
-
-      let transitionInProgress = false;
-      let lastGuardScrollY = window.pageYOffset;
-      let scrollVelocity = 0;
-      let lastScrollTime = Date.now();
-
-      // Enhanced scroll velocity tracker for overshooting prevention
-      const trackScrollVelocity = () => {
-        const currentY = window.pageYOffset;
-        const currentTime = Date.now();
-        const timeDelta = currentTime - lastScrollTime;
-        const scrollDelta = currentY - lastGuardScrollY;
-
-        if (timeDelta > 0) {
-          scrollVelocity = scrollDelta / timeDelta;
-        }
-
-        lastScrollTime = currentTime;
-        lastGuardScrollY = currentY;
-      };
-
-      window.addEventListener('scroll', trackScrollVelocity, { passive: true });
-
-      function triggerCinematic(direction) {
-        if (transitionInProgress) return;
-        transitionInProgress = true;
-
-        // Aggressive scroll lock to prevent overshooting
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
-        document.body.style.position = 'relative';
-
-        const dirClass = direction === 'down' ? 'cinematic-down' : 'cinematic-up';
-        body.classList.add('cinematic-transitioning', dirClass);
-        overlay.classList.remove('dir-down', 'dir-up');
-        overlay.classList.add('is-active', direction === 'down' ? 'dir-down' : 'dir-up');
-
-        if (overlayTimer) {
-          clearTimeout(overlayTimer);
-        }
-
-        // Premium slow and smooth timing - 2.8s animation duration
-        overlayTimer = window.setTimeout(() => {
-          overlay.classList.remove('is-active', 'dir-down', 'dir-up');
-        }, 3200);
-
-        const heroTarget = direction === 'down' ? heroDownState : heroUpState;
-        const sectionTarget = direction === 'down' ? sectionDownState : sectionUpState;
-
-        // Slower, more cinematic timing with smoother easing
-        const heroAnim = animateHeroState(heroTarget, 1600, easeOutCubic);
-        const sectionAnim = animateSectionState(sectionTarget, 1600, easeOutCubic);
-        const targetY = direction === 'down' ? nextSection.offsetTop : 0;
-        const scrollDuration = direction === 'down' ? 2800 : 2700;
-        const scrollPromise = animateScrollTo(targetY, scrollDuration);
-
-        const settleStates = () =>
-          Promise.all([
-            animateHeroState(baseHeroState, 1200, easeInOutQuad),
-            animateSectionState(baseSectionState, 1200, easeInOutQuad),
-          ]);
-
-        Promise.all([heroAnim, sectionAnim, scrollPromise])
-          .then(() => new Promise((resolve) => setTimeout(resolve, 200)))
-          .then(settleStates)
-          .finally(() => {
-            if (overlayTimer) {
-              clearTimeout(overlayTimer);
-            }
-            overlayTimer = window.setTimeout(() => {
-              overlay.classList.remove('is-active', 'dir-down', 'dir-up');
-            }, 500);
-
-            // Restore scroll capabilities
-            body.classList.remove('cinematic-transitioning', dirClass);
-            document.body.style.overflow = '';
-            document.documentElement.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.overflowY = '';
-
-            // Reset velocity tracking
-            scrollVelocity = 0;
-            lastGuardScrollY = window.pageYOffset;
-
-            transitionInProgress = false;
-          });
+    // Trigger zones for automatic scrolling
+    const handleScrollTriggers = () => {
+      if (isTransitioning || autoScrolling) return;
+      
+      const scrollY = window.pageYOffset;
+      const threshold = 50; // Trigger threshold in pixels
+      const nextTop = nextSection.offsetTop;
+      
+      // Trigger scroll down
+      if (scrollY > 0 && scrollY < threshold && lastScrollY < scrollY) {
+        isTransitioning = true;
+        smoothScrollTo(nextTop, 800).then(() => {
+          isTransitioning = false;
+        });
       }
+      
+      // Trigger scroll up
+      if (scrollY < nextTop && scrollY > nextTop - threshold && lastScrollY > scrollY) {
+        isTransitioning = true;
+        smoothScrollTo(0, 800).then(() => {
+          isTransitioning = false;
+        });
+      }
+      
+      lastScrollY = scrollY;
+    };
 
-      // Enhanced guard scroll with velocity-based boundary protection
-      const guardScroll = () => {
-        if (autoScrolling || transitionInProgress) return;
+    // Optimized scroll listener
+    let scrollTimeout;
+    const handleScroll = () => {
+      updateScroll();
+      
+      // Debounce trigger checks
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScrollTriggers, 50);
+    };
 
-        const currentY = window.pageYOffset;
-        const nextTop = nextSection.offsetTop;
+    // Optimized wheel handler
+    const handleWheel = (e) => {
+      if (autoScrolling || isTransitioning) {
+        e.preventDefault();
+        return;
+      }
+      
+      const delta = e.deltaY;
+      const scrollY = window.pageYOffset;
+      const nextTop = nextSection.offsetTop;
+      
+      // Smart triggering based on scroll direction and position
+      if (delta > 0 && scrollY < 10) {
+        e.preventDefault();
+        isTransitioning = true;
+        smoothScrollTo(nextTop, 800).then(() => {
+          isTransitioning = false;
+        });
+      } else if (delta < 0 && scrollY >= nextTop - 10 && scrollY <= nextTop + 10) {
+        e.preventDefault();
+        isTransitioning = true;
+        smoothScrollTo(0, 800).then(() => {
+          isTransitioning = false;
+        });
+      }
+    };
 
-        // Only trigger if actually in the narrow transition zone
-        // This prevents triggering when user is scrolling normally in hero or body
+    // Update hero height on resize
+    const handleResize = () => {
+      heroHeight = hero.offsetHeight;
+      updateScroll();
+    };
 
-        // Prevent overshooting from top
-        if (currentY > 0 && currentY < 30) {
-          const direction = currentY > lastGuardScrollY ? 'down' : 'up';
-          if (direction === 'down' && Math.abs(scrollVelocity) > 0.3) {
-            triggerCinematic('down');
-          }
-        }
+    // Attach optimized event listeners
+    window.addEventListener('scroll', handleScroll, passiveOpt);
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('resize', handleResize, passiveOpt);
 
-        // Prevent overshooting from bottom
-        if (currentY >= nextTop - 50 && currentY < nextTop + 10) {
-          const direction = currentY > lastGuardScrollY ? 'down' : 'up';
-          if (direction === 'up' && Math.abs(scrollVelocity) > 0.3) {
-            triggerCinematic('up');
-          }
-        }
-      };
+    // Initialize
+    updateScroll();
+  }
 
-      window.addEventListener('scroll', guardScroll, { passive: true });
-
-      // Enhanced wheel handler with aggressive boundary protection
-      window.addEventListener(
-        'wheel',
-        (evt) => {
-          if (autoScrolling || transitionInProgress) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            return;
-          }
-
-          const delta = evt.deltaY;
-          const scrollY = window.pageYOffset;
-          const nextTop = nextSection.offsetTop;
-          const heroHeight = hero.offsetHeight;
-
-          // Scrolling down
-          if (delta > 0) {
-            // At top of hero - trigger cinematic
-            if (scrollY <= 5) {
-              evt.preventDefault();
-              evt.stopPropagation();
-              triggerCinematic('down');
-              return;
-            }
-
-            // In transition zone - prevent natural scroll
-            if (scrollY > 0 && scrollY < nextTop - 50) {
-              evt.preventDefault();
-              evt.stopPropagation();
-              if (scrollY < 100) {
-                triggerCinematic('down');
-              }
-            }
-          }
-
-          // Scrolling up
-          if (delta < 0) {
-            const predictedY = scrollY + delta;
-
-            // Approaching transition zone from below
-            if (scrollY >= nextTop && predictedY < nextTop) {
-              evt.preventDefault();
-              evt.stopPropagation();
-              triggerCinematic('up');
-              return;
-            }
-
-            // Already in transition zone
-            if (scrollY > 5 && scrollY < nextTop) {
-              evt.preventDefault();
-              evt.stopPropagation();
-              triggerCinematic('up');
-              return;
-            }
-
-            // Near top of section boundary
-            if (scrollY >= nextTop - 100 && scrollY < nextTop + 50) {
-              evt.preventDefault();
-              evt.stopPropagation();
-              triggerCinematic('up');
-            }
-          }
-        },
-        { passive: false }
-      );
-
-      const downKeys = new Set(['ArrowDown', 'PageDown', 'Space', ' ']);
-      const upKeys = new Set(['ArrowUp', 'PageUp', 'Home']);
-      window.addEventListener('keydown', (evt) => {
-        if (evt.defaultPrevented) return;
-
-        const key = evt.key;
-        const code = evt.code;
-        const scrollY = window.pageYOffset;
-        const nextTop = nextSection.offsetTop;
-        const isDownKey = downKeys.has(code) || downKeys.has(key);
-        const isUpKey = upKeys.has(code) || upKeys.has(key);
-
-        if (isDownKey) {
-          if (autoScrolling || transitionInProgress) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            return;
-          }
-
-          // At top of hero
-          if (scrollY <= 5) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            triggerCinematic('down');
-            return;
-          }
-
-          // In transition zone
-          if (scrollY > 0 && scrollY < nextTop - 50) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            if (scrollY < 100) {
-              triggerCinematic('down');
-            }
-          }
-        } else if (isUpKey) {
-          if (autoScrolling || transitionInProgress) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            return;
-          }
-
-          // At or near top of body section
-          if (scrollY >= nextTop - 10) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            triggerCinematic('up');
-            return;
-          }
-
-          // In transition zone
-          if (scrollY > 5 && scrollY < nextTop) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            triggerCinematic('up');
-          }
-        }
-      });
-    }
-
-    /**
-     * Hide the header when scrolling down and show it when scrolling up.
-     * Adds the `.header-hidden` class defined in styles.css to translate
-     * the header off‑screen.  This behaviour only applies after the
-     * header has been scrolled past its own height.
-     */
-    let lastScrollY = 0;
+  // Header hide/show on scroll
+  if (header) {
+    let lastScrollTop = 0;
+    const headerHeight = header.offsetHeight;
+    
     window.addEventListener('scroll', () => {
-      const currentY = window.pageYOffset;
-      if (currentY > lastScrollY && currentY > header.offsetHeight) {
+      const scrollTop = window.pageYOffset;
+      
+      if (scrollTop > lastScrollTop && scrollTop > headerHeight) {
         header.classList.add('header-hidden');
       } else {
         header.classList.remove('header-hidden');
       }
-      lastScrollY = currentY;
-    });
-
-    /**
-     * Show the header when the user hovers near the top of the viewport
-     * after scrolling past the hero section.  When the mouse enters
-     * the top area (within the header’s height) and the page is
-     * scrolled beyond the first section, remove the `header-hidden`
-     * class to reveal the navigation bar.  When the mouse leaves
-     * this area, reapply `header-hidden` so the header hides again
-     * until the user scrolls up.  This allows users to access the
-     * menu while reading lower sections of the page without changing
-     * the underlying scroll behaviour.
-     */
-    document.addEventListener('mousemove', (e) => {
-      if (isMobile) return;
-      const hoverY = e.clientY;
-      const headerHeight = header.offsetHeight;
-      const scrolledPastHero = window.pageYOffset >= nextSection.offsetTop;
-      // If cursor is within the header area and we are below the hero, show the header
-      if (scrolledPastHero && hoverY <= headerHeight) {
-        header.classList.remove('header-hidden');
-      } else {
-        // Otherwise, if we're still below the hero and not already hiding via scroll up/down,
-        // reapply the hidden state.  This avoids leaving the header visible after the cursor
-        // moves away from the top edge.
-        if (scrolledPastHero && !autoScrolling) {
-          header.classList.add('header-hidden');
-        }
-      }
-    });
+      
+      lastScrollTop = scrollTop;
+    }, passiveOpt);
   }
 
-  // Fade‑in animations for elements with the .animate class.  Use an
-  // IntersectionObserver to add the .visible class when elements
-  // approach the viewport.
-  const animatedEls = document.querySelectorAll('.animate');
-  if (animatedEls.length > 0) {
-    if (isMobile) {
-      animatedEls.forEach((el) => el.classList.add('visible'));
-    } else {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.15 });
-      animatedEls.forEach((el) => obs.observe(el));
-    }
-  }
-  // Immediately show cards in the gallery grid to avoid delayed fade‑in.
-  document.querySelectorAll('.gallery-grid .neon-card').forEach((el) => {
-    el.classList.add('visible');
-  });
-
-  // Mobile navigation toggle: show/hide the nav menu on small screens.
+  // Mobile navigation toggle
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  
   if (navToggle && navMenu) {
-    const closeMenu = () => {
-      navMenu.classList.remove('open');
-      navToggle.classList.remove('active');
-    };
     navToggle.addEventListener('click', () => {
       navMenu.classList.toggle('open');
       navToggle.classList.toggle('active');
     });
-    navMenu.querySelectorAll('a').forEach((link) => {
+    
+    // Close menu on link click
+    navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        closeMenu();
+        navMenu.classList.remove('open');
+        navToggle.classList.remove('active');
       });
     });
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (navMenu.classList.contains('open')) {
-          closeMenu();
-        }
-      },
-      { passive: true }
-    );
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        closeMenu();
-      }
-    });
   }
+
+  // Fade-in animations with Intersection Observer
+  const animatedElements = document.querySelectorAll('.animate');
+  if (animatedElements.length > 0) {
+    if (isMobile) {
+      animatedElements.forEach(el => el.classList.add('visible'));
+    } else {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      
+      animatedElements.forEach(el => observer.observe(el));
+    }
+  }
+
+  // Immediately show gallery cards
+  document.querySelectorAll('.gallery-grid .neon-card').forEach(el => {
+    el.classList.add('visible');
+  });
 });

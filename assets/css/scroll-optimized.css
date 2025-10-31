@@ -1,0 +1,229 @@
+/* 
+ * Silverstone Premium Scroll Transition CSS - Optimized Version
+ * 
+ * Performance-optimized styles for buttery-smooth scroll transitions:
+ * - GPU-accelerated layers
+ * - Reduced repaints/reflows
+ * - CSS containment
+ * - Optimized animations
+ */
+
+/* Base performance optimizations */
+html {
+  scroll-behavior: auto !important; /* We handle smooth scrolling in JS */
+}
+
+body {
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+/* Hero section optimizations */
+.hero {
+  position: relative;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  contain: layout style paint;
+}
+
+/* Remove complex pseudo-elements that cause repaints */
+.hero::before,
+.hero::after {
+  display: none !important;
+}
+
+/* Optimize hero content */
+.hero .content {
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Section transitions */
+section {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Optimize cinematic sections */
+.cinematic-section {
+  will-change: transform, opacity;
+  transform-origin: center top;
+  backface-visibility: hidden;
+  contain: layout style paint;
+}
+
+/* Remove complex animations and overlays */
+.cinematic-transition,
+.cinematic-transition__veil,
+.cinematic-transition__beam,
+.cinematic-transition__vignette,
+.cinematic-transition__bloom {
+  display: none !important;
+}
+
+/* Simplified transition classes */
+.smooth-transition {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.3s ease-out;
+}
+
+/* GPU-accelerated animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animate class optimizations */
+.animate {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  will-change: transform, opacity;
+}
+
+.animate.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: opacity 0.6s ease-out,
+              transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Header optimizations */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+.header-hidden {
+  transform: translate3d(0, -100%, 0);
+}
+
+/* Neon card optimizations */
+.neon-card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  transition: transform 0.2s ease-out,
+              box-shadow 0.2s ease-out;
+}
+
+.neon-card:hover {
+  transform: translate3d(0, -3px, 0);
+}
+
+/* Service row optimizations */
+.service-row {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.service-image,
+.service-content {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Gallery optimizations */
+.gallery-grid {
+  transform: translateZ(0);
+  contain: layout style paint;
+}
+
+.gallery-grid img {
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile optimizations */
+@media (max-width: 900px) {
+  .hero,
+  section,
+  .service-row,
+  .neon-card {
+    will-change: auto;
+    transform: none;
+  }
+  
+  .animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .hero,
+  section {
+    will-change: auto;
+    transform: none;
+  }
+}
+
+/* Performance hints for browsers */
+.hero,
+.cinematic-section {
+  contain: layout style paint;
+}
+
+/* Optimize background images */
+.section.bg-lines,
+.section.bg-circuit,
+.section.bg-city,
+.section.bg-mesh,
+.section.bg-waves {
+  background-attachment: scroll !important; /* Fixed backgrounds cause repaints */
+}
+
+/* Remove blur filters on scroll (expensive) */
+.blur-on-scroll {
+  filter: none !important;
+  transition: none !important;
+}
+
+/* Simplified parallax layers */
+.parallax-slow,
+.parallax-medium,
+.parallax-fast {
+  transition: none !important;
+  will-change: auto !important;
+}
