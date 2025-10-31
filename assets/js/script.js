@@ -1,20 +1,19 @@
 /*
-      Silverstone site JavaScript (restored parallax)
+      Silverstone site JavaScript (premium cinematic parallax)
 
-      This version reinstates the original cinematic parallax behaviour
-      captured in the provided v25 script while preserving the
-      responsiveness and scaling improvements made previously.  The hero
-      section scales and darkens as the user begins to scroll, and the
-      subsequent section fades and slides into view.  An easing
-      auto‑scroll transitions the viewport over 2.5 seconds.  The header
-      hides when scrolling down and reappears when scrolling up.  Mobile
-      navigation toggling and fade‑in animations for elements marked with
-      `.animate` are also included.
+      This version provides a refined cinematic parallax experience with
+      slower, smoother transitions optimized for performance and premium
+      feel. The hero section scales and darkens as the user begins to
+      scroll, and the subsequent section fades and slides into view. An
+      easing auto-scroll transitions the viewport over 2.8 seconds with
+      subtle visual effects. The header hides when scrolling down and
+      reappears when scrolling up. Mobile navigation toggling and fade-in
+      animations for elements marked with `.animate` are also included.
 
       The script dynamically injects `assets/css/custom.css` if it is not
-      already present.  Ensure that custom.css merges the scaling
-      overrides (service rows and gallery grid) with any parallax styling
-      defined in earlier versions.
+      already present. Performance optimizations include reduced layer
+      count and elimination of dynamic particle generation for better
+      rendering efficiency.
     */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -102,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nextSection.classList.add('cinematic-section');
       nextSection.style.opacity = '0';
       nextSection.style.transform = 'translateY(80px)';
-      nextSection.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
+      nextSection.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
     }
 
     // On the contact or privacy pages ensure the first service row fills the viewport.
@@ -173,103 +172,12 @@ document.addEventListener('DOMContentLoaded', () => {
         overlayEl.innerHTML = `
           <div class="cinematic-transition__vignette"></div>
           <div class="cinematic-transition__veil"></div>
-          <div class="cinematic-transition__rays"></div>
-          <div class="cinematic-transition__bloom"></div>
           <div class="cinematic-transition__beam"></div>
-          <div class="cinematic-transition__particles"></div>
-          <div class="cinematic-transition__sparkles"></div>
-          <div class="cinematic-transition__grain"></div>
+          <div class="cinematic-transition__bloom"></div>
         `;
         body.appendChild(overlayEl);
-
-        // Create dynamic particle elements for premium effect
-        const particlesContainer = overlayEl.querySelector('.cinematic-transition__particles');
-        const particleCount = 25;
-        for (let i = 0; i < particleCount; i++) {
-          const particle = document.createElement('div');
-          particle.className = 'cinematic-particle';
-          const size = Math.random() * 6 + 2;
-          const left = Math.random() * 100;
-          const delay = Math.random() * 0.8;
-          const duration = Math.random() * 1.5 + 1.2;
-          const colors = [
-            'rgba(147, 197, 253, 0.9)',
-            'rgba(191, 219, 254, 0.8)',
-            'rgba(255, 255, 255, 0.95)',
-            'rgba(96, 165, 250, 0.7)',
-            'rgba(59, 130, 246, 0.85)'
-          ];
-          const color = colors[Math.floor(Math.random() * colors.length)];
-
-          particle.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            left: ${left}%;
-            top: ${Math.random() * 100}%;
-            background: radial-gradient(circle, ${color} 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            filter: blur(${size > 4 ? 1 : 0.5}px);
-            box-shadow: 0 0 ${size * 2}px ${size}px ${color};
-            animation: particleFloat${i % 2 === 0 ? 'Down' : 'Up'} ${duration}s ease-in-out ${delay}s forwards;
-          `;
-          particlesContainer.appendChild(particle);
-        }
-
         return overlayEl;
       };
-
-      // Add particle animation styles dynamically
-      const addParticleStyles = () => {
-        if (document.getElementById('particle-styles')) return;
-        const style = document.createElement('style');
-        style.id = 'particle-styles';
-        style.textContent = `
-          @keyframes particleFloatDown {
-            0% {
-              opacity: 0;
-              transform: translateY(-30vh) translateX(0) scale(0.8);
-            }
-            15% {
-              opacity: 1;
-            }
-            50% {
-              transform: translateY(20vh) translateX(${Math.random() * 40 - 20}px) scale(1);
-            }
-            85% {
-              opacity: 0.8;
-            }
-            100% {
-              opacity: 0;
-              transform: translateY(60vh) translateX(${Math.random() * 60 - 30}px) scale(0.6);
-            }
-          }
-          @keyframes particleFloatUp {
-            0% {
-              opacity: 0;
-              transform: translateY(30vh) translateX(0) scale(0.8);
-            }
-            15% {
-              opacity: 1;
-            }
-            50% {
-              transform: translateY(-20vh) translateX(${Math.random() * 40 - 20}px) scale(1);
-            }
-            85% {
-              opacity: 0.8;
-            }
-            100% {
-              opacity: 0;
-              transform: translateY(-60vh) translateX(${Math.random() * 60 - 30}px) scale(0.6);
-            }
-          }
-        `;
-        document.head.appendChild(style);
-      };
-
-      addParticleStyles();
 
       const overlay = ensureCinematicOverlay();
       let overlayTimer = null;
@@ -393,32 +301,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const animateHeroState = createStateAnimator(heroVisualState);
       const animateSectionState = createStateAnimator(sectionVisualState);
 
-      // Premium cinematic states with enhanced 3D depth
+      // Refined premium cinematic states with subtle depth
       const heroDownState = {
-        extraScale: 1.12,
-        extraBrightness: 0.70,
-        saturate: 1.4,
-        tilt: 8,
-        overlayBoost: 0.25,
+        extraScale: 1.08,
+        extraBrightness: 0.75,
+        saturate: 1.25,
+        tilt: 5,
+        overlayBoost: 0.20,
       };
       const heroUpState = {
-        extraScale: 1.08,
-        extraBrightness: 0.78,
-        saturate: 1.35,
-        tilt: -7,
-        overlayBoost: 0.18,
+        extraScale: 1.05,
+        extraBrightness: 0.82,
+        saturate: 1.20,
+        tilt: -4,
+        overlayBoost: 0.15,
       };
       const sectionDownState = {
-        extraScale: 1.06,
-        extraLift: -80,
-        opacityMultiplier: 1.5,
-        glow: 0.85,
+        extraScale: 1.04,
+        extraLift: -60,
+        opacityMultiplier: 1.35,
+        glow: 0.70,
       };
       const sectionUpState = {
-        extraScale: 0.94,
-        extraLift: 70,
-        opacityMultiplier: 0.45,
-        glow: 0.5,
+        extraScale: 0.96,
+        extraLift: 50,
+        opacityMultiplier: 0.55,
+        glow: 0.45,
       };
 
       renderParallax();
@@ -465,25 +373,25 @@ document.addEventListener('DOMContentLoaded', () => {
           clearTimeout(overlayTimer);
         }
 
-        // Updated timing for premium 1.8s animation duration
+        // Premium slow and smooth timing - 2.8s animation duration
         overlayTimer = window.setTimeout(() => {
           overlay.classList.remove('is-active', 'dir-down', 'dir-up');
-        }, 2000);
+        }, 3200);
 
         const heroTarget = direction === 'down' ? heroDownState : heroUpState;
         const sectionTarget = direction === 'down' ? sectionDownState : sectionUpState;
 
-        // Enhanced animation with longer, more cinematic timing
-        const heroAnim = animateHeroState(heroTarget, 1100, easeOutCubic);
-        const sectionAnim = animateSectionState(sectionTarget, 1100, easeOutCubic);
+        // Slower, more cinematic timing with smoother easing
+        const heroAnim = animateHeroState(heroTarget, 1600, easeOutCubic);
+        const sectionAnim = animateSectionState(sectionTarget, 1600, easeOutCubic);
         const targetY = direction === 'down' ? nextSection.offsetTop : 0;
-        const scrollDuration = direction === 'down' ? 2000 : 1900;
+        const scrollDuration = direction === 'down' ? 2800 : 2700;
         const scrollPromise = animateScrollTo(targetY, scrollDuration);
 
         const settleStates = () =>
           Promise.all([
-            animateHeroState(baseHeroState, 800, easeInOutQuad),
-            animateSectionState(baseSectionState, 800, easeInOutQuad),
+            animateHeroState(baseHeroState, 1200, easeInOutQuad),
+            animateSectionState(baseSectionState, 1200, easeInOutQuad),
           ]);
 
         Promise.all([heroAnim, sectionAnim, scrollPromise])
