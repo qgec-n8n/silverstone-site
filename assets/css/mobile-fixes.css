@@ -1,88 +1,35 @@
 /*
- * Mobile fixes for Silverstone site
- *
- * This stylesheet contains additional mobile‑specific overrides that
- * refine the layout on small screens without disturbing the desktop
- * experience.  It is loaded after the core styles (`styles.css`),
- * mobile overrides (`mobile.css`) and custom enhancements (`custom.css`) so
- * it can reliably supersede rules defined earlier.  All styles here
- * are wrapped in a max‑width media query.
- */
+  Mobile-specific overrides for the Silverstone site
 
-@media (max-width: 768px) {
-  /*
-   * Tighten padding on feature and value cards
-   *
-   * The Streamline/Optimize/Succeed cards on the home page and the
-   * Our Values cards on the about page had excessive padding on mobile.
-   * Reduce the padding and paragraph margins so the neon borders
-   * hug the content more closely.  Use `!important` to override
-   * previous declarations in other stylesheets.
-   */
-  .features .feature-card.neon-card,
-  .values .value-card.neon-card {
-    /* Further reduce internal padding so the neon border closely hugs the text */
-    padding: 0.5rem !important;
-  }
-  .features .feature-card.neon-card p,
-  .values .value-card.neon-card p {
-    /* Remove most bottom margin on paragraphs to collapse extra space */
-    margin-bottom: 0.25rem !important;
-  }
-  .features .feature-card.neon-card h3,
-  .values .value-card.neon-card h4 {
-    /* Tighten heading spacing as well */
-    margin-bottom: 0.4rem !important;
-  }
-  /* Remove forced equal height on mobile; let cards grow to their content */
-  .features .feature-card,
-  .values .value-card {
-    display: block !important;
-    height: auto !important;
-    /* Reset flex properties to avoid stretching */
-    flex: none !important;
-  }
+  The parallax and cinematic effects used on larger screens are not
+  appropriate for small devices, both for usability and performance.  This
+  stylesheet disables or simplifies those effects on viewports under 900px
+  wide.  It is loaded after the main custom.css so that its rules take
+  precedence when media queries match.
 
-  /*
-   * Service page fixes
-   *
-   * When service rows stack vertically on mobile, the default gap and
-   * margins defined in `styles.css` and `custom.css` leave too much
-   * whitespace.  Reduce the gap and bottom margin, and reset the
-   * custom variable used to compute service gaps.  These overrides
-   * ensure a premium, tighter layout while maintaining readability.
-   */
-    /* Override default service row spacing across the site on mobile */
-    body:not(.page-services) .service-row {
-      /* A modest gap to separate image and text without leaving a large void */
-      gap: 0.5rem !important;
-      /* Reduce bottom margin to tighten vertical rhythm between rows */
-      margin-bottom: 1rem !important;
-    }
-  /*
-   * Contact page map adjustments
-   *
-   * The injected `custom.css` removes borders, shadows and padding from
-   * the Google Maps container which leaves the map floating on the page.
-   * Restore the neon border and box shadows, enlarge the height and
-   * ensure the map fills its container.  These rules apply only to
-   * the contact page’s map card on small screens.
-   */
-  .contact-map-card .map-container {
-    border: 1px solid rgba(0, 174, 239, 0.25) !important;
-    box-shadow: 0 0 0 1px rgba(157, 78, 221, 0.25) inset,
-      0 8px 28px rgba(0, 0, 0, 0.35),
-      0 0 24px rgba(0, 174, 239, 0.25) !important;
-    border-radius: 18px !important;
-    padding-top: 0 !important;
-    height: 350px !important;
-    overflow: hidden !important;
-  }
-  .contact-map-card .map-container iframe {
-    width: 100% !important;
-    height: 100% !important;
-    border: 0 !important;
-    display: block !important;
-  }
+  – Remove scaling and darkening on the hero section
+  – Ensure the hero content and next sections are fully visible without
+    transforms or opacity changes
+  – Reset any will-change declarations to avoid unnecessary memory usage
+*/
 
+@media (max-width: 900px) {
+  /* Prevent parallax scaling and overlay darkening on mobile */
+  .hero {
+    transform: none !important;
+    --overlay-opacity: 0 !important;
+    will-change: auto !important;
+  }
+  /* Ensure hero content is fully visible */
+  .hero .content {
+    transform: none !important;
+    opacity: 1 !important;
+    will-change: auto !important;
+  }
+  /* Prevent translation and fade on the next section */
+  .cinematic-section {
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
 }
