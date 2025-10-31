@@ -100,8 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isMobile) {
       nextSection.classList.add('cinematic-section');
       nextSection.style.opacity = '0';
-      nextSection.style.transform = 'translateY(80px)';
-      nextSection.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+      nextSection.style.transform = 'translate3d(0, 80px, 0)';
+      nextSection.style.setProperty('--section-highlight', '0');
+      nextSection.style.transition =
+        'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)';
     }
 
     // On the contact or privacy pages ensure the first service row fills the viewport.
@@ -183,19 +185,18 @@ document.addEventListener('DOMContentLoaded', () => {
       let overlayTimer = null;
 
       const baseHeroState = {
-        extraScale: 1,
-        extraBrightness: 1,
-        saturate: 1,
+        scale: 1,
         tilt: 0,
+        translateY: 0,
         overlayBoost: 0,
       };
       const heroVisualState = { ...baseHeroState };
 
       const baseSectionState = {
-        extraScale: 1,
-        extraLift: 0,
-        opacityMultiplier: 1,
-        glow: 0,
+        scale: 1,
+        lift: 0,
+        opacity: 1,
+        accent: 0.7,
       };
       const sectionVisualState = { ...baseSectionState };
 
@@ -219,36 +220,34 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       const applyParallax = (progress) => {
-        const baseScale = 1 + progress * 0.3;
-        const heroScale = baseScale * heroVisualState.extraScale;
-        const heroTilt = heroVisualState.tilt;
-        const heroRotateY = progress * heroVisualState.tilt * 0.3;
+        const baseScale = 1 + progress * 0.18;
+        const heroScale = baseScale * heroVisualState.scale;
+        const heroTilt = heroVisualState.tilt * progress;
+        const heroTranslate = -progress * 60 + heroVisualState.translateY;
 
-        const baseBrightness = 1 - progress * 0.75;
-        const heroBrightness = clamp(
-          baseBrightness * heroVisualState.extraBrightness,
-          0.2,
-          1.15
+        const overlayValue = clamp(
+          progress * 0.65 + heroVisualState.overlayBoost,
+          0,
+          1
         );
-        const contrast = 1 + progress * 0.15;
 
-        const overlayValue = clamp(progress * 0.75 + heroVisualState.overlayBoost, 0, 1);
+        const baseTranslate = (1 - progress) * 90;
+        const sectionTranslate = baseTranslate + sectionVisualState.lift;
+        const sectionScale = (1 + progress * 0.05) * sectionVisualState.scale;
 
-        const baseTranslate = (1 - progress) * 140;
-        const sectionTranslate = baseTranslate + sectionVisualState.extraLift;
-        const sectionRotateX = (1 - progress) * -3;
-        const sectionDepth = (1 - progress) * 50;
+        const sectionOpacity = clamp(progress * sectionVisualState.opacity, 0, 1);
+        const sectionAccent = clamp(
+          progress * sectionVisualState.accent,
+          0,
+          1.1
+        );
 
-        const sectionOpacity = clamp(progress * sectionVisualState.opacityMultiplier, 0, 1);
-        const sectionGlow = clamp(progress * 0.8 + sectionVisualState.glow, 0, 1.2);
-
-        hero.style.transform = `perspective(2000px) translate3d(0,0,0) scale(${heroScale.toFixed(3)}) rotateX(${heroTilt.toFixed(1)}deg) rotateY(${heroRotateY.toFixed(2)}deg)`;
-        hero.style.filter = `brightness(${heroBrightness.toFixed(3)}) saturate(${heroVisualState.saturate.toFixed(3)}) contrast(${contrast.toFixed(3)})`;
+        hero.style.transform = `perspective(2000px) translate3d(0, ${heroTranslate.toFixed(1)}px, 0) scale(${heroScale.toFixed(3)}) rotateX(${heroTilt.toFixed(2)}deg)`;
         hero.style.setProperty('--overlay-opacity', overlayValue.toFixed(3));
 
-        nextSection.style.transform = `translate3d(0,${sectionTranslate.toFixed(1)}px,${sectionDepth.toFixed(1)}px) scale(${sectionVisualState.extraScale.toFixed(3)}) rotateX(${sectionRotateX.toFixed(2)}deg)`;
+        nextSection.style.transform = `translate3d(0, ${sectionTranslate.toFixed(1)}px, 0) scale(${sectionScale.toFixed(3)})`;
         nextSection.style.opacity = sectionOpacity.toFixed(3);
-        nextSection.style.setProperty('--section-glow', sectionGlow.toFixed(3));
+        nextSection.style.setProperty('--section-highlight', sectionAccent.toFixed(3));
       };
 
       const parallaxTick = () => {
@@ -344,30 +343,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Refined premium cinematic states with subtle depth
       const heroDownState = {
-        extraScale: 1.08,
-        extraBrightness: 0.75,
-        saturate: 1.25,
-        tilt: 5,
-        overlayBoost: 0.20,
+        scale: 1.06,
+        tilt: 6,
+        translateY: -18,
+        overlayBoost: 0.35,
       };
       const heroUpState = {
-        extraScale: 1.05,
-        extraBrightness: 0.82,
-        saturate: 1.20,
+        scale: 1.02,
         tilt: -4,
-        overlayBoost: 0.15,
+        translateY: 14,
+        overlayBoost: 0.22,
       };
       const sectionDownState = {
-        extraScale: 1.04,
-        extraLift: -60,
-        opacityMultiplier: 1.35,
-        glow: 0.70,
+        scale: 1.05,
+        lift: -45,
+        opacity: 1.25,
+        accent: 1.1,
       };
       const sectionUpState = {
-        extraScale: 0.96,
-        extraLift: 50,
-        opacityMultiplier: 0.55,
-        glow: 0.45,
+        scale: 0.97,
+        lift: 52,
+        opacity: 0.65,
+        accent: 0.5,
       };
 
       scheduleRender(true);
