@@ -205,57 +205,69 @@ document.addEventListener('DOMContentLoaded', () => {
       let rafId = null;
       let cachedHeroHeight = null;
       let needsHeightRecalc = true;
+      let targetProgress = 0;
+      let visualProgress = 0;
 
-      const renderParallax = () => {
-        // Read phase - batch all DOM reads first
-        if (needsHeightRecalc) {
-          cachedHeroHeight = hero.offsetHeight || 1;
-          needsHeightRecalc = false;
-        }
-        const offset = window.pageYOffset;
-        const progress = clamp(offset / cachedHeroHeight, 0, 1);
+      hero.style.willChange = 'transform, filter';
+      nextSection.style.willChange = 'transform, opacity';
 
-        // Calculate all values before any DOM writes
-        const baseScale = 1 + progress * 0.3;
+      const applyParallax = (progress) => {
+        const baseScale = 1 + progress * 0.28;
         const heroScale = baseScale * heroVisualState.extraScale;
         const heroTilt = heroVisualState.tilt;
-        const heroRotateY = progress * heroVisualState.tilt * 0.3;
+        const heroRotateY = progress * heroVisualState.tilt * 0.28;
 
-        const baseBrightness = 1 - progress * 0.75;
+        const baseBrightness = 1 - progress * 0.72;
         const heroBrightness = clamp(
           baseBrightness * heroVisualState.extraBrightness,
           0.2,
           1.15
         );
-        const contrast = 1 + progress * 0.15;
+        const contrast = 1 + progress * 0.12;
 
         const overlayValue = clamp(progress * 0.75 + heroVisualState.overlayBoost, 0, 1);
 
         const baseTranslate = (1 - progress) * 140;
         const sectionTranslate = baseTranslate + sectionVisualState.extraLift;
-        const sectionRotateX = (1 - progress) * -3;
-        const sectionDepth = (1 - progress) * 50;
+        const sectionRotateX = (1 - progress) * -2.5;
+        const sectionDepth = (1 - progress) * 42;
 
         const sectionOpacity = clamp(progress * sectionVisualState.opacityMultiplier, 0, 1);
         const sectionGlow = clamp(progress * 0.8 + sectionVisualState.glow, 0, 1.2);
 
-        // Write phase - batch all DOM writes together (reduces precision for performance)
-        hero.style.transform = `perspective(2000px) translate3d(0,0,0) scale(${heroScale.toFixed(2)}) rotateX(${heroTilt.toFixed(1)}deg) rotateY(${heroRotateY.toFixed(1)}deg)`;
-        hero.style.filter = `brightness(${heroBrightness.toFixed(2)}) saturate(${heroVisualState.saturate.toFixed(2)}) contrast(${contrast.toFixed(2)})`;
-        hero.style.setProperty('--overlay-opacity', overlayValue.toFixed(2));
+        hero.style.transform = `perspective(2000px) translate3d(0,0,0) scale(${heroScale}) rotateX(${heroTilt}deg) rotateY(${heroRotateY}deg)`;
+        hero.style.filter = `brightness(${heroBrightness}) saturate(${heroVisualState.saturate}) contrast(${contrast})`;
+        hero.style.setProperty('--overlay-opacity', overlayValue);
 
-        nextSection.style.transform = `translate3d(0,${sectionTranslate.toFixed(0)}px,${sectionDepth.toFixed(0)}px) scale(${sectionVisualState.extraScale.toFixed(2)}) rotateX(${sectionRotateX.toFixed(1)}deg)`;
-        nextSection.style.opacity = sectionOpacity.toFixed(2);
-        nextSection.style.setProperty('--section-glow', sectionGlow.toFixed(2));
+        nextSection.style.transform = `translate3d(0,${sectionTranslate}px,${sectionDepth}px) scale(${sectionVisualState.extraScale}) rotateX(${sectionRotateX}deg)`;
+        nextSection.style.opacity = sectionOpacity;
+        nextSection.style.setProperty('--section-glow', sectionGlow);
       };
 
-      // Throttle scroll updates using RAF for buttery smooth performance
+      const tickSmoothing = () => {
+        if (rafId === null) return;
+        const diff = targetProgress - visualProgress;
+        const absDiff = Math.abs(diff);
+
+        if (absDiff > 0.0005) {
+          visualProgress += diff * 0.12;
+          applyParallax(visualProgress);
+          rafId = requestAnimationFrame(tickSmoothing);
+        } else {
+          visualProgress = targetProgress;
+          applyParallax(visualProgress);
+          rafId = null;
+        }
+      };
+
       const scheduleRender = () => {
+        if (needsHeightRecalc) {
+          cachedHeroHeight = hero.offsetHeight || 1;
+          needsHeightRecalc = false;
+        }
+        targetProgress = clamp(window.pageYOffset / cachedHeroHeight, 0, 1);
         if (rafId === null) {
-          rafId = requestAnimationFrame(() => {
-            renderParallax();
-            rafId = null;
-          });
+          rafId = requestAnimationFrame(tickSmoothing);
         }
       };
 
@@ -281,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
               keys.forEach((key) => {
                 state[key] = target[key];
               });
-              renderParallax();
+              applyParallax(visualProgress);
               resolve();
               return;
             }
@@ -296,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const to = target[key];
                 state[key] = from + (to - from) * eased;
               });
-              renderParallax();
+              applyParallax(visualProgress);
               if (progress < 1) {
                 frameId = requestAnimationFrame(step);
               } else {
@@ -340,12 +352,32 @@ document.addEventListener('DOMContentLoaded', () => {
         glow: 0.45,
       };
 
-      renderParallax();
+      const initialiseParallax = () => {
+        cachedHeroHeight = hero.offsetHeight || 1;
+        needsHeightRecalc = false;
+        targetProgress = clamp(window.pageYOffset / cachedHeroHeight, 0, 1);
+        visualProgress = targetProgress;
+        applyParallax(visualProgress);
+      };
+
+      initialiseParallax();
       window.addEventListener('scroll', scheduleRender, { passive: true });
       window.addEventListener('resize', () => {
         needsHeightRecalc = true;
         scheduleRender();
       });
+      window.addEventListener('load', () => {
+        needsHeightRecalc = true;
+        scheduleRender();
+      });
+
+      if (window.ResizeObserver) {
+        const heroResizeObserver = new ResizeObserver(() => {
+          needsHeightRecalc = true;
+          scheduleRender();
+        });
+        heroResizeObserver.observe(hero);
+      }
 
       let transitionInProgress = false;
       let lastGuardScrollY = window.pageYOffset;
