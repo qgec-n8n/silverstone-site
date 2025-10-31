@@ -20,6 +20,12 @@
   -webkit-perspective: 2000px;
 }
 
+.cinematic-section {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
 .hero::after {
   content: "";
   position: absolute;
