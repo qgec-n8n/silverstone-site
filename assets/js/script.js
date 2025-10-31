@@ -119,11 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     }
 
-    function easeOutCubic(t) {
-      const inv = 1 - t;
-      return 1 - inv * inv * inv;
-    }
-
     let autoScrolling = false;
 
     /**
@@ -170,10 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
         overlayEl = document.createElement('div');
         overlayEl.className = 'cinematic-transition';
         overlayEl.innerHTML = `
-          <div class="cinematic-transition__vignette"></div>
           <div class="cinematic-transition__veil"></div>
           <div class="cinematic-transition__beam"></div>
-          <div class="cinematic-transition__bloom"></div>
+          <div class="cinematic-transition__flare"></div>
         `;
         body.appendChild(overlayEl);
         return overlayEl;
@@ -181,23 +175,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const overlay = ensureCinematicOverlay();
       let overlayTimer = null;
+      let releaseTimer = null;
 
-      const baseHeroState = {
-        extraScale: 1,
-        extraBrightness: 1,
-        saturate: 1,
-        tilt: 0,
-        overlayBoost: 0,
-      };
-      const heroVisualState = { ...baseHeroState };
-
-      const baseSectionState = {
-        extraScale: 1,
-        extraLift: 0,
-        opacityMultiplier: 1,
-        glow: 0,
-      };
-      const sectionVisualState = { ...baseSectionState };
+      // Seed CSS variables with default values so transforms start stable.
+      hero.style.setProperty('--hero-scale-base', '1');
+      hero.style.setProperty('--hero-tilt-base', '0deg');
+      hero.style.setProperty('--hero-pan-base', '0deg');
+      hero.style.setProperty('--hero-rise-base', '0px');
+      hero.style.setProperty('--hero-overlay-base', '0.08');
+      nextSection.style.setProperty('--section-translate-base', '140px');
+      nextSection.style.setProperty('--section-scale-base', '0.95');
+      nextSection.style.setProperty('--section-tilt-base', '-4deg');
+      nextSection.style.setProperty('--section-opacity-base', '0');
+      nextSection.style.setProperty('--section-glow-base', '0');
 
       const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
@@ -219,36 +209,27 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       const applyParallax = (progress) => {
-        const baseScale = 1 + progress * 0.3;
-        const heroScale = baseScale * heroVisualState.extraScale;
-        const heroTilt = heroVisualState.tilt;
-        const heroRotateY = progress * heroVisualState.tilt * 0.3;
+        const eased = Math.pow(progress, 0.92);
+        const overlayBase = clamp(0.08 + eased * 0.58, 0, 0.88);
 
-        const baseBrightness = 1 - progress * 0.75;
-        const heroBrightness = clamp(
-          baseBrightness * heroVisualState.extraBrightness,
-          0.2,
-          1.15
+        hero.style.setProperty('--hero-scale-base', (1 + eased * 0.07).toFixed(4));
+        hero.style.setProperty('--hero-tilt-base', `${(eased * 4.6).toFixed(2)}deg`);
+        hero.style.setProperty('--hero-pan-base', `${(eased * 1.5).toFixed(2)}deg`);
+        hero.style.setProperty('--hero-rise-base', `${(-eased * 32).toFixed(1)}px`);
+        hero.style.setProperty('--hero-overlay-base', overlayBase.toFixed(3));
+
+        const sectionLift = (1 - eased) * 120;
+        nextSection.style.setProperty('--section-translate-base', `${sectionLift.toFixed(1)}px`);
+        nextSection.style.setProperty('--section-scale-base', (0.94 + eased * 0.05).toFixed(3));
+        nextSection.style.setProperty('--section-tilt-base', `${(-3 + eased * 3.6).toFixed(2)}deg`);
+        nextSection.style.setProperty(
+          '--section-opacity-base',
+          clamp(eased * 1.1, 0, 1).toFixed(3)
         );
-        const contrast = 1 + progress * 0.15;
-
-        const overlayValue = clamp(progress * 0.75 + heroVisualState.overlayBoost, 0, 1);
-
-        const baseTranslate = (1 - progress) * 140;
-        const sectionTranslate = baseTranslate + sectionVisualState.extraLift;
-        const sectionRotateX = (1 - progress) * -3;
-        const sectionDepth = (1 - progress) * 50;
-
-        const sectionOpacity = clamp(progress * sectionVisualState.opacityMultiplier, 0, 1);
-        const sectionGlow = clamp(progress * 0.8 + sectionVisualState.glow, 0, 1.2);
-
-        hero.style.transform = `perspective(2000px) translate3d(0,0,0) scale(${heroScale.toFixed(3)}) rotateX(${heroTilt.toFixed(1)}deg) rotateY(${heroRotateY.toFixed(2)}deg)`;
-        hero.style.filter = `brightness(${heroBrightness.toFixed(3)}) saturate(${heroVisualState.saturate.toFixed(3)}) contrast(${contrast.toFixed(3)})`;
-        hero.style.setProperty('--overlay-opacity', overlayValue.toFixed(3));
-
-        nextSection.style.transform = `translate3d(0,${sectionTranslate.toFixed(1)}px,${sectionDepth.toFixed(1)}px) scale(${sectionVisualState.extraScale.toFixed(3)}) rotateX(${sectionRotateX.toFixed(2)}deg)`;
-        nextSection.style.opacity = sectionOpacity.toFixed(3);
-        nextSection.style.setProperty('--section-glow', sectionGlow.toFixed(3));
+        nextSection.style.setProperty(
+          '--section-glow-base',
+          clamp(eased * 0.85, 0, 1).toFixed(3)
+        );
       };
 
       const parallaxTick = () => {
@@ -287,87 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
         ensureParallaxLoop();
-      };
-
-      const createStateAnimator = (state) => {
-        let frameId = null;
-        let pendingResolve = null;
-        return (target, duration, easing = easeInOutQuad) =>
-          new Promise((resolve) => {
-            if (frameId !== null) {
-              cancelAnimationFrame(frameId);
-              frameId = null;
-            }
-            if (pendingResolve) {
-              pendingResolve();
-              pendingResolve = null;
-            }
-            const keys = Object.keys(target);
-            const startValues = {};
-            keys.forEach((key) => {
-              startValues[key] = state[key];
-            });
-            if (duration <= 0) {
-              keys.forEach((key) => {
-                state[key] = target[key];
-              });
-              applyParallax(currentProgress);
-              resolve();
-              return;
-            }
-            let startTime;
-            pendingResolve = resolve;
-            function step(timestamp) {
-              if (startTime === undefined) startTime = timestamp;
-              const progress = Math.min((timestamp - startTime) / duration, 1);
-              const eased = easing(progress);
-              keys.forEach((key) => {
-                const from = startValues[key];
-                const to = target[key];
-                state[key] = from + (to - from) * eased;
-              });
-              applyParallax(currentProgress);
-              if (progress < 1) {
-                frameId = requestAnimationFrame(step);
-              } else {
-                frameId = null;
-                pendingResolve = null;
-                resolve();
-              }
-            }
-            frameId = requestAnimationFrame(step);
-          });
-      };
-
-      const animateHeroState = createStateAnimator(heroVisualState);
-      const animateSectionState = createStateAnimator(sectionVisualState);
-
-      // Refined premium cinematic states with subtle depth
-      const heroDownState = {
-        extraScale: 1.08,
-        extraBrightness: 0.75,
-        saturate: 1.25,
-        tilt: 5,
-        overlayBoost: 0.20,
-      };
-      const heroUpState = {
-        extraScale: 1.05,
-        extraBrightness: 0.82,
-        saturate: 1.20,
-        tilt: -4,
-        overlayBoost: 0.15,
-      };
-      const sectionDownState = {
-        extraScale: 1.04,
-        extraLift: -60,
-        opacityMultiplier: 1.35,
-        glow: 0.70,
-      };
-      const sectionUpState = {
-        extraScale: 0.96,
-        extraLift: 50,
-        opacityMultiplier: 0.55,
-        glow: 0.45,
       };
 
       scheduleRender(true);
@@ -421,53 +321,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (overlayTimer) {
           clearTimeout(overlayTimer);
+          overlayTimer = null;
+        }
+        if (releaseTimer) {
+          clearTimeout(releaseTimer);
+          releaseTimer = null;
         }
 
-        // Premium slow and smooth timing - 2.8s animation duration
+        const overlayDuration = direction === 'down' ? 2200 : 2000;
         overlayTimer = window.setTimeout(() => {
           overlay.classList.remove('is-active', 'dir-down', 'dir-up');
-        }, 3200);
+          overlayTimer = null;
+        }, overlayDuration + 200);
 
-        const heroTarget = direction === 'down' ? heroDownState : heroUpState;
-        const sectionTarget = direction === 'down' ? sectionDownState : sectionUpState;
+        releaseTimer = window.setTimeout(() => {
+          body.classList.remove('cinematic-transitioning', 'cinematic-down', 'cinematic-up');
+          releaseTimer = null;
+          transitionInProgress = false;
+          scheduleRender(true);
+        }, overlayDuration);
 
-        // Slower, more cinematic timing with smoother easing
-        const heroAnim = animateHeroState(heroTarget, 1600, easeOutCubic);
-        const sectionAnim = animateSectionState(sectionTarget, 1600, easeOutCubic);
         const targetY = direction === 'down' ? nextSection.offsetTop : 0;
-        const scrollDuration = direction === 'down' ? 2800 : 2700;
-        const scrollPromise = animateScrollTo(targetY, scrollDuration);
+        const scrollDuration = direction === 'down' ? 2200 : 2100;
 
-        const settleStates = () =>
-          Promise.all([
-            animateHeroState(baseHeroState, 1200, easeInOutQuad),
-            animateSectionState(baseSectionState, 1200, easeInOutQuad),
-          ]);
+        animateScrollTo(targetY, scrollDuration).finally(() => {
+          document.body.style.overflow = '';
+          document.documentElement.style.overflow = '';
+          document.body.style.position = '';
+          document.body.style.overflowY = '';
 
-        Promise.all([heroAnim, sectionAnim, scrollPromise])
-          .then(() => new Promise((resolve) => setTimeout(resolve, 200)))
-          .then(settleStates)
-          .finally(() => {
-            if (overlayTimer) {
-              clearTimeout(overlayTimer);
-            }
-            overlayTimer = window.setTimeout(() => {
-              overlay.classList.remove('is-active', 'dir-down', 'dir-up');
-            }, 500);
+          scrollVelocity = 0;
+          lastGuardScrollY = window.pageYOffset;
 
-            // Restore scroll capabilities
-            body.classList.remove('cinematic-transitioning', dirClass);
-            document.body.style.overflow = '';
-            document.documentElement.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.overflowY = '';
-
-            // Reset velocity tracking
-            scrollVelocity = 0;
-            lastGuardScrollY = window.pageYOffset;
-
+          // Ensure classes clear if timers have already fired.
+          if (!releaseTimer) {
+            body.classList.remove('cinematic-transitioning', 'cinematic-down', 'cinematic-up');
             transitionInProgress = false;
-          });
+          }
+          if (!overlayTimer) {
+            overlay.classList.remove('is-active', 'dir-down', 'dir-up');
+          }
+
+          scheduleRender(true);
+        });
       }
 
       // Enhanced guard scroll with velocity-based boundary protection
@@ -512,7 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
           const delta = evt.deltaY;
           const scrollY = window.pageYOffset;
           const nextTop = nextSection.offsetTop;
-          const heroHeight = hero.offsetHeight;
 
           // Scrolling down
           if (delta > 0) {
