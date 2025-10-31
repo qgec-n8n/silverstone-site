@@ -93,6 +93,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const hasHeroStructure = Boolean(hero && nextSection && header);
 
+  const heroContent = hero ? hero.querySelector('.content') : null;
+  let cinematicOverlay = null;
+  let cinematicVignette = null;
+  if (hero) {
+    hero.classList.add('cinematic-hero');
+    if (heroContent) {
+      heroContent.classList.add('cinematic-hero-content');
+    }
+    cinematicOverlay = hero.querySelector('.cinematic-gradient-layer');
+    if (!cinematicOverlay) {
+      cinematicOverlay = document.createElement('div');
+      cinematicOverlay.className = 'cinematic-gradient-layer';
+      hero.appendChild(cinematicOverlay);
+    }
+    cinematicVignette = hero.querySelector('.cinematic-vignette');
+    if (!cinematicVignette) {
+      cinematicVignette = document.createElement('div');
+      cinematicVignette.className = 'cinematic-vignette';
+      hero.appendChild(cinematicVignette);
+    }
+  }
+  if (nextSection) {
+    nextSection.classList.add('cinematic-section');
+  }
+
   if (hasHeroStructure) {
     // Initialise the next section so it starts hidden and lower on the page.
     // Only apply the fade/slide animations when the parallax is active.
@@ -156,24 +181,114 @@ document.addEventListener('DOMContentLoaded', () => {
      * custom.css.  This handler runs on every scroll event.
      */
     function updateParallax() {
+      if (!hero || hero.classList.contains('cinematic-active')) {
+        return;
+      }
       const offset = window.pageYOffset;
       const heroHeight = hero.offsetHeight;
       const progress = Math.min(offset / heroHeight, 1);
-      // Scale the hero up to 1.25x at full progress
-      hero.style.transform = `scale(${(1 + progress * 0.25).toFixed(3)})`;
-      // Darken the hero by reducing brightness
-      hero.style.filter = `brightness(${(1 - progress * 0.7).toFixed(3)})`;
+      hero.style.setProperty('--parallax-progress', progress.toFixed(3));
+      nextSection.style.setProperty('--parallax-progress', progress.toFixed(3));
+      if (heroContent) {
+        heroContent.style.setProperty('--parallax-progress', progress.toFixed(3));
+      }
+      // Scale the hero with a subtle lift and cinematic grading
+      const heroScale = 1 + progress * 0.18;
+      const heroLift = -progress * 9;
+      hero.style.transform = `translate3d(0, ${heroLift.toFixed(2)}vh, 0) scale(${heroScale.toFixed(4)})`;
+      hero.style.filter = `brightness(${(1 - progress * 0.55).toFixed(3)}) contrast(${(1 + progress * 0.25).toFixed(3)}) saturate(${(1 + progress * 0.35).toFixed(3)})`;
       // Update overlay opacity via CSS variable
-      hero.style.setProperty('--overlay-opacity', (progress * 0.7).toFixed(3));
-      // Fade and translate the next section
-      nextSection.style.opacity = progress.toFixed(3);
-      const translateY = (1 - progress) * 120;
-      nextSection.style.transform = `translateY(${translateY.toFixed(1)}px)`;
+      hero.style.setProperty('--overlay-opacity', (progress * 0.75).toFixed(3));
+      if (heroContent) {
+        const contentLift = progress * -120;
+        heroContent.style.transform = `translate3d(0, ${contentLift.toFixed(1)}px, 0) scale(${(1 + progress * 0.04).toFixed(4)})`;
+        heroContent.style.opacity = (1 - progress * 0.1).toFixed(3);
+      }
+      if (cinematicOverlay && !cinematicOverlay.classList.contains('cinematic-active')) {
+        cinematicOverlay.style.opacity = (0.12 + progress * 0.55).toFixed(3);
+        cinematicOverlay.style.filter = `blur(${(progress * 14).toFixed(1)}px)`;
+        cinematicOverlay.style.transform = `translate3d(0, ${(-progress * 28).toFixed(1)}px, 0) scale(${(1.08 + progress * 0.12).toFixed(4)})`;
+      }
+      if (cinematicVignette && !cinematicVignette.classList.contains('cinematic-active')) {
+        cinematicVignette.style.opacity = (0.18 + progress * 0.45).toFixed(3);
+      }
+      // Fade and translate the next section with atmospheric depth
+      const easedProgress = Math.min(progress ** 0.85, 1);
+      nextSection.style.opacity = Math.min(easedProgress * 1.15, 1).toFixed(3);
+      const translateY = (1 - easedProgress) * 130;
+      nextSection.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+      nextSection.style.filter = `blur(${(10 * (1 - easedProgress)).toFixed(1)}px)`;
     }
     // Run once to apply initial state
     if (!isMobile) {
       updateParallax();
       window.addEventListener('scroll', updateParallax, { passive: true });
+    }
+
+    let cinematicPlaying = false;
+
+    function triggerCinematic(direction) {
+      if (cinematicPlaying) {
+        return;
+      }
+      cinematicPlaying = true;
+      const directionClass = direction === 'forward' ? 'cinematic-forward' : 'cinematic-reverse';
+      const participants = [hero, nextSection, cinematicOverlay, cinematicVignette, heroContent]
+        .filter(Boolean)
+        .map((el) => {
+          el.classList.remove('cinematic-forward', 'cinematic-reverse', 'cinematic-active');
+          // Force a reflow so the animation can restart when the class is re-applied
+          void el.offsetWidth; // eslint-disable-line no-unused-expressions
+          el.classList.add('cinematic-active', directionClass);
+          return el;
+        });
+
+      const trackers = participants.map((element) => {
+        let resolved = false;
+        let handleEnd = null;
+        let resolvePromise;
+        const promise = new Promise((resolve) => {
+          resolvePromise = resolve;
+          handleEnd = (event) => {
+            if (event.target === element) {
+              element.removeEventListener('animationend', handleEnd);
+              if (!resolved) {
+                resolved = true;
+                resolve();
+              }
+            }
+          };
+          element.addEventListener('animationend', handleEnd);
+        });
+        return {
+          element,
+          promise,
+          resolveFn: () => {
+            if (!resolved) {
+              resolved = true;
+              if (handleEnd) {
+                element.removeEventListener('animationend', handleEnd);
+              }
+              resolvePromise();
+            }
+          },
+        };
+      });
+
+      const failSafe = setTimeout(() => {
+        trackers.forEach((tracker) => tracker.resolveFn());
+      }, 2800);
+
+      Promise.all(trackers.map((tracker) => tracker.promise))
+        .catch(() => {})
+        .finally(() => {
+          clearTimeout(failSafe);
+          participants.forEach((el) => {
+            el.classList.remove('cinematic-active', 'cinematic-forward', 'cinematic-reverse');
+          });
+          cinematicPlaying = false;
+          updateParallax();
+        });
     }
 
     /**
@@ -207,6 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (delta > 0) {
             if (scrollY <= 0) {
               evt.preventDefault();
+              triggerCinematic('forward');
               animateScrollTo(nextTop, 2500);
             }
             return;
@@ -231,12 +347,47 @@ document.addEventListener('DOMContentLoaded', () => {
             // the viewer to the hero with a cinematic transition.
             if (scrollY > nextTop && predictedY < nextTop) {
               evt.preventDefault();
+              triggerCinematic('reverse');
               animateScrollTo(0, 2500);
               return;
             }
             // If currently between the hero and second section, trigger parallax return.
             if (scrollY > 0 && scrollY <= nextTop) {
               evt.preventDefault();
+              triggerCinematic('reverse');
+              animateScrollTo(0, 2500);
+            }
+          }
+        },
+        { passive: false }
+      );
+      const forwardKeys = new Set(['PageDown', 'ArrowDown']);
+      const reverseKeys = new Set(['PageUp', 'ArrowUp']);
+      window.addEventListener(
+        'keydown',
+        (evt) => {
+          if (autoScrolling) {
+            evt.preventDefault();
+            return;
+          }
+          const key = evt.key;
+          const scrollY = window.pageYOffset;
+          const nextTop = nextSection.offsetTop;
+          const isSpace = key === ' ';
+          const isForwardKey = forwardKeys.has(key) || (isSpace && !evt.shiftKey);
+          const isReverseKey = reverseKeys.has(key) || (isSpace && evt.shiftKey);
+          if (isForwardKey && scrollY <= 0) {
+            evt.preventDefault();
+            triggerCinematic('forward');
+            animateScrollTo(nextTop, 2500);
+          } else if (isReverseKey) {
+            if (scrollY > nextTop) {
+              evt.preventDefault();
+              triggerCinematic('reverse');
+              animateScrollTo(0, 2500);
+            } else if (scrollY > 0 && scrollY <= nextTop) {
+              evt.preventDefault();
+              triggerCinematic('reverse');
               animateScrollTo(0, 2500);
             }
           }
