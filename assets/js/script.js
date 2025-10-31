@@ -131,21 +131,322 @@ document.addEventListener('DOMContentLoaded', () => {
       const startY = window.pageYOffset;
       const distance = targetY - startY;
       let startTime;
+      return new Promise((resolve) => {
+        function step(timestamp) {
+          if (startTime === undefined) startTime = timestamp;
+          const progress = Math.min((timestamp - startTime) / duration, 1);
+          const eased = easeInOutQuad(progress);
+          window.scrollTo(0, startY + distance * eased);
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            resolve();
+          }
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    const SCROLL_DURATION = 2200;
+    const CINEMATIC_DURATION = 1400;
+
+    let cinematicOverlay = null;
+    let cinematicOverlaySheen = null;
+    let cinematicOverlayVignette = null;
+    if (!isMobile) {
+      cinematicOverlay = document.createElement('div');
+      cinematicOverlay.className = 'cinematic-overlay';
+      cinematicOverlay.setAttribute('aria-hidden', 'true');
+      cinematicOverlaySheen = document.createElement('div');
+      cinematicOverlaySheen.className = 'cinematic-overlay__sheen';
+      cinematicOverlayVignette = document.createElement('div');
+      cinematicOverlayVignette.className = 'cinematic-overlay__vignette';
+      cinematicOverlay.appendChild(cinematicOverlaySheen);
+      cinematicOverlay.appendChild(cinematicOverlayVignette);
+      cinematicOverlay.style.visibility = 'hidden';
+      document.body.appendChild(cinematicOverlay);
+    }
+
+    function runCinematicSequence(direction) {
+      if (!cinematicOverlay) return Promise.resolve();
+      const isDown = direction === 'down';
+      const heroTransformStart = hero.style.transform;
+      const heroFilterStart = hero.style.filter;
+      const nextTransformStart = nextSection.style.transform;
+      const nextOpacityStart = nextSection.style.opacity;
+      const nextFilterStart = nextSection.style.filter;
+      const nextClipStart = nextSection.style.clipPath;
+      const heroContent = hero.querySelector('.content');
+      const heroContentTransformStart = heroContent
+        ? heroContent.style.transform
+        : '';
+      const heroContentOpacityStart = heroContent
+        ? heroContent.style.opacity
+        : '';
+      const heroContentLetterStart = heroContent
+        ? heroContent.style.letterSpacing
+        : '';
+
+      hero.style.willChange = 'transform, filter';
+      nextSection.style.willChange = 'transform, filter, opacity, clip-path';
+      cinematicOverlay.style.willChange = 'transform, opacity, filter';
+      cinematicOverlay.style.visibility = 'visible';
+      if (heroContent) {
+        heroContent.style.willChange = 'transform, opacity, letter-spacing';
+      }
+
+      const animations = [];
+
+      const overlayKeyframes = isDown
+        ? [
+            {
+              opacity: 0,
+              transform: 'translateY(12%) scale(1.08)',
+              filter: 'blur(22px)',
+            },
+            {
+              opacity: 0.85,
+              transform: 'translateY(0%) scale(1)',
+              filter: 'blur(0px)',
+            },
+            {
+              opacity: 0,
+              transform: 'translateY(-10%) scale(0.95)',
+              filter: 'blur(18px)',
+            },
+          ]
+        : [
+            {
+              opacity: 0,
+              transform: 'translateY(-14%) scale(1.05)',
+              filter: 'blur(20px)',
+            },
+            {
+              opacity: 0.78,
+              transform: 'translateY(0%) scale(1)',
+              filter: 'blur(0px)',
+            },
+            {
+              opacity: 0,
+              transform: 'translateY(12%) scale(0.94)',
+              filter: 'blur(16px)',
+            },
+          ];
+      animations.push(
+        cinematicOverlay.animate(overlayKeyframes, {
+          duration: CINEMATIC_DURATION,
+          easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+          fill: 'forwards',
+        })
+      );
+
+      if (cinematicOverlaySheen) {
+        const sheenKeyframes = isDown
+          ? [
+              {
+                opacity: 0,
+                transform: 'translate3d(0,68%,0) skewY(12deg)',
+              },
+              {
+                opacity: 0.85,
+                transform: 'translate3d(0,-6%,0) skewY(6deg)',
+              },
+              {
+                opacity: 0,
+                transform: 'translate3d(0,-58%,0) skewY(0deg)',
+              },
+            ]
+          : [
+              {
+                opacity: 0,
+                transform: 'translate3d(0,-62%,0) skewY(-10deg)',
+              },
+              {
+                opacity: 0.8,
+                transform: 'translate3d(0,4%,0) skewY(-4deg)',
+              },
+              {
+                opacity: 0,
+                transform: 'translate3d(0,58%,0) skewY(0deg)',
+              },
+            ];
+        animations.push(
+          cinematicOverlaySheen.animate(sheenKeyframes, {
+            duration: CINEMATIC_DURATION,
+            easing: 'cubic-bezier(0.33, 0.0, 0.15, 1)',
+            fill: 'forwards',
+          })
+        );
+      }
+
+      const heroKeyframes = isDown
+        ? [
+            {
+              transform: heroTransformStart || 'scale(1)',
+              filter: heroFilterStart || 'brightness(1) saturate(1)',
+            },
+            {
+              transform: 'translateY(-6vh) scale(1.12)',
+              filter: 'brightness(0.55) saturate(0.8) blur(4px)',
+            },
+            {
+              transform: 'translateY(-12vh) scale(1.02)',
+              filter: 'brightness(0.35) saturate(0.65) blur(9px)',
+            },
+          ]
+        : [
+            {
+              transform: heroTransformStart || 'scale(1)',
+              filter: heroFilterStart || 'brightness(0.6) saturate(0.9)',
+            },
+            {
+              transform: 'translateY(8vh) scale(1.08)',
+              filter: 'brightness(0.7) saturate(0.95) blur(6px)',
+            },
+            {
+              transform: 'translateY(0vh) scale(1)',
+              filter: 'brightness(1) saturate(1) blur(0px)',
+            },
+          ];
+      animations.push(
+        hero.animate(heroKeyframes, {
+          duration: CINEMATIC_DURATION,
+          easing: 'cubic-bezier(0.66, 0, 0.34, 1)',
+          fill: 'forwards',
+        })
+      );
+
+      if (heroContent) {
+        const heroContentKeyframes = isDown
+          ? [
+              {
+                transform: heroContentTransformStart || 'translateY(0) scale(1)',
+                opacity:
+                  heroContentOpacityStart === ''
+                    ? 1
+                    : parseFloat(heroContentOpacityStart) || 1,
+                letterSpacing: heroContentLetterStart || '0em',
+              },
+              {
+                transform: 'translateY(-4vh) scale(0.96)',
+                opacity: 0,
+                letterSpacing: '0.14em',
+              },
+            ]
+          : [
+              {
+                transform: 'translateY(6vh) scale(0.94)',
+                opacity: 0,
+                letterSpacing: '0.12em',
+              },
+              {
+                transform: 'translateY(0) scale(1)',
+                opacity: 1,
+                letterSpacing: '0em',
+              },
+            ];
+        animations.push(
+          heroContent.animate(heroContentKeyframes, {
+            duration: CINEMATIC_DURATION,
+            easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+            fill: 'forwards',
+          })
+        );
+      }
+
+      const nextKeyframes = isDown
+        ? [
+            {
+              transform: nextTransformStart || 'translateY(12vh) scale(0.92)',
+              opacity:
+                nextOpacityStart === ''
+                  ? 0
+                  : parseFloat(nextOpacityStart) || 0,
+              filter:
+                nextFilterStart && nextFilterStart !== 'none'
+                  ? nextFilterStart
+                  : 'blur(22px) saturate(0.65)',
+              clipPath: 'inset(16% 14% 24% 14% round 38px)',
+            },
+            {
+              transform: 'translateY(0) scale(1)',
+              opacity: 1,
+              filter: 'blur(0px) saturate(1.1)',
+              clipPath: 'inset(0 0 0 0 round 0)',
+            },
+          ]
+        : [
+            {
+              transform: nextTransformStart || 'translateY(0) scale(1)',
+              opacity:
+                nextOpacityStart === ''
+                  ? 1
+                  : parseFloat(nextOpacityStart) || 1,
+              filter:
+                nextFilterStart && nextFilterStart !== 'none'
+                  ? nextFilterStart
+                  : 'blur(0px) saturate(1)',
+              clipPath: 'inset(0 0 0 0 round 0)',
+            },
+            {
+              transform: 'translateY(-12vh) scale(0.94)',
+              opacity: 0,
+              filter: 'blur(28px) saturate(0.55)',
+              clipPath: 'inset(18% 12% 32% 12% round 40px)',
+            },
+          ];
+      animations.push(
+        nextSection.animate(nextKeyframes, {
+          duration: CINEMATIC_DURATION,
+          easing: 'cubic-bezier(0.19, 0.64, 0.21, 1)',
+          fill: 'forwards',
+        })
+      );
+
+      return Promise.all(
+        animations.map((animation) => animation.finished.catch(() => {}))
+      ).finally(() => {
+        animations.forEach((animation) => {
+          try {
+            animation.cancel();
+          } catch (err) {
+            /* noop */
+          }
+        });
+        hero.style.willChange = '';
+        hero.style.transform = heroTransformStart;
+        hero.style.filter = heroFilterStart;
+        if (heroContent) {
+          heroContent.style.willChange = '';
+          heroContent.style.transform = heroContentTransformStart;
+          heroContent.style.opacity = heroContentOpacityStart;
+          heroContent.style.letterSpacing = heroContentLetterStart;
+        }
+        nextSection.style.willChange = '';
+        nextSection.style.transform = nextTransformStart;
+        nextSection.style.opacity = nextOpacityStart;
+        nextSection.style.filter = nextFilterStart;
+        nextSection.style.clipPath = nextClipStart;
+        cinematicOverlay.style.willChange = '';
+        cinematicOverlay.style.visibility = 'hidden';
+      });
+    }
+
+    function performCinematicScroll(targetY, direction) {
+      if (autoScrolling) return;
       autoScrolling = true;
       document.body.style.overflowY = 'hidden';
-      function step(timestamp) {
-        if (startTime === undefined) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        const eased = easeInOutQuad(progress);
-        window.scrollTo(0, startY + distance * eased);
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          autoScrolling = false;
+      const tasks = [
+        animateScrollTo(targetY, SCROLL_DURATION),
+        runCinematicSequence(direction).catch(() => {}),
+      ];
+      Promise.all(tasks)
+        .catch(() => {})
+        .finally(() => {
           document.body.style.overflowY = '';
-        }
-      }
-      requestAnimationFrame(step);
+          autoScrolling = false;
+          updateParallax();
+        });
     }
 
     /**
@@ -156,6 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * custom.css.  This handler runs on every scroll event.
      */
     function updateParallax() {
+      if (autoScrolling) return;
       const offset = window.pageYOffset;
       const heroHeight = hero.offsetHeight;
       const progress = Math.min(offset / heroHeight, 1);
@@ -207,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (delta > 0) {
             if (scrollY <= 0) {
               evt.preventDefault();
-              animateScrollTo(nextTop, 2500);
+              performCinematicScroll(nextTop, 'down');
             }
             return;
           }
@@ -231,13 +533,71 @@ document.addEventListener('DOMContentLoaded', () => {
             // the viewer to the hero with a cinematic transition.
             if (scrollY > nextTop && predictedY < nextTop) {
               evt.preventDefault();
-              animateScrollTo(0, 2500);
+              performCinematicScroll(0, 'up');
               return;
             }
             // If currently between the hero and second section, trigger parallax return.
             if (scrollY > 0 && scrollY <= nextTop) {
               evt.preventDefault();
-              animateScrollTo(0, 2500);
+              performCinematicScroll(0, 'up');
+            }
+          }
+        },
+        { passive: false }
+      );
+    }
+
+    if (!isMobile) {
+      const interactiveKeysDown = new Set([
+        'ArrowDown',
+        'PageDown',
+        ' ',
+        'Spacebar',
+      ]);
+      const interactiveKeysUp = new Set([
+        'ArrowUp',
+        'PageUp',
+        'Home',
+      ]);
+      const shouldIgnoreKey = (target) => {
+        if (!target) return false;
+        const tagName = target.tagName ? target.tagName.toLowerCase() : '';
+        return (
+          tagName === 'input' ||
+          tagName === 'textarea' ||
+          target.isContentEditable
+        );
+      };
+      window.addEventListener(
+        'keydown',
+        (evt) => {
+          if (shouldIgnoreKey(evt.target)) return;
+          const key = evt.key;
+          const wantsDown = interactiveKeysDown.has(key);
+          const wantsUp = interactiveKeysUp.has(key);
+          if (!wantsDown && !wantsUp) return;
+          if (autoScrolling) {
+            evt.preventDefault();
+            return;
+          }
+          const scrollY = window.pageYOffset;
+          const nextTop = nextSection.offsetTop;
+          if (wantsDown && !evt.shiftKey) {
+            if (scrollY <= 0) {
+              evt.preventDefault();
+              performCinematicScroll(nextTop, 'down');
+            }
+            return;
+          }
+          if (wantsUp || (wantsDown && evt.shiftKey)) {
+            if (scrollY > nextTop) {
+              evt.preventDefault();
+              performCinematicScroll(0, 'up');
+              return;
+            }
+            if (scrollY > 0 && scrollY <= nextTop) {
+              evt.preventDefault();
+              performCinematicScroll(0, 'up');
             }
           }
         },
