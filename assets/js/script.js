@@ -118,76 +118,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let autoScrolling = false;
-    let suspendParallax = false;
-    let lastScrollY = 0;
 
-    // Create the cinematic overlay that renders the luminous sweep between
-    // sections.  The overlay is appended once and reused for both forward and
-    // reverse transitions so that the glowing lines, gradients and particles
-    // feel consistent throughout the site.
-    const cinematicOverlay = document.createElement('div');
-    cinematicOverlay.className = 'cinematic-overlay';
-    cinematicOverlay.innerHTML = `
-      <div class="cinematic-overlay__beam"></div>
-      <div class="cinematic-overlay__flare"></div>
-      <div class="cinematic-overlay__grain"></div>
-    `;
-    document.body.appendChild(cinematicOverlay);
-
-    function setTransitionProgress(progress) {
-      hero.style.transform = `translate3d(0, ${-progress * 12}vh, 0) scale(${(1 +
-        progress * 0.18
-      ).toFixed(3)})`;
-      hero.style.filter = `blur(${(progress * 10).toFixed(2)}px) brightness(${(
-        1 - progress * 0.55
-      ).toFixed(3)})`;
-      hero.style.setProperty('--overlay-opacity', (progress * 0.85).toFixed(3));
-      hero.style.setProperty('--cinematic-progress', progress.toFixed(3));
-      nextSection.style.opacity = progress.toFixed(3);
-      nextSection.style.transform = `translate3d(0, ${((1 - progress) * 140).toFixed(
-        1
-      )}px, 0) scale(${(0.92 + progress * 0.08).toFixed(3)})`;
-      cinematicOverlay.style.setProperty('--cinematic-progress', progress);
-    }
-
-    function playCinematicTransition(direction) {
-      if (autoScrolling) return;
-      autoScrolling = true;
-      suspendParallax = true;
-      document.body.classList.add('scroll-locked');
-      cinematicOverlay.classList.add('active');
-      cinematicOverlay.setAttribute('data-direction', direction);
-      hero.classList.add('cinematic-transitioning');
-      nextSection.classList.add('cinematic-transitioning');
-
+    /**
+     * Smoothly scroll the document to the given Y position.  While the
+     * animation runs the body’s overflow is hidden to prevent user input
+     * from interfering.  Once finished, overflow is restored.
+     *
+     * @param {number} targetY The vertical pixel coordinate to scroll to.
+     * @param {number} duration Duration of the animation in milliseconds.
+     */
+    function animateScrollTo(targetY, duration) {
       const startY = window.pageYOffset;
-      const targetY = direction === 'forward' ? nextSection.offsetTop : 0;
-      const duration = 1700;
+      const distance = targetY - startY;
       let startTime;
-
+      autoScrolling = true;
+      document.body.style.overflowY = 'hidden';
       function step(timestamp) {
         if (startTime === undefined) startTime = timestamp;
-        const rawProgress = Math.min((timestamp - startTime) / duration, 1);
-        const eased = easeInOutQuad(rawProgress);
-        const renderProgress =
-          direction === 'forward' ? eased : 1 - eased;
-        setTransitionProgress(renderProgress);
-        const overlayFade = rawProgress < 0.5 ? rawProgress * 2 : (1 - rawProgress) * 2;
-        cinematicOverlay.style.opacity = Math.max(0, overlayFade);
-        window.scrollTo(0, startY + (targetY - startY) * eased);
-        if (rawProgress < 1) {
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const eased = easeInOutQuad(progress);
+        window.scrollTo(0, startY + distance * eased);
+        if (progress < 1) {
           requestAnimationFrame(step);
         } else {
-          window.scrollTo(0, targetY);
-          cinematicOverlay.classList.remove('active');
-          cinematicOverlay.style.removeProperty('opacity');
-          document.body.classList.remove('scroll-locked');
-          hero.classList.remove('cinematic-transitioning');
-          nextSection.classList.remove('cinematic-transitioning');
           autoScrolling = false;
-          suspendParallax = false;
-          updateParallax();
-          lastScrollY = window.pageYOffset;
+          document.body.style.overflowY = '';
         }
       }
       requestAnimationFrame(step);
@@ -201,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * custom.css.  This handler runs on every scroll event.
      */
     function updateParallax() {
-      if (suspendParallax) return;
       const offset = window.pageYOffset;
       const heroHeight = hero.offsetHeight;
       const progress = Math.min(offset / heroHeight, 1);
@@ -253,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (delta > 0) {
             if (scrollY <= 0) {
               evt.preventDefault();
-              playCinematicTransition('forward');
+              animateScrollTo(nextTop, 2500);
             }
             return;
           }
@@ -277,49 +231,18 @@ document.addEventListener('DOMContentLoaded', () => {
             // the viewer to the hero with a cinematic transition.
             if (scrollY > nextTop && predictedY < nextTop) {
               evt.preventDefault();
-              playCinematicTransition('reverse');
+              animateScrollTo(0, 2500);
               return;
             }
             // If currently between the hero and second section, trigger parallax return.
             if (scrollY > 0 && scrollY <= nextTop) {
               evt.preventDefault();
-              playCinematicTransition('reverse');
+              animateScrollTo(0, 2500);
             }
           }
         },
         { passive: false }
       );
-      const enforceCinematicScroll = () => {
-        if (autoScrolling) return;
-        const scrollY = window.pageYOffset;
-        const nextTop = nextSection.offsetTop;
-        if (scrollY > 0 && scrollY < nextTop) {
-          const direction = scrollY > lastScrollY ? 'forward' : 'reverse';
-          window.scrollTo(0, direction === 'forward' ? 0 : nextTop);
-          playCinematicTransition(direction === 'forward' ? 'forward' : 'reverse');
-        }
-      };
-      window.addEventListener('scroll', enforceCinematicScroll, { passive: true });
-      window.addEventListener('keydown', (evt) => {
-        if (autoScrolling) {
-          evt.preventDefault();
-          return;
-        }
-        const keys = ['PageDown', 'PageUp', 'Home', 'End', 'ArrowDown', 'ArrowUp', ' '];
-        if (!keys.includes(evt.key)) return;
-        const scrollY = window.pageYOffset;
-        const nextTop = nextSection.offsetTop;
-        if ((evt.key === 'PageDown' || evt.key === 'ArrowDown' || evt.key === ' ' || evt.key === 'End') && scrollY <= 0) {
-          evt.preventDefault();
-          playCinematicTransition('forward');
-        } else if (
-          (evt.key === 'PageUp' || evt.key === 'ArrowUp' || evt.key === 'Home') &&
-          scrollY >= nextTop
-        ) {
-          evt.preventDefault();
-          playCinematicTransition('reverse');
-        }
-      });
     }
 
     /**
@@ -328,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * the header off‑screen.  This behaviour only applies after the
      * header has been scrolled past its own height.
      */
+    let lastScrollY = 0;
     window.addEventListener('scroll', () => {
       const currentY = window.pageYOffset;
       if (currentY > lastScrollY && currentY > header.offsetHeight) {
