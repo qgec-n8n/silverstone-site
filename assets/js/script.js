@@ -94,34 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const hasHeroStructure = Boolean(hero && nextSection && header);
 
   if (hasHeroStructure) {
-    let overlay = null;
-
     // Initialise the next section so it starts hidden and lower on the page.
     // Only apply the fade/slide animations when the parallax is active.
     if (!isMobile) {
-      hero.classList.add('cinematic-hero');
       nextSection.style.opacity = '0';
-      nextSection.style.transform =
-        'perspective(1400px) translateY(160px) rotateX(12deg) scale(0.96)';
-      nextSection.style.filter = 'blur(18px) saturate(0.75)';
-      nextSection.style.transition =
-        'opacity 0.75s ease-out, transform 0.75s ease-out, filter 0.75s ease-out';
-      nextSection.classList.add('cinematic-section');
-      hero.style.setProperty('--cinematic-progress', '0');
-      nextSection.style.setProperty('--cinematic-progress', '0');
-
-      overlay = document.querySelector('.cinematic-overlay');
-      if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'cinematic-overlay';
-        overlay.setAttribute('aria-hidden', 'true');
-        overlay.innerHTML = `
-          <div class="cinematic-bar top"></div>
-          <div class="cinematic-glow"></div>
-          <div class="cinematic-bar bottom"></div>
-        `;
-        document.body.appendChild(overlay);
-      }
+      nextSection.style.transform = 'translateY(80px)';
+      nextSection.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
     }
 
     // On the contact or privacy pages ensure the first service row fills the viewport.
@@ -149,16 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {number} targetY The vertical pixel coordinate to scroll to.
      * @param {number} duration Duration of the animation in milliseconds.
      */
-    function animateScrollTo(targetY, duration, direction = 'forward') {
+    function animateScrollTo(targetY, duration) {
       const startY = window.pageYOffset;
       const distance = targetY - startY;
       let startTime;
       autoScrolling = true;
       document.body.style.overflowY = 'hidden';
-      if (overlay) {
-        overlay.dataset.direction = direction;
-        overlay.classList.add('active');
-      }
       function step(timestamp) {
         if (startTime === undefined) startTime = timestamp;
         const progress = Math.min((timestamp - startTime) / duration, 1);
@@ -169,16 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           autoScrolling = false;
           document.body.style.overflowY = '';
-          if (overlay) {
-            overlay.dataset.direction = '';
-            // Delay removing the active state to allow the overlay to
-            // gracefully fade after the animation concludes.
-            setTimeout(() => {
-              if (!autoScrolling) {
-                overlay.classList.remove('active');
-              }
-            }, 400);
-          }
         }
       }
       requestAnimationFrame(step);
@@ -195,38 +159,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const offset = window.pageYOffset;
       const heroHeight = hero.offsetHeight;
       const progress = Math.min(offset / heroHeight, 1);
-      hero.style.setProperty('--cinematic-progress', progress.toFixed(3));
-      nextSection.style.setProperty('--cinematic-progress', progress.toFixed(3));
-      // Scale and treat the hero with a dramatic cinematic lens effect
-      const heroScale = 1 + progress * 0.28;
-      const heroBrightness = 1 - progress * 0.35;
-      const heroSaturation = 1 + progress * 0.25;
-      const heroContrast = 1 + progress * 0.2;
-      hero.style.transform = `scale(${heroScale.toFixed(3)})`;
-      hero.style.filter = `brightness(${heroBrightness.toFixed(3)}) saturate(${heroSaturation.toFixed(3)}) contrast(${heroContrast.toFixed(3)}) blur(${(progress * 8).toFixed(2)}px)`;
-      hero.style.setProperty('--overlay-opacity', (progress * 0.8).toFixed(3));
-
-      // Fade, un-tilt, and sharpen the next section using a parallax deck reveal
-      const translateY = (1 - progress) * 220;
-      const rotateX = (1 - progress) * 12;
-      const scale = 0.94 + progress * 0.06;
-      const blur = (1 - progress) * 12;
-      nextSection.style.opacity = Math.min(1, progress * 1.25).toFixed(3);
-      nextSection.style.transform = `perspective(1400px) translateY(${translateY.toFixed(1)}px) rotateX(${rotateX.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
-      nextSection.style.filter = `blur(${blur.toFixed(2)}px) saturate(${(0.6 + progress * 0.4).toFixed(3)})`;
-
-      const betweenSections = progress > 0 && progress < 1;
-      hero.classList.toggle('cinematic-active', betweenSections || autoScrolling);
-      nextSection.classList.toggle('cinematic-active', betweenSections || progress >= 0.01);
-      if (overlay) {
-        overlay.style.setProperty('--cinematic-progress', progress.toFixed(3));
-        overlay.classList.toggle('revealing', betweenSections || autoScrolling);
-        if (!betweenSections && !autoScrolling && !overlay.dataset.direction) {
-          overlay.classList.remove('active');
-        } else if (betweenSections || autoScrolling) {
-          overlay.classList.add('active');
-        }
-      }
+      // Scale the hero up to 1.25x at full progress
+      hero.style.transform = `scale(${(1 + progress * 0.25).toFixed(3)})`;
+      // Darken the hero by reducing brightness
+      hero.style.filter = `brightness(${(1 - progress * 0.7).toFixed(3)})`;
+      // Update overlay opacity via CSS variable
+      hero.style.setProperty('--overlay-opacity', (progress * 0.7).toFixed(3));
+      // Fade and translate the next section
+      nextSection.style.opacity = progress.toFixed(3);
+      const translateY = (1 - progress) * 120;
+      nextSection.style.transform = `translateY(${translateY.toFixed(1)}px)`;
     }
     // Run once to apply initial state
     if (!isMobile) {
@@ -265,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (delta > 0) {
             if (scrollY <= 0) {
               evt.preventDefault();
-              animateScrollTo(nextTop, 2600, 'forward');
+              animateScrollTo(nextTop, 2500);
             }
             return;
           }
@@ -289,13 +231,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // the viewer to the hero with a cinematic transition.
             if (scrollY > nextTop && predictedY < nextTop) {
               evt.preventDefault();
-              animateScrollTo(0, 2600, 'reverse');
+              animateScrollTo(0, 2500);
               return;
             }
             // If currently between the hero and second section, trigger parallax return.
             if (scrollY > 0 && scrollY <= nextTop) {
               evt.preventDefault();
-              animateScrollTo(0, 2600, 'reverse');
+              animateScrollTo(0, 2500);
             }
           }
         },
