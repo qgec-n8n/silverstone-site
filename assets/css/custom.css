@@ -12,6 +12,8 @@
   background-attachment: scroll !important;
   transform-origin: center top;
   will-change: transform, filter;
+  perspective: 2000px;
+  transform-style: preserve-3d;
 }
 
 .hero::after {
@@ -240,10 +242,11 @@ body {
   z-index: 2;
 }
 
-/* Cinematic transition enhancements */
+/* Premium Cinematic Transition System */
 body.cinematic-transitioning {
-  overflow: hidden;
+  overflow: hidden !important;
   cursor: progress;
+  overscroll-behavior: none !important;
 }
 
 body.cinematic-transitioning header,
@@ -252,49 +255,84 @@ body.cinematic-transitioning .site-header {
   pointer-events: none;
 }
 
+/* Hero content transitions with depth */
 body.cinematic-transitioning .hero .content {
   transform: translateY(1.5rem) scale(0.97);
-  opacity: 0.9;
+  opacity: 0.85;
+  filter: blur(1px);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body.cinematic-transitioning.cinematic-up .hero .content {
-  transform: translateY(1rem) scale(0.98);
+  transform: translateY(-1rem) scale(0.98);
+  opacity: 0.9;
+  filter: blur(0.5px);
+}
+
+body.cinematic-transitioning.cinematic-down .hero .content {
+  transform: translateY(2rem) scale(0.96) rotateX(3deg);
+  opacity: 0.8;
+  filter: blur(1.5px);
 }
 
 .cinematic-section {
   position: relative;
   z-index: 2;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
   transform-origin: top center;
+  transform-style: preserve-3d;
+  perspective: 2000px;
 }
 
-.cinematic-section::before,
+/* Enhanced ambient glow with pulsing bloom */
+.cinematic-section::before {
+  content: "";
+  position: absolute;
+  left: -15%;
+  width: 130%;
+  top: -40vh;
+  height: 80vh;
+  pointer-events: none;
+  opacity: var(--section-glow, 0);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.45) 0%,
+    rgba(29, 78, 216, 0.30) 25%,
+    rgba(96, 165, 250, 0.20) 40%,
+    rgba(12, 21, 35, 0) 70%
+  );
+  filter: blur(1.5rem);
+  transform: translateY(calc((1 - var(--section-glow, 0)) * -50px)) scale(calc(0.9 + var(--section-glow, 0) * 0.3));
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: bloomPulse 2s ease-in-out infinite;
+}
+
+/* Premium edge lighting with chromatic effect */
 .cinematic-section::after {
   content: "";
   position: absolute;
+  bottom: calc(100% - 3px);
   left: -10%;
   width: 120%;
+  height: 6px;
   pointer-events: none;
   opacity: var(--section-glow, 0);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(96, 165, 250, 0.4) 20%,
+    rgba(180, 209, 255, 0.95) 40%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(180, 209, 255, 0.95) 60%,
+    rgba(96, 165, 250, 0.4) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: blur(3px) drop-shadow(0 0 8px rgba(147, 197, 253, 0.8));
+  transform: scaleX(calc(0.5 + var(--section-glow, 0) * 0.6));
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.cinematic-section::before {
-  top: -30vh;
-  height: 60vh;
-  background: radial-gradient(ellipse at center, rgba(29, 78, 216, 0.35) 0%, rgba(12, 21, 35, 0) 65%);
-  filter: blur(0.4rem);
-  transform: translateY(calc((1 - var(--section-glow, 0)) * -40px));
-}
-
-.cinematic-section::after {
-  bottom: calc(100% - 2px);
-  height: 4px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(180, 209, 255, 0.8) 45%, rgba(74, 161, 255, 0.9) 55%, rgba(255, 255, 255, 0) 100%);
-  filter: blur(2px);
-  transform: scaleX(calc(0.6 + var(--section-glow, 0) * 0.4));
-}
-
+/* Main transition overlay container with enhanced layering */
 .cinematic-transition {
   position: fixed;
   inset: 0;
@@ -304,144 +342,476 @@ body.cinematic-transitioning.cinematic-up .hero .content {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.35s ease;
-  mix-blend-mode: screen;
+  transition: opacity 0.4s ease-out;
+  overflow: hidden;
 }
 
 .cinematic-transition.is-active {
   opacity: 1;
 }
 
+/* Base layer elements */
 .cinematic-transition__veil,
 .cinematic-transition__beam,
-.cinematic-transition__sparkles {
+.cinematic-transition__sparkles,
+.cinematic-transition__particles,
+.cinematic-transition__rays,
+.cinematic-transition__vignette,
+.cinematic-transition__bloom,
+.cinematic-transition__grain {
   position: absolute;
   inset: 0;
 }
 
+/* Enhanced volumetric veil with depth */
 .cinematic-transition__veil {
-  background: radial-gradient(circle at center, rgba(20, 56, 115, 0.65) 0%, rgba(10, 18, 33, 0.85) 55%, rgba(0, 0, 0, 0.95) 100%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(30, 58, 138, 0.75) 0%,
+    rgba(20, 56, 115, 0.85) 25%,
+    rgba(10, 18, 33, 0.92) 60%,
+    rgba(0, 0, 0, 0.97) 100%
+  );
   opacity: 0;
+  mix-blend-mode: normal;
+  filter: blur(2px);
 }
 
+/* Multiple light beams for premium effect */
 .cinematic-transition__beam {
-  height: 6px;
-  width: 140%;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.cinematic-transition__beam::before,
+.cinematic-transition__beam::after {
+  content: "";
+  position: absolute;
   left: -20%;
-  margin: 0 auto;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(132, 182, 255, 0.9) 50%, rgba(255, 255, 255, 0) 100%);
-  filter: blur(3px);
-  opacity: 0;
+  width: 140%;
+  height: 8px;
+  filter: blur(4px);
 }
 
+/* Primary beam */
+.cinematic-transition__beam::before {
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(191, 219, 254, 0.6) 25%,
+    rgba(147, 197, 253, 0.95) 45%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(147, 197, 253, 0.95) 55%,
+    rgba(191, 219, 254, 0.6) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Secondary beam offset */
+.cinematic-transition__beam::after {
+  top: calc(50% + 60px);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(96, 165, 250, 0.4) 30%,
+    rgba(147, 197, 253, 0.7) 50%,
+    rgba(96, 165, 250, 0.4) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Enhanced sparkle grid with depth variation */
 .cinematic-transition__sparkles {
-  background-image: radial-gradient(rgba(168, 208, 255, 0.6) 1px, transparent 1px);
-  background-size: 160px 160px;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(191, 219, 254, 0.7) 1px, transparent 1px),
+    radial-gradient(circle, rgba(147, 197, 253, 0.5) 1px, transparent 1px);
+  background-size:
+    200px 200px,
+    150px 150px,
+    100px 100px;
+  background-position:
+    0 0,
+    25px 25px,
+    50px 50px;
   opacity: 0;
+  mix-blend-mode: screen;
+  filter: blur(0.5px);
 }
 
+/* Premium particle system */
+.cinematic-transition__particles {
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+/* Volumetric light rays (god rays) */
+.cinematic-transition__rays {
+  opacity: 0;
+  mix-blend-mode: screen;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(147, 197, 253, 0) 0deg,
+    rgba(147, 197, 253, 0.15) 2deg,
+    rgba(255, 255, 255, 0.25) 4deg,
+    rgba(147, 197, 253, 0.15) 6deg,
+    rgba(147, 197, 253, 0) 8deg
+  );
+  filter: blur(3px);
+}
+
+/* Cinematic vignette overlay */
+.cinematic-transition__vignette {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.4) 75%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  opacity: 0;
+  mix-blend-mode: multiply;
+}
+
+/* Ambient bloom effect */
+.cinematic-transition__bloom {
+  background: radial-gradient(
+    circle at center,
+    rgba(147, 197, 253, 0.3) 0%,
+    rgba(59, 130, 246, 0.15) 30%,
+    rgba(29, 78, 216, 0) 60%
+  );
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter: blur(40px);
+}
+
+/* Film grain texture */
+.cinematic-transition__grain {
+  opacity: 0;
+  mix-blend-mode: overlay;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+  background-size: 200px 200px;
+}
+
+/* Premium animation triggers for all layers */
 .cinematic-transition.is-active.dir-down .cinematic-transition__veil {
-  animation: cinematicVeilDown 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: cinematicVeilDown 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .cinematic-transition.is-active.dir-up .cinematic-transition__veil {
-  animation: cinematicVeilUp 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: cinematicVeilUp 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .cinematic-transition.is-active.dir-down .cinematic-transition__beam {
-  animation: cinematicBeamDown 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: cinematicBeamDown 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .cinematic-transition.is-active.dir-up .cinematic-transition__beam {
-  animation: cinematicBeamUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: cinematicBeamUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .cinematic-transition.is-active .cinematic-transition__sparkles {
-  animation: cinematicSparkles 1.4s ease-out forwards;
+  animation: cinematicSparkles 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+.cinematic-transition.is-active .cinematic-transition__particles {
+  animation: cinematicParticles 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.cinematic-transition.is-active.dir-down .cinematic-transition__rays {
+  animation: cinematicRaysDown 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cinematic-transition.is-active.dir-up .cinematic-transition__rays {
+  animation: cinematicRaysUp 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cinematic-transition.is-active .cinematic-transition__vignette {
+  animation: cinematicVignette 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.cinematic-transition.is-active .cinematic-transition__bloom {
+  animation: cinematicBloom 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.cinematic-transition.is-active .cinematic-transition__grain {
+  animation: cinematicGrain 1.8s ease-out forwards;
+}
+
+/* Premium keyframe animations with anticipation and overshoot */
 @keyframes cinematicVeilDown {
   0% {
     opacity: 0;
-    transform: translateY(-35vh) scale(0.85);
+    transform: translateY(-40vh) scale(0.75) rotateX(-5deg);
   }
-  30% {
+  8% {
+    opacity: 0.2;
+    transform: translateY(-38vh) scale(0.8) rotateX(-4deg);
+  }
+  25% {
+    opacity: 0.97;
+    transform: translateY(-5vh) scale(1) rotateX(0deg);
+  }
+  50% {
     opacity: 0.95;
+    transform: translateY(10vh) scale(1.1) rotateX(1deg);
   }
-  60% {
-    opacity: 0.8;
+  70% {
+    opacity: 0.6;
+    transform: translateY(22vh) scale(1.2) rotateX(2deg);
   }
   100% {
     opacity: 0;
-    transform: translateY(25vh) scale(1.2);
+    transform: translateY(35vh) scale(1.3) rotateX(3deg);
   }
 }
 
 @keyframes cinematicVeilUp {
   0% {
     opacity: 0;
-    transform: translateY(35vh) scale(0.85);
+    transform: translateY(40vh) scale(0.75) rotateX(5deg);
   }
-  30% {
+  8% {
+    opacity: 0.2;
+    transform: translateY(38vh) scale(0.8) rotateX(4deg);
+  }
+  25% {
+    opacity: 0.97;
+    transform: translateY(5vh) scale(1) rotateX(0deg);
+  }
+  50% {
     opacity: 0.95;
+    transform: translateY(-10vh) scale(1.1) rotateX(-1deg);
   }
-  60% {
-    opacity: 0.8;
+  70% {
+    opacity: 0.6;
+    transform: translateY(-22vh) scale(1.2) rotateX(-2deg);
   }
   100% {
     opacity: 0;
-    transform: translateY(-25vh) scale(1.2);
+    transform: translateY(-35vh) scale(1.3) rotateX(-3deg);
   }
 }
 
 @keyframes cinematicBeamDown {
   0% {
     opacity: 0;
-    transform: translateY(-45vh) scaleX(0.25);
+    transform: translateY(-50vh) scaleX(0.2) scaleY(0.5);
   }
-  25% {
+  5% {
+    opacity: 0.3;
+  }
+  15% {
     opacity: 1;
+    transform: translateY(-30vh) scaleX(0.6) scaleY(1);
   }
-  55% {
-    transform: translateY(5vh) scaleX(1);
+  40% {
+    opacity: 1;
+    transform: translateY(0) scaleX(1) scaleY(1.2);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(15vh) scaleX(1.1) scaleY(1);
+  }
+  85% {
+    opacity: 0.3;
   }
   100% {
     opacity: 0;
-    transform: translateY(45vh) scaleX(1.15);
+    transform: translateY(50vh) scaleX(1.3) scaleY(0.8);
   }
 }
 
 @keyframes cinematicBeamUp {
   0% {
     opacity: 0;
-    transform: translateY(45vh) scaleX(0.25);
+    transform: translateY(50vh) scaleX(0.2) scaleY(0.5);
   }
-  25% {
+  5% {
+    opacity: 0.3;
+  }
+  15% {
     opacity: 1;
+    transform: translateY(30vh) scaleX(0.6) scaleY(1);
   }
-  55% {
-    transform: translateY(-5vh) scaleX(1);
+  40% {
+    opacity: 1;
+    transform: translateY(0) scaleX(1) scaleY(1.2);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(-15vh) scaleX(1.1) scaleY(1);
+  }
+  85% {
+    opacity: 0.3;
   }
   100% {
     opacity: 0;
-    transform: translateY(-45vh) scaleX(1.15);
+    transform: translateY(-50vh) scaleX(1.3) scaleY(0.8);
   }
 }
 
 @keyframes cinematicSparkles {
   0% {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(0.9) rotate(0deg);
+  }
+  15% {
+    opacity: 0.7;
+  }
+  30% {
+    opacity: 0.85;
+    transform: scale(1) rotate(2deg);
+  }
+  55% {
+    opacity: 0.6;
+    transform: scale(1.08) rotate(-1deg);
+  }
+  75% {
+    opacity: 0.35;
+    transform: scale(1.15) rotate(1.5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2) rotate(3deg);
+  }
+}
+
+@keyframes cinematicParticles {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  80% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes cinematicRaysDown {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-10deg);
+  }
+  15% {
+    opacity: 0.6;
+  }
+  35% {
+    opacity: 0.8;
+    transform: scale(1) rotate(5deg);
+  }
+  60% {
+    opacity: 0.6;
+    transform: scale(1.15) rotate(15deg);
+  }
+  85% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.3) rotate(25deg);
+  }
+}
+
+@keyframes cinematicRaysUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(10deg);
+  }
+  15% {
+    opacity: 0.6;
+  }
+  35% {
+    opacity: 0.8;
+    transform: scale(1) rotate(-5deg);
+  }
+  60% {
+    opacity: 0.6;
+    transform: scale(1.15) rotate(-15deg);
+  }
+  85% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.3) rotate(-25deg);
+  }
+}
+
+@keyframes cinematicVignette {
+  0% {
+    opacity: 0;
   }
   20% {
     opacity: 0.6;
   }
-  60% {
-    opacity: 0.4;
-    transform: scale(1.05) rotate(0.5deg);
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.7;
   }
   100% {
     opacity: 0;
-    transform: scale(1.08) rotate(1deg);
+  }
+}
+
+@keyframes cinematicBloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  25% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  75% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+@keyframes cinematicGrain {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.15;
+  }
+  70% {
+    opacity: 0.12;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bloomPulse {
+  0%, 100% {
+    filter: blur(1.5rem) brightness(1);
+  }
+  50% {
+    filter: blur(2rem) brightness(1.15);
   }
 }
