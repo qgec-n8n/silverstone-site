@@ -91,14 +91,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   const header = document.querySelector('header');
+  const heroContent = hero ? hero.querySelector('.content') : null;
   const hasHeroStructure = Boolean(hero && nextSection && header);
 
   if (hasHeroStructure) {
+    let cinematicGate = null;
+    let gateBeam = null;
+
     // Initialise the next section so it starts hidden and lower on the page.
     // Only apply the fade/slide animations when the parallax is active.
     if (!isMobile) {
+      hero.classList.add('cinematic-hero');
+      nextSection.classList.add('cinematic-body');
+      hero.style.clipPath = 'inset(0% 0% 0% 0% round 0px)';
+      hero.style.transform = 'perspective(1600px) translate3d(0, 0, 0) scale(1)';
+      hero.style.filter = 'brightness(1) contrast(1) saturate(1)';
+      if (heroContent) {
+        heroContent.style.transform = 'translate3d(0, 0, 0)';
+        heroContent.style.opacity = '1';
+        heroContent.style.filter = 'none';
+      }
+
+      cinematicGate = document.createElement('div');
+      cinematicGate.className = 'cinematic-gate';
+      gateBeam = document.createElement('div');
+      gateBeam.className = 'cinematic-gate__beam';
+      cinematicGate.appendChild(gateBeam);
+      hero.parentNode.insertBefore(cinematicGate, nextSection);
+
       nextSection.style.opacity = '0';
-      nextSection.style.transform = 'translateY(80px)';
+      nextSection.style.transform = 'translate3d(0, 80px, 0)';
       nextSection.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
     }
 
@@ -133,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let startTime;
       autoScrolling = true;
       document.body.style.overflowY = 'hidden';
+      document.body.classList.add('cinematic-auto');
       function step(timestamp) {
         if (startTime === undefined) startTime = timestamp;
         const progress = Math.min((timestamp - startTime) / duration, 1);
@@ -143,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           autoScrolling = false;
           document.body.style.overflowY = '';
+          document.body.classList.remove('cinematic-auto');
         }
       }
       requestAnimationFrame(step);
@@ -157,18 +181,55 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function updateParallax() {
       const offset = window.pageYOffset;
-      const heroHeight = hero.offsetHeight;
+      const heroHeight = hero.offsetHeight || 1;
       const progress = Math.min(offset / heroHeight, 1);
-      // Scale the hero up to 1.25x at full progress
-      hero.style.transform = `scale(${(1 + progress * 0.25).toFixed(3)})`;
-      // Darken the hero by reducing brightness
-      hero.style.filter = `brightness(${(1 - progress * 0.7).toFixed(3)})`;
-      // Update overlay opacity via CSS variable
-      hero.style.setProperty('--overlay-opacity', (progress * 0.7).toFixed(3));
-      // Fade and translate the next section
-      nextSection.style.opacity = progress.toFixed(3);
-      const translateY = (1 - progress) * 120;
-      nextSection.style.transform = `translateY(${translateY.toFixed(1)}px)`;
+      const eased = Math.pow(progress, 0.82);
+      const overlay = Math.min(0.88, 0.2 + eased * 0.65);
+      const heroScale = 1 + eased * 0.32;
+      const heroLift = eased * -90;
+      const heroDepth = eased * -160;
+      const heroTilt = eased * 9;
+      hero.style.transform = `perspective(1600px) translate3d(0, ${heroLift.toFixed(1)}px, ${heroDepth.toFixed(1)}px) scale(${heroScale.toFixed(3)}) rotateX(${heroTilt.toFixed(2)}deg)`;
+      const heroBrightness = 1 - eased * 0.45;
+      const heroContrast = 1 + eased * 0.3;
+      const heroSaturation = 1 - eased * 0.15;
+      const heroBlur = eased * 6;
+      hero.style.filter = `brightness(${heroBrightness.toFixed(3)}) contrast(${heroContrast.toFixed(3)}) saturate(${heroSaturation.toFixed(3)}) blur(${heroBlur.toFixed(2)}px)`;
+      hero.style.setProperty('--overlay-opacity', overlay.toFixed(3));
+      const topInset = eased * 18;
+      const bottomInset = eased * 6;
+      const sideInset = eased * 3.5;
+      const borderRadius = eased * 48;
+      hero.style.clipPath = `inset(${topInset.toFixed(2)}% ${sideInset.toFixed(2)}% ${bottomInset.toFixed(2)}% round ${borderRadius.toFixed(1)}px)`;
+      if (heroContent) {
+        const contentOpacity = 1 - Math.pow(progress, 1.15) * 0.9;
+        const contentLift = eased * -60;
+        heroContent.style.opacity = contentOpacity.toFixed(3);
+        heroContent.style.transform = `translate3d(0, ${contentLift.toFixed(1)}px, 0) scale(${(1 - eased * 0.08).toFixed(3)})`;
+        heroContent.style.filter = `blur(${(eased * 4).toFixed(2)}px)`;
+      }
+
+      const bodyProgress = Math.pow(progress, 0.74);
+      const bodyLift = (1 - bodyProgress) * 140;
+      const bodyDepth = bodyProgress * -120;
+      const bodyTilt = (1 - bodyProgress) * 6;
+      nextSection.style.opacity = bodyProgress.toFixed(3);
+      nextSection.style.transform = `perspective(1600px) translate3d(0, ${bodyLift.toFixed(1)}px, ${bodyDepth.toFixed(1)}px) rotateX(${bodyTilt.toFixed(2)}deg)`;
+      nextSection.style.filter = `brightness(${(0.6 + bodyProgress * 0.5).toFixed(3)}) saturate(${(0.65 + bodyProgress * 0.45).toFixed(3)})`;
+      nextSection.style.setProperty('--cinematic-spotlight', (bodyProgress * 0.85).toFixed(3));
+
+      if (cinematicGate && gateBeam) {
+        const gateOpacity = Math.min(1, progress * 1.4);
+        cinematicGate.style.opacity = gateOpacity.toFixed(3);
+        cinematicGate.style.transform = `translate3d(0, ${(-progress * 26).toFixed(1)}px, 0)`;
+        cinematicGate.style.setProperty('--gate-haze', Math.min(1, progress * 1.5).toFixed(3));
+        cinematicGate.style.setProperty('--gate-line-scale', (0.65 + progress * 0.5).toFixed(3));
+        const beamScaleX = 0.65 + progress * 0.55;
+        const beamScaleY = 0.38 + progress * 0.82;
+        gateBeam.style.transform = `translate3d(-50%, 0, 0) scale3d(${beamScaleX.toFixed(3)}, ${beamScaleY.toFixed(3)}, 1)`;
+        gateBeam.style.setProperty('--beam-blur', `${(28 - progress * 12).toFixed(1)}px`);
+        gateBeam.style.setProperty('--beam-opacity', Math.min(1, 0.4 + progress * 0.6).toFixed(3));
+      }
     }
     // Run once to apply initial state
     if (!isMobile) {
