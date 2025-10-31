@@ -94,6 +94,58 @@ document.addEventListener('DOMContentLoaded', () => {
   const hasHeroStructure = Boolean(hero && nextSection && header);
 
   if (hasHeroStructure) {
+    // Initialize cinematic overlay elements for premium scroll effect
+    if (!isMobile) {
+      // Create cinematic overlay container
+      const cinematicOverlay = document.createElement('div');
+      cinematicOverlay.className = 'cinematic-overlay';
+      hero.appendChild(cinematicOverlay);
+      hero.cinematicOverlay = cinematicOverlay;
+
+      // Create iris/aperture effect element
+      const irisOverlay = document.createElement('div');
+      irisOverlay.className = 'cinematic-iris';
+      cinematicOverlay.appendChild(irisOverlay);
+      hero.irisOverlay = irisOverlay;
+
+      // Create light beams effect
+      const lightBeams = document.createElement('div');
+      lightBeams.className = 'cinematic-light-beams';
+      cinematicOverlay.appendChild(lightBeams);
+      hero.lightBeams = lightBeams;
+
+      // Create film grain overlay
+      const filmGrain = document.createElement('div');
+      filmGrain.className = 'cinematic-film-grain';
+      cinematicOverlay.appendChild(filmGrain);
+      hero.filmGrain = filmGrain;
+
+      // Create vignette effect
+      const vignette = document.createElement('div');
+      vignette.className = 'cinematic-vignette';
+      cinematicOverlay.appendChild(vignette);
+      hero.vignette = vignette;
+
+      // Create particle canvas
+      const particlesCanvas = document.createElement('canvas');
+      particlesCanvas.className = 'cinematic-particles';
+      cinematicOverlay.appendChild(particlesCanvas);
+      hero.particlesCanvas = particlesCanvas;
+      hero.particlesCtx = particlesCanvas.getContext('2d');
+
+      // Initialize particle system
+      initParticles();
+
+      // Handle window resize for canvas
+      window.addEventListener('resize', () => {
+        if (hero.particlesCanvas) {
+          hero.particlesCanvas.width = window.innerWidth;
+          hero.particlesCanvas.height = window.innerHeight;
+          initParticles();
+        }
+      });
+    }
+
     // Initialise the next section so it starts hidden and lower on the page.
     // Only apply the fade/slide animations when the parallax is active.
     if (!isMobile) {
@@ -117,59 +169,223 @@ document.addEventListener('DOMContentLoaded', () => {
       return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     }
 
+    // Scroll state machine to prevent over-scrolling
+    const ScrollState = {
+      HERO: 'HERO',
+      TRANSITIONING_DOWN: 'TRANSITIONING_DOWN',
+      BODY: 'BODY',
+      TRANSITIONING_UP: 'TRANSITIONING_UP'
+    };
+    let currentScrollState = ScrollState.HERO;
     let autoScrolling = false;
 
     /**
-     * Smoothly scroll the document to the given Y position.  While the
-     * animation runs the body’s overflow is hidden to prevent user input
-     * from interfering.  Once finished, overflow is restored.
+     * Smoothly scroll the document to the given Y position with enhanced
+     * cinematic effects. Manages scroll state to prevent over-scrolling.
      *
      * @param {number} targetY The vertical pixel coordinate to scroll to.
      * @param {number} duration Duration of the animation in milliseconds.
+     * @param {string} direction 'down' or 'up' for transition direction.
      */
-    function animateScrollTo(targetY, duration) {
+    function animateScrollTo(targetY, duration, direction = 'down') {
       const startY = window.pageYOffset;
       const distance = targetY - startY;
       let startTime;
       autoScrolling = true;
-      document.body.style.overflowY = 'hidden';
+
+      // Update state machine
+      if (direction === 'down') {
+        currentScrollState = ScrollState.TRANSITIONING_DOWN;
+      } else {
+        currentScrollState = ScrollState.TRANSITIONING_UP;
+      }
+
+      // Lock scrolling completely during transition
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+
+      // Activate cinematic overlay
+      if (hero.cinematicOverlay) {
+        hero.cinematicOverlay.classList.add('active');
+      }
+
       function step(timestamp) {
         if (startTime === undefined) startTime = timestamp;
         const progress = Math.min((timestamp - startTime) / duration, 1);
         const eased = easeInOutQuad(progress);
+
+        // Update cinematic effects based on progress
+        updateCinematicEffects(progress, direction);
+
         window.scrollTo(0, startY + distance * eased);
+
         if (progress < 1) {
           requestAnimationFrame(step);
         } else {
           autoScrolling = false;
-          document.body.style.overflowY = '';
+
+          // Update final state
+          currentScrollState = direction === 'down' ? ScrollState.BODY : ScrollState.HERO;
+
+          // Unlock scrolling
+          document.documentElement.style.overflow = '';
+          document.body.style.overflow = '';
+
+          // Deactivate cinematic overlay
+          if (hero.cinematicOverlay) {
+            setTimeout(() => {
+              hero.cinematicOverlay.classList.remove('active');
+            }, 300);
+          }
         }
       }
       requestAnimationFrame(step);
     }
 
     /**
+     * Update cinematic effects during scroll transition animations.
+     * Creates premium visual elements including iris effect, light beams,
+     * particles, and film grain.
+     *
+     * @param {number} progress Animation progress from 0 to 1.
+     * @param {string} direction 'down' or 'up' for transition direction.
+     */
+    function updateCinematicEffects(progress, direction) {
+      const effectProgress = direction === 'down' ? progress : 1 - progress;
+
+      // Update iris aperture effect
+      if (hero.irisOverlay) {
+        const irisScale = 0.1 + (1 - effectProgress) * 3;
+        const irisOpacity = effectProgress < 0.5 ? effectProgress * 2 : (1 - effectProgress) * 2;
+        hero.irisOverlay.style.transform = `translate(-50%, -50%) scale(${irisScale})`;
+        hero.irisOverlay.style.opacity = Math.max(0.3, irisOpacity);
+      }
+
+      // Update light beam rotation
+      if (hero.lightBeams) {
+        const rotation = effectProgress * 180;
+        hero.lightBeams.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+        hero.lightBeams.style.opacity = effectProgress < 0.5 ? effectProgress * 1.4 : (1 - effectProgress) * 1.4;
+      }
+
+      // Update film grain intensity
+      if (hero.filmGrain) {
+        hero.filmGrain.style.opacity = 0.15 + effectProgress * 0.15;
+      }
+
+      // Update vignette intensity
+      if (hero.vignette) {
+        const vignetteOpacity = 0.3 + effectProgress * 0.4;
+        hero.vignette.style.opacity = vignetteOpacity;
+      }
+
+      // Animate particles
+      if (hero.particlesCanvas && hero.particlesCtx) {
+        animateParticles(effectProgress);
+      }
+    }
+
+    /**
      * Update the parallax visuals based on scroll position.  As the user
      * scrolls down within the hero, scale and darken it; simultaneously
-     * fade and slide the next section upward.  The overlay opacity is
-     * controlled via a CSS variable (--overlay-opacity) defined in
-     * custom.css.  This handler runs on every scroll event.
+     * fade and slide the next section upward. Enhanced with cinematic
+     * blur and color grading effects.
      */
     function updateParallax() {
       const offset = window.pageYOffset;
       const heroHeight = hero.offsetHeight;
       const progress = Math.min(offset / heroHeight, 1);
-      // Scale the hero up to 1.25x at full progress
-      hero.style.transform = `scale(${(1 + progress * 0.25).toFixed(3)})`;
-      // Darken the hero by reducing brightness
-      hero.style.filter = `brightness(${(1 - progress * 0.7).toFixed(3)})`;
-      // Update overlay opacity via CSS variable
-      hero.style.setProperty('--overlay-opacity', (progress * 0.7).toFixed(3));
-      // Fade and translate the next section
+
+      // Enhanced scale with subtle zoom effect
+      const scale = 1 + progress * 0.28;
+      hero.style.transform = `scale(${scale.toFixed(3)})`;
+
+      // Enhanced brightness with color temperature shift
+      const brightness = 1 - progress * 0.65;
+      const blur = progress * 3;
+      const saturate = 1 - progress * 0.2;
+
+      hero.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blur.toFixed(1)}px) saturate(${saturate.toFixed(2)})`;
+
+      // Update overlay opacity with smoother curve
+      const overlayOpacity = Math.pow(progress, 0.8) * 0.75;
+      hero.style.setProperty('--overlay-opacity', overlayOpacity.toFixed(3));
+
+      // Smooth fade and translate for next section
       nextSection.style.opacity = progress.toFixed(3);
-      const translateY = (1 - progress) * 120;
+      const translateY = (1 - progress) * 100;
       nextSection.style.transform = `translateY(${translateY.toFixed(1)}px)`;
     }
+    // Particle system for cinematic effect
+    let particles = [];
+    const particleCount = 40;
+
+    /**
+     * Initialize particle system for cinematic transitions
+     */
+    function initParticles() {
+      if (!hero.particlesCanvas) return;
+
+      const canvas = hero.particlesCanvas;
+      const ctx = hero.particlesCtx;
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 3 + 1,
+          speedX: (Math.random() - 0.5) * 0.5,
+          speedY: (Math.random() - 0.5) * 0.5,
+          opacity: Math.random() * 0.5 + 0.3
+        });
+      }
+    }
+
+    /**
+     * Animate particles during cinematic transitions
+     */
+    function animateParticles(progress) {
+      if (!hero.particlesCanvas || !hero.particlesCtx) return;
+
+      const canvas = hero.particlesCanvas;
+      const ctx = hero.particlesCtx;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(particle => {
+        // Update position
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        // Wrap around edges
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        if (particle.y > canvas.height) particle.y = 0;
+
+        // Draw particle with glow effect
+        const particleOpacity = particle.opacity * progress * 0.8;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+
+        // Golden glow
+        const gradient = ctx.createRadialGradient(
+          particle.x, particle.y, 0,
+          particle.x, particle.y, particle.size * 3
+        );
+        gradient.addColorStop(0, `rgba(255, 215, 100, ${particleOpacity})`);
+        gradient.addColorStop(0.5, `rgba(255, 180, 50, ${particleOpacity * 0.5})`);
+        gradient.addColorStop(1, `rgba(255, 140, 0, 0)`);
+
+        ctx.fillStyle = gradient;
+        ctx.fill();
+      });
+    }
+
     // Run once to apply initial state
     if (!isMobile) {
       updateParallax();
@@ -177,68 +393,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Wheel event handler.  Triggers the auto‑scroll animation when the
-     * user begins scrolling off the top of the page (downward) or
-     * between the hero and next section (upward).  This replicates the
-     * original behaviour: downward scrolling only triggers from the very
-     * top, and upward scrolling triggers when the user is between the
-     * header and the next section.  If autoScrolling is true we block
-     * the wheel input.
+     * Enhanced wheel event handler with scroll state machine.
+     * Prevents over-scrolling and triggers cinematic transitions.
      */
     if (!isMobile) {
       window.addEventListener(
         'wheel',
         (evt) => {
-          // If an auto‑scroll animation is currently running, block all
-          // wheel inputs to prevent the user from interfering.
-          if (autoScrolling) {
+          // Block all wheel inputs during transitions
+          if (autoScrolling || currentScrollState === ScrollState.TRANSITIONING_DOWN || currentScrollState === ScrollState.TRANSITIONING_UP) {
             evt.preventDefault();
             return;
           }
+
           const delta = evt.deltaY;
           const scrollY = window.pageYOffset;
           const nextTop = nextSection.offsetTop;
+          const heroBottom = hero.offsetHeight;
 
-          // Downward scroll: initiate the parallax transition from the hero
-          // to the second section only when the user is at the very top of
-          // the page.  Do not subtract the header height because the header
-          // animates out of view; this ensures the second section lands
-          // flush at the top of the viewport.
-          if (delta > 0) {
-            if (scrollY <= 0) {
+          // Downward scroll from hero section
+          if (delta > 0 && currentScrollState === ScrollState.HERO) {
+            if (scrollY <= 5) { // Small threshold for reliability
               evt.preventDefault();
-              animateScrollTo(nextTop, 2500);
+              animateScrollTo(nextTop, 2800, 'down');
             }
             return;
           }
 
-          // Upward scroll: gracefully handle overshoots.  When the user is
-          // reading below the second section and performs an aggressive upward
-          // scroll, we interpret the gesture as a desire to return to the hero.
-          // Compute the predicted scroll position: if it would take the viewport
-          // past the top of the second section, then we animate all the way
-          // back to the hero in one cinematic motion.  This replicates the
-          // premium behaviour found in high‑end product pages.  Likewise, if the
-          // user is currently between the hero and second section and scrolls
-          // upwards, we trigger the same parallax return.  Otherwise we allow
-          // the native scroll to continue normally.
+          // Upward scroll from body section
           if (delta < 0) {
             const predictedY = scrollY + delta;
-            // If the user is below the second section and their scroll would
-            // overshoot past its top, gently animate all the way back to the hero
-            // rather than merely clamping to the top of the section.  This creates
-            // a more premium interaction: a single aggressive upward gesture returns
-            // the viewer to the hero with a cinematic transition.
-            if (scrollY > nextTop && predictedY < nextTop) {
+
+            // Prevent over-scrolling: if user is in body section and scrolls up
+            // past the boundary, trigger cinematic transition back to hero
+            if (currentScrollState === ScrollState.BODY && scrollY > nextTop - 50) {
+              // User is at or near the top of body section, scrolling up
+              if (predictedY < nextTop || scrollY <= nextTop + 100) {
+                evt.preventDefault();
+                animateScrollTo(0, 2800, 'up');
+                return;
+              }
+            }
+
+            // If already in the transition zone between hero and body
+            if (scrollY > 0 && scrollY < nextTop) {
               evt.preventDefault();
-              animateScrollTo(0, 2500);
+              animateScrollTo(0, 2800, 'up');
               return;
             }
-            // If currently between the hero and second section, trigger parallax return.
-            if (scrollY > 0 && scrollY <= nextTop) {
-              evt.preventDefault();
-              animateScrollTo(0, 2500);
-            }
+          }
+
+          // Update state based on current scroll position when not transitioning
+          if (scrollY <= 10) {
+            currentScrollState = ScrollState.HERO;
+          } else if (scrollY >= nextTop - 20) {
+            currentScrollState = ScrollState.BODY;
           }
         },
         { passive: false }
