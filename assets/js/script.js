@@ -93,15 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const hasHeroStructure = Boolean(hero && nextSection && header);
 
-  if (hasHeroStructure) {
-    // Initialise the next section so it starts hidden and lower on the page.
-    // Only apply the fade/slide animations when the parallax is active.
-    if (!isMobile) {
-      nextSection.style.opacity = '0';
-      nextSection.style.transform = 'translateY(80px)';
-      nextSection.style.transition = 'opacity 0.75s ease-out, transform 0.75s ease-out';
-    }
+  let cinematic = null;
 
+  if (hasHeroStructure) {
     // On the contact or privacy pages ensure the first service row fills the viewport.
     // This applies regardless of the parallax state.
     if (pathname.includes('contact') || pathname.includes('privacy')) {
@@ -112,138 +106,241 @@ document.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('resize', setPageSectionHeight);
     }
 
-    // Quadratic easing for the auto‑scroll animation.
-    function easeInOutQuad(t) {
-      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    }
+    if (!isMobile) {
+      nextSection.classList.add('cinematic-anchor');
+      hero.style.willChange = 'transform, filter';
+      nextSection.style.willChange = 'transform, opacity, filter';
 
-    let autoScrolling = false;
+      const overlay = document.createElement('div');
+      overlay.className = 'cinematic-overlay';
+      overlay.innerHTML = `
+        <div class="cinematic-bar cinematic-bar--top"><span class="cinematic-bar__glow"></span></div>
+        <div class="cinematic-lens"></div>
+        <div class="cinematic-bar cinematic-bar--bottom"><span class="cinematic-bar__glow"></span></div>
+      `;
+      document.body.appendChild(overlay);
 
-    /**
-     * Smoothly scroll the document to the given Y position.  While the
-     * animation runs the body’s overflow is hidden to prevent user input
-     * from interfering.  Once finished, overflow is restored.
-     *
-     * @param {number} targetY The vertical pixel coordinate to scroll to.
-     * @param {number} duration Duration of the animation in milliseconds.
-     */
-    function animateScrollTo(targetY, duration) {
-      const startY = window.pageYOffset;
-      const distance = targetY - startY;
-      let startTime;
-      autoScrolling = true;
-      document.body.style.overflowY = 'hidden';
-      function step(timestamp) {
-        if (startTime === undefined) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        const eased = easeInOutQuad(progress);
-        window.scrollTo(0, startY + distance * eased);
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          autoScrolling = false;
-          document.body.style.overflowY = '';
-        }
+      const topBar = overlay.querySelector('.cinematic-bar--top');
+      const bottomBar = overlay.querySelector('.cinematic-bar--bottom');
+      const topGlow = topBar.querySelector('.cinematic-bar__glow');
+      const bottomGlow = bottomBar.querySelector('.cinematic-bar__glow');
+      const lens = overlay.querySelector('.cinematic-lens');
+
+      const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+      let heroHeight = hero.offsetHeight;
+      let nextTop = nextSection.getBoundingClientRect().top + window.pageYOffset;
+      const scrollClamp = 2;
+
+      const setPhaseClass = (phase) => {
+        document.body.classList.remove('phase-hero', 'phase-body');
+        document.body.classList.add(phase === 'body' ? 'phase-body' : 'phase-hero');
+      };
+
+      const state = {
+        phase: window.pageYOffset >= nextTop - scrollClamp ? 'body' : 'hero',
+        isTransitioning: false,
+      };
+
+      setPhaseClass(state.phase);
+
+      function applyHeroSectionFrame(progress) {
+        const heroScale = 1 + progress * 0.28;
+        const translateVH = -progress * 14;
+        hero.style.transform = `translateY(${translateVH.toFixed(2)}vh) scale(${heroScale.toFixed(3)})`;
+        hero.style.filter = `brightness(${(1 - progress * 0.52).toFixed(3)}) blur(${(progress * 6).toFixed(2)}px) saturate(${(1 - progress * 0.2).toFixed(3)})`;
+        hero.style.setProperty('--overlay-opacity', (0.08 + progress * 0.6).toFixed(3));
+
+        const revealProgress = progress <= 0.2 ? 0 : clamp((progress - 0.2) / 0.8, 0, 1);
+        nextSection.style.opacity = revealProgress.toFixed(3);
+        const translateY = (1 - revealProgress) * 220;
+        const sectionScale = 0.9 + revealProgress * 0.1;
+        nextSection.style.transform = `translateY(${translateY.toFixed(1)}px) scale(${sectionScale.toFixed(3)})`;
+        const blur = (1 - revealProgress) * 8;
+        nextSection.style.filter = `blur(${blur.toFixed(2)}px) saturate(${(0.85 + revealProgress * 0.25).toFixed(3)})`;
       }
-      requestAnimationFrame(step);
-    }
 
-    /**
-     * Update the parallax visuals based on scroll position.  As the user
-     * scrolls down within the hero, scale and darken it; simultaneously
-     * fade and slide the next section upward.  The overlay opacity is
-     * controlled via a CSS variable (--overlay-opacity) defined in
-     * custom.css.  This handler runs on every scroll event.
-     */
-    function updateParallax() {
-      const offset = window.pageYOffset;
-      const heroHeight = hero.offsetHeight;
-      const progress = Math.min(offset / heroHeight, 1);
-      // Scale the hero up to 1.25x at full progress
-      hero.style.transform = `scale(${(1 + progress * 0.25).toFixed(3)})`;
-      // Darken the hero by reducing brightness
-      hero.style.filter = `brightness(${(1 - progress * 0.7).toFixed(3)})`;
-      // Update overlay opacity via CSS variable
-      hero.style.setProperty('--overlay-opacity', (progress * 0.7).toFixed(3));
-      // Fade and translate the next section
-      nextSection.style.opacity = progress.toFixed(3);
-      const translateY = (1 - progress) * 120;
-      nextSection.style.transform = `translateY(${translateY.toFixed(1)}px)`;
-    }
-    // Run once to apply initial state
-    if (!isMobile) {
-      updateParallax();
-      window.addEventListener('scroll', updateParallax, { passive: true });
-    }
+      function applyOverlayFrame(progress) {
+        const closingThreshold = 0.45;
+        let topTranslate;
+        let bottomTranslate;
+        if (progress <= closingThreshold) {
+          const local = progress / closingThreshold;
+          topTranslate = -120 + local * 120;
+          bottomTranslate = 120 - local * 120;
+        } else {
+          const local = (progress - closingThreshold) / (1 - closingThreshold);
+          topTranslate = 0 - local * 140;
+          bottomTranslate = 0 + local * 140;
+        }
+        topBar.style.transform = `translateY(${topTranslate.toFixed(2)}%)`;
+        bottomBar.style.transform = `translateY(${bottomTranslate.toFixed(2)}%)`;
+        const glow = Math.sin(clamp(progress, 0, 1) * Math.PI);
+        const glowOpacity = (glow * 0.85).toFixed(3);
+        topGlow.style.opacity = glowOpacity;
+        bottomGlow.style.opacity = glowOpacity;
+        lens.style.opacity = (0.22 + glow * 0.55).toFixed(3);
+        lens.style.transform = `translate(-50%, -50%) scale(${(1.18 - glow * 0.28).toFixed(3)})`;
+        lens.style.filter = `blur(${(6 - glow * 5).toFixed(2)}px)`;
+      }
 
-    /**
-     * Wheel event handler.  Triggers the auto‑scroll animation when the
-     * user begins scrolling off the top of the page (downward) or
-     * between the hero and next section (upward).  This replicates the
-     * original behaviour: downward scrolling only triggers from the very
-     * top, and upward scrolling triggers when the user is between the
-     * header and the next section.  If autoScrolling is true we block
-     * the wheel input.
-     */
-    if (!isMobile) {
+      applyHeroSectionFrame(state.phase === 'body' ? 1 : 0);
+      if (state.phase === 'body' && window.pageYOffset < nextTop - scrollClamp) {
+        window.scrollTo(0, nextTop);
+      }
+
+      const resetOverlay = () => {
+        overlay.classList.remove('active', 'reverse');
+        topBar.style.transform = '';
+        bottomBar.style.transform = '';
+        topGlow.style.opacity = '';
+        bottomGlow.style.opacity = '';
+        lens.style.opacity = '';
+        lens.style.transform = '';
+        lens.style.filter = '';
+      };
+
+      const enforceBounds = () => {
+        if (state.isTransitioning) return;
+        const y = window.pageYOffset;
+        if (state.phase === 'hero' && y > scrollClamp) {
+          runTransition('forward');
+        } else if (state.phase === 'body' && y < nextTop - scrollClamp) {
+          runTransition('reverse');
+        }
+      };
+
+      cinematic = {
+        get phase() {
+          return state.phase;
+        },
+        set phase(value) {
+          state.phase = value;
+          setPhaseClass(value);
+        },
+        get isTransitioning() {
+          return state.isTransitioning;
+        },
+        set isTransitioning(value) {
+          state.isTransitioning = value;
+        },
+        enforceBounds,
+        get nextTop() {
+          return nextTop;
+        },
+      };
+
+      const finalizeTransition = (direction) => {
+        const finalProgress = direction === 'forward' ? 1 : 0;
+        applyHeroSectionFrame(finalProgress);
+        document.body.classList.remove('transitioning', 'transitioning-forward', 'transitioning-reverse');
+        resetOverlay();
+        cinematic.isTransitioning = false;
+        const phase = direction === 'forward' ? 'body' : 'hero';
+        cinematic.phase = phase;
+        if (phase === 'body') {
+          window.scrollTo(0, nextTop);
+        } else {
+          window.scrollTo(0, 0);
+        }
+      };
+
+      const runTransition = (direction) => {
+        if (state.isTransitioning) return;
+        cinematic.isTransitioning = true;
+        document.body.classList.add('transitioning');
+        document.body.classList.toggle('transitioning-forward', direction === 'forward');
+        document.body.classList.toggle('transitioning-reverse', direction !== 'forward');
+        overlay.classList.add('active');
+        overlay.classList.toggle('reverse', direction !== 'forward');
+        const startY = window.pageYOffset;
+        const targetY = direction === 'forward' ? nextTop : 0;
+        const distance = targetY - startY;
+        const duration = 1800;
+        const startTime = performance.now();
+
+        const step = (now) => {
+          const elapsed = now - startTime;
+          const progress = clamp(elapsed / duration, 0, 1);
+          const eased = easeInOutCubic(progress);
+          window.scrollTo(0, startY + distance * eased);
+          const heroProgress = direction === 'forward' ? eased : 1 - eased;
+          applyHeroSectionFrame(heroProgress);
+          applyOverlayFrame(heroProgress);
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            finalizeTransition(direction);
+          }
+        };
+
+        requestAnimationFrame(step);
+      };
+
+      window.addEventListener('resize', () => {
+        heroHeight = hero.offsetHeight;
+        nextTop = nextSection.getBoundingClientRect().top + window.pageYOffset;
+        if (!cinematic.isTransitioning) {
+          applyHeroSectionFrame(cinematic.phase === 'body' ? 1 : 0);
+          if (cinematic.phase === 'body' && window.pageYOffset < nextTop - scrollClamp) {
+            window.scrollTo(0, nextTop);
+          }
+        }
+      });
+
       window.addEventListener(
         'wheel',
         (evt) => {
-          // If an auto‑scroll animation is currently running, block all
-          // wheel inputs to prevent the user from interfering.
-          if (autoScrolling) {
+          if (cinematic.isTransitioning) {
             evt.preventDefault();
             return;
           }
           const delta = evt.deltaY;
           const scrollY = window.pageYOffset;
-          const nextTop = nextSection.offsetTop;
-
-          // Downward scroll: initiate the parallax transition from the hero
-          // to the second section only when the user is at the very top of
-          // the page.  Do not subtract the header height because the header
-          // animates out of view; this ensures the second section lands
-          // flush at the top of the viewport.
-          if (delta > 0) {
-            if (scrollY <= 0) {
+          if (delta > 0 && cinematic.phase === 'hero') {
+            if (scrollY <= scrollClamp) {
               evt.preventDefault();
-              animateScrollTo(nextTop, 2500);
+              runTransition('forward');
+            } else if (scrollY < heroHeight) {
+              evt.preventDefault();
+              window.scrollTo(0, 0);
             }
             return;
           }
-
-          // Upward scroll: gracefully handle overshoots.  When the user is
-          // reading below the second section and performs an aggressive upward
-          // scroll, we interpret the gesture as a desire to return to the hero.
-          // Compute the predicted scroll position: if it would take the viewport
-          // past the top of the second section, then we animate all the way
-          // back to the hero in one cinematic motion.  This replicates the
-          // premium behaviour found in high‑end product pages.  Likewise, if the
-          // user is currently between the hero and second section and scrolls
-          // upwards, we trigger the same parallax return.  Otherwise we allow
-          // the native scroll to continue normally.
-          if (delta < 0) {
-            const predictedY = scrollY + delta;
-            // If the user is below the second section and their scroll would
-            // overshoot past its top, gently animate all the way back to the hero
-            // rather than merely clamping to the top of the section.  This creates
-            // a more premium interaction: a single aggressive upward gesture returns
-            // the viewer to the hero with a cinematic transition.
-            if (scrollY > nextTop && predictedY < nextTop) {
+          if (delta < 0 && cinematic.phase === 'body') {
+            const predicted = scrollY + delta;
+            if (scrollY <= nextTop + scrollClamp) {
               evt.preventDefault();
-              animateScrollTo(0, 2500);
+              runTransition('reverse');
               return;
             }
-            // If currently between the hero and second section, trigger parallax return.
-            if (scrollY > 0 && scrollY <= nextTop) {
+            if (scrollY > nextTop && predicted < nextTop - scrollClamp) {
               evt.preventDefault();
-              animateScrollTo(0, 2500);
+              runTransition('reverse');
             }
           }
         },
         { passive: false }
       );
+
+      const downwardKeys = new Set(['PageDown', 'ArrowDown', 'Space', ' ']);
+      const upwardKeys = new Set(['PageUp', 'ArrowUp', 'Home']);
+      document.addEventListener('keydown', (evt) => {
+        if (cinematic.isTransitioning) {
+          evt.preventDefault();
+          return;
+        }
+        if (downwardKeys.has(evt.key) && cinematic.phase === 'hero') {
+          evt.preventDefault();
+          runTransition('forward');
+        } else if (upwardKeys.has(evt.key) && cinematic.phase === 'body') {
+          evt.preventDefault();
+          runTransition('reverse');
+        }
+      });
     }
+  }
 
     /**
      * Hide the header when scrolling down and show it when scrolling up.
@@ -253,6 +350,9 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     let lastScrollY = 0;
     window.addEventListener('scroll', () => {
+      if (!isMobile && cinematic && typeof cinematic.enforceBounds === 'function') {
+        cinematic.enforceBounds();
+      }
       const currentY = window.pageYOffset;
       if (currentY > lastScrollY && currentY > header.offsetHeight) {
         header.classList.add('header-hidden');
@@ -260,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.remove('header-hidden');
       }
       lastScrollY = currentY;
-    });
+    }, { passive: false });
 
     /**
      * Show the header when the user hovers near the top of the viewport
@@ -277,7 +377,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isMobile) return;
       const hoverY = e.clientY;
       const headerHeight = header.offsetHeight;
-      const scrolledPastHero = window.pageYOffset >= nextSection.offsetTop;
+      const transitionAnchor = cinematic ? cinematic.nextTop : nextSection.offsetTop;
+      const scrolledPastHero = window.pageYOffset >= transitionAnchor;
       // If cursor is within the header area and we are below the hero, show the header
       if (scrolledPastHero && hoverY <= headerHeight) {
         header.classList.remove('header-hidden');
@@ -285,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Otherwise, if we're still below the hero and not already hiding via scroll up/down,
         // reapply the hidden state.  This avoids leaving the header visible after the cursor
         // moves away from the top edge.
-        if (scrolledPastHero && !autoScrolling) {
+        if (scrolledPastHero && !(cinematic && cinematic.isTransitioning)) {
           header.classList.add('header-hidden');
         }
       }

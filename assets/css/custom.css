@@ -1,1 +1,108 @@
 @media (prefers-reduced-motion:no-preference) and (min-width:768px){.hero.title-band{background-attachment:scroll;background-position:center;background-size:cover;overflow:hidden}}.hero{position:relative;background-attachment:scroll !important}.hero::after{content:"";position:absolute;inset:0;background-color:rgba(0,0,0,var(--overlay-opacity,0));pointer-events:none;z-index:0;transition:background-color 0.7s ease-out}.hero .content{position:relative;z-index:1}.cookie-banner{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);color:#fff;padding:1rem 1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;z-index:1000;font-size:0.875rem;line-height:1.4}.cookie-banner p{margin:0;flex:1 1 auto;margin-right:0.5rem}.cookie-banner a{color:var(--color-primary,#0ea5e9);text-decoration:underline}.cookie-banner button{flex:0 0 auto;margin-top:0.5rem;margin-left:1rem}.site-header{padding-top:0.5rem;padding-bottom:0.5rem}.site-logo{height:auto;max-width:200px}@media (max-width:768px){.site-logo{max-width:150px}}.service-image img,.service-row .service-image img,.section .service-image img{width:100%;height:auto;object-fit:contain}.neon-card ul,.section .neon-card ul{padding-left:1.5rem;margin-left:0}.neon-card li,.section .neon-card li{margin-bottom:0.5rem}@media (max-width:768px){.neon-card p,.neon-card li{font-size:0.9rem;line-height:1.4}}body,html{scroll-behavior:auto !important}.hero::before{background:none !important}.page-contact .service-row:nth-of-type(1){min-height:100vh}@media (min-width:769px){.service-row{display:grid !important;grid-template-columns:1fr 1fr !important;gap:2rem !important;align-items:stretch !important}.service-row:nth-of-type(even) .service-image{order:2 !important}.service-row:nth-of-type(even) .service-content{order:1 !important}}@media (max-width:768px){.service-row{display:flex !important;flex-direction:column !important;gap:2rem !important}.service-image,.service-content{width:100% !important}.service-row .service-image,.service-row .service-content{flex-basis:auto !important}.service-row .service-image.neon-card{padding:0 !important;overflow:visible !important}.service-row .service-content.neon-card{padding:1rem !important}.service-image img{width:100% !important;height:auto !important;object-fit:contain !important}.service-row .service-content.neon-card,.service-row .service-image.neon-card{height:auto !important}.service-row .service-image.neon-card img{height:auto !important;object-fit:contain !important}.service-row .neon-card{padding:1rem !important}.service-row .service-image.neon-card{background:transparent !important}.service-row .service-image.neon-card::before,.service-row .service-image.neon-card::after{display:none !important}.service-row .service-image{padding-top:0 !important;position:relative !important}.service-row .service-image img{position:static !important}:root{--service-scale:1 !important}html,body{overflow-x:hidden}}html,body{overflow-x:hidden;overscroll-behavior-y:none;overscroll-behavior:none}@supports (-webkit-touch-callout:none){html,body{overscroll-behavior-y:auto !important;overscroll-behavior:auto !important}}.gallery-grid{display:grid !important;grid-template-columns:repeat(4,1fr) !important;gap:1rem !important}.service-row,.service-row .service-image,.service-row .service-content{position:relative;z-index:2}
+.cinematic-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 999;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.cinematic-overlay.active {
+  opacity: 1;
+}
+.cinematic-bar {
+  position: relative;
+  width: 100%;
+  height: 18vh;
+  max-height: 230px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(4, 7, 14, 0.94) 0%, rgba(7, 12, 24, 0.74) 65%, rgba(9, 13, 25, 0) 100%);
+  transform: translateY(-120%);
+  transition: transform 0.8s ease;
+}
+.cinematic-bar--bottom {
+  background: linear-gradient(0deg, rgba(4, 7, 14, 0.94) 0%, rgba(7, 12, 24, 0.74) 65%, rgba(9, 13, 25, 0) 100%);
+  transform: translateY(120%);
+}
+.cinematic-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0%, rgba(14, 165, 233, 0.12) 45%, rgba(255, 255, 255, 0.04) 100%);
+  opacity: 0.75;
+  mix-blend-mode: screen;
+  transform: translateX(-10%);
+}
+.cinematic-bar__glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140%;
+  height: 220%;
+  transform: translate(-50%, -50%) rotate(12deg);
+  background: radial-gradient(circle at center, rgba(80, 190, 255, 0.35) 0%, rgba(80, 190, 255, 0.08) 48%, rgba(255, 255, 255, 0) 80%);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.cinematic-bar--bottom .cinematic-bar__glow {
+  transform: translate(-50%, -50%) rotate(-12deg);
+}
+.cinematic-lens {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140vw;
+  height: 140vw;
+  max-width: 1600px;
+  max-height: 1600px;
+  transform: translate(-50%, -50%) scale(1.2);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18) 0%, rgba(14, 165, 233, 0.22) 28%, rgba(9, 13, 25, 0.78) 68%, rgba(4, 7, 14, 0.96) 100%);
+  opacity: 0;
+  filter: blur(6px);
+  mix-blend-mode: screen;
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+}
+.cinematic-overlay.reverse .cinematic-lens {
+  mix-blend-mode: color-dodge;
+}
+.cinematic-overlay.reverse .cinematic-bar::before {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0%, rgba(244, 114, 182, 0.12) 45%, rgba(255, 255, 255, 0.04) 100%);
+}
+body.transitioning {
+  overflow: hidden;
+  touch-action: none;
+  cursor: progress;
+}
+body.phase-hero .cinematic-anchor {
+  opacity: 0;
+  transform: translateY(140px) scale(0.95);
+  filter: blur(6px);
+  pointer-events: none;
+}
+body.phase-body .cinematic-anchor {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: none;
+  pointer-events: auto;
+}
+body.transitioning .hero,
+body.transitioning .cinematic-anchor {
+  will-change: transform, filter, opacity;
+}
+.hero {
+  transform-origin: center top;
+}
+.cinematic-anchor {
+  position: relative;
+  transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+}
+@media (max-width: 900px) {
+  .cinematic-overlay {
+    display: none;
+  }
+}
+
