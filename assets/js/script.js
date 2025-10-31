@@ -93,6 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!isMobile) {
+      // Flags and state for the scroll‑triggered transition
+      let transitionInProgress = false;
+      let lastDirection = null;
+
       // Prepare the next section so it starts hidden and lower on the page.
       nextSection.classList.add('cinematic-section');
       nextSection.style.opacity = '0';
@@ -104,8 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
       let heroHeight = hero.offsetHeight || 1;
       const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
-      // Update the parallax effect based on scroll position.
+      // Update the parallax effect based on scroll position.  This function
+      // runs continuously while the user scrolls through the hero.  When
+      // the scroll‑triggered auto transition fires, this function will be
+      // bypassed in favour of an internal animation.
       function updateParallax() {
+        if (transitionInProgress) return;
         const progress = clamp(window.pageYOffset / heroHeight, 0, 1);
         // Scale the hero up to 10% larger as the user scrolls through it.
         const heroScale = 1 + progress * 0.1;
@@ -142,6 +150,102 @@ document.addEventListener('DOMContentLoaded', () => {
         heroHeight = hero.offsetHeight || 1;
         updateParallax();
       });
+
+      // --- Scroll‑triggered cinematic transition setup ---
+      // Create an overlay element for the premium glow effect.  It uses
+      // only opacity transitions and a radial gradient background to
+      // minimise rendering cost.
+      const overlay = document.createElement('div');
+      overlay.className = 'scroll-overlay';
+      document.body.appendChild(overlay);
+
+      // Create a sentinel element at the bottom of the hero to detect
+      // when the user reaches the hero boundary.  This element is
+      // absolutely positioned and occupies 1px of height.
+      const sentinel = document.createElement('div');
+      sentinel.style.position = 'absolute';
+      sentinel.style.left = '0';
+      sentinel.style.right = '0';
+      sentinel.style.bottom = '0';
+      sentinel.style.height = '1px';
+      hero.appendChild(sentinel);
+
+      // Flag variables declared above; do not redeclare here
+
+      // Easing function for smoother progress (ease out cubic)
+      function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function runAutoTransition(direction) {
+        if (transitionInProgress) return;
+        transitionInProgress = true;
+        lastDirection = direction;
+        // Capture current scroll position and progress
+        const startY = window.pageYOffset;
+        const startProgress = clamp(startY / heroHeight, 0, 1);
+        const duration = 900; // ms
+        const startTime = performance.now();
+        // Lock scrolling during the animation
+        const previousOverflow = document.documentElement.style.overflow;
+        document.documentElement.style.overflow = 'hidden';
+        // Activate overlay
+        overlay.classList.add('active');
+        function animate() {
+          const now = performance.now();
+          const t = (now - startTime) / duration;
+          if (t < 1) {
+            const eased = easeOutCubic(t);
+            // Interpolate progress towards 1 (fully transitioned)
+            const progress = startProgress + (1 - startProgress) * eased;
+            // Apply hero scale and darken overlay
+            const heroScale = 1 + progress * 0.1;
+            hero.style.transform = `scale(${heroScale.toFixed(3)})`;
+            hero.style.setProperty('--overlay-opacity', (progress * 0.5).toFixed(3));
+            // Move and fade in next section
+            const translateY = (1 - progress) * 120;
+            nextSection.style.transform = `translateY(${translateY.toFixed(1)}px)`;
+            nextSection.style.opacity = progress.toFixed(3);
+            requestAnimationFrame(animate);
+          } else {
+            // Final state: hero fully scaled, next section in place
+            hero.style.transform = 'scale(1.1)';
+            hero.style.setProperty('--overlay-opacity', '0.5');
+            nextSection.style.transform = 'translateY(0px)';
+            nextSection.style.opacity = '1';
+            // Fade out overlay
+            overlay.classList.remove('active');
+            // Restore scrolling
+            document.documentElement.style.overflow = previousOverflow;
+            transitionInProgress = false;
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+
+      // Observe the sentinel to trigger the auto transition when leaving
+      // the hero.  Use scroll direction to prevent accidental triggers
+      // when scrolling upwards back into the hero.
+      let lastScrollPos = window.pageYOffset;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const currentY = window.pageYOffset;
+            const direction = currentY > lastScrollPos ? 'down' : 'up';
+            lastScrollPos = currentY;
+            // When sentinel is no longer visible and scrolling down,
+            // trigger the transition.  When sentinel becomes visible
+            // again while scrolling up, trigger in reverse (same effect).
+            if (!entry.isIntersecting && direction === 'down') {
+              runAutoTransition('down');
+            } else if (entry.isIntersecting && direction === 'up' && currentY < heroHeight) {
+              runAutoTransition('up');
+            }
+          });
+        },
+        { threshold: 0 }
+      );
+      observer.observe(sentinel);
     }
 
     // Hide the header when scrolling down and show it when scrolling up.
