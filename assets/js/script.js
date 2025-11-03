@@ -93,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
       93 const boundary = rect.top + window.scrollY;
       nextSection.style.transform = currentTransform;
       94 return boundary;
-
     };
 
     let boundary = computeBoundary();
