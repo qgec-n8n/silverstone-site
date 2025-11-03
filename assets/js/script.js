@@ -90,14 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentTransform = nextSection.style.transform;
       nextSection.style.transform = 'none';
       const rect = nextSection.getBoundingClientRect();
+      93 const boundary = rect.top + window.scrollY;
       nextSection.style.transform = currentTransform;
+      94 return boundary;
 
-      const headerHeight = header
-        ? header.getBoundingClientRect().height
-        : 0;
-      const boundary = rect.top + window.scrollY - headerHeight;
-
-      return Math.max(0, boundary);
     };
 
     let boundary = computeBoundary();
