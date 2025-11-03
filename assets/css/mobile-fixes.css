@@ -44,6 +44,21 @@
   }
 
   /*
+   * Ensure animated sections remain visible on mobile
+   *
+   * The home page relies on JavaScript to add a `.visible` class that
+   * reveals sections marked with `.animate`. Some mobile browsers fail to
+   * trigger the observer that toggles this class, leaving the sections at
+   * zero opacity. On small screens we bypass the animation entirely so the
+   * content is immediately visible without affecting the desktop
+   * experience.
+   */
+  .animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /*
    * Service page fixes
    *
    * When service rows stack vertically on mobile, the default gap and
