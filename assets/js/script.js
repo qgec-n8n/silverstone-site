@@ -85,14 +85,25 @@ document.addEventListener('DOMContentLoaded', () => {
     let animating = false;
     let lastScrollY = window.scrollY;
 
+    const getHeaderOffset = () => {
+      if (!header) return 0;
+      const styles = window.getComputedStyle(header);
+      const isFixed = styles.position === 'fixed';
+      const isHidden = header.classList.contains('header-hidden');
+      if (!isFixed || isHidden) {
+        return 0;
+      }
+      return header.getBoundingClientRect().height;
+    };
+
     const computeBoundary = () => {
       // Temporarily remove transform to get natural DOM position
       const currentTransform = nextSection.style.transform;
       nextSection.style.transform = 'none';
       const rect = nextSection.getBoundingClientRect();
-      const boundary = rect.top + window.scrollY;
       nextSection.style.transform = currentTransform;
-      return boundary;
+      const adjusted = rect.top + window.scrollY - getHeaderOffset();
+      return Math.max(0, adjusted);
     };
 
     let boundary = computeBoundary();
@@ -183,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (scene === 'hero') {
             window.scrollTo(0, 0);
           } else {
+            boundary = computeBoundary();
             window.scrollTo(0, boundary);
           }
           animating = false;
