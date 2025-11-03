@@ -86,8 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastScrollY = window.scrollY;
 
     const computeBoundary = () => {
+      // Temporarily remove transform to get natural DOM position
+      const currentTransform = nextSection.style.transform;
+      nextSection.style.transform = 'none';
       const rect = nextSection.getBoundingClientRect();
-      return rect.top + window.scrollY;
+      const boundary = rect.top + window.scrollY;
+      nextSection.style.transform = currentTransform;
+      return boundary;
     };
 
     let boundary = computeBoundary();
