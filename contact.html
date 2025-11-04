@@ -19,13 +19,9 @@
   <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- Neon fix to ensure correct stacking for animated overlays -->
   <style id="neon-fix">
-    /* Apply stacking fix to both circuit and waves backgrounds */
-    .section.bg-circuit,
-    .section.bg-waves { position: relative; isolation: isolate; }
-    .section.bg-circuit::before,
-    .section.bg-waves::before { z-index: 0; pointer-events: none; }
-    .section.bg-circuit > .container,
-    .section.bg-waves > .container { position: relative; z-index: 1; }
+    .section.bg-circuit { position: relative; isolation: isolate; }
+    .section.bg-circuit::before { z-index: 0; pointer-events: none; }
+    .section.bg-circuit > .container { position: relative; z-index: 1; }
     .neon-card { position: relative; z-index: 2; }
     .service-row, .service-image, .service-content { position: relative; z-index: 2; }
   </style>
@@ -86,7 +82,7 @@
     </div>
   </section>
   <!-- Contact section -->
-  <section class="section bg-waves animate">
+  <section class="section bg-circuit animate">
     <div class="container">
       <h2 class="section-title" style="text-align:left;">Contact Us</h2>
       <div class="contact-grid">

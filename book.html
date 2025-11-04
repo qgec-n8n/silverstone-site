@@ -41,8 +41,7 @@
       padding: 4rem 1rem;
       display: flex;
       align-items: center;
-      /* Updated background to the correct calendly image */
-      background-image: url('assets/images/internet/hero/book-hero-calendly-mobile-2025.png');
+      background-image: url('assets/images/zip/book_page_calendly_background.jpg');
       background-size: cover;
       background-position: center;
       overflow: hidden;
@@ -127,18 +126,6 @@
       }
       .discovery-call-content .widget .calendly-inline-widget {
         height: 600px;
-      }
-    }
-
-    /* Parallax enhancement for the discovery call background on larger screens */
-    @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
-      .discovery-call-section {
-        /* Fix the background so content scrolls over a static scene */
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: center;
-        /* Blend the dark overlay with the Calendly background for better contrast */
-        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/images/internet/hero/book-hero-calendly-mobile-2025.png');
       }
     }
   </style>
