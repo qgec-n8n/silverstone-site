@@ -233,6 +233,49 @@ document.addEventListener('DOMContentLoaded', () => {
    * brand palette.  This block applies only to screens up to 768px.
    */
   const mobileNavStyles = `
+    /* Base styling for the header indicator on larger screens.  A
+       neon gradient bar appears across the top when the header is
+       hidden.  On hover the bar expands to the full header height.
+       Colour variables from styles.css are used to blend seamlessly
+       with the brand palette. */
+    #header-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(
+        90deg,
+        var(--color-blue),
+        var(--color-purple),
+        var(--color-green)
+      );
+      box-shadow:
+        0 0 8px rgba(0, 174, 239, 0.4),
+        0 0 12px rgba(157, 78, 221, 0.4);
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-green);
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1500;
+      opacity: 0;
+      transform: translateY(-100%);
+      transition: height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    }
+    #header-indicator.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #header-indicator:hover {
+      height: var(--headerH);
+    }
+    /* Mobile overrides: replace the gradient with a blurred dark bar,
+       disable expansion on hover and adjust the height. */
     @media (max-width: 768px) {
       nav ul {
         position: fixed;
@@ -327,32 +370,15 @@ document.addEventListener('DOMContentLoaded', () => {
       .nav-toggle.active span:nth-child(3) {
         transform: translateY(-6px) rotate(-45deg);
       }
-      /* Header indicator bar: appears when the header is hidden */
+      /* Mobile header indicator overrides */
       #header-indicator {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
         height: 44px;
         background: rgba(11, 12, 16, 0.88);
         backdrop-filter: blur(12px) saturate(160%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: var(--font-heading);
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: var(--color-green);
-        letter-spacing: 0.1em;
-        cursor: pointer;
-        z-index: 1500;
-        opacity: 0;
-        transform: translateY(-100%);
-        transition: opacity 0.4s ease, transform 0.4s ease;
+        box-shadow: none;
       }
-      #header-indicator.active {
-        opacity: 1;
-        transform: translateY(0);
+      #header-indicator:hover {
+        height: 44px;
       }
     }
   `;
