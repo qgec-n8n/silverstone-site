@@ -69,3 +69,27 @@
   margin-top: 0.15rem;
   flex-shrink: 0;
 }
+
+/*
+ * Disable the default checkmark pseudo‑element defined in the base styles. Without this
+ * override, Font Awesome checkmarks will continue to appear before each list item via
+ * ::before content, obscuring the custom icons inserted into the markup. Using
+ * `content: none !important` ensures that our <i> icons are the sole visual
+ * indicator for each list entry.
+ */
+.service-content ul li::before,
+.discovery-call-content .info ul li::before {
+  content: none !important;
+}
+
+/*
+ * Override bullet styling defined in mobile-specific styles. The mobile CSS
+ * applies a gradient dot before each list item in the Services section via
+ * the `.page-services .service-row .service-content ul li::before` selector.
+ * Without overriding, these dots will still appear on mobile layouts and
+ * obscure the custom icons inserted into the markup. Use an explicit
+ * selector and !important to ensure the pseudo-element is removed.
+ */
+.page-services .service-row .service-content ul li::before {
+  content: none !important;
+}
