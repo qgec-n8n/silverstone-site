@@ -322,15 +322,16 @@ document.addEventListener('DOMContentLoaded', () => {
         left: 0;
         width: 100%;
         height: 100vh;
-        /* Dark, glassy backdrop with saturation boost for a high‑tech feel */
-        background: rgba(11, 12, 16, 0.94);
+        /* High‑tech backdrop with subtle translucency and a gentle blur.
+           This version is more understated but still distinctly modern. */
+        background: rgba(12, 14, 20, 0.96);
         backdrop-filter: blur(16px) saturate(180%);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        padding: calc(env(safe-area-inset-top, 0) + 1rem) 1.5rem calc(env(safe-area-inset-bottom) + 2.5rem);
-        gap: 1.75rem;
+        padding: calc(env(safe-area-inset-top, 0) + 1.5rem) 1.75rem calc(env(safe-area-inset-bottom) + 2rem);
+        gap: 1.25rem;
         opacity: 0;
         transform: translateY(-100%);
         pointer-events: none;
@@ -365,49 +366,73 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       nav ul li a {
         display: block;
-        font-size: 1.3rem;
+        font-size: 1.35rem;
         font-weight: 600;
-        color: var(--color-green);
         text-align: center;
-        letter-spacing: 0.08em;
-        padding: 0.8rem 1.5rem;
+        letter-spacing: 0.1em;
+        padding: 1rem 2rem;
         border-radius: 999px;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        width: 100%;
+        max-width: 420px;
+        color: #0A0C12;
+        /* Premium button styling: gradient fill, border and glow */
+        background: linear-gradient(90deg, var(--color-blue), var(--color-purple), var(--color-green));
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 4px 10px rgba(0, 174, 239, 0.35), 0 6px 16px rgba(157, 78, 221, 0.30);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, color 0.3s ease;
       }
       nav ul li a:hover,
       nav ul li a:focus {
-        background: rgba(0, 174, 239, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0, 174, 239, 0.45), 0 8px 20px rgba(157, 78, 221, 0.35);
+        filter: brightness(1.05);
         color: var(--color-blue);
       }
-      /* Hamburger icon styling and transformation */
+      /* Premium hamburger icon styling and transformation.  The icon is
+         circular with a subtle glow and gradient bars.  When activated
+         the bars morph smoothly into a cross, and the entire icon rotates
+         for an elevated high‑tech effect. */
       .nav-toggle {
+        position: relative;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 2rem;
-        height: 2rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, rgba(15, 17, 22, 0.85), rgba(8, 9, 13, 0.95));
+        border: 1px solid rgba(0, 174, 239, 0.3);
+        box-shadow: 0 0 6px rgba(0, 174, 239, 0.25), 0 0 12px rgba(157, 78, 221, 0.15);
         cursor: pointer;
         z-index: 2500;
+        transition: transform 0.4s ease;
+      }
+      .nav-toggle:hover {
+        transform: scale(1.05);
       }
       .nav-toggle span {
-        width: 100%;
+        width: 1.6rem;
         height: 2px;
-        background-color: var(--color-green);
-        margin-bottom: 4px;
+        background: linear-gradient(90deg, var(--color-green), var(--color-blue));
+        border-radius: 2px;
+        margin: 0.3rem 0;
         transition: transform 0.4s ease, opacity 0.4s ease;
       }
       .nav-toggle span:last-child {
         margin-bottom: 0;
       }
+      .nav-toggle.active {
+        transform: rotate(180deg);
+      }
       .nav-toggle.active span:nth-child(1) {
-        transform: translateY(6px) rotate(45deg);
+        transform: translateY(8px) rotate(45deg);
       }
       .nav-toggle.active span:nth-child(2) {
         opacity: 0;
+        transform: scaleX(0);
       }
       .nav-toggle.active span:nth-child(3) {
-        transform: translateY(-6px) rotate(-45deg);
+        transform: translateY(-8px) rotate(-45deg);
       }
       /* Mobile header indicator overrides */
       #header-indicator {
