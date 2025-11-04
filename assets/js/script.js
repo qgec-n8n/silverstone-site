@@ -322,19 +322,24 @@ document.addEventListener('DOMContentLoaded', () => {
         left: 0;
         width: 100%;
         height: 100vh;
-        /* Dark, glassy backdrop with saturation boost for a high‑tech feel */
-        background: rgba(11, 12, 16, 0.94);
-        backdrop-filter: blur(16px) saturate(180%);
+        /* Premium, high‑tech backdrop: a vertical gradient with subtle
+           translucency and glow.  A thin border and soft shadow give
+           the overlay a refined frame. */
+        background: linear-gradient(180deg, rgba(11, 12, 16, 0.96) 0%, rgba(13, 15, 20, 0.98) 100%);
+        border: 1px solid rgba(0, 174, 239, 0.22);
+        border-radius: 16px;
+        backdrop-filter: blur(18px) saturate(200%);
+        box-shadow: 0 8px 24px rgba(0, 174, 239, 0.18), 0 0 18px rgba(157, 78, 221, 0.12);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        padding: calc(env(safe-area-inset-top, 0) + 1rem) 1.5rem calc(env(safe-area-inset-bottom) + 2.5rem);
-        gap: 1.75rem;
+        padding: calc(env(safe-area-inset-top, 0) + 2rem) 2rem calc(env(safe-area-inset-bottom) + 2rem);
+        gap: 1.5rem;
         opacity: 0;
-        transform: translateY(-100%);
+        transform: translateY(-4rem);
         pointer-events: none;
-        transition: opacity 0.4s ease, transform 0.4s ease;
+        transition: opacity 0.45s ease, transform 0.45s ease;
         z-index: 2000;
         overflow-y: auto;
         overflow-x: hidden;
@@ -345,8 +350,9 @@ document.addEventListener('DOMContentLoaded', () => {
         transform: translateY(0);
         pointer-events: auto;
       }
+      /* Premium scroll bar styling */
       nav ul::-webkit-scrollbar {
-        width: 0.5rem;
+        width: 0.45rem;
       }
       nav ul::-webkit-scrollbar-thumb {
         background: linear-gradient(180deg, rgba(0, 174, 239, 0.65), rgba(157, 78, 221, 0.45));
@@ -355,28 +361,62 @@ document.addEventListener('DOMContentLoaded', () => {
       nav ul::-webkit-scrollbar-track {
         background: transparent;
       }
+      /* Staggered reveal of menu items when the overlay opens.  Each list
+         item starts slightly transparent and translated downward; on
+         activation they animate into place with a small delay. */
       nav ul > li {
         width: 100%;
         display: flex;
         justify-content: center;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.35s ease, transform 0.35s ease;
       }
+      nav ul.open > li {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      nav ul.open > li:nth-child(1) { transition-delay: 0.05s; }
+      nav ul.open > li:nth-child(2) { transition-delay: 0.10s; }
+      nav ul.open > li:nth-child(3) { transition-delay: 0.15s; }
+      nav ul.open > li:nth-child(4) { transition-delay: 0.20s; }
+      nav ul.open > li:nth-child(5) { transition-delay: 0.25s; }
+      nav ul.open > li:nth-child(6) { transition-delay: 0.30s; }
       nav ul > li > * {
         width: min(100%, 420px);
       }
       nav ul li a {
+        position: relative;
         display: block;
-        font-size: 1.3rem;
+        font-size: 1.35rem;
         font-weight: 600;
         color: var(--color-green);
         text-align: center;
-        letter-spacing: 0.08em;
-        padding: 0.8rem 1.5rem;
+        letter-spacing: 0.1em;
+        padding: 0.9rem 1.75rem;
         border-radius: 999px;
         transition: background-color 0.3s ease, color 0.3s ease;
       }
+      /* Add a vertical accent bar on hover for each menu item */
+      nav ul li a::before {
+        content: '';
+        position: absolute;
+        left: -1.2rem;
+        top: 50%;
+        width: 4px;
+        height: 0;
+        background: linear-gradient(180deg, var(--color-blue), var(--color-purple));
+        border-radius: 2px;
+        transform: translateY(-50%);
+        transition: height 0.3s ease;
+      }
+      nav ul li a:hover::before,
+      nav ul li a:focus::before {
+        height: 100%;
+      }
       nav ul li a:hover,
       nav ul li a:focus {
-        background: rgba(0, 174, 239, 0.15);
+        background: rgba(0, 174, 239, 0.18);
         color: var(--color-blue);
       }
       /* Premium hamburger icon styling and transformation.  The icon is
