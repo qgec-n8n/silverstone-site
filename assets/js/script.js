@@ -243,16 +243,23 @@ document.addEventListener('DOMContentLoaded', () => {
       top: 0;
       left: 0;
       width: 100%;
-      height: 6px;
+      /* Increase the default height to present a more substantial banner.
+         Rounded bottom corners and a subtle border give it a polished edge.
+         A luminous gradient combined with a soft blur conveys a premium,
+         high‑tech feel. */
+      height: 12px;
       background: linear-gradient(
         90deg,
         var(--color-blue),
         var(--color-purple),
         var(--color-green)
       );
+      backdrop-filter: blur(8px) saturate(160%);
+      border-radius: 0 0 8px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow:
-        0 0 8px rgba(0, 174, 239, 0.4),
-        0 0 12px rgba(157, 78, 221, 0.4);
+        0 4px 12px rgba(0, 174, 239, 0.35),
+        0 6px 20px rgba(157, 78, 221, 0.30);
       font-family: var(--font-heading);
       font-size: 0.95rem;
       font-weight: 600;
