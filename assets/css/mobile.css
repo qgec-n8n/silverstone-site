@@ -185,20 +185,42 @@
    * Use a more specific selector and `!important` to supersede
    * the base `.neon-card` padding defined in the global styles.
    */
+  /*
+   * Tighten padding and margins on feature and value cards
+   *
+   * The Streamline/Optimize/Succeed cards on the home page and the
+   * Our Values cards on the about page should have their neon borders
+   * hug the content closely on mobile.  Reduce the internal padding
+   * and collapse paragraph and heading margins.  Use `!important` to
+   * override earlier declarations.
+   */
   .features .feature-card.neon-card,
   .values .value-card.neon-card {
-    padding: 1rem !important;
+    padding: 0.5rem !important;
   }
-  /* Slightly reduce bottom margins on paragraphs within the cards */
   .features .feature-card.neon-card p,
   .values .value-card.neon-card p {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem !important;
   }
-
-  /* Further tighten heading margins in feature and value cards */
   .features .feature-card.neon-card h3,
   .values .value-card.neon-card h4 {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem !important;
+  }
+  /*
+   * Remove forced equal heights and stretching on mobile
+   *
+   * Reset the flex properties on feature and value cards so they
+   * grow naturally based on their content.  Without this, the cards
+   * stretch to fill the available width in their flex container,
+   * causing the neon borders to overshoot the text.  Setting
+   * `flex: none` and switching to block layout prevents this
+   * stretching while still allowing full‑width stacking when needed.
+   */
+  .features .feature-card,
+  .values .value-card {
+    display: block !important;
+    height: auto !important;
+    flex: none !important;
   }
 
   /* Remove extra margin on service images and contents to collapse gaps */
