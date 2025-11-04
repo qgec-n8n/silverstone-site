@@ -12,14 +12,13 @@
       rel="stylesheet"
     />
     <link href="assets/css/styles.css" rel="stylesheet" />
-
     <link href="assets/css/services.css" rel="stylesheet" />
-
     <!-- Mobile overrides: ensure last to override other styles on small screens -->
     <link rel="stylesheet" href="assets/css/mobile.css" />
-<!-- Load our overrides after the v21 fixes so that the Data & Analytics
-         illustration behaves like the other service images -->
-<link
+    <!-- New footer styles -->
+    <link rel="stylesheet" href="assets/css/footer.css" />
+    <!-- Load Font Awesome -->
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       integrity="sha512-p1J1l+ChOWuC2DdvexO3YOk1GMqtUx24TAL7E6H28uGcvo95DaEIbX4QK1s4xM4piw24+rMpp4IPuu8m4IS7Dw=="
@@ -53,11 +52,6 @@
         z-index: 2;
       }
     </style>
-    <!-- Removed old per‑service overrides for the analytics illustration. The
-         Data & Analytics image now relies entirely on the global
-         `.service-image` styles defined in our CSS, ensuring it shares
-         the same aspect ratio, border radius and sizing as the other
-         service illustrations. -->
     <style>
       @media (max-width: 900px) {
         .hero {
@@ -187,12 +181,6 @@
             <a class="btn btn-secondary" href="book.html">Let’s Talk Automation</a>
           </div>
         </div>
-        <!-- The analytics block previously used custom inline styles which
-             resulted in a different aspect ratio and no border radius on the
-             image. To ensure the Data & Analytics illustration has the same
-             dimensions and rounded corners as the other service images, we
-             remove those overrides and rely on the global service-image and
-             service-img styles. -->
         <div class="service-row animate" id="analytics">
           <div class="service-image">
             <img
@@ -416,15 +404,43 @@
         </div>
       </div>
     </section>
-    <footer>
-      <p>&copy; 2025 Silverstone. All rights reserved.</p>
-      <p><a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
-      <p><a href="privacy-policy.html">Privacy Policy</a></p>
+    <!-- Global site footer -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
+          <h2>Silverstone</h2>
+          <p class="tagline">Streamline. Optimize. Succeed.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="book.html">Book</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact Us</h4>
+          <p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
+          <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+        </div>
+        <div class="footer-social">
+          <h4>Follow Us</h4>
+          <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
     </footer>
     <script src="assets/js/script.js"></script>
-    <!-- Removed the analytics height normalisation script. The Data & Analytics
-         illustration now has the correct aspect ratio and height via CSS,
-         so this script is no longer necessary. -->
     <script defer src="assets/js/cookie-consent.js"></script>
   </body>
 </html>
