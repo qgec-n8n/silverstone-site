@@ -87,10 +87,27 @@
 .fa-solid.fa-envelope::before       { content: '\f0e0'; }
 
 /* Brand icons */
+/*
+ * Map brand icon names to their unicode codepoints from the local
+ * Font Awesome brands font. Note that TikTok uses a private-area
+ * codepoint (e07b) without the hexadecimal prefix used in our
+ * original version, which prevented the glyph from rendering. By
+ * dropping the leading `x` the correct glyph is now displayed.
+ */
 .fa-brands.fa-instagram::before { content: '\f16d'; }
-.fa-brands.fa-tiktok::before    { content: '\xe07b'; }
+.fa-brands.fa-tiktok::before    { content: '\e07b'; }
 .fa-brands.fa-facebook::before  { content: '\f230'; }
 .fa-brands.fa-linkedin::before  { content: '\f08c'; }
+
+/* Additional solid icons for home and values sections */
+/* These mappings enable the icons on the Home page features (bolt,
+ * gauge-high, rocket) and the About page values (ear-listen,
+ * flask) to render correctly from the local font. */
+.fa-solid.fa-bolt::before       { content: '\f0e7'; }
+.fa-solid.fa-gauge-high::before { content: '\f625'; }
+.fa-solid.fa-rocket::before     { content: '\f135'; }
+.fa-solid.fa-ear-listen::before { content: '\f2a2'; }
+.fa-solid.fa-flask::before      { content: '\f0c3'; }
 
 /* Icon list styling */
 .icon-list {
@@ -168,4 +185,15 @@
  */
 .page-services .service-row .service-content ul li::before {
   content: none !important;
+}
+
+/*
+ * Ensure a clear separation between list content and call-to-action buttons
+ * in the Services section. Without additional margin, buttons can appear
+ * cramped immediately below the list of features. Adding a top margin
+ * creates breathing room and visually distinguishes the call-to-action.
+ */
+.service-content ul + .btn {
+  margin-top: 1rem;
+  display: inline-block;
 }

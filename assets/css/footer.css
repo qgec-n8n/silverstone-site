@@ -36,6 +36,7 @@
 /* Branding section */
 .footer-brand {
   flex: 1 1 250px;
+  text-align: left;
 }
 
 .footer-brand .footer-logo {
@@ -55,6 +56,7 @@
 .footer-contact,
 .footer-social {
   flex: 1 1 180px;
+  text-align: left;
 }
 
 /* Section headings in the footer use dark text to stand out on white */
