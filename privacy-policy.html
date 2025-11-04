@@ -16,15 +16,16 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
     <!-- Neon fix ensures overlays are layered correctly -->
     <style id="neon-fix">
-      .section.bg-circuit {
+      /* Apply stacking to the mesh background used in the policy section */
+      .section.bg-mesh {
         position: relative;
         isolation: isolate;
       }
-      .section.bg-circuit::before {
+      .section.bg-mesh::before {
         z-index: 0;
         pointer-events: none;
       }
-      .section.bg-circuit > .container {
+      .section.bg-mesh > .container {
         position: relative;
         z-index: 1;
       }

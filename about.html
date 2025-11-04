@@ -19,10 +19,11 @@
   <!-- Neon fix to ensure correct stacking for animated overlays -->
   <style id="neon-fix">
     /* Create a local stacking context so the overlay sits between bg and content */
-    .section.bg-circuit { position: relative; isolation: isolate; }
-    .section.bg-circuit::before { z-index: 0; pointer-events: none; }
+    /* Apply to the mesh background used on this page */
+    .section.bg-mesh { position: relative; isolation: isolate; }
+    .section.bg-mesh::before { z-index: 0; pointer-events: none; }
     /* Ensure page content is above the overlay */
-    .section.bg-circuit > .container { position: relative; z-index: 1; }
+    .section.bg-mesh > .container { position: relative; z-index: 1; }
     /* Keep neon cards and service blocks above everything in the section */
     .neon-card { position: relative; z-index: 2; }
     .service-row, .service-image, .service-content { position: relative; z-index: 2; }
@@ -173,9 +174,9 @@
       <div class="footer-social">
         <h4>Follow Us</h4>
         <div class="social-icons">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
         </div>
       </div>
     </div>
