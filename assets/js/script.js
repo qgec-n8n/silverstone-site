@@ -185,15 +185,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // Allow tapping or clicking the indicator bar to toggle the menu.
   headerIndicator.addEventListener('click', (event) => {
     event.stopPropagation();
-    if (navToggle && navMenu) {
+    // If essential elements are missing, simply reschedule the header auto hide
+    if (!navToggle || !navMenu) {
+      scheduleHeaderAutoHide();
+      return;
+    }
+    // On mobile clicking the indicator should only reveal the header; the
+    // hamburger must be used to open the full menu.  If the menu is
+    // already open we close it instead.
+    if (isMobileViewport()) {
       if (navMenu.classList.contains('open')) {
         closeNavMenu();
       } else {
-        openNavMenu();
+        // Reveal the header without opening the overlay
+        showHeader();
         clearTimeout(headerAutoHideTimeoutId);
+        scheduleHeaderAutoHide();
       }
+      return;
+    }
+    // On desktop toggle the menu overlay
+    if (navMenu.classList.contains('open')) {
+      closeNavMenu();
     } else {
-      scheduleHeaderAutoHide();
+      openNavMenu();
+      clearTimeout(headerAutoHideTimeoutId);
     }
   });
   // Show the header when hovering the indicator on desktop.  On
@@ -397,14 +413,24 @@ document.addEventListener('DOMContentLoaded', () => {
       #header-indicator {
         /* On mobile the indicator should span the full width of the viewport.
            Reset left and width to fill the screen and adjust the transform so
-           it slides vertically rather than diagonally.  We keep the larger
-           height and darker background for a clearly visible bar. */
+           it slides vertically rather than diagonally.  Height remains reduced
+           to maintain a compact feel.  Use the same vibrant gradient and
+           glowing effects as the desktop banner for visual consistency. */
         width: 100%;
         left: 0;
         height: 40px;
-        background: rgba(11, 12, 16, 0.88);
-        backdrop-filter: blur(12px) saturate(160%);
-        box-shadow: none;
+        background: linear-gradient(
+          90deg,
+          var(--color-blue),
+          var(--color-purple),
+          var(--color-green)
+        );
+        backdrop-filter: blur(8px) saturate(160%);
+        border-radius: 0 0 8px 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow:
+          0 4px 12px rgba(0, 174, 239, 0.35),
+          0 6px 20px rgba(157, 78, 221, 0.30);
         transform: translateY(-100%);
       }
       #header-indicator.active {
