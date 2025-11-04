@@ -239,7 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
        smoothly between a minimum and maximum size across breakpoints.
     */
     :root {
-      --headerH: clamp(72px, 8.5vh, 96px);
+      /* Make the maximized header slightly smaller while maintaining responsive scaling. */
+      --headerH: clamp(66px, 8vh, 88px);
     }
 
     /* Base styling for the header indicator on larger screens.  A
@@ -400,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
            height and darker background for a clearly visible bar. */
         width: 100%;
         left: 0;
-        height: 44px;
+        height: 40px;
         background: rgba(11, 12, 16, 0.88);
         backdrop-filter: blur(12px) saturate(160%);
         box-shadow: none;
@@ -411,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       #header-indicator:hover {
         /* Disable expansion on hover for mobile; height remains constant. */
-        height: 44px;
+        height: 40px;
       }
     }
   `;
