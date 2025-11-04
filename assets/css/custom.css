@@ -1,5 +1,6 @@
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
   .hero.title-band {
+    background-attachment: scroll;
     background-position: center;
     background-size: cover;
     overflow: hidden;
@@ -23,6 +24,10 @@
 body,
 html {
   scroll-behavior: auto !important;
+}
+
+.hero::before {
+  background: none !important;
 }
 
 .cookie-banner {
