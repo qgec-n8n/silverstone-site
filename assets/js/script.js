@@ -1,11 +1,17 @@
 /*
   Lightweight cinematic scroll controller
   ---------------------------------------
-  Replaces the previous multi-layer transition system with a GPU-friendly
+  Replaces the previous multi‑layer transition system with a GPU‑friendly
   implementation that animates only transforms and opacity.  The script
   locks the viewport on the hero/body boundary and plays a cinematic
   transition whenever the user moves between the sections using scroll,
   wheel, keyboard, or touchpad gestures.
+
+  This version has been modified to disable the cinematic/parallax
+  functionality entirely by forcing the feature flag to `false`.  All
+  associated event handlers and animations are bypassed, restoring
+  standard scroll behaviour while preserving header hiding and
+  intersection observer animations.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -51,40 +57,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ua = navigator.userAgent || '';
   const isSafari = /safari/i.test(ua) && !/chrome|crios|android/i.test(ua);
-  const cinematicEnabled =
-    hero &&
-    nextSection &&
-    header &&
-    !prefersReducedMotion &&
-    !isSafari &&
-    window.innerWidth > 900;
+  /*
+   * Disable the cinematic/parallax scroll effect entirely.  The original
+   * feature required hero and nextSection elements, no reduced motion,
+   * non‑Safari browser and a minimum viewport width.  By setting this
+   * flag to false unconditionally, the overlay and event interceptors
+   * never initialise, allowing the page to scroll normally.
+   */
+  const cinematicEnabled = false;
 
   if (cinematicEnabled) {
-    nextSection.classList.add('cinematic-section');
-
-    const overlay = document.createElement('div');
-    overlay.className = 'scene-overlay';
-    body.appendChild(overlay);
-
+    // The cinematic code block is intentionally retained for reference but
+    // will never execute due to the false flag above.  It included
+    // logic for overlay creation, state interpolation, wheel/key
+    // handlers, and scroll guards.
     const heroStates = {
       hero: { translateY: 0, scale: 1, opacity: 1 },
       body: { translateY: -90, scale: 0.9, opacity: 0.88 },
     };
-
     const sectionStates = {
       hero: { translateY: 120, opacity: 0 },
       body: { translateY: 0, opacity: 1 },
     };
-
     const overlayStates = {
       hero: 0,
       body: 0.55,
     };
-
     let scene = 'hero';
     let animating = false;
     let lastScrollY = window.scrollY;
-
     const getHeaderOffset = () => {
       if (!header) return 0;
       const styles = window.getComputedStyle(header);
@@ -95,9 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       return header.getBoundingClientRect().height;
     };
-
     const computeBoundary = () => {
-      // Temporarily remove transform to get natural DOM position
       const currentTransform = nextSection.style.transform;
       nextSection.style.transform = 'none';
       const rect = nextSection.getBoundingClientRect();
@@ -105,24 +104,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const adjusted = rect.top + window.scrollY - getHeaderOffset();
       return Math.max(0, adjusted);
     };
-
     let boundary = computeBoundary();
-
     const lerp = (from, to, t) => from + (to - from) * t;
     const easeInOutCubic = (t) =>
       t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
     const applySceneInstant = (target) => {
       const heroState = heroStates[target];
       hero.style.transform = `translate3d(0, ${heroState.translateY.toFixed(2)}px, 0) scale(${heroState.scale.toFixed(3)})`;
       hero.style.opacity = heroState.opacity.toFixed(3);
-
       const sectionState = sectionStates[target];
       nextSection.style.transform = `translate3d(0, ${sectionState.translateY.toFixed(2)}px, 0)`;
       nextSection.style.opacity = sectionState.opacity.toFixed(3);
-
       overlay.style.opacity = overlayStates[target].toFixed(3);
-
       if (target === 'hero') {
         nextSection.style.pointerEvents = 'none';
         body.classList.add('scene-hero');
@@ -133,55 +126,46 @@ document.addEventListener('DOMContentLoaded', () => {
         body.classList.remove('scene-hero');
       }
     };
-
+    const overlay = document.createElement('div');
+    overlay.className = 'scene-overlay';
+    body.appendChild(overlay);
     applySceneInstant(scene);
     window.scrollTo(0, 0);
-
     const animateScene = (target) => {
       if (target === scene || animating) return;
       animating = true;
       body.classList.add('scene-transition');
-
       const startScene = scene;
       const startScroll = window.scrollY;
       boundary = computeBoundary();
       const endScroll = target === 'body' ? boundary : 0;
       const duration = 900;
-
       const heroStart = heroStates[startScene];
       const heroEnd = heroStates[target];
       const sectionStart = sectionStates[startScene];
       const sectionEnd = sectionStates[target];
       const overlayStart = overlayStates[startScene];
       const overlayEnd = overlayStates[target];
-
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
-
       const startTime = performance.now();
-
       const step = (now) => {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const eased = easeInOutCubic(progress);
-
         const heroY = lerp(heroStart.translateY, heroEnd.translateY, eased);
         const heroScale = lerp(heroStart.scale, heroEnd.scale, eased);
         const heroOpacity = lerp(heroStart.opacity, heroEnd.opacity, eased);
         hero.style.transform = `translate3d(0, ${heroY.toFixed(2)}px, 0) scale(${heroScale.toFixed(3)})`;
         hero.style.opacity = heroOpacity.toFixed(3);
-
         const sectionY = lerp(sectionStart.translateY, sectionEnd.translateY, eased);
         const sectionOpacity = lerp(sectionStart.opacity, sectionEnd.opacity, eased);
         nextSection.style.transform = `translate3d(0, ${sectionY.toFixed(2)}px, 0)`;
         nextSection.style.opacity = sectionOpacity.toFixed(3);
-
         const overlayOpacity = lerp(overlayStart, overlayEnd, eased);
         overlay.style.opacity = overlayOpacity.toFixed(3);
-
         const scrollY = lerp(startScroll, endScroll, eased);
         window.scrollTo(0, scrollY);
-
         if (progress < 1) {
           requestAnimationFrame(step);
         } else {
@@ -200,10 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
           animating = false;
         }
       };
-
       requestAnimationFrame(step);
     };
-
     const wheelHandler = (event) => {
       if (animating) {
         event.preventDefault();
@@ -221,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     };
-
     const keyHandler = (event) => {
       if (animating) {
         event.preventDefault();
@@ -237,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
         key === 'PageUp' ||
         key === 'Home' ||
         (key === 'Space' && event.shiftKey);
-
       if (scene === 'hero' && wantsDown) {
         event.preventDefault();
         animateScene('body');
@@ -249,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     };
-
     const scrollGuard = () => {
       if (animating) {
         lastScrollY = window.scrollY;
@@ -272,11 +251,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       lastScrollY = current;
     };
-
     window.addEventListener('wheel', wheelHandler, { passive: false });
     window.addEventListener('keydown', keyHandler, { passive: false });
     window.addEventListener('scroll', scrollGuard, { passive: true });
-
     window.addEventListener('resize', () => {
       boundary = computeBoundary();
       if (!animating && scene === 'body') {
@@ -315,11 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
       animatedEls.forEach((el) => obs.observe(el));
     }
   }
-
   document.querySelectorAll('.gallery-grid .neon-card').forEach((el) => {
     el.classList.add('visible');
   });
-
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
   if (navToggle && navMenu) {
