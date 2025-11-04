@@ -14,6 +14,24 @@
     padding: 2.5rem 1rem;
   }
 
+  /*
+   * Visibility fix for .animate elements
+   *
+   * On mobile devices, IntersectionObserver may not always add the
+   * `.visible` class before the user scrolls, causing content inside
+   * elements with the `.animate` class to remain hidden (opacity set to
+   * 0 in the base styles).  To ensure that key sections of the home
+   * page remain visible on mobile, we override the opacity and transform
+   * here.  These declarations are marked `!important` so they take
+   * precedence over the base `.animate` styles.  When the user scrolls
+   * and the observer adds `.visible`, the transition will still occur
+   * smoothly because `.visible` has higher specificity.
+   */
+  .animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   /* Navigation menu: expand to full width and improve tap targets */
   nav ul {
     width: 100%;
