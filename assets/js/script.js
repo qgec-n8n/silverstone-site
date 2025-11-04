@@ -233,6 +233,15 @@ document.addEventListener('DOMContentLoaded', () => {
    * brand palette.  This block applies only to screens up to 768px.
    */
   const mobileNavStyles = `
+    /*
+       Override the default header height variable to make the maximized menu
+       banner slightly taller.  The clamp ensures the header scales
+       smoothly between a minimum and maximum size across breakpoints.
+    */
+    :root {
+      --headerH: clamp(72px, 8.5vh, 96px);
+    }
+
     /* Base styling for the header indicator on larger screens.  A
        neon gradient bar appears across the top when the header is
        hidden.  On hover the bar expands to the full header height.
@@ -241,13 +250,15 @@ document.addEventListener('DOMContentLoaded', () => {
     #header-indicator {
       position: fixed;
       top: 0;
-      left: 0;
-      width: 100%;
+      /* Centre the minimized banner and set its width to half that of the header. */
+      left: 50%;
+      width: 50%;
       /* Increase the default height to present a more substantial banner.
          Rounded bottom corners and a subtle border give it a polished edge.
          A luminous gradient combined with a soft blur conveys a premium,
          high‑tech feel. */
-      height: 12px;
+      /* Increase the minimized banner height on desktop for greater visibility */
+      height: 20px;
       background: linear-gradient(
         90deg,
         var(--color-blue),
@@ -271,12 +282,15 @@ document.addEventListener('DOMContentLoaded', () => {
       cursor: pointer;
       z-index: 1500;
       opacity: 0;
-      transform: translateY(-100%);
+      /* Translate both horizontally and vertically so that the banner slides up off
+         screen when inactive and remains centred. */
+      transform: translate(-50%, -100%);
       transition: height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
     }
     #header-indicator.active {
       opacity: 1;
-      transform: translateY(0);
+      /* Keep the banner centred when visible. */
+      transform: translate(-50%, 0);
     }
     #header-indicator:hover {
       height: var(--headerH);
@@ -379,12 +393,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       /* Mobile header indicator overrides */
       #header-indicator {
+        /* On mobile the indicator should span the full width of the viewport.
+           Reset left and width to fill the screen and adjust the transform so
+           it slides vertically rather than diagonally.  We keep the larger
+           height and darker background for a clearly visible bar. */
+        width: 100%;
+        left: 0;
         height: 44px;
         background: rgba(11, 12, 16, 0.88);
         backdrop-filter: blur(12px) saturate(160%);
         box-shadow: none;
+        transform: translateY(-100%);
+      }
+      #header-indicator.active {
+        transform: translateY(0);
       }
       #header-indicator:hover {
+        /* Disable expansion on hover for mobile; height remains constant. */
         height: 44px;
       }
     }
