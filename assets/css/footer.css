@@ -1,20 +1,24 @@
 /* Footer styles for Silverstone site */
 
 /* Root footer wrapper */
+/*
+ * The footer now uses a light background to create contrast with the dark sections above.
+ * Text and links have been adjusted to darker colours for legibility on white.
+ */
 .site-footer {
-  background-color: var(--color-black);
+  background-color: #ffffff;
   padding: 3rem 1rem;
-  color: var(--color-silver);
+  color: var(--color-black);
   font-size: 0.9rem;
 }
 
 /* Basic link styling within footer */
+/* Links within the footer inherit the base colours and change on hover. */
 .site-footer a {
   color: var(--color-blue);
   text-decoration: none;
   transition: color 0.3s ease;
 }
-
 .site-footer a:hover {
   color: var(--color-green);
 }
@@ -39,10 +43,11 @@
   margin-bottom: 0.75rem;
 }
 
+/* Tagline uses a dark colour on the light background */
 .footer-brand .tagline {
   font-family: var(--font-heading);
   font-size: 1.1rem;
-  color: var(--color-silver);
+  color: var(--color-black);
 }
 
 /* Link, contact and social group containers */
@@ -52,12 +57,13 @@
   flex: 1 1 180px;
 }
 
+/* Section headings in the footer use dark text to stand out on white */
 .footer-links h4,
 .footer-contact h4,
 .footer-social h4 {
   font-family: var(--font-heading);
   font-size: 1rem;
-  color: var(--color-blue);
+  color: var(--color-black);
   margin-bottom: 0.5rem;
 }
 
@@ -72,12 +78,12 @@
   margin-bottom: 0.25rem;
 }
 
+/* Quick links adopt dark text with a coloured hover */
 .footer-links a {
-  color: var(--color-silver);
+  color: var(--color-black);
 }
-
 .footer-links a:hover {
-  color: var(--color-green);
+  color: var(--color-blue);
 }
 
 /* Contact details */
@@ -92,23 +98,24 @@
   align-items: center;
 }
 
+/* Social icons adopt the primary brand colour and change on hover */
 .footer-social .social-icons a {
   font-size: 1.5rem;
-  color: var(--color-green);
+  color: var(--color-blue);
   transition: color 0.3s ease;
 }
-
 .footer-social .social-icons a:hover {
-  color: var(--color-purple);
+  color: var(--color-green);
 }
 
 /* Bottom bar */
+/* Bottom bar uses a subtle border and dark text on white */
 .footer-bottom {
   text-align: center;
   margin-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 1rem;
-  color: var(--color-silver);
+  color: var(--color-black);
 }
 
 /* Responsive adjustments */

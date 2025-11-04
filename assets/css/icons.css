@@ -1,0 +1,71 @@
+/*
+ * Custom icon font integration for bullet and check mark styling.
+ *
+ * This stylesheet defines the Font Awesome font faces locally and
+ * provides a utility class `.icon-list` to replace default bullets with
+ * check icons throughout the site. To apply, add `class="icon-list"`
+ * to any unordered list (`<ul>`) whose list items should display
+ * Font Awesome check marks instead of default bullets.
+ */
+
+@font-face {
+  font-family: 'fa-solid';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../webfonts/fa-solid-900.woff2') format('woff2'),
+       url('../webfonts/fa-solid-900.ttf') format('truetype');
+}
+
+/* Icon list styling */
+.icon-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.icon-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.icon-list li::before {
+  /* Unicode for Font Awesome check icon */
+  content: '\f00c';
+  font-family: 'fa-solid';
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  /* Use the brand green to tie into the site’s colour palette */
+  color: var(--color-green);
+}
+
+/*
+ * Reset list styling within service sections and discovery call info. Lists will use
+ * manually inserted <i> icons for each item rather than automatically applied
+ * pseudo‑elements. These rules remove default bullets and ensure consistent
+ * spacing between icons and text. Colours are set to blend with the neon theme.
+ */
+.service-content ul,
+.discovery-call-content .info ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.service-content ul li,
+.discovery-call-content .info ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-silver);
+}
+
+.service-content ul li i,
+.discovery-call-content .info ul li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
