@@ -19,9 +19,9 @@
   <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- Neon fix to ensure correct stacking for animated overlays -->
   <style id="neon-fix">
-    .section.bg-circuit { position: relative; isolation: isolate; }
-    .section.bg-circuit::before { z-index: 0; pointer-events: none; }
-    .section.bg-circuit > .container { position: relative; z-index: 1; }
+    .section.bg-waves { position: relative; isolation: isolate; }
+    .section.bg-waves::before { z-index: 0; pointer-events: none; }
+    .section.bg-waves > .container { position: relative; z-index: 1; }
     .neon-card { position: relative; z-index: 2; }
     .service-row, .service-image, .service-content { position: relative; z-index: 2; }
   </style>
@@ -32,7 +32,7 @@
         background-image: url('assets/images/internet/hero/contact-hero-final.webp');
         background-image: image-set(
           url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,
-          url('assets/images/internet/hero/contact-hero-final.webp') type('image/jpeg') 1x
+          url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x
         );
       }
     }
@@ -82,7 +82,7 @@
     </div>
   </section>
   <!-- Contact section -->
-  <section class="section bg-circuit animate">
+  <section class="section bg-waves animate">
     <div class="container">
       <h2 class="section-title" style="text-align:left;">Contact Us</h2>
       <div class="contact-grid">
