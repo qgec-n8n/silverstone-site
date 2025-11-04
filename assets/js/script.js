@@ -250,15 +250,17 @@ document.addEventListener('DOMContentLoaded', () => {
     #header-indicator {
       position: fixed;
       top: 0;
-      /* Centre the minimized banner and set its width to half that of the header. */
-      left: 50%;
-      width: 50%;
+      /* The minimized banner spans the full width of the viewport on desktop. */
+      left: 0;
+      width: 100%;
       /* Increase the default height to present a more substantial banner.
          Rounded bottom corners and a subtle border give it a polished edge.
          A luminous gradient combined with a soft blur conveys a premium,
          high‑tech feel. */
-      /* Increase the minimized banner height on desktop for greater visibility */
-      height: 20px;
+      /* Set the minimized banner height to half of the maximized header height for
+         a clear proportional relationship.  Uses the CSS variable so it scales
+         consistently across breakpoints. */
+      height: calc(var(--headerH) / 2);
       background: linear-gradient(
         90deg,
         var(--color-blue),
@@ -282,15 +284,14 @@ document.addEventListener('DOMContentLoaded', () => {
       cursor: pointer;
       z-index: 1500;
       opacity: 0;
-      /* Translate both horizontally and vertically so that the banner slides up off
-         screen when inactive and remains centred. */
-      transform: translate(-50%, -100%);
+      /* Translate vertically only so the indicator slides off screen when hidden. */
+      transform: translateY(-100%);
       transition: height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
     }
     #header-indicator.active {
       opacity: 1;
-      /* Keep the banner centred when visible. */
-      transform: translate(-50%, 0);
+      /* The banner simply slides down into view on desktop. */
+      transform: translateY(0);
     }
     #header-indicator:hover {
       height: var(--headerH);
