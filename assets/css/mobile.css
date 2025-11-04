@@ -485,26 +485,26 @@
   .section.bg-city,
   .section.bg-mesh,
   .section.bg-waves {
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    background-position: center !important;
   }
 
   /* Specific backgrounds with integrated overlay */
   .section.bg-lines {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-abstract-lines.webp');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-abstract-lines.webp') !important;
   }
   .section.bg-circuit {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-circuit.webp');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-circuit.webp') !important;
   }
   .section.bg-city {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-city.webp');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-city.webp') !important;
   }
   .section.bg-mesh {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-mesh.webp');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-mesh.webp') !important;
   }
   .section.bg-waves {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-waves.webp');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-waves.webp') !important;
   }
 
   /* Hide the default overlay pseudo‑elements on these sections */
