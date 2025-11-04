@@ -468,68 +468,51 @@
  * precedence over earlier declarations and do not disturb existing layouts.
  */
 
-/* Desktop parallax: fix the body and hero backgrounds */
+/*
+ * Section parallax (desktop)
+ *
+ * On larger screens, fix the background images of our themed sections so
+ * that the content scrolls smoothly over a static scene.  We merge the
+ * dark overlay with each background using multiple backgrounds, and
+ * disable the existing ::before overlay pseudo‑element to prevent
+ * duplicate shading.  This only applies when motion isn’t reduced and
+ * the viewport is wide enough to support parallax.
+ */
 @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
-  body {
-    /* Use the Silverstone circuit artwork with a dark overlay for a high‑tech vibe */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), url('../images/internet/section-circuit.webp');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+  /* Generic rules for all themed sections */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-city,
+  .section.bg-mesh,
+  .section.bg-waves {
     background-attachment: fixed;
-  }
-
-  /* Ensure hero backgrounds remain fixed, overriding custom.css */
-  .hero,
-  .hero.title-band {
-    background-attachment: fixed !important;
     background-size: cover;
     background-position: center;
   }
 
-  /* Restore the overlay on the hero for legibility */
-  .hero::before {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.60)) !important;
+  /* Specific backgrounds with integrated overlay */
+  .section.bg-lines {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-abstract-lines.webp');
   }
-}
-
-/* Mobile parallax: simulate fixed background using ::before */
-@media (max-width: 768px) {
-  /* Reset body background to avoid duplicate images on mobile */
-  body {
-    background-image: none !important;
-    background-attachment: scroll !important;
+  .section.bg-circuit {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-circuit.webp');
   }
-
-  /* Insert a fixed pseudo‑element behind the page to hold the circuit art */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), url('../images/internet/section-circuit.webp');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    z-index: -9999;
-    pointer-events: none;
-    transform: translateZ(0);
+  .section.bg-city {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-city.webp');
+  }
+  .section.bg-mesh {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-mesh.webp');
+  }
+  .section.bg-waves {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-waves.webp');
   }
 
-  /* Hide the direct background on heroes and move their image into a pseudo‑element */
-  .hero {
-    background-image: none !important;
-  }
-  .hero::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: var(--mobile-hero-image);
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    z-index: -998;
+  /* Hide the default overlay pseudo‑elements on these sections */
+  .section.bg-lines::before,
+  .section.bg-circuit::before,
+  .section.bg-city::before,
+  .section.bg-mesh::before,
+  .section.bg-waves::before {
+    display: none !important;
   }
 }
