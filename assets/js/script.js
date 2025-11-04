@@ -379,51 +379,35 @@ document.addEventListener('DOMContentLoaded', () => {
         background: rgba(0, 174, 239, 0.15);
         color: var(--color-blue);
       }
-      /* Premium hamburger icon styling and transformation.  The icon is
-         circular with a subtle glow and gradient bars.  When activated
-         the bars morph smoothly into a cross, and the entire icon rotates
-         for an elevated high‑tech effect. */
+      /* Hamburger icon styling and transformation */
       .nav-toggle {
-        position: relative;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 50%;
-        background: radial-gradient(circle at center, rgba(15, 17, 22, 0.85), rgba(8, 9, 13, 0.95));
-        border: 1px solid rgba(0, 174, 239, 0.3);
-        box-shadow: 0 0 6px rgba(0, 174, 239, 0.25), 0 0 12px rgba(157, 78, 221, 0.15);
+        width: 2rem;
+        height: 2rem;
         cursor: pointer;
         z-index: 2500;
-        transition: transform 0.4s ease;
-      }
-      .nav-toggle:hover {
-        transform: scale(1.05);
       }
       .nav-toggle span {
-        width: 1.6rem;
+        width: 100%;
         height: 2px;
-        background: linear-gradient(90deg, var(--color-green), var(--color-blue));
-        border-radius: 2px;
-        margin: 0.3rem 0;
+        background-color: var(--color-green);
+        margin-bottom: 4px;
         transition: transform 0.4s ease, opacity 0.4s ease;
       }
       .nav-toggle span:last-child {
         margin-bottom: 0;
       }
-      .nav-toggle.active {
-        transform: rotate(180deg);
-      }
       .nav-toggle.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+        transform: translateY(6px) rotate(45deg);
       }
       .nav-toggle.active span:nth-child(2) {
         opacity: 0;
-        transform: scaleX(0);
       }
       .nav-toggle.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-6px) rotate(-45deg);
       }
       /* Mobile header indicator overrides */
       #header-indicator {
