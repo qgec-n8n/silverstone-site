@@ -43,13 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Intersection observer: reveal elements with the `.animate` class
   // when they enter the viewport.  This replicates the lightweight
   // reveal behaviour from the original script.  Reduced motion
-  // preferences are respected.
+  // preferences are respected.  On mobile viewports we immediately
+  // reveal all animated elements so that content remains visible even
+  // if the IntersectionObserver has not yet triggered.
   const prefersReducedMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   ).matches;
   const animatedEls = document.querySelectorAll('.animate');
+  // Determine if the viewport qualifies as mobile (<=768px) for immediate reveal
+  const mobileViewportForAnimations = window.matchMedia('(max-width: 768px)').matches;
   if (animatedEls.length > 0) {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || mobileViewportForAnimations) {
       animatedEls.forEach((el) => el.classList.add('visible'));
     } else {
       const obs = new IntersectionObserver((entries) => {
