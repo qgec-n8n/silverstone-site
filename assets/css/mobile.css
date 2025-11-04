@@ -138,7 +138,16 @@
     background-repeat: no-repeat;
   }
 
-  /* FAQ section mobile layout */
+  /*
+   * FAQ section mobile layout
+   *
+   * The default home page FAQ uses a single-column grid sized to the
+   * widest question.  On narrow screens this can cause the cards to
+   * overflow the viewport.  We switch the container to a vertical flex
+   * layout so each item spans the full width of the page.  Each
+   * `<details>` element is allowed to grow to 100% width, preventing
+   * horizontal scrolling.  The existing neon-card styles still apply.
+   */
   .faq-section .faq-list {
     display: flex;
     flex-direction: column;
@@ -470,57 +479,5 @@
   .page-book .discovery-call-content .widget .calendly-inline-widget {
     min-height: 500px;
   }
-}
 
-/*
- * Mobile and tablet parallax effect for the entire page and hero backgrounds
- *
- * The following rules introduce a high‑tech parallax effect across all
- * sections of the site on screens up to 900px wide. A fixed pseudo‑element
- * on the body holds a dark, futuristic circuit background with a subtle
- * gradient overlay. Each hero additionally uses its `--mobile-hero-image`
- * variable in a fixed `::before` layer to create the impression of a
- * static background during scroll. The `z‑index` values ensure that
- * hero images sit above the global background but beneath the content.
- */
-@media (max-width: 900px) {
-  /* Ensure normal background scrolling on mobile */
-  body {
-    background-attachment: scroll;
-  }
-  /* Fixed circuit background behind all content */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(2, 6, 23, 0.85), rgba(2, 6, 23, 0.95)),
-      url('../images/internet/section-circuit.webp');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    z-index: -999;
-    pointer-events: none;
-    transform: translateZ(0);
-  }
-
-  /* Hide original hero background to avoid duplication */
-  .hero {
-    background-image: none !important;
-  }
-  /* Fixed hero background using page‑specific image */
-  .hero::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
-      var(--mobile-hero-image);
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    z-index: -998;
-    pointer-events: none;
-    transform: translateZ(0);
-  }
 }
