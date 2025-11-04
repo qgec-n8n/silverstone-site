@@ -171,6 +171,22 @@
     <!-- New footer styles -->
     <link rel="stylesheet" href="assets/css/footer.css" />
   <link rel="stylesheet" href="assets/css/icons.css" />
+    <!-- Parallax body section effect: fix background image on scroll for body sections (except hero) -->
+    <style>
+      @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+        /* Fix backgrounds in place so text scrolls over them. Includes all themed sections and the discovery call. */
+        .section.bg-lines,
+        .section.bg-circuit,
+        .section.bg-city,
+        .section.bg-mesh,
+        .section.bg-waves,
+        .discovery-call-section {
+          background-attachment: fixed !important;
+          background-size: cover !important;
+          background-position: center !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Cookie consent banner -->

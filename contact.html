@@ -25,6 +25,21 @@
     .neon-card { position: relative; z-index: 2; }
     .service-row, .service-image, .service-content { position: relative; z-index: 2; }
   </style>
+  <!-- Apply parallax effect to all body sections (excluding the hero) -->
+  <style>
+    @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+      .section.bg-lines,
+      .section.bg-circuit,
+      .section.bg-city,
+      .section.bg-mesh,
+      .section.bg-waves,
+      .discovery-call-section {
+        background-attachment: fixed !important;
+        background-size: cover !important;
+        background-position: center !important;
+      }
+    }
+  </style>
   <!-- Serve smaller hero background on narrow screens -->
   <style>
     @media (max-width: 900px) {

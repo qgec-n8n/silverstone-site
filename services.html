@@ -56,6 +56,21 @@
         }
       }
     </style>
+    <!-- Apply parallax effect to all body sections (excluding the hero) -->
+    <style>
+      @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+        .section.bg-lines,
+        .section.bg-circuit,
+        .section.bg-city,
+        .section.bg-mesh,
+        .section.bg-waves,
+        .discovery-call-section {
+          background-attachment: fixed !important;
+          background-size: cover !important;
+          background-position: center !important;
+        }
+      }
+    </style>
   </head>
   <body class="page-services">
     <div id="cookie-banner" class="cookie-banner">
