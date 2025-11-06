@@ -518,7 +518,8 @@
   .section.bg-circuit,
   .section.bg-city,
   .section.bg-mesh,
-  .section.bg-waves {
+  .section.bg-waves,
+  .page-book .discovery-call-section {
     background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center !important;
