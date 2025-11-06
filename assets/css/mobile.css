@@ -1,0 +1,552 @@
+/* Mobile overrides for Silverstone site */
+/*
+  This stylesheet contains mobile‑specific refinements to improve the
+  layout and usability of the Silverstone website on small screens.
+  Desktop styles remain untouched; everything here is wrapped in a
+  media query targeting devices 768px wide or narrower. These
+  overrides stack grids, adjust typography and spacing, and provide
+  full‑width menus and buttons to create a premium mobile experience.
+*/
+
+@media (max-width: 768px) {
+  /* Reduce default section padding to avoid excessive vertical space on small screens */
+  .section {
+    padding: 2.5rem 1rem;
+  }
+
+  /*
+   * Mobile `.animate` elements
+   *
+   * The reveal animation for `.animate` elements is now handled by
+   * JavaScript.  On small screens the script adds the `.visible` class
+   * immediately to ensure content is displayed without overriding the
+   * opacity or transform properties in CSS.  Leaving this block empty
+   * preserves the section of the file for future mobile‑specific
+   * adjustments if required.
+   */
+
+
+  /* Navigation menu: expand to full width and improve tap targets */
+  nav ul {
+    width: 100%;
+    max-width: none;
+    right: 0;
+    left: 0;
+    top: 100%;
+    text-align: left;
+    gap: 1rem;
+  }
+  nav ul li {
+    width: 100%;
+  }
+  nav ul li a {
+    display: block;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    color: var(--color-black);
+  }
+
+  /* Features section: stack cards vertically */
+  .features {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .feature-card {
+    max-width: 100%;
+  }
+
+  /* Packages grid (Our Services on the home page) */
+  .packages-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Pricing grid on home and services pages */
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Values cards: convert to a single column */
+  .values {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .value-card {
+    max-width: 100%;
+  }
+
+  /* Hero typography adjustments for better readability */
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+
+  /* Buttons in hero: stack vertically and span full width */
+  .hero .content a + a {
+    margin-left: 0;
+    margin-top: 0.75rem;
+  }
+  .hero .content a {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Contact page grid: stack form and map */
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .contact-grid > * {
+    width: 100%;
+  }
+  .contact-form-card,
+  .contact-map-card {
+    margin-bottom: 0;
+  }
+
+  /* Service page rows: adjust spacing and typography */
+  .service-row {
+    margin-bottom: 0;
+  }
+  .service-row:not(:last-child) {
+    margin-bottom: 2.5rem;
+  }
+  .service-content {
+    padding: 1.5rem;
+  }
+  .service-content h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Pricing cards: adjust padding */
+  .pricing-grid .neon-card {
+    padding: 1.5rem;
+  }
+
+  /* Centre footer content on mobile */
+  footer {
+    text-align: center;
+  }
+
+  /*
+   * Mobile hero background fallback
+   *
+   * On some mobile browsers the parallax technique using a fixed ::before
+   * layer can fail to display the hero image.  As a safeguard we assign
+   * the mobile hero image directly to the `.hero` element so there is
+   * always a visible background.  The custom property `--mobile-hero-image`
+   * is defined inline on each page.  Background sizing and positioning
+   * mirror the desktop layout and ensure the image covers the hero area.
+   */
+  .hero {
+    background-image: var(--mobile-hero-image);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+
+  /*
+   * FAQ section mobile layout
+   *
+   * The default home page FAQ uses a single-column grid sized to the
+   * widest question.  On narrow screens this can cause the cards to
+   * overflow the viewport.  We switch the container to a vertical flex
+   * layout so each item spans the full width of the page.  Each
+   * `<details>` element is allowed to grow to 100% width, preventing
+   * horizontal scrolling.  The existing neon-card styles still apply.
+   */
+  .faq-section .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+    width: 100%;
+  }
+  .faq-section .faq-list details {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /*
+   * Feature and value cards padding
+   *
+   * Reduce the internal padding on the Streamline/Optimize/Succeed cards
+   * (home page) and Our Values cards (about page) so the coloured
+   * neon border closely hugs the content.  This adjustment tightens
+   * the boxes on mobile without affecting the desktop layout.
+   */
+  /*
+   * Override neon-card padding on feature and value cards.
+   * Use a more specific selector and `!important` to supersede
+   * the base `.neon-card` padding defined in the global styles.
+   */
+  /*
+   * Tighten padding and margins on feature and value cards
+   *
+   * The Streamline/Optimize/Succeed cards on the home page and the
+   * Our Values cards on the about page should have their neon borders
+   * hug the content closely on mobile.  Reduce the internal padding
+   * and collapse paragraph and heading margins.  Use `!important` to
+   * override earlier declarations.
+   */
+  .features .feature-card.neon-card,
+  .values .value-card.neon-card {
+    padding: 0.5rem !important;
+  }
+  .features .feature-card.neon-card p,
+  .values .value-card.neon-card p {
+    margin-bottom: 0.25rem !important;
+  }
+  .features .feature-card.neon-card h3,
+  .values .value-card.neon-card h4 {
+    margin-bottom: 0.4rem !important;
+  }
+  /*
+   * Remove forced equal heights and stretching on mobile
+   *
+   * Reset the flex properties on feature and value cards so they
+   * grow naturally based on their content.  Without this, the cards
+   * stretch to fill the available width in their flex container,
+   * causing the neon borders to overshoot the text.  Setting
+   * `flex: none` and switching to block layout prevents this
+   * stretching while still allowing full‑width stacking when needed.
+   */
+  .features .feature-card,
+  .values .value-card {
+    display: block !important;
+    height: auto !important;
+    flex: none !important;
+  }
+
+  /* Remove extra margin on service images and contents to collapse gaps */
+  .page-services .service-row .service-image,
+  .page-services .service-row .service-content {
+    margin: 0 !important;
+  }
+
+  /*
+   * Services mobile cards
+   *
+   * Transform each service block into a single cohesive card with a
+   * premium glow, tightened spacing and a consistent image ratio. The
+   * previous layout stacked a neon content card beneath a standalone
+   * image which introduced large vertical gaps. By treating the entire
+   * service row as one component we reduce the dead space while keeping
+   * the imagery and copy visually connected.
+   */
+  .page-services .service-row {
+    position: relative;
+    display: flex !important;
+    flex-direction: column;
+    gap: 1.15rem;
+    padding: 1.25rem;
+    border-radius: 1.75rem;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(148deg, rgba(12, 19, 38, 0.96), rgba(6, 11, 25, 0.96)) padding-box,
+      linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(14, 165, 233, 0.3), rgba(236, 72, 153, 0.4)) border-box;
+    background-clip: padding-box, border-box;
+    box-shadow:
+      0 28px 60px -20px rgba(15, 23, 42, 0.85),
+      0 0 0 1px rgba(148, 163, 184, 0.12) inset;
+    isolation: isolate;
+    overflow: hidden;
+    backdrop-filter: blur(18px) saturate(135%);
+  }
+  .page-services .service-row::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      120% 120% at 50% -10%,
+      rgba(96, 165, 250, 0.22),
+      rgba(14, 165, 233, 0.08) 45%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+  .page-services .service-row .service-image,
+  .page-services .service-row .service-content {
+    position: relative;
+    z-index: 1;
+  }
+  .page-services .service-row .service-image {
+    position: relative;
+    order: -1;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    box-shadow: 0 22px 44px -18px rgba(15, 23, 42, 0.75);
+  }
+  .page-services .service-row .service-image::before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-top: 60%;
+  }
+  @supports (aspect-ratio: 16 / 10) {
+    .page-services .service-row .service-image::before {
+      display: none;
+    }
+    .page-services .service-row .service-image {
+      aspect-ratio: 16 / 10;
+    }
+  }
+  .page-services .service-row .service-image img {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block;
+    filter: saturate(1.05) contrast(1.05);
+  }
+  .page-services .service-row .service-content.neon-card {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+  .page-services .service-row .service-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 0;
+    color: rgba(241, 245, 249, 0.95);
+  }
+  .page-services .service-row .service-content h3 {
+    color: #f8fafc;
+    letter-spacing: 0.03em;
+    font-size: 1.45rem;
+    margin: 0.25rem 0 0.35rem;
+  }
+  .page-services .service-row .service-content p,
+  .page-services .service-row .service-content li {
+    color: rgba(226, 232, 240, 0.92);
+  }
+  .page-services .service-row .service-content p {
+    margin: 0;
+    line-height: 1.65;
+  }
+  .page-services .service-row .service-content ul {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .page-services .service-row .service-content ul li {
+    position: relative;
+    padding-left: 1.45rem;
+    line-height: 1.55;
+  }
+  .page-services .service-row .service-content ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    transform: translateY(-50%);
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #38bdf8, #a855f7);
+    box-shadow:
+      0 0 0 2px rgba(15, 23, 42, 0.35),
+      0 0 12px rgba(168, 85, 247, 0.55);
+  }
+  .page-services .service-row .service-content .btn {
+    width: 100%;
+    background: linear-gradient(135deg, #1e3a8a, #7c3aed, #ec4899);
+    border: none;
+    color: #f8fafc;
+    box-shadow:
+      0 18px 30px -15px rgba(59, 130, 246, 0.65),
+      0 0 0 1px rgba(148, 163, 184, 0.15) inset;
+    transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .page-services .service-row .service-content .btn:hover,
+  .page-services .service-row .service-content .btn:focus {
+    background: linear-gradient(135deg, #2563eb, #8b5cf6, #f472b6);
+    box-shadow:
+      0 22px 36px -16px rgba(59, 130, 246, 0.75),
+      0 0 0 1px rgba(148, 163, 184, 0.2) inset;
+    transform: translateY(-1px);
+  }
+
+  /* Increase map size and ensure spacing before footer */
+  .contact-map-card {
+    margin-bottom: 2rem;
+  }
+  .contact-map-card .map-container iframe {
+    height: 350px;
+  }
+
+  /*
+   * Contact page map
+   *
+   * Ensure the Google Maps iframe is contained within its card on mobile.
+   * We use a responsive wrapper with a 16:9 aspect ratio to maintain
+   * consistent sizing across devices.  The iframe fills the wrapper,
+   * avoids horizontal overflow and has no border.  A modest maximum
+   * height prevents the map from dominating the page.
+   */
+  .contact-map-card .map-container {
+    width: 100%;
+    padding-top: 0;
+    height: auto;
+  }
+  .contact-map-card .map-container iframe {
+    width: 100%;
+    height: 300px;
+    border: 0;
+    display: block;
+  }
+
+  /*
+   * Additional improvements for mobile navigation and layout
+   *
+   * The desktop navigation is positioned absolutely and hidden via opacity in the
+   * base CSS. On mobile we want it to be hidden entirely until the user
+   * taps the hamburger button. Here we explicitly hide the nav menu by
+   * default and reveal it only when the `.open` class is present. This
+   * prevents accidental taps and removes horizontal scroll caused by
+   * overflowing menus. We also ensure there is no horizontal overflow on
+   * the entire page.
+   */
+  body {
+    overflow-x: hidden;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+  nav ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-white);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  nav ul.open {
+    display: block;
+  }
+  nav ul li {
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  nav ul li:last-child {
+    border-bottom: none;
+  }
+  nav ul li a {
+    padding: 0.75rem 1rem;
+    color: var(--color-black);
+    display: block;
+  }
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: var(--color-purple);
+  }
+
+  /* Resize hero section height on mobile: allow content to define height */
+  .hero {
+    min-height: auto;
+    height: auto;
+    padding-top: calc(var(--headerH) + 2rem);
+    padding-bottom: 4rem;
+  }
+  .hero .content {
+    margin-top: 0;
+  }
+
+  /* Services gallery on mobile: single column for better readability */
+  .page-services .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Discovery call section (book page): reduce excessive height and stack content */
+  .page-book .discovery-call-section {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+  .page-book .discovery-call-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .page-book .discovery-call-content .info,
+  .page-book .discovery-call-content .widget {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .page-book .discovery-call-content .widget .calendly-inline-widget {
+    min-height: 500px;
+  }
+}
+
+/*
+ * Parallax enhancements for Silverstone
+ *
+ * To achieve a premium scroll‑through experience similar to the DC Performance
+ * Coaching site, we layer a fixed background image behind the entire page
+ * on desktop and simulate this behaviour on mobile using a pseudo‑element.
+ * These rules are placed after all other overrides to ensure they take
+ * precedence over earlier declarations and do not disturb existing layouts.
+ */
+
+/*
+ * Section parallax (desktop)
+ *
+ * On larger screens, fix the background images of our themed sections so
+ * that the content scrolls smoothly over a static scene.  We merge the
+ * dark overlay with each background using multiple backgrounds, and
+ * disable the existing ::before overlay pseudo‑element to prevent
+ * duplicate shading.  This only applies when motion isn’t reduced and
+ * the viewport is wide enough to support parallax.
+ */
+@media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+  /* Generic rules for all themed sections */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-city,
+  .section.bg-mesh,
+  .section.bg-waves {
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+
+  /* Specific backgrounds with integrated overlay */
+  .section.bg-lines {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-abstract-lines.webp') !important;
+  }
+  .section.bg-circuit {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-circuit.webp') !important;
+  }
+  .section.bg-city {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-city.webp') !important;
+  }
+  .section.bg-mesh {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-mesh.webp') !important;
+  }
+  .section.bg-waves {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-waves.webp') !important;
+  }
+
+  /* Hide the default overlay pseudo‑elements on these sections */
+  .section.bg-lines::before,
+  .section.bg-circuit::before,
+  .section.bg-city::before,
+  .section.bg-mesh::before,
+  .section.bg-waves::before {
+    display: none !important;
+  }
+}

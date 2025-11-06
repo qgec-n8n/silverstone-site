@@ -1,0 +1,18 @@
+/* Parallax fix: unify parallax across all pages by ensuring animated sections do not carry a transform.
+   The reveal animation uses only opacity so background-attachment: fixed is respected.
+   If you need to adjust the animation further, update this file accordingly. */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Animate elements start hidden and fade in without any translate transform. */
+  .animate {
+    opacity: 0;
+    /* Remove transform from the reveal animation to preserve background-attachment: fixed */
+    transition: opacity 0.6s ease;
+  }
+  /* When an element becomes visible, simply set opacity to 1 and ensure no transform is applied. */
+  .animate.visible,
+  .visible {
+    opacity: 1;
+    transform: none !important;
+  }
+}
