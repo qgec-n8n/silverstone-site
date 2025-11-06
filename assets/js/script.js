@@ -255,6 +255,58 @@ document.addEventListener('DOMContentLoaded', () => {
   scheduleHeaderAutoHide();
 
   /*
+   * Numbers counter animation for statistics sections.
+   *
+   * This code locates each `.stats` container on the page and animates
+   * the contained `.number` elements from 0 to their respective
+   * `data-target` values when the section scrolls into view.  A plus
+   * sign can be appended by adding a `data-plus="+"` attribute to
+   * the number element.  If the user has enabled reduced motion in
+   * their operating system preferences, the numbers will immediately
+   * display their target values without animation.
+   */
+  const statsSections = document.querySelectorAll('.stats');
+  if (statsSections.length) {
+    const prefersReducedMotionCount = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Animate a single stats section
+    const animateSection = (section) => {
+      const numbers = section.querySelectorAll('.number');
+      numbers.forEach((number) => {
+        const target = parseInt(number.dataset.target, 10) || 0;
+        const plus = number.getAttribute('data-plus') || '';
+        // If reduced motion is requested, set the number immediately
+        if (prefersReducedMotionCount) {
+          number.textContent = target.toLocaleString() + plus;
+          return;
+        }
+        const duration = 1500; // total animation time in milliseconds
+        const startTime = performance.now();
+        function update(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const current = Math.floor(progress * target);
+          number.textContent = current.toLocaleString() + (progress === 1 ? plus : '');
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+      });
+    };
+    statsSections.forEach((section) => {
+      let hasAnimated = false;
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true;
+            animateSection(section);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      observer.observe(section);
+    });
+  }
+
+  /*
    * Inject dynamic styles to realise the overlay and indicator
    * aesthetics.  We leverage CSS variables defined in the global
    * stylesheet (styles.css) so the colours automatically match the
