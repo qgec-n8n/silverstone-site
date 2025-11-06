@@ -1,17 +1,17 @@
-/*! assets/js/hero-cinematic.js — v3 (hybrid, premium, controlled)
- * - Hybrid: depth camera push (predominant) + tasteful letterbox + bloom + body veil
- * - Plays on every crossing (hero↔body), locks input during timeline
- * - Honors header/indicator heights; safe with parallax (transforms only inner layers)
- * - Reduced-motion: instant snap; no bars/bloom/veil
+/*! assets/js/hero-cinematic.js — v4 (hybrid, premium, pronounced)
+ * - Deeper camera push + stronger bars plateau + visible bloom + body veil
+ * - Plays every crossing (hero↔body), locks input during timelines
+ * - Honors header/indicator heights; parallax-safe (inner transforms only)
+ * - Reduced-motion: instant snap (no bars/bloom/veil)
  */
 (function(){
   "use strict";
 
   var CONFIG = {
-    DURATION_MS: 2100,              // slower & premium
+    DURATION_MS: 2600,              // slower & clearly cinematic
     HEADER_VAR_NAME: "--headerH",
     BOUNDARY_THRESHOLD_PX: 28,
-    DISABLE_ON_WIDTH_BELOW: 0,      // set to >= 640 to disable on very small screens
+    DISABLE_ON_WIDTH_BELOW: 0,      // set to >= 640 to disable on small screens
     EASING: [0.16, 0.84, 0.22, 1.00] // controlled ease-in-out
   };
 
@@ -112,13 +112,27 @@
     }
   }
 
-  // Bars root element (viewport-anchored)
+  // Bars root element (viewport-anchored) with flare line
   function ensureBars(){
-    if(document.querySelector(".fx-bars")) return;
-    var bars=document.createElement("div");
-    bars.className="fx-bars";
-    bars.innerHTML='<div class="bar top"></div><div class="bar bottom"></div>';
-    document.body.appendChild(bars);
+    var bars=document.querySelector(".fx-bars");
+    if(!bars){
+      bars=document.createElement("div");
+      bars.className="fx-bars";
+      bars.innerHTML='<div class="bar top"></div><div class="bar bottom"></div><div class="flare"></div>';
+      document.body.appendChild(bars);
+    } else {
+      if(!bars.querySelector(".flare")){
+        var fl=document.createElement("div");
+        fl.className="flare";
+        bars.appendChild(fl);
+      }
+      if(!bars.querySelector(".bar.top")){
+        var bt=document.createElement("div"); bt.className="bar top"; bars.appendChild(bt);
+      }
+      if(!bars.querySelector(".bar.bottom")){
+        var bb=document.createElement("div"); bb.className="bar bottom"; bars.appendChild(bb);
+      }
+    }
   }
 
   function init(){
@@ -144,10 +158,10 @@
 
     ensureBars();
 
-    // Insert body veil on first section after hero (no transforms on the section itself)
+    // Insert body veil on first section after hero
     if(!next.querySelector(".fx-veil")){
       var cs=getComputedStyle(next);
-      if(cs.position === "static"){ next.style.position = "relative"; } // safe
+      if(cs.position === "static"){ next.style.position = "relative"; }
       var veil=document.createElement("div");
       veil.className="fx-veil";
       veil.setAttribute("aria-hidden","true");
@@ -171,6 +185,13 @@
       var startY=window.scrollY, delta=targetY-startY;
       var startTime=performance.now(), dur=CONFIG.DURATION_MS;
 
+      function plateau(x){
+        // widen the mid section: raised-cosine with plateau effect
+        // remap x via smoothstep to hold near 0.5 longer
+        var s = Math.sin(Math.PI * x);
+        return Math.pow(s, 0.7); // broader peak
+      }
+
       function tick(now){
         if(isOverlayOpen()){ isAnimating=false; lockInput(false); setBars(0); setBloom(0); setVeil(0); return; }
         var t=(now-startTime)/dur; t=clamp(t,0,1);
@@ -182,16 +203,16 @@
         var progress = (direction==="down") ? e : (1-e);
         setProgress(progress);
 
-        // Letterbox envelope: 0→1→0
-        var bars = Math.sin(Math.PI * e);
+        // Bars plateau
+        var bars = plateau(e);
         setBars(bars);
 
-        // Bloom: bell curve (peaks near mid), gentle amplitude
-        var bloom = Math.pow(Math.sin(Math.PI * e), 1.35) * 0.55;
+        // Bloom: stronger and clearly visible; bell curve with higher power
+        var bloom = Math.pow(Math.sin(Math.PI * e), 2.4); // 0..1
         setBloom(bloom);
 
-        // Veil over next section: down = 0.35→0, up = 0→0.35
-        var veil = (direction==="down") ? (0.35 * (1 - e)) : (0.35 * e);
+        // Veil over next section: down = 0.5→0, up = 0→0.5
+        var veil = (direction==="down") ? (0.5 * (1 - e)) : (0.5 * e);
         setVeil(veil);
 
         if(t<1 && isAnimating){
@@ -201,7 +222,7 @@
           setProgress(direction==="down" ? 1 : 0);
           setBars(0);
           setBloom(0);
-          setVeil(direction==="down" ? 0 : 0.35); // small hold when parking on hero
+          setVeil(direction==="down" ? 0 : 0.5); // slight parked veil when hero is foreground
           isAnimating=false; lockInput(false);
         }
       }
@@ -211,7 +232,7 @@
     function snapTo(y, progress){
       window.scrollTo({top:y, behavior:"auto"});
       setProgress(progress);
-      setBars(0); setBloom(0); setVeil(progress===1 ? 0 : 0.35);
+      setBars(0); setBloom(0); setVeil(progress===1 ? 0 : 0.5);
     }
 
     function tryDown(){
@@ -254,7 +275,7 @@
       if(isAnimating || isOverlayOpen()){ lastScrollY=window.scrollY; return; }
       var g=computeGeometry(hero,next), sy=window.scrollY, dir=sy-lastScrollY; lastScrollY=sy;
       if(dir>0 && sy < g.bodyAlignY - CONFIG.BOUNDARY_THRESHOLD_PX) tryDown();
-      else if(dir<0 && sy <= g.bodyAlignY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      else if(dir<0 && sy <= g.bodyAlignY + CONFIG.BOUN DARY_THRESHOLD_PX) tryUp();
     }
 
     // Initial sync
@@ -262,7 +283,7 @@
       var g=computeGeometry(hero,next);
       var past = window.scrollY >= g.bodyAlignY;
       setProgress(past ? 1 : 0);
-      setBars(0); setBloom(0); setVeil(past ? 0 : 0.35);
+      setBars(0); setBloom(0); setVeil(past ? 0 : 0.5);
     })();
 
     // Bind
