@@ -1,51 +1,100 @@
-/* assets/css/hero-cinematic.css
-   Cinematic hero→body transition. Isolated, GPU-friendly, accessible.
-   Tuning variables are driven from JS via --heroProgress.
+/* assets/css/hero-cinematic.css — v2 (enhanced cinematic)
+   - Stronger visual language: vignette, color grading, and letterbox bars
+   - GPU-friendly transforms; no transforms on parallax sections
+   - Controlled exclusively by --heroProgress (0→1) and --cineBars (0→1→0 mid-transition)
 */
-:root {
-  --heroProgress: 0; /* 0 (hero fully visible) → 1 (body aligned at top) */
+:root{
+  --heroProgress: 0;     /* 0 (hero fully visible) → 1 (body aligned) */
+  --cineBars: 0;         /* 0→1→0 envelope for letterbox bars during transition */
+  --fxVignetteMax: 0.55; /* max vignette strength */
+  --barH: clamp(40px, 7.5vh, 96px);
 }
 
-/* Ensure hero can host overlay layer without affecting backgrounds on other sections */
-.hero.title-band {
+.hero.title-band{
   position: relative;
-  isolation: isolate; /* keep internal stacking without touching header */
+  isolation: isolate;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
-/* Non-intrusive overlay for subtle vignette/atmospheric fade */
-.hero.title-band .fx-layer {
+/* Runtime overlay inserted by JS (kept inside the hero only) */
+.hero.title-band .fx-layer{
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: calc(var(--heroProgress) * 0.35);
-  background: radial-gradient(120% 100% at 50% 50%,
-              rgba(0,0,0,0.00) 0%,
-              rgba(0,0,0,0.05) 45%,
-              rgba(0,0,0,0.28) 100%);
-  will-change: opacity;
-  z-index: 0; /* below content */
+  z-index: 0; /* below .content and header */
+  /* Layer stack: subtle color grade + radial vignette */
+  background:
+    linear-gradient(180deg,
+      rgba(8,18,38,0.00) 0%,
+      rgba(8,18,38,0.18) 55%,
+      rgba(0,0,0,0.36) 100%),
+    radial-gradient(120% 100% at 50% 45%,
+      rgba(0,0,0,0.00) 0%,
+      rgba(0,0,0,0.06) 45%,
+      rgba(0,0,0,0.65) 100%);
+  opacity: calc(var(--heroProgress) * var(--fxVignetteMax));
+  /* Gentle background blur only during transition (kept very small) */
+  -webkit-backdrop-filter: blur(calc(var(--cineBars) * 1.2px));
+  backdrop-filter: blur(calc(var(--cineBars) * 1.2px));
+  will-change: opacity, backdrop-filter;
 }
 
-/* Drive content motion only; DO NOT transform section containers with parallax */
-.hero.title-band .content {
+/* Drive content motion only; never transform the section node to preserve fixed backgrounds */
+.hero.title-band .content{
   position: relative;
   z-index: 1;
-  transform: translate3d(0, calc(var(--heroProgress) * -8vh), 0)
-             scale(calc(1 - var(--heroProgress) * 0.04));
-  opacity: calc(1 - var(--heroProgress) * 0.15);
-  /* We update via JS/rAF — keep transitions effectively instantaneous to avoid sync issues */
-  transition: transform 0.001s linear, opacity 0.001s linear;
-  will-change: transform, opacity;
+  transform:
+    translate3d(0, calc(var(--heroProgress) * -10vh), 0)
+    scale(calc(1 - var(--heroProgress) * 0.08))
+    rotateX(calc(var(--heroProgress) * 1.2deg));
+  opacity: calc(1 - var(--heroProgress) * 0.12);
+  filter:
+    saturate(calc(1 + var(--heroProgress) * 0.12))
+    contrast(calc(1 + var(--heroProgress) * 0.06));
+  transition: transform 0.001s linear, opacity 0.001s linear, filter 0.001s linear;
+  will-change: transform, opacity, filter;
 }
 
-/* Input lock helper to avoid overscroll stutter during timelines */
-html.cine-locked, body.cine-locked {
+/* Optional micro-typography richness without layout thrash */
+.hero.title-band .content h1,
+.hero.title-band .content h2{
+  text-shadow:
+    0 10px 30px rgba(0,0,0, calc(0.35 * var(--heroProgress)));
+}
+
+/* Viewport-anchored letterbox bars (inserted once per page by JS) */
+.fx-bars{
+  position: fixed;
+  left: 0; right: 0; top: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 900; /* below header (1000) and indicator (2000) */
+}
+.fx-bars .bar{
+  position: absolute;
+  left: 0; right: 0;
+  background: #000;
+  opacity: calc(var(--cineBars) * 0.9);
+  transform: translateZ(0);
+}
+.fx-bars .bar.top{
+  top: 0;
+  height: calc(var(--cineBars) * var(--barH));
+}
+.fx-bars .bar.bottom{
+  bottom: 0;
+  height: calc(var(--cineBars) * var(--barH));
+}
+
+/* Input lock helper during timelines */
+html.cine-locked, body.cine-locked{
   overscroll-behavior: contain;
   touch-action: none;
 }
 
-/* Reduced-motion: no animated transforms/opacity; JS snaps scroll instantly */
-@media (prefers-reduced-motion: reduce) {
-  .hero.title-band .content { transform: none; opacity: 1; }
-  .hero.title-band .fx-layer { opacity: 0; }
+/* Reduced-motion: remove cinematics; snap only */
+@media (prefers-reduced-motion: reduce){
+  .hero.title-band .content{ transform: none; opacity: 1; filter: none; }
+  .hero.title-band .fx-layer{ opacity: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .fx-bars{ display: none; }
 }
