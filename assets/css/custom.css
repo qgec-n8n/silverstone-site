@@ -7,30 +7,12 @@
   }
 }
 
-:root {
-  --hero-menu-height: var(--headerH);
-  --cinematic-hero-scale: 1.05;
-  --cinematic-hero-lift: 180px;
-  --cinematic-body-shift: 160px;
-  --cinematic-overlay-max: 0.65;
-  --cinematic-hero-padding: clamp(48px, 12vh, 120px);
-}
-
 .hero {
   position: relative;
   transform-origin: center top;
   will-change: transform, opacity;
   backface-visibility: hidden;
   contain: layout style paint;
-  min-height: calc(100vh - var(--hero-menu-height));
-  min-height: calc(100svh - var(--hero-menu-height));
-  height: calc(100vh - var(--hero-menu-height));
-  height: calc(100svh - var(--hero-menu-height));
-}
-
-.hero.title-band {
-  padding-top: calc(var(--hero-menu-height) + var(--cinematic-hero-padding));
-  padding-bottom: clamp(60px, 14vh, 140px);
 }
 
 .hero .content {
@@ -248,11 +230,19 @@ body {
   z-index: 2;
 }
 
-/* Cinematic scroll system */
+/* Lightweight cinematic scroll support */
 body.scene-transition {
   overflow: hidden;
   overscroll-behavior: none;
   cursor: progress;
+}
+
+body.scene-hero .cinematic-section {
+  pointer-events: none;
+}
+
+body.scene-body .cinematic-section {
+  pointer-events: auto;
 }
 
 .cinematic-section {
@@ -260,43 +250,6 @@ body.scene-transition {
   will-change: transform, opacity;
   backface-visibility: hidden;
   contain: layout style paint;
-  transition: none;
-}
-
-.cinematic-hero {
-  pointer-events: auto;
-}
-
-.cinematic-body {
-  pointer-events: auto;
-}
-
-body.scene-hero .cinematic-body {
-  pointer-events: none;
-}
-
-body.scene-body .cinematic-hero {
-  pointer-events: none;
-}
-
-body.scene-hero .cinematic-hero {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-}
-
-body.scene-hero .cinematic-body {
-  opacity: 0;
-  transform: translate3d(0, var(--cinematic-body-shift), 0);
-}
-
-body.scene-body .cinematic-hero {
-  opacity: 0;
-  transform: translate3d(0, calc(-1 * var(--cinematic-hero-lift)), 0) scale(var(--cinematic-hero-scale));
-}
-
-body.scene-body .cinematic-body {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
 }
 
 .scene-overlay {
@@ -314,7 +267,6 @@ body.scene-body .cinematic-body {
   );
   will-change: opacity;
   z-index: 20;
-  transition: opacity 0.45s ease;
 }
 
 body.scene-transition .hero,

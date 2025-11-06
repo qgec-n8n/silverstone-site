@@ -457,12 +457,12 @@
     color: var(--color-purple);
   }
 
-  /* Maintain full-viewport hero on mobile with slightly reduced padding */
+  /* Resize hero section height on mobile: allow content to define height */
   .hero {
-    min-height: calc(100svh - var(--hero-menu-height));
-    height: calc(100svh - var(--hero-menu-height));
-    padding-top: calc(var(--hero-menu-height) + 2.5rem);
-    padding-bottom: 3rem;
+    min-height: auto;
+    height: auto;
+    padding-top: calc(var(--headerH) + 2rem);
+    padding-bottom: 4rem;
   }
   .hero .content {
     margin-top: 0;
