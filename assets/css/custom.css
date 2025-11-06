@@ -1,3 +1,10 @@
+:root {
+  --hero-menu-offset: var(--headerH);
+  --cinematic-duration: 1150ms;
+  --cinematic-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --cinematic-body-translate: clamp(72px, 16vh, 180px);
+}
+
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
   .hero.title-band {
     background-attachment: scroll;
@@ -13,6 +20,94 @@
   will-change: transform, opacity;
   backface-visibility: hidden;
   contain: layout style paint;
+}
+
+body.cinematic-enabled {
+  overscroll-behavior-y: contain;
+}
+
+body.cinematic-enabled .hero,
+body.cinematic-enabled .cinematic-target {
+  transition: transform var(--cinematic-duration) var(--cinematic-ease),
+    opacity var(--cinematic-duration) var(--cinematic-ease),
+    filter var(--cinematic-duration) var(--cinematic-ease);
+}
+
+body.cinematic-enabled .hero {
+  min-height: calc(100vh - var(--hero-menu-offset, 0px));
+  min-height: calc(100svh - var(--hero-menu-offset, 0px));
+  min-height: calc(100dvh - var(--hero-menu-offset, 0px));
+  height: calc(100vh - var(--hero-menu-offset, 0px));
+  height: calc(100svh - var(--hero-menu-offset, 0px));
+  height: calc(100dvh - var(--hero-menu-offset, 0px));
+  padding-top: var(--hero-menu-offset, 0px);
+  box-sizing: border-box;
+}
+
+body.cinematic-enabled .hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+      180deg,
+      rgba(3, 8, 20, 0.35) 0%,
+      rgba(3, 8, 20, 0.65) 70%,
+      rgba(3, 8, 20, 0.85) 100%
+    );
+  opacity: 0;
+  transition: opacity var(--cinematic-duration) var(--cinematic-ease);
+}
+
+body.cinematic-enabled .cinematic-target {
+  position: relative;
+  transform-origin: center top;
+  will-change: transform, opacity;
+}
+
+body.cinematic-enabled.cinematic-stage-hero .hero {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  filter: none;
+}
+
+body.cinematic-enabled.cinematic-stage-hero .cinematic-target {
+  transform: translateY(var(--cinematic-body-translate, 14vh));
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.cinematic-enabled.cinematic-stage-body .hero {
+  transform: translateY(-14vh) scale(0.92);
+  opacity: 0;
+  filter: blur(6px);
+}
+
+body.cinematic-enabled.cinematic-stage-body .hero::after {
+  opacity: 0.85;
+}
+
+body.cinematic-enabled.cinematic-stage-body .cinematic-target {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.cinematic-enabled.cinematic-locked {
+  overflow: hidden;
+  touch-action: none;
+}
+
+body.cinematic-enabled.cinematic-transitioning .hero,
+body.cinematic-enabled.cinematic-transitioning .cinematic-target {
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.cinematic-enabled .hero,
+  body.cinematic-enabled .cinematic-target {
+    transition: none;
+  }
 }
 
 .hero .content {
