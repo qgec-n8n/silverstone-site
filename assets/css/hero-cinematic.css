@@ -1,0 +1,51 @@
+/* assets/css/hero-cinematic.css
+   Cinematic hero→body transition. Isolated, GPU-friendly, accessible.
+   Tuning variables are driven from JS via --heroProgress.
+*/
+:root {
+  --heroProgress: 0; /* 0 (hero fully visible) → 1 (body aligned at top) */
+}
+
+/* Ensure hero can host overlay layer without affecting backgrounds on other sections */
+.hero.title-band {
+  position: relative;
+  isolation: isolate; /* keep internal stacking without touching header */
+}
+
+/* Non-intrusive overlay for subtle vignette/atmospheric fade */
+.hero.title-band .fx-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: calc(var(--heroProgress) * 0.35);
+  background: radial-gradient(120% 100% at 50% 50%,
+              rgba(0,0,0,0.00) 0%,
+              rgba(0,0,0,0.05) 45%,
+              rgba(0,0,0,0.28) 100%);
+  will-change: opacity;
+  z-index: 0; /* below content */
+}
+
+/* Drive content motion only; DO NOT transform section containers with parallax */
+.hero.title-band .content {
+  position: relative;
+  z-index: 1;
+  transform: translate3d(0, calc(var(--heroProgress) * -8vh), 0)
+             scale(calc(1 - var(--heroProgress) * 0.04));
+  opacity: calc(1 - var(--heroProgress) * 0.15);
+  /* We update via JS/rAF — keep transitions effectively instantaneous to avoid sync issues */
+  transition: transform 0.001s linear, opacity 0.001s linear;
+  will-change: transform, opacity;
+}
+
+/* Input lock helper to avoid overscroll stutter during timelines */
+html.cine-locked, body.cine-locked {
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+
+/* Reduced-motion: no animated transforms/opacity; JS snaps scroll instantly */
+@media (prefers-reduced-motion: reduce) {
+  .hero.title-band .content { transform: none; opacity: 1; }
+  .hero.title-band .fx-layer { opacity: 0; }
+}
