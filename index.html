@@ -166,27 +166,13 @@
     </style>
     
     <link rel="stylesheet" href="assets/css/home-services-fix.css" />
+    <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
+    <link rel="stylesheet" href="assets/css/parallax-fix.css" />
     <!-- Mobile overrides: ensure last to override other styles on small screens -->
     <link rel="stylesheet" href="assets/css/mobile.css" />
     <!-- New footer styles -->
     <link rel="stylesheet" href="assets/css/footer.css" />
   <link rel="stylesheet" href="assets/css/icons.css" />
-    <!-- Parallax body section effect: fix background image on scroll for body sections (except hero) -->
-    <style>
-      @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
-        /* Fix backgrounds in place so text scrolls over them. Includes all themed sections and the discovery call. */
-        .section.bg-lines,
-        .section.bg-circuit,
-        .section.bg-city,
-        .section.bg-mesh,
-        .section.bg-waves,
-        .discovery-call-section {
-          background-attachment: fixed !important;
-          background-size: cover !important;
-          background-position: center !important;
-        }
-      }
-    </style>
   </head>
   <body>
     <!-- Cookie consent banner -->

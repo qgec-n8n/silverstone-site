@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Services – Silverstone</title>
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="noindex, no-follow" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
     <link
@@ -13,6 +13,8 @@
     />
     <link href="assets/css/styles.css" rel="stylesheet" />
     <link href="assets/css/services.css" rel="stylesheet" />
+    <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
+    <link rel="stylesheet" href="assets/css/parallax-fix.css" />
     <!-- Mobile overrides: ensure last to override other styles on small screens -->
     <link rel="stylesheet" href="assets/css/mobile.css" />
     <!-- New footer styles -->
@@ -53,21 +55,6 @@
             url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x,
             url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x
           );
-        }
-      }
-    </style>
-    <!-- Apply parallax effect to all body sections (excluding the hero) -->
-    <style>
-      @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
-        .section.bg-lines,
-        .section.bg-circuit,
-        .section.bg-city,
-        .section.bg-mesh,
-        .section.bg-waves,
-        .discovery-call-section {
-          background-attachment: fixed !important;
-          background-size: cover !important;
-          background-position: center !important;
         }
       }
     </style>

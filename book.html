@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <!-- Core site styles -->
   <link href="assets/css/styles.css" rel="stylesheet">
+  <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
+  <link rel="stylesheet" href="assets/css/parallax-fix.css">
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
   <link rel="stylesheet" href="assets/css/mobile.css">
   <!-- Calendly preconnects and widget styles -->
@@ -127,21 +129,6 @@
       }
       .discovery-call-content .widget .calendly-inline-widget {
         height: 600px;
-      }
-    }
-  </style>
-  <!-- Apply parallax effect to all body sections (excluding the hero) -->
-  <style>
-    @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
-      .section.bg-lines,
-      .section.bg-circuit,
-      .section.bg-city,
-      .section.bg-mesh,
-      .section.bg-waves,
-      .discovery-call-section {
-        background-attachment: fixed !important;
-        background-size: cover !important;
-        background-position: center !important;
       }
     }
   </style>

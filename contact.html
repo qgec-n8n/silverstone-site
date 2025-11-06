@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <!-- Core site styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
+  <link rel="stylesheet" href="assets/css/parallax-fix.css">
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
   <link rel="stylesheet" href="assets/css/mobile.css">
   <!-- Global footer styles -->
@@ -24,21 +26,6 @@
     .section.bg-waves > .container { position: relative; z-index: 1; }
     .neon-card { position: relative; z-index: 2; }
     .service-row, .service-image, .service-content { position: relative; z-index: 2; }
-  </style>
-  <!-- Apply parallax effect to all body sections (excluding the hero) -->
-  <style>
-    @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
-      .section.bg-lines,
-      .section.bg-circuit,
-      .section.bg-city,
-      .section.bg-mesh,
-      .section.bg-waves,
-      .discovery-call-section {
-        background-attachment: fixed !important;
-        background-size: cover !important;
-        background-position: center !important;
-      }
-    }
   </style>
   <!-- Serve smaller hero background on narrow screens -->
   <style>
