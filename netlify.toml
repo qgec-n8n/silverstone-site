@@ -1,0 +1,22 @@
+[build]
+  publish = "."
+
+# Basic headers for preview environment
+[[headers]]
+  for = "/*"
+  [headers.values]
+
+[functions]
+  directory = "netlify/functions"
+
+[context.deploy-preview]
+  [[context.deploy-preview.headers]]
+    for = "/*"
+    [context.deploy-preview.headers.values]
+      X-Robots-Tag = "noindex, nofollow"
+
+[context.branch-deploy]
+  [[context.branch-deploy.headers]]
+    for = "/*"
+    [context.branch-deploy.headers.values]
+      X-Robots-Tag = "noindex, nofollow"

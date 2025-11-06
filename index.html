@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Silverstone – Streamline. Optimize. Succeed.</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <!-- Preconnect to optimise font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- Neon layering fixes used across the site -->
+    
+    <!-- Page-specific overrides -->
+    <style>
+      @media (max-width: 900px) {
+        .hero {
+          /* Serve the WebP on supported mobile browsers, and fall back to JPEG */
+          background-image: url('assets/images/internet/hero/home-hero-final.webp');
+          background-image: image-set(
+            url('assets/images/internet/hero/home-hero-final.webp') type('image/webp') 1x,
+            url('assets/images/internet/hero/home-hero-final.jpeg') type('image/jpeg') 1x
+          );
+        }
+      }
+      /* Custom grids for grouped services and pricing */
+      .packages-grid {
+        display: grid;
+        /* Two wider cards per row so the combined width (including the gap) matches
+           the row of three feature cards above. Increasing the minimum size helps
+           the boxes span more of the container on larger screens, while the gap
+           brings them closer together. */
+        grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+        gap: 1rem;
+        max-width: var(--max-width);
+        margin: 0 auto;
+      }
+      .packages-grid .neon-card {
+        /* Slightly reduce padding to shorten card height while retaining breathing space */
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      /* Icon styling for service packages when using image icons. Increase the size
+         for better visibility and remove any background so only the neon green
+         artwork appears. */
+      .packages-grid .service-icon-img {
+        width: 3.25rem;
+        height: 3.25rem;
+        margin-bottom: 0.75rem;
+        object-fit: contain;
+        display: block;
+      }
+      /* Styling for custom checkmark icons used in the service lists */
+      .packages-grid .check-icon {
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+      }
+      .packages-grid .neon-card h3 {
+        font-family: var(--font-heading);
+        font-size: 1.6rem;
+        margin-bottom: 0.25rem;
+        color: var(--color-green);
+        text-align: left;
+      }
+      .packages-grid .tagline {
+        font-size: 0.95rem;
+        color: var(--color-silver);
+        margin-bottom: 0.75rem;
+        font-style: italic;
+        text-align: left;
+      }
+      .packages-grid .neon-card p {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.55rem;
+        font-size: 0.9rem;
+        color: var(--color-silver);
+        margin-bottom: 0.5rem;
+        text-align: left;
+      }
+      .packages-grid .neon-card p i {
+        font-size: 1.15rem;
+        color: var(--color-green);
+        margin-top: 0.15rem;
+      }
+      .pricing-grid {
+        display: grid;
+        /* Three columns on larger screens */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .pricing-grid .neon-card {
+        padding: 2rem;
+      }
+      .pricing-grid .neon-card h3 {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--color-blue);
+      }
+      /* Style for price labels and values to mirror competitor layout */
+      .pricing-grid .price-label {
+        font-size: 0.8rem;
+        color: var(--color-silver);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 0.25rem;
+        display: block;
+      }
+      .pricing-grid .price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-green);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+      .pricing-grid .best-for {
+        font-size: 0.8rem;
+        color: var(--color-silver);
+        margin-top: 0.25rem;
+      }
+      .pricing-grid .neon-card p {
+        font-size: 0.9rem;
+        color: var(--color-silver);
+        margin-bottom: 0.5rem;
+      }
+    </style>
+    
+    <link rel="stylesheet" href="assets/css/home-services-fix.css" />
+    <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
+    <link rel="stylesheet" href="assets/css/parallax-fix.css" />
+    <!-- Mobile overrides: ensure last to override other styles on small screens -->
+    <link rel="stylesheet" href="assets/css/mobile.css" />
+    <!-- New footer styles -->
+    <link rel="stylesheet" href="assets/css/footer.css" />
+  <link rel="stylesheet" href="assets/css/icons.css" />
+  </head>
+  <body>
+    <!-- Cookie consent banner -->
+    <div id="cookie-banner" class="cookie-banner">
+      <p>
+        We use cookies to improve your browsing experience and to analyse website
+        traffic. By clicking “Accept”, you consent to our use of cookies. For
+        more details, please read our
+        <a href="privacy-policy.html">Privacy Policy</a>.
+      </p>
+      <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+    </div>
+    <!-- Site header with navigation -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo">
+          <img
+            src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
+            srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"
+            alt="Silverstone Logo"
+            class="site-logo"
+          / decoding="async">
+        </a>
+        <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="book.html">Book</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <!-- Hero banner -->
+    <section
+      class="hero title-band"
+      style="--mobile-hero-image: url('assets/images/internet/hero/home-hero-final.jpeg'); background-image: url('assets/images/internet/hero/home-hero-final.jpeg'); background-image: image-set(
+        url('assets/images/internet/hero/home-hero-final.webp') type('image/webp') 1x,
+        url('assets/images/internet/hero/home-hero-final.jpeg') type('image/jpeg') 1x
+      );"
+    >
+      <div class="content">
+        <h1>Your Partner in Business Automation</h1>
+        <p>
+          Streamline operations, optimise workflows and succeed faster with bespoke
+          automation strategies tailored to your small business.
+        </p>
+        <a href="book.html" class="btn btn-primary">Book Your Free Consultation</a>
+        <a href="services.html" class="btn btn-secondary" style="margin-left: 1rem">Learn More</a>
+      </div>
+    </section>
+    <!-- Feature overview section -->
+    <section class="section bg-lines animate">
+      <div class="container">
+        <h2 class="section-title">Streamline. Optimize. Succeed.</h2>
+        <p class="section-subtitle">Unlock your potential with intelligent automation and analytics solutions.</p>
+        <div class="features">
+          <div class="feature-card neon-card">
+            <i class="fa-solid fa-bolt"></i>
+            <h3>Streamline</h3>
+            <p>
+              Remove bottlenecks and capture more high‑quality leads by automating
+              repetitive tasks and standardising processes. Free your team to focus on
+              high‑value work.
+            </p>
+          </div>
+          <div class="feature-card neon-card">
+            <i class="fa-solid fa-gauge-high"></i>
+            <h3>Optimize</h3>
+            <p>
+              Leverage data and smart integrations to continuously improve performance.
+              Make informed decisions and achieve more with less.
+            </p>
+          </div>
+          <div class="feature-card neon-card">
+            <i class="fa-solid fa-rocket"></i>
+            <h3>Succeed</h3>
+            <p>
+              Scale faster with systems that increase speed, consistency and capacity.
+              Gain back valuable time and accelerate growth.
+            </p>
+          </div>
+        </div>
+        <!-- Grouped services section -->
+        <h2 class="section-title" style="margin-top: 3rem">Our Services</h2>
+        <p class="section-subtitle">Discover how we transform businesses through bespoke solutions.</p>
+        <div class="packages-grid">
+          <!-- AI Consulting for Small Business -->
+          <div class="feature-card neon-card">
+            <!-- Wrap icon and header in a flex container so they sit on the same line -->
+            <div class="service-title">
+              <img src="assets/icons/ai-consulting-transparent.png" alt="AI Consulting Icon" class="service-icon-img" / decoding="async" loading="lazy">
+              <h3>AI Consulting for Small Business</h3>
+            </div>
+            <p class="tagline">We make AI accessible for smaller companies without deep pockets or in‑house expertise.</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Cut through the noise to identify the best AI models and tools for your needs</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Build AI agents and automations to increase productivity and profits</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Understand the potential of AI and how to mitigate risks</p>
+            <a href="services.html#consulting" class="btn btn-secondary">Level‑Up With AI</a>
+          </div>
+          <!-- Marketing Automation -->
+          <div class="feature-card neon-card">
+            <!-- Wrap icon and header in a flex container so they sit on the same line -->
+            <div class="service-title">
+              <img src="assets/icons/marketing-automation-transparent.png" alt="Marketing Automation Icon" class="service-icon-img" / decoding="async" loading="lazy">
+              <h3>Marketing Automation</h3>
+            </div>
+            <p class="tagline">Boost customer attraction and drive sales with targeted, automated marketing workflows.</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Design and build streamlined processes to increase your team’s capacity</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Weave GenAI into workflows to create, publish and repurpose assets on autopilot</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Optimise campaign performance and improve personalisation to maximise ROI</p>
+            <a href="services.html#marketing" class="btn btn-secondary">Automate Marketing</a>
+          </div>
+          <!-- Workflow & Data Automation -->
+          <div class="feature-card neon-card">
+            <!-- Wrap icon and header in a flex container so they sit on the same line -->
+            <div class="service-title">
+              <img src="assets/icons/workflow-data-transparent.png" alt="Workflow &amp; Data Icon" class="service-icon-img" / decoding="async" loading="lazy">
+              <h3>Workflow &amp; Data Automation</h3>
+            </div>
+            <p class="tagline">Create automated workflows and data systems to optimise resources and increase ROI.</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Intelligent workflows eliminate busywork</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Interactive dashboards &amp; real‑time reporting</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Smart scheduling &amp; resource management</p>
+            <a href="services.html#workflow-data" class="btn btn-secondary">Optimise Workflows</a>
+          </div>
+          <!-- Systems & Data Integration -->
+          <div class="feature-card neon-card">
+            <!-- Wrap icon and header in a flex container so they sit on the same line -->
+            <div class="service-title">
+              <img src="assets/icons/systems-integration-new.png" alt="Systems Integration Icon" class="service-icon-img" / decoding="async" loading="lazy">
+              <h3>Systems &amp; Data Integration</h3>
+            </div>
+            <p class="tagline">Connect your tools and platforms into one seamless ecosystem.</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Unify your systems &amp; apps into one ecosystem</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">Seamless app integration with n8n &amp; Zapier</p>
+            <p><img src="assets/icons/check-icon.png" alt="" class="check-icon" / decoding="async" loading="lazy">API integration and middleware development</p>
+            <a href="services.html#integration" class="btn btn-secondary">Integrate Systems</a>
+          </div>
+        </div>
+        <!-- Pricing integrated into the same section -->
+        <h2 class="section-title" style="margin-top: 4rem">Transparent, Affordable Pricing</h2>
+        <p class="section-subtitle">Get the automation you need without breaking the bank.</p>
+        <div class="pricing-grid">
+          <!-- Automation Strategy -->
+          <div class="neon-card pricing-card">
+            <h3>Automation Strategy</h3>
+            <p>Discover new ways to optimise your tech stack &amp; resources to maximise ROI.</p>
+            <span class="price-label">From</span>
+            <span class="price">£2,400</span>
+            <p class="best-for">Best for businesses seeking all‑round efficiency gains or unsure where to start.</p>
+          </div>
+          <!-- Automation Set‑Up -->
+          <div class="neon-card pricing-card">
+            <h3>Automation Set‑Up</h3>
+            <p>We build and launch custom automation solutions to meet your requirements.</p>
+            <span class="price-label">From</span>
+            <span class="price">£600</span>
+            <p class="best-for">Best for companies/teams with a specific need and clearly defined scope.</p>
+          </div>
+          <!-- Retained Services -->
+          <div class="neon-card pricing-card">
+            <h3>Retained Services</h3>
+            <p>Drive ongoing growth with a flexible pot of engineer time each month.</p>
+            <span class="price-label">From</span>
+            <span class="price">£200/month</span>
+            <p class="best-for">Best for new and existing clients looking for continuous improvement.</p>
+          </div>
+        </div>
+        <!-- Treat the Popular Solutions heading as a subheading under pricing for visual hierarchy -->
+        <h3 class="section-subtitle" style="margin-top: 3rem">Popular Solutions</h3>
+        <div class="pricing-grid">
+          <!-- AI Agents -->
+          <div class="neon-card pricing-card">
+            <h3>AI Agents</h3>
+            <p>Delegate work to AI through digital agents that can take actions automatically.</p>
+            <span class="price-label">From</span>
+            <span class="price">£3,000</span>
+          </div>
+          <!-- Live Data Dashboards -->
+          <div class="neon-card pricing-card">
+            <h3>Live Data Dashboards</h3>
+            <p>Connect your data sources into a custom dashboard for real‑time reporting.</p>
+            <span class="price-label">From</span>
+            <span class="price">£1,800</span>
+          </div>
+          <!-- Personalised Outreach -->
+          <div class="neon-card pricing-card">
+            <h3>Personalised Outreach</h3>
+            <p>Automate personalisation at scale to outperform templated email campaigns.</p>
+            <span class="price-label">From</span>
+            <span class="price">£900</span>
+          </div>
+        </div>
+        <p class="section-subtitle" style="margin-top: 2rem">
+          All costs subject to scope, priced at a day rate of £600. Excludes software usage fees (where applicable).
+        </p>
+
+        <!-- FAQ section: adapted from competitor with collapsible answers -->
+        <div class="faq-section">
+          <h2 class="section-title" style="margin-top: 4rem">AI Automation Agency FAQs</h2>
+          <div class="faq-list">
+            <details class="neon-card faq-item">
+              <summary>What is AI automation, and how does it work?</summary>
+              <p>
+                AI automation combines artificial intelligence with automated workflows to handle both complex processes and
+                repetitive tasks. Our AI-driven solutions analyse data, make decisions and learn from patterns, enabling
+                businesses to achieve outcomes that go beyond traditional automation — essentially giving your operations
+                “superpowers”.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>How can AI automate jobs and improve productivity?</summary>
+              <p>
+                AI can automate a range of tasks, from routine data entry to complex decision‑making processes. By
+                leveraging AI’s ability to learn and adapt, you can increase productivity and efficiency, freeing up time
+                for your team to focus on the work that requires a human touch.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>What are some examples of AI automation in business?</summary>
+              <p>
+                Examples of AI automation include chatbots for customer support, predictive analytics for forecasting and
+                planning, automated content creation and interactive dashboards — all of which streamline operations and
+                boost efficiency.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>What services does an AI automation agency provide?</summary>
+              <p>
+                An AI automation agency like Silverstone offers services such as AI consulting, marketing automation,
+                workflow and data automation, and systems &amp; data integration to help businesses optimise operations.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>How much does an AI automation agency cost?</summary>
+              <p>
+                Costs vary depending on your project scope and specific needs. Our packages are flexible and transparent,
+                with options designed to suit different budgets and goals.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>What are the best AI automation tools for small businesses?</summary>
+              <p>
+                Popular AI automation tools include Zapier for integration, HubSpot for marketing automation and OpenAI’s
+                GPT models for content generation and AI agents. We recommend tools based on your unique needs, budget
+                and strategy.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>Why should I choose an AI automation agency in the UK?</summary>
+              <p>
+                Choosing a UK‑based AI automation agency, such as Silverstone, gives you access to local expertise,
+                personalised support and a deep understanding of UK market dynamics.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>What makes Silverstone the best AI automation agency for small businesses?</summary>
+              <p>
+                Silverstone specialises in practical, tailored AI solutions for small businesses, helping you adopt
+                impactful automation that delivers measurable ROI.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>Can AI automation benefit small businesses without technical expertise?</summary>
+              <p>
+                Yes. AI automation can benefit small businesses by simplifying complex tasks and providing easy‑to‑use
+                tools, allowing you to leverage AI without needing in‑house expertise.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>How can a small business automation consultant help my company?</summary>
+              <p>
+                A small business automation consultant like Silverstone provides expert guidance on choosing the right AI
+                tools, designing automation strategies and implementing solutions that drive growth and efficiency.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>Where is Silverstone based and what markets do you serve?</summary>
+              <p>
+                Silverstone is based in London, UK, but operates as a remote team. This allows us to assist clients
+                across the UK, Europe, the USA and beyond, providing services to start‑ups and small businesses
+                regardless of location.
+              </p>
+            </details>
+            <details class="neon-card faq-item">
+              <summary>Can Silverstone help with agentic AI and build AI agents?</summary>
+              <p>
+                Silverstone can build AI agents and custom GPTs that perform actions by integrating them into your tech
+                stack. Fully autonomous agents are an evolving capability in AI; we focus on practical agentic solutions
+                available today.
+              </p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Call to action section -->
+    <section class="section brand-gradient animate">
+      <div class="container">
+        <div class="neon-card cta-card" style="text-align: center">
+          <h2 class="section-title" style="color: var(--color-white)">Ready to Transform Your Business?</h2>
+          <p class="section-subtitle" style="color: var(--color-silver)">
+            Discover how personalised automation can drive efficiency, productivity and growth across your organisation.
+          </p>
+          <a href="book.html" class="btn btn-primary">Book a Free Consultation</a>
+        </div>
+      </div>
+    </section>
+    <!-- Global site footer -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo" decoding="async">
+          <p class="tagline">Streamline. Optimize. Succeed.</p>
+          <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise operations and succeed in the digital age.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="book.html">Book</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact Us</h4>
+          <p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
+          <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+        </div>
+        <div class="footer-social">
+          <h4>Follow Us</h4>
+          <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
+    </footer>
+    <script src="assets/js/script.js" defer></script>
+    <script defer src="assets/js/cookie-consent.js"></script>
+  </body>
+</html>
