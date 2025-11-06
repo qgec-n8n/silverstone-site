@@ -1,13 +1,15 @@
-/* assets/css/hero-cinematic.css — v2 (enhanced cinematic)
-   - Stronger visual language: vignette, color grading, and letterbox bars
-   - GPU-friendly transforms; no transforms on parallax sections
-   - Controlled exclusively by --heroProgress (0→1) and --cineBars (0→1→0 mid-transition)
+/* assets/css/hero-cinematic.css — v3 (hybrid, premium, controlled)
+   - Hybrid: depth camera push + tasteful letterbox + soft bloom + body veil
+   - GPU-friendly; no transforms on parallax sections
+   - Driven by CSS vars: --heroProgress, --cineBars, --cineBloom, --cineVeil
 */
 :root{
   --heroProgress: 0;     /* 0 (hero fully visible) → 1 (body aligned) */
   --cineBars: 0;         /* 0→1→0 envelope for letterbox bars during transition */
-  --fxVignetteMax: 0.55; /* max vignette strength */
-  --barH: clamp(40px, 7.5vh, 96px);
+  --cineBloom: 0;        /* 0→peaks mid-transition→0 */
+  --cineVeil: 0;         /* veil over first body section (down: 0.35→0, up: 0→0.35) */
+  --fxVignetteMax: 0.50; /* hero vignette max */
+  --barH: clamp(44px, 9vh, 112px);
 }
 
 .hero.title-band{
@@ -17,53 +19,65 @@
   transform-style: preserve-3d;
 }
 
-/* Runtime overlay inserted by JS (kept inside the hero only) */
+/* Runtime overlay inserted by JS (inside hero only) */
 .hero.title-band .fx-layer{
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0; /* below .content and header */
-  /* Layer stack: subtle color grade + radial vignette */
+  /* subtle color grade + radial vignette */
   background:
     linear-gradient(180deg,
       rgba(8,18,38,0.00) 0%,
-      rgba(8,18,38,0.18) 55%,
-      rgba(0,0,0,0.36) 100%),
-    radial-gradient(120% 100% at 50% 45%,
+      rgba(8,18,38,0.16) 52%,
+      rgba(0,0,0,0.34) 100%),
+    radial-gradient(120% 100% at 50% 44%,
       rgba(0,0,0,0.00) 0%,
       rgba(0,0,0,0.06) 45%,
-      rgba(0,0,0,0.65) 100%);
+      rgba(0,0,0,0.62) 100%);
   opacity: calc(var(--heroProgress) * var(--fxVignetteMax));
-  /* Gentle background blur only during transition (kept very small) */
-  -webkit-backdrop-filter: blur(calc(var(--cineBars) * 1.2px));
-  backdrop-filter: blur(calc(var(--cineBars) * 1.2px));
-  will-change: opacity, backdrop-filter;
+  will-change: opacity;
 }
 
-/* Drive content motion only; never transform the section node to preserve fixed backgrounds */
+/* Soft bloom layer (screen-ish look without heavy blending) */
+.hero.title-band .fx-bloom{
+  position: absolute;
+  inset: -8% -8%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(60% 50% at 50% 42%,
+              rgba(255,255,255,0.60) 0%,
+              rgba(255,255,255,0.18) 40%,
+              rgba(255,255,255,0.00) 70%);
+  opacity: calc(var(--cineBloom) * 0.38);
+  transform: scale(calc(1 + var(--heroProgress) * 0.08));
+  filter: blur(calc(var(--cineBloom) * 1.2px));
+  will-change: opacity, transform, filter;
+}
+
+/* Depth camera push on hero content (controlled and premium) */
 .hero.title-band .content{
   position: relative;
   z-index: 1;
   transform:
-    translate3d(0, calc(var(--heroProgress) * -10vh), 0)
-    scale(calc(1 - var(--heroProgress) * 0.08))
-    rotateX(calc(var(--heroProgress) * 1.2deg));
+    translate3d(0, calc(var(--heroProgress) * -12vh), 0)
+    scale(calc(1 - var(--heroProgress) * 0.10))
+    rotateX(calc(var(--heroProgress) * 1.25deg));
   opacity: calc(1 - var(--heroProgress) * 0.12);
   filter:
-    saturate(calc(1 + var(--heroProgress) * 0.12))
-    contrast(calc(1 + var(--heroProgress) * 0.06));
+    saturate(calc(1 + var(--heroProgress) * 0.10))
+    contrast(calc(1 + var(--heroProgress) * 0.05));
   transition: transform 0.001s linear, opacity 0.001s linear, filter 0.001s linear;
   will-change: transform, opacity, filter;
 }
 
-/* Optional micro-typography richness without layout thrash */
+/* Subtle title richness */
 .hero.title-band .content h1,
 .hero.title-band .content h2{
-  text-shadow:
-    0 10px 30px rgba(0,0,0, calc(0.35 * var(--heroProgress)));
+  text-shadow: 0 12px 32px rgba(0,0,0, calc(0.34 * var(--heroProgress)));
 }
 
-/* Viewport-anchored letterbox bars (inserted once per page by JS) */
+/* Viewport-anchored letterbox bars (inserted by JS) */
 .fx-bars{
   position: fixed;
   left: 0; right: 0; top: 0; bottom: 0;
@@ -77,13 +91,18 @@
   opacity: calc(var(--cineBars) * 0.9);
   transform: translateZ(0);
 }
-.fx-bars .bar.top{
-  top: 0;
-  height: calc(var(--cineBars) * var(--barH));
-}
-.fx-bars .bar.bottom{
-  bottom: 0;
-  height: calc(var(--cineBars) * var(--barH));
+.fx-bars .bar.top{ top: 0; height: calc(var(--cineBars) * var(--barH)); }
+.fx-bars .bar.bottom{ bottom: 0; height: calc(var(--cineBars) * var(--barH)); }
+
+/* Body reveal veil (inside the first body section) */
+.fx-veil{
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: var(--cineVeil);
+  transform: translate3d(0, calc((1 - var(--cineVeil)) * 12px), 0);
+  pointer-events: none;
+  will-change: opacity, transform;
 }
 
 /* Input lock helper during timelines */
@@ -95,6 +114,7 @@ html.cine-locked, body.cine-locked{
 /* Reduced-motion: remove cinematics; snap only */
 @media (prefers-reduced-motion: reduce){
   .hero.title-band .content{ transform: none; opacity: 1; filter: none; }
-  .hero.title-band .fx-layer{ opacity: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .fx-bars{ display: none; }
+  .hero.title-band .fx-layer{ opacity: 0; }
+  .hero.title-band .fx-bloom{ opacity: 0; filter: none; }
+  .fx-bars, .fx-veil{ display: none; }
 }

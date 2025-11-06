@@ -1,22 +1,21 @@
-/*! assets/js/hero-cinematic.js — v2 (enhanced cinematic)
- * - Stronger visuals: vignette, color grade, letterbox bars (viewport-anchored)
- * - Locks native input during transition; resumes on completion
- * - Honors fixed header & indicator heights
- * - Parallax safety: only inner hero layers are transformed
- * - Reduced-motion: instant snap without animation or bars
+/*! assets/js/hero-cinematic.js — v3 (hybrid, premium, controlled)
+ * - Hybrid: depth camera push (predominant) + tasteful letterbox + bloom + body veil
+ * - Plays on every crossing (hero↔body), locks input during timeline
+ * - Honors header/indicator heights; safe with parallax (transforms only inner layers)
+ * - Reduced-motion: instant snap; no bars/bloom/veil
  */
 (function(){
   "use strict";
 
   var CONFIG = {
-    DURATION_MS: 1400,              // slightly longer for a luxe feel
+    DURATION_MS: 2100,              // slower & premium
     HEADER_VAR_NAME: "--headerH",
     BOUNDARY_THRESHOLD_PX: 28,
     DISABLE_ON_WIDTH_BELOW: 0,      // set to >= 640 to disable on very small screens
-    EASING: [0.22, 0.61, 0.36, 1.0] // default cubic-bezier
+    EASING: [0.16, 0.84, 0.22, 1.00] // controlled ease-in-out
   };
 
-  // Bezier implementation (gre/bezier-easing MIT, inlined)
+  // Bezier (gre/bezier-easing MIT, inlined)
   function BezierEasing(mX1, mY1, mX2, mY2){
     var NEWTON_ITERATIONS=4, NEWTON_MIN_SLOPE=.001, SUBDIVISION_PRECISION=1e-7, SUBDIVISION_MAX_ITERATIONS=10;
     var kSplineTableSize=11, kSampleStepSize=1/(kSplineTableSize-1), float32ArraySupported=typeof Float32Array==="function";
@@ -34,11 +33,11 @@
 
   // Public tuning API
   window.SilverstoneHeroCinematic = window.SilverstoneHeroCinematic || {};
-  window.SilverstoneHeroCinematic.setDuration    = function(ms){ CONFIG.DURATION_MS = +ms || CONFIG.DURATION_MS; };
-  window.SilverstoneHeroCinematic.setThreshold   = function(px){ CONFIG.BOUNDARY_THRESHOLD_PX = +px || CONFIG.BOUNDARY_THRESHOLD_PX; };
-  window.SilverstoneHeroCinematic.setDisableBelow= function(px){ CONFIG.DISABLE_ON_WIDTH_BELOW = +px || CONFIG.DISABLE_ON_WIDTH_BELOW; };
-  window.SilverstoneHeroCinematic.setHeaderVarName = function(name){ if(typeof name==="string" && name.trim()) CONFIG.HEADER_VAR_NAME = name.trim(); };
-  window.SilverstoneHeroCinematic.setEasingBezier  = function(x1,y1,x2,y2){
+  window.SilverstoneHeroCinematic.setDuration       = function(ms){ CONFIG.DURATION_MS = +ms || CONFIG.DURATION_MS; };
+  window.SilverstoneHeroCinematic.setThreshold      = function(px){ CONFIG.BOUNDARY_THRESHOLD_PX = +px || CONFIG.BOUNDARY_THRESHOLD_PX; };
+  window.SilverstoneHeroCinematic.setDisableBelow   = function(px){ CONFIG.DISABLE_ON_WIDTH_BELOW = +px || CONFIG.DISABLE_ON_WIDTH_BELOW; };
+  window.SilverstoneHeroCinematic.setHeaderVarName  = function(name){ if(typeof name==="string" && name.trim()) CONFIG.HEADER_VAR_NAME = name.trim(); };
+  window.SilverstoneHeroCinematic.setEasingBezier   = function(x1,y1,x2,y2){
     var p=[x1,y1,x2,y2].map(function(n){return +n;});
     if(p.every(function(n){return typeof n==="number" && !isNaN(n);})){ CONFIG.EASING=p; easingFn=BezierEasing.apply(null,p); }
   };
@@ -94,7 +93,6 @@
       if(k==="ArrowDown"||k==="ArrowUp"||k==="PageDown"||k==="PageUp"||k==="Home"||k==="End"||k==="Space"||k===" "){ e.preventDefault(); }
     };
     root._cineLockRefs = { onWheel, onTouch, onKey };
-
     if(lock){
       if(!root.classList.contains("cine-locked")){
         root.classList.add("cine-locked");
@@ -130,14 +128,31 @@
     var next=hero.nextElementSibling;
     if(!next) return;
 
-    // Insert hero overlay if missing
+    // Insert hero overlays if missing
     if(!hero.querySelector(".fx-layer")){
       var layer=document.createElement("div");
       layer.className="fx-layer";
       layer.setAttribute("aria-hidden","true");
       hero.insertBefore(layer, hero.firstChild);
     }
+    if(!hero.querySelector(".fx-bloom")){
+      var bloom=document.createElement("div");
+      bloom.className="fx-bloom";
+      bloom.setAttribute("aria-hidden","true");
+      hero.appendChild(bloom);
+    }
+
     ensureBars();
+
+    // Insert body veil on first section after hero (no transforms on the section itself)
+    if(!next.querySelector(".fx-veil")){
+      var cs=getComputedStyle(next);
+      if(cs.position === "static"){ next.style.position = "relative"; } // safe
+      var veil=document.createElement("div");
+      veil.className="fx-veil";
+      veil.setAttribute("aria-hidden","true");
+      next.insertBefore(veil, next.firstChild);
+    }
 
     function sizeHero(){
       var g=computeGeometry(hero,next);
@@ -148,6 +163,8 @@
     var isAnimating=false, lastScrollY=window.scrollY;
     function setProgress(p){ hero.style.setProperty("--heroProgress", String(clamp(p,0,1))); }
     function setBars(v){ document.documentElement.style.setProperty("--cineBars", String(clamp(v,0,1))); }
+    function setBloom(v){ document.documentElement.style.setProperty("--cineBloom", String(clamp(v,0,1))); }
+    function setVeil(v){ document.documentElement.style.setProperty("--cineVeil", String(clamp(v,0,1))); }
 
     function animateScrollTo(targetY, direction){
       isAnimating=true; lockInput(true);
@@ -155,26 +172,36 @@
       var startTime=performance.now(), dur=CONFIG.DURATION_MS;
 
       function tick(now){
-        if(isOverlayOpen()){ isAnimating=false; lockInput(false); setBars(0); return; }
-        var t=clamp((now-startTime)/dur,0,1);
+        if(isOverlayOpen()){ isAnimating=false; lockInput(false); setBars(0); setBloom(0); setVeil(0); return; }
+        var t=(now-startTime)/dur; t=clamp(t,0,1);
         var e=easingFn(t);
         var y=startY + delta*e;
         window.scrollTo(0, y);
 
-        // Hero progress monotonic with scroll direction
+        // Hero progress
         var progress = (direction==="down") ? e : (1-e);
         setProgress(progress);
 
-        // Cinematic bars envelope: 0→1→0 using sin(pi * e)
+        // Letterbox envelope: 0→1→0
         var bars = Math.sin(Math.PI * e);
         setBars(bars);
+
+        // Bloom: bell curve (peaks near mid), gentle amplitude
+        var bloom = Math.pow(Math.sin(Math.PI * e), 1.35) * 0.55;
+        setBloom(bloom);
+
+        // Veil over next section: down = 0.35→0, up = 0→0.35
+        var veil = (direction==="down") ? (0.35 * (1 - e)) : (0.35 * e);
+        setVeil(veil);
 
         if(t<1 && isAnimating){
           requestAnimationFrame(tick);
         } else {
           window.scrollTo(0, targetY);
           setProgress(direction==="down" ? 1 : 0);
-          setBars(0); // retract bars at the end
+          setBars(0);
+          setBloom(0);
+          setVeil(direction==="down" ? 0 : 0.35); // small hold when parking on hero
           isAnimating=false; lockInput(false);
         }
       }
@@ -184,7 +211,7 @@
     function snapTo(y, progress){
       window.scrollTo({top:y, behavior:"auto"});
       setProgress(progress);
-      setBars(0);
+      setBars(0); setBloom(0); setVeil(progress===1 ? 0 : 0.35);
     }
 
     function tryDown(){
@@ -230,11 +257,12 @@
       else if(dir<0 && sy <= g.bodyAlignY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
     }
 
-    // Initial state sync
+    // Initial sync
     (function(){
       var g=computeGeometry(hero,next);
-      setProgress(window.scrollY >= g.bodyAlignY ? 1 : 0);
-      setBars(0);
+      var past = window.scrollY >= g.bodyAlignY;
+      setProgress(past ? 1 : 0);
+      setBars(0); setBloom(0); setVeil(past ? 0 : 0.35);
     })();
 
     // Bind
