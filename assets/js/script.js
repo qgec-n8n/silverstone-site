@@ -89,7 +89,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // injected below via dynamic CSS.
   const headerIndicator = document.createElement('div');
   headerIndicator.id = 'header-indicator';
-  headerIndicator.textContent = 'Menu';
+  headerIndicator.setAttribute(
+    'aria-label',
+    'Silverstone navigation menu. Hover or tap to expand.'
+  );
+  headerIndicator.innerHTML = `
+    <div class="indicator-copy">
+      <span>Menu</span>
+    </div>
+  `.trim();
   document.body.appendChild(headerIndicator);
 
   // Variables for tracking scroll position and pending auto‑hide
@@ -264,10 +272,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* Base styling for the header indicator on larger screens.  A
-       neon gradient bar appears across the top when the header is
-       hidden.  On hover the bar expands to the full header height.
-       Colour variables from styles.css are used to blend seamlessly
-       with the brand palette. */
+       white glassmorphism panel appears across the top when the
+       header is hidden.  On hover the bar expands to the full header
+       height.  Colour variables from styles.css are used to blend
+       seamlessly with the brand palette. */
     #header-indicator {
       position: fixed;
       top: 0;
@@ -281,23 +289,19 @@ document.addEventListener('DOMContentLoaded', () => {
       /* Set the minimized banner height to half of the maximized header height for
          a clear proportional relationship.  Uses the CSS variable so it scales
          consistently across breakpoints. */
-      height: calc(var(--headerH) / 2);
-      background: linear-gradient(
-        90deg,
-        var(--color-blue),
-        var(--color-purple),
-        var(--color-green)
-      );
-      backdrop-filter: blur(8px) saturate(160%);
-      border-radius: 0 0 8px 8px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      height: calc(var(--headerH) * 0.335);
+      background: #ffffff;
+      backdrop-filter: blur(6px) saturate(130%);
+      border-radius: 0 0 12px 12px;
+      border: 1px solid rgba(12, 16, 29, 0.1);
+      border-top: none;
       box-shadow:
-        0 4px 12px rgba(0, 174, 239, 0.35),
-        0 6px 20px rgba(157, 78, 221, 0.30);
+        0 10px 28px rgba(12, 16, 29, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.08);
       font-family: var(--font-heading);
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--color-green);
+      color: var(--color-blue);
       letter-spacing: 0.1em;
       display: flex;
       align-items: center;
@@ -307,15 +311,71 @@ document.addEventListener('DOMContentLoaded', () => {
       opacity: 0;
       /* Translate vertically only so the indicator slides off screen when hidden. */
       transform: translateY(-100%);
-      transition: height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+      transition: height 0.3s ease, opacity 0.3s ease, transform 0.3s ease,
+        box-shadow 0.3s ease, color 0.3s ease, background-color 0.3s ease;
     }
     #header-indicator.active {
       opacity: 1;
       /* The banner simply slides down into view on desktop. */
       transform: translateY(0);
     }
+    #header-indicator::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      background: linear-gradient(120deg, rgba(0, 174, 239, 0.18), rgba(157, 78, 221, 0.12));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    #header-indicator .indicator-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      position: relative;
+      z-index: 1;
+    }
+    #header-indicator .indicator-copy span {
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: inherit;
+      display: inline-flex;
+      align-items: center;
+    }
+    #header-indicator .indicator-copy span::after {
+      display: inline-block;
+      margin-left: 0.75rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      font-weight: 500;
+      color: rgba(12, 16, 29, 0.55);
+      text-transform: uppercase;
+    }
     #header-indicator:hover {
       height: var(--headerH);
+      background: #f7f9fc;
+      color: var(--color-purple);
+      box-shadow:
+        0 16px 34px rgba(12, 16, 29, 0.16),
+        0 8px 18px rgba(0, 174, 239, 0.18);
+    }
+    #header-indicator:hover::after {
+      opacity: 1;
+    }
+    #header-indicator:hover .indicator-copy span::after {
+      color: rgba(157, 78, 221, 0.75);
+    }
+    @media (hover: none) {
+      #header-indicator .indicator-copy span::after {
+        content: '• Tap to expand';
+      }
+    }
+    @media (hover: hover) {
+      #header-indicator .indicator-copy span::after {
+        content: '• Hover to expand';
+      }
     }
     /* Mobile overrides: replace the gradient with a blurred dark bar,
        disable expansion on hover and adjust the height. */
