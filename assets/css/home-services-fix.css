@@ -107,26 +107,6 @@
 }
 
 /*
-  Force pricing cards into a column layout so price rows align.
-  Setting the display to flex and flex-direction to column ensures
-  content above the price row can grow while the price row remains
-  anchored at the bottom.
-*/
-.pricing-grid .pricing-card{
-  display:flex;
-  flex-direction:column;
-}
-
-/*
-  Push the price row to the bottom of each card. By applying a top margin of auto
-  on the "From" label, the label and its associated price will align horizontally
-  across cards regardless of content length above.
-*/
-.pricing-grid .pricing-card .price-label{
-  margin-top:auto;
-}
-
-/*
   FAQ section styling. Each FAQ entry uses a <details> element wrapped in
   the existing neon-card to integrate seamlessly with the rest of the design.
   The summary element acts as the clickable question; we hide the default
