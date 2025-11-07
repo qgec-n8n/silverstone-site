@@ -1,0 +1,23 @@
+/* Our Services alignment enhancements */
+
+/* Align tagline heights across service cards to ensure lists start at the same vertical position */
+.packages-grid .neon-card .tagline {
+  /* At least two lines of copy on desktop screens so other cards maintain equal spacing */
+  min-height: 3rem;
+}
+
+/* Ensure each bullet row has a consistent minimum height so icons align horizontally across cards */
+.packages-grid .service-list li {
+  /* Two-line minimum height prevents shorter bullets from collapsing and misaligning */
+  min-height: 3rem;
+}
+
+/* Push call‑to‑action buttons to the bottom of each service card for horizontal alignment */
+.section.bg-lines .packages-grid .feature-card {
+  display: flex;
+  flex-direction: column;
+}
+.section.bg-lines .packages-grid .feature-card a.btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
