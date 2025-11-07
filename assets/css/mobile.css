@@ -497,61 +497,10 @@
  *
  * To achieve a premium scroll‑through experience similar to the DC Performance
  * Coaching site, we layer a fixed background image behind the entire page
- * on desktop and extend the same treatment to mobile viewports when
- * browsers support fixed backgrounds. These rules are placed after all
- * other overrides to ensure they take precedence and do not disturb
- * existing layouts.
+ * on desktop and simulate this behaviour on mobile using a pseudo‑element.
+ * These rules are placed after all other overrides to ensure they take
+ * precedence over earlier declarations and do not disturb existing layouts.
  */
-
-/*
- * Section parallax (mobile)
- *
- * Extend the fixed-background treatment to handheld viewports.  Modern
- * mobile browsers respect `background-attachment: fixed` provided the
- * element and its ancestors avoid GPU transforms, which our parallax fix
- * already ensures.  We therefore mirror the desktop configuration so the
- * experience remains consistent across devices.
- */
-@media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
-  /* Generic rules for all themed sections */
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-city,
-  .section.bg-mesh,
-  .section.bg-waves,
-  .page-book .discovery-call-section {
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-  }
-
-  /* Specific backgrounds with integrated overlay */
-  .section.bg-lines {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-abstract-lines.webp') !important;
-  }
-  .section.bg-circuit {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-circuit.webp') !important;
-  }
-  .section.bg-city {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-city.webp') !important;
-  }
-  .section.bg-mesh {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-mesh.webp') !important;
-  }
-  .section.bg-waves {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-waves.webp') !important;
-  }
-
-  /* Hide the default overlay pseudo-elements on these sections */
-  .section.bg-lines::before,
-  .section.bg-circuit::before,
-  .section.bg-city::before,
-  .section.bg-mesh::before,
-  .section.bg-waves::before {
-    display: none !important;
-  }
-}
 
 /*
  * Section parallax (desktop)
