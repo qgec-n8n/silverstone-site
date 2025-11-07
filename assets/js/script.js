@@ -496,9 +496,14 @@ document.addEventListener('DOMContentLoaded', () => {
         -webkit-overflow-scrolling: touch;
       }
       nav ul.open {
+        /* Ensure the open menu remains a flex container.  Without this override,
+           mobile.css defines `nav ul.open` with `display: block`, which causes
+           our flex-based spacing to collapse.  By explicitly using flex here
+           we preserve the evenly distributed, full-height layout. */
         opacity: 1;
         transform: translateY(0);
         pointer-events: auto;
+        display: flex;
       }
       nav ul::-webkit-scrollbar {
         width: 0.5rem;
