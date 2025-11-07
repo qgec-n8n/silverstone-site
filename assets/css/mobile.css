@@ -502,19 +502,6 @@
  * precedence over earlier declarations and do not disturb existing layouts.
  */
 
-@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-city,
-  .section.bg-mesh,
-  .section.bg-waves,
-  .page-book .discovery-call-section {
-    background-position: center calc(50% + var(--parallax-mobile-delta, 0px));
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-}
-
 /*
  * Section parallax (desktop)
  *
