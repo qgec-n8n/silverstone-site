@@ -688,86 +688,85 @@
 @media (max-width: 768px) {
   /* Home page feature section */
   .section.bg-lines {
-    /* Override the default landscape texture on mobile by supplying a portrait
-       image at multiple resolutions.  The !important flag is added to
-       background-image, position, size and repeat to ensure these values
-       override the existing declarations in styles.css, which also use
-       !important in some cases (e.g., the booking hero).  Without
-       !important the high‑specificity rules in styles.css would win and
-       prevent the sharper assets from displaying. */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
       image-set(
         url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
         url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
         url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
-      ) !important;
-    background-position: center top !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
+      );
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   /* Services page body section */
   .section.bg-circuit {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
       image-set(
         url('../images/internet/mobile/section-circuit@1x.webp') 1x,
         url('../images/internet/mobile/section-circuit@2x.webp') 2x,
         url('../images/internet/mobile/section-circuit@3x.webp') 3x
-      ) !important;
-    background-position: center top !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
+      );
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   /* About page body section */
   .section.bg-mesh {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
       image-set(
         url('../images/internet/mobile/section-mesh@1x.webp') 1x,
         url('../images/internet/mobile/section-mesh@2x.webp') 2x,
         url('../images/internet/mobile/section-mesh@3x.webp') 3x
-      ) !important;
-    background-position: center top !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
+      );
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   /* Contact page body section */
   .section.bg-waves {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
       image-set(
         url('../images/internet/mobile/section-waves@1x.webp') 1x,
         url('../images/internet/mobile/section-waves@2x.webp') 2x,
         url('../images/internet/mobile/section-waves@3x.webp') 3x
-      ) !important;
-    background-position: center top !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
+      );
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   /* Booking page hero override */
   body.page-book .hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
       image-set(
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-      ) !important;
-    background-position: center top !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
+      );
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   /* Booking page discovery call background override */
   .discovery-call-section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
       image-set(
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-      ) !important;
-    background-position: center top !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
+      );
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 }
