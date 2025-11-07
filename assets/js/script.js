@@ -307,6 +307,135 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /*
+   * Mobile parallax fallback for fixed background sections.
+   *
+   * Mobile browsers frequently ignore `background-attachment: fixed`, so we
+   * reproduce the effect in JavaScript by tracking the scroll position and
+   * updating a CSS custom property that adjusts `background-position`.  This
+   * keeps the parallax scenes on the home, about, services, book and contact
+   * pages aligned with the viewport while leaving the desktop experience
+   * untouched.
+   */
+  const mobileParallaxQuery = window.matchMedia('(max-width: 768px)');
+  const mobileParallaxSelector = [
+    '.section.bg-lines',
+    '.section.bg-circuit',
+    '.section.bg-city',
+    '.section.bg-mesh',
+    '.section.bg-waves',
+    '.page-book .discovery-call-section',
+  ].join(', ');
+  let mobileParallaxActive = false;
+  let mobileParallaxFrame = null;
+  let mobileParallaxSections = [];
+  let mobileParallaxOffsets = new WeakMap();
+
+  const collectMobileParallaxSections = () => {
+    const nodes = document.querySelectorAll(mobileParallaxSelector);
+    mobileParallaxSections = Array.from(nodes).filter((section) => {
+      const bg = window.getComputedStyle(section).backgroundImage;
+      return bg && bg !== 'none';
+    });
+  };
+
+  const computeMobileParallaxOffsets = () => {
+    mobileParallaxOffsets = new WeakMap();
+    mobileParallaxSections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      mobileParallaxOffsets.set(section, rect.top + window.scrollY);
+    });
+  };
+
+  const applyMobileParallaxOffsets = () => {
+    mobileParallaxFrame = null;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    mobileParallaxSections.forEach((section) => {
+      const base = mobileParallaxOffsets.get(section);
+      if (typeof base !== 'number') return;
+      const delta = base - scrollY;
+      section.style.setProperty('--parallax-mobile-delta', `${Math.round(delta)}px`);
+    });
+  };
+
+  const requestMobileParallaxFrame = () => {
+    if (!mobileParallaxActive) return;
+    if (mobileParallaxFrame !== null) return;
+    mobileParallaxFrame = window.requestAnimationFrame(applyMobileParallaxOffsets);
+  };
+
+  const disableMobileParallax = () => {
+    if (!mobileParallaxActive) return;
+    mobileParallaxActive = false;
+    window.removeEventListener('scroll', requestMobileParallaxFrame);
+    window.removeEventListener('resize', handleMobileParallaxResize);
+    window.removeEventListener('orientationchange', handleMobileParallaxResize);
+    if (mobileParallaxFrame !== null) {
+      window.cancelAnimationFrame(mobileParallaxFrame);
+      mobileParallaxFrame = null;
+    }
+    mobileParallaxSections.forEach((section) => {
+      section.style.removeProperty('--parallax-mobile-delta');
+    });
+    mobileParallaxSections = [];
+    mobileParallaxOffsets = new WeakMap();
+  };
+
+  const enableMobileParallax = () => {
+    if (mobileParallaxActive || prefersReducedMotion || !mobileParallaxQuery.matches) return;
+    collectMobileParallaxSections();
+    if (!mobileParallaxSections.length) return;
+    mobileParallaxActive = true;
+    computeMobileParallaxOffsets();
+    applyMobileParallaxOffsets();
+    window.addEventListener('scroll', requestMobileParallaxFrame, { passive: true });
+    window.addEventListener('resize', handleMobileParallaxResize);
+    window.addEventListener('orientationchange', handleMobileParallaxResize);
+  };
+
+  function handleMobileParallaxResize() {
+    if (!mobileParallaxActive) {
+      if (!prefersReducedMotion && mobileParallaxQuery.matches) {
+        enableMobileParallax();
+      }
+      return;
+    }
+    if (!mobileParallaxQuery.matches) {
+      disableMobileParallax();
+      return;
+    }
+    computeMobileParallaxOffsets();
+    requestMobileParallaxFrame();
+  }
+
+  const handleMobileParallaxMediaChange = (event) => {
+    if (prefersReducedMotion) return;
+    if (event.matches) {
+      enableMobileParallax();
+    } else {
+      disableMobileParallax();
+    }
+  };
+
+  if (!prefersReducedMotion) {
+    if (mobileParallaxQuery.matches) {
+      enableMobileParallax();
+    }
+    if (typeof mobileParallaxQuery.addEventListener === 'function') {
+      mobileParallaxQuery.addEventListener('change', handleMobileParallaxMediaChange);
+    } else if (typeof mobileParallaxQuery.addListener === 'function') {
+      mobileParallaxQuery.addListener(handleMobileParallaxMediaChange);
+    }
+    window.addEventListener('load', () => {
+      if (mobileParallaxActive) {
+        computeMobileParallaxOffsets();
+        requestMobileParallaxFrame();
+      } else if (mobileParallaxQuery.matches) {
+        enableMobileParallax();
+      }
+    });
+  }
+
+  /*
    * Inject dynamic styles to realise the overlay and indicator
    * aesthetics.  We leverage CSS variables defined in the global
    * stylesheet (styles.css) so the colours automatically match the
