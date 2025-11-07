@@ -1,0 +1,44 @@
+/*
+ * Custom styles to improve alignment and consistency of the
+ * "Our Services" cards on the home page.  These rules
+ * override some default styles in styles.css to ensure that
+ * bullet icons and text stack neatly across rows and columns.
+ */
+
+/* Ensure each bullet uses flex layout so the icon and text
+   align horizontally and start at the same vertical point. */
+.packages-grid .bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  /* Give each bullet a minimum height so icons across cards line up
+     even when some bullet texts wrap onto multiple lines. Adjust this
+     value if you change the font size or the content length. */
+  min-height: 2.5rem;
+  line-height: 1.3;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Fix the width of the icon column to align icons vertically and
+   horizontally. The margin-top nudges the icon down slightly so
+   that it centers better with the first line of text. */
+.packages-grid .bullet i {
+  flex: 0 0 1.2rem;
+  text-align: center;
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Remove bottom margin on the last bullet in each card to avoid
+   extra space before the call-to-action button. */
+.packages-grid .card p.bullet:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Ensure the call-to-action button stays anchored at the bottom of
+   each card. Flex-grow pushes the button down when needed. */
+.packages-grid .card .btn {
+  margin-top: auto;
+}
