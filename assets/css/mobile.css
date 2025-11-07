@@ -497,7 +497,8 @@
  *
  * To achieve a premium scroll‑through experience similar to the DC Performance
  * Coaching site, we layer a fixed background image behind the entire page
- * on desktop and simulate this behaviour on mobile using a pseudo‑element.
+ * on desktop and provide a JavaScript-driven fallback on mobile devices
+ * (see assets/js/script.js) to keep the imagery anchored while scrolling.
  * These rules are placed after all other overrides to ensure they take
  * precedence over earlier declarations and do not disturb existing layouts.
  */
