@@ -42,3 +42,23 @@
 .packages-grid .card .btn {
   margin-top: auto;
 }
+
+/* Provide additional spacing before call-to-action buttons on specific cards */
+/*
+ * The AI Consulting and Marketing cards need a little extra
+ * breathing room between the last bullet and the CTA button.  By
+ * increasing the bottom margin here, both buttons will still line
+ * up horizontally across the row, but there will be more white
+ * space below the list on these cards.
+ */
+.card-ai-consulting .bullet:last-of-type,
+.card-marketing .bullet:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+/* Offset the bullet list downwards on the Systems & Data Integration card so it lines up
+   with the Workflow & Data Automation card's list.  Increasing the
+   top margin on the first bullet nudges the entire list downward. */
+.card-systems .bullet:first-of-type {
+  margin-top: 1rem;
+}
