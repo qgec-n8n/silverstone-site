@@ -1,0 +1,55 @@
+/* === SILVERSTONE-AI NAV OVERLAY ENHANCEMENTS — 2025-11-07 === */
+/*
+ * This stylesheet enhances the mobile navigation overlay on Silverstone‑AI.com.
+ * It implements Option A from the design brief: converting the overlay list
+ * container into a grid with a fluid vertical gap and centred alignment.
+ * The goal is to ensure that the stack of pill‑shaped navigation links
+ * occupies a greater proportion of the viewport height on small screens,
+ * creating a more intentional and premium feel.  Generous top and bottom
+ * padding respect device safe‑area insets and leave space for the cookie
+ * consent banner.  Each link receives a minimum height to guarantee
+ * tap targets of at least 48 px.  The selectors are scoped to mobile
+ * widths (≤640 px) and use the `header nav ul` path to out‑rank the
+ * dynamic styles injected by `script.js`.
+ */
+@media (max-width: 640px) {
+  header nav ul {
+    /* Ensure the overlay fills the entire viewport height while
+       respecting dynamic and small viewport units. */
+    min-height: min(100dvh, 100svh, 100vh);
+    display: grid;
+    grid-auto-flow: row;
+    align-content: center;
+    justify-items: stretch;
+    /* Use a viewport‑based gap to expand vertical rhythm.  The clamp
+       ensures the gap never shrinks below 1.5rem (~24 px) and never
+       exceeds 5rem (~80 px).  The middle value (8 dvh) scales with
+       8 % of the device height to help the overlay fill at least
+       three‑quarters of the screen on typical mobile devices. */
+    row-gap: clamp(1.5rem, 8dvh, 5rem);
+    /* Add generous padding to separate the nav items from the header
+       and make room for the cookie banner.  Safe‑area insets are
+       included so the overlay looks correct on devices with notches
+       or home indicators. */
+    padding-top: calc(env(safe-area-inset-top, 0) + 2.5rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0) + 3.5rem);
+  }
+  header nav ul > li:not(.nav-back-item) {
+    /* Enforce a minimum height for each pill to satisfy the 48 px
+       tap target guideline.  Switching to grid removes any flex
+       growth behaviour from the injected styles and vertically
+       centres the link content. */
+    min-height: 52px;
+    display: grid;
+    place-items: center;
+  }
+
+  /* Position the back button at the top left of the overlay grid.
+     Without this adjustment the back button could be centred like
+     other items due to the grid layout.  Explicitly aligning it
+     mirrors the original flexbox behaviour. */
+  header nav ul > li.nav-back-item {
+    justify-self: start;
+    align-self: start;
+  }
+}
