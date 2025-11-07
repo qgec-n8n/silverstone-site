@@ -593,3 +593,33 @@
   }
 }
 /* === End override === */
+/* === Mobile nav overlay spacing fine‑tuning (≤640px only) === */
+@media (max-width: 640px) {
+  .site-header nav ul {
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    gap: 0 !important;
+  }
+
+  .site-header nav ul > li {
+    flex-grow: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+  }
+
+  /* Add controlled spacing between pills (reduced by ~33%) */
+  .site-header nav ul > li:not(.nav-back-item) + li:not(.nav-back-item) {
+    margin-top: clamp(1.5rem, 6vh, 3.25rem) !important;
+  }
+
+  /* Add a bit of space below the back-to-page button before the first nav link */
+  .site-header nav ul > li.nav-back-item {
+    margin-bottom: clamp(1.25rem, 4vh, 2.5rem) !important;
+  }
+
+  .site-header nav ul > li a {
+    border: 0 !important;
+    border-bottom: 0 !important;
+  }
+}
+/* === End fine‑tuning === */
