@@ -475,9 +475,17 @@ document.addEventListener('DOMContentLoaded', () => {
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        justify-content: flex-start;
+        /* Distribute menu items evenly across the full height of the viewport.
+           Using space-evenly provides equal spacing above, between and below
+           the links, creating a spacious, balanced layout that feels premium.
+           Previously the menu items were packed at the top; this change
+           spreads them vertically to utilise more of the user’s viewport. */
+        justify-content: space-evenly;
+        /* Increase the gap between nav items slightly for extra breathing room.
+           This fallback gap will apply when space-evenly cannot fill the
+           available space (e.g. on very small screens). */
+        gap: clamp(3rem, 10vh, 6rem);
         padding: calc(env(safe-area-inset-top, 0) + 1.5rem) 1.75rem calc(env(safe-area-inset-bottom) + 2.75rem);
-        gap: clamp(2rem, 5.5vh, 3.75rem);
         opacity: 0;
         transform: translateY(-100%);
         pointer-events: none;
@@ -507,7 +515,13 @@ document.addEventListener('DOMContentLoaded', () => {
         display: flex;
       }
       nav ul > li:not(.nav-back-item) {
+        /* Allow each nav item to grow equally so that the spacing is truly
+           distributed across the viewport.  Combined with justify-content:
+           space-evenly on the parent, this ensures each link occupies
+           roughly the same vertical space, producing a modern, airy layout. */
+        flex-grow: 1;
         justify-content: center;
+        align-items: center;
       }
       nav ul > li.nav-back-item {
         width: auto;
