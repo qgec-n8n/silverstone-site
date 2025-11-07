@@ -562,3 +562,75 @@ document.addEventListener('DOMContentLoaded', () => {
   styleElem.appendChild(document.createTextNode(mobileNavStyles));
   document.head.appendChild(styleElem);
 });
+
+/*
+ * Mobile parallax effect for themed sections
+ *
+ * On desktop our themed sections (`bg‑lines`, `bg‑circuit`, `bg‑city`,
+ * `bg‑mesh` and `bg‑waves`) use `background‑attachment: fixed` to
+ * create a parallax effect.  Mobile browsers (especially iOS
+ * Safari/Chrome) lack reliable support for fixed backgrounds, so the
+ * effect disappears.  To reproduce the same behaviour on small
+ * screens we create a single, fixed element behind the page (`#mobile-parallax-bg`).
+ * As the user scrolls we update its `backgroundImage` to match the
+ * current section.  The sections themselves have their
+ * `background-image` removed via CSS, while their overlay
+ * pseudo‑elements remain to provide the dark tint.  When no
+ * parallax section is in view the element simply retains the last
+ * image until the next section is reached.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  // Only run on viewports 768px wide or narrower and when motion is not reduced
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!isMobile || prefersReducedMotion) return;
+
+  // Collect all sections that normally exhibit parallax on desktop
+  const parallaxSections = Array.from(document.querySelectorAll(
+    '.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves'
+  ));
+  if (!parallaxSections.length) return;
+
+  // Create the global parallax element if it does not exist
+  let parallaxBg = document.getElementById('mobile-parallax-bg');
+  if (!parallaxBg) {
+    parallaxBg = document.createElement('div');
+    parallaxBg.id = 'mobile-parallax-bg';
+    // Append to the start of the body so it sits behind all content
+    document.body.insertBefore(parallaxBg, document.body.firstChild);
+  }
+
+  /**
+   * Determine which section is currently centred in the viewport
+   * and update the global parallax element’s background to match.
+   * We sample the Y position at one third down the viewport to
+   * anticipate the incoming section slightly and avoid abrupt
+   * transitions at the halfway mark.
+   */
+  function updateParallaxBackground() {
+    const viewportMid = window.scrollY + window.innerHeight * 0.33;
+    let activeSection = null;
+    for (const section of parallaxSections) {
+      const top = section.offsetTop;
+      const bottom = top + section.offsetHeight;
+      if (viewportMid >= top && viewportMid < bottom) {
+        activeSection = section;
+        break;
+      }
+    }
+    if (!activeSection) return;
+    const computed = getComputedStyle(activeSection);
+    // Apply the full multi‑layer background to the global element.
+    // This will include any linear gradients defined in CSS.
+    parallaxBg.style.backgroundImage = computed.backgroundImage;
+    // Also replicate size and position in case custom values are used
+    parallaxBg.style.backgroundSize = computed.backgroundSize;
+    parallaxBg.style.backgroundPosition = computed.backgroundPosition;
+  }
+
+  // Initial update on load
+  updateParallaxBackground();
+  // Update on scroll and resize events
+  window.addEventListener('scroll', updateParallaxBackground, { passive: true });
+  window.addEventListener('resize', updateParallaxBackground, { passive: true });
+});

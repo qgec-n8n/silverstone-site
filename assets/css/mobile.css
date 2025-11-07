@@ -172,6 +172,55 @@
     max-width: 100%;
   }
 
+  /* -----------------------------------------------------------------
+   * Mobile parallax support
+   *
+   * On desktop we rely on `background-attachment: fixed` to pin the
+   * background of our themed sections (bg‑lines, bg‑circuit, bg‑city,
+   * bg‑mesh and bg‑waves) while the content scrolls over the top.
+   * Mobile browsers do not reliably support fixed backgrounds, so the
+   * parallax effect disappears on small screens.  To reproduce the
+   * same effect on mobile we inject a global, fixed element into the
+   * DOM via JavaScript and update its background image as the user
+   * scrolls.  When the global parallax element is in use we hide the
+   * native background image on each section to prevent duplicate
+   * rendering.  The overlay pseudo‑elements on the sections remain
+   * intact to preserve the dark shading over each scene.
+   *
+   * The companion JavaScript (see `script.js`) listens for scroll
+   * events and swaps the background image on `#mobile-parallax-bg`
+   * whenever the active section changes.  This rule merely defines
+   * the element’s geometry and disables the section backgrounds on
+   * mobile.  Because this code is scoped inside the mobile media
+   * query it has no effect on desktop layouts.
+   */
+  #mobile-parallax-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    /* Smooth the cross‑fade between backgrounds */
+    transition: background-image 0.4s ease-out;
+  }
+
+  /* Hide section background images on mobile so the global
+     parallax layer is solely responsible for rendering the
+     scene.  The overlay pseudo‑elements remain in place to
+     maintain the dark vignette. */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-city,
+  .section.bg-mesh,
+  .section.bg-waves {
+    background-image: none !important;
+  }
+
   /*
    * Feature and value cards padding
    *
