@@ -438,14 +438,17 @@ document.addEventListener('DOMContentLoaded', () => {
         left: 0;
         width: 100%;
         height: 100vh;
-        /* Dark, glassy backdrop with saturation boost for a high‑tech feel */
-        background: rgba(11, 12, 16, 0.94);
-        backdrop-filter: blur(16px) saturate(180%);
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow:
+          0 28px 60px rgba(15, 23, 42, 0.18),
+          0 16px 32px rgba(148, 163, 184, 0.18);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        padding: calc(env(safe-area-inset-top, 0) + 1rem) 1.5rem calc(env(safe-area-inset-bottom) + 2.5rem);
+        padding: calc(env(safe-area-inset-top, 0) + 1.5rem) 1.5rem calc(env(safe-area-inset-bottom) + 2.75rem);
         gap: 1.75rem;
         opacity: 0;
         transform: translateY(-100%);
@@ -465,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
         width: 0.5rem;
       }
       nav ul::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, rgba(0, 174, 239, 0.65), rgba(157, 78, 221, 0.45));
+        background: linear-gradient(180deg, rgba(0, 174, 239, 0.45), rgba(157, 78, 221, 0.35));
         border-radius: 999px;
       }
       nav ul::-webkit-scrollbar-track {
@@ -481,19 +484,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       nav ul li a {
         display: block;
-        font-size: 1.3rem;
+        font-size: 1.25rem;
         font-weight: 600;
-        color: var(--color-green);
+        color: var(--color-blue);
         text-align: center;
         letter-spacing: 0.08em;
-        padding: 0.8rem 1.5rem;
+        padding: 0.85rem 1.5rem;
         border-radius: 999px;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        background: rgba(12, 18, 36, 0.04);
+        box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+        transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
       }
       nav ul li a:hover,
-      nav ul li a:focus {
-        background: rgba(0, 174, 239, 0.15);
-        color: var(--color-blue);
+      nav ul li a:focus,
+      nav ul li a.active {
+        background: linear-gradient(135deg, rgba(0, 174, 239, 0.18), rgba(157, 78, 221, 0.14));
+        box-shadow:
+          0 16px 34px rgba(15, 23, 42, 0.14),
+          0 8px 22px rgba(148, 163, 184, 0.16);
+        transform: translateY(-2px);
       }
       /* Hamburger icon styling and transformation */
       .nav-toggle {
@@ -509,7 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .nav-toggle span {
         width: 100%;
         height: 2px;
-        background-color: var(--color-green);
+        background-color: var(--color-blue);
         margin-bottom: 4px;
         transition: transform 0.4s ease, opacity 0.4s ease;
       }
@@ -527,34 +536,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       /* Mobile header indicator overrides */
       #header-indicator {
-        /* On mobile the indicator should span the full width of the viewport.
-           Reset left and width to fill the screen and adjust the transform so
-           it slides vertically rather than diagonally.  Height remains reduced
-           to maintain a compact feel.  Use the same vibrant gradient and
-           glowing effects as the desktop banner for visual consistency. */
-        width: 100%;
-        left: 0;
-        height: 40px;
-        background: linear-gradient(
-          90deg,
-          var(--color-blue),
-          var(--color-purple),
-          var(--color-green)
-        );
-        backdrop-filter: blur(8px) saturate(160%);
-        border-radius: 0 0 8px 8px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        left: 0.75rem;
+        right: 0.75rem;
+        width: auto;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.98);
+        color: var(--color-blue);
+        border-radius: 14px;
+        border: 1px solid rgba(15, 23, 42, 0.08);
         box-shadow:
-          0 4px 12px rgba(0, 174, 239, 0.35),
-          0 6px 20px rgba(157, 78, 221, 0.30);
-        transform: translateY(-100%);
+          0 18px 38px rgba(15, 23, 42, 0.16),
+          0 8px 20px rgba(148, 163, 184, 0.14);
+        transform: translateY(-110%);
       }
       #header-indicator.active {
         transform: translateY(0);
       }
       #header-indicator:hover {
         /* Disable expansion on hover for mobile; height remains constant. */
-        height: 40px;
+        height: 44px;
       }
     }
   `;
