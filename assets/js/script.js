@@ -39,12 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // include a separate mobile-fixes file.
   ensureStylesheet('assets/css/custom.css');
   ensureStylesheet('assets/css/mobile.css');
-  // Load additional mobile overlay enhancements.  This stylesheet
-  // introduces a grid‑based layout and responsive spacing for the
-  // navigation overlay, ensuring the pill buttons occupy more
-  // vertical space on small screens.  The ensureStylesheet helper
-  // prevents duplicate inserts on subsequent pages.
-  ensureStylesheet('assets/css/mobile-overlay-enhancements.css');
 
   // Intersection observer: reveal elements with the `.animate` class
   // when they enter the viewport.  This replicates the lightweight
