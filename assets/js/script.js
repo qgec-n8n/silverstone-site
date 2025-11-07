@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
-  function scheduleHeaderAutoHide(delay = 2000) {
+  function scheduleHeaderAutoHide(delay = 1200) {
     clearTimeout(headerAutoHideTimeoutId);
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
