@@ -486,6 +486,10 @@ document.addEventListener('DOMContentLoaded', () => {
            available space (e.g. on very small screens). */
         gap: clamp(3rem, 10vh, 6rem);
         padding: calc(env(safe-area-inset-top, 0) + 1.5rem) 1.75rem calc(env(safe-area-inset-bottom) + 2.75rem);
+<<<<<<< HEAD
+=======
+        gap: clamp(2.75rem, 8.5vh, 5.25rem);
+>>>>>>> dd6cde44293e6bd5c4a116d52ef9252102cf0157
         opacity: 0;
         transform: translateY(-100%);
         pointer-events: none;
