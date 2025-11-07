@@ -106,9 +106,6 @@
         text-align: left;
       }
       .packages-grid .neon-card p {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.55rem;
         font-size: 0.9rem;
         color: var(--color-silver);
         margin-bottom: 0.35rem;
@@ -118,10 +115,37 @@
       .packages-grid .neon-card p.tagline {
         margin-bottom: 0.75rem;
       }
-      .packages-grid .neon-card p i {
-        font-size: 1.15rem;
+      /*
+       * Bullet list styling: use a grid-based layout so icons and the
+       * first letters of each bullet align vertically across all cards.
+       */
+      .packages-grid .service-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .packages-grid .service-list li {
+        display: grid;
+        grid-template-columns: 1.35rem 1fr;
+        column-gap: 0.55rem;
+        align-items: flex-start;
+        font-size: 0.9rem;
+        color: var(--color-silver);
+        line-height: 1.45;
+      }
+      .packages-grid .service-list .service-list__icon {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 1.35rem;
         color: var(--color-green);
-        margin-top: 0.15rem;
+        font-size: 1.15rem;
+      }
+      .packages-grid .service-list .service-list__icon i {
+        line-height: 1;
       }
 
       /*
@@ -341,9 +365,20 @@
               <h3>AI Consulting for Small Business</h3>
             </div>
             <p class="tagline">We make AI accessible for smaller companies without deep pockets or in‑house expertise.</p>
-            <p><i class="fa-solid fa-lightbulb"></i>Cut through the noise to identify the best AI models and tools for your needs</p>
-            <p><i class="fa-solid fa-robot"></i>Build AI agents and automations to increase productivity and profits</p>
-            <p><i class="fa-solid fa-shield-halved"></i>Understand the potential of AI and how to mitigate risks</p>
+            <ul class="service-list">
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-lightbulb"></i></span>
+                <span>Cut through the noise to identify the best AI models and tools for your needs</span>
+              </li>
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-robot"></i></span>
+                <span>Build AI agents and automations to increase productivity and profits</span>
+              </li>
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-shield-halved"></i></span>
+                <span>Understand the potential of AI and how to mitigate risks</span>
+              </li>
+            </ul>
             <a href="services.html#consulting" class="btn btn-secondary">Level‑Up With AI</a>
           </div>
           <!-- Marketing Automation -->
@@ -354,9 +389,20 @@
               <h3>Marketing Automation</h3>
             </div>
             <p class="tagline">Boost customer attraction and drive sales with targeted, automated marketing workflows.</p>
-            <p><i class="fa-solid fa-gears"></i>Design and build streamlined processes to increase your team’s capacity</p>
-            <p><i class="fa-solid fa-robot"></i>Weave GenAI into workflows to create, publish and repurpose assets on autopilot</p>
-            <p><i class="fa-solid fa-chart-line"></i>Optimise campaign performance and improve personalisation to maximise ROI</p>
+            <ul class="service-list">
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-gears"></i></span>
+                <span>Design and build streamlined processes to increase your team’s capacity</span>
+              </li>
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-robot"></i></span>
+                <span>Weave GenAI into workflows to create, publish and repurpose assets on autopilot</span>
+              </li>
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-chart-line"></i></span>
+                <span>Optimise campaign performance and improve personalisation to maximise ROI</span>
+              </li>
+            </ul>
             <a href="services.html#marketing" class="btn btn-secondary">Automate Marketing</a>
           </div>
           <!-- Workflow & Data Automation -->
@@ -367,9 +413,20 @@
               <h3>Workflow &amp; Data Automation</h3>
             </div>
             <p class="tagline">Create automated workflows and data systems to optimise resources and increase ROI.</p>
-            <p><i class="fa-solid fa-gears"></i>Intelligent workflows eliminate busywork</p>
-            <p><i class="fa-solid fa-chart-bar"></i>Interactive dashboards &amp; real‑time reporting</p>
-            <p><i class="fa-solid fa-calendar-check"></i>Smart scheduling &amp; resource management</p>
+            <ul class="service-list">
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-gears"></i></span>
+                <span>Intelligent workflows eliminate busywork</span>
+              </li>
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-chart-bar"></i></span>
+                <span>Interactive dashboards &amp; real‑time reporting</span>
+              </li>
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-calendar-check"></i></span>
+                <span>Smart scheduling &amp; resource management</span>
+              </li>
+            </ul>
             <a href="services.html#workflow-data" class="btn btn-secondary">Optimise Workflows</a>
           </div>
           <!-- Systems & Data Integration -->
@@ -380,9 +437,20 @@
               <h3>Systems &amp; Data Integration</h3>
             </div>
             <p class="tagline">Connect your tools and platforms into one seamless ecosystem.</p>
-            <p><i class="fa-solid fa-network-wired"></i>Unify your systems &amp; apps into one ecosystem</p>
-            <p><i class="fa-solid fa-plug"></i>Seamless app integration with n8n &amp; Zapier</p>
-            <p><i class="fa-solid fa-code"></i>API integration and middleware development</p>
+            <ul class="service-list">
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-network-wired"></i></span>
+                <span>Unify your systems &amp; apps into one ecosystem</span>
+              </li>
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-plug"></i></span>
+                <span>Seamless app integration with n8n &amp; Zapier</span>
+              </li>
+              <li>
+                <span class="service-list__icon"><i class="fa-solid fa-code"></i></span>
+                <span>API integration and middleware development</span>
+              </li>
+            </ul>
             <a href="services.html#integration" class="btn btn-secondary">Integrate Systems</a>
           </div>
         </div>
