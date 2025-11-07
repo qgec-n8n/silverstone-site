@@ -438,8 +438,9 @@ document.addEventListener('DOMContentLoaded', () => {
         left: 0;
         width: 100%;
         height: 100vh;
-        background: rgba(255, 255, 255, 0.97);
-        backdrop-filter: blur(18px) saturate(160%);
+        background: #ffffff;
+        backdrop-filter: blur(18px) saturate(150%);
+        -webkit-backdrop-filter: blur(18px) saturate(150%);
         border: 1px solid rgba(15, 23, 42, 0.08);
         box-shadow:
           0 28px 60px rgba(15, 23, 42, 0.18),
@@ -491,17 +492,20 @@ document.addEventListener('DOMContentLoaded', () => {
         letter-spacing: 0.08em;
         padding: 0.85rem 1.5rem;
         border-radius: 999px;
-        background: rgba(12, 18, 36, 0.04);
-        box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-        transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        background: linear-gradient(135deg, rgba(226, 232, 240, 0.45), rgba(241, 245, 249, 0.75));
+        box-shadow:
+          0 12px 26px rgba(15, 23, 42, 0.08),
+          0 2px 6px rgba(148, 163, 184, 0.12);
+        transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, color 0.3s ease;
       }
       nav ul li a:hover,
       nav ul li a:focus,
       nav ul li a.active {
-        background: linear-gradient(135deg, rgba(0, 174, 239, 0.18), rgba(157, 78, 221, 0.14));
+        background: linear-gradient(135deg, rgba(0, 174, 239, 0.16), rgba(157, 78, 221, 0.12));
         box-shadow:
           0 16px 34px rgba(15, 23, 42, 0.14),
           0 8px 22px rgba(148, 163, 184, 0.16);
+        color: var(--color-blue);
         transform: translateY(-2px);
       }
       /* Hamburger icon styling and transformation */
@@ -540,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
         right: 0.75rem;
         width: auto;
         height: 44px;
-        background: rgba(255, 255, 255, 0.98);
+        background: #ffffff;
         color: var(--color-blue);
         border-radius: 14px;
         border: 1px solid rgba(15, 23, 42, 0.08);
