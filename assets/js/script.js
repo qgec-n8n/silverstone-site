@@ -39,6 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // include a separate mobile-fixes file.
   ensureStylesheet('assets/css/custom.css');
   ensureStylesheet('assets/css/mobile.css');
+  // Load additional mobile navigation fix overrides.  This stylesheet
+  // provides generous spacing between navigation pills and applies the
+  // rounded button styles without altering the overall menu layout.
+  ensureStylesheet('assets/css/mobile-nav-overlay-fix.css');
+  // The old `mobile-fixes.css` file is no longer used.  Navigation spacing
+  // adjustments are now contained entirely within `mobile-nav-overlay-fix.css`.
 
   // Intersection observer: reveal elements with the `.animate` class
   // when they enter the viewport.  This replicates the lightweight
@@ -496,9 +502,14 @@ document.addEventListener('DOMContentLoaded', () => {
         -webkit-overflow-scrolling: touch;
       }
       nav ul.open {
+        /* Ensure the open menu remains a flex container.  Without this override,
+           mobile.css defines `nav ul.open` with `display: block`, which causes
+           our flex-based spacing to collapse.  By explicitly using flex here
+           we preserve the evenly distributed, full-height layout. */
         opacity: 1;
         transform: translateY(0);
         pointer-events: auto;
+        display: flex;
       }
       nav ul::-webkit-scrollbar {
         width: 0.5rem;
@@ -672,9 +683,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   `;
-  const styleElem = document.createElement('style');
-  styleElem.appendChild(document.createTextNode(mobileNavStyles));
-  document.head.appendChild(styleElem);
+  // Previously, we injected the premium mobile navigation overlay styles directly
+  // via a dynamically created <style> element using the `mobileNavStyles`
+  // template defined above.  That approach overrode various elements on the
+  // page (including the cookie banner) and made it difficult to isolate
+  // changes to just the navigation overlay.  We now load our mobile menu
+  // enhancements from an external stylesheet (`mobile-nav-overlay-fix.css`) via
+  // `ensureStylesheet`, so we intentionally do not append `mobileNavStyles`
+  // to the document here.  Leaving the definition in place has no effect
+  // because it is never inserted into the DOM.
 });
 
 /*

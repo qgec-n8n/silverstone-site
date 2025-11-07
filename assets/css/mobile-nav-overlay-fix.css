@@ -1,0 +1,62 @@
+/*
+ * Mobile Navigation Overlay Fix for Silverstone
+ *
+ * This stylesheet provides additional spacing and styling for the mobile
+ * navigation overlay without altering the overall layout or behaviour of
+ * other site components (e.g. the cookie consent banner or the desktop
+ * navigation).  It should be loaded after `mobile.css` so that it can
+ * override the default mobile menu rules defined there.
+ */
+
+@media (max-width: 768px) {
+  /* When the mobile menu is open, add generous padding to the top and bottom
+     of the menu to prevent the buttons from feeling cramped.  The clamp
+     function ensures the padding scales smoothly across different device
+     heights. */
+  nav ul.open {
+    padding-top: clamp(2rem, 10vh, 4rem);
+    padding-bottom: clamp(2rem, 10vh, 4rem);
+  }
+
+  /* Increase vertical spacing between each navigation item by adding a
+     responsive margin to the bottom of every list item except the last.
+     Remove the default bottom border that separates items so the pills
+     appear distinct and free‑floating. */
+  nav ul.open li {
+    margin-bottom: clamp(1rem, 6vh, 3rem);
+    border-bottom: none !important;
+  }
+
+  nav ul.open li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Style the links inside the mobile menu as pill buttons.  The buttons
+     span the full width of their container with gently rounded corners,
+     subtle shadows and responsive padding.  Colours are drawn from
+     existing CSS variables to maintain consistency with the site’s
+     palette. */
+  nav ul.open li a {
+    display: block;
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(0, 174, 239, 0.18);
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.08em;
+    color: var(--color-blue);
+    transition: background-color 0.3s ease, color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  nav ul.open li a:hover,
+  nav ul.open li a:focus {
+    background-color: rgba(0, 174, 239, 0.12);
+    color: var(--color-purple);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+  }
+}
