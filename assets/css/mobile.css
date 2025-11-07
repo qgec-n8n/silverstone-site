@@ -507,29 +507,6 @@
 }
 
 /*
- * Custom enhancement: increase vertical spacing between mobile navigation
- * pill buttons on very small screens (≤640px).
- *
- * The script injects a full‑screen overlay menu on mobile viewports (≤768px) with
- * evenly spaced navigation buttons.  On phones with narrower widths, the
- * default spacing can make the menu feel compressed.  This rule adds a
- * larger gap between each list item so that the stack of pill buttons
- * occupies roughly 70–85% of the viewport height.  We use `clamp` to set
- * sensible minimum and maximum values and `!important` to override the
- * injected inline styles.  No other aspects of the navigation or layout
- * are affected, and this applies only to very small screens.
- */
-@media (max-width: 640px) {
-  nav ul {
-    /* Increase the gap between nav items on the overlay.  The clamp
-       produces a minimum of 4rem, scales with viewport height at 14vh,
-       and caps at 8rem.  The `!important` ensures this rule takes
-       precedence over dynamically injected styles. */
-    gap: clamp(4rem, 14vh, 8rem) !important;
-  }
-}
-
-/*
  * Parallax enhancements for Silverstone
  *
  * To achieve a premium scroll‑through experience similar to the DC Performance
