@@ -241,6 +241,13 @@
 }
 .pricing-grid .neon-card{
   text-align:left;
+  display:flex;
+  flex-direction:column;
+}
+.pricing-grid .neon-card .price-block{
+  display:flex;
+  flex-direction:column;
+  margin-top:auto;
 }
 .pricing-grid .neon-card h3{
   font-size:1.3rem;
