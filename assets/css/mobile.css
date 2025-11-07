@@ -565,3 +565,28 @@
     display: none !important;
   }
 }
+
+/* === Mobile nav overlay spacing + divider removal (≤640px only) === */
+@media (max-width: 640px) {
+  /* Increase vertical spacing between each pill button without changing the pill itself */
+  .site-header nav ul {
+    /* Larger inter-item spacing to make the overlay feel fuller */
+    gap: clamp(4rem, 12vh, 10rem) !important;
+  }
+
+  /* Remove any lines/dividers between items and around pills */
+  .site-header nav ul li {
+    border: 0 !important;
+  }
+  .site-header nav ul li a {
+    border: 0 !important;
+    border-bottom: 0 !important;
+  }
+
+  /* Avoid extra space after the final item */
+  .site-header nav ul li:last-child {
+    margin-bottom: 0;
+    border: 0 !important;
+  }
+}
+/* === End mobile nav overlay spacing + divider removal === */
