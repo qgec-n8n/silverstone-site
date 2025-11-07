@@ -307,11 +307,72 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /*
+   * Mobile parallax support
+   *
+   * Mobile browsers frequently ignore background-attachment: fixed.
+   * We watch each themed section and, when it is onscreen on a small
+   * viewport, toggle a helper class that activates a fixed pseudo-element
+   * defined in mobile.css.  Reduced-motion preferences and viewport
+   * changes are respected.
+   */
+  const parallaxSections = Array.from(
+    document.querySelectorAll(
+      '.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves, .page-book .discovery-call-section'
+    )
+  );
+  const mobileParallaxQuery = window.matchMedia('(max-width: 768px)');
+  const reduceMotionParallaxQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let parallaxObserver = null;
+
+  const observeParallax = () => {
+    if (parallaxObserver || !parallaxSections.length) return;
+    parallaxObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-parallax-active');
+          } else {
+            entry.target.classList.remove('is-parallax-active');
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    parallaxSections.forEach((section) => parallaxObserver.observe(section));
+  };
+
+  const disconnectParallax = () => {
+    if (parallaxObserver) {
+      parallaxObserver.disconnect();
+      parallaxObserver = null;
+    }
+    parallaxSections.forEach((section) => {
+      section.classList.remove('is-parallax-active');
+    });
+  };
+
+  const evaluateParallax = () => {
+    if (!parallaxSections.length) return;
+    if (reduceMotionParallaxQuery.matches || !mobileParallaxQuery.matches) {
+      disconnectParallax();
+      return;
+    }
+    observeParallax();
+  };
+
+  if (parallaxSections.length) {
+    evaluateParallax();
+    mobileParallaxQuery.addEventListener('change', evaluateParallax);
+    reduceMotionParallaxQuery.addEventListener('change', evaluateParallax);
+  }
+
+  /*
    * Inject dynamic styles to realise the overlay and indicator
    * aesthetics.  We leverage CSS variables defined in the global
    * stylesheet (styles.css) so the colours automatically match the
    * brand palette.  This block applies only to screens up to 768px.
    */
+
   const mobileNavStyles = `
     /*
        Override the default header height variable to make the maximized menu
