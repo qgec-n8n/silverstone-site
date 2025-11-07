@@ -565,28 +565,31 @@
     display: none !important;
   }
 }
-
-/* === Mobile nav overlay spacing + divider removal (≤640px only) === */
+/* === Mobile nav overlay spacing + divider removal (≤640px only) — override injected runtime styles === */
 @media (max-width: 640px) {
-  /* Increase vertical spacing between each pill button without changing the pill itself */
+  /* Take control of the overlay list layout and keep items near the top */
   .site-header nav ul {
-    /* Larger inter-item spacing to make the overlay feel fuller */
-    gap: clamp(4rem, 12vh, 10rem) !important;
+    justify-content: flex-start !important;  /* override injected space-evenly */
+    align-content: flex-start !important;
+    gap: 0 !important; /* we'll control spacing per-item to avoid grid-like holes */
   }
 
-  /* Remove any lines/dividers between items and around pills */
-  .site-header nav ul li {
-    border: 0 !important;
+  /* Ensure list items don't stretch to fill equal vertical space */
+  .site-header nav ul > li {
+    flex-grow: 0 !important;
+    margin: 0 !important;
+    border: 0 !important; /* remove any li borders/dividers */
   }
-  .site-header nav ul li a {
+
+  /* Add vertical spacing between pills without changing pill size or alignment */
+  .site-header nav ul > li:not(.nav-back-item) + li:not(.nav-back-item) {
+    margin-top: clamp(2.25rem, 9vh, 5rem) !important; /* approx 70–85% total fill with 5 items */
+  }
+
+  /* Remove any borders applied directly to the anchor "pill" */
+  .site-header nav ul > li a {
     border: 0 !important;
     border-bottom: 0 !important;
   }
-
-  /* Avoid extra space after the final item */
-  .site-header nav ul li:last-child {
-    margin-bottom: 0;
-    border: 0 !important;
-  }
 }
-/* === End mobile nav overlay spacing + divider removal === */
+/* === End override === */
