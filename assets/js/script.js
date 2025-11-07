@@ -567,17 +567,16 @@ document.addEventListener('DOMContentLoaded', () => {
  * Mobile parallax effect for themed sections
  *
  * On desktop our themed sections (`bg‑lines`, `bg‑circuit`, `bg‑city`,
- * `bg‑mesh` and `bg‑waves`) use `background‑attachment: fixed` to
- * create a parallax effect.  Mobile browsers (especially iOS
- * Safari/Chrome) lack reliable support for fixed backgrounds, so the
- * effect disappears.  To reproduce the same behaviour on small
- * screens we create a single, fixed element behind the page (`#mobile-parallax-bg`).
- * As the user scrolls we update its `backgroundImage` to match the
- * current section.  The sections themselves have their
- * `background-image` removed via CSS, while their overlay
- * pseudo‑elements remain to provide the dark tint.  When no
- * parallax section is in view the element simply retains the last
- * image until the next section is reached.
+ * `bg‑mesh` and `bg‑waves`) rely on `background‑attachment: fixed` to
+ * create a dramatic parallax effect.  Mobile browsers (especially iOS
+ * Safari/Chrome) do not consistently support fixed backgrounds, so
+ * attempting to pin the image to the viewport often fails.  Rather
+ * than inserting a global fixed layer behind the page, the code
+ * below adjusts each themed section’s `background-position` on
+ * scroll.  By moving the image more slowly than the page content,
+ * we approximate the intended depth without altering the markup or
+ * hiding the native background images.  See the implementation
+ * below for details.
  */
 document.addEventListener('DOMContentLoaded', () => {
   // Only run on viewports 768px wide or narrower and when motion is not reduced
@@ -591,46 +590,41 @@ document.addEventListener('DOMContentLoaded', () => {
   ));
   if (!parallaxSections.length) return;
 
-  // Create the global parallax element if it does not exist
-  let parallaxBg = document.getElementById('mobile-parallax-bg');
-  if (!parallaxBg) {
-    parallaxBg = document.createElement('div');
-    parallaxBg.id = 'mobile-parallax-bg';
-    // Append to the start of the body so it sits behind all content
-    document.body.insertBefore(parallaxBg, document.body.firstChild);
-  }
-
   /**
-   * Determine which section is currently centred in the viewport
-   * and update the global parallax element’s background to match.
-   * We sample the Y position at one third down the viewport to
-   * anticipate the incoming section slightly and avoid abrupt
-   * transitions at the halfway mark.
+   * Adjust the background position of each section relative to the
+   * viewport scroll.  By shifting the image up as the page scrolls
+   * down (and vice versa), we simulate a parallax effect without
+   * relying on `background-attachment: fixed`.  A small multiplier
+   * controls the speed of the parallax motion relative to the
+   * scroll.  Negative values move the background opposite the scroll.
    */
-  function updateParallaxBackground() {
-    const viewportMid = window.scrollY + window.innerHeight * 0.33;
-    let activeSection = null;
-    for (const section of parallaxSections) {
-      const top = section.offsetTop;
-      const bottom = top + section.offsetHeight;
-      if (viewportMid >= top && viewportMid < bottom) {
-        activeSection = section;
-        break;
-      }
-    }
-    if (!activeSection) return;
-    const computed = getComputedStyle(activeSection);
-    // Apply the full multi‑layer background to the global element.
-    // This will include any linear gradients defined in CSS.
-    parallaxBg.style.backgroundImage = computed.backgroundImage;
-    // Also replicate size and position in case custom values are used
-    parallaxBg.style.backgroundSize = computed.backgroundSize;
-    parallaxBg.style.backgroundPosition = computed.backgroundPosition;
+  function updateParallax() {
+    const scrollY = window.scrollY;
+    parallaxSections.forEach((section) => {
+      const offset = scrollY - section.offsetTop;
+      const depth = 0.3; // adjust this value to tune the parallax speed
+      const yPos = -offset * depth;
+      // Set both vertical positions for multi‑layer backgrounds.
+      // Use calc() so CSS interprets numeric values correctly.
+      section.style.backgroundPosition = `center calc(${yPos}px)`;
+    });
   }
 
-  // Initial update on load
-  updateParallaxBackground();
-  // Update on scroll and resize events
-  window.addEventListener('scroll', updateParallaxBackground, { passive: true });
-  window.addEventListener('resize', updateParallaxBackground, { passive: true });
+  // Perform an initial update on load
+  updateParallax();
+
+  // Use requestAnimationFrame to throttle scroll updates for performance
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateParallax();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 });
