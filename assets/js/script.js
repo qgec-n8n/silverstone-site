@@ -82,6 +82,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
 
+  let navBackButton;
+  if (navMenu && !navMenu.querySelector('.nav-back-item')) {
+    const navBackItem = document.createElement('li');
+    navBackItem.className = 'nav-back-item';
+
+    navBackButton = document.createElement('button');
+    navBackButton.type = 'button';
+    navBackButton.className = 'nav-back-btn';
+    navBackButton.setAttribute('aria-label', 'Close menu and return to the page');
+    navBackButton.innerHTML = `
+      <span class="nav-back-icon" aria-hidden="true"></span>
+      <span class="nav-back-label">Back to page</span>
+    `;
+
+    navBackItem.appendChild(navBackButton);
+    navMenu.prepend(navBackItem);
+  }
+
   // Create the header indicator bar.  This small bar appears when the
   // header is hidden to signal that users can reveal the menu.  It
   // functions both as a label (“Menu”) and as a tappable target for
@@ -191,6 +209,17 @@ document.addEventListener('DOMContentLoaded', () => {
           closeNavMenu();
         }
       });
+    });
+  }
+
+  if (navBackButton) {
+    navBackButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      closeNavMenu();
+      if (navToggle) {
+        navToggle.focus();
+      }
     });
   }
 
@@ -445,10 +474,10 @@ document.addEventListener('DOMContentLoaded', () => {
         box-shadow: 0 18px 46px rgba(15, 23, 42, 0.18);
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
         justify-content: flex-start;
-        padding: calc(env(safe-area-inset-top, 0) + 1.25rem) 1.75rem calc(env(safe-area-inset-bottom) + 2.75rem);
-        gap: 1.5rem;
+        padding: calc(env(safe-area-inset-top, 0) + 1.5rem) 1.75rem calc(env(safe-area-inset-bottom) + 2.75rem);
+        gap: clamp(2rem, 5.5vh, 3.75rem);
         opacity: 0;
         transform: translateY(-100%);
         pointer-events: none;
@@ -476,10 +505,19 @@ document.addEventListener('DOMContentLoaded', () => {
       nav ul > li {
         width: 100%;
         display: flex;
+      }
+      nav ul > li:not(.nav-back-item) {
         justify-content: center;
       }
+      nav ul > li.nav-back-item {
+        width: auto;
+        flex: 0 0 auto;
+        align-self: flex-start;
+        justify-content: flex-start;
+        margin-bottom: 0.25rem;
+      }
       nav ul > li > * {
-        width: min(100%, 420px);
+        width: 100%;
       }
       nav ul li a {
         display: block;
@@ -501,7 +539,68 @@ document.addEventListener('DOMContentLoaded', () => {
         color: var(--color-purple);
         box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
       }
-      /* Hamburger icon styling and transformation */
+      .nav-back-item {
+        display: flex;
+      }
+      .nav-back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.4rem 0.85rem 0.4rem 0.45rem;
+        background: rgba(0, 174, 239, 0.06);
+        border: 1px solid rgba(0, 174, 239, 0.18);
+        border-radius: 999px;
+        color: var(--color-blue);
+        font-family: var(--font-heading);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+        width: auto;
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.1);
+        transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .nav-back-btn:focus-visible {
+        outline: 2px solid rgba(0, 174, 239, 0.65);
+        outline-offset: 4px;
+      }
+      .nav-back-btn:hover,
+      .nav-back-btn:focus-visible {
+        color: var(--color-purple);
+        background: rgba(0, 174, 239, 0.12);
+        border-color: rgba(0, 174, 239, 0.24);
+        box-shadow: 0 14px 32px rgba(15, 23, 42, 0.16);
+      }
+      .nav-back-btn:hover .nav-back-icon,
+      .nav-back-btn:focus-visible .nav-back-icon {
+        box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
+        transform: translateX(-2px);
+      }
+      .nav-back-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 174, 239, 0.35);
+        background: linear-gradient(135deg, rgba(0, 174, 239, 0.18), rgba(255, 255, 255, 0.92));
+        color: var(--color-blue);
+        font-size: 1.1rem;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        transform: translateX(0);
+      }
+      .nav-back-icon::before {
+        content: '\\2190';
+        transform: translateX(-1px);
+      }
+      .nav-back-label {
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+      }
       .nav-toggle {
         display: flex;
         flex-direction: column;
@@ -511,25 +610,24 @@ document.addEventListener('DOMContentLoaded', () => {
         height: 2rem;
         cursor: pointer;
         z-index: 2500;
+        transition: opacity 0.3s ease;
       }
       .nav-toggle span {
         width: 100%;
         height: 2px;
-        background-color: var(--color-green);
+        background-color: var(--color-blue);
         margin-bottom: 4px;
-        transition: transform 0.4s ease, opacity 0.4s ease;
+        transition: opacity 0.4s ease;
       }
       .nav-toggle span:last-child {
         margin-bottom: 0;
       }
-      .nav-toggle.active span:nth-child(1) {
-        transform: translateY(6px) rotate(45deg);
-      }
-      .nav-toggle.active span:nth-child(2) {
+      .nav-toggle.active {
         opacity: 0;
+        pointer-events: none;
       }
-      .nav-toggle.active span:nth-child(3) {
-        transform: translateY(-6px) rotate(-45deg);
+      .nav-toggle.active span {
+        opacity: 0;
       }
       /* Mobile header indicator overrides */
       #header-indicator {
