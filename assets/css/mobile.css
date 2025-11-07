@@ -207,19 +207,21 @@
     z-index: -1;
     /* Smooth the cross‑fade between backgrounds */
     transition: background-image 0.4s ease-out;
+    /* Overlay the underlying section backgrounds with a gentle
+       parallax layer.  The partial opacity allows the native
+       background to remain visible while introducing a fixed
+       reference frame. */
+    opacity: 0.55;
   }
 
-  /* Hide section background images on mobile so the global
-     parallax layer is solely responsible for rendering the
-     scene.  The overlay pseudo‑elements remain in place to
-     maintain the dark vignette. */
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-city,
-  .section.bg-mesh,
-  .section.bg-waves {
-    background-image: none !important;
-  }
+  /*
+   * On mobile we keep the native background images on our themed
+   * sections and overlay them with a faint, fixed copy via the
+   * `#mobile-parallax-bg` layer.  This preserves the original
+   * artwork while introducing a depth effect: the section’s own
+   * background scrolls normally and the parallax layer remains
+   * static.  Do not disable the background images here.
+   */
 
   /*
    * Feature and value cards padding
