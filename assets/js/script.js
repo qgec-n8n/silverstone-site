@@ -61,28 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
           }
-        
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
-      }, { threshold: 0.15 
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+        });
+      }, { threshold: 0.15 });
       animatedEls.forEach((el) => obs.observe(el));
     }
   }
@@ -91,17 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // immediately.
   document.querySelectorAll('.gallery-grid .neon-card').forEach((el) => {
     el.classList.add('visible');
-  
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+  });
 
   // Cache references to header, nav toggle and nav menu.  The
   // Silverstone site uses a fixed site header (`header.site-header`), a
@@ -228,17 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         openNavMenu();
       }
-    
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+    });
     // Close the menu when any link inside it is activated.  On a small
     // viewport the overlay remains open if the user scrolls or resizes,
     // so closing here ensures the menu collapses before navigation.
@@ -248,28 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMobileViewport() && navMenu.classList.contains('open')) {
           closeNavMenu();
         }
-      
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
-    
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+      });
+    });
   }
 
   if (navBackButton) {
@@ -280,17 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navToggle) {
         navToggle.focus();
       }
-    
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+    });
   }
 
   // Allow tapping or clicking the indicator bar to toggle the menu.
@@ -322,17 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
       openNavMenu();
       clearTimeout(headerAutoHideTimeoutId);
     }
-  
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+  });
   // Show the header when hovering the indicator on desktop.  On
   // touch devices `mouseenter` does not fire so this effectively
   // applies to pointer devices only.
@@ -347,17 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isMobileViewport()) return;
       if (navMenu && navMenu.classList.contains('open')) return;
       scheduleHeaderAutoHide();
-    
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+    });
   }
   // When scrolling on mobile hide the header immediately unless the
   // overlay is open.  This keeps the view clear while navigating.
@@ -366,17 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navMenu && navMenu.classList.contains('open')) return;
     clearTimeout(headerAutoHideTimeoutId);
     hideHeader();
-  }, { passive: true 
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+  }, { passive: true });
 
   // Schedule the header to hide after a short delay on page load.  On
   // desktop we also hide after the same delay to replicate DC’s
@@ -418,17 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (progress < 1) requestAnimationFrame(update);
         }
         requestAnimationFrame(update);
-      
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+      });
     };
     statsSections.forEach((section) => {
       let hasAnimated = false;
@@ -439,40 +329,10 @@ document.addEventListener('DOMContentLoaded', () => {
             animateSection(section);
             obs.unobserve(entry.target);
           }
-        
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
-      }, { threshold: 0.4 
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+        });
+      }, { threshold: 0.4 });
       observer.observe(section);
-    
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+    });
   }
 
   /*
@@ -815,16 +675,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const styleElem = document.createElement('style');
   styleElem.appendChild(document.createTextNode(mobileNavStyles));
   document.head.appendChild(styleElem);
-
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
 });
 
 /*
@@ -871,17 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Set both vertical positions for multi‑layer backgrounds.
       // Use calc() so CSS interprets numeric values correctly.
       section.style.backgroundPosition = `center calc(${yPos}px)`;
-    
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+    });
   }
 
   // Perform an initial update on load
@@ -894,51 +734,11 @@ document.addEventListener('DOMContentLoaded', () => {
       window.requestAnimationFrame(() => {
         updateParallax();
         ticking = false;
-      
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
+      });
       ticking = true;
     }
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true 
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
-  window.addEventListener('resize', onScroll, { passive: true 
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
-});
-
-  /* === Minimize mobile header after 0.8 s on page load === */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    clearTimeout(headerAutoHideTimeoutId);
-    headerAutoHideTimeoutId = window.setTimeout(() => {
-      hideHeader();
-    }, 800); // 0.8 seconds
-  }
-  /* === End mobile auto-minimize adjustment === */
-
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 });
