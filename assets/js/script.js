@@ -477,7 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
         align-items: stretch;
         justify-content: flex-start;
         padding: calc(env(safe-area-inset-top, 0) + 1.5rem) 1.75rem calc(env(safe-area-inset-bottom) + 2.75rem);
-        gap: clamp(2rem, 5.5vh, 3.75rem);
+        /* Expand vertical spacing between navigation pills so the overlay feels fuller */
+        gap: clamp(2.75rem, 7.5vh, 5rem);
         opacity: 0;
         transform: translateY(-100%);
         pointer-events: none;
