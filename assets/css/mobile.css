@@ -394,29 +394,28 @@
 
   /* Increase map size and ensure spacing before footer */
   .contact-map-card {
-    margin-bottom: 2rem;
-  }
-  .contact-map-card .map-container iframe {
-    height: 350px;
+    margin-bottom: 2.5rem;
   }
 
   /*
    * Contact page map
    *
    * Ensure the Google Maps iframe is contained within its card on mobile.
-   * We use a responsive wrapper with a 16:9 aspect ratio to maintain
-   * consistent sizing across devices.  The iframe fills the wrapper,
-   * avoids horizontal overflow and has no border.  A modest maximum
-   * height prevents the map from dominating the page.
+   * Give the wrapper a taller minimum height so the neon border fully
+   * encloses the embedded map, while keeping the iframe stretched to
+   * fill the available space without overflowing.
    */
   .contact-map-card .map-container {
     width: 100%;
     padding-top: 0;
+    padding-bottom: 0;
     height: auto;
+    min-height: 420px;
   }
   .contact-map-card .map-container iframe {
     width: 100%;
-    height: 300px;
+    height: 100%;
+    min-height: 420px;
     border: 0;
     display: block;
   }
