@@ -1,0 +1,7 @@
+[
+  {
+    "file": "assets/css/mobile.css",
+    "change_type": "edit",
+    "rationale": "Constrain mobile parallax background layers to the section bounds to prevent old backgrounds from reappearing and stop bleed into the hero. Uses overflow:hidden and converts the ::after pseudo-element from fixed to absolute on screens ≤768px."
+  }
+]
