@@ -912,3 +912,32 @@
   }
 }
 /* === End mobile nav overlay uniform spacing === */
+
+
+/* === mpar: Mobile body-section background fix ===============================
+   - Remove viewport-fixed ::after layer to prevent bleed into hero and double backgrounds
+   - Drive parallax by updating the element's own background-position via --parY (set by JS)
+   - Keep desktop completely unchanged (rules remain inside max-width: 768px)
+*/
+@media (max-width: 768px) {
+  /* Disable the fixed viewport overlay layer on mobile */
+  .section.bg-lines::after,
+  .section.bg-circuit::after,
+  .section.bg-mesh::after,
+  .section.bg-waves::after,
+  .page-book .discovery-call-section::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  /* Apply parallax offset to the element backgrounds directly */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-mesh,
+  .section.bg-waves,
+  .page-book .discovery-call-section {
+    background-position: center calc(var(--parY, 0px)) !important;
+    will-change: background-position;
+  }
+}
+
