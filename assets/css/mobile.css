@@ -490,6 +490,8 @@
   .page-book .discovery-call-section {
     min-height: auto;
     padding: 3rem 1rem;
+    background-position: center calc(var(--parY, 0px));
+    background-size: cover;
   }
   .page-book .discovery-call-content {
     flex-direction: column;
@@ -506,6 +508,7 @@
 
   /* Mobile DPR-aware background images for themed sections (top-aligned) */
   .section.bg-lines {
+    will-change: background-position;
     /* Fallback for very old engines */
     background-image: url('../images/internet/mobile/section-abstract-lines@1x.webp');
     /* Older Safari */
@@ -518,11 +521,12 @@
       url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
       url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x
     );
-    background-position: center top;
+    background-position: center calc(var(--parY, 0px));
     background-size: cover;
   }
 
   .section.bg-circuit {
+    will-change: background-position;
     background-image: url('../images/internet/mobile/section-circuit@1x.webp');
     background-image: -webkit-image-set(
       url('../images/internet/mobile/section-circuit@1x.webp') 1x,
@@ -532,11 +536,12 @@
       url('../images/internet/mobile/section-circuit@1x.webp') 1x,
       url('../images/internet/mobile/section-circuit@2x.webp') 2x
     );
-    background-position: center top;
+    background-position: center calc(var(--parY, 0px));
     background-size: cover;
   }
 
   .section.bg-mesh {
+    will-change: background-position;
     background-image: url('../images/internet/mobile/section-mesh@1x.webp');
     background-image: -webkit-image-set(
       url('../images/internet/mobile/section-mesh@1x.webp') 1x,
@@ -546,11 +551,12 @@
       url('../images/internet/mobile/section-mesh@1x.webp') 1x,
       url('../images/internet/mobile/section-mesh@2x.webp') 2x
     );
-    background-position: center top;
+    background-position: center calc(var(--parY, 0px));
     background-size: cover;
   }
 
   .section.bg-waves {
+    will-change: background-position;
     background-image: url('../images/internet/mobile/section-waves@1x.webp');
     background-image: -webkit-image-set(
       url('../images/internet/mobile/section-waves@1x.webp') 1x,
@@ -560,7 +566,7 @@
       url('../images/internet/mobile/section-waves@1x.webp') 1x,
       url('../images/internet/mobile/section-waves@2x.webp') 2x
     );
-    background-position: center top;
+    background-position: center calc(var(--parY, 0px));
     background-size: cover;
   }
 
@@ -586,6 +592,8 @@
       );
     background-size: cover;
     background-position: center top;
+    background-position: center calc(var(--parY, 0px));
+    background-size: cover;
   }
 
 
@@ -602,6 +610,8 @@
   .page-book .discovery-call-section {
     position: relative;
     z-index: 0; /* establish stacking context */
+    background-position: center calc(var(--parY, 0px));
+    background-size: cover;
   }
 
   .section.bg-lines::after,
@@ -779,22 +789,28 @@
     background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center !important;
+    background-position: center calc(var(--parY, 0px));
+    background-size: cover;
   }
 
   /* Specific backgrounds with integrated overlay */
   .section.bg-lines {
+    will-change: background-position;
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-abstract-lines.webp') !important;
   }
   .section.bg-circuit {
+    will-change: background-position;
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-circuit.webp') !important;
   }
   .section.bg-city {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-city.webp') !important;
   }
   .section.bg-mesh {
+    will-change: background-position;
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-mesh.webp') !important;
   }
   .section.bg-waves {
+    will-change: background-position;
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/internet/section-waves.webp') !important;
   }
 
