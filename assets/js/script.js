@@ -702,15 +702,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const parallaxSections = Array.from(document.querySelectorAll('.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves, .page-book .discovery-call-section'));
   if (!parallaxSections.length) return;
 
-  // Ensure each target section has a sticky child background layer (.mparallax) for mobile parallax.
-  parallaxSections.forEach((section) => {
-    if (!section.querySelector(':scope > .mparallax')) {
-      const layer = document.createElement('div');
-      layer.className = 'mparallax';
-      section.prepend(layer);
-    }
-  });
-
   /**
    * Adjust the background position of each section relative to the
    * viewport scroll.  By shifting the image up as the page scrolls
@@ -721,23 +712,15 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function updateParallax() {
     const depth = 0.3;
-    const vh = window.innerHeight || document.documentElement.clientHeight;
     parallaxSections.forEach((section) => {
       const rect = section.getBoundingClientRect();
-      // Only compute for sections that intersect viewport
-      if (rect.bottom > 0 && rect.top < vh) {
+      // mark active if intersecting viewport
+      const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (inView) {
         section.classList.add('parallax-active');
-        // Baseline at top: when section top hits viewport top => y=0
         const yPos = rect.top * depth;
-        // Write the variable on the sticky layer if present, else on section
-        const layer = section.querySelector(':scope > .mparallax');
-        const target = layer || section;
-        target.style.setProperty('--parY', yPos.toFixed(2) + 'px');
+        section.style.setProperty('--parY', yPos.toFixed(2) + 'px');
       } else {
-        section.classList.remove('parallax-active');
-      }
-    });
-  } else {
         section.classList.remove('parallax-active');
       }
     });
