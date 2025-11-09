@@ -700,7 +700,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Collect all sections that normally exhibit parallax on desktop
   const parallaxSections = Array.from(document.querySelectorAll(
-    '.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves'
+    '.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves, .page-book .discovery-call-section'
   ));
   if (!parallaxSections.length) return;
 

@@ -441,3 +441,13 @@ background: none !important;
   margin-left: 1rem;
 }
 /* ===== End cookie banner critical styles ===== */
+
+
+/* Book page discovery section base background (desktop & non-mobile) */
+.page-book .discovery-call-section {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('../images/internet/hero/book-hero-calendly-mobile-2025.png');
+  background-size: cover;
+  background-position: center;
+}

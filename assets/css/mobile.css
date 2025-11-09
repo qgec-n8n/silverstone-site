@@ -503,6 +503,91 @@
   .page-book .discovery-call-content .widget .calendly-inline-widget {
     min-height: 500px;
   }
+
+  /* Mobile DPR-aware background images for themed sections (top-aligned) */
+  .section.bg-lines {
+    /* Fallback for very old engines */
+    background-image: url('../images/internet/mobile/section-abstract-lines@1x.webp');
+    /* Older Safari */
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x
+    );
+    /* Standard */
+    background-image: image-set(
+      url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x
+    );
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .section.bg-circuit {
+    background-image: url('../images/internet/mobile/section-circuit@1x.webp');
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+      url('../images/internet/mobile/section-circuit@2x.webp') 2x
+    );
+    background-image: image-set(
+      url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+      url('../images/internet/mobile/section-circuit@2x.webp') 2x
+    );
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .section.bg-mesh {
+    background-image: url('../images/internet/mobile/section-mesh@1x.webp');
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+      url('../images/internet/mobile/section-mesh@2x.webp') 2x
+    );
+    background-image: image-set(
+      url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+      url('../images/internet/mobile/section-mesh@2x.webp') 2x
+    );
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .section.bg-waves {
+    background-image: url('../images/internet/mobile/section-waves@1x.webp');
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/section-waves@1x.webp') 1x,
+      url('../images/internet/mobile/section-waves@2x.webp') 2x
+    );
+    background-image: image-set(
+      url('../images/internet/mobile/section-waves@1x.webp') 1x,
+      url('../images/internet/mobile/section-waves@2x.webp') 2x
+    );
+    background-position: center top;
+    background-size: cover;
+  }
+
+  /* Book discovery section: keep gradient overlay + DPR-aware image */
+  .page-book .discovery-call-section {
+    /* Fallback */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
+    /* Older Safari */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      -webkit-image-set(
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x
+      );
+    /* Standard */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x
+      );
+    background-size: cover;
+    background-position: center top;
+  }
+
 }
 
 /*
