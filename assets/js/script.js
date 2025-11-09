@@ -712,16 +712,15 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function updateParallax() {
     const depth = 0.3;
-    const vh = window.innerHeight || document.documentElement.clientHeight;
     parallaxSections.forEach((section) => {
       const rect = section.getBoundingClientRect();
-      if (rect.bottom > 0 && rect.top < vh) {
-        // baseline at top: when section top hits viewport top => y=0
+      // mark active if intersecting viewport
+      const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (inView) {
+        section.classList.add('parallax-active');
         const yPos = rect.top * depth;
-        section.style.backgroundPosition = `center calc(${yPos}px)`;
-      }
-    });
-  } else {
+        section.style.setProperty('--parY', yPos.toFixed(2) + 'px');
+      } else {
         section.classList.remove('parallax-active');
       }
     });
