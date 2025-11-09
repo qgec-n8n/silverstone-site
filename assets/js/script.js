@@ -696,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Only run on viewports 768px wide or narrower and when motion is not reduced
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!isMobile || prefersReducedMotion) return;
+  // keep other initializers; only guard parallax below
 
   // Collect all sections that normally exhibit parallax on desktop
   const parallaxSections = Array.from(document.querySelectorAll('.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves, .page-book .discovery-call-section'));
@@ -712,15 +712,15 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function updateParallax() {
     const depth = 0.3;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
     parallaxSections.forEach((section) => {
       const rect = section.getBoundingClientRect();
-      // mark active if intersecting viewport
-      const inView = rect.bottom > 0 && rect.top < window.innerHeight;
-      if (inView) {
-        section.classList.add('parallax-active');
+      if (rect.bottom > 0 && rect.top < vh) {
         const yPos = rect.top * depth;
-        section.style.setProperty('--parY', yPos.toFixed(2) + 'px');
-      } else {
+        section.style.backgroundPosition = `center calc(${yPos}px)`;
+      }
+    });
+  } else {
         section.classList.remove('parallax-active');
       }
     });
