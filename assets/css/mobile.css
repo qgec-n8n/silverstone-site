@@ -487,10 +487,7 @@
   }
 
   /* Discovery call section (book page): reduce excessive height and stack content */
-  .page-book .discovery-call-section {
-    min-height: auto;
-    padding: 3rem 1rem;
-  }
+  
   .page-book .discovery-call-content {
     flex-direction: column;
     gap: 2rem;
@@ -503,6 +500,85 @@
   .page-book .discovery-call-content .widget .calendly-inline-widget {
     min-height: 500px;
   }
+
+/* --- Mobile portrait assets and parallax depth (2025 update) --- */
+/* Home – abstract lines */
+.section.bg-lines {
+  --parallax-depth: 0.18;
+  /* Fallback first */
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('../images/internet/mobile/section-abstract-lines@2x.webp');
+  /* Density-aware override */
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    image-set(
+      url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+      url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+    );
+}
+
+/* Services – circuit */
+.section.bg-circuit {
+  --parallax-depth: 0.18;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('../images/internet/mobile/section-circuit@2x.webp');
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    image-set(
+      url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+      url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+      url('../images/internet/mobile/section-circuit@3x.webp') 3x
+    );
+}
+
+/* About – mesh */
+.section.bg-mesh {
+  --parallax-depth: 0.20;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('../images/internet/mobile/section-mesh@2x.webp');
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    image-set(
+      url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+      url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+      url('../images/internet/mobile/section-mesh@3x.webp') 3x
+    );
+}
+
+/* Contact – waves */
+.section.bg-waves {
+  --parallax-depth: 0.22;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('../images/internet/mobile/section-waves@2x.webp');
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    image-set(
+      url('../images/internet/mobile/section-waves@1x.webp') 1x,
+      url('../images/internet/mobile/section-waves@2x.webp') 2x,
+      url('../images/internet/mobile/section-waves@3x.webp') 3x
+    );
+}
+
+/* Book page – hero section (Calendly) */
+.page-book .discovery-call-section {
+  --parallax-depth: 0.16; /* gentler movement for hero */
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp');
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    image-set(
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+    );
+}
+
 }
 
 /*

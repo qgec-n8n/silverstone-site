@@ -716,11 +716,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollY = window.scrollY;
     parallaxSections.forEach((section) => {
       const offset = scrollY - section.offsetTop;
-      const depth = 0.3; // adjust this value to tune the parallax speed
-      const yPos = -offset * depth;
-      // Set both vertical positions for multi‑layer backgrounds.
-      // Use calc() so CSS interprets numeric values correctly.
-      section.style.backgroundPosition = `center calc(${yPos}px)`;
+      // Read per‑section depth from CSS custom property; safe default for tall assets.
+const depthVar = getComputedStyle(section).getPropertyValue('--parallax-depth').trim();
+const depth = depthVar ? parseFloat(depthVar) : 0.22;
+
+const yPos = -offset * depth;
+// Inline background-position must win over non-important CSS.
+// Avoid !important in mobile.css for background-position.
+section.style.backgroundPosition = `center ${yPos}px`;
     });
   }
 
