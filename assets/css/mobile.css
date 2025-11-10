@@ -951,45 +951,10 @@
   }
 }
 
-/* === Premium parallax override for mobile ===
- *
- * The following rules restore the sticky ::after pseudo‑element on mobile and
- * adjust it to provide a parallax effect where the 9:16 background image
- * remains visible as content scrolls over it.  We ensure the image fits the
- * viewport by using `contain` sizing while maintaining the aspect ratio and
- * providing a dark backdrop around it.  These overrides must come last so
- * they supersede any previous declarations that hide the ::after element or
- * modify background sizing on small screens.  The nav overlay and cookie
- * banner remain unaffected because we only target the themed sections.
- */
-@media (max-width: 768px) {
-  .section.bg-lines::after,
-  .section.bg-circuit::after,
-  .section.bg-mesh::after,
-  .section.bg-waves::after,
-  .page-book .discovery-call-section::after {
-    display: block !important;
-    content: "" !important;
-    position: -webkit-sticky !important;
-    position: sticky !important;
-    top: calc(var(--heroOffset, var(--headerH, 0px)) * -1);
-    left: 0;
-    right: 0;
-    height: calc(100vh + var(--heroOffset, var(--headerH, 0px)));
-    z-index: -1;
-    background-repeat: no-repeat;
-    background-size: contain !important;
-    background-position: center top !important;
-    pointer-events: none;
-  }
-  /* Fallback colour to fill space around contained background images */
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-mesh,
-  .section.bg-waves {
-    background-color: #050B18 !important;
-  }
-  .page-book .discovery-call-section {
-    background-color: #050B18 !important;
-  }
-}
+/* The premium mobile parallax override has been removed to simplify the
+ * background system.  Mobile pages now rely on a single body-level
+ * background defined via a custom property (`--mobile-body-image`) and a
+ * global pseudo-element declared in `mobile-body-parallax.css`.  The
+ * former override that re-enabled sticky ::after backgrounds on mobile
+ * has been deleted to prevent conflicting layers.  See the new CSS file
+ * for implementation details. */
