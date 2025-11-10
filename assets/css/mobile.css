@@ -597,6 +597,18 @@
      technique avoids scroll‑driven JavaScript and the unreliable
      `background‑attachment: fixed` property on mobile.
   ================================================================================ */
+  /*
+   * Expose a CSS custom property for the dynamic hero offset.  On mobile
+   * devices the hero‑cinematic script updates --heroOffset on the
+   * document root to match the height of the visible header or
+   * header indicator.  We provide a sensible fallback equal to
+   * --headerH (injected by script.js) so that if for any reason the
+   * variable isn’t updated, the backgrounds still align with the
+   * hero.  This variable is consumed by the sticky ::after rules below.
+   */
+  :root {
+    --heroOffset: var(--headerH);
+  }
   .section.bg-lines,
   .section.bg-circuit,
   .section.bg-mesh,
@@ -613,12 +625,23 @@
   .section.bg-waves::after,
   .page-book .discovery-call-section::after {
     content: "";
+    /*
+     * Stick the background image to the viewport and account for the dynamic
+     * height of the site header or header indicator.  A negative top
+     * offset equal to the current hero offset (see hero‑cinematic.js) pulls
+     * the image up so that it first becomes visible exactly when the hero
+     * finishes animating.  The height adds the same offset so the image
+     * remains fully visible through the section.  Without these offsets the
+     * background would either start too early (bleeding into the hero) or
+     * leave a gap.  See hero‑cinematic.js where the --heroOffset variable
+     * is updated on each layout recalculation.
+     */
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: calc(var(--heroOffset, var(--headerH, 0px)) * -1);
     left: 0;
     right: 0;
-    height: 100vh;
+    height: calc(100vh + var(--heroOffset, var(--headerH, 0px)));
     z-index: -1; /* sit behind the section content */
     background-repeat: no-repeat;
     background-size: cover;

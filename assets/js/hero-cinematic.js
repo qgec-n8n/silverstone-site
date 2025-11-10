@@ -19,7 +19,24 @@
   function getHeaderH(){var r=document.documentElement,v=parseFloat(getComputedStyle(r).getPropertyValue(CONFIG.HEADER_VAR_NAME));return !isNaN(v)&&v>0?v:(header()?header().getBoundingClientRect().height:0);}
   function getIndicatorH(){var el=document.getElementById("header-indicator");if(!el)return 0;var r=el.getBoundingClientRect(),s=getComputedStyle(el);return s.display!=="none"&&s.visibility!=="hidden"?r.height:0;}
   function isOverlayOpen(){var n=document.querySelector("header.site-header nav ul");if(n&&n.classList.contains("open"))return true;return getComputedStyle(document.body).position==="fixed";}
-  function geo(hero,next){var h=getHeaderH(),ind=getIndicatorH(),off=headerVisible()?h:ind,visH=window.innerHeight-off;var nextTop=next.getBoundingClientRect().top+window.scrollY;return{off,visH,bodyY:Math.max(0,nextTop-off)};}
+  function geo(hero,next){
+    var h=getHeaderH(),ind=getIndicatorH();
+    var off=headerVisible()?h:ind,visH=window.innerHeight-off;
+    var nextTop=next.getBoundingClientRect().top+window.scrollY;
+    // Update CSS variable for hero offset on mobile.  This helps the
+    // sticky background pseudo‑elements align perfectly with the end of
+    // the hero.  We only apply this adjustment on screens up to 768px
+    // since desktop uses a different parallax technique.  The fallback
+    // is harmless if the variable is never referenced.
+    try {
+      if (window.innerWidth <= 768) {
+        document.documentElement.style.setProperty('--heroOffset', off + 'px');
+      }
+    } catch (e) {
+      /* no-op */
+    }
+    return { off: off, visH: visH, bodyY: Math.max(0, nextTop - off) };
+  }
   function lock(l){var r=document.documentElement;if(!r._locks)r._locks={};var w=r._locks.w||function(e){e.preventDefault();},t=r._locks.t||function(e){e.preventDefault();},k=r._locks.k||function(e){if(["ArrowDown","ArrowUp","PageDown","PageUp","Home","End"," ","Space"].includes(e.key))e.preventDefault();};r._locks={w,t,k};
     if(l&&!r.classList.contains("cine-locked")){r.classList.add("cine-locked");document.body.classList.add("cine-locked");
       window.addEventListener("wheel",w,{passive:false});window.addEventListener("touchmove",t,{passive:false});window.addEventListener("keydown",k,{passive:false});}
