@@ -1,0 +1,224 @@
+/*
+ * Parallax background system for Silverstone
+ * -----------------------------------------
+ * Applies a responsive parallax treatment to the themed body sections that
+ * sit between the cinematic hero and the CTA banner on every page.  Desktop
+ * viewports receive a traditional fixed background while mobile devices use
+ * a lightweight JavaScript-assisted layer that simulates the same visual
+ * effect without relying on background-attachment: fixed (which performs
+ * poorly on many mobile browsers).
+ */
+
+:root {
+  --parallax-overlay: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  --parallax-backdrop: #050B18;
+}
+
+.parallax-section {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--parallax-backdrop);
+  isolation: isolate;
+}
+
+.parallax-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.parallax-section .parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: contain;
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+  transition: opacity 320ms ease;
+  will-change: transform;
+  z-index: 0;
+}
+
+.parallax-section.parallax-ready .parallax-layer {
+  opacity: 1;
+}
+
+/* Theme-specific assets -------------------------------------------------- */
+.parallax-section[data-parallax-theme="lines"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-abstract-lines.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-abstract-lines@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+    url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+    url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+    url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+    url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="circuit"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-circuit.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-circuit@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+    url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+    url('../images/internet/mobile/section-circuit@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+    url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+    url('../images/internet/mobile/section-circuit@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="mesh"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-mesh.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-mesh@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+    url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+    url('../images/internet/mobile/section-mesh@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+    url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+    url('../images/internet/mobile/section-mesh@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="waves"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-waves.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-waves@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="book"] {
+  background-image: var(--parallax-overlay), url('../images/internet/hero/book-hero-calendly-mobile-2025.png');
+  --parallax-mobile-fallback: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+}
+
+/* High-resolution desktop support */
+@supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
+  .parallax-section[data-parallax-theme="lines"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-abstract-lines.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="circuit"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-circuit.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="mesh"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-mesh.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="waves"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="book"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.png') 1x
+    );
+  }
+}
+
+/* WebKit image-set fallbacks */
+@supports (background-image: -webkit-image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
+  .parallax-section[data-parallax-theme="lines"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-abstract-lines.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="circuit"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-circuit.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="mesh"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-mesh.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="waves"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="book"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.png') 1x
+    );
+  }
+}
+
+/* Desktop parallax ------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+  .parallax-section {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+  .parallax-section .parallax-layer {
+    display: none;
+  }
+}
+
+/* Mobile parallax -------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
+  .parallax-section {
+    background-image: none !important;
+  }
+  .parallax-section .parallax-layer {
+    height: 100vh;
+    max-height: 100vh;
+    background-image: var(--parallax-overlay), var(--parallax-mobile-fallback);
+  }
+  @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
+    .parallax-section .parallax-layer {
+      background-image: var(--parallax-overlay), var(--parallax-mobile-image-set, var(--parallax-mobile-fallback));
+    }
+  }
+  @supports (background-image: -webkit-image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
+    .parallax-section .parallax-layer {
+      background-image: var(--parallax-overlay), var(--parallax-mobile-image-set-webkit, var(--parallax-mobile-fallback));
+    }
+  }
+}
+
+/* Reduced motion: keep static imagery */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-section .parallax-layer {
+    display: none !important;
+  }
+}
