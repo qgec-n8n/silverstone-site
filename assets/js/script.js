@@ -39,10 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // include a separate mobile-fixes file.
   ensureStylesheet('assets/css/custom.css');
   ensureStylesheet('assets/css/mobile.css');
-  // Load additional mobile overrides for parallax backgrounds.
-  // This stylesheet disables the sticky ::after pseudo‑elements,
-  // switches background images to cover, and integrates an overlay.
-  ensureStylesheet('assets/css/mobile-parallax.css');
 
   // Intersection observer: reveal elements with the `.animate` class
   // when they enter the viewport.  This replicates the lightweight
@@ -679,29 +675,65 @@ document.addEventListener('DOMContentLoaded', () => {
   const styleElem = document.createElement('style');
   styleElem.appendChild(document.createTextNode(mobileNavStyles));
   document.head.appendChild(styleElem);
+});
 
-  /*
-   * Mobile parallax effect
-   *
-   * For each themed section on mobile we adjust the `background-position-y`
-   * as the user scrolls.  This creates a subtle depth effect similar to
-   * `background-attachment: fixed` on desktop without relying on sticky
-   * pseudo‑elements that only fill the viewport.  The amount of parallax
-   * is tuned via `parallaxSpeed` and will update on scroll and resize.
+/*
+ * Mobile parallax effect for themed sections
+ *
+ * On desktop our themed sections (`bg‑lines`, `bg‑circuit`, `bg‑city`,
+ * `bg‑mesh` and `bg‑waves`) rely on `background‑attachment: fixed` to
+ * create a dramatic parallax effect.  Mobile browsers (especially iOS
+ * Safari/Chrome) do not consistently support fixed backgrounds, so
+ * attempting to pin the image to the viewport often fails.  Rather
+ * than inserting a global fixed layer behind the page, the code
+ * below adjusts each themed section’s `background-position` on
+ * scroll.  By moving the image more slowly than the page content,
+ * we approximate the intended depth without altering the markup or
+ * hiding the native background images.  See the implementation
+ * below for details.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  // Only run on viewports 768px wide or narrower and when motion is not reduced
+  //
+  // NOTE: The mobile parallax effect has been disabled to enforce a single
+  // background image per section.  Setting `isMobile` to false causes the
+  // early return below to fire and prevents any parallax logic from running.
+  const isMobile = false;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!isMobile || prefersReducedMotion) return;
+
+  // Collect all sections that normally exhibit parallax on desktop
+  const parallaxSections = Array.from(document.querySelectorAll('.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves, .page-book .discovery-call-section'));
+  if (!parallaxSections.length) return;
+
+  /**
+   * Adjust the background position of each section relative to the
+   * viewport scroll.  By shifting the image up as the page scrolls
+   * down (and vice versa), we simulate a parallax effect without
+   * relying on `background-attachment: fixed`.  A small multiplier
+   * controls the speed of the parallax motion relative to the
+   * scroll.  Negative values move the background opposite the scroll.
    */
   function updateParallax() {
-    // Only apply on small screens
-    if (!window.matchMedia('(max-width: 768px)').matches) return;
-    const sections = document.querySelectorAll('.section.bg-lines, .section.bg-circuit, .section.bg-mesh, .section.bg-waves');
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    sections.forEach((section) => {
-      const offsetTop = section.offsetTop;
-      const parallaxSpeed = 0.3; // lower values = slower movement
-      const yPos = -(scrollY - offsetTop) * parallaxSpeed;
-      section.style.backgroundPosition = `center ${yPos}px`;
+    const depth = 0.3;
+    parallaxSections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      // mark active if intersecting viewport
+      const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (inView) {
+        section.classList.add('parallax-active');
+        const yPos = rect.top * depth;
+        section.style.setProperty('--parY', yPos.toFixed(2) + 'px');
+      } else {
+        section.classList.remove('parallax-active');
+      }
     });
   }
-  // Debounce updates via requestAnimationFrame
+
+  // Perform an initial update on load
+  updateParallax();
+
+  // Use requestAnimationFrame to throttle scroll updates for performance
   let ticking = false;
   function onScroll() {
     if (!ticking) {
@@ -712,9 +744,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ticking = true;
     }
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', updateParallax);
-  // Initial run
-  updateParallax();
 
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 });
