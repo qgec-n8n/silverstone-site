@@ -694,7 +694,11 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 document.addEventListener('DOMContentLoaded', () => {
   // Only run on viewports 768px wide or narrower and when motion is not reduced
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  //
+  // NOTE: The mobile parallax effect has been disabled to enforce a single
+  // background image per section.  Setting `isMobile` to false causes the
+  // early return below to fire and prevents any parallax logic from running.
+  const isMobile = false;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!isMobile || prefersReducedMotion) return;
 

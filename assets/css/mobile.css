@@ -746,6 +746,21 @@
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
       );
   }
+
+  /*
+   * Override the mobile parallax pseudo-element on sections.  The original
+   * implementation defined a fixed ::after layer for each themed section and
+   * toggled it via JavaScript to approximate parallax.  This layer caused
+   * legacy images to resurface and bleed into the hero.  To enforce a
+   * single‑image policy per section, we hide the ::after layer entirely.
+   */
+  .section.bg-lines::after,
+  .section.bg-circuit::after,
+  .section.bg-mesh::after,
+  .section.bg-waves::after,
+  .page-book .discovery-call-section::after {
+    display: none !important;
+  }
 }
 
 /*
