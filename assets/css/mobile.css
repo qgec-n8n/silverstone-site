@@ -796,7 +796,10 @@
         url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
         url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
       );
-    background-size: contain;
+    /* Use cover to ensure the background fills the entire section on long scroll pages.
+       According to CSS best practices, background-size: cover scales the image while preserving aspect ratio,
+       completely covering the container, which avoids empty space seen with contain. */
+    background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
     background-color: #050B18;
@@ -824,7 +827,8 @@
         url('../images/internet/mobile/section-circuit@2x.webp') 2x,
         url('../images/internet/mobile/section-circuit@3x.webp') 3x
       );
-    background-size: contain;
+    /* Use cover for full-height visibility on mobile long-scrolling sections */
+    background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
     background-color: #050B18;
@@ -852,7 +856,8 @@
         url('../images/internet/mobile/section-mesh@2x.webp') 2x,
         url('../images/internet/mobile/section-mesh@3x.webp') 3x
       );
-    background-size: contain;
+    /* Use cover for full-height visibility on mobile long-scrolling sections */
+    background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
     background-color: #050B18;
@@ -880,7 +885,8 @@
         url('../images/internet/mobile/section-waves@2x.webp') 2x,
         url('../images/internet/mobile/section-waves@3x.webp') 3x
       );
-    background-size: contain;
+    /* Use cover for full-height visibility on mobile long-scrolling sections */
+    background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
     background-color: #050B18;
@@ -908,7 +914,8 @@
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
       );
-    background-size: contain;
+    /* Use cover for full-height visibility on mobile long-scrolling sections */
+    background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
     background-color: #050B18;
