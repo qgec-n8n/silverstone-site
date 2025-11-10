@@ -779,12 +779,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const recalcEntry = (entry) => {
     const rect = entry.section.getBoundingClientRect();
-    const scrollY = getScrollY();
-    entry.start = scrollY + rect.top;
+    entry.start = getScrollY() + rect.top;
     entry.height = entry.section.offsetHeight;
-    entry.viewportHeight = window.innerHeight;
-    entry.layerHeight = Math.max(entry.height, entry.viewportHeight);
-    entry.layer.style.height = `${entry.layerHeight}px`;
+    entry.maxOffset = Math.max(0, entry.height - window.innerHeight);
     entry.lastOffset = null;
   };
 
@@ -796,8 +793,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     const offset = scrollY - entry.start;
-    const bounded = Math.max(Math.min(offset, entry.height), 0);
-    const rounded = Math.round(bounded);
+    const clamped = Math.min(Math.max(offset, 0), entry.maxOffset);
+    const rounded = Math.round(clamped);
     if (entry.lastOffset === rounded) return;
     entry.layer.style.transform = `translate3d(0, ${rounded}px, 0)`;
     entry.lastOffset = rounded;
@@ -862,8 +859,7 @@ document.addEventListener('DOMContentLoaded', () => {
           layer,
           start: 0,
           height: 0,
-          viewportHeight: 0,
-          layerHeight: 0,
+          maxOffset: 0,
           lastOffset: null,
           observer: null,
         };

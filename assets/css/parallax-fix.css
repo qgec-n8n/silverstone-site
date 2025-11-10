@@ -200,7 +200,8 @@
     background-image: none !important;
   }
   .parallax-section .parallax-layer {
-    min-height: 100vh;
+    height: 100vh;
+    max-height: 100vh;
     background-image: var(--parallax-overlay), var(--parallax-mobile-fallback);
   }
   @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
