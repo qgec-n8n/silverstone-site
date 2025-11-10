@@ -683,16 +683,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.head.appendChild(styleElem);
 });
 /*
- * Mobile parallax effect for themed sections (now static)
+ * Mobile parallax effect for themed sections
  *
  * Desktop browsers rely on CSS background-attachment: fixed for the
- * parallax treatment (see assets/css/parallax-fix.css).  Earlier versions of
- * this script injected an additional layer on phones and translated it on
- * scroll to fake a fixed background.  That behaviour caused the illustration
- * to drift under the content while the user scrolled, so we now rely on the
- * stationary CSS backgrounds defined in parallax-fix.css.  The logic below is
- * kept in place should we ever re-enable the animated treatment; the
- * `evaluate` function short-circuits on mobile viewports.
+ * parallax treatment (see assets/css/parallax-fix.css).  Mobile browsers
+ * struggle with fixed attachments, so we create a lightweight background
+ * layer that is translated in sync with scroll to simulate a fixed image
+ * while keeping the entire background illustration visible within the
+ * viewport.  The CTA banner and footer then slide over this layer,
+ * completing the parallax illusion.
  */
 (() => {
   const parallaxSections = Array.from(
@@ -909,12 +908,11 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     if (mobileQuery.matches) {
-      // Keep mobile sections static; make sure any existing layers are
-      // removed when the viewport shrinks below the breakpoint.
+      enableMobile();
+      updateAll();
+    } else {
       disableMobile();
-      return;
     }
-    disableMobile();
   };
 
   evaluate();
