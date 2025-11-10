@@ -1,29 +1,37 @@
-/* assets/css/mobile-parallax.css
-   Mobile viewport-fixed 9:16 backgrounds (stationary/parallax look)
-   – Do not change desktop. Loaded after mobile.css and hero-cinematic.css.
-*/
+/* assets/css/mobile-parallax.css */
+/* Mobile-only stationary background layer that keeps a full 9:16 image entirely visible
+   and lets body content scroll over it. Works reliably on iOS/Android. */
+
 @media (max-width: 768px) {
 
-  /* Fixed, viewport-sized layer behind all content */
-  #page-bg{
+  /* 1) Viewport-fixed mobile layer behind all content */
+  #page-bg {
     position: fixed;
-    top: calc(var(--heroOffset, var(--headerH, 0px)) * -1); /* if undefined, falls back to 0 */
+    /* If your hero computes an offset (JS sets --heroOffset), keep it aligned */
+    top: calc(var(--heroOffset, var(--headerH, 0px)) * -1);
     left: 0;
     width: 100vw;
     height: calc(100vh + var(--heroOffset, var(--headerH, 0px)));
-    z-index: 0;
+    z-index: 0;               /* behind content */
     pointer-events: none;
     background-repeat: no-repeat;
-    background-size: contain;      /* keep the entire 9:16 visible (no crop) */
+    background-size: contain; /* keep entire 9:16 visible */
     background-position: center top;
-    background-color: #050B18;     /* letterbox fill */
-    will-change: transform;
+    background-color: #050B18; /* letterbox fill */
+    will-change: transform;   /* ensures compositor layer without scroll handlers */
   }
 
-  /* Ensure all content paints above the fixed layer */
+  /* 2) Raise site content above the bg layer */
   header, main, footer, .hero, .section { position: relative; z-index: 1; }
 
-  /* Disable section-level parallax pseudo-elements to avoid conflicts */
+  /* 3) Disable section-level backgrounds/pseudo elements to avoid duplication */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-mesh,
+  .section.bg-waves,
+  .page-book .discovery-call-section {
+    background-image: none !important;
+  }
   .section.bg-lines::after,
   .section.bg-circuit::after,
   .section.bg-mesh::after,
@@ -33,92 +41,80 @@
     display: none !important;
   }
 
-  /* OPTIONAL: Disable section element backgrounds to enforce single-image policy
-     (Uncomment if you do not want section-local backgrounds at all)
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-mesh,
-  .section.bg-waves,
-  .page-book .discovery-call-section {
-    background-image: none !important;
-  }
-  */
-
-  /* Page → image mapping (fallback url + image-set for DPR) */
-
-  /* Home (and default if no specific page-* class is set) */
+  /* 4) Page → image mapping with DPR-aware assets */
   body.page-home #page-bg,
   body:not(.page-about):not(.page-services):not(.page-contact):not(.page-book) #page-bg {
-    background-image: url('../images/internet/mobile/section-abstract-lines@1x.webp');
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
-      url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
-    );
-    background-image: image-set(
-      url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
-      url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
-    );
+    background-image:
+      -webkit-image-set(
+        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+      );
+    background-image:
+      image-set(
+        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+      );
   }
 
-  /* About */
   body.page-about #page-bg {
-    background-image: url('../images/internet/mobile/section-mesh@1x.webp');
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-      url('../images/internet/mobile/section-mesh@2x.webp') 2x,
-      url('../images/internet/mobile/section-mesh@3x.webp') 3x
-    );
-    background-image: image-set(
-      url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-      url('../images/internet/mobile/section-mesh@2x.webp') 2x,
-      url('../images/internet/mobile/section-mesh@3x.webp') 3x
-    );
+    background-image:
+      -webkit-image-set(
+        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+        url('../images/internet/mobile/section-mesh@3x.webp') 3x
+      );
+    background-image:
+      image-set(
+        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+        url('../images/internet/mobile/section-mesh@3x.webp') 3x
+      );
   }
 
-  /* Services */
   body.page-services #page-bg {
-    background-image: url('../images/internet/mobile/section-circuit@1x.webp');
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-      url('../images/internet/mobile/section-circuit@2x.webp') 2x,
-      url('../images/internet/mobile/section-circuit@3x.webp') 3x
-    );
-    background-image: image-set(
-      url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-      url('../images/internet/mobile/section-circuit@2x.webp') 2x,
-      url('../images/internet/mobile/section-circuit@3x.webp') 3x
-    );
+    background-image:
+      -webkit-image-set(
+        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+        url('../images/internet/mobile/section-circuit@3x.webp') 3x
+      );
+    background-image:
+      image-set(
+        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+        url('../images/internet/mobile/section-circuit@3x.webp') 3x
+      );
   }
 
-  /* Contact */
   body.page-contact #page-bg {
-    background-image: url('../images/internet/mobile/section-waves@1x.webp');
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/section-waves@1x.webp') 1x,
-      url('../images/internet/mobile/section-waves@2x.webp') 2x,
-      url('../images/internet/mobile/section-waves@3x.webp') 3x
-    );
-    background-image: image-set(
-      url('../images/internet/mobile/section-waves@1x.webp') 1x,
-      url('../images/internet/mobile/section-waves@2x.webp') 2x,
-      url('../images/internet/mobile/section-waves@3x.webp') 3x
-    );
+    background-image:
+      -webkit-image-set(
+        url('../images/internet/mobile/section-waves@1x.webp') 1x,
+        url('../images/internet/mobile/section-waves@2x.webp') 2x,
+        url('../images/internet/mobile/section-waves@3x.webp') 3x
+      );
+    background-image:
+      image-set(
+        url('../images/internet/mobile/section-waves@1x.webp') 1x,
+        url('../images/internet/mobile/section-waves@2x.webp') 2x,
+        url('../images/internet/mobile/section-waves@3x.webp') 3x
+      );
   }
 
-  /* Book */
   body.page-book #page-bg {
-    background-image: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-    );
-    background-image: image-set(
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-    );
+    background-image:
+      -webkit-image-set(
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+      );
+    background-image:
+      image-set(
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+      );
   }
 }
