@@ -774,15 +774,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return images.fallback || '';
   };
 
+  const getScrollY = () =>
+    typeof window.pageYOffset === 'number' ? window.pageYOffset : window.scrollY;
+
   const recalcEntry = (entry) => {
     const rect = entry.section.getBoundingClientRect();
-    entry.start = window.scrollY + rect.top;
+    entry.start = getScrollY() + rect.top;
     entry.height = entry.section.offsetHeight;
     entry.maxOffset = Math.max(0, entry.height - window.innerHeight);
+    entry.lastOffset = null;
   };
 
   const updateEntry = (entry) => {
-    const scrollY = window.scrollY;
+    const scrollY = getScrollY();
     const viewportHeight = window.innerHeight;
     const end = entry.start + entry.height;
     if (scrollY >= end || scrollY + viewportHeight <= entry.start) {
@@ -790,7 +794,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const offset = scrollY - entry.start;
     const clamped = Math.min(Math.max(offset, 0), entry.maxOffset);
-    entry.layer.style.transform = `translate3d(0, ${clamped}px, 0)`;
+    const rounded = Math.round(clamped);
+    if (entry.lastOffset === rounded) return;
+    entry.layer.style.transform = `translate3d(0, ${rounded}px, 0)`;
+    entry.lastOffset = rounded;
   };
 
   const updateAll = () => {
@@ -847,9 +854,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         section.insertBefore(layer, section.firstChild);
         section.classList.add('parallax-ready', 'parallax-mobile-active');
-        const entry = { section, layer, start: 0, height: 0, maxOffset: 0 };
+        const entry = {
+          section,
+          layer,
+          start: 0,
+          height: 0,
+          maxOffset: 0,
+          lastOffset: null,
+          observer: null,
+        };
         recalcEntry(entry);
         updateEntry(entry);
+        if (typeof ResizeObserver === 'function') {
+          const observer = new ResizeObserver(() => {
+            recalcEntry(entry);
+            updateEntry(entry);
+          });
+          observer.observe(section);
+          entry.observer = observer;
+        }
         return entry;
       })
       .filter(Boolean);
@@ -864,7 +887,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!state.active) return;
     document.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', handleResize);
-    state.entries.forEach(({ layer, section }) => {
+    state.entries.forEach((entry) => {
+      const { layer, section, observer } = entry;
+      if (observer) {
+        observer.disconnect();
+      }
       if (layer && layer.parentNode === section) {
         section.removeChild(layer);
       }
