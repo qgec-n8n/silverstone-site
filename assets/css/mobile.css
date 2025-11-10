@@ -433,6 +433,42 @@
    */
   body {
     overflow-x: hidden;
+    /*
+     * Mobile body background system
+     *
+     * Each page can provide a high-resolution background for mobile by
+     * setting the `--mobile-body-image` custom property (with an
+     * accompanying fallback in `--mobile-body-image-fallback`).  The
+     * layered background below keeps the artwork crisp on modern DPR
+     * displays while preserving a subtle gradient wash behind it.  The
+     * gradient ensures any extra vertical space on very long pages fades
+     * seamlessly into the site’s dark palette.
+     */
+    --mobile-body-overlay: linear-gradient(
+      180deg,
+      rgba(5, 11, 24, 0.94) 0%,
+      rgba(2, 6, 18, 0.97) 60%,
+      rgba(1, 4, 12, 0.99) 100%
+    );
+    --mobile-body-image-fallback: none;
+    --mobile-body-image: var(--mobile-body-image-fallback);
+    background-color: #020817;
+    /* First declaration supplies the fallback asset for browsers that do
+       not understand image-set(). */
+    background-image: var(--mobile-body-overlay), var(--mobile-body-image-fallback);
+    background-repeat: no-repeat, no-repeat;
+    background-size: 100% 100%, contain;
+    background-position: top center, top center;
+    background-attachment: scroll, scroll;
+  }
+
+  /*
+   * Re-declare `background-image` with the high-DPR source.  Browsers that
+   * support `image-set()` will use this version, while older engines fall
+   * back to the declaration above.
+   */
+  body {
+    background-image: var(--mobile-body-overlay), var(--mobile-body-image);
   }
   .nav-toggle {
     display: flex;
@@ -511,57 +547,69 @@
     /* Older Safari */
     background-image: -webkit-image-set(
       url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x
+      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+      url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
     );
     /* Standard */
     background-image: image-set(
       url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x
+      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+      url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
     );
     background-position: center top;
     background-size: cover;
+    background-repeat: no-repeat;
   }
 
   .section.bg-circuit {
     background-image: url('../images/internet/mobile/section-circuit@1x.webp');
     background-image: -webkit-image-set(
       url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-      url('../images/internet/mobile/section-circuit@2x.webp') 2x
+      url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+      url('../images/internet/mobile/section-circuit@3x.webp') 3x
     );
     background-image: image-set(
       url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-      url('../images/internet/mobile/section-circuit@2x.webp') 2x
+      url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+      url('../images/internet/mobile/section-circuit@3x.webp') 3x
     );
     background-position: center top;
     background-size: cover;
+    background-repeat: no-repeat;
   }
 
   .section.bg-mesh {
     background-image: url('../images/internet/mobile/section-mesh@1x.webp');
     background-image: -webkit-image-set(
       url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-      url('../images/internet/mobile/section-mesh@2x.webp') 2x
+      url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+      url('../images/internet/mobile/section-mesh@3x.webp') 3x
     );
     background-image: image-set(
       url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-      url('../images/internet/mobile/section-mesh@2x.webp') 2x
+      url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+      url('../images/internet/mobile/section-mesh@3x.webp') 3x
     );
     background-position: center top;
     background-size: cover;
+    background-repeat: no-repeat;
   }
 
   .section.bg-waves {
     background-image: url('../images/internet/mobile/section-waves@1x.webp');
     background-image: -webkit-image-set(
       url('../images/internet/mobile/section-waves@1x.webp') 1x,
-      url('../images/internet/mobile/section-waves@2x.webp') 2x
+      url('../images/internet/mobile/section-waves@2x.webp') 2x,
+      url('../images/internet/mobile/section-waves@3x.webp') 3x
     );
     background-image: image-set(
       url('../images/internet/mobile/section-waves@1x.webp') 1x,
-      url('../images/internet/mobile/section-waves@2x.webp') 2x
+      url('../images/internet/mobile/section-waves@2x.webp') 2x,
+      url('../images/internet/mobile/section-waves@3x.webp') 3x
     );
     background-position: center top;
     background-size: cover;
+    background-repeat: no-repeat;
   }
 
   /* Book discovery section: keep gradient overlay + DPR-aware image */
