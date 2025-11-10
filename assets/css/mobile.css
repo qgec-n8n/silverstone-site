@@ -604,6 +604,31 @@
     z-index: 0; /* establish stacking context */
   }
 
+  /*
+   * Remove the default blurred backgrounds and dark overlays on mobile.
+   * The desktop styles in styles.css set a background-image and ::before
+   * overlay for each themed section (bg-lines, bg-circuit, bg-mesh, bg-waves).
+   * Leaving those images in place causes two backgrounds (old blurred and
+   * new crisp) to overlap. On mobile we explicitly clear the background
+   * images and hide the ::before overlays so the pseudo-element defined
+   * below is the only visible background.
+   */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-mesh,
+  .section.bg-waves,
+  .page-book .discovery-call-section {
+    background-image: none !important;
+    background-attachment: scroll !important;
+  }
+  .section.bg-lines::before,
+  .section.bg-circuit::before,
+  .section.bg-mesh::before,
+  .section.bg-waves::before,
+  .page-book .discovery-call-section::before {
+    display: none !important;
+  }
+
   .section.bg-lines::after,
   .section.bg-circuit::after,
   .section.bg-mesh::after,
@@ -612,15 +637,25 @@
     content: "";
     position: fixed;
     left: 0; right: 0; top: 0;
-    height: 120vh; /* taller than viewport to avoid iOS toolbar jumps */
+    /* Limit height to the viewport so the background does not bleed into
+       adjacent sections. 120vh was previously used to compensate for
+       Safari's dynamic toolbar but caused the image to linger into
+       neighbouring sections. 100vh provides full coverage without
+       overshoot. */
+    height: 100vh;
     pointer-events: none;
     z-index: 0;
     opacity: 0;
     transition: opacity 120ms linear;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center calc(var(--parY, 0px));
-    will-change: background-position, opacity;
+    /* Centre the image and translate it using transform rather than
+       adjusting background-position. Using transform on a fixed layer
+       leverages GPU compositing and avoids expensive repaints during
+       scroll【459141134218283†L144-L194】【237663907417115†L121-L124】. */
+    background-position: center center;
+    transform: translateY(calc(var(--parY, 0px)));
+    will-change: transform, opacity;
   }
 
   /* Show the viewport layer only while the section is on screen */
