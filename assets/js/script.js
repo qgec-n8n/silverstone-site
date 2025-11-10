@@ -684,11 +684,108 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /*
- * Mobile parallax effect for themed sections
+ * Parallax effect for body sections
  *
- * The original implementation used scroll‑driven JavaScript and sticky
- * pseudo‑elements to simulate depth on mobile.  In the cleaned codebase
- * we enforce a single, non‑parallax background per section on small
- * screens, so this behaviour has been removed.  No runtime logic is
- * needed here; background images are now specified purely in CSS.
+ * The Silverstone design calls for a cinematic hero transition followed
+ * by sections where the content scrolls over the top of themed
+ * backgrounds.  To achieve this we apply different parallax strategies
+ * depending on viewport size:
+ *
+ *  • Desktop (>=769px): we rely on the CSS `background-attachment: fixed`
+ *    defined in assets/css/parallax.css to pin background images in
+ *    place while the content moves.  No JavaScript adjustments are
+ *    required.
+ *  • Mobile (<769px): most browsers disable `background-attachment: fixed`
+ *    for performance reasons.  To emulate a fixed background we
+ *    dynamically adjust the `background-position` of each themed
+ *    section based on its scroll position.  We also set sensible
+ *    baseline styles in CSS (background-size: contain, no-repeat) so
+ *    that the entire image is visible in the viewport.  This script
+ *    listens for scroll and resize events to update the positions.
+ *
+ *  The sections targeted are those with both `.section` and one of
+ *  `.bg-lines`, `.bg-circuit`, `.bg-city`, `.bg-mesh` or `.bg-waves`.
+ *  These classes correspond to the themed body sections defined in
+ *  assets/css/styles.css.  CTA banners and footers naturally overlay
+ *  these sections since they follow in the document flow.
  */
+
+(function() {
+  // Breakpoint matching the CSS definitions for mobile (see parallax.css)
+  const MOBILE_BREAKPOINT = 768;
+
+  // Collect all themed sections that should have parallax backgrounds
+  const selectors = [
+    '.section.bg-lines',
+    '.section.bg-circuit',
+    '.section.bg-city',
+    '.section.bg-mesh',
+    '.section.bg-waves'
+  ];
+  const parallaxSections = [];
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => parallaxSections.push(el));
+  });
+
+  // Early exit if there are no matching sections
+  if (parallaxSections.length === 0) return;
+
+  // Flag to track whether mobile logic is currently active
+  let mobileActive = false;
+  let scrollHandler;
+
+  function initDesktop() {
+    // Remove mobile-specific styles and event listeners if switching
+    if (mobileActive && scrollHandler) {
+      window.removeEventListener('scroll', scrollHandler);
+      scrollHandler = null;
+    }
+    mobileActive = false;
+    // Reset any inline background-position set during mobile mode
+    parallaxSections.forEach(section => {
+      section.style.backgroundPosition = '';
+    });
+  }
+
+  function initMobile() {
+    // Setup scroll handler to update background positions
+    mobileActive = true;
+    const update = () => {
+      parallaxSections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        // Compute the vertical offset of the section relative to the viewport.
+        // A negative rect.top yields how far the section has moved up; we
+        // directly apply this offset so the background appears fixed.
+        const yOffset = -rect.top;
+        section.style.backgroundPosition = `center ${yOffset}px`;
+      });
+    };
+    // Run once to set initial positions
+    update();
+    // Remove any existing handler before adding a new one
+    if (scrollHandler) {
+      window.removeEventListener('scroll', scrollHandler);
+    }
+    scrollHandler = update;
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+  }
+
+  function evaluate() {
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+    if (isMobile && !mobileActive) {
+      initMobile();
+    } else if (!isMobile && mobileActive) {
+      initDesktop();
+    }
+  }
+
+  // Initialise on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', evaluate);
+  } else {
+    evaluate();
+  }
+
+  // Re-evaluate on resize to switch between mobile and desktop logic
+  window.addEventListener('resize', evaluate);
+})();

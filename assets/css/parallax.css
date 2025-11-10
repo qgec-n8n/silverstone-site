@@ -1,0 +1,51 @@
+/* Parallax effects for Silverstone body sections
+
+   This stylesheet introduces parallax scrolling behaviour for the themed body
+   sections across the website.  On desktop viewports (769px and wider) the
+   background images of each section are fixed in place using
+   `background-attachment: fixed` so that content appears to slide over the
+   top of the imagery.  On mobile viewports the backgrounds cannot rely on
+   `background-attachment: fixed`, as many mobile browsers disable this
+   property for performance reasons.  Instead we set sensible defaults
+   (`background-size: contain` and `background-position: top center`) and
+   allow JavaScript in assets/js/script.js to adjust the background position
+   as the user scrolls.  This approach ensures that the entire background
+   image remains visible within the viewport and that the CTA banner and
+   footer smoothly overlay the bottom of each section.
+
+   See the Builder.io forum discussion on mobile parallax for the rationale
+   behind avoiding fixed backgrounds on mobile and using alternative
+   techniques【179694120162361†L114-L132】.
+*/
+
+/* Desktop: Fix the background images in place so the foreground content
+   scrolls over them.  Use cover sizing and centre positioning to fill
+   the container while preserving aspect ratio. */
+@media (min-width: 769px) {
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-city,
+  .section.bg-mesh,
+  .section.bg-waves {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+/* Mobile: ensure the entire background image is visible in the viewport.
+   We set the size to `contain` so the image fits within the section and
+   disable repeat.  The JavaScript parallax logic will update the
+   background-position dynamically on scroll to emulate a fixed image.
+*/
+@media (max-width: 768px) {
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-city,
+  .section.bg-mesh,
+  .section.bg-waves {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center top;
+  }
+}
