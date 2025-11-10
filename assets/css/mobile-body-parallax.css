@@ -1,0 +1,27 @@
+/* Mobile body parallax for Silverstone AI */
+@media (max-width: 768px) {
+  body {
+    /* Do not pin the background on mobile. */
+    background-attachment: scroll;
+    /* Fallback colour matches the site's dark theme. */
+    background-color: #0B0C10;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    /* Apply a dark overlay and pull in the per‑page mobile image via custom property. */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      var(--mobile-body-image);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    /* Place the layer behind all other content. */
+    z-index: -999;
+    pointer-events: none;
+    /* Trigger GPU acceleration for smoother scrolling. */
+    transform: translateZ(0);
+  }
+}
