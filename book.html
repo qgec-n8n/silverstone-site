@@ -1,41 +1,40 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Book a Consultation – Silverstone</title>
-<meta content="noindex, nofollow" name="robots"/>
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Open+Sans:wght@400;500&amp;family=Montserrat:wght@600&amp;display=swap" rel="stylesheet"/>
-<!-- Core site styles -->
-<link href="assets/css/styles.css" rel="stylesheet"/>
-<!-- Include parallax fix overrides to ensure .animate does not use transforms -->
-<link href="assets/css/parallax-fix.css" rel="stylesheet"/>
-<!-- Mobile overrides: ensure last to override other styles on small screens -->
-<link href="assets/css/mobile.css" rel="stylesheet"/>
-<!-- Calendly preconnects and widget styles -->
-<link crossorigin="" href="https://assets.calendly.com" rel="preconnect"/>
-<link crossorigin="" href="https://calendly.com" rel="preconnect"/>
-<link href="https://assets.calendly.com" rel="dns-prefetch"/>
-<link href="https://calendly.com" rel="dns-prefetch"/>
-<link as="style" href="https://assets.calendly.com/assets/external/widget.css" rel="preload"/>
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
-<!-- Global footer styles -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Consultation – Silverstone</title>
+  <meta name="robots" content="noindex, nofollow">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <!-- Core site styles -->
+  <link href="assets/css/styles.css" rel="stylesheet">
+  <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
+  <link rel="stylesheet" href="assets/css/parallax-fix.css">
+  <!-- Mobile overrides: ensure last to override other styles on small screens -->
+  <link rel="stylesheet" href="assets/css/mobile.css">
+  <!-- Calendly preconnects and widget styles -->
+  <link rel="preconnect" href="https://assets.calendly.com" crossorigin>
+  <link rel="preconnect" href="https://calendly.com" crossorigin>
+  <link rel="dns-prefetch" href="https://assets.calendly.com">
+  <link rel="dns-prefetch" href="https://calendly.com">
+  <link as="style" href="https://assets.calendly.com/assets/external/widget.css" rel="preload">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <!-- Global footer styles -->
 <!-- Local icon font styles -->
-<link href="assets/css/icons.css" rel="stylesheet"/>
-<!-- Neon fix ensures overlays are layered correctly -->
-<style id="neon-fix">
+  <link rel="stylesheet" href="assets/css/icons.css" />
+  <!-- Neon fix ensures overlays are layered correctly -->
+  <style id="neon-fix">
     .section.bg-circuit { position: relative; isolation: isolate; }
     .section.bg-circuit::before { z-index: 0; pointer-events: none; }
     .section.bg-circuit > .container { position: relative; z-index: 1; }
     .neon-card { position: relative; z-index: 2; }
     .service-row, .service-image, .service-content { position: relative; z-index: 2; }
   </style>
-<!-- Custom discovery call and hero styling -->
-<style>
+  <!-- Custom discovery call and hero styling -->
+  <style>
     /* Discovery call section styling */
     .discovery-call-section {
       position: relative;
@@ -129,120 +128,116 @@
       }
     }
   </style>
-<link href="assets/css/hero-cinematic.css" rel="stylesheet">
-</link><link href="assets/css/mobile-body-parallax.css" rel="stylesheet"/></head>
-<body class="page-book" style="--mobile-body-image: image-set(
-  url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-  url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-  url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-);">
-<!-- Cookie banner -->
-<div class="cookie-banner" id="cookie-banner">
-<p>
+    <link rel="stylesheet" href="assets/css/hero-cinematic.css">
+</head>
+<body class="page-book">
+  <!-- Cookie banner -->
+  <div id="cookie-banner" class="cookie-banner">
+    <p>
       We use cookies to improve your browsing experience and to analyse website
       traffic. By clicking “Accept”, you consent to our use of cookies. For
       more details, please read our
       <a href="privacy-policy.html">Privacy Policy</a>.
     </p>
-<button class="btn btn-primary" id="cookie-accept-btn">Accept</button>
-</div>
-<!-- Site header -->
-<header class="site-header">
-<div class="container header-inner">
-<a class="logo" href="index.html">
-<img alt="Silverstone Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"/>
-</a>
-<div aria-label="Open navigation" class="nav-toggle" tabindex="0">
-<span></span><span></span><span></span>
-</div>
-<nav>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a class="active" href="book.html">Book</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</nav>
-</div>
-</header>
-<!-- Hero section -->
-<section class="hero title-band" style="--mobile-hero-image: url('assets/images/internet/hero/book-hero-final.jpg'); background-image: url('assets/images/internet/hero/book-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/book-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/book-hero-final.jpg') type('image/jpeg') 1x);">
-<div class="content">
-<h1>Book Your Free Consultation</h1>
-<p>Let’s explore how automation can transform your business. Provide a few details and we’ll schedule a personalised session.</p>
-</div>
-</section>
-<!-- Discovery call section -->
-<section class="discovery-call-section" id="discovery-call-section">
-<div class="container">
-<div class="discovery-call-content">
-<div class="info">
-<h2>Schedule your 30‑Minute Discovery Call</h2>
-<p>Take the first step to working smarter with AI and automation by booking a no‑obligation consultation. We love automation, so there’s no back and forth with emails to find a convenient time – just put it straight in our calendar and we’ll be there!</p>
-<ul>
-<li><i class="fa-solid fa-comments"></i> Get your questions about AI and automation answered by an expert consultant</li>
-<li><i class="fa-solid fa-info-circle"></i> Discover more about our services and processes</li>
-<li><i class="fa-solid fa-check-circle"></i> Find out if automation is right for your business</li>
-</ul>
-<p>If there are no suitable time slots, please <a href="contact.html">use our contact form</a> and we’ll arrange a time that suits your schedule — we know business owners are busy and we always make time for you, no matter the day or hour.</p>
-</div>
-<div class="widget">
-<div class="calendly-inline-widget" data-url="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1&amp;hide_event_type_details=1&amp;primary_color=00FF9D" style="min-width:320px;"></div>
-</div>
-</div>
-</div>
-</section>
-<!-- CTA section -->
-<section class="section brand-gradient animate">
-<div class="container">
-<div class="neon-card cta-card" style="text-align: center;">
-<h2 class="section-title" style="color: var(--color-white);">Ready to Get Started?</h2>
-<p class="section-subtitle" style="color: var(--color-silver);">We’re excited to learn about your business and design a solution that fits.</p>
-<a class="btn btn-primary" href="contact.html">Contact Us</a>
-</div>
-</div>
-</section>
-<!-- Global site footer -->
-<footer class="site-footer">
-<div class="footer-container">
-<div class="footer-brand">
-<img alt="Silverstone Logo" class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"/>
-<p class="tagline">Streamline. Optimize. Succeed.</p>
-<p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise operations and succeed in the digital age.</p>
-</div>
-<div class="footer-links">
-<h4>Quick Links</h4>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="book.html">Book</a></li>
-<li><a href="contact.html">Contact</a></li>
-<li><a href="privacy-policy.html">Privacy Policy</a></li>
-</ul>
-</div>
-<div class="footer-contact">
-<h4>Contact Us</h4>
-<p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
-<p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
-</div>
-<div class="footer-social">
-<h4>Follow Us</h4>
-<div class="social-icons">
-<a href="#"><i class="fa-brands fa-instagram"></i></a>
-<a href="#"><i class="fa-brands fa-tiktok"></i></a>
-<a href="#"><i class="fa-brands fa-facebook"></i></a>
-</div>
-</div>
-</div>
-<div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
-</footer>
-<!-- Scripts -->
-<script defer="" src="assets/js/script.js"></script>
-<script defer="" src="assets/js/cookie-consent.js"></script>
-<!-- Load Calendly widget script immediately for faster rendering -->
-<script async="" src="https://assets.calendly.com/assets/external/widget.js"></script>
-<script defer="" src="assets/js/hero-cinematic.js"></script>
+    <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+  </div>
+  <!-- Site header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <img alt="Silverstone Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x">
+      </a>
+      <div aria-label="Open navigation" class="nav-toggle" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a class="active" href="book.html">Book</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- Hero section -->
+  <section class="hero title-band" style="--mobile-hero-image: url('assets/images/internet/hero/book-hero-final.jpg'); background-image: url('assets/images/internet/hero/book-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/book-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/book-hero-final.jpg') type('image/jpeg') 1x);">
+    <div class="content">
+      <h1>Book Your Free Consultation</h1>
+      <p>Let’s explore how automation can transform your business. Provide a few details and we’ll schedule a personalised session.</p>
+    </div>
+  </section>
+  <!-- Discovery call section -->
+  <section class="discovery-call-section" id="discovery-call-section">
+    <div class="container">
+      <div class="discovery-call-content">
+        <div class="info">
+          <h2>Schedule your 30‑Minute Discovery Call</h2>
+          <p>Take the first step to working smarter with AI and automation by booking a no‑obligation consultation. We love automation, so there’s no back and forth with emails to find a convenient time – just put it straight in our calendar and we’ll be there!</p>
+          <ul>
+            <li><i class="fa-solid fa-comments"></i> Get your questions about AI and automation answered by an expert consultant</li>
+            <li><i class="fa-solid fa-info-circle"></i> Discover more about our services and processes</li>
+            <li><i class="fa-solid fa-check-circle"></i> Find out if automation is right for your business</li>
+          </ul>
+          <p>If there are no suitable time slots, please <a href="contact.html">use our contact form</a> and we’ll arrange a time that suits your schedule — we know business owners are busy and we always make time for you, no matter the day or hour.</p>
+        </div>
+        <div class="widget">
+          <div class="calendly-inline-widget" data-url="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1&hide_event_type_details=1&primary_color=00FF9D" style="min-width:320px;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- CTA section -->
+  <section class="section brand-gradient animate">
+    <div class="container">
+      <div class="neon-card cta-card" style="text-align: center;">
+        <h2 class="section-title" style="color: var(--color-white);">Ready to Get Started?</h2>
+        <p class="section-subtitle" style="color: var(--color-silver);">We’re excited to learn about your business and design a solution that fits.</p>
+        <a class="btn btn-primary" href="contact.html">Contact Us</a>
+      </div>
+    </div>
+  </section>
+  <!-- Global site footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+          <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
+          <p class="tagline">Streamline. Optimize. Succeed.</p>
+          <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise operations and succeed in the digital age.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="book.html">Book</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
+  </footer>
+  <!-- Scripts -->
+  <script src="assets/js/script.js" defer></script>
+  <script defer src="assets/js/cookie-consent.js"></script>
+  <!-- Load Calendly widget script immediately for faster rendering -->
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script defer src="assets/js/hero-cinematic.js"></script>
 </body>
 </html>
