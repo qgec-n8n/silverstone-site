@@ -912,3 +912,42 @@
   }
 }
 /* === End mobile nav overlay uniform spacing === */
+
+/* SAI-MobileParallaxFix :: Mobile single-image policy, layering cleanup, and containment */
+@media (max-width: 768px) {
+  /* Constrain and clip themed body sections; prevent any overlap into hero */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-city,
+  .section.bg-mesh,
+  .section.bg-waves,
+  .page-book .discovery-call-section {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    background-attachment: scroll !important;
+    background-repeat: no-repeat !important;
+    /* Preserve clarity/framing (no zoom) */
+    background-size: contain !important;
+    /* Parallax offset provided via --parY (pixels). Default centers image. */
+    background-position: center calc(var(--parY, 50%)) !important;
+    /* Dark fallback behind the single image for long sections */
+    background-color: var(--color-black);
+    will-change: background-position;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+  }
+
+  /* Eliminate legacy fixed viewport layer on mobile to enforce the single-image policy */
+  .section.bg-lines::after,
+  .section.bg-circuit::after,
+  .section.bg-city::after,
+  .section.bg-mesh::after,
+  .section.bg-waves::after,
+  .page-book .discovery-call-section::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    background-image: none !important;
+  }
+}
