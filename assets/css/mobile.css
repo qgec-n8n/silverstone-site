@@ -9,69 +9,6 @@
 */
 
 @media (max-width: 768px) {
-  /* ---------------------------------------------------------------------
-   * Global mobile parallax background layer
-   *
-   * A single, fixed background element is used to display themed section
-   * images on mobile.  This avoids layering multiple background images
-   * (native background, ::before dark overlay, ::after parallax layer)
-   * which previously caused blurred/zoomed underlays.  The element is
-   * injected by script.js and is only visible while a section is active.
-   *
-   * The element fills the viewport (top:0; right:0; bottom:0; left:0)
-   * and uses a CSS custom property --parY to shift the vertical
-   * position relative to scroll.  The opacity is toggled via JS to
-   * fade the background in/out when entering or leaving sections.
-   */
-  #mobile-parallax-bg {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* Default to centre alignment; Y position will be updated via --parY */
-    background-position: center var(--parY, 0px);
-    opacity: 0;
-    transition: opacity 0.2s linear;
-    will-change: background-position, opacity;
-  }
-
-  /* ---------------------------------------------------------------------
-   * Remove native backgrounds and overlay layers on mobile
-   *
-   * The desktop implementation relies on a background image on the
-   * section itself, a ::before dark overlay, and a ::after parallax layer.
-   * On mobile we disable these layers completely because our single
-   * fixed background element will render the image and gradient.  This
-   * ensures that only one image is visible at a time and eliminates
-   * layering conflicts.  The !important flag supersedes earlier
-   * declarations in styles.css.
-   */
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-mesh,
-  .section.bg-waves,
-  .page-book .discovery-call-section {
-    background-image: none !important;
-    background-color: transparent !important;
-  }
-  .section.bg-lines::before,
-  .section.bg-lines::after,
-  .section.bg-circuit::before,
-  .section.bg-circuit::after,
-  .section.bg-mesh::before,
-  .section.bg-mesh::after,
-  .section.bg-waves::before,
-  .section.bg-waves::after,
-  .page-book .discovery-call-section::before,
-  .page-book .discovery-call-section::after {
-    display: none !important;
-    content: none !important;
-  }
   /* Reduce default section padding to avoid excessive vertical space on small screens */
   .section {
     padding: 2.5rem 1rem;
