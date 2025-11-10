@@ -488,7 +488,9 @@
 
   /* Discovery call section (book page): reduce excessive height and stack content */
   .page-book .discovery-call-section {
-    min-height: auto;
+    --mobile-section-bg-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.png');
+    min-height: 100vh;
     padding: 3rem 1rem;
   }
   .page-book .discovery-call-content {
@@ -504,101 +506,12 @@
     min-height: 500px;
   }
 
-  /* Mobile DPR-aware background images for themed sections (top-aligned) */
-  .section.bg-lines {
-    /* Fallback for very old engines */
-    background-image: url('../images/internet/mobile/section-abstract-lines@1x.webp');
-    /* Older Safari */
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x
-    );
-    /* Standard */
-    background-image: image-set(
-      url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  .section.bg-circuit {
-    background-image: url('../images/internet/mobile/section-circuit@1x.webp');
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-      url('../images/internet/mobile/section-circuit@2x.webp') 2x
-    );
-    background-image: image-set(
-      url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-      url('../images/internet/mobile/section-circuit@2x.webp') 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  .section.bg-mesh {
-    background-image: url('../images/internet/mobile/section-mesh@1x.webp');
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-      url('../images/internet/mobile/section-mesh@2x.webp') 2x
-    );
-    background-image: image-set(
-      url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-      url('../images/internet/mobile/section-mesh@2x.webp') 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  .section.bg-waves {
-    background-image: url('../images/internet/mobile/section-waves@1x.webp');
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/section-waves@1x.webp') 1x,
-      url('../images/internet/mobile/section-waves@2x.webp') 2x
-    );
-    background-image: image-set(
-      url('../images/internet/mobile/section-waves@1x.webp') 1x,
-      url('../images/internet/mobile/section-waves@2x.webp') 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  /* Book discovery section: keep gradient overlay + DPR-aware image */
-  .page-book .discovery-call-section {
-    /* Fallback */
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
-    /* Older Safari */
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      -webkit-image-set(
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x
-      );
-    /* Standard */
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x
-      );
-    background-size: cover;
-    background-position: center top;
-  }
-
-
-/* Mobile sticky background layer removed: backgrounds are now handled as static images via CSS */
-
-/*
- * Parallax enhancements for Silverstone
+/* Parallax enhancements for Silverstone
  *
- * To achieve a premium scroll‑through experience similar to the DC Performance
- * Coaching site, we layer a fixed background image behind the entire page
- * on desktop and simulate this behaviour on mobile using a pseudo‑element.
- * These rules are placed after all other overrides to ensure they take
- * precedence over earlier declarations and do not disturb existing layouts.
+ * Desktop browsers keep the themed section backgrounds fixed via the
+ * `.parallax-body` rules in `parallax-fix.css`.  The declarations below
+ * retain the legacy gradient overlays and ensure the pseudo elements are
+ * suppressed when the fixed backgrounds are active.
  */
 
 /*
@@ -776,6 +689,13 @@
 @media (max-width: 768px) {
   /* Home page themed section (bg-lines) */
   .section.bg-lines {
+    --mobile-section-bg-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+      );
     /* Fallback for older browsers */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
@@ -789,24 +709,19 @@
         url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
       );
     /* Standard */
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
-        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
-      );
-    /* Use cover to ensure the background fills the entire section on long scroll pages.
-       According to CSS best practices, background-size: cover scales the image while preserving aspect ratio,
-       completely covering the container, which avoids empty space seen with contain. */
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background-image: var(--mobile-section-bg-image);
     background-color: #050B18;
   }
 
   /* Services page themed section (bg-circuit) */
   .section.bg-circuit {
+    --mobile-section-bg-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+        url('../images/internet/mobile/section-circuit@3x.webp') 3x
+      );
     /* Fallback */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
@@ -820,22 +735,19 @@
         url('../images/internet/mobile/section-circuit@3x.webp') 3x
       );
     /* Standard */
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
-        url('../images/internet/mobile/section-circuit@3x.webp') 3x
-      );
-    /* Use cover for full-height visibility on mobile long-scrolling sections */
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background-image: var(--mobile-section-bg-image);
     background-color: #050B18;
   }
 
   /* About page themed section (bg-mesh) */
   .section.bg-mesh {
+    --mobile-section-bg-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+        url('../images/internet/mobile/section-mesh@3x.webp') 3x
+      );
     /* Fallback */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
@@ -849,22 +761,19 @@
         url('../images/internet/mobile/section-mesh@3x.webp') 3x
       );
     /* Standard */
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
-        url('../images/internet/mobile/section-mesh@3x.webp') 3x
-      );
-    /* Use cover for full-height visibility on mobile long-scrolling sections */
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background-image: var(--mobile-section-bg-image);
     background-color: #050B18;
   }
 
   /* Contact page themed section (bg-waves) */
   .section.bg-waves {
+    --mobile-section-bg-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/section-waves@1x.webp') 1x,
+        url('../images/internet/mobile/section-waves@2x.webp') 2x,
+        url('../images/internet/mobile/section-waves@3x.webp') 3x
+      );
     /* Fallback */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
@@ -878,22 +787,19 @@
         url('../images/internet/mobile/section-waves@3x.webp') 3x
       );
     /* Standard */
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/section-waves@1x.webp') 1x,
-        url('../images/internet/mobile/section-waves@2x.webp') 2x,
-        url('../images/internet/mobile/section-waves@3x.webp') 3x
-      );
-    /* Use cover for full-height visibility on mobile long-scrolling sections */
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background-image: var(--mobile-section-bg-image);
     background-color: #050B18;
   }
 
   /* Book page discovery call section (custom element) */
   .page-book .discovery-call-section {
+    --mobile-section-bg-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+      );
     /* Fallback */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
@@ -907,17 +813,7 @@
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
       );
     /* Standard */
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-      );
-    /* Use cover for full-height visibility on mobile long-scrolling sections */
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background-image: var(--mobile-section-bg-image);
     background-color: #050B18;
   }
 }
