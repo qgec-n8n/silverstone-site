@@ -1,33 +1,34 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us – Silverstone</title>
-  <meta name="robots" content="noindex, nofollow">
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
-  <!-- Core site styles -->
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
-  <link rel="stylesheet" href="assets/css/parallax-fix.css">
-  <!-- Mobile overrides: ensure last to override other styles on small screens -->
-  <link rel="stylesheet" href="assets/css/mobile.css">
-  <!-- Global footer styles -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Us – Silverstone</title>
+<meta content="noindex, nofollow" name="robots"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Open+Sans:wght@400;500&amp;family=Montserrat:wght@600&amp;display=swap" rel="stylesheet"/>
+<!-- Core site styles -->
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<!-- Include parallax fix overrides to ensure .animate does not use transforms -->
+<link href="assets/css/parallax-fix.css" rel="stylesheet"/>
+<!-- Mobile overrides: ensure last to override other styles on small screens -->
+<link href="assets/css/mobile.css" rel="stylesheet"/>
+<!-- Global footer styles -->
 <!-- Local icon font styles -->
-  <link rel="stylesheet" href="assets/css/icons.css" />
-  <!-- Neon fix to ensure correct stacking for animated overlays -->
-  <style id="neon-fix">
+<link href="assets/css/icons.css" rel="stylesheet"/>
+<!-- Neon fix to ensure correct stacking for animated overlays -->
+<style id="neon-fix">
     .section.bg-waves { position: relative; isolation: isolate; }
     .section.bg-waves::before { z-index: 0; pointer-events: none; }
     .section.bg-waves > .container { position: relative; z-index: 1; }
     .neon-card { position: relative; z-index: 2; }
     .service-row, .service-image, .service-content { position: relative; z-index: 2; }
   </style>
-  <!-- Serve smaller hero background on narrow screens -->
-  <style>
+<!-- Serve smaller hero background on narrow screens -->
+<style>
     @media (max-width: 900px) {
       .hero {
         background-image: url('assets/images/internet/hero/contact-hero-final.webp');
@@ -38,126 +39,120 @@
       }
     }
   </style>
-    <link rel="stylesheet" href="assets/css/hero-cinematic.css">
-</head>
-<body class="page-contact">
-  <!-- Cookie banner -->
-  <div id="cookie-banner" class="cookie-banner">
-    <p>
+<link href="assets/css/hero-cinematic.css" rel="stylesheet">
+</link><link href="assets/css/mobile-body-parallax.css" rel="stylesheet"/></head>
+<body class="page-contact" style="--mobile-body-image: image-set(
+  url('assets/images/internet/mobile/section-waves@1x.webp') 1x,
+  url('assets/images/internet/mobile/section-waves@2x.webp') 2x,
+  url('assets/images/internet/mobile/section-waves@3x.webp') 3x
+);">
+<!-- Cookie banner -->
+<div class="cookie-banner" id="cookie-banner">
+<p>
       We use cookies to improve your browsing experience and to analyse website
       traffic. By clicking “Accept”, you consent to our use of cookies. For
       more details, please read our
       <a href="privacy-policy.html">Privacy Policy</a>.
     </p>
-    <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
-  </div>
-  <!-- Site header -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo">
-        <img
-          src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
-          srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"
-          alt="Silverstone Logo"
-          class="site-logo"
-        />
-      </a>
-      <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
-        <span></span><span></span><span></span>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="book.html">Book</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <!-- Hero section -->
-  <section class="hero title-band" style="--mobile-hero-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);">
-    <div class="content">
-      <h1>Get In Touch</h1>
-      <p>We’d love to hear from you. Whether you have a question about our services or need support, our team is ready to help.</p>
-    </div>
-  </section>
-  <!-- Contact section -->
-  <section class="section bg-waves animate">
-    <div class="container">
-      <h2 class="section-title" style="text-align:left;">Contact Us</h2>
-      <div class="contact-grid">
-        <div class="contact-form-card neon-card">
-          <form id="contact-form" class="contact-form" method="POST" novalidate>
-            <input type="text" name="company" id="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" aria-hidden="true">
-            <label for="contact-name">Name</label>
-            <input type="text" id="contact-name" name="name" placeholder="Your full name" required />
-            <label for="contact-email">Email</label>
-            <input type="email" id="contact-email" name="email" placeholder="you@example.com" required />
-            <label for="contact-message">Message</label>
-            <textarea id="contact-message" name="message" rows="6" placeholder="How can we assist you?" required></textarea>
-            <button type="submit" class="btn btn-primary">Send Message</button>
-            <p id="contact-status" class="small" style="margin-top:0.75rem; color: var(--color-silver); display:none;"></p>
-          </form>
-        </div>
-        <div class="contact-map-card neon-card">
-          <div class="map-container">
-            <iframe
-              class="map-iframe"
-              src="https://www.google.com/maps?q=4+Deacon+Street,+SE17+1GE,+London,+UK&output=embed"
-              allowfullscreen
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-          </div>
-          <div class="map-address">
-            <p style="margin-top:0.75rem; color: var(--color-silver); white-space: pre-line;">Address: 4 Deacon Street, SE17 1GE, London, UK
+<button class="btn btn-primary" id="cookie-accept-btn">Accept</button>
+</div>
+<!-- Site header -->
+<header class="site-header">
+<div class="container header-inner">
+<a class="logo" href="index.html">
+<img alt="Silverstone Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"/>
+</a>
+<div aria-label="Open navigation" class="nav-toggle" tabindex="0">
+<span></span><span></span><span></span>
+</div>
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="book.html">Book</a></li>
+<li><a class="active" href="contact.html">Contact</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<!-- Hero section -->
+<section class="hero title-band" style="--mobile-hero-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);">
+<div class="content">
+<h1>Get In Touch</h1>
+<p>We’d love to hear from you. Whether you have a question about our services or need support, our team is ready to help.</p>
+</div>
+</section>
+<!-- Contact section -->
+<section class="section bg-waves animate">
+<div class="container">
+<h2 class="section-title" style="text-align:left;">Contact Us</h2>
+<div class="contact-grid">
+<div class="contact-form-card neon-card">
+<form class="contact-form" id="contact-form" method="POST" novalidate="">
+<input aria-hidden="true" autocomplete="off" id="company" name="company" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" tabindex="-1" type="text"/>
+<label for="contact-name">Name</label>
+<input id="contact-name" name="name" placeholder="Your full name" required="" type="text"/>
+<label for="contact-email">Email</label>
+<input id="contact-email" name="email" placeholder="you@example.com" required="" type="email">
+<label for="contact-message">Message</label>
+<textarea id="contact-message" name="message" placeholder="How can we assist you?" required="" rows="6"></textarea>
+<button class="btn btn-primary" type="submit">Send Message</button>
+<p class="small" id="contact-status" style="margin-top:0.75rem; color: var(--color-silver); display:none;"></p>
+</input></form>
+</div>
+<div class="contact-map-card neon-card">
+<div class="map-container">
+<iframe allowfullscreen="" class="map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=4+Deacon+Street,+SE17+1GE,+London,+UK&amp;output=embed">
+</iframe>
+</div>
+<div class="map-address">
+<p style="margin-top:0.75rem; color: var(--color-silver); white-space: pre-line;">Address: 4 Deacon Street, SE17 1GE, London, UK
 Email: info@silverstone-ai.com</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Global site footer -->
-  <footer class="site-footer">
-    <div class="footer-container">
-      <div class="footer-brand">
-          <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
-          <p class="tagline">Streamline. Optimize. Succeed.</p>
-          <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise operations and succeed in the digital age.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="book.html">Book</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-contact">
-        <h4>Contact Us</h4>
-        <p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
-        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
-      </div>
-      <div class="footer-social">
-        <h4>Follow Us</h4>
-        <div class="social-icons">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
-  </footer>
-  <!-- Scripts -->
-  <script src="assets/js/script.js" defer></script>
-  <script defer src="assets/js/cookie-consent.js"></script>
-  <script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Global site footer -->
+<footer class="site-footer">
+<div class="footer-container">
+<div class="footer-brand">
+<img alt="Silverstone Logo" class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"/>
+<p class="tagline">Streamline. Optimize. Succeed.</p>
+<p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise operations and succeed in the digital age.</p>
+</div>
+<div class="footer-links">
+<h4>Quick Links</h4>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="book.html">Book</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="privacy-policy.html">Privacy Policy</a></li>
+</ul>
+</div>
+<div class="footer-contact">
+<h4>Contact Us</h4>
+<p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
+<p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+</div>
+<div class="footer-social">
+<h4>Follow Us</h4>
+<div class="social-icons">
+<a href="#"><i class="fa-brands fa-instagram"></i></a>
+<a href="#"><i class="fa-brands fa-tiktok"></i></a>
+<a href="#"><i class="fa-brands fa-facebook"></i></a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
+</footer>
+<!-- Scripts -->
+<script defer="" src="assets/js/script.js"></script>
+<script defer="" src="assets/js/cookie-consent.js"></script>
+<script>
     (function() {
       const form = document.getElementById('contact-form');
       if (!form) return;
@@ -203,6 +198,6 @@ Email: info@silverstone-ai.com</p>
       });
     })();
   </script>
-    <script defer src="assets/js/hero-cinematic.js"></script>
+<script defer="" src="assets/js/hero-cinematic.js"></script>
 </body>
 </html>
