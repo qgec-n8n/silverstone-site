@@ -37,7 +37,7 @@
 
 /* Make "bullet" paragraphs (the ones with the green check icon) stay on one line on desktop,
    while keeping the rest of the text unaffected. Uses :has() which is supported in modern browsers. */
-@media (min-width: 992px){
+@media (min-width: 769px){
   @supports selector(p:has(img.check-icon)){
     /*
       Allow bullet text to wrap naturally on larger screens. Previously

@@ -17,6 +17,12 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Centralised breakpoint definitions.  Adjust MOBILE_BREAKPOINT to change the
+  // viewport threshold at which mobile-specific behaviour is triggered.  All
+  // matchMedia checks in this script reference this constant, ensuring the
+  // breakpoint is defined in one place.  Changing this value will not
+  // automatically update CSS breakpoints; run the build script to update CSS.
+  const MOBILE_BREAKPOINT = 768;
   const body = document.body;
 
   /*
@@ -51,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ).matches;
   const animatedEls = document.querySelectorAll('.animate');
   // Determine if the viewport qualifies as mobile (<=768px) for immediate reveal
-  const mobileViewportForAnimations = window.matchMedia('(max-width: 768px)').matches;
+  const mobileViewportForAnimations = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
   if (animatedEls.length > 0) {
     if (prefersReducedMotion || mobileViewportForAnimations) {
       animatedEls.forEach((el) => el.classList.add('visible'));
@@ -128,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Determine whether the viewport width qualifies as mobile.  This
   // helper is referenced throughout to reduce the number of
   // matchMedia evaluations.
-  const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
+  const isMobileViewport = () => window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
 
   /*
    * Helper functions to show and hide the header.  When the header is

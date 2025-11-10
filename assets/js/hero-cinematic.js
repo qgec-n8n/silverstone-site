@@ -29,7 +29,9 @@
     // since desktop uses a different parallax technique.  The fallback
     // is harmless if the variable is never referenced.
     try {
-      if (window.innerWidth <= 768) {
+      // Centralised breakpoint check – matches the constant used in script.js.
+      var MOBILE_BREAKPOINT = 768;
+      if (window.innerWidth <= MOBILE_BREAKPOINT) {
         document.documentElement.style.setProperty('--heroOffset', off + 'px');
       }
     } catch (e) {

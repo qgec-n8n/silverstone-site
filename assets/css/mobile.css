@@ -651,7 +651,7 @@
   }
 }
 /* === Mobile nav overlay spacing + divider removal (≤640px only) — override injected runtime styles === */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   /* Take control of the overlay list layout and keep items near the top */
   .site-header nav ul {
     justify-content: flex-start !important;  /* override injected space-evenly */
@@ -679,7 +679,7 @@
 }
 /* === End override === */
 /* === Mobile nav overlay spacing fine‑tuning (≤640px only) === */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .site-header nav ul {
     justify-content: flex-start !important;
     align-content: flex-start !important;
@@ -710,7 +710,7 @@
 /* === End fine‑tuning === */
 
 /* === Mobile nav overlay — unify Back-to-Page pill sizing and set uniform spacing (≤640px) === */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   /* Keep items stacked from the top, spacing handled per-item */
   .site-header nav ul {
     justify-content: flex-start !important;
