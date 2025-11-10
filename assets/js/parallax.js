@@ -1,32 +1,14 @@
 /*!
  * assets/js/parallax.js
  *
- * Implements a premium parallax effect for the body sections of the
- * Silverstone site.  This module now handles both mobile and desktop
- * environments distinctly:
- *
- * • On mobile devices (viewport width < 769px) fixed backgrounds are
- *   unreliable【358479931463355†L25-L32】.  To provide a crisp,
- *   viewport‑sized background that appears pinned behind the content,
- *   the script injects a single fixed element (`#parallax-bg`) at the
- *   top of the document.  As the user scrolls past themed sections
- *   (e.g. `.section.bg-lines`, `.section.bg-circuit`, etc.), the
- *   script updates the element’s `backgroundImage` to match the
- *   section’s original image and optionally applies a slight vertical
- *   translation for depth.  The original section backgrounds are
- *   removed so that content appears to slide over the image.  This
- *   follows the “fixed element” workaround recommended when
- *   `background-attachment: fixed` isn’t available【358479931463355†L127-L135】.
- *
- * • On desktop (viewport width ≥ 769px) the existing CSS parallax
- *   implementation applies: each themed section retains its
- *   `background-attachment: fixed`, `background-size: cover` and
- *   `background-position: center`.  The script tears down any
- *   mobile-specific scaffolding and restores backgrounds to ensure
- *   content scrolls smoothly over a static scene.
- *
- * This hybrid approach delivers a seamless parallax experience across
- * devices without changing the site’s markup or layout.
+ * Implements a lightweight parallax effect for the body sections of the
+ * Silverstone site. On desktop devices, the existing CSS rules take
+ * advantage of `background‑attachment: fixed` to keep background images
+ * pinned while content scrolls over the top. Mobile browsers do not
+ * reliably support fixed backgrounds, so this script emulates the same
+ * behaviour by dynamically adjusting the vertical background position on
+ * scroll. The result is a subtle depth effect that preserves the look
+ * and feel of the site without introducing jank or layout thrash.
  *
  * How it works:
  *   • Once the DOM has loaded, the script collects all themed body
@@ -48,226 +30,74 @@
  */
 (function() {
   "use strict";
+
   /**
-   * Initialise the parallax behaviour once the DOM is ready.  This
-   * orchestrates two separate modes: a mobile mode that uses a
-   * fixed overlay element for the background and a desktop mode that
-   * defers to CSS.  The appropriate mode is selected based on the
-   * current viewport width and updated on resize.
+   * Initialise the parallax behaviour once the DOM is ready.
    */
   function initParallax() {
+    // Only apply the JS‑driven parallax on narrow screens. When the viewport
+    // is wider than this breakpoint, CSS `background‑attachment: fixed`
+    // provides the desktop effect.
     var MOBILE_BREAKPOINT = 769;
-    // Cache references to all sections participating in the parallax
-    // effect.  The discovery‑call section on the booking page is
-    // included as well.
-    var sections = Array.prototype.slice.call(document.querySelectorAll(
+
+    // Select all sections that should have a parallax background. The list
+    // mirrors the themed section classes used throughout the site. The
+    // discovery‑call section on the booking page is included so that a
+    // background image can be added there in the future without further
+    // changes.
+    var sections = document.querySelectorAll(
       '.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves, .discovery-call-section'
-    ));
+    );
     if (!sections.length) return;
 
-    var currentMode = null; // 'mobile' or 'desktop'
-    var parallaxBg = null;
-    var observers = [];
-
-    // Define mobile‑specific background assets for each themed section.  The
-    // keys correspond to the base background classes and the values
-    // provide relative paths from the HTML documents to the mobile
-    // imagery.  These files live under assets/images/internet/mobile.
-    var mobileBgMap = {
-      'bg-lines': "url('assets/images/internet/mobile/section-abstract-lines@2x.webp')",
-      'bg-circuit': "url('assets/images/internet/mobile/section-circuit@2x.webp')",
-      'bg-city': "url('assets/images/internet/mobile/section-city@2x.webp')",
-      'bg-mesh': "url('assets/images/internet/mobile/section-mesh@2x.webp')",
-      'bg-waves': "url('assets/images/internet/mobile/section-waves@2x.webp')"
-    };
-
     /**
-     * Restore each section’s original background and remove any inline
-     * overrides applied during mobile mode.  Also removes the global
-     * parallax background if present.
+     * Update the background position of each section. On mobile we
+     * translate the Y position based on scroll; on desktop we clear any
+     * inline style to allow CSS to handle the parallax.
      */
-    function teardownMobile() {
-      // Remove global parallax element
-      if (parallaxBg && parallaxBg.parentNode) {
-        parallaxBg.parentNode.removeChild(parallaxBg);
-        parallaxBg = null;
-      }
-      // Restore background images on sections
+    function updateParallax() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       sections.forEach(function(section) {
-        if (section._parallaxOriginalBg) {
-          section.style.backgroundImage = section._parallaxOriginalBg;
-          delete section._parallaxOriginalBg;
-        }
-        if (section._parallaxOriginalPosition) {
-          section.style.backgroundPosition = section._parallaxOriginalPosition;
-          delete section._parallaxOriginalPosition;
-        }
-        if (section._parallaxMobileBg) {
-          // remove the mobile background reference
-          delete section._parallaxMobileBg;
-        }
-      });
-      // Disconnect observers and scroll handlers
-      observers.forEach(function(obs) {
-        if (typeof obs.disconnect === 'function') {
-          obs.disconnect();
+        if (window.innerWidth < MOBILE_BREAKPOINT) {
+          // Calculate the element's position relative to the document top.
+          var rect = section.getBoundingClientRect();
+          var elementTop = rect.top + scrollTop;
+          // Adjust this multiplier to control the parallax intensity. A
+          // smaller value moves the background more slowly, making it appear
+          // fixed relative to the viewport.
+          var speed = 0.5;
+          var yOffset = (scrollTop - elementTop) * speed;
+          // Apply the computed offset. Preserve horizontal centering.
+          section.style.backgroundPosition = 'center ' + yOffset + 'px';
+        } else {
+          // Clear inline background positioning on wider screens so the
+          // CSS `background‑attachment: fixed` takes effect.
+          section.style.backgroundPosition = '';
         }
       });
-      observers = [];
     }
 
-    /**
-     * Set up mobile parallax behaviour.  Creates a single fixed
-     * background element sized to the viewport and updates its
-     * background image when each section scrolls into view.  Also
-     * removes the original background from sections so that content
-     * scrolls over the fixed image.
-     */
-    function setupMobile() {
-      // Create the fixed background container if it does not exist
-      if (!parallaxBg) {
-        parallaxBg = document.createElement('div');
-        parallaxBg.id = 'parallax-bg';
-        document.body.insertBefore(parallaxBg, document.body.firstChild);
-      }
-      // Capture each section’s original background and clear it, and
-      // compute a mobile‑specific background if available.  This
-      // allows us to display crisp, viewport‑sized imagery on small
-      // screens without stretching the asset across an entire
-      // section.  After we store the originals, we remove the
-      // backgrounds so that our global element can show through.
-      sections.forEach(function(section) {
-        var comp = window.getComputedStyle(section);
-        // Persist original background and position for later
-        if (!section._parallaxOriginalBg) {
-          section._parallaxOriginalBg = comp.backgroundImage;
-        }
-        if (!section._parallaxOriginalPosition) {
-          section._parallaxOriginalPosition = comp.backgroundPosition;
-        }
-        // Determine the mobile asset based on the section’s class list.
-        // We look for any class that matches a key in mobileBgMap.
-        var mobileBg = null;
-        section.classList.forEach(function(cls) {
-          if (mobileBg === null && mobileBgMap[cls]) {
-            mobileBg = mobileBgMap[cls];
-          }
+    // Throttle scroll handling with requestAnimationFrame for smoother
+    // animation and better performance on mobile devices.
+    var ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateParallax();
+          ticking = false;
         });
-        // Fall back to the original background if no mapping is found
-        section._parallaxMobileBg = mobileBg || section._parallaxOriginalBg;
-        // Clear the background and any inline position so the global
-        // element is visible
-        section.style.backgroundImage = 'none';
-        section.style.backgroundPosition = '';
-      });
-      // Set initial background on the fixed element to the first
-      // section’s mobile background.  If no sections exist this
-      // assignment is skipped.
-      if (sections.length) {
-        parallaxBg.style.backgroundImage = sections[0]._parallaxMobileBg;
-      }
-      // Track the index of the currently active section
-      var currentIndex = 0;
-      // Use IntersectionObserver to update background when a section
-      // becomes visible.  We update on the smallest threshold so that
-      // the background changes as soon as the section enters view.
-      var io = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            var idx = sections.indexOf(entry.target);
-            if (idx !== -1 && idx !== currentIndex) {
-              currentIndex = idx;
-              // Swap to the section’s mobile background when it
-              // enters view.  This ensures crisp, viewport‑sized
-              // imagery on mobile devices.
-              parallaxBg.style.backgroundImage = entry.target._parallaxMobileBg;
-            }
-          }
-        });
-      }, {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.01
-      });
-      sections.forEach(function(section) {
-        io.observe(section);
-      });
-      observers.push(io);
-      // Optionally apply a slight vertical translation to the fixed
-      // element to mimic depth.  This uses requestAnimationFrame to
-      // throttle updates.  The translation is negative because when
-      // scrolling down the content moves up relative to the viewport.
-      var ticking = false;
-      function onScroll() {
-        if (!ticking) {
-          window.requestAnimationFrame(function() {
-            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            var section = sections[currentIndex];
-            if (section) {
-              var rect = section.getBoundingClientRect();
-              var elementTop = rect.top + scrollTop;
-              var speed = 0.2; // smaller values yield more subtle movement
-              var yOffset = -(scrollTop - elementTop) * speed;
-              parallaxBg.style.transform = 'translateY(' + yOffset + 'px)';
-            }
-            ticking = false;
-          });
-          ticking = true;
-        }
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      observers.push({ disconnect: function() { window.removeEventListener('scroll', onScroll); } });
-    }
-
-    /**
-     * Set up desktop parallax behaviour.  Restores the original
-     * backgrounds and lets CSS handle the fixed effect.  If mobile
-     * elements exist they are removed.
-     */
-    function setupDesktop() {
-      // Tear down any mobile‑mode artefacts and restore original
-      // backgrounds.  teardownMobile() will remove the global
-      // parallax element and reinstate each section’s stored
-      // background properties.
-      teardownMobile();
-      // After restoration, ensure we don’t leave behind inline
-      // properties that might override CSS.  In particular, clear
-      // any backgroundPosition overrides added during scrolling.
-      sections.forEach(function(section) {
-        // If the original background was stored, restore it and
-        // delete the temporary storage.  If no original values are
-        // stored (meaning we were never in mobile mode), do not
-        // modify the inline styles so that CSS rules remain intact.
-        if (section._parallaxOriginalBg) {
-          section.style.backgroundImage = section._parallaxOriginalBg;
-          delete section._parallaxOriginalBg;
-        }
-        if (section._parallaxOriginalPosition) {
-          section.style.backgroundPosition = section._parallaxOriginalPosition;
-          delete section._parallaxOriginalPosition;
-        }
-      });
-    }
-
-    /**
-     * Switch between mobile and desktop modes based on viewport width.
-     * Avoid unnecessary setup if the mode has not changed.
-     */
-    function updateMode() {
-      var newMode = window.innerWidth < MOBILE_BREAKPOINT ? 'mobile' : 'desktop';
-      if (newMode === currentMode) return;
-      currentMode = newMode;
-      if (newMode === 'mobile') {
-        setupMobile();
-      } else {
-        setupDesktop();
+        ticking = true;
       }
     }
 
-    // Perform initial mode check
-    updateMode();
-    // Listen for resize events to switch modes
-    window.addEventListener('resize', updateMode, { passive: true });
+    // Perform an initial update in case the page loads mid‑scroll.
+    updateParallax();
+
+    // Listen for scroll and resize events. Resize events trigger an
+    // immediate update so that switching between portrait/landscape or
+    // rotating a device recalculates the background positions correctly.
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updateParallax, { passive: true });
   }
 
   // Initialise when the DOM is ready.
