@@ -342,6 +342,60 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /*
+   * Parallax backgrounds for themed body sections
+   *
+   * Desktop browsers benefit from native fixed backgrounds, handled in
+   * CSS via `background-attachment: fixed`. Mobile browsers struggle
+   * with fixed positioning, so we emulate the effect by updating a
+   * custom CSS variable that shifts the background image opposite the
+   * scroll direction. The background assets remain defined purely in
+   * CSS, keeping the markup untouched.
+   */
+  const parallaxSections = Array.from(document.querySelectorAll('.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves'));
+  let parallaxTicking = false;
+
+  const applyParallaxPositions = () => {
+    parallaxTicking = false;
+    if (!parallaxSections.length) {
+      return;
+    }
+    if (!isMobileViewport()) {
+      parallaxSections.forEach((section) => {
+        section.style.removeProperty('--parallax-mobile-position');
+      });
+      return;
+    }
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    parallaxSections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= viewportHeight) {
+        section.style.setProperty('--parallax-mobile-position', '50%');
+        return;
+      }
+      const sectionTop = scrollY + rect.top;
+      const offsetWithinSection = scrollY - sectionTop;
+      const positionValue = `calc(50% - ${offsetWithinSection}px)`;
+      section.style.setProperty('--parallax-mobile-position', positionValue);
+    });
+  };
+
+  const scheduleParallaxUpdate = () => {
+    if (parallaxTicking) return;
+    parallaxTicking = true;
+    window.requestAnimationFrame(applyParallaxPositions);
+  };
+
+  if (parallaxSections.length) {
+    scheduleParallaxUpdate();
+    window.addEventListener('scroll', scheduleParallaxUpdate, { passive: true });
+    window.addEventListener('resize', () => {
+      parallaxSections.forEach((section) => section.style.removeProperty('--parallax-mobile-position'));
+      scheduleParallaxUpdate();
+    }, { passive: true });
+  }
+
+  /*
    * Inject dynamic styles to realise the overlay and indicator
    * aesthetics.  We leverage CSS variables defined in the global
    * stylesheet (styles.css) so the colours automatically match the
