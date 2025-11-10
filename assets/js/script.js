@@ -678,51 +678,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   `;
-  const parallaxSections = Array.from(document.querySelectorAll('.parallax-body'));
-  const mobileParallaxQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`);
-  let parallaxTicking = false;
-
-  const updateParallaxShift = () => {
-    if (!parallaxSections.length) return;
-    if (!mobileParallaxQuery.matches) {
-      parallaxSections.forEach((section) => {
-        section.style.removeProperty('--parallax-mobile-shift');
-      });
-      return;
-    }
-
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-    parallaxSections.forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      const offsetTop = rect.top + scrollY;
-      const shift = scrollY - offsetTop;
-      section.style.setProperty('--parallax-mobile-shift', `${shift}px`);
-    });
-  };
-
-  const requestParallaxUpdate = () => {
-    if (parallaxTicking) return;
-    parallaxTicking = true;
-    window.requestAnimationFrame(() => {
-      updateParallaxShift();
-      parallaxTicking = false;
-    });
-  };
-
-  if (parallaxSections.length) {
-    updateParallaxShift();
-    window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
-    window.addEventListener('resize', updateParallaxShift);
-
-    const handleMediaChange = () => updateParallaxShift();
-    if (mobileParallaxQuery.addEventListener) {
-      mobileParallaxQuery.addEventListener('change', handleMediaChange);
-    } else if (mobileParallaxQuery.addListener) {
-      mobileParallaxQuery.addListener(handleMediaChange);
-    }
-  }
-
   const styleElem = document.createElement('style');
   styleElem.appendChild(document.createTextNode(mobileNavStyles));
   document.head.appendChild(styleElem);
 });
+
+/*
+ * Mobile parallax effect for themed sections
+ *
+ * The original implementation used scroll‑driven JavaScript and sticky
+ * pseudo‑elements to simulate depth on mobile.  In the cleaned codebase
+ * we enforce a single, non‑parallax background per section on small
+ * screens, so this behaviour has been removed.  No runtime logic is
+ * needed here; background images are now specified purely in CSS.
+ */
