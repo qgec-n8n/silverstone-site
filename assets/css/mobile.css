@@ -902,38 +902,80 @@
 /* === End mobile nav overlay uniform spacing === */
 
 /*
- * Additional modifications for improved mobile backgrounds
+ * Additional modifications for improved mobile parallax backgrounds
  *
- * The following overrides adjust background behaviour on mobile themed sections.
- * We disable the sticky ::after pseudo-elements (which previously produced a
- * parallax-like effect and dark overlay) and ensure each 9:16 background image
- * remains fully visible within the viewport as the user scrolls.  The images
- * now scroll with the content, using `contain` sizing to prevent zooming and
- * cropping.  A dark fallback background colour ensures any empty space
- * surrounding the image remains consistent with the site’s aesthetic.
+ * To achieve a premium parallax effect on mobile, the sticky ::after pseudo‑elements
+ * are re-enabled and configured to display the full 9:16 images while the
+ * content scrolls over them.  Each ::after element remains pinned to the
+ * viewport (via the existing sticky rules defined earlier) but now uses
+ * `background-size: contain` and omits the dark gradient overlay so that the
+ * artwork is clear.  A dark fallback colour is still applied on the section
+ * itself to maintain a consistent aesthetic in any empty space.
  */
 @media (max-width: 768px) {
+  /* Re-enable the parallax ::after layer for themed sections */
   .section.bg-lines::after,
   .section.bg-circuit::after,
   .section.bg-mesh::after,
   .section.bg-waves::after,
   .page-book .discovery-call-section::after {
-    display: none !important;
-    content: none !important;
-  }
-
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-mesh,
-  .section.bg-waves {
+    display: block !important;
+    content: "" !important;
     background-size: contain !important;
-    background-position: center top !important;
     background-repeat: no-repeat !important;
-    background-color: #050B18 !important;
+    background-position: center top !important;
   }
 
-  .page-book .discovery-call-section {
-    /* Remove gradient overlay and ensure correct image fill */
+  /* Assign the correct mobile image to each parallax layer without gradient overlay */
+  .section.bg-lines::after {
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+      url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+    ) !important;
+    background-image: image-set(
+      url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+      url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+      url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+    ) !important;
+  }
+  .section.bg-circuit::after {
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+      url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+      url('../images/internet/mobile/section-circuit@3x.webp') 3x
+    ) !important;
+    background-image: image-set(
+      url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+      url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+      url('../images/internet/mobile/section-circuit@3x.webp') 3x
+    ) !important;
+  }
+  .section.bg-mesh::after {
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+      url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+      url('../images/internet/mobile/section-mesh@3x.webp') 3x
+    ) !important;
+    background-image: image-set(
+      url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+      url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+      url('../images/internet/mobile/section-mesh@3x.webp') 3x
+    ) !important;
+  }
+  .section.bg-waves::after {
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/section-waves@1x.webp') 1x,
+      url('../images/internet/mobile/section-waves@2x.webp') 2x,
+      url('../images/internet/mobile/section-waves@3x.webp') 3x
+    ) !important;
+    background-image: image-set(
+      url('../images/internet/mobile/section-waves@1x.webp') 1x,
+      url('../images/internet/mobile/section-waves@2x.webp') 2x,
+      url('../images/internet/mobile/section-waves@3x.webp') 3x
+    ) !important;
+  }
+  .page-book .discovery-call-section::after {
     background-image: -webkit-image-set(
       url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
       url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
@@ -944,9 +986,14 @@
       url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
       url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
     ) !important;
-    background-size: contain !important;
-    background-position: center top !important;
-    background-repeat: no-repeat !important;
+  }
+
+  /* Ensure the sections themselves have a dark fallback colour */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-mesh,
+  .section.bg-waves,
+  .page-book .discovery-call-section {
     background-color: #050B18 !important;
   }
 }
