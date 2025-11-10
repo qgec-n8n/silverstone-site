@@ -1,0 +1,111 @@
+/* assets/css/parallax.css — Body-section Parallax (mobile + desktop)
+   - Mobile (<=768px): sticky-layer parallax with full image visible (no `background-attachment:fixed`)
+   - Desktop (>=769px): native fixed background on the section
+   - JS-less fallback via ::before so backgrounds still show if JS is disabled
+   The rules only apply when the target section has the `body-parallax` class.
+*/
+
+/* ---------- Desktop (>=769px): fixed background, content scrolls over it ---------- */
+@media (min-width: 769px) {
+  .section.body-parallax {
+    /* preserve existing background images applied via .bg-* utilities */
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+  }
+  .section.body-parallax .parallax-bg { display: none !important; }
+}
+
+/* ---------- Mobile (<=768px): sticky background layer, image fully visible ---------- */
+@media (max-width: 768px) {
+  .section.body-parallax {
+    position: relative;
+    /* hide the native background to avoid double-painting; the helper/fallback draws it */
+    background: none !important;
+  }
+
+  /* Stack all content above the background helper */
+  .section.body-parallax > *:not(.parallax-bg) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Sticky helper injected by JS (preferred path) */
+  .section.body-parallax .parallax-bg {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    margin-left: calc(50% - 50vw); /* full-bleed to viewport */
+    z-index: 0;
+    pointer-events: none;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain; /* show ENTIRE image in viewport; no cropping */
+    will-change: transform; /* hint during scroll */
+  }
+
+  /* JS-less fallback: use a sticky ::before layer */
+  .section.body-parallax::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    display: block;
+    height: 100vh;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    z-index: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    pointer-events: none;
+  }
+
+  /* When JS is active, hide the ::before fallback to avoid double painting */
+  html[data-parallax-mobile="1"] .section.body-parallax::before { content: none; }
+
+  /* Assign crisp, mobile-optimised assets to each themed section (both helper and fallback) */
+  .section.body-parallax.bg-lines   .parallax-bg,
+  .section.body-parallax.bg-lines::before { background-image: image-set(
+    url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+    url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+    url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+  ); }
+
+  .section.body-parallax.bg-circuit .parallax-bg,
+  .section.body-parallax.bg-circuit::before { background-image: image-set(
+    url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+    url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+    url('../images/internet/mobile/section-circuit@3x.webp') 3x
+  ); }
+
+  .section.body-parallax.bg-mesh    .parallax-bg,
+  .section.body-parallax.bg-mesh::before { background-image: image-set(
+    url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+    url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+    url('../images/internet/mobile/section-mesh@3x.webp') 3x
+  ); }
+
+  .section.body-parallax.bg-waves   .parallax-bg,
+  .section.body-parallax.bg-waves::before { background-image: image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  ); }
+
+  .section.body-parallax.bg-city    .parallax-bg,
+  .section.body-parallax.bg-city::before { background-image: image-set(
+    url('../images/internet/mobile/section-city@1x.webp') 1x,
+    url('../images/internet/mobile/section-city@2x.webp') 2x,
+    url('../images/internet/mobile/section-city@3x.webp') 3x
+  ); }
+
+  /* Ensure CTA banner and footer naturally overlay the background as the section ends */
+  .section.brand-gradient,
+  footer.site-footer {
+    position: relative;
+    z-index: 2;
+  }
+}
