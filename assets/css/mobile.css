@@ -518,8 +518,10 @@
       url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
       url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x
     );
-    background-position: center top;
-    background-size: cover;
+    background-position: top center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: var(--color-black);
   }
 
   .section.bg-circuit {
@@ -532,8 +534,10 @@
       url('../images/internet/mobile/section-circuit@1x.webp') 1x,
       url('../images/internet/mobile/section-circuit@2x.webp') 2x
     );
-    background-position: center top;
-    background-size: cover;
+    background-position: top center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: var(--color-black);
   }
 
   .section.bg-mesh {
@@ -546,8 +550,10 @@
       url('../images/internet/mobile/section-mesh@1x.webp') 1x,
       url('../images/internet/mobile/section-mesh@2x.webp') 2x
     );
-    background-position: center top;
-    background-size: cover;
+    background-position: top center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: var(--color-black);
   }
 
   .section.bg-waves {
@@ -560,8 +566,10 @@
       url('../images/internet/mobile/section-waves@1x.webp') 1x,
       url('../images/internet/mobile/section-waves@2x.webp') 2x
     );
-    background-position: center top;
-    background-size: cover;
+    background-position: top center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: var(--color-black);
   }
 
   /* Book discovery section: keep gradient overlay + DPR-aware image */
@@ -584,8 +592,10 @@
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x
       );
-    background-size: cover;
-    background-position: center top;
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-color: var(--color-black);
   }
 
 
@@ -644,8 +654,9 @@
     height: calc(100vh + var(--heroOffset, var(--headerH, 0px)));
     z-index: -1; /* sit behind the section content */
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center top;
+    background-size: contain;
+    background-position: top center;
+    background-color: var(--color-black);
     pointer-events: none;
   }
 
@@ -765,8 +776,9 @@
   .section.bg-waves,
   .page-book .discovery-call-section {
     background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center !important;
+    background-size: contain !important;
+    background-position: top center !important;
+    background-repeat: no-repeat !important;
   }
 
   /* Specific backgrounds with integrated overlay */
