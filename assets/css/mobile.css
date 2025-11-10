@@ -900,3 +900,53 @@
   }
 }
 /* === End mobile nav overlay uniform spacing === */
+
+/*
+ * Additional modifications for improved mobile backgrounds
+ *
+ * The following overrides adjust background behaviour on mobile themed sections.
+ * We disable the sticky ::after pseudo-elements (which previously produced a
+ * parallax-like effect and dark overlay) and ensure each 9:16 background image
+ * remains fully visible within the viewport as the user scrolls.  The images
+ * now scroll with the content, using `contain` sizing to prevent zooming and
+ * cropping.  A dark fallback background colour ensures any empty space
+ * surrounding the image remains consistent with the site’s aesthetic.
+ */
+@media (max-width: 768px) {
+  .section.bg-lines::after,
+  .section.bg-circuit::after,
+  .section.bg-mesh::after,
+  .section.bg-waves::after,
+  .page-book .discovery-call-section::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-mesh,
+  .section.bg-waves {
+    background-size: contain !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    background-color: #050B18 !important;
+  }
+
+  .page-book .discovery-call-section {
+    /* Remove gradient overlay and ensure correct image fill */
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+    ) !important;
+    background-image: image-set(
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+    ) !important;
+    background-size: contain !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    background-color: #050B18 !important;
+  }
+}
