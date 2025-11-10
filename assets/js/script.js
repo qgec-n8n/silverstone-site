@@ -781,7 +781,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const rect = entry.section.getBoundingClientRect();
     entry.start = getScrollY() + rect.top;
     entry.height = entry.section.offsetHeight;
-    entry.maxOffset = Math.max(0, entry.height - window.innerHeight);
     entry.lastOffset = null;
   };
 
@@ -793,8 +792,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     const offset = scrollY - entry.start;
-    const clamped = Math.min(Math.max(offset, 0), entry.maxOffset);
-    const rounded = Math.round(clamped);
+    const rounded = Math.round(offset);
     if (entry.lastOffset === rounded) return;
     entry.layer.style.transform = `translate3d(0, ${rounded}px, 0)`;
     entry.lastOffset = rounded;
@@ -859,7 +857,6 @@ document.addEventListener('DOMContentLoaded', () => {
           layer,
           start: 0,
           height: 0,
-          maxOffset: 0,
           lastOffset: null,
           observer: null,
         };
