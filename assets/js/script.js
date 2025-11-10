@@ -45,12 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // include a separate mobile-fixes file.
   ensureStylesheet('assets/css/custom.css');
   ensureStylesheet('assets/css/mobile.css');
-  // Load the body parallax stylesheet.  This file defines a fixed
-  // background layer that will move independently of the foreground
-  // content to create a subtle parallax effect on all pages.  By
-  // loading it here we ensure it is available before any JS
-  // initialisation occurs.  See `initBodyParallax()` below.
-  ensureStylesheet('assets/css/body-parallax.css');
 
   // Intersection observer: reveal elements with the `.animate` class
   // when they enter the viewport.  This replicates the lightweight
@@ -84,75 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.gallery-grid .neon-card').forEach((el) => {
     el.classList.add('visible');
   });
-
-  /*
-   * Initialise a global parallax background behind the page content.  This
-   * function inserts a fixed layer into the DOM and updates its Y
-   * translation based on scroll position using `requestAnimationFrame`.
-   * On desktop the parallax moves faster (factor ~0.25) whereas on mobile
-   * it moves more slowly (factor ~0.15) to account for shorter viewports
-   * and reduced scrolling distance.  The motion only begins after the
-   * hero section has scrolled out of view to maintain a smooth
-   * transition between the hero cinematic effect and the page body.
-   */
-  function initBodyParallax() {
-    // Do nothing if parallax layer already exists.  This prevents
-    // duplicate elements when navigating between pages via a SPA or
-    // frameworks that might re‑initialise the script.
-    if (document.querySelector('.body-parallax')) return;
-    // Create the parallax element and insert it at the very top of the body
-    const parallaxLayer = document.createElement('div');
-    parallaxLayer.className = 'body-parallax';
-    // Prepend ensures the layer sits underneath all content but still
-    // within the body’s stacking context.  The CSS sets z‑index and
-    // positioning appropriately.
-    document.body.prepend(parallaxLayer);
-    // Retrieve the hero element and its current height.  We recalc
-    // on resize to handle orientation changes or dynamic hero sizes.
-    let hero = document.querySelector('.hero');
-    let heroHeight = hero ? hero.getBoundingClientRect().height : 0;
-    // Flag to avoid scheduling multiple rAF updates per frame
-    let ticking = false;
-    // Helper: compute the appropriate parallax offset based on scroll
-    function updateParallax() {
-      const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-      // Use the cached hero height; if hero doesn’t exist we assume 0.
-      const start = heroHeight;
-      // Only move the layer after the hero section; before that keep it
-      // stationary to avoid interfering with the cinematic scroll effect.
-      let offset = 0;
-      if (scrollY > start) {
-        const distance = scrollY - start;
-        // Choose different speed factors for mobile vs desktop.
-        const speedFactor = isMobileViewport() ? 0.15 : 0.25;
-        offset = distance * speedFactor;
-      }
-      // Apply a negative translation so the background moves upward
-      parallaxLayer.style.transform = `translate3d(0, ${-offset}px, 0)`;
-      ticking = false;
-    }
-    function onScroll() {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }
-    // Listen for scroll and resize events.  The resize handler updates
-    // heroHeight so that the parallax start point remains accurate.
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => {
-      hero = document.querySelector('.hero');
-      heroHeight = hero ? hero.getBoundingClientRect().height : 0;
-      updateParallax();
-    });
-    // Perform an initial update so the layer is correctly positioned on load
-    updateParallax();
-  }
-  // Kick off the body parallax initialisation.  This runs after
-  // essential DOM setup (like nav and animations) but before any
-  // blocking operations.  If the user prefers reduced motion the
-  // underlying CSS will still display a static background.
-  initBodyParallax();
 
   // Cache references to header, nav toggle and nav menu.  The
   // Silverstone site uses a fixed site header (`header.site-header`), a
