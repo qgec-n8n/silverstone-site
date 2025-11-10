@@ -912,3 +912,68 @@
   }
 }
 /* === End mobile nav overlay uniform spacing === */
+
+/* ==========================================================================
+   MOBILE body-section background rework — 2025-11-10
+   - Enforce single-image policy on MOBILE
+   - Remove legacy fixed ::after viewport layers
+   - Provide section-local sticky image element (.m-bg) that appears fixed while content scrolls
+   - Desktop remains unchanged
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Disable base background images + any pseudo-element overlays/underlays on MOBILE */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-city,
+  .section.bg-mesh,
+  .section.bg-waves,
+  .page-book .discovery-call-section {
+    background: var(--color-black) !important;
+    background-image: none !important;
+  }
+  .section.bg-lines::before,
+  .section.bg-circuit::before,
+  .section.bg-city::before,
+  .section.bg-mesh::before,
+  .section.bg-waves::before,
+  .section.bg-lines::after,
+  .section.bg-circuit::after,
+  .section.bg-city::after,
+  .section.bg-mesh::after,
+  .section.bg-waves::after,
+  .page-book .discovery-call-section::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+  }
+
+  /* New section-local, sticky background surface injected by JS */
+  .section.bg-lines .m-bg,
+  .section.bg-circuit .m-bg,
+  .section.bg-city .m-bg,
+  .section.bg-mesh .m-bg,
+  .section.bg-waves .m-bg,
+  .page-book .discovery-call-section .m-bg {
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    z-index: 0;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain; /* Ensure the entire image stays visible (no crop) */
+    opacity: 0;
+    transition: opacity 120ms linear;
+    contain: paint;
+  }
+
+  /* Visibility gate — only one image is active at a time */
+  .section .m-bg.is-bg-active { opacity: 1; }
+
+  /* Ensure section content is above the pinned image */
+  .section > .container { position: relative; z-index: 1; }
+}
+
+@media (max-width: 768px){
+  .page-book .discovery-call-section > *:not(.m-bg){ position: relative; z-index: 1; }
+}

@@ -744,3 +744,130 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
 });
+
+/*
+ * MOBILE sticky background injection and hero-aware activation (2025-11-10)
+ * - Enforces single-image policy on MOBILE
+ * - Injects one section-local .m-bg (sticky) per target section
+ * - Uses IntersectionObserver to ensure only the topmost section's image is active
+ * - Never shows a body image while the hero is visible (no hero bleed)
+ * - No per-scroll rAF loops; no background-position mutation; smoother scrolling
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  if (!isMobile) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = Array.from(document.querySelectorAll(
+    '.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves, .page-book .discovery-call-section'
+  ));
+  if (!targets.length) return;
+
+  // Utility: set background-image with best-supported image-set, fall back to 1x
+  function setBgImage(el, baseName) {
+    const base = `assets/images/internet/mobile/${baseName}`;
+    const std = `image-set(url('${base}@1x.webp') 1x, url('${base}@2x.webp') 2x, url('${base}@3x.webp') 3x)`;
+    const wk  = `-webkit-image-set(url('${base}@1x.webp') 1x, url('${base}@2x.webp') 2x, url('${base}@3x.webp') 3x)`;
+    // Prefer standard if supported; else try -webkit; else 1x
+    try {
+      if (window.CSS && CSS.supports && CSS.supports('background-image', std)) {
+        el.style.backgroundImage = std;
+      } else if (window.CSS && CSS.supports && CSS.supports('background-image', wk)) {
+        el.style.backgroundImage = wk;
+      } else {
+        el.style.backgroundImage = `url('${base}@1x.webp')`;
+      }
+    } catch (_) {
+      el.style.backgroundImage = `url('${base}@1x.webp')`;
+    }
+  }
+
+  function imageNameForSection(sec) {
+    if (sec.classList.contains('bg-lines'))   return 'section-abstract-lines';
+    if (sec.classList.contains('bg-circuit')) return 'section-circuit';
+    if (sec.classList.contains('bg-city'))    return 'section-city';
+    if (sec.classList.contains('bg-mesh'))    return 'section-mesh';
+    if (sec.classList.contains('bg-waves'))   return 'section-waves';
+    // Book page
+    if (sec.classList.contains('discovery-call-section')) return 'book-hero-calendly-mobile-2025';
+    return null;
+  }
+
+  // Inject .m-bg once per section
+  targets.forEach((sec) => {
+    if (!sec.querySelector('.m-bg')) {
+      const bg = document.createElement('div');
+      bg.className = 'm-bg';
+      const name = imageNameForSection(sec);
+      if (name) setBgImage(bg, name);
+      // Ensure container is above
+      const first = sec.firstChild;
+      sec.insertBefore(bg, first);
+    }
+  });
+
+  // Activation state
+  let heroVisible = true;
+  const hero = document.querySelector('.hero.title-band');
+
+  function deactivateAll() {
+    document.querySelectorAll('.section .m-bg.is-bg-active').forEach((el) => {
+      el.classList.remove('is-bg-active');
+    });
+  }
+
+  function activeCandidate() {
+    // Choose the visible section with the smallest top (closest to viewport top)
+    let best = null;
+    let bestTop = Number.POSITIVE_INFINITY;
+    visible.forEach((sec) => {
+      const r = sec.getBoundingClientRect();
+      if (r.top < bestTop) { bestTop = r.top; best = sec; }
+    });
+    return best;
+  }
+
+  function updateActive() {
+    if (heroVisible) {
+      deactivateAll();
+      return;
+    }
+    if (visible.size === 0) {
+      deactivateAll();
+      return;
+    }
+    const topSec = activeCandidate();
+    const active = topSec ? topSec.querySelector('.m-bg') : null;
+    // Switch state
+    document.querySelectorAll('.section .m-bg.is-bg-active').forEach((el) => {
+      if (el !== active) el.classList.remove('is-bg-active');
+    });
+    if (active) active.classList.add('is-bg-active');
+  }
+
+  // Observe the hero so we never show a body image while hero is onscreen
+  if (hero) {
+    const heroObs = new IntersectionObserver((entries) => {
+      heroVisible = entries[0].isIntersecting;
+      updateActive();
+    }, { threshold: 0.01 });
+    heroObs.observe(hero);
+  } else {
+    heroVisible = false;
+  }
+
+  // Observe sections for intersection (strict root margins to avoid early activation)
+  const visible = new Set();
+  const sectionObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) visible.add(entry.target);
+      else visible.delete(entry.target);
+    });
+    updateActive();
+  }, { rootMargin: '-1px 0px -1px 0px', threshold: [0, 0.01, 0.1, 0.25, 0.5, 0.75, 1] });
+
+  targets.forEach((sec) => sectionObs.observe(sec));
+
+  // Initial sync
+  updateActive();
+});

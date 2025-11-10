@@ -132,3 +132,8 @@ html.cine-locked, body.cine-locked{
   .hero.title-band .fx-bloom{ opacity: 0; filter: none; }
   .fx-bars, .fx-veil{ display: none; }
 }
+
+/* MOBILE layering safety (ensure hero sits above body sections) — 2025-11-10 */
+@media (max-width: 768px){
+  .hero.title-band{ z-index: 1; }
+}
