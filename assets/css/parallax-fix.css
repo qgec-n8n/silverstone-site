@@ -1,0 +1,64 @@
+/*
+ * Parallax layering for Silverstone body sections
+ *
+ * This stylesheet centralises the parallax behaviour that is shared by the
+ * body sections across every page.  Sections tagged with `.parallax-body`
+ * retain the cinematic hero transition, while allowing the core content to
+ * glide over a static background on desktop and a faux-fixed background on
+ * mobile devices.
+ */
+
+/* Assign background assets to custom properties so they can be shared between
+   the desktop and mobile implementations. */
+.section.bg-lines {
+  --section-bg-image: url('../images/internet/section-abstract-lines.webp');
+}
+.section.bg-circuit {
+  --section-bg-image: url('../images/internet/section-circuit.webp');
+}
+.section.bg-mesh {
+  --section-bg-image: url('../images/internet/section-mesh.webp');
+}
+.section.bg-waves {
+  --section-bg-image: url('../images/internet/section-waves.webp');
+}
+.page-book .discovery-call-section {
+  --section-bg-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('../images/internet/hero/book-hero-calendly-mobile-2025.png');
+}
+
+/* Base parallax container styling */
+.parallax-body {
+  position: relative;
+  isolation: isolate;
+  background-image: var(--section-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: background-position;
+}
+
+/* Ensure direct children sit above the darkening overlay */
+.parallax-body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Desktop implementation: rely on a fixed attachment for a crisp effect. */
+@media (min-width: 769px) {
+  .parallax-body {
+    background-attachment: fixed;
+  }
+}
+
+/* Mobile implementation: simulate a fixed background with scroll-driven
+   position updates driven by JavaScript. */
+@media (max-width: 768px) {
+  .parallax-body {
+    background-image: var(--mobile-section-bg-image, var(--section-bg-image));
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center calc(var(--parallax-mobile-shift, 0px));
+    min-height: 100vh;
+  }
+}
