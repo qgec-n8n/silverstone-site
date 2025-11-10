@@ -702,19 +702,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileQuery = window.matchMedia('(max-width: 768px)');
   const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  const getScrollY = () => {
-    if (typeof window.scrollY === 'number') return window.scrollY;
-    if (typeof window.pageYOffset === 'number') return window.pageYOffset;
-    return (document.documentElement && document.documentElement.scrollTop) || 0;
-  };
-
-  const getViewportHeight = () => {
-    if (window.visualViewport && typeof window.visualViewport.height === 'number') {
-      return window.visualViewport.height;
-    }
-    return window.innerHeight;
-  };
-
   const supportsImageSet =
     typeof CSS !== 'undefined' &&
     typeof CSS.supports === 'function' &&
@@ -777,15 +764,8 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  const state = {
-    active: false,
-    entries: [],
-    viewportHeight: getViewportHeight(),
-    rafId: null,
-    lastScrollY: null,
-    lastViewportHeight: null,
-    teardownVisualViewport: null,
-  };
+  const state = { active: false, entries: [] };
+  let ticking = false;
 
   const getImageValue = (images) => {
     if (!images) return '';
@@ -794,94 +774,43 @@ document.addEventListener('DOMContentLoaded', () => {
     return images.fallback || '';
   };
 
-  const recalcEntry = (
-    entry,
-    viewportHeight = state.viewportHeight,
-    scrollY = getScrollY()
-  ) => {
+  const recalcEntry = (entry) => {
     const rect = entry.section.getBoundingClientRect();
-    entry.start = scrollY + rect.top;
+    entry.start = window.scrollY + rect.top;
     entry.height = entry.section.offsetHeight;
-    entry.viewportHeight = viewportHeight;
-    entry.maxOffset = Math.max(0, entry.height - viewportHeight);
+    entry.maxOffset = Math.max(0, entry.height - window.innerHeight);
   };
 
-  const updateEntry = (
-    entry,
-    scrollY = getScrollY(),
-    viewportHeight = state.viewportHeight
-  ) => {
-    if (entry.viewportHeight !== viewportHeight) {
-      entry.viewportHeight = viewportHeight;
-      entry.maxOffset = Math.max(0, entry.height - viewportHeight);
-    }
+  const updateEntry = (entry) => {
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
     const end = entry.start + entry.height;
     if (scrollY >= end || scrollY + viewportHeight <= entry.start) {
       return;
     }
     const offset = scrollY - entry.start;
     const clamped = Math.min(Math.max(offset, 0), entry.maxOffset);
-    if (entry.currentOffset === clamped) return;
-    entry.currentOffset = clamped;
     entry.layer.style.transform = `translate3d(0, ${clamped}px, 0)`;
   };
 
-  const updateAll = (
-    scrollY = getScrollY(),
-    viewportHeight = state.viewportHeight
-  ) => {
+  const updateAll = () => {
     if (!state.active) return;
-    state.entries.forEach((entry) => updateEntry(entry, scrollY, viewportHeight));
+    state.entries.forEach(updateEntry);
   };
 
-  const startAnimationLoop = () => {
-    if (state.rafId !== null) return;
-    state.lastScrollY = getScrollY();
-    state.lastViewportHeight = state.viewportHeight;
-    updateAll(state.lastScrollY, state.viewportHeight);
-    const step = () => {
-      if (!state.active) {
-        state.rafId = null;
-        return;
-      }
-      const currentScrollY = getScrollY();
-      const currentViewportHeight = getViewportHeight();
-      if (currentViewportHeight !== state.viewportHeight) {
-        state.viewportHeight = currentViewportHeight;
-        state.entries.forEach((entry) =>
-          recalcEntry(entry, state.viewportHeight, currentScrollY)
-        );
-      }
-      if (
-        currentScrollY !== state.lastScrollY ||
-        currentViewportHeight !== state.lastViewportHeight
-      ) {
-        state.lastScrollY = currentScrollY;
-        state.lastViewportHeight = currentViewportHeight;
-        updateAll(currentScrollY, state.viewportHeight);
-      }
-      state.rafId = window.requestAnimationFrame(step);
-    };
-    state.rafId = window.requestAnimationFrame(step);
-  };
-
-  const stopAnimationLoop = () => {
-    if (state.rafId !== null) {
-      window.cancelAnimationFrame(state.rafId);
-      state.rafId = null;
-    }
-    state.lastScrollY = null;
-    state.lastViewportHeight = null;
+  const handleScroll = () => {
+    if (!state.active || ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      updateAll();
+      ticking = false;
+    });
   };
 
   const handleResize = () => {
     if (!state.active) return;
-    state.viewportHeight = getViewportHeight();
-    const scrollY = getScrollY();
-    state.entries.forEach((entry) =>
-      recalcEntry(entry, state.viewportHeight, scrollY)
-    );
-    updateAll(scrollY, state.viewportHeight);
+    state.entries.forEach(recalcEntry);
+    updateAll();
   };
 
   const ensureMediaListener = (query, callback) => {
@@ -896,30 +825,8 @@ document.addEventListener('DOMContentLoaded', () => {
     return () => {};
   };
 
-  const setupVisualViewport = () => {
-    if (!window.visualViewport) return () => {};
-    const viewport = window.visualViewport;
-    const handleViewportChange = () => {
-      if (!state.active) return;
-      state.viewportHeight = getViewportHeight();
-      const scrollY = getScrollY();
-      state.entries.forEach((entry) =>
-        recalcEntry(entry, state.viewportHeight, scrollY)
-      );
-      updateAll(scrollY, state.viewportHeight);
-    };
-    viewport.addEventListener('resize', handleViewportChange);
-    viewport.addEventListener('scroll', handleViewportChange);
-    return () => {
-      viewport.removeEventListener('resize', handleViewportChange);
-      viewport.removeEventListener('scroll', handleViewportChange);
-    };
-  };
-
   const enableMobile = () => {
     if (state.active) return;
-    state.viewportHeight = getViewportHeight();
-    const scrollY = getScrollY();
     const entries = parallaxSections
       .map((section) => {
         const theme = section.getAttribute('data-parallax-theme');
@@ -940,36 +847,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         section.insertBefore(layer, section.firstChild);
         section.classList.add('parallax-ready', 'parallax-mobile-active');
-        const entry = {
-          section,
-          layer,
-          start: 0,
-          height: 0,
-          maxOffset: 0,
-          viewportHeight: state.viewportHeight,
-          currentOffset: null,
-        };
-        recalcEntry(entry, state.viewportHeight, scrollY);
-        updateEntry(entry, scrollY, state.viewportHeight);
+        const entry = { section, layer, start: 0, height: 0, maxOffset: 0 };
+        recalcEntry(entry);
+        updateEntry(entry);
         return entry;
       })
       .filter(Boolean);
     if (!entries.length) return;
     state.entries = entries;
     state.active = true;
-    state.teardownVisualViewport = setupVisualViewport();
+    document.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
-    startAnimationLoop();
   };
 
   const disableMobile = () => {
     if (!state.active) return;
+    document.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', handleResize);
-    if (typeof state.teardownVisualViewport === 'function') {
-      state.teardownVisualViewport();
-      state.teardownVisualViewport = null;
-    }
-    stopAnimationLoop();
     state.entries.forEach(({ layer, section }) => {
       if (layer && layer.parentNode === section) {
         section.removeChild(layer);
@@ -978,7 +872,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     state.entries = [];
     state.active = false;
-    state.viewportHeight = getViewportHeight();
+    ticking = false;
   };
 
   const evaluate = () => {
