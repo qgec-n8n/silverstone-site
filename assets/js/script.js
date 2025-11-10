@@ -699,9 +699,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!isMobile || prefersReducedMotion) return;
 
   // Collect all sections that normally exhibit parallax on desktop
-  const parallaxSections = Array.from(document.querySelectorAll(
-    '.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves, .page-book .discovery-call-section'
-  ));
+  const parallaxSections = Array.from(document.querySelectorAll('.section.bg-lines, .section.bg-circuit, .section.bg-city, .section.bg-mesh, .section.bg-waves, .page-book .discovery-call-section'));
   if (!parallaxSections.length) return;
 
   /**
@@ -713,14 +711,18 @@ document.addEventListener('DOMContentLoaded', () => {
    * scroll.  Negative values move the background opposite the scroll.
    */
   function updateParallax() {
-    const scrollY = window.scrollY;
+    const depth = 0.3;
     parallaxSections.forEach((section) => {
-      const offset = scrollY - section.offsetTop;
-      const depth = 0.3; // adjust this value to tune the parallax speed
-      const yPos = -offset * depth;
-      // Set both vertical positions for multi‑layer backgrounds.
-      // Use calc() so CSS interprets numeric values correctly.
-      section.style.backgroundPosition = `center calc(${yPos}px)`;
+      const rect = section.getBoundingClientRect();
+      // mark active if intersecting viewport
+      const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (inView) {
+        section.classList.add('parallax-active');
+        const yPos = rect.top * depth;
+        section.style.setProperty('--parY', yPos.toFixed(2) + 'px');
+      } else {
+        section.classList.remove('parallax-active');
+      }
     });
   }
 
