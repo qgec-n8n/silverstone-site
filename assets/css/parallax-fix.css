@@ -4,9 +4,10 @@
  * Applies a responsive parallax treatment to the themed body sections that
  * sit between the cinematic hero and the CTA banner on every page.  Desktop
  * viewports receive a traditional fixed background while mobile devices use
- * a lightweight JavaScript-assisted layer that simulates the same visual
- * effect without relying on background-attachment: fixed (which performs
- * poorly on many mobile browsers).
+ * the same static imagery with a gradient overlay.  Earlier iterations relied
+ * on a JavaScript driven translation effect to simulate fixed backgrounds on
+ * phones, but we now keep the backgrounds stationary so the illustration no
+ * longer shifts while content scrolls above it.
  */
 
 :root {
@@ -194,23 +195,26 @@
   }
 }
 
-/* Mobile parallax -------------------------------------------------------- */
+/* Mobile backgrounds ----------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
   .parallax-section {
-    background-image: none !important;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
   }
   .parallax-section .parallax-layer {
-    height: 100vh;
-    max-height: 100vh;
+    display: none !important;
+  }
+  .parallax-section[data-parallax-theme] {
     background-image: var(--parallax-overlay), var(--parallax-mobile-fallback);
   }
   @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
-    .parallax-section .parallax-layer {
+    .parallax-section[data-parallax-theme] {
       background-image: var(--parallax-overlay), var(--parallax-mobile-image-set, var(--parallax-mobile-fallback));
     }
   }
   @supports (background-image: -webkit-image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
-    .parallax-section .parallax-layer {
+    .parallax-section[data-parallax-theme] {
       background-image: var(--parallax-overlay), var(--parallax-mobile-image-set-webkit, var(--parallax-mobile-fallback));
     }
   }
