@@ -1,0 +1,100 @@
+/*
+ * Mobile parallax overrides for Silverstone
+ *
+ * This file contains targeted fixes for the themed section backgrounds on
+ * mobile devices.  The default `mobile.css` attempts to simulate fixed
+ * backgrounds using sticky pseudo‑elements sized to the viewport.  When
+ * sections extend beyond the viewport height, those pseudo‑elements
+ * disappear, leaving no background behind the remaining content.  Here
+ * we disable those pseudo‑elements, switch to full‑cover backgrounds and
+ * merge the dark overlay into the image itself.  A lightweight
+ * JavaScript routine updates the `background-position` on scroll to
+ * create a premium parallax effect (see script.js).
+ */
+
+@media (max-width: 768px) {
+  /* Hide the sticky ::after backgrounds entirely.  Without this rule the
+     pseudo‑elements defined in mobile.css would remain in place and
+     continue to clip the background image when the section is taller than
+     the viewport. */
+  .section.bg-lines::after,
+  .section.bg-circuit::after,
+  .section.bg-mesh::after,
+  .section.bg-waves::after,
+  .page-book .discovery-call-section::after {
+    display: none !important;
+  }
+
+  /* Ensure each themed section’s background image fills the entire area on
+     mobile.  Using `cover` prevents unsightly gaps when the section
+     height exceeds the aspect ratio of the image.  `center` positioning
+     keeps the focal point aligned. */
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-mesh,
+  .section.bg-waves {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+
+  /* Integrate a subtle dark overlay directly into each background.  This
+     mirrors the gradient previously applied via a pseudo‑element and
+     improves text contrast against busy imagery.  High‑DPI screens are
+     supported with `image-set` declarations. */
+  .section.bg-lines {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+      -webkit-image-set(
+        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+      ),
+      image-set(
+        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+      );
+  }
+  .section.bg-circuit {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+      -webkit-image-set(
+        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+        url('../images/internet/mobile/section-circuit@3x.webp') 3x
+      ),
+      image-set(
+        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+        url('../images/internet/mobile/section-circuit@3x.webp') 3x
+      );
+  }
+  .section.bg-mesh {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+      -webkit-image-set(
+        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+        url('../images/internet/mobile/section-mesh@3x.webp') 3x
+      ),
+      image-set(
+        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+        url('../images/internet/mobile/section-mesh@3x.webp') 3x
+      );
+  }
+  .section.bg-waves {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+      -webkit-image-set(
+        url('../images/internet/mobile/section-waves@1x.webp') 1x,
+        url('../images/internet/mobile/section-waves@2x.webp') 2x,
+        url('../images/internet/mobile/section-waves@3x.webp') 3x
+      ),
+      image-set(
+        url('../images/internet/mobile/section-waves@1x.webp') 1x,
+        url('../images/internet/mobile/section-waves@2x.webp') 2x,
+        url('../images/internet/mobile/section-waves@3x.webp') 3x
+      );
+  }
+}

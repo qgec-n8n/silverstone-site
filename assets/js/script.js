@@ -39,6 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // include a separate mobile-fixes file.
   ensureStylesheet('assets/css/custom.css');
   ensureStylesheet('assets/css/mobile.css');
+  // Load additional mobile overrides for parallax backgrounds.
+  // This stylesheet disables the sticky ::after pseudo‑elements,
+  // switches background images to cover, and integrates an overlay.
+  ensureStylesheet('assets/css/mobile-parallax.css');
 
   // Intersection observer: reveal elements with the `.animate` class
   // when they enter the viewport.  This replicates the lightweight
@@ -675,4 +679,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const styleElem = document.createElement('style');
   styleElem.appendChild(document.createTextNode(mobileNavStyles));
   document.head.appendChild(styleElem);
+
+  /*
+   * Mobile parallax effect
+   *
+   * For each themed section on mobile we adjust the `background-position-y`
+   * as the user scrolls.  This creates a subtle depth effect similar to
+   * `background-attachment: fixed` on desktop without relying on sticky
+   * pseudo‑elements that only fill the viewport.  The amount of parallax
+   * is tuned via `parallaxSpeed` and will update on scroll and resize.
+   */
+  function updateParallax() {
+    // Only apply on small screens
+    if (!window.matchMedia('(max-width: 768px)').matches) return;
+    const sections = document.querySelectorAll('.section.bg-lines, .section.bg-circuit, .section.bg-mesh, .section.bg-waves');
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    sections.forEach((section) => {
+      const offsetTop = section.offsetTop;
+      const parallaxSpeed = 0.3; // lower values = slower movement
+      const yPos = -(scrollY - offsetTop) * parallaxSpeed;
+      section.style.backgroundPosition = `center ${yPos}px`;
+    });
+  }
+  // Debounce updates via requestAnimationFrame
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateParallax();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', updateParallax);
+  // Initial run
+  updateParallax();
+
 });
