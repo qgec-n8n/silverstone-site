@@ -589,152 +589,7 @@
   }
 
 
-  /* === Mobile sticky background layer ==========================================
-     For each themed section on mobile, create a sticky ::after pseudo‑element
-     that behaves like a fixed background within the section.  The element
-     sticks to the top of the viewport while its parent section is in view and
-     is clipped by the section’s boundaries via overflow: hidden.  This
-     technique avoids scroll‑driven JavaScript and the unreliable
-     `background‑attachment: fixed` property on mobile.
-  ================================================================================ */
-  /*
-   * Expose a CSS custom property for the dynamic hero offset.  On mobile
-   * devices the hero‑cinematic script updates --heroOffset on the
-   * document root to match the height of the visible header or
-   * header indicator.  We provide a sensible fallback equal to
-   * --headerH (injected by script.js) so that if for any reason the
-   * variable isn’t updated, the backgrounds still align with the
-   * hero.  This variable is consumed by the sticky ::after rules below.
-   */
-  :root {
-    --heroOffset: var(--headerH);
-  }
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-mesh,
-  .section.bg-waves,
-  .page-book .discovery-call-section {
-    position: relative;
-    z-index: 0;
-    overflow: hidden; /* clip the sticky background at section boundaries */
-  }
-
-  .section.bg-lines::after,
-  .section.bg-circuit::after,
-  .section.bg-mesh::after,
-  .section.bg-waves::after,
-  .page-book .discovery-call-section::after {
-    content: "";
-    /*
-     * Stick the background image to the viewport and account for the dynamic
-     * height of the site header or header indicator.  A negative top
-     * offset equal to the current hero offset (see hero‑cinematic.js) pulls
-     * the image up so that it first becomes visible exactly when the hero
-     * finishes animating.  The height adds the same offset so the image
-     * remains fully visible through the section.  Without these offsets the
-     * background would either start too early (bleeding into the hero) or
-     * leave a gap.  See hero‑cinematic.js where the --heroOffset variable
-     * is updated on each layout recalculation.
-     */
-    position: -webkit-sticky;
-    position: sticky;
-    top: calc(var(--heroOffset, var(--headerH, 0px)) * -1);
-    left: 0;
-    right: 0;
-    height: calc(100vh + var(--heroOffset, var(--headerH, 0px)));
-    z-index: -1; /* sit behind the section content */
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center top;
-    pointer-events: none;
-  }
-
-  /* Specific backgrounds with integrated overlay for each section */
-  .section.bg-lines::after {
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      -webkit-image-set(
-        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
-        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
-      );
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
-        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
-      );
-  }
-
-  .section.bg-circuit::after {
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      -webkit-image-set(
-        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
-        url('../images/internet/mobile/section-circuit@3x.webp') 3x
-      );
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
-        url('../images/internet/mobile/section-circuit@3x.webp') 3x
-      );
-  }
-
-  .section.bg-mesh::after {
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      -webkit-image-set(
-        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
-        url('../images/internet/mobile/section-mesh@3x.webp') 3x
-      );
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
-        url('../images/internet/mobile/section-mesh@3x.webp') 3x
-      );
-  }
-
-  .section.bg-waves::after {
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      -webkit-image-set(
-        url('../images/internet/mobile/section-waves@1x.webp') 1x,
-        url('../images/internet/mobile/section-waves@2x.webp') 2x,
-        url('../images/internet/mobile/section-waves@3x.webp') 3x
-      );
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/section-waves@1x.webp') 1x,
-        url('../images/internet/mobile/section-waves@2x.webp') 2x,
-        url('../images/internet/mobile/section-waves@3x.webp') 3x
-      );
-  }
-
-  .page-book .discovery-call-section::after {
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      -webkit-image-set(
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-      );
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      image-set(
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-      );
-  }
-}
+/* Mobile sticky background layer removed: backgrounds are now handled as static images via CSS */
 
 /*
  * Parallax enhancements for Silverstone
@@ -901,95 +756,161 @@
 }
 /* === End mobile nav overlay uniform spacing === */
 
-/*
- * Additional modifications for improved mobile backgrounds
+/* Additional mobile background overrides removed: replaced by static background definitions */
+
+/* Premium mobile parallax override removed */
+
+/* ===========================================================================
+ * Static mobile body background definitions
  *
- * The following overrides adjust background behaviour on mobile themed sections.
- * We disable the sticky ::after pseudo-elements (which previously produced a
- * parallax-like effect and dark overlay) and ensure each 9:16 background image
- * remains fully visible within the viewport as the user scrolls.  The images
- * now scroll with the content, using `contain` sizing to prevent zooming and
- * cropping.  A dark fallback background colour ensures any empty space
- * surrounding the image remains consistent with the site’s aesthetic.
+ * On small screens we serve a single, crisp background image for each themed
+ * section instead of layering fixed pseudo‑elements.  The dark overlay that
+ * previously lived on a pseudo‑element is merged directly into the
+ * background via multiple backgrounds.  Each section uses the 9:16 mobile
+ * artwork stored in `assets/images/internet/mobile/` with high‑dpi variants
+ * delivered via the `image-set()` function.  A fallback plain `url()` is
+ * provided before `image-set()` for browsers that do not support the
+ * `image-set()` syntax.  The sizing and positioning ensure the image fits
+ * within the viewport without cropping while maintaining its aspect ratio.
  */
 @media (max-width: 768px) {
-  .section.bg-lines::after,
-  .section.bg-circuit::after,
-  .section.bg-mesh::after,
-  .section.bg-waves::after,
-  .page-book .discovery-call-section::after {
-    display: none !important;
-    content: none !important;
-  }
-
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-mesh,
-  .section.bg-waves {
-    background-size: contain !important;
-    background-position: center top !important;
-    background-repeat: no-repeat !important;
-    background-color: #050B18 !important;
-  }
-
-  .page-book .discovery-call-section {
-    /* Remove gradient overlay and ensure correct image fill */
-    background-image: -webkit-image-set(
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-    ) !important;
-    background-image: image-set(
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-    ) !important;
-    background-size: contain !important;
-    background-position: center top !important;
-    background-repeat: no-repeat !important;
-    background-color: #050B18 !important;
-  }
-}
-
-/* === Premium parallax override for mobile ===
- *
- * The following rules restore the sticky ::after pseudo‑element on mobile and
- * adjust it to provide a parallax effect where the 9:16 background image
- * remains visible as content scrolls over it.  We ensure the image fits the
- * viewport by using `contain` sizing while maintaining the aspect ratio and
- * providing a dark backdrop around it.  These overrides must come last so
- * they supersede any previous declarations that hide the ::after element or
- * modify background sizing on small screens.  The nav overlay and cookie
- * banner remain unaffected because we only target the themed sections.
- */
-@media (max-width: 768px) {
-  .section.bg-lines::after,
-  .section.bg-circuit::after,
-  .section.bg-mesh::after,
-  .section.bg-waves::after,
-  .page-book .discovery-call-section::after {
-    display: block !important;
-    content: "" !important;
-    position: -webkit-sticky !important;
-    position: sticky !important;
-    top: calc(var(--heroOffset, var(--headerH, 0px)) * -1);
-    left: 0;
-    right: 0;
-    height: calc(100vh + var(--heroOffset, var(--headerH, 0px)));
-    z-index: -1;
+  /* Home page themed section (bg-lines) */
+  .section.bg-lines {
+    /* Fallback for older browsers */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('../images/internet/mobile/section-abstract-lines@1x.webp');
+    /* WebKit */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      -webkit-image-set(
+        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+      );
+    /* Standard */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
+        url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
+        url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+      );
+    background-size: contain;
+    background-position: center top;
     background-repeat: no-repeat;
-    background-size: contain !important;
-    background-position: center top !important;
-    pointer-events: none;
+    background-color: #050B18;
   }
-  /* Fallback colour to fill space around contained background images */
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-mesh,
+
+  /* Services page themed section (bg-circuit) */
+  .section.bg-circuit {
+    /* Fallback */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('../images/internet/mobile/section-circuit@1x.webp');
+    /* WebKit */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      -webkit-image-set(
+        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+        url('../images/internet/mobile/section-circuit@3x.webp') 3x
+      );
+    /* Standard */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/section-circuit@1x.webp') 1x,
+        url('../images/internet/mobile/section-circuit@2x.webp') 2x,
+        url('../images/internet/mobile/section-circuit@3x.webp') 3x
+      );
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #050B18;
+  }
+
+  /* About page themed section (bg-mesh) */
+  .section.bg-mesh {
+    /* Fallback */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('../images/internet/mobile/section-mesh@1x.webp');
+    /* WebKit */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      -webkit-image-set(
+        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+        url('../images/internet/mobile/section-mesh@3x.webp') 3x
+      );
+    /* Standard */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+        url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+        url('../images/internet/mobile/section-mesh@3x.webp') 3x
+      );
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #050B18;
+  }
+
+  /* Contact page themed section (bg-waves) */
   .section.bg-waves {
-    background-color: #050B18 !important;
+    /* Fallback */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('../images/internet/mobile/section-waves@1x.webp');
+    /* WebKit */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      -webkit-image-set(
+        url('../images/internet/mobile/section-waves@1x.webp') 1x,
+        url('../images/internet/mobile/section-waves@2x.webp') 2x,
+        url('../images/internet/mobile/section-waves@3x.webp') 3x
+      );
+    /* Standard */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/section-waves@1x.webp') 1x,
+        url('../images/internet/mobile/section-waves@2x.webp') 2x,
+        url('../images/internet/mobile/section-waves@3x.webp') 3x
+      );
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #050B18;
   }
+
+  /* Book page discovery call section (custom element) */
   .page-book .discovery-call-section {
-    background-color: #050B18 !important;
+    /* Fallback */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
+    /* WebKit */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      -webkit-image-set(
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+      );
+    /* Standard */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+      );
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #050B18;
   }
 }
