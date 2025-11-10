@@ -148,7 +148,6 @@
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
-    background-color: var(--color-black);
   }
 
   /*
@@ -519,10 +518,8 @@
       url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
       url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x
     );
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: var(--color-black);
+    background-position: center top;
+    background-size: cover;
   }
 
   .section.bg-circuit {
@@ -535,10 +532,8 @@
       url('../images/internet/mobile/section-circuit@1x.webp') 1x,
       url('../images/internet/mobile/section-circuit@2x.webp') 2x
     );
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: var(--color-black);
+    background-position: center top;
+    background-size: cover;
   }
 
   .section.bg-mesh {
@@ -551,10 +546,8 @@
       url('../images/internet/mobile/section-mesh@1x.webp') 1x,
       url('../images/internet/mobile/section-mesh@2x.webp') 2x
     );
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: var(--color-black);
+    background-position: center top;
+    background-size: cover;
   }
 
   .section.bg-waves {
@@ -567,10 +560,8 @@
       url('../images/internet/mobile/section-waves@1x.webp') 1x,
       url('../images/internet/mobile/section-waves@2x.webp') 2x
     );
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: var(--color-black);
+    background-position: center top;
+    background-size: cover;
   }
 
   /* Book discovery section: keep gradient overlay + DPR-aware image */
@@ -593,10 +584,8 @@
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
         url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x
       );
-    background-size: 100% 100%, contain;
-    background-position: center, center;
-    background-repeat: no-repeat, no-repeat;
-    background-color: var(--color-black);
+    background-size: cover;
+    background-position: center top;
   }
 
 
@@ -606,25 +595,19 @@
      sticks to the top of the viewport while its parent section is in view and
      is clipped by the section’s boundaries via overflow: hidden.  This
      technique avoids scroll‑driven JavaScript and the unreliable
-     `background‑attachment: fixed` property on mobile while keeping the
-     9:16 artwork crisp.
+     `background‑attachment: fixed` property on mobile.
   ================================================================================ */
   /*
-   * Define custom properties consumed by the sticky backgrounds.  The
-   * hero‑cinematic script still updates --heroOffset for backwards
-   * compatibility, while --mobileParallaxHeight enforces a viewport-based
-   * height that matches the 9:16 artwork without stretching it to the length
-   * of the section.
+   * Expose a CSS custom property for the dynamic hero offset.  On mobile
+   * devices the hero‑cinematic script updates --heroOffset on the
+   * document root to match the height of the visible header or
+   * header indicator.  We provide a sensible fallback equal to
+   * --headerH (injected by script.js) so that if for any reason the
+   * variable isn’t updated, the backgrounds still align with the
+   * hero.  This variable is consumed by the sticky ::after rules below.
    */
   :root {
     --heroOffset: var(--headerH);
-    --mobileParallaxHeight: 100vh;
-  }
-
-  @supports (height: min(100vh, 100vw)) {
-    :root {
-      --mobileParallaxHeight: min(100vh, calc(100vw * 16 / 9));
-    }
   }
   .section.bg-lines,
   .section.bg-circuit,
@@ -643,21 +626,26 @@
   .page-book .discovery-call-section::after {
     content: "";
     /*
-     * Pin the background artwork to the viewport so the content scrolls over
-     * a stationary image.  The sticky box matches --mobileParallaxHeight,
-     * guaranteeing the entire 9:16 asset is visible at once while the overlay
-     * gradient stretches to cover the surrounding letterbox area.
+     * Stick the background image to the viewport and account for the dynamic
+     * height of the site header or header indicator.  A negative top
+     * offset equal to the current hero offset (see hero‑cinematic.js) pulls
+     * the image up so that it first becomes visible exactly when the hero
+     * finishes animating.  The height adds the same offset so the image
+     * remains fully visible through the section.  Without these offsets the
+     * background would either start too early (bleeding into the hero) or
+     * leave a gap.  See hero‑cinematic.js where the --heroOffset variable
+     * is updated on each layout recalculation.
      */
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: calc(var(--heroOffset, var(--headerH, 0px)) * -1);
     left: 0;
     right: 0;
-    height: var(--mobileParallaxHeight);
+    height: calc(100vh + var(--heroOffset, var(--headerH, 0px)));
     z-index: -1; /* sit behind the section content */
-    background-repeat: no-repeat, no-repeat;
-    background-size: 100% 100%, contain;
-    background-position: center, center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
     pointer-events: none;
   }
 
@@ -914,14 +902,17 @@
 /* === End mobile nav overlay uniform spacing === */
 
 /*
- * Reduced-motion fallback for mobile backgrounds
+ * Additional modifications for improved mobile backgrounds
  *
- * When a visitor has enabled “reduced motion”, disable the sticky parallax
- * layer so the backgrounds scroll naturally with the content.  We still keep
- * the 9:16 artwork fully visible by using `contain` sizing and providing a
- * dark fallback colour around the image.
+ * The following overrides adjust background behaviour on mobile themed sections.
+ * We disable the sticky ::after pseudo-elements (which previously produced a
+ * parallax-like effect and dark overlay) and ensure each 9:16 background image
+ * remains fully visible within the viewport as the user scrolls.  The images
+ * now scroll with the content, using `contain` sizing to prevent zooming and
+ * cropping.  A dark fallback background colour ensures any empty space
+ * surrounding the image remains consistent with the site’s aesthetic.
  */
-@media (prefers-reduced-motion: reduce) and (max-width: 768px) {
+@media (max-width: 768px) {
   .section.bg-lines::after,
   .section.bg-circuit::after,
   .section.bg-mesh::after,
@@ -936,7 +927,7 @@
   .section.bg-mesh,
   .section.bg-waves {
     background-size: contain !important;
-    background-position: center center !important;
+    background-position: center top !important;
     background-repeat: no-repeat !important;
     background-color: #050B18 !important;
   }
@@ -954,51 +945,8 @@
       url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
     ) !important;
     background-size: contain !important;
-    background-position: center center !important;
+    background-position: center top !important;
     background-repeat: no-repeat !important;
     background-color: #050B18 !important;
   }
-<<<<<<< HEAD
-=======
-}
-
-/* === Premium parallax override for mobile ===
- *
- * For users who have not requested reduced motion, restore the sticky
- * ::after pseudo‑element on mobile and pin the 9:16 background so it remains
- * stationary while content scrolls above it.  We still size the artwork with
- * `contain` to preserve clarity and draw a dark overlay behind any letterbox
- * space.  Placing these rules last ensures they win over earlier fallbacks.
- */
-@media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
-  .section.bg-lines::after,
-  .section.bg-circuit::after,
-  .section.bg-mesh::after,
-  .section.bg-waves::after,
-  .page-book .discovery-call-section::after {
-    display: block !important;
-    content: "" !important;
-    position: -webkit-sticky !important;
-    position: sticky !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: var(--mobileParallaxHeight);
-    z-index: -1;
-    background-repeat: no-repeat, no-repeat;
-    background-size: 100% 100%, contain !important;
-    background-position: center, center !important;
-    pointer-events: none;
-  }
-  /* Fallback colour to fill space around contained background images */
-  .section.bg-lines,
-  .section.bg-circuit,
-  .section.bg-mesh,
-  .section.bg-waves {
-    background-color: #050B18 !important;
-  }
-  .page-book .discovery-call-section {
-    background-color: #050B18 !important;
-  }
->>>>>>> 9e846799cba40349cbcfcd5baa9cf4905833e505
 }
