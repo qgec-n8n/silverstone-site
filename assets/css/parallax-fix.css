@@ -45,9 +45,7 @@
   background-position: center top;
   background-size: contain;
   opacity: 0;
-  transform: translate3d(0, 0, 0);
   transition: opacity 320ms ease;
-  will-change: transform;
   z-index: 0;
 }
 
@@ -207,8 +205,12 @@
     background-image: none !important;
   }
   .parallax-section .parallax-layer {
+    position: sticky;
+    top: 0;
     height: 100vh;
     max-height: 100vh;
+    transform: none;
+    will-change: auto;
     background-image: var(--parallax-overlay), var(--parallax-mobile-fallback);
   }
   @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
