@@ -9,6 +9,7 @@
   --cineBloom: 0;
   --cineBeamBoost: 0;
   --cineVeil: 0;
+  --cineReveal: 0;
   --fxVignetteMax: 0.7;
   --barH: clamp(70px, 14vh, 160px);
 }
@@ -126,6 +127,75 @@
   will-change: opacity, transform;
 }
 
+/* Radiant reveal that only appears when travelling from hero → body */
+.fx-radiance{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -80px;
+  height: clamp(180px, 26vh, 260px);
+  pointer-events: none;
+  z-index: 3;
+  opacity: var(--cineReveal);
+  transform: translateY(calc((1 - var(--cineReveal)) * 32px));
+  background:
+    linear-gradient(184deg,
+      rgba(46, 255, 222, 0.0) 0%,
+      rgba(46, 255, 222, 0.12) 28%,
+      rgba(46, 255, 222, 0.55) 62%,
+      rgba(46, 255, 222, 0.0) 100%),
+    linear-gradient(118deg,
+      rgba(30, 185, 255, 0.0) 0%,
+      rgba(30, 185, 255, 0.18) 24%,
+      rgba(120, 245, 255, 0.55) 58%,
+      rgba(30, 185, 255, 0.0) 100%);
+  background-size: 100% 100%, 140% 100%;
+  background-position: center calc(28px * (1 - var(--cineReveal)));
+  mix-blend-mode: screen;
+  filter:
+    brightness(calc(1 + var(--cineReveal) * 0.7))
+    saturate(calc(1 + var(--cineReveal) * 0.35));
+  box-shadow:
+    0 32px 90px rgba(48, 255, 204, calc(0.28 * var(--cineReveal)));
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+    filter 0.45s ease,
+    box-shadow 0.55s ease;
+  will-change: opacity, transform, filter;
+}
+
+.fx-radiance::before,
+.fx-radiance::after{
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  pointer-events: none;
+}
+
+.fx-radiance::before{
+  top: 18%;
+  height: 2px;
+  background: linear-gradient(90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.85) 50%,
+      rgba(255,255,255,0) 100%);
+  opacity: calc(var(--cineReveal) * 0.75);
+  filter: blur(calc(var(--cineReveal) * 1.2px));
+}
+
+.fx-radiance::after{
+  bottom: -28%;
+  height: clamp(120px, 18vh, 220px);
+  background: radial-gradient(120% 110% at 50% 0%,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(120, 255, 231, 0.45) 42%,
+      rgba(120, 255, 231, 0.0) 100%);
+  opacity: calc(var(--cineReveal) * 0.9);
+  filter: blur(calc(24px * var(--cineReveal)));
+}
+
 /* Scroll lock */
 html.cine-locked, body.cine-locked{
   overscroll-behavior: contain;
@@ -137,4 +207,5 @@ html.cine-locked, body.cine-locked{
   .hero.title-band .fx-layer{ opacity: 0; }
   .hero.title-band .fx-bloom{ opacity: 0; filter: none; }
   .fx-bars, .fx-veil{ display: none; }
+  .fx-radiance{ display: none; }
 }
