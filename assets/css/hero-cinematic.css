@@ -9,6 +9,8 @@
   --cineBloom: 0;
   --cineBeamBoost: 0;
   --cineVeil: 0;
+  --cineSignalDown: 0;
+  --cineSignalUp: 0;
   --fxVignetteMax: 0.7;
   --barH: clamp(70px, 14vh, 160px);
 }
@@ -123,7 +125,73 @@
   opacity: var(--cineVeil);
   transform: translateY(calc((1 - var(--cineVeil)) * 16px));
   pointer-events: none;
+  z-index: 0;
   will-change: opacity, transform;
+}
+
+.fx-signal{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+  mix-blend-mode: screen;
+  opacity: calc(max(var(--cineSignalDown), var(--cineSignalUp)) * 0.95);
+  transition: opacity 0.2s ease-out;
+}
+
+.fx-signal::before,
+.fx-signal::after{
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 260px;
+  background:
+    linear-gradient(135deg,
+      rgba(18, 247, 214, 0.0) 0%,
+      rgba(18, 247, 214, 0.65) 45%,
+      rgba(82, 150, 255, 0.55) 70%,
+      rgba(18, 247, 214, 0.0) 100%),
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.0) 0px,
+      rgba(255, 255, 255, 0.0) 28px,
+      rgba(169, 255, 248, 0.25) 28px,
+      rgba(169, 255, 248, 0.25) 32px);
+  filter: blur(12px) saturate(1.5);
+  border-radius: 120px;
+  box-shadow:
+    0 0 30px rgba(71, 248, 226, 0.45),
+    0 0 60px rgba(71, 248, 226, 0.25);
+  transform-origin: center;
+  opacity: 0;
+}
+
+.fx-signal::before{
+  top: -40%;
+  transform:
+    translateY(calc((1 - var(--cineSignalDown)) * -35%))
+    scale(calc(0.85 + var(--cineSignalDown) * 0.35));
+  opacity: calc(var(--cineSignalDown) * 0.95);
+}
+
+.fx-signal::after{
+  bottom: -40%;
+  transform:
+    translateY(calc((1 - var(--cineSignalUp)) * 35%))
+    scale(calc(0.8 + var(--cineSignalUp) * 0.4));
+  opacity: calc(var(--cineSignalUp) * 0.9);
+  background:
+    linear-gradient(225deg,
+      rgba(12, 169, 255, 0.0) 0%,
+      rgba(12, 169, 255, 0.55) 42%,
+      rgba(131, 255, 215, 0.6) 80%,
+      rgba(12, 169, 255, 0.0) 100%),
+    repeating-linear-gradient(225deg,
+      rgba(255, 255, 255, 0.0) 0px,
+      rgba(255, 255, 255, 0.0) 26px,
+      rgba(190, 245, 255, 0.22) 26px,
+      rgba(190, 245, 255, 0.22) 30px);
 }
 
 /* Scroll lock */
@@ -136,5 +204,5 @@ html.cine-locked, body.cine-locked{
   .hero.title-band .content{ transform: none; opacity: 1; filter: none; }
   .hero.title-band .fx-layer{ opacity: 0; }
   .hero.title-band .fx-bloom{ opacity: 0; filter: none; }
-  .fx-bars, .fx-veil{ display: none; }
+  .fx-bars, .fx-veil, .fx-signal{ display: none; }
 }
