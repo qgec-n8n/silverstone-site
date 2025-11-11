@@ -51,7 +51,25 @@
     if(CONFIG.DISABLE_ON_WIDTH_BELOW&&window.innerWidth<CONFIG.DISABLE_ON_WIDTH_BELOW)return;var hero=document.querySelector(".hero.title-band");if(!hero)return;var next=hero.nextElementSibling;if(!next)return;
     if(!hero.querySelector(".fx-layer")){var l=document.createElement("div");l.className="fx-layer";l.setAttribute("aria-hidden","true");hero.insertBefore(l,hero.firstChild);}
     if(!hero.querySelector(".fx-bloom")){var b=document.createElement("div");b.className="fx-bloom";b.setAttribute("aria-hidden","true");hero.appendChild(b);}
-    ensureBars();if(!next.querySelector(".fx-veil")){if(getComputedStyle(next).position==="static")next.style.position="relative";var v=document.createElement("div");v.className="fx-veil";v.setAttribute("aria-hidden","true");next.insertBefore(v,next.firstChild);}
+    ensureBars();
+    if(!next.querySelector(".fx-veil")){
+      if(getComputedStyle(next).position==="static")next.style.position="relative";
+      var v=document.createElement("div");
+      v.className="fx-veil";
+      v.setAttribute("aria-hidden","true");
+      next.insertBefore(v,next.firstChild);
+    }
+    if(!next.querySelector(".fx-intro")){
+      var i=document.createElement("div");
+      i.className="fx-intro";
+      i.setAttribute("aria-hidden","true");
+      i.innerHTML='<div class="pulse"></div><div class="spark"></div>';
+      var anchor=next.querySelector(".fx-veil");
+      if(anchor&&anchor.nextSibling)next.insertBefore(i,anchor.nextSibling);
+      else if(anchor)next.appendChild(i);
+      else if(next.firstChild)next.insertBefore(i,next.firstChild);
+      else next.appendChild(i);
+    }
     function sizeHero(){hero.style.minHeight=geo(hero,next).visH+"px";}sizeHero();
     var anim=false,lastY=window.scrollY;
     var DEPTH_DOWN_MAX=1.15;
@@ -64,9 +82,14 @@
         var bloom=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),1.35);setVar("--cineBloom",bloom);
         var beamBoost=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),2.0);setVar("--cineBeamBoost",beamBoost);
         var veil=(dir==="down"?0.45*(1-e):0.45*e);setVar("--cineVeil",veil);
+        if(dir==="down"){var introWave=Math.pow(Math.sin(Math.PI*Math.min(1,e||0)),1.12);setVar("--cineIntroDown",introWave);
+          var introPulse=Math.pow(Math.sin(Math.PI*Math.min(1,e*0.92)),1.35);setVar("--cineIntroPulse",introPulse);
+          var introShift=Math.cos((1-Math.min(1,e))*Math.PI);setVar("--cineIntroShift",introShift,-1,1);
+        }else{setVar("--cineIntroDown",0);setVar("--cineIntroPulse",0);setVar("--cineIntroShift",-1,-1,1);}
         if(t<1&&anim)requestAnimationFrame(tick);else{window.scrollTo(0,yTarget);hero.style.setProperty("--heroProgress",dir==="down"?1:0);
           hero.style.setProperty("--heroDepth",depthTo);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-          setVar("--cineVeil",dir==="down"?0:0.45);anim=false;lock(false);}}
+          setVar("--cineVeil",dir==="down"?0:0.45);setVar("--cineIntroDown",0);setVar("--cineIntroPulse",0);setVar("--cineIntroShift",-1,-1,1);
+          anim=false;lock(false);}}
       requestAnimationFrame(tick);}
     function tryDown(){if(anim||isOverlayOpen())return;animate(geo(hero,next).bodyY,"down");}
     function tryUp(){if(anim||isOverlayOpen())return;animate(0,"up");}
@@ -85,7 +108,8 @@
       if(dir>0&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX)tryDown();else if(dir<0&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX)tryUp();}
     (function initState(){var g=geo(hero,next),past=window.scrollY>=g.bodyY;hero.style.setProperty("--heroProgress",past?1:0);
       hero.style.setProperty("--heroDepth",past?DEPTH_DOWN_MAX:0);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-      setVar("--cineVeil",past?0:0.45);})();window.addEventListener("wheel",onWheel,{passive:false});
+      setVar("--cineVeil",past?0:0.45);setVar("--cineIntroDown",0);setVar("--cineIntroPulse",0);setVar("--cineIntroShift",-1,-1,1);
+    })();window.addEventListener("wheel",onWheel,{passive:false});
     window.addEventListener("touchstart",tStart,{passive:true});window.addEventListener("touchmove",tMove,{passive:false});
     window.addEventListener("touchend",tEnd,{passive:true});window.addEventListener("keydown",onKey,{passive:false});
     window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",sizeHero,{passive:true});}
