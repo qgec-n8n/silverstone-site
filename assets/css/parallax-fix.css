@@ -204,6 +204,14 @@
   .parallax-section {
     background-image: none !important;
   }
+  .parallax-section.parallax-mobile-active {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .parallax-section.parallax-mobile-active > :not(.parallax-layer) {
+    padding-top: var(--parallax-mobile-padding-top, 0px);
+    padding-bottom: var(--parallax-mobile-padding-bottom, 0px);
+  }
   .parallax-section .parallax-layer {
     position: sticky;
     top: 0;
@@ -212,6 +220,10 @@
     transform: none;
     will-change: auto;
     background-image: var(--parallax-overlay), var(--parallax-mobile-fallback);
+  }
+  .parallax-section.parallax-mobile-active .parallax-layer {
+    height: calc(100vh + var(--parallax-mobile-padding-top, 0px) + var(--parallax-mobile-padding-bottom, 0px));
+    max-height: none;
   }
   @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
     .parallax-section .parallax-layer {
