@@ -50,6 +50,10 @@
 }
 
 .parallax-section.parallax-ready .parallax-layer {
+  opacity: 0;
+}
+
+.parallax-section.parallax-ready.parallax-visible .parallax-layer {
   opacity: 1;
 }
 
@@ -205,12 +209,14 @@
     background-image: none !important;
   }
   .parallax-section .parallax-layer {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     height: 100vh;
-    max-height: 100vh;
+    max-height: none;
     transform: none;
-    will-change: auto;
+    will-change: opacity;
     background-image: var(--parallax-overlay), var(--parallax-mobile-fallback);
   }
   @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
