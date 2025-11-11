@@ -63,7 +63,7 @@
       var i=document.createElement("div");
       i.className="fx-intro";
       i.setAttribute("aria-hidden","true");
-      i.innerHTML='<div class="pulse"></div><div class="spark"></div>';
+      i.innerHTML='<div class="pulse"></div><div class="herald"><div class="trail"></div><div class="crest"></div></div><div class="spark"></div>';
       var anchor=next.querySelector(".fx-veil");
       if(anchor&&anchor.nextSibling)next.insertBefore(i,anchor.nextSibling);
       else if(anchor)next.appendChild(i);
@@ -85,10 +85,15 @@
         if(dir==="down"){var introWave=Math.pow(Math.sin(Math.PI*Math.min(1,e||0)),1.12);setVar("--cineIntroDown",introWave);
           var introPulse=Math.pow(Math.sin(Math.PI*Math.min(1,e*0.92)),1.35);setVar("--cineIntroPulse",introPulse);
           var introShift=Math.cos((1-Math.min(1,e))*Math.PI);setVar("--cineIntroShift",introShift,-1,1);
-        }else{setVar("--cineIntroDown",0);setVar("--cineIntroPulse",0);setVar("--cineIntroShift",-1,-1,1);}
+          var heraldWave=Math.pow(Math.sin(Math.PI*Math.min(1,e*0.98)),1.18);setVar("--cineHerald",heraldWave);
+          var heraldGlow=Math.pow(Math.min(1,e*0.94),0.82);setVar("--cineHeraldGlow",heraldGlow);
+          var heraldShift=Math.sin(Math.PI*Math.min(1,e*0.9));setVar("--cineHeraldShift",heraldShift,-1,1);
+        }else{setVar("--cineIntroDown",0);setVar("--cineIntroPulse",0);setVar("--cineIntroShift",-1,-1,1);
+          setVar("--cineHerald",0);setVar("--cineHeraldGlow",0);setVar("--cineHeraldShift",0,-1,1);}
         if(t<1&&anim)requestAnimationFrame(tick);else{window.scrollTo(0,yTarget);hero.style.setProperty("--heroProgress",dir==="down"?1:0);
           hero.style.setProperty("--heroDepth",depthTo);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
           setVar("--cineVeil",dir==="down"?0:0.45);setVar("--cineIntroDown",0);setVar("--cineIntroPulse",0);setVar("--cineIntroShift",-1,-1,1);
+          setVar("--cineHerald",0);setVar("--cineHeraldGlow",0);setVar("--cineHeraldShift",0,-1,1);
           anim=false;lock(false);}}
       requestAnimationFrame(tick);}
     function tryDown(){if(anim||isOverlayOpen())return;animate(geo(hero,next).bodyY,"down");}
@@ -109,6 +114,7 @@
     (function initState(){var g=geo(hero,next),past=window.scrollY>=g.bodyY;hero.style.setProperty("--heroProgress",past?1:0);
       hero.style.setProperty("--heroDepth",past?DEPTH_DOWN_MAX:0);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
       setVar("--cineVeil",past?0:0.45);setVar("--cineIntroDown",0);setVar("--cineIntroPulse",0);setVar("--cineIntroShift",-1,-1,1);
+      setVar("--cineHerald",0);setVar("--cineHeraldGlow",0);setVar("--cineHeraldShift",0,-1,1);
     })();window.addEventListener("wheel",onWheel,{passive:false});
     window.addEventListener("touchstart",tStart,{passive:true});window.addEventListener("touchmove",tMove,{passive:false});
     window.addEventListener("touchend",tEnd,{passive:true});window.addEventListener("keydown",onKey,{passive:false});

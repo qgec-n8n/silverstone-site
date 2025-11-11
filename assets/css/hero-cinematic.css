@@ -12,6 +12,9 @@
   --cineIntroDown: 0;
   --cineIntroPulse: 0;
   --cineIntroShift: -1;
+  --cineHerald: 0;
+  --cineHeraldGlow: 0;
+  --cineHeraldShift: 0;
   --fxVignetteMax: 0.7;
   --barH: clamp(70px, 14vh, 160px);
 }
@@ -183,7 +186,116 @@
       rgba(24,46,98,0.0) 100%);
   opacity: calc(0.52 + var(--cineIntroDown) * 0.28);
   transform: translate3d(0, calc((1 - var(--cineIntroDown)) * -48px), 0);
+  z-index: 0;
   will-change: opacity, transform;
+}
+
+.fx-intro .herald{
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  top: clamp(22%, 16vh, 32%);
+  height: clamp(120px, 16vh, 220px);
+  border-radius: 140px;
+  pointer-events: none;
+  overflow: hidden;
+  background: radial-gradient(140% 120% at 50% 0%,
+      rgba(0,210,255,0.0) 0%,
+      rgba(0,210,255,0.3) 40%,
+      rgba(0,210,255,0.0) 80%);
+  opacity: calc(var(--cineHerald) * (0.82 + var(--cineHeraldGlow) * 0.18));
+  transform:
+    translate3d(0, calc((1 - var(--cineIntroDown)) * -44px), 0)
+    translate3d(0, calc((1 - var(--cineHerald)) * 26px), 0)
+    scaleX(calc(0.72 + var(--cineHerald) * 0.46))
+    scaleY(calc(0.78 + var(--cineHerald) * 0.28));
+  filter: drop-shadow(0 22px 44px rgba(0, 88, 158, 0.4));
+  mix-blend-mode: screen;
+  z-index: 1;
+  will-change: opacity, transform, filter;
+}
+
+.fx-intro .herald::before{
+  content: "";
+  position: absolute;
+  inset: -40% -12% -30%;
+  background: radial-gradient(120% 100% at 50% 15%,
+      rgba(0,224,255,0.72) 0%,
+      rgba(0,224,255,0.2) 40%,
+      rgba(0,224,255,0.0) 75%);
+  opacity: calc(0.55 + var(--cineHeraldGlow) * 0.4);
+  filter: blur(calc(10px + var(--cineHeraldGlow) * 18px));
+  transform: translate3d(0, calc(var(--cineHerald) * -6px), 0);
+}
+
+.fx-intro .herald::after{
+  content: "";
+  position: absolute;
+  inset: 22% 12% -40%;
+  background: linear-gradient(180deg,
+      rgba(0,255,234,0) 0%,
+      rgba(120,255,255,0.75) 40%,
+      rgba(0,255,234,0) 100%);
+  opacity: calc(0.32 + var(--cineHeraldGlow) * 0.58);
+  transform: translate3d(calc(var(--cineHeraldShift) * 32px), calc(var(--cineHerald) * 24px), 0);
+  filter: blur(calc(2px + var(--cineHeraldGlow) * 5px));
+}
+
+.fx-intro .herald .trail{
+  position: absolute;
+  top: -18%;
+  bottom: -48%;
+  left: 50%;
+  width: clamp(4px, 0.9vw, 12px);
+  transform:
+    translate3d(-50%, calc(var(--cineHerald) * 12px), 0)
+    scaleY(calc(0.55 + var(--cineHerald) * 0.75));
+  background: linear-gradient(180deg,
+      rgba(0,214,255,0) 0%,
+      rgba(0,214,255,0.85) 45%,
+      rgba(0,214,255,0) 100%);
+  filter: blur(calc(1px + var(--cineHeraldGlow) * 2.4px));
+  opacity: calc(0.4 + var(--cineHeraldGlow) * 0.45);
+  mix-blend-mode: screen;
+}
+
+.fx-intro .herald .trail::before,
+.fx-intro .herald .trail::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(180deg,
+      rgba(0,214,255,0) 0%,
+      rgba(0,214,255,0.55) 50%,
+      rgba(0,214,255,0) 100%);
+  opacity: 0.6;
+}
+
+.fx-intro .herald .trail::before{
+  transform: translateX(calc(-180% + var(--cineHerald) * 40%));
+}
+
+.fx-intro .herald .trail::after{
+  transform: translateX(calc(180% - var(--cineHerald) * 40%));
+}
+
+.fx-intro .herald .crest{
+  position: absolute;
+  top: -32%;
+  left: 18%;
+  right: 18%;
+  height: 60%;
+  border-radius: 999px;
+  border: 1px solid rgba(160,242,255,0.7);
+  opacity: calc(0.28 + var(--cineHeraldGlow) * 0.5);
+  transform:
+    translate3d(0, calc((1 - var(--cineHerald)) * 18px), 0)
+    scaleX(calc(0.85 + var(--cineHerald) * 0.15))
+    scaleY(calc(0.6 + var(--cineHerald) * 0.35));
+  filter: blur(calc(0.6px + var(--cineHeraldGlow) * 1.4px));
+  mix-blend-mode: screen;
 }
 
 .fx-intro .spark{
@@ -202,6 +314,7 @@
   opacity: calc(0.35 + var(--cineIntroPulse) * 0.55);
   transform: translate3d(0, calc((26px + var(--cineIntroPulse) * 62px) * var(--cineIntroDown)), 0);
   mix-blend-mode: screen;
+  z-index: 2;
   will-change: opacity, transform;
 }
 
