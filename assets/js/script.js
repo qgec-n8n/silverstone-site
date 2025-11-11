@@ -688,11 +688,10 @@ document.addEventListener('DOMContentLoaded', () => {
  * Desktop browsers rely on CSS background-attachment: fixed for the
  * parallax treatment (see assets/css/parallax-fix.css).  Mobile browsers
  * struggle with fixed attachments, so we create a lightweight background
- * layer that uses a fixed viewport attachment to remain visually locked
- * behind the content while keeping the entire background illustration
- * visible within the section.  The CTA banner and footer then slide over
- * this layer, completing the parallax illusion without introducing scroll
- * jank on mobile browsers.
+ * layer that uses CSS position: sticky to remain visually locked to the
+ * viewport while keeping the entire background illustration visible within
+ * the section.  The CTA banner and footer then slide over this layer,
+ * completing the parallax illusion.
  */
 (() => {
   const parallaxSections = Array.from(
@@ -765,67 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  const state = {
-    active: false,
-    layers: [],
-    activeEntry: null,
-    ticking: false,
-    cleanup: [],
-  };
-
-  const getViewportHeight = () => {
-    const viewport = window.visualViewport;
-    if (viewport && typeof viewport.height === 'number' && viewport.height > 0) {
-      return viewport.height;
-    }
-    const fallback =
-      window.innerHeight || document.documentElement.clientHeight || 0;
-    return fallback > 0 ? fallback : 1;
-  };
-
-  const setActiveEntry = (entry) => {
-    if (state.activeEntry === entry) return;
-    if (state.activeEntry) {
-      state.activeEntry.layer.classList.remove('parallax-layer-active');
-      state.activeEntry.section.classList.remove('parallax-section-active');
-    }
-    state.activeEntry = entry || null;
-    if (state.activeEntry) {
-      state.activeEntry.layer.classList.add('parallax-layer-active');
-      state.activeEntry.section.classList.add('parallax-section-active');
-    }
-  };
-
-  const evaluateActiveEntry = () => {
-    if (!state.active || !state.layers.length) {
-      setActiveEntry(null);
-      return;
-    }
-    const viewportHeight = Math.max(1, getViewportHeight());
-    let bestEntry = null;
-    let bestRatio = 0;
-    state.layers.forEach((entry) => {
-      const rect = entry.section.getBoundingClientRect();
-      const visibleTop = Math.max(rect.top, 0);
-      const visibleBottom = Math.min(rect.bottom, viewportHeight);
-      const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-      const ratio = visibleHeight / viewportHeight;
-      if (ratio > bestRatio) {
-        bestRatio = ratio;
-        bestEntry = entry;
-      }
-    });
-    setActiveEntry(bestEntry);
-  };
-
-  const requestActiveEvaluation = () => {
-    if (!state.active || state.ticking) return;
-    state.ticking = true;
-    requestAnimationFrame(() => {
-      state.ticking = false;
-      evaluateActiveEntry();
-    });
-  };
+  const state = { active: false, layers: [] };
 
   const getImageValue = (images) => {
     if (!images) return '';
@@ -874,44 +813,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!layers.length) return;
     state.layers = layers;
     state.active = true;
-    state.ticking = false;
-    state.cleanup = [];
-    setActiveEntry(null);
-
-    const handleScroll = () => requestActiveEvaluation();
-    const handleResize = () => requestActiveEvaluation();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize);
-    state.cleanup.push(() => window.removeEventListener('scroll', handleScroll));
-    state.cleanup.push(() => window.removeEventListener('resize', handleResize));
-
-    const viewport = window.visualViewport;
-    if (viewport && typeof viewport.addEventListener === 'function') {
-      const handleViewportChange = () => requestActiveEvaluation();
-      viewport.addEventListener('resize', handleViewportChange);
-      viewport.addEventListener('scroll', handleViewportChange);
-      state.cleanup.push(() => viewport.removeEventListener('resize', handleViewportChange));
-      state.cleanup.push(() => viewport.removeEventListener('scroll', handleViewportChange));
-    }
-
-    evaluateActiveEntry();
   };
 
   const disableMobile = () => {
     if (!state.active) return;
-    setActiveEntry(null);
-    state.cleanup.forEach((fn) => {
-      try {
-        fn();
-      } catch (error) {
-        /* noop */
-      }
-    });
-    state.cleanup = [];
-    state.ticking = false;
     state.layers.forEach((entry) => {
       const { layer, section } = entry;
-      section.classList.remove('parallax-section-active');
       if (layer && layer.parentNode === section) {
         section.removeChild(layer);
       }
