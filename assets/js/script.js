@@ -806,17 +806,8 @@ document.addEventListener('DOMContentLoaded', () => {
           layer.style.backgroundColor = config.backgroundColor;
         }
         section.insertBefore(layer, section.firstChild);
-        const computedStyle = window.getComputedStyle(section);
-        const inlinePaddingTop = section.style.paddingTop;
-        const inlinePaddingBottom = section.style.paddingBottom;
-        const paddingTop = computedStyle.paddingTop || '0px';
-        const paddingBottom = computedStyle.paddingBottom || '0px';
-        section.style.setProperty('--parallax-mobile-padding-top', paddingTop);
-        section.style.setProperty('--parallax-mobile-padding-bottom', paddingBottom);
-        section.style.paddingTop = '0px';
-        section.style.paddingBottom = '0px';
         section.classList.add('parallax-ready', 'parallax-mobile-active');
-        return { section, layer, inlinePaddingTop, inlinePaddingBottom };
+        return { section, layer };
       })
       .filter(Boolean);
     if (!layers.length) return;
@@ -827,21 +818,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const disableMobile = () => {
     if (!state.active) return;
     state.layers.forEach((entry) => {
-      const { layer, section, inlinePaddingTop, inlinePaddingBottom } = entry;
+      const { layer, section } = entry;
       if (layer && layer.parentNode === section) {
         section.removeChild(layer);
-      }
-      section.style.removeProperty('--parallax-mobile-padding-top');
-      section.style.removeProperty('--parallax-mobile-padding-bottom');
-      if (inlinePaddingTop) {
-        section.style.paddingTop = inlinePaddingTop;
-      } else {
-        section.style.removeProperty('padding-top');
-      }
-      if (inlinePaddingBottom) {
-        section.style.paddingBottom = inlinePaddingBottom;
-      } else {
-        section.style.removeProperty('padding-bottom');
       }
       section.classList.remove('parallax-ready', 'parallax-mobile-active');
     });
