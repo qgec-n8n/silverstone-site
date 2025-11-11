@@ -7,6 +7,7 @@
   --heroProgress: 0;
   --cineBars: 0;
   --cineBloom: 0;
+  --cineBeamBoost: 0;
   --cineVeil: 0;
   --fxVignetteMax: 0.7;
   --barH: clamp(70px, 14vh, 160px);
@@ -17,6 +18,7 @@
   isolation: isolate;
   perspective: 1200px;
   transform-style: preserve-3d;
+  --heroDepth: 0;
 }
 
 /* Hero vignette overlay */
@@ -48,9 +50,11 @@
               rgba(255,255,255,0.9) 0%,
               rgba(255,255,255,0.5) 30%,
               rgba(255,255,255,0.0) 70%);
-  opacity: calc(var(--cineBloom) * 0.75);
-  transform: scale(calc(1 + var(--cineBloom) * 0.25));
-  filter: blur(calc(var(--cineBloom) * 2.5px));
+  opacity: calc(var(--cineBloom) * (0.45 + var(--cineBeamBoost) * 0.55));
+  transform: scale(calc(1 + var(--cineBloom) * (0.25 + var(--cineBeamBoost) * 0.2)));
+  filter:
+    blur(calc(var(--cineBloom) * 2.5px))
+    brightness(calc(1 + var(--cineBeamBoost) * 0.75));
   mix-blend-mode: screen;
   will-change: opacity, transform, filter;
 }
@@ -60,13 +64,13 @@
   position: relative;
   z-index: 3;
   transform:
-    translate3d(0, calc(var(--heroProgress) * -18vh), 0)
-    scale(calc(1 - var(--heroProgress) * 0.15))
-    rotateX(calc(var(--heroProgress) * 2.8deg));
+    translate3d(0, calc(var(--heroDepth) * -18vh), 0)
+    scale(calc(1 - var(--heroDepth) * 0.18))
+    rotateX(calc(var(--heroDepth) * 3deg));
   opacity: calc(1 - var(--heroProgress) * 0.08);
   filter:
-    saturate(calc(1 + var(--heroProgress) * 0.25))
-    contrast(calc(1 + var(--heroProgress) * 0.12));
+    saturate(calc(1 + var(--heroDepth) * 0.3))
+    contrast(calc(1 + var(--heroDepth) * 0.14));
   transition: transform 0.001s linear, opacity 0.001s linear, filter 0.001s linear;
   will-change: transform, opacity, filter;
 }
@@ -103,9 +107,11 @@
       rgba(255,255,255,0) 0%,
       rgba(255,255,255,0.8) 50%,
       rgba(255,255,255,0) 100%);
-  opacity: calc(var(--cineBloom) * 0.8);
-  filter: blur(calc(var(--cineBloom) * 2px));
-  transform: scaleX(calc(1 + var(--cineBars) * 0.8));
+  opacity: calc(var(--cineBloom) * (0.6 + var(--cineBeamBoost) * 0.4));
+  filter:
+    blur(calc(var(--cineBloom) * 2px))
+    brightness(calc(1 + var(--cineBeamBoost) * 0.6));
+  transform: scaleX(calc(1 + var(--cineBars) * 0.8 + var(--cineBeamBoost) * 0.4));
   will-change: opacity, transform, filter;
 }
 

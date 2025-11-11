@@ -14,6 +14,7 @@
     return function(x){if(x1===y1&&x2===y2)return x;if(x===0||x===1)return x;return calc(getT(x),y1,y2)};}
   var ease=BezierEasing.apply(null,CONFIG.EASING);
   function clamp(v,a,b){return Math.min(b,Math.max(a,v));}
+  function setVar(name,value){var min=arguments.length>2?arguments[2]:0,max=arguments.length>3?arguments[3]:1;document.documentElement.style.setProperty(name,String(clamp(value,min,max)));}
   function header(){return document.querySelector("header.site-header");}
   function headerVisible(){var h=header();return !!(h&&!h.classList.contains("header-hidden"));}
   function getHeaderH(){var r=document.documentElement,v=parseFloat(getComputedStyle(r).getPropertyValue(CONFIG.HEADER_VAR_NAME));return !isNaN(v)&&v>0?v:(header()?header().getBoundingClientRect().height:0);}
@@ -52,15 +53,20 @@
     if(!hero.querySelector(".fx-bloom")){var b=document.createElement("div");b.className="fx-bloom";b.setAttribute("aria-hidden","true");hero.appendChild(b);}
     ensureBars();if(!next.querySelector(".fx-veil")){if(getComputedStyle(next).position==="static")next.style.position="relative";var v=document.createElement("div");v.className="fx-veil";v.setAttribute("aria-hidden","true");next.insertBefore(v,next.firstChild);}
     function sizeHero(){hero.style.minHeight=geo(hero,next).visH+"px";}sizeHero();
-    var anim=false,lastY=window.scrollY;function set(k,v){document.documentElement.style.setProperty(k,String(clamp(v,0,1)));}
+    var anim=false,lastY=window.scrollY;
+    var DEPTH_DOWN_MAX=1.15;
     function animate(yTarget,dir){anim=true;lock(true);var y0=window.scrollY,delta=yTarget-y0,t0=performance.now(),dur=CONFIG.DURATION_MS;
+      var depthFrom=dir==="down"?0:DEPTH_DOWN_MAX,depthTo=dir==="down"?DEPTH_DOWN_MAX:0;
       function tick(now){if(isOverlayOpen()){anim=false;lock(false);return;}var t=clamp((now-t0)/dur,0,1),e=ease(t),y=y0+delta*e;window.scrollTo(0,y);
-        var p=dir==="down"?e:1-e;hero.style.setProperty("--heroProgress",p);
-        var bars=Math.sin(Math.PI*t)**0.9;set("--cineBars",bars);
-        var bloom=Math.pow(Math.sin(Math.PI*t),2.0);set("--cineBloom",bloom);
-        var veil=(dir==="down"?0.45*(1-e):0.45*e);set("--cineVeil",veil);
+        var progress=dir==="down"?e:1-e;hero.style.setProperty("--heroProgress",progress);
+        var depth=depthFrom+(depthTo-depthFrom)*Math.pow(e,dir==="down"?0.88:1);hero.style.setProperty("--heroDepth",depth);
+        var bars=Math.sin(Math.PI*t)**0.9;setVar("--cineBars",bars);
+        var bloom=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),1.35);setVar("--cineBloom",bloom);
+        var beamBoost=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),2.0);setVar("--cineBeamBoost",beamBoost);
+        var veil=(dir==="down"?0.45*(1-e):0.45*e);setVar("--cineVeil",veil);
         if(t<1&&anim)requestAnimationFrame(tick);else{window.scrollTo(0,yTarget);hero.style.setProperty("--heroProgress",dir==="down"?1:0);
-          set("--cineBars",0);set("--cineBloom",0);set("--cineVeil",dir==="down"?0:0.45);anim=false;lock(false);}}
+          hero.style.setProperty("--heroDepth",depthTo);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
+          setVar("--cineVeil",dir==="down"?0:0.45);anim=false;lock(false);}}
       requestAnimationFrame(tick);}
     function tryDown(){if(anim||isOverlayOpen())return;animate(geo(hero,next).bodyY,"down");}
     function tryUp(){if(anim||isOverlayOpen())return;animate(0,"up");}
@@ -78,7 +84,8 @@
     function onScroll(){if(anim||isOverlayOpen()){lastY=window.scrollY;return;}var g=geo(hero,next),sy=window.scrollY,dir=sy-lastY;lastY=sy;
       if(dir>0&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX)tryDown();else if(dir<0&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX)tryUp();}
     (function initState(){var g=geo(hero,next),past=window.scrollY>=g.bodyY;hero.style.setProperty("--heroProgress",past?1:0);
-      set("--cineBars",0);set("--cineBloom",0);set("--cineVeil",past?0:0.45);})();window.addEventListener("wheel",onWheel,{passive:false});
+      hero.style.setProperty("--heroDepth",past?DEPTH_DOWN_MAX:0);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
+      setVar("--cineVeil",past?0:0.45);})();window.addEventListener("wheel",onWheel,{passive:false});
     window.addEventListener("touchstart",tStart,{passive:true});window.addEventListener("touchmove",tMove,{passive:false});
     window.addEventListener("touchend",tEnd,{passive:true});window.addEventListener("keydown",onKey,{passive:false});
     window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",sizeHero,{passive:true});}
