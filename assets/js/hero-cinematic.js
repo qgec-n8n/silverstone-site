@@ -55,9 +55,12 @@
     var anim=false,lastY=window.scrollY;function set(k,v){document.documentElement.style.setProperty(k,String(clamp(v,0,1)));}
     function animate(yTarget,dir){anim=true;lock(true);var y0=window.scrollY,delta=yTarget-y0,t0=performance.now(),dur=CONFIG.DURATION_MS;
       function tick(now){if(isOverlayOpen()){anim=false;lock(false);return;}var t=clamp((now-t0)/dur,0,1),e=ease(t),y=y0+delta*e;window.scrollTo(0,y);
-        var p=dir==="down"?e:1-e;hero.style.setProperty("--heroProgress",p);
-        var bars=Math.sin(Math.PI*t)**0.9;set("--cineBars",bars);
-        var bloom=Math.pow(Math.sin(Math.PI*t),2.0);set("--cineBloom",bloom);
+        var heroPhase=dir==="down"?Math.min(1,Math.pow(e,0.82)*1.12):1-Math.pow(e,0.88);hero.style.setProperty("--heroProgress",heroPhase);
+        var wave=Math.max(0,Math.sin(Math.PI*t)),
+          bars=dir==="down"?0:Math.pow(wave,0.9)*1.25,
+          bloom=dir==="down"?0:Math.pow(wave,2.0)*1.35;
+        set("--cineBars",bars);
+        set("--cineBloom",bloom);
         var veil=(dir==="down"?0.45*(1-e):0.45*e);set("--cineVeil",veil);
         if(t<1&&anim)requestAnimationFrame(tick);else{window.scrollTo(0,yTarget);hero.style.setProperty("--heroProgress",dir==="down"?1:0);
           set("--cineBars",0);set("--cineBloom",0);set("--cineVeil",dir==="down"?0:0.45);anim=false;lock(false);}}
