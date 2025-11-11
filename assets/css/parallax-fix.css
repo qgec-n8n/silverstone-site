@@ -21,6 +21,13 @@
   isolation: isolate;
 }
 
+@media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+  .parallax-section.animate,
+  .parallax-section.animate.visible {
+    transform: none !important;
+  }
+}
+
 .parallax-section > * {
   position: relative;
   z-index: 1;
