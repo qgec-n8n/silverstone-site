@@ -1,16 +1,16 @@
-/* assets/css/hero-cinematic.css — v5 (High-Cinematic)
+/* assets/css/hero-cinematic.css — v6 (High-Cinematic)
    - Scroll-triggered in both directions (hero↔body)
-   - Movie-trailer style: deeper depth, true bars, visible bloom flash both ways
+   - Premium anticipation cues replace dark bars for the hero→body transition
    - GPU-optimized; safe with parallax; no layout thrash
 */
 :root{
   --heroProgress: 0;
-  --cineBars: 0;
   --cineBloom: 0;
   --cineBeamBoost: 0;
   --cineVeil: 0;
-  --fxVignetteMax: 0.7;
-  --barH: clamp(70px, 14vh, 160px);
+  --cinePulse: 0;
+  --cineSignal: 0;
+  --fxVignetteMax: 0.45;
 }
 
 .hero.title-band{
@@ -29,13 +29,13 @@
   z-index: 0;
   background:
     linear-gradient(180deg,
-      rgba(0,0,0,0.0) 0%,
-      rgba(5,10,20,0.25) 50%,
-      rgba(0,0,0,0.6) 100%),
-    radial-gradient(130% 110% at 50% 50%,
-      rgba(0,0,0,0.0) 0%,
-      rgba(0,0,0,0.15) 40%,
-      rgba(0,0,0,0.8) 100%);
+      rgba(6,14,28,0.00) 0%,
+      rgba(8,20,40,0.20) 52%,
+      rgba(6,14,28,0.40) 100%),
+    radial-gradient(140% 120% at 50% 42%,
+      rgba(6,14,28,0.0) 0%,
+      rgba(10,24,50,0.12) 48%,
+      rgba(6,14,28,0.32) 100%);
   opacity: calc(var(--heroProgress) * var(--fxVignetteMax));
   will-change: opacity;
 }
@@ -80,46 +80,144 @@
   text-shadow: 0 18px 40px rgba(0,0,0, calc(0.55 * var(--heroProgress)));
 }
 
-/* Cinematic bars */
-.fx-bars{
-  position: fixed;
-  left: 0; right: 0; top: 0; bottom: 0;
+/* Anticipation cues at the hero boundary */
+.fx-anticipation{
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: clamp(320px, 72vw, 1080px);
+  height: min(26vh, 280px);
+  transform: translateX(-50%);
   pointer-events: none;
-  z-index: 900;
+  z-index: 4;
+  display: grid;
+  place-items: end center;
+  gap: clamp(14px, 3.6vh, 26px);
+  mix-blend-mode: screen;
 }
-.fx-bars .bar{
-  position: absolute;
-  left: 0; right: 0;
-  background: #000;
-  opacity: calc(var(--cineBars) * 0.95);
-  transition: opacity 0.2s linear;
-}
-.fx-bars .bar.top{ top: 0; height: calc(var(--cineBars) * var(--barH)); }
-.fx-bars .bar.bottom{ bottom: 0; height: calc(var(--cineBars) * var(--barH)); }
 
-/* Flare line */
-.fx-bars .flare{
-  position: absolute;
-  left: 10%; right: 10%;
-  top: 50%;
-  height: 3px;
+.fx-anticipation .glow{
+  width: 100%;
+  height: clamp(120px, 22vh, 240px);
+  background:
+    radial-gradient(110% 140% at 50% 100%,
+      rgba(78,255,198,0.00) 0%,
+      rgba(78,255,198,0.28) 38%,
+      rgba(78,255,198,0.06) 75%,
+      rgba(78,255,198,0.00) 100%),
+    linear-gradient(180deg,
+      rgba(42,176,255,0.0) 0%,
+      rgba(42,176,255,0.22) 58%,
+      rgba(42,176,255,0.0) 100%);
+  opacity: calc(0.25 + var(--cinePulse) * 0.75);
+  filter: blur(calc(12px + var(--cinePulse) * 24px));
+  transform: scaleY(calc(0.75 + var(--cinePulse) * 0.45));
+  will-change: opacity, filter, transform;
+}
+
+.fx-anticipation .pulse{
+  width: clamp(220px, 48vw, 780px);
+  height: clamp(44px, 12vh, 160px);
+  border-radius: 160px;
+  border: 1px solid rgba(142,255,219,0.45);
+  box-shadow:
+    0 0 calc(18px + var(--cinePulse) * 48px) rgba(142,255,219, calc(0.25 + var(--cinePulse) * 0.35)),
+    inset 0 0 calc(12px + var(--cinePulse) * 32px) rgba(86,206,255, calc(0.18 + var(--cinePulse) * 0.32));
+  opacity: calc(0.28 + var(--cinePulse) * 0.6);
+  transform: scale(calc(0.82 + var(--cinePulse) * 0.28));
+  will-change: opacity, transform, box-shadow;
+}
+
+.fx-anticipation .signal{
+  width: clamp(260px, 52vw, 840px);
+  height: 6px;
+  border-radius: 999px;
   background: linear-gradient(90deg,
-      rgba(255,255,255,0) 0%,
-      rgba(255,255,255,0.8) 50%,
-      rgba(255,255,255,0) 100%);
-  opacity: calc(var(--cineBloom) * (0.6 + var(--cineBeamBoost) * 0.4));
-  filter:
-    blur(calc(var(--cineBloom) * 2px))
-    brightness(calc(1 + var(--cineBeamBoost) * 0.6));
-  transform: scaleX(calc(1 + var(--cineBars) * 0.8 + var(--cineBeamBoost) * 0.4));
-  will-change: opacity, transform, filter;
+      rgba(86,206,255,0.0) 0%,
+      rgba(86,206,255,0.65) 20%,
+      rgba(192,246,255,0.95) 50%,
+      rgba(86,206,255,0.65) 80%,
+      rgba(86,206,255,0.0) 100%);
+  box-shadow: 0 0 calc(12px + var(--cineSignal) * 18px) rgba(86,206,255,0.45);
+  opacity: calc(0.35 + var(--cineSignal) * 0.65);
+  transform: scaleX(calc(0.78 + var(--cineSignal) * 0.42));
+  will-change: opacity, transform, box-shadow;
+}
+
+/* Data cascade prelude in the body */
+.fx-cascade{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+  display: grid;
+  align-content: start;
+  mix-blend-mode: screen;
+}
+
+.fx-cascade::before{
+  content: "";
+  display: block;
+  width: 100%;
+  height: clamp(220px, 40vh, 420px);
+  background:
+    linear-gradient(180deg,
+      rgba(12,24,54,0.45) 0%,
+      rgba(12,24,54,0.32) 28%,
+      rgba(12,24,54,0.0) 100%);
+  opacity: var(--cineVeil);
+  transform: translateY(calc((1 - var(--cineVeil)) * 24px));
+  transition: opacity 0.1s linear;
+  will-change: opacity, transform;
+}
+
+.fx-cascade .lines{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: clamp(280px, 64vw, 920px);
+  height: clamp(220px, 46vh, 460px);
+  transform: translate(-50%, calc(18px - var(--cineSignal) * 36px));
+  background-image: linear-gradient(180deg, rgba(122,255,243,0.0) 0%, rgba(122,255,243,0.08) 100%),
+                    repeating-linear-gradient(90deg,
+                      rgba(122,255,243,0.0) 0px,
+                      rgba(122,255,243,0.22) 1px,
+                      rgba(122,255,243,0.0) 32px);
+  background-size: 100% 100%, clamp(180px, 28vw, 320px) 100%;
+  background-position:
+    0 calc(var(--cineSignal) * -18px),
+    calc(-30px + var(--cineSignal) * 60px) 0;
+  opacity: calc(var(--cineSignal) * 0.75);
+  filter: drop-shadow(0 0 calc(8px + var(--cineSignal) * 18px) rgba(140,255,245,0.35));
+  will-change: opacity, transform, background-position, filter;
+}
+
+.fx-cascade .orb{
+  position: absolute;
+  top: clamp(-48px, -4vh, -18px);
+  left: 50%;
+  width: clamp(160px, 32vw, 420px);
+  height: clamp(160px, 32vw, 420px);
+  transform: translate(-50%, 0);
+  background: radial-gradient(circle at 50% 35%,
+      rgba(180,255,246,0.85) 0%,
+      rgba(120,236,255,0.65) 24%,
+      rgba(48,140,255,0.18) 58%,
+      rgba(24,52,122,0.0) 78%);
+  opacity: calc(0.0 + var(--cinePulse) * 0.8);
+  filter: blur(calc(6px + var(--cinePulse) * 12px));
+  will-change: opacity, filter;
 }
 
 /* Veil over body */
 .fx-veil{
   position: absolute;
   inset: 0;
-  background: #000;
+  background: linear-gradient(180deg,
+      rgba(12,24,54,0.35) 0%,
+      rgba(12,24,54,0.24) 32%,
+      rgba(12,24,54,0.0) 100%);
   opacity: var(--cineVeil);
   transform: translateY(calc((1 - var(--cineVeil)) * 16px));
   pointer-events: none;
@@ -136,5 +234,7 @@ html.cine-locked, body.cine-locked{
   .hero.title-band .content{ transform: none; opacity: 1; filter: none; }
   .hero.title-band .fx-layer{ opacity: 0; }
   .hero.title-band .fx-bloom{ opacity: 0; filter: none; }
-  .fx-bars, .fx-veil{ display: none; }
+  .fx-anticipation,
+  .fx-cascade,
+  .fx-veil{ display: none; }
 }
