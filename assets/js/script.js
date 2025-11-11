@@ -764,7 +764,15 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  const state = { active: false, layers: [] };
+  const state = {
+    active: false,
+    layers: [],
+    activeEntry: null,
+    scrollHandler: null,
+    resizeHandler: null,
+    rafId: null,
+    viewportHandler: null,
+  };
 
   const getImageValue = (images) => {
     if (!images) return '';
@@ -783,6 +791,60 @@ document.addEventListener('DOMContentLoaded', () => {
       return () => query.removeListener(callback);
     }
     return () => {};
+  };
+
+  const activateLayer = (entry) => {
+    if (state.activeEntry === entry) return;
+    if (state.activeEntry && state.activeEntry.layer) {
+      state.activeEntry.layer.classList.remove('is-active');
+    }
+    state.activeEntry = entry || null;
+    if (state.activeEntry && state.activeEntry.layer) {
+      state.activeEntry.layer.classList.add('is-active');
+    }
+  };
+
+  const updateActiveLayer = () => {
+    if (!state.layers.length) {
+      activateLayer(null);
+      return;
+    }
+    const viewportHeight = window.visualViewport
+      ? window.visualViewport.height
+      : window.innerHeight || document.documentElement.clientHeight || 0;
+    let bestEntry = null;
+    let bestScore = 0;
+
+    state.layers.forEach((entry) => {
+      const rect = entry.section.getBoundingClientRect();
+      const intersectionTop = Math.max(rect.top, 0);
+      const intersectionBottom = Math.min(rect.bottom, viewportHeight);
+      const visible = Math.max(0, intersectionBottom - intersectionTop);
+      const score = viewportHeight > 0 ? visible / viewportHeight : 0;
+      if (score > bestScore) {
+        bestScore = score;
+        bestEntry = score > 0 ? entry : null;
+      }
+    });
+
+    if (bestScore === 0) {
+      activateLayer(null);
+      return;
+    }
+
+    activateLayer(bestEntry || null);
+  };
+
+  const scheduleUpdate = () => {
+    if (typeof window.requestAnimationFrame !== 'function') {
+      updateActiveLayer();
+      return;
+    }
+    if (state.rafId !== null) return;
+    state.rafId = requestAnimationFrame(() => {
+      state.rafId = null;
+      updateActiveLayer();
+    });
   };
 
   const enableMobile = () => {
@@ -813,10 +875,42 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!layers.length) return;
     state.layers = layers;
     state.active = true;
+    state.activeEntry = null;
+    state.scrollHandler = () => scheduleUpdate();
+    state.resizeHandler = () => scheduleUpdate();
+    window.addEventListener('scroll', state.scrollHandler, { passive: true });
+    window.addEventListener('resize', state.resizeHandler);
+    if (window.visualViewport && typeof window.visualViewport.addEventListener === 'function') {
+      state.viewportHandler = () => scheduleUpdate();
+      window.visualViewport.addEventListener('resize', state.viewportHandler);
+      window.visualViewport.addEventListener('scroll', state.viewportHandler);
+    }
+    scheduleUpdate();
+    updateActiveLayer();
   };
 
   const disableMobile = () => {
     if (!state.active) return;
+    if (state.scrollHandler) {
+      window.removeEventListener('scroll', state.scrollHandler);
+      state.scrollHandler = null;
+    }
+    if (state.resizeHandler) {
+      window.removeEventListener('resize', state.resizeHandler);
+      state.resizeHandler = null;
+    }
+    if (state.viewportHandler && window.visualViewport && typeof window.visualViewport.removeEventListener === 'function') {
+      window.visualViewport.removeEventListener('resize', state.viewportHandler);
+      window.visualViewport.removeEventListener('scroll', state.viewportHandler);
+      state.viewportHandler = null;
+    }
+    if (state.rafId !== null) {
+      if (typeof window.cancelAnimationFrame === 'function') {
+        cancelAnimationFrame(state.rafId);
+      }
+      state.rafId = null;
+    }
+    activateLayer(null);
     state.layers.forEach((entry) => {
       const { layer, section } = entry;
       if (layer && layer.parentNode === section) {
