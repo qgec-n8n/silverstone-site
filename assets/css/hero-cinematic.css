@@ -9,9 +9,6 @@
   --cineBloom: 0;
   --cineBeamBoost: 0;
   --cineVeil: 0;
-  --cineIris: 0;
-  --cinePrism: 0;
-  --cinePulse: 0;
   --fxVignetteMax: 0.7;
   --barH: clamp(70px, 14vh, 160px);
 }
@@ -60,51 +57,6 @@
     brightness(calc(1 + var(--cineBeamBoost) * 0.75));
   mix-blend-mode: screen;
   will-change: opacity, transform, filter;
-}
-
-/* Luminous iris reveal */
-.hero.title-band .fx-iris{
-  position: absolute;
-  inset: -12% -6%;
-  pointer-events: none;
-  z-index: 1;
-  background:
-    radial-gradient(120% 90% at 50% calc(25% + var(--cineIris) * 18%),
-      rgba(255,255,255, calc(0.28 * var(--cineIris))) 0%,
-      rgba(128,182,255, calc(0.16 * var(--cineIris))) 40%,
-      rgba(10,18,32,0) 72%),
-    linear-gradient(180deg,
-      rgba(15,26,45, calc(0.65 * var(--cineIris))) 0%,
-      rgba(15,26,45,0) 68%),
-    radial-gradient(140% 120% at 50% 88%,
-      rgba(0,0,0, calc(0.55 * var(--cineIris))) 0%,
-      rgba(0,0,0,0) 70%);
-  opacity: calc(0.9 * var(--cineIris));
-  transform:
-    translate3d(0, calc((1 - var(--cineIris)) * 22px), 0)
-    scale(calc(0.94 + var(--cineIris) * 0.18));
-  filter:
-    saturate(calc(1 + var(--cineIris) * 0.55))
-    blur(calc((1 - var(--cineIris)) * 6px));
-  mix-blend-mode: screen;
-  will-change: transform, opacity, filter;
-}
-
-.hero.title-band .fx-iris::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(115deg,
-      rgba(255,255,255,0) 12%,
-      rgba(255,255,255, calc(0.32 * var(--cinePulse))) 42%,
-      rgba(172,206,255,0) 68%);
-  opacity: calc(var(--cinePulse) * 0.82);
-  transform:
-    translate3d(calc((1 - var(--cinePulse)) * -18%), calc((1 - var(--cinePulse)) * -6%), 0)
-    skewX(-8deg);
-  filter: blur(calc((1 - var(--cinePulse)) * 8px));
-  mix-blend-mode: screen;
 }
 
 /* Hero content cinematic motion */
@@ -163,67 +115,15 @@
   will-change: opacity, transform, filter;
 }
 
-/* Prism reveal atop body */
-.fx-prism{
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: clamp(220px, 32vh, 440px);
-  pointer-events: none;
-  z-index: 2;
-  background:
-    linear-gradient(180deg,
-      rgba(255,255,255, calc(0.2 * var(--cinePrism))) 0%,
-      rgba(120,160,255, calc(0.18 * var(--cinePrism))) 28%,
-      rgba(12,18,28,0) 70%),
-    radial-gradient(130% 140% at 50% -35%,
-      rgba(120,180,255, calc(0.25 * var(--cinePrism))) 0%,
-      rgba(20,30,48,0) 65%),
-    linear-gradient(95deg,
-      rgba(255,255,255,0.14) 0%,
-      rgba(255,255,255,0.08) 14%,
-      rgba(255,255,255,0) 38%);
-  opacity: var(--cinePrism);
-  transform: translate3d(0, calc((1 - var(--cinePrism)) * 64px), 0);
-  filter:
-    blur(calc((1 - var(--cinePrism)) * 6px))
-    saturate(calc(1 + var(--cinePrism) * 0.4));
-  mix-blend-mode: screen;
-  will-change: opacity, transform, filter;
-}
-
-.fx-prism::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(90deg,
-      rgba(255,255,255,0) 0,
-      rgba(255,255,255,0) 18px,
-      rgba(255,255,255, calc(0.12 * var(--cinePulse))) 20px,
-      rgba(255,255,255,0) 26px);
-  opacity: calc(var(--cinePulse) * 0.65);
-  transform: translate3d(calc((1 - var(--cinePulse)) * 8%), 0, 0);
-  filter: blur(calc((1 - var(--cinePrism)) * 10px));
-  mix-blend-mode: screen;
-}
-
 /* Veil over body */
 .fx-veil{
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg,
-      rgba(4,8,16, calc(0.72 * var(--cineVeil))) 0%,
-      rgba(4,8,16, calc(0.4 * var(--cineVeil))) 38%,
-      rgba(4,8,16,0) 76%);
-  box-shadow: 0 60px 120px rgba(0,0,0, calc(0.45 * var(--cineVeil)));
+  background: #000;
   opacity: var(--cineVeil);
-  transform: translateY(calc((1 - var(--cineVeil)) * 24px));
+  transform: translateY(calc((1 - var(--cineVeil)) * 16px));
   pointer-events: none;
-  mix-blend-mode: multiply;
-  will-change: opacity, transform, box-shadow;
+  will-change: opacity, transform;
 }
 
 /* Scroll lock */
@@ -236,7 +136,5 @@ html.cine-locked, body.cine-locked{
   .hero.title-band .content{ transform: none; opacity: 1; filter: none; }
   .hero.title-band .fx-layer{ opacity: 0; }
   .hero.title-band .fx-bloom{ opacity: 0; filter: none; }
-  .hero.title-band .fx-iris{ display: none; }
-  .fx-prism{ display: none; }
   .fx-bars, .fx-veil{ display: none; }
 }
