@@ -33,24 +33,29 @@
   z-index: 1;
 }
 
-.parallax-section .parallax-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100vh;
+.parallax-mobile-stage {
+  display: none;
+  position: fixed;
+  inset: 0;
   pointer-events: none;
+  z-index: -1;
+  background-color: var(--parallax-backdrop);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 260ms ease;
+}
+
+.parallax-mobile-stage.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.parallax-mobile-stage .parallax-layer {
+  position: absolute;
+  inset: 0;
   background-repeat: no-repeat;
   background-position: center top;
   background-size: contain;
-  opacity: 0;
-  transition: opacity 320ms ease;
-  z-index: 0;
-}
-
-.parallax-section.parallax-ready .parallax-layer {
-  opacity: 1;
 }
 
 /* Theme-specific assets -------------------------------------------------- */
@@ -201,33 +206,21 @@
 
 /* Mobile parallax -------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
-  .parallax-section {
+  body.parallax-mobile-mode {
+    background-color: var(--parallax-backdrop);
+  }
+  body.parallax-mobile-mode .parallax-mobile-stage {
+    display: block;
+  }
+  body.parallax-mobile-mode .parallax-section {
     background-image: none !important;
-  }
-  .parallax-section .parallax-layer {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    max-height: 100vh;
-    transform: none;
-    will-change: auto;
-    background-image: var(--parallax-overlay), var(--parallax-mobile-fallback);
-  }
-  @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
-    .parallax-section .parallax-layer {
-      background-image: var(--parallax-overlay), var(--parallax-mobile-image-set, var(--parallax-mobile-fallback));
-    }
-  }
-  @supports (background-image: -webkit-image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
-    .parallax-section .parallax-layer {
-      background-image: var(--parallax-overlay), var(--parallax-mobile-image-set-webkit, var(--parallax-mobile-fallback));
-    }
+    background-color: transparent;
   }
 }
 
 /* Reduced motion: keep static imagery */
 @media (prefers-reduced-motion: reduce) {
-  .parallax-section .parallax-layer {
+  .parallax-mobile-stage {
     display: none !important;
   }
 }
