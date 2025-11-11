@@ -1,5 +1,5 @@
-/*! assets/js/hero-cinematic.js — v5 (High-Cinematic, scroll-triggered both directions)
- * - Movie-trailer style cinematic scroll transition both ways
+/*! assets/js/hero-cinematic.js — v6 (High-Cinematic, scroll-triggered both directions)
+ * - Premium anticipation cues replace dark edge bars on hero→body
  * - Input locked during transitions; overlay-safe; parallax-safe
  */
 (function(){
@@ -45,13 +45,13 @@
       window.addEventListener("wheel",w,{passive:false});window.addEventListener("touchmove",t,{passive:false});window.addEventListener("keydown",k,{passive:false});}
     else if(!l&&r.classList.contains("cine-locked")){window.removeEventListener("wheel",w);window.removeEventListener("touchmove",t);window.removeEventListener("keydown",k);
       r.classList.remove("cine-locked");document.body.classList.remove("cine-locked");}}
-  function ensureBars(){var b=document.querySelector(".fx-bars");if(!b){b=document.createElement("div");b.className="fx-bars";
-    b.innerHTML='<div class="bar top"></div><div class="bar bottom"></div><div class="flare"></div>';document.body.appendChild(b);}}
+  function ensureCues(hero,next){if(!hero.querySelector(".fx-anticipation")){var cue=document.createElement("div");cue.className="fx-anticipation";cue.setAttribute("aria-hidden","true");cue.innerHTML='<div class="glow"></div><div class="pulse"></div><div class="signal"></div>';hero.appendChild(cue);}if(!next.querySelector(".fx-cascade")){var cascade=document.createElement("div");cascade.className="fx-cascade";cascade.setAttribute("aria-hidden","true");cascade.innerHTML='<div class="lines"></div><div class="orb"></div>';next.insertBefore(cascade,next.firstChild);}}
   function init(){
     if(CONFIG.DISABLE_ON_WIDTH_BELOW&&window.innerWidth<CONFIG.DISABLE_ON_WIDTH_BELOW)return;var hero=document.querySelector(".hero.title-band");if(!hero)return;var next=hero.nextElementSibling;if(!next)return;
     if(!hero.querySelector(".fx-layer")){var l=document.createElement("div");l.className="fx-layer";l.setAttribute("aria-hidden","true");hero.insertBefore(l,hero.firstChild);}
     if(!hero.querySelector(".fx-bloom")){var b=document.createElement("div");b.className="fx-bloom";b.setAttribute("aria-hidden","true");hero.appendChild(b);}
-    ensureBars();if(!next.querySelector(".fx-veil")){if(getComputedStyle(next).position==="static")next.style.position="relative";var v=document.createElement("div");v.className="fx-veil";v.setAttribute("aria-hidden","true");next.insertBefore(v,next.firstChild);}
+    if(getComputedStyle(next).position==="static")next.style.position="relative";
+    ensureCues(hero,next);if(!next.querySelector(".fx-veil")){var v=document.createElement("div");v.className="fx-veil";v.setAttribute("aria-hidden","true");next.insertBefore(v,next.firstChild);}
     function sizeHero(){hero.style.minHeight=geo(hero,next).visH+"px";}sizeHero();
     var anim=false,lastY=window.scrollY;
     var DEPTH_DOWN_MAX=1.15;
@@ -60,13 +60,14 @@
       function tick(now){if(isOverlayOpen()){anim=false;lock(false);return;}var t=clamp((now-t0)/dur,0,1),e=ease(t),y=y0+delta*e;window.scrollTo(0,y);
         var progress=dir==="down"?e:1-e;hero.style.setProperty("--heroProgress",progress);
         var depth=depthFrom+(depthTo-depthFrom)*Math.pow(e,dir==="down"?0.88:1);hero.style.setProperty("--heroDepth",depth);
-        var bars=Math.sin(Math.PI*t)**0.9;setVar("--cineBars",bars);
+        var anticipation=Math.pow(progress,0.82);setVar("--cinePulse",anticipation);
+        var signal=Math.pow(progress,1.12);setVar("--cineSignal",signal);
         var bloom=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),1.35);setVar("--cineBloom",bloom);
         var beamBoost=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),2.0);setVar("--cineBeamBoost",beamBoost);
-        var veil=(dir==="down"?0.45*(1-e):0.45*e);setVar("--cineVeil",veil);
+        var veil=(dir==="down"?0.32*(1-e):0.32*e);setVar("--cineVeil",veil);
         if(t<1&&anim)requestAnimationFrame(tick);else{window.scrollTo(0,yTarget);hero.style.setProperty("--heroProgress",dir==="down"?1:0);
-          hero.style.setProperty("--heroDepth",depthTo);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-          setVar("--cineVeil",dir==="down"?0:0.45);anim=false;lock(false);}}
+          hero.style.setProperty("--heroDepth",depthTo);setVar("--cinePulse",dir==="down"?1:0);setVar("--cineSignal",dir==="down"?1:0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
+          setVar("--cineVeil",dir==="down"?0:0.32);anim=false;lock(false);}}
       requestAnimationFrame(tick);}
     function tryDown(){if(anim||isOverlayOpen())return;animate(geo(hero,next).bodyY,"down");}
     function tryUp(){if(anim||isOverlayOpen())return;animate(0,"up");}
@@ -84,8 +85,8 @@
     function onScroll(){if(anim||isOverlayOpen()){lastY=window.scrollY;return;}var g=geo(hero,next),sy=window.scrollY,dir=sy-lastY;lastY=sy;
       if(dir>0&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX)tryDown();else if(dir<0&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX)tryUp();}
     (function initState(){var g=geo(hero,next),past=window.scrollY>=g.bodyY;hero.style.setProperty("--heroProgress",past?1:0);
-      hero.style.setProperty("--heroDepth",past?DEPTH_DOWN_MAX:0);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-      setVar("--cineVeil",past?0:0.45);})();window.addEventListener("wheel",onWheel,{passive:false});
+      hero.style.setProperty("--heroDepth",past?DEPTH_DOWN_MAX:0);setVar("--cinePulse",past?1:0);setVar("--cineSignal",past?1:0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
+      setVar("--cineVeil",past?0:0.32);})();window.addEventListener("wheel",onWheel,{passive:false});
     window.addEventListener("touchstart",tStart,{passive:true});window.addEventListener("touchmove",tMove,{passive:false});
     window.addEventListener("touchend",tEnd,{passive:true});window.addEventListener("keydown",onKey,{passive:false});
     window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",sizeHero,{passive:true});}
