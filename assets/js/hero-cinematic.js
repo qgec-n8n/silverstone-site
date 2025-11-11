@@ -45,54 +45,13 @@
       window.addEventListener("wheel",w,{passive:false});window.addEventListener("touchmove",t,{passive:false});window.addEventListener("keydown",k,{passive:false});}
     else if(!l&&r.classList.contains("cine-locked")){window.removeEventListener("wheel",w);window.removeEventListener("touchmove",t);window.removeEventListener("keydown",k);
       r.classList.remove("cine-locked");document.body.classList.remove("cine-locked");}}
-  function ensureBars(){
-    var b=document.querySelector(".fx-bars");
-    if(!b){
-      b=document.createElement("div");
-      b.className="fx-bars";
-      document.body.appendChild(b);
-    }
-    if(!b.querySelector(".bar.top")){
-      var top=document.createElement("div");
-      top.className="bar top";
-      b.appendChild(top);
-    }
-    if(!b.querySelector(".bar.bottom")){
-      var bottom=document.createElement("div");
-      bottom.className="bar bottom";
-      b.appendChild(bottom);
-    }
-    if(!b.querySelector(".flare")){
-      var flare=document.createElement("div");
-      flare.className="flare";
-      b.appendChild(flare);
-    }
-    if(!b.querySelector(".flash")){
-      var flash=document.createElement("div");
-      flash.className="flash";
-      b.appendChild(flash);
-    }
-  }
+  function ensureBars(){var b=document.querySelector(".fx-bars");if(!b){b=document.createElement("div");b.className="fx-bars";
+    b.innerHTML='<div class="bar top"></div><div class="bar bottom"></div><div class="flare"></div>';document.body.appendChild(b);}}
   function init(){
     if(CONFIG.DISABLE_ON_WIDTH_BELOW&&window.innerWidth<CONFIG.DISABLE_ON_WIDTH_BELOW)return;var hero=document.querySelector(".hero.title-band");if(!hero)return;var next=hero.nextElementSibling;if(!next)return;
     if(!hero.querySelector(".fx-layer")){var l=document.createElement("div");l.className="fx-layer";l.setAttribute("aria-hidden","true");hero.insertBefore(l,hero.firstChild);}
     if(!hero.querySelector(".fx-bloom")){var b=document.createElement("div");b.className="fx-bloom";b.setAttribute("aria-hidden","true");hero.appendChild(b);}
-    ensureBars();
-    var veil=next.querySelector(".fx-veil");
-    if(!veil){
-      if(getComputedStyle(next).position==="static")next.style.position="relative";
-      veil=document.createElement("div");
-      veil.className="fx-veil";
-      veil.setAttribute("aria-hidden","true");
-      next.insertBefore(veil,next.firstChild);
-    }
-    if(!next.querySelector(".fx-advance")){
-      var adv=document.createElement("div");
-      adv.className="fx-advance";
-      adv.setAttribute("aria-hidden","true");
-      adv.innerHTML='<div class="trail"></div><div class="signal"></div>';
-      if(veil&&veil.nextSibling)next.insertBefore(adv,veil.nextSibling);else next.insertBefore(adv,next.firstChild);
-    }
+    ensureBars();if(!next.querySelector(".fx-veil")){if(getComputedStyle(next).position==="static")next.style.position="relative";var v=document.createElement("div");v.className="fx-veil";v.setAttribute("aria-hidden","true");next.insertBefore(v,next.firstChild);}
     function sizeHero(){hero.style.minHeight=geo(hero,next).visH+"px";}sizeHero();
     var anim=false,lastY=window.scrollY;
     var DEPTH_DOWN_MAX=1.15;
@@ -103,13 +62,11 @@
         var depth=depthFrom+(depthTo-depthFrom)*Math.pow(e,dir==="down"?0.88:1);hero.style.setProperty("--heroDepth",depth);
         var bars=Math.sin(Math.PI*t)**0.9;setVar("--cineBars",bars);
         var bloom=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),1.35);setVar("--cineBloom",bloom);
-        var beamBoost=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),2.15);setVar("--cineBeamBoost",beamBoost,0,dir==="down"?1:2.4);
+        var beamBoost=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),2.0);setVar("--cineBeamBoost",beamBoost);
         var veil=(dir==="down"?0.45*(1-e):0.45*e);setVar("--cineVeil",veil);
-        var advance=dir==="down"?Math.pow(Math.sin(Math.PI*e),1.35):0;setVar("--cineAdvance",advance);
-        var flash=dir==="up"?Math.pow(Math.sin(Math.PI*t),1.75):0;setVar("--cineFlash",flash);
         if(t<1&&anim)requestAnimationFrame(tick);else{window.scrollTo(0,yTarget);hero.style.setProperty("--heroProgress",dir==="down"?1:0);
           hero.style.setProperty("--heroDepth",depthTo);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-          setVar("--cineVeil",dir==="down"?0:0.45);setVar("--cineAdvance",0);setVar("--cineFlash",0);anim=false;lock(false);}}
+          setVar("--cineVeil",dir==="down"?0:0.45);anim=false;lock(false);}}
       requestAnimationFrame(tick);}
     function tryDown(){if(anim||isOverlayOpen())return;animate(geo(hero,next).bodyY,"down");}
     function tryUp(){if(anim||isOverlayOpen())return;animate(0,"up");}
@@ -128,7 +85,7 @@
       if(dir>0&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX)tryDown();else if(dir<0&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX)tryUp();}
     (function initState(){var g=geo(hero,next),past=window.scrollY>=g.bodyY;hero.style.setProperty("--heroProgress",past?1:0);
       hero.style.setProperty("--heroDepth",past?DEPTH_DOWN_MAX:0);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-      setVar("--cineVeil",past?0:0.45);setVar("--cineAdvance",0);setVar("--cineFlash",0);})();window.addEventListener("wheel",onWheel,{passive:false});
+      setVar("--cineVeil",past?0:0.45);})();window.addEventListener("wheel",onWheel,{passive:false});
     window.addEventListener("touchstart",tStart,{passive:true});window.addEventListener("touchmove",tMove,{passive:false});
     window.addEventListener("touchend",tEnd,{passive:true});window.addEventListener("keydown",onKey,{passive:false});
     window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",sizeHero,{passive:true});}
