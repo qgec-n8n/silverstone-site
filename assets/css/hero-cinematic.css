@@ -9,6 +9,9 @@
   --cineBloom: 0;
   --cineBeamBoost: 0;
   --cineVeil: 0;
+  --cinePrism: 0;
+  --cinePrismShift: 0;
+  --cineHolo: 0;
   --fxVignetteMax: 0.7;
   --barH: clamp(70px, 14vh, 160px);
 }
@@ -57,6 +60,36 @@
     brightness(calc(1 + var(--cineBeamBoost) * 0.75));
   mix-blend-mode: screen;
   will-change: opacity, transform, filter;
+}
+
+/* Prism sweep for hero → body transition */
+.hero.title-band .fx-prism{
+  position: absolute;
+  inset: -12% -8%;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    linear-gradient(120deg,
+      rgba(28,188,255,0.0) 5%,
+      rgba(80,210,255,0.28) 45%,
+      rgba(255,255,255,0.4) 50%,
+      rgba(120,255,210,0.25) 55%,
+      rgba(40,120,255,0.0) 85%),
+    radial-gradient(120% 140% at 50% 20%,
+      rgba(255,255,255,0.38),
+      rgba(46,210,255,0.2) 45%,
+      rgba(0,0,0,0) 80%);
+  mix-blend-mode: screen;
+  opacity: calc(var(--cinePrism) * 0.85);
+  transform:
+    translate3d(0, calc(var(--cinePrismShift) * -14vh), 0)
+    scale(calc(1.02 + var(--cinePrism) * 0.08));
+  filter:
+    hue-rotate(calc(var(--cinePrism) * 8deg))
+    saturate(calc(1.1 + var(--cinePrism) * 0.35))
+    blur(calc((1 - var(--cinePrism)) * 1.2px));
+  transition: opacity 0.12s ease-out;
+  will-change: transform, opacity, filter;
 }
 
 /* Hero content cinematic motion */
@@ -126,6 +159,36 @@
   will-change: opacity, transform;
 }
 
+/* Holographic gate for body reveal */
+.fx-holo{
+  position: absolute;
+  inset: -6% -4% 0;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    linear-gradient(180deg,
+      rgba(6,14,28,0.0) 0%,
+      rgba(8,24,48,0.45) 45%,
+      rgba(10,28,60,0.75) 100%),
+    repeating-linear-gradient(90deg,
+      rgba(70,200,255,0.0) 0px,
+      rgba(120,220,255,0.35) 2px,
+      rgba(70,200,255,0.0) 4px),
+    repeating-linear-gradient(0deg,
+      rgba(70,200,255,0.0) 0px,
+      rgba(120,220,255,0.22) 2px,
+      rgba(70,200,255,0.0) 5px);
+  opacity: calc(var(--cineHolo) * 0.65);
+  transform:
+    translate3d(0, calc((1 - var(--cineHolo)) * 32px), 0)
+    scaleY(calc(1 + var(--cineHolo) * 0.16));
+  filter:
+    blur(calc((1 - var(--cineHolo)) * 1.5px))
+    brightness(calc(1 + var(--cineHolo) * 0.55));
+  mix-blend-mode: screen;
+  will-change: opacity, transform, filter;
+}
+
 /* Scroll lock */
 html.cine-locked, body.cine-locked{
   overscroll-behavior: contain;
@@ -136,5 +199,6 @@ html.cine-locked, body.cine-locked{
   .hero.title-band .content{ transform: none; opacity: 1; filter: none; }
   .hero.title-band .fx-layer{ opacity: 0; }
   .hero.title-band .fx-bloom{ opacity: 0; filter: none; }
-  .fx-bars, .fx-veil{ display: none; }
+  .hero.title-band .fx-prism{ opacity: 0; filter: none; }
+  .fx-bars, .fx-veil, .fx-holo{ display: none; }
 }
