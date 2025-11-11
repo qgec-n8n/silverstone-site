@@ -764,13 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  const state = {
-    active: false,
-    stage: null,
-    observer: null,
-    visibleSections: new Map(),
-    currentSection: null,
-  };
+  const state = { active: false, layers: [] };
 
   const getImageValue = (images) => {
     if (!images) return '';
@@ -791,116 +785,46 @@ document.addEventListener('DOMContentLoaded', () => {
     return () => {};
   };
 
-  const getStage = () => {
-    if (state.stage) return state.stage;
-    const stage = document.createElement('div');
-    stage.className = 'parallax-mobile-stage';
-    stage.setAttribute('aria-hidden', 'true');
-    const layer = document.createElement('div');
-    layer.className = 'parallax-layer';
-    stage.appendChild(layer);
-    document.body.insertBefore(stage, document.body.firstChild || null);
-    state.stage = { stage, layer };
-    return state.stage;
-  };
-
-  const setStageTheme = (theme) => {
-    if (!theme) return;
-    const config = PARALLAX_MAP[theme];
-    if (!config) return;
-    const { stage, layer } = getStage();
-    const imageValue = getImageValue(config.mobileImages);
-    const overlay = 'var(--parallax-overlay)';
-    if (imageValue) {
-      layer.style.backgroundImage = `${overlay}, ${imageValue}`;
-    } else {
-      layer.style.backgroundImage = overlay;
-    }
-    stage.style.backgroundColor = config.backgroundColor || 'transparent';
-    stage.dataset.theme = theme;
-    stage.classList.add('is-visible');
-  };
-
-  const clearStage = () => {
-    if (!state.stage) return;
-    state.stage.stage.classList.remove('is-visible');
-    state.stage.stage.removeAttribute('data-theme');
-    state.stage.layer.style.backgroundImage = '';
-  };
-
-  const destroyStage = () => {
-    if (!state.stage) return;
-    const { stage } = state.stage;
-    if (stage.parentNode) {
-      stage.parentNode.removeChild(stage);
-    }
-    state.stage = null;
-  };
-
-  const updateActiveSection = () => {
-    let bestSection = null;
-    let bestRatio = 0;
-    state.visibleSections.forEach((ratio, section) => {
-      if (ratio > bestRatio) {
-        bestRatio = ratio;
-        bestSection = section;
-      }
-    });
-    if (!bestSection) {
-      state.currentSection = null;
-      clearStage();
-      return;
-    }
-    if (bestSection === state.currentSection) return;
-    state.currentSection = bestSection;
-    const theme = bestSection.getAttribute('data-parallax-theme');
-    setStageTheme(theme);
-  };
-
-  const handleIntersection = (entries) => {
-    entries.forEach((entry) => {
-      const { target, intersectionRatio, isIntersecting } = entry;
-      if (!isIntersecting || intersectionRatio <= 0) {
-        state.visibleSections.delete(target);
-        return;
-      }
-      state.visibleSections.set(target, intersectionRatio);
-    });
-    updateActiveSection();
-  };
-
   const enableMobile = () => {
     if (state.active) return;
-    const stage = getStage();
-    if (!stage) return;
-    document.body.classList.add('parallax-mobile-mode');
-    const observer = new IntersectionObserver(handleIntersection, {
-      threshold: [0, 0.25, 0.5, 0.75, 1],
-    });
-    state.observer = observer;
-    state.visibleSections.clear();
-    state.currentSection = null;
-    parallaxSections.forEach((section) => {
-      section.classList.add('parallax-ready', 'parallax-mobile-active');
-      observer.observe(section);
-    });
+    const layers = parallaxSections
+      .map((section) => {
+        const theme = section.getAttribute('data-parallax-theme');
+        const config = PARALLAX_MAP[theme];
+        if (!config) return null;
+        const layer = document.createElement('div');
+        layer.className = 'parallax-layer';
+        layer.setAttribute('aria-hidden', 'true');
+        const imageValue = getImageValue(config.mobileImages);
+        const overlay = 'var(--parallax-overlay)';
+        if (imageValue) {
+          layer.style.backgroundImage = `${overlay}, ${imageValue}`;
+        } else {
+          layer.style.backgroundImage = overlay;
+        }
+        if (config.backgroundColor) {
+          layer.style.backgroundColor = config.backgroundColor;
+        }
+        section.insertBefore(layer, section.firstChild);
+        section.classList.add('parallax-ready', 'parallax-mobile-active');
+        return { section, layer };
+      })
+      .filter(Boolean);
+    if (!layers.length) return;
+    state.layers = layers;
     state.active = true;
   };
 
   const disableMobile = () => {
     if (!state.active) return;
-    parallaxSections.forEach((section) => {
+    state.layers.forEach((entry) => {
+      const { layer, section } = entry;
+      if (layer && layer.parentNode === section) {
+        section.removeChild(layer);
+      }
       section.classList.remove('parallax-ready', 'parallax-mobile-active');
     });
-    if (state.observer) {
-      state.observer.disconnect();
-      state.observer = null;
-    }
-    state.visibleSections.clear();
-    state.currentSection = null;
-    document.body.classList.remove('parallax-mobile-mode');
-    clearStage();
-    destroyStage();
+    state.layers = [];
     state.active = false;
   };
 
