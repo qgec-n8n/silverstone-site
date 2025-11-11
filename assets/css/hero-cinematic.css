@@ -9,6 +9,8 @@
   --cineBloom: 0;
   --cineBeamBoost: 0;
   --cineVeil: 0;
+  --cineAurora: 0;
+  --cineSignal: 0;
   --fxVignetteMax: 0.7;
   --barH: clamp(70px, 14vh, 160px);
 }
@@ -57,6 +59,47 @@
     brightness(calc(1 + var(--cineBeamBoost) * 0.75));
   mix-blend-mode: screen;
   will-change: opacity, transform, filter;
+}
+
+.hero.title-band .fx-aurora{
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -30vh;
+  height: 70vh;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(120% 160% at 50% 0%,
+      rgba(60, 220, 255, 0.75) 0%,
+      rgba(60, 220, 255, 0.32) 28%,
+      rgba(12, 18, 32, 0.0) 75%),
+    linear-gradient(120deg,
+      rgba(16, 255, 192, 0.55) 0%,
+      rgba(12, 18, 32, 0.0) 55%),
+    linear-gradient(255deg,
+      rgba(58, 122, 255, 0.45) 0%,
+      rgba(12, 18, 32, 0.0) 60%);
+  opacity: calc(var(--cineAurora) * 0.9);
+  transform:
+    translate3d(0, calc((1 - var(--cineAurora)) * 22vh), 0)
+    scaleY(calc(0.9 + var(--cineAurora) * 0.35));
+  filter:
+    blur(calc((1 - var(--cineAurora)) * 10px))
+    saturate(calc(1 + var(--cineAurora) * 0.6));
+  mix-blend-mode: screen;
+  will-change: opacity, transform, filter;
+}
+
+.hero.title-band .fx-aurora::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(110% 70% at 50% 22%,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.0) 70%);
+  opacity: calc(var(--cineAurora) * 0.55);
+  mix-blend-mode: soft-light;
 }
 
 /* Hero content cinematic motion */
@@ -120,10 +163,65 @@
   position: absolute;
   inset: 0;
   background: #000;
+  z-index: 1;
   opacity: var(--cineVeil);
   transform: translateY(calc((1 - var(--cineVeil)) * 16px));
   pointer-events: none;
   will-change: opacity, transform;
+}
+
+.fx-reveal{
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  top: 0;
+  height: clamp(220px, 38vh, 360px);
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--cineSignal) * 0.92);
+  transform:
+    translate3d(0, calc((1 - var(--cineSignal)) * -18px), 0)
+    scaleY(calc(0.85 + var(--cineSignal) * 0.25));
+  filter:
+    blur(calc((1 - var(--cineSignal)) * 8px))
+    saturate(calc(1 + var(--cineSignal) * 0.45));
+  mix-blend-mode: screen;
+  will-change: opacity, transform, filter;
+}
+
+.fx-reveal::before,
+.fx-reveal::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.fx-reveal::before{
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.0) 0%,
+      rgba(88, 248, 255, 0.85) 45%,
+      rgba(255, 255, 255, 0.0) 100%);
+  opacity: calc(0.9 * var(--cineSignal));
+  transform: scaleX(calc(0.65 + var(--cineSignal) * 0.35));
+  filter: drop-shadow(0 0 18px rgba(64, 224, 255, 0.55));
+}
+
+.fx-reveal::after{
+  background:
+    linear-gradient(180deg,
+      rgba(12, 18, 32, 0.0) 0%,
+      rgba(12, 18, 32, 0.65) 62%,
+      rgba(12, 18, 32, 0.9) 100%),
+    repeating-linear-gradient(115deg,
+      rgba(120, 255, 225, 0.0) 0px,
+      rgba(120, 255, 225, 0.16) 14px,
+      rgba(120, 255, 225, 0.0) 28px);
+  opacity: calc(var(--cineSignal) * 0.85);
+  transform: translateY(calc((1 - var(--cineSignal)) * 26px));
+  mix-blend-mode: lighten;
 }
 
 /* Scroll lock */
@@ -136,5 +234,6 @@ html.cine-locked, body.cine-locked{
   .hero.title-band .content{ transform: none; opacity: 1; filter: none; }
   .hero.title-band .fx-layer{ opacity: 0; }
   .hero.title-band .fx-bloom{ opacity: 0; filter: none; }
-  .fx-bars, .fx-veil{ display: none; }
+  .hero.title-band .fx-aurora{ display: none; }
+  .fx-bars, .fx-veil, .fx-reveal{ display: none; }
 }
