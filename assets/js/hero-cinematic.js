@@ -50,8 +50,6 @@
   function init(){
     if(CONFIG.DISABLE_ON_WIDTH_BELOW&&window.innerWidth<CONFIG.DISABLE_ON_WIDTH_BELOW)return;var hero=document.querySelector(".hero.title-band");if(!hero)return;var next=hero.nextElementSibling;if(!next)return;
     if(!hero.querySelector(".fx-layer")){var l=document.createElement("div");l.className="fx-layer";l.setAttribute("aria-hidden","true");hero.insertBefore(l,hero.firstChild);}
-    if(!hero.querySelector(".fx-prism")){var p=document.createElement("div");p.className="fx-prism";p.setAttribute("aria-hidden","true");hero.appendChild(p);}
-    if(!hero.querySelector(".fx-pulse")){var u=document.createElement("div");u.className="fx-pulse";u.setAttribute("aria-hidden","true");hero.appendChild(u);}
     if(!hero.querySelector(".fx-bloom")){var b=document.createElement("div");b.className="fx-bloom";b.setAttribute("aria-hidden","true");hero.appendChild(b);}
     ensureBars();if(!next.querySelector(".fx-veil")){if(getComputedStyle(next).position==="static")next.style.position="relative";var v=document.createElement("div");v.className="fx-veil";v.setAttribute("aria-hidden","true");next.insertBefore(v,next.firstChild);}
     function sizeHero(){hero.style.minHeight=geo(hero,next).visH+"px";}sizeHero();
@@ -62,16 +60,12 @@
       function tick(now){if(isOverlayOpen()){anim=false;lock(false);return;}var t=clamp((now-t0)/dur,0,1),e=ease(t),y=y0+delta*e;window.scrollTo(0,y);
         var progress=dir==="down"?e:1-e;hero.style.setProperty("--heroProgress",progress);
         var depth=depthFrom+(depthTo-depthFrom)*Math.pow(e,dir==="down"?0.88:1);hero.style.setProperty("--heroDepth",depth);
-        var bars=dir==="down"?0:Math.sin(Math.PI*t)**0.9;setVar("--cineBars",bars);
-        var bloom=dir==="down"?Math.pow(Math.sin(Math.PI*t),1.12):Math.pow(Math.sin(Math.PI*t),1.35);setVar("--cineBloom",bloom);
+        var bars=Math.sin(Math.PI*t)**0.9;setVar("--cineBars",bars);
+        var bloom=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),1.35);setVar("--cineBloom",bloom);
         var beamBoost=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),2.0);setVar("--cineBeamBoost",beamBoost);
-        var prism=dir==="down"?Math.pow(Math.sin(Math.PI*t),0.9):0;setVar("--cinePrism",prism);
-        var pulse=dir==="down"?Math.pow(e,0.8):0;setVar("--cinePulse",pulse);
-        var scan=dir==="down"?Math.pow(e,1.35):Math.pow(1-e,1.25)*0.55;setVar("--cineScan",scan,0,1);
         var veil=(dir==="down"?0.45*(1-e):0.45*e);setVar("--cineVeil",veil);
         if(t<1&&anim)requestAnimationFrame(tick);else{window.scrollTo(0,yTarget);hero.style.setProperty("--heroProgress",dir==="down"?1:0);
           hero.style.setProperty("--heroDepth",depthTo);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-          setVar("--cinePrism",0);setVar("--cinePulse",0);setVar("--cineScan",0);
           setVar("--cineVeil",dir==="down"?0:0.45);anim=false;lock(false);}}
       requestAnimationFrame(tick);}
     function tryDown(){if(anim||isOverlayOpen())return;animate(geo(hero,next).bodyY,"down");}
@@ -91,7 +85,6 @@
       if(dir>0&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX)tryDown();else if(dir<0&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX)tryUp();}
     (function initState(){var g=geo(hero,next),past=window.scrollY>=g.bodyY;hero.style.setProperty("--heroProgress",past?1:0);
       hero.style.setProperty("--heroDepth",past?DEPTH_DOWN_MAX:0);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-      setVar("--cinePrism",0);setVar("--cinePulse",0);setVar("--cineScan",0);
       setVar("--cineVeil",past?0:0.45);})();window.addEventListener("wheel",onWheel,{passive:false});
     window.addEventListener("touchstart",tStart,{passive:true});window.addEventListener("touchmove",tMove,{passive:false});
     window.addEventListener("touchend",tEnd,{passive:true});window.addEventListener("keydown",onKey,{passive:false});
