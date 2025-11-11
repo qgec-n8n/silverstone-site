@@ -764,7 +764,108 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  const state = { active: false, layers: [] };
+  const state = {
+    active: false,
+    layers: [],
+    observer: null,
+    visibility: new Map(),
+  };
+
+  const thresholds = Array.from({ length: 21 }, (_, index) => index / 20);
+  const supportsIntersectionObserver =
+    typeof window !== 'undefined' && 'IntersectionObserver' in window;
+
+  const computeVisibility = (section) => {
+    const rect = section.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    if (!viewportHeight) return 0;
+    const clampedTop = Math.max(rect.top, 0);
+    const clampedBottom = Math.min(rect.bottom, viewportHeight);
+    const visible = clampedBottom - clampedTop;
+    if (visible <= 0 || rect.bottom <= 0 || rect.top >= viewportHeight) {
+      return 0;
+    }
+    return Math.min(1, visible / viewportHeight);
+  };
+
+  const updateActiveSection = () => {
+    if (!state.active) return;
+    let bestSection = null;
+    let bestRatio = 0;
+    state.layers.forEach(({ section }) => {
+      const ratio = state.visibility.get(section) || 0;
+      if (ratio > bestRatio) {
+        bestRatio = ratio;
+        bestSection = section;
+      }
+    });
+    state.layers.forEach(({ section }) => {
+      if (section === bestSection && bestRatio > 0) {
+        section.classList.add('parallax-visible');
+      } else {
+        section.classList.remove('parallax-visible');
+      }
+    });
+  };
+
+  const handleObserverEntries = (entries) => {
+    if (!state.active) return;
+    let changed = false;
+    entries.forEach((entry) => {
+      const { target } = entry;
+      if (entry.isIntersecting) {
+        const ratio = entry.intersectionRatio > 0 ? entry.intersectionRatio : computeVisibility(target);
+        state.visibility.set(target, ratio);
+      } else {
+        state.visibility.delete(target);
+      }
+      changed = true;
+    });
+    if (changed) {
+      updateActiveSection();
+    }
+  };
+
+  const startObserving = () => {
+    if (!supportsIntersectionObserver) {
+      state.observer = null;
+      state.visibility.clear();
+      state.layers.forEach(({ section }, index) => {
+        if (index === 0) {
+          state.visibility.set(section, 1);
+          section.classList.add('parallax-visible');
+        } else {
+          state.visibility.delete(section);
+          section.classList.remove('parallax-visible');
+        }
+      });
+      return;
+    }
+
+    if (state.observer) {
+      state.observer.disconnect();
+    }
+    state.visibility.clear();
+    state.observer = new IntersectionObserver(handleObserverEntries, {
+      threshold: thresholds,
+    });
+    state.layers.forEach(({ section }) => {
+      state.observer.observe(section);
+      const ratio = computeVisibility(section);
+      if (ratio > 0) {
+        state.visibility.set(section, ratio);
+      }
+    });
+    updateActiveSection();
+  };
+
+  const stopObserving = () => {
+    if (supportsIntersectionObserver && state.observer) {
+      state.observer.disconnect();
+      state.observer = null;
+    }
+    state.visibility.clear();
+  };
 
   const getImageValue = (images) => {
     if (!images) return '';
@@ -813,16 +914,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!layers.length) return;
     state.layers = layers;
     state.active = true;
+    startObserving();
   };
 
   const disableMobile = () => {
     if (!state.active) return;
+    stopObserving();
     state.layers.forEach((entry) => {
       const { layer, section } = entry;
       if (layer && layer.parentNode === section) {
         section.removeChild(layer);
       }
-      section.classList.remove('parallax-ready', 'parallax-mobile-active');
+      section.classList.remove('parallax-ready', 'parallax-mobile-active', 'parallax-visible');
     });
     state.layers = [];
     state.active = false;
