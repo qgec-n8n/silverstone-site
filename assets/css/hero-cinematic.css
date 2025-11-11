@@ -11,18 +11,6 @@
   --cineVeil: 0;
   --fxVignetteMax: 0.7;
   --barH: clamp(70px, 14vh, 160px);
-
-  /*
-    New cinematic variables controlling premium hero→body transitions.
-    --cineReveal drives a radial light overlay used when scrolling down,
-    subtly highlighting that exciting information is about to appear.  A
-    value of 0 hides the effect, while 1 produces its full brightness.
-    --cineSheen controls a sweeping sheen line that moves across the
-    viewport during the same transition.  These variables default to 0
-    and remain unused when scrolling back to the hero.
-  */
-  --cineReveal: 0;
-  --cineSheen: 0;
 }
 
 .hero.title-band{
@@ -101,13 +89,8 @@
 }
 .fx-bars .bar{
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
   background: #000;
-  /* Place bars above reveal/sheens.  Without an explicit z-index
-     they would fall behind the new layers when those define a
-     positive z-index. */
-  z-index: 3;
   opacity: calc(var(--cineBars) * 0.95);
   transition: opacity 0.2s linear;
 }
@@ -117,16 +100,13 @@
 /* Flare line */
 .fx-bars .flare{
   position: absolute;
-  left: 10%;
-  right: 10%;
+  left: 10%; right: 10%;
   top: 50%;
   height: 3px;
   background: linear-gradient(90deg,
       rgba(255,255,255,0) 0%,
       rgba(255,255,255,0.8) 50%,
       rgba(255,255,255,0) 100%);
-  /* Flare sits above bars and new effects */
-  z-index: 4;
   opacity: calc(var(--cineBloom) * (0.6 + var(--cineBeamBoost) * 0.4));
   filter:
     blur(calc(var(--cineBloom) * 2px))
@@ -144,63 +124,6 @@
   transform: translateY(calc((1 - var(--cineVeil)) * 16px));
   pointer-events: none;
   will-change: opacity, transform;
-}
-
-/*
-  Premium reveal effect
-  When the user scrolls down from the hero to the body, a soft radial
-  burst of light appears.  It grows and diffuses as the scroll
-  progresses, reinforcing the sense that new content is being unveiled.
-  The blend mode lightens the underlying content rather than obscuring
-  it.  This effect is hidden when its controlling variable is zero.
-*/
-.fx-bars .reveal{
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  pointer-events: none;
-  opacity: var(--cineReveal);
-  background:
-    radial-gradient(80% 90% at 50% 50%,
-      rgba(255,255,255,0.75) 0%,
-      rgba(255,255,255,0.0) 70%);
-  transform: scale(calc(1 + var(--cineReveal) * 0.4));
-  filter: blur(calc(var(--cineReveal) * 30px));
-  mix-blend-mode: screen;
-  will-change: opacity, transform, filter;
-  z-index: 1;
-}
-
-/*
-  Premium sheen sweep
-  A subtle linear sheen travels across the viewport during the hero→body
-  transition.  It expands slightly and shifts vertically, creating
-  layered movement that complements the radial reveal.  When
-  --cineSheen is zero this element is fully transparent.
-*/
-.fx-bars .sheen{
-  position: absolute;
-  left: -10%;
-  right: -10%;
-  top: 0;
-  bottom: 0;
-  pointer-events: none;
-  opacity: var(--cineSheen);
-  background:
-    linear-gradient(90deg,
-      rgba(255,255,255,0) 0%,
-      rgba(255,255,255,0.5) 50%,
-      rgba(255,255,255,0) 100%);
-  transform:
-    translateY(calc((0.5 - var(--cineSheen)) * -15vh))
-    scaleX(calc(1 + var(--cineSheen) * 0.3))
-    scaleY(calc(1 + var(--cineSheen) * 1.0));
-  filter: blur(calc(var(--cineSheen) * 10px));
-  mix-blend-mode: screen;
-  will-change: opacity, transform, filter;
-  z-index: 2;
 }
 
 /* Scroll lock */
