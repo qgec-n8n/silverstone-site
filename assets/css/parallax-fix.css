@@ -207,13 +207,9 @@
     background-image: none !important;
   }
   .parallax-section .parallax-layer {
-    position: sticky;
-    top: 0;
     height: 100vh;
     max-height: 100vh;
     background-image: var(--parallax-overlay), var(--parallax-mobile-fallback);
-    transform: none !important;
-    will-change: auto;
   }
   @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
     .parallax-section .parallax-layer {
