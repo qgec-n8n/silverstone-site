@@ -764,7 +764,91 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  const state = { active: false, layers: [] };
+  const state = {
+    active: false,
+    layers: [],
+    layerMap: new Map(),
+    ratios: new Map(),
+    observer: null,
+    currentSection: null,
+  };
+
+  const setActiveSection = (nextSection) => {
+    if (state.currentSection === nextSection) return;
+
+    if (state.currentSection) {
+      const previousEntry = state.layerMap.get(state.currentSection);
+      if (previousEntry) {
+        previousEntry.layer.classList.remove('parallax-layer-active');
+        previousEntry.section.classList.remove('parallax-mobile-visible');
+      }
+    }
+
+    state.currentSection = nextSection || null;
+
+    if (state.currentSection) {
+      const nextEntry = state.layerMap.get(state.currentSection);
+      if (nextEntry) {
+        nextEntry.layer.classList.add('parallax-layer-active');
+        nextEntry.section.classList.add('parallax-mobile-visible');
+      }
+    }
+  };
+
+  const updateActiveFromRatios = () => {
+    if (!state.ratios.size) {
+      setActiveSection(null);
+      return;
+    }
+
+    let bestSection = null;
+    let bestRatio = 0;
+
+    state.ratios.forEach((ratio, section) => {
+      if (ratio > bestRatio) {
+        bestRatio = ratio;
+        bestSection = section;
+      }
+    });
+
+    setActiveSection(bestSection);
+  };
+
+  const getIntersectionValue = (entry) => {
+    if (entry.intersectionRatio > 0) {
+      return entry.intersectionRatio;
+    }
+
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    const rect = entry.boundingClientRect;
+    const targetHeight = rect.height || 0;
+
+    if (!viewportHeight || !targetHeight) {
+      return 0;
+    }
+
+    const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+    const normalisedHeight = Math.min(targetHeight, viewportHeight);
+
+    if (visibleHeight <= 0 || normalisedHeight <= 0) {
+      return 0;
+    }
+
+    return Math.min(1, Math.max(0, visibleHeight / normalisedHeight));
+  };
+
+  const handleIntersections = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const ratio = getIntersectionValue(entry);
+        state.ratios.set(entry.target, ratio > 0 ? ratio : Number.EPSILON);
+      } else {
+        state.ratios.delete(entry.target);
+      }
+    });
+
+    updateActiveFromRatios();
+  };
 
   const getImageValue = (images) => {
     if (!images) return '';
@@ -812,19 +896,65 @@ document.addEventListener('DOMContentLoaded', () => {
       .filter(Boolean);
     if (!layers.length) return;
     state.layers = layers;
+    state.layerMap = new Map(layers.map((entry) => [entry.section, entry]));
+    state.ratios = new Map();
+    state.currentSection = null;
+
+    if (state.observer) {
+      state.observer.disconnect();
+    }
+
+    state.observer = new IntersectionObserver(handleIntersections, {
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 0.98],
+    });
+
+    state.layers.forEach((entry) => {
+      state.observer.observe(entry.section);
+    });
+
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    if (viewportHeight > 0) {
+      state.layers.forEach((entry) => {
+        const rect = entry.section.getBoundingClientRect();
+        if (rect.bottom <= 0 || rect.top >= viewportHeight) {
+          return;
+        }
+        const ratio = getIntersectionValue({
+          intersectionRatio: 0,
+          boundingClientRect: rect,
+        });
+        if (ratio > 0) {
+          state.ratios.set(entry.section, ratio);
+        }
+      });
+      updateActiveFromRatios();
+    }
+
     state.active = true;
   };
 
   const disableMobile = () => {
     if (!state.active) return;
+    setActiveSection(null);
+
+    if (state.observer) {
+      state.observer.disconnect();
+      state.observer = null;
+    }
+
     state.layers.forEach((entry) => {
       const { layer, section } = entry;
       if (layer && layer.parentNode === section) {
         section.removeChild(layer);
       }
-      section.classList.remove('parallax-ready', 'parallax-mobile-active');
+      section.classList.remove('parallax-ready', 'parallax-mobile-active', 'parallax-mobile-visible');
     });
     state.layers = [];
+    state.layerMap.clear();
+    state.ratios.clear();
+    state.layerMap = new Map();
+    state.ratios = new Map();
+    state.currentSection = null;
     state.active = false;
   };
 
