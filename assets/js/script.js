@@ -764,7 +764,13 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  const state = { active: false, layers: [] };
+  const state = {
+    active: false,
+    stage: null,
+    observer: null,
+    currentTheme: null,
+    ratioMap: new Map(),
+  };
 
   const getImageValue = (images) => {
     if (!images) return '';
@@ -785,46 +791,125 @@ document.addEventListener('DOMContentLoaded', () => {
     return () => {};
   };
 
+  const activateTheme = (theme) => {
+    if (!state.stage) return;
+    if (state.currentTheme === theme) return;
+    state.currentTheme = theme || null;
+
+    if (!theme) {
+      state.stage.classList.remove('is-active');
+      state.stage.style.backgroundImage = '';
+      state.stage.style.backgroundColor = 'var(--parallax-backdrop)';
+      state.stage.removeAttribute('data-theme');
+      return;
+    }
+
+    const config = PARALLAX_MAP[theme];
+    if (!config) return;
+
+    const overlay = 'var(--parallax-overlay)';
+    const imageValue = getImageValue(config.mobileImages);
+
+    if (imageValue) {
+      state.stage.style.backgroundImage = `${overlay}, ${imageValue}`;
+    } else {
+      state.stage.style.backgroundImage = overlay;
+    }
+
+    if (config.backgroundColor) {
+      state.stage.style.backgroundColor = config.backgroundColor;
+    } else {
+      state.stage.style.backgroundColor = 'var(--parallax-backdrop)';
+    }
+
+    state.stage.dataset.theme = theme;
+    state.stage.classList.add('is-active');
+  };
+
+  const updateActiveTheme = () => {
+    let bestSection = null;
+    let bestRatio = 0;
+
+    state.ratioMap.forEach((ratio, section) => {
+      if (ratio > bestRatio) {
+        bestSection = section;
+        bestRatio = ratio;
+      }
+    });
+
+    if (bestSection && bestRatio > 0) {
+      activateTheme(bestSection.getAttribute('data-parallax-theme'));
+    } else {
+      activateTheme(null);
+    }
+  };
+
+  const handleIntersections = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        state.ratioMap.set(entry.target, entry.intersectionRatio);
+      } else {
+        state.ratioMap.set(entry.target, 0);
+      }
+    });
+
+    requestAnimationFrame(updateActiveTheme);
+  };
+
+  const createStage = () => {
+    const stage = document.createElement('div');
+    stage.className = 'parallax-stage';
+    stage.setAttribute('aria-hidden', 'true');
+    return stage;
+  };
+
   const enableMobile = () => {
     if (state.active) return;
-    const layers = parallaxSections
-      .map((section) => {
-        const theme = section.getAttribute('data-parallax-theme');
-        const config = PARALLAX_MAP[theme];
-        if (!config) return null;
-        const layer = document.createElement('div');
-        layer.className = 'parallax-layer';
-        layer.setAttribute('aria-hidden', 'true');
-        const imageValue = getImageValue(config.mobileImages);
-        const overlay = 'var(--parallax-overlay)';
-        if (imageValue) {
-          layer.style.backgroundImage = `${overlay}, ${imageValue}`;
-        } else {
-          layer.style.backgroundImage = overlay;
-        }
-        if (config.backgroundColor) {
-          layer.style.backgroundColor = config.backgroundColor;
-        }
-        section.insertBefore(layer, section.firstChild);
-        section.classList.add('parallax-ready', 'parallax-mobile-active');
-        return { section, layer };
-      })
-      .filter(Boolean);
-    if (!layers.length) return;
-    state.layers = layers;
+
+    const stage = createStage();
+    document.body.appendChild(stage);
+    document.body.classList.add('parallax-stage-active');
+
+    state.ratioMap.clear();
+
+    parallaxSections.forEach((section) => {
+      section.classList.add('parallax-ready', 'parallax-mobile-active');
+      state.ratioMap.set(section, 0);
+    });
+
+    const observer = new IntersectionObserver(handleIntersections, {
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    });
+    parallaxSections.forEach((section) => observer.observe(section));
+
+    state.stage = stage;
+    state.observer = observer;
     state.active = true;
   };
 
   const disableMobile = () => {
     if (!state.active) return;
-    state.layers.forEach((entry) => {
-      const { layer, section } = entry;
-      if (layer && layer.parentNode === section) {
-        section.removeChild(layer);
-      }
+
+    activateTheme(null);
+
+    if (state.observer) {
+      state.observer.disconnect();
+      state.observer = null;
+    }
+
+    if (state.stage && state.stage.parentNode) {
+      state.stage.parentNode.removeChild(state.stage);
+    }
+
+    document.body.classList.remove('parallax-stage-active');
+
+    parallaxSections.forEach((section) => {
       section.classList.remove('parallax-ready', 'parallax-mobile-active');
     });
-    state.layers = [];
+
+    state.ratioMap.clear();
+    state.stage = null;
+    state.currentTheme = null;
     state.active = false;
   };
 
@@ -833,6 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
       disableMobile();
       return;
     }
+
     if (mobileQuery.matches) {
       enableMobile();
     } else {
