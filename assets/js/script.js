@@ -688,9 +688,9 @@ document.addEventListener('DOMContentLoaded', () => {
  * Desktop browsers rely on CSS background-attachment: fixed for the
  * parallax treatment (see assets/css/parallax-fix.css).  Mobile browsers
  * struggle with fixed attachments, so we create a lightweight background
- * layer that is translated in sync with scroll to simulate a fixed image
- * while keeping the entire background illustration visible within the
- * viewport.  The CTA banner and footer then slide over this layer,
+ * layer that uses CSS position: sticky to remain visually locked to the
+ * viewport while keeping the entire background illustration visible within
+ * the section.  The CTA banner and footer then slide over this layer,
  * completing the parallax illusion.
  */
 (() => {
@@ -764,59 +764,13 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  const state = { active: false, entries: [] };
-  let ticking = false;
+  const state = { active: false, layers: [] };
 
   const getImageValue = (images) => {
     if (!images) return '';
     if (supportsImageSet && images.standard) return images.standard;
     if (supportsWebkitImageSet && images.webkit) return images.webkit;
     return images.fallback || '';
-  };
-
-  const getScrollY = () =>
-    typeof window.pageYOffset === 'number' ? window.pageYOffset : window.scrollY;
-
-  const recalcEntry = (entry) => {
-    const rect = entry.section.getBoundingClientRect();
-    entry.start = getScrollY() + rect.top;
-    entry.height = entry.section.offsetHeight;
-    entry.lastOffset = null;
-  };
-
-  const updateEntry = (entry) => {
-    const scrollY = getScrollY();
-    const viewportHeight = window.innerHeight;
-    const end = entry.start + entry.height;
-    if (scrollY >= end || scrollY + viewportHeight <= entry.start) {
-      return;
-    }
-    const offset = scrollY - entry.start;
-    const clamped = Math.max(offset, 0);
-    const rounded = Math.round(clamped);
-    if (entry.lastOffset === rounded) return;
-    entry.layer.style.transform = `translate3d(0, ${rounded}px, 0)`;
-    entry.lastOffset = rounded;
-  };
-
-  const updateAll = () => {
-    if (!state.active) return;
-    state.entries.forEach(updateEntry);
-  };
-
-  const handleScroll = () => {
-    if (!state.active || ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(() => {
-      updateAll();
-      ticking = false;
-    });
-  };
-
-  const handleResize = () => {
-    if (!state.active) return;
-    state.entries.forEach(recalcEntry);
-    updateAll();
   };
 
   const ensureMediaListener = (query, callback) => {
@@ -833,7 +787,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const enableMobile = () => {
     if (state.active) return;
-    const entries = parallaxSections
+    const layers = parallaxSections
       .map((section) => {
         const theme = section.getAttribute('data-parallax-theme');
         const config = PARALLAX_MAP[theme];
@@ -853,51 +807,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         section.insertBefore(layer, section.firstChild);
         section.classList.add('parallax-ready', 'parallax-mobile-active');
-        const entry = {
-          section,
-          layer,
-          start: 0,
-          height: 0,
-          lastOffset: null,
-          observer: null,
-        };
-        recalcEntry(entry);
-        updateEntry(entry);
-        if (typeof ResizeObserver === 'function') {
-          const observer = new ResizeObserver(() => {
-            recalcEntry(entry);
-            updateEntry(entry);
-          });
-          observer.observe(section);
-          entry.observer = observer;
-        }
-        return entry;
+        return { section, layer };
       })
       .filter(Boolean);
-    if (!entries.length) return;
-    state.entries = entries;
+    if (!layers.length) return;
+    state.layers = layers;
     state.active = true;
-    document.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize);
   };
 
   const disableMobile = () => {
     if (!state.active) return;
-    document.removeEventListener('scroll', handleScroll);
-    window.removeEventListener('resize', handleResize);
-    state.entries.forEach((entry) => {
-      const { layer, section, observer } = entry;
-      if (observer) {
-        observer.disconnect();
-      }
+    state.layers.forEach((entry) => {
+      const { layer, section } = entry;
       if (layer && layer.parentNode === section) {
         section.removeChild(layer);
       }
       section.classList.remove('parallax-ready', 'parallax-mobile-active');
     });
-    state.entries = [];
+    state.layers = [];
     state.active = false;
-    ticking = false;
   };
 
   const evaluate = () => {
@@ -907,7 +835,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (mobileQuery.matches) {
       enableMobile();
-      updateAll();
     } else {
       disableMobile();
     }
