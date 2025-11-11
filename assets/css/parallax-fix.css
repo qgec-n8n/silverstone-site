@@ -10,7 +10,7 @@
  */
 
 :root {
-  --parallax-overlay: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  --parallax-overlay: none;
   --parallax-backdrop: #050B18;
 }
 
@@ -203,31 +203,48 @@
 @media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
   .parallax-section {
     background-image: none !important;
+    background-color: transparent;
+    isolation: auto;
+  }
+  .parallax-section.parallax-mobile-active {
+    position: relative;
+    z-index: 1;
+  }
+  .parallax-section.parallax-mobile-active > * {
+    position: relative;
+    z-index: 2;
   }
   .parallax-section .parallax-layer {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    max-height: 100vh;
-    transform: none;
-    will-change: auto;
-    background-image: var(--parallax-overlay), var(--parallax-mobile-fallback);
+    display: none !important;
   }
-  @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
-    .parallax-section .parallax-layer {
-      background-image: var(--parallax-overlay), var(--parallax-mobile-image-set, var(--parallax-mobile-fallback));
-    }
+  .parallax-mobile-stage {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background-color: var(--parallax-backdrop);
   }
-  @supports (background-image: -webkit-image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
-    .parallax-section .parallax-layer {
-      background-image: var(--parallax-overlay), var(--parallax-mobile-image-set-webkit, var(--parallax-mobile-fallback));
-    }
+  .parallax-mobile-layer {
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: contain;
+    opacity: 0;
+    transition: opacity 320ms ease;
+  }
+  .parallax-mobile-layer.is-active {
+    opacity: 1;
   }
 }
 
 /* Reduced motion: keep static imagery */
 @media (prefers-reduced-motion: reduce) {
   .parallax-section .parallax-layer {
+    display: none !important;
+  }
+  .parallax-mobile-stage {
     display: none !important;
   }
 }
