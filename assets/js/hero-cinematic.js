@@ -45,8 +45,44 @@
       window.addEventListener("wheel",w,{passive:false});window.addEventListener("touchmove",t,{passive:false});window.addEventListener("keydown",k,{passive:false});}
     else if(!l&&r.classList.contains("cine-locked")){window.removeEventListener("wheel",w);window.removeEventListener("touchmove",t);window.removeEventListener("keydown",k);
       r.classList.remove("cine-locked");document.body.classList.remove("cine-locked");}}
-  function ensureBars(){var b=document.querySelector(".fx-bars");if(!b){b=document.createElement("div");b.className="fx-bars";
-    b.innerHTML='<div class="bar top"></div><div class="bar bottom"></div><div class="flare"></div>';document.body.appendChild(b);}}
+  /**
+   * Ensure that the shared bar/reveal container exists and includes all
+   * required children.  When introducing new cinematic effects (reveal and
+   * sheen) we need to create the respective elements if they are absent.
+   * This helper is idempotent; if called multiple times it will only add
+   * missing elements.  New elements are inserted ahead of the bars so
+   * they render behind the letterbox bars when those are used.
+   */
+  function ensureBars(){
+    var b=document.querySelector(".fx-bars");
+    if(!b){
+      // Create container with reveal, sheen, bars and flare
+      b=document.createElement("div");
+      b.className="fx-bars";
+      b.innerHTML='<div class="reveal"></div><div class="sheen"></div><div class="bar top"></div><div class="bar bottom"></div><div class="flare"></div>';
+      document.body.appendChild(b);
+    } else {
+      // Ensure reveal element exists
+      if(!b.querySelector('.reveal')){
+        var reveal=document.createElement('div');
+        reveal.className='reveal';
+        // insert at beginning so it sits behind bars
+        b.insertBefore(reveal,b.firstChild);
+      }
+      // Ensure sheen element exists
+      if(!b.querySelector('.sheen')){
+        var sheen=document.createElement('div');
+        sheen.className='sheen';
+        // insert after reveal but before bars
+        var insertBefore=b.querySelector('.bar.top');
+        if(insertBefore){
+          b.insertBefore(sheen, insertBefore);
+        } else {
+          b.appendChild(sheen);
+        }
+      }
+    }
+  }
   function init(){
     if(CONFIG.DISABLE_ON_WIDTH_BELOW&&window.innerWidth<CONFIG.DISABLE_ON_WIDTH_BELOW)return;var hero=document.querySelector(".hero.title-band");if(!hero)return;var next=hero.nextElementSibling;if(!next)return;
     if(!hero.querySelector(".fx-layer")){var l=document.createElement("div");l.className="fx-layer";l.setAttribute("aria-hidden","true");hero.insertBefore(l,hero.firstChild);}
@@ -60,13 +96,50 @@
       function tick(now){if(isOverlayOpen()){anim=false;lock(false);return;}var t=clamp((now-t0)/dur,0,1),e=ease(t),y=y0+delta*e;window.scrollTo(0,y);
         var progress=dir==="down"?e:1-e;hero.style.setProperty("--heroProgress",progress);
         var depth=depthFrom+(depthTo-depthFrom)*Math.pow(e,dir==="down"?0.88:1);hero.style.setProperty("--heroDepth",depth);
-        var bars=Math.sin(Math.PI*t)**0.9;setVar("--cineBars",bars);
-        var bloom=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),1.35);setVar("--cineBloom",bloom);
-        var beamBoost=dir==="down"?0:Math.pow(Math.sin(Math.PI*t),2.0);setVar("--cineBeamBoost",beamBoost);
-        var veil=(dir==="down"?0.45*(1-e):0.45*e);setVar("--cineVeil",veil);
-        if(t<1&&anim)requestAnimationFrame(tick);else{window.scrollTo(0,yTarget);hero.style.setProperty("--heroProgress",dir==="down"?1:0);
-          hero.style.setProperty("--heroDepth",depthTo);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-          setVar("--cineVeil",dir==="down"?0:0.45);anim=false;lock(false);}}
+        // Cinematic bars only when scrolling up (back to hero).  On downward
+        // scroll the letterbox bars are disabled and replaced by other effects.
+        var bars = dir === "down" ? 0 : Math.sin(Math.PI*t)**0.9;
+        setVar("--cineBars", bars);
+        // Bloom and beam boost only apply when returning to the hero (up)
+        var bloom = dir === "down" ? 0 : Math.pow(Math.sin(Math.PI*t), 1.35);
+        setVar("--cineBloom", bloom);
+        var beamBoost = dir === "down" ? 0 : Math.pow(Math.sin(Math.PI*t), 2.0);
+        setVar("--cineBeamBoost", beamBoost);
+        // Veil is reversed on scroll direction, giving body a subtle curtain
+        var veil = (dir === "down" ? 0.45 * (1 - e) : 0.45 * e);
+        setVar("--cineVeil", veil);
+        // New reveal and sheen effects when scrolling down.  They use a
+        // sinusoidal wave to produce a crescendo of light in the middle of
+        // the transition.  When scrolling up the values remain zero.
+        var revealVal = 0;
+        var sheenVal = 0;
+        if(dir === "down"){
+          var wave = Math.sin(Math.PI * t);
+          // emphasise the reveal by raising the wave slightly; produces a
+          // gentle but noticeable peak mid-transition
+          revealVal = Math.pow(wave, 1.2);
+          // the sheen follows a similar shape but with a slightly lower
+          // exponent to finish earlier; this creates layered motion
+          sheenVal = Math.pow(wave, 1.1);
+        }
+        setVar("--cineReveal", revealVal);
+        setVar("--cineSheen", sheenVal);
+        if(t < 1 && anim){
+          requestAnimationFrame(tick);
+        } else {
+          window.scrollTo(0, yTarget);
+          hero.style.setProperty("--heroProgress", dir === "down" ? 1 : 0);
+          hero.style.setProperty("--heroDepth", depthTo);
+          // Reset cinematic variables at the end of the animation
+          setVar("--cineBars", 0);
+          setVar("--cineBloom", 0);
+          setVar("--cineBeamBoost", 0);
+          setVar("--cineVeil", dir === "down" ? 0 : 0.45);
+          setVar("--cineReveal", 0);
+          setVar("--cineSheen", 0);
+          anim = false;
+          lock(false);
+        }
       requestAnimationFrame(tick);}
     function tryDown(){if(anim||isOverlayOpen())return;animate(geo(hero,next).bodyY,"down");}
     function tryUp(){if(anim||isOverlayOpen())return;animate(0,"up");}
