@@ -688,7 +688,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * Desktop browsers rely on CSS background-attachment: fixed for the
  * parallax treatment (see assets/css/parallax-fix.css).  Mobile browsers
  * struggle with fixed attachments, so we create a lightweight background
- * layer that uses CSS position: fixed to remain visually locked to the
+ * layer that uses CSS position: sticky to remain visually locked to the
  * viewport while keeping the entire background illustration visible within
  * the section.  The CTA banner and footer then slide over this layer,
  * completing the parallax illusion.
@@ -764,100 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
-  const state = {
-    active: false,
-    layers: [],
-    observer: null,
-    visibility: new Map(),
-    activeSection: null,
-    sectionMap: null,
-    listeners: [],
-  };
-
-  const thresholdSteps = Array.from({ length: 21 }, (_, index) => index / 20);
-
-  const clearListeners = () => {
-    state.listeners.forEach((cleanup) => {
-      try {
-        cleanup();
-      } catch (error) {
-        /* noop */
-      }
-    });
-    state.listeners = [];
-  };
-
-  const setActiveSection = (section) => {
-    if (state.activeSection === section) return;
-    if (state.activeSection) {
-      state.activeSection.classList.remove('parallax-visible');
-    }
-    state.activeSection = section || null;
-    if (state.activeSection) {
-      state.activeSection.classList.add('parallax-visible');
-    }
-  };
-
-  const computeVisibilityRatio = (section) => {
-    if (!section) return 0;
-    const rect = section.getBoundingClientRect();
-    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-    if (viewportHeight <= 0) return 0;
-    const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-    if (visibleHeight <= 0) return 0;
-    const divisor = Math.max(Math.min(rect.height, viewportHeight), 1);
-    return Math.max(0, Math.min(visibleHeight / divisor, 1));
-  };
-
-  const updateActiveSection = () => {
-    let bestSection = null;
-    let bestRatio = 0;
-
-    state.visibility.forEach((ratio, section) => {
-      if (ratio > bestRatio) {
-        bestRatio = ratio;
-        bestSection = section;
-      }
-    });
-
-    if (!bestSection || bestRatio === 0) {
-      bestSection = null;
-      bestRatio = 0;
-      state.layers.forEach(({ section }) => {
-        const ratio = computeVisibilityRatio(section);
-        if (ratio > bestRatio) {
-          bestRatio = ratio;
-          bestSection = section;
-        }
-      });
-    }
-
-    if (!bestSection || bestRatio === 0) {
-      setActiveSection(null);
-      return;
-    }
-
-    setActiveSection(bestSection);
-  };
-
-  const handleIntersections = (entries) => {
-    if (!state.sectionMap) return;
-    let shouldUpdate = false;
-
-    entries.forEach((entry) => {
-      if (!state.sectionMap.has(entry.target)) return;
-      if (entry.isIntersecting) {
-        state.visibility.set(entry.target, entry.intersectionRatio);
-      } else {
-        state.visibility.delete(entry.target);
-      }
-      shouldUpdate = true;
-    });
-
-    if (shouldUpdate) {
-      updateActiveSection();
-    }
-  };
+  const state = { active: false, layers: [] };
 
   const getImageValue = (images) => {
     if (!images) return '';
@@ -905,53 +812,18 @@ document.addEventListener('DOMContentLoaded', () => {
       .filter(Boolean);
     if (!layers.length) return;
     state.layers = layers;
-    state.sectionMap = new Map(layers.map((entry) => [entry.section, entry]));
-    state.visibility = new Map();
-
-    if (typeof IntersectionObserver === 'function') {
-      const observer = new IntersectionObserver(handleIntersections, {
-        threshold: thresholdSteps,
-      });
-      state.observer = observer;
-      layers.forEach(({ section }) => observer.observe(section));
-    } else {
-      state.observer = null;
-    }
-
-    const handleScroll = () => updateActiveSection();
-    const handleResize = () => updateActiveSection();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize);
-    state.listeners = [
-      () => window.removeEventListener('scroll', handleScroll),
-      () => window.removeEventListener('resize', handleResize),
-    ];
-
     state.active = true;
-    const queueUpdate =
-      typeof requestAnimationFrame === 'function'
-        ? requestAnimationFrame
-        : (callback) => setTimeout(callback, 0);
-    queueUpdate(updateActiveSection);
   };
 
   const disableMobile = () => {
     if (!state.active) return;
-    clearListeners();
-    if (state.observer) {
-      state.observer.disconnect();
-      state.observer = null;
-    }
     state.layers.forEach((entry) => {
       const { layer, section } = entry;
       if (layer && layer.parentNode === section) {
         section.removeChild(layer);
       }
-      section.classList.remove('parallax-ready', 'parallax-mobile-active', 'parallax-visible');
+      section.classList.remove('parallax-ready', 'parallax-mobile-active');
     });
-    setActiveSection(null);
-    state.sectionMap = null;
-    state.visibility.clear();
     state.layers = [];
     state.active = false;
   };
