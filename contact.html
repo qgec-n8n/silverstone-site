@@ -39,6 +39,68 @@
     }
   </style>
     <link rel="stylesheet" href="assets/css/hero-cinematic.css">
+    <style>
+      .contact-social-callout {
+        margin-top: clamp(2.5rem, 6vw, 4rem);
+        padding: clamp(2rem, 6vw, 3.5rem);
+        text-align: center;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(102, 126, 234, 0.18));
+        border: 1px solid rgba(148, 163, 255, 0.35);
+        border-radius: 1.75rem;
+        backdrop-filter: blur(18px);
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+        color: var(--color-white);
+      }
+      .contact-social-callout h3 {
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        margin-bottom: 1rem;
+        letter-spacing: 0.04em;
+      }
+      .contact-social-callout p {
+        color: var(--color-silver);
+        max-width: 42rem;
+        margin: 0 auto 1.75rem auto;
+        line-height: 1.7;
+      }
+      .contact-social-note {
+        margin-top: 1.5rem;
+        margin-bottom: 0;
+        font-size: 0.95rem;
+        opacity: 0.85;
+      }
+      .contact-social-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem 1.5rem;
+      }
+      .contact-social-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.75rem 1.35rem;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.45);
+        border: 1px solid rgba(148, 163, 255, 0.25);
+        color: var(--color-white);
+        text-decoration: none;
+        font-weight: 500;
+        transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      }
+      .contact-social-link:hover,
+      .contact-social-link:focus-visible {
+        transform: translateY(-2px);
+        border-color: rgba(148, 163, 255, 0.6);
+        background: rgba(102, 126, 234, 0.35);
+      }
+      .contact-social-link i {
+        font-size: 1.2rem;
+        color: var(--color-silver);
+      }
+      .contact-social-handle {
+        letter-spacing: 0.03em;
+      }
+    </style>
 </head>
 <body class="page-contact">
   <!-- Cookie banner -->
@@ -117,6 +179,25 @@ Email: info@silverstone-ai.com</p>
           </div>
         </div>
       </div>
+      <div class="contact-social-callout neon-card">
+        <h3>Stay Connected with Silverstone</h3>
+        <p>Immerse yourself in the Silverstone experience across our curated social channels—crafted for leaders who expect design-led intelligence, cinematic storytelling, and premium service cues at every touchpoint.</p>
+        <div class="contact-social-links">
+          <a class="contact-social-link" href="https://www.instagram.com/silverstone.ai" target="_blank" rel="noopener" aria-label="Instagram (@silverstone.ai)">
+            <i class="fa-brands fa-instagram"></i>
+            <span class="contact-social-handle">@silverstone.ai</span>
+          </a>
+          <a class="contact-social-link" href="https://www.tiktok.com/@silverstone_ai" target="_blank" rel="noopener" aria-label="TikTok (@silverstone_ai)">
+            <i class="fa-brands fa-tiktok"></i>
+            <span class="contact-social-handle">@silverstone_ai</span>
+          </a>
+          <a class="contact-social-link" href="https://www.facebook.com/share/1C2U4sSLqF/?mibextid=wwXlfr" target="_blank" rel="noopener" aria-label="Facebook">
+            <i class="fa-brands fa-facebook"></i>
+            <span class="contact-social-handle">Facebook Community</span>
+          </a>
+        </div>
+      <p class="contact-social-note">Follow us for prototype reveals, executive insights, and a first look at the intelligent automations shaping tomorrow’s operations.</p>
+      </div>
     </div>
   </section>
   <!-- Global site footer -->
@@ -146,9 +227,9 @@ Email: info@silverstone-ai.com</p>
       <div class="footer-social">
         <h4>Follow Us</h4>
         <div class="social-icons">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.instagram.com/silverstone.ai" target="_blank" rel="noopener" aria-label="Instagram (@silverstone.ai)"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@silverstone_ai" target="_blank" rel="noopener" aria-label="TikTok (@silverstone_ai)"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.facebook.com/share/1C2U4sSLqF/?mibextid=wwXlfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
         </div>
       </div>
     </div>
