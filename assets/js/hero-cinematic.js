@@ -5,6 +5,7 @@
 (function(){
   "use strict";
   var CONFIG={DURATION_MS:2400,HEADER_VAR_NAME:"--headerH",BOUNDARY_THRESHOLD_PX:28,DISABLE_ON_WIDTH_BELOW:0,EASING:[0.17,0.85,0.25,1.0]};
+  var MOBILE_BREAKPOINT=768;
 
   function BezierEasing(x1,y1,x2,y2){function A(a1,a2){return 1-3*a2+3*a1}function B(a1,a2){return 3*a2-6*a1}function C(a1){return 3*a1}
     function calc(t,a1,a2){return ((A(a1,a2)*t+B(a1,a2))*t+C(a1))*t}function slope(t,a1,a2){return 3*A(a1,a2)*t*t+2*B(a1,a2)*t+C(a1)}
@@ -29,14 +30,8 @@
     // the hero.  We only apply this adjustment on screens up to 768px
     // since desktop uses a different parallax technique.  The fallback
     // is harmless if the variable is never referenced.
-    try {
-      // Centralised breakpoint check – matches the constant used in script.js.
-      var MOBILE_BREAKPOINT = 768;
-      if (window.innerWidth <= MOBILE_BREAKPOINT) {
-        document.documentElement.style.setProperty('--heroOffset', off + 'px');
-      }
-    } catch (e) {
-      /* no-op */
+    if(window.innerWidth<=MOBILE_BREAKPOINT){
+      document.documentElement.style.setProperty('--heroOffset',off+"px");
     }
     return { off: off, visH: visH, bodyY: Math.max(0, nextTop - off) };
   }
@@ -45,6 +40,7 @@
       window.addEventListener("wheel",w,{passive:false});window.addEventListener("touchmove",t,{passive:false});window.addEventListener("keydown",k,{passive:false});}
     else if(!l&&r.classList.contains("cine-locked")){window.removeEventListener("wheel",w);window.removeEventListener("touchmove",t);window.removeEventListener("keydown",k);
       r.classList.remove("cine-locked");document.body.classList.remove("cine-locked");}}
+  function isMobileViewport(){return window.innerWidth<=MOBILE_BREAKPOINT;}
   function ensureBars(){var b=document.querySelector(".fx-bars");if(!b){b=document.createElement("div");b.className="fx-bars";
     b.innerHTML='<div class="bar top"></div><div class="bar bottom"></div><div class="flare"></div>';document.body.appendChild(b);}}
   function init(){
@@ -74,23 +70,26 @@
     function tryDown(){if(anim||isOverlayOpen())return;animate(geo(hero,next).bodyY,"down");}
     function tryUp(){if(anim||isOverlayOpen())return;animate(0,"up");}
     function onWheel(e){if(anim||isOverlayOpen())return;var dy=e.deltaY,g=geo(hero,next),sy=window.scrollY;
-      if(dy>0&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX){e.preventDefault();tryDown();}
+      if(dy>0&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX&&!isMobileViewport()){e.preventDefault();tryDown();}
       else if(dy<0&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX){e.preventDefault();tryUp();}}
     var tY=null;function tStart(e){if(anim)return;tY=e.touches?e.touches[0].clientY:e.clientY;}
     function tMove(e){if(anim||isOverlayOpen()||tY==null)return;var y=e.touches?e.touches[0].clientY:e.clientY,dy=tY-y,g=geo(hero,next),sy=window.scrollY;
-      if(dy>8&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX){e.preventDefault();tryDown();}
+      if(dy>8&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX){if(!isMobileViewport()){e.preventDefault();tryDown();}}
       else if(dy<-8&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX){e.preventDefault();tryUp();}}
     function tEnd(){tY=null;}
     function onKey(e){if(anim||isOverlayOpen())return;var g=geo(hero,next),sy=window.scrollY;
-      if(["ArrowDown","PageDown","Space"," "].includes(e.key)&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX){e.preventDefault();tryDown();}
+      if(["ArrowDown","PageDown","Space"," "].includes(e.key)&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX&&!isMobileViewport()){e.preventDefault();tryDown();}
       else if(["ArrowUp","PageUp","Home"].includes(e.key)&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX){e.preventDefault();tryUp();}}
+    function syncMobileState(gInfo){if(anim||!isMobileViewport())return;var g=gInfo||geo(hero,next),sy=window.scrollY,past=sy>=g.bodyY-1;
+      hero.style.setProperty("--heroProgress",past?1:0);hero.style.setProperty("--heroDepth",past?DEPTH_DOWN_MAX:0);setVar("--cineVeil",past?0:0.45);}
     function onScroll(){if(anim||isOverlayOpen()){lastY=window.scrollY;return;}var g=geo(hero,next),sy=window.scrollY,dir=sy-lastY;lastY=sy;
-      if(dir>0&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX)tryDown();else if(dir<0&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX)tryUp();}
+      if(dir>0&&sy<g.bodyY-CONFIG.BOUNDARY_THRESHOLD_PX&&!isMobileViewport())tryDown();else if(dir<0&&sy<=g.bodyY+CONFIG.BOUNDARY_THRESHOLD_PX)tryUp();
+      syncMobileState(g);}
     (function initState(){var g=geo(hero,next),past=window.scrollY>=g.bodyY;hero.style.setProperty("--heroProgress",past?1:0);
       hero.style.setProperty("--heroDepth",past?DEPTH_DOWN_MAX:0);setVar("--cineBars",0);setVar("--cineBloom",0);setVar("--cineBeamBoost",0);
-      setVar("--cineAurora",0);setVar("--cinePulse",0);setVar("--cineVeil",past?0:0.45);})();window.addEventListener("wheel",onWheel,{passive:false});
+      setVar("--cineAurora",0);setVar("--cinePulse",0);setVar("--cineVeil",past?0:0.45);syncMobileState(g);})();window.addEventListener("wheel",onWheel,{passive:false});
     window.addEventListener("touchstart",tStart,{passive:true});window.addEventListener("touchmove",tMove,{passive:false});
     window.addEventListener("touchend",tEnd,{passive:true});window.addEventListener("keydown",onKey,{passive:false});
-    window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",sizeHero,{passive:true});}
+    window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",function(){sizeHero();syncMobileState();},{passive:true});}
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
