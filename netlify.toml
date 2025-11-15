@@ -2,9 +2,13 @@
   publish = "."
 
 # Basic headers for preview environment
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
+[context.deploy-preview]
+  # Apply noindex headers only to deploy preview builds so that crawlers
+  # do not index temporary preview URLs. Production builds will not have
+  # this header and will be indexable.
+  [[headers]]
+    for = "/*"
+    [headers.values]
+      X-Robots-Tag = "noindex, nofollow"
 [functions]
   directory = "netlify/functions"

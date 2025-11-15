@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sitemap generated for Silverstone AI. Updating this file helps search
+     engines discover all public pages. The <lastmod> tags use ISO 8601
+     format (YYYY-MM-DD) to indicate when each page was last updated. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://silverstone-ai.com/</loc>
+    <lastmod>2025-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://silverstone-ai.com/about.html</loc>
+    <lastmod>2025-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://silverstone-ai.com/services.html</loc>
+    <lastmod>2025-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://silverstone-ai.com/contact.html</loc>
+    <lastmod>2025-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://silverstone-ai.com/book.html</loc>
+    <lastmod>2025-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://silverstone-ai.com/privacy-policy.html</loc>
+    <lastmod>2025-11-15</lastmod>
+  </url>
+</urlset>
