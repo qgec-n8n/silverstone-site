@@ -4,8 +4,23 @@
 const https = require('https');
 
 exports.handler = async (event) => {
+  // If a GET or other non-POST request is received, return a friendly
+  // response instead of a 405 error. Googlebot and other crawlers may
+  // occasionally probe this endpoint using GET, which previously
+  // triggered a "405 Method Not Allowed" response and surfaced as a 4xx
+  // error in Search Console. By returning a 200 response and adding a
+  // noindex header, we avoid indexing the function endpoint while
+  // preventing Search Console from flagging it as a 4xx issue.
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+    return {
+      statusCode: 200,
+      headers: {
+        // Instruct search engines not to index this endpoint
+        'X-Robots-Tag': 'noindex, nofollow',
+        'Content-Type': 'text/plain; charset=utf-8'
+      },
+      body: 'This endpoint is for form submissions only. Please use POST.'
+    };
   }
 
   try {
