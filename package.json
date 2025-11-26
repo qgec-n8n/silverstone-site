@@ -4,13 +4,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "node build-css.js"
+    "build:css": "node build-css.js",
+    "build": "node scripts/optimize-images.js && npm run build:css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "netlify-plugin-image-optim": "*"
+    "sharp": "^0.32.6"
   }
 }
