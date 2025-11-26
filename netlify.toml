@@ -1,6 +1,9 @@
 [build]
   publish = "."
 
+[[plugins]]
+  package = "netlify-plugin-image-optim"
+
 # Basic headers for preview environment
 [context.deploy-preview]
   # Apply noindex headers only to deploy preview builds so that crawlers

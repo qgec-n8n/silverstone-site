@@ -21,6 +21,8 @@
          search engines understand which URL should be indexed and prevents
          duplicate content issues. -->
     <link rel="canonical" href="https://silverstone-ai.com/" />
+    <link rel="preload" href="assets/images/internet/hero/home-hero-final.jpg" as="image" />
+    <link rel="preload" href="assets/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <!-- Preconnect to optimise font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -297,13 +299,14 @@
       </div>
     </header>
     <!-- Hero banner -->
-    <section
-      class="hero title-band"
-      style="--mobile-hero-image: url('assets/images/internet/hero/home-hero-final.jpg'); background-image: url('assets/images/internet/hero/home-hero-final.jpg'); background-image: image-set(
-        url('assets/images/internet/hero/home-hero-final.webp') type('image/webp') 1x,
-        url('assets/images/internet/hero/home-hero-final.jpg') type('image/jpeg') 1x
-      );"
-    >
+    <section class="hero title-band">
+      <img
+        src="assets/images/internet/hero/home-hero-final.jpg"
+        alt="Hero Image"
+        fetchpriority="high"
+        width="1920"
+        height="1080"
+      />
       <div class="content">
         <h1>Your Partner in Business Automation</h1>
         <p>
