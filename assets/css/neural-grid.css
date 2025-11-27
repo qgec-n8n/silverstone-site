@@ -6,11 +6,12 @@
   --neon-blue: #00AEEF;
   --neon-purple: #9D4EDD;
   --neon-green: #00FF9D;
+  --lightbox-z: 2000; /* Above Cookie Banner (1000) */
 }
 
 .neural-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Increased min-width */
   grid-auto-flow: dense;
   gap: var(--grid-gap);
   padding: 2rem 0;
@@ -46,6 +47,9 @@
   display: block;
 }
 
+/* Use contain for specific aspect ratios if needed, handled via JS classes usually, 
+   but here we ensure cover is default for the mosaic look */
+
 .neural-card:hover img {
   transform: scale(1.05);
 }
@@ -61,6 +65,7 @@
   align-items: flex-end;
   padding: 1.5rem;
   z-index: 2;
+  pointer-events: none; /* Let clicks pass to card */
 }
 
 .neural-card:hover .neural-overlay {
@@ -68,8 +73,8 @@
 }
 
 .neural-info h4 {
-  color: var(--neon-white);
-  font-family: var(--font-heading);
+  color: var(--neon-white, #fff);
+  font-family: var(--font-heading, sans-serif);
   font-size: 1.1rem;
   margin-bottom: 0.25rem;
   transform: translateY(10px);
@@ -106,6 +111,74 @@
     0 0 0 1px rgba(0, 174, 239, 0.5),
     0 10px 30px rgba(0, 0, 0, 0.5),
     0 0 20px rgba(0, 174, 239, 0.2);
+}
+
+/* --- Holographic Lightbox --- */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 11, 24, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: var(--lightbox-z);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(0, 174, 239, 0.3);
+  border: 1px solid rgba(0, 174, 239, 0.5);
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.lightbox-overlay.active .lightbox-content {
+  transform: scale(1);
+}
+
+.lightbox-image {
+  display: block;
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--neon-blue);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2001;
+}
+
+.lightbox-close:hover {
+  background: var(--neon-blue);
+  box-shadow: 0 0 15px var(--neon-blue);
+  transform: rotate(90deg);
 }
 
 /* Mobile Responsiveness */

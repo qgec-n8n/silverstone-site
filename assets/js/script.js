@@ -796,116 +796,259 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const createObserver = () =>
     new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible.length) {
-          setActiveLayer(visible[0].target);
+    const visible = entries
+    .filter((entry) => entry.isIntersecting)
+    .sort((a, b) => a.intersectionRatio - b.intersectionRatio)
+    .pop();
+  if (visible) {
+    setActiveLayer(visible.target);
+  }
+}, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
+
+const init = () => {
+  if (!supportsImageSet && !supportsWebkitImageSet) return;
+  if (reduceMotionQuery.matches || !mobileQuery.matches) return;
+  if (state.active) return;
+
+  state.stage = createStage();
+  state.observer = createObserver();
+
+  // Insert stage as first child of body to be behind content
+  document.body.insertBefore(state.stage, document.body.firstChild);
+
+  parallaxSections.forEach((section) => {
+    const theme = section.dataset.parallaxTheme;
+    const config = PARALLAX_MAP[theme];
+    if (!config) return;
+
+    const layer = document.createElement('div');
+    layer.className = 'parallax-mobile-layer';
+
+    // Use standard image-set if supported, else webkit
+    const bgImage = supportsImageSet ? config.mobileImages.standard : config.mobileImages.webkit;
+    layer.style.backgroundImage = bgImage;
+
+    state.stage.appendChild(layer);
+    state.layers.push({ section, layer, config });
+    state.observer.observe(section);
+  });
+
+  state.active = true;
+  // Trigger initial check
+  setTimeout(() => {
+    const firstVisible = state.layers.find(item => {
+      const rect = item.section.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    });
+    if (firstVisible) setActiveLayer(firstVisible.section);
+  }, 100);
+};
+
+// Run init on load if conditions met
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+}) ();
+
+/*
+ * Matrix Text Scramble Effect
+ * Cycles through random characters before resolving to the final text.
+ */
+class MatrixTextScramble {
+  constructor(el) {
+    this.el = el;
+    this.chars = '!<>-_\\/[]{}—=+*^?#________';
+    this.update = this.update.bind(this);
+  }
+
+  setText(newText) {
+    const oldText = this.el.innerText;
+    const length = Math.max(oldText.length, newText.length);
+    const promise = new Promise((resolve) => this.resolve = resolve);
+
+    this.queue = [];
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || '';
+      const to = newText[i] || '';
+      const start = Math.floor(Math.random() * 40);
+      const end = start + Math.floor(Math.random() * 40);
+      this.queue.push({ from, to, start, end });
+    }
+
+    cancelAnimationFrame(this.frameRequest);
+    this.frame = 0;
+    this.update();
+    return promise;
+  }
+
+  update() {
+    let output = '';
+    let complete = 0;
+
+    for (let i = 0, n = this.queue.length; i < n; i++) {
+      let { from, to, start, end, char } = this.queue[i];
+
+      if (this.frame >= end) {
+        complete++;
+        output += to;
+      } else if (this.frame >= start) {
+        if (!char || Math.random() < 0.28) {
+          char = this.randomChar();
+          this.queue[i].char = char;
         }
+        output += `<span class="dud">${char}</span>`;
+      } else {
+        output += from;
+      }
+    }
+
+    this.el.innerHTML = output;
+
+    if (complete === this.queue.length) {
+      this.resolve();
+    } else {
+      this.frameRequest = requestAnimationFrame(this.update);
+      this.frame++;
+    }
+  }
+
+  randomChar() {
+    return this.chars[Math.floor(Math.random() * this.chars.length)];
+  }
+}
+
+// Initialize Scramble on Headings
+document.addEventListener('DOMContentLoaded', () => {
+  // Select H1 and H2s that are visible
+  const headings = document.querySelectorAll('h1, h2.section-title');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        if (el.dataset.scrambled) return; // Run once
+
+        const scrambler = new MatrixTextScramble(el);
+        scrambler.setText(el.innerText);
+        el.dataset.scrambled = 'true';
+
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  headings.forEach(el => observer.observe(el));
+});
+          .filter((entry) => entry.isIntersecting)
+  .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+if (visible.length) {
+  setActiveLayer(visible[0].target);
+}
       },
-      { threshold: [0, 0.25, 0.5, 0.75, 1] }
+{ threshold: [0, 0.25, 0.5, 0.75, 1] }
     );
 
-  const getImageValue = (images) => {
-    if (!images) return '';
-    if (supportsImageSet && images.standard) return images.standard;
-    if (supportsWebkitImageSet && images.webkit) return images.webkit;
-    return images.fallback || '';
-  };
+const getImageValue = (images) => {
+  if (!images) return '';
+  if (supportsImageSet && images.standard) return images.standard;
+  if (supportsWebkitImageSet && images.webkit) return images.webkit;
+  return images.fallback || '';
+};
 
-  const ensureMediaListener = (query, callback) => {
-    if (typeof query.addEventListener === 'function') {
-      query.addEventListener('change', callback);
-      return () => query.removeEventListener('change', callback);
-    }
-    if (typeof query.addListener === 'function') {
-      query.addListener(callback);
-      return () => query.removeListener(callback);
-    }
-    return () => {};
-  };
+const ensureMediaListener = (query, callback) => {
+  if (typeof query.addEventListener === 'function') {
+    query.addEventListener('change', callback);
+    return () => query.removeEventListener('change', callback);
+  }
+  if (typeof query.addListener === 'function') {
+    query.addListener(callback);
+    return () => query.removeListener(callback);
+  }
+  return () => { };
+};
 
-  const enableMobile = () => {
-    if (state.active) return;
-    const stage = createStage();
-    const observer = createObserver();
-    document.body.insertBefore(stage, document.body.firstChild);
-    const layers = parallaxSections
-      .map((section) => {
-        const theme = section.getAttribute('data-parallax-theme');
-        const config = PARALLAX_MAP[theme];
-        if (!config) return null;
-        const layer = document.createElement('div');
-        layer.className = 'parallax-mobile-layer';
-        layer.dataset.theme = theme;
-        layer.setAttribute('aria-hidden', 'true');
-        const imageValue = getImageValue(config.mobileImages);
-        layer.style.backgroundImage = imageValue || 'none';
-        if (config.backgroundColor) {
-          layer.style.backgroundColor = config.backgroundColor;
-        }
-        stage.appendChild(layer);
-        observer.observe(section);
-        section.classList.add('parallax-ready', 'parallax-mobile-active');
-        return { section, layer, config };
-      })
-      .filter(Boolean);
-    if (!layers.length) {
-      observer.disconnect();
-      if (stage.parentNode) {
-        stage.parentNode.removeChild(stage);
+const enableMobile = () => {
+  if (state.active) return;
+  const stage = createStage();
+  const observer = createObserver();
+  document.body.insertBefore(stage, document.body.firstChild);
+  const layers = parallaxSections
+    .map((section) => {
+      const theme = section.getAttribute('data-parallax-theme');
+      const config = PARALLAX_MAP[theme];
+      if (!config) return null;
+      const layer = document.createElement('div');
+      layer.className = 'parallax-mobile-layer';
+      layer.dataset.theme = theme;
+      layer.setAttribute('aria-hidden', 'true');
+      const imageValue = getImageValue(config.mobileImages);
+      layer.style.backgroundImage = imageValue || 'none';
+      if (config.backgroundColor) {
+        layer.style.backgroundColor = config.backgroundColor;
       }
-      return;
+      stage.appendChild(layer);
+      observer.observe(section);
+      section.classList.add('parallax-ready', 'parallax-mobile-active');
+      return { section, layer, config };
+    })
+    .filter(Boolean);
+  if (!layers.length) {
+    observer.disconnect();
+    if (stage.parentNode) {
+      stage.parentNode.removeChild(stage);
     }
-    state.layers = layers;
-    state.stage = stage;
-    state.observer = observer;
-    state.active = true;
+    return;
+  }
+  state.layers = layers;
+  state.stage = stage;
+  state.observer = observer;
+  state.active = true;
 
-    const initial = layers
-      .slice()
-      .sort((a, b) => a.section.getBoundingClientRect().top - b.section.getBoundingClientRect().top)
-      .find((entry) => entry.section.getBoundingClientRect().bottom > 0);
-    if (initial) {
-      setActiveLayer(initial.section);
-    } else {
-      setActiveLayer(layers[0].section);
-    }
-  };
+  const initial = layers
+    .slice()
+    .sort((a, b) => a.section.getBoundingClientRect().top - b.section.getBoundingClientRect().top)
+    .find((entry) => entry.section.getBoundingClientRect().bottom > 0);
+  if (initial) {
+    setActiveLayer(initial.section);
+  } else {
+    setActiveLayer(layers[0].section);
+  }
+};
 
-  const disableMobile = () => {
-    if (!state.active) return;
-    if (state.observer) {
-      state.observer.disconnect();
-      state.observer = null;
-    }
-    state.layers.forEach((entry) => {
-      entry.section.classList.remove('parallax-ready', 'parallax-mobile-active');
-      entry.layer.classList.remove('is-active');
-    });
-    state.layers = [];
-    state.current = null;
-    if (state.stage && state.stage.parentNode) {
-      state.stage.parentNode.removeChild(state.stage);
-    }
-    state.stage = null;
-    state.active = false;
-  };
+const disableMobile = () => {
+  if (!state.active) return;
+  if (state.observer) {
+    state.observer.disconnect();
+    state.observer = null;
+  }
+  state.layers.forEach((entry) => {
+    entry.section.classList.remove('parallax-ready', 'parallax-mobile-active');
+    entry.layer.classList.remove('is-active');
+  });
+  state.layers = [];
+  state.current = null;
+  if (state.stage && state.stage.parentNode) {
+    state.stage.parentNode.removeChild(state.stage);
+  }
+  state.stage = null;
+  state.active = false;
+};
 
-  const evaluate = () => {
-    if (reduceMotionQuery.matches) {
-      disableMobile();
-      return;
-    }
-    if (mobileQuery.matches) {
-      enableMobile();
-    } else {
-      disableMobile();
-    }
-  };
+const evaluate = () => {
+  if (reduceMotionQuery.matches) {
+    disableMobile();
+    return;
+  }
+  if (mobileQuery.matches) {
+    enableMobile();
+  } else {
+    disableMobile();
+  }
+};
 
-  evaluate();
-  ensureMediaListener(mobileQuery, evaluate);
-  ensureMediaListener(reduceMotionQuery, evaluate);
-})();
+evaluate();
+ensureMediaListener(mobileQuery, evaluate);
+ensureMediaListener(reduceMotionQuery, evaluate);
+}) ();
