@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us – Silverstone</title>
-  <meta name="description" content="Get in touch with the Silverstone team. Whether you have a question, need support, or want to discuss a project, we're here to help. Contact us today." />
+  <meta name="description"
+    content="Get in touch with the Silverstone team. Whether you have a question, need support, or want to discuss a project, we're here to help. Contact us today." />
   <!-- Allow search engines to index and follow links on this page -->
   <meta name="robots" content="index, follow">
 
@@ -12,7 +14,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://silverstone-ai.com/contact" />
   <meta property="og:title" content="Contact Us – Silverstone" />
-  <meta property="og:description" content="Get in touch with the Silverstone team. Whether you have a question, need support, or want to discuss a project, we're here to help. Contact us today." />
+  <meta property="og:description"
+    content="Get in touch with the Silverstone team. Whether you have a question, need support, or want to discuss a project, we're here to help. Contact us today." />
   <meta property="og:image" content="https://silverstone-ai.com/assets/images/internet/hero/contact-hero-final.jpg" />
 
   <!-- Canonical URL: identify the preferred version of this contact page. Without
@@ -23,7 +26,9 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap"
+    rel="stylesheet">
   <link rel="icon" href="favicon.ico" sizes="any" />
   <!-- Core site styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
@@ -32,93 +37,122 @@
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
   <link rel="stylesheet" href="assets/css/mobile.css">
   <!-- Global footer styles -->
-<!-- Local icon font styles -->
+  <!-- Local icon font styles -->
   <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- Neon fix to ensure correct stacking for animated overlays -->
   <style id="neon-fix">
-    .section.bg-waves { position: relative; isolation: isolate; }
-    .section.bg-waves::before { z-index: 0; pointer-events: none; }
-    .section.bg-waves > .container { position: relative; z-index: 1; }
-    .neon-card { position: relative; z-index: 2; }
-    .service-row, .service-image, .service-content { position: relative; z-index: 2; }
+    .section.bg-waves {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .section.bg-waves::before {
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .section.bg-waves>.container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .neon-card {
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-row,
+    .service-image,
+    .service-content {
+      position: relative;
+      z-index: 2;
+    }
   </style>
   <!-- Serve smaller hero background on narrow screens -->
   <style>
     @media (max-width: 900px) {
       .hero {
         background-image: url('assets/images/internet/hero/contact-hero-final.webp');
-        background-image: image-set(
-          url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,
-          url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x
-        );
+        background-image: image-set(url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,
+            url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);
       }
     }
   </style>
-    <link rel="stylesheet" href="assets/css/hero-cinematic.css">
-    <style>
-      .contact-social-callout {
-        margin-top: clamp(2.5rem, 6vw, 4rem);
-        padding: clamp(2rem, 6vw, 3.5rem);
-        text-align: center;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(102, 126, 234, 0.18));
-        border: 1px solid rgba(148, 163, 255, 0.35);
-        border-radius: 1.75rem;
-        backdrop-filter: blur(18px);
-        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
-        color: var(--color-white);
-      }
-      .contact-social-callout h3 {
-        font-size: clamp(1.5rem, 3vw, 2.1rem);
-        margin-bottom: 1rem;
-        letter-spacing: 0.04em;
-      }
-      .contact-social-callout p {
-        color: var(--color-silver);
-        max-width: 42rem;
-        margin: 0 auto 1.75rem auto;
-        line-height: 1.7;
-      }
-      .contact-social-note {
-        margin-top: 1.5rem;
-        margin-bottom: 0;
-        font-size: 0.95rem;
-        opacity: 0.85;
-      }
-      .contact-social-links {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem 1.5rem;
-        margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
-      }
-      .contact-social-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.65rem;
-        padding: 0.75rem 1.35rem;
-        border-radius: 999px;
-        background: rgba(15, 23, 42, 0.45);
-        border: 1px solid rgba(148, 163, 255, 0.25);
-        color: var(--color-white);
-        text-decoration: none;
-        font-weight: 500;
-        transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-      }
-      .contact-social-link:hover,
-      .contact-social-link:focus-visible {
-        transform: translateY(-2px);
-        border-color: rgba(148, 163, 255, 0.6);
-        background: rgba(102, 126, 234, 0.35);
-      }
-      .contact-social-link i {
-        font-size: 1.2rem;
-        color: var(--color-silver);
-      }
-      .contact-social-handle {
-        letter-spacing: 0.03em;
-      }
-    </style>
+  <link rel="stylesheet" href="assets/css/hero-cinematic.css">
+  <link rel="stylesheet" href="assets/css/neural-nexus.css">
+  <style>
+    .contact-social-callout {
+      margin-top: clamp(2.5rem, 6vw, 4rem);
+      padding: clamp(2rem, 6vw, 3.5rem);
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(102, 126, 234, 0.18));
+      border: 1px solid rgba(148, 163, 255, 0.35);
+      border-radius: 1.75rem;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+      color: var(--color-white);
+    }
+
+    .contact-social-callout h3 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      margin-bottom: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    .contact-social-callout p {
+      color: var(--color-silver);
+      max-width: 42rem;
+      margin: 0 auto 1.75rem auto;
+      line-height: 1.7;
+    }
+
+    .contact-social-note {
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    .contact-social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+    }
+
+    .contact-social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.75rem 1.35rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(148, 163, 255, 0.25);
+      color: var(--color-white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .contact-social-link:hover,
+    .contact-social-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(148, 163, 255, 0.6);
+      background: rgba(102, 126, 234, 0.35);
+    }
+
+    .contact-social-link i {
+      font-size: 1.2rem;
+      color: var(--color-silver);
+    }
+
+    .contact-social-handle {
+      letter-spacing: 0.03em;
+    }
+  </style>
 </head>
+
 <body class="page-contact">
   <!-- Cookie banner -->
   <div id="cookie-banner" class="cookie-banner">
@@ -134,12 +168,9 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo">
-        <img
-          src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
+        <img src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
           srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"
-          alt="Silverstone Logo"
-          class="site-logo"
-        />
+          alt="Silverstone Logo" class="site-logo" />
       </a>
       <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
         <span></span><span></span><span></span>
@@ -156,10 +187,12 @@
     </div>
   </header>
   <!-- Hero section -->
-  <section class="hero title-band" style="--mobile-hero-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);">
+  <section class="hero title-band"
+    style="--mobile-hero-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);">
     <div class="content">
       <h1>Get In Touch</h1>
-      <p>We’d love to hear from you. Whether you have a question about our services or need support, our team is ready to help.</p>
+      <p>We’d love to hear from you. Whether you have a question about our services or need support, our team is ready
+        to help.</p>
     </div>
   </section>
   <!-- Contact section -->
@@ -169,51 +202,57 @@
       <div class="contact-grid">
         <div class="contact-form-card neon-card">
           <form id="contact-form" class="contact-form" method="POST" novalidate>
-            <input type="text" name="company" id="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" aria-hidden="true">
+            <input type="text" name="company" id="company" tabindex="-1" autocomplete="off"
+              style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" aria-hidden="true">
             <label for="contact-name">Name</label>
             <input type="text" id="contact-name" name="name" placeholder="Your full name" required />
             <label for="contact-email">Email</label>
             <input type="email" id="contact-email" name="email" placeholder="you@example.com" required />
             <label for="contact-message">Message</label>
-            <textarea id="contact-message" name="message" rows="6" placeholder="How can we assist you?" required></textarea>
+            <textarea id="contact-message" name="message" rows="6" placeholder="How can we assist you?"
+              required></textarea>
             <button type="submit" class="btn btn-primary">Send Message</button>
-            <p id="contact-status" class="small" style="margin-top:0.75rem; color: var(--color-silver); display:none;"></p>
+            <p id="contact-status" class="small" style="margin-top:0.75rem; color: var(--color-silver); display:none;">
+            </p>
           </form>
         </div>
         <div class="contact-map-card neon-card">
           <div class="map-container">
-            <iframe
-              class="map-iframe"
-              src="https://www.google.com/maps?q=4+Deacon+Street,+SE17+1GE,+London,+UK&output=embed"
-              allowfullscreen
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade">
+            <iframe class="map-iframe"
+              src="https://www.google.com/maps?q=4+Deacon+Street,+SE17+1GE,+London,+UK&output=embed" allowfullscreen
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade">
             </iframe>
           </div>
           <div class="map-address">
-            <p style="margin-top:0.75rem; color: var(--color-silver); white-space: pre-line;">Address: 4 Deacon Street, SE17 1GE, London, UK
-Email: info@silverstone-ai.com</p>
+            <p style="margin-top:0.75rem; color: var(--color-silver); white-space: pre-line;">Address: 4 Deacon Street,
+              SE17 1GE, London, UK
+              Email: info@silverstone-ai.com</p>
           </div>
         </div>
       </div>
       <div class="contact-social-callout neon-card">
         <h3>Stay Connected with Silverstone</h3>
-        <p>Immerse yourself in the Silverstone experience across our curated social channels—crafted for leaders who expect design-led intelligence, cinematic storytelling, and premium service cues at every touchpoint.</p>
+        <p>Immerse yourself in the Silverstone experience across our curated social channels—crafted for leaders who
+          expect design-led intelligence, cinematic storytelling, and premium service cues at every touchpoint.</p>
         <div class="contact-social-links">
-          <a class="contact-social-link" href="https://instagram.silverstone-ai.com" target="_blank" rel="noopener" aria-label="Instagram (@silverstone.ai)">
+          <a class="contact-social-link" href="https://instagram.silverstone-ai.com" target="_blank" rel="noopener"
+            aria-label="Instagram (@silverstone.ai)">
             <i class="fa-brands fa-instagram"></i>
             <span class="contact-social-handle">@silverstone.ai</span>
           </a>
-          <a class="contact-social-link" href="https://tiktok.silverstone-ai.com" target="_blank" rel="noopener" aria-label="TikTok (@silverstone_ai)">
+          <a class="contact-social-link" href="https://tiktok.silverstone-ai.com" target="_blank" rel="noopener"
+            aria-label="TikTok (@silverstone_ai)">
             <i class="fa-brands fa-tiktok"></i>
             <span class="contact-social-handle">@silverstone_ai</span>
           </a>
-          <a class="contact-social-link" href="https://facebook.silverstone-ai.com" target="_blank" rel="noopener" aria-label="Facebook">
+          <a class="contact-social-link" href="https://facebook.silverstone-ai.com" target="_blank" rel="noopener"
+            aria-label="Facebook">
             <i class="fa-brands fa-facebook"></i>
             <span class="contact-social-handle">Facebook Community</span>
           </a>
         </div>
-      <p class="contact-social-note">Follow us for prototype reveals, executive insights, and a first look at the intelligent automations shaping tomorrow’s operations.</p>
+        <p class="contact-social-note">Follow us for prototype reveals, executive insights, and a first look at the
+          intelligent automations shaping tomorrow’s operations.</p>
       </div>
     </div>
   </section>
@@ -221,9 +260,10 @@ Email: info@silverstone-ai.com</p>
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-brand">
-          <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
-          <p class="tagline">Streamline. Optimize. Succeed.</p>
-          <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise operations and succeed in the digital age.</p>
+        <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
+        <p class="tagline">Streamline. Optimize. Succeed.</p>
+        <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise
+          operations and succeed in the digital age.</p>
       </div>
       <div class="footer-links">
         <h4>Quick Links</h4>
@@ -244,9 +284,12 @@ Email: info@silverstone-ai.com</p>
       <div class="footer-social">
         <h4>Follow Us</h4>
         <div class="social-icons">
-            <a href="https://instagram.silverstone-ai.com" target="_blank" rel="noopener" aria-label="Instagram (@silverstone.ai)"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://tiktok.silverstone-ai.com" target="_blank" rel="noopener" aria-label="TikTok (@silverstone_ai)"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://facebook.silverstone-ai.com" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://instagram.silverstone-ai.com" target="_blank" rel="noopener"
+            aria-label="Instagram (@silverstone.ai)"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://tiktok.silverstone-ai.com" target="_blank" rel="noopener"
+            aria-label="TikTok (@silverstone_ai)"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://facebook.silverstone-ai.com" target="_blank" rel="noopener" aria-label="Facebook"><i
+              class="fa-brands fa-facebook"></i></a>
         </div>
       </div>
     </div>
@@ -256,7 +299,7 @@ Email: info@silverstone-ai.com</p>
   <script src="assets/js/script.js" defer></script>
   <script defer src="assets/js/cookie-consent.js"></script>
   <script>
-    (function() {
+    (function () {
       const form = document.getElementById('contact-form');
       if (!form) return;
       const status = document.getElementById('contact-status');
@@ -269,11 +312,11 @@ Email: info@silverstone-ai.com</p>
       function sanitize(str) {
         return String(str || '').replace(/[<>]/g, '');
       }
-      form.addEventListener('submit', async function(e) {
+      form.addEventListener('submit', async function (e) {
         e.preventDefault();
         const data = new FormData(form);
         // Basic client-side validation
-        if ((data.get('company')||'').length > 0) { return; } // honeypot
+        if ((data.get('company') || '').length > 0) { return; } // honeypot
         const name = sanitize(data.get('name'));
         const email = sanitize(data.get('email'));
         const message = sanitize(data.get('message'));
@@ -301,6 +344,9 @@ Email: info@silverstone-ai.com</p>
       });
     })();
   </script>
-    <script defer src="assets/js/hero-cinematic.js"></script>
+  <script defer src="assets/js/hero-cinematic.js"></script>
+  <script defer src="assets/js/neural-nexus.js"></script>
+  <script defer src="assets/js/magnetic-buttons.js"></script>
 </body>
+
 </html>

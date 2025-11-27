@@ -1,457 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Services – Silverstone</title>
-    <meta name="description" content="Explore Silverstone's services: AI consulting, marketing automation, workflow optimization, and systems integration designed to help your business scale." />
-    <!-- Allow search engines to index and follow links on this page -->
-    <meta name="robots" content="index, follow" />
 
-    <!-- Open Graph & Social Media Tags -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://silverstone-ai.com/services" />
-    <meta property="og:title" content="Services – Silverstone" />
-    <meta property="og:description" content="Explore Silverstone's services: AI consulting, marketing automation, workflow optimization, and systems integration designed to help your business scale." />
-    <meta property="og:image" content="https://silverstone-ai.com/assets/images/internet/hero/services-hero-final.jpg" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services – Silverstone</title>
+  <meta name="description"
+    content="Explore Silverstone's services: AI consulting, marketing automation, workflow optimization, and systems integration designed to help your business scale." />
+  <!-- Allow search engines to index and follow links on this page -->
+  <meta name="robots" content="index, follow" />
 
-    <!-- Canonical URL: identify the preferred version of this page. Without
+  <!-- Open Graph & Social Media Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://silverstone-ai.com/services" />
+  <meta property="og:title" content="Services – Silverstone" />
+  <meta property="og:description"
+    content="Explore Silverstone's services: AI consulting, marketing automation, workflow optimization, and systems integration designed to help your business scale." />
+  <meta property="og:image" content="https://silverstone-ai.com/assets/images/internet/hero/services-hero-final.jpg" />
+
+  <!-- Canonical URL: identify the preferred version of this page. Without
          a canonical tag, Google may treat /services and /services.html as
          separate pages. Specifying a canonical URL consolidates indexing and
          prevents duplicate content issues. -->
-    <link rel="canonical" href="https://silverstone-ai.com/services" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link href="assets/css/styles.css" rel="stylesheet" />
-    <link href="assets/css/services.css" rel="stylesheet" />
-    <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
-    <link rel="stylesheet" href="assets/css/parallax-fix.css" />
-    <!-- Mobile overrides: ensure last to override other styles on small screens -->
-    <link rel="stylesheet" href="assets/css/mobile.css" />
-    <!-- New footer styles -->
-<link rel="stylesheet" href="assets/css/icons.css" />
-    <style id="neon-fix">
-      /* Create a local stacking context so the overlay sits between bg and content */
-      .section.bg-circuit {
-        position: relative;
-        isolation: isolate;
+  <link rel="canonical" href="https://silverstone-ai.com/services" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link href="assets/css/styles.css" rel="stylesheet" />
+  <link href="assets/css/services.css" rel="stylesheet" />
+  <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
+  <link rel="stylesheet" href="assets/css/parallax-fix.css" />
+  <!-- Mobile overrides: ensure last to override other styles on small screens -->
+  <link rel="stylesheet" href="assets/css/mobile.css" />
+  <!-- New footer styles -->
+  <link rel="stylesheet" href="assets/css/icons.css" />
+  <link rel="stylesheet" href="assets/css/neural-grid.css" />
+  <link rel="stylesheet" href="assets/css/neural-nexus.css" />
+  <style id="neon-fix">
+    /* Create a local stacking context so the overlay sits between bg and content */
+    .section.bg-circuit {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .section.bg-circuit::before {
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Ensure page content is above the overlay */
+    .section.bg-circuit>.container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Keep neon cards and service blocks above everything in the section */
+    .neon-card {
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-row,
+    .service-image,
+    .service-content {
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+  <style>
+    @media (max-width: 900px) {
+      .hero {
+        background-image: url('assets/images/internet/hero/services-hero-final.webp');
+        background-image: image-set(url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x,
+            url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x);
       }
-      .section.bg-circuit::before {
-        z-index: 0;
-        pointer-events: none;
-      }
-      /* Ensure page content is above the overlay */
-      .section.bg-circuit > .container {
-        position: relative;
-        z-index: 1;
-      }
-      /* Keep neon cards and service blocks above everything in the section */
-      .neon-card {
-        position: relative;
-        z-index: 2;
-      }
-      .service-row,
-      .service-image,
-      .service-content {
-        position: relative;
-        z-index: 2;
-      }
-    </style>
-    <style>
-      @media (max-width: 900px) {
-        .hero {
-          background-image: url('assets/images/internet/hero/services-hero-final.webp');
-          background-image: image-set(
-            url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x,
-            url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x
-          );
-        }
-      }
-    </style>
-      <link rel="stylesheet" href="assets/css/hero-cinematic.css">
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/hero-cinematic.css">
 </head>
-  <body class="page-services">
-    <div id="cookie-banner" class="cookie-banner">
-      <p>
-        We use cookies to improve your browsing experience and to analyse website
-        traffic. By clicking “Accept”, you consent to our use of cookies. For
-        more details, please read our
-        <a href="privacy-policy.html">Privacy Policy</a>.
-      </p>
-      <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+
+<body class="page-services">
+  <div id="cookie-banner" class="cookie-banner">
+    <p>
+      We use cookies to improve your browsing experience and to analyse website
+      traffic. By clicking “Accept”, you consent to our use of cookies. For
+      more details, please read our
+      <a href="privacy-policy.html">Privacy Policy</a>.
+    </p>
+    <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+  </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <img alt="Silverstone Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
+          srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x" />
+      </a>
+      <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a class="active" href="services.html">Services</a></li>
+          <li><a href="book.html">Book</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="logo" href="index.html">
-          <img
-            alt="Silverstone Logo"
-            class="site-logo"
-            src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
-            srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"
-          />
-        </a>
-        <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
-          <span></span><span></span><span></span>
+  </header>
+  <section class="hero title-band"
+    style="--mobile-hero-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x, url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x );">
+    <div class="content">
+      <h1>Our Services</h1>
+      <p>
+        Tailored automation and AI solutions designed to streamline your operations,
+        optimise your resources and accelerate your growth.
+      </p>
+    </div>
+  </section>
+  <section class="section bg-circuit parallax-section" data-parallax-theme="circuit">
+    <div class="container">
+      <div class="service-row animate" id="marketing">
+        <div class="service-image service-image">
+          <img src="assets/images/zip/lead-gen-automation.png" alt="Abstract neon magnet attracting and nurturing leads"
+            class="service-img" loading="lazy" />
         </div>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a class="active" href="services.html">Services</a></li>
-            <li><a href="book.html">Book</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <section
-      class="hero title-band"
-      style="--mobile-hero-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x, url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x );"
-    >
-      <div class="content">
-        <h1>Our Services</h1>
-        <p>
-          Tailored automation and AI solutions designed to streamline your operations,
-          optimise your resources and accelerate your growth.
-        </p>
-      </div>
-    </section>
-    <section class="section bg-circuit parallax-section" data-parallax-theme="circuit">
-      <div class="container">
-        <div class="service-row animate" id="marketing">
-          <div class="service-image service-image">
-            <img
-              src="assets/images/zip/lead-gen-automation.png"
-              alt="Abstract neon magnet attracting and nurturing leads"
-              class="service-img"
-              loading="lazy"
-            />
-          </div>
-          <div class="service-content neon-card">
-            <h3>Marketing Automation</h3>
-            <p>
-              Boost customer attraction and drive sales with targeted, automated marketing workflows. We design streamlined processes and weave GenAI into your systems so you can create, publish and repurpose assets on autopilot.
-            </p>
-            <ul>
-              <li><i class="fa-solid fa-diagram-project"></i> Design and build streamlined processes to increase your team’s capacity</li>
-              <li><i class="fa-solid fa-robot"></i> Weave GenAI into workflows to create, publish and repurpose assets on autopilot</li>
-              <li><i class="fa-solid fa-chart-line"></i> Optimise campaign performance and improve personalisation to maximise ROI</li>
-            </ul>
-            <a href="book.html" class="btn btn-secondary">Automate Marketing</a>
-          </div>
-        </div>
-        <div class="service-row animate" id="workflow-data">
-          <div class="service-image service-image">
-            <img
-              alt="Colourful shapes connected by a rainbow line representing workflow automation"
-              class="service-img"
-              loading="lazy"
-              src="assets/images/zip/Silverstone_11.jpg"
-            />
-          </div>
-          <div class="service-content neon-card">
-            <h3>Workflow &amp; Data Automation</h3>
-            <p>
-              Create automated workflows and data systems to optimise resources and increase ROI. Our solutions combine intelligent process automation with powerful analytics so you can eliminate busywork, make data‑driven decisions and scale with confidence.
-            </p>
-            <ul>
-              <li><i class="fa-solid fa-gears"></i> Intelligent workflows eliminate busywork</li>
-              <li><i class="fa-solid fa-chart-bar"></i> Interactive dashboards and real‑time reporting</li>
-              <li><i class="fa-solid fa-calendar-check"></i> Smart scheduling &amp; resource management</li>
-            </ul>
-            <a class="btn btn-secondary" href="book.html">Optimise Workflows</a>
-          </div>
-        </div>
-        <div class="service-row animate" id="documents">
-          <div class="service-image service-image">
-            <img
-              alt="Robotic arms sorting digital documents"
-              class="service-img"
-              loading="lazy"
-              src="assets/images/zip/Silverstone_08.jpg"
-            />
-          </div>
-          <div class="service-content neon-card">
-            <h3>Document Management</h3>
-            <p>
-              Digitise, organise and route your paperwork with AI‑powered document
-              management. Our solutions classify, extract and deliver information
-              exactly where it’s needed, saving you hours of manual sorting and
-              ensuring your team always has access to the right files.
-            </p>
-            <ul>
-              <li><i class="fa-solid fa-tags"></i> AI classification and metadata tagging</li>
-              <li><i class="fa-solid fa-file-lines"></i> Optical Character Recognition and data extraction</li>
-              <li><i class="fa-solid fa-lock"></i> Secure storage with role‑based access control</li>
-            </ul>
-            <a class="btn btn-secondary" href="book.html">Let’s Talk Automation</a>
-          </div>
-        </div>
-        <div class="service-row animate" id="analytics">
-          <div class="service-image">
-            <img
-              alt="Neon data dashboard with charts and graphs"
-              class="service-img"
-              loading="lazy"
-              src="assets/images/zip/Silverstone_07_resized.jpg"
-            />
-          </div>
-          <div class="service-content neon-card">
-            <h3>Data &amp; Analytics</h3>
-            <p>
-              Transform raw data into actionable insights. Our analytics solutions
-              consolidate data from across your organisation into intuitive dashboards
-              and reports, giving you the clarity and foresight to make smarter
-              decisions faster.
-            </p>
-            <ul>
-              <li><i class="fa-solid fa-chart-pie"></i> Interactive dashboards and visualisations</li>
-              <li><i class="fa-solid fa-chart-line"></i> Predictive analytics and trend forecasting</li>
-              <li><i class="fa-solid fa-bell"></i> Real‑time KPI monitoring and alerts</li>
-            </ul>
-            <a class="btn btn-secondary" href="book.html">Unlock My Data</a>
-          </div>
-        </div>
-        <div class="service-row animate" id="integration">
-          <div class="service-image service-image">
-            <img
-              alt="Translucent digital pipes carrying binary code"
-              class="service-img"
-              loading="lazy"
-              src="assets/images/zip/Silverstone_24.jpg"
-            />
-          </div>
-          <div class="service-content neon-card">
-            <h3>Systems &amp; Data Integration</h3>
-            <p>
-              Connect your tools and platforms into a seamless ecosystem. We design and implement integrations that unify your stack, eliminate manual data entry and unlock new opportunities for automation.
-            </p>
-            <ul>
-              <li><i class="fa-solid fa-network-wired"></i> Unify your systems &amp; apps into one ecosystem</li>
-              <li><i class="fa-solid fa-plug"></i> Seamless app integration with n8n &amp; Zapier</li>
-              <li><i class="fa-solid fa-code"></i> API integration and middleware development</li>
-            </ul>
-            <a class="btn btn-secondary" href="book.html">Integrate Systems</a>
-          </div>
-        </div>
-        <div class="service-row animate" id="consulting">
-          <div class="service-image service-image">
-            <img
-              alt="Businessman collaborating with a digital AI figure"
-              class="service-img"
-              loading="lazy"
-              src="assets/images/zip/Silverstone_21.jpg"
-            />
-          </div>
-          <div class="service-content neon-card">
-            <h3>AI Consulting for Small Business</h3>
-            <p>
-              We make AI accessible for smaller companies without deep pockets or in‑house expertise. Our consultants cut through the noise to identify the right models and guide you from strategy to implementation.
-            </p>
-            <ul>
-              <li><i class="fa-solid fa-lightbulb"></i> Cut through the noise to identify the best AI models and tools for your needs</li>
-              <li><i class="fa-solid fa-robot"></i> Build AI agents and automations to increase productivity and profits</li>
-              <li><i class="fa-solid fa-shield-halved"></i> Understand the potential of AI and how to mitigate risks</li>
-            </ul>
-            <a class="btn btn-secondary" href="book.html">Level‑Up With AI</a>
-          </div>
-        </div>
-        <div class="service-row animate" id="finance">
-          <div class="service-image service-image">
-            <img
-              alt="Neon coins and banknotes swirling through a digital stream"
-              class="service-img"
-              loading="lazy"
-              src="assets/images/zip/Silverstone_17.jpg"
-            />
-          </div>
-          <div class="service-content neon-card">
-            <h3>Financial Automation</h3>
-            <p>
-              Simplify invoicing, payments and accounting with automated financial
-              workflows. We integrate your billing systems, payment gateways and
-              accounting software to ensure transactions are processed smoothly and
-              accurately.
-            </p>
-            <ul>
-              <li><i class="fa-solid fa-file-invoice-dollar"></i> Automated invoicing and payment collection</li>
-              <li><i class="fa-solid fa-calculator"></i> Seamless integration with accounting tools</li>
-              <li><i class="fa-solid fa-chart-line"></i> Realtime financial reporting and reconciliation</li>
-            </ul>
-            <a class="btn btn-secondary" href="book.html">Improve Cash Flow</a>
-          </div>
-        </div>
-        <div class="service-row animate" id="time">
-          <div class="service-image service-image">
-            <img
-              alt="Hourglass formed from binary digits representing time-saving"
-              class="service-img"
-              loading="lazy"
-              src="assets/images/zip/Silverstone_19.jpg"
-            />
-          </div>
-          <div class="service-content neon-card">
-            <h3>Time &amp; Resource Optimisation</h3>
-            <p>
-              Maximise efficiency by intelligently scheduling tasks and allocating
-              resources. Our optimisation engines analyse workloads and availability to
-              ensure the right people and assets are assigned at the right time.
-            </p>
-            <ul>
-              <li><i class="fa-solid fa-clock"></i> Smart scheduling algorithms</li>
-              <li><i class="fa-solid fa-users"></i> Automated resource allocation</li>
-              <li><i class="fa-solid fa-calendar-check"></i> Calendar synchronisation and notifications</li>
-            </ul>
-            <a class="btn btn-secondary" href="book.html">Optimise My Schedule</a>
-          </div>
-        </div>
-        <div class="service-row animate" id="connectivity">
-          <div class="service-image service-image">
-            <img
-              alt="Connected skyscrapers forming a digital network across a city skyline"
-              class="service-img"
-              loading="lazy"
-              src="assets/images/zip/Silverstone_01.jpg"
-            />
-          </div>
-          <div class="service-content neon-card">
-            <h3>Global Connectivity</h3>
-            <p>
-              Bridge the gap between teams, tools and locations. We design cloud‑first
-              architectures and scalable systems that keep your workforce connected and
-              productive—no matter where they are in the world.
-            </p>
-            <ul>
-              <li><i class="fa-solid fa-cloud"></i> Cloud infrastructure design and migration</li>
-              <li><i class="fa-solid fa-arrows-rotate"></i> Cross‑platform synchronisation</li>
-              <li><i class="fa-solid fa-layer-group"></i> Scalable and resilient architecture</li>
-            </ul>
-            <a class="btn btn-secondary" href="book.html">Connect My World</a>
-          </div>
-        </div>
-        <h2 class="section-title" style="margin-top: 4rem">Innovation Gallery</h2>
-        <p class="section-subtitle">A glimpse into the ideas and technology that inspire our work.</p>
-        <div class="gallery-grid" id="innovation-gallery">
-          <div class="service-image">
-            <img
-              src="assets/images/zip/Silverstone_05.jpg"
-              loading="lazy"
-              alt="Globe encircled by neon rings with 24/7 highlighting around‑the‑clock service"
-              class="service-img gallery-img neon1"
-            />
-          </div>
-          <div class="service-image">
-            <img
-              src="assets/images/zip/Silverstone_09.jpg"
-              loading="lazy"
-              alt="Funnel transforming streams of data points into organised cubes"
-              class="service-img gallery-img neon2"
-            />
-          </div>
-          <div class="service-image">
-            <img
-              src="assets/images/zip/Silverstone_10.jpg"
-              loading="lazy"
-              alt="Circuit tree with green leaves symbolising sustainable growth through technology"
-              class="service-img gallery-img neon3"
-            />
-          </div>
-          <div class="service-image">
-            <img
-              src="assets/images/zip/Silverstone_12_new.jpg"
-              loading="lazy"
-              alt="Digital human interface highlighting customer‑centric interface"
-              class="service-img gallery-img neon4"
-            />
-          </div>
-          <div class="service-image">
-            <img
-              src="assets/images/zip/Silverstone_13.jpg"
-              loading="lazy"
-              alt="Glowing network connections converging toward Silverstone"
-              class="service-img gallery-img neon5"
-            />
-          </div>
-          <div class="service-image">
-            <img
-              src="assets/images/zip/Silverstone_23.jpg"
-              loading="lazy"
-              alt="Neon brain made of circuitry representing artificial intelligence"
-              class="service-img gallery-img neon6"
-            />
-          </div>
-          <div class="service-image">
-            <img
-              src="assets/images/zip/Silverstone_29.jpg"
-              loading="lazy"
-              alt="Colourful nodes connected to a digital network"
-              class="service-img gallery-img neon7"
-            />
-          </div>
-          <div class="service-image">
-            <img
-              src="assets/images/zip/Silverstone_30.jpg"
-              loading="lazy"
-              alt="Highway towards a sunrise with the text optimise and succeed"
-              class="service-img gallery-img neon8"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="section brand-gradient animate">
-      <div class="container">
-        <div class="neon-card cta-card" style="text-align: center">
-          <h2 class="section-title" style="color: var(--color-white)">Let’s Build Your Future</h2>
-          <p class="section-subtitle" style="color: var(--color-silver)">
-            Our team is ready to craft a personalised solution that propels your business forward.
+        <div class="service-content neon-card">
+          <h3>Marketing Automation</h3>
+          <p>
+            Boost customer attraction and drive sales with targeted, automated marketing workflows. We design
+            streamlined processes and weave GenAI into your systems so you can create, publish and repurpose assets on
+            autopilot.
           </p>
-          <a href="book.html" class="btn btn-primary">Claim Your Free Audit</a>
+          <ul>
+            <li><i class="fa-solid fa-diagram-project"></i> Design and build streamlined processes to increase your
+              team’s capacity</li>
+            <li><i class="fa-solid fa-robot"></i> Weave GenAI into workflows to create, publish and repurpose assets on
+              autopilot</li>
+            <li><i class="fa-solid fa-chart-line"></i> Optimise campaign performance and improve personalisation to
+              maximise ROI</li>
+          </ul>
+          <a href="book.html" class="btn btn-secondary">Automate Marketing</a>
         </div>
       </div>
-    </section>
-    <!-- Global site footer -->
-    <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-brand">
-          <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
-          <p class="tagline">Streamline. Optimize. Succeed.</p>
-          <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise operations and succeed in the digital age.</p>
+      <div class="service-row animate" id="workflow-data">
+        <div class="service-image service-image">
+          <img alt="Colourful shapes connected by a rainbow line representing workflow automation" class="service-img"
+            loading="lazy" src="assets/images/zip/Silverstone_11.jpg" />
         </div>
-        <div class="footer-links">
-          <h4>Quick Links</h4>
+        <div class="service-content neon-card">
+          <h3>Workflow &amp; Data Automation</h3>
+          <p>
+            Create automated workflows and data systems to optimise resources and increase ROI. Our solutions combine
+            intelligent process automation with powerful analytics so you can eliminate busywork, make data‑driven
+            decisions and scale with confidence.
+          </p>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="book.html">Book</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><i class="fa-solid fa-gears"></i> Intelligent workflows eliminate busywork</li>
+            <li><i class="fa-solid fa-chart-bar"></i> Interactive dashboards and real‑time reporting</li>
+            <li><i class="fa-solid fa-calendar-check"></i> Smart scheduling &amp; resource management</li>
           </ul>
+          <a class="btn btn-secondary" href="book.html">Optimise Workflows</a>
         </div>
-        <div class="footer-contact">
-          <h4>Contact Us</h4>
-          <p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
-          <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+      </div>
+      <div class="service-row animate" id="documents">
+        <div class="service-image service-image">
+          <img alt="Robotic arms sorting digital documents" class="service-img" loading="lazy"
+            src="assets/images/zip/Silverstone_08.jpg" />
         </div>
-        <div class="footer-social">
-          <h4>Follow Us</h4>
-          <div class="social-icons">
-            <a href="https://instagram.silverstone-ai.com" target="_blank" rel="noopener" aria-label="Instagram (@silverstone.ai)"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://tiktok.silverstone-ai.com" target="_blank" rel="noopener" aria-label="TikTok (@silverstone_ai)"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://facebook.silverstone-ai.com" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <div class="service-content neon-card">
+          <h3>Document Management</h3>
+          <p>
+            Digitise, organise and route your paperwork with AI‑powered document
+            management. Our solutions classify, extract and deliver information
+            exactly where it’s needed, saving you hours of manual sorting and
+            ensuring your team always has access to the right files.
+          </p>
+          <ul>
+            <li><i class="fa-solid fa-tags"></i> AI classification and metadata tagging</li>
+            <li><i class="fa-solid fa-file-lines"></i> Optical Character Recognition and data extraction</li>
+            <li><i class="fa-solid fa-lock"></i> Secure storage with role‑based access control</li>
+          </ul>
+          <a class="btn btn-secondary" href="book.html">Let’s Talk Automation</a>
+        </div>
+      </div>
+      <div class="service-row animate" id="analytics">
+        <div class="service-image">
+          <img alt="Neon data dashboard with charts and graphs" class="service-img" loading="lazy"
+            src="assets/images/zip/Silverstone_07_resized.jpg" />
+        </div>
+        <div class="service-content neon-card">
+          <h3>Data &amp; Analytics</h3>
+          <p>
+            Transform raw data into actionable insights. Our analytics solutions
+            consolidate data from across your organisation into intuitive dashboards
+            and reports, giving you the clarity and foresight to make smarter
+            decisions faster.
+          </p>
+          <ul>
+            <li><i class="fa-solid fa-chart-pie"></i> Interactive dashboards and visualisations</li>
+            <li><i class="fa-solid fa-chart-line"></i> Predictive analytics and trend forecasting</li>
+            <li><i class="fa-solid fa-bell"></i> Real‑time KPI monitoring and alerts</li>
+          </ul>
+          <a class="btn btn-secondary" href="book.html">Unlock My Data</a>
+        </div>
+      </div>
+      <div class="service-row animate" id="integration">
+        <div class="service-image service-image">
+          <img alt="Translucent digital pipes carrying binary code" class="service-img" loading="lazy"
+            src="assets/images/zip/Silverstone_24.jpg" />
+        </div>
+        <div class="service-content neon-card">
+          <h3>Systems &amp; Data Integration</h3>
+          <p>
+            Connect your tools and platforms into a seamless ecosystem. We design and implement integrations that unify
+            your stack, eliminate manual data entry and unlock new opportunities for automation.
+          </p>
+          <ul>
+            <li><i class="fa-solid fa-network-wired"></i> Unify your systems &amp; apps into one ecosystem</li>
+            <li><i class="fa-solid fa-plug"></i> Seamless app integration with n8n &amp; Zapier</li>
+            <li><i class="fa-solid fa-code"></i> API integration and middleware development</li>
+          </ul>
+          <a class="btn btn-secondary" href="book.html">Integrate Systems</a>
+        </div>
+      </div>
+      <div class="service-row animate" id="consulting">
+        <div class="service-image service-image">
+          <img alt="Businessman collaborating with a digital AI figure" class="service-img" loading="lazy"
+            src="assets/images/zip/Silverstone_21.jpg" />
+        </div>
+        <div class="service-content neon-card">
+          <h3>AI Consulting for Small Business</h3>
+          <p>
+            We make AI accessible for smaller companies without deep pockets or in‑house expertise. Our consultants cut
+            through the noise to identify the right models and guide you from strategy to implementation.
+          </p>
+          <ul>
+            <li><i class="fa-solid fa-lightbulb"></i> Cut through the noise to identify the best AI models and tools for
+              your needs</li>
+            <li><i class="fa-solid fa-robot"></i> Build AI agents and automations to increase productivity and profits
+            </li>
+            <li><i class="fa-solid fa-shield-halved"></i> Understand the potential of AI and how to mitigate risks</li>
+          </ul>
+          <a class="btn btn-secondary" href="book.html">Level‑Up With AI</a>
+        </div>
+      </div>
+      <div class="service-row animate" id="finance">
+        <div class="service-image service-image">
+          <img alt="Neon coins and banknotes swirling through a digital stream" class="service-img" loading="lazy"
+            src="assets/images/zip/Silverstone_17.jpg" />
+        </div>
+        <div class="service-content neon-card">
+          <h3>Financial Automation</h3>
+          <p>
+            Simplify invoicing, payments and accounting with automated financial
+            workflows. We integrate your billing systems, payment gateways and
+            accounting software to ensure transactions are processed smoothly and
+            accurately.
+          </p>
+          <ul>
+            <li><i class="fa-solid fa-file-invoice-dollar"></i> Automated invoicing and payment collection</li>
+            <li><i class="fa-solid fa-calculator"></i> Seamless integration with accounting tools</li>
+            <li><i class="fa-solid fa-chart-line"></i> Realtime financial reporting and reconciliation</li>
+          </ul>
+          <a class="btn btn-secondary" href="book.html">Improve Cash Flow</a>
+        </div>
+      </div>
+      <div class="service-row animate" id="time">
+        <div class="service-image service-image">
+          <img alt="Hourglass formed from binary digits representing time-saving" class="service-img" loading="lazy"
+            src="assets/images/zip/Silverstone_19.jpg" />
+        </div>
+        <div class="service-content neon-card">
+          <h3>Time &amp; Resource Optimisation</h3>
+          <p>
+            Maximise efficiency by intelligently scheduling tasks and allocating
+            resources. Our optimisation engines analyse workloads and availability to
+            ensure the right people and assets are assigned at the right time.
+          </p>
+          <ul>
+            <li><i class="fa-solid fa-clock"></i> Smart scheduling algorithms</li>
+            <li><i class="fa-solid fa-users"></i> Automated resource allocation</li>
+            <li><i class="fa-solid fa-calendar-check"></i> Calendar synchronisation and notifications</li>
+          </ul>
+          <a class="btn btn-secondary" href="book.html">Optimise My Schedule</a>
+        </div>
+      </div>
+      <div class="service-row animate" id="connectivity">
+        <div class="service-image service-image">
+          <img alt="Connected skyscrapers forming a digital network across a city skyline" class="service-img"
+            loading="lazy" src="assets/images/zip/Silverstone_01.jpg" />
+        </div>
+        <div class="service-content neon-card">
+          <h3>Global Connectivity</h3>
+          <p>
+            Bridge the gap between teams, tools and locations. We design cloud‑first
+            architectures and scalable systems that keep your workforce connected and
+            productive—no matter where they are in the world.
+          </p>
+          <ul>
+            <li><i class="fa-solid fa-cloud"></i> Cloud infrastructure design and migration</li>
+            <li><i class="fa-solid fa-arrows-rotate"></i> Cross‑platform synchronisation</li>
+            <li><i class="fa-solid fa-layer-group"></i> Scalable and resilient architecture</li>
+          </ul>
+          <a class="btn btn-secondary" href="book.html">Connect My World</a>
+        </div>
+      </div>
+      <h2 class="section-title" style="margin-top: 4rem">Innovation Gallery</h2>
+      <p class="section-subtitle">A glimpse into the ideas and technology that inspire our work.</p>
+      <div class="neural-grid" id="neural-grid">
+        <!-- 1:1 -->
+        <div class="neural-card">
+          <img src="assets/images/socialmedia/1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg"
+            alt="Business Scaling" loading="lazy">
+          <div class="neural-overlay">
+            <div class="neural-info">
+              <h4>Scale Limits</h4>
+            </div>
+          </div>
+        </div>
+        <!-- 2:3 -->
+        <div class="neural-card">
+          <img src="assets/images/socialmedia/2-3_ai_laptop-flowchart_stop-wasting-hours.jpg" alt="AI Workflow"
+            loading="lazy">
+          <div class="neural-overlay">
+            <div class="neural-info">
+              <h4>Stop Wasting Hours</h4>
+            </div>
+          </div>
+        </div>
+        <!-- 3:2 -->
+        <div class="neural-card">
+          <img src="assets/images/socialmedia/3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg"
+            alt="Business Chat" loading="lazy">
+          <div class="neural-overlay">
+            <div class="neural-info">
+              <h4>Instant Response</h4>
+            </div>
+          </div>
+        </div>
+        <!-- 2:3 -->
+        <div class="neural-card">
+          <img src="assets/images/socialmedia/2-3_business_smartphone-with-message_ai-just-booked-your-next-client.jpg"
+            alt="AI Booking" loading="lazy">
+          <div class="neural-overlay">
+            <div class="neural-info">
+              <h4>Auto-Booking</h4>
+            </div>
+          </div>
+        </div>
+        <!-- 1:1 -->
+        <div class="neural-card">
+          <img src="assets/images/socialmedia/1-1_marketing_boardroom-messages_your-prospects-can-tell.jpg"
+            alt="Marketing Insights" loading="lazy">
+          <div class="neural-overlay">
+            <div class="neural-info">
+              <h4>Marketing Intel</h4>
+            </div>
+          </div>
+        </div>
+        <!-- 3:2 -->
+        <div class="neural-card">
+          <img src="assets/images/socialmedia/3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg"
+            alt="Legal AI" loading="lazy">
+          <div class="neural-overlay">
+            <div class="neural-info">
+              <h4>Legal Workflows</h4>
+            </div>
+          </div>
+        </div>
+        <!-- 2:3 -->
+        <div class="neural-card">
+          <img src="assets/images/socialmedia/2-3_salon_chair-with-holographic-calendar_stay-fully-booked.jpg"
+            alt="Salon Booking" loading="lazy">
+          <div class="neural-overlay">
+            <div class="neural-info">
+              <h4>Fully Booked</h4>
+            </div>
+          </div>
+        </div>
+        <!-- 1:1 -->
+        <div class="neural-card">
+          <img src="assets/images/socialmedia/1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg"
+            alt="Recruitment AI" loading="lazy">
+          <div class="neural-overlay">
+            <div class="neural-info">
+              <h4>Recruitment</h4>
+            </div>
           </div>
         </div>
       </div>
-      <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
-    </footer>
-    <script src="assets/js/script.js" defer></script>
-    <script defer src="assets/js/cookie-consent.js"></script>
-      <script defer src="assets/js/hero-cinematic.js"></script>
+    </div>
+  </section>
+  <section class="section brand-gradient animate">
+    <div class="container">
+      <div class="neon-card cta-card" style="text-align: center">
+        <h2 class="section-title" style="color: var(--color-white)">Let’s Build Your Future</h2>
+        <p class="section-subtitle" style="color: var(--color-silver)">
+          Our team is ready to craft a personalised solution that propels your business forward.
+        </p>
+        <a href="book.html" class="btn btn-primary">Claim Your Free Audit</a>
+      </div>
+    </div>
+  </section>
+  <!-- Global site footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
+        <p class="tagline">Streamline. Optimize. Succeed.</p>
+        <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise
+          operations and succeed in the digital age.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="book.html">Book</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="https://instagram.silverstone-ai.com" target="_blank" rel="noopener"
+            aria-label="Instagram (@silverstone.ai)"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://tiktok.silverstone-ai.com" target="_blank" rel="noopener"
+            aria-label="TikTok (@silverstone_ai)"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://facebook.silverstone-ai.com" target="_blank" rel="noopener" aria-label="Facebook"><i
+              class="fa-brands fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
+  </footer>
+  <script src="assets/js/script.js" defer></script>
+  <script defer src="assets/js/cookie-consent.js"></script>
+  <script defer src="assets/js/hero-cinematic.js"></script>
+  <script defer src="assets/js/neural-grid.js"></script>
+  <script defer src="assets/js/neural-nexus.js"></script>
+  <script defer src="assets/js/magnetic-buttons.js"></script>
 </body>
+
 </html>
