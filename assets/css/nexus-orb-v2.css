@@ -1,0 +1,107 @@
+/* Neural Nexus Orb v2 Styles */
+
+.nexus-orb-container {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    z-index: 900;
+    /* Below Cookie Banner (1000), Lightbox (2001) */
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    /* Orb on right, rail expands left */
+    gap: 15px;
+}
+
+/* Mobile Ban */
+@media (max-width: 768px) {
+    .nexus-orb-container {
+        display: none !important;
+    }
+}
+
+.nexus-orb {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nexus-core {
+    width: 12px;
+    height: 12px;
+    background: #00ffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ffff;
+    animation: heartbeat 3s infinite ease-in-out;
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+        box-shadow: 0 0 20px #00ffff;
+    }
+}
+
+.nexus-orb:hover {
+    transform: scale(1.1);
+    border-color: rgba(0, 255, 255, 0.8);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+}
+
+/* Image Rail */
+.nexus-rail {
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transform: translateX(20px);
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-right: 10px;
+}
+
+.nexus-orb-container.expanded .nexus-rail {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.nexus-rail-img {
+    width: 0;
+    /* Collapsed initially */
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: width 0.4s ease;
+    min-width: 0;
+    /* Allow collapse */
+}
+
+.nexus-orb-container.expanded .nexus-rail-img {
+    width: 220px;
+    /* Large expansion */
+    min-width: 220px;
+    /* Constraint: 200px+ */
+}
+
+/* Ensure rail doesn't overlap content too aggressively */
+/* But it's fixed, so it floats over. */
