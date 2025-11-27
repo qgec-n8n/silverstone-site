@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `).join('')}
         </div>
-        <div class="nexus-tooltip">Hover to Preview Work</div>
+        <div class="nexus-tooltip">Explore Neural Grid</div>
     `;
 
     document.body.appendChild(container);
