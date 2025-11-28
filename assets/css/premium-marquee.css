@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 40px 0;
+    padding: 0 0 40px 0;
     z-index: 10;
 }
 
@@ -58,20 +58,20 @@
 
 /* Animation Classes & Speeds */
 .scroll-left {
-    animation: marquee-scroll-left 40s linear infinite;
+    animation: marquee-scroll-left 60s linear infinite;
 }
 
 .scroll-right {
-    animation: marquee-scroll-right 40s linear infinite;
+    animation: marquee-scroll-right 60s linear infinite;
 }
 
 /* Speed Modifiers */
 .marquee-track.fast {
-    animation-duration: 25s; /* Fast */
+    animation-duration: 40s; /* Fast */
 }
 
 .marquee-track.slow {
-    animation-duration: 55s; /* Slow */
+    animation-duration: 80s; /* Slow */
 }
 
 /* Pause on Hover */

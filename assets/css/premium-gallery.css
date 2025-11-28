@@ -9,7 +9,7 @@
     column-count: 3;
     column-gap: 0; /* NO GAPS */
     padding: 0 !important;
-    margin: 4rem 0;
+    margin: 4rem 0 1rem 0;
     width: 100%;
     max-width: 1400px;
     margin-left: auto;
@@ -17,6 +17,7 @@
     box-sizing: border-box;
     /* Ensure nice edges */
     overflow: hidden;
+    scroll-margin-top: 120px; /* Offset for sticky header when navigating via anchor */
 }
 
 /* Mosaic Tile Base */
@@ -123,6 +124,11 @@
 }
 
 /* MOVED LIGHTBOX CSS TO PREMIUM-MARQUEE.CSS */
+
+/* GAP FIX: Override the huge padding on the services page parent section */
+.section.bg-circuit {
+    padding-bottom: 2rem !important; /* Reduced from ~14rem to 2rem */
+}
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {

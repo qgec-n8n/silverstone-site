@@ -92,19 +92,25 @@
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
       if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
-      else if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+      else if (dy < 0 && sy <= 5 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) {
+        // Only trigger UP if we are essentially AT the boundary (top of body content)
+        // If we are deep in the body, normal scrolling should apply until we hit the top.
+        // However, the original logic forces a scroll lock.
+        // New Logic: Only hijacking UP if we are close to the transition point.
+        e.preventDefault(); tryUp();
+      }
     }
     var tY = null; function tStart(e) { if (anim) return; tY = e.touches ? e.touches[0].clientY : e.clientY; }
     function tMove(e) {
       if (anim || isOverlayOpen() || tY == null) return; var y = e.touches ? e.touches[0].clientY : e.clientY, dy = tY - y, g = geo(hero, next), sy = window.scrollY;
       if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
-      else if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+      else if (dy < -8 && sy <= 5 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function tEnd() { tY = null; }
     function onKey(e) {
       if (anim || isOverlayOpen()) return; var g = geo(hero, next), sy = window.scrollY;
       if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
-      else if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+      else if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= 5 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function syncMobileState(gInfo) {
       if (anim || !isMobileViewport()) return; var g = gInfo || geo(hero, next), sy = window.scrollY, past = sy >= g.bodyY - 1;
@@ -112,11 +118,17 @@
     }
     function onScroll() {
       if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
-      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown();
+      else if (dir < 0 && sy <= 5 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
       syncMobileState(g);
     }
     (function initState() {
-      var g = geo(hero, next), past = window.scrollY >= g.bodyY; hero.style.setProperty("--heroProgress", past ? 1 : 0);
+      var g = geo(hero, next), sy = window.scrollY;
+      // If we are loading at a deep scroll position (e.g. anchor link), assume we are past hero.
+      // Use a loose threshold (e.g. > 100px) to catch 'mid-page' loads reliably.
+      var past = sy >= g.bodyY || sy > 100;
+
+      hero.style.setProperty("--heroProgress", past ? 1 : 0);
       hero.style.setProperty("--heroDepth", past ? DEPTH_DOWN_MAX : 0); setVar("--cineBars", 0); setVar("--cineBloom", 0); setVar("--cineBeamBoost", 0);
       setVar("--cineAurora", 0); setVar("--cinePulse", 0); setVar("--cineVeil", past ? 0 : 0.45); syncMobileState(g);
     })(); window.addEventListener("wheel", onWheel, { passive: false });
