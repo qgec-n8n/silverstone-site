@@ -58,3 +58,15 @@ rgba(255,230,0,0.35)}.gallery-img.neon5{border-color:rgba(255,106,0,0.45);box-sh
     backdrop-filter: blur(8px) !important;
   }
 }
+#innovation-gallery {
+  scroll-margin-top: calc(var(--headerH, 80px) + 12px);
+  margin-top: 3.5rem;
+}
+
+.page-services .innovation-marquee-stack {
+  padding-bottom: 1.25rem !important;
+}
+
+.page-services .innovation-marquee-stack .double-marquee-container {
+  margin-top: 0.75rem;
+}
