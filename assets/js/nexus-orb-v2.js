@@ -86,6 +86,7 @@
 
             // UPDATED: Click -> Navigate to Innovation Gallery
             img.addEventListener('click', () => {
+                sessionStorage.setItem('disableHeroCinematic', 'true');
                 window.location.href = 'services.html#neural-grid';
             });
 
@@ -100,6 +101,7 @@
         document.body.appendChild(container);
 
         orb.addEventListener('click', () => {
+            sessionStorage.setItem('disableHeroCinematic', 'true');
             window.location.href = 'services.html#neural-grid';
         });
     }

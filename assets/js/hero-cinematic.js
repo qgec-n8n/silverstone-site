@@ -66,7 +66,24 @@
     function sizeHero() { hero.style.minHeight = geo(hero, next).visH + "px"; } sizeHero();
     var anim = false, lastY = window.scrollY;
     var DEPTH_DOWN_MAX = 1.15;
+
+    // Check if cinematic animations should be disabled initially (Orb Redirect)
+    var animationsDisabled = sessionStorage.getItem('disableHeroCinematic') === 'true';
+
+    // If we are back at the top (hero), re-enable animations
+    // Or if the user navigated here normally (not via orb redirect)
+    if (window.scrollY < 10 && animationsDisabled) {
+         animationsDisabled = false;
+         sessionStorage.removeItem('disableHeroCinematic');
+    }
+
     function animate(yTarget, dir) {
+      // If disabled, skip animation and jump
+      if (animationsDisabled && dir === 'down') {
+          window.scrollTo(0, yTarget);
+          return;
+      }
+
       anim = true; lock(true); var y0 = window.scrollY, delta = yTarget - y0, t0 = performance.now(), dur = CONFIG.DURATION_MS;
       var depthFrom = dir === "down" ? 0 : DEPTH_DOWN_MAX, depthTo = dir === "down" ? DEPTH_DOWN_MAX : 0;
       function tick(now) {
@@ -87,8 +104,19 @@
       }
       requestAnimationFrame(tick);
     }
-    function tryDown() { if (anim || isOverlayOpen()) return; animate(geo(hero, next).bodyY, "down"); }
-    function tryUp() { if (anim || isOverlayOpen()) return; animate(0, "up"); }
+    function tryDown() {
+        if (anim || isOverlayOpen()) return;
+        animate(geo(hero, next).bodyY, "down");
+    }
+    function tryUp() {
+        // Always re-enable animations when scrolling UP
+        if (animationsDisabled) {
+            animationsDisabled = false;
+            sessionStorage.removeItem('disableHeroCinematic');
+        }
+        if (anim || isOverlayOpen()) return;
+        animate(0, "up");
+    }
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
       if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
@@ -112,7 +140,24 @@
     }
     function onScroll() {
       if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
+
+      // Re-enable on upward scroll logic here too if needed, though tryUp covers it.
+      if (dir < 0 && animationsDisabled) {
+            animationsDisabled = false;
+            sessionStorage.removeItem('disableHeroCinematic');
+      }
+
       if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+
+      // SNAP LOGIC: If we are significantly past the body start (e.g. hash jump), force 'past' state
+      if (!anim && !isMobileViewport()) {
+          if (sy > g.bodyY + 10) {
+               hero.style.setProperty("--heroProgress", 1);
+               hero.style.setProperty("--heroDepth", DEPTH_DOWN_MAX);
+               setVar("--cineVeil", 0);
+          }
+      }
+
       syncMobileState(g);
     }
     (function initState() {
@@ -122,6 +167,21 @@
       // FIX: If arriving via hash anchor (e.g. #neural-grid), force "past" state immediately
       if (window.location.hash) {
         past = true;
+        // Also ensure animations are effectively treated as "done" or disabled for this initial load
+        animationsDisabled = false; // We are already there, so regular logic applies for next interaction?
+        // Actually if we arrive at hash, we are past the hero. The hero to body animation shouldn't run.
+        // But if the user scrolls up, we want body to hero.
+        // The prompt says "The animations for the hero to body direction should only become activated if the user scrolls back up into the hero section".
+        // So if we start at hash, we are effectively "at body".
+      }
+
+      // If disabled via flag (from Orb redirect)
+      if (animationsDisabled) {
+          // If we are at the top, we want to allow scrolling down WITHOUT animation first time?
+          // The request says "deactivate... animations for the hero to body direction... until user scrolls back up"
+          // If we redirect to #neural-grid, we are already at body.
+          // So the initial state should just be "past".
+          past = true;
       }
 
       hero.style.setProperty("--heroProgress", past ? 1 : 0);
