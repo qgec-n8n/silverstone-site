@@ -58,3 +58,13 @@ rgba(255,230,0,0.35)}.gallery-img.neon5{border-color:rgba(255,106,0,0.45);box-sh
     backdrop-filter: blur(8px) !important;
   }
 }
+
+.innovation-anchor {
+  scroll-margin-top: 110px;
+}
+
+@media (max-width: 768px) {
+  .innovation-anchor {
+    scroll-margin-top: 88px;
+  }
+}

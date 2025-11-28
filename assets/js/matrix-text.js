@@ -16,6 +16,20 @@
     const DECODE_SPEED = 50; // ms per frame
     const ITERATIONS_PER_CHAR = 3; // How many scrambles before fixing a char
 
+    function lockSingleLineLayout(element) {
+        const computed = window.getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        const lineHeight = parseFloat(computed.lineHeight) || rect.height;
+        const lines = Math.round(rect.height / lineHeight);
+
+        if (lines <= 1) {
+            element.style.minHeight = `${rect.height}px`;
+            element.style.whiteSpace = 'nowrap';
+            element.style.wordBreak = 'keep-all';
+            element.dataset.layoutLocked = 'true';
+        }
+    }
+
     // --- INITIALIZATION ---
     function initMatrixText() {
         const headers = document.querySelectorAll(TARGET_SELECTOR);
@@ -24,6 +38,10 @@
             // Store original text
             if (!header.dataset.originalText) {
                 header.dataset.originalText = header.innerText;
+            }
+
+            if (!header.dataset.layoutLocked) {
+                lockSingleLineLayout(header);
             }
 
             // Start Effect
