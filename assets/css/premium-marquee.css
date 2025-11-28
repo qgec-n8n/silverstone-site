@@ -56,7 +56,7 @@
     }
 }
 
-/* Animation Classes */
+/* Animation Classes & Speeds */
 .scroll-left {
     animation: marquee-scroll-left 40s linear infinite;
 }
@@ -65,12 +65,21 @@
     animation: marquee-scroll-right 40s linear infinite;
 }
 
+/* Speed Modifiers */
+.marquee-track.fast {
+    animation-duration: 25s; /* Fast */
+}
+
+.marquee-track.slow {
+    animation-duration: 55s; /* Slow */
+}
+
 /* Pause on Hover */
 .marquee-track:hover {
     animation-play-state: paused;
 }
 
-/* Marquee Images */
+/* Marquee Images (Double Deck Default) */
 .marquee-img {
     height: 180px;
     /* Default for Double-Deck */
@@ -89,10 +98,10 @@
     filter: grayscale(0%);
 }
 
-/* Global Footer Specifics */
+/* Global Footer Specifics (Single Marquee) */
 .global-footer .marquee-img {
-    height: 80px;
-    /* Slimmer */
+    height: 130px;
+    /* Larger height as requested (between 80px and 180px) */
     opacity: 0.95;
 }
 
@@ -109,6 +118,105 @@
     }
 
     .global-footer .marquee-img {
-        height: 60px;
+        height: 80px; /* Reduced for mobile specific single marquee */
+    }
+}
+
+/* =========================================
+   CINEMATIC LIGHTBOX (MOVED FROM GALLERY)
+   ========================================= */
+
+.premium-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 20, 30, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.premium-lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Lightbox Content Wrapper */
+.lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    transform: scale(0.9);
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    background: rgba(0, 255, 255, 0.05);
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.premium-lightbox.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Close Button (The ONLY way to close) */
+.lightbox-close {
+    position: absolute;
+    top: -50px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10000;
+    transition: transform 0.3s ease;
+}
+
+.lightbox-close::before,
+.lightbox-close::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.lightbox-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.lightbox-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.lightbox-close:hover {
+    transform: scale(1.2) rotate(90deg);
+}
+
+@media (max-width: 768px) {
+    .lightbox-close {
+        top: -50px;
+        right: 0;
     }
 }
