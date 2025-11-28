@@ -447,7 +447,7 @@ background: none !important;
 .page-book .discovery-call-section {
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url('../images/internet/hero/book-hero-calendly-mobile-2025.png');
+    url('../images/internet/hero/book-hero-calendly-mobile-2025.webp');
   background-size: cover;
   background-position: center;
 }
@@ -455,7 +455,7 @@ background: none !important;
   .page-book .discovery-call-section {
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      url('../images/internet/hero/book-hero-final.jpg');
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp');
   }
 }
 .hero img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1}

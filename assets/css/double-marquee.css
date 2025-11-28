@@ -1,0 +1,200 @@
+/* =========================================
+   DOUBLE MARQUEE: SERVICES PAGE ONLY
+   ========================================= */
+
+/* Base Marquee Container */
+.premium-marquee-container.double-deck {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 0 40px 0; /* Minimized top padding for Double Layer on Services */
+    margin-top: -5px; /* Negative margin to ensure no gap from gallery */
+    z-index: 10;
+}
+
+/* Marquee Track */
+.marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 40px;
+    /* Space between images */
+    will-change: transform;
+}
+
+/* Animation Definitions */
+@keyframes marquee-scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-scroll-right {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Animation Classes & Speeds */
+.scroll-left {
+    animation: marquee-scroll-left 60s linear infinite;
+}
+
+.scroll-right {
+    animation: marquee-scroll-right 60s linear infinite;
+}
+
+/* Speed Modifiers */
+.marquee-track.fast {
+    animation-duration: 45s; /* Fast */
+}
+
+.marquee-track.slow {
+    animation-duration: 75s; /* Slow */
+}
+
+/* Pause on Hover */
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+/* Marquee Images (Double Deck Default) */
+.marquee-img {
+    height: 180px;
+    /* Default for Double-Deck */
+    width: auto;
+    object-fit: contain;
+    /* No cropping */
+    opacity: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.marquee-img:hover {
+    transform: scale(1.05);
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .premium-marquee-container.double-deck {
+        gap: 10px;
+        padding: 20px 0;
+    }
+
+    .marquee-img {
+        height: 120px;
+        /* Smaller on mobile */
+    }
+}
+
+/* =========================================
+   CINEMATIC LIGHTBOX
+   ========================================= */
+
+.premium-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 20, 30, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.premium-lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Lightbox Content Wrapper */
+.lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    transform: scale(0.9);
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    background: rgba(0, 255, 255, 0.05);
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.premium-lightbox.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Close Button (The ONLY way to close) */
+.lightbox-close {
+    position: absolute;
+    top: -50px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10000;
+    transition: transform 0.3s ease;
+}
+
+.lightbox-close::before,
+.lightbox-close::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.lightbox-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.lightbox-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.lightbox-close:hover {
+    transform: scale(1.2) rotate(90deg);
+}
+
+@media (max-width: 768px) {
+    .lightbox-close {
+        top: -50px;
+        right: 0;
+    }
+}
