@@ -34,6 +34,26 @@
     function runDecodeEffect(element) {
         const originalText = element.dataset.originalText;
         const textLength = originalText.length;
+        const computed = window.getComputedStyle(element);
+        const lineHeight = parseFloat(computed.lineHeight) || 1;
+        const rect = element.getBoundingClientRect();
+        const lineCount = Math.round(rect.height / lineHeight) || 1;
+        let restoreStyles = null;
+
+        // Keep single-line headings from shifting as characters shuffle
+        if (lineCount <= 1) {
+            restoreStyles = {
+                display: element.style.display,
+                minWidth: element.style.minWidth,
+                minHeight: element.style.minHeight,
+                whiteSpace: element.style.whiteSpace
+            };
+
+            element.style.display = 'inline-block';
+            element.style.minWidth = `${rect.width}px`;
+            element.style.minHeight = `${rect.height}px`;
+            element.style.whiteSpace = 'nowrap';
+        }
         let iterations = 0;
 
         const interval = setInterval(() => {
@@ -57,6 +77,13 @@
             if (iterations >= textLength) {
                 clearInterval(interval);
                 element.innerText = originalText; // Ensure final state is clean
+
+                if (restoreStyles) {
+                    element.style.display = restoreStyles.display;
+                    element.style.minWidth = restoreStyles.minWidth;
+                    element.style.minHeight = restoreStyles.minHeight;
+                    element.style.whiteSpace = restoreStyles.whiteSpace;
+                }
             }
 
             // Increment iterations
