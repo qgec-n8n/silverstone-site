@@ -36,6 +36,19 @@
         const textLength = originalText.length;
         let iterations = 0;
 
+        // Lock single-line headings to their current width to prevent jitter during decode
+        const rect = element.getBoundingClientRect();
+        const computed = getComputedStyle(element);
+        const lineHeight = parseFloat(computed.lineHeight) || rect.height;
+        const isSingleLine = rect.height <= lineHeight * 1.2;
+        const originalDisplay = element.style.display;
+        const originalMinWidth = element.style.minWidth;
+
+        if (isSingleLine) {
+            element.style.display = originalDisplay || 'inline-block';
+            element.style.minWidth = rect.width + 'px';
+        }
+
         const interval = setInterval(() => {
             element.innerText = originalText
                 .split('')
@@ -57,6 +70,11 @@
             if (iterations >= textLength) {
                 clearInterval(interval);
                 element.innerText = originalText; // Ensure final state is clean
+
+                if (isSingleLine) {
+                    element.style.minWidth = originalMinWidth;
+                    element.style.display = originalDisplay;
+                }
             }
 
             // Increment iterations

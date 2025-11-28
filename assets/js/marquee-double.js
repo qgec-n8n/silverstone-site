@@ -1,22 +1,7 @@
-/**
- * PREMIUM MARQUEE: DOUBLE-DECK & GLOBAL FOOTER
- * 
- * Logic:
- * 1. Detects Page URL (Services vs Others).
- * 2. Injects appropriate Marquee HTML.
- * 3. Double-Deck: Two rows (Left/Right), High Impact.
- * 4. Global Footer: One row (Left), Slim.
- * 5. Click triggers existing Cinematic Lightbox (from premium-gallery.js or self-injected).
- */
-
 (function () {
     'use strict';
 
-    // --- CONFIGURATION ---
     const ASSET_PATH = 'assets/images/socialmedia/';
-    const SERVICES_PAGE = '/services.html';
-
-    // Full Archive of Social Media Images (Verified filenames only, no dotfiles)
     const MARQUEE_IMAGES = [
         '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg',
         '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
@@ -65,47 +50,31 @@
         '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
     ];
 
-    // --- INITIALIZATION ---
-    function initPremiumMarquee() {
-        // Clean up any old marquees first (Clean Slate)
-        const oldMarquees = document.querySelectorAll('.premium-marquee-container, .logo-slider');
-        oldMarquees.forEach(el => el.remove());
+    function initDoubleMarquee() {
+        document.querySelectorAll('.double-marquee, .single-marquee').forEach(el => el.remove());
 
-        // Ensure Lightbox Exists (Global Injection)
-        injectLightbox();
+        ensureLightbox();
 
-        const isServices = window.location.pathname.includes('services.html');
+        const grid = document.getElementById('neural-grid');
+        const container = createDoubleContainer();
 
-        if (isServices) {
-            injectDoubleDeckMarquee();
+        if (grid && grid.parentNode) {
+            grid.parentNode.insertBefore(container, grid.nextSibling);
         } else {
-            // Implicitly covers Home, About, Contact, Book
-            injectGlobalFooterMarquee();
+            const fallback = document.querySelector('.section.brand-gradient');
+            if (fallback && fallback.parentNode) {
+                fallback.parentNode.insertBefore(container, fallback);
+            } else {
+                document.body.appendChild(container);
+            }
         }
     }
 
-    // --- INJECTION LOGIC ---
-    function injectDoubleDeckMarquee() {
-        // Target: Directly underneath Innovation Gallery and above CTA banner
-        const ctaSection = document.querySelector('.section.brand-gradient');
-        if (!ctaSection) {
-            console.warn('CTA Section not found, appending to body');
-            document.body.appendChild(createDoubleDeckContainer());
-            return;
-        }
-
-        const container = createDoubleDeckContainer();
-        ctaSection.parentNode.insertBefore(container, ctaSection);
-    }
-
-    function createDoubleDeckContainer() {
+    function createDoubleContainer() {
         const container = document.createElement('div');
-        container.className = 'premium-marquee-container double-deck';
+        container.className = 'double-marquee';
 
-        // Row 1: Top Row -> Move RIGHT FAST
         const row1 = createMarqueeRow(MARQUEE_IMAGES, 'scroll-right fast');
-
-        // Row 2: Bottom Row -> Move LEFT SLOW
         const row2 = createMarqueeRow(MARQUEE_IMAGES.slice().reverse(), 'scroll-left slow');
 
         container.appendChild(row1);
@@ -113,57 +82,31 @@
         return container;
     }
 
-    function injectGlobalFooterMarquee() {
-        const footer = document.querySelector('footer.site-footer');
-        if (!footer) return;
-
-        const container = document.createElement('div');
-        container.className = 'premium-marquee-container global-footer';
-
-        // Single Row: Left Scroll (Standard Speed)
-        const row = createMarqueeRow(MARQUEE_IMAGES, 'scroll-left');
-
-        container.appendChild(row);
-        footer.parentNode.insertBefore(container, footer);
-    }
-
-    // --- ROW CREATION ---
-    function createMarqueeRow(images, animationClasses) {
+    function createMarqueeRow(images, classes) {
         const track = document.createElement('div');
-        track.className = `marquee-track ${animationClasses}`;
+        track.className = `marquee-track ${classes}`;
 
-        // Duplicate content to ensure seamless loop
-        const content = createImagesFragment(images);
-        const contentClone = createImagesFragment(images); // Clone for seamless loop
-
-        track.appendChild(content);
-        track.appendChild(contentClone);
-
+        track.appendChild(createImagesFragment(images));
+        track.appendChild(createImagesFragment(images));
         return track;
     }
 
     function createImagesFragment(images) {
         const fragment = document.createDocumentFragment();
-        images.forEach(filename => {
+        images.forEach(file => {
             const img = document.createElement('img');
-            img.src = ASSET_PATH + filename;
+            img.src = ASSET_PATH + file;
             img.className = 'marquee-img';
             img.alt = 'Silverstone Client Success';
             img.loading = 'lazy';
-
-            // Error handling
-            img.onerror = function () { this.style.display = 'none'; };
-
-            // Click -> Lightbox
+            img.onerror = () => { img.style.display = 'none'; };
             img.addEventListener('click', () => openLightbox(img.src));
-
             fragment.appendChild(img);
         });
         return fragment;
     }
 
-    // --- LIGHTBOX LOGIC (Global Fallback) ---
-    function injectLightbox() {
+    function ensureLightbox() {
         if (document.getElementById('premium-lightbox')) return;
 
         const lightbox = document.createElement('div');
@@ -180,14 +123,11 @@
         const closeBtn = document.createElement('button');
         closeBtn.className = 'lightbox-close';
         closeBtn.ariaLabel = 'Close Lightbox';
-
-        // Strict Closing Logic: ONLY the 'X' button closes it
         closeBtn.addEventListener('click', closeLightbox);
 
         content.appendChild(img);
         content.appendChild(closeBtn);
         lightbox.appendChild(content);
-
         document.body.appendChild(lightbox);
     }
 
@@ -195,25 +135,21 @@
         const lightbox = document.getElementById('premium-lightbox');
         const img = document.getElementById('lightbox-img');
         if (!lightbox || !img) return;
-
         img.src = src;
         lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Lock scroll
+        document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
         const lightbox = document.getElementById('premium-lightbox');
         if (!lightbox) return;
-
         lightbox.classList.remove('active');
-        document.body.style.overflow = ''; // Unlock scroll
+        document.body.style.overflow = '';
     }
 
-    // Run Initialization
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPremiumMarquee);
+        document.addEventListener('DOMContentLoaded', initDoubleMarquee);
     } else {
-        initPremiumMarquee();
+        initDoubleMarquee();
     }
-
 })();
