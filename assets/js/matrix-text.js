@@ -21,18 +21,36 @@
         const headers = document.querySelectorAll(TARGET_SELECTOR);
 
         headers.forEach(header => {
-            // Store original text
+            const originalText = header.innerText;
             if (!header.dataset.originalText) {
-                header.dataset.originalText = header.innerText;
+                header.dataset.originalText = originalText;
             }
 
-            // Start Effect
-            runDecodeEffect(header);
+            if (!header.classList.contains('matrix-text-holder')) {
+                header.classList.add('matrix-text-holder');
+
+                const placeholder = document.createElement('span');
+                placeholder.className = 'matrix-text-placeholder';
+                placeholder.textContent = originalText;
+                placeholder.setAttribute('aria-hidden', 'true');
+
+                const active = document.createElement('span');
+                active.className = 'matrix-text-anim';
+                active.textContent = originalText;
+
+                header.textContent = '';
+                header.appendChild(placeholder);
+                header.appendChild(active);
+            }
+
+            const target = header.querySelector('.matrix-text-anim');
+            if (target) {
+                runDecodeEffect(target, originalText);
+            }
         });
     }
 
-    function runDecodeEffect(element) {
-        const originalText = element.dataset.originalText;
+    function runDecodeEffect(element, originalText) {
         const textLength = originalText.length;
         let iterations = 0;
 
