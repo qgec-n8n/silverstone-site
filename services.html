@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- PREMIUM UPGRADE: New CSS Assets -->
   <link rel="stylesheet" href="assets/css/premium-gallery.css" />
-  <link rel="stylesheet" href="assets/css/premium-marquee.css" />
+  <link rel="stylesheet" href="assets/css/marquee-double.css" />
   <link rel="stylesheet" href="assets/css/nexus-orb-v2.css" />
   <!-- LEGACY REMOVED: neural-grid.css, neural-nexus.css -->
   <style id="neon-fix">
@@ -314,7 +314,7 @@
           <a class="btn btn-secondary" href="book.html">Connect My World</a>
         </div>
       </div>
-      <h2 class="section-title" style="margin-top: 4rem">Innovation Gallery</h2>
+      <h2 class="section-title" id="innovation-gallery" style="margin-top: 4rem">Innovation Gallery</h2>
       <p class="section-subtitle">A glimpse into the ideas and technology that inspire our work.</p>
       <div class="neural-grid" id="neural-grid">
         <!-- 1:1 -->
@@ -388,7 +388,7 @@
           </div>
         </div>
         <!-- 1:1 -->
-        <div class="neural-card">
+      <div class="neural-card">
           <img src="assets/images/socialmedia/1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg"
             alt="Recruitment AI" loading="lazy">
           <div class="neural-overlay">
@@ -398,6 +398,7 @@
           </div>
         </div>
       </div>
+      <div id="innovation-marquee-slot" aria-hidden="true"></div>
     </div>
   </section>
   <section class="section brand-gradient animate">
@@ -453,10 +454,9 @@
   <script src="assets/js/script.js" defer></script>
   <script defer src="assets/js/cookie-consent.js"></script>
   <script defer src="assets/js/hero-cinematic.js"></script>
-  <script defer src="assets/js/hero-cinematic.js"></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
   <script defer src="assets/js/premium-gallery.js"></script>
-  <script defer src="assets/js/premium-marquee.js"></script>
+  <script defer src="assets/js/marquee-double.js"></script>
   <script defer src="assets/js/nexus-orb-v2.js"></script>
   <script defer src="assets/js/matrix-text.js"></script>
   <!-- LEGACY REMOVED: neural-grid.js, neural-nexus.js -->

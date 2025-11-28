@@ -37,6 +37,11 @@ rgba(255,230,0,0.35)}.gallery-img.neon5{border-color:rgba(255,106,0,0.45);box-sh
   object-fit: contain !important;
 }
 
+#innovation-gallery {
+  margin-bottom: 0.5rem !important;
+  scroll-margin-top: 110px;
+}
+
 /* Custom override: unify service card backgrounds on desktop
  *
  * On desktop layouts the service rows consist of two adjacent neon cards:
