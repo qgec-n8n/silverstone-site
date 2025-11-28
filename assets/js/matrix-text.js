@@ -18,16 +18,27 @@
 
     // --- INITIALIZATION ---
     function initMatrixText() {
-        const headers = document.querySelectorAll(TARGET_SELECTOR);
+        // Wait for fonts to ensure accurate dimension measurement
+        document.fonts.ready.then(() => {
+            const headers = document.querySelectorAll(TARGET_SELECTOR);
 
-        headers.forEach(header => {
-            // Store original text
-            if (!header.dataset.originalText) {
-                header.dataset.originalText = header.innerText;
-            }
+            headers.forEach(header => {
+                // Store original text
+                if (!header.dataset.originalText) {
+                    header.dataset.originalText = header.innerText;
+                }
 
-            // Start Effect
-            runDecodeEffect(header);
+                // LOCK DIMENSIONS: Prevent layout shift (1 line vs 2 lines)
+                // We lock the box size to the final state's dimensions before scrambling.
+                const rect = header.getBoundingClientRect();
+                header.style.boxSizing = 'border-box';
+                header.style.width = rect.width + 'px';
+                header.style.height = rect.height + 'px';
+                // header.style.overflow = 'hidden'; // Optional protection
+
+                // Start Effect
+                runDecodeEffect(header);
+            });
         });
     }
 
@@ -57,6 +68,10 @@
             if (iterations >= textLength) {
                 clearInterval(interval);
                 element.innerText = originalText; // Ensure final state is clean
+
+                // UNLOCK DIMENSIONS: Allow responsiveness after animation
+                element.style.width = '';
+                element.style.height = '';
             }
 
             // Increment iterations

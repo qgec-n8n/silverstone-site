@@ -137,3 +137,8 @@
         margin-bottom: 0;
     }
 }
+
+/* FIX: Reduce gap between Innovation Gallery and Double Marquee on Services Page */
+.page-services .section.bg-circuit {
+    padding-bottom: 2rem !important; /* Drastically reduced from previous clamp values */
+}
