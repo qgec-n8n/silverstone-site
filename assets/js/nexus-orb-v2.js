@@ -15,23 +15,28 @@
     const ASSET_PATH = 'assets/images/socialmedia/';
     const HERO_SELECTOR = '.hero, header'; // Elements that define the "Top" zone
 
-    // Full Image Pool (Same as Marquee/Gallery, but we need to filter by ratio)
-    // For this implementation, we'll manually define a list of known valid ratios or 
-    // use the curated list from gallery which has types.
-    // Full Image Pool (Square and Landscape ONLY)
+    // Full Image Pool (Square and Landscape ONLY, Verified Filenames)
     const ORB_IMAGES = [
+        // SQUARES
         { file: '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg', type: 'square' },
-        { file: '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg', type: 'landscape' },
+        { file: '1-1_business_monitor-graphs_10k-lost-overnight.jpg', type: 'square' },
+        { file: '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg', type: 'square' },
+        { file: '1-1_legal_desk-phone-with-scales_stop-losing-good-cases-to-voicemail.jpg', type: 'square' },
         { file: '1-1_marketing_boardroom-messages_your-prospects-can-tell.jpg', type: 'square' },
-        { file: '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg', type: 'landscape' },
         { file: '1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg', type: 'square' },
-        { file: '3-2_real-estate_modern-home-exterior_virtual-tours-24-7.jpg', type: 'landscape' },
-        { file: '3-2_finance_stock-market-hologram_predict-the-market.jpg', type: 'landscape' },
-        { file: '1-1_education_tablet-with-brain-icon_personalized-learning.jpg', type: 'square' },
-        { file: '3-2_logistics_laptop-with-truck_ai-optimises-logistics-delivery.jpg', type: 'landscape' },
-        { file: '1-1_fitness_gym-equipment-with-overlay_track-every-rep.jpg', type: 'square' },
+        { file: '1-1_voiceagents_digital-dashboard_scale-beyond-human-limits.jpg', type: 'square' },
+
+        // LANDSCAPES
         { file: '3-2_business_hand-holding-phone-with-voice-display_ai-that-speaks-your-language.jpg', type: 'landscape' },
-        { file: '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg', type: 'square' }
+        { file: '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg', type: 'landscape' },
+        { file: '3-2_business_laptop-with-chat-bubbles_hours-lost-leads-unqualified.jpg', type: 'landscape' },
+        { file: '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.jpg', type: 'landscape' },
+        { file: '3-2_childcare_tablet-in-playroom_let-ai-handle-the-parent-phone-rush.jpg', type: 'landscape' },
+        { file: '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg', type: 'landscape' },
+        { file: '3-2_logistics_laptop-with-truck_ai-optimises-logistics-delivery.jpg', type: 'landscape' },
+        { file: '3-2_restaurant_phone-and-reservation-list_never-miss-a-booking-again.jpg', type: 'landscape' },
+        { file: '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.jpg', type: 'landscape' },
+        { file: '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg', type: 'landscape' }
     ];
 
     // --- INITIALIZATION ---
@@ -87,10 +92,9 @@
             rail.appendChild(img);
         });
 
-        // Append in specific order for CSS siblings selectors (Orb ~ Rail)
-        // DOM Order: Orb, Bubble, Rail (but visual order handled by CSS)
-        // Actually, CSS uses: .nexus-orb:hover + .nexus-bubble AND .nexus-orb:hover ~ .nexus-rail
-        // So Orb must be BEFORE Bubble and Rail in DOM.
+        // Append in specific order
+        // CSS expects: .nexus-orb:hover ~ .nexus-rail
+        // So Orb must be BEFORE Rail in DOM.
         container.appendChild(orb);
         container.appendChild(bubble);
         container.appendChild(rail);

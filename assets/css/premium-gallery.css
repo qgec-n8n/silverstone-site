@@ -7,7 +7,7 @@
     display: block !important;
     /* Override Grid */
     column-count: 3;
-    column-gap: 8px;
+    column-gap: 0; /* NO GAPS */
     padding: 0 !important;
     margin: 4rem 0;
     width: 100%;
@@ -15,6 +15,8 @@
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
+    /* Ensure nice edges */
+    overflow: hidden;
 }
 
 /* Mosaic Tile Base */
@@ -27,11 +29,13 @@
     perspective: 1000px;
     border-radius: 0;
     background: #000;
-    margin-bottom: 8px;
-    /* Vertical Gap */
+    margin-bottom: 0; /* NO GAPS */
+    padding: 0;
+    /* Vertical Gap removed */
     break-inside: avoid;
     /* Prevent column split */
     -webkit-column-break-inside: avoid;
+    display: block; /* Ensure block level */
 }
 
 /* Aspect Ratio Modifiers */
@@ -41,7 +45,7 @@
 }
 
 .premium-tile.landscape {
-    padding-bottom: 66.66%;
+    padding-bottom: 66.666%;
     /* 3:2 */
 }
 
@@ -84,6 +88,8 @@
     object-fit: cover;
     /* Fill the tile without distortion */
     display: block;
+    margin: 0;
+    padding: 0;
 }
 
 /* Back Face (Metadata/Glow) */
@@ -218,7 +224,7 @@
     }
 
     .premium-tile {
-        margin-bottom: 16px;
+        margin-bottom: 0;
     }
 
     .lightbox-close {
