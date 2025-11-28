@@ -85,9 +85,7 @@
             img.classList.add(data.type);
 
             // UPDATED: Click -> Navigate to Innovation Gallery
-            img.addEventListener('click', () => {
-                window.location.href = 'services.html#neural-grid';
-            });
+            img.addEventListener('click', navigateToInnovation);
 
             rail.appendChild(img);
         });
@@ -99,9 +97,17 @@
 
         document.body.appendChild(container);
 
-        orb.addEventListener('click', () => {
-            window.location.href = 'services.html#neural-grid';
-        });
+        orb.addEventListener('click', navigateToInnovation);
+    }
+
+    function navigateToInnovation() {
+        try {
+            sessionStorage.setItem('orbInnovationJump', '1');
+        } catch (e) {
+            // ignore storage errors
+        }
+
+        window.location.href = 'services.html#innovation-gallery';
     }
 
     // --- SCROLL LOGIC ---
