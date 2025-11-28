@@ -86,7 +86,16 @@
 
     // --- INJECTION LOGIC ---
     function injectDoubleDeckMarquee() {
-        // Target: Directly underneath Innovation Gallery and above CTA banner
+        // Primary target: immediately after the Innovation Gallery so there is no dead space
+        // between the gallery mosaic and the marquee rows.
+        const gallery = document.getElementById('neural-grid');
+        if (gallery && gallery.parentNode) {
+            const container = createDoubleDeckContainer();
+            gallery.insertAdjacentElement('afterend', container);
+            return;
+        }
+
+        // Fallback: place the marquee above the CTA banner.
         const ctaSection = document.querySelector('.section.brand-gradient');
         if (!ctaSection) {
             console.warn('CTA Section not found, appending to body');

@@ -26,9 +26,31 @@
                 header.dataset.originalText = header.innerText;
             }
 
+            // Stabilise layout: if the final text fits on a single line, lock the
+            // white-space so the scrambling effect doesn't wrap mid-animation.
+            preserveSingleLineLayout(header);
+
             // Start Effect
             runDecodeEffect(header);
         });
+    }
+
+    function preserveSingleLineLayout(element) {
+        const originalText = element.dataset.originalText || element.innerText;
+        element.innerText = originalText;
+
+        const computed = window.getComputedStyle(element);
+        const lineHeight = parseFloat(computed.lineHeight);
+        const { height } = element.getBoundingClientRect();
+
+        if (!lineHeight || !height) return;
+
+        const lineCount = Math.round(height / lineHeight);
+
+        if (lineCount <= 1) {
+            element.style.whiteSpace = 'nowrap';
+            element.style.minHeight = `${height}px`;
+        }
     }
 
     function runDecodeEffect(element) {

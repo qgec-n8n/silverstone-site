@@ -115,12 +115,14 @@
       if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
       syncMobileState(g);
     }
+    const landingWithHash = Boolean(window.location.hash);
+
     (function initState() {
       var g = geo(hero, next);
       var past = window.scrollY >= g.bodyY;
 
       // FIX: If arriving via hash anchor (e.g. #neural-grid), force "past" state immediately
-      if (window.location.hash) {
+      if (landingWithHash) {
         past = true;
       }
 
@@ -129,7 +131,13 @@
       setVar("--cineBars", 0); setVar("--cineBloom", 0); setVar("--cineBeamBoost", 0);
       setVar("--cineAurora", 0); setVar("--cinePulse", 0); setVar("--cineVeil", past ? 0 : 0.45);
       syncMobileState(g);
-    })(); window.addEventListener("wheel", onWheel, { passive: false });
+    })();
+
+    // If the visitor landed via a deep link (e.g. clicking the orb to jump to the gallery),
+    // we skip the cinematic scroll triggers so the page stays anchored on the target content.
+    if (landingWithHash) return;
+
+    window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("touchstart", tStart, { passive: true }); window.addEventListener("touchmove", tMove, { passive: false });
     window.addEventListener("touchend", tEnd, { passive: true }); window.addEventListener("keydown", onKey, { passive: false });
     window.addEventListener("scroll", onScroll, { passive: true }); window.addEventListener("resize", function () { sizeHero(); syncMobileState(); }, { passive: true });
