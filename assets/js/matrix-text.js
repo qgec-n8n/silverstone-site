@@ -36,6 +36,13 @@
         const textLength = originalText.length;
         let iterations = 0;
 
+        // Lock dimensions to prevent layout shifts
+        const rect = element.getBoundingClientRect();
+        element.style.width = `${rect.width}px`;
+        element.style.height = `${rect.height}px`;
+        element.style.display = 'inline-block'; // Ensure width/height apply if it was inline
+        element.style.whiteSpace = 'nowrap'; // Prevent line breaking changes during scramble
+
         const interval = setInterval(() => {
             element.innerText = originalText
                 .split('')
@@ -57,6 +64,12 @@
             if (iterations >= textLength) {
                 clearInterval(interval);
                 element.innerText = originalText; // Ensure final state is clean
+
+                // Unlock dimensions
+                element.style.width = '';
+                element.style.height = '';
+                element.style.display = '';
+                element.style.whiteSpace = '';
             }
 
             // Increment iterations

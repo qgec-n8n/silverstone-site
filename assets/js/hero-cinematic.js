@@ -1,5 +1,6 @@
-/*! assets/js/hero-cinematic.js — v5 (High-Cinematic, scroll-triggered both directions)
- * - Movie-trailer style cinematic scroll transition both ways
+/*! assets/js/hero-cinematic.js — v5 (High-Cinematic, BODY-TO-HERO ONLY)
+ * - Movie-trailer style cinematic scroll transition ONLY from body UP to hero
+ * - Downward scrolling is native/standard
  * - Input locked during transitions; overlay-safe; parallax-safe
  */
 (function () {
@@ -29,11 +30,7 @@
     var h = getHeaderH(), ind = getIndicatorH();
     var off = headerVisible() ? h : ind, visH = window.innerHeight - off;
     var nextTop = next.getBoundingClientRect().top + window.scrollY;
-    // Update CSS variable for hero offset on mobile.  This helps the
-    // sticky background pseudo‑elements align perfectly with the end of
-    // the hero.  We only apply this adjustment on screens up to 768px
-    // since desktop uses a different parallax technique.  The fallback
-    // is harmless if the variable is never referenced.
+
     if (window.innerWidth <= MOBILE_BREAKPOINT) {
       document.documentElement.style.setProperty('--heroOffset', off + "px");
     }
@@ -87,34 +84,43 @@
       }
       requestAnimationFrame(tick);
     }
-    function tryDown() { if (anim || isOverlayOpen()) return; animate(geo(hero, next).bodyY, "down"); }
+
+    // DELETED: tryDown() — We do not want to auto-scroll DOWN from hero.
+
     function tryUp() { if (anim || isOverlayOpen()) return; animate(0, "up"); }
+
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
-      else if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+      // Removed check for scrolling down from hero
+      if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
+
     var tY = null; function tStart(e) { if (anim) return; tY = e.touches ? e.touches[0].clientY : e.clientY; }
     function tMove(e) {
       if (anim || isOverlayOpen() || tY == null) return; var y = e.touches ? e.touches[0].clientY : e.clientY, dy = tY - y, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
-      else if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+      // Removed check for touch scrolling down from hero
+      if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function tEnd() { tY = null; }
+
     function onKey(e) {
       if (anim || isOverlayOpen()) return; var g = geo(hero, next), sy = window.scrollY;
-      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
-      else if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+      // Removed check for key scrolling down from hero
+      if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
+
     function syncMobileState(gInfo) {
       if (anim || !isMobileViewport()) return; var g = gInfo || geo(hero, next), sy = window.scrollY, past = sy >= g.bodyY - 1;
       hero.style.setProperty("--heroProgress", past ? 1 : 0); hero.style.setProperty("--heroDepth", past ? DEPTH_DOWN_MAX : 0); setVar("--cineVeil", past ? 0 : 0.45);
     }
+
     function onScroll() {
       if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
-      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      // Removed check for scroll down
+      if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
       syncMobileState(g);
     }
+
     (function initState() {
       var g = geo(hero, next);
       var past = window.scrollY >= g.bodyY;

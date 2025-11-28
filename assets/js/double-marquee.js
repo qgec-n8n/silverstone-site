@@ -1,12 +1,10 @@
 /**
- * PREMIUM MARQUEE: DOUBLE-DECK & GLOBAL FOOTER
- * 
+ * DOUBLE MARQUEE: SERVICES PAGE ONLY
+ *
  * Logic:
- * 1. Detects Page URL (Services vs Others).
- * 2. Injects appropriate Marquee HTML.
- * 3. Double-Deck: Two rows (Left/Right), High Impact.
- * 4. Global Footer: One row (Left), Slim.
- * 5. Click triggers existing Cinematic Lightbox (from premium-gallery.js or self-injected).
+ * 1. Specific to Services Page.
+ * 2. Injects Double-Deck Marquee (Two rows: Left/Right).
+ * 3. Handles Click -> Lightbox (Cinematic).
  */
 
 (function () {
@@ -14,9 +12,7 @@
 
     // --- CONFIGURATION ---
     const ASSET_PATH = 'assets/images/socialmedia/';
-    const SERVICES_PAGE = '/services.html';
-
-    // Full Archive of Social Media Images (Verified filenames only, no dotfiles)
+    // Full Archive of Social Media Images
     const MARQUEE_IMAGES = [
         '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg',
         '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
@@ -66,36 +62,40 @@
     ];
 
     // --- INITIALIZATION ---
-    function initPremiumMarquee() {
-        // Clean up any old marquees first (Clean Slate)
-        const oldMarquees = document.querySelectorAll('.premium-marquee-container, .logo-slider');
-        oldMarquees.forEach(el => el.remove());
+    function initDoubleMarquee() {
+        // Ensure we don't duplicate
+        if (document.querySelector('.premium-marquee-container.double-deck')) return;
 
         // Ensure Lightbox Exists (Global Injection)
         injectLightbox();
 
-        const isServices = window.location.pathname.includes('services.html');
-
-        if (isServices) {
-            injectDoubleDeckMarquee();
-        } else {
-            // Implicitly covers Home, About, Contact, Book
-            injectGlobalFooterMarquee();
-        }
+        injectDoubleDeckMarquee();
     }
 
     // --- INJECTION LOGIC ---
     function injectDoubleDeckMarquee() {
         // Target: Directly underneath Innovation Gallery and above CTA banner
         const ctaSection = document.querySelector('.section.brand-gradient');
-        if (!ctaSection) {
+
+        // If we can't find CTA, try to find the Innovation Gallery to append after
+        const gallerySection = document.querySelector('.section.bg-circuit');
+
+        let targetNode = ctaSection;
+        let parentNode = ctaSection ? ctaSection.parentNode : document.body;
+
+        // If we want it "part of the Innovation Gallery section", maybe append inside?
+        // But user said "Directly underneath the Mosaic". The mosaic is inside .section.bg-circuit > .container > #neural-grid
+        // The user request is: "ensure that the new Double Marquee files that injects exclusively into the services.html ensures that the bottom of the innovation gallery and top of the double marquee are almost touching."
+        // We will insert BEFORE the CTA section, which is after the gallery section.
+
+        if (!targetNode) {
             console.warn('CTA Section not found, appending to body');
             document.body.appendChild(createDoubleDeckContainer());
             return;
         }
 
         const container = createDoubleDeckContainer();
-        ctaSection.parentNode.insertBefore(container, ctaSection);
+        parentNode.insertBefore(container, targetNode);
     }
 
     function createDoubleDeckContainer() {
@@ -111,20 +111,6 @@
         container.appendChild(row1);
         container.appendChild(row2);
         return container;
-    }
-
-    function injectGlobalFooterMarquee() {
-        const footer = document.querySelector('footer.site-footer');
-        if (!footer) return;
-
-        const container = document.createElement('div');
-        container.className = 'premium-marquee-container global-footer';
-
-        // Single Row: Left Scroll (Standard Speed)
-        const row = createMarqueeRow(MARQUEE_IMAGES, 'scroll-left');
-
-        container.appendChild(row);
-        footer.parentNode.insertBefore(container, footer);
     }
 
     // --- ROW CREATION ---
@@ -162,7 +148,7 @@
         return fragment;
     }
 
-    // --- LIGHTBOX LOGIC (Global Fallback) ---
+    // --- LIGHTBOX LOGIC ---
     function injectLightbox() {
         if (document.getElementById('premium-lightbox')) return;
 
@@ -211,9 +197,9 @@
 
     // Run Initialization
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPremiumMarquee);
+        document.addEventListener('DOMContentLoaded', initDoubleMarquee);
     } else {
-        initPremiumMarquee();
+        initDoubleMarquee();
     }
 
 })();

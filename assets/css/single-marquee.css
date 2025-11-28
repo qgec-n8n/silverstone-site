@@ -1,29 +1,19 @@
 /* =========================================
-   PREMIUM MARQUEE: DOUBLE-DECK & GLOBAL FOOTER
+   SINGLE MARQUEE: HOME, ABOUT, CONTACT, BOOK
    ========================================= */
 
 /* Base Marquee Container */
-.premium-marquee-container {
+.premium-marquee-container.global-footer {
     width: 100%;
     overflow: hidden;
     position: relative;
-    background: #000;
-    /* Fallback */
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 0 0 40px 0; /* Minimized top padding for Double Layer on Services */
-    z-index: 10;
-}
-
-/* Global Footer Variant (Slim) */
-.premium-marquee-container.global-footer {
-    position: relative;
-    /* Or fixed bottom if requested, but usually above footer */
     padding: 20px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
 }
 
 /* Marquee Track */
@@ -46,32 +36,9 @@
     }
 }
 
-@keyframes marquee-scroll-right {
-    0% {
-        transform: translateX(-50%);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-}
-
 /* Animation Classes & Speeds */
 .scroll-left {
     animation: marquee-scroll-left 60s linear infinite;
-}
-
-.scroll-right {
-    animation: marquee-scroll-right 60s linear infinite;
-}
-
-/* Speed Modifiers */
-.marquee-track.fast {
-    animation-duration: 45s; /* Fast */
-}
-
-.marquee-track.slow {
-    animation-duration: 75s; /* Slow */
 }
 
 /* Pause on Hover */
@@ -79,17 +46,16 @@
     animation-play-state: paused;
 }
 
-/* Marquee Images (Double Deck Default) */
-.marquee-img {
-    height: 180px;
-    /* Default for Double-Deck */
+/* Marquee Images */
+.global-footer .marquee-img {
+    height: 130px;
+    /* Larger height as requested (between 80px and 180px) */
     width: auto;
     object-fit: contain;
     /* No cropping */
-    opacity: 1;
+    opacity: 0.95;
     transition: transform 0.3s ease, opacity 0.3s ease;
     cursor: pointer;
-    /* filter: grayscale(100%); REMOVED */
 }
 
 .marquee-img:hover {
@@ -98,23 +64,10 @@
     filter: grayscale(0%);
 }
 
-/* Global Footer Specifics (Single Marquee) */
-.global-footer .marquee-img {
-    height: 130px;
-    /* Larger height as requested (between 80px and 180px) */
-    opacity: 0.95;
-}
-
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-    .premium-marquee-container {
-        gap: 10px;
+    .premium-marquee-container.global-footer {
         padding: 20px 0;
-    }
-
-    .marquee-img {
-        height: 120px;
-        /* Smaller on mobile */
     }
 
     .global-footer .marquee-img {
@@ -123,7 +76,7 @@
 }
 
 /* =========================================
-   CINEMATIC LIGHTBOX (MOVED FROM GALLERY)
+   CINEMATIC LIGHTBOX
    ========================================= */
 
 .premium-lightbox {
