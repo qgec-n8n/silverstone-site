@@ -1,0 +1,114 @@
+/* =========================================
+   PREMIUM MARQUEE: DOUBLE-DECK & GLOBAL FOOTER
+   ========================================= */
+
+/* Base Marquee Container */
+.premium-marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+    /* Fallback */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px 0;
+    z-index: 10;
+}
+
+/* Global Footer Variant (Slim) */
+.premium-marquee-container.global-footer {
+    position: relative;
+    /* Or fixed bottom if requested, but usually above footer */
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Marquee Track */
+.marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 40px;
+    /* Space between images */
+    will-change: transform;
+}
+
+/* Animation Definitions */
+@keyframes marquee-scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-scroll-right {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Animation Classes */
+.scroll-left {
+    animation: marquee-scroll-left 40s linear infinite;
+}
+
+.scroll-right {
+    animation: marquee-scroll-right 40s linear infinite;
+}
+
+/* Pause on Hover */
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+/* Marquee Images */
+.marquee-img {
+    height: 180px;
+    /* Default for Double-Deck */
+    width: auto;
+    object-fit: contain;
+    /* No cropping */
+    opacity: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+    /* filter: grayscale(100%); REMOVED */
+}
+
+.marquee-img:hover {
+    transform: scale(1.05);
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* Global Footer Specifics */
+.global-footer .marquee-img {
+    height: 80px;
+    /* Slimmer */
+    opacity: 0.95;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .premium-marquee-container {
+        gap: 10px;
+        padding: 20px 0;
+    }
+
+    .marquee-img {
+        height: 120px;
+        /* Smaller on mobile */
+    }
+
+    .global-footer .marquee-img {
+        height: 60px;
+    }
+}

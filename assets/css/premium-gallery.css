@@ -1,0 +1,228 @@
+/* =========================================
+   PREMIUM GALLERY: PRECISION-GAP MOSAIC
+   ========================================= */
+
+/* Container Reset & Column Setup */
+#neural-grid {
+    display: block !important;
+    /* Override Grid */
+    column-count: 3;
+    column-gap: 8px;
+    padding: 0 !important;
+    margin: 4rem 0;
+    width: 100%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+/* Mosaic Tile Base */
+.premium-tile {
+    position: relative;
+    width: 100%;
+    /* Aspect Ratio handled by padding-bottom */
+    overflow: hidden;
+    cursor: pointer;
+    perspective: 1000px;
+    border-radius: 0;
+    background: #000;
+    margin-bottom: 8px;
+    /* Vertical Gap */
+    break-inside: avoid;
+    /* Prevent column split */
+    -webkit-column-break-inside: avoid;
+}
+
+/* Aspect Ratio Modifiers */
+.premium-tile.square {
+    padding-bottom: 100%;
+    /* 1:1 */
+}
+
+.premium-tile.landscape {
+    padding-bottom: 66.66%;
+    /* 3:2 */
+}
+
+.premium-tile.portrait {
+    padding-bottom: 150%;
+    /* 2:3 */
+}
+
+/* Inner Flipper Container */
+.tile-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.premium-tile:hover .tile-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front & Back Faces */
+.tile-front,
+.tile-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+}
+
+/* Front Image */
+.tile-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Fill the tile without distortion */
+    display: block;
+}
+
+/* Back Face (Metadata/Glow) */
+.tile-back {
+    background: rgba(10, 10, 15, 0.95);
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.tile-back h4 {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    text-align: center;
+    padding: 0 10px;
+}
+
+.tile-back p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* =========================================
+   CINEMATIC LIGHTBOX (ICY AQUA)
+   ========================================= */
+
+.premium-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 20, 30, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.premium-lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Lightbox Content Wrapper */
+.lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    transform: scale(0.9);
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    background: rgba(0, 255, 255, 0.05);
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.premium-lightbox.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Close Button (The ONLY way to close) */
+.lightbox-close {
+    position: absolute;
+    top: -50px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10000;
+    transition: transform 0.3s ease;
+}
+
+.lightbox-close::before,
+.lightbox-close::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.lightbox-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.lightbox-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.lightbox-close:hover {
+    transform: scale(1.2) rotate(90deg);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #neural-grid {
+        column-count: 1;
+        /* Force 1 column */
+        column-gap: 0;
+        padding: 0 16px !important;
+    }
+
+    .premium-tile {
+        margin-bottom: 16px;
+    }
+
+    .lightbox-close {
+        top: -50px;
+        right: 0;
+    }
+}
