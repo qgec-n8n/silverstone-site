@@ -16,13 +16,13 @@ Refine the Innovation Gallery, Marquees, and Nexus Orb based on specific user fe
 
 ### 2. Premium Marquees
 - **Placement:**
-    - **Services Page:** Injected "Double-Deck" marquee directly between the Innovation Gallery section and the CTA Banner section.
+    - **Services Page:** Injected "Double-Deck" marquee directly beneath the Innovation Gallery inside the same section.
     - **Other Pages:** Injected "Global Footer" marquee above the footer.
 - **Content:** Included ALL images from `assets/images/socialmedia` (50+ images).
 - **Style:** Removed grayscale filter (always full color).
 - **Files Modified:**
-    - `assets/js/premium-marquee.js`: Updated image list and injection logic.
-    - `assets/css/premium-marquee.css`: Removed grayscale filter.
+    - `assets/js/marquee-double.js` and `assets/js/marquee-single.js`: Updated image list and injection logic.
+    - `assets/css/marquee-double.css` and `assets/css/marquee-single.css`: Visual refinements and lightbox styles.
 
 ### 3. Nexus Orb V2
 - **Rail:** Ensured rail fans left (existing behavior confirmed).

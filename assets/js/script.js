@@ -341,6 +341,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const innovationAnchor = document.getElementById('innovation-gallery');
+  if (innovationAnchor) {
+    const repositionAnchor = () => {
+      const headerEl = document.querySelector('header.site-header');
+      const indicator = document.getElementById('header-indicator');
+      const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 0;
+      const indicatorHeight = indicator ? indicator.getBoundingClientRect().height : 0;
+      const offset = Math.max(80, Math.ceil(headerHeight + indicatorHeight + 6));
+      innovationAnchor.style.scrollMarginTop = `${offset}px`;
+    };
+
+    repositionAnchor();
+    window.addEventListener('resize', repositionAnchor, { passive: true });
+
+    if (window.location.hash === '#innovation-gallery') {
+      requestAnimationFrame(() => {
+        repositionAnchor();
+        innovationAnchor.scrollIntoView({ behavior: 'auto', block: 'start' });
+      });
+    }
+  }
+
   /*
    * Inject dynamic styles to realise the overlay and indicator
    * aesthetics.  We leverage CSS variables defined in the global

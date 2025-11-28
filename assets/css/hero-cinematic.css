@@ -1,6 +1,6 @@
 /* assets/css/hero-cinematic.css — v5 (High-Cinematic)
-   - Scroll-triggered in both directions (hero↔body)
-   - Movie-trailer style: deeper depth, true bars, visible bloom flash both ways
+   - Scroll-triggered return to hero (body→hero)
+   - Movie-trailer style: deeper depth, true bars, visible bloom flash on upward travel
    - GPU-optimized; safe with parallax; no layout thrash
 */
 :root{

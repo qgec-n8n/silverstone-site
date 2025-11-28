@@ -1,22 +1,8 @@
-/**
- * PREMIUM MARQUEE: DOUBLE-DECK & GLOBAL FOOTER
- * 
- * Logic:
- * 1. Detects Page URL (Services vs Others).
- * 2. Injects appropriate Marquee HTML.
- * 3. Double-Deck: Two rows (Left/Right), High Impact.
- * 4. Global Footer: One row (Left), Slim.
- * 5. Click triggers existing Cinematic Lightbox (from premium-gallery.js or self-injected).
- */
-
 (function () {
     'use strict';
 
-    // --- CONFIGURATION ---
     const ASSET_PATH = 'assets/images/socialmedia/';
-    const SERVICES_PAGE = '/services.html';
 
-    // Full Archive of Social Media Images (Verified filenames only, no dotfiles)
     const MARQUEE_IMAGES = [
         '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg',
         '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
@@ -65,96 +51,55 @@
         '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
     ];
 
-    // --- INITIALIZATION ---
-    function initPremiumMarquee() {
-        // Clean up any old marquees first (Clean Slate)
-        const oldMarquees = document.querySelectorAll('.premium-marquee-container, .logo-slider');
-        oldMarquees.forEach(el => el.remove());
+    function initSingleMarquee() {
+        if (document.body.classList.contains('page-services')) return;
 
-        // Ensure Lightbox Exists (Global Injection)
+        document.querySelectorAll('.premium-marquee-container, .logo-slider, .single-marquee-container').forEach(el => el.remove());
+
+        const marquee = createSingleMarquee();
         injectLightbox();
 
-        const isServices = window.location.pathname.includes('services.html');
-
-        if (isServices) {
-            injectDoubleDeckMarquee();
+        const footer = document.querySelector('footer.site-footer');
+        if (footer && footer.parentNode) {
+            footer.parentNode.insertBefore(marquee, footer);
         } else {
-            // Implicitly covers Home, About, Contact, Book
-            injectGlobalFooterMarquee();
+            document.body.appendChild(marquee);
         }
     }
 
-    // --- INJECTION LOGIC ---
-    function injectDoubleDeckMarquee() {
-        // Target: Directly underneath Innovation Gallery and above CTA banner
-        const ctaSection = document.querySelector('.section.brand-gradient');
-        if (!ctaSection) {
-            console.warn('CTA Section not found, appending to body');
-            document.body.appendChild(createDoubleDeckContainer());
-            return;
-        }
-
-        const container = createDoubleDeckContainer();
-        ctaSection.parentNode.insertBefore(container, ctaSection);
-    }
-
-    function createDoubleDeckContainer() {
+    function createSingleMarquee() {
         const container = document.createElement('div');
-        container.className = 'premium-marquee-container double-deck';
+        container.className = 'single-marquee-container';
 
-        // Row 1: Top Row -> Move RIGHT FAST
-        const row1 = createMarqueeRow(MARQUEE_IMAGES, 'scroll-right fast');
+        const row = createMarqueeRow(MARQUEE_IMAGES, 'scroll-left');
+        container.appendChild(row);
 
-        // Row 2: Bottom Row -> Move LEFT SLOW
-        const row2 = createMarqueeRow(MARQUEE_IMAGES.slice().reverse(), 'scroll-left slow');
-
-        container.appendChild(row1);
-        container.appendChild(row2);
         return container;
     }
 
-    function injectGlobalFooterMarquee() {
-        const footer = document.querySelector('footer.site-footer');
-        if (!footer) return;
-
-        const container = document.createElement('div');
-        container.className = 'premium-marquee-container global-footer';
-
-        // Single Row: Left Scroll (Standard Speed)
-        const row = createMarqueeRow(MARQUEE_IMAGES, 'scroll-left');
-
-        container.appendChild(row);
-        footer.parentNode.insertBefore(container, footer);
-    }
-
-    // --- ROW CREATION ---
     function createMarqueeRow(images, animationClasses) {
         const track = document.createElement('div');
-        track.className = `marquee-track ${animationClasses}`;
+        track.className = `marquee-track ${animationClasses}`.trim();
 
-        // Duplicate content to ensure seamless loop
         const content = createImagesFragment(images);
-        const contentClone = createImagesFragment(images); // Clone for seamless loop
+        const clone = createImagesFragment(images);
 
         track.appendChild(content);
-        track.appendChild(contentClone);
+        track.appendChild(clone);
 
         return track;
     }
 
     function createImagesFragment(images) {
         const fragment = document.createDocumentFragment();
-        images.forEach(filename => {
+        images.forEach((file) => {
             const img = document.createElement('img');
-            img.src = ASSET_PATH + filename;
+            img.src = ASSET_PATH + file;
             img.className = 'marquee-img';
             img.alt = 'Silverstone Client Success';
             img.loading = 'lazy';
 
-            // Error handling
             img.onerror = function () { this.style.display = 'none'; };
-
-            // Click -> Lightbox
             img.addEventListener('click', () => openLightbox(img.src));
 
             fragment.appendChild(img);
@@ -162,7 +107,6 @@
         return fragment;
     }
 
-    // --- LIGHTBOX LOGIC (Global Fallback) ---
     function injectLightbox() {
         if (document.getElementById('premium-lightbox')) return;
 
@@ -180,8 +124,6 @@
         const closeBtn = document.createElement('button');
         closeBtn.className = 'lightbox-close';
         closeBtn.ariaLabel = 'Close Lightbox';
-
-        // Strict Closing Logic: ONLY the 'X' button closes it
         closeBtn.addEventListener('click', closeLightbox);
 
         content.appendChild(img);
@@ -198,7 +140,7 @@
 
         img.src = src;
         lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Lock scroll
+        document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
@@ -206,14 +148,12 @@
         if (!lightbox) return;
 
         lightbox.classList.remove('active');
-        document.body.style.overflow = ''; // Unlock scroll
+        document.body.style.overflow = '';
     }
 
-    // Run Initialization
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPremiumMarquee);
+        document.addEventListener('DOMContentLoaded', initSingleMarquee);
     } else {
-        initPremiumMarquee();
+        initSingleMarquee();
     }
-
 })();
