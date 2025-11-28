@@ -116,9 +116,19 @@
       syncMobileState(g);
     }
     (function initState() {
-      var g = geo(hero, next), past = window.scrollY >= g.bodyY; hero.style.setProperty("--heroProgress", past ? 1 : 0);
-      hero.style.setProperty("--heroDepth", past ? DEPTH_DOWN_MAX : 0); setVar("--cineBars", 0); setVar("--cineBloom", 0); setVar("--cineBeamBoost", 0);
-      setVar("--cineAurora", 0); setVar("--cinePulse", 0); setVar("--cineVeil", past ? 0 : 0.45); syncMobileState(g);
+      var g = geo(hero, next);
+      var past = window.scrollY >= g.bodyY;
+
+      // FIX: If arriving via hash anchor (e.g. #neural-grid), force "past" state immediately
+      if (window.location.hash) {
+        past = true;
+      }
+
+      hero.style.setProperty("--heroProgress", past ? 1 : 0);
+      hero.style.setProperty("--heroDepth", past ? DEPTH_DOWN_MAX : 0);
+      setVar("--cineBars", 0); setVar("--cineBloom", 0); setVar("--cineBeamBoost", 0);
+      setVar("--cineAurora", 0); setVar("--cinePulse", 0); setVar("--cineVeil", past ? 0 : 0.45);
+      syncMobileState(g);
     })(); window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("touchstart", tStart, { passive: true }); window.addEventListener("touchmove", tMove, { passive: false });
     window.addEventListener("touchend", tEnd, { passive: true }); window.addEventListener("keydown", onKey, { passive: false });
