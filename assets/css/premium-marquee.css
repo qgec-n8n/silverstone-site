@@ -16,6 +16,11 @@
     z-index: 10;
 }
 
+.premium-marquee-container.double-deck {
+    gap: 12px;
+    padding: 10px 0 20px 0;
+}
+
 /* Global Footer Variant (Slim) */
 .premium-marquee-container.global-footer {
     position: relative;

@@ -26,6 +26,21 @@
                 header.dataset.originalText = header.innerText;
             }
 
+            // Capture layout hints so the scramble respects the original line wrapping
+            const computed = getComputedStyle(header);
+            if (!header.dataset.originalWhiteSpace) {
+                header.dataset.originalWhiteSpace = computed.whiteSpace;
+            }
+
+            // If the heading currently sits on one line, lock it to a single line during the effect
+            const lineHeight = parseFloat(computed.lineHeight);
+            const isSingleLine = !isNaN(lineHeight)
+                ? header.getBoundingClientRect().height <= lineHeight * 1.2
+                : header.getClientRects().length === 1;
+
+            header.dataset.lockSingleLine = isSingleLine ? 'true' : 'false';
+            header.dataset.originalDisplay = header.dataset.originalDisplay || header.style.display || '';
+
             // Start Effect
             runDecodeEffect(header);
         });
@@ -35,6 +50,14 @@
         const originalText = element.dataset.originalText;
         const textLength = originalText.length;
         let iterations = 0;
+        const lockSingleLine = element.dataset.lockSingleLine === 'true';
+        const originalWhiteSpace = element.dataset.originalWhiteSpace || '';
+        const originalDisplay = element.dataset.originalDisplay || '';
+
+        if (lockSingleLine) {
+            element.style.whiteSpace = 'nowrap';
+            element.style.display = 'inline-block';
+        }
 
         const interval = setInterval(() => {
             element.innerText = originalText
@@ -57,6 +80,11 @@
             if (iterations >= textLength) {
                 clearInterval(interval);
                 element.innerText = originalText; // Ensure final state is clean
+
+                if (lockSingleLine) {
+                    element.style.whiteSpace = originalWhiteSpace;
+                    element.style.display = originalDisplay;
+                }
             }
 
             // Increment iterations
