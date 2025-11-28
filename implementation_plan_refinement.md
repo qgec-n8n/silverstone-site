@@ -21,8 +21,8 @@ Refine the Innovation Gallery, Marquees, and Nexus Orb based on specific user fe
 - **Content:** Included ALL images from `assets/images/socialmedia` (50+ images).
 - **Style:** Removed grayscale filter (always full color).
 - **Files Modified:**
-    - `assets/js/premium-marquee.js`: Updated image list and injection logic.
-    - `assets/css/premium-marquee.css`: Removed grayscale filter.
+    - `assets/js/marquee-double.js` and `assets/css/marquee-double.css`: Double-deck logic and styling.
+    - `assets/js/marquee-single.js` and `assets/css/marquee-single.css`: Single-row logic and styling.
 
 ### 3. Nexus Orb V2
 - **Rail:** Ensured rail fans left (existing behavior confirmed).
