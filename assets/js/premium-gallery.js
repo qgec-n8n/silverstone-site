@@ -3,7 +3,7 @@
  * 
  * Logic:
  * 1. Clears existing #neural-grid content.
- * 2. Injects curated subset of images (10-16 best).
+ * 2. Injects curated subset of images (15 images selected for perfect 3-column balance).
  * 3. Applies masonry-like classes (landscape/portrait/square).
  * 4. Handles 3D Flip on hover.
  * 5. Handles Lightbox open/close (Strict 'X' button close).
@@ -16,27 +16,35 @@
     const GALLERY_TARGET_ID = 'neural-grid';
     const ASSET_PATH = 'assets/images/socialmedia/';
 
-    // Curated Image List (Underscore naming convention assumed)
-    // Format: { file: 'filename.jpg', type: 'square' | 'landscape' | 'portrait', title: 'Title' }
-    // Curated Image List (Underscore naming convention assumed)
-    // Format: { file: 'filename.jpg', type: 'square' | 'landscape' | 'portrait', title: 'Title' }
+    // Curated Image List
+    // Strategy: 3 Columns. Target Height = 6.0 units.
+    // Heights: Square=1.0, Portrait=1.5, Landscape=0.666(approx) -> 3 Landscapes = 2.0
+    // Col 1: 4 Portraits (6.0)
+    // Col 2: 2 Portraits + 3 Squares (6.0)
+    // Col 3: 2 Portraits + 3 Landscapes + 1 Square (6.0)
+    // Total: 8 Portraits, 4 Squares, 3 Landscapes = 15 Images.
+
     const CURATED_IMAGES = [
+        // --- COLUMN 1 (4 Portraits) ---
+        { file: '2-3_ai_phone-processing_connect-automate-grow.jpg', type: 'portrait', title: 'Connect & Grow' },
+        { file: '2-3_analytics_dashboard_ai-clarity-for-human-performance.jpg', type: 'portrait', title: 'AI Clarity' },
+        { file: '2-3_healthcare_phone-with-appointment_ai-takes-care-of-your-patients.jpg', type: 'portrait', title: 'Patient Care' },
+        { file: '2-3_realestate_phone-map-at-night_never-miss-a-viewing-again.jpg', type: 'portrait', title: 'Never Miss Viewing' },
+
+        // --- COLUMN 2 (2 Portraits + 3 Squares) ---
+        { file: '2-3_realestate_phone-with-property-card_ai-qualifies-your-property-leads.jpg', type: 'portrait', title: 'Qualified Leads' },
+        { file: '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.jpg', type: 'portrait', title: 'Zero Interruptions' },
         { file: '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg', type: 'square', title: 'Scale Limits' },
-        { file: '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg', type: 'landscape', title: 'Instant Response' },
-        { file: '2-3_ai_laptop-flowchart_stop-wasting-hours.jpg', type: 'portrait', title: 'Efficiency' },
         { file: '1-1_marketing_boardroom-messages_your-prospects-can-tell.jpg', type: 'square', title: 'Marketing Intel' },
-        { file: '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg', type: 'landscape', title: 'Legal AI' },
-        { file: '2-3_business_smartphone-with-message_ai-just-booked-your-next-client.jpg', type: 'portrait', title: 'Auto-Booking' },
         { file: '1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg', type: 'square', title: 'Recruitment' },
-        { file: '3-2_real-estate_modern-home-exterior_virtual-tours-24-7.jpg', type: 'landscape', title: 'Virtual Tours' },
-        { file: '2-3_salon_chair-with-holographic-calendar_stay-fully-booked.jpg', type: 'portrait', title: 'Fully Booked' },
-        { file: '1-1_fitness_gym-equipment-with-overlay_track-every-rep.jpg', type: 'square', title: 'Smart Fitness' },
-        { file: '3-2_finance_stock-market-hologram_predict-the-market.jpg', type: 'landscape', title: 'Market Prediction' },
-        { file: '1-1_education_tablet-with-brain-icon_personalized-learning.jpg', type: 'square', title: 'EdTech' },
-        { file: '2-3_accounting_man-with-holographic-call_tax-season-calls-never-missed.jpg', type: 'portrait', title: 'Tax Season' },
+
+        // --- COLUMN 3 (2 Portraits + 3 Landscapes + 1 Square) ---
+        { file: '2-3_voicebot_globe-and-tablet_100k-conversations-zero-burnout.jpg', type: 'portrait', title: 'Zero Burnout' },
+        { file: '2-3_tradesman_van-at-night_never-miss-an-emergency-job.jpg', type: 'portrait', title: 'Emergency Job' },
+        { file: '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg', type: 'landscape', title: 'Instant Response' },
+        { file: '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg', type: 'landscape', title: 'Legal Workflows' },
         { file: '3-2_logistics_laptop-with-truck_ai-optimises-logistics-delivery.jpg', type: 'landscape', title: 'Logistics' },
-        { file: '2-3_healthcare_phone-with-appointment_ai-takes-care-of-your-patients.jpg', type: 'portrait', title: 'Healthcare' },
-        { file: '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg', type: 'square', title: 'Ecommerce' }
+        { file: '1-1_legal_desk-phone-with-scales_stop-losing-good-cases-to-voicemail.jpg', type: 'square', title: 'Stop Losing Cases' }
     ];
 
     // --- INITIALIZATION ---
@@ -80,9 +88,10 @@
         img.src = ASSET_PATH + data.file;
         img.alt = data.title;
         img.loading = 'lazy';
-        // Error handling for assumed filenames
+
+        // Error handling
         img.onerror = function () {
-            this.src = 'assets/images/zip/Silverstone_01.jpg'; // Fallback
+            this.style.display = 'none';
             console.warn(`Image not found: ${data.file}`);
         };
         front.appendChild(img);
