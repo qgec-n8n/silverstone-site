@@ -5,7 +5,7 @@
  * 1. Clean Slate: Removes old Orb elements.
  * 2. Injects new Orb HTML structure (Orb, Bubble, Rail).
  * 3. Scroll Trigger: Visible ONLY in Body (IntersectionObserver).
- * 4. Rail Logic: Filters images (Square/Landscape ONLY), Random selection.
+ * 4. Rail Logic: Filters images by Aspect Ratio, Random selection of ONE type.
  */
 
 (function () {
@@ -13,37 +13,45 @@
 
     // --- CONFIGURATION ---
     const ASSET_PATH = 'assets/images/socialmedia/';
-    const HERO_SELECTOR = '.hero, header'; // Elements that define the "Top" zone
 
-    // Full Image Pool (Same as Marquee/Gallery, but we need to filter by ratio)
-    // For this implementation, we'll manually define a list of known valid ratios or 
-    // use the curated list from gallery which has types.
-    // Full Image Pool (Square and Landscape ONLY)
+    // Full Image Pool (Square and Landscape ONLY, Verified Filenames)
+    // NOTE: Added 'type' property to facilitate grouping.
     const ORB_IMAGES = [
+        // SQUARES
         { file: '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg', type: 'square' },
-        { file: '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg', type: 'landscape' },
+        { file: '1-1_business_monitor-graphs_10k-lost-overnight.jpg', type: 'square' },
+        { file: '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg', type: 'square' },
+        { file: '1-1_legal_desk-phone-with-scales_stop-losing-good-cases-to-voicemail.jpg', type: 'square' },
         { file: '1-1_marketing_boardroom-messages_your-prospects-can-tell.jpg', type: 'square' },
-        { file: '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg', type: 'landscape' },
         { file: '1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg', type: 'square' },
-        { file: '3-2_real-estate_modern-home-exterior_virtual-tours-24-7.jpg', type: 'landscape' },
-        { file: '3-2_finance_stock-market-hologram_predict-the-market.jpg', type: 'landscape' },
-        { file: '1-1_education_tablet-with-brain-icon_personalized-learning.jpg', type: 'square' },
-        { file: '3-2_logistics_laptop-with-truck_ai-optimises-logistics-delivery.jpg', type: 'landscape' },
-        { file: '1-1_fitness_gym-equipment-with-overlay_track-every-rep.jpg', type: 'square' },
+        { file: '1-1_voiceagents_digital-dashboard_scale-beyond-human-limits.jpg', type: 'square' },
+
+        // LANDSCAPES
         { file: '3-2_business_hand-holding-phone-with-voice-display_ai-that-speaks-your-language.jpg', type: 'landscape' },
-        { file: '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg', type: 'square' }
+        { file: '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg', type: 'landscape' },
+        { file: '3-2_business_laptop-with-chat-bubbles_hours-lost-leads-unqualified.jpg', type: 'landscape' },
+        { file: '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.jpg', type: 'landscape' },
+        { file: '3-2_childcare_tablet-in-playroom_let-ai-handle-the-parent-phone-rush.jpg', type: 'landscape' },
+        { file: '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg', type: 'landscape' },
+        { file: '3-2_logistics_laptop-with-truck_ai-optimises-logistics-delivery.jpg', type: 'landscape' },
+        { file: '3-2_restaurant_phone-and-reservation-list_never-miss-a-booking-again.jpg', type: 'landscape' },
+        { file: '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.jpg', type: 'landscape' },
+        { file: '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg', type: 'landscape' },
+
+        // PORTRAITS (Added to pool to allow "random 2:3" option)
+        { file: '2-3_ai_phone-processing_connect-automate-grow.jpg', type: 'portrait' },
+        { file: '2-3_analytics_dashboard_ai-clarity-for-human-performance.jpg', type: 'portrait' },
+        { file: '2-3_healthcare_phone-with-appointment_ai-takes-care-of-your-patients.jpg', type: 'portrait' },
+        { file: '2-3_realestate_phone-map-at-night_never-miss-a-viewing-again.jpg', type: 'portrait' },
+        { file: '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.jpg', type: 'portrait' }
     ];
 
     // --- INITIALIZATION ---
     function initNexusOrb() {
-        // 1. Clean Slate
         const oldOrbs = document.querySelectorAll('.neural-nexus, #neural-nexus-dock, .nexus-orb-container');
         oldOrbs.forEach(el => el.remove());
 
-        // 2. Inject New Orb
         injectOrb();
-
-        // 3. Setup Scroll Observer
         setupScrollObserver();
     }
 
@@ -59,45 +67,38 @@
         // Thought Bubble
         const bubble = document.createElement('div');
         bubble.className = 'nexus-bubble';
-        bubble.textContent = 'Unlock Your Vision';
+        bubble.textContent = 'View Innovation Gallery';
 
         // Image Rail
         const rail = document.createElement('div');
         rail.className = 'nexus-rail';
 
-        // Populate Rail (3 Random Valid Images)
-        const selectedImages = getRandomImages(3);
+        // Populate Rail (3 Random Valid Images of SAME TYPE)
+        const selectedImages = getUniformRandomImages(3);
         selectedImages.forEach(data => {
             const img = document.createElement('img');
             img.src = ASSET_PATH + data.file;
             img.className = 'nexus-rail-img';
             img.alt = 'Insight';
 
-            // Click -> Lightbox (Reuse global if available, else simple open)
+            // Add aspect ratio class
+            img.classList.add(data.type);
+
+            // UPDATED: Click -> Navigate to Innovation Gallery
             img.addEventListener('click', () => {
-                const lightbox = document.getElementById('premium-lightbox');
-                const lightboxImg = document.getElementById('lightbox-img');
-                if (lightbox && lightboxImg) {
-                    lightboxImg.src = img.src;
-                    lightbox.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
+                window.location.href = 'services.html#neural-grid';
             });
 
             rail.appendChild(img);
         });
 
-        // Append in specific order for CSS siblings selectors (Orb ~ Rail)
-        // DOM Order: Orb, Bubble, Rail (but visual order handled by CSS)
-        // Actually, CSS uses: .nexus-orb:hover + .nexus-bubble AND .nexus-orb:hover ~ .nexus-rail
-        // So Orb must be BEFORE Bubble and Rail in DOM.
+        // DOM Order: Orb before Rail for CSS ~ selector
         container.appendChild(orb);
         container.appendChild(bubble);
         container.appendChild(rail);
 
         document.body.appendChild(container);
 
-        // Orb Click -> Navigate to Innovation Gallery
         orb.addEventListener('click', () => {
             window.location.href = 'services.html#neural-grid';
         });
@@ -113,13 +114,11 @@
         const observerOptions = {
             root: null,
             threshold: 0,
-            rootMargin: "-100px 0px 0px 0px" // Trigger slightly after hero leaves view
+            rootMargin: "-100px 0px 0px 0px"
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // If Hero is intersecting (visible), HIDE Orb.
-                // If Hero is NOT intersecting (scrolled past), SHOW Orb.
                 if (entry.isIntersecting) {
                     container.classList.remove('visible');
                 } else {
@@ -132,12 +131,27 @@
     }
 
     // --- UTILS ---
-    function getRandomImages(count) {
-        const shuffled = ORB_IMAGES.sort(() => 0.5 - Math.random());
+    function getUniformRandomImages(count) {
+        // 1. Group images by type
+        const groups = ORB_IMAGES.reduce((acc, img) => {
+            if (!acc[img.type]) acc[img.type] = [];
+            acc[img.type].push(img);
+            return acc;
+        }, {});
+
+        // 2. Pick a random type that has at least 'count' images
+        const validTypes = Object.keys(groups).filter(type => groups[type].length >= count);
+
+        if (validTypes.length === 0) return []; // Fallback
+
+        const randomType = validTypes[Math.floor(Math.random() * validTypes.length)];
+        const candidates = groups[randomType];
+
+        // 3. Shuffle and pick 'count' images
+        const shuffled = candidates.sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
     }
 
-    // Run Initialization
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initNexusOrb);
     } else {

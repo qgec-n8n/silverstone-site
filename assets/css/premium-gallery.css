@@ -7,7 +7,7 @@
     display: block !important;
     /* Override Grid */
     column-count: 3;
-    column-gap: 8px;
+    column-gap: 0; /* NO GAPS */
     padding: 0 !important;
     margin: 4rem 0;
     width: 100%;
@@ -15,6 +15,8 @@
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
+    /* Ensure nice edges */
+    overflow: hidden;
 }
 
 /* Mosaic Tile Base */
@@ -27,11 +29,13 @@
     perspective: 1000px;
     border-radius: 0;
     background: #000;
-    margin-bottom: 8px;
-    /* Vertical Gap */
+    margin-bottom: 0; /* NO GAPS */
+    padding: 0;
+    /* Vertical Gap removed */
     break-inside: avoid;
     /* Prevent column split */
     -webkit-column-break-inside: avoid;
+    display: block; /* Ensure block level */
 }
 
 /* Aspect Ratio Modifiers */
@@ -41,7 +45,7 @@
 }
 
 .premium-tile.landscape {
-    padding-bottom: 66.66%;
+    padding-bottom: 66.666%;
     /* 3:2 */
 }
 
@@ -84,6 +88,8 @@
     object-fit: cover;
     /* Fill the tile without distortion */
     display: block;
+    margin: 0;
+    padding: 0;
 }
 
 /* Back Face (Metadata/Glow) */
@@ -116,97 +122,7 @@
     margin-top: 0.5rem;
 }
 
-/* =========================================
-   CINEMATIC LIGHTBOX (ICY AQUA)
-   ========================================= */
-
-.premium-lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 20, 30, 0.85);
-    backdrop-filter: blur(15px);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-}
-
-.premium-lightbox.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Lightbox Content Wrapper */
-.lightbox-content {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    transform: scale(0.9);
-    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    background: rgba(0, 255, 255, 0.05);
-    box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.premium-lightbox.active .lightbox-content {
-    transform: scale(1);
-}
-
-.lightbox-img {
-    max-width: 100%;
-    max-height: 85vh;
-    object-fit: contain;
-    display: block;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Close Button (The ONLY way to close) */
-.lightbox-close {
-    position: absolute;
-    top: -50px;
-    right: -20px;
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 10000;
-    transition: transform 0.3s ease;
-}
-
-.lightbox-close::before,
-.lightbox-close::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 2px;
-    background: #fff;
-    box-shadow: 0 0 10px #00ffff;
-}
-
-.lightbox-close::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.lightbox-close::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.lightbox-close:hover {
-    transform: scale(1.2) rotate(90deg);
-}
+/* MOVED LIGHTBOX CSS TO PREMIUM-MARQUEE.CSS */
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
@@ -218,11 +134,6 @@
     }
 
     .premium-tile {
-        margin-bottom: 16px;
-    }
-
-    .lightbox-close {
-        top: -50px;
-        right: 0;
+        margin-bottom: 0;
     }
 }
