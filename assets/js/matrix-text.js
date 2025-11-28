@@ -36,6 +36,20 @@
         const textLength = originalText.length;
         let iterations = 0;
 
+        // Lock the element's dimensions during the scramble so the layout stays
+        // identical to the final phrase (avoids wrapping to a second line).
+        const rect = element.getBoundingClientRect();
+        const originalStyles = {
+            display: element.style.display,
+            minWidth: element.style.minWidth,
+            minHeight: element.style.minHeight,
+            whiteSpace: element.style.whiteSpace
+        };
+        element.style.display = 'inline-block';
+        element.style.minWidth = `${Math.ceil(rect.width)}px`;
+        element.style.minHeight = `${Math.ceil(rect.height)}px`;
+        element.style.whiteSpace = 'pre-wrap';
+
         const interval = setInterval(() => {
             element.innerText = originalText
                 .split('')
@@ -57,6 +71,12 @@
             if (iterations >= textLength) {
                 clearInterval(interval);
                 element.innerText = originalText; // Ensure final state is clean
+
+                // Restore original sizing so the heading remains responsive
+                element.style.display = originalStyles.display;
+                element.style.minWidth = originalStyles.minWidth;
+                element.style.minHeight = originalStyles.minHeight;
+                element.style.whiteSpace = originalStyles.whiteSpace;
             }
 
             // Increment iterations
