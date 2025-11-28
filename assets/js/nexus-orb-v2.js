@@ -75,6 +75,7 @@
 
         // Populate Rail (3 Random Valid Images of SAME TYPE)
         const selectedImages = getUniformRandomImages(3);
+        const targetUrl = 'services.html?from=orb#innovation-gallery';
         selectedImages.forEach(data => {
             const img = document.createElement('img');
             img.src = ASSET_PATH + data.file;
@@ -86,7 +87,8 @@
 
             // UPDATED: Click -> Navigate to Innovation Gallery
             img.addEventListener('click', () => {
-                window.location.href = 'services.html#neural-grid';
+                sessionStorage.setItem('heroCineArrival', 'orb');
+                window.location.href = targetUrl;
             });
 
             rail.appendChild(img);
@@ -100,7 +102,8 @@
         document.body.appendChild(container);
 
         orb.addEventListener('click', () => {
-            window.location.href = 'services.html#neural-grid';
+            sessionStorage.setItem('heroCineArrival', 'orb');
+            window.location.href = targetUrl;
         });
     }
 

@@ -25,6 +25,28 @@
   function getHeaderH() { var r = document.documentElement, v = parseFloat(getComputedStyle(r).getPropertyValue(CONFIG.HEADER_VAR_NAME)); return !isNaN(v) && v > 0 ? v : (header() ? header().getBoundingClientRect().height : 0); }
   function getIndicatorH() { var el = document.getElementById("header-indicator"); if (!el) return 0; var r = el.getBoundingClientRect(), s = getComputedStyle(el); return s.display !== "none" && s.visibility !== "hidden" ? r.height : 0; }
   function isOverlayOpen() { var n = document.querySelector("header.site-header nav ul"); if (n && n.classList.contains("open")) return true; return getComputedStyle(document.body).position === "fixed"; }
+  function captureArrivalSource() {
+    var params = new URLSearchParams(window.location.search); var from = params.get('from');
+    if (from) {
+      sessionStorage.setItem('heroCineArrival', from);
+      params.delete('from');
+      var cleaned = window.location.pathname + (params.toString() ? '?' + params.toString() : '') + (window.location.hash || '');
+      var current = window.location.pathname + window.location.search + window.location.hash;
+      if (cleaned !== current) {
+        history.replaceState({}, '', cleaned);
+      }
+    }
+    var stored = sessionStorage.getItem('heroCineArrival');
+    var source = from || stored || '';
+    if (stored) sessionStorage.removeItem('heroCineArrival');
+    return source;
+  }
+  function markServicesNavClicks() {
+    var links = document.querySelectorAll('a[href$="services.html"], a[href="/services"], a[href="services"]');
+    links.forEach(function (link) {
+      link.addEventListener('click', function () { sessionStorage.setItem('heroCineArrival', 'nav'); });
+    });
+  }
   function geo(hero, next) {
     var h = getHeaderH(), ind = getIndicatorH();
     var off = headerVisible() ? h : ind, visH = window.innerHeight - off;
@@ -58,6 +80,7 @@
     }
   }
   function init() {
+    markServicesNavClicks();
     if (CONFIG.DISABLE_ON_WIDTH_BELOW && window.innerWidth < CONFIG.DISABLE_ON_WIDTH_BELOW) return; var hero = document.querySelector(".hero.title-band"); if (!hero) return; var next = hero.nextElementSibling; if (!next) return;
     if (!hero.querySelector(".fx-layer")) { var l = document.createElement("div"); l.className = "fx-layer"; l.setAttribute("aria-hidden", "true"); hero.insertBefore(l, hero.firstChild); }
     if (!hero.querySelector(".fx-bloom")) { var b = document.createElement("div"); b.className = "fx-bloom"; b.setAttribute("aria-hidden", "true"); hero.appendChild(b); }
@@ -65,6 +88,9 @@
     ensureBars(); if (!next.querySelector(".fx-veil")) { if (getComputedStyle(next).position === "static") next.style.position = "relative"; var v = document.createElement("div"); v.className = "fx-veil"; v.setAttribute("aria-hidden", "true"); next.insertBefore(v, next.firstChild); }
     function sizeHero() { hero.style.minHeight = geo(hero, next).visH + "px"; } sizeHero();
     var anim = false, lastY = window.scrollY;
+    var arrivalSource = captureArrivalSource();
+    var downEnabled = arrivalSource !== 'orb';
+    var awaitingHeroForDown = arrivalSource === 'orb';
     var DEPTH_DOWN_MAX = 1.15;
     function animate(yTarget, dir) {
       anim = true; lock(true); var y0 = window.scrollY, delta = yTarget - y0, t0 = performance.now(), dur = CONFIG.DURATION_MS;
@@ -87,23 +113,23 @@
       }
       requestAnimationFrame(tick);
     }
-    function tryDown() { if (anim || isOverlayOpen()) return; animate(geo(hero, next).bodyY, "down"); }
+    function tryDown() { if (anim || isOverlayOpen() || !downEnabled) return; animate(geo(hero, next).bodyY, "down"); }
     function tryUp() { if (anim || isOverlayOpen()) return; animate(0, "up"); }
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport() && downEnabled) { e.preventDefault(); tryDown(); }
       else if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     var tY = null; function tStart(e) { if (anim) return; tY = e.touches ? e.touches[0].clientY : e.clientY; }
     function tMove(e) {
       if (anim || isOverlayOpen() || tY == null) return; var y = e.touches ? e.touches[0].clientY : e.clientY, dy = tY - y, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
+      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && downEnabled) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
       else if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function tEnd() { tY = null; }
     function onKey(e) {
       if (anim || isOverlayOpen()) return; var g = geo(hero, next), sy = window.scrollY;
-      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport() && downEnabled) { e.preventDefault(); tryDown(); }
       else if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function syncMobileState(gInfo) {
@@ -112,15 +138,26 @@
     }
     function onScroll() {
       if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
-      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport() && downEnabled) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
       syncMobileState(g);
+    }
+    function watchHeroVisibility() {
+      if (!awaitingHeroForDown) return;
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            downEnabled = true; awaitingHeroForDown = false; observer.disconnect();
+          }
+        });
+      }, { threshold: 0.45 });
+      observer.observe(hero);
     }
     (function initState() {
       var g = geo(hero, next);
       var past = window.scrollY >= g.bodyY;
 
       // FIX: If arriving via hash anchor (e.g. #neural-grid), force "past" state immediately
-      if (window.location.hash) {
+      if (window.location.hash && downEnabled) {
         past = true;
       }
 
@@ -129,7 +166,9 @@
       setVar("--cineBars", 0); setVar("--cineBloom", 0); setVar("--cineBeamBoost", 0);
       setVar("--cineAurora", 0); setVar("--cinePulse", 0); setVar("--cineVeil", past ? 0 : 0.45);
       syncMobileState(g);
-    })(); window.addEventListener("wheel", onWheel, { passive: false });
+    })();
+    watchHeroVisibility();
+    window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("touchstart", tStart, { passive: true }); window.addEventListener("touchmove", tMove, { passive: false });
     window.addEventListener("touchend", tEnd, { passive: true }); window.addEventListener("keydown", onKey, { passive: false });
     window.addEventListener("scroll", onScroll, { passive: true }); window.addEventListener("resize", function () { sizeHero(); syncMobileState(); }, { passive: true });
