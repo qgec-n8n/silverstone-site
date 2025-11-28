@@ -447,7 +447,7 @@ background: none !important;
 .page-book .discovery-call-section {
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url('../images/internet/hero/book-hero-calendly-mobile-2025.png');
+    url('../images/internet/hero/book-hero-calendly-mobile-2025.webp');
   background-size: cover;
   background-position: center;
 }
