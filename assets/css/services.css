@@ -58,3 +58,17 @@ rgba(255,230,0,0.35)}.gallery-img.neon5{border-color:rgba(255,106,0,0.45);box-sh
     backdrop-filter: blur(8px) !important;
   }
 }
+
+/* Reduce the gap between the Innovation Gallery and the double marquee */
+.page-services .section.bg-circuit {
+  padding-bottom: 1.5rem;
+}
+
+.page-services #neural-grid {
+  margin-bottom: 0 !important;
+  scroll-margin-top: 120px;
+}
+
+.page-services .premium-marquee-container.double-deck {
+  margin-top: 0;
+}
