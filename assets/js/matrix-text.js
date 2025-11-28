@@ -26,12 +26,39 @@
                 header.dataset.originalText = header.innerText;
             }
 
+            const unlock = lockSingleLine(header);
+
             // Start Effect
-            runDecodeEffect(header);
+            runDecodeEffect(header, unlock);
         });
     }
 
-    function runDecodeEffect(element) {
+    function lockSingleLine(element) {
+        const computed = getComputedStyle(element);
+        const lineHeight = parseFloat(computed.lineHeight);
+        if (!lineHeight) return null;
+
+        const lines = Math.round(element.scrollHeight / lineHeight);
+        if (lines !== 1) return null;
+
+        const rect = element.getBoundingClientRect();
+        const previousDisplay = element.style.display;
+        const previousWhiteSpace = element.style.whiteSpace;
+
+        element.style.display = 'inline-block';
+        element.style.whiteSpace = 'nowrap';
+        element.style.minWidth = `${rect.width}px`;
+        element.style.minHeight = `${rect.height}px`;
+
+        return function unlock() {
+            element.style.display = previousDisplay;
+            element.style.whiteSpace = previousWhiteSpace;
+            element.style.minWidth = '';
+            element.style.minHeight = '';
+        };
+    }
+
+    function runDecodeEffect(element, unlock) {
         const originalText = element.dataset.originalText;
         const textLength = originalText.length;
         let iterations = 0;
@@ -57,6 +84,9 @@
             if (iterations >= textLength) {
                 clearInterval(interval);
                 element.innerText = originalText; // Ensure final state is clean
+                if (typeof unlock === 'function') {
+                    unlock();
+                }
             }
 
             // Increment iterations

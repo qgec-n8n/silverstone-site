@@ -1,0 +1,140 @@
+/* =========================================
+   SINGLE MARQUEE (Global footer ribbon)
+   ========================================= */
+
+.single-marquee-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 18px 0;
+  background: rgba(0, 0, 0, 0.9);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.single-marquee-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 255, 255, 0.08), rgba(0, 0, 0, 0.45), rgba(0, 255, 255, 0.08));
+  pointer-events: none;
+  opacity: 0.75;
+  z-index: 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 32px;
+  will-change: transform;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track.scroll-left { animation: marquee-left 60s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+
+.marquee-img {
+  height: 130px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.95;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+  filter: drop-shadow(0 8px 18px rgba(0, 255, 255, 0.14));
+}
+
+.marquee-img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+/* Lightbox */
+.marquee-lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 20, 30, 0.85);
+  backdrop-filter: blur(15px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.marquee-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.marquee-lightbox .lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  transform: scale(0.94);
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  background: rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 50px rgba(0, 255, 255, 0.12);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.marquee-lightbox.active .lightbox-content { transform: scale(1); }
+
+.marquee-lightbox .lightbox-img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.marquee-lightbox .lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: -12px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+.marquee-lightbox .lightbox-close::before,
+.marquee-lightbox .lightbox-close::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.marquee-lightbox .lightbox-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.marquee-lightbox .lightbox-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.marquee-lightbox .lightbox-close:hover { transform: scale(1.2) rotate(90deg); }
+
+@media (max-width: 768px) {
+  .single-marquee-container { padding: 14px 0; gap: 10px; }
+  .marquee-img { height: 90px; }
+  .marquee-lightbox .lightbox-close { top: -45px; right: 0; }
+}
