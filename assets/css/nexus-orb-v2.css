@@ -61,6 +61,7 @@
     /* Above Orb */
     right: 0;
     margin-bottom: 15px;
+    z-index: 50; /* Ensure above rail images */
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -130,7 +131,7 @@
 
 /* Rail Images */
 .nexus-rail-img {
-    height: 150px;
+    height: 250px;
     /* Much Larger */
     width: auto;
     /* Maintain Aspect Ratio */

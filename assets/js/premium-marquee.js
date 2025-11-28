@@ -6,7 +6,7 @@
  * 2. Injects appropriate Marquee HTML.
  * 3. Double-Deck: Two rows (Left/Right), High Impact.
  * 4. Global Footer: One row (Left), Slim.
- * 5. Click triggers existing Cinematic Lightbox (from premium-gallery.js).
+ * 5. Click triggers existing Cinematic Lightbox (from premium-gallery.js or self-injected).
  */
 
 (function () {
@@ -16,7 +16,7 @@
     const ASSET_PATH = 'assets/images/socialmedia/';
     const SERVICES_PAGE = '/services.html';
 
-    // Full Archive of Social Media Images
+    // Full Archive of Social Media Images (Verified filenames only, no dotfiles)
     const MARQUEE_IMAGES = [
         '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg',
         '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
@@ -62,14 +62,7 @@
         '3-2_logistics_laptop-with-truck_ai-optimises-logistics-delivery.jpg',
         '3-2_restaurant_phone-and-reservation-list_never-miss-a-booking-again.jpg',
         '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.jpg',
-        '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg',
-        '2-3_ai_laptop-flowchart_stop-wasting-hours.jpg',
-        '2-3_business_smartphone-with-message_ai-just-booked-your-next-client.jpg',
-        '2-3_salon_chair-with-holographic-calendar_stay-fully-booked.jpg',
-        '3-2_real-estate_modern-home-exterior_virtual-tours-24-7.jpg',
-        '3-2_finance_stock-market-hologram_predict-the-market.jpg',
-        '1-1_education_tablet-with-brain-icon_personalized-learning.jpg',
-        '1-1_fitness_gym-equipment-with-overlay_track-every-rep.jpg'
+        '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
     ];
 
     // --- INITIALIZATION ---
@@ -86,6 +79,7 @@
         if (isServices) {
             injectDoubleDeckMarquee();
         } else {
+            // Implicitly covers Home, About, Contact, Book
             injectGlobalFooterMarquee();
         }
     }
@@ -93,9 +87,6 @@
     // --- INJECTION LOGIC ---
     function injectDoubleDeckMarquee() {
         // Target: Directly underneath Innovation Gallery and above CTA banner
-        // Innovation Gallery is inside .section.bg-circuit
-        // CTA Banner is .section.brand-gradient
-        // We will insert BEFORE the CTA banner section
         const ctaSection = document.querySelector('.section.brand-gradient');
         if (!ctaSection) {
             console.warn('CTA Section not found, appending to body');
@@ -111,10 +102,11 @@
         const container = document.createElement('div');
         container.className = 'premium-marquee-container double-deck';
 
-        // Row 1: Left Scroll
-        const row1 = createMarqueeRow(MARQUEE_IMAGES, 'scroll-left');
-        // Row 2: Right Scroll
-        const row2 = createMarqueeRow(MARQUEE_IMAGES.slice().reverse(), 'scroll-right');
+        // Row 1: Top Row -> Move RIGHT FAST
+        const row1 = createMarqueeRow(MARQUEE_IMAGES, 'scroll-right fast');
+
+        // Row 2: Bottom Row -> Move LEFT SLOW
+        const row2 = createMarqueeRow(MARQUEE_IMAGES.slice().reverse(), 'scroll-left slow');
 
         container.appendChild(row1);
         container.appendChild(row2);
@@ -128,7 +120,7 @@
         const container = document.createElement('div');
         container.className = 'premium-marquee-container global-footer';
 
-        // Single Row: Left Scroll
+        // Single Row: Left Scroll (Standard Speed)
         const row = createMarqueeRow(MARQUEE_IMAGES, 'scroll-left');
 
         container.appendChild(row);
@@ -136,9 +128,9 @@
     }
 
     // --- ROW CREATION ---
-    function createMarqueeRow(images, animationClass) {
+    function createMarqueeRow(images, animationClasses) {
         const track = document.createElement('div');
-        track.className = `marquee-track ${animationClass}`;
+        track.className = `marquee-track ${animationClasses}`;
 
         // Duplicate content to ensure seamless loop
         const content = createImagesFragment(images);
