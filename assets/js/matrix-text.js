@@ -3,7 +3,7 @@
  * 
  * Logic:
  * 1. Targets all `h1` elements.
- * 2. Scrambles text with random characters.
+ * 2. Scrambles text with random characters, preserving spaces.
  * 3. Decodes character by character to original text.
  */
 
@@ -33,23 +33,34 @@
 
     function runDecodeEffect(element) {
         const originalText = element.dataset.originalText;
+        const textLength = originalText.length;
         let iterations = 0;
 
         const interval = setInterval(() => {
             element.innerText = originalText
                 .split('')
                 .map((char, index) => {
-                    if (index < iterations) {
+                    // Preserve spaces
+                    if (char === ' ') return ' ';
+
+                    // If we have passed enough iterations for this character, show the original
+                    if (index < Math.floor(iterations)) {
                         return originalText[index];
                     }
+
+                    // Otherwise show a random character
                     return CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
                 })
                 .join('');
 
-            if (iterations >= originalText.length) {
+            // Stop when we've decoded the whole string
+            if (iterations >= textLength) {
                 clearInterval(interval);
+                element.innerText = originalText; // Ensure final state is clean
             }
 
+            // Increment iterations
+            // We want to decode one character every ITERATIONS_PER_CHAR frames
             iterations += 1 / ITERATIONS_PER_CHAR;
         }, DECODE_SPEED);
     }
