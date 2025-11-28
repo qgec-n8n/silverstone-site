@@ -16,6 +16,12 @@ rgba(255,230,0,0.35)}.gallery-img.neon5{border-color:rgba(255,106,0,0.45);box-sh
  * after `services-fixes-v21.css` so that it takes precedence.
  */
 
+/* Reduce excess space below the Innovation Gallery so the double marquee
+   sits flush against it on the Services page. */
+.page-services .section.bg-circuit {
+  padding-bottom: clamp(4rem, 6vw, 7rem) !important;
+}
+
 /* Reset any flexbox centring on service images introduced by the v21
     fixes. Restoring `display:block` allows the base styles (which use
     percentage padding for aspect ratio) to work correctly. */

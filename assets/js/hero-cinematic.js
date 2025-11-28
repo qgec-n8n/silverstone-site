@@ -65,6 +65,7 @@
     ensureBars(); if (!next.querySelector(".fx-veil")) { if (getComputedStyle(next).position === "static") next.style.position = "relative"; var v = document.createElement("div"); v.className = "fx-veil"; v.setAttribute("aria-hidden", "true"); next.insertBefore(v, next.firstChild); }
     function sizeHero() { hero.style.minHeight = geo(hero, next).visH + "px"; } sizeHero();
     var anim = false, lastY = window.scrollY;
+    var disableDownDirection = Boolean(window.location.hash);
     var DEPTH_DOWN_MAX = 1.15;
     function animate(yTarget, dir) {
       anim = true; lock(true); var y0 = window.scrollY, delta = yTarget - y0, t0 = performance.now(), dur = CONFIG.DURATION_MS;
@@ -87,23 +88,23 @@
       }
       requestAnimationFrame(tick);
     }
-    function tryDown() { if (anim || isOverlayOpen()) return; animate(geo(hero, next).bodyY, "down"); }
+    function tryDown() { if (anim || isOverlayOpen() || disableDownDirection) return; animate(geo(hero, next).bodyY, "down"); }
     function tryUp() { if (anim || isOverlayOpen()) return; animate(0, "up"); }
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport() && !disableDownDirection) { e.preventDefault(); tryDown(); }
       else if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     var tY = null; function tStart(e) { if (anim) return; tY = e.touches ? e.touches[0].clientY : e.clientY; }
     function tMove(e) {
       if (anim || isOverlayOpen() || tY == null) return; var y = e.touches ? e.touches[0].clientY : e.clientY, dy = tY - y, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
+      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport() && !disableDownDirection) { e.preventDefault(); tryDown(); } }
       else if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function tEnd() { tY = null; }
     function onKey(e) {
       if (anim || isOverlayOpen()) return; var g = geo(hero, next), sy = window.scrollY;
-      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport() && !disableDownDirection) { e.preventDefault(); tryDown(); }
       else if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function syncMobileState(gInfo) {
@@ -112,7 +113,7 @@
     }
     function onScroll() {
       if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
-      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport() && !disableDownDirection) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
       syncMobileState(g);
     }
     (function initState() {
