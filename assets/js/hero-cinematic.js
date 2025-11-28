@@ -5,6 +5,7 @@
 (function () {
   "use strict";
   var CONFIG = { DURATION_MS: 2500, HEADER_VAR_NAME: "--headerH", BOUNDARY_THRESHOLD_PX: 28, DISABLE_ON_WIDTH_BELOW: 0, EASING: [0.19, 1, 0.22, 1] };
+  var DISABLE_DOWN_TRANSITION = false;
   var MOBILE_BREAKPOINT = 768;
 
   function BezierEasing(x1, y1, x2, y2) {
@@ -63,6 +64,10 @@
     if (!hero.querySelector(".fx-bloom")) { var b = document.createElement("div"); b.className = "fx-bloom"; b.setAttribute("aria-hidden", "true"); hero.appendChild(b); }
     if (!hero.querySelector(".fx-aurora")) { var a = document.createElement("div"); a.className = "fx-aurora"; a.setAttribute("aria-hidden", "true"); hero.appendChild(a); }
     ensureBars(); if (!next.querySelector(".fx-veil")) { if (getComputedStyle(next).position === "static") next.style.position = "relative"; var v = document.createElement("div"); v.className = "fx-veil"; v.setAttribute("aria-hidden", "true"); next.insertBefore(v, next.firstChild); }
+    var skipDownFromStorage = sessionStorage.getItem('skipCineDown') === '1';
+    if (skipDownFromStorage) sessionStorage.removeItem('skipCineDown');
+    DISABLE_DOWN_TRANSITION = !!window.location.hash || skipDownFromStorage;
+
     function sizeHero() { hero.style.minHeight = geo(hero, next).visH + "px"; } sizeHero();
     var anim = false, lastY = window.scrollY;
     var DEPTH_DOWN_MAX = 1.15;
@@ -87,23 +92,23 @@
       }
       requestAnimationFrame(tick);
     }
-    function tryDown() { if (anim || isOverlayOpen()) return; animate(geo(hero, next).bodyY, "down"); }
+    function tryDown() { if (anim || isOverlayOpen() || DISABLE_DOWN_TRANSITION) return; animate(geo(hero, next).bodyY, "down"); }
     function tryUp() { if (anim || isOverlayOpen()) return; animate(0, "up"); }
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (!DISABLE_DOWN_TRANSITION && dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
       else if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     var tY = null; function tStart(e) { if (anim) return; tY = e.touches ? e.touches[0].clientY : e.clientY; }
     function tMove(e) {
       if (anim || isOverlayOpen() || tY == null) return; var y = e.touches ? e.touches[0].clientY : e.clientY, dy = tY - y, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
+      if (!DISABLE_DOWN_TRANSITION && dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
       else if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function tEnd() { tY = null; }
     function onKey(e) {
       if (anim || isOverlayOpen()) return; var g = geo(hero, next), sy = window.scrollY;
-      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (!DISABLE_DOWN_TRANSITION && ["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
       else if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function syncMobileState(gInfo) {
@@ -112,7 +117,7 @@
     }
     function onScroll() {
       if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
-      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      if (!DISABLE_DOWN_TRANSITION && dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
       syncMobileState(g);
     }
     (function initState() {
@@ -120,7 +125,7 @@
       var past = window.scrollY >= g.bodyY;
 
       // FIX: If arriving via hash anchor (e.g. #neural-grid), force "past" state immediately
-      if (window.location.hash) {
+      if (window.location.hash || skipDownFromStorage) {
         past = true;
       }
 

@@ -37,6 +37,16 @@ rgba(255,230,0,0.35)}.gallery-img.neon5{border-color:rgba(255,106,0,0.45);box-sh
   object-fit: contain !important;
 }
 
+/* Tighten the transition between the innovation gallery and the marquee */
+.page-services .section.bg-circuit {
+  padding-bottom: 0;
+}
+
+.page-services .premium-marquee-container.double-deck {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 /* Custom override: unify service card backgrounds on desktop
  *
  * On desktop layouts the service rows consist of two adjacent neon cards:
