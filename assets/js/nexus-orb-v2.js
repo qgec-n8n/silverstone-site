@@ -86,7 +86,7 @@
 
             // UPDATED: Click -> Navigate to Innovation Gallery
             img.addEventListener('click', () => {
-                window.location.href = 'services.html#neural-grid';
+                redirectToInnovationGallery();
             });
 
             rail.appendChild(img);
@@ -100,8 +100,18 @@
         document.body.appendChild(container);
 
         orb.addEventListener('click', () => {
-            window.location.href = 'services.html#neural-grid';
+            redirectToInnovationGallery();
         });
+    }
+
+    function redirectToInnovationGallery() {
+        try {
+            sessionStorage.setItem('ss-orb-nav', '1');
+        } catch (err) {
+            // sessionStorage may be blocked; fail gracefully
+        }
+
+        window.location.href = 'services.html#innovation-gallery';
     }
 
     // --- SCROLL LOGIC ---
