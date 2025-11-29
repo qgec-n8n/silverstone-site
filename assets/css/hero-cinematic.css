@@ -168,6 +168,7 @@
   transform: translateY(calc((1 - var(--cineVeil)) * 12px));
   pointer-events: none;
   will-change: opacity, transform;
+  z-index: 4 !important;
 }
 
 .fx-veil::before{

@@ -113,6 +113,14 @@
         // Click Event -> Open Lightbox
         tile.addEventListener('click', () => openLightbox(img.src));
 
+        tile.addEventListener('mouseenter', () => {
+            tile.classList.add('animate__animated', 'animate__pulse');
+        });
+
+        tile.addEventListener('animationend', () => {
+            tile.classList.remove('animate__animated', 'animate__pulse');
+        });
+
         return tile;
     }
 
