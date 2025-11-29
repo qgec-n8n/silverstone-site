@@ -1,0 +1,45 @@
+/* GSAP & Animate.css Overrides */
+
+/* 1. Cinema Bars */
+.fx-bars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fx-bars .bar {
+    width: 100%;
+    height: 0; /* Starts open */
+    background-color: #000;
+    will-change: height;
+}
+
+/* 2. Animate.css Helper */
+/* Prevent FOUC (Flash of Unstyled Content) by hiding elements initially if they are going to be animated in */
+.service-row, .card, .neural-card, .innovation-card, .content-block {
+    visibility: hidden; /* GSAP will set autoAlpha: 1 (visibility: visible) on enter */
+}
+
+/* 3. Hero Patching */
+.hero.title-band {
+    /* Ensure hardware acceleration */
+    will-change: transform;
+}
+
+/* 4. Fix Scroll Overlap (Deep Linking) */
+:target {
+    scroll-margin-top: 150px;
+}
+
+/* 5. Matrix Text Fixes */
+h1 {
+    display: inline-block; /* Required for width locking */
+    vertical-align: middle;
+}
