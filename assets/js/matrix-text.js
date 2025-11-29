@@ -19,6 +19,9 @@
 
     // --- INITIALIZATION ---
     function initMatrixText() {
+        // Disable the effect on mobile devices to avoid costly animations
+        if (window.matchMedia('(max-width: 768px)').matches) return;
+
         const headers = document.querySelectorAll(TARGET_SELECTOR);
 
         headers.forEach(header => {
