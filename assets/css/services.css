@@ -63,3 +63,40 @@ rgba(255,230,0,0.35)}.gallery-img.neon5{border-color:rgba(255,106,0,0.45);box-sh
     backdrop-filter: blur(8px) !important;
   }
 }
+/* --- BUG FIXES & ENHANCEMENTS (GSAP MIGRATION) --- */
+
+/* Fix the upward-shift / overlap of .fx-veil and .container behind .hero.title-band */
+#neural-grid {
+    scroll-margin-top: clamp(100px, 15vh, 160px);
+    position: relative;
+    z-index: 5;
+}
+
+/* Ensure the main services container is not translated upward unexpectedly */
+.page-services .container {
+    position: relative;
+    z-index: 2;
+    /* transform: none !important; */ /* Uncomment if needed */
+    /* margin-top: 0; */
+}
+
+.hero.title-band {
+    z-index: 1; /* Ensure hero is behind the grid when scrolled */
+}
+
+/* Singularity Overlay */
+.singularity-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Hero Animation Skipped State */
+body.hero-anim-skipped .hero.title-band {
+    opacity: 1 !important; /* Force visible if JS hid it */
+    transform: none !important;
+}
