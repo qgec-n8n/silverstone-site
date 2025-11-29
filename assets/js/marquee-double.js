@@ -57,6 +57,8 @@
     cleanupLegacyMarquees();
     ensureLightbox();
 
+    alignInnovationAnchor();
+
     const container = buildDoubleDeck();
     const slot = document.getElementById('innovation-marquee-slot');
     const galleryGrid = document.getElementById('neural-grid');
@@ -68,8 +70,6 @@
     } else {
       document.body.appendChild(container);
     }
-
-    alignInnovationAnchor();
   }
 
   function cleanupLegacyMarquees() {
@@ -170,17 +170,16 @@
     const hash = window.location.hash;
     if (!hash || (hash !== '#innovation-gallery' && hash !== '#neural-grid')) return;
 
-    const target = document.getElementById('innovation-gallery') || document.getElementById('neural-grid');
+    const target = document.querySelector(hash) || document.getElementById('innovation-gallery') || document.getElementById('neural-grid');
     if (!target) return;
 
     const header = document.querySelector('.site-header');
     const headerHeight = header ? header.getBoundingClientRect().height : 0;
 
-    // Allow layout to settle before adjusting scroll
-    setTimeout(() => {
-      const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
+    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+    requestAnimationFrame(() => {
       window.scrollTo({ top, behavior: 'auto' });
-    }, 120);
+    });
   }
 
   if (document.readyState === 'loading') {

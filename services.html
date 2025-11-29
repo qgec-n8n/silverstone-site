@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="assets/css/premium-gallery.css" />
   <link rel="stylesheet" href="assets/css/marquee-double.css" />
   <link rel="stylesheet" href="assets/css/nexus-orb-v2.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <!-- LEGACY REMOVED: neural-grid.css, neural-nexus.css -->
   <style id="neon-fix">
     /* Create a local stacking context so the overlay sits between bg and content */
@@ -84,6 +85,8 @@
     }
   </style>
   <link rel="stylesheet" href="assets/css/hero-cinematic.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 </head>
 
 <body class="page-services">
@@ -116,18 +119,20 @@
       </nav>
     </div>
   </header>
-  <section class="hero title-band"
+  <section id="hero" class="hero title-band"
     style="--mobile-hero-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x, url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x );">
     <div class="content">
-      <h1>Our Services</h1>
+      <h1 id="hero-title">Our Services</h1>
       <p>
         Tailored automation and AI solutions designed to streamline your operations,
         optimise your resources and accelerate your growth.
       </p>
     </div>
   </section>
-  <section class="section bg-circuit parallax-section" data-parallax-theme="circuit">
-    <div class="container">
+  <main id="body">
+    <section class="section bg-circuit parallax-section" data-parallax-theme="circuit">
+      <div class="fx-veil" aria-hidden="true"></div>
+      <div class="container">
       <div class="service-row animate" id="marketing">
         <div class="service-image service-image">
           <img src="assets/images/zip/lead-gen-automation.png" alt="Abstract neon magnet attracting and nurturing leads"
@@ -412,6 +417,7 @@
       </div>
     </div>
   </section>
+  </main>
   <!-- Global site footer -->
   <footer class="site-footer">
     <div class="footer-container">
