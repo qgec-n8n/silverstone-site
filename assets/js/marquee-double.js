@@ -175,17 +175,14 @@
 
     const header = document.querySelector('.site-header');
     const headerHeight = header ? header.getBoundingClientRect().height : 0;
-
-    // Allow layout to settle before adjusting scroll
-    setTimeout(() => {
-      const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
-      window.scrollTo({ top, behavior: 'auto' });
-    }, 120);
+    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
+    window.scrollTo({ top, behavior: 'instant' });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initDoubleMarquee);
-  } else {
+  function onReady() {
+    alignInnovationAnchor();
     initDoubleMarquee();
   }
+
+  document.addEventListener('DOMContentLoaded', onReady);
 })();
