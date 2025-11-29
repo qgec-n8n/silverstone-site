@@ -62,6 +62,11 @@
       <link rel="stylesheet" href="assets/css/hero-cinematic.css">
 </head>
   <body>
+    <div class="fx-bars" aria-hidden="true">
+      <div class="bar top"></div>
+      <div class="bar bottom"></div>
+      <div class="flare"></div>
+    </div>
     <!-- Cookie banner -->
     <div id="cookie-banner" class="cookie-banner">
       <p>
@@ -103,6 +108,10 @@
       class="hero title-band"
       style="--mobile-hero-image: url('assets/images/internet/hero/home-hero-final.jpg'); background-image: url('assets/images/internet/hero/home-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/home-hero-final.webp') type('image/webp') 1x, url('assets/images/internet/hero/home-hero-final.jpg') type('image/jpeg') 1x);"
     >
+      <div class="fx-layer" aria-hidden="true"></div>
+      <div class="fx-bloom" aria-hidden="true"></div>
+      <div class="fx-aurora" aria-hidden="true"></div>
+      <div class="fx-veil" aria-hidden="true"></div>
       <div class="content">
         <h1>Privacy Policy</h1>
         <p>
@@ -230,6 +239,10 @@
     <!-- Scripts -->
     <script defer src="assets/js/script.js"></script>
     <script defer src="assets/js/cookie-consent.js"></script>
-      <script defer src="assets/js/hero-cinematic.js"></script>
+    <!-- GSAP core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <!-- ScrollTrigger plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+    <script defer src="assets/js/hero-gsap.js"></script>
 </body>
 </html>
