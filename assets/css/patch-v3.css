@@ -1,0 +1,54 @@
+/* PATCH V3: Layout & Stacking Fixes */
+
+/* 1. Header Protection */
+#neural-grid {
+    scroll-margin-top: 160px;
+}
+
+/* 2. Stacking Contexts & Hero */
+.hero.title-band {
+    z-index: 1;
+    position: relative;
+    /* Ensure content is above canvas */
+}
+
+/* Ensure canvas is strictly behind */
+#hero-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Behind everything */
+    pointer-events: none; /* Let clicks pass through */
+}
+
+/* Container must sit above hero for standard scrolling to work with pinning */
+.container {
+    z-index: 5;
+    position: relative;
+    /* Remove background constraint if it hides the canvas inappropriately,
+       but prompt said "background: var(--bg-color)" */
+    /* If transparent sections are needed, this might need adjustment.
+       Assuming sections generally have backgrounds. */
+}
+
+/* Specific fix for services page double marquee gap */
+.page-services .neural-grid {
+    margin-bottom: 0 !important;
+}
+.page-services .double-marquee {
+    margin-top: 0 !important;
+}
+
+/* Ensure text legibility over shader */
+.hero.title-band .content {
+    /* Slight text shadow or backdrop could be added if needed,
+       but shader is dark. */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* Hide legacy elements if they appear */
+.fx-layer, .fx-bloom, .fx-aurora {
+    display: none !important;
+}

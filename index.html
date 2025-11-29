@@ -288,9 +288,17 @@
   <link rel="stylesheet" href="assets/css/nexus-orb-v2.css" />
   <!-- LEGACY REMOVED: neural-nexus.css -->
   <link rel="stylesheet" href="assets/css/hero-cinematic.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="assets/css/patch-v3.css" />
+
+  <!-- GSAP Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
 </head>
 
 <body>
+  <canvas id="hero-canvas"></canvas>
   <!-- Cookie consent banner -->
   <div id="cookie-banner" class="cookie-banner">
     <p>
@@ -686,7 +694,9 @@
   </footer>
   <script src="assets/js/script.js" defer></script>
   <script defer src="assets/js/cookie-consent.js"></script>
-  <script defer src="assets/js/hero-cinematic.js"></script>
+  <!-- <script defer src="assets/js/hero-cinematic.js"></script> REPLACED BY HERO ENGINE -->
+  <script defer src="assets/js/hero-shader.js"></script>
+  <script defer src="assets/js/hero-engine-gsap.js"></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
   <script defer src="assets/js/marquee-single.js"></script>
   <script defer src="assets/js/nexus-orb-v2.js"></script>
