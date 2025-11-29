@@ -25,6 +25,20 @@
   function getHeaderH() { var r = document.documentElement, v = parseFloat(getComputedStyle(r).getPropertyValue(CONFIG.HEADER_VAR_NAME)); return !isNaN(v) && v > 0 ? v : (header() ? header().getBoundingClientRect().height : 0); }
   function getIndicatorH() { var el = document.getElementById("header-indicator"); if (!el) return 0; var r = el.getBoundingClientRect(), s = getComputedStyle(el); return s.display !== "none" && s.visibility !== "hidden" ? r.height : 0; }
   function isOverlayOpen() { var n = document.querySelector("header.site-header nav ul"); if (n && n.classList.contains("open")) return true; return getComputedStyle(document.body).position === "fixed"; }
+  function consumeOrbRedirectFlag() {
+    var hash = window.location.hash;
+    var isInnovationHash = hash === "#neural-grid" || hash === "#innovation-gallery";
+    var fromOrb = false;
+
+    try {
+      fromOrb = sessionStorage.getItem("ss-orb-nav") === "1";
+      if (fromOrb) sessionStorage.removeItem("ss-orb-nav");
+    } catch (err) {
+      fromOrb = false;
+    }
+
+    return fromOrb && isInnovationHash;
+  }
   function geo(hero, next) {
     var h = getHeaderH(), ind = getIndicatorH();
     var off = headerVisible() ? h : ind, visH = window.innerHeight - off;
@@ -65,6 +79,11 @@
     ensureBars(); if (!next.querySelector(".fx-veil")) { if (getComputedStyle(next).position === "static") next.style.position = "relative"; var v = document.createElement("div"); v.className = "fx-veil"; v.setAttribute("aria-hidden", "true"); next.insertBefore(v, next.firstChild); }
     function sizeHero() { hero.style.minHeight = geo(hero, next).visH + "px"; } sizeHero();
     var anim = false, lastY = window.scrollY;
+    var downEnabled = true;
+    var orbArrival = consumeOrbRedirectFlag();
+    if (orbArrival) { downEnabled = false; hero.classList.add("cine-down-disabled"); }
+    function enableDown() { if (!downEnabled) { downEnabled = true; hero.classList.remove("cine-down-disabled"); } }
+    function disableDown() { if (downEnabled) { downEnabled = false; hero.classList.add("cine-down-disabled"); } }
     var DEPTH_DOWN_MAX = 1.15;
     function animate(yTarget, dir) {
       anim = true; lock(true); var y0 = window.scrollY, delta = yTarget - y0, t0 = performance.now(), dur = CONFIG.DURATION_MS;
@@ -83,27 +102,28 @@
           window.scrollTo(0, yTarget); hero.style.setProperty("--heroProgress", dir === "down" ? 1 : 0);
           hero.style.setProperty("--heroDepth", depthTo); setVar("--cineBars", 0); setVar("--cineBloom", 0); setVar("--cineBeamBoost", 0);
           setVar("--cineAurora", 0); setVar("--cinePulse", 0); setVar("--cineVeil", dir === "down" ? 0 : 0.45); anim = false; lock(false);
+          if (dir === "up") enableDown();
         }
       }
       requestAnimationFrame(tick);
     }
-    function tryDown() { if (anim || isOverlayOpen()) return; animate(geo(hero, next).bodyY, "down"); }
+    function tryDown() { if (anim || isOverlayOpen() || !downEnabled) return; animate(geo(hero, next).bodyY, "down"); }
     function tryUp() { if (anim || isOverlayOpen()) return; animate(0, "up"); }
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (dy > 0 && downEnabled && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
       else if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     var tY = null; function tStart(e) { if (anim) return; tY = e.touches ? e.touches[0].clientY : e.clientY; }
     function tMove(e) {
       if (anim || isOverlayOpen() || tY == null) return; var y = e.touches ? e.touches[0].clientY : e.clientY, dy = tY - y, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
+      if (dy > 8 && downEnabled && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
       else if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function tEnd() { tY = null; }
     function onKey(e) {
       if (anim || isOverlayOpen()) return; var g = geo(hero, next), sy = window.scrollY;
-      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport() && downEnabled) { e.preventDefault(); tryDown(); }
       else if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function syncMobileState(gInfo) {
@@ -112,7 +132,8 @@
     }
     function onScroll() {
       if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
-      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      if (!downEnabled && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) enableDown();
+      if (dir > 0 && downEnabled && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
       syncMobileState(g);
     }
     (function initState() {
