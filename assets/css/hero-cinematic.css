@@ -167,6 +167,7 @@
   opacity: calc(var(--cineVeil) * 0.8 + var(--cinePulse) * 0.45);
   transform: translateY(calc((1 - var(--cineVeil)) * 12px));
   pointer-events: none;
+  z-index: 4 !important;
   will-change: opacity, transform;
 }
 

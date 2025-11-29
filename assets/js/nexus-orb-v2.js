@@ -86,6 +86,7 @@
 
             // UPDATED: Click -> Navigate to Innovation Gallery
             img.addEventListener('click', () => {
+                sessionStorage.setItem('fromOrb', 'true');
                 window.location.href = 'services.html#neural-grid';
             });
 
@@ -100,7 +101,29 @@
         document.body.appendChild(container);
 
         orb.addEventListener('click', () => {
+            sessionStorage.setItem('fromOrb', 'true');
             window.location.href = 'services.html#neural-grid';
+        });
+
+        const pulseClasses = ['animate__animated', 'animate__pulse'];
+        const triggerPulse = (el) => {
+            el.classList.remove(...pulseClasses);
+            void el.offsetWidth;
+            el.classList.add(...pulseClasses);
+        };
+
+        orb.addEventListener('mouseenter', () => {
+            triggerPulse(container);
+            if (window.gsap) {
+                gsap.to(container, { scale: 1.08, duration: 0.35, ease: 'power1.out' });
+            }
+        });
+
+        orb.addEventListener('mouseleave', () => {
+            container.classList.remove(...pulseClasses);
+            if (window.gsap) {
+                gsap.to(container, { scale: 1, duration: 0.35, ease: 'power1.out' });
+            }
         });
     }
 
