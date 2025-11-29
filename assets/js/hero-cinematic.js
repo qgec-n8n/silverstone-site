@@ -57,6 +57,13 @@
       b.innerHTML = '<div class="bar top"></div><div class="bar bottom"></div><div class="flare"></div>'; document.body.appendChild(b);
     }
   }
+  var ORB_HASHES = ["#innovation-gallery", "#neural-grid"];
+  function consumeOrbNavFlag() {
+    var flagged = sessionStorage.getItem("nexus-orb-nav") === "1";
+    if (flagged) sessionStorage.removeItem("nexus-orb-nav");
+    return flagged;
+  }
+  function isOrbHash(hash) { return ORB_HASHES.indexOf(hash) !== -1; }
   function init() {
     if (CONFIG.DISABLE_ON_WIDTH_BELOW && window.innerWidth < CONFIG.DISABLE_ON_WIDTH_BELOW) return; var hero = document.querySelector(".hero.title-band"); if (!hero) return; var next = hero.nextElementSibling; if (!next) return;
     if (!hero.querySelector(".fx-layer")) { var l = document.createElement("div"); l.className = "fx-layer"; l.setAttribute("aria-hidden", "true"); hero.insertBefore(l, hero.firstChild); }
@@ -65,6 +72,7 @@
     ensureBars(); if (!next.querySelector(".fx-veil")) { if (getComputedStyle(next).position === "static") next.style.position = "relative"; var v = document.createElement("div"); v.className = "fx-veil"; v.setAttribute("aria-hidden", "true"); next.insertBefore(v, next.firstChild); }
     function sizeHero() { hero.style.minHeight = geo(hero, next).visH + "px"; } sizeHero();
     var anim = false, lastY = window.scrollY;
+    var disableDown = consumeOrbNavFlag() && isOrbHash(window.location.hash);
     var DEPTH_DOWN_MAX = 1.15;
     function animate(yTarget, dir) {
       anim = true; lock(true); var y0 = window.scrollY, delta = yTarget - y0, t0 = performance.now(), dur = CONFIG.DURATION_MS;
@@ -87,7 +95,7 @@
       }
       requestAnimationFrame(tick);
     }
-    function tryDown() { if (anim || isOverlayOpen()) return; animate(geo(hero, next).bodyY, "down"); }
+    function tryDown() { if (anim || isOverlayOpen() || disableDown) return; animate(geo(hero, next).bodyY, "down"); }
     function tryUp() { if (anim || isOverlayOpen()) return; animate(0, "up"); }
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
@@ -114,6 +122,7 @@
       if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
       if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
       syncMobileState(g);
+      if (disableDown && sy <= g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) disableDown = false;
     }
     (function initState() {
       var g = geo(hero, next);

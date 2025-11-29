@@ -86,7 +86,8 @@
 
             // UPDATED: Click -> Navigate to Innovation Gallery
             img.addEventListener('click', () => {
-                window.location.href = 'services.html#neural-grid';
+                sessionStorage.setItem('nexus-orb-nav', '1');
+                window.location.href = 'services.html#innovation-gallery';
             });
 
             rail.appendChild(img);
@@ -100,7 +101,8 @@
         document.body.appendChild(container);
 
         orb.addEventListener('click', () => {
-            window.location.href = 'services.html#neural-grid';
+            sessionStorage.setItem('nexus-orb-nav', '1');
+            window.location.href = 'services.html#innovation-gallery';
         });
     }
 
