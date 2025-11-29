@@ -42,6 +42,10 @@ rgba(255,230,0,0.35)}.gallery-img.neon5{border-color:rgba(255,106,0,0.45);box-sh
   scroll-margin-top: 110px;
 }
 
+#neural-grid {
+  scroll-margin-top: 110px; /* match header height */
+}
+
 /* Custom override: unify service card backgrounds on desktop
  *
  * On desktop layouts the service rows consist of two adjacent neon cards:
