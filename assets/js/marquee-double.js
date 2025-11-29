@@ -109,7 +109,7 @@
       img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
-      img.loading = 'lazy';
+      // img.loading = 'lazy'; // Disabled for marquee to ensure immediate width calculation
 
       img.onerror = () => {
         img.style.display = 'none';

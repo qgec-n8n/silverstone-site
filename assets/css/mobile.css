@@ -86,6 +86,11 @@
   }
 
   /* Buttons in hero: stack vertically and span full width */
+  /* Add top margin to the first button to push them lower so they do not cover the shader */
+  .hero .content a.btn:first-of-type {
+    margin-top: 3rem;
+  }
+
   .hero .content a + a {
     margin-left: 0;
     margin-top: 0.75rem;
