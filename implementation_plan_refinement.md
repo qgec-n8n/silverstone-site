@@ -20,10 +20,6 @@ Refine the Innovation Gallery, Marquees, and Nexus Orb based on specific user fe
     - **Other Pages:** Injected "Global Footer" marquee above the footer.
 - **Content:** Included ALL images from `assets/images/socialmedia` (50+ images).
 - **Style:** Removed grayscale filter (always full color).
-- **Files Modified:**
-    - `assets/js/premium-marquee.js`: Updated image list and injection logic.
-    - `assets/css/premium-marquee.css`: Removed grayscale filter.
-
 ### 3. Nexus Orb V2
 - **Rail:** Ensured rail fans left (existing behavior confirmed).
 - **Images:** Updated rail to randomly select 3 images that are strictly 1:1 or 3:2 aspect ratio.
