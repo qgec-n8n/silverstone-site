@@ -50,12 +50,15 @@
     '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
   ];
 
+  let anchorAligned = false;
+
   function initDoubleMarquee() {
     // Safety: only run on Services page
     if (!document.body.classList.contains('page-services')) return;
 
     cleanupLegacyMarquees();
     ensureLightbox();
+    alignInnovationAnchor();
 
     const container = buildDoubleDeck();
     const slot = document.getElementById('innovation-marquee-slot');
@@ -69,7 +72,6 @@
       document.body.appendChild(container);
     }
 
-    alignInnovationAnchor();
   }
 
   function cleanupLegacyMarquees() {
@@ -170,18 +172,20 @@
     const hash = window.location.hash;
     if (!hash || (hash !== '#innovation-gallery' && hash !== '#neural-grid')) return;
 
+    if (anchorAligned) return;
+
     const target = document.getElementById('innovation-gallery') || document.getElementById('neural-grid');
     if (!target) return;
 
     const header = document.querySelector('.site-header');
     const headerHeight = header ? header.getBoundingClientRect().height : 0;
 
-    // Allow layout to settle before adjusting scroll
-    setTimeout(() => {
-      const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
-      window.scrollTo({ top, behavior: 'auto' });
-    }, 120);
+    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
+    window.scrollTo({ top, behavior: 'instant' });
+    anchorAligned = true;
   }
+
+  alignInnovationAnchor();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initDoubleMarquee);
