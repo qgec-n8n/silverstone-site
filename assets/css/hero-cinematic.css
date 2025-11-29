@@ -23,6 +23,38 @@
   --heroDepth: 0;
 }
 
+.hero.title-band{
+  overflow: hidden;
+}
+
+.hero-media{
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-fallback-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#hero-shader-canvas{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  #hero-shader-canvas{display:none;}
+}
+
 /* Hero vignette overlay */
 .hero.title-band .fx-layer{
   position: absolute;
