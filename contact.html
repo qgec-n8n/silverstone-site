@@ -81,8 +81,6 @@
   <link rel="stylesheet" href="assets/css/hero-cinematic.css">
   <!-- PREMIUM UPGRADE: New CSS Assets -->
   <link rel="stylesheet" href="assets/css/marquee-single.css" />
-  <link rel="stylesheet" href="assets/css/nexus-orb-v2.css" />
-  <!-- LEGACY REMOVED: neural-nexus.css -->
   <style>
     .contact-social-callout {
       margin-top: clamp(2.5rem, 6vw, 4rem);
@@ -192,6 +190,10 @@
   <!-- Hero section -->
   <section class="hero title-band"
     style="--mobile-hero-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);">
+    <div class="hero-media">
+      <img src="assets/images/internet/hero/contact-hero-final.jpg" alt="Hero Image" class="hero-fallback-image" />
+      <canvas id="hero-shader-canvas" data-variant="silver"></canvas>
+    </div>
     <div class="content">
       <h1>Get In Touch</h1>
       <p>We’d love to hear from you. Whether you have a question about our services or need support, our team is ready
@@ -348,11 +350,10 @@
     })();
   </script>
   <script defer src="assets/js/hero-cinematic.js"></script>
+  <script defer src="assets/js/hero-shader.js"></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
   <script defer src="assets/js/marquee-single.js"></script>
-  <script defer src="assets/js/nexus-orb-v2.js"></script>
   <script defer src="assets/js/matrix-text.js"></script>
-  <!-- LEGACY REMOVED: neural-nexus.js -->
   <script defer src="assets/js/magnetic-buttons.js"></script>
 </body>
 
