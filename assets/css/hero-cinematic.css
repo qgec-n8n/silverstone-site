@@ -104,16 +104,9 @@
 .hero.title-band .content{
   position: relative;
   z-index: 3;
-  transform:
-    translate3d(0, calc(var(--heroDepth) * -18vh), 0)
-    scale(calc(1 - var(--heroDepth) * 0.18))
-    rotateX(calc(var(--heroDepth) * 3deg));
-  opacity: calc(1 - var(--heroProgress) * 0.08);
-  filter:
-    saturate(calc(1 + var(--heroDepth) * 0.3))
-    contrast(calc(1 + var(--heroDepth) * 0.14));
-  transition: transform 0.001s linear, opacity 0.001s linear, filter 0.001s linear;
-  will-change: transform, opacity, filter;
+  /* Reduced visual complexity to prevent blurring */
+  transform: translate3d(0,0,0);
+  will-change: transform, opacity;
 }
 
 .hero.title-band .content h1,
