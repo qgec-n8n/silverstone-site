@@ -1,161 +1,171 @@
-/**
- * NEURAL NEXUS ORB V2: ETHEREAL SINGULARITY
- * 
- * Logic:
- * 1. Clean Slate: Removes old Orb elements.
- * 2. Injects new Orb HTML structure (Orb, Bubble, Rail).
- * 3. Scroll Trigger: Visible ONLY in Body (IntersectionObserver).
- * 4. Rail Logic: Filters images by Aspect Ratio, Random selection of ONE type.
- */
+// Nexus Orb V2.0 - Premium Integration
+// Manages the floating orb, rail UI, and transitions to the Innovation Gallery
 
 (function () {
-    'use strict';
+  'use strict';
 
-    // --- CONFIGURATION ---
-    const ASSET_PATH = 'assets/images/socialmedia/';
-
-    // Full Image Pool (Square and Landscape ONLY, Verified Filenames)
-    // NOTE: Added 'type' property to facilitate grouping.
-    const ORB_IMAGES = [
-        // SQUARES
-        { file: '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg', type: 'square' },
-        { file: '1-1_business_monitor-graphs_10k-lost-overnight.jpg', type: 'square' },
-        { file: '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg', type: 'square' },
-        { file: '1-1_legal_desk-phone-with-scales_stop-losing-good-cases-to-voicemail.jpg', type: 'square' },
-        { file: '1-1_marketing_boardroom-messages_your-prospects-can-tell.jpg', type: 'square' },
-        { file: '1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg', type: 'square' },
-        { file: '1-1_voiceagents_digital-dashboard_scale-beyond-human-limits.jpg', type: 'square' },
-
-        // LANDSCAPES
-        { file: '3-2_business_hand-holding-phone-with-voice-display_ai-that-speaks-your-language.jpg', type: 'landscape' },
-        { file: '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg', type: 'landscape' },
-        { file: '3-2_business_laptop-with-chat-bubbles_hours-lost-leads-unqualified.jpg', type: 'landscape' },
-        { file: '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.jpg', type: 'landscape' },
-        { file: '3-2_childcare_tablet-in-playroom_let-ai-handle-the-parent-phone-rush.jpg', type: 'landscape' },
-        { file: '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg', type: 'landscape' },
-        { file: '3-2_logistics_laptop-with-truck_ai-optimises-logistics-delivery.jpg', type: 'landscape' },
-        { file: '3-2_restaurant_phone-and-reservation-list_never-miss-a-booking-again.jpg', type: 'landscape' },
-        { file: '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.jpg', type: 'landscape' },
-        { file: '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg', type: 'landscape' },
-
-        // PORTRAITS (Added to pool to allow "random 2:3" option)
-        { file: '2-3_ai_phone-processing_connect-automate-grow.jpg', type: 'portrait' },
-        { file: '2-3_analytics_dashboard_ai-clarity-for-human-performance.jpg', type: 'portrait' },
-        { file: '2-3_healthcare_phone-with-appointment_ai-takes-care-of-your-patients.jpg', type: 'portrait' },
-        { file: '2-3_realestate_phone-map-at-night_never-miss-a-viewing-again.jpg', type: 'portrait' },
-        { file: '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.jpg', type: 'portrait' }
-    ];
-
-    // --- INITIALIZATION ---
-    function initNexusOrb() {
-        const oldOrbs = document.querySelectorAll('.neural-nexus, #neural-nexus-dock, .nexus-orb-container');
-        oldOrbs.forEach(el => el.remove());
-
-        injectOrb();
-        setupScrollObserver();
+  function handleOrbNavigation(event) {
+    if (event && event.preventDefault) {
+      event.preventDefault();
     }
 
-    // --- INJECTION ---
-    function injectOrb() {
-        const container = document.createElement('div');
-        container.id = 'nexus-orb-container';
-
-        // Orb
-        const orb = document.createElement('div');
-        orb.className = 'nexus-orb';
-
-        // Thought Bubble
-        const bubble = document.createElement('div');
-        bubble.className = 'nexus-bubble';
-        bubble.textContent = 'View Innovation Gallery';
-
-        // Image Rail
-        const rail = document.createElement('div');
-        rail.className = 'nexus-rail';
-
-        // Populate Rail (3 Random Valid Images of SAME TYPE)
-        const selectedImages = getUniformRandomImages(3);
-        selectedImages.forEach(data => {
-            const img = document.createElement('img');
-            img.src = ASSET_PATH + data.file;
-            img.className = 'nexus-rail-img';
-            img.alt = 'Insight';
-
-            // Add aspect ratio class
-            img.classList.add(data.type);
-
-            // UPDATED: Click -> Navigate to Innovation Gallery
-            img.addEventListener('click', () => {
-                window.location.href = 'services.html#neural-grid';
-            });
-
-            rail.appendChild(img);
-        });
-
-        // DOM Order: Orb before Rail for CSS ~ selector
-        container.appendChild(orb);
-        container.appendChild(bubble);
-        container.appendChild(rail);
-
-        document.body.appendChild(container);
-
-        orb.addEventListener('click', () => {
-            window.location.href = 'services.html#neural-grid';
-        });
+    try {
+      sessionStorage.setItem('silverstone_skip_hero_anim', 'true');
+      sessionStorage.setItem('silverstone_orb_redirect', 'true');
+    } catch (err) {
+      // sessionStorage may be blocked; fail silently
     }
 
-    // --- SCROLL LOGIC ---
-    function setupScrollObserver() {
-        const container = document.getElementById('nexus-orb-container');
-        const hero = document.querySelector('.hero') || document.querySelector('header');
+    const prefersReduced =
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        if (!container || !hero) return;
+    const hasGSAP = !!(window.gsap && typeof window.gsap.to === 'function');
 
-        const observerOptions = {
-            root: null,
-            threshold: 0,
-            rootMargin: "-100px 0px 0px 0px"
-        };
+    const navigate = () => {
+      window.location.href = 'services.html#neural-grid';
+    };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    container.classList.remove('visible');
-                } else {
-                    container.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        observer.observe(hero);
+    if (!hasGSAP || prefersReduced) {
+      navigate();
+      return;
     }
 
-    // --- UTILS ---
-    function getUniformRandomImages(count) {
-        // 1. Group images by type
-        const groups = ORB_IMAGES.reduce((acc, img) => {
-            if (!acc[img.type]) acc[img.type] = [];
-            acc[img.type].push(img);
-            return acc;
-        }, {});
-
-        // 2. Pick a random type that has at least 'count' images
-        const validTypes = Object.keys(groups).filter(type => groups[type].length >= count);
-
-        if (validTypes.length === 0) return []; // Fallback
-
-        const randomType = validTypes[Math.floor(Math.random() * validTypes.length)];
-        const candidates = groups[randomType];
-
-        // 3. Shuffle and pick 'count' images
-        const shuffled = candidates.sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, count);
+    // Animate the orb expanding into a "singularity"
+    const orbElement = document.querySelector('.nexus-orb');
+    if (!orbElement) {
+      navigate();
+      return;
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initNexusOrb);
-    } else {
-        initNexusOrb();
+    gsap.to(orbElement, {
+      scale: 40,
+      duration: 0.8,
+      ease: 'expo.in',
+      onComplete: navigate
+    });
+  }
+
+  // Configuration
+  const CONFIG = {
+    orbId: 'nexus-orb-container',
+    scrollThreshold: 100, // Show orb after scrolling this many pixels
+    railItems: [
+      {
+        src: 'assets/images/zip/Silverstone_25.jpg',
+        type: 'portrait',
+        alt: 'Automated Insight'
+      },
+      {
+        src: 'assets/images/zip/Silverstone_22.jpg',
+        type: 'square',
+        alt: 'Human-AI Synergy'
+      },
+      {
+        src: 'assets/images/zip/Silverstone_06.jpg',
+        type: 'landscape',
+        alt: 'Future Infrastructure'
+      }
+    ]
+  };
+
+  /**
+   * Injects the Orb and Rail HTML into the document body.
+   */
+  function injectOrb() {
+    // Avoid duplicate injection
+    if (document.getElementById(CONFIG.orbId)) return;
+
+    const container = document.createElement('div');
+    container.id = CONFIG.orbId;
+
+    // The glowing orb itself
+    const orb = document.createElement('div');
+    orb.className = 'nexus-orb';
+    orb.setAttribute('aria-label', 'Open Innovation Gallery');
+    orb.setAttribute('role', 'button');
+    orb.setAttribute('tabindex', '0');
+    // Add click handler
+    orb.addEventListener('click', handleOrbNavigation);
+
+    // The text bubble
+    const bubble = document.createElement('div');
+    bubble.className = 'nexus-bubble';
+    bubble.textContent = 'View Innovation Gallery';
+
+    // The rail (holds the thumbnails)
+    const rail = document.createElement('div');
+    rail.className = 'nexus-rail';
+
+    // Populate rail images
+    CONFIG.railItems.forEach(item => {
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.className = 'nexus-rail-img';
+      img.classList.add(`type-${item.type}`);
+      img.alt = item.alt;
+      img.loading = 'lazy';
+      // Add click handler
+      img.addEventListener('click', handleOrbNavigation);
+      rail.appendChild(img);
+    });
+
+    // Assemble structure
+    container.appendChild(rail);
+    container.appendChild(bubble);
+    container.appendChild(orb);
+
+    document.body.appendChild(container);
+
+    // Initialise interaction logic
+    initOrbInteractions(container, orb, bubble, rail);
+  }
+
+  /**
+   * Sets up hover, click and scroll interactions.
+   */
+  function initOrbInteractions(container, orb, bubble, rail) {
+    let isHovered = false;
+
+    // Show/Hide based on scroll position
+    function handleScroll() {
+      const scrollY = window.scrollY;
+      if (scrollY > CONFIG.scrollThreshold) {
+        container.classList.add('visible');
+      } else {
+        container.classList.remove('visible');
+      }
     }
+
+    // Hover effects: expand rail, show bubble
+    orb.addEventListener('mouseenter', () => {
+      isHovered = true;
+      container.classList.add('expanded');
+    });
+
+    container.addEventListener('mouseleave', () => {
+      isHovered = false;
+      container.classList.remove('expanded');
+    });
+
+    // Keyboard accessibility for Orb
+    orb.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleOrbNavigation(e);
+      }
+    });
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial check
+    handleScroll();
+  }
+
+  // Boot the orb when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectOrb);
+  } else {
+    injectOrb();
+  }
 
 })();
