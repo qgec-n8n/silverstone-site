@@ -86,6 +86,7 @@
 
             // UPDATED: Click -> Navigate to Innovation Gallery
             img.addEventListener('click', () => {
+                sessionStorage.setItem('fromOrb', 'true');
                 window.location.href = 'services.html#neural-grid';
             });
 
@@ -100,7 +101,18 @@
         document.body.appendChild(container);
 
         orb.addEventListener('click', () => {
+            sessionStorage.setItem('fromOrb', 'true');
             window.location.href = 'services.html#neural-grid';
+        });
+
+        orb.addEventListener('mouseenter', () => {
+            orb.classList.add('animate__animated', 'animate__pulse');
+            orb.style.transform = 'scale(1.06)';
+        });
+
+        orb.addEventListener('mouseleave', () => {
+            orb.classList.remove('animate__animated', 'animate__pulse');
+            orb.style.transform = '';
         });
     }
 
