@@ -6,6 +6,22 @@
   "use strict";
   var CONFIG = { DURATION_MS: 2500, HEADER_VAR_NAME: "--headerH", BOUNDARY_THRESHOLD_PX: 28, DISABLE_ON_WIDTH_BELOW: 0, EASING: [0.19, 1, 0.22, 1] };
   var MOBILE_BREAKPOINT = 768;
+  var INNOVATION_HASHES = ["#innovation-gallery", "#neural-grid"];
+
+  function isInnovationHash() {
+    return INNOVATION_HASHES.indexOf(window.location.hash) !== -1;
+  }
+
+  function consumeOrbArrivalFlag() {
+    var fromOrb = false;
+    try {
+      fromOrb = sessionStorage.getItem("orbInnovationJump") === "1";
+      if (fromOrb) sessionStorage.removeItem("orbInnovationJump");
+    } catch (e) {
+      fromOrb = false;
+    }
+    return fromOrb;
+  }
 
   function BezierEasing(x1, y1, x2, y2) {
     function A(a1, a2) { return 1 - 3 * a2 + 3 * a1 } function B(a1, a2) { return 3 * a2 - 6 * a1 } function C(a1) { return 3 * a1 }
@@ -64,8 +80,24 @@
     if (!hero.querySelector(".fx-aurora")) { var a = document.createElement("div"); a.className = "fx-aurora"; a.setAttribute("aria-hidden", "true"); hero.appendChild(a); }
     ensureBars(); if (!next.querySelector(".fx-veil")) { if (getComputedStyle(next).position === "static") next.style.position = "relative"; var v = document.createElement("div"); v.className = "fx-veil"; v.setAttribute("aria-hidden", "true"); next.insertBefore(v, next.firstChild); }
     function sizeHero() { hero.style.minHeight = geo(hero, next).visH + "px"; } sizeHero();
+
+    var orbArrival = consumeOrbArrivalFlag();
+    var suppressDownOnLoad = orbArrival && isInnovationHash();
+    var allowDownTransitions = !suppressDownOnLoad;
     var anim = false, lastY = window.scrollY;
     var DEPTH_DOWN_MAX = 1.15;
+
+    if (suppressDownOnLoad) {
+      var heroObserver = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            allowDownTransitions = true;
+            observer.disconnect();
+          }
+        });
+      }, { rootMargin: "0px 0px -45% 0px" });
+      heroObserver.observe(hero);
+    }
     function animate(yTarget, dir) {
       anim = true; lock(true); var y0 = window.scrollY, delta = yTarget - y0, t0 = performance.now(), dur = CONFIG.DURATION_MS;
       var depthFrom = dir === "down" ? 0 : DEPTH_DOWN_MAX, depthTo = dir === "down" ? DEPTH_DOWN_MAX : 0;
@@ -87,23 +119,23 @@
       }
       requestAnimationFrame(tick);
     }
-    function tryDown() { if (anim || isOverlayOpen()) return; animate(geo(hero, next).bodyY, "down"); }
+    function tryDown() { if (anim || isOverlayOpen() || !allowDownTransitions) return; animate(geo(hero, next).bodyY, "down"); }
     function tryUp() { if (anim || isOverlayOpen()) return; animate(0, "up"); }
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { if (!allowDownTransitions) return; e.preventDefault(); tryDown(); }
       else if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     var tY = null; function tStart(e) { if (anim) return; tY = e.touches ? e.touches[0].clientY : e.clientY; }
     function tMove(e) {
       if (anim || isOverlayOpen() || tY == null) return; var y = e.touches ? e.touches[0].clientY : e.clientY, dy = tY - y, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
+      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { if (!allowDownTransitions) return; e.preventDefault(); tryDown(); } }
       else if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function tEnd() { tY = null; }
     function onKey(e) {
       if (anim || isOverlayOpen()) return; var g = geo(hero, next), sy = window.scrollY;
-      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
+      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { if (!allowDownTransitions) return; e.preventDefault(); tryDown(); }
       else if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function syncMobileState(gInfo) {
@@ -112,17 +144,13 @@
     }
     function onScroll() {
       if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
-      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { if (allowDownTransitions) tryDown(); }
+      else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
       syncMobileState(g);
     }
     (function initState() {
       var g = geo(hero, next);
       var past = window.scrollY >= g.bodyY;
-
-      // FIX: If arriving via hash anchor (e.g. #neural-grid), force "past" state immediately
-      if (window.location.hash) {
-        past = true;
-      }
 
       hero.style.setProperty("--heroProgress", past ? 1 : 0);
       hero.style.setProperty("--heroDepth", past ? DEPTH_DOWN_MAX : 0);
