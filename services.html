@@ -33,6 +33,8 @@
   <link href="assets/css/services.css" rel="stylesheet" />
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
   <link rel="stylesheet" href="assets/css/parallax-fix.css" />
+  <!-- Add Animate.css for subtle emphasis animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
   <link rel="stylesheet" href="assets/css/mobile.css" />
   <!-- New footer styles -->
@@ -84,6 +86,9 @@
     }
   </style>
   <link rel="stylesheet" href="assets/css/hero-cinematic.css">
+  <!-- Add GSAP and ScrollTrigger from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 
 <body class="page-services">
@@ -116,18 +121,21 @@
       </nav>
     </div>
   </header>
-  <section class="hero title-band"
-    style="--mobile-hero-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x, url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x );">
-    <div class="content">
-      <h1>Our Services</h1>
-      <p>
-        Tailored automation and AI solutions designed to streamline your operations,
-        optimise your resources and accelerate your growth.
-      </p>
-    </div>
-  </section>
-  <section class="section bg-circuit parallax-section" data-parallax-theme="circuit">
-    <div class="container">
+  <div id="hero">
+    <section class="hero title-band"
+      style="--mobile-hero-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: url('assets/images/internet/hero/services-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/services-hero-final.webp') type('image/webp') 1x, url('assets/images/internet/hero/services-hero-final.jpg') type('image/jpeg') 1x );">
+      <div class="content">
+        <h1 id="hero-title">Our Services</h1>
+        <p>
+          Tailored automation and AI solutions designed to streamline your operations,
+          optimise your resources and accelerate your growth.
+        </p>
+      </div>
+    </section>
+  </div>
+  <main id="body">
+    <section class="section bg-circuit parallax-section" data-parallax-theme="circuit">
+      <div class="container">
       <div class="service-row animate" id="marketing">
         <div class="service-image service-image">
           <img src="assets/images/zip/lead-gen-automation.png" alt="Abstract neon magnet attracting and nurturing leads"
@@ -400,18 +408,19 @@
       </div>
       <div id="innovation-marquee-slot" aria-hidden="true"></div>
     </div>
-  </section>
-  <section class="section brand-gradient animate">
-    <div class="container">
-      <div class="neon-card cta-card" style="text-align: center">
-        <h2 class="section-title" style="color: var(--color-white)">Let’s Build Your Future</h2>
-        <p class="section-subtitle" style="color: var(--color-silver)">
-          Our team is ready to craft a personalised solution that propels your business forward.
-        </p>
-        <a href="book.html" class="btn btn-primary">Claim Your Free Audit</a>
+    </section>
+    <section class="section brand-gradient animate">
+      <div class="container">
+        <div class="neon-card cta-card" style="text-align: center">
+          <h2 class="section-title" style="color: var(--color-white)">Let’s Build Your Future</h2>
+          <p class="section-subtitle" style="color: var(--color-silver)">
+            Our team is ready to craft a personalised solution that propels your business forward.
+          </p>
+          <a href="book.html" class="btn btn-primary">Claim Your Free Audit</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
   <!-- Global site footer -->
   <footer class="site-footer">
     <div class="footer-container">
