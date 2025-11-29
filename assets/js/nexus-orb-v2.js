@@ -6,6 +6,7 @@
  * 2. Injects new Orb HTML structure (Orb, Bubble, Rail).
  * 3. Scroll Trigger: Visible ONLY in Body (IntersectionObserver).
  * 4. Rail Logic: Filters images by Aspect Ratio, Random selection of ONE type.
+ * 5. Click Handler: "Singularity" transition + Session Flags + Redirect.
  */
 
 (function () {
@@ -15,7 +16,6 @@
     const ASSET_PATH = 'assets/images/socialmedia/';
 
     // Full Image Pool (Square and Landscape ONLY, Verified Filenames)
-    // NOTE: Added 'type' property to facilitate grouping.
     const ORB_IMAGES = [
         // SQUARES
         { file: '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg', type: 'square' },
@@ -55,6 +55,32 @@
         setupScrollObserver();
     }
 
+    // --- NAVIGATION LOGIC ---
+    function handleOrbNavigation(e) {
+        e.preventDefault(); // Prevent immediate jump if it was an anchor link
+
+        // Set flags
+        sessionStorage.setItem('silverstone_skip_hero_anim', 'true');
+        sessionStorage.setItem('silverstone_orb_redirect', 'true');
+
+        const orb = document.querySelector('.nexus-orb');
+
+        // Singularity Animation: Expand Orb to engulf screen
+        if (orb && window.gsap) {
+             gsap.to(orb, {
+                scale: 50,
+                duration: 0.5,
+                ease: "power4.in",
+                onComplete: () => {
+                    window.location.href = 'services.html#neural-grid';
+                }
+             });
+        } else {
+             // Fallback if GSAP is missing
+             window.location.href = 'services.html#neural-grid';
+        }
+    }
+
     // --- INJECTION ---
     function injectOrb() {
         const container = document.createElement('div');
@@ -63,6 +89,7 @@
         // Orb
         const orb = document.createElement('div');
         orb.className = 'nexus-orb';
+        orb.addEventListener('click', handleOrbNavigation);
 
         // Thought Bubble
         const bubble = document.createElement('div');
@@ -84,10 +111,8 @@
             // Add aspect ratio class
             img.classList.add(data.type);
 
-            // UPDATED: Click -> Navigate to Innovation Gallery
-            img.addEventListener('click', () => {
-                window.location.href = 'services.html#neural-grid';
-            });
+            // UPDATED: Click -> Navigate
+            img.addEventListener('click', handleOrbNavigation);
 
             rail.appendChild(img);
         });
@@ -98,10 +123,6 @@
         container.appendChild(rail);
 
         document.body.appendChild(container);
-
-        orb.addEventListener('click', () => {
-            window.location.href = 'services.html#neural-grid';
-        });
     }
 
     // --- SCROLL LOGIC ---

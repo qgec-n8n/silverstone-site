@@ -63,3 +63,27 @@ rgba(255,230,0,0.35)}.gallery-img.neon5{border-color:rgba(255,106,0,0.45);box-sh
     backdrop-filter: blur(8px) !important;
   }
 }
+/* Fix for overlap issues - Service page */
+#neural-grid {
+    scroll-margin-top: clamp(100px, 15vh, 160px);
+    position: relative;
+    z-index: 5;
+}
+
+.page-services.container {
+    transform: none !important;
+    margin-top: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* Ensure veil logic aligns with JS */
+.fx-veil {
+    will-change: transform, opacity;
+    transform: translateY(calc((1 - var(--cineVeil, 1)) * 12px));
+}
+
+/* Hero Reactivation Helper */
+body.hero-anim-skipped .hero.title-band {
+    /* Ensure no residual transforms interfere with the "finished" state */
+}
