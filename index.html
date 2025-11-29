@@ -285,8 +285,6 @@
   <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- PREMIUM UPGRADE: New CSS Assets -->
   <link rel="stylesheet" href="assets/css/marquee-single.css" />
-  <link rel="stylesheet" href="assets/css/nexus-orb-v2.css" />
-  <!-- LEGACY REMOVED: neural-nexus.css -->
   <link rel="stylesheet" href="assets/css/hero-cinematic.css" />
 </head>
 
@@ -327,8 +325,11 @@
   </header>
   <!-- Hero banner -->
   <section class="hero title-band">
-    <img src="assets/images/internet/hero/home-hero-final.jpg" alt="Hero Image" fetchpriority="high" width="1920"
-      height="1080" />
+    <div class="hero-media" aria-hidden="true">
+      <img src="assets/images/internet/hero/home-hero-final.jpg" alt="Hero background" fetchpriority="high"
+        width="1920" height="1080" class="hero-fallback-image" />
+      <canvas id="hero-shader-canvas"></canvas>
+    </div>
     <div class="content">
       <h1>Your Partner in Business Automation</h1>
       <p>
@@ -689,9 +690,8 @@
   <script defer src="assets/js/hero-cinematic.js"></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
   <script defer src="assets/js/marquee-single.js"></script>
-  <script defer src="assets/js/nexus-orb-v2.js"></script>
   <script defer src="assets/js/matrix-text.js"></script>
-  <!-- LEGACY REMOVED: neural-nexus.js -->
+  <script defer src="assets/js/hero-shader.js"></script>
   <script defer src="assets/js/magnetic-buttons.js"></script>
 </body>
 
