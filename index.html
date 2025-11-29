@@ -291,6 +291,11 @@
 </head>
 
 <body>
+  <div class="fx-bars" aria-hidden="true">
+    <div class="bar top"></div>
+    <div class="bar bottom"></div>
+    <div class="flare"></div>
+  </div>
   <!-- Cookie consent banner -->
   <div id="cookie-banner" class="cookie-banner">
     <p>
@@ -329,6 +334,10 @@
   <section class="hero title-band">
     <img src="assets/images/internet/hero/home-hero-final.jpg" alt="Hero Image" fetchpriority="high" width="1920"
       height="1080" />
+    <div class="fx-layer" aria-hidden="true"></div>
+    <div class="fx-bloom" aria-hidden="true"></div>
+    <div class="fx-aurora" aria-hidden="true"></div>
+    <div class="fx-veil" aria-hidden="true"></div>
     <div class="content">
       <h1>Your Partner in Business Automation</h1>
       <p>
@@ -686,7 +695,11 @@
   </footer>
   <script src="assets/js/script.js" defer></script>
   <script defer src="assets/js/cookie-consent.js"></script>
-  <script defer src="assets/js/hero-cinematic.js"></script>
+  <!-- GSAP core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <!-- ScrollTrigger plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script defer src="assets/js/hero-gsap.js"></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
   <script defer src="assets/js/marquee-single.js"></script>
   <script defer src="assets/js/nexus-orb-v2.js"></script>
