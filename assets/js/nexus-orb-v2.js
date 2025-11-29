@@ -6,6 +6,7 @@
  * 2. Injects new Orb HTML structure (Orb, Bubble, Rail).
  * 3. Scroll Trigger: Visible ONLY in Body (IntersectionObserver).
  * 4. Rail Logic: Filters images by Aspect Ratio, Random selection of ONE type.
+ * 5. Session State Protocol: Scales Orb and sets session flag before redirect.
  */
 
 (function () {
@@ -84,9 +85,10 @@
             // Add aspect ratio class
             img.classList.add(data.type);
 
-            // UPDATED: Click -> Navigate to Innovation Gallery
-            img.addEventListener('click', () => {
-                window.location.href = 'services.html#neural-grid';
+            // UPDATED: Click -> Trigger Singularity Protocol
+            img.addEventListener('click', (e) => {
+                e.preventDefault();
+                initiateSingularityProtocol();
             });
 
             rail.appendChild(img);
@@ -99,8 +101,40 @@
 
         document.body.appendChild(container);
 
-        orb.addEventListener('click', () => {
+        orb.addEventListener('click', (e) => {
+            e.preventDefault();
+            initiateSingularityProtocol();
+        });
+    }
+
+    // --- SINGULARITY PROTOCOL (New Feature) ---
+    function initiateSingularityProtocol() {
+        const orb = document.querySelector('.nexus-orb');
+
+        if (!orb) {
+             window.location.href = 'services.html#neural-grid';
+             return;
+        }
+
+        // Session Flag: Tell next page to skip hero animation
+        sessionStorage.setItem('silverstone_skip_hero_anim', 'true');
+
+        // Check if GSAP is available (it should be global if added to head/body,
+        // but this script might run on pages where GSAP isn't loaded yet if not services.html)
+        // If GSAP is not present, just redirect immediately.
+        if (typeof gsap === 'undefined') {
             window.location.href = 'services.html#neural-grid';
+            return;
+        }
+
+        // Animate Orb: Scale to 50 over 0.8s
+        gsap.to(orb, {
+            scale: 50,
+            duration: 0.8,
+            ease: "expo.in",
+            onComplete: () => {
+                window.location.href = 'services.html#neural-grid';
+            }
         });
     }
 
