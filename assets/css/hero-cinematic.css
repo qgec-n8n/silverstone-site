@@ -220,3 +220,36 @@ html.cine-locked, body.cine-locked{
   .hero.title-band .fx-aurora{ display: none; }
   .fx-bars, .fx-veil{ display: none; }
 }
+
+/* Hero shader background layering */
+.hero.title-band{
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-media{
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.hero-fallback-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#hero-shader-canvas{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  #hero-shader-canvas{ display: none; }
+}

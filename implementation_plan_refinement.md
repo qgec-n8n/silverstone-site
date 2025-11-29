@@ -28,7 +28,6 @@ Refine the Innovation Gallery, Marquees, and Nexus Orb based on specific user fe
 - **Rail:** Ensured rail fans left (existing behavior confirmed).
 - **Images:** Updated rail to randomly select 3 images that are strictly 1:1 or 3:2 aspect ratio.
 - **Files Modified:**
-    - `assets/js/nexus-orb-v2.js`: Updated `ORB_IMAGES` pool.
 
 ## Verification
 - **Gallery:** Check `services.html` for a gap-free mosaic with mixed aspect ratios.
