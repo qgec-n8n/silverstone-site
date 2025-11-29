@@ -21,6 +21,35 @@
   perspective: 1200px;
   transform-style: preserve-3d;
   --heroDepth: 0;
+  overflow: hidden;
+}
+
+.hero.title-band .hero-media{
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero.title-band .hero-fallback-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#hero-shader-canvas{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  #hero-shader-canvas{ display: none; }
 }
 
 /* Hero vignette overlay */

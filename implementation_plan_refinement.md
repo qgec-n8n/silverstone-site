@@ -1,7 +1,7 @@
 # Implementation Plan - Premium Features Refinement
 
 ## Goal
-Refine the Innovation Gallery, Marquees, and Nexus Orb based on specific user feedback regarding layout, content, and positioning.
+Refine the Innovation Gallery and Marquees based on specific user feedback regarding layout, content, and positioning.
 
 ## Changes
 
@@ -24,13 +24,6 @@ Refine the Innovation Gallery, Marquees, and Nexus Orb based on specific user fe
     - `assets/js/premium-marquee.js`: Updated image list and injection logic.
     - `assets/css/premium-marquee.css`: Removed grayscale filter.
 
-### 3. Nexus Orb V2
-- **Rail:** Ensured rail fans left (existing behavior confirmed).
-- **Images:** Updated rail to randomly select 3 images that are strictly 1:1 or 3:2 aspect ratio.
-- **Files Modified:**
-    - `assets/js/nexus-orb-v2.js`: Updated `ORB_IMAGES` pool.
-
 ## Verification
 - **Gallery:** Check `services.html` for a gap-free mosaic with mixed aspect ratios.
 - **Marquee:** Check `services.html` for the double marquee above the "Let's Build Your Future" section. Check other pages for the single marquee above the footer. Ensure all images are colorful.
-- **Orb:** Check the orb rail on hover to see 3 square/landscape images fanning out to the left.
