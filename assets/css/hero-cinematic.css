@@ -21,6 +21,47 @@
   perspective: 1200px;
   transform-style: preserve-3d;
   --heroDepth: 0;
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-fallback-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#hero-shader-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Ensure hero content and cinematic layers sit above the shader */
+.hero.title-band .content,
+.hero.title-band .fx-layer,
+.hero.title-band .fx-bloom,
+.hero.title-band .fx-aurora,
+.hero.title-band .fx-veil {
+  position: relative;
+  z-index: 1;
+}
+
+/* Optional: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  #hero-shader-canvas {
+    display: none;
+  }
 }
 
 /* Hero vignette overlay */
