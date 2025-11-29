@@ -6,6 +6,7 @@
  * 2. Injects new Orb HTML structure (Orb, Bubble, Rail).
  * 3. Scroll Trigger: Visible ONLY in Body (IntersectionObserver).
  * 4. Rail Logic: Filters images by Aspect Ratio, Random selection of ONE type.
+ * 5. Singularity Transition: GSAP-driven expansion on click.
  */
 
 (function () {
@@ -15,7 +16,6 @@
     const ASSET_PATH = 'assets/images/socialmedia/';
 
     // Full Image Pool (Square and Landscape ONLY, Verified Filenames)
-    // NOTE: Added 'type' property to facilitate grouping.
     const ORB_IMAGES = [
         // SQUARES
         { file: '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg', type: 'square' },
@@ -38,7 +38,7 @@
         { file: '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.jpg', type: 'landscape' },
         { file: '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg', type: 'landscape' },
 
-        // PORTRAITS (Added to pool to allow "random 2:3" option)
+        // PORTRAITS
         { file: '2-3_ai_phone-processing_connect-automate-grow.jpg', type: 'portrait' },
         { file: '2-3_analytics_dashboard_ai-clarity-for-human-performance.jpg', type: 'portrait' },
         { file: '2-3_healthcare_phone-with-appointment_ai-takes-care-of-your-patients.jpg', type: 'portrait' },
@@ -53,6 +53,37 @@
 
         injectOrb();
         setupScrollObserver();
+    }
+
+    // --- NAVIGATION HANDLER ---
+    function handleOrbNavigation(e) {
+        if (e) e.preventDefault();
+
+        // 1. Set Session Flags
+        sessionStorage.setItem('silverstone_skip_hero_anim', 'true');
+        sessionStorage.setItem('silverstone_orb_redirect', 'true');
+
+        const targetUrl = 'services.html#neural-grid';
+
+        // 2. Singularity Transition (Expand Orb)
+        const orb = document.querySelector('.nexus-orb');
+        const rail = document.querySelector('.nexus-rail'); // Fade out rail
+
+        if (typeof gsap !== 'undefined' && orb) {
+            if (rail) gsap.to(rail, { opacity: 0, duration: 0.3 });
+
+            gsap.to(orb, {
+                scale: 50,
+                duration: 0.8,
+                ease: 'expo.in',
+                onComplete: () => {
+                    window.location.href = targetUrl;
+                }
+            });
+        } else {
+            // Fallback
+            window.location.href = targetUrl;
+        }
     }
 
     // --- INJECTION ---
@@ -73,35 +104,29 @@
         const rail = document.createElement('div');
         rail.className = 'nexus-rail';
 
-        // Populate Rail (3 Random Valid Images of SAME TYPE)
+        // Populate Rail
         const selectedImages = getUniformRandomImages(3);
         selectedImages.forEach(data => {
             const img = document.createElement('img');
             img.src = ASSET_PATH + data.file;
             img.className = 'nexus-rail-img';
             img.alt = 'Insight';
-
-            // Add aspect ratio class
             img.classList.add(data.type);
 
-            // UPDATED: Click -> Navigate to Innovation Gallery
-            img.addEventListener('click', () => {
-                window.location.href = 'services.html#neural-grid';
-            });
+            // Click -> Navigation
+            img.addEventListener('click', handleOrbNavigation);
 
             rail.appendChild(img);
         });
 
-        // DOM Order: Orb before Rail for CSS ~ selector
         container.appendChild(orb);
         container.appendChild(bubble);
         container.appendChild(rail);
 
         document.body.appendChild(container);
 
-        orb.addEventListener('click', () => {
-            window.location.href = 'services.html#neural-grid';
-        });
+        // Click -> Navigation
+        orb.addEventListener('click', handleOrbNavigation);
     }
 
     // --- SCROLL LOGIC ---
@@ -132,22 +157,18 @@
 
     // --- UTILS ---
     function getUniformRandomImages(count) {
-        // 1. Group images by type
         const groups = ORB_IMAGES.reduce((acc, img) => {
             if (!acc[img.type]) acc[img.type] = [];
             acc[img.type].push(img);
             return acc;
         }, {});
 
-        // 2. Pick a random type that has at least 'count' images
         const validTypes = Object.keys(groups).filter(type => groups[type].length >= count);
-
-        if (validTypes.length === 0) return []; // Fallback
+        if (validTypes.length === 0) return [];
 
         const randomType = validTypes[Math.floor(Math.random() * validTypes.length)];
         const candidates = groups[randomType];
 
-        // 3. Shuffle and pick 'count' images
         const shuffled = candidates.sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
     }

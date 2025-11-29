@@ -273,3 +273,64 @@ body.scene-transition .hero,
 body.scene-transition .cinematic-section {
   pointer-events: none;
 }
+/* --- HERO SHADER & GSAP UPGRADES --- */
+
+.hero-media {
+    position: absolute; /* Changed to absolute to fill the hero container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.hero.title-band img {
+    /* Ensure existing img styling applies to img inside hero-media if needed */
+    /* Or we might need to target .hero-media img */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#hero-shader-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Behind content, same level as img? */
+    /* Actually img should be fallback or behind canvas?
+       Prompt: "Render in a <canvas> element behind the hero text."
+       "Keep all hero text and CTAs fully readable... Degrade gracefully... fallback hero image remains visible"
+       If canvas is transparent (it is not, it draws a background), it covers image.
+       So Canvas z-index 1, Img z-index 0.
+       But text is z-index 1 (in .content). So Canvas z-index 0?
+       If Canvas is z-index 0, it sits on top of Img (z-index 0) if it comes after in DOM?
+       Yes.
+    */
+    pointer-events: none;
+}
+
+.hero.title-band .content {
+    position: relative;
+    z-index: 2; /* Ensure content is above shader */
+}
+
+/* Fix for Animate.css conflicts if any */
+:root {
+  --animate-duration: 0.8s;
+  --animate-delay: 0.1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate__animated {
+    animation: none !important;
+    opacity: 1 !important; /* Ensure visibility */
+    transform: none !important;
+  }
+}
