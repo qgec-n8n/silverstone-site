@@ -6,6 +6,7 @@
  * 2. Injects new Orb HTML structure (Orb, Bubble, Rail).
  * 3. Scroll Trigger: Visible ONLY in Body (IntersectionObserver).
  * 4. Rail Logic: Filters images by Aspect Ratio, Random selection of ONE type.
+ * 5. Navigation: Uses GSAP to scale orb to 50x before redirecting, setting session flag.
  */
 
 (function () {
@@ -15,7 +16,6 @@
     const ASSET_PATH = 'assets/images/socialmedia/';
 
     // Full Image Pool (Square and Landscape ONLY, Verified Filenames)
-    // NOTE: Added 'type' property to facilitate grouping.
     const ORB_IMAGES = [
         // SQUARES
         { file: '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg', type: 'square' },
@@ -80,13 +80,12 @@
             img.src = ASSET_PATH + data.file;
             img.className = 'nexus-rail-img';
             img.alt = 'Insight';
-
-            // Add aspect ratio class
             img.classList.add(data.type);
 
-            // UPDATED: Click -> Navigate to Innovation Gallery
-            img.addEventListener('click', () => {
-                window.location.href = 'services.html#neural-grid';
+            // Click -> Singularity Transition
+            img.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent bubbling if needed
+                triggerSingularity(orb);
             });
 
             rail.appendChild(img);
@@ -100,7 +99,29 @@
         document.body.appendChild(container);
 
         orb.addEventListener('click', () => {
+            triggerSingularity(orb);
+        });
+    }
+
+    // --- SINGULARITY TRANSITION ---
+    function triggerSingularity(orbElement) {
+        if (!window.gsap) {
+            console.warn("GSAP not found, falling back to direct navigation.");
             window.location.href = 'services.html#neural-grid';
+            return;
+        }
+
+        // 1. Flag the session to skip hero animation on next page load
+        sessionStorage.setItem('silverstone_skip_hero_anim', 'true');
+
+        // 2. Animate Orb to fill screen
+        gsap.to(orbElement, {
+            scale: 50,
+            duration: 0.8,
+            ease: "expo.in",
+            onComplete: () => {
+                window.location.href = 'services.html#neural-grid';
+            }
         });
     }
 
@@ -132,22 +153,17 @@
 
     // --- UTILS ---
     function getUniformRandomImages(count) {
-        // 1. Group images by type
         const groups = ORB_IMAGES.reduce((acc, img) => {
             if (!acc[img.type]) acc[img.type] = [];
             acc[img.type].push(img);
             return acc;
         }, {});
 
-        // 2. Pick a random type that has at least 'count' images
         const validTypes = Object.keys(groups).filter(type => groups[type].length >= count);
-
-        if (validTypes.length === 0) return []; // Fallback
+        if (validTypes.length === 0) return [];
 
         const randomType = validTypes[Math.floor(Math.random() * validTypes.length)];
         const candidates = groups[randomType];
-
-        // 3. Shuffle and pick 'count' images
         const shuffled = candidates.sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
     }
