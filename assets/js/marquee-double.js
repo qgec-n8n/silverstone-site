@@ -54,6 +54,7 @@
     // Safety: only run on Services page
     if (!document.body.classList.contains('page-services')) return;
 
+    alignInnovationAnchor();
     cleanupLegacyMarquees();
     ensureLightbox();
 
@@ -69,7 +70,6 @@
       document.body.appendChild(container);
     }
 
-    alignInnovationAnchor();
   }
 
   function cleanupLegacyMarquees() {
@@ -176,11 +176,8 @@
     const header = document.querySelector('.site-header');
     const headerHeight = header ? header.getBoundingClientRect().height : 0;
 
-    // Allow layout to settle before adjusting scroll
-    setTimeout(() => {
-      const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
-      window.scrollTo({ top, behavior: 'auto' });
-    }, 120);
+    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
+    window.scrollTo({ top, behavior: 'auto' });
   }
 
   if (document.readyState === 'loading') {
