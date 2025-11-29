@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     container.innerHTML = `
-        <div class="nexus-orb" onclick="window.location.href='services.html#neural-grid'"></div>
+        <div class="nexus-orb" onclick="window.location.href='services.html#innovation-gallery'"></div>
         <div class="nexus-rail">
             ${images.map(src => `
                 <div class="nexus-preview">

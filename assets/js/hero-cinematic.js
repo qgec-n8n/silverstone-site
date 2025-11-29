@@ -1,5 +1,5 @@
-/*! assets/js/hero-cinematic.js — v5 (High-Cinematic, scroll-triggered both directions)
- * - Movie-trailer style cinematic scroll transition both ways
+/*! assets/js/hero-cinematic.js — v6 (Cinematic return-to-hero only)
+ * - Scroll-triggered transition only when moving from body back to hero
  * - Input locked during transitions; overlay-safe; parallax-safe
  */
 (function () {
@@ -71,48 +71,52 @@
       var depthFrom = dir === "down" ? 0 : DEPTH_DOWN_MAX, depthTo = dir === "down" ? DEPTH_DOWN_MAX : 0;
       function tick(now) {
         if (isOverlayOpen()) { anim = false; lock(false); return; } var t = clamp((now - t0) / dur, 0, 1), e = ease(t), y = y0 + delta * e; window.scrollTo(0, y);
-        var progress = dir === "down" ? e : 1 - e; hero.style.setProperty("--heroProgress", progress);
-        var depth = depthFrom + (depthTo - depthFrom) * Math.pow(e, dir === "down" ? 0.88 : 1); hero.style.setProperty("--heroDepth", depth);
-        var bars = dir === "up" ? Math.sin(Math.PI * t) ** 0.9 : 0; setVar("--cineBars", bars);
-        var bloom = dir === "down" ? Math.pow(Math.sin(Math.PI * t), 1.2) * 0.8 : Math.pow(Math.sin(Math.PI * t), 1.35); setVar("--cineBloom", bloom);
-        var beamBoost = dir === "down" ? Math.pow(Math.sin(Math.PI * t), 1.4) * 0.65 : Math.pow(Math.sin(Math.PI * t), 2.0); setVar("--cineBeamBoost", beamBoost);
-        var aurora = dir === "down" ? Math.pow(Math.sin(Math.PI * t), 1.15) : 0; setVar("--cineAurora", aurora);
-        var pulse = dir === "down" ? Math.pow(Math.sin(Math.PI * t), 1.4) : 0; setVar("--cinePulse", pulse);
-        var veil = (dir === "down" ? 0.45 * (1 - e) : 0.45 * e); setVar("--cineVeil", veil);
+        var progress = 1 - e; hero.style.setProperty("--heroProgress", progress);
+        var depth = depthFrom + (depthTo - depthFrom) * Math.pow(e, 1); hero.style.setProperty("--heroDepth", depth);
+        var bars = Math.sin(Math.PI * t) ** 0.9; setVar("--cineBars", bars);
+        var bloom = Math.pow(Math.sin(Math.PI * t), 1.35); setVar("--cineBloom", bloom);
+        var beamBoost = Math.pow(Math.sin(Math.PI * t), 2.0); setVar("--cineBeamBoost", beamBoost);
+        setVar("--cineAurora", 0);
+        setVar("--cinePulse", 0);
+        var veil = 0.45 * e; setVar("--cineVeil", veil);
         if (t < 1 && anim) requestAnimationFrame(tick); else {
-          window.scrollTo(0, yTarget); hero.style.setProperty("--heroProgress", dir === "down" ? 1 : 0);
+          window.scrollTo(0, yTarget); hero.style.setProperty("--heroProgress", 0);
           hero.style.setProperty("--heroDepth", depthTo); setVar("--cineBars", 0); setVar("--cineBloom", 0); setVar("--cineBeamBoost", 0);
-          setVar("--cineAurora", 0); setVar("--cinePulse", 0); setVar("--cineVeil", dir === "down" ? 0 : 0.45); anim = false; lock(false);
+          setVar("--cineAurora", 0); setVar("--cinePulse", 0); setVar("--cineVeil", 0.45); anim = false; lock(false);
         }
       }
       requestAnimationFrame(tick);
     }
-    function tryDown() { if (anim || isOverlayOpen()) return; animate(geo(hero, next).bodyY, "down"); }
     function tryUp() { if (anim || isOverlayOpen()) return; animate(0, "up"); }
     function onWheel(e) {
       if (anim || isOverlayOpen()) return; var dy = e.deltaY, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
-      else if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+      if (dy < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     var tY = null; function tStart(e) { if (anim) return; tY = e.touches ? e.touches[0].clientY : e.clientY; }
     function tMove(e) {
       if (anim || isOverlayOpen() || tY == null) return; var y = e.touches ? e.touches[0].clientY : e.clientY, dy = tY - y, g = geo(hero, next), sy = window.scrollY;
-      if (dy > 8 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX) { if (!isMobileViewport()) { e.preventDefault(); tryDown(); } }
-      else if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+      if (dy < -8 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
     }
     function tEnd() { tY = null; }
     function onKey(e) {
       if (anim || isOverlayOpen()) return; var g = geo(hero, next), sy = window.scrollY;
-      if (["ArrowDown", "PageDown", "Space", " "].includes(e.key) && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) { e.preventDefault(); tryDown(); }
-      else if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+      if (["ArrowUp", "PageUp", "Home"].includes(e.key) && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) { e.preventDefault(); tryUp(); }
+    }
+    function updateHeroState(gInfo) {
+      var g = gInfo || geo(hero, next), sy = window.scrollY, past = sy >= g.bodyY - 1;
+      hero.style.setProperty("--heroProgress", past ? 1 : 0);
+      hero.style.setProperty("--heroDepth", past ? DEPTH_DOWN_MAX : 0);
+      setVar("--cineVeil", past ? 0 : 0.45);
     }
     function syncMobileState(gInfo) {
       if (anim || !isMobileViewport()) return; var g = gInfo || geo(hero, next), sy = window.scrollY, past = sy >= g.bodyY - 1;
       hero.style.setProperty("--heroProgress", past ? 1 : 0); hero.style.setProperty("--heroDepth", past ? DEPTH_DOWN_MAX : 0); setVar("--cineVeil", past ? 0 : 0.45);
     }
     function onScroll() {
-      if (anim || isOverlayOpen()) { lastY = window.scrollY; return; } var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
-      if (dir > 0 && sy < g.bodyY - CONFIG.BOUNDARY_THRESHOLD_PX && !isMobileViewport()) tryDown(); else if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      if (anim || isOverlayOpen()) { lastY = window.scrollY; return; }
+      var g = geo(hero, next), sy = window.scrollY, dir = sy - lastY; lastY = sy;
+      if (dir < 0 && sy <= g.bodyY + CONFIG.BOUNDARY_THRESHOLD_PX) tryUp();
+      updateHeroState(g);
       syncMobileState(g);
     }
     (function initState() {
@@ -124,10 +128,11 @@
         past = true;
       }
 
+      setVar("--cineBars", 0); setVar("--cineBloom", 0); setVar("--cineBeamBoost", 0);
+      setVar("--cineAurora", 0); setVar("--cinePulse", 0);
       hero.style.setProperty("--heroProgress", past ? 1 : 0);
       hero.style.setProperty("--heroDepth", past ? DEPTH_DOWN_MAX : 0);
-      setVar("--cineBars", 0); setVar("--cineBloom", 0); setVar("--cineBeamBoost", 0);
-      setVar("--cineAurora", 0); setVar("--cinePulse", 0); setVar("--cineVeil", past ? 0 : 0.45);
+      setVar("--cineVeil", past ? 0 : 0.45);
       syncMobileState(g);
     })(); window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("touchstart", tStart, { passive: true }); window.addEventListener("touchmove", tMove, { passive: false });
