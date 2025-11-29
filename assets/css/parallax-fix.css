@@ -115,7 +115,7 @@
 }
 
 .parallax-section[data-parallax-theme="book"] {
-  background-image: var(--parallax-overlay), url('../images/internet/hero/book-hero-calendly-mobile-2025.png');
+  background-image: var(--parallax-overlay), url('../images/internet/hero/book-hero-calendly-mobile-2025.webp');
   --parallax-mobile-fallback: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
   --parallax-mobile-image-set: image-set(
     url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
@@ -153,7 +153,7 @@
   }
   .parallax-section[data-parallax-theme="book"] {
     background-image: var(--parallax-overlay), image-set(
-      url('../images/internet/hero/book-hero-calendly-mobile-2025.png') 1x
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
     );
   }
 }
@@ -182,7 +182,7 @@
   }
   .parallax-section[data-parallax-theme="book"] {
     background-image: var(--parallax-overlay), -webkit-image-set(
-      url('../images/internet/hero/book-hero-calendly-mobile-2025.png') 1x
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
     );
   }
 }
