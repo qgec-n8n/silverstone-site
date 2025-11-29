@@ -152,6 +152,20 @@
     box-shadow: 0 0 15px #00ffff;
 }
 
+/* Singularity Overlay */
+.singularity-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: radial-gradient(circle at center, #001a33, #000);
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+}
+
 /* Mobile Exclusion (Strict) */
 @media (max-width: 768px) {
     #nexus-orb-container {
