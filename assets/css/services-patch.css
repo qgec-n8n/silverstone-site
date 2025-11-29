@@ -1,0 +1,30 @@
+/* services-patch.css */
+
+/* 1. Fix Overlap Bug */
+#neural-grid {
+    scroll-margin-top: 160px; /* Prevent header from covering title */
+    position: relative;
+    z-index: 5;
+}
+
+.page-services.container {
+    transform: none !important; /* Force override any lingering JS transforms */
+    z-index: 2;
+    position: relative;
+}
+
+.hero.title-band {
+    z-index: 1;
+}
+
+/* Ensure Animate.css doesn't conflict with visibility before scroll */
+.neural-card {
+    /* Optional: hide initially if you want GSAP to handle autoAlpha,
+       but Animate.css usually handles entry.
+       However, if we rely on Animate.css classes added by JS,
+       we might want to hide them first to avoid flash. */
+    visibility: hidden;
+}
+.neural-card.animate__animated {
+    visibility: visible;
+}
