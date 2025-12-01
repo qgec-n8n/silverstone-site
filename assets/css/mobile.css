@@ -139,20 +139,14 @@
   }
 
   /*
-   * Mobile hero background fallback
+   * Mobile hero fallback
    *
-   * On some mobile browsers the parallax technique using a fixed ::before
-   * layer can fail to display the hero image.  As a safeguard we assign
-   * the mobile hero image directly to the `.hero` element so there is
-   * always a visible background.  The custom property `--mobile-hero-image`
-   * is defined inline on each page.  Background sizing and positioning
-   * mirror the desktop layout and ensure the image covers the hero area.
+   * Ensure the hero retains a consistent dark backdrop on mobile devices
+   * without loading any external background images. The shader canvas sits
+   * above this base colour when WebGL is available.
    */
   .hero {
-    background-image: var(--mobile-hero-image);
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background: #050912;
   }
 
   /*

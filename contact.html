@@ -16,7 +16,7 @@
   <meta property="og:title" content="Contact Us – Silverstone" />
   <meta property="og:description"
     content="Get in touch with the Silverstone team. Whether you have a question, need support, or want to discuss a project, we're here to help. Contact us today." />
-  <meta property="og:image" content="https://silverstone-ai.com/assets/images/internet/hero/contact-hero-final.jpg" />
+  <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
 
   <!-- Canonical URL: identify the preferred version of this contact page. Without
        a canonical tag, Google may treat /contact and /contact.html as
@@ -66,16 +66,6 @@
     .service-content {
       position: relative;
       z-index: 2;
-    }
-  </style>
-  <!-- Serve smaller hero background on narrow screens -->
-  <style>
-    @media (max-width: 900px) {
-      .hero {
-        background-image: url('assets/images/internet/hero/contact-hero-final.webp');
-        background-image: image-set(url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,
-            url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);
-      }
     }
   </style>
   <link rel="stylesheet" href="assets/css/hero-cinematic.css">
@@ -156,14 +146,18 @@
 
 <body class="page-contact">
   <!-- Cookie banner -->
-  <div id="cookie-banner" class="cookie-banner">
+  <div id="cookie-banner" class="cookie-banner"
+    style="position: fixed; bottom: 0; left: 0; right: 0; display: none;">
     <p>
       We use cookies to improve your browsing experience and to analyse website
       traffic. By clicking “Accept”, you consent to our use of cookies. For
       more details, please read our
       <a href="privacy-policy.html">Privacy Policy</a>.
     </p>
-    <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+    <div class="cookie-actions">
+      <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+      <button id="cookie-decline-btn" class="btn btn-secondary">Decline</button>
+    </div>
   </div>
   <!-- Site header -->
   <header class="site-header">
@@ -188,10 +182,8 @@
     </div>
   </header>
   <!-- Hero section -->
-  <section class="hero title-band"
-    style="--mobile-hero-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: url('assets/images/internet/hero/contact-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/contact-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/contact-hero-final.jpg') type('image/jpeg') 1x);">
+  <section class="hero title-band">
     <div class="hero-media">
-      <img src="assets/images/internet/hero/contact-hero-final.jpg" alt="Hero Image" class="hero-fallback-image" />
       <canvas id="hero-shader-canvas" data-variant="silver"></canvas>
     </div>
     <div class="content">

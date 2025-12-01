@@ -9,26 +9,44 @@
 document.addEventListener('DOMContentLoaded', function () {
   const banner = document.getElementById('cookie-banner');
   const acceptBtn = document.getElementById('cookie-accept-btn');
-  if (!banner || !acceptBtn) return;
-  // Helper to read a cookie by name
+  const declineBtn = document.getElementById('cookie-decline-btn');
+  if (!banner || !acceptBtn || !declineBtn) return;
+
+  const STORAGE_KEY = 'cookieConsentChoice';
+
   function getCookie(name) {
     const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
     return match ? decodeURIComponent(match[1]) : null;
   }
-  // If consent has already been given, hide the banner immediately
-  if (getCookie('cookieConsent') === 'true') {
+
+  const storedChoice = localStorage.getItem(STORAGE_KEY);
+  const cookieChoice = getCookie('cookieConsent');
+
+  if (storedChoice || cookieChoice) {
     banner.style.display = 'none';
     return;
   }
-  // When the user clicks accept, set a long‑lived cookie and hide the banner
-  acceptBtn.addEventListener('click', function () {
+
+  function storeChoice(value) {
     const expiryDate = new Date();
-    // Store consent for one year
     expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+    localStorage.setItem(STORAGE_KEY, value);
     document.cookie =
-      'cookieConsent=true; expires=' +
+      'cookieConsent=' +
+      encodeURIComponent(value) +
+      '; expires=' +
       expiryDate.toUTCString() +
       '; path=/; SameSite=Lax';
     banner.style.display = 'none';
+  }
+
+  banner.style.display = 'flex';
+
+  acceptBtn.addEventListener('click', function () {
+    storeChoice('accepted');
+  });
+
+  declineBtn.addEventListener('click', function () {
+    storeChoice('declined');
   });
 });

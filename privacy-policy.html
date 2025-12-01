@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://silverstone-ai.com/privacy-policy" />
     <meta property="og:title" content="Privacy Policy – Silverstone" />
     <meta property="og:description" content="Read Silverstone's privacy policy to understand how we collect, use, and protect your personal data. Your privacy and trust are important to us." />
-    <meta property="og:image" content="https://silverstone-ai.com/assets/images/internet/hero/home-hero-final.jpg" />
+    <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
 
     <!-- Canonical URL: specify the preferred version of the privacy-policy page.
          Without a canonical tag, Google may treat /privacy-policy and
@@ -63,14 +63,18 @@
 </head>
   <body>
     <!-- Cookie banner -->
-    <div id="cookie-banner" class="cookie-banner">
+    <div id="cookie-banner" class="cookie-banner"
+      style="position: fixed; bottom: 0; left: 0; right: 0; display: none;">
       <p>
         We use cookies to improve your browsing experience and to analyse website
         traffic. By clicking “Accept”, you consent to our use of cookies. For
         more details, please read our
         <a href="privacy-policy.html">Privacy Policy</a>.
       </p>
-      <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+      <div class="cookie-actions">
+        <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+        <button id="cookie-decline-btn" class="btn btn-secondary">Decline</button>
+      </div>
     </div>
     <!-- Site header -->
     <header class="site-header">
@@ -99,10 +103,10 @@
       </div>
     </header>
     <!-- Hero section -->
-    <section
-      class="hero title-band"
-      style="--mobile-hero-image: url('assets/images/internet/hero/home-hero-final.jpg'); background-image: url('assets/images/internet/hero/home-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/home-hero-final.webp') type('image/webp') 1x, url('assets/images/internet/hero/home-hero-final.jpg') type('image/jpeg') 1x);"
-    >
+    <section class="hero title-band">
+      <div class="hero-media">
+        <canvas id="hero-shader-canvas" data-variant="silver"></canvas>
+      </div>
       <div class="content">
         <h1>Privacy Policy</h1>
         <p>
@@ -230,6 +234,7 @@
     <!-- Scripts -->
     <script defer src="assets/js/script.js"></script>
     <script defer src="assets/js/cookie-consent.js"></script>
-      <script defer src="assets/js/hero-cinematic.js"></script>
-</body>
+    <script defer src="assets/js/hero-cinematic.js"></script>
+    <script defer src="assets/js/hero-shader.js"></script>
+  </body>
 </html>

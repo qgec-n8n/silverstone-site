@@ -16,7 +16,7 @@
   <meta property="og:title" content="About – Silverstone" />
   <meta property="og:description"
     content="Learn about Silverstone's mission to empower small businesses with AI-driven automation and consulting. Discover our values, our story, and the experts driving our success." />
-  <meta property="og:image" content="https://silverstone-ai.com/assets/images/zip/Silverstone_28.jpg" />
+  <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
 
   <!-- Canonical URL: identify the preferred version of this page. Without
        a canonical tag, Google may treat /about and /about.html as
@@ -71,16 +71,7 @@
       z-index: 2;
     }
   </style>
-  <!-- Serve smaller hero background on narrow screens -->
   <style>
-    @media (max-width: 900px) {
-      .hero {
-        background-image: url('assets/images/internet/hero/about-hero-final.webp');
-        background-image: image-set(url('assets/images/internet/hero/about-hero-final.webp') type('image/webp') 1x,
-            url('assets/images/internet/hero/about-hero-final.jpg') type('image/jpeg') 1x);
-      }
-    }
-
     /* Statistics section styling for about page */
     .stats {
       display: flex;
@@ -123,14 +114,18 @@
 
 <body>
   <!-- Cookie banner -->
-  <div id="cookie-banner" class="cookie-banner">
+  <div id="cookie-banner" class="cookie-banner"
+    style="position: fixed; bottom: 0; left: 0; right: 0; display: none;">
     <p>
       We use cookies to improve your browsing experience and to analyse website
       traffic. By clicking “Accept”, you consent to our use of cookies. For
       more details, please read our
       <a href="privacy-policy.html">Privacy Policy</a>.
     </p>
-    <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+    <div class="cookie-actions">
+      <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+      <button id="cookie-decline-btn" class="btn btn-secondary">Decline</button>
+    </div>
   </div>
   <!-- Site header -->
   <header class="site-header">
@@ -157,10 +152,8 @@
     </div>
   </header>
   <!-- Hero section -->
-  <section class="hero title-band"
-    style="--mobile-hero-image: url('assets/images/internet/hero/about-hero-final.jpg'); background-image: url('assets/images/internet/hero/about-hero-final.jpg'); background-image: image-set( url('assets/images/internet/hero/about-hero-final.webp') type('image/webp') 1x,  url('assets/images/internet/hero/about-hero-final.jpg') type('image/jpeg') 1x);">
+  <section class="hero title-band">
     <div class="hero-media">
-      <img src="assets/images/internet/hero/about-hero-final.jpg" alt="Hero Image" class="hero-fallback-image" />
       <canvas id="hero-shader-canvas" data-variant="green"></canvas>
     </div>
     <div class="content">
