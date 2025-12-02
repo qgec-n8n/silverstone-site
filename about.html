@@ -6,15 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About – Silverstone</title>
   <meta name="description"
-    content="Learn more about Silverstone’s mission to free small business owners from busywork. Discover our purpose, values and the experts behind our simple automation systems." />
-  <!-- SEO and social metadata remain largely unchanged -->
+    content="Learn about Silverstone's mission to empower small businesses with AI-driven automation and consulting. Discover our values, our story, and the experts driving our success." />
+  <!-- Allow search engines to index and follow links on this page -->
   <meta name="robots" content="index, follow">
+
+  <!-- Open Graph & Social Media Tags -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://silverstone-ai.com/about" />
   <meta property="og:title" content="About – Silverstone" />
   <meta property="og:description"
-    content="Learn more about Silverstone’s mission to free small business owners from busywork. Discover our purpose, values and the experts behind our simple automation systems." />
+    content="Learn about Silverstone's mission to empower small businesses with AI-driven automation and consulting. Discover our values, our story, and the experts driving our success." />
   <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
+
+  <!-- Canonical URL: identify the preferred version of this page. Without
+       a canonical tag, Google may treat /about and /about.html as
+       separate pages and index only one. This canonical tag consolidates
+       duplicate URLs and signals that the clean path without the
+       ".html" extension is the primary version. -->
   <link rel="canonical" href="https://silverstone-ai.com/about" />
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,32 +31,48 @@
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap"
     rel="stylesheet">
   <link rel="icon" href="favicon.ico" sizes="any" />
-  <!-- Core styles and overrides -->
+  <!-- Core site styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
   <link rel="stylesheet" href="assets/css/parallax-fix.css">
+  <!-- Mobile overrides: ensure last to override other styles on small screens -->
   <link rel="stylesheet" href="assets/css/mobile.css">
+  <!-- Global footer styles -->
   <link rel="stylesheet" href="assets/css/icons.css" />
+  <!-- Neon fix to ensure correct stacking for animated overlays -->
   <style id="neon-fix">
-    /* Local stacking contexts for parallax overlays */
+    /* Create a local stacking context so the overlay sits between bg and content */
     .section.bg-circuit {
       position: relative;
       isolation: isolate;
     }
+
     .section.bg-circuit::before {
       z-index: 0;
       pointer-events: none;
     }
-    .section.bg-circuit>.container,
-    .neon-card,
+
+    /* Ensure page content is above the overlay */
+    .section.bg-circuit>.container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Keep neon cards and service blocks above everything in the section */
+    .neon-card {
+      position: relative;
+      z-index: 2;
+    }
+
     .service-row,
     .service-image,
     .service-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
   </style>
-  <!-- Statistics section styling -->
   <style>
+    /* Statistics section styling for about page */
     .stats {
       display: flex;
       flex-wrap: wrap;
@@ -56,11 +80,13 @@
       justify-content: center;
       margin-top: 2rem;
     }
+
     .stats .stat {
       flex: 1 1 200px;
       text-align: center;
       padding: 1.5rem;
     }
+
     .stats .number {
       font-size: 2.5rem;
       color: var(--color-green);
@@ -68,11 +94,13 @@
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
+
     .stats .label {
       font-size: 1rem;
       color: var(--color-silver);
       font-family: var(--font-body);
     }
+
     @media (max-width: 768px) {
       .stats .number {
         font-size: 2rem;
@@ -108,7 +136,9 @@
           alt="Silverstone Logo" class="site-logo" />
       </a>
       <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
-        <span></span><span></span><span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
       <nav>
         <ul>
@@ -127,12 +157,11 @@
       <canvas id="hero-shader-canvas" data-variant="green"></canvas>
     </div>
     <div class="content">
-      <!-- Updated headline and subheadline reflecting our purpose -->
-      <h1>Our Purpose</h1>
-      <p>Helping small business owners reclaim their time through simple automation systems.</p>
+      <h1>About Silverstone</h1>
+      <p>Combining human ingenuity with cutting‑edge technology to empower small businesses.</p>
     </div>
   </section>
-  <!-- Mission and values section (unchanged content) -->
+  <!-- Mission and values section -->
   <section class="section bg-mesh animate parallax-section" data-parallax-theme="mesh">
     <div class="container">
       <div class="service-row" style="align-items: flex-start;">
@@ -142,10 +171,12 @@
         </div>
         <div class="service-content neon-card">
           <h2 class="section-title" style="text-align:left;">Our Mission</h2>
-          <p>At Silverstone, our mission is to help small businesses stop losing time and money to busywork. We
-            provide personalised automation solutions that remove bottlenecks, standardise workflows and accelerate
-            growth. Through a free, tailored audit, we uncover inefficiencies and design bespoke systems that lower
-            labour and operational costs, optimise resource use and maximise output.</p>
+          <p>At Silverstone, our mission is to help small businesses <strong>Streamline</strong>,
+            <strong>Optimize</strong> and <strong>Succeed</strong>. We provide personalised automation solutions that
+            remove bottlenecks, standardise workflows and accelerate growth. Through a free, tailored consultation, we
+            uncover inefficiencies and design bespoke systems that lower labour and operational costs, optimise resource
+            use and maximise output.
+          </p>
           <p>By increasing speed, capacity, consistency and accuracy, we empower our clients to scale efficiently,
             overcome labour shortages and drive profitability. Most importantly, we free up valuable time so business
             owners and their teams can focus on higher‑value, strategic work - fueling innovation, sustainable growth
@@ -227,10 +258,10 @@
   <section class="section brand-gradient animate">
     <div class="container">
       <div class="neon-card cta-card" style="text-align: center;">
-        <!-- Updated CTA copy encouraging the free automation audit -->
-        <h2 class="section-title" style="color: var(--color-white);">Ready to reclaim your time?</h2>
-        <p class="section-subtitle" style="color: var(--color-silver);">Start with a free automation audit and uncover your top opportunities.</p>
-        <a href="book.html" class="btn btn-primary">Get Your Free Automation Audit</a>
+        <h2 class="section-title" style="color: var(--color-white);">Let’s Grow Together</h2>
+        <p class="section-subtitle" style="color: var(--color-silver);">Ready to streamline your business and unlock new
+          possibilities? Our team is eager to help you succeed.</p>
+        <a href="book.html" class="btn btn-primary">Book a Free Consultation</a>
       </div>
     </div>
   </section>
@@ -239,9 +270,9 @@
     <div class="footer-container">
       <div class="footer-brand">
         <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
-        <p class="tagline">Stop losing time and money to busywork.</p>
-        <p class="mission">We build simple automation systems that answer calls, follow up leads and chase admin while
-          you get your evenings back.</p>
+        <p class="tagline">Streamline. Optimize. Succeed.</p>
+        <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise
+          operations and succeed in the digital age.</p>
       </div>
       <div class="footer-links">
         <h4>Quick Links</h4>
@@ -273,7 +304,6 @@
     </div>
     <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
   </footer>
-  <!-- Scripts -->
   <script src="assets/js/script.js" defer></script>
   <script defer src="assets/js/cookie-consent.js"></script>
   <script defer src="assets/js/hero-cinematic.js"></script>
