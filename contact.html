@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us – Silverstone</title>
+  <!-- The description emphasises help without pressure and aligns with the new brand promise -->
   <meta name="description"
-    content="Get in touch with the Silverstone team. Whether you have a question, need support, or want to discuss a project, we're here to help. Contact us today." />
+    content="Have questions about automation or our services? Reach out and we'll share how you can save time and cut busywork – no pressure, just real answers." />
   <!-- Allow search engines to index and follow links on this page -->
   <meta name="robots" content="index, follow">
 
@@ -15,13 +16,10 @@
   <meta property="og:url" content="https://silverstone-ai.com/contact" />
   <meta property="og:title" content="Contact Us – Silverstone" />
   <meta property="og:description"
-    content="Get in touch with the Silverstone team. Whether you have a question, need support, or want to discuss a project, we're here to help. Contact us today." />
+    content="Have questions about automation or our services? Reach out and we'll share how you can save time and cut busywork – no pressure, just real answers." />
   <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
 
-  <!-- Canonical URL: identify the preferred version of this contact page. Without
-       a canonical tag, Google may treat /contact and /contact.html as
-       separate pages. Specifying a canonical URL consolidates indexing and
-       prevents duplicate content issues. -->
+  <!-- Canonical URL -->
   <link rel="canonical" href="https://silverstone-ai.com/contact" />
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +34,6 @@
   <link rel="stylesheet" href="assets/css/parallax-fix.css">
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
   <link rel="stylesheet" href="assets/css/mobile.css">
-  <!-- Global footer styles -->
   <!-- Local icon font styles -->
   <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- Neon fix to ensure correct stacking for animated overlays -->
@@ -51,26 +48,19 @@
       pointer-events: none;
     }
 
-    .section.bg-waves>.container {
-      position: relative;
-      z-index: 1;
-    }
-
-    .neon-card {
-      position: relative;
-      z-index: 2;
-    }
-
+    .section.bg-waves>.container,
+    .neon-card,
     .service-row,
     .service-image,
     .service-content {
       position: relative;
-      z-index: 2;
+      z-index: 1;
     }
   </style>
   <link rel="stylesheet" href="assets/css/hero-cinematic.css">
   <!-- PREMIUM UPGRADE: New CSS Assets -->
   <link rel="stylesheet" href="assets/css/marquee-single.css" />
+  <!-- Custom callout styles -->
   <style>
     .contact-social-callout {
       margin-top: clamp(2.5rem, 6vw, 4rem);
@@ -184,18 +174,24 @@
   <!-- Hero section -->
   <section class="hero title-band">
     <div class="hero-media">
+      <!-- Keep the shader canvas for consistency across pages -->
       <canvas id="hero-shader-canvas" data-variant="silver"></canvas>
     </div>
     <div class="content">
-      <h1>Get In Touch</h1>
-      <p>We’d love to hear from you. Whether you have a question about our services or need support, our team is ready
-        to help.</p>
+      <h1>Let’s Connect</h1>
+      <p>Have questions or want to explore automation? We're here to help. No pressure, just insights.</p>
+      <!-- Primary CTA encourages visitors to take the next step -->
+      <a href="book.html" class="btn btn-primary" style="margin-top:1rem;">Get Your Free Automation Audit</a>
     </div>
   </section>
   <!-- Contact section -->
   <section class="section bg-waves animate parallax-section" data-parallax-theme="waves">
     <div class="container">
       <h2 class="section-title" style="text-align:left;">Contact Us</h2>
+      <!-- Microcopy reducing friction and setting expectations -->
+      <p class="microcopy" style="color: var(--color-silver); max-width: 42rem; margin-bottom:1.5rem;">
+        No spam, no obligation – just real answers about how automation can help your business. We'll reply within one business day.
+      </p>
       <div class="contact-grid">
         <div class="contact-form-card neon-card">
           <form id="contact-form" class="contact-form" method="POST" novalidate>
@@ -258,9 +254,11 @@
     <div class="footer-container">
       <div class="footer-brand">
         <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
-        <p class="tagline">Streamline. Optimize. Succeed.</p>
-        <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise
-          operations and succeed in the digital age.</p>
+        <!-- Updated tagline per the strategic audit -->
+        <p class="tagline">Stop losing time and money to busywork.</p>
+        <!-- Updated mission reflecting our promise of simple automation systems -->
+        <p class="mission">We build simple automation systems that answer calls, follow up leads and chase admin while
+          you get your evenings back.</p>
       </div>
       <div class="footer-links">
         <h4>Quick Links</h4>
@@ -276,7 +274,8 @@
       <div class="footer-contact">
         <h4>Contact Us</h4>
         <p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
-        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a>
+        </p>
       </div>
       <div class="footer-social">
         <h4>Follow Us</h4>
@@ -295,6 +294,7 @@
   <!-- Scripts -->
   <script src="assets/js/script.js" defer></script>
   <script defer src="assets/js/cookie-consent.js"></script>
+  <!-- Contact form handling script remains unchanged -->
   <script>
     (function () {
       const form = document.getElementById('contact-form');

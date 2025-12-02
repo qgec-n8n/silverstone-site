@@ -4,24 +4,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book a Consultation – Silverstone</title>
+  <title>Book Your Free Automation Audit – Silverstone</title>
   <meta name="description"
-    content="Book a free, no-obligation consultation with Silverstone's AI experts. Let's discuss how we can tailor automation solutions to meet your business needs and drive growth." />
+    content="Book a free, no-obligation automation audit with Silverstone’s experts. In just 30 minutes we’ll uncover your top automation wins and show you how to save hours." />
   <!-- Allow search engines to index and follow links on this page -->
   <meta name="robots" content="index, follow">
 
   <!-- Open Graph & Social Media Tags -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://silverstone-ai.com/book" />
-  <meta property="og:title" content="Book a Consultation – Silverstone" />
+  <meta property="og:title" content="Book Your Free Automation Audit – Silverstone" />
   <meta property="og:description"
-    content="Book a free, no-obligation consultation with Silverstone's AI experts. Let's discuss how we can tailor automation solutions to meet your business needs and drive growth." />
+    content="Book a free, no-obligation automation audit with Silverstone’s experts. In just 30 minutes we’ll uncover your top automation wins and show you how to save hours." />
   <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
-
-  <!-- Canonical URL: identify the preferred version of this booking page. Without
-       a canonical tag, Google may treat /book and /book.html as separate
-       pages. Specifying a canonical URL consolidates indexing and prevents
-       duplicate content issues. -->
+  <!-- Canonical URL -->
   <link rel="canonical" href="https://silverstone-ai.com/book" />
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -32,9 +28,7 @@
   <link rel="icon" href="favicon.ico" sizes="any" />
   <!-- Core site styles -->
   <link href="assets/css/styles.css" rel="stylesheet">
-  <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
   <link rel="stylesheet" href="assets/css/parallax-fix.css">
-  <!-- Mobile overrides: ensure last to override other styles on small screens -->
   <link rel="stylesheet" href="assets/css/mobile.css">
   <!-- Calendly preconnects and widget styles -->
   <link rel="preconnect" href="https://assets.calendly.com" crossorigin>
@@ -43,59 +37,44 @@
   <link rel="dns-prefetch" href="https://calendly.com">
   <link as="style" href="https://assets.calendly.com/assets/external/widget.css" rel="preload">
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <!-- Global footer styles -->
-  <!-- Local icon font styles -->
+  <!-- Icon styles -->
   <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- PREMIUM UPGRADE: New CSS Assets -->
   <link rel="stylesheet" href="assets/css/marquee-single.css" />
-  <!-- Neon fix ensures overlays are layered correctly -->
+  <!-- Custom hero and discovery call styling (unchanged) -->
   <style id="neon-fix">
     .section.bg-circuit {
       position: relative;
       isolation: isolate;
     }
-
     .section.bg-circuit::before {
       z-index: 0;
       pointer-events: none;
     }
-
-    .section.bg-circuit>.container {
-      position: relative;
-      z-index: 1;
-    }
-
-    .neon-card {
-      position: relative;
-      z-index: 2;
-    }
-
+    .section.bg-circuit>.container,
+    .neon-card,
     .service-row,
     .service-image,
     .service-content {
       position: relative;
-      z-index: 2;
+      z-index: 1;
     }
   </style>
-  <!-- Custom discovery call and hero styling -->
   <style>
-    /* Discovery call section styling */
+    /* Discovery call section styling remains largely unchanged */
     .discovery-call-section {
       position: relative;
       min-height: 100vh;
       padding: 4rem 1rem;
       display: flex;
       align-items: center;
-      /* Apply a dark overlay to improve contrast and use the specified Calendly background */
       overflow: hidden;
     }
-
     .discovery-call-section>.container {
       position: relative;
       z-index: 1;
       width: 100%;
     }
-
     .discovery-call-content {
       display: flex;
       align-items: stretch;
@@ -104,13 +83,11 @@
       width: 100%;
       height: 100%;
     }
-
     .discovery-call-content .info,
     .discovery-call-content .widget {
       flex: 1 1 45%;
       min-width: 320px;
     }
-
     .discovery-call-content .info {
       background: rgba(12, 16, 24, 0.6);
       backdrop-filter: blur(6px);
@@ -119,26 +96,22 @@
       padding: 2rem;
       color: var(--color-white);
     }
-
     .discovery-call-content .info h2 {
       font-family: var(--font-heading);
       font-size: 2rem;
       margin-bottom: 1rem;
       color: var(--color-blue);
     }
-
     .discovery-call-content .info p {
       margin-bottom: 1rem;
       font-size: 1rem;
       color: var(--color-silver);
     }
-
     .discovery-call-content .info ul {
       list-style: none;
       margin-bottom: 1rem;
       padding-left: 0;
     }
-
     .discovery-call-content .info ul li {
       display: flex;
       align-items: flex-start;
@@ -147,41 +120,33 @@
       color: var(--color-silver);
       font-size: 0.95rem;
     }
-
     .discovery-call-content .info ul li::before {
-      /* Removed default bullet styling to allow custom icons via <i> tags. */
       content: none;
     }
-
     .discovery-call-content .info a {
       color: var(--color-green);
       text-decoration: underline;
     }
-
     .discovery-call-content .widget {
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
     .discovery-call-content .widget .calendly-inline-widget {
       width: 100%;
       height: 100%;
       min-height: 600px;
       border: 0;
     }
-
     @media (max-width: 900px) {
       .discovery-call-content {
         flex-direction: column;
       }
-
       .discovery-call-content .info,
       .discovery-call-content .widget {
         flex: 1 1 100%;
         max-width: 100%;
       }
-
       .discovery-call-content .widget .calendly-inline-widget {
         height: 600px;
       }
@@ -232,9 +197,9 @@
       <canvas id="hero-shader-canvas" data-variant="amber"></canvas>
     </div>
     <div class="content">
-      <h1>Book Your Free Consultation</h1>
-      <p>Let’s explore how automation can transform your business. Provide a few details and we’ll schedule a
-        personalised session.</p>
+      <!-- Updated hero heading and subheading emphasising the free audit -->
+      <h1>Book Your Free Automation Audit</h1>
+      <p>In just 30 minutes we’ll identify your top 3 automation wins and show you how to save hours.</p>
     </div>
   </section>
   <!-- Discovery call section -->
@@ -242,19 +207,16 @@
     <div class="container">
       <div class="discovery-call-content">
         <div class="info">
-          <h2>Schedule your 30‑Minute Discovery Call</h2>
-          <p>Take the first step to working smarter with AI and automation by booking a no‑obligation consultation. We
-            love automation, so there’s no back and forth with emails to find a convenient time – just put it straight
-            in our calendar and we’ll be there!</p>
+          <!-- Updated heading and bullet points for the audit -->
+          <h2>Schedule Your 30‑Minute Automation Audit</h2>
+          <p>Take the first step to working smarter with AI and automation. Book a no‑obligation audit and we’ll dive straight into your business to uncover where you’re losing time and money.</p>
           <ul>
-            <li><i class="fa-solid fa-comments"></i> Get your questions about AI and automation answered by an expert
-              consultant</li>
-            <li><i class="fa-solid fa-info-circle"></i> Discover more about our services and processes</li>
-            <li><i class="fa-solid fa-check-circle"></i> Find out if automation is right for your business</li>
+            <li><i class="fa-solid fa-search"></i> Identify the hidden bottlenecks costing you hours each week</li>
+            <li><i class="fa-solid fa-road"></i> Get a personalised roadmap for automating your operations</li>
+            <li><i class="fa-solid fa-handshake"></i> Decide if our solutions are right for you – zero obligation</li>
           </ul>
           <p>If there are no suitable time slots, please <a href="contact.html">use our contact form</a> and we’ll
-            arrange a time that suits your schedule — we know business owners are busy and we always make time for you,
-            no matter the day or hour.</p>
+            arrange a time that suits your schedule — business owners are busy and we always make time for you.</p>
         </div>
         <div class="widget">
           <div class="calendly-inline-widget"
@@ -268,10 +230,10 @@
   <section class="section brand-gradient animate">
     <div class="container">
       <div class="neon-card cta-card" style="text-align: center;">
-        <h2 class="section-title" style="color: var(--color-white);">Ready to Get Started?</h2>
-        <p class="section-subtitle" style="color: var(--color-silver);">We’re excited to learn about your business and
-          design a solution that fits.</p>
-        <a class="btn btn-primary" href="contact.html">Contact Us</a>
+        <!-- Secondary CTA for visitors not ready to schedule -->
+        <h2 class="section-title" style="color: var(--color-white);">Not ready to schedule?</h2>
+        <p class="section-subtitle" style="color: var(--color-silver);">Ask us anything about automation and we’ll get back to you quickly.</p>
+        <a class="btn btn-primary" href="contact.html">Ask a Question</a>
       </div>
     </div>
   </section>
@@ -280,9 +242,9 @@
     <div class="footer-container">
       <div class="footer-brand">
         <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
-        <p class="tagline">Streamline. Optimize. Succeed.</p>
-        <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise
-          operations and succeed in the digital age.</p>
+        <p class="tagline">Stop losing time and money to busywork.</p>
+        <p class="mission">We build simple automation systems that answer calls, follow up leads and chase admin while
+          you get your evenings back.</p>
       </div>
       <div class="footer-links">
         <h4>Quick Links</h4>
@@ -324,6 +286,7 @@
   <!-- PREMIUM UPGRADE: New JS Assets -->
   <script defer src="assets/js/marquee-single.js"></script>
   <script defer src="assets/js/matrix-text.js"></script>
+  <script defer src="assets/js/magnetic-buttons.js"></script>
 </body>
 
 </html>
