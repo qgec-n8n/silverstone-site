@@ -10,17 +10,17 @@
       bg1: [0.1, 0.1, 0.3, 1.0],
       bg2: [0.3, 0.1, 0.5, 1.0]
     },
-    // Services (Cyan/Blue)
+    // Services (Cyan/Blue) - Matching #00AEEF
     blue: {
-      line: [0.0, 0.6, 1.0, 1.0],
-      bg1: [0.0, 0.05, 0.15, 1.0],
-      bg2: [0.0, 0.15, 0.3, 1.0]
+      line: [0.0, 0.68, 0.94, 1.0],
+      bg1: [0.0, 0.05, 0.2, 1.0],
+      bg2: [0.0, 0.2, 0.4, 1.0]
     },
-    // About (Green)
+    // About (Green) - Matching #00FF9D
     green: {
-      line: [0.2, 0.8, 0.4, 1.0],
-      bg1: [0.0, 0.15, 0.05, 1.0],
-      bg2: [0.05, 0.3, 0.15, 1.0]
+      line: [0.0, 1.0, 0.62, 1.0],
+      bg1: [0.0, 0.2, 0.1, 1.0],
+      bg2: [0.0, 0.4, 0.2, 1.0]
     },
     // Book (Deep Amber/Orange - "Gold")
     // Adjusted to ensure contrast with white text is acceptable
@@ -30,11 +30,11 @@
       bg1: [0.15, 0.05, 0.0, 1.0],
       bg2: [0.3, 0.1, 0.0, 1.0]
     },
-    // Contact (Silver/Slate)
+    // Contact (Silver/Slate) - Matching #C0C0C0
     silver: {
-      line: [0.8, 0.85, 0.9, 1.0],
-      bg1: [0.1, 0.12, 0.15, 1.0],
-      bg2: [0.2, 0.25, 0.3, 1.0]
+      line: [0.75, 0.75, 0.75, 1.0],
+      bg1: [0.1, 0.1, 0.1, 1.0],
+      bg2: [0.25, 0.25, 0.25, 1.0]
     }
   };
 

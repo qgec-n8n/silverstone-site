@@ -29,6 +29,7 @@
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, rgba(20, 40, 80, 0.5), rgba(5, 12, 24, 0.9));
 }
 
 .hero-fallback-image {
@@ -160,6 +161,14 @@
 .hero.title-band .content h1,
 .hero.title-band .content h2{
   text-shadow: 0 18px 40px rgba(0,0,0, calc(0.55 * var(--heroProgress)));
+}
+
+/* Improve subtext visibility */
+.hero.title-band .content p {
+  text-shadow: 0 4px 12px rgba(0,0,0,0.95), 0 0 20px rgba(0,0,0,0.7);
+  color: #fff; /* Ensure high contrast */
+  opacity: 1;  /* Ensure full opacity */
+  font-weight: 500;
 }
 
 /* Cinematic bars */

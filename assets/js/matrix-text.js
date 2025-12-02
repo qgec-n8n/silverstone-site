@@ -12,12 +12,16 @@
 
     // --- CONFIGURATION ---
     const TARGET_SELECTOR = 'h1';
-    const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+    // Removed wide characters like @, #, %, W, M to prevent line jumping
+    const CHARACTERS = 'ABCDEFGHIJKLNPQRSTUVXYZ0123456789';
     const DECODE_SPEED = 50; // ms per frame
     const ITERATIONS_PER_CHAR = 3; // How many scrambles before fixing a char
 
     // --- INITIALIZATION ---
     function initMatrixText() {
+        // Disable the effect on mobile devices to avoid costly animations
+        if (window.matchMedia('(max-width: 768px)').matches) return;
+
         const headers = document.querySelectorAll(TARGET_SELECTOR);
 
         headers.forEach(header => {
@@ -40,18 +44,27 @@
         const lineCount = Math.round(rect.height / lineHeight) || 1;
         let restoreStyles = null;
 
-        // Keep single-line headings from shifting as characters shuffle
-        if (lineCount <= 1) {
-            restoreStyles = {
-                display: element.style.display,
-                minWidth: element.style.minWidth,
-                minHeight: element.style.minHeight,
-                whiteSpace: element.style.whiteSpace
-            };
+        // Keep layout stable as characters shuffle
+        restoreStyles = {
+            display: element.style.display,
+            width: element.style.width,
+            height: element.style.height,
+            whiteSpace: element.style.whiteSpace,
+            verticalAlign: element.style.verticalAlign,
+            overflow: element.style.overflow
+        };
 
-            element.style.display = 'inline-block';
-            element.style.minWidth = `${rect.width}px`;
-            element.style.minHeight = `${rect.height}px`;
+        // Lock dimensions to prevent layout shifts
+        element.style.display = 'inline-block';
+        // Add a tiny buffer to width to prevent aggressive wrapping on edge cases,
+        // but keep overflow hidden to chop excess.
+        element.style.width = `${Math.ceil(rect.width)}px`;
+        element.style.height = `${Math.ceil(rect.height)}px`;
+        element.style.verticalAlign = 'top';
+        element.style.overflow = 'hidden';
+
+        // Only enforce nowrap if it was originally single line to prevent wrapping changes
+        if (lineCount <= 1) {
             element.style.whiteSpace = 'nowrap';
         }
         let iterations = 0;
@@ -80,9 +93,11 @@
 
                 if (restoreStyles) {
                     element.style.display = restoreStyles.display;
-                    element.style.minWidth = restoreStyles.minWidth;
-                    element.style.minHeight = restoreStyles.minHeight;
+                    element.style.width = restoreStyles.width;
+                    element.style.height = restoreStyles.height;
                     element.style.whiteSpace = restoreStyles.whiteSpace;
+                    element.style.verticalAlign = restoreStyles.verticalAlign;
+                    element.style.overflow = restoreStyles.overflow;
                 }
             }
 

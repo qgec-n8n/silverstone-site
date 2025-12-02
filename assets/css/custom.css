@@ -53,6 +53,14 @@ html {
   margin-right: 0.5rem;
 }
 
+.cookie-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .cookie-banner a {
   color: var(--color-primary, #0ea5e9);
   text-decoration: underline;
@@ -61,7 +69,6 @@ html {
 .cookie-banner button {
   flex: 0 0 auto;
   margin-top: 0.5rem;
-  margin-left: 1rem;
 }
 
 .site-header {
