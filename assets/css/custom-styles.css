@@ -5,6 +5,31 @@
  * bullet icons and text stack neatly across rows and columns.
  */
 
+/* Consistent hero bullets for outcome-based messaging */
+.hero .hero-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+  color: var(--color-silver);
+  max-width: 40rem;
+}
+
+.hero .hero-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.4;
+}
+
+.hero .hero-bullets i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+}
+
 /* Ensure each bullet uses flex layout so the icon and text
    align horizontally and start at the same vertical point. */
 .packages-grid .bullet {
