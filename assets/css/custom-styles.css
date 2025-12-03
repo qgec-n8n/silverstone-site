@@ -62,3 +62,20 @@
 .card-systems .bullet:first-of-type {
   margin-top: 1rem;
 }
+
+/* Hero bullet list on the homepage hero.
+   Keeps alignment, spacing and readable line length aligned with existing hero content. */
+.hero.title-band .hero-bullets {
+  margin: 1.25rem 0 1.75rem;
+  padding-left: 1.25rem;
+  max-width: 32rem;
+  text-align: left;
+}
+.hero.title-band .hero-bullets li {
+  margin-bottom: 0.35rem;
+}
+@media (max-width: 768px) {
+  .hero.title-band .hero-bullets {
+    margin-bottom: 1.25rem;
+  }
+}
