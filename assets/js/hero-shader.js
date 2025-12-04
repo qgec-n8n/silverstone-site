@@ -1,4 +1,8 @@
-// assets/js/hero-shader.js
+// Modified hero-shader.js with additional colour variants for niche pages
+// The rest of the shader logic is identical to the original but the
+// THEMES constant now includes several extra colour schemes.  Each
+// scheme is referenced via the data-variant attribute on
+// <canvas id="hero-shader-canvas">.
 (function () {
   'use strict';
 
@@ -8,34 +12,81 @@
     default: {
       line: [0.4, 0.2, 0.8, 1.0],
       bg1: [0.1, 0.1, 0.3, 1.0],
-      bg2: [0.3, 0.1, 0.5, 1.0]
+      bg2: [0.3, 0.1, 0.5, 1.0],
     },
     // Services (Cyan/Blue) - Matching #00AEEF
     blue: {
       line: [0.0, 0.68, 0.94, 1.0],
       bg1: [0.0, 0.05, 0.2, 1.0],
-      bg2: [0.0, 0.2, 0.4, 1.0]
+      bg2: [0.0, 0.2, 0.4, 1.0],
     },
     // About (Green) - Matching #00FF9D
     green: {
       line: [0.0, 1.0, 0.62, 1.0],
       bg1: [0.0, 0.2, 0.1, 1.0],
-      bg2: [0.0, 0.4, 0.2, 1.0]
+      bg2: [0.0, 0.4, 0.2, 1.0],
     },
     // Book (Deep Amber/Orange - "Gold")
-    // Adjusted to ensure contrast with white text is acceptable
-    // Using a dark base with gold highlights
     amber: {
       line: [1.0, 0.65, 0.0, 1.0],
       bg1: [0.15, 0.05, 0.0, 1.0],
-      bg2: [0.3, 0.1, 0.0, 1.0]
+      bg2: [0.3, 0.1, 0.0, 1.0],
     },
     // Contact (Silver/Slate) - Matching #C0C0C0
     silver: {
       line: [0.75, 0.75, 0.75, 1.0],
       bg1: [0.1, 0.1, 0.1, 1.0],
-      bg2: [0.25, 0.25, 0.25, 1.0]
-    }
+      bg2: [0.25, 0.25, 0.25, 1.0],
+    },
+    // New variants for niche pages
+    // Indigo: used for Real Estate niche
+    indigo: {
+      line: [0.4, 0.3, 0.8, 1.0],
+      bg1: [0.15, 0.05, 0.35, 1.0],
+      bg2: [0.25, 0.1, 0.45, 1.0],
+    },
+    // Amber2: a warmer gold for Hospitality
+    amber2: {
+      line: [1.0, 0.7, 0.2, 1.0],
+      bg1: [0.15, 0.07, 0.02, 1.0],
+      bg2: [0.3, 0.15, 0.05, 1.0],
+    },
+    // Pink: used for Salons & Barbers
+    pink: {
+      line: [1.0, 0.4, 0.7, 1.0],
+      bg1: [0.2, 0.05, 0.15, 1.0],
+      bg2: [0.4, 0.1, 0.25, 1.0],
+    },
+    // Orange: used for Trades niche
+    orange: {
+      line: [1.0, 0.5, 0.2, 1.0],
+      bg1: [0.2, 0.08, 0.02, 1.0],
+      bg2: [0.4, 0.15, 0.05, 1.0],
+    },
+    // Teal: used for eCommerce
+    teal: {
+      line: [0.0, 0.8, 0.7, 1.0],
+      bg1: [0.0, 0.25, 0.2, 1.0],
+      bg2: [0.0, 0.45, 0.4, 1.0],
+    },
+    // Mint: used for Physios & Chiropractors
+    mint: {
+      line: [0.3, 1.0, 0.8, 1.0],
+      bg1: [0.05, 0.2, 0.15, 1.0],
+      bg2: [0.15, 0.4, 0.3, 1.0],
+    },
+    // Violet: used for Gym Owners
+    violet: {
+      line: [0.6, 0.2, 0.8, 1.0],
+      bg1: [0.2, 0.05, 0.2, 1.0],
+      bg2: [0.35, 0.1, 0.35, 1.0],
+    },
+    // Magenta: used for Fitness Influencers & Online Coaches
+    magenta: {
+      line: [0.9, 0.1, 0.6, 1.0],
+      bg1: [0.25, 0.05, 0.2, 1.0],
+      bg2: [0.4, 0.15, 0.3, 1.0],
+    },
   };
 
   // Vertex shader source
@@ -47,7 +98,6 @@
   `;
 
   // Fragment shader source
-  // Replaced const colors with uniforms: uLineColor, uBgColor1, uBgColor2
   const fsSource = `
     precision highp float;
     uniform vec2 iResolution;
@@ -66,11 +116,8 @@
     const float majorLineFrequency = 5.0;
     const float minorLineFrequency = 1.0;
 
-    // gridColor was constant grey in original, keeping it constant
     const vec4 gridColor = vec4(0.5);
-
     const float scale = 5.0;
-    // Removed fixed lineColor
 
     const float minLineWidth = 0.01;
     const float maxLineWidth = 0.2;
@@ -123,7 +170,6 @@
 
       vec4 lines = vec4(0.0);
 
-      // Use uniforms instead of constants
       vec4 bgColor1 = uBgColor1;
       vec4 bgColor2 = uBgColor2;
 
@@ -143,7 +189,6 @@
 
         line = line + circle;
 
-        // Use uniform lineColor
         lines += line * uLineColor * rand;
       }
 
@@ -160,143 +205,97 @@
     const shader = gl.createShader(type);
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
-
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
       console.error('Shader compile error:', gl.getShaderInfoLog(shader));
       gl.deleteShader(shader);
       return null;
     }
-
     return shader;
   }
 
   function initShaderProgram(gl, vsSource, fsSource) {
     const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
     const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
-
     if (!vertexShader || !fragmentShader) return null;
-
     const shaderProgram = gl.createProgram();
     gl.attachShader(shaderProgram, vertexShader);
     gl.attachShader(shaderProgram, fragmentShader);
     gl.linkProgram(shaderProgram);
-
     if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
       console.error('Shader program link error:', gl.getProgramInfoLog(shaderProgram));
       return null;
     }
-
     return shaderProgram;
   }
 
   function initHeroShader() {
     const canvas = document.getElementById('hero-shader-canvas');
     if (!canvas) return;
-
-    // Determine variant
     const variant = canvas.dataset.variant || 'default';
     const theme = THEMES[variant] || THEMES['default'];
-
-    // Respect prefers-reduced-motion
-    const prefersReduced =
-      window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      // Leave fallback image visible; do not animate
       return;
     }
-
     const gl = canvas.getContext('webgl');
     if (!gl) {
       console.warn('WebGL not supported for hero shader.');
       return;
     }
-
     const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
     if (!shaderProgram) return;
-
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    const positions = new Float32Array([
-      -1.0, -1.0,
-       1.0, -1.0,
-      -1.0,  1.0,
-       1.0,  1.0
-    ]);
+    const positions = new Float32Array([-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0]);
     gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
-
     const attribLocations = {
-      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition')
+      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
     };
     const uniformLocations = {
       resolution: gl.getUniformLocation(shaderProgram, 'iResolution'),
       time: gl.getUniformLocation(shaderProgram, 'iTime'),
       uLineColor: gl.getUniformLocation(shaderProgram, 'uLineColor'),
       uBgColor1: gl.getUniformLocation(shaderProgram, 'uBgColor1'),
-      uBgColor2: gl.getUniformLocation(shaderProgram, 'uBgColor2')
+      uBgColor2: gl.getUniformLocation(shaderProgram, 'uBgColor2'),
     };
-
     function resizeCanvas() {
       const hero = document.querySelector('.hero.title-band');
       const rect = hero ? hero.getBoundingClientRect() : canvas.getBoundingClientRect();
       const width = Math.max(1, Math.floor(rect.width));
       const height = Math.max(1, Math.floor(rect.height));
-
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width;
         canvas.height = height;
         gl.viewport(0, 0, width, height);
       }
     }
-
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-
     let startTime = Date.now();
     let animationFrameId = null;
-
     function render() {
       const currentTime = (Date.now() - startTime) / 1000;
-
       gl.clearColor(0.0, 0.0, 0.0, 1.0);
       gl.clear(gl.COLOR_BUFFER_BIT);
-
       gl.useProgram(shaderProgram);
-
       gl.uniform2f(uniformLocations.resolution, canvas.width, canvas.height);
       gl.uniform1f(uniformLocations.time, currentTime);
-
-      // Pass theme uniforms
       gl.uniform4fv(uniformLocations.uLineColor, theme.line);
       gl.uniform4fv(uniformLocations.uBgColor1, theme.bg1);
       gl.uniform4fv(uniformLocations.uBgColor2, theme.bg2);
-
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-      gl.vertexAttribPointer(
-        attribLocations.vertexPosition,
-        2,
-        gl.FLOAT,
-        false,
-        0,
-        0
-      );
+      gl.vertexAttribPointer(attribLocations.vertexPosition, 2, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(attribLocations.vertexPosition);
-
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
       animationFrameId = requestAnimationFrame(render);
     }
-
     animationFrameId = requestAnimationFrame(render);
-
     window.addEventListener('beforeunload', function handleBeforeUnload() {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('beforeunload', handleBeforeUnload);
     });
   }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initHeroShader);
   } else {
