@@ -120,3 +120,230 @@
   text-align: center;
 }
 
+
+/* Navigation dropdown styling */
+header nav ul li.has-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+header nav ul li.has-dropdown .services-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+header nav ul li.has-dropdown .dropdown-trigger {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+  border-radius: 999px;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+header nav ul li.has-dropdown .dropdown-trigger .chevron {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  display: inline-block;
+  margin-top: -2px;
+}
+
+header nav ul li.has-dropdown.open .dropdown-trigger {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(1px);
+}
+
+header nav ul li.has-dropdown .dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  left: 0;
+  min-width: 250px;
+  background: rgba(6, 12, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.9rem;
+  padding: 0.75rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  display: none;
+  z-index: 20;
+  backdrop-filter: blur(8px);
+}
+
+header nav ul li.has-dropdown .dropdown-menu li {
+  display: block;
+  margin: 0;
+}
+
+header nav ul li.has-dropdown .dropdown-menu a {
+  display: block;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.55rem;
+  color: var(--color-white);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+header nav ul li.has-dropdown .dropdown-menu a:hover,
+header nav ul li.has-dropdown .dropdown-menu a:focus {
+  background: rgba(0, 255, 157, 0.1);
+  color: var(--color-green);
+}
+
+header nav ul li.has-dropdown.open .dropdown-menu,
+header nav ul li.has-dropdown:hover .dropdown-menu,
+header nav ul li.has-dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+
+nav ul.open li.has-dropdown {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+nav ul.open li.has-dropdown .dropdown-menu {
+  position: static;
+  box-shadow: none;
+  margin-top: 0.5rem;
+  width: 100%;
+  background: rgba(6, 12, 24, 0.65);
+  display: block;
+}
+
+nav ul.open li.has-dropdown .dropdown-menu a {
+  padding-left: 0.5rem;
+}
+
+/* Niche layout helpers */
+.niche-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.niche-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.niche-grid .neon-card h2 {
+  margin-top: 0;
+}
+
+.niche-grid .icon-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.niche-grid .icon-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.65rem;
+  color: var(--color-silver);
+}
+
+.niche-grid .icon-list i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+}
+
+.niche-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.niche-image {
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.niche-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.niche-image figcaption {
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-silver);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.pricing-placeholder {
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pricing-root-placeholder {
+  min-height: 120px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0.75rem;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  margin-top: 0.75rem;
+}
+
+.niche-cta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  align-items: center;
+}
+
+.process-list {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  color: var(--color-silver);
+}
+
+.process-list strong {
+  color: var(--color-white);
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cta-actions .btn {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  header nav ul li.has-dropdown .dropdown-trigger {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .niche-wrap {
+    gap: 1.25rem;
+  }
+
+  .niche-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}

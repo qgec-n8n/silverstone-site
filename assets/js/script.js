@@ -87,6 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesDropdown = document.querySelector('nav .has-dropdown');
+  const dropdownTrigger = servicesDropdown?.querySelector('.dropdown-trigger');
+  const dropdownMenu = servicesDropdown?.querySelector('.dropdown-menu');
+  let dropdownActive = false;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -157,9 +161,22 @@ document.addEventListener('DOMContentLoaded', () => {
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (dropdownActive) return;
       hideHeader();
     }, delay);
   }
+
+  const setDropdownState = (open) => {
+    if (!servicesDropdown) return;
+    dropdownActive = Boolean(open);
+    servicesDropdown.classList.toggle('open', dropdownActive);
+    if (dropdownActive) {
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+    } else {
+      scheduleHeaderAutoHide();
+    }
+  };
 
   /*
    * Mobile navigation helpers.  Opening the menu saves the scroll
@@ -190,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
+    setDropdownState(false);
     scheduleHeaderAutoHide();
   }
 
@@ -215,6 +233,27 @@ document.addEventListener('DOMContentLoaded', () => {
           closeNavMenu();
         }
       });
+    });
+  }
+
+  if (servicesDropdown) {
+    servicesDropdown.addEventListener('mouseenter', () => {
+      if (!isMobileViewport()) setDropdownState(true);
+    });
+    servicesDropdown.addEventListener('mouseleave', () => {
+      if (!isMobileViewport()) setDropdownState(false);
+    });
+    servicesDropdown.addEventListener('focusin', () => setDropdownState(true));
+    servicesDropdown.addEventListener('focusout', (event) => {
+      if (!servicesDropdown.contains(event.relatedTarget)) setDropdownState(false);
+    });
+    dropdownTrigger?.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setDropdownState(!dropdownActive);
+    });
+    dropdownMenu?.addEventListener('mouseenter', () => {
+      if (!isMobileViewport()) setDropdownState(true);
     });
   }
 
