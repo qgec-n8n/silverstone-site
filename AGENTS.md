@@ -1,22 +1,42 @@
-# ExecPlans
+# AGENTS for `silverstone-site`
 
-When implementing complex features or refactors in this repository, use an
-execution plan (“ExecPlan”) as described in `.agent/PLANS.md`.
+This file describes the agents involved when using GPT‑5.1 Codex on the `silverstone-site` repository and how they should collaborate.
 
-- Use an ExecPlan whenever work touches multiple HTML, CSS, or JavaScript
-  files, significantly changes navigation, or adds several new pages.
-- For small, clearly scoped edits (for example, a single copy tweak or tiny
-  CSS fix) you may skip ExecPlans.
-- ExecPlans must always be kept up to date as work progresses so that a new
-  contributor could resume the task using only the ExecPlan and the current
-  working tree.
+---
 
-## Research and inspiration
+## Agents
 
-When your tasks require generating new content or redesigning layouts, plan
-to perform research using the `web` tool. Use web searches to gather credible
-industry‑specific pain points, typical outcomes, and design inspiration for the
-domains you are targeting. Summarise the findings and incorporate them into
-the ExecPlan and implementation. This helps ensure that copy and visual
-designs feel premium, professional, and aligned with real‑world best
-practices.
+- `GPT-5.1 Codex` – primary autonomous coding and design agent.
+- `Human` – owner of the Silverstone AI website.
+
+---
+
+## GPT‑5.1 Codex
+
+**Responsibilities**
+
+- Read `AGENTS.md` and `.agent/PLANS.md` at the start of each session.
+- Create or update an ExecPlan for the current task following the structure in `.agent/PLANS.md`.
+- Before editing code, review the canonical pages and styles to internalise the premium aesthetic and existing component patterns:
+  - Pages: `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`.
+  - Stylesheets: `assets/css/custom-styles.css`, `assets/css/services.css`, `assets/css/premium-gallery.css`, and any other linked CSS.
+- Use only the tools and capabilities available in the Codex environment (filesystem, diffing, git, web search, image/asset tools if configured, etc.).
+- Prefer small, incremental, visually coherent changes over large speculative refactors.
+- **Reuse existing HTML structures and CSS classes** for cards, bullets, CTAs, galleries, navigation and footers.
+  - Do **not** introduce a separate niche‑specific stylesheet.
+  - When new CSS is truly needed, extend existing stylesheets sparingly and consistently using the current colour palette, typography and spacing system.
+- Maintain high standards of accessibility, semantics and responsive behaviour wherever feasible.
+- Keep ExecPlans and TODO handover sections up to date so that future prompts and humans can continue the work smoothly.
+
+---
+
+## Human
+
+**Responsibilities**
+
+- Provide high‑level goals, brand constraints and priorities between prompts.
+- Review diffs and run the site locally to verify visuals and interactions.
+- Decide which recommendations and TODOs to schedule next.
+- Provide clarifications if Codex’s questions or TODOs reveal ambiguity in the strategy or brand.
+
+The human is not expected to micromanage individual code changes; Codex should act autonomously within the boundaries defined here and in `PLANS.md`.
