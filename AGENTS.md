@@ -1,3 +1,5 @@
+<!-- AGENTS.md -->
+
 # ExecPlans for `silverstone-site`
 
 When you are acting as a coding agent on this repository, use an ExecPlan (execution plan) for any non‑trivial work, especially anything that touches navigation, shared layout, or multiple pages. The detailed requirements for ExecPlans live in `.agent/PLANS.md`.
