@@ -1,0 +1,12 @@
+# Codex configuration file for silverstone-site
+
+## Feature flags
+# Enable the web_search_request tool so that Codex can perform research during execution.
+# Setting this flag to true allows the model to issue web search queries when instructed
+# by the developer prompt or by files like AGENTS.md and PLANS.md.
+web_search_request = true
+
+# Enable view_image_tool explicitly.  This flag controls whether Codex can display
+# external images in the UI.  The default value is true, but we set it here to be
+# explicit and ensure the tool remains available for future sessions.
+view_image_tool = true
