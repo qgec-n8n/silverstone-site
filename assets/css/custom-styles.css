@@ -120,3 +120,110 @@
   text-align: center;
 }
 
+
+/* Services dropdown navigation */
+nav ul .nav-item-services {
+  position: relative;
+}
+
+nav ul .nav-item-services .dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 600;
+}
+
+nav ul .nav-item-services .dropdown-caret {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+nav ul .nav-item-services.open .dropdown-caret,
+nav ul .nav-item-services:hover .dropdown-caret {
+  transform: rotate(180deg);
+}
+
+nav ul .nav-item-services .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  left: 0;
+  min-width: 240px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(0, 174, 239, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  padding: 0.35rem;
+  z-index: 2100;
+}
+
+nav ul .nav-item-services.open .dropdown-menu,
+nav ul:not(.open) > .nav-item-services:hover .dropdown-menu {
+  display: block;
+}
+
+nav ul .nav-item-services .dropdown-menu li {
+  width: 100%;
+}
+
+nav ul .nav-item-services .dropdown-menu a {
+  display: block;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  color: var(--color-blue);
+  font-weight: 600;
+  text-align: left;
+}
+
+nav ul .nav-item-services .dropdown-menu a:hover,
+nav ul .nav-item-services .dropdown-menu a:focus {
+  background: rgba(0, 174, 239, 0.12);
+  color: var(--color-purple);
+}
+
+@media (max-width: 768px) {
+  nav ul .nav-item-services {
+    width: 100%;
+  }
+
+  nav ul .nav-item-services .dropdown-toggle {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 174, 239, 0.18);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+    color: var(--color-blue);
+  }
+
+  nav ul .nav-item-services.open .dropdown-toggle {
+    background: rgba(0, 174, 239, 0.12);
+    color: var(--color-purple);
+  }
+
+  nav ul .nav-item-services .dropdown-menu {
+    position: static;
+    display: none;
+    margin-top: 0.75rem;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: none;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 174, 239, 0.22);
+    padding: 0.25rem 0.5rem;
+  }
+
+  nav ul.open .nav-item-services.open .dropdown-menu {
+    display: block;
+  }
+
+  nav ul .nav-item-services .dropdown-menu a {
+    text-align: center;
+  }
+}

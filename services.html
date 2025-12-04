@@ -31,6 +31,7 @@
   <link rel="icon" href="favicon.ico" sizes="any" />
   <link href="assets/css/styles.css" rel="stylesheet" />
   <link href="assets/css/custom-styles.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/niches.css" />
   <link href="assets/css/services.css" rel="stylesheet" />
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
   <link rel="stylesheet" href="assets/css/parallax-fix.css" />
@@ -103,7 +104,21 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a class="active" href="services.html">Services</a></li>
+          <li class="nav-item-services has-dropdown">
+            <button class="dropdown-toggle active" aria-expanded="false" aria-haspopup="true">Services <span class="dropdown-caret" aria-hidden="true">▾</span></button>
+            <ul class="dropdown-menu">
+              <li><a href="services.html">General</a></li>
+              <li><a href="niches/real-estate.html">Real Estate</a></li>
+              <li><a href="niches/hospitality.html">Hospitality</a></li>
+              <li><a href="niches/salons.html">Salons</a></li>
+              <li><a href="niches/trades.html">Trades</a></li>
+              <li><a href="niches/ecommerce.html">eCommerce</a></li>
+              <li><a href="niches/physios-chiropractors.html">Physios/Chiropractors</a></li>
+              <li><a href="niches/dentists.html">Dentists</a></li>
+              <li><a href="niches/gym-owners.html">Gym Owners</a></li>
+              <li><a href="niches/fitness-influencers-online-coaches.html">Fitness Influencers/Online Coaches</a></li>
+            </ul>
+          </li>
           <li><a href="book.html">Book</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -115,201 +130,134 @@
       <canvas id="hero-shader-canvas" data-variant="blue"></canvas>
     </div>
     <div class="content">
-      <h1>Choose a simple automation starting point.</h1>
+      <h1>General services for every niche we support.</h1>
       <p>
-        From missed‑call rescue to always‑on virtual admin, our productised services help UK small businesses stop losing leads and hours to manual work.
+        See how Silverstone answers enquiries, books appointments and keeps your data tidy across all industries. Pick the niche pack that fits you or start with a simple automation audit.
       </p>
       <a href="book.html" class="btn btn-primary">Book a Free 30‑Minute Automation Audit</a>
     </div>
   </section>
-  <section class="section bg-circuit parallax-section" data-parallax-theme="circuit">
+  <section class="section parallax-section" data-parallax-theme="book">
     <div class="container">
-      <div class="service-row animate" id="marketing">
-        <div class="service-image service-image">
-          <img src="assets/images/zip/lead-gen-automation.png" alt="Abstract neon magnet attracting and nurturing leads"
-            class="service-img" loading="lazy" />
-        </div>
-        <div class="service-content neon-card">
-          <h3>Marketing Automation</h3>
-          <p>
-            Boost customer attraction and drive sales with targeted, automated marketing workflows. We design
-            streamlined processes and weave GenAI into your systems so you can create, publish and repurpose assets on
-            autopilot.
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-diagram-project"></i> Design and build streamlined processes to increase your
-              team’s capacity</li>
-            <li><i class="fa-solid fa-robot"></i> Weave GenAI into workflows to create, publish and repurpose assets on
-              autopilot</li>
-            <li><i class="fa-solid fa-chart-line"></i> Optimise campaign performance and improve personalisation to
-              maximise ROI</li>
-          </ul>
-          <a href="book.html" class="btn btn-secondary">Automate Marketing</a>
+      <div class="niche-section">
+        <span class="niche-eyebrow">Services overview</span>
+        <h2>Automation that rescues enquiries and tidies your operations</h2>
+        <p class="section-lede">We answer the calls, DMs and forms your team can’t reach, keep bookings organised, and push clean data into the tools you already use. Start with the General overview or jump straight to a niche pack built around your industry language.</p>
+        <div class="niche-cta">
+          <a href="book.html" class="btn btn-primary">Book a Free 30‑Minute Automation Audit</a>
+          <a href="#choose-niche" class="btn btn-secondary">Browse niche packs</a>
         </div>
       </div>
-      <div class="service-row animate" id="workflow-data">
-        <div class="service-image service-image">
-          <img alt="Colourful shapes connected by a rainbow line representing workflow automation" class="service-img"
-            loading="lazy" src="assets/images/zip/Silverstone_11.jpg" />
-        </div>
-        <div class="service-content neon-card">
-          <h3>Workflow &amp; Data Automation</h3>
-          <p>
-            Create automated workflows and data systems to optimise resources and increase ROI. Our solutions combine
-            intelligent process automation with powerful analytics so you can eliminate busywork, make data‑driven
-            decisions and scale with confidence.
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-gears"></i> Intelligent workflows eliminate busywork</li>
-            <li><i class="fa-solid fa-chart-bar"></i> Interactive dashboards and real‑time reporting</li>
-            <li><i class="fa-solid fa-calendar-check"></i> Smart scheduling &amp; resource management</li>
-          </ul>
-          <a class="btn btn-secondary" href="book.html">Optimise Workflows</a>
-        </div>
-      </div>
-      <div class="service-row animate" id="documents">
-        <div class="service-image service-image">
-          <img alt="Robotic arms sorting digital documents" class="service-img" loading="lazy"
-            src="assets/images/zip/Silverstone_08.jpg" />
-        </div>
-        <div class="service-content neon-card">
-          <h3>Document Management</h3>
-          <p>
-            Digitise, organise and route your paperwork with AI‑powered document
-            management. Our solutions classify, extract and deliver information
-            exactly where it’s needed, saving you hours of manual sorting and
-            ensuring your team always has access to the right files.
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-tags"></i> AI classification and metadata tagging</li>
-            <li><i class="fa-solid fa-file-lines"></i> Optical Character Recognition and data extraction</li>
-            <li><i class="fa-solid fa-lock"></i> Secure storage with role‑based access control</li>
-          </ul>
-          <a class="btn btn-secondary" href="book.html">Let’s Talk Automation</a>
+
+      <div class="niche-section">
+        <h2>What we deliver across every project</h2>
+        <div class="niche-grid">
+          <div class="niche-card">
+            <h3>Lead capture &amp; follow-up</h3>
+            <ul>
+              <li><i class="fa-solid fa-bolt"></i><span>Missed-call and web chat rescue so every enquiry receives a fast reply.</span></li>
+              <li><i class="fa-solid fa-comments"></i><span>AI triage for calls, DMs and forms that collects context and routes to the right person.</span></li>
+              <li><i class="fa-solid fa-circle-check"></i><span>Follow-up cadences that keep warm leads alive without your team chasing.</span></li>
+            </ul>
+          </div>
+          <div class="niche-card">
+            <h3>Scheduling &amp; bookings</h3>
+            <ul>
+              <li><i class="fa-solid fa-calendar-check"></i><span>Smart booking links, waitlists and rescheduling flows that respect your rules.</span></li>
+              <li><i class="fa-solid fa-bell"></i><span>Reminder and confirmation journeys to reduce no‑shows.</span></li>
+              <li><i class="fa-solid fa-user-check"></i><span>Post-appointment feedback capture to trigger reviews or upsell sequences.</span></li>
+            </ul>
+          </div>
+          <div class="niche-card">
+            <h3>Admin, data &amp; reporting</h3>
+            <ul>
+              <li><i class="fa-solid fa-database"></i><span>CRM, PMS or practice system updates so records stay clean.</span></li>
+              <li><i class="fa-solid fa-gauge-high"></i><span>Dashboards that show answered calls, conversion and capacity in one view.</span></li>
+              <li><i class="fa-solid fa-star"></i><span>Review and reputation flows that keep social proof growing quietly.</span></li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="service-row animate" id="analytics">
-        <div class="service-image">
-          <img alt="Neon data dashboard with charts and graphs" class="service-img" loading="lazy"
-            src="assets/images/zip/Silverstone_07_resized.jpg" />
-        </div>
-        <div class="service-content neon-card">
-          <h3>Data &amp; Analytics</h3>
-          <p>
-            Transform raw data into actionable insights. Our analytics solutions
-            consolidate data from across your organisation into intuitive dashboards
-            and reports, giving you the clarity and foresight to make smarter
-            decisions faster.
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-chart-pie"></i> Interactive dashboards and visualisations</li>
-            <li><i class="fa-solid fa-chart-line"></i> Predictive analytics and trend forecasting</li>
-            <li><i class="fa-solid fa-bell"></i> Real‑time KPI monitoring and alerts</li>
-          </ul>
-          <a class="btn btn-secondary" href="book.html">Unlock My Data</a>
-        </div>
-      </div>
-      <div class="service-row animate" id="integration">
-        <div class="service-image service-image">
-          <img alt="Translucent digital pipes carrying binary code" class="service-img" loading="lazy"
-            src="assets/images/zip/Silverstone_24.jpg" />
-        </div>
-        <div class="service-content neon-card">
-          <h3>Systems &amp; Data Integration</h3>
-          <p>
-            Connect your tools and platforms into a seamless ecosystem. We design and implement integrations that unify
-            your stack, eliminate manual data entry and unlock new opportunities for automation.
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-network-wired"></i> Unify your systems &amp; apps into one ecosystem</li>
-            <li><i class="fa-solid fa-plug"></i> Seamless app integration with n8n &amp; Zapier</li>
-            <li><i class="fa-solid fa-code"></i> API integration and middleware development</li>
-          </ul>
-          <a class="btn btn-secondary" href="book.html">Integrate Systems</a>
-        </div>
-      </div>
-      <div class="service-row animate" id="consulting">
-        <div class="service-image service-image">
-          <img alt="Businessman collaborating with a digital AI figure" class="service-img" loading="lazy"
-            src="assets/images/zip/Silverstone_21.jpg" />
-        </div>
-        <div class="service-content neon-card">
-          <h3>AI Consulting for Small Business</h3>
-          <p>
-            We make AI accessible for smaller companies without deep pockets or in‑house expertise. Our consultants cut
-            through the noise to identify the right models and guide you from strategy to implementation.
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-lightbulb"></i> Cut through the noise to identify the best AI models and tools for
-              your needs</li>
-            <li><i class="fa-solid fa-robot"></i> Build AI agents and automations to increase productivity and profits
-            </li>
-            <li><i class="fa-solid fa-shield-halved"></i> Understand the potential of AI and how to mitigate risks</li>
-          </ul>
-          <a class="btn btn-secondary" href="book.html">Level‑Up With AI</a>
-        </div>
-      </div>
-      <div class="service-row animate" id="finance">
-        <div class="service-image service-image">
-          <img alt="Neon coins and banknotes swirling through a digital stream" class="service-img" loading="lazy"
-            src="assets/images/zip/Silverstone_17.jpg" />
-        </div>
-        <div class="service-content neon-card">
-          <h3>Financial Automation</h3>
-          <p>
-            Simplify invoicing, payments and accounting with automated financial
-            workflows. We integrate your billing systems, payment gateways and
-            accounting software to ensure transactions are processed smoothly and
-            accurately.
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-file-invoice-dollar"></i> Automated invoicing and payment collection</li>
-            <li><i class="fa-solid fa-calculator"></i> Seamless integration with accounting tools</li>
-            <li><i class="fa-solid fa-chart-line"></i> Realtime financial reporting and reconciliation</li>
-          </ul>
-          <a class="btn btn-secondary" href="book.html">Improve Cash Flow</a>
+
+      <div class="niche-section" id="choose-niche">
+        <h2>Choose your niche pack</h2>
+        <p class="section-lede">Pick the industry-specific bundle that matches your language, workflows and compliance needs. Each pack links to a full landing page with pains, productised offers and FAQs.</p>
+        <div class="niche-grid">
+          <div class="niche-card">
+            <h3>Real Estate</h3>
+            <p class="tagline">Never Miss a Viewing Pack</p>
+            <p class="niche-meta">For estate and lettings teams who need every portal enquiry answered and followed up.</p>
+            <a class="btn btn-secondary" href="niches/real-estate.html">View Real Estate</a>
+          </div>
+          <div class="niche-card">
+            <h3>Hospitality</h3>
+            <p class="tagline">24/7 Guest Concierge</p>
+            <p class="niche-meta">For hotels and restaurants that want instant replies, full tables and smooth guest comms.</p>
+            <a class="btn btn-secondary" href="niches/hospitality.html">View Hospitality</a>
+          </div>
+          <div class="niche-card">
+            <h3>Salons</h3>
+            <p class="tagline">Chair‑Filler Automation</p>
+            <p class="niche-meta">For salons and barbers focused on reducing no‑shows and keeping chairs filled.</p>
+            <a class="btn btn-secondary" href="niches/salons.html">View Salons</a>
+          </div>
+          <div class="niche-card">
+            <h3>Trades</h3>
+            <p class="tagline">Trades Virtual Office</p>
+            <p class="niche-meta">For contractors who need out-of-hours cover, tidy job boards and faster quotes.</p>
+            <a class="btn btn-secondary" href="niches/trades.html">View Trades</a>
+          </div>
+          <div class="niche-card">
+            <h3>eCommerce</h3>
+            <p class="tagline">E‑Com Growth Engine</p>
+            <p class="niche-meta">For stores that want cart recovery, support automation and better LTV visibility.</p>
+            <a class="btn btn-secondary" href="niches/ecommerce.html">View eCommerce</a>
+          </div>
+          <div class="niche-card">
+            <h3>Physios &amp; Chiropractors</h3>
+            <p class="tagline">Smart Intake &amp; Rebooking</p>
+            <p class="niche-meta">For clinics that need digital intake, plan reminders and review capture.</p>
+            <a class="btn btn-secondary" href="niches/physios-chiropractors.html">View Physio/Chiro</a>
+          </div>
+          <div class="niche-card">
+            <h3>Dentists</h3>
+            <p class="tagline">Recall &amp; Hygiene Booster</p>
+            <p class="niche-meta">For practices filling hygiene slots, recalls and treatment follow-ups.</p>
+            <a class="btn btn-secondary" href="niches/dentists.html">View Dentists</a>
+          </div>
+          <div class="niche-card">
+            <h3>Gym Owners</h3>
+            <p class="tagline">Membership Reactivation</p>
+            <p class="niche-meta">For gyms and studios reactivating dormant members and filling classes.</p>
+            <a class="btn btn-secondary" href="niches/gym-owners.html">View Gyms</a>
+          </div>
+          <div class="niche-card">
+            <h3>Fitness Influencers &amp; Online Coaches</h3>
+            <p class="tagline">DM to Client Conversion</p>
+            <p class="niche-meta">For creators turning social DMs into paid programmes without losing authenticity.</p>
+            <a class="btn btn-secondary" href="niches/fitness-influencers-online-coaches.html">View Coaches</a>
+          </div>
         </div>
       </div>
-      <div class="service-row animate" id="time">
-        <div class="service-image service-image">
-          <img alt="Hourglass formed from binary digits representing time-saving" class="service-img" loading="lazy"
-            src="assets/images/zip/Silverstone_19.jpg" />
-        </div>
-        <div class="service-content neon-card">
-          <h3>Time &amp; Resource Optimisation</h3>
-          <p>
-            Maximise efficiency by intelligently scheduling tasks and allocating
-            resources. Our optimisation engines analyse workloads and availability to
-            ensure the right people and assets are assigned at the right time.
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-clock"></i> Smart scheduling algorithms</li>
-            <li><i class="fa-solid fa-users"></i> Automated resource allocation</li>
-            <li><i class="fa-solid fa-calendar-check"></i> Calendar synchronisation and notifications</li>
-          </ul>
-          <a class="btn btn-secondary" href="book.html">Optimise My Schedule</a>
-        </div>
+
+      <div class="niche-section">
+        <h2>How we work together</h2>
+        <ul class="process-steps">
+          <li><strong>1) Automation audit</strong><span>We map calls, messages and admin steps to spot the quickest wins.</span></li>
+          <li><strong>2) Proposal &amp; build</strong><span>You get a clear build plan with the exact workflows, tools and data flows.</span></li>
+          <li><strong>3) Launch &amp; train</strong><span>We launch with your branding, scripts and guardrails, then train your team.</span></li>
+          <li><strong>4) Optimise &amp; report</strong><span>Monthly tweaks, reporting and new automations as your volumes grow.</span></li>
+        </ul>
       </div>
-      <div class="service-row animate" id="connectivity">
-        <div class="service-image service-image">
-          <img alt="Connected skyscrapers forming a digital network across a city skyline" class="service-img"
-            loading="lazy" src="assets/images/zip/Silverstone_01.jpg" />
-        </div>
-        <div class="service-content neon-card">
-          <h3>Global Connectivity</h3>
-          <p>
-            Bridge the gap between teams, tools and locations. We design cloud‑first
-            architectures and scalable systems that keep your workforce connected and
-            productive—no matter where they are in the world.
-          </p>
-          <ul>
-            <li><i class="fa-solid fa-cloud"></i> Cloud infrastructure design and migration</li>
-            <li><i class="fa-solid fa-arrows-rotate"></i> Cross‑platform synchronisation</li>
-            <li><i class="fa-solid fa-layer-group"></i> Scalable and resilient architecture</li>
-          </ul>
-          <a class="btn btn-secondary" href="book.html">Connect My World</a>
-        </div>
+
+      <div class="niche-section">
+        <h2>Pricing that fits your stack</h2>
+        <div id="pricing-services-root" class="pricing-placeholder">Transparent pricing for General and niche packs will appear here in the next update. For now, we’ll scope it together on your audit call.</div>
       </div>
+    </div>
+  </section>
+  <section class="section parallax-section" data-parallax-theme="book">
+    <div class="container">
       <h2 class="section-title" id="innovation-gallery" style="margin-top: 4rem">Innovation Gallery</h2>
       <p class="section-subtitle">A glimpse into the ideas and technology that inspire our work.</p>
       <div class="neural-grid" id="neural-grid">
