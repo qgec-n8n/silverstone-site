@@ -87,8 +87,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesDropdown = document.querySelector('.nav-item-services');
+  const dropdownToggle = servicesDropdown
+    ? servicesDropdown.querySelector('.dropdown-toggle')
+    : null;
+  const dropdownMenu = servicesDropdown
+    ? servicesDropdown.querySelector('.dropdown-menu')
+    : null;
 
   let navBackButton;
+  let servicesDropdownOpen = false;
+  let dropdownCloseTimeoutId;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
     const navBackItem = document.createElement('li');
     navBackItem.className = 'nav-back-item';
@@ -149,17 +158,34 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (servicesDropdownOpen) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
   function scheduleHeaderAutoHide(delay = 1200) {
     clearTimeout(headerAutoHideTimeoutId);
+    if (servicesDropdownOpen) return;
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
       hideHeader();
     }, delay);
   }
+
+  const setDropdownState = (open) => {
+    if (!servicesDropdown || !dropdownMenu || !dropdownToggle) return;
+    clearTimeout(dropdownCloseTimeoutId);
+    servicesDropdownOpen = open;
+    servicesDropdown.classList.toggle('dropdown-open', open);
+    dropdownMenu.classList.toggle('open', open);
+    dropdownToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+    } else if (!navMenu || !navMenu.classList.contains('open')) {
+      scheduleHeaderAutoHide();
+    }
+  };
 
   /*
    * Mobile navigation helpers.  Opening the menu saves the scroll
@@ -187,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    setDropdownState(false);
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -217,6 +244,51 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  if (servicesDropdown && dropdownToggle && dropdownMenu) {
+    const openDropdownDesktop = () => {
+      if (isMobileViewport()) return;
+      setDropdownState(true);
+    };
+
+    const closeDropdownDesktop = () => {
+      if (isMobileViewport()) return;
+      dropdownCloseTimeoutId = window.setTimeout(
+        () => setDropdownState(false),
+        120
+      );
+    };
+
+    servicesDropdown.addEventListener('mouseenter', openDropdownDesktop);
+    servicesDropdown.addEventListener('mouseleave', closeDropdownDesktop);
+    servicesDropdown.addEventListener('focusin', openDropdownDesktop);
+    servicesDropdown.addEventListener('focusout', closeDropdownDesktop);
+
+    dropdownToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (isMobileViewport() && navMenu && !navMenu.classList.contains('open')) {
+        openNavMenu();
+      }
+      setDropdownState(!servicesDropdownOpen);
+    });
+
+    dropdownMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        setDropdownState(false);
+      });
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    if (
+      servicesDropdownOpen &&
+      servicesDropdown &&
+      !servicesDropdown.contains(event.target)
+    ) {
+      setDropdownState(false);
+    }
+  });
 
   if (navBackButton) {
     navBackButton.addEventListener('click', (event) => {
