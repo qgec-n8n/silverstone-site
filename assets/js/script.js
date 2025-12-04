@@ -87,8 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesMenuItem = navMenu ? navMenu.querySelector('.nav-item-services') : null;
+  const servicesToggle = servicesMenuItem ? servicesMenuItem.querySelector('.services-toggle') : null;
+  const servicesDropdown = servicesMenuItem ? servicesMenuItem.querySelector('.services-dropdown') : null;
 
   let navBackButton;
+  let servicesDropdownOpen = false;
+  let servicesDropdownCloseTimeoutId;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
     const navBackItem = document.createElement('li');
     navBackItem.className = 'nav-back-item';
@@ -104,6 +109,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navBackItem.appendChild(navBackButton);
     navMenu.prepend(navBackItem);
+  }
+
+  const cancelServicesDropdownClose = () => {
+    clearTimeout(servicesDropdownCloseTimeoutId);
+  };
+
+  function openServicesDropdown() {
+    if (!servicesMenuItem || !servicesToggle || !servicesDropdown) return;
+    servicesMenuItem.classList.add('open');
+    servicesDropdownOpen = true;
+    servicesToggle.setAttribute('aria-expanded', 'true');
+    showHeader();
+    cancelServicesDropdownClose();
+    clearTimeout(headerAutoHideTimeoutId);
+  }
+
+  function closeServicesDropdown() {
+    if (!servicesMenuItem || !servicesToggle || !servicesDropdown) return;
+    servicesMenuItem.classList.remove('open');
+    servicesDropdownOpen = false;
+    servicesToggle.setAttribute('aria-expanded', 'false');
+    cancelServicesDropdownClose();
+    if (!isMobileViewport() && !(navMenu && navMenu.classList.contains('open'))) {
+      scheduleHeaderAutoHide();
+    }
   }
 
   // Create the header indicator bar.  This small bar appears when the
@@ -149,14 +179,15 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (servicesDropdownOpen) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
   function scheduleHeaderAutoHide(delay = 1200) {
     clearTimeout(headerAutoHideTimeoutId);
     headerAutoHideTimeoutId = window.setTimeout(() => {
-      // Do not hide while the menu is open
-      if (navMenu && navMenu.classList.contains('open')) return;
+      // Do not hide while the menu is open or the Services dropdown is active
+      if ((navMenu && navMenu.classList.contains('open')) || servicesDropdownOpen) return;
       hideHeader();
     }, delay);
   }
@@ -187,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeServicesDropdown();
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -212,6 +244,59 @@ document.addEventListener('DOMContentLoaded', () => {
       link.addEventListener('click', (event) => {
         event.stopPropagation();
         if (isMobileViewport() && navMenu.classList.contains('open')) {
+          closeNavMenu();
+        }
+      });
+    });
+  }
+
+  if (servicesMenuItem && servicesToggle && servicesDropdown) {
+    const scheduleDropdownClose = () => {
+      cancelServicesDropdownClose();
+      servicesDropdownCloseTimeoutId = window.setTimeout(() => {
+        if (!isMobileViewport()) {
+          closeServicesDropdown();
+        }
+      }, 120);
+    };
+
+    servicesMenuItem.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      openServicesDropdown();
+    });
+
+    servicesMenuItem.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      scheduleDropdownClose();
+    });
+
+    servicesDropdown.addEventListener('mouseenter', cancelServicesDropdownClose);
+    servicesDropdown.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      scheduleDropdownClose();
+    });
+
+    servicesToggle.addEventListener('focus', () => {
+      if (!isMobileViewport()) openServicesDropdown();
+    });
+
+    servicesToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (servicesDropdownOpen) {
+        closeServicesDropdown();
+      } else {
+        if (isMobileViewport() && navMenu && !navMenu.classList.contains('open')) {
+          openNavMenu();
+        }
+        openServicesDropdown();
+      }
+    });
+
+    servicesDropdown.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeServicesDropdown();
+        if (isMobileViewport() && navMenu && navMenu.classList.contains('open')) {
           closeNavMenu();
         }
       });
