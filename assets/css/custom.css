@@ -7,6 +7,29 @@
   }
 }
 
+.hero.title-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, rgba(20, 40, 80, 0.5), rgba(5, 12, 24, 0.9));
+}
+
+#hero-shader-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
 .hero {
   position: relative;
   transform-origin: center top;
@@ -235,48 +258,4 @@ body {
 .service-row .service-content {
   position: relative;
   z-index: 2;
-}
-
-/* Lightweight cinematic scroll support */
-body.scene-transition {
-  overflow: hidden;
-  overscroll-behavior: none;
-  cursor: progress;
-}
-
-body.scene-hero .cinematic-section {
-  pointer-events: none;
-}
-
-body.scene-body .cinematic-section {
-  pointer-events: auto;
-}
-
-.cinematic-section {
-  position: relative;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  contain: layout style paint;
-}
-
-.scene-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  mix-blend-mode: screen;
-  background: radial-gradient(
-    circle at 50% 45%,
-    rgba(59, 130, 246, 0.35) 0%,
-    rgba(37, 99, 235, 0.25) 30%,
-    rgba(15, 23, 42, 0.75) 70%,
-    rgba(2, 6, 23, 0.92) 100%
-  );
-  will-change: opacity;
-  z-index: 20;
-}
-
-body.scene-transition .hero,
-body.scene-transition .cinematic-section {
-  pointer-events: none;
 }
