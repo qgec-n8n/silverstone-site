@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesNavItem = document.querySelector('.services-nav-item');
+  const servicesToggle = servicesNavItem ? servicesNavItem.querySelector('.services-toggle') : null;
+  const servicesDropdown = servicesNavItem ? servicesNavItem.querySelector('.services-dropdown') : null;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -161,6 +164,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }, delay);
   }
 
+  function openServicesDropdown() {
+    if (!servicesNavItem) return;
+    servicesNavItem.classList.add('open');
+    if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'true');
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  }
+
+  function closeServicesDropdown() {
+    if (!servicesNavItem) return;
+    servicesNavItem.classList.remove('open');
+    if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'false');
+    if (!(navMenu && navMenu.classList.contains('open'))) {
+      scheduleHeaderAutoHide();
+    }
+  }
+
   /*
    * Mobile navigation helpers.  Opening the menu saves the scroll
    * position, reveals the overlay and freezes body scrolling.  Closing
@@ -187,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeServicesDropdown();
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -229,6 +250,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (servicesNavItem && servicesToggle && servicesDropdown) {
+    servicesToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (servicesNavItem.classList.contains('open')) {
+        closeServicesDropdown();
+      } else {
+        openServicesDropdown();
+      }
+    });
+
+    servicesNavItem.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      openServicesDropdown();
+    });
+
+    servicesNavItem.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      closeServicesDropdown();
+    });
+
+    servicesNavItem.addEventListener('focusin', () => {
+      if (isMobileViewport()) return;
+      openServicesDropdown();
+    });
+
+    servicesNavItem.addEventListener('focusout', (event) => {
+      if (isMobileViewport()) return;
+      if (event.relatedTarget && servicesNavItem.contains(event.relatedTarget)) return;
+      closeServicesDropdown();
+    });
+
+    servicesDropdown.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+    });
+
+    servicesDropdown.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      closeServicesDropdown();
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!servicesNavItem.contains(event.target)) {
+        closeServicesDropdown();
+      }
+    });
+  }
+
   // Allow tapping or clicking the indicator bar to toggle the menu.
   headerIndicator.addEventListener('click', (event) => {
     event.stopPropagation();
@@ -265,7 +336,10 @@ document.addEventListener('DOMContentLoaded', () => {
   headerIndicator.addEventListener('mouseenter', showHeader);
   if (header) {
     header.addEventListener('mouseenter', showHeader);
-    header.addEventListener('mouseleave', hideHeader);
+    header.addEventListener('mouseleave', () => {
+      if (servicesNavItem && servicesNavItem.classList.contains('open')) return;
+      hideHeader();
+    });
     // On mobile tapping the header schedules another auto hide if the
     // menu is not open.  This provides a short grace period for users
     // to reopen the overlay after revealing the header.
