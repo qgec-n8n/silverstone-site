@@ -87,6 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesNavItem = document.querySelector('.nav-services');
+  const servicesToggle = servicesNavItem ? servicesNavItem.querySelector('.services-toggle') : null;
+  const servicesMenu = servicesNavItem ? servicesNavItem.querySelector('.services-menu') : null;
+  let servicesDropdownCloseTimeout;
+  let servicesDropdownOpen = false;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -149,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (servicesDropdownOpen) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
@@ -157,8 +163,30 @@ document.addEventListener('DOMContentLoaded', () => {
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (servicesDropdownOpen) return;
       hideHeader();
     }, delay);
+  }
+
+  function openServicesDropdown() {
+    if (!servicesNavItem || !servicesToggle || !servicesMenu) return;
+    clearTimeout(servicesDropdownCloseTimeout);
+    servicesDropdownOpen = true;
+    servicesNavItem.classList.add('open');
+    servicesToggle.setAttribute('aria-expanded', 'true');
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  }
+
+  function closeServicesDropdown() {
+    if (!servicesNavItem || !servicesToggle || !servicesMenu) return;
+    clearTimeout(servicesDropdownCloseTimeout);
+    servicesDropdownOpen = false;
+    servicesNavItem.classList.remove('open');
+    servicesToggle.setAttribute('aria-expanded', 'false');
+    if (!navMenu || !navMenu.classList.contains('open')) {
+      scheduleHeaderAutoHide();
+    }
   }
 
   /*
@@ -172,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!navMenu || !navToggle) return;
     clearTimeout(headerAutoHideTimeoutId);
     previousScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    closeServicesDropdown();
     navMenu.classList.add('open');
     navMenu.scrollTop = 0;
     navToggle.classList.add('active');
@@ -187,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeServicesDropdown();
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -215,6 +245,49 @@ document.addEventListener('DOMContentLoaded', () => {
           closeNavMenu();
         }
       });
+    });
+  }
+
+  if (servicesNavItem && servicesToggle && servicesMenu) {
+    const scheduleServicesClose = () => {
+      clearTimeout(servicesDropdownCloseTimeout);
+      servicesDropdownCloseTimeout = window.setTimeout(() => {
+        closeServicesDropdown();
+      }, 120);
+    };
+
+    servicesToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (servicesNavItem.classList.contains('open')) {
+        closeServicesDropdown();
+      } else {
+        openServicesDropdown();
+      }
+    });
+
+    servicesNavItem.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      openServicesDropdown();
+    });
+
+    servicesNavItem.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      scheduleServicesClose();
+    });
+
+    servicesToggle.addEventListener('focus', openServicesDropdown);
+    servicesNavItem.addEventListener('focusout', (event) => {
+      if (!servicesNavItem.contains(event.relatedTarget)) {
+        scheduleServicesClose();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!servicesDropdownOpen) return;
+      if (servicesNavItem.contains(event.target)) return;
+      if (navMenu && navMenu.classList.contains('open')) return;
+      closeServicesDropdown();
     });
   }
 
@@ -280,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (!isMobileViewport()) return;
     if (navMenu && navMenu.classList.contains('open')) return;
+    if (servicesDropdownOpen) return;
     clearTimeout(headerAutoHideTimeoutId);
     hideHeader();
   }, { passive: true });
