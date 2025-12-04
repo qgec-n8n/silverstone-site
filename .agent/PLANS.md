@@ -1,199 +1,202 @@
 # ExecPlans for `silverstone-site`
 
-This file defines how to write and maintain an execution plan (“ExecPlan”) for
-complex work on the `silverstone-site` static website (Silverstone AI).
+ExecPlans are markdown files (for example `.agent/ExecPlan-silverstone-niches.md`) that describe what GPT‑5.1 Codex is doing, why, and how. They make multi‑step work on the `silverstone-site` repo understandable and resumable by both the human and future Codex sessions.
 
-ExecPlans are Markdown design documents, checked into the repo, that a coding
-agent or novice human can follow to implement a feature end‑to‑end. They are
-living documents: every time meaningful progress is made, the ExecPlan should
-be updated.
+This document defines the required structure and expectations for all ExecPlans in this repository, with a strong emphasis on preserving the site’s premium visual design.
 
-## When to create an ExecPlan
+---
 
-Create or update an ExecPlan when:
+## When to create or update an ExecPlan
 
-- You are adding or overhauling multiple pages (e.g. new niche landing pages,
-  major `services.html` redesign).
-- You are changing shared navigation, headers, or layout that appears on
-  several pages.
-- You expect the work to involve multiple rounds of reading files, editing,
-  and validation.
+- **Create a new ExecPlan** when you start a non‑trivial piece of work (multi‑file, multi‑step, or spanning multiple prompts).
+- **Reuse and update** an existing ExecPlan if a new prompt continues a previous stream of work.
+- **Update the ExecPlan** whenever:
+  - You complete a meaningful chunk of work.
+  - You change direction or discover a new constraint.
+  - You add or resolve TODO items.
 
-Name ExecPlan files at the repo root using:
+ExecPlans should always reflect the current truth of the work, not an aspirational plan that has gone stale.
 
-- `ExecPlan-<short-name>.md`, e.g. `ExecPlan-silverstone-niches.md`.
+---
 
-For very small, one‑off edits (single copy tweak, tiny CSS fix), you may work
-without an ExecPlan.
+## Required sections in every ExecPlan
 
-## General requirements
+Each ExecPlan **must** contain at least the following top‑level headings. It may add more headings if helpful, but should avoid unnecessary complexity.
 
-Every ExecPlan **MUST**:
+### 1. Context and Orientation
 
-- Be self‑contained: a new contributor with only the current working tree and
-  the ExecPlan can complete the work.
-- Explain what user‑visible behaviour will exist after the change and how to
-  see it working.
-- Use explicit repository‑relative paths for all files and commands.
-- Stay in sync with reality: whenever work progresses, update the ExecPlan
-  before continuing.
-- Include a clear path to validate success (manual checks, browser flows, or
-  tests).
+Explain, in a few short paragraphs:
 
-## Required sections
+- What problem or feature you are working on.
+- Which part of the `silverstone-site` experience it affects (e.g. services hub, niche landing pages, navigation).
+- Which files and assets you expect to touch.
+- Any relevant business/brand constraints that came from the human or previous prompts.
 
-Each ExecPlan must use the following sections and headings.
+This section should be enough for a new reader to understand the task at a glance.
 
-### Purpose / Big Picture
+---
 
-Explain, in a few sentences:
+### 2. Big Picture / Outcomes
 
-- What someone gains after this change (from a user/business perspective).
-- How they can observe it working (e.g. “open `services.html` in a browser and…”,
-  “click the Services dropdown and…”).
+Describe the desired end‑state in **user‑visible** terms, not implementation details. For example:
 
-Keep this focused on outcomes, not implementation details.
+- “Visitors in niche X land on a page that feels as premium as the existing About page.”
+- “Services is now a hub page that routes people into niche packs.”
+- “The Services dropdown is intuitive and works across desktop and mobile without layout glitches.”
 
-### Progress
+Make it clear how success will be recognised.
 
-Maintain a checklist of granular steps with timestamps. Example:
+---
 
-- `[x] (2025‑12‑01 10:40Z) Audited existing services.html structure.`
-- `[ ] (2025‑12‑01 11:05Z) Implemented niche pages for all CSV niches.`
+### 3. Progress
 
-Guidelines:
+Maintain a simple, textual progress log such as:
 
-- Every meaningful stopping point must be reflected here, even partially
-  completed steps.
-- Include short notes like “completed: X; remaining: Y” when splitting tasks.
-- This section must always reflect the actual current state of the work.
+- `Not started / In progress / Mostly done / Done`
+- Short bullet points noting what has been completed and what is still pending.
 
-### Surprises & Discoveries
+---
 
-Record unexpected behaviours, constraints, or helpful insights discovered while
-working. For each item, briefly describe:
+### 4. Visual & UX Baseline (silverstone‑site specific)
 
-- The observation.
-- Evidence or the file/command where it was observed.
+This section is **mandatory** for any work that touches HTML/CSS/JS for the marketing site.
 
-Example:
+Summarise what “good” looks like by referencing the actual files and components in the repo:
 
-- `Observation: services hero shader variant is reused by other pages. Evidence: hero canvas configuration in assets/js/hero-shader.js.`
+- **Canonical pages**
+  - `index.html`
+  - `about.html`
+  - `services.html`
+  - `book.html`
+  - `contact.html`
+- **Key layout & component patterns**
+  - Header + navigation, hero shader, and hero typography.
+  - Card families: `.neon-card`, `.service-row`, `.service-card`, `.service-card-inner`, `.packages-grid` and related grids.
+  - Icon bullet patterns used in service and package lists (`.bullet`, `.bullet-icon`, `.bullet-text` or `<li><i …></i>Text</li>`).
+  - CTA banners (`.section.brand-gradient` with `.neon-card.cta-card` inside).
+  - Innovation gallery (`#innovation-gallery`) and marquee strips.
+  - Cookie consent banner and global footer.
 
-### Decision Log
+Document the **non‑negotiable constraints** that must be respected, for example:
 
-Log important decisions and why you made them. For each entry:
+- Do **not** introduce new plain white, generic cards; reuse the existing premium card styles (neon/frosted panels, premium borders, generous padding).
+- Every bullet in a styled list must have the same icon structure; no “icon on the first bullet only”.
+- Images should be fully visible, well framed and integrated into cards/sections using existing patterns; avoid awkward cropping or tiny thumbnails in large white boxes.
+- CTA banners must be present and visually consistent on `index.html`, `about.html`, `services.html` and all niche pages.
+- The innovation gallery and marquees must remain on the same background and in the same order relative to the final CTA/footer; do not move them into separate sections with new backgrounds.
+- Navigation (including the Services dropdown) must remain readable and easy to use; the word “Services” must remain visible.
 
-- `Decision:`
-- `Rationale:`
-- `Date/Author:` (e.g. `2025‑12‑01 / Codex`)
+Also note how existing stylesheets support this baseline:
 
-These are especially important for navigation structure, URL patterns, niche
-naming, and visual patterns.
+- Primary stylesheets: `assets/css/styles.css` (or equivalent), `assets/css/custom-styles.css`, `assets/css/services.css`, `assets/css/premium-gallery.css`, plus any inline `<style>` blocks on core pages.
+- The rule: **reuse these styles** and extend them minimally instead of creating new visual systems or a niche‑specific stylesheet.
 
-### Outcomes & Retrospective
+---
 
-At major milestones or completion, summarise:
+### 5. Plan of Work
 
-- What was actually achieved.
-- What remains for future work.
-- Any lessons learned or follow‑ups needed.
+In prose, describe the **sequence of edits** you intend to make. For each step, mention:
 
-Keep this tightly linked to the Purpose / Big Picture section.
+- The files and sections you will touch (selectors, IDs, or component names).
+- What you plan to add/change at a high level (e.g. “add a Services dropdown using existing nav classes”, “add three niche‑specific cards reusing the `.neon-card` pattern”).
+- Any open questions or risks you anticipate.
 
-### Context and Orientation
+This should read like a short project plan, not a line‑by‑line diff.
 
-Describe the current relevant state of the repo as if the reader knows nothing:
+---
 
-- List key files and directories with full paths (e.g. `index.html`,
-  `services.html`, `assets/css/custom-styles.css`, `assets/images/socialmedia/...`).
-- Explain any non‑obvious concepts used in the plan (e.g. “hero shader”,
-  “parallax body”, “niche landing page”).
-- Mention any external constraints (e.g. “live site at https://silverstone-ai.com is read-only; only edit local repo”).
+### 6. Concrete Steps
 
-Avoid references like “as described earlier” or external documents; include
-necessary explanations directly here.
+Translate the Plan of Work into an ordered checklist of specific actions (one per line), e.g.:
 
-### Plan of Work
+- `[ ]` Parse service master CSV and derive niche list.
+- `[ ]` Create `/niches/<slug>.html` pages by copying `about.html` skeleton.
+- `[ ]` Wire niche links into the Services dropdown and `services.html`.
+- `[ ]` Run visual QA checklist (cards, bullets, CTAs, galleries, nav, cookie banner).
 
-In prose, describe the sequence of edits and additions you intend to make. For
-each step:
+Update the checkboxes as you complete each step.
 
-- Name the file(s) and locations (selectors, sections, functions).
-- Describe what you will add/change at a high level (e.g. “add a Services
-  dropdown markup block reusing existing nav classes”).
+---
 
-This should read like a narrative of the implementation, not a checklist.
+### 7. Surprises & Discoveries
 
-If the task involves drafting copy or designing page layouts, include a step to
-perform web searches using the `web` tool. Research industry‑specific pain
-points, typical outcomes, or premium design patterns relevant to the domain
-you are targeting. Summarise these findings in the ExecPlan’s `Surprises &
-Discoveries` or `Decision Log` sections and use them to inform your content
-and design choices.
+Record things you learn while working, such as:
 
-### Concrete Steps
+- Outcomes of web‑based research about a niche or about premium automation agency design.
+- Hidden constraints discovered in the repo (e.g. a CSS rule that affects multiple pages).
+- Any regressions you notice and fix.
 
-List the concrete commands and manual actions needed to execute the plan, e.g.:
+Keep entries short, time‑ordered bullets.
 
-- Which directories to work in.
-- Which HTML/CSS/JS files to open.
-- Any build or preview commands (if applicable).
+---
 
-Example (if a static preview script exists):
+### 8. Decision Log
 
-- `From repo root, run: npm run dev`
-- `Open http://localhost:3000/services.html and check the Services dropdown.`
+For each meaningful decision (e.g. “we will use About page layout as the template for niches”), add a bullet:
 
-If no tooling exists, describe how to open the HTML files locally in a browser.
+- Brief context.
+- Options considered.
+- The chosen option and why.
 
-### Validation and Acceptance
+This helps future sessions understand why the site looks the way it does.
 
-Define how to verify that the work is correct, phrased as behaviours a human can
-observe. For example:
+---
 
-- “Open `index.html` and confirm that the Services nav item shows a dropdown
-  listing General + all niche pages.”
-- “Navigate to `/niches/estate-agents.html` and confirm hero shader uses a
-  unique variant and body content scrolls over the Calendly background.”
+### 9. Outcomes & Retrospective
 
-Include:
+At the end of the work (or at a natural breakpoint), summarise:
 
-- Which flows to click through.
-- What should appear on desktop and mobile views.
-- Any test commands, if they exist.
+- What was actually delivered.
+- What remains undone and why.
+- Any design or technical debt you introduced deliberately.
 
-### Idempotence and Recovery
+---
 
-Describe:
+### 10. TODO / Handover
 
-- How to safely re‑run steps (e.g. re‑applying patches, re‑running generators).
-- Any risky changes and how to roll them back (e.g. restore files from git,
-  revert specific diff hunks).
+Maintain a list of TODO items and recommendations that should appear in the final `TODO_AND_RECOMMENDATIONS_BLOCK`, for example:
 
-Aim for changes that can be applied multiple times without corrupting the repo.
+- Remaining niches to build.
+- Optional polish ideas.
+- Follow‑up tasks for the next prompt (e.g. React pricing implementation).
 
-### Artifacts and Notes
+---
 
-Optionally include small, focused snippets:
+### 11. Validation & Acceptance
 
-- Short code excerpts or diffs that clarify non‑obvious edits.
-- Example HTML fragments for new sections.
-- Notes for future contributors.
+Explain how you will validate that the work meets the brief, for example:
 
-Avoid pasting huge diffs; prefer small, representative snippets.
+- “All niche pages visually match the quality of About and Services pages.”
+- “Services dropdown is keyboard‑navigable and does not disappear while interacting.”
+- “Bullet icons and CTAs are present and visually consistent on all relevant pages.”
 
-### Interfaces and Dependencies
+Include any manual checks (open specific pages, resize viewport, hover over dropdown, etc.) and any automated checks (lint, basic HTML validation) that are relevant.
 
-If work introduces or relies on specific interfaces, conventions, or identifiers,
-name them explicitly, for example:
+---
 
-- The naming scheme for niche page filenames and URLs.
-- The IDs of pricing placeholder containers (e.g. `pricing-root`,
-  `pricing-services-root`, `pricing-<niche-slug>-root`).
-- Any JS hooks used for dropdown behaviour.
+### 12. Idempotence and Recovery
 
-Be precise so future work can build on these decisions.
+Describe any state that must remain safe if the same ExecPlan is run again or partially re‑run (e.g. re‑applying patches). Note any fragile areas of the codebase that require special care.
+
+---
+
+### 13. Artifacts and Notes
+
+Link to or describe any supporting artifacts created during the work (e.g. new asset filenames, stub data, or sample copy that lives outside the main pages).
+
+---
+
+### 14. Research and Inspiration
+
+For tasks that involve new copy or layouts:
+
+- Use the configured web search tool to:
+  - Understand typical pains/workflows/outcomes for each niche.
+  - Collect inspiration from premium, boutique automation/SaaS agency sites.
+- Summarise research in this section or in `Surprises & Discoveries`; do **not** paste raw search results.
+- Never copy layouts or copy verbatim; always paraphrase and adapt to Silverstone’s brand.
+
+---
 
 ## Maintaining ExecPlans
 
@@ -202,12 +205,9 @@ While implementing a plan:
 - Read the ExecPlan from top to bottom before making edits.
 - After finishing a meaningful chunk of work, update:
   - `Progress`
-  - Any relevant parts of `Context and Orientation`, `Plan of Work`, or
-    `Concrete Steps` if reality diverged
-  - `Decision Log` for new decisions
-  - `Surprises & Discoveries` if anything unexpected occurred
-- At completion, update `Outcomes & Retrospective` to reflect what was
-  actually delivered and what remains.
+  - Any relevant parts of `Context and Orientation`, `Visual & UX Baseline`, `Plan of Work` or `Concrete Steps` if reality diverged.
+  - `Decision Log` for new decisions.
+  - `Surprises & Discoveries` when you learn something important.
+- At completion, update `Outcomes & Retrospective` and `TODO / Handover`.
 
-ExecPlans should always be accurate, self‑contained, and sufficient for a
-novice to understand and continue the work.
+ExecPlans must remain accurate, self‑contained, and understandable to a new reader who knows nothing about previous prompts.
