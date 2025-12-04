@@ -35,52 +35,6 @@
       line: [0.75, 0.75, 0.75, 1.0],
       bg1: [0.1, 0.1, 0.1, 1.0],
       bg2: [0.25, 0.25, 0.25, 1.0]
-    },
-    // Niche variants – reuse existing palettes for now
-    "estate-agents": {
-      line: [0.0, 0.68, 0.94, 1.0], // same as blue
-      bg1: [0.0, 0.05, 0.2, 1.0],
-      bg2: [0.0, 0.2, 0.4, 1.0]
-    },
-    "trades-virtual-office": {
-      line: [1.0, 0.65, 0.0, 1.0], // same as amber
-      bg1: [0.15, 0.05, 0.0, 1.0],
-      bg2: [0.3, 0.1, 0.0, 1.0]
-    },
-    "salons-barbers": {
-      line: [0.4, 0.2, 0.8, 1.0], // same as default purple
-      bg1: [0.1, 0.1, 0.3, 1.0],
-      bg2: [0.3, 0.1, 0.5, 1.0]
-    },
-    "physio-chiro": {
-      line: [0.0, 1.0, 0.62, 1.0], // same as green
-      bg1: [0.0, 0.2, 0.1, 1.0],
-      bg2: [0.0, 0.4, 0.2, 1.0]
-    },
-    "hospitality": {
-      line: [0.0, 0.68, 0.94, 1.0], // reuse blue
-      bg1: [0.0, 0.05, 0.2, 1.0],
-      bg2: [0.0, 0.2, 0.4, 1.0]
-    },
-    "dentists": {
-      line: [0.0, 1.0, 0.62, 1.0], // reuse green
-      bg1: [0.0, 0.2, 0.1, 1.0],
-      bg2: [0.0, 0.4, 0.2, 1.0]
-    },
-    "ecommerce-brands": {
-      line: [0.4, 0.2, 0.8, 1.0], // reuse purple
-      bg1: [0.1, 0.1, 0.3, 1.0],
-      bg2: [0.3, 0.1, 0.5, 1.0]
-    },
-    "gyms-fitness-studios": {
-      line: [1.0, 0.65, 0.0, 1.0], // reuse amber
-      bg1: [0.15, 0.05, 0.0, 1.0],
-      bg2: [0.3, 0.1, 0.0, 1.0]
-    },
-    "fitness-influencers-online-coaches": {
-      line: [0.4, 0.2, 0.8, 1.0], // reuse purple again
-      bg1: [0.1, 0.1, 0.3, 1.0],
-      bg2: [0.3, 0.1, 0.5, 1.0]
     }
   };
 
