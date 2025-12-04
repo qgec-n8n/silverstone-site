@@ -120,3 +120,93 @@
   text-align: center;
 }
 
+/* Navigation dropdown styling for Services */
+.site-header nav ul {
+  position: relative;
+}
+
+.nav-item.has-dropdown {
+  position: relative;
+}
+
+.nav-parent {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav-parent:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+.nav-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+  font-size: 0.8rem;
+}
+
+.nav-item.has-dropdown.open .nav-arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  min-width: 220px;
+  background: rgba(8, 12, 24, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+  padding: 0.75rem 0;
+  list-style: none;
+  display: none;
+  z-index: 1200;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: var(--color-white);
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.dropdown-menu li a:hover,
+.dropdown-menu li a:focus-visible {
+  background: rgba(0, 255, 157, 0.12);
+  color: var(--color-green);
+}
+
+.nav-item.has-dropdown.open .dropdown-menu,
+.site-header nav ul.open .nav-item.has-dropdown.open .dropdown-menu {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .nav-item.has-dropdown {
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 0.5rem;
+  }
+
+  .nav-parent {
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+}
+
