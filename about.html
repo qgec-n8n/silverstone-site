@@ -33,6 +33,7 @@
   <link rel="icon" href="favicon.ico" sizes="any" />
   <!-- Core site styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/nav-overrides.css">
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
   <link rel="stylesheet" href="assets/css/parallax-fix.css">
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
@@ -142,11 +143,25 @@
       </div>
       <nav>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html" class="active">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="book.html">Book</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html" class="active">About</a></li>
+          <li class="has-dropdown"><a class="nav-parent" href="/services.html">Services</a><button class="dropdown-toggle"
+              aria-expanded="false" aria-label="Toggle Services menu"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="/services.html">General</a></li>
+              <li><a href="/niches/real-estate-agents.html">Estate Agents</a></li>
+              <li><a href="/niches/hospitality.html">Hospitality</a></li>
+              <li><a href="/niches/salons-barbers.html">Salons &amp; Barbers</a></li>
+              <li><a href="/niches/trades.html">Trades</a></li>
+              <li><a href="/niches/ecommerce.html">eCommerce</a></li>
+              <li><a href="/niches/physio-chiro.html">Physios &amp; Chiropractors</a></li>
+              <li><a href="/niches/dentists.html">Dentists</a></li>
+              <li><a href="/niches/gyms-fitness.html">Gyms &amp; Fitness Studios</a></li>
+              <li><a href="/niches/fitness-influencers.html">Fitness Influencers &amp; Coaches</a></li>
+            </ul>
+          </li>
+          <li><a href="/book.html">Book</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>

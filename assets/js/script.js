@@ -106,6 +106,19 @@ document.addEventListener('DOMContentLoaded', () => {
     navMenu.prepend(navBackItem);
   }
 
+  // Dropdown toggles for Services menu
+  const dropdowns = document.querySelectorAll('.has-dropdown');
+  dropdowns.forEach((dropdown) => {
+    const toggle = dropdown.querySelector('.dropdown-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const isOpen = dropdown.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
   // Create the header indicator bar.  This small bar appears when the
   // header is hidden to signal that users can reveal the menu.  It
   // functions both as a label (“Menu”) and as a tappable target for
