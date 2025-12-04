@@ -91,15 +91,21 @@
         <div class="nav-toggle" tabindex="0" aria-label="Open navigation">
           <span></span><span></span><span></span>
         </div>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="book.html">Book</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </nav>
+              <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li class="dropdown">
+            <div class="dropdown-trigger">
+              <a href="services.html" class="dropdown-label">Services</a>
+              <button class="dropdown-toggle" aria-expanded="false" aria-label="Toggle Services menu"><i class="fa-solid fa-chevron-down"></i></button>
+            </div>
+            <ul class="dropdown-menu"></ul>
+          </li>
+          <li><a href="book.html">Book</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
       </div>
     </header>
     <!-- Hero section -->

@@ -120,3 +120,108 @@
   text-align: center;
 }
 
+/* Services dropdown styling */
+nav ul li.dropdown {
+  position: relative;
+}
+
+.dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dropdown-toggle {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: inherit;
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-toggle i {
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.dropdown.open .dropdown-toggle i {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 14rem;
+  background: rgba(12, 16, 29, 0.92);
+  border: 1px solid rgba(0, 174, 239, 0.35);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 0.75rem;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(12px) saturate(140%);
+  z-index: 1300;
+}
+
+.dropdown-menu li {
+  margin-bottom: 0.35rem;
+}
+
+.dropdown-menu li:last-child {
+  margin-bottom: 0;
+}
+
+.dropdown-menu a {
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+nav ul li.dropdown:hover .dropdown-menu,
+.dropdown.open .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  nav ul li.dropdown {
+    width: 100%;
+  }
+
+  .dropdown-trigger {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--color-navy);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: none;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .dropdown.open .dropdown-menu {
+    pointer-events: auto;
+  }
+
+  .dropdown-menu a {
+    color: var(--color-navy);
+    font-weight: 600;
+  }
+}
+
