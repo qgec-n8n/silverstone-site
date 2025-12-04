@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesDropdown = document.querySelector('.nav-services');
+  const dropdownToggle = servicesDropdown ? servicesDropdown.querySelector('.dropdown-toggle') : null;
+  const dropdownMenu = servicesDropdown ? servicesDropdown.querySelector('.dropdown-menu') : null;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -130,6 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // closing.  The timeout ID allows scheduled hides to be cancelled.
   let previousScrollY = 0;
   let headerAutoHideTimeoutId;
+  let dropdownCloseTimeoutId;
+
+  const isDropdownOpen = () => servicesDropdown && servicesDropdown.classList.contains('open');
 
   // Determine whether the viewport width qualifies as mobile.  This
   // helper is referenced throughout to reduce the number of
@@ -149,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (isDropdownOpen()) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
@@ -157,8 +164,24 @@ document.addEventListener('DOMContentLoaded', () => {
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (isDropdownOpen()) return;
       hideHeader();
     }, delay);
+  }
+
+  function openServicesDropdown() {
+    if (!servicesDropdown || !dropdownToggle || !dropdownMenu) return;
+    clearTimeout(dropdownCloseTimeoutId);
+    servicesDropdown.classList.add('open');
+    dropdownToggle.setAttribute('aria-expanded', 'true');
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  }
+
+  function closeServicesDropdown() {
+    if (!servicesDropdown || !dropdownToggle) return;
+    servicesDropdown.classList.remove('open');
+    dropdownToggle.setAttribute('aria-expanded', 'false');
   }
 
   /*
@@ -187,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeServicesDropdown();
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -217,6 +241,52 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  if (dropdownToggle) {
+    dropdownToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (servicesDropdown && servicesDropdown.classList.contains('open')) {
+        closeServicesDropdown();
+        scheduleHeaderAutoHide();
+      } else {
+        openServicesDropdown();
+      }
+    });
+  }
+
+  if (servicesDropdown) {
+    servicesDropdown.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      openServicesDropdown();
+    });
+    servicesDropdown.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      dropdownCloseTimeoutId = window.setTimeout(() => {
+        closeServicesDropdown();
+        scheduleHeaderAutoHide();
+      }, 120);
+    });
+  }
+
+  if (dropdownMenu) {
+    dropdownMenu.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      openServicesDropdown();
+    });
+    dropdownMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeServicesDropdown();
+      });
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    if (isDropdownOpen() && servicesDropdown && !servicesDropdown.contains(event.target)) {
+      closeServicesDropdown();
+      scheduleHeaderAutoHide();
+    }
+  });
 
   if (navBackButton) {
     navBackButton.addEventListener('click', (event) => {
