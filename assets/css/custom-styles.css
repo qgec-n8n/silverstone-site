@@ -120,3 +120,94 @@
   text-align: center;
 }
 
+
+/* Services dropdown navigation */
+nav ul .nav-dropdown {
+  position: relative;
+}
+
+nav ul .dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0.35rem 0;
+  letter-spacing: 0.08em;
+}
+
+nav ul .dropdown-toggle .caret {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid currentColor;
+  transition: transform 0.2s ease;
+}
+
+nav ul .nav-dropdown.open .dropdown-toggle .caret,
+nav ul .dropdown-toggle:focus-visible .caret {
+  transform: rotate(180deg);
+}
+
+nav ul .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin: 0;
+  padding: 0.5rem 0;
+  list-style: none;
+  min-width: 240px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(0, 174, 239, 0.14);
+  border-radius: 12px;
+  box-shadow: 0 16px 38px rgba(5, 11, 24, 0.16);
+  display: none;
+  z-index: 2500;
+}
+
+nav ul .nav-dropdown.open > .dropdown-menu,
+nav ul .nav-dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+nav ul .dropdown-menu li a {
+  display: block;
+  padding: 0.55rem 1rem;
+  color: var(--color-silver);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+nav ul .dropdown-menu li a:hover,
+nav ul .dropdown-menu li a:focus-visible {
+  color: var(--color-blue);
+  background: rgba(0, 174, 239, 0.08);
+}
+
+@media (max-width: 900px) {
+  nav ul .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    padding: 0.5rem 0 0;
+  }
+
+  nav ul .dropdown-menu li a {
+    background: rgba(255, 255, 255, 0.74);
+    border: 1px solid rgba(0, 174, 239, 0.14);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+  }
+
+  nav ul .nav-dropdown.open > .dropdown-menu,
+  nav ul .nav-dropdown:hover > .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+}
