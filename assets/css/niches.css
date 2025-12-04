@@ -1,0 +1,219 @@
+/* Shared styling for niche landing pages and the services hub */
+.niche-page .title-band .content,
+.page-services .title-band .content {
+  max-width: 820px;
+}
+
+.niche-section {
+  padding: 3rem 0;
+  color: var(--color-silver);
+}
+
+.niche-panel {
+  background: rgba(12, 16, 24, 0.65);
+  border: 1px solid rgba(0, 174, 239, 0.22);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 36px rgba(0, 174, 239, 0.18);
+}
+
+.niche-panel h2,
+.niche-panel h3,
+.niche-panel h4 {
+  color: var(--color-white);
+  margin-top: 0;
+}
+
+.niche-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.niche-grid.tight {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.niche-grid .neon-card {
+  height: 100%;
+}
+
+.niche-bullets,
+.niche-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.niche-bullets li,
+.niche-list li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  color: var(--color-silver);
+}
+
+.niche-bullets li i,
+.niche-list li i {
+  color: var(--color-green);
+  margin-top: 0.2rem;
+}
+
+.niche-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.niche-image-grid figure {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  min-height: 220px;
+}
+
+.niche-image-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.niche-image-grid figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.65rem 0.9rem;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
+  color: var(--color-white);
+  font-size: 0.95rem;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.process-step {
+  padding: 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(0, 174, 239, 0.18);
+}
+
+.process-step strong {
+  color: var(--color-white);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1.1rem;
+}
+
+.faq-grid details {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0.75rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(0, 174, 239, 0.15);
+}
+
+.faq-grid summary {
+  cursor: pointer;
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.pricing-placeholder {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(0, 174, 239, 0.4);
+  border-radius: 0.75rem;
+  color: var(--color-silver);
+}
+
+.niche-link-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.niche-link-back i {
+  color: var(--color-blue);
+}
+
+.niche-cta-row {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.niche-cta-row .btn-secondary {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.niche-header-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  color: var(--color-silver);
+}
+
+.general-services-grid .neon-card h3,
+.niche-panel .neon-card h3 {
+  color: var(--color-blue);
+}
+
+.general-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.niche-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.niche-pill-list li {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 174, 239, 0.25);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-white);
+  font-size: 0.9rem;
+}
+
+.niche-subtitle {
+  color: var(--color-silver);
+  max-width: 840px;
+}
+
+@media (max-width: 900px) {
+  .niche-panel {
+    padding: 1.5rem;
+  }
+}

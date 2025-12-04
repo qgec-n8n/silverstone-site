@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const dropdowns = document.querySelectorAll('nav .has-dropdown');
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -123,6 +124,29 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   `.trim();
   document.body.appendChild(headerIndicator);
+
+  const closeAllDropdowns = () => {
+    dropdowns.forEach((dropdown) => {
+      dropdown.classList.remove('open');
+      const toggle = dropdown.querySelector('.services-toggle');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    });
+  };
+
+  const openDropdown = (dropdown) => {
+    dropdowns.forEach((item) => {
+      if (item !== dropdown) {
+        item.classList.remove('open');
+        const toggle = item.querySelector('.services-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    dropdown.classList.add('open');
+    const toggle = dropdown.querySelector('.services-toggle');
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  };
 
   // Variables for tracking scroll position and pending auto‑hide
   // operations.  When the overlay is opened we record the current
@@ -184,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navMenu && navMenu.classList.contains('open')) {
       navMenu.classList.remove('open');
     }
+    closeAllDropdowns();
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
@@ -215,6 +240,46 @@ document.addEventListener('DOMContentLoaded', () => {
           closeNavMenu();
         }
       });
+    });
+  }
+
+  if (dropdowns.length) {
+    dropdowns.forEach((dropdown) => {
+      const toggle = dropdown.querySelector('.services-toggle');
+      if (!toggle) return;
+
+      toggle.setAttribute('aria-haspopup', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+
+      toggle.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const isOpen = dropdown.classList.contains('open');
+        closeAllDropdowns();
+        if (!isOpen) {
+          openDropdown(dropdown);
+        } else {
+          scheduleHeaderAutoHide();
+        }
+      });
+
+      dropdown.addEventListener('mouseenter', () => {
+        if (isMobileViewport()) return;
+        openDropdown(dropdown);
+      });
+
+      dropdown.addEventListener('mouseleave', () => {
+        if (isMobileViewport()) return;
+        dropdown.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        scheduleHeaderAutoHide();
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target && target.closest && target.closest('nav .has-dropdown')) return;
+      closeAllDropdowns();
     });
   }
 
