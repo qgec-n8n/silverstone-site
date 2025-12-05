@@ -24,42 +24,44 @@ The intended audience is estate/letting agents who are time-poor but revenue-foc
 
 Use this checklist to track actual work performed. Update it with timestamps (`YYYY-MM-DD hh:mmZ`) as you go.
 
-- [ ] (…Z) Confirm repo structure, design system files, and existing niche or services page patterns.
-- [ ] (…Z) Decide and create the Real Estate niche page file and slug (for example, `niches/estate-agents.html` or similar) based on existing patterns.
-- [ ] (…Z) Implement the hero section with shader animation background and correct copy/CTAs.
-- [ ] (…Z) Implement the niche pains section as image + neon card using `.service-row` pattern.
-- [ ] (…Z) Implement the bundle / “Never Miss a Viewing” section as image + neon card with proper heading and copy.
-- [ ] (…Z) Implement the proof-in-numbers stats strip using existing `.stats-card` styling.
-- [ ] (…Z) Implement the outcomes & benefits section as image + neon card.
-- [ ] (…Z) Implement the “How it works” row of four cards mirroring value cards on `about.html`.
-- [ ] (…Z) Implement the risk reversal & reassurance row of four cards with intro copy.
-- [ ] (…Z) Add a pricing section placeholder consistent with design system spacing and typography.
-- [ ] (…Z) Implement the Real Estate FAQs using the existing FAQ accordion component and the specified Q&A content.
-- [ ] (…Z) Implement the final CTA block mirroring existing CTA markup, with Real Estate-specific copy.
-- [ ] (…Z) Ensure the footer matches the shared footer used on other pages.
-- [ ] (…Z) Wire the Real Estate page into navigation (for example, under a “Real Estate” item or dropdown) and confirm the URL slug.
-- [ ] (…Z) Run build/test commands and visually validate the page across desktop and mobile breakpoints.
+- [x] (2025-12-05 19:26Z) Confirm repo structure, design system files, and existing niche or services page patterns.
+- [x] (2025-12-05 19:29Z) Decide and create the Real Estate niche page file and slug (for example, `niches/estate-agents.html` or similar) based on existing patterns.
+- [x] (2025-12-05 19:29Z) Implement the hero section with shader animation background and correct copy/CTAs.
+- [x] (2025-12-05 19:29Z) Implement the niche pains section as image + neon card using `.service-row` pattern.
+- [x] (2025-12-05 19:29Z) Implement the bundle / “Never Miss a Viewing” section as image + neon card with proper heading and copy.
+- [x] (2025-12-05 19:29Z) Implement the proof-in-numbers stats strip using existing `.stats-card` styling.
+- [x] (2025-12-05 19:29Z) Implement the outcomes & benefits section as image + neon card.
+- [x] (2025-12-05 19:29Z) Implement the “How it works” row of four cards mirroring value cards on `about.html`.
+- [x] (2025-12-05 19:29Z) Implement the risk reversal & reassurance row of four cards with intro copy.
+- [x] (2025-12-05 19:29Z) Add a pricing section placeholder consistent with design system spacing and typography.
+- [x] (2025-12-05 19:29Z) Implement the Real Estate FAQs using the existing FAQ accordion component and the specified Q&A content.
+- [x] (2025-12-05 19:29Z) Implement the final CTA block mirroring existing CTA markup, with Real Estate-specific copy.
+- [x] (2025-12-05 19:29Z) Ensure the footer matches the shared footer used on other pages.
+- [x] (2025-12-05 19:29Z) Wire the Real Estate page into navigation (for example, under a “Real Estate” item or dropdown) and confirm the URL slug.
+- [x] (2025-12-05 19:29Z) Attempted build command (npm not available here); manually reviewed the Real Estate page layout and captured a browser screenshot for validation.
 
 ## Surprises & Discoveries
 
 Record unexpected findings here (for example, differences in file structure, unexpected CSS naming, or behavior).
 
-- Observation: …
-  Evidence: …
+- Observation: Navigation/animation script (`assets/js/script.js`) injects `custom.css` and `mobile.css` via `ensureStylesheet` using a `./assets/...` relative path, which would break on a nested `niches/` page without adjustment.
+  Evidence: DOMContentLoaded handler and `ensureStylesheet('assets/css/custom.css')` in `assets/js/script.js`.
+- Observation: `npm` is not available in the environment, so build scripts cannot be executed here.
+  Evidence: `npm run build:css` fails with `command not found: npm`.
 
 ## Decision Log
 
 Record each material decision, especially where the repo’s current state required tradeoffs or interpretation of the spec.
 
-- Decision: …
-  Rationale: …
-  Date/Author: …
+- Decision: Update `ensureStylesheet` helper in `assets/js/script.js` to use root-relative paths when injecting CSS.
+  Rationale: Prevented 404s for `custom.css` and `mobile.css` when loading the new nested Real Estate page under `/niches/`.
+  Date/Author: 2025-12-05 / GPT-5-Codex
 
 ## Outcomes & Retrospective
 
-To be filled in when the work reaches a major milestone or completion.
-
-Summarize what was achieved, what remains, and any lessons about working with this repo’s design system or ExecPlans.
+- Built the dedicated Real Estate niche page at `niches/estate-agents.html`, following the planned section order and reusing neon cards, service rows, stats, FAQs, CTA, and footer patterns.
+- Updated navigation across pages and adjusted `ensureStylesheet` to support nested paths so the new page loads shared styles correctly.
+- Manual review confirms copy and layout match the spec; build scripts could not run in this environment because `npm` is unavailable.
 
 ## Context and Orientation
 

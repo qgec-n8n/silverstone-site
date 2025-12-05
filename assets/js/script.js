@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector(`link[href*="${href}"]`)) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `./${href}`;
+    link.href = href.startsWith('/') ? href : `/${href}`;
     document.head.appendChild(link);
   };
   // Load custom overrides and mobile styles.  The mobile overrides are
