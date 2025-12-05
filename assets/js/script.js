@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesDropdown = document.querySelector('.services-dropdown');
+  const servicesToggle = servicesDropdown ? servicesDropdown.querySelector('.dropdown-toggle') : null;
+  const servicesMenu = servicesDropdown ? servicesDropdown.querySelector('.dropdown-menu') : null;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -124,12 +127,35 @@ document.addEventListener('DOMContentLoaded', () => {
   `.trim();
   document.body.appendChild(headerIndicator);
 
+  if (servicesMenu) {
+    servicesOverlay = document.createElement('div');
+    servicesOverlay.className = 'services-overlay';
+    servicesOverlay.setAttribute('aria-hidden', 'true');
+    servicesOverlay.innerHTML = `
+      <div class="services-overlay__header">
+        <button type="button" class="services-overlay__back" aria-label="Back to main menu">
+          <span class="services-overlay__back-icon" aria-hidden="true"></span>
+          <span class="services-overlay__back-label">Back</span>
+        </button>
+        <span class="services-overlay__title">Services</span>
+      </div>
+      <div class="services-overlay__list"></div>
+    `;
+    const overlayList = servicesOverlay.querySelector('.services-overlay__list');
+    if (overlayList) {
+      overlayList.innerHTML = servicesMenu.innerHTML;
+    }
+    document.body.appendChild(servicesOverlay);
+  }
+
   // Variables for tracking scroll position and pending auto‑hide
   // operations.  When the overlay is opened we record the current
   // scroll position so we can return the user to the same spot when
   // closing.  The timeout ID allows scheduled hides to be cancelled.
   let previousScrollY = 0;
   let headerAutoHideTimeoutId;
+  let pointerOverNavArea = false;
+  let servicesOverlay;
 
   // Determine whether the viewport width qualifies as mobile.  This
   // helper is referenced throughout to reduce the number of
@@ -157,8 +183,24 @@ document.addEventListener('DOMContentLoaded', () => {
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (pointerOverNavArea || (servicesOverlay && servicesOverlay.classList.contains('open'))) {
+        scheduleHeaderAutoHide(delay);
+        return;
+      }
       hideHeader();
     }, delay);
+  }
+
+  function markNavAreaEnter() {
+    pointerOverNavArea = true;
+    clearTimeout(headerAutoHideTimeoutId);
+    showHeader();
+  }
+
+  function markNavAreaLeave() {
+    pointerOverNavArea = false;
+    if (navMenu && navMenu.classList.contains('open')) return;
+    scheduleHeaderAutoHide();
   }
 
   /*
@@ -187,10 +229,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    if (servicesOverlay && servicesOverlay.classList.contains('open')) {
+      closeServicesOverlay();
+    }
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
     scheduleHeaderAutoHide();
+  }
+
+  function openServicesOverlay() {
+    if (!servicesOverlay || !isMobileViewport()) return;
+    if (navMenu && !navMenu.classList.contains('open')) {
+      openNavMenu();
+    }
+    servicesOverlay.classList.add('open');
+    servicesOverlay.setAttribute('aria-hidden', 'false');
+    if (servicesToggle) {
+      servicesToggle.setAttribute('aria-expanded', 'true');
+    }
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  }
+
+  function closeServicesOverlay() {
+    if (!servicesOverlay) return;
+    servicesOverlay.classList.remove('open');
+    servicesOverlay.setAttribute('aria-hidden', 'true');
+    if (servicesToggle) {
+      servicesToggle.setAttribute('aria-expanded', 'false');
+    }
   }
 
   // Attach event listeners for the hamburger button.  Clicking the
@@ -214,6 +282,54 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMobileViewport() && navMenu.classList.contains('open')) {
           closeNavMenu();
         }
+      });
+    });
+  }
+
+  if (servicesToggle) {
+    servicesToggle.addEventListener('click', (event) => {
+      if (!isMobileViewport()) return;
+      event.preventDefault();
+      event.stopPropagation();
+      openServicesOverlay();
+    });
+  }
+
+  if (servicesDropdown) {
+    servicesDropdown.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      markNavAreaEnter();
+      if (servicesToggle) {
+        servicesToggle.setAttribute('aria-expanded', 'true');
+      }
+    });
+    servicesDropdown.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      markNavAreaLeave();
+      if (servicesToggle) {
+        servicesToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  if (servicesMenu) {
+    servicesMenu.addEventListener('mouseenter', markNavAreaEnter);
+    servicesMenu.addEventListener('mouseleave', markNavAreaLeave);
+  }
+
+  if (servicesOverlay) {
+    const servicesBackBtn = servicesOverlay.querySelector('.services-overlay__back');
+    if (servicesBackBtn) {
+      servicesBackBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        closeServicesOverlay();
+      });
+    }
+    servicesOverlay.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeServicesOverlay();
+        closeNavMenu();
       });
     });
   }
@@ -264,8 +380,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // applies to pointer devices only.
   headerIndicator.addEventListener('mouseenter', showHeader);
   if (header) {
-    header.addEventListener('mouseenter', showHeader);
-    header.addEventListener('mouseleave', hideHeader);
+    header.addEventListener('mouseenter', markNavAreaEnter);
+    header.addEventListener('mouseleave', markNavAreaLeave);
     // On mobile tapping the header schedules another auto hide if the
     // menu is not open.  This provides a short grace period for users
     // to reopen the overlay after revealing the header.
