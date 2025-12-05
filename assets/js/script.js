@@ -87,8 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesNavItem = document.querySelector('.services-nav-item');
+  const servicesToggle = servicesNavItem ? servicesNavItem.querySelector('.services-toggle') : null;
+  const servicesDropdown = servicesNavItem ? servicesNavItem.querySelector('.services-dropdown') : null;
+  const servicesMobilePanel = servicesNavItem ? servicesNavItem.querySelector('.services-mobile-panel') : null;
+  const servicesBackBtn = servicesNavItem ? servicesNavItem.querySelector('.services-back-btn') : null;
 
   let navBackButton;
+  let servicesDropdownActive = false;
+  let servicesPanelOpen = false;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
     const navBackItem = document.createElement('li');
     navBackItem.className = 'nav-back-item';
@@ -149,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (servicesDropdownActive || servicesPanelOpen) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
@@ -157,8 +165,46 @@ document.addEventListener('DOMContentLoaded', () => {
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (servicesDropdownActive || servicesPanelOpen) return;
       hideHeader();
     }, delay);
+  }
+
+  function setServicesDropdownState(open = false) {
+    if (!servicesNavItem || !servicesToggle) return;
+    if (open && isMobileViewport()) return;
+    servicesDropdownActive = open;
+    servicesNavItem.classList.toggle('dropdown-open', open);
+    servicesToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+    } else if (!servicesPanelOpen) {
+      scheduleHeaderAutoHide();
+    }
+  }
+
+  function openServicesPanel() {
+    if (!navMenu || !servicesNavItem || !servicesMobilePanel) return;
+    servicesDropdownActive = false;
+    servicesNavItem.classList.remove('dropdown-open');
+    servicesPanelOpen = true;
+    navMenu.classList.add('services-panel-open');
+    servicesNavItem.classList.add('services-panel-open');
+    servicesMobilePanel.setAttribute('aria-hidden', 'false');
+    if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'true');
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  }
+
+  function closeServicesPanel(shouldScheduleHide = true) {
+    if (!navMenu || !servicesNavItem || !servicesMobilePanel) return;
+    servicesPanelOpen = false;
+    navMenu.classList.remove('services-panel-open');
+    servicesNavItem.classList.remove('services-panel-open');
+    servicesMobilePanel.setAttribute('aria-hidden', 'true');
+    if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'false');
+    if (shouldScheduleHide) scheduleHeaderAutoHide();
   }
 
   /*
@@ -172,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!navMenu || !navToggle) return;
     clearTimeout(headerAutoHideTimeoutId);
     previousScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    closeServicesPanel(false);
     navMenu.classList.add('open');
     navMenu.scrollTop = 0;
     navToggle.classList.add('active');
@@ -187,6 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeServicesPanel(false);
+    setServicesDropdownState(false);
+    servicesDropdownActive = false;
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -211,10 +261,65 @@ document.addEventListener('DOMContentLoaded', () => {
     navMenu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', (event) => {
         event.stopPropagation();
+        if (link.classList.contains('services-toggle') && isMobileViewport()) {
+          event.preventDefault();
+          openServicesPanel();
+          return;
+        }
         if (isMobileViewport() && navMenu.classList.contains('open')) {
           closeNavMenu();
         }
       });
+    });
+  }
+
+  if (servicesNavItem && servicesToggle) {
+    servicesNavItem.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      setServicesDropdownState(true);
+    });
+    servicesNavItem.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      setServicesDropdownState(false);
+    });
+    servicesNavItem.addEventListener('focusin', () => {
+      if (isMobileViewport()) return;
+      setServicesDropdownState(true);
+    });
+    servicesNavItem.addEventListener('focusout', (event) => {
+      if (isMobileViewport()) return;
+      if (!servicesNavItem.contains(event.relatedTarget)) {
+        setServicesDropdownState(false);
+      }
+    });
+    servicesToggle.addEventListener('click', (event) => {
+      if (isMobileViewport()) {
+        event.preventDefault();
+        event.stopPropagation();
+        openServicesPanel();
+        return;
+      }
+      setServicesDropdownState(false);
+    });
+  }
+
+  if (servicesDropdown) {
+    servicesDropdown.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      setServicesDropdownState(true);
+    });
+    servicesDropdown.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      setServicesDropdownState(false);
+    });
+  }
+
+  if (servicesBackBtn) {
+    servicesBackBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      closeServicesPanel(false);
+      showHeader();
     });
   }
 
@@ -275,6 +380,15 @@ document.addEventListener('DOMContentLoaded', () => {
       scheduleHeaderAutoHide();
     });
   }
+  window.addEventListener('resize', () => {
+    if (!isMobileViewport()) {
+      closeServicesPanel(false);
+      setServicesDropdownState(false);
+    } else {
+      servicesDropdownActive = false;
+      if (servicesNavItem) servicesNavItem.classList.remove('dropdown-open');
+    }
+  });
   // When scrolling on mobile hide the header immediately unless the
   // overlay is open.  This keeps the view clear while navigating.
   window.addEventListener('scroll', () => {
