@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector(`link[href*="${href}"]`)) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `./${href}`;
+    link.href = `/${href}`;
     document.head.appendChild(link);
   };
   // Load custom overrides and mobile styles.  The mobile overrides are
@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const navDropdown = document.querySelector('.nav-dropdown');
+  const navDropdownToggle = navDropdown?.querySelector('.dropdown-toggle');
+  const navDropdownMenu = navDropdown?.querySelector('.dropdown-menu');
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -187,11 +190,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    if (navDropdown) {
+      navDropdown.classList.remove('open');
+      if (navDropdownToggle) navDropdownToggle.setAttribute('aria-expanded', 'false');
+    }
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
     scheduleHeaderAutoHide();
   }
+
+  const openDropdown = () => {
+    if (!navDropdown || !navDropdownToggle) return;
+    navDropdown.classList.add('open');
+    navDropdownToggle.setAttribute('aria-expanded', 'true');
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  };
+
+  const closeDropdown = () => {
+    if (!navDropdown || !navDropdownToggle) return;
+    navDropdown.classList.remove('open');
+    navDropdownToggle.setAttribute('aria-expanded', 'false');
+  };
 
   // Attach event listeners for the hamburger button.  Clicking the
   // button toggles the overlay.  We stop propagation so clicks do not
@@ -217,6 +238,54 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  if (navDropdownToggle) {
+    navDropdownToggle.setAttribute('aria-expanded', 'false');
+    navDropdownToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (navMenu && navMenu.classList.contains('open')) {
+        if (navDropdown.classList.contains('open')) {
+          closeDropdown();
+        } else {
+          openDropdown();
+        }
+        return;
+      }
+      if (navDropdown.classList.contains('open')) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    });
+  }
+
+  if (navDropdown) {
+    navDropdown.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      openDropdown();
+    });
+    navDropdown.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      closeDropdown();
+    });
+  }
+
+  if (navDropdownMenu) {
+    navDropdownMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeDropdown();
+        if (isMobileViewport()) closeNavMenu();
+      });
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    if (!navDropdown || !navDropdownToggle) return;
+    if (!navDropdown.contains(event.target)) {
+      closeDropdown();
+    }
+  });
 
   if (navBackButton) {
     navBackButton.addEventListener('click', (event) => {
