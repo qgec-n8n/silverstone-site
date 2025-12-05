@@ -89,6 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const navMenu = document.querySelector('nav ul');
 
   let navBackButton;
+  const dropdownParents = Array.from(document.querySelectorAll('.has-dropdown'));
+  const closeDropdowns = () => dropdownParents.forEach((item) => item.classList.remove('open'));
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
     const navBackItem = document.createElement('li');
     navBackItem.className = 'nav-back-item';
@@ -184,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navMenu && navMenu.classList.contains('open')) {
       navMenu.classList.remove('open');
     }
+    closeDropdowns();
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
@@ -217,6 +220,22 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // Handle dropdowns for Services menu
+  dropdownParents.forEach((item) => {
+    const toggle = item.querySelector('.dropdown-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', (event) => {
+      if (!isMobileViewport()) return;
+      if (!item.classList.contains('open')) {
+        event.preventDefault();
+        closeDropdowns();
+        item.classList.add('open');
+      } else {
+        item.classList.remove('open');
+      }
+    });
+  });
 
   if (navBackButton) {
     navBackButton.addEventListener('click', (event) => {
