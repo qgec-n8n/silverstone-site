@@ -33,6 +33,7 @@
   <link rel="icon" href="favicon.ico" sizes="any" />
   <!-- Core site styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/navigation.css">
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
   <link rel="stylesheet" href="assets/css/parallax-fix.css">
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
@@ -144,7 +145,21 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html" class="active">About</a></li>
-          <li><a href="services.html">Services</a></li>
+          <li class="has-dropdown">
+            <button class="services-toggle" aria-expanded="false">Services <span class="chevron">▾</span></button>
+            <ul class="dropdown-menu">
+              <li><a href="services.html">General</a></li>
+              <li><a href="niches/real-estate.html">Real Estate</a></li>
+              <li><a href="niches/hospitality.html">Hospitality</a></li>
+              <li><a href="niches/salons.html">Salons</a></li>
+              <li><a href="niches/trades.html">Trades</a></li>
+              <li><a href="niches/ecommerce.html">eCommerce</a></li>
+              <li><a href="niches/physios-chiropractors.html">Physios &amp; Chiropractors</a></li>
+              <li><a href="niches/dentists.html">Dentists</a></li>
+              <li><a href="niches/gym-owners.html">Gym Owners</a></li>
+              <li><a href="niches/fitness-influencers-online-coaches.html">Fitness Influencers &amp; Coaches</a></li>
+            </ul>
+          </li>
           <li><a href="book.html">Book</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
