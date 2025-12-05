@@ -87,6 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const navItemServices = document.querySelector('.nav-item-services');
+  const servicesTrigger = document.querySelector('.services-trigger');
+  const servicesDropdown = document.querySelector('.services-dropdown');
+  const servicesLinks = servicesDropdown ? Array.from(servicesDropdown.querySelectorAll('.services-link')) : [];
+  let servicesDropdownOpen = false;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -149,16 +154,55 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if ((navMenu && navMenu.classList.contains('open')) || servicesDropdownOpen) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
   function scheduleHeaderAutoHide(delay = 1200) {
     clearTimeout(headerAutoHideTimeoutId);
     headerAutoHideTimeoutId = window.setTimeout(() => {
-      // Do not hide while the menu is open
-      if (navMenu && navMenu.classList.contains('open')) return;
+      // Do not hide while the menu or services dropdown is open
+      if ((navMenu && navMenu.classList.contains('open')) || servicesDropdownOpen) return;
       hideHeader();
     }, delay);
+  }
+
+  function lockHeaderForServices() {
+    clearTimeout(headerAutoHideTimeoutId);
+    showHeader();
+    if (header) {
+      header.classList.add('services-locked');
+    }
+  }
+
+  function openServicesDropdown() {
+    if (!servicesTrigger || !servicesDropdown || !navItemServices) return;
+    servicesDropdownOpen = true;
+    navItemServices.classList.add('open');
+    servicesDropdown.classList.add('open');
+    servicesTrigger.classList.add('active');
+    servicesTrigger.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('services-dropdown-open');
+    if (navMenu && isMobileViewport()) {
+      navMenu.classList.add('services-panel-open');
+      navMenu.classList.add('open');
+    }
+    lockHeaderForServices();
+  }
+
+  function closeServicesDropdown({ allowAutoHide = true } = {}) {
+    if (!servicesDropdownOpen) return;
+    servicesDropdownOpen = false;
+    if (navItemServices) navItemServices.classList.remove('open');
+    if (servicesDropdown) servicesDropdown.classList.remove('open');
+    if (servicesTrigger) {
+      servicesTrigger.classList.remove('active');
+      servicesTrigger.setAttribute('aria-expanded', 'false');
+    }
+    document.body.classList.remove('services-dropdown-open');
+    if (navMenu) navMenu.classList.remove('services-panel-open');
+    if (header) header.classList.remove('services-locked');
+    if (allowAutoHide) scheduleHeaderAutoHide();
   }
 
   /*
@@ -170,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function openNavMenu() {
     if (!navMenu || !navToggle) return;
+    closeServicesDropdown({ allowAutoHide: false });
     clearTimeout(headerAutoHideTimeoutId);
     previousScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     navMenu.classList.add('open');
@@ -187,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeServicesDropdown({ allowAutoHide: false });
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -218,6 +264,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (servicesTrigger && servicesDropdown) {
+    servicesTrigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (servicesDropdownOpen) {
+        closeServicesDropdown();
+      } else {
+        openServicesDropdown();
+      }
+    });
+  }
+
+  servicesLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      closeServicesDropdown({ allowAutoHide: !isMobileViewport() });
+      if (isMobileViewport()) {
+        closeNavMenu();
+      }
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!servicesDropdownOpen) return;
+    if (navItemServices && navItemServices.contains(event.target)) return;
+    closeServicesDropdown();
+  });
+
   if (navBackButton) {
     navBackButton.addEventListener('click', (event) => {
       event.preventDefault();
@@ -232,6 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Allow tapping or clicking the indicator bar to toggle the menu.
   headerIndicator.addEventListener('click', (event) => {
     event.stopPropagation();
+    if (servicesDropdownOpen) {
+      closeServicesDropdown({ allowAutoHide: false });
+    }
     // If essential elements are missing, simply reschedule the header auto hide
     if (!navToggle || !navMenu) {
       scheduleHeaderAutoHide();
@@ -280,6 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (!isMobileViewport()) return;
     if (navMenu && navMenu.classList.contains('open')) return;
+    if (servicesDropdownOpen) return;
     clearTimeout(headerAutoHideTimeoutId);
     hideHeader();
   }, { passive: true });

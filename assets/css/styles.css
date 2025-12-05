@@ -458,3 +458,99 @@ background: none !important;
   }
 }
 .hero img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+
+/* Premium Services dropdown styling */
+.nav-item-services {
+  position: relative;
+}
+
+.services-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: inherit;
+  font: inherit;
+  letter-spacing: 0.02em;
+  padding: 0.45rem 0.95rem;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.services-trigger .services-label {
+  display: inline-block;
+}
+
+.services-trigger .nav-arrow {
+  font-size: 0.85rem;
+  transform: translateY(1px);
+  transition: transform 0.2s ease;
+}
+
+.nav-item-services.open .nav-arrow {
+  transform: translateY(1px) rotate(180deg);
+}
+
+.services-trigger:hover,
+.services-trigger:focus-visible,
+.services-trigger.active {
+  color: var(--color-green);
+  border-color: rgba(71, 255, 178, 0.5);
+  background: radial-gradient(circle at 20% 20%, rgba(71, 255, 178, 0.15), transparent 55%);
+  outline: none;
+}
+
+.services-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.85rem);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 260px;
+  background: rgba(6, 9, 20, 0.96);
+  border: 1px solid rgba(71, 255, 178, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 0 25px rgba(71, 255, 178, 0.18);
+  border-radius: 1rem;
+  padding: 1rem;
+  z-index: 1500;
+}
+
+.nav-item-services.open .services-dropdown,
+body.services-dropdown-open .services-dropdown {
+  display: block;
+}
+
+.services-dropdown-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+}
+
+.services-link {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, rgba(71, 255, 178, 0.08), rgba(103, 154, 255, 0.12));
+  color: var(--color-white);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+  text-align: left;
+}
+
+.services-link:hover,
+.services-link:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+  border-color: rgba(71, 255, 178, 0.6);
+  background: linear-gradient(135deg, rgba(71, 255, 178, 0.18), rgba(103, 154, 255, 0.22));
+  outline: none;
+}
+
+header.site-header.services-locked {
+  transition: none;
+}
