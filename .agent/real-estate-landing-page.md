@@ -456,6 +456,8 @@ Outcome: A polished Real Estate niche landing page fully integrated into the sit
 
 ## Concrete Steps
 
+This section is the primary execution guide for agents started under a system prompt that auto-runs `.agent/plans/real-estate-landing-page.md`: begin at step 1 and proceed in order, updating `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` as you advance.
+
 This section translates the plan into specific actions and commands. Commands are examples; adjust file paths as discovered.
 
 ### 1. Explore the repo
