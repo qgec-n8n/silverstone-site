@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector(`link[href*="${href}"]`)) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `./${href}`;
+    link.href = href.startsWith('/') ? href : `/${href}`;
     document.head.appendChild(link);
   };
   // Load custom overrides and mobile styles.  The mobile overrides are
@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const serviceDropdowns = document.querySelectorAll('.nav-services');
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -144,6 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
    * occurs.  These functions also ensure any existing auto‑hide
    * schedules are cleared.
    */
+  const isServicesDropdownOpen = () =>
+    Array.from(serviceDropdowns).some((dropdown) => dropdown.classList.contains('open'));
+
   function showHeader() {
     if (header) header.classList.remove('header-hidden');
     headerIndicator.classList.remove('active');
@@ -155,8 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function scheduleHeaderAutoHide(delay = 1200) {
     clearTimeout(headerAutoHideTimeoutId);
     headerAutoHideTimeoutId = window.setTimeout(() => {
-      // Do not hide while the menu is open
+      // Do not hide while the menu or dropdown is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (isServicesDropdownOpen()) return;
       hideHeader();
     }, delay);
   }
@@ -187,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeAllDropdowns();
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -217,6 +223,70 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  function closeAllDropdowns() {
+    serviceDropdowns.forEach((dropdown) => {
+      dropdown.classList.remove('open');
+      const toggle = dropdown.querySelector('.dropdown-toggle');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  const bindDropdown = (dropdown) => {
+    const toggle = dropdown.querySelector('.dropdown-toggle');
+    const menuLinks = dropdown.querySelectorAll('.dropdown-menu a');
+    if (!toggle) return;
+
+    const openDropdown = () => {
+      closeAllDropdowns();
+      dropdown.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+    };
+
+    const closeDropdown = () => {
+      dropdown.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+
+    toggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (dropdown.classList.contains('open')) {
+        closeDropdown();
+        scheduleHeaderAutoHide();
+      } else {
+        openDropdown();
+      }
+    });
+
+    dropdown.addEventListener('mouseenter', () => {
+      if (!isMobileViewport()) openDropdown();
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      closeDropdown();
+      scheduleHeaderAutoHide();
+    });
+
+    menuLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        closeDropdown();
+        scheduleHeaderAutoHide();
+      });
+    });
+  };
+
+  serviceDropdowns.forEach((dropdown) => bindDropdown(dropdown));
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.nav-services')) {
+      closeAllDropdowns();
+      scheduleHeaderAutoHide();
+    }
+  });
 
   if (navBackButton) {
     navBackButton.addEventListener('click', (event) => {
@@ -265,7 +335,10 @@ document.addEventListener('DOMContentLoaded', () => {
   headerIndicator.addEventListener('mouseenter', showHeader);
   if (header) {
     header.addEventListener('mouseenter', showHeader);
-    header.addEventListener('mouseleave', hideHeader);
+    header.addEventListener('mouseleave', () => {
+      if (isServicesDropdownOpen()) return;
+      hideHeader();
+    });
     // On mobile tapping the header schedules another auto hide if the
     // menu is not open.  This provides a short grace period for users
     // to reopen the overlay after revealing the header.

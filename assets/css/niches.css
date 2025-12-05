@@ -1,0 +1,136 @@
+/* Niche landing page enhancements */
+.niche-hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.niche-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: start;
+}
+
+.niche-image-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.niche-image-grid img {
+  width: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.icon-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.icon-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  color: var(--color-silver);
+  margin-bottom: 0.5rem;
+}
+
+.icon-list i {
+  color: var(--color-green);
+  font-size: 1.1rem;
+  margin-top: 0.15rem;
+}
+
+.niche-pack-grid,
+.niche-proof-grid,
+.niche-process-grid,
+.niche-faq-grid,
+.niche-chooser-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.niche-pack-grid .neon-card,
+.niche-proof-grid .neon-card,
+.niche-process-grid .neon-card,
+.niche-faq-grid .neon-card,
+.niche-chooser-grid .neon-card {
+  height: 100%;
+}
+
+.niche-pack-grid h3,
+.niche-proof-grid h3,
+.niche-process-grid h3,
+.niche-faq-grid h3,
+.niche-chooser-grid h3 {
+  color: var(--color-blue);
+  margin-bottom: 0.35rem;
+}
+
+.niche-pack-grid p,
+.niche-proof-grid p,
+.niche-process-grid p,
+.niche-faq-grid p,
+.niche-chooser-grid p {
+  color: var(--color-silver);
+  margin-bottom: 0.5rem;
+}
+
+.niche-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 2.5rem 0 1.5rem;
+}
+
+.niche-breadcrumb {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-silver);
+  font-weight: 600;
+}
+
+.niche-breadcrumb i {
+  color: var(--color-green);
+}
+
+.niche-section-heading {
+  margin-bottom: 0.5rem;
+}
+
+.niche-subtitle {
+  color: var(--color-silver);
+  margin-bottom: 1.25rem;
+}
+
+.niche-cta-center {
+  text-align: center;
+  margin: 2rem 0 1rem;
+}
+
+.niche-cta-center .btn {
+  margin: 0.35rem;
+}
+
+.niche-cta-banner {
+  background: linear-gradient(135deg, rgba(0, 174, 239, 0.14), rgba(0, 255, 157, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.75rem;
+}
+
+.niche-cta-banner h3 {
+  margin-top: 0;
+  color: var(--color-blue);
+}
+
+.niche-cta-banner p {
+  color: var(--color-silver);
+}
+

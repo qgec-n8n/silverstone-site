@@ -118,6 +118,98 @@ html {
   min-height: 100vh;
 }
 
+/* Services dropdown styling shared across pages */
+.nav-services {
+  position: relative;
+}
+
+.nav-services .dropdown-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0;
+}
+
+.nav-services .caret {
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-services.open .caret {
+  transform: rotate(180deg);
+}
+
+.nav-services .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(18, 22, 35, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.5rem 0;
+  min-width: 230px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 1200;
+}
+
+.nav-services.open .dropdown-menu,
+.nav-services:hover .dropdown-menu,
+.nav-services:focus-within .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-services .dropdown-menu li {
+  list-style: none;
+}
+
+.nav-services .dropdown-menu a {
+  display: block;
+  padding: 0.65rem 1rem;
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.nav-services .dropdown-menu a:hover,
+.nav-services .dropdown-menu a:focus {
+  background: rgba(0, 174, 239, 0.15);
+  color: var(--color-green);
+}
+
+@media (max-width: 900px) {
+  .nav-services .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0.25rem 0 0.5rem;
+  }
+
+  .nav-services .dropdown-menu a {
+    padding-left: 1.1rem;
+    color: var(--color-blue);
+  }
+
+  .nav-services .dropdown-toggle {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.65rem 0;
+  }
+}
+
 @media (min-width: 769px) {
   .service-row {
     display: grid !important;
