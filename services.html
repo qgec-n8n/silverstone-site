@@ -30,6 +30,7 @@
     rel="stylesheet" />
   <link rel="icon" href="favicon.ico" sizes="any" />
   <link href="assets/css/styles.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/nav-overrides.css" />
   <link href="assets/css/custom-styles.css" rel="stylesheet" />
   <link href="assets/css/services.css" rel="stylesheet" />
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
@@ -92,7 +93,7 @@
   </div>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="index.html">
+      <a class="logo" href="/">
         <img alt="Silverstone Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
           srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x" />
       </a>
@@ -101,11 +102,25 @@
       </div>
       <nav>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a class="active" href="services.html">Services</a></li>
-          <li><a href="book.html">Book</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li class="has-dropdown"><a class="nav-parent active" href="/services.html">Services</a><button class="dropdown-toggle"
+              aria-expanded="false" aria-label="Toggle Services menu"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a class="active" href="/services.html">General</a></li>
+              <li><a href="/niches/real-estate-agents.html">Estate Agents</a></li>
+              <li><a href="/niches/hospitality.html">Hospitality</a></li>
+              <li><a href="/niches/salons-barbers.html">Salons &amp; Barbers</a></li>
+              <li><a href="/niches/trades.html">Trades</a></li>
+              <li><a href="/niches/ecommerce.html">eCommerce</a></li>
+              <li><a href="/niches/physio-chiro.html">Physios &amp; Chiropractors</a></li>
+              <li><a href="/niches/dentists.html">Dentists</a></li>
+              <li><a href="/niches/gyms-fitness.html">Gyms &amp; Fitness Studios</a></li>
+              <li><a href="/niches/fitness-influencers.html">Fitness Influencers &amp; Coaches</a></li>
+            </ul>
+          </li>
+          <li><a href="/book.html">Book</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
