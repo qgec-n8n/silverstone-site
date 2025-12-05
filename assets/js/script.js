@@ -715,21 +715,21 @@ document.addEventListener('DOMContentLoaded', () => {
     lines: {
       backgroundColor: '#050B18',
       mobileImages: {
-        fallback: "url('assets/images/internet/mobile/section-abstract-lines@1x.webp')",
+        fallback: "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
         standard:
-          "image-set(url('assets/images/internet/mobile/section-abstract-lines@1x.webp') 1x, url('assets/images/internet/mobile/section-abstract-lines@2x.webp') 2x, url('assets/images/internet/mobile/section-abstract-lines@3x.webp') 3x)",
+          "image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
         webkit:
-          "-webkit-image-set(url('assets/images/internet/mobile/section-abstract-lines@1x.webp') 1x, url('assets/images/internet/mobile/section-abstract-lines@2x.webp') 2x, url('assets/images/internet/mobile/section-abstract-lines@3x.webp') 3x)",
+          "-webkit-image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
       },
     },
     circuit: {
       backgroundColor: '#050B18',
       mobileImages: {
-        fallback: "url('assets/images/internet/mobile/section-circuit@1x.webp')",
+        fallback: "url('assets/images/internet/mobile/section-waves@1x.webp')",
         standard:
-          "image-set(url('assets/images/internet/mobile/section-circuit@1x.webp') 1x, url('assets/images/internet/mobile/section-circuit@2x.webp') 2x, url('assets/images/internet/mobile/section-circuit@3x.webp') 3x)",
+          "image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
         webkit:
-          "-webkit-image-set(url('assets/images/internet/mobile/section-circuit@1x.webp') 1x, url('assets/images/internet/mobile/section-circuit@2x.webp') 2x, url('assets/images/internet/mobile/section-circuit@3x.webp') 3x)",
+          "-webkit-image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
       },
     },
     mesh: {
