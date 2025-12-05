@@ -88,6 +88,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
 
+  const servicesDropdown = document.querySelector('.nav-dropdown');
+  const servicesToggle = document.querySelector('.services-toggle');
+  const servicesMenu = document.querySelector('.services-menu');
+  const servicesOverlay = document.querySelector('.services-overlay');
+  const servicesOverlayBack = servicesOverlay ? servicesOverlay.querySelector('.services-overlay__back') : null;
+  const serviceLinks = document.querySelectorAll('.service-link');
+
+  let servicesDropdownOpen = false;
+
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
     const navBackItem = document.createElement('li');
@@ -149,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (servicesDropdownOpen || (servicesOverlay && servicesOverlay.classList.contains('active'))) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
@@ -157,8 +167,54 @@ document.addEventListener('DOMContentLoaded', () => {
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (servicesDropdownOpen || (servicesOverlay && servicesOverlay.classList.contains('active'))) return;
       hideHeader();
     }, delay);
+  }
+
+  const isServicesOverlayActive = () =>
+    servicesOverlay && servicesOverlay.classList.contains('active');
+
+  function openServicesDropdown() {
+    if (!servicesDropdown || !servicesMenu || isMobileViewport()) return;
+    clearTimeout(headerAutoHideTimeoutId);
+    servicesDropdown.classList.add('open');
+    servicesMenu.setAttribute('aria-hidden', 'false');
+    if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'true');
+    servicesDropdownOpen = true;
+    body.classList.add('services-dropdown-open');
+    showHeader();
+  }
+
+  function closeServicesDropdown() {
+    if (!servicesDropdown || !servicesMenu) return;
+    servicesDropdown.classList.remove('open');
+    servicesMenu.setAttribute('aria-hidden', 'true');
+    if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'false');
+    servicesDropdownOpen = false;
+    body.classList.remove('services-dropdown-open');
+    if (!isServicesOverlayActive() && !(navMenu && navMenu.classList.contains('open'))) {
+      scheduleHeaderAutoHide();
+    }
+  }
+
+  function openServicesOverlay() {
+    if (!servicesOverlay || !isMobileViewport()) return;
+    clearTimeout(headerAutoHideTimeoutId);
+    servicesOverlay.classList.add('active');
+    servicesOverlay.setAttribute('aria-hidden', 'false');
+    body.classList.add('services-overlay-active');
+    showHeader();
+  }
+
+  function closeServicesOverlay() {
+    if (!servicesOverlay) return;
+    servicesOverlay.classList.remove('active');
+    servicesOverlay.setAttribute('aria-hidden', 'true');
+    body.classList.remove('services-overlay-active');
+    if (!(navMenu && navMenu.classList.contains('open'))) {
+      scheduleHeaderAutoHide();
+    }
   }
 
   /*
@@ -170,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function openNavMenu() {
     if (!navMenu || !navToggle) return;
+    closeServicesDropdown();
     clearTimeout(headerAutoHideTimeoutId);
     previousScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     navMenu.classList.add('open');
@@ -181,6 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
     showHeader();
   }
   function closeNavMenu() {
+    closeServicesOverlay();
+    closeServicesDropdown();
     if (navMenu && navMenu.classList.contains('open')) {
       navMenu.classList.remove('open');
     }
@@ -199,6 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navToggle && navMenu) {
     navToggle.addEventListener('click', (event) => {
       event.stopPropagation();
+      closeServicesDropdown();
+      closeServicesOverlay();
       if (navMenu.classList.contains('open')) {
         closeNavMenu();
       } else {
@@ -222,6 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
     navBackButton.addEventListener('click', (event) => {
       event.preventDefault();
       event.stopPropagation();
+      closeServicesOverlay();
+      closeServicesDropdown();
       closeNavMenu();
       if (navToggle) {
         navToggle.focus();
@@ -229,9 +292,62 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (servicesToggle) {
+    servicesToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (isMobileViewport()) {
+        if (!navMenu || !navMenu.classList.contains('open')) {
+          openNavMenu();
+        }
+        if (isServicesOverlayActive()) {
+          closeServicesOverlay();
+        } else {
+          openServicesOverlay();
+        }
+      } else {
+        if (servicesDropdownOpen) {
+          closeServicesDropdown();
+        } else {
+          openServicesDropdown();
+        }
+      }
+    });
+  }
+
+  if (servicesOverlayBack) {
+    servicesOverlayBack.addEventListener('click', (event) => {
+      event.preventDefault();
+      closeServicesOverlay();
+    });
+  }
+
+  if (serviceLinks.length) {
+    serviceLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        closeServicesDropdown();
+        closeServicesOverlay();
+        if (isMobileViewport() && navMenu && navMenu.classList.contains('open')) {
+          closeNavMenu();
+        }
+      });
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    if (servicesDropdownOpen && servicesDropdown && !servicesDropdown.contains(event.target)) {
+      closeServicesDropdown();
+    }
+    if (isServicesOverlayActive() && servicesOverlay && event.target === servicesOverlay) {
+      closeServicesOverlay();
+    }
+  });
+
   // Allow tapping or clicking the indicator bar to toggle the menu.
   headerIndicator.addEventListener('click', (event) => {
     event.stopPropagation();
+    closeServicesDropdown();
+    closeServicesOverlay();
     // If essential elements are missing, simply reschedule the header auto hide
     if (!navToggle || !navMenu) {
       scheduleHeaderAutoHide();
@@ -280,6 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (!isMobileViewport()) return;
     if (navMenu && navMenu.classList.contains('open')) return;
+    if (servicesDropdownOpen || isServicesOverlayActive()) return;
     clearTimeout(headerAutoHideTimeoutId);
     hideHeader();
   }, { passive: true });
