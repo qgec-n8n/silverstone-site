@@ -1,138 +1,111 @@
-<!-- .agent/PLANS.md -->
+# PLANS.md — ExecPlans for this repo
 
-# Codex Execution Plans (ExecPlans) for `silverstone-site`
+This file defines how to create and maintain **ExecPlans**: living execution documents that Codex and humans can use to implement multi-step work in this repository.
 
-This document defines how to write and maintain ExecPlans in this repository. ExecPlans are **living design documents** that describe what to build, how to build it, and how to prove it works. A new engineer with only the ExecPlan and the repo should be able to complete the work.
+ExecPlans follow the pattern described in the OpenAI Cookbook article “Using PLANS.md for multi-hour problem solving (ExecPlans and PLANS.md)” and are tailored here to this codebase and to the Real Estate niche landing page work. :contentReference[oaicite:0]{index=0}
 
-## How to use this file
 
-When a prompt or `AGENTS.md` tells you to “use an ExecPlan”:
+---
 
-1. Read this `PLANS.md` from top to bottom.
-2. Create or update a single ExecPlan Markdown file at the repository root, named for the task, for example:
+## 1. What is an ExecPlan?
 
-   - `ExecPlan-first-niche-and-nav.md`
+An **ExecPlan** is a single Markdown file that:
 
-3. Follow the skeleton below. Unless explicitly stated otherwise, **every section is required**.
-4. Keep the sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` in sync with the actual work as you go.
-5. Implement the code according to the ExecPlan. If you change direction, update the plan first and record the decision.
+- Describes a concrete, non-trivial piece of work in this repo (e.g. “Estate Agents Niche Landing Page”).
+- Orients a complete newcomer to:
+  - What we are trying to achieve.
+  - Where in the repo the relevant code lives.
+  - How to run the project, validate behavior, and visually inspect the result.
+- Breaks the work into **milestones** and **checklisted steps** with observable outcomes.
+- Is kept up-to-date as the work happens (progress, surprises, decisions, and final outcomes).
 
-## Non‑negotiable requirements
+ExecPlans are written for both:
 
-- Every ExecPlan must be **self‑contained**: it contains all context required to implement the task.
-- Every ExecPlan is a **living document**: update it when you complete a step, discover something new, or change a design decision.
-- ExecPlans must describe **behaviour**, not just code. They must explain what a human can see or do after the change and how to verify it.
-- ExecPlans must be safe to follow multiple times: prefer additive changes, clear validation commands, and rollback guidance where needed.
+- **Codex** (to plan, execute, and justify multi-step changes).
+- **Humans** (to understand what was done and how to continue or revisit it later).
 
-## Skeleton of a good ExecPlan
 
-Use this skeleton for all ExecPlans in this repo. When writing to a `.md` file, **omit** the outer ```md fence.
+---
+
+## 2. Where ExecPlans live and how to name them
+
+- Store all ExecPlans under:
+
+  - `.agent/exec-plans/`
+
+- File naming convention:
+
+  - `YYYY-MM-DD_short-slug.md`
+
+- Examples:
+
+  - `.agent/exec-plans/2025-01-10_estate-agents-landing-page.md`
+  - `.agent/exec-plans/2025-01-10_design-system-refactor-neon-cards.md`
+
+- One ExecPlan should cover one coherent piece of work. A large project may have multiple ExecPlans (e.g., “estate-agents-page_v1”, “estate-agents-page_AB-testing”, etc.) if phases are meaningfully separate.
+
+
+---
+
+## 3. When to create or update an ExecPlan
+
+Create or update an ExecPlan when:
+
+1. **Designing or significantly changing the Real Estate niche landing page**  
+   - Any work that:
+     - Adds the `/niches/estate-agents` (or equivalent) route/page.
+     - Reworks hero, proof strips, FAQ, CTA, or other major landing page sections.
+     - Involves coordinating multiple files (HTML/JSX, CSS, JS, assets) for this page.
+
+2. **Multi-file layout or design-system work**
+   - Refactoring hero layouts, neon cards, stats cards, value cards, FAQ accordion behavior, navbar, or footers.
+   - Changes that span multiple pages (index, about, book, niches, shared layouts, etc.).
+
+3. **Any task expected to take more than a few tool calls**
+   - If the work is multi-step, non-trivial, or easy to get lost in, use an ExecPlan.
+
+You usually **do NOT** need an ExecPlan for:
+
+- A small, single-file bug fix.
+- A tiny copy tweak on one page.
+- Adding a single CSS rule that is clearly localized and low-risk.
+
+When in doubt, prefer creating a short ExecPlan; they are cheap and keep work legible.
+
+
+---
+
+## 4. Required sections of an ExecPlan
+
+Every ExecPlan must include the following sections, in this order.
+
+You may add subsections, but do not remove or rename these headings.
 
 ```md
-# <Short, action-oriented description>
+# ExecPlan: <short descriptive title>
 
-This ExecPlan is a living document. Keep `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` updated as you work. Maintain it in accordance with `.agent/PLANS.md`.
+- **Status**: Draft | In Progress | Complete
+- **Owner**: Codex
+- **Created**: <YYYY-MM-DD>
+- **Last Updated**: <YYYY-MM-DD>
+- **Related Issues / Tickets**: <links or “N/A”>
 
-## Purpose / Big Picture
+## 1. Purpose / Big Picture
 
-Explain in a few sentences what this change enables for a Silverstone AI visitor and how they can see it working (for example, “a visitor can open the Services dropdown, keep it open while the header shrinks on scroll, and navigate to the <Niche> page”).
+## 2. Context & Orientation for This Repo
 
-## Progress
+## 3. Constraints, Risks & Non-Goals
 
-Use a checklist with timestamps. Every stopping point must be reflected here.
+## 4. Plan of Work (Milestones)
 
-- [ ] (YYYY-MM-DD hh:mmZ) Initial codebase orientation and design reference notes.
-- [ ] (YYYY-MM-DD hh:mmZ) First implementation of navigation dropdown.
-- [ ] (YYYY-MM-DD hh:mmZ) First implementation of <Niche> landing page.
-- [ ] (YYYY-MM-DD hh:mmZ) Refinement pass on navigation and niche page after visual QA.
-- [ ] (YYYY-MM-DD hh:mmZ) Final verification on all affected pages.
+## 5. Concrete Steps (Checklist)
 
-Update this section **as you go**, splitting steps as needed into “completed” and “remaining”.
+## 6. Progress Log
 
-## Surprises & Discoveries
+## 7. Surprises & Discoveries
 
-Record unexpected behaviours, bugs, design quirks, and research findings. Include short evidence snippets (for example, relevant HTML/CSS excerpts, screenshots references, or console output).
+## 8. Decision Log
 
-## Decision Log
+## 9. Validation & Acceptance Criteria
 
-Record each decision in the format:
-
-- Decision: …
-  Rationale: …
-  Date/Author: …
-
-Include changes in navigation behaviour, design trade‑offs, and copy tone.
-
-## Outcomes & Retrospective
-
-Summarise what was achieved, what remains, and any lessons that would help the next contributor. Compare outcomes to the original Purpose.
-
-## Context and Orientation
-
-Describe the current state relevant to this task as if the reader knows nothing about the repo. Name key files and paths explicitly, such as:
-
-- `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`
-- any existing niche pages (if present)
-- stylesheets under `assets/css/…`
-- JavaScript controlling header minimising / navigation behaviour and any mobile menu.
-
-Explain:
-
-- how the header, menus, CTA banners, innovation gallery, marquees, cookie banner, and footer currently behave;
-- which page(s) contain the best‑looking cards, bullet lists, and CTA banners; and
-- where those components are defined in HTML and CSS.
-
-## Plan of Work
-
-Describe, in prose, the sequence of edits you will make. For each edit, name:
-
-- the file (with repository‑relative path),
-- the approximate location (for example, “main nav bar markup in header”), and
-- what will change (for example, “wrap Services in a dropdown trigger and add a menu overlay”).
-
-Keep the plan focused on **user‑visible behaviour** and layout, not incidental implementation details.
-
-## Concrete Steps
-
-List the exact commands to run (for example:
-
-- starting a dev server or `live-server` preview,
-- running a linter or formatter,
-
-and where to run them. Show short expected outputs so a reader can recognise success.
-
-## Validation and Acceptance
-
-Describe how to manually exercise the feature in a browser, for example:
-
-- open `index.html`, `about.html`, `services.html`, and the new niche page in a browser;
-- scroll until the header minimises;
-- open the Services dropdown, move the cursor between the menu bar and dropdown, and confirm:
-  - the header does **not** collapse while the dropdown is open;
-  - the word “Services” remains visible;
-  - all links in the dropdown are reachable and hoverable.
-
-Include validation steps for:
-
-- bullet icons (every bullet in iconised lists shows an icon),
-- CTA banners (consistent style on `index.html`, `about.html`, `services.html`, and the new niche page),
-- innovation gallery and marquees (no extra backgrounds or offsets),
-- cookie banner and footer (unchanged structure and styling),
-- images on the new niche page (fully visible and harmoniously integrated).
-
-## Idempotence and Recovery
-
-Document which steps are safe to repeat and how to recover if a step is interrupted. Prefer additive, reversible changes and keep manual instructions simple.
-
-## Artifacts and Notes
-
-Include small but important diffs, HTML snippets, command transcripts, or textual descriptions of screenshots that help future readers understand the implementation. Keep them concise and focused on what proves success.
-
-## Interfaces and Dependencies
-
-Call out any new or modified JavaScript functions, CSS classes, or HTML structures that other features will rely on, for example:
-
-- a CSS class that keeps the header expanded while the Services dropdown is open;
-- a data attribute used by JavaScript to detect the chosen niche page.
-
-Name files and selectors precisely.
+## 10. Outcomes & Retrospective
