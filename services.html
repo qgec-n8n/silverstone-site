@@ -103,7 +103,44 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a class="active" href="services.html">Services</a></li>
+          <li class="nav-item nav-item--services">
+            <button class="services-trigger active" type="button" aria-expanded="false">
+              <span class="services-label">Services</span>
+              <i class="fa-solid fa-chevron-down services-arrow" aria-hidden="true"></i>
+            </button>
+            <div class="services-dropdown" role="menu">
+              <a href="services.html" class="service-link" data-service="general">General</a>
+              <a href="services.html#estate-agents" class="service-link" data-service="estate-agents">Estate Agents</a>
+              <a href="services.html#hospitality" class="service-link" data-service="hospitality">Hospitality</a>
+              <a href="services.html#salons-barbers" class="service-link" data-service="salons">Salons &amp; Barbers</a>
+              <a href="services.html#trades-field-services" class="service-link" data-service="trades">Trades &amp; Field Services</a>
+              <a href="services.html#ecommerce" class="service-link" data-service="ecommerce">eCommerce Brands</a>
+              <a href="services.html#physios-chiropractors" class="service-link" data-service="physios">Physios &amp; Chiropractors</a>
+              <a href="services.html#dentists" class="service-link" data-service="dentists">Dentists</a>
+              <a href="services.html#gyms-fitness" class="service-link" data-service="gyms">Gyms &amp; Fitness Studios</a>
+              <a href="services.html#fitness-influencers" class="service-link" data-service="influencers">Fitness Influencers &amp; Online Coaches</a>
+            </div>
+            <div class="services-mobile-panel" aria-hidden="true">
+              <div class="services-mobile-header">
+                <span class="services-mobile-title">Services</span>
+                <button class="services-mobile-close" type="button" aria-label="Close services menu">
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="services-mobile-grid">
+                <a href="services.html" class="service-pill" data-service="general">General</a>
+                <a href="services.html#estate-agents" class="service-pill" data-service="estate-agents">Estate Agents</a>
+                <a href="services.html#hospitality" class="service-pill" data-service="hospitality">Hospitality</a>
+                <a href="services.html#salons-barbers" class="service-pill" data-service="salons">Salons &amp; Barbers</a>
+                <a href="services.html#trades-field-services" class="service-pill" data-service="trades">Trades &amp; Field Services</a>
+                <a href="services.html#ecommerce" class="service-pill" data-service="ecommerce">eCommerce Brands</a>
+                <a href="services.html#physios-chiropractors" class="service-pill" data-service="physios">Physios &amp; Chiropractors</a>
+                <a href="services.html#dentists" class="service-pill" data-service="dentists">Dentists</a>
+                <a href="services.html#gyms-fitness" class="service-pill" data-service="gyms">Gyms &amp; Fitness Studios</a>
+                <a href="services.html#fitness-influencers" class="service-pill" data-service="influencers">Fitness Influencers &amp; Online Coaches</a>
+              </div>
+            </div>
+          </li>
           <li><a href="book.html">Book</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>

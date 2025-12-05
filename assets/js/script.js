@@ -87,6 +87,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesItem = document.querySelector('.nav-item--services');
+  const servicesTrigger = servicesItem
+    ? servicesItem.querySelector('.services-trigger')
+    : null;
+  const servicesDropdown = servicesItem
+    ? servicesItem.querySelector('.services-dropdown')
+    : null;
+  const servicesMobilePanel = servicesItem
+    ? servicesItem.querySelector('.services-mobile-panel')
+    : null;
+  const servicesMobileClose = servicesMobilePanel
+    ? servicesMobilePanel.querySelector('.services-mobile-close')
+    : null;
+  let servicesDropdownOpen = false;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -149,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (servicesDropdownOpen) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
@@ -157,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (servicesDropdownOpen) return;
       hideHeader();
     }, delay);
   }
@@ -181,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showHeader();
   }
   function closeNavMenu() {
+    closeServicesDropdown({ immediate: true, skipAutoHide: true });
     if (navMenu && navMenu.classList.contains('open')) {
       navMenu.classList.remove('open');
     }
@@ -191,6 +208,50 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
     scheduleHeaderAutoHide();
+  }
+
+  const handleServicesOutsideClick = (event) => {
+    if (!servicesItem || !servicesDropdownOpen) return;
+    if (servicesItem.contains(event.target)) return;
+    closeServicesDropdown({ immediate: true });
+  };
+
+  function closeServicesDropdown({ immediate = false, skipAutoHide = false } = {}) {
+    if (!servicesItem) return;
+    servicesDropdownOpen = false;
+    servicesItem.classList.remove('services-open');
+    servicesTrigger?.setAttribute('aria-expanded', 'false');
+    servicesMobilePanel?.classList.remove('services-mobile-open');
+    servicesMobilePanel?.setAttribute('aria-hidden', 'true');
+    document.removeEventListener('click', handleServicesOutsideClick, true);
+    if (skipAutoHide) return;
+    if (!isMobileViewport()) {
+      scheduleHeaderAutoHide(immediate ? 200 : 1200);
+    }
+  }
+
+  function openServicesDropdown() {
+    if (!servicesItem || !servicesTrigger || !servicesDropdown) return;
+    servicesDropdownOpen = true;
+    servicesItem.classList.add('services-open');
+    servicesTrigger.setAttribute('aria-expanded', 'true');
+    clearTimeout(headerAutoHideTimeoutId);
+    showHeader();
+    document.addEventListener('click', handleServicesOutsideClick, true);
+  }
+
+  function openServicesMobilePanel() {
+    if (!servicesItem || !servicesMobilePanel) return;
+    if (navMenu && !navMenu.classList.contains('open')) {
+      openNavMenu();
+    }
+    servicesDropdownOpen = true;
+    servicesItem.classList.add('services-open');
+    servicesMobilePanel.classList.add('services-mobile-open');
+    servicesMobilePanel.setAttribute('aria-hidden', 'false');
+    servicesTrigger?.setAttribute('aria-expanded', 'true');
+    clearTimeout(headerAutoHideTimeoutId);
+    showHeader();
   }
 
   // Attach event listeners for the hamburger button.  Clicking the
@@ -217,6 +278,69 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  const serviceLinks = servicesItem
+    ? servicesItem.querySelectorAll('.service-link, .service-pill')
+    : [];
+
+  if (servicesTrigger) {
+    servicesTrigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (isMobileViewport()) {
+        if (servicesDropdownOpen) {
+          closeServicesDropdown({ immediate: true });
+        } else {
+          openServicesMobilePanel();
+        }
+        return;
+      }
+
+      if (servicesDropdownOpen) {
+        closeServicesDropdown({ immediate: true });
+      } else {
+        openServicesDropdown();
+      }
+    });
+
+    servicesTrigger.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        servicesTrigger.click();
+      }
+    });
+  }
+
+  if (servicesMobileClose) {
+    servicesMobileClose.addEventListener('click', (event) => {
+      event.preventDefault();
+      closeServicesDropdown({ immediate: true });
+    });
+  }
+
+  serviceLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      closeServicesDropdown({ immediate: true });
+      if (isMobileViewport() && navMenu && navMenu.classList.contains('open')) {
+        closeNavMenu();
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && servicesDropdownOpen) {
+      closeServicesDropdown({ immediate: true });
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (!servicesItem) return;
+    if (!isMobileViewport()) {
+      closeServicesDropdown({ immediate: true });
+    } else if (!navMenu || !navMenu.classList.contains('open')) {
+      closeServicesDropdown({ immediate: true, skipAutoHide: true });
+    }
+  });
 
   if (navBackButton) {
     navBackButton.addEventListener('click', (event) => {
@@ -280,6 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (!isMobileViewport()) return;
     if (navMenu && navMenu.classList.contains('open')) return;
+    if (servicesDropdownOpen) return;
     clearTimeout(headerAutoHideTimeoutId);
     hideHeader();
   }, { passive: true });
