@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estate Agent Automation Services | Silverstone</title>
+  <meta name="description"
+    content="Never miss a viewing or lead again. Silverstone automates estate agency follow-up, lead qualification, and landlord onboarding with productised packs." />
+  <link rel="preload" href="../assets/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" href="../favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/custom-styles.css" />
+</head>
+
+<body class="page-niche page-real-estate">
+  <div id="cookie-banner" class="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; display: none;">
+    <p>
+      We use cookies to improve your browsing experience and to analyse website traffic. By clicking “Accept”, you consent to
+      our use of cookies. For more details, please read our <a href="../privacy-policy.html">Privacy Policy</a>.
+    </p>
+    <div class="cookie-actions">
+      <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+      <button id="cookie-decline-btn" class="btn btn-secondary">Decline</button>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html">
+        <img alt="Silverstone Logo" class="site-logo" src="../assets/logo/silverstone-logo-cropped-whitebg-v2.png"
+          srcset="../assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, ../assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x" />
+      </a>
+      <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li class="nav-item nav-services has-dropdown">
+            <button class="nav-link nav-services-toggle" type="button" aria-expanded="false">
+              Services
+              <span class="nav-caret" aria-hidden="true"></span>
+            </button>
+            <ul class="dropdown-menu services-dropdown">
+              <li><a href="../services.html">General</a></li>
+              <li><a class="active" href="real-estate.html">Estate Agents</a></li>
+            </ul>
+          </li>
+          <li><a href="../book.html">Book</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section class="hero title-band">
+    <div class="hero-media">
+      <canvas id="hero-shader-canvas" data-variant="real-estate"></canvas>
+    </div>
+    <div class="content">
+      <p class="overline">Niche services · Estate agents</p>
+      <h1>Automation that books every viewing and keeps buyers warm.</h1>
+      <p>
+        We connect your phones, portals, WhatsApp and CRM so missed calls, late-night Rightmove leads and landlord paperwork are
+        handled automatically—while you focus on valuations and completions.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;">
+        <a href="../book.html" class="btn btn-primary">Book a Free 30‑Minute Automation Audit</a>
+        <a href="../services.html" class="btn btn-secondary">Back to all services</a>
+      </div>
+      <ul class="hero-bullets">
+        <li><i class="fa-solid fa-phone-volume"></i><span>Instant missed-call text-back with viewing options.</span></li>
+        <li><i class="fa-solid fa-robot"></i><span>Lead qualification trained on your listings and areas.</span></li>
+        <li><i class="fa-solid fa-handshake"></i><span>Landlord onboarding and AML requests automated.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section bg-lines animate parallax-section" data-parallax-theme="lines">
+    <div class="container">
+      <div class="service-row" style="align-items: stretch;">
+        <div class="service-image neon-card">
+          <img src="../assets/images/socialmedia/2-3_realestate_phone-map_never-miss-a-viewing.jpg"
+            alt="Estate agent checking viewing schedule on a phone" loading="lazy" />
+        </div>
+        <div class="service-content neon-card">
+          <h2 class="section-title" style="text-align:left;">Why estate agents call us</h2>
+          <p class="section-subtitle" style="text-align:left; color: var(--color-silver);">
+            The most profitable instructions slip away when teams juggle portal leads, voicemails and compliance admin.
+          </p>
+          <ul class="proof-list">
+            <li><i class="fa-solid fa-bolt"></i><span>Missed calls from portal leads after hours turn into lost viewings.</span></li>
+            <li><i class="fa-solid fa-stopwatch"></i><span>Negotiators spend hours chasing feedback and rebooking viewings.</span></li>
+            <li><i class="fa-solid fa-file-circle-check"></i><span>Manual ID, AML and landlord onboarding slow down instruction go-live.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-circuit animate parallax-section" data-parallax-theme="circuit">
+    <div class="container">
+      <div class="service-row" style="align-items: stretch;">
+        <div class="service-content neon-card">
+          <h2 class="section-title" style="text-align:left;">Never Miss a Viewing Pack</h2>
+          <p class="tagline" style="margin-bottom: 1rem;">Productised services built from our Real Estate catalogue.</p>
+          <ul class="proof-list">
+            <li><i class="fa-solid fa-comments"></i><span>Estate Missed Call Text-Back – instant SMS/WhatsApp replies with viewing slots.</span></li>
+            <li><i class="fa-solid fa-check-double"></i><span>Property Lead Qualification Bot – screens Rightmove/Zoopla leads and pushes to your CRM.</span></li>
+            <li><i class="fa-solid fa-reply"></i><span>Viewing Follow-Up Automation – captures feedback and nurtures warm buyers automatically.</span></li>
+            <li><i class="fa-solid fa-id-card-clip"></i><span>Landlord Onboarding Workflow – digital forms, ID and AML collection without chasing.</span></li>
+          </ul>
+          <a class="btn btn-primary" href="../book.html" style="margin-top: 1rem;">Schedule my automation audit</a>
+        </div>
+        <div class="service-image neon-card">
+          <img src="../assets/images/socialmedia/2-3_realestate_phone-with-property-card_ai-qualifies-your-property-leads.jpg"
+            alt="AI assistant qualifying property leads on mobile" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-waves animate parallax-section" data-parallax-theme="waves">
+    <div class="container">
+      <h2 class="section-title">Proof and benchmarks</h2>
+      <p class="section-subtitle">Transparent, benchmarked outcomes you can sense-check with your team.</p>
+      <div class="service-row" style="align-items: stretch;">
+        <div class="service-image neon-card">
+          <img src="../assets/images/socialmedia/2-3_realestate_phone-with-house-icon_focus-on-the-viewing.jpg"
+            alt="Mobile automation keeping property viewings organised" loading="lazy" />
+        </div>
+        <div class="service-content" style="width:100%;">
+          <div class="proof-grid">
+            <div class="neon-card proof-card">
+              <h3>Response speed</h3>
+              <p class="tagline">Benchmark: sub-2-minute replies to portal leads, even after hours.</p>
+              <ul class="proof-list">
+                <li><i class="fa-solid fa-sparkles"></i><span>Auto-responses hold the lead while negotiators sleep.</span></li>
+                <li><i class="fa-solid fa-route"></i><span>Calendar-aware viewing options reduce back-and-forth.</span></li>
+              </ul>
+            </div>
+            <div class="neon-card proof-card">
+              <h3>Pipeline hygiene</h3>
+              <p class="tagline">Benchmark: every viewing logs feedback and next action without manual typing.</p>
+              <ul class="proof-list">
+                <li><i class="fa-solid fa-clipboard-list"></i><span>Structured feedback feeds into your CRM and vendor reports.</span></li>
+                <li><i class="fa-solid fa-fire"></i><span>Warm buyers nurtured automatically until ready to view again.</span></li>
+              </ul>
+            </div>
+            <div class="neon-card proof-card">
+              <h3>Compliance calm</h3>
+              <p class="tagline">Benchmark: digital ID/AML and landlord onboarding done in hours, not days.</p>
+              <ul class="proof-list">
+                <li><i class="fa-solid fa-shield"></i><span>Automatic reminders and secure document capture.</span></li>
+                <li><i class="fa-solid fa-link"></i><span>Integrations with leading CRMs keep records tidy.</span></li>
+              </ul>
+            </div>
+          </div>
+          <p class="proof-disclaimer">Benchmarks are typical for automated agencies; exact results depend on your lead volume, team and market.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-mesh animate parallax-section" data-parallax-theme="mesh" id="pricing-real-estate-root">
+    <div class="container">
+      <div class="neon-card" style="text-align: center; max-width: 920px; margin: 0 auto;">
+        <h2 class="section-title">Pricing placeholder</h2>
+        <p class="section-subtitle" style="color: var(--color-silver);">
+          Transparent pricing for estate agent packs will appear here soon. In the meantime, book a call for a clear scope and
+          quote.
+        </p>
+        <a href="../book.html" class="btn btn-primary">Talk pricing with us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lines animate parallax-section" data-parallax-theme="lines">
+    <div class="container">
+      <div class="service-row" style="align-items: stretch;">
+        <div class="service-content neon-card">
+          <h2 class="section-title" style="text-align:left;">How we work with estate agents</h2>
+          <ul class="proof-list">
+            <li><i class="fa-solid fa-magnifying-glass"></i><span>Automation audit: map your lead flow, portal rules and CRM automations.</span></li>
+            <li><i class="fa-solid fa-diagram-project"></i><span>Proposal: agree the workflows, data handoffs and SLAs that matter.</span></li>
+            <li><i class="fa-solid fa-screwdriver-wrench"></i><span>Build: configure text-back, qualification and compliance automations end-to-end.</span></li>
+            <li><i class="fa-solid fa-chart-line"></i><span>Optimise: monitor drop-off points and tune scripts as markets shift.</span></li>
+          </ul>
+        </div>
+        <div class="service-content neon-card">
+          <h3 class="section-title" style="text-align:left; font-size: 1.25rem; margin-bottom: 0.75rem;">FAQs</h3>
+          <details class="faq-item" open>
+            <summary>Will automation replace our negotiators?</summary>
+            <p>No. We automate the repetitive triage, scheduling and compliance steps so negotiators can focus on valuations and closing.</p>
+          </details>
+          <details class="faq-item" open>
+            <summary>Can we trial this before rolling out?</summary>
+            <p>Yes. We start with a single branch or portal flow, measure uplift, then scale with clear opt-outs and controls.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do you handle data security?</summary>
+            <p>We use reputable providers, encrypted connections and least-privilege access. Audit trails stay within your CRM.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What support is included?</summary>
+            <p>You get build support plus optimisation sprints to refine messaging, follow-up timing and handoffs.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section brand-gradient animate">
+    <div class="container">
+      <div class="neon-card cta-card" style="text-align: center">
+        <h2 class="section-title" style="color: var(--color-white)">Ready to stop losing viewings to voicemail?</h2>
+        <p class="section-subtitle" style="color: var(--color-silver)">
+          Give us 30 minutes to map your estate agency workflows and pinpoint the fastest wins for automation.
+        </p>
+        <a href="../book.html" class="btn btn-primary">Book a Free 30‑Minute Automation Audit</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img class="footer-logo" src="../assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
+        <p class="tagline">Streamline. Optimize. Succeed.</p>
+        <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise operations
+          and succeed in the digital age.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../book.html">Book</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/silverstone.ai/" target="_blank" rel="noopener" aria-label="Instagram (@silverstone.ai)"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@silverstone_ai" target="_blank" rel="noopener" aria-label="TikTok (@silverstone_ai)"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.facebook.com/people/Silverstone-AI/61583930930530/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
+  </footer>
+  <script src="../assets/js/script.js" defer></script>
+  <script defer src="../assets/js/cookie-consent.js"></script>
+  <script defer src="../assets/js/hero-shader.js"></script>
+</body>
+
+</html>

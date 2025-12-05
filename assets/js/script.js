@@ -87,6 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesDropdownItem = navMenu ? navMenu.querySelector('.nav-services') : null;
+  const servicesToggle = servicesDropdownItem ? servicesDropdownItem.querySelector('.nav-services-toggle') : null;
+  const servicesMenu = servicesDropdownItem ? servicesDropdownItem.querySelector('.services-dropdown') : null;
+  let servicesDropdownOpen = false;
+  let servicesDropdownCloseTimeoutId;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -149,16 +154,92 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (servicesDropdownOpen) return;
+    if (navMenu && navMenu.classList.contains('open')) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
   function scheduleHeaderAutoHide(delay = 1200) {
+    if (servicesDropdownOpen) return;
     clearTimeout(headerAutoHideTimeoutId);
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (servicesDropdownOpen) return;
       hideHeader();
     }, delay);
+  }
+
+  // Services dropdown handling for desktop hover/focus and mobile tap.
+  const setServicesDropdownState = (open, { skipAutoHideSchedule = false } = {}) => {
+    if (!servicesDropdownItem || !servicesToggle || !servicesMenu) return;
+    servicesDropdownOpen = open;
+    servicesDropdownItem.classList.toggle('open', open);
+    servicesToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
+      body.classList.add('services-dropdown-open');
+      clearTimeout(headerAutoHideTimeoutId);
+      showHeader();
+    } else {
+      body.classList.remove('services-dropdown-open');
+      if (!skipAutoHideSchedule) {
+        scheduleHeaderAutoHide();
+      }
+    }
+  };
+
+  const openServicesDropdown = () => setServicesDropdownState(true);
+  const closeServicesDropdown = (options = {}) => setServicesDropdownState(false, options);
+
+  const cancelDropdownClose = () => {
+    clearTimeout(servicesDropdownCloseTimeoutId);
+  };
+
+  const scheduleDropdownClose = () => {
+    cancelDropdownClose();
+    servicesDropdownCloseTimeoutId = window.setTimeout(() => {
+      closeServicesDropdown();
+    }, 140);
+  };
+
+  if (servicesDropdownItem && servicesToggle && servicesMenu) {
+    const handleDesktopOpen = () => {
+      if (isMobileViewport()) return;
+      cancelDropdownClose();
+      openServicesDropdown();
+    };
+
+    const handleDesktopClose = () => {
+      if (isMobileViewport()) return;
+      scheduleDropdownClose();
+    };
+
+    servicesDropdownItem.addEventListener('mouseenter', handleDesktopOpen);
+    servicesDropdownItem.addEventListener('mouseleave', handleDesktopClose);
+    servicesMenu.addEventListener('mouseenter', handleDesktopOpen);
+    servicesMenu.addEventListener('mouseleave', handleDesktopClose);
+
+    servicesToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (servicesDropdownOpen) {
+        closeServicesDropdown({ skipAutoHideSchedule: true });
+      } else {
+        openServicesDropdown();
+      }
+    });
+
+    servicesToggle.addEventListener('focus', () => openServicesDropdown());
+    servicesDropdownItem.addEventListener('focusout', (event) => {
+      if (!servicesDropdownItem.contains(event.relatedTarget)) {
+        handleDesktopClose();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!servicesDropdownItem.contains(event.target) && servicesDropdownOpen) {
+        closeServicesDropdown();
+      }
+    });
   }
 
   /*
@@ -171,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function openNavMenu() {
     if (!navMenu || !navToggle) return;
     clearTimeout(headerAutoHideTimeoutId);
+    closeServicesDropdown({ skipAutoHideSchedule: true });
     previousScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     navMenu.classList.add('open');
     navMenu.scrollTop = 0;
@@ -181,6 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showHeader();
   }
   function closeNavMenu() {
+    closeServicesDropdown({ skipAutoHideSchedule: true });
     if (navMenu && navMenu.classList.contains('open')) {
       navMenu.classList.remove('open');
     }
@@ -280,6 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (!isMobileViewport()) return;
     if (navMenu && navMenu.classList.contains('open')) return;
+    if (servicesDropdownOpen) return;
     clearTimeout(headerAutoHideTimeoutId);
     hideHeader();
   }, { passive: true });
