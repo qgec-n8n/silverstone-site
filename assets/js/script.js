@@ -87,6 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesItem = navMenu ? navMenu.querySelector('.nav-services') : null;
+  const servicesToggle = servicesItem ? servicesItem.querySelector('.services-trigger') : null;
+  const servicesDropdown = servicesItem ? servicesItem.querySelector('.services-dropdown') : null;
+  const servicesBackBtn = servicesItem ? servicesItem.querySelector('.services-back-btn') : null;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -130,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // closing.  The timeout ID allows scheduled hides to be cancelled.
   let previousScrollY = 0;
   let headerAutoHideTimeoutId;
+  let headerHoverLock = false;
 
   // Determine whether the viewport width qualifies as mobile.  This
   // helper is referenced throughout to reduce the number of
@@ -149,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (headerHoverLock) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
@@ -157,9 +163,52 @@ document.addEventListener('DOMContentLoaded', () => {
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (headerHoverLock) return;
       hideHeader();
     }, delay);
   }
+
+  const setServicesExpanded = (expanded) => {
+    if (servicesToggle) {
+      servicesToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+  };
+
+  const closeServicesPanel = () => {
+    if (navMenu) {
+      navMenu.classList.remove('services-panel-open');
+    }
+    if (servicesItem) {
+      servicesItem.classList.remove('services-panel-active', 'dropdown-open');
+    }
+    headerHoverLock = false;
+    setServicesExpanded(false);
+  };
+
+  const openServicesPanel = () => {
+    if (!servicesItem || !navMenu) return;
+    navMenu.classList.add('services-panel-open');
+    servicesItem.classList.add('services-panel-active');
+    setServicesExpanded(true);
+    showHeader();
+  };
+
+  const enableServicesHoverLock = () => {
+    if (!servicesItem || isMobileViewport()) return;
+    headerHoverLock = true;
+    servicesItem.classList.add('dropdown-open');
+    setServicesExpanded(true);
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  };
+
+  const disableServicesHoverLock = () => {
+    if (!servicesItem || isMobileViewport()) return;
+    headerHoverLock = false;
+    servicesItem.classList.remove('dropdown-open');
+    setServicesExpanded(false);
+    scheduleHeaderAutoHide();
+  };
 
   /*
    * Mobile navigation helpers.  Opening the menu saves the scroll
@@ -172,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!navMenu || !navToggle) return;
     clearTimeout(headerAutoHideTimeoutId);
     previousScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    closeServicesPanel();
     navMenu.classList.add('open');
     navMenu.scrollTop = 0;
     navToggle.classList.add('active');
@@ -181,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showHeader();
   }
   function closeNavMenu() {
+    closeServicesPanel();
     if (navMenu && navMenu.classList.contains('open')) {
       navMenu.classList.remove('open');
     }
@@ -215,6 +266,45 @@ document.addEventListener('DOMContentLoaded', () => {
           closeNavMenu();
         }
       });
+    });
+  }
+
+  if (servicesToggle) {
+    servicesToggle.addEventListener('click', (event) => {
+      if (isMobileViewport()) {
+        event.preventDefault();
+        if (navMenu && navMenu.classList.contains('services-panel-open')) {
+          closeServicesPanel();
+        } else {
+          openServicesPanel();
+        }
+        return;
+      }
+      enableServicesHoverLock();
+    });
+  }
+
+  if (servicesBackBtn) {
+    servicesBackBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      closeServicesPanel();
+    });
+  }
+
+  if (servicesItem && servicesDropdown) {
+    servicesItem.addEventListener('mouseenter', enableServicesHoverLock);
+    servicesItem.addEventListener('mouseleave', (event) => {
+      if (isMobileViewport()) return;
+      const destination = event.relatedTarget;
+      if (destination && servicesItem.contains(destination)) return;
+      disableServicesHoverLock();
+    });
+    servicesDropdown.addEventListener('mouseenter', enableServicesHoverLock);
+    servicesDropdown.addEventListener('mouseleave', (event) => {
+      if (isMobileViewport()) return;
+      const destination = event.relatedTarget;
+      if (destination && servicesItem.contains(destination)) return;
+      disableServicesHoverLock();
     });
   }
 
@@ -265,7 +355,12 @@ document.addEventListener('DOMContentLoaded', () => {
   headerIndicator.addEventListener('mouseenter', showHeader);
   if (header) {
     header.addEventListener('mouseenter', showHeader);
-    header.addEventListener('mouseleave', hideHeader);
+    header.addEventListener('mouseleave', (event) => {
+      const destination = event.relatedTarget;
+      if (headerHoverLock) return;
+      if (destination && servicesDropdown && servicesDropdown.contains(destination)) return;
+      hideHeader();
+    });
     // On mobile tapping the header schedules another auto hide if the
     // menu is not open.  This provides a short grace period for users
     // to reopen the overlay after revealing the header.
