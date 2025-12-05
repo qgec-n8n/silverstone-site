@@ -55,32 +55,32 @@
 
 /* Theme-specific assets -------------------------------------------------- */
 .parallax-section[data-parallax-theme="lines"] {
-  background-image: var(--parallax-overlay), url('../images/internet/section-abstract-lines.webp');
-  --parallax-mobile-fallback: url('../images/internet/mobile/section-abstract-lines@1x.webp');
+  background-image: var(--parallax-overlay), url('../images/internet/hero/book-hero-calendly-mobile-2025.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
   --parallax-mobile-image-set: image-set(
-    url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-    url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
-    url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
   );
   --parallax-mobile-image-set-webkit: -webkit-image-set(
-    url('../images/internet/mobile/section-abstract-lines@1x.webp') 1x,
-    url('../images/internet/mobile/section-abstract-lines@2x.webp') 2x,
-    url('../images/internet/mobile/section-abstract-lines@3x.webp') 3x
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
   );
 }
 
 .parallax-section[data-parallax-theme="circuit"] {
-  background-image: var(--parallax-overlay), url('../images/internet/section-circuit.webp');
-  --parallax-mobile-fallback: url('../images/internet/mobile/section-circuit@1x.webp');
+  background-image: var(--parallax-overlay), url('../images/internet/section-waves.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-waves@1x.webp');
   --parallax-mobile-image-set: image-set(
-    url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-    url('../images/internet/mobile/section-circuit@2x.webp') 2x,
-    url('../images/internet/mobile/section-circuit@3x.webp') 3x
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
   );
   --parallax-mobile-image-set-webkit: -webkit-image-set(
-    url('../images/internet/mobile/section-circuit@1x.webp') 1x,
-    url('../images/internet/mobile/section-circuit@2x.webp') 2x,
-    url('../images/internet/mobile/section-circuit@3x.webp') 3x
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
   );
 }
 
@@ -133,12 +133,12 @@
 @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
   .parallax-section[data-parallax-theme="lines"] {
     background-image: var(--parallax-overlay), image-set(
-      url('../images/internet/section-abstract-lines.webp') 1x
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
     );
   }
   .parallax-section[data-parallax-theme="circuit"] {
     background-image: var(--parallax-overlay), image-set(
-      url('../images/internet/section-circuit.webp') 1x
+      url('../images/internet/section-waves.webp') 1x
     );
   }
   .parallax-section[data-parallax-theme="mesh"] {
@@ -162,12 +162,12 @@
 @supports (background-image: -webkit-image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
   .parallax-section[data-parallax-theme="lines"] {
     background-image: var(--parallax-overlay), -webkit-image-set(
-      url('../images/internet/section-abstract-lines.webp') 1x
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
     );
   }
   .parallax-section[data-parallax-theme="circuit"] {
     background-image: var(--parallax-overlay), -webkit-image-set(
-      url('../images/internet/section-circuit.webp') 1x
+      url('../images/internet/section-waves.webp') 1x
     );
   }
   .parallax-section[data-parallax-theme="mesh"] {
