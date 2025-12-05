@@ -341,7 +341,45 @@
         <ul>
           <li><a href="index.html" class="active">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
+          <li class="nav-services">
+            <button type="button" class="services-toggle" aria-expanded="false">
+              <span class="services-label">Services</span>
+              <span class="services-caret" aria-hidden="true"></span>
+            </button>
+            <div class="services-dropdown" role="menu">
+              <a href="services.html">General</a>
+              <a href="services.html#estate-agents">Estate Agents</a>
+              <a href="services.html#hospitality">Hospitality</a>
+              <a href="services.html#salons-barbers">Salons &amp; Barbers</a>
+              <a href="services.html#trades-field-services">Trades &amp; Field Services</a>
+              <a href="services.html#ecommerce-brands">eCommerce Brands</a>
+              <a href="services.html#physios-chiropractors">Physios &amp; Chiropractors</a>
+              <a href="services.html#dentists">Dentists</a>
+              <a href="services.html#gyms-fitness">Gyms &amp; Fitness Studios</a>
+              <a href="services.html#fitness-influencers">Fitness Influencers &amp; Online Coaches</a>
+            </div>
+            <div class="services-mobile-overlay" aria-hidden="true">
+              <div class="services-mobile-header">
+                <button type="button" class="services-mobile-back" aria-label="Back to main menu">
+                  <span class="services-mobile-back-icon" aria-hidden="true"></span>
+                  <span class="services-mobile-back-label">Back</span>
+                </button>
+                <span class="services-mobile-title">Services</span>
+              </div>
+              <div class="services-mobile-grid">
+                <a class="services-pill" href="services.html">General</a>
+                <a class="services-pill" href="services.html#estate-agents">Estate Agents</a>
+                <a class="services-pill" href="services.html#hospitality">Hospitality</a>
+                <a class="services-pill" href="services.html#salons-barbers">Salons &amp; Barbers</a>
+                <a class="services-pill" href="services.html#trades-field-services">Trades &amp; Field Services</a>
+                <a class="services-pill" href="services.html#ecommerce-brands">eCommerce Brands</a>
+                <a class="services-pill" href="services.html#physios-chiropractors">Physios &amp; Chiropractors</a>
+                <a class="services-pill" href="services.html#dentists">Dentists</a>
+                <a class="services-pill" href="services.html#gyms-fitness">Gyms &amp; Fitness Studios</a>
+                <a class="services-pill" href="services.html#fitness-influencers">Fitness Influencers &amp; Online Coaches</a>
+              </div>
+            </div>
+          </li>
           <li><a href="book.html">Book</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
