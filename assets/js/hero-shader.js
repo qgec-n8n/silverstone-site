@@ -30,6 +30,12 @@
       bg1: [0.15, 0.05, 0.0, 1.0],
       bg2: [0.3, 0.1, 0.0, 1.0]
     },
+    // Real Estate (Magenta/Pink)
+    magenta: {
+      line: [0.98, 0.25, 0.72, 1.0],
+      bg1: [0.14, 0.05, 0.15, 1.0],
+      bg2: [0.28, 0.08, 0.28, 1.0]
+    },
     // Contact (Silver/Slate) - Matching #C0C0C0
     silver: {
       line: [0.75, 0.75, 0.75, 1.0],

@@ -24,28 +24,32 @@ The intended audience is estate/letting agents who are time-poor but revenue-foc
 
 Use this checklist to track actual work performed. Update it with timestamps (`YYYY-MM-DD hh:mmZ`) as you go.
 
-- [ ] (…Z) Confirm repo structure, design system files, and existing niche or services page patterns.
-- [ ] (…Z) Decide and create the Real Estate niche page file and slug (for example, `niches/estate-agents.html` or similar) based on existing patterns.
-- [ ] (…Z) Implement the hero section with shader animation background and correct copy/CTAs.
-- [ ] (…Z) Implement the niche pains section as image + neon card using `.service-row` pattern.
-- [ ] (…Z) Implement the bundle / “Never Miss a Viewing” section as image + neon card with proper heading and copy.
-- [ ] (…Z) Implement the proof-in-numbers stats strip using existing `.stats-card` styling.
-- [ ] (…Z) Implement the outcomes & benefits section as image + neon card.
-- [ ] (…Z) Implement the “How it works” row of four cards mirroring value cards on `about.html`.
-- [ ] (…Z) Implement the risk reversal & reassurance row of four cards with intro copy.
-- [ ] (…Z) Add a pricing section placeholder consistent with design system spacing and typography.
-- [ ] (…Z) Implement the Real Estate FAQs using the existing FAQ accordion component and the specified Q&A content.
-- [ ] (…Z) Implement the final CTA block mirroring existing CTA markup, with Real Estate-specific copy.
-- [ ] (…Z) Ensure the footer matches the shared footer used on other pages.
-- [ ] (…Z) Wire the Real Estate page into navigation (for example, under a “Real Estate” item or dropdown) and confirm the URL slug.
-- [ ] (…Z) Run build/test commands and visually validate the page across desktop and mobile breakpoints.
+- [x] (2025-12-05 19:26Z) Confirm repo structure, design system files, and existing niche or services page patterns.
+- [x] (2025-12-05 19:29Z) Decide and create the Real Estate niche page file and slug (for example, `niches/estate-agents.html` or similar) based on existing patterns.
+- [x] (2025-12-05 19:29Z) Implement the hero section with shader animation background and correct copy/CTAs.
+- [x] (2025-12-05 19:29Z) Implement the niche pains section as image + neon card using `.service-row` pattern.
+- [x] (2025-12-05 19:29Z) Implement the bundle / “Never Miss a Viewing” section as image + neon card with proper heading and copy.
+- [x] (2025-12-05 19:29Z) Implement the proof-in-numbers stats strip using existing `.stats-card` styling.
+- [x] (2025-12-05 19:29Z) Implement the outcomes & benefits section as image + neon card.
+- [x] (2025-12-05 19:29Z) Implement the “How it works” row of four cards mirroring value cards on `about.html`.
+- [x] (2025-12-05 19:29Z) Implement the risk reversal & reassurance row of four cards with intro copy.
+- [x] (2025-12-05 19:29Z) Add a pricing section placeholder consistent with design system spacing and typography.
+- [x] (2025-12-05 19:29Z) Implement the Real Estate FAQs using the existing FAQ accordion component and the specified Q&A content.
+- [x] (2025-12-05 19:29Z) Implement the final CTA block mirroring existing CTA markup, with Real Estate-specific copy.
+- [x] (2025-12-05 19:29Z) Ensure the footer matches the shared footer used on other pages.
+- [x] (2025-12-05 19:29Z) Wire the Real Estate page into navigation (for example, under a “Real Estate” item or dropdown) and confirm the URL slug.
+- [x] (2025-12-05 19:31Z) Run build/test commands and visually validate the page across desktop and mobile breakpoints. (Attempted `npm run build:css` but npm is unavailable in this environment; manual validation performed via code review.)
 
 ## Surprises & Discoveries
 
 Record unexpected findings here (for example, differences in file structure, unexpected CSS naming, or behavior).
 
-- Observation: …
-  Evidence: …
+- Observation: Stats strip uses `.stats` with `.stat` cards rather than `.stats-card` naming.
+  Evidence: `index.html` around the “Proof in Numbers” section shows `<div class="stats">` containing `.neon-card.stat` cards.
+- Observation: Stats numbers auto-animate via `assets/js/script.js`; static values with non-numeric symbols need a bypass.
+  Evidence: Added `data-static="true"` handling to `assets/js/script.js` so percentage/range values can render verbatim.
+- Observation: npm CLI is not available in the environment, so build scripts cannot be executed.
+  Evidence: `npm run build:css` returns “command not found: npm”.
 
 ## Decision Log
 
@@ -54,12 +58,16 @@ Record each material decision, especially where the repo’s current state requi
 - Decision: …
   Rationale: …
   Date/Author: …
+- Decision: Introduced a magenta theme in `assets/js/hero-shader.js` and applied it to the Real Estate hero to give a pink-leaning on-brand variant.
+  Rationale: The spec called for a pink/estate-agent flavor while reusing the shader hero system; existing themes were green/blue/amber/silver.
+  Date/Author: 2025-12-05 / Codex agent
+- Decision: Added a `data-static="true"` escape hatch in the stats animation to allow percentage/range figures to render without being overwritten.
+  Rationale: Real Estate stats include ranges and symbols that would be stripped by the integer-only counter logic; skipping animation preserves the exact copy.
+  Date/Author: 2025-12-05 / Codex agent
 
 ## Outcomes & Retrospective
 
-To be filled in when the work reaches a major milestone or completion.
-
-Summarize what was achieved, what remains, and any lessons about working with this repo’s design system or ExecPlans.
+All Real Estate niche sections were implemented in `niches/estate-agents.html` with hero, pains, bundle, proof strip, outcomes, how-it-works, pricing placeholder, risk/reassurance, FAQs, CTA, and footer. Navigation across all pages now includes a “Real Estate” entry pointing to the new slug, and the sitemap lists the new URL. A magenta shader variant was added for the niche hero, and stats animation now supports static values. Build scripts could not run because npm is unavailable in this environment; manual validation was performed via code review.
 
 ## Context and Orientation
 

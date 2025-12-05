@@ -120,3 +120,27 @@
   text-align: center;
 }
 
+/* Real Estate niche page tweaks */
+.niche-estate-agents .hero.title-band {
+  background-color: rgba(20, 10, 26, 0.8);
+}
+
+.niche-estate-agents .hero .hero-bullets {
+  max-width: 760px;
+}
+
+.niche-estate-agents .values {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.niche-estate-agents .values .value-card {
+  height: 100%;
+  text-align: left;
+}
+
+.niche-estate-agents .stats .stat {
+  height: 100%;
+}
+
