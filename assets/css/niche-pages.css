@@ -1,0 +1,123 @@
+.niche-section {
+  margin-top: 2.5rem;
+}
+
+.niche-hero-copy {
+  max-width: 720px;
+}
+
+.niche-subheadline {
+  font-size: 1.1rem;
+  color: var(--color-silver);
+  margin-bottom: 1rem;
+}
+
+.niche-grid,
+.niche-service-grid,
+.niche-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.niche-card,
+.niche-proof-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.25rem 1.15rem;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+}
+
+.niche-card h3,
+.niche-proof-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.niche-card ul,
+.niche-proof-card ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.05rem;
+  color: var(--color-silver);
+  line-height: 1.5;
+}
+
+.niche-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.niche-image-grid img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25);
+}
+
+.niche-highlight {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.niche-highlight .neon-card {
+  height: 100%;
+}
+
+.pricing-placeholder {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  color: var(--color-silver);
+}
+
+.niche-microcopy {
+  color: var(--color-silver);
+  margin-top: 0.5rem;
+}
+
+.niche-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.niche-bullets li {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  margin-bottom: 0.45rem;
+}
+
+.niche-bullets i {
+  color: var(--color-green);
+  margin-top: 0.2rem;
+}
+
+.niche-stepper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.niche-stepper .neon-card {
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .niche-section {
+    margin-top: 2rem;
+  }
+
+  .niche-subheadline {
+    font-size: 1rem;
+  }
+}
