@@ -755,5 +755,36 @@
 }
 /* === End mobile nav overlay uniform spacing === */
 
-
 /* Mobile parallax backgrounds are configured in assets/css/parallax-fix.css */
+
+@media (max-width: 768px) {
+  /* Services dropdown mobile behaviour */
+  .nav-item.has-dropdown {
+    width: 100%;
+  }
+
+  .nav-item.has-dropdown .services-toggle {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    color: var(--color-black);
+  }
+
+  .nav-item.has-dropdown .services-dropdown {
+    position: static;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0.25rem 0 0.5rem 0.5rem;
+    display: none;
+  }
+
+  .nav-item.has-dropdown.open .services-dropdown {
+    display: block;
+  }
+
+  .nav-item.has-dropdown .services-dropdown a {
+    padding: 0.5rem 0.25rem;
+    border-radius: 8px;
+  }
+}
