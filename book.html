@@ -219,11 +219,44 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
+          <li class="nav-item-dropdown">
+            <a href="services.html" class="nav-services-toggle" aria-haspopup="true" aria-expanded="false">
+              <span class="nav-link-label">Services</span>
+              <span class="dropdown-caret" aria-hidden="true">&#9662;</span>
+            </a>
+            <ul class="services-dropdown" aria-label="Services submenu">
+              <li><a href="services.html">Estate Agents</a></li>
+              <li><a href="services.html">Hospitality</a></li>
+              <li><a href="services.html">Salons &amp; Barbers</a></li>
+              <li><a href="services.html">Trades &amp; Field Services</a></li>
+              <li><a href="services.html">eCommerce Brands</a></li>
+              <li><a href="services.html">Physios &amp; Chiropractors</a></li>
+              <li><a href="services.html">Dentists</a></li>
+              <li><a href="services.html">Gyms &amp; Fitness Studios</a></li>
+              <li><a href="services.html">Fitness Influencers &amp; Online Coaches</a></li>
+            </ul>
+          </li>
           <li><a class="active" href="book.html">Book</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
+      <div class="services-overlay" aria-hidden="true">
+        <div class="services-overlay-header">
+          <button class="services-overlay-close" type="button" aria-label="Back to menu">Back</button>
+          <span class="services-overlay-title">Services</span>
+        </div>
+        <ul class="services-overlay-list" aria-label="Services menu">
+          <li><a href="services.html">Estate Agents</a></li>
+          <li><a href="services.html">Hospitality</a></li>
+          <li><a href="services.html">Salons &amp; Barbers</a></li>
+          <li><a href="services.html">Trades &amp; Field Services</a></li>
+          <li><a href="services.html">eCommerce Brands</a></li>
+          <li><a href="services.html">Physios &amp; Chiropractors</a></li>
+          <li><a href="services.html">Dentists</a></li>
+          <li><a href="services.html">Gyms &amp; Fitness Studios</a></li>
+          <li><a href="services.html">Fitness Influencers &amp; Online Coaches</a></li>
+        </ul>
+      </div>
     </div>
   </header>
   <!-- Hero section -->

@@ -87,6 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesDropdown = document.querySelector('.nav-item-dropdown');
+  const servicesToggle = servicesDropdown ? servicesDropdown.querySelector('.nav-services-toggle') : null;
+  const servicesDropdownMenu = servicesDropdown ? servicesDropdown.querySelector('.services-dropdown') : null;
+  const servicesOverlay = document.querySelector('.services-overlay');
+  const servicesOverlayClose = servicesOverlay ? servicesOverlay.querySelector('.services-overlay-close') : null;
+  const servicesOverlayLinks = servicesOverlay ? servicesOverlay.querySelectorAll('a') : [];
+  let servicesHoverActive = false;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -144,11 +151,14 @@ document.addEventListener('DOMContentLoaded', () => {
    * occurs.  These functions also ensure any existing auto‑hide
    * schedules are cleared.
    */
+  const isServicesOverlayOpen = () => servicesOverlay && servicesOverlay.classList.contains('active');
+
   function showHeader() {
     if (header) header.classList.remove('header-hidden');
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (isServicesOverlayOpen()) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
@@ -157,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
       if (navMenu && navMenu.classList.contains('open')) return;
+      if (servicesHoverActive || isServicesOverlayOpen()) return;
       hideHeader();
     }, delay);
   }
@@ -168,6 +179,23 @@ document.addEventListener('DOMContentLoaded', () => {
    * again.  The `.active` class on the hamburger icon animates the
    * bars into an X shape via the injected CSS.
    */
+  function closeServicesOverlay() {
+    if (!servicesOverlay) return;
+    servicesOverlay.classList.remove('active');
+    servicesOverlay.setAttribute('aria-hidden', 'true');
+  }
+
+  function openServicesOverlay() {
+    if (!servicesOverlay || !isMobileViewport()) return;
+    if (navMenu && !navMenu.classList.contains('open')) {
+      openNavMenu();
+    }
+    servicesOverlay.classList.add('active');
+    servicesOverlay.setAttribute('aria-hidden', 'false');
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  }
+
   function openNavMenu() {
     if (!navMenu || !navToggle) return;
     clearTimeout(headerAutoHideTimeoutId);
@@ -181,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showHeader();
   }
   function closeNavMenu() {
+    closeServicesOverlay();
     if (navMenu && navMenu.classList.contains('open')) {
       navMenu.classList.remove('open');
     }
@@ -229,6 +258,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (servicesToggle) {
+    servicesToggle.addEventListener('click', (event) => {
+      if (!isMobileViewport()) return;
+      event.preventDefault();
+      openServicesOverlay();
+    });
+  }
+
+  if (servicesOverlayClose) {
+    servicesOverlayClose.addEventListener('click', (event) => {
+      event.preventDefault();
+      closeServicesOverlay();
+    });
+  }
+
+  if (servicesOverlayLinks.length) {
+    servicesOverlayLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        if (!isMobileViewport()) return;
+        closeServicesOverlay();
+        closeNavMenu();
+      });
+    });
+  }
+
+  if (servicesDropdown && servicesDropdownMenu) {
+    const setDropdownHover = (isHovering) => {
+      if (isMobileViewport()) return;
+      servicesHoverActive = isHovering;
+      if (isHovering) {
+        showHeader();
+        clearTimeout(headerAutoHideTimeoutId);
+      } else {
+        scheduleHeaderAutoHide();
+      }
+    };
+
+    servicesDropdown.addEventListener('mouseenter', () => setDropdownHover(true));
+    servicesDropdown.addEventListener('mouseleave', (event) => {
+      if (servicesDropdown.contains(event.relatedTarget)) return;
+      setDropdownHover(false);
+    });
+    servicesDropdownMenu.addEventListener('mouseenter', () => setDropdownHover(true));
+    servicesDropdownMenu.addEventListener('mouseleave', (event) => {
+      if (servicesDropdown.contains(event.relatedTarget)) return;
+      setDropdownHover(false);
+    });
+  }
+
   // Allow tapping or clicking the indicator bar to toggle the menu.
   headerIndicator.addEventListener('click', (event) => {
     event.stopPropagation();
@@ -265,12 +343,16 @@ document.addEventListener('DOMContentLoaded', () => {
   headerIndicator.addEventListener('mouseenter', showHeader);
   if (header) {
     header.addEventListener('mouseenter', showHeader);
-    header.addEventListener('mouseleave', hideHeader);
+    header.addEventListener('mouseleave', () => {
+      if (servicesHoverActive) return;
+      hideHeader();
+    });
     // On mobile tapping the header schedules another auto hide if the
     // menu is not open.  This provides a short grace period for users
     // to reopen the overlay after revealing the header.
     header.addEventListener('click', () => {
       if (!isMobileViewport()) return;
+      if (isServicesOverlayOpen()) return;
       if (navMenu && navMenu.classList.contains('open')) return;
       scheduleHeaderAutoHide();
     });
@@ -280,6 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (!isMobileViewport()) return;
     if (navMenu && navMenu.classList.contains('open')) return;
+    if (isServicesOverlayOpen()) return;
     clearTimeout(headerAutoHideTimeoutId);
     hideHeader();
   }, { passive: true });
