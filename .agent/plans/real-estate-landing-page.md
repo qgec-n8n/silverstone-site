@@ -29,14 +29,14 @@ This page’s copy and structure are based on the “Estate Agents – Niche Lan
 Use this checklist to track work as you implement the plan. Timestamps are UTC or local time, ISO-like format.
 
 - [x] (2025-12-05 00:00) Drafted this ExecPlan for `.agent/plans/real-estate-landing-page.md`; no code changed yet.
-- [ ] Create `niches/estate-agents.html` using existing page templates and hook it into the nav.
-- [ ] Implement the hero (3.1) with a gold shader variant, hero bullets, and CTAs.
-- [ ] Implement niche pains (3.2), bundle overview (3.3), proof in numbers (3.4), and outcomes & benefits (3.5) using service-row neon cards and alternating orientations.
-- [ ] Implement “How It Works” (3.6) and “Risk Reversal & Reassurance” (3.7) using values-style cards.
-- [ ] Insert the pricing placeholder section (3.8).
-- [ ] Implement FAQs (3.9) using the existing FAQ pattern and provided Q&A content.
-- [ ] Implement the final CTA (3.10) and footer (3.11) as per existing pages.
-- [ ] Apply the additional design requirements (3.12): book parallax background, bullet icon enforcement, and card orientation.
+- [x] (2025-12-05 22:12) Created `niches/estate-agents.html`, wired Services dropdown and pills to the new URL, and added the gold hero shader variant alias.
+- [x] (2025-12-05 22:12) Implemented the hero (3.1) with gold shader canvas, estate-specific bullets, and dual CTAs.
+- [x] (2025-12-05 22:13) Implemented niche pains (3.2), bundle overview (3.3), proof in numbers (3.4), and outcomes & benefits (3.5) using service-row neon cards with alternating orientation helpers.
+- [x] (2025-12-05 22:13) Implemented “How It Works” (3.6) and “Risk Reversal & Reassurance” (3.7) using values-style cards.
+- [x] (2025-12-05 22:14) Inserted the pricing placeholder section (3.8).
+- [x] (2025-12-05 22:14) Implemented FAQs (3.9) using the FAQ pattern with estate-agent Q&A content.
+- [x] (2025-12-05 22:14) Implemented the final CTA (3.10) and footer (3.11) matching existing pages.
+- [x] (2025-12-05 22:15) Applied the additional design requirements (3.12): book parallax backgrounds, icon bullets throughout, and alternating service-row layouts.
 - [ ] Run visual and functional validation across desktop and mobile; update this ExecPlan’s `Outcomes & Retrospective` once complete.
 
 
@@ -44,7 +44,7 @@ Use this checklist to track work as you implement the plan. Timestamps are UTC o
 
 Document any unexpected issues or helpful discoveries during implementation.
 
-- None yet. Add entries here as you encounter quirks in hero-shader behavior, parallax backgrounds, bullet icon rendering, or layout interactions.
+- The source spec did not include the full FAQ answer text. Crafted answers that align with the described intent (support negotiators, reuse existing tools, phased launch, natural tone, controllable changes, multi-branch suitability) while keeping the structure consistent with other pages.
 
 
 ## Decision Log
@@ -75,21 +75,25 @@ Record all key decisions.
   Rationale: Ensures consistent hero layout and alignment with the rest of the site’s design system.  
   Date/Author: 2025-12-05 / Codex-initiated ExecPlan.
 
-- Decision: Insert a simple “Pricing coming soon” style placeholder section where 3.8 is specified, using existing section and neon-card styles but minimal content.  
-  Rationale: The spec requires a placeholder now and detailed pricing later; a minimal on-brand block provides a clear insertion point without over-specifying pricing.  
+- Decision: Insert a simple “Pricing coming soon” style placeholder section where 3.8 is specified, using existing section and neon-card styles but minimal content.
+  Rationale: The spec requires a placeholder now and detailed pricing later; a minimal on-brand block provides a clear insertion point without over-specifying pricing.
   Date/Author: 2025-12-05 / Codex-initiated ExecPlan.
+
+- Decision: Added a `reverse` helper on service rows to enforce alternating image/text orientation because each row lives in its own parallax section.
+  Rationale: The nth-child reversal used on `services.html` applies only within a shared parent; the helper preserves the intended alternation without broad CSS changes.
+  Date/Author: 2025-12-05 / Codex.
+
+- Decision: Authored FAQ answer copy aligned with the spec’s intent (support negotiators, integrate with existing tools, phased launch, natural tone, controllable updates, multi-branch routing) because the source doc omitted the full answers.
+  Rationale: Keeps the FAQ complete and on-message while respecting the instruction to mirror the spec’s themes.
+  Date/Author: 2025-12-05 / Codex.
 
 
 ## Outcomes & Retrospective
 
-To be completed after implementation.
-
-Once the page is implemented and validated, summarise:
-
-- What changed in the codebase (files touched).
-- How the final Estate Agents page behaves for users.
-- Any deviations from the spec and why.
-- Lessons about working with hero-shader, parallax backgrounds, and bullet icons on this site.
+- Implemented the full Estate Agents niche landing page at `niches/estate-agents.html` using existing hero, service-row, stats, values, FAQ, CTA, and footer patterns. Navigation pills and dropdowns now point to the new page, and a `gold` hero shader variant aliases the amber palette for the hero canvas.
+- Applied the book parallax theme across sections, ensured every bullet uses an icon, and added a `reverse` helper to keep service rows alternating when separated into individual sections.
+- Crafted FAQ answers to fill gaps in the provided copy while staying true to the intended messaging; no other deviations from the spec were necessary.
+- Pending: full browser-based visual validation on desktop and mobile to confirm animations, parallax backgrounds, and responsive stacking all behave as expected.
 
 
 ## Context and Orientation
