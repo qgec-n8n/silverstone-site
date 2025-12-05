@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesDropdown = document.querySelector('.nav-dropdown');
+  const servicesToggle = servicesDropdown ? servicesDropdown.querySelector('.nav-link') : null;
+  const servicesMenu = servicesDropdown ? servicesDropdown.querySelector('.dropdown-menu') : null;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -130,6 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // closing.  The timeout ID allows scheduled hides to be cancelled.
   let previousScrollY = 0;
   let headerAutoHideTimeoutId;
+  let servicesDropdownOpen = false;
+  let servicesDropdownCloseTimeoutId;
 
   // Determine whether the viewport width qualifies as mobile.  This
   // helper is referenced throughout to reduce the number of
@@ -149,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (servicesDropdownOpen) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
@@ -160,6 +166,29 @@ document.addEventListener('DOMContentLoaded', () => {
       hideHeader();
     }, delay);
   }
+
+  const setServicesDropdownState = (isOpen) => {
+    if (!servicesDropdown) return;
+    servicesDropdown.classList.toggle('open', isOpen);
+    servicesDropdownOpen = isOpen;
+    if (servicesToggle) servicesToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (isOpen) {
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+    } else if (!navMenu || !navMenu.classList.contains('open')) {
+      scheduleHeaderAutoHide();
+    }
+  };
+
+  const openServicesDropdown = () => setServicesDropdownState(true);
+  const closeServicesDropdown = () => setServicesDropdownState(false);
+  const cancelServicesDropdownClose = () => clearTimeout(servicesDropdownCloseTimeoutId);
+  const scheduleServicesDropdownClose = (delay = 140) => {
+    clearTimeout(servicesDropdownCloseTimeoutId);
+    servicesDropdownCloseTimeoutId = window.setTimeout(() => {
+      closeServicesDropdown();
+    }, delay);
+  };
 
   /*
    * Mobile navigation helpers.  Opening the menu saves the scroll
@@ -187,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeServicesDropdown();
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -211,10 +241,75 @@ document.addEventListener('DOMContentLoaded', () => {
     navMenu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', (event) => {
         event.stopPropagation();
+        closeServicesDropdown();
         if (isMobileViewport() && navMenu.classList.contains('open')) {
           closeNavMenu();
         }
       });
+    });
+  }
+
+  if (servicesDropdown && servicesToggle && servicesMenu) {
+    servicesDropdown.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      cancelServicesDropdownClose();
+      openServicesDropdown();
+    });
+
+    servicesDropdown.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      scheduleServicesDropdownClose();
+    });
+
+    servicesMenu.addEventListener('mouseenter', () => {
+      if (isMobileViewport()) return;
+      cancelServicesDropdownClose();
+      openServicesDropdown();
+    });
+
+    servicesMenu.addEventListener('mouseleave', () => {
+      if (isMobileViewport()) return;
+      scheduleServicesDropdownClose();
+    });
+
+    servicesToggle.addEventListener('focus', () => {
+      cancelServicesDropdownClose();
+      openServicesDropdown();
+    });
+
+    servicesToggle.addEventListener('blur', () => {
+      if (isMobileViewport()) return;
+      scheduleServicesDropdownClose();
+    });
+
+    servicesMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('focus', () => {
+        cancelServicesDropdownClose();
+        openServicesDropdown();
+      });
+      link.addEventListener('blur', () => {
+        if (isMobileViewport()) return;
+        scheduleServicesDropdownClose();
+      });
+    });
+
+    servicesToggle.addEventListener('click', (event) => {
+      const mobileView = isMobileViewport() || (navMenu && navMenu.classList.contains('open'));
+      if (mobileView) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (servicesDropdownOpen) {
+          closeServicesDropdown();
+        } else {
+          openServicesDropdown();
+        }
+        return;
+      }
+      if (servicesDropdownOpen) {
+        closeServicesDropdown();
+      } else {
+        openServicesDropdown();
+      }
     });
   }
 
