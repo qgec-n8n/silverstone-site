@@ -87,6 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+  const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+  const dropdowns = document.querySelectorAll('li.dropdown');
+  const pathPrefix = window.location.pathname.includes('/niches/') ? '../' : '';
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -161,6 +165,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }, delay);
   }
 
+  const closeAllDropdowns = () => {
+    dropdowns.forEach((dropdown) => {
+      dropdown.classList.remove('open');
+      const toggle = dropdown.querySelector('.dropdown-toggle');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    });
+  };
+
+  const dropdownItems = [
+    { label: 'General', href: `${pathPrefix}services.html` },
+    { label: 'Real Estate', href: `${pathPrefix}niches/real-estate.html` },
+    { label: 'Hospitality', href: `${pathPrefix}niches/hospitality.html` },
+    { label: 'Physios & Chiropractors', href: `${pathPrefix}niches/physios-chiropractors.html` },
+    { label: 'Trades', href: `${pathPrefix}niches/trades.html` },
+    { label: 'eCommerce', href: `${pathPrefix}niches/ecommerce.html` },
+    { label: 'Dentists', href: `${pathPrefix}niches/dentists.html` },
+    { label: 'Gym Owners', href: `${pathPrefix}niches/gym-owners.html` },
+    { label: 'Salons', href: `${pathPrefix}niches/salons.html` },
+    { label: 'Fitness Influencers & Coaches', href: `${pathPrefix}niches/fitness-influencers-online-coaches.html` },
+  ];
+
+  dropdownMenus.forEach((menu) => {
+    menu.innerHTML = '';
+    dropdownItems.forEach(({ label, href }) => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = label;
+      li.appendChild(a);
+      menu.appendChild(li);
+    });
+  });
+
+  dropdownToggles.forEach((toggle) => {
+    toggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      const dropdown = toggle.closest('li.dropdown');
+      if (!dropdown) return;
+      const isOpen = dropdown.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) {
+        showHeader();
+        clearTimeout(headerAutoHideTimeoutId);
+      } else {
+        scheduleHeaderAutoHide();
+      }
+    });
+  });
+
+  dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener('mouseenter', () => {
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+    });
+    dropdown.addEventListener('focusin', () => {
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      scheduleHeaderAutoHide();
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('li.dropdown')) {
+      closeAllDropdowns();
+    }
+  });
+
   /*
    * Mobile navigation helpers.  Opening the menu saves the scroll
    * position, reveals the overlay and freezes body scrolling.  Closing
@@ -187,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeAllDropdowns();
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
