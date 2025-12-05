@@ -87,6 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
+  const servicesNavItem = document.querySelector('.nav-item-services');
+  const servicesTrigger = document.querySelector('.services-trigger');
+  const servicesDropdown = document.querySelector('.services-dropdown');
+  const servicesOverlay = document.querySelector('.services-overlay');
+  const servicesOverlayBack = servicesOverlay ? servicesOverlay.querySelector('.services-overlay-back') : null;
+  const servicesOverlayLinks = servicesOverlay ? servicesOverlay.querySelectorAll('a') : [];
+
+  let servicesHoverActive = false;
+  let servicesOverlayOpen = false;
 
   let navBackButton;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -149,13 +158,15 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (servicesHoverActive || servicesOverlayOpen) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
   }
   function scheduleHeaderAutoHide(delay = 1200) {
     clearTimeout(headerAutoHideTimeoutId);
     headerAutoHideTimeoutId = window.setTimeout(() => {
-      // Do not hide while the menu is open
+      // Do not hide while the menu or services menu is open
+      if (servicesHoverActive || servicesOverlayOpen) return;
       if (navMenu && navMenu.classList.contains('open')) return;
       hideHeader();
     }, delay);
@@ -181,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showHeader();
   }
   function closeNavMenu() {
+    closeServicesOverlay();
     if (navMenu && navMenu.classList.contains('open')) {
       navMenu.classList.remove('open');
     }
@@ -192,6 +204,37 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0, previousScrollY);
     scheduleHeaderAutoHide();
   }
+
+  function openServicesOverlay() {
+    if (!servicesOverlay) return;
+    servicesOverlayOpen = true;
+    servicesOverlay.classList.add('open');
+    servicesOverlay.setAttribute('aria-hidden', 'false');
+    if (navMenu) navMenu.classList.add('showing-services-overlay');
+    clearTimeout(headerAutoHideTimeoutId);
+    showHeader();
+    if (servicesTrigger) servicesTrigger.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeServicesOverlay() {
+    if (!servicesOverlay) return;
+    servicesOverlayOpen = false;
+    servicesOverlay.classList.remove('open');
+    servicesOverlay.setAttribute('aria-hidden', 'true');
+    if (navMenu) navMenu.classList.remove('showing-services-overlay');
+    if (servicesTrigger) servicesTrigger.setAttribute('aria-expanded', servicesHoverActive ? 'true' : 'false');
+  }
+
+  const setServicesHoverState = (active) => {
+    servicesHoverActive = active;
+    if (servicesTrigger) servicesTrigger.setAttribute('aria-expanded', active ? 'true' : 'false');
+    if (active) {
+      clearTimeout(headerAutoHideTimeoutId);
+      showHeader();
+    } else if (!isMobileViewport() && !(navMenu && navMenu.classList.contains('open'))) {
+      scheduleHeaderAutoHide();
+    }
+  };
 
   // Attach event listeners for the hamburger button.  Clicking the
   // button toggles the overlay.  We stop propagation so clicks do not
@@ -214,6 +257,53 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMobileViewport() && navMenu.classList.contains('open')) {
           closeNavMenu();
         }
+      });
+    });
+  }
+
+  if (servicesNavItem && servicesDropdown && servicesTrigger) {
+    const activateServicesHover = () => {
+      if (isMobileViewport()) return;
+      setServicesHoverState(true);
+    };
+    const deactivateServicesHover = () => {
+      if (isMobileViewport()) return;
+      setServicesHoverState(false);
+    };
+    servicesNavItem.addEventListener('mouseenter', activateServicesHover);
+    servicesNavItem.addEventListener('mouseleave', deactivateServicesHover);
+    servicesDropdown.addEventListener('mouseenter', activateServicesHover);
+    servicesDropdown.addEventListener('mouseleave', deactivateServicesHover);
+    servicesTrigger.addEventListener('focus', activateServicesHover);
+    servicesTrigger.addEventListener('blur', deactivateServicesHover);
+  }
+
+  if (servicesTrigger) {
+    servicesTrigger.addEventListener('click', (event) => {
+      if (!isMobileViewport()) return;
+      event.preventDefault();
+      if (navMenu && !navMenu.classList.contains('open')) {
+        openNavMenu();
+      }
+      openServicesOverlay();
+    });
+  }
+
+  if (servicesOverlayBack) {
+    servicesOverlayBack.addEventListener('click', (event) => {
+      event.preventDefault();
+      closeServicesOverlay();
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+      scheduleHeaderAutoHide();
+    });
+  }
+
+  if (servicesOverlayLinks && servicesOverlayLinks.length) {
+    servicesOverlayLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        closeServicesOverlay();
+        closeNavMenu();
       });
     });
   }
@@ -275,6 +365,12 @@ document.addEventListener('DOMContentLoaded', () => {
       scheduleHeaderAutoHide();
     });
   }
+  window.addEventListener('resize', () => {
+    if (!isMobileViewport() && servicesOverlayOpen) {
+      closeServicesOverlay();
+      setServicesHoverState(false);
+    }
+  });
   // When scrolling on mobile hide the header immediately unless the
   // overlay is open.  This keeps the view clear while navigating.
   window.addEventListener('scroll', () => {
