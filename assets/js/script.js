@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navMenu = document.querySelector('nav ul');
 
   let navBackButton;
+  let holdHeaderOpen = false;
   if (navMenu && !navMenu.querySelector('.nav-back-item')) {
     const navBackItem = document.createElement('li');
     navBackItem.className = 'nav-back-item';
@@ -124,6 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
   `.trim();
   document.body.appendChild(headerIndicator);
 
+  const servicesDropdown = document.querySelector('.services-dropdown');
+  const servicesDropdownWrapper = servicesDropdown ? servicesDropdown.closest('.nav-item-dropdown') : null;
+  const servicesTrigger = servicesDropdownWrapper ? servicesDropdownWrapper.querySelector('a') : null;
+  let mobileServicesOverlay;
+  let mobileServicesBackButton;
+
   // Variables for tracking scroll position and pending auto‑hide
   // operations.  When the overlay is opened we record the current
   // scroll position so we can return the user to the same spot when
@@ -149,8 +156,29 @@ document.addEventListener('DOMContentLoaded', () => {
     headerIndicator.classList.remove('active');
   }
   function hideHeader() {
+    if (holdHeaderOpen) return;
     if (header) header.classList.add('header-hidden');
     headerIndicator.classList.add('active');
+  }
+  function lockHeaderVisibility() {
+    holdHeaderOpen = true;
+    showHeader();
+    clearTimeout(headerAutoHideTimeoutId);
+  }
+  function releaseHeaderVisibility() {
+    holdHeaderOpen = false;
+    scheduleHeaderAutoHide();
+  }
+  function openMobileServicesOverlay() {
+    if (!mobileServicesOverlay) return;
+    lockHeaderVisibility();
+    mobileServicesOverlay.classList.add('active');
+  }
+  function closeMobileServicesOverlay() {
+    if (!mobileServicesOverlay) return;
+    mobileServicesOverlay.classList.remove('active');
+    holdHeaderOpen = false;
+    scheduleHeaderAutoHide();
   }
   function scheduleHeaderAutoHide(delay = 1200) {
     clearTimeout(headerAutoHideTimeoutId);
@@ -187,6 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navToggle && navToggle.classList.contains('active')) {
       navToggle.classList.remove('active');
     }
+    closeMobileServicesOverlay();
     document.body.style.position = '';
     document.body.style.top = '';
     window.scrollTo(0, previousScrollY);
@@ -226,6 +255,74 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navToggle) {
         navToggle.focus();
       }
+    });
+  }
+
+  if (servicesDropdown) {
+    mobileServicesOverlay = document.createElement('div');
+    mobileServicesOverlay.className = 'mobile-services-overlay';
+
+    const overlayHeader = document.createElement('div');
+    overlayHeader.className = 'mobile-services-overlay__header';
+
+    mobileServicesBackButton = document.createElement('button');
+    mobileServicesBackButton.type = 'button';
+    mobileServicesBackButton.className = 'mobile-services-overlay__back';
+    mobileServicesBackButton.textContent = 'Back';
+
+    const overlayTitle = document.createElement('span');
+    overlayTitle.className = 'mobile-services-overlay__title';
+    overlayTitle.textContent = 'Services';
+
+    const overlayList = servicesDropdown.cloneNode(true);
+    overlayList.classList.add('mobile-services-list');
+    overlayList.classList.remove('services-dropdown');
+
+    overlayHeader.append(mobileServicesBackButton, overlayTitle);
+    mobileServicesOverlay.append(overlayHeader, overlayList);
+    document.body.appendChild(mobileServicesOverlay);
+
+    mobileServicesBackButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      closeMobileServicesOverlay();
+    });
+
+    overlayList.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMobileServicesOverlay();
+        closeNavMenu();
+      });
+    });
+  }
+
+  if (servicesDropdownWrapper && servicesDropdown) {
+    servicesDropdownWrapper.addEventListener('mouseenter', lockHeaderVisibility);
+    servicesDropdownWrapper.addEventListener('mouseleave', () => {
+      holdHeaderOpen = false;
+      scheduleHeaderAutoHide();
+    });
+    servicesDropdownWrapper.addEventListener('focusin', lockHeaderVisibility);
+    servicesDropdownWrapper.addEventListener('focusout', (event) => {
+      if (event.relatedTarget && servicesDropdownWrapper.contains(event.relatedTarget)) return;
+      holdHeaderOpen = false;
+      scheduleHeaderAutoHide();
+    });
+  }
+
+  if (servicesDropdown) {
+    servicesDropdown.addEventListener('mouseenter', lockHeaderVisibility);
+    servicesDropdown.addEventListener('mouseleave', () => {
+      holdHeaderOpen = false;
+      scheduleHeaderAutoHide();
+    });
+  }
+
+  if (servicesTrigger) {
+    servicesTrigger.addEventListener('click', (event) => {
+      if (!isMobileViewport()) return;
+      event.preventDefault();
+      openNavMenu();
+      openMobileServicesOverlay();
     });
   }
 
