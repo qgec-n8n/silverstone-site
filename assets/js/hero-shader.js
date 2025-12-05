@@ -30,6 +30,12 @@
       bg1: [0.15, 0.05, 0.0, 1.0],
       bg2: [0.3, 0.1, 0.0, 1.0]
     },
+    // Estate Agents (alias of amber theme)
+    gold: {
+      line: [1.0, 0.65, 0.0, 1.0],
+      bg1: [0.15, 0.05, 0.0, 1.0],
+      bg2: [0.3, 0.1, 0.0, 1.0]
+    },
     // Contact (Silver/Slate) - Matching #C0C0C0
     silver: {
       line: [0.75, 0.75, 0.75, 1.0],
