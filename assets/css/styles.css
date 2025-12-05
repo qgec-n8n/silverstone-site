@@ -458,3 +458,24 @@ background: none !important;
   }
 }
 .hero img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+
+/* Services dropdown enhancements */
+.nav-services{position:relative}
+.services-toggle{background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:0.35rem;padding:0;color:var(--color-black);font-family:var(--font-body);font-weight:500;font-size:1rem}
+.services-toggle:focus-visible{outline:2px solid var(--color-purple);outline-offset:3px;border-radius:4px}
+.services-toggle .nav-caret{width:0.55rem;height:0.55rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform 0.2s ease}
+.nav-services.open .nav-caret{transform:rotate(225deg)}
+.nav-services .services-menu{position:absolute;top:calc(100% + 0.65rem);right:0;min-width:230px;background:var(--color-white);box-shadow:0 16px 36px rgba(0,0,0,0.14);border-radius:0.75rem;padding:0.75rem 0;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity 0.2s ease,transform 0.2s ease;z-index:1200}
+.nav-services:hover .services-menu,.nav-services:focus-within .services-menu,.nav-services.open .services-menu{opacity:1;pointer-events:auto;transform:translateY(0)}
+.nav-services .services-menu li{width:100%}
+.nav-services .services-menu a{display:block;padding:0.55rem 1rem;color:var(--color-black);font-family:var(--font-body);font-size:0.95rem;font-weight:500}
+.nav-services .services-menu a:hover,.nav-services .services-menu a.active{color:var(--color-purple)}
+.services-toggle.active{color:var(--color-purple)}
+@media (max-width: 768px){
+  .nav-services{width:100%}
+  .services-toggle{width:100%;justify-content:space-between}
+  .nav-services .services-menu{position:relative;top:0;right:auto;left:0;box-shadow:none;border-radius:0.5rem;opacity:0;height:0;overflow:hidden;padding:0;margin-top:0.35rem;transform:none;border-top:1px solid rgba(0,0,0,0.05);background:var(--color-white)}
+  .nav-services.open .services-menu{opacity:1;height:auto;pointer-events:auto;padding:0.35rem 0}
+  .nav-services .services-menu a{padding:0.5rem 0}
+  .nav-services .services-menu li+li a{border-top:1px solid rgba(0,0,0,0.06)}
+}
