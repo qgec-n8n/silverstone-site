@@ -424,6 +424,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const animateSection = (section) => {
       const numbers = section.querySelectorAll('.number');
       numbers.forEach((number) => {
+        if (number.dataset.static === 'true') {
+          return;
+        }
         const target = parseInt(number.dataset.target, 10) || 0;
         const plus = number.getAttribute('data-plus') || '';
         // If reduced motion is requested, set the number immediately
