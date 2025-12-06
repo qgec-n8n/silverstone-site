@@ -417,7 +417,9 @@ document.addEventListener('DOMContentLoaded', () => {
    * their operating system preferences, the numbers will immediately
    * display their target values without animation.
    */
-  const statsSections = document.querySelectorAll('.stats');
+  const statsSections = Array.from(document.querySelectorAll('.stats')).filter(
+    (section) => section.dataset.counter !== 'off'
+  );
   if (statsSections.length) {
     const prefersReducedMotionCount = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // Animate a single stats section
@@ -443,19 +445,22 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(update);
       });
     };
-    statsSections.forEach((section) => {
-      let hasAnimated = false;
-      const observer = new IntersectionObserver((entries, obs) => {
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            hasAnimated = true;
-            animateSection(section);
+          if (entry.isIntersecting) {
+            animateSection(entry.target);
             obs.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.4 });
-      observer.observe(section);
-    });
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    statsSections.forEach((section) => observer.observe(section));
   }
 
   /*
