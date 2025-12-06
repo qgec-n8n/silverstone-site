@@ -30,22 +30,22 @@ Success criteria:
 
 This section must be updated with real timestamps as work proceeds.
 
-- [ ] (…) Confirm repo structure and existing design patterns (header, hero, parallax, neon cards, stats, FAQs, footer).
-- [ ] (…) Confirm canonical ExecPlan location `.agent/plans/real-estate-landing-page.md` and ensure `.agent/PLANS.md` and `.agent/AGENTS.md` are up to date.
-- [ ] (…) Decide exact file path for the new niche page (`niches/estate-agents.html`) and create the `niches/` directory if it does not exist.
-- [ ] (…) Implement the Estate Agents hero section with gold/amber hero shader variant, accurate copy, bullet list, and CTAs.
-- [ ] (…) Implement the Niche Pain section (3.2) using service-row style with Real_Estate_1 image and neon card, including iconised bullet list.
-- [ ] (…) Implement the Bundle / Counter-Product Overview section (3.3) using service-row style with Real_Estate_2 image and neon card, section heading, and iconised bullets.
-- [ ] (…) Implement the Proof in Numbers strip (3.4) as four static stats cards with top icons and percentages, and adjust `assets/js/script.js` so this section does **not** animate.
-- [ ] (…) Implement the Outcomes & Benefits section (3.5) using service-row style with Real_Estate_3 image and neon card, with iconised outcome bullets and alternating orientation.
-- [ ] (…) Implement How It Works (3.6) as a row of four value-style neon cards with top icons and explanatory copy.
-- [ ] (…) Implement Risk Reversal & Reassurance (3.7) as a row of four value-style neon cards plus intro paragraph.
-- [ ] (…) Insert a visually integrated but minimal Pricing Placeholder section (3.8) ready for future pricing content.
-- [ ] (…) Implement the FAQs section (3.9) using the existing FAQ `<details>` pattern, populated with Q&A from Section 8 of the spec.
-- [ ] (…) Implement the final CTA block (3.10) using the shared CTA pattern from index/about/book.
-- [ ] (…) Ensure the footer (3.11) is identical to the main pages and that the logo loads correctly.
-- [ ] (…) Wire the navigation so the “Estate Agents” link under the Services dropdown points to `/niches/estate-agents` rather than a `services.html#estate-agents` anchor.
-- [ ] (…) Update `sitemap.xml` to include `https://silverstone-ai.com/niches/estate-agents` with appropriate priority.
+- [x] (2025-12-06T00:02Z) Confirm repo structure and existing design patterns (header, hero, parallax, neon cards, stats, FAQs, footer).
+- [x] (2025-12-06T00:02Z) Confirm canonical ExecPlan location `.agent/plans/real-estate-landing-page.md` and ensure `.agent/PLANS.md` and `.agent/AGENTS.md` are up to date.
+- [x] (2025-12-06T00:02Z) Decide exact file path for the new niche page (`niches/estate-agents.html`) and create the `niches/` directory if it does not exist.
+- [x] (2025-12-06T00:02Z) Implement the Estate Agents hero section with gold/amber hero shader variant, accurate copy, bullet list, and CTAs.
+- [x] (2025-12-06T00:02Z) Implement the Niche Pain section (3.2) using service-row style with Real_Estate_1 image and neon card, including iconised bullet list.
+- [x] (2025-12-06T00:02Z) Implement the Bundle / Counter-Product Overview section (3.3) using service-row style with Real_Estate_2 image and neon card, section heading, and iconised bullets.
+- [x] (2025-12-06T00:02Z) Implement the Proof in Numbers strip (3.4) as four static stats cards with top icons and percentages, and adjust `assets/js/script.js` so this section does **not** animate.
+- [x] (2025-12-06T00:02Z) Implement the Outcomes & Benefits section (3.5) using service-row style with Real_Estate_3 image and neon card, with iconised outcome bullets and alternating orientation.
+- [x] (2025-12-06T00:02Z) Implement How It Works (3.6) as a row of four value-style neon cards with top icons and explanatory copy.
+- [x] (2025-12-06T00:02Z) Implement Risk Reversal & Reassurance (3.7) as a row of four value-style neon cards plus intro paragraph.
+- [x] (2025-12-06T00:02Z) Insert a visually integrated but minimal Pricing Placeholder section (3.8) ready for future pricing content.
+- [x] (2025-12-06T00:02Z) Implement the FAQs section (3.9) using the existing FAQ `<details>` pattern, populated with Q&A from Section 8 of the spec.
+- [x] (2025-12-06T00:02Z) Implement the final CTA block (3.10) using the shared CTA pattern from index/about/book.
+- [x] (2025-12-06T00:02Z) Ensure the footer (3.11) is identical to the main pages and that the logo loads correctly.
+- [x] (2025-12-06T00:02Z) Wire the navigation so the “Estate Agents” link under the Services dropdown points to `/niches/estate-agents` rather than a `services.html#estate-agents` anchor.
+- [x] (2025-12-06T00:02Z) Update `sitemap.xml` to include `https://silverstone-ai.com/niches/estate-agents` with appropriate priority.
 - [ ] (…) Manually validate layout, interactions, and copy across desktop, tablet, and mobile viewports.
 - [ ] (…) Update `Outcomes & Retrospective` with a summary of what was achieved and any follow-ups.
 
@@ -53,10 +53,10 @@ This section must be updated with real timestamps as work proceeds.
 
 Use this section to record unexpected or noteworthy findings while implementing this plan.
 
-- Observation: …
-  - Evidence: …
-- Observation: …
-  - Evidence: …
+- Observation: No blocking surprises encountered while aligning layouts with existing patterns.
+  - Evidence: Standard header, hero, and service-row structures reused without additional CSS beyond the stat icon tweak.
+- Observation: Stats cards needed a small inline icon style to keep top-of-card icons balanced with numbers.
+  - Evidence: Added `.stat-icon` rules in `niches/estate-agents.html` alongside the static Proof in Numbers block.
 
 ## Decision Log
 
@@ -64,13 +64,17 @@ Record important decisions and their rationale here.
 
 - Decision: Use `niches/estate-agents.html` as the page path and map it to `https://silverstone-ai.com/niches/estate-agents`.
   - Rationale: The spec recommends this slug; the repo currently has no `niches/` directory, so adding one is a minimal and clear extension.
-  - Date/Author: …
+  - Date/Author: 2025-12-06 / Codex
 - Decision: Use the `amber` hero shader variant (via `data-variant="amber"`) for the Estate Agents hero to create the “gold” look.
   - Rationale: `assets/js/hero-shader.js` defines `amber` as a deep amber/gold variant used on `book.html`, so reusing it maintains visual coherence.
-  - Date/Author: …
+  - Date/Author: 2025-12-06 / Codex
 - Decision: Disable stats counter animation for the Estate Agents Proof in Numbers block via a dedicated data attribute on its `.stats` container.
   - Rationale: The spec requires static percentages and forbids the counter effect; using an attribute keeps the change minimal and backwards-compatible.
-  - Date/Author: …
+  - Date/Author: 2025-12-06 / Codex
+
+- Decision: Use existing value-card styling for icon-topped cards and keep stat icons simple with a light inline style.
+  - Rationale: Reusing established components preserves the premium look without adding new dependencies; a tiny inline style ensures top icons align cleanly above static numbers.
+  - Date/Author: 2025-12-06 / Codex
 
 (Add further decisions as they arise.)
 
@@ -79,11 +83,12 @@ Record important decisions and their rationale here.
 To be filled in as the work completes.
 
 - Outcomes:
-  - …
+  - Estate Agents niche page built with hero, bundle, proof in numbers, outcomes, how it works, reassurance, FAQs, CTA, and footer consistent with the main site.
+  - Navigation links and sitemap updated to route to `/niches/estate-agents`, with stats animation opt-out implemented for static metrics.
 - Gaps or follow-ups:
-  - …
+  - Manual cross-device validation still pending.
 - Lessons learned:
-  - …
+  - Inline styling can safely support top-of-card stat icons when existing components lack dedicated rules.
 
 ## Context and Orientation
 
