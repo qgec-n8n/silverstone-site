@@ -417,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * their operating system preferences, the numbers will immediately
    * display their target values without animation.
    */
-  const statsSections = document.querySelectorAll('.stats');
+  const statsSections = document.querySelectorAll('.stats:not([data-counter="off"])');
   if (statsSections.length) {
     const prefersReducedMotionCount = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // Animate a single stats section
