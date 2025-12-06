@@ -30,14 +30,26 @@ document.addEventListener('DOMContentLoaded', function () {
   function storeChoice(value) {
     const expiryDate = new Date();
     expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-    localStorage.setItem(STORAGE_KEY, value);
-    document.cookie =
-      'cookieConsent=' +
-      encodeURIComponent(value) +
-      '; expires=' +
-      expiryDate.toUTCString() +
-      '; path=/; SameSite=Lax';
+
+    try {
+      localStorage.setItem(STORAGE_KEY, value);
+    } catch (err) {
+      // If storage is blocked, continue without failing.
+    }
+
+    try {
+      document.cookie =
+        'cookieConsent=' +
+        encodeURIComponent(value) +
+        '; expires=' +
+        expiryDate.toUTCString() +
+        '; path=/; SameSite=Lax';
+    } catch (err) {
+      // Ignore cookie write issues to avoid breaking the page.
+    }
+
     banner.style.display = 'none';
+    banner.setAttribute('data-consent-dismissed', 'true');
   }
 
   banner.style.display = 'flex';
