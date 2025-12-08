@@ -1,12 +1,24 @@
 # Codex configuration file for silverstone-site
+#
+# This config:
+# - Prefers gpt-5.1-codex-max with xhigh reasoning effort.
+# - Enables web_search_request and view_image_tool via the [features] table.
+# - Leaves sandbox/approval at their CLI defaults for safety.
 
-## Feature flags
-# Enable the web_search_request tool so that Codex can perform research during execution.
-# Setting this flag to true allows the model to issue web search queries when instructed
-# by the developer prompt or by files like AGENTS.md and PLANS.md.
+# Default model used by Codex for this repo.
+model = "gpt-5.1-codex-max"
+
+# Use extra-high reasoning effort for complex, cross-file tasks.
+# (xhigh is supported on gpt-5.1-codex-max.)
+model_reasoning_effort = "xhigh"
+
+# Optional: keep default verbosity unless you want to override it explicitly.
+# model_verbosity = "medium"
+
+# Feature flags (see Codex config docs for full list).
+[features]
+# Allow the model to issue web searches when needed.
 web_search_request = true
 
-# Enable view_image_tool explicitly.  This flag controls whether Codex can display
-# external images in the UI.  The default value is true, but we set it here to be
-# explicit and ensure the tool remains available for future sessions.
+# Explicitly ensure the image viewing tool is available.
 view_image_tool = true
