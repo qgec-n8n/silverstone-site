@@ -1,263 +1,226 @@
-# Codex Execution Plans (ExecPlans) for `silverstone-site`
+# Codex Execution Plans (ExecPlans) for this repo
 
-This document defines how to design and implement **ExecPlans** for this repository so that Codex can carry out multi-step changes safely and predictably. Treat the reader of any ExecPlan as a complete beginner to this codebase: they only have the working tree and the ExecPlan you write.
+This document defines how **ExecPlans** work in the `silverstone-site` repository and how Codex should read, write, and execute them.
 
-ExecPlans are **living design documents**. They must be kept up to date as work proceeds, so that someone else (or Codex in a later session) can resume work using only the ExecPlan and the repo checkout.
+ExecPlans are **design documents for Codex**, not for humans alone. Treat them as step-by-step, executable specifications that a fresh coding agent can follow to deliver a working change, with no prior memory of the project beyond:
 
-This file is adapted from the Codex Exec Plans cookbook article and customized for the Silverstone marketing site, with a special focus on the **Estate Agents** niche page and shared layout behavior.
+- The current working tree.
+- This `PLANS.md` file.
+- The specific ExecPlan file.
 
----
-
-## 1. How ExecPlans are used in this repo
-
-When working with this repository:
-
-- **Codex must always read, in order**:
-  1. The root `AGENTS.md`.
-  2. This `PLANS.md`.
-  3. The specific ExecPlan referenced by the user (for this project, the Estate Agents bugfix ExecPlan in the repo root).
-
-- ExecPlans are required for:
-  - Any multi-file change (HTML + CSS, or HTML + JS).
-  - Any change that affects:
-    - Cookie-consent banner behavior.
-    - Layout spacing between sections.
-    - Background images / parallax behavior.
-    - Card background opacity.
-    - Desktop navigation bar alignment.
-    - Mobile menu and **Services** pill styling.
-    - Stats / “Proof in Numbers” / “Show the numbers, not just promises” counters.
-    - Desktop vs mobile image selection (especially for Estate Agents imagery).
-    - `.codex/config.toml`.
-
-- When an ExecPlan is in play:
-  - **Do not** ask the user for “next steps”.
-  - Proceed autonomously through the milestones defined in the plan.
-  - Keep the ExecPlan updated with progress and discoveries.
+Always assume the reader is a **beginner to the repo**.
 
 ---
 
-## 2. Non-negotiable requirements for ExecPlans
+## 1. What is an ExecPlan?
 
-Every ExecPlan in this repository must satisfy these rules:
+An ExecPlan is a Markdown file (named like `some-task.ExecPlan.md`) that:
 
-1. **Self-contained**
-   - The ExecPlan must contain all context needed for a novice to complete the work:
-     - Short description of relevant parts of the repo.
-     - File paths and key selectors / functions.
-     - Commands to run for testing or previewing.
-   - Do not rely on “tribal knowledge” or unstated assumptions.
+- Describes a concrete engineering task or feature.
+- Explains the current behavior and desired behavior.
+- Lists files and components to inspect.
+- Breaks work into milestones with checklists and clear outcomes.
+- Defines testing and verification steps.
+- Records key decisions, risks, and tradeoffs.
 
-2. **Living document**
-   - ExecPlans must be updated as work proceeds.
-   - The sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` are **mandatory** and must accurately reflect the current state.
+ExecPlans **do not** replace Codex’s reasoning — they **organize** it. Codex still needs to:
 
-3. **Concrete, user-visible outcomes**
-   - Plans must describe how a human can verify the change:
-     - Which page(s) to open.
-     - Which behavior to look for (e.g. cookie banner presence, background behavior, card appearance, counter text).
-   - The goal is working behavior, not just changed code.
-
-4. **Clear goals and non-goals**
-   - Every ExecPlan must include:
-     - A **Goals** section that lists exactly what behaviors will change.
-     - A **Non-goals** section that lists what must stay untouched (e.g. typography, copy, unrelated pages).
-
-5. **Explicit file references**
-   - ExecPlans must use **repo-relative paths** (from the GitHub root), such as:
-     - `index.html`
-     - `services.html`
-     - `niches/estate-agents.html`
-     - `assets/css/styles.css`
-     - `assets/css/custom.css`
-     - `assets/css/mobile.css`
-     - `assets/css/parallax-fix.css`
-     - `assets/js/script.js`
-     - `assets/js/cookie-consent.js`
-     - `.codex/config.toml`
-   - When describing changes, name the CSS selectors, HTML classes, and JavaScript functions/blocks to be edited.
-
-6. **Risk, validation, and idempotence**
-   - ExecPlans must:
-     - Identify potential risks (e.g. shared CSS affecting other pages, JS changes impacting multiple sections).
-     - Propose mitigation strategies (e.g. page-specific body classes, scoped selectors).
-     - Include repeatable testing / verification steps.
-   - Steps should be safe to re-run (idempotent) without corrupting the repo.
+- Explore the codebase.
+- Form hypotheses about bugs.
+- Decide precisely how to implement changes.
+- Keep the ExecPlan updated as progress is made.
 
 ---
 
-## 3. Required sections in every ExecPlan
+## 2. How to read an ExecPlan (Codex behavior)
 
-Each ExecPlan file in this repo must be a single Markdown document (no nested triple-backtick fences inside the file itself). It **must** include the following sections:
+When Codex is asked to “follow an ExecPlan” in this repo, it must:
 
-1. `# <Short, action-oriented description>`
-2. `## Purpose / Big Picture`
-3. `## Context and Current Behavior`
-4. `## Goals`
-5. `## Non-goals`
-6. `## Impacted Files`
-7. `## Plan of Work & Milestones`
-8. `## Testing & Verification`
-9. `## Risks & Mitigations`
-10. `## Progress`
-11. `## Surprises & Discoveries`
-12. `## Decision Log`
-13. `## Outcomes & Retrospective`
+1. From the repository root:
+   - Read `AGENTS.md`.
+   - Read `PLANS.md`.
+   - Read the specific `*.ExecPlan.md` mentioned by the human (for this project: `estate-agents-bugfixes.ExecPlan.md`).
 
-### Notes on content
+2. Summarize the ExecPlan to itself:
+   - List goals.
+   - List non-goals.
+   - List the key milestones and target files.
 
-- **Purpose / Big Picture**  
-  Explain what a visitor to the website will notice after the change, and how they can confirm that it works (e.g. “the cookie banner appears once, behaves consistently across all pages, and does not reappear after consent”).
+3. Execute the plan **end-to-end**:
+   - Do **not** ask the user for “next steps” at each milestone.
+   - Instead, move through milestones autonomously, reporting progress and surfacing only important decisions, ambiguities, or tradeoffs.
 
-- **Context and Current Behavior**  
-  Summarize the current state for each relevant issue:
-  - Where the Estate Agents page lives (`niches/estate-agents.html`).
-  - How cookie banners are structured and styled.
-  - Where parallax behaviors and background images are defined.
-  - Where the stats / counters logic lives.
-  - How `.codex/config.toml` is currently configured.
+4. Keep the ExecPlan as a **living document** when appropriate:
+   - Update checkboxes (`[ ]` → `[x]`) as milestones and tasks are completed.
+   - Add brief notes to “Progress” or “Decision log” sections when available.
+   - Do not erase the original intent; append your findings.
 
-- **Goals / Non-goals**  
-  Use bullets or short paragraphs. Tie each goal explicitly to the bug/change list that motivated the ExecPlan.
+5. For any ambiguity:
+   - First resolve it by reading more of the code.
+   - Only ask the human if the intent truly cannot be inferred.
 
-- **Impacted Files**  
-  List only the files you realistically expect to modify. If new files are needed (e.g. an additional CSS partial), name and justify them.
+---
 
-- **Plan of Work & Milestones**  
-  Break work into milestones that can be validated independently. For each milestone, describe:
-  - What will exist or behave differently at the end of the milestone.
-  - Which files and selectors it touches.
-  - How to quickly verify the milestone (e.g. reload a specific page and check a specific section).
+## 3. How to author an ExecPlan in this repo
 
-- **Testing & Verification**  
-  For this site, verification is mostly **visual and behavioral**:
-  - Opening specific HTML files in a browser (via a static file server).
-  - Checking behavior on both desktop-size and mobile-size viewports.
-  - Confirming that changes on the Estate Agents page do not break similar sections on the home (`index.html`) or services (`services.html`) pages.
+When creating a new ExecPlan here, follow this structure (adapt and extend as needed):
 
-- **Progress / Surprises / Decision Log / Outcomes**  
-  These are the “living” sections:
-  - `Progress`: a timestamped checklist of completed vs remaining steps.
-  - `Surprises & Discoveries`: notes about unexpected behavior, browser quirks, or design decisions forced by the existing code.
-  - `Decision Log`: record key choices (e.g. “we added a `.page-estate-agents` scoped override instead of changing the global `.neon-card` style”).
-  - `Outcomes & Retrospective`: summary at the end of the ExecPlan’s lifecycle describing what was achieved and any follow-ups.
+1. **Title & metadata**
+   - Short title (task name).
+   - Status (Not started / In progress / Complete).
+   - Date and context (optional).
+   - Owner (usually “Codex for \<user name\>”).
+
+2. **Summary / Overview**
+   - 3–7 bullet points summarizing what this ExecPlan will achieve.
+   - Mention the key pages/components affected.
+
+3. **Context & current behavior**
+   - For each issue, describe:
+     - What currently happens (as observed in the code and UI).
+     - Where in the codebase this behavior seems to live (filenames, selectors, functions).
+   - Keep this concise but specific enough that a fresh agent can orient quickly.
+
+4. **Goals**
+   - Use a checklist of concrete, testable goals:
+     - `[ ]` Cookie banner behaves consistently across listed pages.
+     - `[ ]` Estate Agents mobile background image appears as intended.
+     - etc.
+
+5. **Non-goals**
+   - Explicitly list what is **out of scope**, e.g.:
+     - No global redesign of the navigation.
+     - No changes to SEO/meta tags.
+     - No framework migration.
+
+6. **Impacted files & components**
+   - List all files that are likely to be inspected or edited.
+   - Prefer grouping by concern, for example:
+     - **Estate Agents page markup:** `niches/estate-agents.html`
+     - **Shared pages:** `index.html`, `services.html`, `about.html`, `book.html`, `contact.html`
+     - **CSS:** `assets/css/styles.css`, `assets/css/custom-styles.css`, `assets/css/custom.css`, `assets/css/mobile.css`, `assets/css/parallax-fix.css`, `assets/css/services.css`, and any inline `<style>` blocks.
+     - **JS:** `assets/js/script.js`, `assets/js/cookie-consent.js`, `assets/js/hero-shader.js`
+     - **Config:** `.codex/config.toml`
+
+7. **Detailed plan & milestones**
+   - Break the work into numbered milestones with checklists.
+   - Each milestone should:
+     - Name the concern it addresses (e.g. “Cookie banner behavior”).
+     - Describe the **analysis steps** (what to read, what to run or preview).
+     - Describe the **implementation strategy** in words (not raw diffs).
+     - Describe the **verification steps** for that milestone.
+   - Keep each milestone small enough that Codex can reasonably complete it and then re-check the UI.
+
+8. **Risks & mitigations**
+   - Note possible breakages (e.g. “Cookie banner might disappear on all pages” or “Parallax fixes might disable animations on desktop”).
+   - For each risk, state a mitigation, such as:
+     - Use page-specific selectors or body classes (`.page-estate-agents`) to scope CSS.
+     - Verify `index.html`, `services.html`, and `book.html` after parallax-related changes.
+
+9. **Testing & verification plan**
+   - List specific steps Codex must perform at the end:
+     - Which pages to open.
+     - Which viewport sizes to simulate (e.g. 320–400px width, ~768px, ~1440px).
+     - Which interactions to test (scrolling, clicking cookie buttons, opening mobile menu, etc.).
+   - Include any commands to run (if applicable), such as:
+     - `npm install` (initially, if dependencies are missing).
+     - `npm run build:css` or `npm run build` to ensure scripts and CSS builds still succeed.
+
+10. **Logging / change tracking**
+    - Encourage Codex to:
+      - Keep a short “Change summary” section.
+      - Update a “Decision log” if the ExecPlan already has one (e.g. “Decided to keep parallax disabled on mobile after testing multiple approaches”).
 
 ---
 
 ## 4. Repo-specific guidance for ExecPlans
 
-### 4.1 Estate Agents page and related sections
+For this repository, ExecPlans **must**:
 
-ExecPlans that affect the Estate Agents page **must**:
+1. **Treat the reader as new to the repo**
+   - Assume they only see:
+     - The code in the current working tree.
+     - This `PLANS.md`.
+     - The ExecPlan itself.
+   - Ensure the ExecPlan points clearly to relevant files and body classes/IDs (e.g. `.page-estate-agents`, `.cookie-banner`, `.parallax-section`, `.service-pill`).
 
-- Inspect and reason about the following areas:
+2. **Describe current state before proposing changes**
+   - For each bug or requested change:
+     - Summarize how the feature currently works on:
+       - The Estate Agents page (`niches/estate-agents.html`).
+       - Any other affected pages (`index.html`, `services.html`, `about.html`, `book.html`, `contact.html`).
+     - Mention where key CSS and JS live (`assets/css/*.css`, `assets/js/script.js`, `assets/js/cookie-consent.js`, etc.).
+   - Only after this summary should the ExecPlan outline the implementation plan.
 
-  - **HTML**
-    - `niches/estate-agents.html`
-      - Cookie banner markup (`#cookie-banner`, `#cookie-accept-btn`, `#cookie-decline-btn`).
-      - The “Show the numbers, not just promises” / stats section (`.stats`, `.number[data-target]`).
-      - The “Where deals leak away”, “Answer instantly. Confirm automatically. Keep the chain warm.”, “Plug, personalise, launch”, and “Safe, compliant, and fully supported” cards and their classes (`.neon-card`, `.dark-card`, `.value-card`, etc.).
-      - Real_Estate card images (e.g. `Real_Estate_1.jpeg`, `Real_Estate_2.jpeg`, `Real_Estate_3.jpeg`).
-    - Shared pages:
-      - `index.html`, `about.html`, `services.html`, `contact.html`, `book.html` for cross-page cookie behavior, nav, and parallax.
+3. **Stay within the defined scope**
+   - For the Estate Agents bugfix ExecPlan in particular, focus on:
+     - Cookie-consent banner behavior and persistence across pages.
+     - Vertical spacing between named sections on `niches/estate-agents.html`.
+     - Card background opacity consistency on that page.
+     - Desktop navigation banner alignment and the Services dropdown.
+     - Mobile menu pill styling (especially the Services entry).
+     - Background images and parallax behavior (desktop and mobile, including URL-bar-related jumps).
+     - Counter effect removal and adding `%` symbols.
+     - Desktop vs mobile image selection for Estate Agents (`Real_Estate_*.jpeg` vs `Real_Estate_*_Mobile.jpeg`).
+     - Use of `book-hero-calendly-mobile-2025@*x.webp` for Estate Agents mobile background where appropriate.
+   - Avoid opportunistic refactors or new features beyond what is required to satisfy the ExecPlan’s goals.
 
-  - **CSS**
-    - Global styles in `assets/css/styles.css` (including `.neon-card`, header/nav styles, and layout defaults).
-    - Overrides in `assets/css/custom.css` (cookie-banner styles, any nav/menu tweaks).
-    - Mobile adjustments in `assets/css/mobile.css` (section padding, mobile nav, values/cards layout).
-    - Parallax background styles in `assets/css/parallax-fix.css` (including `data-parallax-theme="lines" | "circuit" | "mesh" | "waves" | "book"`).
-
-  - **JavaScript**
-    - `assets/js/cookie-consent.js` for banner show/hide and persistence logic.
-    - `assets/js/script.js` for:
-      - Stats / counter animation (`.stats`, `.number[data-target]`).
-      - Mobile nav and Services overlay behavior.
-      - Parallax mobile layer behavior and IntersectionObservers.
-
-  - **Images**
-    - Estate Agents images:
-      - `assets/images/socialmedia/Real_Estate_1.jpeg` and `Real_Estate_1_Mobile.jpeg`
-      - `assets/images/socialmedia/Real_Estate_2.jpeg` and `Real_Estate_2_Mobile.jpeg`
-      - `assets/images/socialmedia/Real_Estate_3.jpeg` and `Real_Estate_3_Mobile.jpeg`
-    - Background/parallax assets:
-      - `assets/images/internet/hero/book-hero-calendly-mobile-2025.webp`
-      - `assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp`
-      - `assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp`
-      - `assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp`
-      - `assets/images/internet/section-waves*.webp` and `assets/images/internet/mobile/section-waves@*.webp`
-      - `assets/images/internet/section-mesh*.webp` and `assets/images/internet/mobile/section-mesh@*.webp`
-
-- Avoid unintended side effects:
-  - Use page-specific body classes (e.g. `body.page-estate-agents`) and narrow selectors when modifying card backgrounds, stats, or spacing.
-  - Carefully check how nav and parallax behavior differs between `index.html`, `services.html`, and `niches/estate-agents.html` before changing shared JS/CSS.
-
-### 4.2 Cookie-consent banner ExecPlan requirements
-
-For any ExecPlan that touches cookie behavior:
-
-- Include explicit steps to:
-  - Compare the banner markup across:
-    - `index.html`
-    - `about.html`
-    - `services.html`
-    - `contact.html`
-    - `book.html`
-    - `niches/estate-agents.html`
-  - Review `assets/js/cookie-consent.js`.
-  - Review `.cookie-banner`, `.cookie-actions`, and related CSS in `assets/css/custom.css`.
-- Define the desired banner behavior clearly (when it should appear, how often, and under what persistence rules).
-- Include verification steps using a **fresh browser context** (e.g. “clear localStorage and cookies for the test domain, then reload”).
-
-### 4.3 ExecPlans that interact with `.codex/config.toml`
-
-If an ExecPlan proposes changes to `.codex/config.toml`:
-
-- First, describe the current contents of `.codex/config.toml` in the `Context and Current Behavior` section.
-- Then, in the plan:
-  - State the desired default model (`gpt-5.1-codex-max`).
-  - State the desired reasoning level (`model_reasoning_effort = "xhigh"`).
-  - State the desired internet/search and image tools configuration (web search enabled, view-image tools enabled).
-- Any proposed edits should:
-  - Follow the official `config.toml` schema from the Codex configuration docs.
-  - Preserve or re-create equivalent behavior for any existing settings (e.g. ensuring web search remains enabled).
-- Include a **configuration verification step** in the Testing section:
-  - Confirm that Codex sessions against this repo report the expected model and tools availability.
-  - Confirm there are no syntax errors in `config.toml`.
+4. **Interact carefully with `.codex/config.toml`**
+   - If an ExecPlan involves Codex configuration:
+     - Include an explicit step to open and read `.codex/config.toml`.
+     - Compare it with the official Codex config docs (model selection, `model_reasoning_effort`, feature flags, sandbox/network settings).
+     - Note whether:
+       - The model is set to `gpt-5.1-codex-max` or something else.
+       - `model_reasoning_effort` is set (and to what).
+       - Internet access features (like `web_search_request`) are enabled in the right section.
+     - Decide whether to:
+       - Keep it as-is.
+       - Update it (preferred for aligning with this repo’s guidance).
+       - Or recommend removing/ignoring it (rare; document why).
+   - Any change to `.codex/config.toml` must remain compatible with the official schema (e.g. `[features]` table, sandbox sections).
 
 ---
 
-## 5. Implementing an ExecPlan
+## 5. How Codex should implement an ExecPlan here
 
-When Codex executes an ExecPlan in this repository, it must:
+When executing any ExecPlan in this repo, Codex should:
 
-1. **Read and re-orient**
-   - Re-read `AGENTS.md`, `PLANS.md`, and the active ExecPlan before making changes.
-   - Summarize the intended work and confirm the list of impacted files in the ExecPlan itself.
+1. **Work autonomously through milestones**
+   - Do not prompt the user after each small change.
+   - Only pause to ask questions when:
+     - Requirements conflict.
+     - A decision has significant UX or product implications.
+     - The codebase and documentation do not make the intent clear.
 
-2. **Work milestone by milestone**
-   - Do not skip milestones, even if the work looks trivial.
-   - Update the `Progress` section as each milestone or subtask is completed.
+2. **Use small, reviewable edits**
+   - Prefer editing only the relevant sections of files.
+   - Avoid mass search-and-replace on generic classes unless the ExecPlan explicitly endorses it.
+   - Keep styling changes scoped via page-specific body classes where possible.
 
-3. **Use Git (if available) or clear change logs**
-   - Where possible, group related changes into logical commits with descriptive messages.
-   - If commits are not used, write a short **change log** in the ExecPlan or in the chat (file-by-file overview of edits).
+3. **Verify as you go**
+   - After each major milestone, re-open the affected page(s) and check:
+     - Desktop layout and behavior.
+     - Mobile layout and behavior (orientation changes, scroll, URL bar show/hide).
+   - Re-run build commands if they are likely to be affected (`npm run build:css`, `npm run build`).
 
-4. **Validate at each major step**
-   - After changes to cookie banners, nav, parallax, counters, or images:
-     - Reload the affected pages.
-     - Re-check behavior on desktop and mobile.
-   - Only move on once the milestone’s acceptance criteria are satisfied.
+4. **Document progress**
+   - Mark milestone checkboxes as `[x]` when complete.
+   - Add short notes under any “Progress” or “Decision log” section in the ExecPlan.
+   - Summarize final changes in a way that a human reviewer can quickly understand.
 
-5. **Finish with a retrospective**
-   - At the end of the ExecPlan’s lifecycle, fill in `Outcomes & Retrospective`:
-     - What was fixed and where.
-     - How to verify the final state.
-     - Any follow-up work that should be captured in a future plan.
+5. **Respect project boundaries**
+   - If you need to touch a file outside the ExecPlan’s impacted list, first:
+     - Explain (in the chat and/or ExecPlan) why it is necessary.
+     - Keep the change as minimal as possible.
 
 ---
 
-## 6. Format reminder
+## 6. File naming and location
 
-- Each ExecPlan is stored in a `*.ExecPlan.md` file at the repo root (for this project, we use a dedicated Estate Agents ExecPlan).
-- The file itself contains **plain Markdown**, not wrapped in triple-backtick code fences.
-- When showing commands or code snippets inside an ExecPlan, use indentation rather than nested fences, to avoid prematurely closing the ExecPlan when it is embedded elsewhere.
+- Place ExecPlans at the **repository root**.
+- Use names like:
+  - `estate-agents-bugfixes.ExecPlan.md`
+  - `navigation-cleanup.ExecPlan.md`
+- This `PLANS.md` file belongs in the repository root, alongside `AGENTS.md`.
+
+Any agent working on this repo should treat `PLANS.md` and the active ExecPlan as the primary specification for how to plan and execute multi-step work.
