@@ -1,6 +1,6 @@
 # ExecPlan: Estate Agents page bugfixes & layout consistency
 
-**Status:** Not started  
+**Status:** Complete
 **Owner:** Codex for the Silverstone site  
 **Scope:** Estate Agents niche page and closely related shared components (cookie banner, navigation, parallax, image handling, and Codex config).
 
@@ -563,3 +563,13 @@ While executing this ExecPlan, Codex should:
   - Use clear, human-readable descriptions that map back to the goals listed above.
 
 This ExecPlan is complete when all goals in Section 3 are met and the testing plan in Section 7 passes without regressions.
+
+## Progress & Notes
+
+- [x] Cookie banner made consistent across all pages with explicit show/hide states and supporting CSS.
+- [x] Estate Agents spacing tightened between specified sections; cards share a unified darker background treatment.
+- [x] Numbers section now static (`68%`, `42%`, `2x`) with counters disabled on this page.
+- [x] Desktop navigation Services item aligned; mobile Services pill typography aligned with other entries.
+- [x] Mobile parallax replaced with static themed backgrounds to eliminate URL-bar jumpiness while keeping desktop unchanged.
+- [x] Estate Agents images now serve mobile variants via `<picture>` sources.
+- [x] `.codex/config.toml` reviewed—already aligned with recommended model, reasoning effort, and features.

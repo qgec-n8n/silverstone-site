@@ -14,6 +14,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const STORAGE_KEY = 'cookieConsentChoice';
 
+  const hideBanner = () => {
+    banner.style.display = 'none';
+    banner.setAttribute('aria-hidden', 'true');
+    banner.classList.remove('is-visible');
+  };
+
+  const showBanner = () => {
+    banner.style.display = 'flex';
+    banner.setAttribute('aria-hidden', 'false');
+    banner.classList.add('is-visible');
+  };
+
   function getCookie(name) {
     const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
     return match ? decodeURIComponent(match[1]) : null;
@@ -23,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const cookieChoice = getCookie('cookieConsent');
 
   if (storedChoice || cookieChoice) {
-    banner.style.display = 'none';
+    hideBanner();
     return;
   }
 
@@ -48,11 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
       // Ignore cookie write issues to avoid breaking the page.
     }
 
-    banner.style.display = 'none';
-    banner.setAttribute('data-consent-dismissed', 'true');
+    hideBanner();
   }
 
-  banner.style.display = 'flex';
+  showBanner();
 
   acceptBtn.addEventListener('click', function () {
     storeChoice('accepted');

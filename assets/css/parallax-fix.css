@@ -202,9 +202,15 @@
 /* Mobile parallax -------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
   .parallax-section {
-    background-image: none !important;
-    background-color: transparent;
-    isolation: auto;
+    background-color: var(--parallax-backdrop);
+    background-image: var(
+        --parallax-mobile-image-set-webkit,
+        var(--parallax-mobile-image-set, var(--parallax-mobile-fallback, none))
+      );
+    background-size: cover;
+    background-position: center top;
+    background-attachment: scroll;
+    isolation: isolate;
   }
   .parallax-section.parallax-mobile-active {
     position: relative;
