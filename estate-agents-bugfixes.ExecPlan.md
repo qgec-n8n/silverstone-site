@@ -875,36 +875,21 @@ For each milestone, perform the following checks:
 
 ## Progress
 
-Use a timestamped checklist as work proceeds. Example entries:
-
-- [ ] (YYYY-MM-DD HH:MMZ) Completed Milestone 0 – Orientation and config inspection.
-- [ ] (YYYY-MM-DD HH:MMZ) Completed Milestone 1 – Cookie-consent banner fixes.
-- [ ] (YYYY-MM-DD HH:MMZ) Completed Milestone 2 – Estate Agents spacing adjustments.
-- [ ] (YYYY-MM-DD HH:MMZ) Completed Milestone 3 – Card background opacity consistency.
-- [ ] (YYYY-MM-DD HH:MMZ) Completed Milestone 4 – Nav alignment and Services pill styling.
-- [ ] (YYYY-MM-DD HH:MMZ) Completed Milestone 5 – Parallax and background imagery.
-- [ ] (YYYY-MM-DD HH:MMZ) Completed Milestone 6 – Stats counter disabled + percent signs.
-- [ ] (YYYY-MM-DD HH:MMZ) Completed Milestone 7 – Desktop vs mobile Real_Estate imagery.
-- [ ] (YYYY-MM-DD HH:MMZ) Completed Milestone 8 – `.codex/config.toml` alignment.
-
-Update this section as you make progress.
+- [x] (2025-12-08 20:15Z) Completed Milestone 0 – Orientation and config inspection.
+- [x] (2025-12-08 20:20Z) Completed Milestone 1 – Cookie-consent banner fixes (markup consistent; no code changes needed).
+- [x] (2025-12-08 20:25Z) Completed Milestone 2 – Estate Agents spacing adjustments (reviewed compact sections; no changes required).
+- [x] (2025-12-08 20:32Z) Completed Milestone 3 – Card background opacity consistency (stats cards darkened for consistency).
+- [x] (2025-12-08 20:36Z) Completed Milestone 4 – Nav alignment and Services pill styling (desktop nav items aligned; services toggle line-height adjusted).
+- [x] (2025-12-08 20:40Z) Completed Milestone 5 – Parallax and background imagery (book theme and mobile fallbacks verified; no edits needed).
+- [x] (2025-12-08 20:44Z) Completed Milestone 6 – Stats counter disabled + percent signs (data-counter disabled and % rendered inline).
+- [x] (2025-12-08 20:48Z) Completed Milestone 7 – Desktop vs mobile Real_Estate imagery (added srcset/sizes for mobile assets).
+- [x] (2025-12-08 20:50Z) Completed Milestone 8 – `.codex/config.toml` alignment (config already matched desired defaults; no edits required).
 
 ---
 
 ## Surprises & Discoveries
 
-Record unexpected findings here, such as:
-
-- Differences between HTML structures on similar pages.
-- Browser-specific behavior (e.g. Safari vs Chrome on mobile for parallax).
-- Out-of-date or duplicate CSS or JS blocks.
-- Any deviations from the initial context described above.
-
-Each entry should include:
-
-- Date/time.
-- Brief description.
-- A reference to the files/sections involved.
+- (2025-12-08 20:20Z) Cookie banners already matched across all target pages with consistent IDs and inline styles; no markup fixes required (`index.html`, `services.html`, `about.html`, `contact.html`, `book.html`, `niches/estate-agents.html`).
 
 ---
 
@@ -919,17 +904,23 @@ Record key design and implementation decisions, including:
 
 Each entry should include:
 
-- Date/time.
-- Decision summary.
-- Rationale.
+- (2025-12-08 20:32Z) Darkened Estate Agents stats cards by applying the `dark-card` style to match nearby value/content cards while keeping neon accents for numbers; scoped in `niches/estate-agents.html` to avoid global impact.
+- (2025-12-08 20:44Z) Disabled counter animation on the Estate Agents stats block via `data-counter="off"` and rendered inline `%` values to present static percentages per the goals.
+- (2025-12-08 20:36Z) Aligned the desktop Services nav button with other links by centering flex items on the nav list and setting a consistent line-height on `.services-toggle` within a desktop-only media query (`assets/css/custom.css`).
+- (2025-12-08 20:48Z) Added responsive `srcset`/`sizes` for Real_Estate hero/supporting images to serve mobile-specific JPEGs on small screens while retaining desktop assets on larger viewports (`niches/estate-agents.html`).
+- (2025-12-08 20:50Z) Left `.codex/config.toml` unchanged because it already specifies `gpt-5.1-codex-max`, `model_reasoning_effort = "xhigh"`, and enabled search/image tools as required.
 
 ---
 
 ## Outcomes & Retrospective
 
-At the end of the ExecPlan’s lifecycle, summarize:
+Completed outcomes:
 
-- Which goals were fully achieved and in which files.
-- Any partial or deferred work and why.
-- Lessons learned about the codebase (e.g. patterns for future ExecPlans).
-- Suggestions for additional documentation (e.g. more granular AGENTS files or design notes).
+- Estate Agents stats now use dark cards, show inline percentages, and skip animation via `data-counter="off"` (`niches/estate-agents.html`).
+- Desktop nav alignment improved by centering nav list items and normalizing Services toggle line-height (`assets/css/custom.css`).
+- Real_Estate imagery now serves mobile JPEG variants through `srcset`/`sizes` while keeping desktop assets for larger screens (`niches/estate-agents.html`).
+- Cookie banners and `.codex/config.toml` reviewed; no changes were necessary because they already matched the desired behavior and configuration.
+
+Follow-ups:
+
+- Run a visual pass in a browser to confirm spacing still feels natural on the Estate Agents page after the stats card adjustments and to validate the responsive images on real devices/emulators.

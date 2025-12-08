@@ -81,6 +81,16 @@ html {
   max-width: 200px;
 }
 
+@media (min-width: 769px) {
+  .site-header nav ul {
+    align-items: center;
+  }
+
+  .site-header .services-toggle {
+    line-height: 1.5;
+  }
+}
+
 @media (max-width: 768px) {
   .site-logo {
     max-width: 150px;
