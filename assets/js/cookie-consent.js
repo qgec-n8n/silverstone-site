@@ -13,17 +13,38 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!banner || !acceptBtn || !declineBtn) return;
 
   const STORAGE_KEY = 'cookieConsentChoice';
+  const COOKIE_KEY = 'cookieConsent';
 
   function getCookie(name) {
     const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
     return match ? decodeURIComponent(match[1]) : null;
   }
 
-  const storedChoice = localStorage.getItem(STORAGE_KEY);
-  const cookieChoice = getCookie('cookieConsent');
+  function getStoredChoice() {
+    try {
+      const choice = localStorage.getItem(STORAGE_KEY);
+      if (choice) return choice;
+    } catch (err) {
+      // Ignore storage read issues and fall back to cookies.
+    }
+    return getCookie(COOKIE_KEY);
+  }
 
-  if (storedChoice || cookieChoice) {
+  function hideBanner() {
     banner.style.display = 'none';
+    banner.setAttribute('data-consent-dismissed', 'true');
+    banner.setAttribute('aria-hidden', 'true');
+  }
+
+  function showBanner() {
+    banner.style.display = 'flex';
+    banner.removeAttribute('aria-hidden');
+    banner.removeAttribute('data-consent-dismissed');
+  }
+
+  const storedChoice = getStoredChoice();
+  if (storedChoice) {
+    hideBanner();
     return;
   }
 
@@ -39,7 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       document.cookie =
-        'cookieConsent=' +
+        COOKIE_KEY +
+        '=' +
         encodeURIComponent(value) +
         '; expires=' +
         expiryDate.toUTCString() +
@@ -48,11 +70,10 @@ document.addEventListener('DOMContentLoaded', function () {
       // Ignore cookie write issues to avoid breaking the page.
     }
 
-    banner.style.display = 'none';
-    banner.setAttribute('data-consent-dismissed', 'true');
+    hideBanner();
   }
 
-  banner.style.display = 'flex';
+  showBanner();
 
   acceptBtn.addEventListener('click', function () {
     storeChoice('accepted');

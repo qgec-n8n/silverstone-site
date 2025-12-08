@@ -81,6 +81,23 @@ html {
   max-width: 200px;
 }
 
+@media (min-width: 769px) {
+  .site-header nav ul,
+  .site-header nav ul li,
+  .site-header nav ul li a,
+  .site-header nav ul li .services-toggle {
+    display: flex;
+    align-items: center;
+  }
+
+  .site-header nav ul li a,
+  .site-header nav ul li .services-toggle {
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+    line-height: 1.2;
+  }
+}
+
 @media (max-width: 768px) {
   .site-logo {
     max-width: 150px;
@@ -150,6 +167,17 @@ html {
   .service-row .service-image,
   .service-row .service-content {
     flex-basis: auto !important;
+  }
+
+  nav ul .nav-dropdown .services-toggle {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-black);
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(120deg, rgba(0, 255, 157, 0.16), rgba(0, 174, 239, 0.12));
+    border: 1px solid rgba(12, 16, 29, 0.08);
+    box-shadow: 0 10px 22px rgba(5, 18, 40, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.65);
   }
 
   .service-row .service-image.neon-card {
