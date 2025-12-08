@@ -36,12 +36,14 @@ Codex must keep this section up to date with timestamped, granular entries. Use 
 
 Examples (Codex should add real entries while working):
 
-- [ ] (YYYY-MM-DDThh:mmZ) Analyzed cookie banner logic in `assets/js/cookie-consent.js` and banner markup in all six pages.
-- [ ] (YYYY-MM-DDThh:mmZ) Identified cause of Estate Agents cookie banner flicker and cross-page persistence bug.
-- [ ] (YYYY-MM-DDThh:mmZ) Verified and adjusted Estate Agents section spacing in `niches/estate-agents.html`.
-- [ ] (YYYY-MM-DDThh:mmZ) Confirmed Services nav alignment fixes across `index.html`, `services.html`, and `niches/estate-agents.html`.
-- [ ] (YYYY-MM-DDThh:mmZ) Audited and corrected parallax backgrounds and mobile behavior in `assets/css/parallax-fix.css` and `assets/js/script.js`.
-- [ ] (YYYY-MM-DDThh:mmZ) Verified all Validation and Acceptance checks at the end of this plan.
+- [x] (2025-12-08T21:10Z) Reviewed cookie banner logic in `assets/js/cookie-consent.js` and banner markup in `index.html` and `niches/estate-agents.html` (inline display styles noted).
+- [x] (2025-12-08T21:10Z) Audited Estate Agents content structure, counters, and card classes in `niches/estate-agents.html` (identified animated stats via `.stats` without `data-counter="off"`).
+- [x] (2025-12-08T21:10Z) Inspected parallax configuration in `assets/css/parallax-fix.css` and `assets/js/script.js` (mobile stage uses book-hero assets for multiple themes).
+- [x] (2025-12-08T21:10Z) Located navigation layout rules in `assets/css/styles.css` (nav ul lacks `align-items`, Services toggle inline-flex with minimal padding).
+- [x] (2025-12-08T21:13Z) Implemented Estate Agents spacing tweaks, stat dark-card styling, counter disablement, and desktop/mobile imagery swaps in `niches/estate-agents.html`.
+- [x] (2025-12-08T21:13Z) Updated nav alignment and mobile Services pill styling in `assets/css/styles.css`; corrected parallax mobile asset paths in `assets/js/script.js`.
+- [ ] (YYYY-MM-DDThh:mmZ) Implement fixes for cookie banner persistence and retest across all six pages.
+- [ ] (YYYY-MM-DDThh:mmZ) Validate navigation alignment, parallax behavior, spacing, card backgrounds, counters, and imagery on desktop and mobile per acceptance criteria.
 
 The final state of this section must reflect **actual work done and remaining**, not an optimistic summary.
 
@@ -58,6 +60,15 @@ Example format:
 - Observation: Mobile parallax is implemented using a sticky background layer in `assets/js/script.js`.
   - Evidence: Function or block name, key lines, and how it interacts with `.parallax-section`.
 
+- Observation: Stats block on `niches/estate-agents.html` uses `.stats` with `data-target` attributes and no `data-counter="off"`, so the shared counter animation in `assets/js/script.js` will animate values instead of keeping `68%`/`42%` static.
+  - Evidence: `.stats` markup around the “Show the numbers” section and counter logic at lines ~413–445 of `assets/js/script.js`.
+- Observation: Parallax mapping applies `book-hero-calendly-mobile-2025@*x.webp` to multiple themes (e.g., `lines`) in both `assets/css/parallax-fix.css` and `assets/js/script.js`, risking that the hero art becomes a de facto global background instead of page-specific imagery.
+  - Evidence: Theme definitions in `assets/css/parallax-fix.css` and `PARALLAX_MAP` entries in `assets/js/script.js`.
+- Observation: Navigation flex container (`nav ul`) lacks `align-items: center`, while `.services-toggle` uses inline-flex with tighter padding, which can cause the Services item to sit off-baseline compared to text-only links.
+  - Evidence: Nav rules in `assets/css/styles.css`.
+- Observation: Parallax mobile assets were referenced with page-relative paths (`assets/...`) in `assets/js/script.js`, which would 404 on niche pages like `niches/estate-agents.html` and leave mobile parallax layers blank.
+  - Evidence: `PARALLAX_MAP` URLs prior to correction in `assets/js/script.js`.
+
 ---
 
 ## Decision Log
@@ -68,6 +79,16 @@ Example format:
 
 - Decision: Preserve the existing mobile parallax system and adjust thresholds rather than disabling parallax.
   - Rationale: Keeps the intended visual effect while reducing URL-bar-induced jumps.
+  - Date/Author: 2025-12-08 / Codex
+
+- Decision: Switch mobile parallax asset URLs in `assets/js/script.js` to root-relative paths so niche pages load backgrounds correctly without duplicating per-directory variants.
+  - Rationale: Avoids 404s on nested pages while keeping the parallax system intact and consistent with CSS asset locations.
+  - Date/Author: 2025-12-08 / Codex
+- Decision: Disable Estate Agents stats counter animation via `data-counter="off"` and set explicit values (including `%` and `x`) with dark-card styling to meet static metrics and card consistency requirements without affecting other counters.
+  - Rationale: Meets acceptance criteria while scoping changes to the niche page only.
+  - Date/Author: 2025-12-08 / Codex
+- Decision: Introduce a shared `.section-gap-top` utility on the Estate Agents page to normalize spacing between key sections using the existing spacing scale instead of global spacing changes.
+  - Rationale: Targets the specified section pairs without altering site-wide rhythm.
   - Date/Author: 2025-12-08 / Codex
 
 Codex must update this section during implementation, not just at the end.
