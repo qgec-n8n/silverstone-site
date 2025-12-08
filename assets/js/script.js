@@ -1013,13 +1013,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const evaluate = () => {
-    if (reduceMotionQuery.matches) {
-      disableMobile();
-      return;
-    }
-    if (mobileQuery.matches) {
-      enableMobile();
-    } else {
+    // Mobile parallax is handled with static backgrounds via CSS to avoid
+    // viewport jumps when the URL bar shows/hides. Ensure any previously
+    // created layers are removed.
+    if (state.active) {
       disableMobile();
     }
   };
