@@ -834,51 +834,51 @@ document.addEventListener('DOMContentLoaded', () => {
     lines: {
       backgroundColor: '#050B18',
       mobileImages: {
-        fallback: "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
+        fallback: "url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
         standard:
-          "image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
+          "image-set(url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
         webkit:
-          "-webkit-image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
+          "-webkit-image-set(url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
       },
     },
     circuit: {
       backgroundColor: '#050B18',
       mobileImages: {
-        fallback: "url('assets/images/internet/mobile/section-waves@1x.webp')",
+        fallback: "url('/assets/images/internet/mobile/section-waves@1x.webp')",
         standard:
-          "image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
+          "image-set(url('/assets/images/internet/mobile/section-waves@1x.webp') 1x, url('/assets/images/internet/mobile/section-waves@2x.webp') 2x, url('/assets/images/internet/mobile/section-waves@3x.webp') 3x)",
         webkit:
-          "-webkit-image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
+          "-webkit-image-set(url('/assets/images/internet/mobile/section-waves@1x.webp') 1x, url('/assets/images/internet/mobile/section-waves@2x.webp') 2x, url('/assets/images/internet/mobile/section-waves@3x.webp') 3x)",
       },
     },
     mesh: {
       backgroundColor: '#050B18',
       mobileImages: {
-        fallback: "url('assets/images/internet/mobile/section-mesh@1x.webp')",
+        fallback: "url('/assets/images/internet/mobile/section-mesh@1x.webp')",
         standard:
-          "image-set(url('assets/images/internet/mobile/section-mesh@1x.webp') 1x, url('assets/images/internet/mobile/section-mesh@2x.webp') 2x, url('assets/images/internet/mobile/section-mesh@3x.webp') 3x)",
+          "image-set(url('/assets/images/internet/mobile/section-mesh@1x.webp') 1x, url('/assets/images/internet/mobile/section-mesh@2x.webp') 2x, url('/assets/images/internet/mobile/section-mesh@3x.webp') 3x)",
         webkit:
-          "-webkit-image-set(url('assets/images/internet/mobile/section-mesh@1x.webp') 1x, url('assets/images/internet/mobile/section-mesh@2x.webp') 2x, url('assets/images/internet/mobile/section-mesh@3x.webp') 3x)",
+          "-webkit-image-set(url('/assets/images/internet/mobile/section-mesh@1x.webp') 1x, url('/assets/images/internet/mobile/section-mesh@2x.webp') 2x, url('/assets/images/internet/mobile/section-mesh@3x.webp') 3x)",
       },
     },
     waves: {
       backgroundColor: '#050B18',
       mobileImages: {
-        fallback: "url('assets/images/internet/mobile/section-waves@1x.webp')",
+        fallback: "url('/assets/images/internet/mobile/section-waves@1x.webp')",
         standard:
-          "image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
+          "image-set(url('/assets/images/internet/mobile/section-waves@1x.webp') 1x, url('/assets/images/internet/mobile/section-waves@2x.webp') 2x, url('/assets/images/internet/mobile/section-waves@3x.webp') 3x)",
         webkit:
-          "-webkit-image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
+          "-webkit-image-set(url('/assets/images/internet/mobile/section-waves@1x.webp') 1x, url('/assets/images/internet/mobile/section-waves@2x.webp') 2x, url('/assets/images/internet/mobile/section-waves@3x.webp') 3x)",
       },
     },
     book: {
       backgroundColor: '#050B18',
       mobileImages: {
-        fallback: "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
+        fallback: "url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
         standard:
-          "image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
+          "image-set(url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
         webkit:
-          "-webkit-image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
+          "-webkit-image-set(url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('/assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
       },
     },
   };
