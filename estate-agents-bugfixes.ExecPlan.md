@@ -41,56 +41,56 @@ After this plan, users should see:
 
 ## Progress
 
-Codex must keep this section up to date with timestamped, granular entries. Use checkboxes here only, and always include file paths.
-
-For **Phase 1 (analysis-only)**, entries must describe reading/inspection steps only; no HTML/CSS/JS modifications should occur until several analysis entries are present.
-
-Examples (Codex should add real entries while working):
-
-- [ ] (YYYY-MM-DDThh:mmZ) Phase 1: Analyzed cookie banner logic in `assets/js/cookie-consent.js` and banner markup in `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, and `niches/estate-agents.html`.
-- [ ] (YYYY-MM-DDThh:mmZ) Phase 1: Documented Estate Agents section structure and spacing in `niches/estate-agents.html` and compared against analogous sections in `index.html`.
-- [ ] (YYYY-MM-DDThh:mmZ) Phase 1: Mapped Estate Agents card types and styles (including `.neon-card`, `.stat`, `.value-card`) and identified darker card rules.
-- [ ] (YYYY-MM-DDThh:mmZ) Phase 1: Mapped desktop nav and mobile Services pill structure and styling across `index.html`, `services.html`, `niches/estate-agents.html`, and `assets/css/styles.css`.
-- [ ] (YYYY-MM-DDThh:mmZ) Phase 1: Verified current parallax-related selectors and backgrounds (for preservation only) in `assets/css/parallax-fix.css` and `assets/js/script.js`.
-- [ ] (YYYY-MM-DDThh:mmZ) Phase 2: Implemented cookie banner persistence fix in `assets/js/cookie-consent.js` and updated relevant markup.
-- [ ] (YYYY-MM-DDThh:mmZ) Phase 2: Adjusted Estate Agents spacing, dark card styling, nav alignment, mobile Services pill, counters, and imagery using localized edits.
-- [ ] (YYYY-MM-DDThh:mmZ) Phase 3: Validated all acceptance criteria on desktop and mobile for Estate Agents and related pages.
-
-The final state of this section must reflect **actual work done and remaining**, not an optimistic summary.
+- [x] (2025-12-08T22:16Z) Phase 1: Reviewed cookie banner markup and inline styles in `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, and `niches/estate-agents.html`, plus consent storage flow in `assets/js/cookie-consent.js`.
+- [x] (2025-12-08T22:16Z) Phase 1: Documented Estate Agents section structure and spacing, including inline `.compact-section` padding and default `.section` spacing, and compared to baseline rhythms on `index.html`.
+- [x] (2025-12-08T22:16Z) Phase 1: Mapped Estate Agents card types (`.neon-card`, `.service-content`, `.stat`, `.value-card`, `.dark-card`) and noted where darker styling is applied or missing.
+- [x] (2025-12-08T22:16Z) Phase 1: Mapped desktop nav and mobile Services pill structure across `index.html`, `services.html`, `niches/estate-agents.html`, overlay markup, and the `service-pill` styles in `assets/css/styles.css`.
+- [x] (2025-12-08T22:16Z) Phase 1: Reviewed parallax selectors and counter logic in `assets/css/parallax-fix.css` and `assets/js/script.js` to understand preservation requirements and animation triggers.
+- [x] (2025-12-09T00:33Z) Phase 2: Hardened cookie banner persistence in `assets/js/cookie-consent.js` with safer storage reads/writes and explicit show/hide handling.
+- [x] (2025-12-09T00:33Z) Phase 2: Updated Estate Agents stats to static percentages and disabled counter animation via `data-counter="off"` while keeping layout intact.
+- [x] (2025-12-09T00:33Z) Phase 2: Swapped Estate Agents hero/service imagery to desktop/mobile variants via `<picture>` sources.
+- [x] (2025-12-09T00:33Z) Phase 2: Scoped darker card styling for stats and branch experience content plus compact spacing between key Estate Agents sections.
+- [x] (2025-12-09T00:33Z) Phase 2: Aligned desktop nav and mobile Services pill styling via targeted CSS overrides in `assets/css/custom.css` and the Estate Agents inline stylesheet.
+- [ ] (pending) Phase 3: Validated all acceptance criteria on desktop and mobile for Estate Agents and related pages.
 
 ---
 
 ## Surprises & Discoveries
 
-Codex must record unexpected findings here: bugs not in the original description, tricky browser behaviors, or regressions discovered during analysis.
-
-Example entries:
-
-- Observation: Estate Agents cookie banner uses inline `style="display: none"` and receives scroll-based toggling from a leftover script, causing it to flicker instead of showing on load.
-  - Evidence: Snippet from `niches/estate-agents.html` and relevant scroll logic in `assets/js/script.js`.
-
-- Observation: `assets/css/styles.css` contains duplicated blocks and stray fragments (e.g. `j0px` near Calendly styles), likely from prior Codex runs. Large, blind edits to this file are risky.
-  - Evidence: Locations in `styles.css` where classes and sections are duplicated or truncated.
-
-Codex must update this section with real observations during Phase 1.
+- Observation: All cookie banners (including `niches/estate-agents.html`) ship with inline `display: none` styles and rely on JS to flip to `flex`; if the script fails or exits early, the banner stays hidden. Estate Agents markup also hardcodes inline positioning while others rely on CSS defaults.
+- Observation: `assets/js/cookie-consent.js` mixes `localStorage` (`cookieConsentChoice`) with a cookie (`cookieConsent`) for persistence; the script short-circuits if either exists, which could explain reappearance issues when markup duplicates IDs per page.
+- Observation: Estate Agents stats use `.stats .number` elements with `data-target` values and no literal `%` signs; without `data-counter="off"`, the shared counter animation in `assets/js/script.js` will animate 68/42 and omit percent suffixes.
+- Observation: Estate Agents imagery uses plain `<img>` tags pointing to `Real_Estate_*.jpeg` only; no `<picture>` or CSS swap to the `_Mobile` variants, so mobile devices currently load desktop assets.
+- Observation: Navigation uses a mix of anchor links and the Services button (`.services-toggle`), which may explain vertical misalignment on desktop; the mobile overlay pills reuse `.service-pill` styles but the trigger pill within the nav is structurally different from overlay anchors.
+- Observation: `assets/css/styles.css` is minified into a single very long line, making direct edits risky; safer to target smaller supplemental CSS files for scoped fixes.
+- Observation: Parallax themes on Estate Agents rely on `data-parallax-theme="book"` with backgrounds from `assets/css/parallax-fix.css`; existing sections already opt into parallax, so preservation requires avoiding background overrides.
+- Update: Cookie banner script now normalizes storage reads through a helper that tolerates blocked localStorage and falls back to the cookie before deciding to show/hide, reducing flicker and duplicate prompts across pages.
+- Update: Stats block now opts out of the global counter observer (`data-counter="off"`) and renders literal `%`/`x` suffixes so animation cannot strip them.
+- Update: Desktop nav alignment required flex alignment on list items and both anchors/buttons; mobile Services pill now reuses the gradient/weight from `.service-pill` via targeted overrides instead of ad hoc spacing.
+- Update: Estate Agents imagery now uses `<picture>` for the three `Real_Estate_*` assets so `_Mobile` variants load on small screens while preserving parallax backgrounds.
 
 ---
 
 ## Decision Log
 
-Log every material decision and tradeoff here.
-
-Example entries:
-
-- Decision: Scope dark card styling for Estate Agents by using a page-specific selector (e.g. `body.page-estate-agents .neon-card.dark-card`) rather than altering global `.neon-card`.
-  - Rationale: Keeps other pages visually unchanged while aligning all Estate Agents cards.
+- Decision: Keep Phase 1 strictly analytical and avoid modifying HTML/CSS/JS until hypotheses are documented in this plan per `PLANS.md`.
+  - Rationale: Reduces risk of regressions while mapping multiple cross-page issues (cookie, nav, parallax).
   - Date/Author: 2025-12-08 / Codex
-
-- Decision: Leave mobile parallax jumping unmodified in this ExecPlan and handle it in `parallax-mobile-hardening.ExecPlan.md`.
-  - Rationale: Avoid further damage to complex parallax CSS/JS while focusing on the requested Estate Agents behaviors.
+- Decision: Plan to scope future styling/layout changes with page-specific selectors (e.g., `body.page-estate-agents`) or localized CSS files instead of editing the minified `assets/css/styles.css` directly.
+  - Rationale: `styles.css` is a single-line build artifact; targeted overrides lower the chance of breaking other pages.
   - Date/Author: 2025-12-08 / Codex
-
-Codex must fill in actual decisions as work progresses.
+- Decision: Preserve existing parallax behaviors in this phase and defer any mobile jump fixes to `parallax-mobile-hardening.ExecPlan.md`.
+  - Rationale: Current sections already use `data-parallax-theme` with shared assets; changing the parallax stack here risks regressions and violates scope.
+  - Date/Author: 2025-12-08 / Codex
+- Decision: Use `<picture>` elements for Estate Agents hero/service imagery to swap to `_Mobile` assets instead of CSS background overrides to avoid parallax interference.
+  - Rationale: Keeps existing parallax sections untouched while delivering correct assets per breakpoint.
+  - Date/Author: 2025-12-09 / Codex
+- Decision: Align nav items by enforcing flex alignment on anchors and the Services button in `assets/css/custom.css`, and reuse the `.service-pill` gradient/weight for the mobile Services trigger.
+  - Rationale: Minimizes per-page overrides while addressing both desktop baseline alignment and mobile pill visual mismatch.
+  - Date/Author: 2025-12-09 / Codex
+- Decision: Disable Estate Agents counters via `data-counter="off"` and hard-coded `%`/`x` values instead of modifying the shared counter logic.
+  - Rationale: Avoids impacting other pages’ animated stats while meeting the static-value requirement for this niche page.
+  - Date/Author: 2025-12-09 / Codex
 
 ---
 
@@ -119,15 +119,15 @@ For this plan, the main files are:
   - `niches/estate-agents.html`
 
 - **CSS**
-  - `assets/css/styles.css` – nav, base layouts, global cards/sections.
-  - `assets/css/custom-styles.css`, `assets/css/custom.css` – additional styling, potentially including Estate Agents.
-  - `assets/css/mobile.css` – mobile-specific tweaks.
-  - `assets/css/parallax-fix.css` – parallax sections and background handling (to be preserved in this plan).
+  - `assets/css/styles.css` – nav, base layouts, global cards/sections (minified, single line).
+  - `assets/css/custom-styles.css`, `assets/css/custom.css` – supplemental styling layers for cards/sections.
+  - `assets/css/mobile.css` – mobile-specific spacing and layout overrides.
+  - `assets/css/parallax-fix.css` – parallax themes and background handling (used by Estate Agents sections with `data-parallax-theme="book"`).
   - `assets/css/services.css` – services-specific layout and cards.
 
 - **JavaScript**
-  - `assets/js/cookie-consent.js` – cookie banner logic and persistence.
-  - `assets/js/script.js` – nav/menu logic, Services overlay, parallax behavior, counters.
+  - `assets/js/cookie-consent.js` – cookie banner logic and persistence via `localStorage` + cookies.
+  - `assets/js/script.js` – nav/menu behavior, Services overlay, parallax scroll adjustments, counter animations.
   - `assets/js/hero-shader.js` – hero visuals.
 
 - **Images**
@@ -142,36 +142,16 @@ For this plan, the main files are:
 - **Config**
   - `.codex/config.toml` – Codex config (model, reasoning effort, features).
 
-### Known starting issues
+### Current-state observations (Phase 1)
 
-From user reports and prior Codex attempts:
+- Cookie banner: Each page includes `#cookie-banner` with inline `display: none` and duplicated button IDs; Estate Agents version also inlines positioning. The JS (`assets/js/cookie-consent.js`) checks both `localStorage` and a `cookieConsent` cookie and hides the banner entirely if either exists, but it never removes inline `display: none` without running, which risks a permanently hidden banner if DOM lookup fails.
+- Spacing: Estate Agents sections rely on `.section` defaults plus an inline `.compact-section` (3rem top/bottom) only on the stats block; other sections keep full padding, so gaps between “Never Miss a Viewing” → stats and “The branch experience” → “Plug, personalise, launch” likely come from stacked full-height sections without shared compact modifiers.
+- Card backgrounds: Only some Estate Agents cards carry `.dark-card` (custom inline style) or neon-card defaults. “Where deals leak away” and “Answer instantly...” use `.neon-card dark-card` on textual panels, but other cards (pricing, FAQs, support) rely on base neon styling, so opacity differs across the page.
+- Navigation and Services pill: Desktop nav mixes anchor `<a>` items with a `<button class="services-toggle">` controlling the dropdown. The mobile overlay uses `.service-pill` anchors inside `.services-overlay__grid`, while the nav trigger remains a button, creating potential misalignment and typography mismatches.
+- Counters: The “Show the numbers” stats block uses `.stats` with `.number` elements and `data-target` attributes but no percent symbols or `data-counter="off"`. Shared counter logic in `script.js` will animate from 0 and leave raw numbers (68/42) without `%`, conflicting with static target requirement.
+- Desktop vs mobile imagery: All Estate Agents images use direct `<img src="...Real_Estate_*.jpeg">` with no `<picture>` or CSS media swap, so mobile currently receives desktop-resolution assets instead of `_Mobile` variants.
+- Parallax and backgrounds: Estate Agents parallax sections use `data-parallax-theme="book"`, pulling from `parallax-fix.css` (book hero imagery). JS in `script.js` supplements mobile parallax; any changes to backgrounds risk altering existing overlays, so preservation is critical this phase.
 
-- Cookie banner:
-  - Estate Agents banner does not show correctly on load, flickers on scroll, and may reappear after Accept/Decline.
-  - Cross-page behavior does not consistently respect stored consent.
-
-- Spacing:
-  - Excess vertical space for specific section pairs on Estate Agents:
-    - “Never Miss a Viewing” ↔ “Show the numbers”
-    - “The branch experience after launch” ↔ “Plug, personalise, launch”
-    - “Pricing” ↔ “FAQs”
-
-- Card backgrounds:
-  - “Show the numbers” cards use a darker background.
-  - Other Estate Agents cards do not match this opacity/style.
-
-- Navigation and mobile Services pill:
-  - Desktop Services dropdown sits slightly lower than other nav items.
-  - Mobile Services pill has typography and alignment different from overlay pills, or resembles dropdown chips instead of initial overlay pills.
-
-- Counters and imagery:
-  - Counters previously animated `68` and `42` without `%`.
-  - Real Estate images now partially use correct mobile/desktop variants but must be verified.
-
-- Parallax:
-  - Parallax was previously damaged when Codex tried to “fix” mobile jumping; this plan must **preserve** parallax and overlays, not fix jumping.
-
----
 
 ## Plan of Work
 
