@@ -1,166 +1,163 @@
 <!-- AGENTS.md -->
+# AGENTS – Project-specific guidance for `silverstone-site-main`
 
-# AGENTS – Guidance for Codex on `silverstone-site-main`
+This file guides Codex agents working on the `silverstone-site-main` repo.
 
-This file tells Codex **how to behave** when working in the `silverstone-site-main` repository. It defines roles, constraints, and how to use the other project docs.
+Codex must always read:
 
----
+- `ExecPlan.md`
+- `PLANS.md`
+- `RULES.md`
+- `TESTS_PLAN.md`
+- `ESTATE-AGENTS-NOTES.md`
 
-## Repository expectations
-
-- This repo is a static multi‑page marketing site deployed on Netlify.
-- Visual parity is critical: aside from explicitly documented bugs, pages should look and behave exactly as they do now.
-- The **Estate Agents** page (`niches/estate-agents.html`) is the top‑priority area for refactors and bugfixes.
-- The key control documents are:
-  - `ExecPlan.md` – Current execution plan for the Estate Agents & CSS/JS refactor.
-  - `PLANS.md` – Slice‑level breakdown and instructions for using ExecPlans.
-  - `RULES.md` – CSS & JS rules of engagement.
-  - `TESTS_PLAN.md` – Test IDs (V*, F*, D*) and scenarios.
-  - `ESTATE-AGENTS-NOTES.md` – Brief of known Estate Agents issues and desired outcomes.
-
-Codex must **always read these files** before performing multi‑step refactors.
+before making changes.
 
 ---
 
-## ExecPlans
+## General Principles
 
-When working on complex features or significant refactors in this repo:
-
-- Treat `ExecPlan.md` as the **single source of truth** for the current refactor.
-- Follow the structure defined in `PLANS.md` and the skeleton recommended for ExecPlans.
-- Update the ExecPlan as you discover surprises, make decisions, and complete progress.
-
----
-
-## Roles / Agents
-
-These “agents” are conceptual roles that Codex may adopt. When a human asks Codex to act as one of these agents, follow the guidance below.
-
-### 1. Planner Agent
-
-**Role:** Decide which slice and subtask to work on next, based on the repo state and this documentation.
-
-**Responsibilities:**
-
-- Read `ExecPlan.md`, `PLANS.md`, `RULES.md`, `TESTS_PLAN.md`, and `ESTATE-AGENTS-NOTES.md`.
-- Determine the next slice that:
-  - Respects ordering (Slice 0 → 8).
-  - Has prerequisites satisfied (tests in place, prior slices done).
-- Break the slice into small, incremental steps (e.g., “adjust Estate card backgrounds for one section, run tests, then expand”).
-
-**Constraints:**
-
-- Do not modify code directly; instead, propose which files and sections should be edited.
-- Always tie work to specific tests (e.g., “This step will be validated by V2, F2, D6”).
+- **No big‑bang rewrites.** Work slice by slice as defined in `PLANS.md`.
+- **Visual parity first.** Except for explicit bug fixes, pages should look and behave the same.
+- **Do NOT run `npm install` or `npx` inside tasks.**
+  - DevDependencies (Playwright, axe, etc.) are installed via environment setup or local dev, not from the sandbox.
+- **Tests are best‑effort.**
+  - Run `npm run test:*` only if scripts exist and dependencies already appear installed.
+  - If tests fail due to missing dependencies, log it in `ExecPlan.md` and continue.
+- **Small diffs, clear rationale.**
+  - Prefer localized edits with explanations in `ExecPlan.md`.
 
 ---
 
-### 2. CSS Refactor Agent
+## Planner Agent
 
-**Role:** Implement safe CSS changes according to the rules of engagement.
+**Role**
 
-**Responsibilities:**
+- Understand goals from `ExecPlan.md`.
+- Choose the next slice from `PLANS.md`.
+- Keep plan docs updated.
 
-- Work primarily in:
+**Responsibilities**
+
+- Read `ExecPlan.md`, `PLANS.md`, `RULES.md`, `ESTATE-AGENTS-NOTES.md`, `TESTS_PLAN.md` on every major step.
+- Respect slice ordering and dependencies (Slice 0 → 1 → 2 → …).
+- Decompose slices into small subtasks.
+
+**Constraints**
+
+- Does not run commands or edit files directly.
+- Does not attempt to alter devDependencies or install packages.
+
+---
+
+## CSS Refactor Agent
+
+**Role**
+
+- Implement CSS changes for each slice, respecting `RULES.md`.
+
+**Responsibilities**
+
+- Work in:
   - `assets/css/styles.css`
-  - `assets/css/mobile.css`
   - `assets/css/custom.css`
+  - `assets/css/mobile.css`
+  - `assets/css/parallax-fix.css`
   - `assets/css/hero-base.css`
   - `assets/css/services.css`
-  - Estate‑specific styles and any new CSS files introduced for page‑scoped overrides.
-- Apply the “strangler” pattern:
-  - Use page‑scoped wrappers (e.g., `.page-estate-agents`) and modifiers.
-  - Avoid global changes until tests and prior slices are stable.
+  - Inline `<style>` in `niches/estate-agents.html` (when instructed)
+- Use **page‑scoped overrides** (e.g., `.page-estate-agents .neon-card`) instead of global changes where possible.
+- Avoid adding new `!important`; if unavoidable, document in `ExecPlan.md`.
 
-**Constraints (summarized from `RULES.md`):**
+**Constraints**
 
-- Do **not** introduce new `!important` declarations except where explicitly allowed and justified in `ExecPlan.md`.
-- Do **not** change:
-  - Base `.neon-card` styles in early slices (0–3).
-  - Global `section` spacing in early slices (0–2).
-- Keep nav and Services overlay styling adjustments narrowly scoped to the relevant selectors (e.g., `.site-header`, `.services-toggle`, `.services-menu`, `.service-pill`).
+- Early slices:
+  - Must not change base `.neon-card` or `section` rules in `styles.css`.
+- Must not introduce global spacing/typography changes unless in Slice 8.
+- Must validate Estate page visuals against known baseline sections where possible.
 
 ---
 
-### 3. JS Refactor Agent
+## JS Refactor Agent
 
-**Role:** Implement safe JS changes for cookie banner, nav/overlay, stats, and contact flows.
+**Role**
 
-**Responsibilities:**
+- Implement JS changes within defined boundaries, improving behaviour and maintainability.
 
-- Work primarily in:
+**Responsibilities**
+
+- Work in:
   - `assets/js/script.js`
   - `assets/js/cookie-consent.js`
-  - Inline contact JS in `contact.html`
-- Keep external behaviour stable except where the ExecPlan explicitly calls for a change.
+  - Inline contact script in `contact.html`
+  - `netlify/functions/send-email.js` (if needed)
+- Preserve DOM hooks (IDs, classes, `data-*`) or update all references if changed.
+- For Estate Agents:
+  - Fix cookie banner stability/persistence.
+  - Keep stats counters and parallax/hero helpers working.
 
-**Constraints (summarized from `RULES.md`):**
+**Constraints**
 
-- Do not change DOM hooks (IDs, classes, `data-*` attributes) without updating **all** references and tests.
-- Preserve:
-  - Cookie banner semantics: Accept/Decline persistence and storage keys.
-  - Nav accessibility (ARIA attributes).
-  - Stats counters (trigger once per view).
-  - Contact form API contract with `netlify/functions/send-email.js`.
-- Prefer small, targeted refactors (e.g., introducing helper functions) over wholesale rewrites.
-
----
-
-### 4. Tester Agent
-
-**Role:** Run and interpret tests, and suggest fixes based on failures.
-
-**Responsibilities:**
-
-- Use the test commands defined in `package.json` once Slice 0 is implemented:
-  - `npm run test:dom`
-  - `npm run test:e2e`
-  - `npm run test:visual`
-  - `npm run test:accessibility` (if available)
-- Map failing tests back to test IDs (V*, F*, D*) using `TESTS_PLAN.md`.
-- Report test failures in a form that the CSS/JS Refactor Agents can act on.
-
-**Constraints:**
-
-- Do not change code; only run commands and report results.
-- Always mention which slice and test IDs are being validated.
+- Do not change the semantics of cookie Accept/Decline.
+- Do not break ARIA roles or nav overlay accessibility.
+- Do not introduce new JS deps requiring `npm install`.
 
 ---
 
-### 5. Reviewer Agent
+## Tester Agent
 
-**Role:** Review diffs against the rules of engagement and tests before changes are accepted.
+**Role**
 
-**Responsibilities:**
+- Coordinate tests and interpret results, within sandbox limits.
 
-- Inspect diffs produced by Codex or humans.
-- Check:
-  - Whether diffs respect `RULES.md`.
-  - Whether relevant tests were run and passed.
-  - Whether changes are appropriately scoped to the current slice.
+**Responsibilities**
 
-**Constraints:**
+- Read `TESTS_PLAN.md` to understand V*, F*, D*.
+- Inspect `package.json` for `test`, `test:dom`, `test:e2e`, `test:visual`, `test:accessibility`.
+- When dependencies appear installed (e.g., `node_modules` present):
+  - Run `npm run test:dom` for D*.
+  - Run `npm run test:e2e` for F*.
+  - Run `npm run test:visual` and `npm run test:accessibility` for V*/accessibility.
+- Summarise results in `ExecPlan.md`.
 
-- Do not modify code in this role; suggest follow‑ups instead.
-- For questionable changes, refer back to `ExecPlan.md` and `PLANS.md` and recommend adjustments.
+**Constraints**
 
----
-
-## Tools & behaviour for Codex
-
-- **File operations:** Use `apply_patch` to make small, targeted edits. Avoid huge patches that touch many unrelated areas.
-- **Shell commands:** Use `npm` commands described in `ExecPlan.md` and `TESTS_PLAN.md` once they exist. Always show the working directory and the exact command.
-- **Web search:** Use web search only for:
-  - Library or tool documentation (e.g., Playwright API).
-  - Clarifying generic concepts (e.g., Lighthouse usage).
-  - **Never** for guessing about this particular repo; prefer reading local files.
+- Must NOT run `npm install`, `npm ci`, or `npx playwright install`.
+- If tests fail due to missing deps, must log that fact instead of trying to fix it via npm.
 
 ---
 
-## Summary of must‑follow rules
+## Reviewer Agent
 
-- Always read `ExecPlan.md` and `PLANS.md` before starting multi‑step work.
-- Follow slices in order; do not skip ahead to global cleanup before tests and Estate fixes are in place.
-- Keep diffs small and scoped.
-- Treat tests (V*, F*, D*) as mandatory gates.
-- Prioritize stability of the Estate Agents page, nav, cookie banner, and Book/Contact flows.
+**Role**
+
+- Review proposed diffs before they are considered “done”.
+
+**Responsibilities**
+
+- Confirm that changes:
+  - Stay within slice scope.
+  - Follow CSS/JS rules in `RULES.md`.
+  - Do not inadvertently alter unrelated pages/components.
+- Check that any tests run (when available) are noted in `ExecPlan.md`.
+
+**Constraints**
+
+- Must be especially cautious with edits to `assets/css/styles.css` and `assets/js/script.js`.
+- Must push back on:
+  - Unscoped changes to `.neon-card`, `.section`, nav CSS.
+  - New `!important` usage without strong justification.
+
+---
+
+## Tools & Commands
+
+- Agents may:
+  - Use `ls`, `cat`, `grep`, etc. in the workspace.
+  - Use `npm run test:*` **only if** deps are installed (best‑effort).
+- Agents must NOT:
+  - Use `npm install`, `npm ci`, `npx`, `curl`, `wget`, or any network‑fetching command from the sandbox.
+
+---
+
+ExecPlan and PLANS are the source of truth. Agents must keep them updated as work progresses.
