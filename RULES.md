@@ -1,155 +1,143 @@
 <!-- RULES.md -->
+# RULES – CSS & JS Rules of Engagement
 
-# RULES – CSS & JS Rules of Engagement for `silverstone-site-main`
-
-These rules apply whenever Codex or a human modifies CSS or JS in this repo, especially for the Estate Agents page and main flows.
-
----
-
-## 1. Global CSS rules
-
-- **No new `!important`**  
-  - Do not add new `!important` declarations unless:
-    - There is no safer alternative, _and_
-    - The ExecPlan explicitly documents the rationale in the Decision Log.
-- **Preserve base components early**  
-  - Do not change global `.neon-card` base styles or global `section` spacing in slices 0–3.
-  - Prefer page‑scoped or component‑scoped overrides.
-- **Use page‑scoped wrappers**  
-  - For Estate Agents, use a wrapper class such as `.page-estate-agents` on the body or a root container and scope overrides under it (e.g., `.page-estate-agents .neon-card`).
-- **Avoid tag‑only overrides**  
-  - Avoid broad tag selectors (e.g., `h2`, `p`, `a`) for refactor changes; prefer class‑scoped rules to reduce global impact.
+These rules apply to all Codex work on `silverstone-site-main`.
 
 ---
 
-## 2. Estate Agents CSS rules
+## Global CSS Rules
 
-These rules apply to `niches/estate-agents.html` and its associated styles.
-
-- **Card backgrounds**
-  - All Estate cards must visually match the dark, opaque background used in the “Show the numbers, not just promises” section.
-  - Implement this via page‑scoped selectors such as `.page-estate-agents .neon-card` or more specific section classes.
-  - Do not change the base `.neon-card` definition for other pages during slices 1–3.
-- **Spacing**
-  - Fix vertical gaps between specific Estate sections using:
-    - Section IDs (e.g., `#pricing`, `#faqs`) or section‑specific classes.
-    - Page‑scoped selectors to avoid altering spacing globally.
-- **Inline styles**
-  - Inline CSS within `niches/estate-agents.html` is allowed only as a temporary measure.
-  - Long‑term goal (Slice 7) is to move Estate‑specific inline styles into a shared CSS file or a dedicated Estate CSS file.
-- **Modifiers**
-  - Use meaningful modifiers for Estate‑specific variants where needed:
-    - Example: `.neon-card.neon-card--estate`, `.section.section--estate-pricing`.
-  - Keep naming consistent and documented.
+- **No new `!important`** unless:
+  - There is no other reasonable fix.
+  - The selector is narrowly scoped (ideally page‑specific).
+  - The use is documented in `ExecPlan.md` → **Decision Log**.
+- **Do not change (early slices)**:
+  - Base `.neon-card` rules in `assets/css/styles.css`.
+  - Global `section` padding/margins in `assets/css/styles.css`.
+- Prefer:
+  - **Page‑scoped overrides** (e.g., `.page-estate-agents .neon-card`) instead of global changes.
+  - New utility classes over broad tag selectors when refining visuals.
+- For `assets/css/styles.css`:
+  - Prefer additive overrides (in `custom.css` or an Estate‑specific CSS file) over editing existing declarations, until Slice 8.
 
 ---
 
-## 3. Header/nav & Services overlay CSS rules
+## Estate Agents CSS Rules
 
-- **Alignment before aesthetics**
-  - Focus first on fixing vertical/horizontal alignment and legibility of:
-    - `.site-header`
-    - `.nav-links`, `.nav-item`
-    - `.services-toggle`
-    - `.services-menu` / `.services-overlay`
-    - `.service-pill` / mobile nav pills
-- **Scoped changes**
-  - Adjust only the selectors that directly affect Services and nav alignment.
-  - Do not introduce sweeping changes to base nav link styling unless tests and manual checks confirm no regressions.
-- **Accessibility**
-  - Preserve existing ARIA attributes and roles on nav and overlays.
-  - If you adjust markup, ensure ARIA attributes are still correct and update tests accordingly.
-
----
-
-## 4. Mobile & parallax CSS rules
-
-- **Respect existing patterns**
-  - Reuse patterns in:
-    - `assets/css/hero-base.css`
-    - `assets/css/mobile.css`
-    - `assets/css/parallax-fix.css`
-  - Do not create ad‑hoc hero background rules that ignore the existing parallax system.
-- **Estate mobile hero**
-  - Estate mobile hero should use the same mobile background image assets as the book hero, or a clearly defined counterpart, with the same responsive/parallax behaviour.
-- **Breakpoints**
-  - Respect existing breakpoints (e.g., `max-width: 768px`) when adding new rules.
-  - Document any new breakpoints in `TESTS_PLAN.md` or ExecPlan if truly needed.
+- Scope Estate‑specific rules via a clear hook (e.g., `<body class="page-estate-agents">`).
+- Key selectors:
+  - Cards: `.neon-card`, `.dark-card`, `.value-card`, `.stats .neon-card`.
+  - Sections: `.section` variants, with additional descriptive classes when needed.
+  - Wrappers: `.compact-section`, `.stats`, etc.
+- Card background unification:
+  - Implement by overriding within Estate scope:
+    - e.g., `.page-estate-agents .neon-card { /* unified dark background */ }`
+  - Do not adjust `.neon-card` globally until Slice 8.
+- Section spacing:
+  - Fix gaps by targeting explicit relationships:
+    - e.g., `.page-estate-agents .section--branch + .section--plug { margin-top: ... }`
+  - Avoid deep `nth-child` chains if you can add/use descriptive classes instead.
+- Inline `<style>`:
+  - May be read and gradually reduced over Slices 1–7.
+  - When moving rules out:
+    - Recreate them in a page‑scoped CSS file.
+    - Remove inline versions only after visual parity is confirmed.
 
 ---
 
-## 5. Global JS rules
+## Header/Nav & Services Overlay CSS Rules
 
-- **Do not silently change DOM contracts**
-  - IDs, classes, and `data-*` attributes used by JS must not change without:
-    - Updating all references.
-    - Updating tests that depend on them.
-- **Keep concerns separated**
-  - In `assets/js/script.js`, keep areas grouped:
-    - Nav & Services overlay.
-    - Stats counters.
-    - Parallax helpers.
-  - Avoid mixing new logic into unrelated sections.
-- **Helper functions over duplication**
-  - If the same logic appears in many places, factor out small helper functions rather than copying.
-
----
-
-## 6. Cookie banner JS rules
-
-- **Semantics**
-  - Accept and Decline must:
-    - Store a persistent decision (e.g., in localStorage or cookies).
-    - Prevent the banner from re‑appearing on any page, including Estate Agents.
-- **Behaviour**
-  - The banner:
-    - Appears only when no decision is stored.
-    - Does not flicker or re‑create itself on scroll.
-    - Is styled consistently across pages.
-- **Implementation**
-  - Keep storage keys and selection logic as stable as possible.
-  - If keys must change, thoroughly document the change in ExecPlan and update D1–D3 tests.
+- Key selectors:
+  - `.site-header`, `.nav`, `.nav-list`, `.nav-item`, `.nav-toggle`.
+  - `.services-toggle`, `.services-menu`, `.services-overlay`, `.service-pill`.
+- Desktop:
+  - Align Services nav item with others via flexbox/line‑height/padding, not pixel‑perfect hacks wherever possible.
+- Mobile:
+  - `.service-pill` for Services must match other pills in:
+    - Font family, size, weight.
+    - Colour.
+    - Horizontal/vertical alignment.
+- Accessibility:
+  - Keep `role="navigation"`, `aria-expanded`, and other ARIA attributes unless you replace them with equally accessible alternatives.
 
 ---
 
-## 7. Header/nav & overlay JS rules
+## Mobile & Parallax CSS Rules
 
-- **Nav toggle**
-  - Desktop and mobile nav toggle behaviour should remain as currently implemented unless ExecPlan explicitly instructs a change.
-- **Services overlay**
-  - Services overlay should:
-    - Open and close via predictable triggers (e.g., clicking Services, close icons).
-    - Maintain focus and ARIA state appropriately.
-- **Constraints**
-  - Do not introduce heavy new dependencies.
-  - Avoid adding multiple competing event listeners for the same behaviour; consolidate where possible.
+- Do not globally alter `.section.bg-*` or parallax helper classes except in Slice 8.
+- For Estate hero mobile:
+  - Follow the hero pattern used by `book.html` for mobile background images.
+  - Apply via Estate page scope to avoid impacting other pages.
+- `mobile.css`:
+  - Use for breakpoint‑specific tweaks, ideally under page scopes (e.g., `.page-estate-agents`) when fixes apply to specific pages.
 
 ---
 
-## 8. Stats counters & scroll behaviour
+## Global JS Rules
 
-- **One‑time animations**
-  - Stats counters should animate once per page view when scrolled into view, not on every scroll event.
-- **Performance**
-  - Throttle or debounce scroll listeners if adjustments are needed.
-  - Avoid per‑frame DOM reads/writes that could cause jank.
-
----
-
-## 9. Contact form & Netlify function rules
-
-- **API contract**
-  - `netlify/functions/send-email.js` defines the backend behaviour; do not change its interface without updating both JS and Netlify configuration.
-- **User feedback**
-  - Maintain clear success/failure messages for contact form submissions.
-  - Do not remove validation or error handling; improve it if necessary.
+- Keep DOM hooks stable:
+  - IDs, classes, and `data-*` attributes referenced in JS must not be renamed or removed without updating all references.
+- Avoid:
+  - Adding new global variables.
+  - Packing more unrelated logic into already large functions.
+- Prefer:
+  - Small helper functions (`toggleCookieBanner`, `hasCookieConsent`, etc.) to improve clarity.
+- Do not introduce new JS dependencies that would require `npm install` in the sandbox.
 
 ---
 
-## 10. Testing & validation rules
+## Cookie Banner JS Rules
 
-- Every non‑trivial change to CSS/JS must be validated via:
-  - At least the relevant DOM tests (D*),
-  - E2E flows (F*), and
-  - Visual tests (V*) if they cover the affected sections.
-- If a test is flaky or mis‑specified, fix the test and document the change in ExecPlan rather than disabling it.
+- File: `assets/js/cookie-consent.js`.
+- Must:
+  - Use a single, consistent storage key for consent (e.g., `localStorage`).
+  - Show banner only when consent is “unknown”.
+  - Hide banner permanently after Accept or Decline.
+- Must NOT:
+  - Change the semantics of Accept vs Decline.
+  - Tie visibility to scroll in ways that cause flicker.
+- Keep DOM structure expectations stable (banner container, buttons, IDs).
+
+---
+
+## Header/Nav & Services Overlay JS Rules
+
+- File: `assets/js/script.js`.
+- Must:
+  - Respect ARIA attributes for nav toggles and overlays.
+  - Keep responsibilities separated: nav toggle, Services overlay, scroll handling, etc.
+- May:
+  - Simplify event handlers and naming for clarity.
+  - Guard against missing DOM elements (null checks).
+- Must NOT:
+  - Introduce redundant global event listeners.
+  - Break mobile vs desktop nav behaviour distinctions.
+
+---
+
+## Stats Counters & Scroll Behaviour Rules
+
+- Stats counters:
+  - Should animate **once** when the stats section enters view.
+  - Should not re‑run on every minor scroll.
+- Adjustments should:
+  - Use simple guard flags (e.g., `hasAnimatedStats = true`).
+  - Avoid complex or performance‑heavy scroll listeners.
+
+---
+
+## Contact Form & Netlify Rules
+
+- Keep `netlify/functions/send-email.js` API contract intact.
+- Inline contact JS in `contact.html` may:
+  - Be refactored into a separate JS file for clarity.
+  - Be simplified, provided:
+    - Form submission still works with Netlify.
+    - User feedback messages remain visible and accessible.
+- Ensure:
+  - Form labels, fields, and error messages retain accessibility.
+  - Any changed selectors are updated consistently in HTML and JS.
+
+---
+
+Any necessary deviations from these rules must be justified and recorded in `ExecPlan.md` → **Decision Log**.
