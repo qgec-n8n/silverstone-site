@@ -112,6 +112,84 @@
   flex-shrink: 0;
 }
 
+/* Estate Agents page refinements */
+.page-estate-agents .neon-card {
+  background: rgba(11, 12, 16, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.page-estate-agents .service-image.neon-card {
+  padding: 0;
+  background: rgba(11, 12, 16, 0.82);
+}
+
+.page-estate-agents .service-content,
+.page-estate-agents .value-card,
+.page-estate-agents .faq-item,
+.page-estate-agents .cta-card,
+.page-estate-agents .stat {
+  background: rgba(11, 12, 16, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.page-estate-agents .section.compact-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.page-estate-agents .section.tight-top {
+  padding-top: 2.5rem;
+}
+
+.page-estate-agents .section.tight-bottom {
+  padding-bottom: 2.5rem;
+}
+
+.page-estate-agents .section.compact-bottom {
+  padding-bottom: 3rem;
+}
+
+.page-estate-agents .section + .section.tight-top {
+  margin-top: -0.75rem;
+}
+
+@media (min-width: 769px) {
+  .site-header nav ul {
+    align-items: center;
+  }
+
+  .site-header nav ul li {
+    display: flex;
+    align-items: center;
+  }
+
+  .site-header nav ul .nav-dropdown .services-toggle {
+    padding: 0.55rem 0;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  nav ul .nav-dropdown .services-toggle {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--color-blue);
+    text-align: center;
+    letter-spacing: 0.08em;
+    padding: 0.85rem 1.65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 174, 239, 0.18);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  }
+
+  nav ul .nav-dropdown .services-toggle .services-label {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .proof-disclaimer {
   margin-top: 1.25rem;
   max-width: 52rem;
