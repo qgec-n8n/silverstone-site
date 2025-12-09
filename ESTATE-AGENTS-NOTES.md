@@ -1,80 +1,76 @@
 <!-- ESTATE-AGENTS-NOTES.md -->
+# ESTATE-AGENTS-NOTES – Problem statement & desired outcomes
 
-# ESTATE-AGENTS-NOTES – Page-specific brief
-
-This file summarizes the current issues and desired outcomes for `niches/estate-agents.html`.
-
----
-
-## 1. Role of the Estate Agents page
-
-- Niche landing page for Estate Agents.
-- Must clearly communicate:
-  - Pain points (where deals leak away).
-  - Benefits and proof (stats, “Show the numbers, not just promises”).
-  - Implementation and support (“The branch experience after launch”, “Plug, personalise, launch”, “The ‘Never Miss a Viewing’ pack”, “Safe, compliant, and fully supported”).
-  - Pricing and FAQs.
-  - Clear CTAs (Book/Contact).
-
-Any breakage on this page directly affects conversions for this audience.
+This file summarizes the known issues and desired outcomes for `niches/estate-agents.html`.
 
 ---
 
-## 2. Known issues (summary)
+## Current Issues
 
-1. **Cookie banner behaviour**
-   - On Estate Agents, the cookie consent banner:
-     - May not appear on page load when it should.
-     - Can appear and disappear on scroll (flicker).
-     - May not permanently disappear after Accept/Decline.
-   - Desired: show exactly once until decision; then never reappear on any page.
+1. **Cookie consent behaviour**
+   - On Estate Agents:
+     - Banner sometimes doesn’t appear on first load.
+     - Flickers / appears / disappears while scrolling.
+     - May still appear after Accept when scrolling or navigating.
+   - Desired:
+     - Banner appears on load only if consent not recorded.
+     - Remains visible until Accept or Decline.
+     - Once accepted/declined (on any page), it never reappears on any page.
 
-2. **Extra vertical spacing**
-   - Noticeable extra gaps between:
-     - “The branch experience after launch” and “Plug, personalise, launch”.
-     - “Pricing” and “FAQs”.
-     - “The ‘Never Miss a Viewing’ pack” and “Show the numbers, not just promises”.
-   - Desired: spacing equal to or close to the gap between “Show the numbers, not just promises” and “The branch experience after launch”.
+2. **Extra vertical space between sections**
+   - Problem pairs:
+     1. “The branch experience after launch” → “Plug, personalise, launch”.
+     2. “Pricing” → “FAQs”.
+     3. “The ‘Never Miss a Viewing’ pack” → “Show the numbers, not just promises”.
+   - Desired:
+     - Reduce those gaps so they match the spacing between “Show the numbers…” and “The branch experience after launch”.
+     - Only for relevant sections and breakpoints; avoid side‑effects on other sections/pages.
 
-3. **Card background opacity**
-   - Cards in “Show the numbers, not just promises” are darker/more opaque than:
-     - “Where deals leak away” card.
-     - “Answer instantly. Confirm automatically. Keep the chain warm.” card.
-     - “Plug, personalise, launch” cards.
-     - “Safe, compliant, and fully supported” cards.
-   - Desired: all Estate cards share the same dark, readable background.
+3. **Card background opacity inconsistency**
+   - On Estate Agents:
+     - “Show the numbers, not just promises” cards have a darker/more opaque background than:
+       - “Where deals leak away”.
+       - “Answer instantly. Confirm automatically. Keep the chain warm.”
+       - “Plug, personalise, launch” cards.
+       - “Safe, compliant, and fully supported” cards.
+   - Desired:
+     - All Estate cards use the darker/more opaque background, implemented in a DRY, page‑scoped way.
 
-4. **Services nav alignment (desktop)**
-   - The Services dropdown menu button sits slightly lower than other nav items.
-   - Desired: visually aligned nav bar; Services sits on the same baseline.
+4. **Services dropdown button alignment (desktop)**
+   - Services button sits slightly lower than other nav items.
+   - Desired:
+     - All nav items aligned vertically and visually in line.
 
-5. **Services pill styling (mobile)**
+5. **Services pill styling (mobile menu)**
    - In the mobile overlay, the Services pill:
-     - Uses different font/size/color/alignment from other pills.
-   - Desired: Services pill visually identical to other pills, except for necessary iconography.
+     - Does not share the same font family, colour, size, or centering as other pills.
+   - Desired:
+     - Exactly the same font, colour, size, and central alignment as other mobile menu pills.
 
-6. **Missing mobile hero background**
-   - Estate Agents mobile version lacks a background image.
-   - Desired: Estate mobile hero uses the book hero mobile image (`book-hero-calendly-mobile-2025@*x.webp`) or an equivalent, integrated into the existing parallax system.
-
----
-
-## 3. Constraints
-
-- No global visual changes for other pages unless:
-  - They are required to fix the issues above, and
-  - They are covered by tests and documented in ExecPlan.
-- Estate Agents fixes should be implemented via:
-  - Page‑scoped CSS and minimal HTML tweaks.
-  - JS refinements that do not alter nav or banner semantics beyond bug fixes.
+6. **Missing background image on mobile Estate Agents page**
+   - Mobile Estate hero lacks the expected background image.
+   - Desired:
+     - Mobile Estate hero uses `book-hero-calendly-mobile-2025@*x.webp` as background (consistent with related pages).
+     - Any parallax effect remains correct on both mobile and desktop.
 
 ---
 
-## 4. Success criteria
+## Non‑Goals
 
-- Visiting `niches/estate-agents.html`:
-  - Cookie banner behaves exactly as specified.
-  - Card backgrounds and section spacing look visually coherent and consistent.
-  - Nav alignment (desktop) and Services pill styling (mobile) look clean.
-  - Mobile hero background is present and aesthetically matches other pages.
-- All V*, F*, and D* tests that touch Estate Agents are green.
+- No redesign of content or copy.
+- No changes to flow structure (Estate → Book/Contact).
+- No global theme changes beyond what’s required to fix the above issues.
+
+---
+
+## Priority Order
+
+1. Cookie banner correctness.
+2. Card backgrounds consistency.
+3. Section spacing normalization.
+4. Nav alignment & Services pill styling.
+5. Mobile hero background.
+
+---
+
+Refer to this file whenever implementing or reviewing changes to the Estate Agents page.
