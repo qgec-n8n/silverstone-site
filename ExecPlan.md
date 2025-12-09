@@ -48,8 +48,8 @@ We will do this **incrementally**, using a “strangler” pattern and the slice
 Use this section as a running log of progress as slices are implemented.
 
 - [x] Slice 0 – Confirm test harness & docs (no new installs in tasks). *(2025-01-05 – Verified repo lacks the previously documented Playwright harness; aligned docs and environment notes accordingly.)*
-- [ ] Slice 1 – Estate card background unification.
-- [ ] Slice 2 – Estate section spacing normalization.
+- [x] Slice 1 – Estate card background unification. *(2025-01-05 – Added page-scoped Estate card styling so all cards share the darker background without touching global `.neon-card`.)*
+- [x] Slice 2 – Estate section spacing normalization. *(2025-01-05 – Added Estate-only section hooks and padding tweaks to reduce gaps between highlighted section pairs.)*
 - [ ] Slice 3 – Estate hero mobile background alignment.
 - [ ] Slice 4 – Cookie banner stability and persistence.
 - [ ] Slice 5 – Header/nav & Services dropdown (desktop + mobile pills).

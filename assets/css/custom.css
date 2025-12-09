@@ -236,3 +236,48 @@ body {
   position: relative;
   z-index: 2;
 }
+
+/* Estate Agents page overrides */
+.page-estate-agents .neon-card:not(.service-image),
+.page-estate-agents .dark-card {
+  background: rgba(11, 12, 16, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.page-estate-agents .service-image.neon-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.page-estate-agents .section.compact-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.page-estate-agents .section--never-miss {
+  padding-bottom: 3rem;
+}
+
+.page-estate-agents .section--show-numbers {
+  padding-top: 2.5rem;
+}
+
+.page-estate-agents .section--branch-experience {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.page-estate-agents .section--plug-launch {
+  padding-top: 2.5rem;
+}
+
+.page-estate-agents .section--pricing {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.page-estate-agents .section--faqs {
+  padding-top: 2.5rem;
+}
