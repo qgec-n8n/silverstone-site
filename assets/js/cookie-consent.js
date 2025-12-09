@@ -12,18 +12,30 @@ document.addEventListener('DOMContentLoaded', function () {
   const declineBtn = document.getElementById('cookie-decline-btn');
   if (!banner || !acceptBtn || !declineBtn) return;
 
-  const STORAGE_KEY = 'cookieConsentChoice';
+  const STORAGE_KEY = 'silverstone_cookie_choice';
+  const COOKIE_NAME = 'silverstone_cookie_choice';
+  const LEGACY_STORAGE_KEY = 'cookieConsentChoice';
+  const LEGACY_COOKIE_NAME = 'cookieConsent';
 
   function getCookie(name) {
     const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
     return match ? decodeURIComponent(match[1]) : null;
   }
 
-  const storedChoice = localStorage.getItem(STORAGE_KEY);
-  const cookieChoice = getCookie('cookieConsent');
+  const storedChoice =
+    localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
+  const cookieChoice = getCookie(COOKIE_NAME) || getCookie(LEGACY_COOKIE_NAME);
+
+  if (storedChoice && !localStorage.getItem(STORAGE_KEY)) {
+    try {
+      localStorage.setItem(STORAGE_KEY, storedChoice);
+    } catch (err) {
+      // ignore
+    }
+  }
 
   if (storedChoice || cookieChoice) {
-    banner.style.display = 'none';
+    storeChoice(storedChoice || cookieChoice);
     return;
   }
 
@@ -39,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       document.cookie =
-        'cookieConsent=' +
+        `${COOKIE_NAME}=` +
         encodeURIComponent(value) +
         '; expires=' +
         expiryDate.toUTCString() +
@@ -53,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   banner.style.display = 'flex';
+  banner.style.position = banner.style.position || 'fixed';
 
   acceptBtn.addEventListener('click', function () {
     storeChoice('accepted');
