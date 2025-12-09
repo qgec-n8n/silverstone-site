@@ -37,7 +37,7 @@ After this refactor:
   - Have properly aligned Services nav button (desktop) and matching Services pill styling (mobile overlay).
 - The **header/nav, Services dropdown/overlay, Book and Contact flows** will remain visually and functionally correct.
 - CSS and JS will be incrementally improved (page‑scoped overrides, reduced coupling) so future changes are easier and safer.
-- The existing Playwright tests will help guard against regressions when dependencies are available.
+- When reintroduced, the Playwright tests described in `TESTS_PLAN.md` will help guard against regressions; for now treat those scenarios as manual checks.
 
 We will do this **incrementally**, using a “strangler” pattern and the slices defined in `PLANS.md`.
 
@@ -47,7 +47,7 @@ We will do this **incrementally**, using a “strangler” pattern and the slice
 
 Use this section as a running log of progress as slices are implemented.
 
-- [ ] Slice 0 – Confirm test harness & docs (no new installs in tasks).
+- [x] Slice 0 – Confirm test harness & docs (no new installs in tasks). *(2025-01-05 – Verified repo lacks the previously documented Playwright harness; aligned docs and environment notes accordingly.)*
 - [ ] Slice 1 – Estate card background unification.
 - [ ] Slice 2 – Estate section spacing normalization.
 - [ ] Slice 3 – Estate hero mobile background alignment.
@@ -65,8 +65,10 @@ Update this as slices complete (with dates and brief notes).
 
 Document unexpected behaviours, environment issues, or learnings.
 
-- **Observation:** Running `npm install` inside a Codex **task** previously produced `E403` errors from `https://registry.npmjs.org/@playwright%2ftest`, indicating a network or security policy restriction rather than a bad `package.json`.   
+- **Observation:** Running `npm install` inside a Codex **task** previously produced `E403` errors from `https://registry.npmjs.org/@playwright%2ftest`, indicating a network or security policy restriction rather than a bad `package.json`.
 - **Mitigation:** We now run `npm ci`/`npm install` only in the **Setup** and **Maintenance** scripts (where network access is explicitly enabled) and treat failures as non‑fatal, logging a warning instead. Agents no longer call `npm install` inside tasks.
+- **Observation (2025-01-05):** This branch does **not** currently include the Playwright test harness (`playwright.config.ts`, `tests/**`, `tsconfig.json`) referenced in earlier plans; `package.json` only defines a build pipeline (`build`, `build:css`) with `sharp` as the sole devDependency.
+- **Mitigation:** Treat the V*/F*/D* scenarios in `TESTS_PLAN.md` as manual/aspirational until the automated suite is restored. Avoid invoking missing test scripts in Codex.
 
 (Additional surprises should be appended here during implementation.)
 
@@ -80,9 +82,13 @@ Record key decisions that shape this plan.
   - Rationale: Tests and devDependencies should be installed in the environment setup phase or locally/CI, not in a sandboxed task where network/blocking policies can cause sporadic errors.   
   - Date/Author: 2025‑12‑09 – ChatGPT (Codex refactor architect)
 
-- **Decision:** Use the manual **Setup script** and **Maintenance script** to manage Node deps.  
-  - Rationale: Aligns with Codex Cloud Environments best practice—heavy installs in setup, light incremental fixes in maintenance, and cached containers for speed.   
+- **Decision:** Use the manual **Setup script** and **Maintenance script** to manage Node deps.
+  - Rationale: Aligns with Codex Cloud Environments best practice—heavy installs in setup, light incremental fixes in maintenance, and cached containers for speed.
   - Date/Author: 2025‑12‑09 – ChatGPT
+
+- **Decision:** Proceed with manual validation against the documented V*/F*/D* scenarios until an automated Playwright suite is reintroduced.
+  - Rationale: The current branch lacks Playwright config and spec files; running non-existent test scripts would fail and waste time. Documenting the gap keeps future contributors informed.
+  - Date/Author: 2025-01-05 – ChatGPT
 
 (Additional design decisions should be added as the plan evolves.)
 
@@ -120,14 +126,8 @@ Repository root (from GitHub):
   - Netlify function `netlify/functions/send-email.js`.
 
 - Tests & tooling:
-  - `package.json` (with `@playwright/test`, `axe-core`, `http-server`, `jsdom`, `typescript`, `vitest` devDeps and test scripts).
-  - `playwright.config.ts` (test projects: dom, e2e, visual‑desktop, visual‑mobile, accessibility).
-  - `tsconfig.json` (includes tests and Playwright config).
-  - Test specs:
-    - `tests/dom/*.spec.ts` (cookie banner, nav/overlay, stats, contact form).
-    - `tests/e2e/flows.spec.ts` (flows F1–F6).
-    - `tests/visual/visual.spec.ts` (visual baselines V1–V10).
-    - `tests/accessibility/accessibility.spec.ts` (axe smoke check).
+  - `package.json` includes build tooling only (`build`, `build:css`) with `sharp` as the sole devDependency; no npm test scripts are defined.
+  - **Playwright config, TS config, and spec files are not present in this branch.** The V*/F*/D* scenarios in `TESTS_PLAN.md` remain as a manual/aspirational reference until the suite is restored.
 
 ---
 
@@ -178,6 +178,8 @@ If a test command fails due to missing dependencies:
 3. Continue with code changes, relying on:
    - Existing tests when run locally / in CI.
    - Manual checks described in `TESTS_PLAN.md`.
+
+*Note:* This branch does not define any `test:*` npm scripts or Playwright configs, so there are no automated commands to run inside Codex until the suite is restored.
 
 ---
 

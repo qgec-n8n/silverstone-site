@@ -1,7 +1,9 @@
 <!-- TESTS_PLAN.md -->
 # TESTS_PLAN – High-value scenarios for `silverstone-site-main`
 
-This file documents the key tests we care about. The repo already includes a Playwright setup:
+This file documents the key tests we care about. The Playwright setup referenced below is **not present in this branch** (no `playwright.config.ts`, `tests/**`, or `tsconfig.json`). Use these scenarios for manual QA and as a blueprint if/when the automated suite returns.
+
+Expected structure (for future automation):
 
 - `playwright.config.ts` with projects:
   - `dom`, `e2e`, `visual-desktop`, `visual-mobile`, `accessibility`
@@ -12,16 +14,21 @@ This file documents the key tests we care about. The repo already includes a Pla
   - `tests/accessibility/accessibility.spec.ts`
 - `tsconfig.json` for TypeScript support
 
-Because Codex Web sandbox cannot reliably run `npm install` (403 from npm registry due to security/network policy), these tests are:
+Because Codex Web sandbox cannot reliably run `npm install` (403 from npm registry due to security/network policy) and the scripts are currently absent, these scenarios are:
 
-- **Best‑effort inside Codex** – only run if dependencies are already installed.
-- **Fully runnable in a local/CI or environment‑setup context** where you can install devDependencies.
+- **Manual inside Codex** – validate flows by inspection or browser previews; do not attempt to run missing npm test scripts.
+- **Runnable locally/CI once the suite is restored** – install devDependencies and implement the specs using the IDs below.
+
+### Current automation status
+
+- `package.json` only includes build scripts (`build`, `build:css`) and `sharp` as a devDependency; there are no `test:*` scripts.
+- No Playwright config or spec files are present; treat the V*/F*/D* sections as requirements rather than runnable tests.
 
 ---
 
 ## Visual Baseline Scenarios (V*)
 
-Implemented in: `tests/visual/visual.spec.ts`  
+Target implementation (when automated): `tests/visual/visual.spec.ts`
 Projects: `visual-desktop`, `visual-mobile`
 
 - **V1 – Estate Agents hero (desktop)**  
@@ -94,7 +101,7 @@ Projects: `visual-desktop`, `visual-mobile`
 
 ## E2E Flow Scenarios (F*)
 
-Implemented in: `tests/e2e/flows.spec.ts`  
+Target implementation (when automated): `tests/e2e/flows.spec.ts`
 Project: `e2e`
 
 - **F1 – Home → Services → Estate → Book**  
@@ -146,7 +153,7 @@ Project: `e2e`
 
 ## DOM Interaction Scenarios (D*)
 
-Implemented in: `tests/dom/*.spec.ts`  
+Target implementation (when automated): `tests/dom/*.spec.ts`
 Project: `dom`
 
 - **D1 – Cookie banner initial visibility** (`cookie-banner.spec.ts`)  
@@ -195,7 +202,7 @@ Project: `dom`
 
 ## Accessibility Smoke Tests
 
-Implemented in: `tests/accessibility/accessibility.spec.ts`  
+Target implementation (when automated): `tests/accessibility/accessibility.spec.ts`
 Project: `accessibility`
 
 - Simple axe‑based smoke check on Home page:
