@@ -1,37 +1,25 @@
 <!-- ExecPlan.md -->
+
 # ExecPlan – Estate Agents–focused CSS/JS refactor for `silverstone-site-main`
 
 This ExecPlan is a living document. The sections **Progress**, **Surprises & Discoveries**, **Decision Log**, and **Outcomes & Retrospective** must be kept up to date as work proceeds.
 
 This plan must be followed in accordance with `PLANS.md` at the repository root. Treat the reader as a complete beginner to this repo: they have only the current working tree and this ExecPlan file.
 
-> **Important: npm / Playwright in Codex sandbox**  
-> The repo already contains a Playwright test harness:
-> - `playwright.config.ts`
-> - `tsconfig.json`
-> - `tests/**` (accessibility, dom, e2e, visual specs)
-> - `package.json` devDependencies (`@playwright/test`, `axe-core`, `http-server`, `jsdom`, `typescript`, `vitest`, `sharp`)
+> **Environment & tests (important)**  
+> - The project uses the Codex **universal** image with a **Manual setup script** and **Maintenance script**.  
+> - The **Setup script**:
+>   - Changes into `/workspace/silverstone-site` (or first child of `/workspace`),
+>   - Runs `npm ci` or `npm install` (best‑effort),
+>   - Optionally runs `npx playwright install --with-deps`,
+>   - Logs any npm/Playwright errors but exits successfully so the environment is always usable.
+> - The **Maintenance script**:
+>   - Runs on cached containers,
+>   - Reinstalls npm deps only if `node_modules` is missing.
+> - This matches Codex Cloud environment guidance: heavy installs in setup, light corrections in maintenance.   
 >
-> However, running `npm install` from inside a Codex Web sandbox produced:
->
-> ```text
-> npm ERR! code E403
-> npm ERR! 403 Forbidden - GET https://registry.npmjs.org/@playwright%2ftest
-> npm ERR! 403 In most cases, you or one of your dependencies are requesting
-> npm ERR! 403 a package version that is forbidden by your security policy, or
-> npm ERR! 403 on a server you do not have access to.
-> ```
->
-> This matches npm’s standard 403 guidance (security policy / access issue, not a syntax bug)  and Codex Cloud’s model where:
-> - **Setup scripts** run with full internet access.  
-> - The **agent phase** runs inside a sandbox with network disabled by default.   
->
-> **Therefore:**
-> - This ExecPlan MUST NOT instruct agents to run `npm install`, `npm ci`, or `npx playwright install` from inside tasks.
-> - Test dependencies must be installed either:
->   - In a **Codex Cloud environment setup script** (preferred), or  
->   - On a **local/CI environment** outside Codex.
-> - Inside Codex, tests are **best‑effort**: only run `npm run test:*` if dependencies already exist.
+> **Inside tasks, agents must NOT run `npm install` or `npx playwright install`.**  
+> Test commands (`npm run test:*`) are *best‑effort* and assume dependencies are already installed by the setup/maintenance scripts or in local/CI environments.
 
 ---
 
@@ -59,7 +47,7 @@ We will do this **incrementally**, using a “strangler” pattern and the slice
 
 Use this section as a running log of progress as slices are implemented.
 
-- [ ] Slice 0 – Confirm test harness & docs (no new installs).
+- [ ] Slice 0 – Confirm test harness & docs (no new installs in tasks).
 - [ ] Slice 1 – Estate card background unification.
 - [ ] Slice 2 – Estate section spacing normalization.
 - [ ] Slice 3 – Estate hero mobile background alignment.
@@ -77,15 +65,8 @@ Update this as slices complete (with dates and brief notes).
 
 Document unexpected behaviours, environment issues, or learnings.
 
-- **Observation:** `npm install` inside Codex Web sandbox fails with `E403` for `@playwright/test`.  
-  - Evidence:  
-    - Codex Exec output shows 403 from `https://registry.npmjs.org/@playwright%2ftest`.  
-    - This matches npm docs that 403 usually indicates a security policy or access restriction, not a missing package.   
-    - Codex Cloud docs note that agents run in secure containers with network disabled; only environment setup has internet. 
-- **Conclusion:** Installing Playwright and other devDependencies must happen in:
-  - Codex Cloud **environment setup script**, or
-  - Local / CI environment.  
-  The agent must **not** call `npm install` or `npx playwright install` from within tasks.
+- **Observation:** Running `npm install` inside a Codex **task** previously produced `E403` errors from `https://registry.npmjs.org/@playwright%2ftest`, indicating a network or security policy restriction rather than a bad `package.json`.   
+- **Mitigation:** We now run `npm ci`/`npm install` only in the **Setup** and **Maintenance** scripts (where network access is explicitly enabled) and treat failures as non‑fatal, logging a warning instead. Agents no longer call `npm install` inside tasks.
 
 (Additional surprises should be appended here during implementation.)
 
@@ -96,11 +77,11 @@ Document unexpected behaviours, environment issues, or learnings.
 Record key decisions that shape this plan.
 
 - **Decision:** Do not run `npm install` / `npm ci` / `npx playwright install` inside agent tasks.  
-  - Rationale: Codex sandbox/network policies produce 403 errors; recommended pattern is to install dependencies in environment setup or locally.   
+  - Rationale: Tests and devDependencies should be installed in the environment setup phase or locally/CI, not in a sandboxed task where network/blocking policies can cause sporadic errors.   
   - Date/Author: 2025‑12‑09 – ChatGPT (Codex refactor architect)
 
-- **Decision:** Keep workspace‑write sandbox network access disabled in repo‑local `.codex/config.toml`.  
-  - Rationale: Avoid accidental network access from agents; environment setup script or local machine is the correct place for npm calls. If an advanced user wants sandbox network, they should enable it in their personal `~/.codex/config.toml` with full awareness of risks.   
+- **Decision:** Use the manual **Setup script** and **Maintenance script** to manage Node deps.  
+  - Rationale: Aligns with Codex Cloud Environments best practice—heavy installs in setup, light incremental fixes in maintenance, and cached containers for speed.   
   - Date/Author: 2025‑12‑09 – ChatGPT
 
 (Additional design decisions should be added as the plan evolves.)
