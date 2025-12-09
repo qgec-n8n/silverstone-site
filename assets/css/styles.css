@@ -695,19 +695,3 @@ body.services-overlay-active .services-overlay {
     display: none !important;
   }
 }
-
-
-/* Align header navigation links and the Services button vertically */
-.site-header nav ul > li > a,
-.site-header .nav-dropdown .services-toggle {
-  display: inline-flex;
-  align-items: center;
-}
-
-
-/* Ensure Services overlay pills keep consistent text colour, even for visited links */
-.services-overlay__grid .service-link,
-.services-overlay__grid .service-link:visited {
-  color: var(--color-purple);
-  text-decoration: none;
-}
