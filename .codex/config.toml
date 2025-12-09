@@ -1,15 +1,60 @@
-# Global defaults
-model = "gpt-5.1-codex-max"
-model_reasoning_effort = "xhigh"
+# .codex/config.toml
+# Project-specific Codex configuration for `silverstone-site-main`.
+#
+# This file is intended to live at: ./silverstone-site-main/.codex/config.toml
+# It augments your global Codex config with project-level guidance and features.
+#
+# Assumptions:
+# - Global ~/.codex/config.toml exists (or Codex defaults are used).
+# - This project config is merged with global config; keys here override globals.
 
-# Make sure project docs are easy to discover
-project_doc_fallback_filenames = ["AGENTS.md", "PLANS.md"]
+# Use GPT-5.1 Codex with strong reasoning for refactors.
+model = "gpt-5.1-codex-max"
+model_provider = "openai"
+
+# Use relatively high reasoning effort for long-lived refactors.
+# You can lower this to "high" or "medium" if latency/cost is a concern.
+model_reasoning_effort = "high"
+
+# Ensure Codex picks up our project docs (AGENTS, PLANS, ExecPlan, etc).
+project_doc_fallback_filenames = [
+  "AGENTS.md",
+  "PLANS.md",
+  "ExecPlan.md",
+  "RULES.md",
+  "TESTS_PLAN.md",
+  "ESTATE-AGENTS-NOTES.md"
+]
+
+# Optional: increase instruction budget a bit so AGENTS+PLANS+ExecPlan still fit.
+# If this key is unsupported in your Codex version, it will be ignored.
+project_doc_max_bytes = 65536
+
+# Restrict Codex to workspace writes (editing files inside the repo).
+# The global config should already choose a sensible sandbox_mode; this is a per-project override.
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+# For this static site, tests and builds do not require external network access.
+# Set to true if you later add tests that call external services.
+network_access = false
 
 [features]
-# Allow the model to request web search when needed (if you want web access)
+# Enable Codex's planning tool so it can update ExecPlans where supported.
+plan_tool = true
+
+# Enable web search on demand (for docs, not for guessing repo behaviour).
 web_search_request = true
 
+# Allow viewing local images if needed (e.g., screenshots, exported baselines).
+view_image_tool = true
+
+# Allow the freeform apply_patch tool (Codex uses this for patch-style edits).
+apply_patch_freeform = true
+
 [tools]
-# Enable web search and keep it limited to documentation lookups
+# Enable the web_search tool so Codex can look up documentation when necessary.
 web_search = true
+
+# Enable image viewing for local assets or generated screenshots.
 view_image = true
