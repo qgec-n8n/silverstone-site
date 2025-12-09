@@ -1,64 +1,96 @@
 /*
  * cookie-consent.js
  *
- * This script displays a cookie consent banner until the user grants
- * permission. Once accepted, a persistent cookie is stored so the banner
- * does not appear again. The banner links to the site's privacy policy.
+ * Displays a cookie consent banner until the user makes a choice.
+ * The choice is stored in both localStorage and a cookie so that the
+ * banner stays hidden across pages and visits.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-  const banner = document.getElementById('cookie-banner');
-  const acceptBtn = document.getElementById('cookie-accept-btn');
-  const declineBtn = document.getElementById('cookie-decline-btn');
-  if (!banner || !acceptBtn || !declineBtn) return;
+  var banner = document.getElementById('cookie-banner');
+  if (!banner) return;
 
-  const STORAGE_KEY = 'cookieConsentChoice';
+  var acceptBtn = document.getElementById('cookie-accept-btn');
+  var declineBtn = document.getElementById('cookie-decline-btn');
 
-  function getCookie(name) {
-    const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
-    return match ? decodeURIComponent(match[1]) : null;
+  var STORAGE_KEY = 'cookieConsentChoice';
+  var COOKIE_NAME = 'cookieConsent';
+
+  function safeGetStoredChoice() {
+    try {
+      if (!('localStorage' in window)) return null;
+      return window.localStorage.getItem(STORAGE_KEY);
+    } catch (err) {
+      return null;
+    }
   }
 
-  const storedChoice = localStorage.getItem(STORAGE_KEY);
-  const cookieChoice = getCookie('cookieConsent');
+  function safeSetStoredChoice(value) {
+    try {
+      if (!('localStorage' in window)) return;
+      window.localStorage.setItem(STORAGE_KEY, value);
+    } catch (err) {
+      // Ignore storage issues (e.g. Safari private mode, extensions).
+    }
+  }
+
+  function getCookie(name) {
+    var encodedName = name.replace(/([.$?*|{}()\[\]\\/+^])/g, '\\$1');
+    var pattern = new RegExp('(?:^|; )' + encodedName + '=([^;]*)');
+    var matches = document.cookie.match(pattern);
+    return matches ? decodeURIComponent(matches[1]) : null;
+  }
+
+  function setCookie(name, value, days) {
+    try {
+      var now = new Date();
+      now.setTime(now.getTime() + days * 24 * 60 * 60 * 1000);
+      var expires = 'expires=' + now.toUTCString();
+      document.cookie =
+        name +
+        '=' +
+        encodeURIComponent(value) +
+        '; ' +
+        expires +
+        '; path=/; SameSite=Lax';
+    } catch (err) {
+      // Ignore cookie write errors.
+    }
+  }
+
+  function applyChoice(choice) {
+    // Keep the attribute for CSS hooks if needed.
+    banner.setAttribute('data-consent-dismissed', 'true');
+    banner.style.display = 'none';
+  }
+
+  function storeChoice(choice) {
+    safeSetStoredChoice(choice);
+    setCookie(COOKIE_NAME, choice, 180);
+    applyChoice(choice);
+  }
+
+  var storedChoice = safeGetStoredChoice();
+  var cookieChoice = getCookie(COOKIE_NAME);
 
   if (storedChoice || cookieChoice) {
-    banner.style.display = 'none';
+    applyChoice(storedChoice || cookieChoice);
     return;
   }
 
-  function storeChoice(value) {
-    const expiryDate = new Date();
-    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-
-    try {
-      localStorage.setItem(STORAGE_KEY, value);
-    } catch (err) {
-      // If storage is blocked, continue without failing.
-    }
-
-    try {
-      document.cookie =
-        'cookieConsent=' +
-        encodeURIComponent(value) +
-        '; expires=' +
-        expiryDate.toUTCString() +
-        '; path=/; SameSite=Lax';
-    } catch (err) {
-      // Ignore cookie write issues to avoid breaking the page.
-    }
-
-    banner.style.display = 'none';
-    banner.setAttribute('data-consent-dismissed', 'true');
-  }
-
+  // No choice yet → show banner.
+  banner.removeAttribute('data-consent-dismissed');
   banner.style.display = 'flex';
 
-  acceptBtn.addEventListener('click', function () {
-    storeChoice('accepted');
-  });
+  if (acceptBtn) {
+    acceptBtn.addEventListener('click', function () {
+      storeChoice('accepted');
+    });
+  }
 
-  declineBtn.addEventListener('click', function () {
-    storeChoice('declined');
-  });
+  if (declineBtn) {
+    declineBtn.addEventListener('click', function () {
+      storeChoice('declined');
+    });
+  }
 });

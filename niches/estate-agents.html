@@ -28,67 +28,8 @@
   <link rel="stylesheet" href="../assets/css/mobile.css">
   <link rel="stylesheet" href="../assets/css/icons.css" />
   <link rel="stylesheet" href="../assets/css/hero-base.css">
-  <style>
-    .stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-
-    .stats .stat {
-      flex: 1 1 220px;
-      text-align: center;
-      padding: 1.5rem;
-    }
-
-    .stat-icon {
-      font-size: 1.5rem;
-      color: var(--color-amber);
-      margin-bottom: 0.75rem;
-      display: inline-block;
-    }
-
-    .stats .number {
-      font-size: 2.4rem;
-      color: var(--color-green);
-      font-family: var(--font-heading);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .stats .label {
-      font-size: 1rem;
-      color: var(--color-silver);
-      font-family: var(--font-body);
-    }
-
-    @media (max-width: 768px) {
-      .stats .number {
-        font-size: 2rem;
-      }
-    }
-
-    .service-image.neon-card {
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .service-image.neon-card img {
-      display: block;
-    }
-
-    .dark-card {
-      background: rgba(11, 12, 16, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .section.compact-section {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/css/estate-agents.css">
+  
 </head>
 
 <body class="page-estate-agents">
@@ -205,7 +146,7 @@
     </div>
   </section>
 
-  <section class="section bg-circuit animate parallax-section" data-parallax-theme="book">
+  <section class="section bg-circuit animate parallax-section compact-section" data-parallax-theme="book">
     <div class="container">
       <h2 class="section-title" id="never-miss-viewing-pack" style="text-align: center;">The "Never Miss a Viewing" pack</h2>
       <p class="section-subtitle" style="text-align: center;">A ready-to-deploy automation bundle tuned for estate and lettings workflows.</p>
@@ -234,22 +175,22 @@
       <h2 class="section-title">Show the numbers, not just promises</h2>
       <p class="section-subtitle">Static metrics that demonstrate what instant responses and confirmed viewings do for a branch.</p>
       <div class="stats">
-        <div class="neon-card stat">
+        <div class="neon-card stat dark-card">
           <div class="stat-icon"><i class="fa-solid fa-bolt"></i></div>
           <div class="number" data-target="68">68</div>
           <div class="label">Faster lead response across portal enquiries</div>
         </div>
-        <div class="neon-card stat">
+        <div class="neon-card stat dark-card">
           <div class="stat-icon"><i class="fa-solid fa-chart-bar"></i></div>
           <div class="number" data-target="42">42</div>
           <div class="label">More viewings confirmed on first contact</div>
         </div>
-        <div class="neon-card stat">
+        <div class="neon-card stat dark-card">
           <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
           <div class="number" data-target="2" data-plus="x">2x</div>
           <div class="label">Higher engagement from vendors with weekly updates</div>
         </div>
-        <div class="neon-card stat">
+        <div class="neon-card stat dark-card">
           <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
           <div class="number" data-target="0">0</div>
           <div class="label">Missed instructions after 30 days of automation</div>
@@ -258,7 +199,7 @@
     </div>
   </section>
 
-  <section class="section bg-circuit animate parallax-section" data-parallax-theme="book">
+  <section class="section bg-circuit animate parallax-section compact-section" data-parallax-theme="book">
     <div class="container">
       <h2 class="section-title" style="text-align: center;">The branch experience after launch</h2>
       <p class="section-subtitle" style="text-align: center;">Clients get faster responses; your team gets their evenings back.</p>
@@ -266,7 +207,7 @@
         <div class="service-image neon-card">
           <img src="../assets/images/socialmedia/Real_Estate_3.jpeg" alt="Estate agent celebrating successful property instructions" class="service-img" loading="lazy" />
         </div>
-        <div class="service-content neon-card">
+        <div class="service-content neon-card dark-card">
           <h3>Less firefighting, more instructions</h3>
           <p>Automation keeps every buyer, tenant, landlord, and vendor in the loop. Negotiators focus on viewings and valuations while the system handles the chasing.</p>
           <ul>
@@ -342,7 +283,7 @@
 
   <section class="section bg-lines animate parallax-section compact-section" data-parallax-theme="book">
     <div class="container">
-      <div class="neon-card" style="text-align: center;">
+      <div class="neon-card dark-card" style="text-align: center;">
         <h2 class="section-title">Pricing</h2>
         <p class="section-subtitle">Transparent pricing tables will appear here soon. In the meantime, we’ll scope a simple package in your free automation audit.</p>
       </div>
@@ -354,27 +295,27 @@
       <div class="faq-section">
         <h2 class="section-title" style="margin-top: 0">Estate Agent Automation FAQs</h2>
         <div class="faq-list">
-          <details class="neon-card faq-item">
+          <details class="neon-card faq-item dark-card">
             <summary>Will this replace my negotiators?</summary>
             <p>No. The system acts like a highly responsive assistant: it answers first, books viewings and valuations, and gathers feedback so your negotiators spend their time on instructions and offers.</p>
           </details>
-          <details class="neon-card faq-item">
+          <details class="neon-card faq-item dark-card">
             <summary>Does it work with our existing CRM and calendars?</summary>
             <p>Yes. We plug into the calendars and inboxes you already use and map fields back into your CRM so nothing is duplicated or lost.</p>
           </details>
-          <details class="neon-card faq-item">
+          <details class="neon-card faq-item dark-card">
             <summary>How long does it take to go live?</summary>
             <p>Most branches are live in 1–2 weeks after the audit: we design the journeys, connect calendars, test handoffs, then switch on with close monitoring.</p>
           </details>
-          <details class="neon-card faq-item">
+          <details class="neon-card faq-item dark-card">
             <summary>Will it sound robotic or scripted?</summary>
             <p>All copy is written in your tone of voice and reviewed by you. We use natural language, add local context and include easy routes for humans to step in.</p>
           </details>
-          <details class="neon-card faq-item">
+          <details class="neon-card faq-item dark-card">
             <summary>What happens if something goes wrong or we want to change the journeys?</summary>
             <p>You have escalation paths for urgent issues, and we keep everything documented. We can pause, tweak or swap journeys quickly based on your feedback.</p>
           </details>
-          <details class="neon-card faq-item">
+          <details class="neon-card faq-item dark-card">
             <summary>Is this suitable for multi-branch agencies?</summary>
             <p>Yes. Routing rules can split sales and lettings, assign enquiries by branch or postcode and surface branch-level metrics so managers see what’s working.</p>
           </details>
@@ -385,7 +326,7 @@
 
   <section class="section brand-gradient animate">
     <div class="container">
-      <div class="neon-card cta-card" style="text-align: center">
+      <div class="neon-card cta-card dark-card" style="text-align: center">
         <h2 class="section-title" style="color: var(--color-white)">Ready to stop losing instructions to missed calls?</h2>
         <p class="section-subtitle" style="color: var(--color-silver)">Book a no-pressure call to see how the ‘Never Miss a Viewing’ Pack fits your branch and your current CRM.</p>
         <a href="../book.html" class="btn btn-primary">Book my free estate agency automation audit</a>

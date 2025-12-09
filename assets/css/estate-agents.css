@@ -1,0 +1,90 @@
+/* Estate Agents page-specific styles
+ * Extracted from the original inline <style> block
+ * and extended with small, scoped overrides.
+ */
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.stats .stat {
+  flex: 1 1 220px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  color: var(--color-amber);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.stats .number {
+  font-size: 2.4rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
+
+.service-image.neon-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.service-image.neon-card img {
+  display: block;
+}
+
+.dark-card {
+  background: rgba(11, 12, 16, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section.compact-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* Estate Agents hero mobile background uses the same imagery as book-themed sections */
+@media (max-width: 768px) {
+  .page-estate-agents .hero.title-band {
+    /* Fallback for very old engines */
+    background-image: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
+    /* Older Safari */
+    background-image: -webkit-image-set(
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x
+    );
+    /* Standard */
+    background-image: image-set(
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x
+    );
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+}
+
+/* Estate-specific tweak: reduce internal spacing before FAQs to tighten the gap after Pricing */
+.page-estate-agents .faq-section {
+  margin-top: 1.5rem;
+}
