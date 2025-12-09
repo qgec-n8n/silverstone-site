@@ -1,235 +1,322 @@
 <!-- PLANS.md -->
+# PLANS – Refactor slices for `silverstone-site-main`
 
-# PLANS – ExecPlan & slice breakdown for `silverstone-site-main`
+This file defines the slice‑by‑slice roadmap for refactoring `silverstone-site-main`, with a focus on the **Estate Agents** page and core flows.
 
-This document tells Codex (and human contributors) **how to use ExecPlans** in this repository and provides a **slice‑level breakdown** of the refactor work for `silverstone-site-main`.
+Assumptions:
 
-## 1. How ExecPlans are used in this repo
+- Repo is connected to Codex via GitHub at the root.
+- Codex reads `ExecPlan.md`, `AGENTS.md`, `RULES.md`, `TESTS_PLAN.md`, and this file before making changes.
+- The Playwright test harness is already present (see `playwright.config.ts`, `tests/**`, `tsconfig.json`, and `package.json`).
+- **No `npm install` or `npx` calls occur inside Codex agent tasks.** DevDependencies are installed via Cloud environment setup or locally.
 
-- ExecPlans are detailed design documents that a coding agent can follow from design through implementation.
-- The canonical ExecPlan for the Estate Agents refactor lives at:
-  - `./ExecPlan.md`
-- ExecPlans in this repo must:
-  - Be self‑contained and understandable to a novice.
-  - Describe observable outcomes and how to validate them.
-  - Be updated as work progresses (especially the `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` sections).
-- When implementing a complex refactor (like the Estate Agents work), Codex should:
-  - Read `AGENTS.md`, `PLANS.md`, `ExecPlan.md`, `RULES.md`, `TESTS_PLAN.md`, and `ESTATE-AGENTS-NOTES.md` before making changes.
-  - Follow the slices and subtasks in this document.
-  - Keep ExecPlans in sync with reality as tasks complete.
+Refer to `TESTS_PLAN.md` for test IDs (V*, F*, D*).
 
-## 2. Non‑negotiable requirements for work guided by this PLANS.md
+---
 
-- **Visual parity first**: Except for explicitly documented bugs, the site must look and behave identically after each slice.
-- **Small diffs**: Prefer many small, reviewable patches over large sweeping edits.
-- **Tests as gatekeepers**: Tests from `TESTS_PLAN.md` (V*, F*, D*) must be implemented and used to validate changes before moving to later slices.
-- **Page‑scoped overrides**: For Estate Agents work, prefer page‑scoped CSS (e.g., `.page-estate-agents`) instead of editing global base rules early.
-- **No new `!important`**: Avoid adding new `!important` rules except when explicitly permitted by `RULES.md`, and even then, treat it as a last resort.
+## Slice 0 – Confirm test harness & docs (no new installs)
 
-## 3. Refactor slices overview
+**Goal**
 
-The refactor is broken into slices that can be executed sequentially. Each slice references:
+Ensure the existing tests and docs are aligned with the refactor plan and Codex sandbox constraints, without modifying devDependencies or running `npm install` inside tasks.
 
-- **Scope**: Files and areas in play.
-- **Rules of engagement**: Constraints drawn from `RULES.md`.
-- **Tests**: Visual (V*), E2E (F*), DOM (D*).
+**Files in scope**
 
-### Slice 0 – Tests & visual baselines
+- `TESTS_PLAN.md`
+- `RULES.md`
+- `ESTATE-AGENTS-NOTES.md`
+- `CODEX_ENVIRONMENT_SETUP.md`
+- `ExecPlan.md` (context sections)
+- `package.json` (read‑only unless minor script comment/description tweaks are needed)
+- `playwright.config.ts`, `tsconfig.json`, `tests/**` (read‑only, used for orientation)
 
-**Goal:** Establish a thin but strong safety net (tests) before changing CSS/JS.
+**Out of scope**
 
-- **Scope:**
-  - `package.json`
-  - New `tests/` directory (e.g., `tests/e2e`, `tests/dom`, `tests/visual`)
-  - Possibly `netlify.toml` (if any CI hooks are later added; optional)
-- **Rules of engagement:**
-  - No CSS or JS behavioural changes in this slice; only additions for tests and tooling.
-  - Do not alter production assets except minimally (e.g., add `data-testid` attributes if tests genuinely require them, and only with care).
-- **Subtasks:**
-  1. Add test dependencies (Playwright, Vitest/Jest, axe/Lighthouse harness) to `package.json`.
-  2. Create the directory structure under `tests/`.
-  3. Implement DOM tests D1–D7.
-  4. Implement E2E flows F1–F6.
-  5. Implement visual regression scenarios V1–V10 (screenshot comparisons).
-  6. Add scripts to `package.json`:
-     - `test:dom`, `test:e2e`, `test:visual`, `test:accessibility` (names may be adjusted as long as ExecPlan and docs match).
-- **Tests to run at the end of this slice:**
-  - D1–D7, F1–F6, V1–V10 (dom/e2e/visual commands).
-  - Optional: Accessibility checks on key pages.
+- Adding/removing devDependencies.
+- Creating new test projects or changing Playwright config structure.
+- Any CSS/JS behavioural changes.
 
-### Slice 1 – Estate card background unification
+**Key subtasks**
 
-**Goal:** Make all cards on the Estate Agents page share the same dark, opaque background as the “Show the numbers, not just promises” cards.
+1. Verify that `TESTS_PLAN.md`’s scenarios (V1–V10, F1–F6, D1–D7) match existing Playwright tests:
+   - V* → `tests/visual/visual.spec.ts` (projects `visual-desktop`, `visual-mobile`).
+   - F* → `tests/e2e/flows.spec.ts` (project `e2e`).
+   - D* → `tests/dom/*.spec.ts` (project `dom`).
+   - Accessibility → `tests/accessibility/accessibility.spec.ts` (project `accessibility`).
+2. Ensure `RULES.md` clearly encodes CSS/JS constraints for the refactor.
+3. Ensure `ESTATE-AGENTS-NOTES.md` accurately summarises current Estate issues and desired outcomes.
+4. Ensure `CODEX_ENVIRONMENT_SETUP.md` explains:
+   - Why `npm install` should be done in Cloud environment setup or locally.
+   - How to run tests outside Codex.
+5. Update `ExecPlan.md` **Surprises & Discoveries** and **Decision Log** to capture the npm 403 / sandbox constraints (already done).
 
-- **Scope:**
-  - `niches/estate-agents.html`
-  - `assets/css/custom.css` or a new Estate‑specific CSS section/file
-  - Possibly existing inline `<style>` in `niches/estate-agents.html`
-- **Rules of engagement (see `RULES.md`):**
-  - Do **not** change the global `.neon-card` base styles in `assets/css/styles.css` in this slice.
-  - Use a page‑scoped wrapper (e.g., `.page-estate-agents`) or section‑specific classes/IDs to apply the dark background.
-  - Avoid using `!important` for new rules.
-- **Subtasks:**
-  1. Confirm the wrapper class or add one around Estate page content.
-  2. Identify all Estate card types (e.g., `.neon-card`, `.dark-card`, stats cards, pricing cards).
-  3. Add page‑scoped CSS that applies a single card background and relevant text color.
-  4. Remove or simplify any redundant inline card background styles on Estate agents while keeping tests green.
-- **Tests for this slice:**
-  - Visual: V2 (“Estate Agents – cards & stats (desktop & mobile)”).
-  - E2E: F2–F3 (Estate flows that hit cards).
-  - DOM: D6 (stats counter behaviour) to ensure card refactors don’t break scripts.
+**Tests (best‑effort)**
 
-### Slice 2 – Estate section spacing normalization
+- Inside Codex: no test runs required for this slice.
+- Outside Codex (local/CI, once dependencies are installed):
+  - `npm run test:dom`
+  - `npm run test:e2e`
+  - `npm run test:visual`
+  - `npm run test:accessibility`
 
-**Goal:** Fix vertical gaps between the specific Estate sections without altering global spacing.
+---
 
-- **Scope:**
-  - `niches/estate-agents.html`
-  - Estate‑specific CSS in `assets/css/custom.css` or a dedicated file
-- **Rules of engagement:**
-  - Do **not** change global `section` padding/margin or `.section` in `assets/css/styles.css` yet.
-  - Use section IDs or page‑scoped selectors to adjust only the problematic gaps.
-- **Subtasks:**
-  1. Identify the three problematic section transitions and their selectors.
-  2. Add targeted CSS to reduce the gap (e.g., tweak margin/padding on those specific sections).
-  3. Verify that other Estate section transitions still use the baseline gap.
-- **Tests:**
-  - Visual: V3 (“Estate Agents – Pricing + FAQs gap (desktop)”).
-  - E2E: Any flow that scrolls through these sections (F1–F3).
-  - Manual: Quick eyeball check on Desktop & common mobile width.
+## Slice 1 – Estate card background unification
 
-### Slice 3 – Estate hero mobile background
+**Goal**
 
-**Goal:** Ensure the Estate Agents **mobile** hero uses `book-hero-calendly-mobile-2025@*x.webp` (or the appropriate mobile hero asset) and participates correctly in parallax/mobile behaviour.
+Make all cards on `niches/estate-agents.html` use a consistent dark/opaque background in a DRY, page‑scoped way.
 
-- **Scope:**
-  - `niches/estate-agents.html` (hero markup)
-  - `assets/css/hero-base.css`
-  - `assets/css/mobile.css`
-  - `assets/css/parallax-fix.css`
-- **Rules of engagement:**
-  - Do not break hero backgrounds on other pages (`index.html`, `book.html`, etc.).
-  - Use existing parallax/mobile patterns; avoid copy‑pasting new ad‑hoc mobile background rules.
-- **Subtasks:**
-  1. Document how the existing book hero uses the mobile hero asset and parallax classes.
-  2. Apply the same pattern (or a safe variant) to the Estate hero.
-  3. Confirm correct behaviour at typical mobile widths (e.g., 375px, 414px).
-- **Tests:**
-  - Visual: V1 (Estate hero desktop), V4 (Estate hero mobile).
-  - E2E: F1–F3 (flows that land on the Estate hero).
+**Files in scope**
 
-### Slice 4 – Cookie banner stability & persistence
+- `niches/estate-agents.html`
+- `assets/css/custom.css` or a new Estate‑specific CSS file
+- Inline `<style>` within `niches/estate-agents.html` (to be reduced gradually)
 
-**Goal:** Ensure the cookie banner behaves correctly (shows once, no scroll flicker, persists across pages).
+**Out of scope**
 
-- **Scope:**
-  - `assets/js/cookie-consent.js`
-  - Any relevant CSS controlling banner positioning (likely `assets/css/styles.css` or `custom.css`)
-  - Banner markup in HTML pages (selector consistency)
-- **Rules of engagement:**
-  - Preserve existing storage keys and semantics for Accept/Decline unless tests and docs are updated.
-  - Avoid introducing new dependencies; keep logic simple and readable.
-  - Do not change banner text or layout except if required to fix flicker/positioning.
-- **Subtasks:**
-  1. Map current banner behaviour across pages (especially Estate Agents) using tests and manual runs.
-  2. Stabilize scroll behaviour (e.g., avoid re‑creating/destroying the banner on scroll events).
-  3. Ensure Accept/Decline is persisted (likely in localStorage) and read on all pages.
-- **Tests:**
-  - DOM: D1–D3 (cookie banner tests).
-  - E2E: F1–F3, F6 (flows covering cookie behaviour).
+- Global `.neon-card` styles in `assets/css/styles.css` (unless explicitly allowed in `RULES.md` in Slice 8).
+- Card styles on non‑Estate pages.
 
-### Slice 5 – Header/nav & Services dropdown alignment (desktop + mobile)
+**Subtasks**
 
-**Goal:** Fix misalignment and styling inconsistencies for the Services nav item and mobile Services pill without breaking nav behaviour.
+1. Identify all card types on Estate Agents (value props, stats, pricing, FAQ, etc.).
+2. Introduce/confirm a page scope hook (e.g., `<body class="page-estate-agents">`).
+3. Add CSS overrides to ensure all Estate cards share a unified dark background and consistent border/shadow.
+4. Move duplicated inline card background rules into an external, page‑scoped CSS block, preserving visuals.
 
-- **Scope:**
-  - `assets/css/styles.css`, `assets/css/services.css`, `assets/css/mobile.css`
-  - `assets/js/script.js` (for nav/overlay behaviour)
-  - Header markup in HTML (nav items and Services overlay)
-- **Rules of engagement:**
-  - Maintain ARIA attributes and existing JS hooks (IDs, classes, data attributes).
-  - Avoid global nav colour/typography changes that would affect all links unless needed.
-  - Mobile pills: ensure Services pill uses same font, alignment, and spacing as other pills.
-- **Subtasks:**
-  1. Document current nav structure and classes for Services desktop and mobile.
-  2. Adjust CSS so Services desktop link aligns vertically with its siblings.
-  3. Adjust CSS for mobile Services pill to match other pills’ typography and layout.
-- **Tests:**
-  - Visual: V5 (Home hero + nav), V7 (Services hero + overlay).
-  - DOM: D4–D5 (nav and overlay tests).
-  - E2E: F1–F5 (any flow using nav).
+**Tests (best‑effort)**
 
-### Slice 6 – Book & Contact UX hardening
+- Visual: V2/V3 (Estate cards & spacing), via `tests/visual/visual.spec.ts`.
+- E2E: F2/F3 (Estate flows) via `tests/e2e/flows.spec.ts`.
 
-**Goal:** Ensure Booking (Calendly) and Contact flows are robust and clearly communicate success/failure.
+---
 
-- **Scope:**
-  - `book.html`
-  - `contact.html`
-  - `assets/js/script.js` if it interacts with these sections
-  - `netlify/functions/send-email.js` (API contract)
-- **Rules of engagement:**
-  - Do not break the Netlify function’s interface.
-  - Keep user‑visible text and semantics consistent unless there is a clear UX reason to adjust.
-- **Subtasks:**
-  1. Confirm Calendly iframe or embed is visible and responsive across breakpoints.
-  2. Ensure no CSS rules hide or clip the Calendly section on mobile.
-  3. Verify the contact form JS:
-     - Submits via fetch/XHR as expected.
-     - Shows success and error states.
-     - Handles validation gracefully.
-- **Tests:**
-  - Visual: V8–V10.
-  - DOM: D7 (contact form behaviour).
-  - E2E: F4–F6.
+## Slice 2 – Estate section spacing normalization
 
-### Slice 7 – Estate CSS consolidation (page‑scoped)
+**Goal**
 
-**Goal:** Simplify and centralize Estate‑specific CSS, reducing inline styles and scattered overrides.
+Normalize vertical gaps between specific Estate sections without affecting other pages or sections.
 
-- **Scope:**
-  - Inline `<style>` in `niches/estate-agents.html`
-  - Estate sections within global CSS files:
-    - `assets/css/custom.css`
-    - Potentially a new `assets/css/estate-agents.css` if warranted
-- **Rules of engagement:**
-  - Only refactor CSS **after** slices 1–3 have stabilized card backgrounds and spacing under tests.
-  - Keep page‑scoped selectors (`.page-estate-agents`) and avoid introducing new global selectors.
-- **Subtasks:**
-  1. Identify all Estate‑specific CSS rules across files and inline styles.
-  2. Move them into a dedicated section/file using consistent naming.
-  3. Remove dead or redundant CSS once tests confirm no visual changes.
-- **Tests:**
-  - All relevant Estate tests: V1–V4, V2–V3, F1–F3, D1–D3, D6.
+**Files in scope**
 
-### Slice 8 – Optional global CSS/JS cleanup
+- `niches/estate-agents.html`
+- `assets/css/custom.css` / Estate‑specific CSS
 
-**Goal:** Carefully modernize and re‑organize global CSS/JS to reduce complexity while keeping behaviour identical.
+**Out of scope**
 
-- **Scope:**
-  - `assets/css/styles.css`, `assets/css/mobile.css`, `assets/css/custom.css`
-  - `assets/js/script.js` (non‑Estate, non‑cookie, non‑nav logic)
-- **Rules of engagement:**
-  - Only attempt this once slices 0–7 are fully green and stable.
-  - Make changes in small steps (e.g., introduce new utilities, then gradually adopt them).
-  - Preserve behaviour; new “features” are out of scope.
-- **Subtasks:**
-  1. Identify global CSS “god file” sections that can be split by role (base/layout/components/utilities).
-  2. Introduce light‑weight tokens (colours, spacing) where there is obvious duplication.
-  3. Modernize layout where safe (flex/grid) based on `RULES.md`.
-- **Tests:**
-  - Run **all** tests (V, F, D, accessibility/performance) after each batch of changes.
-  - Be ready to revert if regressions are detected.
+- Global `section` spacing in `assets/css/styles.css`.
+- Spacing on non‑Estate pages.
 
-## 4. How to use this PLANS.md
+**Subtasks**
 
-When running Codex on this repository:
+1. Identify the section wrappers (classes/IDs) for:
+   - “The branch experience after launch”
+   - “Plug, personalise, launch”
+   - “Pricing”
+   - “FAQs”
+   - “Never Miss a Viewing”
+   - “Show the numbers, not just promises”
+2. Use page‑scoped, explicit selectors to adjust only these gaps.
+3. Avoid selectors relying on `nth-child`/`nth-of-type` if dedicated classes are available.
+4. Validate visually at both mobile and desktop breakpoints.
 
-1. Start in the repository root.
-2. Ensure `AGENTS.md`, `ExecPlan.md`, `PLANS.md`, `RULES.md`, `TESTS_PLAN.md`, and `ESTATE-AGENTS-NOTES.md` are all present.
-3. Ask Codex (or configure via CLI) to:
-   - Read `AGENTS.md` and `PLANS.md`.
-   - Follow the slices in order.
-   - For each slice, update `ExecPlan.md` as work proceeds.
-4. Use `TESTS_PLAN.md` to interpret test IDs (V*, F*, D*).
-5. Avoid skipping slices; each builds safety and structure needed by the next.
+**Tests (best‑effort)**
+
+- Visual: V3 (Estate Pricing + FAQs), and V2 (cards/stats).
+- E2E: F2/F3 for flows through Estate page.
+
+---
+
+## Slice 3 – Estate hero mobile background
+
+**Goal**
+
+Ensure the Estate Agents mobile hero uses the correct background image and remains compatible with any existing parallax behaviour.
+
+**Files in scope**
+
+- `niches/estate-agents.html`
+- `assets/css/hero-base.css`
+- `assets/css/mobile.css`
+- `assets/css/parallax-fix.css` (read/adjust with care)
+
+**Out of scope**
+
+- Global parallax behaviour for non‑Estate pages.
+
+**Subtasks**
+
+1. Inspect how `book.html` and other relevant pages specify the mobile hero background (`book-hero-calendly-mobile-2025@*x.webp`).
+2. Apply the same pattern to Estate Agents, using page‑scoped hero classes or attributes.
+3. Ensure desktop backgrounds remain unchanged.
+4. Confirm parallax or background scroll behaviour is consistent with other pages.
+
+**Tests (best‑effort)**
+
+- Visual: V1 (Estate hero desktop), V4 (Estate hero mobile).
+- E2E: F2/F3 to ensure hero loads correctly during Estate flows.
+
+---
+
+## Slice 4 – Cookie banner stability & persistence
+
+**Goal**
+
+Fix the cookie banner so it behaves consistently on all pages (including Estate):
+
+- Appears once for new visitors.
+- Remains visible until Accept/Decline.
+- Does not reappear once a choice is stored.
+- Does not flicker on scroll.
+
+**Files in scope**
+
+- `assets/js/cookie-consent.js`
+- Shared header/footer HTML where cookie banner markup lives.
+- Minimal CSS tweaks for banner if needed.
+
+**Out of scope**
+
+- Analytics or third‑party scripts.
+- Breaking changes to storage keys (unless absolutely necessary and clearly documented).
+
+**Subtasks**
+
+1. Document current storage mechanism (e.g., localStorage key name, values for Accept/Decline).
+2. Simplify or reorganize logic to:
+   - Detect and respect stored consent.
+   - Avoid scroll‑based show/hide logic that causes flicker.
+3. Ensure behaviour is consistent across all pages, especially `niches/estate-agents.html`.
+
+**Tests (best‑effort)**
+
+- DOM: D1–D3 via `tests/dom/cookie-banner.spec.ts`.
+- E2E: F1, F3, F6 via `tests/e2e/flows.spec.ts`.
+
+---
+
+## Slice 5 – Header/nav & Services dropdown alignment
+
+**Goal**
+
+Fix desktop nav alignment and mobile Services pill styling, preserving accessibility.
+
+**Files in scope**
+
+- `assets/css/styles.css` (nav layout only, minimal changes).
+- `assets/css/custom.css`, `assets/css/mobile.css`.
+- `assets/js/script.js` (nav/Services overlay behaviour).
+- Header/nav HTML.
+
+**Out of scope**
+
+- Global typography and unrelated nav colours/hover styles.
+
+**Subtasks**
+
+1. Align desktop Services nav item to match neighbours (line height, padding, flex alignment).
+2. Ensure mobile Services pill matches other pills for font family, size, colour, and alignment.
+3. Keep ARIA attributes (`aria-expanded`, `role="navigation"`, etc.) intact.
+
+**Tests (best‑effort)**
+
+- DOM: D4–D5 via `tests/dom/nav-and-overlay.spec.ts`.
+- Visual: V4 (nav presence) and V5 (Home hero/header).
+- E2E: F1, F2, F5 via `tests/e2e/flows.spec.ts`.
+
+---
+
+## Slice 6 – Contact & Book UX hardening
+
+**Goal**
+
+Ensure Book and Contact pages are robust and user‑friendly.
+
+**Files in scope**
+
+- `book.html`, associated hero and embed sections.
+- `contact.html`, inline contact JS.
+- `netlify/functions/send-email.js`.
+- `assets/css/custom.css` / `mobile.css`.
+
+**Out of scope**
+
+- API contract changes for the Netlify function (beyond minor internal refactors).
+
+**Subtasks**
+
+1. Confirm Calendly embed visibility across common viewport sizes, adjusting container styles as needed.
+2. Verify contact form validation and submission logic; ensure user feedback messages (success/error) are clear and visible.
+3. Keep JS changes minimal and scoped; maintain Netlify function contract.
+
+**Tests (best‑effort)**
+
+- DOM: D7 via `tests/dom/contact-form.spec.ts`.
+- E2E: F3–F6 via `tests/e2e/flows.spec.ts`.
+- Visual: V5–V6 (Book/Contact) via `tests/visual/visual.spec.ts`.
+
+---
+
+## Slice 7 – Estate CSS consolidation
+
+**Goal**
+
+Consolidate Estate‑specific CSS into a clear, page‑scoped structure to reduce future risk.
+
+**Files in scope**
+
+- `niches/estate-agents.html`
+- `assets/css/custom.css` or a dedicated `assets/css/estate-agents.css`.
+- Inline `<style>` in Estate page.
+
+**Out of scope**
+
+- Global CSS architecture changes (Slice 8).
+
+**Subtasks**
+
+1. Identify Estate‑specific rules scattered across `styles.css`, `custom.css`, `mobile.css`, and inline styles.
+2. Move Estate‑only rules into page‑scoped CSS (e.g., `.page-estate-agents` namespace).
+3. Remove or simplify duplicates once parity is confirmed.
+4. Update HTML to link new CSS file if created.
+
+**Tests (best‑effort)**
+
+- Visual: V1–V4 on Estate page.
+- E2E: F2–F3 (Estate flows).
+- DOM: D1–D3, D6 where relevant.
+
+---
+
+## Slice 8 – Optional global CSS architecture improvements
+
+**Goal**
+
+Carefully improve global CSS architecture (reduce `!important`, clarify layers, use modern CSS patterns) while preserving visuals.
+
+**Files in scope**
+
+- `assets/css/styles.css`
+- `assets/css/custom.css`
+- `assets/css/mobile.css`
+- Any new CSS partials.
+
+**Out of scope**
+
+- Structural HTML changes, unless required to support safer CSS.
+
+**Subtasks**
+
+1. Identify worst global CSS offenders (overly broad selectors, `!important` chains, legacy hacks).
+2. Gradually introduce better structure (e.g., clearer base/layout/component layers, utilities) while keeping semantics the same.
+3. Ensure all pages remain visually identical (except previously fixed bugs).
+
+**Tests (best‑effort)**
+
+- Full test battery (V*, F*, D*), where dependencies exist.
+- Manual sweep of all pages at key breakpoints.
+
+---
+
+At every slice, Codex should update `ExecPlan.md`’s **Progress**, **Surprises & Discoveries**, **Decision Log**, and **Outcomes & Retrospective**.
