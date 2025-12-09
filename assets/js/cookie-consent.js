@@ -13,18 +13,29 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!banner || !acceptBtn || !declineBtn) return;
 
   const STORAGE_KEY = 'cookieConsentChoice';
+  const COOKIE_NAME = 'cookieConsent';
+  const CHOICES = ['accepted', 'declined'];
 
-  function getCookie(name) {
-    const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+  function readStoredChoice() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) return stored;
+    } catch (err) {
+      // localStorage may be blocked; fall back to cookies below
+    }
+
+    const match = document.cookie.match(new RegExp('(?:^|; )' + COOKIE_NAME + '=([^;]*)'));
     return match ? decodeURIComponent(match[1]) : null;
   }
 
-  const storedChoice = localStorage.getItem(STORAGE_KEY);
-  const cookieChoice = getCookie('cookieConsent');
+  function hideBanner() {
+    banner.classList.remove('is-visible');
+    banner.setAttribute('aria-hidden', 'true');
+  }
 
-  if (storedChoice || cookieChoice) {
-    banner.style.display = 'none';
-    return;
+  function showBanner() {
+    banner.classList.add('is-visible');
+    banner.setAttribute('aria-hidden', 'false');
   }
 
   function storeChoice(value) {
@@ -39,7 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       document.cookie =
-        'cookieConsent=' +
+        COOKIE_NAME +
+        '=' +
         encodeURIComponent(value) +
         '; expires=' +
         expiryDate.toUTCString() +
@@ -48,11 +60,18 @@ document.addEventListener('DOMContentLoaded', function () {
       // Ignore cookie write issues to avoid breaking the page.
     }
 
-    banner.style.display = 'none';
+    hideBanner();
     banner.setAttribute('data-consent-dismissed', 'true');
   }
 
-  banner.style.display = 'flex';
+  const storedChoice = readStoredChoice();
+
+  if (CHOICES.includes(storedChoice)) {
+    hideBanner();
+    return;
+  }
+
+  showBanner();
 
   acceptBtn.addEventListener('click', function () {
     storeChoice('accepted');

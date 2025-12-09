@@ -38,13 +38,17 @@ html {
   background: rgba(0, 0, 0, 0.9);
   color: #fff;
   padding: 1rem 1.5rem;
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
   font-size: 0.875rem;
   line-height: 1.4;
+}
+
+.cookie-banner.is-visible {
+  display: flex;
 }
 
 .cookie-banner p {
@@ -74,6 +78,33 @@ html {
 .site-header {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.site-header nav ul {
+  align-items: center;
+}
+
+@media (min-width: 769px) {
+  .nav-dropdown {
+    align-items: stretch;
+  }
+
+  .nav-dropdown .services-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.85rem 0;
+    line-height: 1.4;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: inherit;
+  }
+
+  .nav-dropdown .services-toggle .services-label {
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 .site-logo {
@@ -249,6 +280,81 @@ body {
   background: transparent;
   border: none;
   box-shadow: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.page-estate-agents .service-image.neon-card img {
+  display: block;
+}
+
+.page-estate-agents .stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.page-estate-agents .stats .stat {
+  flex: 1 1 220px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.page-estate-agents .stat-icon {
+  font-size: 1.5rem;
+  color: var(--color-amber);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.page-estate-agents .stats .number {
+  font-size: 2.4rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.page-estate-agents .stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .page-estate-agents .stats .number {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-estate-agents .hero.title-band {
+    background-color: #050b18;
+  }
+
+  .page-estate-agents .hero.title-band .hero-media {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)),
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)),
+      -webkit-image-set(
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+      );
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)),
+      image-set(
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+        url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+      );
+    background-position: center;
+    background-size: cover;
+  }
 }
 
 .page-estate-agents .section.compact-section {
@@ -280,4 +386,24 @@ body {
 
 .page-estate-agents .section--faqs {
   padding-top: 2.5rem;
+}
+
+/* Book & Contact refinements */
+.page-book .calendly-inline-widget {
+  min-height: 720px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .page-book .calendly-inline-widget {
+    min-height: 600px;
+  }
+}
+
+.page-contact .contact-form button[type='submit'] {
+  width: 100%;
+}
+
+.page-contact #contact-status[role='status'] {
+  display: none;
 }

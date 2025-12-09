@@ -658,6 +658,20 @@
     gap: 0 !important; /* we'll control spacing per-item to avoid grid-like holes */
   }
 
+  .services-overlay__grid {
+    gap: 0.85rem;
+  }
+
+  .services-overlay .service-pill {
+    width: 100%;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-black);
+    text-align: center;
+  }
+
   /* Ensure list items don't stretch to fill equal vertical space */
   .site-header nav ul > li {
     flex-grow: 0 !important;

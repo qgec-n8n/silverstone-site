@@ -50,12 +50,12 @@ Use this section as a running log of progress as slices are implemented.
 - [x] Slice 0 – Confirm test harness & docs (no new installs in tasks). *(2025-01-05 – Verified repo lacks the previously documented Playwright harness; aligned docs and environment notes accordingly.)*
 - [x] Slice 1 – Estate card background unification. *(2025-01-05 – Added page-scoped Estate card styling so all cards share the darker background without touching global `.neon-card`.)*
 - [x] Slice 2 – Estate section spacing normalization. *(2025-01-05 – Added Estate-only section hooks and padding tweaks to reduce gaps between highlighted section pairs.)*
-- [ ] Slice 3 – Estate hero mobile background alignment.
-- [ ] Slice 4 – Cookie banner stability and persistence.
-- [ ] Slice 5 – Header/nav & Services dropdown (desktop + mobile pills).
-- [ ] Slice 6 – Book & Contact UX hardening.
-- [ ] Slice 7 – Estate CSS consolidation (page‑scoped).
-- [ ] Slice 8 – Optional global CSS architecture improvements.
+- [x] Slice 3 – Estate hero mobile background alignment. *(2025-01-06 – Added page-scoped mobile hero background image-set and overlay for Estate Agents.)*
+- [x] Slice 4 – Cookie banner stability and persistence. *(2025-01-06 – Hardened consent storage/visibility logic and centralized banner display toggles.)*
+- [x] Slice 5 – Header/nav & Services dropdown (desktop + mobile pills). *(2025-01-06 – Aligned Services nav button and normalized mobile Services pill styling.)*
+- [x] Slice 6 – Book & Contact UX hardening. *(2025-01-06 – Improved Calendly embed sizing and strengthened contact form feedback/submit handling.)*
+- [x] Slice 7 – Estate CSS consolidation (page‑scoped). *(2025-01-06 – Moved inline Estate stats/card styles into page-scoped CSS.)*
+- [x] Slice 8 – Optional global CSS architecture improvements. *(2025-01-06 – Simplified cookie banner visibility defaults to reduce flicker.)*
 
 Update this as slices complete (with dates and brief notes).
 
