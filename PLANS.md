@@ -7,7 +7,7 @@ Assumptions:
 
 - Repo is connected to Codex via GitHub at the root.
 - Codex reads `ExecPlan.md`, `AGENTS.md`, `RULES.md`, `TESTS_PLAN.md`, and this file before making changes.
-- The Playwright test harness is already present (see `playwright.config.ts`, `tests/**`, `tsconfig.json`, and `package.json`).
+- The automated Playwright harness referenced in `TESTS_PLAN.md` is **absent in this branch**; V*/F*/D* scenarios are manual/aspirational until those files are restored.
 - **No `npm install` or `npx` calls occur inside Codex agent tasks.** DevDependencies are installed via Cloud environment setup or locally.
 
 Refer to `TESTS_PLAN.md` for test IDs (V*, F*, D*).
