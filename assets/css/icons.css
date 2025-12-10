@@ -9,20 +9,22 @@
  */
 
 @font-face {
-  font-family: 'fa-solid';
+  font-family: "fa-solid";
   font-style: normal;
   font-weight: 900;
-  src: url('../webfonts/fa-solid-900.woff2') format('woff2'),
-       url('../webfonts/fa-solid-900.ttf') format('truetype');
+  src:
+    url("../webfonts/fa-solid-900.woff2") format("woff2"),
+    url("../webfonts/fa-solid-900.ttf") format("truetype");
 }
 
 /* Load brand icons from the local webfonts */
 @font-face {
-  font-family: 'fa-brands';
+  font-family: "fa-brands";
   font-style: normal;
   font-weight: 400;
-  src: url('../webfonts/fa-brands-400.woff2') format('woff2'),
-       url('../webfonts/fa-brands-400.ttf') format('truetype');
+  src:
+    url("../webfonts/fa-brands-400.woff2") format("woff2"),
+    url("../webfonts/fa-brands-400.ttf") format("truetype");
 }
 
 /* Base icon styles to emulate Font Awesome behaviour.  Each icon class sets the
@@ -40,13 +42,13 @@
 
 /* Solid icons use the `fa-solid` font */
 .fa-solid {
-  font-family: 'fa-solid';
+  font-family: "fa-solid";
   font-weight: 900;
 }
 
 /* Brand icons use the `fa-brands` font */
 .fa-brands {
-  font-family: 'fa-brands';
+  font-family: "fa-brands";
   font-weight: 400;
 }
 
@@ -55,36 +57,92 @@
  * the loaded font files.  Only the icons actually used on the site are
  * included here.  Adding new icons requires updating this list. */
 /* Solid icons */
-.fa-solid.fa-diagram-project::before { content: '\f542'; }
-.fa-solid.fa-robot::before          { content: '\f544'; }
-.fa-solid.fa-chart-line::before     { content: '\f201'; }
-.fa-solid.fa-gears::before          { content: '\f085'; }
-.fa-solid.fa-chart-bar::before      { content: '\f080'; }
-.fa-solid.fa-calendar-check::before { content: '\f274'; }
-.fa-solid.fa-tags::before           { content: '\f02c'; }
-.fa-solid.fa-file-lines::before     { content: '\f15c'; }
-.fa-solid.fa-lock::before           { content: '\f023'; }
-.fa-solid.fa-network-wired::before  { content: '\f6ff'; }
-.fa-solid.fa-plug::before           { content: '\f1e6'; }
-.fa-solid.fa-code::before           { content: '\f121'; }
-.fa-solid.fa-lightbulb::before      { content: '\f0eb'; }
-.fa-solid.fa-shield-halved::before  { content: '\f3ed'; }
-.fa-solid.fa-file-invoice-dollar::before { content: '\f571'; }
-.fa-solid.fa-calculator::before     { content: '\f1ec'; }
-.fa-solid.fa-chart-pie::before      { content: '\f200'; }
-.fa-solid.fa-bell::before           { content: '\f0f3'; }
-.fa-solid.fa-clock::before          { content: '\f017'; }
-.fa-solid.fa-users::before          { content: '\f0c0'; }
-.fa-solid.fa-cloud::before          { content: '\f0c2'; }
-.fa-solid.fa-arrows-rotate::before  { content: '\f021'; }
-.fa-solid.fa-layer-group::before    { content: '\f5fd'; }
-.fa-solid.fa-comments::before       { content: '\f0e6'; }
+.fa-solid.fa-diagram-project::before {
+  content: "\f542";
+}
+.fa-solid.fa-robot::before {
+  content: "\f544";
+}
+.fa-solid.fa-chart-line::before {
+  content: "\f201";
+}
+.fa-solid.fa-gears::before {
+  content: "\f085";
+}
+.fa-solid.fa-chart-bar::before {
+  content: "\f080";
+}
+.fa-solid.fa-calendar-check::before {
+  content: "\f274";
+}
+.fa-solid.fa-tags::before {
+  content: "\f02c";
+}
+.fa-solid.fa-file-lines::before {
+  content: "\f15c";
+}
+.fa-solid.fa-lock::before {
+  content: "\f023";
+}
+.fa-solid.fa-network-wired::before {
+  content: "\f6ff";
+}
+.fa-solid.fa-plug::before {
+  content: "\f1e6";
+}
+.fa-solid.fa-code::before {
+  content: "\f121";
+}
+.fa-solid.fa-lightbulb::before {
+  content: "\f0eb";
+}
+.fa-solid.fa-shield-halved::before {
+  content: "\f3ed";
+}
+.fa-solid.fa-file-invoice-dollar::before {
+  content: "\f571";
+}
+.fa-solid.fa-calculator::before {
+  content: "\f1ec";
+}
+.fa-solid.fa-chart-pie::before {
+  content: "\f200";
+}
+.fa-solid.fa-bell::before {
+  content: "\f0f3";
+}
+.fa-solid.fa-clock::before {
+  content: "\f017";
+}
+.fa-solid.fa-users::before {
+  content: "\f0c0";
+}
+.fa-solid.fa-cloud::before {
+  content: "\f0c2";
+}
+.fa-solid.fa-arrows-rotate::before {
+  content: "\f021";
+}
+.fa-solid.fa-layer-group::before {
+  content: "\f5fd";
+}
+.fa-solid.fa-comments::before {
+  content: "\f0e6";
+}
 /* `info-circle` and `check-circle` are mapped to their corresponding circle variants */
-.fa-solid.fa-info-circle::before    { content: '\f05a'; }
-.fa-solid.fa-check-circle::before   { content: '\f058'; }
+.fa-solid.fa-info-circle::before {
+  content: "\f05a";
+}
+.fa-solid.fa-check-circle::before {
+  content: "\f058";
+}
 /* Location and envelope icons for contact information */
-.fa-solid.fa-location-dot::before   { content: '\f3c5'; }
-.fa-solid.fa-envelope::before       { content: '\f0e0'; }
+.fa-solid.fa-location-dot::before {
+  content: "\f3c5";
+}
+.fa-solid.fa-envelope::before {
+  content: "\f0e0";
+}
 
 /* Brand icons */
 /*
@@ -94,20 +152,38 @@
  * original version, which prevented the glyph from rendering. By
  * dropping the leading `x` the correct glyph is now displayed.
  */
-.fa-brands.fa-instagram::before { content: '\f16d'; }
-.fa-brands.fa-tiktok::before    { content: '\e07b'; }
-.fa-brands.fa-facebook::before  { content: '\f230'; }
-.fa-brands.fa-linkedin::before  { content: '\f08c'; }
+.fa-brands.fa-instagram::before {
+  content: "\f16d";
+}
+.fa-brands.fa-tiktok::before {
+  content: "\e07b";
+}
+.fa-brands.fa-facebook::before {
+  content: "\f230";
+}
+.fa-brands.fa-linkedin::before {
+  content: "\f08c";
+}
 
 /* Additional solid icons for home and values sections */
 /* These mappings enable the icons on the Home page features (bolt,
  * gauge-high, rocket) and the About page values (ear-listen,
  * flask) to render correctly from the local font. */
-.fa-solid.fa-bolt::before       { content: '\f0e7'; }
-.fa-solid.fa-gauge-high::before { content: '\f625'; }
-.fa-solid.fa-rocket::before     { content: '\f135'; }
-.fa-solid.fa-ear-listen::before { content: '\f2a2'; }
-.fa-solid.fa-flask::before      { content: '\f0c3'; }
+.fa-solid.fa-bolt::before {
+  content: "\f0e7";
+}
+.fa-solid.fa-gauge-high::before {
+  content: "\f625";
+}
+.fa-solid.fa-rocket::before {
+  content: "\f135";
+}
+.fa-solid.fa-ear-listen::before {
+  content: "\f2a2";
+}
+.fa-solid.fa-flask::before {
+  content: "\f0c3";
+}
 
 /* Icon list styling */
 .icon-list {
@@ -124,8 +200,8 @@
 
 .icon-list li::before {
   /* Unicode for Font Awesome check icon */
-  content: '\f00c';
-  font-family: 'fa-solid';
+  content: "\f00c";
+  font-family: "fa-solid";
   font-weight: 900;
   position: absolute;
   left: 0;

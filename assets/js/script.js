@@ -16,7 +16,7 @@
  * Silverstone.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Centralised breakpoint definitions.  Adjust MOBILE_BREAKPOINT to change the
   // viewport threshold at which mobile-specific behaviour is triggered.  All
   // matchMedia checks in this script reference this constant, ensuring the
@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const ensureStylesheet = (href) => {
     if (document.querySelector(`link[href*="${href}"]`)) return;
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
     link.href = `./${href}`;
     document.head.appendChild(link);
   };
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // intentionally reference mobile.css (rather than mobile-fixes.css as
   // used in the template script) because this repository does not
   // include a separate mobile-fixes file.
-  ensureStylesheet('assets/css/custom.css');
-  ensureStylesheet('assets/css/mobile.css');
+  ensureStylesheet("assets/css/custom.css");
+  ensureStylesheet("assets/css/mobile.css");
 
   // Intersection observer: reveal elements with the `.animate` class
   // when they enter the viewport.  This replicates the lightweight
@@ -53,30 +53,35 @@ document.addEventListener('DOMContentLoaded', () => {
   // reveal all animated elements so that content remains visible even
   // if the IntersectionObserver has not yet triggered.
   const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
+    "(prefers-reduced-motion: reduce)",
   ).matches;
-  const animatedEls = document.querySelectorAll('.animate');
+  const animatedEls = document.querySelectorAll(".animate");
   // Determine if the viewport qualifies as mobile (<=768px) for immediate reveal
-  const mobileViewportForAnimations = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
+  const mobileViewportForAnimations = window.matchMedia(
+    `(max-width: ${MOBILE_BREAKPOINT}px)`,
+  ).matches;
   if (animatedEls.length > 0) {
     if (prefersReducedMotion || mobileViewportForAnimations) {
-      animatedEls.forEach((el) => el.classList.add('visible'));
+      animatedEls.forEach((el) => el.classList.add("visible"));
     } else {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.15 });
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
       animatedEls.forEach((el) => obs.observe(el));
     }
   }
   // Always reveal neon cards in the gallery grid on page load.  These
   // elements rely on animations in the main CSS and should be visible
   // immediately.
-  document.querySelectorAll('.gallery-grid .neon-card').forEach((el) => {
-    el.classList.add('visible');
+  document.querySelectorAll(".gallery-grid .neon-card").forEach((el) => {
+    el.classList.add("visible");
   });
 
   // Cache references to header, nav toggle and nav menu.  The
@@ -84,28 +89,33 @@ document.addEventListener('DOMContentLoaded', () => {
   // hamburger button (`.nav-toggle`) and an unordered list within the
   // navigation (`nav ul`).  These elements must exist for the menu
   // overlay to function correctly.
-  const header = document.querySelector('header');
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.querySelector('nav ul');
+  const header = document.querySelector("header");
+  const navToggle = document.querySelector(".nav-toggle");
+  const navMenu = document.querySelector("nav ul");
 
-  const servicesDropdown = document.querySelector('.nav-dropdown');
-  const servicesToggle = document.querySelector('.services-toggle');
-  const servicesMenu = document.querySelector('.services-menu');
-  const servicesOverlay = document.querySelector('.services-overlay');
-  const servicesOverlayBack = servicesOverlay ? servicesOverlay.querySelector('.services-overlay__back') : null;
-  const serviceLinks = document.querySelectorAll('.service-link');
+  const servicesDropdown = document.querySelector(".nav-dropdown");
+  const servicesToggle = document.querySelector(".services-toggle");
+  const servicesMenu = document.querySelector(".services-menu");
+  const servicesOverlay = document.querySelector(".services-overlay");
+  const servicesOverlayBack = servicesOverlay
+    ? servicesOverlay.querySelector(".services-overlay__back")
+    : null;
+  const serviceLinks = document.querySelectorAll(".service-link");
 
   let servicesDropdownOpen = false;
 
   let navBackButton;
-  if (navMenu && !navMenu.querySelector('.nav-back-item')) {
-    const navBackItem = document.createElement('li');
-    navBackItem.className = 'nav-back-item';
+  if (navMenu && !navMenu.querySelector(".nav-back-item")) {
+    const navBackItem = document.createElement("li");
+    navBackItem.className = "nav-back-item";
 
-    navBackButton = document.createElement('button');
-    navBackButton.type = 'button';
-    navBackButton.className = 'nav-back-btn';
-    navBackButton.setAttribute('aria-label', 'Close menu and return to the page');
+    navBackButton = document.createElement("button");
+    navBackButton.type = "button";
+    navBackButton.className = "nav-back-btn";
+    navBackButton.setAttribute(
+      "aria-label",
+      "Close menu and return to the page",
+    );
     navBackButton.innerHTML = `
       <span class="nav-back-icon" aria-hidden="true"></span>
       <span class="nav-back-label">Back to page</span>
@@ -120,11 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // functions both as a label (“Menu”) and as a tappable target for
   // opening the overlay.  The actual styling for this element is
   // injected below via dynamic CSS.
-  const headerIndicator = document.createElement('div');
-  headerIndicator.id = 'header-indicator';
+  const headerIndicator = document.createElement("div");
+  headerIndicator.id = "header-indicator";
   headerIndicator.setAttribute(
-    'aria-label',
-    'Silverstone navigation menu. Hover or tap to expand.'
+    "aria-label",
+    "Silverstone navigation menu. Hover or tap to expand.",
   );
   headerIndicator.innerHTML = `
     <div class="indicator-copy">
@@ -143,7 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Determine whether the viewport width qualifies as mobile.  This
   // helper is referenced throughout to reduce the number of
   // matchMedia evaluations.
-  const isMobileViewport = () => window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
+  const isMobileViewport = () =>
+    window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
 
   /*
    * Helper functions to show and hide the header.  When the header is
@@ -154,46 +165,57 @@ document.addEventListener('DOMContentLoaded', () => {
    * schedules are cleared.
    */
   function showHeader() {
-    if (header) header.classList.remove('header-hidden');
-    headerIndicator.classList.remove('active');
+    if (header) header.classList.remove("header-hidden");
+    headerIndicator.classList.remove("active");
   }
   function hideHeader() {
-    if (servicesDropdownOpen || (servicesOverlay && servicesOverlay.classList.contains('active'))) return;
-    if (header) header.classList.add('header-hidden');
-    headerIndicator.classList.add('active');
+    if (
+      servicesDropdownOpen ||
+      (servicesOverlay && servicesOverlay.classList.contains("active"))
+    )
+      return;
+    if (header) header.classList.add("header-hidden");
+    headerIndicator.classList.add("active");
   }
   function scheduleHeaderAutoHide(delay = 1200) {
     clearTimeout(headerAutoHideTimeoutId);
     headerAutoHideTimeoutId = window.setTimeout(() => {
       // Do not hide while the menu is open
-      if (navMenu && navMenu.classList.contains('open')) return;
-      if (servicesDropdownOpen || (servicesOverlay && servicesOverlay.classList.contains('active'))) return;
+      if (navMenu && navMenu.classList.contains("open")) return;
+      if (
+        servicesDropdownOpen ||
+        (servicesOverlay && servicesOverlay.classList.contains("active"))
+      )
+        return;
       hideHeader();
     }, delay);
   }
 
   const isServicesOverlayActive = () =>
-    servicesOverlay && servicesOverlay.classList.contains('active');
+    servicesOverlay && servicesOverlay.classList.contains("active");
 
   function openServicesDropdown() {
     if (!servicesDropdown || !servicesMenu || isMobileViewport()) return;
     clearTimeout(headerAutoHideTimeoutId);
-    servicesDropdown.classList.add('open');
-    servicesMenu.setAttribute('aria-hidden', 'false');
-    if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'true');
+    servicesDropdown.classList.add("open");
+    servicesMenu.setAttribute("aria-hidden", "false");
+    if (servicesToggle) servicesToggle.setAttribute("aria-expanded", "true");
     servicesDropdownOpen = true;
-    body.classList.add('services-dropdown-open');
+    body.classList.add("services-dropdown-open");
     showHeader();
   }
 
   function closeServicesDropdown() {
     if (!servicesDropdown || !servicesMenu) return;
-    servicesDropdown.classList.remove('open');
-    servicesMenu.setAttribute('aria-hidden', 'true');
-    if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'false');
+    servicesDropdown.classList.remove("open");
+    servicesMenu.setAttribute("aria-hidden", "true");
+    if (servicesToggle) servicesToggle.setAttribute("aria-expanded", "false");
     servicesDropdownOpen = false;
-    body.classList.remove('services-dropdown-open');
-    if (!isServicesOverlayActive() && !(navMenu && navMenu.classList.contains('open'))) {
+    body.classList.remove("services-dropdown-open");
+    if (
+      !isServicesOverlayActive() &&
+      !(navMenu && navMenu.classList.contains("open"))
+    ) {
       scheduleHeaderAutoHide();
     }
   }
@@ -201,18 +223,18 @@ document.addEventListener('DOMContentLoaded', () => {
   function openServicesOverlay() {
     if (!servicesOverlay || !isMobileViewport()) return;
     clearTimeout(headerAutoHideTimeoutId);
-    servicesOverlay.classList.add('active');
-    servicesOverlay.setAttribute('aria-hidden', 'false');
-    body.classList.add('services-overlay-active');
+    servicesOverlay.classList.add("active");
+    servicesOverlay.setAttribute("aria-hidden", "false");
+    body.classList.add("services-overlay-active");
     showHeader();
   }
 
   function closeServicesOverlay() {
     if (!servicesOverlay) return;
-    servicesOverlay.classList.remove('active');
-    servicesOverlay.setAttribute('aria-hidden', 'true');
-    body.classList.remove('services-overlay-active');
-    if (!(navMenu && navMenu.classList.contains('open'))) {
+    servicesOverlay.classList.remove("active");
+    servicesOverlay.setAttribute("aria-hidden", "true");
+    body.classList.remove("services-overlay-active");
+    if (!(navMenu && navMenu.classList.contains("open"))) {
       scheduleHeaderAutoHide();
     }
   }
@@ -228,26 +250,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!navMenu || !navToggle) return;
     closeServicesDropdown();
     clearTimeout(headerAutoHideTimeoutId);
-    previousScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-    navMenu.classList.add('open');
+    previousScrollY =
+      window.pageYOffset || document.documentElement.scrollTop || 0;
+    navMenu.classList.add("open");
     navMenu.scrollTop = 0;
-    navToggle.classList.add('active');
+    navToggle.classList.add("active");
     // Freeze background scroll
-    document.body.style.position = 'fixed';
+    document.body.style.position = "fixed";
     document.body.style.top = `-${previousScrollY}px`;
     showHeader();
   }
   function closeNavMenu() {
     closeServicesOverlay();
     closeServicesDropdown();
-    if (navMenu && navMenu.classList.contains('open')) {
-      navMenu.classList.remove('open');
+    if (navMenu && navMenu.classList.contains("open")) {
+      navMenu.classList.remove("open");
     }
-    if (navToggle && navToggle.classList.contains('active')) {
-      navToggle.classList.remove('active');
+    if (navToggle && navToggle.classList.contains("active")) {
+      navToggle.classList.remove("active");
     }
-    document.body.style.position = '';
-    document.body.style.top = '';
+    document.body.style.position = "";
+    document.body.style.top = "";
     window.scrollTo(0, previousScrollY);
     scheduleHeaderAutoHide();
   }
@@ -256,11 +279,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // button toggles the overlay.  We stop propagation so clicks do not
   // bubble into the nav links or other elements.
   if (navToggle && navMenu) {
-    navToggle.addEventListener('click', (event) => {
+    navToggle.addEventListener("click", (event) => {
       event.stopPropagation();
       closeServicesDropdown();
       closeServicesOverlay();
-      if (navMenu.classList.contains('open')) {
+      if (navMenu.classList.contains("open")) {
         closeNavMenu();
       } else {
         openNavMenu();
@@ -269,10 +292,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close the menu when any link inside it is activated.  On a small
     // viewport the overlay remains open if the user scrolls or resizes,
     // so closing here ensures the menu collapses before navigation.
-    navMenu.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', (event) => {
+    navMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", (event) => {
         event.stopPropagation();
-        if (isMobileViewport() && navMenu.classList.contains('open')) {
+        if (isMobileViewport() && navMenu.classList.contains("open")) {
           closeNavMenu();
         }
       });
@@ -280,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (navBackButton) {
-    navBackButton.addEventListener('click', (event) => {
+    navBackButton.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
       closeServicesOverlay();
@@ -293,11 +316,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (servicesToggle) {
-    servicesToggle.addEventListener('click', (event) => {
+    servicesToggle.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
       if (isMobileViewport()) {
-        if (!navMenu || !navMenu.classList.contains('open')) {
+        if (!navMenu || !navMenu.classList.contains("open")) {
           openNavMenu();
         }
         if (isServicesOverlayActive()) {
@@ -316,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (servicesOverlayBack) {
-    servicesOverlayBack.addEventListener('click', (event) => {
+    servicesOverlayBack.addEventListener("click", (event) => {
       event.preventDefault();
       closeServicesOverlay();
     });
@@ -324,27 +347,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (serviceLinks.length) {
     serviceLinks.forEach((link) => {
-      link.addEventListener('click', () => {
+      link.addEventListener("click", () => {
         closeServicesDropdown();
         closeServicesOverlay();
-        if (isMobileViewport() && navMenu && navMenu.classList.contains('open')) {
+        if (
+          isMobileViewport() &&
+          navMenu &&
+          navMenu.classList.contains("open")
+        ) {
           closeNavMenu();
         }
       });
     });
   }
 
-  document.addEventListener('click', (event) => {
-    if (servicesDropdownOpen && servicesDropdown && !servicesDropdown.contains(event.target)) {
+  document.addEventListener("click", (event) => {
+    if (
+      servicesDropdownOpen &&
+      servicesDropdown &&
+      !servicesDropdown.contains(event.target)
+    ) {
       closeServicesDropdown();
     }
-    if (isServicesOverlayActive() && servicesOverlay && event.target === servicesOverlay) {
+    if (
+      isServicesOverlayActive() &&
+      servicesOverlay &&
+      event.target === servicesOverlay
+    ) {
       closeServicesOverlay();
     }
   });
 
   // Allow tapping or clicking the indicator bar to toggle the menu.
-  headerIndicator.addEventListener('click', (event) => {
+  headerIndicator.addEventListener("click", (event) => {
     event.stopPropagation();
     closeServicesDropdown();
     closeServicesOverlay();
@@ -357,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // hamburger must be used to open the full menu.  If the menu is
     // already open we close it instead.
     if (isMobileViewport()) {
-      if (navMenu.classList.contains('open')) {
+      if (navMenu.classList.contains("open")) {
         closeNavMenu();
       } else {
         // Reveal the header without opening the overlay
@@ -368,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     // On desktop toggle the menu overlay
-    if (navMenu.classList.contains('open')) {
+    if (navMenu.classList.contains("open")) {
       closeNavMenu();
     } else {
       openNavMenu();
@@ -378,28 +413,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // Show the header when hovering the indicator on desktop.  On
   // touch devices `mouseenter` does not fire so this effectively
   // applies to pointer devices only.
-  headerIndicator.addEventListener('mouseenter', showHeader);
+  headerIndicator.addEventListener("mouseenter", showHeader);
   if (header) {
-    header.addEventListener('mouseenter', showHeader);
-    header.addEventListener('mouseleave', hideHeader);
+    header.addEventListener("mouseenter", showHeader);
+    header.addEventListener("mouseleave", hideHeader);
     // On mobile tapping the header schedules another auto hide if the
     // menu is not open.  This provides a short grace period for users
     // to reopen the overlay after revealing the header.
-    header.addEventListener('click', () => {
+    header.addEventListener("click", () => {
       if (!isMobileViewport()) return;
-      if (navMenu && navMenu.classList.contains('open')) return;
+      if (navMenu && navMenu.classList.contains("open")) return;
       scheduleHeaderAutoHide();
     });
   }
   // When scrolling on mobile hide the header immediately unless the
   // overlay is open.  This keeps the view clear while navigating.
-  window.addEventListener('scroll', () => {
-    if (!isMobileViewport()) return;
-    if (navMenu && navMenu.classList.contains('open')) return;
-    if (servicesDropdownOpen || isServicesOverlayActive()) return;
-    clearTimeout(headerAutoHideTimeoutId);
-    hideHeader();
-  }, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!isMobileViewport()) return;
+      if (navMenu && navMenu.classList.contains("open")) return;
+      if (servicesDropdownOpen || isServicesOverlayActive()) return;
+      clearTimeout(headerAutoHideTimeoutId);
+      hideHeader();
+    },
+    { passive: true },
+  );
 
   // Schedule the header to hide after a short delay on page load.  On
   // desktop we also hide after the same delay to replicate DC’s
@@ -417,17 +456,19 @@ document.addEventListener('DOMContentLoaded', () => {
    * their operating system preferences, the numbers will immediately
    * display their target values without animation.
    */
-  const statsSections = Array.from(document.querySelectorAll('.stats')).filter(
-    (section) => section.dataset.counter !== 'off'
+  const statsSections = Array.from(document.querySelectorAll(".stats")).filter(
+    (section) => section.dataset.counter !== "off",
   );
   if (statsSections.length) {
-    const prefersReducedMotionCount = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotionCount = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     // Animate a single stats section
     const animateSection = (section) => {
-      const numbers = section.querySelectorAll('.number');
+      const numbers = section.querySelectorAll(".number");
       numbers.forEach((number) => {
         const target = parseInt(number.dataset.target, 10) || 0;
-        const plus = number.getAttribute('data-plus') || '';
+        const plus = number.getAttribute("data-plus") || "";
         // If reduced motion is requested, set the number immediately
         if (prefersReducedMotionCount) {
           number.textContent = target.toLocaleString() + plus;
@@ -439,7 +480,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const elapsed = now - startTime;
           const progress = Math.min(elapsed / duration, 1);
           const current = Math.floor(progress * target);
-          number.textContent = current.toLocaleString() + (progress === 1 ? plus : '');
+          number.textContent =
+            current.toLocaleString() + (progress === 1 ? plus : "");
           if (progress < 1) requestAnimationFrame(update);
         }
         requestAnimationFrame(update);
@@ -447,15 +489,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     statsSections.forEach((section) => {
       let hasAnimated = false;
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            hasAnimated = true;
-            animateSection(section);
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.4 });
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !hasAnimated) {
+              hasAnimated = true;
+              animateSection(section);
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.4 },
+      );
       observer.observe(section);
     });
   }
@@ -797,7 +842,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   `;
-  const styleElem = document.createElement('style');
+  const styleElem = document.createElement("style");
   styleElem.appendChild(document.createTextNode(mobileNavStyles));
   document.head.appendChild(styleElem);
 });
@@ -814,27 +859,36 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 (() => {
   const parallaxSections = Array.from(
-    document.querySelectorAll('.parallax-section[data-parallax-theme]')
+    document.querySelectorAll(".parallax-section[data-parallax-theme]"),
   );
   if (!parallaxSections.length) return;
 
-  const mobileQuery = window.matchMedia('(max-width: 768px)');
-  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mobileQuery = window.matchMedia("(max-width: 768px)");
+  const reduceMotionQuery = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  );
 
   const supportsImageSet =
-    typeof CSS !== 'undefined' &&
-    typeof CSS.supports === 'function' &&
-    CSS.supports('background-image', "image-set(url('data:image/gif;base64,R0lGODlhAQABAAAAACw=') 1x)");
+    typeof CSS !== "undefined" &&
+    typeof CSS.supports === "function" &&
+    CSS.supports(
+      "background-image",
+      "image-set(url('data:image/gif;base64,R0lGODlhAQABAAAAACw=') 1x)",
+    );
   const supportsWebkitImageSet =
-    typeof CSS !== 'undefined' &&
-    typeof CSS.supports === 'function' &&
-    CSS.supports('background-image', "-webkit-image-set(url('data:image/gif;base64,R0lGODlhAQABAAAAACw=') 1x)");
+    typeof CSS !== "undefined" &&
+    typeof CSS.supports === "function" &&
+    CSS.supports(
+      "background-image",
+      "-webkit-image-set(url('data:image/gif;base64,R0lGODlhAQABAAAAACw=') 1x)",
+    );
 
   const PARALLAX_MAP = {
     lines: {
-      backgroundColor: '#050B18',
+      backgroundColor: "#050B18",
       mobileImages: {
-        fallback: "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
+        fallback:
+          "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
         standard:
           "image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
         webkit:
@@ -842,7 +896,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     },
     circuit: {
-      backgroundColor: '#050B18',
+      backgroundColor: "#050B18",
       mobileImages: {
         fallback: "url('assets/images/internet/mobile/section-waves@1x.webp')",
         standard:
@@ -852,7 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     },
     mesh: {
-      backgroundColor: '#050B18',
+      backgroundColor: "#050B18",
       mobileImages: {
         fallback: "url('assets/images/internet/mobile/section-mesh@1x.webp')",
         standard:
@@ -862,7 +916,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     },
     waves: {
-      backgroundColor: '#050B18',
+      backgroundColor: "#050B18",
       mobileImages: {
         fallback: "url('assets/images/internet/mobile/section-waves@1x.webp')",
         standard:
@@ -872,9 +926,10 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     },
     book: {
-      backgroundColor: '#050B18',
+      backgroundColor: "#050B18",
       mobileImages: {
-        fallback: "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
+        fallback:
+          "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
         standard:
           "image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
         webkit:
@@ -892,9 +947,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const createStage = () => {
-    const stage = document.createElement('div');
-    stage.className = 'parallax-mobile-stage';
-    stage.setAttribute('aria-hidden', 'true');
+    const stage = document.createElement("div");
+    stage.className = "parallax-mobile-stage";
+    stage.setAttribute("aria-hidden", "true");
     return stage;
   };
 
@@ -903,12 +958,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const entry = state.layers.find((item) => item.section === section);
     if (!entry || state.current === entry) return;
     if (state.current) {
-      state.current.layer.classList.remove('is-active');
+      state.current.layer.classList.remove("is-active");
     }
-    entry.layer.classList.add('is-active');
+    entry.layer.classList.add("is-active");
     if (state.stage) {
       const color = entry.config && entry.config.backgroundColor;
-      state.stage.style.backgroundColor = color || '';
+      state.stage.style.backgroundColor = color || "";
     }
     state.current = entry;
   };
@@ -923,22 +978,22 @@ document.addEventListener('DOMContentLoaded', () => {
           setActiveLayer(visible[0].target);
         }
       },
-      { threshold: [0, 0.25, 0.5, 0.75, 1] }
+      { threshold: [0, 0.25, 0.5, 0.75, 1] },
     );
 
   const getImageValue = (images) => {
-    if (!images) return '';
+    if (!images) return "";
     if (supportsImageSet && images.standard) return images.standard;
     if (supportsWebkitImageSet && images.webkit) return images.webkit;
-    return images.fallback || '';
+    return images.fallback || "";
   };
 
   const ensureMediaListener = (query, callback) => {
-    if (typeof query.addEventListener === 'function') {
-      query.addEventListener('change', callback);
-      return () => query.removeEventListener('change', callback);
+    if (typeof query.addEventListener === "function") {
+      query.addEventListener("change", callback);
+      return () => query.removeEventListener("change", callback);
     }
-    if (typeof query.addListener === 'function') {
+    if (typeof query.addListener === "function") {
       query.addListener(callback);
       return () => query.removeListener(callback);
     }
@@ -952,21 +1007,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.insertBefore(stage, document.body.firstChild);
     const layers = parallaxSections
       .map((section) => {
-        const theme = section.getAttribute('data-parallax-theme');
+        const theme = section.getAttribute("data-parallax-theme");
         const config = PARALLAX_MAP[theme];
         if (!config) return null;
-        const layer = document.createElement('div');
-        layer.className = 'parallax-mobile-layer';
+        const layer = document.createElement("div");
+        layer.className = "parallax-mobile-layer";
         layer.dataset.theme = theme;
-        layer.setAttribute('aria-hidden', 'true');
+        layer.setAttribute("aria-hidden", "true");
         const imageValue = getImageValue(config.mobileImages);
-        layer.style.backgroundImage = imageValue || 'none';
+        layer.style.backgroundImage = imageValue || "none";
         if (config.backgroundColor) {
           layer.style.backgroundColor = config.backgroundColor;
         }
         stage.appendChild(layer);
         observer.observe(section);
-        section.classList.add('parallax-ready', 'parallax-mobile-active');
+        section.classList.add("parallax-ready", "parallax-mobile-active");
         return { section, layer, config };
       })
       .filter(Boolean);
@@ -984,7 +1039,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const initial = layers
       .slice()
-      .sort((a, b) => a.section.getBoundingClientRect().top - b.section.getBoundingClientRect().top)
+      .sort(
+        (a, b) =>
+          a.section.getBoundingClientRect().top -
+          b.section.getBoundingClientRect().top,
+      )
       .find((entry) => entry.section.getBoundingClientRect().bottom > 0);
     if (initial) {
       setActiveLayer(initial.section);
@@ -1000,8 +1059,11 @@ document.addEventListener('DOMContentLoaded', () => {
       state.observer = null;
     }
     state.layers.forEach((entry) => {
-      entry.section.classList.remove('parallax-ready', 'parallax-mobile-active');
-      entry.layer.classList.remove('is-active');
+      entry.section.classList.remove(
+        "parallax-ready",
+        "parallax-mobile-active",
+      );
+      entry.layer.classList.remove("is-active");
     });
     state.layers = [];
     state.current = null;

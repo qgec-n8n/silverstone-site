@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "prettier": "^3.7.4",
     "sharp": "^0.32.6"
   }
 }
