@@ -1,0 +1,111 @@
+/*
+ * Lightbox styles
+ *
+ * Centralized definition for the premium lightbox used by both the
+ * Innovation Gallery and the marquees. Extracted from the legacy
+ * marquee-single.css and marquee-double.css files. All rules here
+ * apply to the lightbox overlay, content container, images and the
+ * close button. Having a single source of truth avoids duplication.
+ */
+
+/* Overlay container */
+.premium-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 20, 30, 0.85);
+  backdrop-filter: blur(15px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* Active state toggles visibility */
+.premium-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Content wrapper scales in when active */
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  transform: scale(0.9);
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  background: rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.premium-lightbox.active .lightbox-content {
+  transform: scale(1);
+}
+
+/* Image styling */
+.lightbox-img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Caption (if used) */
+.lightbox-caption {
+  margin-top: 0.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Close button */
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+  transition: transform 0.3s ease;
+}
+.lightbox-close::before,
+.lightbox-close::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  box-shadow: 0 0 10px #00ffff;
+}
+.lightbox-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.lightbox-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.lightbox-close:hover {
+  transform: scale(1.2) rotate(90deg);
+}
+
+/* Adjust close button on mobile */
+@media (max-width: 768px) {
+  .lightbox-close {
+    top: -50px;
+    right: 0;
+  }
+}

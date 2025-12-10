@@ -1,0 +1,52 @@
+/*
+ * stats.css
+ *
+ * Styles for the statistics sections used on multiple pages. This file
+ * will define the layout and typography for `.stats` grids and the
+ * individual statistic cards `.stat`, `.stat-icon`, `.number`, and
+ * `.label`. Consolidating these rules ensures consistent presentation
+ * across pages like Home, About, and the estate niche.
+ */
+
+/*
+ * Statistics layout and formatting.
+ *
+ * The stats grid uses a responsive layout that wraps cards on small
+ * screens.  Each stat card contains an icon, a large number and a
+ * descriptive label.  Animations for counting up the numbers are
+ * handled by the stats.js module.
+ */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-8);
+  margin: var(--space-8) 0;
+}
+
+.stat {
+  background-color: var(--color-gray-100);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-3);
+  color: var(--color-blue);
+}
+
+.number {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-2);
+  color: var(--color-purple);
+}
+
+.label {
+  font-size: 1rem;
+  color: var(--color-gray-600);
+}

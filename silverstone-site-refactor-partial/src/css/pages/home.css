@@ -1,0 +1,325 @@
+/*
+ * home.css
+ *
+ * Page-level styles specific to the home page. This file houses rules
+ * for the feature cards section, the packages grid, proof grid,
+ * home-specific FAQ, and final call-to-action variations. Only
+ * layout and minor stylistic differences unique to the home page
+ * should live here; card shapes and global components remain in
+ * components files.
+ */
+
+/* TODO: Migrate home-specific rules from custom-styles.css, inline
+ * styles in index.html, and the home-specific sections of styles.css. */
+
+/* ------------------------------------------------------------------
+ * Home Page Overrides
+ *
+ * The following rules originate from the inline <style> tag in
+ * index.html and from custom-styles.css. They customise the layout
+ * of grouped service packages, pricing grids, statistics blocks and
+ * hero bullets on the home page. These declarations rely on
+ * variables defined in base/variables.css and base/typography.css.
+ *
+ * NOTE: Do not duplicate base component styles here—only page‑specific
+ * layout tweaks belong in this file.
+ * ------------------------------------------------------------------ */
+
+/* Packages grid: two wider cards per row with consistent gap and
+   reduced padding for more compact cards. */
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+  gap: 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Reduce padding and set vertical layout on package cards */
+.packages-grid .neon-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Service package icon sizing */
+.packages-grid .service-icon-img {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.75rem;
+  object-fit: contain;
+  display: block;
+}
+
+/* Checkmark icon sizing within package lists */
+.packages-grid .check-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Package card headings */
+.packages-grid .neon-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-green);
+  text-align: left;
+}
+
+/* Taglines beneath package titles */
+.packages-grid .tagline {
+  font-size: 0.95rem;
+  color: var(--color-silver);
+  margin-bottom: 0.75rem;
+  font-style: italic;
+  text-align: left;
+}
+
+/* General paragraph styling inside package cards */
+.packages-grid .neon-card p {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  color: var(--color-silver);
+  margin-bottom: 0.35rem;
+  text-align: left;
+}
+
+/* Maintain adequate bottom margin for tagline paragraphs */
+.packages-grid .neon-card p.tagline {
+  margin-bottom: 0.75rem;
+}
+
+/* Icon sizing within bullet paragraphs */
+.packages-grid .neon-card p i {
+  font-size: 1.15rem;
+  color: var(--color-green);
+  margin-top: 0.15rem;
+}
+
+/* Add breathing room between bullet lists and call‑to‑action buttons */
+.packages-grid .neon-card a.btn {
+  margin-top: 1rem;
+}
+
+/* Bullet lists inside packages: ensure icon and text align neatly */
+.packages-grid .bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  min-height: 2.5rem;
+  line-height: 1.3;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Fix the width of the icon column so bullet icons align */
+.packages-grid .bullet i {
+  flex: 0 0 1.2rem;
+  text-align: center;
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Remove bottom margin on the last bullet in each card to avoid extra space */
+.packages-grid .card p.bullet:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Provide additional breathing room for AI Consulting and Marketing cards */
+.card-ai-consulting .bullet:last-of-type,
+.card-marketing .bullet:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+/* Offset bullet list for Systems & Data Integration card to align with Workflow & Data cards */
+.card-systems .bullet:first-of-type {
+  margin-top: 1rem;
+}
+
+/* Proof/outcomes grid used on home and services pages */
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+}
+
+/* Proof card padding */
+.neon-card.proof-card {
+  padding: 1.75rem 1.5rem;
+}
+
+.proof-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+}
+
+.proof-card .tagline {
+  margin-bottom: 0.75rem;
+  color: var(--color-silver);
+  font-size: 0.95rem;
+}
+
+.proof-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+}
+
+.proof-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.proof-list li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.proof-disclaimer {
+  margin-top: 1.25rem;
+  max-width: 52rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Pricing grid: three columns on larger screens with central alignment */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Padding for pricing cards */
+.pricing-grid .neon-card {
+  padding: 2rem;
+}
+
+/* Pricing card headings */
+.pricing-grid .neon-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-blue);
+}
+
+/* Price label styling */
+.pricing-grid .price-label {
+  font-size: 0.8rem;
+  color: var(--color-silver);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Price value styling */
+.pricing-grid .price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-green);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Best-for text styling */
+.pricing-grid .best-for {
+  font-size: 0.8rem;
+  color: var(--color-silver);
+  margin-top: 0.25rem;
+}
+
+/* General paragraphs within pricing cards */
+.pricing-grid .neon-card p {
+  font-size: 0.9rem;
+  color: var(--color-silver);
+  margin-bottom: 0.5rem;
+}
+
+/* Statistics layout: flex wrapping and spacing */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Individual stat card styling is handled in components/stats.css */
+.stats .stat {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+/* Stat number style overrides (size and colour) */
+.stats .number {
+  font-size: 2.5rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+/* Smaller stat numbers on small screens */
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
+
+/* Hero bullet lists: grid layout for proof points below the main headline */
+.hero .hero-bullets {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+/* Bullet list items within hero */
+.hero .hero-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--color-silver);
+  line-height: 1.6;
+}
+
+.hero .hero-bullets li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.hero .hero-bullets li span {
+  display: inline-block;
+}

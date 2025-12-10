@@ -1,0 +1,92 @@
+/*
+ * estate-agents.css
+ *
+ * Styles specific to the estate agents niche page. Contains definitions
+ * for `.compact-section`, `.dark-card`, niche-specific stats
+ * adjustments, and unique FAQ structures. Do not duplicate global
+ * card styles here.
+ */
+
+/* TODO: Move inline rules from niches/estate-agents.html into this file,
+ * and integrate any page-specific classes in styles.css.
+ */
+
+/* ------------------------------------------------------------------
+ * Estate Agents Page Overrides
+ *
+ * These rules originate from the inline <style> block in
+ * niches/estate-agents.html. They customise the stats layout,
+ * ensure service images fill their card containers, define a dark
+ * card variant, and reduce vertical padding for compact sections.
+ * Only page‑specific layout and minor stylistic tweaks live here.
+ * ------------------------------------------------------------------ */
+
+/* Stats block: multi‑column flexbox with gaps and centered alignment */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Individual stat card within the stats block */
+.stats .stat {
+  flex: 1 1 220px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+/* Icon size and colour within stats */
+.stat-icon {
+  font-size: 1.5rem;
+  color: var(--color-amber);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+/* Numbers in stat cards */
+.stats .number {
+  font-size: 2.4rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Labels beneath numbers */
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+/* Reduce number size on small screens */
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
+
+/* Remove padding and overflow hidden on service images to ensure full bleed */
+.service-image.neon-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Make service images display block (prevent baseline alignment issues) */
+.service-image.neon-card img {
+  display: block;
+}
+
+/* Dark card variation for the estate agents page */
+.dark-card {
+  background: rgba(11, 12, 16, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Reduce vertical spacing on compact sections */
+.section.compact-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}

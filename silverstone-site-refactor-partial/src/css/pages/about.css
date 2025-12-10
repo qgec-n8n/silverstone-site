@@ -1,0 +1,12 @@
+/*
+ * about.css
+ *
+ * Page-level styles for the About page. Includes layout for the mission
+ * section, values grid, collage for “What drives us”, and any other
+ * unique elements on the About page. Generic card styling belongs in
+ * component files; only About-specific layout rules reside here.
+ */
+
+/* TODO: Migrate about-specific styles from inline styles in about.html and
+ * from styles.css where relevant. Skip unused selectors flagged in 6.2.
+ */

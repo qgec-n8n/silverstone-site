@@ -1,0 +1,8 @@
+/* Minimal typography */
+html {
+  font-family: var(--font-body);
+}
+h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+}
