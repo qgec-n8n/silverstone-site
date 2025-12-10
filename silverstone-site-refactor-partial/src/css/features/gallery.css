@@ -1,0 +1,133 @@
+/*
+ * Premium Gallery: Mosaic Layout
+ *
+ * Styles extracted from assets/css/premium-gallery.css. This file defines
+ * the mosaic layout used by the innovation gallery on the services page.
+ * It sets up a column-based masonry grid (#neural-grid) and the
+ * individual premium tiles with front/back faces that flip on hover.
+ * Lightbox styles are not included here (see features/lightbox.css).
+ */
+
+/* Container reset & column setup */
+#neural-grid {
+  display: block !important;
+  /* Override grid */
+  column-count: 3;
+  column-gap: 0; /* No gaps between columns */
+  padding: 0 !important;
+  margin: 4rem 0 0 0; /* Minimized bottom margin */
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  /* Ensure nice edges */
+  overflow: hidden;
+}
+
+/* Mosaic tile base */
+.premium-tile {
+  position: relative;
+  width: 100%;
+  /* Aspect ratio handled by padding-bottom */
+  overflow: hidden;
+  cursor: pointer;
+  perspective: 1000px;
+  border-radius: 0;
+  background: #000;
+  margin-bottom: 0; /* No vertical gaps */
+  padding: 0;
+  /* Prevent column split */
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  display: block;
+}
+
+/* Aspect ratio modifiers */
+.premium-tile.square {
+  padding-bottom: 100%; /* 1:1 ratio */
+}
+.premium-tile.landscape {
+  padding-bottom: 66.666%; /* 3:2 ratio */
+}
+.premium-tile.portrait {
+  padding-bottom: 150%; /* 2:3 ratio */
+}
+
+/* Inner flipper container */
+.tile-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+.premium-tile:hover .tile-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front & back faces */
+.tile-front,
+.tile-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  top: 0;
+  left: 0;
+}
+
+/* Front image fills the tile without distortion */
+.tile-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* Back face displays metadata and a subtle glow */
+.tile-back {
+  background: rgba(10, 10, 15, 0.95);
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.tile-back h4 {
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+  text-align: center;
+  padding: 0 10px;
+}
+
+.tile-back p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Mobile responsiveness: force single column and adjust gaps */
+@media (max-width: 768px) {
+  #neural-grid {
+    column-count: 1;
+    column-gap: 0;
+    padding: 0 16px !important;
+  }
+  .premium-tile {
+    margin-bottom: 0;
+  }
+}

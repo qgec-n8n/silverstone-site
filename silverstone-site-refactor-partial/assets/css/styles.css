@@ -1,0 +1,2128 @@
+/*
+ * Root-level CSS custom properties for colour palette, typography and layout.
+ *
+ * These variables centralise the design tokens used throughout the site.  When
+ * migrating from the old monolithic stylesheets, the colour names and values
+ * were extracted from the existing :root block in assets/css/styles.css.
+ * Additional semantic tokens (e.g. spacing scale, z-indices) have been
+ * introduced for clarity and maintainability.
+ */
+
+:root {
+  /* Primary brand palette */
+  --color-blue: #4769d5;
+  --color-purple: #7167ed;
+  --color-green: #34d399;
+  --color-pink: #ec4899;
+  --color-yellow: #fbbf24;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-100: #f8fafc;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Typography */
+  --font-heading: 'Clash Display', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Source Code Pro', monospace;
+  --font-size-base: 1rem;
+  --line-height-base: 1.6;
+  --letter-spacing-tight: -0.015em;
+  --letter-spacing-normal: 0;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* Container widths */
+  --max-width: 1280px;
+  --max-width-narrow: 960px;
+
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+
+  /* Z-index layers */
+  --z-header: 1000;
+  --z-overlay: 1050;
+  --z-modal: 1100;
+  --z-navbar: 1200;
+  --z-tooltip: 1300;
+}/* Minimal typography */
+html {
+  font-family: var(--font-body);
+}
+h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+}/*
+ * Global layout helpers
+ *
+ * Provide structural classes like .section, .container and other layout utilities. Also define general padding
+ * and margin resets that apply across the site. Migrate relevant rules from styles.css and mobile.css.
+ */
+
+/*
+ * Layout utilities migrated from the legacy stylesheets. These classes
+ * standardise section spacing and container widths across all pages.
+ */
+
+/* Section wrapper: applies vertical padding and optional background colour */
+.section {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+  position: relative;
+}
+
+/* Narrow section variant */
+.section--compact {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+/* Generic container that centres content and constrains its width */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+  box-sizing: border-box;
+}
+
+/* Narrower container for legal text or sidebars */
+.container--narrow {
+  max-width: var(--max-width-narrow);
+}
+
+/* Utility classes for flexbox alignment */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}/*
+ * Header and navigation styles
+ *
+ * Encapsulates styling for the site header, including the logo, navigation list, dropdown menu, services overlay
+ * and header indicator. Migrate relevant rules from styles.css, custom.css and mobile.css.
+ */
+
+/*
+ * Header component styling.
+ *
+ * The header is fixed to the top of the viewport.  It contains the logo,
+ * primary navigation and a services dropdown.  A mobile navigation toggle is
+ * shown on small screens.  The services overlay fills the viewport when
+ * active.
+ */
+
+/* Base header container */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-navbar);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Inner wrapper to align logo and navigation */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-6);
+}
+
+/* Logo */
+.site-header .logo {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+
+/* Navigation list */
+.site-header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--space-6);
+}
+
+.site-header nav li {
+  position: relative;
+}
+
+.site-header nav a {
+  color: var(--color-gray-700);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-header nav a:hover {
+  color: var(--color-blue);
+}
+
+/* Mobile navigation toggle (hamburger) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown menu for Services */
+.nav-dropdown {
+  cursor: pointer;
+}
+
+.services-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-4);
+  min-width: 200px;
+  display: none;
+}
+
+/* Show dropdown when parent has .open */
+.nav-dropdown.open .services-menu {
+  display: block;
+}
+
+/* Full screen services overlay */
+.services-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--color-white);
+  display: none;
+  z-index: var(--z-overlay);
+  overflow-y: auto;
+}
+
+.services-overlay-active .services-overlay {
+  display: block;
+}
+
+/* Header indicator bar shown when header is hidden */
+#header-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-blue), var(--color-purple));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: var(--z-header);
+}
+
+.header-indicator-visible #header-indicator {
+  opacity: 1;
+}/*
+ * footer.css
+ *
+ * Component-level styles for the site footer. This file will house
+ * the canonical definitions for `.site-footer`, `.footer-container`,
+ * `.footer-brand`, `.footer-links`, `.footer-column`, and `.social-icons`.
+ * Redundant footer rules from legacy files will be eliminated during
+ * migration.
+ */
+
+/*
+ * Canonical footer styles.
+ *
+ * The footer uses a dark background with light text and groups links into
+ * columns.  Social icons are displayed horizontally and respond to hover
+ * with a colour change.  These definitions consolidate disparate rules
+ * found in the legacy stylesheets.
+ */
+
+.site-footer {
+  background-color: var(--color-gray-900);
+  color: var(--color-gray-300);
+  padding: var(--space-12) 0;
+}
+
+.footer-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.footer-brand {
+  flex: 1 1 200px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-white);
+}
+
+.footer-links {
+  flex: 2 1 400px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.footer-column {
+  flex: 1 1 150px;
+}
+
+.footer-column h4 {
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+  font-size: 1.125rem;
+  color: var(--color-white);
+}
+
+.footer-column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-column li + li {
+  margin-top: var(--space-2);
+}
+
+.footer-column a {
+  color: var(--color-gray-300);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.footer-column a:hover {
+  color: var(--color-white);
+}
+
+.social-icons {
+  margin-top: var(--space-6);
+  display: flex;
+  gap: var(--space-4);
+}
+
+.social-icons a {
+  color: var(--color-gray-300);
+  font-size: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.social-icons a:hover {
+  color: var(--color-blue);
+}/* Hero component styles extracted from hero-base.css */
+
+:root {
+  /* Vignette intensity for hero shader */
+  --fxVignetteMax: 0.7;
+}
+
+/* Base hero container with 3D perspective */
+.hero.title-band {
+  position: relative;
+  isolation: isolate;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+
+/* Hero media wraps the shader canvas or fallback imagery */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, rgba(20, 40, 80, 0.5), rgba(5, 12, 24, 0.9));
+}
+
+/* Fallback image container */
+.hero-fallback-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Shader canvas sizing */
+#hero-shader-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Hide shader on reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #hero-shader-canvas {
+    display: none;
+  }
+}
+
+/* Hero content layering */
+.hero.title-band .content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Text shadows for hero headings */
+.hero.title-band .content h1,
+.hero.title-band .content h2 {
+  text-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Text styling for hero paragraphs */
+.hero.title-band .content p {
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.95), 0 0 20px rgba(0, 0, 0, 0.7);
+  color: #fff;
+  opacity: 1;
+  font-weight: 500;
+}/*
+ * buttons.css
+ *
+ * This stylesheet defines the base styles for buttons used across the
+ * Silverstone site. It consolidates the definitions for `.btn`,
+ * `.btn-primary`, `.btn-secondary`, and any other button variants.
+ * Transitions and states should be defined here to ensure consistency.
+ * The magnetic button JS module relies on these classes for transforms.
+ */
+
+/*
+ * Consolidated button styles.
+ *
+ * Primary and secondary buttons share a common base class.  Colours and
+ * borders reflect the brand palette, while hover/focus states use a
+ * slightly darker shade.  Transforms are kept minimal to prevent
+ * interference with the magnetic buttons script.
+ */
+
+/* Base button */
+.btn {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Primary button */
+.btn-primary {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-purple);
+}
+
+/* Secondary button */
+.btn-secondary {
+  background-color: var(--color-white);
+  color: var(--color-blue);
+  border-color: var(--color-blue);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+/* Ghost button variant */
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-blue);
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  background-color: rgba(71, 105, 213, 0.1);
+}/*
+ * cards.css
+ *
+ * This component stylesheet contains the base styles for the various card
+ * types used throughout the Silverstone site. During the refactor this
+ * file will collect rules for neon cards, pricing cards, value cards,
+ * testimonial cards, CTA cards, contact form cards, and any other
+ * card-like elements. Card-specific spacing and visual properties should
+ * live here, while layout (flex/grid) should be in page-level files.
+ */
+
+/*
+ * Base card component styles.
+ *
+ * Cards use the brand palette and a subtle neon glow to create depth.  They
+ * share padding, border radius and box-shadow values.  Variants such as
+ * feature cards, pricing cards and value cards adjust colours and
+ * typography via modifier classes defined below.  Layout (columns, rows)
+ * belongs in the corresponding page stylesheet.
+ */
+
+/* Base neon card */
+.neon-card {
+  position: relative;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: 0 0 20px rgba(71, 105, 213, 0.15);
+  border: 1px solid rgba(71, 105, 213, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.neon-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(71, 105, 213, 0.25);
+}
+
+/* Feature card variant */
+.feature-card {
+  background-color: var(--color-gray-100);
+}
+
+/* Pricing card variant */
+.pricing-card {
+  background-color: var(--color-white);
+  border: 2px solid var(--color-blue);
+}
+
+/* Value card variant */
+.value-card {
+  background-color: var(--color-gray-100);
+  border-left: 4px solid var(--color-green);
+}
+
+/* Dark card variant used on niche pages */
+.dark-card {
+  background-color: var(--color-gray-800);
+  color: var(--color-white);
+  border-color: transparent;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* CTA card variant */
+.cta-card {
+  background: linear-gradient(135deg, var(--color-blue), var(--color-purple));
+  color: var(--color-white);
+  text-align: center;
+}
+
+/* Contact form card variant */
+.contact-form-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  padding: var(--space-8);
+}
+
+/* Contact details card */
+.contact-details {
+  background-color: var(--color-gray-100);
+  padding: var(--space-8);
+}/*
+ * stats.css
+ *
+ * Styles for the statistics sections used on multiple pages. This file
+ * will define the layout and typography for `.stats` grids and the
+ * individual statistic cards `.stat`, `.stat-icon`, `.number`, and
+ * `.label`. Consolidating these rules ensures consistent presentation
+ * across pages like Home, About, and the estate niche.
+ */
+
+/*
+ * Statistics layout and formatting.
+ *
+ * The stats grid uses a responsive layout that wraps cards on small
+ * screens.  Each stat card contains an icon, a large number and a
+ * descriptive label.  Animations for counting up the numbers are
+ * handled by the stats.js module.
+ */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-8);
+  margin: var(--space-8) 0;
+}
+
+.stat {
+  background-color: var(--color-gray-100);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-3);
+  color: var(--color-blue);
+}
+
+.number {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-2);
+  color: var(--color-purple);
+}
+
+.label {
+  font-size: 1rem;
+  color: var(--color-gray-600);
+}/*
+ * faq.css
+ *
+ * Component stylesheet for the FAQ section. Includes styling for
+ * `.faq-section`, `.faq-list`, and `.faq-item` elements. This file
+ * should also include state-specific rules (e.g., `[open]` styles) for
+ * the `<details>` elements that make up the FAQ accordion.
+ */
+
+/*
+ * FAQ component styling.
+ *
+ * Each FAQ item is composed of a <details> element with a summary and
+ * body.  Neon card styles provide the container appearance while
+ * `[open]` state highlights the active item.  The list itself centres
+ * items and constrains the width.
+ */
+
+.faq-section {
+  margin-top: var(--space-16);
+}
+
+.faq-list {
+  max-width: var(--max-width-narrow);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+details.faq-item {
+  background-color: var(--color-gray-100);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-6);
+  border: 1px solid var(--color-gray-300);
+  cursor: pointer;
+  position: relative;
+}
+
+details.faq-item[open] {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  border-color: var(--color-blue);
+}
+
+details.faq-item summary {
+  font-weight: 600;
+  list-style: none;
+  position: relative;
+}
+
+details.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+details.faq-item .faq-body {
+  margin-top: var(--space-3);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}/* Parallax and scroll reveal styles extracted from parallax-fix.css */
+
+/* Overlay and backdrop variables */
+:root {
+  --parallax-overlay: none;
+  --parallax-backdrop: #050B18;
+}
+
+/* Base parallax section container */
+.parallax-section {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--parallax-backdrop);
+  isolation: isolate;
+}
+
+/* Preserve transforms on desktop (motion allowed) */
+@media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+  .parallax-section.animate,
+  .parallax-section.animate.visible {
+    transform: none !important;
+  }
+}
+
+/* Content layering */
+.parallax-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Generic parallax layer used on desktop */
+.parallax-section .parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 320ms ease;
+  z-index: 0;
+}
+
+.parallax-section.parallax-ready .parallax-layer {
+  opacity: 1;
+}
+
+/* Theme-specific background definitions */
+.parallax-section[data-parallax-theme="lines"] {
+  background-image: var(--parallax-overlay), url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="circuit"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-waves.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-waves@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="mesh"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-mesh.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-mesh@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+    url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+    url('../images/internet/mobile/section-mesh@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+    url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+    url('../images/internet/mobile/section-mesh@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="waves"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-waves.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-waves@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="book"] {
+  background-image: var(--parallax-overlay), url('../images/internet/hero/book-hero-calendly-mobile-2025.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+}
+
+/*
+ * Neon layering fix
+ *
+ * Some sections use `.bg-circuit` backgrounds with an overlay pseudo-element.
+ * To ensure interactive content sits above the overlay while allowing the
+ * overlay to cover the background, create a local stacking context and
+ * assign relative positioning and z-indices to key elements. This rule
+ * originally resided in the inline `<style>` of index.html.
+ */
+
+.section.bg-circuit {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-circuit::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-circuit > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Keep neon cards and service blocks above everything in circuit sections */
+.section.bg-circuit .neon-card,
+.section.bg-circuit .service-row,
+.section.bg-circuit .service-image,
+.section.bg-circuit .service-content {
+  position: relative;
+  z-index: 2;
+}
+
+/*
+ * Waves layering fix
+ *
+ * Similar to the circuit variant, ensure that for `.bg-waves` sections
+ * interactive content such as neon cards and service rows appear
+ * above the parallax overlay. This addresses the contact page where
+ * `.bg-waves` backgrounds are used alongside a parallax overlay.
+ */
+.section.bg-waves {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-waves::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-waves > .container {
+  position: relative;
+  z-index: 1;
+}
+.section.bg-waves .neon-card,
+.section.bg-waves .service-row,
+.section.bg-waves .service-image,
+.section.bg-waves .service-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* High-resolution desktop support via image-set */
+@supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
+  .parallax-section[data-parallax-theme="lines"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="circuit"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="mesh"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-mesh.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="waves"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="book"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
+    );
+  }
+}
+
+/* WebKit image-set fallbacks */
+@supports (background-image: -webkit-image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
+  .parallax-section[data-parallax-theme="lines"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="circuit"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="mesh"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-mesh.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="waves"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="book"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
+    );
+  }
+}
+
+/* Desktop parallax attachments */
+@media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+  .parallax-section {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+  .parallax-section .parallax-layer {
+    display: none;
+  }
+}
+
+/* Mobile parallax uses layers and a fixed stage */
+@media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
+  .parallax-section {
+    background-image: none !important;
+    background-color: transparent;
+    isolation: auto;
+  }
+  .parallax-section.parallax-mobile-active {
+    position: relative;
+    z-index: 1;
+  }
+  .parallax-section.parallax-mobile-active > * {
+    position: relative;
+    z-index: 2;
+  }
+  .parallax-section .parallax-layer {
+    display: none !important;
+  }
+  .parallax-mobile-stage {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background-color: var(--parallax-backdrop);
+  }
+  .parallax-mobile-layer {
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 320ms ease;
+  }
+  .parallax-mobile-layer.is-active {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion fallback: static imagery only */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-section .parallax-layer,
+  .parallax-mobile-stage {
+    display: none !important;
+  }
+}/*
+ * Premium Gallery: Mosaic Layout
+ *
+ * Styles extracted from assets/css/premium-gallery.css. This file defines
+ * the mosaic layout used by the innovation gallery on the services page.
+ * It sets up a column-based masonry grid (#neural-grid) and the
+ * individual premium tiles with front/back faces that flip on hover.
+ * Lightbox styles are not included here (see features/lightbox.css).
+ */
+
+/* Container reset & column setup */
+#neural-grid {
+  display: block !important;
+  /* Override grid */
+  column-count: 3;
+  column-gap: 0; /* No gaps between columns */
+  padding: 0 !important;
+  margin: 4rem 0 0 0; /* Minimized bottom margin */
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  /* Ensure nice edges */
+  overflow: hidden;
+}
+
+/* Mosaic tile base */
+.premium-tile {
+  position: relative;
+  width: 100%;
+  /* Aspect ratio handled by padding-bottom */
+  overflow: hidden;
+  cursor: pointer;
+  perspective: 1000px;
+  border-radius: 0;
+  background: #000;
+  margin-bottom: 0; /* No vertical gaps */
+  padding: 0;
+  /* Prevent column split */
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  display: block;
+}
+
+/* Aspect ratio modifiers */
+.premium-tile.square {
+  padding-bottom: 100%; /* 1:1 ratio */
+}
+.premium-tile.landscape {
+  padding-bottom: 66.666%; /* 3:2 ratio */
+}
+.premium-tile.portrait {
+  padding-bottom: 150%; /* 2:3 ratio */
+}
+
+/* Inner flipper container */
+.tile-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+.premium-tile:hover .tile-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front & back faces */
+.tile-front,
+.tile-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  top: 0;
+  left: 0;
+}
+
+/* Front image fills the tile without distortion */
+.tile-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* Back face displays metadata and a subtle glow */
+.tile-back {
+  background: rgba(10, 10, 15, 0.95);
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.tile-back h4 {
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+  text-align: center;
+  padding: 0 10px;
+}
+
+.tile-back p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Mobile responsiveness: force single column and adjust gaps */
+@media (max-width: 768px) {
+  #neural-grid {
+    column-count: 1;
+    column-gap: 0;
+    padding: 0 16px !important;
+  }
+  .premium-tile {
+    margin-bottom: 0;
+  }
+}/*
+ * Marquee: single and double row sliders
+ *
+ * Consolidated styles for both the single-row marquee (used on most pages)
+ * and the double-row marquee (used on the services page). The rules were
+ * merged from assets/css/marquee-single.css and assets/css/marquee-double.css.
+ * Lightbox definitions have been moved to features/lightbox.css.
+ */
+
+/* Base marquee containers */
+.single-marquee,
+.double-marquee {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+/* Single marquee spacing */
+.single-marquee {
+  gap: 12px;
+  padding: 16px 0 28px;
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Double marquee spacing */
+.double-marquee {
+  gap: 16px;
+  padding: 4px 0 24px;
+  margin: clamp(0.5rem, 1vw, 1rem) 0 0;
+}
+
+/* Marquee tracks */
+.single-marquee .marquee-track,
+.double-marquee .marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Single marquee track specifics */
+.single-marquee .marquee-track {
+  gap: 32px;
+  animation: marquee-scroll-left 60s linear infinite;
+}
+.single-marquee .marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Double marquee track specifics */
+.double-marquee .marquee-track {
+  gap: 40px;
+}
+.double-marquee .scroll-left {
+  animation: marquee-scroll-left 60s linear infinite;
+}
+.double-marquee .scroll-right {
+  animation: marquee-scroll-right 60s linear infinite;
+}
+.double-marquee .marquee-track.fast {
+  animation-duration: 45s;
+}
+.double-marquee .marquee-track.slow {
+  animation-duration: 75s;
+}
+.double-marquee .marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Keyframes for continuous scrolling */
+@keyframes marquee-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Marquee images */
+.single-marquee .marquee-img,
+.double-marquee .marquee-img {
+  width: auto;
+  object-fit: contain;
+  opacity: 0.95;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+}
+
+/* Size differences */
+.single-marquee .marquee-img {
+  height: 150px;
+}
+.double-marquee .marquee-img {
+  height: 180px;
+  opacity: 1;
+}
+
+/* Hover effect */
+.single-marquee .marquee-img:hover,
+.double-marquee .marquee-img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .single-marquee {
+    gap: 8px;
+    padding: 12px 0 18px;
+  }
+  .single-marquee .marquee-img {
+    height: 90px;
+  }
+  .double-marquee {
+    gap: 10px;
+    padding: 12px 0 18px;
+  }
+  .double-marquee .marquee-img {
+    height: 120px;
+  }
+}/*
+ * Lightbox styles
+ *
+ * Centralized definition for the premium lightbox used by both the
+ * Innovation Gallery and the marquees. Extracted from the legacy
+ * marquee-single.css and marquee-double.css files. All rules here
+ * apply to the lightbox overlay, content container, images and the
+ * close button. Having a single source of truth avoids duplication.
+ */
+
+/* Overlay container */
+.premium-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 20, 30, 0.85);
+  backdrop-filter: blur(15px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* Active state toggles visibility */
+.premium-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Content wrapper scales in when active */
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  transform: scale(0.9);
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  background: rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.premium-lightbox.active .lightbox-content {
+  transform: scale(1);
+}
+
+/* Image styling */
+.lightbox-img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Caption (if used) */
+.lightbox-caption {
+  margin-top: 0.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Close button */
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+  transition: transform 0.3s ease;
+}
+.lightbox-close::before,
+.lightbox-close::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  box-shadow: 0 0 10px #00ffff;
+}
+.lightbox-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.lightbox-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.lightbox-close:hover {
+  transform: scale(1.2) rotate(90deg);
+}
+
+/* Adjust close button on mobile */
+@media (max-width: 768px) {
+  .lightbox-close {
+    top: -50px;
+    right: 0;
+  }
+}/*
+ * home.css
+ *
+ * Page-level styles specific to the home page. This file houses rules
+ * for the feature cards section, the packages grid, proof grid,
+ * home-specific FAQ, and final call-to-action variations. Only
+ * layout and minor stylistic differences unique to the home page
+ * should live here; card shapes and global components remain in
+ * components files.
+ */
+
+/* TODO: Migrate home-specific rules from custom-styles.css, inline
+ * styles in index.html, and the home-specific sections of styles.css. */
+
+/* ------------------------------------------------------------------
+ * Home Page Overrides
+ *
+ * The following rules originate from the inline <style> tag in
+ * index.html and from custom-styles.css. They customise the layout
+ * of grouped service packages, pricing grids, statistics blocks and
+ * hero bullets on the home page. These declarations rely on
+ * variables defined in base/variables.css and base/typography.css.
+ *
+ * NOTE: Do not duplicate base component styles here—only page‑specific
+ * layout tweaks belong in this file.
+ * ------------------------------------------------------------------ */
+
+/* Packages grid: two wider cards per row with consistent gap and
+   reduced padding for more compact cards. */
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+  gap: 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Reduce padding and set vertical layout on package cards */
+.packages-grid .neon-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Service package icon sizing */
+.packages-grid .service-icon-img {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.75rem;
+  object-fit: contain;
+  display: block;
+}
+
+/* Checkmark icon sizing within package lists */
+.packages-grid .check-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Package card headings */
+.packages-grid .neon-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-green);
+  text-align: left;
+}
+
+/* Taglines beneath package titles */
+.packages-grid .tagline {
+  font-size: 0.95rem;
+  color: var(--color-silver);
+  margin-bottom: 0.75rem;
+  font-style: italic;
+  text-align: left;
+}
+
+/* General paragraph styling inside package cards */
+.packages-grid .neon-card p {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  color: var(--color-silver);
+  margin-bottom: 0.35rem;
+  text-align: left;
+}
+
+/* Maintain adequate bottom margin for tagline paragraphs */
+.packages-grid .neon-card p.tagline {
+  margin-bottom: 0.75rem;
+}
+
+/* Icon sizing within bullet paragraphs */
+.packages-grid .neon-card p i {
+  font-size: 1.15rem;
+  color: var(--color-green);
+  margin-top: 0.15rem;
+}
+
+/* Add breathing room between bullet lists and call‑to‑action buttons */
+.packages-grid .neon-card a.btn {
+  margin-top: 1rem;
+}
+
+/* Bullet lists inside packages: ensure icon and text align neatly */
+.packages-grid .bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  min-height: 2.5rem;
+  line-height: 1.3;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Fix the width of the icon column so bullet icons align */
+.packages-grid .bullet i {
+  flex: 0 0 1.2rem;
+  text-align: center;
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Remove bottom margin on the last bullet in each card to avoid extra space */
+.packages-grid .card p.bullet:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Provide additional breathing room for AI Consulting and Marketing cards */
+.card-ai-consulting .bullet:last-of-type,
+.card-marketing .bullet:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+/* Offset bullet list for Systems & Data Integration card to align with Workflow & Data cards */
+.card-systems .bullet:first-of-type {
+  margin-top: 1rem;
+}
+
+/* Proof/outcomes grid used on home and services pages */
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+}
+
+/* Proof card padding */
+.neon-card.proof-card {
+  padding: 1.75rem 1.5rem;
+}
+
+.proof-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+}
+
+.proof-card .tagline {
+  margin-bottom: 0.75rem;
+  color: var(--color-silver);
+  font-size: 0.95rem;
+}
+
+.proof-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+}
+
+.proof-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.proof-list li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.proof-disclaimer {
+  margin-top: 1.25rem;
+  max-width: 52rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Pricing grid: three columns on larger screens with central alignment */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Padding for pricing cards */
+.pricing-grid .neon-card {
+  padding: 2rem;
+}
+
+/* Pricing card headings */
+.pricing-grid .neon-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-blue);
+}
+
+/* Price label styling */
+.pricing-grid .price-label {
+  font-size: 0.8rem;
+  color: var(--color-silver);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Price value styling */
+.pricing-grid .price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-green);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Best-for text styling */
+.pricing-grid .best-for {
+  font-size: 0.8rem;
+  color: var(--color-silver);
+  margin-top: 0.25rem;
+}
+
+/* General paragraphs within pricing cards */
+.pricing-grid .neon-card p {
+  font-size: 0.9rem;
+  color: var(--color-silver);
+  margin-bottom: 0.5rem;
+}
+
+/* Statistics layout: flex wrapping and spacing */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Individual stat card styling is handled in components/stats.css */
+.stats .stat {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+/* Stat number style overrides (size and colour) */
+.stats .number {
+  font-size: 2.5rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+/* Smaller stat numbers on small screens */
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
+
+/* Hero bullet lists: grid layout for proof points below the main headline */
+.hero .hero-bullets {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+/* Bullet list items within hero */
+.hero .hero-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--color-silver);
+  line-height: 1.6;
+}
+
+.hero .hero-bullets li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.hero .hero-bullets li span {
+  display: inline-block;
+}/*
+ * about.css
+ *
+ * Page-level styles for the About page. Includes layout for the mission
+ * section, values grid, collage for “What drives us”, and any other
+ * unique elements on the About page. Generic card styling belongs in
+ * component files; only About-specific layout rules reside here.
+ */
+
+/* TODO: Migrate about-specific styles from inline styles in about.html and
+ * from styles.css where relevant. Skip unused selectors flagged in 6.2.
+ *//*
+ * services.css
+ *
+ * Page-level styles for the services overview page. Contains layout
+ * definitions for `.services-section`, repeated `.service-row`
+ * patterns, `.service-image` and `.service-content` spacing,
+ * innovation gallery headings, and double marquee placement. Exclude
+ * generic card shapes which belong in components/cards.css.
+ */
+
+/* TODO: Migrate services-related rules from services.css, custom.css,
+ * and inline styles in services.html, skipping unused selectors.
+ */
+
+/*
+ * Service row layout tweaks
+ *
+ * Centre images within their wrappers on the Services page. The
+ * `.service-row` component lives in components/cards.css but these
+ * overrides ensure that the image wrapper behaves like a flexbox
+ * container so that tall illustrations such as Data & Analytics are
+ * centred both vertically and horizontally. See services.css in the
+ * original repo for context.
+ */
+.page-services .service-row .service-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+ * Data & Analytics illustration sizing
+ *
+ * Make sure the Data & Analytics image (`#analytics`) fills its
+ * container while respecting the 16:9 aspect ratio defined by
+ * components/cards.css. Without these overrides the image might
+ * collapse to its intrinsic size on some devices.
+ */
+.page-services #analytics .service-image img,
+.page-services #analytics .service-image .service-img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/*
+ * Innovation gallery anchor spacing
+ *
+ * Allow deep linking to the Innovation Gallery section by adding a
+ * small scroll margin so that fixed headers do not obscure the
+ * heading when navigating via `#innovation-gallery`.
+ */
+#innovation-gallery {
+  margin-bottom: 0.5rem;
+  scroll-margin-top: 110px;
+}
+
+/*
+ * Brand gradient section
+ *
+ * Provide extra top padding on sections with the `brand-gradient`
+ * class. This helps create breathing room above the CTA on the
+ * Services page without disturbing global spacing rules.
+ */
+.section.brand-gradient.animate {
+  padding-top: 2rem;
+}
+
+/*
+ * Unified neon card background on desktop
+ *
+ * On desktop layouts the service rows consist of two adjacent
+ * `.neon-card` panels: one for the image and one for the text. The
+ * text panel originally used a darker overlay, making it look
+ * different from the image panel. On wider screens unify the
+ * backgrounds so that both panels share the same glow and border
+ * styling. See services.css lines 140–156 in the original repo.
+ */
+@media (min-width: 769px) {
+  .page-services .service-row .service-content.neon-card {
+    background: rgba(12, 16, 24, 0.55);
+    border-color: rgba(0, 174, 239, 0.25);
+    box-shadow:
+      0 0 0 1px rgba(157, 78, 221, 0.25) inset,
+      0 8px 28px rgba(0, 0, 0, 0.35),
+      0 0 36px rgba(0, 174, 239, 0.35);
+    backdrop-filter: blur(8px);
+  }
+}/*
+ * book.css
+ *
+ * Page-level styles for the discovery call booking page. Define
+ * layout for `.discovery-call-section`, `.discovery-call-content`,
+ * `.widget` and `.info` wrappers, as well as any Calendly-specific
+ * adjustments. Do not include global card or button rules here.
+ */
+
+/* TODO: Extract booking page rules from inline styles in book.html
+ * and any `.booking-*` classes used in styles.css. Omit unused
+ * `.booking-hero` and `.booking-bg` selectors.
+ */
+
+/* ------------------------------------------------------------------
+ * Book Page Overrides
+ *
+ * These rules originate from the inline <style> tag in book.html and
+ * define the layout for the discovery call section on the booking
+ * page. They control the flexible two‑column layout, visual
+ * styling of the information panel, Calendly widget sizing, and
+ * responsive stacking. Only book‑specific layout and minor visual
+ * tweaks live here; global card shapes and typography are defined
+ * elsewhere.
+ * ------------------------------------------------------------------ */
+
+/* Overall discovery call section: full viewport height with dark overlay */
+.discovery-call-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Ensure the container inside the section participates in layering */
+.discovery-call-section > .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* Flex wrapper for info text and Calendly widget */
+.discovery-call-content {
+  display: flex;
+  align-items: stretch;
+  gap: 5rem;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+
+/* Allow info and widget to grow/shrink while maintaining minimum width */
+.discovery-call-content .info,
+.discovery-call-content .widget {
+  flex: 1 1 45%;
+  min-width: 320px;
+}
+
+/* Styling for the information panel: glassmorphism card */
+.discovery-call-content .info {
+  background: rgba(12, 16, 24, 0.6);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  color: var(--color-white);
+}
+
+/* Headings inside the info panel */
+.discovery-call-content .info h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--color-blue);
+}
+
+/* Paragraphs inside the info panel */
+.discovery-call-content .info p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--color-silver);
+}
+
+/* Remove list bullets and spacing for custom icon lists */
+.discovery-call-content .info ul {
+  list-style: none;
+  margin-bottom: 1rem;
+  padding-left: 0;
+}
+
+/* Align icons and text in the bullet lists */
+.discovery-call-content .info ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-silver);
+  font-size: 0.95rem;
+}
+
+/* Remove default pseudo bullets */
+.discovery-call-content .info ul li::before {
+  content: none;
+}
+
+/* Links inside the info panel */
+.discovery-call-content .info a {
+  color: var(--color-green);
+  text-decoration: underline;
+}
+
+/* Center the Calendly widget container */
+.discovery-call-content .widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Force the Calendly inline widget to fill its container */
+.discovery-call-content .widget .calendly-inline-widget {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  border: 0;
+}
+
+/* Responsive stack for narrower viewports */
+@media (max-width: 900px) {
+  .discovery-call-content {
+    flex-direction: column;
+  }
+
+  .discovery-call-content .info,
+  .discovery-call-content .widget {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .discovery-call-content .widget .calendly-inline-widget {
+    height: 600px;
+  }
+}/*
+ * contact.css
+ *
+ * Page-level styles for the contact page. Includes layout for
+ * `.contact-grid`, `.contact-form-card`, `.contact-details`, and
+ * social call-out sections. Only contact-specific layout/spacing rules
+ * should live here; generic card shapes and form inputs are in
+ * components/cards.css and other base files.
+ */
+
+/* TODO: Migrate contact-specific rules from inline styles in contact.html
+ * and from styles.css, excluding unused selectors like `.contact-map`.
+ */
+
+/* ------------------------------------------------------------------
+ * Contact Page Overrides
+ *
+ * These rules originate from the inline <style> block in contact.html.
+ * They style the social call‑out card and its child elements on the
+ * contact page. Only contact-specific layout and minor visual
+ * tweaks live here; global card and button styles are defined
+ * elsewhere.
+ * ------------------------------------------------------------------ */
+
+/* Social call-out container: glassmorphism card with gradient and glow */
+.contact-social-callout {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding: clamp(2rem, 6vw, 3.5rem);
+  text-align: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(102, 126, 234, 0.18));
+  border: 1px solid rgba(148, 163, 255, 0.35);
+  border-radius: 1.75rem;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+  color: var(--color-white);
+}
+
+/* Headline inside the call-out */
+.contact-social-callout h3 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  margin-bottom: 1rem;
+  letter-spacing: 0.04em;
+}
+
+/* Description text inside the call-out */
+.contact-social-callout p {
+  color: var(--color-silver);
+  max-width: 42rem;
+  margin: 0 auto 1.75rem auto;
+  line-height: 1.7;
+}
+
+/* Additional note beneath the social links */
+.contact-social-note {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* Layout for the social link buttons */
+.contact-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+/* Individual social link styling */
+.contact-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(148, 163, 255, 0.25);
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+/* Hover/focus state for social links */
+.contact-social-link:hover,
+.contact-social-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 255, 0.6);
+  background: rgba(102, 126, 234, 0.35);
+}
+
+/* Icon within the social link */
+.contact-social-link i {
+  font-size: 1.2rem;
+  color: var(--color-silver);
+}
+
+/* Handle text within the social link */
+.contact-social-handle {
+  letter-spacing: 0.03em;
+}/*
+ * estate-agents.css
+ *
+ * Styles specific to the estate agents niche page. Contains definitions
+ * for `.compact-section`, `.dark-card`, niche-specific stats
+ * adjustments, and unique FAQ structures. Do not duplicate global
+ * card styles here.
+ */
+
+/* TODO: Move inline rules from niches/estate-agents.html into this file,
+ * and integrate any page-specific classes in styles.css.
+ */
+
+/* ------------------------------------------------------------------
+ * Estate Agents Page Overrides
+ *
+ * These rules originate from the inline <style> block in
+ * niches/estate-agents.html. They customise the stats layout,
+ * ensure service images fill their card containers, define a dark
+ * card variant, and reduce vertical padding for compact sections.
+ * Only page‑specific layout and minor stylistic tweaks live here.
+ * ------------------------------------------------------------------ */
+
+/* Stats block: multi‑column flexbox with gaps and centered alignment */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Individual stat card within the stats block */
+.stats .stat {
+  flex: 1 1 220px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+/* Icon size and colour within stats */
+.stat-icon {
+  font-size: 1.5rem;
+  color: var(--color-amber);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+/* Numbers in stat cards */
+.stats .number {
+  font-size: 2.4rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Labels beneath numbers */
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+/* Reduce number size on small screens */
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
+
+/* Remove padding and overflow hidden on service images to ensure full bleed */
+.service-image.neon-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Make service images display block (prevent baseline alignment issues) */
+.service-image.neon-card img {
+  display: block;
+}
+
+/* Dark card variation for the estate agents page */
+.dark-card {
+  background: rgba(11, 12, 16, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Reduce vertical spacing on compact sections */
+.section.compact-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}/*
+ * privacy.css
+ *
+ * Styles specific to the privacy policy page. Adjust the typography
+ * for legal text within `.neon-card` or similar containers and tweak
+ * section spacing for readability. Only include privacy-specific
+ * overrides here; general card and section styling remain in the
+ * appropriate component and base files.
+ */
+
+/* TODO: Extract relevant rules from inline styles in privacy-policy.html
+ * and from styles.css if needed.
+ */

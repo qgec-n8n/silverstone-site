@@ -1,0 +1,95 @@
+/*
+ * footer.css
+ *
+ * Component-level styles for the site footer. This file will house
+ * the canonical definitions for `.site-footer`, `.footer-container`,
+ * `.footer-brand`, `.footer-links`, `.footer-column`, and `.social-icons`.
+ * Redundant footer rules from legacy files will be eliminated during
+ * migration.
+ */
+
+/*
+ * Canonical footer styles.
+ *
+ * The footer uses a dark background with light text and groups links into
+ * columns.  Social icons are displayed horizontally and respond to hover
+ * with a colour change.  These definitions consolidate disparate rules
+ * found in the legacy stylesheets.
+ */
+
+.site-footer {
+  background-color: var(--color-gray-900);
+  color: var(--color-gray-300);
+  padding: var(--space-12) 0;
+}
+
+.footer-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.footer-brand {
+  flex: 1 1 200px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-white);
+}
+
+.footer-links {
+  flex: 2 1 400px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.footer-column {
+  flex: 1 1 150px;
+}
+
+.footer-column h4 {
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+  font-size: 1.125rem;
+  color: var(--color-white);
+}
+
+.footer-column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-column li + li {
+  margin-top: var(--space-2);
+}
+
+.footer-column a {
+  color: var(--color-gray-300);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.footer-column a:hover {
+  color: var(--color-white);
+}
+
+.social-icons {
+  margin-top: var(--space-6);
+  display: flex;
+  gap: var(--space-4);
+}
+
+.social-icons a {
+  color: var(--color-gray-300);
+  font-size: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.social-icons a:hover {
+  color: var(--color-blue);
+}
