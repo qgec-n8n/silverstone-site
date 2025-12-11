@@ -2,38 +2,31 @@
 #
 # Codex configuration for working on the Silverstone repo.
 #
-# This file is intended for use with Codex CLI and related tools. It may also
-# be used as CODEX_HOME in automation contexts (e.g. CI) if desired.
+# This file is intended for use with the Codex CLI and related tools. Codex
+# Cloud environments may manage some of these settings separately, but keeping
+# them here makes local behaviour predictable.
 #
-# The configuration focuses on:
-# - Using a coding-optimized model (GPT-5 Codex family).
-# - Keeping filesystem access scoped to the workspace.
-# - Ensuring project docs (AGENTS, PLANS, Output_1/2) are treated as guidance.
-#
-# NOTE: Codex Cloud environments manage many of these settings separately;
-# this config is primarily useful when using the Codex CLI locally.
+# Focus:
+# - Use a coding‑optimised model.
+# - Allow writes within the workspace.
+# - Give Codex consistent access to project docs (AGENTS, PLANS, ExecPlans, Output_1/2).
+# - Encourage deeper reasoning for non‑trivial refactors.
 
-model = "gpt-5-codex"
-model_provider = "openai"
-model_context_window = 32768
+model = "gpt-5-codex-mx"
 
-# Allow Codex to reason more deeply about multi-file refactors.
-model_reasoning_effort = "high"
-
-# Filesystem sandbox:
-# - "workspace-write" allows edits inside the workspace while protecting
-#   the rest of the system.
+# Allow Codex to read/write within the workspace (but not outside).
 sandbox_mode = "workspace-write"
 
-# Approval policy:
-# - "on-failure" lets most safe commands run, but escalates when they fail
-#   under sandboxing. This reduces unnecessary prompts while preserving safety.
-approval_policy = "on-failure"
+# Encourage more thorough reasoning when supported.
+model_reasoning_effort = "xhigh"
 
-# Project docs: ensure Codex sees AGENTS/PLANS/Output_1/Output_2 as guidance.
-project_doc_fallback_filenames = [
-  "PLANS.md",
+# Project documents Codex should preferentially load as context when working in
+# this repository. These paths are relative to the repo root.
+project_docs = [
+  "AGENTS.md",
   ".agent/PLANS.md",
+  ".agent/ExecPlan.SilverstoneFrontend.md",
+  ".agent/ExecPlan.FinalDecomposition.md",
   "Output_1.md",
   "Output_2.md"
 ]
@@ -46,6 +39,7 @@ project_doc_max_bytes = 65536
 hide_agent_reasoning = true
 
 [tools]
-# Web search is not required for this static-site refactor and is often
-# disabled in Codex Cloud environments. Keep it off by default for CLI.
+# Web search is not required for this static‑site refactor when running the
+# Codex CLI locally. Keep it off by default; Codex Cloud can still use web
+# access according to its own environment settings.
 web_search = false

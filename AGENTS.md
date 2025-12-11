@@ -1,15 +1,22 @@
 <!-- FILE: AGENTS.md -->
 
-# AGENTS.md – Silverstone static site
+# AGENTS.md – Silverstone static site (phase‑2 CSS/JS decomposition)
 
-This file tells Codex how to work safely and effectively on the Silverstone marketing site, especially for the large CSS/JS refactor described in `Output_2.md`.
+This file tells Codex how to work safely and effectively on the Silverstone marketing site. It is read automatically before each task in this repository.
+
+This updated version reflects the state **after** the initial consolidation refactor and adds guidance for the final CSS/JS decomposition described in:
+
+- `Output_1.md` – HTML/CSS/JS mapping. :contentReference[oaicite:7]{index=7}  
+- `Output_2.md` – Refactor plan. :contentReference[oaicite:8]{index=8}  
+- `.agent/ExecPlan.SilverstoneFrontend.md` – Phase‑1 plan and outcomes.
+- `.agent/ExecPlan.FinalDecomposition.md` – **This run’s** plan.
 
 ---
 
-## Repository overview
+## 1. Project overview (current baseline)
 
 - Static HTML site; no SPA framework or server‑side rendering.
-- Key pages (all in repo root unless noted):
+- Key pages:
 
   - `index.html` – home.
   - `about.html`
@@ -19,223 +26,224 @@ This file tells Codex how to work safely and effectively on the Silverstone mark
   - `privacy-policy.html`
   - `niches/estate-agents.html`
 
-- Frontend assets:
+- Bundled assets:
 
-  - CSS under `assets/css/`
-  - JS under `assets/js/`
-  - Images under `assets/images/` (and subfolders)
-  - Fonts/icons under `assets/webfonts/`
+  - CSS:
+    - Source under `src/css/**`.
+    - Built bundle at `assets/css/styles.css` (via `node build-css.js` or `npm run build:css`).
+  - JS:
+    - Source under `src/js/**`.
+    - Built bundle at `assets/js/app.js` (via `node scripts/build-js.js` or `npm run build:js`).
 
-- Existing JS is mostly vanilla JavaScript; no bundler in production yet.
-- Node tooling is used for CSS builds and image optimization.
+- Initial refactor state (from `ExecPlan.SilverstoneFrontend.md` “Outcomes & Retrospective”):
 
-Authoritative docs:
-
-- `Output_1.md` – HTML/CSS/JS mapping and analysis.
-- `Output_2.md` – detailed refactor plan and final state.
-- `.agent/PLANS.md` – ExecPlan rules.
-- `.agent/ExecPlan.SilverstoneFrontend.md` – main refactor plan.
-
-When working on the refactor, **read all of these first**.
-
----
-
-## Environment & commands
-
-Run all commands from the repository root unless stated otherwise.
-
-- **Node / npm**
-
-  - Dependencies are installed via `npm` using the standard `package.json`.
-  - Heavy dependency installation should happen in the environment setup script (`scripts/codex.setup.sh`).
-  - Prefer `npm ci` when `package-lock.json` is present; otherwise `npm install`.
-
-- **Build & tooling (current baseline)**
-
-  - CSS build: `npm run build:css` (calls `build-css.js`).
-  - Full build (if defined): `npm run build`.
-  - There is currently no real `npm test` script; tests and linters may be added as part of the refactor according to `Output_2.md`.
-
-- **Search & inspection**
-
-  - Prefer `rg` (ripgrep) or `git grep` for searching.
-  - When mapping selectors or IDs, also consult `Output_1.md` to avoid chasing dead code.
-
-Codex Cloud environments:
-
-- The cloud environment should be configured so that:
-
-  - The **setup script** is `scripts/codex.setup.sh`.
-  - The **maintenance script** is `scripts/codex.maintenance.sh`.
-  - Agent internet access during tasks is kept as strict as possible; assume internet is off and do not rely on external HTTP calls.
+  - CSS/JS moved into `src/` and bundled to single entrypoints.
+  - HTML pages updated to reference `assets/css/styles.css` and `assets/js/app.js` only.
+  - Legacy scattered CSS/JS removed.
+  - **Remaining work**:
+    - `src/css/base/layout.css` and some other files still act as “kitchen sinks” instead of clean modules.
+    - Several CSS component modules are empty.
+    - Some JS modules are stubs; `src/js/app.js` holds too much behaviour.
 
 ---
 
-## Code style & architecture
+## 2. How to work in this repo
 
-### HTML
+### 2.1 Always read the plans first
 
-- Stay within the existing semantic structure; do not introduce new frameworks or templating engines.
-- Only change markup when necessary to align with the new CSS/JS modules (e.g. adding/removing classes or data attributes).
-- Keep accessibility neutral or improved; do not remove ARIA attributes or landmark elements.
+If you are Codex running in this repo:
 
-### CSS
+1. Read **this** `AGENTS.md` file.
+2. Read `.agent/PLANS.md` to understand how ExecPlans work here.
+3. Read `Output_1.md` and `Output_2.md` for structure and intent. 
+4. For front‑end work, read:
 
-Planned final structure:
+   - `.agent/ExecPlan.SilverstoneFrontend.md` for historical context.
+   - `.agent/ExecPlan.FinalDecomposition.md` as the **active plan** for this phase.
 
-- `src/css/base/variables.css`
-- `src/css/base/typography.css`
-- `src/css/base/layout.css`
-- `src/css/components/*.css` (header, footer, hero, cards, buttons, stats, FAQ, cookie banner)
-- `src/css/features/*.css` (parallax, gallery, marquee, lightbox)
-- `src/css/pages/*.css` (home, services, about, book, contact, estate‑agents)
+Do **not** invent a separate plan or ignore these documents. If something seems inconsistent between them, favour:
 
-Guidelines:
+1. Behavioural correctness and non‑destructive changes.
+2. The architecture described in `Output_2.md`.
+3. The actual selectors and hooks in the current HTML/JS, as mapped in `Output_1.md`.
 
-- Prefer small, focused modules over new “kitchen sink” files.
-- Keep component rules in `components/`, feature behaviors in `features/`, and page‑specific tweaks in `pages/`.
-- Only delete selectors once you have:
+### 2.2 Branch and safety expectations
 
-  - Verified they are unused via search, **and**
-  - Confirmed they do not appear as JS hooks (string literals) or in the mapping in `Output_1.md`.
+- Treat each Codex Cloud task as if you are working on a dedicated feature branch.
+- Assume a human has created a branch for this phase (for example, `final-css-js-decomposition`).
+- Never:
+  - Delete unrelated files.
+  - Introduce breaking HTML changes.
+  - Re‑introduce previously removed unused CSS/JS files or selectors.
 
-### JavaScript
+When making changes:
 
-Planned final structure:
-
-- `src/js/header-nav.js`
-- `src/js/scroll-reveal.js`
-- `src/js/stats.js`
-- `src/js/parallax.js`
-- `src/js/hero-shader.js`
-- `src/js/magnetic-buttons.js`
-- `src/js/marquee.js`
-- `src/js/gallery.js`
-- `src/js/cookie-consent.js`
-- `src/js/contact-form.js`
-- `src/js/app.js` (entrypoint)
-
-Guidelines:
-
-- Use modern, vanilla JS. No new external frameworks unless explicitly requested.
-- Treat each module as a small initializer with a single exported function (e.g. `initHeaderNav()`).
-- Guard modules against missing DOM elements (check for existence before attaching listeners).
-- Respect user preferences such as `prefers-reduced-motion` when dealing with animations.
+- Prefer `apply_patch` or equivalent patch‑style edits instead of rewriting entire files.
+- Keep diffs focused on the scope of the current ExecPlan.
 
 ---
 
-## Refactor workflow with ExecPlans
+## 3. Phase‑2 CSS/JS decomposition guidance
 
-For the Silverstone refactor:
+This section is **only** for the final CSS/JS decomposition described in `.agent/ExecPlan.FinalDecomposition.md`.
 
-1. **Always use the ExecPlan**
+### 3.1 Scope for this phase
 
-   - The canonical plan is `.agent/ExecPlan.SilverstoneFrontend.md`.
-   - Do not improvise a separate large‑scale plan in chat; update the ExecPlan instead.
+Within this phase:
 
-2. **Respect the order from `Output_2.md`**
+- **DO**:
+  - Refactor CSS rules across `src/css/**` to match the ownership map in the phase‑2 ExecPlan.
+  - Move JS behaviours from `src/js/app.js` into their corresponding modules and expose `init*` functions.
+  - Keep `build-css.js` and `scripts/build-js.js` as the canonical build scripts.
+- **DO NOT**:
+  - Change HTML structure, ARIA attributes, or semantics unless a selector mismatch forces a minimal, obvious correction.
+  - Introduce new visual features or change animation timing beyond what’s needed to keep behaviour intact.
+  - Change the public assets paths (`assets/css/styles.css`, `assets/js/app.js`).
 
-   - Follow the step ordering in Section 6 of `Output_2.md`:
+### 3.2 CSS working style
 
-     - Environment & capability scan.
-     - Create new `src/css` and `src/js` structure.
-     - Migrate base CSS, components, features, and pages.
-     - Migrate JS into modules and bundle to `assets/js/app.js`.
-     - Update HTML to point at the new bundles.
-     - Remove legacy CSS/JS.
-     - Run validations and final checklist.
+When working on CSS:
 
-   - Use the ExecPlan to keep track of progress through those steps.
+1. **Use the ownership map**
 
-3. **Updates & communication**
+   - Treat the module mapping in `Output_2.md` and `.agent/ExecPlan.FinalDecomposition.md` as canonical. 
+   - When in doubt, search HTML and JS for how a class is used and choose the module that best matches the feature or page.
 
-   - At the start of a long cloud task:
+2. **Move, don’t reinvent**
 
-     - Briefly summarize your understanding of the plan and which step you are starting.
-   - During execution:
+   - Move existing rules from `layout.css` or other catch‑all files into the correct module.
+   - Do not rewrite selectors or properties unless necessary for deduplication or obvious bug fixes.
 
-     - After each major step (e.g. after finishing base CSS, after wiring JS modules), send a concise update listing:
+3. **Small, verifiable steps**
 
-       - What you just completed.
-       - What you will do next.
-       - Any risks or surprises.
+   - For each concern (header, footer, cards, stats, FAQ, cookie banner, etc.):
+     - Move the rules.
+     - Run `npm run build:css`.
+     - Optionally run a quick search to confirm the old file no longer defines those selectors.
 
-   - At the end:
+4. **Avoid regressions**
 
-     - Provide a final summary focusing on:
+   - Before deleting any rule, confirm it is unused via:
+     - HTML class/ID search.
+     - JS `querySelector`/`classList` search.
+   - If a selector is used anywhere, it must still be defined somewhere after the refactor (unless `Output_2.md` explicitly declares it unused).
 
-       - Files changed or created.
-       - Any deviations from `Output_2.md` and why (with references to the ExecPlan’s Decision Log).
-       - Validation commands run and their outcomes.
+### 3.3 JS working style
 
-   - Avoid long code dumps; refer to file paths and high‑level changes unless the user specifically asks for snippets.
+When working on JS:
 
----
+1. **Respect module boundaries**
 
-## Tool usage (Codex CLI / Cloud)
+   - `header-nav.js`, `scroll-reveal.js`, `stats.js`, and `parallax.js` should each contain a cohesive unit of behaviour with a single exported `init*` function.
+   - `app.js` should **only** orchestrate calls to these and other modules.
 
-Codex should use tools in a predictable way:
+2. **Keep global namespace disciplined**
 
-- **File edits**
+   - Use `window.Silverstone.init*` as the central namespace for initialisers.
+   - Avoid creating additional globals.
 
-  - Prefer the `apply_patch` editing tool when available, rather than rewriting entire files.
-  - Keep patches focused and minimal; avoid mixing unrelated changes.
+3. **Preserve behaviour first, then refactor**
 
-- **Shell / terminal**
+   - Copy logic from `app.js` into modules without changing control flow.
+   - After moving and wiring the initialiser, you may make small cleanups (variable naming, extracting helpers) as long as behaviour remains identical.
 
-  - Set the working directory to the repo root whenever possible.
-  - Use `rg`/`git grep` for search, `ls`/`find` to explore, and `npm`/`node` to run tooling.
-  - When a build or check fails, summarize key lines of output and adjust the plan; do not silently ignore failures.
+4. **Validate after each module**
 
-- **Batching**
+   - After migrating each major concern:
+     - Run `npm run build:js`.
+     - Fix syntax errors immediately.
+   - At the end, run `npm run build` once to verify the full pipeline.
 
-  - For large migrations, process related files together:
+### 3.4 Communication and output style
 
-    - E.g. move all base CSS modules in one slice; then all components; then pages.
-  - When running commands, batch them logically (e.g. build, then lint, then tests) rather than many tiny invocations.
+For this phase:
 
-- **Safety**
+- For **small changes** (one or two files, small diffs):
+  - Provide a short summary bullet list of what changed and why.
+- For **medium changes** (one subsystem – e.g. header CSS + JS):
+  - Provide:
+    - A concise summary.
+    - A per‑file bullet list of changes.
+    - Any commands you ran (builds, searches) and their outcomes.
+- For **large changes** (multiple subsystems or whole‑site updates):
+  - Provide:
+    - A high‑level summary in 3–5 bullets.
+    - A table or bullet list of files touched with brief descriptions.
+    - A note on validation: which `npm run` commands you executed and whether they succeeded.
 
-  - Never delete or rename files outside the patterns described in `Output_2.md` without explicit instruction in the ExecPlan.
-  - Do not revert user changes you did not make.
-  - If git indicates unrelated local changes, leave them untouched.
+Avoid:
 
----
-
-## Scope control
-
-To minimize hallucinations and scope creep:
-
-- Stay within the refactor described by `Output_2.md`.
-- Use `Output_1.md` to map visuals to selectors and files instead of guessing.
-- Do not:
-
-  - Introduce new frameworks (React, Vue, Tailwind, etc.).
-  - Add new marketing sections, forms, or flows.
-  - Make cross‑cutting copy changes unrelated to the refactor.
-
-If you need to make an assumption (e.g. choosing a simple concatenation script vs. a full bundler):
-
-- Choose the simplest approach that satisfies `Output_2.md`.
-- Record the assumption and decision in the ExecPlan’s Decision Log.
-- Keep the implementation small and easy to revise.
+- Dumping entire large files in the final message.
+- Describing internal chain‑of‑thought.
+- Proposing additional feature work unless explicitly asked.
 
 ---
 
-## Testing & validation expectations
+## 4. Tools and commands
 
-- During the refactor, run validation at the checkpoints described in `Output_2.md`:
+### 4.1 Preferred tools
 
-  - Build commands (`npm run build` or `npm run build:css`).
-  - Any lint/test scripts that exist.
-  - Repo‑wide searches to confirm old CSS/JS filenames are gone.
+When you need to inspect or modify files:
 
-- For front‑end behavior, focus on:
+- Use:
+  - `apply_patch` or an equivalent patch tool for edits.
+  - `rg` / `grep` / `git grep` for search.
+  - Node + build scripts:
+    - `npm run build:css`
+    - `npm run build:js`
+    - `npm run build` (for full pipeline checks where justified).
 
-  - Navigation, header, and footer on every page.
-  - Hero and parallax sections.
-  - Service cards and innovation gallery.
-  - Marquee behavior.
-  - Contact form behavior and cookie banner.
+### 4.2 When to run which commands
 
-Use `Output_1.md` and `Output_2.md` as checklists for what must still behave correctly after the refactor.
+- **At the start of a session** for this ExecPlan:
+  - `npm install` (if `node_modules` is missing).
+  - `npm run build:css` and `npm run build:js` to confirm the baseline.
+- **After each major CSS module migration**:
+  - `npm run build:css`.
+- **After each major JS module migration**:
+  - `npm run build:js`.
+- **Before final summary**:
+  - `npm run build` once to confirm the entire pipeline still works.
+
+If a command fails:
+
+- Include:
+  - The command you ran.
+  - Key lines of output.
+  - Your interpretation of the failure.
+- Then:
+  - Fix the issue within the scope of this ExecPlan, or
+  - Clearly note why it is out of scope for this phase.
+
+---
+
+## 5. How to use ExecPlans in this repo
+
+A brief reminder:
+
+- An ExecPlan (e.g. `.agent/ExecPlan.FinalDecomposition.md`) is the **single source of truth** for a multi‑step task.
+- When you are asked to do front‑end work:
+  - If it matches the phase‑2 CSS/JS decomposition, follow `.agent/ExecPlan.FinalDecomposition.md` linearly.
+  - Otherwise, consult `.agent/PLANS.md` and any other relevant ExecPlans, but do not mix multiple plans in one run.
+
+You must not:
+
+- Start ad‑hoc large‑scale refactors that conflict with any existing ExecPlan.
+- Mark steps as “done” in an ExecPlan without actually performing and validating them.
+
+---
+
+## 6. Summary for Codex
+
+If you read nothing else, remember:
+
+1. **Read the plans first**: `AGENTS.md` → `.agent/PLANS.md` → `Output_1.md` → `Output_2.md` → `.agent/ExecPlan.FinalDecomposition.md`.   
+2. **Finish the decomposition**:
+   - Empty `layout.css` of component/page styling and fill the component/page modules.
+   - Turn the JS stub modules into real modules and slim down `app.js`.
+3. **Work in small, validated steps**:
+   - Move code, run `npm run build:css` / `npm run build:js`, repeat.
+4. **Preserve behaviour**:
+   - Do not change what the site does; only how the CSS/JS is organised.
+5. **Summarise clearly**:
+   - At the end, explain what changed, where, and how you validated it.
