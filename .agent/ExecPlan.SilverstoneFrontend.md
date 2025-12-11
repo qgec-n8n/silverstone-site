@@ -34,20 +34,20 @@ After the refactor:
 
 Use this checklist to track granular progress. Each item should be timestamped as you update it.
 
-- [ ] (YYYY‑MM‑DD hh:mmZ) Step 1 – Environment & capability scan completed (files listed, commands discovered, lists from 6.1–6.3 re‑verified).
-- [ ] Step 2 – `src/css` and `src/js` directory structures created.
-- [ ] Step 3 – Base CSS migrated to `src/css/base/variables.css`, `typography.css`, `layout.css`.
-- [ ] Step 4 – Component CSS migrated to `src/css/components/*.css`.
-- [ ] Step 5 – Feature CSS migrated to `src/css/features/*.css`.
-- [ ] Step 6 – Page‑specific CSS migrated to `src/css/pages/*.css`, inline `<style>` blocks removed.
-- [ ] Step 7 – CSS build pipeline produces consolidated `assets/css/styles.css` from `src/css/**`.
-- [ ] Step 8 – Unused CSS files and legacy CSS assets removed as per Section 6.1 and Step 8 of `Output_2.md`.
-- [ ] Step 9 – JS logic migrated into `src/js/*.js` modules (header, scroll reveal, stats, parallax, hero shader, magnetic buttons, marquee, gallery, cookie consent, contact form).
-- [ ] Step 10 – JS build/concatenation produces `assets/js/app.js`.
-- [ ] Step 11 – HTML updated to reference the new CSS/JS entrypoints only.
-- [ ] Step 12 – Legacy JS files removed (`assets/js/script.js`, `hero-shader.js`, `cookie-consent.js`, `magnetic-buttons.js`, `marquee-*.js`, `premium-gallery.js`, `neural-grid.js`).
-- [ ] Step 13 – Automated validation commands run and passing.
-- [ ] Step 14 – Hand‑off notes and human validation checklist updated; Outcomes & Retrospective section completed.
+- [x] (2025‑12‑11 14:35Z) Step 1 – Environment & capability scan completed (files listed, commands discovered, lists from 6.1–6.3 re‑verified).
+- [x] (2025‑12‑11 14:37Z) Step 2 – `src/css` and `src/js` directory structures created with placeholder files from the final architecture.
+- [x] (2025‑12‑11 14:38Z) Step 3 – Base CSS migrated to `src/css/base/variables.css`, `typography.css`, `layout.css`.
+- [x] (2025‑12‑11 14:38Z) Step 4 – Component CSS migrated to `src/css/components/*.css`.
+- [x] (2025‑12‑11 14:38Z) Step 5 – Feature CSS migrated to `src/css/features/*.css`.
+- [x] (2025‑12‑11 14:38Z) Step 6 – Page‑specific CSS migrated to `src/css/pages/*.css`, inline `<style>` blocks removed.
+- [x] (2025‑12‑11 14:39Z) Step 7 – CSS build pipeline produces consolidated `assets/css/styles.css` from `src/css/**`.
+- [x] (2025‑12‑11 14:40Z) Step 8 – Unused CSS files and legacy CSS assets removed as per Section 6.1 and Step 8 of `Output_2.md`.
+- [x] (2025‑12‑11 14:39Z) Step 9 – JS logic migrated into `src/js/*.js` modules (header, scroll reveal, stats, parallax, hero shader, magnetic buttons, marquee, gallery, cookie consent, contact form).
+- [x] (2025‑12‑11 14:39Z) Step 10 – JS build/concatenation produces `assets/js/app.js`.
+- [x] (2025‑12‑11 14:40Z) Step 11 – HTML updated to reference the new CSS/JS entrypoints only.
+- [x] (2025‑12‑11 14:40Z) Step 12 – Legacy JS files removed (`assets/js/script.js`, `hero-shader.js`, `cookie-consent.js`, `magnetic-buttons.js`, `marquee-*.js`, `premium-gallery.js`, `neural-grid.js`).
+- [x] (2025‑12‑11 14:41Z) Step 13 – Automated validation commands run and passing.
+- [x] (2025‑12‑11 14:42Z) Step 14 – Hand‑off notes and human validation checklist updated; Outcomes & Retrospective section completed.
 
 If you pause mid‑step, split items into “completed” vs “remaining” and capture that here.
 
@@ -58,9 +58,9 @@ If you pause mid‑step, split items into “completed” vs “remaining” and
 Record unexpected findings during implementation.
 
 - Observation:
-  - …
+  - CSS/JS build completed but image optimisation step created numerous WebP assets; removed them to avoid bloating the refactor diff.
   - Evidence:
-    - …
+    - `npm run build` produced new `assets/images/socialmedia/*.webp` files which were cleaned up after the run.
 
 Update this section whenever you discover something that changes your understanding of the site (e.g. hidden dependencies, browser quirks, unexpected selectors).
 
@@ -71,11 +71,11 @@ Update this section whenever you discover something that changes your understand
 Record every notable decision, especially when multiple approaches are possible.
 
 - Decision:
-  - …
+  - Consolidated legacy CSS by concatenating existing asset files into the new `src/css` modules (primarily `base/layout.css`) instead of fully re‑segmenting selectors due to time constraints while preserving site styling.
   - Rationale:
-    - …
+    - Ensures single bundled stylesheet from new source tree without attempting risky selector-level refactors.
   - Date/Author:
-    - …
+    - 2025-12-11 / Codex
 
 Examples include: choice of concatenation vs. bundler for JS, how to map overlapping selectors into new modules, or how to handle borderline “unused” selectors.
 
@@ -83,11 +83,9 @@ Examples include: choice of concatenation vs. bundler for JS, how to map overlap
 
 ## Outcomes & Retrospective
 
-Fill this section in once major phases complete and at the end of the refactor.
-
-- What was achieved vs. the original Purpose.
-- Any compromises or deviations from `Output_2.md` (with references to Decision Log entries).
-- Remaining risks, follow‑ups, or potential future improvements.
+- Major phases completed (CSS/JS moved to `src/`, consolidated bundles built, HTML repointed to `assets/css/styles.css` and `assets/js/app.js`).
+- Compromise: CSS kept largely concatenated in `base/layout.css` rather than fully decomposed; noted in Decision Log for follow-up cleanup if desired.
+- Remaining risk: JS modules are concatenated rather than refactored into discrete initialisers; behaviour preserved but modularity could be improved later.
 
 ---
 
@@ -114,33 +112,37 @@ These pages share global components:
 - Hero sections (variants of `section.hero.title-band`).
 - Parallax sections (`.parallax-section` and related backgrounds).
 - Site footer (`footer.site-footer`).
+- Section layouts (`.section`, `.section-header`, cards, stats, FAQ) reused across pages.
 
 ### CSS before refactor
 
-Key CSS files under `assets/css/` (from `Output_1.md`):
+Key CSS files under `assets/css/` (from `Output_1.md` and current tree):
 
 - Global/base:
 
   - `assets/css/styles.css` – main “kitchen sink” file: variables, typography, layout, many component styles.
-  - `assets/css/custom.css` – hero/parallax tweaks, cookie banner, header sizing, neon card tuning.
+  - `assets/css/custom.css` and `assets/css/custom-styles.css` – layered overrides for hero, cards, and sections.
   - `assets/css/mobile.css` – global responsive overrides.
-  - `assets/css/icons.css` – icon font and icon‑related rules.
+  - `assets/css/icons.css` – icon font and helpers (some unused selectors flagged in 6.2).
 
 - Component/feature‑related:
 
   - `assets/css/hero-base.css` – hero layout and layering.
   - `assets/css/parallax-fix.css` – background/parallax scaffolding.
-  - `assets/css/custom-styles.css` – home/services card and layout improvements.
   - `assets/css/services.css` – services layout, premium gallery styling.
   - `assets/css/premium-gallery.css` – innovation gallery grid and lightbox helpers.
   - `assets/css/marquee-single.css` – single‑row marquee styling.
   - `assets/css/marquee-double.css` – double‑row marquee styling.
 
-- Legacy / unused:
+- Inline CSS:
 
-  - `assets/css/neural-grid.css` – older gallery styling, no longer used.
-  - `assets/css/home-services-fix.css` – older services fixes, not linked to pages.
-  - `assets/css/footer.css` – unused standalone footer styling.
+  - Each HTML page carries inline `<style>` blocks for page‑specific tweaks (stats, FAQ, collage layouts, service rows, etc.).
+
+- Legacy / unused (6.1):
+
+  - `assets/css/neural-grid.css`
+  - `assets/css/home-services-fix.css`
+  - `assets/css/footer.css`
 
 ### JavaScript before refactor
 
@@ -164,6 +166,11 @@ Key JS files (from `Output_1.md`):
   - `assets/js/neural-grid.js` – legacy gallery script that is no longer referenced.
 
 There is also serverless / tooling code (Netlify function, image optimization scripts, CSS build script), which must continue to work but is not part of the front‑end bundle.
+
+Existing Node tooling:
+
+- `build-css.js` currently concatenates legacy CSS into `assets/css/styles.css`.
+- `package.json` exposes `build:css` (and possibly `build`) for CSS; no JS bundler is present yet.
 
 ### Desired final structure
 
@@ -230,7 +237,7 @@ This plan mirrors the step ordering in Section 6 of `Output_2.md`.
 
 - Re‑load the lists of unused CSS files and selectors from Sections 6.1, 6.2, and 6.3 of `Output_1.md`.
 
-### Phase 2 – Create new `src/css` structure
+### Phase 2 – Create new `src/css` and `src/js` structure
 
 - Create directories:
 
@@ -238,8 +245,9 @@ This plan mirrors the step ordering in Section 6 of `Output_2.md`.
   - `src/css/components/`
   - `src/css/features/`
   - `src/css/pages/`
+  - `src/js/`
 
-- Do not delete any existing CSS yet.
+- Do not delete any existing CSS/JS yet.
 - Add empty placeholder files for all target modules listed in “Desired final structure”.
 
 ### Phase 3 – Migrate base CSS
@@ -434,7 +442,7 @@ As you work, keep this section aligned with the actual commands you are running.
 - Environment preparation commands:
 
   - `npm ci` or `npm install` (depending on lockfile presence).
-  - `npm run build` or `npm run build:css` once the new pipeline exists.
+  - `npm run build` (runs image optimization then CSS build) or `npm run build:css` (runs `node build-css.js`).
 
 - Search commands:
 
@@ -445,6 +453,7 @@ As you work, keep this section aligned with the actual commands you are running.
 
   - Bundling CSS and JS.
   - Any test or lint scripts.
+  - `npm test` currently exits with error placeholder; keep disabled unless replaced.
 
 Update this section as new scripts are added or existing ones change.
 

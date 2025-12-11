@@ -33,115 +33,13 @@
   <!-- Core site styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
-  <link rel="stylesheet" href="assets/css/parallax-fix.css">
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
-  <link rel="stylesheet" href="assets/css/mobile.css">
   <!-- Global footer styles -->
   <!-- Local icon font styles -->
-  <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- Neon fix to ensure correct stacking for animated overlays -->
-  <style id="neon-fix">
-    .section.bg-waves {
-      position: relative;
-      isolation: isolate;
-    }
-
-    .section.bg-waves::before {
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .section.bg-waves>.container {
-      position: relative;
-      z-index: 1;
-    }
-
-    .neon-card {
-      position: relative;
-      z-index: 2;
-    }
-
-    .service-row,
-    .service-image,
-    .service-content {
-      position: relative;
-      z-index: 2;
-    }
-  </style>
-  <link rel="stylesheet" href="assets/css/hero-base.css">
+  
   <!-- PREMIUM UPGRADE: New CSS Assets -->
-  <link rel="stylesheet" href="assets/css/marquee-single.css" />
-  <style>
-    .contact-social-callout {
-      margin-top: clamp(2.5rem, 6vw, 4rem);
-      padding: clamp(2rem, 6vw, 3.5rem);
-      text-align: center;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(102, 126, 234, 0.18));
-      border: 1px solid rgba(148, 163, 255, 0.35);
-      border-radius: 1.75rem;
-      backdrop-filter: blur(18px);
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
-      color: var(--color-white);
-    }
-
-    .contact-social-callout h3 {
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      margin-bottom: 1rem;
-      letter-spacing: 0.04em;
-    }
-
-    .contact-social-callout p {
-      color: var(--color-silver);
-      max-width: 42rem;
-      margin: 0 auto 1.75rem auto;
-      line-height: 1.7;
-    }
-
-    .contact-social-note {
-      margin-top: 1.5rem;
-      margin-bottom: 0;
-      font-size: 0.95rem;
-      opacity: 0.85;
-    }
-
-    .contact-social-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem 1.5rem;
-      margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
-    }
-
-    .contact-social-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 0.75rem 1.35rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.45);
-      border: 1px solid rgba(148, 163, 255, 0.25);
-      color: var(--color-white);
-      text-decoration: none;
-      font-weight: 500;
-      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-    }
-
-    .contact-social-link:hover,
-    .contact-social-link:focus-visible {
-      transform: translateY(-2px);
-      border-color: rgba(148, 163, 255, 0.6);
-      background: rgba(102, 126, 234, 0.35);
-    }
-
-    .contact-social-link i {
-      font-size: 1.2rem;
-      color: var(--color-silver);
-    }
-
-    .contact-social-handle {
-      letter-spacing: 0.03em;
-    }
-  </style>
+  
 </head>
 
 <body class="page-contact">
@@ -335,58 +233,8 @@
     <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
   </footer>
   <!-- Scripts -->
-  <script src="assets/js/script.js" defer></script>
-  <script defer src="assets/js/cookie-consent.js"></script>
-  <script>
-    (function () {
-      const form = document.getElementById('contact-form');
-      if (!form) return;
-      const status = document.getElementById('contact-status');
-      function setStatus(msg, ok) {
-        if (!status) return;
-        status.style.display = 'block';
-        status.style.color = ok ? 'var(--color-success, #6ee7b7)' : 'var(--color-warning, #fca5a5)';
-        status.textContent = msg;
-      }
-      function sanitize(str) {
-        return String(str || '').replace(/[<>]/g, '');
-      }
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const data = new FormData(form);
-        // Basic client-side validation
-        if ((data.get('company') || '').length > 0) { return; } // honeypot
-        const name = sanitize(data.get('name'));
-        const email = sanitize(data.get('email'));
-        const message = sanitize(data.get('message'));
-        if (!name || !email || !message) {
-          setStatus('Please complete all fields.', false);
-          return;
-        }
-        setStatus('Sending…', true);
-        try {
-          const res = await fetch('/.netlify/functions/send-email', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, message })
-          });
-          const body = await res.json().catch(() => ({}));
-          if (res.ok) {
-            setStatus('Thanks! Your message has been sent.', true);
-            form.reset();
-          } else {
-            setStatus(body.error || 'Sorry, something went wrong. Please try again later.', false);
-          }
-        } catch (err) {
-          setStatus('Network error. Please try again.', false);
-        }
-      });
-    })();
-  </script>
-  <script defer src="assets/js/hero-shader.js"></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
-  <script defer src="assets/js/marquee-single.js"></script>
-  <script defer src="assets/js/magnetic-buttons.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 
 </html>

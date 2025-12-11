@@ -1,3 +1,278 @@
+/*
+ * Custom icon font integration for bullet and check mark styling.
+ *
+ * This stylesheet defines the Font Awesome font faces locally and
+ * provides a utility class `.icon-list` to replace default bullets with
+ * check icons throughout the site. To apply, add `class="icon-list"`
+ * to any unordered list (`<ul>`) whose list items should display
+ * Font Awesome check marks instead of default bullets.
+ */
+
+@font-face {
+  font-family: "fa-solid";
+  font-style: normal;
+  font-weight: 900;
+  src:
+    url("../webfonts/fa-solid-900.woff2") format("woff2"),
+    url("../webfonts/fa-solid-900.ttf") format("truetype");
+}
+
+/* Load brand icons from the local webfonts */
+@font-face {
+  font-family: "fa-brands";
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("../webfonts/fa-brands-400.woff2") format("woff2"),
+    url("../webfonts/fa-brands-400.ttf") format("truetype");
+}
+
+/* Base icon styles to emulate Font Awesome behaviour.  Each icon class sets the
+ * appropriate font family via the `.fa-solid` or `.fa-brands` class.  The
+ * generic `.fa` class assigns basic sizing and alignment. */
+.fa {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  /* Use a reasonable default size; individual icons can be scaled via CSS */
+  font-size: 1em;
+}
+
+/* Solid icons use the `fa-solid` font */
+.fa-solid {
+  font-family: "fa-solid";
+  font-weight: 900;
+}
+
+/* Brand icons use the `fa-brands` font */
+.fa-brands {
+  font-family: "fa-brands";
+  font-weight: 400;
+}
+
+/* Define specific glyphs for each icon used on the site.  These rules map the
+ * Font Awesome class names to their corresponding unicode codepoints within
+ * the loaded font files.  Only the icons actually used on the site are
+ * included here.  Adding new icons requires updating this list. */
+/* Solid icons */
+.fa-solid.fa-diagram-project::before {
+  content: "\f542";
+}
+.fa-solid.fa-robot::before {
+  content: "\f544";
+}
+.fa-solid.fa-chart-line::before {
+  content: "\f201";
+}
+.fa-solid.fa-gears::before {
+  content: "\f085";
+}
+.fa-solid.fa-chart-bar::before {
+  content: "\f080";
+}
+.fa-solid.fa-calendar-check::before {
+  content: "\f274";
+}
+.fa-solid.fa-tags::before {
+  content: "\f02c";
+}
+.fa-solid.fa-file-lines::before {
+  content: "\f15c";
+}
+.fa-solid.fa-lock::before {
+  content: "\f023";
+}
+.fa-solid.fa-network-wired::before {
+  content: "\f6ff";
+}
+.fa-solid.fa-plug::before {
+  content: "\f1e6";
+}
+.fa-solid.fa-code::before {
+  content: "\f121";
+}
+.fa-solid.fa-lightbulb::before {
+  content: "\f0eb";
+}
+.fa-solid.fa-shield-halved::before {
+  content: "\f3ed";
+}
+.fa-solid.fa-file-invoice-dollar::before {
+  content: "\f571";
+}
+.fa-solid.fa-calculator::before {
+  content: "\f1ec";
+}
+.fa-solid.fa-chart-pie::before {
+  content: "\f200";
+}
+.fa-solid.fa-bell::before {
+  content: "\f0f3";
+}
+.fa-solid.fa-clock::before {
+  content: "\f017";
+}
+.fa-solid.fa-users::before {
+  content: "\f0c0";
+}
+.fa-solid.fa-cloud::before {
+  content: "\f0c2";
+}
+.fa-solid.fa-arrows-rotate::before {
+  content: "\f021";
+}
+.fa-solid.fa-layer-group::before {
+  content: "\f5fd";
+}
+.fa-solid.fa-comments::before {
+  content: "\f0e6";
+}
+/* `info-circle` and `check-circle` are mapped to their corresponding circle variants */
+.fa-solid.fa-info-circle::before {
+  content: "\f05a";
+}
+.fa-solid.fa-check-circle::before {
+  content: "\f058";
+}
+/* Location and envelope icons for contact information */
+.fa-solid.fa-location-dot::before {
+  content: "\f3c5";
+}
+.fa-solid.fa-envelope::before {
+  content: "\f0e0";
+}
+
+/* Brand icons */
+/*
+ * Map brand icon names to their unicode codepoints from the local
+ * Font Awesome brands font. Note that TikTok uses a private-area
+ * codepoint (e07b) without the hexadecimal prefix used in our
+ * original version, which prevented the glyph from rendering. By
+ * dropping the leading `x` the correct glyph is now displayed.
+ */
+.fa-brands.fa-instagram::before {
+  content: "\f16d";
+}
+.fa-brands.fa-tiktok::before {
+  content: "\e07b";
+}
+.fa-brands.fa-facebook::before {
+  content: "\f230";
+}
+.fa-brands.fa-linkedin::before {
+  content: "\f08c";
+}
+
+/* Additional solid icons for home and values sections */
+/* These mappings enable the icons on the Home page features (bolt,
+ * gauge-high, rocket) and the About page values (ear-listen,
+ * flask) to render correctly from the local font. */
+.fa-solid.fa-bolt::before {
+  content: "\f0e7";
+}
+.fa-solid.fa-gauge-high::before {
+  content: "\f625";
+}
+.fa-solid.fa-rocket::before {
+  content: "\f135";
+}
+.fa-solid.fa-ear-listen::before {
+  content: "\f2a2";
+}
+.fa-solid.fa-flask::before {
+  content: "\f0c3";
+}
+
+/* Icon list styling */
+.icon-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.icon-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.icon-list li::before {
+  /* Unicode for Font Awesome check icon */
+  content: "\f00c";
+  font-family: "fa-solid";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  /* Use the brand green to tie into the site’s colour palette */
+  color: var(--color-green);
+}
+
+/*
+ * Reset list styling within service sections and discovery call info. Lists will use
+ * manually inserted <i> icons for each item rather than automatically applied
+ * pseudo‑elements. These rules remove default bullets and ensure consistent
+ * spacing between icons and text. Colours are set to blend with the neon theme.
+ */
+.service-content ul,
+.discovery-call-content .info ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.service-content ul li,
+.discovery-call-content .info ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-silver);
+}
+
+.service-content ul li i,
+.discovery-call-content .info ul li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+/*
+ * Disable the default checkmark pseudo‑element defined in the base styles. Without this
+ * override, Font Awesome checkmarks will continue to appear before each list item via
+ * ::before content, obscuring the custom icons inserted into the markup. Using
+ * `content: none !important` ensures that our <i> icons are the sole visual
+ * indicator for each list entry.
+ */
+.service-content ul li::before,
+.discovery-call-content .info ul li::before {
+  content: none !important;
+}
+
+/*
+ * Override bullet styling defined in mobile-specific styles. The mobile CSS
+ * applies a gradient dot before each list item in the Services section via
+ * the `.page-services .service-row .service-content ul li::before` selector.
+ * Without overriding, these dots will still appear on mobile layouts and
+ * obscure the custom icons inserted into the markup. Use an explicit
+ * selector and !important to ensure the pseudo-element is removed.
+ */
+.page-services .service-row .service-content ul li::before {
+  content: none !important;
+}
+
+/*
+ * Ensure a clear separation between list content and call-to-action buttons
+ * in the Services section. Without additional margin, buttons can appear
+ * cramped immediately below the list of features. Adding a top margin
+ * creates breathing room and visually distinguishes the call-to-action.
+ */
+.service-content ul + .btn {
+  margin-top: 1rem;
+  display: inline-block;
+}
 /* Mobile overrides for Silverstone site */
 /*
   This stylesheet contains mobile‑specific refinements to improve the

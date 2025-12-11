@@ -1,0 +1,90 @@
+/* Inline styles migrated from contact.html */
+.section.bg-waves {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-waves::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-waves > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-social-callout {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding: clamp(2rem, 6vw, 3.5rem);
+  text-align: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(102, 126, 234, 0.18));
+  border: 1px solid rgba(148, 163, 255, 0.35);
+  border-radius: 1.75rem;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+  color: var(--color-white);
+}
+
+.contact-social-callout h3 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  margin-bottom: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.contact-social-callout p {
+  color: var(--color-silver);
+  max-width: 42rem;
+  margin: 0 auto 1.75rem auto;
+  line-height: 1.7;
+}
+
+.contact-social-note {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.contact-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.contact-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(148, 163, 255, 0.25);
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.contact-social-link:hover,
+.contact-social-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 255, 0.6);
+  background: rgba(102, 126, 234, 0.35);
+}
+
+.contact-social-link i {
+  font-size: 1.2rem;
+  color: var(--color-silver);
+}
+
+.contact-social-handle {
+  letter-spacing: 0.03em;
+}

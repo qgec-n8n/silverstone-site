@@ -1,0 +1,225 @@
+/* Inline styles migrated from index.html */
+/* Neon layering fixes */
+.section.bg-circuit {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-circuit::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-circuit > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Page-specific overrides */
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+  gap: 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.packages-grid .neon-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.packages-grid .service-icon-img {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.75rem;
+  object-fit: contain;
+  display: block;
+}
+
+.packages-grid .check-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.packages-grid .neon-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-green);
+  text-align: left;
+}
+
+.packages-grid .tagline {
+  font-size: 0.95rem;
+  color: var(--color-silver);
+  margin-bottom: 0.75rem;
+  font-style: italic;
+  text-align: left;
+}
+
+.packages-grid .neon-card p {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  color: var(--color-silver);
+  margin-bottom: 0.35rem;
+  text-align: left;
+}
+
+.packages-grid .neon-card p.tagline {
+  margin-bottom: 0.75rem;
+}
+
+.packages-grid .neon-card p i {
+  font-size: 1.15rem;
+  color: var(--color-green);
+  margin-top: 0.15rem;
+}
+
+.packages-grid .neon-card a.btn {
+  margin-top: 1rem;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pricing-grid .neon-card {
+  padding: 2rem;
+}
+
+.pricing-grid .neon-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-blue);
+}
+
+.pricing-grid .price-label {
+  font-size: 0.8rem;
+  color: var(--color-silver);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.pricing-grid .price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-green);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.pricing-grid .best-for {
+  font-size: 0.8rem;
+  color: var(--color-silver);
+  margin-top: 0.25rem;
+}
+
+.pricing-grid .neon-card p {
+  font-size: 0.9rem;
+  color: var(--color-silver);
+  margin-bottom: 0.5rem;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.stats .stat {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stats .number {
+  font-size: 2.5rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
+
+.hero .hero-bullets {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.hero .hero-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--color-silver);
+  line-height: 1.6;
+}
+
+.hero .hero-bullets li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.hero .hero-bullets li span {
+  display: inline-block;
+}
+
+/* Privacy policy neon fix */
+.section.bg-circuit {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-circuit::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-circuit > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}

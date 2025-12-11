@@ -31,35 +31,11 @@
     <!-- Core site styles -->
     <link rel="stylesheet" href="assets/css/styles.css" />
     <!-- Neon fix ensures overlays are layered correctly -->
-    <style id="neon-fix">
-      .section.bg-circuit {
-        position: relative;
-        isolation: isolate;
-      }
-      .section.bg-circuit::before {
-        z-index: 0;
-        pointer-events: none;
-      }
-      .section.bg-circuit > .container {
-        position: relative;
-        z-index: 1;
-      }
-      .neon-card,
-      .service-row,
-      .service-image,
-      .service-content {
-        position: relative;
-        z-index: 2;
-      }
-    </style>
+    
     <!-- Custom styles (includes some layout tweaks for this page) -->
-    <link rel="stylesheet" href="assets/css/custom.css" />
     <!-- Mobile overrides: ensure last to override other styles on small screens -->
-    <link rel="stylesheet" href="assets/css/mobile.css" />
     <!-- Global footer styles -->
 <!-- Local icon font styles -->
-    <link rel="stylesheet" href="assets/css/icons.css" />
-    <link rel="stylesheet" href="assets/css/hero-base.css">
 </head>
   <body>
     <!-- Cookie banner -->
@@ -272,8 +248,6 @@
       <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
     </footer>
     <!-- Scripts -->
-    <script defer src="assets/js/script.js"></script>
-    <script defer src="assets/js/cookie-consent.js"></script>
-    <script defer src="assets/js/hero-shader.js"></script>
-  </body>
+    <script src="assets/js/app.js"></script>
+</body>
 </html>
