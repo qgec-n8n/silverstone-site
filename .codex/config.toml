@@ -10,9 +10,9 @@
 # - Use a coding‑optimised model.
 # - Allow writes within the workspace.
 # - Give Codex consistent access to project docs (AGENTS, PLANS, ExecPlans, Output_1/2).
-# - Encourage deeper reasoning for non‑trivial refactors.
+# - Encourage deeper reasoning for non‑trivial refactors and bugfixes.
 
-model = "gpt-5-codex"
+model = "gpt-5.1-codex-max"
 
 # Allow Codex to read/write within the workspace (but not outside).
 sandbox_mode = "workspace-write"
@@ -27,6 +27,7 @@ project_docs = [
   ".agent/PLANS.md",
   ".agent/ExecPlan.SilverstoneFrontend.md",
   ".agent/ExecPlan.FinalDecomposition.md",
+  ".agent/ExecPlan.SilverstoneBugfixes.md",
   "Output_1.md",
   "Output_2.md"
 ]
@@ -39,7 +40,7 @@ project_doc_max_bytes = 65536
 hide_agent_reasoning = true
 
 [tools]
-# Web search is not required for this static‑site refactor when running the
-# Codex CLI locally. Keep it off by default; Codex Cloud can still use web
-# access according to its own environment settings.
+# Web search is not required for this static‑site debugging when running the
+# Codex CLI locally. Codex Cloud can still use web access according to its own
+# environment settings.
 web_search = false
