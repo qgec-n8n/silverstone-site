@@ -1,3 +1,1067 @@
+
+
+/*
+ * Custom icon font integration for bullet and check mark styling.
+ *
+ * This stylesheet defines the Font Awesome font faces locally and
+ * provides a utility class `.icon-list` to replace default bullets with
+ * check icons throughout the site. To apply, add `class="icon-list"`
+ * to any unordered list (`<ul>`) whose list items should display
+ * Font Awesome check marks instead of default bullets.
+ */
+
+@font-face {
+  font-family: "fa-solid";
+  font-style: normal;
+  font-weight: 900;
+  src:
+    url("../webfonts/fa-solid-900.woff2") format("woff2"),
+    url("../webfonts/fa-solid-900.ttf") format("truetype");
+}
+
+/* Load brand icons from the local webfonts */
+@font-face {
+  font-family: "fa-brands";
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("../webfonts/fa-brands-400.woff2") format("woff2"),
+    url("../webfonts/fa-brands-400.ttf") format("truetype");
+}
+
+/* Base icon styles to emulate Font Awesome behaviour.  Each icon class sets the
+ * appropriate font family via the `.fa-solid` or `.fa-brands` class.  The
+ * generic `.fa` class assigns basic sizing and alignment. */
+.fa {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  /* Use a reasonable default size; individual icons can be scaled via CSS */
+  font-size: 1em;
+}
+
+/* Solid icons use the `fa-solid` font */
+.fa-solid {
+  font-family: "fa-solid";
+  font-weight: 900;
+}
+
+/* Brand icons use the `fa-brands` font */
+.fa-brands {
+  font-family: "fa-brands";
+  font-weight: 400;
+}
+
+/* Define specific glyphs for each icon used on the site.  These rules map the
+ * Font Awesome class names to their corresponding unicode codepoints within
+ * the loaded font files.  Only the icons actually used on the site are
+ * included here.  Adding new icons requires updating this list. */
+/* Solid icons */
+.fa-solid.fa-diagram-project::before {
+  content: "\f542";
+}
+.fa-solid.fa-robot::before {
+  content: "\f544";
+}
+.fa-solid.fa-chart-line::before {
+  content: "\f201";
+}
+.fa-solid.fa-gears::before {
+  content: "\f085";
+}
+.fa-solid.fa-chart-bar::before {
+  content: "\f080";
+}
+.fa-solid.fa-calendar-check::before {
+  content: "\f274";
+}
+.fa-solid.fa-tags::before {
+  content: "\f02c";
+}
+.fa-solid.fa-file-lines::before {
+  content: "\f15c";
+}
+.fa-solid.fa-lock::before {
+  content: "\f023";
+}
+.fa-solid.fa-network-wired::before {
+  content: "\f6ff";
+}
+.fa-solid.fa-plug::before {
+  content: "\f1e6";
+}
+.fa-solid.fa-code::before {
+  content: "\f121";
+}
+.fa-solid.fa-lightbulb::before {
+  content: "\f0eb";
+}
+.fa-solid.fa-shield-halved::before {
+  content: "\f3ed";
+}
+.fa-solid.fa-file-invoice-dollar::before {
+  content: "\f571";
+}
+.fa-solid.fa-calculator::before {
+  content: "\f1ec";
+}
+.fa-solid.fa-chart-pie::before {
+  content: "\f200";
+}
+.fa-solid.fa-bell::before {
+  content: "\f0f3";
+}
+.fa-solid.fa-clock::before {
+  content: "\f017";
+}
+.fa-solid.fa-users::before {
+  content: "\f0c0";
+}
+.fa-solid.fa-cloud::before {
+  content: "\f0c2";
+}
+.fa-solid.fa-arrows-rotate::before {
+  content: "\f021";
+}
+.fa-solid.fa-layer-group::before {
+  content: "\f5fd";
+}
+.fa-solid.fa-comments::before {
+  content: "\f0e6";
+}
+/* `info-circle` and `check-circle` are mapped to their corresponding circle variants */
+.fa-solid.fa-info-circle::before {
+  content: "\f05a";
+}
+.fa-solid.fa-check-circle::before {
+  content: "\f058";
+}
+/* Location and envelope icons for contact information */
+.fa-solid.fa-location-dot::before {
+  content: "\f3c5";
+}
+.fa-solid.fa-envelope::before {
+  content: "\f0e0";
+}
+
+/* Brand icons */
+/*
+ * Map brand icon names to their unicode codepoints from the local
+ * Font Awesome brands font. Note that TikTok uses a private-area
+ * codepoint (e07b) without the hexadecimal prefix used in our
+ * original version, which prevented the glyph from rendering. By
+ * dropping the leading `x` the correct glyph is now displayed.
+ */
+.fa-brands.fa-instagram::before {
+  content: "\f16d";
+}
+.fa-brands.fa-tiktok::before {
+  content: "\e07b";
+}
+.fa-brands.fa-facebook::before {
+  content: "\f230";
+}
+.fa-brands.fa-linkedin::before {
+  content: "\f08c";
+}
+
+/* Additional solid icons for home and values sections */
+/* These mappings enable the icons on the Home page features (bolt,
+ * gauge-high, rocket) and the About page values (ear-listen,
+ * flask) to render correctly from the local font. */
+.fa-solid.fa-bolt::before {
+  content: "\f0e7";
+}
+.fa-solid.fa-gauge-high::before {
+  content: "\f625";
+}
+.fa-solid.fa-rocket::before {
+  content: "\f135";
+}
+.fa-solid.fa-ear-listen::before {
+  content: "\f2a2";
+}
+.fa-solid.fa-flask::before {
+  content: "\f0c3";
+}
+
+/* Icon list styling */
+.icon-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.icon-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.icon-list li::before {
+  /* Unicode for Font Awesome check icon */
+  content: "\f00c";
+  font-family: "fa-solid";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  /* Use the brand green to tie into the site’s colour palette */
+  color: var(--color-green);
+}
+
+/*
+ * Reset list styling within service sections and discovery call info. Lists will use
+ * manually inserted <i> icons for each item rather than automatically applied
+ * pseudo‑elements. These rules remove default bullets and ensure consistent
+ * spacing between icons and text. Colours are set to blend with the neon theme.
+ */
+.service-content ul,
+.discovery-call-content .info ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.service-content ul li,
+.discovery-call-content .info ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-silver);
+}
+
+.service-content ul li i,
+.discovery-call-content .info ul li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+/*
+ * Disable the default checkmark pseudo‑element defined in the base styles. Without this
+ * override, Font Awesome checkmarks will continue to appear before each list item via
+ * ::before content, obscuring the custom icons inserted into the markup. Using
+ * `content: none !important` ensures that our <i> icons are the sole visual
+ * indicator for each list entry.
+ */
+.service-content ul li::before,
+.discovery-call-content .info ul li::before {
+  content: none !important;
+}
+
+/*
+ * Override bullet styling defined in mobile-specific styles. The mobile CSS
+ * applies a gradient dot before each list item in the Services section via
+ * the `.page-services .service-row .service-content ul li::before` selector.
+ * Without overriding, these dots will still appear on mobile layouts and
+ * obscure the custom icons inserted into the markup. Use an explicit
+ * selector and !important to ensure the pseudo-element is removed.
+ */
+.page-services .service-row .service-content ul li::before {
+  content: none !important;
+}
+
+/*
+ * Ensure a clear separation between list content and call-to-action buttons
+ * in the Services section. Without additional margin, buttons can appear
+ * cramped immediately below the list of features. Adding a top margin
+ * creates breathing room and visually distinguishes the call-to-action.
+ */
+.service-content ul + .btn {
+  margin-top: 1rem;
+  display: inline-block;
+}
+/* Mobile overrides for Silverstone site */
+/*
+  This stylesheet contains mobile‑specific refinements to improve the
+  layout and usability of the Silverstone website on small screens.
+  Desktop styles remain untouched; everything here is wrapped in a
+  media query targeting devices 768px wide or narrower. These
+  overrides stack grids, adjust typography and spacing, and provide
+  full‑width menus and buttons to create a premium mobile experience.
+*/
+
+@media (max-width: 768px) {
+  /* Reduce default section padding to avoid excessive vertical space on small screens */
+  .section {
+    padding: 2.5rem 1rem;
+  }
+
+  /*
+   * Mobile `.animate` elements
+   *
+   * The reveal animation for `.animate` elements is now handled by
+   * JavaScript.  On small screens the script adds the `.visible` class
+   * immediately to ensure content is displayed without overriding the
+   * opacity or transform properties in CSS.  Leaving this block empty
+   * preserves the section of the file for future mobile‑specific
+   * adjustments if required.
+   */
+
+  /* Navigation menu: expand to full width and improve tap targets */
+  nav ul {
+    width: 100%;
+    max-width: none;
+    right: 0;
+    left: 0;
+    top: 100%;
+    text-align: left;
+    gap: 1rem;
+  }
+  nav ul li {
+    width: 100%;
+  }
+  nav ul li a {
+    display: block;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    color: var(--color-black);
+  }
+
+  /* Features section: stack cards vertically */
+  .features {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .feature-card {
+    max-width: 100%;
+  }
+
+  /* Packages grid (Our Services on the home page) */
+  .packages-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Pricing grid on home and services pages */
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Values cards: convert to a single column */
+  .values {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .value-card {
+    max-width: 100%;
+  }
+
+  /* Hero typography adjustments for better readability */
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+
+  /* Buttons in hero: stack vertically and span full width */
+  /* Add top margin to the first button to push them lower so they do not cover the shader */
+  .hero .content a.btn:first-of-type {
+    margin-top: 3rem;
+  }
+
+  .hero .content a + a {
+    margin-left: 0;
+    margin-top: 0.75rem;
+  }
+  .hero .content a {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Contact page grid: stack form and map */
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .contact-grid > * {
+    width: 100%;
+  }
+  .contact-form-card,
+  .contact-map-card {
+    margin-bottom: 0;
+  }
+
+  /* Service page rows: adjust spacing and typography */
+  .service-row {
+    margin-bottom: 0;
+  }
+  .service-row:not(:last-child) {
+    margin-bottom: 2.5rem;
+  }
+  .service-content {
+    padding: 1.5rem;
+  }
+  .service-content h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Pricing cards: adjust padding */
+  .pricing-grid .neon-card {
+    padding: 1.5rem;
+  }
+
+  /* Centre footer content on mobile */
+  footer {
+    text-align: center;
+  }
+
+  /*
+   * Mobile hero fallback
+   *
+   * Ensure the hero retains a consistent dark backdrop on mobile devices
+   * without loading any external background images. The shader canvas sits
+   * above this base colour when WebGL is available.
+   */
+  .hero {
+    background: #050912;
+  }
+
+  /*
+   * FAQ section mobile layout
+   *
+   * The default home page FAQ uses a single-column grid sized to the
+   * widest question.  On narrow screens this can cause the cards to
+   * overflow the viewport.  We switch the container to a vertical flex
+   * layout so each item spans the full width of the page.  Each
+   * `<details>` element is allowed to grow to 100% width, preventing
+   * horizontal scrolling.  The existing neon-card styles still apply.
+   */
+  .faq-section .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+    width: 100%;
+  }
+  .faq-section .faq-list details {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* -----------------------------------------------------------------
+   * Mobile parallax support
+   *
+   * On desktop we rely on `background-attachment: fixed` to pin the
+   * background of our themed sections (bg‑lines, bg‑circuit, bg‑city,
+   * bg‑mesh and bg‑waves).  Mobile browsers do not reliably support
+   * fixed backgrounds.  Instead of injecting a global fixed element,
+   * the JavaScript now adjusts each section’s `background-position`
+   * on scroll to create a subtle depth effect.  The native
+   * background images remain in place and there is no need to
+   * override or hide them here.  See `script.js` for the runtime
+   * implementation.
+   */
+
+  /*
+   * Feature and value cards padding
+   *
+   * Reduce the internal padding on the Streamline/Optimize/Succeed cards
+   * (home page) and Our Values cards (about page) so the coloured
+   * neon border closely hugs the content.  This adjustment tightens
+   * the boxes on mobile without affecting the desktop layout.
+   */
+  /*
+   * Override neon-card padding on feature and value cards.
+   * Use a more specific selector and `!important` to supersede
+   * the base `.neon-card` padding defined in the global styles.
+   */
+  /*
+   * Tighten padding and margins on feature and value cards
+   *
+   * The Streamline/Optimize/Succeed cards on the home page and the
+   * Our Values cards on the about page should have their neon borders
+   * hug the content closely on mobile.  Reduce the internal padding
+   * and collapse paragraph and heading margins.  Use `!important` to
+   * override earlier declarations.
+   */
+  .features .feature-card.neon-card,
+  .values .value-card.neon-card {
+    padding: 0.5rem !important;
+  }
+  .features .feature-card.neon-card p,
+  .values .value-card.neon-card p {
+    margin-bottom: 0.25rem !important;
+  }
+  .features .feature-card.neon-card h3,
+  .values .value-card.neon-card h4 {
+    margin-bottom: 0.4rem !important;
+  }
+  /*
+   * Remove forced equal heights and stretching on mobile
+   *
+   * Reset the flex properties on feature and value cards so they
+   * grow naturally based on their content.  Without this, the cards
+   * stretch to fill the available width in their flex container,
+   * causing the neon borders to overshoot the text.  Setting
+   * `flex: none` and switching to block layout prevents this
+   * stretching while still allowing full‑width stacking when needed.
+   */
+  .features .feature-card,
+  .values .value-card {
+    display: block !important;
+    height: auto !important;
+    flex: none !important;
+  }
+
+  /* Remove extra margin on service images and contents to collapse gaps */
+  .page-services .service-row .service-image,
+  .page-services .service-row .service-content {
+    margin: 0 !important;
+  }
+
+  /*
+   * Services mobile cards
+   *
+   * Transform each service block into a single cohesive card with a
+   * premium glow, tightened spacing and a consistent image ratio. The
+   * previous layout stacked a neon content card beneath a standalone
+   * image which introduced large vertical gaps. By treating the entire
+   * service row as one component we reduce the dead space while keeping
+   * the imagery and copy visually connected.
+   */
+  .page-services .service-row {
+    position: relative;
+    display: flex !important;
+    flex-direction: column;
+    gap: 1.15rem;
+    padding: 1.25rem;
+    border-radius: 1.75rem;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(148deg, rgba(12, 19, 38, 0.96), rgba(6, 11, 25, 0.96))
+        padding-box,
+      linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.6),
+          rgba(14, 165, 233, 0.3),
+          rgba(236, 72, 153, 0.4)
+        )
+        border-box;
+    background-clip: padding-box, border-box;
+    box-shadow:
+      0 28px 60px -20px rgba(15, 23, 42, 0.85),
+      0 0 0 1px rgba(148, 163, 184, 0.12) inset;
+    isolation: isolate;
+    overflow: hidden;
+    backdrop-filter: blur(18px) saturate(135%);
+  }
+  .page-services .service-row::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      120% 120% at 50% -10%,
+      rgba(96, 165, 250, 0.22),
+      rgba(14, 165, 233, 0.08) 45%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+  .page-services .service-row .service-image,
+  .page-services .service-row .service-content {
+    position: relative;
+    z-index: 1;
+  }
+  .page-services .service-row .service-image {
+    position: relative;
+    order: -1;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    box-shadow: 0 22px 44px -18px rgba(15, 23, 42, 0.75);
+  }
+  .page-services .service-row .service-image::before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-top: 60%;
+  }
+  @supports (aspect-ratio: 16 / 10) {
+    .page-services .service-row .service-image::before {
+      display: none;
+    }
+    .page-services .service-row .service-image {
+      aspect-ratio: 16 / 10;
+    }
+  }
+  .page-services .service-row .service-image img {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block;
+    filter: saturate(1.05) contrast(1.05);
+  }
+  .page-services .service-row .service-content.neon-card {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+  .page-services .service-row .service-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 0;
+    color: rgba(241, 245, 249, 0.95);
+  }
+  .page-services .service-row .service-content h3 {
+    color: #f8fafc;
+    letter-spacing: 0.03em;
+    font-size: 1.45rem;
+    margin: 0.25rem 0 0.35rem;
+  }
+  .page-services .service-row .service-content p,
+  .page-services .service-row .service-content li {
+    color: rgba(226, 232, 240, 0.92);
+  }
+  .page-services .service-row .service-content p {
+    margin: 0;
+    line-height: 1.65;
+  }
+  .page-services .service-row .service-content ul {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .page-services .service-row .service-content ul li {
+    position: relative;
+    padding-left: 1.45rem;
+    line-height: 1.55;
+  }
+  .page-services .service-row .service-content ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    transform: translateY(-50%);
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #38bdf8, #a855f7);
+    box-shadow:
+      0 0 0 2px rgba(15, 23, 42, 0.35),
+      0 0 12px rgba(168, 85, 247, 0.55);
+  }
+  .page-services .service-row .service-content .btn {
+    width: 100%;
+    background: linear-gradient(135deg, #1e3a8a, #7c3aed, #ec4899);
+    border: none;
+    color: #f8fafc;
+    box-shadow:
+      0 18px 30px -15px rgba(59, 130, 246, 0.65),
+      0 0 0 1px rgba(148, 163, 184, 0.15) inset;
+    transition:
+      background 0.25s ease,
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
+  }
+  .page-services .service-row .service-content .btn:hover,
+  .page-services .service-row .service-content .btn:focus {
+    background: linear-gradient(135deg, #2563eb, #8b5cf6, #f472b6);
+    box-shadow:
+      0 22px 36px -16px rgba(59, 130, 246, 0.75),
+      0 0 0 1px rgba(148, 163, 184, 0.2) inset;
+    transform: translateY(-1px);
+  }
+
+  /* Increase map size and ensure spacing before footer */
+  .contact-map-card {
+    margin-bottom: 2.5rem;
+  }
+
+  /*
+   * Contact page map
+   *
+   * Ensure the Google Maps iframe is contained within its card on mobile.
+   * Give the wrapper a taller minimum height so the neon border fully
+   * encloses the embedded map, while keeping the iframe stretched to
+   * fill the available space without overflowing.
+   */
+  .contact-map-card .map-container {
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: auto;
+    min-height: 420px;
+  }
+  .contact-map-card .map-container iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    border: 0;
+    display: block;
+  }
+
+  /*
+   * Additional improvements for mobile navigation and layout
+   *
+   * The desktop navigation is positioned absolutely and hidden via opacity in the
+   * base CSS. On mobile we want it to be hidden entirely until the user
+   * taps the hamburger button. Here we explicitly hide the nav menu by
+   * default and reveal it only when the `.open` class is present. This
+   * prevents accidental taps and removes horizontal scroll caused by
+   * overflowing menus. We also ensure there is no horizontal overflow on
+   * the entire page.
+   */
+  body {
+    overflow-x: hidden;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+  nav ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-white);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  nav ul.open {
+    display: block;
+  }
+  nav ul li {
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  nav ul li:last-child {
+    border-bottom: none;
+  }
+  nav ul li a {
+    padding: 0.75rem 1rem;
+    color: var(--color-black);
+    display: block;
+  }
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: var(--color-purple);
+  }
+
+  /* Resize hero section height on mobile: allow content to define height */
+  .hero {
+    min-height: auto;
+    height: auto;
+    padding-top: calc(var(--headerH) + 2rem);
+    padding-bottom: 4rem;
+  }
+  .hero .content {
+    margin-top: 0;
+  }
+
+  /* Services gallery on mobile: single column for better readability */
+  .page-services .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Discovery call section (book page): reduce excessive height and stack content */
+  .page-book .discovery-call-section {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+  .page-book .discovery-call-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .page-book .discovery-call-content .info,
+  .page-book .discovery-call-content .widget {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .page-book .discovery-call-content .widget .calendly-inline-widget {
+    min-height: 500px;
+  }
+
+  /* Mobile DPR-aware background images for themed sections (top-aligned) */
+  .section.bg-lines {
+    /* Fallback for very old engines */
+    background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
+    /* Older Safari */
+    background-image: -webkit-image-set(
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+    );
+    /* Standard */
+    background-image: image-set(
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+    );
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .section.bg-circuit {
+    background-image: url("../images/internet/mobile/section-waves@1x.webp");
+    background-image: -webkit-image-set(
+      url("../images/internet/mobile/section-waves@1x.webp") 1x,
+      url("../images/internet/mobile/section-waves@2x.webp") 2x
+    );
+    background-image: image-set(
+      url("../images/internet/mobile/section-waves@1x.webp") 1x,
+      url("../images/internet/mobile/section-waves@2x.webp") 2x
+    );
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .section.bg-mesh {
+    background-image: url("../images/internet/mobile/section-mesh@1x.webp");
+    background-image: -webkit-image-set(
+      url("../images/internet/mobile/section-mesh@1x.webp") 1x,
+      url("../images/internet/mobile/section-mesh@2x.webp") 2x
+    );
+    background-image: image-set(
+      url("../images/internet/mobile/section-mesh@1x.webp") 1x,
+      url("../images/internet/mobile/section-mesh@2x.webp") 2x
+    );
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .section.bg-waves {
+    background-image: url("../images/internet/mobile/section-waves@1x.webp");
+    background-image: -webkit-image-set(
+      url("../images/internet/mobile/section-waves@1x.webp") 1x,
+      url("../images/internet/mobile/section-waves@2x.webp") 2x
+    );
+    background-image: image-set(
+      url("../images/internet/mobile/section-waves@1x.webp") 1x,
+      url("../images/internet/mobile/section-waves@2x.webp") 2x
+    );
+    background-position: center top;
+    background-size: cover;
+  }
+
+  /* Book discovery section: keep gradient overlay + DPR-aware image */
+  .page-book .discovery-call-section {
+    /* Fallback */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
+    /* Older Safari */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      -webkit-image-set(
+          url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp")
+            1x,
+          url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp")
+            2x
+        );
+    /* Standard */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      image-set(
+        url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp")
+          1x,
+        url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp")
+          2x
+      );
+    background-size: cover;
+    background-position: center top;
+  }
+
+  /* Mobile sticky background layer removed: backgrounds are now handled as static images via CSS */
+
+  /*
+ * Parallax enhancements for Silverstone
+ *
+ * To achieve a premium scroll‑through experience similar to the DC Performance
+ * Coaching site, we layer a fixed background image behind the entire page
+ * on desktop and simulate this behaviour on mobile using a pseudo‑element.
+ * These rules are placed after all other overrides to ensure they take
+ * precedence over earlier declarations and do not disturb existing layouts.
+ */
+
+  /*
+ * Section parallax (desktop)
+ *
+ * On larger screens, fix the background images of our themed sections so
+ * that the content scrolls smoothly over a static scene.  We merge the
+ * dark overlay with each background using multiple backgrounds, and
+ * disable the existing ::before overlay pseudo‑element to prevent
+ * duplicate shading.  This only applies when motion isn’t reduced and
+ * the viewport is wide enough to support parallax.
+ */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+    /* Generic rules for all themed sections */
+    .section.bg-lines,
+    .section.bg-circuit,
+    .section.bg-city,
+    .section.bg-mesh,
+    .section.bg-waves,
+    .page-book .discovery-call-section {
+      background-attachment: fixed !important;
+      background-size: cover !important;
+      background-position: center !important;
+    }
+
+    /* Specific backgrounds with integrated overlay */
+    .section.bg-lines {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp") !important;
+    }
+    .section.bg-circuit {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("../images/internet/section-waves.webp") !important;
+    }
+    .section.bg-city {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("../images/internet/section-city.webp") !important;
+    }
+    .section.bg-mesh {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("../images/internet/section-mesh.webp") !important;
+    }
+    .section.bg-waves {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("../images/internet/section-waves.webp") !important;
+    }
+
+    /* Hide the default overlay pseudo‑elements on these sections */
+    .section.bg-lines::before,
+    .section.bg-circuit::before,
+    .section.bg-city::before,
+    .section.bg-mesh::before,
+    .section.bg-waves::before {
+      display: none !important;
+    }
+  }
+  /* === Mobile nav overlay spacing + divider removal (≤640px only) — override injected runtime styles === */
+  @media (max-width: 768px) {
+    /* Take control of the overlay list layout and keep items near the top */
+    .site-header nav ul {
+      justify-content: flex-start !important; /* override injected space-evenly */
+      align-content: flex-start !important;
+      gap: 0 !important; /* we'll control spacing per-item to avoid grid-like holes */
+    }
+
+    /* Ensure list items don't stretch to fill equal vertical space */
+    .site-header nav ul > li {
+      flex-grow: 0 !important;
+      margin: 0 !important;
+      border: 0 !important; /* remove any li borders/dividers */
+    }
+
+    /* Add vertical spacing between pills without changing pill size or alignment */
+    .site-header nav ul > li:not(.nav-back-item) + li:not(.nav-back-item) {
+      margin-top: clamp(
+        2.25rem,
+        9vh,
+        5rem
+      ) !important; /* approx 70–85% total fill with 5 items */
+    }
+
+    /* Remove any borders applied directly to the anchor "pill" */
+    .site-header nav ul > li a {
+      border: 0 !important;
+      border-bottom: 0 !important;
+    }
+  }
+  /* === End override === */
+  /* === Mobile nav overlay spacing fine‑tuning (≤640px only) === */
+  @media (max-width: 768px) {
+    .site-header nav ul {
+      justify-content: flex-start !important;
+      align-content: flex-start !important;
+      gap: 0 !important;
+    }
+
+    .site-header nav ul > li {
+      flex-grow: 0 !important;
+      margin: 0 !important;
+      border: 0 !important;
+    }
+
+    /* Add controlled spacing between pills (reduced by ~33%) */
+    .site-header nav ul > li:not(.nav-back-item) + li:not(.nav-back-item) {
+      margin-top: clamp(1.5rem, 6vh, 3.25rem) !important;
+    }
+
+    /* Add a bit of space below the back-to-page button before the first nav link */
+    .site-header nav ul > li.nav-back-item {
+      margin-bottom: clamp(1.25rem, 4vh, 2.5rem) !important;
+    }
+
+    .site-header nav ul > li a {
+      border: 0 !important;
+      border-bottom: 0 !important;
+    }
+  }
+  /* === End fine‑tuning === */
+
+  /* === Mobile nav overlay — unify Back-to-Page pill sizing and set uniform spacing (≤640px) === */
+  @media (max-width: 768px) {
+    /* Keep items stacked from the top, spacing handled per-item */
+    .site-header nav ul {
+      justify-content: flex-start !important;
+      align-content: flex-start !important;
+      gap: 0 !important;
+    }
+
+    /* Prevent vertical stretching and remove any dividers */
+    .site-header nav ul > li {
+      flex-grow: 0 !important;
+      margin: 0 !important;
+      border: 0 !important;
+    }
+
+    /* Make the Back-to-Page list item occupy the same width and alignment as others */
+    .site-header nav ul > li.nav-back-item {
+      width: 100% !important;
+      flex: 0 0 auto !important;
+      align-self: stretch !important;
+      justify-content: center !important;
+      align-items: center !important;
+      margin: 0 !important; /* no custom spacing here; use the uniform adjacent rule below */
+    }
+    /* Ensure the Back-to-Page anchor renders like other pills */
+    .site-header nav ul > li.nav-back-item > a {
+      display: block !important;
+      width: 100% !important;
+      border: 0 !important;
+      border-bottom: 0 !important;
+    }
+
+    /* Uniform spacing between every adjacent pill (including Back->Home).
+     20% smaller than the previous values: clamp(1.5rem, 6vh, 3.25rem) → clamp(1.2rem, 4.8vh, 2.6rem) */
+    .site-header nav ul > li + li {
+      margin-top: clamp(1.2rem, 4.8vh, 2.6rem) !important;
+    }
+
+    /* Remove any borders applied directly to anchors (keeps pills clean) */
+    .site-header nav ul > li a {
+      border: 0 !important;
+      border-bottom: 0 !important;
+    }
+  }
+  /* === End mobile nav overlay uniform spacing === */
+
+  /* Mobile parallax backgrounds are configured in assets/css/parallax-fix.css */
+}
+
+
 :root {
   --color-blue: #00aeef;
   --color-purple: #9d4edd;
@@ -2502,7 +3566,7 @@ iframe[src*="google.com/maps"] {
   background-size: cover;
   background-position: center;
 }
-@media (min-width: 901px) {
+@media (min-width: 769px) {
   .page-book .discovery-call-section {
     background-image:
       radial-gradient(
@@ -2806,4 +3870,2016 @@ body.services-overlay-active .services-overlay {
   .services-overlay {
     display: none !important;
   }
+}
+
+
+
+
+
+
+/* Base hero styling without cinematic scroll triggers */
+:root {
+  --fxVignetteMax: 0.7;
+}
+
+.hero.title-band {
+  position: relative;
+  isolation: isolate;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, rgba(20, 40, 80, 0.5), rgba(5, 12, 24, 0.9));
+}
+
+.hero-fallback-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#hero-shader-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hero-shader-canvas {
+    display: none;
+  }
+}
+
+.hero.title-band .content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero.title-band .content h1,
+.hero.title-band .content h2 {
+  text-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+.hero.title-band .content p {
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.95), 0 0 20px rgba(0, 0, 0, 0.7);
+  color: #fff;
+  opacity: 1;
+  font-weight: 500;
+}
+
+
+/*
+ * Custom styles to improve alignment and consistency of the
+ * "Our Services" cards on the home page.  These rules
+ * override some default styles in styles.css to ensure that
+ * bullet icons and text stack neatly across rows and columns.
+ */
+
+/* Ensure each bullet uses flex layout so the icon and text
+   align horizontally and start at the same vertical point. */
+.packages-grid .bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  /* Give each bullet a minimum height so icons across cards line up
+     even when some bullet texts wrap onto multiple lines. Adjust this
+     value if you change the font size or the content length. */
+  min-height: 2.5rem;
+  line-height: 1.3;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Fix the width of the icon column to align icons vertically and
+   horizontally. The margin-top nudges the icon down slightly so
+   that it centers better with the first line of text. */
+.packages-grid .bullet i {
+  flex: 0 0 1.2rem;
+  text-align: center;
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Remove bottom margin on the last bullet in each card to avoid
+   extra space before the call-to-action button. */
+.packages-grid .card p.bullet:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Ensure the call-to-action button stays anchored at the bottom of
+   each card. Flex-grow pushes the button down when needed. */
+.packages-grid .card .btn {
+  margin-top: auto;
+}
+
+/* Provide additional spacing before call-to-action buttons on specific cards */
+/*
+ * The AI Consulting and Marketing cards need a little extra
+ * breathing room between the last bullet and the CTA button.  By
+ * increasing the bottom margin here, both buttons will still line
+ * up horizontally across the row, but there will be more white
+ * space below the list on these cards.
+ */
+.card-ai-consulting .bullet:last-of-type,
+.card-marketing .bullet:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+/* Offset the bullet list downwards on the Systems & Data Integration card so it lines up
+   with the Workflow & Data Automation card's list.  Increasing the
+   top margin on the first bullet nudges the entire list downward. */
+.card-systems .bullet:first-of-type {
+  margin-top: 1rem;
+}
+
+
+/* Shared layout for proof / outcomes cards used on the home and services pages */
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.neon-card.proof-card {
+  padding: 1.75rem 1.5rem;
+}
+
+.proof-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+}
+
+.proof-card .tagline {
+  margin-bottom: 0.75rem;
+  color: var(--color-silver);
+  font-size: 0.95rem;
+}
+
+.proof-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+}
+
+.proof-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.proof-list li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.proof-disclaimer {
+  margin-top: 1.25rem;
+  max-width: 52rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+  .hero.title-band {
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+  }
+}
+
+.hero {
+  position: relative;
+  transform-origin: center top;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  contain: layout style paint;
+}
+
+.hero .content {
+  position: relative;
+  z-index: 1;
+  backface-visibility: hidden;
+}
+
+body,
+html {
+  scroll-behavior: auto !important;
+}
+
+.hero::before {
+  background: none !important;
+}
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.cookie-banner p {
+  margin: 0;
+  flex: 1 1 auto;
+  margin-right: 0.5rem;
+}
+
+.cookie-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.cookie-banner a {
+  color: var(--color-primary, #0ea5e9);
+  text-decoration: underline;
+}
+
+.cookie-banner button {
+  flex: 0 0 auto;
+  margin-top: 0.5rem;
+}
+
+.site-header {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.site-logo {
+  height: auto;
+  max-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .site-logo {
+    max-width: 150px;
+  }
+}
+
+.service-image img,
+.service-row .service-image img,
+.section .service-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.neon-card ul,
+.section .neon-card ul {
+  padding-left: 1.5rem;
+  margin-left: 0;
+}
+
+.neon-card li,
+.section .neon-card li {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .neon-card p,
+  .neon-card li {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+
+.page-contact .service-row:nth-of-type(1) {
+  min-height: 100vh;
+}
+
+@media (min-width: 769px) {
+  .service-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+    align-items: stretch !important;
+  }
+
+  .service-row:nth-of-type(even) .service-image {
+    order: 2 !important;
+  }
+
+  .service-row:nth-of-type(even) .service-content {
+    order: 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+  }
+
+  .service-image,
+  .service-content {
+    width: 100% !important;
+  }
+
+  .service-row .service-image,
+  .service-row .service-content {
+    flex-basis: auto !important;
+  }
+
+  .service-row .service-image.neon-card {
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .service-row .service-content.neon-card {
+    padding: 1rem !important;
+  }
+
+  .service-image img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  .service-row .service-content.neon-card,
+  .service-row .service-image.neon-card {
+    height: auto !important;
+  }
+
+  .service-row .service-image.neon-card img {
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  .service-row .neon-card {
+    padding: 1rem !important;
+  }
+
+  .service-row .service-image.neon-card {
+    background: transparent !important;
+  }
+
+  .service-row .service-image.neon-card::before,
+  .service-row .service-image.neon-card::after {
+    display: none !important;
+  }
+
+  .service-row .service-image {
+    padding-top: 0 !important;
+    position: relative !important;
+  }
+
+  .service-row .service-image img {
+    position: static !important;
+  }
+
+  :root {
+    --service-scale: 1 !important;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+html,
+body {
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  overscroll-behavior: none;
+}
+
+@supports (-webkit-touch-callout: none) {
+  html,
+  body {
+    overscroll-behavior-y: auto !important;
+    overscroll-behavior: auto !important;
+  }
+}
+
+.gallery-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 1rem !important;
+}
+
+.service-row,
+.service-row .service-image,
+.service-row .service-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+
+
+
+
+
+
+/*
+ * Parallax background system for Silverstone
+ * -----------------------------------------
+ * Applies a responsive parallax treatment to the themed body sections that
+ * sit between the cinematic hero and the CTA banner on every page.  Desktop
+ * viewports receive a traditional fixed background while mobile devices use
+ * a lightweight JavaScript-assisted layer that simulates the same visual
+ * effect without relying on background-attachment: fixed (which performs
+ * poorly on many mobile browsers).
+ */
+
+:root {
+  --parallax-overlay: none;
+  --parallax-backdrop: #050B18;
+}
+
+.parallax-section {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--parallax-backdrop);
+  isolation: isolate;
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+  .parallax-section.animate,
+  .parallax-section.animate.visible {
+    transform: none !important;
+  }
+}
+
+.parallax-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.parallax-section .parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 320ms ease;
+  z-index: 0;
+}
+
+.parallax-section.parallax-ready .parallax-layer {
+  opacity: 1;
+}
+
+/* Theme-specific assets -------------------------------------------------- */
+.parallax-section[data-parallax-theme="lines"] {
+  background-image: var(--parallax-overlay), url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="circuit"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-waves.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-waves@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="mesh"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-mesh.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-mesh@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+    url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+    url('../images/internet/mobile/section-mesh@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-mesh@1x.webp') 1x,
+    url('../images/internet/mobile/section-mesh@2x.webp') 2x,
+    url('../images/internet/mobile/section-mesh@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="waves"] {
+  background-image: var(--parallax-overlay), url('../images/internet/section-waves.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/section-waves@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/section-waves@1x.webp') 1x,
+    url('../images/internet/mobile/section-waves@2x.webp') 2x,
+    url('../images/internet/mobile/section-waves@3x.webp') 3x
+  );
+}
+
+.parallax-section[data-parallax-theme="book"] {
+  background-image: var(--parallax-overlay), url('../images/internet/hero/book-hero-calendly-mobile-2025.webp');
+  --parallax-mobile-fallback: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
+  --parallax-mobile-image-set: image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
+    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
+  );
+}
+
+/* High-resolution desktop support */
+@supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
+  .parallax-section[data-parallax-theme="lines"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="circuit"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="mesh"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-mesh.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="waves"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="book"] {
+    background-image: var(--parallax-overlay), image-set(
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
+    );
+  }
+}
+
+/* WebKit image-set fallbacks */
+@supports (background-image: -webkit-image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
+  .parallax-section[data-parallax-theme="lines"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="circuit"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="mesh"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-mesh.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="waves"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/section-waves.webp') 1x
+    );
+  }
+  .parallax-section[data-parallax-theme="book"] {
+    background-image: var(--parallax-overlay), -webkit-image-set(
+      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
+    );
+  }
+}
+
+/* Desktop parallax ------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
+  .parallax-section {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+  .parallax-section .parallax-layer {
+    display: none;
+  }
+}
+
+/* Mobile parallax -------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
+  .parallax-section {
+    background-image: none !important;
+    background-color: transparent;
+    isolation: auto;
+  }
+  .parallax-section.parallax-mobile-active {
+    position: relative;
+    z-index: 1;
+  }
+  .parallax-section.parallax-mobile-active > * {
+    position: relative;
+    z-index: 2;
+  }
+  .parallax-section .parallax-layer {
+    display: none !important;
+  }
+  .parallax-mobile-stage {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background-color: var(--parallax-backdrop);
+  }
+  .parallax-mobile-layer {
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 320ms ease;
+  }
+  .parallax-mobile-layer.is-active {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion: keep static imagery */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-section .parallax-layer {
+    display: none !important;
+  }
+  .parallax-mobile-stage {
+    display: none !important;
+  }
+}
+
+
+/* =========================================
+   PREMIUM GALLERY: PRECISION-GAP MOSAIC
+   ========================================= */
+
+/* Container Reset & Column Setup */
+#neural-grid {
+    display: block !important;
+    /* Override Grid */
+    column-count: 3;
+    column-gap: 0; /* NO GAPS */
+    padding: 0 !important;
+    margin: 4rem 0 0 0; /* Minimized bottom margin */
+    width: 100%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    /* Ensure nice edges */
+    overflow: hidden;
+}
+
+/* Mosaic Tile Base */
+.premium-tile {
+    position: relative;
+    width: 100%;
+    /* Aspect Ratio handled by padding-bottom */
+    overflow: hidden;
+    cursor: pointer;
+    perspective: 1000px;
+    border-radius: 0;
+    background: #000;
+    margin-bottom: 0; /* NO GAPS */
+    padding: 0;
+    /* Vertical Gap removed */
+    break-inside: avoid;
+    /* Prevent column split */
+    -webkit-column-break-inside: avoid;
+    display: block; /* Ensure block level */
+}
+
+/* Aspect Ratio Modifiers */
+.premium-tile.square {
+    padding-bottom: 100%;
+    /* 1:1 */
+}
+
+.premium-tile.landscape {
+    padding-bottom: 66.666%;
+    /* 3:2 */
+}
+
+.premium-tile.portrait {
+    padding-bottom: 150%;
+    /* 2:3 */
+}
+
+/* Inner Flipper Container */
+.tile-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.premium-tile:hover .tile-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front & Back Faces */
+.tile-front,
+.tile-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+}
+
+/* Front Image */
+.tile-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Fill the tile without distortion */
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+/* Back Face (Metadata/Glow) */
+.tile-back {
+    background: rgba(10, 10, 15, 0.95);
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.tile-back h4 {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    text-align: center;
+    padding: 0 10px;
+}
+
+.tile-back p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* MOVED LIGHTBOX CSS TO PREMIUM-MARQUEE.CSS */
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #neural-grid {
+        column-count: 1;
+        /* Force 1 column */
+        column-gap: 0;
+        padding: 0 16px !important;
+    }
+
+    .premium-tile {
+        margin-bottom: 0;
+    }
+}
+
+
+/* =========================================
+   SINGLE MARQUEE (Global pages)
+   ========================================= */
+
+.single-marquee {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0 28px;
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.single-marquee .marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 32px;
+  will-change: transform;
+  animation: marquee-scroll-left 60s linear infinite;
+}
+
+@keyframes marquee-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.single-marquee .marquee-track:hover { animation-play-state: paused; }
+
+.single-marquee .marquee-img {
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.95;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.single-marquee .marquee-img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .single-marquee {
+    gap: 8px;
+    padding: 12px 0 18px;
+  }
+
+  .single-marquee .marquee-img {
+    height: 90px;
+  }
+}
+
+/* =========================================
+   LIGHTBOX (shared with Premium Gallery)
+   ========================================= */
+
+.premium-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 20, 30, 0.85);
+  backdrop-filter: blur(15px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.premium-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  transform: scale(0.9);
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  background: rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.premium-lightbox.active .lightbox-content {
+  transform: scale(1);
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+  transition: transform 0.3s ease;
+}
+
+.lightbox-close::before,
+.lightbox-close::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.lightbox-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.lightbox-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.lightbox-close:hover { transform: scale(1.2) rotate(90deg); }
+
+@media (max-width: 768px) {
+  .lightbox-close {
+    top: -50px;
+    right: 0;
+  }
+}
+/* =========================================
+   DOUBLE MARQUEE (Services only)
+   ========================================= */
+
+.double-marquee {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 4px 0 24px;
+  margin: clamp(0.5rem, 1vw, 1rem) 0 0;
+  background: transparent;
+}
+
+.double-marquee .marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 40px;
+  will-change: transform;
+}
+
+@keyframes marquee-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.double-marquee .scroll-left { animation: marquee-scroll-left 60s linear infinite; }
+.double-marquee .scroll-right { animation: marquee-scroll-right 60s linear infinite; }
+.double-marquee .marquee-track.fast { animation-duration: 45s; }
+.double-marquee .marquee-track.slow { animation-duration: 75s; }
+.double-marquee .marquee-track:hover { animation-play-state: paused; }
+
+.double-marquee .marquee-img {
+  height: 180px;
+  width: auto;
+  object-fit: contain;
+  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.double-marquee .marquee-img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .double-marquee {
+    gap: 10px;
+    padding: 12px 0 18px;
+  }
+
+  .double-marquee .marquee-img {
+    height: 120px;
+  }
+}
+
+/* =========================================
+   LIGHTBOX (shared with Premium Gallery)
+   ========================================= */
+
+.premium-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 20, 30, 0.85);
+  backdrop-filter: blur(15px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.premium-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  transform: scale(0.9);
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  background: rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.premium-lightbox.active .lightbox-content {
+  transform: scale(1);
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+  transition: transform 0.3s ease;
+}
+
+.lightbox-close::before,
+.lightbox-close::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.lightbox-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.lightbox-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.lightbox-close:hover { transform: scale(1.2) rotate(90deg); }
+
+@media (max-width: 768px) {
+  .lightbox-close {
+    top: -50px;
+    right: 0;
+  }
+}
+
+
+/* =========================================
+   PREMIUM GALLERY: PRECISION-GAP MOSAIC
+   ========================================= */
+
+/* Container Reset & Column Setup */
+#neural-grid {
+    display: block !important;
+    /* Override Grid */
+    column-count: 3;
+    column-gap: 0; /* NO GAPS */
+    padding: 0 !important;
+    margin: 4rem 0 0 0; /* Minimized bottom margin */
+    width: 100%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    /* Ensure nice edges */
+    overflow: hidden;
+}
+
+/* Mosaic Tile Base */
+.premium-tile {
+    position: relative;
+    width: 100%;
+    /* Aspect Ratio handled by padding-bottom */
+    overflow: hidden;
+    cursor: pointer;
+    perspective: 1000px;
+    border-radius: 0;
+    background: #000;
+    margin-bottom: 0; /* NO GAPS */
+    padding: 0;
+    /* Vertical Gap removed */
+    break-inside: avoid;
+    /* Prevent column split */
+    -webkit-column-break-inside: avoid;
+    display: block; /* Ensure block level */
+}
+
+/* Aspect Ratio Modifiers */
+.premium-tile.square {
+    padding-bottom: 100%;
+    /* 1:1 */
+}
+
+.premium-tile.landscape {
+    padding-bottom: 66.666%;
+    /* 3:2 */
+}
+
+.premium-tile.portrait {
+    padding-bottom: 150%;
+    /* 2:3 */
+}
+
+/* Inner Flipper Container */
+.tile-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.premium-tile:hover .tile-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front & Back Faces */
+.tile-front,
+.tile-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+}
+
+/* Front Image */
+.tile-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Fill the tile without distortion */
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+/* Back Face (Metadata/Glow) */
+.tile-back {
+    background: rgba(10, 10, 15, 0.95);
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.tile-back h4 {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    text-align: center;
+    padding: 0 10px;
+}
+
+.tile-back p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* MOVED LIGHTBOX CSS TO PREMIUM-MARQUEE.CSS */
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #neural-grid {
+        column-count: 1;
+        /* Force 1 column */
+        column-gap: 0;
+        padding: 0 16px !important;
+    }
+
+    .premium-tile {
+        margin-bottom: 0;
+    }
+}
+
+
+/* Inline styles migrated from index.html */
+/* Neon layering fixes */
+.section.bg-circuit {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-circuit::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-circuit > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Page-specific overrides */
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+  gap: 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.packages-grid .neon-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.packages-grid .service-icon-img {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.75rem;
+  object-fit: contain;
+  display: block;
+}
+
+.packages-grid .check-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.packages-grid .neon-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-green);
+  text-align: left;
+}
+
+.packages-grid .tagline {
+  font-size: 0.95rem;
+  color: var(--color-silver);
+  margin-bottom: 0.75rem;
+  font-style: italic;
+  text-align: left;
+}
+
+.packages-grid .neon-card p {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  color: var(--color-silver);
+  margin-bottom: 0.35rem;
+  text-align: left;
+}
+
+.packages-grid .neon-card p.tagline {
+  margin-bottom: 0.75rem;
+}
+
+.packages-grid .neon-card p i {
+  font-size: 1.15rem;
+  color: var(--color-green);
+  margin-top: 0.15rem;
+}
+
+.packages-grid .neon-card a.btn {
+  margin-top: 1rem;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pricing-grid .neon-card {
+  padding: 2rem;
+}
+
+.pricing-grid .neon-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-blue);
+}
+
+.pricing-grid .price-label {
+  font-size: 0.8rem;
+  color: var(--color-silver);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.pricing-grid .price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-green);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.pricing-grid .best-for {
+  font-size: 0.8rem;
+  color: var(--color-silver);
+  margin-top: 0.25rem;
+}
+
+.pricing-grid .neon-card p {
+  font-size: 0.9rem;
+  color: var(--color-silver);
+  margin-bottom: 0.5rem;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.stats .stat {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stats .number {
+  font-size: 2.5rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
+
+.hero .hero-bullets {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.hero .hero-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--color-silver);
+  line-height: 1.6;
+}
+
+.hero .hero-bullets li i {
+  color: var(--color-green);
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.hero .hero-bullets li span {
+  display: inline-block;
+}
+
+/* Privacy policy neon fix */
+.section.bg-circuit {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-circuit::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-circuit > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* services.css = services-fixes-v21.css + services-overrides.css (order preserved) */
+.page-services .service-row .service-image {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.page-services #analytics .service-image img,
+.page-services #analytics .service-image .service-img {
+  object-fit: contain !important;
+  width: auto !important;
+  max-width: 100% !important;
+}
+.gallery-img {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+.gallery-img.neon1 {
+  border-color: rgba(0, 234, 255, 0.45);
+  box-shadow:
+    0 0 8px rgba(0, 234, 255, 0.6),
+    0 0 28px rgba(0, 234, 255, 0.5),
+    0 0 60px rgba(0, 234, 255, 0.35);
+}
+.gallery-img.neon2 {
+  border-color: rgba(255, 0, 230, 0.45);
+  box-shadow:
+    0 0 8px rgba(255, 0, 230, 0.6),
+    0 0 28px rgba(255, 0, 230, 0.5),
+    0 0 60px rgba(255, 0, 230, 0.35);
+}
+.gallery-img.neon3 {
+  border-color: rgba(57, 255, 20, 0.45);
+  box-shadow:
+    0 0 8px rgba(57, 255, 20, 0.6),
+    0 0 28px rgba(57, 255, 20, 0.5),
+    0 0 60px rgba(57, 255, 20, 0.35);
+}
+.gallery-img.neon4 {
+  border-color: rgba(255, 230, 0, 0.45);
+  box-shadow:
+    0 0 8px rgba(255, 230, 0, 0.6),
+    0 0 28px rgba(255, 230, 0, 0.5),
+    0 0 60px rgba(255, 230, 0, 0.35);
+}
+.gallery-img.neon5 {
+  border-color: rgba(255, 106, 0, 0.45);
+  box-shadow:
+    0 0 8px rgba(255, 106, 0, 0.6),
+    0 0 28px rgba(255, 106, 0, 0.5),
+    0 0 60px rgba(255, 106, 0, 0.35);
+}
+.gallery-img.neon6 {
+  border-color: rgba(0, 255, 213, 0.45);
+  box-shadow:
+    0 0 8px rgba(0, 255, 213, 0.6),
+    0 0 28px rgba(0, 255, 213, 0.5),
+    0 0 60px rgba(0, 255, 213, 0.35);
+}
+.gallery-img.neon7 {
+  border-color: rgba(255, 0, 93, 0.45);
+  box-shadow:
+    0 0 8px rgba(255, 0, 93, 0.6),
+    0 0 28px rgba(255, 0, 93, 0.5),
+    0 0 60px rgba(255, 0, 93, 0.35);
+}
+.gallery-img.neon8 {
+  border-color: rgba(157, 0, 255, 0.45);
+  box-shadow:
+    0 0 8px rgba(157, 0, 255, 0.6),
+    0 0 28px rgba(157, 0, 255, 0.5),
+    0 0 60px rgba(157, 0, 255, 0.35);
+}
+#innovation-gallery {
+  margin-bottom: 1rem !important;
+}
+.section.brand-gradient.animate {
+  padding-top: 2rem !important;
+}
+.contact-row {
+  display: flex;
+  align-items: stretch;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.contact-form,
+.contact-map {
+  flex: 1;
+}
+@media (max-width: 768px) {
+  .contact-row {
+    flex-direction: column;
+  }
+}
+
+/*
+ * Overrides for the Services page
+ *
+ * When the Data & Analytics illustration (previously Silverstone_07.jpg)
+ * was much taller than the other service images, the site used custom
+ * CSS rules and JavaScript to centre and resize that image. The new
+ * illustration (Silverstone_07_resized.jpg) has the same aspect ratio
+ * as the other service graphics, so those overrides are no longer
+ * necessary. To ensure all service images—including Data & Analytics—
+ * share the same dimensions, border radius and behaviour, we undo
+ * those earlier overrides here. This stylesheet should be included
+ * after `services-fixes-v21.css` so that it takes precedence.
+ */
+
+/* Reset any flexbox centring on service images introduced by the v21
+    fixes. Restoring `display:block` allows the base styles (which use
+    percentage padding for aspect ratio) to work correctly. */
+.page-services .service-row .service-image {
+  display: block !important;
+  align-items: initial !important;
+  justify-content: initial !important;
+}
+
+/* Ensure the Data & Analytics illustration fills its container just
+    like the others. We set explicit width and height to 100% so the
+    absolutely positioned image inside the `.service-image` wrapper
+    covers the 16:9 area defined by the wrapper's padding. */
+.page-services #analytics .service-image img,
+.page-services #analytics .service-image .service-img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}
+
+#innovation-gallery {
+  margin-bottom: 0.5rem !important;
+  scroll-margin-top: 110px;
+}
+
+/* Custom override: unify service card backgrounds on desktop
+ *
+ * On desktop layouts the service rows consist of two adjacent neon cards:
+ * an image and a text panel. The original text panel used a darker
+ * background overlay, making it appear distinct from the image panel.
+ * The following rules match the text panel’s background, border and
+ * glow to the base neon card styling, producing a cohesive premium
+ * look.  On mobile screens, a different card layout is used so we
+ * restrict these changes to screens wider than 768px.
+ */
+@media (min-width: 769px) {
+  .page-services .service-row .service-content.neon-card {
+    background: rgba(12, 16, 24, 0.55) !important;
+    border-color: rgba(0, 174, 239, 0.25) !important;
+    box-shadow:
+      0 0 0 1px rgba(157, 78, 221, 0.25) inset,
+      0 8px 28px rgba(0, 0, 0, 0.35),
+      0 0 36px rgba(0, 174, 239, 0.35) !important;
+    backdrop-filter: blur(8px) !important;
+  }
+}
+
+/* Inline neon fix from services.html */
+.section.bg-circuit {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-circuit::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-circuit > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* Inline styles migrated from about.html */
+.section.bg-circuit {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-circuit::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-circuit > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.stats .stat {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stats .number {
+  font-size: 2.5rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
+
+
+/* Inline styles migrated from book.html */
+.section.bg-circuit {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-circuit::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-circuit > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}
+
+.discovery-call-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.discovery-call-section > .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.discovery-call-content {
+  display: flex;
+  align-items: stretch;
+  gap: 5rem;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+
+.discovery-call-content .info,
+.discovery-call-content .widget {
+  flex: 1 1 45%;
+  min-width: 320px;
+}
+
+.discovery-call-content .info {
+  background: rgba(12, 16, 24, 0.6);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  color: var(--color-white);
+}
+
+.discovery-call-content .info h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--color-blue);
+}
+
+.discovery-call-content .info p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--color-silver);
+}
+
+.discovery-call-content .info ul {
+  list-style: none;
+  margin-bottom: 1rem;
+  padding-left: 0;
+}
+
+.discovery-call-content .info ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-silver);
+  font-size: 0.95rem;
+}
+
+.discovery-call-content .info ul li::before {
+  content: none;
+}
+
+.discovery-call-content .info a {
+  color: var(--color-green);
+  text-decoration: underline;
+}
+
+.discovery-call-content .widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.discovery-call-content .widget .calendly-inline-widget {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .discovery-call-content {
+    flex-direction: column;
+  }
+
+  .discovery-call-content .info,
+  .discovery-call-content .widget {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .discovery-call-content .widget .calendly-inline-widget {
+    height: 600px;
+  }
+}
+
+
+/* Inline styles migrated from contact.html */
+.section.bg-waves {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-waves::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-waves > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-social-callout {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding: clamp(2rem, 6vw, 3.5rem);
+  text-align: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(102, 126, 234, 0.18));
+  border: 1px solid rgba(148, 163, 255, 0.35);
+  border-radius: 1.75rem;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+  color: var(--color-white);
+}
+
+.contact-social-callout h3 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  margin-bottom: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.contact-social-callout p {
+  color: var(--color-silver);
+  max-width: 42rem;
+  margin: 0 auto 1.75rem auto;
+  line-height: 1.7;
+}
+
+.contact-social-note {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.contact-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.contact-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(148, 163, 255, 0.25);
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.contact-social-link:hover,
+.contact-social-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 255, 0.6);
+  background: rgba(102, 126, 234, 0.35);
+}
+
+.contact-social-link i {
+  font-size: 1.2rem;
+  color: var(--color-silver);
+}
+
+.contact-social-handle {
+  letter-spacing: 0.03em;
+}
+
+
+/* Inline styles migrated from niches/estate-agents.html */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.stats .stat {
+  flex: 1 1 220px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  color: var(--color-amber);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.stats .number {
+  font-size: 2.4rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
+
+.service-image.neon-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.service-image.neon-card img {
+  display: block;
+}
+
+.dark-card {
+  background: rgba(11, 12, 16, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section.compact-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }

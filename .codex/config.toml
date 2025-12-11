@@ -1,60 +1,51 @@
-# .codex/config.toml
-# Project-specific Codex configuration for `silverstone-site-main`.
+# FILE: .codex/config.toml
 #
-# This file is intended to live at: ./silverstone-site-main/.codex/config.toml
-# It augments your global Codex config with project-level guidance and features.
+# Codex configuration for working on the Silverstone repo.
 #
-# Assumptions:
-# - Global ~/.codex/config.toml exists (or Codex defaults are used).
-# - This project config is merged with global config; keys here override globals.
+# This file is intended for use with Codex CLI and related tools. It may also
+# be used as CODEX_HOME in automation contexts (e.g. CI) if desired.
+#
+# The configuration focuses on:
+# - Using a coding-optimized model (GPT-5 Codex family).
+# - Keeping filesystem access scoped to the workspace.
+# - Ensuring project docs (AGENTS, PLANS, Output_1/2) are treated as guidance.
+#
+# NOTE: Codex Cloud environments manage many of these settings separately;
+# this config is primarily useful when using the Codex CLI locally.
 
-# Use GPT-5.1 Codex with strong reasoning for refactors.
-model = "gpt-5.1-codex-max"
+model = "gpt-5-codex"
 model_provider = "openai"
+model_context_window = 32768
 
-# Use relatively high reasoning effort for long-lived refactors.
-# You can lower this to "high" or "medium" if latency/cost is a concern.
+# Allow Codex to reason more deeply about multi-file refactors.
 model_reasoning_effort = "high"
 
-# Ensure Codex picks up our project docs (AGENTS, PLANS, ExecPlan, etc).
-project_doc_fallback_filenames = [
-  "AGENTS.md",
-  "PLANS.md",
-  "ExecPlan.md",
-  "RULES.md",
-  "TESTS_PLAN.md",
-  "ESTATE-AGENTS-NOTES.md"
-]
-
-# Optional: increase instruction budget a bit so AGENTS+PLANS+ExecPlan still fit.
-# If this key is unsupported in your Codex version, it will be ignored.
-project_doc_max_bytes = 65536
-
-# Restrict Codex to workspace writes (editing files inside the repo).
-# The global config should already choose a sensible sandbox_mode; this is a per-project override.
+# Filesystem sandbox:
+# - "workspace-write" allows edits inside the workspace while protecting
+#   the rest of the system.
 sandbox_mode = "workspace-write"
 
-[sandbox_workspace_write]
-# For this static site, tests and builds do not require external network access.
-# Set to true if you later add tests that call external services.
-network_access = false
+# Approval policy:
+# - "on-failure" lets most safe commands run, but escalates when they fail
+#   under sandboxing. This reduces unnecessary prompts while preserving safety.
+approval_policy = "on-failure"
 
-[features]
-# Enable Codex's planning tool so it can update ExecPlans where supported.
-plan_tool = true
+# Project docs: ensure Codex sees AGENTS/PLANS/Output_1/Output_2 as guidance.
+project_doc_fallback_filenames = [
+  "PLANS.md",
+  ".agent/PLANS.md",
+  "Output_1.md",
+  "Output_2.md"
+]
 
-# Enable web search on demand (for docs, not for guessing repo behaviour).
-web_search_request = true
+# Increase limit so AGENTS + PLANS + ExecPlans + Output docs all fit.
+project_doc_max_bytes = 65536
 
-# Allow viewing local images if needed (e.g., screenshots, exported baselines).
-view_image_tool = true
-
-# Allow the freeform apply_patch tool (Codex uses this for patch-style edits).
-apply_patch_freeform = true
+# Prefer hiding internal reasoning in CLI UIs by default; summaries will be
+# exposed via normal responses.
+hide_agent_reasoning = true
 
 [tools]
-# Enable the web_search tool so Codex can look up documentation when necessary.
-web_search = true
-
-# Enable image viewing for local assets or generated screenshots.
-view_image = true
+# Web search is not required for this static-site refactor and is often
+# disabled in Codex Cloud environments. Keep it off by default for CLI.
+web_search = false

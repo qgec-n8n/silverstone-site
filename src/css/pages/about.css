@@ -1,0 +1,54 @@
+/* Inline styles migrated from about.html */
+.section.bg-circuit {
+  position: relative;
+  isolation: isolate;
+}
+.section.bg-circuit::before {
+  z-index: 0;
+  pointer-events: none;
+}
+.section.bg-circuit > .container {
+  position: relative;
+  z-index: 1;
+}
+.neon-card,
+.service-row,
+.service-image,
+.service-content {
+  position: relative;
+  z-index: 2;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.stats .stat {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stats .number {
+  font-size: 2.5rem;
+  color: var(--color-green);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stats .label {
+  font-size: 1rem;
+  color: var(--color-silver);
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .stats .number {
+    font-size: 2rem;
+  }
+}
