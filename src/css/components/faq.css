@@ -1,0 +1,70 @@
+/* FAQ cards and list layout */
+.faq-section {
+  margin-top: 3rem;
+}
+
+.faq-section .faq-list {
+  display: grid;
+  grid-template-columns: max-content;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.faq-section details {
+  border-radius: 18px;
+  width: 100%;
+  max-width: 65ch;
+  transition:
+    transform 0.3s ease,
+    padding 0.3s ease,
+    width 0.3s ease;
+}
+
+.faq-section summary {
+  list-style: none;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-blue);
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  padding-right: 1.25rem;
+}
+
+.faq-section summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-section summary::after {
+  content: "+";
+  position: absolute;
+  right: 0.25rem;
+  top: 0;
+  font-size: 1.2rem;
+  color: var(--color-green);
+  transition: transform 0.3s ease;
+}
+
+.faq-section details[open] summary::after {
+  content: "–";
+}
+
+.faq-section details p {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--color-silver);
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.faq-section details[open] {
+  transform: scale(1.03);
+  padding-bottom: 1rem;
+  max-width: 70ch;
+}
+
+.faq-section .section-title {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}

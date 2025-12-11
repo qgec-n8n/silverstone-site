@@ -140,40 +140,6 @@
   margin-bottom: 0.5rem;
 }
 
-.stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.stats .stat {
-  flex: 1 1 200px;
-  text-align: center;
-  padding: 1.5rem;
-}
-
-.stats .number {
-  font-size: 2.5rem;
-  color: var(--color-green);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.stats .label {
-  font-size: 1rem;
-  color: var(--color-silver);
-  font-family: var(--font-body);
-}
-
-@media (max-width: 768px) {
-  .stats .number {
-    font-size: 2rem;
-  }
-}
-
 .hero .hero-bullets {
   margin-top: 1.5rem;
   max-width: 34rem;

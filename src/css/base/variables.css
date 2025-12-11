@@ -1,0 +1,13 @@
+:root {
+  --color-blue: #00aeef;
+  --color-purple: #9d4edd;
+  --color-green: #00ff9d;
+  --color-black: #0b0c10;
+  --color-silver: #c0c0c0;
+  --color-white: #ffffff;
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Open Sans", sans-serif;
+  --font-cta: "Montserrat", sans-serif;
+  --max-width: 1200px;
+  --headerH: clamp(56px, 8vh, 72px);
+}
