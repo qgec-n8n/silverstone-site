@@ -1,0 +1,25 @@
+/* Niche landing pages styling */
+.niche-hero .content {
+  max-width: 760px;
+}
+
+.pricing-placeholder {
+  padding: 1rem;
+  border: 1px dashed var(--color-green);
+  border-radius: 12px;
+  color: var(--color-silver);
+  text-align: center;
+}
+
+.niche-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.niche-gallery img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
