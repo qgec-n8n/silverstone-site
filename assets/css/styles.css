@@ -328,7 +328,8 @@
   nav ul li {
     width: 100%;
   }
-  nav ul li a {
+  nav ul li a,
+  nav ul li .services-toggle {
     display: block;
     padding: 0.75rem 1rem;
     width: 100%;
@@ -987,7 +988,8 @@
     }
 
     /* Remove any borders applied directly to the anchor "pill" */
-    .site-header nav ul > li a {
+    .site-header nav ul > li a,
+    .site-header nav ul > li.nav-dropdown > .services-toggle {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -1017,7 +1019,8 @@
       margin-bottom: clamp(1.25rem, 4vh, 2.5rem) !important;
     }
 
-    .site-header nav ul > li a {
+    .site-header nav ul > li a,
+    .site-header nav ul > li.nav-dropdown > .services-toggle {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -1064,7 +1067,8 @@
     }
 
     /* Remove any borders applied directly to anchors (keeps pills clean) */
-    .site-header nav ul > li a {
+    .site-header nav ul > li a,
+    .site-header nav ul > li.nav-dropdown > .services-toggle {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -1289,13 +1293,18 @@ nav ul {
   list-style: none;
   display: flex;
   gap: 1.5rem;
+  align-items: center;
 }
 
 nav a {
   color: var(--color-black);
   font-family: var(--font-body);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0;
+  line-height: 1.2;
 }
 
 nav a:hover,
@@ -1387,6 +1396,7 @@ nav a.active {
   font-weight: 600;
   font-size: 1rem;
   color: var(--color-black);
+  line-height: 1.2;
   letter-spacing: 0.01em;
   cursor: pointer;
   transition:
@@ -1626,11 +1636,11 @@ body.services-overlay-active .services-overlay {
   nav ul .nav-dropdown .services-toggle {
     width: 100%;
     justify-content: space-between;
-    padding: 0.95rem 1.1rem;
+    padding: 0.75rem 1rem;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 12px 26px rgba(5, 18, 40, 0.12);
-    border: 1px solid rgba(12, 16, 29, 0.08);
+    background: transparent;
+    box-shadow: none;
+    border: 0;
   }
 
   nav ul .nav-dropdown .services-toggle .chevron {
@@ -2078,15 +2088,10 @@ body.services-overlay-active .services-overlay {
 
 /* Feature/value/service cards */
 .feature-card {
-  background-color: rgba(11, 12, 16, 0.8);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
   padding: 2rem;
-  flex: 1 1 300px;
-  max-width: 350px;
+  flex: 1 1 260px;
+  max-width: 320px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -2094,7 +2099,6 @@ body.services-overlay-active .services-overlay {
 
 .feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
 }
 
 .feature-card i {
@@ -2116,15 +2120,10 @@ body.services-overlay-active .services-overlay {
 }
 
 .value-card {
-  background-color: rgba(11, 12, 16, 0.8);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
   padding: 2rem 1.5rem;
-  flex: 1 1 260px;
+  flex: 1 1 240px;
   max-width: 320px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -2132,7 +2131,6 @@ body.services-overlay-active .services-overlay {
 
 .value-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
 }
 
 .value-card i {
@@ -2186,12 +2184,7 @@ body.services-overlay-active .services-overlay {
 
 .service-row .service-content {
   flex: 1 1 50%;
-  background: rgba(11, 12, 16, 0.75);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .service-row .service-content.no-card {
@@ -2315,6 +2308,19 @@ body.services-overlay-active .services-overlay {
   overflow: hidden;
   border-radius: 14px;
   display: block;
+}
+
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.values .value-card {
+  flex: 1 1 240px;
+  max-width: 320px;
 }
 
 .gallery-grid .neon-card img,
@@ -3443,10 +3449,23 @@ body.services-overlay-active .services-overlay {
 }
 
 /* Page-specific overrides */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.features .feature-card {
+  flex: 1 1 260px;
+  max-width: 320px;
+}
+
 .packages-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -3957,10 +3976,6 @@ body.services-overlay-active .services-overlay {
 }
 
 .discovery-call-content .info {
-  background: rgba(12, 16, 24, 0.6);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
   padding: 2rem;
   color: var(--color-white);
 }
@@ -4047,34 +4062,6 @@ body.services-overlay-active .services-overlay {
 
 .page-book .service-image.neon-card {
   padding: 0 !important;
-}
-
-.page-book .discovery-call-section {
-  background-image: linear-gradient(
-    180deg,
-    rgba(2, 8, 18, 0.92) 0%,
-    rgba(3, 10, 22, 0.88) 40%,
-    rgba(5, 12, 24, 0.85) 100%
-  );
-  background-size: cover;
-  background-position: center;
-}
-
-@media (min-width: 769px) {
-  .page-book .discovery-call-section {
-    background-image:
-      radial-gradient(
-        80% 60% at 50% 0%,
-        rgba(20, 60, 120, 0.3),
-        rgba(2, 8, 16, 0)
-      ),
-      linear-gradient(
-        180deg,
-        rgba(2, 8, 18, 0.95) 0%,
-        rgba(3, 10, 22, 0.9) 40%,
-        rgba(5, 12, 24, 0.9) 100%
-      );
-  }
 }
 
 .calendly-inline-iframe {
@@ -4258,20 +4245,18 @@ body.services-overlay-active .services-overlay {
 
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2rem;
   align-items: stretch;
-}
-
-@media (min-width: 769px) {
-  .contact-grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 .contact-form-card,
 .contact-map-card {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: 100%;
 }
 
 .contact-form label {
@@ -4284,12 +4269,11 @@ body.services-overlay-active .services-overlay {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background: rgba(11, 12, 16, 0.75);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
 }
 
 .contact-form input,
@@ -4312,18 +4296,36 @@ body.services-overlay-active .services-overlay {
 .map-container {
   position: relative;
   width: 100%;
-  padding-top: 56.25%;
+  aspect-ratio: 4 / 3;
+  min-height: 340px;
   border-radius: 1rem;
   overflow: hidden;
 }
 
 .map-iframe {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+.map-address {
+  padding: 0 0.25rem 0.5rem;
+}
+
+.map-address p {
+  margin: 0;
+  color: var(--color-silver);
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .page-contact .map-col {
@@ -4374,11 +4376,28 @@ body.services-overlay-active .services-overlay {
 }
 
 .dark-card {
-  background: rgba(11, 12, 16, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  border: none;
 }
 
 .section.compact-section {
   padding-top: 3rem;
   padding-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  body.page-estate-agents {
+    background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
+    background-image: -webkit-image-set(
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+    );
+    background-image: image-set(
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+    );
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
 }

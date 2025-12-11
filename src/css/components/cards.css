@@ -156,15 +156,10 @@
 
 /* Feature/value/service cards */
 .feature-card {
-  background-color: rgba(11, 12, 16, 0.8);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
   padding: 2rem;
-  flex: 1 1 300px;
-  max-width: 350px;
+  flex: 1 1 260px;
+  max-width: 320px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -172,7 +167,6 @@
 
 .feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
 }
 
 .feature-card i {
@@ -194,15 +188,10 @@
 }
 
 .value-card {
-  background-color: rgba(11, 12, 16, 0.8);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
   padding: 2rem 1.5rem;
-  flex: 1 1 260px;
+  flex: 1 1 240px;
   max-width: 320px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -210,7 +199,6 @@
 
 .value-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
 }
 
 .value-card i {
@@ -264,12 +252,7 @@
 
 .service-row .service-content {
   flex: 1 1 50%;
-  background: rgba(11, 12, 16, 0.75);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .service-row .service-content.no-card {
@@ -393,6 +376,19 @@
   overflow: hidden;
   border-radius: 14px;
   display: block;
+}
+
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.values .value-card {
+  flex: 1 1 240px;
+  max-width: 320px;
 }
 
 .gallery-grid .neon-card img,

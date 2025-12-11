@@ -21,10 +21,23 @@
 }
 
 /* Page-specific overrides */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.features .feature-card {
+  flex: 1 1 260px;
+  max-width: 320px;
+}
+
 .packages-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
   max-width: var(--max-width);
   margin: 0 auto;
 }
