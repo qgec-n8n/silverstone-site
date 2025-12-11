@@ -34,82 +34,12 @@
   <!-- Core site styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
-  <link rel="stylesheet" href="assets/css/parallax-fix.css">
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
-  <link rel="stylesheet" href="assets/css/mobile.css">
   <!-- Global footer styles -->
-  <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- Neon fix to ensure correct stacking for animated overlays -->
-  <style id="neon-fix">
-    /* Create a local stacking context so the overlay sits between bg and content */
-    .section.bg-circuit {
-      position: relative;
-      isolation: isolate;
-    }
-
-    .section.bg-circuit::before {
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* Ensure page content is above the overlay */
-    .section.bg-circuit>.container {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Keep neon cards and service blocks above everything in the section */
-    .neon-card {
-      position: relative;
-      z-index: 2;
-    }
-
-    .service-row,
-    .service-image,
-    .service-content {
-      position: relative;
-      z-index: 2;
-    }
-  </style>
-  <style>
-    /* Statistics section styling for about page */
-    .stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-
-    .stats .stat {
-      flex: 1 1 200px;
-      text-align: center;
-      padding: 1.5rem;
-    }
-
-    .stats .number {
-      font-size: 2.5rem;
-      color: var(--color-green);
-      font-family: var(--font-heading);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .stats .label {
-      font-size: 1rem;
-      color: var(--color-silver);
-      font-family: var(--font-body);
-    }
-
-    @media (max-width: 768px) {
-      .stats .number {
-        font-size: 2rem;
-      }
-    }
-  </style>
-  <link rel="stylesheet" href="assets/css/hero-base.css">
+  
+  
   <!-- PREMIUM UPGRADE: New CSS Assets -->
-  <link rel="stylesheet" href="assets/css/marquee-single.css" />
 </head>
 
 <body>
@@ -344,12 +274,8 @@
     </div>
     <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
   </footer>
-  <script src="assets/js/script.js" defer></script>
-  <script defer src="assets/js/cookie-consent.js"></script>
-  <script defer src="assets/js/hero-shader.js"></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
-  <script defer src="assets/js/marquee-single.js"></script>
-  <script defer src="assets/js/magnetic-buttons.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 
 </html>

@@ -30,50 +30,11 @@
     rel="stylesheet" />
   <link rel="icon" href="favicon.ico" sizes="any" />
   <link href="assets/css/styles.css" rel="stylesheet" />
-  <link href="assets/css/custom-styles.css" rel="stylesheet" />
-  <link href="assets/css/services.css" rel="stylesheet" />
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
-  <link rel="stylesheet" href="assets/css/parallax-fix.css" />
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
-  <link rel="stylesheet" href="assets/css/mobile.css" />
   <!-- New footer styles -->
-  <link rel="stylesheet" href="assets/css/icons.css" />
-  <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- PREMIUM UPGRADE: New CSS Assets -->
-  <link rel="stylesheet" href="assets/css/premium-gallery.css" />
-  <link rel="stylesheet" href="assets/css/marquee-double.css" />
-  <style id="neon-fix">
-    /* Create a local stacking context so the overlay sits between bg and content */
-    .section.bg-circuit {
-      position: relative;
-      isolation: isolate;
-    }
-
-    .section.bg-circuit::before {
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* Ensure page content is above the overlay */
-    .section.bg-circuit>.container {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Keep neon cards and service blocks above everything in the section */
-    .neon-card {
-      position: relative;
-      z-index: 2;
-    }
-
-    .service-row,
-    .service-image,
-    .service-content {
-      position: relative;
-      z-index: 2;
-    }
-  </style>
-  <link rel="stylesheet" href="assets/css/hero-base.css">
+  
 </head>
 
 <body class="page-services">
@@ -520,13 +481,8 @@
     </div>
     <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
   </footer>
-  <script src="assets/js/script.js" defer></script>
-  <script defer src="assets/js/cookie-consent.js"></script>
-  <script defer src="assets/js/hero-shader.js"></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
-  <script defer src="assets/js/premium-gallery.js"></script>
-  <script defer src="assets/js/marquee-double.js"></script>
-  <script defer src="assets/js/magnetic-buttons.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 
 </html>

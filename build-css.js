@@ -1,55 +1,70 @@
 /**
- * Simple build script to centralise CSS breakpoints.
- *
- * This script scans all CSS files in the `assets/css` directory and
- * replaces hard‑coded breakpoint values with those defined below.
- * Running this script allows maintainers to update the mobile and
- * desktop breakpoints in one place.  It does not minify or otherwise
- * transform the CSS; it performs plain string replacements.
- *
- * Usage:
- *   node build-css.js
- *
- * The script reads and writes files in place.  Ensure you have a backup
- * or version control before running.
+ * Build script to concatenate modular CSS under `src/css` into a single
+ * `assets/css/styles.css` bundle while normalising breakpoints.
  */
 const fs = require('fs');
 const path = require('path');
 
-// Central breakpoint definitions
 const MOBILE_BREAKPOINT = 768;
 const DESKTOP_BREAKPOINT = 769;
 
-// Directory containing the CSS files to process
-const cssDir = path.join(__dirname, 'assets', 'css');
+const projectRoot = __dirname;
+const srcRoot = path.join(projectRoot, 'src', 'css');
+const outDir = path.join(projectRoot, 'assets', 'css');
+const outFile = path.join(outDir, 'styles.css');
 
-/**
- * Replace media query breakpoints within a CSS string.
- *
- * @param {string} css The original CSS content
- * @returns {string} The updated CSS content
- */
+const cssOrder = [
+  // Base
+  'base/variables.css',
+  'base/typography.css',
+  'base/layout.css',
+  // Components
+  'components/header.css',
+  'components/footer.css',
+  'components/hero.css',
+  'components/cards.css',
+  'components/buttons.css',
+  'components/stats.css',
+  'components/faq.css',
+  'components/cookie-banner.css',
+  // Features
+  'features/parallax.css',
+  'features/gallery.css',
+  'features/marquee.css',
+  'features/lightbox.css',
+  // Pages
+  'pages/home.css',
+  'pages/services.css',
+  'pages/about.css',
+  'pages/book.css',
+  'pages/contact.css',
+  'pages/estate-agents.css'
+];
+
 function replaceBreakpoints(css) {
-  // Replace max-width queries (e.g., (max-width: 768px))
-  css = css.replace(/\(max-width:\s*\d+px\)/g, `(max-width: ${MOBILE_BREAKPOINT}px)`);
-  // Replace min-width queries (e.g., (min-width: 769px))
-  css = css.replace(/\(min-width:\s*\d+px\)/g, `(min-width: ${DESKTOP_BREAKPOINT}px)`);
-  // Replace combined prefers-reduced-motion and min-width queries
-  css = css.replace(/\(prefers-reduced-motion:\s*no-preference\)\s*and\s*\(min-width:\s*\d+px\)/g, `(prefers-reduced-motion: no-preference) and (min-width: ${DESKTOP_BREAKPOINT}px)`);
-  return css;
+  return css
+    .replace(/\(max-width:\s*\d+px\)/g, `(max-width: ${MOBILE_BREAKPOINT}px)`)
+    .replace(/\(min-width:\s*\d+px\)/g, `(min-width: ${DESKTOP_BREAKPOINT}px)`)
+    .replace(
+      /\(prefers-reduced-motion:\s*no-preference\)\s*and\s*\(min-width:\s*\d+px\)/g,
+      `(prefers-reduced-motion: no-preference) and (min-width: ${DESKTOP_BREAKPOINT}px)`
+    );
 }
 
-function processFile(filePath) {
-  const original = fs.readFileSync(filePath, 'utf8');
-  const updated = replaceBreakpoints(original);
-  fs.writeFileSync(filePath, updated, 'utf8');
+function buildBundle() {
+  const parts = cssOrder.map((relativePath) => {
+    const fullPath = path.join(srcRoot, relativePath);
+    if (!fs.existsSync(fullPath)) {
+      console.warn(`Missing CSS source: ${relativePath}`);
+      return '';
+    }
+    return fs.readFileSync(fullPath, 'utf8');
+  });
+
+  const combined = replaceBreakpoints(parts.join('\n\n'));
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(outFile, combined, 'utf8');
+  console.log(`Built ${outFile} from ${cssOrder.length} source files.`);
 }
 
-fs.readdirSync(cssDir).forEach((file) => {
-  if (file.endsWith('.css')) {
-    const fullPath = path.join(cssDir, file);
-    processFile(fullPath);
-  }
-});
-
-console.log(`Breakpoints updated to mobile <= ${MOBILE_BREAKPOINT}px and desktop >= ${DESKTOP_BREAKPOINT}px in CSS files.`);
+buildBundle();

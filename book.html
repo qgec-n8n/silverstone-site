@@ -33,9 +33,7 @@
   <!-- Core site styles -->
   <link href="assets/css/styles.css" rel="stylesheet">
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
-  <link rel="stylesheet" href="assets/css/parallax-fix.css">
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
-  <link rel="stylesheet" href="assets/css/mobile.css">
   <!-- Calendly preconnects and widget styles -->
   <link rel="preconnect" href="https://assets.calendly.com" crossorigin>
   <link rel="preconnect" href="https://calendly.com" crossorigin>
@@ -45,149 +43,11 @@
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <!-- Global footer styles -->
   <!-- Local icon font styles -->
-  <link rel="stylesheet" href="assets/css/icons.css" />
   <!-- PREMIUM UPGRADE: New CSS Assets -->
-  <link rel="stylesheet" href="assets/css/marquee-single.css" />
   <!-- Neon fix ensures overlays are layered correctly -->
-  <style id="neon-fix">
-    .section.bg-circuit {
-      position: relative;
-      isolation: isolate;
-    }
-
-    .section.bg-circuit::before {
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .section.bg-circuit>.container {
-      position: relative;
-      z-index: 1;
-    }
-
-    .neon-card {
-      position: relative;
-      z-index: 2;
-    }
-
-    .service-row,
-    .service-image,
-    .service-content {
-      position: relative;
-      z-index: 2;
-    }
-  </style>
+  
   <!-- Custom discovery call and hero styling -->
-  <style>
-    /* Discovery call section styling */
-    .discovery-call-section {
-      position: relative;
-      min-height: 100vh;
-      padding: 4rem 1rem;
-      display: flex;
-      align-items: center;
-      /* Apply a dark overlay to improve contrast and use the specified Calendly background */
-      overflow: hidden;
-    }
-
-    .discovery-call-section>.container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-    }
-
-    .discovery-call-content {
-      display: flex;
-      align-items: stretch;
-      gap: 5rem;
-      flex-wrap: wrap;
-      width: 100%;
-      height: 100%;
-    }
-
-    .discovery-call-content .info,
-    .discovery-call-content .widget {
-      flex: 1 1 45%;
-      min-width: 320px;
-    }
-
-    .discovery-call-content .info {
-      background: rgba(12, 16, 24, 0.6);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1rem;
-      padding: 2rem;
-      color: var(--color-white);
-    }
-
-    .discovery-call-content .info h2 {
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: var(--color-blue);
-    }
-
-    .discovery-call-content .info p {
-      margin-bottom: 1rem;
-      font-size: 1rem;
-      color: var(--color-silver);
-    }
-
-    .discovery-call-content .info ul {
-      list-style: none;
-      margin-bottom: 1rem;
-      padding-left: 0;
-    }
-
-    .discovery-call-content .info ul li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--color-silver);
-      font-size: 0.95rem;
-    }
-
-    .discovery-call-content .info ul li::before {
-      /* Removed default bullet styling to allow custom icons via <i> tags. */
-      content: none;
-    }
-
-    .discovery-call-content .info a {
-      color: var(--color-green);
-      text-decoration: underline;
-    }
-
-    .discovery-call-content .widget {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .discovery-call-content .widget .calendly-inline-widget {
-      width: 100%;
-      height: 100%;
-      min-height: 600px;
-      border: 0;
-    }
-
-    @media (max-width: 900px) {
-      .discovery-call-content {
-        flex-direction: column;
-      }
-
-      .discovery-call-content .info,
-      .discovery-call-content .widget {
-        flex: 1 1 100%;
-        max-width: 100%;
-      }
-
-      .discovery-call-content .widget .calendly-inline-widget {
-        height: 600px;
-      }
-    }
-  </style>
-  <link rel="stylesheet" href="assets/css/hero-base.css">
+  
 </head>
 
 <body class="page-book">
@@ -354,13 +214,10 @@
     <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
   </footer>
   <!-- Scripts -->
-  <script src="assets/js/script.js" defer></script>
-  <script defer src="assets/js/cookie-consent.js"></script>
   <!-- Load Calendly widget script immediately for faster rendering -->
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-  <script defer src="assets/js/hero-shader.js"></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
-  <script defer src="assets/js/marquee-single.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 
 </html>
