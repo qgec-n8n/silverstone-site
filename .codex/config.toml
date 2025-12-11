@@ -12,13 +12,13 @@
 # - Give Codex consistent access to project docs (AGENTS, PLANS, ExecPlans, Output_1/2).
 # - Encourage deeper reasoning for non‑trivial refactors.
 
-model = "gpt-5-codex"
+model = "gpt-5-codex-mx"
 
 # Allow Codex to read/write within the workspace (but not outside).
 sandbox_mode = "workspace-write"
 
 # Encourage more thorough reasoning when supported.
-model_reasoning_effort = "high"
+model_reasoning_effort = "xhigh"
 
 # Project documents Codex should preferentially load as context when working in
 # this repository. These paths are relative to the repo root.
