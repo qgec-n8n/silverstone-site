@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const ASSET_PATH = 'assets/images/socialmedia/';
+  const ASSET_PATH = '/assets/images/socialmedia/';
   const MARQUEE_IMAGES = [
     '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg',
     '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
@@ -158,7 +158,7 @@
 (function () {
   'use strict';
 
-  const ASSET_PATH = 'assets/images/socialmedia/';
+  const ASSET_PATH = '/assets/images/socialmedia/';
   const MARQUEE_IMAGES = [
     '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg',
     '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
