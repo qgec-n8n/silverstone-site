@@ -1,46 +1,36 @@
 # FILE: scripts/codex.maintenance.sh
 #!/usr/bin/env bash
-#
-# Codex Cloud / CLI maintenance script for the Silverstone repo.
-#
-# This script is intended to run on every task start when using cached
-# containers. It should be fast, idempotent, and non-destructive.
-#
-# Responsibilities:
-# - Sanity-check the working tree.
-# - Run lightweight validation or build steps, if available.
-# - Prepare the environment for refactors and bugfixes without doing heavy work.
+set -euo pipefail
 
-set -uo pipefail
+# Codex maintenance script
+# - Runs before every Codex task.
+# - Must be fast and safe to re-run.
+#
+# This script performs lightweight sanity checks only.
 
-echo "[codex.maintenance] Starting maintenance for Silverstone repo."
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO_ROOT"
 
-# 1. Sanity check the working tree
-if command -v git >/dev/null 2>&1; then
-  # Avoid failing the task if git is not available (e.g., in some environments).
-  if ! git diff --quiet --ignore-submodules HEAD -- 2>/dev/null; then
-    echo "[codex.maintenance] Warning: there are uncommitted changes in the working tree."
-    echo "[codex.maintenance] Codex should describe what it changed before exiting."
-  else
-    echo "[codex.maintenance] Working tree is clean."
-  fi
+echo "[maintenance] Node: $(node -v)"
+echo "[maintenance] npm:  $(npm -v)"
+
+# Ensure deps exist (do not install here; keep maintenance fast).
+if [[ ! -d node_modules ]]; then
+  echo "[maintenance] WARNING: node_modules missing. Run scripts/codex.setup.sh first."
 else
-  echo "[codex.maintenance] git not found; skipping working tree checks."
+  echo "[maintenance] node_modules present."
 fi
 
-# 2. Lightweight Node-based checks
-if [[ -f "package.json" ]] && command -v npm >/dev/null 2>&1; then
-  echo "[codex.maintenance] Verifying key npm scripts (non-fatal)."
+echo "[maintenance] Quick build checks (CSS/JS)..."
+npm run build:css || echo "[maintenance] WARNING: build:css failed (non-blocking during iterative work)."
+npm run build:js  || echo "[maintenance] WARNING: build:js failed (non-blocking during iterative work)."
 
-  # Use --if-present so missing scripts don't cause errors.
-  # For maintenance, prefer incremental CSS/JS builds over the heavy 'build' script.
-  npm run build:css --if-present || echo "[codex.maintenance] 'npm run build:css' failed; Codex should investigate if this is unexpected."
-  npm run build:js --if-present || echo "[codex.maintenance] 'npm run build:js' failed; Codex should investigate if this is unexpected."
-  npm run lint --if-present || echo "[codex.maintenance] 'npm run lint' failed or is not defined."
-  npm test --if-present || echo "[codex.maintenance] 'npm test' failed or is not defined (expected for this repo)."
+# Validate niche pages if the validator script exists.
+if [[ -f scripts/validate-niche-pages.js ]]; then
+  echo "[maintenance] Niche pages soft validation..."
+  node scripts/validate-niche-pages.js || true
 else
-  echo "[codex.maintenance] No package.json or npm unavailable – skipping npm-based checks."
+  echo "[maintenance] validate-niche-pages.js not present; skipping."
 fi
 
-echo "[codex.maintenance] Maintenance complete."
-exit 0
+echo "[maintenance] Done."
