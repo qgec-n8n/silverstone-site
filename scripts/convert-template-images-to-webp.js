@@ -1,4 +1,3 @@
-# FILE: scripts/convert-template-images-to-webp.js
 #!/usr/bin/env node
 
 /**
@@ -82,9 +81,9 @@ function extractImagePairs(markdownText) {
 
 function toWebpName(filename) {
   const lower = filename.toLowerCase();
-  if (lower.endsWith(".jpeg")) return filename.slice(0, -5) + "webp";
-  if (lower.endsWith(".jpg")) return filename.slice(0, -3) + "webp";
-  if (lower.endsWith(".png")) return filename.slice(0, -3) + "webp";
+  if (lower.endsWith(".jpeg")) return filename.slice(0, -5) + ".webp";
+  if (lower.endsWith(".jpg")) return filename.slice(0, -4) + ".webp";
+  if (lower.endsWith(".png")) return filename.slice(0, -4) + ".webp";
   return filename + ".webp";
 }
 

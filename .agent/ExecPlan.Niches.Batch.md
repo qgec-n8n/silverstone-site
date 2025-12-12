@@ -56,6 +56,21 @@ Then wire all pages into the Services dropdown menu and update `sitemap.xml`.
 - `sitemap.xml`
 - `src/css/pages/estate-agents.css` (generalise to `.page-niche`)
 
+## Progress Checklist (update as you go)
+- [x] Phase B — Generate required WebP assets
+- [x] Phase C — Shared styling generalisation
+- [x] Phase D — Navigation wiring (site-wide)
+- [x] Niche page — `niches/hospitality.html`
+- [x] Niche page — `niches/salons-barbers.html`
+- [x] Niche page — `niches/trades-virtual-office.html`
+- [x] Niche page — `niches/ecommerce.html`
+- [x] Niche page — `niches/physios-chiropractors.html`
+- [x] Niche page — `niches/dentists.html`
+- [x] Niche page — `niches/gyms-fitness-studios.html`
+- [x] Niche page — `niches/fitness-coaches.html`
+- [ ] Phase F — `sitemap.xml` update
+- [ ] Phase G — Strict validation + builds
+
 ## 6) Step-by-Step Procedure
 
 ### Phase A — Preflight (must be clean before creating pages)

@@ -1,4 +1,3 @@
-# FILE: scripts/validate-niche-pages.js
 #!/usr/bin/env node
 
 /**
@@ -108,9 +107,9 @@ function extractTemplateImages(md) {
 
 function toWebpName(filename) {
   const lower = filename.toLowerCase();
-  if (lower.endsWith(".jpeg")) return filename.slice(0, -5) + "webp";
-  if (lower.endsWith(".jpg")) return filename.slice(0, -3) + "webp";
-  if (lower.endsWith(".png")) return filename.slice(0, -3) + "webp";
+  if (lower.endsWith(".jpeg")) return filename.slice(0, -5) + ".webp";
+  if (lower.endsWith(".jpg")) return filename.slice(0, -4) + ".webp";
+  if (lower.endsWith(".png")) return filename.slice(0, -4) + ".webp";
   return filename + ".webp";
 }
 
@@ -132,6 +131,11 @@ function validateNoTemplateLeak(errors, html, relPath) {
       errors.push(`Template-instruction text leaked into ${relPath}: contains "${s}"`);
     }
   }
+}
+
+function bodyHasClass(html, className) {
+  const re = new RegExp(`<body[^>]*class=(['"])[^\\1]*\\b${className}\\b[^\\1]*\\1`, "i");
+  return re.test(html);
 }
 
 function buildHrefMaps() {
@@ -183,7 +187,9 @@ function main() {
 
     const html = readIfExists(n.html);
     if (!html) {
-      errors.push(`Missing niche page: ${n.html}`);
+      const msg = `Missing niche page: ${n.html}`;
+      if (strict) errors.push(msg);
+      else warnings.push(msg);
       continue;
     }
 
@@ -195,7 +201,7 @@ function main() {
     expectIncludes(errors, html, `property="og:url" content="${expectedUrl}"`, `${n.html} og:url`);
 
     // Body class should include page-niche
-    if (!html.includes(`class="page-niche`) && !html.includes(`class='page-niche`)) {
+    if (!bodyHasClass(html, "page-niche")) {
       errors.push(`Body class missing page-niche in ${n.html}`);
     }
 
@@ -242,7 +248,9 @@ function main() {
     for (const n of niches) {
       const expectedLoc = `<loc>https://silverstone-ai.com/niches/${n.slug}</loc>`;
       if (!sitemap.includes(expectedLoc)) {
-        errors.push(`sitemap.xml missing entry: ${expectedLoc}`);
+        const msg = `sitemap.xml missing entry: ${expectedLoc}`;
+        if (strict) errors.push(msg);
+        else warnings.push(msg);
       }
     }
     // Also include estate agents niche in sitemap if desired (informational)

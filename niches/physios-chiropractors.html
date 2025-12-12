@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinic Automation | Smart Intake &amp; Rebooking</title>
+  <meta name="description"
+    content="Automation for physio and chiro clinics that streamlines intake, reduces no-shows and keeps patients on plan — with reminders, rebooking prompts and simple follow-up." />
+  <link rel="canonical" href="https://silverstone-ai.com/niches/physios-chiropractors" />
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://silverstone-ai.com/niches/physios-chiropractors" />
+  <meta property="og:title" content="Clinic Automation | Smart Intake &amp; Rebooking" />
+  <meta property="og:description"
+    content="Automation for physio and chiro clinics that streamlines intake, reduces no-shows and keeps patients on plan." />
+  <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="../favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  
+</head>
+
+<body class="page-physios-chiropractors page-niche">
+  <div id="cookie-banner" class="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; display: none;">
+    <p>
+      We use cookies to improve your browsing experience and to analyse website
+      traffic. By clicking “Accept”, you consent to our use of cookies. For
+      more details, please read our
+      <a href="../privacy-policy.html">Privacy Policy</a>.
+    </p>
+    <div class="cookie-actions">
+      <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
+      <button id="cookie-decline-btn" class="btn btn-secondary">Decline</button>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo/silverstone-logo-cropped-whitebg-v2.png"
+          srcset="../assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, ../assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"
+          alt="Silverstone Logo" class="site-logo" />
+      </a>
+      <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li class="nav-dropdown">
+            <button class="services-toggle" type="button" aria-expanded="false">
+              <span class="services-label">Services</span>
+              <span class="chevron" aria-hidden="true"></span>
+            </button>
+            <div class="services-menu" aria-label="Services submenu" aria-hidden="true">
+              <a class="service-link" href="../services.html">General</a>
+              <a class="service-link" href="estate-agents.html">Estate Agents</a>
+              <a class="service-link" href="hospitality.html">Hospitality</a>
+              <a class="service-link" href="salons-barbers.html">Salons &amp; Barbers</a>
+              <a class="service-link" href="trades-virtual-office.html">Trades &amp; Field Services</a>
+              <a class="service-link" href="ecommerce.html">eCommerce Brands</a>
+              <a class="service-link" href="physios-chiropractors.html">Physios &amp; Chiropractors</a>
+              <a class="service-link" href="dentists.html">Dentists</a>
+              <a class="service-link" href="gyms-fitness-studios.html">Gyms &amp; Fitness Studios</a>
+              <a class="service-link" href="fitness-coaches.html">Fitness Influencers &amp; Online Coaches</a>
+            </div>
+          </li>
+          <li><a href="../book.html">Book</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="services-overlay" aria-hidden="true">
+    <div class="services-overlay__panel">
+      <div class="services-overlay__header">
+        <button class="services-overlay__back" type="button" aria-label="Close services overlay">Back to menu</button>
+        <div class="services-overlay__title">
+          <span class="services-label">Services</span>
+          <span class="chevron" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="services-overlay__grid">
+        <a class="service-pill service-link" href="../services.html">General</a>
+        <a class="service-pill service-link" href="estate-agents.html">Estate Agents</a>
+        <a class="service-pill service-link" href="hospitality.html">Hospitality</a>
+        <a class="service-pill service-link" href="salons-barbers.html">Salons &amp; Barbers</a>
+        <a class="service-pill service-link" href="trades-virtual-office.html">Trades &amp; Field Services</a>
+        <a class="service-pill service-link" href="ecommerce.html">eCommerce Brands</a>
+        <a class="service-pill service-link" href="physios-chiropractors.html">Physios &amp; Chiropractors</a>
+        <a class="service-pill service-link" href="dentists.html">Dentists</a>
+        <a class="service-pill service-link" href="gyms-fitness-studios.html">Gyms &amp; Fitness Studios</a>
+        <a class="service-pill service-link" href="fitness-coaches.html">Fitness Influencers &amp; Online Coaches</a>
+      </div>
+    </div>
+  </div>
+  <section class="hero title-band">
+    <div class="hero-media">
+      <canvas id="hero-shader-canvas" data-variant="amber"></canvas>
+    </div>
+    <div class="content">
+      <h1>Physio &amp; chiro clinics: keep diaries full and patients on plan.</h1>
+      <p>A smart intake and rebooking hub that reduces no-shows, tidies up paperwork and keeps patients moving through their treatment plans without constant chasing.</p>
+      <div class="cta-buttons">
+        <a href="../book.html" class="btn btn-primary">Book a free clinic automation audit</a>
+        <a href="#smart-intake-rebooking-hub" class="btn btn-secondary">See the ‘Smart Intake &amp; Rebooking Hub’</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lines animate parallax-section" data-parallax-theme="book">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Less chasing. Better attendance.</h2>
+      <p class="section-subtitle" style="text-align: center;">Streamlined intake and consistent follow-up keep patients prepared, on plan, and more likely to attend.</p>
+      <div class="service-row animate" style="align-items: center;">
+        <div class="service-image neon-card">
+          <picture>
+            <source srcset="../assets/images/socialmedia/Physio_1_Mobile.webp" type="image/webp" media="(max-width: 768px)">
+            <source srcset="../assets/images/socialmedia/Physio_1.webp" type="image/webp" media="(min-width: 769px)">
+            <source srcset="../assets/images/socialmedia/Physio_1_Mobile.jpeg" media="(max-width: 768px)">
+            <source srcset="../assets/images/socialmedia/Physio_1.jpeg" media="(min-width: 769px)">
+            <img src="../assets/images/socialmedia/Physio_1.jpeg" alt="Clinic team managing appointments, forms, and patient enquiries" class="service-img" loading="lazy" />
+          </picture>
+        </div>
+        <div class="service-content neon-card dark-card">
+          <h3>Where clinics lose time and utilisation.</h3>
+          <p>When intake, reminders and rebooking are inconsistent, diaries develop gaps and patients drift off plan. Automation keeps the basics tight so clinicians can focus on care.</p>
+          <ul>
+            <li><i class="fa-solid fa-file-lines"></i>New patients arrive late or unprepared because forms and triage questions were not completed in advance.</li>
+            <li><i class="fa-solid fa-calendar-check"></i>No-show and short-notice cancellations leave gaps that are hard to fill.</li>
+            <li><i class="fa-solid fa-bell"></i>Clinicians spend time between sessions chasing rebookings and answering basic questions.</li>
+            <li><i class="fa-solid fa-info-circle"></i>Treatment plans are not always clearly communicated, so patients drop off before they should.</li>
+            <li><i class="fa-solid fa-users"></i>Reception teams juggle phones, walk-ins and paperwork with limited structure.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-circuit animate parallax-section" data-parallax-theme="book">
+    <div class="container">
+      <h2 class="section-title" id="smart-intake-rebooking-hub" style="text-align: center;">The ‘Smart Intake &amp; Rebooking Hub’</h2>
+      <p class="section-subtitle" style="text-align: center;">Clinic-ready automations that streamline intake, reduce no-shows and keep patients moving through treatment plans.</p>
+      <div class="service-row animate" style="align-items: center; flex-wrap: wrap-reverse;">
+        <div class="service-content neon-card dark-card">
+          <h3>Intake, reminders and rebooking — working together.</h3>
+          <p>A set of clinic-ready automations that streamlines intake, reminders and rebooking. It works alongside your existing practice-management system to keep diaries fuller and patients more engaged in their care.</p>
+          <ul>
+            <li><i class="fa-solid fa-file-lines"></i>Digital intake forms sent automatically when a new patient books, capturing medical history and goals.</li>
+            <li><i class="fa-solid fa-diagram-project"></i>Simple triage questions to help direct patients to the most appropriate clinician or service.</li>
+            <li><i class="fa-solid fa-bell"></i>Appointment reminders with clear instructions on what to bring and how to prepare.</li>
+            <li><i class="fa-solid fa-arrows-rotate"></i>Easy reschedule links so patients can move appointments without tying up the phones.</li>
+            <li><i class="fa-solid fa-calendar-check"></i>Follow-up messages that nudge patients to book their next session in line with the treatment plan.</li>
+            <li><i class="fa-solid fa-users"></i>Gentle win-back flows for patients who have not attended for a while but could still benefit from care.</li>
+          </ul>
+        </div>
+        <div class="service-image neon-card">
+          <picture>
+            <source srcset="../assets/images/socialmedia/Physio_2_Mobile.webp" type="image/webp" media="(max-width: 768px)">
+            <source srcset="../assets/images/socialmedia/Physio_2.webp" type="image/webp" media="(min-width: 769px)">
+            <source srcset="../assets/images/socialmedia/Physio_2_Mobile.jpeg" media="(max-width: 768px)">
+            <source srcset="../assets/images/socialmedia/Physio_2.jpeg" media="(min-width: 769px)">
+            <img src="../assets/images/socialmedia/Physio_2.jpeg" alt="Patient completing digital intake forms before an appointment" class="service-img" loading="lazy" />
+          </picture>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lines animate parallax-section compact-section" data-parallax-theme="book">
+    <div class="container">
+      <h2 class="section-title">No-shows reduce care and utilisation</h2>
+      <p class="section-subtitle">Small improvements in attendance add up to meaningful capacity across the year.</p>
+      <div class="stats" data-counter="off">
+        <div class="neon-card stat">
+          <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="number" data-target="10">10%</div>
+          <div class="label">A typical outpatient clinic can see roughly 1 in 10 appointments lost to no-shows</div>
+        </div>
+        <div class="neon-card stat">
+          <div class="stat-icon"><i class="fa-solid fa-chart-bar"></i></div>
+          <div class="number" data-target="150">150</div>
+          <div class="label">Cutting no-shows from 10% to 7% in a 100-appointment-a-week clinic frees up ~150 sessions per year</div>
+        </div>
+        <div class="neon-card stat">
+          <div class="stat-icon"><i class="fa-solid fa-bell"></i></div>
+          <div class="number" data-target="30">30%</div>
+          <div class="label">Simple reminders can reduce missed appointments by about a third when used consistently</div>
+        </div>
+        <div class="neon-card stat">
+          <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="number" data-target="20">20%</div>
+          <div class="label">Structured follow-up can improve adherence to long-term treatment plans by ~20 points</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-circuit animate parallax-section" data-parallax-theme="book">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Better attendance, clearer plans</h2>
+      <p class="section-subtitle" style="text-align: center;">Help patients show up prepared and stay on track, while reducing admin for clinicians and reception.</p>
+      <div class="service-row animate" style="align-items: center;">
+        <div class="service-image neon-card">
+          <picture>
+            <source srcset="../assets/images/socialmedia/Physio_3_Mobile.webp" type="image/webp" media="(max-width: 768px)">
+            <source srcset="../assets/images/socialmedia/Physio_3.webp" type="image/webp" media="(min-width: 769px)">
+            <source srcset="../assets/images/socialmedia/Physio_3_Mobile.jpeg" media="(max-width: 768px)">
+            <source srcset="../assets/images/socialmedia/Physio_3.jpeg" media="(min-width: 769px)">
+            <img src="../assets/images/socialmedia/Physio_3.jpeg" alt="Clinician reviewing a patient's treatment plan with clear next steps" class="service-img" loading="lazy" />
+          </picture>
+        </div>
+        <div class="service-content neon-card">
+          <h3>Support outcomes and revenue</h3>
+          <p>Reduce DNAs, improve preparation, and keep treatment plans moving — with communication that fits clinical workflows.</p>
+          <ul>
+            <li><i class="fa-solid fa-calendar-check"></i>Fewer no-shows and short-notice cancellations, leading to better diary utilisation.</li>
+            <li><i class="fa-solid fa-file-lines"></i>Smoother first appointments as clinicians have key information upfront.</li>
+            <li><i class="fa-solid fa-info-circle"></i>Patients who understand their treatment plan and are more likely to complete it.</li>
+            <li><i class="fa-solid fa-users"></i>Less manual admin for clinicians and reception teams.</li>
+            <li><i class="fa-solid fa-chart-bar"></i>Clearer visibility over who is active, who is at risk of dropping out and who has lapsed.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lines animate parallax-section compact-section" data-parallax-theme="book">
+    <div class="container">
+      <h2 class="section-title">Clinic-friendly setup in four steps</h2>
+      <p class="section-subtitle">Respect clinical workflows, integrate where possible, and iterate based on results.</p>
+      <div class="values">
+        <div class="value-card neon-card dark-card">
+          <i class="fa-solid fa-ear-listen"></i>
+          <h4>Quick automation audit</h4>
+          <p>Understand your current booking process, systems and pain points.</p>
+        </div>
+        <div class="value-card neon-card dark-card">
+          <i class="fa-solid fa-diagram-project"></i>
+          <h4>Design intake and rebooking journeys</h4>
+          <p>Agree which forms, reminders and follow-ups should exist for each service type.</p>
+        </div>
+        <div class="value-card neon-card dark-card">
+          <i class="fa-solid fa-plug"></i>
+          <h4>Connect and test</h4>
+          <p>Link automations to your practice-management system or booking tools and test with a small group of patients.</p>
+        </div>
+        <div class="value-card neon-card dark-card">
+          <i class="fa-solid fa-arrows-rotate"></i>
+          <h4>Roll out and refine</h4>
+          <p>Expand to the wider patient base, then adjust language and timings as you see results.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lines animate parallax-section compact-section" data-parallax-theme="book">
+    <div class="container">
+      <h2 class="section-title">Supportive messaging, privacy-aware by design</h2>
+      <p class="section-subtitle">Protect patient experience and clinician control while improving attendance.</p>
+      <div class="values">
+        <div class="value-card neon-card dark-card">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h4>Aligned with your data-protection settings</h4>
+          <p>We work within the permissions and data-protection settings that your clinic already follows.</p>
+        </div>
+        <div class="value-card neon-card dark-card">
+          <i class="fa-solid fa-comments"></i>
+          <h4>Plain-language, supportive communication</h4>
+          <p>Patients receive clear, supportive communication in plain language – never pushy or technical.</p>
+        </div>
+        <div class="value-card neon-card dark-card">
+          <i class="fa-solid fa-layer-group"></i>
+          <h4>Clinician control stays central</h4>
+          <p>Clinicians retain control over treatment plans and can override or pause automations for individual cases.</p>
+        </div>
+        <div class="value-card neon-card dark-card">
+          <i class="fa-solid fa-file-lines"></i>
+          <h4>Transparent setup and support</h4>
+          <p>Transparent setup and support so you know exactly what will change before anything goes live.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lines animate parallax-section compact-section" data-parallax-theme="book">
+    <div class="container">
+      <div class="neon-card" style="text-align: center;">
+        <h2 class="section-title">Pricing</h2>
+        <p class="section-subtitle">Transparent pricing tables will appear here soon. In the meantime, we’ll scope a simple package in your free automation audit.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lines animate parallax-section compact-section" data-parallax-theme="book">
+    <div class="container">
+      <div class="faq-section">
+        <h2 class="section-title" style="margin-top: 0">Clinic Automation FAQs</h2>
+        <div class="faq-list">
+          <details class="neon-card faq-item">
+            <summary>Will this replace our practice-management system?</summary>
+            <p>No. The hub is designed to sit alongside your existing software, not replace it. Where possible we connect directly so that appointments and records stay in one source of truth.</p>
+          </details>
+          <details class="neon-card faq-item">
+            <summary>Is patient data handled safely?</summary>
+            <p>Yes. We work with you to ensure automation respects your existing data-protection processes. Only the information needed for communication and booking is used, and you decide how long it is retained.</p>
+          </details>
+          <details class="neon-card faq-item">
+            <summary>How do we make sure messages feel appropriate for clinical settings?</summary>
+            <p>We use clear, professional language that supports rather than alarms patients. Clinicians and practice managers review and approve content before it is used.</p>
+          </details>
+          <details class="neon-card faq-item">
+            <summary>What if a patient has complex needs and standard journeys are not appropriate?</summary>
+            <p>Clinicians can choose to adjust or pause automation for individual patients. The system is there to handle typical scenarios, not override clinical judgement.</p>
+          </details>
+          <details class="neon-card faq-item">
+            <summary>Does this increase workload for clinicians?</summary>
+            <p>The aim is to reduce workload by taking repetitive tasks away. Clinicians may spend a small amount of time upfront agreeing wording, but day-to-day the system should free time, not consume it.</p>
+          </details>
+          <details class="neon-card faq-item">
+            <summary>Can we start with one service line or site first?</summary>
+            <p>Yes. Many clinics prefer to start with one service or location, demonstrate value and then expand gradually.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section brand-gradient animate">
+    <div class="container">
+      <div class="neon-card cta-card" style="text-align: center">
+        <h2 class="section-title" style="color: var(--color-white)">Ready to reduce DNAs and fill more appointments?</h2>
+        <p class="section-subtitle" style="color: var(--color-silver)">If missed appointments, messy paperwork and patchy follow-up are holding your clinic back, the ‘Smart Intake &amp; Rebooking Hub’ can help. A short conversation is enough to see how it could fit around your current systems and improve both outcomes and revenue.</p>
+        <a href="../book.html" class="btn btn-primary">Book my free clinic automation audit</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img class="footer-logo" src="../assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
+        <p class="tagline">Streamline. Optimize. Succeed.</p>
+        <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise operations and succeed in the digital age.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../book.html">Book</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p><i class="fa-solid fa-location-dot"></i> 4 Deacon Street, SE17 1GE, London, UK</p>
+        <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a></p>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/silverstone.ai/" target="_blank" rel="noopener" aria-label="Instagram (@silverstone.ai)"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@silverstone_ai" target="_blank" rel="noopener" aria-label="TikTok (@silverstone_ai)"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.facebook.com/people/Silverstone-AI/61583930930530/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
+  </footer>
+
+  <script src="../assets/js/app.js"></script>
+</body>
+
+</html>

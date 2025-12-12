@@ -6,13 +6,13 @@
   display: inline-block;
 }
 
-.page-estate-agents .service-image.neon-card {
+.page-niche .service-image.neon-card {
   padding: 0;
   overflow: hidden;
   height: auto;
 }
 
-.page-estate-agents .service-image.neon-card img {
+.page-niche .service-image.neon-card img {
   display: block;
   position: static;
   width: 100%;
@@ -20,7 +20,7 @@
   object-fit: contain;
 }
 
-.page-estate-agents .service-image {
+.page-niche .service-image {
   padding-top: 0;
   aspect-ratio: 79 / 53;
 }
@@ -34,7 +34,7 @@
 }
 
 @media (max-width: 768px) {
-  body.page-estate-agents {
+  body.page-niche {
     background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
     background-image: -webkit-image-set(
       url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
