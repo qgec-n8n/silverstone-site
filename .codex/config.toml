@@ -1,46 +1,35 @@
 # FILE: .codex/config.toml
-#
-# Codex configuration for working on the Silverstone repo.
-#
-# This file is intended for use with the Codex CLI and related tools. Codex
-# Cloud environments may manage some of these settings separately, but keeping
-# them here makes local behaviour predictable.
-#
-# Focus:
-# - Use a coding‑optimised model.
-# - Allow writes within the workspace.
-# - Give Codex consistent access to project docs (AGENTS, PLANS, ExecPlans, Output_1/2).
-# - Encourage deeper reasoning for non‑trivial refactors and bugfixes.
+
+# Codex project configuration for the Silverstone static site.
+# Notes:
+# - This config prioritizes the planning docs used for the current workstream.
+# - Web search is disabled by default because this task is repo-contained.
 
 model = "gpt-5.1-codex-max"
-
-# Allow Codex to read/write within the workspace (but not outside).
 sandbox_mode = "workspace-write"
+model_reasoning_effort = "medium"
+hide_agent_reasoning = true
 
-# Encourage more thorough reasoning when supported.
-model_reasoning_effort = "high"
+project_doc_max_bytes = 120000
 
-# Project documents Codex should preferentially load as context when working in
-# this repository. These paths are relative to the repo root.
 project_docs = [
   "AGENTS.md",
   ".agent/PLANS.md",
-  ".agent/ExecPlan.SilverstoneFrontend.md",
-  ".agent/ExecPlan.FinalDecomposition.md",
-  ".agent/ExecPlan.SilverstoneBugfixes.md",
-  "Output_1.md",
-  "Output_2.md"
+
+  ".agent/NICHE_TEMPLATES_INDEX.md",
+  ".agent/NICHE_PAGES_GUIDE.md",
+  ".agent/ICON_CATALOG.md",
+
+  ".agent/ExecPlan.Niches.Batch.md",
+  ".agent/ExecPlan.Niche.Hospitality.md",
+  ".agent/ExecPlan.Niche.SalonsBarbers.md",
+  ".agent/ExecPlan.Niche.TradesVirtualOffice.md",
+  ".agent/ExecPlan.Niche.Ecommerce.md",
+  ".agent/ExecPlan.Niche.PhysiosChiropractors.md",
+  ".agent/ExecPlan.Niche.Dentists.md",
+  ".agent/ExecPlan.Niche.GymsFitnessStudios.md",
+  ".agent/ExecPlan.Niche.FitnessCoaches.md"
 ]
 
-# Increase limit so AGENTS + PLANS + ExecPlans + Output docs all fit.
-project_doc_max_bytes = 65536
-
-# Prefer hiding internal reasoning in CLI UIs by default; summaries will be
-# exposed via normal responses.
-hide_agent_reasoning = true
-
 [tools]
-# Web search is not required for this static‑site debugging when running the
-# Codex CLI locally. Codex Cloud can still use web access according to its own
-# environment settings.
 web_search = false
