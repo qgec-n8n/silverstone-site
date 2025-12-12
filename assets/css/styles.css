@@ -4380,6 +4380,14 @@ body.services-overlay-active .services-overlay {
   display: block;
 }
 
+.page-estate-agents .service-image.neon-card {
+  overflow: visible;
+}
+
+.page-estate-agents .service-image.neon-card img {
+  object-fit: contain;
+}
+
 .dark-card {
 }
 
