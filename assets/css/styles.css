@@ -3464,10 +3464,15 @@ body.services-overlay-active .services-overlay {
 
 .packages-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
   gap: 1.75rem;
-  max-width: var(--max-width);
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+.packages-grid .feature-card {
+  width: 100%;
+  max-width: 100%;
 }
 
 .packages-grid .neon-card {
@@ -4376,8 +4381,6 @@ body.services-overlay-active .services-overlay {
 }
 
 .dark-card {
-  background: transparent;
-  border: none;
 }
 
 .section.compact-section {
