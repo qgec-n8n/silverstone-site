@@ -4371,13 +4371,23 @@ body.services-overlay-active .services-overlay {
   display: inline-block;
 }
 
-.service-image.neon-card {
+.page-estate-agents .service-image.neon-card {
   padding: 0;
   overflow: hidden;
+  height: auto;
 }
 
-.service-image.neon-card img {
+.page-estate-agents .service-image.neon-card img {
   display: block;
+  position: static;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.page-estate-agents .service-image {
+  padding-top: 0;
+  aspect-ratio: 79 / 53;
 }
 
 .dark-card {
