@@ -4,19 +4,23 @@
 
 ## What this repo is
 - Static marketing site (HTML + built CSS/JS in `assets/`).
-- Source CSS/JS live in `src/` and are compiled into `assets/`.
+- Source CSS/JS live in `src/` and are compiled into `assets/` via build scripts.
 - Pages:
   - Root: `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `privacy-policy.html`
-  - Niches: `niches/*.html` (see the `niches/` directory for the full list)
+  - Niches: `niches/*.html`
 
 ## Current mission (do this first)
-This repository is currently under a **UI/UX bugfix + polish spec**. Treat `ExecPlan.md` as the **single source of truth** for required edits/bugfixes and acceptance criteria.
+This repository is under a **UI/UX bugfix + polish spec**. Treat `ExecPlan.md` as the **single source of truth** for required edits/bugfixes and acceptance criteria.
 
 Before editing anything:
-1. Read `ExecPlan.md`
-2. Then read `PLANS.md`
-3. Use `codex/INITIATION.md` for how to start a Codex session
-4. Use `codex/MAINTENANCE.md` for ongoing upkeep
+1) Read `ExecPlan.md`
+2) Then read `PLANS.md`
+3) Use `codex/INITIATION.md` for how to start a Codex session
+4) Use `codex/MAINTENANCE.md` for ongoing upkeep
+
+Important:
+- Ignore legacy/generated planning docs in `.agent/` and any outdated narrative docs like `Output_1.md` / `Output_2.md`.
+- Only `ExecPlan.md` defines what must be changed right now.
 
 ## Nonnegotiables (scope + UX)
 - Do EXACTLY the items listed in `ExecPlan.md` — no extra refactors, no “nice-to-haves”.
@@ -66,6 +70,6 @@ Optional repo health checks:
 
 ## Delivery requirements for every Codex run
 In the final message, include:
-- A checklist for requirements 1–13 (pass/fail) with the exact file paths changed
+- A checklist for requirements 1–13 (PASS/FAIL) with the exact file paths changed per requirement
 - The exact commands run and whether they passed
 - A rollback plan (what commit to revert, or which files were changed per phase)
