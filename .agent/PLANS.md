@@ -1,62 +1,96 @@
-<!-- FILE: .agent/PLANS.md -->
+<!-- FILE: PLANS.md -->
 
-# PLANS.md (Codex Execution Plans)
+# Execution Playbook
 
-This folder contains execution plans (“ExecPlans”) that Codex should follow exactly.
+This file defines how Codex must plan, execute, verify, and report changes in this repository.
+For the current workstream, `ExecPlan.md` is the task-specific plan; this file is the reusable
+runbook and quality gate.
 
-## How to Use These Plans
-- **One active workstream at a time.**
-- Read the “Batch” ExecPlan first (if present), then run per-scope ExecPlans in the order listed.
-- Treat the repository as the source of truth:
-  - Prefer copying existing patterns rather than inventing new ones.
-  - Keep changes minimal and consistent across pages.
+## Operating principles
+1. Scope discipline
+   - Only implement what the user explicitly requested in `ExecPlan.md`.
+   - No unrelated refactors, no “cleanup”, no stylistic rewrites.
+2. Preserve the design system
+   - Typography, spacing rhythm, and overall visual language must stay consistent.
+   - Any required visual change must be narrowly targeted to the spec.
+3. Mobile vs desktop conditionality
+   - Mobile-only requirements must not alter desktop behavior unless explicitly required.
+   - Verify mobile and desktop separately (different acceptance criteria).
+4. Protect critical UX components
+   - Minimizing menu banner, cookie consent banner, magnetic buttons are protected.
+5. Batch and verify
+   - Prefer fewer, coherent edits over repeated micro-edits.
+   - Every phase ends with deterministic verification before moving on.
 
-## Active Workstream: Niche Pages Generation
-**Primary plan:** `.agent/ExecPlan.Niches.Batch.md`  
-**Supporting plans:** `.agent/ExecPlan.Niche.*.md` (one per niche page)
+## Recommended workflow (phase gates)
+Phase 0 — Preflight
+- Inventory impacted pages and modules (do not edit yet).
+- Identify where each requirement “lives” (HTML vs CSS vs JS; source vs built output).
+- Confirm build/validation commands run.
 
-These plans instruct Codex to generate new niche pages using:
-- `niches/estate-agents.html` as the markup/layout template.
-- `niche_copy_templates/*_Template.md` as the copy and image source-of-truth.
-- `.agent/ICON_CATALOG.md` as the allowed icon inventory (do not use icon classes not listed there).
+Gate to proceed:
+- You can name the files you will touch for each requirement.
 
----
+Phase 1 — Implement cross-page changes (desktop + mobile)
+- Global body section background image + dark overlay + body-section-only parallax
+- Remove scroll-triggered animations (except allowed)
+- Remove grey/silver shader usage
 
-## ExecPlan Required Structure
-Each `ExecPlan.*.md` must include:
+Gate to proceed:
+- Deterministic checks show the intended asset is referenced, and scroll/grey rules are satisfied.
 
-1. **Objective**
-2. **In scope / Out of scope**
-3. **Inputs (source files)**
-4. **Outputs (files created/edited)**
-5. **Step-by-step procedure** (actionable, file-specific)
-6. **Entry criteria / Exit criteria**
-7. **Verification** (commands + what success looks like)
-8. **Rollback safety** (how to undo safely)
+Phase 2 — Implement mobile-only changes
+- Off-canvas drill-down menu behavior and visuals
+- Mobile layout fixes (services grid, FAQs overflow, about images, CTA stacking, services cards)
 
----
+Gate to proceed:
+- Mobile acceptance criteria pass on all relevant page types.
 
-## Editing Rules (Repo-wide)
-- Prefer:
-  - Editing `src/` for CSS/JS and running `npm run build:css` / `npm run build:js`
-  - Editing HTML files (`*.html`) directly as authored pages
-- Avoid:
-  - Large formatting churn
-  - Reordering sections unnecessarily
-  - Introducing new dependencies unless absolutely needed
+Phase 3 — Marquee stability
+- Single marquee stable on all HTMLs except `services.html`
+- Double marquee stable on `services.html`
 
----
+Gate to proceed:
+- No re-init loops, no DOM duplication, no disappearing/reset behavior under resize/orientation changes.
 
-## Shared Verification Expectations
-All plan runs should end with:
-- `npm run build:css`
-- `npm run build:js`
-- `node scripts/validate-niche-pages.js --strict` (for niche-page workstream completion)
+Phase 4 — Rebuild + regression verification
+- Rebuild CSS/JS outputs.
+- Run repo validations and grep/assert checks.
+- Confirm protected components still function.
 
----
+Gate to finish:
+- All requirements 1–13 are marked PASS with evidence.
 
-## Notes on Copy Templates
-The `niche_copy_templates/*_Template.md` files contain:
-- Exact copy to be inserted into the niche pages
-- Bracketed instructions (e.g., **_[Codex should generate ...]_**) that must be replaced with final copy
-- Exact image filenames (case-sensitive) that must be referenced in the generated HTML
+## Verification library (commands you should use)
+Note: prefer `rg`; fallback to `grep -R` if needed.
+
+File existence / asset checks:
+- Ensure the new body background exists on disk:
+    ls -al assets/images/body_section_parallax/body-section-background-2025.webp
+
+Reference checks (must reflect spec intent):
+- Ensure the new background filename is referenced somewhere it will take effect:
+    rg -n "body-section-background-2025\\.webp" .
+
+- Ensure no other file is referenced from the body-section parallax directory:
+    rg -n "assets/images/body_section_parallax/" . | rg -v "body-section-background-2025\\.webp"
+
+Scroll-effect removal (allowlist mindset):
+- Find remaining scroll/reveal hooks (and remove them unless explicitly allowed):
+    rg -n "scroll-reveal|\\banimate\\b|\\bvisible\\b|IntersectionObserver|stats-counter|countUp|counter" src
+
+Shader greys (code surface only; docs can mention grey):
+- Audit for grey/silver palette usage:
+    rg -n "\\b(gray|grey|silver)\\b" src assets
+
+Niche integrity (must stay valid):
+    node scripts/validate-niche-pages.js --strict
+
+## Reporting format (required)
+Your final response must include:
+- Change log: what changed, where, and why (file paths)
+- Commands run + pass/fail
+- Requirements 1–13 checklist with PASS/FAIL
+- Rollback guidance:
+  - Preferred: reference commits that can be reverted
+  - If no commits: list the exact files changed, grouped by phase
