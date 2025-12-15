@@ -10,52 +10,56 @@ You must read and follow:
 - `codex/MAINTENANCE.md` (ongoing upkeep)
 
 ## CRITICAL LOCKED UI CONTRACTS (DO NOT GET WRONG)
-These are repeated here because they are frequently implemented incorrectly.
 
-Mobile menu:
-- Panel directions are locked (do not invert):
-  - Panel 1 enters RIGHT → LEFT
-  - Panel 1 → Panel 2: Panel 1 exits RIGHT, Panel 2 enters LEFT → RIGHT
-  - Panel 2 → Panel 1: Panel 1 enters RIGHT → LEFT, Panel 2 exits LEFT
-  - Close from Panel 1: Panel 1 exits LEFT → RIGHT; re-enable minimize after 2000ms
-- Arrow directions are locked:
-  - Services shows left arrow before text: `← Services`
-  - Back shows right arrow after text: `Back →`
-- Back button location is locked:
-  - Back → appears top-right on both panels
-  - No X button on either panel
-- Timings are locked and must be extremely slow:
-  - Panel slide >= 1800ms
-  - Stagger per item >= 500ms
-  - Reveal duration >= 600ms
-- Button text alignment is locked:
-  - Panel 1 pill text must be centered inside each button
-  - Services font size must match other buttons exactly
-- Overlay opacity is locked:
-  - Overlay must be much lighter across all pages (slight dark overlay only)
-  - Use `--body-section-overlay-opacity` (single global value; no mobile override)
+Mobile menu direction contract (never invert):
+- Panel 1 enters RIGHT → LEFT
+- Panel 1 → Panel 2: Panel 1 exits RIGHT; Panel 2 enters LEFT → RIGHT
+- Panel 2 → Panel 1: Panel 1 enters RIGHT → LEFT; Panel 2 exits LEFT
+- Close from Panel 1: Panel 1 exits LEFT → RIGHT; re-enable minimize after 2000ms
+
+Arrow contract (never invert):
+- Services must be `← Services` (left arrow BEFORE the word)
+- Back must be `Back →` (right arrow AFTER the word)
+
+Back location contract:
+- No X control on either panel
+- Back button exists top-right on BOTH panels
+- Panel 2 has only one Back button, same location as Panel 1
+
+Timing contract (slow but not overly slow; do not go faster):
+- Panel slide >= 1200ms
+- Item stagger >= 250ms per item
+- Item reveal duration >= 400ms
+- Reveals begin only after slide completes
+
+Services parity contract:
+- Desktop nav “Services” must match Home/About/Book/Contact font + size exactly
+- Mobile Panel 1 “Services” must match other pills and must not be bold
+
+Overlay contract:
+- Background overlay must be a slight dark overlay, much lighter than current
+- Implement via a single `--body-section-overlay-opacity` global variable, no mobile override
 
 If any of the above are wrong, the rollout is not complete.
 
 ## Nonnegotiables (scope + UX)
 - Do EXACTLY the items listed in `ExecPlan.md` — no extra refactors, no “nice-to-haves”.
-- Preserve typography and visual language (font family/weights/colors/sizes).
+- Preserve typography and visual language.
 - Desktop must not regress while fixing mobile.
-- Remove ALL scroll-triggered animations/effects EXCEPT:
+- Remove ALL scroll-triggered effects EXCEPT:
   - body-section parallax effect
   - minimizing menu banner behavior
 - NEVER ship any grey/silver shader variant.
 
 ## Protected components (do not change unless explicitly required)
-These must remain intact:
 - Minimizing menu banner
 - Cookie consent banner
 - Magnetic buttons
 
-If any protected component must be touched to satisfy a requirement:
-- Make the smallest possible isolated change
-- Explain why it was required
-- Add verification proving nothing else changed
+If touched:
+- Smallest possible isolated change
+- Justify why
+- Add verification proving no regressions
 
 ## Implementation constraints
 - Prefer editing `src/` and rebuilding into `assets/`.
@@ -73,6 +77,10 @@ You must run:
 Include:
 - Change log with file paths
 - Commands run + pass/fail
-- Requirements 1–13 PASS/FAIL
-- CRITICAL contract PASS/FAIL (directions, arrows, timing, overlay)
+- PASS/FAIL checklist for:
+  - panel direction
+  - arrows
+  - timing
+  - overlay
+  - new points 1–9
 - Rollback guidance
