@@ -10,8 +10,6 @@
     initialized = true;
 
     const MOBILE_BREAKPOINT = 768;
-    const PANEL_SLIDE_MS = 2000;
-    const MINIMIZE_REENABLE_DELAY_MS = 2000;
     const body = document.body;
 
     // Cache references to header, nav toggle and nav menu.
@@ -65,50 +63,24 @@
     document.body.appendChild(headerIndicator);
 
     const mobileNav = buildMobileNav();
-    const mobileRootPanel = mobileNav.querySelector('.mobile-panel--root');
-    const mobileServicesPanel = mobileNav.querySelector(
-      '.mobile-panel--services',
-    );
+    const mobileNavTrack = mobileNav.querySelector('.mobile-nav-track');
     const mobileRootList = mobileNav.querySelector('.mobile-nav-list--root');
     const mobileServicesList = mobileNav.querySelector(
       '.mobile-nav-list--services',
     );
     const mobileBackdrop = mobileNav.querySelector('.mobile-nav-backdrop');
-    const mobileRootBackButton = mobileNav.querySelector(
-      '.mobile-nav-back--root',
-    );
-    const mobileServicesBackButton = mobileNav.querySelector(
-      '.mobile-nav-back--services',
-    );
+    const mobileCloseButton = mobileNav.querySelector('.mobile-nav-close');
+    const mobileBackButton = mobileNav.querySelector('.mobile-nav-back');
     let isMobileNavOpen = false;
-    let activeMobilePanel = 'root';
 
     let previousScrollY = 0;
     let headerAutoHideTimeoutId;
-    let minimizeReenableTimeoutId;
 
     const isMobileViewport = () =>
       window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
 
     function setStagger(item, index) {
       item.style.setProperty('--item-index', index);
-    }
-
-    function restartPanelReveal(panelEl) {
-      if (!panelEl) return;
-      [mobileRootPanel, mobileServicesPanel].forEach((panel) => {
-        if (panel) panel.classList.remove('panel-active');
-      });
-      requestAnimationFrame(() => {
-        panelEl.classList.add('panel-active');
-      });
-    }
-
-    function setActivePanel(panel) {
-      activeMobilePanel = panel;
-      mobileNav.classList.toggle('nav-services-visible', panel === 'services');
-      mobileNav.classList.toggle('nav-root-visible', panel !== 'services');
-      restartPanelReveal(panel === 'services' ? mobileServicesPanel : mobileRootPanel);
     }
 
     function hydrateMobileNav() {
@@ -125,11 +97,11 @@
           const li = document.createElement('li');
           const btn = document.createElement('button');
           btn.type = 'button';
-          btn.className =
-            'mobile-nav-link mobile-nav-link--drill mobile-nav-link--services';
-          btn.textContent = '← Services';
+          btn.className = 'mobile-nav-link mobile-nav-link--drill';
+          btn.textContent = 'Services';
           btn.addEventListener('click', () => {
-            openMobileNav('services');
+            openMobileNav();
+            openServicesPanel();
           });
           li.appendChild(btn);
           setStagger(li, rootIndex++);
@@ -170,16 +142,13 @@
       });
     }
 
-    function openMobileNav(targetPanel = 'root') {
-      if (isMobileNavOpen) {
-        setActivePanel(targetPanel);
-        return;
-      }
+    function openMobileNav() {
+      if (isMobileNavOpen) return;
       hydrateMobileNav();
+      closeServicesPanel();
       closeServicesDropdown();
       closeServicesOverlay();
       clearTimeout(headerAutoHideTimeoutId);
-      clearTimeout(minimizeReenableTimeoutId);
       previousScrollY =
         window.pageYOffset || document.documentElement.scrollTop || 0;
       document.body.style.position = 'fixed';
@@ -187,15 +156,6 @@
       document.body.classList.add('mobile-nav-open');
       mobileNav.setAttribute('aria-hidden', 'false');
       mobileNav.classList.add('is-open');
-      mobileNav.classList.remove(
-        'nav-open',
-        'nav-root-visible',
-        'nav-services-visible',
-      );
-      // Force reflow so transforms animate from offscreen
-      mobileNav.offsetWidth;
-      mobileNav.classList.add('nav-open');
-      setActivePanel(targetPanel);
       isMobileNavOpen = true;
       if (navToggle) navToggle.classList.add('active');
       showHeader();
@@ -203,43 +163,25 @@
 
     function closeMobileNav() {
       if (!isMobileNavOpen) return;
-
-      const finishClose = () => {
-        mobileNav.classList.remove(
-          'nav-open',
-          'nav-root-visible',
-          'nav-services-visible',
-        );
-        window.setTimeout(() => {
-          mobileNav.classList.remove('is-open');
-          mobileNav.setAttribute('aria-hidden', 'true');
-          document.body.classList.remove('mobile-nav-open');
-          document.body.style.position = '';
-          document.body.style.top = '';
-          window.scrollTo(0, previousScrollY);
-          isMobileNavOpen = false;
-          if (navToggle) navToggle.classList.remove('active');
-          minimizeReenableTimeoutId = window.setTimeout(
-            () => scheduleHeaderAutoHide(),
-            MINIMIZE_REENABLE_DELAY_MS,
-          );
-        }, PANEL_SLIDE_MS);
-      };
-
-      if (activeMobilePanel === 'services') {
-        setActivePanel('root');
-        window.setTimeout(finishClose, PANEL_SLIDE_MS);
-        return;
-      }
-      finishClose();
+      mobileNav.classList.remove('is-open', 'show-services');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('mobile-nav-open');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, previousScrollY);
+      isMobileNavOpen = false;
+      if (navToggle) navToggle.classList.remove('active');
+      scheduleHeaderAutoHide();
     }
 
     function openServicesPanel() {
-      setActivePanel('services');
+      if (!mobileNavTrack) return;
+      mobileNav.classList.add('show-services');
+      mobileNavTrack.scrollTop = 0;
     }
 
     function closeServicesPanel() {
-      setActivePanel('root');
+      mobileNav.classList.remove('show-services');
     }
 
     function showHeader() {
@@ -396,10 +338,9 @@
         event.stopPropagation();
         if (isMobileViewport()) {
           if (!isMobileNavOpen) {
-            openMobileNav('services');
-          } else {
-            openServicesPanel();
+            openMobileNav();
           }
+          openServicesPanel();
         } else {
           if (servicesDropdownOpen) {
             closeServicesDropdown();
@@ -438,22 +379,16 @@
     }
 
     if (mobileBackdrop) {
-      mobileBackdrop.addEventListener('click', () => {
-        if (activeMobilePanel === 'services') {
-          closeServicesPanel();
-          return;
-        }
-        closeMobileNav();
-      });
+      mobileBackdrop.addEventListener('click', closeMobileNav);
     }
-    if (mobileRootBackButton) {
-      mobileRootBackButton.addEventListener('click', (event) => {
+    if (mobileCloseButton) {
+      mobileCloseButton.addEventListener('click', (event) => {
         event.preventDefault();
         closeMobileNav();
       });
     }
-    if (mobileServicesBackButton) {
-      mobileServicesBackButton.addEventListener('click', (event) => {
+    if (mobileBackButton) {
+      mobileBackButton.addEventListener('click', (event) => {
         event.preventDefault();
         closeServicesPanel();
       });
@@ -480,6 +415,14 @@
       event.stopPropagation();
       closeServicesDropdown();
       closeServicesOverlay();
+      if (isMobileViewport()) {
+        if (isMobileNavOpen) {
+          closeMobileNav();
+        } else {
+          openMobileNav();
+        }
+        return;
+      }
       showHeader();
       clearTimeout(headerAutoHideTimeoutId);
       scheduleHeaderAutoHide();
@@ -519,28 +462,26 @@
       shell.innerHTML = `
         <div class="mobile-nav-backdrop"></div>
         <div class="mobile-nav-panel" role="dialog" aria-modal="true">
-          <div class="mobile-panel mobile-panel--root" aria-label="Main navigation">
-            <div class="mobile-panel__header">
-              <div class="mobile-panel__titles">
-                <p class="mobile-panel__eyebrow">Explore</p>
-              </div>
-              <button class="mobile-nav-back mobile-nav-back--root" type="button" aria-label="Close menu">
-                <span class="mobile-back-label">Back →</span>
-              </button>
-            </div>
-            <ul class="mobile-nav-list mobile-nav-list--root"></ul>
+          <div class="mobile-nav-header">
+            <span class="mobile-nav-title">Explore</span>
+            <button class="mobile-nav-close" type="button" aria-label="Close menu">
+              <span class="mobile-close-icon" aria-hidden="true"></span>
+            </button>
           </div>
-          <div class="mobile-panel mobile-panel--services" aria-label="Services navigation">
-            <div class="mobile-panel__header">
-              <div class="mobile-panel__titles">
-                <p class="mobile-panel__eyebrow">Explore</p>
-                <p class="mobile-panel__title">Services</p>
-              </div>
-              <button class="mobile-nav-back mobile-nav-back--services" type="button" aria-label="Back to main menu">
-                <span class="mobile-back-label">Back →</span>
-              </button>
+          <div class="mobile-nav-track">
+            <div class="mobile-nav-view mobile-nav-view--root" aria-label="Main navigation">
+              <ul class="mobile-nav-list mobile-nav-list--root"></ul>
             </div>
-            <ul class="mobile-nav-list mobile-nav-list--services"></ul>
+            <div class="mobile-nav-view mobile-nav-view--services" aria-label="Services navigation">
+              <div class="mobile-nav-subhead">
+                <button class="mobile-nav-back" type="button" aria-label="Back to main menu">
+                  <span class="mobile-back-icon" aria-hidden="true"></span>
+                  <span class="mobile-back-label">Back</span>
+                </button>
+                <p class="mobile-nav-kicker">Services</p>
+              </div>
+              <ul class="mobile-nav-list mobile-nav-list--services"></ul>
+            </div>
           </div>
         </div>
       `;
