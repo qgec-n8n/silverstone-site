@@ -2,34 +2,34 @@
 
 # Codex Initiation Instructions (Silverstone Site)
 
-Use this file to start a reliable Codex session for the current UI refinement pass.
+## Start here
+Run Codex from the repository root so it loads `AGENTS.md`.
 
-## 1) Start in the correct directory
-- Ensure your terminal CWD is the repository root (where `index.html` and `AGENTS.md` live).
-
-## 2) One-time environment setup
+## One-time setup per environment
 Run:
-    bash scripts/codex.setup.sh
+- `bash scripts/codex.setup.sh`
 
-If dependencies are not installed yet, install them with your standard workflow, then rerun the setup script.
+Then sanity check:
+- `bash scripts/codex.maintenance.sh`
 
-## 3) Confirm Codex is reading project guidance
-In a Codex session, ask it to:
-- Summarize which instruction files it loaded
-- Summarize the current mission from `ExecPlan.md`
-
-Expected:
-- It references `AGENTS.md` and confirms it will follow `ExecPlan.md` and `PLANS.md`.
-
-## 4) Recommended session configuration
+## Required session settings
 - Model: `gpt-5.1-codex-max`
 - Reasoning effort: high
-- Approvals: allow workspace edits and local commands (avoid outbound network unless you explicitly need it)
+- Approval policy: on-request (recommended)
 
-## 5) Kickoff prompt (paste into Codex)
-Use a prompt that:
-- Tells Codex to read `ExecPlan.md` and implement it end-to-end
-- Requires the final report format (change log, commands run, requirements 1–13 PASS/FAIL)
+## Kickoff prompt guidance
+When starting a Codex task, instruct it:
+- to read `ExecPlan.md` and `PLANS.md`
+- to implement the full spec end-to-end without stopping early
+- to run verification commands and report PASS/FAIL
 
-Example wording (adapt as needed):
-- “Read `ExecPlan.md` and implement requirements 1–13 exactly (including the refinement rules for the mobile nav, overlay parity, desktop FAQ centering, and marquee eager start). Do not broaden scope. Rebuild outputs, run validations, then report with the required checklist and change log.”
+Critical instruction to include:
+- “Do not invert mobile panel directions. Follow the direction table in ExecPlan.md exactly.”
+- “Set motion timings to extremely slow minimums (>= 1800ms slide; >= 500ms stagger).”
+
+## Required commands before finishing
+Codex must run at the end:
+- `npm run build:css`
+- `npm run build:js`
+- `node scripts/validate-niche-pages.js --strict`
+- `node scripts/assert-ui-spec.js --strict`
