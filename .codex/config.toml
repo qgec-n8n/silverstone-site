@@ -1,24 +1,23 @@
 # FILE: .codex/config.toml
 
 # Codex project configuration for the Silverstone static site.
-# This config is tuned for high-reliability UI work with strong scope control.
+# Tuned for high-reliability UI work with strict scope control.
 
 model = "gpt-5.1-codex-max"
 model_reasoning_effort = "high"
 
-# Safe default for doing real work while still requiring approvals for risky actions.
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
-# Allow sufficient room for repo guidance (AGENTS + plans) to load.
+# Ensure AGENTS.md + ExecPlan.md + PLANS.md fit into injected project docs.
+# Default is 32 KiB; raise for this repo.
 project_doc_max_bytes = 65536
 
 [features]
-# Allow Codex to request web search when it needs up-to-date or niche information.
 web_search_request = true
 
 [sandbox_workspace_write]
-# Keep outbound network access disabled by default for safety/reproducibility.
+# Keep outbound network disabled unless explicitly needed.
 network_access = false
 
 [tui]
