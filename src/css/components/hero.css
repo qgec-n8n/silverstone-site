@@ -162,5 +162,6 @@
 
   .hero .content .btn + .btn {
     margin-left: 0 !important;
+    margin-top: 0.65rem;
   }
 }

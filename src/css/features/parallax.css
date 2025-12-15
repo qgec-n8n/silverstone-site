@@ -10,7 +10,11 @@
  */
 
 :root {
-  --parallax-overlay: none;
+  --parallax-overlay: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
   --parallax-backdrop: #050B18;
   --parallax-image: url('../images/body_section_parallax/body-section-background-2025.webp');
   --parallax-mobile-fallback: var(--parallax-image);
@@ -27,6 +31,10 @@
   overflow: hidden;
   background-color: var(--parallax-backdrop);
   isolation: isolate;
+}
+
+.parallax-section::before {
+  background: none;
 }
 
 @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {

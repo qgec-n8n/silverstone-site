@@ -306,7 +306,7 @@ nav a.active {
     border-left: 1px solid rgba(0, 174, 239, 0.18);
     backdrop-filter: blur(12px) saturate(160%);
     transform: translateX(110%);
-    transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 0.52s cubic-bezier(0.22, 0.61, 0.36, 1);
     overflow: hidden;
   }
 
@@ -330,8 +330,6 @@ nav a.active {
   }
 
   .mobile-nav-close {
-    width: 2.25rem;
-    height: 2.25rem;
     position: relative;
     border-radius: 999px;
     border: 1px solid rgba(0, 174, 239, 0.28);
@@ -343,12 +341,15 @@ nav a.active {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.9rem;
     cursor: pointer;
     box-shadow:
       0 10px 24px rgba(5, 12, 24, 0.12),
       inset 0 1px 0 rgba(255, 255, 255, 0.7);
     transition: transform 0.25s ease, box-shadow 0.25s ease,
       border-color 0.25s ease;
+    white-space: nowrap;
   }
 
   .mobile-nav-close:hover,
@@ -360,29 +361,46 @@ nav a.active {
       inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
-  .mobile-close-icon,
-  .mobile-close-icon::before,
-  .mobile-close-icon::after {
-    position: absolute;
-    width: 14px;
-    height: 2px;
-    background: var(--color-blue);
-    content: "";
+  .mobile-close-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 999px;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 174, 239, 0.18),
+      rgba(255, 255, 255, 0.92)
+    );
+    position: relative;
+    color: var(--color-blue);
   }
 
   .mobile-close-icon::before {
-    transform: rotate(45deg);
+    content: "←";
+    font-size: 0.9rem;
+    transform: translateX(-1px);
+    color: currentColor;
   }
 
   .mobile-close-icon::after {
-    transform: rotate(-45deg);
+    display: none;
+  }
+
+  .mobile-close-label {
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-blue);
+    font-size: 0.8rem;
   }
 
   .mobile-nav-track {
     display: flex;
     width: 200%;
     height: calc(100% - 78px);
-    transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 0.52s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   .mobile-nav-shell.show-services .mobile-nav-track {
@@ -473,7 +491,7 @@ nav a.active {
 
   .mobile-nav-shell.is-open .mobile-nav-list li {
     animation: mobileNavStagger 0.35s ease forwards;
-    animation-delay: calc(var(--item-index, 0) * 60ms);
+    animation-delay: calc(var(--item-index, 0) * 70ms);
   }
 
   .mobile-nav-link {

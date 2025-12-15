@@ -17,6 +17,7 @@
 .single-marquee .marquee-track {
   display: flex;
   width: max-content;
+  min-width: 100%;
   gap: 32px;
   will-change: transform;
   animation: marquee-scroll-left 60s linear infinite;
@@ -160,6 +161,7 @@
 .double-marquee .marquee-track {
   display: flex;
   width: max-content;
+  min-width: 100%;
   gap: 40px;
   will-change: transform;
 }

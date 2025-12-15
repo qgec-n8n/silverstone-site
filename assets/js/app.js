@@ -10,6 +10,8 @@
     initialized = true;
 
     const MOBILE_BREAKPOINT = 768;
+    const HEADER_AUTO_HIDE_DELAY = 1200;
+    const MINIMIZE_REENABLE_DELAY = 2000;
     const body = document.body;
 
     // Cache references to header, nav toggle and nav menu.
@@ -75,6 +77,8 @@
 
     let previousScrollY = 0;
     let headerAutoHideTimeoutId;
+    let minimizeResumeTimeoutId;
+    let headerMinimizePaused = false;
 
     const isMobileViewport = () =>
       window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
@@ -142,13 +146,27 @@
       });
     }
 
+    function pauseHeaderMinimize() {
+      headerMinimizePaused = true;
+      clearTimeout(headerAutoHideTimeoutId);
+      clearTimeout(minimizeResumeTimeoutId);
+    }
+
+    function resumeHeaderMinimizeAfterDelay() {
+      clearTimeout(minimizeResumeTimeoutId);
+      minimizeResumeTimeoutId = window.setTimeout(() => {
+        headerMinimizePaused = false;
+        scheduleHeaderAutoHide();
+      }, MINIMIZE_REENABLE_DELAY);
+    }
+
     function openMobileNav() {
       if (isMobileNavOpen) return;
       hydrateMobileNav();
       closeServicesPanel();
       closeServicesDropdown();
       closeServicesOverlay();
-      clearTimeout(headerAutoHideTimeoutId);
+      pauseHeaderMinimize();
       previousScrollY =
         window.pageYOffset || document.documentElement.scrollTop || 0;
       document.body.style.position = 'fixed';
@@ -171,7 +189,7 @@
       window.scrollTo(0, previousScrollY);
       isMobileNavOpen = false;
       if (navToggle) navToggle.classList.remove('active');
-      scheduleHeaderAutoHide();
+      resumeHeaderMinimizeAfterDelay();
     }
 
     function openServicesPanel() {
@@ -182,6 +200,7 @@
 
     function closeServicesPanel() {
       mobileNav.classList.remove('show-services');
+      if (mobileNavTrack) mobileNavTrack.scrollTop = 0;
     }
 
     function showHeader() {
@@ -195,12 +214,14 @@
         (servicesOverlay && servicesOverlay.classList.contains('active'))
       )
         return;
+      if (headerMinimizePaused) return;
       if (header) header.classList.add('header-hidden');
       headerIndicator.classList.add('active');
     }
-    function scheduleHeaderAutoHide(delay = 1200) {
+    function scheduleHeaderAutoHide(delay = HEADER_AUTO_HIDE_DELAY) {
       clearTimeout(headerAutoHideTimeoutId);
       if (isMobileNavOpen) return;
+      if (headerMinimizePaused) return;
       headerAutoHideTimeoutId = window.setTimeout(() => {
         if (navMenu && navMenu.classList.contains('open')) return;
         if (
@@ -415,14 +436,6 @@
       event.stopPropagation();
       closeServicesDropdown();
       closeServicesOverlay();
-      if (isMobileViewport()) {
-        if (isMobileNavOpen) {
-          closeMobileNav();
-        } else {
-          openMobileNav();
-        }
-        return;
-      }
       showHeader();
       clearTimeout(headerAutoHideTimeoutId);
       scheduleHeaderAutoHide();
@@ -447,6 +460,7 @@
         if (isMobileNavOpen) return;
         if (navMenu && navMenu.classList.contains('open')) return;
         if (servicesDropdownOpen || isServicesOverlayActive()) return;
+        if (headerMinimizePaused) return;
         clearTimeout(headerAutoHideTimeoutId);
         hideHeader();
       },
@@ -464,8 +478,9 @@
         <div class="mobile-nav-panel" role="dialog" aria-modal="true">
           <div class="mobile-nav-header">
             <span class="mobile-nav-title">Explore</span>
-            <button class="mobile-nav-close" type="button" aria-label="Close menu">
+            <button class="mobile-nav-close" type="button" aria-label="Close menu and return to the page">
               <span class="mobile-close-icon" aria-hidden="true"></span>
+              <span class="mobile-close-label">Back</span>
             </button>
           </div>
           <div class="mobile-nav-track">
