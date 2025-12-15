@@ -5,7 +5,7 @@
 
 .faq-section .faq-list {
   display: grid;
-  grid-template-columns: max-content;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   justify-content: center;
 }
@@ -13,11 +13,8 @@
 .faq-section details {
   border-radius: 18px;
   width: 100%;
-  max-width: 65ch;
-  transition:
-    transform 0.3s ease,
-    padding 0.3s ease,
-    width 0.3s ease;
+  max-width: 70ch;
+  transition: padding 0.3s ease, width 0.3s ease;
 }
 
 .faq-section summary {
@@ -59,7 +56,6 @@
 }
 
 .faq-section details[open] {
-  transform: scale(1.03);
   padding-bottom: 1rem;
   max-width: 70ch;
 }
@@ -67,4 +63,20 @@
 .faq-section .section-title {
   font-size: 1.6rem;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    margin-top: 2rem;
+  }
+  .faq-section .faq-list {
+    gap: 0.75rem;
+    justify-content: stretch;
+  }
+  .faq-section details {
+    max-width: 100%;
+  }
+  .faq-section summary {
+    padding-right: 1.5rem;
+  }
 }

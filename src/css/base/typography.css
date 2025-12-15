@@ -789,60 +789,19 @@
   }
 
   /* Mobile DPR-aware background images for themed sections (top-aligned) */
-  .section.bg-lines {
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-mesh,
+  .section.bg-waves {
     /* Fallback for very old engines */
-    background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
+    background-image: url("../images/body_section_parallax/body-section-background-2025.webp");
     /* Older Safari */
     background-image: -webkit-image-set(
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+      url("../images/body_section_parallax/body-section-background-2025.webp") 1x
     );
     /* Standard */
     background-image: image-set(
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  .section.bg-circuit {
-    background-image: url("../images/internet/mobile/section-waves@1x.webp");
-    background-image: -webkit-image-set(
-      url("../images/internet/mobile/section-waves@1x.webp") 1x,
-      url("../images/internet/mobile/section-waves@2x.webp") 2x
-    );
-    background-image: image-set(
-      url("../images/internet/mobile/section-waves@1x.webp") 1x,
-      url("../images/internet/mobile/section-waves@2x.webp") 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  .section.bg-mesh {
-    background-image: url("../images/internet/mobile/section-mesh@1x.webp");
-    background-image: -webkit-image-set(
-      url("../images/internet/mobile/section-mesh@1x.webp") 1x,
-      url("../images/internet/mobile/section-mesh@2x.webp") 2x
-    );
-    background-image: image-set(
-      url("../images/internet/mobile/section-mesh@1x.webp") 1x,
-      url("../images/internet/mobile/section-mesh@2x.webp") 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  .section.bg-waves {
-    background-image: url("../images/internet/mobile/section-waves@1x.webp");
-    background-image: -webkit-image-set(
-      url("../images/internet/mobile/section-waves@1x.webp") 1x,
-      url("../images/internet/mobile/section-waves@2x.webp") 2x
-    );
-    background-image: image-set(
-      url("../images/internet/mobile/section-waves@1x.webp") 1x,
-      url("../images/internet/mobile/section-waves@2x.webp") 2x
+      url("../images/body_section_parallax/body-section-background-2025.webp") 1x
     );
     background-position: center top;
     background-size: cover;
@@ -853,24 +812,18 @@
     /* Fallback */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
+      url("../images/body_section_parallax/body-section-background-2025.webp");
     /* Older Safari */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
       -webkit-image-set(
-          url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp")
-            1x,
-          url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp")
-            2x
+          url("../images/body_section_parallax/body-section-background-2025.webp") 1x
         );
     /* Standard */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
       image-set(
-        url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp")
-          1x,
-        url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp")
-          2x
+        url("../images/body_section_parallax/body-section-background-2025.webp") 1x
       );
     background-size: cover;
     background-position: center top;
@@ -915,27 +868,27 @@
     .section.bg-lines {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-circuit {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/section-waves.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-city {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/section-city.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-mesh {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/section-mesh.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-waves {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/section-waves.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
 
     /* Hide the default overlay pseudo‑elements on these sections */

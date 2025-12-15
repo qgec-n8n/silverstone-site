@@ -415,6 +415,25 @@
   transform: none !important;
 }
 
+@media (max-width: 768px) {
+  .drives-grid,
+  .collage,
+  .what-drives-us,
+  .what-drives-us-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .drives-grid img,
+  .collage img,
+  .what-drives-us img,
+  .what-drives-us-grid img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+  }
+}
+
 @media (min-width: 769px) {
   .service-row {
     grid-template-columns: 1fr 1fr;

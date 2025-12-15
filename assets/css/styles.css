@@ -804,60 +804,19 @@
   }
 
   /* Mobile DPR-aware background images for themed sections (top-aligned) */
-  .section.bg-lines {
+  .section.bg-lines,
+  .section.bg-circuit,
+  .section.bg-mesh,
+  .section.bg-waves {
     /* Fallback for very old engines */
-    background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
+    background-image: url("../images/body_section_parallax/body-section-background-2025.webp");
     /* Older Safari */
     background-image: -webkit-image-set(
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+      url("../images/body_section_parallax/body-section-background-2025.webp") 1x
     );
     /* Standard */
     background-image: image-set(
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  .section.bg-circuit {
-    background-image: url("../images/internet/mobile/section-waves@1x.webp");
-    background-image: -webkit-image-set(
-      url("../images/internet/mobile/section-waves@1x.webp") 1x,
-      url("../images/internet/mobile/section-waves@2x.webp") 2x
-    );
-    background-image: image-set(
-      url("../images/internet/mobile/section-waves@1x.webp") 1x,
-      url("../images/internet/mobile/section-waves@2x.webp") 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  .section.bg-mesh {
-    background-image: url("../images/internet/mobile/section-mesh@1x.webp");
-    background-image: -webkit-image-set(
-      url("../images/internet/mobile/section-mesh@1x.webp") 1x,
-      url("../images/internet/mobile/section-mesh@2x.webp") 2x
-    );
-    background-image: image-set(
-      url("../images/internet/mobile/section-mesh@1x.webp") 1x,
-      url("../images/internet/mobile/section-mesh@2x.webp") 2x
-    );
-    background-position: center top;
-    background-size: cover;
-  }
-
-  .section.bg-waves {
-    background-image: url("../images/internet/mobile/section-waves@1x.webp");
-    background-image: -webkit-image-set(
-      url("../images/internet/mobile/section-waves@1x.webp") 1x,
-      url("../images/internet/mobile/section-waves@2x.webp") 2x
-    );
-    background-image: image-set(
-      url("../images/internet/mobile/section-waves@1x.webp") 1x,
-      url("../images/internet/mobile/section-waves@2x.webp") 2x
+      url("../images/body_section_parallax/body-section-background-2025.webp") 1x
     );
     background-position: center top;
     background-size: cover;
@@ -868,24 +827,18 @@
     /* Fallback */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
+      url("../images/body_section_parallax/body-section-background-2025.webp");
     /* Older Safari */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
       -webkit-image-set(
-          url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp")
-            1x,
-          url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp")
-            2x
+          url("../images/body_section_parallax/body-section-background-2025.webp") 1x
         );
     /* Standard */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
       image-set(
-        url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp")
-          1x,
-        url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp")
-          2x
+        url("../images/body_section_parallax/body-section-background-2025.webp") 1x
       );
     background-size: cover;
     background-position: center top;
@@ -930,27 +883,27 @@
     .section.bg-lines {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-circuit {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/section-waves.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-city {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/section-city.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-mesh {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/section-mesh.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-waves {
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("../images/internet/section-waves.webp") !important;
+        url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
 
     /* Hide the default overlay pseudo‑elements on these sections */
@@ -1174,26 +1127,10 @@ img {
 .section.bg-waves {
   position: relative;
   isolation: isolate;
-}
-
-.section.bg-lines {
-  background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp");
-}
-
-.section.bg-circuit {
-  background-image: url("../images/internet/section-waves.webp");
-}
-
-.section.bg-city {
-  background-image: url("../images/internet/section-city.webp");
-}
-
-.section.bg-mesh {
-  background-image: url("../images/internet/section-mesh.webp");
-}
-
-.section.bg-waves {
-  background-image: url("../images/internet/section-waves.webp");
+  background-image: url("../images/body_section_parallax/body-section-background-2025.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .section.bg-lines::before,
@@ -1213,17 +1150,9 @@ img {
 }
 
 .animate {
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-}
-
-.animate.visible,
-.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+  transition: none;
 }
 
 .brand-gradient {
@@ -1312,6 +1241,116 @@ nav a.active {
   color: var(--color-purple);
 }
 
+:root {
+  --headerH: clamp(66px, 8vh, 88px);
+}
+
+#header-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--headerH) * 0.335);
+  background: #ffffff;
+  backdrop-filter: blur(6px) saturate(130%);
+  border-radius: 0 0 12px 12px;
+  border: 1px solid rgba(12, 16, 29, 0.1);
+  border-top: none;
+  box-shadow:
+    0 10px 28px rgba(12, 16, 29, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-blue);
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1500;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: height 0.3s ease, opacity 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+
+#header-indicator.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#header-indicator::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 174, 239, 0.18),
+    rgba(157, 78, 221, 0.12)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#header-indicator .indicator-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  position: relative;
+  z-index: 1;
+}
+
+#header-indicator .indicator-copy span {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+}
+
+#header-indicator .indicator-copy span::after {
+  display: inline-block;
+  margin-left: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+  color: rgba(12, 16, 29, 0.55);
+  text-transform: uppercase;
+}
+
+#header-indicator:hover {
+  height: var(--headerH);
+  background: #f7f9fc;
+  color: var(--color-purple);
+  box-shadow:
+    0 16px 34px rgba(12, 16, 29, 0.16),
+    0 8px 18px rgba(0, 174, 239, 0.18);
+}
+
+#header-indicator:hover::after {
+  opacity: 1;
+}
+
+#header-indicator:hover .indicator-copy span::after {
+  color: rgba(157, 78, 221, 0.75);
+}
+
+@media (hover: none) {
+  #header-indicator .indicator-copy span::after {
+    content: "• Tap to expand";
+  }
+}
+
+@media (hover: hover) {
+  #header-indicator .indicator-copy span::after {
+    content: "• Hover to expand";
+  }
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -1334,33 +1373,26 @@ nav a.active {
   display: none;
 }
 
+.mobile-nav-shell {
+  position: fixed;
+  inset: 0;
+  display: none;
+  pointer-events: none;
+  z-index: 2200;
+}
+
+.mobile-nav-shell.is-open {
+  display: flex;
+}
+
 @media (max-width: 768px) {
   nav ul {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: var(--color-white);
-    flex-direction: column;
-    align-items: flex-start;
-    width: 200px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-10px);
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  nav ul.open {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
+    display: none;
   }
 
   .nav-toggle {
     display: flex;
+    z-index: 2500;
   }
 
   .header-inner {
@@ -1375,6 +1407,297 @@ nav a.active {
 
   .header-inner .logo {
     order: 1;
+  }
+
+  #header-indicator {
+    width: 100%;
+    left: 0;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px) saturate(170%);
+    border-radius: 0 0 12px 12px;
+    border-top: none;
+    border: 1px solid rgba(12, 16, 29, 0.06);
+    box-shadow:
+      0 10px 28px rgba(15, 23, 42, 0.16),
+      0 6px 20px rgba(0, 174, 239, 0.1);
+    color: var(--color-blue);
+    transform: translateY(-100%);
+  }
+
+  #header-indicator.active {
+    transform: translateY(0);
+  }
+
+  #header-indicator:hover {
+    height: 42px;
+    background: rgba(255, 255, 255, 0.98);
+  }
+
+  .mobile-nav-shell {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+    z-index: 2200;
+  }
+
+  .mobile-nav-shell.is-open {
+    pointer-events: auto;
+  }
+
+  .mobile-nav-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 12, 24, 0.45);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .mobile-nav-shell.is-open .mobile-nav-backdrop {
+    opacity: 1;
+  }
+
+  .mobile-nav-panel {
+    position: relative;
+    width: min(92vw, 420px);
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(247, 251, 255, 0.98),
+      rgba(232, 245, 255, 0.96)
+    );
+    color: var(--color-blue);
+    box-shadow:
+      0 26px 60px rgba(5, 12, 24, 0.24),
+      0 10px 24px rgba(5, 12, 24, 0.16);
+    border-left: 1px solid rgba(0, 174, 239, 0.18);
+    backdrop-filter: blur(12px) saturate(160%);
+    transform: translateX(110%);
+    transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+    overflow: hidden;
+  }
+
+  .mobile-nav-shell.is-open .mobile-nav-panel {
+    transform: translateX(0);
+  }
+
+  .mobile-nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: clamp(1rem, 4vw, 1.25rem) clamp(1.25rem, 5vw, 1.5rem) 0;
+  }
+
+  .mobile-nav-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .mobile-nav-close {
+    width: 2.25rem;
+    height: 2.25rem;
+    position: relative;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 174, 239, 0.28);
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(0, 174, 239, 0.08)
+    );
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow:
+      0 10px 24px rgba(5, 12, 24, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    transition: transform 0.25s ease, box-shadow 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .mobile-nav-close:hover,
+  .mobile-nav-close:focus-visible {
+    transform: translateY(-1px);
+    border-color: rgba(157, 78, 221, 0.45);
+    box-shadow:
+      0 12px 26px rgba(5, 12, 24, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .mobile-close-icon,
+  .mobile-close-icon::before,
+  .mobile-close-icon::after {
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background: var(--color-blue);
+    content: "";
+  }
+
+  .mobile-close-icon::before {
+    transform: rotate(45deg);
+  }
+
+  .mobile-close-icon::after {
+    transform: rotate(-45deg);
+  }
+
+  .mobile-nav-track {
+    display: flex;
+    width: 200%;
+    height: calc(100% - 78px);
+    transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .mobile-nav-shell.show-services .mobile-nav-track {
+    transform: translateX(-50%);
+  }
+
+  .mobile-nav-view {
+    flex: 0 0 50%;
+    height: 100%;
+    overflow-y: auto;
+    padding: clamp(1.25rem, 4vw, 1.75rem);
+  }
+
+  .mobile-nav-subhead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .mobile-nav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(0, 174, 239, 0.32);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--color-blue);
+    padding: 0.5rem 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(5, 12, 24, 0.12);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .mobile-nav-back:hover,
+  .mobile-nav-back:focus-visible {
+    transform: translateX(-1px);
+    border-color: rgba(157, 78, 221, 0.45);
+  }
+
+  .mobile-back-icon {
+    display: inline-flex;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 174, 239, 0.28);
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 174, 239, 0.18),
+      rgba(255, 255, 255, 0.92)
+    );
+    color: var(--color-blue);
+  }
+
+  .mobile-back-icon::before {
+    content: "←";
+    font-size: 0.9rem;
+    transform: translateX(-1px);
+  }
+
+  .mobile-nav-kicker {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-blue);
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .mobile-nav-list li {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+
+  .mobile-nav-shell.is-open .mobile-nav-list li {
+    animation: mobileNavStagger 0.35s ease forwards;
+    animation-delay: calc(var(--item-index, 0) * 60ms);
+  }
+
+  .mobile-nav-link {
+    display: block;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-blue);
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(0, 174, 239, 0.08)
+    );
+    border: 1px solid rgba(0, 174, 239, 0.24);
+    box-shadow:
+      0 10px 22px rgba(5, 12, 24, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    transition: transform 0.25s ease, box-shadow 0.25s ease,
+      border-color 0.25s ease, color 0.25s ease;
+    text-align: left;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link:focus-visible {
+    transform: translateX(2px);
+    border-color: rgba(157, 78, 221, 0.4);
+    box-shadow:
+      0 14px 28px rgba(5, 12, 24, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    color: var(--color-purple);
+  }
+
+  .mobile-nav-link--drill {
+    position: relative;
+    padding-right: 2.5rem;
+  }
+
+  .mobile-nav-link--drill::after {
+    content: "›";
+    position: absolute;
+    right: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: inherit;
+  }
+
+  @keyframes mobileNavStagger {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }
 
@@ -1929,6 +2252,24 @@ body.services-overlay-active .services-overlay {
   }
 }
 
+@media (max-width: 768px) {
+  .hero .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero .content .btn {
+    width: min(100%, 360px);
+    text-align: center;
+  }
+
+  .hero .content .btn + .btn {
+    margin-left: 0 !important;
+  }
+}
+
 
 /*
  * Custom styles to improve alignment and consistency of the
@@ -2347,6 +2688,25 @@ body.services-overlay-active .services-overlay {
   transform: none !important;
 }
 
+@media (max-width: 768px) {
+  .drives-grid,
+  .collage,
+  .what-drives-us,
+  .what-drives-us-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .drives-grid img,
+  .collage img,
+  .what-drives-us img,
+  .what-drives-us-grid img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+  }
+}
+
 @media (min-width: 769px) {
   .service-row {
     grid-template-columns: 1fr 1fr;
@@ -2485,7 +2845,7 @@ body.services-overlay-active .services-overlay {
 
 .faq-section .faq-list {
   display: grid;
-  grid-template-columns: max-content;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   justify-content: center;
 }
@@ -2493,11 +2853,8 @@ body.services-overlay-active .services-overlay {
 .faq-section details {
   border-radius: 18px;
   width: 100%;
-  max-width: 65ch;
-  transition:
-    transform 0.3s ease,
-    padding 0.3s ease,
-    width 0.3s ease;
+  max-width: 70ch;
+  transition: padding 0.3s ease, width 0.3s ease;
 }
 
 .faq-section summary {
@@ -2539,7 +2896,6 @@ body.services-overlay-active .services-overlay {
 }
 
 .faq-section details[open] {
-  transform: scale(1.03);
   padding-bottom: 1rem;
   max-width: 70ch;
 }
@@ -2547,6 +2903,22 @@ body.services-overlay-active .services-overlay {
 .faq-section .section-title {
   font-size: 1.6rem;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    margin-top: 2rem;
+  }
+  .faq-section .faq-list {
+    gap: 0.75rem;
+    justify-content: stretch;
+  }
+  .faq-section details {
+    max-width: 100%;
+  }
+  .faq-section summary {
+    padding-right: 1.5rem;
+  }
 }
 
 
@@ -2609,6 +2981,14 @@ body.services-overlay-active .services-overlay {
 :root {
   --parallax-overlay: none;
   --parallax-backdrop: #050B18;
+  --parallax-image: url('../images/body_section_parallax/body-section-background-2025.webp');
+  --parallax-mobile-fallback: var(--parallax-image);
+  --parallax-mobile-image-set: image-set(
+    url('../images/body_section_parallax/body-section-background-2025.webp') 1x
+  );
+  --parallax-mobile-image-set-webkit: -webkit-image-set(
+    url('../images/body_section_parallax/body-section-background-2025.webp') 1x
+  );
 }
 
 .parallax-section {
@@ -2650,136 +3030,24 @@ body.services-overlay-active .services-overlay {
   opacity: 1;
 }
 
-/* Theme-specific assets -------------------------------------------------- */
-.parallax-section[data-parallax-theme="lines"] {
-  background-image: var(--parallax-overlay), url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp');
-  --parallax-mobile-fallback: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
-  --parallax-mobile-image-set: image-set(
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-  );
-  --parallax-mobile-image-set-webkit: -webkit-image-set(
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-  );
-}
-
-.parallax-section[data-parallax-theme="circuit"] {
-  background-image: var(--parallax-overlay), url('../images/internet/section-waves.webp');
-  --parallax-mobile-fallback: url('../images/internet/mobile/section-waves@1x.webp');
-  --parallax-mobile-image-set: image-set(
-    url('../images/internet/mobile/section-waves@1x.webp') 1x,
-    url('../images/internet/mobile/section-waves@2x.webp') 2x,
-    url('../images/internet/mobile/section-waves@3x.webp') 3x
-  );
-  --parallax-mobile-image-set-webkit: -webkit-image-set(
-    url('../images/internet/mobile/section-waves@1x.webp') 1x,
-    url('../images/internet/mobile/section-waves@2x.webp') 2x,
-    url('../images/internet/mobile/section-waves@3x.webp') 3x
-  );
-}
-
-.parallax-section[data-parallax-theme="mesh"] {
-  background-image: var(--parallax-overlay), url('../images/internet/section-mesh.webp');
-  --parallax-mobile-fallback: url('../images/internet/mobile/section-mesh@1x.webp');
-  --parallax-mobile-image-set: image-set(
-    url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-    url('../images/internet/mobile/section-mesh@2x.webp') 2x,
-    url('../images/internet/mobile/section-mesh@3x.webp') 3x
-  );
-  --parallax-mobile-image-set-webkit: -webkit-image-set(
-    url('../images/internet/mobile/section-mesh@1x.webp') 1x,
-    url('../images/internet/mobile/section-mesh@2x.webp') 2x,
-    url('../images/internet/mobile/section-mesh@3x.webp') 3x
-  );
-}
-
-.parallax-section[data-parallax-theme="waves"] {
-  background-image: var(--parallax-overlay), url('../images/internet/section-waves.webp');
-  --parallax-mobile-fallback: url('../images/internet/mobile/section-waves@1x.webp');
-  --parallax-mobile-image-set: image-set(
-    url('../images/internet/mobile/section-waves@1x.webp') 1x,
-    url('../images/internet/mobile/section-waves@2x.webp') 2x,
-    url('../images/internet/mobile/section-waves@3x.webp') 3x
-  );
-  --parallax-mobile-image-set-webkit: -webkit-image-set(
-    url('../images/internet/mobile/section-waves@1x.webp') 1x,
-    url('../images/internet/mobile/section-waves@2x.webp') 2x,
-    url('../images/internet/mobile/section-waves@3x.webp') 3x
-  );
-}
-
-.parallax-section[data-parallax-theme="book"] {
-  background-image: var(--parallax-overlay), url('../images/internet/hero/book-hero-calendly-mobile-2025.webp');
-  --parallax-mobile-fallback: url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp');
-  --parallax-mobile-image-set: image-set(
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-  );
-  --parallax-mobile-image-set-webkit: -webkit-image-set(
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x,
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x,
-    url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x
-  );
+.parallax-section {
+  background-image: var(--parallax-overlay), var(--parallax-image);
 }
 
 /* High-resolution desktop support */
 @supports (background-image: image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
-  .parallax-section[data-parallax-theme="lines"] {
+  .parallax-section {
     background-image: var(--parallax-overlay), image-set(
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 1x
-    );
-  }
-  .parallax-section[data-parallax-theme="circuit"] {
-    background-image: var(--parallax-overlay), image-set(
-      url('../images/internet/section-waves.webp') 1x
-    );
-  }
-  .parallax-section[data-parallax-theme="mesh"] {
-    background-image: var(--parallax-overlay), image-set(
-      url('../images/internet/section-mesh.webp') 1x
-    );
-  }
-  .parallax-section[data-parallax-theme="waves"] {
-    background-image: var(--parallax-overlay), image-set(
-      url('../images/internet/section-waves.webp') 1x
-    );
-  }
-  .parallax-section[data-parallax-theme="book"] {
-    background-image: var(--parallax-overlay), image-set(
-      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
+      url('../images/body_section_parallax/body-section-background-2025.webp') 1x
     );
   }
 }
 
 /* WebKit image-set fallbacks */
 @supports (background-image: -webkit-image-set(url("data:image/gif;base64,R0lGODlhAQABAAAAACw=") 1x)) {
-  .parallax-section[data-parallax-theme="lines"] {
+  .parallax-section {
     background-image: var(--parallax-overlay), -webkit-image-set(
-      url('../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 1x
-    );
-  }
-  .parallax-section[data-parallax-theme="circuit"] {
-    background-image: var(--parallax-overlay), -webkit-image-set(
-      url('../images/internet/section-waves.webp') 1x
-    );
-  }
-  .parallax-section[data-parallax-theme="mesh"] {
-    background-image: var(--parallax-overlay), -webkit-image-set(
-      url('../images/internet/section-mesh.webp') 1x
-    );
-  }
-  .parallax-section[data-parallax-theme="waves"] {
-    background-image: var(--parallax-overlay), -webkit-image-set(
-      url('../images/internet/section-waves.webp') 1x
-    );
-  }
-  .parallax-section[data-parallax-theme="book"] {
-    background-image: var(--parallax-overlay), -webkit-image-set(
-      url('../images/internet/hero/book-hero-calendly-mobile-2025.webp') 1x
+      url('../images/body_section_parallax/body-section-background-2025.webp') 1x
     );
   }
 }
@@ -3636,6 +3904,13 @@ body.services-overlay-active .services-overlay {
   z-index: 2;
 }
 
+@media (max-width: 768px) {
+  .packages-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
 
 /* services.css = services-fixes-v21.css + services-overrides.css (order preserved) */
 .page-services .service-row .service-image {
@@ -3904,6 +4179,21 @@ body.services-overlay-active .services-overlay {
 .service-content {
   position: relative;
   z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .page-services .service-row {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .page-services .service-row .service-image {
+    order: 1 !important;
+  }
+
+  .page-services .service-row .service-content {
+    order: 2 !important;
+  }
 }
 
 

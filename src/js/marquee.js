@@ -50,8 +50,12 @@
     '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
   ];
 
+  let singleInitialized = false;
+
   function initSingleMarquee() {
+    if (singleInitialized) return;
     if (document.body.classList.contains('page-services')) return;
+    singleInitialized = true;
 
     cleanupLegacyMarquees();
     ensureLightbox();
@@ -207,9 +211,13 @@
     '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
   ];
 
+  let doubleInitialized = false;
+
   function initDoubleMarquee() {
     // Safety: only run on Services page
     if (!document.body.classList.contains('page-services')) return;
+    if (doubleInitialized) return;
+    doubleInitialized = true;
 
     cleanupLegacyMarquees();
     ensureLightbox();

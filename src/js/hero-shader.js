@@ -29,12 +29,6 @@
       line: [1.0, 0.65, 0.0, 1.0],
       bg1: [0.15, 0.05, 0.0, 1.0],
       bg2: [0.3, 0.1, 0.0, 1.0]
-    },
-    // Contact (Silver/Slate) - Matching #C0C0C0
-    silver: {
-      line: [0.75, 0.75, 0.75, 1.0],
-      bg1: [0.1, 0.1, 0.1, 1.0],
-      bg2: [0.25, 0.25, 0.25, 1.0]
     }
   };
 
@@ -66,7 +60,7 @@
     const float majorLineFrequency = 5.0;
     const float minorLineFrequency = 1.0;
 
-    // gridColor was constant grey in original, keeping it constant
+    // gridColor stays neutral as in the original implementation
     const vec4 gridColor = vec4(0.5);
 
     const float scale = 5.0;

@@ -73,26 +73,10 @@ img {
 .section.bg-waves {
   position: relative;
   isolation: isolate;
-}
-
-.section.bg-lines {
-  background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp");
-}
-
-.section.bg-circuit {
-  background-image: url("../images/internet/section-waves.webp");
-}
-
-.section.bg-city {
-  background-image: url("../images/internet/section-city.webp");
-}
-
-.section.bg-mesh {
-  background-image: url("../images/internet/section-mesh.webp");
-}
-
-.section.bg-waves {
-  background-image: url("../images/internet/section-waves.webp");
+  background-image: url("../images/body_section_parallax/body-section-background-2025.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .section.bg-lines::before,
@@ -112,17 +96,9 @@ img {
 }
 
 .animate {
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-}
-
-.animate.visible,
-.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+  transition: none;
 }
 
 .brand-gradient {

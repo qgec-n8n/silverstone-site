@@ -62,17 +62,134 @@
   `.trim();
     document.body.appendChild(headerIndicator);
 
+    const mobileNav = buildMobileNav();
+    const mobileNavTrack = mobileNav.querySelector('.mobile-nav-track');
+    const mobileRootList = mobileNav.querySelector('.mobile-nav-list--root');
+    const mobileServicesList = mobileNav.querySelector(
+      '.mobile-nav-list--services',
+    );
+    const mobileBackdrop = mobileNav.querySelector('.mobile-nav-backdrop');
+    const mobileCloseButton = mobileNav.querySelector('.mobile-nav-close');
+    const mobileBackButton = mobileNav.querySelector('.mobile-nav-back');
+    let isMobileNavOpen = false;
+
     let previousScrollY = 0;
     let headerAutoHideTimeoutId;
 
     const isMobileViewport = () =>
       window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
 
+    function setStagger(item, index) {
+      item.style.setProperty('--item-index', index);
+    }
+
+    function hydrateMobileNav() {
+      if (!mobileRootList || !mobileServicesList) return;
+
+      mobileRootList.innerHTML = '';
+      mobileServicesList.innerHTML = '';
+
+      let rootIndex = 0;
+      const navItems = navMenu ? Array.from(navMenu.children) : [];
+      navItems.forEach((item) => {
+        if (item.classList.contains('nav-back-item')) return;
+        if (item.classList.contains('nav-dropdown')) {
+          const li = document.createElement('li');
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mobile-nav-link mobile-nav-link--drill';
+          btn.textContent = 'Services';
+          btn.addEventListener('click', () => {
+            openMobileNav();
+            openServicesPanel();
+          });
+          li.appendChild(btn);
+          setStagger(li, rootIndex++);
+          mobileRootList.appendChild(li);
+          return;
+        }
+        const anchor = item.querySelector('a');
+        if (!anchor) return;
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.className = 'mobile-nav-link';
+        link.href = anchor.getAttribute('href');
+        link.textContent = anchor.textContent.trim();
+        link.addEventListener('click', () => {
+          closeMobileNav();
+        });
+        li.appendChild(link);
+        setStagger(li, rootIndex++);
+        mobileRootList.appendChild(li);
+      });
+
+      const serviceAnchors = servicesMenu
+        ? Array.from(servicesMenu.querySelectorAll('.service-link'))
+        : [];
+      serviceAnchors.forEach((anchor, idx) => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.className = 'mobile-nav-link';
+        link.href = anchor.getAttribute('href');
+        link.textContent = anchor.textContent.trim();
+        link.addEventListener('click', () => {
+          closeMobileNav();
+          closeServicesPanel();
+        });
+        li.appendChild(link);
+        setStagger(li, idx);
+        mobileServicesList.appendChild(li);
+      });
+    }
+
+    function openMobileNav() {
+      if (isMobileNavOpen) return;
+      hydrateMobileNav();
+      closeServicesPanel();
+      closeServicesDropdown();
+      closeServicesOverlay();
+      clearTimeout(headerAutoHideTimeoutId);
+      previousScrollY =
+        window.pageYOffset || document.documentElement.scrollTop || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${previousScrollY}px`;
+      document.body.classList.add('mobile-nav-open');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      mobileNav.classList.add('is-open');
+      isMobileNavOpen = true;
+      if (navToggle) navToggle.classList.add('active');
+      showHeader();
+    }
+
+    function closeMobileNav() {
+      if (!isMobileNavOpen) return;
+      mobileNav.classList.remove('is-open', 'show-services');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('mobile-nav-open');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, previousScrollY);
+      isMobileNavOpen = false;
+      if (navToggle) navToggle.classList.remove('active');
+      scheduleHeaderAutoHide();
+    }
+
+    function openServicesPanel() {
+      if (!mobileNavTrack) return;
+      mobileNav.classList.add('show-services');
+      mobileNavTrack.scrollTop = 0;
+    }
+
+    function closeServicesPanel() {
+      mobileNav.classList.remove('show-services');
+    }
+
     function showHeader() {
       if (header) header.classList.remove('header-hidden');
       headerIndicator.classList.remove('active');
     }
     function hideHeader() {
+      if (isMobileNavOpen) return;
       if (
         servicesDropdownOpen ||
         (servicesOverlay && servicesOverlay.classList.contains('active'))
@@ -83,6 +200,7 @@
     }
     function scheduleHeaderAutoHide(delay = 1200) {
       clearTimeout(headerAutoHideTimeoutId);
+      if (isMobileNavOpen) return;
       headerAutoHideTimeoutId = window.setTimeout(() => {
         if (navMenu && navMenu.classList.contains('open')) return;
         if (
@@ -170,17 +288,27 @@
       scheduleHeaderAutoHide();
     }
 
-    if (navToggle && navMenu) {
+    if (navToggle) {
       navToggle.addEventListener('click', (event) => {
         event.stopPropagation();
+        if (isMobileViewport()) {
+          if (isMobileNavOpen) {
+            closeMobileNav();
+          } else {
+            openMobileNav();
+          }
+          return;
+        }
         closeServicesDropdown();
         closeServicesOverlay();
-        if (navMenu.classList.contains('open')) {
+        if (navMenu && navMenu.classList.contains('open')) {
           closeNavMenu();
-        } else {
+        } else if (navMenu) {
           openNavMenu();
         }
       });
+    }
+    if (navMenu) {
       navMenu.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', (event) => {
           event.stopPropagation();
@@ -209,14 +337,10 @@
         event.preventDefault();
         event.stopPropagation();
         if (isMobileViewport()) {
-          if (!navMenu || !navMenu.classList.contains('open')) {
-            openNavMenu();
+          if (!isMobileNavOpen) {
+            openMobileNav();
           }
-          if (isServicesOverlayActive()) {
-            closeServicesOverlay();
-          } else {
-            openServicesOverlay();
-          }
+          openServicesPanel();
         } else {
           if (servicesDropdownOpen) {
             closeServicesDropdown();
@@ -239,6 +363,10 @@
         link.addEventListener('click', () => {
           closeServicesDropdown();
           closeServicesOverlay();
+          if (isMobileViewport() && isMobileNavOpen) {
+            closeMobileNav();
+            return;
+          }
           if (
             isMobileViewport() &&
             navMenu &&
@@ -247,6 +375,22 @@
             closeNavMenu();
           }
         });
+      });
+    }
+
+    if (mobileBackdrop) {
+      mobileBackdrop.addEventListener('click', closeMobileNav);
+    }
+    if (mobileCloseButton) {
+      mobileCloseButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        closeMobileNav();
+      });
+    }
+    if (mobileBackButton) {
+      mobileBackButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        closeServicesPanel();
       });
     }
 
@@ -271,26 +415,17 @@
       event.stopPropagation();
       closeServicesDropdown();
       closeServicesOverlay();
-      if (!navToggle || !navMenu) {
-        scheduleHeaderAutoHide();
-        return;
-      }
       if (isMobileViewport()) {
-        if (navMenu.classList.contains('open')) {
-          closeNavMenu();
+        if (isMobileNavOpen) {
+          closeMobileNav();
         } else {
-          showHeader();
-          clearTimeout(headerAutoHideTimeoutId);
-          scheduleHeaderAutoHide();
+          openMobileNav();
         }
         return;
       }
-      if (navMenu.classList.contains('open')) {
-        closeNavMenu();
-      } else {
-        openNavMenu();
-        clearTimeout(headerAutoHideTimeoutId);
-      }
+      showHeader();
+      clearTimeout(headerAutoHideTimeoutId);
+      scheduleHeaderAutoHide();
     });
 
     headerIndicator.addEventListener('mouseenter', showHeader);
@@ -299,6 +434,7 @@
       header.addEventListener('mouseleave', hideHeader);
       header.addEventListener('click', () => {
         if (!isMobileViewport()) return;
+        if (isMobileNavOpen) return;
         if (navMenu && navMenu.classList.contains('open')) return;
         scheduleHeaderAutoHide();
       });
@@ -308,6 +444,7 @@
       'scroll',
       () => {
         if (!isMobileViewport()) return;
+        if (isMobileNavOpen) return;
         if (navMenu && navMenu.classList.contains('open')) return;
         if (servicesDropdownOpen || isServicesOverlayActive()) return;
         clearTimeout(headerAutoHideTimeoutId);
@@ -318,322 +455,39 @@
 
     scheduleHeaderAutoHide();
 
-    const mobileNavStyles = `
-    /*
-       Override the default header height variable to make the maximized menu
-       banner slightly taller.  The clamp ensures the header scales
-       smoothly between a minimum and maximum size across breakpoints.
-    */
-    :root {
-      /* Make the maximized header slightly smaller while maintaining responsive scaling. */
-      --headerH: clamp(66px, 8vh, 88px);
+    function buildMobileNav() {
+      const shell = document.createElement('div');
+      shell.className = 'mobile-nav-shell';
+      shell.setAttribute('aria-hidden', 'true');
+      shell.innerHTML = `
+        <div class="mobile-nav-backdrop"></div>
+        <div class="mobile-nav-panel" role="dialog" aria-modal="true">
+          <div class="mobile-nav-header">
+            <span class="mobile-nav-title">Explore</span>
+            <button class="mobile-nav-close" type="button" aria-label="Close menu">
+              <span class="mobile-close-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="mobile-nav-track">
+            <div class="mobile-nav-view mobile-nav-view--root" aria-label="Main navigation">
+              <ul class="mobile-nav-list mobile-nav-list--root"></ul>
+            </div>
+            <div class="mobile-nav-view mobile-nav-view--services" aria-label="Services navigation">
+              <div class="mobile-nav-subhead">
+                <button class="mobile-nav-back" type="button" aria-label="Back to main menu">
+                  <span class="mobile-back-icon" aria-hidden="true"></span>
+                  <span class="mobile-back-label">Back</span>
+                </button>
+                <p class="mobile-nav-kicker">Services</p>
+              </div>
+              <ul class="mobile-nav-list mobile-nav-list--services"></ul>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(shell);
+      return shell;
     }
-
-    /* Base styling for the header indicator on larger screens.  A
-       white glassmorphism panel appears across the top when the
-       header is hidden.  On hover the bar expands to the full header
-       height.  Colour variables from styles.css are used to blend
-       seamlessly with the brand palette. */
-    #header-indicator {
-      position: fixed;
-      top: 0;
-      /* The minimized banner spans the full width of the viewport on desktop. */
-      left: 0;
-      width: 100%;
-      /* Increase the default height to present a more substantial banner.
-         Rounded bottom corners and a subtle border give it a polished edge.
-         A luminous gradient combined with a soft blur conveys a premium,
-         high‑tech feel. */
-      /* Set the minimized banner height to half of the maximized header height for
-         a clear proportional relationship.  Uses the CSS variable so it scales
-         consistently across breakpoints. */
-      height: calc(var(--headerH) * 0.335);
-      background: #ffffff;
-      backdrop-filter: blur(6px) saturate(130%);
-      border-radius: 0 0 12px 12px;
-      border: 1px solid rgba(12, 16, 29, 0.1);
-      border-top: none;
-      box-shadow:
-        0 10px 28px rgba(12, 16, 29, 0.12),
-        0 4px 12px rgba(0, 0, 0, 0.08);
-      font-family: var(--font-heading);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--color-blue);
-      letter-spacing: 0.1em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 1500;
-      opacity: 0;
-      /* Translate vertically only so the indicator slides off screen when hidden. */
-      transform: translateY(-100%);
-      transition: height 0.3s ease, opacity 0.3s ease, transform 0.3s ease,
-        box-shadow 0.3s ease, color 0.3s ease, background-color 0.3s ease;
-    }
-    #header-indicator.active {
-      opacity: 1;
-      /* The banner simply slides down into view on desktop. */
-      transform: translateY(0);
-    }
-    #header-indicator::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      border-radius: inherit;
-      background: linear-gradient(120deg, rgba(0, 174, 239, 0.18), rgba(157, 78, 221, 0.12));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    #header-indicator .indicator-copy {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      position: relative;
-      z-index: 1;
-    }
-    #header-indicator .indicator-copy span {
-      font-size: 0.85rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: inherit;
-      display: inline-flex;
-      align-items: center;
-    }
-    #header-indicator .indicator-copy span::after {
-      display: inline-block;
-      margin-left: 0.75rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      font-weight: 500;
-      color: rgba(12, 16, 29, 0.55);
-      text-transform: uppercase;
-    }
-    #header-indicator:hover {
-      height: var(--headerH);
-      background: #f7f9fc;
-      color: var(--color-purple);
-      box-shadow:
-        0 16px 34px rgba(12, 16, 29, 0.16),
-        0 8px 18px rgba(0, 174, 239, 0.18);
-    }
-    #header-indicator:hover::after {
-      opacity: 1;
-    }
-    #header-indicator:hover .indicator-copy span::after {
-      color: rgba(157, 78, 221, 0.75);
-    }
-    @media (hover: none) {
-      #header-indicator .indicator-copy span::after {
-        content: '• Tap to expand';
-      }
-    }
-    @media (hover: hover) {
-      #header-indicator .indicator-copy span::after {
-        content: '• Hover to expand';
-      }
-    }
-    /* Mobile overrides: replace the gradient with a blurred dark bar,
-       disable expansion on hover and adjust the height. */
-    @media (max-width: 768px) {
-      nav ul {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(255, 255, 255, 0.96);
-        backdrop-filter: blur(18px) saturate(180%);
-        border: 1px solid rgba(12, 16, 29, 0.05);
-        box-shadow: 0 18px 46px rgba(15, 23, 42, 0.18);
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: space-evenly;
-        gap: clamp(3rem, 10vh, 6rem);
-        padding: calc(env(safe-area-inset-top, 0) + 1.5rem) 1.75rem calc(env(safe-area-inset-bottom) + 2.75rem);
-        opacity: 0;
-        transform: translateY(-100%);
-        pointer-events: none;
-        transition: opacity 0.4s ease, transform 0.4s ease;
-        z-index: 2000;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-      }
-      nav ul.open {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
-      nav ul::-webkit-scrollbar {
-        width: 0.5rem;
-      }
-      nav ul::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, rgba(0, 174, 239, 0.45), rgba(157, 78, 221, 0.35));
-        border-radius: 999px;
-      }
-      nav ul::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      nav ul > li {
-        width: 100%;
-        display: flex;
-      }
-      nav ul > li:not(.nav-back-item) {
-        flex-grow: 1;
-        justify-content: center;
-        align-items: center;
-      }
-      nav ul > li.nav-back-item {
-        width: auto;
-        flex: 0 0 auto;
-        align-self: flex-start;
-        justify-content: flex-start;
-        margin-bottom: 0.25rem;
-      }
-      nav ul > li > * {
-        width: 100%;
-      }
-      nav ul li a {
-        display: block;
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: var(--color-blue);
-        text-align: center;
-        letter-spacing: 0.08em;
-        padding: 0.85rem 1.65rem;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.7);
-        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-        border: 1px solid rgba(0, 174, 239, 0.18);
-        transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-      }
-      nav ul li a:hover,
-      nav ul li a:focus {
-        background: rgba(0, 174, 239, 0.12);
-        color: var(--color-purple);
-        box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
-      }
-      .nav-back-item {
-        display: flex;
-      }
-      .nav-back-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.4rem 0.85rem 0.4rem 0.45rem;
-        background: rgba(0, 174, 239, 0.06);
-        border: 1px solid rgba(0, 174, 239, 0.18);
-        border-radius: 999px;
-        color: var(--color-blue);
-        font-family: var(--font-heading);
-        font-size: 0.9rem;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        cursor: pointer;
-        width: auto;
-        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.1);
-        transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease,
-          box-shadow 0.3s ease;
-      }
-      .nav-back-btn:focus-visible {
-        outline: 2px solid rgba(0, 174, 239, 0.65);
-        outline-offset: 4px;
-      }
-      .nav-back-btn:hover,
-      .nav-back-btn:focus-visible {
-        color: var(--color-purple);
-        background: rgba(0, 174, 239, 0.12);
-        border-color: rgba(0, 174, 239, 0.24);
-        box-shadow: 0 14px 32px rgba(15, 23, 42, 0.16);
-      }
-      .nav-back-btn:hover .nav-back-icon,
-      .nav-back-btn:focus-visible .nav-back-icon {
-        box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
-        transform: translateX(-2px);
-      }
-      .nav-back-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 2.4rem;
-        height: 2.4rem;
-        border-radius: 999px;
-        border: 1px solid rgba(0, 174, 239, 0.35);
-        background: linear-gradient(135deg, rgba(0, 174, 239, 0.18), rgba(255, 255, 255, 0.92));
-        color: var(--color-blue);
-        font-size: 1.1rem;
-        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
-        transform: translateX(0);
-      }
-      .nav-back-icon::before {
-        content: '\\2190';
-        transform: translateX(-1px);
-      }
-      .nav-back-label {
-        font-size: 0.78rem;
-        letter-spacing: 0.2em;
-      }
-      .nav-toggle {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 2rem;
-        height: 2rem;
-        cursor: pointer;
-        z-index: 2500;
-        transition: opacity 0.3s ease;
-      }
-      .nav-toggle span {
-        width: 100%;
-        height: 2px;
-        background-color: var(--color-blue);
-        margin-bottom: 4px;
-        transition: opacity 0.4s ease;
-      }
-      .nav-toggle span:last-child {
-        margin-bottom: 0;
-      }
-      .nav-toggle.active {
-        opacity: 0;
-        pointer-events: none;
-      }
-      .nav-toggle.active span {
-        opacity: 0;
-      }
-      #header-indicator {
-        width: 100%;
-        left: 0;
-        height: 42px;
-        background: rgba(255, 255, 255, 0.96);
-        backdrop-filter: blur(12px) saturate(170%);
-        border-radius: 0 0 12px 12px;
-        border-top: none;
-        border: 1px solid rgba(12, 16, 29, 0.06);
-        box-shadow:
-          0 10px 28px rgba(15, 23, 42, 0.16),
-          0 6px 20px rgba(0, 174, 239, 0.10);
-        color: var(--color-blue);
-        transform: translateY(-100%);
-      }
-      #header-indicator.active {
-        transform: translateY(0);
-      }
-      #header-indicator:hover {
-        height: 42px;
-        background: rgba(255, 255, 255, 0.98);
-      }
-    }
-  `;
-    const styleElem = document.createElement('style');
-    styleElem.appendChild(document.createTextNode(mobileNavStyles));
-    document.head.appendChild(styleElem);
   }
 
   window.Silverstone.initHeaderNav = initHeaderNav;
@@ -651,37 +505,15 @@
     if (initialized) return;
     initialized = true;
 
-    const MOBILE_BREAKPOINT = 768;
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches;
     const animatedEls = document.querySelectorAll('.animate');
-    const mobileViewportForAnimations = window.matchMedia(
-      `(max-width: ${MOBILE_BREAKPOINT}px)`,
-    ).matches;
-
-    if (animatedEls.length) {
-      if (prefersReducedMotion || mobileViewportForAnimations) {
-        animatedEls.forEach((el) => el.classList.add('visible'));
-      } else {
-        const obs = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-              }
-            });
-          },
-          { threshold: 0.15 },
-        );
-        animatedEls.forEach((el) => obs.observe(el));
-      }
-    }
-
-    // Always reveal neon cards in the gallery grid on page load.
-    document.querySelectorAll('.gallery-grid .neon-card').forEach((el) => {
+    animatedEls.forEach((el) => {
       el.classList.add('visible');
+      el.classList.remove('animate');
     });
+
+    document.querySelectorAll('.gallery-grid .neon-card').forEach((el) =>
+      el.classList.add('visible'),
+    );
   }
 
   window.Silverstone.initScrollReveal = initScrollReveal;
@@ -704,49 +536,16 @@
     );
     if (!statsSections.length) return;
 
-    const prefersReducedMotionCount = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches;
-
-    const animateSection = (section) => {
+    const setSectionValues = (section) => {
       const numbers = section.querySelectorAll('.number');
       numbers.forEach((number) => {
         const target = parseInt(number.dataset.target, 10) || 0;
         const plus = number.getAttribute('data-plus') || '';
-        if (prefersReducedMotionCount) {
-          number.textContent = target.toLocaleString() + plus;
-          return;
-        }
-        const duration = 1500;
-        const startTime = performance.now();
-        function update(now) {
-          const elapsed = now - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const current = Math.floor(progress * target);
-          number.textContent =
-            current.toLocaleString() + (progress === 1 ? plus : '');
-          if (progress < 1) requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
+        number.textContent = target.toLocaleString() + plus;
       });
     };
 
-    statsSections.forEach((section) => {
-      let hasAnimated = false;
-      const observer = new IntersectionObserver(
-        (entries, obs) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && !hasAnimated) {
-              hasAnimated = true;
-              animateSection(section);
-              obs.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.4 },
-      );
-      observer.observe(section);
-    });
+    statsSections.forEach(setSectionValues);
   }
 
   window.Silverstone.initStats = initStats;
@@ -789,60 +588,27 @@
         "-webkit-image-set(url('data:image/gif;base64,R0lGODlhAQABAAAAACw=') 1x)",
       );
 
-    const PARALLAX_MAP = {
-      lines: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback:
-            "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
-        },
+    const BASE_IMAGE =
+      'assets/images/body_section_parallax/body-section-background-2025.webp';
+    const OVERLAY_GRADIENT =
+      'linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.75) 100%)';
+
+    const createConfig = () => ({
+      backgroundColor: '#050B18',
+      overlay: OVERLAY_GRADIENT,
+      mobileImages: {
+        fallback: `url('${BASE_IMAGE}')`,
+        standard: `image-set(url('${BASE_IMAGE}') 1x)`,
+        webkit: `-webkit-image-set(url('${BASE_IMAGE}') 1x)`,
       },
-      circuit: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback: "url('assets/images/internet/mobile/section-waves@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
-        },
-      },
-      mesh: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback: "url('assets/images/internet/mobile/section-mesh@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/section-mesh@1x.webp') 1x, url('assets/images/internet/mobile/section-mesh@2x.webp') 2x, url('assets/images/internet/mobile/section-mesh@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/section-mesh@1x.webp') 1x, url('assets/images/internet/mobile/section-mesh@2x.webp') 2x, url('assets/images/internet/mobile/section-mesh@3x.webp') 3x)",
-        },
-      },
-      waves: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback: "url('assets/images/internet/mobile/section-waves@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
-        },
-      },
-      book: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback:
-            "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
-        },
-      },
-    };
+    });
+
+    const themes = ['lines', 'circuit', 'mesh', 'waves', 'book'];
+    const PARALLAX_MAP = themes.reduce((acc, theme) => {
+      acc[theme] = createConfig();
+      return acc;
+    }, {});
+    const DEFAULT_CONFIG = createConfig();
 
     const state = {
       active: false,
@@ -855,7 +621,7 @@
     const setActiveLayer = (section) => {
       state.current = section;
       const theme = section.dataset.parallaxTheme;
-      const config = PARALLAX_MAP[theme];
+      const config = PARALLAX_MAP[theme] || DEFAULT_CONFIG;
       if (!config || !state.layers.length) return;
       const match = state.layers.find((entry) => entry.section === section);
       if (!match) return;
@@ -912,14 +678,17 @@
       const layers = parallaxSections
         .map((section) => {
           const theme = section.getAttribute('data-parallax-theme');
-          const config = PARALLAX_MAP[theme];
+          const config = PARALLAX_MAP[theme] || DEFAULT_CONFIG;
           if (!config) return null;
           const layer = document.createElement('div');
           layer.className = 'parallax-mobile-layer';
           layer.dataset.theme = theme;
           layer.setAttribute('aria-hidden', 'true');
           const imageValue = getImageValue(config.mobileImages);
-          layer.style.backgroundImage = imageValue || 'none';
+          const baseImage = imageValue || 'none';
+          layer.style.backgroundImage = config.overlay
+            ? `${config.overlay}, ${baseImage}`
+            : baseImage;
           if (config.backgroundColor) {
             layer.style.backgroundColor = config.backgroundColor;
           }
@@ -1030,12 +799,6 @@
       line: [1.0, 0.65, 0.0, 1.0],
       bg1: [0.15, 0.05, 0.0, 1.0],
       bg2: [0.3, 0.1, 0.0, 1.0]
-    },
-    // Contact (Silver/Slate) - Matching #C0C0C0
-    silver: {
-      line: [0.75, 0.75, 0.75, 1.0],
-      bg1: [0.1, 0.1, 0.1, 1.0],
-      bg2: [0.25, 0.25, 0.25, 1.0]
     }
   };
 
@@ -1067,7 +830,7 @@
     const float majorLineFrequency = 5.0;
     const float minorLineFrequency = 1.0;
 
-    // gridColor was constant grey in original, keeping it constant
+    // gridColor stays neutral as in the original implementation
     const vec4 gridColor = vec4(0.5);
 
     const float scale = 5.0;
@@ -1390,8 +1153,12 @@ document.addEventListener('DOMContentLoaded', () => {
     '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
   ];
 
+  let singleInitialized = false;
+
   function initSingleMarquee() {
+    if (singleInitialized) return;
     if (document.body.classList.contains('page-services')) return;
+    singleInitialized = true;
 
     cleanupLegacyMarquees();
     ensureLightbox();
@@ -1547,9 +1314,13 @@ document.addEventListener('DOMContentLoaded', () => {
     '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
   ];
 
+  let doubleInitialized = false;
+
   function initDoubleMarquee() {
     // Safety: only run on Services page
     if (!document.body.classList.contains('page-services')) return;
+    if (doubleInitialized) return;
+    doubleInitialized = true;
 
     cleanupLegacyMarquees();
     ensureLightbox();

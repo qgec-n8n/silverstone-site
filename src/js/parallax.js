@@ -34,60 +34,27 @@
         "-webkit-image-set(url('data:image/gif;base64,R0lGODlhAQABAAAAACw=') 1x)",
       );
 
-    const PARALLAX_MAP = {
-      lines: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback:
-            "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
-        },
+    const BASE_IMAGE =
+      'assets/images/body_section_parallax/body-section-background-2025.webp';
+    const OVERLAY_GRADIENT =
+      'linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.75) 100%)';
+
+    const createConfig = () => ({
+      backgroundColor: '#050B18',
+      overlay: OVERLAY_GRADIENT,
+      mobileImages: {
+        fallback: `url('${BASE_IMAGE}')`,
+        standard: `image-set(url('${BASE_IMAGE}') 1x)`,
+        webkit: `-webkit-image-set(url('${BASE_IMAGE}') 1x)`,
       },
-      circuit: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback: "url('assets/images/internet/mobile/section-waves@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
-        },
-      },
-      mesh: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback: "url('assets/images/internet/mobile/section-mesh@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/section-mesh@1x.webp') 1x, url('assets/images/internet/mobile/section-mesh@2x.webp') 2x, url('assets/images/internet/mobile/section-mesh@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/section-mesh@1x.webp') 1x, url('assets/images/internet/mobile/section-mesh@2x.webp') 2x, url('assets/images/internet/mobile/section-mesh@3x.webp') 3x)",
-        },
-      },
-      waves: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback: "url('assets/images/internet/mobile/section-waves@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/section-waves@1x.webp') 1x, url('assets/images/internet/mobile/section-waves@2x.webp') 2x, url('assets/images/internet/mobile/section-waves@3x.webp') 3x)",
-        },
-      },
-      book: {
-        backgroundColor: '#050B18',
-        mobileImages: {
-          fallback:
-            "url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp')",
-          standard:
-            "image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
-          webkit:
-            "-webkit-image-set(url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp') 1x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp') 2x, url('assets/images/internet/mobile/book-hero-calendly-mobile-2025@3x.webp') 3x)",
-        },
-      },
-    };
+    });
+
+    const themes = ['lines', 'circuit', 'mesh', 'waves', 'book'];
+    const PARALLAX_MAP = themes.reduce((acc, theme) => {
+      acc[theme] = createConfig();
+      return acc;
+    }, {});
+    const DEFAULT_CONFIG = createConfig();
 
     const state = {
       active: false,
@@ -100,7 +67,7 @@
     const setActiveLayer = (section) => {
       state.current = section;
       const theme = section.dataset.parallaxTheme;
-      const config = PARALLAX_MAP[theme];
+      const config = PARALLAX_MAP[theme] || DEFAULT_CONFIG;
       if (!config || !state.layers.length) return;
       const match = state.layers.find((entry) => entry.section === section);
       if (!match) return;
@@ -157,14 +124,17 @@
       const layers = parallaxSections
         .map((section) => {
           const theme = section.getAttribute('data-parallax-theme');
-          const config = PARALLAX_MAP[theme];
+          const config = PARALLAX_MAP[theme] || DEFAULT_CONFIG;
           if (!config) return null;
           const layer = document.createElement('div');
           layer.className = 'parallax-mobile-layer';
           layer.dataset.theme = theme;
           layer.setAttribute('aria-hidden', 'true');
           const imageValue = getImageValue(config.mobileImages);
-          layer.style.backgroundImage = imageValue || 'none';
+          const baseImage = imageValue || 'none';
+          layer.style.backgroundImage = config.overlay
+            ? `${config.overlay}, ${baseImage}`
+            : baseImage;
           if (config.backgroundColor) {
             layer.style.backgroundColor = config.backgroundColor;
           }
