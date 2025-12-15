@@ -36,8 +36,7 @@
 
     const BASE_IMAGE =
       'assets/images/body_section_parallax/body-section-background-2025.webp';
-    const OVERLAY_GRADIENT =
-      'linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.75) 100%)';
+    const OVERLAY_GRADIENT = '';
 
     const createConfig = () => ({
       backgroundColor: '#050B18',
