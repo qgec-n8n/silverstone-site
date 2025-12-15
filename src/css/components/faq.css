@@ -65,21 +65,6 @@
   margin-bottom: 1rem;
 }
 
-@media (min-width: 769px) {
-  .faq-section .faq-list {
-    justify-content: center;
-  }
-
-  .faq-section details {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .faq-section summary {
-    text-align: center;
-  }
-}
-
 @media (max-width: 768px) {
   .faq-section {
     margin-top: 2rem;
@@ -90,12 +75,8 @@
   }
   .faq-section details {
     max-width: 100%;
-    overflow: hidden;
   }
   .faq-section summary {
     padding-right: 1.5rem;
-  }
-  .faq-section details p {
-    word-break: break-word;
   }
 }

@@ -1144,7 +1144,7 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--parallax-overlay, rgba(0, 0, 0, 0.6));
+  background: rgba(0, 0, 0, 0.6);
   z-index: 0;
   pointer-events: none;
 }
@@ -1475,7 +1475,7 @@ nav a.active {
     border-left: 1px solid rgba(0, 174, 239, 0.18);
     backdrop-filter: blur(12px) saturate(160%);
     transform: translateX(110%);
-    transition: transform 0.52s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
     overflow: hidden;
   }
 
@@ -1499,6 +1499,8 @@ nav a.active {
   }
 
   .mobile-nav-close {
+    width: 2.25rem;
+    height: 2.25rem;
     position: relative;
     border-radius: 999px;
     border: 1px solid rgba(0, 174, 239, 0.28);
@@ -1510,15 +1512,12 @@ nav a.active {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.55rem 0.9rem;
     cursor: pointer;
     box-shadow:
       0 10px 24px rgba(5, 12, 24, 0.12),
       inset 0 1px 0 rgba(255, 255, 255, 0.7);
     transition: transform 0.25s ease, box-shadow 0.25s ease,
       border-color 0.25s ease;
-    white-space: nowrap;
   }
 
   .mobile-nav-close:hover,
@@ -1530,46 +1529,29 @@ nav a.active {
       inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
-  .mobile-close-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.35rem;
-    height: 1.35rem;
-    border-radius: 999px;
-    background: linear-gradient(
-      135deg,
-      rgba(0, 174, 239, 0.18),
-      rgba(255, 255, 255, 0.92)
-    );
-    position: relative;
-    color: var(--color-blue);
+  .mobile-close-icon,
+  .mobile-close-icon::before,
+  .mobile-close-icon::after {
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background: var(--color-blue);
+    content: "";
   }
 
   .mobile-close-icon::before {
-    content: "←";
-    font-size: 0.9rem;
-    transform: translateX(-1px);
-    color: currentColor;
+    transform: rotate(45deg);
   }
 
   .mobile-close-icon::after {
-    display: none;
-  }
-
-  .mobile-close-label {
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-blue);
-    font-size: 0.8rem;
+    transform: rotate(-45deg);
   }
 
   .mobile-nav-track {
     display: flex;
     width: 200%;
     height: calc(100% - 78px);
-    transition: transform 0.52s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   .mobile-nav-shell.show-services .mobile-nav-track {
@@ -1660,7 +1642,7 @@ nav a.active {
 
   .mobile-nav-shell.is-open .mobile-nav-list li {
     animation: mobileNavStagger 0.35s ease forwards;
-    animation-delay: calc(var(--item-index, 0) * 70ms);
+    animation-delay: calc(var(--item-index, 0) * 60ms);
   }
 
   .mobile-nav-link {
@@ -2285,7 +2267,6 @@ body.services-overlay-active .services-overlay {
 
   .hero .content .btn + .btn {
     margin-left: 0 !important;
-    margin-top: 0.65rem;
   }
 }
 
@@ -2924,21 +2905,6 @@ body.services-overlay-active .services-overlay {
   margin-bottom: 1rem;
 }
 
-@media (min-width: 769px) {
-  .faq-section .faq-list {
-    justify-content: center;
-  }
-
-  .faq-section details {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .faq-section summary {
-    text-align: center;
-  }
-}
-
 @media (max-width: 768px) {
   .faq-section {
     margin-top: 2rem;
@@ -2949,13 +2915,9 @@ body.services-overlay-active .services-overlay {
   }
   .faq-section details {
     max-width: 100%;
-    overflow: hidden;
   }
   .faq-section summary {
     padding-right: 1.5rem;
-  }
-  .faq-section details p {
-    word-break: break-word;
   }
 }
 
@@ -3017,11 +2979,7 @@ body.services-overlay-active .services-overlay {
  */
 
 :root {
-  --parallax-overlay: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.55) 0%,
-    rgba(0, 0, 0, 0.75) 100%
-  );
+  --parallax-overlay: none;
   --parallax-backdrop: #050B18;
   --parallax-image: url('../images/body_section_parallax/body-section-background-2025.webp');
   --parallax-mobile-fallback: var(--parallax-image);
@@ -3038,10 +2996,6 @@ body.services-overlay-active .services-overlay {
   overflow: hidden;
   background-color: var(--parallax-backdrop);
   isolation: isolate;
-}
-
-.parallax-section::before {
-  background: none;
 }
 
 @media (prefers-reduced-motion: no-preference) and (min-width: 769px) {
@@ -3321,7 +3275,6 @@ body.services-overlay-active .services-overlay {
 .single-marquee .marquee-track {
   display: flex;
   width: max-content;
-  min-width: 100%;
   gap: 32px;
   will-change: transform;
   animation: marquee-scroll-left 60s linear infinite;
@@ -3465,7 +3418,6 @@ body.services-overlay-active .services-overlay {
 .double-marquee .marquee-track {
   display: flex;
   width: max-content;
-  min-width: 100%;
   gap: 40px;
   will-change: transform;
 }
