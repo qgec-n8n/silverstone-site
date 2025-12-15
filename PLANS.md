@@ -3,94 +3,86 @@
 # Execution Playbook
 
 This file defines how Codex must plan, execute, verify, and report changes in this repository.
-For the current workstream, `ExecPlan.md` is the task-specific plan; this file is the reusable
-runbook and quality gate.
+`ExecPlan.md` is the task-specific spec. Follow this process strictly.
 
 ## Operating principles
-1. Scope discipline
-   - Only implement what the user explicitly requested in `ExecPlan.md`.
-   - No unrelated refactors, no “cleanup”, no stylistic rewrites.
-2. Preserve the design system
-   - Typography, spacing rhythm, and overall visual language must stay consistent.
-   - Any required visual change must be narrowly targeted to the spec.
-3. Mobile vs desktop conditionality
-   - Mobile-only requirements must not alter desktop behavior unless explicitly required.
-   - Verify mobile and desktop separately (different acceptance criteria).
-4. Protect critical UX components
-   - Minimizing menu banner, cookie consent banner, magnetic buttons are protected.
-5. Batch and verify
-   - Prefer fewer, coherent edits over repeated micro-edits.
-   - Every phase ends with deterministic verification before moving on.
+1) Scope discipline
+- Only implement what is explicitly required by `ExecPlan.md`.
+- No unrelated refactors or cleanup.
 
-## Recommended workflow (phase gates)
+2) Preserve design system
+- Typography and visual language must remain consistent.
+- Only change what the spec requires.
+
+3) Mobile vs desktop conditionality
+- Mobile-only changes must not regress desktop.
+- Verify mobile and desktop separately.
+
+4) Protect critical UX components
+- Minimizing menu banner, cookie consent banner, magnetic buttons are protected.
+- If touched, isolate changes and justify.
+
+5) Gate-driven rollout
+- Do not proceed to the next phase until the current phase’s verification gates pass.
+
+## Phase gates (must follow)
 Phase 0 — Preflight
-- Inventory impacted pages and modules (do not edit yet).
-- Identify where each requirement “lives” (HTML vs CSS vs JS; source vs built output).
-- Confirm build/validation commands run.
+- Run setup/maintenance scripts.
+- Confirm builds run.
+- Map exact files you will edit.
 
-Gate to proceed:
-- You can name the files you will touch for each requirement.
+Gate:
+- You can name the files you will touch per requirement.
 
-Phase 1 — Implement cross-page changes (desktop + mobile)
-- Global body section background image + dark overlay + body-section-only parallax
-- Remove scroll-triggered animations (except allowed)
-- Remove grey/silver shader usage
+Phase 1 — Mobile nav correctness (highest priority)
+- Separate “tap to expand” behavior from hamburger behavior.
+- Fix panel direction contract (do not invert).
+- Fix arrow contract (Services left arrow; Back right arrow).
+- Set extremely slow timing contract (panel slide + stagger + reveal).
+- Replace X control with Back button in top-right on both panels.
 
-Gate to proceed:
-- Deterministic checks show the intended asset is referenced, and scroll/grey rules are satisfied.
+Gate:
+- `node scripts/assert-ui-spec.js --strict` passes
+- `node scripts/validate-niche-pages.js --strict` passes
 
-Phase 2 — Implement mobile-only changes
-- Off-canvas drill-down menu behavior and visuals
-- Mobile layout fixes (services grid, FAQs overflow, about images, CTA stacking, services cards)
+Phase 2 — Overlay opacity reduction
+- Implement global overlay opacity variable, lighten overlay everywhere.
 
-Gate to proceed:
-- Mobile acceptance criteria pass on all relevant page types.
+Gate:
+- `node scripts/assert-ui-spec.js --strict` passes
 
-Phase 3 — Marquee stability
-- Single marquee stable on all HTMLs except `services.html`
-- Double marquee stable on `services.html`
+Phase 3 — Desktop FAQ centering
+- Re-center on desktop; keep mobile contained.
 
-Gate to proceed:
-- No re-init loops, no DOM duplication, no disappearing/reset behavior under resize/orientation changes.
+Gate:
+- No mobile overflow reintroduced.
 
-Phase 4 — Rebuild + regression verification
-- Rebuild CSS/JS outputs.
-- Run repo validations and grep/assert checks.
-- Confirm protected components still function.
+Phase 4 — Marquee eager start on mobile
+- Ensure images are visible and moving from page load.
+- Remove gating that delays init or hides images.
 
-Gate to finish:
-- All requirements 1–13 are marked PASS with evidence.
+Gate:
+- `node scripts/assert-ui-spec.js --strict` passes
 
-## Verification library (commands you should use)
-Note: prefer `rg`; fallback to `grep -R` if needed.
+Phase 5 — Rebuild + regression verification
+Run:
+- `npm run build:css`
+- `npm run build:js`
+- `node scripts/validate-niche-pages.js --strict`
+- `node scripts/assert-ui-spec.js --strict`
 
-File existence / asset checks:
-- Ensure the new body background exists on disk:
-    ls -al assets/images/body_section_parallax/body-section-background-2025.webp
+## Deterministic verification standard
+This repo has no browser-based automated tests. Therefore:
+- Add deterministic static checks where possible (see `scripts/assert-ui-spec.js`).
+- If a behavior is interactive, encode correctness via explicit constants/variables/labels that the script can verify.
 
-Reference checks (must reflect spec intent):
-- Ensure the new background filename is referenced somewhere it will take effect:
-    rg -n "body-section-background-2025\\.webp" .
-
-- Ensure no other file is referenced from the body-section parallax directory:
-    rg -n "assets/images/body_section_parallax/" . | rg -v "body-section-background-2025\\.webp"
-
-Scroll-effect removal (allowlist mindset):
-- Find remaining scroll/reveal hooks (and remove them unless explicitly allowed):
-    rg -n "scroll-reveal|\\banimate\\b|\\bvisible\\b|IntersectionObserver|stats-counter|countUp|counter" src
-
-Shader greys (code surface only; docs can mention grey):
-- Audit for grey/silver palette usage:
-    rg -n "\\b(gray|grey|silver)\\b" src assets
-
-Niche integrity (must stay valid):
-    node scripts/validate-niche-pages.js --strict
-
-## Reporting format (required)
-Your final response must include:
-- Change log: what changed, where, and why (file paths)
+## Final report format (required)
+- Change log (file paths + why)
 - Commands run + pass/fail
-- Requirements 1–13 checklist with PASS/FAIL
-- Rollback guidance:
-  - Preferred: reference commits that can be reverted
-  - If no commits: list the exact files changed, grouped by phase
+- Requirements checklist (1–13) PASS/FAIL
+- CRITICAL contract checklist PASS/FAIL:
+  - panel direction
+  - arrow direction
+  - slow timing
+  - overlay opacity
+- Rollback guidance (commits or file groups)
