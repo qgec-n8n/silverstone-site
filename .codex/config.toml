@@ -1,35 +1,37 @@
 # FILE: .codex/config.toml
 
 # Codex project configuration for the Silverstone static site.
-# Notes:
-# - This config prioritizes the planning docs used for the current workstream.
-# - Web search is disabled by default because this task is repo-contained.
+# This config is tuned for high-reliability UI work with strong scope control.
 
 model = "gpt-5.1-codex-max"
+model_reasoning_effort = "high"
+
+# Safe default for doing real work while still requiring approvals for risky actions.
+approval_policy = "on-request"
 sandbox_mode = "workspace-write"
-model_reasoning_effort = "medium"
+
+# Allow sufficient room for repo guidance (AGENTS + plans) to load.
+project_doc_max_bytes = 65536
+
+[features]
+# Allow Codex to request web search when it needs up-to-date or niche information.
+web_search_request = true
+
+[sandbox_workspace_write]
+# Keep outbound network access disabled by default for safety/reproducibility.
+network_access = false
+
+[tui]
 hide_agent_reasoning = true
 
-project_doc_max_bytes = 120000
+[profiles.readonly_quick]
+model = "gpt-5.1-codex-max"
+model_reasoning_effort = "medium"
+approval_policy = "untrusted"
+sandbox_mode = "read-only"
 
-project_docs = [
-  "AGENTS.md",
-  ".agent/PLANS.md",
-
-  ".agent/NICHE_TEMPLATES_INDEX.md",
-  ".agent/NICHE_PAGES_GUIDE.md",
-  ".agent/ICON_CATALOG.md",
-
-  ".agent/ExecPlan.Niches.Batch.md",
-  ".agent/ExecPlan.Niche.Hospitality.md",
-  ".agent/ExecPlan.Niche.SalonsBarbers.md",
-  ".agent/ExecPlan.Niche.TradesVirtualOffice.md",
-  ".agent/ExecPlan.Niche.Ecommerce.md",
-  ".agent/ExecPlan.Niche.PhysiosChiropractors.md",
-  ".agent/ExecPlan.Niche.Dentists.md",
-  ".agent/ExecPlan.Niche.GymsFitnessStudios.md",
-  ".agent/ExecPlan.Niche.FitnessCoaches.md"
-]
-
-[tools]
-web_search = false
+[profiles.high_effort_ui]
+model = "gpt-5.1-codex-max"
+model_reasoning_effort = "high"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
