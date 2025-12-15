@@ -2,7 +2,7 @@
 
 # Codex Initiation Instructions (Silverstone Site)
 
-Use this file to start a reliable Codex session for the current UI spec.
+Use this file to start a reliable Codex session for the current UI refinement pass.
 
 ## 1) Start in the correct directory
 - Ensure your terminal CWD is the repository root (where `index.html` and `AGENTS.md` live).
@@ -24,9 +24,7 @@ Expected:
 ## 4) Recommended session configuration
 - Model: `gpt-5.1-codex-max`
 - Reasoning effort: high
-- Approvals: allow workspace edits and local commands (do not allow outbound network unless you explicitly need it)
-
-If you prefer to run non-interactively, use `codex exec` with full-auto enabled and instruct it to read and follow `ExecPlan.md`.
+- Approvals: allow workspace edits and local commands (avoid outbound network unless you explicitly need it)
 
 ## 5) Kickoff prompt (paste into Codex)
 Use a prompt that:
@@ -34,4 +32,4 @@ Use a prompt that:
 - Requires the final report format (change log, commands run, requirements 1–13 PASS/FAIL)
 
 Example wording (adapt as needed):
-- “Read `ExecPlan.md` and implement requirements 1–13 exactly. Do not broaden scope. Rebuild outputs, run validations, then report with the required checklist and change log.”
+- “Read `ExecPlan.md` and implement requirements 1–13 exactly (including the refinement rules for the mobile nav, overlay parity, desktop FAQ centering, and marquee eager start). Do not broaden scope. Rebuild outputs, run validations, then report with the required checklist and change log.”
