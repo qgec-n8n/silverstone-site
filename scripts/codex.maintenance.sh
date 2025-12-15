@@ -6,31 +6,39 @@ set -euo pipefail
 # - Runs before every Codex task.
 # - Must be fast and safe to re-run.
 #
-# This script performs lightweight sanity checks only.
+# Performs lightweight checks only; strict validation is enforced by ExecPlan gates.
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
-echo "[maintenance] Node: $(node -v)"
-echo "[maintenance] npm:  $(npm -v)"
+echo "[maintenance] Repo root: $REPO_ROOT"
 
-# Ensure deps exist (do not install here; keep maintenance fast).
-if [[ ! -d node_modules ]]; then
-  echo "[maintenance] WARNING: node_modules missing. Run scripts/codex.setup.sh first."
+if command -v node >/dev/null 2>&1; then
+  echo "[maintenance] Node: $(node -v)"
 else
-  echo "[maintenance] node_modules present."
+  echo "[maintenance] WARNING: node not found."
 fi
 
-echo "[maintenance] Quick build checks (CSS/JS)..."
-npm run build:css || echo "[maintenance] WARNING: build:css failed (non-blocking during iterative work)."
-npm run build:js  || echo "[maintenance] WARNING: build:js failed (non-blocking during iterative work)."
+if command -v npm >/dev/null 2>&1; then
+  echo "[maintenance] npm:  $(npm -v)"
+else
+  echo "[maintenance] WARNING: npm not found."
+fi
 
-# Validate niche pages if the validator script exists.
+echo "[maintenance] Quick build checks (non-blocking during iterative work)..."
+if command -v npm >/dev/null 2>&1; then
+  npm run build:css || echo "[maintenance] WARNING: build:css failed."
+  npm run build:js  || echo "[maintenance] WARNING: build:js failed."
+fi
+
 if [[ -f scripts/validate-niche-pages.js ]]; then
   echo "[maintenance] Niche pages soft validation..."
-  node scripts/validate-niche-pages.js || true
-else
-  echo "[maintenance] validate-niche-pages.js not present; skipping."
+  node scripts/validate-niche-pages.js || echo "[maintenance] WARNING: niche validation failed."
+fi
+
+if [[ -f scripts/assert-ui-spec.js ]]; then
+  echo "[maintenance] UI spec soft assertion..."
+  node scripts/assert-ui-spec.js --strict || echo "[maintenance] WARNING: UI spec assertion failed."
 fi
 
 echo "[maintenance] Done."
