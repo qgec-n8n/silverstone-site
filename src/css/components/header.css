@@ -283,7 +283,7 @@ nav a.active {
     inset: 0;
     background: rgba(5, 12, 24, 0.45);
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.35s ease;
   }
 
   .mobile-nav-shell.is-open .mobile-nav-backdrop {
@@ -306,7 +306,7 @@ nav a.active {
     border-left: 1px solid rgba(0, 174, 239, 0.18);
     backdrop-filter: blur(12px) saturate(160%);
     transform: translateX(110%);
-    transition: transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
     overflow: hidden;
   }
 
@@ -382,12 +382,11 @@ nav a.active {
     display: flex;
     width: 200%;
     height: calc(100% - 78px);
-    transition: transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
-    transform: translateX(-50%);
+    transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   .mobile-nav-shell.show-services .mobile-nav-track {
-    transform: translateX(0);
+    transform: translateX(-50%);
   }
 
   .mobile-nav-view {
@@ -445,9 +444,9 @@ nav a.active {
   }
 
   .mobile-back-icon::before {
-    content: "→";
+    content: "←";
     font-size: 0.9rem;
-    transform: translateX(1px);
+    transform: translateX(-1px);
   }
 
   .mobile-nav-kicker {
@@ -473,8 +472,8 @@ nav a.active {
   }
 
   .mobile-nav-shell.is-open .mobile-nav-list li {
-    animation: mobileNavStagger 0.6s ease forwards;
-    animation-delay: calc(var(--item-index, 0) * 140ms);
+    animation: mobileNavStagger 0.35s ease forwards;
+    animation-delay: calc(var(--item-index, 0) * 60ms);
   }
 
   .mobile-nav-link {
@@ -497,7 +496,7 @@ nav a.active {
       inset 0 1px 0 rgba(255, 255, 255, 0.7);
     transition: transform 0.25s ease, box-shadow 0.25s ease,
       border-color 0.25s ease, color 0.25s ease;
-    text-align: right;
+    text-align: left;
   }
 
   .mobile-nav-link:hover,
@@ -512,14 +511,13 @@ nav a.active {
 
   .mobile-nav-link--drill {
     position: relative;
-    padding-right: 1.25rem;
-    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
-  .mobile-nav-link--drill::before {
-    content: "‹";
+  .mobile-nav-link--drill::after {
+    content: "›";
     position: absolute;
-    left: 1rem;
+    right: 1.1rem;
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.1rem;
@@ -527,10 +525,6 @@ nav a.active {
   }
 
   @keyframes mobileNavStagger {
-    0% {
-      opacity: 0;
-      transform: translateX(18px);
-    }
     to {
       opacity: 1;
       transform: translateX(0);

@@ -69,10 +69,8 @@
       '.mobile-nav-list--services',
     );
     const mobileBackdrop = mobileNav.querySelector('.mobile-nav-backdrop');
-    const mobileRootBack = mobileNav.querySelector('.mobile-nav-back--root');
-    const mobileServicesBack = mobileNav.querySelector(
-      '.mobile-nav-back--services',
-    );
+    const mobileCloseButton = mobileNav.querySelector('.mobile-nav-close');
+    const mobileBackButton = mobileNav.querySelector('.mobile-nav-back');
     let isMobileNavOpen = false;
 
     let previousScrollY = 0;
@@ -158,7 +156,6 @@
       document.body.classList.add('mobile-nav-open');
       mobileNav.setAttribute('aria-hidden', 'false');
       mobileNav.classList.add('is-open');
-      mobileNav.classList.remove('show-services');
       isMobileNavOpen = true;
       if (navToggle) navToggle.classList.add('active');
       showHeader();
@@ -384,15 +381,14 @@
     if (mobileBackdrop) {
       mobileBackdrop.addEventListener('click', closeMobileNav);
     }
-    if (mobileRootBack) {
-      mobileRootBack.addEventListener('click', (event) => {
+    if (mobileCloseButton) {
+      mobileCloseButton.addEventListener('click', (event) => {
         event.preventDefault();
         closeMobileNav();
-        scheduleHeaderAutoHide(1800);
       });
     }
-    if (mobileServicesBack) {
-      mobileServicesBack.addEventListener('click', (event) => {
+    if (mobileBackButton) {
+      mobileBackButton.addEventListener('click', (event) => {
         event.preventDefault();
         closeServicesPanel();
       });
@@ -423,9 +419,7 @@
         if (isMobileNavOpen) {
           closeMobileNav();
         } else {
-          showHeader();
-          clearTimeout(headerAutoHideTimeoutId);
-          scheduleHeaderAutoHide();
+          openMobileNav();
         }
         return;
       }
@@ -470,21 +464,17 @@
         <div class="mobile-nav-panel" role="dialog" aria-modal="true">
           <div class="mobile-nav-header">
             <span class="mobile-nav-title">Explore</span>
+            <button class="mobile-nav-close" type="button" aria-label="Close menu">
+              <span class="mobile-close-icon" aria-hidden="true"></span>
+            </button>
           </div>
           <div class="mobile-nav-track">
             <div class="mobile-nav-view mobile-nav-view--root" aria-label="Main navigation">
-              <div class="mobile-nav-subhead mobile-nav-subhead--root">
-                <button class="mobile-nav-back mobile-nav-back--root" type="button" aria-label="Back to page">
-                  <span class="mobile-back-icon" aria-hidden="true"></span>
-                  <span class="mobile-back-label">Back</span>
-                </button>
-                <p class="mobile-nav-kicker">Menu</p>
-              </div>
               <ul class="mobile-nav-list mobile-nav-list--root"></ul>
             </div>
             <div class="mobile-nav-view mobile-nav-view--services" aria-label="Services navigation">
               <div class="mobile-nav-subhead">
-                <button class="mobile-nav-back mobile-nav-back--services" type="button" aria-label="Back to main menu">
+                <button class="mobile-nav-back" type="button" aria-label="Back to main menu">
                   <span class="mobile-back-icon" aria-hidden="true"></span>
                   <span class="mobile-back-label">Back</span>
                 </button>

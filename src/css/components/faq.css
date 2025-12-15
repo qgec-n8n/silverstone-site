@@ -80,10 +80,3 @@
     padding-right: 1.5rem;
   }
 }
-
-@media (min-width: 769px) {
-  .faq-section summary,
-  .faq-section details p {
-    text-align: center;
-  }
-}
