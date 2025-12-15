@@ -1,100 +1,71 @@
 <!-- FILE: AGENTS.md -->
 
-# Silverstone Codex Agents
+# Silverstone Site — Codex Operating Guide
 
-This repository is a static HTML/CSS/JS site with source files under `src/` and compiled assets under `assets/`. This repo also contains a niche-page template set under `niche_copy_templates/`.
+## What this repo is
+- Static marketing site (HTML + built CSS/JS in `assets/`).
+- Source CSS/JS live in `src/` and are compiled into `assets/`.
+- Pages:
+  - Root: `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `privacy-policy.html`
+  - Niches: `niches/*.html` (see the `niches/` directory for the full list)
 
-## Current Mission (Active Workstream)
-**Generate and wire up all non–Estate Agents niche pages** using:
+## Current mission (do this first)
+This repository is currently under a **UI/UX bugfix + polish spec**. Treat `ExecPlan.md` as the **single source of truth** for required edits/bugfixes and acceptance criteria.
 
-- **Markup/layout template:** `niches/estate-agents.html`
-- **Copy/source-of-truth templates:** `niche_copy_templates/*_Template.md`
-- **Output pages:** new files under `niches/` (one per template slug)
-- **Navigation wiring:** update the Services dropdown links (desktop + mobile overlay) across all site pages
-- **Images:** convert the template-listed `.jpeg` assets to `.webp` and prefer `.webp` in `<picture>` sources
+Before editing anything:
+1. Read `ExecPlan.md`
+2. Then read `PLANS.md`
+3. Use `codex/INITIATION.md` for how to start a Codex session
+4. Use `codex/MAINTENANCE.md` for ongoing upkeep
 
-> The niche pages must look **almost identical** to `niches/estate-agents.html` (same layout, same section structure, same classnames), with only **copy + images + metadata** swapped.
+## Nonnegotiables (scope + UX)
+- Do EXACTLY the items listed in `ExecPlan.md` — no extra refactors, no “nice-to-haves”.
+- Preserve the existing typography system and visual language (font family/weights/colors/sizes).
+- Desktop must not regress while fixing mobile.
+- Remove ALL scroll-triggered animations/effects EXCEPT:
+  - The body section parallax effect, and
+  - The minimizing menu banner behavior
+- NEVER ship any grey/silver shader variant anywhere (replace with vibrant variants).
 
----
+## Protected components (do not change unless explicitly required)
+These must remain functionally intact and visually consistent:
+- Minimizing menu banner (header minimization behavior)
+- Cookie consent banner
+- Magnetic buttons
 
-## Agent Persona & Operating Rules
+If any protected component must be touched to satisfy a requirement:
+- Make the smallest possible, isolated change
+- Explain why it was required
+- Add a verification step proving nothing else changed
 
-### Persona
-Act as a careful senior frontend engineer + conversion copy editor:
-- Prioritize correctness and consistency across pages.
-- Make minimal structural changes; keep the estate-agents layout intact.
-- Replace bracketed instructions with final copy; do **not** leave any template instructions visible in generated HTML.
+## Implementation constraints
+- Prefer editing source files under `src/` and rebuilding outputs into `assets/`.
+- Do not hand-edit generated bundles in `assets/` unless the repo does not support rebuilding that artifact.
+- No new runtime dependencies unless unavoidable to satisfy the spec.
+- Keep edits cohesive: read enough context, then batch related changes (avoid thrashing).
 
-### Hard Constraints
-- **Do not** redesign sections, add new components, or change layout patterns unless explicitly required to keep pages consistent.
-- **Do not** invent new site routes or new top-level navigation items.
-- **Do not** modify compiled bundles directly unless the plan explicitly says so:
-  - Prefer editing `src/` and running build scripts.
-  - HTML pages (`*.html`) are authored directly and can be edited directly.
+## Codex CLI hygiene (tooling + execution discipline)
+- Fast search: prefer `rg`; if unavailable, use `grep -R`.
+- Prefer patch-style edits for precision.
+- Batch file reads/searches when possible; avoid re-reading the same files repeatedly.
+- Avoid destructive git operations unless explicitly approved.
 
-### Allowed Changes (for this niche-pages run)
-- Create new HTML files in `niches/`:
-  - `hospitality.html`, `salons-barbers.html`, `trades-virtual-office.html`, `ecommerce.html`,
-    `physios-chiropractors.html`, `dentists.html`, `gyms-fitness-studios.html`, `fitness-coaches.html`
-- Update Services dropdown links across:
-  - `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `privacy-policy.html`,
-    `niches/estate-agents.html`, and all newly created niche pages
-- Update `sitemap.xml` to include the new niche URLs.
-- Generate `.webp` assets for template-listed images via `scripts/convert-template-images-to-webp.js`.
-- Make **minimal** shared CSS adjustments needed to allow multiple niche pages to reuse the estate-agents layout styling (see `.agent/ExecPlan.Niches.Batch.md`).
+## Recommended local commands
+Setup (one-time per environment):
+    bash scripts/codex.setup.sh
 
----
+Build outputs after changes:
+    npm run build:css
+    npm run build:js
 
-## Required Reading Order (Before Editing Anything)
-1. `.agent/PLANS.md`
-2. `.agent/NICHE_TEMPLATES_INDEX.md`
-3. `.agent/NICHE_PAGES_GUIDE.md`
-4. `.agent/ICON_CATALOG.md`
-5. `.agent/ExecPlan.Niches.Batch.md`
-6. The specific per-niche ExecPlan you’re implementing next:
-   - `.agent/ExecPlan.Niche.*.md`
-7. The actual template Markdown for that niche:
-   - `niche_copy_templates/<Name>_Template.md`
+Validation (must run after any HTML/nav change):
+    node scripts/validate-niche-pages.js --strict
 
----
+Optional repo health checks:
+    bash scripts/codex.maintenance.sh
 
-## Tooling & Workflow Expectations
-
-### Commands you may run
-- Setup (once per environment):
-  - `bash scripts/codex.setup.sh`
-- Fast rebuild checks:
-  - `npm run build:css`
-  - `npm run build:js`
-- Image conversion:
-  - `node scripts/convert-template-images-to-webp.js`
-- Validation (soft or strict):
-  - `node scripts/validate-niche-pages.js`
-  - `node scripts/validate-niche-pages.js --strict`
-
-### Patch discipline
-- Prefer small, reviewable patches.
-- For each niche page:
-  - Copy `niches/estate-agents.html` → new file.
-  - Change only: metadata, hero copy, section copy, bullet icons, image sources/alt text, and page identifiers (body classes).
-  - Keep the section ordering and classnames consistent.
-
-### Progress & reporting
-- Update the checklist in `.agent/ExecPlan.Niches.Batch.md` as you complete each niche page.
-- After each page is generated:
-  - Run `node scripts/validate-niche-pages.js` (soft) and fix obvious issues immediately.
-- Before finalizing the entire run:
-  - Run `node scripts/validate-niche-pages.js --strict`.
-
----
-
-## Definition of Done (for this niche-pages run)
-- All niche pages listed in `.agent/NICHE_TEMPLATES_INDEX.md` exist in `niches/`.
-- Each niche page:
-  - Matches `estate-agents.html` structure and visual layout patterns.
-  - Uses the template-provided images and copy (with generated copy inserted where instructed).
-  - Prefers `.webp` images (and the `.webp` files exist in `assets/images/socialmedia/`).
-  - Uses only supported icon classes (per `.agent/ICON_CATALOG.md`).
-  - Is linked correctly from the Services dropdown menu on desktop and mobile.
-- `sitemap.xml` includes the niche URLs.
-- `node scripts/validate-niche-pages.js --strict` passes.
+## Delivery requirements for every Codex run
+In the final message, include:
+- A checklist for requirements 1–13 (pass/fail) with the exact file paths changed
+- The exact commands run and whether they passed
+- A rollback plan (what commit to revert, or which files were changed per phase)
