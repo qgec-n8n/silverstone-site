@@ -1,36 +1,45 @@
 # FILE: .codex/config.toml
 
-# Project-local Codex configuration for the Silverstone static site.
-# Goal: bias towards surgical edits, strict gate-by-gate execution, and low regression risk.
+# Project Codex defaults (kept conservative to avoid known thread/session encryption errors).
+# Note: Codex also uses ~/.codex/config.toml for global defaults. This project file should
+# only contain safe, non-secret preferences.
 
-profile = "pricing_surgical"
-
-model = "gpt-5.1-codex-max"
-model_reasoning_effort = "high"
+# Use a stable default model name from the official docs examples.
+# (Avoid setting gpt-5.1-codex-max as a hard default due to ongoing CLI issues reported by users.)
+model = "gpt-5-codex"
+model_provider = "openai"
 
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
-
-project_doc_max_bytes = 65536
+model_reasoning_effort = "high"
+model_verbosity = "low"
 
 [features]
+# Keep features minimal. Avoid experimental exec shells unless you explicitly need them.
 web_search_request = true
+streamable_shell = false
+unified_exec = false
+ghost_commit = false
 
 [sandbox_workspace_write]
 network_access = false
 
-[tui]
-hide_agent_reasoning = true
+# Project profiles you can switch to if the CLI hits encrypted_content verification errors.
+profile = "pricing_surgical"
 
-# Profiles
 [profiles.pricing_surgical]
 model = "gpt-5.1-codex-max"
-model_reasoning_effort = "high"
+model_provider = "openai"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
+model_reasoning_effort = "high"
+model_verbosity = "low"
 
-# Strong behavioral guidance (Codex must follow AGENTS.md + ExecPlan.md):
-# - minimal diffs
-# - no unrelated refactors
-# - only touch files enumerated in ExecPlan allowlist
-# Enforcement is validated by scripts in /scripts and strict gates in ExecPlan.md.
+# Emergency fallback: use a different model family if encryption errors persist in a thread.
+[profiles.fallback_gpt41]
+model = "gpt-5.1"
+model_provider = "openai"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+model_reasoning_effort = "medium"
+model_verbosity = "low"
