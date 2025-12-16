@@ -3,25 +3,18 @@
 # Maintenance Instructions (Silverstone Site)
 
 ## Always preserve these invariants
-- Mobile menu direction contract stays correct (never invert).
-- Services shows left arrow before label; Back shows right arrow after label.
-- Back button is top-right on both panels; no X control.
-- Mobile menu timing stays slow-but-not-overly-slow:
-  - panel slide >= 1200ms; stagger >= 250ms; reveal >= 400ms
-- Desktop nav Services matches other desktop nav items exactly (font + size).
-- Mobile Panel 1 Services matches other pills and is not bold.
-- Body-section overlay remains light:
-  - global `--body-section-overlay-opacity`, no mobile override.
-- Marquees animate without touch:
-  - images visible and moving without interaction; no lazy-load gating.
+- Target HTML pages are only modified within the pricing placeholder region.
+- No page-level script tag additions for pricing.
+- Pricing widget mounts in Shadow DOM and injects its own CSS inside the shadow root only.
+- Loader is lazy: if no `.ss-react-pricing` elements exist, it does nothing.
+- Loader/script injection is idempotent (no duplicates).
 
-## After any nav / overlay / marquee / FAQ / page-polish change
+## After any pricing/widget change
 Run:
 - `npm run build:css`
 - `npm run build:js`
-- `node scripts/validate-niche-pages.js --strict`
-- `node scripts/assert-ui-spec.js --strict`
+- `node scripts/validate-pricing-embeds.js --strict`
 
 ## If a regression occurs
 - Revert the smallest commit that introduced it.
-- Re-run the strict validators above to confirm restoration.
+- Re-run the commands above to confirm restoration.
