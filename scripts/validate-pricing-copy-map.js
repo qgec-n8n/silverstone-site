@@ -1,4 +1,3 @@
-# FILE: scripts/validate-pricing-copy-map.js
 #!/usr/bin/env node
 "use strict";
 

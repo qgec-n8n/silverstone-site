@@ -1,4 +1,3 @@
-# FILE: scripts/validate-pricing-embed-markup.js
 #!/usr/bin/env node
 "use strict";
 

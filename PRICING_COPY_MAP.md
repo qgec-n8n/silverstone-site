@@ -35,6 +35,7 @@ _Subtitle: These are the three most common “done-for-you” systems—pick the
   - Viewing workflow automation (from enquiry → booked viewing)
   - Viewing follow-up automation
   - A single joined-up “capture → qualify → follow up” journey
+  **Badge:** Most popular
 
 * **Plan name:** 24/7 Guest Concierge Bot  
   **Setup fee:** £550  

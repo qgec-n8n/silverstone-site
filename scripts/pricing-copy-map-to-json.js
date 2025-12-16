@@ -1,4 +1,3 @@
-# FILE: scripts/pricing-copy-map-to-json.js
 #!/usr/bin/env node
 "use strict";
 
@@ -185,9 +184,11 @@ function extractRow2Groups(sectionLines) {
         break;
       }
 
-      const pi = l.match(/^\*\*Plans included:\*\*\s*$/);
+      const pi = l.match(/^\*\*Plans included:\*\*\s*(.*)$/);
       if (pi) {
         inPlans = true;
+        const inline = pi[1] ? pi[1].trim() : "";
+        if (inline) plansBuf.push(inline);
         continue;
       }
 
