@@ -1,3 +1,4 @@
+# FILE: scripts/build-pricing-widget.js
 #!/usr/bin/env node
 "use strict";
 
