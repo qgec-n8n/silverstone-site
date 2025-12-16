@@ -1,3 +1,4 @@
+# FILE: scripts/build-pricing-widget.js
 /* eslint-disable no-console */
 const fs = require("fs");
 const path = require("path");
@@ -59,6 +60,16 @@ function main() {
 
   console.log("[pricing-build] Bundling widget to assets/js/ss-pricing-widget.iife.js ...");
 
+  const atAliasPlugin = {
+    name: "at-alias",
+    setup(build) {
+      build.onResolve({ filter: /^@\// }, (args) => {
+        const rel = args.path.replace(/^@\//, "");
+        return { path: path.join(widgetRoot, rel) };
+      });
+    },
+  };
+
   esbuild.buildSync({
     entryPoints: [entryTsx],
     outfile: bundleOut,
@@ -73,6 +84,7 @@ function main() {
     loader: {
       ".css": "text",
     },
+    plugins: [atAliasPlugin],
   });
 
   console.log("[pricing-build] Built:", path.relative(repoRoot, bundleOut));
