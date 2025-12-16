@@ -26,15 +26,21 @@ This repo uses an **ExecPlan** workflow:
 - You have identified the exact HTML ranges for:
   - Innovation Gallery + Double Marquee block
   - Final CTA banner block
+- You understand the **special-case**: Section 3.5 is split into **two cards**.
 
 ### Gate 1 — WebP assets generated
 - `node scripts/convert-services-images-to-webp.js` runs without errors
-- All required `.webp` outputs exist next to their `.jpeg` counterparts
+- All required `.webp` outputs exist next to their `.jpeg` counterparts:
+  - `General_Services_1(.webp)` + `_Mobile`
+  - `General_Services_2A(.webp)` + `_Mobile`
+  - `General_Services_2B(.webp)` + `_Mobile`
+  - `General_Services_3(.webp)` + `_Mobile`
 
 ### Gate 2 — services.html rebuilt structurally
 - `services.html` now follows estate-agents’ section patterns
 - Copy applied from `Services_Overhaul_Copy.md` (instructions obeyed)
-- 3 image sections use `<picture>` with WebP-first sources
+- 3.4 / 3.5 / 3.7 image sections use WebP-first `<picture>`
+- Section 3.5 is implemented as **two stacked cards** with alternating layout.
 
 ### Gate 3 — Locked blocks restored verbatim
 - Innovation Gallery + Double Marquee block inserted verbatim
@@ -53,6 +59,6 @@ Run and pass:
 Done means:
 - The page matches estate-agents structure (visually and structurally)
 - Services-only locked blocks are unchanged
-- WebP-first images are implemented
+- WebP-first images are implemented (including 2A + 2B for section 3.5)
 - Icon usage is valid and mapped
 - Strict validation passes
