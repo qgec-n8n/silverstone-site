@@ -1,52 +1,64 @@
 <!-- FILE: AGENTS.md -->
 
-# Silverstone Site — Codex Operating Guide (Pricing Widget Integration)
+# AGENTS — Codex Scope & Safety Rules (React Pricing Embed)
 
-## What you are doing in this repo (this run only)
-This Codex run is **only** for implementing the **React Pricing Widget** by replacing the existing **pricing placeholder text** on:
-
+## This run’s only purpose
+Embed a React pricing section (two rows) into:
 - `services.html`
-- `niches/dentists.html`
-- `niches/ecommerce.html`
 - `niches/estate-agents.html`
-- `niches/fitness-coaches.html`
-- `niches/gyms-fitness-studios.html`
 - `niches/hospitality.html`
-- `niches/physios-chiropractors.html`
 - `niches/salons-barbers.html`
 - `niches/trades-virtual-office.html`
+- `niches/ecommerce.html`
+- `niches/physios-chiropractors.html`
+- `niches/dentists.html`
+- `niches/gyms-fitness-studios.html`
+- `niches/fitness-coaches.html`
 
-**Hard scope guard:** On each target HTML page, you may replace **only** the pricing placeholder region (the placeholder `<p class="section-subtitle">...Transparent pricing tables...</p>`).  
-Everything else in those HTML files must remain byte-for-byte identical (structure, copy, styles, behavior), except for the minimal placeholder swap.
+…using `PRICING_COPY_MAP.md` and the UI behavior reference in `pricing_code.tsx`.
 
-## Authoritative inputs (must use)
-1) `new_pricing_code.pdf` (authoritative React code; use the user-pasted version as the clean fallback)
-2) `Silverstone_Service_Master_List.csv` (authoritative products + prices)
+---
 
-## Internal reference pattern to mirror
-Use the repo’s existing JS delivery model:
-- Static HTML pages load `assets/js/app.js` (root pages) or `../assets/js/app.js` (niche pages).
-- `assets/js/app.js` is built by concatenation from `src/js/*` via `scripts/build-js.js`.
-- **Do not add new `<script>` tags to pages** (that would violate the “only replace placeholder region” rule).
+## Hard constraints
+### 1) HTML edits must be surgical
+- For each target HTML file: replace only the pricing placeholder region defined in `codex/PRICING_PAGE_MOUNT_MAP.md`.
+- Do not touch hero markup, scripts, nav, or other sections.
 
-Therefore:
-- Pricing widget bootstrap must be added to `src/js/` and bundled into `assets/js/app.js`.
-- The heavy React widget bundle must be lazy-loaded by the bootstrap **only when mount containers exist**.
+### 2) Preserve hero shader behavior
+Do not modify:
+- `<canvas id="hero-shader-canvas" ...>`
+- `.hero.title-band`
+- hero CSS layering / z-index rules
+- `src/js/hero-shader.js` unless explicitly required (normally: never)
+
+### 3) No global CSS regressions
+- Prefer Shadow DOM for the widget.
+- If any host CSS must change, it must be minimal, scoped, and justified with a regression rationale.
+
+### 4) Deterministic copy usage
+- All pricing copy and values must come from `PRICING_COPY_MAP.md`.
+- Do not hand-type prices into React code.
+- If a value is missing, fail validation in strict mode (do not guess).
+
+### 5) Idempotent embed
+- Loader must not inject duplicate scripts.
+- Mount must not run twice on the same element.
+
+---
 
 ## Read-first order (mandatory)
-1) `ExecPlan.md` (executable spec, constraints, acceptance checks)
-2) `codex/PRICING_WIDGET_REFERENCE.md` (exact placeholder IDs + page→SKU mapping tables)
-3) `scripts/validate-pricing-embeds.js` (defines pass/fail checks)
+1) `ExecPlan.md`
+2) `codex/PRICING_COPY_PARSER_SPEC.md`
+3) `codex/PRICING_WIDGET_UI_SPEC.md`
+4) `codex/PRICING_PAGE_MOUNT_MAP.md`
+5) `codex/PRICING_SHADER_GUARDS.md`
 
-## Non-negotiable requirements (repeat)
-- Replace **ONLY** the pricing placeholder region on each target page.
-- Embed React widget using “React-on-any-website” pattern (mount into a div) while matching this repo’s `app.js` bundling convention.
-- Use **only** CSV-backed items and prices. No invented prices or product names.
-- Must be idempotent (re-run safe): no duplicate mount blocks, no duplicate script injection.
-- Must fail gracefully: page must render normally; only the mount container may show a minimal fallback message.
+---
 
-## Commands you must run before finishing
-- `bash scripts/codex.maintenance.sh`
+## Commands that must pass before finishing
 - `npm run build:css`
 - `npm run build:js`
-- `node scripts/validate-pricing-embeds.js --strict`
+- `node scripts/build-pricing-widget.js`
+- `node scripts/validate-pricing-copy-map.js --strict`
+- `node scripts/validate-pricing-embed-markup.js --strict`
+- `bash scripts/codex.maintenance.sh`
