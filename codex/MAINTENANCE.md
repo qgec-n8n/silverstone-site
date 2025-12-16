@@ -1,20 +1,24 @@
 <!-- FILE: codex/MAINTENANCE.md -->
 
-# Maintenance Instructions (Silverstone Site)
+# Maintenance Notes (React Pricing Embed)
 
 ## Always preserve these invariants
-- Target HTML pages are only modified within the pricing placeholder region.
-- No page-level script tag additions for pricing.
-- Pricing widget mounts in Shadow DOM and injects its own CSS inside the shadow root only.
-- Loader is lazy: if no `.ss-react-pricing` elements exist, it does nothing.
-- Loader/script injection is idempotent (no duplicates).
+- Hero shader markup remains intact on all pages:
+  - `#hero-shader-canvas` exists
+  - `.hero.title-band` exists
+- Pricing copy values remain sourced from `PRICING_COPY_MAP.md` (never duplicated by hand).
+- Widget remains isolated (Shadow DOM + shadow-scoped CSS).
+- Loader is lazy and idempotent (no mounts/injections on pages without mount containers).
 
-## After any pricing/widget change
+## After any pricing change
 Run:
 - `npm run build:css`
 - `npm run build:js`
-- `node scripts/validate-pricing-embeds.js --strict`
+- `node scripts/build-pricing-widget.js`
+- `node scripts/validate-pricing-copy-map.js --strict`
+- `node scripts/validate-pricing-embed-markup.js --strict`
 
 ## If a regression occurs
-- Revert the smallest commit that introduced it.
-- Re-run the commands above to confirm restoration.
+- Revert the smallest change set.
+- Re-run the strict validators above.
+- Manually confirm hero shader still renders on at least one root page and one niche page.
