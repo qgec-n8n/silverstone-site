@@ -2,29 +2,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Codex maintenance script (Pricing widget integration)
-# - Fast and safe to re-run
-# - Performs lightweight checks
-# - Non-blocking warnings during iterative work
+# Codex maintenance script (React pricing embed)
+# - Quick checks intended for iterative work
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
 echo "[maintenance] Repo root: $REPO_ROOT"
 
-if ! command -v node >/dev/null 2>&1; then
-  echo "[maintenance] ERROR: node is not installed or not on PATH."
-  exit 1
-fi
+command -v node >/dev/null 2>&1 || { echo "[maintenance] ERROR: node not found"; exit 1; }
+command -v npm  >/dev/null 2>&1 || { echo "[maintenance] ERROR: npm not found"; exit 1; }
 
 echo "[maintenance] node: $(node -v)"
 echo "[maintenance] npm:  $(npm -v)"
 
-echo "[maintenance] Quick build checks (non-blocking during iterative work)..."
-npm run build:css || echo "[maintenance] WARNING: build:css failed."
-npm run build:js  || echo "[maintenance] WARNING: build:js failed."
+echo "[maintenance] Build site assets (non-blocking warnings allowed)..."
+npm run build:css || echo "[maintenance] WARNING: build:css failed"
+npm run build:js  || echo "[maintenance] WARNING: build:js failed"
 
-echo "[maintenance] Pricing embed validation (non-strict)..."
-node scripts/validate-pricing-embeds.js || echo "[maintenance] WARNING: pricing validation failed."
+echo "[maintenance] Validate pricing copy map (non-strict)..."
+node scripts/validate-pricing-copy-map.js || echo "[maintenance] WARNING: pricing copy validation failed"
+
+echo "[maintenance] Build pricing widget (non-strict)..."
+node scripts/build-pricing-widget.js || echo "[maintenance] WARNING: pricing widget build failed"
+
+echo "[maintenance] Validate embed markup (non-strict)..."
+node scripts/validate-pricing-embed-markup.js || echo "[maintenance] WARNING: embed markup validation failed"
 
 echo "[maintenance] Done."
