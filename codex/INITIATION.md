@@ -24,8 +24,9 @@ When starting a Codex task, instruct it:
 - to run verification commands and report PASS/FAIL
 
 Critical instruction to include:
-- “Do not invert mobile panel directions. Follow the direction table in ExecPlan.md exactly.”
-- “Set motion timings to extremely slow minimums (>= 1800ms slide; >= 500ms stagger).”
+- “Do not invert the panel directions. Follow the direction table in ExecPlan.md exactly.”
+- “Services must be ‘← Services’ and Back must be ‘Back →’.”
+- “Timing must be slow-but-not-overly-slow: slide >= 1200ms; stagger >= 250ms; reveal >= 400ms.”
 
 ## Required commands before finishing
 Codex must run at the end:
