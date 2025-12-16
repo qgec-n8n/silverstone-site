@@ -1,7 +1,11 @@
 # FILE: .codex/config.toml
 
-# Codex project configuration for the Silverstone static site.
-# Tuned for high-reliability UI work with strict scope control.
+# Project-local Codex configuration for the Silverstone static site.
+# Note: Codex CLI primarily reads ~/.codex/config.toml, but keeping this file
+# in-repo provides a consistent, shareable baseline.
+
+# Prefer a profile by default (Codex CLI supports `profile = "name"`).
+profile = "high_effort_ui"
 
 model = "gpt-5.1-codex-max"
 model_reasoning_effort = "high"
@@ -10,14 +14,12 @@ approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
 # Ensure AGENTS.md + ExecPlan.md + PLANS.md fit into injected project docs.
-# Default is 32 KiB; raise for this repo.
 project_doc_max_bytes = 65536
 
 [features]
 web_search_request = true
 
 [sandbox_workspace_write]
-# Keep outbound network disabled unless explicitly needed.
 network_access = false
 
 [tui]
