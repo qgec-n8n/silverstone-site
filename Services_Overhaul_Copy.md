@@ -1,111 +1,90 @@
-<!-- FILE: Services_Overhaul_Copy.md -->
 **Services (General) - Silverstone - services.html**
 
-## 1\....n
-1.  Meta Description (SEO-focused; compelling; aligned to pa...ervices + outcomes + credibility; include keyword phrases)
-2.  Page Title (H1)
-3.  Social Share (OG/Twitter meta)
-4.  Hero Title (big text)
-5.  Hero Subtitle (small text)
-6.  Hero buttons (Primary CTA + Secondary CTA)
-7.  Hero stats strip
+## 1\. Page Overview & Positioning
 
-## 2\....r
-**Design parity note:** The following content is structured to fit *exactly* the structure of `estate-agents.html`.
+This page is the general entry point for UK small businesses exploring AI and automation. It gives a broad overview of how Silverstone helps you capture more enquiries, reduce missed appointments, and remove repetitive admin - without replacing the tools you already rely on.
 
-**Differences (hard requirements):**
-1.  `services.html` must keep its *original CTA banner* (from the current repo) in the exact location, format, and style.
-2.  `services.html` must keep the original Innovation Gallery and Double Marquee from the current `services.html`.
-3.  `services.html` must *never* include the Single Marquee.
-4.  There are 3 image sections (3.4 / 3.5 / 3.7). Images are case-sensitive and located in `assets/images/socialmedia/`.
+Unlike the niche pages (which go deep on one industry bundle), this page helps visitors choose a simple starting point first, then directs them into the most relevant niche pack for their business.
 
-**Instruction formatting:** Any instructions are inside square brackets and formatted in **_bold italics_**.
+**_TODO (Strategic Audit): Add any confirmed positioning statements, differentiators, or priority objections to address on this page._**
 
----
+## 2\. Page Map (Section Ordering)
 
-## 3\....l
-### 3.1 Meta / Page Head
+1.  Meta Description (SEO-focused; compelling; aligned to page intent)
+2.  Hero
+3.  Menu Bar
+4.  Niche Pains (adapted for “general services” audience)
+5.  Counter-product / bundle overview (use Master List + existing site language)
+6.  Proof in Numbers strip
+7.  Outcomes & Benefits
+8.  How It Works
+9.  Risk & Reassurance
+10.  Pricing Placeholder (no invented prices; placeholder only)
+11.  FAQs
+12.  Innovation Gallery + Double Marquee (double marquee must appear directly underneath; implement exactly as current services.html)
+13.  Final CTA (must remain exactly the same as currently on services.html)
+14.  Footer (same as on index/about/services/book/contact; do not rewrite)
 
-**Title (SEO / Browser tab):**
+## 3\. Page Copy (by Section)
 
-Automations for Small Business | Silverstone
+### 3.1 Meta Description
 
-**Meta Description (SEO-focused):**
+**_\[Codex should generate descriptions that increase SEO, user retention and conversion\]_**
 
-Stop losing enquiries and time to admin. Silverstone builds productised automations for small businesses: instant enquiry capture, smart qualification, booking and reminders, follow-up journeys, and dashboards.
+*   Suggested page title: AI Automation Services | Productised Packs for Small Business
+*   Suggested meta description: Productised AI automation packs for UK small businesses. Capture missed calls, speed up lead response, reduce no-shows, and connect your systems - starting with a free 30-minute automation audit.
 
-**OG / Twitter share copy:**
+### 3.2 Hero
 
-Productised automation packs to fix your first bottleneck fast — with instant enquiry handling, booking, follow-up and simple visibility.
+**_\[Shader: Codex should change Shader Color\]_**
 
----
+**H1 headline:**
 
-### 3.2 Hero (Title band)
+Choose a simple automation starting point.
 
-**Hero title:**
+**Sub-headline:**
 
-Productised automations for small business.
+From missed-call rescue to always-on virtual admin, our productised services help UK small businesses stop losing leads and hours to manual work.
 
-**Hero subtitle:**
+**Primary CTA label:**
 
-Start with one bottleneck. Fix it fast. Expand once it is working.
+Book a Free 30-Minute Automation Audit
 
-**Primary CTA button:**
+**Secondary CTA label (optional):**
 
-Book a call
-
-**Secondary CTA button:**
-
-View packs
-
-**Hero stats strip (3 stats):**
-
-*   24/7 Enquiry capture
-*   Faster response times
-*   Fewer no-shows
-
----
+Browse industry packs
 
 ### 3.3 Menu Bar
 
-**_ [Use the same menu bar structure as estate-agents.html, and ensure the Services dropdown “General” links to services.html]_**
+**_\[Identical to all other pages in functionality and design. Link this page to the General button in the Services drop down menu\]_**
 
----
-
-### 3.4 Pain / Why This Matters (Cards + image)
+### 3.4 Niche Pain Section (Image + Card)
 
 **Section title:**
 
-Most small businesses are drowning in admin.
+Stop losing enquiries and hours to the same predictable bottlenecks.
 
-**Subtitle sentence:**
+**Subtitle Sentence:**
 
-Enquiries arrive everywhere. Follow-up is inconsistent. Booking is manual. The result: missed revenue and stressed teams.
+Most small businesses do not have a demand problem - they have a response, follow-up, and admin overload problem.
 
-**Card title:**
+**Card Title:**
 
-What is really happening behind the scenes?
+Where revenue (and time) quietly leaks away.
 
-**Card Intro paragraph:**
+**Card Intro Paragraph:**
 
-Your customers expect an instant reply. But your team is juggling calls, messages, emails, and forms — on top of actually doing the work. That creates delays, missed bookings, and lost opportunities.
+If your phone rings while you are with customers, your inbox fills up overnight, and bookings rely on manual chasing, automation can take the repetitive load off your team - while keeping you in control.
 
-**Bullet list (each bullet must have an appropriate FA solid icon; ensure the icons exist in assets/webfonts/fa-solid-900.\* and are mapped in src/css/base/typography.css):**
+**Pain bullets:**
 
-*   Leads wait hours (or days) for a response.
-*   Staff retype the same details into multiple systems.
-*   No-shows and missed appointments grow quietly.
-*   Follow-up falls off when things get busy.
-*   You cannot see what is being handled — or what is being dropped.
+*   Calls and messages come in when you are busy - and many go unanswered or get a slow reply.
+*   Leads expect fast responses across phone, web forms and messaging; when you wait, they walk.
+*   Bookings, quotes and follow-ups are handled manually, so the process is inconsistent and easy to drop.
+*   No-shows and late cancellations leave gaps you cannot refill in time.
+*   Information lives across inboxes, spreadsheets and different apps, making reporting and handover messy.
 
-**Image:**
-
-assets/images/socialmedia/General_Services_1.jpeg (desktop version)  
-assets/images/socialmedia/General_Services_1_Mobile.jpeg (mobile version)
-
-**_ [Convert these JPEGs to high-resolution .webp and use WebP as preferred source in <picture>]_**
-
----
+Image: assets/images/socialmedia/General\_Services\_1.jpeg (desktop version) assets/images/socialmedia/General\_Services\_1\_Mobile.jpeg (mobile version)
 
 ### 3.5 Counter-product / Bundle Overview (Cards)
 
@@ -117,8 +96,6 @@ Productised automation packs - built to fix one painful bottleneck first.
 
 Choose an industry pack or start with a general automation block. Everything is designed to sit on top of your existing tools - not replace them.
 
-**FIRST CARD (Card on the left and the Image on the right)**
-
 **Card title:**
 
 Start small. Ship fast. Expand when it is working.
@@ -127,7 +104,7 @@ Start small. Ship fast. Expand when it is working.
 
 Our packs bundle the workflows most small businesses need: instant enquiry handling, structured qualification, booking and reminders, and consistent follow-up. We set it up, tune it to your tone of voice, and build in human handoff for anything sensitive or unusual.
 
-**Core bundle bullets (applies across packs):** **_ [ENSURE THIS ALSO HAS THE BLUE FONT OF THE CARD TITLE]_**
+**Core bundle bullets (applies across packs):**
 
 *   Always-on enquiry capture across the channels your customers actually use (website, messaging, and where relevant, phone).
 *   Qualification questions that separate genuine leads from time-wasters and route them correctly.
@@ -135,11 +112,7 @@ Our packs bundle the workflows most small businesses need: instant enquiry handl
 *   Follow-up journeys that keep people moving (quotes, viewings, rebookings, renewals, win-back).
 *   Simple visibility: what came in, what was handled automatically, and what needs a human response.
 
-Image Next to Card 1: assets/images/socialmedia/General_Services_2A.jpeg (desktop version) assets/images/socialmedia/General_Services_2A_Mobile.jpeg (mobile version)
-
-**CREATE NEW SECOND CARD DIRECTLY UNDERNEATH (Card on the right, Image on the left)**
-
-**General service lines (modules that can extend any niche pack):** **_ [ENSURE THIS LINE HAS THE BLUE FONT OF THE CARD TITLE]_**
+**General service lines (modules that can extend any niche pack):**
 
 *   Marketing Automation - targeted, automated marketing workflows; GenAI-assisted creation, publishing and repurposing.
 *   Workflow & Data Automation - eliminate busywork with intelligent workflows, dashboards and smart scheduling.
@@ -151,131 +124,238 @@ Image Next to Card 1: assets/images/socialmedia/General_Services_2A.jpeg (deskto
 *   Time & Resource Optimisation - smart scheduling, resource allocation and calendar sync.
 *   Global Connectivity - cloud-first architectures, cross-platform sync, and scalable system design.
 
-Image Next to Card 2: assets/images/socialmedia/General_Services_2B.jpeg (desktop version) assets/images/socialmedia/General_Services_2B_Mobile.jpeg (mobile version)
+Image: assets/images/socialmedia/General\_Services\_2.jpeg (desktop version) assets/images/socialmedia/General\_Services\_2\_Mobile.jpeg (mobile version)
 
-### 3.6 Proof in Numbers (Stats strip)
-
-**Section title:**
-
-Simple wins you can measure quickly.
-
-**Stats (3 items):**
-
-*   Faster response time
-*   More booked appointments
-*   Less admin time
-
----
-
-### 3.7 Outcomes / What You Get (Cards + image)
+### 3.6 Proof in Numbers Section
 
 **Section title:**
 
-A calmer front desk — and more revenue.
+The numbers behind missed enquiries and wasted capacity
+
+**Subtitle Sentence:**
+
+Benchmarks vary by industry, but these patterns show up again and again when response and follow-up are manual.
+
+**Numbers for Cards:**
+
+*   25% - Around a quarter of inbound calls to small businesses can go unanswered in busy periods, sending work straight to competitors.
+*   75% - A large share of messages can arrive outside traditional business hours, when nobody is watching the inbox.
+*   60 minutes - Prospects increasingly expect a reply within about an hour on messaging channels before they start looking elsewhere.
+*   30% - Consistent reminder workflows can reduce missed appointments by about a third compared with ad-hoc reminders.
+
+### 3.7 Outcomes & Benefits (Image + Card)
+
+**Section title:**
+
+More bookings. Faster responses. Less admin.
 
 **Subtitle sentence:**
 
-When enquiry handling and follow-up are consistent, you stop leaking leads and your team gets breathing room.
+Automation should make your business easier to buy from - and easier to run.
 
 **Card title:**
 
-What changes once this is running?
+What changes once the basics are automated
 
-**Bullet list (each bullet must have an appropriate FA solid icon; ensure the icons exist in assets/webfonts/fa-solid-900.\* and are mapped in src/css/base/typography.css):**
+**Card Intro paragraph:**
 
-*   Customers get an instant, helpful reply.
-*   Enquiries are qualified and routed to the right person.
-*   Booking happens without phone tag.
-*   No-shows fall with reminders.
-*   You have visibility on what is automated vs what needs a human.
+When enquiries are handled quickly and follow-up is consistent, you stop relying on memory, luck, and late nights to keep things moving.
 
-**Image:**
+**Outcome-focused bullets:**
 
-assets/images/socialmedia/General_Services_3.jpeg (desktop version)  
-assets/images/socialmedia/General_Services_3_Mobile.jpeg (mobile version)
+*   More enquiries converted because first response happens immediately and qualification is consistent.
+*   Fewer no-shows and cancellations catching you by surprise, thanks to confirmations and reminders.
+*   Less time spent copying and pasting, chasing replies, and moving bookings around.
+*   Cleaner handover between team members, with key details captured and logged in one place.
+*   Clearer visibility over what is coming in, what is booked, and what needs attention.
 
-**_ [Convert these JPEGs to high-resolution .webp and use WebP as preferred source in <picture>]_**
+Image: assets/images/socialmedia/General\_Services\_3.jpeg (desktop version) assets/images/socialmedia/General\_Services\_3\_Mobile.jpeg (mobile version)
 
----
-
-### 3.8 How It Works (Values grid)
+### 3.8 How It Works
 
 **Section title:**
 
-How we deliver, without disruption.
+A simple four-step process to get automation live without disruption
 
-**Values (4 items):**
+**Subtitle sentence:**
 
-1.  **Audit the bottleneck.** We map where leads arrive, what is manual, and what is being dropped.
-2.  **Ship the first workflow.** We build the smallest useful automation, fast.
-3.  **Tune + train.** We refine the copy, routing, and handoff rules.
-4.  **Expand safely.** We add modules only once the first one is working.
+We start with the fastest win, then expand only when it is working.
 
----
+**Cards:**
 
-### 3.9 Risk Reversal / Reassurance (Card section)
+1\. Quick automation audit - map how enquiries, bookings and admin are handled today, and where time and revenue leak.
 
-**Section title:**
+2\. Pick the first win - choose one pack or workflow to implement first, based on impact and simplicity.
 
-Built to work with your existing tools.
+3\. Build, connect and launch - integrate with your existing tools, test safely, then go live in a controlled way.
 
-**Reassurance paragraph:**
+4\. Refine and expand - improve wording and routing, add new journeys, and tighten reporting as patterns emerge.
 
-We are not asking you to rip-and-replace your stack. We sit on top of what you already use — email, calendars, CRMs, spreadsheets — and make it behave like a system.
-
----
-
-### 3.10 Pricing Placeholder (Optional section)
+### 3.9 Risk-Reversal & Reassurance
 
 **Section title:**
 
-Pick a starting point.
+On-brand, controllable, and built around your existing systems
 
-**_ [Use the same pricing placeholder structure as estate-agents.html]_**
+**Subtitle sentence:**
 
----
+Automation should protect your customer experience - not compromise it.
 
-### 3.11 FAQs (Accordion)
+**Cards:**
+
+1\. Transparent scope and fees - you see what is included before anything goes live. No invented guarantees.
+
+2\. Your tone of voice - messages are written in your style, reviewed with you, and easy to adjust.
+
+3\. Human handoff built in - you decide what the system can and cannot do, with exceptions routed to a person.
+
+4\. Data handled responsibly - we capture only what is needed and work within sensible data-protection practices.
+
+### 3.10 Pricing
+
+**_\[Leave Placeholder for Pricing - do not add numbers\]_**
+
+Transparent pricing tables will appear here soon. In the meantime, we’ll scope a simple package in your free automation audit.
+
+### 3.11 FAQ Section
 
 **Section title:**
 
-FAQs
+General Services FAQs
 
-**FAQs (match estate-agents <details> pattern):**
+**FAQs:**
 
-1.  **Do I need to change my tools?**  
-    No. We integrate with what you already use and automate the workflows around it.
-2.  **What channels can you handle?**  
-    Website forms, email, messaging, and where relevant phone workflows — based on your pack.
-3.  **Can a human step in?**  
-    Yes. We design clear handoff rules for anything sensitive, unusual, or high-value.
-4.  **How long does it take?**  
-    A first workflow can ship fast. We prioritise one bottleneck first and expand from there.
-5.  **What about privacy and compliance?**  
-    We design with access controls, secure storage, and sensible data handling.
+#### Which service or pack should we start with?
 
----
+Start with the bottleneck that is most expensive in time or missed revenue - usually speed-to-lead, no-shows, or follow-up. In the free automation audit, we map your current flow and recommend one small project that unlocks the most time back first.
 
-### 3.12 Innovation Gallery + Double Marquee (Locked)
+#### Do we need to replace our CRM, booking system, or other tools?
 
-**_ [IMPORTANT: Copy the Innovation Gallery + Double Marquee block verbatim from the current services.html. It must include id="innovation-gallery", id="neural-grid", and id="innovation-marquee-slot". Do not add Single Marquee.]_**
+No. Like the niche packs, general services are designed to sit on top of the systems you already use. Where direct integration is possible we connect it; where it is not, we design simple handovers that still keep your data accurate.
 
----
+#### Will customers notice they are talking to automation?
 
-### 3.13 Final CTA Banner (Locked)
+The aim is for interactions to feel like dealing with a switched-on member of your team. We keep language simple and helpful, and we build clear handoff rules so unusual or sensitive conversations go straight to a human.
 
-**_ [IMPORTANT: Keep the original CTA banner from the current services.html exactly as-is. It contains the headline "Start with a simple automation audit". Do not change its copy, style, or placement immediately above the footer.]_**
+#### Which channels can you automate?
 
----
+Typically: website forms, web chat, email, messaging channels, and calendars. Where it makes sense, we also design missed-call capture and call-handling flows. We prioritise the channels your customers already use, so you are not forced into a new platform.
+
+#### How do you keep messaging on-brand and compliant?
+
+We build from your existing scripts and preferred wording, then review everything with you before launch. For regulated or sensitive contexts, we keep automation scoped to appropriate tasks (reminders, routing, information) and hand off anything outside agreed boundaries.
+
+#### Is our data handled safely?
+
+Yes. We follow sensible data-protection practices, capture only what is genuinely needed, and keep data within tools you are comfortable using. You control what is stored, who can access it, and what is passed into other systems.
+
+#### Can we start small and expand later?
+
+Yes. Most clients start with one journey (for example, instant enquiry handling or reminders) and expand once it is delivering value. Automation should feel like a steady upgrade, not a risky overhaul.
+
+### 3.12 Innovation Gallery + Double Marquee
+
+**_\[MUST appear directly underneath Innovation Gallery and MUST be placed/implemented exactly the same way as the current services.html. Do not include a single marquee.\]_**
+
+**Section title (keep as current services.html):**
+
+Innovation Gallery
+
+**Subtitle (keep as current services.html):**
+
+A glimpse into the ideas and technology that inspire our work.
+
+**Gallery tiles (keep images + labels as current services.html):**
+
+*   assets/images/socialmedia/1-1\_business\_chart-icon-and-flow\_scale-beyond-human-limits.jpg - “Scale Limits”
+*   assets/images/socialmedia/2-3\_ai\_laptop-flowchart\_stop-wasting-hours.jpg - “Stop Wasting Hours”
+*   assets/images/socialmedia/3-2\_business\_laptop-at-sunset-chat-interface\_when-you-wait-they-walk.jpg - “Instant Response”
+*   assets/images/socialmedia/2-3\_business\_smartphone-with-message\_ai-just-booked-your-next-client.jpg - “Auto-Booking”
+*   assets/images/socialmedia/1-1\_marketing\_boardroom-messages\_your-prospects-can-tell.jpg - “Marketing Intel”
+*   assets/images/socialmedia/3-2\_legal\_laptop-with-scales\_ai-streamlines-legal-workflows.jpg - “Legal Workflows”
+*   assets/images/socialmedia/2-3\_salon\_chair-with-holographic-calendar\_stay-fully-booked.jpg - “Fully Booked”
+*   assets/images/socialmedia/1-1\_recruitment\_desk-with-candidate-ring\_handle-the-next-five.jpg - “Recruitment”
+
+**Double Marquee (keep as current services.html):**
+
+Keep the placeholder slot immediately under the Innovation Gallery grid:
+
+• <div id="innovation-marquee-slot" aria-hidden="true"></div>
+
+The existing services-page JavaScript should replace this slot with the double marquee. Do not add any single-marquee implementation.
+
+### 3.13 Final CTA (MUST remain exactly the same as currently on services.html)
+
+**_\[Copy/design/format unchanged - paste verbatim from current services.html\]_**
+
+**Heading:**
+
+What small businesses usually see
+
+**Supporting paragraph:**
+
+When the right workflows are automated, owners typically reclaim time, reduce no-shows and make better use of their team.
+
+**Proof cards:**
+
+*   Hours back each week - Less manual admin and chasing. Industry benchmarks suggest 8-15 hours per week can be reclaimed once key processes are automated.
+*   Fewer missed appointments - Automated reminders and confirmations. Reminder workflows commonly cut no-shows by roughly a third compared with manual reminders alone.
+*   Faster lead response - Always-on first reply. New enquiries are acknowledged immediately, even when the team is on site or with customers.
+
+These outcomes reflect wider automation case studies and research, not guaranteed results. We’ll work with you to set realistic expectations for your business.
+
+**CTA headline:**
+
+Start with a simple automation audit
+
+**CTA supporting paragraph:**
+
+We’ll help you choose one small project that unlocks the most time back first.
+
+**Final CTA label:**
+
+Book a Free 30-Minute Automation Audit
 
 ### 3.14 Footer
 
-**_ [Use the same footer structure as estate-agents.html / site-wide footer]_**
+**_\[Identical to footer on index, about, services, book and contact. Do not rewrite.\]_**
 
----
+## 4\. Typical Pains to Highlight
 
-## 4\....a
+*   “We miss calls and messages when we are busy, and enquiries go cold.”
+*   “We keep meaning to follow up quotes/leads, but it happens late (or not at all).”
+*   “No-shows and last-minute cancellations leave gaps we cannot refill.”
+*   “Our admin is scattered across inboxes, spreadsheets and apps.”
+*   “We know we could automate this, but we do not know where to start.”
 
-**_ [Global note: Keep language consistent with Silverstone’s tone. Use specific outcomes, not vague buzzwords. Where copy references niche packs, do so in a way that still works without duplicating niche-page depth.]_**
+## 5\. Proof/Outcomes Angles
 
-**_ [If referencing any numbers/metrics, do not invent metrics. Use only numbers already present in the site or in this copy. If uncertain, keep it qualitative.]_**
+*   Faster first response so more enquiries convert into booked calls, appointments or checkouts.
+*   Consistent reminders and confirmations that reduce no-shows without adding workload.
+*   Automatic follow-up so fewer leads, quotes and opportunities fall through the cracks.
+*   Clearer pipeline visibility with key details captured and routed, not stuck in inboxes.
+*   Owners and teams reclaim time and mental bandwidth from repetitive admin.
+
+## 6\. Bundle / Counter-Product Definition
+
+General Services on services.html should position Silverstone’s work as productised automation packs and modular services that sit alongside existing systems. The goal is to start with one high-impact bottleneck (speed-to-lead, booking, reminders, follow-up, retention, or ops automation), deliver value quickly, then expand in controlled steps.
+
+## 7\. Bundle & Counter-Product Bullets
+
+*   Capture and respond to new enquiries quickly across the channels your customers use.
+*   Ask structured questions to qualify leads and route them correctly.
+*   Book appointments and send confirmations/reminders to reduce missed sessions.
+*   Run follow-up and win-back journeys automatically so opportunities are not forgotten.
+*   Connect tools and data so handover and reporting become simpler.
+
+## 8\. URL Mapping & Metadata
+
+*   Recommended URL slug: services
+*   Full URL path: https://silverstone-ai.com/services
+
+## 9\. Additional Notes
+
+*   This page must remain broader than niche pages: it should guide visitors to the right niche pack without duplicating niche-page depth.
+*   Innovation Gallery + Double Marquee must be kept exactly as implemented on the current services.html (double marquee only; no single marquee).
+*   Final CTA must remain exactly the same as currently on services.html (copy/design/format unchanged).
+*   TODO (Strategic Audit): If the audit report includes specific differentiators, proof points, compliance notes, or target industries beyond the listed niches, add them carefully without inventing metrics.
