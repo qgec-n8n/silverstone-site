@@ -96,6 +96,8 @@ Productised automation packs - built to fix one painful bottleneck first.
 
 Choose an industry pack or start with a general automation block. Everything is designed to sit on top of your existing tools - not replace them.
 
+**\*\*FIRST CARD (Card on the left and the Image on the right)\*\***
+
 **Card title:**
 
 Start small. Ship fast. Expand when it is working.
@@ -104,27 +106,43 @@ Start small. Ship fast. Expand when it is working.
 
 Our packs bundle the workflows most small businesses need: instant enquiry handling, structured qualification, booking and reminders, and consistent follow-up. We set it up, tune it to your tone of voice, and build in human handoff for anything sensitive or unusual.
 
-**Core bundle bullets (applies across packs):**
+**Core bundle bullets (applies across packs): \*\*(ENSURE THIS ALSO HAS THE BLUE FONT OF THE CARD TITLE)\*\***
 
-*   Always-on enquiry capture across the channels your customers actually use (website, messaging, and where relevant, phone).
-*   Qualification questions that separate genuine leads from time-wasters and route them correctly.
-*   Booking, confirmations and reminders that reduce no-shows and missed appointments.
-*   Follow-up journeys that keep people moving (quotes, viewings, rebookings, renewals, win-back).
-*   Simple visibility: what came in, what was handled automatically, and what needs a human response.
+·       Always-on enquiry capture across the channels your customers actually use (website, messaging, and where relevant, phone).
 
-**General service lines (modules that can extend any niche pack):**
+·       Qualification questions that separate genuine leads from time-wasters and route them correctly.
 
-*   Marketing Automation - targeted, automated marketing workflows; GenAI-assisted creation, publishing and repurposing.
-*   Workflow & Data Automation - eliminate busywork with intelligent workflows, dashboards and smart scheduling.
-*   Document Management - AI classification, OCR/data extraction, and secure storage with role-based access control.
-*   Data & Analytics - consolidate data into dashboards, predictive analytics and KPI alerts.
-*   Systems & Data Integration - connect your stack with n8n, Zapier and API integrations to remove manual data entry.
-*   AI Consulting for Small Business - choose the right tools, build practical agents, and mitigate risks.
-*   Financial Automation - automate invoicing, payment collection, accounting integration and reconciliation reporting.
-*   Time & Resource Optimisation - smart scheduling, resource allocation and calendar sync.
-*   Global Connectivity - cloud-first architectures, cross-platform sync, and scalable system design.
+·       Booking, confirmations and reminders that reduce no-shows and missed appointments.
 
-Image: assets/images/socialmedia/General\_Services\_2.jpeg (desktop version) assets/images/socialmedia/General\_Services\_2\_Mobile.jpeg (mobile version)
+·       Follow-up journeys that keep people moving (quotes, viewings, rebookings, renewals, win-back).
+
+·       Simple visibility: what came in, what was handled automatically, and what needs a human response.
+
+**\*\*Image Next to Card 1: assets/images/socialmedia/General\_Services\_2A.jpeg (desktop version) assets/images/socialmedia/General\_Services\_2A\_Mobile.jpeg (mobile version)\*\***
+
+**\*\*CREATE NEW SECOND CARD DIRECTLY UNDERNEATH (Card on the right, Image on the left)\*\***
+
+**General service lines (modules that can extend any niche pack): \*\*(ENSURE THIS LINE HAS THE BLUE FONT OF THE CARD TITLE)\*\***
+
+·       Marketing Automation - targeted, automated marketing workflows; GenAI-assisted creation, publishing and repurposing.
+
+·       Workflow & Data Automation - eliminate busywork with intelligent workflows, dashboards and smart scheduling.
+
+·       Document Management - AI classification, OCR/data extraction, and secure storage with role-based access control.
+
+·       Data & Analytics - consolidate data into dashboards, predictive analytics and KPI alerts.
+
+·       Systems & Data Integration - connect your stack with n8n, Zapier and API integrations to remove manual data entry.
+
+·       AI Consulting for Small Business - choose the right tools, build practical agents, and mitigate risks.
+
+·       Financial Automation - automate invoicing, payment collection, accounting integration and reconciliation reporting.
+
+·       Time & Resource Optimisation - smart scheduling, resource allocation and calendar sync.
+
+·       Global Connectivity - cloud-first architectures, cross-platform sync, and scalable system design.
+
+**Image Next to Card 2: assets/images/socialmedia/General\_Services\_2B.jpeg (desktop version) assets/images/socialmedia/General\_Services\_2B\_Mobile.jpeg (mobile version)**
 
 ### 3.6 Proof in Numbers Section
 
