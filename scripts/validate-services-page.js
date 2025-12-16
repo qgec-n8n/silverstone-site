@@ -62,7 +62,7 @@ function main() {
   }
 
   // General link must point to services.html somewhere in nav.
-  if (!has(html, '>General<') || !/href\s*=\s*"services\.html"/i.test(html)) {
+  if (!has(html, ">General<") || !/href\s*=\s*"services\.html"/i.test(html)) {
     fail(`Nav does not appear to include General -> services.html`);
   } else {
     ok(`Nav appears to include General -> services.html`);
@@ -76,7 +76,11 @@ function main() {
   }
 
   // Innovation Gallery + marquee slot must exist (locked block).
-  const innovationRequired = ["id=\"innovation-gallery\"", "id=\"neural-grid\"", "id=\"innovation-marquee-slot\""];
+  const innovationRequired = [
+    'id="innovation-gallery"',
+    'id="neural-grid"',
+    'id="innovation-marquee-slot"',
+  ];
   for (const token of innovationRequired) {
     if (!has(html, token)) {
       fail(`Missing required Innovation Gallery token: ${token}`);
@@ -93,12 +97,17 @@ function main() {
     ok(`Final CTA headline detected`);
   }
 
-  // WebP-first picture sources must exist for the six images.
+  // WebP-first picture sources must exist for required images.
   const requiredWebps = [
     "assets/images/socialmedia/General_Services_1.webp",
     "assets/images/socialmedia/General_Services_1_Mobile.webp",
-    "assets/images/socialmedia/General_Services_2.webp",
-    "assets/images/socialmedia/General_Services_2_Mobile.webp",
+
+    "assets/images/socialmedia/General_Services_2A.webp",
+    "assets/images/socialmedia/General_Services_2A_Mobile.webp",
+
+    "assets/images/socialmedia/General_Services_2B.webp",
+    "assets/images/socialmedia/General_Services_2B_Mobile.webp",
+
     "assets/images/socialmedia/General_Services_3.webp",
     "assets/images/socialmedia/General_Services_3_Mobile.webp",
   ];
