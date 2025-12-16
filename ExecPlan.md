@@ -1,160 +1,195 @@
 <!-- FILE: ExecPlan.md -->
 
-# ExecPlan — React Pricing Widget Embed (Services + Niche Pages)
+# ExecPlan — Embed React Pricing (Two-Row, Per-Page Copy) Without Breaking Site
 
-## Objective
-Replace the existing “Transparent pricing tables will appear here soon…” placeholder on `services.html` and all `niches/*.html` pages with a React pricing widget built from the authoritative pricing component code and powered by CSV pricing.
+## Mission
+Implement a **React pricing section** (surgically embedded into this static site) on:
 
-## Target HTML files (must update)
-1) `services.html`
-2) `niches/dentists.html`
-3) `niches/ecommerce.html`
-4) `niches/estate-agents.html`
-5) `niches/fitness-coaches.html`
-6) `niches/gyms-fitness-studios.html`
-7) `niches/hospitality.html`
-8) `niches/physios-chiropractors.html`
-9) `niches/salons-barbers.html`
-10) `niches/trades-virtual-office.html`
+- `services.html`
+- `niches/estate-agents.html`
+- `niches/hospitality.html`
+- `niches/salons-barbers.html`
+- `niches/trades-virtual-office.html`
+- `niches/ecommerce.html`
+- `niches/physios-chiropractors.html`
+- `niches/dentists.html`
+- `niches/gyms-fitness-studios.html`
+- `niches/fitness-coaches.html`
 
-## Hard constraints (non-negotiable)
-1) **HTML edits are restricted**
-- On each target HTML page, edit **only** the pricing placeholder region:
-  - Replace only the `<p class="section-subtitle">Transparent pricing tables will appear here soon...</p>` element.
-- Do not change any other markup, attributes, whitespace, copy, ordering, or script includes.
+…using **PRICING_COPY_MAP.md as the source of truth**, and **pricing_code.tsx as the UI behavior reference**.
 
-2) **Use repo conventions**
-- Do not add new `<script>` tags to HTML pages.
-- Add a small loader module to `src/js/` and include it in `scripts/build-js.js` so it becomes part of the existing `assets/js/app.js` bundle.
+This run MUST preserve **all existing site behavior**, especially the **hero shader**.
 
-3) **Use authoritative inputs**
-- Pricing widget UI must use the component code from `new_pricing_code.pdf` (user-pasted code is the clean fallback).
-- Prices and product names must come from `Silverstone_Service_Master_List.csv`.
+---
 
-4) **Isolation**
-- Widget styles must not leak to host pages.
-- Must mount inside a Shadow DOM root and inject widget CSS into the shadow root.
+## Authoritative inputs (must use)
+1) `PRICING_COPY_MAP.md`  
+   - Single source of truth for: which pages get pricing, and exactly what copy/prices appear per page.
+2) `pricing_code.tsx`  
+   - UI behavior reference (toggle, “popular” treatment, card layout conventions, etc.).
+3) Hero shader system
+   - `src/js/hero-shader.js` + page markup using `#hero-shader-canvas` and `.hero.title-band`.
+4) Steering + ops
+   - `ExecPlan.md`, `PLANS.md`, `AGENTS.md`, `.codex/config.toml`, scripts/ directory, codex/ directory docs.
 
-5) **Idempotency**
-- Re-running the implementation must not duplicate:
-  - mount containers in HTML
-  - lazy-loaded script insertion
-  - React mounts
+---
 
-6) **Graceful failure**
-- If the widget bundle fails to load or mount, the page must render normally.
-- Only the mount container may show a minimal fallback message.
+## Non-negotiable UI requirements (pricing feature)
+### A) Layout per target page
+- Exactly **2 rows × 3 cards** (6 cards total).
 
-## Embed approach (must follow)
-### High-level flow
-A) HTML pages contain a mount container:
-- `<div class="ss-react-pricing" data-ss-pricing-key="...">...</div>`
+### B) Row 1 (highlighted picks)
+- Includes a toggle with labels:
+  - “Monthly”
+  - “Setup” (this is the “Yearly” label renamed)
+- Switching to “Setup” MUST switch displayed numeric prices to **Setup fee** values from `PRICING_COPY_MAP.md`.
+- Card 2 MUST show a “Most popular” badge (per Cross-page rules in `PRICING_COPY_MAP.md`).
 
-B) `assets/js/app.js` (built from `src/js/*`) includes a small loader:
-- Detects mount containers.
-- Determines correct asset base path from the actual `app.js` script URL.
-- Injects `assets/js/ss-pricing-widget.iife.js` once (lazy-loaded).
-- Calls a global mount function exposed by the widget bundle for each container.
+### C) Row 2 (other options summaries)
+- NO toggle.
+- Cards are **slightly restyled/reformatted** only as needed to present the “Plan group label / Plans included / One-liner” content from `PRICING_COPY_MAP.md`.
+- No creative redesign.
 
-C) The widget bundle:
-- Uses React + ReactDOM to render.
-- Attaches Shadow DOM to the mount container.
-- Injects widget CSS into the shadow root.
-- Renders pricing cards for the page key based on generated CSV-backed data.
+### D) Safety: preserve site and shader
+- Must not regress hero shader initialization/rendering, layout, or stacking.
+- Must not introduce global CSS regressions.
+- Prefer Shadow DOM for isolation.
 
-### Why this approach
-- Matches the “React-on-any-website” embed pattern (mount to a div, ship static assets).
-- Matches this repo’s shader/JS convention (single global `app.js` entry, no per-page scripting).
-- Meets the strict constraint: “HTML changes only within placeholder region.”
+### E) Deterministic mapping
+Codex MUST:
+- Correctly locate where to mount on each page.
+- Select correct copy for that page key.
+- Keep DOM stable where shader depends on it.
 
-## CSV-backed mapping (no ambiguity allowed)
-All page→SKU mappings are explicitly defined in `codex/PRICING_WIDGET_REFERENCE.md`.
-- `services.html` shows the “Starter Pack” bundle (`*-01`) across all niches.
-- Each niche page shows the 5 niche bundles (`*-01` to `*-05`) for that niche.
+---
 
-## Implementation steps (Codex must execute in order)
+## Embed strategy (must follow; aligns with “embed React into static site” guidance)
+### High-level
+- Each target page contains **one mount container** with a page key:
+  - `data-ss-pricing-page="services.html"` or `data-ss-pricing-page="niches/estate-agents.html"`, etc.
+- Existing global JS bundle (`assets/js/app.js`) gets a **tiny loader module** that:
+  - Finds mount containers.
+  - Lazily injects a **single** widget bundle (`assets/js/ss-pricing-widget.iife.js`) only if needed.
+  - Calls a global mount API exposed by the widget.
 
-### Phase 1 — Add data generator + validators
-1) Add `scripts/generate-pricing-data.js`
-- Reads `Silverstone_Service_Master_List.csv`
-- Outputs a generated TS module (location determined by widget build layout; generator must write deterministically)
-- Must include SKU, Sales_Name_External, Setup_Fee_GBP, Monthly_Retainer_GBP, Deliverables_List
-- Must fail fast if any required SKUs are missing
+### Widget bundle
+- Built as an IIFE exposing:
+  - `window.SS_PRICING_WIDGET.mount(el, { pageKey })`
+  - optional: `window.SS_PRICING_WIDGET.mountAll()`
+- Renders into a **ShadowRoot** attached to the mount element.
+- Injects widget CSS into the ShadowRoot (no global CSS leakage).
+- Uses generated copy data parsed from `PRICING_COPY_MAP.md` (no hand-typed prices).
 
-2) Add `scripts/validate-pricing-embeds.js`
-- In `--strict`:
-  - Confirms each target HTML file no longer contains the placeholder sentence prefix:
-    - `Transparent pricing tables will appear here soon.`
-  - Confirms each target HTML file contains exactly one mount container with the expected `data-ss-pricing-key`
-  - Confirms `assets/js/ss-pricing-widget.iife.js` exists after build
-  - Confirms generated data contains the expected SKUs and prices from the CSV
+---
 
-### Phase 2 — Build the React widget (self-contained bundle)
-3) Add `scripts/tailwind.pricing.config.cjs` (widget-only Tailwind config)
-- Dark mode: class-based (but implemented via host class toggling on the shadow host)
-- Content globs restricted to the widget source directory only
+## Gate-by-gate execution (do in order, do not skip)
+### Gate 0 — Recon & invariants (must document findings in the PR)
+1) Inventory target pages:
+   - Confirm each target page includes the placeholder sentence:
+     - “Transparent pricing tables will appear here soon…”
+2) Confirm hero shader invariants:
+   - Each page must retain:
+     - `<canvas id="hero-shader-canvas" ...>`
+     - a hero container matching `.hero.title-band`
+3) Confirm JS delivery model:
+   - Root pages load `assets/js/app.js`
+   - Niche pages load `../assets/js/app.js`
 
-4) Add `scripts/build-pricing-widget.js`
-- Runs the generator script first
-- Builds widget CSS with Tailwind (widget-only)
-- Bundles widget TSX via esbuild to:
-  - `assets/js/ss-pricing-widget.iife.js`
-- Bundle must expose exactly one global API:
-  - `window.SS_PRICING_WIDGET.mountAll()`
-  - and/or `window.SS_PRICING_WIDGET.mount(el, pageKey)`
-- Must catch and handle errors so loader can fail gracefully
+### Gate 1 — Deterministic copy extraction pipeline
+Implement scripts and rules (see `codex/PRICING_COPY_PARSER_SPEC.md`):
+1) Add generator:
+   - `scripts/pricing-copy-map-to-json.js`
+   - Reads `PRICING_COPY_MAP.md`
+   - Writes `codex/_generated/pricing-copy.json` (deterministic output)
+2) Add validator:
+   - `scripts/validate-pricing-copy-map.js --strict`
+   - Must enforce:
+     - 10 pages present
+     - each page has 3 Row-1 plans and 3 Row-2 groups
+     - Row-1 card 2 is “Most popular” and no other card is
 
-### Phase 3 — Loader in app.js (repo convention alignment)
-5) Add `src/js/pricing-widget-loader.js`
-- Must be written as a safe, self-invoking module consistent with other `src/js/*` files.
-- Must do nothing unless `.ss-react-pricing` exists on the page.
-- Must lazy-load `ss-pricing-widget.iife.js` once:
-  - Use a deterministic script element id, e.g. `ss-pricing-widget-script`
-  - If already present, do not add another
-- Must compute correct script URL base:
-  - Find the `<script>` tag that loaded `app.js` and derive its directory
-  - Load `ss-pricing-widget.iife.js` from the same directory
-- Must mount idempotently:
-  - If `data-ss-mounted="1"` exists, skip
-  - Otherwise set it once mount attempt begins
+Failure policy:
+- If parsing fails or a page is missing, STOP and fix the parser. No manual “patching” of prices in code.
 
-6) Update `scripts/build-js.js`
-- Add `pricing-widget-loader.js` at the end of the `jsOrder` array so it is included in `assets/js/app.js`.
+### Gate 2 — React widget implementation (self-contained)
+Create widget source (new directory is OK) derived from `pricing_code.tsx` behavior but adapted to this repo:
+- Must implement `codex/PRICING_WIDGET_UI_SPEC.md` exactly.
+- Must consume `codex/_generated/pricing-copy.json` (or build-time embedded equivalent).
+- Must render Row 1 + Row 2 for the provided pageKey.
+- Must support toggle only on Row 1 (Monthly vs Setup).
 
-### Phase 4 — Replace placeholder regions in HTML (ONLY allowed HTML edits)
-7) For each target HTML file:
-- Locate the pricing placeholder `<p class="section-subtitle">` whose text starts with:
-  - `Transparent pricing tables will appear here soon.`
-- Replace only that `<p ...>...</p>` element with the mount block specified in:
-  - `codex/PRICING_WIDGET_REFERENCE.md`
+### Gate 3 — Build pipeline for widget
+1) Add `scripts/build-pricing-widget.js`
+   - Runs generator first (Gate 1)
+   - Bundles widget to `assets/js/ss-pricing-widget.iife.js`
+2) Add required deps to `package.json` (minimal):
+   - `react`, `react-dom`, `esbuild` (and only what is necessary)
 
-**No other edits to the HTML files are permitted.**
-- Do not add script tags.
-- Do not change indentation outside the replaced block.
-- Do not touch other sections.
+### Gate 4 — Loader integrated into site JS bundle
+1) Add `src/js/pricing-widget-loader.js`
+   - No-op unless it finds mount containers.
+   - Inject widget bundle once (idempotent script element id).
+   - Derive widget URL base from the actual `app.js` script src.
+   - Mount each container once (idempotent `data-ss-mounted="1"`).
+2) Update `scripts/build-js.js` to include loader at end of concatenation order.
 
-### Phase 5 — Final checks
-8) Run:
-- `npm run build:css`
-- `npm run build:js`
-- `node scripts/validate-pricing-embeds.js --strict`
+### Gate 5 — HTML mount injection (surgical)
+For each target HTML file:
+- Replace only the pricing placeholder text node region with a mount container as specified in:
+  - `codex/PRICING_PAGE_MOUNT_MAP.md`
+- DO NOT change:
+  - hero markup
+  - script tags
+  - nav markup
+  - section ordering
+  - whitespace outside the replaced block
 
-9) Provide a file-change allowlist report
-Allowed changes:
-- `services.html` (placeholder region only)
-- `niches/*.html` (placeholder region only)
+### Gate 6 — Verification & regression checks
+Run:
+1) `npm run build:css`
+2) `npm run build:js`
+3) `node scripts/build-pricing-widget.js`
+4) `node scripts/validate-pricing-copy-map.js --strict`
+5) `node scripts/validate-pricing-embed-markup.js --strict`
+6) `bash scripts/codex.maintenance.sh`
+
+Manual checks (must do):
+- Open each target page locally and confirm:
+  - Row 1 toggle shows “Monthly” and “Setup”
+  - Toggle switches numeric values correctly to Setup fee
+  - Row 2 has no toggle
+  - Copy matches `PRICING_COPY_MAP.md` for that exact page
+  - No console errors
+  - Hero shader animates as before (or gracefully respects reduced-motion)
+
+---
+
+## Allowed change surface (hard scope)
+### Allowed
+- `services.html` and `niches/*.html` (pricing placeholder region only)
 - `src/js/pricing-widget-loader.js` (new)
-- `scripts/build-js.js` (append loader to bundle order)
-- `scripts/generate-pricing-data.js` (new)
+- `scripts/build-js.js` (append loader in order)
 - `scripts/build-pricing-widget.js` (new)
-- `scripts/validate-pricing-embeds.js` (new)
-- `scripts/tailwind.pricing.config.cjs` (new)
-- `scripts/codex.setup.sh` and `scripts/codex.maintenance.sh` (updated to include pricing checks)
-- Additional widget source files + build deps as needed (but no unrelated changes)
+- `scripts/pricing-copy-map-to-json.js` (new)
+- `scripts/validate-pricing-copy-map.js` (new)
+- `scripts/validate-pricing-embed-markup.js` (new)
+- `codex/_generated/*` (generated)
+- `package.json`, `package-lock.json` (only to add minimal deps needed)
+- New widget source directory (only pricing widget; no unrelated utilities)
+
+### Forbidden
+- Any changes to hero shader markup/CSS/JS beyond what is explicitly required by this plan (normally: none)
+- Global CSS refactors
+- Touching unrelated pages
+- Reformatting HTML files wholesale
+
+---
 
 ## Acceptance criteria (must all pass)
-- All placeholders are removed from all target pages and replaced by a mount container once.
-- Pricing widget renders correct products and prices per page according to CSV mapping tables.
-- No HTML changes exist outside the placeholder region on target pages.
-- Re-running build does not duplicate mounts or injected scripts.
-- If widget fails to load, only the mount area shows a minimal message; the rest of the page renders normally.
+- All 10 target pages render a **2×3 pricing layout** with correct per-page copy.
+- Row 1 toggle is present with labels “Monthly” and “Setup” and switches to Setup fee values.
+- Row 2 has no toggle and correctly presents group summaries.
+- No shader regressions:
+  - `#hero-shader-canvas` still present and renders as before.
+- No global CSS/JS regressions.
+- Validators pass in strict mode.
