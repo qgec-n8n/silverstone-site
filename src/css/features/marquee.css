@@ -27,8 +27,6 @@
   100% { transform: translateX(-50%); }
 }
 
-.single-marquee .marquee-track:hover { animation-play-state: paused; }
-
 .single-marquee .marquee-img {
   height: 150px;
   width: auto;
@@ -178,7 +176,6 @@
 .double-marquee .scroll-right { animation: marquee-scroll-right 60s linear infinite; }
 .double-marquee .marquee-track.fast { animation-duration: 45s; }
 .double-marquee .marquee-track.slow { animation-duration: 75s; }
-.double-marquee .marquee-track:hover { animation-play-state: paused; }
 
 .double-marquee .marquee-img {
   height: 180px;

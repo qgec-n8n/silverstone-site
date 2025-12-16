@@ -811,17 +811,26 @@
   .page-book .discovery-call-section {
     /* Fallback */
     background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      linear-gradient(
+        rgba(0, 0, 0, var(--body-section-overlay-opacity)),
+        rgba(0, 0, 0, var(--body-section-overlay-opacity))
+      ),
       url("../images/body_section_parallax/body-section-background-2025.webp");
     /* Older Safari */
     background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      linear-gradient(
+        rgba(0, 0, 0, var(--body-section-overlay-opacity)),
+        rgba(0, 0, 0, var(--body-section-overlay-opacity))
+      ),
       -webkit-image-set(
           url("../images/body_section_parallax/body-section-background-2025.webp") 1x
         );
     /* Standard */
     background-image:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      linear-gradient(
+        rgba(0, 0, 0, var(--body-section-overlay-opacity)),
+        rgba(0, 0, 0, var(--body-section-overlay-opacity))
+      ),
       image-set(
         url("../images/body_section_parallax/body-section-background-2025.webp") 1x
       );
@@ -867,27 +876,42 @@
     /* Specific backgrounds with integrated overlay */
     .section.bg-lines {
       background-image:
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        linear-gradient(
+          rgba(0, 0, 0, var(--body-section-overlay-opacity)),
+          rgba(0, 0, 0, var(--body-section-overlay-opacity))
+        ),
         url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-circuit {
       background-image:
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        linear-gradient(
+          rgba(0, 0, 0, var(--body-section-overlay-opacity)),
+          rgba(0, 0, 0, var(--body-section-overlay-opacity))
+        ),
         url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-city {
       background-image:
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        linear-gradient(
+          rgba(0, 0, 0, var(--body-section-overlay-opacity)),
+          rgba(0, 0, 0, var(--body-section-overlay-opacity))
+        ),
         url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-mesh {
       background-image:
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        linear-gradient(
+          rgba(0, 0, 0, var(--body-section-overlay-opacity)),
+          rgba(0, 0, 0, var(--body-section-overlay-opacity))
+        ),
         url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
     .section.bg-waves {
       background-image:
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        linear-gradient(
+          rgba(0, 0, 0, var(--body-section-overlay-opacity)),
+          rgba(0, 0, 0, var(--body-section-overlay-opacity))
+        ),
         url("../images/body_section_parallax/body-section-background-2025.webp") !important;
     }
 

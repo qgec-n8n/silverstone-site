@@ -213,4 +213,14 @@
     grid-template-columns: 1fr;
     gap: 1.25rem;
   }
+
+  .features {
+    align-items: center;
+  }
+
+  .features .feature-card {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+  } /* SPEC: INDEX_STREAMLINE_CARDS_CENTER_MOBILE */
 }

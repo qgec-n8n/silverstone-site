@@ -96,6 +96,7 @@
       img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
+      img.loading = 'eager'; // SPEC: MARQUEE_NO_TOUCH_REQUIRED
       // img.loading = 'lazy'; // Disabled for marquee to ensure immediate width calculation
 
       img.onerror = () => {
@@ -274,6 +275,7 @@
       img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
+      img.loading = 'eager'; // SPEC: MARQUEE_NO_TOUCH_REQUIRED
       // img.loading = 'lazy'; // Disabled for marquee to ensure immediate width calculation
 
       img.onerror = () => {

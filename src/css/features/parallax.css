@@ -10,7 +10,10 @@
  */
 
 :root {
-  --parallax-overlay: none;
+  --parallax-overlay: linear-gradient(
+    rgba(0, 0, 0, var(--body-section-overlay-opacity)),
+    rgba(0, 0, 0, var(--body-section-overlay-opacity))
+  );
   --parallax-backdrop: #050B18;
   --parallax-image: url('../images/body_section_parallax/body-section-background-2025.webp');
   --parallax-mobile-fallback: var(--parallax-image);

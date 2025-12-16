@@ -220,6 +220,19 @@
   min-height: 100%;
 }
 
+.page-services .proof-card h3 {
+  text-align: center;
+}
+
+.page-services .proof-card .tagline,
+.page-services .proof-card .proof-list {
+  text-align: left;
+}
+
+.page-services .proof-card .proof-list li {
+  align-items: flex-start;
+} /* SPEC: SERVICES_CTA_KPI_BODY_LEFT_ALIGN */
+
 .page-services .service-row .service-content.neon-card {
   padding: 1.5rem;
 }

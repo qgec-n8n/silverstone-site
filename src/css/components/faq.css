@@ -65,6 +65,17 @@
   margin-bottom: 1rem;
 }
 
+@media (min-width: 769px) {
+  .faq-section .faq-list {
+    justify-items: center;
+  }
+
+  .faq-section details {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 @media (max-width: 768px) {
   .faq-section {
     margin-top: 2rem;

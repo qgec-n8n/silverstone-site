@@ -11,6 +11,24 @@
 
     const MOBILE_BREAKPOINT = 768;
     const body = document.body;
+    const MINIMIZE_REENABLE_DELAY_MS = 2000; // SPEC: MOBILE_NAV_TIMINGS_TUNED
+    const MOBILE_NAV_PANEL_SLIDE_MS = 1250;
+    const MOBILE_NAV_ITEM_STAGGER_MS = 280;
+    const MOBILE_NAV_ITEM_REVEAL_MS = 450;
+
+    const rootStyle = document.documentElement.style;
+    rootStyle.setProperty(
+      '--mobile-nav-panel-slide-ms',
+      `${MOBILE_NAV_PANEL_SLIDE_MS}ms`,
+    );
+    rootStyle.setProperty(
+      '--mobile-nav-item-stagger-ms',
+      `${MOBILE_NAV_ITEM_STAGGER_MS}ms`,
+    );
+    rootStyle.setProperty(
+      '--mobile-nav-item-reveal-ms',
+      `${MOBILE_NAV_ITEM_REVEAL_MS}ms`,
+    );
 
     // Cache references to header, nav toggle and nav menu.
     const header = document.querySelector('header');
@@ -63,14 +81,12 @@
     document.body.appendChild(headerIndicator);
 
     const mobileNav = buildMobileNav();
-    const mobileNavTrack = mobileNav.querySelector('.mobile-nav-track');
     const mobileRootList = mobileNav.querySelector('.mobile-nav-list--root');
     const mobileServicesList = mobileNav.querySelector(
       '.mobile-nav-list--services',
     );
     const mobileBackdrop = mobileNav.querySelector('.mobile-nav-backdrop');
-    const mobileCloseButton = mobileNav.querySelector('.mobile-nav-close');
-    const mobileBackButton = mobileNav.querySelector('.mobile-nav-back');
+    const mobileTopBackButton = mobileNav.querySelector('.mobile-nav-back-top');
     let isMobileNavOpen = false;
 
     let previousScrollY = 0;
@@ -98,7 +114,7 @@
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'mobile-nav-link mobile-nav-link--drill';
-          btn.textContent = 'Services';
+          btn.textContent = '← Services';
           btn.addEventListener('click', () => {
             openMobileNav();
             openServicesPanel();
@@ -155,7 +171,8 @@
       document.body.style.top = `-${previousScrollY}px`;
       document.body.classList.add('mobile-nav-open');
       mobileNav.setAttribute('aria-hidden', 'false');
-      mobileNav.classList.add('is-open');
+      mobileNav.classList.add('is-open', 'panel-root-active');
+      mobileNav.classList.remove('panel-services-active');
       isMobileNavOpen = true;
       if (navToggle) navToggle.classList.add('active');
       showHeader();
@@ -163,7 +180,8 @@
 
     function closeMobileNav() {
       if (!isMobileNavOpen) return;
-      mobileNav.classList.remove('is-open', 'show-services');
+      mobileNav.classList.remove('is-open', 'panel-services-active');
+      mobileNav.classList.add('panel-root-active');
       mobileNav.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('mobile-nav-open');
       document.body.style.position = '';
@@ -171,17 +189,19 @@
       window.scrollTo(0, previousScrollY);
       isMobileNavOpen = false;
       if (navToggle) navToggle.classList.remove('active');
-      scheduleHeaderAutoHide();
+      setTimeout(() => {
+        scheduleHeaderAutoHide();
+      }, MINIMIZE_REENABLE_DELAY_MS + MOBILE_NAV_PANEL_SLIDE_MS);
     }
 
     function openServicesPanel() {
-      if (!mobileNavTrack) return;
-      mobileNav.classList.add('show-services');
-      mobileNavTrack.scrollTop = 0;
+      mobileNav.classList.add('panel-services-active');
+      mobileNav.classList.remove('panel-root-active');
     }
 
     function closeServicesPanel() {
-      mobileNav.classList.remove('show-services');
+      mobileNav.classList.add('panel-root-active');
+      mobileNav.classList.remove('panel-services-active');
     }
 
     function showHeader() {
@@ -381,16 +401,14 @@
     if (mobileBackdrop) {
       mobileBackdrop.addEventListener('click', closeMobileNav);
     }
-    if (mobileCloseButton) {
-      mobileCloseButton.addEventListener('click', (event) => {
+    if (mobileTopBackButton) {
+      mobileTopBackButton.addEventListener('click', (event) => {
         event.preventDefault();
+        if (mobileNav.classList.contains('panel-services-active')) {
+          closeServicesPanel();
+          return;
+        }
         closeMobileNav();
-      });
-    }
-    if (mobileBackButton) {
-      mobileBackButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        closeServicesPanel();
       });
     }
 
@@ -464,8 +482,8 @@
         <div class="mobile-nav-panel" role="dialog" aria-modal="true">
           <div class="mobile-nav-header">
             <span class="mobile-nav-title">Explore</span>
-            <button class="mobile-nav-close" type="button" aria-label="Close menu">
-              <span class="mobile-close-icon" aria-hidden="true"></span>
+            <button class="mobile-nav-back-top" type="button" aria-label="Back">
+              <span class="mobile-back-label">Back →</span>
             </button>
           </div>
           <div class="mobile-nav-track">
@@ -474,10 +492,6 @@
             </div>
             <div class="mobile-nav-view mobile-nav-view--services" aria-label="Services navigation">
               <div class="mobile-nav-subhead">
-                <button class="mobile-nav-back" type="button" aria-label="Back to main menu">
-                  <span class="mobile-back-icon" aria-hidden="true"></span>
-                  <span class="mobile-back-label">Back</span>
-                </button>
                 <p class="mobile-nav-kicker">Services</p>
               </div>
               <ul class="mobile-nav-list mobile-nav-list--services"></ul>
@@ -591,7 +605,7 @@
     const BASE_IMAGE =
       'assets/images/body_section_parallax/body-section-background-2025.webp';
     const OVERLAY_GRADIENT =
-      'linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.75) 100%)';
+      'linear-gradient(180deg, rgba(0, 0, 0, var(--body-section-overlay-opacity)) 0%, rgba(0, 0, 0, var(--body-section-overlay-opacity)) 100%)';
 
     const createConfig = () => ({
       backgroundColor: '#050B18',
@@ -1199,6 +1213,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
+      img.loading = 'eager'; // SPEC: MARQUEE_NO_TOUCH_REQUIRED
       // img.loading = 'lazy'; // Disabled for marquee to ensure immediate width calculation
 
       img.onerror = () => {
@@ -1377,6 +1392,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
+      img.loading = 'eager'; // SPEC: MARQUEE_NO_TOUCH_REQUIRED
       // img.loading = 'lazy'; // Disabled for marquee to ensure immediate width calculation
 
       img.onerror = () => {

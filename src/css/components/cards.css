@@ -81,7 +81,8 @@
   margin-bottom: 0.5rem;
   font-family: var(--font-heading);
   font-size: 1.1rem;
-}
+  color: var(--color-blue);
+} /* SPEC: INDEX_SMALL_BIZ_KPI_BLUE_TITLES, SPEC: SERVICES_CTA_KPI_TITLES_BLUE */
 
 .proof-card .tagline {
   margin-bottom: 0.75rem;
@@ -118,7 +119,8 @@
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-}
+  color: var(--color-silver);
+} /* SPEC: INDEX_SMALL_BIZ_FOOTNOTE_GREY */
 
 /* Shared neon cards */
 .neon-card {

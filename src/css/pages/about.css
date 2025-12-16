@@ -18,3 +18,30 @@
   position: relative;
   z-index: 2;
 }
+
+@media (max-width: 768px) {
+  .values {
+    align-items: center;
+  }
+
+  .values .value-card {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+  } /* SPEC: ABOUT_VALUES_CARDS_CENTER_MOBILE */
+
+  .drives-grid .service-image,
+  .collage .service-image {
+    padding-top: 0;
+    display: block;
+    min-height: 220px;
+  }
+
+  .drives-grid .service-image img,
+  .collage .service-image img {
+    position: static;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  } /* SPEC: ABOUT_WHAT_DRIVES_US_IMAGES_VISIBLE_MOBILE */
+}
