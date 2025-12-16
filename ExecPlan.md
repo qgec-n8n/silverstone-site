@@ -9,6 +9,12 @@ Overhaul **`/services.html`** so it looks and behaves **almost identically to** 
 2) **Innovation Gallery + Double Marquee** (must remain **exactly** the same HTML/IDs/classes as it is today)
 3) **Never include Single Marquee** (services page must continue to be the Double Marquee page)
 
+## Key deviation from estate-agents template
+Section **3.5** is intentionally **different** from `estate-agents.html`:
+- It must be **split into TWO separate cards** (stacked), each with its own adjacent image:
+  - Card 1: **Card on left, Image on right** using `General_Services_2A(.jpeg/.webp)` (+ mobile)
+  - Card 2: **Card on right, Image on left** using `General_Services_2B(.jpeg/.webp)` (+ mobile)
+
 ## Source-of-truth inputs (read in full before editing anything)
 - `Services_Overhaul_Copy.md` (copy + section ordering + constraints; instructions are in **bold italic inside [square brackets]** and must be obeyed)
 - `niches/estate-agents.html` (the template structure to mirror)
@@ -25,11 +31,11 @@ Overhaul **`/services.html`** so it looks and behaves **almost identically to** 
   - `stats` block format for proof numbers
   - `values` grid format for “How it works”
   - `details.faq-item` format for FAQs
-- The 3 image sections must use `<picture>` with:
+- The image sections (3.4, **3.5 card 1**, **3.5 card 2**, 3.7) must use `<picture>` with:
   - WebP preferred sources (desktop + mobile)
   - JPEG fallbacks (desktop + mobile)
   - An `<img ... loading="lazy">` fallback (like estate-agents)
-- Convert **each** JPEG referenced by Sections **3.4 / 3.5 / 3.7** of `Services_Overhaul_Copy.md` to **high-resolution WebP** and use the `.webp` files as preferred sources.
+- Convert **each** JPEG referenced by Sections **3.4 / 3.5 / 3.7** of `Services_Overhaul_Copy.md` to **very high resolution WebP** and use the `.webp` files as preferred image sources.
 
 ## Locked blocks to preserve verbatim (do not “recreate”; copy exact HTML)
 ### Locked Block A — Innovation Gallery + Double Marquee
@@ -72,9 +78,13 @@ Every bullet item in the new services page that is presented as a “feature/out
 
 Deliverable: a quick internal mapping of “Copy Section → Template Section”.
 
-### Phase 1 — Generate high-res WebP assets for the 3 image sections
-- Add and run `scripts/convert-services-images-to-webp.js` (created in this change-set).
-- Ensure the `.webp` outputs exist for every referenced image (desktop + mobile).
+### Phase 1 — Generate high-res WebP assets for the Services image sections
+- Add and run `scripts/convert-services-images-to-webp.js`.
+- Ensure `.webp` outputs exist for every required image (desktop + mobile):
+  - `General_Services_1(.jpeg/.webp)` + `_Mobile`
+  - `General_Services_2A(.jpeg/.webp)` + `_Mobile`
+  - `General_Services_2B(.jpeg/.webp)` + `_Mobile`
+  - `General_Services_3(.jpeg/.webp)` + `_Mobile`
 - Do not delete the original `.jpeg` files (they are required as fallbacks).
 
 ### Phase 2 — Rebuild `services.html` using estate-agents as the structural template
@@ -87,14 +97,12 @@ Create the new `services.html` by porting the structure of `niches/estate-agents
 - Replace all copy and section headings/subheadings/cards/FAQs per `Services_Overhaul_Copy.md`.
 - Maintain the template’s HTML patterns and classnames so the layout matches estate-agents.
 
-### Phase 3 — Update the 3 image sections to use the specified images + `<picture>` + WebP-first
-For each of the 3 image sections:
-- Use exactly the images named in `Services_Overhaul_Copy.md` (case sensitive).
-- Use `<picture>` structure matching `niches/estate-agents.html`:
-  - `<source ... type="image/webp">` mobile + desktop
-  - `<source ...>` jpeg mobile + desktop
-  - `<img ... src="...jpeg" loading="lazy">`
-- Prefer `.webp` sources you generated in Phase 1.
+### Phase 3 — Implement image + card sections with WebP-first `<picture>`
+- Section 3.4: implement exactly as specified with WebP-first `<picture>`
+- Section 3.5: implement as **two stacked cards** (special case)
+  - Card 1: Card-left / Image-right using `General_Services_2A.webp` preferred (and `_Mobile.webp`)
+  - Card 2: Card-right / Image-left using `General_Services_2B.webp` preferred (and `_Mobile.webp`)
+- Section 3.7: implement exactly as specified with WebP-first `<picture>`
 
 ### Phase 4 — Insert locked blocks (Innovation Gallery + Double Marquee, then Final CTA)
 - Insert Locked Block A where `Services_Overhaul_Copy.md` (3.12) specifies.
@@ -112,10 +120,13 @@ Fix any failures until all checks pass.
 
 ## Acceptance criteria (must all be true)
 - `services.html` visually follows the estate-agents layout patterns (same component structures/classes).
+- **Section 3.5 is split into TWO cards** with alternating layout and uses:
+  - `General_Services_2A.webp` + `General_Services_2A_Mobile.webp`
+  - `General_Services_2B.webp` + `General_Services_2B_Mobile.webp`
 - The **Innovation Gallery + Double Marquee block** is identical to the current services page block.
 - The **Final CTA banner** is identical to the current services page CTA.
 - No Single Marquee is included; `page-services` class remains on `<body>`.
-- The 3 image sections use `<picture>` with WebP-first sources and JPEG fallbacks.
+- Image sections use `<picture>` with WebP-first sources and JPEG fallbacks.
 - All feature/outcome bullet lists use mapped Font Awesome solid icons (allowed set only).
 - `node scripts/validate-services-page.js --strict` passes.
 
