@@ -36,7 +36,7 @@ model_reasoning_effort = "high"
 model_verbosity = "low"
 
 # Emergency fallback: use a different model family if encryption errors persist in a thread.
-[profiles.fallback_gpt41]
+[profiles.fallback_gpt51]
 model = "gpt-5.1"
 model_provider = "openai"
 approval_policy = "on-request"
