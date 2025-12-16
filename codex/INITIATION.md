@@ -15,19 +15,22 @@ Then sanity check:
 ## Required session settings
 - Model: `gpt-5.1-codex-max`
 - Reasoning effort: high
-- Operate gate-by-gate per `PLANS.md`
-- Do not stop early; implement full spec end-to-end
-- Run verification commands and report PASS/FAIL
+- Approval policy: on-request (recommended)
 
-## Absolute constraints to repeat in the Codex session prompt
-- Only replace pricing placeholder regions in the target HTML files.
-- Do not add new script tags to HTML pages.
-- Use Shadow DOM to prevent styling leakage.
-- Prices and product names must come from `Silverstone_Service_Master_List.csv`.
+## Kickoff prompt guidance
+When starting a Codex task, instruct it:
+- to read `ExecPlan.md` and `PLANS.md`
+- to implement the full spec end-to-end without stopping early
+- to run verification commands and report PASS/FAIL
+
+Critical instruction to include:
+- “Do not invert the panel directions. Follow the direction table in ExecPlan.md exactly.”
+- “Services must be ‘← Services’ and Back must be ‘Back →’.”
+- “Timing must be slow-but-not-overly-slow: slide >= 1200ms; stagger >= 250ms; reveal >= 400ms.”
 
 ## Required commands before finishing
 Codex must run at the end:
 - `npm run build:css`
 - `npm run build:js`
-- `node scripts/validate-pricing-embeds.js --strict`
-- `bash scripts/codex.maintenance.sh`
+- `node scripts/validate-niche-pages.js --strict`
+- `node scripts/assert-ui-spec.js --strict`

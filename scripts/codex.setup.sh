@@ -2,12 +2,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Codex setup script (Pricing widget integration)
+# Codex setup script (Services overhaul)
 # - Safe to re-run
 # - Installs dependencies
-# - Builds CSS/JS
-# - Builds pricing widget bundle
-# - Runs strict pricing validation
+# - Generates required WebP assets
+# - Runs basic build + validation
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
@@ -19,24 +18,30 @@ if ! command -v node >/dev/null 2>&1; then
   exit 1
 fi
 
+if ! command -v npm >/dev/null 2>&1; then
+  echo "[setup] ERROR: npm is not installed or not on PATH."
+  exit 1
+fi
+
 echo "[setup] node: $(node -v)"
 echo "[setup] npm:  $(npm -v)"
 
-if [ ! -d node_modules ]; then
-  echo "[setup] Installing npm dependencies..."
-  npm install
+if [[ -f package-lock.json ]]; then
+  echo "[setup] Installing dependencies via npm ci..."
+  npm ci
 else
-  echo "[setup] node_modules present; skipping npm install."
+  echo "[setup] Installing dependencies via npm install..."
+  npm install
 fi
 
-echo "[setup] Building site CSS/JS bundles..."
+echo "[setup] Generating high-quality WebP assets for Services image sections..."
+node scripts/convert-services-images-to-webp.js
+
+echo "[setup] Building CSS/JS bundles (sanity)..."
 npm run build:css
 npm run build:js
 
-echo "[setup] Building pricing widget bundle (if configured)..."
-node scripts/build-pricing-widget.js || echo "[setup] WARNING: build-pricing-widget failed (may be expected until widget sources/deps are added)."
-
-echo "[setup] Strict pricing embed validation..."
-node scripts/validate-pricing-embeds.js --strict || echo "[setup] WARNING: validate-pricing-embeds failed (must pass before final delivery)."
+echo "[setup] Validating services page structure (strict)..."
+node scripts/validate-services-page.js --strict
 
 echo "[setup] Done."

@@ -1,160 +1,137 @@
 <!-- FILE: ExecPlan.md -->
 
-# ExecPlan — React Pricing Widget Embed (Services + Niche Pages)
+# ExecPlan — Services Page Overhaul (services.html)
 
-## Objective
-Replace the existing “Transparent pricing tables will appear here soon…” placeholder on `services.html` and all `niches/*.html` pages with a React pricing widget built from the authoritative pricing component code and powered by CSV pricing.
+## Mission
+Overhaul **`/services.html`** so it looks and behaves **almost identically to** **`/niches/estate-agents.html`** (same section structure, layout, classes, and component patterns), but uses the **copy + structure** from **`Services_Overhaul_Copy.md`**, uses the **specified images** from `assets/images/socialmedia/` (character/case sensitive), and preserves the following **locked blocks** from the current `services.html`:
 
-## Target HTML files (must update)
-1) `services.html`
-2) `niches/dentists.html`
-3) `niches/ecommerce.html`
-4) `niches/estate-agents.html`
-5) `niches/fitness-coaches.html`
-6) `niches/gyms-fitness-studios.html`
-7) `niches/hospitality.html`
-8) `niches/physios-chiropractors.html`
-9) `niches/salons-barbers.html`
-10) `niches/trades-virtual-office.html`
+1) **Final CTA banner** (must remain **exactly** the same HTML, styling, and placement relative to the footer as it is today)
+2) **Innovation Gallery + Double Marquee** (must remain **exactly** the same HTML/IDs/classes as it is today)
+3) **Never include Single Marquee** (services page must continue to be the Double Marquee page)
 
-## Hard constraints (non-negotiable)
-1) **HTML edits are restricted**
-- On each target HTML page, edit **only** the pricing placeholder region:
-  - Replace only the `<p class="section-subtitle">Transparent pricing tables will appear here soon...</p>` element.
-- Do not change any other markup, attributes, whitespace, copy, ordering, or script includes.
+## Key deviation from estate-agents template
+Section **3.5** is intentionally **different** from `estate-agents.html`:
+- It must be **split into TWO separate cards** (stacked), each with its own adjacent image:
+  - Card 1: **Card on left, Image on right** using `General_Services_2A(.jpeg/.webp)` (+ mobile)
+  - Card 2: **Card on right, Image on left** using `General_Services_2B(.jpeg/.webp)` (+ mobile)
 
-2) **Use repo conventions**
-- Do not add new `<script>` tags to HTML pages.
-- Add a small loader module to `src/js/` and include it in `scripts/build-js.js` so it becomes part of the existing `assets/js/app.js` bundle.
+## Source-of-truth inputs (read in full before editing anything)
+- `Services_Overhaul_Copy.md` (copy + section ordering + constraints; instructions are in **bold italic inside [square brackets]** and must be obeyed)
+- `niches/estate-agents.html` (the template structure to mirror)
+- `services.html` (to extract the locked blocks: Innovation Gallery + Double Marquee, and Final CTA banner)
+- `.agent/ICON_CATALOG.md` and `src/css/base/typography.css` (allowed Font Awesome solid icon classes)
+- `assets/js/app.js` (marquee behavior; services page must remain the “double marquee” page)
 
-3) **Use authoritative inputs**
-- Pricing widget UI must use the component code from `new_pricing_code.pdf` (user-pasted code is the clean fallback).
-- Prices and product names must come from `Silverstone_Service_Master_List.csv`.
+## Non-negotiable constraints
+- **Body class must remain**: `page-services` (this is what keeps Single Marquee off and Double Marquee on).
+- The **General** item in the Services dropdown must link to **`services.html`** (verify after changes).
+- The revised page must use the **estate-agents component patterns**:
+  - `section.hero.title-band`
+  - `section.section ... parallax-section` blocks with `container`, `service-row`, `service-image neon-card`, `service-content neon-card (and optional dark-card)`
+  - `stats` block format for proof numbers
+  - `values` grid format for “How it works”
+  - `details.faq-item` format for FAQs
+- The image sections (3.4, **3.5 card 1**, **3.5 card 2**, 3.7) must use `<picture>` with:
+  - WebP preferred sources (desktop + mobile)
+  - JPEG fallbacks (desktop + mobile)
+  - An `<img ... loading="lazy">` fallback (like estate-agents)
+- Convert **each** JPEG referenced by Sections **3.4 / 3.5 / 3.7** of `Services_Overhaul_Copy.md` to **very high resolution WebP** and use the `.webp` files as preferred image sources.
 
-4) **Isolation**
-- Widget styles must not leak to host pages.
-- Must mount inside a Shadow DOM root and inject widget CSS into the shadow root.
+## Locked blocks to preserve verbatim (do not “recreate”; copy exact HTML)
+### Locked Block A — Innovation Gallery + Double Marquee
+From the *current* `services.html`, locate the section that contains:
+- `id="innovation-gallery"`
+- `class="neural-grid"` and `id="neural-grid"`
+- the slot: `id="innovation-marquee-slot"`
 
-5) **Idempotency**
-- Re-running the implementation must not duplicate:
-  - mount containers in HTML
-  - lazy-loaded script insertion
-  - React mounts
+Copy that markup **verbatim**, preserving:
+- all IDs, classes, inline styles, image filenames, alt text
+- the marquee slot element exactly
 
-6) **Graceful failure**
-- If the widget bundle fails to load or mount, the page must render normally.
-- Only the mount container may show a minimal fallback message.
+Place it where `Services_Overhaul_Copy.md` indicates (Section 3.12).
 
-## Embed approach (must follow)
-### High-level flow
-A) HTML pages contain a mount container:
-- `<div class="ss-react-pricing" data-ss-pricing-key="...">...</div>`
+### Locked Block B — Final CTA banner (must remain exactly the same)
+From the *current* `services.html`, copy **verbatim** the entire final CTA `<section ...>` that contains the headline:
+- `Start with a simple automation audit`
 
-B) `assets/js/app.js` (built from `src/js/*`) includes a small loader:
-- Detects mount containers.
-- Determines correct asset base path from the actual `app.js` script URL.
-- Injects `assets/js/ss-pricing-widget.iife.js` once (lazy-loaded).
-- Calls a global mount function exposed by the widget bundle for each container.
+Preserve:
+- exact heading, subheading, button label, classes, inline styles
+- its placement immediately before the global footer
+- do not change the CTA copy, spacing, or styles
 
-C) The widget bundle:
-- Uses React + ReactDOM to render.
-- Attaches Shadow DOM to the mount container.
-- Injects widget CSS into the shadow root.
-- Renders pricing cards for the page key based on generated CSV-backed data.
+## Icon discipline (Font Awesome)
+This repo uses a **curated subset** of Font Awesome solid icons. Before writing or modifying any bullet lists:
+1) Read `.agent/ICON_CATALOG.md`
+2) Verify allowed icons by inspecting mappings in `src/css/base/typography.css`
+3) Use only icon classes that exist in those mappings.
 
-### Why this approach
-- Matches the “React-on-any-website” embed pattern (mount to a div, ship static assets).
-- Matches this repo’s shader/JS convention (single global `app.js` entry, no per-page scripting).
-- Meets the strict constraint: “HTML changes only within placeholder region.”
+Every bullet item in the new services page that is presented as a “feature/outcome bullet” must include an appropriate `<i class="fa-solid fa-..."></i>` icon.
 
-## CSV-backed mapping (no ambiguity allowed)
-All page→SKU mappings are explicitly defined in `codex/PRICING_WIDGET_REFERENCE.md`.
-- `services.html` shows the “Starter Pack” bundle (`*-01`) across all niches.
-- Each niche page shows the 5 niche bundles (`*-01` to `*-05`) for that niche.
+## Implementation phases (follow in order)
 
-## Implementation steps (Codex must execute in order)
+### Phase 0 — Preflight inventory (no edits yet)
+- Open and understand `Services_Overhaul_Copy.md` sections 3.1–3.14.
+- Open `niches/estate-agents.html` and outline section-by-section structure and key classnames/patterns.
+- Open current `services.html` and extract:
+  - Locked Block A (Innovation Gallery + Double Marquee)
+  - Locked Block B (Final CTA banner)
 
-### Phase 1 — Add data generator + validators
-1) Add `scripts/generate-pricing-data.js`
-- Reads `Silverstone_Service_Master_List.csv`
-- Outputs a generated TS module (location determined by widget build layout; generator must write deterministically)
-- Must include SKU, Sales_Name_External, Setup_Fee_GBP, Monthly_Retainer_GBP, Deliverables_List
-- Must fail fast if any required SKUs are missing
+Deliverable: a quick internal mapping of “Copy Section → Template Section”.
 
-2) Add `scripts/validate-pricing-embeds.js`
-- In `--strict`:
-  - Confirms each target HTML file no longer contains the placeholder sentence prefix:
-    - `Transparent pricing tables will appear here soon.`
-  - Confirms each target HTML file contains exactly one mount container with the expected `data-ss-pricing-key`
-  - Confirms `assets/js/ss-pricing-widget.iife.js` exists after build
-  - Confirms generated data contains the expected SKUs and prices from the CSV
+### Phase 1 — Generate high-res WebP assets for the Services image sections
+- Add and run `scripts/convert-services-images-to-webp.js`.
+- Ensure `.webp` outputs exist for every required image (desktop + mobile):
+  - `General_Services_1(.jpeg/.webp)` + `_Mobile`
+  - `General_Services_2A(.jpeg/.webp)` + `_Mobile`
+  - `General_Services_2B(.jpeg/.webp)` + `_Mobile`
+  - `General_Services_3(.jpeg/.webp)` + `_Mobile`
+- Do not delete the original `.jpeg` files (they are required as fallbacks).
 
-### Phase 2 — Build the React widget (self-contained bundle)
-3) Add `scripts/tailwind.pricing.config.cjs` (widget-only Tailwind config)
-- Dark mode: class-based (but implemented via host class toggling on the shadow host)
-- Content globs restricted to the widget source directory only
+### Phase 2 — Rebuild `services.html` using estate-agents as the structural template
+Create the new `services.html` by porting the structure of `niches/estate-agents.html` with these adjustments:
+- Paths: convert `../assets/...` to `assets/...` as needed (services.html is at repo root).
+- Nav links: ensure “General” under Services points to `services.html` and relative paths match root pages.
+- Body classes: ensure `<body class="page-services">`
+- Head metadata:
+  - Title, meta description, OG/Twitter descriptions per `Services_Overhaul_Copy.md` (3.1 + 3.2)
+- Replace all copy and section headings/subheadings/cards/FAQs per `Services_Overhaul_Copy.md`.
+- Maintain the template’s HTML patterns and classnames so the layout matches estate-agents.
 
-4) Add `scripts/build-pricing-widget.js`
-- Runs the generator script first
-- Builds widget CSS with Tailwind (widget-only)
-- Bundles widget TSX via esbuild to:
-  - `assets/js/ss-pricing-widget.iife.js`
-- Bundle must expose exactly one global API:
-  - `window.SS_PRICING_WIDGET.mountAll()`
-  - and/or `window.SS_PRICING_WIDGET.mount(el, pageKey)`
-- Must catch and handle errors so loader can fail gracefully
+### Phase 3 — Implement image + card sections with WebP-first `<picture>`
+- Section 3.4: implement exactly as specified with WebP-first `<picture>`
+- Section 3.5: implement as **two stacked cards** (special case)
+  - Card 1: Card-left / Image-right using `General_Services_2A.webp` preferred (and `_Mobile.webp`)
+  - Card 2: Card-right / Image-left using `General_Services_2B.webp` preferred (and `_Mobile.webp`)
+- Section 3.7: implement exactly as specified with WebP-first `<picture>`
 
-### Phase 3 — Loader in app.js (repo convention alignment)
-5) Add `src/js/pricing-widget-loader.js`
-- Must be written as a safe, self-invoking module consistent with other `src/js/*` files.
-- Must do nothing unless `.ss-react-pricing` exists on the page.
-- Must lazy-load `ss-pricing-widget.iife.js` once:
-  - Use a deterministic script element id, e.g. `ss-pricing-widget-script`
-  - If already present, do not add another
-- Must compute correct script URL base:
-  - Find the `<script>` tag that loaded `app.js` and derive its directory
-  - Load `ss-pricing-widget.iife.js` from the same directory
-- Must mount idempotently:
-  - If `data-ss-mounted="1"` exists, skip
-  - Otherwise set it once mount attempt begins
+### Phase 4 — Insert locked blocks (Innovation Gallery + Double Marquee, then Final CTA)
+- Insert Locked Block A where `Services_Overhaul_Copy.md` (3.12) specifies.
+- Ensure **no Single Marquee** markup is added.
+- Insert Locked Block B at the end exactly as it exists today (3.13), immediately before the footer.
 
-6) Update `scripts/build-js.js`
-- Add `pricing-widget-loader.js` at the end of the `jsOrder` array so it is included in `assets/js/app.js`.
-
-### Phase 4 — Replace placeholder regions in HTML (ONLY allowed HTML edits)
-7) For each target HTML file:
-- Locate the pricing placeholder `<p class="section-subtitle">` whose text starts with:
-  - `Transparent pricing tables will appear here soon.`
-- Replace only that `<p ...>...</p>` element with the mount block specified in:
-  - `codex/PRICING_WIDGET_REFERENCE.md`
-
-**No other edits to the HTML files are permitted.**
-- Do not add script tags.
-- Do not change indentation outside the replaced block.
-- Do not touch other sections.
-
-### Phase 5 — Final checks
-8) Run:
+### Phase 5 — Validation + formatting
+Run:
+- `bash scripts/codex.maintenance.sh`
+- `node scripts/validate-services-page.js --strict`
 - `npm run build:css`
 - `npm run build:js`
-- `node scripts/validate-pricing-embeds.js --strict`
 
-9) Provide a file-change allowlist report
-Allowed changes:
-- `services.html` (placeholder region only)
-- `niches/*.html` (placeholder region only)
-- `src/js/pricing-widget-loader.js` (new)
-- `scripts/build-js.js` (append loader to bundle order)
-- `scripts/generate-pricing-data.js` (new)
-- `scripts/build-pricing-widget.js` (new)
-- `scripts/validate-pricing-embeds.js` (new)
-- `scripts/tailwind.pricing.config.cjs` (new)
-- `scripts/codex.setup.sh` and `scripts/codex.maintenance.sh` (updated to include pricing checks)
-- Additional widget source files + build deps as needed (but no unrelated changes)
+Fix any failures until all checks pass.
 
-## Acceptance criteria (must all pass)
-- All placeholders are removed from all target pages and replaced by a mount container once.
-- Pricing widget renders correct products and prices per page according to CSV mapping tables.
-- No HTML changes exist outside the placeholder region on target pages.
-- Re-running build does not duplicate mounts or injected scripts.
-- If widget fails to load, only the mount area shows a minimal message; the rest of the page renders normally.
+## Acceptance criteria (must all be true)
+- `services.html` visually follows the estate-agents layout patterns (same component structures/classes).
+- **Section 3.5 is split into TWO cards** with alternating layout and uses:
+  - `General_Services_2A.webp` + `General_Services_2A_Mobile.webp`
+  - `General_Services_2B.webp` + `General_Services_2B_Mobile.webp`
+- The **Innovation Gallery + Double Marquee block** is identical to the current services page block.
+- The **Final CTA banner** is identical to the current services page CTA.
+- No Single Marquee is included; `page-services` class remains on `<body>`.
+- Image sections use `<picture>` with WebP-first sources and JPEG fallbacks.
+- All feature/outcome bullet lists use mapped Font Awesome solid icons (allowed set only).
+- `node scripts/validate-services-page.js --strict` passes.
+
+## Final deliverable requirements (Codex final message)
+- List changed/added files (with paths)
+- Commands run + results
+- Short checklist confirming each acceptance criterion
+- Rollback note: `git checkout -- services.html` and remove newly generated webp files if needed
