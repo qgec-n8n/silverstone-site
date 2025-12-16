@@ -4,7 +4,7 @@
  * Convert the Services overhaul JPEGs (desktop + mobile) into high-quality WebP.
  *
  * Why this exists:
- * - Services_Overhaul_Copy.md references specific JPEGs for 3 image sections.
+ * - Services_Overhaul_Copy.md references specific JPEGs for image sections.
  * - The HTML must prefer WebP sources, but keep JPEG fallbacks.
  *
  * Behavior:
@@ -19,13 +19,18 @@ const sharp = require("sharp");
 const REPO_ROOT = path.join(__dirname, "..");
 const IMG_DIR = path.join(REPO_ROOT, "assets", "images", "socialmedia");
 
-// These are the six JPEGs present in the repo that correspond to the 3 image sections.
-// (They are referenced by Services_Overhaul_Copy.md; do not rename.)
+// Required JPEGs for Services overhaul image sections (case sensitive).
+// Section 3.5 is split into TWO cards, requiring 2A and 2B sets.
 const REQUIRED_JPEGS = [
   "General_Services_1.jpeg",
   "General_Services_1_Mobile.jpeg",
-  "General_Services_2.jpeg",
-  "General_Services_2_Mobile.jpeg",
+
+  "General_Services_2A.jpeg",
+  "General_Services_2A_Mobile.jpeg",
+
+  "General_Services_2B.jpeg",
+  "General_Services_2B_Mobile.jpeg",
+
   "General_Services_3.jpeg",
   "General_Services_3_Mobile.jpeg",
 ];
@@ -66,7 +71,7 @@ async function convertOne(jpegName) {
   const input = sharp(src, { failOn: "none" });
   const meta = await input.metadata();
 
-  // High-quality WebP. Do not resize; preserve original resolution.
+  // High-quality WebP. Preserve original resolution (no resize).
   await input
     .webp({
       quality: 95,
@@ -120,7 +125,9 @@ async function main() {
     return;
   }
 
-  console.log(`[convert-services-images-to-webp] Image directory: ${path.relative(REPO_ROOT, IMG_DIR)}`);
+  console.log(
+    `[convert-services-images-to-webp] Image directory: ${path.relative(REPO_ROOT, IMG_DIR)}`
+  );
 
   const results = [];
   for (const jpegName of REQUIRED_JPEGS) {
