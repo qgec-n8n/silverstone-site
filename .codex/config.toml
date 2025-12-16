@@ -1,11 +1,9 @@
 # FILE: .codex/config.toml
 
 # Project-local Codex configuration for the Silverstone static site.
-# Note: Codex CLI primarily reads ~/.codex/config.toml, but keeping this file
-# in-repo provides a consistent, shareable baseline.
+# Goal: bias towards surgical edits, strict gate-by-gate execution, and low regression risk.
 
-# Prefer a profile by default (Codex CLI supports `profile = "name"`).
-profile = "high_effort_ui"
+profile = "pricing_surgical"
 
 model = "gpt-5.1-codex-max"
 model_reasoning_effort = "high"
@@ -13,7 +11,6 @@ model_reasoning_effort = "high"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
-# Ensure AGENTS.md + ExecPlan.md + PLANS.md fit into injected project docs.
 project_doc_max_bytes = 65536
 
 [features]
@@ -25,14 +22,15 @@ network_access = false
 [tui]
 hide_agent_reasoning = true
 
-[profiles.readonly_quick]
-model = "gpt-5.1-codex-max"
-model_reasoning_effort = "medium"
-approval_policy = "untrusted"
-sandbox_mode = "read-only"
-
-[profiles.high_effort_ui]
+# Profiles
+[profiles.pricing_surgical]
 model = "gpt-5.1-codex-max"
 model_reasoning_effort = "high"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
+
+# Strong behavioral guidance (Codex must follow AGENTS.md + ExecPlan.md):
+# - minimal diffs
+# - no unrelated refactors
+# - only touch files enumerated in ExecPlan allowlist
+# Enforcement is validated by scripts in /scripts and strict gates in ExecPlan.md.
