@@ -1,72 +1,52 @@
 <!-- FILE: AGENTS.md -->
 
-# Silverstone Site — Codex Operating Guide (Services Overhaul)
+# Silverstone Site — Codex Operating Guide (Pricing Widget Integration)
 
-## What you are doing in this repo
-This run is **only** for the **Services (General) page overhaul**:
-- Rebuild `services.html` to mirror `niches/estate-agents.html` structure
-- Apply copy from `Services_Overhaul_Copy.md`
-- Preserve locked Services-only blocks (Innovation Gallery + Double Marquee, Final CTA)
-- Generate WebP assets for the required image sections
+## What you are doing in this repo (this run only)
+This Codex run is **only** for implementing the **React Pricing Widget** by replacing the existing **pricing placeholder text** on:
+
+- `services.html`
+- `niches/dentists.html`
+- `niches/ecommerce.html`
+- `niches/estate-agents.html`
+- `niches/fitness-coaches.html`
+- `niches/gyms-fitness-studios.html`
+- `niches/hospitality.html`
+- `niches/physios-chiropractors.html`
+- `niches/salons-barbers.html`
+- `niches/trades-virtual-office.html`
+
+**Hard scope guard:** On each target HTML page, you may replace **only** the pricing placeholder region (the placeholder `<p class="section-subtitle">...Transparent pricing tables...</p>`).  
+Everything else in those HTML files must remain byte-for-byte identical (structure, copy, styles, behavior), except for the minimal placeholder swap.
+
+## Authoritative inputs (must use)
+1) `new_pricing_code.pdf` (authoritative React code; use the user-pasted version as the clean fallback)
+2) `Silverstone_Service_Master_List.csv` (authoritative products + prices)
+
+## Internal reference pattern to mirror
+Use the repo’s existing JS delivery model:
+- Static HTML pages load `assets/js/app.js` (root pages) or `../assets/js/app.js` (niche pages).
+- `assets/js/app.js` is built by concatenation from `src/js/*` via `scripts/build-js.js`.
+- **Do not add new `<script>` tags to pages** (that would violate the “only replace placeholder region” rule).
+
+Therefore:
+- Pricing widget bootstrap must be added to `src/js/` and bundled into `assets/js/app.js`.
+- The heavy React widget bundle must be lazy-loaded by the bootstrap **only when mount containers exist**.
 
 ## Read-first order (mandatory)
-1) `ExecPlan.md` (task spec + locked blocks + special-case 3.5)
-2) `Services_Overhaul_Copy.md` (copy, section map, and constraints)
-3) `niches/estate-agents.html` (template structure)
-4) `services.html` (extract locked blocks)
-5) `.agent/ICON_CATALOG.md` + `src/css/base/typography.css` (allowed icons)
+1) `ExecPlan.md` (executable spec, constraints, acceptance checks)
+2) `codex/PRICING_WIDGET_REFERENCE.md` (exact placeholder IDs + page→SKU mapping tables)
+3) `scripts/validate-pricing-embeds.js` (defines pass/fail checks)
 
-## Hard rules (do not violate)
-- **Do not** add Single Marquee to Services.
-- **Do not** remove `page-services` body class.
-- **Do not** “recreate” locked blocks; copy them verbatim from current `services.html`.
-- **Do not** invent Font Awesome icons. Use only mapped icons in `src/css/base/typography.css`.
-- **Do not** refactor unrelated pages, CSS, or JS.
+## Non-negotiable requirements (repeat)
+- Replace **ONLY** the pricing placeholder region on each target page.
+- Embed React widget using “React-on-any-website” pattern (mount into a div) while matching this repo’s `app.js` bundling convention.
+- Use **only** CSV-backed items and prices. No invented prices or product names.
+- Must be idempotent (re-run safe): no duplicate mount blocks, no duplicate script injection.
+- Must fail gracefully: page must render normally; only the mount container may show a minimal fallback message.
 
-## Special-case rule: Section 3.5
-Section 3.5 must be split into **two stacked cards** (this is a deliberate deviation from the template):
-- Card 1: Card-left / Image-right using `General_Services_2A(.webp preferred)`
-- Card 2: Card-right / Image-left using `General_Services_2B(.webp preferred)`
-
-## Commands you are expected to use
-Setup (once per environment):
-- `bash scripts/codex.setup.sh`
-
-During iteration:
+## Commands you must run before finishing
 - `bash scripts/codex.maintenance.sh`
-- `node scripts/validate-services-page.js --strict`
-
-Build sanity:
 - `npm run build:css`
 - `npm run build:js`
-
-## Bullet/icon contract
-Before writing bullet lists:
-- Read `.agent/ICON_CATALOG.md`
-- Verify icon mappings exist in `src/css/base/typography.css`
-- Every “feature/outcome bullet” must include `<i class="fa-solid fa-..."></i>`
-
-## Image/WebP contract
-You must ensure the JPEGs referenced in `Services_Overhaul_Copy.md` sections 3.4/3.5/3.7 have corresponding WebPs:
-- Use `node scripts/convert-services-images-to-webp.js`
-- In HTML, use WebP sources first, JPEG fallbacks second (estate-agents `<picture>` pattern).
-
-Required WebP outputs:
-- `General_Services_1.webp` + `General_Services_1_Mobile.webp`
-- `General_Services_2A.webp` + `General_Services_2A_Mobile.webp`
-- `General_Services_2B.webp` + `General_Services_2B_Mobile.webp`
-- `General_Services_3.webp` + `General_Services_3_Mobile.webp`
-
-## Final response format (required)
-Include:
-- Files changed/added (paths)
-- Commands run (with pass/fail)
-- Checklist confirming:
-  - body class is `page-services`
-  - section 3.5 is TWO cards with 2A/2B images
-  - locked Innovation Gallery + Double Marquee is preserved verbatim
-  - locked Final CTA is preserved verbatim
-  - no Single Marquee
-  - image sections use WebP-first `<picture>`
-  - bullet icons are from allowed mapped set
-  - `node scripts/validate-services-page.js --strict` passes
+- `node scripts/validate-pricing-embeds.js --strict`
