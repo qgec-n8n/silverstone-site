@@ -1,18 +1,43 @@
-# FILE: scripts/generate-pricing-data.js
 /* eslint-disable no-console */
 const fs = require("fs");
 const path = require("path");
+
+function parseCsvLine(line) {
+  const cells = [];
+  let current = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      const nextIsQuote = line[i + 1] === '"';
+      if (inQuotes && nextIsQuote) {
+        current += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (ch === "," && !inQuotes) {
+      cells.push(current.trim());
+      current = "";
+    } else {
+      current += ch;
+    }
+  }
+
+  cells.push(current.trim());
+  return cells;
+}
 
 function readCsv(filePath) {
   const raw = fs.readFileSync(filePath, "utf8");
   const lines = raw.split(/\r?\n/).filter(Boolean);
   if (lines.length < 2) throw new Error("CSV appears empty or missing header row.");
 
-  const header = lines[0].split(",").map((s) => s.trim());
+  const header = parseCsvLine(lines[0]);
   const rows = [];
   for (let i = 1; i < lines.length; i++) {
-    // Minimal CSV parse: this repo's pricing CSV is simple (no embedded commas in fields).
-    const cols = lines[i].split(",").map((s) => s.trim());
+    const cols = parseCsvLine(lines[i]);
     const row = {};
     header.forEach((h, idx) => (row[h] = cols[idx] ?? ""));
     rows.push(row);
@@ -109,13 +134,15 @@ function main() {
   function planFromRow(r, isPopular) {
     const setup = toInt(r.Setup_Fee_GBP);
     const monthly = toInt(r.Monthly_Retainer_GBP);
+    if (!Number.isFinite(setup)) throw new Error(`Bad setup fee for SKU ${r.SKU}`);
     if (!Number.isFinite(monthly)) throw new Error(`Bad monthly retainer for SKU ${r.SKU}`);
 
     return {
       sku: r.SKU,
       planName: r.Sales_Name_External,
       description: String(r.Deliverables_List || "").trim(),
-      price: String(monthly),
+      setupFee: setup,
+      monthlyRetainer: monthly,
       features: buildFeatures(r.Deliverables_List, setup),
       buttonText: "Book free audit",
       isPopular: Boolean(isPopular),
@@ -160,7 +187,8 @@ export type PricingPlan = {
   sku: string;
   planName: string;
   description: string;
-  price: string;
+  setupFee: number;
+  monthlyRetainer: number;
   features: string[];
   buttonText: string;
   isPopular?: boolean;

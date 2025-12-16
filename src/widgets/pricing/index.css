@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :host {
+    font-family: "Poppins", "Open Sans", system-ui, -apple-system, sans-serif;
+    color: #e8edf9;
+  }
+
+  .ssw-app {
+    @apply relative isolate rounded-2xl border border-white/10 bg-slate-900/80 p-6 text-slate-100 shadow-2xl md:p-8;
+    background-image:
+      radial-gradient(120% 120% at 15% 20%, rgba(120, 119, 198, 0.2), transparent),
+      radial-gradient(90% 90% at 80% 0%, rgba(56, 189, 248, 0.25), transparent),
+      linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.75));
+  }
+
+  .ssw-header {
+    @apply flex flex-col gap-3 md:flex-row md:items-center md:justify-between;
+  }
+
+  .ssw-title {
+    @apply text-2xl font-semibold tracking-tight text-white md:text-3xl;
+  }
+
+  .ssw-subtitle {
+    @apply max-w-2xl text-sm text-slate-300 md:text-base;
+  }
+
+  .ssw-meta {
+    @apply flex flex-wrap gap-3;
+  }
+
+  .ssw-badge {
+    @apply inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-100 ring-1 ring-inset ring-white/20;
+  }
+
+  .ssw-grid {
+    @apply mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3;
+  }
+
+  .ssw-card {
+    @apply flex h-full flex-col gap-4 rounded-xl border border-white/10 bg-slate-900/70 p-5 shadow-lg ring-1 ring-white/5 transition duration-200 ease-out hover:-translate-y-1 hover:border-cyan-300/40 hover:shadow-cyan-500/20;
+  }
+
+  .ssw-card--popular {
+    @apply border-cyan-300/60 bg-slate-900/90 shadow-cyan-500/25;
+  }
+
+  .ssw-chip {
+    @apply inline-flex items-center gap-2 self-start rounded-full bg-cyan-300/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan-100 ring-1 ring-inset ring-cyan-300/30;
+  }
+
+  .ssw-plan-name {
+    @apply text-lg font-semibold text-white md:text-xl;
+  }
+
+  .ssw-sku {
+    @apply text-xs font-mono uppercase tracking-wide text-slate-400;
+  }
+
+  .ssw-price-row {
+    @apply flex items-baseline gap-2;
+  }
+
+  .ssw-price {
+    @apply text-3xl font-bold text-white md:text-4xl;
+  }
+
+  .ssw-price-sub {
+    @apply text-sm text-slate-400;
+  }
+
+  .ssw-setup {
+    @apply text-sm font-semibold text-cyan-100;
+  }
+
+  .ssw-desc {
+    @apply text-sm leading-relaxed text-slate-300;
+  }
+
+  .ssw-features {
+    @apply grid gap-2;
+  }
+
+  .ssw-feature {
+    @apply inline-flex items-start gap-3 text-sm text-slate-200;
+  }
+
+  .ssw-feature-icon {
+    @apply mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-400/20 text-cyan-200 ring-1 ring-inset ring-cyan-400/30;
+  }
+
+  .ssw-cta {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-cyan-400 to-sky-500 px-4 py-2 text-sm font-semibold text-slate-900 shadow-lg shadow-cyan-500/25 transition hover:from-cyan-300 hover:to-sky-400;
+  }
+
+  .ssw-footer {
+    @apply mt-6 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400;
+  }
+
+  .ssw-fallback {
+    @apply rounded-lg border border-white/10 bg-slate-900/60 px-4 py-3 text-sm text-slate-200;
+  }
+}

@@ -17,7 +17,8 @@ const jsOrder = [
   'gallery.js',
   'cookie-consent.js',
   'contact-form.js',
-  'app.js'
+  'app.js',
+  'pricing-widget-loader.js'
 ];
 
 function buildBundle() {
