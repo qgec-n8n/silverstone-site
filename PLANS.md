@@ -1,111 +1,58 @@
 <!-- FILE: PLANS.md -->
 
-# Execution Playbook
+# Execution Playbook (Codex CLI) — Services Page Overhaul
 
-This file defines how Codex must plan, execute, verify, and report changes in this repository.
-`ExecPlan.md` is the task-specific spec. Follow this process strictly.
+This repo uses an **ExecPlan** workflow:
+- `ExecPlan.md` is the task-specific executable specification.
+- You must execute in phases and verify after each gate.
 
 ## Operating principles
 1) Scope discipline
-- Only implement what is explicitly required by `ExecPlan.md`.
-- No unrelated refactors or cleanup.
+- Only implement what is required for the services overhaul.
+- No unrelated cleanup or refactors.
 
 2) Preserve design system
-- Typography and visual language must remain consistent.
-- Only change what the spec requires.
+- Match estate-agents HTML structures and class patterns.
+- Preserve locked Services-only blocks verbatim.
 
-3) Mobile vs desktop conditionality
-- Mobile-only changes must not regress desktop.
-- Verify mobile and desktop separately.
+3) Continuous verification
+- Run lightweight checks often (`bash scripts/codex.maintenance.sh`)
+- Run strict checks before finishing (`node scripts/validate-services-page.js --strict`)
 
-4) Protect critical UX components
-- Minimizing menu banner, cookie consent banner, magnetic buttons are protected.
-- If touched, isolate changes and justify.
+## Phase gates (must be satisfied in order)
 
-5) Gate-driven rollout
-- Do not proceed to the next phase until the current phase’s verification gates pass.
+### Gate 0 — Preflight complete
+- You have read all “Read-first” docs in `AGENTS.md`.
+- You have identified the exact HTML ranges for:
+  - Innovation Gallery + Double Marquee block
+  - Final CTA banner block
 
-## Phase gates (must follow)
+### Gate 1 — WebP assets generated
+- `node scripts/convert-services-images-to-webp.js` runs without errors
+- All required `.webp` outputs exist next to their `.jpeg` counterparts
 
-Phase 0 — Preflight
-- Run setup/maintenance scripts.
-- Confirm builds run.
-- Map exact files you will edit.
-- Confirm `scripts/assert-ui-spec.js` runs (it may fail before fixes).
+### Gate 2 — services.html rebuilt structurally
+- `services.html` now follows estate-agents’ section patterns
+- Copy applied from `Services_Overhaul_Copy.md` (instructions obeyed)
+- 3 image sections use `<picture>` with WebP-first sources
 
-Gate:
-- You can name the files you will touch per requirement area.
+### Gate 3 — Locked blocks restored verbatim
+- Innovation Gallery + Double Marquee block inserted verbatim
+- Final CTA banner preserved verbatim and remains immediately above the footer
+- No Single Marquee is introduced
+- `<body class="page-services">` remains
 
-Phase 1 — Navigation correctness + timing tuning + Services parity
-- Separate “tap to expand” behavior from hamburger behavior.
-- Fix panel directions (never invert).
-- Fix arrow directions (Services left arrow; Back right arrow).
-- Replace X with Back button top-right on both panels.
-- Tune timing to slow-but-not-overly-slow minimums:
-  - slide >= 1200ms; stagger >= 250ms; reveal >= 400ms
-- Ensure Services font/size parity:
-  - Desktop nav Services matches other items
-  - Mobile Panel 1 Services matches other pills and is not bold
-- Ensure SPEC markers are placed exactly as required in ExecPlan.
-
-Gate:
-- `node scripts/assert-ui-spec.js --strict` passes
-- `node scripts/validate-niche-pages.js --strict` passes
-
-Phase 2 — Overlay opacity reduction
-- Implement global `--body-section-overlay-opacity` with lighter overlay across all pages.
-- Ensure no mobile override darkens it.
-- Add required SPEC marker(s) per ExecPlan.
-
-Gate:
-- `node scripts/assert-ui-spec.js --strict` passes
-
-Phase 3 — Desktop FAQ centering + page polish (NEW points 1–4, 8)
-- Desktop: center FAQ expand controls again.
-- Mobile: preserve no overflow/cutoff.
-- Index:
-  - “What small businesses usually get back” KPI titles blue; footnote grey
-  - “Streamline. Optimize. Succeed.” cards centered as a stack on mobile
-- About:
-  - “Our Values” cards centered as a stack on mobile
-  - “What Drives Us” images all visible on mobile (no neon lines)
-- Services:
-  - CTA bottom KPI titles blue
-  - KPI body text left-aligned; titles remain centered
-- Add required SPEC markers per ExecPlan.
-
-Gate:
-- `node scripts/assert-ui-spec.js --strict` passes
-
-Phase 4 — Marquee touch fix (NEW point 9)
-- Diagnose and fix why marquee requires touch to fully display.
-- Ensure marquee images are visible and moving without any interaction.
-- Ensure images are not lazy-loaded and init is not gated behind touch/scroll.
-- Add required SPEC marker per ExecPlan.
-
-Gate:
-- `node scripts/assert-ui-spec.js --strict` passes
-
-Phase 5 — Rebuild + regression verification
-Run:
+### Gate 4 — Final validation pass
+Run and pass:
+- `bash scripts/codex.maintenance.sh`
+- `node scripts/validate-services-page.js --strict`
 - `npm run build:css`
 - `npm run build:js`
-- `node scripts/validate-niche-pages.js --strict`
-- `node scripts/assert-ui-spec.js --strict`
 
-## Deterministic verification standard
-No browser tests exist, so:
-- Encode correctness into explicit constants/variables and required SPEC markers.
-- `scripts/assert-ui-spec.js` must pass in --strict mode.
-
-## Final report format (required)
-- Change log (file paths + why)
-- Commands run + pass/fail
-- PASS/FAIL checklist for:
-  - panel direction
-  - arrows
-  - back button placement
-  - timing
-  - overlay opacity
-  - new points 1–9
-- Rollback guidance (commits or file groups)
+## What “done” means
+Done means:
+- The page matches estate-agents structure (visually and structurally)
+- Services-only locked blocks are unchanged
+- WebP-first images are implemented
+- Icon usage is valid and mapped
+- Strict validation passes
