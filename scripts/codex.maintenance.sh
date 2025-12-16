@@ -3,42 +3,36 @@
 set -euo pipefail
 
 # Codex maintenance script
-# - Runs before every Codex task.
-# - Must be fast and safe to re-run.
-#
-# Performs lightweight checks only; strict validation is enforced by ExecPlan gates.
+# - Runs before/after edits during the services overhaul
+# - Fast and safe to re-run
+# - Performs lightweight checks only
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
 echo "[maintenance] Repo root: $REPO_ROOT"
 
-if command -v node >/dev/null 2>&1; then
-  echo "[maintenance] Node: $(node -v)"
-else
-  echo "[maintenance] WARNING: node not found."
+if ! command -v node >/dev/null 2>&1; then
+  echo "[maintenance] ERROR: node is not installed or not on PATH."
+  exit 1
 fi
 
-if command -v npm >/dev/null 2>&1; then
-  echo "[maintenance] npm:  $(npm -v)"
-else
-  echo "[maintenance] WARNING: npm not found."
+if ! command -v npm >/dev/null 2>&1; then
+  echo "[maintenance] ERROR: npm is not installed or not on PATH."
+  exit 1
 fi
+
+echo "[maintenance] node: $(node -v)"
+echo "[maintenance] npm:  $(npm -v)"
+
+echo "[maintenance] Ensuring required WebP assets exist..."
+node scripts/convert-services-images-to-webp.js --check
 
 echo "[maintenance] Quick build checks (non-blocking during iterative work)..."
-if command -v npm >/dev/null 2>&1; then
-  npm run build:css || echo "[maintenance] WARNING: build:css failed."
-  npm run build:js  || echo "[maintenance] WARNING: build:js failed."
-fi
+npm run build:css || echo "[maintenance] WARNING: build:css failed."
+npm run build:js  || echo "[maintenance] WARNING: build:js failed."
 
-if [[ -f scripts/validate-niche-pages.js ]]; then
-  echo "[maintenance] Niche pages soft validation..."
-  node scripts/validate-niche-pages.js || echo "[maintenance] WARNING: niche validation failed."
-fi
-
-if [[ -f scripts/assert-ui-spec.js ]]; then
-  echo "[maintenance] UI spec soft assertion..."
-  node scripts/assert-ui-spec.js --strict || echo "[maintenance] WARNING: UI spec assertion failed."
-fi
+echo "[maintenance] Services page validation (non-strict)..."
+node scripts/validate-services-page.js || echo "[maintenance] WARNING: services validation failed."
 
 echo "[maintenance] Done."
