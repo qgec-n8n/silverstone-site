@@ -1,68 +1,89 @@
 <!-- FILE: AGENTS.md -->
-# Agent Rules — Pricing React Embed (Static Site, No Regressions)
+# Agent Rules — Static Site + Embedded React Widgets
 
-These rules are binding for Codex and any sub-agents.
+These rules apply to Codex agents working in this repo.
 
-## 1) Scope lock (what you MAY change)
-Allowed changes are limited to:
-- Pricing integration on:
-  - `services.html`
-  - `niches/*.html` (all files currently present in the repo)
-- New React widget source files in a clearly isolated folder (recommended: a new top-level folder used only for the pricing widget)
-- Build scripts needed to output stable pricing widget assets
-- New validation scripts under `/scripts/`
-- Updates to steering docs and Codex scripts/config in this repo
+## 1) Primary objective
 
-## 2) Out-of-scope (what you MUST NOT change)
-- Do not modify hero markup/structure anywhere:
-  - do not rename/remove `#hero-shader-canvas`, `.hero.title-band`, `.hero .title-wrap`, `.hero-media`
-- Do not refactor, reformat, or “clean up” unrelated HTML/CSS/JS
-- Do not change navigation, footer, copy outside pricing, or any other sections
-- Do not introduce a framework or rebuild the site architecture
-- Do not add new features (analytics, tracking, new pages, new UI components beyond what pricing requires)
+Safely embed a React “Pricing Section” widget into:
+- `services.html`
+- every niche page in `niches/*.html` that contains pricing sections
 
-## 3) Copy rules (non-negotiable)
-- `PRICING_COPY_MAP.md` is the single source of truth
-- Do not edit `PRICING_COPY_MAP.md`
-- Do not paraphrase or invent copy
-- Use the exact currency and amounts specified
-- If copy is missing for a target page, STOP and fail the build with a clear error (do not guess)
+WITHOUT breaking the existing static site layout.
+
+## 2) Allowed sources for pricing integration semantics (non-negotiable)
+
+When working on the pricing widget, only use:
+- `PRICING_COPY_MAP.md`
+- `pricing_code_prompt.md`
+- `Embed_React_Guide.md`
+- the referenced Medium embedding article
+- the referenced 21st.dev Pricing Section 4 reference UI
+
+You may use OpenAI Cookbook pages only to improve execution planning / robustness, not to change integration behavior.
+
+## 3) Safety rules (must follow)
+
+- Minimize diffs. No mass formatting changes.
+- Do not modify unrelated sections of HTML pages.
+- Do not delete or refactor existing site CSS globally.
+- Do not touch hero shader DOM structure or its script references:
+  - `id="hero-shader-canvas"` must remain present and functional.
+- Keep changes localized to:
+  - pricing widget code (in an isolated folder)
+  - target pricing placeholder regions in the specified pages
+  - widget asset includes (one CSS link + one JS script per page)
 
 ## 4) Visual fidelity rules (non-negotiable)
-- The pricing UI must preserve the baseline look from `pricing_code.tsx`
-- Row 1 must remain visually identical aside from:
-  - copy substitution
-  - toggle label change (`Yearly` → `Setup`)
-  - toggling numeric values between monthly and setup fee
-- Row 2 may be lightly reformatted ONLY as needed to present the Row 2 copy map content (no redesign)
 
-## 5) Integration rules (static site embedding)
-- Embed React like a widget:
-  - build static JS + CSS assets with stable filenames
-  - include them in the target HTML pages
-  - mount into a dedicated container element inside `<section id="pricing">`
-- Must not interfere with existing `assets/js/app.js` execution or DOM-ready timing.
+- The pricing UI must preserve the baseline look from `pricing_code_prompt.md`
+- Preserve:
+  - toggle sliding animation (section 1 only)
+  - sparkle animation
+  - bullet formatting consistency
+  - overall layout and design language
+
+## 5) Copy rules (non-negotiable)
+
+- Copy must match `PRICING_COPY_MAP.md` exactly.
+- Do not reword, summarize, or “fix” copy.
+- Do not edit `PRICING_COPY_MAP.md`. If it appears inconsistent, stop and report.
 
 ## 6) Data + mapping rules
-- Use `data-ss-pricing-page` on the mount element to select the correct page block.
-- The attribute value must match the page id keys used in `PRICING_COPY_MAP.md` headings (e.g. `services.html`, `niches/dentists.html`).
-- Enforce “2×3 cards per page” by validation (fail if not satisfied).
 
-## 7) Verification rules (must run)
-After implementation, you must run:
-- `npm run build`
-- `npm run validate`
-- `node scripts/validate-pricing-copy-map.js`
-- `node scripts/validate-pricing-mounts.js`
+- Each target page must render **two distinct pricing sections** stacked vertically.
+- Each section has exactly **3 cards**.
+- Use both attributes on each mount element:
+  - `data-ss-pricing-page="<repo-relative-path>"` (example: `niches/dentists.html`)
+  - `data-ss-pricing-section="1"` or `"2"`
 
-If any fail:
-- fix the smallest possible change
-- re-run the failing command(s)
-- do not proceed until passing
+Section behavior:
+- Section 1:
+  - toggle labels must be “Monthly” and “Setup”
+  - toggle switches between monthly retainer and setup fee values for that card
+- Section 2:
+  - toggle does not exist
+  - cards restyled only as necessary to fit copy (keep overall design)
 
-## 8) Safety-first defaults (when ambiguous)
-If you encounter an ambiguity:
-- Choose the smallest, safest interpretation that preserves the site
-- Prefer adding isolated files over editing shared ones
-- Prefer scoped styling over global styling
-- Prefer stable, explicit page keys over inference from URL path
+## 7) Verification rules
+
+Before finalizing:
+- Run base validators:
+  - `node scripts/validate-services-page.js --strict`
+  - `node scripts/validate-niche-pages.js --strict`
+- Run pricing validators:
+  - `node scripts/validate-pricing-copy-map.js`
+  - `node scripts/validate-pricing-mounts.js` (post-embed)
+- Ensure no pricing placeholder text remains on target pages.
+
+If a validator fails:
+- Fix the minimum necessary code.
+- Do not expand scope.
+
+## 8) Stop conditions (must stop and report)
+
+Stop immediately if:
+- A target page is missing `<section id="pricing">`
+- The pricing placeholder region cannot be replaced without layout changes outside that section
+- CSS isolation cannot be guaranteed
+- You find yourself changing global CSS rules used across the site
