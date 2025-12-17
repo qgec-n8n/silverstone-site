@@ -2,8 +2,8 @@
 
 ## Global declaration (apply everywhere)
 - **Chosen global format:** **Format B (two rows)**
-- **Row 1 cards per page:** **3** (highlighted picks)
-- **Row 2 cards per page:** **3** (“Other options” summaries)
+- **Pricing Section 1 cards per page:** **3** (highlighted picks)
+- **Pricing Section 2 cards per page:** **3** (“Other options” summaries)
 
 ---
 
