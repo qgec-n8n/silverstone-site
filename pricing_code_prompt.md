@@ -1,3 +1,5 @@
+The following is copied and pasted from https://21st.dev/community/components/ui-layouts/pricing-section-4/default, and was designed for Claude Code.
+
 You are given a task to integrate an existing React component in the codebase
 
 The codebase should support:
