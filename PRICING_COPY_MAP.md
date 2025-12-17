@@ -9,11 +9,11 @@
 
 ## services.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Start with the fastest path to ROI.**  
 _Subtitle: These are the three most common “done-for-you” systems—pick the one that matches your business model._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** Trades Virtual Office  
   **Setup fee:** £1299  
   **Monthly retainer:** £219  
@@ -47,41 +47,112 @@ _Subtitle: These are the three most common “done-for-you” systems—pick the
   - Hands off to booking system
   - Converts “questions” into captured booking intent
 
-### Row 2 title
+### Pricing Section 2 title
 **Prefer a smaller fix—or a niche-specific variant?**  
 _Subtitle: Choose a focused module or a different bundle if your biggest bottleneck is narrower than the full system._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Property & Trades — all other options  
-  **Plans included:**  
-  - **Real Estate:** Never-Miss-a-Viewing Call Saver (£399 setup + £99/mo), Viewing Follow-Up & Nurture (£450 setup + £79/mo), Landlord Onboarding & Compliance Flow (£595 setup + £89/mo), 24/7 Property Lead Gatekeeper (£650 setup + £149/mo), Estate Agent Starter Pack (£999 setup + £189/mo), Landlord Growth Suite (£1399 setup + £199/mo), Estate Office Automation Pack (£2399 setup + £299/mo), Estate Agent Domination Pack (£2799 setup + £399/mo)  
-  - **Trades:** Local Review Booster (£220 setup + £39/mo), Quote Chaser Text Flow (£275 setup + £55/mo), Emergency Call Saver (£350 setup + £79/mo), Jobs Board & Scheduling (£425 setup + £89/mo), Emergency Call Catcher Pack (£699 setup + £129/mo), Quote-to-Job Conversion Pack (£799 setup + £129/mo), Trades Job Board & Call Pack (£999 setup + £169/mo), Premium Trades Growth Engine (£1499 setup + £259/mo)  
-  **One-liner:** Choose these if you want a smaller “fix one leak” module or you’re scaling beyond the flagship pack.
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Property & Trades
+  **One-liner:** Choose these if you want a smaller “fix one leak” module or you’re scaling beyond the flagship pack. 
+  **Plans:**  
+  - **Real Estate:**
+   - Never-Miss-a-Viewing Call Saver (£399 setup + £99/mo)
+   - Viewing Follow-Up & Nurture (£450 setup + £79/mo)
+   - Landlord Onboarding & Compliance Flow (£595 setup + £89/mo)
+   - 24/7 Property Lead Gatekeeper (£650 setup + £149/mo)
+   - Estate Agent Starter Pack (£999 setup + £189/mo)
+   - Landlord Growth Suite (£1399 setup + £199/mo)
+   - Estate Office Automation Pack (£2399 setup + £299/mo)
+   - Estate Agent Domination Pack (£2799 setup + £399/mo)  
+  - **Trades:**
+   - Local Review Booster (£220 setup + £39/mo)
+   - Quote Chaser Text Flow (£275 setup + £55/mo)
+   - Emergency Call Saver (£350 setup + £79/mo)
+   - Jobs Board & Scheduling (£425 setup + £89/mo)
+   - Emergency Call Catcher Pack (£699 setup + £129/mo)
+   - Quote-to-Job Conversion Pack (£799 setup + £129/mo)
+   - Trades Job Board & Call Pack (£999 setup + £169/mo)
+   - Premium Trades Growth Engine (£1499 setup + £259/mo)  
 
-* **Plan group label:** Hospitality & eCommerce — all other options  
-  **Plans included:**  
-  - **Hospitality:** Menu & Event Broadcaster (£250 setup + £49/mo), Review & Reputation Booster (£320 setup + £69/mo), Last-Minute Table Filler (£375 setup + £85/mo), Restaurant & Café Starter Pack (£899 setup + £169/mo), Events & Loyal Guests Pack (£1049 setup + £189/mo), No-Show & Review Saver Pack (£1299 setup + £219/mo), Hotel Guest Journey Pack (£1699 setup + £259/mo), Hospitality Growth Engine (£1999 setup + £299/mo)  
-  - **eCommerce:** Review & UGC Collector (£340 setup + £69/mo), 24/7 Order & FAQ Assistant (£520 setup + £119/mo), Customer Lifetime Value Dashboard (£560 setup + £79/mo), Cart Recovery Starter Pack (£999 setup + £179/mo), Support & Cart Pack (£1299 setup + £219/mo), LTV & Growth Pack (£1399 setup + £229/mo), E-com Growth Engine (£1599 setup + £259/mo), Premium Brand Automation Engine (£1899 setup + £299/mo)  
-  **One-liner:** Pick these if your biggest bottleneck is bookings/support load, or you need a conversion + retention system.
+* **Plan group label:** Hospitality & eCommerce
+  **One-liner:** Pick these if your biggest bottleneck is bookings/support load, or you need a conversion + retention system.  
+  **Plans:**  
+  - **Hospitality:**
+   - Menu & Event Broadcaster (£250 setup + £49/mo)
+   - Review & Reputation Booster (£320 setup + £69/mo)
+   - Last-Minute Table Filler (£375 setup + £85/mo)
+   - Restaurant & Café Starter Pack (£899 setup + £169/mo)
+   - Events & Loyal Guests Pack (£1049 setup + £189/mo)
+   - No-Show & Review Saver Pack (£1299 setup + £219/mo)
+   - Hotel Guest Journey Pack (£1699 setup + £259/mo)
+   - Hospitality Growth Engine (£1999 setup + £299/mo)  
+  - **eCommerce:**
+   - Review & UGC Collector (£340 setup + £69/mo)
+   - 24/7 Order & FAQ Assistant (£520 setup + £119/mo)
+   - Customer Lifetime Value Dashboard (£560 setup + £79/mo)
+   - Cart Recovery Starter Pack (£999 setup + £179/mo)
+   - Support & Cart Pack (£1299 setup + £219/mo)
+   - LTV & Growth Pack (£1399 setup + £229/mo)
+   - E-com Growth Engine (£1599 setup + £259/mo)
+   - Premium Brand Automation Engine (£1899 setup + £299/mo)  
 
-* **Plan group label:** Clinics, Beauty & Fitness — all other options  
-  **Plans included:**  
-  - **Salons:** Review & Referral Engine (£230 setup + £45/mo), Chair-Filler Rebooking Flow (£260 setup + £55/mo), No-Show Saver Reminders (£280 setup + £59/mo), 24/7 Salon Receptionist (£520 setup + £129/mo), Salon No-Show Saver Pack (£749 setup + £129/mo), 24/7 Salon Receptionist Pack (£1099 setup + £189/mo), Premium Chair-Filler Suite (£1399 setup + £229/mo), Multi-Site Salon Growth Engine (£1799 setup + £299/mo)  
-  - **Physios/Chiros:** Patient Review & Testimonial Booster (£295 setup + £55/mo), Treatment Plan Reminder Engine (£360 setup + £75/mo), Digital Intake & Consent Pack (£495 setup + £85/mo), Retention & Reviews Pack (£799 setup + £139/mo), Smart Intake Starter Pack (£899 setup + £159/mo), Clinic Flow Engine (£1299 setup + £199/mo), Premium Clinic Automation Suite (£1599 setup + £249/mo), Multi-Location Physio Pack (£1899 setup + £299/mo)  
-  - **Dentists:** Practice Review Booster (£310 setup + £65/mo), Treatment Plan Follow-Up Flow (£380 setup + £79/mo), Recall & Hygiene Fill-Up (£420 setup + £89/mo), Recall Starter Pack (£999 setup + £179/mo), Treatment Plan Completion Pack (£1199 setup + £199/mo), Dental Growth Engine (£1499 setup + £239/mo), Multi-Surgery Dental Pack (£1799 setup + £299/mo), Premium Dental Automation Suite (£2099 setup + £339/mo)  
-  - **Gyms:** Class Attendance Nudge Pack (£320 setup + £69/mo), Trial-to-Member Conversion Kit (£350 setup + £75/mo), Dormant Member Reactivation Engine (£390 setup + £89/mo), Dormant Member Starter Pack (£899 setup + £169/mo), Trial Conversion Pack (£899 setup + £169/mo), Gym Growth Engine (£1299 setup + £219/mo), Premium Gym Automation Suite (£1599 setup + £279/mo), Multi-Site Gym Pack (£1899 setup + £329/mo)  
-  - **Online Coaches:** DM to Lead Triage Assistant (£310 setup + £79/mo), Coaching Client Onboarding Flow (£330 setup + £69/mo), Content Repurposing Engine (£360 setup + £79/mo), DM to Lead Starter Pack (£749 setup + £149/mo), Content & Lead Engine (£849 setup + £159/mo), Premium Coaching Automation Suite (£1099 setup + £199/mo), Launch & Waitlist Pack (£1199 setup + £209/mo), Creator Agency-Level Suite (£1399 setup + £259/mo)  
+* **Plan group label:** Clinics, Beauty & Fitness
   **One-liner:** Choose these if you need intake, rebooking, retention, review generation, or creator/gym membership journeys.
+  **Plans:**  
+  - **Salons:**
+   - Review & Referral Engine (£230 setup + £45/mo)
+   - Chair-Filler Rebooking Flow (£260 setup + £55/mo)
+   - No-Show Saver Reminders (£280 setup + £59/mo)
+   - 24/7 Salon Receptionist (£520 setup + £129/mo)
+   - Salon No-Show Saver Pack (£749 setup + £129/mo)
+   - 24/7 Salon Receptionist Pack (£1099 setup + £189/mo)
+   - Premium Chair-Filler Suite (£1399 setup + £229/mo)
+   - Multi-Site Salon Growth Engine (£1799 setup + £299/mo)  
+  - **Physios/Chiros:**
+   - Patient Review & Testimonial Booster (£295 setup + £55/mo)
+   - Treatment Plan Reminder Engine (£360 setup + £75/mo)
+   - Digital Intake & Consent Pack (£495 setup + £85/mo)
+   - Retention & Reviews Pack (£799 setup + £139/mo)
+   - Smart Intake Starter Pack (£899 setup + £159/mo)
+   - Clinic Flow Engine (£1299 setup + £199/mo)
+   - Premium Clinic Automation Suite (£1599 setup + £249/mo)
+   - Multi-Location Physio Pack (£1899 setup + £299/mo)  
+  - **Dentists:** Practice Review Booster (£310 setup + £65/mo)
+   - Treatment Plan Follow-Up Flow (£380 setup + £79/mo)
+   - Recall & Hygiene Fill-Up (£420 setup + £89/mo)
+   - Recall Starter Pack (£999 setup + £179/mo)
+   - Treatment Plan Completion Pack (£1199 setup + £199/mo)
+   - Dental Growth Engine (£1499 setup + £239/mo)
+   - Multi-Surgery Dental Pack (£1799 setup + £299/mo)
+   - Premium Dental Automation Suite (£2099 setup + £339/mo)  
+  - **Gyms:**
+   - Class Attendance Nudge Pack (£320 setup + £69/mo)
+   - Trial-to-Member Conversion Kit (£350 setup + £75/mo)
+   - Dormant Member Reactivation Engine (£390 setup + £89/mo)
+   - Dormant Member Starter Pack (£899 setup + £169/mo)
+   - Trial Conversion Pack (£899 setup + £169/mo)
+   - Gym Growth Engine (£1299 setup + £219/mo)
+   - Premium Gym Automation Suite (£1599 setup + £279/mo)
+   - Multi-Site Gym Pack (£1899 setup + £329/mo)  
+  - **Online Coaches:**
+   - DM to Lead Triage Assistant (£310 setup + £79/mo)
+   - Coaching Client Onboarding Flow (£330 setup + £69/mo)
+   - Content Repurposing Engine (£360 setup + £79/mo)
+   - DM to Lead Starter Pack (£749 setup + £149/mo)
+   - Content & Lead Engine (£849 setup + £159/mo)
+   - Premium Coaching Automation Suite (£1099 setup + £199/mo)
+   - Launch & Waitlist Pack (£1199 setup + £209/mo)
+   - Creator Agency-Level Suite (£1399 setup + £259/mo)
 
 ---
 
 ## niches/estate-agents.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Book more viewings—without missing the first call.**  
 _Subtitle: Pick a package based on how much of the enquiry → viewing → follow-up journey you want automated._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** Never-Miss-a-Viewing Call Saver  
   **Setup fee:** £399  
   **Monthly retainer:** £99  
@@ -116,32 +187,36 @@ _Subtitle: Pick a package based on how much of the enquiry → viewing → follo
   - Comprehensive coverage across enquiries, viewings and landlord onboarding (via Estate Office pack)
   - A managed “improve it every quarter” cadence
 
-### Row 2 title
+### Pricing Section 2 title
 **Other property workflows and scale packs.**  
 _Subtitle: Choose these if you already handle leads well but want to tighten follow-up, onboarding, or office-wide operations._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Lead qualification & capture upgrades  
-  **Plans included:** 24/7 Property Lead Gatekeeper (£650 setup + £149/mo), Estate Agent Starter Pack (£999 setup + £189/mo)  
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Lead qualification & capture upgrades
   **One-liner:** Choose these if you want 24/7 capture + qualification without the full end-to-end pack.
+  **Plans:**
+  - 24/7 Property Lead Gatekeeper (£650 setup + £149/mo)
+  - Estate Agent Starter Pack (£999 setup + £189/mo)  
 
 * **Plan group label:** Follow-up & landlord operations  
-  **Plans included:** Viewing Follow-Up & Nurture (£450 setup + £79/mo), Landlord Onboarding & Compliance Flow (£595 setup + £89/mo)  
+  **Plans:** Viewing Follow-Up & Nurture (£450 setup + £79/mo), Landlord Onboarding & Compliance Flow (£595 setup + £89/mo)  
   **One-liner:** Choose these if the leak is post-viewing conversion or landlord onboarding admin.
 
-* **Plan group label:** Scale packs  
-  **Plans included:** Landlord Growth Suite (£1399 setup + £199/mo), Estate Office Automation Pack (£2399 setup + £299/mo)  
-  **One-liner:** Choose these if you need a broader office-wide automation layer (beyond viewings).
-
+* **Plan group label:** Scale packs
+  **One-liner:** Choose these if you need a broader office-wide automation layer (beyond viewings).  
+  **Plans:**
+  - Landlord Growth Suite (£1399 setup + £199/mo)
+  - Estate Office Automation Pack (£2399 setup + £299/mo)  
+  
 ---
 
 ## niches/hospitality.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Capture more bookings—even when you’re slammed.**  
 _Subtitle: Choose the package that matches your biggest revenue leak: enquiries, no-shows, or guest experience._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** Last-Minute Table Filler  
   **Setup fee:** £375  
   **Monthly retainer:** £85  
@@ -176,32 +251,39 @@ _Subtitle: Choose the package that matches your biggest revenue leak: enquiries,
   - Campaign/menu/event broadcast automation
   - A combined “concierge + fill + reviews + broadcasts” bundle
 
-### Row 2 title
+### Pricing Section 2 title
 **More options for promos, reviews, and venue-specific packs.**  
 _Subtitle: Choose these if you want a focused module (like reviews) or a starter pack tailored to your venue type._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Promotions & demand generation  
-  **Plans included:** Menu & Event Broadcaster (£250 setup + £49/mo), Events & Loyal Guests Pack (£1049 setup + £189/mo)  
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Promotions & demand generation
   **One-liner:** Choose these if you need repeat footfall and event/promo broadcasting.
+  **Plans:**
+  - Menu & Event Broadcaster (£250 setup + £49/mo)
+  - Events & Loyal Guests Pack (£1049 setup + £189/mo)  
 
-* **Plan group label:** Reviews & no-show defence  
-  **Plans included:** Review & Reputation Booster (£320 setup + £69/mo), No-Show & Review Saver Pack (£1299 setup + £219/mo)  
-  **One-liner:** Choose these if the biggest loss is reputation + no-shows (not bookings volume).
+* **Plan group label:** Reviews & no-show defence
+  **One-liner:** Choose these if the biggest loss is reputation + no-shows (not bookings volume). 
+  **Plans:**
+  - Review & Reputation Booster (£320 setup + £69/mo)
+  - No-Show & Review Saver Pack (£1299 setup + £219/mo)  
+ 
 
-* **Plan group label:** Venue starter packs  
-  **Plans included:** Restaurant & Café Starter Pack (£899 setup + £169/mo), Hotel Guest Journey Pack (£1699 setup + £259/mo)  
+* **Plan group label:** Venue starter packs
   **One-liner:** Choose these if you want a packaged “starter system” tuned to your venue type.
+  **Plans:**
+  - Restaurant & Café Starter Pack (£899 setup + £169/mo)
+  - Hotel Guest Journey Pack (£1699 setup + £259/mo)  
 
 ---
 
 ## niches/salons-barbers.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Fill chairs and reduce no-shows—on autopilot.**  
 _Subtitle: Pick based on whether you need reminders, a full rebook+review system, or an all-in suite._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** No-Show Saver Reminders  
   **Setup fee:** £280  
   **Monthly retainer:** £59  
@@ -236,32 +318,38 @@ _Subtitle: Pick based on whether you need reminders, a full rebook+review system
   - Phone handling automation
   - Full “chair-filler” coverage in one suite
 
-### Row 2 title
+### Pricing Section 2 title
 **More options for reviews, reception, and scaling.**  
 _Subtitle: Choose these if you want a single-purpose module or you’re expanding beyond one location._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Reviews & retention add-ons  
-  **Plans included:** Review & Referral Engine (£230 setup + £45/mo), Chair-Filler Rebooking Flow (£260 setup + £55/mo)  
-  **One-liner:** Choose these if your priority is repeat visits and referrals (without changing your booking stack).
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Reviews & retention add-ons
+  **One-liner:** Choose these if your priority is repeat visits and referrals (without changing your booking stack). 
+  **Plans:** 
+  - Review & Referral Engine (£230 setup + £45/mo)
+  - Chair-Filler Rebooking Flow (£260 setup + £55/mo)  
 
-* **Plan group label:** Reception & enquiries  
-  **Plans included:** 24/7 Salon Receptionist (£520 setup + £129/mo), 24/7 Salon Receptionist Pack (£1099 setup + £189/mo)  
-  **One-liner:** Choose these if calls/DMs are the bottleneck and you need always-on answers.
-
-* **Plan group label:** No-shows & scale-up packs  
-  **Plans included:** Salon No-Show Saver Pack (£749 setup + £129/mo), Multi-Site Salon Growth Engine (£1799 setup + £299/mo)  
+* **Plan group label:** Reception & enquiries
+  **One-liner:** Choose these if calls/DMs are the bottleneck and you need always-on answers. 
+  **Plans:**
+  - 24/7 Salon Receptionist (£520 setup + £129/mo)
+  - 24/7 Salon Receptionist Pack (£1099 setup + £189/mo)  
+  
+* **Plan group label:** No-shows & scale-up packs
   **One-liner:** Choose these if you want a bigger pack now, or you’re scaling beyond one location.
+  **Plans:**
+  - Salon No-Show Saver Pack (£749 setup + £129/mo)
+  - Multi-Site Salon Growth Engine (£1799 setup + £299/mo)  
 
 ---
 
 ## niches/trades-virtual-office.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Stop missing calls—and win better jobs.**  
 _Subtitle: Choose the level of support you need: missed-call capture, full virtual office, or a managed growth system._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** Emergency Call Saver  
   **Setup fee:** £350  
   **Monthly retainer:** £79  
@@ -296,32 +384,39 @@ _Subtitle: Choose the level of support you need: missed-call capture, full virtu
   - Post-job review automation (journey-level)
   - Full journey coverage rather than isolated fixes
 
-### Row 2 title
+### Pricing Section 2 title
 **More options for reviews, scheduling, and conversion.**  
 _Subtitle: Choose these if you want a focused improvement (like quotes or reviews) without a full virtual office build._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Reputation & quote follow-up  
-  **Plans included:** Local Review Booster (£220 setup + £39/mo), Quote Chaser Text Flow (£275 setup + £55/mo)  
-  **One-liner:** Choose these if the leak is “quotes not converting” or weak local review volume.
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Reputation & quote follow-up
+  **One-liner:** Choose these if the leak is “quotes not converting” or weak local review volume.  
+  **Plans:**
+  - Local Review Booster (£220 setup + £39/mo)
+  - Quote Chaser Text Flow (£275 setup + £55/mo)  
+  
 
-* **Plan group label:** Scheduling & job tracking  
-  **Plans included:** Jobs Board & Scheduling (£425 setup + £89/mo), Trades Job Board & Call Pack (£999 setup + £169/mo)  
-  **One-liner:** Choose these if scheduling and job logging are costing evenings/weekends.
-
-* **Plan group label:** Conversion packs  
-  **Plans included:** Emergency Call Catcher Pack (£699 setup + £129/mo), Quote-to-Job Conversion Pack (£799 setup + £129/mo)  
-  **One-liner:** Choose these if you want a packaged upgrade without going full “Virtual Office”.
-
+* **Plan group label:** Scheduling & job tracking
+  **One-liner:** Choose these if scheduling and job logging are costing evenings/weekends.  
+  **Plans:**
+  - Jobs Board & Scheduling (£425 setup + £89/mo)
+  - Trades Job Board & Call Pack (£999 setup + £169/mo)  
+  
+* **Plan group label:** Conversion packs
+  **One-liner:** Choose these if you want a packaged upgrade without going full “Virtual Office”.  
+  **Plans:**
+  - Emergency Call Catcher Pack (£699 setup + £129/mo)
+  - Quote-to-Job Conversion Pack (£799 setup + £129/mo)  
+  
 ---
 
 ## niches/ecommerce.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Recover revenue and reduce support load.**  
 _Subtitle: Choose the package that matches your growth lever: cart recovery, lifecycle automation, or premium analytics._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** Abandoned Cart Recovery Flow  
   **Setup fee:** £450  
   **Monthly retainer:** £79  
@@ -356,32 +451,38 @@ _Subtitle: Choose the package that matches your growth lever: cart recovery, lif
   - Analytics automation
   - Full lifecycle automation bundle
 
-### Row 2 title
+### Pricing Section 2 title
 **More options for support, LTV, and starter bundles.**  
 _Subtitle: Choose these if you want a lighter-weight package focused on one outcome (support, LTV, or recovery)._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Support-led bundles  
-  **Plans included:** 24/7 Order & FAQ Assistant (£520 setup + £119/mo), Support & Cart Pack (£1299 setup + £219/mo)  
-  **One-liner:** Choose these if support load is the bottleneck (and conversion improves when support is faster).
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Support-led bundles
+  **One-liner:** Choose these if support load is the bottleneck (and conversion improves when support is faster). 
+  **Plans:**
+  - 24/7 Order & FAQ Assistant (£520 setup + £119/mo)
+  - Support & Cart Pack (£1299 setup + £219/mo)  
 
-* **Plan group label:** LTV & analytics options  
-  **Plans included:** Customer Lifetime Value Dashboard (£560 setup + £79/mo), LTV & Growth Pack (£1399 setup + £229/mo)  
-  **One-liner:** Choose these if you want visibility into retention/cohorts to guide growth decisions.
+* **Plan group label:** LTV & analytics options
+  **One-liner:** Choose these if you want visibility into retention/cohorts to guide growth decisions.  
+  **Plans:**
+  - Customer Lifetime Value Dashboard (£560 setup + £79/mo)
+  - LTV & Growth Pack (£1399 setup + £229/mo)  
 
-* **Plan group label:** Cart/review starter alternatives  
-  **Plans included:** Review & UGC Collector (£340 setup + £69/mo), Cart Recovery Starter Pack (£999 setup + £179/mo)  
-  **One-liner:** Choose these if you want a starter bundle that improves trust signals and recovery.
-
+* **Plan group label:** Cart/review starter alternatives
+  **One-liner:** Choose these if you want a starter bundle that improves trust signals and recovery.  
+  **Plans:**
+  - Review & UGC Collector (£340 setup + £69/mo)
+  - Cart Recovery Starter Pack (£999 setup + £179/mo)  
+  
 ---
 
 ## niches/physios-chiropractors.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Reduce admin and keep patients on plan.**  
 _Subtitle: Choose the package that fixes your biggest leak: intake friction, adherence, or end-to-end clinic flow._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** Digital Intake & Consent Pack  
   **Setup fee:** £495  
   **Monthly retainer:** £85  
@@ -416,32 +517,37 @@ _Subtitle: Choose the package that fixes your biggest leak: intake friction, adh
   - Reporting
   - A managed “improve it over time” cadence
 
-### Row 2 title
+### Pricing Section 2 title
 **More options for reviews, retention, and scale.**  
 _Subtitle: Choose these if you want a targeted module (reviews or reminders) or you’re rolling out across locations._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Reviews & retention  
-  **Plans included:** Patient Review & Testimonial Booster (£295 setup + £55/mo), Retention & Reviews Pack (£799 setup + £139/mo)  
-  **One-liner:** Choose these if trust-building and repeat visits are the fastest lever.
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Reviews & retention
+  **One-liner:** Choose these if trust-building and repeat visits are the fastest lever. 
+  **Plans:**
+  - Patient Review & Testimonial Booster (£295 setup + £55/mo)
+  - Retention & Reviews Pack (£799 setup + £139/mo)  
 
-* **Plan group label:** Treatment adherence & journey  
-  **Plans included:** Treatment Plan Reminder Engine (£360 setup + £75/mo), Clinic Flow Engine (£1299 setup + £199/mo)  
-  **One-liner:** Choose these if “patients not staying on plan” is the core utilisation issue.
-
-* **Plan group label:** Scale  
-  **Plans included:** Multi-Location Physio Pack (£1899 setup + £299/mo)  
-  **One-liner:** Choose this if you need multi-site configuration and rollout.
+* **Plan group label:** Treatment adherence & journey
+  **One-liner:** Choose these if “patients not staying on plan” is the core utilisation issue.  
+  **Plans:**
+  - Treatment Plan Reminder Engine (£360 setup + £75/mo)
+  - Clinic Flow Engine (£1299 setup + £199/mo)  
+  
+* **Plan group label:** Scale
+  **One-liner:** Choose this if you need multi-site configuration and rollout. 
+  **Plans:**
+  - Multi-Location Physio Pack (£1899 setup + £299/mo)  
 
 ---
 
 ## niches/dentists.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Keep chairs full with recall and follow-up.**  
 _Subtitle: Choose the package that matches your focus: hygiene recall, a starter bundle, or a premium optimisation suite._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** Recall & Hygiene Fill-Up  
   **Setup fee:** £420  
   **Monthly retainer:** £89  
@@ -476,32 +582,37 @@ _Subtitle: Choose the package that matches your focus: hygiene recall, a starter
   - Reporting-led continuous improvement
   - Designed for teams that want measurement + iteration
 
-### Row 2 title
+### Pricing Section 2 title
 **More options for treatment completion and growth.**  
 _Subtitle: Choose these if your biggest leak is uncompleted treatment plans or you’re scaling to multiple surgeries._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Treatment plan follow-up options  
-  **Plans included:** Treatment Plan Follow-Up Flow (£380 setup + £79/mo), Treatment Plan Completion Pack (£1199 setup + £199/mo)  
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Treatment plan follow-up options
   **One-liner:** Choose these if the biggest revenue leak is accepted treatment that never gets scheduled or completed.
+  **Plans:**
+  - Treatment Plan Follow-Up Flow (£380 setup + £79/mo)
+  - Treatment Plan Completion Pack (£1199 setup + £199/mo)  
 
-* **Plan group label:** Growth & multi-surgery packs  
-  **Plans included:** Dental Growth Engine (£1499 setup + £239/mo), Multi-Surgery Dental Pack (£1799 setup + £299/mo)  
-  **One-liner:** Choose these if you want a broader system now, or you’re rolling out across surgeries.
-
-* **Plan group label:** Reviews add-on  
-  **Plans included:** Practice Review Booster (£310 setup + £65/mo)  
+* **Plan group label:** Growth & multi-surgery packs
+  **One-liner:** Choose these if you want a broader system now, or you’re rolling out across surgeries.  
+  **Plans:**
+  - Dental Growth Engine (£1499 setup + £239/mo)
+  - Multi-Surgery Dental Pack (£1799 setup + £299/mo)  
+  
+* **Plan group label:** Reviews add-on
   **One-liner:** Choose this if you want a focused reputation lift without changing recall processes.
+  **Plans:**
+  - Practice Review Booster (£310 setup + £65/mo)  
 
 ---
 
 ## niches/gyms-fitness-studios.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Convert more trials—and keep members longer.**  
 _Subtitle: Choose the package that matches your biggest retention lever: reactivation, full growth automation, or premium optimisation._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** Dormant Member Reactivation Engine  
   **Setup fee:** £390  
   **Monthly retainer:** £89  
@@ -536,32 +647,38 @@ _Subtitle: Choose the package that matches your biggest retention lever: reactiv
   - A managed “improve it every quarter” cadence
   - Reporting-led iteration over time
 
-### Row 2 title
+### Pricing Section 2 title
 **More options for attendance, trials, and multi-site growth.**  
 _Subtitle: Choose these if you want a lightweight module or you’re expanding to multiple locations._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Attendance & habits  
-  **Plans included:** Class Attendance Nudge Pack (£320 setup + £69/mo), Trial-to-Member Conversion Kit (£350 setup + £75/mo)  
-  **One-liner:** Choose these if you want lightweight habit-building and trial conversion before a full engine.
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Attendance & habits
+  **One-liner:** Choose these if you want lightweight habit-building and trial conversion before a full engine.  
+  **Plans:**
+  - Class Attendance Nudge Pack (£320 setup + £69/mo)
+  - Trial-to-Member Conversion Kit (£350 setup + £75/mo)  
+  
+* **Plan group label:** Starter packs (reactivation / trials)
+  **One-liner:** Choose these if you want a packaged “starter system” without going full Growth Engine.  
+  **Plans:**
+  - Dormant Member Starter Pack (£899 setup + £169/mo)
+  - Trial Conversion Pack (£899 setup + £169/mo)  
+  
 
-* **Plan group label:** Starter packs (reactivation / trials)  
-  **Plans included:** Dormant Member Starter Pack (£899 setup + £169/mo), Trial Conversion Pack (£899 setup + £169/mo)  
-  **One-liner:** Choose these if you want a packaged “starter system” without going full Growth Engine.
-
-* **Plan group label:** Scale  
-  **Plans included:** Multi-Site Gym Pack (£1899 setup + £329/mo)  
-  **One-liner:** Choose this if you need multi-site rollout and central dashboards.
-
+* **Plan group label:** Scale
+  **One-liner:** Choose this if you need multi-site rollout and central dashboards.  
+  **Plans:**
+  - Multi-Site Gym Pack (£1899 setup + £329/mo)  
+  
 ---
 
 ## niches/fitness-coaches.html
 
-### Row 1 title
+### Pricing Section 1 title
 **Turn DMs into paying clients—without living on your phone.**  
 _Subtitle: Choose based on how much you want automated: DM triage, lead-to-onboarding, or an advanced creator suite._
 
-### Row 1 (highlighted)
+### Pricing Section 1 (highlighted)
 * **Plan name:** DM to Lead Triage Assistant  
   **Setup fee:** £310  
   **Monthly retainer:** £79  
@@ -596,29 +713,36 @@ _Subtitle: Choose based on how much you want automated: DM triage, lead-to-onboa
   - Agency-level automation scope (expanded)
   - Built for multi-offer operations rather than one funnel
 
-### Row 2 title
+### Pricing Section 2 title
 **More options for onboarding, content systems, and launches.**  
 _Subtitle: Choose these if you want a single workflow (onboarding, content, or waitlists) instead of a full lead engine._
 
-### Row 2 (other options summaries)
-* **Plan group label:** Onboarding & delivery  
-  **Plans included:** Coaching Client Onboarding Flow (£330 setup + £69/mo), Premium Coaching Automation Suite (£1099 setup + £199/mo)  
-  **One-liner:** Choose these if onboarding, contracts, and fulfilment are the operational bottleneck.
+### Pricing Section 2 (other options summaries)
+* **Plan group label:** Onboarding & delivery
+  **One-liner:** Choose these if onboarding, contracts, and fulfilment are the operational bottleneck.  
+  **Plans:**
+  - Coaching Client Onboarding Flow (£330 setup + £69/mo)
+  - Premium Coaching Automation Suite (£1099 setup + £199/mo)  
 
-* **Plan group label:** Content systems  
-  **Plans included:** Content Repurposing Engine (£360 setup + £79/mo), Content & Lead Engine (£849 setup + £159/mo)  
-  **One-liner:** Choose these if you want content repurposing connected to lead capture.
-
-* **Plan group label:** Launch variants  
-  **Plans included:** Launch & Waitlist Pack (£1199 setup + £209/mo)  
-  **One-liner:** Choose this if you run cohort launches and want waitlist-first workflows.
-
+* **Plan group label:** Content systems
+  **One-liner:** Choose these if you want content repurposing connected to lead capture.  
+  **Plans:**
+  - Content Repurposing Engine (£360 setup + £79/mo)
+  - Content & Lead Engine (£849 setup + £159/mo)  
+  
+* **Plan group label:** Launch variants
+  **One-liner:** Choose this if you run cohort launches and want waitlist-first workflows.  
+  **Plans:**
+  - Launch & Waitlist Pack (£1199 setup + £209/mo)  
+  
 ---
 
 ## Cross-page rules
-- **Row 1 always shows (in order):** (1) smallest “quick win” module → (2) best all-round starter bundle → (3) scale/premium system.
-- **Badge rule:** Only Row 1, Card 2 gets **“Most popular”** (it should match the page’s core promise/bundle theme).
-- **Row 2 rule:** Must contain **all remaining plans for that page’s niche**, grouped into 3 scannable buckets (2–2–2 for 9-plan niches; 2–2–1 for 8-plan niches).
+- **Pricing Section 1 always shows (in order):** (1) smallest “quick win” module → (2) best all-round starter bundle → (3) scale/premium system.
+- **Badge rule:** Only Pricing Section 1, Card 2 gets **“Most popular”** (it should match the page’s core promise/bundle theme).
+- **Pricing Section 2 rule:** Must contain **all remaining plans for that page’s niche**, grouped into 3 scannable buckets (2–2–2 for 9-plan niches; 2–2–1 for 8-plan niches).
+- Ensure that you implement the pricing feature code twice, using a separate pricing feature for Pricing Section 1 and Pricing Section 2.
+- Each Pricing Feature should be in its own container with Pricing Section 1 directly above Pricing Section 2. 
 
 ## Assumptions / mismatches
 - The repository uses `/niches/` (plural) rather than `/niche/`; this mapping applies to all pages in that directory.
