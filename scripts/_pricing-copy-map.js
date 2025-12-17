@@ -11,6 +11,19 @@
 const fs = require("fs");
 const path = require("path");
 
+const REQUIRED_PAGE_IDS = [
+  "services.html",
+  "niches/dentists.html",
+  "niches/ecommerce.html",
+  "niches/estate-agents.html",
+  "niches/fitness-coaches.html",
+  "niches/gyms-fitness-studios.html",
+  "niches/hospitality.html",
+  "niches/physios-chiropractors.html",
+  "niches/salons-barbers.html",
+  "niches/trades-virtual-office.html",
+];
+
 function readPricingCopyMap(repoRoot) {
   const filePath = path.join(repoRoot, "PRICING_COPY_MAP.md");
   return fs.readFileSync(filePath, "utf8");
@@ -46,179 +59,187 @@ function parsePricingCopyMap(markdown) {
   const pages = {};
 
   let pageId = null;
-  let section = null; // "row1" | "row2" | null
-
+  /** @type {"row1Title" | "row1Plans" | "row2Title" | "row2Cards" | null} */
+  let section = null;
   /** @type {null | {name: string, badge?: string, setupFee?: number, monthlyRetainer?: number, bestFor?: string, includes: string[]}} */
   let currentPlan = null;
   /** @type {null | {label: string, plansIncluded: string[], oneLiner?: string}} */
   let currentCard = null;
+  let planIncludesMode = false;
+  let cardPlansMode = false;
 
-  let mode = null; // "row1Title" | "row2Title" | "planIncludes" | "cardPlans" | null
-
-  function ensurePage() {
-    if (!pageId) return null;
-    if (!pages[pageId]) {
-      pages[pageId] = {
-        pageId,
+  function ensurePage(pid) {
+    if (!pages[pid]) {
+      pages[pid] = {
+        pageId: pid,
         row1: { title: null, subtitle: null, plans: [] },
         row2: { title: null, subtitle: null, cards: [] },
       };
     }
-    return pages[pageId];
+    return pages[pid];
   }
 
-  for (let i = 0; i < lines.length; i++) {
-    const raw = lines[i];
-    const line = raw.trim();
+  function resetModes() {
+    planIncludesMode = false;
+    cardPlansMode = false;
+  }
 
-    // New page block
-    const pageMatch = line.match(/^##\s+(\S+\.html)\b/);
+  for (const rawLine of lines) {
+    const trimmed = rawLine.trim();
+
+    const pageMatch = trimmed.match(/^##\s+(\S+\.html)\b/);
     if (pageMatch) {
       pageId = pageMatch[1];
       section = null;
       currentPlan = null;
       currentCard = null;
-      mode = null;
-      ensurePage();
+      resetModes();
+      ensurePage(pageId);
       continue;
     }
 
     if (!pageId) continue; // ignore preamble
 
     // Section headers
-    if (line === "### Row 1") {
-      section = "row1";
+    if (/^###\s+Row\s+1\s+title/i.test(trimmed)) {
+      section = "row1Title";
       currentPlan = null;
       currentCard = null;
-      mode = null;
+      resetModes();
       continue;
     }
-    if (line === "### Row 2") {
-      section = "row2";
+    if (/^###\s+Row\s+1\b/i.test(trimmed) && !/^###\s+Row\s+1\s+title/i.test(trimmed)) {
+      section = "row1Plans";
       currentPlan = null;
       currentCard = null;
-      mode = null;
+      resetModes();
       continue;
     }
-
-    // Row titles
-    if (line === "#### Row 1 Title") {
-      mode = "row1Title";
-      continue;
-    }
-    if (line === "#### Row 2 Title") {
-      mode = "row2Title";
-      continue;
-    }
-
-    // Plan heading
-    const planMatch = line.match(/^####\s+Plan\s+\d+\s+—\s+(.+)$/);
-    if (planMatch) {
-      const p = { name: planMatch[1].trim(), includes: [] };
-      ensurePage().row1.plans.push(p);
-      currentPlan = p;
-      currentCard = null;
-      mode = null;
-      continue;
-    }
-
-    // Card heading
-    const cardMatch = line.match(/^####\s+Card\s+\d+\s+—\s+(.+)$/);
-    if (cardMatch) {
-      const c = { label: cardMatch[1].trim(), plansIncluded: [] };
-      ensurePage().row2.cards.push(c);
-      currentCard = c;
+    if (/^###\s+Row\s+2\s+title/i.test(trimmed)) {
+      section = "row2Title";
       currentPlan = null;
-      mode = null;
+      currentCard = null;
+      resetModes();
+      continue;
+    }
+    if (/^###\s+Row\s+2\b/i.test(trimmed) && !/^###\s+Row\s+2\s+title/i.test(trimmed)) {
+      section = "row2Cards";
+      currentPlan = null;
+      currentCard = null;
+      resetModes();
       continue;
     }
 
-    // If we hit a new heading, cancel list modes
-    if (isHeading(line)) {
-      if (mode === "planIncludes" || mode === "cardPlans") mode = null;
+    if (!trimmed) {
+      // blank lines terminate list modes
+      resetModes();
+      continue;
     }
 
-    // Title parsing
-    if (mode === "row1Title" || mode === "row2Title") {
-      const titleMatch = line.match(/^-+\s+Title:\s+(.+)$/);
-      const subMatch = line.match(/^-+\s+Subtitle:\s+(.+)$/);
+    // Titles (Row 1 + Row 2)
+    if (section === "row1Title" || section === "row2Title") {
+      const titleMatch = trimmed.match(/^\*\*(.+)\*\*$/);
+      const subtitleMatch = trimmed.match(/^_Subtitle:\s*(.+)_$/i);
       if (titleMatch) {
-        if (mode === "row1Title") ensurePage().row1.title = titleMatch[1].trim();
-        if (mode === "row2Title") ensurePage().row2.title = titleMatch[1].trim();
+        const value = titleMatch[1].trim();
+        if (section === "row1Title") ensurePage(pageId).row1.title = value;
+        if (section === "row2Title") ensurePage(pageId).row2.title = value;
         continue;
       }
-      if (subMatch) {
-        if (mode === "row1Title") ensurePage().row1.subtitle = subMatch[1].trim();
-        if (mode === "row2Title") ensurePage().row2.subtitle = subMatch[1].trim();
+      if (subtitleMatch) {
+        const value = subtitleMatch[1].trim();
+        if (section === "row1Title") ensurePage(pageId).row1.subtitle = value;
+        if (section === "row2Title") ensurePage(pageId).row2.subtitle = value;
         continue;
-      }
-      // End of the title block if we hit blank line
-      if (!line) {
-        mode = null;
       }
       continue;
     }
 
-    // Plan field parsing
-    if (currentPlan) {
-      if (/^Setup Fee\b/i.test(line)) {
-        const n = parseGbpAmountToNumber(line);
-        currentPlan.setupFee = n;
+    // Row 1 plans (highlighted)
+    if (section === "row1Plans") {
+      const planMatch = trimmed.match(/^\*\s*\*\*Plan name:\*\*\s*(.+)$/i);
+      if (planMatch) {
+        const p = { name: planMatch[1].trim(), includes: [] };
+        ensurePage(pageId).row1.plans.push(p);
+        currentPlan = p;
+        resetModes();
         continue;
       }
-      if (/^Monthly Retainer\b/i.test(line)) {
-        const n = parseGbpAmountToNumber(line);
-        currentPlan.monthlyRetainer = n;
+
+      if (!currentPlan) continue;
+
+      if (planIncludesMode && /^- /.test(trimmed)) {
+        currentPlan.includes.push(trimmed.replace(/^- /, "").trim());
         continue;
       }
-      if (/^Badge:\s*/i.test(line)) {
-        currentPlan.badge = line.replace(/^Badge:\s*/i, "").trim();
+
+      const normalized = trimmed.replace(/^[*-]\s+/, "");
+
+      const setupMatch = normalized.match(/^\*\*Setup fee:\*\*\s*(.+)$/i);
+      if (setupMatch) {
+        currentPlan.setupFee = parseGbpAmountToNumber(setupMatch[1]);
         continue;
       }
-      if (/^Best for:\s*/i.test(line)) {
-        currentPlan.bestFor = line.replace(/^Best for:\s*/i, "").trim();
+
+      const monthlyMatch = normalized.match(/^\*\*Monthly retainer:\*\*\s*(.+)$/i);
+      if (monthlyMatch) {
+        currentPlan.monthlyRetainer = parseGbpAmountToNumber(monthlyMatch[1]);
         continue;
       }
-      if (/^What.?s included:\s*$/i.test(line)) {
-        mode = "planIncludes";
+
+      const bestForMatch = normalized.match(/^\*\*Best for:\*\*\s*(.+)$/i);
+      if (bestForMatch) {
+        currentPlan.bestFor = bestForMatch[1].trim();
         continue;
       }
-      if (mode === "planIncludes") {
-        if (!line) {
-          mode = null;
-          continue;
-        }
-        if (line.startsWith("- ")) {
-          currentPlan.includes.push(line.replace(/^- /, "").trim());
-          continue;
-        }
-        // Stop includes if any other content encountered
-        if (!line.startsWith("- ")) mode = null;
+
+      const badgeMatch = normalized.match(/^\*\*Badge:\*\*\s*(.+)$/i);
+      if (badgeMatch) {
+        currentPlan.badge = badgeMatch[1].trim();
+        continue;
       }
+
+      if (/^\*\*What[’']s included:\*\*/i.test(normalized)) {
+        planIncludesMode = true;
+        continue;
+      }
+      continue;
     }
 
-    // Card field parsing
-    if (currentCard) {
-      if (/^Plans included:\s*$/i.test(line)) {
-        mode = "cardPlans";
+    // Row 2 cards (other options)
+    if (section === "row2Cards") {
+      const cardMatch = trimmed.match(/^\*\s*\*\*Plan group label:\*\*\s*(.+)$/i);
+      if (cardMatch) {
+        const c = { label: cardMatch[1].trim(), plansIncluded: [] };
+        ensurePage(pageId).row2.cards.push(c);
+        currentCard = c;
+        resetModes();
         continue;
       }
-      if (/^One-liner:\s*/i.test(line)) {
-        currentCard.oneLiner = line.replace(/^One-liner:\s*/i, "").trim();
-        mode = null;
+
+      if (!currentCard) continue;
+
+      if (cardPlansMode && /^- /.test(trimmed)) {
+        currentCard.plansIncluded.push(trimmed.replace(/^- /, "").trim());
         continue;
       }
-      if (mode === "cardPlans") {
-        if (!line) {
-          mode = null;
-          continue;
+
+      const normalized = trimmed.replace(/^[*-]\s+/, "");
+
+      if (/^\*\*Plans included:\*\*/i.test(normalized)) {
+        const after = normalized.replace(/^\*\*Plans included:\*\*\s*/i, "");
+        if (after) {
+          currentCard.plansIncluded.push(after.trim());
         }
-        if (line.startsWith("- ")) {
-          currentCard.plansIncluded.push(line.replace(/^- /, "").trim());
-          continue;
-        }
-        // Stop plans list if content changes
-        if (!line.startsWith("- ")) mode = null;
+        cardPlansMode = true;
+        continue;
+      }
+
+      const oneLinerMatch = normalized.match(/^\*\*One-liner:\*\*\s*(.+)$/i);
+      if (oneLinerMatch) {
+        currentCard.oneLiner = oneLinerMatch[1].trim();
+        resetModes();
+        continue;
       }
     }
   }
@@ -276,4 +297,5 @@ module.exports = {
   extractPageIds,
   parsePricingCopyMap,
   validateParsedCopy,
+  REQUIRED_PAGE_IDS,
 };
