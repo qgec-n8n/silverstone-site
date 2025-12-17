@@ -1,40 +1,44 @@
 <!-- FILE: codex/MAINTENANCE.md -->
-# Maintenance — Pricing React embed
+# Maintenance & Safe Changes
 
-This repo is a static site with a small Node-based build step. The pricing widget adds a separate build output for React + Tailwind.
+Use this doc when:
+- Updating pricing copy
+- Adding a new niche page
+- Making changes to the embedded React widget
+- Validating existing embeds
 
-## Routine build + validation
-Run from repo root:
+## Quick maintenance command
+Run:
 
-1. Install deps (first time or after changes):
-   - `npm install`
+- `bash scripts/codex.maintenance.sh`
 
-2. Build:
-   - `npm run build`
+Environment variables (optional):
+- `CODEX_SKIP_NPM=1` to skip `npm install`
+- `CODEX_SKIP_BUILD=1` to skip `npm run build`
+- `CODEX_SKIP_WIDGET_BUILD=1` to skip widget build
+- `CODEX_FORCE_WIDGET_BUILD=1` to rebuild widget even if assets already exist
 
-3. Validate:
-   - `npm run validate`
+## Updating pricing copy
+1. Edit `PRICING_COPY_MAP.md` only.
+2. Run:
    - `node scripts/validate-pricing-copy-map.js`
+3. If validation passes, update the widget’s data mapping accordingly (per `codex/PRICING_COPY_MAP_SPEC.md`).
+
+## Changing the widget code
+1. Make changes only inside the pricing widget isolated folder (recommended: `pricing-widget/`).
+2. Build widget outputs:
+   - `assets/js/pricing-widget.js`
+   - `assets/css/pricing-widget.css`
+3. Validate mounts:
    - `node scripts/validate-pricing-mounts.js`
 
-## When updating pricing copy
-- Edit only `PRICING_COPY_MAP.md`.
-- Re-run:
-  - `node scripts/validate-pricing-copy-map.js`
-  - Full build + validate commands above
-
-## When adding a new niche page
-1. Add the new HTML file under `/niches/`.
-2. Add a new page block to `PRICING_COPY_MAP.md` using the exact page id heading format.
-3. Ensure the HTML pricing section contains the pricing mount element with:
-   - `class="ss-pricing"`
-   - `data-ss-pricing-page="niches/<file>.html"`
-4. Re-run full build + validations.
-
-## Failure policy
-If validation fails:
-- Fix the smallest possible change to restore:
-  - copy mapping completeness
-  - mount correctness
-  - hero shader invariants
-- Do not “fix” by weakening validation.
+## Adding a new niche page with pricing
+1. Create the HTML page in `niches/`.
+2. Ensure `<section id="pricing">` exists and contains two mount containers:
+   - `data-ss-pricing-section="1"`
+   - `data-ss-pricing-section="2"`
+3. Add a new page block in `PRICING_COPY_MAP.md` for that page path.
+4. Update `scripts/pricing.constants.js` to include the new page.
+5. Run:
+   - `node scripts/validate-pricing-copy-map.js`
+   - `node scripts/validate-pricing-mounts.js`
