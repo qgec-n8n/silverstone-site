@@ -1,0 +1,276 @@
+import React, { useEffect, useMemo, useRef, useState } from "react";
+
+const BOOK_CTA = "Book a Call";
+
+function renderWithStrong(text) {
+  if (!text || !text.includes("**")) return text;
+
+  const parts = [];
+  const pattern = /\*\*([^*]+)\*\*/g;
+  let lastIndex = 0;
+  let match;
+  let idx = 0;
+
+  while ((match = pattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    parts.push(<strong key={`strong-${idx}`}>{match[1]}</strong>);
+    lastIndex = match.index + match[0].length;
+    idx += 1;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts;
+}
+
+function SparklesCanvas({ density = 120 }) {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return undefined;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return undefined;
+
+    let width = 0;
+    let height = 0;
+    let rafId = null;
+    let particles = [];
+
+    const reducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const createParticles = () => {
+      const count = Math.min(density, Math.max(40, Math.floor((width * height) / 8000)));
+      const list = [];
+      for (let i = 0; i < count; i += 1) {
+        list.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 1.6 + 0.4,
+          speed: Math.random() * 0.35 + 0.15,
+          alpha: Math.random() * 0.5 + 0.2,
+        });
+      }
+      return list;
+    };
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      particles = createParticles();
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i += 1) {
+        const p = particles[i];
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        if (!reducedMotion) {
+          p.y += p.speed;
+          if (p.y > height + 6) {
+            p.y = -6;
+            p.x = Math.random() * width;
+            p.alpha = Math.random() * 0.5 + 0.2;
+          }
+        }
+      }
+    };
+
+    const tick = () => {
+      draw();
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    let observer = null;
+    if (typeof ResizeObserver !== "undefined") {
+      observer = new ResizeObserver(resize);
+      observer.observe(canvas);
+    } else {
+      window.addEventListener("resize", resize);
+    }
+
+    resize();
+    if (!reducedMotion) {
+      tick();
+    } else {
+      draw();
+    }
+
+    return () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
+      if (observer) observer.disconnect();
+      window.removeEventListener("resize", resize);
+    };
+  }, [density]);
+
+  return <canvas className="ss-pricing__sparkles" ref={canvasRef} />;
+}
+
+function PricingToggle({ value, onChange }) {
+  const isSetup = value === "setup";
+  return (
+    <div className="ss-pricing__toggle" role="group" aria-label="Pricing period">
+      <span
+        className="ss-pricing__toggle-slider"
+        style={{ transform: isSetup ? "translateX(100%)" : "translateX(0%)" }}
+      />
+      <button
+        type="button"
+        className={`ss-pricing__toggle-button ${!isSetup ? "is-active" : ""}`}
+        onClick={() => onChange("monthly")}
+      >
+        Monthly
+      </button>
+      <button
+        type="button"
+        className={`ss-pricing__toggle-button ${isSetup ? "is-active" : ""}`}
+        onClick={() => onChange("setup")}
+      >
+        Setup
+      </button>
+    </div>
+  );
+}
+
+function PlanCard({ plan, billingMode, bookHref, index }) {
+  const isSetup = billingMode === "setup";
+  const priceValue = isSetup ? plan.setupFee : plan.monthlyRetainer;
+
+  return (
+    <article
+      className={`ss-pricing__card ss-pricing__fade-up ${plan.badge ? "is-featured" : ""}`}
+      style={{ animationDelay: `${index * 0.2}s` }}
+    >
+      {plan.badge ? <div className="ss-pricing__badge">{plan.badge}</div> : null}
+      <h3 className="ss-pricing__card-title">{plan.name}</h3>
+      <div className="ss-pricing__price">
+        <span className="ss-pricing__price-value">£{priceValue}</span>
+        {!isSetup ? <span className="ss-pricing__price-suffix">/mo</span> : null}
+      </div>
+      <p className="ss-pricing__description">{plan.bestFor}</p>
+      <a
+        className={`ss-pricing__cta ${plan.badge ? "is-featured" : ""}`}
+        href={bookHref}
+      >
+        {BOOK_CTA}
+      </a>
+      <div className="ss-pricing__includes">
+        <div className="ss-pricing__includes-title">What's included</div>
+        <ul className="ss-pricing__list">
+          {plan.includes.map((item, idx) => (
+            <li className="ss-pricing__list-item" key={`${plan.name}-item-${idx}`}>
+              <span className="ss-pricing__list-dot" />
+              <span>{renderWithStrong(item)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  );
+}
+
+function GroupCard({ group, bookHref, index }) {
+  const hasOneLiner = group.oneLiner && group.oneLiner.trim().length > 0;
+
+  return (
+    <article
+      className="ss-pricing__card ss-pricing__fade-up"
+      style={{ animationDelay: `${index * 0.2}s` }}
+    >
+      <h3 className="ss-pricing__card-title">{group.groupLabel}</h3>
+      {hasOneLiner ? <p className="ss-pricing__description">{group.oneLiner}</p> : null}
+      <a className="ss-pricing__cta" href={bookHref}>
+        {BOOK_CTA}
+      </a>
+      <div className="ss-pricing__includes">
+        <div className="ss-pricing__includes-title">Plans</div>
+        <ul className="ss-pricing__group-list">
+          {group.plans.map((plan, idx) => {
+            if (plan.kind === "category") {
+              return (
+                <li className="ss-pricing__category" key={`${group.groupLabel}-cat-${idx}`}>
+                  {plan.text}
+                </li>
+              );
+            }
+            return (
+              <li className="ss-pricing__item" key={`${group.groupLabel}-item-${idx}`}>
+                <span className="ss-pricing__item-dot" />
+                <span>{renderWithStrong(plan.text)}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </article>
+  );
+}
+
+export default function PricingWidget({ pageKey, sectionData, sectionId }) {
+  const [billingMode, setBillingMode] = useState("monthly");
+  const isSection1 = sectionId === "1";
+  const bookHref = pageKey.startsWith("niches/") ? "../book.html" : "book.html";
+
+  useEffect(() => {
+    setBillingMode("monthly");
+  }, [sectionId, pageKey]);
+
+  const content = useMemo(() => {
+    if (!sectionData) return null;
+    if (isSection1) {
+      return sectionData.plans.map((plan, index) => (
+        <PlanCard
+          key={`${plan.name}-${index}`}
+          plan={plan}
+          billingMode={billingMode}
+          bookHref={bookHref}
+          index={index}
+        />
+      ));
+    }
+
+    return sectionData.groups.map((group, index) => (
+      <GroupCard
+        key={`${group.groupLabel}-${index}`}
+        group={group}
+        bookHref={bookHref}
+        index={index}
+      />
+    ));
+  }, [sectionData, isSection1, billingMode, bookHref]);
+
+  if (!sectionData) return null;
+
+  return (
+    <div className={`ss-pricing__widget ${isSection1 ? "is-section-1" : "is-section-2"}`}>
+      <div className="ss-pricing__gridlines" aria-hidden="true" />
+      <SparklesCanvas />
+      <div className="ss-pricing__glow" aria-hidden="true" />
+      <div className="ss-pricing__content">
+        <header className="ss-pricing__header">
+          <h2 className="ss-pricing__title">{sectionData.title}</h2>
+          <p className="ss-pricing__subtitle">{sectionData.subtitle}</p>
+          {isSection1 ? (
+            <PricingToggle value={billingMode} onChange={setBillingMode} />
+          ) : null}
+        </header>
+        <div className="ss-pricing__grid">{content}</div>
+      </div>
+    </div>
+  );
+}
