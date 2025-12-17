@@ -56,14 +56,14 @@ _Subtitle: Choose a focused module or a different bundle if your biggest bottlen
   **One-liner:** Choose these if you want a smaller “fix one leak” module or you’re scaling beyond the flagship pack. 
   **Plans:**  
   - **Real Estate:**
-   - Never-Miss-a-Viewing Call Saver (£399 setup + £99/mo)
-   - Viewing Follow-Up & Nurture (£450 setup + £79/mo)
-   - Landlord Onboarding & Compliance Flow (£595 setup + £89/mo)
-   - 24/7 Property Lead Gatekeeper (£650 setup + £149/mo)
-   - Estate Agent Starter Pack (£999 setup + £189/mo)
-   - Landlord Growth Suite (£1399 setup + £199/mo)
-   - Estate Office Automation Pack (£2399 setup + £299/mo)
-   - Estate Agent Domination Pack (£2799 setup + £399/mo)  
+    - Never-Miss-a-Viewing Call Saver (£399 setup + £99/mo)
+    - Viewing Follow-Up & Nurture (£450 setup + £79/mo)
+    - Landlord Onboarding & Compliance Flow (£595 setup + £89/mo)
+    - 24/7 Property Lead Gatekeeper (£650 setup + £149/mo)
+    - Estate Agent Starter Pack (£999 setup + £189/mo)
+    - Landlord Growth Suite (£1399 setup + £199/mo)
+    - Estate Office Automation Pack (£2399 setup + £299/mo)
+    - Estate Agent Domination Pack (£2799 setup + £399/mo)  
   - **Trades:**
    - Local Review Booster (£220 setup + £39/mo)
    - Quote Chaser Text Flow (£275 setup + £55/mo)
