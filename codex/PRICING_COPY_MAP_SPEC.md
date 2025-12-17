@@ -11,7 +11,7 @@ The canonical list of page keys is:
 
 - `services.html`
 - `niches/dentists.html`
-- `niches/real-estate.html`
+- `niches/estate-agents.html`
 - `niches/healthcare.html`
 - `niches/lawyers.html`
 - `niches/marketing-agencies.html`
