@@ -1,45 +1,23 @@
 # FILE: .codex/config.toml
+# Baseline Codex CLI project config.
+# Note: Codex CLI primarily reads user config from ~/.codex/config.toml; this repo file
+# is kept as a shared baseline for consistent runs.
 
-# Project Codex defaults (kept conservative to avoid known thread/session encryption errors).
-# Note: Codex also uses ~/.codex/config.toml for global defaults. This project file should
-# only contain safe, non-secret preferences.
-
-# Use a stable default model name from the official docs examples.
-# (Avoid setting gpt-5.1-codex-max as a hard default due to ongoing CLI issues reported by users.)
-model = "gpt-5-codex"
-model_provider = "openai"
-
-approval_policy = "on-request"
-sandbox_mode = "workspace-write"
+model = "gpt-5.1-codex-max"
 model_reasoning_effort = "high"
-model_verbosity = "low"
+
+# Ask for approval only when something fails or is risky; keep edits incremental.
+approval_policy = "on-failure"
+
+# Allow writing within the repo workspace.
+sandbox_mode = "workspace-write"
+
+# Allow larger local docs (pricing copy map + steering specs).
+project_doc_max_bytes = 200000
+
+# Allow the agent to request web searches when needed.
+web_search_request = true
 
 [features]
-# Keep features minimal. Avoid experimental exec shells unless you explicitly need them.
-web_search_request = true
-streamable_shell = false
-unified_exec = false
-ghost_commit = false
-
-[sandbox_workspace_write]
-network_access = false
-
-# Project profiles you can switch to if the CLI hits encrypted_content verification errors.
-profile = "pricing_surgical"
-
-[profiles.pricing_surgical]
-model = "gpt-5.1-codex-max"
-model_provider = "openai"
-approval_policy = "on-request"
-sandbox_mode = "workspace-write"
-model_reasoning_effort = "high"
-model_verbosity = "low"
-
-# Emergency fallback: use a different model family if encryption errors persist in a thread.
-[profiles.fallback_gpt51]
-model = "gpt-5.1"
-model_provider = "openai"
-approval_policy = "on-request"
-sandbox_mode = "workspace-write"
-model_reasoning_effort = "medium"
-model_verbosity = "low"
+# Create incremental ghost commits during the run (useful for step-by-step review).
+ghost_commit = true
