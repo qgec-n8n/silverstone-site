@@ -12,7 +12,6 @@ const {
   extractPageIds,
   parsePricingCopyMap,
   validateParsedCopy,
-  REQUIRED_PAGE_IDS,
 } = require("./_pricing-copy-map");
 
 const REPO_ROOT = path.join(__dirname, "..");
@@ -23,7 +22,18 @@ function main() {
 
   // Expected pages are the copy-map pages that are present in the repo (gate against drift).
   // For this repo, we also require that every current niche page and services page have a block.
-  const required = new Set(REQUIRED_PAGE_IDS);
+  const required = new Set([
+    "services.html",
+    "niches/dentists.html",
+    "niches/ecommerce.html",
+    "niches/estate-agents.html",
+    "niches/fitness-coaches.html",
+    "niches/gyms-fitness-studios.html",
+    "niches/hospitality.html",
+    "niches/physios-chiropractors.html",
+    "niches/salons-barbers.html",
+    "niches/trades-virtual-office.html",
+  ]);
 
   const missingFromMd = [...required].filter((p) => !pageIds.includes(p));
   if (missingFromMd.length) {

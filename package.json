@@ -6,31 +6,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "node build-css.js",
     "build:js": "node scripts/build-js.js",
-    "generate:pricing-copy": "node scripts/generate-pricing-copy.js",
-    "build:pricing:css": "tailwindcss -c pricing-widget/tailwind.config.js -i pricing-widget/src/index.css -o assets/css/pricing-widget.css",
-    "build:pricing:js": "node scripts/build-pricing-widget.js",
-    "build:pricing": "npm run generate:pricing-copy && npm run build:pricing:css && npm run build:pricing:js",
-    "build": "node scripts/optimize-images.js && npm run build:css && npm run build:js && npm run build:pricing",
-    "validate": "node scripts/validate-services-page.js && node scripts/validate-niche-pages.js && node scripts/validate-pricing-copy-map.js && node scripts/validate-pricing-mounts.js"
+    "build": "node scripts/optimize-images.js && npm run build:css && npm run build:js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@number-flow/react": "^0.4.1",
-    "@tsparticles/react": "^3.0.0",
-    "@tsparticles/slim": "^3.0.0",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "esbuild": "^0.23.1",
-    "framer-motion": "^11.18.1",
-    "motion": "^11.18.0",
     "prettier": "^3.7.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "sharp": "^0.32.6",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.7.2"
+    "sharp": "^0.32.6"
   }
 }
