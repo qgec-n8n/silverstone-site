@@ -742,7 +742,8 @@ _Subtitle: Choose these if you want a single workflow (onboarding, content, or w
 - **Badge rule:** Only Pricing Section 1, Card 2 gets **“Most popular”** (it should match the page’s core promise/bundle theme).
 - **Pricing Section 2 rule:** Must contain **all remaining plans for that page’s niche**, grouped into 3 scannable buckets (2–2–2 for 9-plan niches; 2–2–1 for 8-plan niches).
 - Ensure that you implement the pricing feature code twice, using a separate pricing feature for Pricing Section 1 and Pricing Section 2.
-- Each Pricing Feature should be in its own container with Pricing Section 1 directly above Pricing Section 2. 
+- Each Pricing Feature should be in its own container with Pricing Section 1 directly above Pricing Section 2.
+- Ensure Button on each pricing card links to the book.html
 
 ## Assumptions / mismatches
 - The repository uses `/niches/` (plural) rather than `/niche/`; this mapping applies to all pages in that directory.
