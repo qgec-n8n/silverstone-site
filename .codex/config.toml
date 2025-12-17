@@ -1,23 +1,22 @@
 # FILE: .codex/config.toml
-# Baseline Codex CLI project config.
-# Note: Codex CLI primarily reads user config from ~/.codex/config.toml; this repo file
-# is kept as a shared baseline for consistent runs.
+# This is a sample Codex CLI config. Place in ~/.codex/config.toml or merge into your existing config.
+# It is included in-repo so agents and humans have a shared baseline.
 
+# Lock to a capable reasoning model. Do not downgrade.
 model = "gpt-5.1-codex-max"
 model_reasoning_effort = "high"
 
-# Ask for approval only when something fails or is risky; keep edits incremental.
+# Ask for approvals on potentially destructive actions only.
+# For this repo, we want to allow incremental edits but avoid surprise refactors.
 approval_policy = "on-failure"
 
 # Allow writing within the repo workspace.
 sandbox_mode = "workspace-write"
 
-# Allow larger local docs (pricing copy map + steering specs).
-project_doc_max_bytes = 200000
-
+[features]
 # Allow the agent to request web searches when needed.
 web_search_request = true
 
-[features]
-# Create incremental ghost commits during the run (useful for step-by-step review).
+# Let Codex create a ghost commit after each successful tool run.
+# This helps recover from accidental diffs.
 ghost_commit = true
