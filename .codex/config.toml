@@ -3,7 +3,7 @@
 # It is included in-repo so agents and humans have a shared baseline.
 
 # Lock to a capable reasoning model. Do not downgrade.
-model = "gpt-5.1-codex-max"
+model = "gpt-5.2"
 model_reasoning_effort = "high"
 
 # Ask for approvals on potentially destructive actions only.
