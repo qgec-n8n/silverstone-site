@@ -1,92 +1,95 @@
 <!-- FILE: PLANS.md -->
-# Plans — Pricing React Embed (Static Site)
+# Plans — Pricing React Embed
 
-This file defines the only acceptable workstream for the pricing integration. Codex must follow the phases in order and must meet each phase’s exit criteria before continuing.
-
-## Phase 0 — Read-only discovery
-**Inputs to inspect (required):**
+## Inputs
 - `PRICING_COPY_MAP.md`
-- `pricing_code.tsx`
-- `src/js/hero-shader.js`
-- `assets/js/app.js`
-- `scripts/build-js.js` and `build-css.js`
-- Target HTML pages (`services.html`, `niches/*.html`)
-- Existing steering docs (`ExecPlan.md`, `AGENTS.md`, `.codex/config.toml`, `codex/*.md`)
+- `pricing_code_prompt.md`
+- `Embed_React_Guide.md`
+- `codex/PRICING_WIDGET_SPEC.md`
+- `codex/PRICING_COPY_MAP_SPEC.md`
+- `codex/PRICING_INTEGRATION_SPEC.md`
+- `AGENTS.md`
 
-**Deliverable (internal note):**
-- A short bullet list confirming:
-  - pricing placeholder location per page
-  - hero shader selectors that must remain stable
-  - which build system is used (concat JS/CSS)
+## Phase 0 — Preflight / No Changes
+Run:
+- `node scripts/validate-services-page.js --strict`
+- `node scripts/validate-niche-pages.js --strict`
+- `node scripts/validate-pricing-copy-map.js`
 
 Exit criteria:
-- No edits made
-- Findings recorded (either in the Codex run log or a short note file)
+- All validators pass
+- Target pages exist (see `scripts/pricing.constants.js`)
 
-## Phase 1 — Copy parsing + validation
-Goal: make pricing copy deterministic and fail-fast.
+## Phase 1 — Copy Map → Data Model
+Goal: produce a deterministic, auditable structure from `PRICING_COPY_MAP.md` that can power the widget.
 
-Required outcomes:
-- A parser that converts `PRICING_COPY_MAP.md` → structured data
-- Automated validation that enforces:
-  - every target page exists in the copy map
-  - each page has Row 1 + Row 2
-  - each row has exactly 3 cards/plans
-  - all required fields exist and currency values parse to numbers
+Rules:
+- Do not edit `PRICING_COPY_MAP.md`
+- Each page has exactly:
+  - Section 1: 3 plans with (name, setup fee, monthly retainer, best-for, bullets, optional badge)
+  - Section 2: 3 groups with (group label, one-liner, plans list)
 
 Exit criteria:
 - `node scripts/validate-pricing-copy-map.js` passes
+- Codex can point to a single lookup keyed by:
+  - `data-ss-pricing-page` AND
+  - `data-ss-pricing-section`
 
-## Phase 2 — Build toolchain (React + TS + Tailwind)
-Goal: build a standalone React widget into static assets.
+## Phase 2 — Widget Build Scaffolding
+Goal: create a self-contained React widget build output that can be embedded in static HTML.
 
 Constraints:
-- No framework migration (no Next.js, no Astro, no rewrite)
-- Output must be two stable files:
-  - `assets/css/pricing-widget.css`
+- Isolate widget in a new folder (`pricing-widget/` recommended)
+- Output stable built assets into:
   - `assets/js/pricing-widget.js`
-- Tailwind must be scoped to the pricing mount (so host CSS is not reset/overwritten)
+  - `assets/css/pricing-widget.css`
+- Do not introduce global CSS resets that can affect the rest of the site.
 
 Exit criteria:
-- Build produces both assets with stable filenames
-- Site remains visually unchanged on non-pricing sections (quick smoke check)
+- Widget can mount on a dummy HTML page by scanning for `.ss-pricing` containers.
 
-## Phase 3 — UI implementation (must remain visually identical)
-Goal: adapt `pricing_code.tsx` to:
-- use page-specific copy
-- implement Monthly/Setup toggle for Row 1
-- render Row 2 without a toggle
-- keep the component’s look, layout, and animation behavior consistent with the baseline design
+## Phase 3 — UI Implementation (Section 1 + Section 2)
+Goal: adapt the component code in `pricing_code_prompt.md` to:
+- Render **Section 1** with the “Monthly / Setup” toggle and correct price switching
+- Render **Section 2** without any toggle and with content formatting suitable for group summaries
 
 Exit criteria:
 - On a sample page, 6 cards appear (2×3)
 - Toggle switches prices between monthly and setup fee values
-- Row 2 has no toggle and shows all row-2 content without truncation
+- Section 2 has no toggle and shows all section-2 content without truncation
+- Sparkles and toggle animations work as intended
 
-## Phase 4 — HTML integration (mount + asset includes)
-Goal: embed the widget into each target page safely.
+## Phase 4 — HTML Integration Across All Pages
+Goal: integrate the widget into each target HTML page while preserving layout.
 
 Constraints:
 - Only modify the pricing placeholder region (`<section id="pricing">`) on each page
 - Do not touch hero shader DOM or script references
-- Use a per-page `data-ss-pricing-page` attribute to select correct copy
+- Use `data-ss-pricing-page` and `data-ss-pricing-section` attributes on each mount container
 
 Exit criteria:
-- `node scripts/validate-pricing-mounts.js` passes
+- Every page contains exactly two mounts inside `<section id="pricing">`
+  - section 1 mount: `data-ss-pricing-section="1"`
+  - section 2 mount: `data-ss-pricing-section="2"`
+- Each page includes the correct relative paths to the widget assets
 
-## Phase 5 — Regression verification
-Automated:
-- `npm run validate`
+## Phase 5 — Automated Validation
+Run:
+- `node scripts/validate-services-page.js --strict`
+- `node scripts/validate-niche-pages.js --strict`
 - `node scripts/validate-pricing-copy-map.js`
-- `node scripts/validate-pricing-mounts.js`
-
-Manual (required):
-- Open every target page and verify:
-  - hero shader renders
-  - pricing copy matches the correct page block
-  - row 1 toggle works
-  - row 2 has no toggle
-  - component looks like the baseline design
+- `node scripts/validate-pricing-mounts.js` (post-embed)
 
 Exit criteria:
-- All automated checks pass + manual checks pass
+- All validators pass
+
+## Phase 6 — Manual Browser Smoke Test
+Spot check:
+- `services.html`
+- a niche page
+- the “estate agents” niche page
+- confirm both sections render, toggle works in section 1 only, and visuals match.
+
+Exit criteria:
+- Visual + behavioral parity within constraints
+- No regressions in other sections
