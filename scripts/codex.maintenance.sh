@@ -44,6 +44,12 @@ node scripts/validate-services-page.js --strict
 node scripts/validate-niche-pages.js --strict
 node scripts/validate-pricing-copy-map.js
 node scripts/validate-pricing-mounts.js
+
+if [ "${CODEX_PRICING_UI_TUNING_STRICT:-0}" = "1" ]; then
+  node scripts/validate-pricing-ui-tuning.js --strict
+else
+  node scripts/validate-pricing-ui-tuning.js || echo "WARN: pricing UI tuning validator failed (non-strict)."
+fi
 echo ""
 
 echo "Maintenance complete."
