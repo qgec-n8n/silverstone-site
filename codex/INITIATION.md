@@ -1,46 +1,32 @@
 <!-- FILE: codex/INITIATION.md -->
+# Codex initiation
 
-# Codex Initiation (React Pricing Embed)
+Use this repository’s steering artifacts to implement the pricing React embed safely.
 
-## Run location
-Run Codex from the repository root so it automatically loads:
-- `AGENTS.md`
-- `ExecPlan.md`
-- `PLANS.md`
+## Required reading order (do not skip)
+1. `ExecPlan.md`
+2. `codex/PRICING_WIDGET_SPEC.md`
+3. `codex/PRICING_COPY_MAP_SPEC.md`
+4. `AGENTS.md`
+5. `PRICING_COPY_MAP.md`
+6. `pricing_code.tsx`
+7. Hero shader code: `src/js/hero-shader.js` (and confirm invariants in target HTML pages)
 
-## One-time setup per environment
-Run:
+## What “done” means
+- Pricing widget renders on:
+  - `services.html`
+  - every `/niches/*.html` page
+- Each target page shows:
+  - Row 1: 3 plan cards + toggle labeled “Monthly” and “Setup”
+  - Row 2: 3 summary cards, no toggle
+- Copy matches the per-page block in `PRICING_COPY_MAP.md`
+- Hero shader still works and its DOM selectors remain intact
+- Build + validations pass (see `ExecPlan.md` Gate 5)
+
+## Local commands to run
 - `bash scripts/codex.setup.sh`
+- After implementation: `bash scripts/codex.maintenance.sh`
 
-## During work (fast checks)
-Run:
-- `bash scripts/codex.maintenance.sh`
-
-## Session rules to paste into Codex at start
-- Follow `ExecPlan.md` gate-by-gate; do not skip gates.
-- Use `PRICING_COPY_MAP.md` as the only source of truth for pricing copy and values.
-- Preserve hero shader invariants (`#hero-shader-canvas`, `.hero.title-band`).
-- Replace only the pricing placeholder regions in target HTML files.
-- Prefer Shadow DOM to prevent CSS leakage.
-- Run strict validators before finishing.
-
-## Critical troubleshooting rule (encrypted_content verification errors)
-If you see an error like:
-- `invalid_encrypted_content` / “The encrypted content gAAA... could not be verified.”
-
-Do NOT keep retrying “continue” in the same thread. Instead:
-1) Exit Codex completely.
-2) Start a NEW Codex thread in the repo (do not resume the old one).
-3) If it still happens quickly, run: `bash scripts/codex.reset-session.sh`
-4) Relaunch using the fallback profile:
-   - `codex --profile fallback_gpt51`
-
-This failure is session/thread state related and is not fixed by changing repo code mid-thread.
-
-## Required commands before finishing
-- `npm run build:css`
-- `npm run build:js`
-- `node scripts/build-pricing-widget.js`
-- `node scripts/validate-pricing-copy-map.js --strict`
-- `node scripts/validate-pricing-embed-markup.js --strict`
-- `bash scripts/codex.maintenance.sh`
+## Notes
+- Keep HTML edits confined to the pricing placeholder region.
+- Prefer scoped styling for the widget to prevent global regressions.
