@@ -8058,23 +8058,26 @@ var SilverstonePricingWidget = (function (exports) {
         children: [/*#__PURE__*/jsxRuntimeExports.jsx("div", {
           className: "ss-pricing__includes-title",
           children: "Plans"
-        }), /*#__PURE__*/jsxRuntimeExports.jsx("ul", {
-          className: "ss-pricing__group-list",
-          children: group.plans.map((plan, idx) => {
-            if (plan.kind === "category") {
-              return /*#__PURE__*/jsxRuntimeExports.jsx("li", {
-                className: "ss-pricing__category",
-                children: plan.text
-              }, `${group.groupLabel}-cat-${idx}`);
-            }
-            return /*#__PURE__*/jsxRuntimeExports.jsxs("li", {
-              className: "ss-pricing__item",
-              children: [/*#__PURE__*/jsxRuntimeExports.jsx("span", {
-                className: "ss-pricing__item-dot"
-              }), /*#__PURE__*/jsxRuntimeExports.jsx("span", {
-                children: renderWithStrong(plan.text)
-              })]
-            }, `${group.groupLabel}-item-${idx}`);
+        }), /*#__PURE__*/jsxRuntimeExports.jsx("div", {
+          className: "ss-pricing__includes-body",
+          children: /*#__PURE__*/jsxRuntimeExports.jsx("ul", {
+            className: "ss-pricing__group-list",
+            children: group.plans.map((plan, idx) => {
+              if (plan.kind === "category") {
+                return /*#__PURE__*/jsxRuntimeExports.jsx("li", {
+                  className: "ss-pricing__category",
+                  children: plan.text
+                }, `${group.groupLabel}-cat-${idx}`);
+              }
+              return /*#__PURE__*/jsxRuntimeExports.jsxs("li", {
+                className: "ss-pricing__item",
+                children: [/*#__PURE__*/jsxRuntimeExports.jsx("span", {
+                  className: "ss-pricing__item-dot"
+                }), /*#__PURE__*/jsxRuntimeExports.jsx("span", {
+                  children: renderWithStrong(plan.text)
+                })]
+              }, `${group.groupLabel}-item-${idx}`);
+            })
           })
         })]
       })]
@@ -9407,6 +9410,54 @@ var SilverstonePricingWidget = (function (exports) {
   };
 
   const roots = new WeakMap();
+  let servicesHeightMatchCleanup = null;
+
+  // SS_PRICING_SPEC: SERVICES_SECTION2_HEIGHT_MATCH
+  function setupServicesSection2HeightMatch() {
+    if (servicesHeightMatchCleanup) return;
+    if (typeof window === "undefined") return;
+    const section1 = document.querySelector('.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="1"]');
+    const section2 = document.querySelector('.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"]');
+    if (!section1 || !section2) return;
+    let rafId = null;
+    const updateMatchHeight = () => {
+      const cards = section1.querySelectorAll(".ss-pricing__card");
+      if (!cards.length) return;
+      let maxHeight = 0;
+      cards.forEach(card => {
+        const {
+          height
+        } = card.getBoundingClientRect();
+        if (height > maxHeight) maxHeight = height;
+      });
+      if (!Number.isFinite(maxHeight) || maxHeight <= 0) return;
+      section2.style.setProperty("--ss-pricing-match-height", `${Math.ceil(maxHeight)}px`);
+    };
+    const scheduleUpdate = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        updateMatchHeight();
+      });
+    };
+    const resizeObserver = typeof ResizeObserver !== "undefined" ? new ResizeObserver(scheduleUpdate) : null;
+    if (resizeObserver) {
+      resizeObserver.observe(section1);
+    } else {
+      window.addEventListener("resize", scheduleUpdate);
+    }
+    scheduleUpdate();
+    servicesHeightMatchCleanup = () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      } else {
+        window.removeEventListener("resize", scheduleUpdate);
+      }
+      section2.style.removeProperty("--ss-pricing-match-height");
+      servicesHeightMatchCleanup = null;
+    };
+  }
   function resolveSectionData(pageKey, sectionId) {
     const page = pricingData[pageKey];
     if (!page) return null;
@@ -9427,12 +9478,16 @@ var SilverstonePricingWidget = (function (exports) {
       sectionId: sectionId,
       sectionData: sectionData
     }));
+    setupServicesSection2HeightMatch();
   }
   function unmount(el) {
     const root = roots.get(el);
     if (!root) return;
     root.unmount();
     roots.delete(el);
+    if (servicesHeightMatchCleanup && el?.dataset?.ssPricingPage === "services.html" && (el?.dataset?.ssPricingSection === "1" || el?.dataset?.ssPricingSection === "2")) {
+      servicesHeightMatchCleanup();
+    }
   }
   function autoMount() {
     const nodes = document.querySelectorAll(".ss-pricing");

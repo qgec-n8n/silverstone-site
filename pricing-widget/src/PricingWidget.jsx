@@ -199,23 +199,25 @@ function GroupCard({ group, bookHref, index }) {
       </a>
       <div className="ss-pricing__includes">
         <div className="ss-pricing__includes-title">Plans</div>
-        <ul className="ss-pricing__group-list">
-          {group.plans.map((plan, idx) => {
-            if (plan.kind === "category") {
+        <div className="ss-pricing__includes-body">
+          <ul className="ss-pricing__group-list">
+            {group.plans.map((plan, idx) => {
+              if (plan.kind === "category") {
+                return (
+                  <li className="ss-pricing__category" key={`${group.groupLabel}-cat-${idx}`}>
+                    {plan.text}
+                  </li>
+                );
+              }
               return (
-                <li className="ss-pricing__category" key={`${group.groupLabel}-cat-${idx}`}>
-                  {plan.text}
+                <li className="ss-pricing__item" key={`${group.groupLabel}-item-${idx}`}>
+                  <span className="ss-pricing__item-dot" />
+                  <span>{renderWithStrong(plan.text)}</span>
                 </li>
               );
-            }
-            return (
-              <li className="ss-pricing__item" key={`${group.groupLabel}-item-${idx}`}>
-                <span className="ss-pricing__item-dot" />
-                <span>{renderWithStrong(plan.text)}</span>
-              </li>
-            );
-          })}
-        </ul>
+            })}
+          </ul>
+        </div>
       </div>
     </article>
   );

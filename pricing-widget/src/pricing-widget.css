@@ -1,5 +1,17 @@
 .ss-pricing {
   width: 100%;
+  /* SS_PRICING_SPEC: THEME_LIGHT_MODE_NEON */
+  --ss-pricing-bg:
+    radial-gradient(circle at 18% 16%, rgba(0, 174, 239, 0.22), transparent 56%),
+    radial-gradient(circle at 82% 6%, rgba(255, 79, 216, 0.16), transparent 48%),
+    linear-gradient(135deg, #f8fcff 0%, #eef6ff 55%, #f5fbff 100%);
+  --ss-pricing-surface: linear-gradient(160deg, #ffffff 0%, #f1f7ff 100%);
+  --ss-pricing-text: #0b0c10;
+  --ss-pricing-muted: rgba(11, 12, 16, 0.62);
+  --ss-pricing-border: rgba(0, 174, 239, 0.22);
+  --ss-pricing-accent: var(--color-blue, #00aeef);
+  --ss-pricing-accent-2: var(--color-purple, #9d4edd);
+  --ss-pricing-accent-pink: #ff4fd8;
 }
 
 .ss-pricing + .ss-pricing {
@@ -10,10 +22,10 @@
   position: relative;
   overflow: hidden;
   border-radius: 28px;
-  background: linear-gradient(135deg, #090a12 0%, #0d0f1b 60%, #0b0c16 100%);
-  border: 1px solid #1a1d31;
+  background: var(--ss-pricing-bg);
+  border: 1px solid var(--ss-pricing-border);
   padding: 72px 36px;
-  color: #f4f5fb;
+  color: var(--ss-pricing-text);
 }
 
 .ss-pricing .ss-pricing__widget * {
@@ -30,17 +42,22 @@
 }
 
 .ss-pricing .ss-pricing__gridlines {
-  opacity: 0.3;
+  opacity: 0.4;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 174, 239, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 174, 239, 0.1) 1px, transparent 1px);
   background-size: 70px 80px;
-  mask-image: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.9), transparent 70%);
+  mask-image: radial-gradient(circle at 50% 20%, rgba(0, 0, 0, 0.6), transparent 70%);
 }
 
 .ss-pricing .ss-pricing__glow {
-  opacity: 0.65;
-  background: radial-gradient(circle at 50% 20%, rgba(32, 108, 232, 0.65) 0%, rgba(9, 10, 18, 0) 70%);
+  opacity: 0.5;
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(0, 174, 239, 0.45) 0%,
+      rgba(255, 79, 216, 0) 70%
+    );
   mix-blend-mode: screen;
 }
 
@@ -69,7 +86,7 @@
 .ss-pricing .ss-pricing__subtitle {
   font-size: 16px;
   line-height: 1.6;
-  color: rgba(244, 245, 251, 0.68);
+  color: var(--ss-pricing-muted);
   margin: 0 auto 20px;
   max-width: 720px;
 }
@@ -78,12 +95,13 @@
   position: relative;
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
-  background: #0a0b16;
-  border: 1px solid #2a2f4e;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--ss-pricing-border);
   border-radius: 999px;
   padding: 4px;
   gap: 4px;
   min-width: 220px;
+  box-shadow: 0 12px 20px rgba(0, 174, 239, 0.12);
 }
 
 .ss-pricing .ss-pricing__toggle-slider {
@@ -93,9 +111,9 @@
   bottom: 4px;
   width: calc(50% - 4px);
   border-radius: 999px;
-  background: linear-gradient(180deg, #2d6bff, #1b4bd8);
-  border: 2px solid #3a78ff;
-  box-shadow: 0 0 18px rgba(52, 102, 255, 0.45);
+  background: linear-gradient(180deg, var(--ss-pricing-accent), #35d2ff);
+  border: 2px solid rgba(0, 174, 239, 0.6);
+  box-shadow: 0 0 18px rgba(0, 174, 239, 0.45);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 0;
 }
@@ -105,7 +123,7 @@
   z-index: 1;
   background: transparent;
   border: none;
-  color: rgba(244, 245, 251, 0.75);
+  color: rgba(11, 12, 16, 0.6);
   font-weight: 600;
   font-size: 14px;
   padding: 8px 12px;
@@ -115,7 +133,7 @@
 }
 
 .ss-pricing .ss-pricing__toggle-button.is-active {
-  color: #ffffff;
+  color: #071018;
 }
 
 .ss-pricing .ss-pricing__grid {
@@ -131,16 +149,21 @@
   gap: 16px;
   padding: 28px;
   border-radius: 20px;
-  border: 1px solid #262a41;
-  background: linear-gradient(145deg, #0f111d, #15182a);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 174, 239, 0.2);
+  background: var(--ss-pricing-surface);
+  box-shadow:
+    0 16px 40px rgba(0, 174, 239, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
   min-height: 100%;
 }
 
 .ss-pricing .ss-pricing__card.is-featured {
-  border-color: rgba(72, 120, 255, 0.6);
-  box-shadow: 0 0 80px rgba(40, 88, 255, 0.35);
-  background: linear-gradient(145deg, #111525, #1a1f35);
+  border-color: rgba(0, 174, 239, 0.6);
+  box-shadow:
+    0 22px 60px rgba(0, 174, 239, 0.2),
+    0 0 0 1px rgba(255, 79, 216, 0.15);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(236, 249, 255, 0.95));
 }
 
 .ss-pricing .ss-pricing__badge {
@@ -153,9 +176,19 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   border-radius: 999px;
-  background: rgba(72, 120, 255, 0.2);
-  color: #a9c4ff;
-  border: 1px solid rgba(72, 120, 255, 0.4);
+  background: rgba(0, 174, 239, 0.14);
+  color: #0f5b77;
+  border: 1px solid rgba(0, 174, 239, 0.4);
+}
+
+/* SS_PRICING_SPEC: NICHES_SECTION1_BADGE_TITLE_CLEARANCE */
+.ss-pricing[data-ss-pricing-page^="niches/"][data-ss-pricing-section="1"] .ss-pricing__badge {
+  z-index: 2;
+}
+
+.ss-pricing[data-ss-pricing-page^="niches/"][data-ss-pricing-section="1"] .ss-pricing__card-title {
+  margin-top: 14px;
+  padding-right: 84px;
 }
 
 .ss-pricing .ss-pricing__card-title {
@@ -178,20 +211,20 @@
 
 .ss-pricing .ss-pricing__price-suffix {
   font-size: 14px;
-  color: rgba(244, 245, 251, 0.6);
+  color: rgba(11, 12, 16, 0.55);
 }
 
 .ss-pricing .ss-pricing__price-label {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(244, 245, 251, 0.45);
+  color: rgba(11, 12, 16, 0.5);
 }
 
 .ss-pricing .ss-pricing__description {
   font-size: 14px;
   line-height: 1.6;
-  color: rgba(244, 245, 251, 0.7);
+  color: var(--ss-pricing-muted);
   margin: 0;
 }
 
@@ -205,28 +238,65 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 16px;
-  color: #ffffff;
-  background: linear-gradient(180deg, #22273c, #0d0f1c);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 30px rgba(5, 8, 20, 0.35);
+  color: #0b0c10;
+  background: linear-gradient(180deg, #ffffff, #eef6ff);
+  border: 1px solid rgba(0, 174, 239, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 174, 239, 0.18);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .ss-pricing .ss-pricing__cta.is-featured {
-  background: linear-gradient(180deg, #2e6bff, #1b4bd8);
-  border-color: rgba(72, 120, 255, 0.8);
-  box-shadow: 0 16px 36px rgba(40, 88, 255, 0.5);
+  color: #ffffff;
+  background: linear-gradient(180deg, #00c2ff, #00a3e6);
+  border-color: rgba(0, 174, 239, 0.8);
+  box-shadow: 0 16px 36px rgba(0, 174, 239, 0.45);
 }
 
 .ss-pricing .ss-pricing__cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 16px 36px rgba(5, 8, 20, 0.45);
+  box-shadow: 0 16px 36px rgba(0, 174, 239, 0.25);
 }
 
 .ss-pricing .ss-pricing__includes {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 174, 239, 0.2);
   padding-top: 16px;
   margin-top: auto;
+}
+
+.ss-pricing .ss-pricing__includes-body {
+  display: block;
+}
+
+/* SS_PRICING_SPEC: SERVICES_SECTION2_INTERNAL_SCROLL */
+.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"] .ss-pricing__card {
+  min-height: 0;
+}
+
+.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"] .ss-pricing__includes {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0;
+}
+
+.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"] .ss-pricing__includes-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+@media (min-width: 781px) {
+  .ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"] .ss-pricing__card {
+    height: var(--ss-pricing-match-height, auto);
+  }
+}
+
+@media (max-width: 780px) {
+  .ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"] .ss-pricing__card {
+    height: auto;
+  }
 }
 
 .ss-pricing .ss-pricing__includes-title {
@@ -250,7 +320,7 @@
   align-items: flex-start;
   font-size: 13px;
   line-height: 1.5;
-  color: rgba(244, 245, 251, 0.7);
+  color: rgba(11, 12, 16, 0.72);
 }
 
 .ss-pricing .ss-pricing__list-dot {
@@ -258,7 +328,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(244, 245, 251, 0.3);
+  background: rgba(0, 174, 239, 0.35);
   flex: none;
 }
 
@@ -267,7 +337,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: rgba(169, 196, 255, 0.8);
+  color: rgba(0, 126, 173, 0.85);
   margin-top: 8px;
 }
 
@@ -277,7 +347,7 @@
   align-items: flex-start;
   font-size: 13px;
   line-height: 1.5;
-  color: rgba(244, 245, 251, 0.7);
+  color: rgba(11, 12, 16, 0.72);
 }
 
 .ss-pricing .ss-pricing__item-dot {
@@ -285,7 +355,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(244, 245, 251, 0.3);
+  background: rgba(0, 174, 239, 0.35);
   flex: none;
 }
 
