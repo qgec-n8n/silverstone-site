@@ -17,14 +17,14 @@
 const TARGET_PAGES = [
   'services.html',
   'niches/dentists.html',
+  'niches/ecommerce.html',
   'niches/estate-agents.html',
-  'niches/healthcare.html',
-  'niches/lawyers.html',
-  'niches/marketing-agencies.html',
+  'niches/fitness-coaches.html',
+  'niches/gyms-fitness-studios.html',
   'niches/hospitality.html',
-  'niches/trades.html',
-  'niches/estate-agents.html',
-  'niches/local-services.html',
+  'niches/physios-chiropractors.html',
+  'niches/salons-barbers.html',
+  'niches/trades-virtual-office.html',
 ];
 
 /**
