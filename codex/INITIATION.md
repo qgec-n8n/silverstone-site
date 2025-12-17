@@ -1,32 +1,31 @@
 <!-- FILE: codex/INITIATION.md -->
 # Codex initiation
 
-Use this repository’s steering artifacts to implement the pricing React embed safely.
+Use this in the repo before starting a Codex task.
 
-## Required reading order (do not skip)
-1. `ExecPlan.md`
-2. `codex/PRICING_WIDGET_SPEC.md`
-3. `codex/PRICING_COPY_MAP_SPEC.md`
-4. `AGENTS.md`
-5. `PRICING_COPY_MAP.md`
-6. `pricing_code.tsx`
-7. Hero shader code: `src/js/hero-shader.js` (and confirm invariants in target HTML pages)
+## Quick Start
+1. Run `bash scripts/codex.setup.sh`
+2. Start Codex with the prompt in `codex/CODEX_INIT_PROMPT.md`
 
-## What “done” means
-- Pricing widget renders on:
-  - `services.html`
-  - every `/niches/*.html` page
-- Each target page shows:
-  - Row 1: 3 plan cards + toggle labeled “Monthly” and “Setup”
-  - Row 2: 3 summary cards, no toggle
-- Copy matches the per-page block in `PRICING_COPY_MAP.md`
-- Hero shader still works and its DOM selectors remain intact
-- Build + validations pass (see `ExecPlan.md` Gate 5)
+## What Codex Must Read (in order)
+1. `codex/CODEX_INIT_PROMPT.md` (the copy/paste run prompt)
+2. `ExecPlan.md`
+3. `codex/PRICING_WIDGET_SPEC.md`
+4. `codex/PRICING_COPY_MAP_SPEC.md`
+5. `codex/PRICING_INTEGRATION_SPEC.md`
+6. `AGENTS.md`
+7. `PRICING_COPY_MAP.md`
+8. `pricing_code_prompt.md`
+9. Hero shader code: `src/js/hero-shader.js` (and confirm invariants in target HTML pages)
 
-## Local commands to run
-- `bash scripts/codex.setup.sh`
-- After implementation: `bash scripts/codex.maintenance.sh`
-
-## Notes
-- Keep HTML edits confined to the pricing placeholder region.
-- Prefer scoped styling for the widget to prevent global regressions.
+## Definition of Done (pricing embed)
+- Every target page has 2 pricing sections × 3 cards each (6 cards total)
+- Section 1 includes a Monthly/Setup toggle that switches prices correctly
+- Section 2 has no toggle and shows all mapped copy
+- Visual fidelity matches pricing reference component
+- Hero shader remains functional and unchanged
+- All validations pass:
+  - `node scripts/validate-services-page.js --strict`
+  - `node scripts/validate-niche-pages.js --strict`
+  - `node scripts/validate-pricing-copy-map.js`
+  - `node scripts/validate-pricing-mounts.js`
