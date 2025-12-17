@@ -1,188 +1,225 @@
 <!-- FILE: ExecPlan.md -->
-# Codex ExecPlan — React Pricing Embed (Two-Row, Page-Specific Copy)
+# ExecPlan — Pricing Widget React Embed (Two Sections Per Page)
 
-## Mission
-Embed a React pricing section into this static site (no framework lock-in) for:
-- `services.html`
-- every file in `/niches/*.html`
+This ExecPlan is written to maximize safe execution by Codex (GPT‑5.1 Codex Max or GPT‑5.2) while preventing unrelated site changes.
 
-The pricing UI must match the look/behavior of the existing `pricing_code.tsx` component (sourced from the Pricing Section 4 design) with ONLY the explicitly required functional/copy changes:
-- **Two rows × three cards** (6 total) per target page
-- **Row 1 toggle exists**: labels are `Monthly` + `Setup` (rename the existing `Yearly` label to `Setup`)
-- **Row 1 price toggles** between Monthly Retainer and Setup Fee values from `PRICING_COPY_MAP.md`
-- **Row 2 has no toggle**, and cards are lightly reformatted to present Row 2 copy cleanly (no creative redesign)
-- Nothing else on the website regresses (especially the hero shader)
+## Objective
 
-## Source-of-truth inputs (do not deviate)
-1. `PRICING_COPY_MAP.md` — the canonical per-page pricing copy and mapping (including `services.html`)
-2. `pricing_code.tsx` — the canonical baseline component markup/visual treatment to preserve
-3. Hero shader integration — how it’s loaded and what DOM identifiers/structure it depends on (see `src/js/hero-shader.js` and the compiled bundle in `assets/js/app.js`)
-4. Steering + guardrails files — `ExecPlan.md`, `PLANS.md`, `AGENTS.md`, `.codex/config.toml`, `/scripts/*`, and any related `codex/*.md`
+Embed the React pricing widget (from `pricing_code_prompt.md`) into the existing static site so that:
 
-## Hard invariants (must never be broken)
-### I1 — Hero shader DOM invariants
-Do NOT remove or rename any of the following, and do NOT restructure the hero in any way that changes these query results:
-- `#hero-shader-canvas`
-- `.hero.title-band`
-- `.hero .title-wrap`
-- `.hero-media`
+- `services.html` and all target niche pages show **two stacked pricing sections**.
+- Each section has **3 cards** (total 6 cards per page).
+- **Section 1** includes a **Monthly / Setup** toggle (Setup replaces Yearly).
+- **Section 2** has **no toggle**, and cards are reformatted to fit the “other options summaries” copy while keeping the same overall UI design language.
 
-Reason: the shader code queries these selectors and uses their geometry for sizing and interaction.
+## Inputs and source-of-truth constraints
 
-### I2 — No unrelated refactors
-No whitespace-only rewrites, no formatting passes, no changing unrelated styles, no re-ordering scripts, no navigation/footer edits, no “cleanup”.
+Only these sources may define integration semantics and UI fidelity:
 
-### I3 — Copy fidelity
-All pricing content must come from `PRICING_COPY_MAP.md` only:
-- Do not paraphrase
-- Do not invent missing items
-- Do not “improve” wording
-- Preserve currency, punctuation, and plan names
+- `PRICING_COPY_MAP.md` (all copy + per-page mapping)
+- `pricing_code_prompt.md` (the reference React component implementation)
+- `Embed_React_Guide.md` (embed method summary used in this repo)
+- The referenced Medium embedding article (embed method source-of-truth)
+- The referenced 21st.dev component page (visual/behavioral reference)
 
-### I4 — Output determinism
-- Pricing build outputs must use **stable, non-hashed filenames** so HTML does not require per-build edits.
+OpenAI Cookbook material may be used only for improving execution planning reliability, not for changing integration semantics.
 
-## Target pages (must all be implemented)
-- `services.html`
-- `niches/dentists.html`
-- `niches/ecommerce.html`
-- `niches/estate-agents.html`
-- `niches/fitness-coaches.html`
-- `niches/gyms-fitness-studios.html`
-- `niches/hospitality.html`
-- `niches/physios-chiropractors.html`
-- `niches/salons-barbers.html`
-- `niches/trades-virtual-office.html`
+## Target pages (must all be updated)
 
-## Site reality check (repository-grounded)
-### Pricing placeholder location (all target pages)
-Each target page currently contains:
-- `<section id="pricing" ...>`
-- Inside it, a `.neon-card` with `<h2 class="section-title">Pricing</h2>` and a `<p>` containing the placeholder text:
-  `Transparent pricing tables will appear here soon...`
+The canonical list is defined in `scripts/pricing.constants.js` and `codex/PRICING_COPY_MAP_SPEC.md`.
 
-Integration should replace this placeholder with a React mount point without impacting other sections.
+Do not “discover” additional pages via grep; follow the canonical list only.
 
-### Existing JS/CSS bundling behavior
-- `assets/js/app.js` is produced by concatenating files from `src/js/` (see `scripts/build-js.js`).
-- `assets/css/styles.css` and `assets/css/mobile.css` are produced by concatenating files from `src/css/` (see `build-css.js`).
+## Non-negotiables
 
-The React pricing widget must integrate in a way that is consistent with the site's existing “build to static assets then include” approach (same pattern used by the hero shader bundle), and consistent with the two referenced Medium embedding guides (build React to static JS/CSS, include on the target pages, mount into a dedicated div).
+- Two mounts per page:
+  - `data-ss-pricing-section="1"` (toggle)
+  - `data-ss-pricing-section="2"` (no toggle)
+- Copy must match `PRICING_COPY_MAP.md` exactly (no paraphrasing).
+- Preserve existing site layout:
+  - No global CSS nukes
+  - No mass reformatting
+  - Only edit the pricing placeholder region and add the minimal asset includes
+- Preserve hero shader invariants (must remain unchanged on every page):
+  - `id="hero-shader-canvas"` and the existing hero section structure
+  - existing `assets/js/app.js` include remains
 
----
+## New guardrails and validators
 
-# Gate-based execution (Codex MUST follow this order)
+Pre-embed (should pass immediately):
 
-## Gate 0 — Discovery & inventory (no edits)
-**Goal:** establish exact integration points and invariants.
+- `node scripts/validate-services-page.js --strict`
+- `node scripts/validate-niche-pages.js --strict`
+- `node scripts/validate-pricing-copy-map.js`
 
-1. Enumerate the target HTML pages (list above) and confirm each contains the pricing placeholder.
-2. Confirm hero shader invariants:
-   - Verify each page contains `#hero-shader-canvas` and `.hero.title-band`.
-   - Verify each page still includes `assets/js/app.js`.
-3. Inspect `pricing_code.tsx` and confirm which imported dependencies are missing from repo.
-4. Record findings in a short markdown note (new file allowed) if needed, but do not change production HTML/CSS/JS yet.
+Post-embed (should pass only after implementation):
 
-**Exit criteria (Gate 0):**
-- All target pages found and contain the placeholder
-- Hero shader invariants confirmed present on all target pages
-- Clear list of files that must be created for the React widget
+- `node scripts/validate-pricing-mounts.js`
 
-## Gate 1 — Deterministic copy extraction
-**Goal:** make `PRICING_COPY_MAP.md` machine-readable with strict validation.
+Preferred wrappers:
 
-1. Implement a parser per `codex/PRICING_COPY_MAP_SPEC.md`.
-2. Add `scripts/validate-pricing-copy-map.js` that:
-   - Parses `PRICING_COPY_MAP.md`
-   - Validates every target page has:
-     - Row 1 title/subtitle + 3 plans (each with setupFee, monthlyRetainer, bestFor, includes)
-     - Row 2 title/subtitle + 3 cards (each with label, plansIncluded[], oneLiner)
-3. Add a generator script (implementation task) to produce a typed TS module consumed by the React bundle.
+- `bash scripts/codex.setup.sh`
+- `bash scripts/codex.maintenance.sh`
 
-**Exit criteria (Gate 1):**
-- `node scripts/validate-pricing-copy-map.js` exits 0
-- Parsed page IDs exactly match the target pages list
+## Deliverables Codex must produce (implementation phase)
 
-## Gate 2 — React widget build system (minimal, isolated)
-**Goal:** add the smallest possible React+TS+Tailwind toolchain to output static assets.
+Codex will implement these later; this ExecPlan constrains how.
 
-Requirements:
-- TypeScript + React 18
-- Tailwind (prefer v4) with **CSS scoped to the pricing mount** (no global resets on the host site)
-- Only the dependencies required by `pricing_code.tsx` and the provided dependency components
+1. A self-contained pricing widget build output:
+   - `assets/js/pricing-widget.js`
+   - `assets/css/pricing-widget.css`
+   - Stable names (no hashes)
 
-Outputs (stable filenames; no hashing):
-- `assets/css/pricing-widget.css`
-- `assets/js/pricing-widget.js`
+2. Updated HTML pages:
+   - Replace the pricing placeholder content with two mount containers inside `<section id="pricing">`
+   - Add one CSS include + one JS include for the widget (path differs for `niches/*`)
 
-**Exit criteria (Gate 2):**
-- `npm run build` (or equivalent) produces both files
-- The CSS is scoped so it does not affect the rest of the site
+3. Correct mapping:
+   - `PRICING_COPY_MAP.md` mapped deterministically by `data-ss-pricing-page` + `data-ss-pricing-section`
 
-## Gate 3 — Pricing component implementation (two rows)
-**Goal:** implement the pricing UI using `pricing_code.tsx` as the baseline.
+## Execution strategy
 
-Implementation rules:
-1. Preserve the existing structure, classes, and visual effects from `pricing_code.tsx` for Row 1 and overall section visuals.
-2. Inject page-specific copy from the generated copy module.
-3. Modify the switch:
-   - Keep the UI exactly the same
-   - Rename label `Yearly` → `Setup`
-   - Toggle changes numeric prices:
-     - `Monthly` shows the page's “Monthly Retainer”
-     - `Setup` shows the page's “Setup Fee (one-time)”
-4. Render two separate grids:
-   - Row 1: 3 plan cards + toggle
-   - Row 2: 3 summary cards, **no toggle**
-5. Ensure there is a visible break between row 1 and row 2 (simple divider/spacing; no redesign).
-6. Row 2 formatting must follow `codex/PRICING_WIDGET_SPEC.md` rules for long “Plans included” lists.
+Follow an evaluation flywheel:
 
-**Exit criteria (Gate 3):**
-- For a representative page (services + one niche), the rendered DOM contains:
-  - 6 cards total
-  - Exactly one toggle component (Row 1 only)
-  - Toggle changes displayed numbers and `/month` vs `/setup` label
-  - Row 2 shows all “Plans included” content without truncation
+- Make the smallest safe change
+- Run the most relevant validator(s)
+- Only then move to the next change
+- If a validator fails, fix forward without expanding scope
 
-## Gate 4 — Static HTML integration
-**Goal:** safely mount React into existing HTML without breaking the site.
+## Stop conditions (hard)
 
-Per target page:
-1. Replace the existing placeholder content in `<section id="pricing">` with a mount element:
-   - Must include `class="ss-pricing"`
-   - Must include `data-ss-pricing-page="..."`
-2. Include the new static assets on each target page:
-   - `<link rel="stylesheet" href="assets/css/pricing-widget.css">`
-   - `<script src="assets/js/pricing-widget.js"></script>`
-3. Ensure the hero shader markup and script tags remain untouched.
+Stop and report (do not keep hacking) if any of these occur:
 
-Add `scripts/validate-pricing-mounts.js` to verify:
-- mount present on each target page with correct `data-ss-pricing-page`
-- placeholder string removed
-- hero shader selectors still present
-- pricing widget assets referenced in HTML
+- A target page is missing `<section id="pricing">`
+- The pricing placeholder region differs so much that insertion would require reworking the page layout
+- Any change affects hero shader markup, the main nav, or global CSS
+- Copy mapping can’t be made exact without editing `PRICING_COPY_MAP.md`
 
-**Exit criteria (Gate 4):**
-- `node scripts/validate-pricing-mounts.js` exits 0
+## Milestone gates
 
-## Gate 5 — Verification & regression safety
-**Goal:** prove correctness and prevent regressions.
+### Gate 0 — Preflight / repo grounding (no edits)
 
-Automated:
-- `npm run validate` (existing)
+Commands:
+
+- `node scripts/validate-pricing-copy-map.js`
+- `node scripts/validate-services-page.js --strict`
+- `node scripts/validate-niche-pages.js --strict`
+
+Confirm:
+
+- Target pages exist at the paths listed in `scripts/pricing.constants.js`
+- Every target page contains a pricing placeholder region in `<section id="pricing">`
+- No existing React embed system exists (this repo is static + built JS/CSS)
+
+### Gate 1 — Copy mapping plan is deterministic
+
+Output requirements:
+
+- Decide the runtime copy lookup key:
+  - Must use `data-ss-pricing-page` attribute value equal to the repo-relative HTML path (e.g., `niches/dentists.html`)
+  - Must use `data-ss-pricing-section` value `"1"` or `"2"`
+
+Validation:
+
+- `node scripts/validate-pricing-copy-map.js --print-json` (inspect structure)
+- Confirm every page has:
+  - Section 1: title + subtitle + 3 plan cards
+  - Section 2: title + subtitle + 3 group cards
+
+### Gate 2 — Widget build scaffolding (minimal, isolated)
+
+Constraints:
+
+- All React widget work must be isolated to a new subproject folder (recommended: `pricing-widget/`).
+- Do not add React deps to the root project.
+- Build output must be stable-named and copied/emitted into `assets/js/` and `assets/css/`.
+
+Key embed requirement:
+
+- The built `assets/js/pricing-widget.js` must mount itself safely by scanning the DOM for `.ss-pricing` mount nodes after DOM is ready.
+
+CSS safety requirement:
+
+- Widget CSS must not contain global resets that impact the rest of the site.
+
+### Gate 3 — Implement Section 1 vs Section 2 behavior
+
+Section 1 requirements:
+
+- Toggle shows “Monthly” and “Setup”
+- Sliding highlight animation works exactly like reference
+- Prices switch between monthly retainer and setup fee values from `PRICING_COPY_MAP.md`
+
+Section 2 requirements:
+
+- No toggle rendered at all
+- Card content supports the “other options summaries” layout:
+  - group label
+  - one-liner
+  - bullet list (and optional subcategory headings)
+
+Animations:
+
+- Sparkles background must run
+- Toggle animation must run (Section 1 only)
+
+### Gate 4 — HTML integration (page-by-page, minimal diffs)
+
+For each target page:
+
+1. Replace the pricing placeholder content inside `<section id="pricing">` with two mount containers:
+   - `<div class="ss-pricing" data-ss-pricing-page="..." data-ss-pricing-section="1"></div>`
+   - `<div class="ss-pricing" data-ss-pricing-page="..." data-ss-pricing-section="2"></div>`
+
+2. Add includes:
+   - `assets/css/pricing-widget.css` in `<head>`
+   - `assets/js/pricing-widget.js` near end of `<body>` (or alongside existing scripts)
+
+Relative path rule:
+
+- Root pages: `assets/...`
+- Niche pages: `../assets/...`
+
+Do not touch other sections.
+
+### Gate 5 — Automated validations
+
+Run:
+
 - `node scripts/validate-pricing-copy-map.js`
 - `node scripts/validate-pricing-mounts.js`
 
-Manual (required):
-- Open each target page in a browser and confirm:
-  - No console errors
-  - Hero shader renders and animates as before
-  - Row 1 toggle shows “Monthly” and “Setup”
-  - Switching the toggle updates prices to correct numbers (spot-check each plan)
-  - Row 2 has no toggle, shows 3 cards, and contains the expected plan group copy
-  - Visual break exists between row 1 and row 2
-  - Overall look matches the baseline component visual style
+Plus baseline validators to ensure no unrelated breakage:
 
-**Exit criteria (Gate 5):**
-- All automated checks pass
-- Manual spot-check confirms page-specific copy correctness and no shader regressions
+- `node scripts/validate-services-page.js --strict`
+- `node scripts/validate-niche-pages.js --strict`
+
+### Gate 6 — Manual spot checks (minimal, targeted)
+
+Open in a browser:
+
+- `services.html`
+- One representative niche page
+- One “complex plans” page (services, estate-agents)
+
+Check:
+
+- Two stacked pricing sections exist
+- Section 1 toggle works and switches values correctly
+- Section 2 has no toggle and has readable bullets
+- Visual design matches the reference component within reasonable site constraints
+- No layout regressions elsewhere on page
+
+## Definition of done
+
+All of the following are true:
+
+- Every target page has exactly two mounts with correct data attributes
+- Widget assets exist at `assets/js/pricing-widget.js` and `assets/css/pricing-widget.css`
+- `node scripts/validate-pricing-mounts.js` passes
+- Copy in rendered UI matches `PRICING_COPY_MAP.md` exactly
+- No unrelated diffs outside:
+  - target HTML pages (`services.html`, `niches/*.html`)
+  - widget subproject folder
+  - `assets/js/pricing-widget.js`, `assets/css/pricing-widget.css`
+  - these guardrail scripts/docs
