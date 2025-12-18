@@ -1,9 +1,8 @@
 # FILE: .codex/config.toml
-# Repo-local Codex CLI defaults for this project.
-#
-# Use GPT-5.1 Codex Max or GPT-5.2 Codex only.
-# If your Codex CLI reads config from ~/.codex/config.toml instead of repo-local config,
-# copy these settings there (or pass equivalent CLI overrides).
-
+# Codex CLI defaults for this repo.
+# This repo contains multiple ExecPlans; for the homepage task, use the dedicated
+# initiation prompt + ExecPlan in:
+# - codex/CODEX_INIT_PROMPT_HOMEPAGE_INDEX_SECTIONS.md
+# - .agent/ExecPlan.Homepage.IndexSections.md
 model = "gpt-5.1-codex-max"
 approval_policy = "on_request"
