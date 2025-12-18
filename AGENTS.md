@@ -1,43 +1,60 @@
 <!-- FILE: AGENTS.md -->
+# Agent Rules — Static Site + Embedded React Widgets
 
-# Codex Repo Instructions (AGENTS)
+These rules apply to Codex agents working in this repo.
 
-These rules apply to all Codex runs in this repo.
+## 0) Model constraint
+Use only **GPT-5.1 Codex Max** or **GPT-5.2**.
 
-## Models (constraint)
-Use only:
-- gpt-5.2
-- gpt-5.1-codex-max
+---
 
-## Source of truth
-For any run, the user’s initiation prompt + the referenced ExecPlan/spec files are authoritative.
-If older docs conflict, follow the active spec for the run.
+## 1) Task selection (do not mix scopes)
 
-## Scope discipline
-- Make the smallest change that satisfies the spec.
-- No design refresh, no copy rewrites, no refactors unrelated to the requested behavior.
-- Keep edits localized to the file targets named in the active spec.
+This repo has multiple Codex task tracks. Pick ONE per run:
 
-## Build outputs (required)
-If you modify anything under `src/css/**` or `src/js/**`, you MUST rebuild:
-- `npm run build:css` (updates `assets/css/styles.css`)
-- `npm run build:js`  (updates `assets/js/app.js`)
+### A) Pricing widget (existing tracks)
+- Pricing embed: `codex/CODEX_INIT_PROMPT.md` + `ExecPlan.md`
+- Pricing UI tuning: `codex/CODEX_INIT_PROMPT_PRICING_UI_TUNING.md` + `ExecPlan_Pricing_UI_Tuning.md`
 
-## Styling/token rules (strict)
-- Do not invent new color tokens or one-off hex values when the spec says to reuse existing tokens.
-- Prefer existing CSS variables (e.g., `var(--color-blue)`, `var(--color-white)`, etc.) and existing structural classes.
-- For services.html “Core Bundle Bullets” (C1): follow the spec exactly (two-line heading, same line-break technique as “General Service Lines”).
+### B) Site UI fixes (THIS track)
+- Use: `codex/CODEX_INIT_PROMPT_SITE_UI_FIXES.md`
+- Follow: `.agent/ExecPlan.SiteUI.Fixes.md`
+- Spec: `codex/SITE_UI_FIXES_SPEC.md`
 
-## Nested-page path hygiene
-For runtime JS that constructs asset URLs, prefer absolute paths like `/assets/...` so it works from `/niches/*.html` without needing `../`.
+Do not interleave pricing work with site UI work in the same run.
 
-## Validation
-Before finishing:
-- Run the task-specific validator(s) referenced by the spec.
-- Then run: `bash scripts/codex.maintenance.sh`
+---
 
-## Final response format
-End with:
-- List of files changed
-- Commands run
-- Requirement-by-requirement checklist
+## 2) Safety rules (must follow)
+- Minimize diffs. No mass formatting changes.
+- No unrelated refactors.
+- Respect desktop-vs-mobile gating.
+- Keep build architecture: edit `src/**` + `.html`, then rebuild outputs.
+
+---
+
+## 3) Site UI fixes: hard constraints (summary)
+For full detail, follow `codex/SITE_UI_FIXES_SPEC.md`. Key non-negotiables:
+- Desktop Services dropdown must open on hover AND include a hoverable “corridor” covering the gap to the dropdown.
+- Spacing must be uniform site-wide for `.section` blocks, with tighter spacing applied at specified boundaries on `services.html` and `niches/*.html`.
+- Mobile marquees must not show late-loading pop-in; preload/decode before animation.
+
+---
+
+## 4) Verification rules (Site UI fixes)
+Before finalizing:
+- `npm run build`
+- `bash scripts/codex.ui-fixes.sh`
+- Manual smoke:
+  - Desktop Services hover corridor + minimize timing
+  - Mobile nav panel timing + “<-- Services” font size parity
+  - Mobile marquee: no pop-in during motion
+  - Spacing consistency across multiple pages
+
+---
+
+## 5) Stop conditions (must stop and report)
+Stop immediately if:
+- The hover corridor requirement seems to require a redesign of header layout.
+- Uniform section spacing requires rewriting page markup beyond adding/removing utility classes.
+- You feel compelled to invent new tokens/classes for Services C1 color rules.
