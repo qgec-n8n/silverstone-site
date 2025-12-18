@@ -1,27 +1,50 @@
 <!-- FILE: codex/CODEX_INIT_PROMPT_SITE_UI_FIXES.md -->
 
-You are Codex running inside this repository.
+# Codex Initiation Prompt — Site UI Fixes (A–E)
 
-Task: Implement the Site UI fixes A–E exactly as specified in `codex/SITE_UI_FIXES_SPEC.md`.
+You are Codex running in this repository.
 
-Constraints:
-- Only consider Codex models: gpt-5.2 (default) or gpt-5.1-codex-max.
-- Do not redesign or refactor. Minimal diffs. Stay strictly within A–E.
-- Respect desktop-vs-mobile separation (especially D1 vs D2 and B mobile-only).
-- For services.html “Core Bundle Bullets” (C1): reuse existing tokens only; do NOT invent new colors/tokens; mirror the “General Service Lines” line-break technique.
-- Rebuild compiled assets when touching `src/css/**` or `src/js/**`:
-  - `npm run build:css`
-  - `npm run build:js`
+## Model constraint
+Use only **GPT-5.1 Codex Max** or **GPT-5.2**.
 
-Workflow (follow in order):
-1. Read `AGENTS.md`, then `ExecPlan_Site_UI_Fixes.md`, then `codex/SITE_UI_FIXES_SPEC.md`.
-2. Run `bash scripts/codex.ui-fixes.sh` once to get the baseline failures.
-3. Implement fixes in small phases (per `ExecPlan_Site_UI_Fixes.md`), running:
-   - `node scripts/validate-site-ui-fixes.js`
-   after each phase, and fixing failures immediately.
-4. Before finishing, run:
-   - `bash scripts/codex.maintenance.sh`
+## Mission
+Implement the site UI fixes specified in:
+- `codex/SITE_UI_FIXES_SPEC.md`
+- following the gates in `.agent/ExecPlan.SiteUI.Fixes.md`
 
-Finish by outputting:
-- A checklist mapping each requirement (A–E) → what changed → how it was verified
-- Manual QA notes for Desktop dropdown/minimize behavior (D1)
+This includes (must not miss):
+1) **Desktop Services hover corridor** (hover gap is hoverable; banner + dropdown stay maximized during downward travel)
+2) **Global uniform section spacing** + additional boundary reductions on `services.html` and all `niches/*.html`
+3) **Mobile marquee always-loaded behavior** (images decoded before animation; no pop-in)
+
+## Non-negotiable constraints
+- Desktop-only behavior must be gated to desktop (`(hover:hover) and (pointer:fine)`).
+- Mobile-only behavior must be gated to mobile (`max-width: 768px`, `(hover:none)`).
+- Services C1: reuse existing “General Service Lines” heading markup + tokens; do not create new color tokens/classes.
+- Keep diffs minimal; no formatting churn.
+
+## Required reading order (do this first)
+1. `.agent/ExecPlan.SiteUI.Fixes.md`
+2. `codex/SITE_UI_FIXES_SPEC.md`
+3. `AGENTS.md`
+4. Targets:
+   - `src/js/header-nav.js`, `src/css/components/header.css`
+   - `src/js/marquee.js`, `src/css/features/marquee.css`
+   - `src/css/base/variables.css`, `src/css/base/layout.css`, `src/css/base/typography.css`
+
+## Execution rules (evaluation flywheel)
+Work in small steps:
+- make a focused change
+- run `npm run build`
+- run `node scripts/validate-site-ui-fixes.js --strict`
+- fix failures immediately before moving on
+
+Use the wrapper:
+- `bash scripts/codex.ui-fixes.sh`
+
+## Completion checklist (must report)
+When done, summarize:
+- Files changed
+- Commands run
+- Manual checks performed (desktop hover corridor + mobile marquees + spacing)
+- Confirm `node scripts/validate-site-ui-fixes.js --strict` passes
