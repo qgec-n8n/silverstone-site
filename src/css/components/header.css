@@ -88,6 +88,7 @@ nav {
   --headerH: clamp(66px, 8vh, 88px);
   /* SPEC: MOBILE_NAV_TIMINGS_TUNED */
   --mobile-nav-panel-slide-ms: 1250ms;
+  --mobile-nav-item-reveal-delay-base-ms: 750ms;
   --mobile-nav-item-stagger-ms: 280ms;
   --mobile-nav-item-reveal-ms: 450ms;
 }
@@ -458,7 +459,7 @@ nav {
     li {
     animation: mobileNavStagger var(--mobile-nav-item-reveal-ms) ease forwards;
     animation-delay: calc(
-      var(--mobile-nav-panel-slide-ms) +
+      var(--mobile-nav-item-reveal-delay-base-ms, var(--mobile-nav-panel-slide-ms)) +
         (var(--item-index, 0) * var(--mobile-nav-item-stagger-ms))
     );
   }
@@ -469,7 +470,7 @@ nav {
     li {
     animation: mobileNavStagger var(--mobile-nav-item-reveal-ms) ease forwards;
     animation-delay: calc(
-      var(--mobile-nav-panel-slide-ms) +
+      var(--mobile-nav-item-reveal-delay-base-ms, var(--mobile-nav-panel-slide-ms)) +
         (var(--item-index, 0) * var(--mobile-nav-item-stagger-ms))
     );
   }
@@ -483,6 +484,7 @@ nav {
     border-radius: 14px;
     text-decoration: none;
     font-weight: 700;
+    font-size: 1rem;
     letter-spacing: 0.05em;
     color: var(--color-blue);
     background: linear-gradient(
