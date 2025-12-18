@@ -1,30 +1,9 @@
 # FILE: .codex/config.toml
-# This is a sample Codex CLI config. Place in ~/.codex/config.toml or merge into your existing config.
-# It is included in-repo so agents and humans have a shared baseline.
+# Repo-local Codex CLI defaults for this project.
+#
+# Use GPT-5.1 Codex Max or GPT-5.2 Codex only.
+# If your Codex CLI reads config from ~/.codex/config.toml instead of repo-local config,
+# copy these settings there (or pass equivalent CLI overrides).
 
-# Default to GPT-5.2 for strong reasoning + robustness.
-model = "gpt-5.2"
-model_reasoning_effort = "high"
-
-# Ask for approvals on potentially destructive actions only.
-approval_policy = "on-failure"
-
-# Allow writing within the repo workspace.
-sandbox_mode = "workspace-write"
-
-[features]
-web_search_request = true
-ghost_commit = true
-
-# Optional profiles for task-specific runs.
-[profiles.site-ui-fixes]
 model = "gpt-5.1-codex-max"
-model_reasoning_effort = "high"
-approval_policy = "on-failure"
-sandbox_mode = "workspace-write"
-
-[profiles.pricing-tuning]
-model = "gpt-5.2"
-model_reasoning_effort = "high"
-approval_policy = "on-failure"
-sandbox_mode = "workspace-write"
+approval_policy = "on_request"
