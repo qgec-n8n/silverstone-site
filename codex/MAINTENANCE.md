@@ -1,54 +1,38 @@
 <!-- FILE: codex/MAINTENANCE.md -->
-# Maintenance & Safe Changes
+# Maintenance & Validation (UI/UX Bugfixes A–H)
 
-Use this doc when:
-- Maintaining pricing embed/tuning
-- Adding a new niche page
-- Making site UI fixes covered by a Codex spec + validator
+This doc describes the “happy path” commands to rebuild and validate the site after UI/UX changes.
 
-## Quick maintenance command
-Run:
+## Build outputs
+
+This repo keeps build outputs committed:
+
+- CSS: `src/css/**` → `node build-css.js` → `assets/css/styles.css`
+- JS: `src/js/**` → `node scripts/build-js.js` → `assets/js/app.js`
+
+Always rebuild after editing source CSS/JS.
+
+## One-command maintenance run
+
+From repo root:
+
 - `bash scripts/codex.maintenance.sh`
 
-## Quick site UI fixes command
-Run:
-- `bash scripts/codex.ui-fixes.sh`
+This will:
+1. rebuild CSS and JS
+2. run the validation scripts that enforce the A–H requirements
 
-## Quick pricing UI tuning command
-Run:
-- `bash scripts/codex.pricing-tuning.sh`
+## Marquee image set maintenance
 
-Environment variables (optional):
-- `CODEX_SKIP_NPM=1` to skip `npm install`
-- `CODEX_SKIP_BUILD=1` to skip `npm run build`
-- `CODEX_SKIP_WIDGET_BUILD=1` to skip widget build
-- `CODEX_FORCE_WIDGET_BUILD=1` to rebuild widget even if assets already exist
-- `CODEX_PRICING_UI_TUNING_STRICT=1` to run the tuning validator in strict mode inside `scripts/codex.maintenance.sh`
-- `CODEX_SITE_UI_FIXES_STRICT=1` to run the site UI fixes validator in strict mode inside `scripts/codex.maintenance.sh`
+When images are added/removed under `assets/images/socialmedia/`, regenerate the marquee list:
 
-## Site UI fixes (A–E)
-1. Read:
-   - `.agent/ExecPlan.SiteUI.Fixes.md`
-   - `codex/SITE_UI_FIXES_SPEC.md`
-2. Implement changes in:
-   - `.html` pages (top-level + `niches/*.html`)
-   - `src/css/**`, `src/js/**`
-3. Rebuild:
-   - `npm run build`
-4. Validate:
-   - `bash scripts/codex.ui-fixes.sh`
-   - Or directly:
-     - `node scripts/validate-site-ui-fixes.js --strict`
+- Update list (writes into `src/js/marquee.js`):
+  - `node scripts/generate-marquee-images.js`
+- Check list is up-to-date (CI-style, no write):
+  - `node scripts/generate-marquee-images.js --check`
 
-## Updating pricing copy
-1. Edit `PRICING_COPY_MAP.md` only.
-2. Run:
-   - `node scripts/validate-pricing-copy-map.js`
+## If validations fail
 
-## Changing the widget code
-1. Make changes only inside the pricing widget isolated folder (recommended: `pricing-widget/`).
-2. Build widget outputs:
-   - `assets/js/pricing-widget.js`
-   - `assets/css/pricing-widget.css`
-3. Validate mounts:
-   - `node scripts/validate-pricing-mounts.js`
+- Read the error output; it’s designed to tell you which file and what condition failed.
+- Fix the source file (usually an HTML attribute, class, or a CSS/JS rule) and rerun:
+  - `bash scripts/codex.maintenance.sh`
