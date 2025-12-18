@@ -45,6 +45,8 @@
     const serviceLinks = document.querySelectorAll('.service-link');
 
     let servicesDropdownOpen = false;
+    let servicesHoverCloseTimeoutId;
+    let pointerInHeader = false;
 
     let navBackButton;
     if (navMenu && !navMenu.querySelector('.nav-back-item')) {
@@ -222,6 +224,7 @@
       clearTimeout(headerAutoHideTimeoutId);
       if (isMobileNavOpen) return;
       headerAutoHideTimeoutId = window.setTimeout(() => {
+        if (pointerInHeader) return;
         if (navMenu && navMenu.classList.contains('open')) return;
         if (
           servicesDropdownOpen ||
@@ -246,8 +249,9 @@
       showHeader();
     }
 
-    function closeServicesDropdown() {
+    function closeServicesDropdown(options = {}) {
       if (!servicesDropdown || !servicesMenu) return;
+      clearTimeout(servicesHoverCloseTimeoutId);
       servicesDropdown.classList.remove('open');
       servicesMenu.setAttribute('aria-hidden', 'true');
       if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'false');
@@ -257,7 +261,11 @@
         !isServicesOverlayActive() &&
         !(navMenu && navMenu.classList.contains('open'))
       ) {
-        scheduleHeaderAutoHide();
+        const minimizeDelayMs =
+          typeof options.minimizeDelayMs === 'number'
+            ? options.minimizeDelayMs
+            : undefined;
+        scheduleHeaderAutoHide(minimizeDelayMs ?? 1200);
       }
     }
 
@@ -371,6 +379,27 @@
       });
     }
 
+    const canDesktopHover = () =>
+      !!window.matchMedia &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+      !isMobileViewport();
+
+    if (servicesDropdown) {
+      servicesDropdown.addEventListener('mouseenter', () => {
+        if (!canDesktopHover()) return;
+        clearTimeout(servicesHoverCloseTimeoutId);
+        openServicesDropdown();
+      });
+
+      servicesDropdown.addEventListener('mouseleave', () => {
+        if (!canDesktopHover()) return;
+        clearTimeout(servicesHoverCloseTimeoutId);
+        servicesHoverCloseTimeoutId = window.setTimeout(() => {
+          closeServicesDropdown({ minimizeDelayMs: 1000 });
+        }, 80);
+      });
+    }
+
     if (servicesOverlayBack) {
       servicesOverlayBack.addEventListener('click', (event) => {
         event.preventDefault();
@@ -448,8 +477,15 @@
 
     headerIndicator.addEventListener('mouseenter', showHeader);
     if (header) {
-      header.addEventListener('mouseenter', showHeader);
-      header.addEventListener('mouseleave', hideHeader);
+      header.addEventListener('mouseenter', () => {
+        pointerInHeader = true;
+        clearTimeout(headerAutoHideTimeoutId);
+        showHeader();
+      });
+      header.addEventListener('mouseleave', () => {
+        pointerInHeader = false;
+        hideHeader();
+      });
       header.addEventListener('click', () => {
         if (!isMobileViewport()) return;
         if (isMobileNavOpen) return;

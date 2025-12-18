@@ -1,5 +1,6 @@
 :root {
   --color-blue: #00aeef;
+  --color-primary: var(--color-blue);
   --color-purple: #9d4edd;
   --color-green: #00ff9d;
   --color-black: #0b0c10;
@@ -1169,7 +1170,7 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, var(--body-section-overlay-opacity));
   z-index: 0;
   pointer-events: none;
 }
@@ -1652,7 +1653,7 @@ nav {
     li {
     animation: mobileNavStagger var(--mobile-nav-item-reveal-ms) ease forwards;
     animation-delay: calc(
-      var(--mobile-nav-panel-slide-ms) +
+      (var(--mobile-nav-panel-slide-ms) / 2) +
         (var(--item-index, 0) * var(--mobile-nav-item-stagger-ms))
     );
   }
@@ -1663,7 +1664,7 @@ nav {
     li {
     animation: mobileNavStagger var(--mobile-nav-item-reveal-ms) ease forwards;
     animation-delay: calc(
-      var(--mobile-nav-panel-slide-ms) +
+      (var(--mobile-nav-panel-slide-ms) / 2) +
         (var(--item-index, 0) * var(--mobile-nav-item-stagger-ms))
     );
   }
@@ -1677,6 +1678,7 @@ nav {
     border-radius: 14px;
     text-decoration: none;
     font-weight: 700;
+    font-size: 1rem;
     letter-spacing: 0.05em;
     color: var(--color-blue);
     background: linear-gradient(
@@ -1796,6 +1798,15 @@ nav {
     opacity 0.3s ease,
     transform 0.3s ease;
   z-index: 1600;
+}
+
+.services-menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1rem;
+  height: 1rem;
 }
 
 .nav-dropdown.open .services-menu {
@@ -2267,6 +2278,10 @@ body.services-overlay-active .services-overlay {
 }
 
 @media (max-width: 768px) {
+  .hero.title-band {
+    padding-bottom: calc(2.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
   .hero .content {
     display: flex;
     flex-direction: column;
@@ -2527,10 +2542,6 @@ body.services-overlay-active .services-overlay {
   margin: 0 !important;
 }
 
-.service-row:nth-of-type(even) {
-  flex-direction: row-reverse;
-}
-
 .service-row .service-image {
   flex: 1 1 45%;
   position: relative;
@@ -2726,14 +2737,6 @@ body.services-overlay-active .services-overlay {
 @media (min-width: 769px) {
   .service-row {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .service-row:nth-of-type(even) .service-image {
-    order: 2;
-  }
-
-  .service-row:nth-of-type(even) .service-content {
-    order: 1;
   }
 }
 
@@ -4761,23 +4764,7 @@ body.services-overlay-active .services-overlay {
 }
 
 .section.compact-section {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
-@media (max-width: 768px) {
-  body.page-niche {
-    background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
-    background-image: -webkit-image-set(
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
-    );
-    background-image: image-set(
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
-      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
-    );
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-  }
-}

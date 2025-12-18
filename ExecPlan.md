@@ -266,15 +266,15 @@ Manual behavior matrix:
 
 ## Progress tracker (keep updated during execution)
 
-- [ ] Gate 0 complete
-- [ ] Gate 1 complete (A1)
-- [ ] Gate 2 complete (A2, F)
-- [ ] Gate 3 complete (A3)
-- [ ] Gate 4 complete (A4, B)
-- [ ] Gate 5 complete (C, E, G)
-- [ ] Gate 6 complete (D)
-- [ ] Gate 7 complete (H)
-- [ ] Finalization complete
+- [x] Gate 0 complete
+- [x] Gate 1 complete (A1)
+- [x] Gate 2 complete (A2, F)
+- [x] Gate 3 complete (A3)
+- [x] Gate 4 complete (A4, B)
+- [x] Gate 5 complete (C, E, G)
+- [x] Gate 6 complete (D)
+- [x] Gate 7 complete (H)
+- [x] Finalization complete
 
 ---
 
@@ -285,8 +285,15 @@ Record anything unexpected (e.g., hidden CSS ordering rules, runtime DOM inserti
 - where
 - how it was resolved
 
+- `scripts/validate-niche-pages.js` validates spacing (E) + overlay (A4) in addition to A3; implemented those niche-scoped E/A4/B changes before re-running the Gate 3 validation to satisfy the single validator gate.
+- `src/js/marquee.js` had duplicate `MARQUEE_IMAGES` constants (single vs double marquee); consolidated into one shared list so the generator/check reflects what both marquees render.
+
 ---
 
 ## Decision log (append-only)
 
 Record decisions that could have been done multiple ways (e.g., how you implement hover bridging, how you interpret “use all images” with multiple renditions).
+
+- Marquee preload (F): preload all `MARQUEE_IMAGES` on mobile with a `1400ms` timeout fallback (start marquee after preload completes or timeout).
+- Marquee list (A2): keep exactly one `const MARQUEE_IMAGES = [ ... ];` block in `src/js/marquee.js` so `scripts/generate-marquee-images.js` remains the source-of-truth for both single + double marquees.
+- Overlay (A4): replaced the legacy `rgba(..., 0.6)` section overlay in `src/css/base/layout.css` with `rgba(0, 0, 0, var(--body-section-overlay-opacity))` to align with the existing overlay token.

@@ -1,5 +1,6 @@
 :root {
   --color-blue: #00aeef;
+  --color-primary: var(--color-blue);
   --color-purple: #9d4edd;
   --color-green: #00ff9d;
   --color-black: #0b0c10;

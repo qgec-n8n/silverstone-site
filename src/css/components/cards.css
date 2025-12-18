@@ -240,10 +240,6 @@
   margin: 0 !important;
 }
 
-.service-row:nth-of-type(even) {
-  flex-direction: row-reverse;
-}
-
 .service-row .service-image {
   flex: 1 1 45%;
   position: relative;
@@ -439,14 +435,6 @@
 @media (min-width: 769px) {
   .service-row {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .service-row:nth-of-type(even) .service-image {
-    order: 2;
-  }
-
-  .service-row:nth-of-type(even) .service-content {
-    order: 1;
   }
 }
 
