@@ -1,60 +1,65 @@
 <!-- FILE: AGENTS.md -->
-# Agent Rules — Static Site + Embedded React Widgets
+# Silverstone Static Site — Codex Agent Guardrails (UI/UX Fixes A–H)
 
-These rules apply to Codex agents working in this repo.
+This repo is a static multi-page HTML site. Your job (when running Codex) is to implement **all** UI/UX fixes A–H exactly as specified in **PLANS.md** by following the step-by-step workflow in **ExecPlan.md**.
 
-## 0) Model constraint
-Use only **GPT-5.1 Codex Max** or **GPT-5.2**.
+## Golden rules
 
----
+1. **Requirements win.** If any existing file content conflicts with the A–H requirements, **change the code** to satisfy A–H (do not preserve conflicting behavior).
+2. **No scope creep.** Do not redesign, refactor, rename, or “improve” unrelated parts of the site. Only touch what is required to satisfy A–H.
+3. **Reuse existing tokens/classes.** Do **not** introduce new color tokens or arbitrary hex colors. Reuse existing CSS tokens and existing responsive conventions.
+4. **Source-of-truth is `src/`.**  
+   - Edit **`src/css/**` and **`src/js/**`** (and the relevant `.html` pages).  
+   - Then rebuild outputs: **`assets/css/styles.css`** and **`assets/js/app.js`**.
+   - Do **not** hand-edit built assets unless a plan step explicitly requires it (it shouldn’t).
+5. **Make changes deterministic & reviewable.** Small diffs, clear intent, no drive-by formatting.
 
-## 1) Task selection (do not mix scopes)
+## Repo map (what to edit)
 
-This repo has multiple Codex task tracks. Pick ONE per run:
+### Pages
+- Core pages (blue hero shader required): `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`
+- Niche pages (purple hero shader required): `niches/*.html`
 
-### A) Pricing widget (existing tracks)
-- Pricing embed: `codex/CODEX_INIT_PROMPT.md` + `ExecPlan.md`
-- Pricing UI tuning: `codex/CODEX_INIT_PROMPT_PRICING_UI_TUNING.md` + `ExecPlan_Pricing_UI_Tuning.md`
+### JavaScript
+- Hero shader: `src/js/hero-shader.js`
+- Header / menu banner behavior: `src/js/header-nav.js`
+- Single & double marquee logic: `src/js/marquee.js`
+- Animations / intersection observer: `src/js/animations.js` (only if necessary for A–H)
 
-### B) Site UI fixes (THIS track)
-- Use: `codex/CODEX_INIT_PROMPT_SITE_UI_FIXES.md`
-- Follow: `.agent/ExecPlan.SiteUI.Fixes.md`
-- Spec: `codex/SITE_UI_FIXES_SPEC.md`
+### CSS
+- Global section padding + overlay: `src/css/base/layout.css`, `src/css/base/variables.css`
+- Hero layout (CTA positioning): `src/css/components/hero.css`
+- Header/menu banner + mobile panels: `src/css/components/header.css`
+- Services & niche shared spacing class: `src/css/pages/estate-agents.css` (contains `.compact-section`)
 
-Do not interleave pricing work with site UI work in the same run.
+### Build outputs
+- CSS build entry: `build-css.js` → outputs `assets/css/styles.css`
+- JS build entry: `scripts/build-js.js` → outputs `assets/js/app.js`
 
----
+## Build & validate commands (expected in ExecPlan)
 
-## 2) Safety rules (must follow)
-- Minimize diffs. No mass formatting changes.
-- No unrelated refactors.
-- Respect desktop-vs-mobile gating.
-- Keep build architecture: edit `src/**` + `.html`, then rebuild outputs.
+- Install deps:
+  - `npm install`
+- Build:
+  - `node build-css.js`
+  - `node scripts/build-js.js`
+- Validate (scripts are designed to fail until the A–H changes are implemented):
+  - `node scripts/validate-core-pages.js`
+  - `node scripts/validate-services-page.js`
+  - `node scripts/validate-niche-pages.js`
+  - `node scripts/generate-marquee-images.js --check`
+  - `node scripts/assert-ui-spec.js`
+  - `bash scripts/codex.maintenance.sh` (runs the full set)
 
----
+## Accessibility & interaction expectations
 
-## 3) Site UI fixes: hard constraints (summary)
-For full detail, follow `codex/SITE_UI_FIXES_SPEC.md`. Key non-negotiables:
-- Desktop Services dropdown must open on hover AND include a hoverable “corridor” covering the gap to the dropdown.
-- Spacing must be uniform site-wide for `.section` blocks, with tighter spacing applied at specified boundaries on `services.html` and `niches/*.html`.
-- Mobile marquees must not show late-loading pop-in; preload/decode before animation.
+- Do not break keyboard navigation: maintain sensible `aria-*` attributes and focus behavior.
+- Desktop hover behavior must be gated to true hover devices (use `matchMedia('(hover: hover) and (pointer: fine)')`).
+- Mobile interactions should remain tap-first and reliable.
 
----
+## Output expectations (for Codex run)
 
-## 4) Verification rules (Site UI fixes)
-Before finalizing:
-- `npm run build`
-- `bash scripts/codex.ui-fixes.sh`
-- Manual smoke:
-  - Desktop Services hover corridor + minimize timing
-  - Mobile nav panel timing + “<-- Services” font size parity
-  - Mobile marquee: no pop-in during motion
-  - Spacing consistency across multiple pages
-
----
-
-## 5) Stop conditions (must stop and report)
-Stop immediately if:
-- The hover corridor requirement seems to require a redesign of header layout.
-- Uniform section spacing requires rewriting page markup beyond adding/removing utility classes.
-- You feel compelled to invent new tokens/classes for Services C1 color rules.
+When Codex finishes:
+- Provide a **short change summary** grouped by requirement (A–H).
+- List **all files changed**.
+- Confirm you rebuilt CSS/JS outputs and ran the validation scripts.
