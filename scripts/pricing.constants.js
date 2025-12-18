@@ -15,6 +15,7 @@
  *   2) the page keys used in PRICING_COPY_MAP.md
  */
 const TARGET_PAGES = [
+  'index.html',
   'services.html',
   'niches/dentists.html',
   'niches/ecommerce.html',
