@@ -1,4 +1,402 @@
 {
+  "index.html": {
+    "section1": {
+      "title": "Start with the fastest path to ROI.",
+      "subtitle": "These are the three most common “done-for-you” systems—pick the one that matches your business model.",
+      "plans": [
+        {
+          "name": "Trades Virtual Office",
+          "setupFee": 1299,
+          "monthlyRetainer": 219,
+          "bestFor": "Field-service businesses that can’t pick up the phone but don’t want to lose the best jobs.",
+          "includes": [
+            "End-to-end virtual office handling calls",
+            "Quote follow-up automation",
+            "Scheduling flow automation",
+            "Covers calls, quotes, and scheduling (as one joined-up system)",
+            "Virtual office “handoff” so key job details don’t get dropped"
+          ],
+          "badge": null
+        },
+        {
+          "name": "Never Miss a Viewing Pack",
+          "setupFee": 1499,
+          "monthlyRetainer": 229,
+          "bestFor": "Estate & lettings teams where speed-to-lead decides who wins the instruction.",
+          "includes": [
+            "Lead capture automation (end-to-end)",
+            "Lead qualification automation",
+            "Viewing workflow automation (from enquiry → booked viewing)",
+            "Viewing follow-up automation",
+            "A single joined-up “capture → qualify → follow up” journey"
+          ],
+          "badge": null
+        },
+        {
+          "name": "24/7 Guest Concierge Bot",
+          "setupFee": 550,
+          "monthlyRetainer": 139,
+          "bestFor": "Hospitality venues that need always-on answers + booking capture without extra headcount.",
+          "includes": [
+            "Web/WhatsApp concierge bot (always-on)",
+            "Answers guest FAQs",
+            "Captures reservation requests",
+            "Hands off to booking system",
+            "Converts “questions” into captured booking intent"
+          ],
+          "badge": null
+        }
+      ]
+    },
+    "section2": {
+      "title": "Prefer a smaller fix—or a niche-specific variant?",
+      "subtitle": "Choose a focused module or a different bundle if your biggest bottleneck is narrower than the full system.",
+      "groups": [
+        {
+          "groupLabel": "Property & Trades",
+          "oneLiner": "Choose these if you want a smaller “fix one leak” module or you’re scaling beyond the flagship pack.",
+          "plans": [
+            {
+              "kind": "category",
+              "text": "Real Estate"
+            },
+            {
+              "kind": "item",
+              "text": "Never-Miss-a-Viewing Call Saver (£399 setup + £99/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Viewing Follow-Up & Nurture (£450 setup + £79/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Landlord Onboarding & Compliance Flow (£595 setup + £89/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "24/7 Property Lead Gatekeeper (£650 setup + £149/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Estate Agent Starter Pack (£999 setup + £189/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Landlord Growth Suite (£1399 setup + £199/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Estate Office Automation Pack (£2399 setup + £299/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Estate Agent Domination Pack (£2799 setup + £399/mo)"
+            },
+            {
+              "kind": "category",
+              "text": "Trades"
+            },
+            {
+              "kind": "item",
+              "text": "Local Review Booster (£220 setup + £39/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Quote Chaser Text Flow (£275 setup + £55/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Emergency Call Saver (£350 setup + £79/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Jobs Board & Scheduling (£425 setup + £89/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Emergency Call Catcher Pack (£699 setup + £129/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Quote-to-Job Conversion Pack (£799 setup + £129/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Trades Job Board & Call Pack (£999 setup + £169/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Premium Trades Growth Engine (£1499 setup + £259/mo)"
+            }
+          ]
+        },
+        {
+          "groupLabel": "Hospitality & eCommerce",
+          "oneLiner": "Pick these if your biggest bottleneck is bookings/support load, or you need a conversion + retention system.",
+          "plans": [
+            {
+              "kind": "category",
+              "text": "Hospitality"
+            },
+            {
+              "kind": "item",
+              "text": "Menu & Event Broadcaster (£250 setup + £49/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Review & Reputation Booster (£320 setup + £69/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Last-Minute Table Filler (£375 setup + £85/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Restaurant & Café Starter Pack (£899 setup + £169/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Events & Loyal Guests Pack (£1049 setup + £189/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "No-Show & Review Saver Pack (£1299 setup + £219/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Hotel Guest Journey Pack (£1699 setup + £259/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Hospitality Growth Engine (£1999 setup + £299/mo)"
+            },
+            {
+              "kind": "category",
+              "text": "eCommerce"
+            },
+            {
+              "kind": "item",
+              "text": "Review & UGC Collector (£340 setup + £69/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "24/7 Order & FAQ Assistant (£520 setup + £119/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Customer Lifetime Value Dashboard (£560 setup + £79/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Cart Recovery Starter Pack (£999 setup + £179/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Support & Cart Pack (£1299 setup + £219/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "LTV & Growth Pack (£1399 setup + £229/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "E-com Growth Engine (£1599 setup + £259/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Premium Brand Automation Engine (£1899 setup + £299/mo)"
+            }
+          ]
+        },
+        {
+          "groupLabel": "Clinics, Beauty & Fitness",
+          "oneLiner": "Choose these if you need intake, rebooking, retention, review generation, or creator/gym membership journeys.",
+          "plans": [
+            {
+              "kind": "category",
+              "text": "Salons"
+            },
+            {
+              "kind": "item",
+              "text": "Review & Referral Engine (£230 setup + £45/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Chair-Filler Rebooking Flow (£260 setup + £55/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "No-Show Saver Reminders (£280 setup + £59/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "24/7 Salon Receptionist (£520 setup + £129/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Salon No-Show Saver Pack (£749 setup + £129/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "24/7 Salon Receptionist Pack (£1099 setup + £189/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Premium Chair-Filler Suite (£1399 setup + £229/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Multi-Site Salon Growth Engine (£1799 setup + £299/mo)"
+            },
+            {
+              "kind": "category",
+              "text": "Physios/Chiros"
+            },
+            {
+              "kind": "item",
+              "text": "Patient Review & Testimonial Booster (£295 setup + £55/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Treatment Plan Reminder Engine (£360 setup + £75/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Digital Intake & Consent Pack (£495 setup + £85/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Retention & Reviews Pack (£799 setup + £139/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Smart Intake Starter Pack (£899 setup + £159/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Clinic Flow Engine (£1299 setup + £199/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Premium Clinic Automation Suite (£1599 setup + £249/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Multi-Location Physio Pack (£1899 setup + £299/mo)"
+            },
+            {
+              "kind": "category",
+              "text": "Dentists"
+            },
+            {
+              "kind": "item",
+              "text": "Practice Review Booster (£310 setup + £65/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Treatment Plan Follow-Up Flow (£380 setup + £79/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Recall & Hygiene Fill-Up (£420 setup + £89/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Recall Starter Pack (£999 setup + £179/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Treatment Plan Completion Pack (£1199 setup + £199/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Dental Growth Engine (£1499 setup + £239/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Multi-Surgery Dental Pack (£1799 setup + £299/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Premium Dental Automation Suite (£2099 setup + £339/mo)"
+            },
+            {
+              "kind": "category",
+              "text": "Gyms"
+            },
+            {
+              "kind": "item",
+              "text": "Class Attendance Nudge Pack (£320 setup + £69/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Trial-to-Member Conversion Kit (£350 setup + £75/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Dormant Member Reactivation Engine (£390 setup + £89/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Dormant Member Starter Pack (£899 setup + £169/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Trial Conversion Pack (£899 setup + £169/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Gym Growth Engine (£1299 setup + £219/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Premium Gym Automation Suite (£1599 setup + £279/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Multi-Site Gym Pack (£1899 setup + £329/mo)"
+            },
+            {
+              "kind": "category",
+              "text": "Online Coaches"
+            },
+            {
+              "kind": "item",
+              "text": "DM to Lead Triage Assistant (£310 setup + £79/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Coaching Client Onboarding Flow (£330 setup + £69/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Content Repurposing Engine (£360 setup + £79/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "DM to Lead Starter Pack (£749 setup + £149/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Content & Lead Engine (£849 setup + £159/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Premium Coaching Automation Suite (£1099 setup + £199/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Launch & Waitlist Pack (£1199 setup + £209/mo)"
+            },
+            {
+              "kind": "item",
+              "text": "Creator Agency-Level Suite (£1399 setup + £259/mo)"
+            }
+          ]
+        }
+      ]
+    }
+  },
   "services.html": {
     "section1": {
       "title": "Start with the fastest path to ROI.",

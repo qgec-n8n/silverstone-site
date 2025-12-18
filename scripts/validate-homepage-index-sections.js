@@ -46,13 +46,42 @@ function parseArgs(argv) {
   return args;
 }
 
+function decodeBasicEntities(input) {
+  return String(input)
+    .replace(/&amp;/g, "&")
+    .replace(/&#38;/g, "&")
+    .replace(/&apos;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&#34;/g, '"')
+    .replace(/&nbsp;/g, " ");
+}
+
 function extractCard(html, cardClass) {
-  const re = new RegExp(
-    `<div\\s+class="[^"]*\\b${cardClass}\\b[^"]*"[^>]*>[\\s\\S]*?<\\/div>`,
-    "i"
-  );
-  const m = html.match(re);
-  return m ? m[0] : null;
+  const openRe = new RegExp(`<div\\s+class="[^"]*\\b${cardClass}\\b[^"]*"[^>]*>`, "i");
+  const openMatch = openRe.exec(html);
+  if (!openMatch) return null;
+
+  const startIdx = openMatch.index;
+  let cursor = startIdx + openMatch[0].length;
+  let depth = 1;
+
+  const tokenRe = /<div\b|<\/div>/gi;
+  tokenRe.lastIndex = cursor;
+
+  while (true) {
+    const tokenMatch = tokenRe.exec(html);
+    if (!tokenMatch) return null;
+
+    const token = tokenMatch[0].toLowerCase();
+    if (token === "<div") depth += 1;
+    else depth -= 1;
+
+    if (depth === 0) {
+      const endIdx = tokenRe.lastIndex;
+      return html.slice(startIdx, endIdx);
+    }
+  }
 }
 
 function validateServices(html) {
@@ -108,11 +137,13 @@ function validateServices(html) {
     ],
   };
 
-  if (!html.includes(expected.sectionTitle)) {
+  const normalizedHtml = decodeBasicEntities(html);
+
+  if (!normalizedHtml.includes(expected.sectionTitle)) {
     fail(`Services: missing section title "${expected.sectionTitle}"`);
   } else ok(`Services: section title present`);
 
-  if (!html.includes(expected.sectionSubtitle)) {
+  if (!normalizedHtml.includes(expected.sectionSubtitle)) {
     fail(`Services: missing section subtitle (exact match required)`);
   } else ok(`Services: section subtitle present`);
 
@@ -123,18 +154,20 @@ function validateServices(html) {
       continue;
     }
 
-    if (!chunk.includes(card.title)) fail(`Services: ${card.cls} missing title "${card.title}"`);
+    const normalizedChunk = decodeBasicEntities(chunk);
+
+    if (!normalizedChunk.includes(card.title)) fail(`Services: ${card.cls} missing title "${card.title}"`);
     else ok(`Services: ${card.cls} title OK`);
 
-    if (!chunk.includes(card.tagline)) fail(`Services: ${card.cls} missing tagline "${card.tagline}"`);
+    if (!normalizedChunk.includes(card.tagline)) fail(`Services: ${card.cls} missing tagline "${card.tagline}"`);
     else ok(`Services: ${card.cls} tagline OK`);
 
     for (const b of card.bullets) {
-      if (!chunk.includes(b)) fail(`Services: ${card.cls} missing bullet "${b}"`);
+      if (!normalizedChunk.includes(b)) fail(`Services: ${card.cls} missing bullet "${b}"`);
     }
     ok(`Services: ${card.cls} bullets OK`);
 
-    if (!chunk.includes(card.cta)) fail(`Services: ${card.cls} missing CTA label "${card.cta}"`);
+    if (!normalizedChunk.includes(card.cta)) fail(`Services: ${card.cls} missing CTA label "${card.cta}"`);
     else ok(`Services: ${card.cls} CTA OK`);
   }
 }
