@@ -28,3 +28,24 @@
 .dark-card {
 }
 
+.section.compact-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  body.page-niche {
+    background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
+    background-image: -webkit-image-set(
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+    );
+    background-image: image-set(
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+    );
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+}

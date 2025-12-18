@@ -91,14 +91,9 @@
 
     let previousScrollY = 0;
     let headerAutoHideTimeoutId;
-    let suppressImmediateHideUntil = 0;
 
     const isMobileViewport = () =>
       window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
-
-    const isDesktopHoverViewport = () =>
-      !isMobileViewport() &&
-      window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
     function setStagger(item, index) {
       item.style.setProperty('--item-index', index);
@@ -119,7 +114,7 @@
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'mobile-nav-link mobile-nav-link--drill';
-          btn.textContent = '<-- Services';
+          btn.textContent = '← Services';
           btn.addEventListener('click', () => {
             openMobileNav();
             openServicesPanel();
@@ -210,7 +205,6 @@
     }
 
     function showHeader() {
-      clearTimeout(headerAutoHideTimeoutId);
       if (header) header.classList.remove('header-hidden');
       headerIndicator.classList.remove('active');
     }
@@ -252,8 +246,7 @@
       showHeader();
     }
 
-    function closeServicesDropdown(options = {}) {
-      const { skipAutoHide = false, autoHideDelay } = options;
+    function closeServicesDropdown() {
       if (!servicesDropdown || !servicesMenu) return;
       servicesDropdown.classList.remove('open');
       servicesMenu.setAttribute('aria-hidden', 'true');
@@ -261,11 +254,10 @@
       servicesDropdownOpen = false;
       body.classList.remove('services-dropdown-open');
       if (
-        !skipAutoHide &&
         !isServicesOverlayActive() &&
         !(navMenu && navMenu.classList.contains('open'))
       ) {
-        scheduleHeaderAutoHide(autoHideDelay);
+        scheduleHeaderAutoHide();
       }
     }
 
@@ -379,39 +371,6 @@
       });
     }
 
-    // Desktop Services hover corridor (hover gap between button and dropdown stays hoverable).
-    if (servicesDropdown && servicesMenu) {
-      let hoverCloseTimeoutId;
-
-      servicesDropdown.addEventListener('mouseenter', () => {
-        if (!isDesktopHoverViewport()) return;
-        clearTimeout(hoverCloseTimeoutId);
-        openServicesDropdown();
-      });
-
-      servicesDropdown.addEventListener('mouseleave', (event) => {
-        if (!isDesktopHoverViewport()) return;
-        clearTimeout(hoverCloseTimeoutId);
-
-        const next = event.relatedTarget;
-        const movedToBanner =
-          (header && next && header.contains(next)) ||
-          (headerIndicator && next && headerIndicator.contains(next));
-
-        hoverCloseTimeoutId = window.setTimeout(() => {
-          if (movedToBanner) {
-            closeServicesDropdown({ skipAutoHide: true });
-            showHeader();
-            return;
-          }
-
-          closeServicesDropdown({ skipAutoHide: true });
-          suppressImmediateHideUntil = Date.now() + 1000;
-          scheduleHeaderAutoHide(1000);
-        }, 0);
-      });
-    }
-
     if (servicesOverlayBack) {
       servicesOverlayBack.addEventListener('click', (event) => {
         event.preventDefault();
@@ -490,14 +449,7 @@
     headerIndicator.addEventListener('mouseenter', showHeader);
     if (header) {
       header.addEventListener('mouseenter', showHeader);
-      header.addEventListener('mouseleave', () => {
-        const remaining = suppressImmediateHideUntil - Date.now();
-        if (remaining > 0) {
-          scheduleHeaderAutoHide(remaining);
-          return;
-        }
-        hideHeader();
-      });
+      header.addEventListener('mouseleave', hideHeader);
       header.addEventListener('click', () => {
         if (!isMobileViewport()) return;
         if (isMobileNavOpen) return;

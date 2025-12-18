@@ -286,7 +286,7 @@
 @media (max-width: 768px) {
   /* Reduce default section padding to avoid excessive vertical space on small screens */
   .section {
-    padding: var(--section-pad-y-mobile) 0;
+    padding: 2.5rem 1rem;
   }
 
   /*

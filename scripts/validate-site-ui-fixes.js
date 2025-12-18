@@ -1,4 +1,4 @@
-// FILE: scripts/validate-site-ui-fixes.js
+# FILE: scripts/validate-site-ui-fixes.js
 /**
  * Validator for the Site UI Fixes spec.
  *

@@ -1,4 +1,4 @@
-// FILE: scripts/generate-marquee-manifest.js
+# FILE: scripts/generate-marquee-manifest.js
 /**
  * Generate canonical marquee bases from assets/images/socialmedia.
  *
