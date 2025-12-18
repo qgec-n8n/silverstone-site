@@ -45,6 +45,20 @@
   .single-marquee {
     gap: 8px;
     padding: 12px 0 18px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .single-marquee .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .marquee-ready .single-marquee {
+    opacity: 1;
+  }
+
+  .marquee-ready .single-marquee .marquee-track {
+    animation-play-state: running;
   }
 
   .single-marquee .marquee-img {
@@ -195,6 +209,20 @@
   .double-marquee {
     gap: 10px;
     padding: 12px 0 18px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .double-marquee .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .marquee-ready .double-marquee {
+    opacity: 1;
+  }
+
+  .marquee-ready .double-marquee .marquee-track {
+    animation-play-state: running;
   }
 
   .double-marquee .marquee-img {

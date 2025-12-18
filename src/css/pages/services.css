@@ -184,6 +184,14 @@
   .page-services .service-row {
     grid-template-columns: 1fr 1fr;
   }
+
+  .page-services .service-row--desktop-flip .service-image {
+    grid-column: 2;
+  }
+
+  .page-services .service-row--desktop-flip .service-content {
+    grid-column: 1;
+  }
 }
 
 .page-services .service-row .service-image {

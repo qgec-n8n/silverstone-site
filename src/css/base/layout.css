@@ -40,8 +40,16 @@ img {
 }
 
 .section {
-  padding: 4rem 0;
+  padding: var(--section-pad-y-desktop) 0;
   position: relative;
+}
+
+.section.tight-bottom {
+  padding-bottom: var(--section-pad-y-tight);
+}
+
+.section.tight-top {
+  padding-top: var(--section-pad-y-tight);
 }
 
 .section-title {
@@ -90,7 +98,7 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.52);
   z-index: 0;
   pointer-events: none;
 }

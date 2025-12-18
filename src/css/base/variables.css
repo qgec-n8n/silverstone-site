@@ -11,4 +11,7 @@
   --max-width: 1200px;
   --headerH: clamp(56px, 8vh, 72px);
   --body-section-overlay-opacity: 0.24;
+  --section-pad-y-desktop: 3rem;
+  --section-pad-y-mobile: 2.5rem;
+  --section-pad-y-tight: 1.75rem;
 }
