@@ -10,7 +10,7 @@
   --font-cta: "Montserrat", sans-serif;
   --max-width: 1200px;
   --headerH: clamp(56px, 8vh, 72px);
-  --body-section-overlay-opacity: 0.20;
+  --body-section-overlay-opacity: 0.24;
 }
 
 
@@ -1123,16 +1123,6 @@ img {
   position: relative;
 }
 
-.section.tight-bottom {
-  padding-bottom: 2.5rem;
-}
-
-@media (max-width: 768px) {
-  .section.tight-bottom {
-    padding-bottom: 2rem;
-  }
-}
-
 .section-title {
   text-align: center;
   font-family: var(--font-heading);
@@ -1292,7 +1282,6 @@ nav {
   --headerH: clamp(66px, 8vh, 88px);
   /* SPEC: MOBILE_NAV_TIMINGS_TUNED */
   --mobile-nav-panel-slide-ms: 1250ms;
-  --mobile-nav-item-reveal-delay-base-ms: 750ms;
   --mobile-nav-item-stagger-ms: 280ms;
   --mobile-nav-item-reveal-ms: 450ms;
 }
@@ -1663,7 +1652,7 @@ nav {
     li {
     animation: mobileNavStagger var(--mobile-nav-item-reveal-ms) ease forwards;
     animation-delay: calc(
-      var(--mobile-nav-item-reveal-delay-base-ms, var(--mobile-nav-panel-slide-ms)) +
+      var(--mobile-nav-panel-slide-ms) +
         (var(--item-index, 0) * var(--mobile-nav-item-stagger-ms))
     );
   }
@@ -1674,7 +1663,7 @@ nav {
     li {
     animation: mobileNavStagger var(--mobile-nav-item-reveal-ms) ease forwards;
     animation-delay: calc(
-      var(--mobile-nav-item-reveal-delay-base-ms, var(--mobile-nav-panel-slide-ms)) +
+      var(--mobile-nav-panel-slide-ms) +
         (var(--item-index, 0) * var(--mobile-nav-item-stagger-ms))
     );
   }
@@ -1688,7 +1677,6 @@ nav {
     border-radius: 14px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 1rem;
     letter-spacing: 0.05em;
     color: var(--color-blue);
     background: linear-gradient(
@@ -4147,19 +4135,6 @@ body.services-overlay-active .services-overlay {
   .page-services .service-row {
     grid-template-columns: 1fr 1fr;
   }
-
-  .page-services .service-row[data-desktop-order="img-right"] .service-content {
-    order: 1;
-  }
-  .page-services .service-row[data-desktop-order="img-right"] .service-image {
-    order: 2;
-  }
-  .page-services .service-row[data-desktop-order="img-left"] .service-image {
-    order: 1;
-  }
-  .page-services .service-row[data-desktop-order="img-left"] .service-content {
-    order: 2;
-  }
 }
 
 .page-services .service-row .service-image {
@@ -4788,4 +4763,21 @@ body.services-overlay-active .services-overlay {
 .section.compact-section {
   padding-top: 3rem;
   padding-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  body.page-niche {
+    background-image: url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp");
+    background-image: -webkit-image-set(
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+    );
+    background-image: image-set(
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@1x.webp") 1x,
+      url("../images/internet/mobile/book-hero-calendly-mobile-2025@2x.webp") 2x
+    );
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
 }

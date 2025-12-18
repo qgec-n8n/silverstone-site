@@ -35,7 +35,7 @@
       );
 
     const BASE_IMAGE =
-      '/assets/images/body_section_parallax/body-section-background-2025.webp';
+      'assets/images/body_section_parallax/body-section-background-2025.webp';
     const OVERLAY_GRADIENT =
       'linear-gradient(180deg, rgba(0, 0, 0, var(--body-section-overlay-opacity)) 0%, rgba(0, 0, 0, var(--body-section-overlay-opacity)) 100%)';
 

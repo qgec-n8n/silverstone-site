@@ -15,18 +15,11 @@
     const MOBILE_NAV_PANEL_SLIDE_MS = 1250;
     const MOBILE_NAV_ITEM_STAGGER_MS = 280;
     const MOBILE_NAV_ITEM_REVEAL_MS = 450;
-    const MOBILE_NAV_ITEM_REVEAL_DELAY_BASE_MS = Math.round(
-      MOBILE_NAV_PANEL_SLIDE_MS * 0.6,
-    ); // SPEC: MOBILE_NAV_REVEAL_AT_60_PERCENT
 
     const rootStyle = document.documentElement.style;
     rootStyle.setProperty(
       '--mobile-nav-panel-slide-ms',
       `${MOBILE_NAV_PANEL_SLIDE_MS}ms`,
-    );
-    rootStyle.setProperty(
-      '--mobile-nav-item-reveal-delay-base-ms',
-      `${MOBILE_NAV_ITEM_REVEAL_DELAY_BASE_MS}ms`,
     );
     rootStyle.setProperty(
       '--mobile-nav-item-stagger-ms',
@@ -98,16 +91,9 @@
 
     let previousScrollY = 0;
     let headerAutoHideTimeoutId;
-    let headerHideSuppressedUntil = 0;
-    let servicesHoverLock = false;
 
     const isMobileViewport = () =>
       window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
-
-    const hoverCapableQuery = window.matchMedia(
-      '(hover: hover) and (pointer: fine)',
-    );
-    const isDesktopHover = () => hoverCapableQuery.matches && !isMobileViewport();
 
     function setStagger(item, index) {
       item.style.setProperty('--item-index', index);
@@ -224,8 +210,6 @@
     }
     function hideHeader() {
       if (isMobileNavOpen) return;
-      if (servicesHoverLock) return;
-      if (Date.now() < headerHideSuppressedUntil) return;
       if (
         servicesDropdownOpen ||
         (servicesOverlay && servicesOverlay.classList.contains('active'))
@@ -237,7 +221,6 @@
     function scheduleHeaderAutoHide(delay = 1200) {
       clearTimeout(headerAutoHideTimeoutId);
       if (isMobileNavOpen) return;
-      if (servicesHoverLock) return;
       headerAutoHideTimeoutId = window.setTimeout(() => {
         if (navMenu && navMenu.classList.contains('open')) return;
         if (
@@ -245,7 +228,6 @@
           (servicesOverlay && servicesOverlay.classList.contains('active'))
         )
           return;
-        if (Date.now() < headerHideSuppressedUntil) return;
         hideHeader();
       }, delay);
     }
@@ -264,11 +246,8 @@
       showHeader();
     }
 
-    function closeServicesDropdown(options = {}) {
+    function closeServicesDropdown() {
       if (!servicesDropdown || !servicesMenu) return;
-      const minimizeDelay =
-        typeof options.minimizeDelay === 'number' ? options.minimizeDelay : 1200;
-      const suppressAutoHide = Boolean(options.suppressAutoHide);
       servicesDropdown.classList.remove('open');
       servicesMenu.setAttribute('aria-hidden', 'true');
       if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'false');
@@ -276,10 +255,9 @@
       body.classList.remove('services-dropdown-open');
       if (
         !isServicesOverlayActive() &&
-        !(navMenu && navMenu.classList.contains('open')) &&
-        !suppressAutoHide
+        !(navMenu && navMenu.classList.contains('open'))
       ) {
-        scheduleHeaderAutoHide(minimizeDelay);
+        scheduleHeaderAutoHide();
       }
     }
 
@@ -390,47 +368,6 @@
             openServicesDropdown();
           }
         }
-      });
-    }
-
-    const DESKTOP_DROPDOWN_MINIMIZE_DELAY_MS = 1300;
-
-    if (servicesToggle) {
-      servicesToggle.addEventListener('pointerenter', () => {
-        if (!isDesktopHover()) return;
-        servicesHoverLock = true;
-        headerHideSuppressedUntil = 0;
-        clearTimeout(headerAutoHideTimeoutId);
-        showHeader();
-        openServicesDropdown();
-      });
-    }
-
-    if (servicesDropdown) {
-      servicesDropdown.addEventListener('pointerenter', () => {
-        if (!isDesktopHover()) return;
-        servicesHoverLock = true;
-        headerHideSuppressedUntil = 0;
-        clearTimeout(headerAutoHideTimeoutId);
-        showHeader();
-      });
-
-      servicesDropdown.addEventListener('pointerleave', (event) => {
-        if (!isDesktopHover()) return;
-        servicesHoverLock = false;
-
-        const nextTarget = event.relatedTarget;
-        const movingToHeader = header && nextTarget && header.contains(nextTarget);
-
-        if (movingToHeader) {
-          headerHideSuppressedUntil = 0;
-          closeServicesDropdown({ suppressAutoHide: true });
-          return;
-        }
-
-        headerHideSuppressedUntil =
-          Date.now() + DESKTOP_DROPDOWN_MINIMIZE_DELAY_MS;
-        closeServicesDropdown({ minimizeDelay: DESKTOP_DROPDOWN_MINIMIZE_DELAY_MS });
       });
     }
 

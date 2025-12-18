@@ -184,19 +184,6 @@
   .page-services .service-row {
     grid-template-columns: 1fr 1fr;
   }
-
-  .page-services .service-row[data-desktop-order="img-right"] .service-content {
-    order: 1;
-  }
-  .page-services .service-row[data-desktop-order="img-right"] .service-image {
-    order: 2;
-  }
-  .page-services .service-row[data-desktop-order="img-left"] .service-image {
-    order: 1;
-  }
-  .page-services .service-row[data-desktop-order="img-left"] .service-content {
-    order: 2;
-  }
 }
 
 .page-services .service-row .service-image {

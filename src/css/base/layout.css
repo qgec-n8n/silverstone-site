@@ -44,16 +44,6 @@ img {
   position: relative;
 }
 
-.section.tight-bottom {
-  padding-bottom: 2.5rem;
-}
-
-@media (max-width: 768px) {
-  .section.tight-bottom {
-    padding-bottom: 2rem;
-  }
-}
-
 .section-title {
   text-align: center;
   font-family: var(--font-heading);

@@ -15,18 +15,11 @@
     const MOBILE_NAV_PANEL_SLIDE_MS = 1250;
     const MOBILE_NAV_ITEM_STAGGER_MS = 280;
     const MOBILE_NAV_ITEM_REVEAL_MS = 450;
-    const MOBILE_NAV_ITEM_REVEAL_DELAY_BASE_MS = Math.round(
-      MOBILE_NAV_PANEL_SLIDE_MS * 0.6,
-    ); // SPEC: MOBILE_NAV_REVEAL_AT_60_PERCENT
 
     const rootStyle = document.documentElement.style;
     rootStyle.setProperty(
       '--mobile-nav-panel-slide-ms',
       `${MOBILE_NAV_PANEL_SLIDE_MS}ms`,
-    );
-    rootStyle.setProperty(
-      '--mobile-nav-item-reveal-delay-base-ms',
-      `${MOBILE_NAV_ITEM_REVEAL_DELAY_BASE_MS}ms`,
     );
     rootStyle.setProperty(
       '--mobile-nav-item-stagger-ms',
@@ -98,16 +91,9 @@
 
     let previousScrollY = 0;
     let headerAutoHideTimeoutId;
-    let headerHideSuppressedUntil = 0;
-    let servicesHoverLock = false;
 
     const isMobileViewport = () =>
       window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
-
-    const hoverCapableQuery = window.matchMedia(
-      '(hover: hover) and (pointer: fine)',
-    );
-    const isDesktopHover = () => hoverCapableQuery.matches && !isMobileViewport();
 
     function setStagger(item, index) {
       item.style.setProperty('--item-index', index);
@@ -224,8 +210,6 @@
     }
     function hideHeader() {
       if (isMobileNavOpen) return;
-      if (servicesHoverLock) return;
-      if (Date.now() < headerHideSuppressedUntil) return;
       if (
         servicesDropdownOpen ||
         (servicesOverlay && servicesOverlay.classList.contains('active'))
@@ -237,7 +221,6 @@
     function scheduleHeaderAutoHide(delay = 1200) {
       clearTimeout(headerAutoHideTimeoutId);
       if (isMobileNavOpen) return;
-      if (servicesHoverLock) return;
       headerAutoHideTimeoutId = window.setTimeout(() => {
         if (navMenu && navMenu.classList.contains('open')) return;
         if (
@@ -245,7 +228,6 @@
           (servicesOverlay && servicesOverlay.classList.contains('active'))
         )
           return;
-        if (Date.now() < headerHideSuppressedUntil) return;
         hideHeader();
       }, delay);
     }
@@ -264,11 +246,8 @@
       showHeader();
     }
 
-    function closeServicesDropdown(options = {}) {
+    function closeServicesDropdown() {
       if (!servicesDropdown || !servicesMenu) return;
-      const minimizeDelay =
-        typeof options.minimizeDelay === 'number' ? options.minimizeDelay : 1200;
-      const suppressAutoHide = Boolean(options.suppressAutoHide);
       servicesDropdown.classList.remove('open');
       servicesMenu.setAttribute('aria-hidden', 'true');
       if (servicesToggle) servicesToggle.setAttribute('aria-expanded', 'false');
@@ -276,10 +255,9 @@
       body.classList.remove('services-dropdown-open');
       if (
         !isServicesOverlayActive() &&
-        !(navMenu && navMenu.classList.contains('open')) &&
-        !suppressAutoHide
+        !(navMenu && navMenu.classList.contains('open'))
       ) {
-        scheduleHeaderAutoHide(minimizeDelay);
+        scheduleHeaderAutoHide();
       }
     }
 
@@ -390,47 +368,6 @@
             openServicesDropdown();
           }
         }
-      });
-    }
-
-    const DESKTOP_DROPDOWN_MINIMIZE_DELAY_MS = 1300;
-
-    if (servicesToggle) {
-      servicesToggle.addEventListener('pointerenter', () => {
-        if (!isDesktopHover()) return;
-        servicesHoverLock = true;
-        headerHideSuppressedUntil = 0;
-        clearTimeout(headerAutoHideTimeoutId);
-        showHeader();
-        openServicesDropdown();
-      });
-    }
-
-    if (servicesDropdown) {
-      servicesDropdown.addEventListener('pointerenter', () => {
-        if (!isDesktopHover()) return;
-        servicesHoverLock = true;
-        headerHideSuppressedUntil = 0;
-        clearTimeout(headerAutoHideTimeoutId);
-        showHeader();
-      });
-
-      servicesDropdown.addEventListener('pointerleave', (event) => {
-        if (!isDesktopHover()) return;
-        servicesHoverLock = false;
-
-        const nextTarget = event.relatedTarget;
-        const movingToHeader = header && nextTarget && header.contains(nextTarget);
-
-        if (movingToHeader) {
-          headerHideSuppressedUntil = 0;
-          closeServicesDropdown({ suppressAutoHide: true });
-          return;
-        }
-
-        headerHideSuppressedUntil =
-          Date.now() + DESKTOP_DROPDOWN_MINIMIZE_DELAY_MS;
-        closeServicesDropdown({ minimizeDelay: DESKTOP_DROPDOWN_MINIMIZE_DELAY_MS });
       });
     }
 
@@ -666,7 +603,7 @@
       );
 
     const BASE_IMAGE =
-      '/assets/images/body_section_parallax/body-section-background-2025.webp';
+      'assets/images/body_section_parallax/body-section-background-2025.webp';
     const OVERLAY_GRADIENT =
       'linear-gradient(180deg, rgba(0, 0, 0, var(--body-section-overlay-opacity)) 0%, rgba(0, 0, 0, var(--body-section-overlay-opacity)) 100%)';
 
@@ -1183,53 +1120,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ASSET_PATH = '/assets/images/socialmedia/';
   const MARQUEE_IMAGES = [
-    '2-3_gym_phone-trial-ring_ai-calls-every-new-lead.jpg',
-    '2-3_charity_call-centre-triage_every-caller-feels-heard.jpg',
-    '2-3_hospitality_holographic-receptionist_your-front-desk-always-open.jpg',
-    '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.jpg',
-    '3-2_childcare_tablet-in-playroom_let-ai-handle-the-parent-phone-rush.jpg',
-    '2-3_automation_charts-scale_scale-your-output-with-ai.jpg',
-    '2-3_dental_phone-with-schedule_every-patient-call-answered.jpg',
-    '2-3_realestate_phone-with-property-card_ai-qualifies-your-property-leads.jpg',
-    '2-3_ai_phone-processing_connect-automate-grow 2.jpg',
-    '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.jpg',
-    '2-3_voicebot_globe-and-tablet_100k-conversations-zero-burnout.jpg',
-    '2-3_healthcare_phone-with-appointment_ai-takes-care-of-your-patients.jpg',
-    '2-3_healthcare_dark-call-queue_end-the-8am-phone-chaos.jpg',
-    '2-3_realestate_phone-with-house-icon_focus-on-the-viewing.jpg',
-    '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg',
-    '2-3_analytics_dashboard_ai-clarity-for-human-performance.jpg',
-    '2-3_fitness_phone-with-schedule_ai-powers-your-fitness-journey.jpg',
-    '2-3_salon_dark-chair-with-calendar_stay-fully-booked-stay-present.jpg',
-    '2-3_ai_smartphone-call-completed_automate-what-matters.jpg',
-    '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg',
-    '2-3_cleaning_phone-with-booked-job_turn-every-missed-ring.jpg',
-    '2-3_ai_phone-processing_connect-automate-grow.jpg',
-    '2-3_auto_mechanic-with-phone_while-you-fix-cars.jpg',
-    '2-3_kitchen_modern-kitchen-with-floorplan_capture-every-dream-kitchen-enquiry.jpg',
-    '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg',
-    '2-3_tradesman_van-at-night_never-miss-an-emergency-job.jpg',
-    '2-3_dental_black-phone-appointments_never-miss-toothache.jpg',
-    '2-3_realestate_phone-map_never-miss-a-viewing.jpg',
-    '3-2_business_hand-holding-phone-with-voice-display_ai-that-speaks-your-language.jpg',
-    '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
-    '2-3_veterinary_vet-with-tablet_never-miss-a-worried-pet-parent.jpg',
-    '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg',
-    '1-1_marketing_boardroom-messages_your-prospects-can-tell.jpg',
-    '2-3_healthcare_call-queue_end-the-8am-phone-chaos.jpg',
-    '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep 2.jpg',
     '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg',
-    '2-3_cleaning_phone-with-weekly-job_turn-every-missed-ring-into-regular-client.jpg',
-    '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.jpg',
+    '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
+    '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg',
+    '1-1_legal_desk-phone-with-scales_stop-losing-good-cases-to-voicemail.jpg',
+    '1-1_marketing_boardroom-messages_your-prospects-can-tell.jpg',
+    '1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg',
     '1-1_voiceagents_digital-dashboard_scale-beyond-human-limits.jpg',
     '2-3_accounting_man-with-holographic-call_tax-season-calls-never-missed.jpg',
-    '3-2_business_laptop-with-chat-bubbles_hours-lost-leads-unqualified.jpg',
-    '1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg',
-    '2-3_realestate_phone-map-at-night_never-miss-a-viewing-again.jpg',
-    '3-2_restaurant_phone-and-reservation-list_never-miss-a-booking-again.jpg',
-    '1-1_legal_desk-phone-with-scales_stop-losing-good-cases-to-voicemail.jpg',
     '2-3_accounting_office-with-swirling-invoices_tax-season-calls-never-missed.jpg',
+    '2-3_ai_phone-processing_connect-automate-grow.jpg',
+    '2-3_ai_smartphone-call-completed_automate-what-matters.jpg',
+    '2-3_analytics_dashboard_ai-clarity-for-human-performance.jpg',
+    '2-3_auto_mechanic-with-phone_while-you-fix-cars.jpg',
+    '2-3_automation_charts-scale_scale-your-output-with-ai.jpg',
+    '2-3_charity_call-centre-triage_every-caller-feels-heard.jpg',
+    '2-3_cleaning_phone-with-booked-job_turn-every-missed-ring.jpg',
+    '2-3_cleaning_phone-with-weekly-job_turn-every-missed-ring-into-regular-client.jpg',
+    '2-3_dental_black-phone-appointments_never-miss-toothache.jpg',
+    '2-3_dental_phone-with-schedule_every-patient-call-answered.jpg',
+    '2-3_fitness_phone-with-schedule_ai-powers-your-fitness-journey.jpg',
+    '2-3_gym_phone-trial-ring_ai-calls-every-new-lead.jpg',
+    '2-3_healthcare_call-queue_end-the-8am-phone-chaos.jpg',
+    '2-3_healthcare_dark-call-queue_end-the-8am-phone-chaos.jpg',
+    '2-3_healthcare_phone-with-appointment_ai-takes-care-of-your-patients.jpg',
+    '2-3_hospitality_holographic-receptionist_your-front-desk-always-open.jpg',
+    '2-3_kitchen_modern-kitchen-with-floorplan_capture-every-dream-kitchen-enquiry.jpg',
+    '2-3_realestate_phone-map-at-night_never-miss-a-viewing-again.jpg',
+    '2-3_realestate_phone-map_never-miss-a-viewing.jpg',
+    '2-3_realestate_phone-with-house-icon_focus-on-the-viewing.jpg',
+    '2-3_realestate_phone-with-property-card_ai-qualifies-your-property-leads.jpg',
+    '2-3_salon_dark-chair-with-calendar_stay-fully-booked-stay-present.jpg',
+    '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.jpg',
+    '2-3_tradesman_van-at-night_never-miss-an-emergency-job.jpg',
+    '2-3_veterinary_vet-with-tablet_never-miss-a-worried-pet-parent.jpg',
+    '2-3_voicebot_globe-and-tablet_100k-conversations-zero-burnout.jpg',
+    '3-2_business_hand-holding-phone-with-voice-display_ai-that-speaks-your-language.jpg',
+    '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg',
+    '3-2_business_laptop-with-chat-bubbles_hours-lost-leads-unqualified.jpg',
+    '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.jpg',
+    '3-2_childcare_tablet-in-playroom_let-ai-handle-the-parent-phone-rush.jpg',
+    '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg',
     '3-2_logistics_laptop-with-truck_ai-optimises-logistics-delivery.jpg',
+    '3-2_restaurant_phone-and-reservation-list_never-miss-a-booking-again.jpg',
+    '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.jpg',
+    '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
   ];
 
   let singleInitialized = false;
@@ -1347,53 +1282,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ASSET_PATH = '/assets/images/socialmedia/';
   const MARQUEE_IMAGES = [
-    '2-3_gym_phone-trial-ring_ai-calls-every-new-lead.jpg',
-    '2-3_charity_call-centre-triage_every-caller-feels-heard.jpg',
-    '2-3_hospitality_holographic-receptionist_your-front-desk-always-open.jpg',
-    '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.jpg',
-    '3-2_childcare_tablet-in-playroom_let-ai-handle-the-parent-phone-rush.jpg',
-    '2-3_automation_charts-scale_scale-your-output-with-ai.jpg',
-    '2-3_dental_phone-with-schedule_every-patient-call-answered.jpg',
-    '2-3_realestate_phone-with-property-card_ai-qualifies-your-property-leads.jpg',
-    '2-3_ai_phone-processing_connect-automate-grow 2.jpg',
-    '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.jpg',
-    '2-3_voicebot_globe-and-tablet_100k-conversations-zero-burnout.jpg',
-    '2-3_healthcare_phone-with-appointment_ai-takes-care-of-your-patients.jpg',
-    '2-3_healthcare_dark-call-queue_end-the-8am-phone-chaos.jpg',
-    '2-3_realestate_phone-with-house-icon_focus-on-the-viewing.jpg',
-    '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg',
-    '2-3_analytics_dashboard_ai-clarity-for-human-performance.jpg',
-    '2-3_fitness_phone-with-schedule_ai-powers-your-fitness-journey.jpg',
-    '2-3_salon_dark-chair-with-calendar_stay-fully-booked-stay-present.jpg',
-    '2-3_ai_smartphone-call-completed_automate-what-matters.jpg',
-    '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg',
-    '2-3_cleaning_phone-with-booked-job_turn-every-missed-ring.jpg',
-    '2-3_ai_phone-processing_connect-automate-grow.jpg',
-    '2-3_auto_mechanic-with-phone_while-you-fix-cars.jpg',
-    '2-3_kitchen_modern-kitchen-with-floorplan_capture-every-dream-kitchen-enquiry.jpg',
-    '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg',
-    '2-3_tradesman_van-at-night_never-miss-an-emergency-job.jpg',
-    '2-3_dental_black-phone-appointments_never-miss-toothache.jpg',
-    '2-3_realestate_phone-map_never-miss-a-viewing.jpg',
-    '3-2_business_hand-holding-phone-with-voice-display_ai-that-speaks-your-language.jpg',
-    '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
-    '2-3_veterinary_vet-with-tablet_never-miss-a-worried-pet-parent.jpg',
-    '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg',
-    '1-1_marketing_boardroom-messages_your-prospects-can-tell.jpg',
-    '2-3_healthcare_call-queue_end-the-8am-phone-chaos.jpg',
-    '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep 2.jpg',
     '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.jpg',
-    '2-3_cleaning_phone-with-weekly-job_turn-every-missed-ring-into-regular-client.jpg',
-    '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.jpg',
+    '1-1_business_monitor-graphs_10k-lost-overnight.jpg',
+    '1-1_ecommerce_laptop-and-customer-hub_dms-calls-whatsapps-answered.jpg',
+    '1-1_legal_desk-phone-with-scales_stop-losing-good-cases-to-voicemail.jpg',
+    '1-1_marketing_boardroom-messages_your-prospects-can-tell.jpg',
+    '1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg',
     '1-1_voiceagents_digital-dashboard_scale-beyond-human-limits.jpg',
     '2-3_accounting_man-with-holographic-call_tax-season-calls-never-missed.jpg',
-    '3-2_business_laptop-with-chat-bubbles_hours-lost-leads-unqualified.jpg',
-    '1-1_recruitment_desk-with-candidate-ring_handle-the-next-five.jpg',
-    '2-3_realestate_phone-map-at-night_never-miss-a-viewing-again.jpg',
-    '3-2_restaurant_phone-and-reservation-list_never-miss-a-booking-again.jpg',
-    '1-1_legal_desk-phone-with-scales_stop-losing-good-cases-to-voicemail.jpg',
     '2-3_accounting_office-with-swirling-invoices_tax-season-calls-never-missed.jpg',
+    '2-3_ai_phone-processing_connect-automate-grow.jpg',
+    '2-3_ai_smartphone-call-completed_automate-what-matters.jpg',
+    '2-3_analytics_dashboard_ai-clarity-for-human-performance.jpg',
+    '2-3_auto_mechanic-with-phone_while-you-fix-cars.jpg',
+    '2-3_automation_charts-scale_scale-your-output-with-ai.jpg',
+    '2-3_charity_call-centre-triage_every-caller-feels-heard.jpg',
+    '2-3_cleaning_phone-with-booked-job_turn-every-missed-ring.jpg',
+    '2-3_cleaning_phone-with-weekly-job_turn-every-missed-ring-into-regular-client.jpg',
+    '2-3_dental_black-phone-appointments_never-miss-toothache.jpg',
+    '2-3_dental_phone-with-schedule_every-patient-call-answered.jpg',
+    '2-3_fitness_phone-with-schedule_ai-powers-your-fitness-journey.jpg',
+    '2-3_gym_phone-trial-ring_ai-calls-every-new-lead.jpg',
+    '2-3_healthcare_call-queue_end-the-8am-phone-chaos.jpg',
+    '2-3_healthcare_dark-call-queue_end-the-8am-phone-chaos.jpg',
+    '2-3_healthcare_phone-with-appointment_ai-takes-care-of-your-patients.jpg',
+    '2-3_hospitality_holographic-receptionist_your-front-desk-always-open.jpg',
+    '2-3_kitchen_modern-kitchen-with-floorplan_capture-every-dream-kitchen-enquiry.jpg',
+    '2-3_realestate_phone-map-at-night_never-miss-a-viewing-again.jpg',
+    '2-3_realestate_phone-map_never-miss-a-viewing.jpg',
+    '2-3_realestate_phone-with-house-icon_focus-on-the-viewing.jpg',
+    '2-3_realestate_phone-with-property-card_ai-qualifies-your-property-leads.jpg',
+    '2-3_salon_dark-chair-with-calendar_stay-fully-booked-stay-present.jpg',
+    '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.jpg',
+    '2-3_tradesman_van-at-night_never-miss-an-emergency-job.jpg',
+    '2-3_veterinary_vet-with-tablet_never-miss-a-worried-pet-parent.jpg',
+    '2-3_voicebot_globe-and-tablet_100k-conversations-zero-burnout.jpg',
+    '3-2_business_hand-holding-phone-with-voice-display_ai-that-speaks-your-language.jpg',
+    '3-2_business_laptop-at-sunset-chat-interface_when-you-wait-they-walk.jpg',
+    '3-2_business_laptop-with-chat-bubbles_hours-lost-leads-unqualified.jpg',
+    '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.jpg',
+    '3-2_childcare_tablet-in-playroom_let-ai-handle-the-parent-phone-rush.jpg',
+    '3-2_legal_laptop-with-scales_ai-streamlines-legal-workflows.jpg',
     '3-2_logistics_laptop-with-truck_ai-optimises-logistics-delivery.jpg',
+    '3-2_restaurant_phone-and-reservation-list_never-miss-a-booking-again.jpg',
+    '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.jpg',
+    '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.jpg'
   ];
 
   let doubleInitialized = false;
