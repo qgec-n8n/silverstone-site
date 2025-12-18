@@ -1,225 +1,292 @@
 <!-- FILE: ExecPlan.md -->
-# ExecPlan — Pricing Widget React Embed (Two Sections Per Page)
+# Exec Plan — Silverstone UI/UX Bug Fixes & Layout Changes (A–H)
+
+Follow this plan in order. Do not skip validation gates. The detailed spec is in **PLANS.md**; agent guardrails are in **AGENTS.md**.
+
+---
+
+## Mission
 
-This ExecPlan is written to maximize safe execution by Codex (GPT‑5.1 Codex Max or GPT‑5.2) while preventing unrelated site changes.
+Implement **all** UI/UX requirements A–H from PLANS.md across:
+- Core pages: `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`
+- Niche pages: `niches/*.html`
+- Shared JS/CSS: marquee, header/nav, overlay, spacing, hero CTA positioning
 
-## Objective
+### Definition of Done
 
-Embed the React pricing widget (from `pricing_code_prompt.md`) into the existing static site so that:
+- All requirements A–H satisfied (including exact strings and filename references).
+- CSS/JS rebuilt into:
+  - `assets/css/styles.css`
+  - `assets/js/app.js`
+- Validations pass:
+  - `node scripts/validate-core-pages.js`
+  - `node scripts/validate-services-page.js`
+  - `node scripts/validate-niche-pages.js`
+  - `node scripts/generate-marquee-images.js --check`
+  - `node scripts/assert-ui-spec.js`
+  - `bash scripts/codex.maintenance.sh`
+- Manual verification completed for the interaction-heavy requirements:
+  - desktop header hover behavior (D1)
+  - mobile menu panel timing & typography (D2)
+  - mobile marquee preload behavior (F)
+  - mobile hero CTA cutoff fix (H)
+  - overlay opacity and niche mobile background parity (A4, B)
 
-- `services.html` and all target niche pages show **two stacked pricing sections**.
-- Each section has **3 cards** (total 6 cards per page).
-- **Section 1** includes a **Monthly / Setup** toggle (Setup replaces Yearly).
-- **Section 2** has **no toggle**, and cards are reformatted to fit the “other options summaries” copy while keeping the same overall UI design language.
+---
 
-## Inputs and source-of-truth constraints
+## Working agreements
 
-Only these sources may define integration semantics and UI fidelity:
+- **Requirements override repo.** If current code conflicts, change code to satisfy PLANS.md.
+- **Minimal diffs.** No unrelated refactors.
+- **Edit sources first** (`src/css`, `src/js`, `.html`), then rebuild `assets/*`.
+- **Do not invent new styling tokens** (no new colors). Reuse existing tokens; define missing aliases only if they are already referenced in markup.
 
-- `PRICING_COPY_MAP.md` (all copy + per-page mapping)
-- `pricing_code_prompt.md` (the reference React component implementation)
-- `Embed_React_Guide.md` (embed method summary used in this repo)
-- The referenced Medium embedding article (embed method source-of-truth)
-- The referenced 21st.dev component page (visual/behavioral reference)
+---
 
-OpenAI Cookbook material may be used only for improving execution planning reliability, not for changing integration semantics.
+## Gate 0 — Preflight & inventory
 
-## Target pages (must all be updated)
+1. Read: `AGENTS.md`, `PLANS.md`, this file.
+2. Run setup:
+   - `bash scripts/codex.setup.sh`
+3. Inventory niche pages:
+   - list every `niches/*.html` file (there are multiple).
+4. Snapshot current failures (optional but useful):
+   - run `bash scripts/codex.maintenance.sh` to see what currently fails.
 
-The canonical list is defined in `scripts/pricing.constants.js` and `codex/PRICING_COPY_MAP_SPEC.md`.
+**Exit gate when**
+- You can name the exact file targets for each requirement.
+- You understand the build workflow (`src/*` → build scripts → `assets/*`).
 
-Do not “discover” additional pages via grep; follow the canonical list only.
+---
 
-## Non-negotiables
+## Gate 1 — Hero shader variants (A1)
 
-- Two mounts per page:
-  - `data-ss-pricing-section="1"` (toggle)
-  - `data-ss-pricing-section="2"` (no toggle)
-- Copy must match `PRICING_COPY_MAP.md` exactly (no paraphrasing).
-- Preserve existing site layout:
-  - No global CSS nukes
-  - No mass reformatting
-  - Only edit the pricing placeholder region and add the minimal asset includes
-- Preserve hero shader invariants (must remain unchanged on every page):
-  - `id="hero-shader-canvas"` and the existing hero section structure
-  - existing `assets/js/app.js` include remains
+**Implement**
+- Core pages: set `data-variant="blue"` on `<canvas id="hero-shader-canvas">`.
+- Niche pages: remove the non-purple variants so niches render purple by default (no `data-variant` or `data-variant="default"`).
 
-## New guardrails and validators
+**Validate**
+- `node scripts/validate-core-pages.js`
 
-Pre-embed (should pass immediately):
+**Exit gate when**
+- All targeted pages pass shader-variant checks.
 
-- `node scripts/validate-services-page.js --strict`
-- `node scripts/validate-niche-pages.js --strict`
-- `node scripts/validate-pricing-copy-map.js`
+---
 
-Post-embed (should pass only after implementation):
+## Gate 2 — Marquees: full image set + mixed order + mobile preload (A2, F)
 
-- `node scripts/validate-pricing-mounts.js`
+### 2.1 Expand marquee image set to all socialmedia assets
+**Implement**
+- Add `scripts/generate-marquee-images.js` (already in repo after you apply this instruction package).
+- Run generator (write mode) to update `MARQUEE_IMAGES` in `src/js/marquee.js`.
+- Ensure both:
+  - double marquee (services)
+  - single marquee (auto-inserted elsewhere)
+  use the same `MARQUEE_IMAGES` list.
 
-Preferred wrappers:
+**Validate**
+- `node scripts/generate-marquee-images.js --check`
 
-- `bash scripts/codex.setup.sh`
-- `bash scripts/codex.maintenance.sh`
+### 2.2 Ensure aspect ratios appear mixed
+**Implement**
+- The generator already interleaves aspect buckets (`1-1_`, `2-3_`, `3-2_`, `other`) so the array order is mixed.
+- Do not re-sort the list in runtime.
 
-## Deliverables Codex must produce (implementation phase)
+**Validate**
+- Generator `--check` (it recomputes the expected interleaved ordering)
 
-Codex will implement these later; this ExecPlan constrains how.
+### 2.3 Mobile marquee preload
+**Implement**
+- In `src/js/marquee.js`, preload marquee images on mobile devices before starting animation.
+- Requirements:
+  - avoid “popping” on scroll
+  - do not block forever: include a timeout fallback
+  - work for both single and double marquees
 
-1. A self-contained pricing widget build output:
-   - `assets/js/pricing-widget.js`
-   - `assets/css/pricing-widget.css`
-   - Stable names (no hashes)
+**Validate**
+- Manual: throttle network in devtools, refresh on mobile viewport, confirm no marquee pop-in.
 
-2. Updated HTML pages:
-   - Replace the pricing placeholder content with two mount containers inside `<section id="pricing">`
-   - Add one CSS include + one JS include for the widget (path differs for `niches/*`)
+**Exit gate when**
+- Generator check passes.
+- Manual mobile marquee test passes.
 
-3. Correct mapping:
-   - `PRICING_COPY_MAP.md` mapped deterministically by `data-ss-pricing-page` + `data-ss-pricing-section`
+---
 
-## Execution strategy
+## Gate 3 — Niche images load earlier (A3)
+
+**Implement**
+- In every `niches/*.html`, update `.service-img` so it is not `loading="lazy"` (remove the attribute or switch to eager).
+- Do not restructure the page; only adjust loading behavior for the relevant images.
+
+**Validate**
+- `node scripts/validate-niche-pages.js`
+- `node scripts/assert-ui-spec.js`
+
+**Exit gate when**
+- All niche pages pass validation (no lazy-loading on `.service-img`).
+
+---
+
+## Gate 4 — Background overlay opacity + niche mobile background parity (A4, B)
+
+### 4.1 Reduce overlay opacity slightly
+**Implement**
+- `src/css/base/variables.css`: reduce overlay variables slightly.
+- `src/css/base/layout.css`: reduce the mobile overlay pseudo-element opacity (or convert it to use a variable).
+- Keep readability.
 
-Follow an evaluation flywheel:
+### 4.2 Niche mobile body background parity
+**Implement**
+- `src/css/pages/estate-agents.css`: remove/replace the mobile-only `body.page-niche` background that currently diverges from the site pattern.
+- Niche pages on mobile must follow the established pattern used by other pages (section backgrounds + overlay).
 
-- Make the smallest safe change
-- Run the most relevant validator(s)
-- Only then move to the next change
-- If a validator fails, fix forward without expanding scope
+**Validate**
+- `node scripts/validate-niche-pages.js` (contains checks ensuring the old mobile niche body background image string is gone)
+
+**Exit gate when**
+- Mobile niche pages match the site background pattern (manual check).
+- Overlay is slightly lighter (manual check) without harming readability.
+
+---
+
+## Gate 5 — Services page required changes (C, E, G)
 
-## Stop conditions (hard)
+### 5.1 “Core Bundle Bullets” two-line heading (C1)
+**Implement**
+- In `services.html`, replace:
+  - `Core bundle bullets (applies across packs):`
+- With the two-line heading specified in PLANS.md:
+  - `Core Bundle Bullets:` (blue)
+  - `(applies across packs)` (white)
+- Use the same markup technique as the existing “General Service Lines” heading.
+- Ensure the existing blue token resolves (add a missing alias variable if required).
+
+**Validate**
+- `node scripts/validate-services-page.js`
+
+### 5.2 Desktop alternation of the four image/card pairs (C2)
+**Implement**
+- Ensure DOM order for the 4 required service rows matches the required left/right pairing.
+- Remove/neutralize the unstable `.service-row:nth-of-type(even)` ordering rule in `src/css/components/cards.css`.
+
+**Validate**
+- `node scripts/validate-services-page.js`
+
+### 5.3 Spacing reduction (E)
+**Implement**
+- Add `compact-section` to Services sections 2, 3, 5.
+- Reduce `.section.compact-section` padding slightly in `src/css/pages/estate-agents.css`.
+
+**Validate**
+- `node scripts/validate-services-page.js` (compact-section count check)
+
+### 5.4 Services image/card structure parity (G)
+**Implement**
+- Verify the 4 image/card pairs use the sibling structure used in niche pages (image block is not nested inside card).
+- Preserve mobile stacking.
+
+**Validate**
+- Manual check.
+- `node scripts/validate-services-page.js` (basic structure assertions)
+
+**Exit gate when**
+- Services validations pass.
+- Desktop layout matches specified alternation (manual check).
 
-Stop and report (do not keep hacking) if any of these occur:
+---
 
-- A target page is missing `<section id="pricing">`
-- The pricing placeholder region differs so much that insertion would require reworking the page layout
-- Any change affects hero shader markup, the main nav, or global CSS
-- Copy mapping can’t be made exact without editing `PRICING_COPY_MAP.md`
+## Gate 6 — Header/menu banner desktop hover + mobile panels (D)
 
-## Milestone gates
+### 6.1 Desktop hover dropdown + minimize locking (D1)
+**Implement**
+- Update `src/js/header-nav.js`:
+  - Open Services dropdown on hover (desktop only).
+  - Keep banner expanded while dropdown open or while cursor is in the button↔dropdown gap.
+  - Close dropdown first; allow banner minimize ~1s after dropdown closes (when cursor is outside banner+gap+dropdown).
+  - Ensure reliability across repeated interactions (no one-time-only).
+- Update `src/css/components/header.css`:
+  - Add a hover “bridge” area (pseudo-element) to remove dead zone.
 
-### Gate 0 — Preflight / repo grounding (no edits)
+**Validate**
+Manual behavior matrix:
+1. Hover Services → dropdown opens; banner stays expanded.
+2. Move cursor from Services into dropdown (through gap) → no minimize, dropdown remains open.
+3. Leave dropdown to outside page → dropdown closes; after ~1s banner may minimize.
+4. Leave dropdown onto banner area → dropdown closes; banner stays expanded; banner may minimize only after leaving banner.
+5. Repeat all steps multiple times (reliability).
 
-Commands:
+### 6.2 Mobile menu panels (D2)
+**Implement**
+- Ensure “← Services” button typography matches other links.
+- Adjust animation timing so items fade in after ~50% of panel slide.
 
-- `node scripts/validate-pricing-copy-map.js`
-- `node scripts/validate-services-page.js --strict`
-- `node scripts/validate-niche-pages.js --strict`
+**Validate**
+- Manual on mobile viewport:
+  - font sizes match
+  - item fade begins mid-slide on both panels
 
-Confirm:
+**Exit gate when**
+- Desktop hover behavior matches the matrix.
+- Mobile panel behavior matches D2.
 
-- Target pages exist at the paths listed in `scripts/pricing.constants.js`
-- Every target page contains a pricing placeholder region in `<section id="pricing">`
-- No existing React embed system exists (this repo is static + built JS/CSS)
+---
 
-### Gate 1 — Copy mapping plan is deterministic
+## Gate 7 — Mobile hero CTA positioning (H)
 
-Output requirements:
+**Implement**
+- In `src/css/components/hero.css`, adjust mobile-only hero spacing so CTA buttons are not cut off at the bottom.
+- Prefer extra bottom padding (respect safe-area insets when present).
 
-- Decide the runtime copy lookup key:
-  - Must use `data-ss-pricing-page` attribute value equal to the repo-relative HTML path (e.g., `niches/dentists.html`)
-  - Must use `data-ss-pricing-section` value `"1"` or `"2"`
+**Validate**
+- Manual mobile check:
+  - `index.html`
+  - `services.html`
+  - one niche page
+  - `book.html`
+- Confirm desktop unchanged.
 
-Validation:
+**Exit gate when**
+- CTA cutoff is resolved on mobile across pages.
 
-- `node scripts/validate-pricing-copy-map.js --print-json` (inspect structure)
-- Confirm every page has:
-  - Section 1: title + subtitle + 3 plan cards
-  - Section 2: title + subtitle + 3 group cards
+---
 
-### Gate 2 — Widget build scaffolding (minimal, isolated)
+## Finalization — Build, validate, and report
 
-Constraints:
+1. Rebuild outputs:
+   - `node build-css.js`
+   - `node scripts/build-js.js`
+2. Run:
+   - `bash scripts/codex.maintenance.sh`
+3. Summarize changes grouped by A–H. Include:
+   - what changed
+   - where
+   - how validated
 
-- All React widget work must be isolated to a new subproject folder (recommended: `pricing-widget/`).
-- Do not add React deps to the root project.
-- Build output must be stable-named and copied/emitted into `assets/js/` and `assets/css/`.
+---
 
-Key embed requirement:
+## Progress tracker (keep updated during execution)
 
-- The built `assets/js/pricing-widget.js` must mount itself safely by scanning the DOM for `.ss-pricing` mount nodes after DOM is ready.
+- [ ] Gate 0 complete
+- [ ] Gate 1 complete (A1)
+- [ ] Gate 2 complete (A2, F)
+- [ ] Gate 3 complete (A3)
+- [ ] Gate 4 complete (A4, B)
+- [ ] Gate 5 complete (C, E, G)
+- [ ] Gate 6 complete (D)
+- [ ] Gate 7 complete (H)
+- [ ] Finalization complete
 
-CSS safety requirement:
+---
 
-- Widget CSS must not contain global resets that impact the rest of the site.
+## Surprises log (append-only)
 
-### Gate 3 — Implement Section 1 vs Section 2 behavior
+Record anything unexpected (e.g., hidden CSS ordering rules, runtime DOM insertion nuances, layout regressions) with:
+- what happened
+- where
+- how it was resolved
 
-Section 1 requirements:
+---
 
-- Toggle shows “Monthly” and “Setup”
-- Sliding highlight animation works exactly like reference
-- Prices switch between monthly retainer and setup fee values from `PRICING_COPY_MAP.md`
+## Decision log (append-only)
 
-Section 2 requirements:
-
-- No toggle rendered at all
-- Card content supports the “other options summaries” layout:
-  - group label
-  - one-liner
-  - bullet list (and optional subcategory headings)
-
-Animations:
-
-- Sparkles background must run
-- Toggle animation must run (Section 1 only)
-
-### Gate 4 — HTML integration (page-by-page, minimal diffs)
-
-For each target page:
-
-1. Replace the pricing placeholder content inside `<section id="pricing">` with two mount containers:
-   - `<div class="ss-pricing" data-ss-pricing-page="..." data-ss-pricing-section="1"></div>`
-   - `<div class="ss-pricing" data-ss-pricing-page="..." data-ss-pricing-section="2"></div>`
-
-2. Add includes:
-   - `assets/css/pricing-widget.css` in `<head>`
-   - `assets/js/pricing-widget.js` near end of `<body>` (or alongside existing scripts)
-
-Relative path rule:
-
-- Root pages: `assets/...`
-- Niche pages: `../assets/...`
-
-Do not touch other sections.
-
-### Gate 5 — Automated validations
-
-Run:
-
-- `node scripts/validate-pricing-copy-map.js`
-- `node scripts/validate-pricing-mounts.js`
-
-Plus baseline validators to ensure no unrelated breakage:
-
-- `node scripts/validate-services-page.js --strict`
-- `node scripts/validate-niche-pages.js --strict`
-
-### Gate 6 — Manual spot checks (minimal, targeted)
-
-Open in a browser:
-
-- `services.html`
-- One representative niche page
-- One “complex plans” page (services, estate-agents)
-
-Check:
-
-- Two stacked pricing sections exist
-- Section 1 toggle works and switches values correctly
-- Section 2 has no toggle and has readable bullets
-- Visual design matches the reference component within reasonable site constraints
-- No layout regressions elsewhere on page
-
-## Definition of done
-
-All of the following are true:
-
-- Every target page has exactly two mounts with correct data attributes
-- Widget assets exist at `assets/js/pricing-widget.js` and `assets/css/pricing-widget.css`
-- `node scripts/validate-pricing-mounts.js` passes
-- Copy in rendered UI matches `PRICING_COPY_MAP.md` exactly
-- No unrelated diffs outside:
-  - target HTML pages (`services.html`, `niches/*.html`)
-  - widget subproject folder
-  - `assets/js/pricing-widget.js`, `assets/css/pricing-widget.css`
-  - these guardrail scripts/docs
+Record decisions that could have been done multiple ways (e.g., how you implement hover bridging, how you interpret “use all images” with multiple renditions).
