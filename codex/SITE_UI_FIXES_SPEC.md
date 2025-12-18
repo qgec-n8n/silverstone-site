@@ -1,282 +1,203 @@
 <!-- FILE: codex/SITE_UI_FIXES_SPEC.md -->
 
-# Site UI Fixes Spec (A–E)
+# Site UI Fixes Spec (A–E + Mobile marquee ready-gate + Desktop hover corridor)
 
-This spec is the authoritative reference for the implementation run.
+This spec is the source of truth for the UI fixes. Implement exactly as written.
 
-## Scope guardrails
-- Implement ONLY what is required in A–E.
-- Preserve existing design system tokens and responsive conventions.
-- Do not refactor unrelated HTML/CSS/JS.
-- Rebuild compiled assets whenever `src/css/**` or `src/js/**` changes:
-  - `npm run build:css`
-  - `npm run build:js`
+## Scope
+Target pages:
+- Top-level: `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`
+- All niche pages: `niches/*.html`
 
-## Assumptions (explicit, used to remove ambiguity)
-1. “Purple shader” means using the hero shader **default** theme (i.e., omit `data-variant` or set `data-variant="default"`).
-2. “Marquee images in assets/images/socialmedia” refers to the **social-media marquee set**: files whose names start with `1-1_`, `2-3_`, or `3-2_` (any of: `.jpg`, `.jpeg`, `.webp`). Use exactly one file per stem (do not duplicate stems across extensions).
-3. “Reduce spacing” is implemented via a reusable utility class:
-   - add `tight-bottom` to specific `<section>` elements
-   - define `.section.tight-bottom` in `src/css/base/layout.css`
-
-## Automated acceptance gate (non-negotiable)
-After implementation: `node scripts/validate-site-ui-fixes.js` must pass.
+Primary code areas:
+- Hero shader: `src/js/hero-shader.js` + `<canvas id="hero-shader-canvas" ...>`
+- Desktop/mobile nav: `src/js/header-nav.js`, `src/css/components/header.css`
+- Marquees: `src/js/marquee.js`, `src/css/features/marquee.css`
+- Spacing: `src/css/base/layout.css`, `src/css/base/typography.css`, `src/css/base/variables.css`
 
 ---
 
-# A) General fixes/changes for Desktop and Mobile
+## A) General fixes (desktop + mobile)
 
-## A1) Hero shader variants
-Requirement:
-- index.html, about.html, services.html, book.html, contact.html → BLUE shader
-- niches/*.html → PURPLE shader
+### A1) Hero shader variants
+- `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`:
+  - Hero shader must use **BLUE** variant.
+- All `niches/*.html`:
+  - Hero shader must use **PURPLE** variant.
 
-Implementation targets:
-- `index.html`
-- `about.html`
-- `services.html`
-- `book.html`
-- `contact.html`
-- All HTML files under `niches/`
+**Implementation rule**
+- Prefer using the existing `data-variant="..."` convention on `#hero-shader-canvas`.
 
-Acceptance:
-- Main pages have `<canvas id="hero-shader-canvas" ... data-variant="blue">`
-- Niche pages have `data-variant` omitted OR `data-variant="default"`
+**Acceptance**
+- Canvas exists with `id="hero-shader-canvas"` on every page.
+- Main pages: `data-variant="blue"`.
+- Niche pages: `data-variant="purple"`.
 
-## A2) Double + single marquees use all images, shuffled
-Requirement:
-- Double and single marquees: must use all images in assets/images/socialmedia, but shuffled
-- Must not be sequentially grouped by aspect ratio (not all 1:1, then all 2:3, then all 3:2)
+### A2) Marquees must use all `assets/images/socialmedia` images, shuffled
+- Both single + double marquees must use **all** available images from `assets/images/socialmedia`.
+- Order must be **shuffled/mixed** (not grouped by aspect ratio).
 
-Implementation targets:
-- `src/js/marquee.js`
+**Interpretation (explicit)**
+- Treat “all images” as **all unique base images**:
+  - Ignore extension duplicates (`.jpg` + `.webp`).
+  - Treat `_Mobile` as a rendition, not a separate content image.
 
-Implementation constraints:
-- Include all eligible marquee stems (prefix `1-1_`, `2-3_`, `3-2_`).
-- Order must be mixed; avoid long consecutive runs of the same prefix.
+**Required implementation approach**
+1. In `src/js/marquee.js`, define two generated blocks (used by validator):
+   - `// BEGIN GENERATED MARQUEE BASES` … `// END GENERATED MARQUEE BASES`
+   - `MARQUEE_BASES`: array of canonical base names (no extension, no `_Mobile`)
+   - `MARQUEE_MOBILE_BASES`: set/list of bases that have `_Mobile` renditions
+2. Derive the runtime list via a true shuffle (Fisher–Yates) before rendering.
+3. Resolve filenames at runtime:
+   - Desktop: `${base}.webp` preferred (fallback to jpg only if needed)
+   - Mobile: `${base}_Mobile.webp` if available, else `${base}.webp`
 
-Acceptance:
-- `scripts/validate-site-ui-fixes.js` passes marquee checks.
+**Acceptance**
+- Validator confirms generated bases match the directory contents.
+- Code contains an actual shuffle step (not just reversing a sorted list).
 
-## A3) niches/*: service-row images must be present before user reaches them
-Requirement:
-- On niches/*.html: images next to cards should already be present before the user reaches the image (not only appearing when the user scrolls down to it)
+### A3) Niche side images must be present before the user reaches them
+On `niches/*.html` service rows:
+- Images next to cards must NOT rely on “reveal-on-scroll” to appear.
+- They should be in the DOM and loaded early enough that they are visible when reached.
 
-Implementation targets:
-- All niche pages under `niches/`
+**Implementation guidance**
+- Remove reveal-delay behavior for those side images on niche pages:
+  - Either exclude those images from IntersectionObserver “reveal”
+  - Or force them visible immediately (desktop + mobile)
+- Prefer `loading="eager"` for those images only (avoid making every image eager site-wide).
 
-Implementation rule:
-- For images with `class="service-img"` on niche pages: remove `loading="lazy"` (prefer `loading="eager"` or omit loading).
+### A4) Dark overlay slightly less opaque
+- Reduce the perceived darkness of the overlay applied to `body-section-background-2025.webp` slightly.
+- Do NOT change the background image itself.
 
-Acceptance:
-- `scripts/validate-site-ui-fixes.js` finds no `loading="lazy"` on `.service-img` in `niches/*.html`.
-
-## A4) Dark overlay over body-section-background-2025.webp slightly less opaque
-Requirement:
-- Make the dark overlay over “body-section-background-2025.webp” slightly less opaque.
-
-Implementation targets:
-- `src/css/base/variables.css`
-
-Implementation rule:
-- Reduce `--body-section-overlay-opacity` from `0.24` to a value in the range `0.18–0.22` (recommended: `0.20`).
-
-Acceptance:
-- `scripts/validate-site-ui-fixes.js` confirms the new value is lower than `0.24` and within range.
+**Implementation rule**
+- Make a **small** reduction (e.g., ~10–15% lighter), not a dramatic change.
 
 ---
 
-# B) Mobile niche background fix (niches/*) — MOBILE ONLY
-Requirements:
-- MOBILE only: ensure every niches/*.html page uses the same body section background image + dark overlay pattern used by the site’s other HTML pages.
-- Specifically ensure “body-section-background-2025.webp” is applied the same way as the established pattern.
+## B) Mobile niche background fix (niches/*) — mobile-only parity
+
+**Mobile only**:
+- Every `niches/*.html` page must use the **same** body-section background image + overlay pattern used by non-niche pages.
+- `body-section-background-2025.webp` must apply the same way as the established pattern.
+
+**Desktop constraint**
 - Do not change desktop appearance unless the established pattern already does so responsively.
 
-Implementation targets:
-- `src/css/pages/estate-agents.css` (currently applies to `body.page-niche` on mobile)
-- `src/js/parallax.js` (mobile stage image URL must work from `/niches/*.html`)
-
-Implementation rules:
-1. Remove/replace the mobile-only `body.page-niche { background-image: ...book-hero-calendly-mobile... }` override.
-2. Ensure `parallax.js` uses an asset URL that is valid from nested pages:
-   - Prefer absolute `/assets/images/body_section_parallax/body-section-background-2025.webp`
-
-Acceptance:
-- `scripts/validate-site-ui-fixes.js`:
-  - rejects the old book-hero mobile background on `body.page-niche`
-  - requires `BASE_IMAGE` to start with `/assets/`
-
 ---
 
-# C) Additional required fixes on services.html
+## C) services.html required fixes
 
-## C1) “Core Bundle Bullets” heading formatting + color
-Target card:
-- The card whose headline text is exactly (or near-exactly):
-  “start small. ship fast. expand when it is working.”
+### C1) “Core bundle bullets” heading formatting (exact)
+Within the card whose headline is exactly/near:
+> “start small. ship fast. expand when it is working.”
 
-Requirements:
-- Change the phrase “Core bundle bullets” from white font to blue font.
-- Change the single-line text “Core bundle bullets (applies across packs):” into a two-line heading formatted exactly as:
-  - Line 1: “Core Bundle Bullets:” (BLUE font)
-  - Line 2: “(applies across packs)” (WHITE font)
+Change:
+- The phrase “Core bundle bullets” from white to blue.
+- Replace:
+  - `Core bundle bullets (applies across packs):`
+  with an h3 heading that is exactly two lines:
 
-Implementation constraints (strict):
-- Reuse the exact existing CSS classes/tokens used elsewhere on the page for blue headings and white subtext.
-- Mirror the “General Service Lines:” and its parent pattern.
-- Do NOT invent new colors or styling tokens.
-- Use the same markup/line-break technique already used by:
-  “General Service Lines:” followed by “(modules that can extend any niche pack)”.
+Line 1 (BLUE): `Core Bundle Bullets:`
+Line 2 (WHITE): `(applies across packs)`
 
-Implementation rule:
-- Implement as a single heading element containing two block-level spans:
-  - First span: blue via existing token `var(--color-blue)` and `display: block`
-  - Second span: white via existing token `var(--color-white)` and `display: block`
+**Implementation constraints**
+- Reuse the exact existing markup/line-break technique already used by:
+  - “General Service Lines:” + “(modules that can extend any niche pack)”
+- Reuse the exact existing tokens used there (inline styles and `display: block` approach).
+- Do NOT invent new color tokens/classes.
 
-Acceptance:
-- Old string removed.
-- New two-line text present near the target card.
-- `scripts/validate-site-ui-fixes.js` passes C1 checks.
+### C2) Services image/card desktop alternation
+In the section using images:
+- `General_Services_1.jpeg`
+- `General_Services_2A.jpeg`
+- `General_Services_2B.jpeg`
+- `General_Services_3.jpeg`
 
-## C2) Desktop alternation for the four “cards with images” rows
-Scope:
-- The rows using images:
-  - General_Services_1.jpeg
-  - General_Services_2A.jpeg
-  - General_Services_2B.jpeg
-  - General_Services_3.jpeg
-
-Required desktop layout order (| = midline):
-- General_Services_1.jpeg (Left) | Card (Right)
-- Card (Left) | General_Services_2A.jpeg (Right)
-- General_Services_2B.jpeg (Left) | Card (Right)
-- Card (Left) | General_Services_3.jpeg (Right)
+Desktop layout must alternate left/right in this exact order:
+1. Image(Left) | Card(Right)
+2. Card(Left) | Image(Right)
+3. Image(Left) | Card(Right)
+4. Card(Left) | Image(Right)
 
 Constraints:
-- Preserve vertical sequence as-is; only swap left/right placement per pair.
-- Preserve existing mobile stacking/behavior as much as possible.
-- Only enforce desktop alternation using existing responsive layout conventions (order rules at desktop breakpoint).
-
-Implementation rule (recommended and testable):
-- Add a `data-desktop-order` attribute to each of the four `div.service-row` elements:
-  - `data-desktop-order="img-left"` for rows where image must be left on desktop
-  - `data-desktop-order="img-right"` for rows where image must be right on desktop
-- Add desktop-only CSS in `src/css/pages/services.css` that applies the ordering based on `data-desktop-order`.
-- Do not change mobile stacking rules.
-
-Acceptance:
-- `scripts/validate-site-ui-fixes.js` confirms required `data-desktop-order` values for each of the four images.
+- Preserve vertical sequence.
+- Preserve mobile stacking behavior; enforce alternation desktop-only using existing layout conventions.
 
 ---
 
-# D) Menu banner distinct fixes for Desktop and Mobile
+## D) Menu banner — separate Desktop and Mobile fixes
 
-## D1) Desktop menu banner behavior (desktop only)
-Requirements:
-- Services dropdown appears on hover over the Services button.
-- When cursor is over the dropdown list area (General/Niche) OR over the Services button, the minimizing feature of the menu banner is entirely disabled.
-- If cursor leaves the dropdown list and is hovering over an area that is not the menu banner or the dropdown list:
-  - dropdown disappears first
-  - then ~1 second after dropdown has fully disappeared the menu banner may minimize.
-- If cursor moves off the dropdown list directly onto the menu banner:
-  - only dropdown disappears
-  - banner remains expanded
-  - if cursor then leaves the menu banner, banner can minimize almost right away.
+### D1) Desktop Services hover corridor + minimize rules (NEW emphasis)
+Desktop only:
+1. Services dropdown appears on hover over the Services button.
+2. The “hover recognition area” MUST cover:
+   - Services button
+   - the entire vertical gap between button and dropdown
+   - the dropdown list area itself
+3. While cursor is within that combined hover zone:
+   - Dropdown remains open
+   - Menu banner remains maximized (minimize disabled)
+4. If cursor leaves dropdown zone to an area that is NOT the banner:
+   - Dropdown disappears first
+   - ~1 second AFTER dropdown has fully disappeared, banner may minimize
+5. If cursor moves from dropdown list directly onto banner:
+   - Dropdown disappears
+   - Banner remains expanded
+   - If cursor then leaves banner, banner may minimize almost right away
 
-Implementation targets:
-- `src/js/header-nav.js`
+**Required implementation detail (hover corridor)**
+- Implement a transparent hover “bridge” in CSS so the gap is still hoverable:
+  - Recommended: `.services-menu::before` with negative `top` and `height` covering the gap.
+  - The bridge must be active only when dropdown is open (pointer events enabled).
 
-Implementation rules:
-- Desktop-only gating: use `(hover: hover) and (pointer: fine)` or a width breakpoint, so touch devices do not rely on hover.
-- Add hover open/close behavior (mouseenter/pointerenter + mouseleave/pointerleave) for:
-  - Services toggle button
-  - Services dropdown panel
-- Ensure header auto-hide timers are cleared/disabled while hovered over toggle or dropdown.
-- On dropdown close due to leaving both header+dropdown: delay header minimize by about 1.3s (1.0s after a 0.3s dropdown fade).
-
-Acceptance:
-- Manual verification (see checklist below).
-- `scripts/validate-site-ui-fixes.js` confirms hover handlers exist (basic static check).
-
-## D2) Mobile nav panel fixes
-Requirements:
-- The “<-- Services” button must have the same font size as “Home”, “About”, “Book”, and “Contact” on the first menu panel.
-- Buttons for both menu panels should begin appearing after their respective menu panel has slid about 60% into place.
-
-Implementation targets:
-- `src/css/components/header.css`
-- `src/js/header-nav.js`
-
-Implementation rules:
-1. Set an explicit `font-size` on `.mobile-nav-link` so `<a>` and `<button>` render identically.
-2. Replace the item reveal delay formula so it starts at ~60% of panel slide time:
-   - JS sets `--mobile-nav-item-reveal-delay-base-ms = slideMs * 0.6`
-   - CSS uses `--mobile-nav-item-reveal-delay-base-ms` as the base in `animation-delay`
-
-Acceptance:
-- `scripts/validate-site-ui-fixes.js` confirms font-size + delay variable wiring.
+### D2) Mobile nav panels
+Mobile only:
+- The “<-- Services” button must have the same font size as the primary panel items (“Home”, “About”, “Book”, “Contact”).
+- Buttons for both menu panels should begin appearing only after their panel has slid ~60% into place.
 
 ---
 
-# E) Spacing reduction review (services.html and niches/*.html)
+## E) Spacing reduction + global uniform spacing (NEW emphasis)
 
-## E1) Utility: .section.tight-bottom
-Implementation targets:
-- `src/css/base/layout.css`
+### E1) Global uniform spacing (entire site)
+Ensure spacing between each copy section is uniform across the entire site (all pages, all sections that use `.section`):
+- Target: minimal without looking overcrowded
+- Guideline: approx **1.5×** the blue section title font size (section titles are 2rem → ~3rem scale)
 
-Implementation rule:
-- Add `.section.tight-bottom` that reduces bottom padding enough to visibly reduce the gap (recommended bottom padding: `2.5rem` on desktop; `2.0rem` on mobile).
+**Required implementation approach**
+1. Add spacing tokens in `src/css/base/variables.css`:
+   - `--section-pad-y-desktop`
+   - `--section-pad-y-mobile`
+   - `--section-pad-y-tight`
+2. Apply them consistently:
+   - In `src/css/base/layout.css`: `.section { padding: var(--section-pad-y-desktop) 0; }`
+   - In `src/css/base/typography.css` mobile breakpoint: `.section { padding: var(--section-pad-y-mobile) 0; }`
+3. Provide utility classes:
+   - `.section.tight-bottom { padding-bottom: var(--section-pad-y-tight); }`
+   - `.section.tight-top { padding-top: var(--section-pad-y-tight); }`
 
-Acceptance:
-- `scripts/validate-site-ui-fixes.js` confirms utility exists.
+### E2) Specific boundary reductions (services + niches)
+Apply tighter spacing at these boundaries:
 
-## E2) services.html boundaries to tighten
-Map (section numbers are in-page order, where Hero is #1):
-- Reduce space between 2 & 3
-- Reduce space between 3 & 4
-- Reduce space between 4 & 5
-- Reduce space between 5 & 6
-- Reduce space between 8 & 9
-- Reduce space between 9 & 10
+Services map (section numbers):
+- Reduce space between: 2–3, 3–4, 4–5, 5–6, 8–9, 9–10
 
-Implementation rule:
-- Add `tight-bottom` to the predecessor sections:
-  - #2, #3, #4, #5, #8, #9
+Niches map (section numbers):
+- Reduce space between: 2–3, 3–4, 4–5, 5–6, 8–9
 
-Acceptance:
-- `scripts/validate-site-ui-fixes.js` confirms those sections have `tight-bottom`.
+**Required method**
+- For each boundary A–B:
+  - Add `tight-bottom` to section A
+  - Add `tight-top` to section B
 
-## E3) niches/*.html boundaries to tighten
-Map (Hero is #1):
-- Reduce space between 2 & 3
-- Reduce space between 3 & 4
-- Reduce space between 4 & 5
-- Reduce space between 5 & 6
-- Reduce space between 8 & 9
-
-Implementation rule:
-- Add `tight-bottom` to the predecessor sections:
-  - #2, #3, #4, #5, #8 (on every niche page)
-
-Acceptance:
-- `scripts/validate-site-ui-fixes.js` confirms those sections have `tight-bottom`.
+**Acceptance**
+- Validator confirms required sections have the expected utility classes.
 
 ---
 
-# Manual QA checklist (must be performed after automation passes)
-
-## Desktop (hover-capable) — Services dropdown + banner minimize
-1. Hover Services button → dropdown appears.
-2. While cursor is over Services button OR dropdown panel:
-   - banner does NOT minimize (no timer-based hide).
-3. Move cursor from dropdown panel to non-header area:
-   - dropdown disappears first
-   - ~1 second after dropdown is fully gone, banner may minimize.
-4. Move cursor from dropdown panel directly onto the header/banner:
-   - dropdown disappears
-   - banner stays expanded
-   - leaving the banner then minimizes almost right away.
-
-## Mobile
-1. Open mobile menu → “<-- Services” has the same font size as other top-level items.
-2. Open menu panels → items begin appearing once the panel is ~60% slid in.
+## Validation requirements
+- Run `npm run build` after changes.
+- Run `bash scripts/codex.ui-fixes.sh`
+- `node scripts/validate-site-ui-fixes.js --strict` must pass.
