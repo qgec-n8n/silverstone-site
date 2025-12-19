@@ -1,142 +1,196 @@
 <!-- FILE: codex/REQUESTED_EDITS_SPEC.md -->
-# Requested Website Edits (1–7) — Source of Truth
+# Requested Edits Spec (Codex Contract) — UI Fixes 1–4
 
-This document is the single source of truth for the current task. Implement all seven edits, and do not make unrelated changes.
+This document is the **contract** for the current Codex run. Implement **only** what is listed here.
 
-## Pages in scope
+## Scope
 
-- `index.html`
-- `services.html`
-- `niches/*.html` (pricing widgets only; no content/copy changes expected)
+In-scope (must implement):
+1) Pricing color washout tuning (extremely important)
+2) Pricing cards CTA alignment
+3) `services.html` mobile image container padding
+4) `index.html` “Our Services” cards icon/title layout
 
-## Shared constraints
+Out-of-scope (must not do):
+- Any other UI polish, refactors, or content edits
+- Any copy changes (including punctuation/capitalization)
+- Any dependency upgrades
+- Any accessibility or SEO work not required by these fixes
 
-- Preserve existing copy exactly, except Requested Edit 4 which removes a single extra line break (no wording changes).
-- Preserve dark-mode design; pricing changes are specifically for the pricing widget’s “light mode” look on index/services/niches pages.
-- Keep all visual changes page-scoped and section-scoped using existing selectors and data attributes (avoid global overrides).
-- Do not hand-edit generated files under `assets/`; only update them through build scripts.
+## Global constraints and conflict-handling
 
-## Required marker comments
+- Preserve the existing light-mode look and site design language.
+- Conflict-handling priority (highest → lowest):
+  1) Maintain light-mode vibe
+  2) Increase visibility of blues/pinks
+  3) Minimal change surface area
+  4) Consistency across pages
 
-To keep validation deterministic, Codex must add/keep these marker comments (exact strings):
+## Required marker comments (must be added exactly)
 
-Pricing widget:
-- In `pricing-widget/src/pricing-widget.css` (and therefore in `assets/css/pricing-widget.css` after build):
-  - `SS_PRICING_SPEC: LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL` (existing; update values beneath it)
-  - `SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE` (existing; keep and tune)
-  - `SS_PRICING_SPEC: TOGGLE_TRACK_WHITE_LIGHT_MODE` (new)
-  - `SS_PRICING_SPEC: NICHES_SECTION1_FEATURED_CARD_PREMIUM_HIGHLIGHT` (new)
-- In `pricing-widget/src/PricingWidget.jsx`:
-  - `SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE` (existing; keep and tune)
+These comments are used by repo validators. Place each marker adjacent to the change it refers to.
 
-Home page:
-- In `src/css/pages/home.css` (and therefore in `assets/css/styles.css` after build):
-  - `SS_HOME_SPEC: SERVICES_TITLES_BLUE_TAGLINES_GREY` (new; place next to the rule that enforces titles blue)
+Pricing (in `pricing-widget/src/pricing-widget.css`):
+- `SS_PRICING_SPEC: LIGHT_MODE_WASHOUT_TUNING_2025_12`
+- `SS_PRICING_SPEC: CTA_BUTTON_ROW_ALIGNMENT_2025_12`
 
-Services mobile bug fix:
-- In `src/css/base/typography.css` (and therefore in `assets/css/styles.css` after build):
-  - `SS_SERVICES_SPEC: MOBILE_IMAGE_OUTSIDE_TEXT_CARD_MATCH_NICHE_PATTERN` (new; place where the mobile “Services mobile cards” block was removed)
+Services (in `src/css/pages/services.css`):
+- `SS_SERVICES_SPEC: MOBILE_IMAGE_CONTAINER_TIGHT_WRAP_2025_12`
 
-## Requested Edit 1 — Pricing background more vibrant + sparkles clearer
+Home (in `src/css/pages/home.css`):
+- `SS_HOME_SPEC: SERVICE_ICON_TITLE_INLINE_2025_12`
 
-Files to change (widget only):
+## Requested Edit 1 — Pricing color washout tuning
+
+### Targets
+
+- Must cover pricing sections on:
+  - `index.html`
+  - `services.html`
+  - `niches/*.html`
+
+### What to understand first
+
+The pricing widget defaults to dark styling; “light mode” styling is applied by page attribute selectors in:
 - `pricing-widget/src/pricing-widget.css`
-- `pricing-widget/src/PricingWidget.jsx`
+  - `.ss-pricing[data-ss-pricing-page="index.html"], ...`
+  - `.ss-pricing[data-ss-pricing-page="services.html"], ...`
+  - `.ss-pricing[data-ss-pricing-page^="niches/"], ...`
 
-Definition of done (acceptance + verification):
-- Only pricing widgets on `index.html`, `services.html`, and `niches/*` are affected (scoped via `data-ss-pricing-page`); other pages keep existing styling.
-- In the light-mode block, increase the blue/pink radial gradient alphas to these exact values:
-  - blue: `rgba(0, 174, 239, 0.30)` and `rgba(0, 174, 239, 0.17)`
-  - pink: `rgba(255, 79, 216, 0.26)` and `rgba(255, 79, 216, 0.15)`
-  (keep the same overall layering order and background image usage; this is a vibrancy boost, not a redesign)
-- Sparkles are visibly clearer against the light background by:
-  - slightly increasing particle visibility in `PricingWidget.jsx` (raise alpha floor + radius floor; keep motion subtle)
-  - slightly strengthening the `.ss-pricing__sparkles` filter/clarity within the existing light-mode scope
-- Rebuild the widget and confirm the change renders on at least:
-  - `/index.html` pricing section
-  - `/services.html` pricing section
-  - one `/niches/*.html` pricing section
-- `node scripts/validate-pricing-ui-tuning.js --strict` passes.
+The “washed out” look typically comes from:
+- a very opaque white/near-white linear gradient layer
+- low-opacity blue/pink radial gradient layers
+- additional layers (gridlines/glow/surface) that can mute color
 
-## Requested Edit 2 — Niche pages: first pricing section featured card is extremely premium
+### Required change
 
-Files to change:
-- `pricing-widget/src/pricing-widget.css`
+Dial down washout so the blue and pink background washes in pricing sections are **significantly more visible** while staying clearly light-mode.
 
-Definition of done (acceptance + verification):
-- Only niche pages (`data-ss-pricing-page^="niches/"`) and only the first pricing section (`data-ss-pricing-section="1"`) get the stronger highlight.
-- The featured card (`.ss-pricing__card.is-featured`) is unmistakably the highlighted option via a premium “raised” treatment (transform + stronger shadow + clearer border/accent), without breaking grid layout.
-- The “Most popular” badge remains legible, not clipped, and does not overlap the plan title (works at mobile and desktop widths).
-- Non-featured cards remain visually consistent with the existing light-mode design (no global retheme).
-- Verify on at least two niche pages at desktop and mobile widths.
-- `node scripts/validate-pricing-ui-tuning.js --strict` passes.
+Use the smallest possible change surface:
+- prefer adjusting the existing light-mode `--ss-pricing-bg` gradient alphas
+- avoid adding new decorative layers unless strictly necessary
 
-## Requested Edit 3 — Pricing toggle track is white (not grey)
+### Acceptance criteria
 
-Files to change:
-- `pricing-widget/src/pricing-widget.css`
+Visual:
+- On desktop and mobile, the pricing section background shows clearly visible blue and pink washes (not just “almost white”).
+- The section still reads as light-mode (no dark-mode look, no neon saturation).
 
-Definition of done (acceptance + verification):
-- For pricing widgets that render the monthly/setup toggle, the toggle track background is white in light mode (not grey/dark).
-- Styling remains page-scoped to index/services/niches and does not affect other widgets/pages.
-- Toggle remains readable: active/inactive states are clear and the slider still feels premium.
-- Rebuild and verify on pages where the toggle exists.
-- `node scripts/validate-pricing-ui-tuning.js --strict` passes.
+Deterministic (enforced by validator):
+- In the light-mode `--ss-pricing-bg` definition, the gradient alpha values must fall within these ranges:
+  - White linear gradient alphas:
+    - start alpha in [0.88, 0.95]
+    - mid alpha in [0.84, 0.92]
+    - end alpha in [0.80, 0.88]
+  - Blue radial gradient alphas (circle at 20% 18%):
+    - 0% stop alpha in [0.34, 0.55]
+    - 45% stop alpha in [0.20, 0.40]
+  - Pink radial gradient alphas (circle at 82% 12%):
+    - 0% stop alpha in [0.30, 0.50]
+    - 45% stop alpha in [0.18, 0.35]
 
-## Requested Edit 4 — index.html: remove extra line in Systems & Data Integration card
+### Verification
 
-Files to change:
-- `index.html`
+- Rebuild pricing widget so `assets/css/pricing-widget.css` updates.
+- Run: `node scripts/validate-pricing-ui-tuning.js --strict`
+- Manual check:
+  - `index.html` pricing sections 1 and 2
+  - `services.html` pricing sections 1 and 2
+  - at least one niche page pricing sections 1 and 2
 
-Definition of done (acceptance + verification):
-- Remove the extra blank line between:
-  - “Connect your tools so data flows without copy-paste.”
-  - “Link CRM, booking, email and payments”
-  (This is currently a literal `<br />` in the card content.)
-- Do not change wording, punctuation, or spacing of any other copy in that card.
-- `node scripts/validate-requested-edits.js --strict` passes.
+## Requested Edit 2 — Pricing cards CTA alignment
 
-## Requested Edit 5 — index.html “Our services” taglines are grey
+### Requirement
 
-Files to change:
-- `src/css/pages/home.css` (preferred; scope to `.page-home`)
+For every row of 3 pricing cards, the “Book a Call” buttons must align horizontally (same vertical position across the row).
 
-Definition of done (acceptance + verification):
-- In the “What we automate” cards on `index.html`, these taglines render as grey text:
-  - “Get clear on what to automate first - and what to leave alone.”
-  - “Stop enquiries going cold with fast, personal follow-up.”
-  - “Remove manual admin and get visibility across your ops.”
-  - “Connect your tools so data flows without copy-paste.”
-- The change is scoped to the home page card section (no global `.tagline` changes site-wide).
-- `node scripts/validate-requested-edits.js --strict` passes.
+This applies to:
+- section 1 (plan cards)
+- section 2 (group cards)
 
-## Requested Edit 6 — index.html “Our services” titles are blue
+### Required implementation approach (to keep it deterministic)
 
-Files to change:
-- `src/css/pages/home.css` (preferred; scope to `.page-home`)
+Use a CSS layout strategy that anchors the CTA location consistently across cards.
 
-Definition of done (acceptance + verification):
-- In the “What we automate” cards on `index.html`, these titles render blue:
-  - “AI Consulting & Readiness”
-  - “Automated Lead Follow-Up”
-  - “Workflow Automation & Reporting”
-  - “Systems & Data Integration”
-- Do not change the card layout, spacing, or copy.
-- `node scripts/validate-requested-edits.js --strict` passes.
+Default approach for this repo:
+- Anchor `.ss-pricing__cta` using `margin-top: auto;`
+- Ensure `.ss-pricing__includes` does **not** use `margin-top: auto;` (it prevents CTA alignment)
 
-## Requested Edit 7 — EXTREMELY IMPORTANT: services.html mobile image-in-card bug fix
+If a different strategy is used, it must still satisfy the deterministic validator expectations.
 
-Files to change (root-cause fix expected in CSS):
-- `src/css/base/typography.css`
-- (Do not change `services.html` unless absolutely necessary)
+### Acceptance criteria
 
-Definition of done (acceptance + verification):
-- On mobile widths (test 390×844 and 375×667), in `services.html`, the following three service rows must match the `niches/estate-agents.html` pattern:
-  - “Where revenue (and time) quietly leaks away.”
-  - “Start small. Ship fast. Expand when it is working”
-  - “General Service Lines:”
-  Specifically: image outside the text card; the card contains only text/bullets.
-- The fix must remove/disable the mobile-only “Services mobile cards” styling that turns the whole `.service-row` into one card (currently in `src/css/base/typography.css`).
-- On mobile, the two headings “Where revenue…leaks away.” and “Start small…working” must render in blue (not white).
-- Desktop layout must remain unchanged; only mobile behavior is affected.
-- `node scripts/validate-requested-edits.js --strict` passes.
+Visual:
+- At desktop widths where pricing cards are in a 3-column grid, the CTA buttons align across the row.
+
+Deterministic (enforced by validator):
+- `.ss-pricing__cta` includes `margin-top: auto;`
+- `.ss-pricing__includes` does not include `margin-top: auto;`
+- Both required pricing marker comments are present.
+
+### Verification
+
+- Rebuild widget.
+- Run: `node scripts/validate-pricing-ui-tuning.js --strict`
+- Manual check on `index.html` and `services.html` at desktop widths.
+
+## Requested Edit 3 — services.html mobile image container padding
+
+### Requirement
+
+On mobile, the image containers above these services cards have too much empty vertical padding/space; the containers do not tightly wrap the images:
+
+- “Where revenue (and time) quietly leaks away.”
+- “Start small. Ship fast. Expand when it is working.”
+- “General Service Lines:”
+- “What changes once the basics are automated”
+
+Fix so the containers wrap tightly around images with no extra empty space above/below.
+
+### Expected root cause
+
+`src/css/pages/services.css` contains overrides that can force `.service-image` to stretch (e.g., `height: 100%` + flex), which breaks the tighter mobile behavior defined in `src/css/components/cards.css`.
+
+### Acceptance criteria
+
+Visual:
+- On mobile widths, the image area hugs the image (no tall container with dead space).
+- Desktop layout remains unchanged.
+
+Deterministic:
+- `src/css/pages/services.css` contains the required marker comment.
+- A mobile (`max-width: 768px`) override exists that:
+  - makes the image container wrap content (e.g., `height: auto` and `display: block`)
+  - forces the image to `width: 100%` and `height: auto`
+
+### Verification
+
+- Rebuild site CSS so `assets/css/styles.css` updates.
+- Run: `node scripts/validate-requested-edits.js --strict`
+- Manual check on `services.html` at mobile viewports.
+
+## Requested Edit 4 — index.html “Our Services” cards icon/title layout
+
+### Requirement
+
+In the “Our Services” cards on `index.html`:
+
+- icons stay top-left
+- titles are placed directly to the right of icons on the same row (inline)
+
+### Acceptance criteria
+
+Visual:
+- Icon + title share a row, with the icon on the left and title immediately to its right.
+- Works on desktop and mobile.
+
+Deterministic:
+- `src/css/pages/home.css` contains the required marker comment.
+- `.packages-grid .service-title` uses a flex row layout.
+- `.packages-grid .service-icon-img` no longer enforces a bottom margin that stacks it above the title (margin-bottom must be 0 via rule or override).
+
+### Verification
+
+- Rebuild site CSS.
+- Run: `node scripts/validate-requested-edits.js --strict`
+- Manual check on `index.html`.
