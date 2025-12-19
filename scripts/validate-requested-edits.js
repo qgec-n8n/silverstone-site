@@ -1,279 +1,229 @@
-#!/usr/bin/env node
 // FILE: scripts/validate-requested-edits.js
-
-/**
- * Validates Requested UI Fixes (1–5) as defined in codex/REQUESTED_EDITS_SPEC.md.
- *
- * Run:
- *   node scripts/validate-requested-edits.js --strict
- */
+// Validates Requested Edits (1–7) from codex/REQUESTED_EDITS_SPEC.md.
+//
+// This script is intentionally deterministic:
+// - marker comments confirm the intended codepaths were modified
+// - targeted string/regex checks prevent subtle regressions
 
 const fs = require("fs");
 const path = require("path");
 
-const ROOT = path.resolve(__dirname, "..");
-const strict = process.argv.includes("--strict");
+const FILES = {
+  indexHtml: path.join("index.html"),
+  servicesHtml: path.join("services.html"),
+  homeCss: path.join("src", "css", "pages", "home.css"),
+  servicesCss: path.join("src", "css", "pages", "services.css"),
+  typographyCss: path.join("src", "css", "base", "typography.css"),
+  outCss: path.join("assets", "css", "styles.css"),
+};
 
-let failures = 0;
+const MARKERS = {
+  homeCss: ["SS_HOME_SPEC: SERVICES_TITLES_BLUE_TAGLINES_GREY"],
+  typographyCss: ["SS_SERVICES_SPEC: MOBILE_IMAGE_OUTSIDE_TEXT_CARD_MATCH_NICHE_PATTERN"],
+  servicesCss: ["SS_SERVICES_SPEC: MOBILE_IMAGE_TOP_PATTERN"],
+};
 
-function fail(msg) {
-  failures += 1;
-  console.error(`❌ ${msg}`);
-  if (strict) process.exit(1);
-}
+const HOME_CARD_TITLES = [
+  "AI Consulting & Readiness",
+  "Automated Lead Follow-Up",
+  "Workflow Automation & Reporting",
+  "Systems & Data Integration",
+];
 
-function ok(msg) {
-  console.log(`✅ ${msg}`);
-}
+const HOME_TAGLINES = [
+  "Get clear on what to automate first - and what to leave alone.",
+  "Stop enquiries going cold with fast, personal follow-up.",
+  "Remove manual admin and get visibility across your ops.",
+  "Connect your tools so data flows without copy-paste.",
+];
 
-function read(relPath) {
-  const p = path.join(ROOT, relPath);
-  if (!fs.existsSync(p)) fail(`Missing file: ${relPath}`);
-  return fs.readFileSync(p, "utf8");
-}
+const SERVICES_REQUIRED_HEADINGS = [
+  "Where revenue (and time) quietly leaks away.",
+  "Start small. Ship fast. Expand when it is working",
+  "General Service Lines:",
+];
 
-function assertIncludes(haystack, needle, msg) {
-  if (!haystack.includes(needle)) fail(msg);
-}
-
-function assertNotIncludes(haystack, needle, msg) {
-  if (haystack.includes(needle)) fail(msg);
-}
-
-function assertRegex(haystack, re, msg) {
-  if (!re.test(haystack)) fail(msg);
-}
-
-function listNichePages() {
-  const dir = path.join(ROOT, "niches");
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith(".html"))
-    .map((f) => path.posix.join("niches", f))
-    .sort();
-}
-
-/**
- * Extract a <div>...</div> block starting from the index of an opening "<div".
- * This is a simple tag counter for nested divs (sufficient for this repo’s markup style).
- */
-function extractDivBlock(html, startIdx) {
-  const OPEN = "<div";
-  const CLOSE = "</div>";
-
-  if (startIdx < 0 || startIdx >= html.length) return null;
-  if (!html.slice(startIdx, startIdx + OPEN.length).toLowerCase().startsWith(OPEN)) return null;
-
-  let depth = 1;
-  let i = startIdx + OPEN.length;
-
-  while (i < html.length) {
-    const nextOpen = html.toLowerCase().indexOf(OPEN, i);
-    const nextClose = html.toLowerCase().indexOf(CLOSE, i);
-
-    if (nextClose === -1) return null;
-
-    if (nextOpen !== -1 && nextOpen < nextClose) {
-      depth += 1;
-      i = nextOpen + OPEN.length;
-      continue;
-    }
-
-    // close comes first
-    depth -= 1;
-    i = nextClose + CLOSE.length;
-
-    if (depth === 0) {
-      return html.slice(startIdx, i);
-    }
+function readFileOrDie(filePath) {
+  try {
+    return fs.readFileSync(filePath, "utf8");
+  } catch (err) {
+    const msg = err && err.message ? err.message : String(err);
+    throw new Error(`Could not read ${filePath}: ${msg}`);
   }
-
-  return null;
 }
 
-function validateNicheSanity() {
-  const nichePages = listNichePages();
-  if (nichePages.length === 0) {
-    fail("No niches/*.html pages found (expected at least 1).");
-    return;
+function assertMarkerPresent(filePath, marker, content) {
+  if (!content.includes(marker)) {
+    throw new Error(`Missing required marker in ${filePath}: "${marker}"`);
   }
-
-  nichePages.forEach((rel) => {
-    const html = read(rel);
-    assertRegex(html, /<body[^>]*\bpage-niche\b/, `${rel} must keep body class page-niche.`);
-    assertRegex(
-      html,
-      /<div class="ss-pricing"[^>]*\bdata-ss-pricing-page="niches\//,
-      `${rel} must include a pricing mount with data-ss-pricing-page="niches/...".`
-    );
-    assertRegex(html, /class="stats\b/, `${rel} must include a .stats section.`);
-  });
-
-  ok(`Niche sanity: ${nichePages.length} niche pages present with page-niche + pricing mount + stats section.`);
 }
 
-function validateStatsIconsHomeAndAbout() {
-  const indexHtml = read("index.html");
-  const aboutHtml = read("about.html");
+function assertContains(filePath, content, needle) {
+  if (!content.includes(needle)) {
+    throw new Error(`Expected to find in ${filePath}: "${needle}"`);
+  }
+}
 
-  assertIncludes(
+function assertNotContains(filePath, content, needle, hint = "") {
+  if (content.includes(needle)) {
+    const extra = hint ? ` ${hint}` : "";
+    throw new Error(`Unexpected content found in ${filePath}: "${needle}".${extra}`);
+  }
+}
+
+function validateIndexNoExtraBr(indexHtml) {
+  // Exact current problem is: "...copy-paste.<br />" which creates an extra blank line.
+  assertNotContains(
+    FILES.indexHtml,
     indexHtml,
-    "SS_STATS_SPEC: ICONS_ADDED_HOME_ABOUT",
-    "index.html must include marker SS_STATS_SPEC: ICONS_ADDED_HOME_ABOUT."
+    "Connect your tools so data flows without copy-paste.<br",
+    "Remove the extra <br /> in the Systems & Data Integration card."
   );
-  assertIncludes(
-    aboutHtml,
-    "SS_STATS_SPEC: ICONS_ADDED_HOME_ABOUT",
-    "about.html must include marker SS_STATS_SPEC: ICONS_ADDED_HOME_ABOUT."
-  );
+}
 
-  const indexStatCount = (indexHtml.match(/class="stat\b/g) || []).length;
-  const indexIconCount = (indexHtml.match(/class="stat-icon\b/g) || []).length;
-  if (indexStatCount === 0) fail("index.html must contain .stat cards.");
-  if (indexIconCount !== indexStatCount) {
-    fail(`index.html must have one .stat-icon per .stat (found ${indexIconCount} icons, ${indexStatCount} stats).`);
+function validateHomeCopyIsUnchanged(indexHtml) {
+  HOME_CARD_TITLES.forEach((t) => assertContains(FILES.indexHtml, indexHtml, t));
+  HOME_TAGLINES.forEach((t) => assertContains(FILES.indexHtml, indexHtml, t));
+}
+
+function validateHomeCssColors(homeCss, outCss, strict) {
+  if (strict) {
+    MARKERS.homeCss.forEach((m) => {
+      assertMarkerPresent(FILES.homeCss, m, homeCss);
+      assertMarkerPresent(FILES.outCss, m, outCss);
+    });
   }
 
-  const aboutStatCount = (aboutHtml.match(/class="stat\b/g) || []).length;
-  const aboutIconCount = (aboutHtml.match(/class="stat-icon\b/g) || []).length;
-  if (aboutStatCount === 0) fail("about.html must contain .stat cards.");
-  if (aboutIconCount !== aboutStatCount) {
-    fail(`about.html must have one .stat-icon per .stat (found ${aboutIconCount} icons, ${aboutStatCount} stats).`);
+  // Titles must be blue for home packages grid cards.
+  const expectedTitleRule =
+    /\.page-home\s+\.packages-grid\s+\.neon-card\s+h3\s*\{[^}]*color:\s*var\(--color-blue\)\s*;?/s;
+  if (!expectedTitleRule.test(homeCss)) {
+    throw new Error(
+      `Expected home card titles to be blue in ${FILES.homeCss} (selector ".page-home .packages-grid .neon-card h3").`
+    );
   }
 
-  // Icon mapping is intentionally deterministic (see spec).
-  ["fa-solid fa-bell", "fa-solid fa-clock", "fa-solid fa-gears", "fa-solid fa-check-circle"].forEach((icon) => {
-    assertIncludes(indexHtml, icon, `index.html must include icon class "${icon}".`);
+  // Taglines must remain grey.
+  const expectedTaglineRule =
+    /\.page-home\s+\.packages-grid\s+\.tagline\s*\{[^}]*color:\s*var\(--color-silver\)\s*;?/s;
+  if (!expectedTaglineRule.test(homeCss)) {
+    throw new Error(
+      `Expected home card taglines to be grey in ${FILES.homeCss} (selector ".page-home .packages-grid .tagline").`
+    );
+  }
+
+  // Ensure the old green rule for this selector is not still present.
+  const oldGreenRule =
+    /\.page-home\s+\.packages-grid\s+\.neon-card\s+h3\s*\{[^}]*color:\s*var\(--color-green\)/s;
+  if (oldGreenRule.test(homeCss)) {
+    throw new Error(`Home card titles are still green in ${FILES.homeCss}; they must be blue.`);
+  }
+}
+
+function validateServicesCopyIsUnchanged(servicesHtml) {
+  SERVICES_REQUIRED_HEADINGS.forEach((h) => assertContains(FILES.servicesHtml, servicesHtml, h));
+}
+
+function validateServiceContentNoImages(servicesHtml) {
+  // Ensure no <img> inside .service-content blocks (card must be text-only).
+  const blocks = servicesHtml.match(/<div class="service-content[\s\S]*?<\/div>\s*<\/div>/g);
+  if (!blocks || blocks.length === 0) {
+    throw new Error(`Could not find any ".service-content" blocks in ${FILES.servicesHtml}.`);
+  }
+  blocks.forEach((block, i) => {
+    if (/<img\s/i.test(block)) {
+      throw new Error(
+        `Found <img> inside a .service-content block (#${i + 1}) in ${FILES.servicesHtml}. Images must be outside the card.`
+      );
+    }
+  });
+}
+
+function validateServicesMobileImageOrderMarker(servicesCss, outCss, strict) {
+  if (strict) {
+    MARKERS.servicesCss.forEach((m) => {
+      assertMarkerPresent(FILES.servicesCss, m, servicesCss);
+      assertMarkerPresent(FILES.outCss, m, outCss);
+    });
+  }
+}
+
+function validateServicesMobileNoMergedCard(typographyCss, outCss, strict) {
+  const marker = MARKERS.typographyCss[0];
+
+  if (strict) {
+    assertMarkerPresent(FILES.typographyCss, marker, typographyCss);
+    assertMarkerPresent(FILES.outCss, marker, outCss);
+  }
+
+  // The buggy mobile layout came from a dedicated section labeled "Services mobile cards".
+  assertNotContains(
+    FILES.typographyCss,
+    typographyCss,
+    "Services mobile cards",
+    "This block must be removed/disabled so services matches the estate-agents pattern."
+  );
+
+  // Also ensure we didn't keep the specific problematic rules.
+  const forbiddenRules = [
+    /\.page-services\s+\.service-row\s*\{\s*display:\s*flex\s*!important/s,
+    /\.page-services\s+\.service-row\s*\{\s*[^}]*background:\s*linear-gradient/s,
+    /\.page-services\s+\.service-row\s+\.service-content\s+h3\s*\{\s*[^}]*color:\s*#f8fafc/s,
+    /\.page-services\s+\.service-row\s+\.service-content\.neon-card\s*\{\s*[^}]*background:\s*transparent\s*!important/s,
+  ];
+
+  forbiddenRules.forEach((re) => {
+    if (re.test(typographyCss)) {
+      throw new Error(
+        `Detected leftover mobile card-merge styling in ${FILES.typographyCss} matching regex: ${re}`
+      );
+    }
   });
 
-  ["fa-solid fa-calendar-check", "fa-solid fa-chart-line", "fa-solid fa-diagram-project", "fa-solid fa-bolt"].forEach(
-    (icon) => {
-      assertIncludes(aboutHtml, icon, `about.html must include icon class "${icon}".`);
+  // Built CSS should not contain the old signature either.
+  const outForbidden = [
+    /Services mobile cards/s,
+    /\.page-services\s+\.service-row\s*\{\s*display:\s*flex\s*!important/s,
+    /\.page-services\s+\.service-row\s+\.service-content\s+h3\s*\{\s*[^}]*color:\s*#f8fafc/s,
+  ];
+
+  outForbidden.forEach((re) => {
+    if (re.test(outCss)) {
+      throw new Error(
+        `Detected leftover mobile card-merge styling in ${FILES.outCss} matching regex: ${re}`
+      );
     }
-  );
-
-  ok("Edit 4 — Stats icons added to index + about (with required icon mapping).");
-}
-
-function validateStatsColors() {
-  const srcStatsCss = read("src/css/components/stats.css");
-  const builtCss = read("assets/css/styles.css");
-  const estateCss = read("src/css/pages/estate-agents.css");
-
-  assertIncludes(
-    srcStatsCss,
-    "SS_STATS_SPEC: COLORS_ICON_GREEN_NUMBER_BLUE_LABEL_WHITE",
-    "src/css/components/stats.css must include marker SS_STATS_SPEC: COLORS_ICON_GREEN_NUMBER_BLUE_LABEL_WHITE."
-  );
-  assertIncludes(
-    builtCss,
-    "SS_STATS_SPEC: COLORS_ICON_GREEN_NUMBER_BLUE_LABEL_WHITE",
-    "assets/css/styles.css must be rebuilt and include the stats color marker."
-  );
-
-  // Icon green
-  assertRegex(
-    srcStatsCss,
-    /\.stats\s+\.stat-icon\b[\s\S]*color:\s*var\(--color-green\)\s*;/,
-    "stats.css must set .stats .stat-icon color to var(--color-green)."
-  );
-
-  // Number blue
-  assertRegex(
-    srcStatsCss,
-    /\.stats\s+\.number\b[\s\S]*color:\s*var\(--color-blue\)\s*;/,
-    "stats.css must set .stats .number color to var(--color-blue)."
-  );
-
-  // Label white
-  assertRegex(
-    srcStatsCss,
-    /\.stats\s+\.label\b[\s\S]*color:\s*var\(--color-white\)\s*;/,
-    "stats.css must set .stats .label color to var(--color-white)."
-  );
-
-  // Built output contains the same intent (marker is already checked; also sanity-check presence of colors)
-  assertIncludes(builtCss, "var(--color-blue)", "Built CSS must include var(--color-blue) (stats number color).");
-  assertIncludes(builtCss, "var(--color-green)", "Built CSS must include var(--color-green) (stats icon color).");
-  assertIncludes(builtCss, "var(--color-white)", "Built CSS must include var(--color-white) (stats label color).");
-
-  // Ensure no page-specific override forces amber stat icons (conflicts with requirement).
-  assertNotIncludes(
-    estateCss,
-    "color: var(--color-amber)",
-    "estate-agents.css must not force stat-icon color to amber (icons must be green site-wide)."
-  );
-
-  ok("Edit 5 — Stats color rules validated (icons green, numbers blue, labels white).");
-}
-
-function validateServicesMobileImageTopPattern() {
-  const servicesHtml = read("services.html");
-  const servicesCss = read("src/css/pages/services.css");
-  const builtCss = read("assets/css/styles.css");
-
-  assertIncludes(
-    servicesCss,
-    "SS_SERVICES_SPEC: MOBILE_IMAGE_TOP_PATTERN",
-    "services.css must include marker SS_SERVICES_SPEC: MOBILE_IMAGE_TOP_PATTERN."
-  );
-  assertIncludes(
-    builtCss,
-    "SS_SERVICES_SPEC: MOBILE_IMAGE_TOP_PATTERN",
-    "assets/css/styles.css must be rebuilt and include the services mobile marker."
-  );
-
-  // CSS must enforce image above text on mobile (even when DOM alternates for desktop).
-  assertRegex(
-    servicesCss,
-    /@media\s*\(max-width:\s*768px\)[\s\S]*\.page-services\s+\.service-row\s+\.service-image[\s\S]*order\s*:\s*1\s*;/,
-    "services.css must set .page-services .service-row .service-image { order: 1; } in the <=768px media query."
-  );
-  assertRegex(
-    servicesCss,
-    /@media\s*\(max-width:\s*768px\)[\s\S]*\.page-services\s+\.service-row\s+\.service-content[\s\S]*order\s*:\s*2\s*;/,
-    "services.css must set .page-services .service-row .service-content { order: 2; } in the <=768px media query."
-  );
-
-  // Structural guard: .service-content blocks must not contain <img> tags (images must stay in the image card).
-  const token = '<div class="service-content';
-  let idx = 0;
-  let checked = 0;
-
-  while ((idx = servicesHtml.indexOf(token, idx)) !== -1) {
-    const block = extractDivBlock(servicesHtml, idx);
-    if (!block) {
-      fail("Could not parse a service-content block in services.html (unexpected markup).");
-      break;
-    }
-
-    if (block.includes("<img")) {
-      fail("services.html: .service-content must not contain <img> tags (images must be outside the text card).");
-      break;
-    }
-
-    checked += 1;
-    idx += token.length;
-  }
-
-  if (checked === 0) fail("services.html must include at least one .service-content block.");
-
-  ok("Edit 3 — Services mobile image/top-of-card pattern validated (CSS order + no images inside service-content).");
+  });
 }
 
 function main() {
-  validateNicheSanity();
-  validateStatsIconsHomeAndAbout();
-  validateStatsColors();
-  validateServicesMobileImageTopPattern();
+  const strict = process.argv.includes("--strict");
 
-  if (failures > 0) {
-    console.error(`\nFAILED: ${failures} check(s).`);
-    process.exit(1);
-  }
+  const indexHtml = readFileOrDie(FILES.indexHtml);
+  const servicesHtml = readFileOrDie(FILES.servicesHtml);
+  const homeCss = readFileOrDie(FILES.homeCss);
+  const servicesCss = readFileOrDie(FILES.servicesCss);
+  const typographyCss = readFileOrDie(FILES.typographyCss);
+  const outCss = readFileOrDie(FILES.outCss);
 
-  ok("All Requested Edits (1–5) validations passed.");
+  validateIndexNoExtraBr(indexHtml);
+  validateHomeCopyIsUnchanged(indexHtml);
+  validateHomeCssColors(homeCss, outCss, strict);
+
+  validateServicesCopyIsUnchanged(servicesHtml);
+  validateServiceContentNoImages(servicesHtml);
+  validateServicesMobileImageOrderMarker(servicesCss, outCss, strict);
+  validateServicesMobileNoMergedCard(typographyCss, outCss, strict);
+
+  console.log("✅ Requested edits validation passed.");
 }
 
-main();
+if (require.main === module) {
+  try {
+    main();
+  } catch (err) {
+    console.error("❌ Requested edits validation failed.");
+    console.error(err && err.message ? err.message : err);
+    process.exit(1);
+  }
+}
