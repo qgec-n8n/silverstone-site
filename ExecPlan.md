@@ -37,6 +37,9 @@ After completion, the visual changes should be obvious on the target pages and `
 - Decision: fix the services mobile bug by removing the services-specific mobile “row becomes a single card” overrides in `src/css/base/typography.css`, rather than layering additional overrides on top.
   - Rationale: clearest root-cause fix; aligns services page with the proven niche-page pattern; fewer interacting CSS rules.
   - Date/Author: 2025-12-19 / plan author
+- Decision: to further surface the neon pink/blue accents on light-mode pricing sections, expanded the radial gradient falloff (keeping the codex-specified RGBA stops) and reduced the white top-layer opacity while retaining the parallax background asset.
+  - Rationale: makes the light-mode background read less white and highlights the existing neon hues without altering dark mode or other pages.
+  - Date/Author: 2025-12-19 / plan author
 
 ## Outcomes & Retrospective
 
