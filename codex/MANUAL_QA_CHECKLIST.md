@@ -1,51 +1,60 @@
 <!-- FILE: codex/MANUAL_QA_CHECKLIST.md -->
-# Manual QA Checklist — Requested Edits 1–7
+# Manual QA Checklist — Requested Edits 1–4
 
-Prereqs:
-- Run `bash scripts/codex.requested-edits.sh`
-- Serve repo root: `python3 -m http.server 8000`
+Use this checklist after validators pass. Do not skip mobile checks.
 
-## A) Pricing visuals (Edits 1–3)
+## Setup
+
+- Serve the repo locally (any static server is fine) so assets load correctly.
+- Test at least these viewport sizes:
+  - Mobile: 375×667 (or 390×844)
+  - Desktop: 1280×800 (or wider)
+
+## 1) Pricing color washout tuning
+
+On each page below, scroll to the pricing section(s) and confirm:
+- background shows clearly visible blue + pink washes
+- still feels light mode (not dark, not neon-heavy)
+- card readability remains strong (text contrast still good)
 
 Pages:
-- `/index.html`
-- `/services.html`
-- `/niches/estate-agents.html`
-- one additional `/niches/*.html`
+- `index.html` (pricing sections 1 and 2)
+- `services.html` (pricing sections 1 and 2)
+- One niche page under `niches/` (pricing sections 1 and 2)
 
-Checks:
-- Pricing section background is slightly more vibrant (blue/pink reads more clearly) but still premium light mode.
-- Sparkles are clearly visible (not barely perceptible) and still subtle (not noisy).
-- If a widget shows the monthly/setup toggle, confirm the toggle track background is white (not grey).
-- On a niche page, in the first pricing section, the “Most popular” card is unmistakably highlighted and looks premium.
+## 2) Pricing cards CTA alignment
 
-## B) Home “What we automate” cards + spacing (Edits 4–6)
+At desktop width where the grid is 3 columns:
+- In each 3-card row, the “Book a Call” buttons align horizontally.
+- Check both pricing sections:
+  - section 1 plan cards
+  - section 2 group cards
 
-On `/index.html`:
-- In “What we automate” section:
-  - The four service titles are blue.
-  - The four taglines are grey.
-- In the “Systems & Data Integration” card:
-  - No blank line between “Connect your tools so data flows without copy-paste.” and “Link CRM, booking, email and payments”.
+Repeat the check on:
+- `index.html`
+- `services.html`
 
-## C) Services mobile bug fix (Edit 7)
+## 3) services.html mobile image container tight wrap
 
-Viewport: 390×844
-- Open `/services.html`.
-- For each of these three rows:
-  - “Where revenue (and time) quietly leaks away.”
-  - “Start small. Ship fast. Expand when it is working”
-  - “General Service Lines:”
-  confirm:
-  - Image is outside the text card (stacked above), not “inside” the card border/background.
-  - Text card contains only text/bullets (no embedded images).
-- Confirm the first two headings render blue on mobile.
+At mobile width on `services.html`, verify these sections:
+- “Where revenue (and time) quietly leaks away.”
+- “Start small. Ship fast. Expand when it is working.”
+- “General Service Lines:”
+- “What changes once the basics are automated”
 
-Repeat at 375×667.
+For each:
+- the image container hugs the image (no large empty vertical space above/below)
+- the image still renders crisply and preserves aspect ratio
+- the desktop layout is unchanged (quick spot-check at desktop width)
 
-## D) Regression sanity
+## 4) index.html Our Services icon/title inline layout
 
-- On `/niches/estate-agents.html` mobile:
-  - Service row layout remains correct (image outside, text-only card).
-- On at least one non-index/services/niche page (if any contain pricing widgets):
-  - Pricing widget styling remains unchanged.
+On `index.html`, in the “Our Services” card grid:
+- each card shows the icon at top-left
+- the title sits directly to the right of the icon on the same row
+- verify on both mobile and desktop widths
+
+## Regression spot-checks (quick)
+
+- No obvious layout breakage in the header/nav and footer on `index.html` and `services.html`.
+- No missing CSS/JS assets (no 404s in browser network panel).
