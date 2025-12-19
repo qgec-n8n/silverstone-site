@@ -1,11 +1,23 @@
 # FILE: .codex/config.toml
-# Codex CLI defaults for this repo (Requested Edits 1–8 control-plane).
-# Use the initiation prompt in:
-# - codex/CODEX_INIT_PROMPT.md
-# And follow:
-# - AGENTS.md
-# - PLANS.md
-# - ExecPlan.md
+# Repo-local Codex CLI configuration.
+#
+# Goals:
+# - High reliability on multi-step UI edits (use higher reasoning effort).
+# - Allow build commands to write regenerated outputs into the workspace (assets/*).
+# - Keep network disabled for safety and determinism.
 
 model = "gpt-5.1-codex-max"
-approval_policy = "on_request"
+model_reasoning_effort = "high"
+model_verbosity = "medium"
+
+# Codex asks for approval only when it believes it is needed.
+approval_policy = "on-request"
+
+# Build scripts must be able to write to the repo workspace (e.g., assets/* outputs).
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+writable_roots = []
+network_access = false
+exclude_tmpdir_env_var = false
+exclude_slash_tmp = false
