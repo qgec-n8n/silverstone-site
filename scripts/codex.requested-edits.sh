@@ -2,34 +2,37 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "[codex.requested-edits] Rebuild + validate Requested Edits (1–8)"
-echo ""
+echo "=== Codex requested edits: setup ==="
+bash scripts/codex.setup.sh
 
-echo "[1/4] Rebuild main site CSS + JS"
+echo "=== Build main CSS ==="
 node build-css.js
+
+echo "=== Build main JS ==="
 node scripts/build-js.js
-echo ""
 
-echo "[2/4] Build pricing widget"
-if [ -f "pricing-widget/package.json" ]; then
-  if [ "${CODEX_SKIP_WIDGET_INSTALL:-0}" = "1" ]; then
-    echo "  Skipping pricing-widget npm install (CODEX_SKIP_WIDGET_INSTALL=1)"
-  else
-    (cd pricing-widget && npm install --no-fund --no-audit)
-  fi
-  (cd pricing-widget && npm run build)
-else
-  echo "ERROR: pricing-widget/ not found; cannot build pricing widget."
-  exit 1
-fi
-echo ""
+echo "=== Build pricing widget ==="
+pushd pricing-widget >/dev/null
+npm install
+npm run build
+popd >/dev/null
 
-echo "[3/4] Validate pricing mounts (regression guard)"
-node scripts/validate-pricing-mounts.js
-echo ""
+echo "=== Validate core pages ==="
+node scripts/validate-core-pages.js --strict
 
-echo "[4/4] Validate Requested Edits (1–8)"
+echo "=== Validate pricing mounts ==="
+node scripts/validate-pricing-mounts.js --strict
+
+echo "=== Validate requested edits (1–8) ==="
 node scripts/validate-requested-edits.js --strict
-echo ""
 
-echo "[codex.requested-edits] ✅ All Requested Edits validations passed."
+echo "=== Validate services page ==="
+node scripts/validate-services-page.js --strict
+
+echo "=== Validate niche pages ==="
+node scripts/validate-niche-pages.js --strict
+
+echo "=== Validate pricing UI tuning ==="
+node scripts/validate-pricing-ui-tuning.js --strict
+
+echo "✅ All requested edits validations passed."
