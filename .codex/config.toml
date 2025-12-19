@@ -1,23 +1,18 @@
 # FILE: .codex/config.toml
-# Repo-local Codex CLI configuration.
-#
-# Goals:
-# - High reliability on multi-step UI edits (use higher reasoning effort).
-# - Allow build commands to write regenerated outputs into the workspace (assets/*).
-# - Keep network disabled for safety and determinism.
+[project]
+model = "gpt-5.2-codex"
+sandbox_mode = "read_write"
+root = "."
 
-model = "gpt-5.1-codex-max"
-model_reasoning_effort = "high"
-model_verbosity = "medium"
+include = [
+  "AGENTS.md",
+  "PLANS.md",
+  "ExecPlan.md",
+  "codex/REQUESTED_EDITS_SPEC.md",
+  "codex/MANUAL_QA_CHECKLIST.md",
+  "codex/MAINTENANCE.md",
+  "codex/CODEX_SYSTEM_PROMPT.md",
+]
 
-# Codex asks for approval only when it believes it is needed.
-approval_policy = "on-request"
-
-# Build scripts must be able to write to the repo workspace (e.g., assets/* outputs).
-sandbox_mode = "workspace-write"
-
-[sandbox_workspace_write]
-writable_roots = []
-network_access = false
-exclude_tmpdir_env_var = false
-exclude_slash_tmp = false
+[mcp_servers]
+terminal = { command = "bash", args = ["-lc"] }
