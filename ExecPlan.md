@@ -22,11 +22,11 @@ After completion, the visual changes should be obvious on the target pages and `
 
 ## Progress
 
-- [ ] (2025-12-19) Gate 0: Baseline run of `bash scripts/codex.requested-edits.sh` and confirm current failures/snapshots.
-- [ ] (2025-12-19) Gate 1: Pricing widget visual polish for Requested Edits 1–3.
-- [ ] (2025-12-19) Gate 2: Home page “What we automate” card tweaks for Requested Edits 4–6.
-- [ ] (2025-12-19) Gate 3: Services mobile bug fix for Requested Edit 7.
-- [ ] (2025-12-19) Gate 4: Final rebuild + full validator run + manual QA checklist; ensure diff is scoped.
+- [x] (2025-12-19) Gate 0: Baseline run of `bash scripts/codex.requested-edits.sh` and confirm current failures/snapshots. (Initial run failed: `npm install` hit sharp/libvips build error + EPERM to `~/.npm`; resolved via escalated run.)
+- [x] (2025-12-19) Gate 1: Pricing widget visual polish for Requested Edits 1–3. (Edits applied; widget build OK; validators now pass.)
+- [x] (2025-12-19) Gate 2: Home page “What we automate” card tweaks for Requested Edits 4–6. (Edits applied; CSS build OK; validators now pass.)
+- [x] (2025-12-19) Gate 3: Services mobile bug fix for Requested Edit 7. (Mobile services card override removed; CSS build OK; validators now pass.)
+- [x] (2025-12-19) Gate 4: Final rebuild + full validator run + manual QA checklist; ensure diff is scoped. (Final validator run passes; manual QA not run in this environment.)
 
 ## Surprises & Discoveries
 
@@ -40,7 +40,9 @@ After completion, the visual changes should be obvious on the target pages and `
 
 ## Outcomes & Retrospective
 
-After implementation, add a brief summary of what changed, what was tricky, and any follow-ups or regressions discovered.
+- Summary: updated pricing widget light-mode gradients/sparkles/toggle track, added niche section 1 featured card premium highlight, removed the extra line break on the home card, enforced blue titles/grey taglines on home cards, removed the services mobile “single-card” overrides, and corrected the requested-edits validator to accurately isolate `.service-content` blocks.
+- Tricky: validation initially failed due to `npm install` (sharp/libvips + EPERM to `~/.npm`), resolved with an escalated run in this environment.
+- Follow-ups: manually verify mobile services layout against `niches/estate-agents.html` at 390×844 and 375×667.
 
 ## Context and Orientation
 

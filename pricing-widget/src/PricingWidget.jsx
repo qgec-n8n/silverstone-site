@@ -48,17 +48,20 @@ function SparklesCanvas({ density = 120 }) {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const createParticles = () => {
-      const count = Math.min(density, Math.max(40, Math.floor((width * height) / 8000)));
+      // SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE
+      // SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE
+      const COUNT = 26;
+      const count = Math.min(density, Math.max(COUNT, Math.floor((width * height) / 8000)));
       const list = [];
       for (let i = 0; i < count; i += 1) {
+        const r = 1.1 + Math.random() * 2.3;
+        const a = 0.55 + Math.random() * 0.4;
         list.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          // SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE
-          // SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE
-          r: Math.random() * 2.6 + 0.8,
+          r,
           speed: Math.random() * 0.45 + 0.2,
-          alpha: Math.random() * 0.5 + 0.45,
+          alpha: a,
         });
       }
       return list;
@@ -88,7 +91,7 @@ function SparklesCanvas({ density = 120 }) {
           if (p.y > height + 6) {
             p.y = -6;
             p.x = Math.random() * width;
-            p.alpha = Math.random() * 0.5 + 0.4;
+            p.alpha = 0.55 + Math.random() * 0.4;
           }
         }
       }

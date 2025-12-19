@@ -85,6 +85,15 @@
   text-align: left;
 }
 
+/* SS_HOME_SPEC: SERVICES_TITLES_BLUE_TAGLINES_GREY */
+.page-home .packages-grid .neon-card h3 {
+  color: var(--color-blue);
+}
+
+.page-home .packages-grid .tagline {
+  color: var(--color-silver);
+}
+
 .packages-grid .neon-card p {
   display: flex;
   align-items: flex-start;

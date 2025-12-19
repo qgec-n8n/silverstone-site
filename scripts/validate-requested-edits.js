@@ -124,9 +124,42 @@ function validateServicesCopyIsUnchanged(servicesHtml) {
   SERVICES_REQUIRED_HEADINGS.forEach((h) => assertContains(FILES.servicesHtml, servicesHtml, h));
 }
 
+function findMatchingDivEnd(html, startIndex) {
+  const tokenRe = /<\/?div\b[^>]*>/gi;
+  tokenRe.lastIndex = startIndex;
+
+  let depth = 0;
+  let match;
+
+  while ((match = tokenRe.exec(html)) !== null) {
+    const tok = match[0];
+    const isClose = tok.startsWith("</");
+
+    if (!isClose) {
+      depth += 1;
+    } else {
+      depth -= 1;
+      if (depth === 0) {
+        return tokenRe.lastIndex;
+      }
+    }
+  }
+
+  return -1;
+}
+
 function validateServiceContentNoImages(servicesHtml) {
   // Ensure no <img> inside .service-content blocks (card must be text-only).
-  const blocks = servicesHtml.match(/<div class="service-content[\s\S]*?<\/div>\s*<\/div>/g);
+  const blocks = [];
+  const openRe = /<div class="service-content[^"]*"[^>]*>/gi;
+  let match;
+
+  while ((match = openRe.exec(servicesHtml)) !== null) {
+    const end = findMatchingDivEnd(servicesHtml, match.index);
+    if (end !== -1) {
+      blocks.push(servicesHtml.slice(match.index, end));
+    }
+  }
   if (!blocks || blocks.length === 0) {
     throw new Error(`Could not find any ".service-content" blocks in ${FILES.servicesHtml}.`);
   }
