@@ -1,41 +1,46 @@
 <!-- FILE: codex/CODEX_INIT_PROMPT.md -->
-# Codex Initiation Prompt — Silverstone Requested Website Edits (1–8)
+# Codex Initiation Prompt — Requested Edits 1–7
 
-You are Codex CLI acting as a senior frontend engineer operating in this repository.
+You are working inside this repository. Implement Requested Edits 1–7 exactly as defined in `codex/REQUESTED_EDITS_SPEC.md`.
 
-## Your task
-Implement **exactly and only** the requested edits described in:
-- `codex/REQUESTED_EDITS_SPEC.md` (single source of truth)
+## Non-negotiable rules
 
-Execute the work using:
-- `ExecPlan.md` (gate-by-gate workflow)
+- Read and follow: `AGENTS.md`, `PLANS.md`, `ExecPlan.md`, `codex/REQUESTED_EDITS_SPEC.md`.
+- Stay within the allowed edit surfaces in `AGENTS.md`.
+- Add/keep the required SS_* marker comments exactly as written in the spec.
+- Do not hand-edit generated files under `assets/`. Rebuild via repo scripts only.
+- Keep diffs minimal; do not reformat unrelated HTML/CSS.
 
-While obeying:
-- `AGENTS.md` (scope + guardrails)
-- `PLANS.md` (ExecPlan rules + validation loop)
+## Execution plan
 
-## Hard constraints
-- No scope creep. Do not change copy, layout, styling, or behavior unless the Spec explicitly requires it.
-- Do not modify pricing copy sources unless the Spec explicitly instructs it:
-  - `PRICING_COPY_MAP.md`
-  - `pricing-widget/src/pricing-copy-map.json`
-- Rebuild committed outputs whenever sources change:
-  - `node build-css.js`
-  - `node scripts/build-js.js`
-  - `(cd pricing-widget && npm run build)`
-- After each gate, run:
-  - `bash scripts/codex.requested-edits.sh`
-  - Fix only failing checks; rerun until green.
+1) Baseline
+- Run: `bash scripts/codex.requested-edits.sh`
+- Update `ExecPlan.md` Progress with baseline status and any early discoveries.
 
-## Required workflow
-1) Read: `AGENTS.md` → `PLANS.md` → `codex/REQUESTED_EDITS_SPEC.md` → `ExecPlan.md`.
-2) Run setup once: `bash scripts/codex.setup.sh`
-3) Follow ExecPlan gates in order. Do not skip validation.
-4) If you must resolve ambiguity, choose the simplest change that satisfies the Spec and record it in `ExecPlan.md` (Decision Log).
+2) Gate 1 — Pricing widget polish (Requested Edits 1–3)
+- Implement edits 1–3 in:
+  - `pricing-widget/src/pricing-widget.css`
+  - `pricing-widget/src/PricingWidget.jsx`
+- Rebuild widget: `(cd pricing-widget && npm run build)`
+- Run: `bash scripts/codex.requested-edits.sh`
+- Update `ExecPlan.md` Progress + any discoveries/decisions.
 
-## Completion criteria
-You are done only when:
-- `bash scripts/codex.requested-edits.sh` passes, and
-- `codex/MANUAL_QA_CHECKLIST.md` is completed.
+3) Gate 2 — Home page “What we automate” tweaks (Requested Edits 4–6)
+- Implement edits 4–6 in:
+  - `index.html`
+  - `src/css/pages/home.css`
+- Rebuild site CSS: `node build-css.js`
+- Run: `bash scripts/codex.requested-edits.sh`
+- Update `ExecPlan.md` Progress.
 
-Begin by reading the required files and starting Gate 0 in `ExecPlan.md`.
+4) Gate 3 — Services mobile bug fix (Requested Edit 7)
+- Fix root cause in `src/css/base/typography.css` by removing/disabling the mobile “Services mobile cards” block so services matches the estate-agents pattern (image outside card; card is text-only).
+- Ensure mobile headings are blue (not white).
+- Rebuild site CSS: `node build-css.js`
+- Run: `bash scripts/codex.requested-edits.sh`
+- Manually verify `/services.html` at 390×844 and 375×667 and compare to `/niches/estate-agents.html`.
+
+5) Finalize
+- Run `bash scripts/codex.requested-edits.sh` one more time.
+- Walk `codex/MANUAL_QA_CHECKLIST.md`.
+- Provide a concise summary: what changed, files touched, and how it was verified.
