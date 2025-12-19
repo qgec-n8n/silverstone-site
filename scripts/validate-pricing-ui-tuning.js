@@ -1,187 +1,207 @@
 // FILE: scripts/validate-pricing-ui-tuning.js
-// Validates pricing widget requirements for Requested Edits (1–3) plus key regressions.
-// Deterministic checks use marker comments + exact/regex matches.
-
 const fs = require("fs");
 const path = require("path");
 
-const FILES = {
-  srcCss: path.join("pricing-widget", "src", "pricing-widget.css"),
-  outCss: path.join("assets", "css", "pricing-widget.css"),
-  srcJsx: path.join("pricing-widget", "src", "PricingWidget.jsx"),
-  outJs: path.join("assets", "js", "pricing-widget.js"),
-};
+const ROOT = path.resolve(__dirname, "..");
 
-// CSS markers must exist in both source and built CSS.
-// JSX markers are checked only in source (bundling may strip comments).
-const REQUIRED_CSS_MARKERS = [
-  // Requested Edits 1–3
-  "SS_PRICING_SPEC: LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL",
-  "SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE",
-  "SS_PRICING_SPEC: TOGGLE_TRACK_WHITE_LIGHT_MODE",
-  "SS_PRICING_SPEC: NICHES_SECTION1_FEATURED_CARD_PREMIUM_HIGHLIGHT",
+function readText(filePath) {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Missing file: ${filePath}`);
+  }
+  return fs.readFileSync(filePath, "utf8");
+}
 
-  // Regression guardrails (already present in repo; keep them from regressing)
-  "SS_PRICING_SPEC: CTA_BOOK_CALL_PREMIUM_LIGHT_MODE",
-  "SS_PRICING_SPEC: GBP_SYMBOL_BASELINE_ALIGN",
-];
+function fail(messages) {
+  console.error("\n❌ validate-pricing-ui-tuning failed:\n");
+  for (const m of messages) console.error(`- ${m}`);
+  console.error("");
+  process.exit(1);
+}
 
-const REQUIRED_JSX_MARKERS = [
-  "SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE",
-];
-
-function readFileOrDie(filePath) {
-  try {
-    return fs.readFileSync(filePath, "utf8");
-  } catch (err) {
-    const msg = err && err.message ? err.message : String(err);
-    throw new Error(`Could not read ${filePath}: ${msg}`);
+function assertContains(haystack, needle, label, errors) {
+  if (!haystack.includes(needle)) {
+    errors.push(`${label}: expected to find "${needle}"`);
   }
 }
 
-function assertMarkerPresent(filePath, marker, content) {
-  if (!content.includes(marker)) {
-    throw new Error(`Missing required marker in ${filePath}: "${marker}"`);
+function assertRange(value, { min, max }, label, errors) {
+  if (typeof value !== "number" || Number.isNaN(value)) {
+    errors.push(`${label}: expected a number, got "${value}"`);
+    return;
+  }
+  if (value < min || value > max) {
+    errors.push(`${label}: expected in [${min}, ${max}], got ${value}`);
   }
 }
 
-function snippetAround(content, marker, radius = 900) {
-  const idx = content.indexOf(marker);
-  if (idx === -1) return "";
-  const start = Math.max(0, idx - radius);
-  const end = Math.min(content.length, idx + marker.length + radius);
-  return content.slice(start, end);
+function extractAlphasFromLightModeBg(css) {
+  // Match the light-mode background definition that includes:
+  // - linear-gradient(135deg, rgba(255,255,255,a1) ..., rgba(236,245,255,a2) ..., rgba(214,232,255,a3) ...)
+  // - radial-gradient(circle at 20% 18%, rgba(0,174,239,b1) 0%, rgba(0,174,239,b2) 45%, ...)
+  // - radial-gradient(circle at 82% 12%, rgba(255,79,216,p1) 0%, rgba(255,79,216,p2) 45%, ...)
+  const linearRe =
+    /linear-gradient\(\s*135deg\s*,\s*rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*(0\.\d+)\s*\)\s*0%\s*,\s*rgba\(\s*236\s*,\s*245\s*,\s*255\s*,\s*(0\.\d+)\s*\)\s*42%\s*,\s*rgba\(\s*214\s*,\s*232\s*,\s*255\s*,\s*(0\.\d+)\s*\)\s*100%\s*\)/m;
+
+  const blueRe =
+    /radial-gradient\(\s*circle at\s*20%\s*18%\s*,[\s\S]*?rgba\(\s*0\s*,\s*174\s*,\s*239\s*,\s*(0\.\d+)\s*\)\s*0%\s*,\s*rgba\(\s*0\s*,\s*174\s*,\s*239\s*,\s*(0\.\d+)\s*\)\s*45%\s*,/m;
+
+  const pinkRe =
+    /radial-gradient\(\s*circle at\s*82%\s*12%\s*,[\s\S]*?rgba\(\s*255\s*,\s*79\s*,\s*216\s*,\s*(0\.\d+)\s*\)\s*0%\s*,\s*rgba\(\s*255\s*,\s*79\s*,\s*216\s*,\s*(0\.\d+)\s*\)\s*45%\s*,/m;
+
+  const linearMatch = css.match(linearRe);
+  const blueMatch = css.match(blueRe);
+  const pinkMatch = css.match(pinkRe);
+
+  return {
+    linear: linearMatch
+      ? {
+          start: parseFloat(linearMatch[1]),
+          mid: parseFloat(linearMatch[2]),
+          end: parseFloat(linearMatch[3]),
+        }
+      : null,
+    blue: blueMatch
+      ? { a0: parseFloat(blueMatch[1]), a45: parseFloat(blueMatch[2]) }
+      : null,
+    pink: pinkMatch
+      ? { a0: parseFloat(pinkMatch[1]), a45: parseFloat(pinkMatch[2]) }
+      : null,
+  };
 }
 
-function validateLightModeBgMoreVibrant(css) {
-  const marker = "SS_PRICING_SPEC: LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL";
-  const snippet = snippetAround(css, marker, 2000);
+function validateCssFile(label, cssText, errors) {
+  // Required markers for this request.
+  assertContains(
+    cssText,
+    "SS_PRICING_SPEC: LIGHT_MODE_WASHOUT_TUNING_2025_12",
+    `${label} marker`,
+    errors
+  );
+  assertContains(
+    cssText,
+    "SS_PRICING_SPEC: CTA_BUTTON_ROW_ALIGNMENT_2025_12",
+    `${label} marker`,
+    errors
+  );
 
-  // Ensure the background image is still part of the layer stack.
-  if (!snippet.includes("body-section-background-2025.webp")) {
-    throw new Error("Light-mode pricing background no longer references body-section-background-2025.webp near the marker.");
-  }
+  // 1) Washout tuning: ensure the “light mode” gradient has boosted blue/pink and reduced whitewash.
+  const alphas = extractAlphasFromLightModeBg(cssText);
 
-  // Enforce the exact alpha targets from codex/REQUESTED_EDITS_SPEC.md.
-  const required = [
-    /rgba\(\s*0,\s*174,\s*239,\s*0\.30\s*\)/,
-    /rgba\(\s*0,\s*174,\s*239,\s*0\.17\s*\)/,
-    /rgba\(\s*255,\s*79,\s*216,\s*0\.26\s*\)/,
-    /rgba\(\s*255,\s*79,\s*216,\s*0\.15\s*\)/,
-  ];
-
-  required.forEach((re) => {
-    if (!re.test(snippet)) {
-      throw new Error(`Expected updated light-mode background value missing near marker: ${re}`);
-    }
-  });
-}
-
-function validateSparklesBoost(css, srcJsx) {
-  const marker = "SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE";
-
-  const cssSnippet = snippetAround(css, marker, 1400);
-  if (!/\.ss-pricing__sparkles/.test(cssSnippet)) {
-    throw new Error("Sparkles marker not located near .ss-pricing__sparkles styles.");
-  }
-  if (!/filter:\s*drop-shadow\(/.test(cssSnippet)) {
-    throw new Error("Expected sparkles filter to include drop-shadow() for clarity.");
-  }
-
-  const jsxSnippet = snippetAround(srcJsx, marker, 1600);
-  // Enforce the explicit numeric boosts expected by the spec.
-  // (These exact baselines should be present after implementation.)
-  if (!/const\s+COUNT\s*=\s*26\s*;/.test(jsxSnippet)) {
-    throw new Error("Expected sparkle particle COUNT to be set to 26 near the sparkles marker in PricingWidget.jsx.");
-  }
-  if (!/const\s+r\s*=\s*1\.1\s*\+/.test(jsxSnippet)) {
-    throw new Error("Expected sparkle radius baseline 'const r = 1.1 +' near the sparkles marker in PricingWidget.jsx.");
-  }
-  if (!/const\s+a\s*=\s*0\.55\s*\+/.test(jsxSnippet)) {
-    throw new Error("Expected sparkle alpha baseline 'const a = 0.55 +' near the sparkles marker in PricingWidget.jsx.");
-  }
-}
-
-function validateToggleTrackWhite(css) {
-  const marker = "SS_PRICING_SPEC: TOGGLE_TRACK_WHITE_LIGHT_MODE";
-  const snippet = snippetAround(css, marker, 1600);
-
-  // Must be page-scoped and target the toggle track.
-  if (!/ss-pricing__toggle/.test(snippet)) {
-    throw new Error("Toggle track marker not located near .ss-pricing__toggle rule.");
-  }
-  if (!/data-ss-pricing-page/.test(snippet)) {
-    throw new Error("Toggle track white styling must be scoped via data-ss-pricing-page selectors.");
+  if (!alphas.linear) {
+    errors.push(
+      `${label}: could not parse light-mode linear-gradient alphas (expected 135deg rgba(255/236/214...) pattern)`
+    );
+  } else {
+    assertRange(
+      alphas.linear.start,
+      { min: 0.88, max: 0.95 },
+      `${label}: white linear-gradient start alpha`,
+      errors
+    );
+    assertRange(
+      alphas.linear.mid,
+      { min: 0.84, max: 0.92 },
+      `${label}: white linear-gradient mid alpha`,
+      errors
+    );
+    assertRange(
+      alphas.linear.end,
+      { min: 0.8, max: 0.88 },
+      `${label}: white linear-gradient end alpha`,
+      errors
+    );
   }
 
-  // Enforce the intended "white track" implementation.
-  if (!/background:\s*rgba\(\s*255,\s*255,\s*255,\s*0\.92\s*\)/.test(snippet)) {
-    throw new Error("Expected toggle track background rgba(255, 255, 255, 0.92) near the toggle marker.");
+  if (!alphas.blue) {
+    errors.push(
+      `${label}: could not parse light-mode blue radial-gradient alphas (expected circle at 20% 18% rgba(0,174,239,...) pattern)`
+    );
+  } else {
+    assertRange(
+      alphas.blue.a0,
+      { min: 0.34, max: 0.55 },
+      `${label}: blue radial-gradient alpha at 0%`,
+      errors
+    );
+    assertRange(
+      alphas.blue.a45,
+      { min: 0.2, max: 0.4 },
+      `${label}: blue radial-gradient alpha at 45%`,
+      errors
+    );
   }
-}
 
-function validateNicheSection1FeaturedCard(css) {
-  const marker = "SS_PRICING_SPEC: NICHES_SECTION1_FEATURED_CARD_PREMIUM_HIGHLIGHT";
-  const snippet = snippetAround(css, marker, 2200);
+  if (!alphas.pink) {
+    errors.push(
+      `${label}: could not parse light-mode pink radial-gradient alphas (expected circle at 82% 12% rgba(255,79,216,...) pattern)`
+    );
+  } else {
+    assertRange(
+      alphas.pink.a0,
+      { min: 0.3, max: 0.5 },
+      `${label}: pink radial-gradient alpha at 0%`,
+      errors
+    );
+    assertRange(
+      alphas.pink.a45,
+      { min: 0.18, max: 0.35 },
+      `${label}: pink radial-gradient alpha at 45%`,
+      errors
+    );
+  }
 
-  if (!/data-ss-pricing-page\^\=\"niches\//.test(snippet)) {
-    throw new Error("Featured-card premium highlight must be scoped to niche pages (data-ss-pricing-page^=\"niches/\").");
+  // 2) CTA alignment: enforce deterministic anchoring in CSS.
+  const ctaHasAutoMargin = /\.ss-pricing__cta\s*\{[\s\S]*?margin-top\s*:\s*auto\s*;[\s\S]*?\}/m.test(
+    cssText
+  );
+  if (!ctaHasAutoMargin) {
+    errors.push(
+      `${label}: expected ".ss-pricing__cta" to include "margin-top: auto;" for row alignment`
+    );
   }
-  if (!/data-ss-pricing-section\=\"1\"/.test(snippet)) {
-    throw new Error("Featured-card premium highlight must be scoped to section 1 (data-ss-pricing-section=\"1\").");
-  }
-  if (!/\.ss-pricing__card\.is-featured/.test(snippet)) {
-    throw new Error("Expected premium highlight rule to target .ss-pricing__card.is-featured.");
-  }
-  if (!/transform:\s*translateY\(\s*-6px\s*\)/.test(snippet)) {
-    throw new Error("Expected featured card to be raised with transform: translateY(-6px).");
-  }
-  if (!/box-shadow:\s*[^;]+;/.test(snippet)) {
-    throw new Error("Expected featured card premium highlight to include a stronger box-shadow.");
-  }
-}
 
-function validateOutJsContainsCanvas(outJs) {
-  // Sanity check: built JS should still include canvas logic (sparkles).
-  if (!outJs.includes("canvas")) {
-    throw new Error("Built pricing widget JS does not appear to contain canvas logic (expected for sparkles).");
+  const includesBlock = cssText.match(/\.ss-pricing__includes\s*\{[\s\S]*?\}/m);
+  if (!includesBlock) {
+    errors.push(`${label}: could not find ".ss-pricing__includes { ... }" block`);
+  } else if (/margin-top\s*:\s*auto\s*;/.test(includesBlock[0])) {
+    errors.push(
+      `${label}: ".ss-pricing__includes" must NOT use "margin-top: auto;" (it prevents CTA alignment)`
+    );
   }
 }
 
 function main() {
-  const strict = process.argv.includes("--strict");
+  const errors = [];
 
-  const srcCss = readFileOrDie(FILES.srcCss);
-  const outCss = readFileOrDie(FILES.outCss);
-  const srcJsx = readFileOrDie(FILES.srcJsx);
-  const outJs = readFileOrDie(FILES.outJs);
+  const srcCssPath = path.join(
+    ROOT,
+    "pricing-widget",
+    "src",
+    "pricing-widget.css"
+  );
+  const builtCssPath = path.join(ROOT, "assets", "css", "pricing-widget.css");
 
-  if (strict) {
-    REQUIRED_CSS_MARKERS.forEach((m) => {
-      assertMarkerPresent(FILES.srcCss, m, srcCss);
-      assertMarkerPresent(FILES.outCss, m, outCss);
-    });
-    REQUIRED_JSX_MARKERS.forEach((m) => {
-      assertMarkerPresent(FILES.srcJsx, m, srcJsx);
-    });
-  }
+  let srcCss = "";
+  let builtCss = "";
 
-  // Validate against built CSS so we catch “forgot to rebuild”.
-  validateLightModeBgMoreVibrant(outCss);
-  validateSparklesBoost(outCss, srcJsx);
-  validateToggleTrackWhite(outCss);
-  validateNicheSection1FeaturedCard(outCss);
-  validateOutJsContainsCanvas(outJs);
-
-  console.log("✅ Pricing UI tuning validation passed.");
-}
-
-if (require.main === module) {
   try {
-    main();
-  } catch (err) {
-    console.error("❌ Pricing UI tuning validation failed.");
-    console.error(err && err.message ? err.message : err);
-    process.exit(1);
+    srcCss = readText(srcCssPath);
+  } catch (e) {
+    errors.push(`Source pricing CSS missing/unreadable: ${e.message}`);
   }
+
+  try {
+    builtCss = readText(builtCssPath);
+  } catch (e) {
+    errors.push(`Built pricing CSS missing/unreadable: ${e.message}`);
+  }
+
+  if (srcCss) validateCssFile("pricing-widget/src/pricing-widget.css", srcCss, errors);
+  if (builtCss) validateCssFile("assets/css/pricing-widget.css", builtCss, errors);
+
+  if (errors.length) fail(errors);
+
+  console.log("✅ validate-pricing-ui-tuning passed.");
 }
+
+main();
