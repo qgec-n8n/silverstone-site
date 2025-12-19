@@ -1,39 +1,31 @@
 <!-- FILE: codex/INITIATION.md -->
-# How to run Codex on this repo (UI/UX Bugfixes A–H)
+# Initiating Codex CLI in this Repo
 
-This repo ships a Codex-ready instruction package for implementing UI/UX fixes A–H.
+This repo is set up to run Codex with a gated ExecPlan workflow and deterministic validators.
 
-## What Codex should read (in order)
+## Files that define the workflow
+- `codex/CODEX_INIT_PROMPT.md` — the first message to paste into Codex CLI
+- `ExecPlan.md` — the gate-by-gate execution plan for the current request
+- `codex/REQUESTED_EDITS_SPEC.md` — the single source of truth for requirements
+- `scripts/codex.requested-edits.sh` — rebuild + validate loop
 
-1. `AGENTS.md` — guardrails and repo map
-2. `PLANS.md` — full specification for A–H
-3. `ExecPlan.md` — step-by-step gated workflow
-4. `codex/CODEX_INIT_PROMPT.md` — the initiation prompt you paste into Codex CLI
+## One-time setup (per fresh checkout)
+1) From the repo root, run:
+   - `bash scripts/codex.setup.sh`
+2) Confirm the toolchain works:
+   - `bash scripts/codex.requested-edits.sh`
+   (It may fail until the requested edits are implemented; that’s expected.)
 
-## Local environment preflight (human)
+## Starting a Codex session
+1) Start Codex CLI in the repo root.
+2) Paste the full contents of `codex/CODEX_INIT_PROMPT.md` as the first message.
+3) Codex should:
+   - read the referenced files,
+   - follow `ExecPlan.md` gate-by-gate,
+   - run `bash scripts/codex.requested-edits.sh` after each gate,
+   - stop only when it is fully green.
 
-- Ensure Node.js is installed (the repo uses Node scripts for building CSS/JS).
-- From repo root:
-  - `npm install`
-  - `bash scripts/codex.setup.sh`
-
-## Starting Codex (human)
-
-1. Start Codex CLI in the repo root directory.
-2. Select a supported model:
-   - `gpt-5.1-codex-max` (recommended for long-horizon exec plans)
-   - `gpt-5.2-codex` (also allowed)
-3. Paste the full contents of `codex/CODEX_INIT_PROMPT.md` as the first message.
-4. Ensure Codex follows `ExecPlan.md` gates and runs `bash scripts/codex.maintenance.sh` during and after changes.
-
-## After Codex finishes (human)
-
-- Confirm the build outputs were regenerated:
-  - `assets/css/styles.css`
-  - `assets/js/app.js`
-- Open the site locally and verify the manual checks described in ExecPlan.md:
-  - desktop Services dropdown hover behavior
-  - mobile menu panel timing & typography
-  - mobile marquees preload behavior
-  - mobile hero CTA cutoff fix
-  - niche mobile background parity + overlay opacity change
+## If Codex gets stuck
+- Re-run `bash scripts/codex.requested-edits.sh` to see the current failing check.
+- Fix only the failing check (no unrelated edits).
+- Update `ExecPlan.md` Decision Log if a judgment call was required.
