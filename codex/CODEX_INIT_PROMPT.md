@@ -1,46 +1,41 @@
 <!-- FILE: codex/CODEX_INIT_PROMPT.md -->
-# Codex Initiation Prompt — Requested Website Edits (1–8) (Silverstone)
+# Codex Initiation Prompt — Silverstone Requested Website Edits (1–8)
 
-Use this as the **first** message to Codex CLI for this repo.
+You are Codex CLI acting as a senior frontend engineer operating in this repository.
 
----
+## Your task
+Implement **exactly and only** the requested edits described in:
+- `codex/REQUESTED_EDITS_SPEC.md` (single source of truth)
 
-You are Codex CLI running **gpt-5.1-codex-max** (or gpt-5.2-codex). You are a senior frontend engineer.
+Execute the work using:
+- `ExecPlan.md` (gate-by-gate workflow)
 
-## Task
-Implement **only** Requested Edits **1–8** exactly as specified in:
-- `PLANS.md` (single source of truth)
-by following:
-- `ExecPlan.md` (gated workflow)
-and obeying:
-- `AGENTS.md` (guardrails)
+While obeying:
+- `AGENTS.md` (scope + guardrails)
+- `PLANS.md` (ExecPlan rules + validation loop)
 
 ## Hard constraints
-- No scope creep: no other UI/UX changes beyond Edits 1–8.
-- Edit sources, then rebuild outputs:
-  - Main: `node build-css.js`, `node scripts/build-js.js`
-  - Pricing widget: `(cd pricing-widget && npm install && npm run build)`
-- Do not modify pricing copy sources:
+- No scope creep. Do not change copy, layout, styling, or behavior unless the Spec explicitly requires it.
+- Do not modify pricing copy sources unless the Spec explicitly instructs it:
   - `PRICING_COPY_MAP.md`
   - `pricing-widget/src/pricing-copy-map.json`
-- Counter animation must apply **only** to `.stats[data-counter="on"]` (about + index). Never niches.
-- Mobile niche background parity (Edit 8) must be achieved via shared parallax system (prefer `src/js/parallax.js`), not per-page niche HTML hacks.
+- Rebuild committed outputs whenever sources change:
+  - `node build-css.js`
+  - `node scripts/build-js.js`
+  - `(cd pricing-widget && npm run build)`
+- After each gate, run:
+  - `bash scripts/codex.requested-edits.sh`
+  - Fix only failing checks; rerun until green.
 
 ## Required workflow
-1. Read `AGENTS.md`, then `PLANS.md`, then `ExecPlan.md`.
-2. Run preflight once:
-   - `bash scripts/codex.setup.sh`
-3. Follow gates in `ExecPlan.md` in order.
-4. After each gate, run:
-   - `bash scripts/codex.requested-edits.sh`
-5. If ambiguity arises: choose the simplest valid interpretation aligned to PLANS.md and record it in the **Decision Log** section of `ExecPlan.md`.
+1) Read: `AGENTS.md` → `PLANS.md` → `codex/REQUESTED_EDITS_SPEC.md` → `ExecPlan.md`.
+2) Run setup once: `bash scripts/codex.setup.sh`
+3) Follow ExecPlan gates in order. Do not skip validation.
+4) If you must resolve ambiguity, choose the simplest change that satisfies the Spec and record it in `ExecPlan.md` (Decision Log).
 
-## Completion output
-At the end, provide:
-- Summary grouped by Requested Edit # (1–8)
-- List of files changed
-- Confirmation you rebuilt all required outputs
-- Confirmation `bash scripts/codex.requested-edits.sh` passed
-- Manual QA confirmations from `codex/MANUAL_QA_CHECKLIST.md`
+## Completion criteria
+You are done only when:
+- `bash scripts/codex.requested-edits.sh` passes, and
+- `codex/MANUAL_QA_CHECKLIST.md` is completed.
 
-Begin now.
+Begin by reading the required files and starting Gate 0 in `ExecPlan.md`.
