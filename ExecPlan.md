@@ -1,173 +1,189 @@
-# ExecPlan — Requested Website Edits (1–8): Stats + Parallax + Marquee Speeds + Pricing Animations
+<!-- FILE: ExecPlan.md -->
+# ExecPlan — Requested Front-End Edits (1–8)
 
-Follow gates in order. Do not skip validation gates. Specs are in **PLANS.md**; guardrails are in **AGENTS.md**.
+## Canonical references
+- Spec (single source of truth): `codex/REQUESTED_EDITS_SPEC.md`
+- Guardrails: `AGENTS.md`
+- ExecPlan rules: `PLANS.md`
 
-## Mission
-Implement exactly Requested Edits **1–8** (and nothing else):
-1) about stats card → “30 Minute Automation Audit”
-2) index add new stats row (copy + 4 cards)
-3) counters only about + index stats (never niches)
-4) double marquee significantly slower (top faster than bottom)
-5) single marquee significantly slower
-6) index pricing section 2 internal scroll + height match (like services)
-7) pricing toggle price scroll animation on index/services/niches
-8) niches mobile background parity: ensure the parallax body-section background image + overlay matches root pages on mobile
+## Goal
+Implement requested edits **1–8** exactly as described in the Spec, with deterministic validation and minimal diffs.
 
-## Definition of Done
-- All acceptance criteria in PLANS.md satisfied.
-- Main build outputs regenerated:
+## Non-goals
+- No redesigns, refactors, or “nice-to-haves”.
+- Do not change pricing copy data (`PRICING_COPY_MAP.md`, `pricing-widget/src/pricing-copy-map.json`).
+- Do not touch pages outside the Spec’s in-scope list.
+
+## Expected working set (files likely to change)
+- HTML:
+  - `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `niches/*.html`
+- CSS sources:
+  - `src/css/base/variables.css`
+  - `src/css/base/layout.css`
+  - `src/css/pages/contact.css`
+- JS source:
+  - `src/js/stats.js`
+- Pricing widget:
+  - `pricing-widget/src/PricingWidget.jsx`
+  - `pricing-widget/src/pricing-widget.css`
+- Rebuilt outputs:
   - `assets/css/styles.css`
   - `assets/js/app.js`
-- Pricing widget outputs regenerated:
   - `assets/css/pricing-widget.css`
   - `assets/js/pricing-widget.js`
-- `bash scripts/codex.requested-edits.sh` passes.
-- Manual QA checks completed (see `codex/MANUAL_QA_CHECKLIST.md`).
+- Validators/tooling:
+  - `scripts/codex.requested-edits.sh`
+  - `scripts/validate-requested-edits.js`
+  - `scripts/validate-pricing-ui-tuning.js`
+
+If you need to edit anything outside this list, stop and justify it in the Decision Log first.
 
 ---
 
-## Gate 0 — Preflight baseline (measure)
-1. Read `AGENTS.md`, `PLANS.md`, and this ExecPlan.
-2. Run:
-   - `bash scripts/codex.setup.sh`
-3. Run baseline validator (expected to fail until changes are implemented):
-   - `bash scripts/codex.requested-edits.sh`
+## Gate-by-gate execution
 
-Exit gate when:
-- You have identified the exact insertion point in `index.html` for the new stats section (replace the commented “Proof in Numbers” block).
-- You have identified the existing services section2 pricing scroll/height-match code in pricing widget sources (to mirror for index).
+### Gate 0 — Preflight baseline
+1) Run setup (idempotent): `bash scripts/codex.setup.sh`
+2) Run full baseline validation: `bash scripts/codex.requested-edits.sh`
 
----
+Expected outcome:
+- It may fail (because requested edits are not yet implemented). That’s fine.
 
-## Gate 1 — Content: about.html + index.html stats section (Edits 1–2)
-### Implement
-- **about.html**
-  - In “Experience by the Numbers” stats row:
-    - Replace the “Years Combined Experience” card with:
-      - number target 30 (starts at 0)
-      - label “Minute Automation Audit”
-  - Add `data-counter="on"` to this `.stats` container.
-- **index.html**
-  - Remove the malformed commented “Proof in Numbers” block entirely (do not leave partial/unclosed comments).
-  - Add the new stats section with:
-    - Title: “No hype. Just measurable wins.”
-    - Subtitle: exact sentence from PLANS.md
-    - `.stats data-counter="on"`
-    - 4 cards with targets: 525600, 780, 100, 80 (each starts at 0)
+Done when:
+- You can run the script end-to-end and you understand the failure set.
 
-### Validate
-- `node scripts/validate-requested-edits.js --strict` (expected to fail until later gates if it checks for built outputs)
+### Gate 1 — Slow down counters (Edit 1)
+Implementation:
+- Update `src/js/stats.js` to slow the animation duration to **2600ms**.
+- Add marker `SS_STATS_SPEC: COUNTER_DURATION_SLOWDOWN_2600MS` near the duration change.
 
-Exit gate when:
-- The HTML strings and targets match PLANS.md exactly.
-- No `Proof in Numbers` substring remains in index.html.
-
----
-
-## Gate 2 — Main JS: stats counters + mobile niche background parity (Edits 3 + 8)
-### Implement (Edit 3)
-- Update `src/js/stats.js` so it:
-  - Animates only `.stats[data-counter="on"]`
-  - Never touches `.stats[data-counter="off"]`
-  - Supports `prefers-reduced-motion: reduce` (no animation; set final values)
-  - Includes marker: `SS_STATS_SPEC: COUNTER_ANIMATION_ABOUT_INDEX_ONLY`
-
-### Implement (Edit 8)
-- Update `src/js/parallax.js` so that the **mobile** parallax stage background image URL resolves correctly from `niches/*.html`.
-  - The parallax image must load from `assets/images/body_section_parallax/body-section-background-2025.webp` for nested pages too.
-  - Do this by resolving the image URL relative to the loaded app.js bundle location (script-based resolution), not relative to the current document path.
-  - Include marker: `SS_PARALLAX_SPEC: NICHE_MOBILE_BG_PARITY`
-
-### Rebuild main JS
+Rebuild:
 - `node scripts/build-js.js`
 
-### Validate
+Validate:
 - `node scripts/validate-requested-edits.js --strict`
 
-Exit gate when:
-- Validator confirms:
-  - No niche page has `data-counter="on"`
-  - stats.js includes required marker and gating
-  - parallax.js includes required marker and robust URL resolution
-  - built `assets/js/app.js` includes both markers
+Done when:
+- Counter slowdown checks pass and rebuilt `assets/js/app.js` includes the marker.
 
----
+### Gate 2 — index.html disclaimer removal (Edit 2A)
+Implementation:
+- Remove the two disclaimer sentences from `index.html` (exact text in the Spec).
 
-## Gate 3 — Marquee speeds (Edits 4–5)
-### Implement
-- In `src/css/features/marquee.css`:
-  - Add marker: `SS_MARQUEE_SPEC: SPEEDS_SLOWER_SINGLE_DOUBLE`
-  - Single marquee duration: 120s
-  - Double marquee:
-    - fast: 90s
-    - slow: 150s
-- Rebuild CSS:
-  - `node build-css.js`
-
-### Validate
+Validate:
 - `node scripts/validate-requested-edits.js --strict`
 
-Exit gate when:
-- Validator confirms updated durations in both source CSS and built `assets/css/styles.css`.
+Done when:
+- Those exact sentences are no longer present in `index.html`.
 
----
+### Gate 3 — Add missing body classes (Edits 2B + 3)
+Implementation:
+- Add `page-home` to the `<body>` of `index.html`.
+- Add `page-about` to the `<body>` of `about.html`.
 
-## Gate 4 — Index pricing section 2: internal scroll + height match (Edit 6)
-### Implement
-- In `pricing-widget/src/pricing-widget.css`:
-  - Mirror the `services.html` section 2 internal scroll rules for `index.html` section 2 only.
-  - Add marker: `SS_PRICING_SPEC: INDEX_SECTION2_INTERNAL_SCROLL`
-- In `pricing-widget/src/embed.jsx`:
-  - Extend height-match logic (currently services-only) to also support:
-    - `index.html` section 1 → section 2
-  - Add marker: `SS_PRICING_SPEC: INDEX_SECTION2_HEIGHT_MATCH`
-- Rebuild pricing widget:
-  - `(cd pricing-widget && npm install && npm run build)`
-
-### Validate
-- `node scripts/validate-requested-edits.js --strict`
-- `node scripts/validate-pricing-mounts.js` (ensures mounts/assets intact)
-
-Exit gate when:
-- Index section 2 has internal scrolling list region and section2 card heights match section1 on desktop/tablet widths (manual spot-check recommended here).
-
----
-
-## Gate 5 — Pricing toggle price scroll animation (Edit 7)
-### Implement
-- In `pricing-widget/src/PricingWidget.jsx`:
-  - Replace the plain `£{priceValue}` text rendering with a “scroll/roll” animation component that animates on value changes.
-  - Must work for Monthly ↔ Setup toggles across all pages (section 1).
-  - Add marker: `SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION`
-  - Respect reduced motion.
-- In `pricing-widget/src/pricing-widget.css`:
-  - Add the required styles for the scroll/roll animation and reduced motion handling.
-  - Add marker: `SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION`
-- Rebuild pricing widget:
-  - `(cd pricing-widget && npm run build)`
-
-### Validate
+Validate:
 - `node scripts/validate-requested-edits.js --strict`
 
-Exit gate when:
-- Validator confirms markers/classes exist in source and built assets.
+Done when:
+- Body-class checks pass.
+
+### Gate 4 — Grey→white color system + exceptions (Edits 2B, 3, 4, 5)
+Implementation (required pattern; see Spec):
+1) Add `--color-silver-original` to `src/css/base/variables.css` with marker:
+   - `SS_TEXT_SPEC: SILVER_ORIGINAL_TOKEN`
+2) In `src/css/base/layout.css`, add a page-scoped override that makes muted silver render white:
+   - marker: `SS_TEXT_SPEC: SILVER_TO_WHITE_NON_CTA_SECTIONS`
+   - scope only to: `page-home`, `page-about`, `page-services`, `page-niche`, `page-book`
+   - apply only inside `.section:not(.brand-gradient)` (CTA banners must not change)
+3) Add exceptions in `layout.css` (marker: `SS_TEXT_SPEC: KEEP_GREY_EXCEPTIONS`):
+   - Keep `index.html` proof-card taglines grey (`--color-silver-original`)
+   - Keep services + niche card mid-paragraph(s) grey: `.service-content p` (`--color-silver-original`)
+
+Rebuild:
+- `node build-css.js`
+
+Validate:
+- `node scripts/validate-requested-edits.js --strict`
+
+Done when:
+- Validator passes for the grey→white system and exceptions.
+
+### Gate 5 — contact.html phrase whitening (Edit 6)
+Implementation:
+- Make the four specified phrases render white (see Spec).
+- Required approach for determinism:
+  - Phrase (1) and the address block must be white via inline `color: var(--color-white)` in `contact.html`.
+  - Social callout paragraphs must be white via `src/css/pages/contact.css`.
+- Add marker(s):
+  - `SS_CONTACT_SPEC: SOCIAL_COPY_WHITE` (in `contact.css`)
+  - Any additional `SS_CONTACT_SPEC:` markers as needed.
+
+Rebuild:
+- `node build-css.js`
+
+Validate:
+- `node scripts/validate-requested-edits.js --strict`
+
+Done when:
+- Contact checks pass.
+
+### Gate 6 — Pricing theme updates (Edit 7)
+Implementation:
+- Update pricing widget theme per Spec:
+  - Background references `body-section-background-2025.webp`
+  - Use Blue / White / Grey font system; add more neon blue + pink
+  - Sparkles are more visible
+- Add required markers:
+  - `SS_PRICING_SPEC: THEME_MATCH_BODY_SECTION_BACKGROUND_2025` (CSS)
+  - `SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE` (CSS + JS near the change)
+
+Rebuild:
+- `(cd pricing-widget && npm run build)`
+
+Validate:
+- `node scripts/validate-requested-edits.js --strict`
+- `node scripts/validate-pricing-ui-tuning.js --strict`
+
+Done when:
+- Both validators pass and rebuilt widget outputs are updated.
+
+### Gate 7 — Per-digit price animation (Edit 8)
+Implementation:
+- Replace whole-number roll with per-digit scrolling.
+- Add marker: `SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT`
+- Remove legacy whole-number roll usage (no `.ss-pricing__price-roll`).
+
+Rebuild:
+- `(cd pricing-widget && npm run build)`
+
+Validate:
+- `node scripts/validate-requested-edits.js --strict`
+- `node scripts/validate-pricing-ui-tuning.js --strict`
+
+Done when:
+- Validators confirm per-digit behavior and no legacy class remains.
+
+### Gate 8 — Final regression + manual QA
+1) Run: `bash scripts/codex.requested-edits.sh`
+2) Complete: `codex/MANUAL_QA_CHECKLIST.md`
+
+Done when:
+- The script passes and the manual checklist is completed.
 
 ---
 
-## Gate 6 — Final verify + no-scope-creep closeout
-1. Run the full required command:
-   - `bash scripts/codex.requested-edits.sh`
-2. Perform manual QA:
-   - `codex/MANUAL_QA_CHECKLIST.md`
+## Progress tracker
+- [ ] Gate 0 — Baseline run recorded
+- [ ] Gate 1 — Counters slowed
+- [ ] Gate 2 — Index disclaimer removed
+- [ ] Gate 3 — Body classes added
+- [ ] Gate 4 — Grey→white system + exceptions complete
+- [ ] Gate 5 — Contact phrases white
+- [ ] Gate 6 — Pricing theme updated
+- [ ] Gate 7 — Per-digit pricing animation implemented
+- [ ] Gate 8 — Full regression pass + manual QA
 
-Exit gate when:
-- All validations pass.
-- Manual QA checks pass.
-- No unrelated files changed.
+## Decision log
+(Record any ambiguity resolution here.)
 
----
-
-## Decision Log (must keep updated during implementation)
-Record any ambiguity resolutions here (do not ask the user questions; choose simplest valid interpretation aligned to PLANS.md).
-
-- Validator regex for `data-counter="on"/"off"` used word boundaries that didn't match valid HTML attribute order; updated `scripts/validate-requested-edits.js` to correctly detect both attribute orders without editing any `niches/*.html`.
+- None yet.
