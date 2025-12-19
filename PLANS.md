@@ -1,65 +1,46 @@
 <!-- FILE: PLANS.md -->
-# Planning + ExecPlan Rules (Codex CLI)
+# Codex Execution Plans (ExecPlans)
 
-This repo uses ExecPlans to make multi-step changes reliable and reviewable.
+An ExecPlan is a repository-specific, self-contained plan used to implement multi-file work safely. In this repo, the active plan is `ExecPlan.md`.
 
-## What must be true before editing any site code
+## Required workflow for this repo
 
-1. Read these files (in order):
+1. Read in order:
    - `AGENTS.md`
-   - `codex/REQUESTED_EDITS_SPEC.md` (single source of truth for the requested edits)
-   - `ExecPlan.md` (the active plan to follow)
+   - `PLANS.md`
+   - `ExecPlan.md`
+   - `codex/REQUESTED_EDITS_SPEC.md`
 
-2. Confirm scope:
-   - Only implement **Requested Edits (1–5)** from `codex/REQUESTED_EDITS_SPEC.md`.
-   - Do not “improve” anything else (no refactors, no copy tweaks, no layout changes outside what’s explicitly requested).
+2. Setup (once per fresh checkout):
+   - `bash scripts/codex.setup.sh`
 
-## How to use ExecPlans in this repo
+3. Iterate gate-by-gate (per `ExecPlan.md`):
+   - Implement the next gate.
+   - Rebuild outputs using repo scripts (no manual edits to generated files).
+   - Run `bash scripts/codex.requested-edits.sh` and fix failures before continuing.
+   - Update `ExecPlan.md` Progress + any discoveries/decisions.
 
-- `ExecPlan.md` is a **living document**.
-  - Keep `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` up to date while working.
-  - If you change the plan, update *all* impacted sections (not just one paragraph).
+## Commands (repo root)
 
-- Work in small, verifiable milestones (“gates”):
-  - Implement one gate.
-  - Rebuild required artifacts.
-  - Run validations.
-  - Only then proceed to the next gate.
-
-## Measurement loop (evaluation flywheel, repo-style)
-
-When something fails (visual mismatch, validator failure, or regression):
-
-1. Analyze
-   - Identify the exact failure mode (which page / breakpoint / selector / component).
-2. Measure
-   - Add/adjust deterministic checks (marker comments + validators) so the failure is caught automatically.
-3. Improve
-   - Apply the smallest targeted fix, then re-run validations.
-
-Repeat until failure rate is effectively zero for the requested scope.
-
-## Required commands (run from repo root)
-
-- One-command build + validate:
+- One-command rebuild + validate:
   - `bash scripts/codex.requested-edits.sh`
 
-- Local manual preview (for final visual confirmation):
-  - `python3 -m http.server 8000`
-  - Then open:
-    - `/index.html`
-    - `/services.html`
-    - `/about.html`
-    - at least 2 pages from `/niches/*.html`
+- Quick rebuilds (useful while iterating):
+  - Site CSS: `node build-css.js`
+  - Site JS: `node scripts/build-js.js`
+  - Pricing widget: `(cd pricing-widget && npm run build)`
 
-## Non-negotiable output expectations
+## Manual preview
 
-- Any changes to `src/css/**` must be reflected in `assets/css/styles.css` via `node scripts/build-css.js`.
-- Any changes to `pricing-widget/src/**` must be reflected in:
-  - `assets/css/pricing-widget.css`
-  - `assets/js/pricing-widget.js`
-  via `pricing-widget`’s build script (see `scripts/codex.requested-edits.sh`).
+Serve the repo root and load static pages in a browser:
+- `python3 -m http.server 8000`
 
-- All required marker comments listed in `codex/REQUESTED_EDITS_SPEC.md` must exist in BOTH:
-  - source files (authoritative)
-  - built outputs (proof of rebuild)
+Pages to check for Requested Edits 1–7:
+- `http://localhost:8000/index.html`
+- `http://localhost:8000/services.html`
+- `http://localhost:8000/niches/estate-agents.html` (reference layout pattern)
+- At least one additional niche page (any `niches/*.html`)
+
+Mobile viewports to check (minimum):
+- 390×844
+- 375×667
