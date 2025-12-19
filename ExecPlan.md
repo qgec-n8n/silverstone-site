@@ -1,149 +1,176 @@
 <!-- FILE: ExecPlan.md -->
-# ExecPlan — UI Fixes (Requested Edits 1–5)
+# Pricing light-mode polish + fix Services mobile “image-inside-card” bug (Requested Edits 1–7)
 
-Owner: Codex CLI
-Scope: Silverstone Site frontend UI fixes per `codex/REQUESTED_EDITS_SPEC.md`.
+This ExecPlan is a living document. The sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work proceeds.
+
+This plan must be maintained in accordance with `PLANS.md`.
+
+## Purpose / Big Picture
+
+We need a tighter, more premium light-mode presentation for pricing sections on home, services, and niche pages:
+- the blue/pink background behind pricing should be slightly more vibrant,
+- sparkles should be clearer,
+- on niche pages the first pricing section’s “Most popular” plan should read as the unmistakably highlighted option,
+- the monthly/setup toggle track should be white (not grey).
+
+We also must fix a critical mobile layout issue on `services.html`: on mobile, the first three service rows visually render the image inside the same card as the text. The correct pattern (as on `niches/estate-agents.html`) is image outside the card; the card itself contains only text/bullets. On mobile, the headings:
+- “Where revenue (and time) quietly leaks away.”
+- “Start small. Ship fast. Expand when it is working”
+must render in blue, not white.
+
+After completion, the visual changes should be obvious on the target pages and `bash scripts/codex.requested-edits.sh` must pass.
 
 ## Progress
 
-- [x] Gate 0 — Baseline scan + confirm file locations + run current validations
-- [x] Gate 1 — Stats icons added (index + about) + stats color rules enforced globally
-- [x] Gate 2 — Services mobile-only “image on top of text card” pattern (services.html)
-- [x] Gate 3 — Pricing “£” baseline alignment fix (index/services/niches pricing areas)
-- [x] Gate 4 — Pricing background redesign (light-mode, premium; CTA upgrade; sparkles high visibility; page-scoped)
-- [ ] Gate 5 — Full validation pass + manual QA checklist pass
+- [ ] (2025-12-19) Gate 0: Baseline run of `bash scripts/codex.requested-edits.sh` and confirm current failures/snapshots.
+- [ ] (2025-12-19) Gate 1: Pricing widget visual polish for Requested Edits 1–3.
+- [ ] (2025-12-19) Gate 2: Home page “What we automate” card tweaks for Requested Edits 4–6.
+- [ ] (2025-12-19) Gate 3: Services mobile bug fix for Requested Edit 7.
+- [ ] (2025-12-19) Gate 4: Final rebuild + full validator run + manual QA checklist; ensure diff is scoped.
 
-## Non-negotiable constraints (do not violate)
+## Surprises & Discoveries
 
-- No copy changes unless explicitly required (this request has **no** copy changes).
-- No pricing layout / functionality changes; aesthetics only (colors/fonts/backgrounds/buttons/sparkles visibility).
-- No scope creep outside the pages/files listed in `AGENTS.md`.
+- Discovery: the services mobile “image inside card” behavior is not HTML nesting; it is caused by mobile-only CSS in `src/css/base/typography.css` under the comment “Services mobile cards”. That section turns `.page-services .service-row` into a single padded/gradient card and strips `.service-content.neon-card` background/border/padding, making the image appear inside the same card as the text. It also forces `.page-services .service-row .service-content h3` to white. Removing/neutralizing this block restores the same image-outside-card pattern used by niche pages.
 
-## Repo orientation (what to touch)
+## Decision Log
 
-- Pages:
-  - `index.html` (stats icons + pricing mount)
-  - `about.html` (stats icons)
-  - `services.html` (mobile card pattern + pricing mount + stats styling)
-  - `niches/*.html` (pricing + stats styling; generally CSS-driven)
+- Decision: fix the services mobile bug by removing the services-specific mobile “row becomes a single card” overrides in `src/css/base/typography.css`, rather than layering additional overrides on top.
+  - Rationale: clearest root-cause fix; aligns services page with the proven niche-page pattern; fewer interacting CSS rules.
+  - Date/Author: 2025-12-19 / plan author
 
-- Pricing widget:
-  - Source: `pricing-widget/src/PricingWidget.jsx`, `pricing-widget/src/pricing-widget.css`
-  - Outputs: `assets/js/pricing-widget.js`, `assets/css/pricing-widget.css`
+## Outcomes & Retrospective
 
-- Shared CSS:
-  - Source: `src/css/components/stats.css`, `src/css/pages/services.css`, `src/css/pages/estate-agents.css` (only if needed)
-  - Output: `assets/css/styles.css`
+After implementation, add a brief summary of what changed, what was tricky, and any follow-ups or regressions discovered.
 
-## Execution strategy (gated)
+## Context and Orientation
 
-### Gate 0 — Baseline scan + validations
+Site structure:
+- Static HTML at repo root (`index.html`, `services.html`, etc) and niche pages under `niches/*.html`.
+- CSS source under `src/css/**`, built into `assets/css/styles.css` by running `node build-css.js`.
+- Site JS bundled by `node scripts/build-js.js`.
 
-1. Identify all pricing mounts:
-   - Confirm `index.html`, `services.html`, and `niches/*.html` contain `.ss-pricing` mounts with `data-ss-pricing-page=...`.
-2. Identify stats sections:
-   - Confirm index/about have `.stats` blocks without icons today (baseline).
-3. Run baseline build + validations:
-   - `bash scripts/codex.requested-edits.sh`
-4. Record any surprises in the section below.
+Pricing widget structure:
+- React widget under `pricing-widget/src/*`, built into:
+  - `assets/css/pricing-widget.css`
+  - `assets/js/pricing-widget.js`
+  via `npm run build` inside `pricing-widget/`.
+- Pricing widget mount uses `<div class="ss-pricing" ...>` with:
+  - `data-ss-pricing-page` (e.g. `index.html`, `services.html`, or `niches/<page>.html`)
+  - `data-ss-pricing-section` (`1`, `2`, etc)
+  The widget CSS uses these attributes to scope “light mode” theming and niche-specific tweaks.
 
-### Gate 1 — Stats icons + global stats colors
+Key files for this plan:
+- Pricing visuals (Edits 1–3):
+  - `pricing-widget/src/pricing-widget.css`
+  - `pricing-widget/src/PricingWidget.jsx`
+- Home page card tweaks (Edits 4–6):
+  - `index.html`
+  - `src/css/pages/home.css`
+- Services mobile bug fix (Edit 7):
+  - `src/css/base/typography.css`
+  - `src/css/pages/services.css` (keep existing mobile ordering marker)
+  - Reference pattern: `niches/estate-agents.html`
 
-Goal:
-- Add icons to stats cards on **index.html** and **about.html** (match the services.html structure).
-- Enforce global stats styling rules:
-  - icons: green
-  - numbers: blue
-  - labels: white
+Tooling:
+- Full rebuild + validation: `bash scripts/codex.requested-edits.sh`
+- Relevant validators:
+  - `node scripts/validate-pricing-ui-tuning.js --strict`
+  - `node scripts/validate-requested-edits.js --strict`
 
-Constraints:
-- Do not change stat numbers or label copy.
-- Use only existing local Font Awesome icon class names already mapped in `src/css/base/typography.css`.
+## Plan of Work
 
-Deliverables:
-- Marker: `SS_STATS_SPEC: ICONS_ADDED_HOME_ABOUT` in index/about.
-- Marker: `SS_STATS_SPEC: COLORS_ICON_GREEN_NUMBER_BLUE_LABEL_WHITE` in `src/css/components/stats.css` and built css.
+### Gate 0 — Baseline and orientation
 
-Verification:
-- `node scripts/validate-requested-edits.js --strict` must pass after rebuild.
+- Run `bash scripts/codex.requested-edits.sh` to establish baseline status.
+- Start local preview (`python3 -m http.server 8000`) and open:
+  - `/index.html` (home cards and pricing)
+  - `/services.html` (pricing + mobile bug)
+  - `/niches/estate-agents.html` (reference layout)
+- Confirm current mobile services behavior at 390×844 and 375×667.
 
-### Gate 2 — Services mobile-only image-top pattern
+### Gate 1 — Requested Edits 1–3: pricing widget polish
 
-Goal:
-- On **services.html**, for service rows that include an image card, ensure that on mobile the image appears **above** the text card (and is not nested inside the text card), matching the niche-page mobile pattern.
+- In `pricing-widget/src/pricing-widget.css`:
+  - In the existing light-mode scoped block for index/services/niches, increase blue/pink background vibrancy (keep premium light mode feel).
+  - Make sparkles read more clearly in light mode (tune existing sparkles style).
+  - Make the toggle track white in light mode (page-scoped).
+  - On niche pages only, section 1 only, make the featured (“Most popular”) card pop as the clearly highlighted option (premium raised treatment).
+  - Add/keep required SS_* marker comments per `codex/REQUESTED_EDITS_SPEC.md`.
 
-Constraints:
-- Desktop/tablet layout must remain unchanged.
-- Prefer CSS-only reordering in a mobile media query; avoid HTML restructuring unless required.
+- In `pricing-widget/src/PricingWidget.jsx`:
+  - Boost sparkle particle clarity (alpha/radius/count) in a controlled way; keep motion subtle.
 
-Deliverables:
-- Marker: `SS_SERVICES_SPEC: MOBILE_IMAGE_TOP_PATTERN` in `src/css/pages/services.css` and built css.
+- Rebuild widget: `(cd pricing-widget && npm run build)`
+- Run: `bash scripts/codex.requested-edits.sh`
 
-Verification:
-- `node scripts/validate-requested-edits.js --strict` must pass after rebuild.
+### Gate 2 — Requested Edits 4–6: home “What we automate” card tweaks
 
-### Gate 3 — Pricing “£” alignment
+- In `index.html`:
+  - Remove the single `<br />` causing the blank line in the Systems & Data Integration card (no wording changes).
+- In `src/css/pages/home.css`:
+  - Make the four service titles blue.
+  - Ensure the four tagline lines are grey.
+  - Scope to `.page-home` to avoid affecting other pages.
+  - Add required marker comment per spec.
 
-Goal:
-- In pricing areas on index/services/niches pages, ensure the “£” symbol aligns cleanly with the digits (baseline-aligned, not floating).
+- Rebuild site CSS: `node build-css.js`
+- Run: `bash scripts/codex.requested-edits.sh`
 
-Constraints:
-- Do not change pricing amounts, plan labels, or the monthly/setup toggle behavior.
-- Do not remove per-digit scroll animation (existing behavior).
+### Gate 3 — Requested Edit 7: services mobile bug fix
 
-Deliverables:
-- Marker: `SS_PRICING_SPEC: GBP_SYMBOL_BASELINE_ALIGN` in pricing widget css + built css.
+- In `src/css/base/typography.css`:
+  - Remove/disable the “Services mobile cards” block so that on mobile the services page uses the same pattern as niche pages: separate image outside the text card.
+  - Ensure no mobile override forces the service-row headings to white; headings should remain blue.
+  - Add required marker comment per spec.
+- Rebuild site CSS: `node build-css.js`
+- Run: `bash scripts/codex.requested-edits.sh`
+- Manual verification on mobile widths (390×844 and 375×667):
+  - The first three service rows show image outside the text-only card.
+  - The two specified headings render blue on mobile.
 
-Verification:
-- `node scripts/validate-pricing-ui-tuning.js --strict` must pass after rebuild.
-- Manual check: multiple breakpoints, toggle monthly/setup.
+### Gate 4 — Final QA
 
-### Gate 4 — Pricing section background redesign (page-scoped)
+- Final run: `bash scripts/codex.requested-edits.sh`
+- Walk through `codex/MANUAL_QA_CHECKLIST.md`
+- Confirm no unexpected diffs outside allowed surfaces.
 
-Goal:
-- On index/services/niches pages only:
-  - Make pricing section backgrounds aesthetically similar to `body-section-background-2025.webp` but not identical.
-  - Achieve a sleek, vibrant, premium/luxurious **light-mode** aesthetic.
-  - Make “Book a Call” buttons more enticing.
-  - Keep sparkles animation extremely visible.
-  - Use some of the site’s blue for key text accents.
-  - Keep copy/layout/functionality unchanged.
+## Concrete Steps
 
-Constraints:
-- Page-scoped via existing `data-ss-pricing-page` attribute.
-- Do not change pricing markup structure except what’s required for sparkles visibility or symbol alignment.
+From repo root:
 
-Deliverables:
-- Marker: `SS_PRICING_SPEC: LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL` in pricing widget css + built css.
-- Marker: `SS_PRICING_SPEC: CTA_BOOK_CALL_PREMIUM_LIGHT_MODE` in pricing widget css + built css.
-- Marker: `SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE` in pricing widget css + PricingWidget.jsx + built outputs.
+1) Setup:
+- `bash scripts/codex.setup.sh`
 
-Verification:
-- `node scripts/validate-pricing-ui-tuning.js --strict` must pass after rebuild.
-- Manual check: sparkles visibility on light background, CTA hover/focus states.
+2) Baseline:
+- `bash scripts/codex.requested-edits.sh`
 
-### Gate 5 — Final pass
+3) Local preview:
+- `python3 -m http.server 8000`
 
-1. Run full validation script:
-   - `bash scripts/codex.requested-edits.sh`
-2. Run manual QA:
-   - Follow `codex/MANUAL_QA_CHECKLIST.md` exactly.
+4) After each gate:
+- `bash scripts/codex.requested-edits.sh`
 
-## Surprises & discoveries
+## Validation and Acceptance
 
-- `scripts/codex.requested-edits.sh` references `scripts/build-css.js`, but only `build-css.js` exists at repo root. Baseline run fails with MODULE_NOT_FOUND.
-- `scripts/validate-pricing-ui-tuning.js` had a shebang on line 2 (after a comment), causing Node syntax error during validation.
-- `scripts/validate-requested-edits.js` had the same shebang placement issue (comment before #!), causing a Node syntax error.
+The definition of done is `codex/REQUESTED_EDITS_SPEC.md`. At minimum:
+- All validators invoked by `bash scripts/codex.requested-edits.sh` pass.
+- Manual QA matches `codex/MANUAL_QA_CHECKLIST.md`.
+- Visual changes remain tightly scoped to the intended pages/sections.
 
-## Decision log
+## Idempotence and Recovery
 
-- Updated `scripts/codex.requested-edits.sh` to call `node build-css.js` (root script) to unblock validation runs.
-- Moved the shebang to line 1 in `scripts/validate-pricing-ui-tuning.js` so Node can execute the validator.
-- Moved the shebang to line 1 in `scripts/validate-requested-edits.js` so Node can execute the validator.
-- Scoped the light-mode pricing theme to `data-ss-pricing-page` selectors with bright layered background, premium CTA gradients, and boosted sparkles visibility.
+- Build/validation commands are safe to run repeatedly.
+- If dependency installation fails, delete `node_modules/` (and `pricing-widget/node_modules/`) and re-run `bash scripts/codex.requested-edits.sh`.
+- Never hand-edit generated files in `assets/`.
 
-## Outcomes & retrospective
+## Artifacts and Notes
 
-- Implemented stats icons + color consistency, services mobile ordering, and pricing widget styling updates (baseline alignment + light-mode theme + CTA + sparkles).
-- Validators now run cleanly after fixing script pathing and shebang placement issues in tooling.
-- Manual QA checklist still needs a visual pass in a browser.
+Helpful searches:
+- Pricing light-mode block: search `pricing-widget/src/pricing-widget.css` for `LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL`.
+- Services mobile bug block: search `src/css/base/typography.css` for `Services mobile cards`.
+- Home card styles: search `src/css/pages/home.css` for `packages-grid`.
+
+## Interfaces and Dependencies
+
+- No new runtime dependencies are expected.
+- Use existing HTML/CSS structure and marker/comment validation patterns.
