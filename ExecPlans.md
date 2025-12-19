@@ -1,14 +1,13 @@
 <!-- FILE: ExecPlans.md -->
 # ExecPlans Index
 
-This repository uses ExecPlans. The workflow and expectations are defined in `PLANS.md`.
+This repository uses **one active ExecPlan at a time**. The active plan is the only one Codex should execute.
 
-## Active ExecPlan
+## Active ExecPlan (use this)
 
-- `ExecPlan.md` — Pricing light-mode polish + Services mobile card layout bug fix (Requested Edits 1–7)
+- `ExecPlan_UI_Fixes.md` — Requested Edits 1–4 (Pricing washout tuning, pricing CTA alignment, services mobile image container padding, index “Our Services” icon/title inline layout).
 
-## Historical ExecPlans (not active)
+## Archived / reference ExecPlans (do not run unless explicitly reactivated)
 
-- `ExecPlan_Pricing_UI_Tuning.md`
-- `ExecPlan_Services_Overhaul.md`
-- `ExecPlan_Pricing_Widget.md`
+- `ExecPlan.md` — Prior request (Requested Edits 1–7), kept for historical context only.
+- `ExecPlan_Pricing_UI_Tuning.md` — Earlier pricing-only plan, kept for reference only.
