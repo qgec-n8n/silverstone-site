@@ -56,9 +56,9 @@ function SparklesCanvas({ density = 120 }) {
           y: Math.random() * height,
           // SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE
           // SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE
-          r: Math.random() * 2.6 + 0.8,
+          r: Math.random() * 2.8 + 1.2,
           speed: Math.random() * 0.45 + 0.2,
-          alpha: Math.random() * 0.5 + 0.45,
+          alpha: Math.random() * 0.4 + 0.6,
         });
       }
       return list;
