@@ -1,189 +1,142 @@
 <!-- FILE: ExecPlan.md -->
-# ExecPlan — Requested Front-End Edits (1–8)
+# ExecPlan — UI Fixes (Requested Edits 1–5)
 
-## Canonical references
-- Spec (single source of truth): `codex/REQUESTED_EDITS_SPEC.md`
-- Guardrails: `AGENTS.md`
-- ExecPlan rules: `PLANS.md`
+Owner: Codex CLI
+Scope: Silverstone Site frontend UI fixes per `codex/REQUESTED_EDITS_SPEC.md`.
 
-## Goal
-Implement requested edits **1–8** exactly as described in the Spec, with deterministic validation and minimal diffs.
+## Progress
 
-## Non-goals
-- No redesigns, refactors, or “nice-to-haves”.
-- Do not change pricing copy data (`PRICING_COPY_MAP.md`, `pricing-widget/src/pricing-copy-map.json`).
-- Do not touch pages outside the Spec’s in-scope list.
+- [ ] Gate 0 — Baseline scan + confirm file locations + run current validations
+- [ ] Gate 1 — Stats icons added (index + about) + stats color rules enforced globally
+- [ ] Gate 2 — Services mobile-only “image on top of text card” pattern (services.html)
+- [ ] Gate 3 — Pricing “£” baseline alignment fix (index/services/niches pricing areas)
+- [ ] Gate 4 — Pricing background redesign (light-mode, premium; CTA upgrade; sparkles high visibility; page-scoped)
+- [ ] Gate 5 — Full validation pass + manual QA checklist pass
 
-## Expected working set (files likely to change)
-- HTML:
-  - `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `niches/*.html`
-- CSS sources:
-  - `src/css/base/variables.css`
-  - `src/css/base/layout.css`
-  - `src/css/pages/contact.css`
-- JS source:
-  - `src/js/stats.js`
+## Non-negotiable constraints (do not violate)
+
+- No copy changes unless explicitly required (this request has **no** copy changes).
+- No pricing layout / functionality changes; aesthetics only (colors/fonts/backgrounds/buttons/sparkles visibility).
+- No scope creep outside the pages/files listed in `AGENTS.md`.
+
+## Repo orientation (what to touch)
+
+- Pages:
+  - `index.html` (stats icons + pricing mount)
+  - `about.html` (stats icons)
+  - `services.html` (mobile card pattern + pricing mount + stats styling)
+  - `niches/*.html` (pricing + stats styling; generally CSS-driven)
+
 - Pricing widget:
-  - `pricing-widget/src/PricingWidget.jsx`
-  - `pricing-widget/src/pricing-widget.css`
-- Rebuilt outputs:
-  - `assets/css/styles.css`
-  - `assets/js/app.js`
-  - `assets/css/pricing-widget.css`
-  - `assets/js/pricing-widget.js`
-- Validators/tooling:
-  - `scripts/codex.requested-edits.sh`
-  - `scripts/validate-requested-edits.js`
-  - `scripts/validate-pricing-ui-tuning.js`
+  - Source: `pricing-widget/src/PricingWidget.jsx`, `pricing-widget/src/pricing-widget.css`
+  - Outputs: `assets/js/pricing-widget.js`, `assets/css/pricing-widget.css`
 
-If you need to edit anything outside this list, stop and justify it in the Decision Log first.
+- Shared CSS:
+  - Source: `src/css/components/stats.css`, `src/css/pages/services.css`, `src/css/pages/estate-agents.css` (only if needed)
+  - Output: `assets/css/styles.css`
 
----
+## Execution strategy (gated)
 
-## Gate-by-gate execution
+### Gate 0 — Baseline scan + validations
 
-### Gate 0 — Preflight baseline
-1) Run setup (idempotent): `bash scripts/codex.setup.sh`
-2) Run full baseline validation: `bash scripts/codex.requested-edits.sh`
+1. Identify all pricing mounts:
+   - Confirm `index.html`, `services.html`, and `niches/*.html` contain `.ss-pricing` mounts with `data-ss-pricing-page=...`.
+2. Identify stats sections:
+   - Confirm index/about have `.stats` blocks without icons today (baseline).
+3. Run baseline build + validations:
+   - `bash scripts/codex.requested-edits.sh`
+4. Record any surprises in the section below.
 
-Expected outcome:
-- It may fail (because requested edits are not yet implemented). That’s fine.
+### Gate 1 — Stats icons + global stats colors
 
-Done when:
-- You can run the script end-to-end and you understand the failure set.
+Goal:
+- Add icons to stats cards on **index.html** and **about.html** (match the services.html structure).
+- Enforce global stats styling rules:
+  - icons: green
+  - numbers: blue
+  - labels: white
 
-### Gate 1 — Slow down counters (Edit 1)
-Implementation:
-- Update `src/js/stats.js` to slow the animation duration to **2600ms**.
-- Add marker `SS_STATS_SPEC: COUNTER_DURATION_SLOWDOWN_2600MS` near the duration change.
+Constraints:
+- Do not change stat numbers or label copy.
+- Use only existing local Font Awesome icon class names already mapped in `src/css/base/typography.css`.
 
-Rebuild:
-- `node scripts/build-js.js`
+Deliverables:
+- Marker: `SS_STATS_SPEC: ICONS_ADDED_HOME_ABOUT` in index/about.
+- Marker: `SS_STATS_SPEC: COLORS_ICON_GREEN_NUMBER_BLUE_LABEL_WHITE` in `src/css/components/stats.css` and built css.
 
-Validate:
-- `node scripts/validate-requested-edits.js --strict`
+Verification:
+- `node scripts/validate-requested-edits.js --strict` must pass after rebuild.
 
-Done when:
-- Counter slowdown checks pass and rebuilt `assets/js/app.js` includes the marker.
+### Gate 2 — Services mobile-only image-top pattern
 
-### Gate 2 — index.html disclaimer removal (Edit 2A)
-Implementation:
-- Remove the two disclaimer sentences from `index.html` (exact text in the Spec).
+Goal:
+- On **services.html**, for service rows that include an image card, ensure that on mobile the image appears **above** the text card (and is not nested inside the text card), matching the niche-page mobile pattern.
 
-Validate:
-- `node scripts/validate-requested-edits.js --strict`
+Constraints:
+- Desktop/tablet layout must remain unchanged.
+- Prefer CSS-only reordering in a mobile media query; avoid HTML restructuring unless required.
 
-Done when:
-- Those exact sentences are no longer present in `index.html`.
+Deliverables:
+- Marker: `SS_SERVICES_SPEC: MOBILE_IMAGE_TOP_PATTERN` in `src/css/pages/services.css` and built css.
 
-### Gate 3 — Add missing body classes (Edits 2B + 3)
-Implementation:
-- Add `page-home` to the `<body>` of `index.html`.
-- Add `page-about` to the `<body>` of `about.html`.
+Verification:
+- `node scripts/validate-requested-edits.js --strict` must pass after rebuild.
 
-Validate:
-- `node scripts/validate-requested-edits.js --strict`
+### Gate 3 — Pricing “£” alignment
 
-Done when:
-- Body-class checks pass.
+Goal:
+- In pricing areas on index/services/niches pages, ensure the “£” symbol aligns cleanly with the digits (baseline-aligned, not floating).
 
-### Gate 4 — Grey→white color system + exceptions (Edits 2B, 3, 4, 5)
-Implementation (required pattern; see Spec):
-1) Add `--color-silver-original` to `src/css/base/variables.css` with marker:
-   - `SS_TEXT_SPEC: SILVER_ORIGINAL_TOKEN`
-2) In `src/css/base/layout.css`, add a page-scoped override that makes muted silver render white:
-   - marker: `SS_TEXT_SPEC: SILVER_TO_WHITE_NON_CTA_SECTIONS`
-   - scope only to: `page-home`, `page-about`, `page-services`, `page-niche`, `page-book`
-   - apply only inside `.section:not(.brand-gradient)` (CTA banners must not change)
-3) Add exceptions in `layout.css` (marker: `SS_TEXT_SPEC: KEEP_GREY_EXCEPTIONS`):
-   - Keep `index.html` proof-card taglines grey (`--color-silver-original`)
-   - Keep services + niche card mid-paragraph(s) grey: `.service-content p` (`--color-silver-original`)
+Constraints:
+- Do not change pricing amounts, plan labels, or the monthly/setup toggle behavior.
+- Do not remove per-digit scroll animation (existing behavior).
 
-Rebuild:
-- `node build-css.js`
+Deliverables:
+- Marker: `SS_PRICING_SPEC: GBP_SYMBOL_BASELINE_ALIGN` in pricing widget css + built css.
 
-Validate:
-- `node scripts/validate-requested-edits.js --strict`
+Verification:
+- `node scripts/validate-pricing-ui-tuning.js --strict` must pass after rebuild.
+- Manual check: multiple breakpoints, toggle monthly/setup.
 
-Done when:
-- Validator passes for the grey→white system and exceptions.
+### Gate 4 — Pricing section background redesign (page-scoped)
 
-### Gate 5 — contact.html phrase whitening (Edit 6)
-Implementation:
-- Make the four specified phrases render white (see Spec).
-- Required approach for determinism:
-  - Phrase (1) and the address block must be white via inline `color: var(--color-white)` in `contact.html`.
-  - Social callout paragraphs must be white via `src/css/pages/contact.css`.
-- Add marker(s):
-  - `SS_CONTACT_SPEC: SOCIAL_COPY_WHITE` (in `contact.css`)
-  - Any additional `SS_CONTACT_SPEC:` markers as needed.
+Goal:
+- On index/services/niches pages only:
+  - Make pricing section backgrounds aesthetically similar to `body-section-background-2025.webp` but not identical.
+  - Achieve a sleek, vibrant, premium/luxurious **light-mode** aesthetic.
+  - Make “Book a Call” buttons more enticing.
+  - Keep sparkles animation extremely visible.
+  - Use some of the site’s blue for key text accents.
+  - Keep copy/layout/functionality unchanged.
 
-Rebuild:
-- `node build-css.js`
+Constraints:
+- Page-scoped via existing `data-ss-pricing-page` attribute.
+- Do not change pricing markup structure except what’s required for sparkles visibility or symbol alignment.
 
-Validate:
-- `node scripts/validate-requested-edits.js --strict`
+Deliverables:
+- Marker: `SS_PRICING_SPEC: LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL` in pricing widget css + built css.
+- Marker: `SS_PRICING_SPEC: CTA_BOOK_CALL_PREMIUM_LIGHT_MODE` in pricing widget css + built css.
+- Marker: `SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE` in pricing widget css + PricingWidget.jsx + built outputs.
 
-Done when:
-- Contact checks pass.
+Verification:
+- `node scripts/validate-pricing-ui-tuning.js --strict` must pass after rebuild.
+- Manual check: sparkles visibility on light background, CTA hover/focus states.
 
-### Gate 6 — Pricing theme updates (Edit 7)
-Implementation:
-- Update pricing widget theme per Spec:
-  - Background references `body-section-background-2025.webp`
-  - Use Blue / White / Grey font system; add more neon blue + pink
-  - Sparkles are more visible
-- Add required markers:
-  - `SS_PRICING_SPEC: THEME_MATCH_BODY_SECTION_BACKGROUND_2025` (CSS)
-  - `SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE` (CSS + JS near the change)
+### Gate 5 — Final pass
 
-Rebuild:
-- `(cd pricing-widget && npm run build)`
+1. Run full validation script:
+   - `bash scripts/codex.requested-edits.sh`
+2. Run manual QA:
+   - Follow `codex/MANUAL_QA_CHECKLIST.md` exactly.
 
-Validate:
-- `node scripts/validate-requested-edits.js --strict`
-- `node scripts/validate-pricing-ui-tuning.js --strict`
+## Surprises & discoveries
 
-Done when:
-- Both validators pass and rebuilt widget outputs are updated.
-
-### Gate 7 — Per-digit price animation (Edit 8)
-Implementation:
-- Replace whole-number roll with per-digit scrolling.
-- Add marker: `SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT`
-- Remove legacy whole-number roll usage (no `.ss-pricing__price-roll`).
-
-Rebuild:
-- `(cd pricing-widget && npm run build)`
-
-Validate:
-- `node scripts/validate-requested-edits.js --strict`
-- `node scripts/validate-pricing-ui-tuning.js --strict`
-
-Done when:
-- Validators confirm per-digit behavior and no legacy class remains.
-
-### Gate 8 — Final regression + manual QA
-1) Run: `bash scripts/codex.requested-edits.sh`
-2) Complete: `codex/MANUAL_QA_CHECKLIST.md`
-
-Done when:
-- The script passes and the manual checklist is completed.
-
----
-
-## Progress tracker
-- [ ] Gate 0 — Baseline run recorded
-- [ ] Gate 1 — Counters slowed
-- [ ] Gate 2 — Index disclaimer removed
-- [ ] Gate 3 — Body classes added
-- [ ] Gate 4 — Grey→white system + exceptions complete
-- [ ] Gate 5 — Contact phrases white
-- [ ] Gate 6 — Pricing theme updated
-- [ ] Gate 7 — Per-digit pricing animation implemented
-- [ ] Gate 8 — Full regression pass + manual QA
+(Write findings here during execution.)
 
 ## Decision log
-(Record any ambiguity resolution here.)
 
-- None yet.
+(Record decisions that affect implementation, e.g., chosen icon mapping, chosen pricing theme variable values, any scoping choices.)
+
+## Outcomes & retrospective
+
+(After completion: what changed, what was tricky, what to watch next time.)
