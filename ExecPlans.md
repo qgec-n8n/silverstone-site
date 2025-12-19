@@ -1,20 +1,18 @@
 <!-- FILE: ExecPlans.md -->
-# ExecPlans
+# ExecPlans Index
 
-This repository uses **Codex Execution Plans (“ExecPlans”)** to make multi-file, UI-sensitive edits reliably and verifiably.
+This repo uses ExecPlans (see `PLANS.md`) to keep Codex CLI work precise, scoped, and verifiable.
 
-## How to use ExecPlans in this repo
-- Read `AGENTS.md` (scope + guardrails).
-- Read `PLANS.md` (rules for ExecPlans and the validation workflow).
-- Use the **active** ExecPlan below and follow it gate-by-gate.
-- After each gate, run `bash scripts/codex.requested-edits.sh` and fix only what fails.
+## Active ExecPlan (use this for the current request)
 
-## Active ExecPlan for the current request
-- `ExecPlan.md` — Requested front-end edits (1–8): counter slowdown, copy removal, grey→white text changes with exceptions, pricing widget theme updates, and per-digit pricing animation.
+- `ExecPlan.md` — **UI Fixes (Requested Edits 1–5)**:
+  - Pricing “£” baseline alignment in all pricing areas (index, services, niches/*)
+  - Pricing section background redesign (light-mode, premium; sparkles very visible; CTA upgrade; page-scoped)
+  - Services page mobile-only image/top-of-card pattern
+  - Add stat icons to index + about
+  - Enforce stats color rules (icons green, numbers blue, labels white) across index/about/services/niches/*
 
-## Legacy / historical ExecPlans (do not use for the current request)
-These were written for earlier iterations and may conflict with the current request:
-- `ExecPlan_Pricing_UI_Tuning.md`
-- `ExecPlan_Pricing_Widget_Niche_Metadata.md`
+## Legacy / reference ExecPlans (do not use unless explicitly requested)
 
-If you are implementing the current request, **ignore legacy plans** and use `ExecPlan.md` + `codex/REQUESTED_EDITS_SPEC.md`.
+- `ExecPlan_Pricing_UI_Tuning.md` — prior pricing UI tuning work
+- `.agent/ExecPlan.SilverstoneFrontend.md` — long-form repo orientation and general frontend guidance
