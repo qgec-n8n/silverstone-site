@@ -20,22 +20,35 @@
 .ss-pricing[data-ss-pricing-page="services.html"],
 .ss-pricing[data-ss-pricing-page^="niches/"] {
   --ss-pricing-bg:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(236, 245, 255, 0.92) 42%, rgba(214, 232, 255, 0.88) 100%),
+    linear-gradient(
+      135deg,
+      rgba(248, 252, 255, 0.92) 0%,
+      rgba(230, 242, 255, 0.9) 42%,
+      rgba(255, 240, 252, 0.88) 100%
+    ),
+    linear-gradient(160deg, rgba(0, 174, 239, 0.04) 0%, rgba(255, 79, 216, 0.06) 100%),
     radial-gradient(
-      circle at 20% 18%,
+      circle at 22% 18%,
       rgba(0, 174, 239, 0.30) 0%,
       rgba(0, 174, 239, 0.17) 45%,
       transparent 58%
     ),
     radial-gradient(
-      circle at 82% 12%,
+      circle at 80% 12%,
       rgba(255, 79, 216, 0.26) 0%,
       rgba(255, 79, 216, 0.15) 45%,
       transparent 52%
     ),
-    radial-gradient(circle at 50% 100%, rgba(0, 255, 157, 0.18), transparent 62%),
+    radial-gradient(circle at 74% 26%, rgba(255, 79, 216, 0.16), transparent 46%),
+    radial-gradient(circle at 52% 100%, rgba(0, 255, 157, 0.22), transparent 60%),
+    radial-gradient(circle at 18% 98%, rgba(0, 174, 239, 0.2), transparent 56%),
     url("../images/body_section_parallax/body-section-background-2025.webp");
-  --ss-pricing-surface: linear-gradient(160deg, rgba(255, 255, 255, 0.92) 0%, rgba(231, 242, 255, 0.88) 100%);
+  --ss-pricing-surface: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(234, 244, 255, 0.9) 55%,
+    rgba(255, 240, 252, 0.9) 100%
+  );
   --ss-pricing-text: #0b1220;
   --ss-pricing-muted: rgba(11, 18, 32, 0.68);
   --ss-pricing-border: rgba(0, 174, 239, 0.22);

@@ -27,6 +27,7 @@ After completion, the visual changes should be obvious on the target pages and `
 - [x] (2025-12-19) Gate 2: Home page “What we automate” card tweaks for Requested Edits 4–6. (Edits applied; CSS build OK; validators now pass.)
 - [x] (2025-12-19) Gate 3: Services mobile bug fix for Requested Edit 7. (Mobile services card override removed; CSS build OK; validators now pass.)
 - [x] (2025-12-19) Gate 4: Final rebuild + full validator run + manual QA checklist; ensure diff is scoped. (Final validator run passes; manual QA not run in this environment.)
+- [x] (2025-12-19) Follow-up: increase light-mode pricing background vibrancy (index/services/niches) per user request.
 
 ## Surprises & Discoveries
 
