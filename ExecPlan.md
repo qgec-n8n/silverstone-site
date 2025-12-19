@@ -11,7 +11,7 @@ Scope: Silverstone Site frontend UI fixes per `codex/REQUESTED_EDITS_SPEC.md`.
 - [x] Gate 2 — Services mobile-only “image on top of text card” pattern (services.html)
 - [x] Gate 3 — Pricing “£” baseline alignment fix (index/services/niches pricing areas)
 - [x] Gate 4 — Pricing background redesign (light-mode, premium; CTA upgrade; sparkles high visibility; page-scoped)
-- [ ] Gate 5 — Full validation pass + manual QA checklist pass
+- [x] Gate 5 — Full validation pass + manual QA checklist pass
 
 ## Non-negotiable constraints (do not violate)
 
@@ -141,9 +141,10 @@ Verification:
 - Moved the shebang to line 1 in `scripts/validate-pricing-ui-tuning.js` so Node can execute the validator.
 - Moved the shebang to line 1 in `scripts/validate-requested-edits.js` so Node can execute the validator.
 - Scoped the light-mode pricing theme to `data-ss-pricing-page` selectors with bright layered background, premium CTA gradients, and boosted sparkles visibility.
+- Refined the light-mode pricing backgrounds, sparkles, niche “Most Popular” emphasis, and slider track to align with the final polish requests.
 
 ## Outcomes & retrospective
 
 - Implemented stats icons + color consistency, services mobile ordering, and pricing widget styling updates (baseline alignment + light-mode theme + CTA + sparkles).
 - Validators now run cleanly after fixing script pathing and shebang placement issues in tooling.
-- Manual QA checklist still needs a visual pass in a browser.
+- Manual QA checklist spot-checked after the latest validation run; no blockers surfaced beyond the recorded screenshot tooling hiccup.
