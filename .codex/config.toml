@@ -1,8 +1,11 @@
 # FILE: .codex/config.toml
-# Codex CLI defaults for this repo.
-# This repo contains multiple ExecPlans; for the homepage task, use the dedicated
-# initiation prompt + ExecPlan in:
-# - codex/CODEX_INIT_PROMPT_HOMEPAGE_INDEX_SECTIONS.md
-# - .agent/ExecPlan.Homepage.IndexSections.md
+# Codex CLI defaults for this repo (Requested Edits 1–8 control-plane).
+# Use the initiation prompt in:
+# - codex/CODEX_INIT_PROMPT.md
+# And follow:
+# - AGENTS.md
+# - PLANS.md
+# - ExecPlan.md
+
 model = "gpt-5.1-codex-max"
 approval_policy = "on_request"
