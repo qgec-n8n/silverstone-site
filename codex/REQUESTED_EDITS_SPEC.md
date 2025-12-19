@@ -1,205 +1,142 @@
 <!-- FILE: codex/REQUESTED_EDITS_SPEC.md -->
-# Requested UI Fixes (1–5) — Source of Truth
+# Requested Website Edits (1–7) — Source of Truth
 
-This file is the single source of truth for the current Codex CLI task.
+This document is the single source of truth for the current task. Implement all seven edits, and do not make unrelated changes.
 
 ## Pages in scope
 
-- Pricing edits (1–2):
-  - `index.html`
-  - `services.html`
-  - `niches/*.html`
+- `index.html`
+- `services.html`
+- `niches/*.html` (pricing widgets only; no content/copy changes expected)
 
-- Services mobile-only card edit (3):
-  - `services.html`
+## Shared constraints
 
-- Stats icons + styling edits (4–5):
-  - `index.html`
-  - `about.html`
-  - `services.html`
-  - `niches/*.html`
+- Preserve existing copy exactly, except Requested Edit 4 which removes a single extra line break (no wording changes).
+- Preserve dark-mode design; pricing changes are specifically for the pricing widget’s “light mode” look on index/services/niches pages.
+- Keep all visual changes page-scoped and section-scoped using existing selectors and data attributes (avoid global overrides).
+- Do not hand-edit generated files under `assets/`; only update them through build scripts.
 
-## Global constraints (apply to all edits)
+## Required marker comments
 
-- Do not change copy unless explicitly instructed (this spec has **no** copy changes).
-- Do not change layout or functionality unless explicitly instructed.
-- Prefer CSS variable overrides and scoped selectors over refactors.
-- Keep all existing marker comments not replaced by this spec.
+To keep validation deterministic, Codex must add/keep these marker comments (exact strings):
 
-## Required marker comments (must exist exactly)
+Pricing widget:
+- In `pricing-widget/src/pricing-widget.css` (and therefore in `assets/css/pricing-widget.css` after build):
+  - `SS_PRICING_SPEC: LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL` (existing; update values beneath it)
+  - `SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE` (existing; keep and tune)
+  - `SS_PRICING_SPEC: TOGGLE_TRACK_WHITE_LIGHT_MODE` (new)
+  - `SS_PRICING_SPEC: NICHES_SECTION1_FEATURED_CARD_PREMIUM_HIGHLIGHT` (new)
+- In `pricing-widget/src/PricingWidget.jsx`:
+  - `SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE` (existing; keep and tune)
 
-These markers are REQUIRED for deterministic validation. They must appear in BOTH:
-- the source file
-- the rebuilt output file (if the file has a build output)
+Home page:
+- In `src/css/pages/home.css` (and therefore in `assets/css/styles.css` after build):
+  - `SS_HOME_SPEC: SERVICES_TITLES_BLUE_TAGLINES_GREY` (new; place next to the rule that enforces titles blue)
 
-### Stats markers
+Services mobile bug fix:
+- In `src/css/base/typography.css` (and therefore in `assets/css/styles.css` after build):
+  - `SS_SERVICES_SPEC: MOBILE_IMAGE_OUTSIDE_TEXT_CARD_MATCH_NICHE_PATTERN` (new; place where the mobile “Services mobile cards” block was removed)
 
-- `SS_STATS_SPEC: ICONS_ADDED_HOME_ABOUT`
-  - Must appear in: `index.html`, `about.html`
+## Requested Edit 1 — Pricing background more vibrant + sparkles clearer
 
-- `SS_STATS_SPEC: COLORS_ICON_GREEN_NUMBER_BLUE_LABEL_WHITE`
-  - Must appear in: `src/css/components/stats.css`
-  - Must also appear in rebuilt: `assets/css/styles.css`
+Files to change (widget only):
+- `pricing-widget/src/pricing-widget.css`
+- `pricing-widget/src/PricingWidget.jsx`
 
-### Services mobile marker
+Definition of done (acceptance + verification):
+- Only pricing widgets on `index.html`, `services.html`, and `niches/*` are affected (scoped via `data-ss-pricing-page`); other pages keep existing styling.
+- In the light-mode block, increase the blue/pink radial gradient alphas to these exact values:
+  - blue: `rgba(0, 174, 239, 0.30)` and `rgba(0, 174, 239, 0.17)`
+  - pink: `rgba(255, 79, 216, 0.26)` and `rgba(255, 79, 216, 0.15)`
+  (keep the same overall layering order and background image usage; this is a vibrancy boost, not a redesign)
+- Sparkles are visibly clearer against the light background by:
+  - slightly increasing particle visibility in `PricingWidget.jsx` (raise alpha floor + radius floor; keep motion subtle)
+  - slightly strengthening the `.ss-pricing__sparkles` filter/clarity within the existing light-mode scope
+- Rebuild the widget and confirm the change renders on at least:
+  - `/index.html` pricing section
+  - `/services.html` pricing section
+  - one `/niches/*.html` pricing section
+- `node scripts/validate-pricing-ui-tuning.js --strict` passes.
 
-- `SS_SERVICES_SPEC: MOBILE_IMAGE_TOP_PATTERN`
-  - Must appear in: `src/css/pages/services.css`
-  - Must also appear in rebuilt: `assets/css/styles.css`
+## Requested Edit 2 — Niche pages: first pricing section featured card is extremely premium
 
-### Pricing widget markers
+Files to change:
+- `pricing-widget/src/pricing-widget.css`
 
-- `SS_PRICING_SPEC: GBP_SYMBOL_BASELINE_ALIGN`
-  - Must appear in: `pricing-widget/src/pricing-widget.css`
-  - Must also appear in rebuilt: `assets/css/pricing-widget.css`
+Definition of done (acceptance + verification):
+- Only niche pages (`data-ss-pricing-page^="niches/"`) and only the first pricing section (`data-ss-pricing-section="1"`) get the stronger highlight.
+- The featured card (`.ss-pricing__card.is-featured`) is unmistakably the highlighted option via a premium “raised” treatment (transform + stronger shadow + clearer border/accent), without breaking grid layout.
+- The “Most popular” badge remains legible, not clipped, and does not overlap the plan title (works at mobile and desktop widths).
+- Non-featured cards remain visually consistent with the existing light-mode design (no global retheme).
+- Verify on at least two niche pages at desktop and mobile widths.
+- `node scripts/validate-pricing-ui-tuning.js --strict` passes.
 
-- `SS_PRICING_SPEC: LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL`
-  - Must appear in: `pricing-widget/src/pricing-widget.css`
-  - Must also appear in rebuilt: `assets/css/pricing-widget.css`
+## Requested Edit 3 — Pricing toggle track is white (not grey)
 
-- `SS_PRICING_SPEC: CTA_BOOK_CALL_PREMIUM_LIGHT_MODE`
-  - Must appear in: `pricing-widget/src/pricing-widget.css`
-  - Must also appear in rebuilt: `assets/css/pricing-widget.css`
+Files to change:
+- `pricing-widget/src/pricing-widget.css`
 
-- `SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE`
-  - Must appear in:
-    - `pricing-widget/src/pricing-widget.css`
-    - `pricing-widget/src/PricingWidget.jsx`
-  - Must also appear in rebuilt:
-    - `assets/css/pricing-widget.css`
-    - `assets/js/pricing-widget.js`
+Definition of done (acceptance + verification):
+- For pricing widgets that render the monthly/setup toggle, the toggle track background is white in light mode (not grey/dark).
+- Styling remains page-scoped to index/services/niches and does not affect other widgets/pages.
+- Toggle remains readable: active/inactive states are clear and the slider still feels premium.
+- Rebuild and verify on pages where the toggle exists.
+- `node scripts/validate-pricing-ui-tuning.js --strict` passes.
 
-## Edit 1 — Pricing “£” alignment (index/services/niches)
+## Requested Edit 4 — index.html: remove extra line in Systems & Data Integration card
 
-Goal:
-- In all pricing displays, the “£” symbol must baseline-align with the digits (no vertical drift).
+Files to change:
+- `index.html`
 
-Implementation requirements:
-- Prefer a CSS-only fix in the pricing widget:
-  - Target `ss-pricing__price-digits` and `ss-pricing__price-prefix`.
-  - Ensure the container aligns items on the baseline (not bottom).
-  - Ensure the prefix has an explicit line-height consistent with the digits.
-- Do not change:
-  - any number values
-  - any plan names
-  - the monthly/setup toggle behavior or animation logic (no functionality changes)
+Definition of done (acceptance + verification):
+- Remove the extra blank line between:
+  - “Connect your tools so data flows without copy-paste.”
+  - “Link CRM, booking, email and payments”
+  (This is currently a literal `<br />` in the card content.)
+- Do not change wording, punctuation, or spacing of any other copy in that card.
+- `node scripts/validate-requested-edits.js --strict` passes.
 
-Acceptance criteria:
-- On index/services and at least 2 niches pages:
-  - Check both billing modes (Monthly + Setup) at desktop and mobile widths.
-  - “£” visually aligns with the first digit across all cards.
+## Requested Edit 5 — index.html “Our services” taglines are grey
 
-## Edit 2 — Pricing background redesign (index/services/niches only)
+Files to change:
+- `src/css/pages/home.css` (preferred; scope to `.page-home`)
 
-Goal:
-- Make the pricing section background visually aligned with `body-section-background-2025.webp` (palette + vibe),
-  but clearly not identical.
-- The result must feel:
-  - sleek
-  - vibrant
-  - premium/luxurious
-  - light-mode (high-key, bright surfaces, not dark “night mode”)
+Definition of done (acceptance + verification):
+- In the “What we automate” cards on `index.html`, these taglines render as grey text:
+  - “Get clear on what to automate first - and what to leave alone.”
+  - “Stop enquiries going cold with fast, personal follow-up.”
+  - “Remove manual admin and get visibility across your ops.”
+  - “Connect your tools so data flows without copy-paste.”
+- The change is scoped to the home page card section (no global `.tagline` changes site-wide).
+- `node scripts/validate-requested-edits.js --strict` passes.
 
-Hard constraints:
-- Do NOT change:
-  - pricing layout
-  - pricing copy
-  - plan structure
-  - CTA text (“Book a Call” must remain exactly)
-  - any functionality/JS behavior (except aesthetics of sparkles visibility)
+## Requested Edit 6 — index.html “Our services” titles are blue
 
-Page scoping (mandatory):
-- The new light-mode theme must apply ONLY when:
-  - `data-ss-pricing-page="index.html"`
-  - `data-ss-pricing-page="services.html"`
-  - `data-ss-pricing-page` starts with `niches/`
-- Other pages that mount pricing must keep the existing styling.
+Files to change:
+- `src/css/pages/home.css` (preferred; scope to `.page-home`)
 
-Design requirements:
-- Background:
-  - Use a new background stack (gradients/overlays) that is inspired by the body-section background.
-  - It may reuse `body-section-background-2025.webp` as one layer, but must add enough new layering
-    (e.g., brighter overlay + different gradient arrangement) so the combined result is not identical.
-  - Ensure the base is light-mode (bright, airy, premium).
-- Blue accents:
-  - Use the site blue (`--color-blue`) for selected headings/emphasis where it improves the aesthetic.
-- CTA (“Book a Call”) button:
-  - Must look more enticing than current: stronger contrast, premium gradient, subtle glow, clear hover/focus.
-- Sparkles:
-  - Must remain extremely visible against the new light background.
-  - Achieve via CSS filters/opacity and/or sparkles rendering tweaks (aesthetics-only).
+Definition of done (acceptance + verification):
+- In the “What we automate” cards on `index.html`, these titles render blue:
+  - “AI Consulting & Readiness”
+  - “Automated Lead Follow-Up”
+  - “Workflow Automation & Reporting”
+  - “Systems & Data Integration”
+- Do not change the card layout, spacing, or copy.
+- `node scripts/validate-requested-edits.js --strict` passes.
 
-Acceptance criteria:
-- On index/services and at least 2 niches pages:
-  - Pricing background looks light-mode and premium.
-  - Sparkles remain obvious at a glance (not faint).
-  - CTA is visually prominent and premium without changing its text.
+## Requested Edit 7 — EXTREMELY IMPORTANT: services.html mobile image-in-card bug fix
 
-## Edit 3 — Services page mobile-only image/top-of-card pattern
+Files to change (root-cause fix expected in CSS):
+- `src/css/base/typography.css`
+- (Do not change `services.html` unless absolutely necessary)
 
-Goal:
-- On `services.html` (mobile only), service rows with images must match the niche-page mobile pattern:
-  - image appears above the text card
-  - image is NOT nested inside the text card
-
-Constraints:
-- Desktop/tablet layout must remain unchanged.
-- Prefer CSS reordering in the mobile media query rather than HTML restructuring.
-- Only apply this behavior on mobile breakpoints.
-
-Acceptance criteria:
-- At <= 768px width:
-  - Each `.service-row` image is visually stacked above its corresponding text card.
-  - No `<img>` elements are nested inside `.service-content` for these rows.
-
-## Edit 4 — Add stats icons on index + about
-
-Goal:
-- Add icons above the numbers on `index.html` and `about.html`, matching the structure on `services.html`.
-
-Icon mapping (use exactly these class names):
-
-- index.html stats icons:
-  - 24/7 Always-On Coverage  -> `fa-solid fa-bell`
-  - Under 60 Seconds         -> `fa-solid fa-clock`
-  - 50+ Workflows Delivered  -> `fa-solid fa-gears`
-  - 5-Star Rated             -> `fa-solid fa-check-circle`
-
-- about.html stats icons:
-  - 7+ Years Experience              -> `fa-solid fa-calendar-check`
-  - 300% Average Efficiency Gains    -> `fa-solid fa-chart-line`
-  - 20+ Automation Systems Built     -> `fa-solid fa-diagram-project`
-  - 0 Wasted Time                    -> `fa-solid fa-bolt`
-
-Constraints:
-- Do not change the stat number text or label copy.
-- Icons must be inserted as:
-  - `<div class="stat-icon"><i class="fa-solid fa-..."></i></div>`
-  and must appear above the `.number` element.
-
-## Edit 5 — Stats styling consistency
-
-Goal:
-- Across index/about/services/niches pages:
-  - stat icons are green
-  - stat numbers are blue
-  - stat labels are white
-
-Implementation requirements:
-- Implement via `src/css/components/stats.css` (shared component styling).
-- If any page-specific css overrides `.stat-icon` color (e.g., `src/css/pages/estate-agents.css`), remove or neutralize it.
-
-Acceptance criteria:
-- All listed pages show:
-  - icons: green
-  - numbers: blue
-  - labels: white
-- No regressions to layout/spacing in stats cards.
-
-## How to verify (mandatory)
-
-1. Run automated validations:
-   - `bash scripts/codex.requested-edits.sh`
-
-2. Run manual QA:
-   - Follow `codex/MANUAL_QA_CHECKLIST.md`
+Definition of done (acceptance + verification):
+- On mobile widths (test 390×844 and 375×667), in `services.html`, the following three service rows must match the `niches/estate-agents.html` pattern:
+  - “Where revenue (and time) quietly leaks away.”
+  - “Start small. Ship fast. Expand when it is working”
+  - “General Service Lines:”
+  Specifically: image outside the text card; the card contains only text/bullets.
+- The fix must remove/disable the mobile-only “Services mobile cards” styling that turns the whole `.service-row` into one card (currently in `src/css/base/typography.css`).
+- On mobile, the two headings “Where revenue…leaks away.” and “Start small…working” must render in blue (not white).
+- Desktop layout must remain unchanged; only mobile behavior is affected.
+- `node scripts/validate-requested-edits.js --strict` passes.
