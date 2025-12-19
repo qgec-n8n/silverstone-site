@@ -1,10 +1,8 @@
 // FILE: scripts/validate-pricing-ui-tuning.js
+#!/usr/bin/env node
+
 /**
- * Pricing UI tuning validator (strict by default in Codex workflows).
- *
- * This repo historically used this script to ensure pricing widget styling and
- * per-page scoping rules stay intact. It has been updated to align with the
- * current requested edits (theme update + per-digit price animation).
+ * Validates pricing widget requirements for Requested Edits (1–2).
  *
  * Run:
  *   node scripts/validate-pricing-ui-tuning.js --strict
@@ -13,125 +11,188 @@
 const fs = require("fs");
 const path = require("path");
 
-const STRICT = process.argv.includes("--strict");
+const ROOT = path.resolve(__dirname, "..");
+const strict = process.argv.includes("--strict");
 
-function fatal(msg) {
-  console.error(`✗ ${msg}`);
-  process.exit(1);
+let failures = 0;
+
+function fail(msg) {
+  failures += 1;
+  console.error(`❌ ${msg}`);
+  if (strict) process.exit(1);
 }
 
 function ok(msg) {
-  console.log(`✓ ${msg}`);
+  console.log(`✅ ${msg}`);
 }
 
-function readFileOrFatal(rel) {
-  const abs = path.join(process.cwd(), rel);
-  if (!fs.existsSync(abs)) fatal(`Missing file: ${rel}`);
-  return fs.readFileSync(abs, "utf8");
+function read(relPath) {
+  const p = path.join(ROOT, relPath);
+  if (!fs.existsSync(p)) fail(`Missing file: ${relPath}`);
+  return fs.readFileSync(p, "utf8");
 }
 
-// Source + built outputs we validate.
-const SRC_CSS = "pricing-widget/src/pricing-widget.css";
-const SRC_JSX = "pricing-widget/src/PricingWidget.jsx";
-const BUILT_CSS = "assets/css/pricing-widget.css";
-const BUILT_JS = "assets/js/pricing-widget.js";
+function assertIncludes(haystack, needle, msg) {
+  if (!haystack.includes(needle)) fail(msg);
+}
 
-const srcCss = readFileOrFatal(SRC_CSS);
-const srcJsx = readFileOrFatal(SRC_JSX);
-const builtCss = readFileOrFatal(BUILT_CSS);
-const builtJs = readFileOrFatal(BUILT_JS);
+function assertRegex(haystack, re, msg) {
+  if (!re.test(haystack)) fail(msg);
+}
 
-// Theme marker: new marker required in strict mode (legacy marker accepted only in non-strict).
-const NEW_THEME_MARKER = "SS_PRICING_SPEC: THEME_MATCH_BODY_SECTION_BACKGROUND_2025";
-const LEGACY_THEME_MARKER = "SS_PRICING_SPEC: THEME_LIGHT_MODE_NEON";
-
-if (STRICT) {
-  if (!srcCss.includes(NEW_THEME_MARKER)) {
-    fatal(`Missing required theme marker in ${SRC_CSS}: ${NEW_THEME_MARKER}`);
+/**
+ * Ensures a needle appears within N characters of a marker.
+ * Used to keep checks reasonably scoped to the intended block.
+ */
+function assertNear(haystack, marker, needle, windowSize, msg) {
+  const idx = haystack.indexOf(marker);
+  if (idx === -1) {
+    fail(`Missing marker: ${marker}`);
+    return;
   }
-  if (!builtCss.includes(NEW_THEME_MARKER)) {
-    fatal(`Missing required theme marker in ${BUILT_CSS}: ${NEW_THEME_MARKER}`);
-  }
-} else {
-  const hasAnyThemeMarker = srcCss.includes(NEW_THEME_MARKER) || srcCss.includes(LEGACY_THEME_MARKER);
-  if (!hasAnyThemeMarker) fatal(`Missing theme marker in ${SRC_CSS}: expected ${NEW_THEME_MARKER} or ${LEGACY_THEME_MARKER}`);
+  const start = Math.max(0, idx - windowSize);
+  const end = Math.min(haystack.length, idx + windowSize);
+  const slice = haystack.slice(start, end);
+  if (!slice.includes(needle)) fail(msg);
 }
 
-ok("Theme marker present (strict: new marker required).");
+function validatePoundAlignment(srcCss, builtCss) {
+  const marker = "SS_PRICING_SPEC: GBP_SYMBOL_BASELINE_ALIGN";
 
-// Background art requirement (requested edit #7)
-const BG_IMAGE = "body-section-background-2025.webp";
-if (!srcCss.includes(BG_IMAGE)) fatal(`Expected ${SRC_CSS} to reference ${BG_IMAGE} in widget background.`);
-if (!builtCss.includes(BG_IMAGE)) fatal(`Expected ${BUILT_CSS} to reference ${BG_IMAGE} (rebuilt output).`);
-ok("Background art reference present in source + built CSS.");
+  assertIncludes(
+    srcCss,
+    marker,
+    "pricing-widget/src/pricing-widget.css must include marker SS_PRICING_SPEC: GBP_SYMBOL_BASELINE_ALIGN."
+  );
+  assertIncludes(
+    builtCss,
+    marker,
+    "assets/css/pricing-widget.css must include GBP alignment marker (ensure pricing widget was rebuilt)."
+  );
 
-// Sparkles visibility marker (requested edit #7)
-const SPARKLES_MARKER = "SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE";
-if (!srcCss.includes(SPARKLES_MARKER)) fatal(`Missing sparkles visibility marker in ${SRC_CSS}: ${SPARKLES_MARKER}`);
-if (!srcJsx.includes(SPARKLES_MARKER)) fatal(`Missing sparkles visibility marker in ${SRC_JSX}: ${SPARKLES_MARKER}`);
-if (!builtCss.includes(SPARKLES_MARKER)) fatal(`Missing sparkles marker in ${BUILT_CSS} (rebuilt output).`);
-if (!builtJs.includes(SPARKLES_MARKER)) fatal(`Missing sparkles marker in ${BUILT_JS} (rebuilt output).`);
-ok("Sparkles marker present in source + built outputs.");
+  // Baseline alignment intent checks
+  assertRegex(
+    srcCss,
+    /\.ss-pricing__price-digits\s*\{[\s\S]*align-items:\s*baseline\s*;[\s\S]*\}/,
+    "pricing-widget.css must set .ss-pricing__price-digits { align-items: baseline; }."
+  );
+  assertRegex(
+    srcCss,
+    /\.ss-pricing__price-prefix\s*\{[\s\S]*line-height:\s*1[;\s][\s\S]*\}/,
+    "pricing-widget.css must set an explicit line-height on .ss-pricing__price-prefix (expected 1)."
+  );
 
-// Per-digit price scroll (requested edit #8)
-const PER_DIGIT_MARKER = "SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT";
-if (!srcCss.includes(PER_DIGIT_MARKER)) fatal(`Missing per-digit marker in ${SRC_CSS}: ${PER_DIGIT_MARKER}`);
-if (!srcJsx.includes(PER_DIGIT_MARKER)) fatal(`Missing per-digit marker in ${SRC_JSX}: ${PER_DIGIT_MARKER}`);
-if (!builtCss.includes(PER_DIGIT_MARKER)) fatal(`Missing per-digit marker in ${BUILT_CSS} (rebuilt output).`);
-if (!builtJs.includes(PER_DIGIT_MARKER)) fatal(`Missing per-digit marker in ${BUILT_JS} (rebuilt output).`);
-ok("Per-digit marker present in source + built outputs.");
+  ok("Edit 1 — GBP symbol baseline alignment validated.");
+}
 
-// Ensure legacy whole-number roll is removed
-const LEGACY_ROLL_MARKER = "SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION";
-if (srcCss.includes(LEGACY_ROLL_MARKER)) fatal(`Legacy marker must be removed from ${SRC_CSS}: ${LEGACY_ROLL_MARKER}`);
-if (srcCss.includes("ss-pricing__price-roll")) fatal(`Legacy .ss-pricing__price-roll styles must be removed from ${SRC_CSS}.`);
-if (srcJsx.includes("ss-pricing__price-roll")) fatal(`Legacy .ss-pricing__price-roll usage must be removed from ${SRC_JSX}.`);
-ok("Legacy whole-number roll removed.");
+function validateLightModeBackgroundAndCTA(srcCss, builtCss) {
+  const bgMarker = "SS_PRICING_SPEC: LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL";
+  const ctaMarker = "SS_PRICING_SPEC: CTA_BOOK_CALL_PREMIUM_LIGHT_MODE";
 
-// Token sanity: keep using site accent variables; avoid hard-coded dark theme tokens.
-const REQUIRED_TOKENS = [
-  "--ss-pricing-text",
-  "--ss-pricing-muted",
-  "var(--color-blue)",
-  "var(--color-purple)",
-];
+  assertIncludes(
+    srcCss,
+    bgMarker,
+    "pricing-widget/src/pricing-widget.css must include marker SS_PRICING_SPEC: LIGHT_MODE_BG_BODYSECTION_INSPIRED_NOT_IDENTICAL."
+  );
+  assertIncludes(
+    builtCss,
+    bgMarker,
+    "assets/css/pricing-widget.css must include the light-mode background marker (ensure rebuild)."
+  );
 
-REQUIRED_TOKENS.forEach((token) => {
-  if (!srcCss.includes(token)) fatal(`Missing required token/reference in ${SRC_CSS}: ${token}`);
-});
+  // Page scoping must be explicit
+  ["data-ss-pricing-page=\"index.html\"", "data-ss-pricing-page=\"services.html\"", "data-ss-pricing-page=\"niches/"].forEach(
+    (needle) => {
+      assertIncludes(
+        srcCss,
+        needle,
+        `pricing-widget.css must scope the light-mode theme to pages via selector containing ${needle}.`
+      );
+    }
+  );
 
-const DISALLOWED_TOKENS = [
-  // dark-on-light legacy tokens we explicitly don't want to reintroduce
-  "#0b0c10",
-  "#111827",
-  "#0f172a",
-  "#0a0f1a",
-  "#0b1220",
-  "#0a0b10",
-  "#101014",
-];
+  // Light-mode hint: require a white/bright overlay somewhere near the marker.
+  assertNear(
+    srcCss,
+    bgMarker,
+    "rgba(255, 255, 255",
+    2500,
+    "Light-mode pricing background should include a bright/white overlay layer (expected rgba(255, 255, 255, ...)) near the background marker."
+  );
 
-DISALLOWED_TOKENS.forEach((token) => {
-  if (srcCss.includes(token)) fatal(`Disallowed token found in ${SRC_CSS}: ${token}`);
-  if (builtCss.includes(token)) fatal(`Disallowed token found in ${BUILT_CSS} (rebuilt output): ${token}`);
-});
+  // CTA styling marker + basic intent
+  assertIncludes(
+    srcCss,
+    ctaMarker,
+    "pricing-widget/src/pricing-widget.css must include marker SS_PRICING_SPEC: CTA_BOOK_CALL_PREMIUM_LIGHT_MODE."
+  );
+  assertIncludes(
+    builtCss,
+    ctaMarker,
+    "assets/css/pricing-widget.css must include CTA marker (ensure pricing widget was rebuilt)."
+  );
 
-ok("Token sanity checks passed.");
+  assertNear(
+    srcCss,
+    ctaMarker,
+    "linear-gradient",
+    2200,
+    "CTA should use a premium gradient (expected linear-gradient near CTA marker)."
+  );
 
-// Ensure the widget still contains page-scoping attributes in built CSS (important for multi-page embedding).
-const REQUIRED_SCOPING_ATTRIBUTES = [
-  'data-ss-pricing-page="index.html"',
-  'data-ss-pricing-page="services.html"',
-  'data-ss-pricing-page="book.html"',
-  'data-ss-pricing-page="contact.html"',
-  'data-ss-pricing-page="about.html"',
-  'data-ss-pricing-page="niches/',
-];
+  ok("Edit 2 — Light-mode background (page-scoped) + premium CTA validated.");
+}
 
-REQUIRED_SCOPING_ATTRIBUTES.forEach((attr) => {
-  if (!builtCss.includes(attr)) fatal(`Missing expected page scoping in ${BUILT_CSS}: ${attr}`);
-});
+function validateSparklesVisibility(srcCss, srcJsx, builtCss, builtJs) {
+  const marker = "SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE";
 
-ok("Page scoping attributes present in built CSS.");
+  assertIncludes(
+    srcCss,
+    marker,
+    "pricing-widget/src/pricing-widget.css must include marker SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE."
+  );
+  assertIncludes(
+    srcJsx,
+    marker,
+    "pricing-widget/src/PricingWidget.jsx must include marker SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE."
+  );
+  assertIncludes(
+    builtCss,
+    marker,
+    "assets/css/pricing-widget.css must include sparkles visibility marker (ensure rebuild)."
+  );
+  assertIncludes(
+    builtJs,
+    marker,
+    "assets/js/pricing-widget.js must include sparkles visibility marker (ensure rebuild)."
+  );
 
-console.log("✅ Pricing UI tuning validations passed.");
+  // Guard against accidental CTA copy change (must remain exactly).
+  assertIncludes(
+    srcJsx,
+    'const BOOK_CTA = "Book a Call";',
+    'PricingWidget.jsx must keep BOOK_CTA text exactly "Book a Call".'
+  );
+
+  ok("Sparkles visibility + CTA copy guard validated.");
+}
+
+function main() {
+  const srcCss = read("pricing-widget/src/pricing-widget.css");
+  const srcJsx = read("pricing-widget/src/PricingWidget.jsx");
+  const builtCss = read("assets/css/pricing-widget.css");
+  const builtJs = read("assets/js/pricing-widget.js");
+
+  validatePoundAlignment(srcCss, builtCss);
+  validateLightModeBackgroundAndCTA(srcCss, builtCss);
+  validateSparklesVisibility(srcCss, srcJsx, builtCss, builtJs);
+
+  if (failures > 0) {
+    console.error(`\nFAILED: ${failures} check(s).`);
+    process.exit(1);
+  }
+
+  ok("All pricing UI validations passed.");
+}
+
+main();
