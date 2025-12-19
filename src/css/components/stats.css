@@ -13,9 +13,17 @@
   padding: 1.5rem;
 }
 
+/* SS_STATS_SPEC: COLORS_ICON_GREEN_NUMBER_BLUE_LABEL_WHITE */
+.stats .stat-icon {
+  font-size: 1.5rem;
+  color: var(--color-green);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
 .stats .number {
   font-size: 2.5rem;
-  color: var(--color-green);
+  color: var(--color-blue);
   font-family: var(--font-heading);
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -23,7 +31,7 @@
 
 .stats .label {
   font-size: 1rem;
-  color: var(--color-silver);
+  color: var(--color-white);
   font-family: var(--font-body);
 }
 

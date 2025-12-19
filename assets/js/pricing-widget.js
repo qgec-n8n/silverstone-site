@@ -7888,10 +7888,11 @@ var SilverstonePricingWidget = (function (exports) {
           list.push({
             x: Math.random() * width,
             y: Math.random() * height,
+            // SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE
             // SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE
-            r: Math.random() * 2.2 + 0.6,
+            r: Math.random() * 2.6 + 0.8,
             speed: Math.random() * 0.45 + 0.2,
-            alpha: Math.random() * 0.55 + 0.35
+            alpha: Math.random() * 0.5 + 0.45
           });
         }
         return list;
@@ -7919,7 +7920,7 @@ var SilverstonePricingWidget = (function (exports) {
             if (p.y > height + 6) {
               p.y = -6;
               p.x = Math.random() * width;
-              p.alpha = Math.random() * 0.5 + 0.2;
+              p.alpha = Math.random() * 0.5 + 0.4;
             }
           }
         }

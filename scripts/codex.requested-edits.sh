@@ -4,7 +4,7 @@ set -euo pipefail
 
 echo "=== Install + build (repo root) ==="
 npm install
-node scripts/build-css.js
+node build-css.js
 node scripts/build-js.js
 
 echo "=== Build pricing widget outputs ==="

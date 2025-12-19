@@ -1,11 +1,4 @@
 /* Inline styles migrated from niches/estate-agents.html */
-.stat-icon {
-  font-size: 1.5rem;
-  color: var(--color-amber);
-  margin-bottom: 0.75rem;
-  display: inline-block;
-}
-
 .page-niche .service-image.neon-card {
   padding: 0;
   overflow: hidden;
@@ -32,4 +25,3 @@
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
-

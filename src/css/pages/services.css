@@ -281,16 +281,17 @@
 }
 
 @media (max-width: 768px) {
+  /* SS_SERVICES_SPEC: MOBILE_IMAGE_TOP_PATTERN */
   .page-services .service-row {
     grid-template-columns: 1fr !important;
     gap: 1.25rem !important;
   }
 
   .page-services .service-row .service-image {
-    order: 1 !important;
+    order: 1;
   }
 
   .page-services .service-row .service-content {
-    order: 2 !important;
+    order: 2;
   }
 }

@@ -1,5 +1,5 @@
-// FILE: scripts/validate-pricing-ui-tuning.js
 #!/usr/bin/env node
+// FILE: scripts/validate-pricing-ui-tuning.js
 
 /**
  * Validates pricing widget requirements for Requested Edits (1–2).

@@ -1,5 +1,5 @@
-// FILE: scripts/validate-requested-edits.js
 #!/usr/bin/env node
+// FILE: scripts/validate-requested-edits.js
 
 /**
  * Validates Requested UI Fixes (1–5) as defined in codex/REQUESTED_EDITS_SPEC.md.

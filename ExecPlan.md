@@ -6,11 +6,11 @@ Scope: Silverstone Site frontend UI fixes per `codex/REQUESTED_EDITS_SPEC.md`.
 
 ## Progress
 
-- [ ] Gate 0 — Baseline scan + confirm file locations + run current validations
-- [ ] Gate 1 — Stats icons added (index + about) + stats color rules enforced globally
-- [ ] Gate 2 — Services mobile-only “image on top of text card” pattern (services.html)
-- [ ] Gate 3 — Pricing “£” baseline alignment fix (index/services/niches pricing areas)
-- [ ] Gate 4 — Pricing background redesign (light-mode, premium; CTA upgrade; sparkles high visibility; page-scoped)
+- [x] Gate 0 — Baseline scan + confirm file locations + run current validations
+- [x] Gate 1 — Stats icons added (index + about) + stats color rules enforced globally
+- [x] Gate 2 — Services mobile-only “image on top of text card” pattern (services.html)
+- [x] Gate 3 — Pricing “£” baseline alignment fix (index/services/niches pricing areas)
+- [x] Gate 4 — Pricing background redesign (light-mode, premium; CTA upgrade; sparkles high visibility; page-scoped)
 - [ ] Gate 5 — Full validation pass + manual QA checklist pass
 
 ## Non-negotiable constraints (do not violate)
@@ -131,12 +131,19 @@ Verification:
 
 ## Surprises & discoveries
 
-(Write findings here during execution.)
+- `scripts/codex.requested-edits.sh` references `scripts/build-css.js`, but only `build-css.js` exists at repo root. Baseline run fails with MODULE_NOT_FOUND.
+- `scripts/validate-pricing-ui-tuning.js` had a shebang on line 2 (after a comment), causing Node syntax error during validation.
+- `scripts/validate-requested-edits.js` had the same shebang placement issue (comment before #!), causing a Node syntax error.
 
 ## Decision log
 
-(Record decisions that affect implementation, e.g., chosen icon mapping, chosen pricing theme variable values, any scoping choices.)
+- Updated `scripts/codex.requested-edits.sh` to call `node build-css.js` (root script) to unblock validation runs.
+- Moved the shebang to line 1 in `scripts/validate-pricing-ui-tuning.js` so Node can execute the validator.
+- Moved the shebang to line 1 in `scripts/validate-requested-edits.js` so Node can execute the validator.
+- Scoped the light-mode pricing theme to `data-ss-pricing-page` selectors with bright layered background, premium CTA gradients, and boosted sparkles visibility.
 
 ## Outcomes & retrospective
 
-(After completion: what changed, what was tricky, what to watch next time.)
+- Implemented stats icons + color consistency, services mobile ordering, and pricing widget styling updates (baseline alignment + light-mode theme + CTA + sparkles).
+- Validators now run cleanly after fixing script pathing and shebang placement issues in tooling.
+- Manual QA checklist still needs a visual pass in a browser.

@@ -2854,9 +2854,17 @@ body.services-overlay-active .services-overlay {
   padding: 1.5rem;
 }
 
+/* SS_STATS_SPEC: COLORS_ICON_GREEN_NUMBER_BLUE_LABEL_WHITE */
+.stats .stat-icon {
+  font-size: 1.5rem;
+  color: var(--color-green);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
 .stats .number {
   font-size: 2.5rem;
-  color: var(--color-green);
+  color: var(--color-blue);
   font-family: var(--font-heading);
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -2864,7 +2872,7 @@ body.services-overlay-active .services-overlay {
 
 .stats .label {
   font-size: 1rem;
-  color: var(--color-silver);
+  color: var(--color-white);
   font-family: var(--font-body);
 }
 
@@ -4254,17 +4262,18 @@ body.services-overlay-active .services-overlay {
 }
 
 @media (max-width: 768px) {
+  /* SS_SERVICES_SPEC: MOBILE_IMAGE_TOP_PATTERN */
   .page-services .service-row {
     grid-template-columns: 1fr !important;
     gap: 1.25rem !important;
   }
 
   .page-services .service-row .service-image {
-    order: 1 !important;
+    order: 1;
   }
 
   .page-services .service-row .service-content {
-    order: 2 !important;
+    order: 2;
   }
 }
 
@@ -4753,13 +4762,6 @@ body.services-overlay-active .services-overlay {
 
 
 /* Inline styles migrated from niches/estate-agents.html */
-.stat-icon {
-  font-size: 1.5rem;
-  color: var(--color-amber);
-  margin-bottom: 0.75rem;
-  display: inline-block;
-}
-
 .page-niche .service-image.neon-card {
   padding: 0;
   overflow: hidden;
@@ -4786,4 +4788,3 @@ body.services-overlay-active .services-overlay {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
-
