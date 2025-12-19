@@ -1,74 +1,50 @@
 <!-- FILE: AGENTS.md -->
-# Codex Agent Guardrails (Silverstone Site)
+# Agents Guide
 
-These guardrails exist to keep Codex CLI precise for **Requested Edits (1–5)**.
+## ExecPlans
 
-## Source of truth (must follow)
+When implementing Requested Edits (1–7) or any multi-file/UI task, follow `ExecPlan.md` and `PLANS.md`.
 
-1. `codex/REQUESTED_EDITS_SPEC.md`
-2. `ExecPlan.md`
-3. `PLANS.md`
+## Scope for current task (Requested Edits 1–7)
 
-If anything conflicts, the ordering above wins.
+Implement seven tightly scoped changes across:
+- pricing widget light-mode visuals (index/services/niches)
+- home page “What we automate” cards (colors + one formatting fix)
+- services page mobile layout bug fix (image must not appear inside the text card; headings must be blue on mobile)
 
-## Scope rules (hard constraints)
+## Allowed edit surfaces (for this task)
 
-- Implement **only** Requested Edits (1–5).
-- Do **not** change site copy anywhere unless the spec explicitly instructs it.
-- Do **not** change layout or functionality unless the spec explicitly instructs it.
-- Prefer minimal diffs and established patterns over “better” rewrites.
+Planning/config:
+- `ExecPlan.md`, `ExecPlans.md`, `PLANS.md`, `AGENTS.md`
+- `codex/REQUESTED_EDITS_SPEC.md`, `codex/CODEX_INIT_PROMPT.md`, `codex/MANUAL_QA_CHECKLIST.md`, `codex/MAINTENANCE.md`
+- `.codex/config.toml`
+- `scripts/*.js`, `scripts/*.sh`
 
-## Allowed edit surfaces (website code)
+Product sources (only as required by the spec):
+- `index.html`
+- `services.html` (only if absolutely necessary; prefer CSS root-cause fix first)
+- `src/css/pages/home.css`
+- `src/css/pages/services.css` (preserve existing mobile ordering marker)
+- `src/css/base/typography.css` (remove the services-specific mobile card-merge styling)
+- `pricing-widget/src/pricing-widget.css`
+- `pricing-widget/src/PricingWidget.jsx`
 
-Only edit these files for the UI implementation work:
+Generated outputs (must be produced via build scripts, not hand-edited):
+- `assets/css/styles.css`
+- `assets/css/pricing-widget.css`
+- `assets/js/pricing-widget.js`
 
-- Pages:
-  - `index.html`
-  - `about.html`
-  - `services.html`
-  - `niches/*.html` (only if required by the spec; most niche changes should be CSS-level)
+## Non-goals / Do not change
 
-- Shared CSS source (must rebuild into `assets/css/styles.css`):
-  - `src/css/components/stats.css`
-  - `src/css/pages/services.css`
-  - `src/css/pages/estate-agents.css` (only if needed to remove conflicting stat icon styling)
-  - `src/css/components/cards.css` (only if absolutely required for the services mobile fix)
+- Do not change copy other than the single line-break removal described in Requested Edit 4.
+- Do not change pricing plan names, prices, or pricing logic (no edits to `pricing-widget/src/pricingData.js` expected).
+- Do not re-theme dark mode or global design tokens.
+- Do not add new dependencies or refactor unrelated CSS.
+- Do not change niche/service imagery assets.
 
-- Pricing widget source (must rebuild into `assets/css/pricing-widget.css` and `assets/js/pricing-widget.js`):
-  - `pricing-widget/src/pricing-widget.css`
-  - `pricing-widget/src/PricingWidget.jsx`
+## Quality bar
 
-- Built outputs (generated; must stay in sync with sources):
-  - `assets/css/styles.css`
-  - `assets/css/pricing-widget.css`
-  - `assets/js/pricing-widget.js`
-
-## Allowed edit surfaces (tooling/docs)
-
-- `ExecPlan.md`, `ExecPlans.md`, `PLANS.md`
-- `codex/REQUESTED_EDITS_SPEC.md`, `codex/MANUAL_QA_CHECKLIST.md`
-- `scripts/codex.requested-edits.sh`
-- `scripts/validate-requested-edits.js`
-- `scripts/validate-pricing-ui-tuning.js`
-
-## Explicit non-goals / forbidden edits
-
-- Do not edit:
-  - `PRICING_COPY_MAP.md`
-  - pricing amounts, plan names, or included items copy (these are functionality/copy)
-- Do not introduce new frameworks, build systems, or refactor existing architecture.
-- Avoid `!important` unless it is the only way to meet a requirement without changing layout.
-
-## Build + verification requirements
-
-- After each gate in `ExecPlan.md`, run:
-  - `bash scripts/codex.requested-edits.sh`
-- Do not mark work “done” until all validators pass and `codex/MANUAL_QA_CHECKLIST.md` is satisfied.
-
-## Search + implementation habits (to reduce drift)
-
-- Search before editing (use grep/rg) to find canonical definitions and avoid duplicates.
-- When adding new UI rules, prefer:
-  - CSS variables and scoped selectors
-  - page scoping via existing body classes and `data-ss-pricing-page` attributes
-- Add/keep the required `SS_*_SPEC:` marker comments listed in the spec.
+- Small, scoped diffs.
+- Root-cause bug fixes (avoid “band-aid” overrides unless necessary and documented in `ExecPlan.md`).
+- Validators must pass: `bash scripts/codex.requested-edits.sh`.
+- Manual QA must match `codex/MANUAL_QA_CHECKLIST.md`.
