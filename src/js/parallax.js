@@ -3,6 +3,7 @@
 
   window.Silverstone = window.Silverstone || {};
 
+  // SS_PARALLAX_SPEC: NICHE_MOBILE_BG_PARITY
   let initialized = false;
 
   function initParallax() {
@@ -34,8 +35,25 @@
         "-webkit-image-set(url('data:image/gif;base64,R0lGODlhAQABAAAAACw=') 1x)",
       );
 
-    const BASE_IMAGE =
-      'assets/images/body_section_parallax/body-section-background-2025.webp';
+    const resolveBundleBase = () => {
+      if (typeof document === 'undefined') return '';
+      const currentScript = document.currentScript;
+      if (currentScript && currentScript.src) return currentScript.src;
+      const scripts = Array.from(document.scripts || []);
+      const appScript = scripts
+        .map((script) => script.src)
+        .filter(Boolean)
+        .find((src) => /\/assets\/js\/app\.js$|assets\/js\/app\.js$/.test(src));
+      if (appScript) return appScript;
+      return scripts.length ? scripts[scripts.length - 1].src || '' : '';
+    };
+
+    const BASE_IMAGE = new URL(
+      '../images/' +
+        'body_section_parallax/' +
+        'body-section-background-2025.webp',
+      resolveBundleBase() || window.location.href,
+    ).toString();
     const OVERLAY_GRADIENT =
       'linear-gradient(180deg, rgba(0, 0, 0, var(--body-section-overlay-opacity)) 0%, rgba(0, 0, 0, var(--body-section-overlay-opacity)) 100%)';
 

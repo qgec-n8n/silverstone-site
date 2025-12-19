@@ -209,6 +209,45 @@
   font-weight: 600;
 }
 
+/* SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION */
+.ss-pricing .ss-pricing__price-roll {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.15em;
+}
+
+.ss-pricing .ss-pricing__price-roll-track {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(0);
+  will-change: transform;
+}
+
+.ss-pricing .ss-pricing__price-roll-track.is-animating {
+  animation: ss-pricing-price-roll 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ss-pricing .ss-pricing__price-roll-item {
+  display: block;
+  height: 1.15em;
+  line-height: 1.15em;
+}
+
+@keyframes ss-pricing-price-roll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-pricing .ss-pricing__price-roll-track.is-animating {
+    animation: none;
+  }
+}
+
 .ss-pricing .ss-pricing__price-suffix {
   font-size: 14px;
   color: rgba(11, 12, 16, 0.55);
@@ -295,6 +334,38 @@
 
 @media (max-width: 780px) {
   .ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"] .ss-pricing__card {
+    height: auto;
+  }
+}
+
+/* SS_PRICING_SPEC: INDEX_SECTION2_INTERNAL_SCROLL */
+.ss-pricing[data-ss-pricing-page="index.html"][data-ss-pricing-section="2"] .ss-pricing__card {
+  min-height: 0;
+}
+
+.ss-pricing[data-ss-pricing-page="index.html"][data-ss-pricing-section="2"] .ss-pricing__includes {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0;
+}
+
+.ss-pricing[data-ss-pricing-page="index.html"][data-ss-pricing-section="2"] .ss-pricing__includes-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+@media (min-width: 781px) {
+  .ss-pricing[data-ss-pricing-page="index.html"][data-ss-pricing-section="2"] .ss-pricing__card {
+    height: var(--ss-pricing-match-height, auto);
+  }
+}
+
+@media (max-width: 780px) {
+  .ss-pricing[data-ss-pricing-page="index.html"][data-ss-pricing-section="2"] .ss-pricing__card {
     height: auto;
   }
 }

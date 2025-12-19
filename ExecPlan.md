@@ -170,5 +170,4 @@ Exit gate when:
 ## Decision Log (must keep updated during implementation)
 Record any ambiguity resolutions here (do not ask the user questions; choose simplest valid interpretation aligned to PLANS.md).
 
-- (empty by design; populate during execution)
-
+- Validator regex for `data-counter="on"/"off"` used word boundaries that didn't match valid HTML attribute order; updated `scripts/validate-requested-edits.js` to correctly detect both attribute orders without editing any `niches/*.html`.

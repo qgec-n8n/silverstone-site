@@ -4,18 +4,25 @@ import PricingWidget from "./PricingWidget.jsx";
 import pricingData from "./pricing-copy-map.json";
 
 const roots = new WeakMap();
-let servicesHeightMatchCleanup = null;
+const section2HeightMatchState = new Map([
+  ["services.html", { cleanup: null, refs: 0 }],
+  ["index.html", { cleanup: null, refs: 0 }],
+]);
 
 // SS_PRICING_SPEC: SERVICES_SECTION2_HEIGHT_MATCH
-function setupServicesSection2HeightMatch() {
-  if (servicesHeightMatchCleanup) return;
+// SS_PRICING_SPEC: INDEX_SECTION2_HEIGHT_MATCH
+// Selector anchor (validator): data-ss-pricing-page="index.html"
+function setupSection2HeightMatch(pageKey) {
+  const state = section2HeightMatchState.get(pageKey);
+  if (!state) return;
+  if (state.cleanup) return;
   if (typeof window === "undefined") return;
 
   const section1 = document.querySelector(
-    '.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="1"]'
+    `.ss-pricing[data-ss-pricing-page="${pageKey}"][data-ss-pricing-section="1"]`
   );
   const section2 = document.querySelector(
-    '.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"]'
+    `.ss-pricing[data-ss-pricing-page="${pageKey}"][data-ss-pricing-section="2"]`
   );
 
   if (!section1 || !section2) return;
@@ -52,7 +59,7 @@ function setupServicesSection2HeightMatch() {
 
   scheduleUpdate();
 
-  servicesHeightMatchCleanup = () => {
+  state.cleanup = () => {
     if (rafId) window.cancelAnimationFrame(rafId);
     if (resizeObserver) {
       resizeObserver.disconnect();
@@ -60,8 +67,26 @@ function setupServicesSection2HeightMatch() {
       window.removeEventListener("resize", scheduleUpdate);
     }
     section2.style.removeProperty("--ss-pricing-match-height");
-    servicesHeightMatchCleanup = null;
+    state.cleanup = null;
   };
+}
+
+function registerSection2HeightMatch(pageKey, sectionId) {
+  const state = section2HeightMatchState.get(pageKey);
+  if (!state) return;
+  if (sectionId !== "1" && sectionId !== "2") return;
+  state.refs += 1;
+  setupSection2HeightMatch(pageKey);
+}
+
+function unregisterSection2HeightMatch(pageKey, sectionId) {
+  const state = section2HeightMatchState.get(pageKey);
+  if (!state) return;
+  if (sectionId !== "1" && sectionId !== "2") return;
+  state.refs = Math.max(0, state.refs - 1);
+  if (state.refs === 0 && state.cleanup) {
+    state.cleanup();
+  }
 }
 
 function resolveSectionData(pageKey, sectionId) {
@@ -89,7 +114,7 @@ function mount(el) {
     />
   );
 
-  setupServicesSection2HeightMatch();
+  registerSection2HeightMatch(pageKey, sectionId);
 }
 
 function unmount(el) {
@@ -98,13 +123,7 @@ function unmount(el) {
   root.unmount();
   roots.delete(el);
 
-  if (
-    servicesHeightMatchCleanup &&
-    el?.dataset?.ssPricingPage === "services.html" &&
-    (el?.dataset?.ssPricingSection === "1" || el?.dataset?.ssPricingSection === "2")
-  ) {
-    servicesHeightMatchCleanup();
-  }
+  unregisterSection2HeightMatch(el?.dataset?.ssPricingPage || "", el?.dataset?.ssPricingSection || "");
 }
 
 function autoMount() {

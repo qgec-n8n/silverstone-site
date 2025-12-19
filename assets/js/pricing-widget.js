@@ -7976,13 +7976,75 @@ var SilverstonePricingWidget = (function (exports) {
       })]
     });
   }
-  function PlanCard(_ref3) {
+
+  // SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION
+  function PriceRoll(_ref3) {
+    let {
+      value,
+      className = "",
+      prefix = "£"
+    } = _ref3;
+    const [prefersReducedMotion, setPrefersReducedMotion] = reactExports.useState(false);
+    const [fromValue, setFromValue] = reactExports.useState(String(value ?? ""));
+    const [toValue, setToValue] = reactExports.useState(String(value ?? ""));
+    const lastValueRef = reactExports.useRef(String(value ?? ""));
+    const [animKey, setAnimKey] = reactExports.useState(0);
+    reactExports.useEffect(() => {
+      if (typeof window === "undefined" || !window.matchMedia) return undefined;
+      const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const update = () => setPrefersReducedMotion(Boolean(query.matches));
+      update();
+      if (typeof query.addEventListener === "function") {
+        query.addEventListener("change", update);
+        return () => query.removeEventListener("change", update);
+      }
+      if (typeof query.addListener === "function") {
+        query.addListener(update);
+        return () => query.removeListener(update);
+      }
+      return undefined;
+    }, []);
+    reactExports.useEffect(() => {
+      const next = String(value ?? "");
+      const prev = lastValueRef.current;
+      if (prev === next) return undefined;
+      lastValueRef.current = next;
+      if (prefersReducedMotion) {
+        setFromValue(next);
+        setToValue(next);
+        return undefined;
+      }
+      setFromValue(prev);
+      setToValue(next);
+      setAnimKey(k => k + 1);
+      const timeoutId = window.setTimeout(() => {
+        setFromValue(next);
+      }, 360);
+      return () => window.clearTimeout(timeoutId);
+    }, [value, prefersReducedMotion]);
+    const isAnimating = fromValue !== toValue && !prefersReducedMotion;
+    return /*#__PURE__*/jsxRuntimeExports.jsx("span", {
+      className: `ss-pricing__price-roll ${className}`.trim(),
+      children: /*#__PURE__*/jsxRuntimeExports.jsxs("span", {
+        className: `ss-pricing__price-roll-track ${isAnimating ? "is-animating" : ""}`.trim(),
+        children: [/*#__PURE__*/jsxRuntimeExports.jsxs("span", {
+          className: "ss-pricing__price-roll-item",
+          "aria-hidden": isAnimating ? "true" : "false",
+          children: [prefix, fromValue]
+        }), /*#__PURE__*/jsxRuntimeExports.jsxs("span", {
+          className: "ss-pricing__price-roll-item",
+          children: [prefix, toValue]
+        })]
+      }, animKey)
+    });
+  }
+  function PlanCard(_ref4) {
     let {
       plan,
       billingMode,
       bookHref,
       index
-    } = _ref3;
+    } = _ref4;
     const isSetup = billingMode === "setup";
     const priceValue = isSetup ? plan.setupFee : plan.monthlyRetainer;
     return /*#__PURE__*/jsxRuntimeExports.jsxs("article", {
@@ -7998,9 +8060,9 @@ var SilverstonePricingWidget = (function (exports) {
         children: plan.name
       }), /*#__PURE__*/jsxRuntimeExports.jsxs("div", {
         className: "ss-pricing__price",
-        children: [/*#__PURE__*/jsxRuntimeExports.jsxs("span", {
+        children: [/*#__PURE__*/jsxRuntimeExports.jsx(PriceRoll, {
           className: "ss-pricing__price-value",
-          children: ["\xA3", priceValue]
+          value: priceValue
         }), !isSetup ? /*#__PURE__*/jsxRuntimeExports.jsx("span", {
           className: "ss-pricing__price-suffix",
           children: "/mo"
@@ -8031,12 +8093,12 @@ var SilverstonePricingWidget = (function (exports) {
       })]
     });
   }
-  function GroupCard(_ref4) {
+  function GroupCard(_ref5) {
     let {
       group,
       bookHref,
       index
-    } = _ref4;
+    } = _ref5;
     const hasOneLiner = group.oneLiner && group.oneLiner.trim().length > 0;
     return /*#__PURE__*/jsxRuntimeExports.jsxs("article", {
       className: "ss-pricing__card ss-pricing__fade-up",
@@ -8083,12 +8145,12 @@ var SilverstonePricingWidget = (function (exports) {
       })]
     });
   }
-  function PricingWidget(_ref5) {
+  function PricingWidget(_ref6) {
     let {
       pageKey,
       sectionData,
       sectionId
-    } = _ref5;
+    } = _ref6;
     const [billingMode, setBillingMode] = reactExports.useState("monthly");
     const isSection1 = sectionId === "1";
     const bookHref = pageKey.startsWith("niches/") ? "../book.html" : "book.html";
@@ -9808,14 +9870,24 @@ var SilverstonePricingWidget = (function (exports) {
   };
 
   const roots = new WeakMap();
-  let servicesHeightMatchCleanup = null;
+  const section2HeightMatchState = new Map([["services.html", {
+    cleanup: null,
+    refs: 0
+  }], ["index.html", {
+    cleanup: null,
+    refs: 0
+  }]]);
 
   // SS_PRICING_SPEC: SERVICES_SECTION2_HEIGHT_MATCH
-  function setupServicesSection2HeightMatch() {
-    if (servicesHeightMatchCleanup) return;
+  // SS_PRICING_SPEC: INDEX_SECTION2_HEIGHT_MATCH
+  // Selector anchor (validator): data-ss-pricing-page="index.html"
+  function setupSection2HeightMatch(pageKey) {
+    const state = section2HeightMatchState.get(pageKey);
+    if (!state) return;
+    if (state.cleanup) return;
     if (typeof window === "undefined") return;
-    const section1 = document.querySelector('.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="1"]');
-    const section2 = document.querySelector('.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"]');
+    const section1 = document.querySelector(`.ss-pricing[data-ss-pricing-page="${pageKey}"][data-ss-pricing-section="1"]`);
+    const section2 = document.querySelector(`.ss-pricing[data-ss-pricing-page="${pageKey}"][data-ss-pricing-section="2"]`);
     if (!section1 || !section2) return;
     let rafId = null;
     const updateMatchHeight = () => {
@@ -9845,7 +9917,7 @@ var SilverstonePricingWidget = (function (exports) {
       window.addEventListener("resize", scheduleUpdate);
     }
     scheduleUpdate();
-    servicesHeightMatchCleanup = () => {
+    state.cleanup = () => {
       if (rafId) window.cancelAnimationFrame(rafId);
       if (resizeObserver) {
         resizeObserver.disconnect();
@@ -9853,8 +9925,24 @@ var SilverstonePricingWidget = (function (exports) {
         window.removeEventListener("resize", scheduleUpdate);
       }
       section2.style.removeProperty("--ss-pricing-match-height");
-      servicesHeightMatchCleanup = null;
+      state.cleanup = null;
     };
+  }
+  function registerSection2HeightMatch(pageKey, sectionId) {
+    const state = section2HeightMatchState.get(pageKey);
+    if (!state) return;
+    if (sectionId !== "1" && sectionId !== "2") return;
+    state.refs += 1;
+    setupSection2HeightMatch(pageKey);
+  }
+  function unregisterSection2HeightMatch(pageKey, sectionId) {
+    const state = section2HeightMatchState.get(pageKey);
+    if (!state) return;
+    if (sectionId !== "1" && sectionId !== "2") return;
+    state.refs = Math.max(0, state.refs - 1);
+    if (state.refs === 0 && state.cleanup) {
+      state.cleanup();
+    }
   }
   function resolveSectionData(pageKey, sectionId) {
     const page = pricingData[pageKey];
@@ -9876,16 +9964,14 @@ var SilverstonePricingWidget = (function (exports) {
       sectionId: sectionId,
       sectionData: sectionData
     }));
-    setupServicesSection2HeightMatch();
+    registerSection2HeightMatch(pageKey, sectionId);
   }
   function unmount(el) {
     const root = roots.get(el);
     if (!root) return;
     root.unmount();
     roots.delete(el);
-    if (servicesHeightMatchCleanup && el?.dataset?.ssPricingPage === "services.html" && (el?.dataset?.ssPricingSection === "1" || el?.dataset?.ssPricingSection === "2")) {
-      servicesHeightMatchCleanup();
-    }
+    unregisterSection2HeightMatch(el?.dataset?.ssPricingPage || "", el?.dataset?.ssPricingSection || "");
   }
   function autoMount() {
     const nodes = document.querySelectorAll(".ss-pricing");

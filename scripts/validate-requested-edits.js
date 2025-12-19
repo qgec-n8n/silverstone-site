@@ -76,7 +76,7 @@ function validateAbout() {
   // Edit 3: counter gating only on about + index
   assertRegex(
     html,
-    /class="[^"]*\bstats\b[^"]*"[^>]*\bdata-counter="on"\b|data-counter="on"[^>]*class="[^"]*\bstats\b[^"]*"/,
+    /class="[^"]*\bstats\b[^"]*"[^>]*data-counter="on"|data-counter="on"[^>]*class="[^"]*\bstats\b[^"]*"/,
     ctx,
     'stats container has data-counter="on"'
   );
@@ -100,7 +100,7 @@ function validateIndexStatsSection() {
   // Must use stats styling + counter opt-in
   assertRegex(
     html,
-    /class="[^"]*\bstats\b[^"]*"[^>]*\bdata-counter="on"\b|data-counter="on"[^>]*class="[^"]*\bstats\b[^"]*"/,
+    /class="[^"]*\bstats\b[^"]*"[^>]*data-counter="on"|data-counter="on"[^>]*class="[^"]*\bstats\b[^"]*"/,
     ctx,
     'stats container has data-counter="on"'
   );
@@ -126,7 +126,7 @@ function validateNichesNoCounters() {
     assertNotIncludes(html, 'data-counter="on"', ctx);
     assertRegex(
       html,
-      /class="[^"]*\bstats\b[^"]*"[^>]*\bdata-counter="off"\b|data-counter="off"[^>]*class="[^"]*\bstats\b[^"]*"/,
+      /class="[^"]*\bstats\b[^"]*"[^>]*data-counter="off"|data-counter="off"[^>]*class="[^"]*\bstats\b[^"]*"/,
       ctx,
       'niche stats container has data-counter="off"'
     );
