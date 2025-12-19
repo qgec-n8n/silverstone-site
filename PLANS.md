@@ -1,60 +1,65 @@
 <!-- FILE: PLANS.md -->
-# Codex Execution Plan Rules for this Repo
+# Planning + ExecPlan Rules (Codex CLI)
 
-This file defines how to write and execute ExecPlans in this repository so changes are **correct, minimal, and verifiable**.
+This repo uses ExecPlans to make multi-step changes reliable and reviewable.
 
-## Core principles
-- **Single source of truth:** Every task must have an authoritative Spec file that lists requirements and acceptance criteria.
-- **Gated execution:** Break work into small gates; validate after each gate.
-- **Deterministic verification:** Every requirement must have a pass/fail check (scripted if possible; otherwise a manual QA step).
-- **Scope discipline:** List exact files that may change. Treat everything else as read-only.
-- **Build artifacts are real:** This repo commits built outputs in `assets/`. Any source change that affects them must be rebuilt and committed.
+## What must be true before editing any site code
 
-## Repo-specific build + validation commands
-Use these exact commands (they are treated as “known-good” for this repo):
+1. Read these files (in order):
+   - `AGENTS.md`
+   - `codex/REQUESTED_EDITS_SPEC.md` (single source of truth for the requested edits)
+   - `ExecPlan.md` (the active plan to follow)
 
-- Setup (idempotent): `bash scripts/codex.setup.sh`
-- Build main CSS bundle: `node build-css.js`
-- Build main JS bundle: `node scripts/build-js.js`
-- Build pricing widget: `(cd pricing-widget && npm run build)`
-- Full rebuild + full validation: `bash scripts/codex.requested-edits.sh`
+2. Confirm scope:
+   - Only implement **Requested Edits (1–5)** from `codex/REQUESTED_EDITS_SPEC.md`.
+   - Do not “improve” anything else (no refactors, no copy tweaks, no layout changes outside what’s explicitly requested).
 
-## Marker convention (required for verifiability)
-When implementing a new behavior, add a short marker comment near the change so validators can assert it exists in:
-1) the source file(s), and
-2) the rebuilt output(s) in `assets/`.
+## How to use ExecPlans in this repo
 
-Marker prefixes used in this repo:
-- `SS_TEXT_SPEC:` (text color system / CSS)
-- `SS_STATS_SPEC:` (stats/counter JS)
-- `SS_CONTACT_SPEC:` (contact-specific tweaks)
-- `SS_PRICING_SPEC:` (pricing widget CSS/JS)
+- `ExecPlan.md` is a **living document**.
+  - Keep `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` up to date while working.
+  - If you change the plan, update *all* impacted sections (not just one paragraph).
 
-Markers must be:
-- unique,
-- stable (don’t rename without updating validators), and
-- present in built artifacts after rebuild.
+- Work in small, verifiable milestones (“gates”):
+  - Implement one gate.
+  - Rebuild required artifacts.
+  - Run validations.
+  - Only then proceed to the next gate.
 
-## Evaluation flywheel workflow (required)
-For each gate in an ExecPlan:
-1) Implement the **smallest possible** change that satisfies a well-defined subset of acceptance criteria.
-2) Rebuild only what changed (CSS/JS/widget), then run `bash scripts/codex.requested-edits.sh`.
-3) Fix only what fails.
-4) Repeat until the gate is green, then move on.
+## Measurement loop (evaluation flywheel, repo-style)
 
-Do not stack multiple unrelated edits before validating.
+When something fails (visual mismatch, validator failure, or regression):
 
-## Required structure for every ExecPlan
-Every ExecPlan must include:
-1) Goal + non-goals
-2) In-scope file list
-3) Definitions for ambiguous terms (repo-grounded)
-4) Gate-by-gate steps with “done when” criteria
-5) A page-by-page acceptance checklist (if pages are involved)
-6) A decision log (any ambiguity resolutions)
-7) Final “definition of done” checklist (what must pass)
+1. Analyze
+   - Identify the exact failure mode (which page / breakpoint / selector / component).
+2. Measure
+   - Add/adjust deterministic checks (marker comments + validators) so the failure is caught automatically.
+3. Improve
+   - Apply the smallest targeted fix, then re-run validations.
 
-## Conflict resolution rule
-If there is a conflict between existing repo guidance and the user’s current request:
-- the user request wins,
-- but preserve repo conventions unless they directly block the request.
+Repeat until failure rate is effectively zero for the requested scope.
+
+## Required commands (run from repo root)
+
+- One-command build + validate:
+  - `bash scripts/codex.requested-edits.sh`
+
+- Local manual preview (for final visual confirmation):
+  - `python3 -m http.server 8000`
+  - Then open:
+    - `/index.html`
+    - `/services.html`
+    - `/about.html`
+    - at least 2 pages from `/niches/*.html`
+
+## Non-negotiable output expectations
+
+- Any changes to `src/css/**` must be reflected in `assets/css/styles.css` via `node scripts/build-css.js`.
+- Any changes to `pricing-widget/src/**` must be reflected in:
+  - `assets/css/pricing-widget.css`
+  - `assets/js/pricing-widget.js`
+  via `pricing-widget`’s build script (see `scripts/codex.requested-edits.sh`).
+
+- All required marker comments listed in `codex/REQUESTED_EDITS_SPEC.md` must exist in BOTH:
+  - source files (authoritative)
+  - built outputs (proof of rebuild)
