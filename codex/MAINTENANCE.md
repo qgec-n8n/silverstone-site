@@ -1,27 +1,28 @@
 <!-- FILE: codex/MAINTENANCE.md -->
-# Maintenance & Validation (Requested Edits 1–8)
+# Codex Maintenance
 
-This doc describes the one-command rebuild + validation flow for the Requested Edits 1–8 task.
+This repo intentionally uses marker comments + validators to keep UI work deterministic and regression-resistant.
 
-## One-command verification
+## One-command rebuild + validate
+
 From repo root:
-
 - `bash scripts/codex.requested-edits.sh`
 
-This will:
-1. rebuild main site CSS + JS
-2. rebuild the pricing widget bundle
-3. run deterministic validators enforcing Requested Edits 1–8
+This script:
+- installs deps (root and pricing-widget)
+- builds `assets/css/styles.css`
+- bundles site JS
+- builds the pricing widget into `assets/css/pricing-widget.css` and `assets/js/pricing-widget.js`
+- runs repo validators
 
-## What it rebuilds
-- Main site:
-  - `node build-css.js` → `assets/css/styles.css`
-  - `node scripts/build-js.js` → `assets/js/app.js`
-- Pricing widget:
-  - `(cd pricing-widget && npm run build)` → `assets/css/pricing-widget.css`, `assets/js/pricing-widget.js`
+## Fixing validator failures
 
-## If validation fails
-- Read the error output; it names the file and the missing condition.
-- Fix only what is required for Edits 1–8 (no extra changes).
-- Rerun:
-  - `bash scripts/codex.requested-edits.sh`
+- Fix failures in source files (HTML/CSS/JS), then rebuild via scripts.
+- Do not patch `assets/` outputs directly.
+- If a validator expects an SS_* marker, keep it exactly as specified in `codex/REQUESTED_EDITS_SPEC.md`.
+
+## Dependency resets
+
+If installs become inconsistent:
+- remove `node_modules/` and `pricing-widget/node_modules/`
+- re-run `bash scripts/codex.requested-edits.sh`
