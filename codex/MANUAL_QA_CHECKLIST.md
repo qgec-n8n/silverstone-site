@@ -1,109 +1,78 @@
 <!-- FILE: codex/MANUAL_QA_CHECKLIST.md -->
-# Manual QA Checklist (Requested Edits 1–8)
+# Manual QA Checklist — Requested Website Edits (1–8)
 
-Run these checks after `bash scripts/codex.requested-edits.sh` passes.
+Complete this checklist after `bash scripts/codex.requested-edits.sh` is green.
 
----
+## How to preview locally
+- Run a static server from the repo root (example): `python3 -m http.server 8000`
+- Open these pages in a browser:
+  - `index.html`
+  - `about.html`
+  - `services.html`
+  - `book.html`
+  - `contact.html`
+  - at least one niche page under `niches/` (e.g., `niches/real-estate.html`)
 
-## 1) Stats content + counter animation
-Pages:
-- `about.html`
-- `index.html`
+## 1) Counters slowed (index + about)
+- [ ] On `index.html`, counters animate noticeably slower than before (≈2.6s feel, not a “flash”).
+- [ ] On `about.html`, counters animate at the same slower speed.
+- [ ] Niche pages (stats with `data-counter="off"`) do not animate.
 
-Checks:
-1. about.html “Experience by the Numbers”
-   - The last card reads as **30 Minute Automation Audit** (number 30 + label “Minute Automation Audit”).
-2. index.html new stats section
-   - Title: “No hype. Just measurable wins.”
-   - Subtitle sentence matches PLANS.md exactly.
-   - Cards show:
-     - 525,600 Minutes of Always-On Coverage
-     - 780 Potential Hours Reclaimed Per Year
-     - 100 Times Better Contact Odds in 5 Minutes
-     - 80 Callers Lost to Voicemail
-3. Counter behavior
-   - On load (or as you reach the section), numbers count up from 0 to their targets.
-4. Reduced motion
-   - With “Reduce motion” enabled in OS/browser, numbers should appear immediately (no animation).
+## 2) index.html disclaimer removed
+- [ ] The two disclaimer sentences are not visible anywhere on the homepage.
 
-Pass criteria:
-- All text matches; counters animate only on about + index.
+## 3) Grey→white changes + exceptions
 
----
+### index.html
+- [ ] Muted/grey copy across non-CTA sections is now white.
+- [ ] This CTA subtitle remains grey (unchanged):
+  - “Discover how personalised automation can drive efficiency, productivity and growth across your organisation.”
+- [ ] These three proof-card taglines remain grey (unchanged):
+  - “Less manual admin and follow-up.”
+  - “Automated reminders and confirmations.”
+  - “Always-on first response.”
 
-## 2) Mobile niche background parity (Edit 8)
-Pages:
-- `services.html` (reference page)
-- at least 2 pages under `niches/*.html`
+### about.html
+- [ ] Muted/grey copy across non-CTA sections is now white.
+- [ ] This CTA phrase remains grey (unchanged):
+  - “Ready to streamline your business and unlock new possibilities? Our team is eager to help you succeed.”
 
-Checks (use a mobile viewport <= 768px, e.g. DevTools responsive mode):
-1. services.html:
-   - Confirm the body-section background image is visible behind the parallax sections, with the expected dark overlay.
-2. niches pages:
-   - Confirm the **same** background image is visible behind the parallax sections, with the **same** dark overlay.
-3. Regression check:
-   - Background should not disappear when scrolling between sections.
-   - No obvious “solid flat dark background” where the image should be.
+### services.html
+- [ ] Muted/grey copy across non-CTA sections is now white.
+- [ ] For each service card: the paragraph(s) between the card title and bullet list remains the original grey (unchanged).
+- [ ] CTA banner at the bottom retains its original font colors (no unintended white conversion).
 
-Pass criteria:
-- niches pages match services/root pages on mobile for the background image + overlay.
+### niches/*.html (spot-check at least 1 niche)
+- [ ] Muted/grey copy across non-CTA sections is now white.
+- [ ] For each niche card: the paragraph(s) between the card title and bullet list remains the original grey (unchanged).
+- [ ] CTA banner at the bottom retains its original font colors (no unintended white conversion).
 
----
+### book.html
+- [ ] Muted/grey copy across non-CTA sections is now white.
+- [ ] This CTA phrase remains grey (unchanged):
+  - “We’re excited to learn about your business and design a solution that fits.”
 
-## 3) No counters on niche pages
-Pages:
-- Open 2–3 pages under `niches/*.html`
+## 4) contact.html phrase whitening
+- [ ] This sentence is white:
+  - “Share a quick overview of your situation. We’ll come back with suggestions or next steps – no spam, no pressure to commit.”
+- [ ] Address block is white, including the email link:
+  - Address: 4 Deacon Street, SE17 1GE, London, UK
+  - Email: info@silverstone-ai.com (mailto link)
+- [ ] These two paragraphs are white:
+  - “Immerse yourself in the Silverstone experience across our curated social channels—crafted for leaders who expect design-led intelligence, cinematic storytelling, and premium service cues at every touchpoint.”
+  - “Follow us for prototype reveals, executive insights, and a first look at the intelligent automations shaping tomorrow’s operations.”
 
-Checks:
-- Stats numbers do **not** animate.
-- No obvious “counting up” effect.
+## 5) Pricing section styling (index/services/niches)
+On each of: `index.html`, `services.html`, and one niche page:
+- [ ] Pricing section uses the site’s Blue / White / Grey font system (no black-on-white “default” look).
+- [ ] Background feels aligned with the site art (matches the vibe of `body-section-background-2025.webp`).
+- [ ] Neon blue + pink accents are present but still premium/professional (not loud).
+- [ ] Sparkles animation is clearly visible on the new background (noticeable, not faint).
 
-Pass criteria:
-- No niche stats animate.
+## 6) Per-digit price animation (index/services/niches)
+- [ ] Toggling monthly/annual causes the price to animate per-digit (each digit scrolls/rolls).
+- [ ] The whole number does NOT slide as a single block.
+- [ ] If you enable reduced motion in the OS/browser, price updates without scrolling animation.
 
----
-
-## 4) Marquee speeds
-Pages:
-- Any non-services page (single marquee)
-- `services.html` (double marquee)
-
-Checks:
-1. Single marquee is noticeably slower than before (longer continuous loop).
-2. Double marquee
-   - Top row moves slower than before but still faster than the bottom row.
-   - Bottom row is the slowest.
-
-Pass criteria:
-- Perceived slower speed; top still faster than bottom.
-
----
-
-## 5) Index pricing section 2 internal scroll + height match
-Page:
-- `index.html`
-
-Checks:
-1. Section 2 (“other plans”) does not push the page excessively downward.
-2. The list area inside each section 2 card scrolls internally when long.
-3. Section 2 cards match the height of section 1 cards on desktop/tablet widths.
-
-Pass criteria:
-- Internal scroll works; card heights match; layout feels contained.
-
----
-
-## 6) Pricing toggle price scroll animation (all pages with pricing)
-Pages:
-- `index.html`
-- `services.html`
-- at least 1 niche page
-
-Checks:
-1. Click Monthly ↔ Setup.
-2. Prices change using a vertical scroll/roll animation (digits/value scrolls to the new value).
-3. No layout jumps; the cards remain stable.
-4. Reduced motion: no animation; instant switch.
-
-Pass criteria:
-- Scroll animation present on all tested pages; reduced motion respected.
+## Sign-off
+- [ ] Manual QA completed for requested edits (1–8).
