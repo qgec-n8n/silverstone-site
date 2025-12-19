@@ -5,6 +5,7 @@
   --color-green: #00ff9d;
   --color-black: #0b0c10;
   --color-silver: #c0c0c0;
+  --color-silver-original: #c0c0c0; /* SS_TEXT_SPEC: SILVER_ORIGINAL_TOKEN */
   --color-white: #ffffff;
   --font-heading: "Poppins", sans-serif;
   --font-body: "Open Sans", sans-serif;

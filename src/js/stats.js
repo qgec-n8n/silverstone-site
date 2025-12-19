@@ -42,7 +42,7 @@
         return;
       }
 
-      const durationMs = 1200;
+      const durationMs = 2600; // SS_STATS_SPEC: COUNTER_DURATION_SLOWDOWN_2600MS
       const startValue = 0;
       let startTime = null;
 

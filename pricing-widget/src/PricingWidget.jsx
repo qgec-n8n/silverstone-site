@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const BOOK_CTA = "Book a Call";
+const DIGIT_SEQUENCE = Array.from({ length: 10 }, (_, index) => index);
 
 function renderWithStrong(text) {
   if (!text || !text.includes("**")) return text;
@@ -53,9 +54,10 @@ function SparklesCanvas({ density = 120 }) {
         list.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          r: Math.random() * 1.6 + 0.4,
-          speed: Math.random() * 0.35 + 0.15,
-          alpha: Math.random() * 0.5 + 0.2,
+          // SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE
+          r: Math.random() * 2.2 + 0.6,
+          speed: Math.random() * 0.45 + 0.2,
+          alpha: Math.random() * 0.55 + 0.35,
         });
       }
       return list;
@@ -147,71 +149,38 @@ function PricingToggle({ value, onChange }) {
   );
 }
 
-// SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION
-function PriceRoll({ value, className = "", prefix = "£" }) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [fromValue, setFromValue] = useState(String(value ?? ""));
-  const [toValue, setToValue] = useState(String(value ?? ""));
-  const lastValueRef = useRef(String(value ?? ""));
-  const [animKey, setAnimKey] = useState(0);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return undefined;
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setPrefersReducedMotion(Boolean(query.matches));
-    update();
-    if (typeof query.addEventListener === "function") {
-      query.addEventListener("change", update);
-      return () => query.removeEventListener("change", update);
-    }
-    if (typeof query.addListener === "function") {
-      query.addListener(update);
-      return () => query.removeListener(update);
-    }
-    return undefined;
-  }, []);
-
-  useEffect(() => {
-    const next = String(value ?? "");
-    const prev = lastValueRef.current;
-    if (prev === next) return undefined;
-
-    lastValueRef.current = next;
-
-    if (prefersReducedMotion) {
-      setFromValue(next);
-      setToValue(next);
-      return undefined;
-    }
-
-    setFromValue(prev);
-    setToValue(next);
-    setAnimKey((k) => k + 1);
-
-    const timeoutId = window.setTimeout(() => {
-      setFromValue(next);
-    }, 360);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [value, prefersReducedMotion]);
-
-  const isAnimating = fromValue !== toValue && !prefersReducedMotion;
+// SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT
+function PriceDigits({ value, className = "", prefix = "£" }) {
+  const formattedValue = useMemo(() => String(value ?? ""), [value]);
+  const characters = useMemo(() => formattedValue.split(""), [formattedValue]);
+  const ariaLabel = `${prefix}${formattedValue}`;
 
   return (
-    <span className={`ss-pricing__price-roll ${className}`.trim()}>
-      <span
-        className={`ss-pricing__price-roll-track ${isAnimating ? "is-animating" : ""}`.trim()}
-        key={animKey}
-      >
-        <span className="ss-pricing__price-roll-item" aria-hidden={isAnimating ? "true" : "false"}>
-          {prefix}
-          {fromValue}
-        </span>
-        <span className="ss-pricing__price-roll-item">
-          {prefix}
-          {toValue}
-        </span>
+    <span className={`ss-pricing__price-digits ${className}`.trim()} aria-label={ariaLabel}>
+      <span className="ss-pricing__sr-only">{ariaLabel}</span>
+      <span className="ss-pricing__price-prefix" aria-hidden="true">
+        {prefix}
       </span>
+      {characters.map((char, index) => {
+        if (char >= "0" && char <= "9") {
+          return (
+            <span className="ss-pricing__digit" aria-hidden="true" key={`digit-${index}`}>
+              <span className="ss-pricing__digit-track" style={{ "--ss-digit-value": Number(char) }}>
+                {DIGIT_SEQUENCE.map((digit) => (
+                  <span className="ss-pricing__digit-char" key={`digit-${index}-${digit}`}>
+                    {digit}
+                  </span>
+                ))}
+              </span>
+            </span>
+          );
+        }
+        return (
+          <span className="ss-pricing__digit-separator" aria-hidden="true" key={`separator-${index}`}>
+            {char}
+          </span>
+        );
+      })}
     </span>
   );
 }
@@ -228,7 +197,7 @@ function PlanCard({ plan, billingMode, bookHref, index }) {
       {plan.badge ? <div className="ss-pricing__badge">{plan.badge}</div> : null}
       <h3 className="ss-pricing__card-title">{plan.name}</h3>
       <div className="ss-pricing__price">
-        <PriceRoll className="ss-pricing__price-value" value={priceValue} />
+        <PriceDigits className="ss-pricing__price-value" value={priceValue} />
         {!isSetup ? <span className="ss-pricing__price-suffix">/mo</span> : null}
       </div>
       <p className="ss-pricing__description">{plan.bestFor}</p>

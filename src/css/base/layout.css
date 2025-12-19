@@ -111,3 +111,20 @@ img {
   background-size: cover;
   background-position: center;
 }
+
+.page-home .section:not(.brand-gradient),
+.page-about .section:not(.brand-gradient),
+.page-services .section:not(.brand-gradient),
+.page-niche .section:not(.brand-gradient),
+.page-book .section:not(.brand-gradient) {
+  --color-silver: var(--color-white); /* SS_TEXT_SPEC: SILVER_TO_WHITE_NON_CTA_SECTIONS */
+}
+
+.page-home .proof-card .tagline {
+  color: var(--color-silver-original); /* SS_TEXT_SPEC: KEEP_GREY_EXCEPTIONS */
+}
+
+.page-services .service-content p,
+.page-niche .service-content p {
+  color: var(--color-silver-original);
+}

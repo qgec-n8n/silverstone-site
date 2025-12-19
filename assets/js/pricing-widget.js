@@ -7841,6 +7841,9 @@ var SilverstonePricingWidget = (function (exports) {
   var jsxRuntimeExports = jsxRuntime.exports;
 
   const BOOK_CTA = "Book a Call";
+  const DIGIT_SEQUENCE = Array.from({
+    length: 10
+  }, (_, index) => index);
   function renderWithStrong(text) {
     if (!text || !text.includes("**")) return text;
     const parts = [];
@@ -7885,9 +7888,10 @@ var SilverstonePricingWidget = (function (exports) {
           list.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            r: Math.random() * 1.6 + 0.4,
-            speed: Math.random() * 0.35 + 0.15,
-            alpha: Math.random() * 0.5 + 0.2
+            // SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE
+            r: Math.random() * 2.2 + 0.6,
+            speed: Math.random() * 0.45 + 0.2,
+            alpha: Math.random() * 0.55 + 0.35
           });
         }
         return list;
@@ -7977,65 +7981,49 @@ var SilverstonePricingWidget = (function (exports) {
     });
   }
 
-  // SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION
-  function PriceRoll(_ref3) {
+  // SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT
+  function PriceDigits(_ref3) {
     let {
       value,
       className = "",
       prefix = "£"
     } = _ref3;
-    const [prefersReducedMotion, setPrefersReducedMotion] = reactExports.useState(false);
-    const [fromValue, setFromValue] = reactExports.useState(String(value ?? ""));
-    const [toValue, setToValue] = reactExports.useState(String(value ?? ""));
-    const lastValueRef = reactExports.useRef(String(value ?? ""));
-    const [animKey, setAnimKey] = reactExports.useState(0);
-    reactExports.useEffect(() => {
-      if (typeof window === "undefined" || !window.matchMedia) return undefined;
-      const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const update = () => setPrefersReducedMotion(Boolean(query.matches));
-      update();
-      if (typeof query.addEventListener === "function") {
-        query.addEventListener("change", update);
-        return () => query.removeEventListener("change", update);
-      }
-      if (typeof query.addListener === "function") {
-        query.addListener(update);
-        return () => query.removeListener(update);
-      }
-      return undefined;
-    }, []);
-    reactExports.useEffect(() => {
-      const next = String(value ?? "");
-      const prev = lastValueRef.current;
-      if (prev === next) return undefined;
-      lastValueRef.current = next;
-      if (prefersReducedMotion) {
-        setFromValue(next);
-        setToValue(next);
-        return undefined;
-      }
-      setFromValue(prev);
-      setToValue(next);
-      setAnimKey(k => k + 1);
-      const timeoutId = window.setTimeout(() => {
-        setFromValue(next);
-      }, 360);
-      return () => window.clearTimeout(timeoutId);
-    }, [value, prefersReducedMotion]);
-    const isAnimating = fromValue !== toValue && !prefersReducedMotion;
-    return /*#__PURE__*/jsxRuntimeExports.jsx("span", {
-      className: `ss-pricing__price-roll ${className}`.trim(),
-      children: /*#__PURE__*/jsxRuntimeExports.jsxs("span", {
-        className: `ss-pricing__price-roll-track ${isAnimating ? "is-animating" : ""}`.trim(),
-        children: [/*#__PURE__*/jsxRuntimeExports.jsxs("span", {
-          className: "ss-pricing__price-roll-item",
-          "aria-hidden": isAnimating ? "true" : "false",
-          children: [prefix, fromValue]
-        }), /*#__PURE__*/jsxRuntimeExports.jsxs("span", {
-          className: "ss-pricing__price-roll-item",
-          children: [prefix, toValue]
-        })]
-      }, animKey)
+    const formattedValue = reactExports.useMemo(() => String(value ?? ""), [value]);
+    const characters = reactExports.useMemo(() => formattedValue.split(""), [formattedValue]);
+    const ariaLabel = `${prefix}${formattedValue}`;
+    return /*#__PURE__*/jsxRuntimeExports.jsxs("span", {
+      className: `ss-pricing__price-digits ${className}`.trim(),
+      "aria-label": ariaLabel,
+      children: [/*#__PURE__*/jsxRuntimeExports.jsx("span", {
+        className: "ss-pricing__sr-only",
+        children: ariaLabel
+      }), /*#__PURE__*/jsxRuntimeExports.jsx("span", {
+        className: "ss-pricing__price-prefix",
+        "aria-hidden": "true",
+        children: prefix
+      }), characters.map((char, index) => {
+        if (char >= "0" && char <= "9") {
+          return /*#__PURE__*/jsxRuntimeExports.jsx("span", {
+            className: "ss-pricing__digit",
+            "aria-hidden": "true",
+            children: /*#__PURE__*/jsxRuntimeExports.jsx("span", {
+              className: "ss-pricing__digit-track",
+              style: {
+                "--ss-digit-value": Number(char)
+              },
+              children: DIGIT_SEQUENCE.map(digit => /*#__PURE__*/jsxRuntimeExports.jsx("span", {
+                className: "ss-pricing__digit-char",
+                children: digit
+              }, `digit-${index}-${digit}`))
+            })
+          }, `digit-${index}`);
+        }
+        return /*#__PURE__*/jsxRuntimeExports.jsx("span", {
+          className: "ss-pricing__digit-separator",
+          "aria-hidden": "true",
+          children: char
+        }, `separator-${index}`);
+      })]
     });
   }
   function PlanCard(_ref4) {
@@ -8060,7 +8048,7 @@ var SilverstonePricingWidget = (function (exports) {
         children: plan.name
       }), /*#__PURE__*/jsxRuntimeExports.jsxs("div", {
         className: "ss-pricing__price",
-        children: [/*#__PURE__*/jsxRuntimeExports.jsx(PriceRoll, {
+        children: [/*#__PURE__*/jsxRuntimeExports.jsx(PriceDigits, {
           className: "ss-pricing__price-value",
           value: priceValue
         }), !isSetup ? /*#__PURE__*/jsxRuntimeExports.jsx("span", {

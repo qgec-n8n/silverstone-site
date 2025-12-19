@@ -38,7 +38,7 @@
 }
 
 .contact-social-callout p {
-  color: var(--color-silver);
+  color: var(--color-white); /* SS_CONTACT_SPEC: SOCIAL_COPY_WHITE */
   max-width: 42rem;
   margin: 0 auto 1.75rem auto;
   line-height: 1.7;
