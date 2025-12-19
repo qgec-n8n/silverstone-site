@@ -1,38 +1,27 @@
 <!-- FILE: codex/MAINTENANCE.md -->
-# Maintenance & Validation (UI/UX Bugfixes A–H)
+# Maintenance & Validation (Requested Edits 1–8)
 
-This doc describes the “happy path” commands to rebuild and validate the site after UI/UX changes.
+This doc describes the one-command rebuild + validation flow for the Requested Edits 1–8 task.
 
-## Build outputs
-
-This repo keeps build outputs committed:
-
-- CSS: `src/css/**` → `node build-css.js` → `assets/css/styles.css`
-- JS: `src/js/**` → `node scripts/build-js.js` → `assets/js/app.js`
-
-Always rebuild after editing source CSS/JS.
-
-## One-command maintenance run
-
+## One-command verification
 From repo root:
 
-- `bash scripts/codex.maintenance.sh`
+- `bash scripts/codex.requested-edits.sh`
 
 This will:
-1. rebuild CSS and JS
-2. run the validation scripts that enforce the A–H requirements
+1. rebuild main site CSS + JS
+2. rebuild the pricing widget bundle
+3. run deterministic validators enforcing Requested Edits 1–8
 
-## Marquee image set maintenance
+## What it rebuilds
+- Main site:
+  - `node build-css.js` → `assets/css/styles.css`
+  - `node scripts/build-js.js` → `assets/js/app.js`
+- Pricing widget:
+  - `(cd pricing-widget && npm run build)` → `assets/css/pricing-widget.css`, `assets/js/pricing-widget.js`
 
-When images are added/removed under `assets/images/socialmedia/`, regenerate the marquee list:
-
-- Update list (writes into `src/js/marquee.js`):
-  - `node scripts/generate-marquee-images.js`
-- Check list is up-to-date (CI-style, no write):
-  - `node scripts/generate-marquee-images.js --check`
-
-## If validations fail
-
-- Read the error output; it’s designed to tell you which file and what condition failed.
-- Fix the source file (usually an HTML attribute, class, or a CSS/JS rule) and rerun:
-  - `bash scripts/codex.maintenance.sh`
+## If validation fails
+- Read the error output; it names the file and the missing condition.
+- Fix only what is required for Edits 1–8 (no extra changes).
+- Rerun:
+  - `bash scripts/codex.requested-edits.sh`
