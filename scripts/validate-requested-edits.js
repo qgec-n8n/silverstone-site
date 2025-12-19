@@ -1,313 +1,452 @@
 // FILE: scripts/validate-requested-edits.js
-"use strict";
 
 /**
- * Deterministic validator for Requested Website Edits (1–8).
+ * Validator for the "Requested Website Edits (1–8)" Spec.
  *
- * Usage:
+ * This script is intentionally conservative: it validates for
+ * presence/absence of exact phrases, required marker comments,
+ * and key structural constraints that make the changes deterministic.
+ *
+ * Run:
  *   node scripts/validate-requested-edits.js --strict
- *
- * This is intentionally static (no browser) and relies on:
- * - exact copy checks where specified
- * - selector/attribute existence checks
- * - required marker comments in source + built assets
  */
 
 const fs = require("fs");
 const path = require("path");
 
-const REPO_ROOT = path.join(__dirname, "..");
+const projectRoot = path.resolve(__dirname, "..");
+const strict = process.argv.includes("--strict");
 
-function fatal(message) {
-  console.error(`\n❌ Requested-edits validation failed: ${message}\n`);
-  process.exit(1);
+let failures = 0;
+
+function fail(message) {
+  failures += 1;
+  console.error(`✗ ${message}`);
 }
 
-function readText(relPath) {
-  const abs = path.join(REPO_ROOT, relPath);
-  if (!fs.existsSync(abs)) fatal(`File not found: ${relPath}`);
+function ok(message) {
+  console.log(`✓ ${message}`);
+}
+
+function read(relPath) {
+  const abs = path.join(projectRoot, relPath);
+  if (!fs.existsSync(abs)) {
+    fail(`Missing file: ${relPath}`);
+    return "";
+  }
   return fs.readFileSync(abs, "utf8");
 }
 
-function exists(relPath) {
-  return fs.existsSync(path.join(REPO_ROOT, relPath));
+function assertIncludes(haystack, needle, message) {
+  if (!haystack.includes(needle)) {
+    fail(message ?? `Expected to find: ${needle}`);
+  }
 }
 
-function assertIncludes(haystack, needle, ctx) {
-  if (!haystack.includes(needle)) fatal(`${ctx}: expected to include ${JSON.stringify(needle)}`);
+function assertNotIncludes(haystack, needle, message) {
+  if (haystack.includes(needle)) {
+    fail(message ?? `Expected NOT to find: ${needle}`);
+  }
 }
 
-function assertNotIncludes(haystack, needle, ctx) {
-  if (haystack.includes(needle)) fatal(`${ctx}: must not include ${JSON.stringify(needle)}`);
+function assertRegex(haystack, regex, message) {
+  if (!regex.test(haystack)) {
+    fail(message ?? `Expected to match: ${regex}`);
+  }
 }
 
-function assertRegex(haystack, regex, ctx, label) {
-  if (!regex.test(haystack)) fatal(`${ctx}: missing expected pattern (${label}): ${regex}`);
+function assertNear(haystack, phrase, nearbyNeedle, radius, label) {
+  const idx = haystack.indexOf(phrase);
+  if (idx === -1) {
+    fail(`Missing phrase (${label}): ${phrase}`);
+    return;
+  }
+  const start = Math.max(0, idx - radius);
+  const end = Math.min(haystack.length, idx + phrase.length + radius);
+  const windowText = haystack.slice(start, end);
+  if (!windowText.includes(nearbyNeedle)) {
+    fail(`Expected "${label}" phrase to be near "${nearbyNeedle}" (within ±${radius} chars)`);
+  }
 }
 
 function listNichePages() {
-  const dir = path.join(REPO_ROOT, "niches");
-  if (!fs.existsSync(dir)) fatal("Missing niches/ directory");
+  const nichesDir = path.join(projectRoot, "niches");
+  if (!fs.existsSync(nichesDir)) {
+    fail("Missing niches/ directory");
+    return [];
+  }
   return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith(".html"))
-    .map((f) => `niches/${f}`);
+    .readdirSync(nichesDir)
+    .filter((name) => name.endsWith(".html"))
+    .map((name) => path.join("niches", name));
 }
 
-function parseSecondsFromRule(text, regex, ctx, label) {
-  const m = text.match(regex);
-  if (!m) fatal(`${ctx}: could not find ${label} using ${regex}`);
-  const seconds = Number(m[1]);
-  if (!Number.isFinite(seconds)) fatal(`${ctx}: ${label} seconds not numeric`);
-  return seconds;
-}
+/* ------------------------------------------------------------ */
+/* Edit 1 — Counter slowdown (about + index)                      */
+/* ------------------------------------------------------------ */
 
-function validateAbout() {
-  const ctx = "about.html";
-  const html = readText("about.html");
+function validateCounterSlowdown() {
+  const statsSrc = read("src/js/stats.js");
 
-  assertIncludes(html, "Experience by the Numbers", ctx);
-
-  // Edit 1: card replacement
-  assertNotIncludes(html, "Years Combined Experience", ctx);
-  assertIncludes(html, "Minute Automation Audit", ctx);
-  assertIncludes(html, 'data-target="30"', ctx);
-
-  // Edit 3: counter gating only on about + index
-  assertRegex(
-    html,
-    /class="[^"]*\bstats\b[^"]*"[^>]*data-counter="on"|data-counter="on"[^>]*class="[^"]*\bstats\b[^"]*"/,
-    ctx,
-    'stats container has data-counter="on"'
-  );
-}
-
-function validateIndexStatsSection() {
-  const ctx = "index.html";
-  const html = readText("index.html");
-
-  // Old block must be removed
-  assertNotIncludes(html, "Proof in Numbers", ctx);
-
-  // New copy (exact title + sentence)
-  assertIncludes(html, "No hype. Just measurable wins.", ctx);
   assertIncludes(
-    html,
-    "If you’re sceptical about AI, start with the basics: we build simple automation that answers calls, follows up leads and chases admin in the background, so small teams can win back time, reduce no-shows and respond instantly — even outside office hours.",
-    ctx
+    statsSrc,
+    "SS_STATS_SPEC: COUNTER_ANIMATION_ABOUT_INDEX_ONLY",
+    "stats.js must keep the original scoping marker for .stats[data-counter=\"on\"]."
   );
 
-  // Must use stats styling + counter opt-in
+  assertIncludes(
+    statsSrc,
+    "SS_STATS_SPEC: COUNTER_DURATION_SLOWDOWN_2600MS",
+    "stats.js must include marker SS_STATS_SPEC: COUNTER_DURATION_SLOWDOWN_2600MS."
+  );
+
   assertRegex(
-    html,
-    /class="[^"]*\bstats\b[^"]*"[^>]*data-counter="on"|data-counter="on"[^>]*class="[^"]*\bstats\b[^"]*"/,
-    ctx,
-    'stats container has data-counter="on"'
+    statsSrc,
+    /\bconst\s+durationMs\s*=\s*2600\s*;/,
+    "stats.js must set `const durationMs = 2600;` (explicit slowdown)."
   );
-  assertRegex(html, /class="[^"]*\bneon-card\b[^"]*\bstat\b[^"]*"/, ctx, "stat card class includes neon-card and stat");
 
-  // Targets
-  ["525600", "780", "100", "80"].forEach((n) => assertIncludes(html, `data-target="${n}"`, ctx));
+  const indexHtml = read("index.html");
+  const aboutHtml = read("about.html");
 
-  // Labels
-  [
-    "Minutes of Always-On Coverage",
-    "Potential Hours Reclaimed Per Year",
-    "Times Better Contact Odds in 5 Minutes",
-    "Callers Lost to Voicemail",
-  ].forEach((label) => assertIncludes(html, label, ctx));
+  assertRegex(
+    indexHtml,
+    /<div class="stats"[^>]*data-counter="on"[\s\S]*?class="number"[\s\S]*?data-target="/,
+    "index.html must contain a .stats[data-counter=\"on\"] section with .number[data-target] counters."
+  );
+
+  assertRegex(
+    aboutHtml,
+    /<div class="stats"[^>]*data-counter="on"[\s\S]*?class="number"[\s\S]*?data-target="/,
+    "about.html must contain a .stats[data-counter=\"on\"] section with .number[data-target] counters."
+  );
+
+  const appJs = read("assets/js/app.js");
+  assertIncludes(
+    appJs,
+    "SS_STATS_SPEC: COUNTER_DURATION_SLOWDOWN_2600MS",
+    "assets/js/app.js must be rebuilt and include the counter slowdown marker."
+  );
+
+  ok("Edit 1 — Counter slowdown markers and duration validated.");
 }
 
-function validateNichesNoCounters() {
-  const pages = listNichePages();
-  pages.forEach((p) => {
-    const html = readText(p);
-    const ctx = p;
-    assertNotIncludes(html, 'data-counter="on"', ctx);
-    assertRegex(
-      html,
-      /class="[^"]*\bstats\b[^"]*"[^>]*data-counter="off"|data-counter="off"[^>]*class="[^"]*\bstats\b[^"]*"/,
-      ctx,
-      'niche stats container has data-counter="off"'
+/* ------------------------------------------------------------ */
+/* Edit 2 — index.html copy removal + page-home class            */
+/* ------------------------------------------------------------ */
+
+function validateIndexCopyAndClass() {
+  const indexHtml = read("index.html");
+
+  const sentence1 =
+    "These figures are indicative industry benchmarks for automation, not guaranteed Silverstone results.";
+  const sentence2 = "We’ll help you understand what’s realistic for your business.";
+
+  assertNotIncludes(indexHtml, sentence1, "index.html must remove the first disclaimer sentence.");
+  assertNotIncludes(indexHtml, sentence2, "index.html must remove the second disclaimer sentence.");
+
+  assertRegex(
+    indexHtml,
+    /<body[^>]*\bpage-home\b/,
+    "index.html must add body class `page-home`."
+  );
+
+  ok("Edit 2 — Index copy removal + page-home class validated.");
+}
+
+/* ------------------------------------------------------------ */
+/* Edit 3 — about.html body class                                */
+/* ------------------------------------------------------------ */
+
+function validateAboutBodyClass() {
+  const aboutHtml = read("about.html");
+  assertRegex(
+    aboutHtml,
+    /<body[^>]*\bpage-about\b/,
+    "about.html must add body class `page-about`."
+  );
+  ok("Edit 3 — About body class validated.");
+}
+
+/* ------------------------------------------------------------ */
+/* Edits 2–5 — Grey→white system via silver variable override    */
+/* ------------------------------------------------------------ */
+
+function validateGreyToWhiteSystem() {
+  const variablesCss = read("src/css/base/variables.css");
+  assertIncludes(
+    variablesCss,
+    "SS_TEXT_SPEC: SILVER_ORIGINAL_TOKEN",
+    "variables.css must include marker SS_TEXT_SPEC: SILVER_ORIGINAL_TOKEN."
+  );
+  assertRegex(
+    variablesCss,
+    /--color-silver-original\s*:\s*#c0c0c0\s*;/,
+    "variables.css must define `--color-silver-original: #c0c0c0;`."
+  );
+
+  const layoutCss = read("src/css/base/layout.css");
+  assertIncludes(
+    layoutCss,
+    "SS_TEXT_SPEC: SILVER_TO_WHITE_NON_CTA_SECTIONS",
+    "layout.css must include marker SS_TEXT_SPEC: SILVER_TO_WHITE_NON_CTA_SECTIONS."
+  );
+
+  const requiredScopes = [
+    ".page-home .section:not(.brand-gradient)",
+    ".page-about .section:not(.brand-gradient)",
+    ".page-services .section:not(.brand-gradient)",
+    ".page-niche .section:not(.brand-gradient)",
+    ".page-book .section:not(.brand-gradient)",
+  ];
+
+  requiredScopes.forEach((scope) => {
+    assertIncludes(
+      layoutCss,
+      scope,
+      `layout.css must scope the silver→white override to: ${scope}`
     );
   });
-}
 
-function validateStatsJs() {
-  const ctx = "src/js/stats.js";
-  const js = readText(ctx);
-
-  assertIncludes(js, "SS_STATS_SPEC: COUNTER_ANIMATION_ABOUT_INDEX_ONLY", ctx);
-  // Must explicitly gate to data-counter="on"
-  assertRegex(js, /\[data-counter=["']on["']\]|data-counter\s*===[\s\S]*["']on["']|dataset\.counter[\s\S]*on/, ctx, "gating to data-counter=on");
-  // Must support reduced motion
-  assertRegex(js, /prefers-reduced-motion|matchMedia\(.+reduce/, ctx, "reduced motion handling");
-
-  // Built JS must include marker (ensures rebuild happened)
-  if (!exists("assets/js/app.js")) fatal("Missing built asset: assets/js/app.js (run node scripts/build-js.js)");
-  const built = readText("assets/js/app.js");
-  assertIncludes(built, "SS_STATS_SPEC: COUNTER_ANIMATION_ABOUT_INDEX_ONLY", "assets/js/app.js");
-}
-
-function validateParallaxJsNicheMobileParity() {
-  const ctx = "src/js/parallax.js";
-  const js = readText(ctx);
-
-  // Marker (Edit 8)
-  assertIncludes(js, "SS_PARALLAX_SPEC: NICHE_MOBILE_BG_PARITY", ctx);
-
-  // Must reference the background file name
-  assertIncludes(js, "body-section-background-2025.webp", ctx);
-  assertIncludes(js, "body_section_parallax", ctx);
-
-  // Must not use the fragile document-relative asset path (breaks on /niches/*)
-  assertNotIncludes(js, "assets/images/body_section_parallax/body-section-background-2025.webp", ctx);
-
-  // Must use robust URL resolution and script-based base
-  assertRegex(js, /new\s+URL\(/, ctx, "URL constructor usage");
-  assertRegex(js, /currentScript|document\.scripts/, ctx, "script-based base URL resolution");
-
-  // Image file must exist
-  if (!exists("assets/images/body_section_parallax/body-section-background-2025.webp")) {
-    fatal("Missing image asset: assets/images/body_section_parallax/body-section-background-2025.webp");
-  }
-
-  // Built JS must include marker (ensures rebuild happened)
-  const built = readText("assets/js/app.js");
-  assertIncludes(built, "SS_PARALLAX_SPEC: NICHE_MOBILE_BG_PARITY", "assets/js/app.js");
-}
-
-function validateMarqueeSpeeds() {
-  const ctx = "src/css/features/marquee.css";
-  const css = readText(ctx);
-
-  assertIncludes(css, "SS_MARQUEE_SPEC: SPEEDS_SLOWER_SINGLE_DOUBLE", ctx);
-
-  const single = parseSecondsFromRule(
-    css,
-    /\.single-marquee\s+\.marquee-track[\s\S]*?animation:\s*marquee-scroll-left\s+([0-9]+)s\s+linear\s+infinite\s*;/,
-    ctx,
-    "single marquee duration"
+  assertIncludes(
+    layoutCss,
+    "--color-silver: var(--color-white)",
+    "layout.css must override --color-silver to var(--color-white) inside the scoped selectors."
   );
-  if (single !== 120) fatal(`${ctx}: single marquee duration must be 120s, got ${single}s`);
 
-  const fast = parseSecondsFromRule(
-    css,
-    /\.double-marquee\s+\.marquee-track\.fast\s*\{\s*animation-duration:\s*([0-9]+)s\s*;\s*\}/,
-    ctx,
-    "double marquee fast duration"
+  assertIncludes(
+    layoutCss,
+    "SS_TEXT_SPEC: KEEP_GREY_EXCEPTIONS",
+    "layout.css must include marker SS_TEXT_SPEC: KEEP_GREY_EXCEPTIONS."
   );
-  const slow = parseSecondsFromRule(
-    css,
-    /\.double-marquee\s+\.marquee-track\.slow\s*\{\s*animation-duration:\s*([0-9]+)s\s*;\s*\}/,
-    ctx,
-    "double marquee slow duration"
-  );
-  if (fast !== 90) fatal(`${ctx}: double marquee fast duration must be 90s, got ${fast}s`);
-  if (slow !== 150) fatal(`${ctx}: double marquee slow duration must be 150s, got ${slow}s`);
-  if (!(fast < slow)) fatal(`${ctx}: expected fast (${fast}s) < slow (${slow}s)`);
 
-  // Built CSS must include marker + durations (ensures rebuild happened)
-  if (!exists("assets/css/styles.css")) fatal("Missing built asset: assets/css/styles.css (run node build-css.js)");
-  const built = readText("assets/css/styles.css");
-  assertIncludes(built, "SS_MARQUEE_SPEC: SPEEDS_SLOWER_SINGLE_DOUBLE", "assets/css/styles.css");
-  assertIncludes(built, "animation-duration: 90s", "assets/css/styles.css");
-  assertIncludes(built, "animation-duration: 150s", "assets/css/styles.css");
-  assertIncludes(built, "marquee-scroll-left 120s", "assets/css/styles.css");
+  assertIncludes(
+    layoutCss,
+    ".page-home .proof-card .tagline",
+    "layout.css must keep index proof-card taglines grey via a page-home scoped rule."
+  );
+  assertIncludes(
+    layoutCss,
+    "var(--color-silver-original)",
+    "layout.css must use var(--color-silver-original) for grey keep rules."
+  );
+
+  assertIncludes(
+    layoutCss,
+    ".page-services .service-content p",
+    "layout.css must include a services exception rule for .service-content p."
+  );
+  assertIncludes(
+    layoutCss,
+    ".page-niche .service-content p",
+    "layout.css must include a niches exception rule for .service-content p."
+  );
+
+  const builtCss = read("assets/css/styles.css");
+  assertIncludes(
+    builtCss,
+    "SS_TEXT_SPEC: SILVER_TO_WHITE_NON_CTA_SECTIONS",
+    "assets/css/styles.css must be rebuilt and include the silver→white marker."
+  );
+
+  ok("Edits 2–5 — Grey→white system markers and scopes validated.");
 }
 
-function validatePricingIndexSection2ScrollAndHeightMatch() {
-  const cssPath = "pricing-widget/src/pricing-widget.css";
-  const jsPath = "pricing-widget/src/embed.jsx";
-  const builtCssPath = "assets/css/pricing-widget.css";
-  const builtJsPath = "assets/js/pricing-widget.js";
+/* ------------------------------------------------------------ */
+/* Edit 6 — contact.html specific phrases must be white          */
+/* ------------------------------------------------------------ */
 
-  if (!exists(cssPath)) fatal(`Missing ${cssPath}`);
-  if (!exists(jsPath)) fatal(`Missing ${jsPath}`);
+function validateContactPhrasesWhite() {
+  const contactHtml = read("contact.html");
 
-  const css = readText(cssPath);
-  const js = readText(jsPath);
+  const phrase1 =
+    "Share a quick overview of your situation. We’ll come back with suggestions or next steps – no spam, no pressure to commit.";
+  assertIncludes(contactHtml, phrase1, "contact.html must contain the overview phrase (copy must match).");
+  assertNear(contactHtml, phrase1, "color: var(--color-white)", 400, "overview");
 
-  assertIncludes(css, "SS_PRICING_SPEC: INDEX_SECTION2_INTERNAL_SCROLL", cssPath);
-  assertIncludes(js, "SS_PRICING_SPEC: INDEX_SECTION2_HEIGHT_MATCH", jsPath);
+  const addressAnchor = "Address: 4 Deacon Street";
+  assertIncludes(contactHtml, addressAnchor, "contact.html must contain the address block.");
+  assertIncludes(contactHtml, "SE17 1GE, London, UK", "contact.html address block must include the postcode line.");
+  assertIncludes(contactHtml, "info@silverstone-ai.com", "contact.html address block must include the email text.");
+  assertIncludes(
+    contactHtml,
+    "mailto:info@silverstone-ai.com",
+    "contact.html address block must link the email via mailto:info@silverstone-ai.com."
+  );
+  assertNear(contactHtml, addressAnchor, "color: var(--color-white)", 500, "address");
 
-  // Must scope to index.html section 2
-  assertIncludes(css, 'data-ss-pricing-page="index.html"', cssPath);
-  assertIncludes(css, 'data-ss-pricing-section="2"', cssPath);
-  assertRegex(
-    css,
-    /index\.html"\]\[data-ss-pricing-section="2"\][\s\S]*?\.ss-pricing__includes-body[\s\S]*?overflow-y:\s*auto\s*;/,
-    cssPath,
-    "index section2 includes-body overflow-y:auto"
+  const social1 =
+    "Immerse yourself in the Silverstone experience across our curated social channels—crafted for leaders who expect design-led intelligence, cinematic storytelling, and premium service cues at every touchpoint.";
+  const social2 =
+    "Follow us for prototype reveals, executive insights, and a first look at the intelligent automations shaping tomorrow’s operations.";
+
+  assertIncludes(contactHtml, social1, "contact.html must contain the social callout paragraph (copy must match).");
+  assertIncludes(contactHtml, social2, "contact.html must contain the social note paragraph (copy must match).");
+
+  const contactCss = read("src/css/pages/contact.css");
+  assertIncludes(
+    contactCss,
+    "SS_CONTACT_SPEC: SOCIAL_COPY_WHITE",
+    "contact.css must include marker SS_CONTACT_SPEC: SOCIAL_COPY_WHITE."
   );
   assertRegex(
-    css,
-    /index\.html"\]\[data-ss-pricing-section="2"\][\s\S]*?height:\s*var\(--ss-pricing-match-height,\s*auto\)\s*;/,
-    cssPath,
-    "index section2 card height var"
+    contactCss,
+    /\.contact-social-callout\s+p\s*\{[\s\S]*color:\s*var\(--color-white\)\s*;[\s\S]*\}/,
+    "contact.css must set .contact-social-callout p to color: var(--color-white)."
   );
 
-  // Height match JS must reference index.html
-  assertIncludes(js, 'data-ss-pricing-page="index.html"', jsPath);
-  assertIncludes(js, "--ss-pricing-match-height", jsPath);
+  const builtCss = read("assets/css/styles.css");
+  assertIncludes(
+    builtCss,
+    "SS_CONTACT_SPEC: SOCIAL_COPY_WHITE",
+    "assets/css/styles.css must be rebuilt and include the contact marker."
+  );
 
-  // Built assets must exist + include index rules (ensures rebuild happened)
-  if (!exists(builtCssPath)) fatal(`Missing built asset: ${builtCssPath} (build pricing widget)`);
-  if (!exists(builtJsPath)) fatal(`Missing built asset: ${builtJsPath} (build pricing widget)`);
-
-  const builtCss = readText(builtCssPath);
-  assertIncludes(builtCss, "SS_PRICING_SPEC: INDEX_SECTION2_INTERNAL_SCROLL", builtCssPath);
-  assertIncludes(builtCss, 'data-ss-pricing-page="index.html"', builtCssPath);
+  ok("Edit 6 — Contact phrase whitening validated.");
 }
 
-function validatePricingPriceScrollAnimation() {
-  const jsxPath = "pricing-widget/src/PricingWidget.jsx";
-  const cssPath = "pricing-widget/src/pricing-widget.css";
-  const builtCssPath = "assets/css/pricing-widget.css";
-  const builtJsPath = "assets/js/pricing-widget.js";
+/* ------------------------------------------------------------ */
+/* Edits 7–8 — Pricing widget theme + per-digit price animation  */
+/* ------------------------------------------------------------ */
 
-  if (!exists(jsxPath)) fatal(`Missing ${jsxPath}`);
-  if (!exists(cssPath)) fatal(`Missing ${cssPath}`);
+function validatePricingWidgetThemeAndDigits() {
+  const pricingCss = read("pricing-widget/src/pricing-widget.css");
+  const pricingJsx = read("pricing-widget/src/PricingWidget.jsx");
 
-  const jsx = readText(jsxPath);
-  const css = readText(cssPath);
+  assertIncludes(
+    pricingCss,
+    "SS_PRICING_SPEC: THEME_MATCH_BODY_SECTION_BACKGROUND_2025",
+    "pricing-widget.css must include marker SS_PRICING_SPEC: THEME_MATCH_BODY_SECTION_BACKGROUND_2025."
+  );
 
-  assertIncludes(jsx, "SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION", jsxPath);
-  assertIncludes(css, "SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION", cssPath);
+  assertIncludes(
+    pricingCss,
+    "body-section-background-2025.webp",
+    "pricing-widget.css must reference body-section-background-2025.webp in the background/theme."
+  );
 
-  // Expected classnames for the scroll/roll implementation
-  ["ss-pricing__price-roll", "ss-pricing__price-roll-track", "ss-pricing__price-roll-item"].forEach((cls) => {
-    assertIncludes(jsx + "\n" + css, cls, "pricing-widget (source)");
-  });
+  assertNotIncludes(
+    pricingCss,
+    "--ss-pricing-text: #0b0c10",
+    "pricing-widget.css must not keep the old dark text token (--ss-pricing-text: #0b0c10)."
+  );
 
-  // Built assets must include marker (ensures rebuild happened)
-  if (!exists(builtCssPath)) fatal(`Missing built asset: ${builtCssPath} (build pricing widget)`);
-  if (!exists(builtJsPath)) fatal(`Missing built asset: ${builtJsPath} (build pricing widget)`);
+  assertRegex(
+    pricingCss,
+    /--ss-pricing-text\s*:\s*var\(--color-white\)|--ss-pricing-text\s*:\s*#fff/i,
+    "pricing-widget.css must set --ss-pricing-text to white (var(--color-white) or #fff)."
+  );
 
-  const builtCss = readText(builtCssPath);
-  const builtJs = readText(builtJsPath);
+  assertIncludes(
+    pricingCss,
+    "SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE",
+    "pricing-widget.css must include marker SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE."
+  );
 
-  assertIncludes(builtCss, "SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION", builtCssPath);
-  assertIncludes(builtJs, "SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION", builtJsPath);
+  assertIncludes(
+    pricingJsx,
+    "SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE",
+    "PricingWidget.jsx must include marker SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE (sparkles logic change)."
+  );
+
+  assertIncludes(
+    pricingCss,
+    "SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT",
+    "pricing-widget.css must include marker SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT."
+  );
+
+  assertIncludes(
+    pricingJsx,
+    "SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT",
+    "PricingWidget.jsx must include marker SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT."
+  );
+
+  assertNotIncludes(
+    pricingCss,
+    "SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION",
+    "pricing-widget.css must remove the old whole-number roll marker SS_PRICING_SPEC: PRICE_SCROLL_ANIMATION."
+  );
+
+  assertNotIncludes(
+    pricingCss,
+    "ss-pricing__price-roll",
+    "pricing-widget.css must not contain the old .ss-pricing__price-roll styles."
+  );
+
+  assertNotIncludes(
+    pricingJsx,
+    "ss-pricing__price-roll",
+    "PricingWidget.jsx must not reference .ss-pricing__price-roll (whole-number roll removed)."
+  );
+
+  // Built outputs must be regenerated.
+  const builtCss = read("assets/css/pricing-widget.css");
+  const builtJs = read("assets/js/pricing-widget.js");
+
+  assertIncludes(
+    builtCss,
+    "SS_PRICING_SPEC: THEME_MATCH_BODY_SECTION_BACKGROUND_2025",
+    "assets/css/pricing-widget.css must be rebuilt and include THEME_MATCH marker."
+  );
+  assertIncludes(
+    builtCss,
+    "body-section-background-2025.webp",
+    "assets/css/pricing-widget.css must include the background image reference."
+  );
+  assertIncludes(
+    builtCss,
+    "SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT",
+    "assets/css/pricing-widget.css must include per-digit marker."
+  );
+
+  assertIncludes(
+    builtJs,
+    "SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT",
+    "assets/js/pricing-widget.js must be rebuilt and include per-digit marker."
+  );
+
+  ok("Edits 7–8 — Pricing widget theme + per-digit animation validated.");
 }
+
+/* ------------------------------------------------------------ */
+/* Main                                                         */
+/* ------------------------------------------------------------ */
 
 function main() {
-  const strict = process.argv.includes("--strict");
-  if (!strict) {
-    console.warn("⚠️  Running without --strict is not supported for this validator; use --strict.");
+  // Sanity: niches exist and remain classed as page-niche.
+  const nichePages = listNichePages();
+  if (nichePages.length === 0) {
+    fail("No niches/*.html pages found (expected at least 1).");
+  } else {
+    nichePages.forEach((rel) => {
+      const html = read(rel);
+      assertRegex(html, /<body[^>]*\bpage-niche\b/, `${rel} must keep body class page-niche.`);
+      assertRegex(
+        html,
+        /<div class="ss-pricing"[^>]*data-ss-pricing-page="niches\//,
+        `${rel} should include ss-pricing mounts with data-ss-pricing-page="niches/..."`
+      );
+    });
+    ok(`Found and sanity-checked ${nichePages.length} niche pages.`);
+  }
+
+  validateCounterSlowdown();
+  validateIndexCopyAndClass();
+  validateAboutBodyClass();
+  validateGreyToWhiteSystem();
+  validateContactPhrasesWhite();
+  validatePricingWidgetThemeAndDigits();
+
+  if (failures > 0) {
+    console.error(`\nFAILED: ${failures} check(s).`);
     process.exit(1);
   }
 
-  validateAbout();
-  validateIndexStatsSection();
-  validateNichesNoCounters();
-  validateStatsJs();
-  validateParallaxJsNicheMobileParity();
-  validateMarqueeSpeeds();
-  validatePricingIndexSection2ScrollAndHeightMatch();
-  validatePricingPriceScrollAnimation();
-
-  console.log("✅ Requested Edits (1–8) validated successfully.");
+  if (!strict) {
+    ok("All checks passed.");
+  } else {
+    ok("All strict checks passed.");
+  }
 }
 
 main();
