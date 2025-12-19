@@ -287,6 +287,21 @@
     gap: 1.25rem !important;
   }
 
+  /* SS_SERVICES_SPEC: MOBILE_IMAGE_CONTAINER_TIGHT_WRAP_2025_12 */
+  .page-services .service-row .service-image {
+    height: auto !important;
+    display: block !important;
+    align-items: initial !important;
+    justify-content: initial !important;
+  }
+
+  .page-services .service-row .service-image img,
+  .page-services .service-row .service-image .service-img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+  }
+
   .page-services .service-row .service-image {
     order: 1;
   }

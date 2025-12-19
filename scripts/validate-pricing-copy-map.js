@@ -24,11 +24,13 @@ function parseArgs(argv) {
   const args = {
     printJson: false,
     jsonOut: null,
+    strict: false,
   };
 
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--print-json') args.printJson = true;
+    else if (a === '--strict') args.strict = true;
     else if (a === '--json-out') {
       const next = argv[i + 1];
       if (!next) throw new Error('Missing value for --json-out');

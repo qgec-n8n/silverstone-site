@@ -3658,6 +3658,17 @@ body.services-overlay-active .services-overlay {
   display: block;
 }
 
+/* SS_HOME_SPEC: SERVICE_ICON_TITLE_INLINE_2025_12 */
+.packages-grid .service-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.packages-grid .service-icon-img {
+  margin-bottom: 0;
+}
+
 .packages-grid .check-icon {
   width: 1.1rem;
   height: 1.1rem;
@@ -4118,6 +4129,21 @@ body.services-overlay-active .services-overlay {
   .page-services .service-row {
     grid-template-columns: 1fr !important;
     gap: 1.25rem !important;
+  }
+
+  /* SS_SERVICES_SPEC: MOBILE_IMAGE_CONTAINER_TIGHT_WRAP_2025_12 */
+  .page-services .service-row .service-image {
+    height: auto !important;
+    display: block !important;
+    align-items: initial !important;
+    justify-content: initial !important;
+  }
+
+  .page-services .service-row .service-image img,
+  .page-services .service-row .service-image .service-img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
   }
 
   .page-services .service-row .service-image {

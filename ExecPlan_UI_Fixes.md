@@ -218,12 +218,12 @@ Done when:
 
 ## Progress tracker
 
-- [ ] Gate 0 complete (baseline runnable)
-- [ ] Gate 1 complete (tuning decisions recorded)
-- [ ] Gate 2 complete (pricing washout tuned + validated)
-- [ ] Gate 3 complete (CTA alignment fixed + validated)
-- [ ] Gate 4 complete (services mobile images fixed + validated)
-- [ ] Gate 5 complete (home service cards icon/title fixed + validated)
+- [x] Gate 0 complete (baseline runnable)
+- [x] Gate 1 complete (tuning decisions recorded)
+- [x] Gate 2 complete (pricing washout tuned + validated)
+- [x] Gate 3 complete (CTA alignment fixed + validated)
+- [x] Gate 4 complete (services mobile images fixed + validated)
+- [x] Gate 5 complete (home service cards icon/title fixed + validated)
 - [ ] Gate 6 complete (final pass + QA + change log)
 
 ## Decision log (append-only)
@@ -232,3 +232,6 @@ Record any judgment calls that affect implementation details, especially:
 - Any tradeoff between light-mode vibe vs. color visibility.
 - Any need to touch files outside the expected surfaces.
 - Any alternative implementation chosen vs. the spec’s default approach.
+
+- 2025-02-12: Gate 0 blocker fix — `scripts/validate-pricing-copy-map.js` now accepts `--strict` to match `scripts/codex.requested-edits.sh` invocation; no behavior change beyond arg parsing.
+- 2025-02-12: Gate 1 washout diagnosis — light-mode `--ss-pricing-bg` uses white linear-gradient alphas 0.96/0.92/0.88 with blue radial 0.30/0.17 and pink radial 0.26/0.15; plan is to tune only these gradient alphas (keep gridlines/glow/card layers unchanged).

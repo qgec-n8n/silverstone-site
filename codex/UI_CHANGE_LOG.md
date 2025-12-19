@@ -11,3 +11,7 @@ When an ExecPlan is completed:
 - do not edit older entries
 
 ## Entries
+- 2025-02-12 — UI Fixes (Requested Edits 1–4)
+  Files: `pricing-widget/src/pricing-widget.css`, `assets/css/pricing-widget.css`, `src/css/pages/services.css`, `src/css/pages/home.css`, `assets/css/styles.css`, `scripts/validate-pricing-copy-map.js`, `ExecPlan_UI_Fixes.md`
+  Summary: tuned pricing light-mode background alphas, aligned pricing CTAs, tightened services mobile image wrap, made home service icon/title inline, allowed `--strict` on pricing copy validator
+  Verification: `bash scripts/codex.requested-edits.sh`

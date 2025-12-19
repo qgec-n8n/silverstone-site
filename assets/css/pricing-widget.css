@@ -19,18 +19,19 @@
 .ss-pricing[data-ss-pricing-page="index.html"],
 .ss-pricing[data-ss-pricing-page="services.html"],
 .ss-pricing[data-ss-pricing-page^="niches/"] {
+  /* SS_PRICING_SPEC: LIGHT_MODE_WASHOUT_TUNING_2025_12 */
   --ss-pricing-bg:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(236, 245, 255, 0.92) 42%, rgba(214, 232, 255, 0.88) 100%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(236, 245, 255, 0.88) 42%, rgba(214, 232, 255, 0.84) 100%),
     radial-gradient(
       circle at 20% 18%,
-      rgba(0, 174, 239, 0.30) 0%,
-      rgba(0, 174, 239, 0.17) 45%,
+      rgba(0, 174, 239, 0.45) 0%,
+      rgba(0, 174, 239, 0.28) 45%,
       transparent 58%
     ),
     radial-gradient(
       circle at 82% 12%,
-      rgba(255, 79, 216, 0.26) 0%,
-      rgba(255, 79, 216, 0.15) 45%,
+      rgba(255, 79, 216, 0.38) 0%,
+      rgba(255, 79, 216, 0.22) 45%,
       transparent 52%
     ),
     radial-gradient(circle at 50% 100%, rgba(0, 255, 157, 0.18), transparent 62%),
@@ -458,11 +459,13 @@
   margin: 0;
 }
 
+/* SS_PRICING_SPEC: CTA_BUTTON_ROW_ALIGNMENT_2025_12 */
 .ss-pricing .ss-pricing__cta {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-top: auto;
   padding: 14px 18px;
   border-radius: 14px;
   text-decoration: none;
@@ -489,7 +492,6 @@
 .ss-pricing .ss-pricing__includes {
   border-top: 1px solid rgba(0, 174, 239, 0.2);
   padding-top: 16px;
-  margin-top: auto;
 }
 
 .ss-pricing .ss-pricing__includes-body {
