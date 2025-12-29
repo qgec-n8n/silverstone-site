@@ -1,22 +1,28 @@
 <!-- FILE: codex/INITIATION.md -->
-# Initiation (Human + Codex)
+# Initiation (Codex CLI)
 
-This repo is designed for Codex CLI to implement UI changes safely.
+This repo is configured for a gated, verification-driven Codex run.
 
-## Human steps
+## What to read first
 
-1. Ensure Node.js (LTS) and npm are available.
-2. From repo root, run:
-   - `npm install`
-   - `bash scripts/codex.setup.sh`
+- `ExecPlan.md`
+- `codex/REQUESTED_EDITS_SPEC.md`
+- `codex/VERIFICATION_PROTOCOL.md`
+- `codex/REPO_UI_MAP.md`
 
-## Starting Codex
+## Run setup
 
-- Use the contents of `codex/CODEX_INIT_PROMPT.md` as your initial message.
-- Ensure Codex has access to the files listed in `.codex/config.toml`.
+- `bash scripts/codex.setup.sh`
 
-## What “done” means
+## Run baseline + iterate
+
+- `bash scripts/codex.requested-edits.sh`
+
+Record baseline failures and decisions in:
+- `codex/UI_CHANGE_LOG.md`
+
+## Definition of done
 
 - `bash scripts/codex.requested-edits.sh` passes
-- `codex/MANUAL_QA_CHECKLIST.md` is completed
-- `codex/UI_CHANGE_LOG.md` includes a short summary and any deviations
+- Manual QA complete: `codex/MANUAL_QA_CHECKLIST.md`
+- Evidence recorded for Requested Edits 1–6 (see `ExecPlan.md`)
