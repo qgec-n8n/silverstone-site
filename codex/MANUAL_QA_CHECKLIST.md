@@ -1,147 +1,115 @@
 <!-- FILE: codex/MANUAL_QA_CHECKLIST.md -->
-# Manual QA Checklist (Requested Edits 1–12)
+# Manual QA Checklist (Requested Edits 1–6)
 
-Status: NOT COMPLETED (manual QA not performed in this environment; server started but no browser verification).
-Date: 2025-02-12
+This checklist is mandatory. Automated validators cannot fully confirm legibility and cropping direction.
 
-Complete this checklist before considering the work finished.
+## How to run locally
 
-## Setup
+1. Build:
+- `npm run build`
 
-1. Start a local server from repo root:
-   - Run: `bash scripts/serve.sh`
-2. Open in Chrome:
-   - Desktop check: 1440×900
-   - Mobile emulation checks:
-     - 390×844 (typical modern iPhone)
-     - 375×667 (smaller iPhone)
+2. Serve:
+- `bash scripts/serve.sh`
 
-Pages to open:
-- `index.html`
-- `services.html`
-- `about.html`
-- `book.html`
-- `contact.html`
-- At least 2 niche pages (e.g., `niches/dentists.html`, `niches/ecommerce.html`)
+3. Test breakpoints (minimum):
+- Mobile: ~375px wide
+- Tablet: ~768px wide
+- Desktop: ~1280–1440px wide
 
-## 1) Pricing widget light background vibrancy
+## Pages to open
 
-On pages with pricing:
-- Confirm the “white” pricing background has visible pink/blue tint (noticeably more than before).
-- Confirm it still reads as a premium white/light mode, not overly saturated.
-- Confirm pricing card text contrast remains strong.
+Core:
+- `/index.html`
+- `/about.html`
+- `/services.html`
+- `/book.html`
+- `/contact.html`
 
-## 2) Services page images neon border parity
+Niches (pick at least 3 with images):
+- `/niches/estate-agents.html`
+- `/niches/dentists.html`
+- `/niches/ecommerce.html`
 
-Open:
-- `services.html`
-- a representative niche page (any `niches/*.html`)
+---
 
-For each services image next to cards:
-- Border wraps tightly (no extra inner padding).
-- Image is fully visible (not cropped).
-- Matches the niche look (border, radius, spacing).
+## Edit 1 — Shader colors per page
 
-## 3) Section subtitle color (white → grey)
+### about.html
+- [ ] Shader reads clearly **purple** (dominant hue).
 
-On each page listed above:
-- Under blue section headings, the subtitle sentence is grey (clearly not white).
-- Confirm this change does not affect card text inside neon cards.
+### services.html
+- [ ] Hero shader reads clearly **green**.
 
-## 4) Hero subtitle non-white
+### book.html
+- [ ] Shader reads clearly **bright neon pink**.
 
-On each page with a shader hero:
-- The subtitle directly under the hero title is not pure white.
+### contact.html
+- [ ] Hero shader reads clearly **fire orange**.
 
-## 5) Hero shader legibility (premium)
+Niches:
+- [ ] Niche hero shaders remain default/purple (not forced to a core variant).
 
-On desktop and mobile:
-- Hero title and subtitle are readable instantly (no squinting).
-- Shader animation is still clearly visible and visually present (not “washed out” by a heavy overlay).
-- The readability solution looks intentional/premium (e.g., subtle glass panel, refined shadowing).
+---
 
-## 6) Hero CTA spacing
+## Edit 2 — Hero glass panel removed, legibility excellent
 
-Pages with hero CTAs (at least index, services, and a niche page):
-- Buttons never touch when stacked vertically.
-- Buttons never touch when wrapped horizontally.
-- Check narrow widths where they wrap.
+On each page with hero copy + CTA:
+- [ ] There is **no blurred/translucent panel** behind the hero copy.
+- [ ] Shader remains visible behind the hero content.
+- [ ] Copy is still easy to read on:
+  - [ ] Mobile
+  - [ ] Desktop
+- [ ] CTA buttons remain clearly visible and usable.
 
-## 7) Images next to cards quality & fit
+Test at least:
+- services page hero
+- contact page hero
+- one niche hero
 
-On `about.html`, `services.html`, and niche pages:
-- Images are crisp (no obvious pixelation).
-- Text in images (where present) is not blurry/pixelated.
-- Images are not cropped; they are fully visible.
-- Neon border is tight and consistent.
+---
 
-## 8) Calendly loading performance
+## Edit 3 — index “Streamline workflows” button is one line
 
-On `book.html`:
-- Hard refresh (Cmd/Ctrl+Shift+R).
-- Scroll down to Calendly widget section.
-- The widget should initialize quickly (minimal buffering delay).
+- [ ] On mobile width, the “Streamline workflows” button label does not wrap.
+- [ ] No overflow/cutoff occurs; button remains clickable.
 
-## 9) About “Experience by the Numbers” exact stats
+---
+
+## Edit 4 — Section subtitles grey across all pages
+
+For each tested page:
+- [ ] Subtitles under blue section titles are grey (not white).
+- [ ] Spot check at least 2 sections per page.
+
+Pay special attention to:
+- the long descriptive subtitle blocks on `index.html`
+- the “pain point” subtitles on niche pages
+
+---
+
+## Edit 5 — Services + niche images fill their cards (width crop only)
+
+On `services.html`:
+- [ ] In each service-row image card:
+  - [ ] Image touches card edges (no inner blank area)
+  - [ ] If cropping occurs, it is only left/right
+  - [ ] Top/bottom content is not cropped
+
+On at least 2 niche pages:
+- [ ] Same checks as above
+
+---
+
+## Edit 6 — About images: embedded copy remains visible
 
 On `about.html`:
-- The stats show exactly:
-  - 17 Clients Served
-  - 18 Automations Delivered
-  - 2,300+ Hours Saved
-  - 9 Industries Served
-- “30 minute AI Audit” is removed.
-- Animation still works and formats 2,300 with comma, plus sign present.
+- [ ] Images with embedded copy near the top show that copy fully (no cropping).
+- [ ] Verify on both mobile and desktop.
 
-## 10) Index “No hype. Just measurable wins.” updates
+---
 
-On `index.html` stats section:
-- The two updated stats read exactly:
-  - 100% of all calls, emails and texts answered
-  - 10x Lead Conversion Rate
-- “100%” and “10x” are blue; the rest of each sentence is white under it.
-- Animation:
-  - Only the numeric portion animates (100 / 10)
-  - Suffix (% / x) does not animate independently
+## Completion record
 
-## 11) Index “Our Services” image tiles + lightbox
-
-On `index.html`:
-Desktop (2×2 grid):
-- The 4 old text cards are gone; replaced by 4 images.
-- Images are not cropped; copy on images is readable.
-- Each tile has a clear button linking to `services.html` (or another relevant page).
-- It’s obvious the images are clickable to expand (cursor/overlay affordance).
-
-Mobile (stacked):
-- Images stack vertically with spacing.
-- Mobile-specific image variants are used.
-- Tap each image -> premium lightbox opens.
-- Lightbox close works; returns to page without layout glitches.
-
-## 12) Mobile-only behavior checks
-
-### 12a) Menu banner two-step
-In mobile emulation:
-- Scroll so the header minimizes and the banner/indicator is visible.
-- First tap on the banner:
-  - Header maximizes only
-  - Nav panel does NOT open
-- Tap hamburger:
-  - Nav panel opens
-- Tap outside/backdrop:
-  - Panel does NOT close (backdrop click disabled)
-- Tap back button in panel:
-  - Panel slides out
-  - Header stays maximized until panel fully out
-  - Header then auto-minimizes
-
-### 12b) Hero CTAs moved up
-On pages with hero CTAs:
-- Buttons are visible at load above the browser URL bar area (no “cut off” feel).
-
-### 12c) Hero shader title/subtitle placement
-On mobile:
-- Title sits just under the maximized menu bar.
-- Subtitle is smaller and placed just under title.
-- No overlap with header/banner.
+- Date tested:
+- Tester:
+- Notes / remaining issues:
