@@ -1,91 +1,75 @@
 <!-- FILE: AGENTS.md -->
-# Agent Roles & Handoffs (Codex CLI)
+# Agents & Roles (Codex CLI workflow)
 
-Codex should simulate these roles sequentially (or explicitly “switch hats”) to reduce mistakes. Each role has a clear output and a gate before moving on.
+Codex should operate as a **multi-role workflow** (even if executed by a single agent). This reduces missed requirements and scope drift.
 
-## Agent 1 — Repo Cartographer
+## Operating principle
 
-Goal: Produce a grounded map of *exact* files/selectors involved in each requested edit.
+- Treat `codex/REQUESTED_EDITS_SPEC.md` as the **source of truth**
+- Treat `ExecPlan.md` as the **execution runbook**
+- Use `codex/VERIFICATION_PROTOCOL.md` as the **grader/verification contract**
+- Run the “evaluation flywheel” loop: measure → change → re-measure → tighten
 
-Deliverables:
-- Confirm the target pages and where each section lives in HTML.
-- Identify the CSS sources that style those sections (in `src/css/**`).
-- Identify the JS sources that control relevant behavior (in `src/js/**`).
-- Note existing patterns to replicate (e.g., niche neon border approach).
+## Roles (run sequentially)
 
-Gate to proceed:
-- The map in `codex/REPO_UI_MAP.md` matches repo reality and cites exact paths.
-
-## Agent 2 — CSS/Visual Engineer
-
-Goal: Implement visual styling changes with minimal scope and consistent aesthetics.
-
-Primary concerns:
-- Pricing light-mode tint vibrancy (Edit #1)
-- Neon border parity & image fit (Edits #2, #7)
-- Section subtitle color (Edit #3)
-- Hero legibility and mobile layout tuning (Edits #4, #5, #6, #12b, #12c)
-- Home services image tiles layout (Edit #11)
-
-Rules:
-- Prefer adding/adjusting rules in the most specific file (page CSS for page-specific, component CSS for shared).
-- Avoid changing global tokens unless needed; if you add a new token, document it.
-
-Gate to proceed:
-- `npm run build:css` succeeds and phase validators pass.
-
-## Agent 3 — JS/Interaction Engineer
-
-Goal: Implement behavior changes without regressions.
-
-Primary concerns:
-- Mobile menu banner two-step interaction (Edit #12a)
-- Lightbox wiring for new index service images (Edit #11f)
-- Calendly loading strategy (Edit #8) if JS is required (prefer HTML preload first)
-
-Rules:
-- Keep changes localized; avoid rewriting large modules.
-- Preserve existing accessibility patterns (ARIA attributes, focus handling).
-- Add `SPEC:` markers where required.
-
-Gate to proceed:
-- `npm run build:js` succeeds and interaction-related validations pass.
-
-## Agent 4 — Content & Markup Editor
-
-Goal: Make exact text/content edits without layout regressions.
-
-Primary concerns:
-- About stats values and label changes (Edit #9)
-- Index stats copy + numeric-only animation requirements (Edit #10)
-- Index “Our Services” cards → images (Edit #11)
-
-Rules:
-- Text must match the requested wording exactly (case and punctuation included).
-- Keep structure consistent with existing styles; avoid unnecessary markup changes.
-
-Gate to proceed:
-- `node scripts/validate-requested-edits.js --strict` passes.
-
-## Agent 5 — Validation Engineer
-
-Goal: Keep the repo’s verification scripts aligned with the spec.
+### 1) Scout / Mapper
+Goal: Build a precise understanding of “what controls what” before edits.
 
 Responsibilities:
-- Update `scripts/validate-requested-edits.js` and other validators if the spec changes.
-- Ensure validators check for required markers + critical functional requirements (not cosmetic-only).
+- Identify exact files/selectors/attributes for each requested edit
+- Update `codex/REPO_UI_MAP.md` with concrete pointers and pitfalls
+- Note conflicts or repo realities in `codex/UI_CHANGE_LOG.md`
 
-Gate to proceed:
-- Full pipeline `bash scripts/codex.requested-edits.sh` passes.
+Exit conditions:
+- Repo map updated for all six edits
+- You can name the exact file(s) you will change for each requirement
 
-## Agent 6 — QA / Release Steward
-
-Goal: Reduce risk of missed edge cases and ship clean.
+### 2) Planner / Decomposer
+Goal: Convert requirements into a minimal change set with verifiable checkpoints.
 
 Responsibilities:
-- Run `scripts/serve.sh` and complete `codex/MANUAL_QA_CHECKLIST.md`.
-- Validate mobile-only behaviors in emulation (at minimum 390×844 and 375×667).
-- Ensure no unrelated pages broke.
+- Write a per-edit approach in `codex/UI_CHANGE_LOG.md`:
+  - What to change
+  - Why it’s minimal
+  - How to verify
+  - Which SPEC proof marker(s) will be added
+- Decide ordering to avoid rework
+- Identify regression risks and how you’ll detect them
 
-Gate to finish:
-- Manual QA checklist complete, and a short release note is written in `codex/UI_CHANGE_LOG.md`.
+Exit conditions:
+- Approach documented for edits 1–6
+- All proof markers are accounted for
+
+### 3) Implementer
+Goal: Implement edits with strict scope control.
+
+Responsibilities:
+- Implement in small increments, one edit at a time
+- After each edit:
+  - rebuild CSS/JS if needed
+  - run relevant validator(s)
+  - confirm no unrelated files changed
+- Add SPEC proof markers as required
+
+Exit conditions:
+- All six edits implemented
+- Local validations for each edit passing
+
+### 4) Verifier / QA
+Goal: Prove the work is correct.
+
+Responsibilities:
+- Run `bash scripts/codex.requested-edits.sh` (must pass)
+- Follow `codex/MANUAL_QA_CHECKLIST.md` for visual/responsive checks
+- Fill the final evidence mapping in `ExecPlan.md` or `codex/UI_CHANGE_LOG.md`
+
+Exit conditions:
+- Automated validators pass
+- Manual QA checklist completed
+- Evidence recorded 1:1 for edits 1–6
+
+## Scope enforcement rules
+
+- If a change cannot be tied directly to Requested Edits 1–6, **do not make it**.
+- Do not “improve” unrelated styles, spacing, or copy.
+- Prefer page-scoped selectors (e.g., `.page-services`, `.page-niche`, `.page-about`) to avoid collateral changes.
