@@ -1,13 +1,21 @@
 <!-- FILE: ExecPlans.md -->
 # ExecPlans Index
 
-This repository uses **one active ExecPlan at a time**. The active plan is the only one Codex should execute.
+This repository uses **ExecPlans** as the primary control surface for Codex CLI work. An ExecPlan is a checkpoint-heavy, repo-grounded, verification-first plan that Codex must follow.
 
-## Active ExecPlan (use this)
+## Active ExecPlan
 
-- `ExecPlan_UI_Fixes.md` — Requested Edits 1–4 (Pricing washout tuning, pricing CTA alignment, services mobile image container padding, index “Our Services” icon/title inline layout).
+- **ExecPlan.md** — *Silverstone UI/UX + content fixes (Requested Edits 1–12, 2025-12)*  
+  Scope: pricing widget light-mode vibrancy, neon borders on service images, global subtitle color, hero legibility/CTA spacing, Calendly performance, content updates, index section swap to image tiles + lightbox, and mobile-only menu/hero fixes.
 
-## Archived / reference ExecPlans (do not run unless explicitly reactivated)
+## How to add a new ExecPlan
 
-- `ExecPlan.md` — Prior request (Requested Edits 1–7), kept for historical context only.
-- `ExecPlan_Pricing_UI_Tuning.md` — Earlier pricing-only plan, kept for reference only.
+1. Create a new file `ExecPlan_<topic>_<yyyy-mm>.md` (or update `ExecPlan.md` if it supersedes current work).
+2. Add:
+   - Goals + non-goals
+   - Repo map (exact file paths + key selectors / IDs)
+   - Phased plan with gates
+   - Acceptance criteria per requirement
+   - Verification commands + manual QA steps
+   - Rollback criteria
+3. Update this index and `.codex/config.toml` include list so Codex always reads the active plan.
