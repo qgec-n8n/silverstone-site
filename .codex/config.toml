@@ -1,37 +1,54 @@
 # FILE: .codex/config.toml
-# Project-local Codex CLI configuration
-# NOTE: Keep this file in-repo so Codex always loads the same guardrails.
+[project]
+name = "silverstone-site-main"
+description = "Static site — Requested Edits 1–6 (shader colors, hero legibility, subtitle grey, image fit)."
 
+[model]
 model = "gpt-5.2-codex"
-reasoning_effort = "high"
-approval_policy = "never"
+temperature = 0.2
 
-# We need to run build scripts that write to the workspace (assets bundles).
-sandbox_mode = "workspace-write"
-
-# Main verification command Codex must run frequently (and must be green at the end).
+[execution]
+# Single source-of-truth command Codex must keep green.
 command = "bash scripts/codex.requested-edits.sh"
 
-# Files Codex should always load as control context.
-include = [
-  "ExecPlans.md",
-  "ExecPlan.md",
-  "PLANS.md",
-  "AGENTS.md",
-
-  "codex/REQUESTED_EDITS_SPEC.md",
-  "codex/REPO_UI_MAP.md",
-  "codex/MANUAL_QA_CHECKLIST.md",
-  "codex/UI_CHANGE_LOG.md",
-
-  "codex/CODEX_SYSTEM_PROMPT.md",
-  "codex/CODEX_INIT_PROMPT.md",
-]
-
-[features]
-# Allow the model to request web searches when needed.
+# IMPORTANT: allow Codex to use the internet during execution.
+network_access = true
 web_search_request = true
 
-[sandbox_workspace_write]
-# Allow network access inside the sandbox so requested web-search / external checks are possible.
-network_access = true
+[files]
+# Keep context tight to reduce scope drift and false coupling.
+include = [
+  "ExecPlan.md",
+  "ExecPlans.md",
+  "PLANS.md",
+  "AGENTS.md",
+  "codex/**/*.md",
+
+  "scripts/**/*.sh",
+  "scripts/**/*.js",
+
+  "src/css/**/*.css",
+  "src/js/**/*.js",
+
+  "index.html",
+  "about.html",
+  "services.html",
+  "book.html",
+  "contact.html",
+  "niches/**/*.html",
+
+  "assets/css/**/*.css",
+  "assets/js/**/*.js"
+]
+
+exclude = [
+  "node_modules/**",
+  "dist/**",
+  ".git/**",
+  ".agent/**",
+
+  # Out of scope for Requested Edits 1–6; reduces noise and prevents accidental edits.
+  "pricing-widget/**",
+  "niche_copy_templates/**",
+  "PRICING_COPY_MAP.md"
+]
