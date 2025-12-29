@@ -1,24 +1,22 @@
 <!-- FILE: codex/INITIATION.md -->
-# Codex Initiation (Human Guide)
+# Initiation (Human + Codex)
 
-This repo is configured for a constrained Codex workflow using:
-- an active ExecPlan
-- a single requested-edits validation script
-- deterministic spec markers
+This repo is designed for Codex CLI to implement UI changes safely.
 
-## What to run
+## Human steps
 
-1) Confirm the active plan:
-- Open `ExecPlans.md` and note the active ExecPlan (expected: `ExecPlan_UI_Fixes.md`).
+1. Ensure Node.js (LTS) and npm are available.
+2. From repo root, run:
+   - `npm install`
+   - `bash scripts/codex.setup.sh`
 
-2) Launch Codex CLI from the repo root and use the initiation prompt:
-- See `codex/CODEX_INIT_PROMPT.md` (or use the “Revised Initiation Prompt for Codex” in the current task instructions).
+## Starting Codex
 
-3) Validate continuously:
-- Run `bash scripts/codex.requested-edits.sh` after each gate in the ExecPlan.
+- Use the contents of `codex/CODEX_INIT_PROMPT.md` as your initial message.
+- Ensure Codex has access to the files listed in `.codex/config.toml`.
 
-## Important constraints
+## What “done” means
 
-- Only implement Requested Edits 1–4 in `codex/REQUESTED_EDITS_SPEC.md`.
-- Do not change site copy or restructure pages.
-- Do not hand-edit built assets under `assets/`; rebuild after editing sources.
+- `bash scripts/codex.requested-edits.sh` passes
+- `codex/MANUAL_QA_CHECKLIST.md` is completed
+- `codex/UI_CHANGE_LOG.md` includes a short summary and any deviations
