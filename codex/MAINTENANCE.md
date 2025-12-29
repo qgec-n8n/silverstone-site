@@ -1,31 +1,25 @@
 <!-- FILE: codex/MAINTENANCE.md -->
-# Maintenance & Regression Safety
+# Maintenance
 
-Use this document to keep the site stable after Requested Edits 1–12 are implemented.
+After any change touching CSS/JS or hero/shader wiring, run:
 
-## Golden command
+- `bash scripts/codex.maintenance.sh`
 
-Run at the end of any change set:
-- `bash scripts/codex.requested-edits.sh`
+This rebuilds outputs and re-runs the validators enforcing Requested Edits 1–6.
 
-## If a validator fails
+## If validations fail
 
-1. Read the failure output carefully.
-2. Identify which phase/change caused it.
-3. Fix the smallest set of files needed.
-4. Re-run the golden command.
+1. Read the error output carefully.
+2. Re-check `codex/REQUESTED_EDITS_SPEC.md` (scope + acceptance criteria).
+3. Fix the smallest possible area and re-run:
+   - `bash scripts/codex.requested-edits.sh`
 
-## Keeping bundles consistent
+## Keep proof markers intact
 
-- If you change `src/css/**`, re-run `npm run build:css`.
-- If you change `src/js/**`, re-run `npm run build:js`.
-- If you change `pricing-widget/src/**`, run `cd pricing-widget && npm run build`.
-
-Do not commit mismatched sources and generated assets.
-
-## Updating the spec
-
-If future work changes requirements:
-- Update `codex/REQUESTED_EDITS_SPEC.md`
-- Update `ExecPlan.md` (or create a new ExecPlan)
-- Update validators (`scripts/validate-requested-edits.js`, `scripts/assert-ui-spec.js`) accordingly
+Do not remove SPEC markers required by `node scripts/assert-ui-spec.js`:
+- `SPEC: SHADER_COLORS_PER_PAGE_2025_12`
+- `SPEC: HERO_NO_GLASS_PANEL_2025_12`
+- `SPEC: INDEX_STREAMLINE_WORKFLOWS_NOWRAP_2025_12`
+- `SPEC: SECTION_SUBTITLES_GREY_GLOBAL_2025_12`
+- `SPEC: SERVICES_NICHES_IMAGES_FILL_CARD_NO_HEIGHT_CROP_2025_12`
+- `SPEC: ABOUT_IMAGES_COPY_VISIBLE_NO_CROP_2025_12`
