@@ -3,22 +3,16 @@
 set -euo pipefail
 
 echo "[codex.maintenance] Rebuilding build outputs..."
-node build-css.js
-node scripts/build-js.js
+npm run build:css
+npm run build:js
 
-echo "[codex.maintenance] Validating marquee image list (must match assets/images/socialmedia)..."
-node scripts/generate-marquee-images.js --check
-
-echo "[codex.maintenance] Validating hero shader variants on core + niche pages..."
+echo "[codex.maintenance] Validating core + niche shader variants..."
 node scripts/validate-core-pages.js
 
-echo "[codex.maintenance] Validating services page requirements..."
-node scripts/validate-services-page.js
+echo "[codex.maintenance] Validating Requested Edits 1–6..."
+node scripts/validate-requested-edits.js --strict
 
-echo "[codex.maintenance] Validating niche pages requirements..."
-node scripts/validate-niche-pages.js
-
-echo "[codex.maintenance] Validating general UI invariants..."
+echo "[codex.maintenance] Validating required SPEC proof markers..."
 node scripts/assert-ui-spec.js
 
 echo "[codex.maintenance] ✅ All checks passed."
