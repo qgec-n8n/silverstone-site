@@ -58,7 +58,7 @@ img {
   font-size: 1rem;
   color: var(--color-silver);
   margin-bottom: 2rem;
-}
+} /* SPEC: GLOBAL_SECTION_SUBTITLE_GREY_2025_12 */
 
 .section > .container {
   position: relative;

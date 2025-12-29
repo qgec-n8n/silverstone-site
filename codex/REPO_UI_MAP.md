@@ -12,6 +12,19 @@ This file is a quick “where things live” map for the Requested Edits (1–12
 - Contact: `contact.html` (body class `page-contact`)
 - Niches: `niches/*.html` (body class `page-niche`)
 
+## Edit-specific HTML anchors (grounded selectors)
+
+- Home hero: `index.html` uses `<section class="hero title-band">` with `.content > h1`, `.content > p`, and a `.cta-buttons` wrapper holding CTA `<a>` elements.
+- Home stats: `index.html` “No hype. Just measurable wins.” section contains `.stats[data-counter="on"]` with `.number[data-target]` values and `.label` text.
+- Home services section: `index.html` uses `<section id="what-we-automate">` containing `<div class="packages-grid services-image-grid">` with 4 `.service-tile.neon-card` image tiles and `.js-premium-lightbox` triggers.
+- About stats: `about.html` “Experience by the Numbers” uses `.stats[data-counter="on"]` with 4 `.number[data-target]` blocks + `.label`.
+- Service-row images:
+  - `services.html`: `.service-row` → `.service-image.neon-card` → `<picture>` → `<img class="service-img">` for General_Services_*.webp.
+  - `about.html`: `.service-row` → `.service-image.neon-card` → `<img>` (no `.service-img` class).
+  - `niches/*.html`: `.service-row` → `.service-image.neon-card` → `<img class="service-img">`.
+- Calendly: `book.html` has preconnects + Calendly CSS in `<head>`; Calendly widget `<script src="https://assets.calendly.com/assets/external/widget.js" async>` near the end of body.
+- Section subtitles: `.section-subtitle` is the shared selector; some pages set inline styles (e.g., `contact.html` uses `style="color: var(--color-white)"`).
+
 ## Key UI systems and where they are implemented
 
 ### Pricing widget background (Edit #1)
@@ -66,6 +79,7 @@ CTA markup:
 - JS source: `src/js/marquee.js`
 - Lightbox element ID: `premium-lightbox`
 - Marquee images open lightbox by calling an internal `openLightbox(src)` function
+- Services gallery also injects the same lightbox in `src/js/gallery.js`
 
 Index services tiles must open the same lightbox:
 - Likely requires a small shared hook that reuses the same DOM structure (`#premium-lightbox`)

@@ -1,6 +1,9 @@
 <!-- FILE: codex/MANUAL_QA_CHECKLIST.md -->
 # Manual QA Checklist (Requested Edits 1–12)
 
+Status: NOT COMPLETED (manual QA not performed in this environment; server started but no browser verification).
+Date: 2025-02-12
+
 Complete this checklist before considering the work finished.
 
 ## Setup

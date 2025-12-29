@@ -42,6 +42,74 @@
   margin: 0 auto;
 }
 
+.services-image-grid .neon-card {
+  padding: 0;
+  overflow: hidden;
+  align-items: stretch;
+}
+
+.services-image-grid .service-tile {
+  display: flex;
+  flex-direction: column;
+  background: rgba(12, 16, 24, 0.5);
+}
+
+.service-tile__media {
+  position: relative;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: zoom-in;
+  width: 100%;
+  display: block;
+}
+
+.service-tile__media picture,
+.service-tile__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.service-tile__media img {
+  object-fit: contain;
+  background: rgba(8, 12, 24, 0.35);
+}
+
+.service-tile__zoom {
+  position: absolute;
+  bottom: 0.85rem;
+  right: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(8, 14, 24, 0.72);
+  color: var(--color-white);
+  border: 1px solid rgba(0, 174, 239, 0.35);
+  box-shadow: 0 10px 24px rgba(5, 12, 24, 0.4);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.service-tile__media:hover .service-tile__zoom,
+.service-tile__media:focus-visible .service-tile__zoom {
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+.service-tile__actions {
+  padding: 1rem 1.25rem 1.35rem;
+  display: flex;
+  justify-content: center;
+}
+
+.service-tile__actions .btn {
+  width: min(100%, 240px);
+  text-align: center;
+}
+
 .packages-grid .feature-card {
   width: 100%;
   max-width: 100%;
@@ -232,6 +300,16 @@
   .packages-grid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
+  }
+
+  .service-tile__zoom {
+    bottom: 0.65rem;
+    right: 0.65rem;
+    font-size: 0.7rem;
+  }
+
+  .service-tile__actions {
+    padding: 0.85rem 1rem 1.1rem;
   }
 
   .features {

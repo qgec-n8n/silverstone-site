@@ -150,8 +150,10 @@
       <p>
         We build simple automation systems that answer calls, follow up leads and chase admin while you get your evenings back.
       </p>
-      <a href="book.html" class="btn btn-primary">Book a Free 30‑Minute Automation Audit</a>
-      <a href="services.html" class="btn btn-secondary" style="margin-left: 1rem">Explore Services</a>
+      <div class="cta-buttons">
+        <a href="book.html" class="btn btn-primary">Book a Free 30‑Minute Automation Audit</a>
+        <a href="services.html" class="btn btn-secondary">Explore Services</a>
+      </div>
     </div>
   </section>
   <!-- Feature overview section -->
@@ -191,6 +193,7 @@
         If you’re sceptical about AI, start with the basics: we build simple automation that answers calls, follows up leads and chases admin in the background, so small teams can win back time, reduce no-shows and respond instantly — even outside office hours.
       </p>
       <!-- SS_STATS_SPEC: ICONS_ADDED_HOME_ABOUT -->
+      <!-- SPEC: INDEX_NO_HYPE_STATS_COPY_UPDATED_2025_12 -->
       <div class="stats" data-counter="on">
         <div class="neon-card stat">
           <div class="stat-icon"><i class="fa-solid fa-bell"></i></div>
@@ -202,78 +205,82 @@
           <div class="number" data-target="780">0</div>
           <div class="label">Potential Hours Reclaimed Per Year</div>
         </div>
-        <div class="neon-card stat">
+        <div class="neon-card stat" data-full-stat="100% of all calls, emails and texts answered">
           <div class="stat-icon"><i class="fa-solid fa-gears"></i></div>
-          <div class="number" data-target="100">0</div>
-          <div class="label">Times Better Contact Odds in 5 Minutes</div>
+          <div class="number" data-target="100" data-plus="%">0</div>
+          <div class="label">of all calls, emails and texts answered</div>
         </div>
-        <div class="neon-card stat">
+        <div class="neon-card stat" data-full-stat="10x Lead Conversion Rate">
           <div class="stat-icon"><i class="fa-solid fa-check-circle"></i></div>
-          <div class="number" data-target="80">0</div>
-          <div class="label">Callers Lost to Voicemail</div>
+          <div class="number" data-target="10" data-plus="x">0</div>
+          <div class="label">Lead Conversion Rate</div>
         </div>
       </div>
-      <h2 class="section-title" style="margin-top: 3rem">What we automate</h2>
-      <p class="section-subtitle">
-        Four practical ways we help UK small businesses save time, respond faster, and keep customers moving - without ripping out the tools you already use.
-      </p>
-      <div class="packages-grid">
-        <!-- AI Consulting for Small Business -->
-        <div class="feature-card neon-card card-ai-consulting">
-          <!-- Wrap icon and header in a flex container so they sit on the same line -->
-          <div class="service-title">
-            <img src="assets/icons/ai-consulting-transparent.png" alt="AI Consulting Icon" class="service-icon-img" />
-            <h3>AI Consulting & Readiness</h3>
+      <section id="what-we-automate">
+        <h2 class="section-title" style="margin-top: 3rem">What we automate</h2>
+        <p class="section-subtitle">
+          Four practical ways we help UK small businesses save time, respond faster, and keep customers moving - without ripping out the tools you already use.
+        </p>
+        <!-- SPEC: INDEX_SERVICES_IMAGE_GRID_2025_12 -->
+        <div class="packages-grid services-image-grid">
+          <div class="service-tile neon-card">
+            <button class="service-tile__media js-premium-lightbox" type="button"
+              aria-label="Expand AI Consulting &amp; Readiness automation tile">
+              <picture>
+                <source srcset="assets/images/socialmedia/services_consulting_mobile.jpg" media="(max-width: 768px)">
+                <img src="assets/images/socialmedia/services_consulting.jpg"
+                  alt="AI consulting and automation readiness overview" loading="lazy" />
+              </picture>
+              <span class="service-tile__zoom">Tap to expand</span>
+            </button>
+            <div class="service-tile__actions">
+              <a href="services.html" class="btn btn-secondary">Explore consulting</a>
+            </div>
           </div>
-          <p class="tagline">Get clear on what to automate first - and what to leave alone.</p>
-          <p class="bullet"><i class="fa-solid fa-lightbulb"></i>Find the highest-ROI quick wins</p>
-          <p class="bullet"><i class="fa-solid fa-robot"></i>Choose the right tools (and avoid expensive detours)</p>
-          <p class="bullet"><i class="fa-solid fa-shield-halved"></i>Leave with a simple, prioritised roadmap</p>
-          <a href="services.html" class="btn btn-secondary">Book the audit</a>
-        </div>
-        <!-- Marketing Automation -->
-        <div class="feature-card neon-card card-marketing">
-          <!-- Wrap icon and header in a flex container so they sit on the same line -->
-          <div class="service-title">
-            <img src="assets/icons/marketing-automation-transparent.png" alt="Marketing Automation Icon"
-              class="service-icon-img" />
-            <h3>Automated Lead Follow-Up</h3>
+          <div class="service-tile neon-card">
+            <button class="service-tile__media js-premium-lightbox" type="button"
+              aria-label="Expand Automated Lead Follow-Up automation tile">
+              <picture>
+                <source srcset="assets/images/socialmedia/services_lead_followup_mobile.jpg" media="(max-width: 768px)">
+                <img src="assets/images/socialmedia/services_lead_followup.jpg"
+                  alt="Automated lead follow-up automation system overview" loading="lazy" />
+              </picture>
+              <span class="service-tile__zoom">Tap to expand</span>
+            </button>
+            <div class="service-tile__actions">
+              <a href="services.html" class="btn btn-secondary">Automate follow-up</a>
+            </div>
           </div>
-          <p class="tagline">Stop enquiries going cold with fast, personal follow-up.</p>
-          <p class="bullet"><i class="fa-solid fa-gears"></i>Instant replies across forms, email and messaging</p>
-          <p class="bullet"><i class="fa-solid fa-robot"></i>Qualification questions that route leads correctly</p>
-          <p class="bullet"><i class="fa-solid fa-chart-line"></i>Follow-ups that turn interest into booked calls</p>
-          <a href="services.html" class="btn btn-secondary">Automate follow-up</a>
-        </div>
-        <!-- Workflow & Data Automation -->
-        <div class="feature-card neon-card card-workflow">
-          <!-- Wrap icon and header in a flex container so they sit on the same line -->
-          <div class="service-title">
-            <img src="assets/icons/workflow-data-transparent.png" alt="Workflow &amp; Data Icon"
-              class="service-icon-img" />
-            <h3>Workflow Automation & Reporting</h3>
+          <div class="service-tile neon-card">
+            <button class="service-tile__media js-premium-lightbox" type="button"
+              aria-label="Expand Workflow Automation &amp; Reporting tile">
+              <picture>
+                <source srcset="assets/images/socialmedia/services_workflow_automation_mobile.jpg" media="(max-width: 768px)">
+                <img src="assets/images/socialmedia/services_workflow_automation.jpg"
+                  alt="Workflow automation and reporting systems overview" loading="lazy" />
+              </picture>
+              <span class="service-tile__zoom">Tap to expand</span>
+            </button>
+            <div class="service-tile__actions">
+              <a href="services.html" class="btn btn-secondary">Streamline workflows</a>
+            </div>
           </div>
-          <p class="tagline">Remove manual admin and get visibility across your ops.</p>
-          <p class="bullet"><i class="fa-solid fa-gears"></i>Automate repetitive tasks and handoffs</p>
-          <p class="bullet"><i class="fa-solid fa-chart-bar"></i>Live dashboards from your existing data</p>
-          <p class="bullet"><i class="fa-solid fa-calendar-check"></i>Reduce errors with consistent processes</p>
-          <a href="services.html" class="btn btn-secondary">Remove busywork</a>
-        </div>
-        <!-- Systems & Data Integration -->
-        <div class="feature-card neon-card card-systems">
-          <!-- Wrap icon and header in a flex container so they sit on the same line -->
-          <div class="service-title">
-            <img src="assets/icons/systems-integration-new.png" alt="Systems Integration Icon"
-              class="service-icon-img" />
-            <h3>Systems & Data Integration</h3>
+          <div class="service-tile neon-card">
+            <button class="service-tile__media js-premium-lightbox" type="button"
+              aria-label="Expand Systems &amp; Data Integration tile">
+              <picture>
+                <source srcset="assets/images/socialmedia/services_data_integration_mobile.jpg" media="(max-width: 768px)">
+                <img src="assets/images/socialmedia/services_data_integration.jpg"
+                  alt="Systems and data integration automation overview" loading="lazy" />
+              </picture>
+              <span class="service-tile__zoom">Tap to expand</span>
+            </button>
+            <div class="service-tile__actions">
+              <a href="services.html" class="btn btn-secondary">Connect your stack</a>
+            </div>
           </div>
-          <p class="tagline">Connect your tools so data flows without copy-paste.</p>
-          <p class="bullet"><i class="fa-solid fa-network-wired"></i>Link CRM, booking, email and payments</p>
-          <p class="bullet"><i class="fa-solid fa-plug"></i>Create a single source of truth across systems</p>
-          <p class="bullet"><i class="fa-solid fa-code"></i>Keep data clean for better decisions</p>
-          <a href="services.html" class="btn btn-secondary">Connect your stack</a>
         </div>
-      </div>
+      </section>
       
       <!-- Typical outcomes strip: representative benchmarks from wider automation use -->
       <h2 class="section-title" style="margin-top: 4rem">What small businesses usually get back</h2>

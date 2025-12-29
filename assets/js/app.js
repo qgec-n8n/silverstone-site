@@ -191,9 +191,8 @@
       window.scrollTo(0, previousScrollY);
       isMobileNavOpen = false;
       if (navToggle) navToggle.classList.remove('active');
-      setTimeout(() => {
-        scheduleHeaderAutoHide();
-      }, MINIMIZE_REENABLE_DELAY_MS + MOBILE_NAV_PANEL_SLIDE_MS);
+      showHeader();
+      scheduleHeaderAutoHide(MOBILE_NAV_PANEL_SLIDE_MS);
     }
 
     function openServicesPanel() {
@@ -320,11 +319,8 @@
       navToggle.addEventListener('click', (event) => {
         event.stopPropagation();
         if (isMobileViewport()) {
-          if (isMobileNavOpen) {
-            closeMobileNav();
-          } else {
-            openMobileNav();
-          }
+          if (isMobileNavOpen) return;
+          openMobileNav();
           return;
         }
         closeServicesDropdown();
@@ -427,9 +423,6 @@
       });
     }
 
-    if (mobileBackdrop) {
-      mobileBackdrop.addEventListener('click', closeMobileNav);
-    }
     if (mobileTopBackButton) {
       mobileTopBackButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -458,16 +451,15 @@
       }
     });
 
+    // SPEC: MOBILE_MENU_BANNER_TWO_STEP_2025_12
     headerIndicator.addEventListener('click', (event) => {
       event.stopPropagation();
       closeServicesDropdown();
       closeServicesOverlay();
       if (isMobileViewport()) {
-        if (isMobileNavOpen) {
-          closeMobileNav();
-        } else {
-          openMobileNav();
-        }
+        showHeader();
+        clearTimeout(headerAutoHideTimeoutId);
+        scheduleHeaderAutoHide(MINIMIZE_REENABLE_DELAY_MS);
         return;
       }
       showHeader();
@@ -1540,9 +1532,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 120);
   }
 
+  function bindServiceTileLightbox() {
+    const triggers = document.querySelectorAll('.js-premium-lightbox');
+    if (!triggers.length) return;
+
+    ensureLightbox();
+
+    triggers.forEach((trigger) => {
+      if (trigger.dataset.ssLightboxBound === '1') return;
+      trigger.dataset.ssLightboxBound = '1';
+
+      trigger.addEventListener('click', () => {
+        const img = trigger.querySelector('img');
+        const src = img ? img.currentSrc || img.src : '';
+        if (!src) return;
+        openLightbox(src);
+      });
+    });
+  } // SPEC: INDEX_SERVICES_IMAGE_LIGHTBOX_2025_12
+
   function init() {
     initSingleMarquee();
     initDoubleMarquee();
+    bindServiceTileLightbox();
   }
 
   if (document.readyState === 'loading') {
@@ -1551,7 +1563,6 @@ document.addEventListener('DOMContentLoaded', () => {
     init();
   }
 })();
-
 
 
 /**

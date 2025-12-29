@@ -300,9 +300,29 @@
     }, 120);
   }
 
+  function bindServiceTileLightbox() {
+    const triggers = document.querySelectorAll('.js-premium-lightbox');
+    if (!triggers.length) return;
+
+    ensureLightbox();
+
+    triggers.forEach((trigger) => {
+      if (trigger.dataset.ssLightboxBound === '1') return;
+      trigger.dataset.ssLightboxBound = '1';
+
+      trigger.addEventListener('click', () => {
+        const img = trigger.querySelector('img');
+        const src = img ? img.currentSrc || img.src : '';
+        if (!src) return;
+        openLightbox(src);
+      });
+    });
+  } // SPEC: INDEX_SERVICES_IMAGE_LIGHTBOX_2025_12
+
   function init() {
     initSingleMarquee();
     initDoubleMarquee();
+    bindServiceTileLightbox();
   }
 
   if (document.readyState === 'loading') {
@@ -311,4 +331,3 @@
     init();
   }
 })();
-

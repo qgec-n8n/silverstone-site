@@ -326,10 +326,10 @@
 .service-image.neon-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border: 1px solid rgba(0, 174, 239, 0.55);
   box-shadow: 0 0 32px rgba(0, 174, 239, 0.35);
-}
+} /* SPEC: SERVICE_IMAGES_CONTAIN_NO_CROP_2025_12 */
 
 .service-content.neon-card {
   padding: calc(1.5rem * var(--service-scale));

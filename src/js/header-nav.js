@@ -191,9 +191,8 @@
       window.scrollTo(0, previousScrollY);
       isMobileNavOpen = false;
       if (navToggle) navToggle.classList.remove('active');
-      setTimeout(() => {
-        scheduleHeaderAutoHide();
-      }, MINIMIZE_REENABLE_DELAY_MS + MOBILE_NAV_PANEL_SLIDE_MS);
+      showHeader();
+      scheduleHeaderAutoHide(MOBILE_NAV_PANEL_SLIDE_MS);
     }
 
     function openServicesPanel() {
@@ -320,11 +319,8 @@
       navToggle.addEventListener('click', (event) => {
         event.stopPropagation();
         if (isMobileViewport()) {
-          if (isMobileNavOpen) {
-            closeMobileNav();
-          } else {
-            openMobileNav();
-          }
+          if (isMobileNavOpen) return;
+          openMobileNav();
           return;
         }
         closeServicesDropdown();
@@ -427,9 +423,6 @@
       });
     }
 
-    if (mobileBackdrop) {
-      mobileBackdrop.addEventListener('click', closeMobileNav);
-    }
     if (mobileTopBackButton) {
       mobileTopBackButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -458,16 +451,15 @@
       }
     });
 
+    // SPEC: MOBILE_MENU_BANNER_TWO_STEP_2025_12
     headerIndicator.addEventListener('click', (event) => {
       event.stopPropagation();
       closeServicesDropdown();
       closeServicesOverlay();
       if (isMobileViewport()) {
-        if (isMobileNavOpen) {
-          closeMobileNav();
-        } else {
-          openMobileNav();
-        }
+        showHeader();
+        clearTimeout(headerAutoHideTimeoutId);
+        scheduleHeaderAutoHide(MINIMIZE_REENABLE_DELAY_MS);
         return;
       }
       showHeader();
