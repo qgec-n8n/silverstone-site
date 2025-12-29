@@ -208,9 +208,9 @@
 .page-services .service-row .service-image .service-img {
   width: auto !important;
   height: 100% !important;
-  max-width: 100% !important;
+  max-width: none !important;
   object-fit: contain !important;
-  margin: 0 auto;
+  margin: 0;
   display: block;
   border: 0 !important;
   background: transparent !important;

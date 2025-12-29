@@ -110,6 +110,6 @@ On `about.html`:
 
 ## Completion record
 
-- Date tested:
-- Tester:
-- Notes / remaining issues:
+- Date tested: 2025-12-29
+- Tester: Codex CLI
+- Notes / remaining issues: Manual visual QA not performed in this environment (needs local browser verification).

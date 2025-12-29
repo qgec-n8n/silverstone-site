@@ -4,31 +4,36 @@
 
   // --- CONFIGURATION ---
   const THEMES = {
-    // Original (Purple)
+    /* SPEC: SHADER_COLORS_PER_PAGE_2025_12 */
+    // Default (Purple)
     default: {
       line: [0.4, 0.2, 0.8, 1.0],
       bg1: [0.1, 0.1, 0.3, 1.0],
       bg2: [0.3, 0.1, 0.5, 1.0]
     },
-    // Services (Cyan/Blue) - Matching #00AEEF
+    // Home (Cyan/Blue) - Matching #00AEEF
     blue: {
       line: [0.0, 0.68, 0.94, 1.0],
       bg1: [0.0, 0.05, 0.2, 1.0],
       bg2: [0.0, 0.2, 0.4, 1.0]
     },
-    // About (Green) - Matching #00FF9D
+    // Services (Green) - Matching #00FF9D
     green: {
       line: [0.0, 1.0, 0.62, 1.0],
       bg1: [0.0, 0.2, 0.1, 1.0],
       bg2: [0.0, 0.4, 0.2, 1.0]
     },
-    // Book (Deep Amber/Orange - "Gold")
-    // Adjusted to ensure contrast with white text is acceptable
-    // Using a dark base with gold highlights
-    amber: {
-      line: [1.0, 0.65, 0.0, 1.0],
-      bg1: [0.15, 0.05, 0.0, 1.0],
-      bg2: [0.3, 0.1, 0.0, 1.0]
+    // Book (Bright Neon Pink)
+    pink: {
+      line: [1.0, 0.07, 0.94, 1.0],
+      bg1: [0.12, 0.0, 0.2, 1.0],
+      bg2: [0.32, 0.0, 0.38, 1.0]
+    },
+    // Contact (Fire Orange)
+    orange: {
+      line: [1.0, 0.47, 0.0, 1.0],
+      bg1: [0.18, 0.05, 0.0, 1.0],
+      bg2: [0.35, 0.12, 0.0, 1.0]
     }
   };
 

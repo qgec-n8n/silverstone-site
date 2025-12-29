@@ -8,11 +8,11 @@
 - Target command (must pass at end): `bash scripts/codex.requested-edits.sh`
 
 Progress (update as you go):
-- [ ] Gate 0 — Setup + baseline validation run captured
-- [ ] Gate 1 — Discovery + repo map updated
-- [ ] Gate 2 — Implementation approach written + scoped
-- [ ] Gate 3 — Implemented Requested Edits 1–6 (only)
-- [ ] Gate 4 — Automated verification passes
+- [x] Gate 0 — Setup + baseline validation run captured
+- [x] Gate 1 — Discovery + repo map updated
+- [x] Gate 2 — Implementation approach written + scoped
+- [x] Gate 3 — Implemented Requested Edits 1–6 (only)
+- [x] Gate 4 — Automated verification passes
 - [ ] Gate 5 — Manual QA checklist completed
 - [ ] Gate 6 — Regression scan + final evidence table completed
 
@@ -182,22 +182,22 @@ Exit criteria:
 Fill this table in-place (or replicate in `codex/UI_CHANGE_LOG.md`):
 
 - Edit 1 — Shader colors per page  
-  Evidence: (pages + variant mechanism + proof marker + validator output)
+  Evidence: `about.html` data-variant="default", `services.html` data-variant="green", `book.html` data-variant="pink", `contact.html` data-variant="orange"; theme map in `src/js/hero-shader.js` with `SPEC: SHADER_COLORS_PER_PAGE_2025_12`; `node scripts/validate-core-pages.js` + `bash scripts/codex.requested-edits.sh` pass.
 
 - Edit 2 — Hero glass panel removed + legibility maintained  
-  Evidence: (CSS rule changed + proof marker + validator output + manual QA notes)
+  Evidence: `.hero.title-band .content` in `src/css/components/hero.css` has no background/border/shadow/blur and includes `SPEC: HERO_NO_GLASS_PANEL_2025_12`; `node scripts/validate-requested-edits.js --strict` pass; manual QA pending (see checklist).
 
 - Edit 3 — Index “Streamline workflows” one-line button  
-  Evidence: (selector/class + proof marker + validator output + manual QA at mobile)
+  Evidence: `index.html` anchor has `btn-nowrap`; `.btn-nowrap` rule + `SPEC: INDEX_STREAMLINE_WORKFLOWS_NOWRAP_2025_12` in `src/css/components/buttons.css`; `node scripts/validate-requested-edits.js --strict` pass; manual QA pending.
 
 - Edit 4 — Section subtitles grey across all pages (incl. niches)  
-  Evidence: (CSS token change + inline style cleanup + validator scan output)
+  Evidence: `.section-subtitle` uses `var(--color-silver-original)` + `SPEC: SECTION_SUBTITLES_GREY_GLOBAL_2025_12` in `src/css/base/layout.css`; inline `color: var(--color-silver)` removed from core + niche HTML; `node scripts/validate-requested-edits.js --strict` pass.
 
 - Edit 5 — Services + niches images fill card (width crop only; no height crop)  
-  Evidence: (CSS approach + proof marker + manual QA screenshots/notes)
+  Evidence: `.page-services/.page-niche .service-img` fill rule + `SPEC: SERVICES_NICHES_IMAGES_FILL_CARD_NO_HEIGHT_CROP_2025_12` in `src/css/components/cards.css` with `height: 100%`, `width: auto`, `max-width: none`, centering; services/niche overrides aligned in `src/css/pages/services.css` + `src/css/pages/estate-agents.css`; `node scripts/validate-requested-edits.js --strict` pass; manual QA pending.
 
 - Edit 6 — About images: copy visible (top-safe)  
-  Evidence: (CSS `object-position` / non-cropping approach + manual QA notes)
+  Evidence: `.page-about .service-image img` in `src/css/pages/about.css` uses `object-fit: contain` + `object-position: top center` with `SPEC: ABOUT_IMAGES_COPY_VISIBLE_NO_CROP_2025_12`; `node scripts/validate-requested-edits.js --strict` pass; manual QA pending.
 
 Exit criteria:
 - Evidence recorded for all six edits.

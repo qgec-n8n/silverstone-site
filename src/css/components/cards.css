@@ -277,6 +277,17 @@
   object-fit: contain;
 }
 
+.page-services .service-image .service-img,
+.page-niche .service-image .service-img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: auto;
+  height: 100%;
+  max-width: none;
+  transform: translateX(-50%);
+} /* SPEC: SERVICES_NICHES_IMAGES_FILL_CARD_NO_HEIGHT_CROP_2025_12 */
+
 .service-content h3 {
   font-family: var(--font-heading);
   font-size: 1.75rem;
