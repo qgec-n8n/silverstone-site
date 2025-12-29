@@ -1,28 +1,31 @@
 <!-- FILE: codex/MAINTENANCE.md -->
-# Codex Maintenance
+# Maintenance & Regression Safety
 
-This repo intentionally uses marker comments + validators to keep UI work deterministic and regression-resistant.
+Use this document to keep the site stable after Requested Edits 1–12 are implemented.
 
-## One-command rebuild + validate
+## Golden command
 
-From repo root:
+Run at the end of any change set:
 - `bash scripts/codex.requested-edits.sh`
 
-This script:
-- installs deps (root and pricing-widget)
-- builds `assets/css/styles.css`
-- bundles site JS
-- builds the pricing widget into `assets/css/pricing-widget.css` and `assets/js/pricing-widget.js`
-- runs repo validators
+## If a validator fails
 
-## Fixing validator failures
+1. Read the failure output carefully.
+2. Identify which phase/change caused it.
+3. Fix the smallest set of files needed.
+4. Re-run the golden command.
 
-- Fix failures in source files (HTML/CSS/JS), then rebuild via scripts.
-- Do not patch `assets/` outputs directly.
-- If a validator expects an SS_* marker, keep it exactly as specified in `codex/REQUESTED_EDITS_SPEC.md`.
+## Keeping bundles consistent
 
-## Dependency resets
+- If you change `src/css/**`, re-run `npm run build:css`.
+- If you change `src/js/**`, re-run `npm run build:js`.
+- If you change `pricing-widget/src/**`, run `cd pricing-widget && npm run build`.
 
-If installs become inconsistent:
-- remove `node_modules/` and `pricing-widget/node_modules/`
-- re-run `bash scripts/codex.requested-edits.sh`
+Do not commit mismatched sources and generated assets.
+
+## Updating the spec
+
+If future work changes requirements:
+- Update `codex/REQUESTED_EDITS_SPEC.md`
+- Update `ExecPlan.md` (or create a new ExecPlan)
+- Update validators (`scripts/validate-requested-edits.js`, `scripts/assert-ui-spec.js`) accordingly
