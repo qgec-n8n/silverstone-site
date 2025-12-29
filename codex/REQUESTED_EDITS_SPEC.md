@@ -1,276 +1,164 @@
 <!-- FILE: codex/REQUESTED_EDITS_SPEC.md -->
-# Requested Edits Specification (1–12)
+# Requested Edits Spec (1–6) — Source of Truth
 
-Version: 2025-12-29  
-Applies to: `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `niches/*.html`, and the pricing widget.
+This document is the **only** authoritative requirements list for the current Codex run.
 
-This document is the **requirements contract**. Codex must implement these edits exactly and prove compliance via validation + manual QA.
+## Scope (do exactly this)
 
-## Global rules
+Implement **Requested Edits 1–6** only. Any other edit lists (especially anything mentioning pricing) are out of scope and must be ignored.
 
-- Only implement what is requested here (no unrelated redesigns).
-- All changes must be grounded in existing repo patterns.
-- When touching `src/css/**` or `src/js/**`, rebuild the generated bundles in `assets/`.
-- Add the required `SPEC:` proof markers so validators can confirm completion.
+## Proof markers (required)
 
-## Proof markers required (must be added to the implementation)
+For reliability, Codex must add these SPEC markers near the final implementation points:
 
-These strings must exist in the relevant source files after implementation:
+- Edit 1: `SPEC: SHADER_COLORS_PER_PAGE_2025_12`
+- Edit 2: `SPEC: HERO_NO_GLASS_PANEL_2025_12`
+- Edit 3: `SPEC: INDEX_STREAMLINE_WORKFLOWS_NOWRAP_2025_12`
+- Edit 4: `SPEC: SECTION_SUBTITLES_GREY_GLOBAL_2025_12`
+- Edit 5: `SPEC: SERVICES_NICHES_IMAGES_FILL_CARD_NO_HEIGHT_CROP_2025_12`
+- Edit 6: `SPEC: ABOUT_IMAGES_COPY_VISIBLE_NO_CROP_2025_12`
 
-Pricing widget:
-- `SS_PRICING_SPEC: LIGHT_MODE_BG_VIBRANCY_BOOST_2025_12`
+These markers are enforced by `node scripts/assert-ui-spec.js`.
 
-Global typography / hero:
-- `SPEC: GLOBAL_SECTION_SUBTITLE_GREY_2025_12`
-- `SPEC: HERO_SUBTITLE_NONWHITE_2025_12`
-- `SPEC: HERO_TEXT_LEGIBILITY_GLASS_PANEL_2025_12`
-- `SPEC: HERO_CTA_GAP_2025_12`
-- `SPEC: MOBILE_HERO_LAYOUT_TUNING_2025_12`
+---
 
-Images next to cards:
-- `SPEC: SERVICES_IMAGE_NEON_BORDER_MATCH_NICHES_2025_12`
-- `SPEC: SERVICE_IMAGES_CONTAIN_NO_CROP_2025_12`
+## Edit 1 — Shader colors per page
 
-Calendly:
-- `SPEC: CALENDLY_EARLY_LOAD_2025_12`
+### Requirement
+- `about.html` shader: **purple**
+- `services.html` hero shader: **green**
+- `book.html` shader: **bright neon pink**
+- `contact.html` hero shader: **fire orange**
 
-Content updates:
-- `SPEC: ABOUT_STATS_UPDATED_2025_12`
-- `SPEC: INDEX_NO_HYPE_STATS_COPY_UPDATED_2025_12`
+### Implementation constraints
+- Keep the existing shader architecture (theme map + per-page selector mechanism).
+- Prefer per-page wiring via a single clear mechanism (e.g., canvas `data-variant`).
 
-Index services images:
-- `SPEC: INDEX_SERVICES_IMAGE_GRID_2025_12`
-- `SPEC: INDEX_SERVICES_IMAGE_LIGHTBOX_2025_12`
+### Color intent (guidance)
+- Purple: should match the existing “default” purple look (dark purples + vivid purple lines).
+- Green: should read as neon green on a dark background.
+- Bright neon pink: recommended hex family: neon pink (#FF10F0 / #FF13F0 range).
+- Fire orange: recommended hex family: fire orange (#FF7700 range) and/or deep flame oranges.
 
-Mobile menu behavior:
-- `SPEC: MOBILE_MENU_BANNER_TWO_STEP_2025_12`
+### Acceptance criteria
+- Opening each page shows the correct dominant shader hue immediately.
+- The chosen colors do not reduce hero text legibility (especially after Edit 2).
 
-## Requested edits
+### Proof
+- Add `SPEC: SHADER_COLORS_PER_PAGE_2025_12` in the shader theme definition file near the updated theme map.
 
-### 1) Pricing widget “white background” tint vibrancy
+---
 
-Scope:
-- Pricing widget surfaces on: `services.html`, `index.html`, `niches/*.html`
-- Source of truth: `pricing-widget/src/pricing-widget.css`
+## Edit 2 — Remove blurred hero content container (keep extreme legibility)
 
-Requirement:
-- The pinks and blues in the light/white background must be **more vibrant/visible**, while preserving the overall aesthetic.
+### Requirement
+Remove the blurred “glass” container behind hero copy + CTA buttons. Replace with typography/color/layout changes so:
+- shader is visible behind content (no big translucent panel)
+- hero copy/CTAs remain **extremely legible**
+- works on mobile + desktop
 
-Constraints:
-- Do not change the core layout of pricing cards.
-- Avoid reducing text legibility; if contrast drops, adjust back.
+### Implementation constraints
+- Do not add a new solid/blurred panel elsewhere to “cheat” the requirement.
+- Prefer text-shadow, spacing, max-width, and thoughtful layout over background overlays.
 
-Verification:
-- Automated: `node scripts/validate-pricing-ui-tuning.js`
-- Visual: open pages with pricing and confirm tint is visible at a glance.
+### Acceptance criteria
+- The hero text area has no blurred/translucent background container.
+- Copy is readable at common breakpoints (mobile + desktop) across core + niche pages.
 
-### 2) services.html images: neon border must match niches
+### Proof
+- Add `SPEC: HERO_NO_GLASS_PANEL_2025_12` near the updated hero content rule.
 
-Scope:
-- `services.html` images next to cards:
-  - `assets/images/socialmedia/General_Services_1.webp`
-  - `assets/images/socialmedia/General_Services_2A.webp`
-  - `assets/images/socialmedia/General_Services_2B.webp`
-  - `assets/images/socialmedia/General_Services_3.webp`
-- Reference implementation: `niches/*.html` + `src/css/pages/estate-agents.css` (tight border technique)
+---
 
-Requirement:
-- Services page images must have the **same neon border wrapping** as niche images: tight border, no extra inner padding, no cropping.
+## Edit 3 — index.html: “Streamline workflows” stays on one line
 
-Constraints:
-- Implement using the same technique as niche pages (padding 0 on wrapper, overflow hidden, object-fit contain, consistent radius).
+### Requirement
+On `index.html`, ensure the “Streamline workflows” button text stays on a single line.
 
-Verification:
-- Visual parity check: open a niche page and services page; compare border+padding behavior.
-- Automated: `node scripts/validate-requested-edits.js --strict` (and existing services validator).
+### Implementation constraints
+- Use a deterministic mechanism (recommended: add a `btn-nowrap` class to that anchor and a `.btn-nowrap { white-space: nowrap; }` rule).
 
-### 3) All pages: “white sentences” under blue section headings → grey
+### Acceptance criteria
+- The label never wraps at common mobile widths.
+- Does not cause overflow or layout breakage.
 
-Scope:
-- Applies to: `index.html`, `about.html`, `services.html`, `niches/*.html`, `book.html`, `contact.html`
+### Proof
+- Add `SPEC: INDEX_STREAMLINE_WORKFLOWS_NOWRAP_2025_12` near the HTML class change and/or the CSS rule.
 
-Requirement:
-- Any non-card sentence directly under blue section headings (typically `.section-title`) must be grey, not white.
+---
 
-Implementation guidance:
-- Prefer changing the shared subtitle styling token / selector (e.g., `.section-subtitle`) rather than patching per-page.
+## Edit 4 — Section subtitles (white subheadings) must be grey across ALL pages
 
-Constraints:
-- Do not change text inside cards.
+### Requirement
+Across all pages including `niches/*.html`, change the “white subheadings” (white subtitles under blue titles in body sections) to **grey**.
 
-Verification:
-- Manual sweep of all pages listed above.
+### Notes
+- Many pages currently force subtitle color via:
+  - variable overrides that turn “silver” into white
+  - inline styles like `color: var(--color-silver)` which may resolve to white
+- Fix must apply across all pages, not just index.
 
-### 4) Hero subtitle must be a non-white color
+### Acceptance criteria
+- Subtitles under blue section titles are grey on:
+  - `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`
+  - every `niches/*.html`
+- Inline styles do not force white or “silver-that-becomes-white”.
 
-Scope:
-- Hero section across all pages using the shader title-band hero.
+### Proof
+- Add `SPEC: SECTION_SUBTITLES_GREY_GLOBAL_2025_12` near the `.section-subtitle` definition change.
 
-Requirement:
-- The sentence directly under the hero title must not render as pure white.
+---
 
-Verification:
-- Manual: check hero subtitle color is clearly not white.
+## Edit 5 — Services + niche page images fill card (width crop only, no height crop)
 
-### 5) Hero shader text legibility (premium approach)
+### Requirement
+On `services.html` and `niches/*.html`, ensure the image fills its card:
+- width may be cropped to fit
+- height must not be cropped
+- crop as little as possible
 
-Scope:
-- Shader hero with animated canvas background.
+### Implementation constraints
+- This must not break about page images (Edit 6).
+- Recommended approach:
+  - target `.service-img` on `.page-services` and `.page-niche`
+  - allow horizontal overflow by removing `max-width: 100%`
+  - size the image by height and clip overflow in width
 
-Requirement:
-- Make text noticeably more legible while keeping shader animation clearly visible.
+### Acceptance criteria
+- No “letterboxing” inside the image card on desktop layouts.
+- Visible crop (if any) happens on left/right edges only, not top/bottom.
 
-Implementation guidance (premium/professional):
-- Use a subtle glass/overlay behind the text block (not a heavy full-screen overlay).
-- Prefer balanced contrast and a refined panel over extreme text shadows.
+### Proof
+- Add `SPEC: SERVICES_NICHES_IMAGES_FILL_CARD_NO_HEIGHT_CROP_2025_12` near the final CSS rule.
 
-Verification:
-- Manual: on desktop and mobile, the shader is visible and copy is readable instantly.
+---
 
-### 6) Hero CTA buttons spacing (all pages)
+## Edit 6 — About page images: copy must remain visible (top-safe)
 
-Scope:
-- Any page with hero CTAs (observed: `index.html`, `services.html`, `niches/*.html`)
+### Requirement
+On `about.html`, ensure the image fits the card and **all embedded copy in the image is visible**, especially copy near the top of two images.
 
-Requirement:
-- Add spacing so stacked buttons never touch:
-  - When buttons wrap horizontally on narrow widths
-  - When buttons stack vertically on mobile
+### Implementation constraints
+- Do not use a cropping approach on about images.
+- Strongly recommended:
+  - keep `object-fit: contain` for about images
+  - pin `object-position` to top (top-safe)
 
-Verification:
-- Manual: resize viewport until wrapping occurs.
+### Acceptance criteria
+- No text embedded in the about images is cut off on any breakpoint.
+- About page images still sit cleanly within their cards.
 
-### 7) Images next to cards: quality, fit, border
+### Proof
+- Add `SPEC: ABOUT_IMAGES_COPY_VISIBLE_NO_CROP_2025_12` near the about-specific image rule.
 
-Scope:
-- Pages: `about.html`, `services.html`, `niches/*.html`
-- Targets: the “image next to card” layouts (service-row patterns).
+---
 
-Requirements:
-- Images must not be pixelated.
-- Images must not be cropped; must be fully visible.
-- Neon border must be tight and consistent.
-- Images should display high-definition; text inside images must not be visibly pixelated.
+## Verification contract
 
-Implementation guidance:
-- Ensure `object-fit: contain` (not cover) for these specific images.
-- Verify referenced assets exist and are high-resolution.
+Codex must use:
+- Automated:
+  - `bash scripts/codex.requested-edits.sh`
+- Manual:
+  - `codex/MANUAL_QA_CHECKLIST.md`
 
-Verification:
-- Manual: open each page and inspect all service-row images.
-- Automated: `node scripts/validate-requested-edits.js --strict`
-
-### 8) Speed up Calendly integration loading
-
-Scope:
-- `book.html` embed.
-
-Requirement:
-- Calendly integration should load faster; avoid long buffering when user scrolls to it.
-
-Implementation guidance:
-- Initiate Calendly JS fetch earlier using preload and/or moving script earlier with `defer`.
-
-Verification:
-- Manual: hard refresh then scroll; widget should initialize noticeably faster.
-
-### 9) about.html “Experience by the Numbers” update
-
-Scope:
-- `about.html` stats section.
-
-Requirement:
-Set the 4 stats to exactly:
-- 17 Clients Served
-- 18 Automations Delivered
-- 2,300+ Hours Saved
-- 9 Industries Served
-
-Delete the “30 minute AI Audit” stat and replace it with “9 Industries Served”.
-
-Verification:
-- Automated: `node scripts/validate-requested-edits.js --strict`
-- Manual: ensure animation still works and displays comma formatting.
-
-### 10) index.html “No hype. Just measurable wins.” replacements
-
-Scope:
-- `index.html` stats section.
-
-Requirements:
-- Replace:
-  - “100 Times Better Contact Odds in 5 Minutes” → “100% of all calls, emails and texts answered”
-  - “80 Callers Lost to Voicemail” → “10x Lead Conversion Rate”
-- Visual requirements:
-  - “100%” and “10x” are blue
-  - The rest of each sentence is white underneath
-- Animation requirements:
-  - Animate only numeric portion:
-    - animate “100” not “%”
-    - animate “10” not “x”
-
-Implementation guidance:
-- Use existing stats system support for suffixes via `data-plus` (so suffix is not independently animated).
-
-Verification:
-- Automated: `node scripts/validate-requested-edits.js --strict`
-- Manual: observe animation in browser.
-
-### 11) index.html “Our Services” section swap to images (+ lightbox)
-
-Scope:
-- `index.html` section currently using `.packages-grid` with 4 cards.
-
-Requirements:
-a) Delete all 4 cards and replace with images from `assets/images/socialmedia/`:
-- Desktop:
-  - `services_consulting.jpg`
-  - `services_lead_followup.jpg`
-  - `services_workflow_automation.jpg`
-  - `services_data_integration.jpg`
-b) Keep 2×2 grid like original cards on desktop.
-c) Images must not be cropped; big enough that copy on image is readable.
-   Add a well-designed button for each image linking to `services.html` or other relevant page.
-d) Mobile: use images:
-  - `services_consulting_mobile.jpg`
-  - `services_lead_followup_mobile.jpg`
-  - `services_workflow_automation_mobile.jpg`
-  - `services_data_integration_mobile.jpg`
-e) Mobile: stack images vertically with spacing.
-f) Each image must open the same premium lightbox used by marquee images.
-   Also make it obvious the images are clickable to expand.
-
-Verification:
-- Manual: click each image on desktop and mobile -> lightbox opens.
-- Automated: `node scripts/validate-homepage-index-sections.js --strict` and `node scripts/validate-requested-edits.js --strict`
-
-### 12) MOBILE ONLY fixes
-
-#### 12a) Menu banner two-step interaction
-
-Requirement (mobile only):
-- First click on menu banner: only maximize the menu banner.
-- Only after hamburger click should the panel appear.
-- Only back button in panel closes it.
-- When back pressed: panel slides out; banner stays maximized until panel fully out, then auto-minimize.
-
-Verification:
-- Manual mobile emulation.
-- Automated static checks in `node scripts/validate-requested-edits.js --strict`.
-
-#### 12b) Hero CTA buttons move up
-
-Requirement (mobile only):
-- Move hero CTA buttons up on every page with hero CTAs so they are visible above the URL bar.
-
-Verification:
-- Manual: mobile emulation + scroll position at load.
-
-#### 12c) Hero shader title/subtitle mobile tuning
-
-Requirement (mobile only):
-- Move title up so it sits just under the maximized menu bar.
-- Reduce subtitle font size and place it just under the title.
-
-Verification:
-- Manual mobile emulation.
+Work is not complete until both automated + manual are satisfied.
