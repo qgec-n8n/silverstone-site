@@ -56,9 +56,9 @@ img {
 .section-subtitle {
   text-align: center;
   font-size: 1rem;
-  color: var(--color-silver-original);
+  color: var(--color-silver);
   margin-bottom: 2rem;
-} /* SPEC: SECTION_SUBTITLES_GREY_GLOBAL_2025_12 */
+} /* SPEC: GLOBAL_SECTION_SUBTITLE_GREY_2025_12 */
 
 .section > .container {
   position: relative;

@@ -7,13 +7,9 @@
 
 .page-niche .service-image.neon-card img {
   display: block;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: auto;
-  height: 100%;
-  max-width: none;
-  transform: translateX(-50%);
+  position: static;
+  width: 100%;
+  height: auto;
   object-fit: contain;
 }
 

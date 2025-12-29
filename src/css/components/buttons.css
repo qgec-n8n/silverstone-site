@@ -34,7 +34,3 @@
   background-color: var(--color-green);
   color: var(--color-black);
 }
-
-.btn-nowrap {
-  white-space: nowrap;
-} /* SPEC: INDEX_STREAMLINE_WORKFLOWS_NOWRAP_2025_12 */
