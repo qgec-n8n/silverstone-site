@@ -1,126 +1,140 @@
 <!-- FILE: codex/REPO_UI_MAP.md -->
-# Repo UI Map (Grounding Reference)
+# Repo UI Map (for Requested Edits 1–6)
 
-This file is a quick “where things live” map for the Requested Edits (1–12). Paths and selectors below are taken from the repository.
+This map helps Codex quickly locate the “control points” for the requested UI edits.
 
-## Pages
+## Pages in scope
 
-- Home: `index.html` (body class `page-home`)
-- About: `about.html` (body class `page-about`)
-- Services: `services.html` (body class `page-services`)
-- Book: `book.html` (body class `page-book`)
-- Contact: `contact.html` (body class `page-contact`)
-- Niches: `niches/*.html` (body class `page-niche`)
+Core pages:
+- `index.html` (`<body class="page-home">`)
+- `about.html` (`<body class="page-about">`)
+- `services.html` (`<body class="page-services">`)
+- `book.html` (`<body class="page-book">`)
+- `contact.html` (`<body class="page-contact">`)
 
-## Edit-specific HTML anchors (grounded selectors)
+Niche pages:
+- `niches/*.html` (each uses `<body class="page-… page-niche">`)
 
-- Home hero: `index.html` uses `<section class="hero title-band">` with `.content > h1`, `.content > p`, and a `.cta-buttons` wrapper holding CTA `<a>` elements.
-- Home stats: `index.html` “No hype. Just measurable wins.” section contains `.stats[data-counter="on"]` with `.number[data-target]` values and `.label` text.
-- Home services section: `index.html` uses `<section id="what-we-automate">` containing `<div class="packages-grid services-image-grid">` with 4 `.service-tile.neon-card` image tiles and `.js-premium-lightbox` triggers.
-- About stats: `about.html` “Experience by the Numbers” uses `.stats[data-counter="on"]` with 4 `.number[data-target]` blocks + `.label`.
-- Service-row images:
-  - `services.html`: `.service-row` → `.service-image.neon-card` → `<picture>` → `<img class="service-img">` for General_Services_*.webp.
-  - `about.html`: `.service-row` → `.service-image.neon-card` → `<img>` (no `.service-img` class).
-  - `niches/*.html`: `.service-row` → `.service-image.neon-card` → `<img class="service-img">`.
-- Calendly: `book.html` has preconnects + Calendly CSS in `<head>`; Calendly widget `<script src="https://assets.calendly.com/assets/external/widget.js" async>` near the end of body.
-- Section subtitles: `.section-subtitle` is the shared selector; some pages set inline styles (e.g., `contact.html` uses `style="color: var(--color-white)"`).
+---
 
-## Key UI systems and where they are implemented
+## 1) Hero shader system (Edit 1)
 
-### Pricing widget background (Edit #1)
+Where the shader is wired:
+- Each page hero contains:
+  - `<canvas id="hero-shader-canvas" ...></canvas>`
+- Per-page color selection is controlled via:
+  - canvas `data-variant` (or its absence for default)
 
-- Source CSS: `pricing-widget/src/pricing-widget.css`
-  - Light-mode “white background” stack is defined under `.ss-pricing[data-ss-pricing-page="..."]` rules.
-- Built CSS output: `assets/css/pricing-widget.css`
-- Build: `cd pricing-widget && npm run build`
+Where themes are defined:
+- `src/js/hero-shader.js`
+  - Theme map/object literal (expects keys like default/blue/green/…)
+  - The shader reads `canvas.dataset.variant || "default"`
 
-Validation:
-- `scripts/validate-pricing-ui-tuning.js`
+Core page current wiring (must be updated for Edit 1):
+- `index.html`: keep blue (scope guard against accidental change)
+- `about.html`: should be purple => default theme (no variant or "default")
+- `services.html`: should be green
+- `book.html`: should be neon pink (new theme key)
+- `contact.html`: should be fire orange (new theme key)
 
-### Service-row “image next to cards” layouts (Edits #2 and #7)
+Niche pages:
+- `niches/*.html` should stay default/purple (no data-variant)
 
-Markup pattern:
-- `.service-row` container with `.service-image.neon-card` holding an `<img class="service-img">` (services/niches) or plain `img` (about).
+Validators:
+- `node scripts/validate-core-pages.js`
 
-Relevant files:
-- About: `about.html` (service-image blocks)
-- Services: `services.html` (General_Services_*.webp images)
-- Niches: `niches/*.html` (per-niche service images)
+---
 
-Shared component styling:
-- `src/css/components/cards.css` (shared `.service-image` and image rules)
+## 2) Hero legibility / glass panel removal (Edit 2)
 
-Page-specific styling:
-- Services page: `src/css/pages/services.css`
-- Niche reference: `src/css/pages/estate-agents.css` (contains the tight neon border / contain-fit approach)
-
-### Section subtitle styling (Edit #3)
-
-- Primary selector: `.section-subtitle`
-- Source file: `src/css/base/layout.css`
-- Color tokens: `src/css/base/variables.css`
-
-### Hero shader + copy + CTAs (Edits #4, #5, #6, #12b, #12c)
-
-Hero CSS:
+The glass container is implemented in:
 - `src/css/components/hero.css`
-  - `.hero.title-band` is the shader hero variant used across pages.
-  - CTA layout is currently inconsistent between pages (index vs services/niches).
+  - Selector: `.hero.title-band .content`
+  - Currently includes background + blur/backdrop-filter + border + shadow
 
-Shader JS:
-- `src/js/hero-shader.js` (canvas)
+Edit 2 requires removing the panel and relying on:
+- typography tweaks
+- text-shadow
+- layout (max-width/spacing)
+…without adding a new translucent panel.
 
-CTA markup:
-- Services & niches: hero contains `<div class="cta-buttons">` with 2 buttons
-- Index: hero currently uses 2 `<a class="btn ...">` without a `.cta-buttons` wrapper
+Validator:
+- `node scripts/validate-requested-edits.js --strict`
 
-### Premium lightbox used by marquee images (Edit #11f)
+---
 
-- JS source: `src/js/marquee.js`
-- Lightbox element ID: `premium-lightbox`
-- Marquee images open lightbox by calling an internal `openLightbox(src)` function
-- Services gallery also injects the same lightbox in `src/js/gallery.js`
+## 3) Index "Streamline workflows" button nowrap (Edit 3)
 
-Index services tiles must open the same lightbox:
-- Likely requires a small shared hook that reuses the same DOM structure (`#premium-lightbox`)
+Where the button is:
+- `index.html`
+  - Services tiles section
+  - Anchor text: “Streamline workflows”
 
-### Stats / counters (Edits #9 and #10)
+Recommended deterministic mechanism:
+- Add `btn-nowrap` class on that anchor only
+- Add `.btn-nowrap { white-space: nowrap; }` in:
+  - `src/css/components/buttons.css`
 
-- Markup: `.stats .number[data-target="..."]` and optional `data-plus`
-- JS animation: `src/js/stats.js`
-- Styling: `src/css/components/stats.css`
+Validator:
+- `node scripts/validate-requested-edits.js --strict`
 
-About stats section:
-- `about.html` under “Experience by the Numbers”
+---
 
-Home stats section:
-- `index.html` under “No hype. Just measurable wins.”
+## 4) Section subtitles are white due to variable overrides (Edit 4)
 
-### Calendly embed (Edit #8)
+Global subtitle selector:
+- `.section-subtitle`
 
-- Page: `book.html`
-- External script currently referenced: Calendly widget JS
-- Optimization opportunities: preload/early fetch in head, keep CSS preload
+Defined in:
+- `src/css/base/layout.css`
+  - `.section-subtitle { color: var(--color-silver); ... }`
 
-### Mobile header/menu behavior (Edit #12a)
+Why they appear white:
+- Same file sets `--color-silver: var(--color-white)` for many pages/sections
+- Many pages also include inline styles like `color: var(--color-silver)` on `.section-subtitle`
 
-- JS logic: `src/js/header-nav.js`
-  - Header indicator element: `#header-indicator`
-  - Nav toggle button: `#nav-toggle`
-  - Mobile panel/back button elements are created in JS
+Edit 4 requires:
+- Make `.section-subtitle` always resolve to grey (recommended: `--color-silver-original`)
+- Remove/replace inline subtitle colors that reference `--color-silver` or white
 
-- CSS: `src/css/components/header.css`
-  - Mobile panel uses `body.mobile-nav-open` + `.nav-backdrop` + `.mobile-nav-panel`
+Validator:
+- `node scripts/validate-requested-edits.js --strict`
 
-## Build & validation commands
+---
 
-Build:
-- `npm run build:css`
-- `npm run build:js`
-- `cd pricing-widget && npm run build`
+## 5) Services + niche service-row images (Edit 5)
 
-Verify:
-- `bash scripts/codex.requested-edits.sh`
+Structure:
+- Services and niches use `.service-row` with:
+  - `.service-image.neon-card` wrapping a `<picture>` and `<img class="service-img">`
 
-Serve for manual QA:
-- `bash scripts/serve.sh`
+Current image fit rules live in:
+- `src/css/components/cards.css`
+  - `.service-image img` currently uses `object-fit: contain` (causes letterboxing)
+
+Edit 5 requires:
+- image fills the card area
+- crop width only (left/right) by allowing horizontal overflow
+- do not crop height
+- recommended to target `.service-img` within `.page-services` and `.page-niche`
+
+Validator:
+- `node scripts/validate-requested-edits.js --strict`
+Manual QA required.
+
+---
+
+## 6) About images copy must stay visible (Edit 6)
+
+About uses `.service-image.neon-card` but images often DO NOT use `.service-img`.
+- About images should remain non-cropping.
+- About mobile image rules already exist in:
+  - `src/css/pages/about.css`
+
+Edit 6 requires:
+- `object-fit: contain` (no crop)
+- explicit top-safe positioning recommended (object-position top)
+
+Validator:
+- `node scripts/validate-requested-edits.js --strict`
+Manual QA required.
