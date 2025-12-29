@@ -1,26 +1,37 @@
 # FILE: .codex/config.toml
-model = "gpt-5.1-codex-max"
-model_reasoning_effort = "high"
-model_verbosity = "medium"
+# Project-local Codex CLI configuration
+# NOTE: Keep this file in-repo so Codex always loads the same guardrails.
 
-# Keep execution non-interactive in the standard Codex CLI loop.
+model = "gpt-5.2-codex"
+reasoning_effort = "high"
 approval_policy = "never"
 
-# Shell commands should not mutate the system; file edits happen via Codex itself.
-sandbox_mode = "read-only"
+# We need to run build scripts that write to the workspace (assets bundles).
+sandbox_mode = "workspace-write"
 
-# Provide Codex the minimum, high-signal control context for this request.
+# Main verification command Codex must run frequently (and must be green at the end).
+command = "bash scripts/codex.requested-edits.sh"
+
+# Files Codex should always load as control context.
 include = [
   "ExecPlans.md",
-  "ExecPlan_UI_Fixes.md",
+  "ExecPlan.md",
   "PLANS.md",
   "AGENTS.md",
-  "codex/CODEX_SYSTEM_PROMPT.md",
+
   "codex/REQUESTED_EDITS_SPEC.md",
+  "codex/REPO_UI_MAP.md",
   "codex/MANUAL_QA_CHECKLIST.md",
   "codex/UI_CHANGE_LOG.md",
-  "scripts/codex.requested-edits.sh",
+
+  "codex/CODEX_SYSTEM_PROMPT.md",
+  "codex/CODEX_INIT_PROMPT.md",
 ]
 
-# The canonical verification entrypoint for this repo.
-command = "bash scripts/codex.requested-edits.sh"
+[features]
+# Allow the model to request web searches when needed.
+web_search_request = true
+
+[sandbox_workspace_write]
+# Allow network access inside the sandbox so requested web-search / external checks are possible.
+network_access = true
