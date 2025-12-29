@@ -1,54 +1,34 @@
 <!-- FILE: codex/CODEX_INIT_PROMPT.md -->
-# Codex Initiation Prompt (Copy/Paste)
+# Codex Initiation Prompt (paste into Codex CLI)
 
-Use the text below as the initial instruction when starting Codex CLI in this repo.
+You are operating inside the repo. Implement **Requested Edits 1–6 only** (shader colors per page, hero no-glass legibility, index button nowrap, subtitles grey globally, services/niches image fill width-crop-only, about images copy visible).
 
----
+CRITICAL:
+- Ignore any references to pricing or “Pricing Feature Implementation” — that is a mislabel.
+- Do not redesign or refactor anything unrelated.
 
-You are Codex CLI operating in the repository root.
-
-Goal: Implement all Requested Edits 1–12 exactly as specified in `codex/REQUESTED_EDITS_SPEC.md`, following `ExecPlan.md` phase-by-phase and passing all gates.
-
-Non-negotiable constraints:
-- No scope creep: do not change anything unrelated to Requested Edits 1–12.
-- No invented structure: use existing repo patterns; if you must add a hook, keep it minimal and document it.
-- Keep sources and built assets in sync (run build scripts; do not hand-edit bundles unless there is no source).
-
-Start-up steps (must do in order):
-1) Read these files completely:
-   - `ExecPlan.md`
-   - `codex/REQUESTED_EDITS_SPEC.md`
-   - `codex/REPO_UI_MAP.md`
-   - `PLANS.md`
-   - `AGENTS.md`
-   - `codex/MANUAL_QA_CHECKLIST.md`
-
-2) Run setup:
+Process (must follow gates):
+1) Read: `ExecPlan.md`, `codex/REQUESTED_EDITS_SPEC.md`, `codex/VERIFICATION_PROTOCOL.md`.
+2) Run setup + baseline:
    - `bash scripts/codex.setup.sh`
-
-3) Capture baseline:
    - `bash scripts/codex.requested-edits.sh`
-   If it fails, note failures in `codex/UI_CHANGE_LOG.md` under “Baseline” and continue.
+   Record baseline failures in `codex/UI_CHANGE_LOG.md`.
+3) Discovery:
+   - Map where each requirement lives (files/selectors/attributes).
+   - Update `codex/REPO_UI_MAP.md`.
+4) Write approach:
+   - In `codex/UI_CHANGE_LOG.md`, write a per-edit approach for edits 1–6.
+   - If uncertain, use web search to confirm best practice (briefly record conclusions).
+5) Implement incrementally:
+   - Implement edits 1–6 in the order suggested by `ExecPlan.md`.
+   - Add required SPEC markers from `codex/REQUESTED_EDITS_SPEC.md`.
+   - After each edit, rebuild CSS/JS as needed and re-run relevant checks.
+6) Verification:
+   - `bash scripts/codex.requested-edits.sh` must pass.
+   - Complete `codex/MANUAL_QA_CHECKLIST.md`.
+7) Final evidence:
+   - Fill the evidence mapping in `ExecPlan.md` (or in `codex/UI_CHANGE_LOG.md`) for edits 1–6.
 
-Execution:
-- Work strictly phase-by-phase as listed in `ExecPlan.md`.
-- For each phase:
-  - do discovery first (confirm exact markup/selectors)
-  - implement minimal changes
-  - add required `SPEC:` markers
-  - rebuild (`npm run build:css`, `npm run build:js`, and/or pricing-widget build)
-  - run the relevant validator(s)
-  - do the manual spot-check described in the phase
-
-Verification requirements:
-- You must finish with `bash scripts/codex.requested-edits.sh` passing.
-- Ensure `node scripts/validate-requested-edits.js --strict` passes.
-- Update `codex/UI_CHANGE_LOG.md` with decisions and any deviations.
-
-Web search is allowed if you need to confirm a detail (e.g., embed preload best practices), but do not paste large external code; adapt the approach to this repo.
-
-Finish by summarizing:
-- what files changed (grouped by phase)
-- how each Requested Edit was satisfied
-- what you verified (automated + manual QA checklist items)
-- any deviations (should be none unless unavoidable)
+Stop if:
+- You are about to change something not required by edits 1–6.
+- A validation failure suggests a misunderstanding of the spec; re-read the spec and adjust.
