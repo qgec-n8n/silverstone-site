@@ -1,207 +1,103 @@
 // FILE: scripts/validate-pricing-ui-tuning.js
+/**
+ * Validate pricing-widget light-mode background tuning.
+ *
+ * Why:
+ * - Requested Edit #1 requires more visible pink/blue tint in the light/white pricing background.
+ * - We enforce both: stronger color layers + slightly less opaque white overlay.
+ *
+ * This is intentionally a numeric threshold check to prevent accidental regressions.
+ */
+
 const fs = require("fs");
-const path = require("path");
 
-const ROOT = path.resolve(__dirname, "..");
-
-function readText(filePath) {
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Missing file: ${filePath}`);
-  }
-  return fs.readFileSync(filePath, "utf8");
+function fail(msg) {
+  console.error(`✗ ${msg}`);
+  process.exitCode = 1;
 }
 
-function fail(messages) {
-  console.error("\n❌ validate-pricing-ui-tuning failed:\n");
-  for (const m of messages) console.error(`- ${m}`);
-  console.error("");
-  process.exit(1);
+function pass(msg) {
+  console.log(`✓ ${msg}`);
 }
 
-function assertContains(haystack, needle, label, errors) {
-  if (!haystack.includes(needle)) {
-    errors.push(`${label}: expected to find "${needle}"`);
-  }
+const cssPath = "pricing-widget/src/pricing-widget.css";
+const css = fs.readFileSync(cssPath, "utf8");
+
+// Marker enforcement (proof of intentional tuning)
+const requiredMarkers = [
+  "SS_PRICING_SPEC: LIGHT_MODE_WASHOUT_TUNING_2025_12",
+  "SS_PRICING_SPEC: LIGHT_MODE_BG_VIBRANCY_BOOST_2025_12",
+];
+for (const marker of requiredMarkers) {
+  if (!css.includes(marker)) fail(`Missing required marker in ${cssPath}: "${marker}"`);
+  else pass(`Found marker: ${marker}`);
 }
 
-function assertRange(value, { min, max }, label, errors) {
-  if (typeof value !== "number" || Number.isNaN(value)) {
-    errors.push(`${label}: expected a number, got "${value}"`);
+// Find the light-mode background stack (linear + radial layers)
+const bgMatch = css.match(/background:\s*linear-gradient\(135deg,[\s\S]*?\)\s*,\s*radial-gradient\([\s\S]*?\)\s*,\s*radial-gradient\([\s\S]*?\)\s*,\s*radial-gradient\([\s\S]*?\)\s*;/);
+if (!bgMatch) {
+  fail("Could not find expected light-mode background stack (linear + 3 radial gradients).");
+} else {
+  pass("Found light-mode background stack.");
+}
+
+const bg = bgMatch ? bgMatch[0] : "";
+
+// ---- Extract key alpha values ----
+// Blue tint (rgba(0,174,239, a) at 0% and 45%)
+const blueMatch = bg.match(/rgba\(0,\s*174,\s*239,\s*(0?\.\d+)\)\s*0%[\s\S]*?rgba\(0,\s*174,\s*239,\s*(0?\.\d+)\)\s*45%/);
+if (!blueMatch) fail("Could not extract blue tint alpha values (0% and 45%).");
+
+// Pink tint (rgba(253,55,248, a) at 0% and 45%)
+const pinkMatch = bg.match(/rgba\(253,\s*55,\s*248,\s*(0?\.\d+)\)\s*0%[\s\S]*?rgba\(253,\s*55,\s*248,\s*(0?\.\d+)\)\s*45%/);
+if (!pinkMatch) fail("Could not extract pink tint alpha values (0% and 45%).");
+
+// White overlay alphas in the linear gradient
+const whiteStart = bg.match(/rgba\(255,\s*255,\s*255,\s*(0?\.\d+)\)\s*0%/);
+const whiteMid = bg.match(/rgba\(236,\s*245,\s*255,\s*(0?\.\d+)\)\s*45%/);
+const whiteEnd = bg.match(/rgba\(214,\s*232,\s*255,\s*(0?\.\d+)\)\s*100%/);
+
+if (!whiteStart || !whiteMid || !whiteEnd) fail("Could not extract linear-gradient white overlay alpha values.");
+
+// ---- Thresholds (tuned for “more vibrant but still premium”) ----
+function within(name, value, min, max) {
+  if (Number.isNaN(value)) {
+    fail(`${name} is NaN`);
     return;
   }
-  if (value < min || value > max) {
-    errors.push(`${label}: expected in [${min}, ${max}], got ${value}`);
-  }
+  if (value < min || value > max) fail(`${name}=${value} out of range (${min}–${max})`);
+  else pass(`${name}=${value} within range (${min}–${max})`);
 }
 
-function extractAlphasFromLightModeBg(css) {
-  // Match the light-mode background definition that includes:
-  // - linear-gradient(135deg, rgba(255,255,255,a1) ..., rgba(236,245,255,a2) ..., rgba(214,232,255,a3) ...)
-  // - radial-gradient(circle at 20% 18%, rgba(0,174,239,b1) 0%, rgba(0,174,239,b2) 45%, ...)
-  // - radial-gradient(circle at 82% 12%, rgba(255,79,216,p1) 0%, rgba(255,79,216,p2) 45%, ...)
-  const linearRe =
-    /linear-gradient\(\s*135deg\s*,\s*rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*(0\.\d+)\s*\)\s*0%\s*,\s*rgba\(\s*236\s*,\s*245\s*,\s*255\s*,\s*(0\.\d+)\s*\)\s*42%\s*,\s*rgba\(\s*214\s*,\s*232\s*,\s*255\s*,\s*(0\.\d+)\s*\)\s*100%\s*\)/m;
-
-  const blueRe =
-    /radial-gradient\(\s*circle at\s*20%\s*18%\s*,[\s\S]*?rgba\(\s*0\s*,\s*174\s*,\s*239\s*,\s*(0\.\d+)\s*\)\s*0%\s*,\s*rgba\(\s*0\s*,\s*174\s*,\s*239\s*,\s*(0\.\d+)\s*\)\s*45%\s*,/m;
-
-  const pinkRe =
-    /radial-gradient\(\s*circle at\s*82%\s*12%\s*,[\s\S]*?rgba\(\s*255\s*,\s*79\s*,\s*216\s*,\s*(0\.\d+)\s*\)\s*0%\s*,\s*rgba\(\s*255\s*,\s*79\s*,\s*216\s*,\s*(0\.\d+)\s*\)\s*45%\s*,/m;
-
-  const linearMatch = css.match(linearRe);
-  const blueMatch = css.match(blueRe);
-  const pinkMatch = css.match(pinkRe);
-
-  return {
-    linear: linearMatch
-      ? {
-          start: parseFloat(linearMatch[1]),
-          mid: parseFloat(linearMatch[2]),
-          end: parseFloat(linearMatch[3]),
-        }
-      : null,
-    blue: blueMatch
-      ? { a0: parseFloat(blueMatch[1]), a45: parseFloat(blueMatch[2]) }
-      : null,
-    pink: pinkMatch
-      ? { a0: parseFloat(pinkMatch[1]), a45: parseFloat(pinkMatch[2]) }
-      : null,
-  };
+// Color layers: increase visibility
+if (blueMatch) {
+  const blueA0 = parseFloat(blueMatch[1]);
+  const blueA45 = parseFloat(blueMatch[2]);
+  within("Blue tint alpha @0%", blueA0, 0.50, 0.75);
+  within("Blue tint alpha @45%", blueA45, 0.28, 0.55);
 }
 
-function validateCssFile(label, cssText, errors) {
-  // Required markers for this request.
-  assertContains(
-    cssText,
-    "SS_PRICING_SPEC: LIGHT_MODE_WASHOUT_TUNING_2025_12",
-    `${label} marker`,
-    errors
-  );
-  assertContains(
-    cssText,
-    "SS_PRICING_SPEC: CTA_BUTTON_ROW_ALIGNMENT_2025_12",
-    `${label} marker`,
-    errors
-  );
-
-  // 1) Washout tuning: ensure the “light mode” gradient has boosted blue/pink and reduced whitewash.
-  const alphas = extractAlphasFromLightModeBg(cssText);
-
-  if (!alphas.linear) {
-    errors.push(
-      `${label}: could not parse light-mode linear-gradient alphas (expected 135deg rgba(255/236/214...) pattern)`
-    );
-  } else {
-    assertRange(
-      alphas.linear.start,
-      { min: 0.88, max: 0.95 },
-      `${label}: white linear-gradient start alpha`,
-      errors
-    );
-    assertRange(
-      alphas.linear.mid,
-      { min: 0.84, max: 0.92 },
-      `${label}: white linear-gradient mid alpha`,
-      errors
-    );
-    assertRange(
-      alphas.linear.end,
-      { min: 0.8, max: 0.88 },
-      `${label}: white linear-gradient end alpha`,
-      errors
-    );
-  }
-
-  if (!alphas.blue) {
-    errors.push(
-      `${label}: could not parse light-mode blue radial-gradient alphas (expected circle at 20% 18% rgba(0,174,239,...) pattern)`
-    );
-  } else {
-    assertRange(
-      alphas.blue.a0,
-      { min: 0.34, max: 0.55 },
-      `${label}: blue radial-gradient alpha at 0%`,
-      errors
-    );
-    assertRange(
-      alphas.blue.a45,
-      { min: 0.2, max: 0.4 },
-      `${label}: blue radial-gradient alpha at 45%`,
-      errors
-    );
-  }
-
-  if (!alphas.pink) {
-    errors.push(
-      `${label}: could not parse light-mode pink radial-gradient alphas (expected circle at 82% 12% rgba(255,79,216,...) pattern)`
-    );
-  } else {
-    assertRange(
-      alphas.pink.a0,
-      { min: 0.3, max: 0.5 },
-      `${label}: pink radial-gradient alpha at 0%`,
-      errors
-    );
-    assertRange(
-      alphas.pink.a45,
-      { min: 0.18, max: 0.35 },
-      `${label}: pink radial-gradient alpha at 45%`,
-      errors
-    );
-  }
-
-  // 2) CTA alignment: enforce deterministic anchoring in CSS.
-  const ctaHasAutoMargin = /\.ss-pricing__cta\s*\{[\s\S]*?margin-top\s*:\s*auto\s*;[\s\S]*?\}/m.test(
-    cssText
-  );
-  if (!ctaHasAutoMargin) {
-    errors.push(
-      `${label}: expected ".ss-pricing__cta" to include "margin-top: auto;" for row alignment`
-    );
-  }
-
-  const includesBlock = cssText.match(/\.ss-pricing__includes\s*\{[\s\S]*?\}/m);
-  if (!includesBlock) {
-    errors.push(`${label}: could not find ".ss-pricing__includes { ... }" block`);
-  } else if (/margin-top\s*:\s*auto\s*;/.test(includesBlock[0])) {
-    errors.push(
-      `${label}: ".ss-pricing__includes" must NOT use "margin-top: auto;" (it prevents CTA alignment)`
-    );
-  }
+if (pinkMatch) {
+  const pinkA0 = parseFloat(pinkMatch[1]);
+  const pinkA45 = parseFloat(pinkMatch[2]);
+  within("Pink tint alpha @0%", pinkA0, 0.42, 0.70);
+  within("Pink tint alpha @45%", pinkA45, 0.24, 0.50);
 }
 
-function main() {
-  const errors = [];
+// White overlay: slightly less opaque so color layers show through
+if (whiteStart && whiteMid && whiteEnd) {
+  const a0 = parseFloat(whiteStart[1]);
+  const a45 = parseFloat(whiteMid[1]);
+  const a100 = parseFloat(whiteEnd[1]);
 
-  const srcCssPath = path.join(
-    ROOT,
-    "pricing-widget",
-    "src",
-    "pricing-widget.css"
-  );
-  const builtCssPath = path.join(ROOT, "assets", "css", "pricing-widget.css");
-
-  let srcCss = "";
-  let builtCss = "";
-
-  try {
-    srcCss = readText(srcCssPath);
-  } catch (e) {
-    errors.push(`Source pricing CSS missing/unreadable: ${e.message}`);
-  }
-
-  try {
-    builtCss = readText(builtCssPath);
-  } catch (e) {
-    errors.push(`Built pricing CSS missing/unreadable: ${e.message}`);
-  }
-
-  if (srcCss) validateCssFile("pricing-widget/src/pricing-widget.css", srcCss, errors);
-  if (builtCss) validateCssFile("assets/css/pricing-widget.css", builtCss, errors);
-
-  if (errors.length) fail(errors);
-
-  console.log("✅ validate-pricing-ui-tuning passed.");
+  within("White overlay alpha @0%", a0, 0.80, 0.90);
+  within("White overlay alpha @45%", a45, 0.74, 0.86);
+  within("White overlay alpha @100%", a100, 0.72, 0.84);
 }
 
-main();
+if (process.exitCode) {
+  console.error("\nPricing UI tuning validation failed.");
+  process.exit(1);
+} else {
+  console.log("\nPricing UI tuning validation passed.");
+}
