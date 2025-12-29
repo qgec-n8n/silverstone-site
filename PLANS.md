@@ -1,55 +1,97 @@
 <!-- FILE: PLANS.md -->
-# Plans & ExecPlans Workflow
+# Planning & Execution Rules for Codex CLI
 
-This repo is configured for **ExecPlans-based work**: one active ExecPlan, strict scope, deterministic validation, and an evaluation loop.
+This repo is intentionally structured so Codex can make safe, correct UI changes with strong guardrails.
 
-## The single source of truth
+## Canonical “source of truth” docs
 
-- Requirements: `codex/REQUESTED_EDITS_SPEC.md`
-- Execution workflow: `ExecPlans.md` → active ExecPlan file
-- Validation loop: `bash scripts/codex.requested-edits.sh`
-- Manual verification: `codex/MANUAL_QA_CHECKLIST.md`
+Codex must always read and follow these (in this order):
 
-If there is any conflict, the spec wins.
+1. `ExecPlan.md` (active execution plan and gates)
+2. `codex/REQUESTED_EDITS_SPEC.md` (requirements + acceptance criteria)
+3. `codex/REPO_UI_MAP.md` (repo-grounded map of where things live)
+4. `codex/MANUAL_QA_CHECKLIST.md` (human visual verification)
+5. `AGENTS.md` (role split and handoffs)
 
-## Evaluation flywheel loop (apply at every gate)
+## Workflow contract (do not skip steps)
 
-1) Understand
-- Read the spec requirements for the gate.
-- Map the current implementation (selectors, variables, DOM structure, build outputs).
-- Identify the smallest change surface that can satisfy the requirement.
+### 0) Preflight
 
-2) Implement
-- Make one coherent change set (avoid mixing multiple fixes in one commit-sized unit).
-- Add the required SS_* marker comments near every change required by the spec.
+- Run: `bash scripts/codex.setup.sh`
+- Run baseline: `bash scripts/codex.requested-edits.sh`
+- If baseline fails, record failures in `codex/UI_CHANGE_LOG.md` under “Baseline”.
 
-3) Evaluate
-- Rebuild through repo scripts (never hand-edit built artifacts).
-- Run `bash scripts/codex.requested-edits.sh`.
-- Spot-check the target pages / viewports for that gate.
+### 1) Work in phases with gates
 
-4) Iterate
-- If something is off visually or a validator fails, adjust only what is needed.
-- Keep iterating until the gate is clearly satisfied.
+Follow the phase ordering in `ExecPlan.md`.
 
-5) Record
-- Update the active ExecPlan Progress tracker.
-- Append decisions to the ExecPlan Decision Log if a judgment call was required.
-- When all gates are complete, append an entry to `codex/UI_CHANGE_LOG.md`.
+For each phase:
+- Identify exact selectors / files in-repo first
+- Implement the minimal change
+- Add the required `SPEC:` proof marker(s)
+- Rebuild bundles if `src/` changed
+- Run the relevant validators
+- Do the manual check for that phase
 
-## Guardrails that prevent scope drift
+### 2) Post-change verification (required)
 
-- Implement ONLY Requested Edits 1–4 (no extra UI tweaks).
-- Do not change copy, headings, or content structure.
-- Do not reformat unrelated HTML/CSS/JS.
-- Prefer CSS-variable and layout tweaks over markup changes.
-- If a change outside the expected surfaces is truly required:
-  - justify it in the ExecPlan Decision Log
-  - keep it minimal
-  - ensure validators and manual QA still pass
+At the end, run:
+- `bash scripts/codex.requested-edits.sh`
 
-## Expected working style in this repo
+And complete:
+- `codex/MANUAL_QA_CHECKLIST.md`
 
-- Work gate-by-gate. Do not “batch” all changes without intermediate validation.
-- Keep changes reversible and localized.
-- Treat validators as acceptance tests: they should prove the required changes exist and builds are updated correctly.
+## Build system rules (keep outputs in sync)
+
+- CSS edits: change `src/css/**` then run `npm run build:css` to regenerate `assets/css/styles.css`.
+- JS edits: change `src/js/**` then run `npm run build:js` to regenerate `assets/js/app.js`.
+- Pricing widget edits: change `pricing-widget/src/**` then run `cd pricing-widget && npm run build` to regenerate:
+  - `assets/js/pricing-widget.js`
+  - `assets/css/pricing-widget.css`
+
+Do not hand-edit built bundles unless there is no corresponding source file (if that happens, log it and keep the diff minimal).
+
+## Scope control / change hygiene
+
+Allowed changes:
+- Only what is necessary to satisfy Requested Edits 1–12.
+
+Not allowed:
+- Refactors, renames, or “cleanups” unrelated to requested behavior
+- Styling changes outside specified sections
+- Reformatting entire files (keep diffs local)
+
+If an implementation choice has multiple valid options:
+- Choose the smallest diff that matches existing patterns.
+- Prefer copying an existing approach already used elsewhere in the repo.
+
+## Conflict-handling rule
+
+If the requested edit conflicts with repo reality:
+1. Prefer repo truth (what exists and how it works).
+2. Implement the smallest compliant change that satisfies user intent.
+3. Record the deviation in `codex/UI_CHANGE_LOG.md` with:
+   - What conflicted
+   - What you did instead
+   - Why it is still compliant
+
+## Evaluation flywheel (required)
+
+After each phase, explicitly answer (in your own working notes or final summary):
+- What changed?
+- What did you verify automatically?
+- What did you verify manually?
+- What could still be wrong?
+- If something is uncertain, stop and reduce uncertainty before moving on.
+
+## Rollback criteria
+
+Immediately rollback or pause if:
+- A validator fails and the failure is not understood
+- A change creates broad unrelated diffs
+- Mobile menu/hero changes regress desktop layout
+- The pricing widget becomes harder to read (contrast regression)
+
+Rollback method:
+- Revert the smallest set of files related to the last phase
+- Re-run `bash scripts/codex.requested-edits.sh` to confirm recovery
