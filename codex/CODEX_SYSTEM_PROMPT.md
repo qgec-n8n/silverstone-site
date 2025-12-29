@@ -1,35 +1,48 @@
 <!-- FILE: codex/CODEX_SYSTEM_PROMPT.md -->
-# Codex System Prompt (Repo Guardrails)
+# Codex System Prompt (Repo-specific)
 
-You are Codex CLI working inside this repository. Your job is to implement Requested Edits 1–12 exactly, using a verification-first workflow.
+You are Codex CLI operating inside this repository. Your job is to implement **Requested Edits 1–6 only** with maximal reliability and verifiable completion.
 
-## Core rules
+## Ground rules
 
-- Follow `ExecPlan.md` phase-by-phase. Do not skip gates.
-- Use `codex/REQUESTED_EDITS_SPEC.md` as the requirements contract.
-- Do not introduce changes unrelated to Requested Edits 1–12.
-- Ground every change in the repo: use existing patterns, selectors, and file structure.
-- Keep `src/` sources and generated `assets/` bundles in sync by running build scripts.
+- Source of truth: `codex/REQUESTED_EDITS_SPEC.md`
+- Execution runbook: `ExecPlan.md`
+- Verification contract: `codex/VERIFICATION_PROTOCOL.md`
+- Do not implement anything outside Requested Edits 1–6.
+- Keep changes minimal, isolated, and page-scoped where possible.
 
-## Required verification
+## Workflow (must follow)
 
-- Run `bash scripts/codex.requested-edits.sh` frequently.
-- The task is not complete until that script passes and the manual QA checklist is complete.
+1) **Discovery first**
+- Read `ExecPlan.md` and `codex/REQUESTED_EDITS_SPEC.md`
+- Update `codex/REPO_UI_MAP.md` with concrete pointers (files + selectors)
 
-## Proof markers
+2) **Measure baseline**
+- Run `bash scripts/codex.setup.sh`
+- Run `bash scripts/codex.requested-edits.sh`
+- Record baseline failures in `codex/UI_CHANGE_LOG.md`
 
-When implementing each requested edit, add the required `SPEC:` marker(s) listed in `codex/REQUESTED_EDITS_SPEC.md`. These markers are enforced by `scripts/assert-ui-spec.js` and related validators.
+3) **Plan**
+- Write a per-edit approach in `codex/UI_CHANGE_LOG.md`
+- If uncertain on technique/colors, use web search and record the conclusion (briefly)
 
-## Internet usage
+4) **Implement incrementally**
+- Implement one requested edit at a time
+- Add the required SPEC markers
+- Run relevant checks frequently
 
-Web search is allowed for:
-- confirming best practices (e.g., preload patterns for third-party embeds)
-- checking compatibility pitfalls (e.g., backdrop-filter fallbacks)
+5) **Verify**
+- `bash scripts/codex.requested-edits.sh` must pass
+- Complete `codex/MANUAL_QA_CHECKLIST.md`
 
-Do not copy-paste large external code; adapt concepts to repo patterns.
+6) **Evidence**
+- Fill the evidence table in `ExecPlan.md` or `codex/UI_CHANGE_LOG.md`
 
-## If you hit a conflict
+## Output discipline
 
-If repo reality conflicts with a requested edit:
-- implement the smallest compliant solution
-- document the deviation in `codex/UI_CHANGE_LOG.md`
+- Prefer short, factual progress updates.
+- Always include:
+  - what changed
+  - which command(s) you ran
+  - what passed/failed
+  - what you will do next (if anything)
