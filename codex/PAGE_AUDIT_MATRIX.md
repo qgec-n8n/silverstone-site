@@ -1,29 +1,27 @@
 <!-- FILE: codex/PAGE_AUDIT_MATRIX.md -->
-# Page Audit Matrix (All pages in scope)
+# Page Audit Matrix — Requested Edits 1–8
 
-Use this grid to ensure nothing is missed.
+Use this grid to ensure you did not accidentally affect other pages or break responsiveness.
 
 Legend:
-- Hero: edits 2–3 apply
-- Subtitles: edit 5 applies
-- Shader color: edit 1 applies (only for specific pages)
-- Images: edits 6–7 apply (only for specific pages)
-- Index button: edit 4 applies (index only)
+- D = Desktop check required
+- M = Mobile check required
+- — = Not applicable
 
-| Page | Hero (no glass + off-midline) | Shader color requirement | Subtitles grey rule | Index “Streamline workflows” one line | Image cover-fill requirement |
-|------|-------------------------------|--------------------------|---------------------|----------------------------------------|-----------------------------|
-| index.html | Yes | No (unchanged) | Yes | Yes | No |
-| about.html | Yes | Neon yellow | Yes | No | Silverstone_22.jpg + Silverstone_28.jpg |
-| services.html | Yes | Green | Yes | No | General_Services_1/2A/2B/3 |
-| book.html | Yes | Bright neon pink | Yes | No | No |
-| contact.html | Yes | Fire orange | Yes | No | No |
-| privacy-policy.html | Yes | No (unchanged) | N/A (mostly policy content) | No | No |
-| niches/dentists.html | Yes | No (unchanged) | Yes | No | No |
-| niches/ecommerce.html | Yes | No (unchanged) | Yes | No | No |
-| niches/estate-agents.html | Yes | No (unchanged) | Yes | No | No |
-| niches/fitness-coaches.html | Yes | No (unchanged) | Yes | No | No |
-| niches/gyms-fitness-studios.html | Yes | No (unchanged) | Yes | No | No |
-| niches/hospitality.html | Yes | No (unchanged) | Yes | No | No |
-| niches/physios-chiropractors.html | Yes | No (unchanged) | Yes | No | No |
-| niches/salons-barbers.html | Yes | No (unchanged) | Yes | No | No |
-| niches/trades-virtual-office.html | Yes | No (unchanged) | Yes | No | No |
+| Page | Edit 1 (Hero desktop container) | Edit 7 (Hero mobile subheading removed) | Edit 2 (About desktop images fill) | Edit 3 (Services desktop HD) | Edit 4 (Services mobile 2:3) | Edits 5–6 (Services Neural Grid) | Edit 8 (Index subtitle grey) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| `index.html` | D | M | — | — | — | — | D+M |
+| `about.html` | D | M | D | — | — | — | — |
+| `services.html` | D | M | — | D | M | D+M | — |
+| `contact.html` | D | M | — | — | — | — | — |
+| `book.html` | D | M | — | — | — | — | — |
+| `niches/*.html` | D | M | — | — | — | — | — |
+
+Minimum niches sample pages for spot-checking:
+- `niches/dentists.html`
+- `niches/hospitality.html`
+
+Notes:
+- Edits 1 and 7 are global hero behavior; validate across at least 2 niche pages + 2 core pages.
+- Edits 3–6 are services-specific; validate both desktop and mobile.
+- Edit 8 is index-only; ensure no other subtitles change.
