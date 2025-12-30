@@ -34,6 +34,11 @@ Always rebuild after source edits:
 - Edit 1 (desktop-only): style `.hero.title-band .content` to become a tight container on desktop.
 - Edit 7 (mobile-only): hide the hero `p` text on mobile **without shifting layout**.
 
+### Concrete selectors + scope hooks
+- Desktop container: `@media (min-width: 769px)` + `.hero.title-band .content`
+- Subheading text: `.hero.title-band .content p` (the grey subtitle)
+- CTAs (for container sizing context): `.hero .cta-buttons`
+
 ---
 
 ## About page: Silverstone_22 + Silverstone_28 service-row images (Edit 2)
@@ -48,6 +53,11 @@ Always rebuild after source edits:
 
 ### Where to fix
 - Prefer a **desktop-only** override in `src/css/pages/about.css` scoped to `.page-about` and `img.img-cover-center` inside the service-row image card.
+
+### Concrete selectors + scope hooks
+- Wrapper card: `.page-about .service-row .service-image.neon-card`
+- Image: `.page-about .service-row .service-image.neon-card img.img-cover-center`
+- Desktop-only scope: `@media (min-width: 769px)`
 
 ---
 
@@ -70,6 +80,11 @@ These images contain baked-in overlay copy; image compression directly affects t
 - `src/css/pages/services.css` contains aspect-ratio/object-fit rules that can force a landscape frame even when the mobile images are portrait.
 - Fix should be mobile-only and scoped to only the General_Services cards using an HTML class hook (`general-services-card`).
 
+### Concrete selectors + scope hooks
+- General Services wrapper (add class in HTML): `.service-image.neon-card.general-services-card`
+- Image inside wrapper: `.page-services .general-services-card img.service-img.img-cover-center`
+- Mobile-only scope: `@media (max-width: 768px)`
+
 ---
 
 ## Services: Innovation Gallery Neural Grid (Edits 5 + 6)
@@ -85,6 +100,10 @@ So image replacement must be done in:
 ### Replacement rules
 - Replace all square/landscape legacy filenames containing `1-1` and `3-2` with allowed `services_*` assets.
 - Replace all portrait legacy filenames containing `2-3` with `*_#_Mobile.jpeg` assets with varied prefixes.
+
+### Concrete selectors + scope hooks
+- Source list: `src/js/gallery.js` → `CURATED_IMAGES` entries (`type: 'square' | 'landscape' | 'portrait'`)
+- Grid target: `#neural-grid` (runtime injected; HTML fallback not authoritative)
 
 Reference:
 - `codex/ASSET_REPLACEMENT_MATRIX.md`

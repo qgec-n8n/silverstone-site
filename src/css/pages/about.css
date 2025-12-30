@@ -45,3 +45,19 @@
     object-fit: contain;
   } /* SPEC: ABOUT_WHAT_DRIVES_US_IMAGES_VISIBLE_MOBILE */
 }
+
+@media (min-width: 769px) {
+  .page-about .service-row .service-image.neon-card {
+    border: 1px solid rgba(0, 174, 239, 0.55);
+    box-shadow: 0 0 32px rgba(0, 174, 239, 0.35);
+    overflow: hidden;
+  }
+
+  .page-about .service-row .service-image.neon-card img.img-cover-center {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+    box-shadow: none;
+  } /* SPEC: ABOUT_DESKTOP_SILVERSTONE_22_28_COVER_FILL_NEON_WRAP_2025_12_30 */
+}

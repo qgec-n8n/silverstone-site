@@ -67,10 +67,83 @@ If web access is unavailable, proceed using the repo’s docs.
 
 ## Progress tracking
 
-- Date started:
-- Last checkpoint time:
-- Current milestone:
-- Blocking issues:
+- Date started: 2025-12-30
+- Last checkpoint time: 2025-12-30
+- Current milestone: M3 — Full regression + documentation (manual QA pending)
+- Blocking issues: Manual QA not yet completed; `scripts/codex.setup.sh` still fails at `sharp` install but grader runs.
+
+---
+
+## Surprises & Discoveries
+
+- `scripts/codex.setup.sh` failed while installing `sharp` (missing `vips/vips8`, EPERM in `/Users/quentingeczy/.npm`); `scripts/codex.requested-edits.sh` still ran but grader failed on missing proof marker (expected pre-implementation).
+- OpenAI Cookbook takeaways applied:
+  - Scope control: keep explicit non-goals, change only the minimum surface area tied to requirements, and validate after each micro-change.
+  - ExecPlan discipline: keep the plan updated (progress, decisions, evidence) so it remains restartable.
+  - Evaluation flywheel: measure baseline → implement targeted change → re-measure → record outcome.
+
+---
+
+## Decision Log
+
+- Proceed with baseline recording and code changes despite `sharp` install failure because the grader script still runs and is the contract for validation. (Revisit if build steps require `sharp` later.)
+
+---
+
+## Outcomes & Retrospective
+
+- Pending until all edits implemented and verified.
+
+---
+
+## Context and Orientation
+
+- Pages: `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `privacy-policy.html`, `niches/*.html`.
+- CSS: `src/css/**` → build via `npm run build:css` → `assets/css/styles.css`.
+- JS: `src/js/**` → build via `npm run build:js` → `assets/js/app.js`.
+- Validation: `bash scripts/codex.requested-edits.sh` (builds + runs `node scripts/assert-ui-spec.js`).
+
+---
+
+## Plan of Work
+
+- M0: Setup + baseline (measure-first).
+- M1: Root-cause confirmation + log notes.
+- M2: Implement edits 1–8 in order with proof markers and per-edit validation.
+- M3: Full regression + documentation (grader + manual QA + evidence table).
+
+---
+
+## Concrete Steps
+
+1) Run setup + baseline grader; log failures.  
+2) Confirm root causes per edit in `codex/UI_CHANGE_LOG.md`.  
+3) Implement each edit in order; run `bash scripts/codex.requested-edits.sh` after each edit/group.  
+4) Complete manual QA + evidence table + final summaries.
+
+---
+
+## Validation and Acceptance
+
+- Automated: `bash scripts/codex.requested-edits.sh` must pass after each milestone and at end.
+- Manual: `codex/MANUAL_QA_CHECKLIST.md` fully checked off for Edits 1–8.
+- Evidence: ExecPlan table filled for each edit.
+
+---
+
+## Artifacts and Notes
+
+- `codex/UI_CHANGE_LOG.md` (baseline, root-cause notes, iteration log, final summary).
+- `codex/REPO_UI_MAP.md` (selectors + file map for edits).
+- `codex/ASSET_REPLACEMENT_MATRIX.md` (deterministic image mapping).
+- `codex/MANUAL_QA_CHECKLIST.md` (manual verification).
+
+---
+
+## Interfaces and Dependencies
+
+- Build scripts: `build-css.js`, `scripts/build-js.js`.
+- Grader: `scripts/assert-ui-spec.js`.
 
 ---
 
@@ -199,14 +272,14 @@ For each row: list files changed + proof marker + how verified.
 
 | Edit | Desktop/Mobile scope | Files changed (paths) | Proof marker | Automated verification | Manual verification notes |
 |---:|---|---|---|---|---|
-| 1 | Desktop only |  | HERO_DESKTOP... | `bash scripts/codex.requested-edits.sh` |  |
-| 2 | Desktop only (about) |  | ABOUT_DESKTOP... | `bash scripts/codex.requested-edits.sh` |  |
-| 3 | Desktop only (services) |  | SERVICES_DESKTOP... | `bash scripts/codex.requested-edits.sh` |  |
-| 4 | Mobile only (services) |  | SERVICES_MOBILE... | `bash scripts/codex.requested-edits.sh` |  |
-| 5 | All devices (services gallery) |  | SERVICES_NEURAL_GRID... | `bash scripts/codex.requested-edits.sh` |  |
-| 6 | All devices (services gallery) |  | SERVICES_NEURAL_GRID... | `bash scripts/codex.requested-edits.sh` |  |
-| 7 | Mobile only |  | HERO_MOBILE... | `bash scripts/codex.requested-edits.sh` |  |
-| 8 | Index only |  | INDEX_SUBTITLES... | `bash scripts/codex.requested-edits.sh` |  |
+| 1 | Desktop only | `src/css/components/hero.css` | HERO_DESKTOP_COPY_CTA_TIGHT_CONTAINER_2025_12_30 | `bash scripts/codex.requested-edits.sh` | Pending manual QA |
+| 2 | Desktop only (about) | `src/css/pages/about.css` | ABOUT_DESKTOP_SILVERSTONE_22_28_COVER_FILL_NEON_WRAP_2025_12_30 | `bash scripts/codex.requested-edits.sh` | Pending manual QA |
+| 3 | Desktop only (services) | `services.html` | SERVICES_DESKTOP_GENERAL_SERVICES_IMAGES_HD_2025_12_30 | `bash scripts/codex.requested-edits.sh` | Pending manual QA |
+| 4 | Mobile only (services) | `services.html`, `src/css/pages/services.css` | SERVICES_MOBILE_GENERAL_SERVICES_CARDS_PORTRAIT_2_3_2025_12_30 | `bash scripts/codex.requested-edits.sh` | Pending manual QA |
+| 5 | All devices (services gallery) | `src/js/gallery.js` | SERVICES_NEURAL_GRID_REPLACE_SQUARE_LANDSCAPE_2025_12_30 | `bash scripts/codex.requested-edits.sh` | Pending manual QA |
+| 6 | All devices (services gallery) | `src/js/gallery.js` | SERVICES_NEURAL_GRID_REPLACE_PORTRAIT_2025_12_30 | `bash scripts/codex.requested-edits.sh` | Pending manual QA |
+| 7 | Mobile only | `src/css/components/hero.css` | HERO_MOBILE_HIDE_GREY_SUBHEADINGS_PRESERVE_LAYOUT_2025_12_30 | `bash scripts/codex.requested-edits.sh` | Pending manual QA |
+| 8 | Index only | `index.html`, `src/css/pages/home.css` | INDEX_SUBTITLES_GREY_TARGETED_SENTENCES_2025_12_30 | `bash scripts/codex.requested-edits.sh` | Pending manual QA |
 
 ---
 

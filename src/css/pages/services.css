@@ -347,4 +347,16 @@
   .page-services .service-row .service-content {
     order: 2;
   }
+
+  .page-services .general-services-card {
+    aspect-ratio: 2 / 3;
+    height: auto !important;
+  }
+
+  .page-services .general-services-card img,
+  .page-services .general-services-card .service-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  } /* SPEC: SERVICES_MOBILE_GENERAL_SERVICES_CARDS_PORTRAIT_2_3_2025_12_30 */
 }
