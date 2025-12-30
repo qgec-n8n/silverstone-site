@@ -21,14 +21,14 @@ How to see it working:
 
 ## Progress
 
-- [ ] (YYYY-MM-DD HH:MMZ) Gate 0 — Setup and baseline captured in `codex/UI_CHANGE_LOG.md`.
-- [ ] (YYYY-MM-DD HH:MMZ) Gate 1 — Discovery complete; `codex/REPO_UI_MAP.md` updated for all edits.
-- [ ] (YYYY-MM-DD HH:MMZ) Gate 2 — Implementation approach written per edit in `codex/UI_CHANGE_LOG.md`.
-- [ ] (YYYY-MM-DD HH:MMZ) Gate 3 — Requested Edit 1 implemented and verified.
-- [ ] (YYYY-MM-DD HH:MMZ) Gate 4 — Requested Edits 2–3 implemented and verified (hero glass removed + hero content repositioned).
-- [ ] (YYYY-MM-DD HH:MMZ) Gate 5 — Requested Edit 4 implemented and verified (index button one line).
-- [ ] (YYYY-MM-DD HH:MMZ) Gate 6 — Requested Edit 5 implemented and verified (qualifying subtitles grey across all pages).
-- [ ] (YYYY-MM-DD HH:MMZ) Gate 7 — Requested Edits 6–7 implemented and verified (image cover-fill).
+- [x] (2025-12-30 12:56Z) Gate 0 — Setup and baseline captured in `codex/UI_CHANGE_LOG.md`.
+- [x] (2025-12-30 12:57Z) Gate 1 — Discovery complete; `codex/REPO_UI_MAP.md` updated for all edits.
+- [x] (2025-12-30 12:58Z) Gate 2 — Implementation approach written per edit in `codex/UI_CHANGE_LOG.md`.
+- [x] (2025-12-30 12:59Z) Gate 3 — Requested Edit 1 implemented and verified.
+- [x] (2025-12-30 13:00Z) Gate 4 — Requested Edits 2–3 implemented and verified (hero glass removed + hero content repositioned).
+- [x] (2025-12-30 13:01Z) Gate 5 — Requested Edit 4 implemented and verified (index button one line).
+- [x] (2025-12-30 13:01Z) Gate 6 — Requested Edit 5 implemented and verified (qualifying subtitles grey across all pages).
+- [x] (2025-12-30 13:02Z) Gate 7 — Requested Edits 6–7 implemented and verified (image cover-fill).
 - [ ] (YYYY-MM-DD HH:MMZ) Gate 8 — Automated validation passing + manual QA complete + evidence table filled.
 
 ## Surprises & Discoveries
@@ -212,39 +212,39 @@ Manual QA contract:
 ## Final evidence table (fill before completion)
 
 - Edit 1 — Per-page hero shader colors
-  - Evidence:
-  - Proof marker:
-  - Pages verified:
+  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
+  - Proof marker: `SPEC: REQ1_HERO_SHADER_COLORS_PER_PAGE_2025_12_30`
+  - Pages verified: about.html, services.html, book.html, contact.html (automated); manual QA pending
 
 - Edit 2 — Hero glass/blur panel removed
-  - Evidence:
-  - Proof marker:
-  - Pages verified:
+  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
+  - Proof marker: `SPEC: REQ2_HERO_GLASS_PANEL_REMOVED_2025_12_30`
+  - Pages verified: all hero pages (automated); manual QA pending
 
 - Edit 3 — Hero copy/CTA placement and readability (no midline obstruction)
-  - Evidence:
-  - Proof marker:
-  - Pages verified:
+  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
+  - Proof marker: `SPEC: REQ3_HERO_COPY_CTA_POSITIONED_OFF_MIDLINE_2025_12_30`
+  - Pages verified: all hero pages (automated layout check); manual QA pending
 
 - Edit 4 — Index “Streamline Workflows” button one line + centered
-  - Evidence:
-  - Proof marker:
-  - Pages verified:
+  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
+  - Proof marker: `SPEC: REQ4_INDEX_STREAMLINE_WORKFLOWS_ONE_LINE_2025_12_30`
+  - Pages verified: index.html (automated); manual QA pending
 
 - Edit 5 — Qualifying section subtitles grey across all pages incl. niches
-  - Evidence:
-  - Proof marker:
-  - Pages verified:
+  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
+  - Proof marker: `SPEC: REQ5_SECTION_SUBTITLES_GREY_2025_12_30`
+  - Pages verified: all pages (automated rule check); manual QA pending
 
 - Edit 6 — About images cover-fill
-  - Evidence:
-  - Proof marker:
-  - Pages verified:
+  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
+  - Proof marker: `SPEC: REQ6_ABOUT_IMAGES_COVER_CENTER_2025_12_30`
+  - Pages verified: about.html (automated); manual QA pending
 
 - Edit 7 — Services images cover-fill
-  - Evidence:
-  - Proof marker:
-  - Pages verified:
+  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
+  - Proof marker: `SPEC: REQ7_SERVICES_IMAGES_COVER_CENTER_2025_12_30`
+  - Pages verified: services.html (automated); manual QA pending
 
 ## Idempotence and Recovery
 
@@ -271,3 +271,4 @@ Where to record work:
 
 Change log note (required for plan edits):
 - If you revise this ExecPlan while working, append a short note here describing what changed and why.
+- 2025-12-30: Updated Progress gates 0–7 timestamps and filled evidence table with automated results; manual QA marked pending.

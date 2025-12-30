@@ -36,26 +36,38 @@ JS:
 ### Edit 1 — Hero shader colors per page
 - Shader code: `src/js/hero-shader.js`
   - Theme map uses a “variant key” read from `#hero-shader-canvas` `data-variant`.
+  - Variant read path: `const variant = canvas.dataset.variant || 'default';`
 - Per-page hook:
   - Each page’s hero includes:
     - `<canvas id="hero-shader-canvas" ...>`
-  - Main pages currently set `data-variant` explicitly (verify desired final values per spec).
+  - Main pages currently set `data-variant` explicitly:
+    - `about.html` hero: `<canvas id="hero-shader-canvas" data-variant="blue">`
+    - `services.html` hero: `<canvas id="hero-shader-canvas" data-variant="blue">`
+    - `book.html` hero: `<canvas id="hero-shader-canvas" data-variant="blue">`
+    - `contact.html` hero: `<canvas id="hero-shader-canvas" data-variant="blue">`
+  - Niche pages omit `data-variant` and rely on default.
 - Rebuild required:
   - Any shader change in `src/js/hero-shader.js` must be rebuilt into `assets/js/app.js`.
 
 ### Edit 2 — Remove hero glass/blur container
 - Hero content panel is controlled by:
-  - `src/css/components/hero.css` selector targeting the hero `.content` wrapper.
+  - `src/css/components/hero.css` selector: `.hero.title-band .content`
 - “Glass” effect is created by:
-  - translucent background
-  - border + box-shadow
-  - backdrop blur
+  - translucent background: `background: rgba(8, 14, 24, 0.55)`
+  - border + box-shadow: `border` + `box-shadow`
+  - backdrop blur: `backdrop-filter` + `-webkit-backdrop-filter`
 - Rebuild required:
   - CSS changes must be rebuilt into `assets/css/styles.css`.
 
 ### Edit 3 — Hero copy/CTA placement (no midline obstruction)
 - Base hero layout is controlled in:
   - `src/css/components/hero.css`
+- Desktop layout controls:
+  - `.hero` has `align-items: center; justify-content: center; text-align: center;`
+  - `.hero.title-band .content` is centered with `margin: 0 auto; max-width: 800px;`
+- Mobile layout controls:
+  - `@media (max-width: 768px) { .hero.title-band { align-items: flex-start; justify-content: flex-start; } }`
+  - `@media (max-width: 768px) { .hero .content { align-items: center; } }`
 - Desktop positioning and mobile overrides both live there.
 - Goal:
   - Move hero content away from the midline region without adding a glass panel back.
@@ -63,6 +75,7 @@ JS:
 ### Edit 4 — Index “Streamline Workflows” button one line
 - Location in HTML:
   - `index.html` contains a “Streamline workflows” button in the “service tiles” area.
+  - Exact node: `.service-tile__actions > a.btn` with text “Streamline workflows”.
 - Supporting CSS:
   - `src/css/pages/home.css` contains `.service-tile__actions .btn` width constraints (this is a likely cause of wrapping).
 - Strategy:
@@ -73,15 +86,17 @@ JS:
   - `.section-subtitle` in `src/css/base/layout.css`
 - Current behavior:
   - `.section-subtitle` uses a silver token, but some page-level rules override that token to white for body sections.
+  - Override rule: `.page-home .section:not(.brand-gradient), .page-about ... { --color-silver: var(--color-white); }`
 - Strategy:
   - Apply a narrowly-scoped rule that targets only the “subtitle under blue title” pattern and sets color to a stable grey token not affected by the override (or remove the override if safe and truly intended).
+  - Likely selector: `.section > .container > .section-title + .section-subtitle`
 
 ### Edit 6 — About images cover-fill
 - Images in `about.html`:
   - `assets/images/zip/Silverstone_28.jpg`
   - `assets/images/zip/Silverstone_22.jpg`
 - Container:
-  - Both live inside `.service-image.neon-card` wrappers, which use absolute-positioned images.
+  - Both live inside `.service-image.neon-card` within `.service-row`.
 - Current image fit:
   - The shared `.service-image img` pattern uses contain in multiple places.
 - Strategy:
@@ -97,6 +112,9 @@ JS:
 - Services page CSS contains multiple contain rules (some with `!important`) in `src/css/pages/services.css`.
 - Strategy:
   - Apply `img-cover-center` to only these images and ensure the services CSS overrides force cover+center for that class.
+  - High-specificity candidates:
+    - `.page-services .service-row .service-image img.img-cover-center`
+    - `.page-services .service-image.neon-card img.img-cover-center`
 
 ## Notes / pitfalls to watch
 

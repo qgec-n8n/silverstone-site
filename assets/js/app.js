@@ -902,7 +902,7 @@
   'use strict';
 
   // --- CONFIGURATION ---
-  const THEMES = {
+  const THEMES = { // SPEC: REQ1_HERO_SHADER_COLORS_PER_PAGE_2025_12_30
     // Original (Purple)
     default: {
       line: [0.4, 0.2, 0.8, 1.0],
@@ -920,6 +920,24 @@
       line: [0.0, 1.0, 0.62, 1.0],
       bg1: [0.0, 0.2, 0.1, 1.0],
       bg2: [0.0, 0.4, 0.2, 1.0]
+    },
+    // About (Neon Yellow)
+    'neon-yellow': {
+      line: [1.0, 0.95, 0.2, 1.0],
+      bg1: [0.14, 0.12, 0.0, 1.0],
+      bg2: [0.3, 0.26, 0.0, 1.0]
+    },
+    // Book (Neon Pink)
+    'neon-pink': {
+      line: [1.0, 0.05, 0.7, 1.0],
+      bg1: [0.12, 0.0, 0.1, 1.0],
+      bg2: [0.35, 0.0, 0.2, 1.0]
+    },
+    // Contact (Fire Orange)
+    'fire-orange': {
+      line: [1.0, 0.4, 0.0, 1.0],
+      bg1: [0.16, 0.04, 0.0, 1.0],
+      bg2: [0.36, 0.12, 0.0, 1.0]
     },
     // Book (Deep Amber/Orange - "Gold")
     // Adjusted to ensure contrast with white text is acceptable

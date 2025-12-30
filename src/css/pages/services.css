@@ -216,6 +216,14 @@
   background: transparent !important;
 }
 
+.page-services .service-row .service-image img.img-cover-center,
+.page-services .service-image.neon-card img.img-cover-center {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center;
+} /* SPEC: REQ7_SERVICES_IMAGES_COVER_CENTER_2025_12_30 */
+
 .page-services .service-row > * {
   min-height: 100%;
 }

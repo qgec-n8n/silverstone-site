@@ -33,6 +33,12 @@
   perspective: 1200px;
   transform-style: preserve-3d;
   overflow: hidden;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  padding-left: clamp(1.25rem, 4vw, 4rem);
+  padding-right: clamp(1.25rem, 4vw, 4rem);
+} /* SPEC: REQ3_HERO_COPY_CTA_POSITIONED_OFF_MIDLINE_2025_12_30 */
 }
 
 .hero-media {
@@ -68,24 +74,20 @@
 .hero.title-band .content {
   position: relative;
   z-index: 1;
-  max-width: 800px;
+  max-width: min(92vw, 640px);
   backface-visibility: hidden;
   padding: clamp(1.5rem, 3vw, 2.25rem);
-  border-radius: 24px;
-  background: rgba(8, 14, 24, 0.55);
-  border: 1px solid rgba(0, 174, 239, 0.28);
-  box-shadow:
-    0 18px 40px rgba(0, 0, 0, 0.45),
-    0 0 36px rgba(0, 174, 239, 0.2);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  margin: 0 auto;
-} /* SPEC: HERO_TEXT_LEGIBILITY_GLASS_PANEL_2025_12 */
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+} /* SPEC: REQ2_HERO_GLASS_PANEL_REMOVED_2025_12_30 */
 
 .hero .cta-buttons {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.85rem;
 } /* SPEC: HERO_CTA_GAP_2025_12 */
 
@@ -175,7 +177,7 @@
   .hero .content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.75rem;
   }
 

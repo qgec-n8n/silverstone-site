@@ -110,6 +110,16 @@
   text-align: center;
 }
 
+.service-tile__actions .btn-streamline-workflows {
+  width: min(100%, 270px);
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+} /* SPEC: REQ4_INDEX_STREAMLINE_WORKFLOWS_ONE_LINE_2025_12_30 */
+
 .packages-grid .feature-card {
   width: 100%;
   max-width: 100%;
