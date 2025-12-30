@@ -1,7 +1,7 @@
 # FILE: .codex/config.toml
 [project]
 name = "silverstone-site-main"
-description = "Static site — Requested Edits 1–6 (shader colors, hero legibility, subtitle grey, image fit)."
+description = "Static site — Requested Edits 1–7 (hero shaders per page, hero layout/no glass, subtitle grey, index nowrap button, about/services image cover-fill)."
 
 [model]
 model = "gpt-5.2-codex"
@@ -11,44 +11,51 @@ temperature = 0.2
 # Single source-of-truth command Codex must keep green.
 command = "bash scripts/codex.requested-edits.sh"
 
-# IMPORTANT: allow Codex to use the internet during execution.
+# Ask Codex CLI to permit network access / web search when supported.
 network_access = true
 web_search_request = true
 
 [files]
-# Keep context tight to reduce scope drift and false coupling.
+# Keep context focused on files relevant to Requested Edits 1–7 and their verification tooling.
 include = [
+  # Planning + governance
   "ExecPlan.md",
   "ExecPlans.md",
   "PLANS.md",
   "AGENTS.md",
   "codex/**/*.md",
 
+  # Validation tooling
   "scripts/**/*.sh",
   "scripts/**/*.js",
+  "build-css.js",
+  "package.json",
+  "package-lock.json",
 
+  # Source code (edit these; then rebuild bundles)
   "src/css/**/*.css",
   "src/js/**/*.js",
 
-  "index.html",
-  "about.html",
-  "services.html",
-  "book.html",
-  "contact.html",
-  "niches/**/*.html",
+  # Built bundles (must be updated by build scripts)
+  "assets/css/styles.css",
+  "assets/js/app.js",
 
-  "assets/css/**/*.css",
-  "assets/js/**/*.js"
+  # Pages in scope
+  "*.html",
+  "niches/**/*.html"
 ]
 
 exclude = [
   "node_modules/**",
   "dist/**",
   ".git/**",
-  ".agent/**",
+  ".npm-cache/**",
 
-  # Out of scope for Requested Edits 1–6; reduces noise and prevents accidental edits.
+  # Out of scope for Requested Edits 1–7
   "pricing-widget/**",
   "niche_copy_templates/**",
-  "PRICING_COPY_MAP.md"
+  "PRICING_COPY_MAP.md",
+
+  # Historical planning artifacts not used for this run
+  ".agent/**"
 ]
