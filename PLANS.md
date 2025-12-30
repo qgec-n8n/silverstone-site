@@ -1,35 +1,107 @@
 <!-- FILE: PLANS.md -->
-# Plans
+# Codex Execution Plans (ExecPlans)
 
-This file is a high-level entrypoint for Codex CLI. The **execution-grade runbook** is `ExecPlan.md`.
+This document defines the requirements for an execution plan (“ExecPlan”) in this repository.
 
-## Current mission (Requested Edits 1–6 only)
+An ExecPlan is not “nice to have.” It is the mechanism that makes long, multi-file changes reliable: it forces discovery, prevents scope drift, and makes correctness checkable.
 
-Implement exactly these six frontend edits:
+## How to use ExecPlans and PLANS.md
 
-1) Shader colors per page (about purple, services green, book neon pink, contact fire orange)  
-2) Remove blurred/glass hero content container; maintain extreme legibility without obscuring shader  
-3) `index.html`: keep “Streamline workflows” button text on one line  
-4) Global: section subtitles (white subheadings under blue titles) must be grey across all pages incl. `niches/*.html`  
-5) `services.html` + `niches/*.html`: image fills its card; crop width only; no height cropping; minimal crop  
-6) `about.html`: images fit card and embedded copy remains fully visible (top-safe)
+When AUTHORING or UPDATING an ExecPlan:
+- Follow this document exactly.
+- Write as if the reader is a complete novice to this repo.
+- Do not rely on external context, prior conversations, or “obvious” assumptions.
+- Include validation instructions that prove user-visible behavior, not just code edits.
 
-## Non-goals (explicit)
+When IMPLEMENTING an ExecPlan:
+- Do not ask the user for “next steps.”
+- Proceed milestone-by-milestone and keep the ExecPlan itself updated (Progress, Surprises, Decision Log, Outcomes).
+- Run validation at every micro-gate and record evidence.
 
-- No pricing feature work
-- No copy rewrites (except what is necessary to meet the six edits)
-- No redesigns, refactors, or unrelated accessibility/SEO tweaks beyond what’s required by these edits
+When DISCUSSING an ExecPlan:
+- Record decisions and surprises in the plan so it remains restartable from the plan alone.
 
-## Where to start
+## Non-negotiable requirements
 
-1) Read:
-- `codex/REQUESTED_EDITS_SPEC.md`
-- `ExecPlan.md`
-- `codex/VERIFICATION_PROTOCOL.md`
+Every ExecPlan in this repo MUST:
+1. Be fully self-contained:
+   - All repo orientation, file paths, selectors, and commands needed must be embedded.
+2. Be a living document:
+   - The sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` must be updated as work proceeds.
+3. Define success as observable behavior:
+   - Validation must include objective checks and clear manual QA steps.
+4. Prevent scope drift:
+   - Explicitly list “Non-goals” and forbid unrelated refactors/design changes.
+5. Include idempotence and recovery:
+   - Steps must be safe to re-run; failures must include retry guidance.
 
-2) Run baseline:
-- `bash scripts/codex.setup.sh`
-- `bash scripts/codex.requested-edits.sh`
+## Repo-specific orientation (must be restated in ExecPlan.md)
 
-3) Execute `ExecPlan.md` gates:
-- Discovery → Approach → Implement → Verify → Regression → Evidence mapping
+This is a static multi-page website with a small build pipeline:
+
+Pages:
+- Root: `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `privacy-policy.html`
+- Niche pages: `niches/*.html` (all must be included in cross-page audits)
+
+CSS:
+- Source: `src/css/**`
+- Build script: `build-css.js`
+- Output bundle: `assets/css/styles.css`
+- Build command: `npm run build:css`
+
+JavaScript:
+- Source: `src/js/**` (concatenated in a stable order)
+- Build script: `scripts/build-js.js`
+- Output bundle: `assets/js/app.js`
+- Build command: `npm run build:js`
+
+Validation (the “grader” contract):
+- Primary command: `bash scripts/codex.requested-edits.sh`
+- This rebuilds CSS/JS and runs: `node scripts/assert-ui-spec.js`
+
+Manual QA:
+- A local static server is sufficient (no framework runtime).
+- Use the checklist in `codex/MANUAL_QA_CHECKLIST.md`.
+
+## Prompt discipline blocks (use in Codex initiation prompts)
+
+Use explicit constraints to keep GPT-5.2 disciplined:
+
+output_verbosity_spec:
+- Keep narration compact and structured.
+- Prefer checklists and short bullets over long prose.
+- Do not rephrase requirements unless it changes semantics.
+- For multi-file tasks: always report
+  - What changed
+  - Where
+  - How verified
+  - Remaining risks / open items
+
+design_and_scope_constraints:
+- Implement EXACTLY and ONLY the requested edits.
+- No extra features, no “nice-to-have” styling changes, no redesigns.
+- Use existing tokens/variables where possible.
+- Prefer page-scoped selectors to avoid collateral changes.
+- Do not touch pricing work or pricing-widget code for this task.
+
+validation_contract:
+- Run `bash scripts/codex.requested-edits.sh` after each milestone.
+- Do not declare done until it passes AND manual QA is completed.
+
+## Standard ExecPlan section checklist
+
+An ExecPlan file in this repo must include the following top-level sections (in this order is recommended):
+- Purpose / Big Picture
+- Progress
+- Surprises & Discoveries
+- Decision Log
+- Outcomes & Retrospective
+- Context and Orientation
+- Plan of Work
+- Concrete Steps
+- Validation and Acceptance
+- Idempotence and Recovery
+- Artifacts and Notes
+- Interfaces and Dependencies
+
+If an ExecPlan is missing any of these, it is not acceptable for a long Codex run.
