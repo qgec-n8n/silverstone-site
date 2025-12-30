@@ -8,9 +8,11 @@ This folder contains the “source of truth” docs for a reliable Codex run.
 1) `PLANS.md` (defines ExecPlan requirements)
 2) `ExecPlan.md` (the runbook; must stay updated)
 3) `codex/REQUESTED_EDITS_SPEC.md` (what to implement + proof markers)
-4) `codex/VERIFICATION_PROTOCOL.md` (how to verify correctness)
-5) `codex/PAGE_AUDIT_MATRIX.md` (cross-page audit grid)
-6) `codex/MANUAL_QA_CHECKLIST.md` (visual/responsive verification)
+4) `codex/ASSET_REPLACEMENT_MATRIX.md` (deterministic image mapping)
+5) `codex/REPO_UI_MAP.md` (where things live)
+6) `codex/VERIFICATION_PROTOCOL.md` (how to verify correctness)
+7) `codex/PAGE_AUDIT_MATRIX.md` (cross-page audit grid)
+8) `codex/MANUAL_QA_CHECKLIST.md` (visual/responsive verification)
 
 ## Setup
 
@@ -27,4 +29,4 @@ Record baseline failures and any constraints in:
 
 - `bash scripts/codex.requested-edits.sh` passes
 - Manual QA is complete: `codex/MANUAL_QA_CHECKLIST.md`
-- Evidence table in `ExecPlan.md` is completed 1:1 for Requested Edits 1–7
+- Evidence table in `ExecPlan.md` is completed 1:1 for Requested Edits 1–8
