@@ -1,15 +1,11 @@
-# .codex/config.toml
+# FILE: .codex/config.toml
+# NOTE: Network + web search are enabled so Codex can read the required OpenAI Cookbook docs
+# referenced by title in ExecPlan / codex docs (URLs are provided outside of repo files).
 
-# Model
 model = "gpt-5.2-codex"
-
-# Safety / execution defaults
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
 [features]
-web_search_request = true
-
-[sandbox_workspace_write]
 network_access = true
-
+web_search_request = true
