@@ -1,62 +1,86 @@
 <!-- FILE: codex/VERIFICATION_PROTOCOL.md -->
 # Verification Protocol (Automated + Manual)
 
-This file defines what “verified” means for Requested Edits 1–7.
+This protocol is how we prevent false “done”.
 
-## Automated verification (grader)
+---
 
-Primary command:
+## 1) Automated verification (required)
+
+### Setup (once per environment)
+- `bash scripts/codex.setup.sh`
+
+### Build + validate (run after each milestone)
 - `bash scripts/codex.requested-edits.sh`
 
 What it does:
-- Rebuilds CSS and JS bundles:
-  - `npm run build:css`
-  - `npm run build:js`
-- Runs the grader:
-  - `node scripts/assert-ui-spec.js`
+- rebuilds CSS + JS bundles
+- runs the fatal grader: `node scripts/assert-ui-spec.js`
 
-The grader enforces:
-- Required proof markers exist in the built bundles.
-- Required per-page hero shader variants exist in HTML.
-- Targeted class hooks exist (index nowrap button; image cover-fill class).
-- Key CSS layout constraints for the hero are present (no glass panel; content not centered over midline).
+**Do not** claim completion unless this passes.
 
-Success criteria:
-- The script exits with status 0.
+---
 
-Failure handling (evaluation flywheel loop):
-1) Analyze:
-- Read the failing assertion and identify which Requested Edit is failing.
-2) Measure:
-- Re-run the same script after a minimal change to confirm the failure moved.
-3) Improve:
-- Apply the smallest possible targeted fix.
-- Re-run until the failure is eliminated.
+## 2) Manual verification (required)
 
-## Manual verification (required for visual constraints)
+### Run a local static server
+From repo root:
+- `python3 -m http.server 8080`
 
-Manual QA is mandatory because:
-- “Does not obstruct the shader midline” is a visual constraint.
-- “Neon” and “fire orange” are perceptual.
+Open in a browser:
+- `http://localhost:8080/index.html`
+- `http://localhost:8080/about.html`
+- `http://localhost:8080/services.html`
+- At least two niche pages under `/niches/`
 
-Use:
-- `codex/MANUAL_QA_CHECKLIST.md`
+### Viewport presets
+- Desktop: 1440×900 (or similar)
+- Mobile: 390×844 and 375×812 (or similar)
 
-Minimum manual scope:
-- Desktop + mobile checks for:
-  - index.html, about.html, services.html, book.html, contact.html
-- At least 2 niche pages (different templates) for:
-  - hero layout + subtitle grey rule
+---
 
-Success criteria:
-- Checklist completed with notes.
-- Any discovered edge cases are fixed and re-verified.
+## 3) Per-edit manual checks
 
-## Evidence capture (required)
+### Edit 1 — Desktop hero container
+- Desktop only:
+  - hero copy + CTAs sit inside a visibly bounded container (tight to content, not full width)
+  - readability improves against shader background
 
-Before declaring done:
-- Fill the evidence table in `ExecPlan.md`.
-- Ensure each edit is supported by:
-  - the corresponding proof marker
-  - automated grader pass
-  - manual QA confirmation where required
+### Edit 7 — Mobile hero subheading removal (no layout shift)
+- Mobile only:
+  - grey hero subheading text is not visible
+  - title and CTAs are in the same positions as before (no “jump” upward)
+
+### Edit 2 — About desktop images fill + neon border wrap
+- Desktop only on about:
+  - Silverstone_28 and Silverstone_22 fill their containers (no letterboxing)
+  - neon border tightly wraps the container
+
+### Edit 3 — Services desktop HD General_Services cards
+- Desktop only:
+  - baked-in copy inside images is crisp (check at 125–200% zoom)
+  - images do not show obvious blocky compression artifacts
+
+### Edit 4 — Services mobile portrait 2:3 cards
+- Mobile only:
+  - General_Services cards render as portrait 2:3 and not inside a landscape frame
+  - compare visually to niches image cards; spacing/border treatment should match
+
+### Edits 5–6 — Services Innovation Gallery Neural Grid swaps
+- Desktop + mobile:
+  - the grid no longer shows old `1-1`, `2-3`, `3-2` imagery
+  - tiles display the new assets from `codex/ASSET_REPLACEMENT_MATRIX.md`
+
+### Edit 8 — Index targeted sentences grey
+- Desktop + mobile:
+  - only the two specified sentences are grey (not white)
+  - other subtitles retain their existing colors
+
+---
+
+## 4) Documentation evidence
+
+Before final completion:
+- Update `ExecPlan.md` evidence table for each edit.
+- Update `codex/UI_CHANGE_LOG.md` final summary.
+- Check off `codex/MANUAL_QA_CHECKLIST.md`.
