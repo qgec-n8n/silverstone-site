@@ -1,274 +1,220 @@
 <!-- FILE: ExecPlan.md -->
-# Hero shader colors + hero layout (no glass) + subtitle grey + index pill nowrap + image cover-fill (Requested Edits 1–7)
-
-This ExecPlan is a **living document**. The sections `Progress`, `Surprises & Discoveries`, `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work proceeds.
-
-This plan must be maintained in accordance with `PLANS.md`.
+# ExecPlan — Requested Edits 1–8 (Hero / About / Services / Neural Grid / Index)
 
 ## Purpose / Big Picture
 
-From a visitor’s perspective, after this change:
-
-- Each main page has a distinct hero shader color (about neon yellow; services green; book neon pink; contact fire orange).
-- Hero copy + CTA buttons are readable without sitting inside a blurred/glass “panel,” and they no longer block the shader animation running across the middle of the hero.
-- The index “Streamline Workflows” pill button stays on one line and looks balanced.
-- Body-section subtitles directly under blue section titles are grey (not white) across **all** pages including `niches/*.html`, with explicit exclusions.
-- The specified about/services images fill their cards using center-crop (object-fit cover), so cards look polished.
-
-How to see it working:
-- Build bundles and run the grader: `bash scripts/codex.requested-edits.sh` (must pass).
-- Manually spot-check pages in a browser using `codex/MANUAL_QA_CHECKLIST.md`.
-
-## Progress
-
-- [x] (2025-12-30 12:56Z) Gate 0 — Setup and baseline captured in `codex/UI_CHANGE_LOG.md`.
-- [x] (2025-12-30 12:57Z) Gate 1 — Discovery complete; `codex/REPO_UI_MAP.md` updated for all edits.
-- [x] (2025-12-30 12:58Z) Gate 2 — Implementation approach written per edit in `codex/UI_CHANGE_LOG.md`.
-- [x] (2025-12-30 12:59Z) Gate 3 — Requested Edit 1 implemented and verified.
-- [x] (2025-12-30 13:00Z) Gate 4 — Requested Edits 2–3 implemented and verified (hero glass removed + hero content repositioned).
-- [x] (2025-12-30 13:01Z) Gate 5 — Requested Edit 4 implemented and verified (index button one line).
-- [x] (2025-12-30 13:01Z) Gate 6 — Requested Edit 5 implemented and verified (qualifying subtitles grey across all pages).
-- [x] (2025-12-30 13:02Z) Gate 7 — Requested Edits 6–7 implemented and verified (image cover-fill).
-- [ ] (YYYY-MM-DD HH:MMZ) Gate 8 — Automated validation passing + manual QA complete + evidence table filled.
-
-## Surprises & Discoveries
-
-Record unexpected behaviors, hidden dependencies, or confusing selectors.
-
-- Observation:
-  - Evidence:
-
-## Decision Log
-
-Record every notable decision.
-
-- Decision:
-  - Rationale:
-  - Date/Author:
-
-## Outcomes & Retrospective
-
-Summarize outcomes, gaps, and lessons learned at the end of the work (or at major milestones).
-
-## Context and Orientation
-
-Key repo structure (restate for novices):
-
-- Pages:
-  - Root: `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `privacy-policy.html`
-  - Niche pages: `niches/*.html` (all in scope for hero and subtitle changes)
-- CSS pipeline:
-  - Source: `src/css/**`
-  - Output: `assets/css/styles.css` via `npm run build:css`
-- JS pipeline:
-  - Source: `src/js/**`
-  - Output: `assets/js/app.js` via `npm run build:js`
-- Hero shader implementation:
-  - Source module: `src/js/hero-shader.js` (bundled into `assets/js/app.js`)
-  - Variant chosen via `data-variant` on `#hero-shader-canvas` in each page.
-- Validation tooling:
-  - `bash scripts/codex.requested-edits.sh` rebuilds bundles and runs `node scripts/assert-ui-spec.js`.
-
-Source-of-truth specification:
-- `codex/REQUESTED_EDITS_SPEC.md` (requirements + proof markers)
-- `codex/VERIFICATION_PROTOCOL.md` (how to verify + what “done” means)
-
-## Plan of Work
-
-Milestones (each must be independently verifiable):
-
-### Milestone 0 — Setup + baseline (Measure-first)
-Goal:
-- Confirm environment builds and capture baseline failures.
-
-Work:
-- Run `bash scripts/codex.setup.sh`.
-- Run `bash scripts/codex.requested-edits.sh` and record failures in `codex/UI_CHANGE_LOG.md` under “Baseline”.
-
-Proof:
-- Baseline output captured.
-
-### Milestone 1 — Discovery & mapping
-Goal:
-- Identify exactly where each requested edit is controlled.
-
-Work:
-- Read relevant HTML/CSS/JS files.
-- Run `node scripts/ui-audit.js` to print current page inventory and hero variants.
-- Update `codex/REPO_UI_MAP.md` with:
-  - file paths
-  - selectors/classes
-  - relevant constraints/pitfalls
-
-Proof:
-- REPO_UI_MAP updated for all edits.
-
-### Milestone 2 — Requested Edit 1 (shader colors per page)
-Goal:
-- About/services/book/contact heroes use the correct shader colors.
-
-Work:
-- Implement per-page shader variants and theme values.
-- Ensure HTML per page sets the correct `data-variant`.
-- Add proof marker: `SPEC: REQ1_HERO_SHADER_COLORS_PER_PAGE_2025_12_30`.
-
-Proof:
-- `bash scripts/codex.requested-edits.sh` passes the Req 1 assertions for variant mapping and theme presence.
-
-### Milestone 3 — Requested Edits 2–3 (remove hero glass + reposition hero content)
-Goal:
-- Remove blurred/glass hero panel and reposition hero copy/CTAs so they do not sit over the shader midline (desktop + mobile), while remaining readable.
-
-Work:
-- Remove the glass/blur look (no backdrop blur, no translucent panel).
-- Adjust typography and layout placement to keep the midline visually open.
-- Add proof markers:
-  - `SPEC: REQ2_HERO_GLASS_PANEL_REMOVED_2025_12_30`
-  - `SPEC: REQ3_HERO_COPY_CTA_POSITIONED_OFF_MIDLINE_2025_12_30`
-
-Proof:
-- `bash scripts/codex.requested-edits.sh` passes hero CSS assertions.
-- Manual QA confirms the midline is not obstructed.
-
-### Milestone 4 — Requested Edit 4 (index “Streamline Workflows” one line)
-Goal:
-- The “Streamline workflows” pill button on index stays on one line and is visually centered with balanced spacing.
-
-Work:
-- Add a targeted class to the specific button and apply nowrap + centering styling.
-- Add proof marker: `SPEC: REQ4_INDEX_STREAMLINE_WORKFLOWS_ONE_LINE_2025_12_30`.
-
-Proof:
-- `bash scripts/codex.requested-edits.sh` passes the index nowrap assertion.
-
-### Milestone 5 — Requested Edit 5 (qualifying subtitles grey across all pages)
-Goal:
-- Any qualifying subtitle under a blue section title in body sections becomes grey across root pages and all `niches/*.html`, excluding subtitles inside cards/CTA banners/pill buttons.
-
-Work:
-- Implement a narrowly-scoped CSS rule that targets only qualifying subtitles (definition in spec).
-- Remove/avoid inline color overrides that force white for qualifying subtitles.
-- Add proof marker: `SPEC: REQ5_SECTION_SUBTITLES_GREY_2025_12_30`.
-
-Proof:
-- `bash scripts/codex.requested-edits.sh` passes the subtitle rule presence assertion.
-- Manual QA confirms multiple pages (including niche pages) show grey subtitles under blue titles.
-
-### Milestone 6 — Requested Edits 6–7 (image cover-fill)
-Goal:
-- About page: `Silverstone_22.jpg` and `Silverstone_28.jpg` fill their containers (center-crop).
-- Services page: `General_Services_1.jpeg`, `General_Services_2A.jpeg`, `General_Services_2B.jpeg`, `General_Services_3.jpeg` fill their containers (center-crop).
-
-Work:
-- Add a narrowly-scoped utility/class for “cover + center” and apply it only to the required images.
-- Ensure CSS on services page properly overrides any contain/centering overrides that would prevent cover-fill.
-- Add proof markers:
-  - `SPEC: REQ6_ABOUT_IMAGES_COVER_CENTER_2025_12_30`
-  - `SPEC: REQ7_SERVICES_IMAGES_COVER_CENTER_2025_12_30`
-
-Proof:
-- `bash scripts/codex.requested-edits.sh` passes image assertions.
-- Manual QA confirms images are centered and cropped by card bounds.
-
-### Milestone 7 — Final verification + evidence capture
-Goal:
-- Prove all edits are correct and complete.
-
-Work:
-- Run `bash scripts/codex.requested-edits.sh` (must pass).
-- Complete `codex/MANUAL_QA_CHECKLIST.md`.
-- Fill the evidence table below.
-
-Proof:
-- All checks passed + evidence table completed.
-
-## Concrete Steps
-
-All commands are run from the repository root.
-
-1) Setup:
-- `bash scripts/codex.setup.sh`
-
-2) Baseline validation:
-- `bash scripts/codex.requested-edits.sh`
-
-3) During implementation (after each edit or micro-gate):
-- `bash scripts/codex.requested-edits.sh`
-
-4) Manual QA:
-- Follow `codex/MANUAL_QA_CHECKLIST.md`.
-
-## Validation and Acceptance
-
-Acceptance criteria are defined in:
-- `codex/REQUESTED_EDITS_SPEC.md`
-
-Automated grader contract:
-- `bash scripts/codex.requested-edits.sh` must pass.
-
-Manual QA contract:
-- `codex/MANUAL_QA_CHECKLIST.md` must be completed.
-
-## Final evidence table (fill before completion)
-
-- Edit 1 — Per-page hero shader colors
-  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
-  - Proof marker: `SPEC: REQ1_HERO_SHADER_COLORS_PER_PAGE_2025_12_30`
-  - Pages verified: about.html, services.html, book.html, contact.html (automated); manual QA pending
-
-- Edit 2 — Hero glass/blur panel removed
-  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
-  - Proof marker: `SPEC: REQ2_HERO_GLASS_PANEL_REMOVED_2025_12_30`
-  - Pages verified: all hero pages (automated); manual QA pending
-
-- Edit 3 — Hero copy/CTA placement and readability (no midline obstruction)
-  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
-  - Proof marker: `SPEC: REQ3_HERO_COPY_CTA_POSITIONED_OFF_MIDLINE_2025_12_30`
-  - Pages verified: all hero pages (automated layout check); manual QA pending
-
-- Edit 4 — Index “Streamline Workflows” button one line + centered
-  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
-  - Proof marker: `SPEC: REQ4_INDEX_STREAMLINE_WORKFLOWS_ONE_LINE_2025_12_30`
-  - Pages verified: index.html (automated); manual QA pending
-
-- Edit 5 — Qualifying section subtitles grey across all pages incl. niches
-  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
-  - Proof marker: `SPEC: REQ5_SECTION_SUBTITLES_GREY_2025_12_30`
-  - Pages verified: all pages (automated rule check); manual QA pending
-
-- Edit 6 — About images cover-fill
-  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
-  - Proof marker: `SPEC: REQ6_ABOUT_IMAGES_COVER_CENTER_2025_12_30`
-  - Pages verified: about.html (automated); manual QA pending
-
-- Edit 7 — Services images cover-fill
-  - Evidence: `bash scripts/codex.requested-edits.sh` PASS (2025-12-30)
-  - Proof marker: `SPEC: REQ7_SERVICES_IMAGES_COVER_CENTER_2025_12_30`
-  - Pages verified: services.html (automated); manual QA pending
-
-## Idempotence and Recovery
-
-- The validation scripts are safe to re-run repeatedly.
-- If a change causes unintended collateral styling:
-  - Revert the smallest selector/rule first.
-  - Prefer page-scoped selectors (`.page-about`, `.page-services`, `.page-niche`) and narrowly applied classes.
-- Keep build outputs updated:
-  - If source is updated (`src/css` or `src/js`), the corresponding bundle must be rebuilt in `assets/`.
-
-## Artifacts and Notes
-
-Where to record work:
-- Baseline output, approach notes, and micro-gate results: `codex/UI_CHANGE_LOG.md`
-- Discovery mapping: `codex/REPO_UI_MAP.md`
-
-## Interfaces and Dependencies
-
-- Node + npm (for build scripts and graders)
-- Bash (for the primary validation scripts)
-- A local static server for manual QA (any simple HTTP server is fine)
+Implement the **exact** Requested Edits 1–8 from `codex/REQUESTED_EDITS_SPEC.md` with:
+- minimal targeted changes
+- strict desktop-only vs mobile-only behavior
+- root-cause-first execution (no guessing)
+- automated verification (repo grader) + manual responsive QA
+
+This ExecPlan is the authoritative runbook. Follow it in order.
 
 ---
 
-Change log note (required for plan edits):
-- If you revise this ExecPlan while working, append a short note here describing what changed and why.
-- 2025-12-30: Updated Progress gates 0–7 timestamps and filled evidence table with automated results; manual QA marked pending.
+## Scope
+
+### In scope (ONLY these)
+
+1) **Desktop only:** wrap Hero Shader copy + CTA buttons in a tightly-wrapping container for legibility. Mobile must remain unchanged from this desktop-only change.
+2) **Desktop only (about.html):** Silverstone_22.jpg + Silverstone_28.jpg must fill container; neon border must tightly wrap container.
+3) **Desktop only (services.html):** General_Services_*.webp images look pixelated (including baked-in overlay copy) — fix so desktop rendering is high-definition.
+4) **Mobile only (services.html):** those General_Services_* cards render landscape — make them match niches image-card presentation (portrait 2:3 fit).
+5) **services.html Innovation Gallery Neural Grid:** replace all 1:1 + 3:2 images with allowed `services_*` images per spec.
+6) **services.html Innovation Gallery Neural Grid:** replace all 2:3 images with `*_1_Mobile.jpeg` / `*_2_Mobile.jpeg` / `*_3_Mobile.jpeg` with varied prefixes.
+7) **Mobile only:** remove (hide) grey hero subheadings on shader hero so mobile hero shows only title + CTAs, **without moving** the title/CTAs.
+8) **index.html:** recolor two specific sentences from white to grey (only those sentences).
+
+### Out of scope (hard constraints)
+
+- No redesigns, no new components, no typography changes beyond what is required for the 8 edits.
+- Do NOT modify anything under `pricing-widget/**`.
+- Do NOT change copy text except where explicitly requested (Edit 8).
+- Do NOT add new pages.
+- Avoid broad refactors; prefer narrow selector scoping.
+
+---
+
+## Key repo grounding (where changes must happen)
+
+- Hero layout/styling: `src/css/components/hero.css` (hero `.title-band`, `.content`, mobile/desktop media queries)
+- About page images in service rows: `about.html` (Silverstone_22/28) + **desktop-only override** in `src/css/pages/about.css` (or narrowly scoped override elsewhere)
+- Services General_Services cards:
+  - Markup: `services.html` (four `<picture>` blocks for General_Services_1, 2A, 2B, 3)
+  - Styling: `src/css/pages/services.css` (mobile-only portrait 2:3 card behavior, scoped)
+- Innovation Gallery Neural Grid content is injected by JS:
+  - Source of truth: `src/js/gallery.js` (`CURATED_IMAGES`)
+  - Grid container: `#neural-grid` on `services.html`
+- Index sentences: `index.html` + a targeted CSS utility/class (scoped to only those sentences)
+
+Reference mappings (must follow): `codex/ASSET_REPLACEMENT_MATRIX.md`
+
+---
+
+## Required web reading before implementation (Codex must do this)
+
+Using web access, open and skim the three OpenAI Cookbook pages listed in the user request:
+- GPT‑5.2 prompting guide (planning + instruction patterns)
+- Evaluation flywheel (measure-first, resilient prompts)
+- Codex Exec Plans (plan structure + checkpoints)
+
+Extract only actionable execution patterns and apply them while following this ExecPlan.
+
+If web access is unavailable, proceed using the repo’s docs.
+
+---
+
+## Progress tracking
+
+- Date started:
+- Last checkpoint time:
+- Current milestone:
+- Blocking issues:
+
+---
+
+## Milestones & Stop/Go Gates
+
+### M0 — Setup + baseline (measure-first)
+
+1. Run setup:
+   - `bash scripts/codex.setup.sh`
+2. Run baseline grader:
+   - `bash scripts/codex.requested-edits.sh`
+3. Record baseline outcome (failures expected until edits implemented):
+   - Update `codex/UI_CHANGE_LOG.md` → Baseline section
+
+**GO / NO-GO gate:** Do not edit code until baseline is recorded.
+
+---
+
+### M1 — Repo analysis & root-cause confirmation
+
+For each edit, confirm *where the behavior originates* (HTML/CSS/JS) and document a 1–3 sentence root cause in `codex/UI_CHANGE_LOG.md`.
+
+Must specifically confirm:
+- Hero shader content structure uses `.hero.title-band .content` across pages.
+- About images have `img-cover-center` but are overridden by a more specific rule on desktop.
+- Services General_Services “pixelation” is due to desktop selecting `.webp` sources (and the baked-in text is visibly degraded).
+- Services mobile card aspect mismatch is caused by page-specific aspect-ratio/contain rules overriding the mobile card behavior.
+- Innovation Gallery images are injected by `src/js/gallery.js` (not the fallback HTML), so replacements must occur there.
+
+**GO / NO-GO gate:** You may proceed only after each root cause is written down.
+
+---
+
+### M2 — Implement edits with isolated changes + proof markers
+
+Implement in order, running the grader after each edit (or small edit group) and keeping changes minimal.
+
+#### Edit 1 — Desktop-only hero copy+CTA tight container
+- Implement in `src/css/components/hero.css`.
+- Must be desktop-only.
+- Add proof marker:
+  - `SPEC: HERO_DESKTOP_COPY_CTA_TIGHT_CONTAINER_2025_12_30`
+
+Checkpoint:
+- Run `bash scripts/codex.requested-edits.sh`
+- Manual: Desktop hero shows container around copy+CTA; mobile unaffected by this desktop-only styling.
+
+#### Edit 7 — Mobile-only hero grey subheading removal (no layout shift)
+- Implement in `src/css/components/hero.css` under mobile media query.
+- Hide the hero subheading text while preserving layout spacing so title/CTAs do not move.
+- Add proof marker:
+  - `SPEC: HERO_MOBILE_HIDE_GREY_SUBHEADINGS_PRESERVE_LAYOUT_2025_12_30`
+
+Checkpoint:
+- Run grader
+- Manual: Mobile hero shows no grey subheading text; title+CTAs sit exactly where they did before.
+
+#### Edit 2 — About desktop image fill + neon border wrap
+- Implement as desktop-only override in `src/css/pages/about.css` (preferred) targeting the `img-cover-center` images for Silverstone_22 and Silverstone_28.
+- Add proof marker:
+  - `SPEC: ABOUT_DESKTOP_SILVERSTONE_22_28_COVER_FILL_NEON_WRAP_2025_12_30`
+
+Checkpoint:
+- Run grader
+- Manual: desktop about service-row images fill container (no letterboxing), border is tight to container.
+
+#### Edit 3 — Services desktop HD for General_Services images
+- Implement in `services.html`: change picture sources so desktop does not use the pixelated `.webp` versions.
+- Must remain desktop-only in effect (keep mobile webp).
+- Add proof marker in `services.html`:
+  - `SPEC: SERVICES_DESKTOP_GENERAL_SERVICES_IMAGES_HD_2025_12_30`
+
+Checkpoint:
+- Run grader
+- Manual: Desktop services page image text looks crisp at 125–200% zoom.
+
+#### Edit 4 — Services mobile General_Services cards portrait 2:3 (match niches)
+- Add a scoped class hook in `services.html` on the four General_Services image-card wrappers (see spec).
+- Add mobile-only CSS in `src/css/pages/services.css` so these cards render as portrait 2:3 and match niches styling.
+- Add proof marker:
+  - `SPEC: SERVICES_MOBILE_GENERAL_SERVICES_CARDS_PORTRAIT_2_3_2025_12_30`
+
+Checkpoint:
+- Run grader
+- Manual: Mobile services General_Services cards are portrait (2:3) and visually consistent with niches image-card treatment.
+
+#### Edits 5 & 6 — Innovation Gallery Neural Grid image replacements
+- Implement in `src/js/gallery.js` by replacing `CURATED_IMAGES` file entries per `codex/ASSET_REPLACEMENT_MATRIX.md`.
+- Add proof markers in `src/js/gallery.js`:
+  - `SPEC: SERVICES_NEURAL_GRID_REPLACE_SQUARE_LANDSCAPE_2025_12_30`
+  - `SPEC: SERVICES_NEURAL_GRID_REPLACE_PORTRAIT_2025_12_30`
+
+Checkpoint:
+- Run grader
+- Manual: Services Innovation Gallery shows the new assets; no filenames with `1-1`, `3-2`, `2-3` remain in the source list.
+
+#### Edit 8 — Index subtitle sentences white → grey
+- Implement by adding a dedicated class to the exact two sentences (preferably by adding a class to their `<p>` tags) + defining that class’ color in CSS.
+- Add proof marker in CSS near the class definition:
+  - `SPEC: INDEX_SUBTITLES_GREY_TARGETED_SENTENCES_2025_12_30`
+
+Checkpoint:
+- Run grader
+- Manual: Only those two sentences are grey; no other subtitles are unintentionally recolored.
+
+---
+
+### M3 — Full regression + documentation
+
+1) Run final build + grader:
+- `bash scripts/codex.requested-edits.sh`
+
+2) Complete manual checklist:
+- `codex/MANUAL_QA_CHECKLIST.md`
+
+3) Update paper trail:
+- `codex/UI_CHANGE_LOG.md` final summary section
+
+**Definition of done:** grader passes + manual QA complete + evidence table below filled.
+
+---
+
+## Evidence table (must be filled before final “done”)
+
+For each row: list files changed + proof marker + how verified.
+
+| Edit | Desktop/Mobile scope | Files changed (paths) | Proof marker | Automated verification | Manual verification notes |
+|---:|---|---|---|---|---|
+| 1 | Desktop only |  | HERO_DESKTOP... | `bash scripts/codex.requested-edits.sh` |  |
+| 2 | Desktop only (about) |  | ABOUT_DESKTOP... | `bash scripts/codex.requested-edits.sh` |  |
+| 3 | Desktop only (services) |  | SERVICES_DESKTOP... | `bash scripts/codex.requested-edits.sh` |  |
+| 4 | Mobile only (services) |  | SERVICES_MOBILE... | `bash scripts/codex.requested-edits.sh` |  |
+| 5 | All devices (services gallery) |  | SERVICES_NEURAL_GRID... | `bash scripts/codex.requested-edits.sh` |  |
+| 6 | All devices (services gallery) |  | SERVICES_NEURAL_GRID... | `bash scripts/codex.requested-edits.sh` |  |
+| 7 | Mobile only |  | HERO_MOBILE... | `bash scripts/codex.requested-edits.sh` |  |
+| 8 | Index only |  | INDEX_SUBTITLES... | `bash scripts/codex.requested-edits.sh` |  |
+
+---
+
+## Idempotence & Recovery
+
+- Keep each edit minimal and scoped by page class (`.page-services`, `.page-about`) and by media query as required.
+- If a change causes unexpected cross-page impact:
+  - revert the smallest change
+  - tighten selector scoping or move it into the page-specific CSS file
+- Do not remove proof markers; the grader requires them.
+- Do not bypass the build step; always run the repo script to rebuild and validate.
