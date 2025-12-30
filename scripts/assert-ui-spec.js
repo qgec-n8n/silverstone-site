@@ -1,339 +1,261 @@
 // FILE: scripts/assert-ui-spec.js
-'use strict';
+/**
+ * UI Spec Grader — Requested Edits 1–8
+ *
+ * This script enforces the repo's proof-marker + structural contracts so Codex cannot claim completion
+ * without implementing the requested changes.
+ *
+ * It is intentionally strict. If you change marker strings, you MUST update:
+ * - codex/REQUESTED_EDITS_SPEC.md
+ * - codex/MAINTENANCE.md
+ * - this file
+ */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const SPEC_MARKERS = {
-  REQ1: 'SPEC: REQ1_HERO_SHADER_COLORS_PER_PAGE_2025_12_30',
-  REQ2: 'SPEC: REQ2_HERO_GLASS_PANEL_REMOVED_2025_12_30',
-  REQ3: 'SPEC: REQ3_HERO_COPY_CTA_POSITIONED_OFF_MIDLINE_2025_12_30',
-  REQ4: 'SPEC: REQ4_INDEX_STREAMLINE_WORKFLOWS_ONE_LINE_2025_12_30',
-  REQ5: 'SPEC: REQ5_SECTION_SUBTITLES_GREY_2025_12_30',
-  REQ6: 'SPEC: REQ6_ABOUT_IMAGES_COVER_CENTER_2025_12_30',
-  REQ7: 'SPEC: REQ7_SERVICES_IMAGES_COVER_CENTER_2025_12_30'
-};
+const REPO_ROOT = path.resolve(__dirname, "..");
 
-const EXPECTED_HERO_VARIANTS = {
-  'about.html': 'neon-yellow',
-  'services.html': 'green',
-  'book.html': 'neon-pink',
-  'contact.html': 'fire-orange'
-};
-
-const INDEX_NOWRAP_CLASS = 'btn-streamline-workflows';
-const IMAGE_COVER_CLASS = 'img-cover-center';
-
-const ASSETS_CSS = path.join('assets', 'css', 'styles.css');
-const ASSETS_JS = path.join('assets', 'js', 'app.js');
-
-function readFileOrThrow(relPath) {
-  const abs = path.join(process.cwd(), relPath);
-  if (!fs.existsSync(abs)) {
+function readFile(relPath) {
+  const fullPath = path.join(REPO_ROOT, relPath);
+  if (!fs.existsSync(fullPath)) {
     throw new Error(`Missing required file: ${relPath}`);
   }
-  return fs.readFileSync(abs, 'utf8');
+  return fs.readFileSync(fullPath, "utf8");
 }
 
-function listHtmlPages() {
-  const root = process.cwd();
-  const rootPages = fs
-    .readdirSync(root, { withFileTypes: true })
-    .filter((d) => d.isFile() && d.name.endsWith('.html'))
-    .map((d) => d.name);
-
-  const nichesDir = path.join(root, 'niches');
-  const nichePages = fs.existsSync(nichesDir)
-    ? fs
-        .readdirSync(nichesDir, { withFileTypes: true })
-        .filter((d) => d.isFile() && d.name.endsWith('.html'))
-        .map((d) => path.join('niches', d.name))
-    : [];
-
-  return [...rootPages, ...nichePages].sort();
+function fail(msg) {
+  throw new Error(`UI SPEC FAILED: ${msg}`);
 }
 
-function extractHeroCanvasTag(html) {
-  const matches = html.match(/<canvas\b[^>]*id=["']hero-shader-canvas["'][^>]*>/gi);
-  if (!matches || matches.length === 0) return { count: 0, tag: null };
-  return { count: matches.length, tag: matches[0] };
+function assert(cond, msg) {
+  if (!cond) fail(msg);
 }
 
-function extractDataVariantFromCanvasTag(tag) {
-  if (!tag) return null;
-  const m = tag.match(/data-variant=["']([^"']+)["']/i);
-  return m ? m[1] : null;
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function findAnchorContainingText(html, needleText) {
-  // Simple non-DOM approach: scan all <a> tags and compare stripped inner text.
-  const anchors = html.match(/<a\b[\s\S]*?<\/a>/gi) || [];
-  const normalizedNeedle = needleText.toLowerCase().replace(/\s+/g, ' ').trim();
-
-  for (const a of anchors) {
-    const inner = a
-      .replace(/<a\b[^>]*>/i, '')
-      .replace(/<\/a>/i, '')
-      .replace(/<[^>]+>/g, ' ')
-      .toLowerCase()
-      .replace(/\s+/g, ' ')
-      .trim();
-
-    if (inner.includes(normalizedNeedle)) {
-      return a;
-    }
-  }
-  return null;
+function getContext(haystack, needle, radius = 900) {
+  const idx = haystack.indexOf(needle);
+  if (idx === -1) return "";
+  const start = Math.max(0, idx - radius);
+  const end = Math.min(haystack.length, idx + needle.length + radius);
+  return haystack.slice(start, end);
 }
 
-function tagHasClass(tag, className) {
-  const m = tag.match(/\bclass=["']([^"']+)["']/i);
-  if (!m) return false;
-  const classes = m[1].split(/\s+/g).filter(Boolean);
-  return classes.includes(className);
+function assertMarker(haystack, marker, where) {
+  assert(haystack.includes(marker), `Missing proof marker "${marker}" in ${where}`);
 }
 
-function findImgTagBySrcIncludes(html, srcNeedle) {
-  const imgs = html.match(/<img\b[^>]*>/gi) || [];
-  for (const img of imgs) {
-    const m = img.match(/\bsrc=["']([^"']+)["']/i);
-    if (m && m[1].includes(srcNeedle)) return img;
-  }
-  return null;
-}
-
-function extractCssRuleBlock(css, selector) {
-  const idx = css.indexOf(selector);
-  if (idx === -1) return null;
-
-  const braceOpen = css.indexOf('{', idx);
-  if (braceOpen === -1) return null;
-
-  let depth = 0;
-  for (let i = braceOpen; i < css.length; i++) {
-    const ch = css[i];
-    if (ch === '{') depth++;
-    if (ch === '}') depth--;
-    if (depth === 0) {
-      return css.slice(braceOpen + 1, i);
-    }
-  }
-  return null;
-}
-
-function blockIncludesNonCenteredJustify(block) {
-  if (!block) return false;
-  const m = block.match(/justify-content\s*:\s*([^;]+);/i);
-  if (!m) return false;
-  const v = m[1].trim().toLowerCase();
-  return v !== 'center';
-}
-
-function assertContains(haystack, needle, errors, label) {
-  if (!haystack.includes(needle)) {
-    errors.push(`Missing ${label}: expected to find "${needle}".`);
+function assertMarkerContext(haystack, marker, where, requiredRegexList) {
+  const ctx = getContext(haystack, marker, 1400);
+  assert(ctx.length > 0, `Could not extract context for marker "${marker}" in ${where}`);
+  for (const { re, desc } of requiredRegexList) {
+    assert(re.test(ctx), `Marker "${marker}" in ${where} missing expected context: ${desc}`);
   }
 }
 
-function main() {
-  const errors = [];
-
-  let css = '';
-  let js = '';
-  try {
-    css = readFileOrThrow(ASSETS_CSS);
-  } catch (e) {
-    errors.push(String(e.message || e));
-  }
-  try {
-    js = readFileOrThrow(ASSETS_JS);
-  } catch (e) {
-    errors.push(String(e.message || e));
-  }
-
-  // Marker checks (bundle-level contract)
-  if (css) {
-    assertContains(css, SPEC_MARKERS.REQ2, errors, 'REQ2 proof marker in CSS bundle');
-    assertContains(css, SPEC_MARKERS.REQ3, errors, 'REQ3 proof marker in CSS bundle');
-    assertContains(css, SPEC_MARKERS.REQ4, errors, 'REQ4 proof marker in CSS bundle');
-    assertContains(css, SPEC_MARKERS.REQ5, errors, 'REQ5 proof marker in CSS bundle');
-    assertContains(css, SPEC_MARKERS.REQ6, errors, 'REQ6 proof marker in CSS bundle');
-    assertContains(css, SPEC_MARKERS.REQ7, errors, 'REQ7 proof marker in CSS bundle');
-  }
-  if (js) {
-    assertContains(js, SPEC_MARKERS.REQ1, errors, 'REQ1 proof marker in JS bundle');
-  }
-
-  // Req1: per-page hero variant mapping + theme presence
-  for (const [page, expectedVariant] of Object.entries(EXPECTED_HERO_VARIANTS)) {
-    const abs = path.join(process.cwd(), page);
-    if (!fs.existsSync(abs)) {
-      errors.push(`REQ1: Missing expected page file: ${page}`);
-      continue;
-    }
-    const html = fs.readFileSync(abs, 'utf8');
-    const hero = extractHeroCanvasTag(html);
-    if (hero.count !== 1) {
-      errors.push(`REQ1: ${page}: expected exactly 1 hero canvas with id="hero-shader-canvas"; found ${hero.count}.`);
-      continue;
-    }
-    const variant = extractDataVariantFromCanvasTag(hero.tag);
-    if (variant !== expectedVariant) {
-      errors.push(`REQ1: ${page}: expected data-variant="${expectedVariant}" but found "${variant ?? '(none)'}".`);
-    }
-  }
-
-  if (js) {
-    // Ensure required variants exist in JS bundle (string-level presence).
-    const requiredVariants = new Set(Object.values(EXPECTED_HERO_VARIANTS));
-    for (const v of requiredVariants) {
-      if (!js.includes(v)) {
-        errors.push(`REQ1: JS bundle missing expected variant key string: "${v}".`);
-      }
-    }
-  }
-
-  // Req2: hero glass panel removed (targeted check on hero content block)
-  if (css) {
-    const heroContentBlock = extractCssRuleBlock(css, '.hero.title-band .content');
-    if (!heroContentBlock) {
-      errors.push('REQ2: Could not find CSS rule block for ".hero.title-band .content" in built CSS.');
-    } else {
-      if (/backdrop-filter\s*:/i.test(heroContentBlock) || /-webkit-backdrop-filter\s*:/i.test(heroContentBlock)) {
-        errors.push('REQ2: Hero content still contains backdrop-filter; glass/blur panel not removed.');
-      }
-      // Enforce “no visible panel background” by requiring explicit transparent/none background OR absence of background declaration.
-      const bgDecl = heroContentBlock.match(/background\s*:\s*([^;]+);/i);
-      if (bgDecl) {
-        const bgVal = bgDecl[1].trim().toLowerCase();
-        const ok = bgVal.includes('transparent') || bgVal.includes('none');
-        if (!ok) {
-          errors.push(`REQ2: Hero content background should be transparent/none; found "${bgDecl[1].trim()}".`);
-        }
-      }
-    }
-  }
-
-  // Req3: hero content moved away from midline (non-centered justify-content required)
-  if (css) {
-    const heroBandBlock = extractCssRuleBlock(css, '.hero.title-band');
-    if (!heroBandBlock) {
-      errors.push('REQ3: Could not find CSS rule block for ".hero.title-band" in built CSS.');
-    } else if (!blockIncludesNonCenteredJustify(heroBandBlock)) {
-      errors.push('REQ3: ".hero.title-band" must set a non-centered justify-content (not "center") to avoid midline obstruction.');
-    }
-  }
-
-  // Req4: index streamline workflows button class + nowrap CSS
-  {
-    const abs = path.join(process.cwd(), 'index.html');
-    if (!fs.existsSync(abs)) {
-      errors.push('REQ4: Missing index.html');
-    } else {
-      const html = fs.readFileSync(abs, 'utf8');
-      const a = findAnchorContainingText(html, 'Streamline workflows');
-      if (!a) {
-        errors.push('REQ4: Could not find an <a> tag containing text "Streamline workflows" in index.html.');
-      } else if (!tagHasClass(a, INDEX_NOWRAP_CLASS)) {
-        errors.push(`REQ4: The "Streamline workflows" button must include class "${INDEX_NOWRAP_CLASS}".`);
-      }
-    }
-
-    if (css) {
-      if (!css.includes(`.${INDEX_NOWRAP_CLASS}`)) {
-        errors.push(`REQ4: Built CSS missing selector ".${INDEX_NOWRAP_CLASS}".`);
-      }
-      if (!/white-space\s*:\s*nowrap\s*;/i.test(css)) {
-        errors.push('REQ4: Built CSS appears to be missing "white-space: nowrap;" (required for the index nowrap button).');
-      }
-    }
-  }
-
-  // Req5: subtitle grey rule present (token-level hint)
-  if (css) {
-    if (!css.includes('--color-silver-original')) {
-      errors.push('REQ5: Built CSS does not reference "--color-silver-original"; expected for stable grey subtitle color.');
-    }
-  }
-
-  // Req6: about images have cover-fill class hooks
-  {
-    const abs = path.join(process.cwd(), 'about.html');
-    if (!fs.existsSync(abs)) {
-      errors.push('REQ6: Missing about.html');
-    } else {
-      const html = fs.readFileSync(abs, 'utf8');
-      const img28 = findImgTagBySrcIncludes(html, 'Silverstone_28.jpg');
-      const img22 = findImgTagBySrcIncludes(html, 'Silverstone_22.jpg');
-
-      if (!img28) errors.push('REQ6: Could not find <img> with src containing "Silverstone_28.jpg" in about.html.');
-      if (!img22) errors.push('REQ6: Could not find <img> with src containing "Silverstone_22.jpg" in about.html.');
-
-      if (img28 && !tagHasClass(img28, IMAGE_COVER_CLASS)) {
-        errors.push(`REQ6: Silverstone_28.jpg img must include class "${IMAGE_COVER_CLASS}".`);
-      }
-      if (img22 && !tagHasClass(img22, IMAGE_COVER_CLASS)) {
-        errors.push(`REQ6: Silverstone_22.jpg img must include class "${IMAGE_COVER_CLASS}".`);
-      }
-    }
-
-    if (css) {
-      if (!css.includes(`.${IMAGE_COVER_CLASS}`)) {
-        errors.push(`REQ6: Built CSS missing selector ".${IMAGE_COVER_CLASS}" (required for cover-fill images).`);
-      }
-      if (!/object-fit\s*:\s*cover\s*;/i.test(css)) {
-        errors.push('REQ6: Built CSS appears to be missing "object-fit: cover;" (required for cover-fill images).');
-      }
-    }
-  }
-
-  // Req7: services images have cover-fill class hooks
-  {
-    const abs = path.join(process.cwd(), 'services.html');
-    if (!fs.existsSync(abs)) {
-      errors.push('REQ7: Missing services.html');
-    } else {
-      const html = fs.readFileSync(abs, 'utf8');
-      const needles = [
-        'General_Services_1.jpeg',
-        'General_Services_2A.jpeg',
-        'General_Services_2B.jpeg',
-        'General_Services_3.jpeg'
-      ];
-
-      for (const n of needles) {
-        const img = findImgTagBySrcIncludes(html, n);
-        if (!img) {
-          errors.push(`REQ7: Could not find <img> with src containing "${n}" in services.html.`);
-          continue;
-        }
-        if (!tagHasClass(img, IMAGE_COVER_CLASS)) {
-          errors.push(`REQ7: ${n} img must include class "${IMAGE_COVER_CLASS}".`);
-        }
-      }
-    }
-  }
-
-  // Cross-page sanity: ensure we didn't accidentally remove hero canvas ids on any page
-  {
-    const pages = listHtmlPages();
-    for (const p of pages) {
-      const html = fs.readFileSync(path.join(process.cwd(), p), 'utf8');
-      const hero = extractHeroCanvasTag(html);
-      if (hero.count === 0) {
-        errors.push(`SANITY: ${p}: missing hero canvas id="hero-shader-canvas".`);
-      }
-    }
-  }
-
-  if (errors.length > 0) {
-    console.error('\n[assert-ui-spec] FAILED');
-    for (const e of errors) console.error(`- ${e}`);
-    console.error('\n[assert-ui-spec] Hint: read codex/REQUESTED_EDITS_SPEC.md and ensure proof markers + class hooks are applied, then rebuild bundles.');
-    process.exit(1);
-  }
-
-  console.log('[assert-ui-spec] PASS');
+function findSourceTags(html, srcSubstring) {
+  // Finds <source ...> tags that include srcSubstring in the tag text.
+  const re = new RegExp(`<source\\b[^>]*${escapeRegExp(srcSubstring)}[^>]*>`, "gi");
+  return html.match(re) || [];
 }
 
-main();
+function ensureNoDesktopWebpSource(html, baseName) {
+  const tags = findSourceTags(html, `${baseName}.webp`);
+  for (const tag of tags) {
+    const isWebp = /type\s*=\s*["']image\/webp["']/i.test(tag);
+    const isDesktop = /min-width\s*:\s*769px/i.test(tag);
+    if (isWebp && isDesktop) {
+      fail(
+        `services.html must not use desktop webp source for "${baseName}.webp" (Edit 3). Found: ${tag}`
+      );
+    }
+  }
+}
+
+function ensureHasMobileWebpSource(html, baseName) {
+  const tags = findSourceTags(html, `${baseName}_Mobile.webp`);
+  const ok = tags.some((tag) => /image\/webp/i.test(tag) && /max-width\s*:\s*768px/i.test(tag));
+  assert(ok, `services.html missing mobile webp <source> for "${baseName}_Mobile.webp"`);
+}
+
+function ensureHasDesktopJpegSource(html, baseName) {
+  const tags = findSourceTags(html, `${baseName}.jpeg`);
+  const ok = tags.some((tag) => /min-width\s*:\s*769px/i.test(tag));
+  assert(ok, `services.html missing desktop jpeg <source> for "${baseName}.jpeg"`);
+}
+
+function ensureIndexSentenceHasMutedClass(indexHtml, sentence) {
+  // Find the nearest <p ...> ... </p> that contains the sentence and ensure the opening tag has subtitle-muted.
+  const idx = indexHtml.indexOf(sentence);
+  assert(idx !== -1, `index.html missing target sentence: ${sentence}`);
+
+  const startP = indexHtml.lastIndexOf("<p", idx);
+  const endOpen = indexHtml.indexOf(">", startP);
+  assert(startP !== -1 && endOpen !== -1, `Could not locate <p> opening tag for sentence: ${sentence}`);
+
+  const openTag = indexHtml.slice(startP, endOpen + 1);
+  assert(
+    /subtitle-muted/.test(openTag),
+    `Target sentence must be inside a <p> (or wrapper) with class "subtitle-muted". Found: ${openTag}`
+  );
+}
+
+function parseCuratedImagesFromGallerySource(gallerySource) {
+  const start = gallerySource.indexOf("const CURATED_IMAGES");
+  assert(start !== -1, `src/js/gallery.js missing "const CURATED_IMAGES"`);
+  const openBracket = gallerySource.indexOf("[", start);
+  const closeBracket = gallerySource.indexOf("];", openBracket);
+  assert(openBracket !== -1 && closeBracket !== -1, `Could not locate CURATED_IMAGES array boundaries`);
+
+  const arrText = gallerySource.slice(openBracket + 1, closeBracket);
+
+  const objMatches = arrText.match(/\{[^}]*\}/g) || [];
+  assert(objMatches.length > 0, `Could not parse any CURATED_IMAGES entries`);
+
+  const entries = objMatches
+    .map((objText) => {
+      const fileMatch = objText.match(/\bfile\s*:\s*['"]([^'"]+)['"]/);
+      const typeMatch = objText.match(/\btype\s*:\s*['"]([^'"]+)['"]/);
+      const titleMatch = objText.match(/\btitle\s*:\s*['"]([^'"]+)['"]/);
+      if (!fileMatch || !typeMatch) return null;
+      return {
+        file: fileMatch[1],
+        type: typeMatch[1],
+        title: titleMatch ? titleMatch[1] : "",
+      };
+    })
+    .filter(Boolean);
+
+  assert(entries.length > 0, `Parsed CURATED_IMAGES but no valid {file,type} entries were found`);
+  return entries;
+}
+
+function assertNoLegacyAspectFilenames(entries) {
+  const legacy = entries.filter((e) => /(^|\/)(1-1|2-3|3-2)_/i.test(e.file) || /(1-1|2-3|3-2)/i.test(e.file));
+  assert(legacy.length === 0, `Neural Grid still contains legacy filenames (1-1 / 2-3 / 3-2): ${legacy
+    .map((e) => e.file)
+    .join(", ")}`);
+}
+
+function assertNeuralGridReplacements(entries) {
+  const allowedSquare = new Set([
+    "services_lead_followup_mobile.jpg",
+    "services_consulting_mobile.jpg",
+    "services_data_integration_mobile.jpg",
+    "services_workflow_automation_mobile.jpg",
+  ]);
+
+  const allowedLandscape = new Set([
+    "services_data_integration.jpg",
+    "services_workflow_automation.jpg",
+    "services_consulting.jpg",
+    "services_lead_followup.jpg",
+  ]);
+
+  const portraits = entries.filter((e) => e.type === "portrait");
+  const squares = entries.filter((e) => e.type === "square");
+  const landscapes = entries.filter((e) => e.type === "landscape");
+
+  // Keep original grid density stable unless explicitly changed.
+  assert(entries.length >= 12, `Neural Grid curated list unexpectedly small (${entries.length}).`);
+  assert(squares.length > 0 && landscapes.length > 0 && portraits.length > 0, `Neural Grid must include square, landscape, and portrait tiles.`);
+
+  for (const e of squares) {
+    assert(allowedSquare.has(e.file), `Square tile file "${e.file}" is not an allowed services_*_mobile.jpg replacement.`);
+  }
+  for (const e of landscapes) {
+    assert(allowedLandscape.has(e.file), `Landscape tile file "${e.file}" is not an allowed services_*.jpg replacement.`);
+  }
+
+  // Portrait rules: *_1_Mobile.jpeg OR *_2_Mobile.jpeg OR *_3_Mobile.jpeg, with distinct prefixes.
+  const portraitRe = /_(1|2|3)_Mobile\.jpeg$/;
+  for (const e of portraits) {
+    assert(
+      portraitRe.test(e.file),
+      `Portrait tile file "${e.file}" must match *_1_Mobile.jpeg / *_2_Mobile.jpeg / *_3_Mobile.jpeg`
+    );
+  }
+
+  const prefixes = portraits.map((e) => e.file.replace(/_(1|2|3)_Mobile\.jpeg$/, ""));
+  const uniquePrefixes = new Set(prefixes);
+  assert(
+    uniquePrefixes.size === prefixes.length,
+    `Portrait tile prefixes must be unique for variety. Duplicates found in: ${prefixes.join(", ")}`
+  );
+}
+
+function run() {
+  const builtCss = readFile("assets/css/styles.css");
+  const indexHtml = readFile("index.html");
+  const servicesHtml = readFile("services.html");
+  const gallerySource = readFile("src/js/gallery.js");
+
+  // ===== Proof markers =====
+  assertMarker(builtCss, "SPEC: HERO_DESKTOP_COPY_CTA_TIGHT_CONTAINER_2025_12_30", "assets/css/styles.css");
+  assertMarker(builtCss, "SPEC: HERO_MOBILE_HIDE_GREY_SUBHEADINGS_PRESERVE_LAYOUT_2025_12_30", "assets/css/styles.css");
+  assertMarker(builtCss, "SPEC: ABOUT_DESKTOP_SILVERSTONE_22_28_COVER_FILL_NEON_WRAP_2025_12_30", "assets/css/styles.css");
+  assertMarker(servicesHtml, "SPEC: SERVICES_DESKTOP_GENERAL_SERVICES_IMAGES_HD_2025_12_30", "services.html");
+  assertMarker(builtCss, "SPEC: SERVICES_MOBILE_GENERAL_SERVICES_CARDS_PORTRAIT_2_3_2025_12_30", "assets/css/styles.css");
+  assertMarker(gallerySource, "SPEC: SERVICES_NEURAL_GRID_REPLACE_SQUARE_LANDSCAPE_2025_12_30", "src/js/gallery.js");
+  assertMarker(gallerySource, "SPEC: SERVICES_NEURAL_GRID_REPLACE_PORTRAIT_2025_12_30", "src/js/gallery.js");
+  assertMarker(builtCss, "SPEC: INDEX_SUBTITLES_GREY_TARGETED_SENTENCES_2025_12_30", "assets/css/styles.css");
+
+  // ===== Marker context sanity =====
+  assertMarkerContext(builtCss, "SPEC: HERO_DESKTOP_COPY_CTA_TIGHT_CONTAINER_2025_12_30", "assets/css/styles.css", [
+    { re: /@media\s*\(min-width:\s*769px\)/, desc: "desktop-only media query @media (min-width: 769px)" },
+    { re: /\.hero\.title-band\s+\.content/, desc: "targets .hero.title-band .content" },
+  ]);
+
+  assertMarkerContext(builtCss, "SPEC: HERO_MOBILE_HIDE_GREY_SUBHEADINGS_PRESERVE_LAYOUT_2025_12_30", "assets/css/styles.css", [
+    { re: /@media\s*\(max-width:\s*768px\)/, desc: "mobile-only media query @media (max-width: 768px)" },
+    { re: /\.hero\.title-band\s+\.content\s+p/, desc: "targets hero subheading paragraph" },
+    { re: /visibility\s*:\s*hidden/, desc: "uses visibility:hidden to avoid layout shift" },
+  ]);
+
+  assertMarkerContext(builtCss, "SPEC: ABOUT_DESKTOP_SILVERSTONE_22_28_COVER_FILL_NEON_WRAP_2025_12_30", "assets/css/styles.css", [
+    { re: /@media\s*\(min-width:\s*769px\)/, desc: "desktop-only media query @media (min-width: 769px)" },
+    { re: /page-about/i, desc: "scoped to .page-about" },
+    { re: /object-fit\s*:\s*cover/i, desc: "forces object-fit: cover" },
+  ]);
+
+  assertMarkerContext(builtCss, "SPEC: SERVICES_MOBILE_GENERAL_SERVICES_CARDS_PORTRAIT_2_3_2025_12_30", "assets/css/styles.css", [
+    { re: /@media\s*\(max-width:\s*768px\)/, desc: "mobile-only media query @media (max-width: 768px)" },
+    { re: /general-services-card/, desc: "targets .general-services-card hook" },
+    { re: /aspect-ratio\s*:\s*2\s*\/\s*3|aspect-ratio\s*:\s*2\s*\/\s*3/i, desc: "sets portrait aspect-ratio 2/3" },
+  ]);
+
+  // ===== Edit 3: Services desktop uses jpeg (no desktop webp) =====
+  assert(
+    servicesHtml.includes("general-services-card"),
+    `services.html must include the "general-services-card" class hook for Edit 4`
+  );
+
+  const generalBases = ["General_Services_1", "General_Services_2A", "General_Services_2B", "General_Services_3"];
+  for (const base of generalBases) {
+    ensureHasMobileWebpSource(servicesHtml, base);
+    ensureNoDesktopWebpSource(servicesHtml, base);
+    ensureHasDesktopJpegSource(servicesHtml, base);
+  }
+
+  // ===== Edit 8: Index target sentences have subtitle-muted class =====
+  ensureIndexSentenceHasMutedClass(
+    indexHtml,
+    "Four practical ways we help UK small businesses save time, respond faster, and keep customers moving - without ripping out the tools you already use."
+  );
+  ensureIndexSentenceHasMutedClass(
+    indexHtml,
+    "Clear setup + monthly support. Start with a flagship system, or pick a smaller module if you're fixing one leak first."
+  );
+
+  // ===== Edits 5–6: Neural Grid curated list compliance =====
+  const entries = parseCuratedImagesFromGallerySource(gallerySource);
+  assertNoLegacyAspectFilenames(entries);
+  assertNeuralGridReplacements(entries);
+
+  console.log("UI SPEC PASSED: Requested Edits 1–8");
+}
+
+run();
