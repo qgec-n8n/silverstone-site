@@ -1,81 +1,97 @@
 <!-- FILE: codex/MANUAL_QA_CHECKLIST.md -->
-# Manual QA Checklist (Visual + Responsive)
+# Manual QA Checklist — Requested Edits 1–8
 
-Manual QA is mandatory because multiple requirements are visual (shader colors, “midline obstruction,” and image crop behavior).
+Complete this after `bash scripts/codex.requested-edits.sh` passes.
 
-## Setup
+Run local server:
+- `python3 -m http.server 8080`
 
-1) Build bundles:
-- `bash scripts/codex.requested-edits.sh`
+Test viewports:
+- Desktop: 1440×900
+- Mobile: 390×844 (and optionally 375×812)
 
-2) Start a simple static server from repo root (any simple HTTP server works).
+---
 
-3) Use browser responsive mode:
-- Mobile breakpoint: <= 768px
-- Desktop breakpoint: >= 769px
+## A) Global hero checks (Edits 1 + 7)
 
-## Global checks (all pages with heroes)
+Pages to check:
+- `index.html`
+- `about.html`
+- `services.html`
+- `niches/dentists.html` (sample)
+- `niches/hospitality.html` (sample)
 
-Applies to:
-- Root pages: index, about, services, book, contact, privacy-policy
-- All `niches/*.html`
+### Desktop (Edit 1)
+- [ ] Hero copy + CTA buttons are inside a tight container (not full-width).
+- [ ] Container improves readability on shader background.
+- [ ] No unexpected overlaps with shader visuals.
 
-For each page:
-- [ ] Hero has no visible glass/blur panel behind the hero copy/CTAs.
-- [ ] Hero copy and CTA buttons do not sit across the shader’s midline region (center band); the animation remains clearly visible.
-- [ ] Hero copy remains easy to read (contrast, spacing, and no awkward overlaps) on:
-  - [ ] mobile
-  - [ ] desktop
-- [ ] Hero CTAs remain reachable and not clipped on small screens.
+### Mobile (Edit 7)
+- [ ] Grey hero subheading text is not visible.
+- [ ] Hero title position unchanged.
+- [ ] CTA button positions unchanged.
+- [ ] Spacing feels identical (no vertical jump).
 
-## Requested Edit 1 — Shader colors (visual confirmation)
+---
 
-- [ ] about.html: shader appears neon yellow
-- [ ] services.html: shader appears green
-- [ ] book.html: shader appears bright neon pink
-- [ ] contact.html: shader appears fire orange
+## B) About page image fill (Edit 2)
 
-## Requested Edit 4 — Index “Streamline Workflows” button
+Page:
+- `about.html`
 
-On `index.html` (service tiles area):
-- [ ] “Streamline workflows” stays on one line at narrow mobile widths.
-- [ ] Text is centered with balanced padding on both sides.
-- [ ] The pill doesn’t look cramped or off-center.
+Desktop only:
+- [ ] Silverstone_28 image fills its container (no letterboxing).
+- [ ] Silverstone_22 image fills its container (no letterboxing).
+- [ ] Neon border tightly wraps the container (no weird inset gaps).
 
-## Requested Edit 5 — Qualifying subtitles grey (cross-page audit)
+Mobile:
+- [ ] No unintended changes to mobile appearance (unless explicitly required; Edit 2 is desktop-only).
 
-Definition reminder:
-- Only subtitles directly under blue titles in body sections (not inside cards/CTA banners/pill buttons).
+---
 
-On each root page:
-- [ ] Qualifying subtitles under blue `.section-title` are grey.
-- [ ] Exclusions are respected (subtitles in CTA cards/banners/pills not incorrectly recolored).
+## C) Services General_Services images (Edits 3 + 4)
 
-On niche pages:
-- Check at least these 3 (or more):
-  - [ ] niches/dentists.html
-  - [ ] niches/estate-agents.html
-  - [ ] niches/hospitality.html
-- [ ] Qualifying subtitles are grey.
-- [ ] No collateral recoloring inside cards.
+Page:
+- `services.html`
 
-## Requested Edit 6 — About images cover-fill
+Desktop only (Edit 3):
+- [ ] General_Services_1 image looks HD; baked-in copy is crisp at 125–200% zoom.
+- [ ] General_Services_2A image looks HD; baked-in copy is crisp.
+- [ ] General_Services_2B image looks HD; baked-in copy is crisp.
+- [ ] General_Services_3 image looks HD; baked-in copy is crisp.
 
-On `about.html`:
-- [ ] Silverstone_28.jpg fills its card (cover), centered crop.
-- [ ] Silverstone_22.jpg fills its card (cover), centered crop.
-- [ ] Cropping looks intentional (no awkward top-only crop or off-center focal point).
+Mobile only (Edit 4):
+- [ ] Those four image cards are portrait (2:3) and not presented in a landscape frame.
+- [ ] Visually matches niches image-card presentation (compare with a niche page at same viewport).
 
-## Requested Edit 7 — Services images cover-fill
+---
 
-On `services.html`:
-- [ ] General_Services_1.jpeg fills its card (cover), centered crop.
-- [ ] General_Services_2A.jpeg fills its card (cover), centered crop.
-- [ ] General_Services_2B.jpeg fills its card (cover), centered crop.
-- [ ] General_Services_3.jpeg fills its card (cover), centered crop.
+## D) Services Innovation Gallery Neural Grid (Edits 5 + 6)
 
-## Notes / screenshots (optional but helpful)
+Page:
+- `services.html`
 
-- Notes:
-- Any edge cases:
-- If something fails, note the exact viewport width and the page/section.
+Desktop + mobile:
+- [ ] Grid images are replaced; no legacy `1-1`, `2-3`, or `3-2` images appear.
+- [ ] Portrait tiles show varied prefixes (not multiple variants of the same prefix).
+- [ ] No broken images; tiles load.
+
+---
+
+## E) Index subtitles grey (Edit 8)
+
+Page:
+- `index.html`
+
+Desktop + mobile:
+- [ ] Sentence 1 is grey (not white): “Four practical ways we help UK small businesses save time, respond faster, and keep customers moving - without ripping out the tools you already use.”
+- [ ] Sentence 2 is grey (not white): “Clear setup + monthly support. Start with a flagship system, or pick a smaller module if you're fixing one leak first.”
+- [ ] No other subtitles were unintentionally recolored.
+
+---
+
+## Final sign-off
+
+- [ ] `bash scripts/codex.requested-edits.sh` passes
+- [ ] ExecPlan evidence table filled for Edits 1–8
+- [ ] `codex/UI_CHANGE_LOG.md` final summary updated
