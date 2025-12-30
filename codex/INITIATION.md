@@ -1,28 +1,30 @@
 <!-- FILE: codex/INITIATION.md -->
 # Initiation (Codex CLI)
 
-This repo is configured for a gated, verification-driven Codex run.
+This folder contains the “source of truth” docs for a reliable Codex run.
 
-## What to read first
+## Read in this order
 
-- `ExecPlan.md`
-- `codex/REQUESTED_EDITS_SPEC.md`
-- `codex/VERIFICATION_PROTOCOL.md`
-- `codex/REPO_UI_MAP.md`
+1) `PLANS.md` (defines ExecPlan requirements)
+2) `ExecPlan.md` (the runbook; must stay updated)
+3) `codex/REQUESTED_EDITS_SPEC.md` (what to implement + proof markers)
+4) `codex/VERIFICATION_PROTOCOL.md` (how to verify correctness)
+5) `codex/PAGE_AUDIT_MATRIX.md` (cross-page audit grid)
+6) `codex/MANUAL_QA_CHECKLIST.md` (visual/responsive verification)
 
-## Run setup
+## Setup
 
 - `bash scripts/codex.setup.sh`
 
-## Run baseline + iterate
+## Baseline
 
 - `bash scripts/codex.requested-edits.sh`
 
-Record baseline failures and decisions in:
+Record baseline failures and any constraints in:
 - `codex/UI_CHANGE_LOG.md`
 
 ## Definition of done
 
 - `bash scripts/codex.requested-edits.sh` passes
-- Manual QA complete: `codex/MANUAL_QA_CHECKLIST.md`
-- Evidence recorded for Requested Edits 1–6 (see `ExecPlan.md`)
+- Manual QA is complete: `codex/MANUAL_QA_CHECKLIST.md`
+- Evidence table in `ExecPlan.md` is completed 1:1 for Requested Edits 1–7
