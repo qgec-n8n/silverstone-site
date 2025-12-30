@@ -1,208 +1,247 @@
 <!-- FILE: codex/REQUESTED_EDITS_SPEC.md -->
-# Requested Edits Spec (Source of Truth) — Edits 1–7
+# Requested Edits 1–8 — Source of Truth Spec
 
-This document is the **single source of truth** for what Codex must implement.
+This is the **only** authoritative definition of what Codex must implement.
 
-Key rule:
-- Implement EXACTLY and ONLY the edits below.
-- Do not add unrelated styling, refactors, or new features.
-- Any mention of “Pricing Feature Implementation plan” is a wording mismatch; treat it as referring to these same edits.
+If any other document mentions “Requested Edits 1–7”, treat it as outdated.
 
-## Definitions (use these terms consistently)
+If any other document mentions “Pricing Feature Implementation plan”, interpret it as referring to these Requested Edits **1–8** (no separate scope).
 
-Hero section:
-- The top-of-page section with `section.hero.title-band`.
+---
 
-Hero shader:
-- The WebGL canvas with `id="hero-shader-canvas"` inside `.hero-media`.
-- Shader colors are controlled by the variant key stored in `data-variant` on the canvas and the theme map in the hero shader JS.
+## Hard constraints
 
-Hero glass panel / blurred container:
-- The visible translucent, blurred background behind hero copy/CTAs (currently applied via CSS on the hero’s `.content` container using background + backdrop blur).
-- The requirement is to remove this visual container (no blur/glass panel behind hero text/buttons).
+- Implement **exactly and only** Edits 1–8 below.
+- Respect desktop-only vs mobile-only instructions.
+- Do NOT modify `pricing-widget/**`.
+- No unrelated refactors, redesigns, or “while we’re here” improvements.
+- Preserve existing copy everywhere except Edit 8.
 
-Qualifying subtitles (for “turn white subtitles grey”):
-- A subtitle is qualifying if:
-  - It sits directly underneath a blue section title in the body section.
-  - The title uses `.section-title` (blue) and the subtitle is the immediately following element in the same section container.
-  - It is NOT inside a card, CTA banner, or pill button.
-- Practical rule of thumb:
-  - Subtitles that are direct children of `.section > .container` and immediately follow a direct-child `.section-title` are in scope.
+---
 
-Cover-fill / center-crop:
-- The image should fill its container.
-- Cropping is allowed and expected.
-- The focal point should remain centered.
+## Build + validation contract
 
-## Proof markers (required)
+After any changes:
+- Run `bash scripts/codex.requested-edits.sh`
 
-Codex must add these SPEC markers near the final implementation points (in source files that compile into the bundles, or in HTML where relevant). The grader will look for them.
+This:
+- rebuilds `assets/css/styles.css` and `assets/js/app.js`
+- runs `node scripts/assert-ui-spec.js` (fatal if requirements not met)
 
-- `SPEC: REQ1_HERO_SHADER_COLORS_PER_PAGE_2025_12_30`
-- `SPEC: REQ2_HERO_GLASS_PANEL_REMOVED_2025_12_30`
-- `SPEC: REQ3_HERO_COPY_CTA_POSITIONED_OFF_MIDLINE_2025_12_30`
-- `SPEC: REQ4_INDEX_STREAMLINE_WORKFLOWS_ONE_LINE_2025_12_30`
-- `SPEC: REQ5_SECTION_SUBTITLES_GREY_2025_12_30`
-- `SPEC: REQ6_ABOUT_IMAGES_COVER_CENTER_2025_12_30`
-- `SPEC: REQ7_SERVICES_IMAGES_COVER_CENTER_2025_12_30`
+---
 
-## Requested Edit 1 — Per-page hero shader colors
+## Proof markers (non-negotiable)
 
-Requirement:
-- `about.html`: hero shader is neon yellow
-- `services.html`: hero shader is green
-- `book.html`: hero shader is bright neon pink
-- `contact.html`: hero shader is fire orange
+Codex must add these exact markers in the specified files. The grader enforces them.
 
-Acceptance criteria:
-- Each page’s `#hero-shader-canvas` has the correct `data-variant` value matching the intended color.
-- The hero shader JS contains a theme for each required variant, and those themes produce a clearly neon effect.
-- The built JS bundle (`assets/js/app.js`) contains the proof marker for Edit 1.
+1) Hero desktop container:
+- Marker: `SPEC: HERO_DESKTOP_COPY_CTA_TIGHT_CONTAINER_2025_12_30`
+- File: `src/css/components/hero.css`
+- Must appear inside the desktop-only styling (min-width 769px) implementing Edit 1.
 
-Implementation constraints:
-- Use the existing variant mechanism (do not replace the shader system).
-- Prefer using existing design tokens for color inspiration when possible (e.g., existing green token).
+2) Hero mobile subheading removal (no layout shift):
+- Marker: `SPEC: HERO_MOBILE_HIDE_GREY_SUBHEADINGS_PRESERVE_LAYOUT_2025_12_30`
+- File: `src/css/components/hero.css`
+- Must appear inside the mobile-only styling (max-width 768px) implementing Edit 7.
 
-Suggested variant keys (consistent and explicit):
-- about: `neon-yellow`
-- services: `green`
-- book: `neon-pink`
-- contact: `fire-orange`
+3) About desktop image fill + neon border wrap:
+- Marker: `SPEC: ABOUT_DESKTOP_SILVERSTONE_22_28_COVER_FILL_NEON_WRAP_2025_12_30`
+- File: `src/css/pages/about.css` (preferred) OR another narrowly-scoped CSS file that targets `.page-about` only.
+- Must be inside a desktop-only block (min-width 769px).
 
-Verification:
-- Automated: `node scripts/assert-ui-spec.js` checks the per-page `data-variant` mapping and theme presence.
-- Manual: verify by visually loading each page.
+4) Services desktop HD General_Services images:
+- Marker: `SPEC: SERVICES_DESKTOP_GENERAL_SERVICES_IMAGES_HD_2025_12_30`
+- File: `services.html`
 
-## Requested Edit 2 — Remove hero blurred/glass container
+5) Services mobile portrait 2:3 General_Services cards:
+- Marker: `SPEC: SERVICES_MOBILE_GENERAL_SERVICES_CARDS_PORTRAIT_2_3_2025_12_30`
+- File: `src/css/pages/services.css`
+- Must be inside a mobile-only block (max-width 768px).
 
-Requirement:
-- Remove the blurred background container behind hero copy + CTA buttons.
+6) Services Neural Grid swaps (square + landscape):
+- Marker: `SPEC: SERVICES_NEURAL_GRID_REPLACE_SQUARE_LANDSCAPE_2025_12_30`
+- File: `src/js/gallery.js`
 
-Acceptance criteria:
-- The hero `.content` no longer presents as a “panel”:
-  - no backdrop blur on the container
-  - no translucent background panel on the container
-- The built CSS bundle contains the proof marker for Edit 2.
+7) Services Neural Grid swaps (portrait):
+- Marker: `SPEC: SERVICES_NEURAL_GRID_REPLACE_PORTRAIT_2025_12_30`
+- File: `src/js/gallery.js`
 
-Implementation constraints:
-- The hero content container may remain as a structural wrapper, but it must not be visually a blurred/glass card.
+8) Index targeted subtitles grey:
+- Marker: `SPEC: INDEX_SUBTITLES_GREY_TARGETED_SENTENCES_2025_12_30`
+- File: whichever CSS file defines the new class used by Edit 8 (recommended: `src/css/base/layout.css` or `src/css/pages/home.css`).
 
-Verification:
-- Automated: grader checks that the hero content block no longer contains backdrop blur and uses a transparent/none background.
-- Manual: confirm the glass/panel is gone on desktop and mobile.
+---
 
-## Requested Edit 3 — Hero copy/CTA placement and styling (no midline obstruction)
+## Requested Edit details + acceptance criteria
 
-Requirement:
-- Update font color/style/placement so hero copy and CTA buttons on every page do not obstruct the shader animation running across the middle of the hero, but remain easy to read on mobile and desktop.
+### Edit 1 — Desktop hero copy + CTA tight container (mobile unchanged by this desktop-only change)
 
-Acceptance criteria:
-- On desktop and mobile:
-  - Hero copy and CTA buttons are positioned away from the hero’s midline (the center region where the shader effect is most prominent).
-  - Text remains readable (contrast + spacing).
-- Built CSS contains the proof marker for Edit 3.
+**Goal:** On desktop, the hero shader title + copy + CTA buttons must sit inside a tightly-wrapping container to improve legibility.
 
-Implementation constraints:
-- Keep changes minimal and consistent across pages.
-- Prefer adjusting layout rules in the hero component CSS rather than per-page hacks (unless needed).
-- Do not reintroduce a “glass panel” to solve readability.
+Where:
+- HTML structure across pages uses: `.hero.title-band .content` (contains h1, p, `.cta-buttons`).
+- Implement in `src/css/components/hero.css`.
 
-Verification:
-- Automated: grader checks for a non-centered layout override (the hero content is not centered in the same way as before) and for the required proof marker.
-- Manual: required; this is a visual requirement.
+Rules:
+- Desktop-only (min-width 769px).
+- Container must be tight to the content (not full-width).
+- Must increase legibility (e.g., background/overlay + padding) without changing the layout on mobile due to this desktop-only rule.
 
-## Requested Edit 4 — Index “Streamline Workflows” pill button stays on one line
+Proof marker:
+- `SPEC: HERO_DESKTOP_COPY_CTA_TIGHT_CONTAINER_2025_12_30`
 
-Requirement:
-- On `index.html`, make the button “Streamline Workflows” sit on one line.
-- Ensure the text is centered in the pill with equal space either side.
-- You may make the pill longer.
+---
 
-Acceptance criteria:
-- The specific index button does not wrap on common mobile widths.
-- The pill has balanced horizontal padding and centered text.
-- The built CSS contains the proof marker for Edit 4.
-- The index HTML contains a dedicated class on the specific button so the fix is targeted.
+### Edit 2 — Desktop only on about.html: Silverstone_22 + Silverstone_28 fill container; neon border wraps container
 
-Required targeting mechanism:
-- Add a unique class to that specific anchor in `index.html`:
-  - `btn-streamline-workflows`
+**Goal:** These two images must fill their image card on desktop and the neon border must tightly wrap the container.
 
-Verification:
-- Automated: grader checks the class exists in HTML and a nowrap rule exists in built CSS.
-- Manual: confirm at mobile widths that previously caused wrapping.
+Where:
+- `about.html` uses these inside service rows:
+  - `assets/images/zip/Silverstone_28.jpg`
+  - `assets/images/zip/Silverstone_22.jpg`
+- They already have `class="img-cover-center"`.
 
-## Requested Edit 5 — Qualifying body-section subtitles must be grey across all pages (incl. niches)
+Root-cause to confirm:
+- Desktop card image rules in `src/css/components/cards.css` override cover behavior (object-fit contain / height auto) via higher specificity.
 
-Requirement:
-- On all pages including `niches/*.html`, make the white subheadings under blue titles in the body sections grey.
-- Exclusions: do not recolor subtitles that sit inside a card, CTA banner, or pill button.
+Implementation:
+- Add a desktop-only `.page-about` override (preferred in `src/css/pages/about.css`) targeting `img.img-cover-center` inside the service-row image card to enforce cover fill.
+- Ensure border wraps container tightly (likely by applying border to the container or ensuring the image fills fully under the border).
 
-Acceptance criteria:
-- A narrowly-scoped CSS rule exists that targets qualifying subtitles and sets them to a grey (use an existing grey token).
-- The built CSS bundle contains the proof marker for Edit 5.
-- Multiple pages (including at least 2 niche pages) show qualifying subtitles as grey under their blue titles.
+Desktop-only requirement:
+- Must not alter mobile behavior for these images.
 
-Implementation constraints:
-- Do not globally recolor all text.
-- Prefer a selector that:
-  - targets `.section > .container` direct-child `.section-title` followed by `.section-subtitle`
-  - uses the stable grey token (e.g., the “original silver” token) so it isn’t affected by page-level overrides.
+Proof marker:
+- `SPEC: ABOUT_DESKTOP_SILVERSTONE_22_28_COVER_FILL_NEON_WRAP_2025_12_30`
 
-Verification:
-- Automated: proof marker + presence of a grey rule in built CSS.
-- Manual: required cross-page spot checks.
+---
 
-## Requested Edit 6 — About images fill container (center-crop)
+### Edit 3 — Desktop only on services.html: General_Services_* look pixelated → make HD
 
-Requirement:
-- On `about.html`, expand:
-  - `Silverstone_22.jpg`
-  - `Silverstone_28.jpg`
-  so they fill their container.
-- Cropping is allowed.
-- Image must remain centered.
+**Goal:** On desktop, the four General_Services image cards must not appear pixelated; the baked-in overlay text in the images must appear crisp.
 
-Acceptance criteria:
-- Both images have cover-fill behavior (center crop) and look like they fill the card.
-- Built CSS contains the proof marker for Edit 6.
-- Targeting must be limited to these images only.
+Files/assets involved:
+- `services.html` `<picture>` blocks for:
+  - `General_Services_1`
+  - `General_Services_2A`
+  - `General_Services_2B`
+  - `General_Services_3`
+- Current desktop sources include `.webp` which is suspected to be too compressed.
 
-Required targeting mechanism:
-- Add a shared class to these two images (and only these images):
-  - `img-cover-center`
+Required implementation (deterministic):
+- Desktop must **not** load the `.webp` versions for these four images.
+- Keep mobile webp sources intact.
+- Desktop should load the `.jpeg` versions.
 
-Verification:
-- Automated: grader checks those two images have the class and that CSS defines cover-fill for that class.
-- Manual: confirm fill + centered crop.
+Proof marker:
+- `SPEC: SERVICES_DESKTOP_GENERAL_SERVICES_IMAGES_HD_2025_12_30` in `services.html`.
 
-## Requested Edit 7 — Services images fill container (center-crop)
+---
 
-Requirement:
-- On `services.html`, expand:
-  - `General_Services_1.jpeg`
-  - `General_Services_2A.jpeg`
-  - `General_Services_2B.jpeg`
-  - `General_Services_3.jpeg`
-  so they fill their container.
-- Cropping is allowed.
-- Image must remain centered.
+### Edit 4 — Mobile only on services.html: General_Services cards are landscape; match niches portrait 2:3
 
-Acceptance criteria:
-- Each specified image cover-fills its container (center crop).
-- Built CSS contains the proof marker for Edit 7.
-- Fix must override any services-specific “contain” rules that prevent fill.
+**Goal:** On mobile, those same four General_Services cards must render as **portrait 2:3 and visually match niches image-card styling**.
 
-Required targeting mechanism:
-- Add the shared class to these four images (and only these):
-  - `img-cover-center`
+Root-cause to confirm:
+- Page-specific aspect ratio rules on services override the mobile card behavior and force a landscape container.
 
-Verification:
-- Automated: grader checks those four images have the class and that services CSS enables cover-fill for that class.
-- Manual: confirm fill + centered crop.
+Required structure change:
+- Add a specific class hook on the four General_Services image card wrappers in `services.html`:
+  - Required class name: `general-services-card`
 
-## Non-goals (explicit)
+Required CSS behavior (mobile-only):
+- In `src/css/pages/services.css` under `@media (max-width: 768px)`:
+  - `.page-services .general-services-card` must be portrait 2:3 (aspect-ratio 2 / 3).
+  - The image should fill appropriately (avoid letterboxing).
 
-- No pricing feature work (do not touch `pricing-widget/**`).
-- No copy rewrites unrelated to these edits.
-- No unrelated redesigns, animation changes, or refactors.
+Proof marker:
+- `SPEC: SERVICES_MOBILE_GENERAL_SERVICES_CARDS_PORTRAIT_2_3_2025_12_30`
+
+---
+
+### Edit 5 — Services Innovation Gallery Neural Grid: replace all 1:1 and 3:2 images with allowed `services_*` images
+
+**Goal:** Remove all legacy `1-1` and `3-2` images from the Services Neural Grid curated list and replace them with the allowed `services_*` assets.
+
+Where:
+- `src/js/gallery.js` → `CURATED_IMAGES`
+
+Allowed replacements:
+- `services_lead_followup_mobile.jpg`
+- `services_consulting_mobile.jpg`
+- `services_data_integration_mobile.jpg`
+- `services_workflow_automation_mobile.jpg`
+- `services_data_integration.jpg`
+- `services_workflow_automation.jpg`
+- `services_consulting.jpg`
+- `services_lead_followup.jpg`
+
+Rule of thumb:
+- Use `*_mobile.jpg` for square entries, and non-mobile `.jpg` for landscape entries.
+
+Proof marker:
+- `SPEC: SERVICES_NEURAL_GRID_REPLACE_SQUARE_LANDSCAPE_2025_12_30`
+
+---
+
+### Edit 6 — Services Innovation Gallery Neural Grid: replace all 2:3 images with `*_#_Mobile.jpeg` variety
+
+**Goal:** Replace all portrait (2:3) tiles in the Services Neural Grid with images matching:
+- `*_1_Mobile.jpeg` OR `*_2_Mobile.jpeg` OR `*_3_Mobile.jpeg`
+
+Variety requirement:
+- Avoid using multiple variants of the same prefix; all portrait tiles should use distinct prefixes.
+
+Where:
+- `src/js/gallery.js` → `CURATED_IMAGES` entries with portrait type.
+
+Proof marker:
+- `SPEC: SERVICES_NEURAL_GRID_REPLACE_PORTRAIT_2025_12_30`
+
+---
+
+### Edit 7 — Mobile only: remove grey hero subheadings (no layout shift)
+
+**Goal:** On mobile only, the hero shader section must show:
+- title
+- CTA buttons
+…and must not show any grey subheading text, while keeping title/CTA positions unchanged.
+
+Implementation constraint:
+- Hiding must not cause the title/CTA to move (no layout shift).
+- Achieve this by hiding visibility (or equivalent) while preserving space.
+
+Where:
+- `src/css/components/hero.css`
+
+Proof marker:
+- `SPEC: HERO_MOBILE_HIDE_GREY_SUBHEADINGS_PRESERVE_LAYOUT_2025_12_30`
+
+---
+
+### Edit 8 — index.html: recolor two exact sentences to grey
+
+Sentences:
+1) “Four practical ways we help UK small businesses save time, respond faster, and keep customers moving - without ripping out the tools you already use.”
+2) “Clear setup + monthly support. Start with a flagship system, or pick a smaller module if you're fixing one leak first.”
+
+Goal:
+- Change these sentences from white to grey on `index.html` only.
+- Do not recolor other subtitles globally.
+
+Required implementation:
+- Add a dedicated class (recommended name: `subtitle-muted`) to the `<p>` elements containing those sentences (or wrap the sentence in a span with that class).
+- Define `.subtitle-muted` color as the grey token (use `--color-silver-original`).
+
+Proof marker:
+- `SPEC: INDEX_SUBTITLES_GREY_TARGETED_SENTENCES_2025_12_30`
+
+---
+
+## Required reference mapping
+
+Codex must follow:
+- `codex/ASSET_REPLACEMENT_MATRIX.md`
+
+This file defines the exact recommended replacements so the result is deterministic and passes grading.
