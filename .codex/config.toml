@@ -54,5 +54,4 @@ exclude = [
   ".npm-cache/**",
 
   # Out of scope for Requested Edits 1–7
-  "pricing-widget/**",
-  "niche_copy_templates/**",
+  "pricing-widget/**"
