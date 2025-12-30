@@ -1,75 +1,83 @@
 <!-- FILE: AGENTS.md -->
 # Agents & Roles (Codex CLI workflow)
 
-Codex should operate as a **multi-role workflow** (even if executed by a single agent). This reduces missed requirements and scope drift.
+This repo expects Codex to operate as a multi-role workflow (even if a single agent executes it). The goal is to reduce missed requirements and scope drift.
 
-## Operating principle
+## ExecPlans
 
-- Treat `codex/REQUESTED_EDITS_SPEC.md` as the **source of truth**
-- Treat `ExecPlan.md` as the **execution runbook**
-- Use `codex/VERIFICATION_PROTOCOL.md` as the **grader/verification contract**
-- Run the “evaluation flywheel” loop: measure → change → re-measure → tighten
+When implementing any non-trivial, multi-file change (especially UI changes spanning multiple pages), use an ExecPlan from design through verification.
+
+Rule:
+- Read `PLANS.md` first.
+- Use `ExecPlan.md` as the single runbook and keep it updated as work proceeds.
 
 ## Roles (run sequentially)
 
 ### 1) Scout / Mapper
-Goal: Build a precise understanding of “what controls what” before edits.
+Goal: Build a precise map of “what controls what” before changing site code.
 
 Responsibilities:
-- Identify exact files/selectors/attributes for each requested edit
-- Update `codex/REPO_UI_MAP.md` with concrete pointers and pitfalls
-- Note conflicts or repo realities in `codex/UI_CHANGE_LOG.md`
+- Enumerate all HTML pages that are in scope:
+  - root `*.html`
+  - `niches/*.html`
+- Identify exact files/selectors responsible for:
+  - hero shader variant selection (per page)
+  - hero “glass/blur” container
+  - hero typography/layout rules (desktop + mobile)
+  - qualifying body-section subtitles under blue titles
+  - index “Streamline workflows” pill button layout
+  - specified images that must become cover-fill
+- Update `codex/REPO_UI_MAP.md` with concrete pointers (paths + selectors + pitfalls).
 
 Exit conditions:
-- Repo map updated for all six edits
-- You can name the exact file(s) you will change for each requirement
+- `codex/REPO_UI_MAP.md` is updated with direct file+selector references for each Requested Edit 1–7.
 
 ### 2) Planner / Decomposer
-Goal: Convert requirements into a minimal change set with verifiable checkpoints.
+Goal: Translate requirements into a minimal, testable change set with micro-gates.
 
 Responsibilities:
-- Write a per-edit approach in `codex/UI_CHANGE_LOG.md`:
-  - What to change
-  - Why it’s minimal
-  - How to verify
-  - Which SPEC proof marker(s) will be added
-- Decide ordering to avoid rework
-- Identify regression risks and how you’ll detect them
+- In `codex/UI_CHANGE_LOG.md`, write a per-edit approach:
+  - minimal change locations
+  - risks + mitigations
+  - verification plan (automated + manual)
+  - which SPEC proof marker(s) will be added
+- Define the exact sequence of work to avoid rework (shader first, then hero layout, then global subtitle rule, then targeted fixes).
 
 Exit conditions:
-- Approach documented for edits 1–6
-- All proof markers are accounted for
+- Each Requested Edit has an explicit approach, a proof marker, and a verification step.
 
 ### 3) Implementer
-Goal: Implement edits with strict scope control.
+Goal: Implement with strict scope control.
 
 Responsibilities:
-- Implement in small increments, one edit at a time
+- Change one edit at a time.
 - After each edit:
-  - rebuild CSS/JS if needed
-  - run relevant validator(s)
-  - confirm no unrelated files changed
-- Add SPEC proof markers as required
+  - rebuild CSS/JS bundles as needed
+  - run `bash scripts/codex.requested-edits.sh`
+  - ensure no unrelated files changed
+- Add SPEC proof markers as required by `codex/REQUESTED_EDITS_SPEC.md`.
 
 Exit conditions:
-- All six edits implemented
-- Local validations for each edit passing
+- All edits implemented; validators pass; no unrelated churn.
 
 ### 4) Verifier / QA
-Goal: Prove the work is correct.
+Goal: Prove the result is correct and robust.
 
 Responsibilities:
-- Run `bash scripts/codex.requested-edits.sh` (must pass)
-- Follow `codex/MANUAL_QA_CHECKLIST.md` for visual/responsive checks
-- Fill the final evidence mapping in `ExecPlan.md` or `codex/UI_CHANGE_LOG.md`
+- Run automated validation:
+  - `bash scripts/codex.requested-edits.sh`
+- Run manual validation:
+  - `codex/MANUAL_QA_CHECKLIST.md`
+- Fill the final evidence mapping in `ExecPlan.md`.
 
 Exit conditions:
-- Automated validators pass
-- Manual QA checklist completed
-- Evidence recorded 1:1 for edits 1–6
+- Automated checks pass.
+- Manual QA completed.
+- Evidence table completed 1:1 for Requested Edits 1–7.
 
-## Scope enforcement rules
+## Scope enforcement rules (non-negotiable)
 
-- If a change cannot be tied directly to Requested Edits 1–6, **do not make it**.
-- Do not “improve” unrelated styles, spacing, or copy.
-- Prefer page-scoped selectors (e.g., `.page-services`, `.page-niche`, `.page-about`) to avoid collateral changes.
+- If a change cannot be tied directly to Requested Edits 1–7, do not make it.
+- Do not touch pricing-widget code, pricing maps, or pricing behavior.
+- Prefer page-scoped selectors (e.g., `.page-services`, `.page-about`, `.page-niche`) and narrowly targeted utilities.
+- Do not introduce new UI features or new sections.
