@@ -1,19 +1,21 @@
-# FILE: .codex/config.toml
-[project]
-name = "silverstone-site-main"
-description = "Static site — Requested Edits 1–7 (hero shaders per page, hero layout/no glass, subtitle grey, index nowrap button, about/services image cover-fill)."
+# .codex/config.toml
 
-[model]
+# Model
 model = "gpt-5.2-codex"
-temperature = 0.2
+
+# Safety / execution defaults
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[features]
+web_search_request = true
+
+[sandbox_workspace_write]
+network_access = true
 
 [execution]
 # Single source-of-truth command Codex must keep green.
 command = "bash scripts/codex.requested-edits.sh"
-
-# Ask Codex CLI to permit network access / web search when supported.
-network_access = true
-web_search_request = true
 
 [files]
 # Keep context focused on files relevant to Requested Edits 1–7 and their verification tooling.
@@ -54,8 +56,3 @@ exclude = [
   # Out of scope for Requested Edits 1–7
   "pricing-widget/**",
   "niche_copy_templates/**",
-  "PRICING_COPY_MAP.md",
-
-  # Historical planning artifacts not used for this run
-  ".agent/**"
-]

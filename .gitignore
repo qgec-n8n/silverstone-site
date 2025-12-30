@@ -1,1 +1,4 @@
-node_modules
+# Codex runtime artifacts (keep config tracked)
+.codex/*
+!.codex/config.toml
+!.codex/README.md
