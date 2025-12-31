@@ -1613,25 +1613,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // SPEC: SERVICES_NEURAL_GRID_REPLACE_SQUARE_LANDSCAPE_2025_12_30
         // SPEC: SERVICES_NEURAL_GRID_REPLACE_PORTRAIT_2025_12_30
         // --- COLUMN 1 (4 Portraits) ---
-        { file: 'General_Services_2B_Mobile.jpeg', type: 'portrait', title: 'Connect & Grow' },
-        { file: 'eComm_3_Mobile.jpeg', type: 'portrait', title: 'AI Clarity' },
-        { file: 'Trades_2_Mobile.jpeg', type: 'portrait', title: 'Patient Care' },
-        { file: 'Gyms_1_Mobile.jpeg', type: 'portrait', title: 'Never Miss Viewing' },
+        { file: 'General_Services_2B_Mobile.jpeg', type: 'portrait', title: 'Automation Modules', backCopy: 'Expanded modules across your systems.' },
+        { file: 'eComm_3_Mobile.jpeg', type: 'portrait', title: 'eCommerce Momentum', backCopy: 'Keep orders, carts, and follow-ups moving.' },
+        { file: 'Trades_2_Mobile.jpeg', type: 'portrait', title: 'Trades Dispatch', backCopy: 'Route jobs fast with clean, live updates.' },
+        { file: 'Gyms_1_Mobile.jpeg', type: 'portrait', title: 'Gym Member Flow', backCopy: 'Lead-to-member journeys handled smoothly.' },
 
         // --- COLUMN 2 (2 Portraits + 3 Squares) ---
-        { file: 'Hospitality_1_Mobile.jpeg', type: 'portrait', title: 'Qualified Leads' },
-        { file: '2-3_realestate_phone-with-house-icon_focus-on-the-viewing.webp', type: 'portrait', title: 'Zero Interruptions' },
-        { file: 'services_consulting_mobile.jpg', type: 'square', title: 'Scale Limits' },
-        { file: 'services_data_integration_mobile.jpg', type: 'square', title: 'Marketing Intel' },
-        { file: 'services_workflow_automation_mobile.jpg', type: 'square', title: 'Recruitment' },
+        { file: 'Hospitality_1_Mobile.jpeg', type: 'portrait', title: 'Hospitality Flow', backCopy: 'Bookings, reminders, and guest comms aligned.' },
+        { file: '2-3_realestate_phone-with-house-icon_focus-on-the-viewing.webp', type: 'portrait', title: 'Viewing Focus', backCopy: 'Prioritise viewings with instant responses.' },
+        { file: 'services_consulting_mobile.jpg', type: 'square', title: 'Consulting Sprint', backCopy: 'Clarity on tools, roadmap, and next steps.' },
+        { file: 'services_data_integration_mobile.jpg', type: 'square', title: 'Data Integration', backCopy: 'Connect apps so data flows cleanly.' },
+        { file: 'services_workflow_automation_mobile.jpg', type: 'square', title: 'Workflow Automation', backCopy: 'Remove bottlenecks with smart workflows.' },
 
         // --- COLUMN 3 (2 Portraits + 3 Landscapes + 1 Square) ---
-        { file: '2-3_voicebot_globe-and-tablet_100k-conversations-zero-burnout.webp', type: 'portrait', title: 'Zero Burnout' },
-        { file: '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.webp', type: 'portrait', title: 'Emergency Job' },
-        { file: '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.webp', type: 'landscape', title: 'Instant Response' },
-        { file: '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.webp', type: 'landscape', title: 'Legal Workflows' },
-        { file: '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.webp', type: 'landscape', title: 'Logistics' },
-        { file: '1-1_Trades_Grid.jpg', type: 'square', title: 'Stop Losing Cases' }
+        { file: '2-3_voicebot_globe-and-tablet_100k-conversations-zero-burnout.webp', type: 'portrait', title: 'Voicebot Coverage', backCopy: 'Always-on conversations without burnout.' },
+        { file: '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.webp', type: 'portrait', title: 'Salon Bookings', backCopy: 'Confirmed bookings with fewer gaps.' },
+        { file: '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.webp', type: 'landscape', title: 'Focused Tutoring', backCopy: '1:1 sessions stay organised and on time.' },
+        { file: '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.webp', type: 'landscape', title: 'Sales Dashboards', backCopy: 'Track calls, replies, and conversion lift.' },
+        { file: '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.webp', type: 'landscape', title: 'Always-On Sales', backCopy: 'Sales keep moving after hours.' },
+        { file: '1-1_Trades_Grid.jpg', type: 'square', title: 'Trades Grid', backCopy: 'Jobs, updates, and schedules in one grid.' }
     ];
 
     // --- INITIALIZATION ---
@@ -1674,7 +1674,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const img = document.createElement('img');
         img.src = ASSET_PATH + data.file;
         img.alt = data.title;
-        img.loading = 'lazy';
+        img.loading = 'eager';
+        img.decoding = 'async';
 
         // Error handling
         img.onerror = function () {
@@ -1689,7 +1690,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const title = document.createElement('h4');
         title.textContent = data.title;
         const subtitle = document.createElement('p');
-        subtitle.textContent = 'View Detail';
+        subtitle.textContent = data.backCopy || 'Click to expand';
         back.appendChild(title);
         back.appendChild(subtitle);
 
