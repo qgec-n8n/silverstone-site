@@ -1613,25 +1613,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // SPEC: SERVICES_NEURAL_GRID_REPLACE_SQUARE_LANDSCAPE_2025_12_30
         // SPEC: SERVICES_NEURAL_GRID_REPLACE_PORTRAIT_2025_12_30
         // --- COLUMN 1 (4 Portraits) ---
-        { file: 'Dentists_1_Mobile.jpeg', type: 'portrait', title: 'Connect & Grow' },
-        { file: 'Gyms_2_Mobile.jpeg', type: 'portrait', title: 'AI Clarity' },
-        { file: 'Hospitality_3_Mobile.jpeg', type: 'portrait', title: 'Patient Care' },
-        { file: 'Online_Coach_1_Mobile.jpeg', type: 'portrait', title: 'Never Miss Viewing' },
+        { file: 'General_Services_2B_Mobile.jpeg', type: 'portrait', title: 'Connect & Grow' },
+        { file: 'eComm_3_Mobile.jpeg', type: 'portrait', title: 'AI Clarity' },
+        { file: 'Trades_2_Mobile.jpeg', type: 'portrait', title: 'Patient Care' },
+        { file: 'Gyms_1_Mobile.jpeg', type: 'portrait', title: 'Never Miss Viewing' },
 
         // --- COLUMN 2 (2 Portraits + 3 Squares) ---
-        { file: 'Physio_2_Mobile.jpeg', type: 'portrait', title: 'Qualified Leads' },
-        { file: 'Real_Estate_3_Mobile.jpeg', type: 'portrait', title: 'Zero Interruptions' },
-        { file: 'services_lead_followup_mobile.jpg', type: 'square', title: 'Scale Limits' },
-        { file: 'services_consulting_mobile.jpg', type: 'square', title: 'Marketing Intel' },
-        { file: 'services_data_integration_mobile.jpg', type: 'square', title: 'Recruitment' },
+        { file: 'Hospitality_1_Mobile.jpeg', type: 'portrait', title: 'Qualified Leads' },
+        { file: '2-3_realestate_phone-with-house-icon_focus-on-the-viewing.webp', type: 'portrait', title: 'Zero Interruptions' },
+        { file: 'services_consulting_mobile.jpg', type: 'square', title: 'Scale Limits' },
+        { file: 'services_data_integration_mobile.jpg', type: 'square', title: 'Marketing Intel' },
+        { file: 'services_workflow_automation_mobile.jpg', type: 'square', title: 'Recruitment' },
 
         // --- COLUMN 3 (2 Portraits + 3 Landscapes + 1 Square) ---
-        { file: 'Salon_1_Mobile.jpeg', type: 'portrait', title: 'Zero Burnout' },
-        { file: 'Trades_2_Mobile.jpeg', type: 'portrait', title: 'Emergency Job' },
-        { file: 'services_data_integration.jpg', type: 'landscape', title: 'Instant Response' },
-        { file: 'services_workflow_automation.jpg', type: 'landscape', title: 'Legal Workflows' },
-        { file: 'services_consulting.jpg', type: 'landscape', title: 'Logistics' },
-        { file: 'services_workflow_automation_mobile.jpg', type: 'square', title: 'Stop Losing Cases' }
+        { file: '2-3_voicebot_globe-and-tablet_100k-conversations-zero-burnout.webp', type: 'portrait', title: 'Zero Burnout' },
+        { file: '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.webp', type: 'portrait', title: 'Emergency Job' },
+        { file: '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.webp', type: 'landscape', title: 'Instant Response' },
+        { file: '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.webp', type: 'landscape', title: 'Legal Workflows' },
+        { file: '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.webp', type: 'landscape', title: 'Logistics' },
+        { file: '1-1_Trades_Grid.jpg', type: 'square', title: 'Stop Losing Cases' }
     ];
 
     // --- INITIALIZATION ---
