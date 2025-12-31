@@ -91,6 +91,7 @@
         img.alt = data.title;
         img.loading = 'eager';
         img.decoding = 'async';
+        img.fetchPriority = 'high';
 
         // Error handling
         img.onerror = function () {
