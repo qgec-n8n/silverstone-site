@@ -1,21 +1,6 @@
 <!-- FILE: ExecPlan.md -->
 # ExecPlan — Requested Edits 1–8 (Hero / About / Services / Neural Grid / Index)
 
-## Addendum — About/Contact Hero Subtitles + About Lightbox (2025-12-31)
-
-### Purpose
-- Re-enable mobile hero subtitles on `about.html` and `contact.html` only.
-- Keep mobile hero subtitles hidden on `index.html`, `services.html`, `book.html`, and `niches/*.html`.
-- Add lightbox interaction + “Tap to expand” affordance for `Silverstone_22.jpg` and `Silverstone_28.jpg` on `about.html`.
-
-### Scope constraints
-- Only the above changes; no pricing-widget changes.
-- Use existing lightbox infrastructure (`.js-premium-lightbox` binding in `src/js/marquee.js`).
-
-### Validation
-- Run `bash scripts/codex.requested-edits.sh` after changes (build + baseline check).
-- Manual: on mobile viewports, verify subtitles visible only on about/contact hero; verify about images open lightbox and show “Tap to expand” label.
-
 ## Purpose / Big Picture
 
 Implement the **exact** Requested Edits 1–8 from `codex/REQUESTED_EDITS_SPEC.md` with:

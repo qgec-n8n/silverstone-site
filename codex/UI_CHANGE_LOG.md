@@ -110,11 +110,6 @@ Use one entry per loop.
   - Measure (what command; what changed in output): `bash scripts/codex.requested-edits.sh` after each edit; failures progressed until all markers present, then pass.
   - Improve (what targeted change you made): Implemented Edits 1–8 per spec with scoped CSS/HTML/JS updates and proof markers.
   - Result: Grader passes; manual QA pending.
-- Loop: 2
-  - Analyze (what failed; why): New request to re-enable mobile hero subtitles on about/contact only and add about image lightbox affordance.
-  - Measure (what command; what changed in output): `bash scripts/codex.requested-edits.sh` after changes; PASS.
-  - Improve (what targeted change you made): Added mobile-only subtitle visibility overrides for `.page-about`/`.page-contact`; wrapped about images in lightbox triggers with “Tap to expand” label and styles.
-  - Result: Grader still passes; manual QA pending for new changes.
 
 ---
 

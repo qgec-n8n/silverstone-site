@@ -168,10 +168,6 @@
 }
 
 @media (max-width: 768px) {
-  .page-contact .hero.title-band .content p {
-    visibility: visible;
-  }
-
   .contact-grid {
     display: flex;
     flex-direction: column;
