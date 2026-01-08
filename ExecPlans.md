@@ -5,14 +5,16 @@ This repo uses a single “active” ExecPlan at a time. The active plan is the 
 
 ## Active ExecPlan
 
-- `ExecPlan.whatsapp-footer.md` — **WhatsApp sticky chat icon (bottom-right on all pages) + footer “Contact Us” mobile number on all pages**
+- `ExecPlan.whatsapp.md` — **WhatsApp floating chat button + footer phone number (all pages)**
 
-## Other ExecPlans (inactive / historical)
+## Archived / inactive ExecPlans
 
-- `ExecPlan.md` — Requested Edits 1–8 (Hero container + About/Services image fixes + Services Neural Grid swaps + Mobile hero subheading removal + Index subtitle recolor)
+- `ExecPlan.md` — Requested Edits 1–8 (legacy plan; inactive unless explicitly re-activated here)
 
 ## Important scope note
 
-If any older docs mention other “Requested Edits” sets, treat them as **out of scope** for the current active plan unless the user explicitly re-activates them.
+If multiple planning docs conflict, follow these tie-breakers in order:
 
-For this run: implement **ONLY** the WhatsApp sticky icon + footer mobile number propagation.
+1) **ExecPlans.md → Active ExecPlan** (single source of which plan to run)
+2) Active ExecPlan file (runbook)
+3) Any `codex/*.md` hard specs referenced by the active ExecPlan
