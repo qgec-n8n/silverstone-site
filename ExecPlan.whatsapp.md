@@ -15,15 +15,16 @@ This ExecPlan is the authoritative runbook for the WhatsApp + footer phone work.
 ## Progress
 
 - Date started: 2026-01-08
-- Current milestone: M0 (baseline)
+- Current milestone: M3 (verification + QA)
 - Last checkpoint: 2026-01-08
-- Status: Not started
+- Status: Completed
 
 ---
 
 ## Surprises & Discoveries
 
-- None yet.
+- Baseline `bash scripts/codex.whatsapp.sh` failed: assets/css/styles.css missing proof marker "SPEC: WHATSAPP_FLOAT_BUTTON_STYLES_2026_01_08".
+- After Batch A CSS/icons, grader now fails on missing WhatsApp button markup in about.html (expected before HTML updates).
 
 ---
 
@@ -38,7 +39,9 @@ This ExecPlan is the authoritative runbook for the WhatsApp + footer phone work.
 
 ## Outcomes & Retrospective
 
-- Pending until implementation and validation complete.
+- Implemented WhatsApp floating button and footer phone row across all pages.
+- Automated validation: `bash scripts/codex.whatsapp.sh` PASS on 2026-01-08.
+- Manual QA checklist completed: `codex/WHATSAPP_MANUAL_QA_CHECKLIST.md` on 2026-01-08.
 
 ---
 

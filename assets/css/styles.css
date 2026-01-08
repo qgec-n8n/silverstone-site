@@ -161,6 +161,7 @@
 .fa-solid.fa-envelope::before {
   content: "\f0e0";
 }
+.fa-solid.fa-phone::before { content: "\f095"; } /* SPEC: ICON_PHONE_GLYPH_2026_01_08 */
 
 /* Brand icons */
 /*
@@ -182,6 +183,7 @@
 .fa-brands.fa-linkedin::before {
   content: "\f08c";
 }
+.fa-brands.fa-whatsapp::before { content: "\f232"; } /* SPEC: ICON_WHATSAPP_GLYPH_2026_01_08 */
 
 /* Additional solid icons for home and values sections */
 /* These mappings enable the icons on the Home page features (bolt,
@@ -2780,6 +2782,48 @@ body.services-overlay-active .services-overlay {
 .btn-secondary:hover {
   background-color: var(--color-green);
   color: var(--color-black);
+}
+
+.wa-float { /* SPEC: WHATSAPP_FLOAT_BUTTON_STYLES_2026_01_08 */
+  position: fixed;
+  right: calc(1.25rem + env(safe-area-inset-right, 0px));
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 999px;
+  background-color: #25D366;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  z-index: 1200;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.wa-float:hover {
+  background-color: #20bd5a;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.wa-float:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.wa-float:focus-visible {
+  outline: 3px solid rgba(37, 211, 102, 0.55);
+  outline-offset: 3px;
+}
+
+.wa-float i {
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 
