@@ -1,6 +1,9 @@
 # FILE: .codex/config.toml
-# NOTE: Network + web search are enabled so Codex can read the required OpenAI Cookbook docs
-# referenced by title in ExecPlan / codex docs (URLs are provided outside of repo files).
+# NOTE: Network + web search are enabled so Codex can read required external docs
+# referenced by title in ExecPlans. Keep external URLs out of repo markdown; provide them
+# in the initiation prompt instead.
+#
+# Active runbook: see `ExecPlans.md`.
 
 model = "gpt-5.2-codex"
 approval_policy = "on-request"
