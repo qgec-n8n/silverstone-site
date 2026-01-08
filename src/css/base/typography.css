@@ -165,7 +165,6 @@
 .fa-brands.fa-linkedin::before {
   content: "\f08c";
 }
-.fa-brands.fa-whatsapp::before { content: "\f232"; } /* SPEC: ICON_WHATSAPP_GLYPH_2026_01_08 */
 
 /* Additional solid icons for home and values sections */
 /* These mappings enable the icons on the Home page features (bolt,
