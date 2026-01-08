@@ -74,23 +74,23 @@ Follow `codex/WHATSAPP_FOOTER_REQUESTED_EDITS_SPEC.md` exactly, including proof 
 
 ## Progress (update as you go)
 
-- [x] M0 Baseline recorded (grader fails expected)
-- [x] M1 Repo mapping complete (where to change JS/CSS + all footer locations confirmed)
-- [x] M2 Implement WhatsApp sticky icon (global) + add proof markers
-- [x] M3 Add footer mobile number to all pages + proof markers
+- [ ] M0 Baseline recorded (grader fails expected)
+- [ ] M1 Repo mapping complete (where to change JS/CSS + all footer locations confirmed)
+- [ ] M2 Implement WhatsApp sticky icon (global) + add proof markers
+- [ ] M3 Add footer mobile number to all pages + proof markers
 - [ ] M4 Automated grader passes + manual QA complete
 
 ## Surprises & Discoveries (update as you go)
 
-- Baseline `bash scripts/codex.whatsapp-footer.sh` failed on missing CSS proof marker (expected pre-implementation).
+- (none yet)
 
 ## Decision Log (update as you go)
 
-- Ran the grader after both M2 + M3 changes were applied in one batch to avoid extra rebuild cycles.
+- (none yet)
 
 ## Outcomes & Retrospective (fill at end)
 
-- Automated grader PASS on 2026-01-08; manual QA still pending.
+- (pending)
 
 ## Plan of Work
 

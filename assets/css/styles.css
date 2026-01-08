@@ -2782,31 +2782,6 @@ body.services-overlay-active .services-overlay {
   color: var(--color-black);
 }
 
-/* SPEC: WHATSAPP_STICKY_BUTTON_FIXED_BOTTOM_RIGHT_2026_01_08 */
-.whatsapp-sticky-button {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 999px;
-  background-color: #25d366;
-  color: #ffffff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-  z-index: 9999;
-}
-
-.whatsapp-sticky-button:hover,
-.whatsapp-sticky-button:focus-visible {
-  filter: brightness(0.95);
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
-}
-
 
 /* Shared stats layout */
 .stats {
