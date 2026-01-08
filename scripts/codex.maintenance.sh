@@ -5,5 +5,6 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
-# Maintenance is intentionally the same contract as requested-edits validation.
-bash scripts/codex.requested-edits.sh
+# Maintenance should track the currently active ExecPlan (see ExecPlans.md).
+# For this repo revision, the active plan is WhatsApp + footer phone.
+bash scripts/codex.whatsapp.sh
