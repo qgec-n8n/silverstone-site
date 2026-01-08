@@ -56,12 +56,16 @@ JavaScript:
 - Build command: `npm run build:js`
 
 Validation (the “grader” contract):
-- Primary command: `bash scripts/codex.requested-edits.sh`
-- This rebuilds CSS/JS and runs: `node scripts/assert-ui-spec.js`
+- Primary command: **use the validation command defined by the active ExecPlan**.
+  - Common examples in this repo:
+    - `bash scripts/codex.whatsapp.sh` (WhatsApp button + footer phone)
+    - `bash scripts/codex.requested-edits.sh` (legacy Requested Edits)
+
+Each validation script may rebuild CSS/JS and run one or more graders under `scripts/assert-*.js`.
 
 Manual QA:
 - A local static server is sufficient (no framework runtime).
-- Use the checklist in `codex/MANUAL_QA_CHECKLIST.md`.
+- Use the checklist referenced by the active ExecPlan (for example `codex/WHATSAPP_MANUAL_QA_CHECKLIST.md`).
 
 ## Prompt discipline blocks (use in Codex initiation prompts)
 
@@ -85,7 +89,7 @@ design_and_scope_constraints:
 - Do not touch pricing work or pricing-widget code for this task.
 
 validation_contract:
-- Run `bash scripts/codex.requested-edits.sh` after each milestone.
+- Run the active ExecPlan’s validation command after each milestone.
 - Do not declare done until it passes AND manual QA is completed.
 
 ## Standard ExecPlan section checklist
