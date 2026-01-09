@@ -84,6 +84,14 @@ nav {
   letter-spacing: inherit;
 } /* SPEC: DESKTOP_NAV_SERVICES_FONT_PARITY */
 
+@media (min-width: 769px) {
+  .site-header nav,
+  .site-header nav a,
+  .site-header .services-toggle {
+    font-weight: 500;
+  }
+}
+
 :root {
   --headerH: clamp(66px, 8vh, 88px);
   /* SPEC: MOBILE_NAV_TIMINGS_TUNED */

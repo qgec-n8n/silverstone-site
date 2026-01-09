@@ -28,7 +28,7 @@
 
 @media (max-width: 768px) {
   .page-niche .service-image {
-    aspect-ratio: 2 / 3;
+    aspect-ratio: auto;
   }
 
   .page-niche .service-image.neon-card {
@@ -38,19 +38,14 @@
   .page-niche .service-image__media,
   .page-niche .service-image__media picture,
   .page-niche .service-image__media img {
-    height: 100%;
-  }
-
-  .page-niche .service-row .service-image {
-    position: relative;
+    height: auto;
   }
 
   .page-niche .service-row .service-image img,
   .page-niche .service-row .service-image .service-img {
-    position: absolute !important;
-    inset: 0;
+    position: static !important;
     width: 100% !important;
-    height: 100% !important;
+    height: auto !important;
     object-fit: contain !important;
   }
 }

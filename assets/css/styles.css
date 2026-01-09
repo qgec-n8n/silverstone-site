@@ -1175,6 +1175,14 @@ nav {
   letter-spacing: inherit;
 } /* SPEC: DESKTOP_NAV_SERVICES_FONT_PARITY */
 
+@media (min-width: 769px) {
+  .site-header nav,
+  .site-header nav a,
+  .site-header .services-toggle {
+    font-weight: 500;
+  }
+}
+
 :root {
   --headerH: clamp(66px, 8vh, 88px);
   /* SPEC: MOBILE_NAV_TIMINGS_TUNED */
@@ -4961,7 +4969,7 @@ body.services-overlay-active .services-overlay {
 
 @media (max-width: 768px) {
   .page-niche .service-image {
-    aspect-ratio: 2 / 3;
+    aspect-ratio: auto;
   }
 
   .page-niche .service-image.neon-card {
@@ -4971,19 +4979,14 @@ body.services-overlay-active .services-overlay {
   .page-niche .service-image__media,
   .page-niche .service-image__media picture,
   .page-niche .service-image__media img {
-    height: 100%;
-  }
-
-  .page-niche .service-row .service-image {
-    position: relative;
+    height: auto;
   }
 
   .page-niche .service-row .service-image img,
   .page-niche .service-row .service-image .service-img {
-    position: absolute !important;
-    inset: 0;
+    position: static !important;
     width: 100% !important;
-    height: 100% !important;
+    height: auto !important;
     object-fit: contain !important;
   }
 }
