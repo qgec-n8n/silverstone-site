@@ -653,6 +653,12 @@ nav {
     background 0.2s ease;
 }
 
+@media (min-width: 769px) {
+  .services-menu .service-link {
+    font-weight: 500;
+  }
+}
+
 .services-menu .service-link:hover,
 .services-menu .service-link:focus-visible {
   border-color: rgba(0, 255, 157, 0.4);
