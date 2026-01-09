@@ -2806,6 +2806,7 @@ body.services-overlay-active .services-overlay {
   color: var(--color-black);
 }
 
+
 /* Shared stats layout */
 .stats {
   display: flex;
@@ -4956,4 +4957,27 @@ body.services-overlay-active .services-overlay {
 .section.compact-section {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .page-niche .service-image {
+    aspect-ratio: 9 / 16;
+  }
+
+  .page-niche .service-image.neon-card {
+    overflow: hidden !important;
+  }
+
+  .page-niche .service-image__media,
+  .page-niche .service-image__media picture,
+  .page-niche .service-image__media img {
+    height: auto;
+  }
+
+  .page-niche .service-image img,
+  .page-niche .service-image .service-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
 }
