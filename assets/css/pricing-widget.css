@@ -329,6 +329,12 @@
   padding-right: 84px;
 }
 
+@media (max-width: 768px) {
+  .ss-pricing .ss-pricing__card.is-featured .ss-pricing__card-title {
+    margin-top: 16px;
+  }
+}
+
 .ss-pricing .ss-pricing__card.is-featured {
   border-color: rgba(0, 174, 239, 0.7);
   box-shadow:
