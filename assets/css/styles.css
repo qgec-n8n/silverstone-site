@@ -4961,7 +4961,7 @@ body.services-overlay-active .services-overlay {
 
 @media (max-width: 768px) {
   .page-niche .service-image {
-    aspect-ratio: 9 / 16;
+    aspect-ratio: 2 / 3;
   }
 
   .page-niche .service-image.neon-card {
