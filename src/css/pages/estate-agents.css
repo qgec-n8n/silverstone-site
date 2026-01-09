@@ -38,13 +38,19 @@
   .page-niche .service-image__media,
   .page-niche .service-image__media picture,
   .page-niche .service-image__media img {
-    height: auto;
+    height: 100%;
   }
 
-  .page-niche .service-image img,
-  .page-niche .service-image .service-img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+  .page-niche .service-row .service-image {
+    position: relative;
+  }
+
+  .page-niche .service-row .service-image img,
+  .page-niche .service-row .service-image .service-img {
+    position: absolute !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
   }
 }
