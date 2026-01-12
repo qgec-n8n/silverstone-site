@@ -13,5 +13,4 @@
   --max-width: 1200px;
   --headerH: clamp(56px, 8vh, 72px);
   --body-section-overlay-opacity: 0.24;
-  --elfsight-mobile-icon-size: 64px;
 }

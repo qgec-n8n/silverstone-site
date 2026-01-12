@@ -16,28 +16,6 @@ body {
   overscroll-behavior: none;
 }
 
-@media (max-width: 768px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: clip;
-  }
-
-  .elfsight-app-888aed49-3d57-4a41-b073-6b567175fdd1,
-  .elfsight-app-6cc75dca-d751-4bf5-8a4d-d447a97c7781 {
-    width: var(--elfsight-mobile-icon-size);
-    height: var(--elfsight-mobile-icon-size);
-  }
-
-  .elfsight-app-888aed49-3d57-4a41-b073-6b567175fdd1 iframe,
-  .elfsight-app-6cc75dca-d751-4bf5-8a4d-d447a97c7781 iframe {
-    width: var(--elfsight-mobile-icon-size) !important;
-    height: var(--elfsight-mobile-icon-size) !important;
-    max-width: 100vw;
-  }
-}
-
 @supports (-webkit-touch-callout: none) {
   html,
   body {
