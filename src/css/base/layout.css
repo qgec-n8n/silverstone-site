@@ -139,3 +139,15 @@ img {
 .page-niche .service-content p {
   color: var(--color-silver-original);
 }
+
+/* SS_PRICING_SCROLL_FIX: remove internal scroll traps on desktop */
+@media (min-width: 781px) {
+  .ss-pricing[data-ss-pricing-section="2"] .ss-pricing__card {
+    height: auto !important;
+  }
+
+  .ss-pricing[data-ss-pricing-section="2"] .ss-pricing__includes-body {
+    overflow-y: visible !important;
+    padding-right: 0 !important;
+  }
+}
