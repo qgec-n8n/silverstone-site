@@ -1,64 +1,44 @@
 <!-- FILE: ExecPlans.md -->
-# Codex ExecPlans index (repo-local)
+# ExecPlans index
 
-This repo uses **ExecPlans** as task-specific, step-by-step runbooks that force:
-- deep, repo-wide investigation,
-- evidence-backed root-cause isolation,
-- the smallest safe code edits,
-- tight verification + regression checks,
-- clear documentation of what changed and why.
-
-ExecPlans are meant to be followed **literally**. If an ExecPlan conflicts with a general repo rule, the ExecPlan wins.
+This repo uses ExecPlans (see `PLANS.md`) to guide Codex through complex tasks that require careful diagnosis, minimal diffs, and strict non-regression.
 
 ---
 
-## Active ExecPlan
+## How to run Codex with this repo
 
-**Active:** `codex/execplans/2026-01-19_restore-wheel-scroll.md`
+Preferred entrypoint:
 
-Problem focus:
-- Mouse wheel vertical scroll is blocked on:
-  - `index.html`
-  - `about.html`
-  - `services.html`
-  - `book.html`
-  - `contact.html`
-  - `niches/*.html`
+- Run Codex via `bash scripts/codex.run.sh` (it sets `CODEX_HOME` to `.codex/` for consistent config).
 
-Non-regression:
-- Keep the **pricing feature internal scroll** (on `index.html` + `services.html`) unchanged.
+Typical workflow:
 
----
+1) Setup (once per environment)
+   - `bash scripts/codex.setup.sh`
 
-## How Codex should use this repo
+2) Serve locally
+   - `bash scripts/codex.serve.sh 4173`
+   - Open affected pages in a browser and reproduce.
 
-Codex must:
-1. Read these files first (in order):
-   - `ExecPlans.md`
-   - `PLANS.md`
-   - `AGENTS.md`
-   - the Active ExecPlan listed above
-2. Run the audit scripts referenced by the active ExecPlan.
-3. Follow an evaluation-flywheel loop:
-   - reproduce → hypothesize → instrument → narrow → patch → re-test → document
-4. Keep diffs minimal and scoped to the proven root cause.
-5. Use internet-enabled research during diagnosis (behavior/spec pitfalls), but ground fixes strictly in repo code.
+3) Baseline audits
+   - `bash scripts/codex.audit.scroll-lock.sh`
+   - `bash scripts/codex.inventory.pages.sh`
+
+4) Run Codex
+   - Start Codex and paste the initiation prompt in `codex/prompts/`.
+
+5) Before finalizing a fix (must)
+   - `bash scripts/codex.validate.scroll.sh`
+   - Follow `codex/checklists/scroll-wheel-validation.md`
 
 ---
 
-## Creating new ExecPlans
+## Active ExecPlans
 
-When adding a new ExecPlan:
-- Put it in `codex/execplans/` using a date prefix: `YYYY-MM-DD_<short_slug>.md`
-- Include:
-  - explicit acceptance criteria (pass/fail)
-  - non-goals (what must NOT change)
-  - protected behaviors/components (must remain unchanged)
-  - step-by-step investigation sequence
-  - instrumentation steps (console snippets are fine)
-  - smallest-change patch policy
-  - verification + regression checklist
-  - “stop conditions” (when to roll back / re-evaluate)
+- `codex/execplans/2026-01-19_restore-wheel-scroll.md`
+  - Restore mouse wheel page scrolling across:
+    - `index.html`, `about.html`, `services.html`, `book.html`, `contact.html`, `niches/*.html`
+  - Preserve protected pricing internal scroll on:
+    - `index.html` + `services.html`
 
-Then update the “Active ExecPlan” section above.
-
+(Keep this file updated whenever new ExecPlans are added or retired.)
