@@ -1,13 +1,18 @@
 <!-- FILE: codex/execplans/2026-01-19_restore-wheel-scroll.md -->
-# ExecPlan: Restore mouse wheel vertical page scrolling (Silverstone site)
+# ExecPlan — Restore mouse wheel page scrolling (preserve pricing internal scroll)
 
 Date: 2026-01-19
 
+Owner: Codex (GPT-5.2)
+
+Status: ACTIVE
+
 ---
 
-## Mission
+## 0) Objective
 
-Restore **normal vertical page scrolling via mouse wheel** on:
+Restore **native page-level mouse wheel scrolling** across:
+
 - `index.html`
 - `about.html`
 - `services.html`
@@ -15,219 +20,312 @@ Restore **normal vertical page scrolling via mouse wheel** on:
 - `contact.html`
 - `niches/*.html`
 
-While ensuring:
-- **No other visual or behavioral changes** occur.
-- The **pricing feature internal scroll** on `index.html` and `services.html` remains **completely unchanged**.
+While preserving the pricing widget’s **internal** scroll behavior on:
+
+- `index.html` pricing section
+- `services.html` pricing section
 
 ---
 
-## Acceptance criteria (must all pass)
+## 1) Scope and hard constraints
 
-A. Wheel scroll restored
-- On each impacted page, using the mouse wheel anywhere on the main page content causes the page to scroll vertically as expected.
+### In scope
+- Diagnose and fix the root cause(s) preventing wheel/page scrolling.
+- Make the smallest safe code changes required.
+- Remove/delete code only if it is proven to be the blocker.
 
-B. Pricing internal scroll preserved
-- On `index.html` and `services.html`, the pricing component’s internal scroll area behaves exactly as before.
-- Treat these as protected internal scroll targets:
-  - `.ss-pricing[data-ss-pricing-page="index.html"][data-ss-pricing-section="2"] .ss-pricing__includes-body`
-  - `.ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"] .ss-pricing__includes-body`
+### Out of scope (strict)
+- No visual design changes.
+- No copy changes.
+- No unrelated refactors, formatting, or “cleanup”.
+- No reworking animations, performance tuning, or accessibility improvements unless required for the scroll fix.
 
-C. No collateral changes
-- No layout shifts, no typography changes, no animation behavior changes, no new UI, no removed UI.
+### Protected behavior (must not change)
+- Pricing widget internal scroll behavior on index/services:
+  - The includes list remains scrollable internally.
+  - Its boundary behavior (whether it chains to the page or not) must match baseline.
+  - No CSS/layout changes to pricing card heights, padding, or list styling.
 
-D. Minimal diff
-- The fix changes the fewest lines possible and touches the fewest files possible.
-
----
-
-## Non-goals
-
-- No refactors, no cleanup, no reformatting.
-- No changes to pricing widget code unless the root cause is proven to be inside it (high bar).
-- No changes to UX beyond restoring page wheel scroll.
-
----
-
-## Required workflow: evaluation flywheel
-
-### Phase 0 — Setup (required)
-
-[ ] Run repo setup (if not already done): `bash scripts/codex.setup.sh`  
-[ ] Start a local static server for testing: `bash scripts/codex.serve.sh`  
-[ ] Run scroll-lock audit: `bash scripts/codex.audit.scroll-lock.sh`  
-[ ] Read: `ExecPlans.md`, `PLANS.md`, `AGENTS.md`
-
-Stop condition:
-- Do not patch anything until Phase 2 produces concrete runtime proof.
+### Conflict-handling rule
+If any instruction conflicts, prioritize:
+1) pricing internal scroll unchanged
+2) no visual/functional changes
+3) restoring page wheel scroll
 
 ---
 
-### Phase 1 — Baseline reproduction matrix (required)
+## 2) Success criteria (acceptance)
 
-For each page below, record:
-- Does the scrollbar appear?
-- Does mouse wheel move the page?
-- Does keyboard PageDown / Space scroll?
-- Does dragging the scrollbar work?
-- Where does wheel fail (everywhere vs specific regions)?
+A) Page wheel scroll works on every target page (including at least 2 niche pages).
 
-Pages:
-- [ ] index.html
-- [ ] about.html
-- [ ] services.html
-- [ ] book.html
-- [ ] contact.html
-- [ ] niches/*.html (test at least 2 niche pages)
+B) Pricing internal scroll on index/services behaves exactly as it did before the fix.
 
-Also baseline pricing internal scroll:
-- [ ] index.html: verify internal scroll in the pricing “includes” area
-- [ ] services.html: verify internal scroll in the pricing “includes” area
+C) No other functional changes and no visible UI differences.
+
+D) Any deleted code is documented as the proven blocker (with evidence).
 
 ---
 
-### Phase 2 — Instrumentation to prove the cause (required)
+## 3) Background: what usually breaks wheel scrolling
 
-Goal: determine whether the wheel scroll is blocked by JS event cancellation, CSS scroll locking, or overlay trapping.
+Wheel/page scroll is typically blocked by one (or more) of these categories:
 
-#### 2A) Identify the actual scroll container
-In devtools console, inspect:
-- `document.scrollingElement`
-- `document.scrollingElement.scrollHeight` vs `clientHeight`
-- computed style:
-  - `getComputedStyle(document.documentElement).overflowY`
-  - `getComputedStyle(document.body).overflowY`
-  - `getComputedStyle(document.scrollingElement).overflowY`
+1) JS wheel/touchmove handlers calling `preventDefault()` (often with `passive: false`)
+2) Global “scroll lock” behavior (body/html overflow hidden, position fixed, no-scroll classes)
+3) Full-screen overlays intercepting pointer/wheel events (even if visually hidden)
+4) Scroll container misconfiguration (wrong element scrolls, height/overflow constraints)
+5) Scroll chaining suppression via overscroll behavior (more subtle, but can matter with nested scrollers)
 
-[ ] Record findings for one failing page and one “control” page (if any).
-
-#### 2B) Check for wheel prevention (event-level)
-Add temporary devtools console instrumentation (do not commit):
-- Add wheel listeners at capture and bubble phases to log:
-  - `defaultPrevented`
-  - `cancelable`
-  - `target` and a short composed path summary
-
-Example snippet to run in console (paste as plain JS):
-    (function () {
-      const key = '__ssWheelDebug';
-      if (window[key]?.cleanup) window[key].cleanup();
-      const mk = (phase) => (e) => {
-        const t = e.target;
-        console.log(
-          `[wheel:${phase}] prevented=${e.defaultPrevented} cancelable=${e.cancelable}`,
-          t && (t.id ? `#${t.id}` : t.className ? `.${String(t.className).split(' ').join('.')}` : t.tagName),
-          t
-        );
-      };
-      const cap = mk('capture');
-      const bub = mk('bubble');
-      window.addEventListener('wheel', cap, { capture: true, passive: false });
-      window.addEventListener('wheel', bub, { capture: false, passive: false });
-      window[key] = { cleanup() {
-        window.removeEventListener('wheel', cap, { capture: true });
-        window.removeEventListener('wheel', bub, { capture: false });
-        console.log('[wheel] debug removed');
-      }};
-      console.log('[wheel] debug installed; call __ssWheelDebug.cleanup() to remove');
-    })();
-
-[ ] Determine if `defaultPrevented` becomes true in bubble phase.
-
-If `defaultPrevented` is true:
-- Identify which code calls preventDefault:
-  - Use devtools “Event Listeners” panel on Window/Document/Body
-  - Optionally patch `Event.prototype.preventDefault` in console to capture a stack (temporary only)
-
-#### 2C) Check for overlay trapping (layout-level)
-Use devtools to confirm whether a fixed overlay is on top:
-- In Elements panel, inspect the element under cursor.
-- In console, sample:
-  - `document.elementFromPoint(innerWidth/2, innerHeight/2)`
-  - `document.elementFromPoint(innerWidth/2, 20)` (top region)
-- If a full-screen overlay element is returned, inspect:
-  - position, size, pointer-events, visibility, z-index
-  - whether it is intended to be inert when closed
-
-[ ] Record any overlay that covers the viewport while “inactive”.
-
-Stop condition:
-- If you cannot prove cause, do not patch. Increase instrumentation until proven.
+This plan requires you to prove which category is actually responsible here.
 
 ---
 
-### Phase 3 — Repo-wide narrowing (required)
+## 4) Evaluation flywheel for this bug (required)
 
-Use the audit output plus targeted searches to find the exact source of the proven cause.
+Treat each of the following as a “case” to measure before and after:
 
-Required search themes:
-- JS:
-  - wheel listeners: addEventListener('wheel' …)
-  - preventDefault on wheel/touchmove/scroll
-  - global listeners attached to window/document/body
-  - scroll-lock patterns: body.style.overflow, body.style.position, body.style.top
-- CSS:
-  - html/body overflow-y hidden or clip
-  - wrappers set to height 100vh with overflow hidden and full-page overlays
-  - pointer-events on full-screen fixed elements
-- HTML:
-  - onwheel / onmousewheel attributes
-  - body classes that might activate scroll-lock styles by default
+- Case A: /about.html (no pricing widget) — establishes whether the bug is global
+- Case B: /index.html (has pricing widget) — must restore page scroll and preserve pricing internal scroll
+- Case C: /services.html (has pricing widget) — same as index
+- Case D: /niches/<two niche pages> — confirms templates and shared assets
 
-[ ] Reduce to one primary culprit with file + line references.
+For each case, record:
+- Does wheel scroll the page?
+- Is wheel prevented? (defaultPrevented?)
+- What is the scroll container + its computed overflow?
+- Any overlay elements covering viewport?
+
+Only after you can explain the failure mode should you patch.
 
 ---
 
-### Phase 4 — Minimal patch (required)
+## 5) Repo grounding: what to read first
 
-Patch policy:
-- Make the smallest change that removes the proven blocker.
-- Prefer scoping over deleting unless deletion is unquestionably safe.
-- Do not touch pricing widget code unless the root cause is proven there.
+Read these before editing:
 
-Examples of acceptable fix shapes (choose only if it matches proven cause):
-- CSS: remove or override a single scroll-lock rule applied to html/body or a wrapper
-- JS: remove a single preventDefault wheel handler, or scope it to a specific component
-- Overlay: ensure inactive overlays do not capture wheel events (inert display/pointer-events)
+- `AGENTS.md`
+- `PLANS.md`
+- `ExecPlans.md`
+- `codex/checklists/scroll-wheel-validation.md`
+- `codex/snippets/wheel-debug-snippet.md`
 
-[ ] Implement fix.
-[ ] Rebuild only what’s necessary (CSS bundle and/or JS bundle) if you edited sources.
-[ ] Confirm diff is minimal.
+Key build facts:
+- CSS bundle: `src/css/**` → `assets/css/styles.css` via `npm run build:css`
+- JS bundle: `src/js/**` → `assets/js/app.js` via `npm run build:js`
 
 ---
 
-### Phase 5 — Verification & regression (required)
+## 6) Local reproduction steps (Milestone 0)
 
-Wheel scroll:
-- [ ] index.html
-- [ ] about.html
-- [ ] services.html
-- [ ] book.html
-- [ ] contact.html
-- [ ] niches page 1
-- [ ] niches page 2
+### Milestone 0 — reproduce + capture baseline evidence (STOPPOINT)
 
-Protected behavior: pricing internal scroll
-- [ ] index.html pricing includes-body scroll behavior unchanged
-- [ ] services.html pricing includes-body scroll behavior unchanged
+1) Setup (if needed):
+   - `bash scripts/codex.setup.sh`
 
-Regression sanity checks (quick):
-- [ ] header nav opens/closes; scroll not broken afterwards
-- [ ] any lightbox/modal opens/closes; scroll not broken afterwards
-- [ ] mobile viewport sanity (basic check if possible)
+2) Serve:
+   - `bash scripts/codex.serve.sh 4173`
 
-No-change check:
-- [ ] No visible style/layout changes spotted in primary sections (hero, header, pricing, footer)
+3) Reproduce in browser:
+   - Open each target page and attempt to scroll with the mouse wheel.
+   - Record pass/fail per page.
+
+4) Capture evidence on at least:
+   - /about.html (no pricing widget)
+   - /index.html (pricing widget present)
+
+Use the DevTools snippets (from `codex/snippets/wheel-debug-snippet.md`) to capture:
+- which element is `document.scrollingElement`
+- computed `overflow` / `overflowY` on html/body/scrollingElement
+- wheel event logs (capture phase) and whether `defaultPrevented` flips to true
+- if `preventDefault` occurs, capture a stack trace pointing to the responsible handler
+
+STOPPOINT:
+- Do not proceed until you can clearly state:
+  - “What exactly happens when I wheel?” and
+  - “Is wheel being prevented, or is scrolling disabled by CSS/layout?”
+
+Update this ExecPlan:
+- Add a baseline results table under “Progress log”.
 
 ---
 
-### Phase 6 — Final write-up (required)
+## 7) Static audit (Milestone 1)
 
-In the final response, include:
-- Root cause (1–2 sentences)
-- Why it blocked wheel scrolling
-- Exact fix summary
-- Files changed (with brief justification per file)
-- Verification checklist results (pass/fail)
-- Explicit statement that pricing internal scroll is unchanged
+### Milestone 1 — inventory suspects from code (STOPPOINT)
 
-Done.
+Run:
+
+- `bash scripts/codex.audit.scroll-lock.sh`
+- `bash scripts/codex.inventory.pages.sh`
+
+Then, inspect the highest-signal files:
+- `src/js/header-nav.js` (scroll locking during overlays/nav)
+- `src/js/marquee.js` and `src/js/gallery.js` (lightbox scroll lock)
+- `src/css/base/layout.css` (global overflow/overscroll behaviors)
+- `src/css/components/header.css` (mobile overlays)
+- any CSS defining full-screen fixed elements
+
+Create an evidence table (fill this in as you find things):
+
+| File | Suspect category | Evidence snippet | Why it could block wheel scroll |
+|---|---|---|---|
+|  |  |  |  |
+
+STOPPOINT:
+- Do not patch anything yet.
+- You should have 3–10 suspects ranked by likelihood.
+
+Update this ExecPlan:
+- Add the evidence table (even if partial).
+
+---
+
+## 8) Runtime root-cause isolation (Milestone 2)
+
+### Milestone 2 — prove the root cause in the browser (STOPPOINT)
+
+Goal: identify the single primary mechanism blocking wheel scrolling.
+
+Required experiments (run until one hypothesis is proven):
+
+A) Wheel preventDefault proof
+- Use capture-phase wheel logging.
+- If `defaultPrevented === true`, use preventDefault stack tracing to find the exact code path.
+
+B) Scroll container viability
+- Verify `document.scrollingElement.scrollHeight > clientHeight`.
+- Verify computed `overflowY` is not hidden/clip on the scrolling element.
+
+C) Overlay interception
+- Inspect the element under the cursor during wheel.
+- Look for a fixed/inset overlay element covering the viewport.
+- Check whether it has pointer-events enabled and whether it is scrollable.
+
+D) “Scroll lock left enabled” proof
+- Check `document.body.style.overflow`, `document.documentElement.style.overflow`.
+- Check `body` position/top styles for “position fixed” locks.
+- Check for “no-scroll” type classes on body/html.
+
+STOPPOINT:
+- Write a root cause statement in this ExecPlan:
+  - “Wheel scroll is blocked because … (exact handler/rule).”
+  - Include direct evidence: file path + explanation.
+  - Identify whether the issue is present on /about.html (to confirm globality).
+
+If you cannot prove root cause:
+- Expand instrumentation.
+- Use the internet to validate any uncertain browser semantics.
+- Do not guess.
+
+---
+
+## 9) Fix strategy (Milestone 3)
+
+### Milestone 3 — choose the minimal safe fix (STOPPOINT)
+
+Design the fix based on proven root cause:
+
+If root cause is JS wheel preventDefault:
+- Remove the preventDefault call if it is unnecessary.
+- If it is needed for a specific component, scope it narrowly:
+  - only on that component’s container,
+  - only when scroll lock should be active,
+  - never globally on window/document.
+
+If root cause is scroll-lock styles left enabled:
+- Ensure styles/classes are applied only during intended modal/nav open states.
+- Ensure cleanup runs reliably on close, and on initialization if needed.
+
+If root cause is CSS overflow/height:
+- Remove or adjust only the rule responsible.
+- Avoid changing layout; prefer changing overflow on the correct element only.
+
+If root cause is an invisible overlay intercept:
+- Fix pointer-events/display toggling in the hidden state, without visual change.
+
+Define “minimal change” explicitly:
+- Identify the smallest set of files you will touch.
+- Prefer editing `src/` sources and rebuilding bundles.
+
+STOPPOINT:
+- Before implementing, update this ExecPlan:
+  - Planned files to change
+  - Risk assessment
+  - Specific validations you will run (including pricing internal scroll checks)
+
+---
+
+## 10) Implement fix (Milestone 4)
+
+### Milestone 4 — implement the fix with minimal diff
+
+Rules:
+- Keep diff as small as possible.
+- No formatting-only changes.
+- Do not add dependencies unless absolutely required.
+
+Implementation steps:
+1) Create a checkpoint (commit or snapshot) before editing.
+2) Apply the minimal code change.
+3) Rebuild bundles:
+   - `npm run build:css`
+   - `npm run build:js`
+
+If deletion is involved:
+- Delete only the proven blocker.
+- Document why deletion is safe and what replaces the behavior.
+
+---
+
+## 11) Validation & non-regression (Milestone 5)
+
+### Milestone 5 — prove correctness (STOPPOINT)
+
+Run:
+- `bash scripts/codex.validate.scroll.sh`
+
+Then manually follow:
+- `codex/checklists/scroll-wheel-validation.md`
+
+Required manual confirmations:
+- Wheel scroll works on all pages listed in the Objective.
+- Pricing internal scroll on index/services behaves exactly the same as baseline.
+- Open/close overlays (mobile nav, lightbox, services overlay) and confirm scroll lock activates only when intended and always restores.
+
+STOPPOINT:
+- If any regression is found, revert or adjust with the smallest possible follow-up change.
+
+---
+
+## 12) Wrap-up (Milestone 6)
+
+### Milestone 6 — final report + documentation updates
+
+In the final message / PR description, include:
+- Root cause (with evidence)
+- Fix summary (what changed and why it’s minimal)
+- Files changed list
+- Validation checklist results (per page)
+- Confirmation that pricing internal scroll is unchanged
+
+---
+
+## Progress log (fill in during execution)
+
+Baseline results:
+- (add table here)
+
+Work completed:
+- (update as milestones complete)
+
+---
+
+## Decision log (fill in during execution)
+
+- (date/time) Decision: … Reason: … Evidence: …
+
+---
+
+## Discoveries / surprises (fill in during execution)
+
+- (date/time) Found … which changed the hypothesis ranking because …
