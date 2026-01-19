@@ -12,8 +12,8 @@ html {
 html,
 body {
   overflow-x: hidden;
-  overscroll-behavior-y: none;
-  overscroll-behavior: none;
+  overscroll-behavior-y: auto;
+  overscroll-behavior: auto;
 }
 
 @supports (-webkit-touch-callout: none) {

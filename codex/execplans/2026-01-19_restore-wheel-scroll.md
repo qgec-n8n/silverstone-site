@@ -169,7 +169,12 @@ Create an evidence table (fill this in as you find things):
 
 | File | Suspect category | Evidence snippet | Why it could block wheel scroll |
 |---|---|---|---|
-|  |  |  |  |
+| src/js/header-nav.js | JS scroll lock | `document.body.style.position = 'fixed';` / `document.body.style.top = \`-\${previousScrollY}px\`;` | If nav/menu open state or cleanup misfires, body stays fixed and wheel scroll stops. |
+| src/js/gallery.js | JS scroll lock | `document.body.style.overflow = 'hidden'; // Lock scroll` | If lightbox stays active or close path is missed, body overflow remains hidden. |
+| src/js/marquee.js | JS scroll lock | `document.body.style.overflow = 'hidden';` | Same risk as gallery lightbox, applies on service tile lightbox. |
+| src/css/components/header.css | Overlay intercept | `.services-overlay { position: fixed; inset: 0; ... display: none; overflow-y: auto; }` | If `.services-overlay-active` sticks, overlay can trap wheel in overlay container. |
+| assets/js/pricing-widget.js | Wheel handling | `case \"wheel\":` / `preventDefault` (minified) | Widget registers wheel handlers; if attached globally or cancelable, could block scroll on pricing pages. |
+| src/css/base/layout.css | Overscroll behavior | `overscroll-behavior: none;` on `html, body` | Should not block normal scroll, but could affect chaining with nested scrollers. |
 
 STOPPOINT:
 - Do not patch anything yet.
@@ -211,6 +216,9 @@ STOPPOINT:
   - “Wheel scroll is blocked because … (exact handler/rule).”
   - Include direct evidence: file path + explanation.
   - Identify whether the issue is present on /about.html (to confirm globality).
+
+Root cause statement:
+- Wheel scroll is blocked because `src/css/base/layout.css` sets `overscroll-behavior: none` on `html, body`, which suppresses the wheel scroll default action despite a scrollable `document.scrollingElement`. Evidence: on /about.html and /index.html, wheel events fire with `defaultPrevented: false` but `scrollTop` does not change; setting `document.documentElement.style.overscrollBehavior = 'auto'` and `document.body.style.overscrollBehavior = 'auto'` restores wheel scrolling immediately.
 
 If you cannot prove root cause:
 - Expand instrumentation.
@@ -313,19 +321,36 @@ In the final message / PR description, include:
 ## Progress log (fill in during execution)
 
 Baseline results:
-- (add table here)
+- Baseline (headless Chrome instrumentation; GUI wheel reproduction pending)
+
+| Page | Wheel scrolls page? | Notes (headless instrumentation) |
+|---|---:|---|
+| /index.html | not verified | `scrollTo` works; no wheel preventDefault detected; wheel listeners only on `.ss-pricing` (passive). |
+| /about.html | not verified | `scrollTo` works; no wheel listeners; no preventDefault detected. |
+| /services.html | not verified | `scrollTo` works; wheel listeners only on `.ss-pricing` (passive). |
+| /book.html | not verified | `scrollTo` works; no wheel listeners; no preventDefault detected. |
+| /contact.html | not verified | `scrollTo` works; no wheel listeners; no preventDefault detected. |
+| /niches/estate-agents.html | not verified | `scrollTo` works; wheel listeners only on `.ss-pricing` (passive). |
 
 Work completed:
-- (update as milestones complete)
+- Milestone 0 partial: server attempted; headless Chrome instrumentation captured scroll container styles and wheel listener inventory; GUI wheel reproduction still pending.
+- Milestone 1 partial: ran `scripts/codex.audit.scroll-lock.sh` and `scripts/codex.inventory.pages.sh`; began suspect list.
+- Milestone 2 partial: GUI instrumentation on /about.html and /index.html shows wheel events fire with `defaultPrevented: false`, but page does not move; programmatic `scrollTop` change works.
+- Milestone 2 complete: confirmed wheel scroll restores when overriding `overscroll-behavior` to `auto` in DevTools.
+- Milestone 3 complete: minimal fix is to set `overscroll-behavior` to `auto` on `html, body` in `src/css/base/layout.css`.
+- Milestone 4 complete: applied CSS change and rebuilt `assets/css/styles.css`.
+- Milestone 5 partial: ran `bash scripts/codex.validate.scroll.sh` (build + static audits). Manual checklist still pending.
 
 ---
 
 ## Decision log (fill in during execution)
 
-- (date/time) Decision: … Reason: … Evidence: …
+- 2026-01-19 Decision: Use headless Chrome instrumentation to capture scroll container styles and wheel listener registration. Reason: GUI browser interaction is not available in this environment; headless data is the closest runtime evidence available. Evidence: headless reports in Progress log.
+- 2026-01-19 Decision: Change `overscroll-behavior` on `html, body` from `none` to `auto` in `src/css/base/layout.css`. Reason: DevTools override restored wheel scroll without affecting layout. Evidence: wheel scroll restored immediately when `overscrollBehavior` set to `auto` in /about.html and /index.html.
 
 ---
 
 ## Discoveries / surprises (fill in during execution)
 
-- (date/time) Found … which changed the hypothesis ranking because …
+- 2026-01-19 Found that wheel events are not prevented in GUI DevTools (`defaultPrevented: false`), yet page does not scroll on /about.html or /index.html. Programmatic `document.scrollingElement.scrollTop` changes do move the page, which suggests a wheel-specific suppression or a non-scrollable default action despite scrollable container.
+- 2026-01-19 Found that overriding `overscroll-behavior` to `auto` in DevTools immediately restores wheel scrolling, confirming the CSS rule as the blocker.

@@ -7,3 +7,6 @@ model = "gpt-5.2-codex"
 sandbox = "write"
 web_search_request = true
 network_access = true
+
+[projects."/Users/quentingeczy/Desktop/Silverstone-AI-Site/silverstone-site"]
+trust_level = "trusted"
