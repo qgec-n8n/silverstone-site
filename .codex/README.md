@@ -1,29 +1,42 @@
 <!-- FILE: .codex/README.md -->
-# Repo-local Codex configuration
+# Codex CLI configuration
 
-This repository ships a repo-scoped Codex configuration in `.codex/`.
+This directory is used as `CODEX_HOME` by `scripts/codex.run.sh`.
 
-`scripts/codex.run.sh` sets `CODEX_HOME` to `.codex/` so Codex uses:
-- `.codex/config.toml` for model/sandbox/features
-- `.codex/` for any Codex-local state created during a session
+It contains:
 
----
-
-## Intended workflow
-
-1. Setup:
-   - Run `bash scripts/codex.setup.sh`
-2. Run Codex:
-   - Use `bash scripts/codex.run.sh`
-3. Follow the Active ExecPlan:
-   - See `ExecPlans.md` for the active runbook and constraints.
-4. Use web search during debugging:
-   - Confirm browser/DOM behaviors and known pitfalls.
-   - Keep repo code changes minimal and directly tied to proven root cause.
+- `config.toml` — model + tool/network settings
+- any Codex scratch/artifact files created during a run (do not commit those unless explicitly intended)
 
 ---
 
-## Current focus
+## Quick start (recommended)
 
-Active ExecPlan (see `ExecPlans.md`):
-- Restore mouse wheel vertical page scrolling while preserving pricing internal scroll behavior.
+1) Install dependencies and build once:
+
+   - `bash scripts/codex.setup.sh`
+
+2) Start the local static server:
+
+   - `bash scripts/codex.serve.sh 4173`
+
+3) Run baseline audits (optional but strongly recommended):
+
+   - `bash scripts/codex.audit.scroll-lock.sh`
+   - `bash scripts/codex.inventory.pages.sh`
+
+4) Launch Codex:
+
+   - `bash scripts/codex.run.sh`
+
+   Then paste the initiation prompt from:
+
+   - `codex/prompts/CODEX_INITIATION_PROMPT_SCROLL_WHEEL.md`
+
+---
+
+## Notes
+
+- The active ExecPlan for the scroll issue lives under `codex/execplans/`.
+- This repo expects Codex to use web search/network during debugging.
+- Audit reports and validation artifacts are written under `artifacts/` (gitignored).
