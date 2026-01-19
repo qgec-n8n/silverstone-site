@@ -38,42 +38,43 @@ g() {
   echo
 
   echo "========================================"
-  echo "HTML: inline wheel handlers (rare but fatal)"
+  echo "HTML: inline scroll / wheel handlers (rare but fatal)"
   echo "========================================"
-  g "onwheel=|onmousewheel=|DOMMouseScroll"
+  g "onwheel=|onmousewheel=|DOMMouseScroll|ontouchmove=|onscroll="
 
   echo
   echo "========================================"
-  echo "JS: wheel / mousewheel listeners"
+  echo "JS: wheel/mousewheel/touchmove listeners"
   echo "========================================"
-  g "addEventListener\\((['\"])wheel\\1|addEventListener\\((['\"])mousewheel\\1|DOMMouseScroll"
+  g "addEventListener\\((['\"])wheel\\1|addEventListener\\((['\"])mousewheel\\1|addEventListener\\((['\"])touchmove\\1|DOMMouseScroll|\\bonwheel\\s*=|\\bonmousewheel\\s*=|\\bontouchmove\\s*="
 
   echo
   echo "========================================"
-  echo "JS: preventDefault hotspots"
+  echo "JS: preventDefault / returnValue=false / propagation blockers"
   echo "========================================"
-  g "preventDefault\\("
+  g "preventDefault\\(|returnValue\\s*=\\s*false|stopPropagation\\(|stopImmediatePropagation\\("
 
   echo
   echo "========================================"
-  echo "JS: scroll-lock patterns (overflow/position/fixed)"
+  echo "JS: scroll-lock patterns (overflow/position/classes)"
   echo "========================================"
-  g "style\\.overflow|style\\.overflowY|style\\.position|position\\s*=\\s*(['\"])fixed\\1|overflow\\s*=\\s*(['\"])hidden\\2|scrollTo\\(|scrollBy\\("
+  g "style\\.overflow|style\\.overflowY|style\\.position|document\\.documentElement\\.style\\.overflow|document\\.body\\.style\\.overflow|classList\\.(add|remove)\\(|\\bno-scroll\\b|\\block-scroll\\b|\\bscroll-lock\\b|\\bdisable-scroll\\b|\\bbodyScrollLock\\b|overflow\\s*=\\s*(['\"])hidden\\2|position\\s*=\\s*(['\"])fixed\\2"
 
   echo
   echo "========================================"
-  echo "JS: passive listeners / wheel blocking flags"
+  echo "JS: listener options that often accompany scroll blocking"
   echo "========================================"
   g "passive\\s*:\\s*false|\\{\\s*capture\\s*:\\s*true|\\{\\s*capture\\s*:\\s*false"
 
   echo
   echo "========================================"
-  echo "CSS: html/body overflow + scroll locking"
+  echo "CSS: likely scroll blockers"
   echo "========================================"
+  echo "-- html/body selectors --"
   g "(^|[^a-zA-Z])(html|body)([^a-zA-Z]|$)"
   echo
-  echo "-- likely scroll blockers --"
-  g "overflow\\s*:\\s*(hidden|clip)|overflow-y\\s*:\\s*(hidden|clip)|position\\s*:\\s*fixed|height\\s*:\\s*100(vh|dvh|svh)|overscroll-behavior|pointer-events\\s*:\\s*(auto|none)"
+  echo "-- overflow/height/position/overscroll --"
+  g "overflow\\s*:\\s*(hidden|clip)|overflow-y\\s*:\\s*(hidden|clip)|position\\s*:\\s*fixed|height\\s*:\\s*100(vh|dvh|svh)|overscroll-behavior|touch-action|scroll-snap|scroll-behavior|pointer-events\\s*:\\s*(auto|none)"
 
   echo
   echo "========================================"
