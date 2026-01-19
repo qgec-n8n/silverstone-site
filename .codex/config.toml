@@ -1,14 +1,19 @@
 # FILE: .codex/config.toml
-# NOTE: Network + web search are enabled so Codex can read required external docs
-# referenced by title in ExecPlans. Keep external URLs out of repo markdown; provide them
-# in the initiation prompt instead.
+# Repo-scoped Codex configuration.
 #
-# Active runbook: see `ExecPlans.md`.
+# This repo uses scripts/codex.run.sh to set CODEX_HOME to this folder.
+# Web search + network access are enabled to support debugging and behavior verification.
+# All code changes must remain grounded in this repository.
 
 model = "gpt-5.2-codex"
+review_model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
 [features]
-network_access = true
 web_search_request = true
+
+[sandbox_workspace_write]
+network_access = true
