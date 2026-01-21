@@ -80,6 +80,7 @@
       current: null,
       observer: null,
       layers: [],
+      viewportCleanup: null,
     };
 
     const setActiveLayer = (section) => {
@@ -114,6 +115,39 @@
         },
         { threshold: [0, 0.25, 0.5, 0.75, 1] },
       );
+
+    const getViewportSize = () => {
+      const vv = window.visualViewport;
+      return {
+        width: vv ? vv.width : window.innerWidth,
+        height: vv ? vv.height : window.innerHeight,
+      };
+    };
+
+    const syncStageSize = () => {
+      if (!state.stage) return;
+      const { width, height } = getViewportSize();
+      state.stage.style.width = `${Math.ceil(width)}px`;
+      state.stage.style.height = `${Math.ceil(height)}px`;
+    };
+
+    const bindViewportListeners = () => {
+      const handler = () => syncStageSize();
+      const cleanups = [];
+      window.addEventListener('resize', handler, { passive: true });
+      cleanups.push(() => window.removeEventListener('resize', handler));
+      if (window.visualViewport && typeof window.visualViewport.addEventListener === 'function') {
+        window.visualViewport.addEventListener('resize', handler, { passive: true });
+        window.visualViewport.addEventListener('scroll', handler, { passive: true });
+        cleanups.push(() =>
+          window.visualViewport.removeEventListener('resize', handler),
+        );
+        cleanups.push(() =>
+          window.visualViewport.removeEventListener('scroll', handler),
+        );
+      }
+      return () => cleanups.forEach((cleanup) => cleanup());
+    };
 
     const getImageValue = (images) => {
       if (!images) return '';
@@ -173,6 +207,8 @@
       state.stage = stage;
       state.observer = observer;
       state.active = true;
+      syncStageSize();
+      state.viewportCleanup = bindViewportListeners();
 
       const initial = layers
         .slice()
@@ -191,6 +227,10 @@
 
     const disableMobile = () => {
       if (!state.active) return;
+      if (state.viewportCleanup) {
+        state.viewportCleanup();
+        state.viewportCleanup = null;
+      }
       if (state.observer) {
         state.observer.disconnect();
         state.observer = null;

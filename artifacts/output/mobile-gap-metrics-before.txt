@@ -1,0 +1,2 @@
+NOT CAPTURED: Mobile DevTools snippet could not be run in this environment.
+TODO: Run codex/snippets/SNIPPET.mobile-bg-gap-diagnostics.md on a root page and a niches page.

@@ -189,13 +189,20 @@ Gate 4: Diff sanity
 
 ## Decision log (fill as you go)
 
-- Decision:
-  - Why:
-  - Alternatives considered:
-  - Evidence:
-  - Risk assessment:
-  - Validation result:
+- Decision: Fix 404s by adding placeholder CSS files and switching injected stylesheet hrefs to root-absolute paths; fix mobile gap by syncing mobile parallax stage size to the visual viewport on resize/scroll.
+  - Why: 404s originate from JS-injected `custom.css`/`mobile.css` references and missing files; mobile gap likely tied to layout vs visual viewport sizing on mobile address-bar collapse.
+  - Alternatives considered: Remove stylesheet injection (rejected: behavior change risk); duplicate assets into `/niches/assets` (rejected: unnecessary churn); CSS-only `dvh` sizing (deferred: uncertain coverage across browsers).
+  - Evidence: `artifacts/input/desktop-console.log` 404 tokens + `rg` hits in `src/js/app.js`/`assets/js/app.js`; parallax stage created in `src/js/parallax.js` with fixed positioning.
+  - Risk assessment: Low; changes are localized and only affect missing assets + mobile stage sizing. Parallax logic remains intact.
+  - Validation result: Pending local browser verification (see validation gates).
 
 ## Notes / discoveries (fill as you go)
 
-- (add observations here during investigation)
+- Desktop console log present at `artifacts/input/desktop-console.log` (copied from `artifacts/input/silverstone-ai.com-1769009826045.log`) shows 404s for `custom.css` and `mobile.css`.
+- 404 initiator: runtime stylesheet injection in `src/js/app.js` and `assets/js/app.js` via `ensureStylesheet('assets/css/custom.css')` and `ensureStylesheet('assets/css/mobile.css')`.
+- Relative `./assets/...` href resolves to `/niches/assets/...` on niche pages, so 404s can occur even if files exist at `/assets/...`.
+- Mobile background gap: unable to run the diagnostic snippet or capture device screenshots in this environment; applied the minimal visualViewport sizing fix to the mobile parallax stage based on H1.
+- Verification steps pending (run locally with DevTools):
+  1) Start server, open `index.html` + one `niches/*.html`, hard reload, confirm zero console errors and zero 404s.
+  2) On mobile viewport, run `codex/snippets/SNIPPET.mobile-bg-gap-diagnostics.md` on a root + niche page before/after scroll.
+  3) Scroll through parallax sections on mobile + desktop to confirm transitions still work.
