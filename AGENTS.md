@@ -1,117 +1,64 @@
 <!-- FILE: AGENTS.md -->
-# Codex agent roles & execution rules
+# AGENTS
 
-Codex should behave like a small team with strict handoffs. Do not jump to patching until diagnosis is evidence-backed.
+This file defines how Codex should behave in this repo.
 
----
+## Global guardrails
 
-## ExecPlans usage (required)
+- **Do not change visuals or behavior** except for the two explicitly targeted outcomes in the active ExecPlan:
+  1) Fix the mobile background coverage gap (no bottom-of-viewport gap).
+  2) Remove all desktop-console 404s from the provided log (zero console errors on load).
+- **Parallax must continue to work** on both mobile and desktop. Do not disable or remove parallax.
+- **Minimal diffs only.** No broad refactors. No renaming or reformatting for style. No dependency churn unless required for verification tooling.
+- **Evidence-first.** Every edit must be preceded by reproduction + measurement and followed by verification + regression checks.
 
-- If the task is non-trivial or the root cause is uncertain: use the active ExecPlan and follow **PLANS.md**.
-- Read, in order:
-  1) `AGENTS.md`
-  2) `PLANS.md`
-  3) `ExecPlans.md`
-  4) the active ExecPlan file under `codex/execplans/`
-- Treat the ExecPlan as a **living document**:
-  - Update its “Progress log”, “Decision log”, and “Discoveries” after each milestone.
+## Operating loop (evaluation flywheel)
 
----
+Repeat until acceptance criteria are met:
 
-## Global rules (apply to every agent)
+1. Analyze: reproduce, collect logs/metrics/screenshots, map hypotheses to code.
+2. Measure: define an observable pass/fail signal for each hypothesis.
+3. Improve: make the smallest possible change; immediately re-measure.
+4. If regression or ambiguity: revert and pick the next hypothesis.
 
-- Stay within repo scope for code changes.
-- Use internet research to validate browser behavior and known pitfalls, but **do not paste external code** into the repo.
-- Keep diffs minimal; no refactors.
-- Treat any **“protected behavior”** named by the active ExecPlan as a hard constraint.
-- Conflict-handling rule:
-  1) Preserve protected behaviors
-  2) No visual/UX changes
-  3) Restore the broken behavior (wheel/page scroll)
-  4) Everything else
+## Roles (simulate these, even as a single agent)
 
----
+### Investigator
+- Parses the provided desktop console log.
+- Finds the code path(s) responsible for each 404.
+- Diagnoses the mobile viewport gap by inspecting computed layout and runtime parallax elements.
 
-## Agent 1: Repo Scanner (read-only investigator)
+### Implementer
+- Applies the smallest-possible fix aligned with the root cause.
+- Keeps diffs localized and reversible.
 
-Goal:
-- Build a complete candidate list of everything that could block wheel/page scrolling.
+### Verifier
+- Runs the relevant checklist(s) and scripts.
+- Confirms:
+  - No mobile background gap across all specified pages.
+  - No desktop console errors on load.
+  - Parallax still functions on mobile + desktop.
+  - No unexpected UI changes.
 
-Must examine:
-- CSS: `overflow`, `height`, `position`, `overscroll-behavior`, `scroll-snap`, `pointer-events`
-- JS: `wheel`, `mousewheel`, `DOMMouseScroll`, `touchmove`, `preventDefault`, `passive`, global listeners, scroll-lock utilities
-- overlays/modals/nav: anything fixed/inset that could intercept wheel events
-- third-party embeds/widgets (if any)
+### Scribe
+- Updates the active ExecPlan with:
+  - What was observed
+  - What changed and why
+  - Before/after evidence
+  - Any tradeoffs or follow-ups
 
-Deliverable:
-- A short ranked list of suspects with file paths (and small quoted snippets).
-- Run and attach outputs from the repo’s scroll audit / inventory scripts.
+## What “done” means
 
----
+A change is only “done” when:
 
-## Agent 2: Scroll Diagnostician (runtime proof)
+- Acceptance criteria in the active ExecPlan are met.
+- The validation checklists pass.
+- The diff is minimal and restricted to what is necessary.
+- The ExecPlan has a clear root cause explanation and a reproducible verification procedure.
 
-Goal:
-- Prove the root cause in the browser using instrumentation and devtools.
+## Prohibited actions
 
-Must:
-- Reproduce the bug on every listed page.
-- Identify the actual scroll container (`document.scrollingElement`) and verify its computed overflow.
-- Determine whether wheel events are:
-  - prevented (`defaultPrevented === true`),
-  - not reaching the document,
-  - trapped by an overlay,
-  - chained incorrectly due to scroll containers / overscroll behavior.
-
-Deliverable:
-- A single-sentence root cause statement.
-- Evidence: the exact CSS rule and/or JS handler responsible, and why it blocks wheel scrolling.
-
----
-
-## Agent 3: Minimal Patcher (surgical editor)
-
-Goal:
-- Implement the smallest safe code change that restores normal wheel scroll.
-
-Rules:
-- Do not touch unrelated files.
-- If deletion is required, delete only the proven blocker.
-- If scoping is safer than deletion, narrowly scope the behavior (only where needed).
-- If the fix requires changing build sources, edit `src/` then rebuild outputs.
-
-Special protection:
-- The pricing feature internal scroll (on `index.html` and `services.html`) must remain unchanged.
-
-Deliverable:
-- A minimal diff + rationale tied back to proven root cause.
-
----
-
-## Agent 4: Verifier (regression-focused)
-
-Goal:
-- Prove the fix works and nothing else changed.
-
-Must verify:
-- Wheel scroll works on all impacted pages.
-- Pricing internal scroll still behaves exactly the same (no new chaining/trapping).
-- Key overlays/nav/lightboxes still open/close without breaking scroll.
-- No visual differences (spot-check + quick before/after screenshots if available).
-
-Deliverable:
-- A checklist with pass/fail per page + protected component.
-
----
-
-## Agent 5: Scribe (final report)
-
-Goal:
-- Produce a concise, actionable summary.
-
-Must include:
-- Root cause
-- Fix description
-- Files changed
-- Verification steps run
-- Any remaining risks (should be none)
+- Deleting parallax code or forcing parallax off to “fix” the issue.
+- Changing spacing/typography/colors “to look better.”
+- Running repo-wide formatters that touch unrelated files.
+- “Fixing” unrelated warnings or refactoring modules not required for the two target outcomes.
