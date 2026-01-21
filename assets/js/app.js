@@ -792,8 +792,18 @@
     const syncStageSize = () => {
       if (!state.stage) return;
       const { width, height } = getViewportSize();
+      const ua = navigator.userAgent || '';
+      const isIos = /iPad|iPhone|iPod/.test(ua);
+      const isIosSafari =
+        isIos && !/CriOS|FxiOS|EdgiOS|OPiOS/.test(ua);
+      let overscan = 0;
+      if (isIosSafari && typeof window.screen !== 'undefined') {
+        const screenHeight = window.screen.height || 0;
+        overscan = Math.max(0, screenHeight - height);
+        overscan = Math.min(overscan, 160);
+      }
       state.stage.style.width = `${Math.ceil(width)}px`;
-      state.stage.style.height = `${Math.ceil(height)}px`;
+      state.stage.style.height = `${Math.ceil(height + overscan)}px`;
     };
 
     const bindViewportListeners = () => {

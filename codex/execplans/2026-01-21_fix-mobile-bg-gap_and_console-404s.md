@@ -193,8 +193,14 @@ Gate 4: Diff sanity
   - Why: 404s originate from JS-injected `custom.css`/`mobile.css` references and missing files; mobile gap likely tied to layout vs visual viewport sizing on mobile address-bar collapse.
   - Alternatives considered: Remove stylesheet injection (rejected: behavior change risk); duplicate assets into `/niches/assets` (rejected: unnecessary churn); CSS-only `dvh` sizing (deferred: uncertain coverage across browsers).
   - Evidence: `artifacts/input/desktop-console.log` 404 tokens + `rg` hits in `src/js/app.js`/`assets/js/app.js`; parallax stage created in `src/js/parallax.js` with fixed positioning.
-  - Risk assessment: Low; changes are localized and only affect missing assets + mobile stage sizing. Parallax logic remains intact.
-  - Validation result: Pending local browser verification (see validation gates).
+- Risk assessment: Low; changes are localized and only affect missing assets + mobile stage sizing. Parallax logic remains intact.
+- Validation result: Pending local browser verification (see validation gates).
+- Decision: Extend mobile parallax stage height on iOS Safari with a small overscan derived from `screen.height - visualViewportHeight` (clamped), to cover the bottom URL bar area.
+  - Why: Safari iOS shows a visible gap even when stage height equals visual viewport height; the URL bar area is outside the visual viewport but still visible.
+  - Alternatives considered: Pure CSS `dvh` sizing (uncertain Safari behavior), forcing `inset` negative bottom (less precise).
+  - Evidence: User screenshots show gap; diagnostics report `innerHeight === stageHeight` with gap still visible.
+  - Risk assessment: Low; overscan applies only to iOS Safari and is clamped to 160px.
+  - Validation result: Pending on‑device verification (rerun snippet + screenshots).
 
 ## Notes / discoveries (fill as you go)
 
@@ -202,6 +208,7 @@ Gate 4: Diff sanity
 - 404 initiator: runtime stylesheet injection in `src/js/app.js` and `assets/js/app.js` via `ensureStylesheet('assets/css/custom.css')` and `ensureStylesheet('assets/css/mobile.css')`.
 - Relative `./assets/...` href resolves to `/niches/assets/...` on niche pages, so 404s can occur even if files exist at `/assets/...`.
 - Mobile background gap: unable to run the diagnostic snippet or capture device screenshots in this environment; applied the minimal visualViewport sizing fix to the mobile parallax stage based on H1.
+- Safari iOS (iPhone 14, iOS 26.2) shows bottom gap despite stage height matching `innerHeight`/`visualViewportHeight` (gap visible under bottom URL bar); Chrome iOS does not show the gap per user report.
 - Verification steps pending (run locally with DevTools):
   1) Start server, open `index.html` + one `niches/*.html`, hard reload, confirm zero console errors and zero 404s.
   2) On mobile viewport, run `codex/snippets/SNIPPET.mobile-bg-gap-diagnostics.md` on a root + niche page before/after scroll.
