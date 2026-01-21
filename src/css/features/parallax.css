@@ -100,6 +100,13 @@
 
 /* Mobile parallax -------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
+  body {
+    background-image: var(--parallax-overlay), var(--parallax-image);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    background-attachment: scroll;
+  }
   .parallax-section {
     background-image: none !important;
     background-color: transparent;

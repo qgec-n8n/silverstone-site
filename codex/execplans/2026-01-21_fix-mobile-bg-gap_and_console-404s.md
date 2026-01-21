@@ -201,6 +201,12 @@ Gate 4: Diff sanity
   - Evidence: User screenshots show gap; diagnostics report `innerHeight === stageHeight` with gap still visible.
   - Risk assessment: Low; overscan applies only to iOS Safari and is clamped to 160px.
   - Validation result: Pending on‑device verification (rerun snippet + screenshots).
+- Decision: Add a mobile-only body background using the same parallax image + overlay as the stage to ensure Safari paints the background under the bottom URL bar.
+  - Why: Safari iOS still shows a gap even with overscan; body background should render under UI where fixed elements may not.
+  - Alternatives considered: viewport-fit=cover + safe-area padding (riskier layout impact), adjusting z-index stacking.
+  - Evidence: Diagnostics show `stageHeight` > `innerHeight` while the gap persists; user screenshot confirms.
+  - Risk assessment: Low; background matches existing parallax image, scoped to mobile only.
+  - Validation result: Pending on‑device verification.
 
 ## Notes / discoveries (fill as you go)
 
@@ -209,6 +215,7 @@ Gate 4: Diff sanity
 - Relative `./assets/...` href resolves to `/niches/assets/...` on niche pages, so 404s can occur even if files exist at `/assets/...`.
 - Mobile background gap: unable to run the diagnostic snippet or capture device screenshots in this environment; applied the minimal visualViewport sizing fix to the mobile parallax stage based on H1.
 - Safari iOS (iPhone 14, iOS 26.2) shows bottom gap despite stage height matching `innerHeight`/`visualViewportHeight` (gap visible under bottom URL bar); Chrome iOS does not show the gap per user report.
+- Safari iOS diagnostics after overscan show `stageHeight` > `innerHeight`, yet gap still visible; added mobile body background with the same parallax image as a fallback to cover the bottom URL bar area.
 - Verification steps pending (run locally with DevTools):
   1) Start server, open `index.html` + one `niches/*.html`, hard reload, confirm zero console errors and zero 404s.
   2) On mobile viewport, run `codex/snippets/SNIPPET.mobile-bg-gap-diagnostics.md` on a root + niche page before/after scroll.
