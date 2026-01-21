@@ -1,12 +1,32 @@
 # FILE: .codex/config.toml
-# Codex CLI configuration for this repo.
-# Web search + network are enabled so Codex can validate browser/event behavior.
-# Sandbox is set to write so Codex can implement changes after evidence-backed diagnosis.
+# Project-local Codex configuration.
+# NOTE: This file intentionally contains no external URLs. See the Initiation Prompt in the chat for doc links.
 
+# Use the Codex-tuned GPT-5.2 model for code navigation, refactors, and safe edits.
 model = "gpt-5.2-codex"
-sandbox = "write"
+
+# Require explicit approval for changes unless the user/agent chooses otherwise.
+approval_policy = "on-request"
+
+# Allow writing to the workspace, and allow outbound network so web_search_request can work.
+sandbox_mode = "workspace-write"
+
+[features]
+# Enables Codex web search requests (needed to read online docs referenced in the Initiation Prompt).
 web_search_request = true
+
+[sandbox_workspace_write]
+# Allow network access in workspace-write sandbox mode.
 network_access = true
 
-[projects."/Users/quentingeczy/Desktop/Silverstone-AI-Site/silverstone-site"]
-trust_level = "trusted"
+[history]
+# Keep a local audit trail in CODEX_HOME for reproducibility.
+persistence = "save-all"
+max_bytes = 5242880
+
+# Optional: pre-trust this repo (recommended to avoid repeated prompts).
+# Add your machine's absolute path to this repo and set trust_level = "trusted".
+#
+# Example:
+# [projects."/ABSOLUTE/PATH/TO/silverstone-site-main"]
+# trust_level = "trusted"
