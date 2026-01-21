@@ -1,109 +1,55 @@
 <!-- FILE: PLANS.md -->
-# Codex Execution Plans (ExecPlans) for this repo
+# PLANS
 
-This file defines what an ExecPlan is and how Codex must use it in this codebase.
+This repo uses plans as **operational safety rails** for Codex CLI work. Plans exist to:
 
-An **ExecPlan** is a self-contained, evidence-driven design + execution document that a new contributor (human or agent) can follow to deliver a working change with minimal risk and minimal scope.
+- Prevent accidental UI/behavior changes.
+- Force reproduction + measurement before edits.
+- Keep diffs small, reversible, and well-justified.
+- Ensure every fix has a validation gate.
 
----
+## Plan types in this repo
 
-## When an ExecPlan is required
+### ExecPlans
 
-Use an ExecPlan when any of the following are true:
+An **ExecPlan** is the single source of truth for a multi-step change. It is:
 
-- The task involves **debugging a behavior issue** with an uncertain root cause.
-- The task spans **multiple files or layers** (HTML/CSS/JS/build scripts).
-- The task includes **hard constraints** (no visual/UX changes, protected components, etc.).
-- The task is expected to require more than a few quick edits.
-- The task could easily regress other behaviors.
+- Evidence-driven (every claim ties back to an observation, log line, computed style, or reproduction).
+- Checkpointed (repro → isolate → fix → verify → regressions → signoff).
+- Minimal-risk (smallest possible diffs; no broad refactors; no restyling).
 
-If you are unsure: write an ExecPlan.
+ExecPlans live in: `codex/execplans/`  
+The active plan is indexed in: `ExecPlans.md`
 
----
+### Checklists
 
-## Non-negotiable principles
+Checklists are small, reusable validation sequences. They live in: `codex/checklists/`
 
-1. **Evidence before edits**
-   - Do not patch “likely” causes.
-   - Prove the cause with repo evidence + runtime observation.
+### Snippets
 
-2. **Smallest safe change**
-   - Minimize diff size and blast radius.
-   - Prefer scoping/guarding over refactors.
-   - Make one change at a time.
+Snippets are copy/paste helpers for DevTools or terminal usage. They live in: `codex/snippets/`
 
-3. **Protected behaviors are sacred**
-   - Anything marked protected in the active ExecPlan must not change.
-   - If a protected behavior must be touched, the ExecPlan must be updated **before editing** with:
-     - justification,
-     - added validations,
-     - rollback plan.
+## Non-negotiable rules for plans
 
-4. **No scope drift**
-   - No redesigns, “UX improvements”, perf refactors, accessibility changes, or cleanups unless required to fix the issue.
-   - If something is messy but unrelated: document it, don’t refactor it.
+1. **Reproduce before fixing.** If you cannot reproduce, you must first improve observability.
+2. **Document root cause.** A fix without a root cause narrative is not complete.
+3. **Minimize diffs.** Prefer the smallest localized edit; avoid formatting-only churn.
+4. **Guard against regressions.** Validate on all pages named in the ExecPlan, and validate parallax behavior.
+5. **No silent broad changes.** If a change impacts visuals/behavior outside the targeted bug, it must be rejected or reverted.
 
-5. **Measure, then improve (evaluation flywheel)**
-   - **Analyze:** capture failing cases + label failure modes.
-   - **Measure:** create repeatable checks (scripts + manual steps).
-   - **Improve:** make one targeted change.
-   - Re-run the same checks; iterate only if necessary.
+## ExecPlan authoring conventions
 
----
+- Filename: `YYYY-MM-DD_<short-description>.md`
+- Use checkboxes for progress.
+- Include:
+  - Problem statement
+  - Constraints and "must not change" list
+  - Hypothesis matrix (cause → where to check → how to prove/disprove)
+  - Step-by-step plan with explicit validation gates
+  - Decision log
 
-## Required sections in every ExecPlan
+## If you need a new plan
 
-Every ExecPlan must include, at minimum:
-
-### A) Problem statement
-- What is broken, where, and what “working” looks like.
-
-### B) Scope and constraints
-- Explicit in-scope / out-of-scope.
-- Explicit conflict-handling rule (what to prioritize if constraints conflict).
-
-### C) Repo grounding
-- Commands to run and files to read first.
-- Inventory of relevant code paths and assets.
-
-### D) Hypothesis matrix (must be evidence-backed)
-For each plausible cause category:
-- Concrete repo evidence (files, selectors, functions).
-- A targeted experiment to confirm/refute.
-- Pass/Fail result and notes.
-
-### E) Milestones (step-by-step)
-Each milestone includes:
-- Preconditions
-- Exact commands to run
-- Expected outputs/observations
-- A checkpoint requirement before proceeding
-
-### F) Validation & non-regression plan
-- Explicit per-page verification steps.
-- Explicit protected-component verification steps.
-- “No other changes” audit (diff review + build confirmation).
-
-### G) Risks & mitigations
-### H) Rollback plan
-### I) Living logs
-- Progress log
-- Decision log
-- Surprises / discoveries
-
----
-
-## Formatting rules for plans in this repo
-
-- Plans must be executable by someone unfamiliar with this repo.
-- Prefer **indented command blocks** rather than fenced code blocks (to avoid nested fence issues).
-- Avoid vague language like “check scroll code”. Use explicit file paths and commands.
-
----
-
-## Working style requirements for Codex
-
-- Read **AGENTS.md**, this **PLANS.md**, and the active ExecPlan **before changing code**.
-- Use the repository scripts (in `scripts/`) for setup, serving, audits, and validation.
-- Use internet research when browser behaviors are uncertain, but do not paste external code into the repo.
-- Commit frequently with small, explainable commits.
+1. Create a new file in `codex/execplans/`.
+2. Add it to the top of `ExecPlans.md` under Active ExecPlans.
+3. Ensure the plan references any relevant checklist(s) and snippet(s).
