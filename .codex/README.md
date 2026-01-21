@@ -1,42 +1,46 @@
 <!-- FILE: .codex/README.md -->
-# Codex CLI configuration
+# Repo-local Codex configuration
 
-This directory is used as `CODEX_HOME` by `scripts/codex.run.sh`.
+This repo is set up so Codex can run with a **project-local CODEX_HOME** (stored inside this repo under `.codex/`).
 
-It contains:
+## Why this exists
 
-- `config.toml` — model + tool/network settings
-- any Codex scratch/artifact files created during a run (do not commit those unless explicitly intended)
+- Keep prompts, ExecPlans, and checklists version-controlled with the repo.
+- Keep Codex state/history close to the work for easier auditing and reproducibility.
+- Ensure consistent behavior across contributors.
 
----
+## How to use
 
-## Quick start (recommended)
+Preferred entrypoint:
 
-1) Install dependencies and build once:
+- Run `bash scripts/codex.run.sh` from the repo root.
 
-   - `bash scripts/codex.setup.sh`
+That script sets `CODEX_HOME` to the repo’s `.codex/` directory so Codex reads:
 
-2) Start the local static server:
+- `.codex/config.toml` (project configuration)
+- `codex/execplans/` (execution plans)
+- `codex/checklists/` (verification checklists)
+- `codex/snippets/` (debug snippets)
 
-   - `bash scripts/codex.serve.sh 4173`
+## Trust & safety
 
-3) Run baseline audits (optional but strongly recommended):
+- If Codex prompts you to trust the workspace, choose trust so it can read and edit files.
+- If you want to avoid repeated prompts, add a `[projects."..."]` trust entry in `.codex/config.toml` using an absolute path.
 
-   - `bash scripts/codex.audit.scroll-lock.sh`
-   - `bash scripts/codex.inventory.pages.sh`
+## Internet access
 
-4) Launch Codex:
+This repo’s workflow expects Codex to use web search to read online documentation referenced in the initiation prompt.
 
-   - `bash scripts/codex.run.sh`
+If web search does not work:
 
-   Then paste the initiation prompt from:
+- Confirm you are using the repo config (`bash scripts/codex.run.sh`).
+- Confirm `.codex/config.toml` enables web search and allows network access in workspace-write mode.
 
-   - `codex/prompts/CODEX_INITIATION_PROMPT_SCROLL_WHEEL.md`
+## Where to put inputs for an ExecPlan
 
----
+Recommended convention (create if missing):
 
-## Notes
+- `artifacts/input/` for user-provided logs, screenshots, etc.
+- `artifacts/output/` for before/after console captures, screenshots, and notes generated during the fix.
 
-- The active ExecPlan for the scroll issue lives under `codex/execplans/`.
-- This repo expects Codex to use web search/network during debugging.
-- Audit reports and validation artifacts are written under `artifacts/` (gitignored).
+Keep artifacts small and text-first (logs, diffs, short notes).
