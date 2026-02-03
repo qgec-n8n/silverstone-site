@@ -13,7 +13,7 @@ sandbox_mode = "workspace-write"
 
 [features]
 # Enables Codex web search requests (needed to read online docs referenced in the Initiation Prompt).
-web_search_request = true
+web_search = true
 
 [sandbox_workspace_write]
 # Allow network access in workspace-write sandbox mode.

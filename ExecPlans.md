@@ -5,7 +5,14 @@ This repo uses **ExecPlans** (evidence-driven, checkpointed execution documents)
 
 ## Active ExecPlans
 
-1) **Fix mobile background coverage gap + remove desktop console 404s**  
+1) **Update favicon link tags across all HTML pages**  
+   - Plan: `codex/execplans/2026-02-03_update-favicon-links.md`  
+   - Status: READY  
+   - Target outcomes:
+     - All HTML heads contain the new favicon snippet only (no legacy icons).
+     - No other visual or functional changes.
+
+2) **Fix mobile background coverage gap + remove desktop console 404s**  
    - Plan: `codex/execplans/2026-01-21_fix-mobile-bg-gap_and_console-404s.md`  
    - Status: READY  
    - Target outcomes:
