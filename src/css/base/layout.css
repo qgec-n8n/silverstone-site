@@ -39,6 +39,7 @@ body {
     z-index: 900;
     pointer-events: none;
     display: block;
+    transform: translateY(var(--urlbar-overlay-height, 0px));
   }
 }
 
