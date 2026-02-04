@@ -71,4 +71,5 @@ Gate 3: Parallax behavior
 ## Notes / discoveries (fill as you go)
 - Baseline (code inspection): no existing `urlbar-overlay` element or `--urlbar-overlay-height` variable prior to this change.
 - Implementation added shared CSS in `src/css/base/layout.css` and shared JS in `src/js/app.js` (visualViewport with screen.height fallback), then rebuilt `assets/css/styles.css` and `assets/js/app.js`.
+- User evidence (iOS Safari screenshots): overlay not visible, implying computed height stayed at 0; updated occlusion calculation to consider `screen.height / visualViewport.scale` and `outerHeight` deltas in addition to layout viewport values, then rebuilt `assets/js/app.js`.
 - Device verification pending: requires iOS Safari + Android Chrome checks by user.

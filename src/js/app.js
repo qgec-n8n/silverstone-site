@@ -40,19 +40,35 @@
 
     const computeOcclusion = () => {
       const vv = window.visualViewport;
+      const rawScreenHeight =
+        typeof window.screen !== 'undefined' ? window.screen.height : 0;
+      const screenHeight =
+        vv && vv.scale ? rawScreenHeight / vv.scale : rawScreenHeight;
+      const outerHeight =
+        typeof window.outerHeight === 'number' ? window.outerHeight : 0;
       if (vv) {
         const offsetTop = vv.offsetTop || 0;
+        const viewportBottom = vv.height + offsetTop;
+        const occlusionLayout = Math.max(0, window.innerHeight - viewportBottom);
+        const occlusionScreen = screenHeight
+          ? Math.max(0, screenHeight - viewportBottom)
+          : 0;
+        const occlusionOuter = outerHeight
+          ? Math.max(0, outerHeight - window.innerHeight)
+          : 0;
         const occlusion = Math.max(
-          0,
-          window.innerHeight - (vv.height + offsetTop),
+          occlusionLayout,
+          occlusionScreen,
+          occlusionOuter,
         );
         return Math.min(occlusion, MAX_OVERLAY_PX);
       }
-      const screenHeight =
-        typeof window.screen !== 'undefined' ? window.screen.height : 0;
-      if (!screenHeight) return null;
-      const occlusion = Math.max(0, screenHeight - window.innerHeight);
-      return Math.min(occlusion, MAX_OVERLAY_PX);
+      if (!screenHeight && !outerHeight) return null;
+      const occlusion = Math.max(
+        screenHeight ? screenHeight - window.innerHeight : 0,
+        outerHeight ? outerHeight - window.innerHeight : 0,
+      );
+      return Math.min(Math.max(0, occlusion), MAX_OVERLAY_PX);
     };
 
     const applyOverlayHeight = () => {
