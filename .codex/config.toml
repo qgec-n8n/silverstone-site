@@ -11,15 +11,15 @@ approval_policy = "on-request"
 # Allow writing to the workspace, and allow outbound network so web_search_request can work.
 sandbox_mode = "workspace-write"
 
-[features]
-# Enables Codex web search requests (needed to read online docs referenced in the Initiation Prompt).
-web_search = true
 
-[sandbox_workspace_write]
+# Enables Codex web search requests (needed to read online docs referenced in the Initiation Prompt).
+web_search = live
+
+
 # Allow network access in workspace-write sandbox mode.
 network_access = true
 
-[history]
+Note
 # Keep a local audit trail in CODEX_HOME for reproducibility.
 persistence = "save-all"
 max_bytes = 5242880

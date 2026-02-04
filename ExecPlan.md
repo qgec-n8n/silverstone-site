@@ -1,6 +1,54 @@
 <!-- FILE: ExecPlan.md -->
 # ExecPlan — Requested Edits 1–8 (Hero / About / Services / Neural Grid / Index)
 
+## Active Override (2026-02-04) - Mobile URL-Bar White Overlay (Mobile-only)
+
+Conflict resolution (priority order for this request):
+1) This section's mobile URL-bar overlay requirements.
+2) `AGENTS.md` guardrails (parallax must remain; minimal diffs; evidence-first) stay in force.
+3) Other ExecPlans and the historical sections below.
+
+Problem statement:
+- Add a **white overlay bar** at the bottom of the mobile viewport that **covers the browser URL bar area** and **tracks its expand/collapse**.
+- The overlay must be **mobile-only**; desktop must remain entirely unchanged.
+- Page content must **scroll underneath** the bar (reveals from behind), not be pushed above it.
+
+Target pages (all mobile HTMLs):
+- `index.html`
+- `about.html`
+- `services.html`
+- `book.html`
+- `contact.html`
+- `privacy-policy.html`
+- `niches/*.html` (all files listed by `rg --files -g "*.html"`)
+
+Implementation constraints (hard rules):
+- Gate **mobile-only** via existing mobile breakpoint(s) and/or `matchMedia`; **desktop must not render the overlay** (height 0 or element not present).
+- Track URL bar dynamics using `window.visualViewport` when available; listen to `visualViewport.resize` and `visualViewport.scroll`.
+- Compute bottom occlusion as `max(0, innerHeight - (visualViewport.height + visualViewport.offsetTop))`, clamp to a conservative max to avoid spikes, and update a CSS var (e.g., `--urlbar-overlay-height`).
+- Provide fallback when `visualViewport` is unavailable: default the CSS var to `env(safe-area-inset-bottom)` (or `0px`) and keep behavior stable.
+- Overlay styling: `position: fixed; bottom: 0; left: 0; width: 100%; height: var(--urlbar-overlay-height); background: #fff; z-index` above page content; `pointer-events: none`.
+- **Do not add bottom padding/margins** that push content upward; content must scroll under the overlay.
+- Parallax must remain functional on mobile + desktop.
+
+Stepwise execution (must follow):
+1) Baseline measurement (mobile Safari + Chrome): log `visualViewport.height`, `visualViewport.offsetTop`, and `innerHeight` while expanding/collapsing the URL bar to determine expected overlay height behavior.
+2) Implement a **shared** overlay element (prefer runtime injection in `src/js/app.js`) and global CSS (prefer `src/css/base/layout.css`) so all HTML pages get the overlay without manual duplication.
+3) Add a mobile-only runtime updater: on `visualViewport` resize/scroll (plus `orientationchange`), set `--urlbar-overlay-height` on `document.documentElement` using the computed occlusion; use `requestAnimationFrame` to avoid layout thrash.
+4) Verify on every HTML page that the overlay tracks the URL bar and content reveals from behind; confirm desktop has zero changes (overlay absent or height 0).
+
+Acceptance criteria:
+- Mobile (all HTML pages): white bar visibly covers the bottom URL bar area and **moves with** URL bar expand/collapse.
+- Mobile: content scrolls underneath the bar (no artificial bottom spacing).
+- Desktop: no overlay or layout changes; console remains clean.
+- Parallax behavior unchanged on mobile + desktop.
+
+Verification checklist (explicit desktop-unaffected checks):
+- Mobile Safari + Mobile Chrome: scroll to collapse/expand URL bar; confirm overlay height updates and content reveals from behind.
+- Desktop Chrome: confirm overlay does not exist or has height 0; compare computed styles/layout to baseline.
+
+Note: The remainder of this document is historical for the prior Requested Edits 1-8 and should not be executed for this request unless explicitly re-activated.
+
 ## Purpose / Big Picture
 
 Implement the **exact** Requested Edits 1–8 from `codex/REQUESTED_EDITS_SPEC.md` with:

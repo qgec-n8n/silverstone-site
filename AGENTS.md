@@ -8,6 +8,7 @@ This file defines how Codex should behave in this repo.
 - **Do not change visuals or behavior** except for the two explicitly targeted outcomes in the active ExecPlan:
   1) Fix the mobile background coverage gap (no bottom-of-viewport gap).
   2) Remove all desktop-console 404s from the provided log (zero console errors on load).
+  3) Add the mobile-only URL-bar white overlay across all HTML pages (desktop unchanged).
 - **Parallax must continue to work** on both mobile and desktop. Do not disable or remove parallax.
 - **Minimal diffs only.** No broad refactors. No renaming or reformatting for style. No dependency churn unless required for verification tooling.
 - **Evidence-first.** Every edit must be preceded by reproduction + measurement and followed by verification + regression checks.

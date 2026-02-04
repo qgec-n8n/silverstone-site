@@ -5,14 +5,26 @@ This repo uses **ExecPlans** (evidence-driven, checkpointed execution documents)
 
 ## Active ExecPlans
 
-1) **Update favicon link tags across all HTML pages**  
+1) **Mobile URL-bar white overlay (mobile-only; desktop unaffected)**  
+   - Plan: `codex/execplans/2026-02-04_mobile-urlbar-white-overlay.md`  
+   - Status: READY  
+   - Target outcomes:
+     - Mobile (all HTML pages): a white overlay bar covers the bottom URL bar area and tracks expand/collapse; content scrolls underneath (no push-up).
+     - Desktop: no visual or behavioral changes; overlay not present.
+     - Parallax remains functional on mobile + desktop.
+   - Execution steps (summary):
+     1. Baseline: measure `visualViewport` vs `innerHeight` on mobile Safari/Chrome to quantify URL-bar occlusion height.
+     2. Implement shared overlay (global CSS + `src/js/app.js`) gated to mobile; set `--urlbar-overlay-height` from `visualViewport` resize/scroll with fallback to `env(safe-area-inset-bottom)`.
+     3. Verify across all HTML pages: overlay tracks URL bar; content reveals from behind; desktop unchanged.
+
+2) **Update favicon link tags across all HTML pages**  
    - Plan: `codex/execplans/2026-02-03_update-favicon-links.md`  
    - Status: READY  
    - Target outcomes:
      - All HTML heads contain the new favicon snippet only (no legacy icons).
      - No other visual or functional changes.
 
-2) **Fix mobile background coverage gap + remove desktop console 404s**  
+3) **Fix mobile background coverage gap + remove desktop console 404s**  
    - Plan: `codex/execplans/2026-01-21_fix-mobile-bg-gap_and_console-404s.md`  
    - Status: READY  
    - Target outcomes:
