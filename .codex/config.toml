@@ -13,13 +13,12 @@ sandbox_mode = "workspace-write"
 
 
 # Enables Codex web search requests (needed to read online docs referenced in the Initiation Prompt).
-web_search = live
+web_search = "live"
 
 
 # Allow network access in workspace-write sandbox mode.
 network_access = true
 
-Note
 # Keep a local audit trail in CODEX_HOME for reproducibility.
 persistence = "save-all"
 max_bytes = 5242880

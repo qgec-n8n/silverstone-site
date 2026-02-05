@@ -5,7 +5,20 @@ This repo uses **ExecPlans** (evidence-driven, checkpointed execution documents)
 
 ## Active ExecPlans
 
-1) **Mobile URL-bar white overlay (mobile-only; desktop unaffected)**  
+1) **SEO indexability + sitemap compliance**  
+   - Plan: `codex/execplans/2026-02-05_seo-indexability-and-sitemap.md`  
+   - Status: READY  
+   - Target outcomes:
+     - All HTML pages are indexable (no unintended `noindex`).
+     - Canonical URLs are absolute and align with sitemap entries.
+     - `sitemap.xml` is generated from canonical URLs and uses valid `lastmod` dates.
+     - `robots.txt` advertises the sitemap and favicon/manifest references resolve.
+   - Execution steps (summary):
+     1. Baseline: inventory HTML pages and confirm sitemap coverage vs canonical URLs.
+     2. Update SEO scripts + docs; generate a compliant sitemap.
+     3. Verify with `node scripts/seo-audit.js`.
+
+2) **Mobile URL-bar white overlay (mobile-only; desktop unaffected)**  
    - Plan: `codex/execplans/2026-02-04_mobile-urlbar-white-overlay.md`  
    - Status: READY  
    - Target outcomes:
@@ -17,14 +30,14 @@ This repo uses **ExecPlans** (evidence-driven, checkpointed execution documents)
      2. Implement shared overlay (global CSS + `src/js/app.js`) gated to mobile; set `--urlbar-overlay-height` from `visualViewport` resize/scroll with fallback to `env(safe-area-inset-bottom)`.
      3. Verify across all HTML pages: overlay tracks URL bar; content reveals from behind; desktop unchanged.
 
-2) **Update favicon link tags across all HTML pages**  
+3) **Update favicon link tags across all HTML pages**  
    - Plan: `codex/execplans/2026-02-03_update-favicon-links.md`  
    - Status: READY  
    - Target outcomes:
      - All HTML heads contain the new favicon snippet only (no legacy icons).
      - No other visual or functional changes.
 
-3) **Fix mobile background coverage gap + remove desktop console 404s**  
+4) **Fix mobile background coverage gap + remove desktop console 404s**  
    - Plan: `codex/execplans/2026-01-21_fix-mobile-bg-gap_and_console-404s.md`  
    - Status: READY  
    - Target outcomes:
@@ -40,5 +53,5 @@ This repo uses **ExecPlans** (evidence-driven, checkpointed execution documents)
 ## How Codex should use this file
 
 1. Read `AGENTS.md` first.
-2. Pick the first ACTIVE ExecPlan above unless the user explicitly says otherwise.
+2. Pick the ACTIVE ExecPlan that matches the user's request (SEO plan for SEO/indexability work).
 3. Keep the diff minimal, and continuously re-validate against the ExecPlan acceptance criteria.

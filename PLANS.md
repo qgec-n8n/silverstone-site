@@ -29,6 +29,12 @@ Checklists are small, reusable validation sequences. They live in: `codex/checkl
 
 Snippets are copy/paste helpers for DevTools or terminal usage. They live in: `codex/snippets/`
 
+### SEO Indexability
+
+When the active work targets SEO/indexability, the ExecPlan must reference:
+- `codex/checklists/CHECKLIST.seo-indexability.md`
+- `scripts/seo-audit.js` (audit) and `npm run sitemap:generate` (update)
+
 ## Non-negotiable rules for plans
 
 1. **Reproduce before fixing.** If you cannot reproduce, you must first improve observability.
@@ -36,6 +42,7 @@ Snippets are copy/paste helpers for DevTools or terminal usage. They live in: `c
 3. **Minimize diffs.** Prefer the smallest localized edit; avoid formatting-only churn.
 4. **Guard against regressions.** Validate on all pages named in the ExecPlan, and validate parallax behavior.
 5. **No silent broad changes.** If a change impacts visuals/behavior outside the targeted bug, it must be rejected or reverted.
+6. **SEO changes must be verified.** If HTML head, `robots.txt`, favicon/manifest, or `sitemap.xml` changes, `node scripts/seo-audit.js` must pass and `sitemap.xml` must match indexable canonicals.
 
 ## ExecPlan authoring conventions
 

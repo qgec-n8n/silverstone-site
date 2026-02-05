@@ -1,7 +1,54 @@
 <!-- FILE: ExecPlan.md -->
-# ExecPlan — Requested Edits 1–8 (Hero / About / Services / Neural Grid / Index)
+# ExecPlan — SEO Indexability + Sitemap Compliance
 
-## Active Override (2026-02-04) - Mobile URL-Bar White Overlay (Mobile-only)
+## Active Override (2026-02-05) - SEO Indexability + Sitemap Compliance
+
+Conflict resolution (priority order for this request):
+1) This section's SEO/indexability requirements.
+2) `AGENTS.md` guardrails (parallax must remain; minimal diffs; evidence-first) stay in force.
+3) Other ExecPlans and the historical sections below.
+
+Problem statement:
+- Ensure every public HTML page is indexable by Google and that `sitemap.xml` meets Search Console requirements.
+- Keep canonical URLs, robots directives, and favicon/manifest references consistent across all HTML pages.
+- Make sitemap generation repeatable and verifiable via repo scripts.
+
+Target pages:
+- `index.html`
+- `about.html`
+- `services.html`
+- `book.html`
+- `contact.html`
+- `privacy-policy.html`
+- `niches/*.html` (all files listed by `rg --files -g "*.html"`)
+
+Implementation constraints (hard rules):
+- No visual or behavioral changes beyond SEO/indexability fixes.
+- Do not add `noindex` or block crawling unless explicitly required.
+- Derive sitemap URLs from each page's canonical link; include only indexable pages.
+- `lastmod` must be W3C date format (`YYYY-MM-DD`) derived from file modification time.
+- Use `scripts/seo-audit.js` to validate and regenerate `sitemap.xml`.
+- Parallax must remain functional on mobile + desktop.
+
+Stepwise execution (must follow):
+1) Baseline: inventory HTML pages and compare canonicals vs current `sitemap.xml`.
+2) Add/update SEO audit + sitemap generation scripts and update governance docs.
+3) Regenerate `sitemap.xml` from canonical URLs and verify with `node scripts/seo-audit.js`.
+4) Confirm no unintended `noindex` tags or robots blocks exist.
+
+Acceptance criteria:
+- `node scripts/seo-audit.js` passes with zero errors.
+- `sitemap.xml` matches the canonical URLs for all indexable HTML pages.
+- `robots.txt` advertises the sitemap and favicon/manifest references resolve.
+- No visual or behavioral changes outside SEO scope.
+
+Verification checklist:
+- Run `node scripts/seo-audit.js`.
+- If sitemap is out of sync, run `node scripts/seo-audit.js --write-sitemap` and re-run the audit.
+
+Note: The remainder of this document is historical and should not be executed unless explicitly re-activated.
+
+## Historical: Mobile URL-Bar White Overlay (Mobile-only)
 
 Conflict resolution (priority order for this request):
 1) This section's mobile URL-bar overlay requirements.

@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "node build-css.js",
     "build:js": "node scripts/build-js.js",
-    "build": "node scripts/optimize-images.js && npm run build:css && npm run build:js"
+    "build": "node scripts/optimize-images.js && npm run build:css && npm run build:js",
+    "seo:audit": "node scripts/seo-audit.js",
+    "sitemap:generate": "node scripts/seo-audit.js --write-sitemap"
   },
   "keywords": [],
   "author": "",

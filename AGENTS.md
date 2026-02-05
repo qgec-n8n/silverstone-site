@@ -5,10 +5,8 @@ This file defines how Codex should behave in this repo.
 
 ## Global guardrails
 
-- **Do not change visuals or behavior** except for the two explicitly targeted outcomes in the active ExecPlan:
-  1) Fix the mobile background coverage gap (no bottom-of-viewport gap).
-  2) Remove all desktop-console 404s from the provided log (zero console errors on load).
-  3) Add the mobile-only URL-bar white overlay across all HTML pages (desktop unchanged).
+- **Do not change visuals or behavior** except for the explicitly targeted outcomes in the active ExecPlan.
+- **SEO/indexability work is allowed** when the active ExecPlan targets it: edits to HTML `<head>`, `robots.txt`, `sitemap.xml`, favicon/manifest references, and sitemap/SEO scripts are in scope.
 - **Parallax must continue to work** on both mobile and desktop. Do not disable or remove parallax.
 - **Minimal diffs only.** No broad refactors. No renaming or reformatting for style. No dependency churn unless required for verification tooling.
 - **Evidence-first.** Every edit must be preceded by reproduction + measurement and followed by verification + regression checks.
@@ -28,6 +26,7 @@ Repeat until acceptance criteria are met:
 - Parses the provided desktop console log.
 - Finds the code path(s) responsible for each 404.
 - Diagnoses the mobile viewport gap by inspecting computed layout and runtime parallax elements.
+- Audits HTML indexability signals, canonical URLs, robots directives, and sitemap coverage.
 
 ### Implementer
 - Applies the smallest-possible fix aligned with the root cause.
@@ -39,6 +38,7 @@ Repeat until acceptance criteria are met:
   - No mobile background gap across all specified pages.
   - No desktop console errors on load.
   - Parallax still functions on mobile + desktop.
+  - HTML pages are indexable and sitemap/robots are compliant (when SEO is in scope).
   - No unexpected UI changes.
 
 ### Scribe
@@ -56,10 +56,12 @@ A change is only “done” when:
 - The validation checklists pass.
 - The diff is minimal and restricted to what is necessary.
 - The ExecPlan has a clear root cause explanation and a reproducible verification procedure.
+- When SEO/indexability is in scope, `node scripts/seo-audit.js` passes and `sitemap.xml` matches indexable canonicals.
 
 ## Prohibited actions
 
 - Deleting parallax code or forcing parallax off to “fix” the issue.
 - Changing spacing/typography/colors “to look better.”
 - Running repo-wide formatters that touch unrelated files.
-- “Fixing” unrelated warnings or refactoring modules not required for the two target outcomes.
+- “Fixing” unrelated warnings or refactoring modules not required for the active outcomes.
+- Adding `noindex`/robots blocks or removing canonical/sitemap entries unless explicitly required by the active ExecPlan.
