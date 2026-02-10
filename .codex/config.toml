@@ -1,31 +1,11 @@
-# FILE: .codex/config.toml
-# Project-local Codex configuration.
-# NOTE: This file intentionally contains no external URLs. See the Initiation Prompt in the chat for doc links.
+model = "gpt-5.3-codex"
+model_reasoning_effort = "xhigh"
+personality = "pragmatic"
+[projects."/Users/quentingeczy/Desktop/DC-Performance-Coaching"]
+trust_level = "trusted"
 
-# Use the Codex-tuned GPT-5.2 model for code navigation, refactors, and safe edits.
-model = "gpt-5.2-codex"
+[projects."/Users/quentingeczy/Desktop/silverstone-site"]
+trust_level = "trusted"
 
-# Require explicit approval for changes unless the user/agent chooses otherwise.
-approval_policy = "on-request"
-
-# Allow writing to the workspace, and allow outbound network so web_search_request can work.
-sandbox_mode = "workspace-write"
-
-
-# Enables Codex web search requests (needed to read online docs referenced in the Initiation Prompt).
-web_search = "live"
-
-
-# Allow network access in workspace-write sandbox mode.
-network_access = true
-
-# Keep a local audit trail in CODEX_HOME for reproducibility.
-persistence = "save-all"
-max_bytes = 5242880
-
-# Optional: pre-trust this repo (recommended to avoid repeated prompts).
-# Add your machine's absolute path to this repo and set trust_level = "trusted".
-#
-# Example:
-# [projects."/ABSOLUTE/PATH/TO/silverstone-site-main"]
-# trust_level = "trusted"
+[features]
+unified_exec = true
