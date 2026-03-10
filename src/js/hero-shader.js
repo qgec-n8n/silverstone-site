@@ -40,6 +40,12 @@
       bg1: [0.16, 0.04, 0.0, 1.0],
       bg2: [0.36, 0.12, 0.0, 1.0]
     },
+    // Blog (Signal Red)
+    red: {
+      line: [1.0, 0.18, 0.24, 1.0],
+      bg1: [0.15, 0.0, 0.03, 1.0],
+      bg2: [0.34, 0.04, 0.08, 1.0]
+    },
     // Book (Deep Amber/Orange - "Gold")
     // Adjusted to ensure contrast with white text is acceptable
     // Using a dark base with gold highlights

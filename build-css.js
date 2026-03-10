@@ -38,7 +38,8 @@ const cssOrder = [
   'pages/about.css',
   'pages/book.css',
   'pages/contact.css',
-  'pages/estate-agents.css'
+  'pages/estate-agents.css',
+  'pages/blog.css'
 ];
 
 function replaceBreakpoints(css) {

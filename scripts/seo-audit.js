@@ -9,6 +9,8 @@ const indexedPages = [
   { file: "index.html", canonical: "https://silverstone-ai.com" },
   { file: "about.html", canonical: "https://silverstone-ai.com/about" },
   { file: "services.html", canonical: "https://silverstone-ai.com/services" },
+  { file: "blog.html", canonical: "https://silverstone-ai.com/blog" },
+  { file: "blog/ai-receptionist-small-business-2026.html", canonical: "https://silverstone-ai.com/blog/ai-receptionist-small-business-2026" },
   { file: "book.html", canonical: "https://silverstone-ai.com/book" },
   { file: "contact.html", canonical: "https://silverstone-ai.com/contact" },
   { file: "niches/dentists.html", canonical: "https://silverstone-ai.com/niches/dentists" },
