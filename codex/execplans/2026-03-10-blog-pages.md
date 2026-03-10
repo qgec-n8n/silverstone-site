@@ -38,3 +38,8 @@
 - The source image provided by the user existed at `assets/images/blog_1.jpeg`, so it was copied into the requested nested path rather than moved.
 - No single niche page was clearly the best secondary CTA destination for this article, so the secondary CTA links use `services.html` per the task instruction fallback.
 - The repo had no active ExecPlan file for this task, so this plan was created under `codex/execplans/`.
+
+## Follow-up refinement
+
+- Reduced the blog index card size on `blog.html` by shrinking the card width, media ratio, typography, and spacing in `src/css/pages/blog.css`.
+- Simplified `blog/ai-receptionist-small-business-2026.html` to the shared shell plus article copy only by removing the visible image, the gallery section, the related-links block, and the CTA block.
