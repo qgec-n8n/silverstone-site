@@ -43,3 +43,4 @@
 
 - Reduced the blog index card size on `blog.html` by shrinking the card width, media ratio, typography, and spacing in `src/css/pages/blog.css`.
 - Simplified `blog/ai-receptionist-small-business-2026.html` to the shared shell plus article copy only by removing the visible image, the gallery section, the related-links block, and the CTA block.
+- Replaced unsupported blog-article list icon classes with existing site-supported Font Awesome glyphs so every unordered article list item renders with a visible icon bullet across `blog/*.html`.
