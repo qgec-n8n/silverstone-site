@@ -79,3 +79,10 @@
 - Root cause: the shared hero component uses the same desktop glass treatment for every page (`rgba(7, 12, 20, 0.65)` with `blur(8px)`), which is heavier than needed on image-led blog article heroes.
 - Changes made: added a blog-article-only desktop override in `src/css/pages/blog.css` that reduces the panel background opacity, slightly lowers the blur, and keeps the border/shadow strong enough for text legibility. This override does not apply to `blog.html` or any non-blog hero.
 - Verification target: rebuild `assets/css/styles.css`, confirm the compiled CSS contains the new `.page-blog-article .hero.title-band .content` override, and ensure `npm run seo:audit` still passes.
+
+## 2026-03-12 blog index gallery removal
+
+- Observed before edit: `blog.html` still included the "Automation ideas in action" section containing the `#neural-grid` mosaic gallery and `#innovation-marquee-slot`.
+- Root cause: the gallery block remained on the blog index even though it was no longer desired content for that page.
+- Changes made: removed the entire gallery section from `blog.html`; no JS change was required because the premium gallery initializer already exits when `#neural-grid` is absent.
+- Verification target: confirm `blog.html` no longer contains "Automation ideas in action", `#innovation-gallery`, `#neural-grid`, or `#innovation-marquee-slot`, and rerun `npm run seo:audit`.
