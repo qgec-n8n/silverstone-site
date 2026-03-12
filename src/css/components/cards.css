@@ -339,8 +339,7 @@
 
 .service-content ul li::before {
   content: "\f00c";
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
+  font: var(--fa-font-solid);
   color: var(--color-green);
   margin-right: 0.5rem;
 }

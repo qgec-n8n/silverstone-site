@@ -16,6 +16,7 @@ const outFile = path.join(outDir, 'styles.css');
 const cssOrder = [
   // Base
   'base/variables.css',
+  'vendor/fontawesome.css',
   'base/typography.css',
   'base/layout.css',
   // Components
