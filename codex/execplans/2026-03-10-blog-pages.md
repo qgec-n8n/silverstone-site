@@ -72,3 +72,10 @@
 - Root cause: the article pages were using `background-image` layers on `.hero-media` with a full-bleed gradient overlay, even though the hero copy already sits in its own panel; that extra overlay was masking the card art.
 - Changes made: replaced the article hero `background-image` styles with actual `<img class="hero-fallback-image">` elements inside `.hero-media`, removed the full-hero darkening gradients, and set the hero images to eager/high-priority loading so the artwork is visible immediately.
 - Verification target: confirm each `blog/*.html` article now contains a `hero-fallback-image` element with its mapped card asset, confirm no article still uses the gradient background-image pattern, confirm `blog.html` still contains the red shader canvas, and rerun `npm run seo:audit`.
+
+## 2026-03-12 blog article hero panel opacity tune
+
+- Observed before edit: once the article hero images were visible, the shared desktop hero panel style on `.hero.title-band .content` still looked too opaque/frosted on `blog/*.html`, obscuring too much of the hero artwork beneath it.
+- Root cause: the shared hero component uses the same desktop glass treatment for every page (`rgba(7, 12, 20, 0.65)` with `blur(8px)`), which is heavier than needed on image-led blog article heroes.
+- Changes made: added a blog-article-only desktop override in `src/css/pages/blog.css` that reduces the panel background opacity, slightly lowers the blur, and keeps the border/shadow strong enough for text legibility. This override does not apply to `blog.html` or any non-blog hero.
+- Verification target: rebuild `assets/css/styles.css`, confirm the compiled CSS contains the new `.page-blog-article .hero.title-band .content` override, and ensure `npm run seo:audit` still passes.

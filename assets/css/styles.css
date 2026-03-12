@@ -15741,6 +15741,18 @@ body.services-overlay-active .services-overlay {
   line-height: 1.8;
 }
 
+@media (min-width: 769px) {
+  .page-blog-article .hero.title-band .content {
+    background: rgba(7, 12, 20, 0.42);
+    border-color: rgba(120, 170, 255, 0.22);
+    box-shadow:
+      0 14px 40px rgba(0, 0, 0, 0.48),
+      0 0 28px rgba(0, 174, 239, 0.14);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
+
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
