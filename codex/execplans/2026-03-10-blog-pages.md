@@ -44,3 +44,10 @@
 - Reduced the blog index card size on `blog.html` by shrinking the card width, media ratio, typography, and spacing in `src/css/pages/blog.css`.
 - Simplified `blog/ai-receptionist-small-business-2026.html` to the shared shell plus article copy only by removing the visible image, the gallery section, the related-links block, and the CTA block.
 - Replaced unsupported blog-article list icon classes with existing site-supported Font Awesome glyphs so every unordered article list item renders with a visible icon bullet across `blog/*.html`.
+
+## 2026-03-12 sitemap priority update
+
+- Observed before edit: `sitemap.xml` omitted `<priority>` values for the homepage, about, services, blog, book, contact, and all `/niches/*` URLs; `npm run seo:audit` also failed because `scripts/seo-audit.js` had not been updated for seven already-published blog articles that were present in the sitemap.
+- Root cause: the sitemap priorities for these URLs had never been set, and the audit allowlist had drifted behind the current set of canonical blog article pages.
+- Changes made: added `<priority>1.0</priority>` to `https://silverstone-ai.com`, `/about`, `/services`, `/blog`, `/book`, and `/contact`; added `<priority>0.8</priority>` to every current `/niches/*` sitemap entry; updated `scripts/seo-audit.js` so its indexable-page list matches the canonical blog articles already shipped in the repo.
+- Verification target: rerun `npm run seo:audit` and inspect the affected sitemap entries to confirm the requested priority values are present and the sitemap now matches the audit's indexable canonicals.
