@@ -51,3 +51,17 @@
 - Root cause: the sitemap priorities for these URLs had never been set, and the audit allowlist had drifted behind the current set of canonical blog article pages.
 - Changes made: added `<priority>1.0</priority>` to `https://silverstone-ai.com`, `/about`, `/services`, `/blog`, `/book`, and `/contact`; added `<priority>0.8</priority>` to every current `/niches/*` sitemap entry; updated `scripts/seo-audit.js` so its indexable-page list matches the canonical blog articles already shipped in the repo.
 - Verification target: rerun `npm run seo:audit` and inspect the affected sitemap entries to confirm the requested priority values are present and the sitemap now matches the audit's indexable canonicals.
+
+## 2026-03-12 blog article hero background update
+
+- Observed before edit: every `blog/*.html` article page still rendered the red `#hero-shader-canvas` in its hero, while `blog.html` already used the intended red shader and each article already had a dedicated card image on the blog index.
+- Root cause: the article templates reused the generic red shader hero media block instead of swapping to per-article imagery when the newer card assets were added.
+- Changes made: replaced the hero canvas on each current article page with a `hero-media` background image using that article's existing card asset, plus a light darkening gradient to preserve text contrast; left `blog.html` unchanged so it continues to use the red shader hero.
+- Verification target: confirm `blog.html` still contains `#hero-shader-canvas`, confirm `blog/*.html` no longer contain it, and inspect the article hero media blocks to ensure the background image path matches the corresponding card image on the blog index.
+
+## 2026-03-12 trades article hero background update
+
+- Observed before edit: `blog/ai-lead-capture-uk-trades-2026.html` still rendered the red `#hero-shader-canvas` even though its blog index card already used `assets/images/blog/blog_13.png`.
+- Root cause: this newer trades article was not included in the earlier article-hero image swap and was still using the older shared hero markup.
+- Changes made: replaced the trades article hero canvas with a `hero-media` background image using `../assets/images/blog/blog_13.png` plus the same darkening gradient used on the other article heroes.
+- Verification target: confirm `blog/ai-lead-capture-uk-trades-2026.html` no longer contains `#hero-shader-canvas`, confirm its hero media now references `blog_13.png`, and ensure `blog.html` still owns the red shader hero.

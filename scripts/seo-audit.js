@@ -17,6 +17,7 @@ const indexedPages = [
   { file: "blog/ai-automation-failures-uk-smes-2026.html", canonical: "https://silverstone-ai.com/blog/ai-automation-failures-uk-smes-2026" },
   { file: "blog/ai-receptionist-uk-costs-roi-2026.html", canonical: "https://silverstone-ai.com/blog/ai-receptionist-uk-costs-roi-2026" },
   { file: "blog/ai-no-show-reduction-uk-salons-barbers.html", canonical: "https://silverstone-ai.com/blog/ai-no-show-reduction-uk-salons-barbers" },
+  { file: "blog/ai-lead-capture-uk-trades-2026.html", canonical: "https://silverstone-ai.com/blog/ai-lead-capture-uk-trades-2026" },
   { file: "blog/ai-receptionist-small-business-2026.html", canonical: "https://silverstone-ai.com/blog/ai-receptionist-small-business-2026" },
   { file: "book.html", canonical: "https://silverstone-ai.com/book" },
   { file: "contact.html", canonical: "https://silverstone-ai.com/contact" },
