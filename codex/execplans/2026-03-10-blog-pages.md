@@ -65,3 +65,10 @@
 - Root cause: this newer trades article was not included in the earlier article-hero image swap and was still using the older shared hero markup.
 - Changes made: replaced the trades article hero canvas with a `hero-media` background image using `../assets/images/blog/blog_13.png` plus the same darkening gradient used on the other article heroes.
 - Verification target: confirm `blog/ai-lead-capture-uk-trades-2026.html` no longer contains `#hero-shader-canvas`, confirm its hero media now references `blog_13.png`, and ensure `blog.html` still owns the red shader hero.
+
+## 2026-03-12 blog article hero visibility fix
+
+- Observed before edit: the article hero assets were present in the markup, but the full-hero darkening gradient layered into each article page made the card artwork read almost black, so the images were not visibly functioning as the hero background treatment.
+- Root cause: the article pages were using `background-image` layers on `.hero-media` with a full-bleed gradient overlay, even though the hero copy already sits in its own panel; that extra overlay was masking the card art.
+- Changes made: replaced the article hero `background-image` styles with actual `<img class="hero-fallback-image">` elements inside `.hero-media`, removed the full-hero darkening gradients, and set the hero images to eager/high-priority loading so the artwork is visible immediately.
+- Verification target: confirm each `blog/*.html` article now contains a `hero-fallback-image` element with its mapped card asset, confirm no article still uses the gradient background-image pattern, confirm `blog.html` still contains the red shader canvas, and rerun `npm run seo:audit`.
