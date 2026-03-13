@@ -11649,35 +11649,6 @@ body {
   overscroll-behavior: auto;
 }
 
-:root {
-  --urlbar-overlay-height: 0px;
-}
-
-.urlbar-overlay {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  :root {
-    --urlbar-overlay-height: env(safe-area-inset-bottom, 0px);
-  }
-
-  .urlbar-overlay {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: var(--urlbar-overlay-height, 0px);
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(12px) saturate(170%);
-    -webkit-backdrop-filter: blur(12px) saturate(170%);
-    z-index: 900;
-    pointer-events: none;
-    display: block;
-    transform: translateY(var(--urlbar-overlay-height, 0px));
-  }
-}
-
 @supports (-webkit-touch-callout: none) {
   html,
   body {
