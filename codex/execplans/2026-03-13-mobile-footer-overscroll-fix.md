@@ -3,26 +3,29 @@
 ## Observed baseline
 
 - The white footer (`.site-footer`) is the final opaque section on every page.
-- After the earlier `viewport-fit=cover` mobile fix, the hero and fixed mobile chrome were updated to respect `--safe-area-bottom`, but the shared footer was not.
-- On mobile, `body` can still show the shared page background behind the document edges, so when the visible viewport shifts at the bottom of the page the footer can expose that background behind its lower edge.
+- On iPhone-style elastic bottom overscroll, the whole root scroll container moves upward temporarily. That exposes whatever sits behind the document bottom, which in this site is the shared page/parallax background.
+- The previous safe-area-only footer padding fix was insufficient because it increased the visible footer box, but it did not extend the footer background beyond the actual document end.
 
 ## Root cause
 
-- The footer background stopped at the content box bottom on mobile.
-- Because the footer did not extend through the bottom safe area, mobile browser bottom-toolbar/overscroll movement could briefly reveal the page background behind the footer edge.
+- The issue is not that the footer detaches from layout. The elastic overscroll is stretching the root scrolling surface.
+- Because the document ended exactly at the footer edge, the overscrolled area below the page revealed the body/parallax background behind the document instead of more footer background.
 
 ## Changes made
 
-- Added a mobile-only footer bottom padding override in `src/css/components/footer.css`:
-  - `padding-bottom: calc(3rem + var(--safe-area-bottom));`
+- Added a mobile-only hidden footer bleed in `src/css/components/footer.css`:
+  - `--footer-overscroll-bleed: clamp(96px, 18vh, 180px);`
+  - `padding-bottom: calc(3rem + var(--safe-area-bottom) + var(--footer-overscroll-bleed));`
+  - `margin-bottom: calc(-1 * var(--footer-overscroll-bleed));`
+- This extends the white footer background past the document end without changing the footer's resting visual position, so elastic overscroll reveals more footer background instead of the page background image.
 - Rebuilt `assets/css/styles.css`.
 
 ## Verification
 
 - `npm run build:css` passed.
-- The footer safe-area padding is present in both source and compiled CSS.
+- The mobile footer bleed rules are present in both source and compiled CSS.
 - The change is scoped to the shared mobile footer media query and does not alter desktop footer styles.
 
 ## Remaining manual check
 
-- Confirm on the iPhone that reaching and elastic-overscrolling the page bottom no longer reveals the body background behind the footer.
+- Confirm on the iPhone that reaching and elastic-overscrolling the page bottom no longer reveals the body background behind the footer, and that the footer appears to stretch/hold to the bottom during the bounce.
