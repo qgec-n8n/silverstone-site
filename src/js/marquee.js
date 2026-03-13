@@ -2,6 +2,8 @@
   'use strict';
 
   const ASSET_PATH = '/assets/images/socialmedia/';
+  const LIGHTBOX_MOBILE_QUERY = '(max-width: 768px)';
+  const MARQUEE_ROOT_MARGIN = '1200px 0px';
   const MARQUEE_IMAGES = [
   '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.webp',
   '2-3_accounting_man-with-holographic-call_tax-season-calls-never-missed.webp',
@@ -83,72 +85,21 @@
   'Trades_3.webp',
 ];
 
-  const MOBILE_PRELOAD_QUERY = '(max-width: 768px)';
-  const MOBILE_PRELOAD_TIMEOUT_MS = 1400;
-
   let singleInitialized = false;
   let doubleInitialized = false;
-  let mobilePreloadPromise = null;
-
-  function isMobileViewport() {
-    return !!window.matchMedia && window.matchMedia(MOBILE_PRELOAD_QUERY).matches;
-  }
-
-  function preloadMarqueeImagesOnce() {
-    if (!isMobileViewport()) return Promise.resolve();
-    if (mobilePreloadPromise) return mobilePreloadPromise;
-
-    const urls = MARQUEE_IMAGES.map((filename) => ASSET_PATH + filename);
-    mobilePreloadPromise = preloadUrls(urls, MOBILE_PRELOAD_TIMEOUT_MS);
-    return mobilePreloadPromise;
-  }
-
-  function preloadUrls(urls, timeoutMs) {
-    return new Promise((resolve) => {
-      if (!urls.length) {
-        resolve({ timedOut: false, completed: 0, total: 0 });
-        return;
-      }
-
-      let done = false;
-      let completed = 0;
-      const total = urls.length;
-
-      const timer = window.setTimeout(() => finish(true), timeoutMs);
-
-      function finish(timedOut) {
-        if (done) return;
-        done = true;
-        window.clearTimeout(timer);
-        resolve({ timedOut, completed, total });
-      }
-
-      urls.forEach((url) => {
-        const img = new Image();
-        const onComplete = () => {
-          if (done) return;
-          completed += 1;
-          if (completed >= total) finish(false);
-        };
-        img.onload = onComplete;
-        img.onerror = onComplete;
-        img.src = url;
-      });
-    });
-  }
 
   function initSingleMarquee() {
     if (singleInitialized) return;
     if (document.body.classList.contains('page-services')) return;
-    singleInitialized = true;
 
     cleanupLegacyMarquees();
-    ensureLightbox();
 
     const footer = document.querySelector('footer.site-footer');
-    if (!footer || !footer.parentNode) return;
+    observeWhenNearViewport(footer, () => {
+      if (singleInitialized || !footer || !footer.parentNode) return;
+      singleInitialized = true;
+      ensureLightbox();
 
-    preloadMarqueeImagesOnce().finally(() => {
       const marquee = buildSingleRow();
       footer.parentNode.insertBefore(marquee, footer);
     });
@@ -157,20 +108,26 @@
   function initDoubleMarquee() {
     if (!document.body.classList.contains('page-services')) return;
     if (doubleInitialized) return;
-    doubleInitialized = true;
 
     cleanupLegacyMarquees();
-    ensureLightbox();
 
-    preloadMarqueeImagesOnce().finally(() => {
+    const slot = document.getElementById('innovation-marquee-slot');
+    const galleryGrid = document.getElementById('neural-grid');
+    const target = galleryGrid || slot || document.querySelector('footer.site-footer');
+
+    observeWhenNearViewport(target, () => {
+      if (doubleInitialized) return;
+      doubleInitialized = true;
+      ensureLightbox();
+
       const container = buildDoubleDeck();
-      const slot = document.getElementById('innovation-marquee-slot');
-      const galleryGrid = document.getElementById('neural-grid');
+      const currentSlot = document.getElementById('innovation-marquee-slot');
+      const currentGrid = document.getElementById('neural-grid');
 
-      if (slot) {
-        slot.replaceWith(container);
-      } else if (galleryGrid && galleryGrid.parentNode) {
-        galleryGrid.insertAdjacentElement('afterend', container);
+      if (currentSlot) {
+        currentSlot.replaceWith(container);
+      } else if (currentGrid && currentGrid.parentNode) {
+        currentGrid.insertAdjacentElement('afterend', container);
       } else {
         document.body.appendChild(container);
       }
@@ -181,6 +138,28 @@
 
   function cleanupLegacyMarquees() {
     document.querySelectorAll('.premium-marquee-container, .logo-slider, .single-marquee, .double-marquee').forEach((el) => el.remove());
+  }
+
+  function observeWhenNearViewport(target, callback) {
+    if (!target) return;
+
+    if (!('IntersectionObserver' in window)) {
+      callback();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        callback();
+      },
+      {
+        rootMargin: MARQUEE_ROOT_MARGIN,
+      },
+    );
+
+    observer.observe(target);
   }
 
   function buildSingleRow() {
@@ -227,7 +206,8 @@
       img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
-      img.loading = 'eager'; // SPEC: MARQUEE_NO_TOUCH_REQUIRED
+      img.loading = 'lazy';
+      img.decoding = 'async';
 
       img.onerror = () => {
         img.style.display = 'none';
@@ -284,6 +264,20 @@
     document.body.style.overflow = '';
   }
 
+  function resolveLightboxSrc(trigger) {
+    if (!trigger) return '';
+
+    const mobileSrc = trigger.dataset.lightboxMobileSrc;
+    const desktopSrc = trigger.dataset.lightboxSrc;
+    const isMobile = !!window.matchMedia && window.matchMedia(LIGHTBOX_MOBILE_QUERY).matches;
+
+    if (isMobile && mobileSrc) return mobileSrc;
+    if (desktopSrc) return desktopSrc;
+
+    const img = trigger.querySelector('img');
+    return img ? img.currentSrc || img.src : '';
+  }
+
   function alignInnovationAnchor() {
     const hash = window.location.hash;
     if (!hash || (hash !== '#innovation-gallery' && hash !== '#neural-grid')) return;
@@ -311,8 +305,7 @@
       trigger.dataset.ssLightboxBound = '1';
 
       trigger.addEventListener('click', () => {
-        const img = trigger.querySelector('img');
-        const src = img ? img.currentSrc || img.src : '';
+        const src = resolveLightboxSrc(trigger);
         if (!src) return;
         openLightbox(src);
       });

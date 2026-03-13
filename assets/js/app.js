@@ -1378,6 +1378,8 @@ document.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
   const ASSET_PATH = '/assets/images/socialmedia/';
+  const LIGHTBOX_MOBILE_QUERY = '(max-width: 768px)';
+  const MARQUEE_ROOT_MARGIN = '1200px 0px';
   const MARQUEE_IMAGES = [
   '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.webp',
   '2-3_accounting_man-with-holographic-call_tax-season-calls-never-missed.webp',
@@ -1459,72 +1461,21 @@ document.addEventListener('DOMContentLoaded', () => {
   'Trades_3.webp',
 ];
 
-  const MOBILE_PRELOAD_QUERY = '(max-width: 768px)';
-  const MOBILE_PRELOAD_TIMEOUT_MS = 1400;
-
   let singleInitialized = false;
   let doubleInitialized = false;
-  let mobilePreloadPromise = null;
-
-  function isMobileViewport() {
-    return !!window.matchMedia && window.matchMedia(MOBILE_PRELOAD_QUERY).matches;
-  }
-
-  function preloadMarqueeImagesOnce() {
-    if (!isMobileViewport()) return Promise.resolve();
-    if (mobilePreloadPromise) return mobilePreloadPromise;
-
-    const urls = MARQUEE_IMAGES.map((filename) => ASSET_PATH + filename);
-    mobilePreloadPromise = preloadUrls(urls, MOBILE_PRELOAD_TIMEOUT_MS);
-    return mobilePreloadPromise;
-  }
-
-  function preloadUrls(urls, timeoutMs) {
-    return new Promise((resolve) => {
-      if (!urls.length) {
-        resolve({ timedOut: false, completed: 0, total: 0 });
-        return;
-      }
-
-      let done = false;
-      let completed = 0;
-      const total = urls.length;
-
-      const timer = window.setTimeout(() => finish(true), timeoutMs);
-
-      function finish(timedOut) {
-        if (done) return;
-        done = true;
-        window.clearTimeout(timer);
-        resolve({ timedOut, completed, total });
-      }
-
-      urls.forEach((url) => {
-        const img = new Image();
-        const onComplete = () => {
-          if (done) return;
-          completed += 1;
-          if (completed >= total) finish(false);
-        };
-        img.onload = onComplete;
-        img.onerror = onComplete;
-        img.src = url;
-      });
-    });
-  }
 
   function initSingleMarquee() {
     if (singleInitialized) return;
     if (document.body.classList.contains('page-services')) return;
-    singleInitialized = true;
 
     cleanupLegacyMarquees();
-    ensureLightbox();
 
     const footer = document.querySelector('footer.site-footer');
-    if (!footer || !footer.parentNode) return;
+    observeWhenNearViewport(footer, () => {
+      if (singleInitialized || !footer || !footer.parentNode) return;
+      singleInitialized = true;
+      ensureLightbox();
 
-    preloadMarqueeImagesOnce().finally(() => {
       const marquee = buildSingleRow();
       footer.parentNode.insertBefore(marquee, footer);
     });
@@ -1533,20 +1484,26 @@ document.addEventListener('DOMContentLoaded', () => {
   function initDoubleMarquee() {
     if (!document.body.classList.contains('page-services')) return;
     if (doubleInitialized) return;
-    doubleInitialized = true;
 
     cleanupLegacyMarquees();
-    ensureLightbox();
 
-    preloadMarqueeImagesOnce().finally(() => {
+    const slot = document.getElementById('innovation-marquee-slot');
+    const galleryGrid = document.getElementById('neural-grid');
+    const target = galleryGrid || slot || document.querySelector('footer.site-footer');
+
+    observeWhenNearViewport(target, () => {
+      if (doubleInitialized) return;
+      doubleInitialized = true;
+      ensureLightbox();
+
       const container = buildDoubleDeck();
-      const slot = document.getElementById('innovation-marquee-slot');
-      const galleryGrid = document.getElementById('neural-grid');
+      const currentSlot = document.getElementById('innovation-marquee-slot');
+      const currentGrid = document.getElementById('neural-grid');
 
-      if (slot) {
-        slot.replaceWith(container);
-      } else if (galleryGrid && galleryGrid.parentNode) {
-        galleryGrid.insertAdjacentElement('afterend', container);
+      if (currentSlot) {
+        currentSlot.replaceWith(container);
+      } else if (currentGrid && currentGrid.parentNode) {
+        currentGrid.insertAdjacentElement('afterend', container);
       } else {
         document.body.appendChild(container);
       }
@@ -1557,6 +1514,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function cleanupLegacyMarquees() {
     document.querySelectorAll('.premium-marquee-container, .logo-slider, .single-marquee, .double-marquee').forEach((el) => el.remove());
+  }
+
+  function observeWhenNearViewport(target, callback) {
+    if (!target) return;
+
+    if (!('IntersectionObserver' in window)) {
+      callback();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        callback();
+      },
+      {
+        rootMargin: MARQUEE_ROOT_MARGIN,
+      },
+    );
+
+    observer.observe(target);
   }
 
   function buildSingleRow() {
@@ -1603,7 +1582,8 @@ document.addEventListener('DOMContentLoaded', () => {
       img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
-      img.loading = 'eager'; // SPEC: MARQUEE_NO_TOUCH_REQUIRED
+      img.loading = 'lazy';
+      img.decoding = 'async';
 
       img.onerror = () => {
         img.style.display = 'none';
@@ -1660,6 +1640,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
+  function resolveLightboxSrc(trigger) {
+    if (!trigger) return '';
+
+    const mobileSrc = trigger.dataset.lightboxMobileSrc;
+    const desktopSrc = trigger.dataset.lightboxSrc;
+    const isMobile = !!window.matchMedia && window.matchMedia(LIGHTBOX_MOBILE_QUERY).matches;
+
+    if (isMobile && mobileSrc) return mobileSrc;
+    if (desktopSrc) return desktopSrc;
+
+    const img = trigger.querySelector('img');
+    return img ? img.currentSrc || img.src : '';
+  }
+
   function alignInnovationAnchor() {
     const hash = window.location.hash;
     if (!hash || (hash !== '#innovation-gallery' && hash !== '#neural-grid')) return;
@@ -1687,8 +1681,7 @@ document.addEventListener('DOMContentLoaded', () => {
       trigger.dataset.ssLightboxBound = '1';
 
       trigger.addEventListener('click', () => {
-        const img = trigger.querySelector('img');
-        const src = img ? img.currentSrc || img.src : '';
+        const src = resolveLightboxSrc(trigger);
         if (!src) return;
         openLightbox(src);
       });
@@ -1710,181 +1703,101 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /**
- * PREMIUM GALLERY: PRECISION-GAP MOSAIC & CINEMATIC LIGHTBOX
- * 
- * Logic:
- * 1. Clears existing #neural-grid content.
- * 2. Injects curated subset of images (15 images selected for perfect 3-column balance).
- * 3. Applies masonry-like classes (landscape/portrait/square).
- * 4. Handles 3D Flip on hover.
- * 5. Handles Lightbox open/close (Strict 'X' button close).
+ * PREMIUM GALLERY LIGHTBOX BINDER
+ *
+ * The services gallery markup is rendered directly in HTML so the browser can
+ * discover and schedule the images during initial parse. This script only
+ * wires up lightbox behavior for those static tiles.
  */
 
 (function () {
-    'use strict';
+  'use strict';
 
-    // --- CONFIGURATION ---
-    const GALLERY_TARGET_ID = 'neural-grid';
-    const ASSET_PATH = 'assets/images/socialmedia/';
+  function ensureLightbox() {
+    if (document.getElementById('premium-lightbox')) return;
 
-    // Curated Image List
-    // Strategy: 3 Columns. Target Height = 6.0 units.
-    // Heights: Square=1.0, Portrait=1.5, Landscape=0.666(approx) -> 3 Landscapes = 2.0
-    // Col 1: 4 Portraits (6.0)
-    // Col 2: 2 Portraits + 3 Squares (6.0)
-    // Col 3: 2 Portraits + 3 Landscapes + 1 Square (6.0)
-    // Total: 8 Portraits, 4 Squares, 3 Landscapes = 15 Images.
+    const lightbox = document.createElement('div');
+    lightbox.id = 'premium-lightbox';
+    lightbox.className = 'premium-lightbox';
 
-    const CURATED_IMAGES = [
-        // SPEC: SERVICES_NEURAL_GRID_REPLACE_SQUARE_LANDSCAPE_2025_12_30
-        // SPEC: SERVICES_NEURAL_GRID_REPLACE_PORTRAIT_2025_12_30
-        // --- COLUMN 1 (4 Portraits) ---
-        { file: 'General_Services_2B_Mobile.jpeg', type: 'portrait', title: 'Automation Modules', backCopy: 'Expanded modules across your systems.' },
-        { file: 'eComm_3_Mobile.jpeg', type: 'portrait', title: 'eCommerce Momentum', backCopy: 'Keep orders, carts, and follow-ups moving.' },
-        { file: 'Trades_2_Mobile.jpeg', type: 'portrait', title: 'Trades Dispatch', backCopy: 'Route jobs fast with clean, live updates.' },
-        { file: 'Gyms_1_Mobile.jpeg', type: 'portrait', title: 'Gym Member Flow', backCopy: 'Lead-to-member journeys handled smoothly.' },
+    const content = document.createElement('div');
+    content.className = 'lightbox-content';
 
-        // --- COLUMN 2 (2 Portraits + 3 Squares) ---
-        { file: 'Hospitality_1_Mobile.jpeg', type: 'portrait', title: 'Hospitality Flow', backCopy: 'Bookings, reminders, and guest comms aligned.' },
-        { file: '2-3_realestate_phone-with-house-icon_focus-on-the-viewing.webp', type: 'portrait', title: 'Viewing Focus', backCopy: 'Prioritise viewings with instant responses.' },
-        { file: 'services_consulting_mobile.jpg', type: 'square', title: 'Consulting Sprint', backCopy: 'Clarity on tools, roadmap, and next steps.' },
-        { file: 'services_data_integration_mobile.jpg', type: 'square', title: 'Data Integration', backCopy: 'Connect apps so data flows cleanly.' },
-        { file: 'services_workflow_automation_mobile.jpg', type: 'square', title: 'Workflow Automation', backCopy: 'Remove bottlenecks with smart workflows.' },
+    const img = document.createElement('img');
+    img.id = 'lightbox-img';
+    img.className = 'lightbox-img';
 
-        // --- COLUMN 3 (2 Portraits + 3 Landscapes + 1 Square) ---
-        { file: '2-3_voicebot_globe-and-tablet_100k-conversations-zero-burnout.webp', type: 'portrait', title: 'Voicebot Coverage', backCopy: 'Always-on conversations without burnout.' },
-        { file: '2-3_salon_spa-room-booking-confirmed_full-treatment-list-zero-interruptions.webp', type: 'portrait', title: 'Salon Bookings', backCopy: 'Confirmed bookings with fewer gaps.' },
-        { file: '3-2_tutoring_tutor-with-laptop_more-focused-1-1-lessons.webp', type: 'landscape', title: 'Focused Tutoring', backCopy: '1:1 sessions stay organised and on time.' },
-        { file: '3-2_sales_laptop-and-graphs_thousands-of-calls-barely-any-conversions.webp', type: 'landscape', title: 'Sales Dashboards', backCopy: 'Track calls, replies, and conversion lift.' },
-        { file: '3-2_business_laptop-with-sales-dashboard_your-shop-sells-while-you-sleep.webp', type: 'landscape', title: 'Always-On Sales', backCopy: 'Sales keep moving after hours.' },
-        { file: '1-1_Trades_Grid.jpg', type: 'square', title: 'Trades Grid', backCopy: 'Jobs, updates, and schedules in one grid.' }
-    ];
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'lightbox-close';
+    closeBtn.ariaLabel = 'Close Lightbox';
+    closeBtn.addEventListener('click', closeLightbox);
 
-    // --- INITIALIZATION ---
-    function initPremiumGallery() {
-        const gridContainer = document.getElementById(GALLERY_TARGET_ID);
-        if (!gridContainer) return; // Not on services page or container missing
+    content.appendChild(img);
+    content.appendChild(closeBtn);
+    lightbox.appendChild(content);
 
-        // 1. Clean Slate Protocol
-        gridContainer.innerHTML = '';
-        while (gridContainer.firstChild) {
-            gridContainer.removeChild(gridContainer.firstChild);
-        }
+    document.body.appendChild(lightbox);
+  }
 
-        // 2. Build Mosaic
-        const fragment = document.createDocumentFragment();
+  function openLightbox(src) {
+    const lightbox = document.getElementById('premium-lightbox');
+    const img = document.getElementById('lightbox-img');
+    if (!lightbox || !img || !src) return;
 
-        CURATED_IMAGES.forEach(imgData => {
-            const tile = createTile(imgData);
-            fragment.appendChild(tile);
-        });
+    img.src = src;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
 
-        gridContainer.appendChild(fragment);
+  function closeLightbox() {
+    const lightbox = document.getElementById('premium-lightbox');
+    if (!lightbox) return;
 
-        // 3. Inject Lightbox DOM
-        injectLightbox();
-    }
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 
-    // --- TILE CREATION ---
-    function createTile(data) {
-        const tile = document.createElement('div');
-        tile.className = `premium-tile ${data.type}`;
+  function resolveLightboxSrc(trigger) {
+    if (!trigger) return '';
 
-        // Inner Container for 3D Flip
-        const inner = document.createElement('div');
-        inner.className = 'tile-inner';
+    const explicitSrc = trigger.dataset.lightboxSrc;
+    if (explicitSrc) return explicitSrc;
 
-        // Front Face (Image)
-        const front = document.createElement('div');
-        front.className = 'tile-front';
-        const img = document.createElement('img');
-        img.src = ASSET_PATH + data.file;
-        img.alt = data.title;
-        img.loading = 'eager';
-        img.decoding = 'async';
-        img.fetchPriority = 'high';
+    const img = trigger.querySelector('img');
+    return img ? img.currentSrc || img.src : '';
+  }
 
-        // Error handling
-        img.onerror = function () {
-            this.style.display = 'none';
-            console.warn(`Image not found: ${data.file}`);
-        };
-        front.appendChild(img);
+  function bindGalleryTiles() {
+    const triggers = document.querySelectorAll('.js-gallery-lightbox');
+    if (!triggers.length) return;
 
-        // Back Face (Metadata)
-        const back = document.createElement('div');
-        back.className = 'tile-back';
-        const title = document.createElement('h4');
-        title.textContent = data.title;
-        const subtitle = document.createElement('p');
-        subtitle.textContent = data.backCopy || 'Click to expand';
-        back.appendChild(title);
-        back.appendChild(subtitle);
+    ensureLightbox();
 
-        inner.appendChild(front);
-        inner.appendChild(back);
-        tile.appendChild(inner);
+    triggers.forEach((trigger) => {
+      if (trigger.dataset.ssLightboxBound === '1') return;
+      trigger.dataset.ssLightboxBound = '1';
 
-        // Click Event -> Open Lightbox
-        tile.addEventListener('click', () => openLightbox(img.src));
+      trigger.addEventListener('click', () => {
+        openLightbox(resolveLightboxSrc(trigger));
+      });
 
-        return tile;
-    }
+      trigger.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openLightbox(resolveLightboxSrc(trigger));
+      });
+    });
+  }
 
-    // --- LIGHTBOX LOGIC ---
-    function injectLightbox() {
-        if (document.getElementById('premium-lightbox')) return;
+  function initPremiumGallery() {
+    bindGalleryTiles();
+  }
 
-        const lightbox = document.createElement('div');
-        lightbox.id = 'premium-lightbox';
-        lightbox.className = 'premium-lightbox';
-
-        const content = document.createElement('div');
-        content.className = 'lightbox-content';
-
-        const img = document.createElement('img');
-        img.id = 'lightbox-img';
-        img.className = 'lightbox-img';
-
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'lightbox-close';
-        closeBtn.ariaLabel = 'Close Lightbox';
-
-        // Strict Closing Logic: ONLY the 'X' button closes it
-        closeBtn.addEventListener('click', closeLightbox);
-
-        content.appendChild(img);
-        content.appendChild(closeBtn);
-        lightbox.appendChild(content);
-
-        document.body.appendChild(lightbox);
-    }
-
-    function openLightbox(src) {
-        const lightbox = document.getElementById('premium-lightbox');
-        const img = document.getElementById('lightbox-img');
-        if (!lightbox || !img) return;
-
-        img.src = src;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Lock scroll
-    }
-
-    function closeLightbox() {
-        const lightbox = document.getElementById('premium-lightbox');
-        if (!lightbox) return;
-
-        lightbox.classList.remove('active');
-        document.body.style.overflow = ''; // Unlock scroll
-    }
-
-    // Run Initialization
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPremiumGallery);
-    } else {
-        initPremiumGallery();
-    }
-
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPremiumGallery);
+  } else {
+    initPremiumGallery();
+  }
 })();
 
 
