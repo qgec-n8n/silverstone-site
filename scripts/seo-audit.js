@@ -4,21 +4,11 @@ const fs = require("fs");
 const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..");
-
-const indexedPages = [
+const staticIndexedPages = [
   { file: "index.html", canonical: "https://silverstone-ai.com" },
   { file: "about.html", canonical: "https://silverstone-ai.com/about" },
   { file: "services.html", canonical: "https://silverstone-ai.com/services" },
   { file: "blog.html", canonical: "https://silverstone-ai.com/blog" },
-  { file: "blog/ai-document-automation-uk-smes-2026.html", canonical: "https://silverstone-ai.com/blog/ai-document-automation-uk-smes-2026" },
-  { file: "blog/ai-automation-uk-gdpr-2026-sme-guide.html", canonical: "https://silverstone-ai.com/blog/ai-automation-uk-gdpr-2026-sme-guide" },
-  { file: "blog/ai-website-tools-uk-small-businesses-2026.html", canonical: "https://silverstone-ai.com/blog/ai-website-tools-uk-small-businesses-2026" },
-  { file: "blog/ai-voice-agents-uk-smes-2026.html", canonical: "https://silverstone-ai.com/blog/ai-voice-agents-uk-smes-2026" },
-  { file: "blog/ai-automation-failures-uk-smes-2026.html", canonical: "https://silverstone-ai.com/blog/ai-automation-failures-uk-smes-2026" },
-  { file: "blog/ai-receptionist-uk-costs-roi-2026.html", canonical: "https://silverstone-ai.com/blog/ai-receptionist-uk-costs-roi-2026" },
-  { file: "blog/ai-no-show-reduction-uk-salons-barbers.html", canonical: "https://silverstone-ai.com/blog/ai-no-show-reduction-uk-salons-barbers" },
-  { file: "blog/ai-lead-capture-uk-trades-2026.html", canonical: "https://silverstone-ai.com/blog/ai-lead-capture-uk-trades-2026" },
-  { file: "blog/ai-receptionist-small-business-2026.html", canonical: "https://silverstone-ai.com/blog/ai-receptionist-small-business-2026" },
   { file: "book.html", canonical: "https://silverstone-ai.com/book" },
   { file: "contact.html", canonical: "https://silverstone-ai.com/contact" },
   { file: "niches/dentists.html", canonical: "https://silverstone-ai.com/niches/dentists" },
@@ -32,6 +22,17 @@ const indexedPages = [
   { file: "niches/trades-virtual-office.html", canonical: "https://silverstone-ai.com/niches/trades-virtual-office" },
 ];
 
+const blogDir = path.join(repoRoot, "blog");
+const blogPages = fs
+  .readdirSync(blogDir)
+  .filter((entry) => entry.endsWith(".html"))
+  .sort()
+  .map((entry) => ({
+    file: `blog/${entry}`,
+    canonical: `https://silverstone-ai.com/blog/${entry.replace(/\.html$/, "")}`,
+  }));
+
+const indexedPages = [...staticIndexedPages, ...blogPages];
 const requiredSitemapUrls = indexedPages.map((page) => page.canonical);
 
 function readFile(relPath) {
@@ -47,11 +48,61 @@ function extractFirst(content, regex) {
   return match ? match[1].trim() : "";
 }
 
+function findNonCanonicalBlogLinks(content) {
+  return Array.from(
+    new Set(
+      Array.from(
+        content.matchAll(/href=["']([^"']*blog\/[^"']+\.html(?:[?#][^"']*)?)["']/gi)
+      ).map((match) => match[1].trim())
+    )
+  );
+}
+
 const errors = [];
 const warnings = [];
 
+const robotsTxt = readFile("robots.txt");
+if (!/User-agent:\s*\*/i.test(robotsTxt)) {
+  errors.push('robots.txt: missing "User-agent: *" rule');
+}
+if (!/Allow:\s*\//i.test(robotsTxt)) {
+  errors.push('robots.txt: missing "Allow: /" rule');
+}
+if (!/Sitemap:\s*https:\/\/silverstone-ai\.com\/sitemap\.xml/i.test(robotsTxt)) {
+  errors.push('robots.txt: missing production sitemap declaration');
+}
+
+const sitemap = readFile("sitemap.xml");
+const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)).map((match) =>
+  normalizeUrl(match[1].trim())
+);
+const sitemapUrlSet = new Set(sitemapUrls);
+
+if (sitemapUrls.length !== sitemapUrlSet.size) {
+  errors.push("sitemap.xml: duplicate <loc> entries found");
+}
+
+const requiredSet = new Set(requiredSitemapUrls.map((url) => normalizeUrl(url)));
+for (const url of requiredSet) {
+  if (!sitemapUrlSet.has(url)) {
+    errors.push(`sitemap.xml: missing required URL ${url}`);
+  }
+}
+for (const url of sitemapUrlSet) {
+  if (!requiredSet.has(url)) {
+    errors.push(`sitemap.xml: unexpected URL ${url}`);
+  }
+}
+
+for (const url of sitemapUrls) {
+  if (/^https:\/\/silverstone-ai\.com\/blog\/.+\.html$/i.test(url)) {
+    errors.push(`sitemap.xml: blog URL must be extensionless (${url})`);
+  }
+}
+
 for (const page of indexedPages) {
   const html = readFile(page.file);
+  const isBlogArticle = page.file.startsWith("blog/");
 
   const canonical = extractFirst(
     html,
@@ -89,6 +140,32 @@ for (const page of indexedPages) {
       errors.push(`${page.file}: robots meta should include "index, follow"`);
     }
   }
+
+  if (isBlogArticle) {
+    const ogUrl = extractFirst(
+      html,
+      /<meta[^>]*property=["']og:url["'][^>]*content=["']([^"']+)["'][^>]*>/i
+    );
+    if (!ogUrl) {
+      errors.push(`${page.file}: missing og:url meta tag`);
+    } else if (normalizeUrl(ogUrl) !== normalizeUrl(page.canonical)) {
+      errors.push(
+        `${page.file}: og:url mismatch (expected ${page.canonical}, found ${ogUrl})`
+      );
+    }
+
+    if (!/"@type"\s*:\s*"BlogPosting"/.test(html)) {
+      errors.push(`${page.file}: missing BlogPosting JSON-LD`);
+    }
+  }
+}
+
+const filesWithBlogLinks = ["blog.html", ...blogPages.map((page) => page.file)];
+for (const file of filesWithBlogLinks) {
+  const badLinks = findNonCanonicalBlogLinks(readFile(file));
+  if (badLinks.length > 0) {
+    errors.push(`${file}: found non-canonical internal blog links (${badLinks.join(", ")})`);
+  }
 }
 
 const indexHtml = readFile("index.html");
@@ -97,28 +174,6 @@ if (!indexHtml.includes('"@type": "WebSite"')) {
 }
 if (!indexHtml.includes('"name": "Silverstone AI"')) {
   errors.push('index.html: WebSite structured data is missing "Silverstone AI" site name');
-}
-
-const sitemap = readFile("sitemap.xml");
-const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)).map((match) =>
-  normalizeUrl(match[1].trim())
-);
-const sitemapUrlSet = new Set(sitemapUrls);
-
-if (sitemapUrls.length !== sitemapUrlSet.size) {
-  errors.push("sitemap.xml: duplicate <loc> entries found");
-}
-
-const requiredSet = new Set(requiredSitemapUrls.map((url) => normalizeUrl(url)));
-for (const url of requiredSet) {
-  if (!sitemapUrlSet.has(url)) {
-    errors.push(`sitemap.xml: missing required URL ${url}`);
-  }
-}
-for (const url of sitemapUrlSet) {
-  if (!requiredSet.has(url)) {
-    errors.push(`sitemap.xml: unexpected URL ${url}`);
-  }
 }
 
 if (warnings.length > 0) {
@@ -136,4 +191,6 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`SEO audit passed for ${indexedPages.length} indexable pages and sitemap.xml`);
+console.log(
+  `SEO audit passed for ${blogPages.length} blog pages, ${staticIndexedPages.length} static indexable pages, robots.txt, and sitemap.xml`
+);

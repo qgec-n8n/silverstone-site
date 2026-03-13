@@ -86,3 +86,31 @@
 - Root cause: the gallery block remained on the blog index even though it was no longer desired content for that page.
 - Changes made: removed the entire gallery section from `blog.html`; no JS change was required because the premium gallery initializer already exits when `#neural-grid` is absent.
 - Verification target: confirm `blog.html` no longer contains "Automation ideas in action", `#innovation-gallery`, `#neural-grid`, or `#innovation-marquee-slot`, and rerun `npm run seo:audit`.
+
+## 2026-03-13 blog indexability normalization
+
+- Observed before edit:
+  - The canonical production host already served `https://silverstone-ai.com/robots.txt` and `https://silverstone-ai.com/sitemap.xml` with `200`, so the indexing issue was not a missing robots file on the primary host.
+  - All 20 `blog/*.html` articles already had extensionless canonical tags and were already listed in `sitemap.xml`, but both `/blog/slug` and `/blog/slug.html` resolved with `200`, leaving duplicate crawlable URL shapes live.
+  - There were 34 internal links still pointing at `.html` blog URLs, 5 pages had a copied `og:url` pointing at `ai-receptionist-small-business-2026`, 12 blog pages had no article JSON-LD at all, and the existing SEO audit allowlist omitted 11 live blog posts.
+- Root cause:
+  - Google was being given mixed canonical signals for the same articles: duplicate `.html` URLs stayed live, internal links still referenced those duplicates, and some social metadata pointed at the wrong article URL entirely.
+  - The repo’s SEO audit was too stale to catch that drift, so new blog posts could ship without matching sitemap, metadata, and structured-data checks.
+- Changes made:
+  - Added explicit Netlify `301` redirects in `netlify.toml` for every current `/blog/*.html` article URL to its extensionless canonical.
+  - Replaced the remaining `.html` blog links in `blog.html` and article cross-links with extensionless canonical URLs.
+  - Corrected the 5 incorrect `og:url` tags and standardized all 20 blog pages on `BlogPosting` JSON-LD.
+  - Rewrote `scripts/seo-audit.js` to discover `blog/*.html` automatically and fail on missing sitemap coverage, bad `og:url`, missing `BlogPosting` JSON-LD, or non-canonical `.html` blog links.
+  - Updated `sitemap.xml` `lastmod` values for the touched blog hub and article URLs.
+- Before/after evidence:
+  - Before: `node scripts/seo-audit.js` failed with 11 unexpected sitemap blog URLs because the allowlist lagged behind the live sitemap.
+  - Before: a repo-wide scan found 34 `href="...blog/...html"` links and 5 `og:url` mismatches across blog articles.
+  - After: `npm run seo:audit` passes for 20 blog pages, 15 static indexable pages, `robots.txt`, and `sitemap.xml`.
+  - After: a local Netlify runtime verification loop confirmed all 20 canonical article URLs return `200` and all 20 `.html` article URLs return a single `301` to the extensionless canonical.
+  - After: sampled production checks still show `https://silverstone-ai.com/robots.txt`, `https://silverstone-ai.com/sitemap.xml`, and canonical blog URLs returning `200` with no `X-Robots-Tag: noindex` header present.
+- Reproducible verification loop:
+  - Run `npm run seo:audit`.
+  - Start `npx --yes netlify-cli dev --port 8899`.
+  - For each `blog/*.html` file, verify `http://localhost:8899/blog/slug` returns `200` and `http://localhost:8899/blog/slug.html` returns `301` to the extensionless URL.
+  - Confirm production host availability with `curl -I https://silverstone-ai.com/robots.txt` and `curl -I https://silverstone-ai.com/sitemap.xml`.
+  - After deployment, use Google Search Console to inspect `robots.txt`, resubmit `sitemap.xml`, and request recrawls for representative previously affected blog URLs.

@@ -1,6 +1,126 @@
 [build]
   publish = "."
 
+[[redirects]]
+  from = "/blog/ai-appointment-reminders-uk-2026.html"
+  to = "/blog/ai-appointment-reminders-uk-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-automation-failures-uk-smes-2026.html"
+  to = "/blog/ai-automation-failures-uk-smes-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-automation-uk-gdpr-2026-sme-guide.html"
+  to = "/blog/ai-automation-uk-gdpr-2026-sme-guide"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-booking-automation-uk-hospitality-2026.html"
+  to = "/blog/ai-booking-automation-uk-hospitality-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-document-automation-uk-smes-2026.html"
+  to = "/blog/ai-document-automation-uk-smes-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-etas-smart-scheduling-uk-trades-2026.html"
+  to = "/blog/ai-etas-smart-scheduling-uk-trades-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-lead-capture-trades-uk-2026.html"
+  to = "/blog/ai-lead-capture-trades-uk-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-lead-capture-uk-trades-2026.html"
+  to = "/blog/ai-lead-capture-uk-trades-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-lead-qualification-estate-agents-2026.html"
+  to = "/blog/ai-lead-qualification-estate-agents-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-no-show-reduction-uk-salons-barbers.html"
+  to = "/blog/ai-no-show-reduction-uk-salons-barbers"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-receptionist-small-business-2026.html"
+  to = "/blog/ai-receptionist-small-business-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-receptionist-uk-costs-roi-2026.html"
+  to = "/blog/ai-receptionist-uk-costs-roi-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-voice-agents-uk-smes-2026.html"
+  to = "/blog/ai-voice-agents-uk-smes-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-website-tools-uk-small-businesses-2026.html"
+  to = "/blog/ai-website-tools-uk-small-businesses-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/dental-recall-automation-uk-2026.html"
+  to = "/blog/dental-recall-automation-uk-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/dm-to-client-automation-uk-fitness-coaches-2026.html"
+  to = "/blog/dm-to-client-automation-uk-fitness-coaches-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/gym-booking-automation-uk-gyms-studios-2026.html"
+  to = "/blog/gym-booking-automation-uk-gyms-studios-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/post-purchase-automation-uk-ecommerce-repeat-customers.html"
+  to = "/blog/post-purchase-automation-uk-ecommerce-repeat-customers"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/quote-chase-automation-uk-trades-accepted-jobs-2026.html"
+  to = "/blog/quote-chase-automation-uk-trades-accepted-jobs-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/quote-follow-up-automation-uk-trades-2026.html"
+  to = "/blog/quote-follow-up-automation-uk-trades-2026"
+  status = 301
+  force = true
+
 # Basic headers for preview environment
 [context.deploy-preview]
   # Apply noindex headers only to deploy preview builds so that crawlers
