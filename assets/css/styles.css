@@ -12752,7 +12752,6 @@ body.services-overlay-active .services-overlay {
 
 .hero {
   min-height: 100vh;
-  min-height: var(--mobile-stable-vh, 100vh);
   height: auto;
   position: relative;
   color: var(--color-white);
@@ -12901,6 +12900,12 @@ body.services-overlay-active .services-overlay {
 }
 
 @media (min-width: 769px) {
+  .hero {
+    min-height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+  }
+
   .hero.title-band .content {
     width: fit-content;
     max-width: min(92vw, 700px);
