@@ -12727,6 +12727,10 @@ body.services-overlay-active .services-overlay {
 }
 
 @media (max-width: 768px) {
+  .site-footer {
+    padding-bottom: calc(3rem + var(--safe-area-bottom));
+  }
+
   .site-footer .footer-container {
     flex-direction: column;
     align-items: flex-start;
