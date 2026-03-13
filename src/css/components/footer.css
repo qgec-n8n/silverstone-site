@@ -105,11 +105,7 @@
 
 @media (max-width: 768px) {
   .site-footer {
-    --footer-overscroll-bleed: clamp(96px, 18vh, 180px);
-    padding-bottom: calc(
-      3rem + var(--safe-area-bottom) + var(--footer-overscroll-bleed)
-    );
-    margin-bottom: calc(-1 * var(--footer-overscroll-bleed));
+    padding-bottom: calc(3rem + var(--safe-area-bottom));
   }
 
   .site-footer .footer-container {
