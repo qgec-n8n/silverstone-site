@@ -668,6 +668,113 @@
 
   window.Silverstone = window.Silverstone || {};
 
+  const root = document.documentElement;
+  const orientationState = new Map();
+  let cleanup = null;
+
+  function getOrientationKey() {
+    if (
+      window.matchMedia &&
+      window.matchMedia('(orientation: landscape)').matches
+    ) {
+      return 'landscape';
+    }
+    return 'portrait';
+  }
+
+  function getScreenHeightCssPx() {
+    const vv = window.visualViewport;
+    const rawHeight =
+      typeof window.screen !== 'undefined' ? window.screen.height || 0 : 0;
+    if (!rawHeight) return 0;
+    if (vv && vv.scale) return rawHeight / vv.scale;
+    return rawHeight;
+  }
+
+  function measureCssViewportHeight() {
+    if (!document.body) return 0;
+    const probe = document.createElement('div');
+    probe.setAttribute('aria-hidden', 'true');
+    probe.style.cssText =
+      'position:fixed;top:0;left:0;width:1px;height:100vh;height:100lvh;pointer-events:none;visibility:hidden;';
+    document.body.appendChild(probe);
+    const height = probe.getBoundingClientRect().height || 0;
+    probe.remove();
+    return height;
+  }
+
+  function computeStableViewportHeight() {
+    const vv = window.visualViewport;
+    const innerHeight =
+      typeof window.innerHeight === 'number' ? window.innerHeight : 0;
+    const visualHeight = vv ? vv.height || 0 : 0;
+    const screenHeight = getScreenHeightCssPx();
+    const cssViewportHeight = measureCssViewportHeight();
+    return Math.max(innerHeight, visualHeight, screenHeight, cssViewportHeight);
+  }
+
+  function applyStableViewportHeight(forceReset) {
+    const orientation = getOrientationKey();
+    const nextHeight = Math.round(computeStableViewportHeight());
+    const previousHeight = forceReset ? 0 : orientationState.get(orientation) || 0;
+    const stableHeight = Math.max(previousHeight, nextHeight);
+    orientationState.set(orientation, stableHeight);
+    root.style.setProperty('--mobile-stable-vh', `${stableHeight}px`);
+  }
+
+  function bindViewportMetrics() {
+    if (cleanup) return;
+
+    let orientation = getOrientationKey();
+    const handleViewportResize = () => {
+      const nextOrientation = getOrientationKey();
+      const orientationChanged = nextOrientation !== orientation;
+      orientation = nextOrientation;
+      applyStableViewportHeight(orientationChanged);
+    };
+
+    const handlePageShow = () => {
+      orientationState.delete(getOrientationKey());
+      applyStableViewportHeight(true);
+    };
+
+    applyStableViewportHeight(true);
+    window.addEventListener('resize', handleViewportResize, { passive: true });
+    window.addEventListener('orientationchange', handleViewportResize, {
+      passive: true,
+    });
+    window.addEventListener('pageshow', handlePageShow, { passive: true });
+
+    const vv = window.visualViewport;
+    if (vv && typeof vv.addEventListener === 'function') {
+      vv.addEventListener('resize', handleViewportResize, { passive: true });
+    }
+
+    cleanup = () => {
+      window.removeEventListener('resize', handleViewportResize);
+      window.removeEventListener('orientationchange', handleViewportResize);
+      window.removeEventListener('pageshow', handlePageShow);
+      if (vv && typeof vv.removeEventListener === 'function') {
+        vv.removeEventListener('resize', handleViewportResize);
+      }
+      cleanup = null;
+    };
+  }
+
+  function initViewportMetrics() {
+    bindViewportMetrics();
+  }
+
+  window.Silverstone.initViewportMetrics = initViewportMetrics;
+  initViewportMetrics();
+})();
+
+
+(function () {
+  'use strict';
+
+  window.Silverstone = window.Silverstone || {};
+
   // SS_PARALLAX_SPEC: NICHE_MOBILE_BG_PARITY
   let initialized = false;
 
@@ -745,7 +852,6 @@
       current: null,
       observer: null,
       layers: [],
-      viewportCleanup: null,
     };
 
     const setActiveLayer = (section) => {
@@ -780,49 +886,6 @@
         },
         { threshold: [0, 0.25, 0.5, 0.75, 1] },
       );
-
-    const getViewportSize = () => {
-      const vv = window.visualViewport;
-      return {
-        width: vv ? vv.width : window.innerWidth,
-        height: vv ? vv.height : window.innerHeight,
-      };
-    };
-
-    const syncStageSize = () => {
-      if (!state.stage) return;
-      const { width, height } = getViewportSize();
-      const ua = navigator.userAgent || '';
-      const isIos = /iPad|iPhone|iPod/.test(ua);
-      const isIosSafari =
-        isIos && !/CriOS|FxiOS|EdgiOS|OPiOS/.test(ua);
-      let overscan = 0;
-      if (isIosSafari && typeof window.screen !== 'undefined') {
-        const screenHeight = window.screen.height || 0;
-        overscan = Math.max(0, screenHeight - height);
-        overscan = Math.min(overscan, 160);
-      }
-      state.stage.style.width = `${Math.ceil(width)}px`;
-      state.stage.style.height = `${Math.ceil(height + overscan)}px`;
-    };
-
-    const bindViewportListeners = () => {
-      const handler = () => syncStageSize();
-      const cleanups = [];
-      window.addEventListener('resize', handler, { passive: true });
-      cleanups.push(() => window.removeEventListener('resize', handler));
-      if (window.visualViewport && typeof window.visualViewport.addEventListener === 'function') {
-        window.visualViewport.addEventListener('resize', handler, { passive: true });
-        window.visualViewport.addEventListener('scroll', handler, { passive: true });
-        cleanups.push(() =>
-          window.visualViewport.removeEventListener('resize', handler),
-        );
-        cleanups.push(() =>
-          window.visualViewport.removeEventListener('scroll', handler),
-        );
-      }
-      return () => cleanups.forEach((cleanup) => cleanup());
-    };
 
     const getImageValue = (images) => {
       if (!images) return '';
@@ -882,8 +945,7 @@
       state.stage = stage;
       state.observer = observer;
       state.active = true;
-      syncStageSize();
-      state.viewportCleanup = bindViewportListeners();
+      document.body.classList.add('parallax-stage-active');
 
       const initial = layers
         .slice()
@@ -902,10 +964,6 @@
 
     const disableMobile = () => {
       if (!state.active) return;
-      if (state.viewportCleanup) {
-        state.viewportCleanup();
-        state.viewportCleanup = null;
-      }
       if (state.observer) {
         state.observer.disconnect();
         state.observer = null;
@@ -924,6 +982,7 @@
       }
       state.stage = null;
       state.active = false;
+      document.body.classList.remove('parallax-stage-active');
     };
 
     const evaluate = () => {
@@ -1159,6 +1218,9 @@
   function initHeroShader() {
     const canvas = document.getElementById('hero-shader-canvas');
     if (!canvas) return;
+    const hero =
+      canvas.closest('.hero.title-band') ||
+      document.querySelector('.hero.title-band');
 
     // Determine variant
     const variant = canvas.dataset.variant || 'default';
@@ -1203,9 +1265,9 @@
       uBgColor1: gl.getUniformLocation(shaderProgram, 'uBgColor1'),
       uBgColor2: gl.getUniformLocation(shaderProgram, 'uBgColor2')
     };
+    let resizeObserver = null;
 
     function resizeCanvas() {
-      const hero = document.querySelector('.hero.title-band');
       const rect = hero ? hero.getBoundingClientRect() : canvas.getBoundingClientRect();
       const width = Math.max(1, Math.floor(rect.width));
       const height = Math.max(1, Math.floor(rect.height));
@@ -1218,6 +1280,10 @@
     }
 
     window.addEventListener('resize', resizeCanvas);
+    if (typeof ResizeObserver === 'function' && hero) {
+      resizeObserver = new ResizeObserver(() => resizeCanvas());
+      resizeObserver.observe(hero);
+    }
     resizeCanvas();
 
     let startTime = Date.now();
@@ -1260,6 +1326,10 @@
     window.addEventListener('beforeunload', function handleBeforeUnload() {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resizeCanvas);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+        resizeObserver = null;
+      }
       window.removeEventListener('beforeunload', handleBeforeUnload);
     });
   }

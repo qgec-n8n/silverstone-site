@@ -107,6 +107,10 @@
     background-size: cover;
     background-attachment: scroll;
   }
+  body.parallax-stage-active {
+    background-image: none;
+    background-color: var(--parallax-backdrop);
+  }
   .parallax-section {
     background-image: none !important;
     background-color: transparent;
@@ -125,11 +129,17 @@
   }
   .parallax-mobile-stage {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 100vh;
+    height: var(--mobile-stable-vh, 100vh);
     z-index: -1;
     pointer-events: none;
     overflow: hidden;
     background-color: var(--parallax-backdrop);
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   .parallax-mobile-layer {
     position: absolute;
@@ -139,6 +149,9 @@
     background-size: cover;
     opacity: 0;
     transition: opacity 320ms ease;
+    will-change: opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   .parallax-mobile-layer.is-active {
     opacity: 1;

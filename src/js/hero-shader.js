@@ -210,6 +210,9 @@
   function initHeroShader() {
     const canvas = document.getElementById('hero-shader-canvas');
     if (!canvas) return;
+    const hero =
+      canvas.closest('.hero.title-band') ||
+      document.querySelector('.hero.title-band');
 
     // Determine variant
     const variant = canvas.dataset.variant || 'default';
@@ -254,9 +257,9 @@
       uBgColor1: gl.getUniformLocation(shaderProgram, 'uBgColor1'),
       uBgColor2: gl.getUniformLocation(shaderProgram, 'uBgColor2')
     };
+    let resizeObserver = null;
 
     function resizeCanvas() {
-      const hero = document.querySelector('.hero.title-band');
       const rect = hero ? hero.getBoundingClientRect() : canvas.getBoundingClientRect();
       const width = Math.max(1, Math.floor(rect.width));
       const height = Math.max(1, Math.floor(rect.height));
@@ -269,6 +272,10 @@
     }
 
     window.addEventListener('resize', resizeCanvas);
+    if (typeof ResizeObserver === 'function' && hero) {
+      resizeObserver = new ResizeObserver(() => resizeCanvas());
+      resizeObserver.observe(hero);
+    }
     resizeCanvas();
 
     let startTime = Date.now();
@@ -311,6 +318,10 @@
     window.addEventListener('beforeunload', function handleBeforeUnload() {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resizeCanvas);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+        resizeObserver = null;
+      }
       window.removeEventListener('beforeunload', handleBeforeUnload);
     });
   }

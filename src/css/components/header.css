@@ -7,12 +7,12 @@ header.site-header {
   width: 100%;
   z-index: 1000;
   background-color: var(--color-white);
-  height: var(--headerH);
+  height: calc(var(--headerH) + var(--safe-area-top));
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   display: flex;
   align-items: center;
-  padding-top: 0.5rem;
+  padding-top: calc(0.5rem + var(--safe-area-top));
   padding-bottom: 0.5rem;
 }
 
@@ -102,7 +102,7 @@ nav {
 
 #header-indicator {
   position: fixed;
-  top: 0;
+  top: var(--safe-area-top);
   left: 0;
   width: 100%;
   height: calc(var(--headerH) * 0.335);
@@ -346,7 +346,8 @@ nav {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: clamp(1rem, 4vw, 1.25rem) clamp(1.25rem, 5vw, 1.5rem)
+    padding: calc(clamp(1rem, 4vw, 1.25rem) + var(--safe-area-top))
+      clamp(1.25rem, 5vw, 1.5rem)
       clamp(0.35rem, 2vw, 0.85rem);
     position: relative;
   }
@@ -396,15 +397,19 @@ nav {
   .mobile-nav-track {
     position: relative;
     flex: 1;
+    min-height: 0;
     overflow: hidden;
-    height: calc(100% - 78px);
+    height: auto;
   }
 
   .mobile-nav-view {
     position: absolute;
     inset: 0;
     overflow-y: auto;
-    padding: clamp(1.25rem, 4vw, 1.75rem);
+    padding:
+      clamp(1.25rem, 4vw, 1.75rem)
+      clamp(1.25rem, 4vw, 1.75rem)
+      calc(clamp(1.25rem, 4vw, 1.75rem) + var(--safe-area-bottom));
     transform: translateX(100%);
     transition: transform var(--mobile-nav-panel-slide-ms)
       cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -681,7 +686,10 @@ body.services-dropdown-open header.site-header {
 .services-overlay {
   position: fixed;
   inset: 0;
-  padding: clamp(1.25rem, 5vw, 2.5rem);
+  padding:
+    calc(clamp(1.25rem, 5vw, 2.5rem) + var(--safe-area-top))
+    clamp(1.25rem, 5vw, 2.5rem)
+    calc(clamp(1.25rem, 5vw, 2.5rem) + var(--safe-area-bottom));
   background: linear-gradient(
     145deg,
     rgba(4, 10, 22, 0.72),

@@ -13,4 +13,14 @@
   --max-width: 1200px;
   --headerH: clamp(56px, 8vh, 72px);
   --body-section-overlay-opacity: 0.24;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --header-safe-offset: calc(var(--headerH) + var(--safe-area-top));
+  --mobile-stable-vh: 100vh;
+}
+
+@supports (height: 100lvh) {
+  :root {
+    --mobile-stable-vh: 100lvh;
+  }
 }

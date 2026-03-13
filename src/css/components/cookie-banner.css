@@ -6,7 +6,7 @@
   right: 0;
   background: rgba(0, 0, 0, 0.9);
   color: #fff;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem calc(1rem + var(--safe-area-bottom));
   display: flex;
   flex-wrap: wrap;
   align-items: center;

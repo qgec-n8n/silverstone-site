@@ -13,6 +13,16 @@
   --max-width: 1200px;
   --headerH: clamp(56px, 8vh, 72px);
   --body-section-overlay-opacity: 0.24;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --header-safe-offset: calc(var(--headerH) + var(--safe-area-top));
+  --mobile-stable-vh: 100vh;
+}
+
+@supports (height: 100lvh) {
+  :root {
+    --mobile-stable-vh: 100lvh;
+  }
 }
 
 
@@ -11783,12 +11793,12 @@ header.site-header {
   width: 100%;
   z-index: 1000;
   background-color: var(--color-white);
-  height: var(--headerH);
+  height: calc(var(--headerH) + var(--safe-area-top));
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   display: flex;
   align-items: center;
-  padding-top: 0.5rem;
+  padding-top: calc(0.5rem + var(--safe-area-top));
   padding-bottom: 0.5rem;
 }
 
@@ -11878,7 +11888,7 @@ nav {
 
 #header-indicator {
   position: fixed;
-  top: 0;
+  top: var(--safe-area-top);
   left: 0;
   width: 100%;
   height: calc(var(--headerH) * 0.335);
@@ -12122,7 +12132,8 @@ nav {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: clamp(1rem, 4vw, 1.25rem) clamp(1.25rem, 5vw, 1.5rem)
+    padding: calc(clamp(1rem, 4vw, 1.25rem) + var(--safe-area-top))
+      clamp(1.25rem, 5vw, 1.5rem)
       clamp(0.35rem, 2vw, 0.85rem);
     position: relative;
   }
@@ -12172,15 +12183,19 @@ nav {
   .mobile-nav-track {
     position: relative;
     flex: 1;
+    min-height: 0;
     overflow: hidden;
-    height: calc(100% - 78px);
+    height: auto;
   }
 
   .mobile-nav-view {
     position: absolute;
     inset: 0;
     overflow-y: auto;
-    padding: clamp(1.25rem, 4vw, 1.75rem);
+    padding:
+      clamp(1.25rem, 4vw, 1.75rem)
+      clamp(1.25rem, 4vw, 1.75rem)
+      calc(clamp(1.25rem, 4vw, 1.75rem) + var(--safe-area-bottom));
     transform: translateX(100%);
     transition: transform var(--mobile-nav-panel-slide-ms)
       cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -12457,7 +12472,10 @@ body.services-dropdown-open header.site-header {
 .services-overlay {
   position: fixed;
   inset: 0;
-  padding: clamp(1.25rem, 5vw, 2.5rem);
+  padding:
+    calc(clamp(1.25rem, 5vw, 2.5rem) + var(--safe-area-top))
+    clamp(1.25rem, 5vw, 2.5rem)
+    calc(clamp(1.25rem, 5vw, 2.5rem) + var(--safe-area-bottom));
   background: linear-gradient(
     145deg,
     rgba(4, 10, 22, 0.72),
@@ -12730,8 +12748,8 @@ body.services-overlay-active .services-overlay {
 
 .hero {
   min-height: 100vh;
-  height: 100svh;
-  height: 100dvh;
+  min-height: var(--mobile-stable-vh, 100vh);
+  height: auto;
   position: relative;
   color: var(--color-white);
   display: flex;
@@ -12749,7 +12767,7 @@ body.services-overlay-active .services-overlay {
 }
 
 .title-band {
-  padding-top: calc(var(--headerH) + 80px);
+  padding-top: calc(var(--header-safe-offset) + 80px);
 }
 
 .hero.title-band {
@@ -12764,7 +12782,6 @@ body.services-overlay-active .services-overlay {
   padding-left: clamp(1.25rem, 4vw, 4rem);
   padding-right: clamp(1.25rem, 4vw, 4rem);
 } /* SPEC: REQ3_HERO_COPY_CTA_POSITIONED_OFF_MIDLINE_2025_12_30 */
-}
 
 .hero-media {
   position: absolute;
@@ -12905,8 +12922,9 @@ body.services-overlay-active .services-overlay {
 
 @media (max-width: 768px) {
   .hero.title-band {
-    padding-bottom: calc(2.75rem + env(safe-area-inset-bottom, 0px));
-    padding-top: calc(var(--headerH) + 1.25rem);
+    min-height: var(--mobile-stable-vh, 100vh);
+    padding-bottom: calc(2.75rem + var(--safe-area-bottom));
+    padding-top: calc(var(--header-safe-offset) + 1.25rem);
     align-items: flex-start;
     justify-content: flex-start;
   }
@@ -13652,7 +13670,7 @@ body.services-overlay-active .services-overlay {
   right: 0;
   background: rgba(0, 0, 0, 0.9);
   color: #fff;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem calc(1rem + var(--safe-area-bottom));
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -13798,6 +13816,10 @@ body.services-overlay-active .services-overlay {
     background-size: cover;
     background-attachment: scroll;
   }
+  body.parallax-stage-active {
+    background-image: none;
+    background-color: var(--parallax-backdrop);
+  }
   .parallax-section {
     background-image: none !important;
     background-color: transparent;
@@ -13816,11 +13838,17 @@ body.services-overlay-active .services-overlay {
   }
   .parallax-mobile-stage {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 100vh;
+    height: var(--mobile-stable-vh, 100vh);
     z-index: -1;
     pointer-events: none;
     overflow: hidden;
     background-color: var(--parallax-backdrop);
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   .parallax-mobile-layer {
     position: absolute;
@@ -13830,6 +13858,9 @@ body.services-overlay-active .services-overlay {
     background-size: cover;
     opacity: 0;
     transition: opacity 320ms ease;
+    will-change: opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   .parallax-mobile-layer.is-active {
     opacity: 1;

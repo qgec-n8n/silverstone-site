@@ -10,6 +10,7 @@ const jsOrder = [
   'header-nav.js',
   'scroll-reveal.js',
   'stats.js',
+  'viewport-metrics.js',
   'parallax.js',
   'hero-shader.js',
   'magnetic-buttons.js',
