@@ -11,47 +11,88 @@
   <meta name="robots" content="index, follow">
 
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Silverstone AI" />
   <meta property="og:url" content="https://silverstone-ai.com/niches/salons-barbers" />
-  <meta property="og:title" content="Salon Automation for Barbers and Salons | Silverstone AI" />
-  <meta property="og:description"
-    content="Automation for salons and barbers that cuts no-shows, refills gaps, and nudges clients to rebook." />
+    <meta property="og:title" content="Salon Automation for Barbers and Salons | Silverstone AI" />
+    <meta property="og:description" content="Silverstone AI automation for salons and barbers: cut no-shows, refill cancelled slots quickly, and improve repeat booking rates." />
   <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Salon Automation for Barbers and Salons | Silverstone AI" />
+  <meta name="twitter:description" content="Silverstone AI automation for salons and barbers: cut no-shows, refill cancelled slots quickly, and improve repeat booking rates." />
+  <meta name="twitter:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;500&family=Montserrat:wght@600&display=swap"
     rel="stylesheet">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/pricing-widget.css">
   
-  <script type="application/ld+json">
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "@id": "https://silverstone-ai.com/niches/salons-barbers#breadcrumb",
-      "itemListElement": [
+      "@graph": [
         {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://silverstone-ai.com"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Services",
-          "item": "https://silverstone-ai.com/services"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
+          "@type": "WebPage",
+          "@id": "https://silverstone-ai.com/niches/salons-barbers#webpage",
+          "url": "https://silverstone-ai.com/niches/salons-barbers",
           "name": "Salon Automation for Barbers and Salons",
-          "item": "https://silverstone-ai.com/niches/salons-barbers"
+          "description": "Silverstone AI automation for salons and barbers: cut no-shows, refill cancelled slots quickly, and improve repeat booking rates.",
+          "isPartOf": {
+            "@id": "https://silverstone-ai.com/#website"
+          },
+          "about": {
+            "@id": "https://silverstone-ai.com/#organization"
+          },
+          "breadcrumb": {
+            "@id": "https://silverstone-ai.com/niches/salons-barbers#breadcrumb"
+          },
+          "mainEntity": {
+            "@id": "https://silverstone-ai.com/niches/salons-barbers#service"
+          }
+        },
+        {
+          "@type": "Service",
+          "@id": "https://silverstone-ai.com/niches/salons-barbers#service",
+          "name": "Salon Automation for Barbers and Salons",
+          "serviceType": "Salon Automation for Barbers and Salons",
+          "provider": {
+            "@id": "https://silverstone-ai.com/#organization"
+          },
+          "areaServed": "GB",
+          "url": "https://silverstone-ai.com/niches/salons-barbers",
+          "image": "https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://silverstone-ai.com/niches/salons-barbers#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://silverstone-ai.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Services",
+              "item": "https://silverstone-ai.com/services"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Salon Automation for Barbers and Salons",
+              "item": "https://silverstone-ai.com/niches/salons-barbers"
+            }
+          ]
         }
       ]
     }
@@ -83,19 +124,19 @@
         <span></span>
         <span></span>
       </div>
-      <nav>
+            <nav>
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
+          <li><a href="/services">Services</a></li>
           <li class="nav-dropdown">
             <div class="services-trigger">
-              <a href="/services" class="services-label-link">Services</a>
-              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open services submenu">
+              <button class="services-toggle active" type="button" aria-expanded="false" aria-label="Open niches submenu">
+                <span class="services-label">Niches</span>
                 <span class="chevron" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="services-menu" aria-label="Services submenu" aria-hidden="true">
-              <a class="service-link" href="/services">AI Automation Services</a>
+            <div class="services-menu" aria-label="Niches submenu" aria-hidden="true">
               <a class="service-link" href="/niches/estate-agents">Estate Agents</a>
               <a class="service-link" href="/niches/hospitality">Hospitality</a>
               <a class="service-link" href="/niches/salons-barbers">Salons &amp; Barbers</a>
@@ -114,17 +155,16 @@
       </nav>
     </div>
   </header>
-  <div class="services-overlay" aria-hidden="true">
+    <div class="services-overlay" aria-hidden="true">
     <div class="services-overlay__panel">
       <div class="services-overlay__header">
-        <button class="services-overlay__back" type="button" aria-label="Close services overlay">Back to menu</button>
+        <button class="services-overlay__back" type="button" aria-label="Close niches overlay">Back to menu</button>
         <div class="services-overlay__title">
-          <span class="services-label">Services</span>
+          <span class="services-label">Niches</span>
           <span class="chevron" aria-hidden="true"></span>
         </div>
       </div>
       <div class="services-overlay__grid">
-        <a class="service-pill service-link" href="/services">AI Automation Services</a>
         <a class="service-pill service-link" href="/niches/estate-agents">Estate Agents</a>
         <a class="service-pill service-link" href="/niches/hospitality">Hospitality</a>
         <a class="service-pill service-link" href="/niches/salons-barbers">Salons &amp; Barbers</a>
@@ -137,6 +177,7 @@
       </div>
     </div>
   </div>
+
   <section class="hero title-band">
     <div class="hero-media">
       <canvas id="hero-shader-canvas"></canvas>
@@ -441,6 +482,11 @@
       <div class="neon-card cta-card" style="text-align: center">
         <h2 class="section-title" style="color: var(--color-white)">Ready to stop losing time and money to empty chairs?</h2>
         <p class="section-subtitle" style="color: var(--color-silver)">If late cancellations, no-shows and constant admin are wearing you down, the ‘Chair-Filler Automation Suite’ can help. A short conversation is enough to identify where automation can quietly keep your salon busier without changing how you work on the floor.</p>
+        <div class="cta-link-list">
+          <a href="/services">Browse all Silverstone AI services</a>
+          <a href="/blog/ai-no-show-reduction-uk-salons-barbers">Read the salon no-show reduction guide</a>
+          <a href="/blog/ai-appointment-reminders-uk-2026">Read the appointment reminders guide</a>
+        </div>
         <a href="/book" class="btn btn-primary">Book my free salon automation audit</a>
       </div>
     </div>

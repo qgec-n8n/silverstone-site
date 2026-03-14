@@ -44,47 +44,47 @@ const staticIndexedPages = [
   {
     file: "niches/dentists.html",
     canonical: "https://silverstone-ai.com/niches/dentists",
-    requiredSchema: ["BreadcrumbList"],
+    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
   {
     file: "niches/ecommerce.html",
     canonical: "https://silverstone-ai.com/niches/ecommerce",
-    requiredSchema: ["BreadcrumbList"],
+    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
   {
     file: "niches/estate-agents.html",
     canonical: "https://silverstone-ai.com/niches/estate-agents",
-    requiredSchema: ["BreadcrumbList"],
+    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
   {
     file: "niches/fitness-coaches.html",
     canonical: "https://silverstone-ai.com/niches/fitness-coaches",
-    requiredSchema: ["BreadcrumbList"],
+    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
   {
     file: "niches/gyms-fitness-studios.html",
     canonical: "https://silverstone-ai.com/niches/gyms-fitness-studios",
-    requiredSchema: ["BreadcrumbList"],
+    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
   {
     file: "niches/hospitality.html",
     canonical: "https://silverstone-ai.com/niches/hospitality",
-    requiredSchema: ["BreadcrumbList"],
+    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
   {
     file: "niches/physios-chiropractors.html",
     canonical: "https://silverstone-ai.com/niches/physios-chiropractors",
-    requiredSchema: ["BreadcrumbList"],
+    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
   {
     file: "niches/salons-barbers.html",
     canonical: "https://silverstone-ai.com/niches/salons-barbers",
-    requiredSchema: ["BreadcrumbList"],
+    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
   {
     file: "niches/trades-virtual-office.html",
     canonical: "https://silverstone-ai.com/niches/trades-virtual-office",
-    requiredSchema: ["BreadcrumbList"],
+    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
 ];
 
@@ -100,14 +100,19 @@ const blogPages = fs
   }));
 
 const indexedPages = [...staticIndexedPages, ...blogPages];
-const canonicalByFile = new Map(
-  indexedPages.map((page) => [page.file, normalizeUrl(page.canonical)])
-);
 const indexedFileSet = new Set(indexedPages.map((page) => page.file));
 const requiredSitemapUrls = indexedPages.map((page) => normalizeUrl(page.canonical));
+const requiredNichePaths = staticIndexedPages
+  .filter((page) => page.file.startsWith("niches/"))
+  .map((page) => canonicalPath(page.canonical));
+const requiredBlogPaths = blogPages.map((page) => canonicalPath(page.canonical));
 
 function readFile(relPath) {
   return fs.readFileSync(path.join(repoRoot, relPath), "utf8");
+}
+
+function fileExists(relPath) {
+  return fs.existsSync(path.join(repoRoot, relPath));
 }
 
 function normalizeUrl(url) {
@@ -119,10 +124,10 @@ function extractFirst(content, regex) {
   return match ? match[1].trim() : "";
 }
 
-function extractMetaContent(content, name) {
+function extractMetaContent(content, attr, name) {
   const match = content.match(
     new RegExp(
-      `<meta[^>]*name=["']${name}["'][^>]*content=(["'])([\\s\\S]*?)\\1[^>]*>`,
+      `<meta[^>]*${attr}=["']${name}["'][^>]*content=(["'])([\\s\\S]*?)\\1[^>]*>`,
       "i"
     )
   );
@@ -156,18 +161,21 @@ function resolveInternalTarget(fromFile, href) {
   return path.posix.normalize(path.posix.resolve(fromDir, cleaned));
 }
 
-function findDuplicateInternalLinks(content, fromFile) {
+function collectInternalLinks(content, fromFile) {
   return Array.from(
     new Set(
       Array.from(content.matchAll(/href=["']([^"']+)["']/gi))
-        .map((match) => match[1].trim())
-        .filter((href) => {
-          const target = resolveInternalTarget(fromFile, href);
-          if (!target || !target.endsWith(".html")) return false;
-          return indexedFileSet.has(target.replace(/^\//, ""));
-        })
+        .map((match) => resolveInternalTarget(fromFile, match[1].trim()))
+        .filter(Boolean)
     )
   );
+}
+
+function findDuplicateInternalLinks(content, fromFile) {
+  return collectInternalLinks(content, fromFile).filter((target) => {
+    if (!target.endsWith(".html")) return false;
+    return indexedFileSet.has(target.replace(/^\//, ""));
+  });
 }
 
 function parseRedirects(netlifyToml) {
@@ -185,6 +193,19 @@ function parseRedirects(netlifyToml) {
   }
 
   return redirects;
+}
+
+function findIndexNowKeyFile() {
+  const entries = fs.readdirSync(repoRoot, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isFile() || !entry.name.endsWith(".txt")) continue;
+    const baseName = entry.name.replace(/\.txt$/, "");
+    const contents = readFile(entry.name).trim();
+    if (contents === baseName) {
+      return entry.name;
+    }
+  }
+  return "";
 }
 
 const errors = [];
@@ -209,6 +230,41 @@ if (manifest.short_name !== "Silverstone AI") {
   errors.push('site.webmanifest: "short_name" must be "Silverstone AI"');
 }
 
+for (const asset of [
+  "favicon.ico",
+  "favicon-48x48.png",
+  "favicon-32x32.png",
+  "favicon-16x16.png",
+  "apple-touch-icon.png",
+]) {
+  if (!fileExists(asset)) {
+    errors.push(`missing favicon asset ${asset}`);
+  }
+}
+
+const indexNowKeyFile = findIndexNowKeyFile();
+if (!indexNowKeyFile) {
+  errors.push("missing root IndexNow key file");
+}
+if (!fileExists("scripts/indexnow-submit.js")) {
+  errors.push("missing scripts/indexnow-submit.js");
+}
+if (!fileExists("plugins/netlify-plugin-indexnow/index.js")) {
+  errors.push("missing plugins/netlify-plugin-indexnow/index.js");
+}
+if (!fileExists("plugins/netlify-plugin-indexnow/manifest.yml")) {
+  errors.push("missing plugins/netlify-plugin-indexnow/manifest.yml");
+}
+
+const netlifyToml = readFile("netlify.toml");
+if (
+  !/\[\[context\.production\.plugins\]\][\s\S]*?package\s*=\s*"\/plugins\/netlify-plugin-indexnow"/.test(
+    netlifyToml
+  )
+) {
+  errors.push("netlify.toml: missing production IndexNow plugin configuration");
+}
+
 const sitemap = readFile("sitemap.xml");
 const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)).map((match) =>
   normalizeUrl(match[1].trim())
@@ -230,14 +286,13 @@ for (const url of sitemapUrlSet) {
     errors.push(`sitemap.xml: unexpected URL ${url}`);
   }
 }
-
 for (const url of sitemapUrls) {
   if (/^https:\/\/silverstone-ai\.com\/.+\.html$/i.test(url)) {
     errors.push(`sitemap.xml: URL must be extensionless (${url})`);
   }
 }
 
-const redirects = parseRedirects(readFile("netlify.toml"));
+const redirects = parseRedirects(netlifyToml);
 for (const page of indexedPages) {
   const fromPath = page.file === "index.html" ? "/index.html" : `/${page.file}`;
   const expectedTo = canonicalPath(page.canonical);
@@ -255,8 +310,12 @@ for (const page of indexedPages) {
 
 for (const page of indexedPages) {
   const html = readFile(page.file);
+  const internalLinks = collectInternalLinks(html, page.file);
+  const duplicateLinks = findDuplicateInternalLinks(html, page.file);
   const isBlogArticle = page.file.startsWith("blog/");
-  const isStaticPage = !isBlogArticle;
+  const isNichePage = page.file.startsWith("niches/");
+  const ctaLinkList = extractFirst(html, /(<div class="cta-link-list">[\s\S]*?<\/div>)/i);
+  const ctaLinks = ctaLinkList ? collectInternalLinks(ctaLinkList, page.file) : [];
 
   const canonical = extractFirst(
     html,
@@ -270,14 +329,22 @@ for (const page of indexedPages) {
     );
   }
 
-  const description = extractMetaContent(html, "description");
+  const title = extractFirst(html, /<title>([\s\S]*?)<\/title>/i);
+  if (page.file !== "privacy-policy.html" && !title.includes("Silverstone AI")) {
+    errors.push(`${page.file}: title should include "Silverstone AI"`);
+  }
+  if (title.length > 60) {
+    warnings.push(`${page.file}: title length is ${title.length} characters`);
+  }
+
+  const description = extractMetaContent(html, "name", "description");
   if (!description) {
     errors.push(`${page.file}: missing meta description`);
   } else if (description.length < 70 || description.length > 170) {
     warnings.push(`${page.file}: meta description length is ${description.length} characters`);
   }
 
-  const robots = extractMetaContent(html, "robots");
+  const robots = extractMetaContent(html, "name", "robots");
   if (!robots) {
     errors.push(`${page.file}: missing robots meta tag`);
   } else {
@@ -287,37 +354,65 @@ for (const page of indexedPages) {
     }
   }
 
-  const duplicateLinks = findDuplicateInternalLinks(html, page.file);
   if (duplicateLinks.length > 0) {
     errors.push(
       `${page.file}: found internal links pointing to duplicate .html URLs (${duplicateLinks.join(", ")})`
     );
   }
 
-  const ogUrl = extractFirst(
-    html,
-    /<meta[^>]*property=["']og:url["'][^>]*content=["']([^"']+)["'][^>]*>/i
-  );
+  const ogUrl = extractMetaContent(html, "property", "og:url");
   if (!ogUrl) {
     errors.push(`${page.file}: missing og:url meta tag`);
   } else if (normalizeUrl(ogUrl) !== normalizeUrl(page.canonical)) {
     errors.push(`${page.file}: og:url mismatch (expected ${page.canonical}, found ${ogUrl})`);
   }
 
+  const ogSiteName = extractMetaContent(html, "property", "og:site_name");
+  if (ogSiteName !== "Silverstone AI") {
+    errors.push(`${page.file}: og:site_name must be "Silverstone AI"`);
+  }
+
+  const ogTitle = extractMetaContent(html, "property", "og:title");
+  if (!ogTitle) {
+    errors.push(`${page.file}: missing og:title meta tag`);
+  } else if (ogTitle !== title) {
+    errors.push(`${page.file}: og:title should match the <title> element`);
+  }
+
+  const ogImage = extractMetaContent(html, "property", "og:image");
+  if (!ogImage) {
+    errors.push(`${page.file}: missing og:image meta tag`);
+  }
+
+  const twitterCard = extractMetaContent(html, "name", "twitter:card");
+  if (!twitterCard) {
+    errors.push(`${page.file}: missing twitter:card meta tag`);
+  }
+  const twitterTitle = extractMetaContent(html, "name", "twitter:title");
+  if (twitterTitle !== title) {
+    errors.push(`${page.file}: twitter:title should match the <title> element`);
+  }
+  const twitterDescription = extractMetaContent(html, "name", "twitter:description");
+  if (twitterDescription !== description) {
+    errors.push(`${page.file}: twitter:description should match meta description`);
+  }
+  const twitterImage = extractMetaContent(html, "name", "twitter:image");
+  if (!twitterImage) {
+    errors.push(`${page.file}: missing twitter:image meta tag`);
+  } else if (ogImage && twitterImage !== ogImage) {
+    errors.push(`${page.file}: twitter:image should match og:image`);
+  }
+
+  if (!/href=["']\/favicon\.ico["']/i.test(html)) {
+    errors.push(`${page.file}: missing /favicon.ico head reference`);
+  }
+  if (!/href=["']\/favicon-48x48\.png["']/i.test(html)) {
+    errors.push(`${page.file}: missing /favicon-48x48.png head reference`);
+  }
+
   for (const schemaType of page.requiredSchema) {
     if (!new RegExp(`"@type"\\s*:\\s*"${schemaType}"`).test(html)) {
       errors.push(`${page.file}: missing ${schemaType} JSON-LD`);
-    }
-  }
-
-  if (isStaticPage) {
-    const title = extractFirst(html, /<title>([\s\S]*?)<\/title>/i);
-    if (
-      page.file !== "privacy-policy.html" &&
-      title &&
-      !title.includes("Silverstone AI")
-    ) {
-      errors.push(`${page.file}: title should include "Silverstone AI"`);
     }
   }
 
@@ -336,6 +431,64 @@ for (const page of indexedPages) {
     }
     if (!/Reviewed by Silverstone AI Automation Strategy Team/.test(html)) {
       errors.push(`${page.file}: missing visible reviewer attribution`);
+    }
+    if (!extractMetaContent(html, "name", "author")) {
+      errors.push(`${page.file}: missing author meta tag`);
+    }
+    if (!extractMetaContent(html, "property", "article:published_time")) {
+      errors.push(`${page.file}: missing article:published_time meta tag`);
+    }
+    if (!extractMetaContent(html, "property", "article:modified_time")) {
+      errors.push(`${page.file}: missing article:modified_time meta tag`);
+    }
+    if (!internalLinks.includes("/book")) {
+      errors.push(`${page.file}: expected a direct internal link to /book`);
+    }
+    if (!ctaLinkList) {
+      errors.push(`${page.file}: missing contextual cta-link-list block`);
+    }
+    const hasSupportingLink = ctaLinks.some(
+      (href) => href === "/services" || href.startsWith("/niches/")
+    );
+    if (!hasSupportingLink) {
+      errors.push(`${page.file}: cta-link-list should link to /services or a matching /niches/ page`);
+    }
+  }
+
+  if (isNichePage) {
+    if (!ctaLinkList) {
+      errors.push(`${page.file}: missing contextual cta-link-list block`);
+    }
+    if (!internalLinks.includes("/book")) {
+      errors.push(`${page.file}: expected a direct internal link to /book`);
+    }
+    if (!ctaLinks.includes("/services")) {
+      errors.push(`${page.file}: cta-link-list should include /services`);
+    }
+    if (!ctaLinks.some((href) => href.startsWith("/blog/"))) {
+      errors.push(`${page.file}: cta-link-list should include at least one /blog/ guide`);
+    }
+  }
+}
+
+const servicesHtml = readFile("services.html");
+const servicesResourcesSection = extractFirst(
+  servicesHtml,
+  /(<section class="section bg-circuit[\s\S]*?Explore service pages and practical automation guides\.[\s\S]*?<\/section>)/i
+);
+
+if (!servicesResourcesSection) {
+  errors.push("services.html: missing services resources section");
+} else {
+  const sectionLinks = collectInternalLinks(servicesResourcesSection, "services.html");
+  for (const requiredPath of requiredNichePaths) {
+    if (!sectionLinks.includes(requiredPath)) {
+      errors.push(`services.html: resources section is missing niche link ${requiredPath}`);
+    }
+  }
+  for (const requiredPath of requiredBlogPaths) {
+    if (!sectionLinks.includes(requiredPath)) {
+      errors.push(`services.html: resources section is missing blog link ${requiredPath}`);
     }
   }
 }
@@ -364,5 +517,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `SEO audit passed for ${blogPages.length} blog pages, ${staticIndexedPages.length} static indexable pages, redirects, robots.txt, site.webmanifest, and sitemap.xml`
+  `SEO audit passed for ${blogPages.length} blog pages, ${staticIndexedPages.length} static indexable pages, redirects, robots.txt, site.webmanifest, IndexNow, favicons, and sitemap.xml`
 );

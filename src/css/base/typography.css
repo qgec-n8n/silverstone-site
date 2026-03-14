@@ -143,8 +143,7 @@
     width: 100%;
   }
   nav ul li a,
-  nav ul li .services-toggle,
-  nav ul li .services-label-link {
+  nav ul li .services-toggle {
     display: block;
     padding: 0.75rem 1rem;
     width: 100%;
@@ -624,8 +623,7 @@
 
     /* Remove any borders applied directly to the anchor "pill" */
     .site-header nav ul > li a,
-    .site-header nav ul > li.nav-dropdown .services-toggle,
-    .site-header nav ul > li.nav-dropdown .services-label-link {
+    .site-header nav ul > li.nav-dropdown .services-toggle {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -656,8 +654,7 @@
     }
 
     .site-header nav ul > li a,
-    .site-header nav ul > li.nav-dropdown .services-toggle,
-    .site-header nav ul > li.nav-dropdown .services-label-link {
+    .site-header nav ul > li.nav-dropdown .services-toggle {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -705,8 +702,7 @@
 
     /* Remove any borders applied directly to anchors (keeps pills clean) */
     .site-header nav ul > li a,
-    .site-header nav ul > li.nav-dropdown .services-toggle,
-    .site-header nav ul > li.nav-dropdown .services-label-link {
+    .site-header nav ul > li.nav-dropdown .services-toggle {
       border: 0 !important;
       border-bottom: 0 !important;
     }

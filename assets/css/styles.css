@@ -11051,8 +11051,7 @@
     width: 100%;
   }
   nav ul li a,
-  nav ul li .services-toggle,
-  nav ul li .services-label-link {
+  nav ul li .services-toggle {
     display: block;
     padding: 0.75rem 1rem;
     width: 100%;
@@ -11532,8 +11531,7 @@
 
     /* Remove any borders applied directly to the anchor "pill" */
     .site-header nav ul > li a,
-    .site-header nav ul > li.nav-dropdown .services-toggle,
-    .site-header nav ul > li.nav-dropdown .services-label-link {
+    .site-header nav ul > li.nav-dropdown .services-toggle {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -11564,8 +11562,7 @@
     }
 
     .site-header nav ul > li a,
-    .site-header nav ul > li.nav-dropdown .services-toggle,
-    .site-header nav ul > li.nav-dropdown .services-label-link {
+    .site-header nav ul > li.nav-dropdown .services-toggle {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -11613,8 +11610,7 @@
 
     /* Remove any borders applied directly to anchors (keeps pills clean) */
     .site-header nav ul > li a,
-    .site-header nav ul > li.nav-dropdown .services-toggle,
-    .site-header nav ul > li.nav-dropdown .services-label-link {
+    .site-header nav ul > li.nav-dropdown .services-toggle {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -11785,6 +11781,42 @@ img {
 .page-services .service-content p,
 .page-niche .service-content p {
   color: var(--color-silver-original);
+}
+
+.cta-link-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1rem 0 1.35rem;
+}
+
+.cta-link-list a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(5, 18, 40, 0.14);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cta-link-list a:hover,
+.cta-link-list a:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(0, 255, 157, 0.55);
+  background: rgba(0, 255, 157, 0.14);
+  box-shadow: 0 16px 32px rgba(5, 18, 40, 0.2);
 }
 
 
@@ -12338,34 +12370,14 @@ nav {
 .services-trigger {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-}
-
-.services-label-link {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0;
-  color: var(--color-black);
-  text-decoration: none;
-  transition:
-    color 0.25s ease,
-    transform 0.2s ease;
-}
-
-.services-label-link:hover,
-.services-label-link:focus-visible,
-.nav-dropdown.open .services-label-link,
-.services-label-link.active {
-  color: var(--color-purple);
 }
 
 .services-toggle {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 1.1rem;
-  height: 1.1rem;
-  padding: 0;
+  justify-content: space-between;
+  gap: 0.45rem;
+  padding: 0.25rem 0;
   background: transparent;
   border: none;
   color: var(--color-black);
@@ -12379,7 +12391,8 @@ nav {
 }
 
 .services-toggle:hover,
-.services-toggle:focus-visible {
+.services-toggle:focus-visible,
+.nav-dropdown.open .services-toggle {
   color: var(--color-purple);
 }
 
@@ -12390,6 +12403,7 @@ nav {
 .services-label {
   display: inline-flex;
   align-items: center;
+  color: inherit;
 }
 
 .services-toggle .chevron,
@@ -12626,24 +12640,15 @@ body.services-overlay-active .services-overlay {
 
   nav ul .nav-dropdown .services-trigger {
     width: 100%;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
-    border-radius: 14px;
-    background: transparent;
-    box-shadow: none;
-    border: 0;
-  }
-
-  nav ul .nav-dropdown .services-label-link {
     padding: 0;
-    flex: 1 1 auto;
   }
 
   nav ul .nav-dropdown .services-toggle {
-    width: auto;
+    width: 100%;
     height: auto;
-    justify-content: center;
-    padding: 0;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-radius: 14px;
     background: transparent;
     box-shadow: none;
     border: 0;
@@ -15094,6 +15099,94 @@ body.services-overlay-active .services-overlay {
 
 .page-services .service-row .service-content.neon-card {
   padding: 1.5rem;
+}
+
+.page-services .services-resources-row {
+  gap: 1.25rem;
+}
+
+.page-services .services-resource-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.4rem, 2vw, 1.75rem) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+    rgba(7, 12, 20, 0.74) !important;
+  border: 1px solid rgba(140, 194, 255, 0.22) !important;
+  box-shadow:
+    0 22px 46px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 0 34px rgba(0, 174, 239, 0.18) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.page-services .services-resource-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(0, 255, 157, 0.9), rgba(0, 174, 239, 0.72));
+  opacity: 0.95;
+}
+
+.page-services .services-resource-card h3,
+.page-services .services-resource-card p,
+.page-services .services-resource-card li,
+.page-services .services-resource-card a {
+  color: var(--color-white) !important;
+}
+
+.page-services .services-resource-card h3 {
+  margin-bottom: 0.75rem;
+}
+
+.page-services .services-resource-copy {
+  margin-bottom: 1rem;
+  color: rgba(237, 244, 252, 0.88) !important;
+  line-height: 1.7;
+}
+
+.page-services .services-resource-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.page-services .services-resource-list li {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.page-services .services-resource-list li i {
+  color: var(--color-green);
+}
+
+.page-services .services-resource-list a {
+  text-decoration: none;
+  line-height: 1.6;
+  transition: color 0.2s ease;
+}
+
+.page-services .services-resource-list a:hover,
+.page-services .services-resource-list a:focus-visible {
+  color: var(--color-green) !important;
+}
+
+.page-services .services-resource-list--blogs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 768px) {
+  .page-services .services-resource-list--blogs {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Custom override: unify service card backgrounds on desktop

@@ -222,5 +222,9 @@
   # Apply noindex headers only to deploy preview builds so that crawlers
   # do not index temporary preview URLs. Production builds will not have
   # this header and will be indexable.
+
+[[context.production.plugins]]
+  package = "/plugins/netlify-plugin-indexnow"
+
 [functions]
   directory = "netlify/functions"
