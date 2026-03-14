@@ -2,8 +2,14 @@
 
 const fs = require("fs");
 const path = require("path");
+const {
+  EXPECTED_INDEXNOW_KEY_FILE,
+  buildIndexNowPayload,
+  findValidIndexNowKeyFiles,
+} = require("./indexnow-submit");
 
 const repoRoot = path.resolve(__dirname, "..");
+const LEGACY_INDEXNOW_KEY_FILE = "7b0b4b0f2e2e4f4080c0f14e9e18e0c6.txt";
 
 const staticIndexedPages = [
   {
@@ -195,19 +201,6 @@ function parseRedirects(netlifyToml) {
   return redirects;
 }
 
-function findIndexNowKeyFile() {
-  const entries = fs.readdirSync(repoRoot, { withFileTypes: true });
-  for (const entry of entries) {
-    if (!entry.isFile() || !entry.name.endsWith(".txt")) continue;
-    const baseName = entry.name.replace(/\.txt$/, "");
-    const contents = readFile(entry.name).trim();
-    if (contents === baseName) {
-      return entry.name;
-    }
-  }
-  return "";
-}
-
 const errors = [];
 const warnings = [];
 
@@ -242,9 +235,17 @@ for (const asset of [
   }
 }
 
-const indexNowKeyFile = findIndexNowKeyFile();
-if (!indexNowKeyFile) {
-  errors.push("missing root IndexNow key file");
+const validIndexNowKeyFiles = findValidIndexNowKeyFiles(repoRoot);
+if (!validIndexNowKeyFiles.includes(EXPECTED_INDEXNOW_KEY_FILE)) {
+  errors.push(`missing expected root IndexNow key file ${EXPECTED_INDEXNOW_KEY_FILE}`);
+}
+if (validIndexNowKeyFiles.length !== 1) {
+  errors.push(
+    `expected exactly one valid root IndexNow key file, found ${validIndexNowKeyFiles.length} (${validIndexNowKeyFiles.join(", ") || "none"})`
+  );
+}
+if (fileExists(LEGACY_INDEXNOW_KEY_FILE)) {
+  errors.push(`legacy IndexNow key file should be removed (${LEGACY_INDEXNOW_KEY_FILE})`);
 }
 if (!fileExists("scripts/indexnow-submit.js")) {
   errors.push("missing scripts/indexnow-submit.js");
@@ -265,6 +266,25 @@ if (
   errors.push("netlify.toml: missing production IndexNow plugin configuration");
 }
 
+const indexNowPlugin = readFile("plugins/netlify-plugin-indexnow/index.js");
+if (!/constants\.PUBLISH_DIR/.test(indexNowPlugin)) {
+  errors.push("plugins/netlify-plugin-indexnow/index.js: must use constants.PUBLISH_DIR as the site root");
+}
+if (!/collectChangedIndexNowUrls/.test(indexNowPlugin)) {
+  errors.push("plugins/netlify-plugin-indexnow/index.js: must compute changed URLs before submission");
+}
+if (/submitIndexNow\(\{\s*repoRoot,\s*logger:\s*console\s*\}\)/s.test(indexNowPlugin)) {
+  errors.push("plugins/netlify-plugin-indexnow/index.js: still submits unconditionally without explicit URLs");
+}
+
+const indexNowScript = readFile("scripts/indexnow-submit.js");
+if (!/--url/.test(indexNowScript) || !/--all/.test(indexNowScript)) {
+  errors.push("scripts/indexnow-submit.js: missing explicit CLI modes for --url and --all");
+}
+if (!/Expected exactly one valid root IndexNow key file/.test(indexNowScript)) {
+  errors.push("scripts/indexnow-submit.js: must fail when zero or multiple valid key files exist");
+}
+
 const sitemap = readFile("sitemap.xml");
 const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)).map((match) =>
   normalizeUrl(match[1].trim())
@@ -273,6 +293,18 @@ const sitemapUrlSet = new Set(sitemapUrls);
 
 if (sitemapUrls.length !== sitemapUrlSet.size) {
   errors.push("sitemap.xml: duplicate <loc> entries found");
+}
+
+try {
+  const payload = buildIndexNowPayload({ siteRoot: repoRoot, urls: [sitemapUrls[0]] });
+  const expectedKeyLocation = `https://silverstone-ai.com/${EXPECTED_INDEXNOW_KEY_FILE}`;
+  if (payload.keyLocation !== expectedKeyLocation) {
+    errors.push(
+      `scripts/indexnow-submit.js: keyLocation mismatch (expected ${expectedKeyLocation}, found ${payload.keyLocation})`
+    );
+  }
+} catch (error) {
+  errors.push(`scripts/indexnow-submit.js: unable to build a valid IndexNow payload (${error.message})`);
 }
 
 const requiredSet = new Set(requiredSitemapUrls);
