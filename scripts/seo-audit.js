@@ -23,12 +23,12 @@ const groupedPages = getPagesByGroup(repoRoot);
 const blogPages = groupedPages.blog;
 const staticIndexedPages = indexedPages.filter((page) => !page.file.startsWith("blog/"));
 const indexedFileSet = new Set(indexedPages.map((page) => page.file));
-const requiredSitemapUrls = indexedPages.map((page) => normalizeUrl(page.canonical));
 const requiredNichePaths = groupedPages.niches.map((page) => canonicalPath(page.canonical));
 const requiredBlogPaths = blogPages.map((page) => canonicalPath(page.canonical));
 const nonServiceCorePages = ["about.html", "blog.html", "book.html", "contact.html"];
-const { artifacts: expectedSitemapArtifacts, indexEntries: expectedSitemapIndexEntries } =
+const { artifacts: expectedSitemapArtifacts, sitemapEntries: expectedSitemapEntries } =
   buildSitemapArtifacts(repoRoot);
+const requiredSitemapUrls = expectedSitemapEntries.map((entry) => normalizeUrl(entry.loc));
 
 function readFile(relPath) {
   return fs.readFileSync(path.join(repoRoot, relPath), "utf8");
@@ -223,57 +223,41 @@ for (const [fileName, expectedContent] of Object.entries(expectedSitemapArtifact
   }
 }
 
-const sitemapIndexUrls = extractLocs(readFile(SITEMAP_FILE_NAMES.index));
-const expectedSitemapIndexUrls = expectedSitemapIndexEntries.map((entry) => normalizeUrl(entry.loc));
-if (sitemapIndexUrls.length !== expectedSitemapIndexUrls.length) {
+const sitemapContent = readFile(SITEMAP_FILE_NAMES.root);
+const sitemapUrls = extractLocs(sitemapContent);
+const sitemapUrlSet = new Set(sitemapUrls);
+
+if (/<sitemapindex/i.test(sitemapContent)) {
+  errors.push(`${SITEMAP_FILE_NAMES.root}: must be a flat urlset, not a sitemap index`);
+}
+if (!/<urlset/i.test(sitemapContent)) {
+  errors.push(`${SITEMAP_FILE_NAMES.root}: missing <urlset> root element`);
+}
+if (sitemapUrlSet.size !== sitemapUrls.length) {
+  errors.push(`${SITEMAP_FILE_NAMES.root}: duplicate <loc> entries found`);
+}
+if (sitemapUrls.length !== requiredSitemapUrls.length) {
   errors.push(
-    `${SITEMAP_FILE_NAMES.index}: expected ${expectedSitemapIndexUrls.length} child sitemap entries, found ${sitemapIndexUrls.length}`
+    `${SITEMAP_FILE_NAMES.root}: expected ${requiredSitemapUrls.length} canonical URLs, found ${sitemapUrls.length}`
   );
 }
-for (const url of expectedSitemapIndexUrls) {
-  if (!sitemapIndexUrls.includes(url)) {
-    errors.push(`${SITEMAP_FILE_NAMES.index}: missing child sitemap ${url}`);
+for (const url of requiredSitemapUrls) {
+  if (!sitemapUrlSet.has(url)) {
+    errors.push(`${SITEMAP_FILE_NAMES.root}: missing required URL ${url}`);
   }
 }
-for (const url of sitemapIndexUrls) {
-  if (!expectedSitemapIndexUrls.includes(url)) {
-    errors.push(`${SITEMAP_FILE_NAMES.index}: unexpected child sitemap ${url}`);
+for (const url of sitemapUrlSet) {
+  if (!requiredSitemapUrls.includes(url)) {
+    errors.push(`${SITEMAP_FILE_NAMES.root}: unexpected URL ${url}`);
+  }
+  if (/^https:\/\/silverstone-ai\.com\/.+\.html$/i.test(url)) {
+    errors.push(`${SITEMAP_FILE_NAMES.root}: URL must be extensionless (${url})`);
   }
 }
-
-const groupedSitemapUrls = {
-  main: extractLocs(readFile(SITEMAP_FILE_NAMES.main)),
-  blog: extractLocs(readFile(SITEMAP_FILE_NAMES.blog)),
-  niches: extractLocs(readFile(SITEMAP_FILE_NAMES.niches)),
-  legal: extractLocs(readFile(SITEMAP_FILE_NAMES.legal)),
-};
-
-const expectedGroupedUrls = {
-  main: groupedPages.main.map((page) => normalizeUrl(page.canonical)),
-  blog: groupedPages.blog.map((page) => normalizeUrl(page.canonical)),
-  niches: groupedPages.niches.map((page) => normalizeUrl(page.canonical)),
-  legal: groupedPages.legal.map((page) => normalizeUrl(page.canonical)),
-};
-
-for (const [group, urls] of Object.entries(groupedSitemapUrls)) {
-  const urlSet = new Set(urls);
-  if (urlSet.size !== urls.length) {
-    errors.push(`${SITEMAP_FILE_NAMES[group]}: duplicate <loc> entries found`);
-  }
-
-  for (const url of expectedGroupedUrls[group]) {
-    if (!urlSet.has(url)) {
-      errors.push(`${SITEMAP_FILE_NAMES[group]}: missing required URL ${url}`);
-    }
-  }
-  for (const url of urlSet) {
-    if (!expectedGroupedUrls[group].includes(url)) {
-      errors.push(`${SITEMAP_FILE_NAMES[group]}: unexpected URL ${url}`);
-    }
-    if (/^https:\/\/silverstone-ai\.com\/.+\.html$/i.test(url)) {
-      errors.push(`${SITEMAP_FILE_NAMES[group]}: URL must be extensionless (${url})`);
-    }
-  }
+if (sitemapUrls.join("\n") !== requiredSitemapUrls.join("\n")) {
+  errors.push(
+    `${SITEMAP_FILE_NAMES.root}: URL order must be main pages first, then blog posts, niche pages, and legal`
+  );
 }
 
 try {
@@ -593,5 +577,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `SEO audit passed for ${blogPages.length} blog pages, ${staticIndexedPages.length} static indexable pages, redirects, robots.txt, site.webmanifest, IndexNow, favicons, and the sitemap index set`
+  `SEO audit passed for ${blogPages.length} blog pages, ${staticIndexedPages.length} static indexable pages, redirects, robots.txt, site.webmanifest, IndexNow, favicons, and the flat root sitemap`
 );

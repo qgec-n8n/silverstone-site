@@ -5,11 +5,7 @@ const { execFileSync } = require("child_process");
 const SITE_ORIGIN = "https://silverstone-ai.com";
 const SITE_HOSTNAME = "silverstone-ai.com";
 const SITEMAP_FILE_NAMES = {
-  index: "sitemap.xml",
-  main: "sitemap-main.xml",
-  blog: "sitemap-blog.xml",
-  niches: "sitemap-niches.xml",
-  legal: "sitemap-legal.xml",
+  root: "sitemap.xml",
 };
 
 const STATIC_PAGES = [
@@ -121,7 +117,10 @@ function getPagesByGroup(repoRoot = path.resolve(__dirname, "..")) {
 }
 
 function getCanonicalUrls(repoRoot = path.resolve(__dirname, "..")) {
-  return getIndexedPages(repoRoot).map((page) => normalizeUrl(page.canonical));
+  const groupedPages = getPagesByGroup(repoRoot);
+  return GROUP_ORDER.flatMap((group) =>
+    groupedPages[group].map((page) => normalizeUrl(page.canonical))
+  );
 }
 
 function getCanonicalUrlMap(repoRoot = path.resolve(__dirname, "..")) {
@@ -181,61 +180,23 @@ ${body}
 `;
 }
 
-function renderSitemapIndex(entries) {
-  const body = entries
-    .map(
-      (entry) => `  <sitemap>
-    <loc>${xmlEscape(entry.loc)}</loc>
-    <lastmod>${xmlEscape(entry.lastmod)}</lastmod>
-  </sitemap>`
-    )
-    .join("\n");
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${body}
-</sitemapindex>
-`;
-}
-
-function getLatestLastmod(entries) {
-  return entries
-    .map((entry) => new Date(entry.lastmod).getTime())
-    .sort((left, right) => right - left)[0];
-}
-
 function buildSitemapArtifacts(repoRoot = path.resolve(__dirname, "..")) {
   const groupedPages = getPagesByGroup(repoRoot);
-  const childEntries = {};
-
-  for (const group of GROUP_ORDER) {
-    childEntries[group] = groupedPages[group].map((page) => ({
+  const sitemapEntries = GROUP_ORDER.flatMap((group) =>
+    groupedPages[group].map((page) => ({
       loc: normalizeUrl(page.canonical),
       lastmod: getPageLastmod(repoRoot, page.file),
-    }));
-  }
+    }))
+  );
 
   const artifacts = {
-    [SITEMAP_FILE_NAMES.main]: renderUrlSet(childEntries.main),
-    [SITEMAP_FILE_NAMES.blog]: renderUrlSet(childEntries.blog),
-    [SITEMAP_FILE_NAMES.niches]: renderUrlSet(childEntries.niches),
-    [SITEMAP_FILE_NAMES.legal]: renderUrlSet(childEntries.legal),
+    [SITEMAP_FILE_NAMES.root]: renderUrlSet(sitemapEntries),
   };
-
-  const indexEntries = GROUP_ORDER.map((group) => {
-    const fileName = SITEMAP_FILE_NAMES[group];
-    return {
-      loc: `${SITE_ORIGIN}/${fileName}`,
-      lastmod: formatLastmod(getLatestLastmod(childEntries[group])),
-    };
-  });
-
-  artifacts[SITEMAP_FILE_NAMES.index] = renderSitemapIndex(indexEntries);
 
   return {
     artifacts,
     groupedPages,
-    indexEntries,
+    sitemapEntries,
   };
 }
 

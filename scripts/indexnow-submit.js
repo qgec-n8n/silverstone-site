@@ -14,7 +14,7 @@ const EXPECTED_INDEXNOW_KEY = "be41def3cc62428d99800b885d2d7a0f";
 const EXPECTED_INDEXNOW_KEY_FILE = `${EXPECTED_INDEXNOW_KEY}.txt`;
 const SITEWIDE_TRIGGER_PATTERNS = [
   /^robots\.txt$/i,
-  /^sitemap(?:-(?:main|blog|niches|legal))?\.xml$/i,
+  /^sitemap\.xml$/i,
   /^netlify\.toml$/i,
   /^site\.webmanifest$/i,
   /^favicon\.ico$/i,
