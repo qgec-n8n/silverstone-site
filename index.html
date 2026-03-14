@@ -54,26 +54,27 @@
       "@id": "https://silverstone-ai.com/#website",
       "url": "https://silverstone-ai.com",
       "name": "Silverstone AI",
-      "alternateName": "Silverstone",
+      "alternateName": "silverstone-ai.com",
       "publisher": {
         "@id": "https://silverstone-ai.com/#organization"
       }
     },
     {
-      "@type": "ProfessionalService",
+      "@type": "Organization",
       "@id": "https://silverstone-ai.com/#organization",
       "name": "Silverstone AI",
       "url": "https://silverstone-ai.com",
-      "logo": "https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png",
-      "image": "https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png",
-      "description": "Silverstone AI helps UK small businesses automate calls, lead follow-up, bookings, and back-office workflows with practical AI systems.",
-      "email": "info@silverstone-ai.com",
-      "telephone": "+447418329232",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png"
+      },
       "sameAs": [
         "https://www.instagram.com/silverstone.ai/",
         "https://www.tiktok.com/@silverstone_ai",
         "https://www.facebook.com/people/Silverstone-AI/61583930930530/"
       ],
+      "email": "info@silverstone-ai.com",
+      "telephone": "+447418329232",
       "areaServed": "GB",
       "address": {
         "@type": "PostalAddress",
@@ -81,7 +82,19 @@
         "addressLocality": "London",
         "postalCode": "SE17 1GE",
         "addressCountry": "UK"
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://silverstone-ai.com/#service",
+      "name": "Silverstone AI",
+      "url": "https://silverstone-ai.com",
+      "image": "https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png",
+      "description": "Silverstone AI helps UK small businesses automate calls, lead follow-up, bookings, and back-office workflows with practical AI systems.",
+      "provider": {
+        "@id": "https://silverstone-ai.com/#organization"
       },
+      "areaServed": "GB",
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "info@silverstone-ai.com",
@@ -215,6 +228,23 @@
       <div class="cta-buttons">
         <a href="/book" class="btn btn-primary">Book a Free 30‑Minute Automation Audit</a>
         <a href="/services" class="btn btn-secondary">Explore Services</a>
+      </div>
+    </div>
+  </section>
+  <section id="primary-site-links" class="section bg-circuit animate parallax-section compact-section" data-parallax-theme="book">
+    <div class="container">
+      <div class="neon-card cta-card" style="text-align: center">
+        <h2 class="section-title">Explore the main Silverstone AI pages</h2>
+        <p class="section-subtitle">
+          Start with the page that matches what you need: company background, services, practical guides, booking, or direct contact.
+        </p>
+        <nav aria-label="Primary site sections" class="cta-buttons">
+          <a href="/about" class="btn btn-secondary">About</a>
+          <a href="/services" class="btn btn-secondary">Services</a>
+          <a href="/blog" class="btn btn-secondary">Blog</a>
+          <a href="/book" class="btn btn-secondary">Book</a>
+          <a href="/contact" class="btn btn-secondary">Contact</a>
+        </nav>
       </div>
     </div>
   </section>

@@ -8,6 +8,7 @@
     "build:css": "npm run sync:fontawesome && node build-css.js",
     "build:js": "node scripts/build-js.js",
     "build": "node scripts/optimize-images.js && npm run build:css && npm run build:js",
+    "generate:sitemaps": "node scripts/generate-sitemaps.js",
     "seo:audit": "node scripts/seo-audit.js",
     "indexnow:submit": "node scripts/indexnow-submit.js"
   },

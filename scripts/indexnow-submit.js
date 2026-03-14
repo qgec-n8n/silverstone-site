@@ -4,31 +4,26 @@ const fs = require("fs");
 const path = require("path");
 const https = require("https");
 const { execFileSync } = require("child_process");
+const {
+  getCanonicalUrlMap,
+  getCanonicalUrls,
+  normalizeUrl,
+} = require("./seo-inventory");
 
 const EXPECTED_INDEXNOW_KEY = "be41def3cc62428d99800b885d2d7a0f";
 const EXPECTED_INDEXNOW_KEY_FILE = `${EXPECTED_INDEXNOW_KEY}.txt`;
 const SITEWIDE_TRIGGER_PATTERNS = [
   /^robots\.txt$/i,
-  /^sitemap\.xml$/i,
+  /^sitemap(?:-(?:main|blog|niches|legal))?\.xml$/i,
   /^netlify\.toml$/i,
   /^site\.webmanifest$/i,
   /^favicon\.ico$/i,
   /^favicon-\d+x\d+\.png$/i,
   /^apple-touch-icon\.png$/i,
+  /^scripts\/seo-inventory\.js$/i,
+  /^scripts\/generate-sitemaps\.js$/i,
   new RegExp(`^${EXPECTED_INDEXNOW_KEY_FILE.replace(".", "\\.")}$`, "i"),
 ];
-const ROOT_PAGE_SLUGS = new Set([
-  "about",
-  "services",
-  "blog",
-  "book",
-  "contact",
-  "privacy-policy",
-]);
-
-function normalizeUrl(url) {
-  return url.replace(/\/$/, "");
-}
 
 function normalizeFilePath(filePath) {
   return filePath.replace(/\\/g, "/").replace(/^\.?\//, "");
@@ -66,35 +61,12 @@ function getIndexNowKeyFile(siteRoot) {
 }
 
 function readSitemapUrls(siteRoot) {
-  const sitemap = fs.readFileSync(path.join(siteRoot, "sitemap.xml"), "utf8");
-  return Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)).map((match) =>
-    normalizeUrl(match[1].trim())
-  );
+  return getCanonicalUrls(siteRoot);
 }
 
-function canonicalUrlForFilePath(filePath, siteOrigin) {
+function canonicalUrlForFilePath(filePath, siteRoot = path.resolve(__dirname, "..")) {
   const normalizedPath = normalizeFilePath(filePath);
-
-  if (normalizedPath === "index.html") {
-    return normalizeUrl(siteOrigin);
-  }
-
-  if (/^blog\/[^/]+\.html$/i.test(normalizedPath)) {
-    return `${normalizeUrl(siteOrigin)}/blog/${path.posix.basename(normalizedPath, ".html")}`;
-  }
-
-  if (/^niches\/[^/]+\.html$/i.test(normalizedPath)) {
-    return `${normalizeUrl(siteOrigin)}/niches/${path.posix.basename(normalizedPath, ".html")}`;
-  }
-
-  if (/^[^/]+\.html$/i.test(normalizedPath)) {
-    const slug = normalizedPath.replace(/\.html$/i, "");
-    if (ROOT_PAGE_SLUGS.has(slug)) {
-      return `${normalizeUrl(siteOrigin)}/${slug}`;
-    }
-  }
-
-  return "";
+  return getCanonicalUrlMap(siteRoot).get(normalizedPath) || "";
 }
 
 function postJson(hostname, pathname, payload) {
@@ -210,11 +182,10 @@ function selectIndexNowUrlsForPaths(options = {}) {
     };
   }
 
-  const siteOrigin = new URL(sitemapUrls[0]).origin;
   const targetedUrls = Array.from(
     new Set(
       changedPaths
-        .map((filePath) => canonicalUrlForFilePath(filePath, siteOrigin))
+        .map((filePath) => canonicalUrlForFilePath(filePath, siteRoot))
         .filter(Boolean)
         .map(normalizeUrl)
     )

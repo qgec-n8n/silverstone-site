@@ -3,6 +3,14 @@
 const fs = require("fs");
 const path = require("path");
 const {
+  SITEMAP_FILE_NAMES,
+  buildSitemapArtifacts,
+  canonicalPath,
+  getIndexedPages,
+  getPagesByGroup,
+  normalizeUrl,
+} = require("./seo-inventory");
+const {
   EXPECTED_INDEXNOW_KEY_FILE,
   buildIndexNowPayload,
   findValidIndexNowKeyFiles,
@@ -10,108 +18,17 @@ const {
 
 const repoRoot = path.resolve(__dirname, "..");
 const LEGACY_INDEXNOW_KEY_FILE = "7b0b4b0f2e2e4f4080c0f14e9e18e0c6.txt";
-
-const staticIndexedPages = [
-  {
-    file: "index.html",
-    canonical: "https://silverstone-ai.com",
-    requiredSchema: ["WebSite", "ProfessionalService", "BreadcrumbList"],
-  },
-  {
-    file: "about.html",
-    canonical: "https://silverstone-ai.com/about",
-    requiredSchema: ["AboutPage", "BreadcrumbList"],
-  },
-  {
-    file: "services.html",
-    canonical: "https://silverstone-ai.com/services",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-  {
-    file: "blog.html",
-    canonical: "https://silverstone-ai.com/blog",
-    requiredSchema: ["CollectionPage", "BreadcrumbList"],
-  },
-  {
-    file: "book.html",
-    canonical: "https://silverstone-ai.com/book",
-    requiredSchema: ["WebPage", "BreadcrumbList"],
-  },
-  {
-    file: "contact.html",
-    canonical: "https://silverstone-ai.com/contact",
-    requiredSchema: ["ContactPage", "BreadcrumbList"],
-  },
-  {
-    file: "privacy-policy.html",
-    canonical: "https://silverstone-ai.com/privacy-policy",
-    requiredSchema: [],
-  },
-  {
-    file: "niches/dentists.html",
-    canonical: "https://silverstone-ai.com/niches/dentists",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-  {
-    file: "niches/ecommerce.html",
-    canonical: "https://silverstone-ai.com/niches/ecommerce",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-  {
-    file: "niches/estate-agents.html",
-    canonical: "https://silverstone-ai.com/niches/estate-agents",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-  {
-    file: "niches/fitness-coaches.html",
-    canonical: "https://silverstone-ai.com/niches/fitness-coaches",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-  {
-    file: "niches/gyms-fitness-studios.html",
-    canonical: "https://silverstone-ai.com/niches/gyms-fitness-studios",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-  {
-    file: "niches/hospitality.html",
-    canonical: "https://silverstone-ai.com/niches/hospitality",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-  {
-    file: "niches/physios-chiropractors.html",
-    canonical: "https://silverstone-ai.com/niches/physios-chiropractors",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-  {
-    file: "niches/salons-barbers.html",
-    canonical: "https://silverstone-ai.com/niches/salons-barbers",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-  {
-    file: "niches/trades-virtual-office.html",
-    canonical: "https://silverstone-ai.com/niches/trades-virtual-office",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
-  },
-];
-
-const blogDir = path.join(repoRoot, "blog");
-const blogPages = fs
-  .readdirSync(blogDir)
-  .filter((entry) => entry.endsWith(".html"))
-  .sort()
-  .map((entry) => ({
-    file: `blog/${entry}`,
-    canonical: `https://silverstone-ai.com/blog/${entry.replace(/\.html$/, "")}`,
-    requiredSchema: ["BlogPosting", "BreadcrumbList"],
-  }));
-
-const indexedPages = [...staticIndexedPages, ...blogPages];
+const indexedPages = getIndexedPages(repoRoot);
+const groupedPages = getPagesByGroup(repoRoot);
+const blogPages = groupedPages.blog;
+const staticIndexedPages = indexedPages.filter((page) => !page.file.startsWith("blog/"));
 const indexedFileSet = new Set(indexedPages.map((page) => page.file));
 const requiredSitemapUrls = indexedPages.map((page) => normalizeUrl(page.canonical));
-const requiredNichePaths = staticIndexedPages
-  .filter((page) => page.file.startsWith("niches/"))
-  .map((page) => canonicalPath(page.canonical));
+const requiredNichePaths = groupedPages.niches.map((page) => canonicalPath(page.canonical));
 const requiredBlogPaths = blogPages.map((page) => canonicalPath(page.canonical));
+const nonServiceCorePages = ["about.html", "blog.html", "book.html", "contact.html"];
+const { artifacts: expectedSitemapArtifacts, indexEntries: expectedSitemapIndexEntries } =
+  buildSitemapArtifacts(repoRoot);
 
 function readFile(relPath) {
   return fs.readFileSync(path.join(repoRoot, relPath), "utf8");
@@ -119,10 +36,6 @@ function readFile(relPath) {
 
 function fileExists(relPath) {
   return fs.existsSync(path.join(repoRoot, relPath));
-}
-
-function normalizeUrl(url) {
-  return url.replace(/\/$/, "");
 }
 
 function extractFirst(content, regex) {
@@ -140,9 +53,10 @@ function extractMetaContent(content, attr, name) {
   return match ? match[2].trim() : "";
 }
 
-function canonicalPath(url) {
-  const parsed = new URL(url);
-  return parsed.pathname || "/";
+function extractLocs(content) {
+  return Array.from(content.matchAll(/<loc>([^<]+)<\/loc>/g)).map((match) =>
+    normalizeUrl(match[1].trim())
+  );
 }
 
 function resolveInternalTarget(fromFile, href) {
@@ -250,6 +164,12 @@ if (fileExists(LEGACY_INDEXNOW_KEY_FILE)) {
 if (!fileExists("scripts/indexnow-submit.js")) {
   errors.push("missing scripts/indexnow-submit.js");
 }
+if (!fileExists("scripts/seo-inventory.js")) {
+  errors.push("missing scripts/seo-inventory.js");
+}
+if (!fileExists("scripts/generate-sitemaps.js")) {
+  errors.push("missing scripts/generate-sitemaps.js");
+}
 if (!fileExists("plugins/netlify-plugin-indexnow/index.js")) {
   errors.push("missing plugins/netlify-plugin-indexnow/index.js");
 }
@@ -285,18 +205,79 @@ if (!/Expected exactly one valid root IndexNow key file/.test(indexNowScript)) {
   errors.push("scripts/indexnow-submit.js: must fail when zero or multiple valid key files exist");
 }
 
-const sitemap = readFile("sitemap.xml");
-const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)).map((match) =>
-  normalizeUrl(match[1].trim())
-);
-const sitemapUrlSet = new Set(sitemapUrls);
+for (const [fileName, expectedContent] of Object.entries(expectedSitemapArtifacts)) {
+  if (!fileExists(fileName)) {
+    errors.push(`${fileName}: missing generated sitemap file`);
+    continue;
+  }
 
-if (sitemapUrls.length !== sitemapUrlSet.size) {
-  errors.push("sitemap.xml: duplicate <loc> entries found");
+  const actualContent = readFile(fileName);
+  if (actualContent !== expectedContent) {
+    errors.push(`${fileName}: generated sitemap content is stale; run npm run generate:sitemaps`);
+  }
+  if (/<priority>/i.test(actualContent)) {
+    errors.push(`${fileName}: priority hints should not be present`);
+  }
+  if (/<changefreq>/i.test(actualContent)) {
+    errors.push(`${fileName}: changefreq hints should not be present`);
+  }
+}
+
+const sitemapIndexUrls = extractLocs(readFile(SITEMAP_FILE_NAMES.index));
+const expectedSitemapIndexUrls = expectedSitemapIndexEntries.map((entry) => normalizeUrl(entry.loc));
+if (sitemapIndexUrls.length !== expectedSitemapIndexUrls.length) {
+  errors.push(
+    `${SITEMAP_FILE_NAMES.index}: expected ${expectedSitemapIndexUrls.length} child sitemap entries, found ${sitemapIndexUrls.length}`
+  );
+}
+for (const url of expectedSitemapIndexUrls) {
+  if (!sitemapIndexUrls.includes(url)) {
+    errors.push(`${SITEMAP_FILE_NAMES.index}: missing child sitemap ${url}`);
+  }
+}
+for (const url of sitemapIndexUrls) {
+  if (!expectedSitemapIndexUrls.includes(url)) {
+    errors.push(`${SITEMAP_FILE_NAMES.index}: unexpected child sitemap ${url}`);
+  }
+}
+
+const groupedSitemapUrls = {
+  main: extractLocs(readFile(SITEMAP_FILE_NAMES.main)),
+  blog: extractLocs(readFile(SITEMAP_FILE_NAMES.blog)),
+  niches: extractLocs(readFile(SITEMAP_FILE_NAMES.niches)),
+  legal: extractLocs(readFile(SITEMAP_FILE_NAMES.legal)),
+};
+
+const expectedGroupedUrls = {
+  main: groupedPages.main.map((page) => normalizeUrl(page.canonical)),
+  blog: groupedPages.blog.map((page) => normalizeUrl(page.canonical)),
+  niches: groupedPages.niches.map((page) => normalizeUrl(page.canonical)),
+  legal: groupedPages.legal.map((page) => normalizeUrl(page.canonical)),
+};
+
+for (const [group, urls] of Object.entries(groupedSitemapUrls)) {
+  const urlSet = new Set(urls);
+  if (urlSet.size !== urls.length) {
+    errors.push(`${SITEMAP_FILE_NAMES[group]}: duplicate <loc> entries found`);
+  }
+
+  for (const url of expectedGroupedUrls[group]) {
+    if (!urlSet.has(url)) {
+      errors.push(`${SITEMAP_FILE_NAMES[group]}: missing required URL ${url}`);
+    }
+  }
+  for (const url of urlSet) {
+    if (!expectedGroupedUrls[group].includes(url)) {
+      errors.push(`${SITEMAP_FILE_NAMES[group]}: unexpected URL ${url}`);
+    }
+    if (/^https:\/\/silverstone-ai\.com\/.+\.html$/i.test(url)) {
+      errors.push(`${SITEMAP_FILE_NAMES[group]}: URL must be extensionless (${url})`);
+    }
+  }
 }
 
 try {
-  const payload = buildIndexNowPayload({ siteRoot: repoRoot, urls: [sitemapUrls[0]] });
+  const payload = buildIndexNowPayload({ siteRoot: repoRoot, urls: [requiredSitemapUrls[0]] });
   const expectedKeyLocation = `https://silverstone-ai.com/${EXPECTED_INDEXNOW_KEY_FILE}`;
   if (payload.keyLocation !== expectedKeyLocation) {
     errors.push(
@@ -305,23 +286,6 @@ try {
   }
 } catch (error) {
   errors.push(`scripts/indexnow-submit.js: unable to build a valid IndexNow payload (${error.message})`);
-}
-
-const requiredSet = new Set(requiredSitemapUrls);
-for (const url of requiredSet) {
-  if (!sitemapUrlSet.has(url)) {
-    errors.push(`sitemap.xml: missing required URL ${url}`);
-  }
-}
-for (const url of sitemapUrlSet) {
-  if (!requiredSet.has(url)) {
-    errors.push(`sitemap.xml: unexpected URL ${url}`);
-  }
-}
-for (const url of sitemapUrls) {
-  if (/^https:\/\/silverstone-ai\.com\/.+\.html$/i.test(url)) {
-    errors.push(`sitemap.xml: URL must be extensionless (${url})`);
-  }
 }
 
 const redirects = parseRedirects(netlifyToml);
@@ -529,8 +493,17 @@ const indexHtml = readFile("index.html");
 if (!indexHtml.includes('"name": "Silverstone AI"')) {
   errors.push('index.html: structured data is missing "Silverstone AI" site name');
 }
+if (!/"@type"\s*:\s*"Organization"/.test(indexHtml)) {
+  errors.push("index.html: missing Organization JSON-LD");
+}
 if (!/"sameAs"\s*:\s*\[/.test(indexHtml)) {
   errors.push("index.html: organization structured data is missing sameAs links");
+}
+if (/"alternateName"\s*:\s*"Silverstone"/.test(indexHtml)) {
+  errors.push('index.html: WebSite alternateName should not be "Silverstone"');
+}
+if (!/"alternateName"\s*:\s*"silverstone-ai\.com"/.test(indexHtml)) {
+  errors.push('index.html: WebSite alternateName should use "silverstone-ai.com"');
 }
 if (!/<section class="hero title-band">/i.test(indexHtml)) {
   errors.push("index.html: missing homepage hero section");
@@ -538,12 +511,56 @@ if (!/<section class="hero title-band">/i.test(indexHtml)) {
 if (!/id="hero-shader-canvas"/i.test(indexHtml)) {
   errors.push("index.html: missing hero-shader-canvas element");
 }
+const primarySiteLinksSection = extractFirst(
+  indexHtml,
+  /(<section id="primary-site-links"[\s\S]*?<\/section>)/i
+);
+if (!primarySiteLinksSection) {
+  errors.push("index.html: missing primary site links section");
+} else {
+  const primarySectionLinks = collectInternalLinks(primarySiteLinksSection, "index.html");
+  const expectedPrimaryOrder = ["/about", "/services", "/blog", "/book", "/contact"];
+  for (const href of expectedPrimaryOrder) {
+    if (!primarySectionLinks.includes(href)) {
+      errors.push(`index.html: primary site links section is missing ${href}`);
+    }
+  }
+}
 if (
   !/<section class="section bg-lines animate parallax-section" data-parallax-theme="lines">[\s\S]*?<section id="what-we-automate">/i.test(
     indexHtml
   )
 ) {
   errors.push("index.html: missing homepage bg-lines parallax section before #what-we-automate");
+}
+
+for (const relPath of nonServiceCorePages) {
+  const html = readFile(relPath);
+  if (/class="nav-dropdown"/.test(html)) {
+    errors.push(`${relPath}: should not include the boilerplate niche dropdown`);
+  }
+  if (/class="services-overlay"/.test(html)) {
+    errors.push(`${relPath}: should not include the boilerplate niche overlay`);
+  }
+  if (/href="\/niches\//.test(html)) {
+    errors.push(`${relPath}: should not include boilerplate direct niche links`);
+  }
+  if (!/href="\/services#automation-packs"/.test(html)) {
+    errors.push(`${relPath}: should keep the Niches nav slot pointed at /services#automation-packs`);
+  }
+}
+
+for (const page of blogPages) {
+  const html = readFile(page.file);
+  if (/class="nav-dropdown"/.test(html)) {
+    errors.push(`${page.file}: should not include the boilerplate niche dropdown`);
+  }
+  if (/class="services-overlay"/.test(html)) {
+    errors.push(`${page.file}: should not include the boilerplate niche overlay`);
+  }
+  if (!/href="\/services#automation-packs"/.test(html)) {
+    errors.push(`${page.file}: should keep the Niches nav slot pointed at /services#automation-packs`);
+  }
 }
 
 const indexOpenSections = (indexHtml.match(/<section\b/gi) || []).length;
@@ -576,5 +593,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `SEO audit passed for ${blogPages.length} blog pages, ${staticIndexedPages.length} static indexable pages, redirects, robots.txt, site.webmanifest, IndexNow, favicons, and sitemap.xml`
+  `SEO audit passed for ${blogPages.length} blog pages, ${staticIndexedPages.length} static indexable pages, redirects, robots.txt, site.webmanifest, IndexNow, favicons, and the sitemap index set`
 );
