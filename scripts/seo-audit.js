@@ -500,6 +500,33 @@ if (!indexHtml.includes('"name": "Silverstone AI"')) {
 if (!/"sameAs"\s*:\s*\[/.test(indexHtml)) {
   errors.push("index.html: organization structured data is missing sameAs links");
 }
+if (!/<section class="hero title-band">/i.test(indexHtml)) {
+  errors.push("index.html: missing homepage hero section");
+}
+if (!/id="hero-shader-canvas"/i.test(indexHtml)) {
+  errors.push("index.html: missing hero-shader-canvas element");
+}
+if (
+  !/<section class="section bg-lines animate parallax-section" data-parallax-theme="lines">[\s\S]*?<section id="what-we-automate">/i.test(
+    indexHtml
+  )
+) {
+  errors.push("index.html: missing homepage bg-lines parallax section before #what-we-automate");
+}
+
+const indexOpenSections = (indexHtml.match(/<section\b/gi) || []).length;
+const indexCloseSections = (indexHtml.match(/<\/section>/gi) || []).length;
+if (indexOpenSections !== indexCloseSections) {
+  errors.push(
+    `index.html: unbalanced section markup (${indexOpenSections} opening vs ${indexCloseSections} closing)`
+  );
+}
+
+const indexOpenDivs = (indexHtml.match(/<div\b/gi) || []).length;
+const indexCloseDivs = (indexHtml.match(/<\/div>/gi) || []).length;
+if (indexOpenDivs !== indexCloseDivs) {
+  errors.push(`index.html: unbalanced div markup (${indexOpenDivs} opening vs ${indexCloseDivs} closing)`);
+}
 
 if (warnings.length > 0) {
   console.log("SEO audit warnings:");
