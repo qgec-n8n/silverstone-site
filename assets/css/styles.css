@@ -11051,7 +11051,8 @@
     width: 100%;
   }
   nav ul li a,
-  nav ul li .services-toggle {
+  nav ul li .services-toggle,
+  nav ul li .services-label-link {
     display: block;
     padding: 0.75rem 1rem;
     width: 100%;
@@ -11531,7 +11532,8 @@
 
     /* Remove any borders applied directly to the anchor "pill" */
     .site-header nav ul > li a,
-    .site-header nav ul > li.nav-dropdown > .services-toggle {
+    .site-header nav ul > li.nav-dropdown .services-toggle,
+    .site-header nav ul > li.nav-dropdown .services-label-link {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -11562,7 +11564,8 @@
     }
 
     .site-header nav ul > li a,
-    .site-header nav ul > li.nav-dropdown > .services-toggle {
+    .site-header nav ul > li.nav-dropdown .services-toggle,
+    .site-header nav ul > li.nav-dropdown .services-label-link {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -11610,7 +11613,8 @@
 
     /* Remove any borders applied directly to anchors (keeps pills clean) */
     .site-header nav ul > li a,
-    .site-header nav ul > li.nav-dropdown > .services-toggle {
+    .site-header nav ul > li.nav-dropdown .services-toggle,
+    .site-header nav ul > li.nav-dropdown .services-label-link {
       border: 0 !important;
       border-bottom: 0 !important;
     }
@@ -12331,11 +12335,37 @@ nav {
   align-items: center;
 }
 
+.services-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.services-label-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0;
+  color: var(--color-black);
+  text-decoration: none;
+  transition:
+    color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.services-label-link:hover,
+.services-label-link:focus-visible,
+.nav-dropdown.open .services-label-link,
+.services-label-link.active {
+  color: var(--color-purple);
+}
+
 .services-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.25rem 0;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  padding: 0;
   background: transparent;
   border: none;
   color: var(--color-black);
@@ -12594,11 +12624,26 @@ body.services-overlay-active .services-overlay {
     width: 100%;
   }
 
-  nav ul .nav-dropdown .services-toggle {
+  nav ul .nav-dropdown .services-trigger {
     width: 100%;
     justify-content: space-between;
     padding: 0.75rem 1rem;
     border-radius: 14px;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+  }
+
+  nav ul .nav-dropdown .services-label-link {
+    padding: 0;
+    flex: 1 1 auto;
+  }
+
+  nav ul .nav-dropdown .services-toggle {
+    width: auto;
+    height: auto;
+    justify-content: center;
+    padding: 0;
     background: transparent;
     box-shadow: none;
     border: 0;

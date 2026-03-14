@@ -2,6 +2,102 @@
   publish = "."
 
 [[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services.html"
+  to = "/services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog.html"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/book.html"
+  to = "/book"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy-policy.html"
+  to = "/privacy-policy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/dentists.html"
+  to = "/niches/dentists"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/ecommerce.html"
+  to = "/niches/ecommerce"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/estate-agents.html"
+  to = "/niches/estate-agents"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/fitness-coaches.html"
+  to = "/niches/fitness-coaches"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/gyms-fitness-studios.html"
+  to = "/niches/gyms-fitness-studios"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/hospitality.html"
+  to = "/niches/hospitality"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/physios-chiropractors.html"
+  to = "/niches/physios-chiropractors"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/salons-barbers.html"
+  to = "/niches/salons-barbers"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/trades-virtual-office.html"
+  to = "/niches/trades-virtual-office"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/blog/ai-appointment-reminders-uk-2026.html"
   to = "/blog/ai-appointment-reminders-uk-2026"
   status = 301

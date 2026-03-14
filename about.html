@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>About – Silverstone</title>
+  <title>About Silverstone AI | AI Automation for UK Small Businesses</title>
   <meta name="description"
     content="Learn how Silverstone AI helps UK small businesses grow with practical automation, from lead response and booking workflows to tailored support." />
   <!-- Allow search engines to index and follow links on this page -->
@@ -13,9 +13,9 @@
   <!-- Open Graph & Social Media Tags -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://silverstone-ai.com/about" />
-  <meta property="og:title" content="About – Silverstone" />
+  <meta property="og:title" content="About Silverstone AI | AI Automation for UK Small Businesses" />
   <meta property="og:description"
-    content="Learn about Silverstone's mission to empower small businesses with AI-driven automation and consulting. Discover our values, our story, and the experts driving our success." />
+    content="Learn about the Silverstone AI mission to empower small businesses with practical automation, clear systems, and tailored support." />
   <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
 
   <!-- Canonical URL: identify the preferred version of this page. Without
@@ -36,6 +36,47 @@
   <link rel="manifest" href="/site.webmanifest">
   <!-- Core site styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "AboutPage",
+          "@id": "https://silverstone-ai.com/about#webpage",
+          "url": "https://silverstone-ai.com/about",
+          "name": "About Silverstone AI",
+          "description": "Learn how Silverstone AI helps UK small businesses grow with practical automation, from lead response and booking workflows to tailored support.",
+          "isPartOf": {
+            "@id": "https://silverstone-ai.com/#website"
+          },
+          "about": {
+            "@id": "https://silverstone-ai.com/#organization"
+          },
+          "breadcrumb": {
+            "@id": "https://silverstone-ai.com/about#breadcrumb"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://silverstone-ai.com/about#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://silverstone-ai.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "About",
+              "item": "https://silverstone-ai.com/about"
+            }
+          ]
+        }
+      ]
+    }
+  </script>
   <!-- Include parallax fix overrides to ensure .animate does not use transforms -->
   <!-- Mobile overrides: ensure last to override other styles on small screens -->
   <!-- Global footer styles -->
@@ -53,7 +94,7 @@
       We use cookies to improve your browsing experience and to analyse website
       traffic. By clicking “Accept”, you consent to our use of cookies. For
       more details, please read our
-      <a href="privacy-policy.html">Privacy Policy</a>.
+      <a href="/privacy-policy">Privacy Policy</a>.
     </p>
     <div class="cookie-actions">
       <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
@@ -63,10 +104,10 @@
   <!-- Site header -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <img src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
           srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x"
-          alt="Silverstone Logo" class="site-logo" />
+          alt="Silverstone AI Logo" class="site-logo" />
       </a>
       <div class="nav-toggle" aria-label="Open navigation" tabindex="0">
         <span></span>
@@ -75,29 +116,31 @@
       </div>
       <nav>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about" class="active">About</a></li>
           <li class="nav-dropdown">
-            <button class="services-toggle" type="button" aria-expanded="false">
-              <span class="services-label">Services</span>
-              <span class="chevron" aria-hidden="true"></span>
-            </button>
+            <div class="services-trigger">
+              <a href="/services" class="services-label-link">Services</a>
+              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open services submenu">
+                <span class="chevron" aria-hidden="true"></span>
+              </button>
+            </div>
             <div class="services-menu" aria-label="Services submenu" aria-hidden="true">
-              <a class="service-link" href="services.html">General</a>
-              <a class="service-link" href="niches/estate-agents.html">Estate Agents</a>
-              <a class="service-link" href="niches/hospitality.html">Hospitality</a>
-              <a class="service-link" href="niches/salons-barbers.html">Salons &amp; Barbers</a>
-              <a class="service-link" href="niches/trades-virtual-office.html">Trades &amp; Field Services</a>
-              <a class="service-link" href="niches/ecommerce.html">eCommerce Brands</a>
-              <a class="service-link" href="niches/physios-chiropractors.html">Physios &amp; Chiropractors</a>
-              <a class="service-link" href="niches/dentists.html">Dentists</a>
-              <a class="service-link" href="niches/gyms-fitness-studios.html">Gyms &amp; Fitness Studios</a>
-              <a class="service-link" href="niches/fitness-coaches.html">Fitness Influencers &amp; Online Coaches</a>
+              <a class="service-link" href="/services">AI Automation Services</a>
+              <a class="service-link" href="/niches/estate-agents">Estate Agents</a>
+              <a class="service-link" href="/niches/hospitality">Hospitality</a>
+              <a class="service-link" href="/niches/salons-barbers">Salons &amp; Barbers</a>
+              <a class="service-link" href="/niches/trades-virtual-office">Trades &amp; Field Services</a>
+              <a class="service-link" href="/niches/ecommerce">eCommerce Brands</a>
+              <a class="service-link" href="/niches/physios-chiropractors">Physios &amp; Chiropractors</a>
+              <a class="service-link" href="/niches/dentists">Dentists</a>
+              <a class="service-link" href="/niches/gyms-fitness-studios">Gyms &amp; Fitness Studios</a>
+              <a class="service-link" href="/niches/fitness-coaches">Fitness Influencers &amp; Online Coaches</a>
             </div>
           </li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="book.html">Book</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/book">Book</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -112,16 +155,16 @@
         </div>
       </div>
       <div class="services-overlay__grid">
-        <a class="service-pill service-link" href="services.html">General</a>
-        <a class="service-pill service-link" href="niches/estate-agents.html">Estate Agents</a>
-        <a class="service-pill service-link" href="niches/hospitality.html">Hospitality</a>
-        <a class="service-pill service-link" href="niches/salons-barbers.html">Salons &amp; Barbers</a>
-        <a class="service-pill service-link" href="niches/trades-virtual-office.html">Trades &amp; Field Services</a>
-        <a class="service-pill service-link" href="niches/ecommerce.html">eCommerce Brands</a>
-        <a class="service-pill service-link" href="niches/physios-chiropractors.html">Physios &amp; Chiropractors</a>
-        <a class="service-pill service-link" href="niches/dentists.html">Dentists</a>
-        <a class="service-pill service-link" href="niches/gyms-fitness-studios.html">Gyms &amp; Fitness Studios</a>
-        <a class="service-pill service-link" href="niches/fitness-coaches.html">Fitness Influencers &amp; Online Coaches</a>
+        <a class="service-pill service-link" href="/services">AI Automation Services</a>
+        <a class="service-pill service-link" href="/niches/estate-agents">Estate Agents</a>
+        <a class="service-pill service-link" href="/niches/hospitality">Hospitality</a>
+        <a class="service-pill service-link" href="/niches/salons-barbers">Salons &amp; Barbers</a>
+        <a class="service-pill service-link" href="/niches/trades-virtual-office">Trades &amp; Field Services</a>
+        <a class="service-pill service-link" href="/niches/ecommerce">eCommerce Brands</a>
+        <a class="service-pill service-link" href="/niches/physios-chiropractors">Physios &amp; Chiropractors</a>
+        <a class="service-pill service-link" href="/niches/dentists">Dentists</a>
+        <a class="service-pill service-link" href="/niches/gyms-fitness-studios">Gyms &amp; Fitness Studios</a>
+        <a class="service-pill service-link" href="/niches/fitness-coaches">Fitness Influencers &amp; Online Coaches</a>
       </div>
     </div>
   </div>
@@ -131,8 +174,8 @@
       <canvas id="hero-shader-canvas" data-variant="neon-yellow"></canvas>
     </div>
     <div class="content">
-      <h1>About Silverstone</h1>
-      <p>A London‑based automation studio helping small businesses reclaim time, reduce admin and run on smarter, joined‑up systems.</p>
+      <h1>About Silverstone AI</h1>
+      <p>Silverstone AI is a London-based automation studio helping UK small businesses reclaim time, reduce admin, and run on smarter, joined-up systems.</p>
     </div>
   </section>
   <!-- Mission and values section -->
@@ -149,7 +192,7 @@
         </div>
         <div class="service-content neon-card">
           <h2 class="section-title" style="text-align:left;">Our Mission</h2>
-          <p>At Silverstone, our mission is to help small businesses <strong>Streamline</strong>,
+          <p>At Silverstone AI, our mission is to help small businesses <strong>Streamline</strong>,
             <strong>Optimize</strong> and <strong>Succeed</strong>. We provide personalised automation solutions that
             remove bottlenecks, standardise workflows and accelerate growth. Through a free, tailored consultation, we
             uncover inefficiencies and design bespoke systems that lower labour and operational costs, optimise resource
@@ -221,7 +264,7 @@
         </div>
         <div class="service-content neon-card">
           <h2 class="section-title" style="text-align:left;">Our Story</h2>
-          <p>Founded by a team of technologists and entrepreneurs, Silverstone was born out of a desire to help small
+          <p>Founded by a team of technologists and entrepreneurs, Silverstone AI was born out of a desire to help small
             businesses harness the power of automation without the complexity. We saw how inefficient processes, manual
             tasks and disconnected systems were holding organisations back and decided to build a better way.</p>
           <p>Today, we partner closely with clients across industries - from professional services and manufacturing to
@@ -249,7 +292,7 @@
         <h2 class="section-title" style="color: var(--color-white);">Let’s Grow Together</h2>
         <p class="section-subtitle" style="color: var(--color-silver);">Ready to streamline your business and unlock new
           possibilities? Our team is eager to help you succeed.</p>
-        <a href="book.html" class="btn btn-primary">Book a Free Automation Audit</a>
+        <a href="/book" class="btn btn-primary">Book a Free Automation Audit</a>
       </div>
     </div>
   </section>
@@ -257,7 +300,7 @@
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-brand">
-        <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
+        <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone AI Logo">
         <p class="tagline">Streamline. Optimize. Succeed.</p>
         <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise
           operations and succeed in the digital age.</p>
@@ -265,13 +308,13 @@
       <div class="footer-links">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="book.html">Book</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/book">Book</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
         </ul>
       </div>
       <div class="footer-contact">
@@ -292,7 +335,7 @@
         </div>
       </div>
     </div>
-    <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
+    <div class="footer-bottom">© 2025 Silverstone AI. All rights reserved.</div>
   </footer>
 <!-- PREMIUM UPGRADE: New JS Assets -->
   <script src="assets/js/app.js"></script>

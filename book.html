@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Book a Free Automation Audit – Silverstone</title>
+  <title>Book a Silverstone AI Automation Audit</title>
   <meta name="description"
     content="Book a free 30-minute automation audit with Silverstone AI to uncover quick wins, reduce manual admin, and plan practical next steps." />
   <!-- Allow search engines to index and follow links on this page -->
@@ -13,9 +13,9 @@
   <!-- Open Graph & Social Media Tags -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://silverstone-ai.com/book" />
-  <meta property="og:title" content="Book a Free Automation Audit – Silverstone" />
+  <meta property="og:title" content="Book a Silverstone AI Automation Audit" />
   <meta property="og:description"
-    content="Book a free, no-obligation consultation with Silverstone's AI experts. Let's discuss how we can tailor automation solutions to meet your business needs and drive growth." />
+    content="Book a free, no-obligation consultation with the Silverstone AI team to discuss practical automation for your business." />
   <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
 
   <!-- Canonical URL: identify the preferred version of this booking page. Without
@@ -50,6 +50,47 @@
   <!-- Local icon font styles -->
   <!-- PREMIUM UPGRADE: New CSS Assets -->
   <!-- Neon fix ensures overlays are layered correctly -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://silverstone-ai.com/book#webpage",
+          "url": "https://silverstone-ai.com/book",
+          "name": "Book a Silverstone AI Automation Audit",
+          "description": "Book a free 30-minute automation audit with Silverstone AI to uncover quick wins, reduce manual admin, and plan practical next steps.",
+          "isPartOf": {
+            "@id": "https://silverstone-ai.com/#website"
+          },
+          "about": {
+            "@id": "https://silverstone-ai.com/#organization"
+          },
+          "breadcrumb": {
+            "@id": "https://silverstone-ai.com/book#breadcrumb"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://silverstone-ai.com/book#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://silverstone-ai.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Book",
+              "item": "https://silverstone-ai.com/book"
+            }
+          ]
+        }
+      ]
+    }
+  </script>
   
   <!-- Custom discovery call and hero styling -->
   
@@ -63,7 +104,7 @@
       We use cookies to improve your browsing experience and to analyse website
       traffic. By clicking “Accept”, you consent to our use of cookies. For
       more details, please read our
-      <a href="privacy-policy.html">Privacy Policy</a>.
+      <a href="/privacy-policy">Privacy Policy</a>.
     </p>
     <div class="cookie-actions">
       <button id="cookie-accept-btn" class="btn btn-primary">Accept</button>
@@ -73,8 +114,8 @@
   <!-- Site header -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="index.html">
-        <img alt="Silverstone Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
+      <a class="logo" href="/">
+        <img alt="Silverstone AI Logo" class="site-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png"
           srcset="assets/logo/silverstone-logo-cropped-whitebg-v2.png 1x, assets/logo/silverstone-logo-cropped-whitebg-v2@2x.png 2x">
       </a>
       <div aria-label="Open navigation" class="nav-toggle" tabindex="0">
@@ -82,29 +123,31 @@
       </div>
       <nav>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
           <li class="nav-dropdown">
-            <button class="services-toggle" type="button" aria-expanded="false">
-              <span class="services-label">Services</span>
-              <span class="chevron" aria-hidden="true"></span>
-            </button>
+            <div class="services-trigger">
+              <a href="/services" class="services-label-link">Services</a>
+              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open services submenu">
+                <span class="chevron" aria-hidden="true"></span>
+              </button>
+            </div>
             <div class="services-menu" aria-label="Services submenu" aria-hidden="true">
-              <a class="service-link" href="services.html">General</a>
-              <a class="service-link" href="niches/estate-agents.html">Estate Agents</a>
-              <a class="service-link" href="niches/hospitality.html">Hospitality</a>
-              <a class="service-link" href="niches/salons-barbers.html">Salons &amp; Barbers</a>
-              <a class="service-link" href="niches/trades-virtual-office.html">Trades &amp; Field Services</a>
-              <a class="service-link" href="niches/ecommerce.html">eCommerce Brands</a>
-              <a class="service-link" href="niches/physios-chiropractors.html">Physios &amp; Chiropractors</a>
-              <a class="service-link" href="niches/dentists.html">Dentists</a>
-              <a class="service-link" href="niches/gyms-fitness-studios.html">Gyms &amp; Fitness Studios</a>
-              <a class="service-link" href="niches/fitness-coaches.html">Fitness Influencers &amp; Online Coaches</a>
+              <a class="service-link" href="/services">AI Automation Services</a>
+              <a class="service-link" href="/niches/estate-agents">Estate Agents</a>
+              <a class="service-link" href="/niches/hospitality">Hospitality</a>
+              <a class="service-link" href="/niches/salons-barbers">Salons &amp; Barbers</a>
+              <a class="service-link" href="/niches/trades-virtual-office">Trades &amp; Field Services</a>
+              <a class="service-link" href="/niches/ecommerce">eCommerce Brands</a>
+              <a class="service-link" href="/niches/physios-chiropractors">Physios &amp; Chiropractors</a>
+              <a class="service-link" href="/niches/dentists">Dentists</a>
+              <a class="service-link" href="/niches/gyms-fitness-studios">Gyms &amp; Fitness Studios</a>
+              <a class="service-link" href="/niches/fitness-coaches">Fitness Influencers &amp; Online Coaches</a>
             </div>
           </li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a class="active" href="book.html">Book</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a class="active" href="/book">Book</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -119,16 +162,16 @@
         </div>
       </div>
       <div class="services-overlay__grid">
-        <a class="service-pill service-link" href="services.html">General</a>
-        <a class="service-pill service-link" href="niches/estate-agents.html">Estate Agents</a>
-        <a class="service-pill service-link" href="niches/hospitality.html">Hospitality</a>
-        <a class="service-pill service-link" href="niches/salons-barbers.html">Salons &amp; Barbers</a>
-        <a class="service-pill service-link" href="niches/trades-virtual-office.html">Trades &amp; Field Services</a>
-        <a class="service-pill service-link" href="niches/ecommerce.html">eCommerce Brands</a>
-        <a class="service-pill service-link" href="niches/physios-chiropractors.html">Physios &amp; Chiropractors</a>
-        <a class="service-pill service-link" href="niches/dentists.html">Dentists</a>
-        <a class="service-pill service-link" href="niches/gyms-fitness-studios.html">Gyms &amp; Fitness Studios</a>
-        <a class="service-pill service-link" href="niches/fitness-coaches.html">Fitness Influencers &amp; Online Coaches</a>
+        <a class="service-pill service-link" href="/services">AI Automation Services</a>
+        <a class="service-pill service-link" href="/niches/estate-agents">Estate Agents</a>
+        <a class="service-pill service-link" href="/niches/hospitality">Hospitality</a>
+        <a class="service-pill service-link" href="/niches/salons-barbers">Salons &amp; Barbers</a>
+        <a class="service-pill service-link" href="/niches/trades-virtual-office">Trades &amp; Field Services</a>
+        <a class="service-pill service-link" href="/niches/ecommerce">eCommerce Brands</a>
+        <a class="service-pill service-link" href="/niches/physios-chiropractors">Physios &amp; Chiropractors</a>
+        <a class="service-pill service-link" href="/niches/dentists">Dentists</a>
+        <a class="service-pill service-link" href="/niches/gyms-fitness-studios">Gyms &amp; Fitness Studios</a>
+        <a class="service-pill service-link" href="/niches/fitness-coaches">Fitness Influencers &amp; Online Coaches</a>
       </div>
     </div>
   </div>
@@ -138,8 +181,8 @@
       <canvas id="hero-shader-canvas" data-variant="neon-pink"></canvas>
     </div>
     <div class="content">
-      <h1>Book Your Free 30‑Minute Automation Audit</h1>
-      <p>Share a few details and we’ll use your session to identify three quick automation wins and outline clear next steps – no jargon, no hard sell.</p>
+      <h1>Book your Silverstone AI automation audit</h1>
+      <p>Share a few details and we’ll use your session to identify three quick automation wins and outline clear next steps for your UK business.</p>
     </div>
   </section>
   <!-- Discovery call section -->
@@ -157,7 +200,7 @@
             <li><i class="fa-solid fa-info-circle"></i> Discover more about our services and processes</li>
             <li><i class="fa-solid fa-check-circle"></i> Find out if automation is right for your business</li>
           </ul>
-          <p>If there are no suitable time slots, please <a href="contact.html">use our contact form</a> and we’ll
+          <p>If there are no suitable time slots, please <a href="/contact">use our contact form</a> and we’ll
             arrange a time that suits your schedule — we know business owners are busy and we always make time for you,
             no matter the day or hour.</p>
         </div>
@@ -176,7 +219,7 @@
         <h2 class="section-title" style="color: var(--color-white);">Ready to Get Started?</h2>
         <p class="section-subtitle" style="color: var(--color-silver);">We’re excited to learn about your business and
           design a solution that fits.</p>
-        <a class="btn btn-primary" href="contact.html">Contact Us</a>
+        <a class="btn btn-primary" href="/contact">Contact Us</a>
       </div>
     </div>
   </section>
@@ -184,7 +227,7 @@
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-brand">
-        <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone Logo">
+        <img class="footer-logo" src="assets/logo/silverstone-logo-cropped-whitebg-v2.png" alt="Silverstone AI Logo">
         <p class="tagline">Streamline. Optimize. Succeed.</p>
         <p class="mission">Empowering businesses through intelligent automation to streamline workflows, optimise
           operations and succeed in the digital age.</p>
@@ -192,13 +235,13 @@
       <div class="footer-links">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="book.html">Book</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/book">Book</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
         </ul>
       </div>
       <div class="footer-contact">
@@ -219,7 +262,7 @@
         </div>
       </div>
     </div>
-    <div class="footer-bottom">© 2025 Silverstone. All rights reserved.</div>
+    <div class="footer-bottom">© 2025 Silverstone AI. All rights reserved.</div>
   </footer>
 <!-- Scripts -->
   <!-- Load Calendly widget script immediately for faster rendering -->
