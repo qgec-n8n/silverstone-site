@@ -452,23 +452,38 @@ for (const page of indexedPages) {
 }
 
 const servicesHtml = readFile("services.html");
-const servicesResourcesSection = extractFirst(
+const servicesNicheSection = extractFirst(
   servicesHtml,
-  /(<section class="section bg-circuit[\s\S]*?Explore service pages and practical automation guides\.[\s\S]*?<\/section>)/i
+  /(<section id="service-page-clusters"[\s\S]*?<\/section>)/i
+);
+const servicesGuidesSection = extractFirst(
+  servicesHtml,
+  /(<section id="service-supporting-guides"[\s\S]*?<\/section>)/i
 );
 
-if (!servicesResourcesSection) {
-  errors.push("services.html: missing services resources section");
-} else {
-  const sectionLinks = collectInternalLinks(servicesResourcesSection, "services.html");
+if (!servicesNicheSection) {
+  errors.push("services.html: missing niche services resources section");
+}
+if (!servicesGuidesSection) {
+  errors.push("services.html: missing supporting guides resources section");
+}
+if (servicesNicheSection && servicesGuidesSection) {
+  const nichePosition = servicesHtml.indexOf('id="service-page-clusters"');
+  const guidesPosition = servicesHtml.indexOf('id="service-supporting-guides"');
+  if (nichePosition > guidesPosition) {
+    errors.push("services.html: niche resources section must appear before supporting guides section");
+  }
+
+  const nicheLinks = collectInternalLinks(servicesNicheSection, "services.html");
+  const guideLinks = collectInternalLinks(servicesGuidesSection, "services.html");
   for (const requiredPath of requiredNichePaths) {
-    if (!sectionLinks.includes(requiredPath)) {
-      errors.push(`services.html: resources section is missing niche link ${requiredPath}`);
+    if (!nicheLinks.includes(requiredPath)) {
+      errors.push(`services.html: niche resources section is missing ${requiredPath}`);
     }
   }
   for (const requiredPath of requiredBlogPaths) {
-    if (!sectionLinks.includes(requiredPath)) {
-      errors.push(`services.html: resources section is missing blog link ${requiredPath}`);
+    if (!guideLinks.includes(requiredPath)) {
+      errors.push(`services.html: supporting guides section is missing ${requiredPath}`);
     }
   }
 }
