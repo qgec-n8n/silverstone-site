@@ -1,5 +1,5 @@
-model = "GPT-5.4"
-model_reasoning_effort = "xhigh"
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
 personality = "pragmatic"
 [projects."/Users/quentingeczy/Desktop/DC-Performance-Coaching"]
 trust_level = "trusted"

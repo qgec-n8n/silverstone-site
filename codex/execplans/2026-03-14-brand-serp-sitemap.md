@@ -99,3 +99,15 @@
   - resubmit `https://silverstone-ai.com/sitemap.xml`
   - expect the root sitemap to show page URL discovery rather than 4 child-sitemap references after the new file is fetched
 - Expect branded sitelink changes to lag deployment; this work improves the signals but does not let us directly force Google’s sitelink choices.
+
+## 2026-03-16 Yandex verification addendum
+
+- Reviewed Yandex Webmaster official verification guidance for HTML meta-tag verification.
+- Observed root cause: the repo had no `yandex-verification` meta tag on the homepage or any other indexable HTML page, so Yandex ownership verification via meta tag could not succeed.
+- Clarified scope from Yandex docs: the tag is required for site ownership verification on the main page; it is not the mechanism that makes all pages indexable.
+- Applied the requested tag `<meta name="yandex-verification" content="fb2b6f788d990108" />` to all 36 indexable HTML pages so the homepage satisfies Yandex verification requirements and the rest of the canonical page set stays consistent.
+- Verification after edit:
+  - confirmed 36 HTML files contain the Yandex verification tag
+  - confirmed representative main, niche, and blog pages include the tag in `<head>`
+  - reran `npm run seo:audit`
+  - reran `git diff --check`
