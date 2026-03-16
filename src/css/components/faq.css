@@ -17,6 +17,14 @@
   transition: padding 0.3s ease, width 0.3s ease;
 }
 
+.page-services .faq-section details,
+.page-niche .faq-section details {
+  padding: 1.15rem 1.25rem;
+  background: var(--premium-surface-strong);
+  border: 1px solid var(--premium-border);
+  box-shadow: var(--premium-shadow);
+}
+
 .faq-section summary {
   list-style: none;
   font-family: var(--font-heading);
@@ -26,6 +34,7 @@
   position: relative;
   outline: none;
   padding-right: 1.25rem;
+  line-height: 1.45;
 }
 
 .faq-section summary::-webkit-details-marker {
@@ -50,14 +59,23 @@
   margin-top: 0.75rem;
   font-size: 0.95rem;
   color: var(--color-silver);
-  line-height: 1.5;
+  line-height: 1.72;
   white-space: normal;
   overflow-wrap: break-word;
+  max-width: 64ch;
 }
 
 .faq-section details[open] {
-  padding-bottom: 1rem;
+  padding-bottom: 1.2rem;
   max-width: 70ch;
+}
+
+.page-services .faq-section details:hover,
+.page-services .faq-section details:focus-within,
+.page-niche .faq-section details:hover,
+.page-niche .faq-section details:focus-within {
+  border-color: var(--premium-border-strong);
+  box-shadow: var(--premium-shadow-hover);
 }
 
 .faq-section .section-title {

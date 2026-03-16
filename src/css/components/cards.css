@@ -141,12 +141,36 @@
     box-shadow 0.25s ease;
 }
 
+.page-home .neon-card,
+.page-about .neon-card,
+.page-services .neon-card,
+.page-niche .neon-card {
+  background: var(--premium-surface);
+  border: 1px solid var(--premium-border);
+  border-radius: var(--premium-radius);
+  box-shadow: var(--premium-shadow);
+  backdrop-filter: blur(10px);
+}
+
 .neon-card:hover {
   transform: translateY(-2px);
   box-shadow:
     0 0 0 1px rgba(157, 78, 221, 0.35) inset,
     0 12px 40px rgba(0, 0, 0, 0.4),
     0 0 36px rgba(0, 174, 239, 0.35);
+}
+
+.page-home .neon-card:hover,
+.page-home .neon-card:focus-within,
+.page-about .neon-card:hover,
+.page-about .neon-card:focus-within,
+.page-services .neon-card:hover,
+.page-services .neon-card:focus-within,
+.page-niche .neon-card:hover,
+.page-niche .neon-card:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--premium-border-strong);
+  box-shadow: var(--premium-shadow-hover);
 }
 
 .neon-card > img,
@@ -302,6 +326,16 @@
   box-shadow: 0 10px 24px rgba(5, 12, 24, 0.4);
 }
 
+.page-home .service-image__zoom,
+.page-about .service-image__zoom,
+.page-services .service-image__zoom,
+.page-niche .service-image__zoom {
+  background: rgba(7, 13, 21, 0.76);
+  border-color: rgba(190, 223, 255, 0.22);
+  color: rgba(244, 248, 252, 0.94);
+  letter-spacing: 0.16em;
+}
+
 .service-image img {
   position: absolute;
   top: 0;
@@ -316,11 +350,14 @@
   font-size: 1.75rem;
   color: var(--color-blue);
   margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 .service-content p {
   color: var(--color-silver);
   margin-bottom: 1rem;
+  line-height: 1.75;
 }
 
 .service-content ul {
@@ -335,6 +372,7 @@
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   color: var(--color-silver);
+  line-height: 1.65;
 }
 
 .service-content ul li::before {
@@ -366,6 +404,13 @@
 
 .service-content.neon-card {
   padding: calc(1.5rem * var(--service-scale));
+}
+
+.page-home .service-content.neon-card,
+.page-about .service-content.neon-card,
+.page-services .service-content.neon-card,
+.page-niche .service-content.neon-card {
+  padding: clamp(1.45rem, 2.5vw, 2rem);
 }
 
 .service-content.neon-card h3 {
@@ -420,6 +465,15 @@
 .values .value-card {
   flex: 1 1 240px;
   max-width: 320px;
+}
+
+.page-about .value-card,
+.page-home .feature-card,
+.page-home .proof-card,
+.page-services .proof-card,
+.page-niche .faq-section details {
+  border-color: var(--premium-border);
+  box-shadow: var(--premium-shadow);
 }
 
 .gallery-grid .neon-card img,

@@ -17,6 +17,21 @@
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
   --header-safe-offset: calc(var(--headerH) + var(--safe-area-top));
   --mobile-stable-vh: 100vh;
+  --premium-surface: linear-gradient(180deg, rgba(16, 22, 33, 0.9), rgba(9, 13, 21, 0.86));
+  --premium-surface-strong: linear-gradient(180deg, rgba(18, 25, 38, 0.94), rgba(8, 12, 20, 0.92));
+  --premium-border: rgba(154, 201, 244, 0.22);
+  --premium-border-strong: rgba(196, 229, 255, 0.28);
+  --premium-shadow:
+    0 20px 44px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.045) inset;
+  --premium-shadow-hover:
+    0 26px 54px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  --premium-muted: rgba(224, 232, 240, 0.78);
+  --premium-copy: rgba(241, 246, 250, 0.92);
+  --premium-measure: 66ch;
+  --premium-section-space: clamp(3rem, 5vw, 4.75rem);
+  --premium-radius: 22px;
 }
 
 @supports (height: 100lvh) {

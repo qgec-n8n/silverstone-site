@@ -19,6 +19,60 @@
   z-index: 2;
 }
 
+.page-about .service-row {
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  align-items: stretch;
+}
+
+.page-about .service-content.neon-card {
+  justify-content: center;
+}
+
+.page-about .service-content .section-title {
+  margin-bottom: 1.1rem;
+}
+
+.page-about .service-content p {
+  color: var(--premium-copy);
+}
+
+.page-about .values {
+  gap: 1.25rem;
+}
+
+.page-about .value-card {
+  padding: 1.8rem 1.45rem;
+}
+
+.page-about .value-card i {
+  font-size: 1.8rem;
+  margin-bottom: 0.9rem;
+}
+
+.page-about .value-card h4 {
+  font-size: 1.15rem;
+  line-height: 1.2;
+}
+
+.page-about .value-card p {
+  color: var(--premium-muted);
+  line-height: 1.68;
+}
+
+.page-about .stats {
+  margin-top: 1.5rem;
+}
+
+.page-about .drives-grid,
+.page-about .collage {
+  gap: 1rem;
+}
+
+.page-about .drives-grid .neon-card,
+.page-about .collage .neon-card {
+  border-radius: 18px;
+}
+
 
 @media (max-width: 768px) {
   .page-about .hero.title-band .content p {

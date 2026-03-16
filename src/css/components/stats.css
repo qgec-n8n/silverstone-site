@@ -13,6 +13,23 @@
   padding: 1.5rem;
 }
 
+.page-home .stats,
+.page-about .stats,
+.page-services .stats,
+.page-niche .stats {
+  gap: 1.2rem;
+  align-items: stretch;
+}
+
+.page-home .stats .stat,
+.page-about .stats .stat,
+.page-services .stats .stat,
+.page-niche .stats .stat {
+  flex: 1 1 220px;
+  padding: 1.55rem 1.25rem 1.4rem;
+  border-radius: var(--premium-radius);
+}
+
 /* SS_STATS_SPEC: COLORS_ICON_GREEN_NUMBER_BLUE_LABEL_WHITE */
 .stats .stat-icon {
   font-size: 1.5rem;
@@ -27,12 +44,25 @@
   font-family: var(--font-heading);
   font-weight: 700;
   margin-bottom: 0.5rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .stats .label {
   font-size: 1rem;
   color: var(--color-white);
   font-family: var(--font-body);
+  line-height: 1.45;
+}
+
+.page-home .stats .label,
+.page-about .stats .label,
+.page-services .stats .label,
+.page-niche .stats .label {
+  color: var(--premium-muted);
+  font-size: 0.94rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 @media (max-width: 768px) {
