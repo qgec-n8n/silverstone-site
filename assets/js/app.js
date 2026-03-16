@@ -2023,7 +2023,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const root = document.querySelector('[data-calendly-inline-root]');
     if (!root) return;
 
-    const url = root.getAttribute('data-calendly-url');
+    const url = root.getAttribute('data-url');
     if (!url) return;
 
     let initialized = false;
@@ -2036,12 +2036,15 @@ document.addEventListener('DOMContentLoaded', function () {
       ).then(() => {
         if (initialized || !window.Calendly || !root.isConnected) return;
         initialized = true;
-        root.innerHTML = '';
-        root.classList.add('is-ready');
+        if (root.querySelector('iframe') || root.getAttribute('data-processed') === 'true') {
+          root.classList.add('is-ready');
+          return;
+        }
         window.Calendly.initInlineWidget({
           url,
           parentElement: root,
         });
+        root.classList.add('is-ready');
       });
 
       return widgetPromise;
