@@ -69,29 +69,6 @@ const INDEX_TILE_FILES = [
   'services_data_integration_mobile.jpg',
 ];
 
-const BLOG_FILES = [
-  'blog_1.jpeg',
-  'blog_2.png',
-  'blog_3.png',
-  'blog_7.png',
-  'blog_8.png',
-  'blog_9.png',
-  'blog_10.png',
-  'blog_12.png',
-  'blog_13.png',
-  'blog_14.png',
-  'blog_15.png',
-  'blog_16.png',
-  'blog_19.png',
-  'blog_20.png',
-  'blog_21.png',
-  'blog_23.png',
-  'blog_24.png',
-  'blog_25.png',
-  'blog_26.png',
-  'blog_27.png',
-];
-
 const ZIP_FILES = [
   'Silverstone_04.jpg',
   'Silverstone_06.jpg',
@@ -105,6 +82,15 @@ const QUALITY = {
   webp: { quality: 72 },
   jpg: { quality: 80, mozjpeg: true },
 };
+
+function discoverBlogFiles() {
+  return fs
+    .readdirSync(BLOG_DIR)
+    .filter((filename) => /^blog_\d+\.(?:png|jpe?g)$/i.test(filename))
+    .sort((left, right) =>
+      left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' }),
+    );
+}
 
 const TARGET_GROUPS = [
   {
@@ -138,7 +124,9 @@ const TARGET_GROUPS = [
   {
     sourceDir: BLOG_DIR,
     derivedDir: path.join(BLOG_DIR, 'derived'),
-    items: new Map(BLOG_FILES.map((filename) => [filename, new Set([320, 640, 960, 1280])])),
+    items: new Map(
+      discoverBlogFiles().map((filename) => [filename, new Set([320, 640, 960, 1280])]),
+    ),
   },
   {
     sourceDir: ZIP_DIR,

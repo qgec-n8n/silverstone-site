@@ -535,30 +535,27 @@ if (
 
 for (const relPath of nonServiceCorePages) {
   const html = readFile(relPath);
-  if (/class="nav-dropdown"/.test(html)) {
-    errors.push(`${relPath}: should not include the boilerplate niche dropdown`);
+  if (!/class="nav-dropdown"/.test(html)) {
+    errors.push(`${relPath}: missing the checked-in Niches dropdown pattern`);
   }
-  if (/class="services-overlay"/.test(html)) {
-    errors.push(`${relPath}: should not include the boilerplate niche overlay`);
+  if (!/class="services-overlay"/.test(html)) {
+    errors.push(`${relPath}: missing the checked-in Niches overlay pattern`);
   }
-  if (/href="\/niches\//.test(html)) {
-    errors.push(`${relPath}: should not include boilerplate direct niche links`);
-  }
-  if (!/href="\/services#automation-packs"/.test(html)) {
-    errors.push(`${relPath}: should keep the Niches nav slot pointed at /services#automation-packs`);
+  if (!/href="\/niches\//.test(html)) {
+    errors.push(`${relPath}: missing checked-in direct niche links`);
   }
 }
 
 for (const page of blogPages) {
   const html = readFile(page.file);
-  if (/class="nav-dropdown"/.test(html)) {
-    errors.push(`${page.file}: should not include the boilerplate niche dropdown`);
+  if (!/class="nav-dropdown"/.test(html)) {
+    errors.push(`${page.file}: missing the checked-in Niches dropdown pattern`);
   }
-  if (/class="services-overlay"/.test(html)) {
-    errors.push(`${page.file}: should not include the boilerplate niche overlay`);
+  if (!/class="services-overlay"/.test(html)) {
+    errors.push(`${page.file}: missing the checked-in Niches overlay pattern`);
   }
-  if (!/href="\/services#automation-packs"/.test(html)) {
-    errors.push(`${page.file}: should keep the Niches nav slot pointed at /services#automation-packs`);
+  if (!/href="\/niches\//.test(html)) {
+    errors.push(`${page.file}: missing checked-in direct niche links`);
   }
 }
 
