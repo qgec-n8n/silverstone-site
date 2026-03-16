@@ -122,7 +122,25 @@
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/services">Services</a></li>
-          <li><a href="/services#automation-packs">Niches</a></li>
+          <li class="nav-dropdown">
+            <div class="services-trigger">
+              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open niches submenu">
+                <span class="services-label">Niches</span>
+                <span class="chevron" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="services-menu" aria-label="Niches submenu" aria-hidden="true">
+              <a class="service-link" href="/niches/estate-agents">Estate Agents</a>
+              <a class="service-link" href="/niches/hospitality">Hospitality</a>
+              <a class="service-link" href="/niches/salons-barbers">Salons &amp; Barbers</a>
+              <a class="service-link" href="/niches/trades-virtual-office">Trades &amp; Field Services</a>
+              <a class="service-link" href="/niches/ecommerce">eCommerce Brands</a>
+              <a class="service-link" href="/niches/physios-chiropractors">Physios &amp; Chiropractors</a>
+              <a class="service-link" href="/niches/dentists">Dentists</a>
+              <a class="service-link" href="/niches/gyms-fitness-studios">Gyms &amp; Fitness Studios</a>
+              <a class="service-link" href="/niches/fitness-coaches">Fitness Influencers &amp; Online Coaches</a>
+            </div>
+          </li>
           <li><a href="/blog" class="active">Blog</a></li>
           <li><a href="/book">Book</a></li>
           <li><a href="/contact">Contact</a></li>
@@ -130,6 +148,28 @@
       </nav>
     </div>
   </header>
+  <div class="services-overlay" aria-hidden="true">
+    <div class="services-overlay__panel">
+      <div class="services-overlay__header">
+        <button class="services-overlay__back" type="button" aria-label="Close niches overlay">Back to menu</button>
+        <div class="services-overlay__title">
+          <span class="services-label">Niches</span>
+          <span class="chevron" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="services-overlay__grid">
+        <a class="service-pill service-link" href="/niches/estate-agents">Estate Agents</a>
+        <a class="service-pill service-link" href="/niches/hospitality">Hospitality</a>
+        <a class="service-pill service-link" href="/niches/salons-barbers">Salons &amp; Barbers</a>
+        <a class="service-pill service-link" href="/niches/trades-virtual-office">Trades &amp; Field Services</a>
+        <a class="service-pill service-link" href="/niches/ecommerce">eCommerce Brands</a>
+        <a class="service-pill service-link" href="/niches/physios-chiropractors">Physios &amp; Chiropractors</a>
+        <a class="service-pill service-link" href="/niches/dentists">Dentists</a>
+        <a class="service-pill service-link" href="/niches/gyms-fitness-studios">Gyms &amp; Fitness Studios</a>
+        <a class="service-pill service-link" href="/niches/fitness-coaches">Fitness Influencers &amp; Online Coaches</a>
+      </div>
+    </div>
+  </div>
 
 
 

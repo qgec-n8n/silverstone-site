@@ -80,6 +80,49 @@
 .section.brand-gradient.animate {
   padding-top: 2rem !important;
 }
+
+.page-services .cta-card {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3.1rem);
+  background:
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.08), transparent 34%),
+    linear-gradient(180deg, rgba(11, 18, 28, 0.92), rgba(8, 12, 20, 0.9));
+  border: 1px solid rgba(202, 228, 255, 0.18);
+  box-shadow:
+    0 30px 62px rgba(4, 10, 22, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.page-services .services-cta__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.42rem 0.9rem;
+  margin-bottom: 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(202, 228, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(236, 245, 255, 0.84);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.page-services .cta-card .section-title {
+  margin-top: 0;
+  margin-bottom: 0.9rem;
+}
+
+.page-services .cta-card .section-subtitle {
+  max-width: 44rem;
+  margin-bottom: 0;
+}
+
+.page-services .cta-card .btn {
+  margin-top: 1.5rem;
+}
 .contact-row {
   display: flex;
   align-items: stretch;

@@ -134,11 +134,12 @@
     0 8px 28px rgba(0, 0, 0, 0.35),
     0 0 36px rgba(0, 174, 239, 0.35);
   border-radius: 18px;
-  padding: clamp(16px, 3vw, 28px);
+  padding: clamp(18px, 3vw, 30px);
   overflow: visible;
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease;
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .page-home .neon-card,
@@ -149,7 +150,7 @@
   border: 1px solid var(--premium-border);
   border-radius: var(--premium-radius);
   box-shadow: var(--premium-shadow);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
 }
 
 .neon-card:hover {
@@ -168,7 +169,7 @@
 .page-services .neon-card:focus-within,
 .page-niche .neon-card:hover,
 .page-niche .neon-card:focus-within {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   border-color: var(--premium-border-strong);
   box-shadow: var(--premium-shadow-hover);
 }
@@ -214,7 +215,7 @@
 }
 
 .value-card {
-  padding: 2rem 1.5rem;
+  padding: 2.2rem 1.7rem;
   flex: 1 1 240px;
   max-width: 320px;
   text-align: center;
@@ -241,8 +242,9 @@
 }
 
 .value-card p {
-  font-size: 0.9rem;
-  color: var(--color-silver);
+  font-size: 0.94rem;
+  line-height: 1.72;
+  color: var(--premium-muted);
 }
 
 /* Service rows and imagery */
@@ -410,7 +412,7 @@
 .page-about .service-content.neon-card,
 .page-services .service-content.neon-card,
 .page-niche .service-content.neon-card {
-  padding: clamp(1.45rem, 2.5vw, 2rem);
+  padding: clamp(1.55rem, 2.8vw, 2.2rem);
 }
 
 .service-content.neon-card h3 {
@@ -422,6 +424,7 @@
 .service-content.neon-card p,
 .service-content.neon-card li {
   font-size: calc(1rem * var(--service-scale));
+  line-height: 1.72;
 }
 
 .service-content.neon-card .btn {
