@@ -50,8 +50,6 @@
   <link rel="dns-prefetch" href="https://calendly.com">
   <link as="style" href="https://assets.calendly.com/assets/external/widget.css" rel="preload">
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <!-- SPEC: CALENDLY_EARLY_LOAD_2025_12 -->
-  <link rel="preload" as="script" href="https://assets.calendly.com/assets/external/widget.js">
   <!-- Global footer styles -->
   <!-- Local icon font styles -->
   <!-- PREMIUM UPGRADE: New CSS Assets -->
@@ -172,9 +170,12 @@
             no matter the day or hour.</p>
         </div>
         <div class="widget">
-          <div class="calendly-inline-widget"
-            data-url="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1&hide_event_type_details=1&primary_color=00FF9D"
-            style="min-width:320px;"></div>
+          <div
+            class="calendly-inline-widget"
+            data-calendly-inline-root
+            data-calendly-url="https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1&hide_event_type_details=1&primary_color=00FF9D"
+            style="min-width:320px;"
+          ></div>
         </div>
       </div>
     </div>
@@ -232,8 +233,6 @@
     <div class="footer-bottom">© 2025 Silverstone AI. All rights reserved.</div>
   </footer>
 <!-- Scripts -->
-  <!-- Load Calendly widget script immediately for faster rendering -->
-  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <!-- PREMIUM UPGRADE: New JS Assets -->
   <script src="assets/js/app.js"></script>
 

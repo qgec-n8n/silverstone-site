@@ -3,9 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 const SOCIALMEDIA_DIR = path.join(__dirname, '../assets/images/socialmedia');
-const DERIVED_DIR = path.join(SOCIALMEDIA_DIR, 'derived');
+const BLOG_DIR = path.join(__dirname, '../assets/images/blog');
+const ZIP_DIR = path.join(__dirname, '../assets/images/zip');
 
-const SERVICE_BASES = [
+const SOCIAL_SERVICE_BASES = [
   'General_Services_1',
   'General_Services_2A',
   'General_Services_2B',
@@ -39,7 +40,7 @@ const SERVICE_BASES = [
   'Trades_3',
 ];
 
-const GALLERY_FILES = [
+const SOCIAL_GALLERY_FILES = [
   'General_Services_2B_Mobile.jpeg',
   'eComm_3_Mobile.jpeg',
   'Trades_2_Mobile.jpeg',
@@ -57,38 +58,98 @@ const GALLERY_FILES = [
   '1-1_Trades_Grid.jpg',
 ];
 
+const INDEX_TILE_FILES = [
+  'services_consulting.jpg',
+  'services_consulting_mobile.jpg',
+  'services_lead_followup.jpg',
+  'services_lead_followup_mobile.jpg',
+  'services_workflow_automation.jpg',
+  'services_workflow_automation_mobile.jpg',
+  'services_data_integration.jpg',
+  'services_data_integration_mobile.jpg',
+];
+
+const BLOG_FILES = [
+  'blog_1.jpeg',
+  'blog_2.png',
+  'blog_3.png',
+  'blog_7.png',
+  'blog_8.png',
+  'blog_9.png',
+  'blog_10.png',
+  'blog_12.png',
+  'blog_13.png',
+  'blog_14.png',
+  'blog_15.png',
+  'blog_16.png',
+  'blog_19.png',
+  'blog_20.png',
+  'blog_21.png',
+  'blog_23.png',
+  'blog_24.png',
+  'blog_25.png',
+  'blog_26.png',
+  'blog_27.png',
+];
+
+const ZIP_FILES = [
+  'Silverstone_04.jpg',
+  'Silverstone_06.jpg',
+  'Silverstone_22.jpg',
+  'Silverstone_27.jpg',
+  'Silverstone_28.jpg',
+];
+
 const QUALITY = {
   avif: { quality: 50, effort: 4 },
   webp: { quality: 72 },
   jpg: { quality: 80, mozjpeg: true },
 };
 
-function buildTargets() {
-  const targetMap = new Map();
+const TARGET_GROUPS = [
+  {
+    sourceDir: SOCIALMEDIA_DIR,
+    derivedDir: path.join(SOCIALMEDIA_DIR, 'derived'),
+    items: (() => {
+      const targetMap = new Map();
+      const addTarget = (filename, widths) => {
+        if (!targetMap.has(filename)) {
+          targetMap.set(filename, new Set());
+        }
+        widths.forEach((width) => targetMap.get(filename).add(width));
+      };
 
-  function addTarget(filename, widths) {
-    if (!targetMap.has(filename)) {
-      targetMap.set(filename, new Set());
-    }
-    const widthSet = targetMap.get(filename);
-    widths.forEach((width) => widthSet.add(width));
-  }
+      SOCIAL_SERVICE_BASES.forEach((baseName) => {
+        addTarget(`${baseName}.jpeg`, [640, 960]);
+        addTarget(`${baseName}_Mobile.jpeg`, [480, 768]);
+      });
 
-  SERVICE_BASES.forEach((baseName) => {
-    addTarget(`${baseName}.jpeg`, [640, 960]);
-    addTarget(`${baseName}_Mobile.jpeg`, [480, 768]);
-  });
+      SOCIAL_GALLERY_FILES.forEach((filename) => addTarget(filename, [320, 480, 640]));
+      INDEX_TILE_FILES.forEach((filename) =>
+        addTarget(
+          filename,
+          /_mobile\./i.test(filename) ? [320, 480, 640] : [640, 960],
+        ),
+      );
 
-  GALLERY_FILES.forEach((filename) => {
-    addTarget(filename, [320, 480, 640]);
-  });
+      return targetMap;
+    })(),
+  },
+  {
+    sourceDir: BLOG_DIR,
+    derivedDir: path.join(BLOG_DIR, 'derived'),
+    items: new Map(BLOG_FILES.map((filename) => [filename, new Set([320, 640, 960, 1280])])),
+  },
+  {
+    sourceDir: ZIP_DIR,
+    derivedDir: path.join(ZIP_DIR, 'derived'),
+    items: new Map(ZIP_FILES.map((filename) => [filename, new Set([640, 960])])),
+  },
+];
 
-  return targetMap;
-}
-
-function buildOutputPath(filename, width, extension) {
+function buildOutputPath(derivedDir, filename, width, extension) {
   const basename = path.basename(filename, path.extname(filename));
-  return path.join(DERIVED_DIR, `${basename}-${width}.${extension}`);
+  return path.join(derivedDir, `${basename}-${width}.${extension}`);
 }
 
 async function writeVariant(sourcePath, outputPath, width, extension) {
@@ -114,34 +175,39 @@ async function writeVariant(sourcePath, outputPath, width, extension) {
 }
 
 async function generateDerivedAssets() {
-  const targets = buildTargets();
-
-  fs.rmSync(DERIVED_DIR, { recursive: true, force: true });
-  fs.mkdirSync(DERIVED_DIR, { recursive: true });
-
   let generatedCount = 0;
 
-  for (const [filename, widthSet] of targets.entries()) {
-    const sourcePath = path.join(SOCIALMEDIA_DIR, filename);
+  for (const group of TARGET_GROUPS) {
+    fs.rmSync(group.derivedDir, { recursive: true, force: true });
+    fs.mkdirSync(group.derivedDir, { recursive: true });
 
-    if (!fs.existsSync(sourcePath)) {
-      console.warn(`Missing source image: ${sourcePath}`);
-      continue;
-    }
+    for (const [filename, widthSet] of group.items.entries()) {
+      const sourcePath = path.join(group.sourceDir, filename);
 
-    const widths = [...widthSet].sort((a, b) => a - b);
+      if (!fs.existsSync(sourcePath)) {
+        console.warn(`Missing source image: ${sourcePath}`);
+        continue;
+      }
 
-    for (const width of widths) {
-      for (const extension of ['avif', 'webp', 'jpg']) {
-        const outputPath = buildOutputPath(filename, width, extension);
-        await writeVariant(sourcePath, outputPath, width, extension);
-        generatedCount += 1;
+      const widths = [...widthSet].sort((a, b) => a - b);
+
+      for (const width of widths) {
+        for (const extension of ['avif', 'webp', 'jpg']) {
+          const outputPath = buildOutputPath(
+            group.derivedDir,
+            filename,
+            width,
+            extension,
+          );
+          await writeVariant(sourcePath, outputPath, width, extension);
+          generatedCount += 1;
+        }
       }
     }
   }
 
   console.log(
-    `Generated ${generatedCount} derived image variants in ${path.relative(process.cwd(), DERIVED_DIR)}.`,
+    `Generated ${generatedCount} derived image variants across the socialmedia, blog, and zip asset directories.`,
   );
 }
 

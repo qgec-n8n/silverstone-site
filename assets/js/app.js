@@ -1917,6 +1917,57 @@ document.addEventListener('DOMContentLoaded', function () {
 (function () {
   'use strict';
 
+  const scriptLoaders = new Map();
+  const stylesheetLoaders = new Map();
+
+  function loadScriptOnce(src) {
+    if (scriptLoaders.has(src)) return scriptLoaders.get(src);
+
+    const existing = document.querySelector(`script[src="${src}"]`);
+    if (existing) {
+      const ready = Promise.resolve(existing);
+      scriptLoaders.set(src, ready);
+      return ready;
+    }
+
+    const promise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      script.onload = () => resolve(script);
+      script.onerror = () =>
+        reject(new Error(`Failed to load script: ${src}`));
+      document.head.appendChild(script);
+    });
+
+    scriptLoaders.set(src, promise);
+    return promise;
+  }
+
+  function loadStylesheetOnce(href) {
+    if (stylesheetLoaders.has(href)) return stylesheetLoaders.get(href);
+
+    const existing = document.querySelector(`link[href="${href}"]`);
+    if (existing) {
+      const ready = Promise.resolve(existing);
+      stylesheetLoaders.set(href, ready);
+      return ready;
+    }
+
+    const promise = new Promise((resolve, reject) => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.onload = () => resolve(link);
+      link.onerror = () =>
+        reject(new Error(`Failed to load stylesheet: ${href}`));
+      document.head.appendChild(link);
+    });
+
+    stylesheetLoaders.set(href, promise);
+    return promise;
+  }
+
   function ensureStylesheet(href) {
     if (document.querySelector(`link[href*="${href}"]`)) return;
     const link = document.createElement('link');
@@ -1930,6 +1981,100 @@ document.addEventListener('DOMContentLoaded', function () {
     ensureStylesheet('assets/css/mobile.css');
   }
 
+  function initDeferredPricingWidgets() {
+    const nodes = Array.from(document.querySelectorAll('.ss-pricing'));
+    if (!nodes.length) return;
+
+    let requested = false;
+    const loadPricingAssets = () => {
+      if (requested) return;
+      requested = true;
+
+      Promise.all([
+        loadStylesheetOnce('/assets/css/pricing-widget.css'),
+        loadScriptOnce('/assets/js/pricing-widget.js'),
+      ]).catch((error) => {
+        console.error(error);
+      });
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          loadPricingAssets();
+        },
+        { rootMargin: '600px 0px' },
+      );
+
+      nodes.forEach((node) => observer.observe(node));
+    } else {
+      loadPricingAssets();
+    }
+
+    const idleCallback =
+      window.requestIdleCallback ||
+      ((callback) => window.setTimeout(callback, 1200));
+    idleCallback(() => loadPricingAssets());
+  }
+
+  function initCalendlyEmbed() {
+    const root = document.querySelector('[data-calendly-inline-root]');
+    if (!root) return;
+
+    const url = root.getAttribute('data-calendly-url');
+    if (!url) return;
+
+    let initialized = false;
+    let widgetPromise = null;
+
+    const loadCalendly = () => {
+      if (widgetPromise) return widgetPromise;
+      widgetPromise = loadScriptOnce(
+        'https://assets.calendly.com/assets/external/widget.js',
+      ).then(() => {
+        if (initialized || !window.Calendly || !root.isConnected) return;
+        initialized = true;
+        root.innerHTML = '';
+        root.classList.add('is-ready');
+        window.Calendly.initInlineWidget({
+          url,
+          parentElement: root,
+        });
+      });
+
+      return widgetPromise;
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          loadCalendly().catch((error) => {
+            console.error(error);
+          });
+        },
+        { rootMargin: '900px 0px' },
+      );
+      observer.observe(root);
+    } else {
+      loadCalendly().catch((error) => {
+        console.error(error);
+      });
+    }
+
+    const idleCallback =
+      window.requestIdleCallback ||
+      ((callback) => window.setTimeout(callback, 800));
+    idleCallback(() => {
+      loadCalendly().catch((error) => {
+        console.error(error);
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     window.Silverstone = window.Silverstone || {};
     const api = window.Silverstone;
@@ -1940,5 +2085,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (api.initScrollReveal) api.initScrollReveal();
     if (api.initStats) api.initStats();
     if (api.initParallax) api.initParallax();
+    initDeferredPricingWidgets();
+    initCalendlyEmbed();
   });
 })();
