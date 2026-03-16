@@ -218,6 +218,18 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/blog/how-small-physio-and-chiro-clinics-can-cut-missed-sessions-and-improve-treatment-completion-with-simple-ai-automations.html"
+  to = "/blog/how-small-physio-and-chiro-clinics-can-cut-missed-sessions-and-improve-treatment-completion-with-simple-ai-automations"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-small-uk-estate-agents-can-use-automated-viewing-confirmations-to-cut-no-shows-and-win-instructions.html"
+  to = "/blog/how-small-uk-estate-agents-can-use-automated-viewing-confirmations-to-cut-no-shows-and-win-instructions"
+  status = 301
+  force = true
+
 # Basic headers for preview environment
 [context.deploy-preview]
   # Apply noindex headers only to deploy preview builds so that crawlers

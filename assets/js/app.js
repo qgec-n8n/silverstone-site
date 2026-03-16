@@ -1489,7 +1489,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const slot = document.getElementById('innovation-marquee-slot');
     const galleryGrid = document.getElementById('neural-grid');
-    const target = galleryGrid || slot || document.querySelector('footer.site-footer');
+    if (!slot && !galleryGrid) return;
+
+    const target = galleryGrid || slot;
 
     observeWhenNearViewport(target, () => {
       if (doubleInitialized) return;
@@ -1504,8 +1506,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSlot.replaceWith(container);
       } else if (currentGrid && currentGrid.parentNode) {
         currentGrid.insertAdjacentElement('afterend', container);
-      } else {
-        document.body.appendChild(container);
       }
 
       alignInnovationAnchor();
