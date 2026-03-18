@@ -230,6 +230,60 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/blog/how-uk-dental-practices-can-automate-patient-intake-and-e-consent-to-cut-admin-speed-treatment-starts-and.html"
+  to = "/blog/how-uk-dental-practices-can-automate-patient-intake-and-e-consent-to-cut-admin-speed-treatment-starts-and"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-uk-ecommerce-brands-can-use-ai-returns-triage-to-cut-support-load-and-keep-customers-happy.html"
+  to = "/blog/how-uk-ecommerce-brands-can-use-ai-returns-triage-to-cut-support-load-and-keep-customers-happy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-uk-gyms-and-fitness-studios-can-use-ai-win-back-journeys-to-reactivate-inactive-members.html"
+  to = "/blog/how-uk-gyms-and-fitness-studios-can-use-ai-win-back-journeys-to-reactivate-inactive-members"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-uk-hotels-and-b-and-bs-can-install-a-24-7-ai-guest-concierge-a-90-day-checklist-costs-and-data-risk.html"
+  to = "/blog/how-uk-hotels-and-b-and-bs-can-install-a-24-7-ai-guest-concierge-a-90-day-checklist-costs-and-data-risk"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-uk-physio-and-chiropractic-clinics-can-automate-rebooking-to-keep-patients-on-plan.html"
+  to = "/blog/how-uk-physio-and-chiropractic-clinics-can-automate-rebooking-to-keep-patients-on-plan"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-uk-salons-and-barbers-can-use-ai-rebooking-journeys-to-fill-gaps-between-appointments.html"
+  to = "/blog/how-uk-salons-and-barbers-can-use-ai-rebooking-journeys-to-fill-gaps-between-appointments"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-uk-trades-businesses-can-use-ai-call-answering-to-stop-after-hours-emergency-jobs-going-to-competitors.html"
+  to = "/blog/how-uk-trades-businesses-can-use-ai-call-answering-to-stop-after-hours-emergency-jobs-going-to-competitors"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-lead-capture-trades-uk-2026"
+  to = "/blog/ai-lead-capture-uk-trades-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-lead-capture-trades-uk-2026.html"
+  to = "/blog/ai-lead-capture-uk-trades-2026"
+  status = 301
+  force = true
+
 # Basic headers for preview environment
 [context.deploy-preview]
   # Apply noindex headers only to deploy preview builds so that crawlers
