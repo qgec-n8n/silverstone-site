@@ -447,6 +447,12 @@
 }
 
 @media (max-width: 768px) {
+  /* Push hero content + CTAs down to match niches pages — index.html has a
+     shorter h1 so without this the buttons sit too high over the animation */
+  .page-home .hero.title-band {
+    padding-top: calc(var(--header-safe-offset) + 3.5rem);
+  }
+
   .page-home .primary-site-links-grid {
     grid-template-columns: 1fr;
     gap: 0.85rem;

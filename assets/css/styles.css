@@ -11901,6 +11901,7 @@ header.site-header {
   height: calc(var(--headerH) + var(--safe-area-top));
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  will-change: transform;
   display: flex;
   align-items: center;
   padding-top: calc(0.5rem + var(--safe-area-top));
@@ -15192,6 +15193,12 @@ body.services-overlay-active .services-overlay {
 }
 
 @media (max-width: 768px) {
+  /* Push hero content + CTAs down to match niches pages — index.html has a
+     shorter h1 so without this the buttons sit too high over the animation */
+  .page-home .hero.title-band {
+    padding-top: calc(var(--header-safe-offset) + 3.5rem);
+  }
+
   .page-home .primary-site-links-grid {
     grid-template-columns: 1fr;
     gap: 0.85rem;
@@ -15650,6 +15657,7 @@ body.services-overlay-active .services-overlay {
 }
 
 @media (max-width: 768px) {
+  /* Header text alignment */
   .page-services .services-resource-shell__title,
   .page-services .services-resource-shell__subtitle {
     text-align: center;
@@ -15661,12 +15669,129 @@ body.services-overlay-active .services-overlay {
     margin-right: auto;
   }
 
-  .page-services .services-resource-list--blogs {
-    grid-template-columns: 1fr;
+  /* ── Niches: pill cloud — short labels wrap into a compact tag grid ── */
+  .page-services .services-resource-list:not(.services-resource-list--blogs) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    grid-template-columns: unset;
   }
 
-  .page-services .services-resource-list {
-    grid-template-columns: 1fr;
+  .page-services .services-resource-list:not(.services-resource-list--blogs) li {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.05rem 0.6rem 0.8rem;
+    border-radius: 999px;
+    height: auto;
+    min-height: 42px;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 255, 157, 0.1) 0%,
+      rgba(0, 174, 239, 0.06) 100%
+    );
+    border: 1px solid rgba(0, 255, 157, 0.25);
+    box-shadow:
+      0 0 0 0 rgba(0, 255, 157, 0),
+      0 4px 14px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  .page-services .services-resource-list:not(.services-resource-list--blogs) li:active {
+    border-color: rgba(0, 255, 157, 0.55);
+    box-shadow:
+      0 0 12px rgba(0, 255, 157, 0.18),
+      0 4px 14px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+
+  .page-services .services-resource-list:not(.services-resource-list--blogs) li i {
+    font-size: 0.78rem;
+    margin-right: 0.45rem;
+    margin-top: 0;
+    color: var(--color-green);
+    flex-shrink: 0;
+  }
+
+  .page-services .services-resource-list:not(.services-resource-list--blogs) a {
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: rgba(220, 242, 255, 0.92);
+    text-decoration: none;
+  }
+
+  /* ── Blogs: compact 2-column pill-card grid ── */
+  .page-services .services-resource-list--blogs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.48rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .page-services .services-resource-list--blogs li {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.7rem 0.65rem;
+    border-radius: 14px;
+    height: auto;
+    min-height: 52px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.048) 0%,
+        rgba(255, 255, 255, 0.012) 100%
+      ),
+      rgba(8, 13, 20, 0.8);
+    border: 1px solid rgba(0, 174, 239, 0.17);
+    box-shadow:
+      0 6px 16px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .page-services .services-resource-list--blogs li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 174, 239, 0.55),
+      rgba(157, 78, 221, 0.3)
+    );
+    opacity: 0.7;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .page-services .services-resource-list--blogs li:active {
+    border-color: rgba(0, 174, 239, 0.38);
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .page-services .services-resource-list--blogs li i {
+    font-size: 0.7rem;
+    margin-right: 0.4rem;
+    margin-top: 0.16rem;
+    flex-shrink: 0;
+    color: var(--color-blue);
+    opacity: 0.85;
+  }
+
+  .page-services .services-resource-list--blogs a {
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.38;
+    white-space: normal;
+    color: rgba(210, 235, 255, 0.88);
+    text-decoration: none;
   }
 }
 
