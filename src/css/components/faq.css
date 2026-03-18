@@ -18,6 +18,7 @@
 }
 
 .page-services .faq-section details,
+.page-pricing .faq-section details,
 .page-niche .faq-section details {
   padding: 1.15rem 1.25rem;
   background: var(--premium-surface-strong);
@@ -72,6 +73,8 @@
 
 .page-services .faq-section details:hover,
 .page-services .faq-section details:focus-within,
+.page-pricing .faq-section details:hover,
+.page-pricing .faq-section details:focus-within,
 .page-niche .faq-section details:hover,
 .page-niche .faq-section details:focus-within {
   border-color: var(--premium-border-strong);

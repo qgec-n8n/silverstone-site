@@ -196,6 +196,8 @@ function PlanCard({ plan, billingMode, bookHref, index }) {
   return (
     <article
       className={`ss-pricing__card ss-pricing__fade-up ${plan.badge ? "is-featured" : ""}`}
+      id={plan.anchorId || undefined}
+      tabIndex={plan.anchorId ? -1 : undefined}
       style={{ animationDelay: `${index * 0.2}s` }}
     >
       {plan.badge ? <div className="ss-pricing__badge">{plan.badge}</div> : null}
@@ -232,6 +234,8 @@ function GroupCard({ group, bookHref, index }) {
   return (
     <article
       className="ss-pricing__card ss-pricing__fade-up"
+      id={group.anchorId || undefined}
+      tabIndex={group.anchorId ? -1 : undefined}
       style={{ animationDelay: `${index * 0.2}s` }}
     >
       <h3 className="ss-pricing__card-title">{group.groupLabel}</h3>

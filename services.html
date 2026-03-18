@@ -40,7 +40,6 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="assets/css/styles.css">
-  <link rel="stylesheet" href="assets/css/pricing-widget.css">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -129,6 +128,7 @@
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/services" class="active">Services</a></li>
+          <li><a href="/pricing">Pricing</a></li>
           <li class="nav-dropdown">
             <div class="services-trigger">
               <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open niches submenu">
@@ -184,10 +184,10 @@
     </div>
     <div class="content">
       <h1>AI Automation Services for UK Small Businesses</h1>
-      <p>This is the main Silverstone AI services overview for UK small businesses, covering call handling, lead follow-up, bookings, reminders, and practical workflow automation.</p>
+      <p>Explore AI receptionist, lead follow-up, booking, reminder, and workflow automation services built for UK small businesses that need faster response without extra headcount.</p>
       <div class="cta-buttons">
         <a href="/book" class="btn btn-primary">Book a Free 30-Minute Automation Audit</a>
-        <a href="#automation-packs" class="btn btn-secondary">Browse industry packs</a>
+        <a href="#service-page-clusters" class="btn btn-secondary">Explore niche workflows</a>
       </div>
     </div>
   </section>
@@ -197,8 +197,8 @@
       <div class="services-resource-shell neon-card">
         <div class="services-resource-shell__header">
           <span class="services-resource-shell__eyebrow">Service page clusters</span>
-          <h2 class="section-title services-resource-shell__title">Explore the niche automation pages that sit under Silverstone AI services.</h2>
-          <p class="section-subtitle services-resource-shell__subtitle">Use the main <a href="/services">services page</a> as the parent overview, then move into the niche pages below for industry-specific examples, offers, and workflows.</p>
+          <h2 class="section-title services-resource-shell__title">Move from the core services overview into the niche pages buyers actually compare.</h2>
+          <p class="section-subtitle services-resource-shell__subtitle">Start on the main <a href="/services">services page</a>, move into the niche pages below for industry-specific workflows, then use the pricing hub to compare exact packs before you book.</p>
         </div>
         <nav aria-label="Industry automation service pages" class="services-resource-nav">
           <ul class="services-resource-list services-resource-list--niches">
@@ -213,6 +213,40 @@
             <li><i class="fa-solid fa-mobile-screen-button"></i><a href="/niches/fitness-coaches">Automation for fitness coaches and creators</a></li>
           </ul>
         </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lines animate parallax-section compact-section" data-parallax-theme="book">
+    <div class="container">
+      <div class="commercial-pathway neon-card">
+        <div class="commercial-pathway__header">
+          <span class="commercial-pathway__eyebrow">Buyer pathway</span>
+          <h2 class="section-title">Move from services to the right niche, then into pricing.</h2>
+          <p class="section-subtitle">The shortest buying route is simple: start broad, narrow into the niche page that matches your business, compare pricing, then book the audit when you want a scoped recommendation.</p>
+        </div>
+        <div class="commercial-pathway__grid" aria-label="Service to pricing pathway">
+          <a class="commercial-pathway__step" href="/services">
+            <span class="commercial-pathway__step-index">01</span>
+            <span class="commercial-pathway__step-title">Services</span>
+            <span class="commercial-pathway__step-copy">Stay here if you still need the broad overview.</span>
+          </a>
+          <a class="commercial-pathway__step" href="#service-page-clusters">
+            <span class="commercial-pathway__step-index">02</span>
+            <span class="commercial-pathway__step-title">Niche pages</span>
+            <span class="commercial-pathway__step-copy">Use the cluster above to open the page that matches your sector.</span>
+          </a>
+          <a class="commercial-pathway__step" href="/pricing#pricing-atlas">
+            <span class="commercial-pathway__step-index">03</span>
+            <span class="commercial-pathway__step-title">Pricing</span>
+            <span class="commercial-pathway__step-copy">Compare the exact module and bundle options in the atlas.</span>
+          </a>
+          <a class="commercial-pathway__step" href="/book">
+            <span class="commercial-pathway__step-index">04</span>
+            <span class="commercial-pathway__step-title">Book</span>
+            <span class="commercial-pathway__step-copy">Book the audit once you want the right first workflow mapped.</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -518,8 +552,17 @@
 
   <section id="pricing" class="section bg-lines animate parallax-section compact-section" data-parallax-theme="book">
     <div class="container">
-      <div class="ss-pricing" data-ss-pricing-page="services.html" data-ss-pricing-section="1"></div>
-      <div class="ss-pricing" data-ss-pricing-page="services.html" data-ss-pricing-section="2"></div>
+      <div class="neon-card cta-card" style="text-align: center">
+        <span class="services-cta__eyebrow">Pricing hub</span>
+        <h2 class="section-title" style="color: var(--color-white)">See every Silverstone AI pack, module, and niche price on one page.</h2>
+        <p class="section-subtitle" style="color: var(--color-silver)">
+          Compare flagship systems, smaller fixes, and niche-specific bundles before you book, so pricing intent moves cleanly into the right solution.
+        </p>
+        <div class="cta-buttons" style="justify-content: center; margin-top: 1.5rem;">
+          <a href="/pricing" class="btn btn-primary">View Full Pricing</a>
+          <a href="/pricing#pricing-atlas" class="btn btn-secondary">Compare Niche Packs</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -528,33 +571,41 @@
       <div class="services-resource-shell services-resource-shell--guides neon-card">
         <div class="services-resource-shell__header">
           <span class="services-resource-shell__eyebrow">Supporting blog guides</span>
-          <h2 class="section-title services-resource-shell__title">Browse practical automation guides that support the main blog and service buying journey.</h2>
-          <p class="section-subtitle services-resource-shell__subtitle">These articles live under <a href="/blog">the Silverstone AI blog</a> and answer the commercial, operational, and implementation questions buyers usually ask before booking an automation audit.</p>
+          <h2 class="section-title services-resource-shell__title">Browse practical automation guides that answer the questions buyers ask before they book.</h2>
+          <p class="section-subtitle services-resource-shell__subtitle">These articles live under <a href="/blog">the Silverstone AI blog</a> and cover pricing, ROI, implementation, and niche-specific use cases without forcing mobile visitors through an endless link wall.</p>
         </div>
         <nav aria-label="Supporting automation blog guides" class="services-resource-nav">
           <ul class="services-resource-list services-resource-list--blogs">
             <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-appointment-reminders-uk-2026">AI appointment reminders for UK SMEs</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-automation-failures-uk-smes-2026">Fix AI automation failures in UK SMEs</a></li>
             <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-automation-uk-gdpr-2026-sme-guide">AI automation and UK GDPR for SMEs</a></li>
             <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-booking-automation-uk-hospitality-2026">AI booking automation for UK hospitality</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-document-automation-uk-smes-2026">AI document automation for UK SMEs</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-etas-smart-scheduling-uk-trades-2026">AI ETA scheduling for UK trades teams</a></li>
             <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-lead-capture-trades-uk-2026">AI lead capture for UK trades teams</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-lead-capture-uk-trades-2026">Missed-call lead capture for UK trades</a></li>
             <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-lead-qualification-estate-agents-2026">AI lead qualification for estate agents</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-no-show-reduction-uk-salons-barbers">AI no-show reduction for UK salons</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-receptionist-small-business-2026">AI receptionist systems for small businesses</a></li>
             <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-receptionist-uk-costs-roi-2026">AI receptionist costs and ROI for UK SMEs</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-voice-agents-uk-smes-2026">AI voice agents for UK SMEs</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/ai-website-tools-uk-small-businesses-2026">AI website tools for UK small businesses</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/dental-recall-automation-uk-2026">Dental recall automation for UK practices</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/dm-to-client-automation-uk-fitness-coaches-2026">DM automation for UK fitness coaches</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/gym-booking-automation-uk-gyms-studios-2026">Gym booking automation for UK studios</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/how-small-physio-and-chiro-clinics-can-cut-missed-sessions-and-improve-treatment-completion-with-simple-ai-automations">AI automations for physio and chiro clinics</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/how-small-uk-estate-agents-can-use-automated-viewing-confirmations-to-cut-no-shows-and-win-instructions">Automated viewing confirmations for UK estate agents</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/post-purchase-automation-uk-ecommerce-repeat-customers">Post-purchase automation for eCommerce brands</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/quote-chase-automation-uk-trades-accepted-jobs-2026">Quote-chasing automation for UK trades</a></li>
-            <li><i class="fa-solid fa-book-open"></i><a href="/blog/quote-follow-up-automation-uk-trades-2026">Quote follow-up automation for UK trades</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/ai-automation-failures-uk-smes-2026">Fix AI automation failures in UK SMEs</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/ai-document-automation-uk-smes-2026">AI document automation for UK SMEs</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/ai-etas-smart-scheduling-uk-trades-2026">AI ETA scheduling for UK trades teams</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/ai-lead-capture-uk-trades-2026">Missed-call lead capture for UK trades</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/ai-no-show-reduction-uk-salons-barbers">AI no-show reduction for UK salons</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/ai-receptionist-small-business-2026">AI receptionist systems for small businesses</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/ai-voice-agents-uk-smes-2026">AI voice agents for UK SMEs</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/ai-website-tools-uk-small-businesses-2026">AI website tools for UK small businesses</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/dental-recall-automation-uk-2026">Dental recall automation for UK practices</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/dm-to-client-automation-uk-fitness-coaches-2026">DM automation for UK fitness coaches</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/gym-booking-automation-uk-gyms-studios-2026">Gym booking automation for UK studios</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/how-small-physio-and-chiro-clinics-can-cut-missed-sessions-and-improve-treatment-completion-with-simple-ai-automations">AI automations for physio and chiro clinics</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/how-small-uk-estate-agents-can-use-automated-viewing-confirmations-to-cut-no-shows-and-win-instructions">Automated viewing confirmations for UK estate agents</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/how-uk-dental-practices-can-automate-patient-intake-and-e-consent-to-cut-admin-speed-treatment-starts-and">Dental intake and e-consent automation for UK practices</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/how-uk-ecommerce-brands-can-use-ai-returns-triage-to-cut-support-load-and-keep-customers-happy">AI returns triage for UK eCommerce brands</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/how-uk-gyms-and-fitness-studios-can-use-ai-win-back-journeys-to-reactivate-inactive-members">AI win-back journeys for UK gyms and studios</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/how-uk-hotels-and-b-and-bs-can-install-a-24-7-ai-guest-concierge-a-90-day-checklist-costs-and-data-risk">24/7 AI guest concierge for hotels and B&amp;Bs</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/how-uk-physio-and-chiropractic-clinics-can-automate-rebooking-to-keep-patients-on-plan">Clinic rebooking automation for physio and chiropractic teams</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/how-uk-salons-and-barbers-can-use-ai-rebooking-journeys-to-fill-gaps-between-appointments">AI rebooking journeys for salons and barbers</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/how-uk-trades-businesses-can-use-ai-call-answering-to-stop-after-hours-emergency-jobs-going-to-competitors">AI call answering for after-hours UK trades leads</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/post-purchase-automation-uk-ecommerce-repeat-customers">Post-purchase automation for eCommerce brands</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/quote-chase-automation-uk-trades-accepted-jobs-2026">Quote-chasing automation for UK trades</a></li>
+            <li class="services-resource-item--mobile-hide"><i class="fa-solid fa-book-open"></i><a href="/blog/quote-follow-up-automation-uk-trades-2026">Quote follow-up automation for UK trades</a></li>
+            <li class="services-resource-item--view-all"><i class="fa-solid fa-arrow-right"></i><a href="/blog">View all automation guides</a></li>
           </ul>
         </nav>
       </div>
@@ -603,9 +654,9 @@
     <div class="container">
       <div class="neon-card cta-card" style="text-align: center">
         <span class="services-cta__eyebrow">Premium automation planning</span>
-        <h2 class="section-title" style="color: var(--color-white)">Choose the first automation worth shipping.</h2>
+        <h2 class="section-title" style="color: var(--color-white)">Find the one workflow that will pay back fastest.</h2>
         <p class="section-subtitle" style="color: var(--color-silver)">
-          In a focused 30-minute audit, we map where response time, follow-up, or admin friction is costing you most, then recommend one high-leverage workflow to launch first.
+          In a focused 30-minute audit, we pinpoint where slow response, weak follow-up, or manual admin is leaking the most revenue, then map the fastest route to a practical first win.
         </p>
         <a href="/book" class="btn btn-primary">Book a Free 30‑Minute Automation Audit</a>
       </div>
@@ -625,6 +676,7 @@
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/services">Services</a></li>
+          <li><a href="/pricing">Pricing</a></li>
           <li><a href="/blog">Blog</a></li>
           <li><a href="/book">Book</a></li>
           <li><a href="/contact">Contact</a></li>
@@ -649,7 +701,6 @@
     <div class="footer-bottom">© 2025 Silverstone AI. All rights reserved.</div>
   </footer>
 <script src="assets/js/app.js"></script>
-<script src="assets/js/pricing-widget.js"></script>
 
 </body>
 

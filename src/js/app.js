@@ -23,6 +23,8 @@
     if (api.initHeaderNav) api.initHeaderNav();
     if (api.initScrollReveal) api.initScrollReveal();
     if (api.initStats) api.initStats();
+    if (api.initPricingDeeplinks) api.initPricingDeeplinks();
+    if (api.initStickyCta) api.initStickyCta();
     if (api.initParallax) api.initParallax();
   });
 })();

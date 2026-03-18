@@ -21,6 +21,12 @@
   force = true
 
 [[redirects]]
+  from = "/pricing.html"
+  to = "/pricing"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/blog.html"
   to = "/blog"
   status = 301
@@ -274,13 +280,13 @@
 
 [[redirects]]
   from = "/blog/ai-lead-capture-trades-uk-2026"
-  to = "/blog/ai-lead-capture-uk-trades-2026"
+  to = "/blog/ai-lead-capture-trades-uk-2026"
   status = 301
   force = true
 
 [[redirects]]
   from = "/blog/ai-lead-capture-trades-uk-2026.html"
-  to = "/blog/ai-lead-capture-uk-trades-2026"
+  to = "/blog/ai-lead-capture-trades-uk-2026"
   status = 301
   force = true
 

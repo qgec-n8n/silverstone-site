@@ -332,7 +332,7 @@
 
 .page-home .primary-site-links-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 1.05rem;
 }
 
@@ -489,6 +489,12 @@
 }
 
 @media (min-width: 769px) and (max-width: 1100px) {
+  .page-home .primary-site-links-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1320px) {
   .page-home .primary-site-links-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

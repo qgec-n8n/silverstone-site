@@ -10,6 +10,8 @@ const jsOrder = [
   'header-nav.js',
   'scroll-reveal.js',
   'stats.js',
+  'pricing-deeplinks.js',
+  'sticky-cta.js',
   'viewport-metrics.js',
   'parallax.js',
   'hero-shader.js',

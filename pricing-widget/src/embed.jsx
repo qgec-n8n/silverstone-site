@@ -7,6 +7,7 @@ const roots = new WeakMap();
 const section2HeightMatchState = new Map([
   ["services.html", { cleanup: null, refs: 0 }],
   ["index.html", { cleanup: null, refs: 0 }],
+  ["pricing.html", { cleanup: null, refs: 0 }],
 ]);
 
 // SS_PRICING_SPEC: SERVICES_SECTION2_HEIGHT_MATCH

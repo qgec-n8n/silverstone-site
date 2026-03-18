@@ -81,7 +81,8 @@
   padding-top: 2rem !important;
 }
 
-.page-services .cta-card {
+.page-services .cta-card,
+.page-pricing .cta-card {
   max-width: 52rem;
   margin: 0 auto;
   padding: clamp(2rem, 4vw, 3.1rem);
@@ -94,7 +95,8 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-.page-services .services-cta__eyebrow {
+.page-services .services-cta__eyebrow,
+.page-pricing .services-cta__eyebrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -110,17 +112,20 @@
   text-transform: uppercase;
 }
 
-.page-services .cta-card .section-title {
+.page-services .cta-card .section-title,
+.page-pricing .cta-card .section-title {
   margin-top: 0;
   margin-bottom: 0.9rem;
 }
 
-.page-services .cta-card .section-subtitle {
+.page-services .cta-card .section-subtitle,
+.page-pricing .cta-card .section-subtitle {
   max-width: 44rem;
   margin-bottom: 0;
 }
 
-.page-services .cta-card .btn {
+.page-services .cta-card .btn,
+.page-pricing .cta-card .btn {
   margin-top: 1.5rem;
 }
 .contact-row {
@@ -413,6 +418,10 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.page-services .services-resource-item--view-all {
+  display: none;
+}
+
 @media (max-width: 768px) {
   /* Header text alignment */
   .page-services .services-resource-shell__title,
@@ -428,20 +437,18 @@
 
   /* ── Niches: pill cloud — short labels wrap into a compact tag grid ── */
   .page-services .services-resource-list:not(.services-resource-list--blogs) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    grid-template-columns: unset;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
   }
 
   .page-services .services-resource-list:not(.services-resource-list--blogs) li {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.6rem 1.05rem 0.6rem 0.8rem;
-    border-radius: 999px;
+    display: flex;
+    align-items: flex-start;
+    padding: 0.8rem 0.85rem;
+    border-radius: 18px;
     height: auto;
-    min-height: 42px;
+    min-height: 68px;
     background: linear-gradient(
       135deg,
       rgba(0, 255, 157, 0.1) 0%,
@@ -472,10 +479,12 @@
   }
 
   .page-services .services-resource-list:not(.services-resource-list--blogs) a {
+    display: block;
+    width: 100%;
     font-size: 0.82rem;
     font-weight: 600;
-    line-height: 1.2;
-    white-space: nowrap;
+    line-height: 1.3;
+    white-space: normal;
     color: rgba(220, 242, 255, 0.92);
     text-decoration: none;
   }
@@ -549,6 +558,32 @@
     white-space: normal;
     color: rgba(210, 235, 255, 0.88);
     text-decoration: none;
+  }
+
+  .page-services .services-resource-list--blogs li.services-resource-item--mobile-hide {
+    display: none;
+  }
+
+  .page-services .services-resource-list--blogs li.services-resource-item--view-all {
+    display: flex;
+    grid-column: 1 / -1;
+    justify-content: center;
+    align-items: center;
+    min-height: 48px;
+    padding: 0.78rem 0.95rem;
+    border-style: dashed;
+  }
+
+  .page-services .services-resource-item--view-all i {
+    color: var(--color-green);
+    margin-top: 0;
+  }
+
+  .page-services .services-resource-item--view-all a {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: rgba(232, 246, 255, 0.96);
   }
 }
 

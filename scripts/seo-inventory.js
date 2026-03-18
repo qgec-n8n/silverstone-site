@@ -28,6 +28,12 @@ const STATIC_PAGES = [
     requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
   },
   {
+    file: "pricing.html",
+    canonical: `${SITE_ORIGIN}/pricing`,
+    group: "main",
+    requiredSchema: ["WebPage", "BreadcrumbList"],
+  },
+  {
     file: "blog.html",
     canonical: `${SITE_ORIGIN}/blog`,
     group: "main",

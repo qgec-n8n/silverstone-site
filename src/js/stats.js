@@ -20,8 +20,10 @@
     );
 
     const setNumberValue = (number, value) => {
-      const plus = number.getAttribute('data-plus') || '';
-      number.textContent = value.toLocaleString() + plus;
+      const prefix = number.getAttribute('data-prefix') || '';
+      const suffix =
+        number.getAttribute('data-suffix') || number.getAttribute('data-plus') || '';
+      number.textContent = `${prefix}${value.toLocaleString()}${suffix}`;
     };
 
     const setSectionFinalValues = (section) => {
