@@ -40,9 +40,15 @@
     const img = document.getElementById('lightbox-img');
     if (!lightbox || !img || !src) return;
 
-    img.src = src;
+    img.src = '';
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    var preload = new Image();
+    preload.onload = function () {
+      img.src = src;
+    };
+    preload.src = src;
   }
 
   function closeLightbox() {
@@ -51,6 +57,8 @@
 
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
+    var img = document.getElementById('lightbox-img');
+    if (img) img.src = '';
   }
 
   function resolveLightboxSrc(trigger) {

@@ -58,6 +58,7 @@ img {
   font-size: clamp(2.08rem, 3.7vw, 2.92rem);
   color: #58c9ff;
   margin-bottom: 0.85rem;
+  letter-spacing: -0.025em;
   text-wrap: balance;
   text-shadow: 0 10px 26px rgba(0, 174, 239, 0.14);
 }
@@ -65,10 +66,10 @@ img {
 .section-subtitle {
   text-align: center;
   font-size: clamp(1rem, 1.05vw, 1.06rem);
-  color: rgba(221, 236, 252, 0.84);
+  color: rgba(224, 236, 252, 0.86);
   margin-bottom: 2.2rem;
   line-height: 1.74;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.015em;
   text-wrap: pretty;
 } /* SPEC: GLOBAL_SECTION_SUBTITLE_GREY_2025_12 */
 
@@ -389,17 +390,27 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 }
 
 .page-pricing .premium-reveal,
-.page-niche .premium-reveal {
+.page-niche .premium-reveal,
+.page-home .premium-reveal,
+.page-about .premium-reveal,
+.page-services .premium-reveal,
+.page-book .premium-reveal,
+.page-contact .premium-reveal {
   opacity: 0;
   transform: translate3d(0, 24px, 0);
   transition:
     opacity 0.55s ease,
     transform 0.55s ease;
-  transition-delay: calc(var(--reveal-index, 0) * 60ms);
+  transition-delay: calc(var(--reveal-index, 0) * 80ms);
 }
 
 .page-pricing .premium-reveal.is-visible,
-.page-niche .premium-reveal.is-visible {
+.page-niche .premium-reveal.is-visible,
+.page-home .premium-reveal.is-visible,
+.page-about .premium-reveal.is-visible,
+.page-services .premium-reveal.is-visible,
+.page-book .premium-reveal.is-visible,
+.page-contact .premium-reveal.is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }

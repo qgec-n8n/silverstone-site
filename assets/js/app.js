@@ -557,40 +557,75 @@
       el.classList.add('visible'),
     );
 
-    const premiumTargets = Array.from(
+    // Expanded premium-reveal targeting: all main page types
+    var premiumTargets = Array.from(
       document.querySelectorAll(
         [
+          // Pricing page
           '.page-pricing .neon-card',
           '.page-pricing .ss-pricing__card',
           '.page-pricing .commercial-pathway__step',
+          '.page-pricing .faq-item',
+          // Niche pages
           '.page-niche .service-row',
           '.page-niche .stats .stat',
           '.page-niche .faq-item',
           '.page-niche .cta-card',
+          '.page-niche .neon-card',
+          // Home page
+          '.page-home .feature-card',
+          '.page-home .packages-grid .neon-card',
+          '.page-home .proof-card',
+          '.page-home .faq-item',
+          // About page
+          '.page-about .value-card',
+          '.page-about .service-row',
+          // Services page
+          '.page-services .service-row',
+          '.page-services .neon-card',
+          '.page-services .proof-card',
+          // Book page
+          '.page-book .neon-card',
+          // Contact page
+          '.page-contact .neon-card',
         ].join(','),
       ),
     );
 
+    // De-duplicate (an element might match multiple selectors)
+    premiumTargets = Array.from(new Set(premiumTargets));
+
     if (!premiumTargets.length) return;
 
-    premiumTargets.forEach((el, index) => {
+    // Assign reveal-index based on sibling position within parent
+    // so cards in a row stagger left-to-right, and lists stagger top-to-bottom
+    premiumTargets.forEach(function (el) {
       el.classList.add('premium-reveal');
-      el.style.setProperty('--reveal-index', String(index % 4));
+      var parent = el.parentElement;
+      if (!parent) {
+        el.style.setProperty('--reveal-index', '0');
+        return;
+      }
+      var siblings = Array.from(parent.children).filter(function (child) {
+        return premiumTargets.indexOf(child) !== -1;
+      });
+      var idx = siblings.indexOf(el);
+      el.style.setProperty('--reveal-index', String(idx));
     });
 
-    const reducedMotion =
+    var reducedMotion =
       typeof window !== 'undefined' &&
       window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reducedMotion || typeof IntersectionObserver === 'undefined') {
-      premiumTargets.forEach((el) => el.classList.add('is-visible'));
+      premiumTargets.forEach(function (el) { el.classList.add('is-visible'); });
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           entry.target.classList.add('is-visible');
           observer.unobserve(entry.target);
@@ -602,7 +637,7 @@
       },
     );
 
-    premiumTargets.forEach((el) => observer.observe(el));
+    premiumTargets.forEach(function (el) { observer.observe(el); });
   }
 
   window.Silverstone.initScrollReveal = initScrollReveal;
@@ -2376,9 +2411,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const img = document.getElementById('lightbox-img');
     if (!lightbox || !img) return;
 
-    img.src = src;
+    // Clear previous image immediately to avoid showing stale content
+    img.src = '';
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // Preload the new image, then display it
+    const preload = new Image();
+    preload.onload = function () {
+      img.src = src;
+    };
+    preload.src = src;
   }
 
   function closeLightbox() {
@@ -2387,6 +2430,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
+    // Clear image src on close so next open starts fresh
+    const img = document.getElementById('lightbox-img');
+    if (img) img.src = '';
   }
 
   function resolveLightboxSrc(trigger) {
@@ -2493,9 +2539,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const img = document.getElementById('lightbox-img');
     if (!lightbox || !img || !src) return;
 
-    img.src = src;
+    img.src = '';
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    var preload = new Image();
+    preload.onload = function () {
+      img.src = src;
+    };
+    preload.src = src;
   }
 
   function closeLightbox() {
@@ -2504,6 +2556,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
+    var img = document.getElementById('lightbox-img');
+    if (img) img.src = '';
   }
 
   function resolveLightboxSrc(trigger) {

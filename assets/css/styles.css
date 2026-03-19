@@ -11641,6 +11641,9 @@ body {
   background-color: var(--color-black);
   line-height: 1.6;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -11715,6 +11718,7 @@ img {
   font-size: clamp(2.08rem, 3.7vw, 2.92rem);
   color: #58c9ff;
   margin-bottom: 0.85rem;
+  letter-spacing: -0.025em;
   text-wrap: balance;
   text-shadow: 0 10px 26px rgba(0, 174, 239, 0.14);
 }
@@ -11722,10 +11726,10 @@ img {
 .section-subtitle {
   text-align: center;
   font-size: clamp(1rem, 1.05vw, 1.06rem);
-  color: rgba(221, 236, 252, 0.84);
+  color: rgba(224, 236, 252, 0.86);
   margin-bottom: 2.2rem;
   line-height: 1.74;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.015em;
   text-wrap: pretty;
 } /* SPEC: GLOBAL_SECTION_SUBTITLE_GREY_2025_12 */
 
@@ -12046,17 +12050,27 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 }
 
 .page-pricing .premium-reveal,
-.page-niche .premium-reveal {
+.page-niche .premium-reveal,
+.page-home .premium-reveal,
+.page-about .premium-reveal,
+.page-services .premium-reveal,
+.page-book .premium-reveal,
+.page-contact .premium-reveal {
   opacity: 0;
   transform: translate3d(0, 24px, 0);
   transition:
     opacity 0.55s ease,
     transform 0.55s ease;
-  transition-delay: calc(var(--reveal-index, 0) * 60ms);
+  transition-delay: calc(var(--reveal-index, 0) * 80ms);
 }
 
 .page-pricing .premium-reveal.is-visible,
-.page-niche .premium-reveal.is-visible {
+.page-niche .premium-reveal.is-visible,
+.page-home .premium-reveal.is-visible,
+.page-about .premium-reveal.is-visible,
+.page-services .premium-reveal.is-visible,
+.page-book .premium-reveal.is-visible,
+.page-contact .premium-reveal.is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
@@ -13333,6 +13347,7 @@ body.services-overlay-active .services-overlay {
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
+  letter-spacing: -0.02em;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 
@@ -13415,7 +13430,7 @@ body.services-overlay-active .services-overlay {
 @media (max-width: 768px) {
   .hero.title-band {
     min-height: var(--mobile-stable-vh, 100vh);
-    padding-bottom: calc(2.75rem + var(--safe-area-bottom));
+    padding-bottom: calc(5rem + var(--safe-area-bottom));
     padding-top: calc(var(--header-safe-offset) + 1.25rem);
     align-items: flex-start;
     justify-content: flex-start;
@@ -13428,7 +13443,7 @@ body.services-overlay-active .services-overlay {
     min-height: calc(
       var(--mobile-stable-vh, 100vh) -
       var(--header-safe-offset) -
-      4rem -
+      6rem -
       var(--safe-area-bottom)
     );
     gap: 0.75rem;
@@ -13436,7 +13451,7 @@ body.services-overlay-active .services-overlay {
 
   .hero.title-band .content {
     padding: 1.25rem 1.25rem 1.5rem;
-    max-width: min(92vw, 520px);
+    max-width: 100%;
   }
 
   .hero.title-band .content h1 {
@@ -13456,15 +13471,16 @@ body.services-overlay-active .services-overlay {
   }
 
   .hero h1 {
-    font-size: clamp(1.75rem, 7.6vw, 2.45rem);
-    line-height: 1.04;
-    max-width: 12ch;
+    font-size: clamp(2rem, 9vw, 2.75rem);
+    line-height: 1.06;
+    max-width: 100%;
+    letter-spacing: -0.02em;
   }
 
   .hero .cta-buttons {
     width: 100%;
     margin-top: auto;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.35rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 3.5rem);
   }
 
   .hero .content .btn {
@@ -13477,21 +13493,21 @@ body.services-overlay-active .services-overlay {
   }
 
   .page-home .hero.title-band {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4.6rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
   }
 
   .page-home .hero .content {
     min-height: calc(
       var(--mobile-stable-vh, 100vh) -
       var(--header-safe-offset) -
-      5.75rem -
+      6.5rem -
       env(safe-area-inset-bottom, 0px)
     );
   }
 
   .page-home .hero .cta-buttons {
     gap: 0.72rem;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1.6rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 3.5rem);
   }
 }
 
