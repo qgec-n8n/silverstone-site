@@ -19,19 +19,7 @@
       el.classList.add('visible'),
     );
 
-    const premiumTargets = Array.from(
-      document.querySelectorAll(
-        [
-          '.page-pricing .neon-card',
-          '.page-pricing .ss-pricing__card',
-          '.page-pricing .commercial-pathway__step',
-          '.page-niche .service-row',
-          '.page-niche .stats .stat',
-          '.page-niche .faq-item',
-          '.page-niche .cta-card',
-        ].join(','),
-      ),
-    );
+    const premiumTargets = collectPremiumTargets();
 
     if (!premiumTargets.length) return;
 
@@ -65,6 +53,107 @@
     );
 
     premiumTargets.forEach((el) => observer.observe(el));
+  }
+
+  function collectPremiumTargets() {
+    const groups = [];
+    const seen = new Set();
+    const body = document.body;
+
+    const sortByVisualFlow = (items) =>
+      items
+        .slice()
+        .sort((a, b) => {
+          const rectA = a.getBoundingClientRect();
+          const rectB = b.getBoundingClientRect();
+          if (Math.abs(rectA.top - rectB.top) > 24) {
+            return rectA.top - rectB.top;
+          }
+          return rectA.left - rectB.left;
+        });
+
+    const addGroup = (items) => {
+      const unique = sortByVisualFlow(
+        items.filter((item) => item && !seen.has(item)),
+      );
+      if (!unique.length) return;
+      unique.forEach((item) => seen.add(item));
+      groups.push(...unique);
+    };
+
+    const directChildren = (container, selector) =>
+      Array.from(container.querySelectorAll(selector));
+
+    if (body.classList.contains('page-home')) {
+      document.querySelectorAll('.page-home .packages-grid').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .neon-card'));
+      });
+      document.querySelectorAll('.page-home .proof-grid').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .proof-card'));
+      });
+      document.querySelectorAll('.page-home .faq-list').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .faq-item'));
+      });
+    }
+
+    if (body.classList.contains('page-about')) {
+      document.querySelectorAll('.page-about .service-row').forEach((container) => {
+        addGroup(
+          directChildren(
+            container,
+            ':scope > .service-image, :scope > .service-content',
+          ),
+        );
+      });
+      document.querySelectorAll('.page-about .values').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .value-card'));
+      });
+      document.querySelectorAll('.page-about .drives-grid').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .neon-card, :scope > .service-image'));
+      });
+      document.querySelectorAll('.page-about .section.brand-gradient .cta-card').forEach((card) => {
+        addGroup([card]);
+      });
+    }
+
+    if (body.classList.contains('page-services')) {
+      document.querySelectorAll('.page-services .service-row').forEach((container) => {
+        addGroup(
+          directChildren(
+            container,
+            ':scope > .service-image, :scope > .service-content',
+          ),
+        );
+      });
+      document.querySelectorAll('.page-services .proof-grid').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .proof-card'));
+      });
+      document.querySelectorAll('.page-services .faq-list').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .faq-item'));
+      });
+    }
+
+    if (body.classList.contains('page-niche')) {
+      document.querySelectorAll('.page-niche .service-row').forEach((container) => {
+        addGroup(
+          directChildren(
+            container,
+            ':scope > .service-image, :scope > .service-content',
+          ),
+        );
+      });
+      document.querySelectorAll('.page-niche .values').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .value-card'));
+      });
+      document.querySelectorAll('.page-niche .faq-list').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .faq-item'));
+      });
+      document.querySelectorAll('.page-niche .section.brand-gradient .cta-card').forEach((card) => {
+        addGroup([card]);
+      });
+    }
+
+    return groups;
   }
 
   window.Silverstone.initScrollReveal = initScrollReveal;

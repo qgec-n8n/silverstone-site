@@ -21,7 +21,7 @@
 }
 
 .page-home .section-subtitle.subtitle-muted {
-  color: var(--color-silver-original);
+  color: var(--premium-subtitle);
 } /* SPEC: INDEX_SUBTITLES_GREY_TARGETED_SENTENCES_2025_12_30 */
 
 /* Page-specific overrides */
@@ -308,6 +308,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-ui);
   padding: 0.45rem 0.85rem;
   margin-bottom: 1rem;
   border-radius: 999px;
@@ -323,6 +324,10 @@
 .page-home .primary-site-links-card__title,
 .page-home .primary-site-links-card__subtitle {
   margin-bottom: 0;
+}
+
+.page-home .primary-site-links-card__title {
+  font-family: var(--font-display);
 }
 
 .page-home .primary-site-links-card__subtitle {
@@ -370,6 +375,7 @@
 .page-home .primary-site-link__kicker {
   margin-bottom: 0.8rem;
   color: rgba(161, 210, 255, 0.8);
+  font-family: var(--font-ui);
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.2em;

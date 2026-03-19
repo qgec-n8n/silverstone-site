@@ -59,12 +59,16 @@
   font-size: 2rem;
   margin-bottom: 1rem;
   color: var(--color-blue);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
 }
 
 .discovery-call-content .info p {
   margin-bottom: 1rem;
-  font-size: 1rem;
-  color: var(--color-silver);
+  font-size: 1.04rem;
+  font-weight: 500;
+  line-height: 1.72;
+  color: var(--premium-subtitle);
 }
 
 .discovery-call-content .info ul {
@@ -77,9 +81,10 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  color: var(--color-silver);
-  font-size: 0.95rem;
+  margin-bottom: 0.7rem;
+  color: var(--premium-copy);
+  font-size: 1rem;
+  line-height: 1.62;
 }
 
 .discovery-call-content .info ul li::before {

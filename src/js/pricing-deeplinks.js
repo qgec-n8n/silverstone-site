@@ -200,15 +200,21 @@
   function injectNicheLinks() {
     const config = resolveNicheConfig(window.location.pathname);
     if (!config) return;
+    const isMobile = window.matchMedia('(max-width: 780px)').matches;
 
     const heroButtons = document.querySelector('.hero .cta-buttons');
-    if (heroButtons && !heroButtons.querySelector('[data-pricing-atlas-link]')) {
-      const atlasButton = document.createElement('a');
-      atlasButton.href = config.atlasAnchor;
-      atlasButton.className = 'btn btn-secondary';
-      atlasButton.dataset.pricingAtlasLink = 'true';
-      atlasButton.textContent = config.pricingLabel;
-      heroButtons.appendChild(atlasButton);
+    if (heroButtons) {
+      const existingAtlasButton = heroButtons.querySelector('[data-pricing-atlas-link]');
+      if (isMobile) {
+        existingAtlasButton?.remove();
+      } else if (!existingAtlasButton) {
+        const atlasButton = document.createElement('a');
+        atlasButton.href = config.atlasAnchor;
+        atlasButton.className = 'btn btn-secondary';
+        atlasButton.dataset.pricingAtlasLink = 'true';
+        atlasButton.textContent = config.pricingLabel;
+        heroButtons.appendChild(atlasButton);
+      }
     }
 
     const ctaLinks = document.querySelector('.cta-link-list');
@@ -236,18 +242,18 @@
       const primaryHref = fastMode ? toHashHref(config.primaryAnchor) : toHashHref(config.atlasAnchor);
       const secondaryHref = fastMode ? toHashHref(config.atlasAnchor) : config.nicheHref;
       const primaryLabel = fastMode ? `See ${config.packName}` : `Open ${config.label} atlas`;
-      const secondaryLabel = fastMode ? 'Open pricing atlas' : `Read ${config.label} page`;
+      const secondaryLabel = fastMode ? 'Open pricing atlas' : `Open ${config.label} page`;
       const recommendedLabel = fastMode ? config.packName : `${config.label} atlas`;
       const resultCopy = fastMode
-        ? `Start with ${config.packName} if you want the fastest route to ROI for ${config.label.toLowerCase()}.`
-        : `Open the ${config.label.toLowerCase()} atlas to compare the smaller fixes, starter packs, and premium builds in one view.`;
+        ? `Start with ${config.packName} if you want the fastest payback for ${config.label.toLowerCase()}.`
+        : `Open the ${config.label.toLowerCase()} atlas to compare modules, starter packs, and premium builds in one view.`;
 
       host.innerHTML = `
         <div class="pricing-recommender">
           <div class="pricing-recommender__panel">
             <span class="pricing-recommender__eyebrow">Pricing recommender</span>
             <h3 class="pricing-recommender__title">Point me to the right pricing card.</h3>
-            <p class="pricing-recommender__copy">Choose your niche, then decide whether you want the fastest starting pack or the full product range.</p>
+            <p class="pricing-recommender__copy">Choose your niche, then pick the fastest starting pack or the full range.</p>
             <div class="pricing-recommender__step">
               <span class="pricing-recommender__step-label">1. Choose your niche</span>
               <div class="pricing-recommender__choices pricing-recommender__choices--niches">
@@ -259,7 +265,7 @@
               </div>
             </div>
             <div class="pricing-recommender__step">
-              <span class="pricing-recommender__step-label">2. What do you want to compare first?</span>
+              <span class="pricing-recommender__step-label">2. What do you want to compare?</span>
               <div class="pricing-recommender__choices">
                 <button class="pricing-recommender__choice${fastMode ? ' is-active' : ''}" type="button" data-recommender-mode="fast">Fastest starting pack</button>
                 <button class="pricing-recommender__choice${!fastMode ? ' is-active' : ''}" type="button" data-recommender-mode="atlas">Compare every pack</button>
@@ -267,7 +273,7 @@
             </div>
             <div class="pricing-recommender__result">
               <div class="pricing-recommender__result-copy">
-                <span class="pricing-recommender__result-label">Recommended next view</span>
+                <span class="pricing-recommender__result-label">Best next view</span>
                 <strong>${recommendedLabel}</strong>
                 <p>${resultCopy}</p>
               </div>

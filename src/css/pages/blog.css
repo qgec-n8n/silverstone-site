@@ -27,6 +27,22 @@
   line-height: 1.8;
 }
 
+.page-blog-article .hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.45rem, 4vw, 3.35rem);
+  line-height: 1.04;
+  letter-spacing: -0.038em;
+  text-wrap: balance;
+}
+
+.page-blog-article .hero p {
+  max-width: 42rem;
+  font-size: clamp(1.04rem, 1.35vw, 1.16rem);
+  font-weight: 500;
+  line-height: 1.72;
+  color: rgba(236, 244, 255, 0.92);
+}
+
 @media (min-width: 769px) {
   .page-blog .taxonomy-filter-shell--blog .taxonomy-filter__chips {
     justify-content: center;
@@ -94,17 +110,17 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-green);
+  color: rgba(113, 255, 178, 0.92);
 }
 
 .blog-card__title,
-.article-panel h2,
 .article-insight-grid h3,
 .article-prose h2,
+.article-prose h3,
 .article-links h3 {
   font-family: var(--font-heading);
 }
@@ -195,9 +211,17 @@
 }
 
 .article-panel h2 {
-  margin: 0.75rem 0 1rem;
-  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  font-family: var(--font-display);
+  margin: 0.65rem 0 0.95rem;
+  font-size: clamp(1.74rem, 2.6vw, 2.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   color: var(--color-white);
+}
+
+.article-panel p:first-of-type {
+  color: rgba(238, 246, 255, 0.93);
+  font-size: 1.02rem;
 }
 
 .article-panel p + p {
@@ -258,8 +282,21 @@
   margin: 2.2rem 0 1rem;
 }
 
+.article-prose h3 {
+  color: var(--color-white);
+  font-size: clamp(1.18rem, 2vw, 1.42rem);
+  margin: 1.7rem 0 0.8rem;
+  letter-spacing: -0.02em;
+}
+
 .article-prose h2:first-child {
   margin-top: 0;
+}
+
+.article-prose > p:first-of-type {
+  font-size: 1.1rem;
+  line-height: 1.78;
+  color: rgba(244, 250, 255, 0.95);
 }
 
 .article-prose p {
@@ -303,8 +340,9 @@
   display: flex;
   align-items: flex-start;
   gap: 0.7rem;
-  color: var(--color-silver-original);
-  line-height: 1.7;
+  color: rgba(229, 239, 251, 0.92);
+  line-height: 1.75;
+  font-size: 1rem;
 }
 
 .article-prose ul li i {
@@ -325,21 +363,25 @@
 .article-prose ol li,
 .article-links ol li,
 .article-links ul li {
-  line-height: 1.7;
-  color: rgba(230, 238, 248, 0.88);
+  line-height: 1.75;
+  color: rgba(230, 238, 248, 0.9);
+  font-size: 1rem;
 }
 
 .article-note {
   margin: 1.5rem 0;
-  padding: 1.1rem 1.25rem;
+  padding: 1.15rem 1.3rem;
+  border: 1px solid rgba(113, 255, 178, 0.22);
   border-left: 3px solid var(--color-green);
-  background: rgba(5, 11, 24, 0.48);
-  color: rgba(236, 244, 255, 0.9);
+  background: linear-gradient(135deg, rgba(6, 12, 24, 0.78), rgba(4, 12, 30, 0.58));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+  color: rgba(238, 246, 255, 0.92);
 }
 
 .article-links h3 {
   margin: 0;
-  font-size: 1.08rem;
+  font-size: 1.12rem;
+  letter-spacing: -0.02em;
   color: var(--color-white);
 }
 

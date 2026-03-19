@@ -260,17 +260,22 @@
 }
 
 .ss-pricing .ss-pricing__title {
+  font-family: var(--font-display);
   font-size: clamp(28px, 3vw, 40px);
   font-weight: 600;
   margin: 0 0 12px;
+  letter-spacing: -0.03em;
 }
 
 .ss-pricing .ss-pricing__subtitle {
+  font-family: var(--font-support);
   font-size: 16px;
+  font-weight: 530;
   line-height: 1.6;
   color: var(--ss-pricing-muted);
   margin: 0 auto 20px;
   max-width: 720px;
+  letter-spacing: -0.01em;
 }
 
 .ss-pricing .ss-pricing__toggle {
@@ -305,6 +310,7 @@
   z-index: 1;
   background: transparent;
   border: none;
+  font-family: var(--font-ui);
   color: var(--ss-pricing-muted);
   font-weight: 600;
   font-size: 14px;
@@ -365,6 +371,7 @@
 }
 
 .ss-pricing .ss-pricing__flagship-chip-label {
+  font-family: var(--font-ui);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -461,9 +468,11 @@
 }
 
 .ss-pricing .ss-pricing__card-title {
+  font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 600;
   margin: 0;
+  letter-spacing: -0.025em;
 }
 
 .ss-pricing .ss-pricing__price {
@@ -474,8 +483,11 @@
 }
 
 .ss-pricing .ss-pricing__price-value {
+  font-family: var(--font-number);
   font-size: 34px;
   font-weight: 600;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
 }
 
 /* SS_PRICING_SPEC: GBP_SYMBOL_BASELINE_ALIGN */
@@ -537,11 +549,13 @@
 }
 
 .ss-pricing .ss-pricing__price-suffix {
+  font-family: var(--font-support);
   font-size: 14px;
   color: var(--ss-pricing-muted);
 }
 
 .ss-pricing .ss-pricing__price-label {
+  font-family: var(--font-ui);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -549,6 +563,7 @@
 }
 
 .ss-pricing .ss-pricing__description {
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
   color: var(--ss-pricing-muted);
@@ -565,6 +580,7 @@
   padding: 14px 18px;
   border-radius: 14px;
   text-decoration: none;
+  font-family: var(--font-cta);
   font-weight: 600;
   font-size: 16px;
   color: var(--ss-pricing-text);
@@ -697,9 +713,12 @@
 }
 
 .ss-pricing .ss-pricing__includes-title {
+  font-family: var(--font-ui);
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .ss-pricing .ss-pricing__list {
@@ -715,6 +734,7 @@
   display: flex;
   gap: 10px;
   align-items: flex-start;
+  font-family: var(--font-body);
   font-size: 13px;
   line-height: 1.5;
   color: var(--ss-pricing-muted);
@@ -730,6 +750,7 @@
 }
 
 .ss-pricing .ss-pricing__category {
+  font-family: var(--font-ui);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -742,6 +763,7 @@
   display: flex;
   gap: 10px;
   align-items: flex-start;
+  font-family: var(--font-body);
   font-size: 13px;
   line-height: 1.5;
   color: var(--ss-pricing-muted);
@@ -807,10 +829,12 @@
   font-family: var(--font-heading);
   font-size: clamp(1.2rem, 2vw, 1.55rem);
   line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 
 .pricing-recommender__copy {
   margin-top: 0.45rem;
+  font-family: var(--font-body);
   color: rgba(11, 18, 32, 0.68);
   line-height: 1.65;
 }
@@ -823,6 +847,7 @@
 .pricing-recommender__result-label {
   display: block;
   margin-bottom: 0.55rem;
+  font-family: var(--font-ui);
   color: rgba(11, 18, 32, 0.72);
   font-size: 0.78rem;
   font-weight: 700;
@@ -842,6 +867,7 @@
   border: 1px solid rgba(0, 174, 239, 0.16);
   background: rgba(255, 255, 255, 0.88);
   color: #0b1220;
+  font-family: var(--font-ui);
   font-weight: 600;
   line-height: 1.35;
   cursor: pointer;

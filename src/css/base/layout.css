@@ -54,28 +54,46 @@ img {
 .section-title {
   text-align: center;
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(2.08rem, 3.7vw, 2.92rem);
   color: #58c9ff;
   margin-bottom: 0.85rem;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.032em;
   text-wrap: balance;
   text-shadow: 0 10px 26px rgba(0, 174, 239, 0.14);
 }
 
 .section-subtitle {
   text-align: center;
-  font-size: clamp(1rem, 1.05vw, 1.06rem);
-  color: rgba(224, 236, 252, 0.86);
+  font-family: var(--font-support);
+  font-size: clamp(1.12rem, 1.26vw, 1.3rem);
+  font-weight: 540;
+  color: var(--premium-subtitle);
   margin-bottom: 2.2rem;
-  line-height: 1.74;
-  letter-spacing: 0.015em;
+  line-height: 1.64;
+  letter-spacing: -0.012em;
   text-wrap: pretty;
+  text-shadow: 0 10px 28px rgba(0, 174, 239, 0.08);
 } /* SPEC: GLOBAL_SECTION_SUBTITLE_GREY_2025_12 */
 
 .section > .container > .section-title + .section-subtitle {
-  color: rgba(216, 233, 249, 0.82);
+  font-size: clamp(1.14rem, 1.32vw, 1.34rem);
+  font-weight: 550;
+  color: var(--premium-subtitle) !important;
+  line-height: 1.62;
+  letter-spacing: -0.014em;
+  text-shadow: 0 12px 30px rgba(0, 174, 239, 0.1);
 } /* SPEC: REQ5_SECTION_SUBTITLES_GREY_2025_12_30 */
+
+@supports (font-variation-settings: normal) {
+  .section-subtitle {
+    font-variation-settings: "opsz" 30, "GRAD" 24;
+  }
+
+  .section > .container > .section-title + .section-subtitle {
+    font-variation-settings: "opsz" 34, "GRAD" 32;
+  }
+}
 
 .section > .container {
   position: relative;
@@ -155,7 +173,7 @@ img {
 .page-niche .section-title,
 body.page-blog:not(.page-blog-article) .section-title {
   letter-spacing: -0.03em;
-  line-height: 1.08;
+  line-height: 1.06;
 }
 
 .page-home .section-subtitle,
@@ -164,11 +182,15 @@ body.page-blog:not(.page-blog-article) .section-title {
 .page-pricing .section-subtitle,
 .page-niche .section-subtitle,
 body.page-blog:not(.page-blog-article) .section-subtitle {
-  max-width: 62ch;
+  max-width: 60ch;
   margin-left: auto;
   margin-right: auto;
-  color: var(--premium-muted);
-  line-height: 1.72;
+  color: var(--premium-subtitle);
+  line-height: 1.62;
+}
+
+.cta-card .section-title {
+  font-family: var(--font-display);
 }
 
 .taxonomy-filter {
@@ -187,7 +209,7 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 }
 
 .taxonomy-filter__label {
-  font-family: var(--font-heading);
+  font-family: var(--font-ui);
   font-size: 0.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -214,7 +236,7 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
   color: rgba(229, 241, 252, 0.9);
   border-radius: 999px;
   padding: 0.62rem 0.92rem;
-  font-family: var(--font-heading);
+  font-family: var(--font-ui);
   font-size: 0.76rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -249,6 +271,12 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 }
 
 @media (max-width: 768px) {
+  .section-subtitle {
+    font-size: 1.12rem;
+    line-height: 1.58;
+    letter-spacing: -0.014em;
+  }
+
   .taxonomy-filter {
     margin: 0 0 1rem;
   }
@@ -389,13 +417,10 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
   line-height: 1.65;
 }
 
-.page-pricing .premium-reveal,
 .page-niche .premium-reveal,
 .page-home .premium-reveal,
 .page-about .premium-reveal,
-.page-services .premium-reveal,
-.page-book .premium-reveal,
-.page-contact .premium-reveal {
+.page-services .premium-reveal {
   opacity: 0;
   transform: translate3d(0, 24px, 0);
   transition:
@@ -404,15 +429,23 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
   transition-delay: calc(var(--reveal-index, 0) * 80ms);
 }
 
-.page-pricing .premium-reveal.is-visible,
 .page-niche .premium-reveal.is-visible,
 .page-home .premium-reveal.is-visible,
 .page-about .premium-reveal.is-visible,
-.page-services .premium-reveal.is-visible,
-.page-book .premium-reveal.is-visible,
-.page-contact .premium-reveal.is-visible {
+.page-services .premium-reveal.is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+}
+
+@media (max-width: 768px) {
+  .section-subtitle {
+    font-size: 1.08rem;
+    line-height: 1.68;
+  }
+
+  .section > .container > .section-title + .section-subtitle {
+    font-size: 1.1rem;
+  }
 }
 
 .cta-link-list {

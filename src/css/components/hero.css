@@ -118,17 +118,23 @@
 }
 
 .hero h1 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 
 .hero-title {
   display: block;
+  width: 100%;
+}
+
+.hero-title__brand-lock {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .hero-title--mobile {
@@ -228,6 +234,7 @@
   .hero.title-band .content {
     padding: 1.25rem 1.25rem 1.5rem;
     max-width: 100%;
+    width: 100%;
   }
 
   .hero.title-band .content h1 {
@@ -247,10 +254,13 @@
   }
 
   .hero h1 {
-    font-size: clamp(2rem, 9vw, 2.75rem);
-    line-height: 1.06;
+    width: 100%;
+    max-width: none;
+    font-size: clamp(2.16rem, 9.35vw, 3rem);
+    line-height: 1.03;
     max-width: 100%;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
   }
 
   .hero .cta-buttons {
@@ -284,5 +294,29 @@
   .page-home .hero .cta-buttons {
     gap: 0.72rem;
     padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 3.5rem);
+  }
+
+  .page-about .hero h1 {
+    font-size: clamp(2.24rem, 9.2vw, 3rem);
+  }
+
+  .page-services .hero h1,
+  .page-pricing .hero h1 {
+    font-size: clamp(2.02rem, 8.2vw, 2.66rem);
+    line-height: 1.05;
+  }
+
+  .page-book .hero h1 {
+    font-size: clamp(2.08rem, 8.55vw, 2.76rem);
+  }
+
+  .page-contact .hero h1 {
+    font-size: clamp(2.18rem, 8.9vw, 2.88rem);
+  }
+
+  .page-about .hero-title__line,
+  .page-about .hero-title__brand-lock {
+    display: block;
+    width: 100%;
   }
 }

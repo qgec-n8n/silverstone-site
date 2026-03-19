@@ -557,75 +557,28 @@
       el.classList.add('visible'),
     );
 
-    // Expanded premium-reveal targeting: all main page types
-    var premiumTargets = Array.from(
-      document.querySelectorAll(
-        [
-          // Pricing page
-          '.page-pricing .neon-card',
-          '.page-pricing .ss-pricing__card',
-          '.page-pricing .commercial-pathway__step',
-          '.page-pricing .faq-item',
-          // Niche pages
-          '.page-niche .service-row',
-          '.page-niche .stats .stat',
-          '.page-niche .faq-item',
-          '.page-niche .cta-card',
-          '.page-niche .neon-card',
-          // Home page
-          '.page-home .feature-card',
-          '.page-home .packages-grid .neon-card',
-          '.page-home .proof-card',
-          '.page-home .faq-item',
-          // About page
-          '.page-about .value-card',
-          '.page-about .service-row',
-          // Services page
-          '.page-services .service-row',
-          '.page-services .neon-card',
-          '.page-services .proof-card',
-          // Book page
-          '.page-book .neon-card',
-          // Contact page
-          '.page-contact .neon-card',
-        ].join(','),
-      ),
-    );
-
-    // De-duplicate (an element might match multiple selectors)
-    premiumTargets = Array.from(new Set(premiumTargets));
+    const premiumTargets = collectPremiumTargets();
 
     if (!premiumTargets.length) return;
 
-    // Assign reveal-index based on sibling position within parent
-    // so cards in a row stagger left-to-right, and lists stagger top-to-bottom
-    premiumTargets.forEach(function (el) {
+    premiumTargets.forEach((el, index) => {
       el.classList.add('premium-reveal');
-      var parent = el.parentElement;
-      if (!parent) {
-        el.style.setProperty('--reveal-index', '0');
-        return;
-      }
-      var siblings = Array.from(parent.children).filter(function (child) {
-        return premiumTargets.indexOf(child) !== -1;
-      });
-      var idx = siblings.indexOf(el);
-      el.style.setProperty('--reveal-index', String(idx));
+      el.style.setProperty('--reveal-index', String(index % 4));
     });
 
-    var reducedMotion =
+    const reducedMotion =
       typeof window !== 'undefined' &&
       window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reducedMotion || typeof IntersectionObserver === 'undefined') {
-      premiumTargets.forEach(function (el) { el.classList.add('is-visible'); });
+      premiumTargets.forEach((el) => el.classList.add('is-visible'));
       return;
     }
 
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           entry.target.classList.add('is-visible');
           observer.unobserve(entry.target);
@@ -637,7 +590,108 @@
       },
     );
 
-    premiumTargets.forEach(function (el) { observer.observe(el); });
+    premiumTargets.forEach((el) => observer.observe(el));
+  }
+
+  function collectPremiumTargets() {
+    const groups = [];
+    const seen = new Set();
+    const body = document.body;
+
+    const sortByVisualFlow = (items) =>
+      items
+        .slice()
+        .sort((a, b) => {
+          const rectA = a.getBoundingClientRect();
+          const rectB = b.getBoundingClientRect();
+          if (Math.abs(rectA.top - rectB.top) > 24) {
+            return rectA.top - rectB.top;
+          }
+          return rectA.left - rectB.left;
+        });
+
+    const addGroup = (items) => {
+      const unique = sortByVisualFlow(
+        items.filter((item) => item && !seen.has(item)),
+      );
+      if (!unique.length) return;
+      unique.forEach((item) => seen.add(item));
+      groups.push(...unique);
+    };
+
+    const directChildren = (container, selector) =>
+      Array.from(container.querySelectorAll(selector));
+
+    if (body.classList.contains('page-home')) {
+      document.querySelectorAll('.page-home .packages-grid').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .neon-card'));
+      });
+      document.querySelectorAll('.page-home .proof-grid').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .proof-card'));
+      });
+      document.querySelectorAll('.page-home .faq-list').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .faq-item'));
+      });
+    }
+
+    if (body.classList.contains('page-about')) {
+      document.querySelectorAll('.page-about .service-row').forEach((container) => {
+        addGroup(
+          directChildren(
+            container,
+            ':scope > .service-image, :scope > .service-content',
+          ),
+        );
+      });
+      document.querySelectorAll('.page-about .values').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .value-card'));
+      });
+      document.querySelectorAll('.page-about .drives-grid').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .neon-card, :scope > .service-image'));
+      });
+      document.querySelectorAll('.page-about .section.brand-gradient .cta-card').forEach((card) => {
+        addGroup([card]);
+      });
+    }
+
+    if (body.classList.contains('page-services')) {
+      document.querySelectorAll('.page-services .service-row').forEach((container) => {
+        addGroup(
+          directChildren(
+            container,
+            ':scope > .service-image, :scope > .service-content',
+          ),
+        );
+      });
+      document.querySelectorAll('.page-services .proof-grid').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .proof-card'));
+      });
+      document.querySelectorAll('.page-services .faq-list').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .faq-item'));
+      });
+    }
+
+    if (body.classList.contains('page-niche')) {
+      document.querySelectorAll('.page-niche .service-row').forEach((container) => {
+        addGroup(
+          directChildren(
+            container,
+            ':scope > .service-image, :scope > .service-content',
+          ),
+        );
+      });
+      document.querySelectorAll('.page-niche .values').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .value-card'));
+      });
+      document.querySelectorAll('.page-niche .faq-list').forEach((container) => {
+        addGroup(directChildren(container, ':scope > .faq-item'));
+      });
+      document.querySelectorAll('.page-niche .section.brand-gradient .cta-card').forEach((card) => {
+        addGroup([card]);
+      });
+    }
+
+    return groups;
   }
 
   window.Silverstone.initScrollReveal = initScrollReveal;
@@ -949,15 +1003,21 @@
   function injectNicheLinks() {
     const config = resolveNicheConfig(window.location.pathname);
     if (!config) return;
+    const isMobile = window.matchMedia('(max-width: 780px)').matches;
 
     const heroButtons = document.querySelector('.hero .cta-buttons');
-    if (heroButtons && !heroButtons.querySelector('[data-pricing-atlas-link]')) {
-      const atlasButton = document.createElement('a');
-      atlasButton.href = config.atlasAnchor;
-      atlasButton.className = 'btn btn-secondary';
-      atlasButton.dataset.pricingAtlasLink = 'true';
-      atlasButton.textContent = config.pricingLabel;
-      heroButtons.appendChild(atlasButton);
+    if (heroButtons) {
+      const existingAtlasButton = heroButtons.querySelector('[data-pricing-atlas-link]');
+      if (isMobile) {
+        existingAtlasButton?.remove();
+      } else if (!existingAtlasButton) {
+        const atlasButton = document.createElement('a');
+        atlasButton.href = config.atlasAnchor;
+        atlasButton.className = 'btn btn-secondary';
+        atlasButton.dataset.pricingAtlasLink = 'true';
+        atlasButton.textContent = config.pricingLabel;
+        heroButtons.appendChild(atlasButton);
+      }
     }
 
     const ctaLinks = document.querySelector('.cta-link-list');
@@ -985,18 +1045,18 @@
       const primaryHref = fastMode ? toHashHref(config.primaryAnchor) : toHashHref(config.atlasAnchor);
       const secondaryHref = fastMode ? toHashHref(config.atlasAnchor) : config.nicheHref;
       const primaryLabel = fastMode ? `See ${config.packName}` : `Open ${config.label} atlas`;
-      const secondaryLabel = fastMode ? 'Open pricing atlas' : `Read ${config.label} page`;
+      const secondaryLabel = fastMode ? 'Open pricing atlas' : `Open ${config.label} page`;
       const recommendedLabel = fastMode ? config.packName : `${config.label} atlas`;
       const resultCopy = fastMode
-        ? `Start with ${config.packName} if you want the fastest route to ROI for ${config.label.toLowerCase()}.`
-        : `Open the ${config.label.toLowerCase()} atlas to compare the smaller fixes, starter packs, and premium builds in one view.`;
+        ? `Start with ${config.packName} if you want the fastest payback for ${config.label.toLowerCase()}.`
+        : `Open the ${config.label.toLowerCase()} atlas to compare modules, starter packs, and premium builds in one view.`;
 
       host.innerHTML = `
         <div class="pricing-recommender">
           <div class="pricing-recommender__panel">
             <span class="pricing-recommender__eyebrow">Pricing recommender</span>
             <h3 class="pricing-recommender__title">Point me to the right pricing card.</h3>
-            <p class="pricing-recommender__copy">Choose your niche, then decide whether you want the fastest starting pack or the full product range.</p>
+            <p class="pricing-recommender__copy">Choose your niche, then pick the fastest starting pack or the full range.</p>
             <div class="pricing-recommender__step">
               <span class="pricing-recommender__step-label">1. Choose your niche</span>
               <div class="pricing-recommender__choices pricing-recommender__choices--niches">
@@ -1008,7 +1068,7 @@
               </div>
             </div>
             <div class="pricing-recommender__step">
-              <span class="pricing-recommender__step-label">2. What do you want to compare first?</span>
+              <span class="pricing-recommender__step-label">2. What do you want to compare?</span>
               <div class="pricing-recommender__choices">
                 <button class="pricing-recommender__choice${fastMode ? ' is-active' : ''}" type="button" data-recommender-mode="fast">Fastest starting pack</button>
                 <button class="pricing-recommender__choice${!fastMode ? ' is-active' : ''}" type="button" data-recommender-mode="atlas">Compare every pack</button>
@@ -1016,7 +1076,7 @@
             </div>
             <div class="pricing-recommender__result">
               <div class="pricing-recommender__result-copy">
-                <span class="pricing-recommender__result-label">Recommended next view</span>
+                <span class="pricing-recommender__result-label">Best next view</span>
                 <strong>${recommendedLabel}</strong>
                 <p>${resultCopy}</p>
               </div>
@@ -2411,17 +2471,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const img = document.getElementById('lightbox-img');
     if (!lightbox || !img) return;
 
-    // Clear previous image immediately to avoid showing stale content
-    img.src = '';
+    img.src = src;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
-
-    // Preload the new image, then display it
-    const preload = new Image();
-    preload.onload = function () {
-      img.src = src;
-    };
-    preload.src = src;
   }
 
   function closeLightbox() {
@@ -2430,9 +2482,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
-    // Clear image src on close so next open starts fresh
-    const img = document.getElementById('lightbox-img');
-    if (img) img.src = '';
   }
 
   function resolveLightboxSrc(trigger) {

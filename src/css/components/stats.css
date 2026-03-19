@@ -41,28 +41,43 @@
 .stats .number {
   font-size: 2.5rem;
   color: var(--color-blue);
-  font-family: var(--font-heading);
+  font-family: var(--font-number);
   font-weight: 700;
   margin-bottom: 0.5rem;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 10px 28px rgba(0, 174, 239, 0.18);
 }
 
 .stats .label {
-  font-size: 1rem;
-  color: var(--color-white);
-  font-family: var(--font-body);
-  line-height: 1.45;
+  font-size: 1.06rem;
+  color: var(--premium-stat-label);
+  font-family: var(--font-support);
+  font-weight: 540;
+  line-height: 1.5;
+  letter-spacing: -0.014em;
+  text-wrap: balance;
+  text-shadow: 0 10px 24px rgba(0, 174, 239, 0.06);
 }
 
 .page-home .stats .label,
 .page-about .stats .label,
 .page-services .stats .label,
 .page-niche .stats .label {
-  color: var(--premium-muted);
-  font-size: 0.94rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  color: var(--premium-stat-label);
+  font-size: clamp(1.02rem, 1.06vw, 1.12rem);
+  text-transform: none;
+  letter-spacing: -0.016em;
+  max-width: 18ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@supports (font-variation-settings: normal) {
+  .stats .label {
+    font-variation-settings: "opsz" 24, "GRAD" 22;
+  }
 }
 
 @media (max-width: 768px) {
