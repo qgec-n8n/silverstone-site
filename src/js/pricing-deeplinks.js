@@ -4,7 +4,7 @@
   window.Silverstone = window.Silverstone || {};
 
   let initialized = false;
-  let highlightTimeoutId = null;
+  let activeHighlightedCard = null;
 
   const NICHE_MAP = {
     '/niches/estate-agents': {
@@ -124,15 +124,16 @@
 
   function applyHighlight(target) {
     if (!target || !target.classList) return;
-    target.classList.remove('is-highlighted');
-    void target.offsetWidth;
-    target.classList.add('is-highlighted');
-    if (highlightTimeoutId) {
-      window.clearTimeout(highlightTimeoutId);
+    if (activeHighlightedCard && activeHighlightedCard !== target) {
+      activeHighlightedCard.classList.remove('is-highlighted');
     }
-    highlightTimeoutId = window.setTimeout(() => {
-      target.classList.remove('is-highlighted');
-    }, 2200);
+    document.querySelectorAll('.ss-pricing__card.is-highlighted').forEach((card) => {
+      if (card !== target) {
+        card.classList.remove('is-highlighted');
+      }
+    });
+    target.classList.add('is-highlighted');
+    activeHighlightedCard = target;
   }
 
   function dispatchPricingTarget(hash) {

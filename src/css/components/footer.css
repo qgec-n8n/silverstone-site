@@ -24,10 +24,11 @@
 
 .site-footer .footer-container {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.95fr) minmax(0, 0.72fr) minmax(0, 1.16fr) minmax(0, 0.76fr);
   gap: clamp(1.75rem, 3vw, 2.5rem);
   max-width: var(--max-width);
   margin: 0 auto;
+  align-items: start;
 }
 
 .footer-brand {
@@ -161,6 +162,22 @@
   border-top: 1px solid rgba(0, 174, 239, 0.12);
   padding-top: 1rem;
   color: rgba(11, 18, 32, 0.66);
+}
+
+@media (max-width: 1240px) and (min-width: 769px) {
+  .site-footer .footer-container {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.98fr) minmax(0, 0.72fr) minmax(0, 1.14fr);
+  }
+
+  .footer-contact {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  .footer-social {
+    grid-column: 4;
+    grid-row: 2;
+  }
 }
 
 @media (max-width: 1100px) {

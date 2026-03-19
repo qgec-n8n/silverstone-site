@@ -265,4 +265,22 @@
   .hero .content .btn + .btn {
     margin-left: 0 !important;
   }
+
+  .page-home .hero.title-band {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4.6rem);
+  }
+
+  .page-home .hero .content {
+    min-height: calc(
+      var(--mobile-stable-vh, 100vh) -
+      var(--header-safe-offset) -
+      5.75rem -
+      env(safe-area-inset-bottom, 0px)
+    );
+  }
+
+  .page-home .hero .cta-buttons {
+    gap: 0.72rem;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1.6rem);
+  }
 }

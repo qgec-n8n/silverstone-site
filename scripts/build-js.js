@@ -18,6 +18,7 @@ const jsOrder = [
   'magnetic-buttons.js',
   'marquee.js',
   'gallery.js',
+  'blog-filters.js',
   'cookie-consent.js',
   'contact-form.js',
   'app.js'

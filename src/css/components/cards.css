@@ -349,11 +349,12 @@
 
 .service-content h3 {
   font-family: var(--font-heading);
-  font-size: 1.75rem;
-  color: var(--color-blue);
+  font-size: clamp(1.82rem, 1.35vw + 1rem, 2.02rem);
+  color: #68d0ff;
   margin-bottom: 1rem;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-shadow: 0 10px 24px rgba(0, 174, 239, 0.12);
 }
 
 .service-content p {
@@ -365,10 +366,10 @@
 .page-services .service-content h4,
 .page-niche .service-content h4 {
   font-family: var(--font-heading);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(190, 223, 255, 0.84);
+  color: rgba(166, 223, 255, 0.9);
   margin: 0.15rem 0 0.95rem;
 }
 
@@ -382,9 +383,9 @@
   align-items: flex-start;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--color-silver);
-  line-height: 1.65;
+  font-size: 0.95rem;
+  color: rgba(227, 238, 250, 0.92);
+  line-height: 1.68;
 }
 
 .service-content ul li::before {
@@ -392,6 +393,14 @@
   font: var(--fa-font-solid);
   color: var(--color-green);
   margin-right: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .page-services .service-row .service-content h3,
+  .page-niche .service-row .service-content h3 {
+    white-space: nowrap;
+    max-width: none;
+  }
 }
 
 .service-image.neon-card {

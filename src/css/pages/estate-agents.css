@@ -44,12 +44,16 @@
 }
 
 .page-niche .service-content h3 {
-  max-width: 18ch;
+  max-width: none;
 }
 
 .page-niche .service-content p,
 .page-niche .service-content ul {
   max-width: 60ch;
+}
+
+.page-niche .service-row .service-content ul li i {
+  color: var(--color-green) !important;
 }
 
 .page-niche .stats {
