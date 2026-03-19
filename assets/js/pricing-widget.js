@@ -7874,12 +7874,18 @@ var SilverstonePricingWidget = (function (exports) {
     reactExports.useEffect(() => {
       const canvas = canvasRef.current;
       if (!canvas) return undefined;
-      const ctx = canvas.getContext("2d");
+      let ctx = null;
+      try {
+        ctx = canvas.getContext("2d");
+      } catch (error) {
+        return undefined;
+      }
       if (!ctx) return undefined;
       let width = 0;
       let height = 0;
       let rafId = null;
       let particles = [];
+      let isInView = true;
       const reducedMotion = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const createParticles = () => {
         // SS_PRICING_SPEC: SPARKLES_HIGH_VISIBILITY_LIGHT_MODE
@@ -7929,15 +7935,35 @@ var SilverstonePricingWidget = (function (exports) {
         }
       };
       const tick = () => {
+        if (!isInView) {
+          rafId = window.requestAnimationFrame(tick);
+          return;
+        }
         draw();
         rafId = window.requestAnimationFrame(tick);
       };
-      let observer = null;
+      let resizeObserver = null;
+      let intersectionObserver = null;
       if (typeof ResizeObserver !== "undefined") {
-        observer = new ResizeObserver(resize);
-        observer.observe(canvas);
+        resizeObserver = new ResizeObserver(resize);
+        resizeObserver.observe(canvas);
       } else {
         window.addEventListener("resize", resize);
+      }
+      if (typeof IntersectionObserver !== "undefined") {
+        intersectionObserver = new IntersectionObserver(entries => {
+          isInView = !!entries[0]?.isIntersecting;
+          if (isInView && !reducedMotion && !rafId) {
+            tick();
+          }
+          if (!isInView && rafId) {
+            window.cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+        }, {
+          threshold: 0.15
+        });
+        intersectionObserver.observe(canvas);
       }
       resize();
       if (!reducedMotion) {
@@ -7947,7 +7973,8 @@ var SilverstonePricingWidget = (function (exports) {
       }
       return () => {
         if (rafId) window.cancelAnimationFrame(rafId);
-        if (observer) observer.disconnect();
+        if (resizeObserver) resizeObserver.disconnect();
+        if (intersectionObserver) intersectionObserver.disconnect();
         window.removeEventListener("resize", resize);
       };
     }, [density]);
@@ -7956,11 +7983,38 @@ var SilverstonePricingWidget = (function (exports) {
       ref: canvasRef
     });
   }
-  function PricingToggle(_ref2) {
+  function FlagshipSelector(_ref2) {
     let {
+      plans,
       value,
       onChange
     } = _ref2;
+    return /*#__PURE__*/jsxRuntimeExports.jsx("div", {
+      className: "ss-pricing__flagship-selector",
+      "aria-label": "Flagship pricing packs by niche",
+      children: plans.map(plan => {
+        const isActive = value === plan.niche;
+        return /*#__PURE__*/jsxRuntimeExports.jsxs("button", {
+          type: "button",
+          className: `ss-pricing__flagship-chip ${isActive ? "is-active" : ""}`,
+          "data-ss-pricing-niche": plan.niche,
+          onClick: () => onChange(plan.niche),
+          children: [/*#__PURE__*/jsxRuntimeExports.jsx("span", {
+            className: "ss-pricing__flagship-chip-label",
+            children: plan.nicheLabel
+          }), /*#__PURE__*/jsxRuntimeExports.jsx("span", {
+            className: "ss-pricing__flagship-chip-pack",
+            children: plan.name
+          })]
+        }, plan.anchorId);
+      })
+    });
+  }
+  function PricingToggle(_ref3) {
+    let {
+      value,
+      onChange
+    } = _ref3;
     const isSetup = value === "setup";
     return /*#__PURE__*/jsxRuntimeExports.jsxs("div", {
       className: "ss-pricing__toggle",
@@ -7986,12 +8040,12 @@ var SilverstonePricingWidget = (function (exports) {
   }
 
   // SS_PRICING_SPEC: PRICE_SCROLL_PER_DIGIT
-  function PriceDigits(_ref3) {
+  function PriceDigits(_ref4) {
     let {
       value,
       className = "",
       prefix = "£"
-    } = _ref3;
+    } = _ref4;
     const formattedValue = reactExports.useMemo(() => String(value ?? ""), [value]);
     const characters = reactExports.useMemo(() => formattedValue.split(""), [formattedValue]);
     const ariaLabel = `${prefix}${formattedValue}`;
@@ -8030,13 +8084,13 @@ var SilverstonePricingWidget = (function (exports) {
       })]
     });
   }
-  function PlanCard(_ref4) {
+  function PlanCard(_ref5) {
     let {
       plan,
       billingMode,
       bookHref,
       index
-    } = _ref4;
+    } = _ref5;
     const isSetup = billingMode === "setup";
     const priceValue = isSetup ? plan.setupFee : plan.monthlyRetainer;
     return /*#__PURE__*/jsxRuntimeExports.jsxs("article", {
@@ -8087,12 +8141,12 @@ var SilverstonePricingWidget = (function (exports) {
       })]
     });
   }
-  function GroupCard(_ref5) {
+  function GroupCard(_ref6) {
     let {
       group,
       bookHref,
       index
-    } = _ref5;
+    } = _ref6;
     const hasOneLiner = group.oneLiner && group.oneLiner.trim().length > 0;
     return /*#__PURE__*/jsxRuntimeExports.jsxs("article", {
       className: "ss-pricing__card ss-pricing__fade-up",
@@ -8141,37 +8195,81 @@ var SilverstonePricingWidget = (function (exports) {
       })]
     });
   }
-  function PricingWidget(_ref6) {
+  function PricingWidget(_ref7) {
     let {
       pageKey,
       sectionData,
       sectionId
-    } = _ref6;
+    } = _ref7;
     const [billingMode, setBillingMode] = reactExports.useState("monthly");
     const isSection1 = sectionId === "1";
+    const isPricingFlagshipSection = isSection1 && pageKey === "pricing.html";
     const bookHref = pageKey.startsWith("niches/") ? "../book.html" : "book.html";
+    const defaultNiche = sectionData?.plans?.[0]?.niche || null;
+    const [selectedNiche, setSelectedNiche] = reactExports.useState(defaultNiche);
     reactExports.useEffect(() => {
       setBillingMode("monthly");
     }, [sectionId, pageKey]);
+    reactExports.useEffect(() => {
+      setSelectedNiche(sectionData?.plans?.[0]?.niche || null);
+    }, [sectionData, pageKey, sectionId]);
+    reactExports.useEffect(() => {
+      if (!isPricingFlagshipSection || !sectionData?.plans?.length) return undefined;
+      const findMatchingPlan = hash => {
+        const normalizedHash = String(hash || "").replace(/^#/, "");
+        if (!normalizedHash) return null;
+        return sectionData.plans.find(plan => plan.anchorId === normalizedHash) || null;
+      };
+      const revealChip = niche => {
+        window.requestAnimationFrame(() => {
+          const chip = document.querySelector(`[data-ss-pricing-niche="${niche}"]`);
+          chip?.scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest"
+          });
+        });
+      };
+      const syncFromHash = hash => {
+        const matchingPlan = findMatchingPlan(hash);
+        if (!matchingPlan) return;
+        setSelectedNiche(matchingPlan.niche);
+        revealChip(matchingPlan.niche);
+      };
+      syncFromHash(window.location.hash);
+      const handleHashChange = () => syncFromHash(window.location.hash);
+      const handlePricingTarget = event => syncFromHash(event.detail?.hash);
+      window.addEventListener("hashchange", handleHashChange);
+      window.addEventListener("silverstone:pricing-target", handlePricingTarget);
+      return () => {
+        window.removeEventListener("hashchange", handleHashChange);
+        window.removeEventListener("silverstone:pricing-target", handlePricingTarget);
+      };
+    }, [isPricingFlagshipSection, sectionData]);
+    const activeFlagshipPlan = reactExports.useMemo(() => {
+      if (!isPricingFlagshipSection || !sectionData?.plans?.length) return null;
+      return sectionData.plans.find(plan => plan.niche === selectedNiche) || sectionData.plans[0];
+    }, [isPricingFlagshipSection, sectionData, selectedNiche]);
     const content = reactExports.useMemo(() => {
       if (!sectionData) return null;
       if (isSection1) {
-        return sectionData.plans.map((plan, index) => /*#__PURE__*/jsxRuntimeExports.jsx(PlanCard, {
+        const plansToRender = isPricingFlagshipSection && activeFlagshipPlan ? [activeFlagshipPlan] : sectionData.plans;
+        return plansToRender.map((plan, index) => /*#__PURE__*/jsxRuntimeExports.jsx(PlanCard, {
           plan: plan,
           billingMode: billingMode,
           bookHref: bookHref,
           index: index
-        }, `${plan.name}-${index}`));
+        }, `${plan.anchorId || plan.name}-${index}`));
       }
       return sectionData.groups.map((group, index) => /*#__PURE__*/jsxRuntimeExports.jsx(GroupCard, {
         group: group,
         bookHref: bookHref,
         index: index
       }, `${group.groupLabel}-${index}`));
-    }, [sectionData, isSection1, billingMode, bookHref]);
+    }, [sectionData, isSection1, billingMode, bookHref, isPricingFlagshipSection, activeFlagshipPlan]);
     if (!sectionData) return null;
     return /*#__PURE__*/jsxRuntimeExports.jsxs("div", {
-      className: `ss-pricing__widget ${isSection1 ? "is-section-1" : "is-section-2"}`,
+      className: `ss-pricing__widget ${isSection1 ? "is-section-1" : "is-section-2"} ${isPricingFlagshipSection ? "is-flagship-selector" : ""}`,
       children: [/*#__PURE__*/jsxRuntimeExports.jsx("div", {
         className: "ss-pricing__gridlines",
         "aria-hidden": "true"
@@ -8191,9 +8289,13 @@ var SilverstonePricingWidget = (function (exports) {
           }), isSection1 ? /*#__PURE__*/jsxRuntimeExports.jsx(PricingToggle, {
             value: billingMode,
             onChange: setBillingMode
+          }) : null, isPricingFlagshipSection ? /*#__PURE__*/jsxRuntimeExports.jsx(FlagshipSelector, {
+            plans: sectionData.plans,
+            value: selectedNiche,
+            onChange: setSelectedNiche
           }) : null]
         }), /*#__PURE__*/jsxRuntimeExports.jsx("div", {
-          className: "ss-pricing__grid",
+          className: `ss-pricing__grid ${isPricingFlagshipSection ? "is-flagship-grid" : ""}`,
           children: content
         })]
       })]
@@ -8605,50 +8707,150 @@ var SilverstonePricingWidget = (function (exports) {
   	"pricing.html": {
   	section1: {
   		title: "Start with the fastest path to ROI.",
-  		subtitle: "These are the three most common done-for-you systems. Pick the one that matches your business model and move fast.",
+  		subtitle: "Choose your niche, then start with the flagship pack designed to pay back fastest for that business model.",
   		plans: [
   			{
-  				name: "Trades Virtual Office",
-  				anchorId: "pricing-flagship-trades-virtual-office",
-  				setupFee: 1299,
-  				monthlyRetainer: 219,
-  				bestFor: "Field-service businesses that cannot pick up the phone but do not want to lose the best jobs.",
-  				includes: [
-  					"End-to-end virtual office handling calls",
-  					"Quote follow-up automation",
-  					"Scheduling flow automation",
-  					"Covers calls, quotes, and scheduling as one joined-up system",
-  					"Virtual office handoff so key job details do not get dropped"
-  				],
-  				badge: null
-  			},
-  			{
+  				niche: "estate-agents",
+  				nicheLabel: "Estate agents",
   				name: "Never Miss a Viewing Pack",
   				anchorId: "pricing-flagship-never-miss-a-viewing",
   				setupFee: 1499,
   				monthlyRetainer: 229,
   				bestFor: "Estate and lettings teams where speed-to-lead decides who wins the instruction.",
   				includes: [
-  					"Lead capture automation end to end",
-  					"Lead qualification automation",
-  					"Viewing workflow automation from enquiry to booked viewing",
-  					"Viewing follow-up automation",
-  					"A single joined-up capture, qualify, follow-up journey"
+  					"Instant lead capture across portal, web, and missed-call enquiries",
+  					"Qualification that separates serious buyers, sellers, and landlords",
+  					"Viewing and valuation booking with confirmations and reminders",
+  					"Post-viewing follow-up that keeps warm opportunities moving"
   				],
   				badge: null
   			},
   			{
+  				niche: "hospitality",
+  				nicheLabel: "Hospitality",
   				name: "24/7 Guest Concierge Bot",
   				anchorId: "pricing-flagship-24-7-guest-concierge",
   				setupFee: 550,
   				monthlyRetainer: 139,
   				bestFor: "Hospitality venues that need always-on answers and booking capture without extra headcount.",
   				includes: [
-  					"Web and WhatsApp concierge bot always on",
-  					"Answers guest FAQs",
-  					"Captures reservation requests",
-  					"Hands off to booking system",
-  					"Converts questions into captured booking intent"
+  					"Web and WhatsApp concierge for routine guest questions",
+  					"Booking capture across website and messaging channels",
+  					"Confirmation and reminder flows that cut no-shows",
+  					"Review invites and guest follow-up after the visit"
+  				],
+  				badge: null
+  			},
+  			{
+  				niche: "salons-barbers",
+  				nicheLabel: "Salons & barbers",
+  				name: "Rebook & Review Pack",
+  				anchorId: "pricing-flagship-rebook-review",
+  				setupFee: 949,
+  				monthlyRetainer: 159,
+  				bestFor: "Salons and barbershops that want tighter rebooking, stronger reviews, and fewer lost diary gaps.",
+  				includes: [
+  					"No-show reminders with easy reschedule links",
+  					"Post-visit rebooking prompts that keep chairs full",
+  					"Review and referral requests sent at the right moment",
+  					"Simple cancellation-fill nudges for open slots"
+  				],
+  				badge: null
+  			},
+  			{
+  				name: "Trades Virtual Office",
+  				niche: "trades-virtual-office",
+  				nicheLabel: "Trades & field services",
+  				anchorId: "pricing-flagship-trades-virtual-office",
+  				setupFee: 1299,
+  				monthlyRetainer: 219,
+  				bestFor: "Field-service businesses that cannot pick up the phone but do not want to lose the best jobs.",
+  				includes: [
+  					"Virtual office coverage for missed calls and new enquiries",
+  					"Quote follow-up automation",
+  					"Scheduling flow automation",
+  					"Structured job capture so the right details never get lost",
+  					"One joined-up system for calls, quotes, and diary updates"
+  				],
+  				badge: null
+  			},
+  			{
+  				niche: "ecommerce",
+  				nicheLabel: "eCommerce",
+  				name: "E-com Growth Engine",
+  				anchorId: "pricing-flagship-ecom-growth-engine",
+  				setupFee: 1599,
+  				monthlyRetainer: 259,
+  				bestFor: "eCommerce brands that need stronger cart recovery, lighter support load, and more repeat revenue.",
+  				includes: [
+  					"Abandoned-cart recovery journeys with sensible timing",
+  					"FAQ and order-status automation for routine support",
+  					"Post-purchase and win-back flows that drive repeat orders",
+  					"Revenue and retention visibility across the key journeys"
+  				],
+  				badge: null
+  			},
+  			{
+  				niche: "physios-chiropractors",
+  				nicheLabel: "Physios & chiropractors",
+  				name: "Smart Intake Starter Pack",
+  				anchorId: "pricing-flagship-smart-intake",
+  				setupFee: 899,
+  				monthlyRetainer: 159,
+  				bestFor: "Clinics that want smoother intake, better preparation, and steadier rebooking without more admin.",
+  				includes: [
+  					"Digital intake forms that arrive before the first visit",
+  					"Triage questions that route patients to the right clinician",
+  					"Reminders with prep details and easy rescheduling",
+  					"Rebooking nudges tied to the treatment plan"
+  				],
+  				badge: null
+  			},
+  			{
+  				niche: "dentists",
+  				nicheLabel: "Dentists",
+  				name: "Recall Starter Pack",
+  				anchorId: "pricing-flagship-recall-starter",
+  				setupFee: 999,
+  				monthlyRetainer: 179,
+  				bestFor: "Dental practices that want tighter recall, fuller hygiene books, and fewer empty-chair gaps.",
+  				includes: [
+  					"Recall prompts based on due dates and patient history",
+  					"Confirm-or-reschedule reminders before hygiene and recall visits",
+  					"Priority nudges for overdue or high-risk patients",
+  					"Reporting on recall uptake, DNAs, and filled-chair time"
+  				],
+  				badge: null
+  			},
+  			{
+  				niche: "gyms-fitness-studios",
+  				nicheLabel: "Gyms & studios",
+  				name: "Gym Growth Engine",
+  				anchorId: "pricing-flagship-gym-growth-engine",
+  				setupFee: 1299,
+  				monthlyRetainer: 219,
+  				bestFor: "Gyms and studios that need better onboarding, at-risk member outreach, and repeat visit momentum.",
+  				includes: [
+  					"Onboarding sequences that build early member habits",
+  					"Attendance triggers for drifting or at-risk members",
+  					"Win-back outreach for former members",
+  					"Review, referral, and upgrade prompts when timing fits"
+  				],
+  				badge: null
+  			},
+  			{
+  				niche: "fitness-coaches",
+  				nicheLabel: "Fitness coaches & creators",
+  				name: "DM to Lead Starter Pack",
+  				anchorId: "pricing-flagship-dm-to-lead",
+  				setupFee: 749,
+  				monthlyRetainer: 149,
+  				bestFor: "Coaches and creators who need faster DM replies, better qualification, and cleaner handoff into sales.",
+  				includes: [
+  					"Fast first replies for coaching and offer enquiries",
+  					"Lead qualification around goals, budget, and fit",
+  					"Routing to forms, calls, checkout links, or waitlists",
+  					"Follow-up nudges with simple lead tracking"
   				],
   				badge: null
   			}
@@ -10395,6 +10597,11 @@ var SilverstonePricingWidget = (function (exports) {
     if (!section1 || !section2) return;
     let rafId = null;
     const updateMatchHeight = () => {
+      const isMobileViewport = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 780px)").matches;
+      if (isMobileViewport) {
+        section2.style.removeProperty("--ss-pricing-match-height");
+        return;
+      }
       const cards = section1.querySelectorAll(".ss-pricing__card");
       if (!cards.length) return;
       let maxHeight = 0;

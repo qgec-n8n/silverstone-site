@@ -34,13 +34,19 @@ function SparklesCanvas({ density = 120 }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
-    const ctx = canvas.getContext("2d");
+    let ctx = null;
+    try {
+      ctx = canvas.getContext("2d");
+    } catch (error) {
+      return undefined;
+    }
     if (!ctx) return undefined;
 
     let width = 0;
     let height = 0;
     let rafId = null;
     let particles = [];
+    let isInView = true;
 
     const reducedMotion =
       typeof window !== "undefined" &&
@@ -98,16 +104,38 @@ function SparklesCanvas({ density = 120 }) {
     };
 
     const tick = () => {
+      if (!isInView) {
+        rafId = window.requestAnimationFrame(tick);
+        return;
+      }
       draw();
       rafId = window.requestAnimationFrame(tick);
     };
 
-    let observer = null;
+    let resizeObserver = null;
+    let intersectionObserver = null;
     if (typeof ResizeObserver !== "undefined") {
-      observer = new ResizeObserver(resize);
-      observer.observe(canvas);
+      resizeObserver = new ResizeObserver(resize);
+      resizeObserver.observe(canvas);
     } else {
       window.addEventListener("resize", resize);
+    }
+
+    if (typeof IntersectionObserver !== "undefined") {
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          isInView = !!entries[0]?.isIntersecting;
+          if (isInView && !reducedMotion && !rafId) {
+            tick();
+          }
+          if (!isInView && rafId) {
+            window.cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+        },
+        { threshold: 0.15 }
+      );
+      intersectionObserver.observe(canvas);
     }
 
     resize();
@@ -119,12 +147,35 @@ function SparklesCanvas({ density = 120 }) {
 
     return () => {
       if (rafId) window.cancelAnimationFrame(rafId);
-      if (observer) observer.disconnect();
+      if (resizeObserver) resizeObserver.disconnect();
+      if (intersectionObserver) intersectionObserver.disconnect();
       window.removeEventListener("resize", resize);
     };
   }, [density]);
 
   return <canvas className="ss-pricing__sparkles" ref={canvasRef} />;
+}
+
+function FlagshipSelector({ plans, value, onChange }) {
+  return (
+    <div className="ss-pricing__flagship-selector" aria-label="Flagship pricing packs by niche">
+      {plans.map((plan) => {
+        const isActive = value === plan.niche;
+        return (
+          <button
+            type="button"
+            key={plan.anchorId}
+            className={`ss-pricing__flagship-chip ${isActive ? "is-active" : ""}`}
+            data-ss-pricing-niche={plan.niche}
+            onClick={() => onChange(plan.niche)}
+          >
+            <span className="ss-pricing__flagship-chip-label">{plan.nicheLabel}</span>
+            <span className="ss-pricing__flagship-chip-pack">{plan.name}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
 }
 
 function PricingToggle({ value, onChange }) {
@@ -272,18 +323,70 @@ function GroupCard({ group, bookHref, index }) {
 export default function PricingWidget({ pageKey, sectionData, sectionId }) {
   const [billingMode, setBillingMode] = useState("monthly");
   const isSection1 = sectionId === "1";
+  const isPricingFlagshipSection = isSection1 && pageKey === "pricing.html";
   const bookHref = pageKey.startsWith("niches/") ? "../book.html" : "book.html";
+  const defaultNiche = sectionData?.plans?.[0]?.niche || null;
+  const [selectedNiche, setSelectedNiche] = useState(defaultNiche);
 
   useEffect(() => {
     setBillingMode("monthly");
   }, [sectionId, pageKey]);
 
+  useEffect(() => {
+    setSelectedNiche(sectionData?.plans?.[0]?.niche || null);
+  }, [sectionData, pageKey, sectionId]);
+
+  useEffect(() => {
+    if (!isPricingFlagshipSection || !sectionData?.plans?.length) return undefined;
+
+    const findMatchingPlan = (hash) => {
+      const normalizedHash = String(hash || "").replace(/^#/, "");
+      if (!normalizedHash) return null;
+      return sectionData.plans.find((plan) => plan.anchorId === normalizedHash) || null;
+    };
+
+    const revealChip = (niche) => {
+      window.requestAnimationFrame(() => {
+        const chip = document.querySelector(`[data-ss-pricing-niche="${niche}"]`);
+        chip?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      });
+    };
+
+    const syncFromHash = (hash) => {
+      const matchingPlan = findMatchingPlan(hash);
+      if (!matchingPlan) return;
+      setSelectedNiche(matchingPlan.niche);
+      revealChip(matchingPlan.niche);
+    };
+
+    syncFromHash(window.location.hash);
+
+    const handleHashChange = () => syncFromHash(window.location.hash);
+    const handlePricingTarget = (event) => syncFromHash(event.detail?.hash);
+
+    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("silverstone:pricing-target", handlePricingTarget);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("silverstone:pricing-target", handlePricingTarget);
+    };
+  }, [isPricingFlagshipSection, sectionData]);
+
+  const activeFlagshipPlan = useMemo(() => {
+    if (!isPricingFlagshipSection || !sectionData?.plans?.length) return null;
+    return sectionData.plans.find((plan) => plan.niche === selectedNiche) || sectionData.plans[0];
+  }, [isPricingFlagshipSection, sectionData, selectedNiche]);
+
   const content = useMemo(() => {
     if (!sectionData) return null;
     if (isSection1) {
-      return sectionData.plans.map((plan, index) => (
+      const plansToRender =
+        isPricingFlagshipSection && activeFlagshipPlan ? [activeFlagshipPlan] : sectionData.plans;
+
+      return plansToRender.map((plan, index) => (
         <PlanCard
-          key={`${plan.name}-${index}`}
+          key={`${plan.anchorId || plan.name}-${index}`}
           plan={plan}
           billingMode={billingMode}
           bookHref={bookHref}
@@ -300,12 +403,16 @@ export default function PricingWidget({ pageKey, sectionData, sectionId }) {
         index={index}
       />
     ));
-  }, [sectionData, isSection1, billingMode, bookHref]);
+  }, [sectionData, isSection1, billingMode, bookHref, isPricingFlagshipSection, activeFlagshipPlan]);
 
   if (!sectionData) return null;
 
   return (
-    <div className={`ss-pricing__widget ${isSection1 ? "is-section-1" : "is-section-2"}`}>
+    <div
+      className={`ss-pricing__widget ${isSection1 ? "is-section-1" : "is-section-2"} ${
+        isPricingFlagshipSection ? "is-flagship-selector" : ""
+      }`}
+    >
       <div className="ss-pricing__gridlines" aria-hidden="true" />
       <SparklesCanvas />
       <div className="ss-pricing__glow" aria-hidden="true" />
@@ -316,8 +423,17 @@ export default function PricingWidget({ pageKey, sectionData, sectionId }) {
           {isSection1 ? (
             <PricingToggle value={billingMode} onChange={setBillingMode} />
           ) : null}
+          {isPricingFlagshipSection ? (
+            <FlagshipSelector
+              plans={sectionData.plans}
+              value={selectedNiche}
+              onChange={setSelectedNiche}
+            />
+          ) : null}
         </header>
-        <div className="ss-pricing__grid">{content}</div>
+        <div className={`ss-pricing__grid ${isPricingFlagshipSection ? "is-flagship-grid" : ""}`}>
+          {content}
+        </div>
       </div>
     </div>
   );

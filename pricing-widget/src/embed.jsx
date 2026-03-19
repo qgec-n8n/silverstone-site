@@ -31,6 +31,14 @@ function setupSection2HeightMatch(pageKey) {
   let rafId = null;
 
   const updateMatchHeight = () => {
+    const isMobileViewport =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(max-width: 780px)").matches;
+    if (isMobileViewport) {
+      section2.style.removeProperty("--ss-pricing-match-height");
+      return;
+    }
     const cards = section1.querySelectorAll(".ss-pricing__card");
     if (!cards.length) return;
     let maxHeight = 0;

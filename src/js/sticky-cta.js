@@ -4,6 +4,10 @@
   window.Silverstone = window.Silverstone || {};
 
   let initialized = false;
+  let temporaryCollapseTimeoutId = null;
+
+  const STORAGE_KEY = 'ss-cta-collapsed';
+  const MOBILE_BREAKPOINT = 780;
 
   const NICHE_CTA_MAP = {
     '/niches/estate-agents': {
@@ -12,6 +16,7 @@
       copy: 'Jump straight to the real-estate pricing atlas, then scope the right branch workflow.',
       secondaryHref: '/pricing#pricing-atlas-real-estate',
       secondaryLabel: 'See pricing',
+      launcherLabel: 'Estate pricing',
     },
     '/niches/hospitality': {
       eyebrow: 'Hospitality pricing',
@@ -19,6 +24,7 @@
       copy: 'Open the hospitality atlas card, then narrow down the guest-concierge or no-show fix.',
       secondaryHref: '/pricing#pricing-atlas-hospitality',
       secondaryLabel: 'See pricing',
+      launcherLabel: 'Hospitality pricing',
     },
     '/niches/salons-barbers': {
       eyebrow: 'Salon pricing',
@@ -26,6 +32,7 @@
       copy: 'See the salon atlas card first, then scope the no-show or rebooking system that fits.',
       secondaryHref: '/pricing#pricing-atlas-salons',
       secondaryLabel: 'See pricing',
+      launcherLabel: 'Salon pricing',
     },
     '/niches/trades-virtual-office': {
       eyebrow: 'Trades pricing',
@@ -33,6 +40,7 @@
       copy: 'Open the trades atlas card, then choose the fastest call, quote, or scheduling fix.',
       secondaryHref: '/pricing#pricing-atlas-trades',
       secondaryLabel: 'See pricing',
+      launcherLabel: 'Trades pricing',
     },
     '/niches/ecommerce': {
       eyebrow: 'eCommerce pricing',
@@ -40,6 +48,7 @@
       copy: 'See the eCommerce atlas card before you choose a cart, support, or LTV workflow.',
       secondaryHref: '/pricing#pricing-atlas-ecommerce',
       secondaryLabel: 'See pricing',
+      launcherLabel: 'eCommerce pricing',
     },
     '/niches/physios-chiropractors': {
       eyebrow: 'Clinic pricing',
@@ -47,6 +56,7 @@
       copy: 'Open the clinic atlas card, then scope the intake or rebooking layer that pays back fastest.',
       secondaryHref: '/pricing#pricing-atlas-physios-chiropractors',
       secondaryLabel: 'See pricing',
+      launcherLabel: 'Clinic pricing',
     },
     '/niches/dentists': {
       eyebrow: 'Dental pricing',
@@ -54,6 +64,7 @@
       copy: 'See the dental atlas card first, then choose the recall or treatment follow-up route.',
       secondaryHref: '/pricing#pricing-atlas-dentists',
       secondaryLabel: 'See pricing',
+      launcherLabel: 'Dental pricing',
     },
     '/niches/gyms-fitness-studios': {
       eyebrow: 'Gym pricing',
@@ -61,6 +72,7 @@
       copy: 'Open the gym atlas card, then choose the member reactivation or class-fill system.',
       secondaryHref: '/pricing#pricing-atlas-gym-owners',
       secondaryLabel: 'See pricing',
+      launcherLabel: 'Gym pricing',
     },
     '/niches/fitness-coaches': {
       eyebrow: 'Creator pricing',
@@ -68,6 +80,7 @@
       copy: 'See the creator atlas card before choosing your DM triage or onboarding workflow.',
       secondaryHref: '/pricing#pricing-atlas-fitness-coaches',
       secondaryLabel: 'See pricing',
+      launcherLabel: 'Creator pricing',
     },
   };
 
@@ -90,6 +103,7 @@
         copy: 'Compare packs first if you are still deciding, or book the audit if you want a scoped recommendation.',
         secondaryHref: '/pricing',
         secondaryLabel: 'See pricing',
+        launcherLabel: 'Open pricing',
       };
     }
 
@@ -100,6 +114,7 @@
         copy: 'Move from the services overview into the pricing atlas without losing your place.',
         secondaryHref: '/pricing#pricing-atlas',
         secondaryLabel: 'Compare pricing',
+        launcherLabel: 'See pricing',
       };
     }
 
@@ -110,24 +125,48 @@
         copy: 'Use services if you need more context, then come back to pricing with a narrower shortlist.',
         secondaryHref: '/services',
         secondaryLabel: 'View services',
+        launcherLabel: 'Open CTA',
       };
     }
 
     return NICHE_CTA_MAP[normalizedPath] || null;
   }
 
-  function createStickyCta(config) {
-    const shell = document.createElement('div');
-    shell.className = 'sticky-cta';
-    shell.setAttribute('aria-hidden', 'true');
+  function isMobileViewport() {
+    return window.innerWidth <= MOBILE_BREAKPOINT;
+  }
+
+  function isHoverLauncherMode() {
+    return (
+      !isMobileViewport() &&
+      window.matchMedia &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    );
+  }
+
+  function createStickyShell(config) {
+    const shell = document.createElement('aside');
+    shell.className = 'sticky-cta-shell';
+    shell.setAttribute('aria-label', 'Sticky call to action');
     shell.innerHTML = `
-      <span class="sticky-cta__eyebrow">${config.eyebrow}</span>
-      <div class="sticky-cta__title">${config.title}</div>
-      <p class="sticky-cta__copy">${config.copy}</p>
-      <div class="sticky-cta__actions">
-        <a class="btn btn-secondary" href="${config.secondaryHref}">${config.secondaryLabel}</a>
-        <a class="btn btn-primary" href="/book">Book audit</a>
+      <div class="sticky-cta" aria-hidden="true">
+        <button class="sticky-cta__close" type="button" aria-label="Minimise sticky call to action">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <span class="sticky-cta__eyebrow">${config.eyebrow}</span>
+        <div class="sticky-cta__title">${config.title}</div>
+        <p class="sticky-cta__copy">${config.copy}</p>
+        <div class="sticky-cta__actions">
+          <a class="btn btn-secondary" href="${config.secondaryHref}">${config.secondaryLabel}</a>
+          <a class="btn btn-primary" href="/book">Book audit</a>
+        </div>
       </div>
+      <button class="sticky-cta__launcher" type="button" aria-label="${config.launcherLabel}">
+        <span class="sticky-cta__launcher-icon" aria-hidden="true">
+          <i class="fa-solid fa-bolt"></i>
+        </span>
+        <span class="sticky-cta__launcher-copy">${config.launcherLabel}</span>
+      </button>
     `;
     return shell;
   }
@@ -143,11 +182,85 @@
     const hero = document.querySelector('.hero');
     if (!footer || !hero) return;
 
-    const sticky = createStickyCta(config);
-    document.body.appendChild(sticky);
+    const shell = createStickyShell(config);
+    const sticky = shell.querySelector('.sticky-cta');
+    const launcher = shell.querySelector('.sticky-cta__launcher');
+    const closeButton = shell.querySelector('.sticky-cta__close');
+
+    if (!sticky || !launcher || !closeButton) return;
+
+    document.body.appendChild(shell);
     document.body.classList.add('has-sticky-cta');
 
     const cookieBanner = document.getElementById('cookie-banner');
+    const state = {
+      dismissed: window.sessionStorage.getItem(STORAGE_KEY) === '1',
+      previewOpen: false,
+      suppressPreview: false,
+      temporarilyCollapsed: false,
+      shouldShow: false,
+    };
+
+    function syncAria() {
+      const expanded = state.shouldShow && (!state.dismissed || state.previewOpen);
+      sticky.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+      launcher.setAttribute(
+        'aria-label',
+        expanded ? 'Sticky call to action is open' : config.launcherLabel
+      );
+    }
+
+    function persistDismissed(value) {
+      if (value) {
+        window.sessionStorage.setItem(STORAGE_KEY, '1');
+      } else {
+        window.sessionStorage.removeItem(STORAGE_KEY);
+      }
+    }
+
+    function render() {
+      const expanded =
+        state.shouldShow &&
+        !state.temporarilyCollapsed &&
+        (!state.dismissed || state.previewOpen);
+      shell.classList.toggle('is-visible', state.shouldShow);
+      shell.classList.toggle('is-dismissed', state.dismissed);
+      shell.classList.toggle('is-preview-open', state.previewOpen);
+      shell.classList.toggle('is-temp-collapsed', state.temporarilyCollapsed);
+      shell.classList.toggle('is-mobile', isMobileViewport());
+      sticky.classList.toggle('is-visible', expanded);
+      launcher.classList.toggle('is-visible', state.shouldShow && !expanded);
+      syncAria();
+    }
+
+    function setDismissed(nextValue, persist, options) {
+      const shouldSuppressPreview =
+        !!nextValue && !!options && options.suppressPreview && isHoverLauncherMode();
+      state.dismissed = !!nextValue;
+      state.previewOpen = false;
+      state.suppressPreview = shouldSuppressPreview;
+      state.temporarilyCollapsed = false;
+      if (!nextValue) {
+        state.suppressPreview = false;
+      }
+      if (persist !== false) {
+        persistDismissed(state.dismissed);
+      }
+      render();
+    }
+
+    function openPreview(force) {
+      if (!state.dismissed || !state.shouldShow || !isHoverLauncherMode()) return;
+      if (state.suppressPreview && !force) return;
+      state.previewOpen = true;
+      render();
+    }
+
+    function closePreview() {
+      if (!state.dismissed || !state.previewOpen || !isHoverLauncherMode()) return;
+      state.previewOpen = false;
+      render();
+    }
 
     const updateBottomOffset = () => {
       const bannerVisible =
@@ -155,7 +268,7 @@
         window.getComputedStyle(cookieBanner).display !== 'none' &&
         cookieBanner.getBoundingClientRect().height > 0;
       const extraBottom = bannerVisible ? cookieBanner.getBoundingClientRect().height + 12 : 16;
-      sticky.style.bottom = `calc(${extraBottom}px + var(--safe-area-bottom))`;
+      shell.style.bottom = `calc(${extraBottom}px + var(--safe-area-bottom))`;
     };
 
     const updateVisibility = () => {
@@ -164,11 +277,85 @@
       const passedHero = heroRect.bottom < window.innerHeight * 0.45;
       const footerOverlap = footerRect.top < window.innerHeight - 120;
 
-      sticky.classList.toggle('is-visible', passedHero && !footerOverlap);
-      sticky.classList.toggle('is-hidden-by-footer', footerOverlap);
-      sticky.setAttribute('aria-hidden', passedHero && !footerOverlap ? 'false' : 'true');
+      state.shouldShow = passedHero && !footerOverlap;
+      shell.classList.toggle('is-hidden-by-footer', footerOverlap);
+      if (!state.shouldShow) {
+        state.previewOpen = false;
+        state.temporarilyCollapsed = false;
+      }
       updateBottomOffset();
+      render();
     };
+
+    closeButton.addEventListener('click', (event) => {
+      setDismissed(true, true, { suppressPreview: true });
+      if (!isHoverLauncherMode() || event.detail === 0) {
+        launcher.focus({ preventScroll: true });
+      }
+    });
+
+    launcher.addEventListener('click', () => {
+      if (isHoverLauncherMode()) {
+        openPreview();
+        return;
+      }
+      state.temporarilyCollapsed = false;
+      setDismissed(false, true);
+    });
+
+    launcher.addEventListener('mouseenter', openPreview);
+    launcher.addEventListener('focus', () => {
+      if (!state.suppressPreview) {
+        openPreview(true);
+      }
+    });
+
+    const collapseIfLeavingShell = (event) => {
+      if (!shell.contains(event.relatedTarget)) {
+        closePreview();
+      }
+    };
+
+    launcher.addEventListener('mouseleave', collapseIfLeavingShell);
+    sticky.addEventListener('mouseleave', collapseIfLeavingShell);
+    launcher.addEventListener('mouseleave', () => {
+      if (state.suppressPreview) {
+        state.suppressPreview = false;
+      }
+    });
+    shell.addEventListener('focusout', (event) => {
+      if (!shell.contains(event.relatedTarget)) {
+        state.suppressPreview = false;
+        closePreview();
+      }
+    });
+
+    sticky.addEventListener('mouseenter', openPreview);
+
+    const api = {
+      collapseTemporarilyForAnchorNavigation() {
+        if (!state.shouldShow || isHoverLauncherMode()) return 0;
+        state.previewOpen = false;
+        state.temporarilyCollapsed = true;
+        if (temporaryCollapseTimeoutId) {
+          window.clearTimeout(temporaryCollapseTimeoutId);
+        }
+        temporaryCollapseTimeoutId = window.setTimeout(() => {
+          state.temporarilyCollapsed = false;
+          render();
+        }, 1800);
+        render();
+        return launcher.getBoundingClientRect().height || 0;
+      },
+      isVisible() {
+        return state.shouldShow;
+      },
+      isDismissed() {
+        return state.dismissed;
+      },
+    };
+
+    window.Silverstone.stickyCta = api;
 
     updateVisibility();
     window.addEventListener('scroll', updateVisibility, { passive: true });

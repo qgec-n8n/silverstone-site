@@ -403,50 +403,150 @@
   "pricing.html": {
     "section1": {
       "title": "Start with the fastest path to ROI.",
-      "subtitle": "These are the three most common done-for-you systems. Pick the one that matches your business model and move fast.",
+      "subtitle": "Choose your niche, then start with the flagship pack designed to pay back fastest for that business model.",
       "plans": [
         {
-          "name": "Trades Virtual Office",
-          "anchorId": "pricing-flagship-trades-virtual-office",
-          "setupFee": 1299,
-          "monthlyRetainer": 219,
-          "bestFor": "Field-service businesses that cannot pick up the phone but do not want to lose the best jobs.",
-          "includes": [
-            "End-to-end virtual office handling calls",
-            "Quote follow-up automation",
-            "Scheduling flow automation",
-            "Covers calls, quotes, and scheduling as one joined-up system",
-            "Virtual office handoff so key job details do not get dropped"
-          ],
-          "badge": null
-        },
-        {
+          "niche": "estate-agents",
+          "nicheLabel": "Estate agents",
           "name": "Never Miss a Viewing Pack",
           "anchorId": "pricing-flagship-never-miss-a-viewing",
           "setupFee": 1499,
           "monthlyRetainer": 229,
           "bestFor": "Estate and lettings teams where speed-to-lead decides who wins the instruction.",
           "includes": [
-            "Lead capture automation end to end",
-            "Lead qualification automation",
-            "Viewing workflow automation from enquiry to booked viewing",
-            "Viewing follow-up automation",
-            "A single joined-up capture, qualify, follow-up journey"
+            "Instant lead capture across portal, web, and missed-call enquiries",
+            "Qualification that separates serious buyers, sellers, and landlords",
+            "Viewing and valuation booking with confirmations and reminders",
+            "Post-viewing follow-up that keeps warm opportunities moving"
           ],
           "badge": null
         },
         {
+          "niche": "hospitality",
+          "nicheLabel": "Hospitality",
           "name": "24/7 Guest Concierge Bot",
           "anchorId": "pricing-flagship-24-7-guest-concierge",
           "setupFee": 550,
           "monthlyRetainer": 139,
           "bestFor": "Hospitality venues that need always-on answers and booking capture without extra headcount.",
           "includes": [
-            "Web and WhatsApp concierge bot always on",
-            "Answers guest FAQs",
-            "Captures reservation requests",
-            "Hands off to booking system",
-            "Converts questions into captured booking intent"
+            "Web and WhatsApp concierge for routine guest questions",
+            "Booking capture across website and messaging channels",
+            "Confirmation and reminder flows that cut no-shows",
+            "Review invites and guest follow-up after the visit"
+          ],
+          "badge": null
+        },
+        {
+          "niche": "salons-barbers",
+          "nicheLabel": "Salons & barbers",
+          "name": "Rebook & Review Pack",
+          "anchorId": "pricing-flagship-rebook-review",
+          "setupFee": 949,
+          "monthlyRetainer": 159,
+          "bestFor": "Salons and barbershops that want tighter rebooking, stronger reviews, and fewer lost diary gaps.",
+          "includes": [
+            "No-show reminders with easy reschedule links",
+            "Post-visit rebooking prompts that keep chairs full",
+            "Review and referral requests sent at the right moment",
+            "Simple cancellation-fill nudges for open slots"
+          ],
+          "badge": null
+        },
+        {
+          "name": "Trades Virtual Office",
+          "niche": "trades-virtual-office",
+          "nicheLabel": "Trades & field services",
+          "anchorId": "pricing-flagship-trades-virtual-office",
+          "setupFee": 1299,
+          "monthlyRetainer": 219,
+          "bestFor": "Field-service businesses that cannot pick up the phone but do not want to lose the best jobs.",
+          "includes": [
+            "Virtual office coverage for missed calls and new enquiries",
+            "Quote follow-up automation",
+            "Scheduling flow automation",
+            "Structured job capture so the right details never get lost",
+            "One joined-up system for calls, quotes, and diary updates"
+          ],
+          "badge": null
+        },
+        {
+          "niche": "ecommerce",
+          "nicheLabel": "eCommerce",
+          "name": "E-com Growth Engine",
+          "anchorId": "pricing-flagship-ecom-growth-engine",
+          "setupFee": 1599,
+          "monthlyRetainer": 259,
+          "bestFor": "eCommerce brands that need stronger cart recovery, lighter support load, and more repeat revenue.",
+          "includes": [
+            "Abandoned-cart recovery journeys with sensible timing",
+            "FAQ and order-status automation for routine support",
+            "Post-purchase and win-back flows that drive repeat orders",
+            "Revenue and retention visibility across the key journeys"
+          ],
+          "badge": null
+        },
+        {
+          "niche": "physios-chiropractors",
+          "nicheLabel": "Physios & chiropractors",
+          "name": "Smart Intake Starter Pack",
+          "anchorId": "pricing-flagship-smart-intake",
+          "setupFee": 899,
+          "monthlyRetainer": 159,
+          "bestFor": "Clinics that want smoother intake, better preparation, and steadier rebooking without more admin.",
+          "includes": [
+            "Digital intake forms that arrive before the first visit",
+            "Triage questions that route patients to the right clinician",
+            "Reminders with prep details and easy rescheduling",
+            "Rebooking nudges tied to the treatment plan"
+          ],
+          "badge": null
+        },
+        {
+          "niche": "dentists",
+          "nicheLabel": "Dentists",
+          "name": "Recall Starter Pack",
+          "anchorId": "pricing-flagship-recall-starter",
+          "setupFee": 999,
+          "monthlyRetainer": 179,
+          "bestFor": "Dental practices that want tighter recall, fuller hygiene books, and fewer empty-chair gaps.",
+          "includes": [
+            "Recall prompts based on due dates and patient history",
+            "Confirm-or-reschedule reminders before hygiene and recall visits",
+            "Priority nudges for overdue or high-risk patients",
+            "Reporting on recall uptake, DNAs, and filled-chair time"
+          ],
+          "badge": null
+        },
+        {
+          "niche": "gyms-fitness-studios",
+          "nicheLabel": "Gyms & studios",
+          "name": "Gym Growth Engine",
+          "anchorId": "pricing-flagship-gym-growth-engine",
+          "setupFee": 1299,
+          "monthlyRetainer": 219,
+          "bestFor": "Gyms and studios that need better onboarding, at-risk member outreach, and repeat visit momentum.",
+          "includes": [
+            "Onboarding sequences that build early member habits",
+            "Attendance triggers for drifting or at-risk members",
+            "Win-back outreach for former members",
+            "Review, referral, and upgrade prompts when timing fits"
+          ],
+          "badge": null
+        },
+        {
+          "niche": "fitness-coaches",
+          "nicheLabel": "Fitness coaches & creators",
+          "name": "DM to Lead Starter Pack",
+          "anchorId": "pricing-flagship-dm-to-lead",
+          "setupFee": 749,
+          "monthlyRetainer": 149,
+          "bestFor": "Coaches and creators who need faster DM replies, better qualification, and cleaner handoff into sales.",
+          "includes": [
+            "Fast first replies for coaching and offer enquiries",
+            "Lead qualification around goals, budget, and fit",
+            "Routing to forms, calls, checkout links, or waitlists",
+            "Follow-up nudges with simple lead tracking"
           ],
           "badge": null
         }

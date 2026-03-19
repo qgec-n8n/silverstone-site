@@ -318,10 +318,77 @@
   color: var(--ss-pricing-text);
 }
 
+.ss-pricing .ss-pricing__flagship-selector {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+  padding-bottom: 0.35rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ss-pricing .ss-pricing__flagship-selector::-webkit-scrollbar {
+  display: none;
+}
+
+.ss-pricing .ss-pricing__flagship-chip {
+  min-width: 180px;
+  padding: 0.88rem 0.95rem;
+  border-radius: 18px;
+  border: 1px solid rgba(0, 174, 239, 0.18);
+  background: rgba(255, 255, 255, 0.74);
+  color: var(--ss-pricing-text);
+  text-align: left;
+  cursor: pointer;
+  box-shadow:
+    0 12px 24px rgba(7, 18, 36, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.ss-pricing .ss-pricing__flagship-chip.is-active {
+  border-color: rgba(0, 174, 239, 0.4);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(226, 241, 255, 0.92));
+  box-shadow:
+    0 20px 36px rgba(0, 174, 239, 0.18),
+    0 0 0 1px rgba(255, 79, 216, 0.12);
+}
+
+.ss-pricing .ss-pricing__flagship-chip-label,
+.ss-pricing .ss-pricing__flagship-chip-pack {
+  display: block;
+}
+
+.ss-pricing .ss-pricing__flagship-chip-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(11, 18, 32, 0.6);
+}
+
+.ss-pricing .ss-pricing__flagship-chip-pack {
+  margin-top: 0.28rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
 .ss-pricing .ss-pricing__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+}
+
+.ss-pricing .ss-pricing__grid.is-flagship-grid {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 540px;
+  margin: 0 auto;
 }
 
 .ss-pricing .ss-pricing__card {
@@ -555,7 +622,12 @@
 
 @media (max-width: 780px) {
   .ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"] .ss-pricing__card {
-    height: auto;
+    height: auto !important;
+  }
+
+  .ss-pricing[data-ss-pricing-page="services.html"][data-ss-pricing-section="2"] .ss-pricing__includes-body {
+    overflow-y: visible;
+    padding-right: 0;
   }
 }
 
@@ -610,11 +682,17 @@
 
 @media (max-width: 780px) {
   .ss-pricing[data-ss-pricing-page="index.html"][data-ss-pricing-section="2"] .ss-pricing__card {
-    height: auto;
+    height: auto !important;
   }
 
   .ss-pricing[data-ss-pricing-page="pricing.html"][data-ss-pricing-section="2"] .ss-pricing__card {
-    height: auto;
+    height: auto !important;
+  }
+
+  .ss-pricing[data-ss-pricing-page="index.html"][data-ss-pricing-section="2"] .ss-pricing__includes-body,
+  .ss-pricing[data-ss-pricing-page="pricing.html"][data-ss-pricing-section="2"] .ss-pricing__includes-body {
+    overflow-y: visible;
+    padding-right: 0;
   }
 }
 
@@ -691,11 +769,32 @@
   scroll-margin-top: calc(var(--header-safe-offset) + 1rem);
 }
 
-.ss-pricing .ss-pricing__card:target {
+.ss-pricing .ss-pricing__card:target,
+.ss-pricing .ss-pricing__card.is-highlighted {
   border-color: rgba(0, 174, 239, 0.45);
   box-shadow:
     0 22px 46px rgba(0, 174, 239, 0.18),
     0 0 0 1px rgba(255, 255, 255, 0.75) inset;
+  animation: ss-pricing-spotlight 2.2s ease;
+}
+
+@keyframes ss-pricing-spotlight {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(0, 174, 239, 0),
+      0 0 0 1px rgba(255, 255, 255, 0.72) inset;
+  }
+  35% {
+    box-shadow:
+      0 28px 56px rgba(0, 174, 239, 0.24),
+      0 0 0 1px rgba(255, 255, 255, 0.82) inset,
+      0 0 0 10px rgba(0, 174, 239, 0.08);
+  }
+  100% {
+    box-shadow:
+      0 22px 46px rgba(0, 174, 239, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.75) inset;
+  }
 }
 
 .pricing-recommender {
@@ -821,18 +920,6 @@
   font-size: 0.74rem;
 }
 
-.pricing-recommender__support-link {
-  display: inline-flex;
-  margin-top: 0.8rem;
-  color: rgba(208, 240, 255, 0.92);
-  text-decoration: none;
-}
-
-.pricing-recommender__support-link:hover,
-.pricing-recommender__support-link:focus-visible {
-  color: var(--color-white);
-}
-
 .ss-pricing .ss-pricing__fade-up {
   animation: ss-pricing-fade-up 0.6s ease both;
 }
@@ -861,6 +948,19 @@
     padding: 56px 24px;
   }
 
+  .ss-pricing .ss-pricing__flagship-selector {
+    gap: 0.6rem;
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  .ss-pricing .ss-pricing__flagship-chip {
+    min-width: 158px;
+    padding: 0.82rem 0.85rem;
+  }
+
   .ss-pricing .ss-pricing__grid {
     grid-template-columns: 1fr;
   }
@@ -871,6 +971,24 @@
 
   .pricing-recommender__actions .btn {
     width: 100%;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ss-pricing .ss-pricing__card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 24px 52px rgba(6, 18, 36, 0.16),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+  }
+
+  .ss-pricing .ss-pricing__flagship-chip:hover,
+  .ss-pricing .ss-pricing__flagship-chip:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(0, 174, 239, 0.3);
+    box-shadow:
+      0 18px 32px rgba(0, 174, 239, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85);
   }
 }
 

@@ -4,6 +4,7 @@
   window.Silverstone = window.Silverstone || {};
 
   let initialized = false;
+  let highlightTimeoutId = null;
 
   const NICHE_MAP = {
     '/niches/estate-agents': {
@@ -25,7 +26,7 @@
     '/niches/salons-barbers': {
       label: 'Salons & barbers',
       atlasAnchor: '/pricing#pricing-atlas-salons',
-      primaryAnchor: '/pricing#pricing-atlas-salons',
+      primaryAnchor: '/pricing#pricing-flagship-rebook-review',
       packName: 'Rebook & Review Pack',
       nicheHref: '/niches/salons-barbers',
       pricingLabel: 'Compare salon pricing',
@@ -41,7 +42,7 @@
     '/niches/ecommerce': {
       label: 'eCommerce',
       atlasAnchor: '/pricing#pricing-atlas-ecommerce',
-      primaryAnchor: '/pricing#pricing-atlas-ecommerce',
+      primaryAnchor: '/pricing#pricing-flagship-ecom-growth-engine',
       packName: 'E-com Growth Engine',
       nicheHref: '/niches/ecommerce',
       pricingLabel: 'Compare eCommerce pricing',
@@ -49,7 +50,7 @@
     '/niches/physios-chiropractors': {
       label: 'Physios & chiropractors',
       atlasAnchor: '/pricing#pricing-atlas-physios-chiropractors',
-      primaryAnchor: '/pricing#pricing-atlas-physios-chiropractors',
+      primaryAnchor: '/pricing#pricing-flagship-smart-intake',
       packName: 'Smart Intake Starter Pack',
       nicheHref: '/niches/physios-chiropractors',
       pricingLabel: 'Compare clinic pricing',
@@ -57,7 +58,7 @@
     '/niches/dentists': {
       label: 'Dentists',
       atlasAnchor: '/pricing#pricing-atlas-dentists',
-      primaryAnchor: '/pricing#pricing-atlas-dentists',
+      primaryAnchor: '/pricing#pricing-flagship-recall-starter',
       packName: 'Recall Starter Pack',
       nicheHref: '/niches/dentists',
       pricingLabel: 'Compare dental pricing',
@@ -65,7 +66,7 @@
     '/niches/gyms-fitness-studios': {
       label: 'Gyms & fitness studios',
       atlasAnchor: '/pricing#pricing-atlas-gym-owners',
-      primaryAnchor: '/pricing#pricing-atlas-gym-owners',
+      primaryAnchor: '/pricing#pricing-flagship-gym-growth-engine',
       packName: 'Gym Growth Engine',
       nicheHref: '/niches/gyms-fitness-studios',
       pricingLabel: 'Compare gym pricing',
@@ -73,7 +74,7 @@
     '/niches/fitness-coaches': {
       label: 'Fitness coaches & creators',
       atlasAnchor: '/pricing#pricing-atlas-fitness-coaches',
-      primaryAnchor: '/pricing#pricing-atlas-fitness-coaches',
+      primaryAnchor: '/pricing#pricing-flagship-dm-to-lead',
       packName: 'DM to Lead Starter Pack',
       nicheHref: '/niches/fitness-coaches',
       pricingLabel: 'Compare creator pricing',
@@ -105,14 +106,62 @@
     return NICHE_MAP[normalizePathname(pathname)] || null;
   }
 
-  function resolveRecommenderHref(config, mode) {
-    if (!config) return '/pricing#pricing-atlas';
-    if (mode === 'atlas') return config.atlasAnchor;
-    return config.primaryAnchor || config.atlasAnchor;
+  function toHashHref(href) {
+    if (!href) return '#pricing-atlas';
+    const hashIndex = href.indexOf('#');
+    return hashIndex >= 0 ? href.slice(hashIndex) : href;
+  }
+
+  function getHeaderOffset() {
+    const header = document.querySelector('.site-header');
+    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+    const cssOffset = Number.parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue('--header-safe-offset')
+    );
+    const safeOffset = Number.isFinite(cssOffset) ? cssOffset : 0;
+    return Math.max(headerHeight, safeOffset);
+  }
+
+  function applyHighlight(target) {
+    if (!target || !target.classList) return;
+    target.classList.remove('is-highlighted');
+    void target.offsetWidth;
+    target.classList.add('is-highlighted');
+    if (highlightTimeoutId) {
+      window.clearTimeout(highlightTimeoutId);
+    }
+    highlightTimeoutId = window.setTimeout(() => {
+      target.classList.remove('is-highlighted');
+    }, 2200);
+  }
+
+  function dispatchPricingTarget(hash) {
+    window.dispatchEvent(
+      new window.CustomEvent('silverstone:pricing-target', {
+        detail: { hash, reveal: true },
+      })
+    );
+  }
+
+  function scrollToAnchorTarget(target) {
+    const stickyApi = window.Silverstone && window.Silverstone.stickyCta;
+    if (stickyApi && typeof stickyApi.collapseTemporarilyForAnchorNavigation === 'function') {
+      stickyApi.collapseTemporarilyForAnchorNavigation();
+    }
+
+    const topOffset = getHeaderOffset() + 20;
+    const nextTop = Math.max(0, window.scrollY + target.getBoundingClientRect().top - topOffset);
+
+    window.scrollTo({
+      top: nextTop,
+      behavior: 'smooth',
+    });
   }
 
   function ensureAnchorTarget(hash) {
-    if (!hash || hash === '#pricing-atlas') return;
+    if (!hash) return;
+
+    dispatchPricingTarget(hash);
 
     let attempts = 0;
 
@@ -122,17 +171,29 @@
         if (typeof target.focus === 'function') {
           target.focus({ preventScroll: true });
         }
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const finalizeScroll = () => {
+          scrollToAnchorTarget(target);
+          if (target.classList && target.classList.contains('ss-pricing__card')) {
+            applyHighlight(target);
+          }
+        };
+        if (window.innerWidth <= 780) {
+          window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(finalizeScroll);
+          });
+        } else {
+          finalizeScroll();
+        }
         return;
       }
 
       attempts += 1;
-      if (attempts < 20) {
-        window.setTimeout(tryFocus, 120);
+      if (attempts < 28) {
+        window.setTimeout(tryFocus, 100);
       }
     };
 
-    window.setTimeout(tryFocus, 120);
+    window.setTimeout(tryFocus, 80);
   }
 
   function injectNicheLinks() {
@@ -168,20 +229,24 @@
 
     const render = () => {
       const config = resolveNicheConfig(selectedPath);
-      const primaryHref = resolveRecommenderHref(config, selectedMode);
-      const primaryLabel =
-        selectedMode === 'fast' ? `See ${config.packName}` : `See ${config.label} atlas`;
-      const resultCopy =
-        selectedMode === 'fast'
-          ? `Start with ${config.packName} if you want the cleanest first route to ROI for ${config.label.toLowerCase()}.`
-          : `Open the ${config.label.toLowerCase()} atlas card to compare the smaller fixes and bigger bundles in one view.`;
+      if (!config) return;
+
+      const fastMode = selectedMode === 'fast';
+      const primaryHref = fastMode ? toHashHref(config.primaryAnchor) : toHashHref(config.atlasAnchor);
+      const secondaryHref = fastMode ? toHashHref(config.atlasAnchor) : config.nicheHref;
+      const primaryLabel = fastMode ? `See ${config.packName}` : `Open ${config.label} atlas`;
+      const secondaryLabel = fastMode ? 'Open pricing atlas' : `Read ${config.label} page`;
+      const recommendedLabel = fastMode ? config.packName : `${config.label} atlas`;
+      const resultCopy = fastMode
+        ? `Start with ${config.packName} if you want the fastest route to ROI for ${config.label.toLowerCase()}.`
+        : `Open the ${config.label.toLowerCase()} atlas to compare the smaller fixes, starter packs, and premium builds in one view.`;
 
       host.innerHTML = `
         <div class="pricing-recommender">
           <div class="pricing-recommender__panel">
             <span class="pricing-recommender__eyebrow">Pricing recommender</span>
             <h3 class="pricing-recommender__title">Point me to the right pricing card.</h3>
-            <p class="pricing-recommender__copy">Choose your niche, then decide whether you want the fastest starting pack or the wider pricing atlas.</p>
+            <p class="pricing-recommender__copy">Choose your niche, then decide whether you want the fastest starting pack or the full product range.</p>
             <div class="pricing-recommender__step">
               <span class="pricing-recommender__step-label">1. Choose your niche</span>
               <div class="pricing-recommender__choices pricing-recommender__choices--niches">
@@ -193,23 +258,22 @@
               </div>
             </div>
             <div class="pricing-recommender__step">
-              <span class="pricing-recommender__step-label">2. What are you trying to do first?</span>
+              <span class="pricing-recommender__step-label">2. What do you want to compare first?</span>
               <div class="pricing-recommender__choices">
-                <button class="pricing-recommender__choice${selectedMode === 'fast' ? ' is-active' : ''}" type="button" data-recommender-mode="fast">Fastest starting pack</button>
-                <button class="pricing-recommender__choice${selectedMode === 'atlas' ? ' is-active' : ''}" type="button" data-recommender-mode="atlas">Smaller fix or full atlas</button>
+                <button class="pricing-recommender__choice${fastMode ? ' is-active' : ''}" type="button" data-recommender-mode="fast">Fastest starting pack</button>
+                <button class="pricing-recommender__choice${!fastMode ? ' is-active' : ''}" type="button" data-recommender-mode="atlas">Compare every pack</button>
               </div>
             </div>
             <div class="pricing-recommender__result">
               <div class="pricing-recommender__result-copy">
                 <span class="pricing-recommender__result-label">Recommended next view</span>
-                <strong>${config.packName}</strong>
+                <strong>${recommendedLabel}</strong>
                 <p>${resultCopy}</p>
               </div>
               <div class="pricing-recommender__actions">
                 <a class="btn btn-primary" href="${primaryHref}">${primaryLabel}</a>
-                <a class="btn btn-secondary" href="${config.atlasAnchor}">Open pricing atlas</a>
+                <a class="btn btn-secondary" href="${secondaryHref}">${secondaryLabel}</a>
               </div>
-              <a class="pricing-recommender__support-link" href="${config.nicheHref}">Read the ${config.label.toLowerCase()} page</a>
             </div>
           </div>
         </div>
@@ -239,6 +303,17 @@
 
     if (document.body.classList.contains('page-pricing')) {
       mountRecommender();
+      document.addEventListener('click', (event) => {
+        const anchor = event.target.closest('a[href^="#pricing-"]');
+        if (!anchor) return;
+        const href = anchor.getAttribute('href');
+        if (!href) return;
+        event.preventDefault();
+        if (window.location.hash !== href) {
+          window.history.pushState(null, '', href);
+        }
+        ensureAnchorTarget(href);
+      });
     }
 
     if (document.body.classList.contains('page-niche')) {

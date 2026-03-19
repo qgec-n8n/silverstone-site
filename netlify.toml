@@ -195,8 +195,20 @@
   force = true
 
 [[redirects]]
+  from = "/blog/how-uk-dental-practices-can-use-ai-missed-call-recovery-to-fill-more-high-value-appointments.html"
+  to = "/blog/how-uk-dental-practices-can-use-ai-missed-call-recovery-to-fill-more-high-value-appointments"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/blog/dm-to-client-automation-uk-fitness-coaches-2026.html"
   to = "/blog/dm-to-client-automation-uk-fitness-coaches-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-uk-fitness-coaches-can-use-ai-lead-scoring-to-spend-less-time-in-dms-and-more-time-closing-the-right.html"
+  to = "/blog/how-uk-fitness-coaches-can-use-ai-lead-scoring-to-spend-less-time-in-dms-and-more-time-closing-the-right"
   status = 301
   force = true
 
