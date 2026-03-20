@@ -522,12 +522,8 @@
 
   .page-services .services-resource-shell--clusters .services-resource-list--niches li {
     min-height: 78px;
-    padding: 0.82rem 0.6rem;
+    padding: 0;
     border-radius: 17px;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     background: linear-gradient(
         180deg,
         rgba(255, 255, 255, 0.055) 0%,
@@ -538,18 +534,31 @@
   }
 
   .page-services .services-resource-shell--clusters .services-resource-list--niches li i {
-    margin-right: 0;
-    margin-bottom: 0.4rem;
     font-size: 0.84rem;
   }
 
   .page-services .services-resource-shell--clusters .services-resource-list--niches a {
+    display: flex;
+    width: 100%;
+    min-height: 78px;
+    padding: 0.82rem 0.6rem;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     text-align: center;
     font-size: 0.78rem;
     line-height: 1.28;
     font-weight: 700;
     color: rgba(224, 244, 255, 0.94);
+  }
+
+  .page-services .services-resource-shell--clusters .services-resource-list--niches a i {
+    margin-right: 0;
+    margin-bottom: 0.4rem;
+  }
+
+  .page-services .services-resource-shell--clusters .services-resource-list--niches a span {
+    display: block;
   }
 
   /* ── Blogs: compact 2-column pill-card grid ── */

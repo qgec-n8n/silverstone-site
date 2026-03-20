@@ -7874,6 +7874,7 @@ var SilverstonePricingWidget = (function (exports) {
     reactExports.useEffect(() => {
       const canvas = canvasRef.current;
       if (!canvas) return undefined;
+      const host = canvas.parentElement;
       let ctx = null;
       try {
         ctx = canvas.getContext("2d");
@@ -7907,7 +7908,7 @@ var SilverstonePricingWidget = (function (exports) {
         return list;
       };
       const resize = () => {
-        const rect = canvas.getBoundingClientRect();
+        const rect = (host || canvas).getBoundingClientRect();
         width = Math.max(1, rect.width);
         height = Math.max(1, rect.height);
         const dpr = window.devicePixelRatio || 1;
@@ -7946,7 +7947,7 @@ var SilverstonePricingWidget = (function (exports) {
       let intersectionObserver = null;
       if (typeof ResizeObserver !== "undefined") {
         resizeObserver = new ResizeObserver(resize);
-        resizeObserver.observe(canvas);
+        resizeObserver.observe(host || canvas);
       } else {
         window.addEventListener("resize", resize);
       }

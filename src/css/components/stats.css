@@ -9,6 +9,9 @@
 
 .stats .stat {
   flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   padding: 1.5rem;
 }
@@ -35,7 +38,9 @@
   font-size: 1.5rem;
   color: var(--color-green);
   margin-bottom: 0.75rem;
-  display: inline-block;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 .stats .number {
@@ -48,7 +53,8 @@
   letter-spacing: -0.05em;
   font-variant-numeric: tabular-nums;
   text-shadow: 0 10px 28px rgba(0, 174, 239, 0.18);
-  display: inline-flex;
+  display: flex;
+  width: 100%;
   align-items: baseline;
   justify-content: center;
   white-space: nowrap;

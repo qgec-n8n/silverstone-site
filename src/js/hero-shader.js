@@ -258,6 +258,8 @@
       uBgColor2: gl.getUniformLocation(shaderProgram, 'uBgColor2')
     };
     let resizeObserver = null;
+    let intersectionObserver = null;
+    let isInView = true;
 
     function resizeCanvas() {
       const rect = hero ? hero.getBoundingClientRect() : canvas.getBoundingClientRect();
@@ -276,12 +278,34 @@
       resizeObserver = new ResizeObserver(() => resizeCanvas());
       resizeObserver.observe(hero);
     }
+    if (typeof IntersectionObserver === 'function' && hero) {
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          const nextVisible = !!entries[0] && entries[0].isIntersecting;
+          if (isInView === nextVisible) return;
+          isInView = nextVisible;
+          if (isInView && !animationFrameId) {
+            animationFrameId = requestAnimationFrame(render);
+          }
+          if (!isInView && animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+        },
+        { threshold: 0.15 },
+      );
+      intersectionObserver.observe(hero);
+    }
     resizeCanvas();
 
     let startTime = Date.now();
     let animationFrameId = null;
 
     function render() {
+      if (!isInView) {
+        animationFrameId = null;
+        return;
+      }
       const currentTime = (Date.now() - startTime) / 1000;
 
       gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -321,6 +345,10 @@
       if (resizeObserver) {
         resizeObserver.disconnect();
         resizeObserver = null;
+      }
+      if (intersectionObserver) {
+        intersectionObserver.disconnect();
+        intersectionObserver = null;
       }
       window.removeEventListener('beforeunload', handleBeforeUnload);
     });

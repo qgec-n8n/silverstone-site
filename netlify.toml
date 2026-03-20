@@ -339,6 +339,24 @@
   force = true
 
 [[redirects]]
+  from = "/blog/ai-viewing-feedback-estate-agents-uk.html"
+  to = "/blog/ai-viewing-feedback-estate-agents-uk"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-uk-estate-agents-can-use-ai-viewing-feedback-follow-up-to-win-more-instructions.html"
+  to = "/blog/ai-viewing-feedback-estate-agents-uk"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/how-uk-estate-agents-can-use-ai-viewing-feedback-follow-up-to-win-more-instructions"
+  to = "/blog/ai-viewing-feedback-estate-agents-uk"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/blog/how-uk-physio-and-chiropractic-clinics-can-automate-rebooking-to-keep-patients-on-plan"
   to = "/blog/clinic-rebooking-physio-chiro-uk"
   status = 301

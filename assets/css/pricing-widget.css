@@ -242,7 +242,12 @@
 .ss-pricing .ss-pricing__sparkles {
   z-index: 0;
   opacity: 0.95;
+  display: block;
+  width: 100%;
+  height: 100%;
   mix-blend-mode: screen;
+  backface-visibility: hidden;
+  transform: translateZ(0);
   filter: drop-shadow(0 0 6px rgba(33, 200, 255, 0.6))
     drop-shadow(0 0 10px rgba(255, 79, 216, 0.45)); /* SS_PRICING_SPEC: SPARKLES_MORE_VISIBLE */
 }
