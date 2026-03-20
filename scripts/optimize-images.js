@@ -40,6 +40,26 @@ const SOCIAL_SERVICE_BASES = [
   'Trades_3',
 ];
 
+const SOCIAL_SERVICE_REFRESH_BASES = [
+  'general-services-1',
+  'general-services-2a',
+  'general-services-2b',
+  'general-services-3',
+  'salon-2',
+  'salon-3',
+  'physio-1',
+  'physio-3',
+  'dentist-1',
+  'dentist-2',
+  'dentist-3',
+  'gyms-1',
+  'gyms-2',
+  'gyms-3',
+  'onlinecoach-1',
+  'onlinecoach-2',
+  'onlinecoach-3',
+];
+
 const SOCIAL_GALLERY_FILES = [
   'General_Services_2B_Mobile.jpeg',
   'eComm_3_Mobile.jpeg',
@@ -108,6 +128,11 @@ const TARGET_GROUPS = [
       SOCIAL_SERVICE_BASES.forEach((baseName) => {
         addTarget(`${baseName}.jpeg`, [640, 960]);
         addTarget(`${baseName}_Mobile.jpeg`, [480, 768]);
+      });
+
+      SOCIAL_SERVICE_REFRESH_BASES.forEach((baseName) => {
+        addTarget(`${baseName}.png`, [640, 960]);
+        addTarget(`${baseName}-mobile.png`, [480, 768]);
       });
 
       SOCIAL_GALLERY_FILES.forEach((filename) => addTarget(filename, [320, 480, 640]));

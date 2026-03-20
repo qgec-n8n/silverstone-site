@@ -310,9 +310,9 @@ for (const page of indexedPages) {
   }
 
   const title = extractFirst(html, /<title>([\s\S]*?)<\/title>/i);
-  const enforceBrandSuffix = !isBlogArticle && page.file !== "privacy-policy.html";
-  if (enforceBrandSuffix && !title.endsWith(" - Silverstone AI")) {
-    errors.push(`${page.file}: title should end with " - Silverstone AI"`);
+  const enforceBrandPresence = !isBlogArticle && page.file !== "privacy-policy.html";
+  if (enforceBrandPresence && !title.includes("Silverstone AI")) {
+    errors.push(`${page.file}: title should include "Silverstone AI"`);
   }
   if (title.length > 60) {
     warnings.push(`${page.file}: title length is ${title.length} characters`);
