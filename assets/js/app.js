@@ -2954,6 +2954,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '/blog/post-purchase-automation-uk-ecommerce-repeat-customers': 'ecommerce',
     '/blog/quote-chase-automation-uk-trades-accepted-jobs-2026': 'trades',
     '/blog/quote-follow-up-automation-uk-trades-2026': 'trades',
+    '/blog/ai-quote-follow-up-trades': 'trades',
   };
 
   function normalizePathname(pathname) {
