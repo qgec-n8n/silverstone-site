@@ -2339,6 +2339,8 @@ document.addEventListener('DOMContentLoaded', () => {
 (function () {
   'use strict';
 
+  const lightboxImageCache = new Map();
+  let lightboxRequestId = 0;
   const ASSET_PATH = '/assets/images/socialmedia/';
   const LIGHTBOX_MOBILE_QUERY = '(max-width: 768px)';
   const MARQUEE_ROOT_MARGIN = '1200px 0px';
@@ -2584,14 +2586,63 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(lightbox);
   }
 
-  function openLightbox(src) {
+  function preloadLightboxImage(src) {
+    if (!src) return Promise.resolve('');
+
+    const cached = lightboxImageCache.get(src);
+    if (cached) return cached;
+
+    const preloadPromise = new Promise((resolve, reject) => {
+      const preload = new Image();
+      preload.decoding = 'async';
+      preload.onload = () => resolve(src);
+      preload.onerror = reject;
+      preload.src = src;
+    }).catch(() => {
+      lightboxImageCache.delete(src);
+      return '';
+    });
+
+    lightboxImageCache.set(src, preloadPromise);
+    return preloadPromise;
+  }
+
+  function setLightboxImage(img, src) {
+    if (!img || !src) return;
+
+    const currentAttr = img.getAttribute('src');
+    if (currentAttr === src || img.currentSrc === src) return;
+    img.src = src;
+  }
+
+  function resolveLightboxPreviewSrc(trigger) {
+    if (!trigger) return '';
+
+    const img = trigger.querySelector('img');
+    return img ? img.currentSrc || img.src : '';
+  }
+
+  function openLightbox(trigger) {
     const lightbox = document.getElementById('premium-lightbox');
     const img = document.getElementById('lightbox-img');
-    if (!lightbox || !img) return;
+    const targetSrc = resolveLightboxSrc(trigger);
+    const previewSrc = resolveLightboxPreviewSrc(trigger) || targetSrc;
+    if (!lightbox || !img || !previewSrc) return;
 
-    img.src = src;
+    const requestId = String(++lightboxRequestId);
+    lightbox.dataset.requestId = requestId;
+    setLightboxImage(img, previewSrc);
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    if (!targetSrc || targetSrc === previewSrc) return;
+
+    preloadLightboxImage(targetSrc).then((loadedSrc) => {
+      if (!loadedSrc) return;
+      if (!lightbox.classList.contains('active')) return;
+      if (lightbox.dataset.requestId !== requestId) return;
+      setLightboxImage(img, loadedSrc);
+    });
   }
 
   function closeLightbox() {
@@ -2599,7 +2650,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!lightbox) return;
 
     lightbox.classList.remove('active');
+    lightbox.dataset.requestId = '';
     document.body.style.overflow = '';
+    var img = document.getElementById('lightbox-img');
+    if (img) img.removeAttribute('src');
   }
 
   function resolveLightboxSrc(trigger) {
@@ -2642,10 +2696,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (trigger.dataset.ssLightboxBound === '1') return;
       trigger.dataset.ssLightboxBound = '1';
 
+      const warmLightbox = () => {
+        const targetSrc = resolveLightboxSrc(trigger);
+        const previewSrc = resolveLightboxPreviewSrc(trigger);
+        if (!targetSrc || targetSrc === previewSrc) return;
+        preloadLightboxImage(targetSrc);
+      };
+
+      trigger.addEventListener('pointerenter', warmLightbox, { passive: true });
+      trigger.addEventListener('touchstart', warmLightbox, { passive: true });
+      trigger.addEventListener('focus', warmLightbox);
+
       trigger.addEventListener('click', () => {
-        const src = resolveLightboxSrc(trigger);
-        if (!src) return;
-        openLightbox(src);
+        openLightbox(trigger);
       });
     });
   } // SPEC: INDEX_SERVICES_IMAGE_LIGHTBOX_2025_12
@@ -2675,6 +2738,9 @@ document.addEventListener('DOMContentLoaded', () => {
 (function () {
   'use strict';
 
+  const lightboxImageCache = new Map();
+  let lightboxRequestId = 0;
+
   function ensureLightbox() {
     if (document.getElementById('premium-lightbox')) return;
 
@@ -2701,20 +2767,63 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(lightbox);
   }
 
-  function openLightbox(src) {
+  function preloadLightboxImage(src) {
+    if (!src) return Promise.resolve('');
+
+    const cached = lightboxImageCache.get(src);
+    if (cached) return cached;
+
+    const preloadPromise = new Promise((resolve, reject) => {
+      const preload = new Image();
+      preload.decoding = 'async';
+      preload.onload = () => resolve(src);
+      preload.onerror = reject;
+      preload.src = src;
+    }).catch(() => {
+      lightboxImageCache.delete(src);
+      return '';
+    });
+
+    lightboxImageCache.set(src, preloadPromise);
+    return preloadPromise;
+  }
+
+  function setLightboxImage(img, src) {
+    if (!img || !src) return;
+
+    const currentAttr = img.getAttribute('src');
+    if (currentAttr === src || img.currentSrc === src) return;
+    img.src = src;
+  }
+
+  function resolveLightboxPreviewSrc(trigger) {
+    if (!trigger) return '';
+
+    const img = trigger.querySelector('img');
+    return img ? img.currentSrc || img.src : '';
+  }
+
+  function openLightbox(trigger) {
     const lightbox = document.getElementById('premium-lightbox');
     const img = document.getElementById('lightbox-img');
-    if (!lightbox || !img || !src) return;
+    const targetSrc = resolveLightboxSrc(trigger);
+    const previewSrc = resolveLightboxPreviewSrc(trigger) || targetSrc;
+    if (!lightbox || !img || !previewSrc) return;
 
-    img.src = '';
+    const requestId = String(++lightboxRequestId);
+    lightbox.dataset.requestId = requestId;
+    setLightboxImage(img, previewSrc);
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    var preload = new Image();
-    preload.onload = function () {
-      img.src = src;
-    };
-    preload.src = src;
+    if (!targetSrc || targetSrc === previewSrc) return;
+
+    preloadLightboxImage(targetSrc).then((loadedSrc) => {
+      if (!loadedSrc) return;
+      if (!lightbox.classList.contains('active')) return;
+      if (lightbox.dataset.requestId !== requestId) return;
+      setLightboxImage(img, loadedSrc);
+    });
   }
 
   function closeLightbox() {
@@ -2722,9 +2831,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!lightbox) return;
 
     lightbox.classList.remove('active');
+    lightbox.dataset.requestId = '';
     document.body.style.overflow = '';
     var img = document.getElementById('lightbox-img');
-    if (img) img.src = '';
+    if (img) img.removeAttribute('src');
   }
 
   function resolveLightboxSrc(trigger) {
@@ -2747,14 +2857,25 @@ document.addEventListener('DOMContentLoaded', () => {
       if (trigger.dataset.ssLightboxBound === '1') return;
       trigger.dataset.ssLightboxBound = '1';
 
+      const warmLightbox = () => {
+        const targetSrc = resolveLightboxSrc(trigger);
+        const previewSrc = resolveLightboxPreviewSrc(trigger);
+        if (!targetSrc || targetSrc === previewSrc) return;
+        preloadLightboxImage(targetSrc);
+      };
+
+      trigger.addEventListener('pointerenter', warmLightbox, { passive: true });
+      trigger.addEventListener('touchstart', warmLightbox, { passive: true });
+      trigger.addEventListener('focus', warmLightbox);
+
       trigger.addEventListener('click', () => {
-        openLightbox(resolveLightboxSrc(trigger));
+        openLightbox(trigger);
       });
 
       trigger.addEventListener('keydown', (event) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
         event.preventDefault();
-        openLightbox(resolveLightboxSrc(trigger));
+        openLightbox(trigger);
       });
     });
   }
