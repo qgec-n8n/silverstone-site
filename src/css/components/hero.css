@@ -279,21 +279,22 @@
   }
 
   .page-home .hero.title-band {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4.75rem);
   }
 
   .page-home .hero .content {
     min-height: calc(
       var(--mobile-stable-vh, 100vh) -
       var(--header-safe-offset) -
-      6.5rem -
+      5.8rem -
       env(safe-area-inset-bottom, 0px)
     );
   }
 
   .page-home .hero .cta-buttons {
+    margin-top: 0.35rem;
     gap: 0.72rem;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 3.5rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2.75rem);
   }
 
   .page-about .hero h1 {

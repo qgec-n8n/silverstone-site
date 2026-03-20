@@ -310,8 +310,9 @@ for (const page of indexedPages) {
   }
 
   const title = extractFirst(html, /<title>([\s\S]*?)<\/title>/i);
-  if (page.file !== "privacy-policy.html" && !title.includes("Silverstone AI")) {
-    errors.push(`${page.file}: title should include "Silverstone AI"`);
+  const enforceBrandSuffix = !isBlogArticle && page.file !== "privacy-policy.html";
+  if (enforceBrandSuffix && !title.endsWith(" - Silverstone AI")) {
+    errors.push(`${page.file}: title should end with " - Silverstone AI"`);
   }
   if (title.length > 60) {
     warnings.push(`${page.file}: title length is ${title.length} characters`);
@@ -322,6 +323,8 @@ for (const page of indexedPages) {
     errors.push(`${page.file}: missing meta description`);
   } else if (description.length < 70 || description.length > 170) {
     warnings.push(`${page.file}: meta description length is ${description.length} characters`);
+  } else if (/\b(?:and|or|to|for|with|from|into|vendor|repeat|compliant|speed)$/i.test(description.replace(/[.!?]+\s*$/, ""))) {
+    warnings.push(`${page.file}: meta description appears truncated or unfinished`);
   }
 
   const robots = extractMetaContent(html, "name", "robots");

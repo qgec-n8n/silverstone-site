@@ -420,7 +420,10 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 .page-niche .premium-reveal,
 .page-home .premium-reveal,
 .page-about .premium-reveal,
-.page-services .premium-reveal {
+.page-services .premium-reveal,
+.page-pricing .premium-reveal,
+.page-blog .premium-reveal,
+.page-book .premium-reveal {
   opacity: 0;
   transform: translate3d(0, 24px, 0);
   transition:
@@ -432,8 +435,32 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 .page-niche .premium-reveal.is-visible,
 .page-home .premium-reveal.is-visible,
 .page-about .premium-reveal.is-visible,
-.page-services .premium-reveal.is-visible {
+.page-services .premium-reveal.is-visible,
+.page-pricing .premium-reveal.is-visible,
+.page-blog .premium-reveal.is-visible,
+.page-book .premium-reveal.is-visible {
   opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.page-niche .premium-reveal.premium-reveal--text,
+.page-home .premium-reveal.premium-reveal--text,
+.page-about .premium-reveal.premium-reveal--text,
+.page-services .premium-reveal.premium-reveal--text,
+.page-pricing .premium-reveal.premium-reveal--text,
+.page-blog .premium-reveal.premium-reveal--text,
+.page-book .premium-reveal.premium-reveal--text {
+  transform: translate3d(0, 14px, 0);
+  transition-duration: 0.42s;
+}
+
+.page-niche .premium-reveal.premium-reveal--text.is-visible,
+.page-home .premium-reveal.premium-reveal--text.is-visible,
+.page-about .premium-reveal.premium-reveal--text.is-visible,
+.page-services .premium-reveal.premium-reveal--text.is-visible,
+.page-pricing .premium-reveal.premium-reveal--text.is-visible,
+.page-blog .premium-reveal.premium-reveal--text.is-visible,
+.page-book .premium-reveal.premium-reveal--text.is-visible {
   transform: translate3d(0, 0, 0);
 }
 

@@ -19,11 +19,48 @@
       '(prefers-reduced-motion: reduce)',
     );
 
-    const setNumberValue = (number, value) => {
+    const prepareNumberMarkup = (number) => {
+      if (number.dataset.ssNumberPrepared === '1') return;
+
       const prefix = number.getAttribute('data-prefix') || '';
       const suffix =
         number.getAttribute('data-suffix') || number.getAttribute('data-plus') || '';
-      number.textContent = `${prefix}${value.toLocaleString()}${suffix}`;
+      const initial = number.textContent.trim();
+      const valueMatch = initial.match(/-?[\d,]+/);
+      const valueText = valueMatch ? valueMatch[0].replace(/,/g, '') : '0';
+
+      number.textContent = '';
+
+      if (prefix) {
+        const prefixSpan = document.createElement('span');
+        prefixSpan.className = 'number__prefix';
+        prefixSpan.textContent = prefix;
+        number.appendChild(prefixSpan);
+      }
+
+      const valueSpan = document.createElement('span');
+      valueSpan.className = 'number__value';
+      valueSpan.textContent = valueText;
+      number.appendChild(valueSpan);
+
+      if (suffix) {
+        const suffixSpan = document.createElement('span');
+        suffixSpan.className = 'number__suffix';
+        suffixSpan.textContent = suffix;
+        number.appendChild(suffixSpan);
+      }
+
+      number.dataset.ssNumberPrepared = '1';
+    };
+
+    const setNumberValue = (number, value) => {
+      prepareNumberMarkup(number);
+      const valueEl = number.querySelector('.number__value');
+      if (valueEl) {
+        valueEl.textContent = value.toLocaleString();
+        return;
+      }
+      number.textContent = value.toLocaleString();
     };
 
     const setSectionFinalValues = (section) => {
@@ -38,6 +75,7 @@
       if (number.dataset.ssCounterDone === '1') return;
       number.dataset.ssCounterDone = '1';
 
+      prepareNumberMarkup(number);
       const target = parseInt(number.dataset.target, 10) || 0;
       if (target <= 0) {
         setNumberValue(number, 0);

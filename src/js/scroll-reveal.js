@@ -15,17 +15,15 @@
       el.classList.remove('animate');
     });
 
-    document.querySelectorAll('.gallery-grid .neon-card').forEach((el) =>
-      el.classList.add('visible'),
-    );
-
     const premiumTargets = collectPremiumTargets();
 
     if (!premiumTargets.length) return;
 
-    premiumTargets.forEach((el, index) => {
+    premiumTargets.forEach((el) => {
       el.classList.add('premium-reveal');
-      el.style.setProperty('--reveal-index', String(index % 4));
+      if (el.dataset.revealText === '1') {
+        el.classList.add('premium-reveal--text');
+      }
     });
 
     const reducedMotion =
@@ -60,40 +58,63 @@
     const seen = new Set();
     const body = document.body;
 
-    const sortByVisualFlow = (items) =>
-      items
-        .slice()
-        .sort((a, b) => {
-          const rectA = a.getBoundingClientRect();
-          const rectB = b.getBoundingClientRect();
-          if (Math.abs(rectA.top - rectB.top) > 24) {
-            return rectA.top - rectB.top;
-          }
-          return rectA.left - rectB.left;
-        });
-
-    const addGroup = (items) => {
-      const unique = sortByVisualFlow(
-        items.filter((item) => item && !seen.has(item)),
-      );
+    const addGroup = (items, options) => {
+      const unique = items.filter((item) => item && !seen.has(item));
       if (!unique.length) return;
-      unique.forEach((item) => seen.add(item));
-      groups.push(...unique);
+      unique.forEach((item, index) => {
+        seen.add(item);
+        if (options && options.text) {
+          item.dataset.revealText = '1';
+        } else {
+          delete item.dataset.revealText;
+        }
+        item.style.setProperty('--reveal-index', String(index));
+        groups.push(item);
+      });
     };
 
     const directChildren = (container, selector) =>
       Array.from(container.querySelectorAll(selector));
 
+    const addHeadingPairBefore = (target) => {
+      if (!target) return;
+
+      let title = null;
+      let subtitle = null;
+      let node = target.previousElementSibling;
+
+      while (node) {
+        if (!subtitle && node.matches('.section-subtitle')) {
+          subtitle = node;
+          node = node.previousElementSibling;
+          continue;
+        }
+
+        if (node.matches('.section-title')) {
+          title = node;
+          break;
+        }
+
+        node = node.previousElementSibling;
+      }
+
+      addGroup([title, subtitle].filter(Boolean), { text: true });
+    };
+
     if (body.classList.contains('page-home')) {
-      document.querySelectorAll('.page-home .packages-grid').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .neon-card'));
-      });
-      document.querySelectorAll('.page-home .proof-grid').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .proof-card'));
-      });
-      document.querySelectorAll('.page-home .faq-list').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .faq-item'));
-      });
+      addGroup(Array.from(document.querySelectorAll('.page-home .features .feature-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home .primary-site-links-grid .primary-site-link')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #primary-site-links .primary-site-links-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #pricing .primary-site-links-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #what-we-automate .service-tile')));
+      addGroup(Array.from(document.querySelectorAll('.page-home .proof-grid .proof-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home .faq-list .faq-item')));
+      addGroup(Array.from(document.querySelectorAll('.page-home .section.brand-gradient .cta-card')));
+
+      document.querySelectorAll('.page-home .features').forEach(addHeadingPairBefore);
+      document.querySelectorAll('.page-home .packages-grid').forEach(addHeadingPairBefore);
+      document.querySelectorAll('.page-home .proof-grid').forEach(addHeadingPairBefore);
+      document.querySelectorAll('.page-home .faq-list').forEach(addHeadingPairBefore);
     }
 
     if (body.classList.contains('page-about')) {
@@ -106,18 +127,19 @@
         );
       });
       document.querySelectorAll('.page-about .values').forEach((container) => {
+        addHeadingPairBefore(container);
         addGroup(directChildren(container, ':scope > .value-card'));
       });
       document.querySelectorAll('.page-about .drives-grid').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .neon-card, :scope > .service-image'));
+        addHeadingPairBefore(container);
+        addGroup(directChildren(container, ':scope > .neon-card, :scope > .service-image, :scope > .gallery-card'));
       });
-      document.querySelectorAll('.page-about .section.brand-gradient .cta-card').forEach((card) => {
-        addGroup([card]);
-      });
+      addGroup(Array.from(document.querySelectorAll('.page-about .section.brand-gradient .cta-card')));
     }
 
     if (body.classList.contains('page-services')) {
       document.querySelectorAll('.page-services .service-row').forEach((container) => {
+        addHeadingPairBefore(container);
         addGroup(
           directChildren(
             container,
@@ -125,12 +147,20 @@
           ),
         );
       });
-      document.querySelectorAll('.page-services .proof-grid').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .proof-card'));
+      addGroup(Array.from(document.querySelectorAll('.page-services .commercial-pathway')));
+      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .services-resource-shell')));
+      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .services-resource-list--niches > li')));
+      document.querySelectorAll('.page-services .values').forEach((container) => {
+        addHeadingPairBefore(container);
+        addGroup(directChildren(container, ':scope > .value-card'));
       });
       document.querySelectorAll('.page-services .faq-list').forEach((container) => {
+        addHeadingPairBefore(container);
         addGroup(directChildren(container, ':scope > .faq-item'));
       });
+      addGroup(Array.from(document.querySelectorAll('#pricing .cta-card')));
+      addGroup(Array.from(document.querySelectorAll('#service-supporting-guides .services-resource-shell')));
+      addGroup(Array.from(document.querySelectorAll('.page-services .section.brand-gradient .cta-card')));
     }
 
     if (body.classList.contains('page-niche')) {
@@ -151,6 +181,19 @@
       document.querySelectorAll('.page-niche .section.brand-gradient .cta-card').forEach((card) => {
         addGroup([card]);
       });
+    }
+
+    if (body.classList.contains('page-pricing')) {
+      addGroup(Array.from(document.querySelectorAll('.page-pricing .faq-list .faq-item')));
+      addGroup(Array.from(document.querySelectorAll('.page-pricing .section.brand-gradient .cta-card')));
+    }
+
+    if (body.classList.contains('page-blog')) {
+      addGroup(Array.from(document.querySelectorAll('.page-blog .section.brand-gradient .cta-card')));
+    }
+
+    if (body.classList.contains('page-book')) {
+      addGroup(Array.from(document.querySelectorAll('.page-book .section.brand-gradient .cta-card')));
     }
 
     return groups;

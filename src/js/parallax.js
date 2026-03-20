@@ -78,6 +78,7 @@
       active: false,
       stage: null,
       current: null,
+      activeSignature: null,
       observer: null,
       layers: [],
     };
@@ -89,10 +90,17 @@
       if (!config || !state.layers.length) return;
       const match = state.layers.find((entry) => entry.section === section);
       if (!match) return;
+      const nextSignature = [
+        config.backgroundColor || '',
+        config.overlay || '',
+        getImageValue(config.mobileImages),
+      ].join('|');
+      if (state.activeSignature === nextSignature) return;
       state.layers.forEach((entry) => entry.layer.classList.remove('is-active'));
       match.layer.classList.add('is-active');
       const layerColor = match.config.backgroundColor || '#050B18';
       state.stage.style.backgroundColor = layerColor;
+      state.activeSignature = nextSignature;
     };
 
     const createStage = () => {
@@ -210,6 +218,7 @@
       }
       state.stage = null;
       state.active = false;
+      state.activeSignature = null;
       document.body.classList.remove('parallax-stage-active');
     };
 

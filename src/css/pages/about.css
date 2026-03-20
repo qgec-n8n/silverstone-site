@@ -36,6 +36,30 @@
   color: var(--premium-copy);
 }
 
+.page-about .mission-card {
+  padding: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.page-about .mission-card .section-title {
+  margin-bottom: 1rem;
+}
+
+.page-about .mission-card p {
+  max-width: 62ch;
+  line-height: 1.78;
+}
+
+.page-about .mission-card p + p {
+  margin-top: 1rem;
+  color: var(--premium-muted);
+}
+
+.page-about .mission-card__lead {
+  font-size: 1.06rem;
+  letter-spacing: -0.014em;
+  color: rgba(236, 244, 255, 0.94);
+}
+
 .page-about .values {
   gap: 1.25rem;
 }

@@ -38,6 +38,21 @@
   max-width: 320px;
 }
 
+.page-home .features .feature-card i {
+  font-size: 1.5rem;
+  color: var(--color-green);
+  margin-bottom: 0.85rem;
+}
+
+.page-home .features .feature-card h3 {
+  color: var(--color-blue);
+  font-family: var(--font-number);
+  font-size: clamp(2rem, 2.6vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.06em;
+  margin-bottom: 0.7rem;
+}
+
 .packages-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(320px, 1fr));

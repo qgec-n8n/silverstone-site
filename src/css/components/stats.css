@@ -48,6 +48,22 @@
   letter-spacing: -0.05em;
   font-variant-numeric: tabular-nums;
   text-shadow: 0 10px 28px rgba(0, 174, 239, 0.18);
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.stats .number__prefix,
+.stats .number__value,
+.stats .number__suffix {
+  display: inline-block;
+}
+
+.stats .number__suffix {
+  margin-left: 0.02em;
+  font-size: 0.94em;
+  line-height: 1;
 }
 
 .stats .label {

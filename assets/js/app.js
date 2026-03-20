@@ -553,17 +553,15 @@
       el.classList.remove('animate');
     });
 
-    document.querySelectorAll('.gallery-grid .neon-card').forEach((el) =>
-      el.classList.add('visible'),
-    );
-
     const premiumTargets = collectPremiumTargets();
 
     if (!premiumTargets.length) return;
 
-    premiumTargets.forEach((el, index) => {
+    premiumTargets.forEach((el) => {
       el.classList.add('premium-reveal');
-      el.style.setProperty('--reveal-index', String(index % 4));
+      if (el.dataset.revealText === '1') {
+        el.classList.add('premium-reveal--text');
+      }
     });
 
     const reducedMotion =
@@ -598,40 +596,63 @@
     const seen = new Set();
     const body = document.body;
 
-    const sortByVisualFlow = (items) =>
-      items
-        .slice()
-        .sort((a, b) => {
-          const rectA = a.getBoundingClientRect();
-          const rectB = b.getBoundingClientRect();
-          if (Math.abs(rectA.top - rectB.top) > 24) {
-            return rectA.top - rectB.top;
-          }
-          return rectA.left - rectB.left;
-        });
-
-    const addGroup = (items) => {
-      const unique = sortByVisualFlow(
-        items.filter((item) => item && !seen.has(item)),
-      );
+    const addGroup = (items, options) => {
+      const unique = items.filter((item) => item && !seen.has(item));
       if (!unique.length) return;
-      unique.forEach((item) => seen.add(item));
-      groups.push(...unique);
+      unique.forEach((item, index) => {
+        seen.add(item);
+        if (options && options.text) {
+          item.dataset.revealText = '1';
+        } else {
+          delete item.dataset.revealText;
+        }
+        item.style.setProperty('--reveal-index', String(index));
+        groups.push(item);
+      });
     };
 
     const directChildren = (container, selector) =>
       Array.from(container.querySelectorAll(selector));
 
+    const addHeadingPairBefore = (target) => {
+      if (!target) return;
+
+      let title = null;
+      let subtitle = null;
+      let node = target.previousElementSibling;
+
+      while (node) {
+        if (!subtitle && node.matches('.section-subtitle')) {
+          subtitle = node;
+          node = node.previousElementSibling;
+          continue;
+        }
+
+        if (node.matches('.section-title')) {
+          title = node;
+          break;
+        }
+
+        node = node.previousElementSibling;
+      }
+
+      addGroup([title, subtitle].filter(Boolean), { text: true });
+    };
+
     if (body.classList.contains('page-home')) {
-      document.querySelectorAll('.page-home .packages-grid').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .neon-card'));
-      });
-      document.querySelectorAll('.page-home .proof-grid').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .proof-card'));
-      });
-      document.querySelectorAll('.page-home .faq-list').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .faq-item'));
-      });
+      addGroup(Array.from(document.querySelectorAll('.page-home .features .feature-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home .primary-site-links-grid .primary-site-link')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #primary-site-links .primary-site-links-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #pricing .primary-site-links-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #what-we-automate .service-tile')));
+      addGroup(Array.from(document.querySelectorAll('.page-home .proof-grid .proof-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home .faq-list .faq-item')));
+      addGroup(Array.from(document.querySelectorAll('.page-home .section.brand-gradient .cta-card')));
+
+      document.querySelectorAll('.page-home .features').forEach(addHeadingPairBefore);
+      document.querySelectorAll('.page-home .packages-grid').forEach(addHeadingPairBefore);
+      document.querySelectorAll('.page-home .proof-grid').forEach(addHeadingPairBefore);
+      document.querySelectorAll('.page-home .faq-list').forEach(addHeadingPairBefore);
     }
 
     if (body.classList.contains('page-about')) {
@@ -644,18 +665,19 @@
         );
       });
       document.querySelectorAll('.page-about .values').forEach((container) => {
+        addHeadingPairBefore(container);
         addGroup(directChildren(container, ':scope > .value-card'));
       });
       document.querySelectorAll('.page-about .drives-grid').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .neon-card, :scope > .service-image'));
+        addHeadingPairBefore(container);
+        addGroup(directChildren(container, ':scope > .neon-card, :scope > .service-image, :scope > .gallery-card'));
       });
-      document.querySelectorAll('.page-about .section.brand-gradient .cta-card').forEach((card) => {
-        addGroup([card]);
-      });
+      addGroup(Array.from(document.querySelectorAll('.page-about .section.brand-gradient .cta-card')));
     }
 
     if (body.classList.contains('page-services')) {
       document.querySelectorAll('.page-services .service-row').forEach((container) => {
+        addHeadingPairBefore(container);
         addGroup(
           directChildren(
             container,
@@ -663,12 +685,20 @@
           ),
         );
       });
-      document.querySelectorAll('.page-services .proof-grid').forEach((container) => {
-        addGroup(directChildren(container, ':scope > .proof-card'));
+      addGroup(Array.from(document.querySelectorAll('.page-services .commercial-pathway')));
+      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .services-resource-shell')));
+      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .services-resource-list--niches > li')));
+      document.querySelectorAll('.page-services .values').forEach((container) => {
+        addHeadingPairBefore(container);
+        addGroup(directChildren(container, ':scope > .value-card'));
       });
       document.querySelectorAll('.page-services .faq-list').forEach((container) => {
+        addHeadingPairBefore(container);
         addGroup(directChildren(container, ':scope > .faq-item'));
       });
+      addGroup(Array.from(document.querySelectorAll('#pricing .cta-card')));
+      addGroup(Array.from(document.querySelectorAll('#service-supporting-guides .services-resource-shell')));
+      addGroup(Array.from(document.querySelectorAll('.page-services .section.brand-gradient .cta-card')));
     }
 
     if (body.classList.contains('page-niche')) {
@@ -689,6 +719,19 @@
       document.querySelectorAll('.page-niche .section.brand-gradient .cta-card').forEach((card) => {
         addGroup([card]);
       });
+    }
+
+    if (body.classList.contains('page-pricing')) {
+      addGroup(Array.from(document.querySelectorAll('.page-pricing .faq-list .faq-item')));
+      addGroup(Array.from(document.querySelectorAll('.page-pricing .section.brand-gradient .cta-card')));
+    }
+
+    if (body.classList.contains('page-blog')) {
+      addGroup(Array.from(document.querySelectorAll('.page-blog .section.brand-gradient .cta-card')));
+    }
+
+    if (body.classList.contains('page-book')) {
+      addGroup(Array.from(document.querySelectorAll('.page-book .section.brand-gradient .cta-card')));
     }
 
     return groups;
@@ -719,11 +762,48 @@
       '(prefers-reduced-motion: reduce)',
     );
 
-    const setNumberValue = (number, value) => {
+    const prepareNumberMarkup = (number) => {
+      if (number.dataset.ssNumberPrepared === '1') return;
+
       const prefix = number.getAttribute('data-prefix') || '';
       const suffix =
         number.getAttribute('data-suffix') || number.getAttribute('data-plus') || '';
-      number.textContent = `${prefix}${value.toLocaleString()}${suffix}`;
+      const initial = number.textContent.trim();
+      const valueMatch = initial.match(/-?[\d,]+/);
+      const valueText = valueMatch ? valueMatch[0].replace(/,/g, '') : '0';
+
+      number.textContent = '';
+
+      if (prefix) {
+        const prefixSpan = document.createElement('span');
+        prefixSpan.className = 'number__prefix';
+        prefixSpan.textContent = prefix;
+        number.appendChild(prefixSpan);
+      }
+
+      const valueSpan = document.createElement('span');
+      valueSpan.className = 'number__value';
+      valueSpan.textContent = valueText;
+      number.appendChild(valueSpan);
+
+      if (suffix) {
+        const suffixSpan = document.createElement('span');
+        suffixSpan.className = 'number__suffix';
+        suffixSpan.textContent = suffix;
+        number.appendChild(suffixSpan);
+      }
+
+      number.dataset.ssNumberPrepared = '1';
+    };
+
+    const setNumberValue = (number, value) => {
+      prepareNumberMarkup(number);
+      const valueEl = number.querySelector('.number__value');
+      if (valueEl) {
+        valueEl.textContent = value.toLocaleString();
+        return;
+      }
+      number.textContent = value.toLocaleString();
     };
 
     const setSectionFinalValues = (section) => {
@@ -738,6 +818,7 @@
       if (number.dataset.ssCounterDone === '1') return;
       number.dataset.ssCounterDone = '1';
 
+      prepareNumberMarkup(number);
       const target = parseInt(number.dataset.target, 10) || 0;
       if (target <= 0) {
         setNumberValue(number, 0);
@@ -1694,6 +1775,7 @@
       active: false,
       stage: null,
       current: null,
+      activeSignature: null,
       observer: null,
       layers: [],
     };
@@ -1705,10 +1787,17 @@
       if (!config || !state.layers.length) return;
       const match = state.layers.find((entry) => entry.section === section);
       if (!match) return;
+      const nextSignature = [
+        config.backgroundColor || '',
+        config.overlay || '',
+        getImageValue(config.mobileImages),
+      ].join('|');
+      if (state.activeSignature === nextSignature) return;
       state.layers.forEach((entry) => entry.layer.classList.remove('is-active'));
       match.layer.classList.add('is-active');
       const layerColor = match.config.backgroundColor || '#050B18';
       state.stage.style.backgroundColor = layerColor;
+      state.activeSignature = nextSignature;
     };
 
     const createStage = () => {
@@ -1826,6 +1915,7 @@
       }
       state.stage = null;
       state.active = false;
+      state.activeSignature = null;
       document.body.classList.remove('parallax-stage-active');
     };
 
@@ -2701,17 +2791,17 @@ document.addEventListener('DOMContentLoaded', () => {
     '/blog/dental-recall-automation-uk-2026': 'dentists',
     '/blog/dm-to-client-automation-uk-fitness-coaches-2026': 'fitness-coaches',
     '/blog/gym-booking-automation-uk-gyms-studios-2026': 'gyms',
-    '/blog/how-small-physio-and-chiro-clinics-can-cut-missed-sessions-and-improve-treatment-completion-with-simple-ai-automations': 'physios',
-    '/blog/how-small-uk-estate-agents-can-use-automated-viewing-confirmations-to-cut-no-shows-and-win-instructions': 'estate-agents',
-    '/blog/how-uk-dental-practices-can-automate-patient-intake-and-e-consent-to-cut-admin-speed-treatment-starts-and': 'dentists',
-    '/blog/how-uk-dental-practices-can-use-ai-missed-call-recovery-to-fill-more-high-value-appointments': 'dentists',
-    '/blog/how-uk-ecommerce-brands-can-use-ai-returns-triage-to-cut-support-load-and-keep-customers-happy': 'ecommerce',
-    '/blog/how-uk-fitness-coaches-can-use-ai-lead-scoring-to-spend-less-time-in-dms-and-more-time-closing-the-right': 'fitness-coaches',
-    '/blog/how-uk-gyms-and-fitness-studios-can-use-ai-win-back-journeys-to-reactivate-inactive-members': 'gyms',
-    '/blog/how-uk-hotels-and-b-and-bs-can-install-a-24-7-ai-guest-concierge-a-90-day-checklist-costs-and-data-risk': 'hospitality',
-    '/blog/how-uk-physio-and-chiropractic-clinics-can-automate-rebooking-to-keep-patients-on-plan': 'physios',
-    '/blog/how-uk-salons-and-barbers-can-use-ai-rebooking-journeys-to-fill-gaps-between-appointments': 'salons',
-    '/blog/how-uk-trades-businesses-can-use-ai-call-answering-to-stop-after-hours-emergency-jobs-going-to-competitors': 'trades',
+    '/blog/ai-automations-physio-chiro-clinics-uk': 'physios',
+    '/blog/estate-agent-viewing-confirmations-uk': 'estate-agents',
+    '/blog/dental-intake-e-consent-automation-uk': 'dentists',
+    '/blog/ai-missed-call-recovery-dentists-uk': 'dentists',
+    '/blog/ai-returns-triage-ecommerce-uk': 'ecommerce',
+    '/blog/ai-lead-scoring-fitness-coaches-uk': 'fitness-coaches',
+    '/blog/ai-win-back-journeys-gyms-uk': 'gyms',
+    '/blog/ai-guest-concierge-hotels-bbs-uk': 'hospitality',
+    '/blog/clinic-rebooking-physio-chiro-uk': 'physios',
+    '/blog/ai-rebooking-journeys-salons-uk': 'salons',
+    '/blog/ai-call-answering-trades-uk': 'trades',
     '/blog/post-purchase-automation-uk-ecommerce-repeat-customers': 'ecommerce',
     '/blog/quote-chase-automation-uk-trades-accepted-jobs-2026': 'trades',
     '/blog/quote-follow-up-automation-uk-trades-2026': 'trades',
