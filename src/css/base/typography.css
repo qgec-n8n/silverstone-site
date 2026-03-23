@@ -541,7 +541,7 @@
     .page-book .discovery-call-section {
       background-attachment: fixed !important;
       background-size: cover !important;
-      background-position: center !important;
+      background-position: center top !important;
     }
 
     /* Specific backgrounds with integrated overlay */

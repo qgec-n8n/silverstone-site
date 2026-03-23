@@ -109,7 +109,7 @@ img {
   position: relative;
   isolation: isolate;
   background-image: url("../images/body_section_parallax/body-section-background-2025.webp");
-  background-position: center;
+  background-position: center top;
   background-size: cover;
   background-repeat: no-repeat;
 }

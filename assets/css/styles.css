@@ -11526,7 +11526,7 @@
     .page-book .discovery-call-section {
       background-attachment: fixed !important;
       background-size: cover !important;
-      background-position: center !important;
+      background-position: center top !important;
     }
 
     /* Specific backgrounds with integrated overlay */
@@ -11831,7 +11831,7 @@ img {
   position: relative;
   isolation: isolate;
   background-image: url("../images/body_section_parallax/body-section-background-2025.webp");
-  background-position: center;
+  background-position: center top;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -15300,6 +15300,18 @@ body.services-overlay-active .services-overlay {
   object-fit: contain;
   display: block;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.premium-lightbox--tile .lightbox-content {
+  width: min(var(--lightbox-target-width, 90vw), 90vw);
+  max-width: min(var(--lightbox-target-width, 90vw), 90vw);
+  max-height: min(var(--lightbox-target-height, 90vh), 90vh);
+}
+
+.premium-lightbox--tile .lightbox-img {
+  width: 100%;
+  max-width: 100%;
+  max-height: calc(min(var(--lightbox-target-height, 90vh), 90vh) - 20px);
 }
 
 .lightbox-close {

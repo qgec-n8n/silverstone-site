@@ -5,7 +5,9 @@
   let lightboxRequestId = 0;
   const ASSET_PATH = '/assets/images/socialmedia/';
   const LIGHTBOX_MOBILE_QUERY = '(max-width: 768px)';
-  const MARQUEE_ROOT_MARGIN = '1200px 0px';
+  const SINGLE_MARQUEE_ROOT_MARGIN = '2200px 0px';
+  const DEFAULT_MARQUEE_ROOT_MARGIN = '1200px 0px';
+  const SINGLE_MARQUEE_PRIORITY_COUNT = 12;
   const MARQUEE_IMAGES = [
   '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.webp',
   '2-3_accounting_man-with-holographic-call_tax-season-calls-never-missed.webp',
@@ -101,10 +103,11 @@
       if (singleInitialized || !footer || !footer.parentNode) return;
       singleInitialized = true;
       ensureLightbox();
+      warmImageBatch(MARQUEE_IMAGES, SINGLE_MARQUEE_PRIORITY_COUNT);
 
       const marquee = buildSingleRow();
       footer.parentNode.insertBefore(marquee, footer);
-    });
+    }, SINGLE_MARQUEE_ROOT_MARGIN);
   }
 
   function initDoubleMarquee() {
@@ -135,14 +138,14 @@
       }
 
       alignInnovationAnchor();
-    });
+    }, DEFAULT_MARQUEE_ROOT_MARGIN);
   }
 
   function cleanupLegacyMarquees() {
     document.querySelectorAll('.premium-marquee-container, .logo-slider, .single-marquee, .double-marquee').forEach((el) => el.remove());
   }
 
-  function observeWhenNearViewport(target, callback) {
+  function observeWhenNearViewport(target, callback, rootMargin) {
     if (!target) return;
 
     if (!('IntersectionObserver' in window)) {
@@ -157,7 +160,7 @@
         callback();
       },
       {
-        rootMargin: MARQUEE_ROOT_MARGIN,
+        rootMargin: rootMargin || DEFAULT_MARQUEE_ROOT_MARGIN,
       },
     );
 
@@ -171,8 +174,16 @@
     const track = document.createElement('div');
     track.className = 'marquee-track';
 
-    track.appendChild(createImagesFragment(MARQUEE_IMAGES));
-    track.appendChild(createImagesFragment(MARQUEE_IMAGES));
+    track.appendChild(createImagesFragment(MARQUEE_IMAGES, {
+      loading: 'eager',
+      priorityCount: SINGLE_MARQUEE_PRIORITY_COUNT,
+      fetchPriority: 'high',
+    }));
+    track.appendChild(createImagesFragment(MARQUEE_IMAGES, {
+      loading: 'eager',
+      priorityCount: SINGLE_MARQUEE_PRIORITY_COUNT,
+      fetchPriority: 'high',
+    }));
 
     container.appendChild(track);
     return container;
@@ -200,16 +211,21 @@
     return track;
   }
 
-  function createImagesFragment(images) {
+  function createImagesFragment(images, options) {
     const fragment = document.createDocumentFragment();
+    const config = options || {};
+    const priorityCount = Number(config.priorityCount) || 0;
 
-    images.forEach((filename) => {
+    images.forEach((filename, index) => {
       const img = document.createElement('img');
       img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
-      img.loading = 'lazy';
+      img.loading = config.loading || 'lazy';
       img.decoding = 'async';
+      if (priorityCount && index < priorityCount && config.fetchPriority) {
+        img.fetchPriority = config.fetchPriority;
+      }
 
       img.onerror = () => {
         img.style.display = 'none';
@@ -220,6 +236,14 @@
     });
 
     return fragment;
+  }
+
+  function warmImageBatch(images, count) {
+    images.slice(0, count).forEach((filename) => {
+      const preload = new Image();
+      preload.decoding = 'async';
+      preload.src = ASSET_PATH + filename;
+    });
   }
 
   function ensureLightbox() {
@@ -279,32 +303,58 @@
 
   function resolveLightboxPreviewSrc(trigger) {
     if (!trigger) return '';
+    if (typeof trigger === 'string') return trigger;
 
     const img = trigger.querySelector('img');
     return img ? img.currentSrc || img.src : '';
   }
 
+  function applyLightboxFrame(lightbox, trigger) {
+    if (!lightbox) return;
+
+    lightbox.classList.remove('premium-lightbox--tile');
+    lightbox.style.removeProperty('--lightbox-target-width');
+    lightbox.style.removeProperty('--lightbox-target-height');
+
+    if (!trigger || typeof trigger === 'string') return;
+    if (!trigger.classList.contains('js-premium-lightbox')) return;
+
+    const target = trigger.querySelector('img') || trigger;
+    const rect = target.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+
+    const targetWidth = Math.min(
+      window.innerWidth * 0.9,
+      Math.max(rect.width * 1.14, rect.width + 36),
+    );
+    const targetHeight = Math.min(
+      window.innerHeight * 0.8,
+      Math.max(rect.height * 1.14, rect.height + 36),
+    );
+
+    lightbox.style.setProperty(
+      '--lightbox-target-width',
+      `${Math.round(targetWidth)}px`,
+    );
+    lightbox.style.setProperty(
+      '--lightbox-target-height',
+      `${Math.round(targetHeight)}px`,
+    );
+    lightbox.classList.add('premium-lightbox--tile');
+  }
+
   function openLightbox(trigger) {
     const lightbox = document.getElementById('premium-lightbox');
     const img = document.getElementById('lightbox-img');
-    const targetSrc = resolveLightboxSrc(trigger);
-    const previewSrc = resolveLightboxPreviewSrc(trigger) || targetSrc;
-    if (!lightbox || !img || !previewSrc) return;
+    const lightboxSrc = resolveLightboxSrc(trigger);
+    if (!lightbox || !img || !lightboxSrc) return;
 
     const requestId = String(++lightboxRequestId);
     lightbox.dataset.requestId = requestId;
-    setLightboxImage(img, previewSrc);
+    applyLightboxFrame(lightbox, trigger);
+    setLightboxImage(img, lightboxSrc);
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
-
-    if (!targetSrc || targetSrc === previewSrc) return;
-
-    preloadLightboxImage(targetSrc).then((loadedSrc) => {
-      if (!loadedSrc) return;
-      if (!lightbox.classList.contains('active')) return;
-      if (lightbox.dataset.requestId !== requestId) return;
-      setLightboxImage(img, loadedSrc);
-    });
   }
 
   function closeLightbox() {
@@ -312,7 +362,10 @@
     if (!lightbox) return;
 
     lightbox.classList.remove('active');
+    lightbox.classList.remove('premium-lightbox--tile');
     lightbox.dataset.requestId = '';
+    lightbox.style.removeProperty('--lightbox-target-width');
+    lightbox.style.removeProperty('--lightbox-target-height');
     document.body.style.overflow = '';
     var img = document.getElementById('lightbox-img');
     if (img) img.removeAttribute('src');
@@ -320,6 +373,10 @@
 
   function resolveLightboxSrc(trigger) {
     if (!trigger) return '';
+    if (typeof trigger === 'string') return trigger;
+
+    const previewSrc = resolveLightboxPreviewSrc(trigger);
+    if (previewSrc) return previewSrc;
 
     const mobileSrc = trigger.dataset.lightboxMobileSrc;
     const desktopSrc = trigger.dataset.lightboxSrc;

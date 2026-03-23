@@ -106,6 +106,18 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
+.premium-lightbox--tile .lightbox-content {
+  width: min(var(--lightbox-target-width, 90vw), 90vw);
+  max-width: min(var(--lightbox-target-width, 90vw), 90vw);
+  max-height: min(var(--lightbox-target-height, 90vh), 90vh);
+}
+
+.premium-lightbox--tile .lightbox-img {
+  width: 100%;
+  max-width: 100%;
+  max-height: calc(min(var(--lightbox-target-height, 90vh), 90vh) - 20px);
+}
+
 .lightbox-close {
   position: absolute;
   top: -50px;
