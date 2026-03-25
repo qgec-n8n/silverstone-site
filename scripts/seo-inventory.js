@@ -73,7 +73,7 @@ function toPosixPath(filePath) {
   return filePath.replace(/\\/g, "/").replace(/^\.?\//, "");
 }
 
-function readHtmlDirectory(repoRoot, directoryName, group, requiredSchema) {
+function readHtmlDirectory(repoRoot, directoryName, canonicalDirectoryName, group, requiredSchema) {
   const directory = path.join(repoRoot, directoryName);
   return fs
     .readdirSync(directory)
@@ -83,7 +83,7 @@ function readHtmlDirectory(repoRoot, directoryName, group, requiredSchema) {
       const slug = entry.replace(/\.html$/i, "");
       return {
         file: `${directoryName}/${entry}`,
-        canonical: `${SITE_ORIGIN}/${directoryName}/${slug}`,
+        canonical: `${SITE_ORIGIN}/${canonicalDirectoryName}/${slug}`,
         group,
         requiredSchema,
       };
@@ -94,11 +94,13 @@ function getIndexedPages(repoRoot = path.resolve(__dirname, "..")) {
   const nichePages = readHtmlDirectory(
     repoRoot,
     "niches",
+    "services",
     "niches",
     ["WebPage", "Service", "BreadcrumbList"]
   );
   const blogPages = readHtmlDirectory(
     repoRoot,
+    "blog",
     "blog",
     "blog",
     ["BlogPosting", "BreadcrumbList"]

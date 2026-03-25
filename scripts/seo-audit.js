@@ -115,6 +115,10 @@ function parseRedirects(netlifyToml) {
   return redirects;
 }
 
+function getNicheSlug(page) {
+  return path.posix.basename(page.file, ".html");
+}
+
 const errors = [];
 const warnings = [];
 
@@ -288,10 +292,35 @@ for (const page of indexedPages) {
   }
 }
 
+for (const page of groupedPages.niches) {
+  const slug = getNicheSlug(page);
+  const expectedTo = canonicalPath(page.canonical);
+  const legacyCleanPath = `/niches/${slug}`;
+  const legacyCleanRedirect = redirects.get(legacyCleanPath);
+  if (!legacyCleanRedirect) {
+    errors.push(`netlify.toml: missing redirect for ${legacyCleanPath}`);
+  } else if (legacyCleanRedirect.to !== expectedTo || legacyCleanRedirect.status !== "301") {
+    errors.push(
+      `netlify.toml: redirect mismatch for ${legacyCleanPath} (expected 301 -> ${expectedTo}, found ${legacyCleanRedirect.status || "?"} -> ${legacyCleanRedirect.to || "?"})`
+    );
+  }
+
+  const canonicalRoute = redirects.get(expectedTo);
+  const expectedSourceFile = `/${page.file}`;
+  if (!canonicalRoute) {
+    errors.push(`netlify.toml: missing rewrite for ${expectedTo}`);
+  } else if (canonicalRoute.to !== expectedSourceFile || canonicalRoute.status !== "200") {
+    errors.push(
+      `netlify.toml: rewrite mismatch for ${expectedTo} (expected 200 -> ${expectedSourceFile}, found ${canonicalRoute.status || "?"} -> ${canonicalRoute.to || "?"})`
+    );
+  }
+}
+
 for (const page of indexedPages) {
   const html = readFile(page.file);
   const internalLinks = collectInternalLinks(html, page.file);
   const duplicateLinks = findDuplicateInternalLinks(html, page.file);
+  const legacyNicheLinks = internalLinks.filter((href) => href.startsWith("/niches/"));
   const isBlogArticle = page.file.startsWith("blog/");
   const isNichePage = page.file.startsWith("niches/");
   const ctaLinkList = extractFirst(html, /(<div class="cta-link-list">[\s\S]*?<\/div>)/i);
@@ -341,6 +370,9 @@ for (const page of indexedPages) {
     errors.push(
       `${page.file}: found internal links pointing to duplicate .html URLs (${duplicateLinks.join(", ")})`
     );
+  }
+  if (legacyNicheLinks.length > 0) {
+    errors.push(`${page.file}: found legacy internal links to /niches/ URLs (${legacyNicheLinks.join(", ")})`);
   }
 
   const ogUrl = extractMetaContent(html, "property", "og:url");
@@ -431,10 +463,10 @@ for (const page of indexedPages) {
       errors.push(`${page.file}: missing contextual cta-link-list block`);
     }
     const hasSupportingLink = ctaLinks.some(
-      (href) => href === "/services" || href.startsWith("/niches/")
+      (href) => href === "/services" || href.startsWith("/services/")
     );
     if (!hasSupportingLink) {
-      errors.push(`${page.file}: cta-link-list should link to /services or a matching /niches/ page`);
+      errors.push(`${page.file}: cta-link-list should link to /services or a matching /services/ page`);
     }
   }
 
@@ -544,7 +576,7 @@ for (const relPath of nonServiceCorePages) {
   if (!/class="services-overlay"/.test(html)) {
     errors.push(`${relPath}: missing the checked-in Niches overlay pattern`);
   }
-  if (!/href="\/niches\//.test(html)) {
+  if (!/href="\/services\//.test(html)) {
     errors.push(`${relPath}: missing checked-in direct niche links`);
   }
 }
@@ -557,7 +589,7 @@ for (const page of blogPages) {
   if (!/class="services-overlay"/.test(html)) {
     errors.push(`${page.file}: missing the checked-in Niches overlay pattern`);
   }
-  if (!/href="\/niches\//.test(html)) {
+  if (!/href="\/services\//.test(html)) {
     errors.push(`${page.file}: missing checked-in direct niche links`);
   }
 }

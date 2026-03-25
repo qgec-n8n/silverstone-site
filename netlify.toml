@@ -52,56 +52,164 @@
 
 [[redirects]]
   from = "/niches/dentists.html"
-  to = "/niches/dentists"
+  to = "/services/dentists"
   status = 301
   force = true
 
 [[redirects]]
   from = "/niches/ecommerce.html"
-  to = "/niches/ecommerce"
+  to = "/services/ecommerce"
   status = 301
   force = true
 
 [[redirects]]
   from = "/niches/estate-agents.html"
-  to = "/niches/estate-agents"
+  to = "/services/estate-agents"
   status = 301
   force = true
 
 [[redirects]]
   from = "/niches/fitness-coaches.html"
-  to = "/niches/fitness-coaches"
+  to = "/services/fitness-coaches"
   status = 301
   force = true
 
 [[redirects]]
   from = "/niches/gyms-fitness-studios.html"
-  to = "/niches/gyms-fitness-studios"
+  to = "/services/gyms-fitness-studios"
   status = 301
   force = true
 
 [[redirects]]
   from = "/niches/hospitality.html"
-  to = "/niches/hospitality"
+  to = "/services/hospitality"
   status = 301
   force = true
 
 [[redirects]]
   from = "/niches/physios-chiropractors.html"
-  to = "/niches/physios-chiropractors"
+  to = "/services/physios-chiropractors"
   status = 301
   force = true
 
 [[redirects]]
   from = "/niches/salons-barbers.html"
-  to = "/niches/salons-barbers"
+  to = "/services/salons-barbers"
   status = 301
   force = true
 
 [[redirects]]
   from = "/niches/trades-virtual-office.html"
-  to = "/niches/trades-virtual-office"
+  to = "/services/trades-virtual-office"
   status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/dentists"
+  to = "/services/dentists"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/ecommerce"
+  to = "/services/ecommerce"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/estate-agents"
+  to = "/services/estate-agents"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/fitness-coaches"
+  to = "/services/fitness-coaches"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/gyms-fitness-studios"
+  to = "/services/gyms-fitness-studios"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/hospitality"
+  to = "/services/hospitality"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/physios-chiropractors"
+  to = "/services/physios-chiropractors"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/salons-barbers"
+  to = "/services/salons-barbers"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/niches/trades-virtual-office"
+  to = "/services/trades-virtual-office"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/dentists"
+  to = "/niches/dentists.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/ecommerce"
+  to = "/niches/ecommerce.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/estate-agents"
+  to = "/niches/estate-agents.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/fitness-coaches"
+  to = "/niches/fitness-coaches.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/gyms-fitness-studios"
+  to = "/niches/gyms-fitness-studios.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/hospitality"
+  to = "/niches/hospitality.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/physios-chiropractors"
+  to = "/niches/physios-chiropractors.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/salons-barbers"
+  to = "/niches/salons-barbers.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/trades-virtual-office"
+  to = "/niches/trades-virtual-office.html"
+  status = 200
   force = true
 
 [[redirects]]
@@ -173,6 +281,12 @@
 [[redirects]]
   from = "/blog/ai-receptionist-uk-costs-roi-2026.html"
   to = "/blog/ai-receptionist-uk-costs-roi-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-quote-follow-up-trades.html"
+  to = "/blog/ai-quote-follow-up-trades"
   status = 301
   force = true
 
