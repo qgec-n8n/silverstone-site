@@ -10,7 +10,7 @@
   const MOBILE_BREAKPOINT = 780;
 
   const NICHE_CTA_MAP = {
-    '/niches/estate-agents': {
+    '/services/estate-agents': {
       eyebrow: 'Estate agent pricing',
       title: 'Compare estate pricing or book the audit.',
       copy: 'Jump straight to the real-estate pricing atlas, then scope the right branch workflow.',
@@ -18,7 +18,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Estate pricing',
     },
-    '/niches/hospitality': {
+    '/services/hospitality': {
       eyebrow: 'Hospitality pricing',
       title: 'Compare hospitality pricing or book the audit.',
       copy: 'Open the hospitality atlas card, then narrow down the guest-concierge or no-show fix.',
@@ -26,7 +26,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Hospitality pricing',
     },
-    '/niches/salons-barbers': {
+    '/services/salons-barbers': {
       eyebrow: 'Salon pricing',
       title: 'Compare salon pricing or book the audit.',
       copy: 'See the salon atlas card first, then scope the no-show or rebooking system that fits.',
@@ -34,7 +34,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Salon pricing',
     },
-    '/niches/trades-virtual-office': {
+    '/services/trades-virtual-office': {
       eyebrow: 'Trades pricing',
       title: 'Compare trades pricing or book the audit.',
       copy: 'Open the trades atlas card, then choose the fastest call, quote, or scheduling fix.',
@@ -42,7 +42,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Trades pricing',
     },
-    '/niches/ecommerce': {
+    '/services/ecommerce': {
       eyebrow: 'eCommerce pricing',
       title: 'Compare eCommerce pricing or book the audit.',
       copy: 'See the eCommerce atlas card before you choose a cart, support, or LTV workflow.',
@@ -50,7 +50,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'eCommerce pricing',
     },
-    '/niches/physios-chiropractors': {
+    '/services/physios-chiropractors': {
       eyebrow: 'Clinic pricing',
       title: 'Compare clinic pricing or book the audit.',
       copy: 'Open the clinic atlas card, then scope the intake or rebooking layer that pays back fastest.',
@@ -58,7 +58,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Clinic pricing',
     },
-    '/niches/dentists': {
+    '/services/dentists': {
       eyebrow: 'Dental pricing',
       title: 'Compare dental pricing or book the audit.',
       copy: 'See the dental atlas card first, then choose the recall or treatment follow-up route.',
@@ -66,7 +66,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Dental pricing',
     },
-    '/niches/gyms-fitness-studios': {
+    '/services/gyms-fitness-studios': {
       eyebrow: 'Gym pricing',
       title: 'Compare gym pricing or book the audit.',
       copy: 'Open the gym atlas card, then choose the member reactivation or class-fill system.',
@@ -74,7 +74,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Gym pricing',
     },
-    '/niches/fitness-coaches': {
+    '/services/fitness-coaches': {
       eyebrow: 'Creator pricing',
       title: 'Compare creator pricing or book the audit.',
       copy: 'See the creator atlas card before choosing your DM triage or onboarding workflow.',

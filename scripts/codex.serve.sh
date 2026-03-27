@@ -16,7 +16,7 @@ echo "  /about.html"
 echo "  /services.html"
 echo "  /book.html"
 echo "  /contact.html"
-echo "  /niches/ (pick any niche page)"
+echo "  /services/ (pick any service page)"
 echo
 echo "[serve] Press Ctrl+C to stop."
 python3 -m http.server "${PORT}"

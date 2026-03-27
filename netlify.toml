@@ -159,57 +159,57 @@
   force = true
 
 [[redirects]]
-  from = "/services/dentists"
-  to = "/niches/dentists.html"
-  status = 200
+  from = "/services/dentists.html"
+  to = "/services/dentists"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "/services/ecommerce"
-  to = "/niches/ecommerce.html"
-  status = 200
+  from = "/services/ecommerce.html"
+  to = "/services/ecommerce"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "/services/estate-agents"
-  to = "/niches/estate-agents.html"
-  status = 200
+  from = "/services/estate-agents.html"
+  to = "/services/estate-agents"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "/services/fitness-coaches"
-  to = "/niches/fitness-coaches.html"
-  status = 200
+  from = "/services/fitness-coaches.html"
+  to = "/services/fitness-coaches"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "/services/gyms-fitness-studios"
-  to = "/niches/gyms-fitness-studios.html"
-  status = 200
+  from = "/services/gyms-fitness-studios.html"
+  to = "/services/gyms-fitness-studios"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "/services/hospitality"
-  to = "/niches/hospitality.html"
-  status = 200
+  from = "/services/hospitality.html"
+  to = "/services/hospitality"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "/services/physios-chiropractors"
-  to = "/niches/physios-chiropractors.html"
-  status = 200
+  from = "/services/physios-chiropractors.html"
+  to = "/services/physios-chiropractors"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "/services/salons-barbers"
-  to = "/niches/salons-barbers.html"
-  status = 200
+  from = "/services/salons-barbers.html"
+  to = "/services/salons-barbers"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "/services/trades-virtual-office"
-  to = "/niches/trades-virtual-office.html"
-  status = 200
+  from = "/services/trades-virtual-office.html"
+  to = "/services/trades-virtual-office"
+  status = 301
   force = true
 
 [[redirects]]

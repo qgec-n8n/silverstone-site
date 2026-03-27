@@ -7,90 +7,90 @@
   let activeHighlightedCard = null;
 
   const NICHE_MAP = {
-    '/niches/estate-agents': {
+    '/services/estate-agents': {
       label: 'Estate agents',
       atlasAnchor: '/pricing#pricing-atlas-real-estate',
       primaryAnchor: '/pricing#pricing-flagship-never-miss-a-viewing',
       packName: 'Never Miss a Viewing Pack',
-      nicheHref: '/niches/estate-agents',
+      nicheHref: '/services/estate-agents',
       pricingLabel: 'Compare estate pricing',
     },
-    '/niches/hospitality': {
+    '/services/hospitality': {
       label: 'Hospitality',
       atlasAnchor: '/pricing#pricing-atlas-hospitality',
       primaryAnchor: '/pricing#pricing-flagship-24-7-guest-concierge',
       packName: '24/7 Guest Concierge Bot',
-      nicheHref: '/niches/hospitality',
+      nicheHref: '/services/hospitality',
       pricingLabel: 'Compare hospitality pricing',
     },
-    '/niches/salons-barbers': {
+    '/services/salons-barbers': {
       label: 'Salons & barbers',
       atlasAnchor: '/pricing#pricing-atlas-salons',
       primaryAnchor: '/pricing#pricing-flagship-rebook-review',
       packName: 'Rebook & Review Pack',
-      nicheHref: '/niches/salons-barbers',
+      nicheHref: '/services/salons-barbers',
       pricingLabel: 'Compare salon pricing',
     },
-    '/niches/trades-virtual-office': {
+    '/services/trades-virtual-office': {
       label: 'Trades & field services',
       atlasAnchor: '/pricing#pricing-atlas-trades',
       primaryAnchor: '/pricing#pricing-flagship-trades-virtual-office',
       packName: 'Trades Virtual Office',
-      nicheHref: '/niches/trades-virtual-office',
+      nicheHref: '/services/trades-virtual-office',
       pricingLabel: 'Compare trades pricing',
     },
-    '/niches/ecommerce': {
+    '/services/ecommerce': {
       label: 'eCommerce',
       atlasAnchor: '/pricing#pricing-atlas-ecommerce',
       primaryAnchor: '/pricing#pricing-flagship-ecom-growth-engine',
       packName: 'E-com Growth Engine',
-      nicheHref: '/niches/ecommerce',
+      nicheHref: '/services/ecommerce',
       pricingLabel: 'Compare eCommerce pricing',
     },
-    '/niches/physios-chiropractors': {
+    '/services/physios-chiropractors': {
       label: 'Physios & chiropractors',
       atlasAnchor: '/pricing#pricing-atlas-physios-chiropractors',
       primaryAnchor: '/pricing#pricing-flagship-smart-intake',
       packName: 'Smart Intake Starter Pack',
-      nicheHref: '/niches/physios-chiropractors',
+      nicheHref: '/services/physios-chiropractors',
       pricingLabel: 'Compare clinic pricing',
     },
-    '/niches/dentists': {
+    '/services/dentists': {
       label: 'Dentists',
       atlasAnchor: '/pricing#pricing-atlas-dentists',
       primaryAnchor: '/pricing#pricing-flagship-recall-starter',
       packName: 'Recall Starter Pack',
-      nicheHref: '/niches/dentists',
+      nicheHref: '/services/dentists',
       pricingLabel: 'Compare dental pricing',
     },
-    '/niches/gyms-fitness-studios': {
+    '/services/gyms-fitness-studios': {
       label: 'Gyms & fitness studios',
       atlasAnchor: '/pricing#pricing-atlas-gym-owners',
       primaryAnchor: '/pricing#pricing-flagship-gym-growth-engine',
       packName: 'Gym Growth Engine',
-      nicheHref: '/niches/gyms-fitness-studios',
+      nicheHref: '/services/gyms-fitness-studios',
       pricingLabel: 'Compare gym pricing',
     },
-    '/niches/fitness-coaches': {
+    '/services/fitness-coaches': {
       label: 'Fitness coaches & creators',
       atlasAnchor: '/pricing#pricing-atlas-fitness-coaches',
       primaryAnchor: '/pricing#pricing-flagship-dm-to-lead',
       packName: 'DM to Lead Starter Pack',
-      nicheHref: '/niches/fitness-coaches',
+      nicheHref: '/services/fitness-coaches',
       pricingLabel: 'Compare creator pricing',
     },
   };
 
   const RECOMMENDER_ORDER = [
-    '/niches/estate-agents',
-    '/niches/hospitality',
-    '/niches/salons-barbers',
-    '/niches/trades-virtual-office',
-    '/niches/ecommerce',
-    '/niches/physios-chiropractors',
-    '/niches/dentists',
-    '/niches/gyms-fitness-studios',
-    '/niches/fitness-coaches',
+    '/services/estate-agents',
+    '/services/hospitality',
+    '/services/salons-barbers',
+    '/services/trades-virtual-office',
+    '/services/ecommerce',
+    '/services/physios-chiropractors',
+    '/services/dentists',
+    '/services/gyms-fitness-studios',
+    '/services/fitness-coaches',
   ];
 
   function normalizePathname(pathname) {

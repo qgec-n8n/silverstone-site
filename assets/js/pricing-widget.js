@@ -7874,7 +7874,6 @@ var SilverstonePricingWidget = (function (exports) {
     reactExports.useEffect(() => {
       const canvas = canvasRef.current;
       if (!canvas) return undefined;
-      const host = canvas.parentElement;
       let ctx = null;
       try {
         ctx = canvas.getContext("2d");
@@ -7908,7 +7907,7 @@ var SilverstonePricingWidget = (function (exports) {
         return list;
       };
       const resize = () => {
-        const rect = (host || canvas).getBoundingClientRect();
+        const rect = canvas.getBoundingClientRect();
         width = Math.max(1, rect.width);
         height = Math.max(1, rect.height);
         const dpr = window.devicePixelRatio || 1;
@@ -7947,7 +7946,7 @@ var SilverstonePricingWidget = (function (exports) {
       let intersectionObserver = null;
       if (typeof ResizeObserver !== "undefined") {
         resizeObserver = new ResizeObserver(resize);
-        resizeObserver.observe(host || canvas);
+        resizeObserver.observe(canvas);
       } else {
         window.addEventListener("resize", resize);
       }
@@ -8205,7 +8204,7 @@ var SilverstonePricingWidget = (function (exports) {
     const [billingMode, setBillingMode] = reactExports.useState("monthly");
     const isSection1 = sectionId === "1";
     const isPricingFlagshipSection = isSection1 && pageKey === "pricing.html";
-    const bookHref = pageKey.startsWith("niches/") ? "../book.html" : "book.html";
+    const bookHref = "/book";
     const defaultNiche = sectionData?.plans?.[0]?.niche || null;
     const [selectedNiche, setSelectedNiche] = reactExports.useState(defaultNiche);
     reactExports.useEffect(() => {
@@ -9705,7 +9704,7 @@ var SilverstonePricingWidget = (function (exports) {
   		]
   	}
   },
-  	"niches/estate-agents.html": {
+	"services/estate-agents.html": {
   	section1: {
   		title: "Book more viewings—without missing the first call.",
   		subtitle: "Pick a package based on how much of the enquiry → viewing → follow-up journey you want automated.",
@@ -9803,7 +9802,7 @@ var SilverstonePricingWidget = (function (exports) {
   		]
   	}
   },
-  	"niches/hospitality.html": {
+	"services/hospitality.html": {
   	section1: {
   		title: "Capture more bookings—even when you’re slammed.",
   		subtitle: "Choose the package that matches your biggest revenue leak: enquiries, no-shows, or guest experience.",
@@ -9901,7 +9900,7 @@ var SilverstonePricingWidget = (function (exports) {
   		]
   	}
   },
-  	"niches/salons-barbers.html": {
+	"services/salons-barbers.html": {
   	section1: {
   		title: "Fill chairs and reduce no-shows—on autopilot.",
   		subtitle: "Pick based on whether you need reminders, a full rebook+review system, or an all-in suite.",
@@ -9999,7 +9998,7 @@ var SilverstonePricingWidget = (function (exports) {
   		]
   	}
   },
-  	"niches/trades-virtual-office.html": {
+	"services/trades-virtual-office.html": {
   	section1: {
   		title: "Stop missing calls—and win better jobs.",
   		subtitle: "Choose the level of support you need: missed-call capture, full virtual office, or a managed growth system.",
@@ -10097,7 +10096,7 @@ var SilverstonePricingWidget = (function (exports) {
   		]
   	}
   },
-  	"niches/ecommerce.html": {
+	"services/ecommerce.html": {
   	section1: {
   		title: "Recover revenue and reduce support load.",
   		subtitle: "Choose the package that matches your growth lever: cart recovery, lifecycle automation, or premium analytics.",
@@ -10195,7 +10194,7 @@ var SilverstonePricingWidget = (function (exports) {
   		]
   	}
   },
-  	"niches/physios-chiropractors.html": {
+	"services/physios-chiropractors.html": {
   	section1: {
   		title: "Reduce admin and keep patients on plan.",
   		subtitle: "Choose the package that fixes your biggest leak: intake friction, adherence, or end-to-end clinic flow.",
@@ -10289,7 +10288,7 @@ var SilverstonePricingWidget = (function (exports) {
   		]
   	}
   },
-  	"niches/dentists.html": {
+	"services/dentists.html": {
   	section1: {
   		title: "Keep chairs full with recall and follow-up.",
   		subtitle: "Choose the package that matches your focus: hygiene recall, a starter bundle, or a premium optimisation suite.",
@@ -10383,7 +10382,7 @@ var SilverstonePricingWidget = (function (exports) {
   		]
   	}
   },
-  	"niches/gyms-fitness-studios.html": {
+	"services/gyms-fitness-studios.html": {
   	section1: {
   		title: "Convert more trials—and keep members longer.",
   		subtitle: "Choose the package that matches your biggest retention lever: reactivation, full growth automation, or premium optimisation.",
@@ -10477,7 +10476,7 @@ var SilverstonePricingWidget = (function (exports) {
   		]
   	}
   },
-  	"niches/fitness-coaches.html": {
+	"services/fitness-coaches.html": {
   	section1: {
   		title: "Turn DMs into paying clients—without living on your phone.",
   		subtitle: "Choose based on how much you want automated: DM triage, lead-to-onboarding, or an advanced creator suite.",

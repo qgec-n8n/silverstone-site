@@ -324,7 +324,7 @@ export default function PricingWidget({ pageKey, sectionData, sectionId }) {
   const [billingMode, setBillingMode] = useState("monthly");
   const isSection1 = sectionId === "1";
   const isPricingFlagshipSection = isSection1 && pageKey === "pricing.html";
-  const bookHref = pageKey.startsWith("niches/") ? "../book.html" : "book.html";
+  const bookHref = "/book";
   const defaultNiche = sectionData?.plans?.[0]?.niche || null;
   const [selectedNiche, setSelectedNiche] = useState(defaultNiche);
 

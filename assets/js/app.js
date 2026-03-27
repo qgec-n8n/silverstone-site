@@ -891,90 +891,90 @@
   let activeHighlightedCard = null;
 
   const NICHE_MAP = {
-    '/niches/estate-agents': {
+    '/services/estate-agents': {
       label: 'Estate agents',
       atlasAnchor: '/pricing#pricing-atlas-real-estate',
       primaryAnchor: '/pricing#pricing-flagship-never-miss-a-viewing',
       packName: 'Never Miss a Viewing Pack',
-      nicheHref: '/niches/estate-agents',
+      nicheHref: '/services/estate-agents',
       pricingLabel: 'Compare estate pricing',
     },
-    '/niches/hospitality': {
+    '/services/hospitality': {
       label: 'Hospitality',
       atlasAnchor: '/pricing#pricing-atlas-hospitality',
       primaryAnchor: '/pricing#pricing-flagship-24-7-guest-concierge',
       packName: '24/7 Guest Concierge Bot',
-      nicheHref: '/niches/hospitality',
+      nicheHref: '/services/hospitality',
       pricingLabel: 'Compare hospitality pricing',
     },
-    '/niches/salons-barbers': {
+    '/services/salons-barbers': {
       label: 'Salons & barbers',
       atlasAnchor: '/pricing#pricing-atlas-salons',
       primaryAnchor: '/pricing#pricing-flagship-rebook-review',
       packName: 'Rebook & Review Pack',
-      nicheHref: '/niches/salons-barbers',
+      nicheHref: '/services/salons-barbers',
       pricingLabel: 'Compare salon pricing',
     },
-    '/niches/trades-virtual-office': {
+    '/services/trades-virtual-office': {
       label: 'Trades & field services',
       atlasAnchor: '/pricing#pricing-atlas-trades',
       primaryAnchor: '/pricing#pricing-flagship-trades-virtual-office',
       packName: 'Trades Virtual Office',
-      nicheHref: '/niches/trades-virtual-office',
+      nicheHref: '/services/trades-virtual-office',
       pricingLabel: 'Compare trades pricing',
     },
-    '/niches/ecommerce': {
+    '/services/ecommerce': {
       label: 'eCommerce',
       atlasAnchor: '/pricing#pricing-atlas-ecommerce',
       primaryAnchor: '/pricing#pricing-flagship-ecom-growth-engine',
       packName: 'E-com Growth Engine',
-      nicheHref: '/niches/ecommerce',
+      nicheHref: '/services/ecommerce',
       pricingLabel: 'Compare eCommerce pricing',
     },
-    '/niches/physios-chiropractors': {
+    '/services/physios-chiropractors': {
       label: 'Physios & chiropractors',
       atlasAnchor: '/pricing#pricing-atlas-physios-chiropractors',
       primaryAnchor: '/pricing#pricing-flagship-smart-intake',
       packName: 'Smart Intake Starter Pack',
-      nicheHref: '/niches/physios-chiropractors',
+      nicheHref: '/services/physios-chiropractors',
       pricingLabel: 'Compare clinic pricing',
     },
-    '/niches/dentists': {
+    '/services/dentists': {
       label: 'Dentists',
       atlasAnchor: '/pricing#pricing-atlas-dentists',
       primaryAnchor: '/pricing#pricing-flagship-recall-starter',
       packName: 'Recall Starter Pack',
-      nicheHref: '/niches/dentists',
+      nicheHref: '/services/dentists',
       pricingLabel: 'Compare dental pricing',
     },
-    '/niches/gyms-fitness-studios': {
+    '/services/gyms-fitness-studios': {
       label: 'Gyms & fitness studios',
       atlasAnchor: '/pricing#pricing-atlas-gym-owners',
       primaryAnchor: '/pricing#pricing-flagship-gym-growth-engine',
       packName: 'Gym Growth Engine',
-      nicheHref: '/niches/gyms-fitness-studios',
+      nicheHref: '/services/gyms-fitness-studios',
       pricingLabel: 'Compare gym pricing',
     },
-    '/niches/fitness-coaches': {
+    '/services/fitness-coaches': {
       label: 'Fitness coaches & creators',
       atlasAnchor: '/pricing#pricing-atlas-fitness-coaches',
       primaryAnchor: '/pricing#pricing-flagship-dm-to-lead',
       packName: 'DM to Lead Starter Pack',
-      nicheHref: '/niches/fitness-coaches',
+      nicheHref: '/services/fitness-coaches',
       pricingLabel: 'Compare creator pricing',
     },
   };
 
   const RECOMMENDER_ORDER = [
-    '/niches/estate-agents',
-    '/niches/hospitality',
-    '/niches/salons-barbers',
-    '/niches/trades-virtual-office',
-    '/niches/ecommerce',
-    '/niches/physios-chiropractors',
-    '/niches/dentists',
-    '/niches/gyms-fitness-studios',
-    '/niches/fitness-coaches',
+    '/services/estate-agents',
+    '/services/hospitality',
+    '/services/salons-barbers',
+    '/services/trades-virtual-office',
+    '/services/ecommerce',
+    '/services/physios-chiropractors',
+    '/services/dentists',
+    '/services/gyms-fitness-studios',
+    '/services/fitness-coaches',
   ];
 
   function normalizePathname(pathname) {
@@ -1232,7 +1232,7 @@
   const MOBILE_BREAKPOINT = 780;
 
   const NICHE_CTA_MAP = {
-    '/niches/estate-agents': {
+    '/services/estate-agents': {
       eyebrow: 'Estate agent pricing',
       title: 'Compare estate pricing or book the audit.',
       copy: 'Jump straight to the real-estate pricing atlas, then scope the right branch workflow.',
@@ -1240,7 +1240,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Estate pricing',
     },
-    '/niches/hospitality': {
+    '/services/hospitality': {
       eyebrow: 'Hospitality pricing',
       title: 'Compare hospitality pricing or book the audit.',
       copy: 'Open the hospitality atlas card, then narrow down the guest-concierge or no-show fix.',
@@ -1248,7 +1248,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Hospitality pricing',
     },
-    '/niches/salons-barbers': {
+    '/services/salons-barbers': {
       eyebrow: 'Salon pricing',
       title: 'Compare salon pricing or book the audit.',
       copy: 'See the salon atlas card first, then scope the no-show or rebooking system that fits.',
@@ -1256,7 +1256,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Salon pricing',
     },
-    '/niches/trades-virtual-office': {
+    '/services/trades-virtual-office': {
       eyebrow: 'Trades pricing',
       title: 'Compare trades pricing or book the audit.',
       copy: 'Open the trades atlas card, then choose the fastest call, quote, or scheduling fix.',
@@ -1264,7 +1264,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Trades pricing',
     },
-    '/niches/ecommerce': {
+    '/services/ecommerce': {
       eyebrow: 'eCommerce pricing',
       title: 'Compare eCommerce pricing or book the audit.',
       copy: 'See the eCommerce atlas card before you choose a cart, support, or LTV workflow.',
@@ -1272,7 +1272,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'eCommerce pricing',
     },
-    '/niches/physios-chiropractors': {
+    '/services/physios-chiropractors': {
       eyebrow: 'Clinic pricing',
       title: 'Compare clinic pricing or book the audit.',
       copy: 'Open the clinic atlas card, then scope the intake or rebooking layer that pays back fastest.',
@@ -1280,7 +1280,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Clinic pricing',
     },
-    '/niches/dentists': {
+    '/services/dentists': {
       eyebrow: 'Dental pricing',
       title: 'Compare dental pricing or book the audit.',
       copy: 'See the dental atlas card first, then choose the recall or treatment follow-up route.',
@@ -1288,7 +1288,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Dental pricing',
     },
-    '/niches/gyms-fitness-studios': {
+    '/services/gyms-fitness-studios': {
       eyebrow: 'Gym pricing',
       title: 'Compare gym pricing or book the audit.',
       copy: 'Open the gym atlas card, then choose the member reactivation or class-fill system.',
@@ -1296,7 +1296,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Gym pricing',
     },
-    '/niches/fitness-coaches': {
+    '/services/fitness-coaches': {
       eyebrow: 'Creator pricing',
       title: 'Compare creator pricing or book the audit.',
       copy: 'See the creator atlas card before choosing your DM triage or onboarding workflow.',
@@ -3011,7 +3011,6 @@ document.addEventListener('DOMContentLoaded', () => {
     '/blog/post-purchase-automation-uk-ecommerce-repeat-customers': 'ecommerce',
     '/blog/quote-chase-automation-uk-trades-accepted-jobs-2026': 'trades',
     '/blog/quote-follow-up-automation-uk-trades-2026': 'trades',
-    '/blog/ai-quote-follow-up-trades': 'trades',
   };
 
   function normalizePathname(pathname) {

@@ -1115,7 +1115,7 @@
       ]
     }
   },
-  "niches/estate-agents.html": {
+  "services/estate-agents.html": {
     "section1": {
       "title": "Book more viewings—without missing the first call.",
       "subtitle": "Pick a package based on how much of the enquiry → viewing → follow-up journey you want automated.",
@@ -1213,7 +1213,7 @@
       ]
     }
   },
-  "niches/hospitality.html": {
+  "services/hospitality.html": {
     "section1": {
       "title": "Capture more bookings—even when you’re slammed.",
       "subtitle": "Choose the package that matches your biggest revenue leak: enquiries, no-shows, or guest experience.",
@@ -1311,7 +1311,7 @@
       ]
     }
   },
-  "niches/salons-barbers.html": {
+  "services/salons-barbers.html": {
     "section1": {
       "title": "Fill chairs and reduce no-shows—on autopilot.",
       "subtitle": "Pick based on whether you need reminders, a full rebook+review system, or an all-in suite.",
@@ -1409,7 +1409,7 @@
       ]
     }
   },
-  "niches/trades-virtual-office.html": {
+  "services/trades-virtual-office.html": {
     "section1": {
       "title": "Stop missing calls—and win better jobs.",
       "subtitle": "Choose the level of support you need: missed-call capture, full virtual office, or a managed growth system.",
@@ -1507,7 +1507,7 @@
       ]
     }
   },
-  "niches/ecommerce.html": {
+  "services/ecommerce.html": {
     "section1": {
       "title": "Recover revenue and reduce support load.",
       "subtitle": "Choose the package that matches your growth lever: cart recovery, lifecycle automation, or premium analytics.",
@@ -1605,7 +1605,7 @@
       ]
     }
   },
-  "niches/physios-chiropractors.html": {
+  "services/physios-chiropractors.html": {
     "section1": {
       "title": "Reduce admin and keep patients on plan.",
       "subtitle": "Choose the package that fixes your biggest leak: intake friction, adherence, or end-to-end clinic flow.",
@@ -1699,7 +1699,7 @@
       ]
     }
   },
-  "niches/dentists.html": {
+  "services/dentists.html": {
     "section1": {
       "title": "Keep chairs full with recall and follow-up.",
       "subtitle": "Choose the package that matches your focus: hygiene recall, a starter bundle, or a premium optimisation suite.",
@@ -1793,7 +1793,7 @@
       ]
     }
   },
-  "niches/gyms-fitness-studios.html": {
+  "services/gyms-fitness-studios.html": {
     "section1": {
       "title": "Convert more trials—and keep members longer.",
       "subtitle": "Choose the package that matches your biggest retention lever: reactivation, full growth automation, or premium optimisation.",
@@ -1887,7 +1887,7 @@
       ]
     }
   },
-  "niches/fitness-coaches.html": {
+  "services/fitness-coaches.html": {
     "section1": {
       "title": "Turn DMs into paying clients—without living on your phone.",
       "subtitle": "Choose based on how much you want automated: DM triage, lead-to-onboarding, or an advanced creator suite.",

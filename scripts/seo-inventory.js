@@ -59,7 +59,7 @@ const STATIC_PAGES = [
   },
 ];
 
-const GROUP_ORDER = ["main", "blog", "niches", "legal"];
+const GROUP_ORDER = ["main", "blog", "services", "legal"];
 
 function normalizeUrl(url) {
   return url.replace(/\/$/, "");
@@ -91,11 +91,11 @@ function readHtmlDirectory(repoRoot, directoryName, canonicalDirectoryName, grou
 }
 
 function getIndexedPages(repoRoot = path.resolve(__dirname, "..")) {
-  const nichePages = readHtmlDirectory(
+  const servicePages = readHtmlDirectory(
     repoRoot,
-    "niches",
     "services",
-    "niches",
+    "services",
+    "services",
     ["WebPage", "Service", "BreadcrumbList"]
   );
   const blogPages = readHtmlDirectory(
@@ -106,14 +106,14 @@ function getIndexedPages(repoRoot = path.resolve(__dirname, "..")) {
     ["BlogPosting", "BreadcrumbList"]
   );
 
-  return [...STATIC_PAGES, ...nichePages, ...blogPages];
+  return [...STATIC_PAGES, ...servicePages, ...blogPages];
 }
 
 function getPagesByGroup(repoRoot = path.resolve(__dirname, "..")) {
   const grouped = {
     main: [],
     blog: [],
-    niches: [],
+    services: [],
     legal: [],
   };
 
