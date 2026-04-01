@@ -34,7 +34,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Salon pricing',
     },
-    '/services/trades-virtual-office': {
+    '/services/trades': {
       eyebrow: 'Trades pricing',
       title: 'Compare trades pricing or book the audit.',
       copy: 'Open the trades atlas card, then choose the fastest call, quote, or scheduling fix.',

@@ -25,6 +25,18 @@ const staticIndexedPages = indexedPages.filter((page) => !page.file.startsWith("
 const indexedFileSet = new Set(indexedPages.map((page) => page.file));
 const requiredServicePaths = groupedPages.services.map((page) => canonicalPath(page.canonical));
 const requiredBlogPaths = blogPages.map((page) => canonicalPath(page.canonical));
+const serviceDirectoryPaths = [
+  "/services/estate-agents",
+  "/services/hospitality",
+  "/services/salons-barbers",
+  "/services/trades",
+  "/services/ecommerce",
+  "/services/physios-chiropractors",
+  "/services/dentists",
+  "/services/gyms-fitness-studios",
+  "/services/fitness-coaches",
+];
+const serviceItemListUrls = serviceDirectoryPaths.map((href) => `https://silverstone-ai.com${href}`);
 const nonServiceCorePages = ["about.html", "blog.html", "book.html", "contact.html"];
 const { artifacts: expectedSitemapArtifacts, sitemapEntries: expectedSitemapEntries } =
   buildSitemapArtifacts(repoRoot);
@@ -117,6 +129,19 @@ function parseRedirects(netlifyToml) {
 
 function getServiceSlug(page) {
   return path.posix.basename(page.file, ".html");
+}
+
+function getLegacyServiceRedirects(page) {
+  const slug = getServiceSlug(page);
+  if (slug === "trades") {
+    return [
+      "/niches/trades-virtual-office.html",
+      "/niches/trades-virtual-office",
+      "/services/trades-virtual-office.html",
+      "/services/trades-virtual-office",
+    ];
+  }
+  return [`/niches/${slug}.html`, `/niches/${slug}`];
 }
 
 const errors = [];
@@ -293,26 +318,16 @@ for (const page of indexedPages) {
 }
 
 for (const page of groupedPages.services) {
-  const slug = getServiceSlug(page);
   const expectedTo = canonicalPath(page.canonical);
-  const legacyHtmlPath = `/niches/${slug}.html`;
-  const legacyHtmlRedirect = redirects.get(legacyHtmlPath);
-  if (!legacyHtmlRedirect) {
-    errors.push(`netlify.toml: missing redirect for ${legacyHtmlPath}`);
-  } else if (legacyHtmlRedirect.to !== expectedTo || legacyHtmlRedirect.status !== "301") {
-    errors.push(
-      `netlify.toml: redirect mismatch for ${legacyHtmlPath} (expected 301 -> ${expectedTo}, found ${legacyHtmlRedirect.status || "?"} -> ${legacyHtmlRedirect.to || "?"})`
-    );
-  }
-
-  const legacyCleanPath = `/niches/${slug}`;
-  const legacyCleanRedirect = redirects.get(legacyCleanPath);
-  if (!legacyCleanRedirect) {
-    errors.push(`netlify.toml: missing redirect for ${legacyCleanPath}`);
-  } else if (legacyCleanRedirect.to !== expectedTo || legacyCleanRedirect.status !== "301") {
-    errors.push(
-      `netlify.toml: redirect mismatch for ${legacyCleanPath} (expected 301 -> ${expectedTo}, found ${legacyCleanRedirect.status || "?"} -> ${legacyCleanRedirect.to || "?"})`
-    );
+  for (const legacyPath of getLegacyServiceRedirects(page)) {
+    const redirect = redirects.get(legacyPath);
+    if (!redirect) {
+      errors.push(`netlify.toml: missing redirect for ${legacyPath}`);
+    } else if (redirect.to !== expectedTo || redirect.status !== "301") {
+      errors.push(
+        `netlify.toml: redirect mismatch for ${legacyPath} (expected 301 -> ${expectedTo}, found ${redirect.status || "?"} -> ${redirect.to || "?"})`
+      );
+    }
   }
 
   const canonicalRoute = redirects.get(expectedTo);
@@ -332,6 +347,7 @@ for (const page of indexedPages) {
   const isServiceDetailPage = page.file.startsWith("services/");
   const ctaLinkList = extractFirst(html, /(<div class="cta-link-list">[\s\S]*?<\/div>)/i);
   const ctaLinks = ctaLinkList ? collectInternalLinks(ctaLinkList, page.file) : [];
+  const heroBreadcrumb = extractFirst(html, /(<nav class="hero-breadcrumb"[\s\S]*?<\/nav>)/i);
 
   const canonical = extractFirst(
     html,
@@ -438,6 +454,10 @@ for (const page of indexedPages) {
     }
   }
 
+  if ((page.file === "services.html" || isServiceDetailPage) && !heroBreadcrumb) {
+    errors.push(`${page.file}: missing visible hero breadcrumb HTML`);
+  }
+
   if (isBlogArticle) {
     if (!/"name"\s*:\s*"Silverstone AI"/.test(html)) {
       errors.push(`${page.file}: blog structured data must use "Silverstone AI" as publisher/author`);
@@ -478,6 +498,10 @@ for (const page of indexedPages) {
   }
 
   if (isServiceDetailPage) {
+    const relUp = extractFirst(
+      html,
+      /<link[^>]*rel=["']up["'][^>]*href=["']([^"']+)["'][^>]*>/i
+    );
     if (!ctaLinkList) {
       errors.push(`${page.file}: missing contextual cta-link-list block`);
     }
@@ -489,6 +513,18 @@ for (const page of indexedPages) {
     }
     if (!ctaLinks.some((href) => href.startsWith("/blog/"))) {
       errors.push(`${page.file}: cta-link-list should include at least one /blog/ guide`);
+    }
+    if (normalizeUrl(relUp) !== "https://silverstone-ai.com/services") {
+      errors.push(`${page.file}: rel="up" must point to https://silverstone-ai.com/services`);
+    }
+    if (heroBreadcrumb && !heroBreadcrumb.includes('href="/services"')) {
+      errors.push(`${page.file}: breadcrumb should link back to /services`);
+    }
+    if (!/"isPartOf"\s*:\s*\{\s*"@id"\s*:\s*"https:\/\/silverstone-ai\.com\/services#webpage"/.test(html)) {
+      errors.push(`${page.file}: page schema should reference the /services hub via isPartOf`);
+    }
+    if (!/"mainEntityOfPage"\s*:\s*\{/.test(html)) {
+      errors.push(`${page.file}: service schema is missing mainEntityOfPage`);
     }
   }
 }
@@ -502,9 +538,13 @@ const servicesGuidesSection = extractFirst(
   servicesHtml,
   /(<section id="service-supporting-guides"[\s\S]*?<\/section>)/i
 );
+const servicesItemListBlock = extractFirst(
+  servicesHtml,
+  /(<script type="application\/ld\+json">[\s\S]*?"@id": "https:\/\/silverstone-ai\.com\/services#itemlist"[\s\S]*?<\/script>)/i
+);
 
 if (!servicesNicheSection) {
-  errors.push("services.html: missing niche services resources section");
+  errors.push("services.html: missing industry services directory section");
 }
 if (!servicesGuidesSection) {
   errors.push("services.html: missing supporting guides resources section");
@@ -513,20 +553,37 @@ if (servicesNicheSection && servicesGuidesSection) {
   const nichePosition = servicesHtml.indexOf('id="service-page-clusters"');
   const guidesPosition = servicesHtml.indexOf('id="service-supporting-guides"');
   if (nichePosition > guidesPosition) {
-    errors.push("services.html: niche resources section must appear before supporting guides section");
+    errors.push("services.html: industry directory section must appear before supporting guides section");
   }
 
   const nicheLinks = collectInternalLinks(servicesNicheSection, "services.html");
   const guideLinks = collectInternalLinks(servicesGuidesSection, "services.html");
-  for (const requiredPath of requiredServicePaths) {
+  for (const requiredPath of serviceDirectoryPaths) {
     if (!nicheLinks.includes(requiredPath)) {
-      errors.push(`services.html: niche resources section is missing ${requiredPath}`);
+      errors.push(`services.html: industry directory section is missing ${requiredPath}`);
     }
   }
   for (const requiredPath of requiredBlogPaths) {
     if (!guideLinks.includes(requiredPath)) {
       errors.push(`services.html: supporting guides section is missing ${requiredPath}`);
     }
+  }
+}
+if (!servicesItemListBlock) {
+  errors.push("services.html: missing services ItemList JSON-LD block");
+} else {
+  let previousIndex = -1;
+  for (const expectedUrl of serviceItemListUrls) {
+    const currentIndex = servicesItemListBlock.indexOf(expectedUrl);
+    if (currentIndex === -1) {
+      errors.push(`services.html: ItemList is missing ${expectedUrl}`);
+      continue;
+    }
+    if (currentIndex < previousIndex) {
+      errors.push("services.html: ItemList URLs are not in the visible industry order");
+      break;
+    }
+    previousIndex = currentIndex;
   }
 }
 
@@ -574,14 +631,46 @@ if (
 ) {
   errors.push("index.html: missing homepage bg-lines parallax section before #what-we-automate");
 }
+const indexIndustryDirectory = extractFirst(
+  indexHtml,
+  /(<section id="industry-service-directory"[\s\S]*?<\/section>)/i
+);
+if (!indexIndustryDirectory) {
+  errors.push("index.html: missing industry service directory section");
+} else {
+  const directoryLinks = collectInternalLinks(indexIndustryDirectory, "index.html");
+  for (const href of serviceDirectoryPaths) {
+    if (!directoryLinks.includes(href)) {
+      errors.push(`index.html: industry service directory is missing ${href}`);
+    }
+  }
+}
+
+const blogHubHtml = readFile("blog.html");
+const blogIndustryStart = blogHubHtml.indexOf('id="blog-industry-directory"');
+const blogGridStart = blogHubHtml.indexOf('<div class="blog-grid">');
+const blogIndustryDirectory =
+  blogIndustryStart !== -1 && blogGridStart !== -1 && blogIndustryStart < blogGridStart
+    ? blogHubHtml.slice(blogIndustryStart, blogGridStart)
+    : "";
+if (!blogIndustryDirectory) {
+  errors.push("blog.html: missing blog industry directory block");
+} else {
+  const directoryLinks = collectInternalLinks(blogIndustryDirectory, "blog.html");
+  for (const href of serviceDirectoryPaths) {
+    if (!directoryLinks.includes(href)) {
+      errors.push(`blog.html: industry directory is missing ${href}`);
+    }
+  }
+}
 
 for (const relPath of nonServiceCorePages) {
   const html = readFile(relPath);
   if (!/class="nav-dropdown"/.test(html)) {
-    errors.push(`${relPath}: missing the checked-in Niches dropdown pattern`);
+    errors.push(`${relPath}: missing the checked-in Industries dropdown pattern`);
   }
   if (!/class="services-overlay"/.test(html)) {
-    errors.push(`${relPath}: missing the checked-in Niches overlay pattern`);
+    errors.push(`${relPath}: missing the checked-in Industries overlay pattern`);
   }
   if (!/href="\/services\//.test(html)) {
     errors.push(`${relPath}: missing checked-in direct service links`);
@@ -591,10 +680,10 @@ for (const relPath of nonServiceCorePages) {
 for (const page of blogPages) {
   const html = readFile(page.file);
   if (!/class="nav-dropdown"/.test(html)) {
-    errors.push(`${page.file}: missing the checked-in Niches dropdown pattern`);
+    errors.push(`${page.file}: missing the checked-in Industries dropdown pattern`);
   }
   if (!/class="services-overlay"/.test(html)) {
-    errors.push(`${page.file}: missing the checked-in Niches overlay pattern`);
+    errors.push(`${page.file}: missing the checked-in Industries overlay pattern`);
   }
   if (!/href="\/services\//.test(html)) {
     errors.push(`${page.file}: missing checked-in direct service links`);

@@ -176,16 +176,16 @@
           <li><a href="/services">Services</a></li>
           <li class="nav-dropdown">
             <div class="services-trigger">
-              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open niches submenu">
-                <span class="services-label">Niches</span>
+              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open industries submenu">
+                <span class="services-label">Industries</span>
                 <span class="chevron" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="services-menu" aria-label="Niches submenu" aria-hidden="true">
+            <div class="services-menu" aria-label="Industries submenu" aria-hidden="true">
               <a class="service-link" href="/services/estate-agents">Estate Agents</a>
               <a class="service-link" href="/services/hospitality">Hospitality</a>
               <a class="service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-              <a class="service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+              <a class="service-link" href="/services/trades">Trades</a>
               <a class="service-link" href="/services/ecommerce">eCommerce Brands</a>
               <a class="service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
               <a class="service-link" href="/services/dentists">Dentists</a>
@@ -204,9 +204,9 @@
     <div class="services-overlay" aria-hidden="true">
     <div class="services-overlay__panel">
       <div class="services-overlay__header">
-        <button class="services-overlay__back" type="button" aria-label="Close niches overlay">Back to menu</button>
+        <button class="services-overlay__back" type="button" aria-label="Close industries overlay">Back to menu</button>
         <div class="services-overlay__title">
-          <span class="services-label">Niches</span>
+          <span class="services-label">Industries</span>
           <span class="chevron" aria-hidden="true"></span>
         </div>
       </div>
@@ -214,7 +214,7 @@
         <a class="service-pill service-link" href="/services/estate-agents">Estate Agents</a>
         <a class="service-pill service-link" href="/services/hospitality">Hospitality</a>
         <a class="service-pill service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-        <a class="service-pill service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+        <a class="service-pill service-link" href="/services/trades">Trades</a>
         <a class="service-pill service-link" href="/services/ecommerce">eCommerce Brands</a>
         <a class="service-pill service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
         <a class="service-pill service-link" href="/services/dentists">Dentists</a>
@@ -266,7 +266,7 @@
           <a href="/pricing" class="primary-site-link">
             <span class="primary-site-link__kicker">03</span>
             <span class="primary-site-link__title">Pricing</span>
-            <span class="primary-site-link__copy">Compare flagship packs, niche bundles, and smaller fixes before you book.</span>
+            <span class="primary-site-link__copy">Compare flagship packs, industry bundles, and smaller fixes before you book.</span>
           </a>
           <a href="/blog" class="primary-site-link">
             <span class="primary-site-link__kicker">04</span>
@@ -282,6 +282,64 @@
             <span class="primary-site-link__kicker">06</span>
             <span class="primary-site-link__title">Contact</span>
             <span class="primary-site-link__copy">Start a conversation before you book anything formal.</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </section>
+  <section id="industry-service-directory" class="section bg-circuit animate parallax-section compact-section" data-parallax-theme="book">
+    <div class="container">
+      <div class="industry-directory-shell neon-card">
+        <div class="industry-directory-shell__header">
+          <span class="industry-directory-shell__eyebrow">Browse services by industry</span>
+          <h2 class="section-title industry-directory-shell__title">Go straight to the service page that matches your business.</h2>
+          <p class="section-subtitle industry-directory-shell__subtitle">These are the nine industry pages Google should discover directly from the homepage, each with the relevant pack, use cases, and supporting guides.</p>
+        </div>
+        <nav aria-label="Industry service pages" class="industry-directory-grid">
+          <a class="industry-directory-card" href="/services/estate-agents">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-house"></i></span>
+            <span class="industry-directory-card__title">Estate Agent Automation</span>
+            <span class="industry-directory-card__copy">Lead capture, viewings, feedback, and vendor updates.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/hospitality">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-utensils"></i></span>
+            <span class="industry-directory-card__title">Hospitality Automation</span>
+            <span class="industry-directory-card__copy">Guest questions, booking follow-up, reminders, and reviews.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/salons-barbers">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-scissors"></i></span>
+            <span class="industry-directory-card__title">Salon &amp; Barber Automation</span>
+            <span class="industry-directory-card__copy">No-show reduction, rebooking, reviews, and gap-filling.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/trades">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
+            <span class="industry-directory-card__title">Trades Automation</span>
+            <span class="industry-directory-card__copy">Missed calls, job triage, quote follow-up, and ETAs.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/ecommerce">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+            <span class="industry-directory-card__title">eCommerce Automation</span>
+            <span class="industry-directory-card__copy">Cart recovery, support triage, returns, and repeat purchase.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/physios-chiropractors">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-notes-medical"></i></span>
+            <span class="industry-directory-card__title">Clinic Automation</span>
+            <span class="industry-directory-card__copy">Intake, reminders, rebooking, and care-plan follow-up.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/dentists">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-tooth"></i></span>
+            <span class="industry-directory-card__title">Dental Automation</span>
+            <span class="industry-directory-card__copy">Missed-call recovery, recalls, hygiene fill, and follow-up.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/gyms-fitness-studios">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-dumbbell"></i></span>
+            <span class="industry-directory-card__title">Gym &amp; Studio Automation</span>
+            <span class="industry-directory-card__copy">Class fill, cancellations, win-back, and member retention.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/fitness-coaches">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+            <span class="industry-directory-card__title">Fitness Coach Automation</span>
+            <span class="industry-directory-card__copy">DMs, lead scoring, onboarding, and nurture.</span>
           </a>
         </nav>
       </div>
@@ -527,11 +585,11 @@
             <span class="primary-site-links-card__eyebrow">Pricing hub</span>
             <h2 class="section-title primary-site-links-card__title">Compare every automation pack before you book.</h2>
             <p class="section-subtitle primary-site-links-card__subtitle">
-              Compare flagship packs, niche bundles, and smaller modules in one place before you book.
+              Compare flagship packs, industry bundles, and smaller modules in one place before you book.
             </p>
             <div class="cta-buttons" style="justify-content: center; margin-top: 1.5rem;">
               <a href="/pricing" class="btn btn-primary">View Full Pricing</a>
-              <a href="/pricing#pricing-atlas" class="btn btn-secondary">Compare Niche Packs</a>
+              <a href="/pricing#pricing-atlas" class="btn btn-secondary">Compare Industry Packs</a>
             </div>
           </div>
         </div>
@@ -578,7 +636,7 @@
             <summary>How much does an AI automation agency cost?</summary>
             <p>
               Most projects start with a one-time setup fee plus monthly support. You can now review representative
-              pricing across flagship packs, niche bundles, and smaller modules on our <a href="/pricing">pricing page</a>,
+              pricing across flagship packs, industry bundles, and smaller modules on our <a href="/pricing">pricing page</a>,
               then book an audit for a scoped recommendation.
             </p>
           </details>

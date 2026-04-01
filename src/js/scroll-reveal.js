@@ -105,6 +105,8 @@
       addGroup(Array.from(document.querySelectorAll('.page-home .features .feature-card')));
       addGroup(Array.from(document.querySelectorAll('.page-home .primary-site-links-grid .primary-site-link')));
       addGroup(Array.from(document.querySelectorAll('.page-home #primary-site-links .primary-site-links-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #industry-service-directory .industry-directory-shell')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #industry-service-directory .industry-directory-card')));
       addGroup(Array.from(document.querySelectorAll('.page-home #pricing .primary-site-links-card')));
       addGroup(Array.from(document.querySelectorAll('.page-home #what-we-automate .service-tile')));
       addGroup(Array.from(document.querySelectorAll('.page-home .proof-grid .proof-card')));
@@ -148,8 +150,8 @@
         );
       });
       addGroup(Array.from(document.querySelectorAll('.page-services .commercial-pathway')));
-      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .services-resource-shell')));
-      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .services-resource-list--niches > li')));
+      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .industry-directory-shell')));
+      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .industry-directory-card')));
       document.querySelectorAll('.page-services .values').forEach((container) => {
         addHeadingPairBefore(container);
         addGroup(directChildren(container, ':scope > .value-card'));
@@ -189,6 +191,8 @@
     }
 
     if (body.classList.contains('page-blog')) {
+      addGroup(Array.from(document.querySelectorAll('.page-blog #blog-industry-directory')));
+      addGroup(Array.from(document.querySelectorAll('.page-blog #blog-industry-directory .industry-directory-card')));
       addGroup(Array.from(document.querySelectorAll('.page-blog .section.brand-gradient .cta-card')));
     }
 

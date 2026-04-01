@@ -116,7 +116,7 @@
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'mobile-nav-link mobile-nav-link--drill';
-          btn.textContent = '← Niches';
+          btn.textContent = '← Industries';
           btn.addEventListener('click', () => {
             openMobileNav();
             openServicesPanel();
@@ -518,9 +518,9 @@
             <div class="mobile-nav-view mobile-nav-view--root" aria-label="Main navigation">
               <ul class="mobile-nav-list mobile-nav-list--root"></ul>
             </div>
-            <div class="mobile-nav-view mobile-nav-view--services" aria-label="Niches navigation">
+            <div class="mobile-nav-view mobile-nav-view--services" aria-label="Industries navigation">
               <div class="mobile-nav-subhead">
-                <p class="mobile-nav-kicker">Niches</p>
+                <p class="mobile-nav-kicker">Industries</p>
               </div>
               <ul class="mobile-nav-list mobile-nav-list--services"></ul>
             </div>
@@ -643,6 +643,8 @@
       addGroup(Array.from(document.querySelectorAll('.page-home .features .feature-card')));
       addGroup(Array.from(document.querySelectorAll('.page-home .primary-site-links-grid .primary-site-link')));
       addGroup(Array.from(document.querySelectorAll('.page-home #primary-site-links .primary-site-links-card')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #industry-service-directory .industry-directory-shell')));
+      addGroup(Array.from(document.querySelectorAll('.page-home #industry-service-directory .industry-directory-card')));
       addGroup(Array.from(document.querySelectorAll('.page-home #pricing .primary-site-links-card')));
       addGroup(Array.from(document.querySelectorAll('.page-home #what-we-automate .service-tile')));
       addGroup(Array.from(document.querySelectorAll('.page-home .proof-grid .proof-card')));
@@ -686,8 +688,8 @@
         );
       });
       addGroup(Array.from(document.querySelectorAll('.page-services .commercial-pathway')));
-      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .services-resource-shell')));
-      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .services-resource-list--niches > li')));
+      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .industry-directory-shell')));
+      addGroup(Array.from(document.querySelectorAll('#service-page-clusters .industry-directory-card')));
       document.querySelectorAll('.page-services .values').forEach((container) => {
         addHeadingPairBefore(container);
         addGroup(directChildren(container, ':scope > .value-card'));
@@ -727,6 +729,8 @@
     }
 
     if (body.classList.contains('page-blog')) {
+      addGroup(Array.from(document.querySelectorAll('.page-blog #blog-industry-directory')));
+      addGroup(Array.from(document.querySelectorAll('.page-blog #blog-industry-directory .industry-directory-card')));
       addGroup(Array.from(document.querySelectorAll('.page-blog .section.brand-gradient .cta-card')));
     }
 
@@ -915,12 +919,12 @@
       nicheHref: '/services/salons-barbers',
       pricingLabel: 'Compare salon pricing',
     },
-    '/services/trades-virtual-office': {
-      label: 'Trades & field services',
+    '/services/trades': {
+      label: 'Trades',
       atlasAnchor: '/pricing#pricing-atlas-trades',
-      primaryAnchor: '/pricing#pricing-flagship-trades-virtual-office',
-      packName: 'Trades Virtual Office',
-      nicheHref: '/services/trades-virtual-office',
+      primaryAnchor: '/pricing#pricing-flagship-trades',
+      packName: 'Trades Pack',
+      nicheHref: '/services/trades',
       pricingLabel: 'Compare trades pricing',
     },
     '/services/ecommerce': {
@@ -969,7 +973,7 @@
     '/services/estate-agents',
     '/services/hospitality',
     '/services/salons-barbers',
-    '/services/trades-virtual-office',
+    '/services/trades',
     '/services/ecommerce',
     '/services/physios-chiropractors',
     '/services/dentists',
@@ -1137,9 +1141,9 @@
           <div class="pricing-recommender__panel">
             <span class="pricing-recommender__eyebrow">Pricing recommender</span>
             <h3 class="pricing-recommender__title">Point me to the right pricing card.</h3>
-            <p class="pricing-recommender__copy">Choose your niche, then pick the fastest starting pack or the full range.</p>
+            <p class="pricing-recommender__copy">Choose your industry, then pick the fastest starting pack or the full range.</p>
             <div class="pricing-recommender__step">
-              <span class="pricing-recommender__step-label">1. Choose your niche</span>
+              <span class="pricing-recommender__step-label">1. Choose your industry</span>
               <div class="pricing-recommender__choices pricing-recommender__choices--niches">
                 ${RECOMMENDER_ORDER.map((path) => {
                   const entry = resolveNicheConfig(path);
@@ -1256,7 +1260,7 @@
       secondaryLabel: 'See pricing',
       launcherLabel: 'Salon pricing',
     },
-    '/services/trades-virtual-office': {
+    '/services/trades': {
       eyebrow: 'Trades pricing',
       title: 'Compare trades pricing or book the audit.',
       copy: 'Open the trades atlas card, then choose the fastest call, quote, or scheduling fix.',

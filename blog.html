@@ -118,16 +118,16 @@
           <li><a href="/services">Services</a></li>
           <li class="nav-dropdown">
             <div class="services-trigger">
-              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open niches submenu">
-                <span class="services-label">Niches</span>
+              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open industries submenu">
+                <span class="services-label">Industries</span>
                 <span class="chevron" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="services-menu" aria-label="Niches submenu" aria-hidden="true">
+            <div class="services-menu" aria-label="Industries submenu" aria-hidden="true">
               <a class="service-link" href="/services/estate-agents">Estate Agents</a>
               <a class="service-link" href="/services/hospitality">Hospitality</a>
               <a class="service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-              <a class="service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+              <a class="service-link" href="/services/trades">Trades</a>
               <a class="service-link" href="/services/ecommerce">eCommerce Brands</a>
               <a class="service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
               <a class="service-link" href="/services/dentists">Dentists</a>
@@ -146,9 +146,9 @@
   <div class="services-overlay" aria-hidden="true">
     <div class="services-overlay__panel">
       <div class="services-overlay__header">
-        <button class="services-overlay__back" type="button" aria-label="Close niches overlay">Back to menu</button>
+        <button class="services-overlay__back" type="button" aria-label="Close industries overlay">Back to menu</button>
         <div class="services-overlay__title">
-          <span class="services-label">Niches</span>
+          <span class="services-label">Industries</span>
           <span class="chevron" aria-hidden="true"></span>
         </div>
       </div>
@@ -156,7 +156,7 @@
         <a class="service-pill service-link" href="/services/estate-agents">Estate Agents</a>
         <a class="service-pill service-link" href="/services/hospitality">Hospitality</a>
         <a class="service-pill service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-        <a class="service-pill service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+        <a class="service-pill service-link" href="/services/trades">Trades</a>
         <a class="service-pill service-link" href="/services/ecommerce">eCommerce Brands</a>
         <a class="service-pill service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
         <a class="service-pill service-link" href="/services/dentists">Dentists</a>
@@ -189,6 +189,61 @@
           the workflows that rescue revenue, reduce admin, and improve response quality without forcing
           teams into sweeping, risky change.
         </p>
+      </div>
+
+      <div id="blog-industry-directory" class="industry-directory-shell neon-card">
+        <div class="industry-directory-shell__header">
+          <span class="industry-directory-shell__eyebrow">Browse services by industry</span>
+          <h2 class="section-title industry-directory-shell__title">Jump from guides into the matching service page.</h2>
+          <p class="section-subtitle industry-directory-shell__subtitle">Use the directory below when you want the commercial page for the same industry, not just the educational guide.</p>
+        </div>
+        <nav aria-label="Industry service pages" class="industry-directory-grid">
+          <a class="industry-directory-card" href="/services/estate-agents">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-house"></i></span>
+            <span class="industry-directory-card__title">Estate Agents</span>
+            <span class="industry-directory-card__copy">Lead capture, viewings, feedback, and vendor follow-up.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/hospitality">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-utensils"></i></span>
+            <span class="industry-directory-card__title">Hospitality</span>
+            <span class="industry-directory-card__copy">Guest questions, booking follow-up, reminders, and reviews.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/salons-barbers">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-scissors"></i></span>
+            <span class="industry-directory-card__title">Salons &amp; Barbers</span>
+            <span class="industry-directory-card__copy">No-show reduction, rebooking, reviews, and gap-filling.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/trades">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
+            <span class="industry-directory-card__title">Trades</span>
+            <span class="industry-directory-card__copy">Missed calls, job triage, quote follow-up, and ETAs.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/ecommerce">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+            <span class="industry-directory-card__title">eCommerce Brands</span>
+            <span class="industry-directory-card__copy">Cart recovery, support triage, returns, and repeat purchase.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/physios-chiropractors">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-notes-medical"></i></span>
+            <span class="industry-directory-card__title">Physios &amp; Chiropractors</span>
+            <span class="industry-directory-card__copy">Intake, reminders, rebooking, and care-plan follow-up.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/dentists">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-tooth"></i></span>
+            <span class="industry-directory-card__title">Dentists</span>
+            <span class="industry-directory-card__copy">Missed-call recovery, recalls, hygiene fill, and follow-up.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/gyms-fitness-studios">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-dumbbell"></i></span>
+            <span class="industry-directory-card__title">Gyms &amp; Fitness Studios</span>
+            <span class="industry-directory-card__copy">Class fill, cancellations, win-back, and member retention.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/fitness-coaches">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+            <span class="industry-directory-card__title">Fitness Coaches</span>
+            <span class="industry-directory-card__copy">DMs, lead scoring, onboarding, and nurture.</span>
+          </a>
+        </nav>
       </div>
 
       <div class="blog-grid">

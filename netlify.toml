@@ -100,7 +100,7 @@
 
 [[redirects]]
   from = "/niches/trades-virtual-office.html"
-  to = "/services/trades-virtual-office"
+  to = "/services/trades"
   status = 301
   force = true
 
@@ -154,7 +154,7 @@
 
 [[redirects]]
   from = "/niches/trades-virtual-office"
-  to = "/services/trades-virtual-office"
+  to = "/services/trades"
   status = 301
   force = true
 
@@ -208,7 +208,19 @@
 
 [[redirects]]
   from = "/services/trades-virtual-office.html"
-  to = "/services/trades-virtual-office"
+  to = "/services/trades"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/trades-virtual-office"
+  to = "/services/trades"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/trades.html"
+  to = "/services/trades"
   status = 301
   force = true
 

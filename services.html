@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>AI Automation Services | Silverstone AI</title>
-    <meta name="description" content="Explore Silverstone AI services for UK SMEs: AI call handling, lead follow-up, bookings, reminders, and workflow automation." />
+  <title>AI Automation Services by Industry | Silverstone AI</title>
+    <meta name="description" content="Browse Silverstone AI automation services by industry for UK SMEs, from estate agents and hospitality to trades, eCommerce, clinics, dentists, gyms, and coaches." />
   <link rel="canonical" href="https://silverstone-ai.com/services" />
   <meta name="robots" content="index, follow">
   <meta name="yandex-verification" content="fb2b6f788d990108" />
@@ -20,12 +20,12 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Silverstone AI" />
   <meta property="og:url" content="https://silverstone-ai.com/services" />
-    <meta property="og:title" content="AI Automation Services | Silverstone AI" />
-    <meta property="og:description" content="Explore Silverstone AI services for UK SMEs: AI call handling, lead follow-up, bookings, reminders, and workflow automation." />
+    <meta property="og:title" content="AI Automation Services by Industry | Silverstone AI" />
+    <meta property="og:description" content="Browse Silverstone AI automation services by industry for UK SMEs, from estate agents and hospitality to trades, eCommerce, clinics, dentists, gyms, and coaches." />
   <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="AI Automation Services | Silverstone AI" />
-  <meta name="twitter:description" content="Explore Silverstone AI services for UK SMEs: AI call handling, lead follow-up, bookings, reminders, and workflow automation." />
+  <meta name="twitter:title" content="AI Automation Services by Industry | Silverstone AI" />
+  <meta name="twitter:description" content="Browse Silverstone AI automation services by industry for UK SMEs, from estate agents and hospitality to trades, eCommerce, clinics, dentists, gyms, and coaches." />
   <meta name="twitter:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,11 +45,11 @@
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "WebPage",
+          "@type": "CollectionPage",
           "@id": "https://silverstone-ai.com/services#webpage",
           "url": "https://silverstone-ai.com/services",
-          "name": "AI Automation Services for UK SMEs - Silverstone AI",
-          "description": "Explore Silverstone AI services for UK SMEs: AI call handling, lead follow-up, bookings, reminders, and workflow automation.",
+          "name": "AI Automation Services by Industry - Silverstone AI",
+          "description": "Browse Silverstone AI automation services by industry for UK SMEs, from estate agents and hospitality to trades, eCommerce, clinics, dentists, gyms, and coaches.",
           "isPartOf": {
             "@id": "https://silverstone-ai.com/#website"
           },
@@ -60,19 +60,71 @@
             "@id": "https://silverstone-ai.com/services#breadcrumb"
           },
           "mainEntity": {
-            "@id": "https://silverstone-ai.com/services#service"
+            "@id": "https://silverstone-ai.com/services#itemlist"
           }
         },
         {
-          "@type": "Service",
-          "@id": "https://silverstone-ai.com/services#service",
-          "name": "Silverstone AI automation services",
-          "serviceType": "AI automation services for UK small businesses",
-          "provider": {
-            "@id": "https://silverstone-ai.com/#organization"
-          },
-          "areaServed": "GB",
-          "url": "https://silverstone-ai.com/services"
+          "@type": "ItemList",
+          "@id": "https://silverstone-ai.com/services#itemlist",
+          "name": "Silverstone AI services by industry",
+          "numberOfItems": 9,
+          "itemListOrder": "https://schema.org/ItemListOrderAscending",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Estate Agents",
+              "url": "https://silverstone-ai.com/services/estate-agents"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Hospitality",
+              "url": "https://silverstone-ai.com/services/hospitality"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Salons & Barbers",
+              "url": "https://silverstone-ai.com/services/salons-barbers"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Trades",
+              "url": "https://silverstone-ai.com/services/trades"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "eCommerce Brands",
+              "url": "https://silverstone-ai.com/services/ecommerce"
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "name": "Physios & Chiropractors",
+              "url": "https://silverstone-ai.com/services/physios-chiropractors"
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "name": "Dentists",
+              "url": "https://silverstone-ai.com/services/dentists"
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "name": "Gyms & Fitness Studios",
+              "url": "https://silverstone-ai.com/services/gyms-fitness-studios"
+            },
+            {
+              "@type": "ListItem",
+              "position": 9,
+              "name": "Fitness Coaches",
+              "url": "https://silverstone-ai.com/services/fitness-coaches"
+            }
+          ]
         },
         {
           "@type": "BreadcrumbList",
@@ -130,16 +182,16 @@
           <li><a href="/services" class="active">Services</a></li>
           <li class="nav-dropdown">
             <div class="services-trigger">
-              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open niches submenu">
-                <span class="services-label">Niches</span>
+              <button class="services-toggle" type="button" aria-expanded="false" aria-label="Open industries submenu">
+                <span class="services-label">Industries</span>
                 <span class="chevron" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="services-menu" aria-label="Niches submenu" aria-hidden="true">
+            <div class="services-menu" aria-label="Industries submenu" aria-hidden="true">
               <a class="service-link" href="/services/estate-agents">Estate Agents</a>
               <a class="service-link" href="/services/hospitality">Hospitality</a>
               <a class="service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-              <a class="service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+              <a class="service-link" href="/services/trades">Trades</a>
               <a class="service-link" href="/services/ecommerce">eCommerce Brands</a>
               <a class="service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
               <a class="service-link" href="/services/dentists">Dentists</a>
@@ -158,9 +210,9 @@
     <div class="services-overlay" aria-hidden="true">
     <div class="services-overlay__panel">
       <div class="services-overlay__header">
-        <button class="services-overlay__back" type="button" aria-label="Close niches overlay">Back to menu</button>
+        <button class="services-overlay__back" type="button" aria-label="Close industries overlay">Back to menu</button>
         <div class="services-overlay__title">
-          <span class="services-label">Niches</span>
+          <span class="services-label">Industries</span>
           <span class="chevron" aria-hidden="true"></span>
         </div>
       </div>
@@ -168,7 +220,7 @@
         <a class="service-pill service-link" href="/services/estate-agents">Estate Agents</a>
         <a class="service-pill service-link" href="/services/hospitality">Hospitality</a>
         <a class="service-pill service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-        <a class="service-pill service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+        <a class="service-pill service-link" href="/services/trades">Trades</a>
         <a class="service-pill service-link" href="/services/ecommerce">eCommerce Brands</a>
         <a class="service-pill service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
         <a class="service-pill service-link" href="/services/dentists">Dentists</a>
@@ -183,11 +235,16 @@
       <canvas id="hero-shader-canvas" data-variant="green"></canvas>
     </div>
     <div class="content">
-      <h1><span class="hero-title__brand-lock">Silverstone AI</span> Automation Services for UK Small Businesses</h1>
-      <p>Explore AI receptionist, lead follow-up, booking, reminder, and workflow automation services built for UK small businesses that need faster response without extra headcount.</p>
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/" class="hero-breadcrumb__link">Home</a>
+        <span class="hero-breadcrumb__separator" aria-hidden="true">&gt;</span>
+        <span class="hero-breadcrumb__current">Services</span>
+      </nav>
+      <h1><span class="hero-title__brand-lock">Silverstone AI</span> services, organised by industry.</h1>
+      <p>Use this hub to open the industry page that matches your team, compare the relevant pack, then move into pricing when you want exact numbers.</p>
       <div class="cta-buttons">
         <a href="/book" class="btn btn-primary">Book a Free 30-Minute Automation Audit</a>
-        <a href="#service-page-clusters" class="btn btn-secondary">Explore niche workflows</a>
+        <a href="#service-page-clusters" class="btn btn-secondary">Explore industries</a>
       </div>
     </div>
   </section>
@@ -197,19 +254,19 @@
       <div class="commercial-pathway neon-card">
         <div class="commercial-pathway__header">
           <span class="commercial-pathway__eyebrow">Buyer pathway</span>
-          <h2 class="section-title">Move from services to the right niche, then into pricing.</h2>
-          <p class="section-subtitle">The shortest buying route is simple: start broad, narrow into the niche page that matches your business, compare pricing, then book the audit when you want a scoped recommendation.</p>
+          <h2 class="section-title">Move from the overview into the right industry page, then into pricing.</h2>
+          <p class="section-subtitle">Start broad, open the industry page that matches your business, compare the pack and modules that fit, then book when you want a scoped recommendation.</p>
         </div>
         <div class="commercial-pathway__grid" aria-label="Service to pricing pathway">
           <a class="commercial-pathway__step" href="/services">
             <span class="commercial-pathway__step-index">01</span>
-            <span class="commercial-pathway__step-title">Services</span>
-            <span class="commercial-pathway__step-copy">Stay here if you still need the broad overview.</span>
+            <span class="commercial-pathway__step-title">Overview</span>
+            <span class="commercial-pathway__step-copy">Stay here if you still need the broad picture of what Silverstone AI covers.</span>
           </a>
           <a class="commercial-pathway__step" href="#service-page-clusters">
             <span class="commercial-pathway__step-index">02</span>
-            <span class="commercial-pathway__step-title">Niche pages</span>
-            <span class="commercial-pathway__step-copy">Use the niche cluster further down this page to open the sector that matches your business.</span>
+            <span class="commercial-pathway__step-title">Industry pages</span>
+            <span class="commercial-pathway__step-copy">Use the directory below to open the page that matches your team and buying intent.</span>
           </a>
           <a class="commercial-pathway__step" href="/pricing#pricing-atlas">
             <span class="commercial-pathway__step-index">03</span>
@@ -222,6 +279,65 @@
             <span class="commercial-pathway__step-copy">Book the audit once you want the right first workflow mapped.</span>
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="service-page-clusters" class="section bg-circuit animate parallax-section compact-section" data-parallax-theme="book">
+    <div class="container">
+      <div class="industry-directory-shell neon-card">
+        <div class="industry-directory-shell__header">
+          <span class="industry-directory-shell__eyebrow">Browse by industry</span>
+          <h2 class="section-title industry-directory-shell__title">Choose the industry page that matches your team.</h2>
+          <p class="section-subtitle industry-directory-shell__subtitle">Each page gives you the most relevant pack, supporting guides, and a short explanation of where automation pays back fastest.</p>
+        </div>
+        <nav aria-label="Industry automation service directory" class="industry-directory-grid">
+          <a class="industry-directory-card" href="/services/estate-agents">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-house"></i></span>
+            <span class="industry-directory-card__title">Estate Agents</span>
+            <span class="industry-directory-card__copy">Lead capture, viewings, feedback, and vendor follow-up.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/hospitality">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-utensils"></i></span>
+            <span class="industry-directory-card__title">Hospitality</span>
+            <span class="industry-directory-card__copy">Booking questions, guest messaging, reminders, and reviews.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/salons-barbers">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-scissors"></i></span>
+            <span class="industry-directory-card__title">Salons &amp; Barbers</span>
+            <span class="industry-directory-card__copy">No-show reduction, rebooking, reviews, and gap-filling.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/trades">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
+            <span class="industry-directory-card__title">Trades</span>
+            <span class="industry-directory-card__copy">Missed calls, job triage, quote follow-up, and ETAs.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/ecommerce">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+            <span class="industry-directory-card__title">eCommerce Brands</span>
+            <span class="industry-directory-card__copy">Cart recovery, support triage, returns, and repeat purchase.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/physios-chiropractors">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-notes-medical"></i></span>
+            <span class="industry-directory-card__title">Physios &amp; Chiropractors</span>
+            <span class="industry-directory-card__copy">Intake, reminders, rebooking, and care-plan follow-up.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/dentists">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-tooth"></i></span>
+            <span class="industry-directory-card__title">Dentists</span>
+            <span class="industry-directory-card__copy">Missed-call recovery, recalls, hygiene fill, and follow-up.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/gyms-fitness-studios">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-dumbbell"></i></span>
+            <span class="industry-directory-card__title">Gyms &amp; Fitness Studios</span>
+            <span class="industry-directory-card__copy">Class fill, cancellations, win-back, and member retention.</span>
+          </a>
+          <a class="industry-directory-card" href="/services/fitness-coaches">
+            <span class="industry-directory-card__icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+            <span class="industry-directory-card__title">Fitness Coaches</span>
+            <span class="industry-directory-card__copy">DMs, lead scoring, onboarding, and nurture.</span>
+          </a>
+        </nav>
       </div>
     </div>
   </section>
@@ -513,42 +629,17 @@
     </div>
   </section>
 
-  <section id="service-page-clusters" class="section bg-circuit animate parallax-section compact-section" data-parallax-theme="book">
-    <div class="container">
-      <div class="services-resource-shell services-resource-shell--clusters neon-card">
-        <div class="services-resource-shell__header">
-          <span class="services-resource-shell__eyebrow">Service page clusters</span>
-          <h2 class="section-title services-resource-shell__title">Move from the core services overview into the niche pages buyers actually compare.</h2>
-          <p class="section-subtitle services-resource-shell__subtitle">Start here, open the niche page that matches your sector, then use the pricing hub to compare exact packs before you book.</p>
-        </div>
-        <nav aria-label="Industry automation service pages" class="services-resource-nav">
-          <ul class="services-resource-list services-resource-list--niches">
-            <li><a href="/services/estate-agents"><i class="fa-solid fa-house"></i><span>Estate agent automation</span></a></li>
-            <li><a href="/services/hospitality"><i class="fa-solid fa-utensils"></i><span>Hospitality automation</span></a></li>
-            <li><a href="/services/salons-barbers"><i class="fa-solid fa-scissors"></i><span>Salon &amp; barber automation</span></a></li>
-            <li><a href="/services/trades-virtual-office"><i class="fa-solid fa-screwdriver-wrench"></i><span>Trades &amp; field-service automation</span></a></li>
-            <li><a href="/services/ecommerce"><i class="fa-solid fa-cart-shopping"></i><span>eCommerce automation</span></a></li>
-            <li><a href="/services/gyms-fitness-studios"><i class="fa-solid fa-dumbbell"></i><span>Gym &amp; studio automation</span></a></li>
-            <li><a href="/services/physios-chiropractors"><i class="fa-solid fa-notes-medical"></i><span>Physio &amp; chiro automation</span></a></li>
-            <li><a href="/services/dentists"><i class="fa-solid fa-tooth"></i><span>Dental practice automation</span></a></li>
-            <li><a href="/services/fitness-coaches"><i class="fa-solid fa-mobile-screen-button"></i><span>Fitness coach automation</span></a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </section>
-
   <section id="pricing" class="section bg-lines animate parallax-section compact-section" data-parallax-theme="book">
     <div class="container">
       <div class="neon-card cta-card" style="text-align: center">
         <span class="services-cta__eyebrow">Pricing hub</span>
-        <h2 class="section-title" style="color: var(--color-white)">See every Silverstone AI pack, module, and niche price on one page.</h2>
+        <h2 class="section-title" style="color: var(--color-white)">See every Silverstone AI pack, module, and industry price on one page.</h2>
         <p class="section-subtitle" style="color: var(--color-silver)">
-          Compare flagship systems, smaller fixes, and niche-specific bundles before you book, so pricing intent moves cleanly into the right solution.
+          Compare flagship systems, smaller fixes, and industry-specific bundles before you book, so pricing intent moves cleanly into the right solution.
         </p>
         <div class="cta-buttons" style="justify-content: center; margin-top: 1.5rem;">
           <a href="/pricing" class="btn btn-primary">View Full Pricing</a>
-          <a href="/pricing#pricing-atlas" class="btn btn-secondary">Compare Niche Packs</a>
+          <a href="/pricing#pricing-atlas" class="btn btn-secondary">Compare Industry Packs</a>
         </div>
       </div>
     </div>
@@ -560,7 +651,7 @@
         <div class="services-resource-shell__header">
           <span class="services-resource-shell__eyebrow">Supporting blog guides</span>
           <h2 class="section-title services-resource-shell__title">Browse practical automation guides that answer the questions buyers ask before they book.</h2>
-          <p class="section-subtitle services-resource-shell__subtitle">Start with the highlighted guides below, then open the full blog library for every niche article, pricing question, and rollout guide.</p>
+          <p class="section-subtitle services-resource-shell__subtitle">Start with the highlighted guides below, then open the full blog library for every industry article, pricing question, and rollout guide.</p>
         </div>
         <nav aria-label="Supporting automation blog guides" class="services-resource-nav">
           <ul class="services-resource-list services-resource-list--blogs">
@@ -618,7 +709,7 @@
           </details>
           <details class="neon-card faq-item">
             <summary>Do we need to replace our CRM, booking system, or other tools?</summary>
-            <p>No. Like the niche packs, general services are designed to sit on top of the systems you already use. Where direct integration is possible we connect it; where it is not, we design simple handovers that still keep your data accurate.</p>
+            <p>No. Like the industry packs, general services are designed to sit on top of the systems you already use. Where direct integration is possible we connect it; where it is not, we design simple handovers that still keep your data accurate.</p>
           </details>
           <details class="neon-card faq-item">
             <summary>Will customers notice they are talking to automation?</summary>

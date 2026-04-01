@@ -4,10 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>AI Automation for Coaches | Silverstone AI</title>
+  <title>AI Automation for Fitness Coaches | Silverstone AI</title>
   <meta name="description"
     content="Silverstone AI helps UK fitness coaches automate DMs, lead follow-up, and onboarding so more conversations turn into paid clients." />
   <link rel="canonical" href="https://silverstone-ai.com/services/fitness-coaches" />
+  <link rel="up" href="https://silverstone-ai.com/services" />
   <meta name="robots" content="index, follow">
   <meta name="yandex-verification" content="fb2b6f788d990108" />
   <!-- Google tag (gtag.js) -->
@@ -21,11 +22,11 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Silverstone AI" />
   <meta property="og:url" content="https://silverstone-ai.com/services/fitness-coaches" />
-    <meta property="og:title" content="AI Automation for Coaches | Silverstone AI" />
+    <meta property="og:title" content="AI Automation for Fitness Coaches | Silverstone AI" />
     <meta property="og:description" content="Silverstone AI helps UK fitness coaches automate DMs, lead follow-up, and onboarding so more conversations turn into paid clients." />
   <meta property="og:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="AI Automation for Coaches | Silverstone AI" />
+  <meta name="twitter:title" content="AI Automation for Fitness Coaches | Silverstone AI" />
   <meta name="twitter:description" content="Silverstone AI helps UK fitness coaches automate DMs, lead follow-up, and onboarding so more conversations turn into paid clients." />
   <meta name="twitter:image" content="https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png" />
 
@@ -54,7 +55,7 @@
           "name": "Fitness Coach Automation - Silverstone AI",
           "description": "Silverstone AI automation for fitness coaches: turn DMs into qualified leads, respond faster, and convert more enquiries into clients.",
           "isPartOf": {
-            "@id": "https://silverstone-ai.com/#website"
+            "@id": "https://silverstone-ai.com/services#webpage"
           },
           "about": {
             "@id": "https://silverstone-ai.com/#organization"
@@ -76,6 +77,9 @@
           },
           "areaServed": "GB",
           "url": "https://silverstone-ai.com/services/fitness-coaches",
+          "mainEntityOfPage": {
+            "@id": "https://silverstone-ai.com/services/fitness-coaches#webpage"
+          },
           "image": "https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png",
           "audience": {
             "@type": "Audience",
@@ -208,16 +212,16 @@
           <li><a href="/services">Services</a></li>
           <li class="nav-dropdown">
             <div class="services-trigger">
-              <button class="services-toggle active" type="button" aria-expanded="false" aria-label="Open niches submenu">
-                <span class="services-label">Niches</span>
+              <button class="services-toggle active" type="button" aria-expanded="false" aria-label="Open industries submenu">
+                <span class="services-label">Industries</span>
                 <span class="chevron" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="services-menu" aria-label="Niches submenu" aria-hidden="true">
+            <div class="services-menu" aria-label="Industries submenu" aria-hidden="true">
               <a class="service-link" href="/services/estate-agents">Estate Agents</a>
               <a class="service-link" href="/services/hospitality">Hospitality</a>
               <a class="service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-              <a class="service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+              <a class="service-link" href="/services/trades">Trades</a>
               <a class="service-link" href="/services/ecommerce">eCommerce Brands</a>
               <a class="service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
               <a class="service-link" href="/services/dentists">Dentists</a>
@@ -236,9 +240,9 @@
     <div class="services-overlay" aria-hidden="true">
     <div class="services-overlay__panel">
       <div class="services-overlay__header">
-        <button class="services-overlay__back" type="button" aria-label="Close niches overlay">Back to menu</button>
+        <button class="services-overlay__back" type="button" aria-label="Close industries overlay">Back to menu</button>
         <div class="services-overlay__title">
-          <span class="services-label">Niches</span>
+          <span class="services-label">Industries</span>
           <span class="chevron" aria-hidden="true"></span>
         </div>
       </div>
@@ -246,7 +250,7 @@
         <a class="service-pill service-link" href="/services/estate-agents">Estate Agents</a>
         <a class="service-pill service-link" href="/services/hospitality">Hospitality</a>
         <a class="service-pill service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-        <a class="service-pill service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+        <a class="service-pill service-link" href="/services/trades">Trades</a>
         <a class="service-pill service-link" href="/services/ecommerce">eCommerce Brands</a>
         <a class="service-pill service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
         <a class="service-pill service-link" href="/services/dentists">Dentists</a>
@@ -261,9 +265,17 @@
       <canvas id="hero-shader-canvas"></canvas>
     </div>
     <div class="content">
-      <h1>Online coaches: turn DMs into paying clients on autopilot.</h1>
-      <p>A DM and lead-handling system that replies in minutes, filters time-wasters and guides serious people towards becoming clients – without you living in your inbox.</p>
-      <div class="cta-buttons">
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/" class="hero-breadcrumb__link">Home</a>
+        <span class="hero-breadcrumb__separator" aria-hidden="true">&gt;</span>
+        <a href="/services" class="hero-breadcrumb__link">Services</a>
+        <span class="hero-breadcrumb__separator" aria-hidden="true">&gt;</span>
+        <span class="hero-breadcrumb__current">Fitness Coaches</span>
+      </nav>
+      <h1>Fitness coaches: turn DMs into paying clients on autopilot.</h1>
+      <p>A DM and lead-handling system that replies in minutes, filters time-wasters and guides serious people towards becoming clients without you living in your inbox.</p>
+      <p class="hero-context">Typical fit: coaches and creators handling DMs, lead qualification, onboarding, and nurture without constant inbox time.</p>
+<div class="cta-buttons">
         <a href="/book" class="btn btn-primary">Book a free creator automation audit</a>
         <a href="#dm-to-client-conversion-kit" class="btn btn-secondary">See the ‘DM to Client Conversion Kit’</a>
       </div>
@@ -558,9 +570,9 @@
         <p class="section-subtitle" style="color: var(--color-silver)">Warm DMs cool off fast when follow-up depends on your spare time. The ‘DM to Client Conversion Kit’ shows how to protect your time while turning more conversations into clients.</p>
         <div class="cta-link-list">
           <a href="/services">Browse all Silverstone AI services</a>
-          <a href="/pricing#pricing-atlas-fitness-coaches" data-pricing-atlas-chip="true">See creator pricing</a>
-          <a href="/blog/dm-to-client-automation-uk-fitness-coaches-2026">Read the fitness coaches DM automation guide</a>
-          <a href="/blog/ai-website-tools-uk-small-businesses-2026">Read the website AI tools guide</a>
+          <a href="/pricing#pricing-atlas-fitness-coaches" data-pricing-atlas-chip="true">See fitness coach pricing</a>
+          <a href="/blog/dm-to-client-automation-uk-fitness-coaches-2026">Read the DM automation guide</a>
+          <a href="/blog/ai-lead-scoring-fitness-coaches-uk">Read the lead scoring guide</a>
         </div>
         <a href="/book" class="btn btn-primary">Book my free creator automation audit</a>
       </div>

@@ -158,7 +158,7 @@ function SparklesCanvas({ density = 120 }) {
 
 function FlagshipSelector({ plans, value, onChange }) {
   return (
-    <div className="ss-pricing__flagship-selector" aria-label="Flagship pricing packs by niche">
+    <div className="ss-pricing__flagship-selector" aria-label="Flagship pricing packs by industry">
       {plans.map((plan) => {
         const isActive = value === plan.niche;
         return (

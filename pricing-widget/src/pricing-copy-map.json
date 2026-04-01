@@ -5,8 +5,8 @@
       "subtitle": "These are the three most common “done-for-you” systems—pick the one that matches your business model.",
       "plans": [
         {
-          "name": "Trades Virtual Office",
-          "anchorId": "pricing-flagship-trades-virtual-office",
+          "name": "Trades Pack",
+          "anchorId": "pricing-flagship-trades",
           "setupFee": 1299,
           "monthlyRetainer": 219,
           "bestFor": "Field-service businesses that can’t pick up the phone but don’t want to lose the best jobs.",
@@ -52,7 +52,7 @@
       ]
     },
     "section2": {
-      "title": "Prefer a smaller fix—or a niche-specific variant?",
+      "title": "Prefer a smaller fix—or an industry-specific variant?",
       "subtitle": "Choose a focused module or a different bundle if your biggest bottleneck is narrower than the full system.",
       "groups": [
         {
@@ -403,7 +403,7 @@
   "pricing.html": {
     "section1": {
       "title": "Start with the fastest path to ROI.",
-      "subtitle": "Choose your niche, then start with the flagship pack designed to pay back fastest for that business model.",
+      "subtitle": "Choose your industry, then start with the flagship pack designed to pay back fastest for that business model.",
       "plans": [
         {
           "niche": "estate-agents",
@@ -454,10 +454,10 @@
           "badge": null
         },
         {
-          "name": "Trades Virtual Office",
-          "niche": "trades-virtual-office",
-          "nicheLabel": "Trades & field services",
-          "anchorId": "pricing-flagship-trades-virtual-office",
+          "name": "Trades Pack",
+          "niche": "trades",
+          "nicheLabel": "Trades",
+          "anchorId": "pricing-flagship-trades",
           "setupFee": 1299,
           "monthlyRetainer": 219,
           "bestFor": "Field-service businesses that cannot pick up the phone but do not want to lose the best jobs.",
@@ -554,7 +554,7 @@
     },
     "section2": {
       "title": "The full Silverstone pricing atlas.",
-      "subtitle": "Compare every module and bundle across all nine niches in one place, so you can move from broad intent to the exact system that fits.",
+      "subtitle": "Compare every module and bundle across all nine industries in one place, so you can move from broad intent to the exact system that fits.",
       "groups": [
         {
           "groupLabel": "Real Estate",
@@ -624,7 +624,7 @@
             { "kind": "item", "text": "Emergency Call Catcher Pack (£699 setup + £129/mo)" },
             { "kind": "item", "text": "Quote-to-Job Conversion Pack (£799 setup + £129/mo)" },
             { "kind": "item", "text": "Trades Job Board & Call Pack (£999 setup + £169/mo)" },
-            { "kind": "item", "text": "Trades Virtual Office (£1299 setup + £219/mo)" },
+            { "kind": "item", "text": "Trades Pack (£1299 setup + £219/mo)" },
             { "kind": "item", "text": "Premium Trades Growth Engine (£1499 setup + £259/mo)" }
           ]
         },
@@ -723,7 +723,7 @@
       "subtitle": "These are the three most common “done-for-you” systems—pick the one that matches your business model.",
       "plans": [
         {
-          "name": "Trades Virtual Office",
+          "name": "Trades Pack",
           "setupFee": 1299,
           "monthlyRetainer": 219,
           "bestFor": "Field-service businesses that can’t pick up the phone but don’t want to lose the best jobs.",
@@ -767,7 +767,7 @@
       ]
     },
     "section2": {
-      "title": "Prefer a smaller fix—or a niche-specific variant?",
+      "title": "Prefer a smaller fix—or an industry-specific variant?",
       "subtitle": "Choose a focused module or a different bundle if your biggest bottleneck is narrower than the full system.",
       "groups": [
         {
@@ -1409,7 +1409,7 @@
       ]
     }
   },
-  "services/trades-virtual-office.html": {
+  "services/trades.html": {
     "section1": {
       "title": "Stop missing calls—and win better jobs.",
       "subtitle": "Choose the level of support you need: missed-call capture, full virtual office, or a managed growth system.",
@@ -1429,7 +1429,7 @@
           "badge": null
         },
         {
-          "name": "Trades Virtual Office",
+          "name": "Trades Pack",
           "setupFee": 1299,
           "monthlyRetainer": 219,
           "bestFor": "Teams that want calls, quotes, and scheduling handled end-to-end.",

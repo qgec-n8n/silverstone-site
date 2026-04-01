@@ -7,6 +7,7 @@
   <title>AI Automation for Hospitality | Silverstone AI</title>
     <meta name="description" content="Silverstone AI helps UK hospitality teams automate bookings, guest follow-up, and concierge enquiries to capture more revenue." />
   <link rel="canonical" href="https://silverstone-ai.com/services/hospitality" />
+  <link rel="up" href="https://silverstone-ai.com/services" />
   <meta name="robots" content="index, follow">
   <meta name="yandex-verification" content="fb2b6f788d990108" />
   <!-- Google tag (gtag.js) -->
@@ -53,7 +54,7 @@
           "name": "Hospitality Automation for UK Teams - Silverstone AI",
           "description": "Silverstone AI automation for UK hospitality teams: 24/7 guest enquiry handling, faster booking capture, fewer no-shows, and smoother operations.",
           "isPartOf": {
-            "@id": "https://silverstone-ai.com/#website"
+            "@id": "https://silverstone-ai.com/services#webpage"
           },
           "about": {
             "@id": "https://silverstone-ai.com/#organization"
@@ -75,6 +76,9 @@
           },
           "areaServed": "GB",
           "url": "https://silverstone-ai.com/services/hospitality",
+          "mainEntityOfPage": {
+            "@id": "https://silverstone-ai.com/services/hospitality#webpage"
+          },
           "image": "https://silverstone-ai.com/assets/logo/silverstone-logo-cropped-whitebg-v2.png",
           "audience": {
             "@type": "Audience",
@@ -207,16 +211,16 @@
           <li><a href="/services">Services</a></li>
           <li class="nav-dropdown">
             <div class="services-trigger">
-              <button class="services-toggle active" type="button" aria-expanded="false" aria-label="Open niches submenu">
-                <span class="services-label">Niches</span>
+              <button class="services-toggle active" type="button" aria-expanded="false" aria-label="Open industries submenu">
+                <span class="services-label">Industries</span>
                 <span class="chevron" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="services-menu" aria-label="Niches submenu" aria-hidden="true">
+            <div class="services-menu" aria-label="Industries submenu" aria-hidden="true">
               <a class="service-link" href="/services/estate-agents">Estate Agents</a>
               <a class="service-link" href="/services/hospitality">Hospitality</a>
               <a class="service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-              <a class="service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+              <a class="service-link" href="/services/trades">Trades</a>
               <a class="service-link" href="/services/ecommerce">eCommerce Brands</a>
               <a class="service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
               <a class="service-link" href="/services/dentists">Dentists</a>
@@ -235,9 +239,9 @@
     <div class="services-overlay" aria-hidden="true">
     <div class="services-overlay__panel">
       <div class="services-overlay__header">
-        <button class="services-overlay__back" type="button" aria-label="Close niches overlay">Back to menu</button>
+        <button class="services-overlay__back" type="button" aria-label="Close industries overlay">Back to menu</button>
         <div class="services-overlay__title">
-          <span class="services-label">Niches</span>
+          <span class="services-label">Industries</span>
           <span class="chevron" aria-hidden="true"></span>
         </div>
       </div>
@@ -245,7 +249,7 @@
         <a class="service-pill service-link" href="/services/estate-agents">Estate Agents</a>
         <a class="service-pill service-link" href="/services/hospitality">Hospitality</a>
         <a class="service-pill service-link" href="/services/salons-barbers">Salons &amp; Barbers</a>
-        <a class="service-pill service-link" href="/services/trades-virtual-office">Trades &amp; Field Services</a>
+        <a class="service-pill service-link" href="/services/trades">Trades</a>
         <a class="service-pill service-link" href="/services/ecommerce">eCommerce Brands</a>
         <a class="service-pill service-link" href="/services/physios-chiropractors">Physios &amp; Chiropractors</a>
         <a class="service-pill service-link" href="/services/dentists">Dentists</a>
@@ -260,9 +264,17 @@
       <canvas id="hero-shader-canvas"></canvas>
     </div>
     <div class="content">
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/" class="hero-breadcrumb__link">Home</a>
+        <span class="hero-breadcrumb__separator" aria-hidden="true">&gt;</span>
+        <a href="/services" class="hero-breadcrumb__link">Services</a>
+        <span class="hero-breadcrumb__separator" aria-hidden="true">&gt;</span>
+        <span class="hero-breadcrumb__current">Hospitality</span>
+      </nav>
       <h1>Hospitality: a guest concierge that never sleeps.</h1>
       <p>Automation that answers guest questions, takes bookings and chases reviews around the clock, so your team can focus on service instead of screens.</p>
-      <div class="cta-buttons">
+      <p class="hero-context">Typical fit: hotels, serviced stays, and small groups handling booking questions, late arrivals, and review follow-up.</p>
+<div class="cta-buttons">
         <a href="/book" class="btn btn-primary">Book a free hospitality automation audit</a>
         <a href="#hospitality-guest-concierge" class="btn btn-secondary">See the ‘Hospitality 24/7 Guest Concierge’ bundle</a>
       </div>
@@ -558,8 +570,8 @@
         <div class="cta-link-list">
           <a href="/services">Browse all Silverstone AI services</a>
           <a href="/pricing#pricing-atlas-hospitality" data-pricing-atlas-chip="true">See hospitality pricing</a>
-          <a href="/blog/ai-booking-automation-uk-hospitality-2026">Read the hospitality booking automation guide</a>
-          <a href="/blog/ai-appointment-reminders-uk-2026">Read the appointment reminders guide</a>
+          <a href="/blog/ai-booking-automation-uk-hospitality-2026">Read the booking automation guide</a>
+          <a href="/blog/ai-guest-concierge-hotels-bbs-uk">Read the guest concierge guide</a>
         </div>
         <a href="/book" class="btn btn-primary">Book my free hospitality automation audit</a>
       </div>

@@ -116,7 +116,7 @@
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'mobile-nav-link mobile-nav-link--drill';
-          btn.textContent = '← Niches';
+          btn.textContent = '← Industries';
           btn.addEventListener('click', () => {
             openMobileNav();
             openServicesPanel();
@@ -518,9 +518,9 @@
             <div class="mobile-nav-view mobile-nav-view--root" aria-label="Main navigation">
               <ul class="mobile-nav-list mobile-nav-list--root"></ul>
             </div>
-            <div class="mobile-nav-view mobile-nav-view--services" aria-label="Niches navigation">
+            <div class="mobile-nav-view mobile-nav-view--services" aria-label="Industries navigation">
               <div class="mobile-nav-subhead">
-                <p class="mobile-nav-kicker">Niches</p>
+                <p class="mobile-nav-kicker">Industries</p>
               </div>
               <ul class="mobile-nav-list mobile-nav-list--services"></ul>
             </div>

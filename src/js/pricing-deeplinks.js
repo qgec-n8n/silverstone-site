@@ -31,12 +31,12 @@
       nicheHref: '/services/salons-barbers',
       pricingLabel: 'Compare salon pricing',
     },
-    '/services/trades-virtual-office': {
-      label: 'Trades & field services',
+    '/services/trades': {
+      label: 'Trades',
       atlasAnchor: '/pricing#pricing-atlas-trades',
-      primaryAnchor: '/pricing#pricing-flagship-trades-virtual-office',
-      packName: 'Trades Virtual Office',
-      nicheHref: '/services/trades-virtual-office',
+      primaryAnchor: '/pricing#pricing-flagship-trades',
+      packName: 'Trades Pack',
+      nicheHref: '/services/trades',
       pricingLabel: 'Compare trades pricing',
     },
     '/services/ecommerce': {
@@ -85,7 +85,7 @@
     '/services/estate-agents',
     '/services/hospitality',
     '/services/salons-barbers',
-    '/services/trades-virtual-office',
+    '/services/trades',
     '/services/ecommerce',
     '/services/physios-chiropractors',
     '/services/dentists',
@@ -253,9 +253,9 @@
           <div class="pricing-recommender__panel">
             <span class="pricing-recommender__eyebrow">Pricing recommender</span>
             <h3 class="pricing-recommender__title">Point me to the right pricing card.</h3>
-            <p class="pricing-recommender__copy">Choose your niche, then pick the fastest starting pack or the full range.</p>
+            <p class="pricing-recommender__copy">Choose your industry, then pick the fastest starting pack or the full range.</p>
             <div class="pricing-recommender__step">
-              <span class="pricing-recommender__step-label">1. Choose your niche</span>
+              <span class="pricing-recommender__step-label">1. Choose your industry</span>
               <div class="pricing-recommender__choices pricing-recommender__choices--niches">
                 ${RECOMMENDER_ORDER.map((path) => {
                   const entry = resolveNicheConfig(path);

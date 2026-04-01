@@ -25,7 +25,7 @@ const STATIC_PAGES = [
     file: "services.html",
     canonical: `${SITE_ORIGIN}/services`,
     group: "main",
-    requiredSchema: ["WebPage", "Service", "BreadcrumbList"],
+    requiredSchema: ["CollectionPage", "ItemList", "BreadcrumbList"],
   },
   {
     file: "pricing.html",
