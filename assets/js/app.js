@@ -2350,6 +2350,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const SINGLE_MARQUEE_ROOT_MARGIN = '2200px 0px';
   const DEFAULT_MARQUEE_ROOT_MARGIN = '1200px 0px';
   const SINGLE_MARQUEE_PRIORITY_COUNT = 12;
+  const MOBILE_SINGLE_MARQUEE_PRIORITY_COUNT = 4;
   const MARQUEE_IMAGES = [
   '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.webp',
   '2-3_accounting_man-with-holographic-call_tax-season-calls-never-missed.webp',
@@ -2430,6 +2431,20 @@ document.addEventListener('DOMContentLoaded', () => {
   'Trades_2.webp',
   'Trades_3.webp',
 ];
+  const MOBILE_MARQUEE_IMAGES = [
+    'General_Services_1_Mobile.webp',
+    'General_Services_2A_Mobile.webp',
+    'General_Services_3_Mobile.webp',
+    'Real_Estate_1.webp',
+    'Hospitality_1.webp',
+    'Salon_1.webp',
+    'Trades_1.webp',
+    'eComm_1.webp',
+    'Physio_1.webp',
+    'Dentists_1_Mobile.webp',
+    'Gyms_1.webp',
+    'Online_Coach_1.webp',
+  ];
 
   let singleInitialized = false;
   let doubleInitialized = false;
@@ -2445,7 +2460,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (singleInitialized || !footer || !footer.parentNode) return;
       singleInitialized = true;
       ensureLightbox();
-      warmImageBatch(MARQUEE_IMAGES, SINGLE_MARQUEE_PRIORITY_COUNT);
+      const singleImages = getSingleMarqueeImages();
+      warmImageBatch(singleImages, getSingleMarqueePriorityCount());
 
       const marquee = buildSingleRow();
       footer.parentNode.insertBefore(marquee, footer);
@@ -2510,22 +2526,48 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function buildSingleRow() {
+    const singleImages = getSingleMarqueeImages();
+    const isMobileSingleMarquee = isMobileMarqueeViewport();
     const container = document.createElement('div');
     container.className = 'single-marquee';
 
     const track = document.createElement('div');
     track.className = 'marquee-track';
 
-    track.appendChild(createImagesFragment(MARQUEE_IMAGES, {
-      loading: 'eager',
-      priorityCount: SINGLE_MARQUEE_PRIORITY_COUNT,
-      fetchPriority: 'high',
-    }));
-    track.appendChild(createImagesFragment(MARQUEE_IMAGES, {
-      loading: 'eager',
-      priorityCount: SINGLE_MARQUEE_PRIORITY_COUNT,
-      fetchPriority: 'high',
-    }));
+    track.appendChild(
+      createImagesFragment(
+        singleImages,
+        isMobileSingleMarquee
+          ? {
+              loading: 'lazy',
+              priorityLoading: 'eager',
+              priorityCount: MOBILE_SINGLE_MARQUEE_PRIORITY_COUNT,
+              fetchPriority: 'high',
+            }
+          : {
+              loading: 'eager',
+              priorityLoading: 'eager',
+              priorityCount: SINGLE_MARQUEE_PRIORITY_COUNT,
+              fetchPriority: 'high',
+            },
+      ),
+    );
+    track.appendChild(
+      createImagesFragment(
+        singleImages,
+        isMobileSingleMarquee
+          ? {
+              loading: 'lazy',
+              priorityCount: 0,
+            }
+          : {
+              loading: 'eager',
+              priorityLoading: 'eager',
+              priorityCount: SINGLE_MARQUEE_PRIORITY_COUNT,
+              fetchPriority: 'high',
+            },
+      ),
+    );
 
     container.appendChild(track);
     return container;
@@ -2563,14 +2605,19 @@ document.addEventListener('DOMContentLoaded', () => {
       img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
-      img.loading = config.loading || 'lazy';
+      img.loading =
+        index < priorityCount
+          ? config.priorityLoading || config.loading || 'lazy'
+          : config.loading || 'lazy';
       img.decoding = 'async';
       if (priorityCount && index < priorityCount && config.fetchPriority) {
         img.fetchPriority = config.fetchPriority;
       }
 
+      img.dataset.marqueeFilename = filename;
+      img.dataset.marqueeFallbackStage = '0';
       img.onerror = () => {
-        img.style.display = 'none';
+        handleMarqueeImageError(img);
       };
 
       img.addEventListener('click', () => openLightbox(img.src));
@@ -2580,12 +2627,40 @@ document.addEventListener('DOMContentLoaded', () => {
     return fragment;
   }
 
+  function handleMarqueeImageError(img) {
+    if (!img) return;
+
+    const filename = img.dataset.marqueeFilename || '';
+    const fallbackStage = img.dataset.marqueeFallbackStage || '0';
+    if (fallbackStage === '0' && /\.webp$/i.test(filename)) {
+      img.dataset.marqueeFallbackStage = '1';
+      img.src = ASSET_PATH + filename.replace(/\.webp$/i, '.jpeg');
+      return;
+    }
+
+    img.style.display = 'none';
+  }
+
   function warmImageBatch(images, count) {
     images.slice(0, count).forEach((filename) => {
       const preload = new Image();
       preload.decoding = 'async';
       preload.src = ASSET_PATH + filename;
     });
+  }
+
+  function isMobileMarqueeViewport() {
+    return !!window.matchMedia && window.matchMedia(LIGHTBOX_MOBILE_QUERY).matches;
+  }
+
+  function getSingleMarqueeImages() {
+    return isMobileMarqueeViewport() ? MOBILE_MARQUEE_IMAGES : MARQUEE_IMAGES;
+  }
+
+  function getSingleMarqueePriorityCount() {
+    return isMobileMarqueeViewport()
+      ? MOBILE_SINGLE_MARQUEE_PRIORITY_COUNT
+      : SINGLE_MARQUEE_PRIORITY_COUNT;
   }
 
   function ensureLightbox() {
