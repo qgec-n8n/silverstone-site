@@ -1,5 +1,46 @@
 # ExecPlan: Favicon Recovery and Sitewide Logo Migration
 
+## 2026-04-02 update
+
+### Observed baseline
+
+- The repo had since been refreshed with a new `redketchup` favicon package whose root assets intentionally did not include `favicon-48x48.png`.
+- Runtime HTML and `scripts/seo-audit.js` still required `/favicon-48x48.png`, so the site contract no longer matched the favicon package the user wanted deployed.
+- `npm run seo:audit` was already failing before this favicon pass, but the failure was unrelated to favicon inventory: `sitemap.xml` was stale relative to the April 1, 2026 services-page commits.
+
+### Root cause
+
+- The previous recovery restored a generated `favicon-48x48.png` to preserve the old head contract, but the current desired state is to use the downloaded favicon package as-is.
+- The HTML head block, audit rules, and manifest needed to be realigned around the new canonical root favicon set instead of rebuilding the removed 48x48 derivative.
+
+### Changes made
+
+- Replaced the root favicon binaries with the provided `redketchup` versions for:
+  - `favicon.ico`
+  - `favicon-32x32.png`
+  - `favicon-16x16.png`
+  - `apple-touch-icon.png`
+  - `android-chrome-192x192.png`
+  - `android-chrome-512x512.png`
+- Removed `favicon-48x48.png` from the repo root.
+- Updated all 50 runtime HTML pages to remove the `/favicon-48x48.png` reference and instead expose:
+  - `/favicon.ico`
+  - `/apple-touch-icon.png`
+  - `/android-chrome-192x192.png`
+  - `/favicon-32x32.png`
+  - `/favicon-16x16.png`
+  - `/site.webmanifest`
+- Replaced the copied manifest placeholders so `site.webmanifest` keeps `name` and `short_name` as `Silverstone AI`.
+- Updated `scripts/seo-audit.js` so the required favicon asset inventory and per-page head checks match the new favicon set.
+- Regenerated `sitemap.xml` after verification confirmed the audit failure was stale generated output rather than a bad services inventory rule.
+
+### Verification
+
+- Confirm root icon inventory now matches the provided package plus the preserved manifest identity fields.
+- Confirm no runtime HTML references `/favicon-48x48.png`.
+- Confirm homepage, one blog page, and one service page expose the same new favicon block.
+- Run `npm run seo:audit` after regenerating the sitemap if needed.
+
 ## Observed baseline
 
 - Every runtime page still referenced `/favicon.ico`, `/favicon-48x48.png`, `/favicon-32x32.png`, `/favicon-16x16.png`, and `/site.webmanifest`.

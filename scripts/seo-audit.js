@@ -168,7 +168,8 @@ if (manifest.short_name !== "Silverstone AI") {
 
 for (const asset of [
   "favicon.ico",
-  "favicon-48x48.png",
+  "android-chrome-192x192.png",
+  "android-chrome-512x512.png",
   "favicon-32x32.png",
   "favicon-16x16.png",
   "apple-touch-icon.png",
@@ -444,8 +445,20 @@ for (const page of indexedPages) {
   if (!/href=["']\/favicon\.ico["']/i.test(html)) {
     errors.push(`${page.file}: missing /favicon.ico head reference`);
   }
-  if (!/href=["']\/favicon-48x48\.png["']/i.test(html)) {
-    errors.push(`${page.file}: missing /favicon-48x48.png head reference`);
+  if (!/href=["']\/apple-touch-icon\.png["']/i.test(html)) {
+    errors.push(`${page.file}: missing /apple-touch-icon.png head reference`);
+  }
+  if (!/href=["']\/android-chrome-192x192\.png["']/i.test(html)) {
+    errors.push(`${page.file}: missing /android-chrome-192x192.png head reference`);
+  }
+  if (!/href=["']\/favicon-32x32\.png["']/i.test(html)) {
+    errors.push(`${page.file}: missing /favicon-32x32.png head reference`);
+  }
+  if (!/href=["']\/favicon-16x16\.png["']/i.test(html)) {
+    errors.push(`${page.file}: missing /favicon-16x16.png head reference`);
+  }
+  if (!/href=["']\/site\.webmanifest["']/i.test(html)) {
+    errors.push(`${page.file}: missing /site.webmanifest head reference`);
   }
 
   for (const schemaType of page.requiredSchema) {
