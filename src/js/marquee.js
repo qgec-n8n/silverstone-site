@@ -2,13 +2,19 @@
   'use strict';
 
   const lightboxImageCache = new Map();
+  const marqueeWarmCache = new Set();
   let lightboxRequestId = 0;
   const ASSET_PATH = '/assets/images/socialmedia/';
   const LIGHTBOX_MOBILE_QUERY = '(max-width: 768px)';
-  const SINGLE_MARQUEE_ROOT_MARGIN = '2200px 0px';
-  const DEFAULT_MARQUEE_ROOT_MARGIN = '1200px 0px';
+  const SINGLE_MARQUEE_ROOT_MARGIN = '3200px 0px';
   const SINGLE_MARQUEE_PRIORITY_COUNT = 12;
-  const MOBILE_SINGLE_MARQUEE_PRIORITY_COUNT = 4;
+  const MOBILE_SINGLE_MARQUEE_PRIORITY_COUNT = 6;
+  const DESKTOP_MARQUEE_PIXELS_PER_SECOND = 140;
+  const MOBILE_MARQUEE_PIXELS_PER_SECOND = 128;
+  const PROGRESSIVE_WARM_BATCH_SIZE = 2;
+  const PROGRESSIVE_WARM_DELAY_MS = 140;
+  const MOBILE_MARQUEE_DERIVED_WIDTH = 480;
+  const MOBILE_MARQUEE_FALLBACK_WIDTH = 640;
   const MARQUEE_IMAGES = [
   '1-1_business_chart-icon-and-flow_scale-beyond-human-limits.webp',
   '2-3_accounting_man-with-holographic-call_tax-season-calls-never-missed.webp',
@@ -105,11 +111,9 @@
   ];
 
   let singleInitialized = false;
-  let doubleInitialized = false;
 
   function initSingleMarquee() {
     if (singleInitialized) return;
-    if (document.body.classList.contains('page-services')) return;
 
     cleanupLegacyMarquees();
 
@@ -118,47 +122,24 @@
       if (singleInitialized || !footer || !footer.parentNode) return;
       singleInitialized = true;
       ensureLightbox();
+      const isMobileSingleMarquee = isMobileMarqueeViewport();
       const singleImages = getSingleMarqueeImages();
-      warmImageBatch(singleImages, getSingleMarqueePriorityCount());
+      const priorityCount = getSingleMarqueePriorityCount();
+      warmImageBatch(singleImages, priorityCount, isMobileSingleMarquee);
 
       const marquee = buildSingleRow();
       footer.parentNode.insertBefore(marquee, footer);
+      progressivelyWarmImageBatch(
+        singleImages.slice(priorityCount),
+        isMobileSingleMarquee,
+      );
     }, SINGLE_MARQUEE_ROOT_MARGIN);
   }
 
-  function initDoubleMarquee() {
-    if (!document.body.classList.contains('page-services')) return;
-    if (doubleInitialized) return;
-
-    cleanupLegacyMarquees();
-
-    const slot = document.getElementById('innovation-marquee-slot');
-    const galleryGrid = document.getElementById('neural-grid');
-    if (!slot && !galleryGrid) return;
-
-    const target = galleryGrid || slot;
-
-    observeWhenNearViewport(target, () => {
-      if (doubleInitialized) return;
-      doubleInitialized = true;
-      ensureLightbox();
-
-      const container = buildDoubleDeck();
-      const currentSlot = document.getElementById('innovation-marquee-slot');
-      const currentGrid = document.getElementById('neural-grid');
-
-      if (currentSlot) {
-        currentSlot.replaceWith(container);
-      } else if (currentGrid && currentGrid.parentNode) {
-        currentGrid.insertAdjacentElement('afterend', container);
-      }
-
-      alignInnovationAnchor();
-    }, DEFAULT_MARQUEE_ROOT_MARGIN);
-  }
-
   function cleanupLegacyMarquees() {
-    document.querySelectorAll('.premium-marquee-container, .logo-slider, .single-marquee, .double-marquee').forEach((el) => el.remove());
+    document
+      .querySelectorAll('.premium-marquee-container, .logo-slider, .single-marquee')
+      .forEach((el) => el.remove());
   }
 
   function observeWhenNearViewport(target, callback, rootMargin) {
@@ -176,7 +157,7 @@
         callback();
       },
       {
-        rootMargin: rootMargin || DEFAULT_MARQUEE_ROOT_MARGIN,
+        rootMargin: rootMargin || SINGLE_MARQUEE_ROOT_MARGIN,
       },
     );
 
@@ -186,6 +167,7 @@
   function buildSingleRow() {
     const singleImages = getSingleMarqueeImages();
     const isMobileSingleMarquee = isMobileMarqueeViewport();
+    const priorityCount = getSingleMarqueePriorityCount();
     const container = document.createElement('div');
     container.className = 'single-marquee';
 
@@ -195,72 +177,39 @@
     track.appendChild(
       createImagesFragment(
         singleImages,
-        isMobileSingleMarquee
-          ? {
-              loading: 'lazy',
-              priorityLoading: 'eager',
-              priorityCount: MOBILE_SINGLE_MARQUEE_PRIORITY_COUNT,
-              fetchPriority: 'high',
-            }
-          : {
-              loading: 'eager',
-              priorityLoading: 'eager',
-              priorityCount: SINGLE_MARQUEE_PRIORITY_COUNT,
-              fetchPriority: 'high',
-            },
+        {
+          isMobile: isMobileSingleMarquee,
+          loading: 'lazy',
+          priorityLoading: 'eager',
+          priorityCount,
+          fetchPriority: 'high',
+        },
       ),
     );
     track.appendChild(
       createImagesFragment(
         singleImages,
-        isMobileSingleMarquee
-          ? {
-              loading: 'lazy',
-              priorityCount: 0,
-            }
-          : {
-              loading: 'eager',
-              priorityLoading: 'eager',
-              priorityCount: SINGLE_MARQUEE_PRIORITY_COUNT,
-              fetchPriority: 'high',
-            },
+        {
+          isMobile: isMobileSingleMarquee,
+          loading: 'lazy',
+          priorityCount: 0,
+        },
       ),
     );
 
     container.appendChild(track);
+    bindSingleMarqueeTrack(track);
     return container;
-  }
-
-  function buildDoubleDeck() {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'double-marquee';
-
-    const topRow = createMarqueeRow(MARQUEE_IMAGES, 'scroll-right fast');
-    const bottomRow = createMarqueeRow([...MARQUEE_IMAGES].reverse(), 'scroll-left slow');
-
-    wrapper.appendChild(topRow);
-    wrapper.appendChild(bottomRow);
-    return wrapper;
-  }
-
-  function createMarqueeRow(images, animationClasses) {
-    const track = document.createElement('div');
-    track.className = `marquee-track ${animationClasses}`;
-
-    track.appendChild(createImagesFragment(images));
-    track.appendChild(createImagesFragment(images));
-
-    return track;
   }
 
   function createImagesFragment(images, options) {
     const fragment = document.createDocumentFragment();
     const config = options || {};
     const priorityCount = Number(config.priorityCount) || 0;
+    const isMobileVariant = !!config.isMobile;
 
     images.forEach((filename, index) => {
       const img = document.createElement('img');
-      img.src = ASSET_PATH + filename;
       img.className = 'marquee-img';
       img.alt = 'Silverstone Client Success';
       img.loading =
@@ -273,12 +222,20 @@
       }
 
       img.dataset.marqueeFilename = filename;
-      img.dataset.marqueeFallbackStage = '0';
+      img.dataset.marqueeSourceIndex = '0';
+      img.dataset.marqueeSourceCandidates = getMarqueeSourceCandidates(
+        filename,
+        isMobileVariant,
+      ).join('||');
+      const [primarySource] = readMarqueeSourceCandidates(img);
+      if (primarySource) {
+        img.src = primarySource;
+      }
       img.onerror = () => {
         handleMarqueeImageError(img);
       };
 
-      img.addEventListener('click', () => openLightbox(img.src));
+      img.addEventListener('click', () => openLightbox(img.currentSrc || img.src));
       fragment.appendChild(img);
     });
 
@@ -288,23 +245,87 @@
   function handleMarqueeImageError(img) {
     if (!img) return;
 
-    const filename = img.dataset.marqueeFilename || '';
-    const fallbackStage = img.dataset.marqueeFallbackStage || '0';
-    if (fallbackStage === '0' && /\.webp$/i.test(filename)) {
-      img.dataset.marqueeFallbackStage = '1';
-      img.src = ASSET_PATH + filename.replace(/\.webp$/i, '.jpeg');
+    const candidates = readMarqueeSourceCandidates(img);
+    const nextIndex = Number(img.dataset.marqueeSourceIndex || '0') + 1;
+    if (nextIndex < candidates.length) {
+      img.dataset.marqueeSourceIndex = String(nextIndex);
+      img.src = candidates[nextIndex];
       return;
     }
 
     img.style.display = 'none';
   }
 
-  function warmImageBatch(images, count) {
+  function warmImageBatch(images, count, isMobileVariant) {
     images.slice(0, count).forEach((filename) => {
-      const preload = new Image();
-      preload.decoding = 'async';
-      preload.src = ASSET_PATH + filename;
+      warmMarqueeSource(filename, isMobileVariant);
     });
+  }
+
+  function progressivelyWarmImageBatch(images, isMobileVariant) {
+    let index = 0;
+
+    function warmNextBatch() {
+      const batch = images.slice(index, index + PROGRESSIVE_WARM_BATCH_SIZE);
+      if (!batch.length) return;
+
+      batch.forEach((filename) => {
+        warmMarqueeSource(filename, isMobileVariant);
+      });
+      index += PROGRESSIVE_WARM_BATCH_SIZE;
+
+      if (index < images.length) {
+        window.setTimeout(warmNextBatch, PROGRESSIVE_WARM_DELAY_MS);
+      }
+    }
+
+    window.setTimeout(warmNextBatch, PROGRESSIVE_WARM_DELAY_MS);
+  }
+
+  function warmMarqueeSource(filename, isMobileVariant) {
+    const cacheKey = `${isMobileVariant ? 'mobile' : 'desktop'}:${filename}`;
+    if (marqueeWarmCache.has(cacheKey)) return;
+    marqueeWarmCache.add(cacheKey);
+
+    const candidates = getMarqueeSourceCandidates(filename, isMobileVariant);
+    if (!candidates.length) return;
+
+    let candidateIndex = 0;
+    const preload = new Image();
+    preload.decoding = 'async';
+    preload.onerror = () => {
+      candidateIndex += 1;
+      if (candidateIndex < candidates.length) {
+        preload.src = candidates[candidateIndex];
+      }
+    };
+    preload.src = candidates[candidateIndex];
+  }
+
+  function getMarqueeSourceCandidates(filename, isMobileVariant) {
+    const stem = filename.replace(/\.[^.]+$/, '');
+    const candidates = [];
+
+    if (isMobileVariant) {
+      const mobileWidth = /_Mobile$/i.test(stem)
+        ? MOBILE_MARQUEE_DERIVED_WIDTH
+        : MOBILE_MARQUEE_FALLBACK_WIDTH;
+      candidates.push(`${ASSET_PATH}derived/${stem}-${mobileWidth}.webp`);
+      candidates.push(`${ASSET_PATH}derived/${stem}-${mobileWidth}.jpg`);
+    }
+
+    candidates.push(`${ASSET_PATH}${filename}`);
+    if (/\.webp$/i.test(filename)) {
+      candidates.push(`${ASSET_PATH}${filename.replace(/\.webp$/i, '.jpeg')}`);
+    }
+
+    return [...new Set(candidates)];
+  }
+
+  function readMarqueeSourceCandidates(img) {
+    return (img.dataset.marqueeSourceCandidates || '')
+      .split('||')
+      .filter(Boolean);
   }
 
   function isMobileMarqueeViewport() {
@@ -319,6 +340,46 @@
     return isMobileMarqueeViewport()
       ? MOBILE_SINGLE_MARQUEE_PRIORITY_COUNT
       : SINGLE_MARQUEE_PRIORITY_COUNT;
+  }
+
+  function bindSingleMarqueeTrack(track) {
+    if (!track) return;
+
+    const updateTrackDuration = () => {
+      const loopWidth = track.scrollWidth / 2;
+      if (!loopWidth) return;
+
+      const pixelsPerSecond = isMobileMarqueeViewport()
+        ? MOBILE_MARQUEE_PIXELS_PER_SECOND
+        : DESKTOP_MARQUEE_PIXELS_PER_SECOND;
+      const durationSeconds = Math.max(
+        loopWidth / pixelsPerSecond,
+        isMobileMarqueeViewport() ? 10 : 24,
+      );
+
+      track.style.setProperty(
+        '--marquee-duration',
+        `${durationSeconds.toFixed(2)}s`,
+      );
+    };
+
+    window.requestAnimationFrame(() => {
+      updateTrackDuration();
+      window.requestAnimationFrame(updateTrackDuration);
+    });
+
+    track.querySelectorAll('.marquee-img').forEach((img) => {
+      if (img.complete) return;
+      img.addEventListener('load', updateTrackDuration, { once: true });
+      img.addEventListener('error', updateTrackDuration, { once: true });
+    });
+
+    if ('ResizeObserver' in window) {
+      const resizeObserver = new ResizeObserver(updateTrackDuration);
+      resizeObserver.observe(track);
+    } else {
+      window.addEventListener('resize', updateTrackDuration, { passive: true });
+    }
   }
 
   function ensureLightbox() {
@@ -464,22 +525,6 @@
     return img ? img.currentSrc || img.src : '';
   }
 
-  function alignInnovationAnchor() {
-    const hash = window.location.hash;
-    if (!hash || (hash !== '#innovation-gallery' && hash !== '#neural-grid')) return;
-
-    const target = document.getElementById('innovation-gallery') || document.getElementById('neural-grid');
-    if (!target) return;
-
-    const header = document.querySelector('.site-header');
-    const headerHeight = header ? header.getBoundingClientRect().height : 0;
-
-    window.setTimeout(() => {
-      const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
-      window.scrollTo({ top, behavior: 'auto' });
-    }, 120);
-  }
-
   function bindServiceTileLightbox() {
     const triggers = document.querySelectorAll('.js-premium-lightbox');
     if (!triggers.length) return;
@@ -509,7 +554,6 @@
 
   function init() {
     initSingleMarquee();
-    initDoubleMarquee();
     bindServiceTileLightbox();
   }
 

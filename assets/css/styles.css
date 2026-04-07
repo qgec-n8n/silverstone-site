@@ -101,8 +101,6 @@
     --mobile-stable-vh: 100lvh;
   }
 }
-
-
 /*!
  * Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
@@ -15502,10 +15500,10 @@ body.services-overlay-active .services-overlay {
   width: max-content;
   gap: 32px;
   will-change: transform;
-  animation: marquee-scroll-left 120s linear infinite;
+  animation: marquee-loop var(--marquee-duration, 72s) linear infinite;
 }
 
-@keyframes marquee-scroll-left {
+@keyframes marquee-loop {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
@@ -15528,6 +15526,10 @@ body.services-overlay-active .services-overlay {
   .single-marquee {
     gap: 8px;
     padding: 12px 0 18px;
+  }
+
+  .single-marquee .marquee-track {
+    gap: 20px;
   }
 
   .single-marquee .marquee-img {
@@ -15598,156 +15600,6 @@ body.services-overlay-active .services-overlay {
   width: 100%;
   max-width: 100%;
   max-height: calc(min(var(--lightbox-target-height, 90vh), 90vh) - 20px);
-}
-
-.lightbox-close {
-  position: absolute;
-  top: -50px;
-  right: -20px;
-  width: 40px;
-  height: 40px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 10000;
-  transition: transform 0.3s ease;
-}
-
-.lightbox-close::before,
-.lightbox-close::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 2px;
-  background: #fff;
-  box-shadow: 0 0 10px #00ffff;
-}
-
-.lightbox-close::before { transform: translate(-50%, -50%) rotate(45deg); }
-.lightbox-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
-.lightbox-close:hover { transform: scale(1.2) rotate(90deg); }
-
-@media (max-width: 768px) {
-  .lightbox-close {
-    top: -50px;
-    right: 0;
-  }
-}
-/* =========================================
-   DOUBLE MARQUEE (Services only)
-   ========================================= */
-
-.double-marquee {
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 4px 0 24px;
-  margin: clamp(0.5rem, 1vw, 1rem) 0 0;
-  background: transparent;
-}
-
-.double-marquee .marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 40px;
-  will-change: transform;
-}
-
-@keyframes marquee-scroll-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@keyframes marquee-scroll-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-
-.double-marquee .scroll-left { animation: marquee-scroll-left 60s linear infinite; }
-.double-marquee .scroll-right { animation: marquee-scroll-right 60s linear infinite; }
-.double-marquee .marquee-track.fast { animation-duration: 90s; }
-.double-marquee .marquee-track.slow { animation-duration: 150s; }
-
-.double-marquee .marquee-img {
-  height: 180px;
-  width: auto;
-  object-fit: contain;
-  opacity: 1;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  cursor: pointer;
-}
-
-.double-marquee .marquee-img:hover {
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-@media (max-width: 768px) {
-  .double-marquee {
-    gap: 10px;
-    padding: 12px 0 18px;
-  }
-
-  .double-marquee .marquee-img {
-    height: 120px;
-  }
-}
-
-/* =========================================
-   LIGHTBOX (shared with Premium Gallery)
-   ========================================= */
-
-.premium-lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 20, 30, 0.85);
-  backdrop-filter: blur(15px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
-}
-
-.premium-lightbox.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.lightbox-content {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
-  transform: scale(0.9);
-  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-  border: 1px solid rgba(0, 255, 255, 0.2);
-  background: rgba(0, 255, 255, 0.05);
-  box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.premium-lightbox.active .lightbox-content {
-  transform: scale(1);
-}
-
-.lightbox-img {
-  max-width: 100%;
-  max-height: 85vh;
-  object-fit: contain;
-  display: block;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .lightbox-close {
@@ -18273,3 +18125,4 @@ body.services-overlay-active .services-overlay {
     padding: 1.35rem;
   }
 }
+
