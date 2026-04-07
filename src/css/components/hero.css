@@ -271,9 +271,30 @@
   }
 
   .hero-breadcrumb {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
     margin-bottom: 0.65rem;
-    font-size: 0.69rem;
-    letter-spacing: 0.12em;
+    gap: 0.28rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.09em;
+    line-height: 1.2;
+  }
+
+  .hero-breadcrumb__link,
+  .hero-breadcrumb__separator {
+    flex: 0 0 auto;
+  }
+
+  .hero-breadcrumb__current {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .hero.title-band .content h1 {
@@ -333,7 +354,7 @@
   .page-home .hero .cta-buttons {
     margin-top: auto;
     gap: 0.85rem;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 3.5rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4rem);
   }
 
   .page-about .hero h1 {

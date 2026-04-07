@@ -12268,7 +12268,8 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 }
 
 #industry-service-directory .industry-directory-shell__header,
-#service-page-clusters .industry-directory-shell__header {
+#service-page-clusters .industry-directory-shell__header,
+#blog-industry-directory .industry-directory-shell__header {
   max-width: 42rem;
   margin: 0 auto 1.5rem;
   text-align: center;
@@ -12277,19 +12278,23 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 #industry-service-directory .industry-directory-shell__title,
 #industry-service-directory .industry-directory-shell__subtitle,
 #service-page-clusters .industry-directory-shell__title,
-#service-page-clusters .industry-directory-shell__subtitle {
+#service-page-clusters .industry-directory-shell__subtitle,
+#blog-industry-directory .industry-directory-shell__title,
+#blog-industry-directory .industry-directory-shell__subtitle {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
 
 #industry-service-directory .industry-directory-shell__subtitle,
-#service-page-clusters .industry-directory-shell__subtitle {
+#service-page-clusters .industry-directory-shell__subtitle,
+#blog-industry-directory .industry-directory-shell__subtitle {
   max-width: 40rem;
 }
 
 #industry-service-directory .industry-directory-card,
-#service-page-clusters .industry-directory-card {
+#service-page-clusters .industry-directory-card,
+#blog-industry-directory .industry-directory-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -12308,7 +12313,9 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 #industry-service-directory .industry-directory-card:hover,
 #industry-service-directory .industry-directory-card:focus-visible,
 #service-page-clusters .industry-directory-card:hover,
-#service-page-clusters .industry-directory-card:focus-visible {
+#service-page-clusters .industry-directory-card:focus-visible,
+#blog-industry-directory .industry-directory-card:hover,
+#blog-industry-directory .industry-directory-card:focus-visible {
   transform: translateY(-2px);
   border-color: rgba(170, 221, 255, 0.3);
   box-shadow:
@@ -12317,7 +12324,8 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 }
 
 #industry-service-directory .industry-directory-card__icon,
-#service-page-clusters .industry-directory-card__icon {
+#service-page-clusters .industry-directory-card__icon,
+#blog-industry-directory .industry-directory-card__icon {
   width: auto;
   height: auto;
   margin-bottom: 0.72rem;
@@ -12328,12 +12336,14 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 }
 
 #industry-service-directory .industry-directory-card__icon i,
-#service-page-clusters .industry-directory-card__icon i {
+#service-page-clusters .industry-directory-card__icon i,
+#blog-industry-directory .industry-directory-card__icon i {
   font-size: 0.92rem;
 }
 
 #industry-service-directory .industry-directory-card__title,
-#service-page-clusters .industry-directory-card__title {
+#service-page-clusters .industry-directory-card__title,
+#blog-industry-directory .industry-directory-card__title {
   color: var(--color-blue);
   font-size: 1.05rem;
   line-height: 1.2;
@@ -12341,7 +12351,8 @@ body.page-blog:not(.page-blog-article) .section-subtitle {
 }
 
 #industry-service-directory .industry-directory-card__copy,
-#service-page-clusters .industry-directory-card__copy {
+#service-page-clusters .industry-directory-card__copy,
+#blog-industry-directory .industry-directory-card__copy {
   color: var(--premium-muted);
   font-size: 0.92rem;
   line-height: 1.65;
@@ -13856,9 +13867,30 @@ body.services-overlay-active .services-overlay {
   }
 
   .hero-breadcrumb {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
     margin-bottom: 0.65rem;
-    font-size: 0.69rem;
-    letter-spacing: 0.12em;
+    gap: 0.28rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.09em;
+    line-height: 1.2;
+  }
+
+  .hero-breadcrumb__link,
+  .hero-breadcrumb__separator {
+    flex: 0 0 auto;
+  }
+
+  .hero-breadcrumb__current {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .hero.title-band .content h1 {
@@ -13918,7 +13950,7 @@ body.services-overlay-active .services-overlay {
   .page-home .hero .cta-buttons {
     margin-top: auto;
     gap: 0.85rem;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 3.5rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4rem);
   }
 
   .page-about .hero h1 {
