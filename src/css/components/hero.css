@@ -271,30 +271,27 @@
   }
 
   .hero-breadcrumb {
-    display: flex;
+    display: block;
     width: 100%;
     max-width: 100%;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    white-space: nowrap;
     margin-bottom: 0.65rem;
-    gap: 0.28rem;
-    font-size: 0.62rem;
-    letter-spacing: 0.09em;
-    line-height: 1.2;
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    white-space: normal;
+    overflow: visible;
+    text-wrap: pretty;
   }
 
   .hero-breadcrumb__link,
-  .hero-breadcrumb__separator {
-    flex: 0 0 auto;
+  .hero-breadcrumb__separator,
+  .hero-breadcrumb__current {
+    display: inline;
+    white-space: normal;
   }
 
-  .hero-breadcrumb__current {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .hero-breadcrumb__separator {
+    margin-inline: 0.14rem;
   }
 
   .hero.title-band .content h1 {
