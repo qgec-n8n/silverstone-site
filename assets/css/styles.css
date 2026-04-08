@@ -13931,23 +13931,31 @@ body.services-overlay-active .services-overlay {
     margin-left: 0 !important;
   }
 
-  .page-home .hero.title-band {
-    padding-bottom: calc(5rem + var(--safe-area-bottom));
+  .page-home .hero.title-band,
+  .page-services .hero.title-band,
+  .page-pricing .hero.title-band,
+  .page-niche .hero.title-band {
+    padding-bottom: 5rem;
   }
 
-  .page-home .hero .content {
+  .page-home .hero .content,
+  .page-services .hero .content,
+  .page-pricing .hero .content,
+  .page-niche .hero .content {
     min-height: calc(
       var(--mobile-stable-vh, 100vh) -
       var(--header-safe-offset) -
-      6rem -
-      var(--safe-area-bottom)
+      6rem
     );
   }
 
-  .page-home .hero .cta-buttons {
+  .page-home .hero .cta-buttons,
+  .page-services .hero .cta-buttons,
+  .page-pricing .hero .cta-buttons,
+  .page-niche .hero .cta-buttons {
     margin-top: auto;
     gap: 0.85rem;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4rem);
+    padding-bottom: 4rem;
   }
 
   .page-about .hero h1 {
