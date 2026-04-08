@@ -362,66 +362,6 @@
     padding-bottom: 4rem;
   }
 
-  body.mobile-header-minimized.page-home,
-  body.mobile-header-minimized.page-services,
-  body.mobile-header-minimized.page-pricing,
-  body.mobile-header-minimized.page-niche {
-    --mobile-cta-content-top-pad: 0.4rem;
-    --mobile-cta-content-bottom-pad: 0.75rem;
-    --mobile-cta-buttons-bottom-gap: 0.5rem;
-  }
-
-  body.mobile-header-minimized.page-home .hero.title-band,
-  body.mobile-header-minimized.page-services .hero.title-band,
-  body.mobile-header-minimized.page-pricing .hero.title-band,
-  body.mobile-header-minimized.page-niche .hero.title-band {
-    min-height: var(--mobile-visible-vh, 100svh);
-    padding-top: calc(var(--safe-area-top) + var(--header-indicator-height));
-    padding-bottom: 0;
-  }
-
-  body.mobile-header-minimized.page-home .hero .content,
-  body.mobile-header-minimized.page-services .hero .content,
-  body.mobile-header-minimized.page-pricing .hero .content,
-  body.mobile-header-minimized.page-niche .hero .content {
-    min-height: calc(
-      var(--mobile-visible-vh, 100svh) -
-      var(--safe-area-top) -
-      var(--header-indicator-height)
-    );
-  }
-
-  body.mobile-header-minimized.page-home .hero.title-band .content,
-  body.mobile-header-minimized.page-services .hero.title-band .content,
-  body.mobile-header-minimized.page-pricing .hero.title-band .content,
-  body.mobile-header-minimized.page-niche .hero.title-band .content {
-    padding:
-      var(--mobile-cta-content-top-pad)
-      1.25rem
-      var(--mobile-cta-content-bottom-pad);
-  }
-
-  body.mobile-header-minimized.page-home .hero-breadcrumb,
-  body.mobile-header-minimized.page-services .hero-breadcrumb,
-  body.mobile-header-minimized.page-pricing .hero-breadcrumb,
-  body.mobile-header-minimized.page-niche .hero-breadcrumb {
-    margin-bottom: 0.35rem;
-  }
-
-  body.mobile-header-minimized.page-home .hero.title-band .content h1,
-  body.mobile-header-minimized.page-services .hero.title-band .content h1,
-  body.mobile-header-minimized.page-pricing .hero.title-band .content h1,
-  body.mobile-header-minimized.page-niche .hero.title-band .content h1 {
-    margin-bottom: 0.35rem;
-  }
-
-  body.mobile-header-minimized.page-home .hero .cta-buttons,
-  body.mobile-header-minimized.page-services .hero .cta-buttons,
-  body.mobile-header-minimized.page-pricing .hero .cta-buttons,
-  body.mobile-header-minimized.page-niche .hero .cta-buttons {
-    padding-bottom: var(--mobile-cta-buttons-bottom-gap);
-  }
-
   .page-about .hero h1 {
     font-size: clamp(2.24rem, 9.2vw, 3rem);
   }

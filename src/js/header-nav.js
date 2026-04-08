@@ -97,13 +97,6 @@
     const isMobileViewport = () =>
       window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
 
-    function syncMobileHeaderMinimizedState(isMinimized) {
-      body.classList.toggle(
-        'mobile-header-minimized',
-        Boolean(isMinimized) && isMobileViewport(),
-      );
-    }
-
     function setStagger(item, index) {
       item.style.setProperty('--item-index', index);
     }
@@ -215,7 +208,6 @@
     function showHeader() {
       if (header) header.classList.remove('header-hidden');
       headerIndicator.classList.remove('active');
-      syncMobileHeaderMinimizedState(false);
     }
     function hideHeader() {
       if (isMobileNavOpen) return;
@@ -226,7 +218,6 @@
         return;
       if (header) header.classList.add('header-hidden');
       headerIndicator.classList.add('active');
-      syncMobileHeaderMinimizedState(true);
     }
     function scheduleHeaderAutoHide(delay = 1200) {
       clearTimeout(headerAutoHideTimeoutId);
@@ -508,7 +499,6 @@
       { passive: true },
     );
 
-    syncMobileHeaderMinimizedState(false);
     scheduleHeaderAutoHide();
 
     function buildMobileNav() {
