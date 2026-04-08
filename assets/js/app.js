@@ -97,6 +97,13 @@
     const isMobileViewport = () =>
       window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
 
+    function syncMobileHeaderMinimizedState(isMinimized) {
+      body.classList.toggle(
+        'mobile-header-minimized',
+        Boolean(isMinimized) && isMobileViewport(),
+      );
+    }
+
     function setStagger(item, index) {
       item.style.setProperty('--item-index', index);
     }
@@ -208,6 +215,7 @@
     function showHeader() {
       if (header) header.classList.remove('header-hidden');
       headerIndicator.classList.remove('active');
+      syncMobileHeaderMinimizedState(false);
     }
     function hideHeader() {
       if (isMobileNavOpen) return;
@@ -218,6 +226,7 @@
         return;
       if (header) header.classList.add('header-hidden');
       headerIndicator.classList.add('active');
+      syncMobileHeaderMinimizedState(true);
     }
     function scheduleHeaderAutoHide(delay = 1200) {
       clearTimeout(headerAutoHideTimeoutId);
@@ -499,6 +508,7 @@
       { passive: true },
     );
 
+    syncMobileHeaderMinimizedState(false);
     scheduleHeaderAutoHide();
 
     function buildMobileNav() {
@@ -534,6 +544,8 @@
 
   window.Silverstone.initHeaderNav = initHeaderNav;
 })();
+
+
 (function () {
   'use strict';
 
@@ -1596,7 +1608,7 @@
   window.Silverstone = window.Silverstone || {};
 
   const root = document.documentElement;
-  const orientationState = new Map();
+  const stableOrientationState = new Map();
   let cleanup = null;
 
   function getOrientationKey() {
@@ -1618,12 +1630,12 @@
     return rawHeight;
   }
 
-  function measureCssViewportHeight() {
+  function measureCssViewportHeight(heightDeclaration) {
     if (!document.body) return 0;
     const probe = document.createElement('div');
     probe.setAttribute('aria-hidden', 'true');
     probe.style.cssText =
-      'position:fixed;top:0;left:0;width:1px;height:100vh;height:100lvh;pointer-events:none;visibility:hidden;';
+      `position:fixed;top:0;left:0;width:1px;height:100vh;${heightDeclaration};pointer-events:none;visibility:hidden;`;
     document.body.appendChild(probe);
     const height = probe.getBoundingClientRect().height || 0;
     probe.remove();
@@ -1636,17 +1648,40 @@
       typeof window.innerHeight === 'number' ? window.innerHeight : 0;
     const visualHeight = vv ? vv.height || 0 : 0;
     const screenHeight = getScreenHeightCssPx();
-    const cssViewportHeight = measureCssViewportHeight();
+    const cssViewportHeight = measureCssViewportHeight('height:100lvh;');
     return Math.max(innerHeight, visualHeight, screenHeight, cssViewportHeight);
+  }
+
+  function computeVisibleViewportHeight() {
+    const vv = window.visualViewport;
+    const innerHeight =
+      typeof window.innerHeight === 'number' ? window.innerHeight : 0;
+    const visualHeight = vv ? vv.height || 0 : 0;
+    const cssViewportHeight = measureCssViewportHeight('height:100svh;');
+    if (cssViewportHeight > 0) return cssViewportHeight;
+    const fallbackHeights = [innerHeight, visualHeight].filter(
+      (value) => value > 0,
+    );
+    if (!fallbackHeights.length) return 0;
+    return Math.min(...fallbackHeights);
   }
 
   function applyStableViewportHeight(forceReset) {
     const orientation = getOrientationKey();
     const nextHeight = Math.round(computeStableViewportHeight());
-    const previousHeight = forceReset ? 0 : orientationState.get(orientation) || 0;
+    const previousHeight = forceReset
+      ? 0
+      : stableOrientationState.get(orientation) || 0;
     const stableHeight = Math.max(previousHeight, nextHeight);
-    orientationState.set(orientation, stableHeight);
+    stableOrientationState.set(orientation, stableHeight);
     root.style.setProperty('--mobile-stable-vh', `${stableHeight}px`);
+  }
+
+  function applyVisibleViewportHeight() {
+    const visibleHeight = Math.round(computeVisibleViewportHeight());
+    if (visibleHeight > 0) {
+      root.style.setProperty('--mobile-visible-vh', `${visibleHeight}px`);
+    }
   }
 
   function bindViewportMetrics() {
@@ -1658,14 +1693,17 @@
       const orientationChanged = nextOrientation !== orientation;
       orientation = nextOrientation;
       applyStableViewportHeight(orientationChanged);
+      applyVisibleViewportHeight();
     };
 
     const handlePageShow = () => {
-      orientationState.delete(getOrientationKey());
+      stableOrientationState.delete(getOrientationKey());
       applyStableViewportHeight(true);
+      applyVisibleViewportHeight();
     };
 
     applyStableViewportHeight(true);
+    applyVisibleViewportHeight();
     window.addEventListener('resize', handleViewportResize, { passive: true });
     window.addEventListener('orientationchange', handleViewportResize, {
       passive: true,
@@ -3462,4 +3500,3 @@ document.addEventListener('DOMContentLoaded', function () {
     if (api.initParallax) api.initParallax();
   });
 })();
-

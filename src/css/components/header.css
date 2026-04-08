@@ -96,6 +96,7 @@ nav {
 
 :root {
   --headerH: clamp(66px, 8vh, 88px);
+  --header-indicator-height: calc(var(--headerH) * 0.335);
   /* SPEC: MOBILE_NAV_TIMINGS_TUNED */
   --mobile-nav-panel-slide-ms: 1250ms;
   --mobile-nav-item-stagger-ms: 280ms;
@@ -107,7 +108,7 @@ nav {
   top: var(--safe-area-top);
   left: 0;
   width: 100%;
-  height: calc(var(--headerH) * 0.335);
+  height: var(--header-indicator-height);
   background: #ffffff;
   backdrop-filter: blur(6px) saturate(130%);
   border-radius: 0 0 12px 12px;
