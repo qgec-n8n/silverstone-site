@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0",
+  "date": "2026-06-22",
+  "scope": "/web",
+  "javascript": {
+    "initialRouteGzipTargetKb": 220,
+    "initialRouteGzipHardCeilingKb": 300,
+    "excludes": [
+      "deferred shader code",
+      "third-party code loaded only after explicit interaction/consent"
+    ],
+    "measurement": "clean production build; route entry plus required shared chunks; gzip bytes",
+    "failurePolicy": {
+      "targetMiss": "requires documented remediation or approved exception",
+      "hardCeilingMiss": "release blocker"
+    }
+  },
+  "webVitalsLab": {
+    "lcpMsMax": 2500,
+    "clsMax": 0.1,
+    "inpMsMax": 200,
+    "representativeMobile": {
+      "viewport": "390x844",
+      "network": "mobile lab profile",
+      "cpu": "documented throttling profile"
+    },
+    "routes": [
+      "/",
+      "/services",
+      "/services/trades",
+      "/pricing",
+      "/blog",
+      "/blog/ai-receptionist-small-business-2026",
+      "/book",
+      "/contact"
+    ]
+  },
+  "accessibility": {
+    "automatedScoreTarget": 95,
+    "criticalViolationsMax": 0,
+    "requirements": [
+      "keyboard complete",
+      "visible focus",
+      "semantic landmarks",
+      "reflow/zoom",
+      "reduced-motion understandable"
+    ]
+  },
+  "animation": {
+    "maxAnimationCausedLongTaskMs": 50,
+    "minSustainedDesktopFps": 45,
+    "scrollHijackingAllowed": false,
+    "reducedMotionRequired": true,
+    "offscreenContinuousAnimationAllowed": false
+  },
+  "assets": {
+    "heroImageRecommendedKbMax": 250,
+    "aboveFoldImageRecommendedKbMax": 350,
+    "fontFamiliesMax": 2,
+    "fontPreloadsMax": 2,
+    "required": [
+      "explicit width and height",
+      "responsive sources where useful",
+      "lazy loading below fold",
+      "deterministic filenames"
+    ]
+  },
+  "routeOutput": {
+    "canonicalRoutesExpected": 50,
+    "initialHtmlRequired": true,
+    "singleH1Required": true,
+    "duplicateCanonicalAllowed": false,
+    "genuine404Required": true
+  },
+  "exceptions": {
+    "requiredFields": [
+      "metric",
+      "measuredValue",
+      "route",
+      "cause",
+      "owner",
+      "expiry",
+      "remediation",
+      "approver"
+    ],
+    "maximumValidityDays": 30
+  }
+}
