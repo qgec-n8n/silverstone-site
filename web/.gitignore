@@ -1,0 +1,11 @@
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Build and cache output
+dist/
+coverage/
+.vite/
+node_modules/
+
