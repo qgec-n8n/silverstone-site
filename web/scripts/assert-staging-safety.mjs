@@ -102,8 +102,12 @@ function hasForbiddenAnalytics(text) {
 }
 
 function robotsMetaContents(text) {
-  const matches = [...text.matchAll(/<meta\b[^>]*name=["']robots["'][^>]*content=["']([^"']+)["'][^>]*>/gi)];
-  return matches.map((match) => match[1].toLowerCase());
+  const metaTags = [...text.matchAll(/<meta\b[^>]*>/gi)].map((match) => match[0]);
+  return metaTags.flatMap((tag) => {
+    const name = tag.match(/\bname=["']([^"']+)["']/i)?.[1];
+    const content = tag.match(/\bcontent=["']([^"']+)["']/i)?.[1];
+    return name?.toLowerCase() === 'robots' && content ? [content.toLowerCase()] : [];
+  });
 }
 
 function isHtmlFile(filePath) {
@@ -223,6 +227,29 @@ async function scanPath(targetPath, errors) {
   }
 }
 
+async function validateBuildOutput(root, errors) {
+  const resolvedRoot = path.resolve(root);
+  if (path.basename(resolvedRoot) !== 'client') {
+    return;
+  }
+
+  const indexPath = path.join(resolvedRoot, 'index.html');
+  if (!(await exists(indexPath))) {
+    addError(errors, `${resolvedRoot}: missing prerendered index.html`);
+    return;
+  }
+
+  const indexHtml = await fs.readFile(indexPath, 'utf8');
+  if (!indexHtml.includes('Silverstone web foundation')) {
+    addError(errors, `${indexPath}: missing meaningful foundation heading`);
+  }
+
+  const componentLabPath = path.join(resolvedRoot, '__components');
+  if (await exists(componentLabPath)) {
+    addError(errors, `${componentLabPath}: development-only route leaked into production output`);
+  }
+}
+
 function validateEnvironment(errors) {
   for (const [key, expected] of Object.entries(REQUIRED_ENV)) {
     const actual = normalize(process.env[key]);
@@ -258,6 +285,7 @@ async function main() {
       continue;
     }
     await scanPath(root, errors);
+    await validateBuildOutput(root, errors);
   }
 
   if (errors.length > 0) {
@@ -275,4 +303,3 @@ main().catch((error) => {
   console.error(error instanceof Error ? error.stack || error.message : String(error));
   process.exit(1);
 });
-
