@@ -1,0 +1,1610 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "$description": "Authoritative Silverstone React design and motion tokens. Design choices are proposals; accessibility thresholds cite standards in companion documents.",
+  "metadata": {
+    "package-name": "silverstone-brand-motion-design-system-v1",
+    "version": "1.0.0",
+    "date": "2026-06-23",
+    "repository-destination": "/docs/silverstone-transformation/design/brand-motion-design-system-v1/",
+    "consumer-prompts": [
+      "F-03",
+      "I-series"
+    ],
+    "governance": {
+      "status": "authoritative-proposal",
+      "legacy-root": "untouched",
+      "target-application": "/web"
+    },
+    "evidence": {
+      "d01-manifest": "docs/silverstone-transformation/architecture/execution-blueprint-v1/MANIFEST.md",
+      "d01-animation": "docs/silverstone-transformation/architecture/execution-blueprint-v1/animation-responsibility-model-v1.md",
+      "d01-performance": "docs/silverstone-transformation/architecture/execution-blueprint-v1/performance-budgets-v1.json",
+      "f01-bundle-baseline": "web/build/bundle-report.json",
+      "f01-baseline-gzip-kb": 111.83,
+      "d01-js-target-kb": 220,
+      "d01-js-hard-ceiling-kb": 300,
+      "evidence-limitation": "The requested transformation/foundation ref and a separately named F-01 report were not available through the repository connector at generation time; no unsupported report facts are asserted."
+    }
+  },
+  "color": {
+    "primitive": {
+      "silverstone-graphite": {
+        "$type": "color",
+        "$value": "#43555D",
+        "$description": "Locked mandatory base palette colour: silverstone-graphite."
+      },
+      "deep-graphite": {
+        "$type": "color",
+        "$value": "#39454D",
+        "$description": "Locked mandatory base palette colour: deep-graphite."
+      },
+      "titanium-silver": {
+        "$type": "color",
+        "$value": "#A0A4AB",
+        "$description": "Locked mandatory base palette colour: titanium-silver."
+      },
+      "platinum-silver": {
+        "$type": "color",
+        "$value": "#E9EAEF",
+        "$description": "Locked mandatory base palette colour: platinum-silver."
+      },
+      "electric-cyan": {
+        "$type": "color",
+        "$value": "#5EC5D0",
+        "$description": "Locked mandatory base palette colour: electric-cyan."
+      },
+      "digital-blue": {
+        "$type": "color",
+        "$value": "#597FAD",
+        "$description": "Locked mandatory base palette colour: digital-blue."
+      },
+      "neural-violet": {
+        "$type": "color",
+        "$value": "#A97CC0",
+        "$description": "Locked mandatory base palette colour: neural-violet."
+      },
+      "cloud-white": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Locked mandatory base palette colour: cloud-white."
+      },
+      "electric-pink": {
+        "$type": "color",
+        "$value": "#C884C3",
+        "$description": "Locked mandatory base palette colour: electric-pink."
+      },
+      "soft-pink-glow": {
+        "$type": "color",
+        "$value": "#CE98CF",
+        "$description": "Locked mandatory base palette colour: soft-pink-glow."
+      },
+      "deep-magenta": {
+        "$type": "color",
+        "$value": "#A96EAB",
+        "$description": "Locked mandatory base palette colour: deep-magenta."
+      }
+    },
+    "derived": {
+      "ink-muted": {
+        "$type": "color",
+        "$value": "#66747B",
+        "$description": "Proposal — Derived accessible/support colour: ink-muted."
+      },
+      "border-strong": {
+        "$type": "color",
+        "$value": "#77858B",
+        "$description": "Proposal — Derived accessible/support colour: border-strong."
+      },
+      "cyan-ink": {
+        "$type": "color",
+        "$value": "#246B74",
+        "$description": "Proposal — Derived accessible/support colour: cyan-ink."
+      },
+      "blue-ink": {
+        "$type": "color",
+        "$value": "#45658B",
+        "$description": "Proposal — Derived accessible/support colour: blue-ink."
+      },
+      "violet-ink": {
+        "$type": "color",
+        "$value": "#765083",
+        "$description": "Proposal — Derived accessible/support colour: violet-ink."
+      },
+      "pink-ink": {
+        "$type": "color",
+        "$value": "#7B4778",
+        "$description": "Proposal — Derived accessible/support colour: pink-ink."
+      },
+      "magenta-ink": {
+        "$type": "color",
+        "$value": "#70436F",
+        "$description": "Proposal — Derived accessible/support colour: magenta-ink."
+      },
+      "canvas-subtle": {
+        "$type": "color",
+        "$value": "#F6F7F9",
+        "$description": "Proposal — Derived accessible/support colour: canvas-subtle."
+      },
+      "canvas-tint": {
+        "$type": "color",
+        "$value": "#F0FAFB",
+        "$description": "Proposal — Derived accessible/support colour: canvas-tint."
+      },
+      "night-canvas": {
+        "$type": "color",
+        "$value": "#202A2F",
+        "$description": "Proposal — Derived accessible/support colour: night-canvas."
+      },
+      "night-raised": {
+        "$type": "color",
+        "$value": "#2B373D",
+        "$description": "Proposal — Derived accessible/support colour: night-raised."
+      },
+      "night-muted": {
+        "$type": "color",
+        "$value": "#C4C7CC",
+        "$description": "Proposal — Derived accessible/support colour: night-muted."
+      },
+      "success-ink": {
+        "$type": "color",
+        "$value": "#246B4A",
+        "$description": "Proposal — Derived accessible/support colour: success-ink."
+      },
+      "warning-ink": {
+        "$type": "color",
+        "$value": "#7A5600",
+        "$description": "Proposal — Derived accessible/support colour: warning-ink."
+      },
+      "danger-ink": {
+        "$type": "color",
+        "$value": "#A33A3A",
+        "$description": "Proposal — Derived accessible/support colour: danger-ink."
+      },
+      "info-ink": {
+        "$type": "color",
+        "$value": "#355F7E",
+        "$description": "Proposal — Derived accessible/support colour: info-ink."
+      },
+      "success-glow": {
+        "$type": "color",
+        "$value": "#8DD7B1",
+        "$description": "Proposal — Derived accessible/support colour: success-glow."
+      },
+      "warning-glow": {
+        "$type": "color",
+        "$value": "#F2C66D",
+        "$description": "Proposal — Derived accessible/support colour: warning-glow."
+      },
+      "danger-glow": {
+        "$type": "color",
+        "$value": "#F1A0A0",
+        "$description": "Proposal — Derived accessible/support colour: danger-glow."
+      },
+      "info-glow": {
+        "$type": "color",
+        "$value": "#9DBDE0",
+        "$description": "Proposal — Derived accessible/support colour: info-glow."
+      },
+      "chart-teal-light": {
+        "$type": "color",
+        "$value": "#287782",
+        "$description": "Proposal — Derived accessible/support colour: chart-teal-light."
+      },
+      "chart-gray-light": {
+        "$type": "color",
+        "$value": "#5D6B72",
+        "$description": "Proposal — Derived accessible/support colour: chart-gray-light."
+      },
+      "chart-teal-dark": {
+        "$type": "color",
+        "$value": "#6FD3DC",
+        "$description": "Proposal — Derived accessible/support colour: chart-teal-dark."
+      },
+      "chart-violet-dark": {
+        "$type": "color",
+        "$value": "#C4A3D7",
+        "$description": "Proposal — Derived accessible/support colour: chart-violet-dark."
+      },
+      "chart-pink-dark": {
+        "$type": "color",
+        "$value": "#E0A8DA",
+        "$description": "Proposal — Derived accessible/support colour: chart-pink-dark."
+      },
+      "chart-magenta-dark": {
+        "$type": "color",
+        "$value": "#D89BD8",
+        "$description": "Proposal — Derived accessible/support colour: chart-magenta-dark."
+      },
+      "black": {
+        "$type": "color",
+        "$value": "#000000",
+        "$description": "Proposal — Derived accessible/support colour: black."
+      },
+      "transparent": {
+        "$type": "color",
+        "$value": "#00000000",
+        "$description": "Proposal — Derived accessible/support colour: transparent."
+      }
+    },
+    "semantic": {
+      "light": {
+        "text": {
+          "primary": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Default body and heading text."
+          },
+          "secondary": {
+            "$type": "color",
+            "$value": "{color.primitive.silverstone-graphite}",
+            "$description": "Proposal — Supporting text."
+          },
+          "muted": {
+            "$type": "color",
+            "$value": "{color.derived.ink-muted}",
+            "$description": "Proposal — Muted text that still meets normal-text contrast on white."
+          },
+          "inverse": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Text on dark brand surfaces."
+          },
+          "link": {
+            "$type": "color",
+            "$value": "{color.derived.cyan-ink}",
+            "$description": "Proposal — Accessible brand link text; underline remains visible."
+          },
+          "link-hover": {
+            "$type": "color",
+            "$value": "{color.derived.blue-ink}",
+            "$description": "Proposal — Link hover/focus text."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{color.primitive.titanium-silver}",
+            "$description": "Proposal — Disabled-only text; exempt from active control contrast but not used for required instructions."
+          }
+        },
+        "surface": {
+          "canvas": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Page canvas."
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.derived.canvas-subtle}",
+            "$description": "Proposal — Subtle section surface."
+          },
+          "raised": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Cards and floating panels."
+          },
+          "brand-tint": {
+            "$type": "color",
+            "$value": "{color.derived.canvas-tint}",
+            "$description": "Proposal — Low-intensity cyan-tinted section."
+          },
+          "inverse": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Dark branded section."
+          },
+          "scrim": {
+            "$type": "color",
+            "$value": "#202A2FD9",
+            "$description": "Proposal — Modal and media scrim."
+          }
+        },
+        "border": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.primitive.platinum-silver}",
+            "$description": "Proposal — Decorative divider; not sole control boundary."
+          },
+          "default": {
+            "$type": "color",
+            "$value": "{color.derived.border-strong}",
+            "$description": "Proposal — Control and structural boundary with at least 3:1 against white."
+          },
+          "strong": {
+            "$type": "color",
+            "$value": "{color.primitive.silverstone-graphite}",
+            "$description": "Proposal — High-emphasis boundary."
+          },
+          "inverse": {
+            "$type": "color",
+            "$value": "{color.primitive.titanium-silver}",
+            "$description": "Proposal — Boundary on dark surfaces."
+          }
+        },
+        "action": {
+          "primary-bg": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Primary button fill."
+          },
+          "primary-fg": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Primary button label."
+          },
+          "primary-hover-bg": {
+            "$type": "color",
+            "$value": "{color.primitive.silverstone-graphite}",
+            "$description": "Proposal — Primary button hover fill."
+          },
+          "secondary-bg": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Secondary button fill."
+          },
+          "secondary-fg": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Secondary button label."
+          },
+          "secondary-border": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Secondary button boundary."
+          },
+          "accent-bg": {
+            "$type": "color",
+            "$value": "{color.derived.cyan-ink}",
+            "$description": "Proposal — Accent action fill on light surfaces."
+          },
+          "accent-fg": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Accent action label."
+          },
+          "ghost-hover": {
+            "$type": "color",
+            "$value": "#39454D12",
+            "$description": "Proposal — Ghost action hover surface."
+          }
+        },
+        "focus": {
+          "ring": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Outer focus ring on light surfaces."
+          },
+          "ring-inverse": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Outer focus ring on dark surfaces."
+          },
+          "gap": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Two-colour focus-ring separation layer."
+          }
+        },
+        "state": {
+          "success-fg": {
+            "$type": "color",
+            "$value": "{color.derived.success-ink}",
+            "$description": "Proposal — Success text/icon."
+          },
+          "success-bg": {
+            "$type": "color",
+            "$value": "#EAF7F0",
+            "$description": "Proposal — Success surface."
+          },
+          "success-border": {
+            "$type": "color",
+            "$value": "#3A7B5A",
+            "$description": "Proposal — Success boundary."
+          },
+          "warning-fg": {
+            "$type": "color",
+            "$value": "{color.derived.warning-ink}",
+            "$description": "Proposal — Warning text/icon."
+          },
+          "warning-bg": {
+            "$type": "color",
+            "$value": "#FFF5DB",
+            "$description": "Proposal — Warning surface."
+          },
+          "warning-border": {
+            "$type": "color",
+            "$value": "#8A640E",
+            "$description": "Proposal — Warning boundary."
+          },
+          "danger-fg": {
+            "$type": "color",
+            "$value": "{color.derived.danger-ink}",
+            "$description": "Proposal — Error text/icon."
+          },
+          "danger-bg": {
+            "$type": "color",
+            "$value": "#FDEEEE",
+            "$description": "Proposal — Error surface."
+          },
+          "danger-border": {
+            "$type": "color",
+            "$value": "#B64A4A",
+            "$description": "Proposal — Error boundary."
+          },
+          "info-fg": {
+            "$type": "color",
+            "$value": "{color.derived.info-ink}",
+            "$description": "Proposal — Informational text/icon."
+          },
+          "info-bg": {
+            "$type": "color",
+            "$value": "#EDF4FA",
+            "$description": "Proposal — Informational surface."
+          },
+          "info-border": {
+            "$type": "color",
+            "$value": "#466F90",
+            "$description": "Proposal — Informational boundary."
+          }
+        }
+      },
+      "dark": {
+        "text": {
+          "primary": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Primary text on dark canvas."
+          },
+          "secondary": {
+            "$type": "color",
+            "$value": "{color.primitive.platinum-silver}",
+            "$description": "Proposal — Secondary text on dark canvas."
+          },
+          "muted": {
+            "$type": "color",
+            "$value": "{color.derived.night-muted}",
+            "$description": "Proposal — Muted text on dark canvas."
+          },
+          "inverse": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Text on light/accent fills."
+          },
+          "link": {
+            "$type": "color",
+            "$value": "{color.primitive.electric-cyan}",
+            "$description": "Proposal — Brand link text on dark canvas."
+          },
+          "link-hover": {
+            "$type": "color",
+            "$value": "{color.derived.info-glow}",
+            "$description": "Proposal — Link hover/focus text on dark canvas."
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{color.primitive.titanium-silver}",
+            "$description": "Proposal — Disabled-only text."
+          }
+        },
+        "surface": {
+          "canvas": {
+            "$type": "color",
+            "$value": "{color.derived.night-canvas}",
+            "$description": "Proposal — Dark page canvas."
+          },
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Dark section surface."
+          },
+          "raised": {
+            "$type": "color",
+            "$value": "{color.derived.night-raised}",
+            "$description": "Proposal — Dark card surface."
+          },
+          "brand-tint": {
+            "$type": "color",
+            "$value": "#25343A",
+            "$description": "Proposal — Dark cyan-tinted section."
+          },
+          "inverse": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Light inverse section."
+          },
+          "scrim": {
+            "$type": "color",
+            "$value": "#000000B8",
+            "$description": "Proposal — Dark modal/media scrim."
+          }
+        },
+        "border": {
+          "subtle": {
+            "$type": "color",
+            "$value": "#5C6A70",
+            "$description": "Proposal — Decorative divider on dark surfaces."
+          },
+          "default": {
+            "$type": "color",
+            "$value": "{color.primitive.titanium-silver}",
+            "$description": "Proposal — Control boundary on dark canvas."
+          },
+          "strong": {
+            "$type": "color",
+            "$value": "{color.primitive.platinum-silver}",
+            "$description": "Proposal — High-emphasis dark boundary."
+          },
+          "inverse": {
+            "$type": "color",
+            "$value": "{color.primitive.silverstone-graphite}",
+            "$description": "Proposal — Boundary on light surfaces."
+          }
+        },
+        "action": {
+          "primary-bg": {
+            "$type": "color",
+            "$value": "{color.primitive.electric-cyan}",
+            "$description": "Proposal — Primary dark-theme action fill."
+          },
+          "primary-fg": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Primary dark-theme action label."
+          },
+          "primary-hover-bg": {
+            "$type": "color",
+            "$value": "#83D3DB",
+            "$description": "Proposal — Primary dark-theme hover fill."
+          },
+          "secondary-bg": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Secondary action fill."
+          },
+          "secondary-fg": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Secondary label."
+          },
+          "secondary-border": {
+            "$type": "color",
+            "$value": "{color.primitive.titanium-silver}",
+            "$description": "Proposal — Secondary boundary."
+          },
+          "accent-bg": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — High-contrast accent fill."
+          },
+          "accent-fg": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — High-contrast accent label."
+          },
+          "ghost-hover": {
+            "$type": "color",
+            "$value": "#FFFFFF14",
+            "$description": "Proposal — Ghost action hover surface."
+          }
+        },
+        "focus": {
+          "ring": {
+            "$type": "color",
+            "$value": "{color.primitive.cloud-white}",
+            "$description": "Proposal — Outer focus ring on dark surfaces."
+          },
+          "ring-inverse": {
+            "$type": "color",
+            "$value": "{color.primitive.deep-graphite}",
+            "$description": "Proposal — Outer focus ring on light surfaces."
+          },
+          "gap": {
+            "$type": "color",
+            "$value": "{color.derived.night-canvas}",
+            "$description": "Proposal — Two-colour focus-ring separation layer."
+          }
+        },
+        "state": {
+          "success-fg": {
+            "$type": "color",
+            "$value": "{color.derived.success-glow}",
+            "$description": "Proposal — Success text/icon on dark."
+          },
+          "success-bg": {
+            "$type": "color",
+            "$value": "#183C2B",
+            "$description": "Proposal — Success dark surface."
+          },
+          "success-border": {
+            "$type": "color",
+            "$value": "{color.derived.success-glow}",
+            "$description": "Proposal — Success dark boundary."
+          },
+          "warning-fg": {
+            "$type": "color",
+            "$value": "{color.derived.warning-glow}",
+            "$description": "Proposal — Warning text/icon on dark."
+          },
+          "warning-bg": {
+            "$type": "color",
+            "$value": "#43330D",
+            "$description": "Proposal — Warning dark surface."
+          },
+          "warning-border": {
+            "$type": "color",
+            "$value": "{color.derived.warning-glow}",
+            "$description": "Proposal — Warning dark boundary."
+          },
+          "danger-fg": {
+            "$type": "color",
+            "$value": "{color.derived.danger-glow}",
+            "$description": "Proposal — Error text/icon on dark."
+          },
+          "danger-bg": {
+            "$type": "color",
+            "$value": "#4A2528",
+            "$description": "Proposal — Error dark surface."
+          },
+          "danger-border": {
+            "$type": "color",
+            "$value": "{color.derived.danger-glow}",
+            "$description": "Proposal — Error dark boundary."
+          },
+          "info-fg": {
+            "$type": "color",
+            "$value": "{color.derived.info-glow}",
+            "$description": "Proposal — Informational text/icon on dark."
+          },
+          "info-bg": {
+            "$type": "color",
+            "$value": "#24384D",
+            "$description": "Proposal — Informational dark surface."
+          },
+          "info-border": {
+            "$type": "color",
+            "$value": "{color.derived.info-glow}",
+            "$description": "Proposal — Informational dark boundary."
+          }
+        }
+      }
+    },
+    "overlay": {
+      "hero-dark": {
+        "$type": "gradient",
+        "$value": "linear-gradient(90deg, rgba(32,42,47,.92) 0%, rgba(32,42,47,.72) 48%, rgba(32,42,47,.28) 100%)",
+        "$description": "Proposal — Hero text-protection overlay."
+      },
+      "media-bottom": {
+        "$type": "gradient",
+        "$value": "linear-gradient(180deg, rgba(32,42,47,0) 45%, rgba(32,42,47,.86) 100%)",
+        "$description": "Proposal — Media caption overlay."
+      },
+      "glass-light": {
+        "$type": "color",
+        "$value": "rgba(255,255,255,.78)",
+        "$description": "Proposal — Light glass panel with backdrop support."
+      },
+      "glass-dark": {
+        "$type": "color",
+        "$value": "rgba(32,42,47,.82)",
+        "$description": "Proposal — Dark glass panel with backdrop support."
+      }
+    },
+    "gradient": {
+      "brand-spectrum": {
+        "$type": "gradient",
+        "$value": "linear-gradient(110deg, #5EC5D0 0%, #597FAD 34%, #A97CC0 66%, #C884C3 100%)",
+        "$description": "Proposal — Primary Silverstone spectrum; decorative or large display use."
+      },
+      "brand-spectrum-soft": {
+        "$type": "gradient",
+        "$value": "linear-gradient(110deg, rgba(94,197,208,.18), rgba(89,127,173,.14), rgba(169,124,192,.14), rgba(200,132,195,.16))",
+        "$description": "Proposal — Low-intensity section background."
+      },
+      "titanium": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #FFFFFF 0%, #E9EAEF 32%, #A0A4AB 58%, #FFFFFF 100%)",
+        "$description": "Proposal — Titanium highlight treatment; never behind essential text."
+      },
+      "night": {
+        "$type": "gradient",
+        "$value": "linear-gradient(145deg, #202A2F 0%, #39454D 58%, #43555D 100%)",
+        "$description": "Proposal — Dark branded surface."
+      },
+      "cyan-violet": {
+        "$type": "gradient",
+        "$value": "linear-gradient(100deg, #5EC5D0 0%, #597FAD 48%, #A97CC0 100%)",
+        "$description": "Proposal — Cool technology accent."
+      },
+      "violet-pink": {
+        "$type": "gradient",
+        "$value": "linear-gradient(100deg, #A97CC0 0%, #C884C3 58%, #A96EAB 100%)",
+        "$description": "Proposal — Warm premium accent."
+      }
+    },
+    "glow": {
+      "cyan-sm": {
+        "$type": "shadow",
+        "$value": "0 0 18px rgba(94,197,208,.28)",
+        "$description": "Proposal — Subtle cyan glow."
+      },
+      "cyan-lg": {
+        "$type": "shadow",
+        "$value": "0 0 42px rgba(94,197,208,.32)",
+        "$description": "Proposal — Hero cyan glow."
+      },
+      "violet-sm": {
+        "$type": "shadow",
+        "$value": "0 0 18px rgba(169,124,192,.24)",
+        "$description": "Proposal — Subtle violet glow."
+      },
+      "pink-lg": {
+        "$type": "shadow",
+        "$value": "0 0 46px rgba(200,132,195,.30)",
+        "$description": "Proposal — Large pink glow."
+      },
+      "spectrum": {
+        "$type": "shadow",
+        "$value": "0 0 28px rgba(94,197,208,.20), 0 0 52px rgba(169,124,192,.16), 0 0 72px rgba(200,132,195,.12)",
+        "$description": "Proposal — Layered brand glow; decorative only."
+      }
+    }
+  },
+  "shadow": {
+    "xs": {
+      "$type": "shadow",
+      "$value": "0 1px 2px rgba(32,42,47,.08)",
+      "$description": "Proposal — Micro elevation."
+    },
+    "sm": {
+      "$type": "shadow",
+      "$value": "0 4px 12px rgba(32,42,47,.10)",
+      "$description": "Proposal — Small cards."
+    },
+    "md": {
+      "$type": "shadow",
+      "$value": "0 12px 30px rgba(32,42,47,.14)",
+      "$description": "Proposal — Raised panels."
+    },
+    "lg": {
+      "$type": "shadow",
+      "$value": "0 24px 60px rgba(32,42,47,.18)",
+      "$description": "Proposal — Hero/media panels."
+    },
+    "inset": {
+      "$type": "shadow",
+      "$value": "inset 0 1px 0 rgba(255,255,255,.62)",
+      "$description": "Proposal — Titanium highlight."
+    },
+    "focus-light": {
+      "$type": "shadow",
+      "$value": "0 0 0 2px #FFFFFF, 0 0 0 4px #39454D",
+      "$description": "Proposal — Two-colour light-surface focus ring."
+    },
+    "focus-dark": {
+      "$type": "shadow",
+      "$value": "0 0 0 2px #202A2F, 0 0 0 4px #FFFFFF",
+      "$description": "Proposal — Two-colour dark-surface focus ring."
+    }
+  },
+  "typography": {
+    "family": {
+      "display": {
+        "$type": "fontFamily",
+        "$value": "\"Sora Variable\", \"Sora\", \"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+        "$description": "Proposal — Display stack; self-host only after licence and subset verification."
+      },
+      "body": {
+        "$type": "fontFamily",
+        "$value": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "$description": "Proposal — Body and interface stack."
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+        "$description": "Proposal — Code and technical demo labels."
+      }
+    },
+    "weight": {
+      "400": {
+        "$type": "fontWeight",
+        "$value": 400,
+        "$description": "Proposal — Font weight 400."
+      },
+      "450": {
+        "$type": "fontWeight",
+        "$value": 450,
+        "$description": "Proposal — Font weight 450."
+      },
+      "500": {
+        "$type": "fontWeight",
+        "$value": 500,
+        "$description": "Proposal — Font weight 500."
+      },
+      "600": {
+        "$type": "fontWeight",
+        "$value": 600,
+        "$description": "Proposal — Font weight 600."
+      },
+      "650": {
+        "$type": "fontWeight",
+        "$value": 650,
+        "$description": "Proposal — Font weight 650."
+      },
+      "700": {
+        "$type": "fontWeight",
+        "$value": 700,
+        "$description": "Proposal — Font weight 700."
+      }
+    },
+    "size": {
+      "caption": {
+        "$type": "dimension",
+        "$value": "0.75rem",
+        "$description": "Proposal — caption font size."
+      },
+      "body-sm": {
+        "$type": "dimension",
+        "$value": "0.875rem",
+        "$description": "Proposal — body-sm font size."
+      },
+      "body": {
+        "$type": "dimension",
+        "$value": "1rem",
+        "$description": "Proposal — body font size."
+      },
+      "body-lg": {
+        "$type": "dimension",
+        "$value": "1.125rem",
+        "$description": "Proposal — body-lg font size."
+      },
+      "h6": {
+        "$type": "dimension",
+        "$value": "1.125rem",
+        "$description": "Proposal — h6 font size."
+      },
+      "h5": {
+        "$type": "dimension",
+        "$value": "1.25rem",
+        "$description": "Proposal — h5 font size."
+      },
+      "h4": {
+        "$type": "dimension",
+        "$value": "1.5rem",
+        "$description": "Proposal — h4 font size."
+      },
+      "h3": {
+        "$type": "dimension",
+        "$value": "clamp(1.75rem, 1.45rem + 1.2vw, 2.25rem)",
+        "$description": "Proposal — h3 font size."
+      },
+      "h2": {
+        "$type": "dimension",
+        "$value": "clamp(2.125rem, 1.55rem + 2.3vw, 3.25rem)",
+        "$description": "Proposal — h2 font size."
+      },
+      "h1": {
+        "$type": "dimension",
+        "$value": "clamp(2.75rem, 1.75rem + 4vw, 5.5rem)",
+        "$description": "Proposal — h1 font size."
+      },
+      "display": {
+        "$type": "dimension",
+        "$value": "clamp(3.25rem, 1.8rem + 5.8vw, 7.5rem)",
+        "$description": "Proposal — display font size."
+      }
+    },
+    "line-height": {
+      "tight": {
+        "$type": "number",
+        "$value": 1.02,
+        "$description": "Proposal — tight line-height multiplier."
+      },
+      "heading": {
+        "$type": "number",
+        "$value": 1.12,
+        "$description": "Proposal — heading line-height multiplier."
+      },
+      "compact": {
+        "$type": "number",
+        "$value": 1.3,
+        "$description": "Proposal — compact line-height multiplier."
+      },
+      "body": {
+        "$type": "number",
+        "$value": 1.55,
+        "$description": "Proposal — body line-height multiplier."
+      },
+      "relaxed": {
+        "$type": "number",
+        "$value": 1.7,
+        "$description": "Proposal — relaxed line-height multiplier."
+      }
+    },
+    "letter-spacing": {
+      "display": {
+        "$type": "dimension",
+        "$value": "-0.04em",
+        "$description": "Proposal — display tracking."
+      },
+      "heading": {
+        "$type": "dimension",
+        "$value": "-0.025em",
+        "$description": "Proposal — heading tracking."
+      },
+      "body": {
+        "$type": "dimension",
+        "$value": "0em",
+        "$description": "Proposal — body tracking."
+      },
+      "label": {
+        "$type": "dimension",
+        "$value": "0.02em",
+        "$description": "Proposal — label tracking."
+      },
+      "eyebrow": {
+        "$type": "dimension",
+        "$value": "0.12em",
+        "$description": "Proposal — eyebrow tracking."
+      }
+    },
+    "max-line": {
+      "body": {
+        "$type": "dimension",
+        "$value": "68ch",
+        "$description": "Proposal — Preferred prose measure."
+      },
+      "lead": {
+        "$type": "dimension",
+        "$value": "56ch",
+        "$description": "Proposal — Lead paragraph measure."
+      },
+      "heading": {
+        "$type": "dimension",
+        "$value": "18ch",
+        "$description": "Proposal — Display heading measure."
+      }
+    }
+  },
+  "space": {
+    "0": {
+      "$type": "dimension",
+      "$value": "0.0rem",
+      "$description": "Proposal — 0px equivalent spacing unit at 16px root."
+    },
+    "1": {
+      "$type": "dimension",
+      "$value": "0.25rem",
+      "$description": "Proposal — 4px equivalent spacing unit at 16px root."
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": "0.5rem",
+      "$description": "Proposal — 8px equivalent spacing unit at 16px root."
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": "0.75rem",
+      "$description": "Proposal — 12px equivalent spacing unit at 16px root."
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": "1.0rem",
+      "$description": "Proposal — 16px equivalent spacing unit at 16px root."
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": "1.25rem",
+      "$description": "Proposal — 20px equivalent spacing unit at 16px root."
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": "1.5rem",
+      "$description": "Proposal — 24px equivalent spacing unit at 16px root."
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "2.0rem",
+      "$description": "Proposal — 32px equivalent spacing unit at 16px root."
+    },
+    "10": {
+      "$type": "dimension",
+      "$value": "2.5rem",
+      "$description": "Proposal — 40px equivalent spacing unit at 16px root."
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": "3.0rem",
+      "$description": "Proposal — 48px equivalent spacing unit at 16px root."
+    },
+    "14": {
+      "$type": "dimension",
+      "$value": "3.5rem",
+      "$description": "Proposal — 56px equivalent spacing unit at 16px root."
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": "4.0rem",
+      "$description": "Proposal — 64px equivalent spacing unit at 16px root."
+    },
+    "20": {
+      "$type": "dimension",
+      "$value": "5.0rem",
+      "$description": "Proposal — 80px equivalent spacing unit at 16px root."
+    },
+    "24": {
+      "$type": "dimension",
+      "$value": "6.0rem",
+      "$description": "Proposal — 96px equivalent spacing unit at 16px root."
+    },
+    "28": {
+      "$type": "dimension",
+      "$value": "7.0rem",
+      "$description": "Proposal — 112px equivalent spacing unit at 16px root."
+    },
+    "32": {
+      "$type": "dimension",
+      "$value": "8.0rem",
+      "$description": "Proposal — 128px equivalent spacing unit at 16px root."
+    },
+    "40": {
+      "$type": "dimension",
+      "$value": "10.0rem",
+      "$description": "Proposal — 160px equivalent spacing unit at 16px root."
+    }
+  },
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": "0px",
+      "$description": "Proposal — Square."
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$description": "Proposal — Small controls."
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$description": "Proposal — Inputs and compact cards."
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$description": "Proposal — Default cards."
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "18px",
+      "$description": "Proposal — Feature panels."
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": "Proposal — Hero/media panels."
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$description": "Proposal — Large editorial sections."
+    },
+    "pill": {
+      "$type": "dimension",
+      "$value": "999px",
+      "$description": "Proposal — Pills and chips."
+    }
+  },
+  "layout": {
+    "breakpoint": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "360px",
+        "$description": "Proposal — xs min-width breakpoint; components remain content-driven."
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "480px",
+        "$description": "Proposal — sm min-width breakpoint; components remain content-driven."
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "768px",
+        "$description": "Proposal — md min-width breakpoint; components remain content-driven."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "1024px",
+        "$description": "Proposal — lg min-width breakpoint; components remain content-driven."
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "1280px",
+        "$description": "Proposal — xl min-width breakpoint; components remain content-driven."
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "1536px",
+        "$description": "Proposal — 2xl min-width breakpoint; components remain content-driven."
+      }
+    },
+    "container": {
+      "compact": {
+        "$type": "dimension",
+        "$value": "720px",
+        "$description": "Proposal — Forms and focused prose."
+      },
+      "content": {
+        "$type": "dimension",
+        "$value": "1120px",
+        "$description": "Proposal — Default content width."
+      },
+      "wide": {
+        "$type": "dimension",
+        "$value": "1280px",
+        "$description": "Proposal — Primary marketing layout."
+      },
+      "max": {
+        "$type": "dimension",
+        "$value": "1440px",
+        "$description": "Proposal — Maximum editorial/visual width."
+      }
+    },
+    "gutter": {
+      "mobile": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$description": "Proposal — Mobile inline gutter."
+      },
+      "tablet": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$description": "Proposal — Tablet inline gutter."
+      },
+      "desktop": {
+        "$type": "dimension",
+        "$value": "48px",
+        "$description": "Proposal — Desktop inline gutter."
+      },
+      "wide": {
+        "$type": "dimension",
+        "$value": "64px",
+        "$description": "Proposal — Wide-screen inline gutter."
+      }
+    },
+    "grid": {
+      "columns-mobile": {
+        "$type": "number",
+        "$value": 4,
+        "$description": "Proposal — Mobile grid columns."
+      },
+      "columns-tablet": {
+        "$type": "number",
+        "$value": 8,
+        "$description": "Proposal — Tablet grid columns."
+      },
+      "columns-desktop": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "Proposal — Desktop grid columns."
+      },
+      "gap-mobile": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Proposal — Mobile grid gap."
+      },
+      "gap-desktop": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$description": "Proposal — Desktop grid gap."
+      }
+    },
+    "section": {
+      "block-mobile": {
+        "$type": "dimension",
+        "$value": "72px",
+        "$description": "Proposal — Default mobile section padding."
+      },
+      "block-desktop": {
+        "$type": "dimension",
+        "$value": "120px",
+        "$description": "Proposal — Default desktop section padding."
+      },
+      "block-hero-mobile": {
+        "$type": "dimension",
+        "$value": "96px",
+        "$description": "Proposal — Hero mobile block padding."
+      },
+      "block-hero-desktop": {
+        "$type": "dimension",
+        "$value": "160px",
+        "$description": "Proposal — Hero desktop block padding."
+      }
+    }
+  },
+  "z-index": {
+    "base": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Proposal — Normal flow."
+    },
+    "raised": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "Proposal — Raised local content."
+    },
+    "sticky": {
+      "$type": "number",
+      "$value": 200,
+      "$description": "Proposal — Sticky section UI."
+    },
+    "navigation": {
+      "$type": "number",
+      "$value": 400,
+      "$description": "Proposal — Site navigation."
+    },
+    "dropdown": {
+      "$type": "number",
+      "$value": 500,
+      "$description": "Proposal — Navigation dropdown."
+    },
+    "overlay": {
+      "$type": "number",
+      "$value": 700,
+      "$description": "Proposal — Overlay scrim."
+    },
+    "modal": {
+      "$type": "number",
+      "$value": 800,
+      "$description": "Proposal — Modal/dialog."
+    },
+    "toast": {
+      "$type": "number",
+      "$value": 900,
+      "$description": "Proposal — Status toast."
+    },
+    "debug": {
+      "$type": "number",
+      "$value": 9999,
+      "$description": "Proposal — Development-only overlays."
+    }
+  },
+  "responsive": {
+    "content": {
+      "compact-first": {
+        "$type": "boolean",
+        "$value": true,
+        "$description": "Proposal — Start with the compact composition and progressively enhance."
+      },
+      "reflow-min-width": {
+        "$type": "dimension",
+        "$value": "320px",
+        "$description": "Proposal — Content must reflow without two-dimensional scrolling at the WCAG reference width."
+      },
+      "touch-primary": {
+        "$type": "boolean",
+        "$value": true,
+        "$description": "Proposal — Primary controls must remain operable without hover."
+      }
+    },
+    "density": {
+      "mobile": {
+        "$type": "string",
+        "$value": "comfortable",
+        "$description": "Proposal — Preserve readable rhythm and touch space."
+      },
+      "tablet": {
+        "$type": "string",
+        "$value": "balanced",
+        "$description": "Proposal — Increase columns only when content supports them."
+      },
+      "desktop": {
+        "$type": "string",
+        "$value": "expanded",
+        "$description": "Proposal — Use wider grids without increasing prose measure."
+      }
+    },
+    "media": {
+      "art-direction": {
+        "$type": "string",
+        "$value": "content-led",
+        "$description": "Proposal — Choose crops and source sets by information priority."
+      },
+      "below-fold-lazy": {
+        "$type": "boolean",
+        "$value": true,
+        "$description": "Proposal — Lazy-load eligible below-fold media."
+      },
+      "reserve-space": {
+        "$type": "boolean",
+        "$value": true,
+        "$description": "Proposal — Declare dimensions or aspect ratio to prevent shift."
+      }
+    },
+    "motion": {
+      "mobile-simplify": {
+        "$type": "boolean",
+        "$value": true,
+        "$description": "Proposal — Simplify expensive decorative motion on compact or low-power contexts."
+      },
+      "reduced-motion-authoritative": {
+        "$type": "boolean",
+        "$value": true,
+        "$description": "Proposal — The user motion preference overrides viewport motion variants."
+      },
+      "hover-optional": {
+        "$type": "boolean",
+        "$value": true,
+        "$description": "Proposal — Hover effects cannot be the only state or affordance."
+      }
+    }
+  },
+  "motion": {
+    "duration": {
+      "instant": {
+        "$type": "duration",
+        "$value": "80ms",
+        "$description": "Proposal — instant motion duration."
+      },
+      "fast": {
+        "$type": "duration",
+        "$value": "140ms",
+        "$description": "Proposal — fast motion duration."
+      },
+      "base": {
+        "$type": "duration",
+        "$value": "220ms",
+        "$description": "Proposal — base motion duration."
+      },
+      "moderate": {
+        "$type": "duration",
+        "$value": "320ms",
+        "$description": "Proposal — moderate motion duration."
+      },
+      "slow": {
+        "$type": "duration",
+        "$value": "480ms",
+        "$description": "Proposal — slow motion duration."
+      },
+      "cinematic": {
+        "$type": "duration",
+        "$value": "800ms",
+        "$description": "Proposal — cinematic motion duration."
+      },
+      "ambient": {
+        "$type": "duration",
+        "$value": "1200ms",
+        "$description": "Proposal — ambient motion duration."
+      }
+    },
+    "easing": {
+      "standard": {
+        "$type": "cubicBezier",
+        "$value": "cubic-bezier(0.2, 0, 0, 1)",
+        "$description": "Proposal — Default deceleration."
+      },
+      "enter": {
+        "$type": "cubicBezier",
+        "$value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "$description": "Proposal — Entrance easing."
+      },
+      "exit": {
+        "$type": "cubicBezier",
+        "$value": "cubic-bezier(0.4, 0, 1, 1)",
+        "$description": "Proposal — Exit easing."
+      },
+      "emphasis": {
+        "$type": "cubicBezier",
+        "$value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "$description": "Proposal — Small-scale emphasis only; no large translation."
+      },
+      "linear": {
+        "$type": "cubicBezier",
+        "$value": "linear",
+        "$description": "Proposal — Progress and deterministic scrubbing."
+      }
+    },
+    "stagger": {
+      "tight": {
+        "$type": "duration",
+        "$value": "35ms",
+        "$description": "Proposal — Dense list stagger."
+      },
+      "base": {
+        "$type": "duration",
+        "$value": "55ms",
+        "$description": "Proposal — Default reveal stagger."
+      },
+      "relaxed": {
+        "$type": "duration",
+        "$value": "85ms",
+        "$description": "Proposal — Sparse feature stagger."
+      },
+      "max-items": {
+        "$type": "number",
+        "$value": 8,
+        "$description": "Proposal — Maximum staggered items before batching."
+      }
+    },
+    "distance": {
+      "micro": {
+        "$type": "dimension",
+        "$value": "4px",
+        "$description": "Proposal — Micro interaction translation."
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "8px",
+        "$description": "Proposal — Compact entrance."
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Proposal — Default entrance."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$description": "Proposal — Maximum standard translation."
+      },
+      "hero": {
+        "$type": "dimension",
+        "$value": "48px",
+        "$description": "Proposal — Maximum cinematic translation, disabled in reduced motion."
+      }
+    },
+    "reduced": {
+      "duration": {
+        "$type": "duration",
+        "$value": "80ms",
+        "$description": "Proposal — Reduced-motion state-change duration."
+      },
+      "distance": {
+        "$type": "dimension",
+        "$value": "0px",
+        "$description": "Proposal — No decorative translation."
+      },
+      "stagger": {
+        "$type": "duration",
+        "$value": "0ms",
+        "$description": "Proposal — No reveal cascade."
+      },
+      "autoplay": {
+        "$type": "boolean",
+        "$value": false,
+        "$description": "Proposal — Autoplay decorative motion disabled."
+      },
+      "parallax": {
+        "$type": "boolean",
+        "$value": false,
+        "$description": "Proposal — Parallax disabled."
+      },
+      "scroll-linked": {
+        "$type": "boolean",
+        "$value": false,
+        "$description": "Proposal — Scroll-linked timelines disabled."
+      },
+      "shader": {
+        "$type": "string",
+        "$value": "static-fallback",
+        "$description": "Proposal — Static branded fallback required."
+      }
+    }
+  },
+  "chart": {
+    "light": {
+      "series-1": {
+        "$type": "color",
+        "$value": "{color.derived.chart-teal-light}",
+        "$description": "Proposal — Primary chart series."
+      },
+      "series-2": {
+        "$type": "color",
+        "$value": "{color.derived.blue-ink}",
+        "$description": "Proposal — Second chart series."
+      },
+      "series-3": {
+        "$type": "color",
+        "$value": "{color.derived.violet-ink}",
+        "$description": "Proposal — Third chart series."
+      },
+      "series-4": {
+        "$type": "color",
+        "$value": "{color.derived.pink-ink}",
+        "$description": "Proposal — Fourth chart series."
+      },
+      "series-5": {
+        "$type": "color",
+        "$value": "{color.derived.magenta-ink}",
+        "$description": "Proposal — Fifth chart series."
+      },
+      "series-6": {
+        "$type": "color",
+        "$value": "{color.derived.chart-gray-light}",
+        "$description": "Proposal — Neutral series."
+      },
+      "grid": {
+        "$type": "color",
+        "$value": "#C8CDD2",
+        "$description": "Proposal — Chart grid line."
+      },
+      "axis": {
+        "$type": "color",
+        "$value": "{color.primitive.silverstone-graphite}",
+        "$description": "Proposal — Chart axes/labels."
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "{color.primitive.cloud-white}",
+        "$description": "Proposal — Chart surface."
+      }
+    },
+    "dark": {
+      "series-1": {
+        "$type": "color",
+        "$value": "{color.derived.chart-teal-dark}",
+        "$description": "Proposal — Primary dark chart series."
+      },
+      "series-2": {
+        "$type": "color",
+        "$value": "{color.derived.info-glow}",
+        "$description": "Proposal — Second dark chart series."
+      },
+      "series-3": {
+        "$type": "color",
+        "$value": "{color.derived.chart-violet-dark}",
+        "$description": "Proposal — Third dark chart series."
+      },
+      "series-4": {
+        "$type": "color",
+        "$value": "{color.derived.chart-pink-dark}",
+        "$description": "Proposal — Fourth dark chart series."
+      },
+      "series-5": {
+        "$type": "color",
+        "$value": "{color.derived.chart-magenta-dark}",
+        "$description": "Proposal — Fifth dark chart series."
+      },
+      "series-6": {
+        "$type": "color",
+        "$value": "{color.derived.night-muted}",
+        "$description": "Proposal — Neutral dark series."
+      },
+      "grid": {
+        "$type": "color",
+        "$value": "#5C6A70",
+        "$description": "Proposal — Dark chart grid line."
+      },
+      "axis": {
+        "$type": "color",
+        "$value": "{color.primitive.platinum-silver}",
+        "$description": "Proposal — Dark chart axes/labels."
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "{color.derived.night-canvas}",
+        "$description": "Proposal — Dark chart surface."
+      }
+    },
+    "encoding": {
+      "non-color": {
+        "$type": "string",
+        "$value": [
+          "direct-label",
+          "shape",
+          "dash",
+          "pattern"
+        ],
+        "$description": "Proposal — Every essential series distinction needs a non-colour cue."
+      },
+      "minimum-line-width": {
+        "$type": "dimension",
+        "$value": "2px",
+        "$description": "Proposal — Default chart line width."
+      },
+      "focus-line-width": {
+        "$type": "dimension",
+        "$value": "4px",
+        "$description": "Proposal — Keyboard/hover emphasis line width."
+      }
+    }
+  }
+}
