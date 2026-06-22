@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-06-22T22:54:46.008Z",
+  "scope": "all production JavaScript emitted for the foundation route",
+  "files": [
+    {
+      "file": "assets/chunk-4ZMWKKQ3-Cg5WOleR.js",
+      "bytes": 128221,
+      "gzipBytes": 43140
+    },
+    {
+      "file": "assets/entry.client-BbZhZMnO.js",
+      "bytes": 190032,
+      "gzipBytes": 59779
+    },
+    {
+      "file": "assets/home-BlOCVZ5F.js",
+      "bytes": 3202,
+      "gzipBytes": 1420
+    },
+    {
+      "file": "assets/manifest-6ab87809.js",
+      "bytes": 851,
+      "gzipBytes": 342
+    },
+    {
+      "file": "assets/root-agzjt_xT.js",
+      "bytes": 30635,
+      "gzipBytes": 9835
+    }
+  ],
+  "totals": {
+    "bytes": 352941,
+    "gzipBytes": 114516,
+    "gzipKilobytes": 111.83
+  },
+  "budget": {
+    "targetKilobytes": 220,
+    "hardCeilingKilobytes": 300,
+    "status": "target-pass"
+  }
+}
