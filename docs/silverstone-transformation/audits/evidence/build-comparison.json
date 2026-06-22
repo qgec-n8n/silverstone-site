@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-06-22T21:28:06.908Z",
+  "pinnedSourceSha": "1e445c305c30cae93d5f6427135a238be8d58c14",
+  "tempDirectoryRemovedAfterRun": true,
+  "commands": [
+    "npm run build",
+    "npm run generate:sitemaps"
+  ],
+  "buildSucceeded": true,
+  "sitemapSucceeded": true,
+  "buildOutputTail": [
+    "",
+    "> silverstone-site-main@1.0.0 build",
+    "> node scripts/optimize-images.js && npm run build:css && npm run build:js",
+    "",
+    "Generated 1263 derived image variants across the socialmedia, blog, and zip asset directories.",
+    "",
+    "> silverstone-site-main@1.0.0 build:css",
+    "> npm run sync:fontawesome && node build-css.js",
+    "",
+    "",
+    "> silverstone-site-main@1.0.0 sync:fontawesome",
+    "> node scripts/sync-fontawesome.js",
+    "",
+    "Synced Font Awesome CSS to /private/var/folders/yx/l4bwv39564sfdlcp2y5qlw140000gn/T/silverstone-audit-build-9JY9og/src/css/vendor/fontawesome.css.",
+    "Synced 4 Font Awesome webfonts to /private/var/folders/yx/l4bwv39564sfdlcp2y5qlw140000gn/T/silverstone-audit-build-9JY9og/assets/webfonts.",
+    "Built /private/var/folders/yx/l4bwv39564sfdlcp2y5qlw140000gn/T/silverstone-audit-build-9JY9og/assets/css/styles.css from 23 source files.",
+    "",
+    "> silverstone-site-main@1.0.0 build:js",
+    "> node scripts/build-js.js",
+    "",
+    "Built /private/var/folders/yx/l4bwv39564sfdlcp2y5qlw140000gn/T/silverstone-audit-build-9JY9og/assets/js/app.js from 15 source files.",
+    "",
+    "> silverstone-site-main@1.0.0 generate:sitemaps",
+    "> node scripts/generate-sitemaps.js",
+    "",
+    "Generated sitemap.xml",
+    ""
+  ],
+  "buildErrorTail": [
+    ""
+  ],
+  "bundles": {
+    "css": {
+      "repositorySha256": "3320c92072408a3d3b73e47cadbb3dba2887f4c777480b6ff19b7924e27d1613",
+      "generatedSha256": "3320c92072408a3d3b73e47cadbb3dba2887f4c777480b6ff19b7924e27d1613",
+      "equal": true
+    },
+    "js": {
+      "repositorySha256": "4fae9dbe2eaf05c204f9c9419a56f1edc004f912808ee0f36a1c06c0c3ba0e8f",
+      "generatedSha256": "e0fb28acd6cc8cbec31e11f46ec029629a7fec207f4d2f0905339fb17d4a181c",
+      "equal": false
+    },
+    "sitemap": {
+      "repositorySha256": "2a2864423bec06f1ce710b624f59adbea8ba40813423d8f109336bd38ba9376a",
+      "generatedSha256": "430b933a43ea51c994c67e41bd2d0c796e89dfa278d249cf285b6cf66117bf55",
+      "equal": false
+    }
+  },
+  "imageDerivatives": {
+    "repositoryCount": 1227,
+    "generatedCount": 1251,
+    "sameCount": 1215,
+    "differentCount": 12,
+    "generatedOnlyCount": 24,
+    "repositoryOnlyCount": 0,
+    "different": [
+      "blog/derived/blog_39-1280.avif",
+      "blog/derived/blog_39-1280.jpg",
+      "blog/derived/blog_39-1280.webp",
+      "blog/derived/blog_39-320.avif",
+      "blog/derived/blog_39-320.jpg",
+      "blog/derived/blog_39-320.webp",
+      "blog/derived/blog_39-640.avif",
+      "blog/derived/blog_39-640.jpg",
+      "blog/derived/blog_39-640.webp",
+      "blog/derived/blog_39-960.avif",
+      "blog/derived/blog_39-960.jpg",
+      "blog/derived/blog_39-960.webp"
+    ],
+    "generatedOnly": [
+      "blog/derived/blog_40-1280.avif",
+      "blog/derived/blog_40-1280.jpg",
+      "blog/derived/blog_40-1280.webp",
+      "blog/derived/blog_40-320.avif",
+      "blog/derived/blog_40-320.jpg",
+      "blog/derived/blog_40-320.webp",
+      "blog/derived/blog_40-640.avif",
+      "blog/derived/blog_40-640.jpg",
+      "blog/derived/blog_40-640.webp",
+      "blog/derived/blog_40-960.avif",
+      "blog/derived/blog_40-960.jpg",
+      "blog/derived/blog_40-960.webp",
+      "blog/derived/blog_41-1280.avif",
+      "blog/derived/blog_41-1280.jpg",
+      "blog/derived/blog_41-1280.webp",
+      "blog/derived/blog_41-320.avif",
+      "blog/derived/blog_41-320.jpg",
+      "blog/derived/blog_41-320.webp",
+      "blog/derived/blog_41-640.avif",
+      "blog/derived/blog_41-640.jpg",
+      "blog/derived/blog_41-640.webp",
+      "blog/derived/blog_41-960.avif",
+      "blog/derived/blog_41-960.jpg",
+      "blog/derived/blog_41-960.webp"
+    ],
+    "repositoryOnly": []
+  }
+}
