@@ -1,3 +1,4 @@
 - [Smithery skills CLI quirk](smithery-skills-cli.md) — `npx skills add <smithery url>` installs the generic `smithery-ai-cli` wrapper, NOT the named skill; fetch real skill from its canonical GitHub source instead.
 - [Vite dev re-optimize → hook/hydration errors](vite-react-reoptimize-hook-errors.md) — transient "Invalid hook call"/"Hydration failed" in /web dev = stale React chunk during Vite re-optimization, not a code bug; fix with resolve.dedupe + optimizeDeps.include.
 - [Workspace skill & MCP wiring](workspace-skill-wiring.md) — `.agents/skills/` + `.mcp.json` are the sources of truth; run `node .agents/sync-skills.mjs` to regenerate `.claude/skills/` symlinks + Codex MCP block.
+- [Canvas assets vs. checkpoint write-scope](canvas-checkpoint-scope.md) — `.canvas/` board images are untracked but get swept into checkpoints; under strict write-scope exclude via `.git/info/exclude`, not tracked `.gitignore`.

@@ -1,0 +1,674 @@
+/*
+  Silverstone "Precision Luminescence" — visual handoff styles.
+  Imported by the typed React handoff in /src/visual/**. This is NOT
+  route-rendered; it mirrors the static acceptance prototype at
+  /public/prototypes so a production team can lift the components 1:1.
+
+  Self-contained: it prefers the global Silverstone tokens when present
+  and falls back to the locked primitives so the smoke fixture renders
+  standalone. 70% platinum / 20% graphite / 10% luminous accent.
+*/
+
+.ss-visual-root {
+  --vx-platinum: var(--ss-color-primitive-platinum-silver, #e9eaef);
+  --vx-graphite: var(--ss-color-primitive-deep-graphite, #39454d);
+  --vx-graphite-raised: var(--ss-color-derived-night-raised, #2b373d);
+  --vx-cyan: var(--ss-color-primitive-electric-cyan, #5ec5d0);
+  --vx-cyan-ink: var(--ss-color-derived-cyan-ink, #246b74);
+  --vx-violet: var(--ss-color-primitive-neural-violet, #a97cc0);
+  --vx-ink: #1d262b;
+  --vx-ink-muted: var(--ss-color-derived-ink-muted, #66747b);
+  --vx-border: #dcdfe5;
+  --vx-border-strong: var(--ss-color-derived-border-strong, #77858b);
+  --vx-surface: #ffffff;
+  --vx-surface-subtle: var(--ss-color-derived-canvas-subtle, #f6f7f9);
+  --vx-radius: 16px;
+  --vx-radius-sm: 10px;
+  --vx-focus: 0 0 0 2px #ffffff, 0 0 0 4px var(--vx-graphite);
+  --vx-space: clamp(1rem, 0.6rem + 2vw, 2rem);
+
+  color: var(--vx-ink);
+  background: var(--vx-platinum);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  line-height: 1.5;
+}
+
+.ss-visual-root *,
+.ss-visual-root *::before,
+.ss-visual-root *::after {
+  box-sizing: border-box;
+}
+
+.ss-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ss-visual-root :focus-visible {
+  outline: none;
+  box-shadow: var(--vx-focus);
+  border-radius: var(--vx-radius-sm);
+}
+
+/* ---------------------------------------------------------------- NAV */
+.ss-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--vx-platinum) 88%, transparent);
+  backdrop-filter: saturate(1.1) blur(8px);
+  border-bottom: 1px solid transparent;
+  transition:
+    height 200ms ease,
+    border-color 200ms ease,
+    background 200ms ease;
+}
+
+.ss-nav__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 72px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--vx-space);
+  transition: height 200ms ease;
+}
+
+.ss-nav[data-compact="true"] {
+  border-bottom-color: var(--vx-border);
+  background: color-mix(in srgb, var(--vx-platinum) 96%, transparent);
+}
+
+.ss-nav[data-compact="true"] .ss-nav__inner {
+  height: 60px;
+}
+
+.ss-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 650;
+  font-size: 1.05rem;
+  color: var(--vx-ink);
+  text-decoration: none;
+}
+
+.ss-brand__mark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--vx-border-strong);
+  color: var(--vx-cyan-ink);
+}
+
+.ss-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 0 auto 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-nav__link,
+.ss-nav__disclosure-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: var(--vx-ink-muted);
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.4rem 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 160ms ease;
+}
+
+.ss-nav__link:hover,
+.ss-nav__disclosure-btn:hover {
+  color: var(--vx-ink);
+}
+
+.ss-nav__disclosure {
+  position: relative;
+}
+
+.ss-nav__disclosure-caret {
+  transition: transform 180ms ease;
+}
+
+.ss-nav__disclosure-btn[aria-expanded="true"] .ss-nav__disclosure-caret {
+  transform: rotate(180deg);
+}
+
+.ss-nav__panel {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 0;
+  min-width: 230px;
+  padding: 0.5rem;
+  margin: 0;
+  list-style: none;
+  background: var(--vx-surface);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-radius-sm);
+  box-shadow: 0 18px 40px -24px rgba(29, 38, 43, 0.5);
+}
+
+.ss-nav__panel a {
+  display: block;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  color: var(--vx-ink);
+  text-decoration: none;
+}
+
+.ss-nav__panel a:hover {
+  background: var(--vx-surface-subtle);
+}
+
+.ss-nav__mobile-toggle {
+  display: none;
+}
+
+@media (max-width: 880px) {
+  .ss-nav__links {
+    display: none;
+  }
+
+  .ss-nav__mobile-toggle {
+    display: inline-grid;
+    place-items: center;
+    margin-left: auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid var(--vx-border-strong);
+    background: var(--vx-surface);
+    cursor: pointer;
+  }
+}
+
+/* --------------------------------------------------------------- HERO */
+.ss-hero {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  align-items: center;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 1.5rem + 5vw, 5.5rem) var(--vx-space);
+}
+
+@media (min-width: 1024px) {
+  .ss-hero {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  }
+}
+
+.ss-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vx-cyan-ink);
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--vx-cyan) 55%, var(--vx-border));
+  background: color-mix(in srgb, var(--vx-cyan) 10%, var(--vx-surface));
+}
+
+.ss-pill__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--vx-cyan);
+}
+
+.ss-hero__title {
+  margin: 1.1rem 0 0;
+  font-size: clamp(2.6rem, 1.6rem + 4.5vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-weight: 680;
+}
+
+.ss-hero__accent {
+  color: var(--vx-cyan-ink);
+}
+
+.ss-hero__lead {
+  margin: 1.25rem 0 0;
+  max-width: 34ch;
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.2rem);
+  color: var(--vx-ink-muted);
+}
+
+.ss-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.ss-hero__proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--vx-ink-muted);
+  font-size: 0.92rem;
+}
+
+.ss-hero__proof li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ss-hero__proof li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--vx-cyan);
+}
+
+/* -------------------------------------------------------------- STAGE */
+.ss-stage {
+  position: relative;
+  border-radius: var(--vx-radius);
+  border: 1px solid var(--vx-border);
+  background: linear-gradient(180deg, var(--vx-surface), var(--vx-surface-subtle));
+  overflow: hidden;
+  aspect-ratio: 680 / 560;
+  box-shadow: 0 40px 80px -56px rgba(29, 38, 43, 0.55);
+}
+
+.ss-stage__field,
+.ss-stage__poster,
+.ss-stage__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ss-stage__poster {
+  background:
+    radial-gradient(120% 90% at 76% 28%, color-mix(in srgb, var(--vx-cyan) 22%, transparent), transparent 60%),
+    radial-gradient(110% 90% at 18% 86%, color-mix(in srgb, var(--vx-violet) 18%, transparent), transparent 58%),
+    linear-gradient(180deg, color-mix(in srgb, var(--vx-platinum) 60%, #fff), var(--vx-platinum));
+}
+
+.ss-stage__diagram {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------------------------ CONSTELLATION */
+.ss-struct-line {
+  fill: none;
+  stroke: var(--vx-border-strong);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 5;
+  opacity: 0.6;
+}
+
+.ss-link-path {
+  fill: none;
+  stroke: var(--vx-cyan);
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--vx-cyan) 60%, transparent));
+}
+
+.ss-link-path--violet {
+  stroke: var(--vx-violet);
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--vx-violet) 60%, transparent));
+}
+
+.ss-ring-plate {
+  fill: var(--vx-surface);
+  stroke: var(--vx-border);
+  stroke-width: 1.4;
+}
+
+.ss-ring-dash {
+  fill: none;
+  stroke: var(--vx-cyan);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 6;
+  opacity: 0.8;
+}
+
+.ss-ring-port {
+  fill: var(--vx-cyan);
+}
+
+.ss-ring-caption {
+  fill: var(--vx-cyan-ink);
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-anchor: middle;
+}
+
+.ss-ring-label {
+  fill: var(--vx-ink);
+  font-size: 13px;
+  font-weight: 680;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+}
+
+.ss-node-tile {
+  fill: var(--vx-surface);
+  stroke: var(--vx-border);
+  stroke-width: 1.2;
+}
+
+.ss-node-glow {
+  fill: var(--vx-cyan);
+}
+
+.ss-node-label {
+  fill: var(--vx-ink);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.ss-node-caption {
+  fill: var(--vx-ink-muted);
+  font-size: 11px;
+}
+
+/* -------------------------------------------------------------- ICONS */
+.ss-icon {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+.ss-icon-stroke {
+  fill: none;
+  stroke: var(--vx-ink);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ss-icon-signal {
+  fill: none;
+  stroke: var(--vx-cyan-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ss-icon-node {
+  fill: var(--vx-cyan);
+  stroke: none;
+}
+
+.ss-on-graphite .ss-icon-stroke {
+  stroke: var(--vx-platinum);
+}
+
+.ss-on-graphite .ss-icon-signal {
+  stroke: var(--vx-cyan);
+}
+
+/* ---------------------------------------------------------------- CTA */
+.ss-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 1.4rem;
+  border-radius: 12px;
+  font-weight: 620;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background 150ms ease;
+}
+
+.ss-cta--primary {
+  background: var(--vx-graphite);
+  color: #fff;
+  box-shadow: 0 14px 30px -18px rgba(29, 38, 43, 0.9);
+}
+
+.ss-cta--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 34px -16px rgba(29, 38, 43, 0.95);
+}
+
+.ss-cta--secondary {
+  background: var(--vx-surface);
+  color: var(--vx-ink);
+  border-color: var(--vx-border-strong);
+}
+
+.ss-cta--secondary:hover {
+  background: var(--vx-surface-subtle);
+}
+
+.ss-cta--on-graphite.ss-cta--primary {
+  background: var(--vx-cyan);
+  color: #0e1a1d;
+}
+
+/* ----------------------------------------------------------- SERVICES */
+.ss-services {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 1.5rem + 4vw, 5rem) var(--vx-space);
+}
+
+.ss-services__head {
+  max-width: 46ch;
+  margin-bottom: 2rem;
+}
+
+.ss-services__title {
+  font-size: clamp(1.8rem, 1.3rem + 2vw, 2.6rem);
+  letter-spacing: -0.01em;
+  margin: 0.75rem 0 0;
+}
+
+.ss-services__frames {
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.ss-service-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.5rem;
+  background: var(--vx-surface);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-radius);
+}
+
+.ss-service-frame:first-child {
+  grid-column: span 1;
+}
+
+.ss-service-frame__title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.ss-service-frame__body {
+  margin: 0;
+  color: var(--vx-ink-muted);
+}
+
+.ss-service-frame__link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--vx-cyan-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ss-scope {
+  border-top: 1px solid var(--vx-border);
+  padding-top: 0.6rem;
+}
+
+.ss-scope > summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--vx-ink);
+  list-style: none;
+}
+
+.ss-scope > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ss-scope > p {
+  margin: 0.6rem 0 0;
+  color: var(--vx-ink-muted);
+  font-size: 0.9rem;
+}
+
+/* The connected graphite band — the "+4" instrument plane. */
+.ss-band {
+  margin-top: 1.1rem;
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  background: var(--vx-border-strong);
+  border-radius: var(--vx-radius);
+  overflow: hidden;
+}
+
+.ss-on-graphite {
+  background: var(--vx-graphite);
+  color: var(--vx-platinum);
+}
+
+.ss-band__seg {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  background: var(--vx-graphite);
+}
+
+.ss-band__seg h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.ss-band__seg p {
+  margin: 0;
+  color: var(--vx-platinum);
+  opacity: 0.82;
+  font-size: 0.92rem;
+}
+
+/* ------------------------------------------------------- CTA CHAMBER */
+.ss-cta-chamber {
+  max-width: 1180px;
+  margin: clamp(1.5rem, 1rem + 2vw, 3rem) auto;
+  padding: clamp(2.5rem, 1.5rem + 4vw, 4.5rem) var(--vx-space);
+  border-radius: var(--vx-radius);
+  text-align: center;
+}
+
+.ss-cta-chamber h2 {
+  margin: 0 auto 0.75rem;
+  max-width: 22ch;
+  font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem);
+  color: #fff;
+}
+
+.ss-cta-chamber p {
+  margin: 0 auto 1.75rem;
+  max-width: 40ch;
+  color: var(--vx-platinum);
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------------- SKELETON */
+.ss-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+}
+
+.ss-skeleton__bar {
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(
+    90deg,
+    var(--vx-surface-subtle) 25%,
+    color-mix(in srgb, var(--vx-border) 60%, var(--vx-surface-subtle)) 37%,
+    var(--vx-surface-subtle) 63%
+  );
+  background-size: 400% 100%;
+  animation: ss-skeleton-shimmer 1.4s ease infinite;
+}
+
+.ss-skeleton__bar--short {
+  width: 55%;
+}
+
+@keyframes ss-skeleton-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* ---------------------------------------------- MOTION / LOW-POWER */
+@media (prefers-reduced-motion: reduce) {
+  .ss-visual-root * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
