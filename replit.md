@@ -48,6 +48,7 @@ Do not edit legacy root HTML files, legacy CSS, legacy JavaScript, legacy assets
 
 ## Workspace Skills & MCP
 
+- **Skill review is mandatory.** Immediately after every prompt, review all relevant skills in `.agents/skills/`, keep re-reviewing as the work evolves, and use the MCP servers throughout the work. This is binding — see `.agents/SKILL_REVIEW_POLICY.md`.
 - Shared agent skills live in `.agents/skills/` (canonical store) and are wired into `.claude/skills/` (symlinks) and `.codex/config.toml` (MCP servers from `.mcp.json`).
 - Run `node .agents/sync-skills.mjs` to regenerate the wiring after adding/removing a skill or editing `.mcp.json`; `node .agents/sync-skills.mjs --check` verifies it.
 - See `.agents/SKILLS.md` for how to reuse these skills in future projects and the per-Repl isolation limitation.

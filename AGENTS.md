@@ -15,6 +15,9 @@ This file defines how Codex should behave in this repo.
 
 ## Workspace skills & MCP
 
+- **Skill review is mandatory.** Immediately after every prompt, review all
+  relevant skills in `.agents/skills/`, keep re-reviewing as the work evolves, and
+  use the MCP servers throughout. This is binding — see `.agents/SKILL_REVIEW_POLICY.md`.
 - Shared agent skills live in `.agents/skills/` (canonical store); Claude tooling
   resolves them via `.claude/skills/` symlinks, and Codex MCP servers are
   generated into `.codex/config.toml` from `.mcp.json`.
