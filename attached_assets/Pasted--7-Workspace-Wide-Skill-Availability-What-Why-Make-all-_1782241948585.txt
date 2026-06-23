@@ -1,0 +1,33 @@
+#7 - Workspace-Wide Skill Availability
+What & Why
+Make all skills (the existing ones plus everything added by the other tasks) available across the workspace's agent tooling, and give the user a clear, working path to reuse them in future projects. This repo is already a multi-agent workspace: .agents/skills/ is the canonical store and .claude/skills/ holds symlinks back into it.
+
+Important honesty constraint: each Replit Repl is an isolated environment. From inside this Repl we can make everything available workspace-wide here and provide a portable, repeatable mechanism for future projects, but we cannot silently auto-inject skills into separate future Repls. This task delivers the achievable version and documents the rest rather than faking it.
+
+Done looks like
+Every skill under .agents/skills/ (existing + newly added by the other tasks) is wired into the other agent tool directories used in this workspace (e.g. .claude/skills/ symlinks, and .codex config where applicable), so all agents in this workspace can access them.
+A single repeatable mechanism exists (a script and/or documented steps) that (re)generates the cross-tool wiring, so it stays correct as skills are added.
+A short doc explains how to carry these skills into future projects (use this repo as the template/base, fork it, or re-run the installer/sync script), and clearly states the cross-Repl limitation.
+The MCP servers configured by the component-library task are reflected in the workspace agent config(s) consistently.
+Nothing in the legacy root or /web app is modified; no secrets are committed.
+Out of scope
+Creating the individual skills/MCP servers (done by the upstream tasks).
+Any production deployment or changes to the Silverstone app code.
+Steps
+Inventory all skills present in .agents/skills/ after the upstream tasks merge.
+Build/refresh the cross-tool wiring (symlinks into .claude/skills/, and .codex/Claude MCP config alignment) via a repeatable sync script.
+Verify each tool dir resolves the skills correctly (no broken symlinks, valid frontmatter).
+Write concise documentation covering how to reuse these skills/MCP in future projects and the cross-Repl limitation.
+Relevant files
+.agents/skills/
+.claude/skills/
+.codex/config.toml
+replit.md
+AGENTS.md
+Dependencies
+GSAP comprehensive skill
+Claude design skills bundle (23 skills)
+Three.js skill (CloudAI-X)
+Marketing skills bundle
+Tailwind CSS skill (Smithery)
+Component library skills + MCP servers
