@@ -9,5 +9,7 @@ export const loader = createRouteLoader({
 export const meta = createRouteMeta<typeof loader>();
 
 export default function ArticleRoute() {
-  return <ArticlePage route={useLoaderData<typeof loader>()} />;
+  const { content, route } = useLoaderData<typeof loader>();
+
+  return <ArticlePage content={content} route={route} />;
 }

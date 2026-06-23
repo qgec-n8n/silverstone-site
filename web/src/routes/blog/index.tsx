@@ -10,5 +10,7 @@ export const loader = createRouteLoader({
 export const meta = createRouteMeta<typeof loader>();
 
 export default function BlogIndexRoute() {
-  return <CoreMarketingPage route={useLoaderData<typeof loader>()} />;
+  const { content, route } = useLoaderData<typeof loader>();
+
+  return <CoreMarketingPage content={content} route={route} />;
 }

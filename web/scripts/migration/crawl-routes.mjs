@@ -51,6 +51,18 @@ function internalLinks(html) {
     .map((href) => href.split(/[?#]/)[0] || "/");
 }
 
+function migratedImageIssues(html) {
+  return [
+    ...html.matchAll(/<img\b[^>]*\bsrc=["']\/migrated-assets\/[^"']+["'][^>]*>/gi),
+  ]
+    .filter(
+      (match) =>
+        !/\bwidth=["']\d+["']/i.test(match[0]) ||
+        !/\bheight=["']\d+["']/i.test(match[0]),
+    )
+    .map((match) => match[0]);
+}
+
 async function main() {
   const routes = JSON.parse(await fs.readFile(manifestPath, "utf8"));
   const routePaths = new Set(routes.map((route) => route.path));
@@ -104,6 +116,20 @@ async function main() {
     }
     if (!html.includes('type="application/ld+json"')) {
       routeIssues.push("JSON-LD missing");
+    }
+    if (route.lifecycle === "retained") {
+      if (!html.includes(`data-source-file="${route.sourceFile}"`)) {
+        routeIssues.push("legacy source marker missing");
+      }
+      if (!html.includes("data-source-selector=")) {
+        routeIssues.push("migrated content marker missing");
+      }
+    }
+    if (migratedImageIssues(html).length > 0) {
+      routeIssues.push("migrated image dimensions missing");
+    }
+    if (/<(?:form|iframe)\b/i.test(html)) {
+      routeIssues.push("active legacy interaction markup detected");
     }
     if (analyticsPatterns.some((pattern) => pattern.test(html))) {
       routeIssues.push("production analytics detected");

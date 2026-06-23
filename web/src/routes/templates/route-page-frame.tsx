@@ -12,17 +12,25 @@ import {
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
 import { TextLink } from "~/components/ui/text-link";
+import type { MigratedContentRecord } from "~/content/migrated";
 import { futureRouteManifest } from "~/data/future-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
+import { MigratedContentRenderer } from "~/routes/templates/migrated-content-renderer";
 import { buildRouteSchemaGraph, serializeJsonLd } from "~/seo/schema";
 
 type RoutePageFrameProps = {
   children?: ReactNode;
+  content: MigratedContentRecord | null;
   eyebrow: string;
   route: FutureRouteRecord;
 };
 
-export function RoutePageFrame({ children, eyebrow, route }: RoutePageFrameProps) {
+export function RoutePageFrame({
+  children,
+  content,
+  eyebrow,
+  route,
+}: RoutePageFrameProps) {
   const routeById = new Map(
     futureRouteManifest.map((candidate) => [candidate.id, candidate]),
   );
@@ -65,6 +73,8 @@ export function RoutePageFrame({ children, eyebrow, route }: RoutePageFrameProps
           </Stack>
 
           {children}
+
+          {content ? <MigratedContentRenderer content={content} /> : null}
 
           {relatedRoutes.length > 0 ? (
             <nav aria-label="Related pages">

@@ -76,3 +76,34 @@ The route/content contract workstream was executed on `transformation/foundation
 - One former self-loop route remains explicitly draft and unresolved; no content decision was invented.
 - Replit-owned paths, the legacy root and production `netlify.toml` remain unchanged.
 - Implementation evidence and rollback instructions are recorded in `route-migration-implementation-v1.md`.
+
+## CP3–CP5 execution record — retained content baseline
+
+The retained-content workstream was executed on `transformation/foundation` from start commit `6c2953c`.
+
+Observed before implementation:
+
+- G-01 defined 49 retained routes and one draft route.
+- The retained legacy sources contained 4,189 broad extraction blocks, including navigation and footer content that could not be used as page-body records without further filtering.
+- Retained page content referenced 35 primary approved or refactor-approved image files; one article derivative was missing while its source image remained available.
+- Production forms, Calendly and analytics could not be activated in the transformation workspace.
+
+Implemented:
+
+- 49 typed, route-lazy content modules with source file, SHA-256, metadata, headings, schema, links, assets, disabled interactions and source-to-destination provenance.
+- Distinct content kinds for 2 company pages, 1 service page, 9 industry pages, 3 conversion pages, 1 legal page, the blog index and 32 retained articles.
+- Source-faithful rendering through the existing core, service, industry and article templates.
+- Deterministic claims-proof, duplicate/thin/contradiction and exception review artifacts under `docs/silverstone-transformation/content/`.
+- Static and rendered validation for source hashes, links, assets, headings, metadata, schema, route coverage, noindex staging behavior and inactive integrations.
+
+After verification:
+
+- 49/49 retained routes are accounted for with 2,316 page-body blocks, 553 validated links, 35 copied images and 90 valid source schema records.
+- 375 claims require proof/editorial review; 27 duplicate, thin or overlap findings require editorial review.
+- One missing article derivative uses the retained source image as an explicitly documented fallback.
+- Desktop and mobile route parity, route crawl, lint, types, unit tests, build, staging safety and bundle budget pass.
+- Replit-owned files, legacy visual files, production `netlify.toml`, production analytics, Resend and Calendly remain unchanged.
+
+Tradeoff:
+
+- This checkpoint preserves source copy and provenance inside the approved `/web` design primitives. It does not reproduce the frozen legacy visual treatment or perform final marketing rewrites.

@@ -1,6 +1,12 @@
+import type { MigratedContentRecord } from "~/content/migrated";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { RoutePageFrame } from "~/routes/templates/route-page-frame";
 
-export function IndustryPage({ route }: { route: FutureRouteRecord }) {
-  return <RoutePageFrame eyebrow="Industry" route={route} />;
+type IndustryPageProps = {
+  content?: MigratedContentRecord | null;
+  route: FutureRouteRecord;
+};
+
+export function IndustryPage({ content = null, route }: IndustryPageProps) {
+  return <RoutePageFrame content={content} eyebrow="Industry" route={route} />;
 }

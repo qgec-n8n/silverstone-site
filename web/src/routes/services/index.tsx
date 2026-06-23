@@ -10,5 +10,7 @@ export const loader = createRouteLoader({
 export const meta = createRouteMeta<typeof loader>();
 
 export default function ServicesRoute() {
-  return <ServicePage route={useLoaderData<typeof loader>()} />;
+  const { content, route } = useLoaderData<typeof loader>();
+
+  return <ServicePage content={content} route={route} />;
 }

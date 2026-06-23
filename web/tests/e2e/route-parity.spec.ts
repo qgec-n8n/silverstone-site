@@ -10,6 +10,21 @@ const representativeRoutes = [
   "/privacy-policy",
 ];
 
+const representativeSourceCopy = [
+  {
+    path: "/about",
+    text: "Silverstone AI is a London automation studio helping UK small businesses save time, cut admin, and run on better systems.",
+  },
+  {
+    path: "/services/dentists",
+    text: "DNAs and recall gaps quietly empty chairs.",
+  },
+  {
+    path: "/blog/ai-receptionist-small-business-2026",
+    text: "Why the front desk is the strongest first AI project",
+  },
+];
+
 for (const path of representativeRoutes) {
   test(`route parity: ${path}`, async ({ page }) => {
     const consoleErrors: string[] = [];
@@ -43,3 +58,12 @@ test("unknown routes return a genuine 404", async ({ request }) => {
 
   expect(response.status()).toBe(404);
 });
+
+for (const comparison of representativeSourceCopy) {
+  test(`source content comparison: ${comparison.path}`, async ({ page }) => {
+    await page.goto(comparison.path);
+
+    await expect(page.getByText(comparison.text, { exact: true })).toBeVisible();
+    await expect(page.locator("main form, main iframe")).toHaveCount(0);
+  });
+}
