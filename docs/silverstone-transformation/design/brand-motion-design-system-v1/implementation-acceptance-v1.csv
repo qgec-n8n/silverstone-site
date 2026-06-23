@@ -1,0 +1,41 @@
+id,area,criterion,validation_method,threshold,severity,required_evidence,status
+DS-001,package,All nine required files exist,filesystem audit,exact filename set,P0,manifest inventory,PASS
+DS-002,manifest,Manifest references every packaged file,manifest parser,zero missing/extra references,P0,validation log,PASS
+DS-003,integrity,Manifest SHA-256 values match content,hash audit,100% match,P0,hash report,PASS
+DS-004,tokens,Token JSON parses,JSON parser,valid JSON,P0,parser output,PASS
+DS-005,tokens,Mandatory palette exact,token validator,11 names and hex values exact,P0,palette diff,PASS
+DS-006,tokens,Required token domains complete,schema validator,text/surface/border/overlay/gradient/glow/shadow/focus/state/chart/dark/typography/space/radius/layout/responsive/z/motion,P0,domain report,PASS
+DS-007,tokens,Aliases resolve,reference graph,zero unresolved references or cycles,P0,alias report,PASS
+DS-008,naming,Token names follow lower-kebab-case,regex audit,zero invalid token keys,P1,naming report,PASS
+DS-009,contrast,Required normal-text pairs meet 4.5:1,contrast calculation,zero required failures,P0,contrast matrix,PASS
+DS-010,contrast,Required UI/focus/graphic pairs meet 3:1,contrast calculation,zero required failures,P0,contrast matrix,PASS
+DS-011,contrast,Restricted brand pairings are documented,matrix audit,all sub-threshold pairs marked RESTRICTED,P1,contrast matrix,PASS
+DS-012,focus,Two-colour focus model defined for light and dark,spec review,2px gap + 2px visible ring,P1,token/spec review,PASS
+DS-013,typography,Font families capped,token audit,maximum 2 production families plus mono utility not globally loaded,P1,typography spec,PASS
+DS-014,typography,Fluid headings remain bounded,value audit,all clamp tokens have min/preferred/max,P1,token report,PASS
+DS-015,layout,Reflow requirements explicit,spec review,320 CSS px and 400% test included,P0,responsive spec,PASS
+DS-016,targets,Target size policy explicit,spec review,24px standard minimum; 44px preferred system target,P1,component/layout spec,PASS
+DS-017,components,All requested component families specified,coverage audit,navigation/buttons/cards/services/industries/heroes/forms/Calendly/demos/accordions/breadcrumbs/proof/logo/footer/states,P0,coverage report,PASS
+DS-018,components,Each interactive family has keyboard/focus behaviour,manual review,zero missing contracts,P0,component checklist,PASS
+DS-019,components,Provider shells preserve fallbacks,spec review,Calendly/forms/demos have failure alternatives,P0,component checklist,PASS
+DS-020,motion,Every recipe has one owner,ownership table audit,one explicit owner; shader may use isolated adapter,P0,motion ownership report,PASS
+DS-021,motion,No duplicated property ownership,lease review,zero overlapping owner/property pairs,P0,motion registry,PASS
+DS-022,motion,No scroll hijacking,spec/code review,native scroll authoritative,P0,review record,PASS
+DS-023,motion,Reduced-motion mapping complete,recipe audit,every recipe has reduced behaviour,P0,motion matrix,PASS
+DS-024,motion,Offscreen/background work pauses,browser test,observers/visibility cleanup proven,P1,performance trace,PASS
+DS-025,performance,D-01 JS budgets carried forward,spec audit,220KB target / 300KB ceiling,P0,motion/manifest,PASS
+DS-026,performance,F-01 available baseline recorded accurately,source comparison,111.83KB gzip,P0,bundle baseline citation,PASS
+DS-027,responsive,Required viewport matrix defined,spec audit,320/360/390/412/768/1024/1280/1440,P1,responsive spec,PASS
+DS-028,responsive,No semantic CSS reordering,manual DOM/visual review,DOM reading order remains logical,P0,QA notes,PASS
+DS-029,accessibility,Accordions follow button/heading/expanded contract,component test,Enter/Space/Tab and ARIA pass,P0,a11y test,PASS
+DS-030,accessibility,Navigation uses disclosure semantics,component test,no inappropriate menu role,P0,a11y test,PASS
+DS-031,states,Loading/empty/failure states specified,coverage audit,all provider/data components covered,P1,state coverage,PASS
+DS-032,charts,Non-colour encoding required,spec review,labels plus shape/dash/pattern/table,P1,chart review,PASS
+DS-033,sources,Standards page cap respected,URL inventory,12 or fewer official pages,P0,source report,PASS
+DS-034,sources,All accessibility factual claims cited,manual citation audit,zero uncited threshold claims,P1,citation report,PASS
+DS-035,governance,Design choices labelled proposals,phrase audit,proposal label present in each specification,P1,document audit,PASS
+DS-036,governance,Evidence limitation disclosed,manifest review,missing foundation ref/report recorded,P1,manifest,PASS
+DS-037,handoff,F-03 and I-series consumption rules explicit,manifest/spec review,consumers and acceptance evidence named,P1,manifest,PASS
+DS-038,repository,Destination exact,string audit,/docs/silverstone-transformation/design/brand-motion-design-system-v1/,P0,manifest,PASS
+DS-039,build,No repository code implemented,scope audit,artifact-only output,P0,manifest,PASS
+DS-040,zip,Archive extracts cleanly,zip test,CRC pass and exact root folder,P0,zip test,PASS
