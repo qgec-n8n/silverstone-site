@@ -1,0 +1,1 @@
+- [Smithery skills CLI quirk](smithery-skills-cli.md) — `npx skills add <smithery url>` installs the generic `smithery-ai-cli` wrapper, NOT the named skill; fetch real skill from its canonical GitHub source instead.
