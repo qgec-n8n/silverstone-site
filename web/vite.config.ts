@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       host: "0.0.0.0",
+      allowedHosts: true,
       headers: {
         "X-Robots-Tag": robotsHeader,
       },
