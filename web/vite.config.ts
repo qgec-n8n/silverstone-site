@@ -25,6 +25,19 @@ export default defineConfig(({ mode }) => {
       alias: {
         "~": fileURLToPath(new URL("./src", import.meta.url)),
       },
+      dedupe: ["react", "react-dom"],
+    },
+    optimizeDeps: {
+      include: [
+        "react",
+        "react-dom",
+        "react-dom/client",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+        "react-router",
+        "framer-motion",
+        "gsap",
+      ],
     },
     server: {
       host: "0.0.0.0",
