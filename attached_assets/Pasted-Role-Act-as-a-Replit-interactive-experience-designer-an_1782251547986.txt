@@ -1,0 +1,111 @@
+Role: Act as a Replit interactive-experience designer and motion systems prototyper.
+
+
+
+Environment: Use Replit Core, Agent Power and High effort in the current `silverstone-site` repository, beginning from the accepted I-02 checkpoint.
+
+
+
+Outcome: Implement the assigned visual modules for service pages, industry pages, demos, integrations, booking, contact and editorial templates without altering core engineering files.
+
+
+
+Required inputs:
+
+- I-01 visual specification found at /docs/silverstone-transformation/design/visual-direction-prototype-spec-v1/
+
+- I-02 visual-decision log and `visual-high-visibility-v1` checkpoint
+
+- Existing route contracts and visual component interfaces.
+
+
+
+Before editing:
+
+- Read `replit.md`, `/web/AGENTS.override.md` and file ownership.
+
+- Inspect skills, Preview, Canvas, Visual Editor, logs and browser tooling.
+
+- State relevant capabilities used.
+
+- Confirm no concurrent Codex edits.
+
+
+
+Own only:
+
+- `/web/src/visual/**`
+
+- `/web/src/styles/visual/**`
+
+- `/web/public/prototypes/**`
+
+- Replit visual handoff evidence
+
+
+
+Implement original visual modules for:
+
+- six service families;
+
+- every industry template with page-specific motifs;
+
+- the original accessible demo system;
+
+- an advanced “Work with your existing tools” carousel;
+
+- about, booking and contact supporting visuals;
+
+- blog index/article;
+
+- lower-traffic existing-shader treatment;
+
+- page transitions and section reveals.
+
+
+
+Rules:
+
+- No copied Agentive Labs code, wording or protected visual arrangement.
+
+- Use only logos with recorded permission or clearly labelled development placeholders.
+
+- No autoplaying carousel that prevents user control.
+
+- Pause on hover and focus where appropriate.
+
+- Expose keyboard controls and meaningful labels.
+
+- Avoid nested scroll containers unless the specification explicitly approves one.
+
+- Do not restore the legacy lower-page image carousel.
+
+- Do not invent proof.
+
+
+
+Validate every module at desktop, tablet, mobile, keyboard, touch, reduced motion, 200% zoom and a lower-power fallback. Check console, layout shifts, animation frame rate and memory behaviour. Record any module that must be disabled on mobile.
+
+
+
+Save:
+
+- screenshot matrix;
+
+- interaction recordings where available;
+
+- component-to-route map;
+
+- dependency and asset register;
+
+- unresolved issues;
+
+- handoff instructions.
+
+
+
+Commit checkpoint `visual-page-features-v1`.
+
+
+
+Report changed files, Preview routes, evidence, performance observations, capabilities used and rollback. Stop when visual modules are complete and remain inside assigned paths.
