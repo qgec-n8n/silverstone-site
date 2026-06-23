@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-06-23T07:54:35.642Z",
+  "status": "pass",
+  "activeRedirects": 82,
+  "dispositionCounts": {
+    "retained": 49,
+    "draft": 1,
+    "redirected": 80,
+    "consolidated": 2,
+    "removed": 1
+  },
+  "productionNetlifyTomlChanged": false,
+  "issues": []
+}

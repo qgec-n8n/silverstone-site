@@ -1,0 +1,1 @@
+import{p as o}from"./chunk-4ZMWKKQ3-Bg5EuYVk.js";import{R as t}from"./route-page-frame-VbmZRPL6.js";function m({content:e=null,route:r}){return o.jsx(t,{content:e,eyebrow:r.routeGroup.replace("-"," "),route:r})}export{m as C};

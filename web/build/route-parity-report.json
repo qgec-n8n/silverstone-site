@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-06-23T07:54:35.592Z",
+  "status": "pass",
+  "totals": {
+    "canonicalRoutes": 50,
+    "legacyUrls": 133,
+    "contentRecords": 50,
+    "productionIndexable": 49,
+    "sitemapRoutes": 49,
+    "draftRoutes": 1
+  },
+  "issues": []
+}
