@@ -139,3 +139,51 @@ Pre-existing validation failures:
 
 - `npm run format:check` fails on 10 `/web` files. The same command fails with the same file list on a detached `transformation/foundation` checkout after fresh `npm ci`.
 - `node scripts/migration/crawl-routes.mjs http://127.0.0.1:4173` fails after fresh build/preview. The same failure pattern is present on a detached `transformation/foundation` checkout. The failing crawler is stricter than the configured Playwright route-parity tests and does not include the later `/how-we-work`, `/industries`, and service-detail navigation routes in its 50-route manifest.
+
+## Main repair integration record -- 2026-06-23
+
+Observed before repair:
+
+- `origin/main` was `96f293ab6baa611a0b4df016541319ee7b7f6a3a`.
+- `origin/transformation/audit` was `c7d64185141f4f1415e7fed22e9da36e6085ad78`.
+- `origin/transformation/foundation` was `decb8c88fb2bfd8d0b731bc3dbc4aee5062875f4`.
+- The shared merge base for `origin/main`, `origin/transformation/audit`, and `origin/transformation/foundation` was `1e445c305c30cae93d5f6427135a238be8d58c14`.
+- `origin/main` had four commits not in `origin/transformation/audit`; `origin/transformation/audit` had 26 commits not in `origin/main`.
+- `origin/transformation/foundation` had nine commits not in the initial integration result and was not an ancestor of `origin/transformation/audit`.
+- Current `main` contained the legacy root website plus tracked generated material, including root `node_modules/`, `/web/node_modules/`, `.npm-cache/`, `/web/build/`, `/web/.react-router/`, `/web/test-results/`, `.DS_Store` files, and a pasted prompt attachment.
+
+Changed:
+
+- Created and verified remote safety branch `backup/main-before-react-integration-20260623-1808` at the exact pre-repair `origin/main` SHA.
+- Created local integration branch `integration/react-main-repair-20260623-1808` from `origin/main`.
+- Merged `origin/transformation/audit` with a normal non-fast-forward merge commit `631b74fade1cf1efe5dfcb01654f04b3ae357916`.
+- Resolved `.replit` to the audit branch version so Replit starts `/web`.
+- Removed tracked dependency directories, npm cache, React Router generated files, build output, test output, `.DS_Store` files, and the pasted prompt attachment from the merge result.
+- Preserved legitimate `main`-only agent tooling, including `.agents/skills/**`.
+- Merged `origin/transformation/foundation` with a normal non-fast-forward merge commit `dae97ffca828fb01750bfb5d9092aa9b25968b01` to preserve the foundation branch history. The visual-direction files were already byte-identical before that merge.
+- Left the legacy root HTML, CSS, JavaScript, assets, package files, and Netlify configuration unchanged, apart from `.DS_Store` cleanup.
+
+Verification:
+
+- `npm ci` in `/web` passed from the committed lockfile with 408 packages installed and 0 vulnerabilities.
+- `npm run lint` passed.
+- `npm run typecheck` passed.
+- `npm run test` passed: 16 files, 33 tests.
+- `npm run migration:validate` passed: 49 routes, 553 links, 35 assets, 90 schema records.
+- `npm run build` passed and prerendered the staging route set.
+- `npm run bundle:report` passed: 154.01 KB gzip, target-pass.
+- `npm run staging:safety` passed.
+- `npm run test:e2e` passed: 32 desktop/mobile Chromium tests.
+- `npm run test:a11y` passed: 2 desktop/mobile Chromium tests.
+- `.replit` smoke test passed with `PORT=3173`; the command started the React Router app from `/web`, bound to `0.0.0.0`, returned React Router/Vite HTML, and emitted staging `noindex` headers.
+- Tracked-file audit found no tracked dependency directories, build output, framework caches, browser reports, test results, `.DS_Store`, or pasted prompt attachments.
+- Introduced-file secret scan found no credentials. Matches were asset filenames and migration risk identifiers in documentation.
+- Root legacy source comparison against pre-repair `origin/main` found no non-`.DS_Store` changes under the legacy HTML, asset, script, root package, or Netlify paths.
+
+Non-blocking pre-existing validation:
+
+- `npm run format:check` still fails on the same 10 `/web` files documented in the unified baseline preparation record. Those files are byte-identical to `origin/transformation/audit` in this integration, so the failure was not introduced by the main repair.
+
+Rollback:
+
+- Reset `main` back to remote branch `backup/main-before-react-integration-20260623-1808` if this integration must be reverted. Do not delete that safety branch until the rollback window is closed.
