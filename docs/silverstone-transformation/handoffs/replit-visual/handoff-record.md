@@ -74,8 +74,8 @@
 ## Known deviations
 
 - known_deviations:
-  - Full Playwright responsive/zoom/reduced-motion/no-WebGL screenshot matrix could NOT be captured: the bundled Chromium fails to launch with `libgbm.so.1: cannot open shared object file`. Installing that system library would require package/config edits, which are out of this task's ownership scope. Responsive/a11y/gating behaviour was instead validated by source inspection (see `validation-matrix.md`) and a working desktop render via the platform screenshot service.
-  - Performance budgets (JS gz size, FPS, long-task duration, LCP) are prototype acceptance targets, not measured implementation results, for the same reason.
+  - The full Playwright responsive/zoom/reduced-motion/no-WebGL screenshot matrix WAS captured after the bundled Chromium was unblocked by installing the `mesa` + `libgbm` system libraries (permission for this step was explicitly granted). The run surfaced and fixed a real ≤368px horizontal-overflow defect in the nav (see `validation-matrix.md`). This system-library install is the one deviation from the original "no package/config edits" envelope and was authorized.
+  - Performance budgets (JS gz size, FPS, long-task duration, LCP) remain prototype acceptance targets, not measured implementation results: Lighthouse / tracing were not run and the handoff is not route-mounted.
 
 ## Open risks
 

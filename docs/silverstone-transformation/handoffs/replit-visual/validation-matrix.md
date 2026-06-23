@@ -19,22 +19,55 @@ acceptance surface; the React handoff (`web/src/visual/**`) is compiler-verified
 | Console on reload | CLEAN — no errors on second load |
 | First-load transient (`Invalid hook call` / `Hydration failed`) | KNOWN, NOT FROM THIS WORK — one-time Vite dep re-optimization artifact on the main React app routes after a build/restart; clears on reload. The prototype is static HTML (no React) and the handoff is not route-rendered, so neither can produce it. Cannot be removed without editing `vite.config` (out of ownership scope). |
 
-## Environment blocker — full screenshot matrix
+## Screenshot matrix (Playwright, bundled Chromium) — EXECUTED
 
-The planned Playwright matrix (320/360/390/412/768/1024/1280/1440 px, 200%/400% zoom,
-reduced-motion, low-power/no-WebGL) could not be captured: the bundled Chromium aborts at
-launch with `libgbm.so.1: cannot open shared object file`. Resolving it requires installing
-system libraries / nix packages — a package/config edit explicitly out of this task's
-ownership scope ("No route/config/package edits. No new deps."). The platform `screenshot`
-service (separate, working browser infra) was used for the desktop render; the behaviours
-below were verified by source inspection instead of headless capture.
+The earlier launch blocker (`libgbm.so.1: cannot open shared object file`) was resolved by
+installing the `mesa` and `libgbm` system libraries (permission for this step was granted).
+Captures were driven by a throwaway script against the running prototype URL
+(`http://localhost:5000/prototypes/home/index.html`); no tracked files were added outside
+the owned `screenshots/` directory. Chromium build 149.0.7827.55.
+
+| Viewport / condition | Screenshot | Horizontal overflow | Console errors |
+| --- | --- | --- | --- |
+| 320×568 | `screenshots/home-320x568.jpg` | none (sw=cw=320) | 0 |
+| 360×800 | `screenshots/home-360x800.jpg` | none (sw=cw=360) | 0 |
+| 390×844 | `screenshots/home-390x844.jpg` | none | 0 |
+| 412×915 | `screenshots/home-412x915.jpg` | none | 0 |
+| 768×1024 | `screenshots/home-768x1024.jpg` | none | 0 |
+| 1024×768 | `screenshots/home-1024x768.jpg` | none | 0 |
+| 1280×800 | `screenshots/home-1280x800.jpg` | none | 0 |
+| 1440×900 | `screenshots/home-1440x900.jpg` | none | 0 |
+| 200% zoom (WCAG 1.4.10 reflow → 640 CSS px) | `screenshots/home-zoom200.jpg` | none (sw=cw=640) | 0 |
+| 400% zoom (WCAG 1.4.10 reflow → 320 CSS px) | `screenshots/home-zoom400.jpg` | none (sw=cw=320) | 0 |
+| Reduced motion (`reducedMotion: reduce`) | `screenshots/home-reduced-motion.jpg` | none | 0 |
+| Constrained: no-WebGL + low-power (deviceMemory/cores=2) | `screenshots/home-constrained-nowebgl.jpg` | none | 0 |
+
+Zoom note: browser zoom is emulated the WCAG 1.4.10 way — content reflowed into the
+effective CSS width (1280 ÷ zoom). A direct CSS `zoom` transform only scales the raster and
+is not a faithful reflow test, so the viewport-width method is used instead.
+
+### Defect found and fixed during capture
+The first matrix run exposed a real horizontal overflow at ≤368 px: the inline nav CTA
+("Book a discovery call") + brand + hamburger could not share one row (min content width
+369 px), so 320 px and 360 px scrolled horizontally. Fixed by retiring the inline nav CTA
+at `@media (max-width: 23rem)` in `prototype.css` (the prototype mobile panel already carries
+the booking action). The same guard is mirrored in the React handoff `visual.css`, scoped to
+the inline bar CTA only (`.ss-nav__inner > .ss-cta`), and the React mobile panel was given the
+matching `#book` "Book a discovery call" action so the conversion path survives at ≤23rem in
+both surfaces. Re-capture confirms no overflow at 320 / 360 / 375 px.
+
+### Capture-corroborated gating
+- The constrained run launched with WebGL disabled and `deviceMemory` / `hardwareConcurrency`
+  forced to 2: the WebGL field stays inactive (no live canvas context) and the SVG
+  constellation poster renders — the Tier C path is confirmed visually, not only by inspection.
+- The reduced-motion context renders the static end-state with no animation artifacts.
 
 ## Behaviour verification (source inspection)
 
 | Requirement | Evidence | Result |
 | --- | --- | --- |
 | Responsive breakpoints | `prototype-tokens.css` + `prototype.css` media queries at 30rem (480px max), 40rem (640px), 48rem (768px), 64rem (1024px); `hover/pointer` query | PASS |
-| No horizontal overflow | seven `overflow: hidden` guards on stage/cards/chambers; `max-width: 100%` base; measure caps (`ch`) on text blocks | PASS |
+| No horizontal overflow | Playwright matrix 320–1440 px + WCAG reflow zoom (table above) all clean; `overflow: hidden` guards + `max-width: 100%` base + `ch` measure caps; inline nav CTA retired at `@media (max-width: 23rem)` after capture exposed a 369 px min-row | PASS — captured |
 | Visible focus ring | `:focus-visible` → `--ss-shadow-focus-light: 0 0 0 2px #fff, 0 0 0 4px #39454d` (light), `--ss-shadow-focus-dark` on `.ss-on-graphite` | PASS — matches spec note |
 | Keyboard complete | skip link; disclosures + toggles driven by `aria-expanded`/`Escape`; native controls | PASS |
 | Desktop nav links + disclosures reachable | `prototype.css` `@media (min-width: 64rem)` reveals `.ss-nav__links` and hides `.ss-nav__toggle`/`.ss-mobile-panel`; markup uses `aria-expanded` + `role="menu"`; verified in `screenshots/home-desktop.jpg` | PASS |
@@ -42,8 +75,8 @@ below were verified by source inspection instead of headless capture.
 | Shader deferred | dynamic `import()` inside `requestIdleCallback({timeout:1500})` / `setTimeout(600)` fallback | PASS |
 | Pause when hidden / offscreen | `visibilitychange` → `field.stop()`; `IntersectionObserver` (threshold 0.1) starts/stops | PASS |
 | Context loss → poster | `webglcontextlost` → `data-active=false` + `field.stop()`; poster always rendered beneath | PASS |
-| Reduced motion | `prefers-reduced-motion: reduce` → Tier C (static end-state, motion off); CSS reduced-motion blocks | PASS |
-| Low power → no shader | `deviceMemory < 4` OR `hardwareConcurrency < 4` OR `connection.saveData` → Tier C | PASS |
+| Reduced motion | `prefers-reduced-motion: reduce` → Tier C (static end-state, motion off); CSS reduced-motion blocks; `screenshots/home-reduced-motion.jpg` | PASS — captured |
+| Low power → no shader | `deviceMemory < 4` OR `hardwareConcurrency < 4` OR `connection.saveData` → Tier C; constrained capture (no-WebGL + cores/memory = 2) shows poster, `screenshots/home-constrained-nowebgl.jpg` | PASS — captured |
 
 ## React handoff parity (source inspection)
 

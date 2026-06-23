@@ -1,5 +1,6 @@
 {pkgs}: {
   deps = [
+    pkgs.libgbm
     pkgs.xorg.libxcb
     pkgs.xorg.libXrandr
     pkgs.xorg.libXfixes

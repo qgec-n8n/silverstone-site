@@ -1,10 +1,12 @@
 # Performance Observations — Signal Field & Home
 
 These are design/implementation characteristics and prototype acceptance targets.
-Measured runtime numbers (FPS, long-task ms, gz size, LCP) were NOT captured in this
-environment because the headless browser and Lighthouse are unavailable (bundled Chromium
-missing `libgbm.so.1`; installing it is out of ownership scope). The production owner should
-re-measure once the components are mounted into a route.
+The Playwright screenshot matrix (responsive widths, WCAG reflow zoom, reduced-motion,
+no-WebGL/low-power) WAS captured after the bundled Chromium was unblocked — see
+`validation-matrix.md`. However, quantitative runtime numbers (FPS, long-task ms, JS gz
+size, LCP) were NOT measured here: Lighthouse / tracing were not run, and the React handoff
+is not route-mounted. The production owner should measure these once the components are
+mounted into a route.
 
 ## Deferral & gating (keeps the home critical path light)
 

@@ -257,6 +257,15 @@
   }
 }
 
+/* Small phones (<=368px): inline nav CTA + brand + toggle cannot coexist on one
+   row without horizontal overflow. Retire the inline CTA here; the mobile panel
+   still carries the primary "Book a discovery call" action. */
+@media (max-width: 23rem) {
+  .ss-nav__actions .ss-btn--primary {
+    display: none;
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* Buttons                                                            */
 /* ------------------------------------------------------------------ */

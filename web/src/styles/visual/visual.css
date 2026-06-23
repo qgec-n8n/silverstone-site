@@ -208,6 +208,17 @@
   }
 }
 
+/* Small phones (<=368px): the inline nav CTA cannot share the bar with the
+   brand and toggle without horizontal overflow. Retire ONLY the inline bar CTA
+   (a direct child of .ss-nav__inner) here; the mobile panel still surfaces the
+   "Book a discovery call" action, so the conversion path survives. Mirrors the
+   prototype guard. */
+@media (max-width: 23rem) {
+  .ss-nav__inner > .ss-cta {
+    display: none;
+  }
+}
+
 /* --------------------------------------------------------------- HERO */
 .ss-hero {
   display: grid;

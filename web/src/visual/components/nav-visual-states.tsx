@@ -155,6 +155,12 @@ export function NavVisualStates() {
               <a href={link.href}>{link.label}</a>
             </li>
           ))}
+          {/* Booking action mirrors the prototype mobile panel so the primary
+              conversion path stays reachable when the inline bar CTA is hidden
+              (notably on small phones at <=23rem). */}
+          <li>
+            <a href="#book">Book a discovery call</a>
+          </li>
         </ul>
       ) : null}
     </header>
