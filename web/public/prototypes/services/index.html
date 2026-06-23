@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Services — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+  </head>
+  <body data-route="services">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — Services.</strong>
+      Signature: six-capability decision matrix. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. EDITORIAL HERO + LUMINOUS TOPOLOGY -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li aria-current="page">Services</li>
+          </ol>
+          <div class="ss-split" data-ratio="wide-left">
+            <div data-reveal>
+              <span class="ss-pill"><span class="ss-pill__dot"></span>Six capabilities, one operating surface</span>
+              <h1 id="page-title" class="ss-page-hero__title">Choose the business problem before the technology.</h1>
+              <p class="ss-page-hero__lead">
+                Six capabilities, grouped by the problem they solve — not by buzzword. Start
+                from the work you want to fix, and the matrix below points to the right
+                capability with a human kept in control of every decision.
+              </p>
+              <div class="ss-hero__cta-row" style="margin-top: var(--ss-space-6)">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="#matrix">Open the matrix</a>
+              </div>
+            </div>
+
+            <figure class="ss-sig ss-sig--platinum" data-reveal style="margin: 0">
+              <svg class="ss-sig__inner" viewBox="0 0 320 220" role="img" aria-labelledby="topo-title topo-desc">
+                <title id="topo-title">Capability topology</title>
+                <desc id="topo-desc">Six capability nodes arranged around one central human-control ring, each joined to the centre by a signal line.</desc>
+                <line class="ss-dgm-line" x1="160" y1="110" x2="60" y2="44" />
+                <line class="ss-dgm-line" x1="160" y1="110" x2="260" y2="44" />
+                <line class="ss-dgm-line" x1="160" y1="110" x2="40" y2="110" />
+                <line class="ss-dgm-line" x1="160" y1="110" x2="280" y2="110" />
+                <line class="ss-dgm-line" x1="160" y1="110" x2="60" y2="176" />
+                <line class="ss-dgm-line" x1="160" y1="110" x2="260" y2="176" />
+                <path class="ss-dgm-signal" data-flow d="M160 110 L260 44" />
+                <path class="ss-dgm-signal" data-flow d="M160 110 L60 176" />
+                <circle class="ss-dgm-node--live" cx="160" cy="110" r="20" />
+                <circle cx="160" cy="110" r="3.2" fill="var(--ss-color-primitive-electric-cyan)" />
+                <circle class="ss-dgm-node" cx="60" cy="44" r="13" />
+                <circle class="ss-dgm-node ss-dgm-node--live" cx="260" cy="44" r="13" />
+                <circle class="ss-dgm-node" cx="40" cy="110" r="13" />
+                <circle class="ss-dgm-node" cx="280" cy="110" r="13" />
+                <circle class="ss-dgm-node ss-dgm-node--live" cx="60" cy="176" r="13" />
+                <circle class="ss-dgm-node" cx="260" cy="176" r="13" />
+                <text class="ss-dgm-text" x="160" y="148" text-anchor="middle">Human control</text>
+              </svg>
+              <figcaption class="ss-sig__label">Capability topology · synthetic</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. PROBLEM-LED TRIAGE -->
+      <section class="ss-section ss-section--tight" aria-labelledby="triage-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Start from the problem</span>
+            <h2 id="triage-heading" class="ss-section__title">Three problem lenses</h2>
+            <p class="ss-section__lead">Most engagements begin with one of three repeated problems. Each lens points to the capabilities that usually help — without promising an outcome before we have scoped your work.</p>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <span class="ss-card__index">Attract / convert</span>
+              <h3 class="ss-card__title">Win the right enquiry</h3>
+              <p class="ss-card__body">A clearer site, a real product surface and consistent content so the right people understand and act. Usually web, app and content creation.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">Serve / respond</span>
+              <h3 class="ss-card__title">Answer without dropping the ball</h3>
+              <p class="ss-card__body">Calls, messages and front-desk enquiries handled to an approved boundary, with a person owning every escalation. Usually voice and receptionists.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">Operate / scale</span>
+              <h3 class="ss-card__title">Take the repeat work off people</h3>
+              <p class="ss-card__body">Exception-aware workflows that move work between systems and stop at human approval. Usually AI automation, often alongside the others.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. SIX-CAPABILITY DECISION MATRIX -->
+      <section class="ss-section" id="matrix" aria-labelledby="matrix-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Decision matrix</span>
+            <h2 id="matrix-heading" class="ss-section__title">Six capabilities, compared honestly</h2>
+            <p class="ss-section__lead">Each card states a typical starting problem, the systems usually involved, the human-control point and the smallest useful scope. These are starting points for a conversation, not a quote or a suitability promise.</p>
+          </div>
+
+          <div class="ss-matrix" style="margin-top: var(--ss-space-8)">
+            <div class="ss-matrix__grid">
+              <a class="ss-capability-card" href="/prototypes/services/web-design-development/index.html">
+                <svg class="ss-capability-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M3 8h18M7 12h7" /></svg>
+                <span class="ss-capability-card__title">Web design &amp; development</span>
+                <span class="ss-capability-card__body">Conversion-path sites where hierarchy, message, proof and call-to-action line up into one clear route.</span>
+                <span class="ss-capability-card__meta"><span>Problem: a busy site with no clear path</span><span>·</span><span>Human-control: you approve the message</span></span>
+                <span class="ss-capability-card__meta"><span>Smallest scope: one key page rebuilt around one action</span></span>
+                <span class="ss-capability-card__cta">Explore web &amp; development →</span>
+              </a>
+
+              <a class="ss-capability-card" href="/prototypes/services/app-development/index.html">
+                <svg class="ss-capability-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M9 7h6M9 11h6M9 15h3" /></svg>
+                <span class="ss-capability-card__title">Custom app development</span>
+                <span class="ss-capability-card__body">Product surfaces with real state for user, staff and system — built around the smallest useful first release.</span>
+                <span class="ss-capability-card__meta"><span>Problem: a spreadsheet or tool that has outgrown itself</span><span>·</span><span>Human-control: staff own decisions</span></span>
+                <span class="ss-capability-card__meta"><span>Smallest scope: one core flow, prototype to release</span></span>
+                <span class="ss-capability-card__cta">Explore app development →</span>
+              </a>
+
+              <a class="ss-capability-card" href="/prototypes/services/ai-voice-agents/index.html">
+                <svg class="ss-capability-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12h3l2-5 4 10 2-5h7" /></svg>
+                <span class="ss-capability-card__title">AI voice agents</span>
+                <span class="ss-capability-card__body">Deterministic call flows that disclose they are automated, capture intent and hand off to a person when rules say so.</span>
+                <span class="ss-capability-card__meta"><span>Problem: missed and repetitive calls</span><span>·</span><span>Human-control: rules, not confidence, decide handoff</span></span>
+                <span class="ss-capability-card__meta"><span>Smallest scope: one routine call type with handoff</span></span>
+                <span class="ss-capability-card__cta">Explore voice agents →</span>
+              </a>
+
+              <a class="ss-capability-card" href="/prototypes/services/ai-receptionists/index.html">
+                <svg class="ss-capability-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12a8 8 0 0 1 16 0" /><rect x="3" y="12" width="4" height="6" rx="1" /><rect x="17" y="12" width="4" height="6" rx="1" /></svg>
+                <span class="ss-capability-card__title">AI receptionists</span>
+                <span class="ss-capability-card__body">A multi-channel front desk: phone, web and messaging converge into one queue that branches to answer, booking, message or person.</span>
+                <span class="ss-capability-card__meta"><span>Problem: enquiries scattered across channels</span><span>·</span><span>Human-control: approved answers only</span></span>
+                <span class="ss-capability-card__meta"><span>Smallest scope: one channel, one enquiry type</span></span>
+                <span class="ss-capability-card__cta">Explore receptionists →</span>
+              </a>
+
+              <a class="ss-capability-card" href="/prototypes/services/content-creation/index.html">
+                <svg class="ss-capability-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h9l5 5v11H5z" /><path d="M14 4v5h5M8 13h8M8 16h6" /></svg>
+                <span class="ss-capability-card__title">Content creation</span>
+                <span class="ss-capability-card__body">One approved source enters a governed pipeline and becomes website, article, email and social outputs with review checkpoints.</span>
+                <span class="ss-capability-card__meta"><span>Problem: inconsistent content, slow to publish</span><span>·</span><span>Human-control: review gates before publish</span></span>
+                <span class="ss-capability-card__meta"><span>Smallest scope: one source repurposed to two channels</span></span>
+                <span class="ss-capability-card__cta">Explore content creation →</span>
+              </a>
+
+              <a class="ss-capability-card" href="/prototypes/services/ai-automation/index.html">
+                <svg class="ss-capability-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="6" cy="6" r="2.5" /><circle cx="18" cy="6" r="2.5" /><circle cx="12" cy="18" r="2.5" /><path d="M8 7l8 0M7 8l4 8M17 8l-4 8" /></svg>
+                <span class="ss-capability-card__title">AI automation</span>
+                <span class="ss-capability-card__body">Exception-aware workflows that move work between systems, log every step and stop at human approval — never unbounded autonomy.</span>
+                <span class="ss-capability-card__meta"><span>Problem: repeated manual handoffs between tools</span><span>·</span><span>Human-control: approvals on high-impact steps</span></span>
+                <span class="ss-capability-card__meta"><span>Smallest scope: one workflow with one approval gate</span></span>
+                <span class="ss-capability-card__cta">Explore AI automation →</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. SHARED DELIVERY MODEL -->
+      <section class="ss-section ss-section--tight" aria-labelledby="delivery-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Shared delivery model</span>
+            <h2 id="delivery-heading" class="ss-section__title">However we start, the path is the same</h2>
+          </div>
+          <div class="ss-sequence" style="margin-top: var(--ss-space-8)">
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Understand</p><p class="ss-sequence__body">We name the repeated problem, the people involved and the boundary a human keeps.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Design the smallest useful scope</p><p class="ss-sequence__body">One flow, one page or one call type — chosen so it is worth doing and quick to learn from.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Build &amp; review</p><p class="ss-sequence__body">We build, you review against a clear exit criterion, and we iterate before anything goes live.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Operate with a person in control</p><p class="ss-sequence__body">Monitoring, retries and a named owner for every escalation. No silent autonomy.</p></div></div>
+          </div>
+          <div class="ss-boundary" role="note" style="margin-top: var(--ss-space-6)">
+            <span aria-hidden="true">◆</span>
+            <span>Every capability keeps a human in control of the decisions that matter. Automation handles the repeatable parts and routes the rest to a person.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. TOOLS RAIL — CONNECTOR CONSTELLATION -->
+      <section class="ss-section" aria-labelledby="tools-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Works with your stack</span>
+            <h2 id="tools-heading" class="ss-section__title">Connector constellation</h2>
+            <p class="ss-section__lead">Categories of tools these capabilities commonly connect to. These are compatibility groups, not confirmed live integrations or vendor partnerships.</p>
+          </div>
+
+          <div class="ss-tools" data-tools style="margin-top: var(--ss-space-6)">
+            <div class="ss-tools__filters" role="group" aria-label="Filter tools by category">
+              <button class="ss-tools__filter" type="button" data-tools-filter="all" aria-pressed="true">All</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Scheduling" aria-pressed="false">Scheduling</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="CRM" aria-pressed="false">CRM</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Email" aria-pressed="false">Email</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Payments" aria-pressed="false">Payments</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Analytics" aria-pressed="false">Analytics</button>
+            </div>
+
+            <p class="ss-tools__status" data-tools-status aria-live="polite"></p>
+
+            <div class="ss-tools__viewport">
+              <ul class="ss-tools__rail" data-tools-rail tabindex="0" role="list" aria-label="Compatible tool categories">
+                <li class="ss-tool-card" data-category="Scheduling">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Booking calendars</span><span class="ss-tag">Scheduling</span></div>
+                  <p class="ss-tool-card__body">Calendar tools a booking flow can connect to so the primary action is “book”, not “contact us”.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Connection is agreed and configured during build; nothing is wired in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">CRM handoff</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Enquiries and leads can be routed into a CRM so nothing is lost between channels.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Field mapping is agreed with you; no data flows in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Email">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Email &amp; newsletter</span><span class="ss-tag">Email</span></div>
+                  <p class="ss-tool-card__body">Opt-in capture and transactional email with clear consent patterns.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Connects to your email platform; staging keeps delivery mocked.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Payments">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Payments &amp; checkout</span><span class="ss-tag">Payments</span></div>
+                  <p class="ss-tool-card__body">Where selling online is in scope, a checkout path is designed into the route.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Provider chosen with you; no transactions occur in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Analytics">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Analytics</span><span class="ss-tag">Analytics</span></div>
+                  <p class="ss-tool-card__body">Privacy-respecting analytics so you can see which paths get used.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Disabled by default in staging; enabled with consent in production.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Helpdesk</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Support enquiries can be routed to a shared inbox or helpdesk tool with a named owner.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Routing rules are configured in production, with a human owner for each queue.</p></details>
+                </li>
+              </ul>
+            </div>
+
+            <div class="ss-tools__controls">
+              <button class="ss-tools__nav" type="button" data-tools-prev aria-label="Previous tools">‹</button>
+              <button class="ss-tools__nav" type="button" data-tools-next aria-label="Next tools">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. FAQ / OBJECTIONS -->
+      <section class="ss-section ss-section--tight" aria-labelledby="faq-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Objections</span>
+            <h2 id="faq-heading" class="ss-section__title">Before you choose</h2>
+          </div>
+          <div class="ss-faq" style="margin-top: var(--ss-space-6)">
+            <details class="ss-faq__item">
+              <summary>Do I have to pick one capability?</summary>
+              <p class="ss-faq__answer">No. Most engagements start with one capability and one small scope. Others are added only when the first is working and there is a clear reason.</p>
+            </details>
+            <details class="ss-faq__item">
+              <summary>Will AI make decisions on its own?</summary>
+              <p class="ss-faq__answer">No. Every capability keeps a human in control of the decisions that matter. Automation handles repeatable steps and routes anything sensitive or high-impact to a person.</p>
+            </details>
+            <details class="ss-faq__item">
+              <summary>Can you promise a result?</summary>
+              <p class="ss-faq__answer">We can promise honest scope, clear boundaries and working software. We do not promise rankings, revenue or conversion figures, because no honest agency can.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. RELATED INDUSTRIES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="related-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">By sector</span>
+            <h2 id="related-heading" class="ss-section__title">See it by industry</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/industries/index.html">
+              <span class="ss-industry-card__pattern">Atlas</span>
+              <span class="ss-industry-card__title">All industries</span>
+              <span class="ss-industry-card__body">Nine sectors grouped by operating pattern, each with its own workflow instrument.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/industries/estate-agents/index.html">
+              <span class="ss-industry-card__pattern">Industry</span>
+              <span class="ss-industry-card__title">Estate agents</span>
+              <span class="ss-industry-card__body">Property-enquiry switchboard built on these capabilities.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/how-we-work/index.html">
+              <span class="ss-industry-card__pattern">Method</span>
+              <span class="ss-industry-card__title">How we work</span>
+              <span class="ss-industry-card__body">Scope to release, with owners and exit criteria at every station.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Start here</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Tell us the problem. We'll point to the capability.</h2>
+                <p class="ss-chamber__body">A 30-minute discovery call. We name the repeated problem, agree the smallest useful scope, and tell you honestly whether we are a fit.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/how-we-work/index.html">How we work</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

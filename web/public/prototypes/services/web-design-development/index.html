@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Web design &amp; development — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body data-route="services">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — Web design &amp; development.</strong>
+      Signature: conversion-path lens. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. SPLIT HERO + CONVERSION-PATH SPECIMEN -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li><a href="/prototypes/services/index.html">Services</a></li>
+            <li aria-current="page">Web design &amp; development</li>
+          </ol>
+          <div class="ss-split" data-ratio="wide-left">
+            <div data-reveal>
+              <span class="ss-pill"><span class="ss-pill__dot"></span>Web design &amp; development</span>
+              <h1 id="page-title" class="ss-page-hero__title">A website that reads as one clear path.</h1>
+              <p class="ss-page-hero__lead">
+                We design and build conversion-path sites where hierarchy, message, proof and
+                call-to-action line up into a single route — fast to load, simple to maintain,
+                and honest about what it claims.
+              </p>
+              <div class="ss-hero__cta-row" style="margin-top: var(--ss-space-6)">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="#demo">Try the path mapper</a>
+              </div>
+            </div>
+
+            <figure class="ss-sig ss-sig--platinum" data-reveal style="margin: 0">
+              <svg class="ss-sig__inner" viewBox="0 0 320 220" role="img" aria-labelledby="lens-title lens-desc">
+                <title id="lens-title">Conversion-path lens</title>
+                <desc id="lens-desc">A browser frame with four stacked layers — hierarchy, message, proof and call to action — aligned by a single signal line into one downward path.</desc>
+                <rect class="ss-dgm-node" x="22" y="18" width="276" height="184" rx="14" />
+                <line class="ss-dgm-line" x1="22" y1="44" x2="298" y2="44" />
+                <circle cx="36" cy="31" r="3.5" class="ss-dgm-fill-graphite" />
+                <circle cx="48" cy="31" r="3.5" class="ss-dgm-fill-graphite" />
+                <circle cx="60" cy="31" r="3.5" class="ss-dgm-fill-graphite" />
+                <g>
+                  <rect class="ss-dgm-node ss-dgm-node--live" x="44" y="58" width="200" height="26" rx="6" />
+                  <text class="ss-dgm-text" x="52" y="74">Hierarchy</text>
+                  <rect class="ss-dgm-node" x="44" y="94" width="232" height="26" rx="6" />
+                  <text class="ss-dgm-text" x="52" y="110">Message</text>
+                  <rect class="ss-dgm-node" x="44" y="130" width="176" height="26" rx="6" />
+                  <text class="ss-dgm-text" x="52" y="146">Proof</text>
+                  <rect class="ss-dgm-node ss-dgm-node--live" x="44" y="166" width="120" height="26" rx="6" />
+                  <text class="ss-dgm-text" x="52" y="182">Call to action</text>
+                </g>
+                <path class="ss-dgm-signal" data-flow d="M262 71 L262 179 L176 179" />
+                <circle cx="262" cy="71" r="3.5" fill="var(--ss-color-primitive-electric-cyan)" />
+                <circle cx="176" cy="179" r="3.5" fill="var(--ss-color-primitive-electric-cyan)" />
+              </svg>
+              <figcaption class="ss-sig__label">Conversion-path lens · synthetic</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. WHERE WEBSITES LOSE CLARITY -->
+      <section class="ss-section ss-section--tight" aria-labelledby="lose-clarity" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Before state</span>
+            <h2 id="lose-clarity" class="ss-section__title">Where websites lose clarity</h2>
+            <p class="ss-section__lead">Most sites do not fail on taste. They fail because the path forks too early and the visitor has to do the sorting.</p>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <span class="ss-card__index">01</span>
+              <h3 class="ss-card__title">Too many equal choices</h3>
+              <p class="ss-card__body">Five calls-to-action of the same weight mean none of them is the path. The eye stalls.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">02</span>
+              <h3 class="ss-card__title">Message after the fold</h3>
+              <p class="ss-card__body">The one sentence that explains the offer arrives three scrolls late, behind decoration.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">03</span>
+              <h3 class="ss-card__title">Proof with no context</h3>
+              <p class="ss-card__body">Logos and figures sit in a separate band, far from the decision they are meant to support.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. OUTCOME ARCHITECTURE -->
+      <section class="ss-section" aria-labelledby="outcome-arch" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Outcome architecture</span>
+            <h2 id="outcome-arch" class="ss-section__title">Four layers, one route</h2>
+          </div>
+          <div class="ss-grid" data-cols="4" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <h3 class="ss-card__title">Offer</h3>
+              <p class="ss-card__body">A plain statement of what you do and who it is for, settled before any visual flourish.</p>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">Navigation</h3>
+              <p class="ss-card__body">Few, well-named paths. Wayfinding that matches how visitors actually decide.</p>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">Search structure</h3>
+              <p class="ss-card__body">Clean information architecture and metadata foundations so pages can be found and indexed.</p>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">Conversion</h3>
+              <p class="ss-card__body">One dominant action per page, with proof placed in context beside it.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. EXPLICIT-START DEMO -->
+      <section class="ss-section" id="demo" aria-labelledby="demo-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-demo" data-demo="web-conversion">
+            <div class="ss-demo__head">
+              <h2 id="demo-heading" class="ss-demo__title">Conversion path mapper</h2>
+              <p class="ss-demo__purpose">Choose an audience, a primary action and a proof type. The demo rearranges a synthetic page outline into one clear path and prints a journey summary.</p>
+              <p class="ss-demo__synthetic">Synthetic &amp; deterministic — no live data, no prediction</p>
+            </div>
+
+            <form class="ss-demo__options" data-cols="3" aria-label="Path options">
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-audience">Audience</label>
+                <select class="ss-select" id="opt-audience" name="audience">
+                  <option value="first-time">First-time visitor</option>
+                  <option value="comparing">Comparison shopper</option>
+                  <option value="returning">Returning customer</option>
+                </select>
+              </div>
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-action">Primary action</label>
+                <select class="ss-select" id="opt-action" name="action">
+                  <option value="book">Book a discovery call</option>
+                  <option value="trial">Start a guided trial</option>
+                  <option value="quote">Request a tailored quote</option>
+                </select>
+              </div>
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-proof">Proof type</label>
+                <select class="ss-select" id="opt-proof" name="proof">
+                  <option value="logos">Client logos</option>
+                  <option value="outcomes">Outcome figures (examples)</option>
+                  <option value="case">Case-style story</option>
+                </select>
+              </div>
+            </form>
+
+            <div class="ss-demo__controls">
+              <button class="ss-btn ss-btn--primary" type="button" data-demo-action="start" data-label-start="Start">Start</button>
+              <button class="ss-btn ss-btn--secondary" type="button" data-demo-action="reset">Reset</button>
+            </div>
+
+            <div class="ss-demo__board">
+              <div class="ss-demo__stage" data-demo-stage aria-label="Synthetic page outline"></div>
+              <div class="ss-demo__aside">
+                <p class="ss-demo__status" data-demo-status role="status" aria-live="polite"></p>
+                <div class="ss-demo__log-wrap">
+                  <p class="ss-demo__log-title">Event log</p>
+                  <ul class="ss-demo__log" data-demo-log aria-live="polite" aria-label="Demo event log"></ul>
+                </div>
+              </div>
+            </div>
+
+            <details class="ss-demo__disclosure">
+              <summary>What this demonstrates — and what it does not</summary>
+              <div class="ss-demo__matrix">
+                <div>
+                  <h4>Demonstrates</h4>
+                  <ul class="ss-list-check">
+                    <li>How layout order changes the route a visitor reads</li>
+                    <li>Placing proof beside the action, not in a separate band</li>
+                    <li>A single dominant call-to-action per page</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Does not</h4>
+                  <ul class="ss-list-check">
+                    <li>Predict conversion rate, ranking or revenue</li>
+                    <li>Use real visitor data or any live integration</li>
+                    <li>Replace research with your actual audience</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+
+            <p class="ss-demo__fallback" data-demo-fallback>
+              Static fallback: the recommended order is clarity banner → primary action → proof in context →
+              trimmed wayfinding → reassurance → repeated action.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. SCOPE MODULES -->
+      <section class="ss-section" aria-labelledby="scope-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Scope</span>
+            <h2 id="scope-heading" class="ss-section__title">What a build includes</h2>
+          </div>
+          <div class="ss-sequence" style="margin-top: var(--ss-space-8)">
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Discovery</p><p class="ss-sequence__body">Goals, audiences and the one path each key page should serve.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">IA &amp; copy</p><p class="ss-sequence__body">Structure, naming and message written before visual design begins.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Interface</p><p class="ss-sequence__body">Design system, responsive layouts and accessible components.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Development</p><p class="ss-sequence__body">Fast, maintainable front-end with a content model you can edit.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">SEO foundations</p><p class="ss-sequence__body">Clean markup, metadata and performance — the groundwork, not a ranking promise.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Launch</p><p class="ss-sequence__body">QA across devices, analytics wiring (off by default in staging) and handover.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. EDITORIAL IMAGERY FRAMES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="imagery-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Selected work</span>
+            <h2 id="imagery-heading" class="ss-section__title">Editorial frames for approved imagery</h2>
+            <p class="ss-section__lead">These framed slots are where approved client screenshots sit in production, each with a short factual caption. No imagery is invented in this prototype.</p>
+          </div>
+          <div class="ss-grid" data-cols="2" style="margin-top: var(--ss-space-8)">
+            <figure class="ss-card" style="padding: 0; overflow: hidden">
+              <div class="ss-article-card__cover" role="img" aria-label="Placeholder for an approved project screenshot"></div>
+              <figcaption class="ss-card__body" style="padding: var(--ss-space-5)">Caption slot — approved screenshot &amp; one-line context added in production.</figcaption>
+            </figure>
+            <figure class="ss-card" style="padding: 0; overflow: hidden">
+              <div class="ss-article-card__cover" role="img" aria-label="Placeholder for an approved project screenshot"></div>
+              <figcaption class="ss-card__body" style="padding: var(--ss-space-5)">Caption slot — approved screenshot &amp; one-line context added in production.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FIT / BOUNDARIES + RANKING SAFEGUARD -->
+      <section class="ss-section" aria-labelledby="fit-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-split">
+            <div>
+              <span class="ss-eyebrow">Fit</span>
+              <h2 id="fit-heading" class="ss-section__title">Where this is — and isn't — the right call</h2>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-5)">
+                <li>You have a clear offer and want the site to carry it</li>
+                <li>You value speed, accessibility and easy editing over novelty</li>
+                <li>You want honest structure, not inflated promises</li>
+              </ul>
+            </div>
+            <div class="ss-note ss-note--info" role="note">
+              <strong>Ranking-claim safeguard.</strong>
+              We build solid SEO foundations — clean markup, metadata, performance and structure.
+              We do not guarantee specific Google rankings, traffic numbers or revenue, because no
+              honest agency can.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. PROCESS & DELIVERABLES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="deliver-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Deliverables</span>
+            <h2 id="deliver-heading" class="ss-section__title">What you receive</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card"><h3 class="ss-card__title">A live, fast site</h3><p class="ss-card__body">Responsive, accessible and measured against a clear performance budget.</p></article>
+            <article class="ss-card"><h3 class="ss-card__title">An editable content model</h3><p class="ss-card__body">Structured content you can update without breaking the design.</p></article>
+            <article class="ss-card"><h3 class="ss-card__title">A handover pack</h3><p class="ss-card__body">Documentation, components and the decisions behind them.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOOLS RAIL — CONNECTOR CONSTELLATION -->
+      <section class="ss-section" aria-labelledby="tools-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Works with your stack</span>
+            <h2 id="tools-heading" class="ss-section__title">Connector constellation</h2>
+            <p class="ss-section__lead">Categories of tools a site commonly connects to. These are compatibility groups, not confirmed live integrations.</p>
+          </div>
+
+          <div class="ss-tools" data-tools style="margin-top: var(--ss-space-6)">
+            <div class="ss-tools__filters" role="group" aria-label="Filter tools by category">
+              <button class="ss-tools__filter" type="button" data-tools-filter="all" aria-pressed="true">All</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Scheduling" aria-pressed="false">Scheduling</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="CRM" aria-pressed="false">CRM</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Email" aria-pressed="false">Email</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Payments" aria-pressed="false">Payments</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Analytics" aria-pressed="false">Analytics</button>
+            </div>
+
+            <p class="ss-tools__status" data-tools-status aria-live="polite"></p>
+
+            <div class="ss-tools__viewport">
+              <ul class="ss-tools__rail" data-tools-rail tabindex="0" role="list" aria-label="Compatible tool categories">
+                <li class="ss-tool-card" data-category="Scheduling">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Booking calendars</span><span class="ss-tag">Scheduling</span></div>
+                  <p class="ss-tool-card__body">Embed a calendar so the primary action can be “book”, not “contact us”.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">A scheduling widget is placed beside the main CTA; configuration happens in production.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">CRM handoff</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Form submissions can be routed into a CRM so enquiries are never lost.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Field mapping to your CRM is agreed during build; no data flows in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Email">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Email &amp; newsletter</span><span class="ss-tag">Email</span></div>
+                  <p class="ss-tool-card__body">Opt-in capture with double-opt-in patterns and clear consent.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Connects to your email platform; staging keeps delivery mocked.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Payments">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Payments &amp; checkout</span><span class="ss-tag">Payments</span></div>
+                  <p class="ss-tool-card__body">Where selling online is in scope, a checkout path is designed into the route.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Payment provider chosen with you; no transactions occur in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Analytics">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Analytics</span><span class="ss-tag">Analytics</span></div>
+                  <p class="ss-tool-card__body">Privacy-respecting analytics so you can see which paths get used.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Disabled by default in staging; enabled with consent in production.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Helpdesk</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Support enquiries can be routed to a shared inbox or helpdesk tool.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Routing rules are configured in production, with a human owner for each queue.</p></details>
+                </li>
+              </ul>
+            </div>
+
+            <div class="ss-tools__controls">
+              <button class="ss-tools__nav" type="button" data-tools-prev aria-label="Previous tools">‹</button>
+              <button class="ss-tools__nav" type="button" data-tools-next aria-label="Next tools">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. RELATED -->
+      <section class="ss-section ss-section--tight" aria-labelledby="related-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Related</span>
+            <h2 id="related-heading" class="ss-section__title">Where this fits</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/industries/estate-agents/index.html">
+              <span class="ss-industry-card__pattern">Industry</span>
+              <span class="ss-industry-card__title">Estate agents</span>
+              <span class="ss-industry-card__body">Property-enquiry switchboard built on a clear web path.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/industries/ecommerce/index.html">
+              <span class="ss-industry-card__pattern">Industry</span>
+              <span class="ss-industry-card__title">eCommerce brands</span>
+              <span class="ss-industry-card__body">Order-state conveyor with checkout designed into the route.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/blog/index.html">
+              <span class="ss-industry-card__pattern">Insight</span>
+              <span class="ss-industry-card__title">Read the journal</span>
+              <span class="ss-industry-card__body">Notes on clarity, structure and honest measurement.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Start here</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Let's map your one clear path.</h2>
+                <p class="ss-chamber__body">A 30-minute discovery call. We look at one key page, agree the single action it should serve, and tell you honestly whether we are a fit.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/services/index.html">See all services</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Fitness coaches — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body data-route="industries">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — Fitness coaches.</strong>
+      Signature: dm-to-consultation pathway. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. HERO + SIGNATURE INSTRUMENT -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li><a href="/prototypes/industries/index.html">Industries</a></li>
+            <li aria-current="page">Fitness coaches</li>
+          </ol>
+          <div class="ss-split" data-ratio="wide-left">
+            <div data-reveal>
+              <span class="ss-pill"><span class="ss-pill__dot"></span>Relationship-led · Fitness coaches</span>
+              <h1 id="page-title" class="ss-page-hero__title">Turn a DM into a clear consultation handoff.</h1>
+              <p class="ss-page-hero__lead">A message, a few fit and readiness questions, and a resource or consultation choice produce a concise handoff summary. Health disclosures and unsuitable requests are never assessed automatically.</p>
+              <div class="ss-hero__cta-row" style="margin-top: var(--ss-space-6)">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="#demo">Run the dm-to-consultation pathway</a>
+              </div>
+            </div>
+
+            <figure class="ss-sig ss-sig--platinum" data-reveal style="margin: 0">
+              <svg class="ss-sig__inner" viewBox="0 0 320 226" role="img" aria-labelledby="sig-title sig-desc">
+                <title id="sig-title">Enquiry switchboard</title>
+                <desc id="sig-desc">Three input lanes — Message, Fit Qs, Choice — converge on a central enquiry record; one branch turns up to coach while the routine path continues to done.</desc>
+                <rect class="ss-dgm-node ss-dgm-node--live" x="14" y="38" width="96" height="32" rx="7" />
+                <text class="ss-dgm-text" x="22" y="58">Message</text>
+                <line class="ss-dgm-line" x1="110" y1="54" x2="150" y2="113" />
+                <rect class="ss-dgm-node" x="14" y="97" width="96" height="32" rx="7" />
+                <text class="ss-dgm-text" x="22" y="117">Fit Qs</text>
+                <line class="ss-dgm-line" x1="110" y1="113" x2="150" y2="113" />
+                <rect class="ss-dgm-node" x="14" y="156" width="96" height="32" rx="7" />
+                <text class="ss-dgm-text" x="22" y="176">Choice</text>
+                <line class="ss-dgm-line" x1="110" y1="172" x2="150" y2="113" />
+                <rect class="ss-dgm-node ss-dgm-node--live" x="150" y="93" width="92" height="40" rx="9" />
+                <text class="ss-dgm-text" x="160" y="117">Enquiry</text>
+                <rect class="ss-dgm-node" x="246" y="26" width="62" height="34" rx="8" />
+                <text class="ss-dgm-text" x="253" y="47">Coach</text>
+                <rect class="ss-dgm-node" x="246" y="166" width="62" height="34" rx="8" />
+                <text class="ss-dgm-text" x="253" y="187">Done</text>
+                <path class="ss-dgm-signal" data-flow d="M242 108 L253 108 L253 60" />
+                <path class="ss-dgm-signal" d="M242 118 L253 118 L253 166" />
+                <circle cx="242" cy="113" r="3.5" fill="var(--ss-color-primitive-electric-cyan)" />
+                <circle cx="253" cy="60" r="3.5" fill="var(--ss-color-primitive-electric-cyan)" />
+              </svg>
+              <figcaption class="ss-sig__label">DM-to-consultation pathway · synthetic</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. WHERE FRICTION APPEARS -->
+      <section class="ss-section ss-section--tight" aria-labelledby="friction-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Before state</span>
+            <h2 id="friction-heading" class="ss-section__title">Where friction appears</h2>
+            <p class="ss-section__lead">Your inbox is the front door. The pathway organises the first conversation so you spend your time coaching, not triaging DMs — and never auto-assesses health.</p>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <span class="ss-card__index">01</span>
+              <h3 class="ss-card__title">DMs that never convert</h3>
+              <p class="ss-card__body">A promising message gets buried, and the lead cools before a consultation is offered.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">02</span>
+              <h3 class="ss-card__title">The same questions, every time</h3>
+              <p class="ss-card__body">Fit and readiness questions are asked manually in every thread, eating your evenings.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">03</span>
+              <h3 class="ss-card__title">Health disclosures in chat</h3>
+              <p class="ss-card__body">A health disclosure deserves your judgement, not an automated reply.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. SIGNATURE WORKFLOW INSTRUMENT (DEMO) -->
+      <section class="ss-section" id="demo" aria-labelledby="demo-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-demo" data-demo="industry-fitness-coaches">
+            <div class="ss-demo__head">
+              <h2 id="demo-heading" class="ss-demo__title">DM-to-consultation pathway</h2>
+              <p class="ss-demo__purpose">Choose an incoming message. The pathway asks fit questions and offers a consultation — and holds any health disclosure for the coach.</p>
+              <p class="ss-demo__synthetic">Synthetic &amp; deterministic — no live data, no autonomous action</p>
+            </div>
+
+            <form class="ss-demo__options" data-cols="1" aria-label="Workflow options">
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-intake">Incoming message</label>
+                <select class="ss-select" id="opt-intake" name="intake">
+                  <option value="consult">Consultation enquiry</option>
+                  <option value="resource">Resource / programme question</option>
+                  <option value="health">Health disclosure</option>
+                </select>
+              </div>
+            </form>
+
+            <div class="ss-demo__controls">
+              <button class="ss-btn ss-btn--primary" type="button" data-demo-action="start" data-label-start="Start">Start</button>
+              <button class="ss-btn ss-btn--secondary" type="button" data-demo-action="reset">Reset</button>
+            </div>
+
+            <div class="ss-demo__board">
+              <div class="ss-demo__stage" data-demo-stage aria-label="Synthetic workflow"></div>
+              <div class="ss-demo__aside">
+                <p class="ss-demo__status" data-demo-status role="status" aria-live="polite"></p>
+                <div class="ss-demo__log-wrap">
+                  <p class="ss-demo__log-title">Event log</p>
+                  <ul class="ss-demo__log" data-demo-log aria-live="polite" aria-label="Demo event log"></ul>
+                </div>
+              </div>
+            </div>
+
+            <details class="ss-demo__disclosure">
+              <summary>What this demonstrates — and what it does not</summary>
+              <div class="ss-demo__matrix">
+                <div>
+                  <h4>Demonstrates</h4>
+                  <ul class="ss-list-check">
+                    <li>Sorting an intake into the right lane</li>
+                    <li>Preparing a summary for a person to confirm</li>
+                    <li>Routing the sensitive case to a human boundary</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Does not</h4>
+                  <ul class="ss-list-check">
+                    <li>Confirm, book or decide anything automatically</li>
+                    <li>Use real customer data or live integrations</li>
+                    <li>Cross the human-in-control boundary</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+
+            <p class="ss-demo__fallback" data-demo-fallback>
+              Static fallback: an intake is captured and sorted into a lane; routine requests reach a prepared
+              summary for a person to confirm, and the sensitive request is routed to the coach.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. RELEVANT SERVICE COMBINATION -->
+      <section class="ss-section" aria-labelledby="services-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Relevant services</span>
+            <h2 id="services-heading" class="ss-section__title">What we'd combine for fitness coaches</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/services/ai-receptionists/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">AI receptionists</span>
+              <span class="ss-industry-card__body">Answers first-line questions and offers a consultation slot.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/services/ai-automation/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">AI automation &amp; agent workflows</span>
+              <span class="ss-industry-card__body">Runs fit questions and prepares the handoff summary for you.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/services/content-creation/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">Content creation &amp; repurposing</span>
+              <span class="ss-industry-card__body">Turns your coaching ideas into resources that start the conversation.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. SAFEGUARD CHAMBER -->
+      <section class="ss-section ss-section--tight" aria-labelledby="boundary-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-boundary" role="note">
+            <span class="ss-eyebrow">Human in control</span>
+            <h2 id="boundary-heading" class="ss-section__title">Health and suitability are assessed by you</h2>
+            <p class="ss-section__lead">Health disclosures, injuries and suitability are assessed by the coach, never by automation. The pathway summarises; the coach decides.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. TOOLS RAIL -->
+      <section class="ss-section" aria-labelledby="tools-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Works with your stack</span>
+            <h2 id="tools-heading" class="ss-section__title">Tools this sector commonly uses</h2>
+            <p class="ss-section__lead">Compatibility categories, not confirmed live integrations. The right set is agreed with you in production.</p>
+          </div>
+
+          <div class="ss-tools" data-tools style="margin-top: var(--ss-space-6)">
+            <div class="ss-tools__filters" role="group" aria-label="Filter tools by category">
+              <button class="ss-tools__filter" type="button" data-tools-filter="all" aria-pressed="true">All</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Scheduling" aria-pressed="false">Scheduling</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Messaging" aria-pressed="false">Messaging</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="CRM" aria-pressed="false">CRM</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Payments" aria-pressed="false">Payments</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Email" aria-pressed="false">Email</button>
+            </div>
+
+            <p class="ss-tools__status" data-tools-status aria-live="polite"></p>
+
+            <div class="ss-tools__viewport">
+              <ul class="ss-tools__rail" data-tools-rail tabindex="0" role="list" aria-label="Compatible tool categories">
+                <li class="ss-tool-card" data-category="Scheduling">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Booking calendars</span><span class="ss-tag">Scheduling</span></div>
+                  <p class="ss-tool-card__body">Offer a consultation slot the moment fit is clear.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Calendar rules are configured in production; nothing books here.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Messaging">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Messaging</span><span class="ss-tag">Messaging</span></div>
+                  <p class="ss-tool-card__body">Organise DMs into one place with a clear next step.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Channel routing is configured in production.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">CRM</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Track enquiries from first message to consultation.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Field mapping is agreed during build; no data flows here.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Payments">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Payments</span><span class="ss-tag">Payments</span></div>
+                  <p class="ss-tool-card__body">Prepare programme sign-up for you to confirm.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Provider chosen with you; no transactions occur here.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Email">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Email</span><span class="ss-tag">Email</span></div>
+                  <p class="ss-tool-card__body">Send resources and follow-ups with consent.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Staging keeps delivery mocked.</p></details>
+                </li>
+              </ul>
+            </div>
+
+            <div class="ss-tools__controls">
+              <button class="ss-tools__nav" type="button" data-tools-prev aria-label="Previous tools">‹</button>
+              <button class="ss-tools__nav" type="button" data-tools-next aria-label="Next tools">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. QUALIFICATION QUESTIONS -->
+      <section class="ss-section ss-section--tight" aria-labelledby="qualify-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-split">
+            <div>
+              <span class="ss-eyebrow">Is this you?</span>
+              <h2 id="qualify-heading" class="ss-section__title">A few questions worth asking first</h2>
+            </div>
+            <ul class="ss-list-check" style="margin-top: var(--ss-space-5)">
+              <li>Do promising DMs convert, or get buried?</li>
+              <li>Are you asking the same fit questions in every thread?</li>
+              <li>Where do health disclosures go today?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. RELATED -->
+      <section class="ss-section ss-section--tight" aria-labelledby="related-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Related</span>
+            <h2 id="related-heading" class="ss-section__title">Where this fits</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/industries/gyms-fitness-studios/index.html">
+              <span class="ss-industry-card__pattern">Industry</span>
+              <span class="ss-industry-card__title">Gyms &amp; fitness studios</span>
+              <span class="ss-industry-card__body">A trial-to-membership roster for studios.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/industries/index.html">
+              <span class="ss-industry-card__pattern">Industries</span>
+              <span class="ss-industry-card__title">All industries</span>
+              <span class="ss-industry-card__body">See how other sectors map to operating patterns.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/services/content-creation/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">Content creation</span>
+              <span class="ss-industry-card__body">Resources that start the right conversations.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Start here</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Let's map the fitness coaches path.</h2>
+                <p class="ss-chamber__body">A 30-minute discovery call. We look at one real workflow, agree where a person must stay in control, and tell you honestly whether we are a fit.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/industries/index.html">See all industries</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

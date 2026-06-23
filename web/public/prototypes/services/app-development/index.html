@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Custom app development — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body data-route="services">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — Custom app development.</strong>
+      Signature: product-state stack. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. HERO + PRODUCT-STATE STACK -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li><a href="/prototypes/services/index.html">Services</a></li>
+            <li aria-current="page">Custom app development</li>
+          </ol>
+          <div class="ss-split" data-ratio="wide-left">
+            <div data-reveal>
+              <span class="ss-pill"><span class="ss-pill__dot"></span>Custom app development</span>
+              <h1 id="page-title" class="ss-page-hero__title">A product with real state — for users, staff and systems.</h1>
+              <p class="ss-page-hero__lead">
+                We build the smallest useful first release: one core flow that works end to end,
+                across the three states every product holds — what the user sees, what staff
+                manage, and what the system records — joined by one shared data spine.
+              </p>
+              <div class="ss-hero__cta-row" style="margin-top: var(--ss-space-6)">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="#demo">Try the state map</a>
+              </div>
+            </div>
+
+            <figure class="ss-sig ss-sig--platinum" data-reveal style="margin: 0">
+              <svg class="ss-sig__inner" viewBox="0 0 320 220" role="img" aria-labelledby="stack-title stack-desc">
+                <title id="stack-title">Product-state stack</title>
+                <desc id="stack-desc">Three offset interface plates labelled user, staff and system, joined by one vertical data spine with a signal travelling along it.</desc>
+                <line class="ss-dgm-signal" data-flow x1="64" y1="56" x2="64" y2="176" />
+                <g>
+                  <rect class="ss-dgm-node ss-dgm-node--live" x="84" y="36" width="200" height="44" rx="8" />
+                  <text class="ss-dgm-text" x="96" y="54">User state</text>
+                  <text class="ss-dgm-text" x="96" y="68">What the customer sees and does</text>
+                  <rect class="ss-dgm-node" x="64" y="92" width="200" height="44" rx="8" />
+                  <text class="ss-dgm-text" x="76" y="110">Staff state</text>
+                  <text class="ss-dgm-text" x="76" y="124">What your team manages</text>
+                  <rect class="ss-dgm-node" x="44" y="148" width="200" height="44" rx="8" />
+                  <text class="ss-dgm-text" x="56" y="166">System state</text>
+                  <text class="ss-dgm-text" x="56" y="180">What the data records</text>
+                </g>
+                <circle cx="64" cy="56" r="3.2" fill="var(--ss-color-primitive-electric-cyan)" />
+                <circle cx="64" cy="176" r="3.2" fill="var(--ss-color-primitive-electric-cyan)" />
+              </svg>
+              <figcaption class="ss-sig__label">Product-state stack · synthetic</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. PROBLEM TO FIRST RELEASE -->
+      <section class="ss-section ss-section--tight" aria-labelledby="problem-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Before state</span>
+            <h2 id="problem-heading" class="ss-section__title">Where products stall</h2>
+            <p class="ss-section__lead">Apps rarely fail on ideas. They stall when the first release tries to do everything at once and the core flow never gets solid.</p>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <span class="ss-card__index">01</span>
+              <h3 class="ss-card__title">A spreadsheet that outgrew itself</h3>
+              <p class="ss-card__body">The tool that ran the business now breaks under shared editing, versions and permissions.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">02</span>
+              <h3 class="ss-card__title">A feature list with no spine</h3>
+              <p class="ss-card__body">Twenty features and no agreed core flow, so nothing is finished and nothing ships.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">03</span>
+              <h3 class="ss-card__title">No clear owner of state</h3>
+              <p class="ss-card__body">User, staff and system views drift apart because no single record is the source of truth.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. USER-JOURNEY MAP / ROLE BOUNDARIES -->
+      <section class="ss-section" aria-labelledby="roles-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Role boundaries</span>
+            <h2 id="roles-heading" class="ss-section__title">Three roles, one record</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <h3 class="ss-card__title">User</h3>
+              <p class="ss-card__body">Sees only their own request and its status. Simple, fast, and impossible to break the data behind it.</p>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">Staff</h3>
+              <p class="ss-card__body">Reviews, decides and progresses work. The decisions that matter stay with a person.</p>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">System</h3>
+              <p class="ss-card__body">Holds one authoritative record, with history, so every view agrees on what happened.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. EXPLICIT-START DEMO -->
+      <section class="ss-section" id="demo" aria-labelledby="demo-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-demo" data-demo="app-state">
+            <div class="ss-demo__head">
+              <h2 id="demo-heading" class="ss-demo__title">First-release state map</h2>
+              <p class="ss-demo__purpose">Choose a core problem and two roles. The demo moves a synthetic request through prototype, validation and release states, then defers everything else to a roadmap.</p>
+              <p class="ss-demo__synthetic">Synthetic &amp; deterministic — no live data, no estimate</p>
+            </div>
+
+            <form class="ss-demo__options" data-cols="3" aria-label="State map options">
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-problem">Core problem</label>
+                <select class="ss-select" id="opt-problem" name="problem">
+                  <option value="bookings">Take bookings online</option>
+                  <option value="jobs">Track field jobs</option>
+                  <option value="members">Manage members</option>
+                </select>
+              </div>
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-role1">Primary role</label>
+                <select class="ss-select" id="opt-role1" name="role1">
+                  <option value="user">User (customer)</option>
+                  <option value="staff">Staff</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-role2">Secondary role</label>
+                <select class="ss-select" id="opt-role2" name="role2">
+                  <option value="staff">Staff</option>
+                  <option value="admin">Admin</option>
+                  <option value="user">User (customer)</option>
+                </select>
+              </div>
+            </form>
+
+            <div class="ss-demo__controls">
+              <button class="ss-btn ss-btn--primary" type="button" data-demo-action="start" data-label-start="Start">Start</button>
+              <button class="ss-btn ss-btn--secondary" type="button" data-demo-action="reset">Reset</button>
+            </div>
+
+            <div class="ss-demo__board">
+              <div class="ss-demo__stage" data-demo-stage aria-label="Synthetic first-release flow"></div>
+              <div class="ss-demo__aside">
+                <p class="ss-demo__status" data-demo-status role="status" aria-live="polite"></p>
+                <div class="ss-demo__log-wrap">
+                  <p class="ss-demo__log-title">Event log</p>
+                  <ul class="ss-demo__log" data-demo-log aria-live="polite" aria-label="Demo event log"></ul>
+                </div>
+              </div>
+            </div>
+
+            <details class="ss-demo__disclosure">
+              <summary>What this demonstrates — and what it does not</summary>
+              <div class="ss-demo__matrix">
+                <div>
+                  <h4>Demonstrates</h4>
+                  <ul class="ss-list-check">
+                    <li>How a request moves through prototype, validation and release</li>
+                    <li>Which roles act at each state, and who owns the decision</li>
+                    <li>Deferring nonessential features to a named roadmap</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Does not</h4>
+                  <ul class="ss-list-check">
+                    <li>Estimate cost, effort or delivery time</li>
+                    <li>Use real product data or any live integration</li>
+                    <li>Replace discovery with your actual users</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+
+            <p class="ss-demo__fallback" data-demo-fallback>
+              Static fallback: the smallest useful release is capture → validate → record → notify, with
+              everything else listed on a roadmap. Each state names the role that acts on it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. CAPABILITY PANELS -->
+      <section class="ss-section" aria-labelledby="scope-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Scope</span>
+            <h2 id="scope-heading" class="ss-section__title">What a build includes</h2>
+          </div>
+          <div class="ss-sequence" style="margin-top: var(--ss-space-8)">
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Discovery</p><p class="ss-sequence__body">The one core flow worth building first, and the roles that touch it.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Prototype</p><p class="ss-sequence__body">A clickable model of the core flow before any production code.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Web &amp; mobile</p><p class="ss-sequence__body">Responsive, accessible interfaces sized to the device people actually use.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Authentication</p><p class="ss-sequence__body">Roles and permissions so each person sees only what they should.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">APIs &amp; integrations</p><p class="ss-sequence__body">Clean interfaces to the systems you already run, agreed during build.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Testing &amp; release</p><p class="ss-sequence__body">Automated checks, QA across devices, and a handover you can maintain.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. ARCHITECTURE DECISION NOTES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="arch-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Decision notes</span>
+            <h2 id="arch-heading" class="ss-section__title">Choices we make with you</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card"><h3 class="ss-card__title">Native or web</h3><p class="ss-card__body">Scoped to how people will actually use it, not to platform fashion.</p></article>
+            <article class="ss-card"><h3 class="ss-card__title">Integrations</h3><p class="ss-card__body">Which systems are the source of truth, and which simply receive updates.</p></article>
+            <article class="ss-card"><h3 class="ss-card__title">Ownership</h3><p class="ss-card__body">You own the code, the data and the decisions. We document all three.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. EDITORIAL IMAGERY FRAMES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="imagery-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Selected work</span>
+            <h2 id="imagery-heading" class="ss-section__title">Device-neutral frames for approved imagery</h2>
+            <p class="ss-section__lead">These framed slots hold approved interface assets in production, each with a short factual caption. No imagery is invented in this prototype.</p>
+          </div>
+          <div class="ss-grid" data-cols="2" style="margin-top: var(--ss-space-8)">
+            <figure class="ss-card" style="padding: 0; overflow: hidden">
+              <div class="ss-article-card__cover" role="img" aria-label="Placeholder for an approved interface asset"></div>
+              <figcaption class="ss-card__body" style="padding: var(--ss-space-5)">Caption slot — approved interface asset &amp; one-line context added in production.</figcaption>
+            </figure>
+            <figure class="ss-card" style="padding: 0; overflow: hidden">
+              <div class="ss-article-card__cover" role="img" aria-label="Placeholder for an approved interface asset"></div>
+              <figcaption class="ss-card__body" style="padding: var(--ss-space-5)">Caption slot — approved interface asset &amp; one-line context added in production.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. FIT / BOUNDARIES -->
+      <section class="ss-section" aria-labelledby="fit-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-split">
+            <div>
+              <span class="ss-eyebrow">Fit</span>
+              <h2 id="fit-heading" class="ss-section__title">Where this is — and isn't — the right call</h2>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-5)">
+                <li>You have one core flow worth getting right before anything else</li>
+                <li>You value a solid, maintainable release over a long feature list</li>
+                <li>You want to own the code, the data and the decisions</li>
+              </ul>
+            </div>
+            <div class="ss-note ss-note--info" role="note">
+              <strong>No endless feature list.</strong>
+              We build the smallest useful release, then add only what evidence justifies.
+              We do not estimate cost or delivery time from a demo, and we do not promise a
+              product will succeed — that depends on your users.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. DELIVERY STAGES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="deliver-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Deliverables</span>
+            <h2 id="deliver-heading" class="ss-section__title">What you receive</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card"><h3 class="ss-card__title">A working first release</h3><p class="ss-card__body">One core flow, solid across user, staff and system states.</p></article>
+            <article class="ss-card"><h3 class="ss-card__title">A roadmap</h3><p class="ss-card__body">Deferred features listed and prioritised, not lost.</p></article>
+            <article class="ss-card"><h3 class="ss-card__title">A handover pack</h3><p class="ss-card__body">Code, data model, and the decisions behind them.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. TOOLS RAIL -->
+      <section class="ss-section" aria-labelledby="tools-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Works with your stack</span>
+            <h2 id="tools-heading" class="ss-section__title">Connector constellation</h2>
+            <p class="ss-section__lead">Categories of systems a custom app commonly connects to. These are compatibility groups, not confirmed live integrations or vendor partnerships.</p>
+          </div>
+
+          <div class="ss-tools" data-tools style="margin-top: var(--ss-space-6)">
+            <div class="ss-tools__filters" role="group" aria-label="Filter tools by category">
+              <button class="ss-tools__filter" type="button" data-tools-filter="all" aria-pressed="true">All</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Authentication" aria-pressed="false">Authentication</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Payments" aria-pressed="false">Payments</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="CRM" aria-pressed="false">CRM</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Analytics" aria-pressed="false">Analytics</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Messaging" aria-pressed="false">Messaging</button>
+            </div>
+
+            <p class="ss-tools__status" data-tools-status aria-live="polite"></p>
+
+            <div class="ss-tools__viewport">
+              <ul class="ss-tools__rail" data-tools-rail tabindex="0" role="list" aria-label="Compatible tool categories">
+                <li class="ss-tool-card" data-category="Authentication">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Identity &amp; sign-in</span><span class="ss-tag">Authentication</span></div>
+                  <p class="ss-tool-card__body">Role-based sign-in so each person sees only what they should.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Provider chosen with you; no accounts exist in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Payments">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Payments</span><span class="ss-tag">Payments</span></div>
+                  <p class="ss-tool-card__body">Where charging is in scope, a payment path is designed into the flow.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Provider chosen with you; no transactions occur in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">CRM &amp; records</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Sync key records with an existing CRM so the team has one view.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Field mapping agreed in build; no data flows in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Analytics">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Product analytics</span><span class="ss-tag">Analytics</span></div>
+                  <p class="ss-tool-card__body">Privacy-respecting analytics to see which flows people actually use.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Disabled by default in staging; enabled with consent in production.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Messaging">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Notifications</span><span class="ss-tag">Messaging</span></div>
+                  <p class="ss-tool-card__body">Email, SMS or push notifications at the right point in the flow.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Channels chosen with you; staging keeps delivery mocked.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Analytics">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Error monitoring</span><span class="ss-tag">Analytics</span></div>
+                  <p class="ss-tool-card__body">Capture and triage errors so issues are found before users report them.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Wired in production with a named owner for each alert.</p></details>
+                </li>
+              </ul>
+            </div>
+
+            <div class="ss-tools__controls">
+              <button class="ss-tools__nav" type="button" data-tools-prev aria-label="Previous tools">‹</button>
+              <button class="ss-tools__nav" type="button" data-tools-next aria-label="Next tools">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. FAQ -->
+      <section class="ss-section ss-section--tight" aria-labelledby="faq-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">FAQ</span>
+            <h2 id="faq-heading" class="ss-section__title">Common questions</h2>
+          </div>
+          <div class="ss-faq" style="margin-top: var(--ss-space-6)">
+            <details class="ss-faq__item">
+              <summary>Can you just build everything we listed?</summary>
+              <p class="ss-faq__answer">We could, but we won't recommend it. We build the smallest useful release first so the core flow is solid, then add features the evidence supports.</p>
+            </details>
+            <details class="ss-faq__item">
+              <summary>Who owns the code and data?</summary>
+              <p class="ss-faq__answer">You do. We hand over the code, the data model and the decisions behind them so you are never locked in.</p>
+            </details>
+            <details class="ss-faq__item">
+              <summary>Can the demo tell us the cost?</summary>
+              <p class="ss-faq__answer">No. The state map shows structure only. Cost and timing come from discovery, where we scope the real work with you.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Start here</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Let's define your first release.</h2>
+                <p class="ss-chamber__body">A 30-minute discovery call. We find the one core flow worth building first, and tell you honestly whether we are a fit.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/services/index.html">See all services</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

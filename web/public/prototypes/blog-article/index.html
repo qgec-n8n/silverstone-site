@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Where automation should stop — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+  </head>
+  <body data-route="blog">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <div class="ss-readmeter" aria-hidden="true"><div class="ss-readmeter__bar" data-readmeter-bar></div></div>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — Article (sample).</strong>
+      Signature: reading progress &amp; decision notes. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. ARTICLE HEADER -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li><a href="/prototypes/blog/index.html">Insights</a></li>
+            <li aria-current="page">Where automation should stop</li>
+          </ol>
+          <div data-reveal style="max-width: var(--ss-type-measure-lead)">
+            <span class="ss-pill"><span class="ss-pill__dot"></span>Sample article · Decision brief</span>
+            <h1 id="page-title" class="ss-page-hero__title">Where automation should stop: designing the human boundary</h1>
+            <p class="ss-page-hero__lead">
+              The most important part of an automated workflow is the line it will not cross. This is
+              a sample article that shows how an article template reads; the content is illustrative.
+            </p>
+            <p class="ss-article-card__meta" style="margin-top: var(--ss-space-5)">
+              <span>Sample content</span>
+              <span>Author shown when verified</span>
+              <span>10 min read</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. BODY: TAKEAWAY + TOC + ARTICLE -->
+      <section class="ss-section ss-section--tight" aria-labelledby="body-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <h2 id="body-heading" class="ss-eyebrow">The brief</h2>
+          <div class="ss-split" data-ratio="wide-left" style="margin-top: var(--ss-space-5); align-items: start">
+            <article class="ss-article">
+              <div class="ss-takeaway">
+                <p class="ss-takeaway__title">Key takeaway</p>
+                <p style="margin-top: var(--ss-space-2)">Design the exception and handoff first. A workflow that escalates the right cases to a person is more trustworthy — and usually cheaper to run — than one that tries to decide everything.</p>
+              </div>
+
+              <h2 id="s-1">Start with what it must not do</h2>
+              <p>Before listing the steps a workflow will automate, write down the steps it must never own. These are usually the cases where a wrong answer is expensive, irreversible, or unkind: a clinical question, a legal judgement, a vulnerable caller, an emergency.</p>
+              <p>Naming these first turns an open-ended "automate everything" brief into a bounded, honest one. Everything outside the boundary is a candidate for automation; everything inside it stays with a person.</p>
+
+              <h2 id="s-2">Make the boundary visible</h2>
+              <p>A boundary that only exists in a configuration file is not a boundary anyone can trust. Show it in the interface: a clear state that says "this is going to a person", a log entry that records why, and a message to the customer that sets the right expectation.</p>
+              <ul>
+                <li>State: a distinct, labelled "handoff" status, not a silent dead end.</li>
+                <li>Reason: a short, readable note explaining which rule triggered the escalation.</li>
+                <li>Owner: a named queue or person responsible for picking it up.</li>
+              </ul>
+
+              <h2 id="s-3">Test the unhappy path hardest</h2>
+              <p>Most demos rehearse the happy path. Real confidence comes from rehearsing the unhappy one: the ambiguous enquiry, the missing detail, the request that falls just outside the rules. If the handoff is clean by keyboard and with motion switched off, the workflow is ready to be trusted with the easy cases too.</p>
+
+              <h3 id="s-3-1">A short checklist</h3>
+              <ul>
+                <li>Can a person always reach a human, quickly, from any state?</li>
+                <li>Is every automated decision reversible or, if not, gated by a review?</li>
+                <li>Does the customer always know whether they are speaking to software or a person?</li>
+              </ul>
+
+              <p>Get those three right and the rest of the workflow becomes a detail. Get them wrong and no amount of polish will earn trust.</p>
+            </article>
+
+            <aside aria-label="Article navigation and notes">
+              <nav class="ss-toc" aria-labelledby="toc-title">
+                <p class="ss-toc__title" id="toc-title">On this page</p>
+                <ol>
+                  <li><a href="#s-1">Start with what it must not do</a></li>
+                  <li><a href="#s-2">Make the boundary visible</a></li>
+                  <li><a href="#s-3">Test the unhappy path hardest</a></li>
+                  <li><a href="#s-3-1">A short checklist</a></li>
+                  <li><a href="#questions">Questions to ask</a></li>
+                </ol>
+              </nav>
+
+              <div class="ss-takeaway" id="questions" style="margin-top: var(--ss-space-5)">
+                <p class="ss-takeaway__title">Questions to ask before implementation</p>
+                <ul class="ss-list-check" style="margin-top: var(--ss-space-3)">
+                  <li>Which cases must never be automated?</li>
+                  <li>How will a handoff look to the customer?</li>
+                  <li>Who owns the escalation queue?</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. RELATED -->
+      <section class="ss-section" aria-labelledby="related-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Related</span>
+            <h2 id="related-heading" class="ss-section__title">Where this fits</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/services/ai-automation/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">AI automation</span>
+              <span class="ss-industry-card__body">Exception-aware workflows with a person in control.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/services/ai-receptionists/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">AI receptionists</span>
+              <span class="ss-industry-card__body">A front desk that hands sensitive cases to a person.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/blog/index.html">
+              <span class="ss-industry-card__pattern">Insight</span>
+              <span class="ss-industry-card__title">More from the journal</span>
+              <span class="ss-industry-card__body">Notes on clarity, boundaries and honest measurement.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Apply it</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Have a workflow that needs a boundary?</h2>
+                <p class="ss-chamber__body">Bring one repeated problem and we'll sketch the line where automation should stop.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/blog/index.html">Back to insights</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+
+    <script>
+      /* Reading-progress meter — non-essential, page-local progressive
+         enhancement. Disabled under reduced motion (the bar stays hidden so it
+         never implies meaning it cannot keep). */
+      (function () {
+        var bar = document.querySelector("[data-readmeter-bar]");
+        if (!bar) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var ticking = false;
+        function update() {
+          var doc = document.documentElement;
+          var max = doc.scrollHeight - doc.clientHeight;
+          var pct = max > 0 ? Math.min(1, Math.max(0, doc.scrollTop / max)) : 0;
+          bar.style.width = (pct * 100).toFixed(2) + "%";
+          ticking = false;
+        }
+        function onScroll() {
+          if (!ticking) {
+            ticking = true;
+            window.requestAnimationFrame(update);
+          }
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        update();
+      })();
+    </script>
+  </body>
+</html>

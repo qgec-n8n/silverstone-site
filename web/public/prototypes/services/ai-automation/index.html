@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>AI automation &amp; agent workflows — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body data-route="services">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — AI automation &amp; agent workflows.</strong>
+      Signature: exception-aware process lattice. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. SPLIT HERO + PROCESS-LATTICE SPECIMEN -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li><a href="/prototypes/services/index.html">Services</a></li>
+            <li aria-current="page">AI automation &amp; agent workflows</li>
+          </ol>
+          <div class="ss-split" data-ratio="wide-left">
+            <div data-reveal>
+              <span class="ss-pill"><span class="ss-pill__dot"></span>AI automation &amp; agent workflows</span>
+              <h1 id="page-title" class="ss-page-hero__title">Automate the routine. Route the exception to a person.</h1>
+              <p class="ss-page-hero__lead">
+                We map repeatable work into a clear lattice of automated steps, external
+                systems and human approvals — so the common path runs on its own and
+                anything unusual is handed to someone who can decide.
+              </p>
+              <div class="ss-hero__cta-row" style="margin-top: var(--ss-space-6)">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="#demo">Run the workflow demo</a>
+              </div>
+            </div>
+
+            <figure class="ss-sig ss-sig--platinum" data-reveal style="margin: 0">
+              <svg class="ss-sig__inner" viewBox="0 0 320 220" role="img" aria-labelledby="lattice-title lattice-desc">
+                <title id="lattice-title">Exception-aware process lattice</title>
+                <desc id="lattice-desc">A row of automated steps carries a signal left to right; one flagged step routes upward to a human-approval node before the work continues.</desc>
+                <rect class="ss-dgm-node" x="22" y="120" width="56" height="34" rx="8" />
+                <text class="ss-dgm-text" x="30" y="141">Intake</text>
+                <rect class="ss-dgm-node ss-dgm-node--live" x="98" y="120" width="56" height="34" rx="8" />
+                <text class="ss-dgm-text" x="106" y="141">Sort</text>
+                <rect class="ss-dgm-node" x="174" y="120" width="56" height="34" rx="8" />
+                <text class="ss-dgm-text" x="182" y="141">Action</text>
+                <rect class="ss-dgm-node" x="250" y="120" width="48" height="34" rx="8" />
+                <text class="ss-dgm-text" x="258" y="141">Done</text>
+                <line class="ss-dgm-line" x1="78" y1="137" x2="98" y2="137" />
+                <line class="ss-dgm-line" x1="154" y1="137" x2="174" y2="137" />
+                <line class="ss-dgm-line" x1="230" y1="137" x2="250" y2="137" />
+                <rect class="ss-dgm-node ss-dgm-node--alert" x="98" y="40" width="120" height="34" rx="8" />
+                <text class="ss-dgm-text" x="106" y="61">Human approval</text>
+                <path class="ss-dgm-signal" data-flow d="M126 120 L126 74" />
+                <path class="ss-dgm-signal" d="M190 74 L190 120" />
+                <circle cx="126" cy="120" r="3.5" fill="var(--ss-color-primitive-electric-cyan)" />
+                <circle cx="190" cy="120" r="3.5" fill="var(--ss-color-primitive-electric-cyan)" />
+              </svg>
+              <figcaption class="ss-sig__label">Exception-aware process lattice · synthetic</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. WHERE MANUAL WORK PILES UP -->
+      <section class="ss-section ss-section--tight" aria-labelledby="friction-map" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Before state</span>
+            <h2 id="friction-map" class="ss-section__title">Where manual work piles up</h2>
+            <p class="ss-section__lead">Automation earns its place where the same steps repeat, the rules are knowable, and a person only needs to step in for the exceptions.</p>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <span class="ss-card__index">01</span>
+              <h3 class="ss-card__title">Copy-paste between tools</h3>
+              <p class="ss-card__body">The same record is re-entered across an inbox, a sheet and a CRM, each time risking a small error.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">02</span>
+              <h3 class="ss-card__title">Triage that never ends</h3>
+              <p class="ss-card__body">Most requests are routine, but every one is read by hand because there is no agreed sorting rule.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">03</span>
+              <h3 class="ss-card__title">Exceptions lost in the flow</h3>
+              <p class="ss-card__body">The unusual case that truly needs a person gets the same attention as the fiftieth routine one.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. RESPONSIBILITY ARCHITECTURE -->
+      <section class="ss-section" aria-labelledby="responsibility" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Responsibility architecture</span>
+            <h2 id="responsibility" class="ss-section__title">Automation, agent and human — drawn explicitly</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <h3 class="ss-card__title">Automation</h3>
+              <p class="ss-card__body">Deterministic steps with fixed rules — move data, format it, file it, notify the right place.</p>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">Agent</h3>
+              <p class="ss-card__body">A bounded assistant that drafts or suggests inside guardrails, never acting without a checkpoint.</p>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">Human</h3>
+              <p class="ss-card__body">The approver for anything sensitive, ambiguous or irreversible. The exception always ends here.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. EXPLICIT-START DEMO -->
+      <section class="ss-section" id="demo" aria-labelledby="demo-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-demo" data-demo="automation-lattice">
+            <div class="ss-demo__head">
+              <h2 id="demo-heading" class="ss-demo__title">Exception-aware workflow run</h2>
+              <p class="ss-demo__purpose">Choose a queue and a sensitivity rule. The demo runs a synthetic batch through the lattice, auto-handling the routine items and stopping the flagged one for manual approval.</p>
+              <p class="ss-demo__synthetic">Synthetic &amp; deterministic — no live data, no autonomous action</p>
+            </div>
+
+            <form class="ss-demo__options" data-cols="2" aria-label="Workflow options">
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-queue">Queue</label>
+                <select class="ss-select" id="opt-queue" name="queue">
+                  <option value="enquiries">Inbound enquiries</option>
+                  <option value="invoices">Supplier invoices</option>
+                  <option value="onboarding">New-customer onboarding</option>
+                </select>
+              </div>
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-rule">Send to a human when…</label>
+                <select class="ss-select" id="opt-rule" name="rule">
+                  <option value="value">A value threshold is crossed</option>
+                  <option value="sentiment">The tone reads as upset</option>
+                  <option value="missing">Required details are missing</option>
+                </select>
+              </div>
+            </form>
+
+            <div class="ss-demo__controls">
+              <button class="ss-btn ss-btn--primary" type="button" data-demo-action="start" data-label-start="Start">Start</button>
+              <button class="ss-btn ss-btn--secondary" type="button" data-demo-action="reset">Reset</button>
+            </div>
+
+            <div class="ss-demo__board">
+              <div class="ss-demo__stage" data-demo-stage aria-label="Synthetic workflow batch"></div>
+              <div class="ss-demo__aside">
+                <p class="ss-demo__status" data-demo-status role="status" aria-live="polite"></p>
+                <div class="ss-demo__log-wrap">
+                  <p class="ss-demo__log-title">Event log</p>
+                  <ul class="ss-demo__log" data-demo-log aria-live="polite" aria-label="Demo event log"></ul>
+                </div>
+              </div>
+            </div>
+
+            <details class="ss-demo__disclosure">
+              <summary>What this demonstrates — and what it does not</summary>
+              <div class="ss-demo__matrix">
+                <div>
+                  <h4>Demonstrates</h4>
+                  <ul class="ss-list-check">
+                    <li>Routine items handled automatically along one path</li>
+                    <li>A single flagged exception held for human approval</li>
+                    <li>An auditable event log for every step</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Does not</h4>
+                  <ul class="ss-list-check">
+                    <li>Act autonomously or take any irreversible action</li>
+                    <li>Use real records, accounts or live integrations</li>
+                    <li>Replace the human approval step it routes to</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+
+            <p class="ss-demo__fallback" data-demo-fallback>
+              Static fallback: a batch enters intake, routine items pass through sort and action to done,
+              and any item matching the rule is diverted upward to a human approval node before it can continue.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. MONITORING, RETRIES & OWNERSHIP -->
+      <section class="ss-section" aria-labelledby="scope-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Operating discipline</span>
+            <h2 id="scope-heading" class="ss-section__title">Monitoring, retries and ownership</h2>
+          </div>
+          <div class="ss-sequence" style="margin-top: var(--ss-space-8)">
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Mapping</p><p class="ss-sequence__body">We chart the current steps, decisions and systems before any automation is built.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Guardrails</p><p class="ss-sequence__body">Each step gets explicit rules, limits and a defined human checkpoint for exceptions.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Build</p><p class="ss-sequence__body">Deterministic workflows wired to your tools, with agents bounded to drafting and suggestion.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Monitoring</p><p class="ss-sequence__body">Every run is logged; retries and failures surface where a person can see them.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Ownership</p><p class="ss-sequence__body">Each queue has a named human owner who can pause, change or stop the workflow.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. FIT / BOUNDARIES + NO UNBOUNDED AUTONOMY -->
+      <section class="ss-section" aria-labelledby="fit-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-split">
+            <div>
+              <span class="ss-eyebrow">Fit</span>
+              <h2 id="fit-heading" class="ss-section__title">Where this is — and isn't — the right call</h2>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-5)">
+                <li>The work repeats and the rules can be written down</li>
+                <li>You want speed on the routine and a person on the exception</li>
+                <li>You value an audit trail over a black box</li>
+              </ul>
+            </div>
+            <div class="ss-note ss-note--info" role="note">
+              <strong>No unbounded autonomy.</strong>
+              We do not deploy agents that act without limits. Sensitive, ambiguous or
+              irreversible steps always pause for a named human to approve — and any
+              workflow can be stopped by its owner at any time.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. TOOLS RAIL — CONNECTOR CONSTELLATION -->
+      <section class="ss-section" aria-labelledby="tools-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Works with your stack</span>
+            <h2 id="tools-heading" class="ss-section__title">Connector constellation</h2>
+            <p class="ss-section__lead">Categories of systems an automation commonly connects to. These are compatibility groups, not confirmed live integrations.</p>
+          </div>
+
+          <div class="ss-tools" data-tools style="margin-top: var(--ss-space-6)">
+            <div class="ss-tools__filters" role="group" aria-label="Filter tools by category">
+              <button class="ss-tools__filter" type="button" data-tools-filter="all" aria-pressed="true">All</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="CRM" aria-pressed="false">CRM</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Workflow" aria-pressed="false">Workflow</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Email" aria-pressed="false">Email</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Storage" aria-pressed="false">Storage</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Analytics" aria-pressed="false">Analytics</button>
+            </div>
+
+            <p class="ss-tools__status" data-tools-status aria-live="polite"></p>
+
+            <div class="ss-tools__viewport">
+              <ul class="ss-tools__rail" data-tools-rail tabindex="0" role="list" aria-label="Compatible tool categories">
+                <li class="ss-tool-card" data-category="Workflow">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Workflow runners</span><span class="ss-tag">Workflow</span></div>
+                  <p class="ss-tool-card__body">Orchestrate steps, branches and retries with an event log for every run.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">The lattice you approve is configured in production; nothing runs in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">CRM records</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Read and update customer records as a step, never as an unchecked deletion.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Field-level scopes are agreed during build; no data flows here.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Email">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Email &amp; messaging</span><span class="ss-tag">Email</span></div>
+                  <p class="ss-tool-card__body">Send templated, reviewed messages — with a human checkpoint where it matters.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Staging keeps delivery mocked; production sends only what you approve.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Storage">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Files &amp; storage</span><span class="ss-tag">Storage</span></div>
+                  <p class="ss-tool-card__body">File and fetch documents so a record is never re-keyed by hand.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Storage location and retention are agreed with you in production.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Analytics">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Reporting</span><span class="ss-tag">Analytics</span></div>
+                  <p class="ss-tool-card__body">Summarise runs, exceptions and approvals so owners can see the whole picture.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Disabled by default in staging; enabled with consent in production.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Workflow">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Approval queues</span><span class="ss-tag">Workflow</span></div>
+                  <p class="ss-tool-card__body">Hold flagged items for a named person, with a clear accept or decline.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Owners and rules are configured in production; this prototype only illustrates the shape.</p></details>
+                </li>
+              </ul>
+            </div>
+
+            <div class="ss-tools__controls">
+              <button class="ss-tools__nav" type="button" data-tools-prev aria-label="Previous tools">‹</button>
+              <button class="ss-tools__nav" type="button" data-tools-next aria-label="Next tools">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. RELATED -->
+      <section class="ss-section ss-section--tight" aria-labelledby="related-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Related</span>
+            <h2 id="related-heading" class="ss-section__title">Where this fits</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/services/ai-receptionists/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">AI receptionists</span>
+              <span class="ss-industry-card__body">A front desk that captures and routes, then hands off to automation.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/services/app-development/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">Custom app development</span>
+              <span class="ss-industry-card__body">A product surface that holds the state your workflows read and write.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/industries/ecommerce/index.html">
+              <span class="ss-industry-card__pattern">Industry</span>
+              <span class="ss-industry-card__title">eCommerce brands</span>
+              <span class="ss-industry-card__body">Order-state conveyor with exceptions routed to a person.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Start here</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Let's find the routine worth automating.</h2>
+                <p class="ss-chamber__body">A 30-minute discovery call. We pick one repeatable workflow, agree where a human must stay in control, and tell you honestly whether automation fits.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/services/index.html">See all services</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

@@ -7,29 +7,36 @@
     <title>Silverstone — Visual prototypes (review index)</title>
     <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
     <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
   </head>
   <body>
     <a class="ss-skip-link" href="#main">Skip to content</a>
     <p class="ss-proto-banner">
       <strong>PROTOTYPE INDEX.</strong>
-      High-visibility visual prototypes for the Silverstone home experience. Static previews, not production.
+      High-visibility visual prototypes for the Silverstone site. Static previews, not production.
     </p>
 
     <main id="main" class="ss-section" style="padding-block: var(--ss-space-12)">
       <div class="ss-container" data-size="max">
         <div class="ss-section__head">
           <span class="ss-pill"><span class="ss-pill__dot"></span>Precision Luminescence</span>
-          <h1 class="ss-section__title">Home visual prototypes</h1>
+          <h1 class="ss-section__title">Visual prototypes — full site</h1>
           <p class="ss-lead" style="color: var(--ss-color-text-muted)">
-            The selected, fully built home experience plus the two materially-different
-            directions it was chosen from. 70 / 20 / 10 — platinum, graphite, luminous accent.
+            The selected home experience plus original visual modules for every non-home route:
+            seven services, the industries atlas with nine instruments, and ten supporting pages.
+            70 / 20 / 10 — platinum, graphite, luminous accent.
           </p>
         </div>
 
+        <!-- HOME + DIRECTIONS -->
+        <div class="ss-section__head" style="margin-top: var(--ss-space-10)">
+          <span class="ss-eyebrow">Home</span>
+          <h2 class="ss-section__title">Home experience &amp; explored directions</h2>
+        </div>
         <div class="ss-services__frames">
           <article class="ss-service-frame">
             <span class="ss-pill"><span class="ss-pill__dot"></span>Selected</span>
-            <h2 class="ss-service-frame__title">Home — full experience</h2>
+            <h3 class="ss-service-frame__title">Home — full experience</h3>
             <p class="ss-service-frame__body">
               Direction A deepened: nav states, hero constellation + deferred shader, value
               strip, asymmetric six-service field, graphite conversion chamber, loading skeleton.
@@ -41,7 +48,7 @@
           </article>
 
           <article class="ss-service-frame">
-            <h2 class="ss-service-frame__title">Direction A — Platinum Constellation</h2>
+            <h3 class="ss-service-frame__title">Direction A — Platinum Constellation</h3>
             <p class="ss-service-frame__body">Light-led (spec default). The 70 / 20 / 10 reading; constellation leads, graphite reserved for conversion.</p>
             <a class="ss-service-frame__link" href="/prototypes/directions/platinum-constellation.html">
               Open direction A
@@ -50,13 +57,66 @@
           </article>
 
           <article class="ss-service-frame">
-            <h2 class="ss-service-frame__title">Direction B — Graphite Instrument</h2>
+            <h3 class="ss-service-frame__title">Direction B — Graphite Instrument</h3>
             <p class="ss-service-frame__body">Contained dark hero stage. More cinematic, but front-loads graphite past its 20% budget.</p>
             <a class="ss-service-frame__link" href="/prototypes/directions/graphite-instrument.html">
               Open direction B
               <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8 H12 M9 5 L12 8 L9 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
             </a>
           </article>
+        </div>
+
+        <!-- SERVICES -->
+        <div class="ss-section__head" style="margin-top: var(--ss-space-12)">
+          <span class="ss-eyebrow">Services</span>
+          <h2 class="ss-section__title">Services — directory &amp; six capabilities</h2>
+          <p class="ss-section__lead">Each detail page carries its own signature instrument and an interactive, synthetic demo.</p>
+        </div>
+        <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-6)">
+          <a class="ss-industry-card" href="/prototypes/services/index.html"><span class="ss-industry-card__pattern">Directory</span><span class="ss-industry-card__title">Services directory</span><span class="ss-industry-card__body">Decision matrix — choose the business problem before the technology.</span></a>
+          <a class="ss-industry-card" href="/prototypes/services/web-design-development/index.html"><span class="ss-industry-card__pattern">Service</span><span class="ss-industry-card__title">Web design &amp; development</span><span class="ss-industry-card__body">Conversion-path lens.</span></a>
+          <a class="ss-industry-card" href="/prototypes/services/app-development/index.html"><span class="ss-industry-card__pattern">Service</span><span class="ss-industry-card__title">Custom app development</span><span class="ss-industry-card__body">Product-state stack.</span></a>
+          <a class="ss-industry-card" href="/prototypes/services/ai-voice-agents/index.html"><span class="ss-industry-card__pattern">Service</span><span class="ss-industry-card__title">AI voice agents</span><span class="ss-industry-card__body">Call-flow oscilloscope.</span></a>
+          <a class="ss-industry-card" href="/prototypes/services/ai-receptionists/index.html"><span class="ss-industry-card__pattern">Service</span><span class="ss-industry-card__title">AI receptionists</span><span class="ss-industry-card__body">Front-desk convergence console.</span></a>
+          <a class="ss-industry-card" href="/prototypes/services/content-creation/index.html"><span class="ss-industry-card__pattern">Service</span><span class="ss-industry-card__title">Content creation &amp; repurposing</span><span class="ss-industry-card__body">Editorial loom.</span></a>
+          <a class="ss-industry-card" href="/prototypes/services/ai-automation/index.html"><span class="ss-industry-card__pattern">Service</span><span class="ss-industry-card__title">AI automation &amp; agent workflows</span><span class="ss-industry-card__body">Exception-aware process lattice.</span></a>
+        </div>
+
+        <!-- INDUSTRIES -->
+        <div class="ss-section__head" style="margin-top: var(--ss-space-12)">
+          <span class="ss-eyebrow">Industries</span>
+          <h2 class="ss-section__title">Industries — atlas &amp; nine instruments</h2>
+          <p class="ss-section__lead">Nine sectors grouped by operating pattern; each has one canonical instrument and a human-in-control boundary.</p>
+        </div>
+        <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-6)">
+          <a class="ss-industry-card" href="/prototypes/industries/index.html"><span class="ss-industry-card__pattern">Atlas</span><span class="ss-industry-card__title">Industries atlas</span><span class="ss-industry-card__body">Operating-pattern atlas across nine sectors.</span></a>
+          <a class="ss-industry-card" href="/prototypes/industries/estate-agents/index.html"><span class="ss-industry-card__pattern">Enquiry-led</span><span class="ss-industry-card__title">Estate agents</span><span class="ss-industry-card__body">Property-enquiry switchboard.</span></a>
+          <a class="ss-industry-card" href="/prototypes/industries/hospitality/index.html"><span class="ss-industry-card__pattern">Appointment-led</span><span class="ss-industry-card__title">Hospitality</span><span class="ss-industry-card__body">Guest-journey service bell.</span></a>
+          <a class="ss-industry-card" href="/prototypes/industries/salons-barbers/index.html"><span class="ss-industry-card__pattern">Appointment-led</span><span class="ss-industry-card__title">Salons &amp; barbers</span><span class="ss-industry-card__body">Chair-and-calendar weave.</span></a>
+          <a class="ss-industry-card" href="/prototypes/industries/trades/index.html"><span class="ss-industry-card__pattern">Enquiry-led</span><span class="ss-industry-card__title">Trades &amp; home services</span><span class="ss-industry-card__body">Job-intake dispatch board.</span></a>
+          <a class="ss-industry-card" href="/prototypes/industries/ecommerce/index.html"><span class="ss-industry-card__pattern">Transaction-led</span><span class="ss-industry-card__title">eCommerce brands</span><span class="ss-industry-card__body">Order-state conveyor.</span></a>
+          <a class="ss-industry-card" href="/prototypes/industries/physios-chiropractors/index.html"><span class="ss-industry-card__pattern">Appointment-led</span><span class="ss-industry-card__title">Physio &amp; chiropractic</span><span class="ss-industry-card__body">Non-clinical intake boundary.</span></a>
+          <a class="ss-industry-card" href="/prototypes/industries/dentists/index.html"><span class="ss-industry-card__pattern">Appointment-led</span><span class="ss-industry-card__title">Dental practices</span><span class="ss-industry-card__body">Patient-admin recall orbit.</span></a>
+          <a class="ss-industry-card" href="/prototypes/industries/gyms-fitness-studios/index.html"><span class="ss-industry-card__pattern">Appointment-led</span><span class="ss-industry-card__title">Gyms &amp; fitness studios</span><span class="ss-industry-card__body">Trial-to-membership roster.</span></a>
+          <a class="ss-industry-card" href="/prototypes/industries/fitness-coaches/index.html"><span class="ss-industry-card__pattern">Relationship-led</span><span class="ss-industry-card__title">Fitness coaches</span><span class="ss-industry-card__body">DM-to-consultation pathway.</span></a>
+        </div>
+
+        <!-- CORE & SUPPORTING -->
+        <div class="ss-section__head" style="margin-top: var(--ss-space-12)">
+          <span class="ss-eyebrow">Core &amp; supporting</span>
+          <h2 class="ss-section__title">Supporting pages</h2>
+        </div>
+        <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-6)">
+          <a class="ss-industry-card" href="/prototypes/how-we-work/index.html"><span class="ss-industry-card__pattern">Process</span><span class="ss-industry-card__title">How we work</span><span class="ss-industry-card__body">Scope-to-release rail.</span></a>
+          <a class="ss-industry-card" href="/prototypes/pricing/index.html"><span class="ss-industry-card__pattern">Pricing</span><span class="ss-industry-card__title">Pricing</span><span class="ss-industry-card__body">How scope becomes price (illustrative, not a quote).</span></a>
+          <a class="ss-industry-card" href="/prototypes/about/index.html"><span class="ss-industry-card__pattern">About</span><span class="ss-industry-card__title">About</span><span class="ss-industry-card__body">Accountability ledger.</span></a>
+          <a class="ss-industry-card" href="/prototypes/book/index.html"><span class="ss-industry-card__pattern">Convert</span><span class="ss-industry-card__title">Book a call</span><span class="ss-industry-card__body">Prepared conversation (non-functional prototype).</span></a>
+          <a class="ss-industry-card" href="/prototypes/contact/index.html"><span class="ss-industry-card__pattern">Convert</span><span class="ss-industry-card__title">Contact</span><span class="ss-industry-card__body">Direct enquiry console (non-functional prototype).</span></a>
+          <a class="ss-industry-card" href="/prototypes/blog/index.html"><span class="ss-industry-card__pattern">Content</span><span class="ss-industry-card__title">Blog index</span><span class="ss-industry-card__body">Signal library (illustrative posts).</span></a>
+          <a class="ss-industry-card" href="/prototypes/blog-article/index.html"><span class="ss-industry-card__pattern">Content</span><span class="ss-industry-card__title">Article template</span><span class="ss-industry-card__body">Decision brief (illustrative content).</span></a>
+          <a class="ss-industry-card" href="/prototypes/privacy-policy/index.html"><span class="ss-industry-card__pattern">Legal</span><span class="ss-industry-card__title">Privacy policy</span><span class="ss-industry-card__body">Placeholder legal prose.</span></a>
+          <a class="ss-industry-card" href="/prototypes/404/index.html"><span class="ss-industry-card__pattern">System</span><span class="ss-industry-card__title">404 / error</span><span class="ss-industry-card__body">Helpful recovery links.</span></a>
+          <a class="ss-industry-card" href="/prototypes/tools/index.html"><span class="ss-industry-card__pattern">Showcase</span><span class="ss-industry-card__title">Tools &amp; demos showcase</span><span class="ss-industry-card__body">Connector constellation + a directory to every demo.</span></a>
         </div>
       </div>
     </main>

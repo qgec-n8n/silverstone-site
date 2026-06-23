@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>AI voice agents — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body data-route="services">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — AI voice agents.</strong>
+      Signature: call-flow oscilloscope. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. HERO + CALL-FLOW OSCILLOSCOPE -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li><a href="/prototypes/services/index.html">Services</a></li>
+            <li aria-current="page">AI voice agents</li>
+          </ol>
+          <div class="ss-split" data-ratio="wide-left">
+            <div data-reveal>
+              <span class="ss-pill"><span class="ss-pill__dot"></span>AI voice agents</span>
+              <h1 id="page-title" class="ss-page-hero__title">A call flow you can read like a waveform.</h1>
+              <p class="ss-page-hero__lead">
+                A voice agent that discloses it is automated, turns speech into structured
+                intent, checks it against your approved rules, and ends at a clear action or a
+                handoff to a person. Rules decide the handoff — never a confidence score.
+              </p>
+              <div class="ss-hero__cta-row" style="margin-top: var(--ss-space-6)">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="#demo">Play the call flow</a>
+              </div>
+            </div>
+
+            <figure class="ss-sig ss-sig--graphite ss-on-graphite" data-reveal style="margin: 0">
+              <svg class="ss-sig__inner" viewBox="0 0 320 220" role="img" aria-labelledby="scope-title scope-desc">
+                <title id="scope-title">Call-flow oscilloscope</title>
+                <desc id="scope-desc">A waveform on the left resolves into structured data nodes, passes through an approved-rules gate, and ends at an action or a human handoff.</desc>
+                <line class="ss-dgm-line" x1="20" y1="70" x2="300" y2="70" />
+                <path class="ss-dgm-signal" data-flow d="M20 70 q10 -34 20 0 t20 0 q10 -22 20 0 t20 0 q10 -40 20 0 t20 0" />
+                <rect class="ss-dgm-node" x="60" y="108" width="64" height="30" rx="6" />
+                <text class="ss-dgm-text" x="70" y="126">Intent</text>
+                <rect class="ss-dgm-node" x="132" y="108" width="64" height="30" rx="6" />
+                <text class="ss-dgm-text" x="142" y="126">Capture</text>
+                <rect class="ss-dgm-node ss-dgm-node--live" x="204" y="108" width="86" height="30" rx="6" />
+                <text class="ss-dgm-text" x="214" y="126">Approved rules</text>
+                <line class="ss-dgm-signal" x1="247" y1="138" x2="247" y2="160" />
+                <rect class="ss-dgm-node" x="150" y="166" width="80" height="30" rx="6" />
+                <text class="ss-dgm-text" x="160" y="184">Action</text>
+                <rect class="ss-dgm-node ss-dgm-node--live" x="240" y="166" width="64" height="30" rx="6" />
+                <text class="ss-dgm-text" x="250" y="184">Person</text>
+                <path class="ss-dgm-line" d="M247 138 L190 166 M247 138 L272 166" />
+              </svg>
+              <figcaption class="ss-sig__label">Call-flow oscilloscope · synthetic</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. CALL TYPES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="types-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Call types</span>
+            <h2 id="types-heading" class="ss-section__title">Three ways a call ends</h2>
+            <p class="ss-section__lead">Every call resolves to one of three outcomes. The rules that decide the outcome are agreed with you, not invented by the model.</p>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <span class="ss-card__index">Routine</span>
+              <h3 class="ss-card__title">Answered to an approved boundary</h3>
+              <p class="ss-card__body">Opening hours, location, simple FAQs — answered only from content you have approved.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">Actionable</span>
+              <h3 class="ss-card__title">Captured and progressed</h3>
+              <p class="ss-card__body">A booking request or callback is captured with the minimum details and routed onward.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">Escalate</span>
+              <h3 class="ss-card__title">Handed to a person</h3>
+              <p class="ss-card__body">Anything sensitive, urgent or out of scope goes straight to a named human owner.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. EXPLICIT-START DEMO -->
+      <section class="ss-section" id="demo" aria-labelledby="demo-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-demo" data-demo="voice-callflow">
+            <div class="ss-demo__head">
+              <h2 id="demo-heading" class="ss-demo__title">Defined call flow</h2>
+              <p class="ss-demo__purpose">Choose a call type and play the flow. A synthetic transcript moves through disclosure, intent, capture, an approved-rules check and a clear ending. Pause any time — the transcript is the primary record, not the audio.</p>
+              <p class="ss-demo__synthetic">Synthetic &amp; deterministic — no real call, no voice impersonation</p>
+            </div>
+
+            <form class="ss-demo__options" data-cols="2" aria-label="Call options">
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-type">Call type</label>
+                <select class="ss-select" id="opt-type" name="type">
+                  <option value="routine">Routine — opening hours</option>
+                  <option value="actionable">Actionable — book a slot</option>
+                  <option value="escalate">Escalate — sensitive matter</option>
+                </select>
+              </div>
+            </form>
+
+            <div class="ss-demo__controls">
+              <button class="ss-btn ss-btn--primary" type="button" data-demo-action="start" data-label-start="Play">Play</button>
+              <button class="ss-btn ss-btn--secondary" type="button" data-demo-action="pause">Pause</button>
+              <button class="ss-btn ss-btn--secondary" type="button" data-demo-action="reset">Reset</button>
+            </div>
+
+            <div class="ss-demo__board">
+              <div class="ss-demo__stage" data-demo-stage aria-label="Synthetic call transcript"></div>
+              <div class="ss-demo__aside">
+                <p class="ss-demo__status" data-demo-status role="status" aria-live="polite"></p>
+                <div class="ss-demo__log-wrap">
+                  <p class="ss-demo__log-title">Event log</p>
+                  <ul class="ss-demo__log" data-demo-log aria-live="polite" aria-label="Demo event log"></ul>
+                </div>
+              </div>
+            </div>
+
+            <details class="ss-demo__disclosure">
+              <summary>What this demonstrates — and what it does not</summary>
+              <div class="ss-demo__matrix">
+                <div>
+                  <h4>Demonstrates</h4>
+                  <ul class="ss-list-check">
+                    <li>Up-front disclosure that the caller is speaking to automation</li>
+                    <li>Approved rules — not a confidence score — deciding the ending</li>
+                    <li>A transcript that stays readable without audio</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Does not</h4>
+                  <ul class="ss-list-check">
+                    <li>Use a real call, real audio or any live telephony</li>
+                    <li>Impersonate a person or claim human equivalence</li>
+                    <li>Handle emergencies or give regulated advice</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+
+            <p class="ss-demo__fallback" data-demo-fallback>
+              Static fallback: disclosure → intent → capture minimum details → approved-rules check →
+              action or handoff to a named person. Sensitive or urgent calls always reach a human.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. CALL-FLOW DESIGN ANATOMY -->
+      <section class="ss-section" aria-labelledby="anatomy-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Design anatomy</span>
+            <h2 id="anatomy-heading" class="ss-section__title">How a flow is built</h2>
+          </div>
+          <div class="ss-sequence" style="margin-top: var(--ss-space-8)">
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Disclosure</p><p class="ss-sequence__body">The caller is told, up front, that they are speaking to an automated assistant.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Intent</p><p class="ss-sequence__body">Speech becomes a structured intent the flow can reason about.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Capture</p><p class="ss-sequence__body">Only the minimum details needed for the action are collected.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Approved-rules check</p><p class="ss-sequence__body">The request is matched against rules you signed off — deterministic, not guessed.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Action or handoff</p><p class="ss-sequence__body">The call ends at a clear action or a clean handoff to a named person.</p></div></div>
+          </div>
+          <div class="ss-boundary" role="note" style="margin-top: var(--ss-space-6)">
+            <span aria-hidden="true">◆</span>
+            <span>The handoff is decided by your approved rules, not by how confident the model sounds. A person owns every escalation.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. BOUNDARIES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="fit-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-split">
+            <div>
+              <span class="ss-eyebrow">Boundaries</span>
+              <h2 id="fit-heading" class="ss-section__title">What a voice agent will not do</h2>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-5)">
+                <li>It always discloses that it is automated</li>
+                <li>It captures only what consent and the task require</li>
+                <li>It routes emergencies and sensitive situations to a person immediately</li>
+              </ul>
+            </div>
+            <div class="ss-note ss-note--info" role="note">
+              <strong>No human-equivalence claim.</strong>
+              A voice agent handles defined, approved call flows. It is not a person, does not
+              give regulated advice, and does not handle emergencies. Consent and privacy rules
+              are designed in, not bolted on.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. MONITORING & REVIEW -->
+      <section class="ss-section ss-section--tight" aria-labelledby="monitor-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Operate</span>
+            <h2 id="monitor-heading" class="ss-section__title">Monitoring and review</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card"><h3 class="ss-card__title">Transcripts you can audit</h3><p class="ss-card__body">Every call leaves a readable record, with the rule that decided the ending.</p></article>
+            <article class="ss-card"><h3 class="ss-card__title">Named owners</h3><p class="ss-card__body">Each escalation route has a person responsible, not a black box.</p></article>
+            <article class="ss-card"><h3 class="ss-card__title">Scheduled review</h3><p class="ss-card__body">Flows are reviewed on a cadence and adjusted with you, never silently.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. TOOLS RAIL -->
+      <section class="ss-section" aria-labelledby="tools-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Works with your stack</span>
+            <h2 id="tools-heading" class="ss-section__title">Connector constellation</h2>
+            <p class="ss-section__lead">Categories a voice flow commonly connects to. These are compatibility groups, not confirmed live integrations or vendor partnerships.</p>
+          </div>
+
+          <div class="ss-tools" data-tools style="margin-top: var(--ss-space-6)">
+            <div class="ss-tools__filters" role="group" aria-label="Filter tools by category">
+              <button class="ss-tools__filter" type="button" data-tools-filter="all" aria-pressed="true">All</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Telephony" aria-pressed="false">Telephony</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Scheduling" aria-pressed="false">Scheduling</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="CRM" aria-pressed="false">CRM</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Messaging" aria-pressed="false">Messaging</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Analytics" aria-pressed="false">Analytics</button>
+            </div>
+
+            <p class="ss-tools__status" data-tools-status aria-live="polite"></p>
+
+            <div class="ss-tools__viewport">
+              <ul class="ss-tools__rail" data-tools-rail tabindex="0" role="list" aria-label="Compatible tool categories">
+                <li class="ss-tool-card" data-category="Telephony">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Telephony</span><span class="ss-tag">Telephony</span></div>
+                  <p class="ss-tool-card__body">Connect to a phone number and call-routing provider so calls reach the flow.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Provider chosen with you; no calls are placed in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Scheduling">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Booking calendars</span><span class="ss-tag">Scheduling</span></div>
+                  <p class="ss-tool-card__body">Offer a slot during a call where an appointment is the right action.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Calendar connection agreed in build; nothing is booked in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">CRM handoff</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Captured details can be written to a CRM so the team has context.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Field mapping agreed with you; no data flows in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Messaging">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">SMS follow-up</span><span class="ss-tag">Messaging</span></div>
+                  <p class="ss-tool-card__body">Send a confirmation or link by message after a call, with consent.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Channel chosen with you; staging keeps delivery mocked.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Analytics">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Call analytics</span><span class="ss-tag">Analytics</span></div>
+                  <p class="ss-tool-card__body">See call volumes and outcomes by type, with transcripts to audit.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Reporting configured in production with privacy controls.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Helpdesk</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Escalations can open a ticket with a named owner and a clear queue.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Routing rules configured in production; a person owns each queue.</p></details>
+                </li>
+              </ul>
+            </div>
+
+            <div class="ss-tools__controls">
+              <button class="ss-tools__nav" type="button" data-tools-prev aria-label="Previous tools">‹</button>
+              <button class="ss-tools__nav" type="button" data-tools-next aria-label="Next tools">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. INDUSTRY EXAMPLES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="related-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">By sector</span>
+            <h2 id="related-heading" class="ss-section__title">Where voice flows fit</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/industries/dentists/index.html">
+              <span class="ss-industry-card__pattern">Industry</span>
+              <span class="ss-industry-card__title">Dental practices</span>
+              <span class="ss-industry-card__body">Patient-admin recall orbit around a protected clinical core.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/industries/trades/index.html">
+              <span class="ss-industry-card__pattern">Industry</span>
+              <span class="ss-industry-card__title">Trades &amp; home services</span>
+              <span class="ss-industry-card__body">Job-intake dispatch board that never misses an emergency call.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/services/ai-receptionists/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">AI receptionists</span>
+              <span class="ss-industry-card__body">Bring phone together with web and messaging in one front desk.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. FAQ -->
+      <section class="ss-section ss-section--tight" aria-labelledby="faq-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">FAQ</span>
+            <h2 id="faq-heading" class="ss-section__title">Common questions</h2>
+          </div>
+          <div class="ss-faq" style="margin-top: var(--ss-space-6)">
+            <details class="ss-faq__item">
+              <summary>Will callers know it's automated?</summary>
+              <p class="ss-faq__answer">Yes. Disclosure is the first step of every flow. We never impersonate a person or imply human equivalence.</p>
+            </details>
+            <details class="ss-faq__item">
+              <summary>What decides when a person takes over?</summary>
+              <p class="ss-faq__answer">Your approved rules — not a confidence score. Sensitive, urgent or out-of-scope calls route to a named owner immediately.</p>
+            </details>
+            <details class="ss-faq__item">
+              <summary>Can it handle emergencies?</summary>
+              <p class="ss-faq__answer">No. Emergencies and regulated advice are explicitly out of scope and are routed to the right human or service.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Start here</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Let's design one call flow.</h2>
+                <p class="ss-chamber__body">A 30-minute discovery call. We pick one routine call type, agree the rules and the handoff, and tell you honestly whether we are a fit.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/services/index.html">See all services</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

@@ -683,3 +683,553 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ============================================ PAGE-FEATURE PRIMITIVES */
+/* Scoped styles for the non-home handoff primitives: demo shell, tools
+   carousel, page signatures, industry instrument, services matrix and
+   industries atlas. Mirrors the static acceptance prototype. */
+
+/* ---- shared notes ---- */
+.ss-visual-root .ss-note {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--vx-radius-sm);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--vx-ink-muted);
+  background: var(--vx-surface-subtle);
+  border: 1px solid var(--vx-border);
+}
+
+.ss-visual-root .ss-note--info {
+  border-left: 3px solid var(--vx-cyan);
+  color: var(--vx-ink);
+}
+
+/* ---- demo shell ---- */
+.ss-visual-root .ss-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1rem, 0.6rem + 1.6vw, 1.75rem);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-radius);
+  background: var(--vx-surface);
+}
+
+.ss-visual-root .ss-demo__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ss-visual-root .ss-demo__title {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+}
+
+.ss-visual-root .ss-demo__summary {
+  margin: 0;
+  max-width: 48ch;
+  color: var(--vx-ink-muted);
+  font-size: 0.92rem;
+}
+
+.ss-visual-root .ss-demo__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ss-visual-root .ss-demo__btn {
+  appearance: none;
+  cursor: pointer;
+  padding: 0.55rem 1rem;
+  border-radius: var(--vx-radius-sm);
+  border: 1px solid var(--vx-border-strong);
+  background: var(--vx-surface);
+  color: var(--vx-ink);
+  font: inherit;
+  font-size: 0.9rem;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.ss-visual-root .ss-demo__btn:hover {
+  border-color: var(--vx-graphite);
+  background: var(--vx-surface-subtle);
+}
+
+.ss-visual-root .ss-demo__btn--primary {
+  background: var(--vx-graphite);
+  border-color: var(--vx-graphite);
+  color: var(--vx-platinum);
+}
+
+.ss-visual-root .ss-demo__btn--primary:hover {
+  background: var(--vx-graphite-raised);
+}
+
+.ss-visual-root .ss-demo__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ss-visual-root .ss-demo__stage {
+  min-height: 160px;
+  padding: 1rem;
+  border-radius: var(--vx-radius-sm);
+  background: var(--vx-surface-subtle);
+  border: 1px solid var(--vx-border);
+}
+
+.ss-visual-root .ss-demo__status {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--vx-cyan-ink);
+}
+
+.ss-visual-root .ss-demo__log-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ss-visual-root .ss-demo__log-title {
+  margin: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vx-ink-muted);
+}
+
+.ss-visual-root .ss-demo__log {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--vx-ink);
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* ---- tools carousel (connector constellation) ---- */
+.ss-visual-root .ss-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ss-visual-root .ss-tools__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ss-visual-root .ss-tools__title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.ss-visual-root .ss-tools__nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ss-visual-root .ss-tools__arrow {
+  appearance: none;
+  cursor: pointer;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--vx-border-strong);
+  background: var(--vx-surface);
+  color: var(--vx-ink);
+  font-size: 1.2rem;
+  line-height: 1;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.ss-visual-root .ss-tools__arrow:hover {
+  border-color: var(--vx-graphite);
+  background: var(--vx-surface-subtle);
+}
+
+.ss-visual-root .ss-tools__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ss-visual-root .ss-tools__filter {
+  appearance: none;
+  cursor: pointer;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--vx-border);
+  background: var(--vx-surface);
+  color: var(--vx-ink-muted);
+  font: inherit;
+  font-size: 0.82rem;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.ss-visual-root .ss-tools__filter:hover {
+  border-color: var(--vx-border-strong);
+  color: var(--vx-ink);
+}
+
+.ss-visual-root .ss-tools__filter.is-active {
+  background: var(--vx-graphite);
+  border-color: var(--vx-graphite);
+  color: var(--vx-platinum);
+}
+
+.ss-visual-root .ss-tools__rail {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem;
+  display: flex;
+  gap: 0.85rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.ss-visual-root .ss-tool-card {
+  flex: 0 0 auto;
+  width: min(15rem, 70vw);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem;
+  border-radius: var(--vx-radius-sm);
+  border: 1px solid var(--vx-border);
+  background: var(--vx-surface);
+}
+
+.ss-visual-root .ss-tool-card__category {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vx-cyan-ink);
+}
+
+.ss-visual-root .ss-tool-card__name {
+  font-weight: 600;
+}
+
+.ss-visual-root .ss-tool-card__note {
+  font-size: 0.85rem;
+  color: var(--vx-ink-muted);
+}
+
+.ss-visual-root .ss-tools__status {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--vx-ink-muted);
+}
+
+/* ---- page signatures ---- */
+.ss-visual-root .ss-vsig {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.ss-visual-root .ss-vsig__ring,
+.ss-visual-root .ss-vsig__warp,
+.ss-visual-root .ss-vsig__weft,
+.ss-visual-root .ss-vsig__baseline,
+.ss-visual-root .ss-vsig__spine,
+.ss-visual-root .ss-vsig__struct line,
+.ss-visual-root .ss-vsig__struct path {
+  fill: none;
+  stroke: var(--vx-border-strong);
+  stroke-width: 1.4;
+}
+
+.ss-visual-root .ss-vsig__weft {
+  stroke: var(--vx-border);
+}
+
+.ss-visual-root .ss-vsig__plate {
+  fill: var(--vx-surface-subtle);
+  stroke: var(--vx-border);
+  stroke-width: 1.4;
+}
+
+.ss-visual-root .ss-vsig__plate--active {
+  stroke: var(--vx-cyan);
+  stroke-width: 2;
+}
+
+.ss-visual-root .ss-vsig__signal,
+.ss-visual-root .ss-vsig__wave {
+  fill: none;
+  stroke: var(--vx-cyan);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ss-visual-root .ss-vsig__signal--alt {
+  stroke: var(--vx-violet);
+  stroke-dasharray: 4 4;
+}
+
+.ss-visual-root .ss-vsig__dot {
+  fill: var(--vx-graphite);
+}
+
+.ss-visual-root .ss-vsig__focus {
+  fill: var(--vx-cyan);
+}
+
+.ss-visual-root .ss-vsig__alert {
+  fill: var(--vx-violet);
+}
+
+.ss-visual-root .ss-vsig__hub {
+  fill: var(--vx-surface);
+  stroke: var(--vx-cyan);
+  stroke-width: 2;
+}
+
+.ss-visual-root .ss-vsig__label,
+.ss-visual-root .ss-vsig__tick {
+  fill: var(--vx-ink-muted);
+  font-size: 9px;
+  font-family: inherit;
+}
+
+.ss-visual-root .ss-vsig__label {
+  fill: var(--vx-ink);
+}
+
+/* ---- industry instrument ---- */
+.ss-visual-root .ss-instrument {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: clamp(1rem, 0.6rem + 1.6vw, 1.75rem);
+  border: 1px solid var(--vx-border);
+  border-radius: var(--vx-radius);
+  background: var(--vx-surface);
+}
+
+.ss-visual-root .ss-instrument__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.ss-visual-root .ss-instrument__dial {
+  width: 96px;
+  height: 96px;
+  flex: 0 0 auto;
+}
+
+.ss-visual-root .ss-instrument__sector {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vx-cyan-ink);
+}
+
+.ss-visual-root .ss-instrument__title {
+  margin: 0.15rem 0;
+  font-size: 1.2rem;
+}
+
+.ss-visual-root .ss-instrument__caption {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--vx-ink-muted);
+  font-size: 0.92rem;
+}
+
+.ss-visual-root .ss-sequence {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ss-visual-root .ss-sequence__step {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+
+.ss-visual-root .ss-sequence__num {
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--vx-graphite);
+  color: var(--vx-platinum);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.ss-visual-root .ss-sequence__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ss-visual-root .ss-sequence__label {
+  font-size: 0.95rem;
+}
+
+.ss-visual-root .ss-sequence__detail {
+  font-size: 0.88rem;
+  color: var(--vx-ink-muted);
+}
+
+.ss-visual-root .ss-boundary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--vx-radius-sm);
+  background: var(--vx-surface-subtle);
+  border-left: 3px solid var(--vx-violet);
+  font-size: 0.88rem;
+}
+
+.ss-visual-root .ss-boundary__mark {
+  flex: 0 0 auto;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--vx-violet);
+}
+
+/* ---- services decision matrix ---- */
+.ss-visual-root .ss-matrix {
+  overflow-x: auto;
+}
+
+.ss-visual-root .ss-matrix__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.ss-visual-root .ss-matrix__caption {
+  caption-side: top;
+  text-align: left;
+  margin-bottom: 0.85rem;
+  color: var(--vx-ink-muted);
+  font-size: 0.92rem;
+}
+
+.ss-visual-root .ss-matrix__table th,
+.ss-visual-root .ss-matrix__table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.85rem 0.9rem;
+  border-bottom: 1px solid var(--vx-border);
+}
+
+.ss-visual-root .ss-matrix__table thead th {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vx-ink-muted);
+}
+
+.ss-visual-root .ss-matrix__capability {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+}
+
+.ss-visual-root .ss-matrix__capability .ss-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: 0 0 auto;
+}
+
+.ss-visual-root .ss-matrix__link {
+  color: var(--vx-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--vx-cyan);
+}
+
+.ss-visual-root .ss-matrix__link:hover {
+  color: var(--vx-cyan-ink);
+}
+
+/* ---- industries atlas ---- */
+.ss-visual-root .ss-atlas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+}
+
+.ss-visual-root .ss-atlas__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  height: 100%;
+  padding: 1.1rem;
+  border-radius: var(--vx-radius);
+  border: 1px solid var(--vx-border);
+  background: var(--vx-surface);
+  text-decoration: none;
+  color: var(--vx-ink);
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.ss-visual-root .ss-atlas__card:hover {
+  border-color: var(--vx-cyan);
+  transform: translateY(-2px);
+}
+
+.ss-visual-root .ss-atlas__sector {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vx-cyan-ink);
+}
+
+.ss-visual-root .ss-atlas__pattern {
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+
+.ss-visual-root .ss-atlas__detail {
+  font-size: 0.88rem;
+  color: var(--vx-ink-muted);
+}

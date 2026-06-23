@@ -49,3 +49,41 @@ mounted into a route.
 | Sustained desktop animation | ≥ 45 FPS |
 | Any animation-caused task | ≤ 45 ms |
 | Shader scope | deferred, route-local, ≥ 1024px only |
+
+---
+
+## Page Features v1 — full-site observations
+
+As with the home handoff, these are design/implementation characteristics and prototype
+acceptance targets. Quantitative runtime numbers (FPS, long-task ms, JS gz size, LCP) were
+NOT measured (no Lighthouse/tracing; React primitives not route-mounted). The overflow +
+screenshot matrix WAS captured — see `validation-matrix.md`.
+
+### Demo shell (`demo.js` / `DemoShell`)
+- Deterministic synthetic scenarios; steps are advanced by a single `setInterval`, not a
+  per-frame rAF loop, so there is no sustained animation cost between steps.
+- `temporal: true` only for genuinely time-based instruments; otherwise Pause is hidden and
+  the shell renders discrete steps with no timer running idle.
+- Reduced motion replays the full sequence instantly (all info at 0ms) — no information is
+  hidden behind motion, and no animation work is scheduled.
+- Acceptance target (from spec): demo shell ≤ 12 KB / ≤ 18 KB ceiling. Not weighed here.
+
+### Tools carousel (`tools-carousel.js` / `ToolsCarousel`)
+- Native horizontal scroll (`overflow-x`), NO autoplay, NO cloned nodes, NO JS animation
+  loop. Prev/next move by group via `scrollBy`; filtering toggles card visibility and updates
+  a `[data-tools-status]` live region. Cost is limited to discrete user-driven events.
+- No nested scroll containers; pause-on-hover/focus is moot because nothing auto-advances.
+
+### Section reveal / page entry (`reveal.js` / `useSectionReveal`, `usePageTransition`)
+- IntersectionObserver only — no scroll-event listeners, so no main-thread scroll handlers.
+- Reduced motion / no-IO fallback renders content immediately at full opacity.
+
+### Motion ownership (restated from spec, as authored)
+- CSS hover/transition 140–220ms; disclosure ≤320ms; hero/demo reveal 480–800ms; scrolling
+  is native. No animation is on a permanent rAF loop on these pages (the only rAF instrument
+  in the project is the home Tier-A WebGL field, which is absent from non-home pages).
+
+### Not measured (production owner to verify on mount)
+- Per-route JS gz against the ≤220 KB target / ≤300 KB ceiling.
+- Sustained ≥45 FPS and absence of >50 ms long tasks during demo playback and carousel scroll.
+- LCP / Lighthouse once primitives are mounted into real routes.

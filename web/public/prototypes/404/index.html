@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Page not found — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+  </head>
+  <body data-route="404">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — 404 / error.</strong>
+      Signature: disconnected-signal page. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. ERROR -->
+      <section class="ss-section" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <div class="ss-split" data-ratio="wide-left" style="align-items: center">
+            <div class="ss-error" data-reveal style="padding-block: var(--ss-space-12)">
+              <span class="ss-error__code">404</span>
+              <h1 id="page-title" class="ss-page-hero__title" style="margin-top: 0">This page isn't on the signal.</h1>
+              <p class="ss-page-hero__lead">
+                The link may be old, or the address slightly off. Nothing is broken — the page you
+                wanted just isn't here. Try one of the routes below.
+              </p>
+              <div class="ss-hero__cta-row" style="margin-top: var(--ss-space-6)">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/index.html">Back to home</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/contact/index.html">Contact us</a>
+              </div>
+            </div>
+
+            <figure class="ss-sig ss-sig--platinum" data-reveal style="margin: 0">
+              <svg class="ss-sig__inner" viewBox="0 0 320 220" role="img" aria-labelledby="err-title err-desc">
+                <title id="err-title">Disconnected signal</title>
+                <desc id="err-desc">A static signal line that breaks in the middle, with two unconnected endpoints — a calm, non-animated representation of a missing route.</desc>
+                <line class="ss-dgm-line" x1="34" y1="110" x2="286" y2="110" />
+                <path class="ss-dgm-signal" d="M34 110 H140" />
+                <path class="ss-dgm-signal" d="M180 110 H286" />
+                <circle class="ss-dgm-node ss-dgm-node--live" cx="34" cy="110" r="10" />
+                <circle class="ss-dgm-node" cx="140" cy="110" r="7" />
+                <circle class="ss-dgm-node" cx="180" cy="110" r="7" />
+                <circle class="ss-dgm-node ss-dgm-node--live" cx="286" cy="110" r="10" />
+                <text class="ss-dgm-text" x="160" y="92" text-anchor="middle">break</text>
+              </svg>
+              <figcaption class="ss-sig__label">Disconnected signal · static</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. HELPFUL ROUTES -->
+      <section class="ss-section ss-section--tight" aria-labelledby="routes-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Try these</span>
+            <h2 id="routes-heading" class="ss-section__title">Popular routes</h2>
+          </div>
+          <div class="ss-grid" data-cols="4" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/services/index.html">
+              <span class="ss-industry-card__pattern">Explore</span>
+              <span class="ss-industry-card__title">Services</span>
+              <span class="ss-industry-card__body">The six-capability decision matrix.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/industries/index.html">
+              <span class="ss-industry-card__pattern">Explore</span>
+              <span class="ss-industry-card__title">Industries</span>
+              <span class="ss-industry-card__body">The operating-pattern atlas.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/how-we-work/index.html">
+              <span class="ss-industry-card__pattern">Explore</span>
+              <span class="ss-industry-card__title">How we work</span>
+              <span class="ss-industry-card__body">The scope-to-release rail.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/blog/index.html">
+              <span class="ss-industry-card__pattern">Explore</span>
+              <span class="ss-industry-card__title">Insights</span>
+              <span class="ss-industry-card__body">Notes from the signal library.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>About — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+  </head>
+  <body data-route="about">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — About.</strong>
+      Signature: principles &amp; accountability ledger. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. HERO -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li aria-current="page">About</li>
+          </ol>
+          <div class="ss-split" data-ratio="wide-left">
+            <div data-reveal>
+              <span class="ss-pill"><span class="ss-pill__dot"></span>About Silverstone</span>
+              <h1 id="page-title" class="ss-page-hero__title">We build calm software, with a person in control.</h1>
+              <p class="ss-page-hero__lead">
+                Silverstone designs and builds web, product and automation work that keeps a human
+                accountable for the signal. This page sets out our principles and our boundaries —
+                not a head-count or a wall of logos.
+              </p>
+            </div>
+            <figure class="ss-sig ss-sig--platinum" data-reveal style="margin: 0">
+              <svg class="ss-sig__inner" viewBox="0 0 320 220" role="img" aria-labelledby="ledger-title ledger-desc">
+                <title id="ledger-title">Accountability ledger</title>
+                <desc id="ledger-desc">A branded poster: a central control ring with three balanced ledger rows representing automate, review and decline.</desc>
+                <circle class="ss-dgm-node ss-dgm-node--live" cx="160" cy="56" r="20" />
+                <circle cx="160" cy="56" r="6" fill="var(--ss-color-primitive-electric-cyan)" />
+                <path class="ss-dgm-signal" data-flow d="M160 76 V104 M160 104 H72 M160 104 H248 M160 104 V132" />
+                <rect class="ss-dgm-node" x="38" y="132" width="68" height="40" rx="8" />
+                <rect class="ss-dgm-node ss-dgm-node--live" x="126" y="132" width="68" height="40" rx="8" />
+                <rect class="ss-dgm-node" x="214" y="132" width="68" height="40" rx="8" />
+                <text class="ss-dgm-text" x="72" y="156" text-anchor="middle">Automate</text>
+                <text class="ss-dgm-text" x="160" y="156" text-anchor="middle">Review</text>
+                <text class="ss-dgm-text" x="248" y="156" text-anchor="middle">Decline</text>
+              </svg>
+              <figcaption class="ss-sig__label">Accountability ledger · poster</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. NARRATIVE -->
+      <section class="ss-section ss-section--tight" aria-labelledby="story-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">What we do</span>
+            <h2 id="story-heading" class="ss-section__title">A studio for honest operating software</h2>
+          </div>
+          <div class="ss-prose" style="margin-top: var(--ss-space-6)">
+            <p>
+              Most businesses do not need more software. They need the software they already have to
+              behave — to answer the routine question, capture the enquiry, and hand the rest to a
+              person who can decide. That is the work we take on.
+            </p>
+            <p>
+              We start with one repeated problem and the smallest useful step. We build it so it is
+              fast, accessible and easy to maintain, and we are explicit about where automation stops
+              and judgement begins. When something is outside the agreed rules, it escalates to a
+              person rather than guessing.
+            </p>
+            <p>
+              We would rather tell you a thing will not work than sell you a thing that will not work.
+              That principle shapes how we scope, how we build and how we report.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. PRINCIPLES -->
+      <section class="ss-section" aria-labelledby="principles-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Principles</span>
+            <h2 id="principles-heading" class="ss-section__title">Four operating principles</h2>
+          </div>
+          <div class="ss-grid" data-cols="4" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card"><span class="ss-card__index">01</span><h3 class="ss-card__title">A human stays in control</h3><p class="ss-card__body">Software escalates the decisions it cannot clearly own. People remain accountable.</p></article>
+            <article class="ss-card"><span class="ss-card__index">02</span><h3 class="ss-card__title">Smallest useful step</h3><p class="ss-card__body">We prove value with one focused build before expanding scope.</p></article>
+            <article class="ss-card"><span class="ss-card__index">03</span><h3 class="ss-card__title">Honest by default</h3><p class="ss-card__body">No invented metrics, no guaranteed rankings, no promises we cannot keep.</p></article>
+            <article class="ss-card"><span class="ss-card__index">04</span><h3 class="ss-card__title">Accessible and fast</h3><p class="ss-card__body">Keyboard, reduced motion and performance are requirements, not extras.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. DECISION LEDGER -->
+      <section class="ss-section ss-section--tight" aria-labelledby="ledger-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Decision ledger</span>
+            <h2 id="ledger-heading" class="ss-section__title">What we automate, review or decline</h2>
+            <p class="ss-section__lead">A simple test we apply to any piece of work before we agree to build it.</p>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <h3 class="ss-card__title">Automate</h3>
+              <p class="ss-card__body">Routine, well-defined, low-risk tasks with a clear right answer — capture, routing, status, reminders.</p>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">Review</h3>
+              <p class="ss-card__body">Tasks that need a person to check before acting — anything ambiguous, sensitive or high-impact.</p>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">Decline</h3>
+              <p class="ss-card__body">Work where automation would be unsafe or dishonest — clinical, legal or emergency judgement, or unbounded autonomy.</p>
+            </article>
+          </div>
+          <div class="ss-boundary" role="note" style="margin-top: var(--ss-space-6)">
+            <span aria-hidden="true">●</span>
+            If a task cannot be made safe and honest, we say no — and explain why.
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. METHOD & DOCUMENTATION -->
+      <section class="ss-section" aria-labelledby="method-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-split">
+            <div>
+              <span class="ss-eyebrow">Method</span>
+              <h2 id="method-heading" class="ss-section__title">How we keep ourselves honest</h2>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-5)">
+                <li>Every boundary is written down and signed off</li>
+                <li>Every prototype is tested by keyboard and with reduced motion</li>
+                <li>Every release ships with monitoring and a documented rollback</li>
+                <li>Every review records what we kept, changed or stopped</li>
+              </ul>
+            </div>
+            <div class="ss-note ss-note--info" role="note">
+              <strong>About this prototype.</strong>
+              This page intentionally contains no named team members, client names or performance
+              figures. Approved profiles and evidence are added only when verified.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. EVIDENCE SLOTS -->
+      <section class="ss-section ss-section--tight" aria-labelledby="evidence-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Profiles &amp; evidence</span>
+            <h2 id="evidence-heading" class="ss-section__title">Reserved for approved material</h2>
+            <p class="ss-section__lead">These slots hold approved founder/team profiles or case evidence in production. Nothing is invented here.</p>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <figure class="ss-card" style="padding: 0; overflow: hidden">
+              <div class="ss-article-card__cover" role="img" aria-label="Placeholder for an approved profile photo"></div>
+              <figcaption class="ss-card__body" style="padding: var(--ss-space-5)">Profile slot — approved name, role and short bio added in production.</figcaption>
+            </figure>
+            <figure class="ss-card" style="padding: 0; overflow: hidden">
+              <div class="ss-article-card__cover" role="img" aria-label="Placeholder for an approved profile photo"></div>
+              <figcaption class="ss-card__body" style="padding: var(--ss-space-5)">Profile slot — approved name, role and short bio added in production.</figcaption>
+            </figure>
+            <figure class="ss-card" style="padding: 0; overflow: hidden">
+              <div class="ss-article-card__cover" role="img" aria-label="Placeholder for approved evidence"></div>
+              <figcaption class="ss-card__body" style="padding: var(--ss-space-5)">Evidence slot — approved case detail with a factual caption added in production.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>See it in practice</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Principles are easier to judge in motion.</h2>
+                <p class="ss-chamber__body">Read how we work, or bring one repeated problem to a discovery call.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/how-we-work/index.html">How we work</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

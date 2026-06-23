@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Book a discovery call — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+  </head>
+  <body data-route="book">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — Book a discovery call.</strong>
+      Signature: preparation &amp; scheduling chamber. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. HERO -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li aria-current="page">Book a discovery call</li>
+          </ol>
+          <div data-reveal style="max-width: var(--ss-type-measure-lead)">
+            <span class="ss-pill"><span class="ss-pill__dot"></span>30-minute discovery call</span>
+            <h1 id="page-title" class="ss-page-hero__title">A prepared, 30-minute conversation.</h1>
+            <p class="ss-page-hero__lead">
+              No slide deck and no hard sell. We look at one repeated problem, sketch the boundary
+              where a person stays in control, and tell you honestly whether we are a fit.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. PREPARATION GUIDE -->
+      <section class="ss-section ss-section--tight" aria-labelledby="prep-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Before the call</span>
+            <h2 id="prep-heading" class="ss-section__title">Three things to bring</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card"><span class="ss-card__index">01</span><h3 class="ss-card__title">A repeated problem</h3><p class="ss-card__body">One task or enquiry type that happens often enough to be worth solving.</p></article>
+            <article class="ss-card"><span class="ss-card__index">02</span><h3 class="ss-card__title">Who it affects</h3><p class="ss-card__body">The people on the receiving end — customers, staff, or both.</p></article>
+            <article class="ss-card"><span class="ss-card__index">03</span><h3 class="ss-card__title">What "good" looks like</h3><p class="ss-card__body">A plain description of the outcome you would call a success.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. SCHEDULING CHAMBER + FORM -->
+      <section class="ss-section" aria-labelledby="schedule-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Schedule</span>
+            <h2 id="schedule-heading" class="ss-section__title">Pick a time, or send your details</h2>
+            <p class="ss-section__lead">In production this is a live scheduling embed with a contact fallback. In this prototype both are non-functional — nothing is sent or booked.</p>
+          </div>
+
+          <div class="ss-split" style="margin-top: var(--ss-space-8)">
+            <!-- Reserved scheduling geometry -->
+            <div class="ss-booking" role="group" aria-label="Scheduling embed placeholder">
+              <span class="ss-booking__mark">Scheduling embed · reserved space</span>
+              <p class="ss-card__title" style="margin: 0">Calendar loads here in production</p>
+              <p class="ss-prose" style="margin: 0 auto; max-width: 36ch">
+                The live page reserves this geometry so the layout never jumps while the calendar
+                loads, with a clear failure message and the contact form below as a fallback.
+              </p>
+              <p class="ss-note ss-note--info" role="note" style="margin-top: var(--ss-space-3)">Prototype: no calendar is loaded and no time can be booked.</p>
+            </div>
+
+            <!-- Fallback enquiry form -->
+            <form class="ss-form" aria-label="Discovery call request (non-functional prototype)" novalidate>
+              <p class="ss-note ss-note--info" role="note">This form is a non-functional prototype. Submitting does nothing and no data is stored or sent.</p>
+              <div class="ss-field">
+                <label class="ss-field__label" for="b-name">Your name</label>
+                <input class="ss-input" id="b-name" name="name" type="text" autocomplete="name" />
+              </div>
+              <div class="ss-field">
+                <label class="ss-field__label" for="b-email">Email</label>
+                <input class="ss-input" id="b-email" name="email" type="email" autocomplete="email" />
+                <span class="ss-field__hint">We only use this to arrange the call.</span>
+              </div>
+              <div class="ss-field">
+                <label class="ss-field__label" for="b-problem">The repeated problem</label>
+                <textarea class="ss-textarea" id="b-problem" name="problem"></textarea>
+              </div>
+              <div class="ss-field">
+                <label class="ss-field__label" for="b-time">Rough preferred time</label>
+                <select class="ss-select" id="b-time" name="time">
+                  <option value="morning">Weekday mornings</option>
+                  <option value="afternoon">Weekday afternoons</option>
+                  <option value="flexible">Flexible</option>
+                </select>
+              </div>
+              <button class="ss-btn ss-btn--primary" type="button">Request a call (disabled in prototype)</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. PRIVACY NOTE -->
+      <section class="ss-section ss-section--tight" aria-labelledby="privacy-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-split">
+            <div>
+              <span class="ss-eyebrow">Privacy</span>
+              <h2 id="privacy-heading" class="ss-section__title">Please don't share sensitive details yet</h2>
+              <p class="ss-prose" style="margin-top: var(--ss-space-4)">
+                A discovery call is an early conversation. Keep it high-level — there is no need to
+                send confidential, regulated or personal data at this stage.
+              </p>
+            </div>
+            <div class="ss-note ss-note--info" role="note">
+              <strong>Boundary.</strong>
+              We will tell you clearly what information is needed, and when, before any work begins.
+              See the <a href="/prototypes/privacy-policy/index.html">privacy notice</a>.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. WHAT HAPPENS AFTER -->
+      <section class="ss-section" aria-labelledby="after-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">After booking</span>
+            <h2 id="after-heading" class="ss-section__title">What happens next</h2>
+          </div>
+          <div class="ss-sequence" style="margin-top: var(--ss-space-8)">
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">Confirmation</p><p class="ss-sequence__body">You receive a calendar invite with a short note on what we will cover.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">The call</p><p class="ss-sequence__body">Thirty focused minutes on one problem, the boundary and whether we are a fit.</p></div></div>
+            <div class="ss-sequence__step"><div><p class="ss-sequence__title">A written summary</p><p class="ss-sequence__body">A plain recap of what we discussed and the smallest sensible next step — with no obligation.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. ALTERNATE CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Prefer to write first?</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Send an enquiry instead.</h2>
+                <p class="ss-chamber__body">If a call is not right yet, the contact console is a calmer way to start the conversation.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/contact/index.html">Go to contact</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/how-we-work/index.html">How we work</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

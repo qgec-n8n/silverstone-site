@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Estate agents — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body data-route="industries">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — Estate agents.</strong>
+      Signature: property-enquiry switchboard. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. HERO + SIGNATURE INSTRUMENT -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li><a href="/prototypes/industries/index.html">Industries</a></li>
+            <li aria-current="page">Estate agents</li>
+          </ol>
+          <div class="ss-split" data-ratio="wide-left">
+            <div data-reveal>
+              <span class="ss-pill"><span class="ss-pill__dot"></span>Enquiry-led · Estate agents</span>
+              <h1 id="page-title" class="ss-page-hero__title">Every property enquiry on its own clear line.</h1>
+              <p class="ss-page-hero__lead">Valuation requests, portal enquiries and viewing requests arrive together. A switchboard sorts each into its own lane and captures what the branch needs — while vendor and landlord updates stay visibly human-owned.</p>
+              <div class="ss-hero__cta-row" style="margin-top: var(--ss-space-6)">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="#demo">Run the property-enquiry switchboard</a>
+              </div>
+            </div>
+
+            <figure class="ss-sig ss-sig--platinum" data-reveal style="margin: 0">
+              <svg class="ss-sig__inner" viewBox="0 0 320 226" role="img" aria-labelledby="sig-title sig-desc">
+                <title id="sig-title">Enquiry switchboard</title>
+                <desc id="sig-desc">Three input lanes — Valuation, Viewing, Vendor — converge on a central enquiry record; one branch turns up to branch while the routine path continues to done.</desc>
+                <rect class="ss-dgm-node ss-dgm-node--live" x="14" y="38" width="96" height="32" rx="7" />
+                <text class="ss-dgm-text" x="22" y="58">Valuation</text>
+                <line class="ss-dgm-line" x1="110" y1="54" x2="150" y2="113" />
+                <rect class="ss-dgm-node" x="14" y="97" width="96" height="32" rx="7" />
+                <text class="ss-dgm-text" x="22" y="117">Viewing</text>
+                <line class="ss-dgm-line" x1="110" y1="113" x2="150" y2="113" />
+                <rect class="ss-dgm-node" x="14" y="156" width="96" height="32" rx="7" />
+                <text class="ss-dgm-text" x="22" y="176">Vendor</text>
+                <line class="ss-dgm-line" x1="110" y1="172" x2="150" y2="113" />
+                <rect class="ss-dgm-node ss-dgm-node--live" x="150" y="93" width="92" height="40" rx="9" />
+                <text class="ss-dgm-text" x="160" y="117">Enquiry</text>
+                <rect class="ss-dgm-node" x="246" y="26" width="62" height="34" rx="8" />
+                <text class="ss-dgm-text" x="253" y="47">Branch</text>
+                <rect class="ss-dgm-node" x="246" y="166" width="62" height="34" rx="8" />
+                <text class="ss-dgm-text" x="253" y="187">Done</text>
+                <path class="ss-dgm-signal" data-flow d="M242 108 L253 108 L253 60" />
+                <path class="ss-dgm-signal" d="M242 118 L253 118 L253 166" />
+                <circle cx="242" cy="113" r="3.5" fill="var(--ss-color-primitive-electric-cyan)" />
+                <circle cx="253" cy="60" r="3.5" fill="var(--ss-color-primitive-electric-cyan)" />
+              </svg>
+              <figcaption class="ss-sig__label">Property-enquiry switchboard · synthetic</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. WHERE FRICTION APPEARS -->
+      <section class="ss-section ss-section--tight" aria-labelledby="friction-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Before state</span>
+            <h2 id="friction-heading" class="ss-section__title">Where friction appears</h2>
+            <p class="ss-section__lead">Most agencies do not lose enquiries to a lack of effort. They lose them because the routes are tangled and the same lead is chased twice or not at all.</p>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <span class="ss-card__index">01</span>
+              <h3 class="ss-card__title">Three inboxes, one buyer</h3>
+              <p class="ss-card__body">Portal leads, web forms and calls land in different places, so the same person is contacted twice — or missed entirely.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">02</span>
+              <h3 class="ss-card__title">Viewings booked by phone tag</h3>
+              <p class="ss-card__body">A simple viewing takes four messages to arrange because no slot is offered at the point of interest.</p>
+            </article>
+            <article class="ss-card">
+              <span class="ss-card__index">03</span>
+              <h3 class="ss-card__title">Vendor updates feel automated</h3>
+              <p class="ss-card__body">Owners want a person; a generic auto-reply at the wrong moment reads as neglect.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. SIGNATURE WORKFLOW INSTRUMENT (DEMO) -->
+      <section class="ss-section" id="demo" aria-labelledby="demo-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-demo" data-demo="industry-estate-agents">
+            <div class="ss-demo__head">
+              <h2 id="demo-heading" class="ss-demo__title">Property-enquiry switchboard</h2>
+              <p class="ss-demo__purpose">Choose an incoming request. The switchboard sorts it into a lane and prepares a summary for the branch — or routes a vendor/landlord update straight to a person.</p>
+              <p class="ss-demo__synthetic">Synthetic &amp; deterministic — no live data, no autonomous action</p>
+            </div>
+
+            <form class="ss-demo__options" data-cols="1" aria-label="Workflow options">
+              <div class="ss-field">
+                <label class="ss-field__label" for="opt-intake">Incoming request</label>
+                <select class="ss-select" id="opt-intake" name="intake">
+                  <option value="valuation">Valuation request</option>
+                  <option value="viewing">Portal viewing enquiry</option>
+                  <option value="vendor">Vendor / landlord update</option>
+                </select>
+              </div>
+            </form>
+
+            <div class="ss-demo__controls">
+              <button class="ss-btn ss-btn--primary" type="button" data-demo-action="start" data-label-start="Start">Start</button>
+              <button class="ss-btn ss-btn--secondary" type="button" data-demo-action="reset">Reset</button>
+            </div>
+
+            <div class="ss-demo__board">
+              <div class="ss-demo__stage" data-demo-stage aria-label="Synthetic workflow"></div>
+              <div class="ss-demo__aside">
+                <p class="ss-demo__status" data-demo-status role="status" aria-live="polite"></p>
+                <div class="ss-demo__log-wrap">
+                  <p class="ss-demo__log-title">Event log</p>
+                  <ul class="ss-demo__log" data-demo-log aria-live="polite" aria-label="Demo event log"></ul>
+                </div>
+              </div>
+            </div>
+
+            <details class="ss-demo__disclosure">
+              <summary>What this demonstrates — and what it does not</summary>
+              <div class="ss-demo__matrix">
+                <div>
+                  <h4>Demonstrates</h4>
+                  <ul class="ss-list-check">
+                    <li>Sorting an intake into the right lane</li>
+                    <li>Preparing a summary for a person to confirm</li>
+                    <li>Routing the sensitive case to a human boundary</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Does not</h4>
+                  <ul class="ss-list-check">
+                    <li>Confirm, book or decide anything automatically</li>
+                    <li>Use real customer data or live integrations</li>
+                    <li>Cross the human-in-control boundary</li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+
+            <p class="ss-demo__fallback" data-demo-fallback>
+              Static fallback: an intake is captured and sorted into a lane; routine requests reach a prepared
+              summary for a person to confirm, and the sensitive request is routed to the branch team.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. RELEVANT SERVICE COMBINATION -->
+      <section class="ss-section" aria-labelledby="services-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Relevant services</span>
+            <h2 id="services-heading" class="ss-section__title">What we'd combine for estate agents</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/services/web-design-development/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">Web design &amp; development</span>
+              <span class="ss-industry-card__body">A property site where the primary path is a clear enquiry, not a maze of menus.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/services/ai-receptionists/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">AI receptionists</span>
+              <span class="ss-industry-card__body">Captures portal and phone enquiries after hours and routes them to the right lane.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/services/ai-automation/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">AI automation &amp; agent workflows</span>
+              <span class="ss-industry-card__body">Sorts and prepares enquiries so the branch starts every day with a clean list.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. SAFEGUARD CHAMBER -->
+      <section class="ss-section ss-section--tight" aria-labelledby="boundary-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-boundary" role="note">
+            <span class="ss-eyebrow">Human in control</span>
+            <h2 id="boundary-heading" class="ss-section__title">Vendor and landlord relationships stay human</h2>
+            <p class="ss-section__lead">Automation captures and prepares — it never values a property, negotiates, or replies to an owner on the branch's behalf. The sensitive relationship always reaches a person.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. TOOLS RAIL -->
+      <section class="ss-section" aria-labelledby="tools-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Works with your stack</span>
+            <h2 id="tools-heading" class="ss-section__title">Tools this sector commonly uses</h2>
+            <p class="ss-section__lead">Compatibility categories, not confirmed live integrations. The right set is agreed with you in production.</p>
+          </div>
+
+          <div class="ss-tools" data-tools style="margin-top: var(--ss-space-6)">
+            <div class="ss-tools__filters" role="group" aria-label="Filter tools by category">
+              <button class="ss-tools__filter" type="button" data-tools-filter="all" aria-pressed="true">All</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Scheduling" aria-pressed="false">Scheduling</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="CRM" aria-pressed="false">CRM</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Portals" aria-pressed="false">Portals</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Email" aria-pressed="false">Email</button>
+              <button class="ss-tools__filter" type="button" data-tools-filter="Analytics" aria-pressed="false">Analytics</button>
+            </div>
+
+            <p class="ss-tools__status" data-tools-status aria-live="polite"></p>
+
+            <div class="ss-tools__viewport">
+              <ul class="ss-tools__rail" data-tools-rail tabindex="0" role="list" aria-label="Compatible tool categories">
+                <li class="ss-tool-card" data-category="Scheduling">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Booking calendars</span><span class="ss-tag">Scheduling</span></div>
+                  <p class="ss-tool-card__body">Offer a viewing slot at the moment of interest instead of a callback promise.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">A calendar is placed beside the enquiry CTA; configuration happens in production.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="CRM">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">CRM handoff</span><span class="ss-tag">CRM</span></div>
+                  <p class="ss-tool-card__body">Route enquiries into your CRM so a lead is never lost between portals.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Field mapping is agreed during build; no data flows in this prototype.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Portals">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Portal capture</span><span class="ss-tag">Portals</span></div>
+                  <p class="ss-tool-card__body">Bring portal leads into one place alongside web and phone enquiries.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Portal connections are configured with you; this prototype only shows the shape.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Email">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Email &amp; nurture</span><span class="ss-tag">Email</span></div>
+                  <p class="ss-tool-card__body">Keep buyers warm with consent-based, clearly-owned follow-ups.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Connects to your email platform; staging keeps delivery mocked.</p></details>
+                </li>
+                <li class="ss-tool-card" data-category="Analytics">
+                  <div class="ss-tool-card__head"><span class="ss-tool-card__name">Analytics</span><span class="ss-tag">Analytics</span></div>
+                  <p class="ss-tool-card__body">See which enquiry routes actually get used.</p>
+                  <details class="ss-tool-card__disclosure"><summary>What this means</summary><p class="ss-tool-card__detail">Disabled by default in staging; enabled with consent in production.</p></details>
+                </li>
+              </ul>
+            </div>
+
+            <div class="ss-tools__controls">
+              <button class="ss-tools__nav" type="button" data-tools-prev aria-label="Previous tools">‹</button>
+              <button class="ss-tools__nav" type="button" data-tools-next aria-label="Next tools">›</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. QUALIFICATION QUESTIONS -->
+      <section class="ss-section ss-section--tight" aria-labelledby="qualify-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-split">
+            <div>
+              <span class="ss-eyebrow">Is this you?</span>
+              <h2 id="qualify-heading" class="ss-section__title">A few questions worth asking first</h2>
+            </div>
+            <ul class="ss-list-check" style="margin-top: var(--ss-space-5)">
+              <li>Do enquiries arrive across more than one inbox or portal?</li>
+              <li>Are viewings still arranged by back-and-forth messages?</li>
+              <li>Who owns vendor and landlord communication today?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. RELATED -->
+      <section class="ss-section ss-section--tight" aria-labelledby="related-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Related</span>
+            <h2 id="related-heading" class="ss-section__title">Where this fits</h2>
+          </div>
+          <div class="ss-grid" data-cols="3" style="margin-top: var(--ss-space-8)">
+            <a class="ss-industry-card" href="/prototypes/services/ai-receptionists/index.html">
+              <span class="ss-industry-card__pattern">Service</span>
+              <span class="ss-industry-card__title">AI receptionists</span>
+              <span class="ss-industry-card__body">Catch after-hours enquiries and route them to the right lane.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/industries/index.html">
+              <span class="ss-industry-card__pattern">Industries</span>
+              <span class="ss-industry-card__title">All industries</span>
+              <span class="ss-industry-card__body">See how other sectors map to operating patterns.</span>
+            </a>
+            <a class="ss-industry-card" href="/prototypes/blog/index.html">
+              <span class="ss-industry-card__pattern">Insight</span>
+              <span class="ss-industry-card__title">Read the journal</span>
+              <span class="ss-industry-card__body">Notes on clarity, structure and honest measurement.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Start here</span>
+                <h2 id="cta-heading" class="ss-chamber__title">Let's map the estate agents path.</h2>
+                <p class="ss-chamber__body">A 30-minute discovery call. We look at one real workflow, agree where a person must stay in control, and tell you honestly whether we are a fit.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/industries/index.html">See all industries</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>

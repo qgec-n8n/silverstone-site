@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Pricing — Silverstone (visual prototype)</title>
+    <link rel="stylesheet" href="/prototypes/assets/prototype-tokens.css" />
+    <link rel="stylesheet" href="/prototypes/assets/prototype.css" />
+    <link rel="stylesheet" href="/prototypes/assets/pages.css" />
+    <script type="module" src="/prototypes/assets/chrome.js"></script>
+    <script type="module" src="/prototypes/assets/prototype.js"></script>
+    <script type="module" src="/prototypes/assets/reveal.js"></script>
+    <script type="module" src="/prototypes/assets/demo.js"></script>
+    <script type="module" src="/prototypes/assets/tools-carousel.js"></script>
+  </head>
+  <body data-route="pricing">
+    <a class="ss-skip-link" href="#main">Skip to content</a>
+    <p class="ss-proto-banner">
+      <strong>PROTOTYPE — Pricing.</strong>
+      Signature: scope-variables configurator. Static visual preview, not production.
+      <a href="/prototypes/index.html">All prototypes</a>
+    </p>
+
+    <header data-site-nav></header>
+
+    <main id="main">
+      <!-- 1. HERO -->
+      <section class="ss-section ss-page-hero" aria-labelledby="page-title">
+        <div class="ss-container" data-size="max">
+          <ol class="ss-breadcrumb">
+            <li><a href="/prototypes/index.html">Home</a></li>
+            <li aria-current="page">Pricing</li>
+          </ol>
+          <div data-reveal style="max-width: var(--ss-type-measure-lead)">
+            <span class="ss-pill"><span class="ss-pill__dot"></span>How scope becomes price</span>
+            <h1 id="page-title" class="ss-page-hero__title">Price starts with a clearly defined scope.</h1>
+            <p class="ss-page-hero__lead">
+              We do not publish a one-size figure, because honest pricing follows the work. This page
+              explains the variables that move a price and the phases an engagement runs through. Any
+              numbers shown are illustrative, not a quote.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. SCOPE VARIABLES (interactive explainer, text only) -->
+      <section class="ss-section ss-section--tight" aria-labelledby="scope-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Five variables</span>
+            <h2 id="scope-heading" class="ss-section__title">What moves a price</h2>
+            <p class="ss-section__lead">Open each variable to see how it changes the explanation. This explainer changes text only — it never calculates a quote.</p>
+          </div>
+          <div class="ss-scope-explainer" style="margin-top: var(--ss-space-8)">
+            <div class="ss-faq">
+              <details class="ss-faq__item">
+                <summary>Complexity</summary>
+                <p class="ss-faq__answer">A single well-defined flow costs less than many interacting ones. The more decisions, states and edge cases involved, the more design and testing the work needs.</p>
+              </details>
+              <details class="ss-faq__item">
+                <summary>Systems involved</summary>
+                <p class="ss-faq__answer">Connecting to one tool you already control is simpler than coordinating several systems with different owners, permissions and reliability.</p>
+              </details>
+              <details class="ss-faq__item">
+                <summary>Risk</summary>
+                <p class="ss-faq__answer">Higher-impact or regulated work needs more review, stronger safeguards and a clearer boundary — which adds to the effort, and is worth it.</p>
+              </details>
+              <details class="ss-faq__item">
+                <summary>Content &amp; data readiness</summary>
+                <p class="ss-faq__answer">If approved answers, content and clean data already exist, we move faster. If they need to be gathered or cleaned first, that becomes part of the scope.</p>
+              </details>
+              <details class="ss-faq__item">
+                <summary>Support</summary>
+                <p class="ss-faq__answer">A one-off build differs from an ongoing, monitored service. The level of monitoring, response and iteration you want shapes the running cost.</p>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. ENGAGEMENT PHASES (illustrative tiers, no quote) -->
+      <section class="ss-section" aria-labelledby="tiers-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Engagement phases</span>
+            <h2 id="tiers-heading" class="ss-section__title">How work is usually shaped</h2>
+            <p class="ss-section__lead">Illustrative phases, not packages with fixed prices. Figures are deliberately omitted — every engagement is scoped to your problem.</p>
+          </div>
+          <div class="ss-pricing-grid" style="margin-top: var(--ss-space-8)">
+            <article class="ss-tier">
+              <span class="ss-tier__name">Discovery</span>
+              <p class="ss-tier__price">Illustrative<br /><small>scoped per problem — not a quote</small></p>
+              <p class="ss-tier__note">A short, focused engagement to map one repeated problem and the boundary.</p>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-2)">
+                <li>Problem statement and success definition</li>
+                <li>Boundary and human-control points</li>
+                <li>A recommended smallest useful step</li>
+              </ul>
+            </article>
+            <article class="ss-tier" data-featured="true">
+              <span class="ss-tier__name">First release</span>
+              <p class="ss-tier__price">Illustrative<br /><small>scoped per problem — not a quote</small></p>
+              <p class="ss-tier__note">Design, build and test of the smallest useful flow, then ship it.</p>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-2)">
+                <li>One focused, accessible, fast build</li>
+                <li>Exception and handoff paths included</li>
+                <li>Monitoring and a documented rollback</li>
+              </ul>
+            </article>
+            <article class="ss-tier">
+              <span class="ss-tier__name">Run &amp; improve</span>
+              <p class="ss-tier__price">Illustrative<br /><small>scoped per problem — not a quote</small></p>
+              <p class="ss-tier__note">Ongoing monitoring, support and scheduled reviews after release.</p>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-2)">
+                <li>Health checks and response</li>
+                <li>Reviews that decide the next step</li>
+                <li>Iteration scoped as you go</li>
+              </ul>
+            </article>
+          </div>
+          <div class="ss-note ss-note--info" role="note" style="margin-top: var(--ss-space-6)">
+            <strong>Illustrative, not a quote.</strong>
+            Nothing on this page is a price or an offer. Real figures come only after we have agreed
+            a scope together.
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. INCLUDED / EXCLUDED -->
+      <section class="ss-section ss-section--tight" aria-labelledby="incexc-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Scope checklist</span>
+            <h2 id="incexc-heading" class="ss-section__title">What's typically in and out</h2>
+          </div>
+          <div class="ss-split" style="margin-top: var(--ss-space-8)">
+            <article class="ss-card">
+              <h3 class="ss-card__title">Usually included</h3>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-4)">
+                <li>Design, build and testing of the agreed flow</li>
+                <li>Accessibility and performance as requirements</li>
+                <li>Documentation of decisions and boundaries</li>
+              </ul>
+            </article>
+            <article class="ss-card">
+              <h3 class="ss-card__title">Usually separate</h3>
+              <ul class="ss-list-check" style="margin-top: var(--ss-space-4)">
+                <li>Third-party licences and platform fees</li>
+                <li>Content creation where it is a project of its own</li>
+                <li>Open-ended feature lists beyond the agreed scope</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. FAQ -->
+      <section class="ss-section" aria-labelledby="faq-heading" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-section__head">
+            <span class="ss-eyebrow">Questions</span>
+            <h2 id="faq-heading" class="ss-section__title">Pricing questions</h2>
+          </div>
+          <div class="ss-faq" style="margin-top: var(--ss-space-8)">
+            <details class="ss-faq__item">
+              <summary>Why aren't there fixed prices?</summary>
+              <p class="ss-faq__answer">Because the same headline goal can mean very different work. A fixed figure would either over-charge the simple cases or under-deliver the complex ones. We price the scope we agree.</p>
+            </details>
+            <details class="ss-faq__item">
+              <summary>How do I get an actual figure?</summary>
+              <p class="ss-faq__answer">Start with a discovery call. Once we have agreed a problem and a smallest useful step, we can give you a real, written scope and cost.</p>
+            </details>
+            <details class="ss-faq__item">
+              <summary>Can we start small?</summary>
+              <p class="ss-faq__answer">Yes — that is our default. We would rather prove a first release than commit you to a large programme up front.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. CTA -->
+      <section class="ss-section" id="cta" aria-labelledby="cta-heading" style="padding-block: var(--ss-space-8) var(--ss-space-16)" data-reveal>
+        <div class="ss-container" data-size="max">
+          <div class="ss-chamber ss-on-graphite">
+            <div class="ss-chamber__grid">
+              <div>
+                <span class="ss-pill"><span class="ss-pill__dot"></span>Get a real scope</span>
+                <h2 id="cta-heading" class="ss-chamber__title">A figure starts with a conversation.</h2>
+                <p class="ss-chamber__body">Bring one repeated problem to a discovery call and we'll scope it honestly.</p>
+              </div>
+              <div class="ss-chamber__actions">
+                <a class="ss-btn ss-btn--primary" href="/prototypes/book/index.html">Book a discovery call</a>
+                <a class="ss-btn ss-btn--secondary" href="/prototypes/how-we-work/index.html">How we work</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+  </body>
+</html>
