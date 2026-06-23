@@ -2,4 +2,5 @@
 - [Vite dev re-optimize → hook/hydration errors](vite-react-reoptimize-hook-errors.md) — transient "Invalid hook call"/"Hydration failed" in /web dev = stale React chunk during Vite re-optimization, not a code bug; fix with resolve.dedupe + optimizeDeps.include.
 - [Workspace skill & MCP wiring](workspace-skill-wiring.md) — `.agents/skills/` + `.mcp.json` are the sources of truth; run `node .agents/sync-skills.mjs` to regenerate `.claude/skills/` symlinks + Codex MCP block.
 - [Playwright matrix on NixOS](playwright-nixos-prototype-matrix.md) — bundled Chromium needs BOTH `mesa`+`libgbm`; drive via /tmp CJS require; prototype URL needs explicit `.html`.
+- [/tmp/logs are frozen snapshots](replit-log-snapshots-stale.md) — bash grep/tail on them shows stale output; call `refresh_all_logs` to get fresh dev-server logs after an edit.
 - [Canvas assets vs. checkpoint write-scope](canvas-checkpoint-scope.md) — `.canvas/` board images are untracked but get swept into checkpoints; under strict write-scope exclude via `.git/info/exclude`, not tracked `.gitignore`.
