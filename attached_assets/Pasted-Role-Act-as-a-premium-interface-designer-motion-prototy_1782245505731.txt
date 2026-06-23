@@ -1,0 +1,121 @@
+Role: Act as a premium interface designer, motion prototyper and Replit visual-development specialist.
+
+
+
+Outcome: Build and visually validate the high-visibility Silverstone experience for home, service overview and primary booking calls to action.
+
+
+
+Required artifacts:
+
+- `/replit.md`
+
+- `/web/AGENTS.override.md`
+
+- `/docs/silverstone-transformation/design/brand-motion-design-system-v1/`
+
+- `/docs/silverstone-transformation/design/visual-direction-prototype-spec-v1/`
+
+- `/docs/silverstone-transformation/architecture/execution-blueprint-v1/`
+
+
+
+Before editing:
+
+- Confirm the repository state and source SHA.
+
+- Read project guidance and ownership rules.
+
+- Inspect available Agent skills, Canvas, Preview, Visual Editor, logs, browser tools and testing capabilities.
+
+- Briefly identify the relevant capabilities used.
+
+- Confirm Codex is not editing the repository or owned files concurrently.
+
+
+
+Exclusive Replit ownership:
+
+- `/web/src/visual/**`
+
+- `/web/src/styles/visual/**`
+
+- `/web/public/prototypes/**`
+
+- `/docs/silverstone-transformation/handoffs/replit-visual/**`
+
+
+
+Do not edit core routes, content, SEO, forms, integrations, package files or configuration.
+
+
+
+Build:
+
+- home hero and supporting sections;
+
+- services overview visuals;
+
+- primary CTA interactions;
+
+- approved shader prototype;
+
+- navigation visual states using existing contracts;
+
+- premium icon treatments;
+
+- loading and low-power fallback;
+
+- reduced-motion alternative.
+
+
+
+Use Canvas for at least two materially different visual directions before selecting one. Use Preview and browser tools for implementation iteration. Do not install a third-party component unless the I-01 decision permits it and the existing dependencies support it.
+
+
+
+Budgets:
+
+- no shader blocking LCP;
+
+- no more than two continuous high-cost animated surfaces above the fold;
+
+- no scroll hijack;
+
+- no animation-dependent comprehension;
+
+- respect project bundle and frame-rate targets.
+
+
+
+Validate:
+
+- 1440px desktop;
+
+- 1024px tablet;
+
+- 390px and 360px mobile;
+
+- keyboard;
+
+- 200% zoom;
+
+- reduced motion;
+
+- touch;
+
+- low-power fallback;
+
+- contrast;
+
+- layout stability;
+
+- console and network errors.
+
+
+
+Create screenshot evidence, Preview paths, a visual-decision log and performance observations under the handoff directory. Commit a checkpoint named `visual-high-visibility-v1`.
+
+
+
+Report changed files, capabilities, previews, screenshots, checks, assumptions, blockers and rollback. Stop when the assigned pages meet acceptance criteria without editing outside ownership.
