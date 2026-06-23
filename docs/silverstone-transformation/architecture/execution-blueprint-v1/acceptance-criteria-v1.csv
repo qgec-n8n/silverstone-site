@@ -1,0 +1,37 @@
+id,area,criterion,validation_method,threshold,owner,gate,required_evidence,severity
+AC-001,repository,Target application exists only under /web,git diff/path audit,No implementation changes outside /web except approved docs,foundation owner,G1,path diff report,P1
+AC-002,production safety,Legacy root unchanged,hash and git diff comparison,Zero unapproved changes,release owner,G0/G6,baseline hash report,P0
+AC-003,routes,Canonical route count,route registry validator,Exactly 50,route owner,G1/G6,route report,P1
+AC-004,routes,Canonical path parity,CSV-to-generated comparison,"Zero missing, extra or changed retained paths",route owner,G3/G6,route diff,P1
+AC-005,rendering,Meaningful initial HTML,JS-disabled and HTML parse test,"Core heading, copy, links, pricing and schema present",architecture owner,G1/G3,HTML report,P1
+AC-006,seo,Unique metadata and canonical,build validator,Zero duplicate paths/canonicals; approved title rules,SEO owner,G3,metadata report,P1
+AC-007,seo,Sitemap parity,generated sitemap comparison,All retained indexable routes; no staging host,SEO owner,G6,sitemap diff,P1
+AC-008,seo,Redirect integrity,deployment crawl,One terminal response; no loops/self-redirects,SEO/release owner,G6,redirect report,P1
+AC-009,http,Unknown route behaviour,HTTP test,Genuine 404 status,release owner,G6,HTTP log,P1
+AC-010,performance,Initial-route JavaScript target,bundle analyser,≤220 KB gzip excluding deferred shader,performance owner,G5,bundle report,P2
+AC-011,performance,Initial-route JavaScript hard ceiling,bundle analyser,≤300 KB gzip,performance owner,G5,bundle report,P1
+AC-012,performance,LCP,representative mobile lab,≤2500 ms on required route set,performance owner,G5,lab report,P2
+AC-013,performance,CLS,representative mobile lab,≤0.1,performance owner,G5,lab report,P1
+AC-014,performance,INP,representative interaction lab,≤200 ms,performance owner,G5,lab report,P1
+AC-015,accessibility,Automated accessibility score,Lighthouse/axe equivalent,≥95 target and zero critical violations,accessibility owner,G3/G5,a11y report,P1
+AC-016,accessibility,Keyboard completion,manual browser test,All interactive flows complete without pointer,accessibility owner,G3/G6,test notes,P1
+AC-017,motion,Animation long task,performance trace,No animation-caused long task >50 ms,motion owner,G5,trace,P1
+AC-018,motion,Sustained desktop frame rate,performance trace,≥45 FPS during heaviest approved effect,motion owner,G5,FPS report,P1
+AC-019,motion,Reduced-motion comprehension,manual + screenshot,All information and actions remain understandable,accessibility/motion owners,G5,screenshots,P1
+AC-020,motion,Native scrolling,code review and browser test,No scroll hijacking or virtual scroll,architecture owner,G5,review record,P1
+AC-021,staging,Search-engine blocking,header/meta/network test,X-Robots-Tag plus page noindex/nofollow/noarchive,release owner,G6,header captures,P0
+AC-022,email,No production email from staging,guard test and sink inspection,Zero production sends; production key/recipient absent,integration owner,G4/G6,guard log,P0
+AC-023,booking,No production Calendly booking,configuration review and test,Zero production bookings,integration owner,G4/G6,test record,P0
+AC-024,analytics,No production analytics contamination,network and property inspection,Zero events to production property,integration owner,G4/G6,network log,P0
+AC-025,secrets,No secrets committed,secret scan,Zero verified secrets,security/release owner,G1/G6,scan report,P0
+AC-026,ownership,No Codex/Replit overlap,lease and git history review,Zero overlapping edit windows for same path,delivery owner,all,lease log,P1
+AC-027,content,Claim governance,claim ledger review,"Every quantified/absolute claim approved, qualified, removed or pending-blocked",content owner,G3,claim ledger,P1
+AC-028,integration,Contact states and fallback,component/E2E tests,"Pending, success, failure and alternate contact path accessible",integration owner,G4,test report,P1
+AC-029,calendly,Embed fallback and layout,browser test,"Reserved space, keyboard path and /contact fallback",integration owner,G4,screenshots,P1
+AC-030,assets,Image dimensions and responsive behaviour,build/DOM audit,All content images have dimensions; no broken images,asset owner,G3/G6,asset report,P1
+AC-031,visual,Horizontal overflow,390x844 and desktop checks,No unintended overflow,visual QA owner,G3/G6,screenshots,P1
+AC-032,quality,Clean build reproducibility,fresh checkout CI,"Install, typecheck, lint, test and build pass",quality owner,G1/G6,CI log,P1
+AC-033,rollback,Staging rollback rehearsal,deployment exercise,Previous accepted SHA restored successfully,release owner,G6,rehearsal log,P1
+AC-034,handoff,Handoff completeness,schema review,All mandatory fields and evidence present,delivery owner,all,handoff record,P1
+AC-035,routes,Gyms canonical discrepancy resolved,fresh crawl + decision,Canonical/alias relationship documented before redirect release,SEO owner,G6,decision record,P1
+AC-036,routes,Former redirect-loop route safe,deployment crawl,No self-loop; owner-approved terminal behaviour,SEO owner,G6,redirect report,P1

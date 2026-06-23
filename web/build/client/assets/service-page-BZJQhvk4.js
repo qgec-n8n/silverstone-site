@@ -1,1 +1,0 @@
-import{p as o}from"./chunk-4ZMWKKQ3-CB62NcrS.js";import{R as t}from"./route-page-frame-BoP0O_zB.js";function i({content:e=null,route:r}){return o.jsx(t,{content:e,eyebrow:"Services",route:r})}export{i as S};

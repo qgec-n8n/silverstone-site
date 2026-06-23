@@ -1,0 +1,50 @@
+import type { LoaderFunctionArgs, MetaFunction } from "react-router";
+import { useLoaderData } from "react-router";
+
+import { loadMigratedContent, type MigratedContentRecord } from "~/content/migrated";
+import { getFutureRouteByPath, type FutureRouteRecord } from "~/data/future-routes";
+import { IndustryPage } from "~/routes/templates/industry-page";
+import { ServicePage } from "~/routes/templates/service-page";
+import { normalizeRouteRequestPath } from "~/routes/shared/route-data";
+import {
+  buildRouteMetadata,
+  type MetadataDescriptor,
+} from "~/seo/metadata";
+
+type ServiceDetailLoaderData = {
+  content: MigratedContentRecord | null;
+  route: FutureRouteRecord;
+};
+
+export async function loader({
+  request,
+}: LoaderFunctionArgs): Promise<ServiceDetailLoaderData> {
+  const path = normalizeRouteRequestPath(new URL(request.url).pathname);
+  const route = getFutureRouteByPath(path);
+
+  if (!route || (route.routeGroup !== "services" && route.routeGroup !== "industries")) {
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
+    throw new Response("Not Found", {
+      status: 404,
+      statusText: "Not Found",
+    });
+  }
+
+  return {
+    content: route.lifecycle === "retained" ? await loadMigratedContent(route.contentId) : null,
+    route,
+  };
+}
+
+export const meta: MetaFunction<typeof loader> = ({ loaderData }) =>
+  loaderData ? buildRouteMetadata(loaderData.route) : ([] as MetadataDescriptor[]);
+
+export default function ServiceDetailRoute() {
+  const { content, route } = useLoaderData<typeof loader>();
+
+  return route.template === "industry" ? (
+    <IndustryPage content={content} route={route} />
+  ) : (
+    <ServicePage content={content} route={route} />
+  );
+}

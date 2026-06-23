@@ -1,0 +1,32 @@
+flowchart TD
+  A[C01 rebuild decision] --> B[D02 execution foundation]
+  B --> C[Typed route registry]
+  B --> D[Design tokens and accessible primitives]
+  B --> E[SSG/pre-render proof]
+  C --> F[Content records and claim ledger]
+  C --> G[SEO metadata/schema/sitemap]
+  D --> H[Shared shell]
+  E --> I[Main and legal routes]
+  F --> I
+  G --> I
+  H --> I
+  I --> J[Service routes]
+  I --> K[Blog template and pilot articles]
+  K --> L[Remaining blog routes]
+  J --> M[Integration adapters]
+  L --> M
+  M --> N[Motion enhancement]
+  N --> O[Quality hardening]
+  O --> P[transformation/staging]
+  P --> Q[Acceptance evidence]
+  Q -. separate owner-authorised release .-> R[Production cutover]
+
+  X[Legacy root] -. untouched rollback baseline .-> P
+  Y[Replit visual branch] -->|non-overlapping reviewed patch| D
+  Y -->|screenshots and app-test evidence| O
+  Z[Codex worktrees] --> B
+  Z --> C
+  Z --> G
+  Z --> M
+  Z --> O
+

@@ -1,4 +1,49 @@
-# Codex runtime artifacts (keep config tracked)
+# Dependencies
+node_modules/
+
+# Build, framework, and test output
+build/
+dist/
+coverage/
+playwright-report/
+test-results/
+.react-router/
+.vite/
+.cache/
+*.tsbuildinfo
+
+# Logs and temporary output
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+*.tmp
+*.temp
+tmp/
+temp/
+.npm-cache/
+.playwright-cli/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!web/.env.example
+!web/.env.staging
+
+# OS and editor metadata
+.DS_Store
+._*
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Agent/editor-local state
+.claude/settings.local.json
+.codex-venv/
+
+# Codex runtime artifacts (keep shared config tracked)
 .codex/*
 !.codex/config.toml
 !.codex/README.md

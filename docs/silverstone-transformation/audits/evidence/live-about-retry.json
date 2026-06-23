@@ -1,0 +1,21 @@
+{
+  "file": "about.html",
+  "route": "/about",
+  "retry": true,
+  "finalUrl": "https://silverstone-ai.com/about",
+  "title": "About Us | Silverstone AI",
+  "canonical": "https://silverstone-ai.com/about",
+  "h1s": [
+    "About Silverstone AI"
+  ],
+  "scrollWidth": 1185,
+  "viewportWidth": 1200,
+  "brokenImages": [
+    ""
+  ],
+  "parallaxSections": 1,
+  "desktopFixedParallax": 1,
+  "shader": true,
+  "rumScripts": 0,
+  "cookieDisplay": "flex"
+}

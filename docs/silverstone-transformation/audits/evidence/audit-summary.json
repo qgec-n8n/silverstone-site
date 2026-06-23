@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-06-22T21:28:29.402Z",
+  "pinnedSourceSha": "1e445c305c30cae93d5f6427135a238be8d58c14",
+  "branch": "transformation/audit",
+  "routes": {
+    "filesystem": 50,
+    "sitemap": 50,
+    "expectedSitemap": 50,
+    "live200": 49,
+    "liveRedirectLoops": 1,
+    "groups": {
+      "main": 7,
+      "legal": 1,
+      "services": 9,
+      "blog": 33
+    }
+  },
+  "redirects": {
+    "definitions": 85,
+    "uniqueSources": 83,
+    "duplicateSources": [
+      {
+        "from": "/blog/ai-lead-capture-trades-uk-2026.html",
+        "count": 2
+      },
+      {
+        "from": "/blog/ai-returns-triage-ecommerce-uk.html",
+        "count": 2
+      }
+    ],
+    "selfRedirects": [
+      {
+        "from": "/blog/ai-lead-capture-trades-uk-2026",
+        "to": "/blog/ai-lead-capture-trades-uk-2026",
+        "status": 301,
+        "force": true
+      }
+    ]
+  },
+  "assets": {
+    "count": 1615,
+    "totalBytes": 703128292,
+    "byLifecycle": {
+      "authored-public-asset": 177,
+      "unreferenced": 155,
+      "generated-bundle": 4,
+      "authored-font": 2,
+      "generated-image-source": 42,
+      "generated-derivative": 1227,
+      "copied-vendor": 8
+    },
+    "duplicateGroups": 9,
+    "unreferencedBytes": 138847764
+  },
+  "pageSignals": {
+    "jsonLdPages": 49,
+    "analyticsPages": 48,
+    "parallaxPages": 49,
+    "shaderPages": 17,
+    "pricingWidgetPages": 10,
+    "imageCount": 206,
+    "imagesMissingDimensions": 206
+  }
+}

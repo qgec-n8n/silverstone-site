@@ -1,0 +1,39 @@
+id,theme,foreground_token,foreground_hex,background_token,background_hex,intended_use,required_ratio,computed_ratio,status,restriction_or_note,source
+CM-001,light,text.primary,#39454D,surface.canvas,#FFFFFF,normal text,4.5,9.85,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-002,light,text.secondary,#43555D,surface.canvas,#FFFFFF,normal text,4.5,7.79,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-003,light,text.muted,#66747B,surface.canvas,#FFFFFF,normal text,4.5,4.83,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-004,light,text.link,#246B74,surface.canvas,#FFFFFF,normal text,4.5,6.12,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-005,light,action.primary-fg,#FFFFFF,action.primary-bg,#39454D,button text,4.5,9.85,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-006,light,action.primary-fg,#FFFFFF,action.primary-hover-bg,#43555D,button text,4.5,7.79,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-007,light,action.accent-fg,#FFFFFF,action.accent-bg,#246B74,button text,4.5,6.12,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-008,light,border.default,#77858B,surface.canvas,#FFFFFF,required UI boundary,3.0,3.81,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-009,light,focus.ring,#39454D,surface.canvas,#FFFFFF,focus indicator,3.0,9.85,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-010,dark,text.primary,#FFFFFF,surface.subtle,#39454D,normal text,4.5,9.85,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-011,dark,text.secondary,#E9EAEF,surface.subtle,#39454D,normal text,4.5,8.20,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-012,dark,text.muted,#C4C7CC,surface.subtle,#39454D,normal text,4.5,5.81,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-013,dark,text.link,#5EC5D0,surface.subtle,#39454D,normal text,4.5,4.86,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-014,dark,action.primary-fg,#39454D,action.primary-bg,#5EC5D0,button text,4.5,4.86,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-015,dark,border.default,#A0A4AB,surface.subtle,#39454D,required UI boundary,3.0,3.94,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-016,dark,focus.ring,#FFFFFF,surface.subtle,#39454D,focus indicator,3.0,9.85,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-017,light,state.success-fg,#246B4A,surface.canvas,#FFFFFF,status text,4.5,6.41,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-018,light,state.warning-fg,#7A5600,surface.canvas,#FFFFFF,status text,4.5,6.65,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-019,light,state.danger-fg,#A33A3A,surface.canvas,#FFFFFF,error text,4.5,6.51,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-020,light,state.info-fg,#355F7E,surface.canvas,#FFFFFF,status text,4.5,6.80,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-021,dark,state.success-fg,#8DD7B1,surface.subtle,#39454D,status text,4.5,5.86,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-022,dark,state.warning-fg,#F2C66D,surface.subtle,#39454D,status text,4.5,6.13,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-023,dark,state.danger-fg,#F1A0A0,surface.subtle,#39454D,status text,4.5,4.82,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-024,dark,state.info-fg,#9DBDE0,surface.subtle,#39454D,status text,4.5,5.06,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-025,light,primitive.digital-blue,#597FAD,surface.canvas,#FFFFFF,normal text,4.5,4.15,RESTRICTED,Do not use for normal text in this pairing; decorative/large-text use requires separate verification.,S2/S3/S4
+CM-026,light,primitive.neural-violet,#A97CC0,surface.canvas,#FFFFFF,normal text,4.5,3.32,RESTRICTED,Do not use for normal text in this pairing; decorative/large-text use requires separate verification.,S2/S3/S4
+CM-027,light,primitive.electric-pink,#C884C3,surface.canvas,#FFFFFF,normal text,4.5,2.78,RESTRICTED,Do not use for normal text in this pairing; decorative/large-text use requires separate verification.,S2/S3/S4
+CM-028,light,primitive.deep-magenta,#A96EAB,surface.canvas,#FFFFFF,normal text,4.5,3.81,RESTRICTED,Do not use for normal text in this pairing; decorative/large-text use requires separate verification.,S2/S3/S4
+CM-029,dark,primitive.soft-pink-glow,#CE98CF,surface.subtle,#39454D,normal text,4.5,4.23,RESTRICTED,Do not use for normal text in this pairing; decorative/large-text use requires separate verification.,S2/S3/S4
+CM-030,dark,primitive.neural-violet,#A97CC0,surface.subtle,#39454D,normal text,4.5,2.97,RESTRICTED,Do not use for normal text in this pairing; decorative/large-text use requires separate verification.,S2/S3/S4
+CM-031,light,chart.series-1,#287782,chart.surface,#FFFFFF,essential graphic,3.0,5.18,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-032,light,chart.series-2,#45658B,chart.surface,#FFFFFF,essential graphic,3.0,6.02,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-033,light,chart.series-3,#765083,chart.surface,#FFFFFF,essential graphic,3.0,6.47,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-034,light,chart.series-4,#7B4778,chart.surface,#FFFFFF,essential graphic,3.0,6.97,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-035,dark,chart.series-1,#6FD3DC,chart.surface,#202A2F,essential graphic,3.0,8.39,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-036,dark,chart.series-2,#9DBDE0,chart.surface,#202A2F,essential graphic,3.0,7.53,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-037,dark,chart.series-3,#C4A3D7,chart.surface,#202A2F,essential graphic,3.0,6.67,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4
+CM-038,dark,chart.series-4,#E0A8DA,chart.surface,#202A2F,essential graphic,3.0,7.52,PASS,Approved for stated use when actual rendered colours match.,S2/S3/S4

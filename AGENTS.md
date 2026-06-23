@@ -3,6 +3,16 @@
 
 This file defines how Codex should behave in this repo.
 
+## Repository architecture
+
+- This repository intentionally contains two website implementations.
+- The legacy vanilla HTML, CSS, and JavaScript website at the repository root is a frozen migration reference until a future task explicitly removes or edits it.
+- The global legacy-site visual, parallax, SEO, and minimal-diff guardrails apply to the root legacy implementation.
+- The active development target is the React application under `/web`.
+- Active `/web` work follows `/web/AGENTS.override.md`; read it before changing files under `/web`.
+- `/docs/silverstone-transformation/` contains authoritative specifications, audits, decisions, and handoff records.
+- Do not assume future work happens on separate transformation branches. Future instructed work occurs from the current repository state unless the user explicitly says otherwise.
+
 ## Global guardrails
 
 - **Do not change visuals or behavior** except for the explicitly targeted outcomes in the active ExecPlan.

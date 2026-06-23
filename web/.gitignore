@@ -1,0 +1,36 @@
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.staging
+
+# Dependencies
+node_modules/
+
+# Build, framework, and cache output
+build/
+dist/
+.react-router/
+.vite/
+.cache/
+*.tsbuildinfo
+
+# Test and report output
+coverage/
+playwright-report/
+test-results/
+
+# Logs and temporary output
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+
+# OS and editor metadata
+.DS_Store
+._*
+.vscode/
+.idea/
+*.swp
+*.swo
