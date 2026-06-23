@@ -13,6 +13,15 @@ This file defines how Codex should behave in this repo.
 - `/docs/silverstone-transformation/` contains authoritative specifications, audits, decisions, and handoff records.
 - Do not assume future work happens on separate transformation branches. Future instructed work occurs from the current repository state unless the user explicitly says otherwise.
 
+## Workspace skills & MCP
+
+- Shared agent skills live in `.agents/skills/` (canonical store); Claude tooling
+  resolves them via `.claude/skills/` symlinks, and Codex MCP servers are
+  generated into `.codex/config.toml` from `.mcp.json`.
+- After adding/removing a skill or editing `.mcp.json`, run
+  `node .agents/sync-skills.mjs` to regenerate the wiring (`--check` verifies it).
+- See `.agents/SKILLS.md` for reuse in future projects and the cross-Repl limitation.
+
 ## Global guardrails
 
 - **Do not change visuals or behavior** except for the explicitly targeted outcomes in the active ExecPlan.
