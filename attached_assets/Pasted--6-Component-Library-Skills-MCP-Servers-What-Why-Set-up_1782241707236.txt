@@ -1,0 +1,26 @@
+#6 - Component Library Skills + MCP Servers
+What & Why
+Set up the React component-library tooling the user requested. These are grouped into one task because they share the same MCP configuration surface (avoiding parallel edit conflicts) and are the same domain (animated React component libraries with MCP backends):
+
+Magic UI: a workspace skill from https://github.com/magicuidesign/magicui/tree/main/skills/magic-ui, plus a Magic UI MCP server from https://github.com/magicuidesign/mcp, wired so the skill is fully functional with the MCP.
+Aceternity UI: a Aceternity UI MCP server from https://github.com/rudra016/aceternityui-mcp, plus a skill sourced from https://mcpmarket.com/tools/skills/aceternity-ui-components, wired so the skill works with the MCP.
+21st.dev agent-elements: review https://github.com/21st-dev/agent-elements and create whatever is needed (skill and/or MCP) so it can be used to improve any project in the workspace.
+Done looks like
+.agents/skills/magic-ui/, .agents/skills/aceternity-ui/, and a 21st.dev agent-elements skill exist with valid SKILL.md files describing how to use each (including how to invoke the associated MCP).
+The Magic UI MCP server and Aceternity UI MCP server are configured for this workspace's agent tooling (e.g. Replit MCP config and/or .codex/config.toml / Claude .mcp.json), with working run commands and any required env handled via the secrets workflow (never hardcoded).
+agent-elements is usable to improve projects (skill documents the workflow; MCP configured if the repo provides one).
+Each MCP server's configuration is verified to start/connect, or the exact blocker is reported. No secrets are committed.
+Out of scope
+Editing the /web app or legacy root to consume these components (this task delivers the tooling/skills/MCP, not app integration).
+Cross-project propagation of the MCP config beyond this workspace (documented in the workspace-wide availability task).
+Steps
+Review all four sources (Magic UI skill + MCP, Aceternity MCP, Aceternity skill page, 21st.dev agent-elements) to determine exact setup and run commands.
+Create the Magic UI skill and configure the Magic UI MCP server; verify the skill references the MCP correctly.
+Create the Aceternity UI skill and configure the Aceternity MCP server; verify linkage.
+Review agent-elements and create the needed skill and/or MCP entry.
+Centralize all MCP server entries in the workspace's MCP config, manage any credentials via the secrets workflow, and verify the servers start/connect.
+Relevant files
+.agents/skills/
+.codex/config.toml
+.local/skills/integrations/SKILL.md
+.local/skills/environment-secrets/SKILL.md
