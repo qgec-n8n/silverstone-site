@@ -1,7 +1,21 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { createRequire } from "node:module";
 
-test("foundation shell loads without runtime errors", async ({ page }) => {
+type RouteFixture = {
+  h1: string;
+  path: string;
+};
+
+const require = createRequire(import.meta.url);
+const futureRouteManifest =
+  require("../../src/data/generated/future-route-manifest.json") as RouteFixture[];
+const homeRoute = futureRouteManifest.find((route) => route.path === "/");
+if (!homeRoute) {
+  throw new Error("Home route fixture is missing");
+}
+
+test("staging shell loads without runtime errors", async ({ page }) => {
   const consoleErrors: string[] = [];
   page.on("console", (message) => {
     if (message.type() === "error") {
@@ -12,9 +26,7 @@ test("foundation shell loads without runtime errors", async ({ page }) => {
   const response = await page.goto("/");
 
   expect(response?.ok()).toBe(true);
-  await expect(
-    page.getByRole("heading", { name: "Silverstone web foundation" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: homeRoute.h1 })).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
     "noindex,nofollow,noarchive",

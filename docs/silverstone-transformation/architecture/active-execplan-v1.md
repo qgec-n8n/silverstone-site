@@ -66,3 +66,13 @@ The checkpoint names are fixed and match the rollback plan:
 - Revert the governance commit if any instruction file is malformed or if an unapproved path changes.
 - Do not touch `main`.
 
+## CP2 execution record — route/content migration framework
+
+The route/content contract workstream was executed on `transformation/foundation` from start commit `d48cebd4`.
+
+- 50 A-01 canonical routes are represented in the future route manifest.
+- 133 A-01 SEO/redirect records have exactly one typed disposition.
+- Route groups, content extraction, SEO generation, redirect validation, internal-link validation, route templates, lazy route modules, prerendering and route-parity tests are implemented.
+- One former self-loop route remains explicitly draft and unresolved; no content decision was invented.
+- Replit-owned paths, the legacy root and production `netlify.toml` remain unchanged.
+- Implementation evidence and rollback instructions are recorded in `route-migration-implementation-v1.md`.

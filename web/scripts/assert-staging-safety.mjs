@@ -233,15 +233,25 @@ async function validateBuildOutput(root, errors) {
     return;
   }
 
-  const indexPath = path.join(resolvedRoot, 'index.html');
-  if (!(await exists(indexPath))) {
-    addError(errors, `${resolvedRoot}: missing prerendered index.html`);
-    return;
-  }
-
-  const indexHtml = await fs.readFile(indexPath, 'utf8');
-  if (!indexHtml.includes('Silverstone web foundation')) {
-    addError(errors, `${indexPath}: missing meaningful foundation heading`);
+  const manifestPath = path.resolve('src/data/generated/future-route-manifest.json');
+  if (!(await exists(manifestPath))) {
+    addError(errors, `${manifestPath}: missing future route manifest`);
+  } else {
+    const routes = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+    for (const route of routes) {
+      const routeHtmlPath =
+        route.path === '/'
+          ? path.join(resolvedRoot, 'index.html')
+          : path.join(resolvedRoot, route.path.replace(/^\/+/, ''), 'index.html');
+      if (!(await exists(routeHtmlPath))) {
+        addError(errors, `${routeHtmlPath}: missing prerendered route HTML`);
+        continue;
+      }
+      const routeHtml = await fs.readFile(routeHtmlPath, 'utf8');
+      if (!routeHtml.includes(`data-content-id="${route.contentId}"`)) {
+        addError(errors, `${routeHtmlPath}: missing meaningful route content`);
+      }
+    }
   }
 
   const componentLabPath = path.join(resolvedRoot, '__components');
