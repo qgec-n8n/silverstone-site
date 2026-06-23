@@ -1,0 +1,131 @@
+{
+  "generatedAt": "2026-06-23T15:37:23.280Z",
+  "scope": "all production JavaScript emitted for the foundation route",
+  "files": [
+    {
+      "file": "assets/about-VBH7C3nk.js",
+      "bytes": 394,
+      "gzipBytes": 276
+    },
+    {
+      "file": "assets/article-DWoSh0dB.js",
+      "bytes": 1263,
+      "gzipBytes": 727
+    },
+    {
+      "file": "assets/book-7U4HSphc.js",
+      "bytes": 394,
+      "gzipBytes": 273
+    },
+    {
+      "file": "assets/chunk-4ZMWKKQ3-CB62NcrS.js",
+      "bytes": 128245,
+      "gzipBytes": 43153
+    },
+    {
+      "file": "assets/contact-CqwRnlud.js",
+      "bytes": 394,
+      "gzipBytes": 276
+    },
+    {
+      "file": "assets/core-marketing-page-CHdBvO-Y.js",
+      "bytes": 511,
+      "gzipBytes": 330
+    },
+    {
+      "file": "assets/createLucideIcon-uYvNSfyH.js",
+      "bytes": 891,
+      "gzipBytes": 554
+    },
+    {
+      "file": "assets/detail-D8JeLxWv.js",
+      "bytes": 536,
+      "gzipBytes": 340
+    },
+    {
+      "file": "assets/entry.client-BkfmHuGh.js",
+      "bytes": 190032,
+      "gzipBytes": 59779
+    },
+    {
+      "file": "assets/home-wgN2Fqgx.js",
+      "bytes": 394,
+      "gzipBytes": 276
+    },
+    {
+      "file": "assets/how-we-work-CYAlV0wy.js",
+      "bytes": 394,
+      "gzipBytes": 276
+    },
+    {
+      "file": "assets/index-2GZq9Y7j.js",
+      "bytes": 387,
+      "gzipBytes": 272
+    },
+    {
+      "file": "assets/index-Cttp_l1y.js",
+      "bytes": 394,
+      "gzipBytes": 273
+    },
+    {
+      "file": "assets/index-DAF2BIza.js",
+      "bytes": 394,
+      "gzipBytes": 275
+    },
+    {
+      "file": "assets/manifest-50403774.js",
+      "bytes": 7315,
+      "gzipBytes": 858
+    },
+    {
+      "file": "assets/not-found-CLhSZlrw.js",
+      "bytes": 510,
+      "gzipBytes": 333
+    },
+    {
+      "file": "assets/pricing-InoYqSX1.js",
+      "bytes": 394,
+      "gzipBytes": 273
+    },
+    {
+      "file": "assets/privacy-policy-05BbRWF-.js",
+      "bytes": 394,
+      "gzipBytes": 276
+    },
+    {
+      "file": "assets/root-vxk3rnoU.js",
+      "bytes": 9785,
+      "gzipBytes": 3310
+    },
+    {
+      "file": "assets/route-data-B6njMKim.js",
+      "bytes": 74214,
+      "gzipBytes": 18216
+    },
+    {
+      "file": "assets/route-page-frame-BoP0O_zB.js",
+      "bytes": 126840,
+      "gzipBytes": 16669
+    },
+    {
+      "file": "assets/service-page-BZJQhvk4.js",
+      "bytes": 208,
+      "gzipBytes": 180
+    },
+    {
+      "file": "assets/stack-oz3H7k-A.js",
+      "bytes": 32105,
+      "gzipBytes": 10511
+    }
+  ],
+  "totals": {
+    "bytes": 576388,
+    "gzipBytes": 157706,
+    "gzipKilobytes": 154.01
+  },
+  "budget": {
+    "targetKilobytes": 220,
+    "hardCeilingKilobytes": 300,
+    "status": "target-pass"
+  }
+}

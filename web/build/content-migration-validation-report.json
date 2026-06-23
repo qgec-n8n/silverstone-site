@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-06-23T15:37:25.065Z",
+  "status": "pass",
+  "totals": {
+    "retainedRoutes": 49,
+    "migratedModules": 49,
+    "links": 553,
+    "assets": 35,
+    "schemaRecords": 90
+  },
+  "issues": []
+}
