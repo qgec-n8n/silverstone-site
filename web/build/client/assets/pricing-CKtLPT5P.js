@@ -1,1 +1,0 @@
-import{w as r,y as e,p as a}from"./chunk-4ZMWKKQ3-Bg5EuYVk.js";import{c as n}from"./route-page-frame-VbmZRPL6.js";import{C as s}from"./core-marketing-page-DePPIiA_.js";import"./stack-Bhj6is4-.js";const f=n(),g=r(function(){const{content:t,route:o}=e();return a.jsx(s,{content:t,route:o})});export{g as default,f as meta};

@@ -1,19 +1,18 @@
-path,ownership_category,owner,edit_rule,branch,notes
-/web/AGENTS.override.md,Codex-owned,Codex,exclusive,transformation/foundation,approved /web override
-/replit.md,Replit-owned,Replit,exclusive,transformation/foundation,root staging instructions
-/docs/silverstone-transformation/architecture/active-execplan-v1.md,Codex-owned,Codex,exclusive,transformation/foundation,active governance plan
-/docs/silverstone-transformation/architecture/file-ownership-register-v1.csv,Codex-owned,Codex,exclusive,transformation/foundation,ownership register
-/docs/silverstone-transformation/handoffs/HANDOFF_TEMPLATE.md,Codex-owned,Codex,exclusive,transformation/foundation,handoff schema
-/web/**,handoff-only,Codex or Replit,lease required,transformation/react-vite,implementation surface
-/assets/**,frozen,None,do not edit,main,legacy production assets
-/blog/**,frozen,None,do not edit,main,legacy production content
-/services/**,frozen,None,do not edit,main,legacy production content
-/src/**,frozen,None,do not edit,main,legacy production build sources
-/pricing-widget/**,frozen,None,do not edit,main,legacy pricing island
-/netlify.toml,frozen,None,do not edit,main,production boundary
-/netlify/functions/**,frozen,None,do not edit,main,production boundary
-/scripts/**,frozen,None,do not edit,main,build and SEO tooling
-/docs/silverstone-transformation/audits/**,frozen,None,do not edit,main,authoritative audit pack
-/docs/silverstone-transformation/research/**,frozen,None,do not edit,main,authoritative research pack
-/codex/execplans/**,frozen,None,do not edit,main,history only
-
+path,ownership_category,owner,edit_rule,branch_or_state,notes
+/web/AGENTS.override.md,Codex-owned,Codex,exclusive,current-state,active /web override
+/replit.md,Replit-owned,Replit,exclusive,current-state,root staging instructions
+/docs/silverstone-transformation/architecture/active-execplan-v1.md,Codex-owned,Codex,exclusive,current-state,active governance plan
+/docs/silverstone-transformation/architecture/file-ownership-register-v1.csv,Codex-owned,Codex,exclusive,current-state,ownership register
+/docs/silverstone-transformation/handoffs/HANDOFF_TEMPLATE.md,Codex-owned,Codex,exclusive,current-state,handoff schema
+/web/**,active-application,Codex or Replit,current-state work only,current-state,implementation surface
+/assets/**,frozen,None,do not edit,legacy-root,legacy production assets
+/blog/**,frozen,None,do not edit,legacy-root,legacy production content
+/services/**,frozen,None,do not edit,legacy-root,legacy production content
+/src/**,frozen,None,do not edit,legacy-root,legacy production build sources
+/pricing-widget/**,frozen,None,do not edit,legacy-root,legacy pricing island
+/netlify.toml,frozen,None,do not edit,production-boundary,production boundary
+/netlify/functions/**,frozen,None,do not edit,production-boundary,production boundary
+/scripts/**,frozen,None,do not edit unless explicitly named,legacy-root,build and SEO tooling
+/docs/silverstone-transformation/audits/**,authoritative-docs,Codex,edit only for explicit audit/doc task,current-state,authoritative audit pack
+/docs/silverstone-transformation/research/**,authoritative-docs,Codex,edit only for explicit research/doc task,current-state,authoritative research pack
+/codex/execplans/**,history,None,do not edit,history,history only

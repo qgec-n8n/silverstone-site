@@ -1,42 +1,45 @@
 # AGENTS.override
 
-This file is the Codex instruction source for `/web`.
-It is complete for `/web` work and does not rely on omitted rules elsewhere.
+This file is the Codex instruction source for `/web`. It defines the active React application boundary.
 
 ## Scope
 
-- The approved rebuild may be implemented only inside `/web/**`.
-- Do not edit any path outside `/web/**` unless that exact path is explicitly listed in the active ownership register or handoff for this prompt.
-- Legacy root production files, Netlify files, integration files, and transformation evidence remain frozen unless explicitly named as owned.
+- `/web` is the active application.
+- New implementation work belongs under `/web`.
+- Routes, components, styles, tests, content implementation, application assets, scripts, and integrations for the new website belong under `/web`.
+- The legacy root website is read-only migration evidence unless a future prompt explicitly names root legacy files.
+- Applicable documentation under `/docs/silverstone-transformation/` is authoritative.
+- Future work must not assume separate transformation branches exist. Work from the current repository state unless the user explicitly says otherwise.
 
-## Non-negotiables
+## Non-Negotiables
 
-- Production safety first.
-- Evidence first: reproduce and measure before editing.
+- Preserve existing unrelated behavior.
+- Evidence first: reproduce and measure before editing when the task changes behavior.
 - Minimal diffs only.
 - No broad refactors, renames, or style-only formatting churn.
-- No production deployment.
-- No DNS, Netlify, analytics, environment-variable, booking, or email side effects.
-- Parallax must continue to work on mobile and desktop.
+- No production deployment or production integration changes.
+- No DNS, Netlify publishing, production analytics, production email delivery, production booking, production environment, or production Calendly mutation.
+- Do not commit dependency folders, build output, framework caches, coverage output, Playwright reports, test results, local logs, `.DS_Store`, or editor metadata.
 
-## Required workflow
+## Required Workflow
 
-1. Confirm the target branch, scope, and exact files before touching anything.
-2. Read the relevant authority files and the active handoff for the task.
-3. Reproduce the problem or confirm the baseline with a focused command or inspection.
-4. Make the smallest possible change inside `/web/**`.
-5. Verify the result with the narrowest useful checks.
-6. Record the evidence and the exact paths changed.
+1. Read the relevant project documentation before editing.
+2. Confirm the current branch and exact scope.
+3. Reproduce the issue or baseline with a focused command, test, or inspection.
+4. Make the smallest useful change inside `/web/**` unless the user explicitly names another path.
+5. Run tests and validation from `/web`.
+6. Record the evidence and exact paths changed.
 
-## Implementation boundary
+## Implementation Boundary
 
-- Use the approved rebuild architecture inside `/web`.
-- Keep `/web` changes isolated from the legacy root until a separately approved cutover.
-- Treat any non-`/web` change as out of scope unless it is one of the explicitly owned governance files for this prompt.
+- Use the approved React Router/Vite application architecture inside `/web`.
+- Keep `/web` isolated from the frozen legacy root until a separately approved cutover.
+- Treat non-`/web` changes as governance, documentation, or configuration changes only when explicitly required by the task.
+- Source-controlled generated application contracts under `/web/src/**/generated/` may be changed only through their documented scripts or with matching source evidence.
 
-## Validation gates
+## Validation Gates
 
+- Run commands as `cd web && <command>`.
 - Do not claim success without fresh verification.
 - Keep tests, screenshots, and command output aligned to the changed paths.
 - If a regression appears, stop, isolate the cause, and revert the smallest change that introduced it.
-

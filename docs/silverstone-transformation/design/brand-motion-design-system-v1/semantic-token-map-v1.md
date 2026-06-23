@@ -6,7 +6,7 @@
 
 ## 1. Authority and evidence boundary
 
-**Repository evidence:** D-01 fixes the `/web` boundary, Tailwind ownership of tokens/layout, shadcn/ui adaptation, visible focus, reflow, native scrolling, reduced motion, and one-animation-owner rules. The available F-01 bundle baseline is `web/build/bundle-report.json`: **111.83 KB gzip**, passing the D-01 **220 KB target** and **300 KB hard ceiling**. The built CSS exposes a Tailwind theme layer and semantic variables including `--background`, `--foreground`, `--primary`, `--border`, and `--ring`.
+**Repository evidence:** D-01 fixes the `/web` boundary, Tailwind ownership of tokens/layout, shadcn/ui adaptation, visible focus, reflow, native scrolling, reduced motion, and one-animation-owner rules. The available F-01 bundle baseline is `/docs/silverstone-transformation/design/brand-motion-design-system-v1/f01-bundle-report-v1.json`: **111.83 KB gzip**, passing the D-01 **220 KB target** and **300 KB hard ceiling**. The built CSS exposes a Tailwind theme layer and semantic variables including `--background`, `--foreground`, `--primary`, `--border`, and `--ring`.
 
 **Evidence limitation:** the requested `transformation/foundation` ref and a separately named F-01 implementation report were not available through the repository connector. This system therefore relies on the available foundation build/bundle evidence and does not claim unverified dependencies or component completion.
 

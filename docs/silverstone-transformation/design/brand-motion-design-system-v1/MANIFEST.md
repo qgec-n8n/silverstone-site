@@ -16,7 +16,7 @@ This package is the authoritative proposed Silverstone React brand-system, compo
 - D-01 application boundary: `/web`; legacy root untouched.
 - D-01 motion boundary: CSS for simple transitions, Framer Motion for component/layout state, GSAP for complex/scroll orchestration, native browser for scroll/visibility/measurement, no duplicated ownership, no scroll hijacking.
 - D-01 performance: 220 KB gzip initial-route JavaScript target; 300 KB hard ceiling; no animation-caused task over 50ms; ≥45 FPS representative sustained desktop animation.
-- Available F-01 foundation bundle baseline: `web/build/bundle-report.json`, generated 2026-06-22, 111.83 KB gzip, target-pass.
+- Available F-01 foundation bundle baseline: `/docs/silverstone-transformation/design/brand-motion-design-system-v1/f01-bundle-report-v1.json`, generated 2026-06-22, 111.83 KB gzip, target-pass.
 - Available built foundation CSS: Tailwind theme/base/utilities and semantic variables (`--background`, `--foreground`, `--primary`, `--border`, `--ring`).
 
 ### Evidence limitation

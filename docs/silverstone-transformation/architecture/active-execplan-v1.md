@@ -107,3 +107,35 @@ After verification:
 Tradeoff:
 
 - This checkpoint preserves source copy and provenance inside the approved `/web` design primitives. It does not reproduce the frozen legacy visual treatment or perform final marketing rewrites.
+
+## Unified baseline preparation record
+
+Observed before integration on 2026-06-23:
+
+- `main` started at `1e445c305c30cae93d5f6427135a238be8d58c14`.
+- `transformation/audit` started at `6d7d8f884c269d3ed87bbe7cbe75dd5887a43e44`.
+- Local `transformation/foundation` started at `5ad4e20ed9e10f1374d01c297e2e9be500a0c123`.
+- The shared `main` merge base for `main`, `transformation/audit`, and `transformation/foundation` was `1e445c305c30cae93d5f6427135a238be8d58c14`; the audit/foundation merge base was `c38aa61a21fa0a1c3772a31c761db1f3981d43db`.
+
+Changed:
+
+- Merged `transformation/foundation` into `transformation/audit` with a normal non-fast-forward merge commit `d5f17939e7d40d5b376d5e0d2858f16b7838b0d9`.
+- Resolved only `.DS_Store` conflicts by removing machine-local metadata.
+- Removed tracked dependency, build, framework-cache, npm-cache, test-output, and `.DS_Store` files from the index.
+- Moved the durable F-01 bundle baseline from `web/build/bundle-report.json` to `/docs/silverstone-transformation/design/brand-motion-design-system-v1/f01-bundle-report-v1.json` and updated its documentation references.
+- Restored `.codex/config.toml` to the useful `main` version after audit/foundation were found to contain an empty file.
+- Revised root and `/web` instructions so `/web` is the active application and the legacy root website remains frozen migration evidence.
+- Superseded obsolete active transformation-branch execution instructions in the ownership register and branch model while preserving historical branch references in completed records.
+
+Verification:
+
+- Passed fresh `/web` install from lockfile, lint, typecheck, unit tests, production-mode build, migrated-content validation, route parity, redirect validation, bundle budget, staging safety, Playwright desktop/mobile smoke tests, a11y-tagged browser tests, Replit run-command smoke test, tracked-file audit, and high-confidence secret scan.
+- Confirmed 190 tracked `/web/src`, `/web/public`, and `/web/tests` files remain present.
+- Confirmed 93 tracked audit/architecture/content/research/handoff documentation files remain present.
+- Confirmed all 9 visual-direction specification files are present and non-empty.
+- Confirmed no production analytics, production email delivery, production deployment, Netlify, or root legacy implementation files were changed by the preparation work.
+
+Pre-existing validation failures:
+
+- `npm run format:check` fails on 10 `/web` files. The same command fails with the same file list on a detached `transformation/foundation` checkout after fresh `npm ci`.
+- `node scripts/migration/crawl-routes.mjs http://127.0.0.1:4173` fails after fresh build/preview. The same failure pattern is present on a detached `transformation/foundation` checkout. The failing crawler is stricter than the configured Playwright route-parity tests and does not include the later `/how-we-work`, `/industries`, and service-detail navigation routes in its 50-route manifest.

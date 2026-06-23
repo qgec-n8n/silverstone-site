@@ -21,7 +21,7 @@
 |---|---|---:|---|
 | `acceptance-criteria-v1.csv` | 36 measurable acceptance criteria. | 5157 | `12ca4bf81ad36ef030462b3261b55d950afdd43011d9aaf5620b271ffec1b29a` |
 | `animation-responsibility-model-v1.md` | CSS/Framer/GSAP/shader ownership and motion acceptance. | 3514 | `9b5cd79ce35e17f88fb557c21e9e03c993b7b0623729c2eb0eccca2984dc8a79` |
-| `branch-and-ownership-model-v1.md` | Exact branch/worktree topology, leases and Codex/Replit file ownership. | 6562 | `d3f639e2fd2b5aec7b2e706c8d78636deb23be567643d0804a359ff9b100fd02` |
+| `branch-and-ownership-model-v1.md` | Current repository topology, ownership handoff rules and Codex/Replit file ownership. | 6944 | `1dcb3efec89875b8bb4345149ca8b6dc83f6c59043845c492063f3f7dc9e02c6` |
 | `dependency-graph-v1.mmd` | Mermaid dependency and delivery graph. | 924 | `2d18db7c7c35d6f94a9c1842d483c3ecff4fc56a0fb59ff1ea46eeb37d0d31e9` |
 | `handoff-contracts-v1.md` | Mandatory handoff schemas and rejection conditions. | 3418 | `9a43702c613368a533af80a9c80e115bf2296693643d36b225696ad7435a2974` |
 | `integration-safety-model-v1.md` | Adapters, secrets, staging isolation and production safeguards. | 4393 | `86603be9ab1b3dc9303240aaa0e446657be63b7f63b172938a5c247d07b2dcb6` |
@@ -42,7 +42,7 @@ Primary repository evidence: A-01 audits and inventories, A-02 external live aud
 - PASS — D-02 onward are identified as consumers.
 - PASS — route baseline is exactly 50.
 - PASS — `/web` boundary and untouched legacy root are explicit.
-- PASS — branch names and worktree topology are exact and consistent.
+- PASS — current repository topology and former branch-topology supersedure are explicit.
 - PASS — Codex/Replit ownership boundaries prohibit overlapping edits.
 - PASS — production safeguards cover main, Netlify, DNS, environment variables, Resend, analytics and Calendly.
 - PASS — staging is blocked from indexing and production email/booking.

@@ -1,35 +1,25 @@
 # Silverstone branch and ownership model v1
 
-**Status:** Authoritative after upload  
-**Applies to:** D-02 onward
+**Status:** Superseded for branch topology after unified baseline preparation; file ownership and handoff principles remain authoritative where they do not conflict with current repository instructions.
 
-## 1. Branch topology
+**Applies to:** Current repository state and future `/web` work.
 
-```text
-main                                  # production baseline; immutable
-└── transformation/audit              # evidence and architecture authority
-    └── transformation/react-vite      # integration branch for /web
-        ├── worktree/foundation
-        ├── worktree/content
-        ├── worktree/routes-main
-        ├── worktree/routes-services
-        ├── worktree/routes-blog
-        ├── worktree/integrations
-        ├── worktree/motion
-        ├── worktree/quality
-        └── transformation/staging     # release-candidate branch
-```
+## 1. Current repository topology
 
-Branch names are exact. Temporary branches follow `dNN/<workstream>-<slug>` and are deleted after merge.
+- The repository intentionally contains the frozen legacy root website and the active React application under `/web`.
+- Future instructed work occurs from the current repository state unless the user explicitly requests a new branch or worktree.
+- Do not create, switch, or rely on `transformation/audit`, `transformation/foundation`, `transformation/react-vite`, or `transformation/staging` for future work.
+- `main` remains outside scope until the user manually merges the prepared integration branch.
+- Production deployment, DNS, Netlify publishing, production environment variables, Resend, analytics, Calendly, and other production integrations remain immutable without separate release authorisation.
 
-`main` is not a merge target during D-02 onward. `transformation/audit` receives documentation-only authority updates. `/web` implementation merges into `transformation/react-vite`. Only validated release-candidate commits are promoted to `transformation/staging`.
+Historical branch names in completed reports describe the former transformation workflow and are not future execution instructions.
 
 ## 2. Worktree rules
 
-- Each active Codex task uses a dedicated Git worktree and branch.
-- One worktree has one named workstream owner.
-- Worktrees are rebased or merged from `transformation/react-vite` before handoff, not edited against stale snapshots indefinitely.
-- A worktree cannot contain unrelated changes.
+- Use a dedicated branch or worktree only when the user explicitly asks for one or when a reviewed handoff requires it.
+- One active editing surface has one named workstream owner.
+- Work from the current repository state before handoff, not stale transformation branches.
+- A worktree or branch cannot contain unrelated changes.
 - No agent may resolve a semantic conflict without the owning workstream's handoff notes.
 
 ## 3. Exact file ownership
@@ -59,7 +49,7 @@ Before an editing session, the owner records:
 
 ```yaml
 lease_id: D02-<workstream>-<sequence>
-branch: dNN/<workstream>-<slug>
+branch_or_state: current repository state or exact user-requested branch
 owner: Codex | Replit
 paths:
   - exact/glob/path
@@ -78,7 +68,7 @@ Replit may:
 - use Canvas/Visual Editor for explicitly assigned presentational files;
 - produce responsive screenshots and visual findings;
 - run staging-only app tests;
-- commit to a dedicated Replit branch.
+- edit the current repository state when explicitly assigned.
 
 Replit may not:
 
@@ -86,10 +76,12 @@ Replit may not:
 - modify the same file or glob under an active Codex lease;
 - publish production;
 - introduce secrets;
-- merge its own branch;
+- create, switch, or rely on transformation branches;
 - treat Preview behaviour as release proof.
 
-## 6. Merge order
+## 6. Historical merge order
+
+The original transformation plan used this sequence. It remains useful as historical sequencing evidence, not as an instruction to recreate separate transformation branches.
 
 1. foundation;
 2. typed route/content contracts;
@@ -145,4 +137,3 @@ This blueprint is derived from the following repository authorities on branch `t
 - `../rebuild-decision-v1.md` (`C01-DECISION`)
 
 Where evidence conflicts, the precedence order is: current owner-approved decision record; fresh implementation-baseline crawl; A-01 route/redirect inventories; A-02 advisory findings; platform and benchmark research. No conflict may be silently reconciled.
-

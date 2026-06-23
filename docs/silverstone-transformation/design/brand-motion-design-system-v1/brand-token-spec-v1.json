@@ -19,7 +19,7 @@
       "d01-manifest": "docs/silverstone-transformation/architecture/execution-blueprint-v1/MANIFEST.md",
       "d01-animation": "docs/silverstone-transformation/architecture/execution-blueprint-v1/animation-responsibility-model-v1.md",
       "d01-performance": "docs/silverstone-transformation/architecture/execution-blueprint-v1/performance-budgets-v1.json",
-      "f01-bundle-baseline": "web/build/bundle-report.json",
+      "f01-bundle-baseline": "/docs/silverstone-transformation/design/brand-motion-design-system-v1/f01-bundle-report-v1.json",
       "f01-baseline-gzip-kb": 111.83,
       "d01-js-target-kb": 220,
       "d01-js-hard-ceiling-kb": 300,

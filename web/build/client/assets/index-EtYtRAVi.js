@@ -1,1 +1,0 @@
-import{p as o,w as s,y as a}from"./chunk-4ZMWKKQ3-Bg5EuYVk.js";import{R as n,c as u}from"./route-page-frame-VbmZRPL6.js";import"./stack-Bhj6is4-.js";function c({content:t=null,route:e}){return o.jsx(n,{content:t,eyebrow:"Services",route:e})}const x=u(),f=s(function(){const{content:e,route:r}=a();return o.jsx(c,{content:e,route:r})});export{f as default,x as meta};
