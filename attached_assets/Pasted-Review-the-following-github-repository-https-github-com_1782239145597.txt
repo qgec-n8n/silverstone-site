@@ -1,0 +1,20 @@
+Review the following github repository - https://github.com/greensock/gsap-skills
+Use this along with other official GSAP documentation to create the most comprehensive GSAP skill, that is available in my workspace.
+Review the following github repository - https://github.com/freshtechbro/claudedesignskills/tree/main
+as well as the attached zip file, which contains the entire repository. Use both the github live public repository and the downloaded zip file containing the entire repository to create skills for everything inside this repository. Ensure that all these skills are available across my entire workspace.
+Review the following github repository url for magic ui skill - https://github.com/magicuidesign/magicui/tree/main/skills/magic-ui
+Create a workspace skill for magic ui ensuring it is fully functional with the mcp below.
+Create a magic ui mcp server using the following official magic ui mcp github repository - https://github.com/magicuidesign/mcp
+Review the following github repository - https://github.com/21st-dev/agent-elements
+ensure that it can be used to improve any project in workspace. Create a skill and/or whatever else is required for it to work.
+Install the following skill: npx -y skills add https://smithery.ai/skills/synqing/tailwind-css --agent replit
+Review the following github repository and create a skill for it. https://github.com/CloudAI-X/threejs-skills
+Ensure that the skill is available in my workspace.
+Review all the skills currently enabled in this project make them all available in my workspace as well so that all future projects have access to them.
+Review the following github repositories - https://github.com/coreyhaines31/marketingskills
+https://github.com/BrianRWagner/ai-marketing-claude-code-skills
+Create a skill for everything in these repositories and ensure that it is available in my workspace and can be accessed by every project.
+Review the following github repository and create an mcp server using the repository so every project in my workspace has access to these aceternity ui components - https://github.com/rudra016/aceternityui-mcp
+Review the following url and create a skill using it for aceternity ui components - https://mcpmarket.com/tools/skills/aceternity-ui-components
+Ensure that the skill is accessible in my workspace and can be accessed by all projects.
+
