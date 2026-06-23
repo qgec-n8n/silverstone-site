@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "serve . -l 5000 --no-clipboard",
     "sync:fontawesome": "node scripts/sync-fontawesome.js",
     "build:css": "npm run sync:fontawesome && node build-css.js",
     "build:js": "node scripts/build-js.js",

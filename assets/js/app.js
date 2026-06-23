@@ -534,6 +534,8 @@
 
   window.Silverstone.initHeaderNav = initHeaderNav;
 })();
+
+
 (function () {
   'use strict';
 
@@ -3462,4 +3464,3 @@ document.addEventListener('DOMContentLoaded', function () {
     if (api.initParallax) api.initParallax();
   });
 })();
-
