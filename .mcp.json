@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "magicui": {
+      "command": "npx",
+      "args": ["-y", "@magicuidesign/mcp@latest"]
+    },
+    "aceternityui": {
+      "command": "npx",
+      "args": ["-y", "aceternityui-mcp"]
+    }
+  }
+}

@@ -9,3 +9,16 @@ trust_level = "trusted"
 
 [features]
 unified_exec = true
+
+# --- MCP servers for React component-library tooling ---
+# Both run over stdio via npx and require no API key / secret.
+
+# Magic UI registry MCP (https://github.com/magicuidesign/mcp)
+[mcp_servers.magicui]
+command = "npx"
+args = ["-y", "@magicuidesign/mcp@latest"]
+
+# Aceternity UI registry MCP (https://github.com/rudra016/aceternityui-mcp)
+[mcp_servers.aceternityui]
+command = "npx"
+args = ["-y", "aceternityui-mcp"]

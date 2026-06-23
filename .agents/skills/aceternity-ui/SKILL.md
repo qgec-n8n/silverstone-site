@@ -38,7 +38,7 @@ npx shadcn@latest init
 
 ## Aceternity UI MCP Server
 
-The MCP server (`aceternityui-mcp`) lets the agent search the Aceternity registry and fetch authoritative install commands instead of guessing. It is configured for this workspace in both `.codex/config.toml` (`[mcp_servers.aceternityui]`) and `.mcp.json` (`mcpServers.aceternityui`). It runs over stdio via `npx aceternityui-mcp` and requires **no API key**.
+The MCP server (`aceternityui-mcp`) lets the agent search the Aceternity registry and fetch authoritative install commands instead of guessing. It is configured for this workspace in both `.codex/config.toml` (`[mcp_servers.aceternityui]`) and `.mcp.json` (`mcpServers.aceternityui`). It runs over stdio via `npx -y aceternityui-mcp` and requires **no API key**.
 
 ### Available MCP tools
 

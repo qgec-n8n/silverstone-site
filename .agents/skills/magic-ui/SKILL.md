@@ -18,6 +18,35 @@ Apply this skill when users ask to:
 - Replace custom animation code with Magic UI components
 - Troubleshoot installation/import issues for `@magicui/*`
 
+## Magic UI MCP Server
+
+The MCP server (`@magicuidesign/mcp`) lets the agent browse and fetch authoritative
+Magic UI registry data instead of guessing component names or source. It is configured
+for this workspace in both `.codex/config.toml` (`[mcp_servers.magicui]`) and `.mcp.json`
+(`mcpServers.magicui`). It runs over stdio via `npx -y @magicuidesign/mcp@latest` and
+requires **no API key**.
+
+### Available MCP tools
+
+- `searchRegistryItems` — search the registry by keyword or use case.
+  - Example: `searchRegistryItems({ query: "marquee" })`
+- `listRegistryItems` — list/browse registry items, optionally filtered by `kind`
+  (`component`, `example`, `style`), `query`, `limit`, and `offset`.
+  - Example: `listRegistryItems({ kind: "component", limit: 50 })`
+- `getRegistryItem` — detailed info for one item; pass `includeSource: true` for the
+  component source, `includeExamples: true` for usage examples, `includeRelated: true`
+  for dependencies/related items.
+  - Example: `getRegistryItem({ name: "magic-card", includeSource: true })`
+
+### Recommended MCP flow
+
+1. `searchRegistryItems` / `listRegistryItems` to find candidate components.
+2. `getRegistryItem` (with `includeSource`/`includeExamples`) to confirm fit and read the source.
+3. Install with the shadcn command below, then integrate.
+
+If the MCP server is unavailable, fall back to <https://magicui.design/docs/components>
+and install the component per its documented instructions.
+
 ## Core Workflow
 
 1. Define the UI outcome first.
@@ -84,4 +113,5 @@ Start with 1 core component + 1 supporting effect, then expand only if needed.
 - Magic UI docs: `https://magicui.design/docs`
 - Component docs: `https://magicui.design/docs/components`
 - Installation: `https://magicui.design/docs/installation`
-- MCP setup (optional, for AI IDE workflows): `https://magicui.design/docs/mcp`
+- MCP setup: `https://magicui.design/docs/mcp`
+- MCP server source: `https://github.com/magicuidesign/mcp`
