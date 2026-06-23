@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { AppShell } from "~/app/components/app-shell";
+import { AppShell } from "~/components/layout/app-shell";
 
 describe("AppShell", () => {
   it("provides skip navigation and semantic landmarks", () => {
@@ -16,6 +16,7 @@ describe("AppShell", () => {
       "#main-content",
     );
     expect(screen.getByRole("banner")).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Primary" })).toBeInTheDocument();
     expect(screen.getByRole("main")).toContainElement(
       screen.getByRole("heading", { name: "Foundation content" }),
     );

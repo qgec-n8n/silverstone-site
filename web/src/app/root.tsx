@@ -10,6 +10,10 @@ import {
 import { AppShell } from "~/app/components/app-shell";
 import { LoadingBoundary, LoadingFallback } from "~/app/components/loading-boundary";
 import { RouteLoadingIndicator } from "~/app/components/route-loading-indicator";
+import { Container } from "~/components/layout/container";
+import { PageSection } from "~/components/layout/page-section";
+import { Stack } from "~/components/layout/stack";
+import { TextLink } from "~/components/ui/text-link";
 import "./app.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -60,13 +64,15 @@ export function ErrorBoundary({ error }: { error: unknown }) {
 
   return (
     <AppShell>
-      <section className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-6 py-16">
-        <h1 className="text-3xl font-semibold">{title}</h1>
-        <p className="max-w-xl text-muted-foreground">{message}</p>
-        <a className="font-medium underline underline-offset-4" href="/">
-          Return to the foundation
-        </a>
-      </section>
+      <PageSection spacing="compact">
+        <Container>
+          <Stack className="max-w-3xl" gap="md">
+            <h1 className="text-h2">{title}</h1>
+            <p className="text-body-lg text-muted-foreground">{message}</p>
+            <TextLink href="/">Return to the foundation</TextLink>
+          </Stack>
+        </Container>
+      </PageSection>
     </AppShell>
   );
 }

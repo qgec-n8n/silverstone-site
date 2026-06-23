@@ -14,7 +14,7 @@ export function RouteLoadingIndicator() {
       <div
         className={
           isLoading
-            ? "h-full w-full origin-left animate-pulse bg-foreground"
+            ? "motion-reduce:animate-none h-full w-full origin-left animate-pulse bg-[var(--ss-color-action-accent-bg)]"
             : "h-full w-0"
         }
       />

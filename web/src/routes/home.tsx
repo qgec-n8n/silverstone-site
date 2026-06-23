@@ -1,6 +1,18 @@
 import { getPublicEnvironment } from "~/lib/environment";
 import { buildMetadata } from "~/seo/metadata";
 import { buildOrganizationSchema } from "~/seo/schema";
+import { Cluster } from "~/components/layout/cluster";
+import { Container } from "~/components/layout/container";
+import { PageSection } from "~/components/layout/page-section";
+import { Stack } from "~/components/layout/stack";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
+import { StatusMessage } from "~/components/ui/status-message";
 
 export function meta() {
   const environment = getPublicEnvironment();
@@ -21,31 +33,53 @@ export default function Home() {
   });
 
   return (
-    <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-16 sm:py-24">
-      <div className="flex max-w-2xl flex-col gap-4">
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-          Silverstone web foundation
-        </h1>
-        <p className="text-lg leading-8 text-muted-foreground">
-          This non-indexable staging application establishes routing, safety,
-          accessibility, testing, and integration boundaries. Legacy page content has
-          not been migrated.
-        </p>
-      </div>
-      <dl className="grid max-w-2xl gap-4 border-t pt-6 sm:grid-cols-2">
-        <div>
-          <dt className="text-sm font-medium">Environment</dt>
-          <dd className="text-sm text-muted-foreground">Staging only</dd>
-        </div>
-        <div>
-          <dt className="text-sm font-medium">External side effects</dt>
-          <dd className="text-sm text-muted-foreground">Disabled or mocked</dd>
-        </div>
-      </dl>
-      <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        type="application/ld+json"
-      />
-    </section>
+    <PageSection spacing="hero">
+      <Container>
+        <Stack gap="xl">
+          <Stack className="max-w-3xl" gap="lg">
+            <span className="ss-eyebrow text-muted-foreground">Foundation</span>
+            <h1 className="text-h1">Silverstone web foundation</h1>
+            <p className="ss-lead text-muted-foreground">
+              This non-indexable staging application establishes routing, safety,
+              accessibility, testing, and reusable design-system boundaries. Legacy page
+              content has not been migrated.
+            </p>
+          </Stack>
+          <StatusMessage
+            description="Search indexing remains disabled and external integrations stay mocked in this branch."
+            title="Staging safety remains active"
+            tone="info"
+          />
+          <Cluster className="items-stretch" gap="md">
+            <Card className="min-w-[18rem] flex-1">
+              <CardHeader>
+                <CardTitle>Environment</CardTitle>
+                <CardDescription>
+                  Execution boundary for the transformation.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-body-sm text-muted-foreground">
+                Staging only
+              </CardContent>
+            </Card>
+            <Card className="min-w-[18rem] flex-1">
+              <CardHeader>
+                <CardTitle>External side effects</CardTitle>
+                <CardDescription>
+                  Production integrations remain outside this workstream.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-body-sm text-muted-foreground">
+                Disabled or mocked
+              </CardContent>
+            </Card>
+          </Cluster>
+        </Stack>
+        <script
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          type="application/ld+json"
+        />
+      </Container>
+    </PageSection>
   );
 }
