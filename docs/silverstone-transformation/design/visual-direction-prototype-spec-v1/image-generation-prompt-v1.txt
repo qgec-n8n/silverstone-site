@@ -1,0 +1,30 @@
+Create one original, production-quality, ultra-wide premium futuristic background artwork for the Silverstone AI website hero. This is a background plate only: no logo, no text, no letters, no numbers, no UI labels, no people and no recognisable third-party product marks.
+
+ART DIRECTION
+“Precision Luminescence”: a quiet-luxury computational environment combining machined titanium architecture, platinum-white space, graphite structural depth and restrained cyan-to-blue-to-violet-to-pink signal light. The scene should feel engineered, credible and expensive—not like a generic AI gradient, cyberpunk city, gaming wallpaper or stock technology illustration.
+
+COMPOSITION
+- 16:9 master, designed for responsive cropping from 21:9 desktop through 4:5 mobile.
+- Keep the left 48% calm, pale and low-detail for dark graphite headline copy and two buttons.
+- Concentrate visual interest in the right 45%: six distinct luminous pathways converge through a precise circular human-control gate, then continue into an orderly operational network.
+- Use shallow architectural depth, fine titanium ribs, subtle translucent data planes, controlled reflections and a few crisp signal nodes.
+- Include a quiet central negative-space corridor so the image can crop without losing meaning.
+- No focal object should touch the outer 8% safe area.
+
+MATERIALS AND LIGHT
+Brushed titanium, satin platinum, frosted optical glass and graphite ceramic. Soft studio illumination with one restrained cyan key light and small violet/pink spectral accents. High local clarity around the control gate; very low atmospheric haze. Accents should occupy under 10% of the image.
+
+COLOUR
+Cloud white and platinum dominate. Structural graphite corresponds approximately to #39454D and #43555D. Accent light moves selectively through #5EC5D0, #597FAD, #A97CC0 and #C884C3. Avoid oversaturated neon, black void backgrounds and large rainbow gradients.
+
+STYLE
+Photorealistic conceptual product visualisation blended with precision architectural illustration. Minimal, sophisticated, technically plausible, clean, elegant, premium British design sensibility. Fine detail should survive high-resolution display but remain quiet behind text.
+
+NEGATIVE REQUIREMENTS
+No robot, brain, humanoid, holographic hand, circuit-board close-up, DNA helix, crypto imagery, hexagon field, particle storm, lens-flare overload, glowing orb, portal, spaceship, server racks, city skyline, clichéd infinity symbol, fake dashboard, typography, watermark or copied component aesthetic. Do not imitate Agentive Labs, 21st.dev preview compositions or any known agency hero.
+
+OUTPUTS
+1. 3840×2160 desktop master with the left-side copy-safe area.
+2. 2160×2700 portrait derivative retaining the circular control gate in the upper-right/mid-right area.
+3. A lower-contrast fallback variant with 20% less glow and simplified fine detail for reduced-motion/low-power presentation.
+4. Export lossless PNG master plus high-quality AVIF/WebP derivatives during implementation.
