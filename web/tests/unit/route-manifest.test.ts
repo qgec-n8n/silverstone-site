@@ -13,9 +13,9 @@ import {
 
 describe("route migration manifests", () => {
   it("assigns one validated future disposition to every A-01 canonical route", () => {
-    expect(futureRouteManifest).toHaveLength(50);
+    expect(futureRouteManifest).toHaveLength(58);
     expect(validateFutureRouteManifest(futureRouteManifest)).toEqual([]);
-    expect(new Set(futureRouteManifest.map((route) => route.path)).size).toBe(50);
+    expect(new Set(futureRouteManifest.map((route) => route.path)).size).toBe(58);
     expect(
       futureRouteManifest
         .filter((route) => route.lifecycle === "draft")

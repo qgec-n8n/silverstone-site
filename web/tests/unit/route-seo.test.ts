@@ -29,15 +29,15 @@ describe("route SEO generation", () => {
 
   it("builds visible-fact breadcrumb and page schema", () => {
     const route = futureRouteManifest.find(
-      (candidate) => candidate.path === "/blog/ai-receptionist-small-business-2026",
+      (candidate) => candidate.path === "/services/ai-receptionists",
     );
     if (!route) {
-      throw new Error("Article route fixture is missing");
+      throw new Error("Service route fixture is missing");
     }
 
     const graph = buildRouteSchemaGraph(route);
     expect(graph["@graph"].map((entry) => entry["@type"])).toEqual([
-      "Article",
+      "Service",
       "BreadcrumbList",
     ]);
     expect(serializeJsonLd({ value: "</script>" })).not.toContain("</script>");
@@ -53,8 +53,12 @@ describe("route SEO generation", () => {
       routes: futureRouteManifest,
     });
 
-    expect(productionSitemap.match(/<url>/g)).toHaveLength(49);
+    expect(productionSitemap.match(/<url>/g)).toHaveLength(25);
     expect(productionSitemap).toContain("https://silverstone-ai.com/services");
+    expect(productionSitemap).toContain("https://silverstone-ai.com/industries");
+    expect(productionSitemap).not.toContain(
+      "https://silverstone-ai.com/blog/ai-receptionist-small-business-2026",
+    );
     expect(productionSitemap).not.toContain("staging.example.invalid");
     expect(stagingSitemap).toBe("");
     expect(buildRobotsTxt({ environment: "staging" })).toBe(

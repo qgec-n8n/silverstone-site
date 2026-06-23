@@ -3,8 +3,10 @@ import { index, route, type RouteConfig } from "@react-router/dev/routes";
 const routes = [
   index("../routes/company/home.tsx"),
   route("about", "../routes/company/about.tsx"),
+  route("how-we-work", "../routes/company/how-we-work.tsx"),
   route("services", "../routes/services/index.tsx"),
-  route("services/:slug", "../routes/industries/industry.tsx"),
+  route("services/:slug", "../routes/services/detail.tsx"),
+  route("industries", "../routes/industries/index.tsx"),
   route("blog", "../routes/blog/index.tsx"),
   route("blog/:slug", "../routes/blog/article.tsx"),
   route("pricing", "../routes/conversion/pricing.tsx"),

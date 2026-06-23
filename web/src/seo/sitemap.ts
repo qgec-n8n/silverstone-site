@@ -21,7 +21,12 @@ export function buildSitemapXml({
   }
 
   const entries = routes
-    .filter((route) => route.productionIndexable && route.sitemap)
+    .filter(
+      (route) =>
+        route.productionIndexable &&
+        route.sitemap &&
+        (route.template !== "article" || route.claimsStatus.startsWith("safe-copy")),
+    )
     .map((route) => `  <url><loc>${escapeXml(route.canonical)}</loc></url>`)
     .join("\n");
 

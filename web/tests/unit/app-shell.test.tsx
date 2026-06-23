@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 import { describe, expect, it } from "vitest";
 
 import { AppShell } from "~/components/layout/app-shell";
@@ -6,9 +7,11 @@ import { AppShell } from "~/components/layout/app-shell";
 describe("AppShell", () => {
   it("provides skip navigation and semantic landmarks", () => {
     render(
-      <AppShell>
-        <h1>Foundation content</h1>
-      </AppShell>,
+      <MemoryRouter>
+        <AppShell>
+          <h1>Foundation content</h1>
+        </AppShell>
+      </MemoryRouter>,
     );
 
     expect(screen.getByRole("link", { name: "Skip to content" })).toHaveAttribute(

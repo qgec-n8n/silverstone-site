@@ -1,6 +1,10 @@
 import type { MigratedContentIndexRecord, MigratedContentRecord } from "./schema";
+import {
+  approvedContentById,
+  approvedContentIndex,
+} from "./approved/registry";
 
-export const migratedContentIndex: MigratedContentIndexRecord[] = [
+const generatedContentIndex: MigratedContentIndexRecord[] = [
   {
     contentId: "content-home",
     routeId: "route-home",
@@ -445,6 +449,13 @@ export const migratedContentIndex: MigratedContentIndexRecord[] = [
   },
 ];
 
+const approvedContentIds = new Set(approvedContentIndex.map((record) => record.contentId));
+
+export const migratedContentIndex: MigratedContentIndexRecord[] = [
+  ...approvedContentIndex,
+  ...generatedContentIndex.filter((record) => !approvedContentIds.has(record.contentId)),
+];
+
 const contentLoaders: Record<
   string,
   () => Promise<{ default: MigratedContentRecord }>
@@ -540,6 +551,11 @@ const contentLoaders: Record<
 export async function loadMigratedContent(
   contentId: string,
 ): Promise<MigratedContentRecord> {
+  const approved = approvedContentById[contentId];
+  if (approved) {
+    return approved;
+  }
+
   const loader = contentLoaders[contentId];
   if (!loader) {
     throw new Error(`No migrated content module for ${contentId}`);

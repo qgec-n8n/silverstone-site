@@ -17,9 +17,9 @@ describe("migrated content baseline", () => {
     );
 
     expect(migratedContentIndex).toHaveLength(retainedRoutes.length);
-    expect(migratedContentIndex).toHaveLength(49);
+    expect(migratedContentIndex).toHaveLength(57);
     expect(new Set(migratedContentIndex.map((record) => record.routePath)).size).toBe(
-      49,
+      57,
     );
     expect(
       retainedRoutes.every((route) =>
@@ -36,12 +36,16 @@ describe("migrated content baseline", () => {
 
     expect(validateMigratedContentRecord(content)).toEqual([]);
     expect(content.kind).toBe("industry");
-    expect(content.source.file).toBe("services/dentists.html");
+    expect(content.source.file).toBe(
+      "docs/silverstone-transformation/content/silverstone-content-ia-seo-pack-v1/industries/industry-dentists-copy-v1.md",
+    );
     expect(content.source.sha256).toMatch(/^[a-f0-9]{64}$/);
     expect(content.source.textSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(content.sections.length).toBeGreaterThan(5);
     expect(content.sections.some((section) => section.heading?.level === 2)).toBe(true);
-    expect(content.metadata.title).toBe("AI Automation for Dentists | Silverstone AI");
+    expect(content.metadata.title).toBe(
+      "Digital and AI Services for Dental Practices | Silverstone AI",
+    );
     expect(content.metadata.canonical).toBe(
       "https://silverstone-ai.com/services/dentists",
     );
@@ -51,7 +55,7 @@ describe("migrated content baseline", () => {
 
   it("keeps service and industry records structurally distinct", async () => {
     const [service, industry] = await Promise.all([
-      loadMigratedContent("content-services"),
+      loadMigratedContent("content-service-ai-receptionists"),
       loadMigratedContent("content-services-dentists"),
     ]);
 

@@ -10,7 +10,7 @@ describe("MigratedContentRenderer", () => {
 
     const { container } = render(<MigratedContentRenderer content={content} />);
 
-    expect(screen.getByText("Contact Us")).toBeVisible();
+    expect(screen.getByText("Useful context")).toBeVisible();
     expect(container.querySelector("form")).not.toBeInTheDocument();
     expect(container.querySelector("iframe")).not.toBeInTheDocument();
     expect(container.querySelector("script")).not.toBeInTheDocument();

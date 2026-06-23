@@ -4,6 +4,8 @@ const representativeRoutes = [
   "/",
   "/services",
   "/services/dentists",
+  "/industries",
+  "/how-we-work",
   "/blog",
   "/blog/ai-receptionist-small-business-2026",
   "/pricing",
@@ -13,15 +15,15 @@ const representativeRoutes = [
 const representativeSourceCopy = [
   {
     path: "/about",
-    text: "Silverstone AI is a London automation studio helping UK small businesses save time, cut admin, and run on better systems.",
+    text: "The work starts with a named problem, an accountable owner and a defined first release. Technology choices follow the workflow, not the other way around.",
   },
   {
     path: "/services/dentists",
-    text: "DNAs and recall gaps quietly empty chairs.",
+    text: "Clinical questions must be separated from administrative ones",
   },
   {
     path: "/blog/ai-receptionist-small-business-2026",
-    text: "Why the front desk is the strongest first AI project",
+    text: "The original article content is temporarily withheld while claim evidence, source provenance or duplication decisions are being reviewed.",
   },
 ];
 
@@ -43,7 +45,8 @@ for (const path of representativeRoutes) {
       "href",
       /^https:\/\/silverstone-ai\.com/,
     );
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(1);
+    await expect(page.locator('meta[name="robots"]').first()).toHaveAttribute(
       "content",
       "noindex,nofollow,noarchive",
     );

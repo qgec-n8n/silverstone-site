@@ -1,19 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { createRequire } from "node:module";
 
-type RouteFixture = {
-  h1: string;
-  path: string;
-};
-
-const require = createRequire(import.meta.url);
-const futureRouteManifest =
-  require("../../src/data/generated/future-route-manifest.json") as RouteFixture[];
-const homeRoute = futureRouteManifest.find((route) => route.path === "/");
-if (!homeRoute) {
-  throw new Error("Home route fixture is missing");
-}
+const homeHeading = "Practical technology that helps small teams respond, deliver and grow";
 
 test("staging shell loads without runtime errors", async ({ page }) => {
   const consoleErrors: string[] = [];
@@ -26,8 +14,9 @@ test("staging shell loads without runtime errors", async ({ page }) => {
   const response = await page.goto("/");
 
   expect(response?.ok()).toBe(true);
-  await expect(page.getByRole("heading", { name: homeRoute.h1 })).toBeVisible();
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+  await expect(page.getByRole("heading", { name: homeHeading })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(1);
+  await expect(page.locator('meta[name="robots"]').first()).toHaveAttribute(
     "content",
     "noindex,nofollow,noarchive",
   );

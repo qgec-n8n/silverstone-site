@@ -20,7 +20,37 @@ type SchemaEntry = {
 };
 
 function buildPageSchema(route: FutureRouteRecord): SchemaEntry {
-  if (route.template === "article") {
+  const articleUnderReview =
+    route.template === "article" && !route.claimsStatus.startsWith("safe-copy");
+
+  if (route.path === "/") {
+    return {
+      "@type": "WebPage",
+      name: route.title,
+      description: route.description,
+      url: route.canonical,
+    };
+  }
+
+  if (route.schemaTypes.includes("AboutPage")) {
+    return {
+      "@type": "AboutPage",
+      name: route.title,
+      description: route.description,
+      url: route.canonical,
+    };
+  }
+
+  if (route.schemaTypes.includes("ContactPage")) {
+    return {
+      "@type": "ContactPage",
+      name: route.title,
+      description: route.description,
+      url: route.canonical,
+    };
+  }
+
+  if (route.template === "article" && !articleUnderReview) {
     return {
       "@type": "Article",
       headline: route.h1,
@@ -33,12 +63,13 @@ function buildPageSchema(route: FutureRouteRecord): SchemaEntry {
     };
   }
 
-  if (route.template === "industry") {
+  if (route.schemaTypes.includes("Service")) {
     return {
       "@type": "Service",
       name: route.h1,
       description: route.description,
       url: route.canonical,
+      serviceType: route.h1,
       provider: {
         "@type": "Organization",
         name: "Silverstone AI",
@@ -47,7 +78,7 @@ function buildPageSchema(route: FutureRouteRecord): SchemaEntry {
     };
   }
 
-  if (route.template === "service" || route.path === "/blog") {
+  if (route.schemaTypes.includes("CollectionPage")) {
     return {
       "@type": "CollectionPage",
       name: route.title,
@@ -83,9 +114,28 @@ export function buildRouteSchemaGraph(route: FutureRouteRecord): {
   "@context": "https://schema.org";
   "@graph": SchemaEntry[];
 } {
+  const graph: SchemaEntry[] = [];
+
+  if (route.path === "/") {
+    graph.push(
+      {
+        "@type": "WebSite",
+        name: "Silverstone AI",
+        url: "https://silverstone-ai.com/",
+      },
+      {
+        "@type": "Organization",
+        name: "Silverstone AI",
+        url: "https://silverstone-ai.com/",
+      },
+    );
+  }
+
+  graph.push(buildPageSchema(route), buildBreadcrumbListSchema(route));
+
   return {
     "@context": "https://schema.org",
-    "@graph": [buildPageSchema(route), buildBreadcrumbListSchema(route)],
+    "@graph": graph,
   };
 }
 

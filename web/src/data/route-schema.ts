@@ -131,8 +131,8 @@ export function validateFutureRouteManifest(input: unknown): string[] {
   }
 
   const issues: string[] = [];
-  if (input.length !== 50) {
-    issues.push(`Expected 50 future routes, received ${String(input.length)}`);
+  if (input.length < 50) {
+    issues.push(`Expected at least 50 future routes, received ${String(input.length)}`);
   }
 
   const records = input.filter(isObject);
