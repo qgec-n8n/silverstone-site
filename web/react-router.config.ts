@@ -1,0 +1,27 @@
+import type { Config } from "@react-router/dev/config";
+import futureRouteManifest from "./src/data/generated/future-route-manifest.json";
+
+const approvedPrerenderPaths = [
+  "/industries",
+  "/how-we-work",
+  "/services/web-design-development",
+  "/services/app-development",
+  "/services/ai-voice-agents",
+  "/services/ai-receptionists",
+  "/services/content-creation",
+  "/services/ai-automation",
+];
+
+export default {
+  appDirectory: "src/app",
+  buildDirectory: "build",
+  future: {
+    v8_middleware: true,
+    v8_passThroughRequests: true,
+    v8_splitRouteModules: true,
+    v8_trailingSlashAwareDataRequests: true,
+    v8_viteEnvironmentApi: true,
+  },
+  prerender: [...futureRouteManifest.map((route) => route.path), ...approvedPrerenderPaths],
+  ssr: false,
+} satisfies Config;

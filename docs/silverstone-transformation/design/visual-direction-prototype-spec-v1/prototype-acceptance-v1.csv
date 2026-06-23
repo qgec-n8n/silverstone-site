@@ -1,0 +1,60 @@
+acceptance_id,area,route_or_template,requirement,evidence,priority,pass_condition,status
+ROUTE-01,route coverage,/,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-02,route coverage,/services,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-03,route coverage,/services/web-design-development,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-04,route coverage,/services/app-development,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-05,route coverage,/services/ai-voice-agents,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-06,route coverage,/services/ai-receptionists,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-07,route coverage,/services/content-creation,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-08,route coverage,/services/ai-automation,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-09,route coverage,/industries,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-10,route coverage,/industries/estate-agents,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-11,route coverage,/industries/hospitality,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-12,route coverage,/industries/salons-barbers,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-13,route coverage,/industries/trades,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-14,route coverage,/industries/ecommerce,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-15,route coverage,/industries/physios-chiropractors,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-16,route coverage,/industries/dentists,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-17,route coverage,/industries/gyms-fitness-studios,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-18,route coverage,/industries/fitness-coaches,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-19,route coverage,/how-we-work,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-20,route coverage,/book,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-21,route coverage,/contact,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-22,route coverage,/about,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-23,route coverage,/blog,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-24,route coverage,/blog/{slug},Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-25,route coverage,/pricing,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-26,route coverage,/privacy-policy,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+ROUTE-27,route coverage,404,Route has a named signature feature and wireframe,page-visual-concepts-v1.md,P0,Route appears in coverage register and acceptance review,required
+SITE-01,sitewide,global,Precision Luminescence direction is applied without generic AI spectacle,sitewide-art-direction-v1.md,P0,70/20/10 visual balance is evident and content remains primary,required
+SITE-02,imagery,global,Existing imagery is reused only after rights/relevance/crop/resolution gate,sitewide-art-direction-v1.md,P0,"Every reused asset has repository path, rights status and focal treatment",required
+SITE-03,carousel,global,Existing lower-page carousel is removed,page-visual-concepts-v1.md,P0,No route contains the legacy lower carousel; static decision rail used,required
+SITE-04,icons,global,Machined Signal icon system is original,sitewide-art-direction-v1.md,P1,"Brand/service icons meet stroke, accent and cliché exclusions",required
+NAV-01,navigation,global,Desktop and mobile navigation are keyboard complete,sitewide-art-direction-v1.md,P0,Tab/Escape/current-route/focus restoration pass,required
+FOOT-01,footer,global,Footer is semantic and non-animated,sitewide-art-direction-v1.md,P1,All links available at 320px and 400% zoom,required
+PERF-01,performance,global,Initial-route JS target,F-02 + sitewide-art-direction-v1.md,P0,≤220 KB gzip target,required
+PERF-02,performance,global,Initial-route JS hard ceiling,F-02 + sitewide-art-direction-v1.md,P0,≤300 KB gzip,required
+PERF-03,performance,global,No animation-caused long task,performance trace,P0,No reproducible task >50ms,required
+PERF-04,performance,animated routes,Representative sustained desktop animation,performance trace,P0,≥45 FPS,required
+PERF-05,performance,shader route,Shader is deferred,network trace,P0,Not in initial-route chunk and loads after critical content,required
+PERF-06,performance,shader route,Shader payload budget,bundle report,P0,≤45 KB gzip target and ≤65 KB ceiling,required
+A11Y-01,accessibility,global,Reduced-motion presentation preserves all information,responsive-reduced-motion-v1.md,P0,No shader/parallax/autoplay; content complete,required
+A11Y-02,accessibility,global,Keyboard-only completion,keyboard walkthrough,P0,All actions complete without pointer,required
+A11Y-03,accessibility,global,Text and UI contrast,contrast audit,P0,Text/UI meet specified thresholds,required
+A11Y-04,accessibility,global,Visible focus,screenshots,P0,Two-colour 4px ring never clipped/obscured,required
+A11Y-05,accessibility,global,Reflow,viewport matrix,P0,No unintended overflow at 320px/400% zoom,required
+A11Y-06,accessibility,global,Touch targets,measurement,P0,44px preferred; primary 48–56px,required
+SHADER-01,component decision,/,21st.dev shader is prototype only,shader-component-decision-v1.md,P0,No production adoption before all 14 gates,required
+SHADER-02,component decision,lower-traffic,Existing shader is adapted only after source review,shader-component-decision-v1.md,P0,Source/licence/bundle/fallback/cleanup documented,required
+SHADER-03,component decision,global,Static original background adopted,image-generation-prompt-v1.txt,P1,"Desktop, portrait and low-power outputs produced",required
+COMP-01,component decision,global,Hero Button Expendable rejected,shader-component-decision-v1.md,P0,No third-party expandable hero modal installed,required
+COMP-02,component decision,global,Custom scroll area not adopted by default,shader-component-decision-v1.md,P0,Native scroll used; no scroll hijacking,required
+TOOLS-01,tools carousel,relevant routes,Native user-controlled tools rail,tools-carousel-demo-system-v1.md,P0,No autoplay/dependency; filters and controls keyboard accessible,required
+TOOLS-02,tools carousel,relevant routes,Integration claims are status qualified,tools-carousel-demo-system-v1.md,P0,Every tool states supported/assessment/custom and rights status,required
+DEMO-01,demos,all demos,Explicit start/reset and static summary,tools-carousel-demo-system-v1.md,P0,No autoplay; fallback complete,required
+DEMO-02,demos,all demos,Synthetic deterministic data,tools-carousel-demo-system-v1.md,P0,No production data or implied client outcome,required
+DEMO-03,demos,all demos,Human exception path,tools-carousel-demo-system-v1.md,P0,Exception/handoff visible as text and visual state,required
+ORIG-01,originality,global,No Agentive Labs copying,manual originality review,P0,"No copied wording, composition, interaction, demo or asset",required
+ORIG-02,originality,global,No third-party source copied before licence review,source ledger,P0,All candidates have recorded disposition and licence state,required
+MAN-01,manifest,archive,Manifest hashes and file list match archive,MANIFEST.md,P0,All hashes recompute and required files present,required
+MAN-02,manifest,archive,All factual observations are separated from proposals,document review,P0,Observed sections are labelled and sourced,required

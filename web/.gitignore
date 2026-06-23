@@ -1,0 +1,15 @@
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.staging
+
+# Build and cache output
+dist/
+coverage/
+.vite/
+node_modules/
+build/
+playwright-report/
+test-results/
+.react-router/
