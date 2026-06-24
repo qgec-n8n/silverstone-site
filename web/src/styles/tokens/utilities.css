@@ -19,19 +19,6 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-illum-cyan: var(--ss-v2-cyan);
-  --color-illum-cyan-bright: var(--ss-v2-cyan-bright);
-  --color-illum-blue: var(--ss-v2-blue);
-  --color-illum-violet: var(--ss-v2-violet);
-  --color-illum-pink: var(--ss-v2-pink);
-  --color-illum-magenta: var(--ss-v2-magenta);
-  --color-family: var(--ss-v2-family);
-  --color-family-2: var(--ss-v2-family-2);
-  --color-ink-900: var(--ss-v2-ink-900);
-  --color-ink-800: var(--ss-v2-ink-800);
-  --color-ink-700: var(--ss-v2-ink-700);
-  --color-ink-600: var(--ss-v2-ink-600);
-
   --font-sans: var(--ss-font-body);
   --font-display: var(--ss-font-display);
   --font-mono: var(--ss-font-mono);
@@ -91,7 +78,7 @@
   }
 
   html {
-    color-scheme: dark;
+    color-scheme: light;
     font-family: var(--ss-font-body);
     scroll-padding-top: 6rem;
   }

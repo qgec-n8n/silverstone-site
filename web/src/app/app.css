@@ -3,9 +3,5 @@
 @import "../styles/tokens/index.css";
 @import "../styles/tokens/utilities.css";
 @import "../styles/motion-reveal.css";
-@import "../styles/v2.css";
-@import "@fontsource-variable/sora";
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/jetbrains-mono";
 
 @custom-variant dark (&:is(.dark *));

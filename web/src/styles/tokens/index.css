@@ -216,44 +216,6 @@
   --radius: var(--ss-radius-md);
 }
 
-/* ============================================================
-   Silverstone V2 — "Precision Light" tokens (dark-default system).
-   Illumination accents, ink canvases, glass, chrome, glow, and the
-   per-page "family" accent. These are global so dark-default surfaces
-   and light islands can both reference them.
-   ============================================================ */
-:root {
-  --ss-v2-cyan: #5ec5d0;
-  --ss-v2-cyan-bright: #76e2ee;
-  --ss-v2-blue: #6f9bd6;
-  --ss-v2-violet: #b48fd6;
-  --ss-v2-pink: #e09cdb;
-  --ss-v2-magenta: #c77fc4;
-
-  --ss-v2-ink-900: #05080a;
-  --ss-v2-ink-800: #080c0f;
-  --ss-v2-ink-700: #0e151a;
-  --ss-v2-ink-600: #141d22;
-
-  --ss-v2-glass-bg: color-mix(in srgb, #0e151a 72%, transparent);
-  --ss-v2-glass-bg-strong: color-mix(in srgb, #0b1115 88%, transparent);
-  --ss-v2-glass-border: color-mix(in srgb, #e9eaef 14%, transparent);
-  --ss-v2-glass-highlight: color-mix(in srgb, #ffffff 7%, transparent);
-
-  --ss-v2-chrome-1: #ffffff;
-  --ss-v2-chrome-2: #c7ccd2;
-  --ss-v2-chrome-3: #8b949b;
-  --ss-v2-chrome-4: #5a646b;
-
-  --ss-v2-family: var(--ss-v2-cyan);
-  --ss-v2-family-2: var(--ss-v2-violet);
-
-  --ss-v2-glow-cyan: 0 0 44px color-mix(in srgb, var(--ss-v2-cyan) 38%, transparent);
-  --ss-v2-glow-violet: 0 0 48px color-mix(in srgb, var(--ss-v2-violet) 32%, transparent);
-  --ss-v2-glow-family: 0 0 48px color-mix(in srgb, var(--ss-v2-family) 36%, transparent);
-  --ss-v2-grid-line: color-mix(in srgb, #e9eaef 6%, transparent);
-}
-
 .dark {
   --ss-color-text-primary: #ffffff;
   --ss-color-text-secondary: #e9eaef;
@@ -263,16 +225,16 @@
   --ss-color-text-link-hover: #9dbde0;
   --ss-color-text-disabled: #a0a4ab;
 
-  --ss-color-surface-canvas: #080c0f;
-  --ss-color-surface-subtle: #0d1317;
-  --ss-color-surface-raised: #121a1f;
-  --ss-color-surface-brand-tint: #0c1519;
+  --ss-color-surface-canvas: #202a2f;
+  --ss-color-surface-subtle: #39454d;
+  --ss-color-surface-raised: #2b373d;
+  --ss-color-surface-brand-tint: #25343a;
   --ss-color-surface-inverse: #ffffff;
-  --ss-color-surface-scrim: #00060acc;
+  --ss-color-surface-scrim: #000000b8;
 
-  --ss-color-border-subtle: #1a2329;
-  --ss-color-border-default: #2b3a42;
-  --ss-color-border-strong: #44545c;
+  --ss-color-border-subtle: #5c6a70;
+  --ss-color-border-default: #a0a4ab;
+  --ss-color-border-strong: #e9eaef;
   --ss-color-border-inverse: #43555d;
 
   --ss-color-action-primary-bg: #5ec5d0;
