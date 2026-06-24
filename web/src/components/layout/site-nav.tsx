@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { ChevronDownIcon } from "lucide-react";
 
 import { Button } from "~/components/ui/button";
@@ -20,7 +20,7 @@ function SiteNavList({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="site-nav-list"
-      className={cn("flex flex-wrap items-center gap-2", className)}
+      className={cn("flex flex-wrap items-center gap-1", className)}
       {...props}
     />
   );
@@ -57,15 +57,20 @@ function SiteNavLink({
   );
 }
 
+type SiteNavDisclosureLink = {
+  current?: boolean;
+  description?: string;
+  family?: string;
+  href: string;
+  label: string;
+};
+
 type SiteNavDisclosureProps = {
-  children: React.ReactNode;
+  children?: ReactNode;
   className?: string;
   label: string;
-  links: {
-    current?: boolean;
-    href: string;
-    label: string;
-  }[];
+  links: SiteNavDisclosureLink[];
+  renderLink?: (link: SiteNavDisclosureLink) => ReactNode;
 };
 
 function SiteNavDisclosure({
@@ -73,15 +78,53 @@ function SiteNavDisclosure({
   className,
   label,
   links,
+  renderLink,
 }: SiteNavDisclosureProps) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
+
+  const wide = links.length > 4;
 
   return (
-    <div className={cn("relative", className)} data-slot="site-nav-disclosure">
+    <div
+      className={cn("relative", className)}
+      data-slot="site-nav-disclosure"
+      ref={containerRef}
+    >
       <Button
         aria-controls={panelId}
         aria-expanded={open}
+        className="gap-1 text-body-sm font-medium text-muted-foreground hover:text-foreground"
         onClick={() => setOpen((value) => !value)}
         size="sm"
         type="button"
@@ -91,31 +134,41 @@ function SiteNavDisclosure({
         <ChevronDownIcon
           aria-hidden="true"
           className={cn(
-            "ss-motion-decorative size-4 transition-transform motion-reduce:duration-75",
+            "size-4 transition-transform duration-200 motion-reduce:transition-none",
             open && "rotate-180",
           )}
         />
       </Button>
       <div
         className={cn(
-          "absolute top-full left-0 z-[500] mt-2 min-w-56 rounded-[var(--ss-radius-md)] border border-border bg-card p-2 shadow-md",
+          "ss-glass-strong absolute top-full left-0 z-[500] mt-3 rounded-[var(--ss-radius-lg)] p-2",
+          wide ? "w-[min(92vw,34rem)]" : "w-[min(92vw,20rem)]",
           !open && "hidden",
         )}
         id={panelId}
       >
-        <div className="px-2 py-1 text-caption font-semibold tracking-[var(--ss-type-track-eyebrow)] text-muted-foreground uppercase">
-          {children}
-        </div>
-        <ul className="mt-1 flex flex-col gap-1">
+        {children ? (
+          <p className="ss-mono-label px-3 pt-2 pb-1 text-[color:var(--ss-v2-cyan)]">
+            {children}
+          </p>
+        ) : null}
+        <ul
+          className={cn("grid gap-1 p-1", wide && "sm:grid-cols-2")}
+          onClick={() => setOpen(false)}
+        >
           {links.map((link) => (
             <li key={link.href}>
-              <SiteNavLink
-                className="w-full justify-start px-2 py-2"
-                current={link.current === true}
-                href={link.href}
-              >
-                {link.label}
-              </SiteNavLink>
+              {renderLink ? (
+                renderLink(link)
+              ) : (
+                <SiteNavLink
+                  className="block w-full px-3 py-2"
+                  current={link.current === true}
+                  href={link.href}
+                >
+                  {link.label}
+                </SiteNavLink>
+              )}
             </li>
           ))}
         </ul>
@@ -125,3 +178,4 @@ function SiteNavDisclosure({
 }
 
 export { SiteNav, SiteNavDisclosure, SiteNavItem, SiteNavLink, SiteNavList };
+export type { SiteNavDisclosureLink };

@@ -8,8 +8,8 @@ import {
 } from "react-router";
 
 import { AppShell } from "~/app/components/app-shell";
+import { BrandedRouteLoader } from "~/app/components/branded-route-loader";
 import { LoadingBoundary, LoadingFallback } from "~/app/components/loading-boundary";
-import { RouteLoadingIndicator } from "~/app/components/route-loading-indicator";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";
@@ -18,7 +18,7 @@ import "./app.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" data-theme="dark" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -50,7 +50,7 @@ export function HydrateFallback() {
 
 export default function App() {
   return (
-    <AppShell pendingIndicator={<RouteLoadingIndicator />}>
+    <AppShell pendingIndicator={<BrandedRouteLoader />}>
       <LoadingBoundary>
         <Outlet />
       </LoadingBoundary>

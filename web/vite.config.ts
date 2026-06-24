@@ -83,6 +83,11 @@ export default defineConfig(({ mode }) => {
         "class-variance-authority",
         "clsx",
         "tailwind-merge",
+        "three",
+        "@react-three/fiber",
+        "maath",
+        "lenis",
+        "@gsap/react",
       ],
     },
     server: {

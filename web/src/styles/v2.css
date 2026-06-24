@@ -1,0 +1,271 @@
+/*
+  Silverstone V2 — "Precision Light" utilities.
+
+  A dark-default, cinematic luxury-technology layer: brushed-chrome text,
+  glass surfaces, illumination glow, aurora gradients, luminous gradient
+  borders, precision grid/hairline backgrounds, and per-page "family"
+  accent theming. Decorative motion is progressive-enhancement only and
+  fully neutralised under prefers-reduced-motion.
+
+  Imported last in app.css so these utilities win on equal specificity.
+*/
+
+/* ----------------------------------------------------------------
+   Page-family accent theming.
+   A wrapper with [data-family="…"] re-points --ss-v2-family so every
+   glow, gradient, and luminous border inside it shifts hue together.
+   ---------------------------------------------------------------- */
+[data-family="intelligence"] {
+  --ss-v2-family: var(--ss-v2-cyan);
+  --ss-v2-family-2: var(--ss-v2-blue);
+}
+
+[data-family="automation"] {
+  --ss-v2-family: var(--ss-v2-violet);
+  --ss-v2-family-2: var(--ss-v2-pink);
+}
+
+[data-family="engineering"] {
+  --ss-v2-family: var(--ss-v2-blue);
+  --ss-v2-family-2: var(--ss-v2-cyan);
+}
+
+[data-family="data"] {
+  --ss-v2-family: var(--ss-v2-cyan);
+  --ss-v2-family-2: var(--ss-v2-violet);
+}
+
+[data-family="assurance"] {
+  --ss-v2-family: var(--ss-v2-cyan-bright);
+  --ss-v2-family-2: var(--ss-v2-blue);
+}
+
+[data-family="signal"] {
+  --ss-v2-family: var(--ss-v2-pink);
+  --ss-v2-family-2: var(--ss-v2-violet);
+}
+
+@layer utilities {
+  /* ---- Ambient cinematic backdrop (dark default) ---- */
+  .dark body {
+    background:
+      radial-gradient(
+        1200px 760px at 50% -12%,
+        color-mix(in srgb, var(--ss-v2-blue) 12%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        980px 720px at 100% 4%,
+        color-mix(in srgb, var(--ss-v2-violet) 9%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        900px 760px at 0% 18%,
+        color-mix(in srgb, var(--ss-v2-cyan) 7%, transparent),
+        transparent 55%
+      ),
+      var(--ss-v2-ink-800);
+    background-attachment: fixed;
+  }
+
+  /* ---- Glass surfaces ---- */
+  .ss-glass {
+    background: var(--ss-v2-glass-bg);
+    border: 1px solid var(--ss-v2-glass-border);
+    -webkit-backdrop-filter: blur(16px) saturate(135%);
+    backdrop-filter: blur(16px) saturate(135%);
+    box-shadow:
+      inset 0 1px 0 var(--ss-v2-glass-highlight),
+      0 24px 60px -28px color-mix(in srgb, #000 80%, transparent);
+  }
+
+  .ss-glass-strong {
+    background: var(--ss-v2-glass-bg-strong);
+    border: 1px solid var(--ss-v2-glass-border);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    backdrop-filter: blur(22px) saturate(140%);
+    box-shadow:
+      inset 0 1px 0 var(--ss-v2-glass-highlight),
+      0 32px 80px -34px color-mix(in srgb, #000 85%, transparent);
+  }
+
+  /* ---- Brushed-chrome metallic text ---- */
+  .ss-chrome-text {
+    background-image: linear-gradient(
+      176deg,
+      var(--ss-v2-chrome-1) 0%,
+      var(--ss-v2-chrome-2) 38%,
+      var(--ss-v2-chrome-3) 68%,
+      var(--ss-v2-chrome-4) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---- Aurora / iridescent gradient text ---- */
+  .ss-aurora-text {
+    background-image: linear-gradient(
+      100deg,
+      var(--ss-v2-cyan),
+      var(--ss-v2-blue),
+      var(--ss-v2-violet),
+      var(--ss-v2-pink),
+      var(--ss-v2-cyan)
+    );
+    background-size: 220% auto;
+    background-position: 0% center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ss-family-text {
+    background-image: linear-gradient(
+      100deg,
+      var(--ss-v2-family),
+      var(--ss-v2-family-2)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---- Illumination glow ---- */
+  .ss-glow-cyan {
+    box-shadow: var(--ss-v2-glow-cyan);
+  }
+
+  .ss-glow-violet {
+    box-shadow: var(--ss-v2-glow-violet);
+  }
+
+  .ss-glow-family {
+    box-shadow: var(--ss-v2-glow-family);
+  }
+
+  .ss-text-glow {
+    text-shadow: 0 0 26px color-mix(in srgb, var(--ss-v2-family) 45%, transparent);
+  }
+
+  /* ---- Luminous gradient border (no pseudo-element needed) ---- */
+  .ss-luminous-border {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--ss-v2-ink-700), var(--ss-v2-ink-700)) padding-box,
+      linear-gradient(
+          130deg,
+          color-mix(in srgb, var(--ss-v2-family) 65%, transparent),
+          transparent 42%,
+          color-mix(in srgb, var(--ss-v2-family-2) 55%, transparent)
+        )
+        border-box;
+  }
+
+  .ss-luminous-border-strong {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--ss-v2-ink-600), var(--ss-v2-ink-600)) padding-box,
+      linear-gradient(
+          130deg,
+          color-mix(in srgb, var(--ss-v2-family) 90%, transparent),
+          color-mix(in srgb, var(--ss-v2-family-2) 80%, transparent)
+        )
+        border-box;
+  }
+
+  /* ---- Precision grid + hairline + spotlight backdrops ---- */
+  .ss-grid-overlay {
+    background-image:
+      linear-gradient(var(--ss-v2-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--ss-v2-grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .ss-hairline {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--ss-v2-glass-border) 18%,
+      var(--ss-v2-glass-border) 82%,
+      transparent
+    );
+    block-size: 1px;
+    border: 0;
+  }
+
+  .ss-spotlight {
+    background: radial-gradient(
+      60% 60% at 50% 0%,
+      color-mix(in srgb, var(--ss-v2-family) 22%, transparent),
+      transparent 70%
+    );
+  }
+
+  /* ---- Technical mono label ---- */
+  .ss-mono-label {
+    font-family: var(--ss-font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Decorative motion — progressive enhancement only.
+   ---------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js="on"] .ss-aurora-text[data-animate="on"] {
+    animation: ss-aurora-pan 9s linear infinite;
+  }
+
+  html[data-js="on"] .ss-pulse-glow[data-animate="on"] {
+    animation: ss-pulse-glow 4.5s ease-in-out infinite;
+  }
+}
+
+@keyframes ss-aurora-pan {
+  to {
+    background-position: 220% center;
+  }
+}
+
+@keyframes ss-pulse-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Intentional light / platinum island inside the dark default.
+   Re-applies light surface tokens + shadcn aliases within the scope.
+   ---------------------------------------------------------------- */
+.ss-theme-light {
+  color-scheme: light;
+  --ss-color-surface-canvas: #f5f6f8;
+  --ss-color-surface-subtle: #eceef1;
+  --ss-color-surface-raised: #ffffff;
+  --ss-color-surface-brand-tint: #eef3f5;
+  --ss-color-text-primary: #0d1418;
+  --ss-color-text-secondary: #2a363c;
+  --ss-color-text-muted: #4d5a61;
+  --ss-color-border-subtle: #e2e6ea;
+  --ss-color-border-default: #cdd3d9;
+  --ss-color-border-strong: #aab2b9;
+  --background: var(--ss-color-surface-canvas);
+  --foreground: var(--ss-color-text-primary);
+  --card: var(--ss-color-surface-raised);
+  --card-foreground: var(--ss-color-text-primary);
+  --muted: var(--ss-color-surface-subtle);
+  --muted-foreground: var(--ss-color-text-muted);
+  --border: var(--ss-color-border-default);
+  --input: var(--ss-color-border-default);
+  background-color: var(--background);
+  color: var(--foreground);
+}

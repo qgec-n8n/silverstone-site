@@ -58,3 +58,11 @@ Do not edit legacy root HTML files, legacy CSS, legacy JavaScript, legacy assets
 
 - Report exact files changed, commands run, validation results, and any Preview limitations.
 - Confirm the legacy root and production controls were left untouched unless the user explicitly named them.
+
+## V2 Creative Directive (Visual Authority)
+
+- The **V2 creative directive** at `docs/silverstone-redesign/v2-creative-directive.md` governs the current visual implementation of the `/web` application (visual, motion, brand, and presentation decisions).
+- Earlier visual-direction prototype documents (e.g. under `docs/silverstone-transformation/design/visual-direction-prototype-spec-v1/`) **remain historical evidence and must not be deleted.**
+- Where an earlier visual document conflicts with the V2 directive, **the V2 directive takes precedence.**
+- `/web` remains the active application.
+- Supporting V2 registries: `docs/silverstone-redesign/21st-component-ledger.md`, `docs/silverstone-redesign/asset-registry.md`, and `docs/silverstone-redesign/metrics-registry.md`.
