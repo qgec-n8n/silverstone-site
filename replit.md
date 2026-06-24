@@ -35,6 +35,7 @@ Do not edit legacy root HTML files, legacy CSS, legacy JavaScript, legacy assets
 ## Documentation Authority
 
 - `/docs/silverstone-transformation/` contains authoritative project specifications, audits, decisions, and handoff records.
+- `/docs/silverstone-redesign/` contains the authoritative V2 presentation-rebuild records (creative directive, component source ledger, asset registry, claims registry) for the dark cinematic `/web` homepage. The V2 rebuild replaces presentation only — routing, data, content, and SEO/staging safety are preserved.
 - Inspect the relevant documentation before editing.
 - Preserve historical branch references in completed audit trails and reports, but do not create, switch, or rely on transformation branches for future work.
 - Future instructed work occurs in the current repository state unless the user explicitly says otherwise.

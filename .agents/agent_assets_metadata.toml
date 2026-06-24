@@ -1,5 +1,46 @@
 uploads = []
-generated = []
+
+[[generated]]
+id = "N-ZZrcNTCkuewy6juKn8V"
+uri = "file://web/public/home-v2/hero-poster.png"
+type = "image"
+title = "hero signal field"
+
+[[generated]]
+id = "4s4eXL1C6xQ7NTrYrPESr"
+uri = "file://web/public/home-v2/hero-poster-portrait.png"
+type = "image"
+title = "hero portrait"
+
+[[generated]]
+id = "thImjRaB8c4MMN1BM6gXq"
+uri = "file://web/public/home-v2/story-operating-surface.png"
+type = "image"
+title = "operating surface"
+
+[[generated]]
+id = "LRIzqBXAQP0bgfFSdXSzn"
+uri = "file://web/public/home-v2/story-voice-signal.png"
+type = "image"
+title = "voice signal"
+
+[[generated]]
+id = "aruPzjtXIVwUhNjPt7Vdy"
+uri = "file://web/public/home-v2/story-human-loop.png"
+type = "image"
+title = "human in the loop"
+
+[[generated]]
+id = "ydcHhNL0xzDSJ5xNe-CTv"
+uri = "file://web/public/home-v2/standard-chrome.png"
+type = "image"
+title = "chrome standard texture"
+
+[[generated]]
+id = "j5OVCakKpgRVHENyAz-Pe"
+uri = "file://web/public/home-v2/consulting-strategy.png"
+type = "image"
+title = "consulting strategy"
 
 [[outputs]]
 id = "XUp8NyZKW85fwoDHxLgYV"

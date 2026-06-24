@@ -1,0 +1,243 @@
+/*
+  Silverstone V2 — "Precision Luminescence" cinematic layer.
+
+  Extends (does not replace) the base token system in tokens/index.css with the
+  dark-first luxury-tech palette used by the V2 global shell, route loader and
+  homepage. Base primitives, semantic tokens and the existing `.dark` block are
+  left intact; everything here is additive and namespaced `--ss-v2-*`.
+*/
+
+:root {
+  /* --- void bases (layered, never flat #000) --- */
+  --ss-v2-void-black: #05070a;
+  --ss-v2-void-blue: #070b14;
+  --ss-v2-void-violet: #0a0712;
+  --ss-v2-graphite: #11161d;
+  --ss-v2-graphite-raised: #161d27;
+
+  /* --- glass + structure --- */
+  --ss-v2-glass: rgba(255, 255, 255, 0.04);
+  --ss-v2-glass-strong: rgba(255, 255, 255, 0.07);
+  --ss-v2-hairline: rgba(233, 234, 239, 0.1);
+  --ss-v2-hairline-strong: rgba(233, 234, 239, 0.2);
+  --ss-v2-platinum: #e9eaef;
+  --ss-v2-titanium: #a0a4ab;
+
+  /* --- signal (luminescence) --- */
+  --ss-v2-signal-cyan: #22d3ee;
+  --ss-v2-signal-cyan-soft: #5ec5d0;
+  --ss-v2-signal-blue: #597fad;
+  --ss-v2-signal-violet: #a97cc0;
+  --ss-v2-signal-pink: #c884c3;
+
+  /* --- gradients --- */
+  --ss-v2-gradient-signal: linear-gradient(
+    135deg,
+    var(--ss-v2-signal-cyan) 0%,
+    var(--ss-v2-signal-blue) 48%,
+    var(--ss-v2-signal-violet) 100%
+  );
+  --ss-v2-gradient-iridescent: linear-gradient(
+    120deg,
+    var(--ss-v2-signal-cyan-soft) 0%,
+    var(--ss-v2-signal-violet) 52%,
+    var(--ss-v2-signal-pink) 100%
+  );
+  --ss-v2-gradient-chrome: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    var(--ss-v2-platinum) 44%,
+    var(--ss-v2-titanium) 100%
+  );
+
+  /* --- glows --- */
+  --ss-v2-glow-cyan:
+    0 0 0 1px rgba(34, 211, 238, 0.22), 0 0 40px -6px rgba(34, 211, 238, 0.4);
+  --ss-v2-glow-violet:
+    0 0 0 1px rgba(169, 124, 192, 0.22), 0 0 44px -6px rgba(169, 124, 192, 0.38);
+  --ss-v2-glow-soft: 0 24px 70px -32px rgba(5, 7, 10, 0.9);
+
+  /* --- layout --- */
+  --ss-layout-header: 5rem;
+}
+
+@layer base {
+  html.dark {
+    color-scheme: dark;
+  }
+}
+
+@layer utilities {
+  /* Layered void backdrop — calm darkness with earned luminescence. */
+  .ss-void-bg {
+    background:
+      radial-gradient(
+        120% 80% at 50% -10%,
+        color-mix(in srgb, var(--ss-v2-signal-cyan) 9%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        90% 70% at 85% 12%,
+        color-mix(in srgb, var(--ss-v2-signal-violet) 8%, transparent),
+        transparent 55%
+      ),
+      var(--ss-v2-void-black);
+  }
+
+  .ss-glass {
+    background: var(--ss-v2-glass);
+    border: 1px solid var(--ss-v2-hairline);
+    backdrop-filter: blur(14px) saturate(1.1);
+  }
+
+  .ss-glass-strong {
+    background: var(--ss-v2-glass-strong);
+    border: 1px solid var(--ss-v2-hairline-strong);
+    backdrop-filter: blur(18px) saturate(1.15);
+  }
+
+  .ss-hairline-t {
+    border-top: 1px solid var(--ss-v2-hairline);
+  }
+
+  .ss-hairline-b {
+    border-bottom: 1px solid var(--ss-v2-hairline);
+  }
+
+  /* Metallic chrome text — reserve for display headings, never body copy. */
+  .ss-chrome-text {
+    background: var(--ss-v2-gradient-chrome);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ss-signal-text {
+    background: var(--ss-v2-gradient-signal);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ss-glow-cyan {
+    box-shadow: var(--ss-v2-glow-cyan);
+  }
+
+  .ss-glow-violet {
+    box-shadow: var(--ss-v2-glow-violet);
+  }
+
+  /* Horizontal fade mask for marquees / overflow rails. */
+  .ss-edge-fade {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  /* --- Branded route loader: luminous top beam --- */
+  .ss-route-beam {
+    position: relative;
+    height: 2px;
+    width: 100%;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--ss-v2-signal-cyan) 14%, transparent);
+  }
+
+  .ss-route-beam__pulse {
+    position: absolute;
+    inset: 0;
+    width: 42%;
+    border-radius: var(--ss-radius-pill);
+    background: var(--ss-v2-gradient-signal);
+    box-shadow: 0 0 16px 1px
+      color-mix(in srgb, var(--ss-v2-signal-cyan) 55%, transparent);
+    animation: ss-route-beam-travel 1.15s ease-in-out infinite;
+  }
+
+  /* --- Branded emblem loader: luminous spinning ring --- */
+  .ss-emblem-loader {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+  }
+
+  .ss-emblem-loader__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      var(--ss-v2-signal-cyan) 110deg,
+      var(--ss-v2-signal-violet) 240deg,
+      transparent 360deg
+    );
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 3px),
+      #000 calc(100% - 2px)
+    );
+    mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 3px),
+      #000 calc(100% - 2px)
+    );
+    animation: ss-emblem-loader-spin 1.4s linear infinite;
+  }
+
+  .ss-emblem-loader__emblem {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    filter: drop-shadow(
+      0 0 10px color-mix(in srgb, var(--ss-v2-signal-cyan) 35%, transparent)
+    );
+    animation: ss-emblem-loader-breathe 2.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ss-route-beam__pulse,
+    .ss-emblem-loader__ring,
+    .ss-emblem-loader__emblem {
+      animation: none;
+    }
+
+    .ss-route-beam__pulse {
+      width: 100%;
+    }
+  }
+}
+
+@keyframes ss-route-beam-travel {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+@keyframes ss-emblem-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ss-emblem-loader-breathe {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,7 +1,8 @@
 import { useLoaderData } from "react-router";
 
+import { HomeV2 } from "~/routes/company/home-v2";
 import { createRouteLoader, createRouteMeta } from "~/routes/shared/route-data";
-import { CoreMarketingPage } from "~/routes/templates/core-marketing-page";
+import { buildRouteSchemaGraph, serializeJsonLd } from "~/seo/schema";
 
 export const loader = createRouteLoader({
   exactPath: "/",
@@ -10,7 +11,16 @@ export const loader = createRouteLoader({
 export const meta = createRouteMeta<typeof loader>();
 
 export default function HomeRoute() {
-  const { content, route } = useLoaderData<typeof loader>();
+  const { route } = useLoaderData<typeof loader>();
+  const schema = buildRouteSchemaGraph(route);
 
-  return <CoreMarketingPage content={content} route={route} />;
+  return (
+    <>
+      <HomeV2 />
+      <script
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
+        type="application/ld+json"
+      />
+    </>
+  );
 }

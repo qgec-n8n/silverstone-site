@@ -1,0 +1,569 @@
+AGENT MODE: Power
+APP TESTING: On
+HIGH EFFORT: On
+CODE OPTIMIZATIONS: On
+TURBO: Off
+
+Role: Act as an elite luxury digital-agency creative director, technical SEO lead, conversion strategist, senior frontend engineer, animation director and quality-assurance team.
+
+Task: Complete the V2 Silverstone AI experience across every remaining route, then perform a rigorous sitewide visual, content, animation, SEO, responsive, accessibility and technical quality pass.
+
+Create a Replit checkpoint before making changes.
+
+Do not create a new visual direction. Continue and strengthen the established V2 system.
+
+STARTING GATE
+
+Before editing:
+
+1. Read the prior two implementation reports.
+2. Read root `replit.md` and `/web/AGENTS.override.md`.
+3. Read `/docs/silverstone-redesign/v2-creative-directive.md`.
+4. Read the component source ledger.
+5. Read the canonical image and claims/metrics registries.
+6. Inspect the completed homepage and service pages.
+7. Confirm the correct transparent/brand-plate logo treatments exist and work on dark surfaces.
+8. Confirm the local component pack remains available under `/docs/vendor/**`.
+9. Confirm the 21st.dev MCP is not part of the workflow.
+
+Use relevant installed skills throughout.
+
+SOURCE CATALOGUE
+
+Continue using, inspecting and adapting compatible source from:
+
+- the local six-component pack;
+- Untitled UI React;
+- shadcn/ui;
+- Magic UI;
+- Motion Primitives;
+- React Bits;
+- permitted coss/Origin UI source;
+- Paper Shaders.
+
+Update the source ledger for every newly adopted component.
+
+Do not clone whole libraries into tracked source. Do not retain default styling. Remove unused code and dependencies.
+
+OUTCOME
+
+Rebuild and complete:
+
+- Industries directory;
+- every industry page;
+- About;
+- How We Work;
+- Pricing or engagement model;
+- Book;
+- Contact;
+- Blog/Insights directory;
+- article template;
+- Privacy/legal routes;
+- 404 and error boundaries;
+- every other public/indexable route.
+
+No remaining route may fall back to the plain generic document template.
+
+LOGO HANDLING — SITEWIDE CHECK
+
+The original emblem and logo files have white raster backgrounds.
+
+Across every route:
+
+- never place a raw white rectangle/square accidentally over a dark canvas;
+- use the approved transparent derivatives or deliberate Cloud White/Platinum Silver brand plates;
+- preserve original files;
+- preserve exact metallic detail, colours, typography and proportions;
+- ensure the emblem appears correctly in every header;
+- ensure the full logo appears correctly in every footer;
+- check dark, light, tablet and mobile states;
+- correct any white halo, crop, blur or aspect-ratio error.
+
+INDUSTRIES
+
+Rebuild every industry page with sector-specific copy, imagery, diagrams and conversion paths.
+
+Current sectors include where present:
+
+- Estate agents;
+- Hospitality;
+- Salons and barbers;
+- Trades and home services;
+- eCommerce;
+- Physios and chiropractors;
+- Dentists;
+- Gyms and fitness studios;
+- Fitness coaches;
+- any additional existing sectors.
+
+Each industry route must include:
+
+- unique loader message;
+- distinctive hero treatment;
+- sector-specific operating problem;
+- relevant AI/automation opportunities;
+- relevant services;
+- workflow/system visual;
+- integrations;
+- contextual benchmark metrics;
+- governance and human handoff;
+- implementation pathway;
+- FAQs;
+- premium CTA;
+- relevant desktop/mobile imagery from the canonical registry.
+
+Do not reuse identical copy with only the industry name changed.
+
+Use distinct motifs such as:
+
+- property enquiry pipelines;
+- hospitality booking and guest-service flows;
+- salon diary systems;
+- field-service dispatch;
+- eCommerce order/support systems;
+- healthcare enquiry and booking flows;
+- membership and lead journeys;
+- coaching lead-to-client systems.
+
+ABOUT
+
+Create a premium company narrative including:
+
+- London positioning;
+- UK leadership focus;
+- international delivery capability;
+- mission and philosophy;
+- strategy plus engineering model;
+- responsible/useful AI;
+- human oversight;
+- differentiation;
+- consulting, design, development and automation capabilities;
+- relevant legacy imagery;
+- animated principles or timeline.
+
+Do not invent team size, awards, named clients or years of experience.
+
+HOW WE WORK
+
+Create a cinematic engagement journey covering:
+
+- discovery;
+- opportunity assessment;
+- strategy;
+- architecture;
+- design;
+- prototype;
+- build;
+- testing;
+- launch;
+- handover;
+- optimisation.
+
+Use pinned GSAP storytelling, animated systems or an equally premium interaction.
+
+Explain engagement options for:
+
+- focused projects;
+- bespoke builds;
+- consulting/advisory;
+- retained development;
+- in-house-team support;
+- enterprise programmes.
+
+PRICING / ENGAGEMENT MODEL
+
+Do not invent fixed prices unless approved pricing exists in repository evidence.
+
+Present premium engagement models such as:
+
+- strategy and discovery;
+- focused implementation;
+- bespoke build;
+- consulting/advisory;
+- retained optimisation.
+
+Explain scope and investment drivers.
+
+Integrate the Silverstone Standard.
+
+Use a premium comparison or scope explorer that does not pretend to generate a binding quote.
+
+BOOK
+
+Build a high-conversion booking route with:
+
+- specific loader;
+- value of the discovery call;
+- who should book;
+- what to prepare;
+- what happens next;
+- privacy/trust reassurance;
+- staging-safe booking interface or placeholder;
+- FAQs;
+- restrained motion around controls.
+
+CONTACT
+
+Build a premium contact system with:
+
+- project, consulting and partnership routes;
+- London location;
+- international capability;
+- staging-safe form behavior;
+- usable animated interface;
+- approved response-expectation wording;
+- no fake locations or contact information.
+
+BLOG / INSIGHTS
+
+Create a premium editorial system:
+
+- rich article hierarchy;
+- strong typography;
+- reading progress;
+- table of contents where useful;
+- images/diagrams;
+- related articles;
+- service/industry links;
+- mobile reading quality;
+- restrained article motion;
+- conversion modules;
+- valid Article schema;
+- supported author/editorial attribution only.
+
+LEGAL AND ERROR ROUTES
+
+Keep legal pages calm, readable and accessible while retaining subtle brand depth.
+
+Build a polished 404/error experience using the emblem treatment or an original technical visual.
+
+LOCAL COMPONENT PACK APPLICATION
+
+Continue adapting the local sources where relevant:
+
+- route-family Core Spin Loader variants;
+- Particles/Aether derivatives for industry/company heroes and body fields;
+- Display Cards for selected editorial/industry interactions;
+- Integration Hero derivative where contextual tool ecosystems are needed;
+- Hero Button shared-layout transition ideas for conversion disclosures.
+
+Do not paste raw template copy or off-brand colours.
+
+Use structural components from Untitled UI/shadcn/coss and animated treatments from Magic UI/Motion Primitives/React Bits/Paper Shaders as appropriate.
+
+GLOBAL COPY PASS
+
+Review every public route, including homepage and services.
+
+Rewrite weak, generic, repetitive, overly short or badly formatted copy.
+
+Ensure important pages establish authority through:
+
+- strong headlines;
+- explanatory paragraphs;
+- outcome-led lists;
+- process detail;
+- strategic insight;
+- objections;
+- FAQs;
+- trust cues;
+- contextual metrics;
+- clear CTAs.
+
+Do not add empty buzzword volume.
+
+Do not fabricate evidence.
+
+METRICS AND CLAIMS AUDIT
+
+Audit every displayed metric against the canonical registry.
+
+Each metric must:
+
+- match source value and unit;
+- retain calculated-average/benchmark language where applicable;
+- appear on a relevant page;
+- not be presented as a Silverstone result unless supported;
+- have suitable context/disclaimer.
+
+Keep benchmarks visually and semantically distinct from Silverstone assurances.
+
+SEO STRATEGY
+
+Make London and the UK the primary organic focus.
+
+Strengthen relevance for:
+
+- premium AI agency London;
+- AI agency UK;
+- AI automation agency London/UK;
+- automation studio London;
+- AI consulting London;
+- AI consultancy UK;
+- bespoke/custom AI agents UK;
+- AI receptionists UK;
+- AI voice agents UK;
+- premium website development London;
+- premium app development UK;
+- enterprise automation consulting;
+- workflow automation.
+
+Support European and United States outreach naturally through substantive international capability content.
+
+Do not create thin doorway pages or keyword-stuffed clones.
+
+Where there is enough unique value, create or strengthen market/capability pages for:
+
+- London;
+- United Kingdom;
+- Europe;
+- United States.
+
+Only do so when each route has distinct, useful market content.
+
+Validate and improve:
+
+- titles;
+- meta descriptions;
+- canonicals;
+- Open Graph/social metadata;
+- organisation schema;
+- accurate local/professional-service schema;
+- service schema;
+- article schema;
+- breadcrumbs;
+- FAQ schema where supported;
+- sitemap;
+- robots;
+- internal links;
+- heading hierarchy;
+- crawlable navigation;
+- alt text;
+- descriptive filenames;
+- page speed;
+- indexability;
+- topic clusters;
+- cannibalisation.
+
+SITEWIDE ANIMATION PASS
+
+Audit every route visually.
+
+Every primary marketing route must have purposeful visible motion across:
+
+- loader;
+- page entry;
+- hero;
+- hero-to-body transition;
+- headings;
+- paragraphs/lists;
+- images;
+- icons;
+- cards;
+- metrics;
+- diagrams;
+- carousels;
+- tabs/accordions;
+- CTAs;
+- route transitions.
+
+Use page-specific motion rather than one repeated fade-up.
+
+Keep the homepage the flagship technical experience while ensuring every other page has a distinctive signature.
+
+Use ownership rules:
+
+- GSAP/ScrollTrigger for page and scroll choreography;
+- Motion for component/layout state;
+- CSS for lightweight effects;
+- Three/R3F/Paper Shaders for selected high-impact visuals.
+
+Never animate the same property with multiple systems.
+
+INTEGRATION CAROUSEL FINAL CHECK
+
+Verify the homepage ecosystem carousel:
+
+- uses authentic local SVG logos;
+- represents major tool categories;
+- has opposing smooth rows;
+- pauses on hover and keyboard focus;
+- works on mobile;
+- becomes static/user-controlled in reduced motion;
+- uses accessible names;
+- preserves logo proportions;
+- has no remote hotlinked PNG dependency;
+- looks integrated into the Silverstone system.
+
+RESPONSIVE QUALITY
+
+Test at minimum:
+
+- 320px;
+- 375px;
+- 390px;
+- 768px;
+- 1024px;
+- 1280px;
+- 1440px;
+- wide desktop.
+
+Correct:
+
+- clipping;
+- overflow;
+- poor line length;
+- illegible gradients;
+- weak contrast;
+- awkward image crops;
+- collapsed menus;
+- unusable carousel controls;
+- oversized loaders;
+- broken shader/WebGL behavior;
+- excessive mobile motion;
+- weak spacing;
+- white logo rectangles/squares.
+
+PERFORMANCE AND ACCESSIBILITY
+
+Optimise intelligently without stripping away the premium experience.
+
+Implement/verify:
+
+- route-level code splitting;
+- lazy heavy visuals;
+- responsive images;
+- lazy images;
+- capped DPR;
+- off-screen animation pause;
+- cleanup/disposal;
+- one Lenis/GSAP loop;
+- no duplicate listeners;
+- reduced-motion/static fallbacks;
+- accessible focus;
+- keyboard completion;
+- screen-reader labels;
+- touch targets;
+- contrast;
+- no scroll-jacking;
+- no major layout shift;
+- staging safeguards.
+
+Do not remove the core experience merely for a perfect synthetic score.
+
+COMPONENT SOURCE CLEANUP
+
+Perform a final source audit:
+
+- component ledger complete;
+- licences/notices recorded;
+- Paper Shaders version pinned;
+- local vendor pack remains documentation/reference only;
+- no entire external repository tracked;
+- no dead source or unused component copies;
+- no duplicate animation library without justification;
+- no unused dependencies;
+- no remote Flaticon hotlinks;
+- no fake demo claims/content;
+- no template testimonials.
+
+FINAL APP TESTING
+
+Use App Testing to navigate the complete site as a real visitor.
+
+Test:
+
+- every primary route;
+- every service and industry route;
+- desktop/mobile navigation;
+- mega menus;
+- header/footer logos;
+- CTAs;
+- forms;
+- booking;
+- demo controls;
+- portfolio placeholders;
+- logo carousel;
+- loaders;
+- route transitions;
+- tabs;
+- accordions;
+- carousels;
+- keyboard;
+- reduced motion;
+- back/forward;
+- direct route loading;
+- 404/error states;
+- console errors.
+
+Run:
+
+- format check;
+- typecheck;
+- lint;
+- unit tests;
+- integration tests;
+- browser tests;
+- accessibility tests;
+- migration validation;
+- build;
+- bundle report;
+- staging-safety checks.
+
+Remove:
+
+- dead CSS;
+- unused packages;
+- abandoned components;
+- duplicate loops;
+- generated test artefacts;
+- placeholder template copy;
+- broken links;
+- generic icons where a stronger approved icon exists.
+
+FINAL COMPLETION GATE
+
+Do not finish until:
+
+- every public route uses V2;
+- no route resembles a plain white document;
+- every important page has substantial copy;
+- every primary page has a visual signature;
+- header/footer brand assets are correct on every route;
+- relevant legacy images are used;
+- the full palette is visible;
+- page-specific loaders work;
+- visible animations exist throughout;
+- the integration carousel is complete;
+- Consulting and bespoke agent/automation services are linked;
+- London/UK SEO is strong;
+- Europe/US capability is represented;
+- responsive quality is high;
+- all primary interactions work;
+- production/staging build succeeds;
+- no fatal console errors remain.
+
+FINAL REPORT
+
+Provide:
+
+- all routes reviewed;
+- routes rebuilt;
+- copy rewritten;
+- SEO/schema changes;
+- metrics used;
+- images used;
+- logo treatment audit;
+- animations added;
+- local-pack components adapted;
+- external library sources used;
+- component-ledger/licence status;
+- dependencies added/removed;
+- skills used;
+- App Testing coverage;
+- test/build results;
+- performance limitations;
+- external integrations still awaiting credentials/URLs;
+- final working-tree status.
+
+Stop after the report.

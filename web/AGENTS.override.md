@@ -9,6 +9,7 @@ This file is the Codex instruction source for `/web`. It defines the active Reac
 - Routes, components, styles, tests, content implementation, application assets, scripts, and integrations for the new website belong under `/web`.
 - The legacy root website is read-only migration evidence unless a future prompt explicitly names root legacy files.
 - Applicable documentation under `/docs/silverstone-transformation/` is authoritative.
+- The active homepage uses the V2 dark cinematic presentation layer under `/web/src/visual/home-v2/**`, `/web/src/data/home-v2/**`, and `/web/src/styles/visual/home-v2.css`, routed via `/web/src/routes/company/home.tsx` -> `home-v2.tsx`. It replaces presentation only; routing, data, content, and SEO/staging safety are preserved. See `/docs/silverstone-redesign/`.
 - Future work must not assume separate transformation branches exist. Work from the current repository state unless the user explicitly says otherwise.
 
 ## Non-Negotiables

@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const homeHeading = "Practical technology that helps small teams respond, deliver and grow";
+const homeHeading = "The operating system for businesses that refuse to miss.";
 
 test("staging shell loads without runtime errors", async ({ page }) => {
   const consoleErrors: string[] = [];

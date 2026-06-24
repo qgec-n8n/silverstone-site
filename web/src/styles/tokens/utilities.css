@@ -70,6 +70,20 @@
 
   --default-transition-duration: var(--ss-motion-duration-fast);
   --default-transition-timing-function: var(--ss-motion-easing-standard);
+
+  /* V2 cinematic palette (additive — see tokens/cinematic.css) */
+  --color-void: var(--ss-v2-void-black);
+  --color-void-blue: var(--ss-v2-void-blue);
+  --color-void-violet: var(--ss-v2-void-violet);
+  --color-graphite-deep: var(--ss-v2-graphite);
+  --color-graphite-raised: var(--ss-v2-graphite-raised);
+  --color-platinum: var(--ss-v2-platinum);
+  --color-titanium: var(--ss-v2-titanium);
+  --color-signal: var(--ss-v2-signal-cyan);
+  --color-signal-soft: var(--ss-v2-signal-cyan-soft);
+  --color-signal-blue: var(--ss-v2-signal-blue);
+  --color-signal-violet: var(--ss-v2-signal-violet);
+  --color-signal-pink: var(--ss-v2-signal-pink);
 }
 
 @layer base {

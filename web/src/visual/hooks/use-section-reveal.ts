@@ -11,6 +11,10 @@ export type SectionReveal = {
  * Reveals a section the first time it scrolls into view. Reduced motion (or a
  * missing IntersectionObserver) resolves to revealed immediately, so content is
  * never gated behind motion — only its settle transition is.
+ *
+ * Consumers must destructure the result (`const { ref, revealed } = …`) and pass
+ * the bare locals; reading members off the returned object during render trips
+ * the `react-hooks/refs` compiler analysis.
  */
 export function useSectionReveal(): SectionReveal {
   const { reducedMotion } = useReducedMotion();

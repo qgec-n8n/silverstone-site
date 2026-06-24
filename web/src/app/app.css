@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "../styles/tokens/index.css";
+@import "../styles/tokens/cinematic.css";
 @import "../styles/tokens/utilities.css";
 @import "../styles/motion-reveal.css";
 

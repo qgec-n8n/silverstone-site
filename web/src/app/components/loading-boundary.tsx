@@ -1,9 +1,7 @@
 import { Suspense, type ReactNode } from "react";
 
-import { Skeleton } from "~/app/components/ui/skeleton";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
-import { Stack } from "~/components/layout/stack";
 
 type LoadingBoundaryProps = {
   children: ReactNode;
@@ -12,12 +10,20 @@ type LoadingBoundaryProps = {
 export function LoadingFallback() {
   return (
     <PageSection spacing="compact">
-      <Container aria-label="Loading content" role="status">
-        <Stack className="max-w-3xl" gap="md">
-          <Skeleton className="h-10 w-2/3" />
-          <Skeleton className="h-5 w-full max-w-xl" />
+      <Container aria-live="polite" role="status">
+        <div className="flex min-h-[40vh] flex-col items-center justify-center gap-6 text-center">
+          <div className="ss-emblem-loader">
+            <span aria-hidden="true" className="ss-emblem-loader__ring" />
+            <img
+              alt=""
+              aria-hidden="true"
+              className="ss-emblem-loader__emblem"
+              src="/brand/silverstone-emblem.png"
+            />
+          </div>
+          <p className="ss-eyebrow text-titanium">Calibrating</p>
           <span className="sr-only">Loading content</span>
-        </Stack>
+        </div>
       </Container>
     </PageSection>
   );

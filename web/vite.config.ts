@@ -78,11 +78,25 @@ export default defineConfig(({ mode }) => {
         "react-router",
         "framer-motion",
         "gsap",
+        "gsap/ScrollTrigger",
+        "@gsap/react",
+        "lenis",
         "radix-ui",
         "lucide-react",
         "class-variance-authority",
         "clsx",
         "tailwind-merge",
+        // Heavy V2 home visual deps. Pre-bundle so the first lazy mount of the
+        // WebGL hero does not trigger a mid-session re-optimize + full reload
+        // (which briefly loads two React copies → "Invalid hook call").
+        "three",
+        "@react-three/fiber",
+        "@react-three/drei",
+        "@react-three/postprocessing",
+        "postprocessing",
+        "maath",
+        "maath/random",
+        "@paper-design/shaders-react",
       ],
     },
     server: {

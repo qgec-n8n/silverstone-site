@@ -1,0 +1,619 @@
+AGENT MODE: Power
+APP TESTING: On
+HIGH EFFORT: On
+CODE OPTIMIZATIONS: On
+TURBO: Off
+
+Role: Act as an elite AI consultancy brand strategist, enterprise conversion copywriter, luxury digital designer, senior React engineer, interactive-demo architect and animation director.
+
+Task: Rebuild the complete Silverstone AI services experience under `/web`, continuing the approved V2 system from the previous task.
+
+Create a Replit checkpoint before making changes.
+
+Do not produce alternative mockups. Implement the strongest coherent solution directly.
+
+STARTING GATE
+
+Before editing:
+
+1. Read the previous task report.
+2. Confirm the global V2 system and homepage are complete and working.
+3. Confirm `/docs/silverstone-redesign/v2-creative-directive.md` exists.
+4. Confirm `/docs/silverstone-redesign/component-source-ledger.md` exists.
+5. Confirm the local component pack is extracted under `/docs/vendor/**`.
+6. Confirm the canonical image and claims/metrics registries exist.
+7. Confirm the correct logo/icon treatments are already established.
+8. If any foundation is missing or broken, repair only that dependency before proceeding and document it.
+
+SOURCE SYSTEM
+
+The 21st.dev MCP is unavailable. Do not call or reference it.
+
+Use the local component pack and the researched libraries directly:
+
+- local Core Spin Loader;
+- local Aether Flow Hero;
+- local Particles Background;
+- local Integration Hero;
+- local Hero Button Expendable;
+- local Display Cards;
+- Untitled UI React;
+- shadcn/ui;
+- Magic UI;
+- Motion Primitives;
+- React Bits;
+- coss UI / legacy Origin UI source where the applicable licence permits;
+- Paper Shaders.
+
+Read the adaptation guide again before using any local source.
+
+For every material component family:
+
+- inspect multiple suitable library/source candidates;
+- select the strongest accessible foundation;
+- copy only required source;
+- adapt for React Router/Vite/Tailwind;
+- completely restyle for Silverstone;
+- record source URL, file, version/commit, licence, dependencies and final path in the component ledger;
+- remove abandoned source and unused dependencies.
+
+Use installed specialist skills throughout the task.
+
+OUTCOME
+
+Rebuild:
+
+1. Services directory
+2. Website Design & Development
+3. App Development
+4. AI Voice Agents
+5. AI Receptionists
+6. Content Creation & Repurposing
+7. AI Agents & Automation Workflows
+8. AI & Automation Consulting
+
+Add AI & Automation Consulting as a first-class service in:
+
+- navigation and mega menus;
+- services directory;
+- homepage references where appropriate;
+- internal links;
+- route manifest;
+- metadata;
+- structured data;
+- sitemap;
+- relevant CTAs.
+
+POSITIONING
+
+Write for:
+
+- ambitious small businesses;
+- scale-ups;
+- established companies;
+- professional organisations;
+- multi-location groups;
+- large enterprises;
+- corporate transformation teams;
+- in-house product, operations, marketing and technology teams.
+
+Do not frame every service as inexpensive admin automation for small businesses.
+
+Present Silverstone as a premium strategy and delivery partner covering:
+
+- discovery and advisory;
+- AI opportunity analysis;
+- product and experience strategy;
+- technical architecture;
+- web and application engineering;
+- AI agent design;
+- automation design;
+- integrations;
+- governance and human oversight;
+- deployment planning;
+- in-house team enablement;
+- retained optimisation.
+
+AI & AUTOMATION CONSULTING
+
+Research current premium AI-consulting and enterprise innovation positioning using public websites and authoritative sources.
+
+Study how strong firms communicate:
+
+- AI strategy;
+- automation discovery;
+- operating-model design;
+- vendor/tool selection;
+- architecture;
+- governance;
+- data readiness;
+- responsible AI;
+- build-versus-buy decisions;
+- implementation roadmaps;
+- internal-team enablement.
+
+Do not copy wording, proprietary frameworks or layouts.
+
+Create a stronger Silverstone proposition by combining strategy, creative/product design and hands-on implementation.
+
+The consulting service must clearly explain that Silverstone can:
+
+- advise leadership teams and transformation leaders;
+- audit workflows, systems and technology estates;
+- identify and prioritise valuable AI and automation opportunities;
+- recommend tools and platforms;
+- help design procurement and vendor-selection criteria;
+- develop implementation roadmaps;
+- design technical architecture;
+- advise on governance, security, data readiness and human oversight;
+- conduct workshops and architecture reviews;
+- support internal product and engineering teams;
+- consult in-house teams developing their own bespoke AI agents;
+- consult in-house teams developing their own bespoke automations;
+- advise on custom apps, internal platforms and AI-enabled websites;
+- move from advisory into implementation when required.
+
+Use premium consulting language without vague management jargon.
+
+BESPOKE AI AGENTS AND AUTOMATIONS
+
+Within AI Agents & Automation Workflows, create a major dedicated section explaining Silverstone's bespoke build capability.
+
+Cover:
+
+- agents versus simple chatbots;
+- tool use;
+- memory;
+- retrieval and knowledge systems;
+- structured workflows;
+- orchestration;
+- APIs and platform integrations;
+- human approvals;
+- exception handling;
+- monitoring and observability;
+- governance;
+- secure deployment;
+- ongoing optimisation.
+
+Make it clear that Silverstone both:
+
+- builds bespoke systems for clients;
+- advises in-house teams that want to build their own systems.
+
+PAGE ARCHITECTURE
+
+Do not reuse one identical vertical text template.
+
+Each service page must have:
+
+- a distinctive hero;
+- unique colour treatment within the brand system;
+- unique signature visual motif;
+- page-specific loader message;
+- substantial copy;
+- rich image use where relevant;
+- original iconography;
+- a distinct scroll narrative;
+- contextual metrics;
+- tailored assurance language;
+- clear conversion path.
+
+Use approximately 7–12 meaningful modules where the content warrants it, such as:
+
+- hero;
+- strategic problem;
+- outcomes;
+- capabilities;
+- use cases;
+- process;
+- architecture/diagram;
+- demo or honest placeholder;
+- metrics;
+- integration ecosystem;
+- delivery model;
+- objections;
+- FAQs;
+- assurances;
+- related industries;
+- closing conversion sequence.
+
+Use varied structures:
+
+- split-screen compositions;
+- pinned scroll stories;
+- horizontal sequences;
+- animated system maps;
+- layered imagery;
+- stacked cards;
+- tabs;
+- timelines;
+- comparison systems;
+- full-width statements;
+- editorial grids;
+- interactive diagrams.
+
+Do not place the whole page in one narrow left column.
+
+LOGOS
+
+Continue the approved logo treatment from Prompt 1.
+
+- Header emblem must never appear as an accidental white square on dark surfaces.
+- Footer logo must never appear as an accidental white rectangle.
+- Use only the approved transparent derivatives or intentional Cloud White/Platinum Silver brand plates.
+- Preserve exact logo geometry and colours.
+
+IMAGERY
+
+Use the canonical image registry created from `silverstone_body_images_with_mobile_desktop(1).csv`.
+
+Use relevant legacy images across service pages with:
+
+- responsive desktop/mobile sources;
+- meaningful crops;
+- masks;
+- depth;
+- lighting;
+- selective parallax;
+- polished reveal animation.
+
+Do not use irrelevant stock imagery to fill space.
+
+SERVICE-SPECIFIC VISUAL DIRECTION
+
+Website Design & Development:
+
+- animated browser/device compositions;
+- responsive layout transformation;
+- design-to-build timeline;
+- conversion-path visualisation;
+- project showcase windows;
+- masked typography;
+- premium code/design transitions.
+
+App Development:
+
+- interactive product-state stacks;
+- device/interface scenes;
+- prototype-to-product journey;
+- state transitions;
+- architecture diagrams;
+- roadmap visualisation.
+
+AI Voice Agents:
+
+- premium voice orb;
+- waveform language;
+- call-flow visual;
+- listening/thinking/speaking states;
+- transcript choreography;
+- microphone/speaker interface;
+- future ElevenLabs adapter boundary.
+
+AI Receptionists:
+
+- digital front-desk visual;
+- receptionist voice orb;
+- appointment/enquiry flow;
+- multichannel routing;
+- booking/calendar/CRM handoff visuals;
+- live enquiry simulation.
+
+Content Creation & Repurposing:
+
+- source-to-channel transformation system;
+- editorial timeline;
+- content modularisation;
+- visual planning and review gates;
+- no fake generative output.
+
+AI Agents & Automation Workflows:
+
+- advanced node graphs;
+- branching and orchestration;
+- tool calls;
+- approvals;
+- exception routes;
+- data movement;
+- human handoff;
+- bespoke-agent section;
+- high-tech workflow animations.
+
+AI & Automation Consulting:
+
+- strategy constellation;
+- opportunity portfolio;
+- tool/vendor landscape;
+- architecture mapping;
+- roadmap;
+- governance layers;
+- in-house-team enablement;
+- build-versus-buy visual;
+- executive workshop journey.
+
+LOCAL COMPONENT PACK USAGE
+
+Use and adapt the local references where they strengthen the service experience:
+
+- Core Spin Loader for page-specific route loading;
+- Aether/Particles sources for unique service-family hero and body fields;
+- Display Cards for selected stacked capability/service interactions;
+- Hero Button Expendable shared-layout ideas for premium disclosures or conversion transitions;
+- Integration Hero structure for contextual service integration rails.
+
+Do not use the demo copy or off-brand colours.
+
+DEMOS
+
+Build real frontend behavior where honest and possible. Where credentials/external services are absent, create complete, premium, non-deceptive demo shells with typed adapters and explicit future-integration boundaries.
+
+A. Website and App Development
+
+Build premium portfolio-display systems containing:
+
+- desktop browser windows;
+- mobile device windows;
+- animated focus and hover states;
+- project summary;
+- technology tags;
+- impact categories;
+- clickable URL behavior;
+- structured placeholder records for URLs to be supplied later.
+
+Do not invent client names or results.
+
+B. AI Voice Agents
+
+Build a complete frontend shell for later ElevenLabs integration:
+
+- start-call control;
+- microphone permission states;
+- listening;
+- thinking;
+- speaking;
+- end-call;
+- animated circular orb;
+- waveform/audio-reactive visual architecture;
+- transcript area;
+- conversion closing state;
+- typed provider adapter/configuration boundary;
+- clear staging placeholder behavior.
+
+Do not fabricate a connected voice agent.
+
+The future script should be represented in configuration/documentation and will:
+
+- explain Silverstone voice-agent capabilities;
+- answer questions;
+- qualify the visitor;
+- encourage discovery-call booking.
+
+C. AI Receptionists
+
+Build:
+
+1. receptionist voice-agent frontend shell using the same provider adapter architecture;
+2. original live-enquiry simulation inspired by the interaction concept on Agentive Labs, without copying source, layout or proprietary wording.
+
+Show:
+
+- incoming enquiry;
+- intent recognition;
+- approved answer;
+- qualification;
+- escalation;
+- booking;
+- CRM logging;
+- human handoff.
+
+Use deterministic synthetic data and working interactive controls.
+
+D. AI Agents & Automation Workflows
+
+Do not claim a live production automation.
+
+Build sophisticated conceptual diagrams and controlled simulations showing nodes, tools, approvals, exceptions and data movement.
+
+E. Content Creation
+
+Do not create a fake AI-writing demo.
+
+Use an interactive planning/transformation storyboard with human review.
+
+DEMO PLACEHOLDERS
+
+Where external integration is unavailable, a placeholder must still contain:
+
+- finished visual design;
+- meaningful explanatory copy;
+- complete UI states;
+- integration requirements;
+- stable controls;
+- no fake success claim;
+- staging-appropriate language.
+
+COMPONENT LIBRARIES
+
+Use the researched libraries aggressively but coherently:
+
+- Untitled UI/shadcn/coss for menus, tabs, accordions, forms, navigation, dialogs and application-grade controls;
+- Magic UI for animated borders, beams, grids, marquees and marketing effects;
+- Motion Primitives for text, disclosure, carousel and shared-layout transitions;
+- React Bits for text, background and interactive visual treatments;
+- Paper Shaders for selected hero or masked shader treatments;
+- local pack for the required 21st-derived source patterns.
+
+Do not copy entire pages. Do not retain recognisable defaults.
+
+METRICS
+
+Use only metrics from the canonical claims registry.
+
+Map each metric to the relevant service.
+
+Calculated averages must remain clearly labelled as calculated averages or benchmarks.
+
+Use:
+
+- animated counters;
+- outcome dashboards;
+- benchmark comparisons;
+- technical data modules.
+
+Avoid repeating the same numbers across every page.
+
+ASSURANCES
+
+Tailor the Silverstone Standard to each service:
+
+- discovery/suitability;
+- scope;
+- milestones;
+- revision commitment;
+- implementation acceptance;
+- handover;
+- remediation/support.
+
+Do not invent revenue, ROI, ranking, conversion or lead guarantees.
+
+COPY AND SEO
+
+Rewrite every service page fully.
+
+Each page must explain:
+
+- intended buyers;
+- high-value problem;
+- strategic value;
+- capabilities;
+- use cases;
+- process;
+- integrations;
+- governance/human oversight;
+- objections;
+- why Silverstone;
+- next step.
+
+Use sophisticated, persuasive, substantial copy. Avoid generic buzzwords and one-line sections.
+
+Build service-specific:
+
+- titles;
+- meta descriptions;
+- canonicals;
+- Open Graph metadata;
+- structured data;
+- internal links;
+- FAQ schema where accurate;
+- breadcrumb relationships.
+
+Prioritise London/UK intent while communicating Europe/US capability naturally.
+
+ANIMATION — NON-NEGOTIABLE
+
+Every service page must have:
+
+- route-specific loader copy;
+- unique hero motion;
+- page-entry choreography;
+- hero-to-body transition;
+- heading/paragraph/list reveals;
+- image reveals;
+- icon animation;
+- interactive card behavior;
+- animated metrics;
+- scroll-linked storytelling;
+- diagram animation;
+- CTA motion;
+- responsive/reduced-motion versions.
+
+Use:
+
+- GSAP/ScrollTrigger for page and scroll choreography;
+- Motion for component state/layout;
+- Lenis through one shared loop;
+- R3F/Three/Paper Shaders selectively;
+- CSS for lightweight effects.
+
+Do not create seven pages that merely swap copy in one component.
+
+PERFORMANCE AND ACCESSIBILITY
+
+- lazy-load heavy demos and visual modules;
+- cap DPR;
+- pause off-screen animation;
+- dispose resources;
+- avoid duplicate loops;
+- maintain keyboard/touch/screen-reader access;
+- preserve readable contrast;
+- use reduced-motion alternatives;
+- avoid scroll-jacking;
+- keep forms and controls stable.
+
+TESTING
+
+Use App Testing across:
+
+- service directory;
+- all seven service routes;
+- desktop/tablet/mobile;
+- keyboard navigation;
+- navigation menus;
+- route loaders;
+- demo controls;
+- tabs/accordions;
+- portfolio windows;
+- carousel/rails;
+- reduced motion;
+- browser console.
+
+Run:
+
+- format check;
+- typecheck;
+- lint;
+- unit tests;
+- integration/browser tests;
+- build;
+- migration validation;
+- bundle report;
+- staging-safety checks.
+
+COMPLETION GATE
+
+Do not finish until:
+
+- all seven services exist and are linked;
+- Consulting is fully integrated;
+- bespoke agents and automations are clearly marketed;
+- service copy is substantial;
+- every service page is visually distinct;
+- relevant images are used;
+- premium icons are used;
+- demos or honest premium placeholders work;
+- contextual metrics are accurate;
+- motion is clearly visible and extensive;
+- logo treatments remain correct;
+- mobile usability is strong;
+- all routes build and test successfully.
+
+FINAL REPORT
+
+Provide:
+
+- routes added/rebuilt;
+- components created;
+- local-pack sources adapted;
+- external library sources used;
+- component-ledger updates;
+- demos implemented;
+- placeholders created;
+- metrics used;
+- images used;
+- logo handling verification;
+- dependencies added/removed;
+- skills used;
+- tests/build results;
+- remaining external integration requirements.
+
+Stop after the report. Do not begin remaining-page work.

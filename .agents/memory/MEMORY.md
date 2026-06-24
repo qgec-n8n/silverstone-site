@@ -8,3 +8,4 @@
 - [Canvas assets vs. checkpoint write-scope](canvas-checkpoint-scope.md) — `.canvas/` board images are untracked but get swept into checkpoints; under strict write-scope exclude via `.git/info/exclude`, not tracked `.gitignore`.
 - [Delegated checkpoint tasks](delegated-checkpoint-task-behavior.md) — main agent's tree auto-commits when a task is proposed; the delegated commit task starts clean, names the checkpoint via `.local/.commit_message`.
 - [Mounting visual primitives](mounting-visual-primitives.md) — /web visual.css is scoped under `.ss-visual-root` wrapper; tile classes absent; IndustriesAtlas needs basePath="/services"; lint bans bare `${number}`.
+- [/web home SEO/content parity](home-v2-seo-content-parity.md) — bespoke `/` routes must still emit exactly one JSON-LD; homepage copy is replaceable, but /about, /services/*, /blog copy is contractually preserved.
