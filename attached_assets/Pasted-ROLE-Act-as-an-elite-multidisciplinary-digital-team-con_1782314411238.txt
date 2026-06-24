@@ -1,0 +1,921 @@
+ROLE
+
+Act as an elite multidisciplinary digital team consisting of:
+
+* a world-class luxury technology creative director;
+* an award-winning interactive web designer;
+* a senior React, React Router and TypeScript engineer;
+* a GSAP, Motion and WebGL animation specialist;
+* a premium B2B brand strategist;
+* a conversion copywriter;
+* a technical SEO strategist;
+* an accessibility and performance engineer.
+
+TASK
+
+Perform a decisive visual reset of the active Silverstone AI React application under `/web`.
+
+This task must:
+
+1. Replace the failed, sparse, text-column design direction.
+2. Establish a complete premium Silverstone design and animation system.
+3. Rebuild the global header, navigation, footer, page-loading experience and route-transition system.
+4. Rebuild the homepage into an extraordinary, luxurious, cinematic, highly interactive flagship experience.
+5. Create the reusable foundation that later work can apply across every other route.
+
+Do not merely polish the current design.
+
+Do not retain the current generic white-document layout, generic route frame, basic text header, plain footer, minimal two-colour palette or visually weak component treatment.
+
+The accepted Plan Mode task must lead directly to full implementation of this scope. Do not propose a research-only task or a future implementation phase.
+
+ACTIVE APPLICATION
+
+The active application is `/web`.
+
+Preserve:
+
+* the current React Router/Vite architecture;
+* strict TypeScript;
+* existing routes;
+* content data and migration records;
+* SEO metadata and schema infrastructure;
+* redirects;
+* staging safeguards;
+* valid tests;
+* working integrations;
+* the legacy website as a source of brand assets, imagery and migration evidence.
+
+Do not migrate the application to Next.js.
+
+Do not modify the legacy root website except to copy approved assets into `/web/public`.
+
+Do not deploy or publish anything.
+
+CREATE A CHECKPOINT
+
+Create a Replit checkpoint before changing the presentation layer.
+
+Record the starting commit and working-tree state.
+
+ATTACHED INPUTS
+
+This prompt includes:
+
+1. `silverstone_ai_agency_performance_metrics_23_6_2026.csv`
+2. `silverstone_body_images_with_mobile_desktop(1).csv`
+3. `silverstone-icon.png`
+
+Copy these source files from Replit’s upload location into stable, documented project paths. Suggested locations:
+
+* `/docs/silverstone-transformation/inputs/silverstone_ai_agency_performance_metrics_23_6_2026.csv`
+* `/docs/silverstone-transformation/inputs/silverstone_body_images_with_mobile_desktop.csv`
+* `/web/public/assets/brand/silverstone-icon.png`
+
+Do not leave the only copies inside a temporary attachment folder.
+
+Locate the existing logo files in the legacy repository:
+
+* `silverstone-logo-new.png`
+* `silverstone-logo-new@2x.png`
+
+Copy the appropriate versions into:
+
+* `/web/public/assets/brand/`
+
+Use these supplied assets directly.
+
+Do not redraw, reinterpret, recolour, regenerate, approximate, distort or recreate the logo or emblem.
+
+DATA PREPARATION
+
+Parse and validate both CSV files.
+
+Create durable typed data registries for:
+
+* performance metrics;
+* source text;
+* page and service applicability;
+* units;
+* time bases;
+* impact areas;
+* qualification wording;
+* desktop and mobile image pairs;
+* intended page;
+* adjacent copy;
+* confirmed asset paths.
+
+Preserve the original claim wording.
+
+Where a metric states that it is a “calculated average rate,” retain that qualifier wherever the metric is presented.
+
+Do not represent calculated industry or agency averages as audited Silverstone-specific client outcomes.
+
+Metrics may be presented as:
+
+* relevant performance benchmarks;
+* indicative outcomes observed across comparable work;
+* industry averages;
+* opportunity indicators;
+* quantified context;
+* clearly qualified proof or benchmark panels.
+
+Create a reusable metrics component system supporting:
+
+* animated count-up;
+* ranges;
+* currency;
+* percentages;
+* cumulative values;
+* explicit qualifiers;
+* accessible non-animated fallbacks;
+* source or methodology disclosure.
+
+Review the body-image CSV and locate every referenced desktop and mobile image in the legacy repository.
+
+Copy approved images into an organised `/web/public/assets/images/` structure.
+
+Use responsive `<picture>` elements with the mapped mobile and desktop files.
+
+Do not ignore the existing imagery.
+
+If an image is missing, record it rather than silently omitting the entire visual concept.
+
+DURABLE CREATIVE DIRECTION
+
+Create:
+
+`/docs/silverstone-transformation/design/premium-visual-reset-v2.md`
+
+Document the implemented:
+
+* brand positioning;
+* visual direction;
+* colour system;
+* typography;
+* surfaces;
+* lighting;
+* motion principles;
+* WebGL ownership;
+* image treatment;
+* icon treatment;
+* component approach;
+* page-transition approach;
+* 21st.dev components and inspiration used;
+* dependencies introduced;
+* accessibility fallbacks.
+
+Update the root `replit.md` with a concise durable instruction stating that:
+
+* `/web` is the active application;
+* Silverstone is a premium luxury technology brand;
+* the design must remain cinematic, futuristic, high-tech and bespoke;
+* the full brand palette must be used;
+* supplied logo and emblem assets must be preserved exactly;
+* major interface components require 21st.dev MCP research before implementation;
+* relevant Agent skills must be discovered and used;
+* the application must never regress to a generic white-document or standard SaaS template;
+* future visual work must preserve the premium design system established by this task.
+
+Keep `replit.md` focused rather than excessively large.
+
+BRAND POSITIONING
+
+Reposition Silverstone AI as:
+
+* a premium AI agency and automation studio based in London;
+* a category-leading UK specialist in AI, automation, websites and applications;
+* a trusted partner for ambitious organisations, scale-ups, established companies, enterprise teams and selected small businesses;
+* a studio capable of strategic consulting and full implementation;
+* a high-trust partner for clients in the United Kingdom, Europe and the United States.
+
+Do not make the brand sound like it only serves small businesses.
+
+Do not make the brand sound geographically restricted to the United Kingdom.
+
+London and the UK remain the primary authority and SEO focus.
+
+The tone must be:
+
+* precise;
+* confident;
+* sophisticated;
+* commercially intelligent;
+* premium;
+* expert;
+* clear;
+* technically credible;
+* ambitious without becoming vague or hyperbolic.
+
+Avoid:
+
+* generic AI buzzwords;
+* empty superlatives;
+* childish futurism;
+* repetitive “transform your business” language;
+* vague statements that could describe any agency;
+* unsupported claims that Silverstone is objectively ranked number one.
+
+Express leadership through quality, expertise, clarity, positioning and execution rather than unverifiable ranking statements.
+
+CORE SERVICE POSITIONING
+
+The complete service architecture must support:
+
+* AI & Automation Consulting
+* Website Design & Development
+* App Development
+* AI Voice Agents
+* AI Receptionists
+* Content Creation & Repurposing
+* Bespoke AI Agents & Automation Workflows
+
+The homepage must immediately communicate both strategic consulting and implementation capability.
+
+RESEARCH AND AGENT CAPABILITIES
+
+Before designing or coding:
+
+1. Discover the relevant installed Replit Agent skills.
+2. Actively use the most relevant skills for:
+
+   * premium frontend design;
+   * landing-page design;
+   * interaction design;
+   * animation;
+   * React engineering;
+   * content strategy;
+   * conversion copywriting;
+   * SEO;
+   * accessibility;
+   * testing;
+   * performance;
+   * WebGL and Three.js.
+3. Do not merely list the skills. Apply them throughout implementation.
+4. Use Replit web search to inspect:
+
+   * the current Silverstone website;
+   * Agentive Labs;
+   * premium AI consultancies;
+   * premium automation studios;
+   * premium web and app development agencies;
+   * high-end technology, automotive, financial and architecture brands.
+5. Extract useful principles without copying another company’s code, text, layout or distinctive trade dress.
+
+21ST.DEV MCP — MANDATORY WORKFLOW
+
+The project has an existing HTTPS-connected 21st.dev Replit MCP.
+
+Use it extensively.
+
+For every new or materially redesigned visible component, section or interaction:
+
+1. Search the MCP semantically for high-quality inspiration.
+2. Search the SVG icon capability for relevant brand and interface icons.
+3. Inspect the candidate component’s source and dependencies.
+4. Select the best candidate or combine principles from several candidates.
+5. Rewrite and restyle it substantially for Silverstone.
+6. Replace all generic content and default styling.
+7. Integrate it into one coherent Silverstone design language.
+8. Test responsiveness, keyboard operation, reduced motion and performance.
+9. Remove abandoned code and unused dependencies.
+
+This applies to:
+
+* navigation;
+* mobile navigation;
+* hero;
+* loaders;
+* cards;
+* service presentation;
+* metric panels;
+* testimonial or proof surfaces;
+* tool-logo rail;
+* call-to-action sections;
+* menus;
+* accordions;
+* tabs;
+* buttons;
+* interactive diagrams;
+* image treatments;
+* footer;
+* route transitions;
+* cursor and hover treatments;
+* section transitions;
+* responsive layouts.
+
+Use these references as starting points, but improve and customise them:
+
+* `https://21st.dev/community/components/ruixenui/integration-hero/default`
+* `https://21st.dev/community/components/m.kumailalirajpoot/core-spin-loader/default`
+* `https://21st.dev/community/components/UmairXD/particles-bg/default`
+* `https://21st.dev/community/components/shadway/hero-button-expendable/default`
+* `https://21st.dev/community/components/Codehagen/display-cards/default`
+
+Do not install community components blindly.
+
+Do not let the finished site look like a component marketplace.
+
+Do not spend this task generating multiple visual alternatives. Research, choose the strongest cohesive direction and implement it.
+
+BRAND COLOUR SYSTEM
+
+The base palette is:
+
+* Silverstone Graphite: `#43555D`
+* Deep Graphite: `#39454D`
+* Titanium Silver: `#A0A4AB`
+* Platinum Silver: `#E9EAEF`
+* Electric Cyan: `#5EC5D0`
+* Digital Blue: `#597FAD`
+* Neural Violet: `#A97CC0`
+* Cloud White: `#FFFFFF`
+* Electric Pink: `#C884C3`
+* Soft Pink Glow: `#CE98CF`
+* Deep Magenta: `#A96EAB`
+
+Expand this palette intelligently using:
+
+* deeper graphite-black surfaces;
+* richer midnight blue;
+* darker violet;
+* luminous cyan highlights;
+* controlled iridescent transitions;
+* spectral silver;
+* dimmed pink and magenta atmospheric tones;
+* transparent surface and glow variants;
+* OKLCH or Display-P3 variants where supported;
+* accessible sRGB fallbacks.
+
+Use the full palette.
+
+Do not reduce the site to blue and white.
+
+Prefer a sophisticated dark-first visual system using graphite, near-black, silver and deep blue surfaces, with controlled cyan, violet, pink and magenta illumination.
+
+Use occasional platinum or cloud-white sections for contrast and editorial rhythm.
+
+Create semantic design tokens for:
+
+* background;
+* elevated background;
+* surface;
+* glass;
+* chrome;
+* border;
+* text;
+* muted text;
+* cyan accent;
+* blue accent;
+* violet accent;
+* pink accent;
+* magenta accent;
+* gradient;
+* glow;
+* shadow;
+* focus;
+* success;
+* warning;
+* error;
+* lighting;
+* motion duration;
+* motion easing.
+
+GLOBAL TYPOGRAPHY AND COMPOSITION
+
+Create a premium editorial typography system with:
+
+* large cinematic display headlines;
+* fluid typography;
+* highly readable body copy;
+* sophisticated line lengths;
+* deliberate line breaks;
+* balanced text and imagery;
+* varied section composition;
+* strong whitespace;
+* responsive type scaling;
+* distinct labels, captions, metrics and eyebrow treatments.
+
+Do not place all copy in one narrow column on the left.
+
+Use:
+
+* split compositions;
+* centred cinematic compositions;
+* asymmetric editorial layouts;
+* image-led sections;
+* horizontal story rails;
+* animated metrics;
+* layered diagrams;
+* full-width feature moments;
+* alternating content direction;
+* sticky storytelling;
+* scroll-linked visual sequences;
+* immersive transitions.
+
+GLOBAL HEADER AND NAVIGATION
+
+Rebuild the header and navigation completely.
+
+Requirements:
+
+* use `silverstone-icon.png` in the header on every route;
+* preserve the icon exactly;
+* use a premium translucent graphite/chrome surface;
+* support desktop and mobile navigation;
+* use animated menu states;
+* include clear Services, Industries, Consulting, Insights, About and Book navigation;
+* provide a dominant discovery-call action;
+* include appropriate hover, focus, active-route and scroll states;
+* use Motion for menu and component state;
+* use GSAP only for major header choreography where needed;
+* remain keyboard accessible;
+* remain fully usable without animation;
+* avoid a generic shadcn default appearance.
+
+GLOBAL FOOTER
+
+Rebuild the footer completely.
+
+Requirements:
+
+* use `silverstone-logo-new.png` or the appropriate high-resolution equivalent;
+* show the complete supplied Silverstone AI logo on every route;
+* preserve its proportions and appearance;
+* include premium navigation, service, industry, contact and location information;
+* position Silverstone as London-based with UK, European and US capability;
+* include a strong final discovery-call conversion surface;
+* use elegant metallic, illuminated and layered treatments;
+* add controlled animation and interaction;
+* remain readable and responsive.
+
+PAGE LOADING AND ROUTE TRANSITIONS
+
+Create a premium route-loading system inspired by:
+
+`https://21st.dev/community/components/m.kumailalirajpoot/core-spin-loader/default`
+
+Requirements:
+
+* restyle it completely in the Silverstone palette;
+* incorporate the supplied emblem or abstract brand geometry without redrawing it;
+* create different supporting copy for each page family;
+* make the copy commercially intriguing and page-specific;
+* use a brief cinematic transition rather than an irritating artificial delay;
+* coordinate with actual route readiness;
+* provide reduced-motion and repeat-visit shortcuts;
+* ensure the loader never makes navigation feel broken;
+* use View Transitions, GSAP or Motion appropriately;
+* avoid hydration or route-state errors.
+
+Create page-family copy for:
+
+* homepage;
+* consulting;
+* website development;
+* app development;
+* voice agents;
+* receptionists;
+* content;
+* automation;
+* industries;
+* company pages;
+* insights;
+* booking and contact.
+
+BACKGROUND AND SHADER SYSTEM
+
+Create one coherent page-level visual engine.
+
+Requirements:
+
+* every major route must receive a page-specific premium particle, shader, light-field or animated atmospheric treatment;
+* use the particles reference as inspiration:
+  `https://21st.dev/community/components/UmairXD/particles-bg/default`;
+* assign different on-brand colour combinations and movement signatures to page families;
+* create a signature interactive WebGL homepage hero;
+* use Three.js, React Three Fiber, custom GLSL and postprocessing where beneficial;
+* avoid running multiple heavy WebGL contexts on the same route;
+* use one page-level owner for hero and atmospheric effects;
+* body sections may use a lighter shared canvas, CSS particle field, SVG field or GPU-efficient effect;
+* use static or reduced lightweight fallbacks on lower-power and reduced-motion devices;
+* maintain excellent contrast;
+* avoid generic glowing blobs;
+* make the result original to Silverstone.
+
+HOMEPAGE — COMPLETE REBUILD
+
+The homepage must become the flagship expression of the brand.
+
+It must include, at minimum:
+
+1. Cinematic interactive hero
+
+   * strong premium headline;
+   * positioning covering AI, automation, consulting, websites and applications;
+   * London and UK authority;
+   * international capability;
+   * a discovery-call primary action;
+   * a secondary exploratory action;
+   * supplied icon or logo integrated prominently but not distorted;
+   * interactive particles, lighting, depth and shader treatment;
+   * premium animated typography;
+   * custom cursor or magnetic interaction where appropriate;
+   * smooth hero-to-body transition.
+
+2. Brand and trust positioning
+
+   * premium London studio;
+   * strategic and implementation capability;
+   * suitable for enterprise, established companies, growth businesses and selected smaller clients;
+   * clear high-trust messaging;
+   * no generic small-business-only positioning.
+
+3. Services architecture
+
+   * all seven service families;
+   * premium custom icons;
+   * page-specific hover interactions;
+   * layered cards or dynamic presentation;
+   * clear consulting versus implementation distinction;
+   * strong internal links.
+
+4. AI & Automation Consulting feature
+
+   * strategic AI opportunity mapping;
+   * workflow and operating-model analysis;
+   * technology and tool selection;
+   * AI governance and adoption planning;
+   * architecture and product design;
+   * advisory support for internal teams;
+   * consulting on in-house development of bespoke agents and automations;
+   * consulting on internal apps, websites, AI systems and agentic products;
+   * optional implementation by Silverstone.
+
+5. Proof and quantified opportunity
+
+   * select high-impact, relevant metrics from the supplied CSV;
+   * present them in animated premium panels;
+   * preserve qualifiers;
+   * never imply an average is an audited Silverstone result;
+   * add methodology or contextual disclosure;
+   * distribute metrics naturally rather than creating one overwhelming wall.
+
+6. Tools and integrations rail
+
+   * inspect the current Agentive Labs “Works with your existing tools” section;
+   * reproduce its useful behaviour, density and clarity without copying its code or visual identity;
+   * use the 21st.dev integration-hero reference;
+   * create an original Silverstone implementation;
+   * include the tools visible on Agentive Labs plus relevant additional tools;
+   * use the 21st.dev SVG icon search for accurate logos;
+   * include categories such as CRM, scheduling, communications, productivity, payments, ecommerce, advertising, databases, AI, development, cloud, analytics and automation;
+   * use an exhaustive but organised list;
+   * use smooth continuous movement plus user controls;
+   * pause on hover and focus;
+   * support keyboard controls;
+   * provide reduced-motion static grid fallback;
+   * do not imply formal partnerships where none exist.
+
+7. Existing imagery
+
+   * use several strong images selected from the body-image CSV;
+   * use proper mobile and desktop pairs;
+   * add premium masks, framing, lighting, parallax and reveals;
+   * do not hide all previous imagery.
+
+8. High-value client positioning
+
+   * show suitability for organisations, in-house teams, multi-location companies, enterprise functions and ambitious growth businesses;
+   * retain accessibility for small businesses without making them the sole audience.
+
+9. Process and trust
+
+   * strategy;
+   * discovery;
+   * design;
+   * build;
+   * integration;
+   * validation;
+   * launch;
+   * optimisation;
+   * governance and human oversight.
+
+10. Guarantees and assurances
+
+* create commercially strong, credible assurance mechanisms;
+* separate them from performance benchmarks;
+* possible themes include scoped discovery assurance, milestone acceptance, transparent scope, implementation warranty, launch-readiness review, revision commitments and documented handover;
+* do not guarantee revenue, rankings or numerical outcomes without proper evidence and defined terms.
+
+11. Premium CTA and footer transition
+
+* create a memorable final conversion sequence;
+* use controlled motion and lighting;
+* preserve a clear normal link to `/book`.
+
+WORLD-CLASS UI/UX, VISUAL AND ANIMATION REQUIREMENTS
+
+The following requirements are the minimum baseline, not a ceiling.
+
+FIRST AUDIT THE EXISTING REPOSITORY
+
+Preserve all working routes, content, functionality, analytics, SEO metadata and integrations unless replacement is clearly required.
+
+Do not migrate a functioning project unnecessarily.
+
+CREATIVE FREEDOM AND EXTENSIBILITY
+
+You have full creative and technical freedom to introduce additional libraries, rendering techniques, animation systems, visual tools, shaders, interaction patterns and supporting technologies when they materially improve visual quality, originality, immersion, usability, performance or futuristic character.
+
+Do not limit the design to the named stack.
+
+Research and use additional best-in-class tools where they produce a more exceptional result.
+
+Any added technology must:
+
+* provide a clear visual, interactive, performance or UX benefit;
+* be compatible with the existing architecture;
+* be actively maintained and production appropriate;
+* avoid unnecessary capability duplication;
+* avoid unnecessary fragility or technical debt;
+* preserve accessibility, responsiveness, SEO and performance;
+* be installed, configured and documented correctly;
+* be tested in the production build.
+
+Treat this specification as a minimum quality threshold, not a creative ceiling.
+
+CORE TECHNOLOGY
+
+This is an existing React Router/Vite application, not a greenfield Next.js project.
+
+Do not migrate it to Next.js.
+
+Use and enhance:
+
+* React;
+* React Router;
+* strict TypeScript;
+* Tailwind CSS v4;
+* shadcn/ui with accessible Radix primitives.
+
+Install compatible versions of:
+
+`gsap @gsap/react motion lenis three @react-three/fiber @react-three/drei @react-three/postprocessing postprocessing maath lucide-react clsx tailwind-merge class-variance-authority`
+
+If Tailwind or shadcn/ui needs additional configuration, configure it correctly for the existing Vite architecture.
+
+ANIMATION AND VISUAL STACK
+
+Use:
+
+* GSAP and ScrollTrigger for cinematic page choreography, scroll-linked sequences, pinned storytelling, parallax, masked reveals and major transitions.
+* GSAP SplitText, MorphSVG and DrawSVG where legitimately available and licensed.
+* When licensed premium GSAP plugins are unavailable, create equivalent original effects using standard GSAP, SVG and CSS without copying proprietary plugin source.
+* Motion for component entrances, menus, cards, hover states, gestures, layout transitions and micro-interactions.
+* React Three Fiber, Three.js, Drei, custom GLSL shaders and Postprocessing for bespoke hero visuals, particles, chrome and iridescent materials, reflections, light trails and restrained bloom.
+* Lenis for premium smooth scrolling, synchronised with GSAP through one shared animation loop.
+* Native CSS animations and View Transitions where JavaScript is unnecessary.
+
+GSAP must control page and scroll choreography.
+
+Motion must control component state and layout animation.
+
+Never animate the same property on the same element with both systems.
+
+Create one signature interactive WebGL homepage hero and a controlled number of additional high-impact 3D moments.
+
+Use shared lightweight animated atmosphere across other routes rather than uncontrolled independent WebGL scenes.
+
+TAILWIND CSS
+
+Use Tailwind CSS v4 as the primary styling and design-token system.
+
+Create semantic tokens for:
+
+* colours;
+* typography;
+* spacing;
+* borders;
+* radii;
+* shadows;
+* surface treatments;
+* lighting;
+* motion;
+* responsive behaviour.
+
+Use:
+
+* OKLCH or P3 colours;
+* fluid typography;
+* container queries;
+* masks;
+* advanced gradients;
+* GPU-friendly transforms;
+* modern responsive CSS.
+
+Avoid enormous unreadable Tailwind class strings.
+
+Convert repeated patterns into reusable components or named utilities.
+
+SHADCN/UI
+
+Use shadcn/ui and Radix primitives for accessible behaviour such as:
+
+* navigation;
+* dialogs;
+* dropdowns;
+* forms;
+* accordions;
+* tabs;
+* tooltips;
+* drawers;
+* menus;
+* select controls.
+
+Treat shadcn/ui as a behaviour and accessibility foundation only.
+
+Completely customise:
+
+* typography;
+* colours;
+* spacing;
+* borders;
+* radii;
+* shadows;
+* surfaces;
+* states;
+* animation.
+
+The finished interface must not resemble default shadcn.
+
+21ST.DEV MCP
+
+Use the connected 21st.dev MCP extensively before building major interface sections.
+
+Use it for:
+
+* hero concepts;
+* navigation;
+* layouts;
+* interactive service sections;
+* animated cards;
+* comparison sections;
+* proof sections;
+* conversion sections;
+* booking surfaces;
+* mobile patterns;
+* iconography;
+* loading;
+* footer;
+* transitions.
+
+For every selected component:
+
+1. inspect source and dependencies;
+2. assess accessibility, responsiveness and performance;
+3. install only required code and dependencies;
+4. rewrite and restyle it substantially;
+5. integrate it into the Silverstone design system;
+6. replace all generic content;
+7. test desktop, tablet, mobile, keyboard and reduced motion;
+8. remove abandoned code.
+
+The site must not resemble a component marketplace.
+
+VISUAL DIRECTION
+
+Create an original luxury-technology identity using:
+
+* precise editorial typography;
+* strong hierarchy;
+* intentional negative space;
+* metallic graphite and silver surfaces;
+* controlled cyan, blue, violet, pink and magenta illumination;
+* refined glass, chrome and iridescent detail;
+* layered depth;
+* tactile interactions;
+* cinematic motion;
+* high visual density without disorder.
+
+Avoid:
+
+* generic glowing blobs;
+* excessive repetitive glass cards;
+* endless identical rounded boxes;
+* meaningless movement;
+* decorative animation without purpose;
+* uncontrolled gradients;
+* standard template bento layouts;
+* cheap cyberpunk effects;
+* incoherent visual clutter.
+
+Every animation must strengthen hierarchy, storytelling, comprehension, usability, trust or conversion.
+
+BRAND ASSETS
+
+Use supplied Silverstone AI assets exactly.
+
+Do not redraw, distort, reinterpret, recolour or approximate them.
+
+Do not fabricate a 3D version of the emblem without a proper 3D model.
+
+Create abstract complementary 3D forms where needed rather than imitating the logo.
+
+PERFORMANCE AND IMPLEMENTATION
+
+For Three.js and React Three Fiber:
+
+* isolate heavy scenes appropriately;
+* dynamically import heavy visual components;
+* cap device pixel ratio;
+* lazy-load scenes and assets;
+* compress models and textures;
+* use efficient geometry, materials and lighting;
+* dispose of WebGL resources correctly;
+* pause hidden or off-screen animation;
+* provide static or lightweight fallbacks;
+* avoid leaking listeners, timelines or WebGL contexts.
+
+Rive, Lottie, Spline and other visual systems may be introduced where they provide a clear benefit and required assets or licences are available.
+
+Do not add tools merely for novelty.
+
+UX, ACCESSIBILITY AND RESPONSIVENESS
+
+The interface must be:
+
+* fully responsive;
+* keyboard accessible;
+* touch friendly;
+* screen-reader considerate;
+* compatible with `prefers-reduced-motion`;
+* free from scroll-jacking;
+* free from unexpected layout shifts;
+* clear and conversion-focused.
+
+Animations must remain smooth on realistic devices.
+
+QUALITY CONTROL
+
+Before completion:
+
+* run TypeScript checks;
+* run linting;
+* run unit tests;
+* run the full production build;
+* fix hydration errors;
+* fix animation cleanup problems;
+* fix mobile overflow;
+* fix console warnings and runtime failures;
+* remove unused components, packages and assets;
+* test the homepage at desktop, tablet and mobile widths;
+* test header, menu, loader, tools rail and major interactions;
+* confirm graceful reduced-motion behaviour;
+* confirm SEO and structured data remain valid;
+* document additional libraries and their purpose.
+
+HOMEPAGE ACCEPTANCE GATE
+
+Do not declare completion unless the homepage:
+
+* is immediately and dramatically more premium than the current live Silverstone site;
+* does not resemble the failed white text-column redesign;
+* uses the supplied icon in the header;
+* uses the supplied logo in the footer;
+* uses the full expanded brand palette;
+* includes a signature shader or WebGL hero;
+* contains substantial page-specific animation;
+* includes existing imagery;
+* includes the tools-logo rail;
+* includes premium custom icons;
+* includes compelling, substantial marketing copy;
+* includes AI & Automation Consulting;
+* includes selected qualified metrics;
+* includes assurances;
+* works at desktop, tablet and mobile widths;
+* has no fatal console, build or accessibility failures.
+
+FINAL REPORT
+
+Report:
+
+* files changed;
+* assets copied;
+* CSVs parsed;
+* metrics selected;
+* images used;
+* 21st.dev searches performed;
+* selected component inspirations;
+* Agent skills used;
+* dependencies installed;
+* global components created;
+* homepage sections created;
+* animation systems implemented;
+* tests run;
+* Preview routes inspected;
+* unresolved issues.
+
+Stop after completing this scope.
+
+Do not proceed to rebuilding every remaining route during this task.
