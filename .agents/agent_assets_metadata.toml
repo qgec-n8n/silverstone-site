@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "XUp8NyZKW85fwoDHxLgYV"
+uri = "file://screenshots/home.jpg"
+type = "image"
+title = "Silverstone — Home page"
