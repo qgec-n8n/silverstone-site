@@ -1,0 +1,856 @@
+Role: Act as an elite luxury-technology creative director, senior React animation engineer, advanced UI systems designer, conversion copywriter and browser-based quality-assurance specialist.
+
+Task: Perform a focused but substantial correction and enhancement pass on the completed V2 homepage and global shell before any service-page work begins.
+
+This is a direct implementation task. Do not create alternative mockups, comparison documents or speculative plans. Inspect the current implementation, create a Replit checkpoint, then make the required changes directly in `/web`.
+
+ATTACHED FILES
+
+The user has attached:
+
+* `silverstone-ai-emblem-dark.png`
+* `silverstone-ai-logo-dark.png`
+
+Copy these files unchanged into canonical locations under `/web/public/brand/`.
+
+These are opaque raster images with deliberately designed dark backgrounds. They are not transparent assets.
+
+Do not:
+
+* remove their backgrounds;
+* redraw them;
+* recolour them;
+* approximate them;
+* crop away any part of the emblem or wordmark;
+* place them on an unrelated background that exposes a rectangular image boundary.
+
+CURRENT STATE
+
+Build on the current V2 homepage and preserve work that is already successful, including:
+
+* React Router/Vite architecture;
+* installed dependencies;
+* SEO and JSON-LD;
+* route structure;
+* claims registry;
+* image registry;
+* existing homepage content that remains useful;
+* staging safeguards;
+* testing infrastructure;
+* current dark luxury direction.
+
+Do not roll back the completed V2 implementation.
+
+Correct the specific visual and implementation problems listed below.
+
+SOURCE COMPONENTS
+
+The 21st.dev MCP is not available and must not be called.
+
+The complete local component source pack is already stored under:
+
+`/docs/vendor/silverstone-replit-component-pack/`
+
+Read:
+
+* its README;
+* adaptation guide;
+* source manifest;
+* component source files;
+* demos;
+* style references.
+
+You must now implement the supplied components in the active application rather than merely referencing, documenting or conceptually recreating them.
+
+The required local references are:
+
+* Core Spin Loader
+* Aether Flow Hero
+* Particles Background
+* Integration Hero
+* Hero Button Expendable
+* Display Cards
+
+Copy or adapt the required implementations into an organised active location such as:
+
+`/web/src/components/vendor/`
+or
+`/web/src/components/ui/silverstone/`
+
+Do not import runtime code directly from `/docs`.
+
+Preserve the core interaction and visual behaviour of each supplied component while:
+
+* converting aliases to the existing project conventions;
+* using strict TypeScript;
+* removing demo copy;
+* using the Silverstone design system;
+* replacing remote runtime scripts with locally installed packages or a local implementation;
+* ensuring React Router/Vite compatibility;
+* preserving accessibility;
+* adding cleanup;
+* supporting reduced motion;
+* preventing duplicate animation loops.
+
+The Particles Background source currently loads particles.js from a CDN. Replace this runtime CDN dependency with either:
+
+* a compatible locally installed npm implementation; or
+* a faithful local TypeScript implementation of the supplied behaviour.
+
+Do not drop this component merely because the reference used a CDN.
+
+TYPEUI MCP
+
+The TypeUI MCP is connected to the project.
+
+Discover its available tools and use it actively.
+
+Use its **futuristic theme** as the starting context.
+
+Use TypeUI to find and implement complementary premium patterns for:
+
+* navigation details;
+* section framing;
+* cards;
+* metrics;
+* CTA treatments;
+* image framing;
+* technical labels;
+* decorative line systems;
+* responsive layouts;
+* footer details;
+* icon presentation.
+
+Do not let TypeUI overwrite the Silverstone identity.
+
+Every selected TypeUI element must be:
+
+* substantially restyled;
+* integrated into the Silverstone token system;
+* checked for accessibility;
+* checked for mobile behaviour;
+* visually coherent with the supplied component pack.
+
+Record the TypeUI components used and where they were implemented.
+
+Do not use the broken 21st.dev MCP.
+
+PRIMARY OUTCOME
+
+Correct and elevate the homepage so that it becomes:
+
+* genuinely cinematic;
+* visibly animated throughout;
+* darker, richer and more colourful;
+* more futuristic;
+* more technically impressive;
+* more spatially varied;
+* more readable;
+* better balanced;
+* unmistakably Silverstone.
+
+The result must not look like narrow text columns placed over a dark background.
+
+SECTION TITLE AND COPY LAYOUT CORRECTION
+
+The current implementation incorrectly constrains many:
+
+* section titles;
+* subtitles;
+* eyebrow labels;
+* pill identifiers;
+* supporting paragraphs;
+
+inside narrow grid columns.
+
+This must be corrected globally across the homepage.
+
+Inspect and revise:
+
+* `SectionShell`;
+* homepage grid utilities;
+* section heading components;
+* title wrappers;
+* eyebrow and pill wrappers;
+* responsive grid definitions;
+* max-width rules;
+* container-query rules;
+* inherited typography constraints.
+
+Requirements:
+
+1. Section headings must have sufficient horizontal space.
+
+2. On desktop:
+
+   * principal section titles should commonly span approximately 7–10 grid columns;
+   * supporting copy can sit beside them or underneath;
+   * do not force titles into narrow 2–4-column rails;
+   * do not allow headings to break into one or two words per line unless intentionally designed for one specific cinematic moment.
+
+3. On mobile:
+
+   * all titles, subtitles and pills must receive full usable width;
+   * no horizontal clipping;
+   * no compressed narrow columns.
+
+4. Body-copy measures should normally remain around 55–75 characters, but this must not constrain the heading itself.
+
+5. Pill labels must:
+
+   * use intrinsic width;
+   * remain on one line where possible;
+   * not inherit narrow parent widths;
+   * not appear as vertically stacked words.
+
+6. Use varied layouts:
+
+   * wide centred statements;
+   * asymmetric split layouts;
+   * editorial left/right compositions;
+   * overlapping visual and copy sections;
+   * full-width copy moments;
+   * staggered cards;
+   * horizontal narrative bands.
+
+7. Do not make every heading, paragraph and visual left-aligned in the same column.
+
+HERO VIEWPORT AND CONTENT
+
+The homepage hero must be fully visible on initial page load.
+
+Requirements:
+
+* account for the header height;
+* use `100svh` or an equivalent stable viewport calculation;
+* ensure the primary title, subtitle, pill and “Explore the system” control are visible without initial scrolling at normal desktop and laptop heights;
+* avoid content clipping at 768px-high laptop screens;
+* test mobile browser viewport behaviour;
+* do not let the loader leave the hero at an incorrect scroll position.
+
+The initial hero must contain only:
+
+* the “UK AI Systems Studio” pill;
+* the primary title;
+* the primary subtitle;
+* the “Explore the system” control;
+* the required visual background.
+
+Move the other existing hero content into the first body section.
+
+Do not delete that content.
+
+HERO BACKGROUND
+
+Use the supplied Aether Flow Hero and Particles Background implementations as the actual foundation of the homepage hero.
+
+Implement a richer Silverstone variant combining where appropriate:
+
+* Aether Flow interactive canvas particles;
+* the locally adapted Particles Background;
+* Paper Design GodRays or MeshGradient;
+* existing Three.js/R3F elements;
+* restrained shader layers;
+* pointer-reactive depth;
+* parallax;
+* chrome and iridescent highlights;
+* cyan, blue, violet, pink and magenta energy paths.
+
+The result must be an active, clearly visible animated background—not a static poster masquerading as a shader.
+
+Use the Silverstone palette rather than the original purple-only or blue-only references.
+
+Required hero colours include:
+
+* Electric Cyan;
+* brighter spectral cyan;
+* Digital Blue;
+* vivid azure;
+* Neural Violet;
+* ultraviolet;
+* Electric Pink;
+* fuchsia;
+* Deep Magenta;
+* Platinum Silver;
+* Titanium Silver;
+* graphite-black;
+* indigo-black.
+
+Keep text contrast high.
+
+The background must:
+
+* run smoothly;
+* cap device pixel ratio;
+* pause when hidden;
+* dispose resources correctly;
+* degrade to the existing poster where WebGL/canvas is unavailable;
+* provide a reduced-motion state;
+* not block pointer interactions;
+* not create a second competing scroll loop.
+
+BODY BACKGROUND
+
+The entire homepage body must use an active animated background derived directly from the local Particles Background and Paper shader references.
+
+Do not use a flat black or flat navy body background.
+
+Create a layered body environment consisting of:
+
+* a deep graphite/blue-black base;
+* low-opacity animated particles;
+* occasional cyan, violet, pink and silver light fields;
+* subtle grid or technical linework;
+* page-depth gradients;
+* restrained noise;
+* section-specific illumination.
+
+Maintain excellent readability.
+
+Use local implementations only. No runtime CDN scripts.
+
+The body background may be continuous across the homepage, but section accent lighting should change gradually as the user moves through the page.
+
+HERO-TO-BODY TRANSITION
+
+Use the supplied Hero Button Expendable component as the implementation basis for the “Explore the system” transition.
+
+Do not use its fake form, fabricated testimonial or modal copy.
+
+Adapt its Motion layout transformation and shader layers into an original hero-to-body transition.
+
+Required interaction:
+
+1. The visitor presses “Explore the system”.
+
+2. The control:
+
+   * expands;
+   * emits or reveals a luminous Silverstone surface;
+   * morphs into or unveils the first body section;
+   * transitions the user into the body with controlled GSAP/Motion choreography.
+
+3. The transition must feel like the interface opens into a larger Silverstone operating system.
+
+4. It must not:
+
+   * open a generic form modal;
+   * lock the visitor in an unrelated overlay;
+   * trap focus incorrectly;
+   * create scroll-jacking;
+   * hide the browser history;
+   * break direct keyboard navigation.
+
+5. Support:
+
+   * keyboard activation;
+   * reduced motion;
+   * mobile;
+   * direct scrolling for users who do not press the button.
+
+SECONDARY HERO
+
+The first section after the transition must function as a secondary hero.
+
+Move the strong existing hero-support content into this section, including where relevant:
+
+* London / UK-led positioning;
+* international capability;
+* service breadth;
+* strategy plus engineering;
+* trust messaging;
+* selected supporting cards or proof points.
+
+Make this secondary hero:
+
+* wide;
+* visually layered;
+* richly animated;
+* more detailed than the primary hero;
+* positioned as the first major explanation of the business.
+
+Use split layouts, a wide statement, animated supporting details and one strong image or technical visual.
+
+Do not put this content into a narrow text column.
+
+PAGE LOADER
+
+Implement the actual local Core Spin Loader as the first visible experience.
+
+Do not merely use a normal CSS spinner or a small route progress indicator.
+
+Requirements:
+
+* full-screen first-load presentation;
+* appears above or within the animated Silverstone background;
+* Silverstone cyan, blue, violet, pink, magenta and silver;
+* use the original brand emblem appropriately;
+* route-specific copy;
+* accessible `role="status"` and live text;
+* no indefinite blocking;
+* first visit duration approximately 1.5–2.3 seconds;
+* shorter same-session route changes;
+* reduced-motion version;
+* direct route loading support;
+* no layout shift after exit;
+* smooth transition into the hero.
+
+Homepage loader message:
+
+“Engineering the next advantage.”
+
+The loader must visually resemble the supplied Core Spin Loader component, substantially upgraded and branded.
+
+GLOBAL HEADER
+
+Change the global header/navigation to a white or near-white premium surface.
+
+Use:
+
+* Cloud White;
+* Platinum Silver;
+* subtle cool-grey/chrome borders;
+* graphite text;
+* restrained cyan/violet active states.
+
+Use the original white-background emblem asset already in the repository—not the transparent derivative.
+
+The white image background must blend naturally into the white header.
+
+Requirements:
+
+* header height large enough to display the emblem clearly;
+* emblem approximately 62–78px tall on desktop, adjusted based on its actual composition;
+* mobile emblem still clearly recognisable;
+* no tiny icon;
+* no visible square around the asset;
+* no dark panel immediately behind the white image;
+* premium scroll state;
+* keyboard-complete mega menus;
+* strong booking CTA;
+* keep the header visually refined rather than oversized and clumsy.
+
+The header itself may gain a subtle translucent or platinum tone on scroll, but the immediate area behind the emblem must remain visually identical to the emblem’s white background.
+
+FOOTER
+
+Use the newly attached:
+
+`silverstone-ai-logo-dark.png`
+
+as the principal footer logo.
+
+Do not use styled text as a substitute for the supplied full lockup.
+
+The image has an opaque dark background.
+
+Requirements:
+
+1. Inspect and sample the colours around all outer image edges.
+
+2. Design the footer background and the immediate logo surround to match the image background.
+
+3. Use:
+
+   * a matched dark blue-black/graphite gradient;
+   * subtle continuation of the image’s lighting;
+   * soft masks or feathered overlays where required;
+   * sufficient spacing around the logo.
+
+4. The logo must appear embedded into the footer rather than pasted on as a rectangle.
+
+5. Do not:
+
+   * use a visibly different solid footer colour;
+   * place the image inside a contrasting card;
+   * add a visible border around it;
+   * make it too small.
+
+6. Add subtle footer animation:
+
+   * controlled light sweep;
+   * softly moving technical lines;
+   * staggered link reveal;
+   * mild hover illumination;
+   * reduced-motion fallback.
+
+7. Keep legal links readable and stationary enough for comfortable use.
+
+CTA EMBLEM
+
+Use the newly attached:
+
+`silverstone-ai-emblem-dark.png`
+
+inside the major homepage CTA / conversion-climax section.
+
+The image must be significantly larger than the current emblem.
+
+Apply the same background-matching principles as the footer:
+
+* sample edge colours;
+* match the card background;
+* continue the dark image gradient into the surrounding CTA;
+* blend or feather edges;
+* do not display an obvious rectangle.
+
+Animate the CTA and emblem using:
+
+* subtle depth movement;
+* controlled light response;
+* entrance choreography;
+* hover/focus states;
+* restrained glow pulses;
+* reduced-motion fallback.
+
+Do not distort or rotate the logo itself excessively.
+
+INTEGRATION LOGO CAROUSEL
+
+Replace the current monochrome, labelled integration marks.
+
+The carousel must show:
+
+* authentic coloured brand logos;
+* icon only;
+* no visible “[icon] Gmail” label;
+* no accompanying brand-name text;
+* much larger icons.
+
+Requirements:
+
+* approximately 64–96px visible logo area depending on the logo;
+* larger surrounding cells;
+* two or more rows;
+* opposite directions;
+* seamless loops;
+* pause on hover;
+* pause on keyboard focus;
+* accessible hidden text or `aria-label`;
+* no stretched logos;
+* no grayscale filter;
+* no CSS `currentColor` conversion;
+* no invented monochrome copies.
+
+Use authentic local SVG or PNG brand marks from:
+
+* official vendor brand resources;
+* a maintained package such as Simple Icons where suitable;
+* TypeUI icon resources if they provide authentic coloured marks;
+* existing repository assets.
+
+Do not depend on remote runtime image URLs.
+
+Include the wider technology ecosystem previously specified.
+
+Use the local Integration Hero component as the foundation, but dramatically improve:
+
+* icon size;
+* depth;
+* coloured glow;
+* spacing;
+* masking;
+* speed;
+* background treatment.
+
+COPY EXPANSION
+
+Expand the copy for the homepage sections currently titled or centred around:
+
+* “One Surface”
+* “Always Answering”
+* “In Control”
+
+Each needs:
+
+* a more expressive title treatment;
+* a stronger explanatory paragraph;
+* approximately 2–4 additional sentences where useful;
+* practical business meaning;
+* premium strategic positioning;
+* clear explanation of the human and technical benefit.
+
+Keep the copy concise enough to scan, but no longer skeletal.
+
+Do not use vague buzzword filler.
+
+METRIC CARD FIX
+
+The current metric:
+
+`£100k → £300k`
+
+does not fit cleanly.
+
+Replace the visual display with a one-line equivalent derived from the same source, such as:
+
+`3× revenue trajectory`
+
+or select a different relevant benchmark from the claims registry that fits naturally.
+
+Retain:
+
+* correct provenance;
+* calculated-average or benchmark framing;
+* the disclaimer;
+* no implication that this is a guaranteed Silverstone result.
+
+Do not reduce the type size until it becomes visually weak.
+
+IMAGE CSV RE-AUDIT
+
+The previous implementation concluded too quickly that most CSV images were unavailable.
+
+Reanalyse every row in:
+
+`silverstone_body_images_with_mobile_desktop*.csv`
+
+For each row:
+
+1. Extract:
+
+   * desktop filename or URL;
+   * mobile filename or URL;
+   * intended page;
+   * surrounding copy or section;
+   * alt text if available.
+
+2. Search the repository using:
+
+   * exact filename;
+   * basename;
+   * decoded URL basename;
+   * case-insensitive match;
+   * alternative extension;
+   * legacy asset folders;
+   * blog image folders;
+   * nested public folders.
+
+3. Where the CSV references a live Silverstone-owned URL and no local file exists:
+
+   * determine whether the image can be downloaded from the existing Silverstone website;
+   * download it into a canonical local asset directory when clearly owned by Silverstone;
+   * do not retain a remote runtime dependency.
+
+4. Create a complete audit table:
+
+   * used;
+   * suitable for later page;
+   * rejected;
+   * missing;
+   * duplicate;
+   * low resolution;
+   * irrelevant.
+
+5. For every rejected image, record the reason.
+
+6. Use relevant original-site images on the homepage where they improve:
+
+   * credibility;
+   * storytelling;
+   * service explanation;
+   * brand continuity;
+   * visual richness.
+
+7. Use the mobile and desktop versions responsively.
+
+Do not force all images onto the homepage. Analyse all of them and use the relevant subset now; reserve page-specific images for later service and industry work.
+
+COLOUR-PALETTE EXPANSION
+
+Expand the current token system substantially.
+
+Retain the supplied brand palette, then add coherent derivative families, including:
+
+* spectral cyan;
+* ice cyan;
+* electric azure;
+* cobalt;
+* deep digital blue;
+* indigo;
+* ultraviolet;
+* luminous orchid;
+* fuchsia;
+* hot magenta;
+* rose-light;
+* chrome white;
+* mercury silver;
+* gunmetal;
+* midnight graphite;
+* blue-black;
+* violet-black.
+
+Create:
+
+* primary gradients;
+* secondary gradients;
+* iridescent gradients;
+* metallic highlights;
+* luminous borders;
+* section-family themes;
+* card variants;
+* metric variants;
+* icon variants;
+* focus states;
+* CTA states.
+
+Use the additional colours visibly across the homepage.
+
+Do not allow every section to remain only dark navy plus cyan.
+
+ANIMATION ORCHESTRATION
+
+The current homepage does not contain enough visible animation.
+
+Every major homepage element must receive purposeful motion.
+
+Animate:
+
+* body-section headings;
+* subtitles;
+* paragraphs;
+* pills;
+* images;
+* masks;
+* cards;
+* icons;
+* metrics;
+* service stacks;
+* integration logos;
+* process stages;
+* assurance items;
+* CTA card;
+* CTA emblem;
+* footer;
+* footer links;
+* decorative lines;
+* section transitions.
+
+Use:
+
+* GSAP and ScrollTrigger for page choreography, pinned sequences, reveals, staggered copy, image masks and section transitions;
+* Motion for component states, card interactions, layout movement, menus and hover effects;
+* Lenis as the single smooth-scroll owner;
+* CSS for lightweight continuous effects;
+* Three.js/R3F only where it materially adds depth.
+
+Create a varied motion vocabulary:
+
+* split-line reveals;
+* masked image reveals;
+* glow tracing;
+* icon drawing;
+* staggered card assembly;
+* counter animation;
+* depth parallax;
+* horizontal movement;
+* scale-and-focus transitions;
+* light sweeps;
+* technical path animation;
+* pointer-responsive surfaces.
+
+Do not apply the same generic fade-up to every element.
+
+Do not animate the same property through both GSAP and Motion.
+
+Ensure the result feels like an orchestrated symphony rather than random movement.
+
+TYPEUI ENHANCEMENT
+
+After the required fixes are working, use the TypeUI MCP with its futuristic theme to improve weak remaining areas.
+
+Prioritise:
+
+* section-title framing;
+* technical data cards;
+* CTA composition;
+* premium stat layouts;
+* image frames;
+* timeline details;
+* footer structure;
+* decorative technical surfaces.
+
+Do not replace the local supplied components where the user specifically requested them.
+
+TypeUI should complement those components.
+
+TESTING AND COMPLETION
+
+Use App Testing throughout.
+
+Test at minimum:
+
+* first page load;
+* Core Spin Loader;
+* loader exit;
+* hero full-height behaviour;
+* “Explore the system” keyboard and pointer activation;
+* hero-to-body transition;
+* direct scrolling;
+* secondary hero;
+* logo carousel;
+* header menus;
+* mobile navigation;
+* metrics;
+* CTA;
+* footer;
+* reduced motion;
+* mobile;
+* tablet;
+* laptop;
+* wide desktop.
+
+Test widths:
+
+* 320px
+* 375px
+* 390px
+* 768px
+* 1024px
+* 1280px
+* 1440px
+
+Run:
+
+* formatting;
+* strict TypeScript;
+* lint;
+* unit tests;
+* browser tests;
+* production/staging build;
+* staging-safety checks.
+
+Do not finish until:
+
+* section titles are no longer constrained to narrow columns;
+* the hero is fully visible at load;
+* the real Core Spin Loader is used;
+* the real local Aether/Particles shader implementations are visibly active;
+* the hero-to-body transition uses the supplied Hero Button interaction as its basis;
+* the first body section acts as a secondary hero;
+* body background animation is clearly visible;
+* header is white and uses the original white-background emblem;
+* footer uses the attached dark full logo with invisible image boundaries;
+* CTA uses the attached dark emblem with invisible image boundaries;
+* integration logos are coloured, large and icon-only;
+* the metric overflow is fixed;
+* the three named copy areas are expanded;
+* original image CSV has been completely re-audited;
+* relevant original images are used;
+* body content, images, cards, icons, CTA and footer are visibly animated;
+* the palette is richer and broader;
+* build and tests pass.
+
+At completion report:
+
+* exact files changed;
+* local component-pack files implemented;
+* TypeUI MCP components used;
+* images used and reserved;
+* copy expanded;
+* animations added;
+* colours/tokens added;
+* tests completed;
+* any remaining limitations.
+
+Stop after completing this homepage correction task.
