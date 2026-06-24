@@ -21,6 +21,8 @@ export {
 // ---- non-home page-feature primitives ----
 export { useSectionReveal, type SectionReveal } from "~/visual/hooks/use-section-reveal";
 export { usePageTransition, type PageTransition } from "~/visual/hooks/use-page-transition";
+export { PageEntry } from "~/visual/components/page-entry";
+export { RevealSection } from "~/visual/components/reveal-section";
 export {
   DemoShell,
   type DemoScenario,

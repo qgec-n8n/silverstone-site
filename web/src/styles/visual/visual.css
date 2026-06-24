@@ -787,6 +787,52 @@
   border: 1px solid var(--vx-border);
 }
 
+.ss-visual-root .ss-demo__synthetic {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vx-ink-muted);
+}
+
+.ss-visual-root .ss-demo__tiles {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-visual-root .ss-demo__tiles + .ss-note {
+  margin-top: 0.75rem;
+}
+
+.ss-visual-root .ss-tile {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--vx-radius-sm);
+  background: var(--vx-surface);
+  border: 1px solid var(--vx-border);
+}
+
+.ss-visual-root .ss-tile[data-active="true"] {
+  border-color: var(--vx-cyan-ink);
+  box-shadow: inset 0 0 0 1px var(--vx-cyan-ink);
+}
+
+.ss-visual-root .ss-tile__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--vx-ink-muted);
+}
+
+.ss-visual-root .ss-tile__value {
+  font-size: 0.9rem;
+  color: var(--vx-ink);
+}
+
 .ss-visual-root .ss-demo__status {
   margin: 0;
   font-size: 0.88rem;

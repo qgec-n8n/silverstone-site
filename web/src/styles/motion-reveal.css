@@ -1,0 +1,34 @@
+/*
+  Page-entry + section-reveal motion — production parity with the static
+  prototype's reveal.js / pages.css.
+
+  Progressive enhancement only: the hidden initial state applies solely when
+  JS is active (`html[data-js="on"]`, set by an inline script in root.tsx) and
+  motion is allowed. Without JS, or under reduced motion, every block is fully
+  present and readable — only the one-shot settle transition is deferred.
+*/
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js="on"] .ss-page {
+    opacity: 0;
+    transition: opacity var(--ss-motion-duration-moderate)
+      var(--ss-motion-easing-enter);
+  }
+
+  html[data-js="on"] .ss-page.is-entered {
+    opacity: 1;
+  }
+
+  html[data-js="on"] [data-reveal] {
+    opacity: 0;
+    transform: translateY(var(--ss-motion-distance-md));
+    transition:
+      opacity var(--ss-motion-duration-slow) var(--ss-motion-easing-enter),
+      transform var(--ss-motion-duration-slow) var(--ss-motion-easing-enter);
+  }
+
+  html[data-js="on"] [data-reveal][data-revealed="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
