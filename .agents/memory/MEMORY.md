@@ -5,3 +5,4 @@
 - [Playwright bash — never pkill chrome](playwright-bash-no-pkill.md) — `pkill -f chrome|chromium|playwright|headless` SIGKILLs the agent's OWN bash (exit 137, no output); fake "OOM". Run Playwright with no pkill; slice + write incrementally.
 - [/tmp/logs are frozen snapshots](replit-log-snapshots-stale.md) — bash grep/tail on them shows stale output; call `refresh_all_logs` to get fresh dev-server logs after an edit.
 - [Canvas assets vs. checkpoint write-scope](canvas-checkpoint-scope.md) — `.canvas/` board images are untracked but get swept into checkpoints; under strict write-scope exclude via `.git/info/exclude`, not tracked `.gitignore`.
+- [Delegated checkpoint tasks](delegated-checkpoint-task-behavior.md) — main agent's tree auto-commits when a task is proposed; the delegated commit task starts clean, names the checkpoint via `.local/.commit_message`.
