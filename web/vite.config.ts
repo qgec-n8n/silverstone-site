@@ -62,6 +62,13 @@ export default defineConfig(({ mode }) => {
       dedupe: ["react", "react-dom"],
     },
     optimizeDeps: {
+      // Pre-bundle every runtime dependency that appears in the SSR'd route tree
+      // so Vite never discovers one mid-session. Late discovery triggers a
+      // re-optimize + full reload, and during that window two React copies
+      // briefly coexist — surfacing as "Invalid hook call (more than one copy
+      // of React)" + hydration failure, which blanks the Preview iframe. The
+      // UI deps below are pulled in by shared primitives (Breadcrumb, TextLink,
+      // icons, variant helpers) mounted across the routes.
       include: [
         "react",
         "react-dom",
@@ -71,6 +78,11 @@ export default defineConfig(({ mode }) => {
         "react-router",
         "framer-motion",
         "gsap",
+        "radix-ui",
+        "lucide-react",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
       ],
     },
     server: {
