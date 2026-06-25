@@ -13,6 +13,12 @@ type SectionShellProps = {
   children: ReactNode;
   /** Centre the heading block (used by full-width feature sections). */
   align?: "start" | "center";
+  /**
+   * Heading measure. `wide` (default) lets display titles span a generous
+   * multi-column measure while the lead stays readable; `full` removes the
+   * title clamp entirely for hero-scale section openers.
+   */
+  headingWidth?: "wide" | "full";
   containerSize?: "compact" | "content" | "wide" | "max";
   className?: string;
   headingClassName?: string;
@@ -31,6 +37,7 @@ export function SectionShell({
   lead,
   children,
   align = "start",
+  headingWidth = "wide",
   containerSize = "content",
   className,
   headingClassName,
@@ -45,9 +52,11 @@ export function SectionShell({
           <div
             ref={ref}
             data-revealed={revealed}
+            data-align={align}
+            data-width={headingWidth}
             className={cn(
-              "ss-hv2-reveal flex max-w-(--ss-type-measure-heading) flex-col gap-4",
-              align === "center" && "mx-auto items-center text-center",
+              "ss-hv2-reveal ss-hv2-section-head flex flex-col gap-4",
+              align === "center" && "items-center text-center",
               headingClassName,
             )}
           >
@@ -58,10 +67,14 @@ export function SectionShell({
               </span>
             ) : null}
             {title ? (
-              <h2 className="ss-hv2-display text-4xl sm:text-5xl">{title}</h2>
+              <h2 className="ss-hv2-display ss-hv2-section-head__title text-4xl sm:text-5xl">
+                {title}
+              </h2>
             ) : null}
             {lead ? (
-              <p className="ss-lead text-[color:var(--ss-v2-titanium)]">{lead}</p>
+              <p className="ss-lead ss-hv2-section-head__lead text-[color:var(--ss-v2-titanium)]">
+                {lead}
+              </p>
             ) : null}
           </div>
         ) : null}

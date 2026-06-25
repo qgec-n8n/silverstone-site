@@ -1,24 +1,46 @@
+import type { CSSProperties } from "react";
 import { Link } from "react-router";
 
 import { cn } from "~/lib/utils";
 
+type BrandTone = "onDark" | "onLight";
+
 type BrandLockupProps = {
   className?: string;
+  emblemClassName?: string;
   emblemSize?: number;
   to?: string;
+  tone?: BrandTone;
 };
 
 /**
- * Silverstone brand lockup — transparent chrome emblem + styled wordmark.
- * The source wordmark is dark slate (invisible on the dark theme), so the
- * "Silverstone AI" wordmark is rendered as styled text rather than a baked
- * image.
+ * Silverstone brand lockup — chrome emblem + styled wordmark.
+ *
+ * `onDark` (default) uses the transparent chrome emblem on the dark shell; the
+ * source wordmark is dark slate (invisible on dark), so "Silverstone AI" is
+ * rendered as styled text rather than a baked image.
+ *
+ * `onLight` is for the white/platinum global header: it uses the
+ * white-background emblem source so the emblem blends seamlessly into the white
+ * surface (no dark plate, no visible square), with graphite wordmark text. Pass
+ * `emblemClassName` for responsive sizing (the white padding around the mark is
+ * invisible on the white header, so the box can run larger than the mark).
  */
 export function BrandLockup({
   className,
+  emblemClassName,
   emblemSize = 32,
   to = "/",
+  tone = "onDark",
 }: BrandLockupProps) {
+  const isLight = tone === "onLight";
+  const src = isLight
+    ? "/brand/silverstone-emblem-source.png"
+    : "/brand/silverstone-emblem.png";
+  const style: CSSProperties | undefined = emblemClassName
+    ? undefined
+    : { width: emblemSize, height: emblemSize };
+
   return (
     <Link
       className={cn(
@@ -30,17 +52,33 @@ export function BrandLockup({
       <img
         alt=""
         aria-hidden
-        className="select-none"
+        className={cn("select-none", emblemClassName)}
         decoding="async"
         height={emblemSize}
         loading="eager"
-        src="/brand/silverstone-emblem.png"
-        style={{ width: emblemSize, height: emblemSize }}
+        src={src}
+        style={style}
         width={emblemSize}
       />
-      <span className="font-display text-lg leading-none font-semibold tracking-[var(--ss-type-track-heading)]">
-        <span className="ss-chrome-text">Silverstone</span>{" "}
-        <span className="ss-signal-text">AI</span>
+      <span
+        className={cn(
+          "font-display leading-none font-semibold tracking-[var(--ss-type-track-heading)]",
+          isLight ? "text-xl lg:text-2xl" : "text-lg",
+        )}
+      >
+        {isLight ? (
+          <>
+            <span className="text-[color:var(--ss-v2-header-text-strong)]">
+              Silverstone
+            </span>{" "}
+            <span className="text-[color:var(--ss-v2-header-accent)]">AI</span>
+          </>
+        ) : (
+          <>
+            <span className="ss-chrome-text">Silverstone</span>{" "}
+            <span className="ss-signal-text">AI</span>
+          </>
+        )}
       </span>
       <span className="sr-only">Silverstone AI — home</span>
     </Link>

@@ -2,24 +2,38 @@ import { ArrowUpRight, MapPin } from "lucide-react";
 import { Link } from "react-router";
 
 import { Container } from "~/components/layout/container";
+import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
 
-import { BrandLockup } from "./brand-lockup";
 import { FOOTER_COLUMNS, PRIMARY_CTA } from "./nav-data";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
 export function SiteFooter() {
+  const { ref, revealed } = useSectionReveal();
+
   return (
-    <footer className="ss-void-bg relative border-t border-[color:var(--ss-v2-hairline)]">
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-px bg-[image:var(--ss-v2-gradient-signal)] opacity-60"
-      />
-      <Container className="py-16 lg:py-20" size="wide">
+    <footer className="ss-footer" data-revealed={revealed} ref={ref}>
+      <div aria-hidden className="ss-footer__sweep" />
+      <div aria-hidden className="ss-footer__lines" />
+      <Container className="relative py-16 lg:py-20" size="wide">
         <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
-          <div className="max-w-sm">
-            <BrandLockup emblemSize={40} />
-            <p className="mt-5 text-body-sm text-titanium">
+          <div className="ss-footer__col max-w-sm">
+            <Link
+              className="ss-focus-ring ss-footer__brandmark inline-flex rounded-[var(--ss-radius-lg)] no-underline"
+              to="/"
+            >
+              <img
+                alt="Silverstone AI"
+                className="ss-footer__logo"
+                decoding="async"
+                height={561}
+                loading="lazy"
+                src="/brand/silverstone-ai-logo-dark.png"
+                width={869}
+              />
+              <span className="sr-only">Silverstone AI — home</span>
+            </Link>
+            <p className="mt-6 text-body-sm text-titanium">
               Web, app, content and AI workflow systems for ambitious UK businesses —
               designed, engineered and assured in-house.
             </p>
@@ -36,7 +50,7 @@ export function SiteFooter() {
             </Link>
           </div>
           {FOOTER_COLUMNS.map((column) => (
-            <nav aria-label={column.title} key={column.title}>
+            <nav aria-label={column.title} className="ss-footer__col" key={column.title}>
               <h2 className="ss-eyebrow text-titanium">{column.title}</h2>
               <ul className="mt-4 flex flex-col gap-2.5">
                 {column.links.map((link) => (

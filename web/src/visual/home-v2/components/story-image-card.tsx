@@ -21,7 +21,13 @@ export function StoryImageCard({ panel }: StoryImageCardProps) {
       className="ss-hv2-reveal grid items-center gap-8 lg:grid-cols-2 lg:gap-16"
     >
       <figure className={cn("ss-hv2-story__media", mediaRight && "lg:order-2")}>
-        <img src={panel.image} alt={panel.alt} loading="lazy" decoding="async" />
+        <img
+          src={panel.image}
+          alt={panel.alt}
+          className="ss-hv2-img-mask"
+          loading="lazy"
+          decoding="async"
+        />
       </figure>
 
       <div className={cn("flex flex-col gap-4", mediaRight && "lg:order-1")}>

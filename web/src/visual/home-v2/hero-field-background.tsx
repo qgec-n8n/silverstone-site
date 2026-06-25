@@ -6,6 +6,7 @@ import {
 } from "~/lib/visuals/lazy-visual-boundary";
 
 const HeroFieldCanvas = createLazyVisual(() => import("./hero-field-canvas"));
+const HeroParticleLayer = createLazyVisual(() => import("./hero-particle-layer"));
 
 /**
  * Optional idle-scheduling surface. `requestIdleCallback` is required by the DOM
@@ -22,19 +23,26 @@ type IdleWindow = {
 
 type HeroFieldBackgroundProps = {
   enabled: boolean;
+  particlesEnabled?: boolean;
 };
 
 /**
  * Dark hero stage background. The static poster is always the base layer; the
- * deferred WebGL canvas mounts on top only when `enabled` (full tier + WebGL)
+ * deferred WebGL shader mounts on top only when `enabled` (full tier + WebGL)
  * AND the browser has gone idle, so the shader chunk never competes with first
- * paint. Until then, or on any failure, the poster remains the source of truth.
+ * paint. The interactive Canvas-2D particle layer mounts on the lighter
+ * `particlesEnabled` gate (any motion-enabled tier). Until idle, or on any
+ * failure, the poster remains the source of truth.
  */
-export function HeroFieldBackground({ enabled }: HeroFieldBackgroundProps) {
+export function HeroFieldBackground({
+  enabled,
+  particlesEnabled = false,
+}: HeroFieldBackgroundProps) {
   const [idle, setIdle] = useState(false);
+  const active = enabled || particlesEnabled;
 
   useEffect(() => {
-    if (!enabled || typeof window === "undefined") {
+    if (!active || typeof window === "undefined") {
       return undefined;
     }
 
@@ -60,7 +68,7 @@ export function HeroFieldBackground({ enabled }: HeroFieldBackgroundProps) {
     return () => {
       window.clearTimeout(timer);
     };
-  }, [enabled]);
+  }, [active]);
 
   return (
     <div className="ss-hv2-hero__field" data-ss-gsap="hero-field" aria-hidden="true">
@@ -69,6 +77,11 @@ export function HeroFieldBackground({ enabled }: HeroFieldBackgroundProps) {
         enabled={enabled && idle}
         fallback={null}
         visual={HeroFieldCanvas}
+      />
+      <LazyVisualBoundary
+        enabled={particlesEnabled && idle}
+        fallback={null}
+        visual={HeroParticleLayer}
       />
     </div>
   );

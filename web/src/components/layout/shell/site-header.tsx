@@ -22,7 +22,7 @@ import {
 } from "./nav-data";
 
 const TRIGGER_CLASS =
-  "ss-focus-ring inline-flex items-center gap-1 rounded-[var(--ss-radius-pill)] px-3 py-2 text-sm font-medium text-titanium ss-transition-interactive hover:text-platinum";
+  "ss-focus-ring inline-flex items-center gap-1 rounded-[var(--ss-radius-pill)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]";
 
 const ctaClass =
   "ss-focus-ring ss-transition-interactive inline-flex min-h-11 items-center gap-1.5 rounded-[var(--ss-radius-pill)] bg-[var(--ss-v2-signal-cyan)] px-5 text-sm font-semibold text-[#05070a] hover:-translate-y-px hover:shadow-[var(--ss-v2-glow-cyan)]";
@@ -38,19 +38,23 @@ function ServicesPanel({ menu }: { menu: NavMenu }) {
         const Icon = item.icon;
         return (
           <Link
-            className="ss-focus-ring group flex items-start gap-3 rounded-[var(--ss-radius-md)] p-3 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-glass)]"
+            className="ss-focus-ring group flex items-start gap-3 rounded-[var(--ss-radius-md)] p-3 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
             key={item.href}
             to={item.href}
           >
             {Icon ? (
-              <span className="ss-glass mt-0.5 grid size-9 shrink-0 place-items-center rounded-[var(--ss-radius-sm)] text-[var(--ss-v2-signal-cyan)]">
+              <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_10%,#ffffff)] text-[color:var(--ss-v2-header-accent)]">
                 <Icon className="size-4" />
               </span>
             ) : null}
             <span className="flex flex-col gap-0.5">
-              <span className="text-sm font-semibold text-platinum">{item.label}</span>
+              <span className="text-sm font-semibold text-[color:var(--ss-v2-header-text-strong)]">
+                {item.label}
+              </span>
               {item.description ? (
-                <span className="text-body-sm text-titanium">{item.description}</span>
+                <span className="text-body-sm text-[color:var(--ss-v2-header-muted)]">
+                  {item.description}
+                </span>
               ) : null}
             </span>
           </Link>
@@ -65,7 +69,7 @@ function IndustriesPanel({ menu }: { menu: NavMenu }) {
     <div className="grid w-[min(88vw,26rem)] grid-cols-1 gap-x-4 gap-y-0.5 sm:grid-cols-2">
       {menu.items.map((item) => (
         <Link
-          className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm font-medium text-titanium no-underline ss-transition-interactive hover:bg-[var(--ss-v2-glass)] hover:text-platinum"
+          className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]"
           key={item.href}
           to={item.href}
         >
@@ -120,7 +124,11 @@ function HeaderMenu({
         aria-controls={panelId}
         aria-expanded={isOpen}
         aria-haspopup="true"
-        className={cn(TRIGGER_CLASS, active && "text-platinum")}
+        className={cn(
+          TRIGGER_CLASS,
+          active && "text-[color:var(--ss-v2-header-accent)]",
+          isOpen && "text-[color:var(--ss-v2-header-accent-violet)]",
+        )}
         onClick={() => (isOpen ? onClose() : onOpen())}
         ref={triggerRef}
         type="button"
@@ -142,14 +150,14 @@ function HeaderMenu({
         id={panelId}
         role="region"
       >
-        <div className="ss-glass-strong rounded-[var(--ss-radius-lg)] p-3 shadow-[var(--ss-v2-glow-soft)]">
+        <div className="rounded-[var(--ss-radius-lg)] border border-[color:var(--ss-v2-header-panel-border)] bg-[var(--ss-v2-header-panel)] p-3 shadow-[var(--ss-v2-header-shadow)]">
           {variant === "cards" ? (
             <ServicesPanel menu={menu} />
           ) : (
             <IndustriesPanel menu={menu} />
           )}
           <Link
-            className="ss-focus-ring ss-hairline-t mt-2 flex items-center gap-1.5 rounded-[var(--ss-radius-sm)] px-3 pt-3 pb-1 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline ss-transition-interactive hover:gap-2.5"
+            className="ss-focus-ring mt-2 flex items-center gap-1.5 rounded-[var(--ss-radius-sm)] border-t border-[color:var(--ss-v2-header-panel-border)] px-3 pt-3 pb-1 text-sm font-semibold text-[color:var(--ss-v2-header-accent)] no-underline ss-transition-interactive hover:gap-2.5"
             to={menu.href}
           >
             {menu.viewAllLabel}
@@ -251,7 +259,7 @@ function MobileDrawer({ currentPath, onClose, open }: MobileDrawerProps) {
         role="dialog"
       >
         <div className="ss-hairline-b flex h-[var(--ss-layout-header)] shrink-0 items-center justify-between px-5">
-          <BrandLockup />
+          <BrandLockup tone="onDark" />
           <button
             aria-label="Close menu"
             className="ss-focus-ring grid size-11 place-items-center rounded-[var(--ss-radius-pill)] border border-[color:var(--ss-v2-hairline)] text-platinum ss-transition-interactive hover:bg-[var(--ss-v2-glass)]"
@@ -356,13 +364,17 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
       className={cn(
         "fixed inset-x-0 top-0 z-[400] h-[var(--ss-layout-header)] border-b ss-transition-panel",
         elevated
-          ? "border-[color:var(--ss-v2-hairline)] bg-[color-mix(in_srgb,var(--ss-v2-void-black)_82%,transparent)] shadow-[var(--ss-v2-glow-soft)] backdrop-blur-xl"
-          : "border-transparent bg-transparent",
+          ? "border-[color:var(--ss-v2-header-border-strong)] bg-[var(--ss-v2-header-surface-scroll)] shadow-[var(--ss-v2-header-shadow)]"
+          : "border-[color:var(--ss-v2-header-border)] bg-[var(--ss-v2-header-surface)]",
       )}
       data-scrolled={scrolled}
     >
       <Container className="flex h-full items-center gap-6" size="wide">
-        <BrandLockup className="mr-1" />
+        <BrandLockup
+          className="mr-1"
+          emblemClassName="h-[3.25rem] w-auto lg:h-[4.75rem]"
+          tone="onLight"
+        />
         <nav aria-label="Primary" className="hidden items-center lg:flex">
           <ul className="flex items-center gap-1">
             <HeaderMenu
@@ -387,7 +399,8 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
                   aria-current={location.pathname === link.href ? "page" : undefined}
                   className={cn(
                     TRIGGER_CLASS,
-                    location.pathname === link.href && "text-platinum",
+                    location.pathname === link.href &&
+                      "text-[color:var(--ss-v2-header-accent)]",
                   )}
                   to={link.href}
                 >
@@ -406,7 +419,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
             aria-controls="mobile-nav"
             aria-expanded={mobileOpen}
             aria-label="Open menu"
-            className="ss-focus-ring grid size-11 place-items-center rounded-[var(--ss-radius-pill)] border border-[color:var(--ss-v2-hairline)] text-platinum ss-transition-interactive hover:bg-[var(--ss-v2-glass)] lg:hidden"
+            className="ss-focus-ring grid size-11 place-items-center rounded-[var(--ss-radius-pill)] border border-[color:var(--ss-v2-header-border-strong)] text-[color:var(--ss-v2-header-text)] ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] lg:hidden"
             onClick={() => setMobileOpen(true)}
             type="button"
           >

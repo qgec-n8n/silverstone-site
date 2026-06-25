@@ -1,6 +1,7 @@
 import "~/styles/visual/home-v2.css";
 
 import { deriveMotionPolicy } from "~/visual/home-v2/motion-policy";
+import { BodyBackdrop } from "~/visual/home-v2/body-backdrop";
 import { Hero } from "~/visual/home-v2/hero";
 import {
   AiConsulting,
@@ -9,6 +10,7 @@ import {
   ImageStorytelling,
   IntegrationCarousel,
   ProcessStory,
+  SecondaryHero,
   ServicesUniverse,
   Standard,
   TrustStrip,
@@ -22,7 +24,7 @@ import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
  * state. Reduced motion / low power collapses the whole page to a calm static
  * surface via the `minimal` tier.
  */
-export function HomeV2() {
+export function HomeV2({ contentId }: { contentId?: string }) {
   const capability = useCapabilityTier();
   const policy = deriveMotionPolicy({
     tier: capability.tier,
@@ -31,13 +33,14 @@ export function HomeV2() {
   });
 
   return (
-    <div className="ss-hv2" data-tier={policy.tier}>
-      <div className="ss-hv2__aura" aria-hidden="true" />
+    <div className="ss-hv2" data-tier={policy.tier} data-content-id={contentId}>
+      <BodyBackdrop enabled={policy.motionEnabled} tier={policy.tier} />
       <ScrollProvider enabled={policy.scrollChoreography}>
         <Hero
           motionEnabled={policy.motionEnabled}
           shaderEnabled={policy.shaderEnabled}
         />
+        <SecondaryHero />
         <TrustStrip />
         <ServicesUniverse />
         <AiConsulting />

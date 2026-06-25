@@ -30,6 +30,63 @@
   --ss-v2-signal-violet: #a97cc0;
   --ss-v2-signal-pink: #c884c3;
 
+  /* --- extended spectral palette (broadens "Precision Luminescence") --- */
+  --ss-v2-ice: #dcf5ff;
+  --ss-v2-aqua: #7fe9f0;
+  --ss-v2-azure: #38bdf8;
+  --ss-v2-sky: #59a6e6;
+  --ss-v2-cobalt: #3f6fd6;
+  --ss-v2-indigo: #5b62f0;
+  --ss-v2-ultraviolet: #7c5cff;
+  --ss-v2-orchid: #c47bd6;
+  --ss-v2-fuchsia: #d36bcb;
+  --ss-v2-magenta: #e45ba6;
+  --ss-v2-rose: #f0789a;
+
+  /* --- metals + deep substrates --- */
+  --ss-v2-chrome: #f5f7fb;
+  --ss-v2-mercury: #cfd4dd;
+  --ss-v2-gunmetal: #2a323d;
+  --ss-v2-blue-black: #070b14;
+  --ss-v2-violet-black: #0a0712;
+
+  /* --- brand plates (matched to the supplied dark logo asset edges so the
+        rectangular PNG boundary dissolves into the surrounding surface). The
+        dark assets carry a vertical gradient — lighter blue-black at the top
+        edge, deepening toward the bottom — so each plate has a matched "deep"
+        bottom stop sampled from the asset's lower corners. --- */
+  --ss-v2-brand-plate: #1a1b2d;
+  --ss-v2-brand-plate-deep: #0d0d17;
+  --ss-v2-brand-plate-emblem: #1a1a2b;
+  --ss-v2-brand-plate-emblem-deep: #0f0e18;
+
+  /* --- footer field: blue-black/graphite gradient that harmonises with the
+        dark logo plate so the embedded lockup reads as part of the surface --- */
+  --ss-v2-footer-surface: linear-gradient(
+    180deg,
+    #16182a 0%,
+    #0c0e16 56%,
+    var(--ss-v2-void-black) 100%
+  );
+
+  /* --- light header (cloud-white / platinum premium surface). Kept opaque so
+        the area immediately behind the white-background emblem stays visually
+        identical to the emblem's own white field, even on scroll. --- */
+  --ss-v2-header-surface: #fbfcfd;
+  --ss-v2-header-surface-scroll: #f3f5f9;
+  --ss-v2-header-border: #e3e7ed;
+  --ss-v2-header-border-strong: #cfd5df;
+  --ss-v2-header-text: #3a4049;
+  --ss-v2-header-text-strong: #15181f;
+  --ss-v2-header-muted: #69707b;
+  --ss-v2-header-hover: rgba(18, 26, 51, 0.06);
+  --ss-v2-header-accent: #0a7c95;
+  --ss-v2-header-accent-violet: #6d3bd1;
+  --ss-v2-header-panel: #ffffff;
+  --ss-v2-header-panel-border: #e6e9ef;
+  --ss-v2-header-shadow:
+    0 18px 44px -26px rgba(15, 20, 38, 0.5), 0 1px 0 0 rgba(15, 20, 38, 0.04);
+
   /* --- gradients --- */
   --ss-v2-gradient-signal: linear-gradient(
     135deg,
@@ -49,6 +106,37 @@
     var(--ss-v2-platinum) 44%,
     var(--ss-v2-titanium) 100%
   );
+  /* Full spectral sweep — reserve for large hero accents, never body copy. */
+  --ss-v2-gradient-spectrum: linear-gradient(
+    110deg,
+    var(--ss-v2-aqua) 0%,
+    var(--ss-v2-azure) 26%,
+    var(--ss-v2-indigo) 52%,
+    var(--ss-v2-ultraviolet) 72%,
+    var(--ss-v2-fuchsia) 100%
+  );
+  --ss-v2-gradient-aurora: linear-gradient(
+    120deg,
+    var(--ss-v2-ice) 0%,
+    var(--ss-v2-aqua) 30%,
+    var(--ss-v2-cobalt) 64%,
+    var(--ss-v2-orchid) 100%
+  );
+  --ss-v2-gradient-nebula: radial-gradient(
+    120% 120% at 18% 0%,
+    color-mix(in srgb, var(--ss-v2-ultraviolet) 32%, transparent),
+    transparent 52%
+  ),
+  radial-gradient(
+    120% 120% at 92% 18%,
+    color-mix(in srgb, var(--ss-v2-azure) 28%, transparent),
+    transparent 55%
+  ),
+  radial-gradient(
+    140% 120% at 50% 110%,
+    color-mix(in srgb, var(--ss-v2-magenta) 22%, transparent),
+    transparent 60%
+  );
 
   /* --- glows --- */
   --ss-v2-glow-cyan:
@@ -56,6 +144,26 @@
   --ss-v2-glow-violet:
     0 0 0 1px rgba(169, 124, 192, 0.22), 0 0 44px -6px rgba(169, 124, 192, 0.38);
   --ss-v2-glow-soft: 0 24px 70px -32px rgba(5, 7, 10, 0.9);
+
+  /* --- luminous borders (mask-composite gradient hairlines) --- */
+  --ss-v2-border-lumin: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--ss-v2-aqua) 60%, transparent),
+    color-mix(in srgb, var(--ss-v2-ultraviolet) 32%, transparent) 45%,
+    transparent 70%
+  );
+  --ss-v2-border-lumin-soft: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--ss-v2-signal-cyan) 38%, transparent),
+    transparent 60%
+  );
+
+  /* --- section measures + grid (wide headings; lead stays readable) --- */
+  --ss-v2-measure-title: 26ch;
+  --ss-v2-measure-heading-wide: 64ch;
+  --ss-v2-measure-lead: 60ch;
+  --ss-v2-grid-gap: clamp(1.5rem, 1rem + 2vw, 3rem);
+  --ss-v2-grid-gap-tight: clamp(1rem, 0.75rem + 1vw, 1.75rem);
 
   /* --- layout --- */
   --ss-layout-header: 5rem;
@@ -137,6 +245,137 @@
       transparent
     );
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  /* --- Global footer: dark logo embedded on a matched blue-black field --- */
+  .ss-footer {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--ss-v2-hairline);
+    background: var(--ss-v2-footer-surface);
+  }
+
+  /* Controlled light sweep riding the top hairline. */
+  .ss-footer__sweep {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: var(--ss-v2-gradient-signal);
+    opacity: 0.55;
+  }
+
+  .ss-footer__sweep::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--ss-v2-ice) 92%, transparent) 50%,
+      transparent
+    );
+    transform: translateX(-100%);
+    animation: ss-footer-sweep 9s ease-in-out infinite;
+  }
+
+  /* Softly drifting technical lines, fading out toward the legal row. */
+  .ss-footer__lines {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ss-v2-signal-cyan) 5%, transparent) 0 1px,
+      transparent 1px 84px
+    );
+    -webkit-mask-image: linear-gradient(180deg, #000, transparent 72%);
+    mask-image: linear-gradient(180deg, #000, transparent 72%);
+    opacity: 0.5;
+    animation: ss-footer-lines 26s linear infinite;
+  }
+
+  /* The lockup is embedded — never a card. A plate-coloured halo continues the
+     image's own lighting outward and dissolves into the footer field; the image
+     itself carries only a whisper feather (the asset is near full-bleed, ~1.3%
+     padding, so an aggressive mask would clip the wordmark). */
+  .ss-footer__brandmark {
+    position: relative;
+    padding: clamp(0.75rem, 0.4rem + 1vw, 1.5rem);
+  }
+
+  .ss-footer__brandmark::before {
+    content: "";
+    position: absolute;
+    inset: -24% -16%;
+    z-index: -1;
+    background: radial-gradient(
+      72% 82% at 50% 40%,
+      var(--ss-v2-brand-plate) 0%,
+      color-mix(in srgb, var(--ss-v2-brand-plate) 42%, transparent) 52%,
+      transparent 78%
+    );
+    filter: blur(2px);
+  }
+
+  .ss-footer__logo {
+    display: block;
+    width: clamp(13rem, 9rem + 14vw, 18rem);
+    height: auto;
+    -webkit-mask-image:
+      linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%),
+      linear-gradient(180deg, transparent 0, #000 3%, #000 96%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%),
+      linear-gradient(180deg, transparent 0, #000 3%, #000 96%, transparent 100%);
+    mask-composite: intersect;
+  }
+
+  /* Hover illumination on the footer link columns. */
+  .ss-footer__col a:hover {
+    text-shadow: 0 0 18px
+      color-mix(in srgb, var(--ss-v2-signal-cyan) 32%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Staggered link-column reveal — progressive enhancement only. Without JS
+       or under reduced motion the columns are fully present. */
+    html[data-js="on"] .ss-footer__col {
+      opacity: 0;
+      transform: translateY(18px);
+      transition:
+        opacity var(--ss-motion-duration-slow) var(--ss-motion-easing-enter),
+        transform var(--ss-motion-duration-slow) var(--ss-motion-easing-enter);
+    }
+
+    html[data-js="on"] .ss-footer__col:nth-child(2) {
+      transition-delay: 0.08s;
+    }
+
+    html[data-js="on"] .ss-footer__col:nth-child(3) {
+      transition-delay: 0.16s;
+    }
+
+    html[data-js="on"] .ss-footer__col:nth-child(4) {
+      transition-delay: 0.24s;
+    }
+
+    html[data-js="on"] .ss-footer[data-revealed="true"] .ss-footer__col {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ss-footer__sweep::after,
+    .ss-footer__lines {
+      animation: none;
+    }
+
+    .ss-footer__sweep::after {
+      display: none;
+    }
   }
 
   /* --- Branded route loader: luminous top beam --- */
@@ -239,5 +478,22 @@
 
   50% {
     opacity: 1;
+  }
+}
+
+@keyframes ss-footer-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  55%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes ss-footer-lines {
+  to {
+    background-position: 84px 0;
   }
 }

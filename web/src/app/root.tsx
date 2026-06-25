@@ -10,6 +10,7 @@ import {
 import { AppShell } from "~/app/components/app-shell";
 import { LoadingBoundary, LoadingFallback } from "~/app/components/loading-boundary";
 import { RouteLoadingIndicator } from "~/app/components/route-loading-indicator";
+import { CoreSpinLoader } from "~/components/vendor/silverstone/core-spin-loader";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";
@@ -32,6 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <CoreSpinLoader />
         {children}
         <ScrollRestoration />
         <Scripts />

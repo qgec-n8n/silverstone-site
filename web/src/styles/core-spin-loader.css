@@ -1,0 +1,135 @@
+/*
+  Core Spin Loader — branded first-load overlay.
+
+  No-JS safety: the overlay is hidden by default and only revealed when the
+  inline head script has set `html[data-js="on"]`. That attribute is applied
+  synchronously before paint for JS users (so there is no flash), and never set
+  for no-JS users (so the overlay can never get stuck on screen with nothing to
+  dismiss it). React renders the markup on the server with the overlay active,
+  so the first paint already shows it without a hydration mismatch.
+*/
+
+.ss-loader {
+  display: none;
+}
+
+html[data-js="on"] .ss-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  background: radial-gradient(60% 50% at 50% 42%, #0b1120, #05070d 70%, #04060b);
+  color: var(--ss-v2-platinum, #e8ecf5);
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+html[data-js="on"] .ss-loader[data-phase="exiting"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ss-loader__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 160px;
+  height: 160px;
+}
+
+.ss-loader__ring,
+.ss-loader__core,
+.ss-loader__emblem {
+  grid-area: 1 / 1;
+}
+
+.ss-loader__ring {
+  width: 152px;
+  height: 152px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 12%, transparent);
+  border-top-color: var(--ss-v2-signal-cyan, #5ec5d0);
+  border-right-color: color-mix(in srgb, var(--ss-v2-signal-violet, #a97bd6) 70%, transparent);
+}
+
+.ss-loader__ring--inner {
+  width: 112px;
+  height: 112px;
+  border-top-color: var(--ss-v2-signal-magenta, #e06cc4);
+  border-left-color: color-mix(in srgb, var(--ss-v2-signal-blue, #597fad) 70%, transparent);
+  border-right-color: transparent;
+}
+
+.ss-loader__core {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 26%, transparent),
+    transparent 62%
+  );
+  filter: blur(6px);
+}
+
+.ss-loader__emblem {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  /* Feather the dark emblem plate so it never reads as a rectangle. */
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 56%, transparent 74%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 56%, transparent 74%);
+  filter: drop-shadow(
+    0 0 18px color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 32%, transparent)
+  );
+}
+
+.ss-loader__label {
+  margin: 0;
+  font-family: var(--ss-font-mono, ui-monospace, "SFMono-Regular", Menlo, monospace);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ss-v2-platinum, #e8ecf5) 80%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js="on"] .ss-loader__ring {
+    animation: ss-loader-spin 2.4s linear infinite;
+  }
+
+  html[data-js="on"] .ss-loader__ring--inner {
+    animation: ss-loader-spin 1.7s linear infinite reverse;
+  }
+
+  html[data-js="on"] .ss-loader__core {
+    animation: ss-loader-pulse 2.2s ease-in-out infinite;
+  }
+
+  html[data-js="on"] .ss-loader__emblem {
+    animation: ss-loader-pulse 2.2s ease-in-out infinite;
+  }
+}
+
+@keyframes ss-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ss-loader-pulse {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}

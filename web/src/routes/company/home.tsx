@@ -16,7 +16,7 @@ export default function HomeRoute() {
 
   return (
     <>
-      <HomeV2 />
+      <HomeV2 contentId={route.contentId} />
       <script
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
         type="application/ld+json"

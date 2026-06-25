@@ -17,3 +17,9 @@ description: Why `pkill -f chrome|chromium|playwright|headless` silently kills t
 - Relaunch the browser per small slice rather than driving all ~28 pages in one process; avoid `fullPage` JPEG on very tall pages (big memory spike — the one genuine mid-run crash came from a long slice, not from launch).
 - Use `require('/home/runner/workspace/web/node_modules/@playwright/test')`, explicit `.html` URLs, base `http://localhost:5000/prototypes`.
 - Leftover chromium procs from crashes are harmless given the cgroup headroom — just leave them; do not pkill.
+
+## Running the /web e2e suite (`npm run test:e2e`) within the 120s bash cap
+The full Playwright suite (`tests/e2e`, both `desktop-chromium` + `mobile-chromium` projects) plus the auto-started `webServer` (`npm run preview` on port 4173) brushes/exceeds the 120s bash-tool ceiling and returns **exit -1 with no output** (a timeout, NOT a test failure). To get clean output: run one project at a time — `npm run test:e2e -- --project=desktop-chromium` then `--project=mobile-chromium` (each ~30s). Or scope to a file/grep: `-- foundation.spec.ts -g "axe violations"`.
+- Free a stale preview server first with `fuser -k 4173/tcp` (PORT-scoped — safe; the dev workflow is on 5000, 4173 is e2e-only). This is NOT the forbidden `pkill chrome` — it targets the node/vite preview by port, never the browser.
+- The config has `reuseExistingServer: !CI`, so a leftover/half-closed preview on 4173 can make the next run hang on connect; clearing the port fixes it.
+- a11y note: axe `color-contrast` is evaluated at the actual rendered font size — large/bold text uses the 3:1 threshold so it can PASS on desktop while the same token FAILS on mobile at 20px normal weight (4.5:1). Fix the token, don't relax the test.

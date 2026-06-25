@@ -4,6 +4,7 @@ export { ConversionClimax } from "./conversion-climax";
 export { ImageStorytelling } from "./image-storytelling";
 export { IntegrationCarousel } from "./integration-carousel";
 export { ProcessStory } from "./process-story";
+export { SecondaryHero } from "./secondary-hero";
 export { ServicesUniverse } from "./services-universe";
 export { Standard } from "./standard";
 export { TrustStrip } from "./trust-strip";

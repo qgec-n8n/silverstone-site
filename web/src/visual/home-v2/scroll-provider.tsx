@@ -1,5 +1,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 
+import { setScrollHandle } from "./lenis-handle";
+
 type ScrollProviderProps = {
   /** Resolved from the motion policy (`scrollChoreography`). */
   enabled: boolean;
@@ -55,6 +57,7 @@ export function ScrollProvider({ enabled, children }: ScrollProviderProps) {
       gsap.registerPlugin(ScrollTrigger);
 
       const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      setScrollHandle(lenis);
 
       const syncScrollTrigger = () => {
         ScrollTrigger.update();
@@ -106,6 +109,7 @@ export function ScrollProvider({ enabled, children }: ScrollProviderProps) {
       ScrollTrigger.refresh();
 
       teardown = () => {
+        setScrollHandle(null);
         ctx.revert();
         gsap.ticker.remove(tick);
         gsap.ticker.lagSmoothing(500, 33);

@@ -15,15 +15,17 @@ export function ConversionClimax() {
         <Reveal>
           <div className="ss-hv2-cta">
             <div className="flex flex-col items-center gap-8 text-center">
-              <img
-                src="/brand/silverstone-emblem.png"
-                alt="Silverstone AI emblem"
-                width={64}
-                height={64}
-                className="ss-hv2-cta__emblem"
-                loading="lazy"
-                decoding="async"
-              />
+              <span aria-hidden className="ss-hv2-cta__emblem-wrap">
+                <img
+                  src="/brand/silverstone-ai-emblem-dark.png"
+                  alt=""
+                  width={860}
+                  height={929}
+                  className="ss-hv2-cta__emblem"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
               <h2 className="ss-hv2-display text-4xl sm:text-5xl lg:text-6xl">
                 Stop missing what your business{" "}
                 <span className="ss-chrome-text">already earned</span>.

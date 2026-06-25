@@ -1,4 +1,4 @@
-import { INTEGRATIONS_ROW_A, INTEGRATIONS_ROW_B } from "~/data/home-v2";
+import { ALL_INTEGRATIONS, INTEGRATIONS_ROW_A, INTEGRATIONS_ROW_B } from "~/data/home-v2";
 
 import { MarqueeRow } from "../components/marquee-row";
 import { SectionShell } from "../components/section-shell";
@@ -7,7 +7,7 @@ type IntegrationCarouselProps = {
   marqueeEnabled: boolean;
 };
 
-/** Two counter-scrolling rows of local integration marks. */
+/** Two counter-scrolling rows of large, coloured, icon-only integration marks. */
 export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps) {
   return (
     <SectionShell
@@ -17,23 +17,30 @@ export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps
           Plugs into the tools you <span className="ss-chrome-text">already run</span>.
         </>
       }
-      lead="No rip-and-replace. Silverstone connects across voice, messaging, calendars, CRM and commerce."
+      lead="No rip-and-replace. Silverstone connects across voice, messaging, calendars, CRM, commerce, automation and your data stack."
       align="center"
       containerSize="wide"
     >
-      <div className="mt-12 flex flex-col gap-4">
-        <MarqueeRow
-          marks={INTEGRATIONS_ROW_A}
-          enabled={marqueeEnabled}
-          direction="normal"
-          durationSeconds={46}
-        />
-        <MarqueeRow
-          marks={INTEGRATIONS_ROW_B}
-          enabled={marqueeEnabled}
-          direction="reverse"
-          durationSeconds={52}
-        />
+      <div className="ss-hv2-integrations mt-12">
+        <div className="ss-hv2-integrations__rows">
+          <MarqueeRow
+            marks={INTEGRATIONS_ROW_A}
+            enabled={marqueeEnabled}
+            direction="normal"
+            durationSeconds={48}
+            label="Integration logos, row one"
+          />
+          <MarqueeRow
+            marks={INTEGRATIONS_ROW_B}
+            enabled={marqueeEnabled}
+            direction="reverse"
+            durationSeconds={56}
+            label="Integration logos, row two"
+          />
+        </div>
+        <p className="ss-sr-only">
+          {`Silverstone integrates with ${ALL_INTEGRATIONS.map((mark) => mark.name).join(", ")}.`}
+        </p>
       </div>
     </SectionShell>
   );

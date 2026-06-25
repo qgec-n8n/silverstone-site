@@ -38,3 +38,23 @@ deeper content pages, not the hero headline.
 constant in `foundation.spec.ts` to the new accessible name — do not revert the
 hero copy. Never change `representativeSourceCopy` expectations to make a test
 pass; those reflect real preserved content.
+
+## Rule: bespoke routes must also satisfy the staging:safety build-output gate
+`scripts/assert-staging-safety.mjs` (`validateBuildOutput`) scans the prerendered
+HTML and, for every route in the future-route-manifest, requires the literal
+attribute `data-content-id="<contentId>"` (for `/` that is `content-home`). It
+ALSO requires every static/prerendered page's robots meta to carry all THREE
+tokens — `noindex, nofollow, noarchive` — not just the first two.
+
+**Why:** generic routes get `data-content-id` for free from
+`route-page-frame.tsx`; a bespoke presentation root (HomeV2) bypasses that frame
+and silently drops the attribute, so the gate fails on `/` even though the page
+renders fine. The three-token robots requirement is the gate's interpretation of
+the "non-indexable staging" mandate.
+
+**How to apply:** thread the loader's `route.contentId` into the bespoke root as
+an optional `contentId` prop and place `data-content-id={contentId}` on its top
+element (do not add a wrapper that changes layout, and do not touch the JSON-LD).
+Any hand-authored static HTML under `public/**` (e.g. `prototypes/`) must use
+`content="noindex, nofollow, noarchive"`. Rebuild before running staging:safety —
+it scans `build/client` as well as `public`.

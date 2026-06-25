@@ -23,6 +23,7 @@ export function AiConsulting() {
             <img
               src="/home-v2/consulting-strategy.png"
               alt="Silverstone strategist mapping an automation blueprint on a dark studio wall."
+              className="ss-hv2-img-mask"
               loading="lazy"
               decoding="async"
             />
