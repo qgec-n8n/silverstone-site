@@ -239,3 +239,45 @@ Non-blocking validation notes:
 Tradeoff:
 
 - Microsoft and LinkedIn logo assets use local coloured SVG fallback marks where `simple-icons` does not provide the current brand mark. The carousel remains local, icon-only, and accessible through the hidden list.
+
+## Homepage corrective pass record -- 2026-06-25
+
+Observed before implementation:
+
+- Browser baseline on `http://127.0.0.1:5173/` confirmed the intro isolation from the previous pass still held, but the body background no longer used the actual local `particles.js` runtime: `window.pJSDom` was absent and the body used a custom `.ss-hv2-backdrop__particles` canvas.
+- The Silverstone System section still depended on the secondary image slot and overflowed the viewport on desktop (`#system` bottom was about 23px below a 1366x768 viewport).
+- The trust strip was constrained to the content container instead of spanning the viewport.
+- CTA and footer lockups still referenced the v2 logo asset.
+- The supplied v3 logo perimeter sampled to top `#111423`, edge `#0f1222`, and bottom `#0f1221`.
+
+Changed:
+
+- Copied the supplied v3 logo unchanged to `/web/public/brand/silverstone-ai-logo-dark-v3.png` and switched CTA/footer image references to it.
+- Added sampled v3 logo-field tokens and removed CTA/footer image cropping, recolouring, and masking from the logo image itself.
+- Replaced the custom body particle canvas with a classic-script load of the installed local `particles.js` package, preserving `window.pJSDom`, native `canvas.particles-js-canvas-el`, hover grab on fine pointers, visibility pause/resume, and scoped cleanup on return to intro.
+- Added a pointer bridge so native particles.js canvas hover responds while the canvas remains behind body content.
+- Updated the intro Aether field to read actual `[data-aether-reveal]` boxes, repel particles from those boxes, and skip particle links crossing active reveal zones.
+- Reworked the Silverstone System section into a one-viewport body opener with no image, four headline benchmark metrics, four secondary approved metrics, compact short-mobile treatment, and an in-section scroll cue.
+- Made the trust strip full viewport width and preserved the six required trust signals.
+- Updated the loader logo to v3 and changed the visible loader copy to a stable phrase plus animated ellipsis.
+- Added Playwright assertions for local particles.js runtime proof, reverse cleanup, v3 logo references, no system image, full-width trust strip, and the exact viewport matrix: 1366x768, 1440x900, 1920x1080, 390x844, 375x667, and 768x1024.
+
+Verification:
+
+- Built-preview Aether proof at 1366x768: canvas bitmap 1366x768, four reveal zones detected, nonblank canvas (`wholeBrightRatio 0.0218`), and title reveal bright-line density lower than the surrounding ring (`0.0004` vs `0.0018`, protected=true).
+- Built-preview body proof: `window.particlesJS` function, `window.pJSDom.length === 1`, one native particles.js canvas, script `/assets/particles-CDlok4Gc.js`, package marker `particles.js`, no particle CDN script, no old custom body canvas, no `#system img`, four metrics, four rows, `#system` bottom delta 0, trust width 1366, hover status `mousemove`, CTA/footer v3 logo references.
+- Built-preview reverse proof: returning to intro removed the backdrop and native canvas and reset `window.pJSDom.length` to 0.
+- Manual viewport sweep after the mobile row fix passed with zero bottom overflow and trust strip starting at the next pixel row for 1366x768, 1440x900, 1920x1080, 390x844, 375x667, and 768x1024.
+- `npx prettier --check` on all changed files passed.
+- `npm run typecheck` passed.
+- `npm run lint` passed.
+- `npm run test` passed: 17 files, 35 tests.
+- `npm run build` passed and emitted the local particles asset into the staging build.
+- `npm run test:e2e -- tests/e2e/homepage-interaction.spec.ts` passed: 8 passed, 6 duplicate mobile-project viewport cases skipped.
+- `npm run test:e2e` passed: 40 passed, 6 duplicate mobile-project viewport cases skipped.
+- `npm run staging:safety` passed.
+- `npm run bundle:report` exited successfully and reported `Foundation JavaScript: 293.13 KB gzip (target-miss)`.
+
+Tradeoff:
+
+- The viewport matrix runs once in the desktop Chromium project while setting the exact requested viewport sizes explicitly; the mobile Chromium project still runs the intro/body state-machine interaction test, but skips duplicate viewport matrix cases.

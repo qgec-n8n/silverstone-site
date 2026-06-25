@@ -60,17 +60,26 @@
   --ss-v2-brand-plate-emblem: #1a1a2b;
   --ss-v2-brand-plate-emblem-deep: #0f0e18;
 
-  /* New dark master logo (silverstone-ai-logo-dark-v2.png): its rectangular
-     field samples to #0a1434 at the outer edge. Any plate carrying this asset must match
-     this edge colour so the logo's rectangle dissolves with no visible box. */
-  --silverstone-dark-logo-edge: #0a1434;
+  /* New dark master logo (silverstone-ai-logo-dark-v3.png): sampled perimeter:
+     top/corners ≈ #111423, median edge ≈ #0f1222, lower edge ≈ #0f1221.
+     Plates carrying this untouched asset use the shared field gradient below so
+     the rectangular raster boundary dissolves with no visible box. */
+  --silverstone-dark-logo-top: #111423;
+  --silverstone-dark-logo-edge: #0f1222;
+  --silverstone-dark-logo-bottom: #0f1221;
+  --silverstone-dark-logo-field: linear-gradient(
+    180deg,
+    var(--silverstone-dark-logo-top) 0%,
+    var(--silverstone-dark-logo-edge) 54%,
+    var(--silverstone-dark-logo-bottom) 100%
+  );
 
   /* --- footer field: blue-black/graphite gradient that harmonises with the
         dark logo plate so the embedded lockup reads as part of the surface --- */
   --ss-v2-footer-surface: linear-gradient(
     180deg,
-    #16182a 0%,
-    #0c0e16 56%,
+    var(--silverstone-dark-logo-top) 0%,
+    var(--silverstone-dark-logo-edge) 48%,
     var(--ss-v2-void-black) 100%
   );
 
@@ -302,10 +311,9 @@
     animation: ss-footer-lines 26s linear infinite;
   }
 
-  /* The lockup is embedded — never a card. A plate matched to the asset's own
-     edge colour (--silverstone-dark-logo-edge) continues the field outward and
-     dissolves into the footer; the image carries a whisper feather so its
-     rectangle never shows. Lighting stays outside the wordmark's safe area. */
+  /* The lockup is embedded — never a card. The sampled logo field extends
+     around the asset so its raster boundary dissolves into the footer without
+     cropping, recolouring or masking the logo. */
   .ss-footer__brandmark {
     position: relative;
     padding: clamp(0.75rem, 0.4rem + 1vw, 1.5rem);
@@ -314,29 +322,21 @@
   .ss-footer__brandmark::before {
     content: "";
     position: absolute;
-    inset: -24% -16%;
+    inset: -22% -14%;
     z-index: -1;
-    background: radial-gradient(
-      74% 84% at 50% 44%,
-      var(--silverstone-dark-logo-edge) 0%,
-      color-mix(in srgb, var(--silverstone-dark-logo-edge) 46%, transparent) 54%,
-      transparent 80%
+    background: var(--silverstone-dark-logo-field);
+    -webkit-mask-image: radial-gradient(
+      78% 82% at 50% 48%,
+      #000 0 62%,
+      transparent 88%
     );
-    filter: blur(2px);
+    mask-image: radial-gradient(78% 82% at 50% 48%, #000 0 62%, transparent 88%);
   }
 
   .ss-footer__logo {
     display: block;
     width: clamp(13rem, 9rem + 14vw, 18rem);
     height: auto;
-    -webkit-mask-image:
-      linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%),
-      linear-gradient(180deg, transparent 0, #000 3%, #000 96%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%),
-      linear-gradient(180deg, transparent 0, #000 3%, #000 96%, transparent 100%);
-    mask-composite: intersect;
   }
 
   /* Hover illumination on the footer link columns. */

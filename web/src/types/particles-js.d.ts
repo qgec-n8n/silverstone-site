@@ -8,13 +8,16 @@
 
 interface ParticlesPjsInstance {
   pJS: {
+    canvas?: {
+      el?: HTMLCanvasElement;
+    };
     fn: {
+      drawAnimFrame?: number;
       vendors: {
         destroypJS: () => void;
         draw: () => void;
       };
     };
-    drawAnimFrame?: number;
   };
 }
 

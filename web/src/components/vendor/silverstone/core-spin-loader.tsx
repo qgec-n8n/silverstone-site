@@ -25,10 +25,9 @@ const MAX_ASSET_WAIT_MS = 6500;
 
 const HOME_IMAGE_ASSETS = [
   "/brand/silverstone-ai-emblem-dark.png",
-  "/brand/silverstone-ai-logo-dark-v2.png",
+  "/brand/silverstone-ai-logo-dark-v3.png",
   "/home-v2/hero-poster.png",
   "/home-v2/hero-poster-portrait.png",
-  "/home-v2/secondary-hero.png",
   "/home-v2/story-operating-surface.png",
   "/home-v2/story-voice-signal.png",
   "/home-v2/story-human-loop.png",
@@ -122,6 +121,7 @@ export function CoreSpinLoader() {
   // Frozen at mount: the loader only ever runs for the route it loaded with.
   const [initialPathname] = useState(() => location.pathname);
   const [message] = useState(() => loaderMessage(initialPathname));
+  const visibleMessage = message.replace(/\.$/, "");
 
   useEffect(() => {
     let cancelled = false;
@@ -175,7 +175,15 @@ export function CoreSpinLoader() {
           decoding="async"
         />
       </div>
-      <p className="ss-loader__label">{message}</p>
+      <p className="ss-loader__label" aria-hidden="true">
+        <span>{visibleMessage}</span>
+        <span className="ss-loader__ellipsis">
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </span>
+      </p>
+      <span className="sr-only">{message}</span>
     </div>
   );
 }

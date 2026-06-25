@@ -24,15 +24,6 @@ import {
 import { ScrollProvider } from "~/visual/home-v2/scroll-provider";
 import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
 
-function BodyScrollCue() {
-  return (
-    <div className="ss-hv2-body-scrollcue" aria-hidden="true">
-      <span className="ss-eyebrow font-mono text-[10px]">Scroll</span>
-      <span className="ss-hv2-scrollcue__rail" />
-    </div>
-  );
-}
-
 /**
  * V2 homepage presentation. The capability tier and motion policy are resolved
  * once here and threaded down so individual sections never re-derive motion
@@ -136,7 +127,6 @@ export function HomeV2({ contentId }: { contentId?: string }) {
           <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
           <ScrollProvider enabled={policy.scrollChoreography}>
             <SecondaryHero />
-            <BodyScrollCue />
             <TrustStrip />
             <ServicesUniverse />
             <AiConsulting />

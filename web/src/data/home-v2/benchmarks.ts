@@ -123,7 +123,7 @@ export const SECONDARY_BENCHMARKS: readonly BenchmarkMetric[] = [
     value: 300,
     prefix: "£",
     suffix: "k",
-    display: "3×",
+    display: "£100k → £300k",
     label: "Revenue trajectory",
     context:
       "Illustrative practice revenue path — roughly £100k to £300k, a threefold trajectory over 24 months of compounding automation.",

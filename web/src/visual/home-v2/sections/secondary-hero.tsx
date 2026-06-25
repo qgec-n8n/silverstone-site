@@ -5,7 +5,11 @@ import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Button } from "~/components/ui/button";
 import type { BenchmarkMetric } from "~/data/home-v2";
-import { HEADLINE_BENCHMARKS } from "~/data/home-v2";
+import {
+  BENCHMARK_DISCLAIMER,
+  HEADLINE_BENCHMARKS,
+  SECONDARY_BENCHMARKS,
+} from "~/data/home-v2";
 import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
 
 import { Icon } from "../components/icon";
@@ -42,6 +46,15 @@ function staticBenchmark(metric: BenchmarkMetric): string {
   return `${metric.prefix ?? ""}${String(metric.value)}${metric.suffix ?? ""}`;
 }
 
+function SystemScrollCue() {
+  return (
+    <div className="ss-hv2-body-scrollcue" aria-hidden="true">
+      <span className="ss-eyebrow font-mono text-[10px]">Scroll</span>
+      <span className="ss-hv2-scrollcue__rail" />
+    </div>
+  );
+}
+
 /** A single capability that reveals on its own, top-to-bottom down the list. */
 function CapabilityItem({ cap, index }: { cap: Capability; index: number }) {
   const { ref, revealed } = useSectionReveal();
@@ -68,17 +81,17 @@ function CapabilityItem({ cap, index }: { cap: Capability; index: number }) {
 }
 
 /**
- * Body opener directly beneath the hero. It carries the positioning, the
- * capability proof and the live-signal console that previously crowded the hero
- * — laid out wide and layered alongside a single strong system image. It is the
- * scroll/transition target for the hero's "Explore the system" action.
+ * Body opener directly beneath the hero. It carries the positioning,
+ * capability proof and a major live-signal module in the former image slot. It
+ * is the scroll/transition target for the hero's "Explore the system" action.
  */
 export function SecondaryHero() {
-  const consoleMetrics = HEADLINE_BENCHMARKS.slice(0, 3);
+  const consoleMetrics = HEADLINE_BENCHMARKS;
+  const signalRows = SECONDARY_BENCHMARKS;
 
   return (
     <PageSection id="system" tabIndex={-1} className="ss-hv2-secondary relative">
-      <Container size="wide">
+      <Container size="wide" className="ss-hv2-secondary__container">
         <div className="ss-hv2-secondary__grid">
           <div className="ss-hv2-secondary__intro flex flex-col gap-6">
             <Reveal>
@@ -104,7 +117,7 @@ export function SecondaryHero() {
                 <CapabilityItem key={cap.label} cap={cap} index={index} />
               ))}
             </ul>
-            <div className="flex flex-wrap items-center gap-4 pt-1">
+            <div className="ss-hv2-secondary__actions flex flex-wrap items-center gap-4 pt-1">
               <Reveal delayMs={440}>
                 <Button asChild size="lg" variant="accent">
                   <Link to="/book">Book a free audit</Link>
@@ -119,59 +132,77 @@ export function SecondaryHero() {
           </div>
 
           <div className="ss-hv2-secondary__showcase">
-            <Reveal delayMs={120} className="ss-hv2-secondary__media">
-              <figure className="ss-hv2-story__media">
-                <img
-                  src="/home-v2/secondary-hero.png"
-                  alt="The Silverstone operating surface bringing calls, messages and bookings into one view"
-                  width={1280}
-                  height={896}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-            </Reveal>
-            <Reveal delayMs={200} className="ss-hv2-secondary__console">
-              <aside className="ss-hv2-hero__panel p-6">
+            <Reveal delayMs={160} className="ss-hv2-secondary__console">
+              <aside className="ss-hv2-hero__panel ss-hv2-system-signal">
                 <div className="ss-hv2-hero__scan" aria-hidden="true" />
                 <div className="relative flex flex-col gap-5">
-                  <div className="ss-hv2-console-item flex items-center justify-between">
+                  <div className="ss-hv2-console-item ss-hv2-system-signal__header">
                     <span className="ss-eyebrow font-mono text-[color:var(--ss-v2-titanium)]">
                       Live signal
                     </span>
-                    <span className="ss-hv2-kicker__dot" aria-hidden="true" />
+                    <span className="ss-hv2-system-signal__status">
+                      <span className="ss-hv2-kicker__dot" aria-hidden="true" />
+                      Benchmark mode
+                    </span>
                   </div>
-                  <ul className="grid grid-cols-3 gap-4">
+                  <ul className="ss-hv2-system-signal__metrics">
                     {consoleMetrics.map((metric, index) => (
                       <li
                         key={metric.id}
-                        className="ss-hv2-console-item flex flex-col gap-1"
+                        className="ss-hv2-console-item ss-hv2-system-signal__metric"
                         style={
                           {
                             "--ss-hv2-reveal-delay": `${String(70 + index * 50)}ms`,
                           } as CSSProperties
                         }
                       >
-                        <span className="ss-hv2-hero__stat-value ss-signal-text text-2xl sm:text-3xl">
+                        <span className="ss-hv2-hero__stat-value ss-signal-text">
                           {staticBenchmark(metric)}
                         </span>
-                        <span className="text-xs text-[color:var(--ss-v2-titanium)]">
+                        <span className="ss-hv2-system-signal__label">
                           {metric.label}
                         </span>
                       </li>
                     ))}
                   </ul>
+                  <ul className="ss-hv2-system-signal__rows">
+                    {signalRows.map((metric, index) => (
+                      <li
+                        key={metric.id}
+                        className="ss-hv2-console-item ss-hv2-system-signal__row"
+                        style={
+                          {
+                            "--ss-hv2-reveal-delay": `${String(290 + index * 55)}ms`,
+                          } as CSSProperties
+                        }
+                      >
+                        <span>
+                          <span className="ss-hv2-system-signal__row-value">
+                            {staticBenchmark(metric)}
+                          </span>
+                          <span className="ss-hv2-system-signal__row-label">
+                            {metric.label}
+                          </span>
+                        </span>
+                        <span className="ss-hv2-system-signal__row-source">
+                          {metric.impactArea}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                   <p
-                    className="ss-hv2-console-item border-t border-[color:var(--ss-v2-hairline)] pt-3 text-xs text-[color:var(--ss-v2-titanium)]"
-                    style={{ "--ss-hv2-reveal-delay": "230ms" } as CSSProperties}
+                    className="ss-hv2-console-item ss-hv2-system-signal__note"
+                    style={{ "--ss-hv2-reveal-delay": "540ms" } as CSSProperties}
                   >
-                    Benchmark outcomes, not guarantees.
+                    <span aria-hidden="true">Benchmark outcomes, not guarantees.</span>
+                    <span className="sr-only">{BENCHMARK_DISCLAIMER}</span>
                   </p>
                 </div>
               </aside>
             </Reveal>
           </div>
         </div>
+        <SystemScrollCue />
       </Container>
     </PageSection>
   );

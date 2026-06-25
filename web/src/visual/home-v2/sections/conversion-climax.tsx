@@ -17,10 +17,10 @@ export function ConversionClimax() {
             <Reveal>
               <span aria-hidden className="ss-hv2-cta__emblem-wrap">
                 <img
-                  src="/brand/silverstone-ai-logo-dark-v2.png"
+                  src="/brand/silverstone-ai-logo-dark-v3.png"
                   alt=""
-                  width={1562}
-                  height={1007}
+                  width={1484}
+                  height={1060}
                   className="ss-hv2-cta__emblem"
                   loading="lazy"
                   decoding="async"
