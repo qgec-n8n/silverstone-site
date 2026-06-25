@@ -1,15 +1,15 @@
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { Button } from "~/components/ui/button";
+import { useAppExperience } from "~/app/experience/app-experience";
 
 import { getScrollHandle } from "./lenis-handle";
 
 const TARGET_ID = "system";
-const BRIDGE_LAYOUT_ID = "ss-explore-bridge";
-const SCROLL_AFTER_MS = 460;
-const CLOSE_AFTER_MS = 920;
+const CARD_LAYOUT_ID = "ss-explore-card";
+const DISSOLVE_AFTER_MS = 520;
 const FOCUS_AFTER_MS = 720;
 
 function headerOffsetPx(): number {
@@ -24,19 +24,23 @@ function headerOffsetPx(): number {
 }
 
 /**
- * Hero "Explore the system" action. Instead of navigating away, it expands a
- * luminous shared-layout bridge (framer-motion `layoutId`) and brings the
- * reader to the {@link SecondaryHero} (`#system`) within the page. The bridge is
- * purely decorative (`pointer-events: none`, `aria-hidden`): the real work is a
- * smooth scroll plus moving focus to the target section, so keyboard, pointer,
- * reduced-motion and direct-scroll journeys all reach the same place. Escape
- * cancels an in-flight bridge and returns focus to the button. Browser history
- * is never mutated, so back/forward stay intact.
+ * Hero "Explore the system" action — the homepage's only primary CTA while the
+ * hero is locked. It uses the exact layout-morph mechanic from the supplied Hero
+ * Button Expendable component (a shared `layoutId` card that expands from the
+ * button into a full-bleed panel with a spring transition). When the morph
+ * completes it hands control to the experience coordinator: the homepage hero
+ * unlocks (scroll released, header revealed), the reader is carried to
+ * {@link SecondaryHero} (`#system`) and focus lands there. The panel then
+ * dissolves to reveal the body. Reduced-motion skips the morph and performs the
+ * same unlock + scroll + focus immediately. Escape cancels an in-flight morph
+ * and returns focus to the button. History is never mutated.
  */
 export function ExploreSystemButton() {
   const reduceMotion = useReducedMotion() ?? false;
-  const [bridging, setBridging] = useState(false);
+  const { unlockHomepageHero } = useAppExperience();
   const [used, setUsed] = useState(false);
+  const [open, setOpen] = useState(false);
+  const revealedRef = useRef(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const timersRef = useRef<number[]>([]);
 
@@ -49,102 +53,136 @@ export function ExploreSystemButton() {
 
   useEffect(() => clearTimers, [clearTimers]);
 
-  const scrollToSystem = useCallback(() => {
-    const target = document.getElementById(TARGET_ID);
-    if (!target) {
+  const reveal = useCallback(() => {
+    if (revealedRef.current) {
       return;
     }
-    const handle = getScrollHandle();
-    if (handle) {
-      handle.scrollTo(`#${TARGET_ID}`, {
-        offset: -headerOffsetPx(),
-        duration: reduceMotion ? 0 : 1.1,
-      });
+    revealedRef.current = true;
+    // Release the lock first so the scroll container is interactive again, then
+    // carry the reader to the system section on the next frame.
+    unlockHomepageHero();
+    const run = () => {
+      const target = document.getElementById(TARGET_ID);
+      if (!target) {
+        return;
+      }
+      const handle = getScrollHandle();
+      if (handle) {
+        handle.scrollTo(`#${TARGET_ID}`, {
+          offset: -headerOffsetPx(),
+          duration: reduceMotion ? 0 : 1.1,
+        });
+      } else {
+        target.scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+          block: "start",
+        });
+      }
+      timersRef.current.push(
+        window.setTimeout(
+          () => {
+            target.setAttribute("tabindex", "-1");
+            target.focus({ preventScroll: true });
+          },
+          reduceMotion ? 0 : FOCUS_AFTER_MS,
+        ),
+      );
+    };
+    if (typeof window === "undefined") {
+      run();
     } else {
-      target.scrollIntoView({
-        behavior: reduceMotion ? "auto" : "smooth",
-        block: "start",
-      });
+      window.requestAnimationFrame(run);
     }
-    timersRef.current.push(
-      window.setTimeout(
-        () => {
-          target.setAttribute("tabindex", "-1");
-          target.focus({ preventScroll: true });
-        },
-        reduceMotion ? 0 : FOCUS_AFTER_MS,
-      ),
-    );
-  }, [reduceMotion]);
+  }, [reduceMotion, unlockHomepageHero]);
 
   const handleActivate = useCallback(() => {
-    if (reduceMotion) {
-      scrollToSystem();
+    if (used) {
       return;
     }
-    clearTimers();
+    if (reduceMotion) {
+      setUsed(true);
+      reveal();
+      return;
+    }
+    // Remove the button and mount the overlay in one commit so framer-motion
+    // morphs the shared `layoutId` card from the button into the full panel.
     setUsed(true);
-    setBridging(true);
-    timersRef.current.push(
-      window.setTimeout(scrollToSystem, SCROLL_AFTER_MS),
-      window.setTimeout(() => setBridging(false), CLOSE_AFTER_MS),
-    );
-  }, [reduceMotion, scrollToSystem, clearTimers]);
+    setOpen(true);
+  }, [used, reduceMotion, reveal]);
 
+  const handleMorphComplete = useCallback(() => {
+    if (!open || revealedRef.current) {
+      return;
+    }
+    reveal();
+    timersRef.current.push(
+      window.setTimeout(() => setOpen(false), DISSOLVE_AFTER_MS),
+    );
+  }, [open, reveal]);
+
+  // Escape cancels a morph that has not yet revealed the body.
   useEffect(() => {
-    if (!bridging) {
+    if (!open || revealedRef.current) {
       return undefined;
     }
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && !revealedRef.current) {
         clearTimers();
-        setBridging(false);
+        setOpen(false);
+        setUsed(false);
         buttonRef.current?.focus();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [bridging, clearTimers]);
+  }, [open, clearTimers]);
 
   return (
     <LayoutGroup id="ss-explore">
-      <Button
-        ref={buttonRef}
-        type="button"
-        size="lg"
-        variant="outline"
-        className="ss-explore-btn relative overflow-hidden"
-        onClick={handleActivate}
-      >
-        <span className="relative z-10">Explore the system</span>
-        {!used ? (
+      {!used ? (
+        <motion.button
+          ref={buttonRef}
+          type="button"
+          onClick={handleActivate}
+          className="ss-explore-cta"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        >
           <motion.span
-            layoutId={BRIDGE_LAYOUT_ID}
-            className="ss-explore-btn__chip"
+            layoutId={CARD_LAYOUT_ID}
+            className="ss-explore-cta__bg"
+            style={{ borderRadius: 999 }}
             aria-hidden="true"
           />
-        ) : null}
-      </Button>
+          <span className="ss-explore-cta__label">
+            Explore the system
+            <ArrowRight className="size-[1.05rem]" aria-hidden="true" />
+          </span>
+        </motion.button>
+      ) : null}
 
       {typeof document !== "undefined"
         ? createPortal(
             <AnimatePresence>
-              {bridging ? (
-                <motion.div
-                  key="ss-explore-bridge"
-                  className="ss-explore-bridge"
-                  aria-hidden="true"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, transition: { duration: 0.45, ease: "easeInOut" } }}
-                  transition={{ duration: 0.3 }}
-                >
+              {open ? (
+                <div className="ss-explore-overlay" aria-hidden="true">
                   <motion.div
-                    layoutId={BRIDGE_LAYOUT_ID}
-                    className="ss-explore-bridge__beam"
-                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                </motion.div>
+                    layoutId={CARD_LAYOUT_ID}
+                    className="ss-explore-overlay__card"
+                    style={{ borderRadius: 28 }}
+                    transition={{ type: "spring", bounce: 0, duration: 0.55 }}
+                    exit={{ opacity: 0, transition: { duration: 0.45, ease: "easeInOut" } }}
+                    onLayoutAnimationComplete={handleMorphComplete}
+                  >
+                    <motion.span
+                      className="ss-explore-overlay__glow"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.15, duration: 0.4 }}
+                    />
+                  </motion.div>
+                </div>
               ) : null}
             </AnimatePresence>,
             document.body,

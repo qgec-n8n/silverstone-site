@@ -10,6 +10,7 @@ import {
 import { AppShell } from "~/app/components/app-shell";
 import { LoadingBoundary, LoadingFallback } from "~/app/components/loading-boundary";
 import { RouteLoadingIndicator } from "~/app/components/route-loading-indicator";
+import { AppExperienceProvider } from "~/app/experience/app-experience";
 import { CoreSpinLoader } from "~/components/vendor/silverstone/core-spin-loader";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
@@ -26,15 +27,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta content="noindex,nofollow,noarchive" name="robots" />
         <script
           dangerouslySetInnerHTML={{
-            __html: 'document.documentElement.setAttribute("data-js", "on");',
+            // Set first-paint-safe experience flags before hydration so the
+            // loader overlay, the locked-scroll gate and the hidden header are
+            // already correct on the very first frame (no flash, no mismatch).
+            // The AppExperienceProvider reconciles these after hydration.
+            __html:
+              '(function(){var d=document.documentElement;d.setAttribute("data-js","on");d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(location.pathname==="/"){d.setAttribute("data-hero-locked","on");}})();',
           }}
         />
         <Meta />
         <Links />
       </head>
       <body>
-        <CoreSpinLoader />
-        {children}
+        <AppExperienceProvider>
+          <CoreSpinLoader />
+          {children}
+        </AppExperienceProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

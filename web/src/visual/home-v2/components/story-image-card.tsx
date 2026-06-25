@@ -1,6 +1,7 @@
 import type { StoryPanel } from "~/data/home-v2";
 import { cn } from "~/lib/utils";
-import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
+
+import { Reveal } from "./reveal";
 
 type StoryImageCardProps = {
   panel: StoryPanel;
@@ -8,35 +9,33 @@ type StoryImageCardProps = {
 
 /**
  * One image-storytelling row: cinematic media on one side, copy on the other.
- * Desktop ordering follows `panel.align`; on mobile the media always leads.
+ * Desktop ordering follows `panel.align`; on mobile the media always leads. The
+ * media and the copy block each reveal as their own target with a small stagger.
  */
 export function StoryImageCard({ panel }: StoryImageCardProps) {
-  const { ref, revealed } = useSectionReveal();
   const mediaRight = panel.align === "right";
 
   return (
-    <div
-      ref={ref}
-      data-revealed={revealed}
-      className="ss-hv2-reveal grid items-center gap-8 lg:grid-cols-2 lg:gap-16"
-    >
-      <figure className={cn("ss-hv2-story__media", mediaRight && "lg:order-2")}>
-        <img
-          src={panel.image}
-          alt={panel.alt}
-          className="ss-hv2-img-mask"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+    <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+      <Reveal className={cn(mediaRight && "lg:order-2")}>
+        <figure className="ss-hv2-story__media">
+          <img
+            src={panel.image}
+            alt={panel.alt}
+            className="ss-hv2-img-mask"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </Reveal>
 
-      <div className={cn("flex flex-col gap-4", mediaRight && "lg:order-1")}>
+      <Reveal delayMs={110} className={cn("flex flex-col gap-4", mediaRight && "lg:order-1")}>
         <span className="ss-eyebrow font-mono text-[color:var(--ss-v2-signal-cyan-soft)]">
           {panel.eyebrow}
         </span>
         <h3 className="ss-hv2-display text-3xl sm:text-4xl">{panel.title}</h3>
         <p className="ss-lead text-[color:var(--ss-v2-titanium)]">{panel.body}</p>
-      </div>
+      </Reveal>
     </div>
   );
 }

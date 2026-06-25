@@ -237,6 +237,8 @@
 
 .ss-pill {
   display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.72rem;

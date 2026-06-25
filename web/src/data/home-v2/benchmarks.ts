@@ -4,8 +4,10 @@
  * IMPORTANT FRAMING: every figure here is a *benchmark / industry outcome*
  * drawn from the published Silverstone service-page audit (June 2026) and the
  * automation outcomes reported across engagements — NOT a guaranteed result for
- * any individual client. The UI must present these as benchmarks, and the
- * `disclaimer` below must remain visible alongside the counters.
+ * any individual client. The UI must present these as benchmarks; the soft
+ * framing stays visible alongside the counters, and the precise `disclaimer`
+ * below is surfaced through an accessible disclosure (details/summary) so the
+ * provenance is always reachable without crowding the section.
  *
  * Source rows live in the audit CSV and are catalogued in
  * `docs/silverstone-redesign/claims-registry.md`.

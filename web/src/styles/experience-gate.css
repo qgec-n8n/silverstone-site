@@ -1,0 +1,47 @@
+/*
+  Experience gate — scroll lock + header reveal coordination.
+
+  Driven entirely by <html> data-attributes that are (a) set synchronously by
+  the inline boot script in root.tsx for the first paint and (b) reconciled by
+  the AppExperienceProvider after hydration:
+
+    data-loader-active  the Core Spin Loader overlay is up
+    data-hero-locked    the homepage primary hero still owns the viewport
+    data-scroll-lock    scrolling is locked (loader up OR hero locked)
+
+  Everything is gated behind html[data-js="on"] so no-JS visitors always get a
+  fully scrollable, fully visible shell.
+*/
+
+/* Lock scrolling while the loader is up or the homepage hero is locked. */
+html[data-js="on"][data-scroll-lock="on"],
+html[data-js="on"][data-scroll-lock="on"] body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/*
+  The header is mounted at all times (so its menus/focus management persist),
+  but it is lifted out of view and made inert while the loader is up or the
+  homepage primary hero is still locked. After the loader clears (non-homepage)
+  or the Explore morph completes (homepage) it settles back into place.
+*/
+[data-site-header] {
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.55s ease;
+  will-change: transform, opacity;
+}
+
+html[data-js="on"][data-loader-active="on"] [data-site-header],
+html[data-js="on"][data-hero-locked="on"] [data-site-header] {
+  opacity: 0;
+  transform: translateY(-115%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-site-header] {
+    transition: none;
+  }
+}

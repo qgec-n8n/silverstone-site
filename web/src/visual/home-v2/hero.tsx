@@ -1,11 +1,9 @@
 import { motion, type Variants } from "framer-motion";
-import { Link } from "react-router";
 
 import { Container } from "~/components/layout/container";
-import { Button } from "~/components/ui/button";
 
 import { ExploreSystemButton } from "./explore-system-button";
-import { HeroFieldBackground } from "./hero-field-background";
+import { HeroAetherField } from "./hero-aether-field";
 
 const container: Variants = {
   hidden: {},
@@ -19,19 +17,19 @@ const item: Variants = {
 
 type HeroProps = {
   motionEnabled: boolean;
-  shaderEnabled: boolean;
 };
 
 /**
- * V2 hero — a single full-viewport stage. It carries only the kicker, display
- * title, lead and the primary calls to action over the animated field; the live
- * signal console and capability proof now open the body in {@link SecondaryHero}
- * so the hero reads cleanly within one screen.
+ * V2 primary hero — a single full-viewport stage built on the supplied Aether
+ * Flow field. While the homepage is locked it owns the screen with only the
+ * kicker, display title, lead and the lone "Explore the system" action; that
+ * action morphs into the body and releases the lock. The live-signal console and
+ * capability proof open the body in {@link SecondaryHero}.
  */
-export function Hero({ motionEnabled, shaderEnabled }: HeroProps) {
+export function Hero({ motionEnabled }: HeroProps) {
   return (
     <section className="ss-hv2-hero">
-      <HeroFieldBackground enabled={shaderEnabled} particlesEnabled={motionEnabled} />
+      <HeroAetherField />
       <div className="ss-hv2-hero__grid" aria-hidden="true" />
       <div className="ss-hv2-hero__veil" aria-hidden="true" />
 
@@ -65,9 +63,6 @@ export function Hero({ motionEnabled, shaderEnabled }: HeroProps) {
           </motion.p>
 
           <motion.div variants={item} className="flex flex-wrap items-center gap-4">
-            <Button asChild size="lg" variant="accent">
-              <Link to="/book">Book a free audit</Link>
-            </Button>
             <ExploreSystemButton />
           </motion.div>
         </motion.div>

@@ -1,5 +1,5 @@
 /*
-  Core Spin Loader — branded first-load overlay.
+  Core Spin Loader — branded full-screen overlay.
 
   No-JS safety: the overlay is hidden by default and only revealed when the
   inline head script has set `html[data-js="on"]`. That attribute is applied
@@ -21,8 +21,8 @@ html[data-js="on"] .ss-loader {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.6rem;
-  background: radial-gradient(60% 50% at 50% 42%, #0b1120, #05070d 70%, #04060b);
+  gap: 2rem;
+  background: radial-gradient(62% 52% at 50% 42%, #0b1120, #05070d 70%, #04060b);
   color: var(--ss-v2-platinum, #e8ecf5);
   opacity: 1;
   transition: opacity 0.6s ease;
@@ -37,19 +37,35 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
   position: relative;
   display: grid;
   place-items: center;
-  width: 160px;
-  height: 160px;
+  width: 240px;
+  height: 240px;
 }
 
+.ss-loader__halo,
 .ss-loader__ring,
 .ss-loader__core,
 .ss-loader__emblem {
   grid-area: 1 / 1;
 }
 
+/* Soft volumetric bloom behind the emblem — the "glow" that breathes. */
+.ss-loader__halo {
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 24%, transparent),
+    color-mix(in srgb, var(--ss-v2-signal-violet, #a97bd6) 10%, transparent) 46%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  opacity: 0.9;
+}
+
 .ss-loader__ring {
-  width: 152px;
-  height: 152px;
+  width: 224px;
+  height: 224px;
   border-radius: 50%;
   border: 2px solid color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 12%, transparent);
   border-top-color: var(--ss-v2-signal-cyan, #5ec5d0);
@@ -57,45 +73,46 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
 }
 
 .ss-loader__ring--inner {
-  width: 112px;
-  height: 112px;
+  width: 166px;
+  height: 166px;
   border-top-color: var(--ss-v2-signal-magenta, #e06cc4);
   border-left-color: color-mix(in srgb, var(--ss-v2-signal-blue, #597fad) 70%, transparent);
   border-right-color: transparent;
 }
 
 .ss-loader__core {
-  width: 150px;
-  height: 150px;
+  width: 210px;
+  height: 210px;
   border-radius: 50%;
   background: radial-gradient(
     circle at 50% 50%,
-    color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 26%, transparent),
+    color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 30%, transparent),
     transparent 62%
   );
-  filter: blur(6px);
+  filter: blur(12px);
 }
 
 .ss-loader__emblem {
-  width: 84px;
-  height: 84px;
+  width: 150px;
+  height: 150px;
   object-fit: contain;
   /* Feather the dark emblem plate so it never reads as a rectangle. */
   -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 56%, transparent 74%);
   mask-image: radial-gradient(circle at 50% 50%, #000 56%, transparent 74%);
   filter: drop-shadow(
-    0 0 18px color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 32%, transparent)
-  );
+      0 0 22px color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 36%, transparent)
+    )
+    drop-shadow(0 0 44px color-mix(in srgb, var(--ss-v2-signal-violet, #a97bd6) 22%, transparent));
 }
 
 .ss-loader__label {
   margin: 0;
   font-family: var(--ss-font-mono, ui-monospace, "SFMono-Regular", Menlo, monospace);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--ss-v2-platinum, #e8ecf5) 80%, transparent);
+  color: color-mix(in srgb, var(--ss-v2-platinum, #e8ecf5) 84%, transparent);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -107,12 +124,13 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
     animation: ss-loader-spin 1.7s linear infinite reverse;
   }
 
-  html[data-js="on"] .ss-loader__core {
+  html[data-js="on"] .ss-loader__core,
+  html[data-js="on"] .ss-loader__emblem {
     animation: ss-loader-pulse 2.2s ease-in-out infinite;
   }
 
-  html[data-js="on"] .ss-loader__emblem {
-    animation: ss-loader-pulse 2.2s ease-in-out infinite;
+  html[data-js="on"] .ss-loader__halo {
+    animation: ss-loader-bloom 3s ease-in-out infinite;
   }
 }
 
@@ -130,6 +148,18 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
   }
   50% {
     opacity: 1;
-    transform: scale(1.04);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes ss-loader-bloom {
+  0%,
+  100% {
+    opacity: 0.66;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
   }
 }

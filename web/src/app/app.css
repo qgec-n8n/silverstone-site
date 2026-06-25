@@ -4,5 +4,7 @@
 @import "../styles/tokens/cinematic.css";
 @import "../styles/tokens/utilities.css";
 @import "../styles/motion-reveal.css";
+@import "../styles/experience-gate.css";
+@import "../styles/shell-header.css";
 
 @custom-variant dark (&:is(.dark *));

@@ -42,9 +42,14 @@ export function BenchmarkMetrics({ countersEnabled }: BenchmarkMetricsProps) {
           />
         ))}
       </div>
-      <p className="mt-8 max-w-(--ss-type-measure-body) text-xs text-[color:var(--ss-v2-titanium)]">
-        {BENCHMARK_DISCLAIMER}
-      </p>
+      <details className="ss-hv2-benchmark-note mt-8 max-w-(--ss-type-measure-body)">
+        <summary className="cursor-pointer text-xs font-medium text-[color:var(--ss-v2-titanium)] underline-offset-4 transition-colors hover:text-[color:var(--ss-v2-pearl)]">
+          Sources &amp; methodology
+        </summary>
+        <p className="mt-2 text-xs text-[color:var(--ss-v2-titanium)]">
+          {BENCHMARK_DISCLAIMER}
+        </p>
+      </details>
     </SectionShell>
   );
 }

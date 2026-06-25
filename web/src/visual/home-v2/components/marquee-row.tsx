@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 
 import type { IntegrationMark } from "~/data/home-v2";
+import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
 
 type MarqueeRowProps = {
   marks: readonly IntegrationMark[];
@@ -17,6 +18,10 @@ type MarqueeRowProps = {
  * track is static (reduced motion / minimal tier). The track is decorative
  * (`aria-hidden`) — the names are surfaced once via a visually-hidden list in
  * the parent — and the row pauses on hover and on keyboard focus.
+ *
+ * Each logo cell is its own reveal target: the row carries `data-revealed` and
+ * every cell fades/settles in left-to-right (per-cell `--ss-hv2-reveal-delay`).
+ * Reduced motion resolves revealed immediately and the entrance is skipped.
  */
 export function MarqueeRow({
   marks,
@@ -25,6 +30,7 @@ export function MarqueeRow({
   durationSeconds = 42,
   label,
 }: MarqueeRowProps) {
+  const { ref, revealed } = useSectionReveal();
   const loop = [...marks, ...marks];
   const style = {
     "--ss-hv2-marquee-duration": `${String(durationSeconds)}s`,
@@ -32,9 +38,11 @@ export function MarqueeRow({
 
   return (
     <div
+      ref={ref}
       className="ss-hv2-marquee"
       data-animated={enabled}
       data-direction={direction}
+      data-revealed={revealed}
       style={style}
       tabIndex={0}
       role="group"
@@ -45,7 +53,12 @@ export function MarqueeRow({
           <span
             key={`${mark.id}-${String(index)}`}
             className="ss-hv2-logo"
-            style={{ "--ss-hv2-logo-accent": mark.accent } as CSSProperties}
+            style={
+              {
+                "--ss-hv2-logo-accent": mark.accent,
+                "--ss-hv2-reveal-delay": `${String((index % marks.length) * 40)}ms`,
+              } as CSSProperties
+            }
           >
             <img
               src={mark.file}

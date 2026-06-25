@@ -60,6 +60,11 @@
   --ss-v2-brand-plate-emblem: #1a1a2b;
   --ss-v2-brand-plate-emblem-deep: #0f0e18;
 
+  /* New dark master logo (silverstone-logo-dark-new.png): its rectangular field
+     is solid #131626 (srgb 19,22,38). Any plate carrying this asset must match
+     this edge colour so the logo's rectangle dissolves with no visible box. */
+  --silverstone-dark-logo-edge: #131626;
+
   /* --- footer field: blue-black/graphite gradient that harmonises with the
         dark logo plate so the embedded lockup reads as part of the surface --- */
   --ss-v2-footer-surface: linear-gradient(
@@ -69,11 +74,12 @@
     var(--ss-v2-void-black) 100%
   );
 
-  /* --- light header (cloud-white / platinum premium surface). Kept opaque so
-        the area immediately behind the white-background emblem stays visually
-        identical to the emblem's own white field, even on scroll. --- */
-  --ss-v2-header-surface: #fbfcfd;
-  --ss-v2-header-surface-scroll: #f3f5f9;
+  /* --- light header (constant cloud-white premium surface). Pinned to #FEFFFF
+        — the exact outer-pixel white of the emblem source — at every scroll
+        position so the white-field emblem has no visible boundary or plate. The
+        scroll state changes only elevation (border + shadow), never colour. --- */
+  --ss-v2-header-surface: #feffff;
+  --ss-v2-header-surface-scroll: #feffff;
   --ss-v2-header-border: #e3e7ed;
   --ss-v2-header-border-strong: #cfd5df;
   --ss-v2-header-text: #3a4049;
@@ -295,10 +301,10 @@
     animation: ss-footer-lines 26s linear infinite;
   }
 
-  /* The lockup is embedded — never a card. A plate-coloured halo continues the
-     image's own lighting outward and dissolves into the footer field; the image
-     itself carries only a whisper feather (the asset is near full-bleed, ~1.3%
-     padding, so an aggressive mask would clip the wordmark). */
+  /* The lockup is embedded — never a card. A plate matched to the asset's own
+     edge colour (--silverstone-dark-logo-edge) continues the field outward and
+     dissolves into the footer; the image carries a whisper feather so its
+     rectangle never shows. Lighting stays outside the wordmark's safe area. */
   .ss-footer__brandmark {
     position: relative;
     padding: clamp(0.75rem, 0.4rem + 1vw, 1.5rem);
@@ -310,10 +316,10 @@
     inset: -24% -16%;
     z-index: -1;
     background: radial-gradient(
-      72% 82% at 50% 40%,
-      var(--ss-v2-brand-plate) 0%,
-      color-mix(in srgb, var(--ss-v2-brand-plate) 42%, transparent) 52%,
-      transparent 78%
+      74% 84% at 50% 44%,
+      var(--silverstone-dark-logo-edge) 0%,
+      color-mix(in srgb, var(--silverstone-dark-logo-edge) 46%, transparent) 54%,
+      transparent 80%
     );
     filter: blur(2px);
   }

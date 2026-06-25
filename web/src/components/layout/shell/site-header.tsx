@@ -9,6 +9,7 @@ import {
 import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router";
 
+import { useAppExperience } from "~/app/experience/app-experience";
 import { Container } from "~/components/layout/container";
 import { cn } from "~/lib/utils";
 
@@ -129,6 +130,8 @@ function HeaderMenu({
           active && "text-[color:var(--ss-v2-header-accent)]",
           isOpen && "text-[color:var(--ss-v2-header-accent-violet)]",
         )}
+        data-active={active || undefined}
+        data-nav-item=""
         onClick={() => (isOpen ? onClose() : onOpen())}
         ref={triggerRef}
         type="button"
@@ -150,7 +153,10 @@ function HeaderMenu({
         id={panelId}
         role="region"
       >
-        <div className="rounded-[var(--ss-radius-lg)] border border-[color:var(--ss-v2-header-panel-border)] bg-[var(--ss-v2-header-panel)] p-3 shadow-[var(--ss-v2-header-shadow)]">
+        <div
+          className="rounded-[var(--ss-radius-lg)] border border-[color:var(--ss-v2-header-panel-border)] bg-[var(--ss-v2-header-panel)] p-3 shadow-[var(--ss-v2-header-shadow)]"
+          data-mega-panel=""
+        >
           {variant === "cards" ? (
             <ServicesPanel menu={menu} />
           ) : (
@@ -330,6 +336,8 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const location = useLocation();
+  const { headerHidden } = useAppExperience();
+  const headerRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -359,8 +367,19 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
 
   const elevated = scrolled || openMenu !== null;
 
+  // Mirror the coordinator's hidden state onto `inert` so the lifted header is
+  // fully removed from the tab order and the a11y tree while it is off-screen
+  // (CSS handles the visual lift; `inert` handles focus + assistive tech).
+  useEffect(() => {
+    const node = headerRef.current;
+    if (node) {
+      node.inert = headerHidden;
+    }
+  }, [headerHidden]);
+
   return (
     <header
+      aria-hidden={headerHidden || undefined}
       className={cn(
         "fixed inset-x-0 top-0 z-[400] h-[var(--ss-layout-header)] border-b ss-transition-panel",
         elevated
@@ -368,6 +387,8 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
           : "border-[color:var(--ss-v2-header-border)] bg-[var(--ss-v2-header-surface)]",
       )}
       data-scrolled={scrolled}
+      data-site-header=""
+      ref={headerRef}
     >
       <Container className="flex h-full items-center gap-6" size="wide">
         <BrandLockup
@@ -402,6 +423,8 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
                     location.pathname === link.href &&
                       "text-[color:var(--ss-v2-header-accent)]",
                   )}
+                  data-active={location.pathname === link.href || undefined}
+                  data-nav-item=""
                   to={link.href}
                 >
                   {link.label}

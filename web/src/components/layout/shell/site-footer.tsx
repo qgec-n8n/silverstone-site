@@ -26,10 +26,10 @@ export function SiteFooter() {
                 alt="Silverstone AI"
                 className="ss-footer__logo"
                 decoding="async"
-                height={561}
+                height={1008}
                 loading="lazy"
-                src="/brand/silverstone-ai-logo-dark.png"
-                width={869}
+                src="/brand/silverstone-logo-dark-new.png"
+                width={1561}
               />
               <span className="sr-only">Silverstone AI — home</span>
             </Link>

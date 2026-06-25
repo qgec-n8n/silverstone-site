@@ -1,7 +1,7 @@
 import "~/styles/visual/home-v2.css";
 
 import { deriveMotionPolicy } from "~/visual/home-v2/motion-policy";
-import { BodyBackdrop } from "~/visual/home-v2/body-backdrop";
+import { BodyParticles } from "~/visual/home-v2/body-particles";
 import { Hero } from "~/visual/home-v2/hero";
 import {
   AiConsulting,
@@ -34,12 +34,9 @@ export function HomeV2({ contentId }: { contentId?: string }) {
 
   return (
     <div className="ss-hv2" data-tier={policy.tier} data-content-id={contentId}>
-      <BodyBackdrop enabled={policy.motionEnabled} tier={policy.tier} />
+      <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
       <ScrollProvider enabled={policy.scrollChoreography}>
-        <Hero
-          motionEnabled={policy.motionEnabled}
-          shaderEnabled={policy.shaderEnabled}
-        />
+        <Hero motionEnabled={policy.motionEnabled} />
         <SecondaryHero />
         <TrustStrip />
         <ServicesUniverse />

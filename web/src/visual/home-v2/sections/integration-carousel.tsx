@@ -1,4 +1,9 @@
-import { ALL_INTEGRATIONS, INTEGRATIONS_ROW_A, INTEGRATIONS_ROW_B } from "~/data/home-v2";
+import {
+  ALL_INTEGRATIONS,
+  INTEGRATIONS_ROW_A,
+  INTEGRATIONS_ROW_B,
+  INTEGRATIONS_ROW_C,
+} from "~/data/home-v2";
 
 import { MarqueeRow } from "../components/marquee-row";
 import { SectionShell } from "../components/section-shell";
@@ -7,7 +12,7 @@ type IntegrationCarouselProps = {
   marqueeEnabled: boolean;
 };
 
-/** Two counter-scrolling rows of large, coloured, icon-only integration marks. */
+/** Three counter-scrolling rows of coloured, icon-only integration marks. */
 export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps) {
   return (
     <SectionShell
@@ -27,15 +32,22 @@ export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps
             marks={INTEGRATIONS_ROW_A}
             enabled={marqueeEnabled}
             direction="normal"
-            durationSeconds={48}
+            durationSeconds={52}
             label="Integration logos, row one"
           />
           <MarqueeRow
             marks={INTEGRATIONS_ROW_B}
             enabled={marqueeEnabled}
             direction="reverse"
-            durationSeconds={56}
+            durationSeconds={60}
             label="Integration logos, row two"
+          />
+          <MarqueeRow
+            marks={INTEGRATIONS_ROW_C}
+            enabled={marqueeEnabled}
+            direction="normal"
+            durationSeconds={56}
+            label="Integration logos, row three"
           />
         </div>
         <p className="ss-sr-only">
