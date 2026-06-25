@@ -156,6 +156,9 @@ function tomlEscape(s) {
 function renderArgs(args) {
   return "[" + args.map((a) => `"${tomlEscape(a)}"`).join(", ") + "]";
 }
+function renderStringArray(values) {
+  return "[" + values.map((value) => `"${tomlEscape(value)}"`).join(", ") + "]";
+}
 
 if (existsSync(MCP_JSON)) {
   const mcp = JSON.parse(readFileSync(MCP_JSON, "utf8")).mcpServers || {};
@@ -166,8 +169,21 @@ if (existsSync(MCP_JSON)) {
   for (const n of names) {
     const s = mcp[n];
     block += `\n[mcp_servers.${n}]\n`;
-    block += `command = "${tomlEscape(s.command)}"\n`;
+    if (s.url) {
+      block += `url = "${tomlEscape(s.url)}"\n`;
+    } else {
+      block += `command = "${tomlEscape(s.command)}"\n`;
+    }
     if (s.args) block += `args = ${renderArgs(s.args)}\n`;
+    if (s.cwd) block += `cwd = "${tomlEscape(s.cwd)}"\n`;
+    if (s.env_vars) block += `env_vars = ${renderStringArray(s.env_vars)}\n`;
+    if (typeof s.enabled === "boolean") block += `enabled = ${String(s.enabled)}\n`;
+    if (typeof s.startup_timeout_sec === "number")
+      block += `startup_timeout_sec = ${String(s.startup_timeout_sec)}\n`;
+    if (typeof s.tool_timeout_sec === "number")
+      block += `tool_timeout_sec = ${String(s.tool_timeout_sec)}\n`;
+    if (s.default_tools_approval_mode)
+      block += `default_tools_approval_mode = "${tomlEscape(s.default_tools_approval_mode)}"\n`;
   }
 
   // Bootstrap: create .codex/config.toml from scratch if it does not exist.

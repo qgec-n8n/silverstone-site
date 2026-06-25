@@ -1,6 +1,7 @@
-model = "gpt-5.4"
+model = "gpt-5.5"
 model_reasoning_effort = "xhigh"
 personality = "pragmatic"
+
 [projects."/Users/quentingeczy/Desktop/DC-Performance-Coaching"]
 trust_level = "trusted"
 
@@ -15,8 +16,49 @@ unified_exec = true
 
 [mcp_servers.aceternityui]
 command = "npx"
-args = ["-y", "aceternityui-mcp"]
+args = ["-y", "aceternityui-mcp@1.0.2"]
+enabled = true
+startup_timeout_sec = 60
+tool_timeout_sec = 180
+default_tools_approval_mode = "prompt"
+
+[mcp_servers.magic_21st]
+command = "/bin/zsh"
+args = ["/Users/quentingeczy/Desktop/silverstone-site/.codex/bin/21st-magic-mcp.sh"]
+cwd = "/Users/quentingeczy/Desktop/silverstone-site"
+env_vars = ["API_KEY_21ST"]
+enabled = true
+startup_timeout_sec = 60
+tool_timeout_sec = 180
+default_tools_approval_mode = "prompt"
 
 [mcp_servers.magicui]
 command = "npx"
-args = ["-y", "@magicuidesign/mcp@latest"]
+args = ["-y", "@magicuidesign/mcp@2.0.0"]
+enabled = true
+startup_timeout_sec = 60
+tool_timeout_sec = 180
+default_tools_approval_mode = "prompt"
+
+[mcp_servers.shadcn]
+command = "npx"
+args = ["-y", "shadcn@4.11.0", "mcp"]
+cwd = "/Users/quentingeczy/Desktop/silverstone-site/web"
+enabled = true
+startup_timeout_sec = 60
+tool_timeout_sec = 180
+default_tools_approval_mode = "prompt"
+
+[mcp_servers.typeui]
+url = "https://mcp.typeui.sh"
+enabled = true
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+default_tools_approval_mode = "prompt"
+
+[mcp_servers.untitledui]
+url = "https://www.untitledui.com/react/api/mcp"
+enabled = true
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+default_tools_approval_mode = "prompt"

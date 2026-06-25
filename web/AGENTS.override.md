@@ -31,6 +31,18 @@ This file is the Codex instruction source for `/web`. It defines the active Reac
 5. Run tests and validation from `/web`.
 6. Record the evidence and exact paths changed.
 
+## Capability-selection protocol
+
+- Before substantial `/web` work, read `/docs/codex/skill-mcp-routing.md`.
+- Classify every new subtask before selecting capabilities.
+- Explicitly load every materially relevant skill for the subtask.
+- Query every materially relevant MCP server before designing major UI, choosing library APIs, or changing framework/tooling behavior.
+- Use multiple complementary skills and MCPs when they provide distinct value; avoid irrelevant calls.
+- Document capability use with task classification, skills loaded, MCPs queried, evidence, decision, implementation, and verification.
+- Preserve `/web` as the active application and preserve the V2 design direction.
+- Aim for an ultra-futuristic, high-tech, premium, luxurious, and conversion-focused experience.
+- Verify work through browser inspection and automated tests before claiming completion.
+
 ## Implementation Boundary
 
 - Use the approved React Router/Vite application architecture inside `/web`.
