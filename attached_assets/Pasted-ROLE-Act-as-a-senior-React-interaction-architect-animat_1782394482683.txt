@@ -1,0 +1,467 @@
+ROLE
+Act as a senior React interaction architect, animation engineer, performance specialist and luxury-technology UI director.
+
+TASK
+Correct the current Silverstone AI homepage interaction model and visual implementation before any service-page work begins.
+
+This is a direct implementation task. Create a Replit checkpoint first, inspect the current implementation, then modify the active `/web` application.
+
+ATTACHMENT
+The user has attached:
+
+`silverstone-ai-logo-dark-v2.png`
+
+Copy this exact file unchanged into a canonical path under `/web/public/brand/` and use it as the authoritative full dark logo for:
+
+- the global footer;
+- the main homepage CTA card.
+
+Do not redraw, recolour, crop, remove its background, recreate its wordmark, or substitute a previous logo asset.
+
+The file has a deliberately consistent dark perimeter so it can blend into matching surfaces. Sample the actual outer-edge pixels and create a reusable CSS token from the dominant perimeter colour. Use that exact colour directly behind and around the image in both the footer and CTA so no rectangular boundary is visible.
+
+Do not use blur, feathering, opacity reduction or artificial transparency to hide the boundary unless a very subtle overlay is still required after the exact background match.
+
+OUTCOME
+Implement the homepage as two genuinely separate application states:
+
+1. INTRO HERO STATE
+2. EXPANDED BODY STATE
+
+The intro hero must behave like a self-contained full-screen page. The expanded body must behave like a different page that opens from the centre button using the Hero Button Expendable shared-layout interaction.
+
+Do not merely scroll from one section to another.
+
+MANDATORY STATE MACHINE
+Create an explicit state machine with these states:
+
+- `loading`
+- `intro`
+- `opening`
+- `body`
+- `closing`
+
+Do not represent this only with CSS classes on one long document.
+
+INTRO STATE REQUIREMENTS
+When the homepage first appears after the loader:
+
+- render only the intro hero;
+- do not render the body sections beneath it in normal document flow;
+- do not render the global header;
+- do not render the footer;
+- do not render a scroll indicator;
+- do not allow wheel, touch, keyboard, scrollbar-drag or programmatic page scrolling;
+- do not show a browser scrollbar;
+- do not leave hidden body content increasing page height.
+
+Implementation requirements:
+
+- intro shell must use `position: fixed; inset: 0`;
+- use `height: 100dvh` with stable viewport fallbacks;
+- set `html` and `body` overflow to hidden while in `loading`, `intro`, `opening` and `closing`;
+- restore original overflow only when state becomes `body`;
+- the body application tree should be unmounted or kept outside normal layout while intro is active;
+- test that `document.documentElement.scrollHeight === window.innerHeight` within a reasonable tolerance during intro;
+- test that wheel and PageDown do not move the page;
+- do not use a visually hidden long page.
+
+INTRO HERO CONTENT
+The intro hero must contain only:
+
+- the pill;
+- the main title;
+- the subtitle;
+- the single button labelled `Explore the system`.
+
+Remove every other CTA from the intro hero, including any booking or free-audit button.
+
+There must be no visible nav/header.
+
+AETHER FLOW ENTRANCE
+The pill, title, subtitle and button must reveal from the centre exactly in the visual spirit and timing of the supplied Aether Flow Hero:
+
+- centred alignment;
+- each item starts slightly lower, smaller and transparent;
+- each item resolves upward into place;
+- strict sequence: pill, title, subtitle, button;
+- approximately 0.2-second stagger;
+- smooth 0.7–0.9-second easing;
+- no left-column entrance;
+- no simultaneous group reveal;
+- no animation from the page edge.
+
+Use Motion for this entrance.
+
+The hero connection web must be more vibrant:
+
+- brighter Electric Cyan particles;
+- brighter Digital Blue lines;
+- vivid Neural Violet and Electric Pink accents;
+- occasional Platinum Silver hover connections;
+- higher visible line opacity without reducing text contrast;
+- preserve the premium dark field.
+
+HERO BUTTON AND EXPANSION
+The `Explore the system` button must use the actual shared-layout interaction model from Hero Button Expendable.
+
+Required behaviour:
+
+1. The button sits centred beneath the subtitle.
+2. It has no stray underline, pseudo-element line or browser text-decoration.
+3. It has a premium futuristic surface using Silverstone cyan, blue, violet, pink and chrome.
+4. On click:
+   - set state to `opening`;
+   - the same element with one stable `layoutId` expands from the button’s exact bounds;
+   - it grows into a full-screen body reveal surface;
+   - the intro content fades/scales away behind it;
+   - the body mounts inside or behind the expanded surface;
+   - the hero becomes fully hidden;
+   - after the opening transition completes, set state to `body`;
+   - enable scrolling only then;
+   - reveal the global header only then.
+
+This must not be implemented as:
+
+- `scrollIntoView`;
+- an anchor jump;
+- a simple fade between two sections;
+- a normal route navigation;
+- merely changing `display: none`;
+- scrolling down a pre-existing long page.
+
+Use `AnimatePresence`, Motion `layoutId`, spring transition and the existing Paper shader layer in the expanding surface, adapted to Silverstone colours.
+
+BODY STATE
+When the expanded body opens:
+
+- the header appears for the first time;
+- the header remains fixed/sticky at the top;
+- its background remains the exact same white at every scroll position;
+- do not tint, darken, make translucent or change its colour on scroll;
+- the body begins directly below the header;
+- the first heading is `The Silverstone System`;
+- this first section must feel like a secondary hero;
+- the secondary hero and all later body sections use the same local body particles/background system;
+- scrolling is enabled only now.
+
+CLOSE / REVERSE CONTROL
+Add a visible X close button:
+
+- fixed at the top-right of the body viewport;
+- positioned below the header, not inside it;
+- high z-index;
+- keyboard accessible;
+- labelled `Return to intro`;
+- styled as a premium circular glass/chrome control;
+- always reachable while the body is open.
+
+On X activation:
+
+1. prevent further user scrolling;
+2. move the body visual state to its top position without exposing an abrupt jump;
+3. set state to `closing`;
+4. reverse the same shared-layout animation;
+5. collapse the expanded body surface back into the exact centre button;
+6. hide/unmount the header;
+7. hide/unmount body and footer;
+8. restore the intro hero;
+9. set state to `intro`;
+10. return focus to `Explore the system`;
+11. keep page scroll at zero and scrollbar absent.
+
+The closing transition must visually reverse the opening transition.
+
+The intro and body must feel like two separate pages, not adjacent sections.
+
+SCROLL INDICATOR
+The existing `Scroll` label and animated line must not appear in the intro hero.
+
+Move it to the body state:
+
+- directly after the first `The Silverstone System` secondary-hero section;
+- directly before the trust strip containing:
+  - UK-built
+  - London-based
+  - Human-reviewed automation
+  - No lock-in pilots
+  - Live in weeks
+  - GDPR-conscious by design.
+
+The indicator should only animate when body state is active.
+
+BODY PARTICLE BACKGROUND
+Use the local Particles Background behaviour as the shared body environment.
+
+Correct it as follows:
+
+- reduce particle velocity substantially;
+- use approximately 25–40% of the current movement speed;
+- maintain smooth movement;
+- retain visible pink, violet, blue and cyan lighting;
+- increase pink and blue ambient visibility slightly;
+- preserve readable contrast.
+
+Mouse behaviour must match the supplied particles reference:
+
+- when the pointer is over the background, nearby particles/lines respond magnetically;
+- use a grab/attraction radius;
+- strengthen nearby connection opacity;
+- do not interfere with clicks on content;
+- use pointer coordinates relative to the canvas;
+- disable expensive pointer interaction on coarse touch devices.
+
+Parallax must remain active:
+
+- body content scrolls over the persistent background;
+- decorative depth layers move at different restrained rates;
+- avoid scroll-jacking;
+- keep one scroll owner.
+
+Performance:
+
+- one body particle canvas only;
+- no duplicated canvas per section;
+- no duplicate RAF loops;
+- cap DPR;
+- reduce particle count on mobile;
+- throttle pointer updates;
+- pause on hidden tab;
+- use IntersectionObserver where appropriate;
+- clean up listeners and frames;
+- keep 60fps where realistic.
+
+LOGO CAROUSEL
+Remove the visible sentence beginning:
+
+`Silverstone integrates with WhatsApp, Anthropic, Gmail...`
+
+Do not replace it with another exhaustive visible list.
+
+The carousel must remain accessible through:
+
+- meaningful image `alt`;
+- hidden accessible labels;
+- optional screen-reader-only summary.
+
+Add coloured local logos for:
+
+Social:
+- X / Twitter
+- Instagram
+- Facebook
+- TikTok
+- LinkedIn
+- YouTube
+- Pinterest
+- Snapchat
+- Threads
+
+Microsoft:
+- Word
+- Excel
+- PowerPoint
+- Outlook
+- Teams
+- OneDrive
+- SharePoint
+- Microsoft 365
+- Azure
+- Copilot
+
+Google Workspace:
+- Google Drive
+- Google Sheets
+- Google Docs
+- Google Slides
+- Gmail
+- Google Calendar
+- Google Meet
+- Google Forms
+- Google Analytics
+- Google Cloud
+
+Retain the broader relevant ecosystem already present.
+
+Requirements:
+
+- three rows;
+- icon-only visible presentation;
+- authentic coloured logos;
+- local SVG/PNG assets;
+- no remote runtime URLs;
+- alternating directions;
+- seamless looping;
+- pause on hover and keyboard focus;
+- reduced-motion static/manual rail;
+- moderate icon size, slightly smaller than the current version;
+- consistent visual box size without stretching logos.
+
+FOOTER AND CTA LOGO
+Use only the newly attached `silverstone-ai-logo-dark-v2.png`.
+
+Footer:
+- replace the current full logo;
+- sample the exact outer-edge colour;
+- set the footer base and immediate logo region to the same colour;
+- do not place the image inside a contrasting panel;
+- do not show a border or shadow that exposes the image rectangle;
+- keep the full logo large and legible.
+
+CTA:
+- replace the current logo with the same new full logo;
+- use the same exact matched background token;
+- no visible image boundary;
+- no contrasting card immediately behind the logo;
+- preserve premium entrance and hover effects around the card without outlining the raster image.
+
+LOADER
+The Core Spin Loader must appear on every homepage load and reload.
+
+Layout:
+- large loader centred;
+- animated glowing/pulsating emblem inside;
+- copy placed below the spinner, never inside its rings;
+- adequate vertical spacing;
+- copy must remain readable on mobile.
+
+Timing and preload:
+- minimum visible time: 4 seconds;
+- begin preloading immediately;
+- do not dismiss until all critical homepage assets are fetched and decoded;
+- critical assets include:
+  - intro hero assets;
+  - header emblem;
+  - footer/CTA logo;
+  - first body-section images;
+  - integration-logo assets;
+  - route fonts;
+  - shader fallback images;
+- use `HTMLImageElement.decode()` or equivalent;
+- preload local SVGs and relevant fonts;
+- use `Promise.allSettled`;
+- add a sensible maximum timeout so a broken asset cannot trap the user indefinitely;
+- record failed assets and use local fallbacks.
+
+The visitor must not see:
+
+- logo pop-in;
+- blank image boxes;
+- visible image decoding;
+- layout shift;
+- late-loading carousel marks.
+
+For below-fold route images:
+
+- preload or predecode during the loader where reasonable;
+- otherwise prefetch before the relevant section approaches the viewport;
+- reserve exact dimensions/aspect ratios;
+- use placeholders matching the final background so no loading flash is visible.
+
+REVEAL ORDER
+Every reveal in body state must be item-by-item.
+
+Rules:
+
+- left to right within a row;
+- top to bottom within a column;
+- row-major order in grids;
+- cards never reveal as one row;
+- stacked elements reveal top to bottom;
+- each icon, copy block, metric and image has its own animation target;
+- no parent opacity animation that causes all children to appear simultaneously.
+
+Create a reusable ordered-reveal utility that:
+
+- calculates DOM visual order;
+- assigns deterministic indexes;
+- respects responsive reflow;
+- triggers once per appearance unless the project intentionally resets on reload;
+- shows everything immediately under reduced motion.
+
+HEADER
+The header is absent in `loading`, `intro`, `opening` and `closing`.
+
+It is mounted only in `body`.
+
+Once mounted:
+
+- exact constant white background;
+- no scroll colour change;
+- no transparency change;
+- premium futuristic design through:
+  - thin spectral border;
+  - subtle chrome inset line;
+  - animated active-route indicator;
+  - refined mega-menu transitions;
+  - controlled cyan/violet focus states;
+- keep the white-background emblem fully blended.
+
+TESTING
+Use App Testing.
+
+Required automated/visual checks:
+
+INTRO
+- no header;
+- no footer;
+- no body content in flow;
+- no scrollbar;
+- scroll height equals viewport;
+- wheel, PageDown and touch do not scroll;
+- only pill, title, subtitle and one button visible;
+- centre reveal order correct.
+
+OPENING
+- one shared-layout surface expands from button;
+- header does not appear too early;
+- intro disappears;
+- body appears only during/after expansion.
+
+BODY
+- header appears;
+- `The Silverstone System` is first heading;
+- X exists under header;
+- scroll indicator is below secondary hero and above trust strip;
+- scrolling works;
+- particle background is slower, magnetic and parallax-capable.
+
+CLOSING
+- X reverses animation;
+- body and header disappear;
+- intro returns;
+- scrollbar disappears;
+- focus returns to button.
+
+ASSETS
+- no visible logo/image loading;
+- new dark logo used in footer and CTA;
+- no visible logo boundary;
+- social, Microsoft and Google logos present;
+- exhaustive visible integration sentence absent.
+
+Run:
+
+- formatting;
+- strict TypeScript;
+- lint;
+- unit tests;
+- browser tests;
+- build;
+- staging-safety checks.
+
+Do not finish until every acceptance criterion above is visibly and functionally satisfied.
+
+Report:
+
+- state-machine files;
+- hero transition implementation;
+- scroll-lock implementation;
+- particle performance changes;
+- loader preload manifest;
+- logos added;
+- footer/CTA background token;
+- tests and viewport checks;
+- any remaining limitations.
+
+Stop after this correction. Do not start service-page work.
