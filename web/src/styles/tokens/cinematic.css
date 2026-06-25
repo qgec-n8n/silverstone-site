@@ -60,10 +60,10 @@
   --ss-v2-brand-plate-emblem: #1a1a2b;
   --ss-v2-brand-plate-emblem-deep: #0f0e18;
 
-  /* New dark master logo (silverstone-logo-dark-new.png): its rectangular field
-     is solid #131626 (srgb 19,22,38). Any plate carrying this asset must match
+  /* New dark master logo (silverstone-ai-logo-dark-v2.png): its rectangular
+     field samples to #0a1434 at the outer edge. Any plate carrying this asset must match
      this edge colour so the logo's rectangle dissolves with no visible box. */
-  --silverstone-dark-logo-edge: #131626;
+  --silverstone-dark-logo-edge: #0a1434;
 
   /* --- footer field: blue-black/graphite gradient that harmonises with the
         dark logo plate so the embedded lockup reads as part of the surface --- */
@@ -78,8 +78,8 @@
         — the exact outer-pixel white of the emblem source — at every scroll
         position so the white-field emblem has no visible boundary or plate. The
         scroll state changes only elevation (border + shadow), never colour. --- */
-  --ss-v2-header-surface: #feffff;
-  --ss-v2-header-surface-scroll: #feffff;
+  --ss-v2-header-surface: #ffffff;
+  --ss-v2-header-surface-scroll: #ffffff;
   --ss-v2-header-border: #e3e7ed;
   --ss-v2-header-border-strong: #cfd5df;
   --ss-v2-header-text: #3a4049;
@@ -128,21 +128,22 @@
     var(--ss-v2-cobalt) 64%,
     var(--ss-v2-orchid) 100%
   );
-  --ss-v2-gradient-nebula: radial-gradient(
-    120% 120% at 18% 0%,
-    color-mix(in srgb, var(--ss-v2-ultraviolet) 32%, transparent),
-    transparent 52%
-  ),
-  radial-gradient(
-    120% 120% at 92% 18%,
-    color-mix(in srgb, var(--ss-v2-azure) 28%, transparent),
-    transparent 55%
-  ),
-  radial-gradient(
-    140% 120% at 50% 110%,
-    color-mix(in srgb, var(--ss-v2-magenta) 22%, transparent),
-    transparent 60%
-  );
+  --ss-v2-gradient-nebula:
+    radial-gradient(
+      120% 120% at 18% 0%,
+      color-mix(in srgb, var(--ss-v2-ultraviolet) 32%, transparent),
+      transparent 52%
+    ),
+    radial-gradient(
+      120% 120% at 92% 18%,
+      color-mix(in srgb, var(--ss-v2-azure) 28%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      140% 120% at 50% 110%,
+      color-mix(in srgb, var(--ss-v2-magenta) 22%, transparent),
+      transparent 60%
+    );
 
   /* --- glows --- */
   --ss-v2-glow-cyan:
@@ -340,8 +341,7 @@
 
   /* Hover illumination on the footer link columns. */
   .ss-footer__col a:hover {
-    text-shadow: 0 0 18px
-      color-mix(in srgb, var(--ss-v2-signal-cyan) 32%, transparent);
+    text-shadow: 0 0 18px color-mix(in srgb, var(--ss-v2-signal-cyan) 32%, transparent);
   }
 
   @media (prefers-reduced-motion: no-preference) {

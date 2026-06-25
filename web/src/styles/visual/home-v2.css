@@ -15,6 +15,21 @@
   overflow: clip;
 }
 
+.ss-hv2[data-homepage-state="loading"],
+.ss-hv2[data-homepage-state="intro"],
+.ss-hv2[data-homepage-state="opening"],
+.ss-hv2[data-homepage-state="closing"] {
+  min-height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+.ss-hv2__body {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
 /*
   Unified body background (BodyParticles). A single fixed particle field plus the
   static CSS base/fields/grid, pinned to the viewport so the luminescence reads as
@@ -38,11 +53,7 @@
 
 .ss-hv2-backdrop__base {
   background:
-    radial-gradient(
-      120% 80% at 50% -12%,
-      var(--ss-v2-void-blue),
-      transparent 60%
-    ),
+    radial-gradient(120% 80% at 50% -12%, var(--ss-v2-void-blue), transparent 60%),
     linear-gradient(
       180deg,
       var(--ss-v2-void-black),
@@ -65,11 +76,7 @@
     ),
     radial-gradient(
       42% 34% at 72% 80%,
-      color-mix(
-        in srgb,
-        var(--ss-v2-signal-magenta, #e06cc4) 12%,
-        transparent
-      ),
+      color-mix(in srgb, var(--ss-v2-signal-magenta, #e06cc4) 12%, transparent),
       transparent 72%
     ),
     radial-gradient(
@@ -88,15 +95,12 @@
     linear-gradient(var(--ss-v2-hairline) 1px, transparent 1px),
     linear-gradient(90deg, var(--ss-v2-hairline) 1px, transparent 1px);
   background-size: 72px 72px;
-  -webkit-mask-image: radial-gradient(
-    92% 70% at 50% 28%,
-    #000 0%,
-    transparent 86%
-  );
+  -webkit-mask-image: radial-gradient(92% 70% at 50% 28%, #000 0%, transparent 86%);
   mask-image: radial-gradient(92% 70% at 50% 28%, #000 0%, transparent 86%);
 }
 
 .ss-hv2-backdrop__particles {
+  display: block;
   width: 100%;
   height: 100%;
   /* Held back so the unified particle field reads as ambient depth behind the
@@ -112,9 +116,7 @@
 
 /* Light fields drift only with JS on, motion allowed, and a non-minimal tier. */
 @media (prefers-reduced-motion: no-preference) {
-  html[data-js="on"]
-    .ss-hv2:not([data-tier="minimal"])
-    .ss-hv2-backdrop__fields {
+  html[data-js="on"] .ss-hv2:not([data-tier="minimal"]) .ss-hv2-backdrop__fields {
     animation: ss-hv2-backdrop-drift 28s ease-in-out infinite alternate;
   }
 }
@@ -227,11 +229,10 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
 /* ============================ HERO ============================ */
 .ss-hv2-hero {
   position: relative;
-  min-height: 100svh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
-  padding-block: calc(var(--ss-layout-header) + clamp(1.5rem, 0.5rem + 5vh, 4rem))
-    clamp(3.5rem, 2.5rem + 5vh, 6rem);
+  padding-block: clamp(2.25rem, 1.25rem + 6vh, 5rem);
   overflow: clip;
 }
 
@@ -298,6 +299,7 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
 
 .ss-hv2-hero__content {
   max-width: min(100%, 58rem);
+  margin-inline: auto;
 }
 
 .ss-hv2-hero__title {
@@ -307,6 +309,7 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
 
 .ss-hv2-hero__lead {
   max-width: var(--ss-v2-measure-lead);
+  margin-inline: auto;
 }
 
 .ss-hv2-hero__panel {
@@ -347,16 +350,16 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   letter-spacing: -0.02em;
 }
 
-.ss-hv2-scrollcue {
-  position: absolute;
-  bottom: 1.6rem;
-  left: 50%;
-  transform: translateX(-50%);
+.ss-hv2-body-scrollcue {
+  position: relative;
   z-index: 1;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  left: 50%;
+  margin-block: 0.4rem 1rem;
+  transform: translateX(-50%);
   color: var(--ss-v2-titanium);
 }
 
@@ -715,13 +718,18 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  box-shadow: 0 0 38px -6px color-mix(in srgb, var(--ss-hv2-logo-accent) 75%, transparent);
+  box-shadow: 0 0 38px -6px
+    color-mix(in srgb, var(--ss-hv2-logo-accent) 75%, transparent);
   transition: opacity 0.5s ease;
 }
 
 .ss-hv2-marquee:hover .ss-hv2-logo,
 .ss-hv2-marquee:focus-within .ss-hv2-logo {
-  border-color: color-mix(in srgb, var(--ss-hv2-logo-accent) 45%, var(--ss-v2-hairline));
+  border-color: color-mix(
+    in srgb,
+    var(--ss-hv2-logo-accent) 45%,
+    var(--ss-v2-hairline)
+  );
 }
 
 .ss-hv2-logo:hover {
@@ -852,6 +860,10 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   html[data-js="on"] .ss-hv2-trust[data-revealed] .ss-hv2-trust__item:nth-child(5) {
     transition-delay: 320ms;
   }
+
+  html[data-js="on"] .ss-hv2-trust[data-revealed] .ss-hv2-trust__item:nth-child(6) {
+    transition-delay: 400ms;
+  }
 }
 
 /* Integration marquee — each logo cell is its own reveal target, settling in
@@ -878,7 +890,9 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
     transition-delay: var(--ss-hv2-reveal-delay, 0ms);
   }
 
-  html[data-js="on"] .ss-hv2-secondary__console[data-revealed="true"] .ss-hv2-console-item {
+  html[data-js="on"]
+    .ss-hv2-secondary__console[data-revealed="true"]
+    .ss-hv2-console-item {
     opacity: 1;
     transform: none;
   }
@@ -1187,6 +1201,10 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   cursor: pointer;
 }
 
+.ss-explore-cta:disabled {
+  cursor: default;
+}
+
 .ss-explore-cta__bg {
   position: absolute;
   inset: 0;
@@ -1194,7 +1212,8 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   background: linear-gradient(
     100deg,
     var(--ss-v2-ice, #7fe9f2),
-    color-mix(in srgb, var(--ss-v2-platinum, #e8ecf5) 70%, var(--ss-v2-ice, #7fe9f2)) 52%,
+    color-mix(in srgb, var(--ss-v2-platinum, #e8ecf5) 70%, var(--ss-v2-ice, #7fe9f2))
+      52%,
     var(--ss-v2-orchid, #b27be0)
   );
   box-shadow:
@@ -1243,7 +1262,11 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
       color-mix(in srgb, var(--ss-v2-orchid, #b27be0) 22%, transparent),
       transparent 62%
     ),
-    linear-gradient(180deg, var(--ss-v2-void-blue, #0b1120), var(--ss-v2-void-black, #04060b) 78%);
+    linear-gradient(
+      180deg,
+      var(--ss-v2-void-blue, #0b1120),
+      var(--ss-v2-void-black, #04060b) 78%
+    );
 }
 
 .ss-explore-overlay__glow {
@@ -1257,8 +1280,51 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   filter: blur(30px);
 }
 
+.ss-hv2-return {
+  position: fixed;
+  right: clamp(1rem, 0.5rem + 2vw, 1.75rem);
+  bottom: clamp(1rem, 0.5rem + 2vw, 1.75rem);
+  z-index: 220;
+  display: inline-grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--ss-v2-hairline-strong);
+  background:
+    radial-gradient(
+      120% 120% at 50% 0%,
+      color-mix(in srgb, var(--ss-v2-ice, #7fe9f2) 12%, transparent),
+      transparent 70%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite-raised) 86%, transparent);
+  color: var(--ss-v2-platinum);
+  box-shadow: var(--ss-v2-glow-soft);
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+.ss-hv2-return:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(
+    in srgb,
+    var(--ss-v2-ice, #7fe9f2) 42%,
+    var(--ss-v2-hairline)
+  );
+}
+
+.ss-hv2-return:focus-visible {
+  outline: 2px solid var(--ss-v2-ice, #7fe9f2);
+  outline-offset: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ss-explore-cta {
+  .ss-explore-cta,
+  .ss-hv2-return {
     transition: none;
   }
 }

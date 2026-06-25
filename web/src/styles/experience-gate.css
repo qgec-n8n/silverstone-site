@@ -6,7 +6,8 @@
   the AppExperienceProvider after hydration:
 
     data-loader-active  the Core Spin Loader overlay is up
-    data-hero-locked    the homepage primary hero still owns the viewport
+    data-hero-locked    the homepage is in loading/intro/transition
+    data-homepage-state the explicit homepage state machine
     data-scroll-lock    scrolling is locked (loader up OR hero locked)
 
   Everything is gated behind html[data-js="on"] so no-JS visitors always get a
@@ -21,10 +22,9 @@ html[data-js="on"][data-scroll-lock="on"] body {
 }
 
 /*
-  The header is mounted at all times (so its menus/focus management persist),
-  but it is lifted out of view and made inert while the loader is up or the
-  homepage primary hero is still locked. After the loader clears (non-homepage)
-  or the Explore morph completes (homepage) it settles back into place.
+  Non-homepage headers stay mounted during the loader and are lifted out of view.
+  The homepage intro does not mount header/footer at all; this rule remains for
+  non-homepage loading and any transient legacy header render during hydration.
 */
 [data-site-header] {
   transition:

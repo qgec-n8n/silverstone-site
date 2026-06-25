@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
+import { ALL_INTEGRATIONS } from "~/data/home-v2";
 
 import "~/styles/core-spin-loader.css";
 
@@ -20,6 +21,23 @@ import "~/styles/core-spin-loader.css";
 
 const HOLD_MS = 4000;
 const EXIT_MS = 600;
+const MAX_ASSET_WAIT_MS = 6500;
+
+const HOME_IMAGE_ASSETS = [
+  "/brand/silverstone-ai-emblem-dark.png",
+  "/brand/silverstone-ai-logo-dark-v2.png",
+  "/home-v2/hero-poster.png",
+  "/home-v2/hero-poster-portrait.png",
+  "/home-v2/secondary-hero.png",
+  "/home-v2/story-operating-surface.png",
+  "/home-v2/story-voice-signal.png",
+  "/home-v2/story-human-loop.png",
+  "/home-v2/standard-chrome.png",
+  "/home-v2/service-lead-followup.webp",
+  "/home-v2/service-workflow-automation.webp",
+  "/home-v2/service-data-integration.webp",
+  "/home-v2/service-consulting.webp",
+] as const;
 
 type Phase = "active" | "exiting" | "done";
 
@@ -57,22 +75,69 @@ function loaderMessage(pathname: string): string {
   return "Engineering the next advantage.";
 }
 
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+function preloadImage(src: string): Promise<void> {
+  return new Promise((resolve) => {
+    const image = new Image();
+    image.decoding = "async";
+    image.onload = () => {
+      void image
+        .decode()
+        .catch(() => undefined)
+        .finally(resolve);
+    };
+    image.onerror = () => resolve();
+    image.src = src;
+  });
+}
+
+function routeAssets(pathname: string): string[] {
+  const assets = ["/brand/silverstone-ai-emblem-dark.png"];
+  if (pathname === "/") {
+    assets.push(...HOME_IMAGE_ASSETS);
+    assets.push(...ALL_INTEGRATIONS.map((mark) => mark.file));
+  }
+  return Array.from(new Set(assets));
+}
+
+function preloadRouteAssets(pathname: string): Promise<void> {
+  const fontReady =
+    "fonts" in document
+      ? document.fonts.ready.then(() => undefined)
+      : Promise.resolve();
+  const assetsReady = Promise.allSettled([
+    fontReady,
+    ...routeAssets(pathname).map((src) => preloadImage(src)),
+  ]).then(() => undefined);
+  return Promise.race([assetsReady, wait(MAX_ASSET_WAIT_MS)]);
+}
+
 export function CoreSpinLoader() {
   const location = useLocation();
   const { dismissLoader } = useAppExperience();
   const [phase, setPhase] = useState<Phase>("active");
   // Frozen at mount: the loader only ever runs for the route it loaded with.
-  const [message] = useState(() => loaderMessage(location.pathname));
+  const [initialPathname] = useState(() => location.pathname);
+  const [message] = useState(() => loaderMessage(initialPathname));
 
   useEffect(() => {
+    let cancelled = false;
     const beginExit = () => {
-      setPhase((current) => (current === "active" ? "exiting" : current));
+      if (!cancelled) {
+        setPhase((current) => (current === "active" ? "exiting" : current));
+      }
     };
-    const holdTimer = window.setTimeout(beginExit, HOLD_MS);
+
+    void Promise.all([wait(HOLD_MS), preloadRouteAssets(initialPathname)]).then(
+      beginExit,
+    );
     return () => {
-      window.clearTimeout(holdTimer);
+      cancelled = true;
     };
-  }, []);
+  }, [initialPathname]);
 
   useEffect(() => {
     if (phase !== "exiting") {

@@ -1,4 +1,5 @@
 import { motion, type Variants } from "framer-motion";
+import type { Ref } from "react";
 
 import { Container } from "~/components/layout/container";
 
@@ -7,16 +8,26 @@ import { HeroAetherField } from "./hero-aether-field";
 
 const container: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.2, delayChildren: 0.08 } },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 26 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, scale: 0.96, y: 34 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 type HeroProps = {
+  exploreButtonDisabled?: boolean;
+  exploreButtonLayoutEnabled?: boolean;
+  exploreButtonRef?: Ref<HTMLButtonElement>;
+  hideExploreButton?: boolean;
   motionEnabled: boolean;
+  onExplore: () => void;
 };
 
 /**
@@ -26,7 +37,14 @@ type HeroProps = {
  * action morphs into the body and releases the lock. The live-signal console and
  * capability proof open the body in {@link SecondaryHero}.
  */
-export function Hero({ motionEnabled }: HeroProps) {
+export function Hero({
+  exploreButtonDisabled = false,
+  exploreButtonLayoutEnabled = true,
+  exploreButtonRef,
+  hideExploreButton = false,
+  motionEnabled,
+  onExplore,
+}: HeroProps) {
   return (
     <section className="ss-hv2-hero">
       <HeroAetherField />
@@ -38,12 +56,9 @@ export function Hero({ motionEnabled }: HeroProps) {
           variants={container}
           initial={motionEnabled ? "hidden" : false}
           animate="show"
-          className="ss-hv2-hero__content flex flex-col gap-7"
+          className="ss-hv2-hero__content flex flex-col items-center gap-7 text-center"
         >
-          <motion.span
-            variants={item}
-            className="ss-hv2-kicker ss-eyebrow self-start font-mono"
-          >
+          <motion.span variants={item} className="ss-hv2-kicker ss-eyebrow font-mono">
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
             UK AI systems studio
           </motion.span>
@@ -58,20 +73,25 @@ export function Hero({ motionEnabled }: HeroProps) {
             className="ss-lead ss-hv2-hero__lead text-[color:var(--ss-v2-titanium)]"
           >
             Silverstone designs AI voice, reception and automation systems that answer
-            every call, capture every enquiry and run the repetitive work — so small
-            UK teams respond faster, deliver more and grow without adding headcount.
+            every call, capture every enquiry and run the repetitive work — so small UK
+            teams respond faster, deliver more and grow without adding headcount.
           </motion.p>
 
-          <motion.div variants={item} className="flex flex-wrap items-center gap-4">
-            <ExploreSystemButton />
-          </motion.div>
+          {hideExploreButton ? null : (
+            <motion.div
+              variants={item}
+              className="flex flex-wrap items-center justify-center gap-4"
+            >
+              <ExploreSystemButton
+                ref={exploreButtonRef}
+                disabled={exploreButtonDisabled}
+                layoutEnabled={exploreButtonLayoutEnabled}
+                onActivate={onExplore}
+              />
+            </motion.div>
+          )}
         </motion.div>
       </Container>
-
-      <div className="ss-hv2-scrollcue" aria-hidden="true">
-        <span className="ss-eyebrow font-mono text-[10px]">Scroll</span>
-        <span className="ss-hv2-scrollcue__rail" />
-      </div>
     </section>
   );
 }

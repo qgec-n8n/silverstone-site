@@ -2,190 +2,231 @@ import { useEffect, useRef } from "react";
 
 import type { CapabilityTier } from "~/visual/hooks/use-capability-tier";
 
-// Local bundled particles.js (v2.0.0). Imported as a URL so it can be injected
-// as a classic <script> (sloppy mode) — the library uses `arguments.callee`
-// internally, which throws under ES-module strict mode. No CDN involved; Vite
-// serves/emits the file from the local dependency.
-import particlesScriptUrl from "particles.js/particles.js?url";
-
 /*
-  Unified body background, ported from the supplied Particles Background
-  (particles.js) component. A single fixed canvas sits behind the secondary hero
-  and every body section, replacing the former multi-engine backdrop. The base
-  gradient, spectral fields and technical grid remain pure CSS so the page reads
-  as a calm static surface under no-JS / reduced motion.
-
-  Adaptations from the supplied component:
-    - particles.js is bundled locally and loaded as a classic script (no CDN).
-    - SSR-guarded: initialisation runs only inside an effect.
-    - `retina_detect` is disabled to cap the backing store at CSS pixels (DPR cap).
-    - The particle count is reduced on small viewports.
-    - The animation pauses while the tab is hidden and is destroyed on unmount.
-    - The container is pointer-events:none so it never intercepts page input;
-      the supplied interactivity config is preserved but simply never fires.
+  Unified body background. The static CSS layers keep the page legible when
+  motion is off; this component adds a single local canvas with one RAF owner.
+  Pointer tracking is window-based, relative to the canvas, so the fixed layer
+  remains pointer-events:none and never intercepts page input.
 */
-
-const MOUNT_ID = "ss-body-particles";
-const SCRIPT_ID = "ss-particles-js-vendor";
-
-let scriptPromise: Promise<void> | null = null;
-
-function ensureParticlesLoaded(): Promise<void> {
-  if (typeof window === "undefined") {
-    return Promise.reject(new Error("particles.js requires a browser"));
-  }
-  if (window.particlesJS) {
-    return Promise.resolve();
-  }
-  if (scriptPromise) {
-    return scriptPromise;
-  }
-  scriptPromise = new Promise<void>((resolve, reject) => {
-    const existing = document.getElementById(
-      SCRIPT_ID,
-    ) as HTMLScriptElement | null;
-    if (existing) {
-      if (window.particlesJS) {
-        resolve();
-        return;
-      }
-      existing.addEventListener("load", () => resolve());
-      existing.addEventListener("error", () =>
-        reject(new Error("particles.js failed to load")),
-      );
-      return;
-    }
-    const script = document.createElement("script");
-    script.id = SCRIPT_ID;
-    script.src = particlesScriptUrl;
-    script.async = true;
-    script.addEventListener("load", () => resolve());
-    script.addEventListener("error", () =>
-      reject(new Error("particles.js failed to load")),
-    );
-    document.head.appendChild(script);
-  });
-  return scriptPromise;
-}
 
 type BodyParticlesProps = {
   enabled: boolean;
   tier: CapabilityTier;
 };
 
+type Particle = {
+  color: string;
+  radius: number;
+  vx: number;
+  vy: number;
+  x: number;
+  y: number;
+};
+
+const PARTICLE_COLORS = [
+  "34, 211, 238",
+  "56, 189, 248",
+  "91, 98, 240",
+  "124, 92, 255",
+  "211, 107, 203",
+  "233, 234, 239",
+] as const;
+
+function createParticle(width: number, height: number): Particle {
+  const angle = Math.random() * Math.PI * 2;
+  const speed = 0.08 + Math.random() * 0.12;
+  return {
+    color:
+      PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)] ??
+      PARTICLE_COLORS[0],
+    radius: 0.9 + Math.random() * 1.9,
+    vx: Math.cos(angle) * speed,
+    vy: Math.sin(angle) * speed,
+    x: Math.random() * width,
+    y: Math.random() * height,
+  };
+}
+
 export function BodyParticles({ enabled, tier }: BodyParticlesProps) {
-  const mountRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (!enabled || typeof window === "undefined") {
-      return undefined;
-    }
-    const mount = mountRef.current;
-    if (!mount) {
       return undefined;
     }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return undefined;
     }
 
-    let cancelled = false;
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context) {
+      return undefined;
+    }
 
-    const destroy = () => {
-      const dom = window.pJSDom;
-      if (dom && dom.length > 0) {
-        for (const entry of dom) {
-          try {
-            entry.pJS.fn.vendors.destroypJS();
-          } catch {
-            // ignore teardown races
+    const ctx = context;
+    const pointer = {
+      active: false,
+      coarse: window.matchMedia("(pointer: coarse)").matches,
+      x: 0,
+      y: 0,
+    };
+    let animationFrame = 0;
+    let dpr = 1;
+    let height = 0;
+    let running = false;
+    let width = 0;
+    let particles: Particle[] = [];
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const mobile = window.matchMedia("(max-width: 768px)").matches;
+      const targetCount = mobile ? 46 : 86;
+      particles = Array.from({ length: targetCount }, () =>
+        createParticle(width, height),
+      );
+    };
+
+    const drawLink = (
+      ax: number,
+      ay: number,
+      bx: number,
+      by: number,
+      opacity: number,
+      color = "125, 233, 240",
+    ) => {
+      ctx.strokeStyle = `rgba(${color}, ${opacity.toFixed(3)})`;
+      ctx.lineWidth = 0.85;
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(bx, by);
+      ctx.stroke();
+    };
+
+    const paint = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (const particle of particles) {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        if (particle.x < -20) particle.x = width + 20;
+        if (particle.x > width + 20) particle.x = -20;
+        if (particle.y < -20) particle.y = height + 20;
+        if (particle.y > height + 20) particle.y = -20;
+
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${particle.color}, 0.72)`;
+        ctx.fill();
+      }
+
+      for (let a = 0; a < particles.length; a += 1) {
+        const pa = particles[a];
+        if (!pa) continue;
+
+        for (let b = a + 1; b < particles.length; b += 1) {
+          const pb = particles[b];
+          if (!pb) continue;
+          const dx = pa.x - pb.x;
+          const dy = pa.y - pb.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 145) {
+            drawLink(pa.x, pa.y, pb.x, pb.y, (1 - distance / 145) * 0.18);
           }
         }
-        window.pJSDom = [];
-      }
-      const canvas = mount.querySelector("canvas");
-      if (canvas) {
-        canvas.remove();
+
+        if (!pointer.coarse && pointer.active) {
+          const dx = pa.x - pointer.x;
+          const dy = pa.y - pointer.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance > 0 && distance < 190) {
+            const force = (1 - distance / 190) * 0.012;
+            pa.vx += (dx / distance) * force;
+            pa.vy += (dy / distance) * force;
+            pa.vx *= 0.992;
+            pa.vy *= 0.992;
+            drawLink(
+              pa.x,
+              pa.y,
+              pointer.x,
+              pointer.y,
+              (1 - distance / 190) * 0.42,
+              "244, 250, 255",
+            );
+          }
+        }
       }
     };
 
-    const pauseOnHidden = () => {
-      const instance = window.pJSDom?.[0]?.pJS;
-      if (!instance) {
+    const tick = () => {
+      if (!running) {
         return;
       }
+      paint();
+      animationFrame = window.requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (running || document.hidden) {
+        return;
+      }
+      running = true;
+      animationFrame = window.requestAnimationFrame(tick);
+    };
+
+    const stop = () => {
+      running = false;
+      window.cancelAnimationFrame(animationFrame);
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (pointer.coarse) {
+        return;
+      }
+      const rect = canvas.getBoundingClientRect();
+      pointer.x = event.clientX - rect.left;
+      pointer.y = event.clientY - rect.top;
+      pointer.active =
+        pointer.x >= 0 &&
+        pointer.x <= rect.width &&
+        pointer.y >= 0 &&
+        pointer.y <= rect.height;
+    };
+
+    const clearPointer = () => {
+      pointer.active = false;
+    };
+
+    const handleVisibility = () => {
       if (document.hidden) {
-        if (instance.drawAnimFrame !== undefined) {
-          window.cancelAnimationFrame(instance.drawAnimFrame);
-        }
+        stop();
       } else {
-        instance.fn.vendors.draw();
+        start();
       }
     };
 
-    ensureParticlesLoaded()
-      .then(() => {
-        if (cancelled || !window.particlesJS) {
-          return;
-        }
-        destroy();
-
-        const mobile = window.matchMedia("(max-width: 768px)").matches;
-
-        // Silverstone recolour of the supplied dark config; numbers preserved.
-        window.particlesJS(MOUNT_ID, {
-          particles: {
-            number: {
-              value: mobile ? 70 : 140,
-              density: { enable: true, value_area: 800 },
-            },
-            color: { value: "#9fb8e6" },
-            shape: { type: "circle", stroke: { width: 0.5, color: "#7aa2ff" } },
-            opacity: {
-              value: 0.7,
-              random: true,
-              anim: { enable: true, speed: 1, opacity_min: 0.3 },
-            },
-            size: {
-              value: 3,
-              random: true,
-              anim: { enable: true, speed: 2, size_min: 1 },
-            },
-            line_linked: {
-              enable: true,
-              distance: 160,
-              color: "#5e7fb0",
-              opacity: 0.4,
-              width: 1.2,
-            },
-            move: { enable: true, speed: 2, random: true, out_mode: "bounce" },
-          },
-          interactivity: {
-            detect_on: "canvas",
-            events: {
-              onhover: { enable: true, mode: "grab" },
-              onclick: { enable: true, mode: "push" },
-              resize: true,
-            },
-            modes: {
-              grab: { distance: 220, line_linked: { opacity: 0.8 } },
-              push: { particles_nb: 4 },
-              repulse: { distance: 180, duration: 0.4 },
-            },
-          },
-          retina_detect: false,
-        });
-
-        document.addEventListener("visibilitychange", pauseOnHidden);
-      })
-      .catch(() => {
-        // particles.js failed to load — the static CSS base remains as a
-        // graceful fallback, so swallow the error rather than surface it.
-      });
+    resize();
+    start();
+    window.addEventListener("resize", resize);
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerleave", clearPointer);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
-      cancelled = true;
-      document.removeEventListener("visibilitychange", pauseOnHidden);
-      destroy();
+      stop();
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerleave", clearPointer);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      ctx.clearRect(0, 0, width, height);
     };
   }, [enabled]);
 
@@ -194,11 +235,7 @@ export function BodyParticles({ enabled, tier }: BodyParticlesProps) {
       <div className="ss-hv2-backdrop__base" />
       <div className="ss-hv2-backdrop__fields" />
       <div className="ss-hv2-backdrop__grid" />
-      <div
-        ref={mountRef}
-        id={MOUNT_ID}
-        className="ss-hv2-backdrop__particles"
-      />
+      <canvas ref={canvasRef} className="ss-hv2-backdrop__particles" />
       <div className="ss-hv2-backdrop__noise" />
     </div>
   );

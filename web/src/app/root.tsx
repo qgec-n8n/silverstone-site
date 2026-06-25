@@ -32,7 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             // already correct on the very first frame (no flash, no mismatch).
             // The AppExperienceProvider reconciles these after hydration.
             __html:
-              '(function(){var d=document.documentElement;d.setAttribute("data-js","on");d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(location.pathname==="/"){d.setAttribute("data-hero-locked","on");}})();',
+              '(function(){var d=document.documentElement;d.setAttribute("data-js","on");d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(location.pathname==="/"){d.setAttribute("data-hero-locked","on");d.setAttribute("data-homepage-state","loading");}})();',
           }}
         />
         <Meta />

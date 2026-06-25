@@ -187,3 +187,55 @@ Non-blocking pre-existing validation:
 Rollback:
 
 - Reset `main` back to remote branch `backup/main-before-react-integration-20260623-1808` if this integration must be reverted. Do not delete that safety branch until the rollback window is closed.
+
+## Homepage intro/body correction record -- 2026-06-25
+
+Observed before implementation:
+
+- Browser baseline on `http://127.0.0.1:5173/` showed the locked post-loader homepage still had the full body mounted: desktop document height 12,170px and mobile document height 17,329px while `data-scroll-lock="on"` and `data-hero-locked="on"`.
+- Header, footer, `#system`, and the body particle layer were present during the supposed isolated intro state.
+- The Explore button owned the unlock and performed Lenis/`scrollIntoView` navigation to `#system`, which prevented a clean reversible transition.
+- The body particle layer loaded `particles.js` locally, but its own hover interactivity was disabled by `pointer-events:none`.
+- CTA/footer logo references still pointed at `silverstone-logo-dark-new.png`; the supplied `silverstone-ai-logo-dark-v2.png` edge sampled to `#0a1434`.
+
+Changed:
+
+- Added a homepage state machine (`loading`, `intro`, `opening`, `body`, `closing`) in `AppExperienceProvider`, mirrored to `<html data-homepage-state>`.
+- Locked scroll at the document level during loading/intro/opening/closing, restored prior inline overflow styles on body entry, and reset programmatic scroll attempts while the intro is locked.
+- Changed the app shell so the homepage header/footer and header padding are absent until `homepageState === "body"`; other routes retain the existing loader-hidden header behavior.
+- Split `HomeV2` into mutually exclusive intro/transition/body render trees. Body sections, Lenis/GSAP `ScrollProvider`, body particles, header, and footer mount only in body state.
+- Refactored the Hero Button Expendable mechanic into controlled Motion shared-layout primitives with a stable `layoutId`, forward opening overlay, reverse return-to-intro control, Escape return from body, and focus restoration to the Explore button.
+- Removed anchor/scroll navigation from the opener; the body now starts at `#system` under the mounted header.
+- Replaced the `particles.js` body layer with a single local canvas RAF owner, reduced particle count/speed, canvas-relative pointer math, coarse-pointer magnetic disablement, visibility pause/resume, and explicit cleanup.
+- Updated the hero Aether canvas pointer math, zero-distance guard, and mote palette to cyan/blue/violet/pink/platinum; adjusted intro reveal timing to the requested lower/smaller/transparent stagger.
+- Updated the loader to hold for at least four seconds and wait for current-route fonts/local image/SVG preload resolution or failure, with a max asset timeout.
+- Added the supplied dark v2 logo asset, switched CTA/footer lockups to it, and updated `--silverstone-dark-logo-edge` to `#0a1434`.
+- Added required social, Microsoft, and Google integration marks as local SVGs, retained the broader ecosystem in the same three-row carousel, and removed any visible exhaustive integration sentence.
+- Corrected the first body heading to `The Silverstone System`, inserted the Scroll indicator immediately before the trust strip, and changed trust signals to the required six-item sequence.
+- Added focused unit and Playwright regression tests for local carousel assets and the homepage intro/body state machine.
+
+Verification:
+
+- Manual Playwright desktop: intro document height equalled viewport height, header/footer/body particles/`#system` were absent; opening state remained viewport-height and body-free; body state mounted header/footer/body particles/`#system` with heading `The Silverstone System`; reverse transition returned to intro at scrollY 0 with Explore focused.
+- Manual Playwright mobile 390x844: intro document height 844px; body opened to scrollable state with header/footer/body particles and `#system` at the header offset.
+- Manual Playwright console check: 0 runtime errors; only a development preload warning for an existing brand emblem resource.
+- Canvas pixel checks confirmed the hero Aether canvas and body particle canvas were nonblank when mounted.
+- Header surface check confirmed `rgb(255, 255, 255)` at top and after scrolling.
+- Integration carousel check confirmed required local SVGs decode when in view and the hidden accessible list contains the new required Social/Microsoft/Google sets.
+- `npm run typecheck` passed.
+- `npm run lint` passed.
+- `npm run test` passed: 17 files, 35 tests.
+- `npm run build` passed.
+- `npm run test:e2e -- tests/e2e/homepage-interaction.spec.ts` passed in desktop and mobile Chromium.
+- `npm run test:e2e` passed: 34 desktop/mobile Chromium tests.
+- `npm run staging:safety` passed.
+- Changed-file Prettier check passed for all files touched by this work.
+
+Non-blocking validation notes:
+
+- Full `npm run format:check` still fails on 32 unrelated files outside this task's diff; the changed-file Prettier check passed.
+- `npm run bundle:report` exited successfully but reported `Foundation JavaScript: 282.53 KB gzip (target-miss)`.
+
+Tradeoff:
+
+- Microsoft and LinkedIn logo assets use local coloured SVG fallback marks where `simple-icons` does not provide the current brand mark. The carousel remains local, icon-only, and accessible through the hidden list.

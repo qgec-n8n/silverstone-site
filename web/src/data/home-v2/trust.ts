@@ -9,7 +9,8 @@ export type TrustSignal = {
 };
 
 export const TRUST_SIGNALS: readonly TrustSignal[] = [
-  { id: "uk", label: "UK-built, London-based", icon: "MapPin" },
+  { id: "uk-built", label: "UK-built", icon: "MapPin" },
+  { id: "london", label: "London-based", icon: "MapPin" },
   { id: "human", label: "Human-reviewed automation", icon: "UserCheck" },
   { id: "no-lock-in", label: "No lock-in pilots", icon: "Unlock" },
   { id: "speed", label: "Live in weeks", icon: "Zap" },

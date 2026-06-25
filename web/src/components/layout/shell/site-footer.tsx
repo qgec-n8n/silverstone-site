@@ -26,10 +26,10 @@ export function SiteFooter() {
                 alt="Silverstone AI"
                 className="ss-footer__logo"
                 decoding="async"
-                height={1008}
+                height={1007}
                 loading="lazy"
-                src="/brand/silverstone-logo-dark-new.png"
-                width={1561}
+                src="/brand/silverstone-ai-logo-dark-v2.png"
+                width={1562}
               />
               <span className="sr-only">Silverstone AI — home</span>
             </Link>
@@ -50,7 +50,11 @@ export function SiteFooter() {
             </Link>
           </div>
           {FOOTER_COLUMNS.map((column) => (
-            <nav aria-label={column.title} className="ss-footer__col" key={column.title}>
+            <nav
+              aria-label={column.title}
+              className="ss-footer__col"
+              key={column.title}
+            >
               <h2 className="ss-eyebrow text-titanium">{column.title}</h2>
               <ul className="mt-4 flex flex-col gap-2.5">
                 {column.links.map((link) => (

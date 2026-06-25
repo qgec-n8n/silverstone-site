@@ -84,21 +84,19 @@ export function SecondaryHero() {
             <Reveal>
               <span className="ss-eyebrow ss-hv2-kicker self-start font-mono">
                 <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-                The Silverstone system
+                Operating layer
               </span>
             </Reveal>
             <Reveal delayMs={80}>
               <h2 className="ss-hv2-display ss-hv2-secondary__title text-4xl sm:text-5xl">
-                One calm surface for every{" "}
-                <span className="ss-chrome-text">moment that matters</span>.
+                The Silverstone System
               </h2>
             </Reveal>
             <Reveal delayMs={160}>
               <p className="ss-lead ss-hv2-secondary__lead text-[color:var(--ss-v2-titanium)]">
                 Calls, messages, bookings and follow-ups converge into a single
-                operating layer. Silverstone answers in seconds, captures the
-                detail and routes the work — while your team keeps oversight of
-                every outcome.
+                operating layer. Silverstone answers in seconds, captures the detail and
+                routes the work — while your team keeps oversight of every outcome.
               </p>
             </Reveal>
             <ul className="ss-hv2-secondary__caps flex flex-col gap-3">

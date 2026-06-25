@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -12,14 +13,15 @@ import { useLocation } from "react-router";
 /**
  * AppExperience coordinates the opening sequence shared by every route:
  *
- *   loader gate ──▶ (homepage) locked primary hero ──▶ Explore morph ──▶ body
+ *   loader gate -> (homepage) isolated intro -> Explore morph -> body
+ *                                                  ^              |
+ *                                                  |____ close ___|
  *
  * Two pieces of logical state drive everything:
  *   - `loaderActive`        — the Core Spin Loader overlay is up (true on every
  *                              full load / reload, cleared by the loader itself).
- *   - `homepageHeroLocked`  — the homepage primary hero still owns the viewport
- *                              (route-driven: locked whenever the path is "/",
- *                              released only once the Explore morph completes).
+ *   - `homepageState`       — the homepage interaction state. Body content and
+ *                              site chrome only exist once this reaches "body".
  *
  * The header is hidden and scrolling is locked while either is true. The logical
  * state is mirrored onto <html> data-attributes so the gate CSS can react, and
@@ -27,14 +29,22 @@ import { useLocation } from "react-router";
  * before first paint — so there is no flash and no hydration mismatch.
  */
 
+export type HomepageState = "loading" | "intro" | "opening" | "body" | "closing";
+
 type AppExperienceValue = {
   loaderActive: boolean;
+  homepageState: HomepageState;
   homepageHeroLocked: boolean;
+  homepageBodyActive: boolean;
   headerHidden: boolean;
   scrollLocked: boolean;
   dismissLoader: () => void;
   lockHomepageHero: () => void;
   unlockHomepageHero: () => void;
+  openHomepageBody: () => void;
+  completeHomepageOpening: () => void;
+  closeHomepageBody: () => void;
+  completeHomepageClosing: () => void;
 };
 
 const AppExperienceContext = createContext<AppExperienceValue | null>(null);
@@ -51,29 +61,75 @@ function setRootFlag(name: string, on: boolean): void {
   }
 }
 
+function setRootAttribute(name: string, value: string | null): void {
+  if (typeof document === "undefined") {
+    return;
+  }
+  const root = document.documentElement;
+  if (value === null) {
+    root.removeAttribute(name);
+  } else {
+    root.setAttribute(name, value);
+  }
+}
+
 export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const isHomeRoute = location.pathname === "/";
 
   const [loaderActive, setLoaderActive] = useState(true);
-  // Initialised from the route so SSR, the boot script and the first client
-  // render all agree (the homepage opens locked; every other route does not).
-  const [homepageHeroLocked, setHomepageHeroLocked] = useState(isHomeRoute);
+  const [homepageState, setHomepageState] = useState<HomepageState>(
+    isHomeRoute ? "loading" : "body",
+  );
   const [lastIsHome, setLastIsHome] = useState(isHomeRoute);
+  const previousScrollStylesRef = useRef<{
+    bodyOverflow: string;
+    bodyOverscroll: string;
+    htmlOverflow: string;
+    htmlOverscroll: string;
+  } | null>(null);
 
-  // Re-arm the lock on navigation by adjusting state during render (React's
-  // recommended pattern — no effect, no cascading render): entering "/" re-locks,
-  // leaving it releases. The Explore morph clears the lock without a path change,
-  // so on the homepage it stays open.
+  // Re-arm the homepage interaction on navigation by adjusting state during
+  // render (React's recommended pattern - no effect, no cascading render).
   if (isHomeRoute !== lastIsHome) {
     setLastIsHome(isHomeRoute);
-    setHomepageHeroLocked(isHomeRoute);
+    setHomepageState(isHomeRoute ? (loaderActive ? "loading" : "intro") : "body");
   }
 
-  const dismissLoader = useCallback(() => setLoaderActive(false), []);
-  const lockHomepageHero = useCallback(() => setHomepageHeroLocked(true), []);
-  const unlockHomepageHero = useCallback(() => setHomepageHeroLocked(false), []);
+  const dismissLoader = useCallback(() => {
+    setLoaderActive(false);
+    setHomepageState((current) => (current === "loading" ? "intro" : current));
+  }, []);
 
+  const lockHomepageHero = useCallback(() => {
+    setHomepageState("intro");
+  }, []);
+
+  const unlockHomepageHero = useCallback(() => {
+    setHomepageState("body");
+  }, []);
+
+  const openHomepageBody = useCallback(() => {
+    setHomepageState((current) => (current === "intro" ? "opening" : current));
+  }, []);
+
+  const completeHomepageOpening = useCallback(() => {
+    setHomepageState((current) => (current === "opening" ? "body" : current));
+  }, []);
+
+  const closeHomepageBody = useCallback(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ left: 0, top: 0, behavior: "auto" });
+    }
+    setHomepageState((current) => (current === "body" ? "closing" : current));
+  }, []);
+
+  const completeHomepageClosing = useCallback(() => {
+    setHomepageState((current) => (current === "closing" ? "intro" : current));
+  }, []);
+
+  const homepageHeroLocked = isHomeRoute && homepageState !== "body";
+  const homepageBodyActive = isHomeRoute && homepageState === "body";
   const headerHidden = loaderActive || homepageHeroLocked;
   const scrollLocked = loaderActive || homepageHeroLocked;
 
@@ -86,28 +142,135 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   }, [homepageHeroLocked]);
 
   useEffect(() => {
+    setRootAttribute("data-homepage-state", isHomeRoute ? homepageState : null);
+  }, [homepageState, isHomeRoute]);
+
+  useEffect(() => {
     setRootFlag("data-scroll-lock", scrollLocked);
     return () => setRootFlag("data-scroll-lock", false);
   }, [scrollLocked]);
 
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      return undefined;
+    }
+
+    const previous = previousScrollStylesRef.current;
+    if (!scrollLocked) {
+      if (previous) {
+        document.documentElement.style.overflow = previous.htmlOverflow;
+        document.documentElement.style.overscrollBehavior = previous.htmlOverscroll;
+        document.body.style.overflow = previous.bodyOverflow;
+        document.body.style.overscrollBehavior = previous.bodyOverscroll;
+        previousScrollStylesRef.current = null;
+      }
+      return undefined;
+    }
+
+    if (!previous) {
+      previousScrollStylesRef.current = {
+        bodyOverflow: document.body.style.overflow,
+        bodyOverscroll: document.body.style.overscrollBehavior,
+        htmlOverflow: document.documentElement.style.overflow,
+        htmlOverscroll: document.documentElement.style.overscrollBehavior,
+      };
+    }
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overscrollBehavior = "none";
+    document.body.style.overflow = "hidden";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      const stored = previousScrollStylesRef.current;
+      if (stored) {
+        document.documentElement.style.overflow = stored.htmlOverflow;
+        document.documentElement.style.overscrollBehavior = stored.htmlOverscroll;
+        document.body.style.overflow = stored.bodyOverflow;
+        document.body.style.overscrollBehavior = stored.bodyOverscroll;
+        previousScrollStylesRef.current = null;
+      }
+    };
+  }, [scrollLocked]);
+
+  useEffect(() => {
+    if (!isHomeRoute || homepageState === "body" || typeof window === "undefined") {
+      return undefined;
+    }
+
+    let frame = 0;
+    const resetScroll = () => {
+      if (window.scrollX !== 0 || window.scrollY !== 0) {
+        window.scrollTo(0, 0);
+      }
+    };
+    const onScroll = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(resetScroll);
+    };
+    const preventDefault = (event: Event) => {
+      event.preventDefault();
+    };
+    const preventScrollKeys = (event: KeyboardEvent) => {
+      if (
+        event.key === " " ||
+        event.key === "PageDown" ||
+        event.key === "PageUp" ||
+        event.key === "End" ||
+        event.key === "Home" ||
+        event.key === "ArrowDown" ||
+        event.key === "ArrowUp"
+      ) {
+        event.preventDefault();
+      }
+    };
+
+    resetScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("wheel", preventDefault, { capture: true, passive: false });
+    window.addEventListener("touchmove", preventDefault, {
+      capture: true,
+      passive: false,
+    });
+    document.addEventListener("keydown", preventScrollKeys, true);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", preventDefault, true);
+      window.removeEventListener("touchmove", preventDefault, true);
+      document.removeEventListener("keydown", preventScrollKeys, true);
+    };
+  }, [homepageState, isHomeRoute]);
+
   const value = useMemo<AppExperienceValue>(
     () => ({
       loaderActive,
+      homepageState,
       homepageHeroLocked,
+      homepageBodyActive,
       headerHidden,
       scrollLocked,
       dismissLoader,
       lockHomepageHero,
       unlockHomepageHero,
+      openHomepageBody,
+      completeHomepageOpening,
+      closeHomepageBody,
+      completeHomepageClosing,
     }),
     [
       loaderActive,
+      homepageState,
       homepageHeroLocked,
+      homepageBodyActive,
       headerHidden,
       scrollLocked,
       dismissLoader,
       lockHomepageHero,
       unlockHomepageHero,
+      openHomepageBody,
+      completeHomepageOpening,
+      closeHomepageBody,
+      completeHomepageClosing,
     ],
   );
 
@@ -121,9 +284,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
 export function useAppExperience(): AppExperienceValue {
   const context = useContext(AppExperienceContext);
   if (!context) {
-    throw new Error(
-      "useAppExperience must be used within an AppExperienceProvider",
-    );
+    throw new Error("useAppExperience must be used within an AppExperienceProvider");
   }
   return context;
 }

@@ -16,6 +16,14 @@ import { useEffect, useRef } from "react";
 */
 
 const VOID = "#05070d";
+const AETHER_COLORS = [
+  "rgba(127, 233, 240, 0.78)",
+  "rgba(56, 189, 248, 0.74)",
+  "rgba(91, 98, 240, 0.72)",
+  "rgba(124, 92, 255, 0.72)",
+  "rgba(211, 107, 203, 0.68)",
+  "rgba(233, 234, 239, 0.76)",
+] as const;
 
 export function HeroAetherField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -34,9 +42,7 @@ export function HeroAetherField() {
     const view = canvas;
     const ctx = context;
 
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobile = window.matchMedia("(max-width: 768px)").matches;
 
     let animationFrameId = 0;
@@ -90,7 +96,7 @@ export function HeroAetherField() {
           const dx = mouse.x - this.x;
           const dy = mouse.y - this.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < mouse.radius + this.size) {
+          if (distance > 0 && distance < mouse.radius + this.size) {
             const forceDirectionX = dx / distance;
             const forceDirectionY = dy / distance;
             const force = (mouse.radius - distance) / mouse.radius;
@@ -111,21 +117,17 @@ export function HeroAetherField() {
       particles = [];
       const divisor = mobile ? 18000 : 11000;
       const cap = mobile ? 70 : 150;
-      const count = Math.min(
-        Math.floor((view.height * view.width) / divisor),
-        cap,
-      );
+      const count = Math.min(Math.floor((view.height * view.width) / divisor), cap);
       for (let i = 0; i < count; i++) {
         const size = Math.random() * 2 + 1;
         const x = Math.random() * (view.width - size * 4) + size * 2;
         const y = Math.random() * (view.height - size * 4) + size * 2;
         const directionX = Math.random() * 0.4 - 0.2;
         const directionY = Math.random() * 0.4 - 0.2;
-        // Cool platinum motes, recoloured from the source's purple.
-        const color = "rgba(196, 212, 238, 0.75)";
-        particles.push(
-          new Particle(x, y, directionX, directionY, size, color),
-        );
+        const color =
+          AETHER_COLORS[Math.floor(Math.random() * AETHER_COLORS.length)] ??
+          AETHER_COLORS[0];
+        particles.push(new Particle(x, y, directionX, directionY, size, color));
       }
     };
 
@@ -149,9 +151,7 @@ export function HeroAetherField() {
 
             const dxMouseA = pa.x - (mouse.x ?? 0);
             const dyMouseA = pa.y - (mouse.y ?? 0);
-            const distanceMouseA = Math.sqrt(
-              dxMouseA * dxMouseA + dyMouseA * dyMouseA,
-            );
+            const distanceMouseA = Math.sqrt(dxMouseA * dxMouseA + dyMouseA * dyMouseA);
 
             if (mouse.x !== null && distanceMouseA < mouse.radius) {
               // Threads near the pointer flare to ice-white.
@@ -203,8 +203,9 @@ export function HeroAetherField() {
     };
 
     const resizeCanvas = () => {
-      view.width = window.innerWidth;
-      view.height = window.innerHeight;
+      const rect = view.getBoundingClientRect();
+      view.width = Math.max(1, Math.floor(rect.width || window.innerWidth));
+      view.height = Math.max(1, Math.floor(rect.height || window.innerHeight));
       init();
       if (reduceMotion) {
         paint(false);
@@ -212,8 +213,9 @@ export function HeroAetherField() {
     };
 
     const handleMouseMove = (event: MouseEvent) => {
-      mouse.x = event.clientX;
-      mouse.y = event.clientY;
+      const rect = view.getBoundingClientRect();
+      mouse.x = event.clientX - rect.left;
+      mouse.y = event.clientY - rect.top;
     };
 
     const handleMouseOut = () => {
