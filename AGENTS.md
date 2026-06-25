@@ -33,6 +33,20 @@ This file defines how Codex should behave in this repo.
 - **Minimal diffs only.** No broad refactors. No renaming or reformatting for style. No dependency churn unless required for verification tooling.
 - **Evidence-first.** Every edit must be preceded by reproduction + measurement and followed by verification + regression checks.
 
+## UI MCP and component-library routing
+
+- Use TypeUI primarily for the project’s chosen design system, visual direction, layout guidance and design tokens.
+- Use Untitled UI React primarily for accessible React Aria-based application components, forms, navigation, dashboards and conventional interface foundations.
+- Use Aceternity primarily for intentional animation, motion, advanced visual effects, backgrounds and high-impact marketing sections.
+- Use 21st.dev Magic primarily for component inspiration, alternative visual concepts and generated UI variants.
+- Before adding a component, inspect the current project design system and existing components.
+- Prefer reuse and adaptation over introducing a duplicate component.
+- Do not mix multiple component libraries within one component without a documented reason.
+- Do not let a provider overwrite established project tokens, typography, spacing, global CSS or accessibility behaviour.
+- For any installation, inspect the generated files and dependency changes before accepting them.
+- Use only one provider as the primary visual authority for a given page or feature unless the user explicitly asks for a blend.
+- Never use PRO-only assets unless authenticated access has been confirmed.
+
 ## Operating loop (evaluation flywheel)
 
 Repeat until acceptance criteria are met:

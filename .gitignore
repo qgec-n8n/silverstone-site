@@ -47,3 +47,5 @@ temp/
 .codex/*
 !.codex/config.toml
 !.codex/README.md
+!.codex/bin/
+!.codex/bin/21st-magic-mcp.sh
