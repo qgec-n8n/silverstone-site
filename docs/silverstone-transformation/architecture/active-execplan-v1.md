@@ -322,3 +322,38 @@ Verification:
 Tradeoff:
 
 - The archival claims registry still contains the removed revenue trajectory as a source record, but the active homepage data, rendered text, and regression tests no longer expose it.
+
+## Final homepage corrective pass record -- 2026-06-26
+
+Observed before implementation:
+
+- Baseline evidence saved under `artifacts/homepage-corrective-pass/baseline/` showed the loader stage centered but the emblem offset by about `42.8px` at mobile/desktop and the label intersecting the ring/glow (`labelGapFromRing` negative on the sampled viewports).
+- The integration carousel first logo still entered with opacity `0`, translate `0 14px`, and a reveal gate on the marquee row.
+- The secondary Live Signal lower strip rendered four rows, including a duplicate processing-cost benchmark, and used wrapping rules that split words in the compact telemetry cells.
+- The footer CTA lived outside the Company link column, the desktop brand logo top-aligned with the Services heading, and the London line sat about `50px-62px` below the All services row in the prior footer proof.
+- The required `npx shadcn@latest add https://21st.dev/r/m.kumailalirajpoot/core-spin-loader` command and a pinned `npx shadcn@4.10.0 add ...` retry both returned 403 `Authentication required`; the 21st.dev Magic MCP source for `Orbital Loader` was used as the registry-backed fallback.
+
+Changed:
+
+- Added `OrbitalLoader` from the 21st.dev Magic MCP source, preserving the three Framer Motion rings, inset structure, and `1s` / `1.5s` / `0.8s` linear infinite rotations while adapting imports to this React Router app.
+- Replaced the old bespoke core-spin markup with the Orbital Loader, centered the logo emblem independently, moved the loader label below the full spin/glow area, kept the four-second loader hold/asset wait, and added a static reduced-motion visual fallback.
+- Removed the carousel reveal gate so logos are visible immediately while preserving desktop marquee motion, hover/focus pause, and reduced-motion static behavior.
+- Reduced the Live Signal support strip to three approved rows, removed the duplicate lower processing-cost item, and rebuilt the strip as a three-column telemetry band without `anywhere` word splitting.
+- Moved the booking CTA into the Company footer column after the Company links, removed the duplicate Company menu CTA, adjusted the four-column desktop footer grid, and resized the footer logo so the London line aligns close to the All services row.
+- Updated Playwright coverage for loader ring/emblem centering, three-row signal telemetry, footer CTA-in-Company behavior, homepage lifecycle waits, and foundation/a11y waits after the intentionally isolated homepage intro.
+
+Verification:
+
+- Final evidence saved under `artifacts/homepage-corrective-pass/final/` includes loader, body, and footer screenshots for `320x568`, `375x667`, `390x844`, `430x932`, `768x1024`, `1024x768`, `1280x800`, `1366x768`, `1440x900`, and `1920x1080`, plus `final-geometry.json`.
+- Final matrix: loader stage center delta max `0px`; Orbital Loader spin center delta max `0.0078125px`; emblem center delta max `0.0078277587890625px`; minimum label gap from the spin ring `25.59375px`; minimum label gap from glow `64.61441040039062px`.
+- Final body/footer matrix: `#system` bottom delta `0px` on all ten viewports, horizontal overflow `0px`, console errors `0`, Live Signal rows `3`, all row labels fit, desktop carousel logos opacity `1` / translate `none`, and hover pause changed marquee play state from `running` to `paused`.
+- Reduced-motion proof: loader ring transform stayed `none`, visible loader copy stayed static as `Engineering the next advantage...`, body particles did not attach, and carousel animation name was `none`.
+- Changed-file Prettier check passed; full `npm run format:check` still fails on 31 unrelated pre-existing files outside this change scope.
+- `npm run typecheck`, `npm run lint`, `npm run test` passed (`17` files, `35` tests), `npm run build` passed, `npm run staging:safety` passed, and `PORT=4185 npm run test:a11y` passed (`2` tests).
+- `PORT=4183 npm run test:e2e -- tests/e2e/homepage-interaction.spec.ts` passed (`12` passed, `10` expected duplicate viewport skips); `PORT=4186 npm run test:e2e` passed (`44` passed, `10` expected duplicate viewport skips).
+- `npm run bundle:report` exited successfully and reported `Foundation JavaScript: 292.15 KB gzip (target-miss)`.
+
+Tradeoffs:
+
+- The shadcn registry install could not be completed without authenticated 21st.dev access, so the implementation records the failed command and uses the available Magic MCP source with local app import adaptations.
+- The full repo formatting backlog remains intentionally untouched to preserve the minimal-diff constraint.

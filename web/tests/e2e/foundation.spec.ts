@@ -1,7 +1,13 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 const homeHeading = "The operating system for businesses that refuse to miss.";
+
+async function waitForHomepageIntro(page: Page) {
+  await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "intro", {
+    timeout: 12_000,
+  });
+}
 
 test("staging shell loads without runtime errors", async ({ page }) => {
   const consoleErrors: string[] = [];
@@ -14,6 +20,7 @@ test("staging shell loads without runtime errors", async ({ page }) => {
   const response = await page.goto("/");
 
   expect(response?.ok()).toBe(true);
+  await waitForHomepageIntro(page);
   await expect(page.getByRole("heading", { name: homeHeading })).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveCount(1);
   await expect(page.locator('meta[name="robots"]').first()).toHaveAttribute(
@@ -27,7 +34,9 @@ test("staging shell loads without runtime errors", async ({ page }) => {
 test("@a11y foundation shell has no serious or critical axe violations", async ({
   page,
 }) => {
+  test.setTimeout(45_000);
   await page.goto("/");
+  await waitForHomepageIntro(page);
 
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
