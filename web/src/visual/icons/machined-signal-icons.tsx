@@ -12,7 +12,8 @@ export type MachinedSignalIconName =
   | "content"
   | "voice"
   | "reception"
-  | "automation";
+  | "automation"
+  | "consulting";
 
 export const ICON_PATHS: Record<MachinedSignalIconName, ReactElement> = {
   web: (
@@ -68,6 +69,16 @@ export const ICON_PATHS: Record<MachinedSignalIconName, ReactElement> = {
       <path className="ss-icon-stroke" d="M17.6 21 H21.4" />
       <path className="ss-icon-signal" d="M24 18.4 C24 9 15 9 15 18.2" />
       <circle className="ss-icon-node" cx={15} cy={18.4} r={1.7} />
+    </>
+  ),
+  consulting: (
+    <>
+      <path className="ss-icon-stroke" d="M5 23 H25" />
+      <path className="ss-icon-stroke" d="M8 20 V10 H22 V20" />
+      <path className="ss-icon-stroke" d="M11 14 H14" />
+      <path className="ss-icon-stroke" d="M16 14 H19" />
+      <path className="ss-icon-signal" d="M10 19 C13 10 18 10 21 19" />
+      <circle className="ss-icon-node" cx={15.5} cy={12} r={1.8} />
     </>
   ),
 };

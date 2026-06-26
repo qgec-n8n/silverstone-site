@@ -15,25 +15,24 @@ type AppShellProps = {
 
 function AppShell({ children, pendingIndicator }: AppShellProps) {
   const location = useLocation();
-  const { homepageState } = useAppExperience();
-  const homepageChromeVisible = location.pathname !== "/" || homepageState === "body";
+  const { homepageState, serviceIntroLocked } = useAppExperience();
+  const chromeVisible =
+    (location.pathname !== "/" || homepageState === "body") && !serviceIntroLocked;
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SkipLink />
-      {homepageChromeVisible ? (
-        <SiteHeader pendingIndicator={pendingIndicator} />
-      ) : null}
+      {chromeVisible ? <SiteHeader pendingIndicator={pendingIndicator} /> : null}
       <main
         className={cn(
           "flex-1",
-          homepageChromeVisible ? "pt-[var(--ss-layout-header)]" : "pt-0",
+          chromeVisible ? "pt-[var(--ss-layout-header)]" : "pt-0",
         )}
         id="main-content"
       >
         {children}
       </main>
-      {homepageChromeVisible ? <SiteFooter /> : null}
+      {chromeVisible ? <SiteFooter /> : null}
     </div>
   );
 }

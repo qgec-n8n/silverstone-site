@@ -2,6 +2,7 @@ import { motion, type Variants } from "framer-motion";
 import type { Ref } from "react";
 
 import { Container } from "~/components/layout/container";
+import CybercoreBackground from "~/components/ui/cybercore-section-hero";
 
 import { ExploreSystemButton } from "./explore-system-button";
 import { HeroAetherField } from "./hero-aether-field";
@@ -45,6 +46,7 @@ export function Hero({
   return (
     <section className="ss-hv2-hero">
       <HeroAetherField />
+      <CybercoreBackground beamCount={70} className="ss-hv2-hero__cybercore" />
       <div className="ss-hv2-hero__grid" aria-hidden="true" />
       <div className="ss-hv2-hero__veil" aria-hidden="true" />
 

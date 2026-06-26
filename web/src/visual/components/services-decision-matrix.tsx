@@ -1,6 +1,9 @@
 import "~/styles/visual/visual.css";
 
-import { MachinedSignalIcon, type MachinedSignalIconName } from "~/visual/icons/machined-signal-icons";
+import {
+  MachinedSignalIcon,
+  type MachinedSignalIconName,
+} from "~/visual/icons/machined-signal-icons";
 
 type CapabilityRow = {
   key: MachinedSignalIconName;
@@ -62,6 +65,14 @@ const ROWS: CapabilityRow[] = [
     pairsWith: "App, Content",
     slug: "ai-automation",
   },
+  {
+    key: "consulting",
+    capability: "AI & automation consulting",
+    chooseWhen: "The opportunity is clear but the first project is not.",
+    youGet: "An audit, roadmap and build-versus-buy decision route.",
+    pairsWith: "Automation, App",
+    slug: "ai-consulting",
+  },
 ];
 
 export type ServicesDecisionMatrixProps = {
@@ -78,12 +89,14 @@ export type ServicesDecisionMatrixProps = {
  * of when to choose each capability, what it delivers and what it pairs with.
  * Rendered as an accessible table on wide viewports.
  */
-export function ServicesDecisionMatrix({ basePath = "/services" }: ServicesDecisionMatrixProps = {}) {
+export function ServicesDecisionMatrix({
+  basePath = "/services",
+}: ServicesDecisionMatrixProps = {}) {
   return (
     <div className="ss-matrix">
       <table className="ss-matrix__table">
         <caption className="ss-matrix__caption">
-          Six capabilities, one operating surface — choose by the friction you feel.
+          Seven capabilities, one operating surface — choose by the friction you feel.
         </caption>
         <thead>
           <tr>

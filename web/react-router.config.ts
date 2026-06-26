@@ -10,6 +10,7 @@ const approvedPrerenderPaths = [
   "/services/ai-receptionists",
   "/services/content-creation",
   "/services/ai-automation",
+  "/services/ai-consulting",
 ];
 
 export default {
@@ -22,6 +23,9 @@ export default {
     v8_trailingSlashAwareDataRequests: true,
     v8_viteEnvironmentApi: true,
   },
-  prerender: [...futureRouteManifest.map((route) => route.path), ...approvedPrerenderPaths],
+  prerender: [
+    ...futureRouteManifest.map((route) => route.path),
+    ...approvedPrerenderPaths,
+  ],
   ssr: false,
 } satisfies Config;

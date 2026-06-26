@@ -17,9 +17,9 @@ describe("migrated content baseline", () => {
     );
 
     expect(migratedContentIndex).toHaveLength(retainedRoutes.length);
-    expect(migratedContentIndex).toHaveLength(57);
+    expect(migratedContentIndex).toHaveLength(58);
     expect(new Set(migratedContentIndex.map((record) => record.routePath)).size).toBe(
-      57,
+      58,
     );
     expect(
       retainedRoutes.every((route) =>

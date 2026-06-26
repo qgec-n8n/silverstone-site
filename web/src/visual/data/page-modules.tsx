@@ -143,7 +143,8 @@ const webConversion: SequentialConfig = {
     },
     {
       label: "Proof block",
-      detail: "Place recognisable client logos beside the action so it is read in context.",
+      detail:
+        "Place recognisable client logos beside the action so it is read in context.",
       log: "Placed: Proof block — Place recognisable client logos beside the action so it is read in context.",
     },
     {
@@ -162,7 +163,8 @@ const webConversion: SequentialConfig = {
       log: "Placed: Repeat the path — Restate “Book a discovery call” at the natural decision point.",
     },
   ],
-  status: (index, total) => `Assembling path… step ${String(index + 1)} of ${String(total + 1)}.`,
+  status: (index, total) =>
+    `Assembling path… step ${String(index + 1)} of ${String(total + 1)}.`,
   finalLog: "Journey summary produced (structure only).",
   finalStatus: "Path assembled. Reset to try another combination.",
   summary:
@@ -180,12 +182,14 @@ const appState: SequentialConfig = {
     },
     {
       label: "Prototype · User (customer)",
-      detail: "A clickable model of “request a slot” is reviewed before any production code.",
+      detail:
+        "A clickable model of “request a slot” is reviewed before any production code.",
       log: "Prototype — User (customer): A clickable model of “request a slot” is reviewed before any production code.",
     },
     {
       label: "Validate · Staff",
-      detail: "Staff checks the request against approved rules — the decision stays with a person.",
+      detail:
+        "Staff checks the request against approved rules — the decision stays with a person.",
       log: "Validate — Staff: Staff checks the request against approved rules — the decision stays with a person.",
     },
     {
@@ -195,12 +199,15 @@ const appState: SequentialConfig = {
     },
     {
       label: "Release · Staff",
-      detail: "Staff releases the smallest useful version; everything else moves to the roadmap.",
+      detail:
+        "Staff releases the smallest useful version; everything else moves to the roadmap.",
       log: "Release — Staff: Staff releases the smallest useful version; everything else moves to the roadmap.",
     },
   ],
-  status: (index, total) => `Mapping first release… state ${String(index + 1)} of ${String(total + 1)}.`,
-  finalLog: "Roadmap recorded: Loyalty points, Multi-location rules, Waitlist automation.",
+  status: (index, total) =>
+    `Mapping first release… state ${String(index + 1)} of ${String(total + 1)}.`,
+  finalLog:
+    "Roadmap recorded: Loyalty points, Multi-location rules, Waitlist automation.",
   finalStatus: "First release mapped. Reset to try another combination.",
   summary:
     "Synthetic map for “take bookings online”: the core flow ships first across user, staff and system states, with 3 features deferred to a roadmap. This maps structure only — it does not estimate cost, effort or delivery time.",
@@ -209,11 +216,13 @@ const appState: SequentialConfig = {
     <>
       <p className="ss-demo__synthetic">Deferred to roadmap</p>
       <ul className="ss-demo__tiles">
-        {["Loyalty points", "Multi-location rules", "Waitlist automation"].map((item) => (
-          <li className="ss-tile" data-active="false" key={item}>
-            <span className="ss-tile__value">{item}</span>
-          </li>
-        ))}
+        {["Loyalty points", "Multi-location rules", "Waitlist automation"].map(
+          (item) => (
+            <li className="ss-tile" data-active="false" key={item}>
+              <span className="ss-tile__value">{item}</span>
+            </li>
+          ),
+        )}
       </ul>
     </>
   ),
@@ -243,7 +252,8 @@ const receptionConsole: SequentialConfig = {
       log: "Route → Answer: Replied from approved content — opening hours, location, simple FAQs.",
     },
   ],
-  status: (index, total) => `Routing enquiry… step ${String(index + 1)} of ${String(total + 1)}.`,
+  status: (index, total) =>
+    `Routing enquiry… step ${String(index + 1)} of ${String(total + 1)}.`,
   finalLog: "Destination: Answer (synthetic).",
   finalStatus: "Enquiry routed. Reset to try another combination.",
   summary:
@@ -287,7 +297,8 @@ const contentLoom: SequentialConfig = {
     },
     {
       label: "Claim check",
-      detail: "Unsupported stats, testimonials and regulated advice flagged and blocked.",
+      detail:
+        "Unsupported stats, testimonials and regulated advice flagged and blocked.",
       log: "Claim check: Unsupported stats, testimonials and regulated advice flagged and blocked.",
     },
     {
@@ -296,7 +307,8 @@ const contentLoom: SequentialConfig = {
       log: "Review gate: A person approves each output before anything can publish.",
     },
   ],
-  status: (index, total) => `Planning content… step ${String(index + 1)} of ${String(total + 1)}.`,
+  status: (index, total) =>
+    `Planning content… step ${String(index + 1)} of ${String(total + 1)}.`,
   finalLog: "Plan ready (synthetic). Nothing written or published.",
   finalStatus: "Plan complete. Reset to try another combination.",
   summary:
@@ -304,60 +316,81 @@ const contentLoom: SequentialConfig = {
   idleNote: "Idle — press Start to plan the content.",
 };
 
-/* Voice call flow — a time-based synthetic transcript. */
-const voiceLines: { who: string; text: string }[] = [
-  { who: "Assistant", text: "Hi — you’re speaking to an automated assistant. How can I help?" },
-  { who: "Caller", text: "What time do you open on Saturday?" },
-  { who: "System", text: "Intent: opening-hours enquiry." },
-  { who: "System", text: "Approved-rules check: answer from approved opening hours only." },
-  { who: "Assistant", text: "We’re open 9am to 1pm on Saturdays. Anything else?" },
+const voiceAdapterStates: SeqRow[] = [
+  {
+    label: "Idle",
+    detail: "Demo mode is ready. No microphone or live telephony is connected.",
+    log: "Adapter idle: deterministic demo mode, no credentials configured.",
+  },
+  {
+    label: "Permission",
+    detail:
+      "A microphone permission step is represented before any live capture would begin.",
+    log: "Permission checkpoint: microphone access must be explicit before listening.",
+  },
+  {
+    label: "Connecting",
+    detail: "The adapter prepares the voice session and confirms fallback routing.",
+    log: "Connecting: session and escalation path prepared.",
+  },
+  {
+    label: "Listening",
+    detail: "The caller asks a routine booking question in a scripted transcript.",
+    log: "Listening: scripted caller asks for a callback slot.",
+  },
+  {
+    label: "Speaking",
+    detail:
+      "The assistant replies from approved wording and offers the next approved step.",
+    log: "Speaking: response selected from approved business rules.",
+  },
+  {
+    label: "Paused",
+    detail:
+      "The flow pauses while the caller chooses whether to book or speak to a person.",
+    log: "Paused: waiting state, no autonomous action.",
+  },
+  {
+    label: "Booking completion",
+    detail:
+      "A mock booking summary is prepared for a person or connected calendar rule.",
+    log: "Booking completion: deterministic mock slot prepared.",
+  },
+  {
+    label: "Error path",
+    detail:
+      "If the caller is unclear, the session falls back to a human handoff summary.",
+    log: "Error path: unclear intent routes to a person with transcript context.",
+  },
+  {
+    label: "Complete",
+    detail: "Transcript, outcome and escalation status are visible for review.",
+    log: "Complete: review record ready, no live data stored.",
+  },
 ];
 
-const voiceSummary =
-  "Routine call answered from approved content. No personal data captured. This is a synthetic, deterministic flow — not a real call, and not a person.";
+const voiceAdapterConfig: SequentialConfig = {
+  synthetic: "Synthetic voice adapter state machine",
+  rows: voiceAdapterStates,
+  status: (index, total) =>
+    `Voice adapter state ${String(index + 1)} of ${String(total + 1)}.`,
+  finalLog: "Adapter flow complete (demo mode).",
+  finalStatus: "Adapter state walk complete. Reset to replay.",
+  summary:
+    "Synthetic result: the voice surface moves through permission, connection, conversation, pause, booking, fallback and completion states. It is ready to connect to a real voice provider only when credentials, consent and approved scripts exist.",
+  idleNote: "Idle — press Start to walk the voice adapter states.",
+};
 
-function voiceTranscript(count: number): TileRow[] {
-  return voiceLines.slice(0, count).map((line) => ({ label: line.who, value: line.text }));
-}
-
-const voiceCallflow: DemoScenario = {
-  id: "voice-callflow",
-  title: "Defined call flow",
-  summary: "A scripted, time-based walk through one routine call answered from approved content.",
+const voiceAgentAdapter: DemoScenario = {
+  id: "voice-agent-adapter",
+  title: "ElevenLabs-ready voice adapter",
+  summary:
+    "A deterministic adapter surface with idle, permission, connecting, listening, speaking, paused, error and complete states.",
   safeguard:
-    "Synthetic & deterministic — not a real call, no real audio, and no claim of human equivalence.",
-  temporal: true,
-  interval: 900,
-  idle: () => (
-    <StageTiles
-      rows={[]}
-      summary="Idle — press Start to run the synthetic flow."
-      synthetic="Synthetic call transcript"
-    />
-  ),
-  build: () => {
-    const steps: DemoStep[] = voiceLines.map((line, index) => ({
-      id: `line-${String(index)}`,
-      log: `${line.who}: ${line.text}`,
-      status: `Call in progress… line ${String(index + 1)} of ${String(voiceLines.length + 1)}.`,
-      render: () => (
-        <StageTiles rows={voiceTranscript(index + 1)} synthetic="Synthetic call transcript" />
-      ),
-    }));
-    steps.push({
-      id: "summary",
-      log: "Call ended (synthetic).",
-      status: "Call complete. Reset to try another call type.",
-      render: () => (
-        <StageTiles
-          rows={voiceTranscript(voiceLines.length)}
-          summary={voiceSummary}
-          synthetic="Synthetic call transcript"
-        />
-      ),
-    });
-    return steps;
-  },
+    "Demo mode only — no live microphone, no ElevenLabs credentials, no real caller and no autonomous booking.",
+  interval: 620,
+  idle: sequentialIdle(voiceAdapterConfig),
+  build: buildSequential(voiceAdapterConfig),
 };
 
 /* Automation lattice — a fixed batch where one item is held for a human. */
@@ -454,6 +487,49 @@ const automationLattice: DemoScenario = {
   },
 };
 
+const consultingRoadmap: SequentialConfig = {
+  synthetic: "Synthetic advisory roadmap",
+  rows: [
+    {
+      label: "Opportunity audit",
+      detail:
+        "Capture the workflows, handoffs and decisions that actually slow the team down.",
+      log: "Audited: workflows, handoffs and decision points.",
+    },
+    {
+      label: "Data readiness",
+      detail:
+        "Check where records live, who owns them and what should not be automated.",
+      log: "Checked: systems, data ownership and automation boundaries.",
+    },
+    {
+      label: "Build versus buy",
+      detail:
+        "Separate platform configuration, custom build and process change before tools are chosen.",
+      log: "Compared: configure, buy, build and leave alone.",
+    },
+    {
+      label: "Governance route",
+      detail:
+        "Define approval, testing, monitoring and human escalation before implementation.",
+      log: "Defined: review gates, escalation and monitoring.",
+    },
+    {
+      label: "Prioritised roadmap",
+      detail:
+        "Sequence the first three decisions so the organisation can start small and expand deliberately.",
+      log: "Roadmap: first three decisions sequenced.",
+    },
+  ],
+  status: (index, total) =>
+    `Building roadmap… decision ${String(index + 1)} of ${String(total + 1)}.`,
+  finalLog: "Roadmap prepared (synthetic).",
+  finalStatus: "Roadmap ready. Reset to replay the advisory sequence.",
+  summary:
+    "Synthetic advisory output: one prioritised roadmap, with build-versus-buy reasoning and governance checkpoints. This is not procurement advice, a vendor endorsement or a guaranteed business case.",
+  idleNote: "Idle — press Start to build the advisory roadmap.",
+};
+
 function sequentialScenario(
   id: string,
   title: string,
@@ -480,6 +556,1028 @@ function sequentialScenario(
 const SERVICE_TOOLS_LABEL = "Connector constellation";
 const INDUSTRY_TOOLS_LABEL = "Tools this sector commonly uses";
 
+type ServiceImageAsset = {
+  alt: string;
+  catalogueId: string;
+  caption: string;
+  desktop: {
+    height: number;
+    jpg: string;
+    webp: string;
+    width: number;
+  };
+  mobile: {
+    height: number;
+    jpg: string;
+    webp: string;
+    width: number;
+  };
+  loading: "eager" | "lazy";
+  placement: string;
+  sizes: string;
+};
+
+type ServiceStory = {
+  architecture: { label: string; detail: string }[];
+  challenge: string;
+  faq: { question: string; answer: string }[];
+  heading: string;
+  image: ServiceImageAsset;
+  imageSecondary?: ServiceImageAsset;
+  lead: string;
+  metrics: { label: string; value: string }[];
+  outcomes: string[];
+  process: { label: string; detail: string }[];
+  related: { href: string; label: string }[];
+  safeguard: string;
+  variant: string;
+};
+
+const IMAGE_SIZES =
+  "(max-width: 767px) min(100vw - 2rem, 768px), (max-width: 1200px) 48vw, 560px";
+
+const SERVICE_IMAGES = {
+  consulting: {
+    catalogueId: "csv-01-desktop/csv-01-mobile",
+    desktop: {
+      jpg: "/home-v2/service-consulting.jpg",
+      webp: "/home-v2/service-consulting.webp",
+      width: 1280,
+      height: 859,
+    },
+    mobile: {
+      jpg: "/home-v2/service-consulting-mobile.jpg",
+      webp: "/home-v2/service-consulting-mobile.webp",
+      width: 768,
+      height: 768,
+    },
+    loading: "eager",
+    sizes: IMAGE_SIZES,
+    placement: "Discovery audit and roadmap panel",
+    alt: "Illustrative AI consulting and readiness audit panel.",
+    caption:
+      "Illustrative audit interface. The boardroom panel is mock content, not a client dashboard or measured result.",
+  },
+  dataIntegration: {
+    catalogueId: "csv-04-desktop/csv-04-mobile",
+    desktop: {
+      jpg: "/home-v2/service-data-integration.jpg",
+      webp: "/home-v2/service-data-integration.webp",
+      width: 1280,
+      height: 859,
+    },
+    mobile: {
+      jpg: "/home-v2/service-data-integration-mobile.jpg",
+      webp: "/home-v2/service-data-integration-mobile.webp",
+      width: 768,
+      height: 768,
+    },
+    loading: "eager",
+    sizes: IMAGE_SIZES,
+    placement: "Systems and data architecture panel",
+    alt: "Illustrative systems and data integration panel.",
+    caption:
+      "Illustrative integration panel. It explains architecture, not a live product screen.",
+  },
+  followUp: {
+    catalogueId: "csv-02-desktop/csv-02-mobile",
+    desktop: {
+      jpg: "/home-v2/service-lead-followup.jpg",
+      webp: "/home-v2/service-lead-followup.webp",
+      width: 1280,
+      height: 859,
+    },
+    mobile: {
+      jpg: "/home-v2/service-lead-followup-mobile.jpg",
+      webp: "/home-v2/service-lead-followup-mobile.webp",
+      width: 768,
+      height: 768,
+    },
+    loading: "eager",
+    sizes: IMAGE_SIZES,
+    placement: "Lead follow-up and booking panel",
+    alt: "Illustrative automated lead follow-up panel.",
+    caption:
+      "Illustrative lead-follow-up workflow. Names, bookings and interface states are mock content.",
+  },
+  generalOne: {
+    catalogueId: "csv-07-desktop/csv-07-mobile",
+    desktop: {
+      jpg: "/home-v2/general-services-1.jpg",
+      webp: "/home-v2/general-services-1.webp",
+      width: 960,
+      height: 644,
+    },
+    mobile: {
+      jpg: "/home-v2/general-services-1-mobile.jpg",
+      webp: "/home-v2/general-services-1-mobile.webp",
+      width: 768,
+      height: 1145,
+    },
+    loading: "eager",
+    sizes: IMAGE_SIZES,
+    placement: "Conversion and reception capture panel",
+    alt: "Illustrative reception and enquiry capture panel.",
+    caption:
+      "Illustrative enquiry-capture panel. It is not a real patient system or client result.",
+  },
+  generalTwoA: {
+    catalogueId: "csv-08-desktop/csv-08-mobile",
+    desktop: {
+      jpg: "/home-v2/general-services-2a.jpg",
+      webp: "/home-v2/general-services-2a.webp",
+      width: 960,
+      height: 644,
+    },
+    mobile: {
+      jpg: "/home-v2/general-services-2a-mobile.jpg",
+      webp: "/home-v2/general-services-2a-mobile.webp",
+      width: 768,
+      height: 1145,
+    },
+    loading: "eager",
+    sizes: IMAGE_SIZES,
+    placement: "Modular delivery and content package panel",
+    alt: "Illustrative modular service package panel.",
+    caption:
+      "Illustrative modular package panel. The checklist is a concept, not a fixed deliverable promise.",
+  },
+  generalTwoB: {
+    catalogueId: "csv-09-desktop/csv-09-mobile",
+    desktop: {
+      jpg: "/home-v2/general-services-2b.jpg",
+      webp: "/home-v2/general-services-2b.webp",
+      width: 960,
+      height: 644,
+    },
+    mobile: {
+      jpg: "/home-v2/general-services-2b-mobile.jpg",
+      webp: "/home-v2/general-services-2b-mobile.webp",
+      width: 768,
+      height: 1145,
+    },
+    loading: "lazy",
+    sizes: IMAGE_SIZES,
+    placement: "Connected platform ecosystem panel",
+    alt: "Illustrative integrated business workflow panel.",
+    caption:
+      "Illustrative integration ecosystem. The interface is conceptual and not customer data.",
+  },
+  generalThree: {
+    catalogueId: "csv-10-desktop/csv-10-mobile",
+    desktop: {
+      jpg: "/home-v2/general-services-3.jpg",
+      webp: "/home-v2/general-services-3.webp",
+      width: 960,
+      height: 644,
+    },
+    mobile: {
+      jpg: "/home-v2/general-services-3-mobile.jpg",
+      webp: "/home-v2/general-services-3-mobile.webp",
+      width: 768,
+      height: 1145,
+    },
+    loading: "lazy",
+    sizes: IMAGE_SIZES,
+    placement: "Booking and diary administration panel",
+    alt: "Illustrative booking and diary administration panel.",
+    caption:
+      "Illustrative scheduling panel. It is not a live booking system or guaranteed admin outcome.",
+  },
+  workflow: {
+    catalogueId: "csv-03-desktop/csv-03-mobile",
+    desktop: {
+      jpg: "/home-v2/service-workflow-automation.jpg",
+      webp: "/home-v2/service-workflow-automation.webp",
+      width: 1280,
+      height: 859,
+    },
+    mobile: {
+      jpg: "/home-v2/service-workflow-automation-mobile.jpg",
+      webp: "/home-v2/service-workflow-automation-mobile.webp",
+      width: 768,
+      height: 768,
+    },
+    loading: "eager",
+    sizes: IMAGE_SIZES,
+    placement: "Workflow automation and reporting panel",
+    alt: "Illustrative workflow automation and reporting interface.",
+    caption:
+      "Illustrative operations panel. Process labels and dashboard states are conceptual.",
+  },
+} satisfies Record<string, ServiceImageAsset>;
+
+function ServicePicture({ image }: { image: ServiceImageAsset }): ReactNode {
+  return (
+    <figure className="ss-service-image" data-catalogue-id={image.catalogueId}>
+      <picture>
+        <source
+          media="(max-width: 767px)"
+          sizes={image.sizes}
+          srcSet={`${image.mobile.webp} ${String(image.mobile.width)}w`}
+          type="image/webp"
+        />
+        <source
+          media="(max-width: 767px)"
+          sizes={image.sizes}
+          srcSet={`${image.mobile.jpg} ${String(image.mobile.width)}w`}
+        />
+        <source
+          sizes={image.sizes}
+          srcSet={`${image.desktop.webp} ${String(image.desktop.width)}w`}
+          type="image/webp"
+        />
+        <img
+          alt={image.alt}
+          decoding="async"
+          fetchPriority={image.loading === "eager" ? "high" : "auto"}
+          height={image.desktop.height}
+          loading={image.loading}
+          sizes={image.sizes}
+          src={image.desktop.jpg}
+          srcSet={`${image.desktop.jpg} ${String(image.desktop.width)}w`}
+          width={image.desktop.width}
+        />
+      </picture>
+      <figcaption>
+        <span>{image.placement}</span>
+        {image.caption}
+      </figcaption>
+    </figure>
+  );
+}
+
+function ServiceStoryBlock({
+  route,
+  story,
+}: {
+  route: FutureRouteRecord;
+  story: ServiceStory;
+}): ReactNode {
+  return (
+    <section className="ss-service-story" data-variant={story.variant}>
+      <div className="ss-service-story__copy">
+        <span className="ss-service-story__kicker">Service architecture</span>
+        <h2>{story.heading}</h2>
+        <p>{story.lead}</p>
+        <div className="ss-service-story__challenge">
+          <strong>Strategic challenge</strong>
+          <span>{story.challenge}</span>
+        </div>
+      </div>
+      <ServicePicture image={story.image} />
+      <ul className="ss-service-outcomes" aria-label={`${route.h1} outcomes`}>
+        {story.outcomes.map((outcome) => (
+          <li key={outcome}>{outcome}</li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function ServiceArchitecture({ story }: { story: ServiceStory }): ReactNode {
+  return (
+    <section className="ss-service-band">
+      <div className="ss-service-band__head">
+        <span>Capability architecture</span>
+        <h2>What has to be designed, not assumed</h2>
+      </div>
+      <div className="ss-service-architecture">
+        {story.architecture.map((item, index) => (
+          <article className="ss-service-architecture__item" key={item.label}>
+            <span>{pad(index + 1)}</span>
+            <h3>{item.label}</h3>
+            <p>{item.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ServiceProcess({ story }: { story: ServiceStory }): ReactNode {
+  return (
+    <section className="ss-service-process">
+      <div>
+        <span className="ss-service-story__kicker">Implementation path</span>
+        <h2>From first decision to working system</h2>
+      </div>
+      <ol>
+        {story.process.map((step) => (
+          <li key={step.label}>
+            <strong>{step.label}</strong>
+            <span>{step.detail}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+function ServiceMetrics({ story }: { story: ServiceStory }): ReactNode {
+  return (
+    <section className="ss-service-metrics" aria-label="Planning metrics">
+      {story.metrics.map((metric) => (
+        <article key={metric.label}>
+          <strong>{metric.value}</strong>
+          <span>{metric.label}</span>
+        </article>
+      ))}
+    </section>
+  );
+}
+
+function ServiceGovernance({ story }: { story: ServiceStory }): ReactNode {
+  return (
+    <section className="ss-service-governance">
+      <div className="ss-service-governance__safeguard">
+        <span>Human oversight</span>
+        <p>{story.safeguard}</p>
+      </div>
+      <div className="ss-service-faq">
+        <h2>Questions to resolve before build</h2>
+        {story.faq.map((item) => (
+          <details key={item.question}>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+      <nav className="ss-service-related" aria-label="Related service links">
+        <span>Related routes</span>
+        {story.related.map((item) => (
+          <a href={item.href} key={item.href}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </section>
+  );
+}
+
+const SERVICE_STORIES: Record<string, ServiceStory> = {
+  "/services": {
+    variant: "directory",
+    heading: "Choose the service by the workflow you want to improve",
+    lead: "The directory is structured around business friction: missed demand, fragile systems, manual follow-up, content bottlenecks and decisions that need a practical roadmap before a build.",
+    challenge:
+      "Service pages become useful when they help a buyer choose the right first project, not when every capability sounds interchangeable.",
+    image: SERVICE_IMAGES.workflow,
+    outcomes: [
+      "A clearer route from problem to service fit.",
+      "Seven service routes, including consulting, connected to the same operating model.",
+      "Internal links that guide buyers toward adjacent systems and relevant industry examples.",
+    ],
+    architecture: [
+      {
+        label: "Service fit",
+        detail:
+          "Each page starts with the business situation that makes the service useful.",
+      },
+      {
+        label: "System context",
+        detail:
+          "Every service explains the surrounding data, tools, owners and handoffs.",
+      },
+      {
+        label: "Human boundary",
+        detail:
+          "Automation, content and AI routes all show where review and escalation sit.",
+      },
+      {
+        label: "Next decision",
+        detail:
+          "The directory points toward booking, consulting or a related capability.",
+      },
+    ],
+    process: [
+      {
+        label: "Identify friction",
+        detail: "Name the repeated problem before choosing technology.",
+      },
+      {
+        label: "Pick the first surface",
+        detail:
+          "Choose the page, app, agent, receptionist, content system or advisory route.",
+      },
+      {
+        label: "Map dependencies",
+        detail: "Locate the systems and people the service must work with.",
+      },
+      {
+        label: "Scope the next step",
+        detail: "Move into discovery with a narrow first decision.",
+      },
+    ],
+    metrics: [
+      { value: "7", label: "service routes" },
+      { value: "1", label: "shared Silverstone system" },
+      { value: "0", label: "remote runtime images" },
+    ],
+    safeguard:
+      "The directory does not promise outcomes. It helps a buyer pick a sensible starting point and keeps proofs, metrics and examples clearly illustrative until approved evidence exists.",
+    faq: [
+      {
+        question: "Where should a buyer start?",
+        answer:
+          "Start with the route closest to the repeated operational friction, then use Consulting when the right first project is unclear.",
+      },
+      {
+        question: "Can services combine?",
+        answer:
+          "Yes. The related routes show common pairings such as web plus content, app plus automation, or reception plus voice.",
+      },
+      {
+        question: "Are the images product screenshots?",
+        answer:
+          "No. They are local illustrative panels used to explain service ideas and system boundaries.",
+      },
+    ],
+    related: [
+      { href: "/services/ai-consulting", label: "AI & Automation Consulting" },
+      { href: "/industries", label: "Industries" },
+      { href: "/how-we-work", label: "How we work" },
+    ],
+  },
+  "/services/web-design-development": {
+    variant: "conversion",
+    heading: "A website system that turns attention into a clear next action",
+    lead: "The page architecture, copy, visual language, CMS structure and technical base are treated as one conversion system instead of separate production tasks.",
+    challenge:
+      "Most rebuilds start with the surface. The useful work starts with the decision path a buyer needs to understand before they contact you.",
+    image: SERVICE_IMAGES.generalOne,
+    imageSecondary: SERVICE_IMAGES.generalTwoB,
+    outcomes: [
+      "A sharper information architecture for services, sectors and conversion routes.",
+      "Responsive pages that stay readable across small phones and large desktop screens.",
+      "Technical SEO, analytics and handoff points designed into the build from the start.",
+    ],
+    architecture: [
+      {
+        label: "Strategy",
+        detail:
+          "Audience, offer, positioning and conversion intent are defined before interface production.",
+      },
+      {
+        label: "UX and IA",
+        detail:
+          "Navigation, service hierarchy, page sections and calls to action are mapped around buyer decisions.",
+      },
+      {
+        label: "Visual system",
+        detail:
+          "A premium interface language is built from reusable patterns, not page-by-page decoration.",
+      },
+      {
+        label: "Engineering",
+        detail:
+          "Responsive implementation, accessibility, performance, CMS and analytics are shipped as part of the site.",
+      },
+    ],
+    process: [
+      {
+        label: "Clarify the offer",
+        detail: "Reduce the page to the promise, proof, audience and next step.",
+      },
+      {
+        label: "Map the journey",
+        detail:
+          "Design routes from discovery to enquiry without hiding important objections.",
+      },
+      {
+        label: "Build the system",
+        detail:
+          "Implement reusable sections, technical SEO foundations and integration handoffs.",
+      },
+      {
+        label: "Review and optimise",
+        detail: "Use analytics and qualitative feedback to decide what changes next.",
+      },
+    ],
+    metrics: [
+      { value: "1", label: "primary conversion path" },
+      { value: "WCAG", label: "accessibility lens" },
+      { value: "SEO", label: "technical foundation" },
+    ],
+    safeguard:
+      "No ranking, conversion-rate or revenue guarantee is claimed. Portfolio-style visuals remain conceptual unless evidence and client permission are present.",
+    faq: [
+      {
+        question: "Is this only a design service?",
+        answer:
+          "No. Strategy, copy structure, responsive build, technical SEO, accessibility and integration handoffs are part of the service.",
+      },
+      {
+        question: "Can the site connect to existing systems?",
+        answer:
+          "Yes, where appropriate. Forms, booking calendars, CRMs, CMS workflows and analytics are scoped explicitly.",
+      },
+      {
+        question: "What makes a first release sensible?",
+        answer:
+          "A first release should make the core offer clear, route enquiries reliably and leave future sections easy to extend.",
+      },
+    ],
+    related: [
+      { href: "/services/content-creation", label: "Content Creation & Repurposing" },
+      { href: "/services/ai-automation", label: "AI Automation" },
+      { href: "/services/ai-consulting", label: "AI & Automation Consulting" },
+    ],
+  },
+  "/services/app-development": {
+    variant: "product",
+    heading: "A focused application surface for a real operational task",
+    lead: "Discovery, prototype, data model, permissions, API boundaries, release readiness and optimisation are shaped around the smallest product that proves useful.",
+    challenge:
+      "Custom apps fail when they become a wish list. The first version needs one user group, one priority workflow and acceptance criteria people can test.",
+    image: SERVICE_IMAGES.dataIntegration,
+    imageSecondary: SERVICE_IMAGES.generalTwoB,
+    outcomes: [
+      "A prototype that explains the user, staff and system states before production code expands.",
+      "Authentication, records and API integration designed around the data that matters.",
+      "A release path for portals, internal tools and mobile-ready web experiences.",
+    ],
+    architecture: [
+      {
+        label: "Product discovery",
+        detail:
+          "Users, jobs, constraints and success evidence are narrowed before build.",
+      },
+      {
+        label: "UX architecture",
+        detail:
+          "Flows, screens, roles and edge states are prototyped before implementation.",
+      },
+      {
+        label: "Data and APIs",
+        detail:
+          "Records, integrations and source-of-truth decisions are documented explicitly.",
+      },
+      {
+        label: "Readiness",
+        detail:
+          "Testing, monitoring, deployment handoff and iteration planning are included.",
+      },
+    ],
+    process: [
+      {
+        label: "Define the first workflow",
+        detail: "Choose the single flow that must work before everything else.",
+      },
+      {
+        label: "Prototype the states",
+        detail: "Validate user, staff and system states in a clickable model.",
+      },
+      {
+        label: "Build the release",
+        detail: "Implement the app surface, integrations, permissions and logs.",
+      },
+      {
+        label: "Measure real use",
+        detail: "Review errors, adoption and support signals before expanding scope.",
+      },
+    ],
+    metrics: [
+      { value: "MVP", label: "first release scope" },
+      { value: "Roles", label: "permission design" },
+      { value: "APIs", label: "integration surface" },
+    ],
+    safeguard:
+      "The service does not imply unsupported native app delivery, platform certification or real client deployment evidence. Delivery scope is set by discovery and proposal.",
+    faq: [
+      {
+        question: "Can this be mobile-ready without a native app?",
+        answer:
+          "Often yes. Many first releases work best as responsive web applications before a native route is justified.",
+      },
+      {
+        question: "How are integrations handled?",
+        answer:
+          "Each API, webhook or data import is assessed for reliability, ownership, rate limits and fallback paths.",
+      },
+      {
+        question: "What happens after first release?",
+        answer:
+          "The roadmap is reviewed against real use, support issues and the business value of the next feature.",
+      },
+    ],
+    related: [
+      { href: "/services/ai-automation", label: "AI Automation" },
+      { href: "/services/web-design-development", label: "Web Design & Development" },
+      { href: "/services/ai-consulting", label: "AI & Automation Consulting" },
+    ],
+  },
+  "/services/ai-voice-agents": {
+    variant: "voice",
+    heading: "Voice workflows with a clear script, state model and human fallback",
+    lead: "Inbound and outbound voice agents need call flows, approved responses, booking rules, CRM updates, summaries, monitoring and escalation before they touch live callers.",
+    challenge:
+      "A voice agent is not a talking FAQ. It is a stateful workflow that must disclose itself, understand boundaries and hand off safely.",
+    image: SERVICE_IMAGES.followUp,
+    imageSecondary: SERVICE_IMAGES.workflow,
+    outcomes: [
+      "A deterministic call-flow model for qualification, FAQs, booking and routing.",
+      "An ElevenLabs-ready adapter surface that shows permission, listening, speaking, paused, error and complete states.",
+      "CRM and follow-up handoffs that are visible to the team.",
+    ],
+    architecture: [
+      {
+        label: "Conversation design",
+        detail:
+          "Disclosure, prompts, retry limits and approved answer sources are defined.",
+      },
+      {
+        label: "Action model",
+        detail:
+          "Booking, qualification, CRM update and summary actions are scoped by permission.",
+      },
+      {
+        label: "Evaluation",
+        detail:
+          "Test calls, transcripts, failure paths and escalation quality are reviewed.",
+      },
+      {
+        label: "Governance",
+        detail:
+          "Sensitive or unusual calls move to a person with context instead of improvisation.",
+      },
+    ],
+    process: [
+      {
+        label: "Choose call types",
+        detail: "Start with routine calls and explicit exclusion rules.",
+      },
+      {
+        label: "Write approved paths",
+        detail: "Script intents, answers, fallbacks and handoff summaries.",
+      },
+      {
+        label: "Connect carefully",
+        detail: "Integrate voice, calendar or CRM actions only after testing.",
+      },
+      {
+        label: "Review transcripts",
+        detail: "Use deterministic evaluation before expanding to more call types.",
+      },
+    ],
+    metrics: [
+      { value: "Demo", label: "voice adapter mode" },
+      { value: "Human", label: "escalation owner" },
+      { value: "Logs", label: "review trail" },
+    ],
+    safeguard:
+      "The demo uses deterministic mock data. Live voice credentials, microphone access, call recording, consent and retention controls must be configured before production use.",
+    faq: [
+      {
+        question: "Does the demo use a real voice provider?",
+        answer:
+          "No. It is provider-ready but intentionally deterministic unless credentials and approved scripts are configured.",
+      },
+      {
+        question: "Can calls book appointments?",
+        answer:
+          "Only when the calendar rule, confirmation language and fallback owner are explicitly approved.",
+      },
+      {
+        question: "What happens on uncertainty?",
+        answer:
+          "The flow pauses, retries within limits, or escalates to a person with a summary.",
+      },
+    ],
+    related: [
+      { href: "/services/ai-receptionists", label: "AI Receptionists" },
+      { href: "/services/ai-automation", label: "AI Automation" },
+      { href: "/services/ai-consulting", label: "AI & Automation Consulting" },
+    ],
+  },
+  "/services/ai-receptionists": {
+    variant: "reception",
+    heading: "A front desk layer for calls, web enquiries, intake and routing",
+    lead: "A useful AI receptionist is a controlled reception workflow: capture, qualify, schedule, remind, route, synchronise and leave an audit trail.",
+    challenge:
+      "The hard part is not answering everything. It is deciding what can be answered safely, what needs structured capture and what must reach a person.",
+    image: SERVICE_IMAGES.generalOne,
+    imageSecondary: SERVICE_IMAGES.generalThree,
+    outcomes: [
+      "Phone and digital reception routes that share the same operating rules.",
+      "Structured intake, scheduling and CRM synchronisation for routine enquiries.",
+      "Escalation paths for sensitive, complex or unusual requests.",
+    ],
+    architecture: [
+      {
+        label: "Intake rules",
+        detail:
+          "Minimum details, channel handling and qualification questions are designed.",
+      },
+      {
+        label: "Scheduling",
+        detail:
+          "Booking requests, reminders and diary updates are scoped around existing systems.",
+      },
+      {
+        label: "Routing",
+        detail: "Messages, exceptions and high-risk requests have named owners.",
+      },
+      {
+        label: "Audit trail",
+        detail: "Every capture, handoff and failed path is visible for review.",
+      },
+    ],
+    process: [
+      {
+        label: "Map the desk",
+        detail: "List the repeated questions, channels and routing decisions.",
+      },
+      {
+        label: "Approve answers",
+        detail: "Create the safe response library and blocked topics.",
+      },
+      {
+        label: "Connect handoffs",
+        detail: "Wire booking, CRM, inbox or helpdesk destinations.",
+      },
+      {
+        label: "Review live friction",
+        detail: "Adjust rules based on handoffs, failed intents and staff feedback.",
+      },
+    ],
+    metrics: [
+      { value: "24/7", label: "coverage concept" },
+      { value: "Rules", label: "approved answers" },
+      { value: "Queue", label: "human handoff" },
+    ],
+    safeguard:
+      "Clinical, legal, financial, complaint or safety-related questions stay with authorised people. Reception automation supports first response, not professional judgement.",
+    faq: [
+      {
+        question: "Can this work across phone and web chat?",
+        answer:
+          "Yes, if the same intake model and escalation rules are designed across the channels.",
+      },
+      {
+        question: "How do reminders fit?",
+        answer:
+          "Reminders are scoped around consent, timing, channel preference and existing booking systems.",
+      },
+      {
+        question: "What should not be automated?",
+        answer:
+          "Anything requiring professional judgement, sensitive interpretation or irreversible action.",
+      },
+    ],
+    related: [
+      { href: "/services/ai-voice-agents", label: "AI Voice Agents" },
+      { href: "/services/ai-automation", label: "AI Automation" },
+      { href: "/services/app-development", label: "App Development" },
+    ],
+  },
+  "/services/content-creation": {
+    variant: "editorial",
+    heading: "A source-led content system with review built into every channel",
+    lead: "Long-form articles, short-form social posts, email, service copy and publishing workflows work best when they trace back to approved expertise and a human review gate.",
+    challenge:
+      "Content volume is easy to generate. Credible content requires source material, brand control, claim checks, channel adaptation and feedback from performance signals.",
+    image: SERVICE_IMAGES.generalTwoA,
+    imageSecondary: SERVICE_IMAGES.workflow,
+    outcomes: [
+      "A transformation storyboard from interview, article or source document into channel-ready drafts.",
+      "Editorial review, claim control and brand guidance before anything publishes.",
+      "Analytics feedback that informs the next useful content decision.",
+    ],
+    architecture: [
+      {
+        label: "Knowledge extraction",
+        detail: "Source documents, interviews and SME notes become the approved base.",
+      },
+      {
+        label: "Editorial system",
+        detail: "Topics, formats, channels and approvals are planned before drafting.",
+      },
+      {
+        label: "Repurposing",
+        detail:
+          "Long-form material is adapted into email, social and sales enablement without inventing proof.",
+      },
+      {
+        label: "Feedback loop",
+        detail:
+          "Content analytics inform future topics without chasing vanity metrics.",
+      },
+    ],
+    process: [
+      {
+        label: "Collect sources",
+        detail: "Gather expertise, claims, permissions and constraints.",
+      },
+      {
+        label: "Plan formats",
+        detail: "Choose blog, service copy, email and social uses for each source.",
+      },
+      {
+        label: "Draft and review",
+        detail: "Produce drafts that stay behind human approval.",
+      },
+      {
+        label: "Publish and learn",
+        detail: "Review performance and audience questions before the next cycle.",
+      },
+    ],
+    metrics: [
+      { value: "1", label: "approved source" },
+      { value: "4", label: "channel forms" },
+      { value: "Review", label: "publish gate" },
+    ],
+    safeguard:
+      "The system does not fabricate case studies, testimonials, expertise, regulated advice or results. Unsupported claims are blocked or marked for review.",
+    faq: [
+      {
+        question: "Can AI draft content?",
+        answer:
+          "Yes, but only from approved source material, with brand and claim review before publication.",
+      },
+      {
+        question: "How does repurposing stay coherent?",
+        answer:
+          "Each output traces to the same source and has a single intended audience and next step.",
+      },
+      {
+        question: "Can this include SEO?",
+        answer:
+          "Yes. Search intent, internal links and page structure are part of the planning where relevant.",
+      },
+    ],
+    related: [
+      { href: "/services/web-design-development", label: "Web Design & Development" },
+      { href: "/services/ai-automation", label: "AI Automation" },
+      { href: "/services/ai-consulting", label: "AI & Automation Consulting" },
+    ],
+  },
+  "/services/ai-automation": {
+    variant: "automation",
+    heading: "Agent and workflow systems with approvals, exceptions and monitoring",
+    lead: "Automation covers triggers, APIs, tools, retrieval, memory, orchestration, conditional logic, approvals, exceptions, evaluation, security and deployment readiness.",
+    challenge:
+      "The risk is not using automation. The risk is hiding decisions inside an unchecked workflow with no owner when something unusual happens.",
+    image: SERVICE_IMAGES.workflow,
+    imageSecondary: SERVICE_IMAGES.dataIntegration,
+    outcomes: [
+      "A clear distinction between agents, chatbots, scripts and workflow automation.",
+      "Human approval queues for exceptions and irreversible actions.",
+      "Monitoring and review surfaces that keep owners close to the system.",
+    ],
+    architecture: [
+      {
+        label: "Triggers and tools",
+        detail:
+          "Events, APIs, documents and actions are mapped with permission boundaries.",
+      },
+      {
+        label: "Logic and memory",
+        detail:
+          "Conditional routes, retrieval context and state are designed deliberately.",
+      },
+      {
+        label: "Approvals",
+        detail: "High-impact actions wait for named human review.",
+      },
+      {
+        label: "Monitoring",
+        detail: "Runs, errors, exceptions and drift are visible.",
+      },
+    ],
+    process: [
+      {
+        label: "Find the handoff",
+        detail: "Choose a repeated task where ownership is already clear.",
+      },
+      {
+        label: "Map the system",
+        detail: "Document data sources, destinations, triggers and stop conditions.",
+      },
+      {
+        label: "Build with checkpoints",
+        detail: "Ship the first workflow with logs and approval gates.",
+      },
+      {
+        label: "Evaluate and expand",
+        detail: "Use run history and exception rates to choose the next workflow.",
+      },
+    ],
+    metrics: [
+      { value: "0", label: "unchecked deletions" },
+      { value: "1", label: "owner per queue" },
+      { value: "Logs", label: "run evidence" },
+    ],
+    safeguard:
+      "No autonomous, irreversible or high-impact action should run without explicit approval design, monitoring and fallback ownership.",
+    faq: [
+      {
+        question: "How are agents different from chatbots?",
+        answer:
+          "Agents can use tools and state to complete tasks, while chatbots usually answer or collect information. Both still need boundaries.",
+      },
+      {
+        question: "What should be automated first?",
+        answer:
+          "A repeated, rules-led handoff with clear data ownership and low consequence if held for review.",
+      },
+      {
+        question: "How is security handled?",
+        answer:
+          "Access, retention, credentials, logs and permissions are treated as design requirements, not afterthoughts.",
+      },
+    ],
+    related: [
+      { href: "/services/ai-consulting", label: "AI & Automation Consulting" },
+      { href: "/services/app-development", label: "App Development" },
+      { href: "/services/ai-receptionists", label: "AI Receptionists" },
+    ],
+  },
+  "/services/ai-consulting": {
+    variant: "consulting",
+    heading: "Advisory for leaders deciding what to automate, buy or build",
+    lead: "Consulting covers opportunity audits, prioritisation, roadmaps, build-versus-buy, vendor and model selection, architecture review, data readiness, responsible AI, security, procurement and enablement.",
+    challenge:
+      "The expensive mistake is choosing a tool before the organisation understands which workflow, risk and operating owner the tool is meant to support.",
+    image: SERVICE_IMAGES.consulting,
+    outcomes: [
+      "A prioritised automation roadmap that separates quick wins from expensive detours.",
+      "Architecture and data-readiness review before procurement or implementation.",
+      "Governance, responsible AI and evaluation checkpoints the business can understand.",
+    ],
+    architecture: [
+      {
+        label: "Leadership advisory",
+        detail:
+          "Translate ambition into decisions, constraints and accountable owners.",
+      },
+      {
+        label: "Opportunity audit",
+        detail:
+          "Find repeatable workflows, bottlenecks, data gaps and human review points.",
+      },
+      {
+        label: "Model and vendor route",
+        detail: "Compare configure, buy, build and leave-alone options.",
+      },
+      {
+        label: "Implementation oversight",
+        detail:
+          "Support procurement, security, enablement, evaluation and rollout governance.",
+      },
+    ],
+    process: [
+      {
+        label: "Audit the operating model",
+        detail: "Document workflows, systems, decision rights and measurable friction.",
+      },
+      {
+        label: "Prioritise the roadmap",
+        detail:
+          "Sequence initiatives by value, risk, data readiness and delivery path.",
+      },
+      {
+        label: "Review architecture",
+        detail:
+          "Assess vendors, models, integrations, privacy and security implications.",
+      },
+      {
+        label: "Enable the team",
+        detail: "Create decision notes, operating guidance and review checkpoints.",
+      },
+    ],
+    metrics: [
+      { value: "Audit", label: "first engagement" },
+      { value: "Roadmap", label: "decision output" },
+      { value: "Human", label: "governance owner" },
+    ],
+    safeguard:
+      "Consulting does not endorse a vendor, promise a return or replace legal, procurement, security or data-protection advice. It gives leaders a clearer technical and commercial decision route.",
+    faq: [
+      {
+        question: "When is consulting better than build work?",
+        answer:
+          "When the business can feel the opportunity but has not chosen the right workflow, vendor route or governance model.",
+      },
+      {
+        question: "Can this support internal teams?",
+        answer:
+          "Yes. The route is suitable for SMEs, scale-ups, corporate functions and technical teams that need an external architecture and prioritisation lens.",
+      },
+      {
+        question: "What is the output?",
+        answer:
+          "A practical audit, prioritised roadmap, build-versus-buy reasoning and next-step implementation guidance.",
+      },
+    ],
+    related: [
+      { href: "/services/ai-automation", label: "AI Automation" },
+      { href: "/services/app-development", label: "App Development" },
+      { href: "/how-we-work", label: "How we work" },
+    ],
+  },
+};
+
 /* -------------------------------------------------------------------------- */
 /* Service detail registry                                                     */
 /* -------------------------------------------------------------------------- */
@@ -501,12 +1599,36 @@ const SERVICE_MODULES: Record<string, ServiceModule> = {
       webConversion,
     ),
     tools: [
-      { name: "Booking calendars", category: "Scheduling", note: "Embed a calendar so the primary action can be “book”, not “contact us”." },
-      { name: "CRM handoff", category: "CRM", note: "Form submissions can be routed into a CRM so enquiries are never lost." },
-      { name: "Email & newsletter", category: "Email", note: "Opt-in capture with double-opt-in patterns and clear consent." },
-      { name: "Payments & checkout", category: "Payments", note: "Where selling online is in scope, a checkout path is designed into the route." },
-      { name: "Analytics", category: "Analytics", note: "Privacy-respecting analytics so you can see which paths get used." },
-      { name: "Helpdesk", category: "CRM", note: "Support enquiries can be routed to a shared inbox or helpdesk tool." },
+      {
+        name: "Booking calendars",
+        category: "Scheduling",
+        note: "Embed a calendar so the primary action can be “book”, not “contact us”.",
+      },
+      {
+        name: "CRM handoff",
+        category: "CRM",
+        note: "Form submissions can be routed into a CRM so enquiries are never lost.",
+      },
+      {
+        name: "Email & newsletter",
+        category: "Email",
+        note: "Opt-in capture with double-opt-in patterns and clear consent.",
+      },
+      {
+        name: "Payments & checkout",
+        category: "Payments",
+        note: "Where selling online is in scope, a checkout path is designed into the route.",
+      },
+      {
+        name: "Analytics",
+        category: "Analytics",
+        note: "Privacy-respecting analytics so you can see which paths get used.",
+      },
+      {
+        name: "Helpdesk",
+        category: "CRM",
+        note: "Support enquiries can be routed to a shared inbox or helpdesk tool.",
+      },
     ],
   },
   "/services/app-development": {
@@ -519,24 +1641,72 @@ const SERVICE_MODULES: Record<string, ServiceModule> = {
       appState,
     ),
     tools: [
-      { name: "Identity & sign-in", category: "Authentication", note: "Role-based sign-in so each person sees only what they should." },
-      { name: "Payments", category: "Payments", note: "Where charging is in scope, a payment path is designed into the flow." },
-      { name: "CRM & records", category: "CRM", note: "Sync key records with an existing CRM so the team has one view." },
-      { name: "Product analytics", category: "Analytics", note: "Privacy-respecting analytics to see which flows people actually use." },
-      { name: "Notifications", category: "Messaging", note: "Email, SMS or push notifications at the right point in the flow." },
-      { name: "Error monitoring", category: "Analytics", note: "Capture and triage errors so issues are found before users report them." },
+      {
+        name: "Identity & sign-in",
+        category: "Authentication",
+        note: "Role-based sign-in so each person sees only what they should.",
+      },
+      {
+        name: "Payments",
+        category: "Payments",
+        note: "Where charging is in scope, a payment path is designed into the flow.",
+      },
+      {
+        name: "CRM & records",
+        category: "CRM",
+        note: "Sync key records with an existing CRM so the team has one view.",
+      },
+      {
+        name: "Product analytics",
+        category: "Analytics",
+        note: "Privacy-respecting analytics to see which flows people actually use.",
+      },
+      {
+        name: "Notifications",
+        category: "Messaging",
+        note: "Email, SMS or push notifications at the right point in the flow.",
+      },
+      {
+        name: "Error monitoring",
+        category: "Analytics",
+        note: "Capture and triage errors so issues are found before users report them.",
+      },
     ],
   },
   "/services/ai-voice-agents": {
     signature: <CallFlowOscilloscope />,
-    scenario: voiceCallflow,
+    scenario: voiceAgentAdapter,
     tools: [
-      { name: "Telephony", category: "Telephony", note: "Connect to a phone number and call-routing provider so calls reach the flow." },
-      { name: "Booking calendars", category: "Scheduling", note: "Offer a slot during a call where an appointment is the right action." },
-      { name: "CRM handoff", category: "CRM", note: "Captured details can be written to a CRM so the team has context." },
-      { name: "SMS follow-up", category: "Messaging", note: "Send a confirmation or link by message after a call, with consent." },
-      { name: "Call analytics", category: "Analytics", note: "See call volumes and outcomes by type, with transcripts to audit." },
-      { name: "Helpdesk", category: "CRM", note: "Escalations can open a ticket with a named owner and a clear queue." },
+      {
+        name: "Telephony",
+        category: "Telephony",
+        note: "Connect to a phone number and call-routing provider so calls reach the flow.",
+      },
+      {
+        name: "Booking calendars",
+        category: "Scheduling",
+        note: "Offer a slot during a call where an appointment is the right action.",
+      },
+      {
+        name: "CRM handoff",
+        category: "CRM",
+        note: "Captured details can be written to a CRM so the team has context.",
+      },
+      {
+        name: "SMS follow-up",
+        category: "Messaging",
+        note: "Send a confirmation or link by message after a call, with consent.",
+      },
+      {
+        name: "Call analytics",
+        category: "Analytics",
+        note: "See call volumes and outcomes by type, with transcripts to audit.",
+      },
+      {
+        name: "Helpdesk",
+        category: "CRM",
+        note: "Escalations can open a ticket with a named owner and a clear queue.",
+      },
     ],
   },
   "/services/ai-receptionists": {
@@ -549,12 +1719,36 @@ const SERVICE_MODULES: Record<string, ServiceModule> = {
       receptionConsole,
     ),
     tools: [
-      { name: "Booking calendars", category: "Scheduling", note: "Offer and hold slots so a booking can be the destination." },
-      { name: "CRM handoff", category: "CRM", note: "Captured messages and contacts can be written to a CRM." },
-      { name: "Web chat & messaging", category: "Messaging", note: "Bring web chat and messaging channels into the one intake queue." },
-      { name: "Shared inbox", category: "Email", note: "Route captured messages to the right shared inbox with an owner." },
-      { name: "Telephony", category: "Telephony", note: "Bring phone calls into the same desk as web and messaging." },
-      { name: "Helpdesk", category: "CRM", note: "Open a ticket for any enquiry that needs a person to follow up." },
+      {
+        name: "Booking calendars",
+        category: "Scheduling",
+        note: "Offer and hold slots so a booking can be the destination.",
+      },
+      {
+        name: "CRM handoff",
+        category: "CRM",
+        note: "Captured messages and contacts can be written to a CRM.",
+      },
+      {
+        name: "Web chat & messaging",
+        category: "Messaging",
+        note: "Bring web chat and messaging channels into the one intake queue.",
+      },
+      {
+        name: "Shared inbox",
+        category: "Email",
+        note: "Route captured messages to the right shared inbox with an owner.",
+      },
+      {
+        name: "Telephony",
+        category: "Telephony",
+        note: "Bring phone calls into the same desk as web and messaging.",
+      },
+      {
+        name: "Helpdesk",
+        category: "CRM",
+        note: "Open a ticket for any enquiry that needs a person to follow up.",
+      },
     ],
   },
   "/services/content-creation": {
@@ -567,24 +1761,114 @@ const SERVICE_MODULES: Record<string, ServiceModule> = {
       contentLoom,
     ),
     tools: [
-      { name: "Website CMS", category: "CMS", note: "Draft into your CMS so website outputs land where you edit them." },
-      { name: "Email & newsletter", category: "Email", note: "Prepare a newsletter version for your email platform, ready to review." },
-      { name: "Social scheduling", category: "Social", note: "Queue per-platform posts for a person to approve before they go live." },
-      { name: "Content analytics", category: "Analytics", note: "See which pieces resonated, without chasing vanity metrics." },
-      { name: "Source documents", category: "Documents", note: "Pull from approved source documents so facts trace to an owner." },
-      { name: "Media library", category: "CMS", note: "Use approved imagery and assets, with captions added on publish." },
+      {
+        name: "Website CMS",
+        category: "CMS",
+        note: "Draft into your CMS so website outputs land where you edit them.",
+      },
+      {
+        name: "Email & newsletter",
+        category: "Email",
+        note: "Prepare a newsletter version for your email platform, ready to review.",
+      },
+      {
+        name: "Social scheduling",
+        category: "Social",
+        note: "Queue per-platform posts for a person to approve before they go live.",
+      },
+      {
+        name: "Content analytics",
+        category: "Analytics",
+        note: "See which pieces resonated, without chasing vanity metrics.",
+      },
+      {
+        name: "Source documents",
+        category: "Documents",
+        note: "Pull from approved source documents so facts trace to an owner.",
+      },
+      {
+        name: "Media library",
+        category: "CMS",
+        note: "Use approved imagery and assets, with captions added on publish.",
+      },
     ],
   },
   "/services/ai-automation": {
     signature: <ProcessLattice />,
     scenario: automationLattice,
     tools: [
-      { name: "Workflow runners", category: "Workflow", note: "Orchestrate steps, branches and retries with an event log for every run." },
-      { name: "CRM records", category: "CRM", note: "Read and update customer records as a step, never as an unchecked deletion." },
-      { name: "Email & messaging", category: "Email", note: "Send templated, reviewed messages — with a human checkpoint where it matters." },
-      { name: "Files & storage", category: "Storage", note: "File and fetch documents so a record is never re-keyed by hand." },
-      { name: "Reporting", category: "Analytics", note: "Summarise runs, exceptions and approvals so owners can see the whole picture." },
-      { name: "Approval queues", category: "Workflow", note: "Hold flagged items for a named person, with a clear accept or decline." },
+      {
+        name: "Workflow runners",
+        category: "Workflow",
+        note: "Orchestrate steps, branches and retries with an event log for every run.",
+      },
+      {
+        name: "CRM records",
+        category: "CRM",
+        note: "Read and update customer records as a step, never as an unchecked deletion.",
+      },
+      {
+        name: "Email & messaging",
+        category: "Email",
+        note: "Send templated, reviewed messages — with a human checkpoint where it matters.",
+      },
+      {
+        name: "Files & storage",
+        category: "Storage",
+        note: "File and fetch documents so a record is never re-keyed by hand.",
+      },
+      {
+        name: "Reporting",
+        category: "Analytics",
+        note: "Summarise runs, exceptions and approvals so owners can see the whole picture.",
+      },
+      {
+        name: "Approval queues",
+        category: "Workflow",
+        note: "Hold flagged items for a named person, with a clear accept or decline.",
+      },
+    ],
+  },
+  "/services/ai-consulting": {
+    signature: <ProcessLattice />,
+    scenario: sequentialScenario(
+      "consulting-roadmap",
+      "Automation roadmap builder",
+      "A synthetic advisory sequence that turns operating friction into a prioritised roadmap.",
+      "Synthetic & deterministic — no vendor endorsement, procurement advice or guaranteed business case.",
+      consultingRoadmap,
+    ),
+    tools: [
+      {
+        name: "Process inventory",
+        category: "Discovery",
+        note: "List repeatable workflows, owners and current failure points before choosing tools.",
+      },
+      {
+        name: "Data readiness map",
+        category: "Architecture",
+        note: "Clarify record ownership, quality, permissions and retention constraints.",
+      },
+      {
+        name: "Vendor shortlist",
+        category: "Procurement",
+        note: "Compare configure, buy and build options without defaulting to a preferred platform.",
+      },
+      {
+        name: "Governance register",
+        category: "Governance",
+        note: "Track approval points, review owners, risk notes and escalation paths.",
+      },
+      {
+        name: "Implementation roadmap",
+        category: "Delivery",
+        note: "Sequence first decisions, dependencies and proof points for a controlled rollout.",
+      },
+      {
+        name: "Enablement notes",
+        category: "Adoption",
+        note: "Give internal teams plain-language operating guidance and review checkpoints.",
+      },
     ],
   },
 };
@@ -615,17 +1899,42 @@ const INDUSTRY_DATA: Record<string, IndustryData> = {
       "A synthetic walk: an incoming request is sorted into a lane and a summary is prepared for the branch — or a vendor or landlord update is routed straight to a person.",
     object: "viewing request",
     human: "the branch team",
-    autoStages: ["Captured", "Sorted to lane", "Viewing slot offered", "Summary ready for branch"],
+    autoStages: [
+      "Captured",
+      "Sorted to lane",
+      "Viewing slot offered",
+      "Summary ready for branch",
+    ],
     autoSummary:
       "Synthetic run: the request is captured, sorted and a viewing slot is offered, then a summary is handed to the branch to confirm. Nothing is booked automatically.",
     boundary:
       "Automation captures and prepares — it never values a property, negotiates, or replies to an owner on the branch's behalf. The sensitive relationship always reaches a person.",
     tools: [
-      { name: "Booking calendars", category: "Scheduling", note: "Offer a viewing slot at the moment of interest instead of a callback promise." },
-      { name: "CRM handoff", category: "CRM", note: "Route enquiries into your CRM so a lead is never lost between portals." },
-      { name: "Portal capture", category: "Portals", note: "Bring portal leads into one place alongside web and phone enquiries." },
-      { name: "Email & nurture", category: "Email", note: "Keep buyers warm with consent-based, clearly-owned follow-ups." },
-      { name: "Analytics", category: "Analytics", note: "See which enquiry routes actually get used." },
+      {
+        name: "Booking calendars",
+        category: "Scheduling",
+        note: "Offer a viewing slot at the moment of interest instead of a callback promise.",
+      },
+      {
+        name: "CRM handoff",
+        category: "CRM",
+        note: "Route enquiries into your CRM so a lead is never lost between portals.",
+      },
+      {
+        name: "Portal capture",
+        category: "Portals",
+        note: "Bring portal leads into one place alongside web and phone enquiries.",
+      },
+      {
+        name: "Email & nurture",
+        category: "Email",
+        note: "Keep buyers warm with consent-based, clearly-owned follow-ups.",
+      },
+      {
+        name: "Analytics",
+        category: "Analytics",
+        note: "See which enquiry routes actually get used.",
+      },
     ],
   },
   "/services/hospitality": {
@@ -636,17 +1945,42 @@ const INDUSTRY_DATA: Record<string, IndustryData> = {
       "A synthetic walk: a guest message is matched to the reservation and a reply is prepared — or it rings through to staff for anything safety-related.",
     object: "reservation",
     human: "the duty manager",
-    autoStages: ["Captured", "Matched to reservation", "Option offered", "Summary ready for staff"],
+    autoStages: [
+      "Captured",
+      "Matched to reservation",
+      "Option offered",
+      "Summary ready for staff",
+    ],
     autoSummary:
       "Synthetic run: the message is matched to a reservation, an option is offered and a summary is prepared for staff to confirm. Nothing is committed automatically.",
     boundary:
       "Allergy, accessibility, complaint and emergency matters turn straight to your team. Automation handles availability and admin around the reservation — never a safety-critical answer.",
     tools: [
-      { name: "Booking calendars", category: "Scheduling", note: "Offer and change tables around one reservation record." },
-      { name: "Reservation system", category: "Bookings", note: "Keep one source of truth for every table and change." },
-      { name: "Messaging", category: "Messaging", note: "Bring guest messages into the same place as the booking." },
-      { name: "Email confirmations", category: "Email", note: "Send clear, consent-based confirmations and reminders." },
-      { name: "Payments & deposits", category: "Payments", note: "Take deposits for large bookings where that is your policy." },
+      {
+        name: "Booking calendars",
+        category: "Scheduling",
+        note: "Offer and change tables around one reservation record.",
+      },
+      {
+        name: "Reservation system",
+        category: "Bookings",
+        note: "Keep one source of truth for every table and change.",
+      },
+      {
+        name: "Messaging",
+        category: "Messaging",
+        note: "Bring guest messages into the same place as the booking.",
+      },
+      {
+        name: "Email confirmations",
+        category: "Email",
+        note: "Send clear, consent-based confirmations and reminders.",
+      },
+      {
+        name: "Payments & deposits",
+        category: "Payments",
+        note: "Take deposits for large bookings where that is your policy.",
+      },
     ],
   },
   "/services/salons-barbers": {
@@ -657,17 +1991,42 @@ const INDUSTRY_DATA: Record<string, IndustryData> = {
       "A synthetic walk: service, stylist and deposit are matched into one slot — or a suitability question is stopped at the practitioner.",
     object: "booking",
     human: "the stylist",
-    autoStages: ["Captured", "Matched to stylist", "Slot & deposit offered", "Summary ready for desk"],
+    autoStages: [
+      "Captured",
+      "Matched to stylist",
+      "Slot & deposit offered",
+      "Summary ready for desk",
+    ],
     autoSummary:
       "Synthetic run: service, stylist and deposit are woven into one slot and a summary is prepared for the desk to confirm. Nothing is booked automatically.",
     boundary:
       "Patch tests, suitability and sensitive requests are decided by the stylist, never by a form. Automation arranges the slot; the practitioner makes the call.",
     tools: [
-      { name: "Booking calendars", category: "Scheduling", note: "Match service length to the right stylist's availability." },
-      { name: "Deposits & payments", category: "Payments", note: "Take a deposit to protect the chair where that is your policy." },
-      { name: "CRM & client history", category: "CRM", note: "Recognise returning clients and their usual service." },
-      { name: "Reminders", category: "Messaging", note: "Reduce no-shows with clear, consent-based reminders." },
-      { name: "Email", category: "Email", note: "Send confirmations and rebooking nudges with consent." },
+      {
+        name: "Booking calendars",
+        category: "Scheduling",
+        note: "Match service length to the right stylist's availability.",
+      },
+      {
+        name: "Deposits & payments",
+        category: "Payments",
+        note: "Take a deposit to protect the chair where that is your policy.",
+      },
+      {
+        name: "CRM & client history",
+        category: "CRM",
+        note: "Recognise returning clients and their usual service.",
+      },
+      {
+        name: "Reminders",
+        category: "Messaging",
+        note: "Reduce no-shows with clear, consent-based reminders.",
+      },
+      {
+        name: "Email",
+        category: "Email",
+        note: "Send confirmations and rebooking nudges with consent.",
+      },
     ],
   },
   "/services/trades": {
@@ -678,17 +2037,42 @@ const INDUSTRY_DATA: Record<string, IndustryData> = {
       "A synthetic walk: the basics are captured and a callback is prepared — or an emergency is flagged for a person right away.",
     object: "callback request",
     human: "the office",
-    autoStages: ["Captured", "Triaged by job type", "Callback slot offered", "Summary ready for office"],
+    autoStages: [
+      "Captured",
+      "Triaged by job type",
+      "Callback slot offered",
+      "Summary ready for office",
+    ],
     autoSummary:
       "Synthetic run: location, job type and photos are captured, the enquiry is triaged and a callback is offered, then a summary is prepared for the office. Price and attendance stay unconfirmed.",
     boundary:
       "Attendance time, price and anything safety-related are never confirmed automatically. The board prepares the job; your team commits to it.",
     tools: [
-      { name: "Booking calendars", category: "Scheduling", note: "Offer a callback or visit window instead of a vague promise." },
-      { name: "CRM & job records", category: "CRM", note: "Keep each enquiry, photo and note against one job." },
-      { name: "Messaging & photos", category: "Messaging", note: "Collect a photo and address up front so quotes move faster." },
-      { name: "Location & maps", category: "Maps", note: "Capture and check the job location at intake." },
-      { name: "Email", category: "Email", note: "Send confirmations and follow-ups with consent." },
+      {
+        name: "Booking calendars",
+        category: "Scheduling",
+        note: "Offer a callback or visit window instead of a vague promise.",
+      },
+      {
+        name: "CRM & job records",
+        category: "CRM",
+        note: "Keep each enquiry, photo and note against one job.",
+      },
+      {
+        name: "Messaging & photos",
+        category: "Messaging",
+        note: "Collect a photo and address up front so quotes move faster.",
+      },
+      {
+        name: "Location & maps",
+        category: "Maps",
+        note: "Capture and check the job location at intake.",
+      },
+      {
+        name: "Email",
+        category: "Email",
+        note: "Send confirmations and follow-ups with consent.",
+      },
     ],
   },
   "/services/ecommerce": {
@@ -699,17 +2083,42 @@ const INDUSTRY_DATA: Record<string, IndustryData> = {
       "A synthetic walk: a customer message is matched to an order state and a reply is drafted — or a refund or return is held for a person.",
     object: "order message",
     human: "a support agent",
-    autoStages: ["Captured", "Matched to order", "Reply drafted", "Summary ready for support"],
+    autoStages: [
+      "Captured",
+      "Matched to order",
+      "Reply drafted",
+      "Summary ready for support",
+    ],
     autoSummary:
       "Synthetic run: the message is matched to an order state and a reply is drafted for support to send. Nothing is sent or changed automatically.",
     boundary:
       "Refunds, goodwill and disputes are always a human decision. The conveyor drafts and routes; it never issues money or resolves a dispute on its own.",
     tools: [
-      { name: "Helpdesk", category: "Helpdesk", note: "Bring every message into one queue, tagged by order state." },
-      { name: "Store & orders", category: "Store", note: "Read order status to answer the repetitive questions accurately." },
-      { name: "Payments & refunds", category: "Payments", note: "Prepare a refund for a person to approve — never auto-issue." },
-      { name: "Email", category: "Email", note: "Send drafted, reviewed replies and post-purchase messages." },
-      { name: "Analytics", category: "Analytics", note: "See which message types dominate the queue." },
+      {
+        name: "Helpdesk",
+        category: "Helpdesk",
+        note: "Bring every message into one queue, tagged by order state.",
+      },
+      {
+        name: "Store & orders",
+        category: "Store",
+        note: "Read order status to answer the repetitive questions accurately.",
+      },
+      {
+        name: "Payments & refunds",
+        category: "Payments",
+        note: "Prepare a refund for a person to approve — never auto-issue.",
+      },
+      {
+        name: "Email",
+        category: "Email",
+        note: "Send drafted, reviewed replies and post-purchase messages.",
+      },
+      {
+        name: "Analytics",
+        category: "Analytics",
+        note: "See which message types dominate the queue.",
+      },
     ],
   },
   "/services/physios-chiropractors": {
@@ -726,11 +2135,31 @@ const INDUSTRY_DATA: Record<string, IndustryData> = {
     boundary:
       "Symptoms, urgency and out-of-scope questions go straight to a clinician or urgent-care guidance. Automation handles booking and preparation only — never triage, advice or diagnosis.",
     tools: [
-      { name: "Booking calendars", category: "Scheduling", note: "Offer routine appointments without clinical questions." },
-      { name: "CRM & records", category: "CRM", note: "Keep non-clinical contact and preference details together." },
-      { name: "Intake forms", category: "Forms", note: "Collect high-level, non-clinical details before a visit." },
-      { name: "Reminders", category: "Messaging", note: "Reduce missed appointments with consent-based reminders." },
-      { name: "Email", category: "Email", note: "Send confirmations and preparation notes with consent." },
+      {
+        name: "Booking calendars",
+        category: "Scheduling",
+        note: "Offer routine appointments without clinical questions.",
+      },
+      {
+        name: "CRM & records",
+        category: "CRM",
+        note: "Keep non-clinical contact and preference details together.",
+      },
+      {
+        name: "Intake forms",
+        category: "Forms",
+        note: "Collect high-level, non-clinical details before a visit.",
+      },
+      {
+        name: "Reminders",
+        category: "Messaging",
+        note: "Reduce missed appointments with consent-based reminders.",
+      },
+      {
+        name: "Email",
+        category: "Email",
+        note: "Send confirmations and preparation notes with consent.",
+      },
     ],
   },
   "/services/dentists": {
@@ -741,17 +2170,42 @@ const INDUSTRY_DATA: Record<string, IndustryData> = {
       "A synthetic walk: recalls, forms and diary changes are handled — and anything clinical is routed to the practice team.",
     object: "patient request",
     human: "the practice team",
-    autoStages: ["Captured", "Matched to record", "Slot or recall offered", "Summary ready for practice"],
+    autoStages: [
+      "Captured",
+      "Matched to record",
+      "Slot or recall offered",
+      "Summary ready for practice",
+    ],
     autoSummary:
       "Synthetic run: the request is matched to a record and a recall or slot is offered, then a summary is prepared for the practice. No clinical decision is made.",
     boundary:
       "Treatment decisions, clinical questions and urgent symptoms never enter automation. The orbit handles admin; the clinician owns care.",
     tools: [
-      { name: "Booking & recalls", category: "Scheduling", note: "Offer recalls and appointments without manual chasing." },
-      { name: "Patient records (admin)", category: "CRM", note: "Keep non-clinical admin details against the right record." },
-      { name: "Forms", category: "Forms", note: "Collect new-patient admin details ahead of a visit." },
-      { name: "Reminders", category: "Messaging", note: "Nudge recalls and forms with consent-based reminders." },
-      { name: "Email", category: "Email", note: "Send confirmations and recall notices with consent." },
+      {
+        name: "Booking & recalls",
+        category: "Scheduling",
+        note: "Offer recalls and appointments without manual chasing.",
+      },
+      {
+        name: "Patient records (admin)",
+        category: "CRM",
+        note: "Keep non-clinical admin details against the right record.",
+      },
+      {
+        name: "Forms",
+        category: "Forms",
+        note: "Collect new-patient admin details ahead of a visit.",
+      },
+      {
+        name: "Reminders",
+        category: "Messaging",
+        note: "Nudge recalls and forms with consent-based reminders.",
+      },
+      {
+        name: "Email",
+        category: "Email",
+        note: "Send confirmations and recall notices with consent.",
+      },
     ],
   },
   "/services/gyms-fitness-studios": {
@@ -762,17 +2216,42 @@ const INDUSTRY_DATA: Record<string, IndustryData> = {
       "A synthetic walk: a class is booked and the follow-up prepared — and injuries or disputes are diverted to staff.",
     object: "trial booking",
     human: "the front desk",
-    autoStages: ["Captured", "Matched to class", "Slot & consent offered", "Follow-up summary ready"],
+    autoStages: [
+      "Captured",
+      "Matched to class",
+      "Slot & consent offered",
+      "Follow-up summary ready",
+    ],
     autoSummary:
       "Synthetic run: the enquiry is matched to a class, a slot and consent are offered and a follow-up is prepared. Nothing is charged or committed automatically.",
     boundary:
       "Injuries, refunds and sensitive member issues divert to your team. The roster handles bookings and follow-ups, not duty-of-care or money decisions.",
     tools: [
-      { name: "Class booking", category: "Scheduling", note: "Offer trials and classes with consent captured up front." },
-      { name: "Payments & memberships", category: "Payments", note: "Prepare membership sign-up for a person to confirm." },
-      { name: "CRM", category: "CRM", note: "Track trials through to membership in one place." },
-      { name: "Follow-up messaging", category: "Messaging", note: "Keep trials warm with a clear, consent-based next step." },
-      { name: "Email", category: "Email", note: "Send confirmations and follow-ups with consent." },
+      {
+        name: "Class booking",
+        category: "Scheduling",
+        note: "Offer trials and classes with consent captured up front.",
+      },
+      {
+        name: "Payments & memberships",
+        category: "Payments",
+        note: "Prepare membership sign-up for a person to confirm.",
+      },
+      {
+        name: "CRM",
+        category: "CRM",
+        note: "Track trials through to membership in one place.",
+      },
+      {
+        name: "Follow-up messaging",
+        category: "Messaging",
+        note: "Keep trials warm with a clear, consent-based next step.",
+      },
+      {
+        name: "Email",
+        category: "Email",
+        note: "Send confirmations and follow-ups with consent.",
+      },
     ],
   },
   "/services/fitness-coaches": {
@@ -783,17 +2262,42 @@ const INDUSTRY_DATA: Record<string, IndustryData> = {
       "A synthetic walk: fit questions are asked and a consultation offered — and any health disclosure is held for the coach.",
     object: "consultation request",
     human: "the coach",
-    autoStages: ["Captured", "Fit questions asked", "Consultation offered", "Handoff summary ready"],
+    autoStages: [
+      "Captured",
+      "Fit questions asked",
+      "Consultation offered",
+      "Handoff summary ready",
+    ],
     autoSummary:
       "Synthetic run: the message is captured, a few fit questions are asked and a consultation is offered, then a concise handoff summary is prepared. Nothing is assessed automatically.",
     boundary:
       "Health disclosures, injuries and suitability are assessed by the coach, never by automation. The pathway summarises; the coach decides.",
     tools: [
-      { name: "Booking calendars", category: "Scheduling", note: "Offer a consultation slot the moment fit is clear." },
-      { name: "Messaging", category: "Messaging", note: "Organise DMs into one place with a clear next step." },
-      { name: "CRM", category: "CRM", note: "Track enquiries from first message to consultation." },
-      { name: "Payments", category: "Payments", note: "Prepare programme sign-up for you to confirm." },
-      { name: "Email", category: "Email", note: "Send resources and follow-ups with consent." },
+      {
+        name: "Booking calendars",
+        category: "Scheduling",
+        note: "Offer a consultation slot the moment fit is clear.",
+      },
+      {
+        name: "Messaging",
+        category: "Messaging",
+        note: "Organise DMs into one place with a clear next step.",
+      },
+      {
+        name: "CRM",
+        category: "CRM",
+        note: "Track enquiries from first message to consultation.",
+      },
+      {
+        name: "Payments",
+        category: "Payments",
+        note: "Prepare programme sign-up for you to confirm.",
+      },
+      {
+        name: "Email",
+        category: "Email",
+        note: "Send resources and follow-ups with consent.",
+      },
     ],
   },
 };
@@ -836,7 +2340,12 @@ function industryScenario(data: IndustryData): DemoScenario {
         id: `stage-${String(index)}`,
         log: `Stage ${String(index + 1)}: ${label}.`,
         status: `Routing… step ${String(index + 1)} of ${String(stages.length)}.`,
-        render: () => <StageTiles rows={flowRows(index + 1, index)} synthetic="Synthetic workflow" />,
+        render: () => (
+          <StageTiles
+            rows={flowRows(index + 1, index)}
+            synthetic="Synthetic workflow"
+          />
+        ),
       }));
       steps.push({
         id: "summary",
@@ -857,12 +2366,19 @@ function industryScenario(data: IndustryData): DemoScenario {
 
 function industrySteps(data: IndustryData): InstrumentStep[] {
   return [
-    { label: "Intake", detail: `A ${data.object} arrives and is captured against one record.` },
+    {
+      label: "Intake",
+      detail: `A ${data.object} arrives and is captured against one record.`,
+    },
     {
       label: "Triage",
-      detail: "Routine requests are sorted into a lane and prepared — never decided automatically.",
+      detail:
+        "Routine requests are sorted into a lane and prepared — never decided automatically.",
     },
-    { label: "Hand-off", detail: `Anything sensitive is routed straight to ${data.human}.` },
+    {
+      label: "Hand-off",
+      detail: `Anything sensitive is routed straight to ${data.human}.`,
+    },
   ];
 }
 
@@ -881,9 +2397,23 @@ function VisualRoot({ children }: { children: ReactNode }): ReactNode {
  */
 export function ServicePageVisuals({ route }: { route: FutureRouteRecord }): ReactNode {
   if (route.path === "/services") {
+    const story = SERVICE_STORIES[route.path];
     return (
       <VisualRoot>
+        {story ? (
+          <>
+            <ServiceStoryBlock route={route} story={story} />
+            <ServiceArchitecture story={story} />
+            <ServiceMetrics story={story} />
+          </>
+        ) : null}
         <ServicesDecisionMatrix />
+        {story ? (
+          <>
+            <ServiceProcess story={story} />
+            <ServiceGovernance story={story} />
+          </>
+        ) : null}
       </VisualRoot>
     );
   }
@@ -893,10 +2423,24 @@ export function ServicePageVisuals({ route }: { route: FutureRouteRecord }): Rea
     return null;
   }
 
+  const story = SERVICE_STORIES[route.path];
+
   return (
     <VisualRoot>
+      {story ? <ServiceStoryBlock route={route} story={story} /> : null}
       {module.signature}
+      {story ? (
+        <>
+          <ServiceArchitecture story={story} />
+          <ServiceProcess story={story} />
+          <ServiceMetrics story={story} />
+          {story.imageSecondary ? (
+            <ServicePicture image={story.imageSecondary} />
+          ) : null}
+        </>
+      ) : null}
       <DemoShell scenario={module.scenario} />
+      {story ? <ServiceGovernance story={story} /> : null}
       <ToolsCarousel label={SERVICE_TOOLS_LABEL} tools={module.tools} />
     </VisualRoot>
   );
@@ -906,7 +2450,11 @@ export function ServicePageVisuals({ route }: { route: FutureRouteRecord }): Rea
  * Visuals for each `/services/<industry-slug>` page (template === "industry"):
  * the operating instrument, a synthetic switchboard demo, and the sector rail.
  */
-export function IndustryPageVisuals({ route }: { route: FutureRouteRecord }): ReactNode {
+export function IndustryPageVisuals({
+  route,
+}: {
+  route: FutureRouteRecord;
+}): ReactNode {
   const data = INDUSTRY_DATA[route.path];
   if (!data) {
     return null;

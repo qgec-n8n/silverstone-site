@@ -10,6 +10,8 @@ import {
 } from "react";
 import { useLocation } from "react-router";
 
+import { getFutureRouteByPath } from "~/data/future-routes";
+
 /**
  * AppExperience coordinates the opening sequence shared by every route:
  *
@@ -30,12 +32,17 @@ import { useLocation } from "react-router";
  */
 
 export type HomepageState = "loading" | "intro" | "opening" | "body" | "closing";
+export type ServiceExperienceState = "intro" | "opening" | "body" | "closing";
 
 type AppExperienceValue = {
   loaderActive: boolean;
   homepageState: HomepageState;
+  serviceExperienceState: ServiceExperienceState;
   homepageHeroLocked: boolean;
   homepageBodyActive: boolean;
+  serviceRouteActive: boolean;
+  serviceIntroLocked: boolean;
+  serviceBodyActive: boolean;
   headerHidden: boolean;
   scrollLocked: boolean;
   dismissLoader: () => void;
@@ -45,6 +52,10 @@ type AppExperienceValue = {
   completeHomepageOpening: () => void;
   closeHomepageBody: () => void;
   completeHomepageClosing: () => void;
+  openServiceBody: () => void;
+  completeServiceOpening: () => void;
+  closeServiceBody: () => void;
+  completeServiceClosing: () => void;
 };
 
 const AppExperienceContext = createContext<AppExperienceValue | null>(null);
@@ -73,15 +84,36 @@ function setRootAttribute(name: string, value: string | null): void {
   }
 }
 
+function normalizePathname(pathname: string): string {
+  const [pathOnly = "/"] = pathname.split(/[?#]/);
+  const normalized = pathOnly.startsWith("/") ? pathOnly : `/${pathOnly}`;
+
+  return normalized !== "/" && normalized.endsWith("/")
+    ? normalized.replace(/\/+$/, "")
+    : normalized;
+}
+
+function isServiceExperienceRoute(pathname: string): boolean {
+  const route = getFutureRouteByPath(normalizePathname(pathname));
+
+  return route?.routeGroup === "services" && route.template === "service";
+}
+
 export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const isHomeRoute = location.pathname === "/";
+  const isServiceRoute = isServiceExperienceRoute(location.pathname);
 
   const [loaderActive, setLoaderActive] = useState(true);
   const [homepageState, setHomepageState] = useState<HomepageState>(
     isHomeRoute ? "loading" : "body",
   );
+  const [serviceExperienceState, setServiceExperienceState] =
+    useState<ServiceExperienceState>(isServiceRoute ? "intro" : "body");
   const [lastIsHome, setLastIsHome] = useState(isHomeRoute);
+  const [lastServicePath, setLastServicePath] = useState(
+    isServiceRoute ? normalizePathname(location.pathname) : null,
+  );
   const previousScrollStylesRef = useRef<{
     bodyOverflow: string;
     bodyOverscroll: string;
@@ -94,6 +126,12 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   if (isHomeRoute !== lastIsHome) {
     setLastIsHome(isHomeRoute);
     setHomepageState(isHomeRoute ? (loaderActive ? "loading" : "intro") : "body");
+  }
+
+  const servicePath = isServiceRoute ? normalizePathname(location.pathname) : null;
+  if (servicePath !== lastServicePath) {
+    setLastServicePath(servicePath);
+    setServiceExperienceState(servicePath ? "intro" : "body");
   }
 
   const dismissLoader = useCallback(() => {
@@ -128,10 +166,31 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     setHomepageState((current) => (current === "closing" ? "intro" : current));
   }, []);
 
+  const openServiceBody = useCallback(() => {
+    setServiceExperienceState((current) => (current === "intro" ? "opening" : current));
+  }, []);
+
+  const completeServiceOpening = useCallback(() => {
+    setServiceExperienceState((current) => (current === "opening" ? "body" : current));
+  }, []);
+
+  const closeServiceBody = useCallback(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ left: 0, top: 0, behavior: "auto" });
+    }
+    setServiceExperienceState((current) => (current === "body" ? "closing" : current));
+  }, []);
+
+  const completeServiceClosing = useCallback(() => {
+    setServiceExperienceState((current) => (current === "closing" ? "intro" : current));
+  }, []);
+
   const homepageHeroLocked = isHomeRoute && homepageState !== "body";
   const homepageBodyActive = isHomeRoute && homepageState === "body";
-  const headerHidden = loaderActive || homepageHeroLocked;
-  const scrollLocked = loaderActive || homepageHeroLocked;
+  const serviceIntroLocked = isServiceRoute && serviceExperienceState !== "body";
+  const serviceBodyActive = isServiceRoute && serviceExperienceState === "body";
+  const headerHidden = loaderActive || homepageHeroLocked || serviceIntroLocked;
+  const scrollLocked = loaderActive || homepageHeroLocked || serviceIntroLocked;
 
   useEffect(() => {
     setRootFlag("data-loader-active", loaderActive);
@@ -144,6 +203,13 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setRootAttribute("data-homepage-state", isHomeRoute ? homepageState : null);
   }, [homepageState, isHomeRoute]);
+
+  useEffect(() => {
+    setRootAttribute(
+      "data-service-experience-state",
+      isServiceRoute ? serviceExperienceState : null,
+    );
+  }, [isServiceRoute, serviceExperienceState]);
 
   useEffect(() => {
     setRootFlag("data-scroll-lock", scrollLocked);
@@ -193,7 +259,9 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   }, [scrollLocked]);
 
   useEffect(() => {
-    if (!isHomeRoute || homepageState === "body" || typeof window === "undefined") {
+    const introLocked = (isHomeRoute && homepageState !== "body") || serviceIntroLocked;
+
+    if (!introLocked || typeof window === "undefined") {
       return undefined;
     }
 
@@ -239,14 +307,18 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("touchmove", preventDefault, true);
       document.removeEventListener("keydown", preventScrollKeys, true);
     };
-  }, [homepageState, isHomeRoute]);
+  }, [homepageState, isHomeRoute, serviceIntroLocked]);
 
   const value = useMemo<AppExperienceValue>(
     () => ({
       loaderActive,
       homepageState,
+      serviceExperienceState,
       homepageHeroLocked,
       homepageBodyActive,
+      serviceRouteActive: isServiceRoute,
+      serviceIntroLocked,
+      serviceBodyActive,
       headerHidden,
       scrollLocked,
       dismissLoader,
@@ -256,12 +328,20 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       completeHomepageOpening,
       closeHomepageBody,
       completeHomepageClosing,
+      openServiceBody,
+      completeServiceOpening,
+      closeServiceBody,
+      completeServiceClosing,
     }),
     [
       loaderActive,
       homepageState,
+      serviceExperienceState,
       homepageHeroLocked,
       homepageBodyActive,
+      isServiceRoute,
+      serviceIntroLocked,
+      serviceBodyActive,
       headerHidden,
       scrollLocked,
       dismissLoader,
@@ -271,6 +351,10 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       completeHomepageOpening,
       closeHomepageBody,
       completeHomepageClosing,
+      openServiceBody,
+      completeServiceOpening,
+      closeServiceBody,
+      completeServiceClosing,
     ],
   );
 

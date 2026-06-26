@@ -14,7 +14,10 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-import type { HomepageState } from "~/app/experience/app-experience";
+import type {
+  HomepageState,
+  ServiceExperienceState,
+} from "~/app/experience/app-experience";
 
 export const EXPLORE_CARD_LAYOUT_ID = "ss-explore-card";
 
@@ -73,7 +76,7 @@ export const ExploreSystemButton = forwardRef<
 type ExploreSystemTransitionProps = {
   onClosingReady: () => void;
   onOpeningComplete: () => void;
-  state: HomepageState;
+  state: HomepageState | ServiceExperienceState;
 };
 
 /**
