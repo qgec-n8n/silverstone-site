@@ -77,7 +77,9 @@ function pseudoSha(value: string): string {
 }
 
 function canonicalFor(path: string): string {
-  return path === "/" ? "https://silverstone-ai.com/" : `https://silverstone-ai.com${path}`;
+  return path === "/"
+    ? "https://silverstone-ai.com/"
+    : `https://silverstone-ai.com${path}`;
 }
 
 function textSegment(value: string): InlineSegment {
@@ -88,9 +90,10 @@ function escapeForRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function normalizeInline(
-  value: string | { text: string; links: LinkDef[] },
-): { text: string; segments: InlineSegment[] } {
+function normalizeInline(value: string | { text: string; links: LinkDef[] }): {
+  text: string;
+  segments: InlineSegment[];
+} {
   if (typeof value === "string") {
     return { text: value, segments: [textSegment(value)] };
   }
@@ -174,7 +177,9 @@ function headingsFromSections(
   h1: string,
   sections: MigratedContentSection[],
 ): MigratedContentRecord["headings"] {
-  const headings: MigratedContentRecord["headings"] = [{ order: 0, level: 1, text: h1 }];
+  const headings: MigratedContentRecord["headings"] = [
+    { order: 0, level: 1, text: h1 },
+  ];
   let order = 1;
 
   for (const section of sections) {
@@ -258,7 +263,12 @@ function buildSections(defs: SectionDef[]): MigratedContentSection[] {
   });
 }
 
-function buildSchema(types: string[], path: string, title: string, description: string): SourceSchemaRecord[] {
+function buildSchema(
+  types: string[],
+  path: string,
+  title: string,
+  description: string,
+): SourceSchemaRecord[] {
   return [
     {
       order: 0,
@@ -322,7 +332,10 @@ function createContent(def: ContentDef): MigratedContentRecord {
       sha256: pseudoSha(`${def.sourceFile}:${def.routePath}`),
       bytes: textSnapshot.length,
       textSha256: pseudoSha(textSnapshot),
-      extractedBlockCount: sections.reduce((total, section) => total + section.blocks.length, 0),
+      extractedBlockCount: sections.reduce(
+        (total, section) => total + section.blocks.length,
+        0,
+      ),
     },
     metadata: {
       title: def.title,
@@ -331,7 +344,10 @@ function createContent(def: ContentDef): MigratedContentRecord {
       robots: environment.robotsMeta,
       author: null,
       openGraph: [
-        { property: "og:type", content: def.kind === "article" ? "article" : "website" },
+        {
+          property: "og:type",
+          content: def.kind === "article" ? "article" : "website",
+        },
         { property: "og:site_name", content: "Silverstone AI" },
         { property: "og:url", content: canonicalFor(def.routePath) },
         { property: "og:title", content: def.title },
@@ -342,7 +358,12 @@ function createContent(def: ContentDef): MigratedContentRecord {
         { name: "twitter:title", content: def.title },
         { name: "twitter:description", content: def.description },
       ],
-      other: [{ key: "viewport", content: "width=device-width, initial-scale=1.0, viewport-fit=cover" }],
+      other: [
+        {
+          key: "viewport",
+          content: "width=device-width, initial-scale=1.0, viewport-fit=cover",
+        },
+      ],
     },
     schema: buildSchema(def.schemaTypes, def.routePath, def.title, def.description),
     headings,
@@ -393,11 +414,41 @@ const contactInteraction: SourceInteractionRecord = {
   sourceAction: "/contact",
   sourceUrl: null,
   fields: [
-    { name: "name", label: "Name", type: "text", placeholder: "Your name", required: true },
-    { name: "work-email", label: "Work email", type: "email", placeholder: "name@company.com", required: true },
-    { name: "company", label: "Company", type: "text", placeholder: "Company name", required: false },
-    { name: "area-of-interest", label: "Area of interest", type: "text", placeholder: "Service or workflow", required: false },
-    { name: "message", label: "Short message", type: "textarea", placeholder: "What is happening today and what do you want to improve?", required: true },
+    {
+      name: "name",
+      label: "Name",
+      type: "text",
+      placeholder: "Your name",
+      required: true,
+    },
+    {
+      name: "work-email",
+      label: "Work email",
+      type: "email",
+      placeholder: "name@company.com",
+      required: true,
+    },
+    {
+      name: "company",
+      label: "Company",
+      type: "text",
+      placeholder: "Company name",
+      required: false,
+    },
+    {
+      name: "area-of-interest",
+      label: "Area of interest",
+      type: "text",
+      placeholder: "Service or workflow",
+      required: false,
+    },
+    {
+      name: "message",
+      label: "Short message",
+      type: "textarea",
+      placeholder: "What is happening today and what do you want to improve?",
+      required: true,
+    },
   ],
   active: false,
 };
@@ -427,24 +478,45 @@ const approvedContent = [
         ],
         list: {
           items: [
-            linkParagraph("Web Design & Development for clearer offers and cleaner enquiry paths.", [
-              { href: "/services/web-design-development", text: "Web Design & Development" },
-            ]),
-            linkParagraph("Custom App Development for focused customer or staff tools.", [
-              { href: "/services/app-development", text: "Custom App Development" },
-            ]),
-            linkParagraph("AI Voice Agents for defined phone workflows and safe escalation.", [
-              { href: "/services/ai-voice-agents", text: "AI Voice Agents" },
-            ]),
-            linkParagraph("AI Receptionists for common enquiries, routing and booking support.", [
-              { href: "/services/ai-receptionists", text: "AI Receptionists" },
-            ]),
-            linkParagraph("Content Creation & Repurposing for source-led publishing without invented proof.", [
-              { href: "/services/content-creation", text: "Content Creation & Repurposing" },
-            ]),
-            linkParagraph("AI Automation & Agent Workflows for connected handoffs, approvals and exception control.", [
-              { href: "/services/ai-automation", text: "AI Automation & Agent Workflows" },
-            ]),
+            linkParagraph(
+              "Web Design & Development for clearer offers and cleaner enquiry paths.",
+              [
+                {
+                  href: "/services/web-design-development",
+                  text: "Web Design & Development",
+                },
+              ],
+            ),
+            linkParagraph(
+              "Custom App Development for focused customer or staff tools.",
+              [{ href: "/services/app-development", text: "Custom App Development" }],
+            ),
+            linkParagraph(
+              "AI Voice Agents for defined phone workflows and safe escalation.",
+              [{ href: "/services/ai-voice-agents", text: "AI Voice Agents" }],
+            ),
+            linkParagraph(
+              "AI Receptionists for common enquiries, routing and booking support.",
+              [{ href: "/services/ai-receptionists", text: "AI Receptionists" }],
+            ),
+            linkParagraph(
+              "Content Creation & Repurposing for source-led publishing without invented proof.",
+              [
+                {
+                  href: "/services/content-creation",
+                  text: "Content Creation & Repurposing",
+                },
+              ],
+            ),
+            linkParagraph(
+              "AI Automation & Agent Workflows for connected handoffs, approvals and exception control.",
+              [
+                {
+                  href: "/services/ai-automation",
+                  text: "AI Automation & Agent Workflows",
+                },
+              ],
+            ),
           ],
         },
       },
@@ -455,15 +527,39 @@ const approvedContent = [
         ],
         list: {
           items: [
-            linkParagraph("Estate Agents", [{ href: "/services/estate-agents", text: "Estate Agents" }]),
-            linkParagraph("Hospitality", [{ href: "/services/hospitality", text: "Hospitality" }]),
-            linkParagraph("Salons & Barbers", [{ href: "/services/salons-barbers", text: "Salons & Barbers" }]),
-            linkParagraph("Trades & Home Services", [{ href: "/services/trades", text: "Trades & Home Services" }]),
-            linkParagraph("eCommerce Brands", [{ href: "/services/ecommerce", text: "eCommerce Brands" }]),
-            linkParagraph("Physio & Chiropractic Clinics", [{ href: "/services/physios-chiropractors", text: "Physio & Chiropractic Clinics" }]),
-            linkParagraph("Dental Practices", [{ href: "/services/dentists", text: "Dental Practices" }]),
-            linkParagraph("Gyms & Fitness Studios", [{ href: "/services/gyms-fitness-studios", text: "Gyms & Fitness Studios" }]),
-            linkParagraph("Fitness Coaches", [{ href: "/services/fitness-coaches", text: "Fitness Coaches" }]),
+            linkParagraph("Estate Agents", [
+              { href: "/services/estate-agents", text: "Estate Agents" },
+            ]),
+            linkParagraph("Hospitality", [
+              { href: "/services/hospitality", text: "Hospitality" },
+            ]),
+            linkParagraph("Salons & Barbers", [
+              { href: "/services/salons-barbers", text: "Salons & Barbers" },
+            ]),
+            linkParagraph("Trades & Home Services", [
+              { href: "/services/trades", text: "Trades & Home Services" },
+            ]),
+            linkParagraph("eCommerce Brands", [
+              { href: "/services/ecommerce", text: "eCommerce Brands" },
+            ]),
+            linkParagraph("Physio & Chiropractic Clinics", [
+              {
+                href: "/services/physios-chiropractors",
+                text: "Physio & Chiropractic Clinics",
+              },
+            ]),
+            linkParagraph("Dental Practices", [
+              { href: "/services/dentists", text: "Dental Practices" },
+            ]),
+            linkParagraph("Gyms & Fitness Studios", [
+              {
+                href: "/services/gyms-fitness-studios",
+                text: "Gyms & Fitness Studios",
+              },
+            ]),
+            linkParagraph("Fitness Coaches", [
+              { href: "/services/fitness-coaches", text: "Fitness Coaches" },
+            ]),
           ],
         },
       },
@@ -474,9 +570,10 @@ const approvedContent = [
           items: [
             "Understand the current journey, tools, bottlenecks and exceptions.",
             "Define the first outcome, scope boundaries, data rules and review points.",
-            linkParagraph("Build the first release, test it properly and document what happens next on the How we work page.", [
-              { href: "/how-we-work", text: "How we work" },
-            ]),
+            linkParagraph(
+              "Build the first release, test it properly and document what happens next on the How we work page.",
+              [{ href: "/how-we-work", text: "How we work" }],
+            ),
           ],
         },
       },
@@ -562,31 +659,61 @@ const approvedContent = [
     sections: [
       {
         paragraphs: [
-          "Some projects start with a customer-facing problem. Others start with repeated admin behind the scenes. The six service families below are capability-led and intentionally separate from industry context.",
+          "Some projects start with a customer-facing problem. Others start with repeated admin behind the scenes. The seven service families below are capability-led and intentionally separate from industry context.",
         ],
       },
       {
         heading: "Service pillars",
         list: {
           items: [
-            linkParagraph("Web Design & Development for websites, landing pages, technical SEO foundations and clearer conversion paths.", [
-              { href: "/services/web-design-development", text: "Web Design & Development" },
-            ]),
-            linkParagraph("Custom App Development for focused web or mobile tools tied to a real operational or customer need.", [
-              { href: "/services/app-development", text: "Custom App Development" },
-            ]),
-            linkParagraph("AI Voice Agents for conversational phone workflows with tested escalation rules.", [
-              { href: "/services/ai-voice-agents", text: "AI Voice Agents" },
-            ]),
-            linkParagraph("AI Receptionists for practical first-response, routing and booking support.", [
-              { href: "/services/ai-receptionists", text: "AI Receptionists" },
-            ]),
-            linkParagraph("Content Creation & Repurposing for source-led editorial systems and governed reuse.", [
-              { href: "/services/content-creation", text: "Content Creation & Repurposing" },
-            ]),
-            linkParagraph("AI Automation & Agent Workflows for data movement, approvals, reporting and exception handling.", [
-              { href: "/services/ai-automation", text: "AI Automation & Agent Workflows" },
-            ]),
+            linkParagraph(
+              "Web Design & Development for websites, landing pages, technical SEO foundations and clearer conversion paths.",
+              [
+                {
+                  href: "/services/web-design-development",
+                  text: "Web Design & Development",
+                },
+              ],
+            ),
+            linkParagraph(
+              "Custom App Development for focused web or mobile tools tied to a real operational or customer need.",
+              [{ href: "/services/app-development", text: "Custom App Development" }],
+            ),
+            linkParagraph(
+              "AI Voice Agents for conversational phone workflows with tested escalation rules.",
+              [{ href: "/services/ai-voice-agents", text: "AI Voice Agents" }],
+            ),
+            linkParagraph(
+              "AI Receptionists for practical first-response, routing and booking support.",
+              [{ href: "/services/ai-receptionists", text: "AI Receptionists" }],
+            ),
+            linkParagraph(
+              "Content Creation & Repurposing for source-led editorial systems and governed reuse.",
+              [
+                {
+                  href: "/services/content-creation",
+                  text: "Content Creation & Repurposing",
+                },
+              ],
+            ),
+            linkParagraph(
+              "AI Automation & Agent Workflows for data movement, approvals, reporting and exception handling.",
+              [
+                {
+                  href: "/services/ai-automation",
+                  text: "AI Automation & Agent Workflows",
+                },
+              ],
+            ),
+            linkParagraph(
+              "AI & Automation Consulting for audits, roadmaps, governance and implementation planning before teams commit to tools.",
+              [
+                {
+                  href: "/services/ai-consulting",
+                  text: "AI & Automation Consulting",
+                },
+              ],
+            ),
           ],
         },
       },
@@ -705,21 +832,41 @@ const approvedContent = [
         heading: "Current clusters",
         list: {
           items: [
-            linkParagraph("Web Design & Development guidance for websites, migrations and conversion paths.", [
-              { href: "/services/web-design-development", text: "Web Design & Development" },
-            ]),
-            linkParagraph("AI Receptionists guidance for first-response, routing and booking logic.", [
-              { href: "/services/ai-receptionists", text: "AI Receptionists" },
-            ]),
-            linkParagraph("AI Voice Agents guidance for call flows, fallback and disclosure.", [
-              { href: "/services/ai-voice-agents", text: "AI Voice Agents" },
-            ]),
-            linkParagraph("AI Automation & Agent Workflows guidance for approvals, handoffs and failure handling.", [
-              { href: "/services/ai-automation", text: "AI Automation & Agent Workflows" },
-            ]),
-            linkParagraph("Content Creation & Repurposing guidance for provenance, review and reuse.", [
-              { href: "/services/content-creation", text: "Content Creation & Repurposing" },
-            ]),
+            linkParagraph(
+              "Web Design & Development guidance for websites, migrations and conversion paths.",
+              [
+                {
+                  href: "/services/web-design-development",
+                  text: "Web Design & Development",
+                },
+              ],
+            ),
+            linkParagraph(
+              "AI Receptionists guidance for first-response, routing and booking logic.",
+              [{ href: "/services/ai-receptionists", text: "AI Receptionists" }],
+            ),
+            linkParagraph(
+              "AI Voice Agents guidance for call flows, fallback and disclosure.",
+              [{ href: "/services/ai-voice-agents", text: "AI Voice Agents" }],
+            ),
+            linkParagraph(
+              "AI Automation & Agent Workflows guidance for approvals, handoffs and failure handling.",
+              [
+                {
+                  href: "/services/ai-automation",
+                  text: "AI Automation & Agent Workflows",
+                },
+              ],
+            ),
+            linkParagraph(
+              "Content Creation & Repurposing guidance for provenance, review and reuse.",
+              [
+                {
+                  href: "/services/content-creation",
+                  text: "Content Creation & Repurposing",
+                },
+              ],
+            ),
           ],
         },
       },
@@ -746,7 +893,8 @@ const approvedContent = [
     h1: "Book a discovery call",
     contentStatus: "approved-editorial-overlay",
     claimsStatus: "safe-copy-human-review-pending",
-    riskNotes: "Calendly and contact integrations remain inactive in the transformation workspace.",
+    riskNotes:
+      "Calendly and contact integrations remain inactive in the transformation workspace.",
     interactions: [bookInteraction],
     sections: [
       {
@@ -768,9 +916,10 @@ const approvedContent = [
       {
         heading: "Fallback",
         paragraphs: [
-          linkParagraph("Prefer email instead? Send an enquiry and describe what is happening today.", [
-            { href: "/contact", text: "Send an enquiry" },
-          ]),
+          linkParagraph(
+            "Prefer email instead? Send an enquiry and describe what is happening today.",
+            [{ href: "/contact", text: "Send an enquiry" }],
+          ),
         ],
       },
     ],
@@ -812,9 +961,10 @@ const approvedContent = [
       {
         heading: "Alternative route",
         paragraphs: [
-          linkParagraph("If the request is exploratory rather than urgent, you can also book a discovery call directly.", [
-            { href: "/book", text: "book a discovery call" },
-          ]),
+          linkParagraph(
+            "If the request is exploratory rather than urgent, you can also book a discovery call directly.",
+            [{ href: "/book", text: "book a discovery call" }],
+          ),
         ],
       },
     ],
@@ -845,15 +995,39 @@ const approvedContent = [
         heading: "Browse by sector",
         list: {
           items: [
-            linkParagraph("Estate Agents", [{ href: "/services/estate-agents", text: "Estate Agents" }]),
-            linkParagraph("Hospitality", [{ href: "/services/hospitality", text: "Hospitality" }]),
-            linkParagraph("Salons & Barbers", [{ href: "/services/salons-barbers", text: "Salons & Barbers" }]),
-            linkParagraph("Trades & Home Services", [{ href: "/services/trades", text: "Trades & Home Services" }]),
-            linkParagraph("eCommerce Brands", [{ href: "/services/ecommerce", text: "eCommerce Brands" }]),
-            linkParagraph("Physio & Chiropractic Clinics", [{ href: "/services/physios-chiropractors", text: "Physio & Chiropractic Clinics" }]),
-            linkParagraph("Dental Practices", [{ href: "/services/dentists", text: "Dental Practices" }]),
-            linkParagraph("Gyms & Fitness Studios", [{ href: "/services/gyms-fitness-studios", text: "Gyms & Fitness Studios" }]),
-            linkParagraph("Fitness Coaches", [{ href: "/services/fitness-coaches", text: "Fitness Coaches" }]),
+            linkParagraph("Estate Agents", [
+              { href: "/services/estate-agents", text: "Estate Agents" },
+            ]),
+            linkParagraph("Hospitality", [
+              { href: "/services/hospitality", text: "Hospitality" },
+            ]),
+            linkParagraph("Salons & Barbers", [
+              { href: "/services/salons-barbers", text: "Salons & Barbers" },
+            ]),
+            linkParagraph("Trades & Home Services", [
+              { href: "/services/trades", text: "Trades & Home Services" },
+            ]),
+            linkParagraph("eCommerce Brands", [
+              { href: "/services/ecommerce", text: "eCommerce Brands" },
+            ]),
+            linkParagraph("Physio & Chiropractic Clinics", [
+              {
+                href: "/services/physios-chiropractors",
+                text: "Physio & Chiropractic Clinics",
+              },
+            ]),
+            linkParagraph("Dental Practices", [
+              { href: "/services/dentists", text: "Dental Practices" },
+            ]),
+            linkParagraph("Gyms & Fitness Studios", [
+              {
+                href: "/services/gyms-fitness-studios",
+                text: "Gyms & Fitness Studios",
+              },
+            ]),
+            linkParagraph("Fitness Coaches", [
+              { href: "/services/fitness-coaches", text: "Fitness Coaches" },
+            ]),
           ],
         },
       },
@@ -883,7 +1057,8 @@ const approvedContent = [
     h1: "A clear route from problem to working system",
     contentStatus: "approved-editorial-overlay",
     claimsStatus: "safe-copy-human-review-pending",
-    riskNotes: "Assurance wording is draft-safe. Contractual remedies and formal assurance terms remain legal-review items before production publication.",
+    riskNotes:
+      "Assurance wording is draft-safe. Contractual remedies and formal assurance terms remain legal-review items before production publication.",
     sections: [
       {
         heading: "Discovery and qualification",
@@ -919,9 +1094,10 @@ const approvedContent = [
       {
         heading: "Next step",
         paragraphs: [
-          linkParagraph("If that delivery model fits the way you want to buy, book a discovery call.", [
-            { href: "/book", text: "book a discovery call" },
-          ]),
+          linkParagraph(
+            "If that delivery model fits the way you want to buy, book a discovery call.",
+            [{ href: "/book", text: "book a discovery call" }],
+          ),
         ],
       },
     ],
@@ -988,7 +1164,10 @@ const approvedContent = [
                 { href: "/services/salons-barbers", text: "Salons & Barbers" },
                 { href: "/services/trades", text: "Trades & Home Services" },
                 { href: "/services/ecommerce", text: "eCommerce Brands" },
-                { href: "/services/physios-chiropractors", text: "Physio & Chiropractic Clinics" },
+                {
+                  href: "/services/physios-chiropractors",
+                  text: "Physio & Chiropractic Clinics",
+                },
               ],
             ),
           ],
@@ -1054,9 +1233,15 @@ const approvedContent = [
                 { href: "/services/estate-agents", text: "Estate Agents" },
                 { href: "/services/hospitality", text: "Hospitality" },
                 { href: "/services/ecommerce", text: "eCommerce Brands" },
-                { href: "/services/physios-chiropractors", text: "Physio & Chiropractic Clinics" },
+                {
+                  href: "/services/physios-chiropractors",
+                  text: "Physio & Chiropractic Clinics",
+                },
                 { href: "/services/dentists", text: "Dental Practices" },
-                { href: "/services/gyms-fitness-studios", text: "Gyms & Fitness Studios" },
+                {
+                  href: "/services/gyms-fitness-studios",
+                  text: "Gyms & Fitness Studios",
+                },
               ],
             ),
           ],
@@ -1121,9 +1306,15 @@ const approvedContent = [
                 { href: "/services/estate-agents", text: "Estate Agents" },
                 { href: "/services/hospitality", text: "Hospitality" },
                 { href: "/services/trades", text: "Trades & Home Services" },
-                { href: "/services/physios-chiropractors", text: "Physio & Chiropractic Clinics" },
+                {
+                  href: "/services/physios-chiropractors",
+                  text: "Physio & Chiropractic Clinics",
+                },
                 { href: "/services/dentists", text: "Dental Practices" },
-                { href: "/services/gyms-fitness-studios", text: "Gyms & Fitness Studios" },
+                {
+                  href: "/services/gyms-fitness-studios",
+                  text: "Gyms & Fitness Studios",
+                },
               ],
             ),
           ],
@@ -1190,7 +1381,10 @@ const approvedContent = [
                 { href: "/services/salons-barbers", text: "Salons & Barbers" },
                 { href: "/services/trades", text: "Trades & Home Services" },
                 { href: "/services/ecommerce", text: "eCommerce Brands" },
-                { href: "/services/physios-chiropractors", text: "Physio & Chiropractic Clinics" },
+                {
+                  href: "/services/physios-chiropractors",
+                  text: "Physio & Chiropractic Clinics",
+                },
               ],
             ),
           ],
@@ -1257,7 +1451,10 @@ const approvedContent = [
                 { href: "/services/salons-barbers", text: "Salons & Barbers" },
                 { href: "/services/trades", text: "Trades & Home Services" },
                 { href: "/services/ecommerce", text: "eCommerce Brands" },
-                { href: "/services/physios-chiropractors", text: "Physio & Chiropractic Clinics" },
+                {
+                  href: "/services/physios-chiropractors",
+                  text: "Physio & Chiropractic Clinics",
+                },
               ],
             ),
           ],
@@ -1324,7 +1521,82 @@ const approvedContent = [
                 { href: "/services/salons-barbers", text: "Salons & Barbers" },
                 { href: "/services/trades", text: "Trades & Home Services" },
                 { href: "/services/ecommerce", text: "eCommerce Brands" },
-                { href: "/services/physios-chiropractors", text: "Physio & Chiropractic Clinics" },
+                {
+                  href: "/services/physios-chiropractors",
+                  text: "Physio & Chiropractic Clinics",
+                },
+              ],
+            ),
+          ],
+        },
+      ],
+    },
+    {
+      id: "content-service-ai-consulting",
+      routeId: "route-service-ai-consulting",
+      routePath: "/services/ai-consulting",
+      title: "AI & Automation Consulting for UK Businesses | Silverstone AI",
+      description:
+        "Leadership advisory, opportunity audits and practical AI automation roadmaps for teams deciding what to automate, buy or build.",
+      h1: "AI & Automation Consulting built around clear business decisions",
+      sourceFile:
+        "docs/silverstone-transformation/content/silverstone-content-ia-seo-pack-v1/services/service-ai-consulting-copy-v1.md",
+      sourceRouteKey: "approved:/services/ai-consulting",
+      sections: [
+        {
+          heading: "The problem this service addresses",
+          paragraphs: [
+            "AI and automation decisions become expensive when the organisation starts with a tool, vendor or model before it has agreed the workflow, data owner, risk boundary and evidence needed for a useful first project.",
+          ],
+        },
+        {
+          heading: "What the service can include",
+          list: {
+            items: [
+              "Leadership advisory and opportunity audit",
+              "Workflow, data and system readiness review",
+              "Prioritisation and automation roadmap",
+              "Build-versus-buy and vendor or model selection support",
+              "Architecture, governance, responsible AI and security review",
+              "Implementation oversight, enablement and evaluation planning",
+            ],
+          },
+        },
+        {
+          heading: "Common use cases",
+          list: {
+            items: [
+              "Choosing the first AI automation project",
+              "Reviewing whether to buy, configure or build",
+              "Assessing data readiness before procurement",
+              "Creating governance and human review checkpoints",
+              "Supporting internal engineering, operations or product teams with an external decision lens",
+            ],
+          },
+        },
+        {
+          heading: "Fit and boundaries",
+          paragraphs: [
+            "A useful consulting engagement starts with leadership access, named operational owners and enough process visibility to compare options honestly.",
+            "The service does not replace legal, procurement, security, data-protection or regulated professional advice, and it does not endorse a vendor without context.",
+          ],
+        },
+        {
+          heading: "Related pages",
+          paragraphs: [
+            linkParagraph(
+              "Related routes include AI Automation & Agent Workflows, Custom App Development, Web Design & Development and How Silverstone Works.",
+              [
+                {
+                  href: "/services/ai-automation",
+                  text: "AI Automation & Agent Workflows",
+                },
+                { href: "/services/app-development", text: "Custom App Development" },
+                {
+                  href: "/services/web-design-development",
+                  text: "Web Design & Development",
+                },
+                { href: "/how-we-work", text: "How Silverstone Works" },
               ],
             ),
           ],
@@ -1373,9 +1645,18 @@ const approvedContent = [
       safeguard:
         "Do not automate final suitability decisions, financial advice, complaint resolution or any communication that requires professional judgement.",
       insights: [
-        { href: "/blog/ai-lead-qualification-estate-agents-2026", text: "AI lead qualification for estate agents" },
-        { href: "/blog/ai-viewing-feedback-estate-agents-uk", text: "AI viewing feedback for estate agents" },
-        { href: "/blog/estate-agent-viewing-confirmations-uk", text: "Viewing confirmations for estate agents" },
+        {
+          href: "/blog/ai-lead-qualification-estate-agents-2026",
+          text: "AI lead qualification for estate agents",
+        },
+        {
+          href: "/blog/ai-viewing-feedback-estate-agents-uk",
+          text: "AI viewing feedback for estate agents",
+        },
+        {
+          href: "/blog/estate-agent-viewing-confirmations-uk",
+          text: "Viewing confirmations for estate agents",
+        },
       ],
     },
     {
@@ -1409,8 +1690,14 @@ const approvedContent = [
       safeguard:
         "Do not imply live availability unless the system is connected and tested. Allergy, accessibility, complaint and emergency questions require carefully defined escalation.",
       insights: [
-        { href: "/blog/ai-booking-automation-uk-hospitality-2026", text: "Booking automation for hospitality" },
-        { href: "/blog/ai-guest-concierge-hotels-bbs-uk", text: "Guest concierge workflows" },
+        {
+          href: "/blog/ai-booking-automation-uk-hospitality-2026",
+          text: "Booking automation for hospitality",
+        },
+        {
+          href: "/blog/ai-guest-concierge-hotels-bbs-uk",
+          text: "Guest concierge workflows",
+        },
       ],
     },
     {
@@ -1444,8 +1731,14 @@ const approvedContent = [
       safeguard:
         "Do not make treatment suitability, health or outcome claims through an automated flow. Keep deposits, cancellations and promotional messages aligned with approved terms.",
       insights: [
-        { href: "/blog/ai-no-show-reduction-uk-salons-barbers", text: "No-show reduction for salons & barbers" },
-        { href: "/blog/ai-rebooking-journeys-salons-uk", text: "Rebooking journeys for salons" },
+        {
+          href: "/blog/ai-no-show-reduction-uk-salons-barbers",
+          text: "No-show reduction for salons & barbers",
+        },
+        {
+          href: "/blog/ai-rebooking-journeys-salons-uk",
+          text: "Rebooking journeys for salons",
+        },
       ],
     },
     {
@@ -1479,9 +1772,18 @@ const approvedContent = [
       safeguard:
         "The system must not promise attendance, price or safety outcomes unless those actions are confirmed by the scheduling and quoting systems.",
       insights: [
-        { href: "/blog/ai-call-answering-trades-uk", text: "AI call answering for trades" },
-        { href: "/blog/ai-etas-smart-scheduling-uk-trades-2026", text: "ETA and scheduling for trades" },
-        { href: "/blog/ai-lead-capture-uk-trades-2026", text: "Lead capture for trades" },
+        {
+          href: "/blog/ai-call-answering-trades-uk",
+          text: "AI call answering for trades",
+        },
+        {
+          href: "/blog/ai-etas-smart-scheduling-uk-trades-2026",
+          text: "ETA and scheduling for trades",
+        },
+        {
+          href: "/blog/ai-lead-capture-uk-trades-2026",
+          text: "Lead capture for trades",
+        },
       ],
     },
     {
@@ -1515,8 +1817,14 @@ const approvedContent = [
       safeguard:
         "Do not issue discretionary refunds, make delivery promises or present stock status unless the connected source is authoritative and tested.",
       insights: [
-        { href: "/blog/ai-returns-triage-ecommerce-uk", text: "Returns triage for ecommerce" },
-        { href: "/blog/post-purchase-automation-uk-ecommerce-repeat-customers", text: "Post-purchase automation for ecommerce" },
+        {
+          href: "/blog/ai-returns-triage-ecommerce-uk",
+          text: "Returns triage for ecommerce",
+        },
+        {
+          href: "/blog/post-purchase-automation-uk-ecommerce-repeat-customers",
+          text: "Post-purchase automation for ecommerce",
+        },
       ],
     },
     {
@@ -1550,9 +1858,18 @@ const approvedContent = [
       safeguard:
         "Automation must remain non-clinical. It should not diagnose, triage emergencies, recommend treatment or replace informed professional judgement.",
       insights: [
-        { href: "/blog/ai-automations-physio-chiro-clinics-uk", text: "Automation for physio & chiro clinics" },
-        { href: "/blog/clinic-rebooking-physio-chiro-uk", text: "Clinic rebooking for physio & chiro" },
-        { href: "/blog/ai-appointment-reminders-uk-2026", text: "Appointment reminders for UK businesses" },
+        {
+          href: "/blog/ai-automations-physio-chiro-clinics-uk",
+          text: "Automation for physio & chiro clinics",
+        },
+        {
+          href: "/blog/clinic-rebooking-physio-chiro-uk",
+          text: "Clinic rebooking for physio & chiro",
+        },
+        {
+          href: "/blog/ai-appointment-reminders-uk-2026",
+          text: "Appointment reminders for UK businesses",
+        },
       ],
     },
     {
@@ -1586,9 +1903,18 @@ const approvedContent = [
       safeguard:
         "Do not offer diagnosis, clinical urgency decisions, treatment promises or consent advice. Practice leadership and appropriate professional review remain essential.",
       insights: [
-        { href: "/blog/ai-missed-call-recovery-dentists-uk", text: "Missed call recovery for dentists" },
-        { href: "/blog/dental-intake-e-consent-automation-uk", text: "Dental intake and e-consent automation" },
-        { href: "/blog/dental-recall-automation-uk-2026", text: "Dental recall automation" },
+        {
+          href: "/blog/ai-missed-call-recovery-dentists-uk",
+          text: "Missed call recovery for dentists",
+        },
+        {
+          href: "/blog/dental-intake-e-consent-automation-uk",
+          text: "Dental intake and e-consent automation",
+        },
+        {
+          href: "/blog/dental-recall-automation-uk-2026",
+          text: "Dental recall automation",
+        },
       ],
     },
     {
@@ -1622,8 +1948,14 @@ const approvedContent = [
       safeguard:
         "Do not give exercise, injury or health advice through general automation. Avoid unverified transformation claims and pressure-based messaging.",
       insights: [
-        { href: "/blog/ai-win-back-journeys-gyms-uk", text: "Win-back journeys for gyms" },
-        { href: "/blog/gym-booking-automation-uk-gyms-studios-2026", text: "Booking automation for gyms & studios" },
+        {
+          href: "/blog/ai-win-back-journeys-gyms-uk",
+          text: "Win-back journeys for gyms",
+        },
+        {
+          href: "/blog/gym-booking-automation-uk-gyms-studios-2026",
+          text: "Booking automation for gyms & studios",
+        },
       ],
     },
     {
@@ -1657,8 +1989,14 @@ const approvedContent = [
       safeguard:
         "Do not automate health assessment, promise physical outcomes or use manipulative body-image claims. Keep qualification transparent and easy to leave.",
       insights: [
-        { href: "/blog/ai-lead-scoring-fitness-coaches-uk", text: "Lead scoring for fitness coaches" },
-        { href: "/blog/dm-to-client-automation-uk-fitness-coaches-2026", text: "DM-to-client automation for fitness coaches" },
+        {
+          href: "/blog/ai-lead-scoring-fitness-coaches-uk",
+          text: "Lead scoring for fitness coaches",
+        },
+        {
+          href: "/blog/dm-to-client-automation-uk-fitness-coaches-2026",
+          text: "DM-to-client automation for fitness coaches",
+        },
       ],
     },
   ].map((industry) =>
@@ -1680,7 +2018,9 @@ const approvedContent = [
         {
           heading: "Relevant service combinations",
           list: {
-            items: industry.relatedServices.map((link) => linkParagraph(link.text, [link])),
+            items: industry.relatedServices.map((link) =>
+              linkParagraph(link.text, [link]),
+            ),
           },
         },
         {
@@ -1717,9 +2057,10 @@ const approvedContent = [
           heading: "Proof and review gate",
           paragraphs: [
             "Any future case study, testimonial, client logo, measured outcome or named platform claim requires evidence, permission and human approval before publication.",
-            linkParagraph(`${industry.cta} when you want to scope one workflow first.`, [
-              { href: "/book", text: industry.cta },
-            ]),
+            linkParagraph(
+              `${industry.cta} when you want to scope one workflow first.`,
+              [{ href: "/book", text: industry.cta }],
+            ),
           ],
         },
       ],

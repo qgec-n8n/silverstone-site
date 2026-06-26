@@ -65,6 +65,12 @@ export const SERVICES_MENU: NavMenu = {
       icon: Workflow,
     },
     {
+      href: "/services/ai-consulting",
+      label: "AI & Automation Consulting",
+      description: "Roadmaps before tools",
+      icon: Workflow,
+    },
+    {
       href: "/services/content-creation",
       label: "Content Creation",
       description: "Visibility on autopilot",

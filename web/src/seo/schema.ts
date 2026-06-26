@@ -70,6 +70,17 @@ function buildPageSchema(route: FutureRouteRecord): SchemaEntry {
       description: route.description,
       url: route.canonical,
       serviceType: route.h1,
+      areaServed: [
+        { "@type": "City", name: "London" },
+        { "@type": "Country", name: "United Kingdom" },
+        { "@type": "Continent", name: "Europe" },
+        { "@type": "Country", name: "United States" },
+      ],
+      audience: {
+        "@type": "BusinessAudience",
+        audienceType:
+          "Ambitious SMEs, scale-ups, established organisations, corporate functions and internal product, operations and engineering teams.",
+      },
       provider: {
         "@type": "Organization",
         name: "Silverstone AI",

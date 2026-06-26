@@ -53,8 +53,11 @@ describe("route SEO generation", () => {
       routes: futureRouteManifest,
     });
 
-    expect(productionSitemap.match(/<url>/g)).toHaveLength(25);
+    expect(productionSitemap.match(/<url>/g)).toHaveLength(26);
     expect(productionSitemap).toContain("https://silverstone-ai.com/services");
+    expect(productionSitemap).toContain(
+      "https://silverstone-ai.com/services/ai-consulting",
+    );
     expect(productionSitemap).toContain("https://silverstone-ai.com/industries");
     expect(productionSitemap).not.toContain(
       "https://silverstone-ai.com/blog/ai-receptionist-small-business-2026",

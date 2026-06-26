@@ -23,10 +23,11 @@ function DismissLoader() {
 describe("AppShell", () => {
   it("provides skip navigation and semantic landmarks", () => {
     // Mirror production: AppShell always renders inside AppExperienceProvider
-    // (root Layout), which the header depends on via useAppExperience. A non-home
-    // route keeps the homepage hero unlocked so the header is not gated.
+    // (root Layout), which the header depends on via useAppExperience. Use a
+    // non-home, non-service route so neither homepage nor service intro chrome
+    // gating applies to this landmark assertion.
     render(
-      <MemoryRouter initialEntries={["/services"]}>
+      <MemoryRouter initialEntries={["/about"]}>
         <AppExperienceProvider>
           <DismissLoader />
           <AppShell>

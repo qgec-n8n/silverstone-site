@@ -1,0 +1,2293 @@
+{
+  "generated_at": "2026-06-26T10:05:24.137Z",
+  "source_manifest": "docs/codex/image-assets/verified-image-asset-manifest.json",
+  "policy": "docs/codex/image-assets/page-image-selection-policy.md",
+  "selection_principles": [
+    "Use catalogue recommendations as input, not automatic placement commands.",
+    "Inspect the contact sheet and original asset before implementation.",
+    "Prefer verified high-fit assets with responsive pairs, but reject assets that conflict with live copy, credibility, or responsive layout.",
+    "Treat baked-copy and mock-dashboard images as illustrative self-contained panels.",
+    "Do not add images without a section-level design job."
+  ],
+  "routes": [
+    {
+      "prompt": "Prompt 2",
+      "route_key": "website_design_development",
+      "route_name": "Website Design & Development",
+      "route_path": "/services/web-design-development",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-07-desktop",
+          "desktop_id": "csv-07-desktop",
+          "mobile_id": "csv-07-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_1-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_1_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Lead-capture or conversion-system panel",
+          "reasons_for_fit": [
+            "Directly supports website conversion, missed enquiry capture, and revenue-leak storytelling."
+          ],
+          "warnings": [
+            "Some tiny process labels are decorative rather than reliably readable. Avoid adding competing UI animation over the funnel.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-09-desktop",
+          "desktop_id": "csv-09-desktop",
+          "mobile_id": "csv-09-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2B-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2B_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Integration or platform-ecosystem section",
+          "reasons_for_fit": [
+            "Shows a connected business system and can support website/app integration messaging."
+          ],
+          "warnings": [
+            "Abstract modules may need nearby explanatory copy. Text baked into the visual reduces flexibility for localisation.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-08-desktop",
+          "desktop_id": "csv-08-desktop",
+          "mobile_id": "csv-08-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2A-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2A_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Modular delivery or package structure section",
+          "reasons_for_fit": [
+            "Supports phased digital build and productised implementation copy."
+          ],
+          "warnings": [
+            "The glass cube is conceptual and may be mistaken for a software product. Small status copy needs large display.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-10-desktop",
+          "desktop_id": "csv-10-desktop",
+          "mobile_id": "csv-10-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_3-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_3_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Booking conversion or operational-results section",
+          "reasons_for_fit": [
+            "Useful when web build copy leads into bookings, reminders, or admin relief."
+          ],
+          "warnings": [
+            "Fine interface details are too small for thumbnail use. Conceptual dashboard should not be represented as a literal product screenshot.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 2",
+      "route_key": "app_development",
+      "route_name": "App Development",
+      "route_path": "/services/app-development",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-04-desktop",
+          "desktop_id": "csv-04-desktop",
+          "mobile_id": "csv-04-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_data_integration.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_data_integration_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Systems and data architecture panel",
+          "reasons_for_fit": [
+            "Direct match for connected data, integrations, and app-state orchestration."
+          ],
+          "warnings": [
+            "Light visual language may clash with a predominantly dark site unless framed in a bright section or card.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-09-desktop",
+          "desktop_id": "csv-09-desktop",
+          "mobile_id": "csv-09-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2B-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2B_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Connected platform or app ecosystem panel",
+          "reasons_for_fit": [
+            "Visually communicates multi-system integration without showing a real production app."
+          ],
+          "warnings": [
+            "Abstract modules may need nearby explanatory copy. Text baked into the visual reduces flexibility for localisation.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-08-desktop",
+          "desktop_id": "csv-08-desktop",
+          "mobile_id": "csv-08-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2A-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2A_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "MVP/package roadmap section",
+          "reasons_for_fit": [
+            "The staged copy can support phased app delivery if not repeated beside similar live text."
+          ],
+          "warnings": [
+            "The glass cube is conceptual and may be mistaken for a software product. Small status copy needs large display.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "email-email-6-jpeg",
+          "desktop_id": "email-email-6-jpeg",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/email/email-6.jpeg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 9,
+          "intended_section_use": "Clinic portal or dashboard example when app copy is healthcare-specific",
+          "reasons_for_fit": [
+            "Shows a web/app interface but must be labelled illustrative."
+          ],
+          "warnings": [
+            "Interface labels such as 'Start-up' may be ambiguous and the mock UI should not be treated as a live product.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1264,
+            "height": 848
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/email-extras.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 2",
+      "route_key": "ai_voice_agents",
+      "route_name": "AI Voice Agents",
+      "route_path": "/services/ai-voice-agents",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-02-desktop",
+          "desktop_id": "csv-02-desktop",
+          "mobile_id": "csv-02-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_lead_followup.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_lead_followup_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Lead follow-up and call-response section",
+          "reasons_for_fit": [
+            "Directly maps to automated follow-up and enquiry handling."
+          ],
+          "warnings": [
+            "Text-heavy and already explains a complete value proposition. Avoid using at small display sizes where the sub-copy becomes unreadable.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-07-desktop",
+          "desktop_id": "csv-07-desktop",
+          "mobile_id": "csv-07-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_1-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_1_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Missed-call recovery section",
+          "reasons_for_fit": [
+            "Strong visual metaphor for front-desk capture and revenue recovery."
+          ],
+          "warnings": [
+            "Some tiny process labels are decorative rather than reliably readable. Avoid adding competing UI animation over the funnel.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "email-email-1-jpeg",
+          "desktop_id": "email-email-1-jpeg",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/email/email-1.jpeg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 9,
+          "intended_section_use": "Always-open reception panel for clinic-specific voice-agent copy",
+          "reasons_for_fit": [
+            "Works only where healthcare reception context is intentional."
+          ],
+          "warnings": [
+            "Healthcare-specific copy prevents reuse on non-clinic pages.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1264,
+            "height": 848
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/email-extras.png"
+        },
+        {
+          "catalogue_id": "csv-03-desktop",
+          "desktop_id": "csv-03-desktop",
+          "mobile_id": "csv-03-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_workflow_automation.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_workflow_automation_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Voice-agent workflow reporting section",
+          "reasons_for_fit": [
+            "Supports escalation, reporting, and operational visibility after calls are handled."
+          ],
+          "warnings": [
+            "Dense interface detail and small copy require a large rendering. Can look like conceptual UI rather than a real product screen.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 2",
+      "route_key": "ai_receptionists",
+      "route_name": "AI Receptionists",
+      "route_path": "/services/ai-receptionists",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-07-desktop",
+          "desktop_id": "csv-07-desktop",
+          "mobile_id": "csv-07-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_1-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_1_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Reception-closed/revenue-open first proof panel",
+          "reasons_for_fit": [
+            "Best direct fit for receptionist, missed calls, booking and enquiry intake."
+          ],
+          "warnings": [
+            "Some tiny process labels are decorative rather than reliably readable. Avoid adding competing UI animation over the funnel.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-02-desktop",
+          "desktop_id": "csv-02-desktop",
+          "mobile_id": "csv-02-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_lead_followup.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_lead_followup_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Follow-up workflow section",
+          "reasons_for_fit": [
+            "Complements receptionist positioning by showing next-step automation after first contact."
+          ],
+          "warnings": [
+            "Text-heavy and already explains a complete value proposition. Avoid using at small display sizes where the sub-copy becomes unreadable.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "email-booking-confirmation-email-jpg",
+          "desktop_id": "email-booking-confirmation-email-jpg",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/email/booking-confirmation-email.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Booking confirmation or success-state panel",
+          "reasons_for_fit": [
+            "Useful after CTA or booking-flow copy rather than as general hero art."
+          ],
+          "warnings": [
+            "The copy is specifically a confirmation message, limiting general use."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": false,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/email-extras.png"
+        },
+        {
+          "catalogue_id": "email-email-1-jpeg",
+          "desktop_id": "email-email-1-jpeg",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/email/email-1.jpeg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 9,
+          "intended_section_use": "Healthcare receptionist example",
+          "reasons_for_fit": [
+            "Restrict to clinic reception contexts because the image is healthcare-specific."
+          ],
+          "warnings": [
+            "Healthcare-specific copy prevents reuse on non-clinic pages.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1264,
+            "height": 848
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/email-extras.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 2",
+      "route_key": "content_creation_repurposing",
+      "route_name": "Content Creation & Repurposing",
+      "route_path": "/services/content-creation",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-08-desktop",
+          "desktop_id": "csv-08-desktop",
+          "mobile_id": "csv-08-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2A-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2A_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Content system or campaign package section",
+          "reasons_for_fit": [
+            "The staged pack language can support repeatable content workflows and distribution bundles."
+          ],
+          "warnings": [
+            "The glass cube is conceptual and may be mistaken for a software product. Small status copy needs large display.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-05-desktop",
+          "desktop_id": "csv-05-desktop",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/zip/derived/Silverstone_28-640.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Strategy or transformation section",
+          "reasons_for_fit": [
+            "Broad enough for content operations when positioned as workflow optimisation, not creative proof."
+          ],
+          "warnings": [
+            "The anonymous suited figure and generic city-office setting can feel stock-like. Baked-in slogan limits reuse.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 640,
+            "height": 429
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-09-desktop",
+          "desktop_id": "csv-09-desktop",
+          "mobile_id": "csv-09-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2B-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2B_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Integrated content operations section",
+          "reasons_for_fit": [
+            "Useful if the copy focuses on multi-channel publication and asset management."
+          ],
+          "warnings": [
+            "Abstract modules may need nearby explanatory copy. Text baked into the visual reduces flexibility for localisation.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-03-desktop",
+          "desktop_id": "csv-03-desktop",
+          "mobile_id": "csv-03-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_workflow_automation.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_workflow_automation_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Reporting or performance review section",
+          "reasons_for_fit": [
+            "Works for content performance workflows if kept as an illustrative panel."
+          ],
+          "warnings": [
+            "Dense interface detail and small copy require a large rendering. Can look like conceptual UI rather than a real product screen.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 2",
+      "route_key": "ai_agents_automation_workflows",
+      "route_name": "AI Agents & Automation Workflows",
+      "route_path": "/services/ai-automation",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-03-desktop",
+          "desktop_id": "csv-03-desktop",
+          "mobile_id": "csv-03-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_workflow_automation.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_workflow_automation_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Core workflow automation and reporting panel",
+          "reasons_for_fit": [
+            "Strongest direct fit for automation, operations visibility, and AI workflow orchestration."
+          ],
+          "warnings": [
+            "Dense interface detail and small copy require a large rendering. Can look like conceptual UI rather than a real product screen.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-04-desktop",
+          "desktop_id": "csv-04-desktop",
+          "mobile_id": "csv-04-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_data_integration.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_data_integration_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Connected systems and data integration panel",
+          "reasons_for_fit": [
+            "Supports agent workflows that need a clean data layer and handoffs."
+          ],
+          "warnings": [
+            "Light visual language may clash with a predominantly dark site unless framed in a bright section or card.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-10-desktop",
+          "desktop_id": "csv-10-desktop",
+          "mobile_id": "csv-10-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_3-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_3_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Booking/admin automation outcome section",
+          "reasons_for_fit": [
+            "Good conversion outcome visual for booking-heavy automation."
+          ],
+          "warnings": [
+            "Fine interface details are too small for thumbnail use. Conceptual dashboard should not be represented as a literal product screenshot.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "email-booking-confirmation-email-jpg",
+          "desktop_id": "email-booking-confirmation-email-jpg",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/email/booking-confirmation-email.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Automated confirmation micro-section",
+          "reasons_for_fit": [
+            "Use only where the copy is specifically about confirmations or booking states."
+          ],
+          "warnings": [
+            "The copy is specifically a confirmation message, limiting general use."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": false,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/email-extras.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 2",
+      "route_key": "ai_automation_consulting",
+      "route_name": "AI & Automation Consulting",
+      "route_path": null,
+      "implementation_note": "No current dedicated route exists; use for a future consulting route or adjacent /how-we-work, /pricing, /book, and /contact sections.",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-01-desktop",
+          "desktop_id": "csv-01-desktop",
+          "mobile_id": "csv-01-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_consulting.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_consulting_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Discovery audit or roadmap panel",
+          "reasons_for_fit": [
+            "Direct visual match for consulting, readiness, and what-to-automate-first messaging."
+          ],
+          "warnings": [
+            "Contains substantial baked-in copy, so it should not sit behind additional text. The light style may feel less dramatic on an otherwise near-black Vite site.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-05-desktop",
+          "desktop_id": "csv-05-desktop",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/zip/derived/Silverstone_28-640.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Transformation or growth-strategy panel",
+          "reasons_for_fit": [
+            "Works for high-level advisory positioning but has no mobile counterpart."
+          ],
+          "warnings": [
+            "The anonymous suited figure and generic city-office setting can feel stock-like. Baked-in slogan limits reuse.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 640,
+            "height": 429
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-06-desktop",
+          "desktop_id": "csv-06-desktop",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/zip/derived/Silverstone_22-640.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Bespoke systems or brand-capability panel",
+          "reasons_for_fit": [
+            "Useful for broad capability sections, with care around generic built-for-growth language."
+          ],
+          "warnings": [
+            "The manufacturing label broadens the message beyond the current small-business focus. Small node labels are hard to read when reduced.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 640,
+            "height": 429
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "email-email-8-jpeg",
+          "desktop_id": "email-email-8-jpeg",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/email/email-8.jpeg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 9,
+          "intended_section_use": "Clinic-specific consultation or audit panel",
+          "reasons_for_fit": [
+            "Only for healthcare/clinic consulting copy because the baked headline is clinic-specific."
+          ],
+          "warnings": [
+            "Dense node labels require a large display and the 30-minute promise is fixed in the image.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1264,
+            "height": 848
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/email-extras.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 2",
+      "route_key": "services_directory",
+      "route_name": "Services Directory",
+      "route_path": "/services",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-03-desktop",
+          "desktop_id": "csv-03-desktop",
+          "mobile_id": "csv-03-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_workflow_automation.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_workflow_automation_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Automation capability overview",
+          "reasons_for_fit": [
+            "Summarises workflow automation and reporting across service lines."
+          ],
+          "warnings": [
+            "Dense interface detail and small copy require a large rendering. Can look like conceptual UI rather than a real product screen.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-07-desktop",
+          "desktop_id": "csv-07-desktop",
+          "mobile_id": "csv-07-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_1-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_1_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Front-desk/revenue capture service card",
+          "reasons_for_fit": [
+            "Clear entry point for reception, call capture, and lead-flow services."
+          ],
+          "warnings": [
+            "Some tiny process labels are decorative rather than reliably readable. Avoid adding competing UI animation over the funnel.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-08-desktop",
+          "desktop_id": "csv-08-desktop",
+          "mobile_id": "csv-08-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2A-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2A_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Packaged delivery or service bundles",
+          "reasons_for_fit": [
+            "Fits modular services if not presented as an actual product package."
+          ],
+          "warnings": [
+            "The glass cube is conceptual and may be mistaken for a software product. Small status copy needs large display.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-04-desktop",
+          "desktop_id": "csv-04-desktop",
+          "mobile_id": "csv-04-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_data_integration.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_data_integration_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Integration service card",
+          "reasons_for_fit": [
+            "Works for data and systems integration service tiles."
+          ],
+          "warnings": [
+            "Light visual language may clash with a predominantly dark site unless framed in a bright section or card.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "industries_directory",
+      "route_name": "Industries Directory",
+      "route_path": "/industries",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-03-desktop",
+          "desktop_id": "csv-03-desktop",
+          "mobile_id": "csv-03-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_workflow_automation.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_workflow_automation_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Cross-industry automation overview",
+          "reasons_for_fit": [
+            "Strong neutral automation visual for the industry hub before sector-specific tiles."
+          ],
+          "warnings": [
+            "Dense interface detail and small copy require a large rendering. Can look like conceptual UI rather than a real product screen.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-06-desktop",
+          "desktop_id": "csv-06-desktop",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/zip/derived/Silverstone_22-640.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Cross-industry capability or bespoke-systems section",
+          "reasons_for_fit": [
+            "Broad brand/system visual that avoids favouring one industry, but lacks a mobile pair."
+          ],
+          "warnings": [
+            "The manufacturing label broadens the message beyond the current small-business focus. Small node labels are hard to read when reduced.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 640,
+            "height": 429
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-05-desktop",
+          "desktop_id": "csv-05-desktop",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/zip/derived/Silverstone_28-640.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Industry transformation or method section",
+          "reasons_for_fit": [
+            "Can support the hub's transformation narrative if the generic city-office feel is acceptable."
+          ],
+          "warnings": [
+            "The anonymous suited figure and generic city-office setting can feel stock-like. Baked-in slogan limits reuse.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 640,
+            "height": 429
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-07-desktop",
+          "desktop_id": "csv-07-desktop",
+          "mobile_id": "csv-07-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_1-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_1_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Common front-desk pain point overview",
+          "reasons_for_fit": ["Relevant across many appointment-led sectors."],
+          "warnings": [
+            "Some tiny process labels are decorative rather than reliably readable. Avoid adding competing UI animation over the funnel.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "estate_agents",
+      "route_name": "Estate Agents",
+      "route_path": "/services/estate-agents",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-12-desktop",
+          "desktop_id": "csv-12-desktop",
+          "mobile_id": "csv-12-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Real_Estate_2.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Real_Estate_2_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Viewing, valuation, or enquiry-response section",
+          "reasons_for_fit": [
+            "Most polished estate-agent pair; mobile counterpart has fit score 9."
+          ],
+          "warnings": [
+            "Very light interface can lose contrast on white page backgrounds. Date/time example is fixed inside the image.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "csv-11-desktop",
+          "desktop_id": "csv-11-desktop",
+          "mobile_id": "csv-11-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Real_Estate_1.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Real_Estate_1_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Lead capture or missed-call panel",
+          "reasons_for_fit": [
+            "Directly supports estate-agent enquiry handling and appointment capture."
+          ],
+          "warnings": [
+            "Industry-specific baked-in copy makes it unsuitable outside estate agency. Some status text becomes illegible at small sizes.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-13-desktop",
+          "desktop_id": "csv-13-desktop",
+          "mobile_id": "csv-13-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Real_Estate_3.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Real_Estate_3_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Branch management or CRM automation panel",
+          "reasons_for_fit": [
+            "Useful deeper in the page for branch operations."
+          ],
+          "warnings": [
+            "Specific performance claims are conceptual and should not be framed as measured customer data.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "hospitality",
+      "route_name": "Hospitality",
+      "route_path": "/services/hospitality",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-15-desktop",
+          "desktop_id": "csv-15-desktop",
+          "mobile_id": "csv-15-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Hospitality_2.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Hospitality_2_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Reservation or concierge workflow section",
+          "reasons_for_fit": [
+            "Highest-fit hospitality pair for bookings, concierge, and reservation handling."
+          ],
+          "warnings": [
+            "Six-item list is dense; avoid small cards. The interface is illustrative, not a real product screen.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "csv-14-desktop",
+          "desktop_id": "csv-14-desktop",
+          "mobile_id": "csv-14-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Hospitality_1.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Hospitality_1_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Behind-the-scenes operations panel",
+          "reasons_for_fit": [
+            "Good for operational service and guest-communication sections."
+          ],
+          "warnings": [
+            "Busy background can compete with text. Checklist contains many lines and is best used large.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-16-desktop",
+          "desktop_id": "csv-16-desktop",
+          "mobile_id": "csv-16-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Hospitality_3.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Hospitality_3_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Venue or guest-journey automation section",
+          "reasons_for_fit": [
+            "Works when the copy focuses on venue-specific guest experiences."
+          ],
+          "warnings": [
+            "Generic venue background and list format may feel less distinctive than other assets.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "salons_barbers",
+      "route_name": "Salons & Barbers",
+      "route_path": "/services/salons-barbers",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-17-desktop",
+          "desktop_id": "csv-17-desktop",
+          "mobile_id": "csv-17-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Salon_1.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Salon_1_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "No-show, deposit, reminder, or cancellation-refill panel",
+          "reasons_for_fit": [
+            "Strong salon/barber visual and high-fit desktop/mobile pair."
+          ],
+          "warnings": [
+            "Many baked-in statuses reduce legibility below medium size.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "csv-19-desktop",
+          "desktop_id": "csv-19-desktop",
+          "mobile_id": "csv-19-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Salon_3.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Salon_3_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "DM or appointment follow-up workflow",
+          "reasons_for_fit": [
+            "Useful for messaging and automated rebooking sections."
+          ],
+          "warnings": [
+            "The empty chairs can subtly imply low demand unless the headline remains visible.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1536,
+            "height": 1024
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-18-desktop",
+          "desktop_id": "csv-18-desktop",
+          "mobile_id": "csv-18-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Salon_2.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Salon_2_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Client recovery or reactivation section",
+          "reasons_for_fit": [
+            "Good for retention copy but the dated campaign label may limit reuse."
+          ],
+          "warnings": [
+            "Calendar details are tiny and the fixed fictional client example may not suit every page.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1536,
+            "height": 1024
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "trades_home_services",
+      "route_name": "Trades & Home Services",
+      "route_path": "/services/trades",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-21-desktop",
+          "desktop_id": "csv-21-desktop",
+          "mobile_id": "csv-21-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Trades_2.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Trades_2_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Quote, job qualification, or dispatch panel",
+          "reasons_for_fit": [
+            "Cleanest trades visual for quoting and follow-up workflows."
+          ],
+          "warnings": [
+            "Several small job records are unreadable when reduced. The workshop is generic across multiple trades.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "csv-20-desktop",
+          "desktop_id": "csv-20-desktop",
+          "mobile_id": "csv-20-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Trades_1.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Trades_1_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Lead capture or missed-enquiry panel",
+          "reasons_for_fit": [
+            "Strong high-value project qualification angle for trades."
+          ],
+          "warnings": [
+            "The £50K+ budget example may be too specific for smaller trades. Bright outdoor background can reduce overlay contrast.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-22-desktop",
+          "desktop_id": "csv-22-desktop",
+          "mobile_id": "csv-22-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Trades_3.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Trades_3_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "After-hours admin or confirmation section",
+          "reasons_for_fit": [
+            "Bright, clean confirmation visual for admin relief."
+          ],
+          "warnings": [
+            "Fixed address, customer name and price are illustrative; clearly treat them as mock data.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "ecommerce",
+      "route_name": "eCommerce",
+      "route_path": "/services/ecommerce",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-25-desktop",
+          "desktop_id": "csv-25-desktop",
+          "mobile_id": "csv-25-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/eComm_3.webp",
+          "mobile_verified_path": "assets/images/socialmedia/eComm_3_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 10,
+          "intended_section_use": "Traffic-to-revenue or abandoned-cart section",
+          "reasons_for_fit": [
+            "Highest-fit ecommerce asset and strong visual energy for conversion/revenue workflows."
+          ],
+          "warnings": [
+            "The 24,500+ and +35% figures look like claims and should be labelled illustrative. Visually intense.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "csv-23-desktop",
+          "desktop_id": "csv-23-desktop",
+          "mobile_id": "csv-23-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/eComm_1.webp",
+          "mobile_verified_path": "assets/images/socialmedia/eComm_1_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Support automation or lost-sales recovery section",
+          "reasons_for_fit": [
+            "Clear match for support, cart recovery, and shopper follow-up."
+          ],
+          "warnings": [
+            "Strong conceptual sci-fi environment may feel detached from smaller real-world shops.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-24-desktop",
+          "desktop_id": "csv-24-desktop",
+          "mobile_id": "csv-24-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/eComm_2.webp",
+          "mobile_verified_path": "assets/images/socialmedia/eComm_2_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Store autopilot or retention panel",
+          "reasons_for_fit": [
+            "Supports retention and reporting if the graph is labelled illustrative."
+          ],
+          "warnings": [
+            "Conceptual graph may be interpreted as real analytics. Small details need medium-to-large display.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "physios_chiropractors",
+      "route_name": "Physios & Chiropractors",
+      "route_path": "/services/physios-chiropractors",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-26-desktop",
+          "desktop_id": "csv-26-desktop",
+          "mobile_id": "csv-26-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Physio_1.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Physio_1_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Patient intake or appointment-flow panel",
+          "reasons_for_fit": [
+            "Strong healthcare admin visual with high-fit desktop/mobile pair."
+          ],
+          "warnings": [
+            "Some clinical workflow labels are small. Avoid implying medical decision-making rather than administrative automation.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "email-physio-4-jpg",
+          "desktop_id": "email-physio-4-jpg",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/email/physio-4.jpeg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 10,
+          "intended_section_use": "Clinic automation hero or full-width healthcare panel",
+          "reasons_for_fit": [
+            "Highest-fit clinic extra; powerful but near-duplicate of email-intro."
+          ],
+          "warnings": [
+            "Near-duplicate of email-intro and strongly healthcare-specific.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1856,
+            "height": 2304
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/email-extras.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-28-desktop",
+          "desktop_id": "csv-28-desktop",
+          "mobile_id": "csv-28-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Physio_3.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Physio_3_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Rebooking or treatment-plan adherence section",
+          "reasons_for_fit": ["Good for attendance and rebooking mechanics."],
+          "warnings": [
+            "The spine hologram can imply clinical technology rather than administrative automation.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "csv-27-desktop",
+          "desktop_id": "csv-27-desktop",
+          "mobile_id": "csv-27-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Physio_2.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Physio_2_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Patient journey or intake section",
+          "reasons_for_fit": [
+            "Clean clinic overview with minimal visible detail."
+          ],
+          "warnings": [
+            "Minimal visible detail makes it less informative than the other clinic assets.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "dentists",
+      "route_name": "Dentists",
+      "route_path": "/services/dentists",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-29-desktop",
+          "desktop_id": "csv-29-desktop",
+          "mobile_id": "csv-29-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/dentist-1.png",
+          "mobile_verified_path": "assets/images/socialmedia/dentist-1-mobile.png",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Chair-fill, appointment, or hygiene recall panel",
+          "reasons_for_fit": [
+            "Strong dental environment with clear appointment/revenue relevance."
+          ],
+          "warnings": [
+            "Chart and labels are conceptual; do not imply measured performance.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "csv-31-desktop",
+          "desktop_id": "csv-31-desktop",
+          "mobile_id": "csv-31-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/dentist-3.png",
+          "mobile_verified_path": "assets/images/socialmedia/dentist-3-mobile.png",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "No-show or outcome scheduling section",
+          "reasons_for_fit": [
+            "Useful for appointment gap and scheduling logic."
+          ],
+          "warnings": [
+            "Dense calendar becomes unreadable at smaller breakpoints.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-30-desktop",
+          "desktop_id": "csv-30-desktop",
+          "mobile_id": "csv-30-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/dentist-2.png",
+          "mobile_verified_path": "assets/images/socialmedia/dentist-2-mobile.png",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Recall automation panel",
+          "reasons_for_fit": [
+            "Relevant to recall journeys but the dark visual needs contrast management."
+          ],
+          "warnings": [
+            "Dark treatment room can feel less welcoming. Fine patient-card details are decorative.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "gyms_fitness_studios",
+      "route_name": "Gyms & Fitness Studios",
+      "route_path": "/services/gyms-fitness-studios",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-34-desktop",
+          "desktop_id": "csv-34-desktop",
+          "mobile_id": "csv-34-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Gyms_3.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Gyms_3_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Churn prevention or retention-results section",
+          "reasons_for_fit": [
+            "Strongest gym asset with clear member-retention framing."
+          ],
+          "warnings": [
+            "Timeline is too detailed for small cards and overlaps conceptually with the other gym assets.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1536,
+            "height": 1024
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "csv-32-desktop",
+          "desktop_id": "csv-32-desktop",
+          "mobile_id": "csv-32-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Gyms_1.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Gyms_1_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Member churn or attendance analysis section",
+          "reasons_for_fit": [
+            "Good for retention analytics and churn-risk explanation."
+          ],
+          "warnings": [
+            "Dark environment needs careful contrast when embedded in a dark site.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1536,
+            "height": 1024
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-33-desktop",
+          "desktop_id": "csv-33-desktop",
+          "mobile_id": "csv-33-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/Gyms_2.webp",
+          "mobile_verified_path": "assets/images/socialmedia/Gyms_2_Mobile.webp",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Cancellation-prevention or automated retention journey",
+          "reasons_for_fit": ["Good lifecycle angle but overlaps with row 34."],
+          "warnings": [
+            "Small node labels need large rendering. Similar message to gyms-1 and gyms-3 creates redundancy.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 1536,
+            "height": 1024
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "fitness_coaches",
+      "route_name": "Fitness Coaches",
+      "route_path": "/services/fitness-coaches",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-36-desktop",
+          "desktop_id": "csv-36-desktop",
+          "mobile_id": "csv-36-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/onlinecoach-2.png",
+          "mobile_verified_path": "assets/images/socialmedia/onlinecoach-2-mobile.png",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "DM-to-client or inbox qualification panel",
+          "reasons_for_fit": [
+            "Best direct match for online coaching messages and lead qualification."
+          ],
+          "warnings": [
+            "Message-bubble density can compete with overlaid webpage copy.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        },
+        {
+          "catalogue_id": "csv-35-desktop",
+          "desktop_id": "csv-35-desktop",
+          "mobile_id": "csv-35-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/onlinecoach-1.png",
+          "mobile_verified_path": "assets/images/socialmedia/onlinecoach-1-mobile.png",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Lead capture or CRM/nurture funnel section",
+          "reasons_for_fit": [
+            "Strong sales and CRM visual for coach lead generation."
+          ],
+          "warnings": [
+            "The large number of floating icons can feel visually busy. Generic fitness setting narrows reuse.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-37-desktop",
+          "desktop_id": "csv-37-desktop",
+          "mobile_id": "csv-37-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/onlinecoach-3.png",
+          "mobile_verified_path": "assets/images/socialmedia/onlinecoach-3-mobile.png",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Coaching scale or programme operations section",
+          "reasons_for_fit": [
+            "Useful for scaling delivery, but dense labels require large display."
+          ],
+          "warnings": [
+            "Very dense and includes fictional names. At small sizes it reads as visual texture rather than legible UI.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/industry-pairs.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "about",
+      "route_name": "About",
+      "route_path": "/about",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-06-desktop",
+          "desktop_id": "csv-06-desktop",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/zip/derived/Silverstone_22-640.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Bespoke systems or company capability section",
+          "reasons_for_fit": [
+            "Broad brand capability visual for company story, with no mobile counterpart."
+          ],
+          "warnings": [
+            "The manufacturing label broadens the message beyond the current small-business focus. Small node labels are hard to read when reduced.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 640,
+            "height": 429
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-05-desktop",
+          "desktop_id": "csv-05-desktop",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/zip/derived/Silverstone_28-640.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Mission, growth, and transformation section",
+          "reasons_for_fit": [
+            "Supports founder/company narrative if the generic city-office feel is acceptable."
+          ],
+          "warnings": [
+            "The anonymous suited figure and generic city-office setting can feel stock-like. Baked-in slogan limits reuse.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 640,
+            "height": 429
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-01-desktop",
+          "desktop_id": "csv-01-desktop",
+          "mobile_id": "csv-01-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_consulting.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_consulting_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Method or advisory panel",
+          "reasons_for_fit": [
+            "Useful if About includes discovery/readiness methodology."
+          ],
+          "warnings": [
+            "Contains substantial baked-in copy, so it should not sit behind additional text. The light style may feel less dramatic on an otherwise near-black Vite site.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "how_we_work",
+      "route_name": "How We Work",
+      "route_path": "/how-we-work",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-01-desktop",
+          "desktop_id": "csv-01-desktop",
+          "mobile_id": "csv-01-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_consulting.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_consulting_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Audit, readiness, or roadmap step",
+          "reasons_for_fit": [
+            "Direct match for deciding what to automate first."
+          ],
+          "warnings": [
+            "Contains substantial baked-in copy, so it should not sit behind additional text. The light style may feel less dramatic on an otherwise near-black Vite site.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-03-desktop",
+          "desktop_id": "csv-03-desktop",
+          "mobile_id": "csv-03-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_workflow_automation.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_workflow_automation_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Delivery workflow and reporting section",
+          "reasons_for_fit": [
+            "Shows the operations system after methodology is implemented."
+          ],
+          "warnings": [
+            "Dense interface detail and small copy require a large rendering. Can look like conceptual UI rather than a real product screen.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-04-desktop",
+          "desktop_id": "csv-04-desktop",
+          "mobile_id": "csv-04-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_data_integration.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_data_integration_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Integration and data mapping section",
+          "reasons_for_fit": [
+            "Works for technical discovery and systems planning."
+          ],
+          "warnings": [
+            "Light visual language may clash with a predominantly dark site unless framed in a bright section or card.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-08-desktop",
+          "desktop_id": "csv-08-desktop",
+          "mobile_id": "csv-08-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2A-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2A_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Phased delivery or ship-fast section",
+          "reasons_for_fit": [
+            "Supports rollout sequencing if not duplicated with live copy."
+          ],
+          "warnings": [
+            "The glass cube is conceptual and may be mistaken for a software product. Small status copy needs large display.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "pricing_engagement_models",
+      "route_name": "Pricing / Engagement Models",
+      "route_path": "/pricing",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-01-desktop",
+          "desktop_id": "csv-01-desktop",
+          "mobile_id": "csv-01-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_consulting.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_consulting_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Audit or roadmap engagement model",
+          "reasons_for_fit": [
+            "Useful for explaining discovery before implementation."
+          ],
+          "warnings": [
+            "Contains substantial baked-in copy, so it should not sit behind additional text. The light style may feel less dramatic on an otherwise near-black Vite site.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-08-desktop",
+          "desktop_id": "csv-08-desktop",
+          "mobile_id": "csv-08-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2A-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2A_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Package or modular scope section",
+          "reasons_for_fit": [
+            "Supports staged offers and clearly bounded engagement options."
+          ],
+          "warnings": [
+            "The glass cube is conceptual and may be mistaken for a software product. Small status copy needs large display.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-05-desktop",
+          "desktop_id": "csv-05-desktop",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/zip/derived/Silverstone_28-640.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Transformation or success-engine panel",
+          "reasons_for_fit": [
+            "Can support strategic value framing, but baked slogan limits reuse."
+          ],
+          "warnings": [
+            "The anonymous suited figure and generic city-office setting can feel stock-like. Baked-in slogan limits reuse.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 640,
+            "height": 429
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "book",
+      "route_name": "Book",
+      "route_path": "/book",
+      "primary_candidates": [
+        {
+          "catalogue_id": "email-booking-confirmation-email-jpg",
+          "desktop_id": "email-booking-confirmation-email-jpg",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/email/booking-confirmation-email.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Booking confirmation or post-submit reassurance panel",
+          "reasons_for_fit": [
+            "Direct confirmation-state match for booking journeys."
+          ],
+          "warnings": [
+            "The copy is specifically a confirmation message, limiting general use."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": false,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/email-extras.png"
+        },
+        {
+          "catalogue_id": "csv-10-desktop",
+          "desktop_id": "csv-10-desktop",
+          "mobile_id": "csv-10-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_3-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_3_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Full-diary booking and reminders section",
+          "reasons_for_fit": [
+            "Supports booking/reminder automation and appointment-focused outcomes."
+          ],
+          "warnings": [
+            "Fine interface details are too small for thumbnail use. Conceptual dashboard should not be represented as a literal product screenshot.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-02-desktop",
+          "desktop_id": "csv-02-desktop",
+          "mobile_id": "csv-02-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_lead_followup.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_lead_followup_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Follow-up after discovery-call enquiry",
+          "reasons_for_fit": [
+            "Useful if the page explains what happens after booking."
+          ],
+          "warnings": [
+            "Text-heavy and already explains a complete value proposition. Avoid using at small display sizes where the sub-copy becomes unreadable.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "contact",
+      "route_name": "Contact",
+      "route_path": "/contact",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-02-desktop",
+          "desktop_id": "csv-02-desktop",
+          "mobile_id": "csv-02-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_lead_followup.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_lead_followup_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Enquiry follow-up or response expectations panel",
+          "reasons_for_fit": [
+            "Maps to contact handling and next-step response."
+          ],
+          "warnings": [
+            "Text-heavy and already explains a complete value proposition. Avoid using at small display sizes where the sub-copy becomes unreadable.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "email-booking-confirmation-email-jpg",
+          "desktop_id": "email-booking-confirmation-email-jpg",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/email/booking-confirmation-email.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Confirmation or successful submission panel",
+          "reasons_for_fit": [
+            "Works after form submission or contact confirmation content."
+          ],
+          "warnings": [
+            "The copy is specifically a confirmation message, limiting general use."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": false,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/email-extras.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-07-desktop",
+          "desktop_id": "csv-07-desktop",
+          "mobile_id": "csv-07-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_1-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_1_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Missed-enquiry capture panel",
+          "reasons_for_fit": [
+            "Good if contact copy emphasises responsiveness and lost leads."
+          ],
+          "warnings": [
+            "Some tiny process labels are decorative rather than reliably readable. Avoid adding competing UI animation over the funnel.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "insights",
+      "route_name": "Insights",
+      "route_path": "/blog",
+      "primary_candidates": [
+        {
+          "catalogue_id": "csv-03-desktop",
+          "desktop_id": "csv-03-desktop",
+          "mobile_id": "csv-03-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_workflow_automation.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_workflow_automation_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Operations insight or automation article hub",
+          "reasons_for_fit": [
+            "General automation/reporting visual for the Insights index."
+          ],
+          "warnings": [
+            "Dense interface detail and small copy require a large rendering. Can look like conceptual UI rather than a real product screen.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-04-desktop",
+          "desktop_id": "csv-04-desktop",
+          "mobile_id": "csv-04-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_data_integration.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_data_integration_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Technical integration or data article hub",
+          "reasons_for_fit": [
+            "Supports systems-thinking and implementation articles."
+          ],
+          "warnings": [
+            "Light visual language may clash with a predominantly dark site unless framed in a bright section or card.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-09-desktop",
+          "desktop_id": "csv-09-desktop",
+          "mobile_id": "csv-09-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/derived/General_Services_2B-960.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/derived/General_Services_2B_Mobile-768.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 9,
+          "intended_section_use": "Integrated systems article category",
+          "reasons_for_fit": [
+            "Works for operations and integration content when not treated as literal UI."
+          ],
+          "warnings": [
+            "Abstract modules may need nearby explanatory copy. Text baked into the visual reduces flexibility for localisation.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 960,
+            "height": 644
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ]
+    },
+    {
+      "prompt": "Prompt 3",
+      "route_key": "remaining_routes",
+      "route_name": "Any Other Remaining Route",
+      "route_path": null,
+      "primary_candidates": [],
+      "alternative_candidates": [
+        {
+          "catalogue_id": "csv-06-desktop",
+          "desktop_id": "csv-06-desktop",
+          "mobile_id": null,
+          "desktop_verified_path": "assets/images/zip/derived/Silverstone_22-640.jpg",
+          "mobile_verified_path": null,
+          "responsive_pair": "no complete desktop/mobile pair",
+          "fit_score": 8,
+          "intended_section_use": "Only if the route has a broad company-capability section",
+          "reasons_for_fit": [
+            "Use sparingly because it has no responsive pair and baked generic positioning."
+          ],
+          "warnings": [
+            "The manufacturing label broadens the message beyond the current small-business focus. Small node labels are hard to read when reduced.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 640,
+            "height": 429
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        },
+        {
+          "catalogue_id": "csv-01-desktop",
+          "desktop_id": "csv-01-desktop",
+          "mobile_id": "csv-01-mobile",
+          "desktop_verified_path": "assets/images/socialmedia/services_consulting.jpg",
+          "mobile_verified_path": "assets/images/socialmedia/services_consulting_mobile.jpg",
+          "responsive_pair": "desktop/mobile available",
+          "fit_score": 8,
+          "intended_section_use": "Only if the route discusses discovery, audit, or readiness",
+          "reasons_for_fit": ["Do not use as a generic decorative image."],
+          "warnings": [
+            "Contains substantial baked-in copy, so it should not sit behind additional text. The light style may feel less dramatic on an otherwise near-black Vite site.",
+            "Treat as a large self-contained visual panel; do not overlay important live text."
+          ],
+          "contains_baked_in_copy": true,
+          "large_self_contained_panel": true,
+          "actual_dimensions": {
+            "width": 2528,
+            "height": 1696
+          },
+          "pixel_inspection_contact_sheet": "docs/codex/image-assets/contact-sheets/service-foundation.png"
+        }
+      ],
+      "implementation_note": "Legal, error, and utility routes should normally avoid catalogue imagery unless a future page-specific decision log justifies a clear design function."
+    }
+  ]
+}

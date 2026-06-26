@@ -60,7 +60,8 @@ export function AiConsulting() {
             </Reveal>
             <Reveal delayMs={80}>
               <h2 className="ss-hv2-display text-4xl sm:text-5xl">
-                Strategy first. <span className="ss-chrome-text">Technology second.</span>
+                Strategy first.{" "}
+                <span className="ss-chrome-text">Technology second.</span>
               </h2>
             </Reveal>
             <Reveal delayMs={160}>
@@ -78,7 +79,7 @@ export function AiConsulting() {
             <Reveal delayMs={460}>
               <div>
                 <Button asChild size="lg" variant="accent">
-                  <Link to="/how-we-work">See how we work</Link>
+                  <Link to="/services/ai-consulting">Explore consulting</Link>
                 </Button>
               </div>
             </Reveal>

@@ -23,6 +23,7 @@ import { RevealSection } from "~/visual/components/reveal-section";
 type RoutePageFrameProps = {
   children?: ReactNode;
   content: MigratedContentRecord | null;
+  emitSchema?: boolean;
   eyebrow: string;
   route: FutureRouteRecord;
 };
@@ -30,6 +31,7 @@ type RoutePageFrameProps = {
 export function RoutePageFrame({
   children,
   content,
+  emitSchema = true,
   eyebrow,
   route,
 }: RoutePageFrameProps) {
@@ -45,7 +47,10 @@ export function RoutePageFrame({
 
   return (
     <PageEntry enabled={motionEnabled}>
-      <PageSection data-content-id={route.contentId} data-source-file={route.sourceFile}>
+      <PageSection
+        data-content-id={route.contentId}
+        data-source-file={route.sourceFile}
+      >
         <Container>
           <Stack gap="xl">
             <Breadcrumb>
@@ -107,10 +112,12 @@ export function RoutePageFrame({
               </RevealSection>
             ) : null}
           </Stack>
-          <script
-            dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
-            type="application/ld+json"
-          />
+          {emitSchema ? (
+            <script
+              dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
+              type="application/ld+json"
+            />
+          ) : null}
         </Container>
       </PageSection>
     </PageEntry>

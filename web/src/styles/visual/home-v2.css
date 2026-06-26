@@ -250,6 +250,11 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   pointer-events: none;
 }
 
+.ss-hv2-hero__cybercore {
+  z-index: 0;
+  opacity: 0.88;
+}
+
 .ss-hv2-hero__poster,
 .ss-hv2-hero__canvas,
 .ss-hv2-hero__particles {
@@ -321,6 +326,62 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
 .ss-hv2-hero__lead {
   max-width: var(--ss-v2-measure-lead);
   margin-inline: auto;
+}
+
+/* ============================ SERVICE INTRO ============================ */
+.ss-service-experience {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background: var(--ss-v2-void-black);
+  color: var(--ss-v2-platinum);
+}
+
+.ss-service-experience[data-service-state="intro"],
+.ss-service-experience[data-service-state="opening"],
+.ss-service-experience[data-service-state="closing"] {
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+.ss-service-intro {
+  position: relative;
+  display: flex;
+  min-height: 100dvh;
+  align-items: center;
+  overflow: clip;
+  padding-block: clamp(2.25rem, 1.25rem + 6vh, 5rem);
+}
+
+.ss-service-intro__content {
+  max-width: min(100%, 58rem);
+  margin-inline: auto;
+}
+
+.ss-service-intro__title {
+  max-width: var(--ss-v2-measure-title);
+  font-size: clamp(2.25rem, 1.15rem + 4vw, 4.35rem);
+}
+
+.ss-service-intro__lead {
+  max-width: var(--ss-v2-measure-lead);
+  margin-inline: auto;
+}
+
+.ss-service-experience__body {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+  background: var(--ss-v2-void-black);
+}
+
+.ss-service-experience__content {
+  position: relative;
+  z-index: 1;
+}
+
+.ss-service-experience__return {
+  z-index: 80;
 }
 
 .ss-hv2-hero__panel {

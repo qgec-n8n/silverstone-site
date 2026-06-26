@@ -43,6 +43,27 @@ This file is the Codex instruction source for `/web`. It defines the active Reac
 - Aim for an ultra-futuristic, high-tech, premium, luxurious, and conversion-focused experience.
 - Verify work through browser inspection and automated tests before claiming completion.
 
+## Image-Asset Review Gate
+
+- Before designing or substantially revising any route, read:
+  - `/docs/codex/image-assets/page-image-selection-policy.md`
+  - `/docs/codex/image-assets/verified-image-asset-manifest.json`
+  - `/docs/codex/image-assets/route-image-candidates.json`
+- Inspect actual shortlisted files before selecting them.
+- Use relevant high-quality existing imagery where it improves the page.
+- Do not omit images merely for implementation convenience.
+- Do not add images without a clear design function.
+- Prefer verified high-fit assets and proper desktop/mobile pairs.
+- Record the page-level image decision.
+
+## Industry Background Invariant
+
+- `/industries` and `/industries/*` use Cybercore intro plus Background Gradient body.
+- No other route may use those backgrounds.
+- Industry routes must not mount Aether or `particles.js`.
+- All non-industry routes retain Aether plus `particles.js`.
+- CoreSpin Loader and Expendable Hero Button remain canonical and shared.
+
 ## Implementation Boundary
 
 - Use the approved React Router/Vite application architecture inside `/web`.
