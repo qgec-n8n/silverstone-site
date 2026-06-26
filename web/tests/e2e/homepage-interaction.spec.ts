@@ -10,7 +10,7 @@ const trustSignals = [
 ] as const;
 
 async function waitForIntro(page: Page) {
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "domcontentloaded" });
   await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "intro", {
     timeout: 12_000,
   });
@@ -253,7 +253,7 @@ for (const viewport of [
       "Loader geometry only needs one browser project.",
     );
     await page.setViewportSize(viewport);
-    await page.goto("/");
+    await page.goto("/", { waitUntil: "domcontentloaded" });
     await expect(page.locator(".ss-loader")).toBeVisible();
 
     const proof = await page.evaluate(() => {
