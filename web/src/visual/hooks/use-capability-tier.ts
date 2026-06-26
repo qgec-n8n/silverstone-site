@@ -76,7 +76,11 @@ function detectLowPower(): boolean {
     return true;
   }
 
-  if (typeof nav.deviceMemory === "number" && nav.deviceMemory > 0 && nav.deviceMemory < 4) {
+  if (
+    typeof nav.deviceMemory === "number" &&
+    nav.deviceMemory > 0 &&
+    nav.deviceMemory < 4
+  ) {
     return true;
   }
 

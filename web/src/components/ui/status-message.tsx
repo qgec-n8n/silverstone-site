@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import {
   AlertCircleIcon,
   CheckCircle2Icon,
   InfoIcon,
   TriangleAlertIcon,
-} from "lucide-react";
-import { cva, type VariantProps } from "class-variance-authority";
+} from "~/components/icons/lucide";
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { cn } from "~/lib/utils";

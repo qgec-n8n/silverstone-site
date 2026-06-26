@@ -73,7 +73,14 @@ export function NavVisualStates() {
         <a className="ss-brand" href="#top">
           <span className="ss-brand__mark" aria-hidden="true">
             <svg viewBox="0 0 24 24" width={16} height={16} aria-hidden="true">
-              <circle cx={12} cy={12} r={8} fill="none" stroke="currentColor" strokeWidth={1.6} />
+              <circle
+                cx={12}
+                cy={12}
+                r={8}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.6}
+              />
               <circle cx={12} cy={12} r={2.6} fill="currentColor" />
             </svg>
           </span>
@@ -149,7 +156,11 @@ export function NavVisualStates() {
       </div>
 
       {mobileOpen ? (
-        <ul className="ss-nav__panel" id={mobileId} style={{ position: "static", margin: "0 1rem 1rem" }}>
+        <ul
+          className="ss-nav__panel"
+          id={mobileId}
+          style={{ position: "static", margin: "0 1rem 1rem" }}
+        >
           {[...SERVICE_LINKS, ...PRIMARY_LINKS].map((link) => (
             <li key={link.href}>
               <a href={link.href}>{link.label}</a>

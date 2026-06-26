@@ -1,5 +1,5 @@
-import { ArrowUpRight, MapPin } from "lucide-react";
 import { Link } from "react-router";
+import { ArrowUpRight, MapPin } from "~/components/icons/lucide";
 
 import { Container } from "~/components/layout/container";
 import { useSectionReveal } from "~/visual/hooks/use-section-reveal";

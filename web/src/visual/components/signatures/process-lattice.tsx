@@ -24,7 +24,8 @@ export function ProcessLattice() {
     >
       <title id="vsigLatticeTitle">Process lattice</title>
       <desc id="vsigLatticeDesc">
-        A lattice of automated steps with one flagged exception routed up to human control.
+        A lattice of automated steps with one flagged exception routed up to human
+        control.
       </desc>
 
       <g className="ss-vsig__struct">

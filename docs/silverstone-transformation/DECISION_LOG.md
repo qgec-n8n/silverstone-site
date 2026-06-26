@@ -18,6 +18,8 @@
 | 2026-06-26 | D-011 | Current `/web` additive routes are documented as current app surface, but they do not replace the 50-route preservation baseline.                                                    | `web/src/data/approved-routes.ts`, `web/src/app/routes.ts`  | active               |
 | 2026-06-26 | D-012 | Dark `/web/public/brand` logo variants are the primary dark-background assets; legacy white-background logos must not be placed directly on dark sections.                           | image inspection; asset matrix                              | active               |
 | 2026-06-26 | D-013 | Documentation-only local commit is allowed if staged files are limited to `AGENTS.md` and the new transformation contract docs, leaving pre-existing `.codex/config.toml` untouched. | current prompt; git status                                  | active for this pass |
+| 2026-06-26 | D-014 | Serve the installed `particles.js` homepage body runtime from `/web/public/vendor/particles.js` instead of importing it into the Vite app bundle; keep it local and CDN-free.        | bundle report; homepage Playwright runtime proof            | active               |
+| 2026-06-26 | D-015 | Cap Playwright browser validation at two workers and run the homepage interaction matrix serial to avoid local preview contention while preserving assertions.                       | full e2e retries; `web/playwright.config.ts`                | active               |
 
 ## Reopen Conditions
 

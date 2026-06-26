@@ -11,8 +11,7 @@
 @media (prefers-reduced-motion: no-preference) {
   html[data-js="on"] .ss-page {
     opacity: 0;
-    transition: opacity var(--ss-motion-duration-moderate)
-      var(--ss-motion-easing-enter);
+    transition: opacity var(--ss-motion-duration-moderate) var(--ss-motion-easing-enter);
   }
 
   html[data-js="on"] .ss-page.is-entered {

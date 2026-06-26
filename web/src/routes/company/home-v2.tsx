@@ -1,8 +1,8 @@
 import "~/styles/visual/home-v2.css";
 
 import { LayoutGroup } from "framer-motion";
-import { RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
+import { RotateCcw } from "~/components/icons/lucide";
 
 import { useAppExperience } from "~/app/experience/app-experience";
 import { deriveMotionPolicy } from "~/visual/home-v2/motion-policy";

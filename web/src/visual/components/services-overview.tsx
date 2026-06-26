@@ -1,6 +1,9 @@
 import "~/styles/visual/visual.css";
 
-import { MachinedSignalIcon, type MachinedSignalIconName } from "~/visual/icons/machined-signal-icons";
+import {
+  MachinedSignalIcon,
+  type MachinedSignalIconName,
+} from "~/visual/icons/machined-signal-icons";
 
 type FrameService = {
   key: MachinedSignalIconName;
@@ -23,19 +26,22 @@ const FRAME_SERVICES: FrameService[] = [
     key: "web",
     title: "Web",
     body: "Marketing sites and funnels engineered for clarity, speed and measured conversion.",
-    scope: "Design system, build, analytics wiring, conversion review — human-approved before launch.",
+    scope:
+      "Design system, build, analytics wiring, conversion review — human-approved before launch.",
   },
   {
     key: "app",
     title: "App",
     body: "Product surfaces and internal tools that keep teams in flow rather than in tabs.",
-    scope: "Discovery, UX, build, integration. Pricing and assurance stay subject to human approval.",
+    scope:
+      "Discovery, UX, build, integration. Pricing and assurance stay subject to human approval.",
   },
   {
     key: "content",
     title: "Content",
     body: "An editorial engine that turns expertise into a steady, on-brand publishing rhythm.",
-    scope: "Strategy, drafting, review queue. Nothing publishes without a human in the loop.",
+    scope:
+      "Strategy, drafting, review queue. Nothing publishes without a human in the loop.",
   },
 ];
 

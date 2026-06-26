@@ -194,7 +194,12 @@ export function DemoShell({ scenario }: { scenario: DemoScenario }) {
         {stage}
       </div>
 
-      <p className="ss-demo__status" data-demo-status="" role="status" aria-live="polite">
+      <p
+        className="ss-demo__status"
+        data-demo-status=""
+        role="status"
+        aria-live="polite"
+      >
         {status}
       </p>
 
@@ -202,7 +207,12 @@ export function DemoShell({ scenario }: { scenario: DemoScenario }) {
         <h4 className="ss-demo__log-title" id={logId}>
           Event log
         </h4>
-        <ol className="ss-demo__log" data-demo-log="" aria-live="polite" aria-labelledby={logId}>
+        <ol
+          className="ss-demo__log"
+          data-demo-log=""
+          aria-live="polite"
+          aria-labelledby={logId}
+        >
           {logs.map((entry, position) => (
             <li key={`${scenario.id}-${String(position)}-${entry}`}>{entry}</li>
           ))}

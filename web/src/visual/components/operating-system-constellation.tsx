@@ -1,6 +1,9 @@
 import "~/styles/visual/visual.css";
 
-import { ICON_PATHS, type MachinedSignalIconName } from "~/visual/icons/machined-signal-icons";
+import {
+  ICON_PATHS,
+  type MachinedSignalIconName,
+} from "~/visual/icons/machined-signal-icons";
 
 type ConstellationNodeData = {
   key: MachinedSignalIconName;
@@ -55,7 +58,14 @@ function ConstellationNode({ node }: { node: ConstellationNodeData }) {
 
   return (
     <g className="ss-node">
-      <rect className="ss-node-tile" x={tileX} y={tileY} width={132} height={96} rx={14} />
+      <rect
+        className="ss-node-tile"
+        x={tileX}
+        y={tileY}
+        width={132}
+        height={96}
+        rx={14}
+      />
       <svg x={iconX} y={iconY} width={40} height={40} viewBox="0 0 30 30">
         {ICON_PATHS[node.key]}
       </svg>
@@ -86,8 +96,8 @@ export function OperatingSystemConstellation() {
     >
       <title id="ssConstTitle">Silverstone operating-system constellation</title>
       <desc id="ssConstDesc">
-        Six capability nodes — web, app, content, automation, voice and reception — connected to one
-        central human-control ring.
+        Six capability nodes — web, app, content, automation, voice and reception —
+        connected to one central human-control ring.
       </desc>
 
       <g className="ss-struct">
@@ -99,7 +109,11 @@ export function OperatingSystemConstellation() {
       {SIGNAL_PATHS.map((path) => (
         <path
           key={path.d}
-          className={path.variant === "violet" ? "ss-link-path ss-link-path--violet" : "ss-link-path"}
+          className={
+            path.variant === "violet"
+              ? "ss-link-path ss-link-path--violet"
+              : "ss-link-path"
+          }
           d={path.d}
         />
       ))}
@@ -108,7 +122,13 @@ export function OperatingSystemConstellation() {
         <circle className="ss-ring-plate" cx={340} cy={300} r={74} />
         <circle className="ss-ring-dash" cx={340} cy={300} r={56} />
         {PORTS.map(([x, y]) => (
-          <circle key={`${String(x)}-${String(y)}`} className="ss-ring-port" cx={x} cy={y} r={3} />
+          <circle
+            key={`${String(x)}-${String(y)}`}
+            className="ss-ring-port"
+            cx={x}
+            cy={y}
+            r={3}
+          />
         ))}
         <text className="ss-ring-caption" x={340} y={280}>
           YOU DECIDE

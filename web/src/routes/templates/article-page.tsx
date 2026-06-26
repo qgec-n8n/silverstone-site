@@ -25,7 +25,11 @@ export function ArticlePage({ content = null, route }: ArticlePageProps) {
     : route;
 
   return (
-    <RoutePageFrame content={articleUnderReview ? null : content} eyebrow="Guide" route={safeRoute}>
+    <RoutePageFrame
+      content={articleUnderReview ? null : content}
+      eyebrow="Guide"
+      route={safeRoute}
+    >
       {articleUnderReview ? (
         <Stack className="max-w-3xl" gap="md">
           <p className="text-body-lg text-muted-foreground">

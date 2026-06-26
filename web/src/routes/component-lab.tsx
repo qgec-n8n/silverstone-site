@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon } from "~/components/icons/lucide";
 
 import { useReducedMotion } from "~/components/accessibility/use-reduced-motion";
 import { Cluster } from "~/components/layout/cluster";

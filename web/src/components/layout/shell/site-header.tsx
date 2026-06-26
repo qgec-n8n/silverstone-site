@@ -6,8 +6,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router";
+import { ArrowUpRight, ChevronDown, Menu, X } from "~/components/icons/lucide";
 
 import { useAppExperience } from "~/app/experience/app-experience";
 import { Container } from "~/components/layout/container";

@@ -1,5 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
+test.describe.configure({ mode: "serial" });
+
 const trustSignals = [
   "UK-built",
   "London-based",
@@ -570,7 +572,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(proof.nativeCanvasInsideHost).toBe(true);
   expect(proof.scriptPackage).toBe("particles.js");
   expect(proof.scriptSrc ?? "").toMatch(
-    /(?:\/node_modules\/particles\.js\/particles\.js|\/assets\/particles-[\w-]+\.js)$/,
+    /(?:\/node_modules\/particles\.js\/particles\.js|\/assets\/particles-[\w-]+\.js|\/vendor\/particles\.js)$/,
   );
   expect(proof.scriptSrc).not.toContain("cdn");
   expect(proof.hasCustomBodyCanvas).toBe(false);

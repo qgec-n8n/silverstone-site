@@ -4,7 +4,7 @@ import {
   useReducedMotion,
   type Transition,
 } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "~/components/icons/lucide";
 import {
   forwardRef,
   useCallback,

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
-import { ALL_INTEGRATIONS } from "~/data/home-v2";
 
 import "~/styles/core-spin-loader.css";
 
@@ -30,14 +29,6 @@ const HOME_IMAGE_ASSETS = [
   "/brand/silverstone-ai-logo-footer.png",
   "/home-v2/hero-poster.png",
   "/home-v2/hero-poster-portrait.png",
-  "/home-v2/story-operating-surface.png",
-  "/home-v2/story-voice-signal.png",
-  "/home-v2/story-human-loop.png",
-  "/home-v2/standard-chrome.png",
-  "/home-v2/service-lead-followup.webp",
-  "/home-v2/service-workflow-automation.webp",
-  "/home-v2/service-data-integration.webp",
-  "/home-v2/service-consulting.webp",
 ] as const;
 
 type Phase = "active" | "exiting" | "done";
@@ -65,7 +56,6 @@ function routeAssets(pathname: string): string[] {
   const assets = [LOADER_EMBLEM_SRC];
   if (pathname === "/") {
     assets.push(...HOME_IMAGE_ASSETS);
-    assets.push(...ALL_INTEGRATIONS.map((mark) => mark.file));
   }
   return Array.from(new Set(assets));
 }

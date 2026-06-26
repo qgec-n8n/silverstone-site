@@ -1,5 +1,5 @@
 import { useId, useState } from "react";
-import { ChevronDownIcon } from "lucide-react";
+import { ChevronDown as ChevronDownIcon } from "~/components/icons/lucide";
 
 import { Button } from "~/components/ui/button";
 import { TextLink } from "~/components/ui/text-link";

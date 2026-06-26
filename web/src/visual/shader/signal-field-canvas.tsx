@@ -122,7 +122,11 @@ function createSignalField(canvas: HTMLCanvasElement): FieldController | null {
 
   const buffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([-1, -1, 3, -1, -1, 3]),
+    gl.STATIC_DRAW,
+  );
 
   const aPosition = gl.getAttribLocation(program, "aPosition");
   gl.enableVertexAttribArray(aPosition);

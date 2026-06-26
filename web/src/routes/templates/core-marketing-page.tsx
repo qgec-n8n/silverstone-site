@@ -35,11 +35,7 @@ function resolveEyebrow(route: FutureRouteRecord): string {
 
 export function CoreMarketingPage({ content = null, route }: CoreMarketingPageProps) {
   return (
-    <RoutePageFrame
-      content={content}
-      eyebrow={resolveEyebrow(route)}
-      route={route}
-    >
+    <RoutePageFrame content={content} eyebrow={resolveEyebrow(route)} route={route}>
       {route.path === "/industries" ? <IndustriesIndexVisuals /> : null}
     </RoutePageFrame>
   );

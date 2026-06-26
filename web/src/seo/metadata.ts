@@ -56,7 +56,8 @@ export function buildRouteMetadata(route: FutureRouteRecord): MetadataDescriptor
   const environment = getMetadataEnvironment();
   const articleUnderReview =
     route.template === "article" && !route.claimsStatus.startsWith("safe-copy");
-  const socialType = route.template === "article" && !articleUnderReview ? "article" : "website";
+  const socialType =
+    route.template === "article" && !articleUnderReview ? "article" : "website";
   const title = articleUnderReview
     ? "Guide Under Editorial Review | Silverstone AI"
     : route.title;

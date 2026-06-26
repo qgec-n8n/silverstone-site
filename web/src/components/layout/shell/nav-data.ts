@@ -11,7 +11,7 @@ import {
   Smartphone,
   Sparkles,
   Workflow,
-} from "lucide-react";
+} from "~/components/icons/lucide";
 
 export type NavLeaf = {
   href: string;

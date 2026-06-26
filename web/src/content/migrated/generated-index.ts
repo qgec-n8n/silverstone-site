@@ -1,8 +1,5 @@
 import type { MigratedContentIndexRecord, MigratedContentRecord } from "./schema";
-import {
-  approvedContentById,
-  approvedContentIndex,
-} from "./approved/registry";
+import { approvedContentById, approvedContentIndex } from "./approved/registry";
 
 const generatedContentIndex: MigratedContentIndexRecord[] = [
   {
@@ -449,11 +446,15 @@ const generatedContentIndex: MigratedContentIndexRecord[] = [
   },
 ];
 
-const approvedContentIds = new Set(approvedContentIndex.map((record) => record.contentId));
+const approvedContentIds = new Set(
+  approvedContentIndex.map((record) => record.contentId),
+);
 
 export const migratedContentIndex: MigratedContentIndexRecord[] = [
   ...approvedContentIndex,
-  ...generatedContentIndex.filter((record) => !approvedContentIds.has(record.contentId)),
+  ...generatedContentIndex.filter(
+    (record) => !approvedContentIds.has(record.contentId),
+  ),
 ];
 
 const contentLoaders: Record<

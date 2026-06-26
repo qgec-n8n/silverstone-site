@@ -5,7 +5,11 @@ import { PrimaryCta } from "~/visual/components/primary-cta";
 import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
 import { SignalFieldBackground } from "~/visual/shader/signal-field-background";
 
-const PROOF_POINTS = ["No lock-in pilots", "Human-reviewed automation", "Live in weeks"];
+const PROOF_POINTS = [
+  "No lock-in pilots",
+  "Human-reviewed automation",
+  "Live in weeks",
+];
 
 /**
  * Copy-first home hero. The headline carries the "From friction to flow"
@@ -26,8 +30,8 @@ export function HomeHero() {
           From friction to <span className="ss-hero__accent">flow</span>.
         </h1>
         <p className="ss-hero__lead">
-          Silverstone gives growing teams one calm operating surface for web, app, content,
-          automation and voice — with a human always in control of the signal.
+          Silverstone gives growing teams one calm operating surface for web, app,
+          content, automation and voice — with a human always in control of the signal.
         </p>
         <div className="ss-hero__actions">
           <PrimaryCta href="#book">Book a discovery call</PrimaryCta>

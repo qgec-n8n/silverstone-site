@@ -21,7 +21,8 @@ const EXAMPLE_SCENARIO: DemoScenario = {
   id: "smoke-conversion-path",
   title: "Conversion-path mapper",
   summary: "A synthetic walk from a cold visit to one booked discovery call.",
-  safeguard: "Demonstrates the path concept with synthetic data — it does not predict results.",
+  safeguard:
+    "Demonstrates the path concept with synthetic data — it does not predict results.",
   idle: () => <p>Press Start to walk a synthetic visitor path.</p>,
   build: () => [
     {
@@ -93,8 +94,14 @@ export default function VisualSmoke() {
             instrument="Property-enquiry switchboard"
             caption="A synthetic walk from a new listing enquiry to a routed human conversation."
             steps={[
-              { label: "Intake", detail: "An enquiry arrives against a specific listing." },
-              { label: "Triage", detail: "Intent and urgency are sorted, never decided." },
+              {
+                label: "Intake",
+                detail: "An enquiry arrives against a specific listing.",
+              },
+              {
+                label: "Triage",
+                detail: "Intent and urgency are sorted, never decided.",
+              },
               { label: "Hand-off", detail: "A person picks up with full context." },
             ]}
             boundary="A person stays in control of every client-facing decision."
@@ -113,8 +120,8 @@ export default function VisualSmoke() {
         <section className="ss-cta-chamber ss-on-graphite" id="book">
           <h2>Put a human back in control of the signal</h2>
           <p>
-            One discovery call maps where friction lives today and what your operating surface looks
-            like in flow.
+            One discovery call maps where friction lives today and what your operating
+            surface looks like in flow.
           </p>
           <PrimaryCta href="#book" onGraphite>
             Book a discovery call

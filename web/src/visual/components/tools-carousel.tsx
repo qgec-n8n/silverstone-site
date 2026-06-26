@@ -55,7 +55,10 @@ export function ToolsCarousel({ label, tools }: ToolsCarouselProps) {
     });
   };
 
-  const scope = active === ALL ? `all ${String(visible.length)}` : `${String(visible.length)} ${active}`;
+  const scope =
+    active === ALL
+      ? `all ${String(visible.length)}`
+      : `${String(visible.length)} ${active}`;
   const status = `Showing ${scope} tools. Compatibility categories, not confirmed live integrations.`;
 
   return (
@@ -90,12 +93,18 @@ export function ToolsCarousel({ label, tools }: ToolsCarouselProps) {
         </div>
       </div>
 
-      <div className="ss-tools__filters" role="group" aria-label="Filter tools by category">
+      <div
+        className="ss-tools__filters"
+        role="group"
+        aria-label="Filter tools by category"
+      >
         {categories.map((category) => (
           <button
             key={category}
             type="button"
-            className={category === active ? "ss-tools__filter is-active" : "ss-tools__filter"}
+            className={
+              category === active ? "ss-tools__filter is-active" : "ss-tools__filter"
+            }
             data-tools-filter={category}
             aria-pressed={category === active}
             onClick={() => {
@@ -125,7 +134,11 @@ export function ToolsCarousel({ label, tools }: ToolsCarouselProps) {
         }}
       >
         {visible.map((tool) => (
-          <li className="ss-tool-card" data-category={tool.category} key={`${tool.category}-${tool.name}`}>
+          <li
+            className="ss-tool-card"
+            data-category={tool.category}
+            key={`${tool.category}-${tool.name}`}
+          >
             <span className="ss-tool-card__category">{tool.category}</span>
             <span className="ss-tool-card__name">{tool.name}</span>
             <span className="ss-tool-card__note">{tool.note}</span>
@@ -133,7 +146,12 @@ export function ToolsCarousel({ label, tools }: ToolsCarouselProps) {
         ))}
       </ul>
 
-      <p className="ss-tools__status" data-tools-status="" role="status" aria-live="polite">
+      <p
+        className="ss-tools__status"
+        data-tools-status=""
+        role="status"
+        aria-live="polite"
+      >
         {status}
       </p>
     </section>

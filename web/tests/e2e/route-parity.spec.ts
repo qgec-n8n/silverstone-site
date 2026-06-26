@@ -39,7 +39,7 @@ for (const path of representativeRoutes) {
     const response = await page.goto(path);
 
     expect(response?.status()).toBe(200);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+    await expect(page.locator("h1")).toHaveCount(1);
     await expect(page.locator('meta[name="description"]')).toHaveCount(1);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",

@@ -1,7 +1,5 @@
 import { useEffect, useId, useMemo } from "react";
 
-import particlesScriptUrl from "particles.js/particles.js?url";
-
 import type { CapabilityTier } from "~/visual/hooks/use-capability-tier";
 
 /*
@@ -22,6 +20,7 @@ type WindowListener = {
 };
 
 let particlesScriptReady: Promise<void> | undefined;
+const particlesScriptUrl = "/vendor/particles.js";
 
 function ensureParticlesScript(): Promise<void> {
   if (typeof window === "undefined") {

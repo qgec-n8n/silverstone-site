@@ -21,7 +21,7 @@ import {
   UserCheck,
   Workflow,
   Zap,
-} from "lucide-react";
+} from "~/components/icons/lucide";
 
 /**
  * Explicit, tree-shakeable registry of the lucide marks referenced by the V2

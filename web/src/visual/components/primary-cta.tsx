@@ -20,7 +20,11 @@ export function PrimaryCta({
   variant = "primary",
   onGraphite = false,
 }: PrimaryCtaProps) {
-  const className = ["ss-cta", `ss-cta--${variant}`, onGraphite ? "ss-cta--on-graphite" : null]
+  const className = [
+    "ss-cta",
+    `ss-cta--${variant}`,
+    onGraphite ? "ss-cta--on-graphite" : null,
+  ]
     .filter((token): token is string => token !== null)
     .join(" ");
 

@@ -79,7 +79,9 @@ export type IndustriesAtlasProps = {
  * Industries atlas — the industries directory signature. A grid of operating
  * patterns, each linking to the matching sector instrument page.
  */
-export function IndustriesAtlas({ basePath = "/industries" }: IndustriesAtlasProps = {}) {
+export function IndustriesAtlas({
+  basePath = "/industries",
+}: IndustriesAtlasProps = {}) {
   return (
     <ul className="ss-atlas">
       {ENTRIES.map((entry) => (

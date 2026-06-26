@@ -29,7 +29,10 @@ export function StoryImageCard({ panel }: StoryImageCardProps) {
         </figure>
       </Reveal>
 
-      <Reveal delayMs={110} className={cn("flex flex-col gap-4", mediaRight && "lg:order-1")}>
+      <Reveal
+        delayMs={110}
+        className={cn("flex flex-col gap-4", mediaRight && "lg:order-1")}
+      >
         <span className="ss-eyebrow font-mono text-[color:var(--ss-v2-signal-cyan-soft)]">
           {panel.eyebrow}
         </span>

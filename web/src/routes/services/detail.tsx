@@ -6,10 +6,7 @@ import { getFutureRouteByPath, type FutureRouteRecord } from "~/data/future-rout
 import { IndustryPage } from "~/routes/templates/industry-page";
 import { ServicePage } from "~/routes/templates/service-page";
 import { normalizeRouteRequestPath } from "~/routes/shared/route-data";
-import {
-  buildRouteMetadata,
-  type MetadataDescriptor,
-} from "~/seo/metadata";
+import { buildRouteMetadata, type MetadataDescriptor } from "~/seo/metadata";
 
 type ServiceDetailLoaderData = {
   content: MigratedContentRecord | null;
@@ -22,7 +19,10 @@ export async function loader({
   const path = normalizeRouteRequestPath(new URL(request.url).pathname);
   const route = getFutureRouteByPath(path);
 
-  if (!route || (route.routeGroup !== "services" && route.routeGroup !== "industries")) {
+  if (
+    !route ||
+    (route.routeGroup !== "services" && route.routeGroup !== "industries")
+  ) {
     // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw new Response("Not Found", {
       status: 404,
@@ -31,7 +31,10 @@ export async function loader({
   }
 
   return {
-    content: route.lifecycle === "retained" ? await loadMigratedContent(route.contentId) : null,
+    content:
+      route.lifecycle === "retained"
+        ? await loadMigratedContent(route.contentId)
+        : null,
     route,
   };
 }

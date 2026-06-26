@@ -15,7 +15,8 @@ export function ProductStateStack() {
     >
       <title id="vsigStackTitle">Product-state stack</title>
       <desc id="vsigStackDesc">
-        Three stacked state layers — draft, active and synced — joined by a single state spine.
+        Three stacked state layers — draft, active and synced — joined by a single state
+        spine.
       </desc>
 
       <line className="ss-vsig__spine" x1="48" y1="34" x2="48" y2="128" />
@@ -28,14 +29,28 @@ export function ProductStateStack() {
         </text>
       </g>
       <g className="ss-vsig__layer">
-        <rect className="ss-vsig__plate ss-vsig__plate--active" x="40" y="65" width="160" height="30" rx="8" />
+        <rect
+          className="ss-vsig__plate ss-vsig__plate--active"
+          x="40"
+          y="65"
+          width="160"
+          height="30"
+          rx="8"
+        />
         <circle className="ss-vsig__focus" cx="48" cy="80" r="5" />
         <text className="ss-vsig__label" x="66" y="84">
           Active
         </text>
       </g>
       <g className="ss-vsig__layer">
-        <rect className="ss-vsig__plate" x="40" y="104" width="160" height="30" rx="8" />
+        <rect
+          className="ss-vsig__plate"
+          x="40"
+          y="104"
+          width="160"
+          height="30"
+          rx="8"
+        />
         <circle className="ss-vsig__dot" cx="48" cy="119" r="5" />
         <text className="ss-vsig__label" x="66" y="123">
           Synced
