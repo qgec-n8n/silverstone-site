@@ -130,7 +130,6 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
       { href: "/about", label: "About" },
       { href: "/blog", label: "Insights" },
       { href: "/pricing", label: "Pricing" },
-      { href: "/book", label: "Book a discovery call" },
       { href: "/contact", label: "Contact" },
     ],
   },

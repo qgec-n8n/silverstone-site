@@ -3,10 +3,7 @@
 
   No-JS safety: the overlay is hidden by default and only revealed when the
   inline head script has set `html[data-js="on"]`. That attribute is applied
-  synchronously before paint for JS users (so there is no flash), and never set
-  for no-JS users (so the overlay can never get stuck on screen with nothing to
-  dismiss it). React renders the markup on the server with the overlay active,
-  so the first paint already shows it without a hydration mismatch.
+  synchronously before paint for JS users, and never set for no-JS users.
 */
 
 .ss-loader {
@@ -14,13 +11,27 @@
 }
 
 html[data-js="on"] .ss-loader {
-  --ss-loader-stage-size: clamp(12.75rem, 25vmin, 15rem);
+  --ss-loader-size: clamp(11.25rem, 30vmin, 17rem);
+  --ss-loader-base-size: 4rem;
+  --ss-loader-ring-scale: calc(var(--ss-loader-size) / var(--ss-loader-base-size));
+  --ss-loader-glow-extension: clamp(0.6rem, calc(var(--ss-loader-size) * 0.06), 1rem);
+  --ss-loader-label-gap: clamp(1.35rem, 3vmin, 2.25rem);
   position: fixed;
   inset: 0;
   z-index: 9999;
   display: block;
-  background: radial-gradient(62% 52% at 50% 42%, #0b1120, #05070d 70%, #04060b);
-  color: var(--ss-v2-platinum, #e8ecf5);
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      46% 42% at 50% 50%,
+      color-mix(in srgb, var(--ss-v2-signal-blue, #597fad) 14%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(62% 52% at 50% 42%, #0b1120, #05070d 70%, #04060b);
+  color: var(--ss-v2-platinum, #e9eaef);
   opacity: 1;
   transition: opacity 0.6s ease;
 }
@@ -36,206 +47,145 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
   left: 50%;
   display: grid;
   place-items: center;
-  width: var(--ss-loader-stage-size);
-  height: var(--ss-loader-stage-size);
+  width: var(--ss-loader-size);
+  height: var(--ss-loader-size);
   transform: translate(-50%, -50%);
 }
 
-.ss-loader__halo,
-.ss-loader__ring,
-.ss-loader__core,
-.ss-loader__emblem {
+.ss-loader__stage > * {
   grid-area: 1 / 1;
 }
 
-/* Soft volumetric bloom behind the emblem — the "glow" that breathes. */
-.ss-loader__halo {
-  width: calc(var(--ss-loader-stage-size) * 1.42);
-  height: calc(var(--ss-loader-stage-size) * 1.42);
-  border-radius: 50%;
+.ss-loader__core-spin {
+  width: var(--ss-loader-base-size);
+  height: var(--ss-loader-base-size);
+  transform: scale(var(--ss-loader-ring-scale));
+  transform-origin: center;
+  color: var(--ss-v2-platinum, #e9eaef);
+}
+
+.ss-loader__core-spin > div {
+  border-color: transparent;
+  box-shadow:
+    0 0 16px -9px currentColor,
+    inset 0 0 18px -15px currentColor;
+}
+
+.ss-loader__core-spin > div:nth-child(1) {
+  border-top-color: #5ec5d0;
+  border-right-color: color-mix(in srgb, #597fad 38%, transparent);
+}
+
+.ss-loader__core-spin > div:nth-child(2) {
+  border-top-color: #597fad;
+  border-left-color: color-mix(in srgb, #a97cc0 42%, transparent);
+}
+
+.ss-loader__core-spin > div:nth-child(3) {
+  border-top-color: #c884c3;
+  border-right-color: color-mix(in srgb, #e9eaef 34%, transparent);
+}
+
+.ss-loader__emblem-glow {
+  width: calc(var(--ss-loader-size) * 0.52);
+  height: calc(var(--ss-loader-size) * 0.52);
+  border-radius: 999px;
   background: radial-gradient(
-    circle at 50% 50%,
-    color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 24%, transparent),
-    color-mix(in srgb, var(--ss-v2-signal-violet, #a97bd6) 10%, transparent) 46%,
-    transparent 70%
+    circle,
+    color-mix(in srgb, #5ec5d0 34%, transparent),
+    color-mix(in srgb, #597fad 16%, transparent) 44%,
+    color-mix(in srgb, #a97cc0 10%, transparent) 64%,
+    transparent 76%
   );
-  filter: blur(20px);
-  opacity: 0.9;
-}
-
-.ss-loader__ring {
-  width: calc(var(--ss-loader-stage-size) * 0.93);
-  height: calc(var(--ss-loader-stage-size) * 0.93);
-  border-radius: 50%;
-  border: 2px solid
-    color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 12%, transparent);
-  border-top-color: var(--ss-v2-signal-cyan, #5ec5d0);
-  border-right-color: color-mix(
-    in srgb,
-    var(--ss-v2-signal-violet, #a97bd6) 70%,
-    transparent
-  );
-}
-
-.ss-loader__ring--inner {
-  width: calc(var(--ss-loader-stage-size) * 0.69);
-  height: calc(var(--ss-loader-stage-size) * 0.69);
-  border-top-color: var(--ss-v2-signal-magenta, #e06cc4);
-  border-left-color: color-mix(
-    in srgb,
-    var(--ss-v2-signal-blue, #597fad) 70%,
-    transparent
-  );
-  border-right-color: transparent;
-}
-
-.ss-loader__core {
-  width: calc(var(--ss-loader-stage-size) * 0.875);
-  height: calc(var(--ss-loader-stage-size) * 0.875);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 50% 50%,
-    color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 30%, transparent),
-    transparent 62%
-  );
-  filter: blur(12px);
+  filter: blur(14px);
+  opacity: 0.68;
 }
 
 .ss-loader__emblem {
-  width: calc(var(--ss-loader-stage-size) * 0.625);
-  height: calc(var(--ss-loader-stage-size) * 0.625);
+  display: block;
+  width: calc(var(--ss-loader-size) * 0.32);
+  max-width: calc(var(--ss-loader-size) * 0.32);
+  height: auto;
+  max-height: calc(var(--ss-loader-size) * 0.36);
   object-fit: contain;
-  /* Feather the dark emblem plate so it never reads as a rectangle. */
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 56%, transparent 74%);
-  mask-image: radial-gradient(circle at 50% 50%, #000 56%, transparent 74%);
-  filter: drop-shadow(
-      0 0 22px color-mix(in srgb, var(--ss-v2-signal-cyan, #5ec5d0) 36%, transparent)
-    )
-    drop-shadow(
-      0 0 44px color-mix(in srgb, var(--ss-v2-signal-violet, #a97bd6) 22%, transparent)
-    );
+  filter: drop-shadow(0 0 16px color-mix(in srgb, #5ec5d0 32%, transparent))
+    drop-shadow(0 0 34px color-mix(in srgb, #a97cc0 18%, transparent));
 }
 
 .ss-loader__label {
   position: absolute;
-  top: calc(50% + (var(--ss-loader-stage-size) * 0.5) + clamp(1.5rem, 3vmin, 2.25rem));
+  top: calc(
+    50% + (var(--ss-loader-size) * 0.5) + var(--ss-loader-glow-extension) +
+      var(--ss-loader-label-gap)
+  );
   left: 50%;
-  width: min(86vw, 42rem);
+  width: min(90vw, 42rem);
   margin: 0;
   transform: translateX(-50%);
   font-family: var(--ss-font-mono, ui-monospace, "SFMono-Regular", Menlo, monospace);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  line-height: 1.5;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--ss-v2-platinum, #e8ecf5) 84%, transparent);
+  letter-spacing: 0;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--ss-v2-platinum, #e9eaef) 84%, transparent);
   text-align: center;
+  text-transform: none;
+  white-space: nowrap;
 }
 
 .ss-loader__ellipsis {
-  display: inline-grid;
-  grid-template-columns: repeat(3, 0.7ch);
-  width: 2.1ch;
-  margin-left: 0.18em;
+  display: inline-block;
+  width: 3ch;
   text-align: left;
 }
 
-.ss-loader__ellipsis span {
-  opacity: 0.22;
+@media (min-width: 48rem) {
+  .ss-loader__label {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-height: 40rem) {
+  html[data-js="on"] .ss-loader {
+    --ss-loader-size: clamp(10rem, 27vmin, 12rem);
+    --ss-loader-label-gap: 1rem;
+  }
+
+  .ss-loader__label {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 22rem) {
+  .ss-loader__label {
+    width: 94vw;
+    font-size: 0.66rem;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html[data-js="on"] .ss-loader__ring {
-    animation: ss-loader-spin 2.4s linear infinite;
-  }
-
-  html[data-js="on"] .ss-loader__ring--inner {
-    animation: ss-loader-spin 1.7s linear infinite reverse;
-  }
-
-  html[data-js="on"] .ss-loader__core,
-  html[data-js="on"] .ss-loader__emblem {
-    animation: ss-loader-pulse 2.2s ease-in-out infinite;
-  }
-
-  html[data-js="on"] .ss-loader__halo {
-    animation: ss-loader-bloom 3s ease-in-out infinite;
-  }
-
-  html[data-js="on"] .ss-loader__ellipsis span {
-    animation: ss-loader-ellipsis-one 1.2s steps(1, end) infinite;
-  }
-
-  html[data-js="on"] .ss-loader__ellipsis span:nth-child(2) {
-    animation-name: ss-loader-ellipsis-two;
-  }
-
-  html[data-js="on"] .ss-loader__ellipsis span:nth-child(3) {
-    animation-name: ss-loader-ellipsis-three;
+  html[data-js="on"] .ss-loader__emblem,
+  html[data-js="on"] .ss-loader__emblem-glow {
+    animation: ss-loader-emblem-breathe 2.4s ease-in-out infinite;
   }
 }
 
-@keyframes ss-loader-spin {
-  to {
-    transform: rotate(360deg);
+@media (prefers-reduced-motion: reduce) {
+  .ss-loader__core-spin > div {
+    animation: none;
+    transform: none !important;
   }
 }
 
-@keyframes ss-loader-pulse {
+@keyframes ss-loader-emblem-breathe {
   0%,
   100% {
-    opacity: 0.82;
-    transform: scale(1);
+    opacity: 0.86;
+    transform: scale(0.985);
   }
+
   50% {
     opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
-@keyframes ss-loader-bloom {
-  0%,
-  100% {
-    opacity: 0.66;
-    transform: scale(0.96);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-}
-
-@keyframes ss-loader-ellipsis-one {
-  0%,
-  99% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.22;
-  }
-}
-
-@keyframes ss-loader-ellipsis-two {
-  0%,
-  32%,
-  100% {
-    opacity: 0.22;
-  }
-  33%,
-  99% {
-    opacity: 1;
-  }
-}
-
-@keyframes ss-loader-ellipsis-three {
-  0%,
-  65%,
-  100% {
-    opacity: 0.22;
-  }
-  66%,
-  99% {
-    opacity: 1;
+    transform: scale(1.035);
   }
 }

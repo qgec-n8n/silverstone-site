@@ -33,23 +33,14 @@ export function SiteFooter() {
               />
               <span className="sr-only">Silverstone AI — home</span>
             </Link>
-            <p className="mt-6 text-body-sm text-titanium">
+            <p className="mt-3 max-w-[23rem] text-body-sm text-titanium">
               Web, app, content and AI workflow systems for ambitious UK businesses —
               designed, engineered and assured in-house.
             </p>
-            <p className="mt-6 inline-flex items-center gap-2 text-body-sm text-titanium">
+            <p className="mt-3 inline-flex items-center gap-2 text-body-sm text-titanium">
               <MapPin aria-hidden className="size-4 text-[var(--ss-v2-signal-cyan)]" />
               London, United Kingdom
             </p>
-          </div>
-          <div className="ss-footer__col ss-footer__cta-col">
-            <Link
-              className="ss-focus-ring ss-footer__cta ss-transition-interactive inline-flex min-h-11 items-center gap-1.5 rounded-[var(--ss-radius-pill)] border border-[color:var(--ss-v2-hairline)] px-5 text-sm font-semibold text-platinum no-underline hover:bg-[var(--ss-v2-glass)]"
-              to={PRIMARY_CTA.href}
-            >
-              {PRIMARY_CTA.label}
-              <ArrowUpRight aria-hidden className="size-4" />
-            </Link>
           </div>
           {FOOTER_COLUMNS.map((column) => (
             <nav
@@ -70,6 +61,15 @@ export function SiteFooter() {
                   </li>
                 ))}
               </ul>
+              {column.title === "Company" ? (
+                <Link
+                  className="ss-focus-ring ss-footer__cta ss-transition-interactive"
+                  to={PRIMARY_CTA.href}
+                >
+                  {PRIMARY_CTA.label}
+                  <ArrowUpRight aria-hidden className="size-4" />
+                </Link>
+              ) : null}
             </nav>
           ))}
         </div>

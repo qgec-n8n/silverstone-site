@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
+import { OrbitalLoader } from "~/components/ui/orbital-loader";
 import { ALL_INTEGRATIONS } from "~/data/home-v2";
 
 import "~/styles/core-spin-loader.css";
@@ -22,9 +23,11 @@ import "~/styles/core-spin-loader.css";
 const HOLD_MS = 4000;
 const EXIT_MS = 600;
 const MAX_ASSET_WAIT_MS = 6500;
+const LOADER_MESSAGE = "Engineering the next advantage";
+const LOADER_EMBLEM_SRC = "/brand/silverstone-ai-emblem-dark.png";
 
 const HOME_IMAGE_ASSETS = [
-  "/brand/silverstone-ai-emblem-dark.png",
+  LOADER_EMBLEM_SRC,
   "/brand/silverstone-ai-logo-footer.png",
   "/home-v2/hero-poster.png",
   "/home-v2/hero-poster-portrait.png",
@@ -39,40 +42,6 @@ const HOME_IMAGE_ASSETS = [
 ] as const;
 
 type Phase = "active" | "exiting" | "done";
-
-function loaderMessage(pathname: string): string {
-  if (pathname === "/") {
-    return "Engineering the next advantage.";
-  }
-  if (pathname.startsWith("/services")) {
-    return "Mapping the service architecture.";
-  }
-  if (pathname.startsWith("/industries")) {
-    return "Tuning systems to your sector.";
-  }
-  if (pathname.startsWith("/how-we-work")) {
-    return "Calibrating the delivery method.";
-  }
-  if (pathname.startsWith("/pricing")) {
-    return "Costing the advantage.";
-  }
-  if (pathname.startsWith("/about")) {
-    return "Meeting the team behind the systems.";
-  }
-  if (pathname.startsWith("/book")) {
-    return "Opening the audit desk.";
-  }
-  if (pathname.startsWith("/contact")) {
-    return "Connecting you to the studio.";
-  }
-  if (pathname.startsWith("/blog")) {
-    return "Loading the latest field notes.";
-  }
-  if (pathname.startsWith("/privacy-policy")) {
-    return "Reviewing the fine print.";
-  }
-  return "Engineering the next advantage.";
-}
 
 function wait(ms: number): Promise<void> {
   return new Promise((resolve) => window.setTimeout(resolve, ms));
@@ -94,7 +63,7 @@ function preloadImage(src: string): Promise<void> {
 }
 
 function routeAssets(pathname: string): string[] {
-  const assets = ["/brand/silverstone-ai-emblem-dark.png"];
+  const assets = [LOADER_EMBLEM_SRC];
   if (pathname === "/") {
     assets.push(...HOME_IMAGE_ASSETS);
     assets.push(...ALL_INTEGRATIONS.map((mark) => mark.file));
@@ -118,10 +87,9 @@ export function CoreSpinLoader() {
   const location = useLocation();
   const { dismissLoader } = useAppExperience();
   const [phase, setPhase] = useState<Phase>("active");
+  const [ellipsisStep, setEllipsisStep] = useState(3);
   // Frozen at mount: the loader only ever runs for the route it loaded with.
   const [initialPathname] = useState(() => location.pathname);
-  const [message] = useState(() => loaderMessage(initialPathname));
-  const visibleMessage = message.replace(/\.$/, "");
 
   useEffect(() => {
     let cancelled = false;
@@ -155,6 +123,19 @@ export function CoreSpinLoader() {
     };
   }, [phase, dismissLoader]);
 
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) {
+      return undefined;
+    }
+    const interval = window.setInterval(() => {
+      setEllipsisStep((current) => (current >= 3 ? 1 : current + 1));
+    }, 420);
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, []);
+
   if (phase === "done") {
     return null;
   }
@@ -162,28 +143,26 @@ export function CoreSpinLoader() {
   return (
     <div className="ss-loader" data-phase={phase} role="status" aria-live="polite">
       <div className="ss-loader__stage" aria-hidden="true">
-        <span className="ss-loader__halo" />
-        <span className="ss-loader__core" />
-        <span className="ss-loader__ring" />
-        <span className="ss-loader__ring ss-loader__ring--inner" />
+        <OrbitalLoader className="ss-loader__core-spin" />
+        <span className="ss-loader__emblem-glow" />
         <img
           className="ss-loader__emblem"
-          src="/brand/silverstone-ai-emblem-dark.png"
+          src={LOADER_EMBLEM_SRC}
           alt=""
-          width={150}
-          height={150}
+          width={860}
+          height={929}
           decoding="async"
+          fetchPriority="high"
+          loading="eager"
         />
       </div>
       <p className="ss-loader__label" aria-hidden="true">
-        <span>{visibleMessage}</span>
-        <span className="ss-loader__ellipsis">
-          <span>.</span>
-          <span>.</span>
-          <span>.</span>
+        <span>{LOADER_MESSAGE}</span>
+        <span className="ss-loader__ellipsis" aria-hidden="true">
+          {".".repeat(ellipsisStep)}
         </span>
       </p>
-      <span className="sr-only">{message}</span>
+      <span className="sr-only">{LOADER_MESSAGE}.</span>
     </div>
   );
 }
