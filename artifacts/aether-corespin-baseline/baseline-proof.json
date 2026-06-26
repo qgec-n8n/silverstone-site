@@ -1,0 +1,161 @@
+{
+  "errors": [],
+  "samples": [
+    {
+      "label": "intro-initial",
+      "state": "intro",
+      "aetherCanvasCount": 1,
+      "loaderVisible": true,
+      "loader": {
+        "stage": {
+          "left": 567.8046875,
+          "top": 268.8046875,
+          "width": 230.390625,
+          "height": 230.390625,
+          "right": 798.1953125,
+          "bottom": 499.1953125,
+          "centerX": 683,
+          "centerY": 384
+        },
+        "spin": {
+          "left": 567.7921752929688,
+          "top": 268.79217529296875,
+          "width": 230.4000244140625,
+          "height": 230.4000244140625,
+          "right": 798.1921997070312,
+          "bottom": 499.19219970703125,
+          "centerX": 682.9921875,
+          "centerY": 383.9921875
+        },
+        "emblem": {
+          "left": 646.202392578125,
+          "top": 344.25482177734375,
+          "width": 73.57958984375,
+          "height": 79.4747314453125,
+          "right": 719.781982421875,
+          "bottom": 423.72955322265625,
+          "centerX": 682.9921875,
+          "centerY": 383.9921875
+        },
+        "label": {
+          "left": 427.5390625,
+          "top": 536.0625,
+          "width": 510.921875,
+          "height": 18.09375,
+          "right": 938.4609375,
+          "bottom": 554.15625,
+          "centerX": 683,
+          "centerY": 545.109375
+        }
+      },
+      "canvas": {
+        "css": {
+          "left": 0,
+          "top": 0,
+          "width": 1366,
+          "height": 768,
+          "right": 1366,
+          "bottom": 768,
+          "centerX": 683,
+          "centerY": 384
+        },
+        "width": 1366,
+        "height": 768,
+        "central": {
+          "bright": 14357,
+          "total": 513372,
+          "ratio": 0.02796607528264105
+        },
+        "outer": {
+          "bright": 8162,
+          "total": 535179,
+          "ratio": 0.01525097210466031
+        }
+      },
+      "text": "Engineering the next advantage...\n\nEngineering the next advantage.\nSkip to content\nUK AI SYSTEMS STUDIO\nThe operating system for businesses that refuse to miss.\n\nSilverstone designs AI voice, reception and automation systems that answer every call, capture every enquiry and run the repetitive work — so small UK teams respond faster, deliver more and grow without adding headcount.\n\nExplore the syst",
+      "rafProbe": {
+        "canvases": 1
+      }
+    },
+    {
+      "label": "intro-60s",
+      "state": "intro",
+      "aetherCanvasCount": 1,
+      "loaderVisible": false,
+      "loader": {
+        "stage": null,
+        "spin": null,
+        "emblem": null,
+        "label": null
+      },
+      "canvas": {
+        "css": {
+          "left": 0,
+          "top": 0,
+          "width": 1366,
+          "height": 768,
+          "right": 1366,
+          "bottom": 768,
+          "centerX": 683,
+          "centerY": 384
+        },
+        "width": 1366,
+        "height": 768,
+        "central": {
+          "bright": 208,
+          "total": 513372,
+          "ratio": 0.0004051642863264845
+        },
+        "outer": {
+          "bright": 7850,
+          "total": 535179,
+          "ratio": 0.014667989588530193
+        }
+      },
+      "text": "Skip to content\nUK AI SYSTEMS STUDIO\nThe operating system for businesses that refuse to miss.\n\nSilverstone designs AI voice, reception and automation systems that answer every call, capture every enquiry and run the repetitive work — so small UK teams respond faster, deliver more and grow without adding headcount.\n\nExplore the system",
+      "rafProbe": {
+        "canvases": 1
+      }
+    },
+    {
+      "label": "intro-180s",
+      "state": "intro",
+      "aetherCanvasCount": 1,
+      "loaderVisible": false,
+      "loader": {
+        "stage": null,
+        "spin": null,
+        "emblem": null,
+        "label": null
+      },
+      "canvas": {
+        "css": {
+          "left": 0,
+          "top": 0,
+          "width": 1366,
+          "height": 768,
+          "right": 1366,
+          "bottom": 768,
+          "centerX": 683,
+          "centerY": 384
+        },
+        "width": 1366,
+        "height": 768,
+        "central": {
+          "bright": 9,
+          "total": 513372,
+          "ratio": 0.00001753114700451135
+        },
+        "outer": {
+          "bright": 2850,
+          "total": 535179,
+          "ratio": 0.005325321060803956
+        }
+      },
+      "text": "Skip to content\nUK AI SYSTEMS STUDIO\nThe operating system for businesses that refuse to miss.\n\nSilverstone designs AI voice, reception and automation systems that answer every call, capture every enquiry and run the repetitive work — so small UK teams respond faster, deliver more and grow without adding headcount.\n\nExplore the system",
+      "rafProbe": {
+        "canvases": 1
+      }
+    }
+  ]
+}

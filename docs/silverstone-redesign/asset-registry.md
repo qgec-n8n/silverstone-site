@@ -12,6 +12,7 @@ cinematic dark luxury-tech, consistent with the Precision Luminescence directive
 | `silverstone-emblem-source.png` | original | Untouched original kept for reference. |
 | `silverstone-logo-source.png` / `…-source@2x.png` | originals | Untouched originals kept for reference. |
 | `silverstone-ai-logo-footer.png` | `silverstone-ai-logo-dark-v3.png` | Footer lockup derivative with boundary-connected background normalized to sampled edge color `#0f1222`; visible logo pixels preserved. |
+| `silverstone-ai-emblem-dark-transparent.png` | Codex attachment `silverstone-ai-emblem-dark-transparentbackground.png` | Untouched 860×929 RGBA PNG, alpha verified, all four corners transparent, transparent ratio ~67.7%; used as the CoreSpin centre emblem. |
 
 > The original brand PNGs shipped on a white raster background; transparent
 > derivatives are required for the dark theme (no white logo plates).

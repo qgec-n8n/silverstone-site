@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
-import { OrbitalLoader } from "~/components/ui/orbital-loader";
 import { ALL_INTEGRATIONS } from "~/data/home-v2";
 
 import "~/styles/core-spin-loader.css";
@@ -24,7 +23,7 @@ const HOLD_MS = 4000;
 const EXIT_MS = 600;
 const MAX_ASSET_WAIT_MS = 6500;
 const LOADER_MESSAGE = "Engineering the next advantage";
-const LOADER_EMBLEM_SRC = "/brand/silverstone-ai-emblem-dark.png";
+const LOADER_EMBLEM_SRC = "/brand/silverstone-ai-emblem-dark-transparent.png";
 
 const HOME_IMAGE_ASSETS = [
   LOADER_EMBLEM_SRC,
@@ -143,10 +142,18 @@ export function CoreSpinLoader() {
   return (
     <div className="ss-loader" data-phase={phase} role="status" aria-live="polite">
       <div className="ss-loader__stage" aria-hidden="true">
-        <OrbitalLoader className="ss-loader__core-spin" />
-        <span className="ss-loader__emblem-glow" />
+        <div className="ss-loader__core-spin">
+          <div className="ss-loader__base-glow" />
+          <div className="ss-loader__outer-ring" />
+          <div className="ss-loader__main-arc" />
+          <div className="ss-loader__reverse-arc" />
+          <div className="ss-loader__inner-ring" />
+          <div className="ss-loader__orbital">
+            <div className="ss-loader__orbital-dot" />
+          </div>
+        </div>
         <img
-          className="ss-loader__emblem"
+          className="ss-loader__emblem ss-loader__center-core"
           src={LOADER_EMBLEM_SRC}
           alt=""
           width={860}

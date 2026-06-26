@@ -357,3 +357,40 @@ Tradeoffs:
 
 - The shadcn registry install could not be completed without authenticated 21st.dev access, so the implementation records the failed command and uses the available Magic MCP source with local app import adaptations.
 - The full repo formatting backlog remains intentionally untouched to preserve the minimal-diff constraint.
+
+## Exact Aether/CoreSpin final pass record -- 2026-06-26
+
+Observed before implementation:
+
+- Current repo state was clean on `main` at `632af489`; a local checkpoint ref `codex/checkpoint-aether-corespin-632af489` was created before edits.
+- Current `/web` active route remained `/` via `web/src/routes/company/home.tsx` -> `home-v2.tsx`; package manager is npm and Node was `v25.9.0`.
+- Baseline Aether soak evidence under `artifacts/aether-corespin-baseline/` reproduced the central-empty defect at 1366x768: central bright ratio fell from `0.027966` initially to `0.000405` at 60s and `0.0000175` at 180s while outer coverage stayed materially higher.
+- Code inspection identified the current Aether divergence from the supplied 21st.dev source: custom containment/clamping, finite fallback, altered particle initialization, altered connection opacity (`distance / threshold`), pointer coordinate transforms, IntersectionObserver pause/resume, and extra reduced-motion/static paint behavior. The drift cause observed in runtime matched particles being pushed or retained away from the central viewport by the custom containment/lifecycle path rather than the supplied source's simple edge-direction reversal and position-only mouse displacement.
+- Current loader visual used the local `OrbitalLoader` fallback and CSS scaling overrides rather than the supplied CoreSpin layer structure.
+- Attached `silverstone-ai-emblem-dark-transparentbackground.png` was verified as a valid 860x929 8-bit RGBA PNG with alpha, all four corner pixels `0`, transparent ratio `0.6773`, and visible artwork bounds `x 172..692`, `y 140..760`.
+
+Changed:
+
+- Replaced `HeroAetherField` with the supplied Aether Flow particle engine structure and formulas, adapted only for TypeScript/null-safety, React cleanup, existing wrapper classes, and approved Silverstone colours: particle `rgba(94, 197, 208, 0.8)`, normal connection `rgba(94, 197, 208, opacity)`, pointer connection `rgba(233, 234, 239, opacity)`.
+- Preserved the approved hero copy, pill/button content, hero reveal timing in `hero.tsx`, intro/body state machine, body `particles.js`, header/body sections and reverse transition.
+- Copied the locked attached emblem unchanged to `web/public/brand/silverstone-ai-emblem-dark-transparent.png`; no trimming or optimisation was applied.
+- Rebuilt `CoreSpinLoader` visual markup to the supplied CoreSpin layer contract: base glow, outer dashed ring, main top arc, reverse bottom arc, inner fast left arc, orbital dot, centre emblem and independent label region.
+- Replaced the old circular/rectangular emblem glow with shape-following `filter: drop-shadow(...)` on the transparent PNG and optically centred visible artwork using measured alpha bounds (`translate(-50.23%, -48.44%)`).
+- Introduced `--core-spin-size: clamp(10.75rem, 30vmin, 17.5rem)` with proportional insets/borders/dot sizing; short viewports use `clamp(9.75rem, 28vmin, 11rem)`.
+- Kept loader lifecycle behavior: four-second minimum hold, route asset/font readiness race, `6500ms` asset timeout, `dismissLoader` handoff, stable screen-reader message and cyclic visual ellipsis.
+- Updated Playwright coverage for CoreSpin layer presence, exact spin durations/direction, transparent emblem asset, visible-artwork centring, label gap and one visible Aether canvas with central canvas coverage.
+- Recorded the new emblem in `docs/silverstone-redesign/asset-registry.md`.
+
+Verification:
+
+- Loader matrix under built preview at `320x568`, `375x667`, `390x844`, `430x932`, `768x1024`, `1024x768`, `1280x800`, `1366x768`, `1440x900` and `1920x1080`: stage/spin centre deltas `0px`; visible emblem centre max delta about `0.12px`; label gap range `24.41px` to `53.57px`; no console errors; supplied spin durations/directions verified (`10s`, `2s`, `3s reverse`, `1s ease-in-out`, `4s`).
+- DPR/reduced-motion proof under `artifacts/aether-corespin-soak/dpr-reduced-proof.json`: DPR 2 centre deltas stayed under `0.09px`; reduced motion set ring/emblem animation names to `none`, kept a static drop-shadow glow and stable `Engineering the next advantage...` copy.
+- Built-preview Aether soak under `artifacts/aether-corespin-soak/soak-results.json` ran five viewports (`390x844`, `768x1024`, `1366x768`, `1440x900`, `1920x1080`) through initial, 1m, 3m, 5m, 10m, pointer-path and 3m post-pointer samples. Central coverage never collapsed; all samples kept one Aether canvas and no console errors.
+- Aether listener/RAF proof: built soak settled at one active RAF after startup; dev listener-name probe attributed exactly one Aether `resizeCanvas`, one `handleMouseMove` and one `handleMouseOut` listener. Other global resize/mousemove listeners were from app/runtime code, not Aether.
+- Validation passed: source/test changed-file Prettier check, `npm run typecheck`, `npm run lint`, `npm run test` (`17` files, `35` tests), `npm run build`, `PORT=4189 npm run test:e2e -- tests/e2e/homepage-interaction.spec.ts` (`12` passed, `10` expected skips), `npm run staging:safety`, `PORT=4190 npm run test:a11y` (`2` passed), and `PORT=4191 npm run test:e2e` (`44` passed, `10` expected skips).
+- `npm run bundle:report` exited successfully and reported the existing target miss: `Foundation JavaScript: 291.48 KB gzip (target-miss)`.
+
+Tradeoffs:
+
+- The full repo formatting backlog remains intentionally untouched; source/test changed-file Prettier passed.
+- Long-duration Aether soak evidence is local under `artifacts/aether-corespin-soak/` and is not intended to be committed.

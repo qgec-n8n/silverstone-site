@@ -1,0 +1,1052 @@
+[
+  {
+    "width": 320,
+    "height": 568,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "cssSize": "clamp(9.75rem, 28vmin, 11rem)",
+      "stage": {
+        "left": 82,
+        "top": 206,
+        "right": 238,
+        "bottom": 362,
+        "width": 156,
+        "height": 156,
+        "centerX": 160,
+        "centerY": 284
+      },
+      "spin": {
+        "left": 82,
+        "top": 206,
+        "right": 238,
+        "bottom": 362,
+        "width": 156,
+        "height": 156,
+        "centerX": 160,
+        "centerY": 284
+      },
+      "outer": {
+        "left": 78.41331481933594,
+        "top": 202.41331481933594,
+        "right": 241.58668518066406,
+        "bottom": 365.586669921875,
+        "width": 163.17337036132812,
+        "height": 163.17335510253906,
+        "centerX": 160,
+        "centerY": 283.99999237060547
+      },
+      "img": {
+        "left": 118.10066223144531,
+        "top": 240.37173461914062,
+        "right": 201.51185607910156,
+        "bottom": 330.46697998046875,
+        "width": 83.41119384765625,
+        "height": 90.09524536132812,
+        "centerX": 159.80625915527344,
+        "centerY": 285.4193572998047
+      },
+      "visible": {
+        "centerX": 160.04873355599335,
+        "centerY": 284.0616248616361
+      },
+      "label": {
+        "left": 6.40625,
+        "top": 390,
+        "right": 313.59375,
+        "bottom": 404.375,
+        "width": 307.1875,
+        "height": 14.375,
+        "centerX": 160,
+        "centerY": 397.1875
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.048733555993351274,
+        "visibleY": 0.06162486163611902,
+        "labelGap": 24.413330078125
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  },
+  {
+    "width": 375,
+    "height": 667,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "cssSize": "clamp(10.75rem, 30vmin, 17.5rem)",
+      "stage": {
+        "left": 101.5,
+        "top": 247.5,
+        "right": 273.5,
+        "bottom": 419.5,
+        "width": 172,
+        "height": 172,
+        "centerX": 187.5,
+        "centerY": 333.5
+      },
+      "spin": {
+        "left": 101.5,
+        "top": 247.5,
+        "right": 273.5,
+        "bottom": 419.5,
+        "width": 172,
+        "height": 172,
+        "centerX": 187.5,
+        "centerY": 333.5
+      },
+      "outer": {
+        "left": 99.27828979492188,
+        "top": 245.27828979492188,
+        "right": 275.7217102050781,
+        "bottom": 421.7217102050781,
+        "width": 176.44342041015625,
+        "height": 176.44342041015625,
+        "centerX": 187.5,
+        "centerY": 333.5
+      },
+      "img": {
+        "left": 141.31004333496094,
+        "top": 285.4067077636719,
+        "right": 233.2627410888672,
+        "bottom": 384.7230529785156,
+        "width": 91.95269775390625,
+        "height": 99.31634521484375,
+        "centerX": 187.28639221191406,
+        "centerY": 335.06488037109375
+      },
+      "visible": {
+        "centerX": 187.55369656584983,
+        "centerY": 333.56818625590773
+      },
+      "label": {
+        "left": 15,
+        "top": 454.6875,
+        "right": 360,
+        "bottom": 470,
+        "width": 345,
+        "height": 15.3125,
+        "centerX": 187.5,
+        "centerY": 462.34375
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.05369656584983318,
+        "visibleY": 0.06818625590773308,
+        "labelGap": 32.965789794921875
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "cssSize": "clamp(10.75rem, 30vmin, 17.5rem)",
+      "stage": {
+        "left": 109,
+        "top": 336,
+        "right": 281,
+        "bottom": 508,
+        "width": 172,
+        "height": 172,
+        "centerX": 195,
+        "centerY": 422
+      },
+      "spin": {
+        "left": 109,
+        "top": 336,
+        "right": 281,
+        "bottom": 508,
+        "width": 172,
+        "height": 172,
+        "centerX": 195,
+        "centerY": 422
+      },
+      "outer": {
+        "left": 106.77776336669922,
+        "top": 333.77777099609375,
+        "right": 283.2222213745117,
+        "bottom": 510.22222900390625,
+        "width": 176.4444580078125,
+        "height": 176.4444580078125,
+        "centerX": 194.99999237060547,
+        "centerY": 422
+      },
+      "img": {
+        "left": 148.81004333496094,
+        "top": 373.9067077636719,
+        "right": 240.7627410888672,
+        "bottom": 473.2230529785156,
+        "width": 91.95269775390625,
+        "height": 99.31634521484375,
+        "centerX": 194.78639221191406,
+        "centerY": 423.56488037109375
+      },
+      "visible": {
+        "centerX": 195.05369656584983,
+        "centerY": 422.06818625590773
+      },
+      "label": {
+        "left": 15.6015625,
+        "top": 543.1875,
+        "right": 374.3984375,
+        "bottom": 558.5,
+        "width": 358.796875,
+        "height": 15.3125,
+        "centerX": 195,
+        "centerY": 550.84375
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.05369656584983318,
+        "visibleY": 0.06818625590773308,
+        "labelGap": 32.96527099609375
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 430,
+        "height": 932
+      },
+      "cssSize": "clamp(10.75rem, 30vmin, 17.5rem)",
+      "stage": {
+        "left": 129,
+        "top": 380,
+        "right": 301,
+        "bottom": 552,
+        "width": 172,
+        "height": 172,
+        "centerX": 215,
+        "centerY": 466
+      },
+      "spin": {
+        "left": 129,
+        "top": 380,
+        "right": 301,
+        "bottom": 552,
+        "width": 172,
+        "height": 172,
+        "centerX": 215,
+        "centerY": 466
+      },
+      "outer": {
+        "left": 127.2655029296875,
+        "top": 378.2655029296875,
+        "right": 302.7344970703125,
+        "bottom": 553.7344970703125,
+        "width": 175.468994140625,
+        "height": 175.468994140625,
+        "centerX": 215,
+        "centerY": 466
+      },
+      "img": {
+        "left": 168.81130981445312,
+        "top": 417.9080810546875,
+        "right": 260.761474609375,
+        "bottom": 517.2216796875,
+        "width": 91.95016479492188,
+        "height": 99.3135986328125,
+        "centerX": 214.78639221191406,
+        "centerY": 467.56488037109375
+      },
+      "visible": {
+        "centerX": 215.05368920259698,
+        "centerY": 466.06822764681027
+      },
+      "label": {
+        "left": 17.203125,
+        "top": 587.1875,
+        "right": 412.796875,
+        "bottom": 602.5,
+        "width": 395.59375,
+        "height": 15.3125,
+        "centerX": 215,
+        "centerY": 594.84375
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.05368920259698484,
+        "visibleY": 0.06822764681027138,
+        "labelGap": 33.4530029296875
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "cssSize": "clamp(10.75rem, 30vmin, 17.5rem)",
+      "stage": {
+        "left": 268.8046875,
+        "top": 396.8046875,
+        "right": 499.1953125,
+        "bottom": 627.1953125,
+        "width": 230.390625,
+        "height": 230.390625,
+        "centerX": 384,
+        "centerY": 512
+      },
+      "spin": {
+        "left": 268.8046875,
+        "top": 396.8046875,
+        "right": 499.1953125,
+        "bottom": 627.1953125,
+        "width": 230.390625,
+        "height": 230.390625,
+        "centerX": 384,
+        "centerY": 512
+      },
+      "outer": {
+        "left": 267.0095520019531,
+        "top": 395.0095520019531,
+        "right": 500.99041748046875,
+        "bottom": 628.9904174804688,
+        "width": 233.98086547851562,
+        "height": 233.98086547851562,
+        "centerX": 383.99998474121094,
+        "centerY": 511.99998474121094
+      },
+      "img": {
+        "left": 322.1234130859375,
+        "top": 447.5711669921875,
+        "right": 445.2886962890625,
+        "bottom": 580.605712890625,
+        "width": 123.165283203125,
+        "height": 133.0345458984375,
+        "centerX": 383.7060546875,
+        "centerY": 514.0884399414062
+      },
+      "visible": {
+        "centerX": 384.06409330146255,
+        "centerY": 512.0836136307732
+      },
+      "label": {
+        "left": 156.3828125,
+        "top": 670.96875,
+        "right": 611.6171875,
+        "bottom": 687.09375,
+        "width": 455.234375,
+        "height": 16.125,
+        "centerX": 384,
+        "centerY": 679.03125
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.06409330146254888,
+        "visibleY": 0.08361363077324313,
+        "labelGap": 41.97833251953125
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  },
+  {
+    "width": 1024,
+    "height": 768,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "cssSize": "clamp(10.75rem, 30vmin, 17.5rem)",
+      "stage": {
+        "left": 396.8046875,
+        "top": 268.8046875,
+        "right": 627.1953125,
+        "bottom": 499.1953125,
+        "width": 230.390625,
+        "height": 230.390625,
+        "centerX": 512,
+        "centerY": 384
+      },
+      "spin": {
+        "left": 396.8046875,
+        "top": 268.8046875,
+        "right": 627.1953125,
+        "bottom": 499.1953125,
+        "width": 230.390625,
+        "height": 230.390625,
+        "centerX": 512,
+        "centerY": 384
+      },
+      "outer": {
+        "left": 395.0098571777344,
+        "top": 267.0098571777344,
+        "right": 628.9901733398438,
+        "bottom": 500.99017333984375,
+        "width": 233.98031616210938,
+        "height": 233.98031616210938,
+        "centerX": 512.0000152587891,
+        "centerY": 384.00001525878906
+      },
+      "img": {
+        "left": 450.1234130859375,
+        "top": 319.5711669921875,
+        "right": 573.2886962890625,
+        "bottom": 452.605712890625,
+        "width": 123.165283203125,
+        "height": 133.0345458984375,
+        "centerX": 511.7060546875,
+        "centerY": 386.08843994140625
+      },
+      "visible": {
+        "centerX": 512.0640933014625,
+        "centerY": 384.0836136307732
+      },
+      "label": {
+        "left": 271.890625,
+        "top": 542.96875,
+        "right": 752.109375,
+        "bottom": 559.96875,
+        "width": 480.21875,
+        "height": 17,
+        "centerX": 512,
+        "centerY": 551.46875
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.06409330146254888,
+        "visibleY": 0.08361363077318629,
+        "labelGap": 41.97857666015625
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  },
+  {
+    "width": 1280,
+    "height": 800,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "cssSize": "clamp(10.75rem, 30vmin, 17.5rem)",
+      "stage": {
+        "left": 520,
+        "top": 280,
+        "right": 760,
+        "bottom": 520,
+        "width": 240,
+        "height": 240,
+        "centerX": 640,
+        "centerY": 400
+      },
+      "spin": {
+        "left": 520,
+        "top": 280,
+        "right": 760,
+        "bottom": 520,
+        "width": 240,
+        "height": 240,
+        "centerX": 640,
+        "centerY": 400
+      },
+      "outer": {
+        "left": 518.1318359375,
+        "top": 278.1318664550781,
+        "right": 761.8681640625,
+        "bottom": 521.8681640625,
+        "width": 243.736328125,
+        "height": 243.73629760742188,
+        "centerX": 640,
+        "centerY": 400.00001525878906
+      },
+      "img": {
+        "left": 575.5513916015625,
+        "top": 332.8897705078125,
+        "right": 703.8524169921875,
+        "bottom": 471.4777526855469,
+        "width": 128.301025390625,
+        "height": 138.58798217773438,
+        "centerX": 639.701904296875,
+        "centerY": 402.1837615966797
+      },
+      "visible": {
+        "centerX": 640.0748723939407,
+        "centerY": 400.09524518065354
+      },
+      "label": {
+        "left": 387.203125,
+        "top": 565.59375,
+        "right": 892.796875,
+        "bottom": 583.5,
+        "width": 505.59375,
+        "height": 17.90625,
+        "centerX": 640,
+        "centerY": 574.546875
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.07487239394072276,
+        "visibleY": 0.09524518065353504,
+        "labelGap": 43.7255859375
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  },
+  {
+    "width": 1366,
+    "height": 768,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cssSize": "clamp(10.75rem, 30vmin, 17.5rem)",
+      "stage": {
+        "left": 567.8046875,
+        "top": 268.8046875,
+        "right": 798.1953125,
+        "bottom": 499.1953125,
+        "width": 230.390625,
+        "height": 230.390625,
+        "centerX": 683,
+        "centerY": 384
+      },
+      "spin": {
+        "left": 567.8046875,
+        "top": 268.8046875,
+        "right": 798.1953125,
+        "bottom": 499.1953125,
+        "width": 230.390625,
+        "height": 230.390625,
+        "centerX": 683,
+        "centerY": 384
+      },
+      "outer": {
+        "left": 566.0094604492188,
+        "top": 267.0094909667969,
+        "right": 799.990478515625,
+        "bottom": 500.9905090332031,
+        "width": 233.98101806640625,
+        "height": 233.98101806640625,
+        "centerX": 682.9999694824219,
+        "centerY": 384
+      },
+      "img": {
+        "left": 621.1234130859375,
+        "top": 319.5711364746094,
+        "right": 744.2886962890625,
+        "bottom": 452.6057434082031,
+        "width": 123.165283203125,
+        "height": 133.03460693359375,
+        "centerX": 682.7060546875,
+        "centerY": 386.08843994140625
+      },
+      "visible": {
+        "centerX": 683.0640933014625,
+        "centerY": 384.08361271097533
+      },
+      "label": {
+        "left": 427.5390625,
+        "top": 542.96875,
+        "right": 938.4609375,
+        "bottom": 561.0625,
+        "width": 510.921875,
+        "height": 18.09375,
+        "centerX": 683,
+        "centerY": 552.015625
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.06409330146254888,
+        "visibleY": 0.08361271097533063,
+        "labelGap": 41.978240966796875
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "cssSize": "clamp(10.75rem, 30vmin, 17.5rem)",
+      "stage": {
+        "left": 585,
+        "top": 315,
+        "right": 855,
+        "bottom": 585,
+        "width": 270,
+        "height": 270,
+        "centerX": 720,
+        "centerY": 450
+      },
+      "spin": {
+        "left": 585,
+        "top": 315,
+        "right": 855,
+        "bottom": 585,
+        "width": 270,
+        "height": 270,
+        "centerX": 720,
+        "centerY": 450
+      },
+      "outer": {
+        "left": 582.2025756835938,
+        "top": 312.20257568359375,
+        "right": 857.7974243164062,
+        "bottom": 587.7974243164062,
+        "width": 275.5948486328125,
+        "height": 275.5948486328125,
+        "centerX": 720,
+        "centerY": 450
+      },
+      "img": {
+        "left": 647.4920043945312,
+        "top": 374.4985046386719,
+        "right": 791.8373413085938,
+        "bottom": 530.4150390625,
+        "width": 144.3453369140625,
+        "height": 155.91653442382812,
+        "centerX": 719.6646728515625,
+        "centerY": 452.45677185058594
+      },
+      "visible": {
+        "centerX": 720.0842813891034,
+        "centerY": 450.10711471179843
+      },
+      "label": {
+        "left": 464.5390625,
+        "top": 636.296875,
+        "right": 975.4609375,
+        "bottom": 654.390625,
+        "width": 510.921875,
+        "height": 18.09375,
+        "centerX": 720,
+        "centerY": 645.34375
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.08428138910335292,
+        "visibleY": 0.10711471179843102,
+        "labelGap": 48.49945068359375
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "errors": [],
+    "proof": {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "cssSize": "clamp(10.75rem, 30vmin, 17.5rem)",
+      "stage": {
+        "left": 820,
+        "top": 400,
+        "right": 1100,
+        "bottom": 680,
+        "width": 280,
+        "height": 280,
+        "centerX": 960,
+        "centerY": 540
+      },
+      "spin": {
+        "left": 820,
+        "top": 400,
+        "right": 1100,
+        "bottom": 680,
+        "width": 280,
+        "height": 280,
+        "centerX": 960,
+        "centerY": 540
+      },
+      "outer": {
+        "left": 816.3812255859375,
+        "top": 396.3811950683594,
+        "right": 1103.6187744140625,
+        "bottom": 683.6187744140625,
+        "width": 287.237548828125,
+        "height": 287.2375793457031,
+        "centerX": 960,
+        "centerY": 539.9999847412109
+      },
+      "img": {
+        "left": 884.8092041015625,
+        "top": 461.70233154296875,
+        "right": 1034.495361328125,
+        "bottom": 623.39306640625,
+        "width": 149.6861572265625,
+        "height": 161.69073486328125,
+        "centerX": 959.6522827148438,
+        "centerY": 542.5476989746094
+      },
+      "visible": {
+        "centerX": 960.087416892828,
+        "centerY": 540.1110248216644
+      },
+      "label": {
+        "left": 704.5390625,
+        "top": 737.1875,
+        "right": 1215.4609375,
+        "bottom": 755.28125,
+        "width": 510.921875,
+        "height": 18.09375,
+        "centerX": 960,
+        "centerY": 746.234375
+      },
+      "styles": {
+        "outer-ring": {
+          "duration": "10s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "main-arc": {
+          "duration": "2s",
+          "direction": "normal",
+          "timing": "linear"
+        },
+        "reverse-arc": {
+          "duration": "3s",
+          "direction": "reverse",
+          "timing": "linear"
+        },
+        "inner-ring": {
+          "duration": "1s",
+          "direction": "normal",
+          "timing": "ease-in-out"
+        },
+        "orbital": {
+          "duration": "4s",
+          "direction": "normal",
+          "timing": "linear"
+        }
+      },
+      "deltas": {
+        "stageX": 0,
+        "stageY": 0,
+        "spinX": 0,
+        "spinY": 0,
+        "visibleX": 0.08741689282794596,
+        "visibleY": 0.11102482166438676,
+        "labelGap": 53.5687255859375
+      },
+      "layerCount": 6,
+      "src": "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "labelText": "Engineering the next advantage..."
+    }
+  }
+]

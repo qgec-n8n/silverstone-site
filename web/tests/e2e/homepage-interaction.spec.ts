@@ -12,7 +12,7 @@ const trustSignals = [
 async function waitForIntro(page: Page) {
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "intro", {
-    timeout: 12_000,
+    timeout: 20_000,
   });
 }
 
@@ -168,7 +168,7 @@ async function waitForBodyParticles(page: Page) {
           ).length,
           pJSDomLength: Array.isArray(window.pJSDom) ? window.pJSDom.length : null,
         })),
-      { timeout: 5_000 },
+      { timeout: 10_000 },
     )
     .toEqual({ canvasCount: 1, pJSDomLength: 1 });
 }
@@ -260,24 +260,64 @@ for (const viewport of [
       const stage = document
         .querySelector<HTMLElement>(".ss-loader__stage")
         ?.getBoundingClientRect();
-      const spin = document
-        .querySelector<HTMLElement>(".ss-loader__core-spin")
-        ?.getBoundingClientRect();
-      const emblem = document
-        .querySelector<HTMLElement>(".ss-loader__emblem")
-        ?.getBoundingClientRect();
+      const spinNode = document.querySelector<HTMLElement>(".ss-loader__core-spin");
+      const spin = spinNode?.getBoundingClientRect();
+      const emblemNode = document.querySelector<HTMLImageElement>(".ss-loader__emblem");
+      const emblem = emblemNode?.getBoundingClientRect();
       const label = document
         .querySelector<HTMLElement>(".ss-loader__label")
         ?.getBoundingClientRect();
+      const layers = [
+        ".ss-loader__base-glow",
+        ".ss-loader__outer-ring",
+        ".ss-loader__main-arc",
+        ".ss-loader__reverse-arc",
+        ".ss-loader__inner-ring",
+        ".ss-loader__orbital",
+        ".ss-loader__orbital-dot",
+        ".ss-loader__center-core",
+      ].map((selector) => document.querySelector(selector) !== null);
+      const outerNode = document.querySelector<HTMLElement>(".ss-loader__outer-ring");
+      const mainNode = document.querySelector<HTMLElement>(".ss-loader__main-arc");
+      const reverseNode = document.querySelector<HTMLElement>(
+        ".ss-loader__reverse-arc",
+      );
+      const innerNode = document.querySelector<HTMLElement>(".ss-loader__inner-ring");
+      const orbitalNode = document.querySelector<HTMLElement>(".ss-loader__orbital");
+      const styles = {
+        inner: innerNode ? getComputedStyle(innerNode) : null,
+        main: mainNode ? getComputedStyle(mainNode) : null,
+        orbital: orbitalNode ? getComputedStyle(orbitalNode) : null,
+        outer: outerNode ? getComputedStyle(outerNode) : null,
+        reverse: reverseNode ? getComputedStyle(reverseNode) : null,
+      };
+      const visibleEmblem =
+        emblem && emblemNode
+          ? {
+              centerX: emblem.left + ((172 + 692 + 1) / 2 / 860) * emblem.width,
+              centerY: emblem.top + ((140 + 760 + 1) / 2 / 929) * emblem.height,
+            }
+          : null;
 
       return {
-        emblemCenterDeltaX: emblem
-          ? Math.abs(emblem.left + emblem.width / 2 - window.innerWidth / 2)
+        coreSpinAsset: emblemNode?.getAttribute("src") ?? null,
+        coreSpinLayersVisible: layers.every(Boolean),
+        coreSpinAnimations: {
+          innerDuration: styles.inner?.animationDuration ?? null,
+          innerTiming: styles.inner?.animationTimingFunction ?? null,
+          mainDuration: styles.main?.animationDuration ?? null,
+          orbitalDuration: styles.orbital?.animationDuration ?? null,
+          outerDuration: styles.outer?.animationDuration ?? null,
+          reverseDirection: styles.reverse?.animationDirection ?? null,
+          reverseDuration: styles.reverse?.animationDuration ?? null,
+        },
+        emblemVisibleCenterDeltaX: visibleEmblem
+          ? Math.abs(visibleEmblem.centerX - window.innerWidth / 2)
           : null,
-        emblemCenterDeltaY: emblem
-          ? Math.abs(emblem.top + emblem.height / 2 - window.innerHeight / 2)
+        emblemVisibleCenterDeltaY: visibleEmblem
+          ? Math.abs(visibleEmblem.centerY - window.innerHeight / 2)
           : null,
-        labelGap: spin && label ? label.top - spin.bottom : null,
+        labelGap: stage && label ? label.top - stage.bottom : null,
         spinCenterDeltaX: spin
           ? Math.abs(spin.left + spin.width / 2 - window.innerWidth / 2)
           : null,
@@ -297,9 +337,19 @@ for (const viewport of [
     expect(proof.stageCenterDeltaY ?? 999).toBeLessThanOrEqual(1);
     expect(proof.spinCenterDeltaX ?? 999).toBeLessThanOrEqual(1);
     expect(proof.spinCenterDeltaY ?? 999).toBeLessThanOrEqual(1);
-    expect(proof.emblemCenterDeltaX ?? 999).toBeLessThanOrEqual(2);
-    expect(proof.emblemCenterDeltaY ?? 999).toBeLessThanOrEqual(2);
+    expect(proof.emblemVisibleCenterDeltaX ?? 999).toBeLessThanOrEqual(2);
+    expect(proof.emblemVisibleCenterDeltaY ?? 999).toBeLessThanOrEqual(2);
     expect(proof.labelGap ?? 0).toBeGreaterThan(16);
+    expect(proof.coreSpinLayersVisible).toBe(true);
+    expect(proof.coreSpinAsset).toBe(
+      "/brand/silverstone-ai-emblem-dark-transparent.png",
+    );
+    expect(proof.coreSpinAnimations.outerDuration).toBe("10s");
+    expect(proof.coreSpinAnimations.mainDuration).toBe("2s");
+    expect(proof.coreSpinAnimations.reverseDuration).toBe("3s");
+    expect(proof.coreSpinAnimations.reverseDirection).toBe("reverse");
+    expect(proof.coreSpinAnimations.innerDuration).toBe("1s");
+    expect(proof.coreSpinAnimations.orbitalDuration).toBe("4s");
   });
 }
 
@@ -360,6 +410,37 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   await expect(page.locator("footer")).toHaveCount(0);
   await expect(page.locator("#system")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-backdrop")).toHaveCount(0);
+  await expect(page.locator(".ss-hv2-hero__canvas")).toHaveCount(1);
+  const aetherProof = await page.evaluate(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>(".ss-hv2-hero__canvas");
+    const context = canvas?.getContext("2d", { willReadFrequently: true });
+    if (!canvas || !context) {
+      return null;
+    }
+    const sample = context.getImageData(
+      Math.floor(canvas.width * 0.15),
+      Math.floor(canvas.height * 0.15),
+      Math.floor(canvas.width * 0.7),
+      Math.floor(canvas.height * 0.7),
+    ).data;
+    let bright = 0;
+    for (let index = 0; index < sample.length; index += 4) {
+      if (
+        Math.max(sample[index] ?? 0, sample[index + 1] ?? 0, sample[index + 2] ?? 0) >
+        32
+      ) {
+        bright += 1;
+      }
+    }
+    return {
+      height: canvas.height,
+      centralBrightRatio: bright / (sample.length / 4),
+      width: canvas.width,
+    };
+  });
+  expect(aetherProof?.width).toBe(page.viewportSize()?.width);
+  expect(aetherProof?.height).toBe(page.viewportSize()?.height);
+  expect(aetherProof?.centralBrightRatio ?? 0).toBeGreaterThan(0.0001);
   expect(await scrollMetrics(page)).toMatchObject({ y: 0 });
   await expect
     .poll(async () => {

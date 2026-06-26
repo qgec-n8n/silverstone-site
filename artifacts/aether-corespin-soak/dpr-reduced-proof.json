@@ -1,0 +1,114 @@
+[
+  {
+    "name": "390x844-dpr2",
+    "width": 390,
+    "height": 844,
+    "dpr": 2,
+    "reduced": "no-preference",
+    "proof": {
+      "devicePixelRatio": 2,
+      "stageDeltaX": 0,
+      "stageDeltaY": 0,
+      "visibleEmblemDeltaX": 0.05373826137810056,
+      "visibleEmblemDeltaY": 0.06793782836780338,
+      "labelGap": 35.1875,
+      "labelText": "Engineering the next advantage...",
+      "outer": {
+        "animationName": "ss-core-spin",
+        "animationDuration": "10s",
+        "transform": "matrix(0.998908, 0.0467217, -0.0467217, 0.998908, 0, 0)",
+        "filter": "none"
+      },
+      "emblem": {
+        "animationName": "ss-loader-emblem-breathe",
+        "animationDuration": "2.4s",
+        "transform": "matrix(0.990224, 0, 0, 0.990224, -46.6511, -48.5914)",
+        "filter": "drop-shadow(oklab(0.7665 -0.0875842 -0.0403493 / 0.460895) 0px 0px 10.0224px) drop-shadow(oklab(0.587329 -0.0231755 -0.0796862 / 0.300597) 0px 0px 22.0448px) drop-shadow(oklab(0.655511 0.0760317 -0.0793299 / 0.220448) 0px 0px 30.0597px)"
+      }
+    }
+  },
+  {
+    "name": "1366x768-dpr2",
+    "width": 1366,
+    "height": 768,
+    "dpr": 2,
+    "reduced": "no-preference",
+    "proof": {
+      "devicePixelRatio": 2,
+      "stageDeltaX": 0,
+      "stageDeltaY": 0,
+      "visibleEmblemDeltaX": 0.06416569199677724,
+      "visibleEmblemDeltaY": 0.08320708013070544,
+      "labelGap": 43.7734375,
+      "labelText": "Engineering the next advantage...",
+      "outer": {
+        "animationName": "ss-core-spin",
+        "animationDuration": "10s",
+        "transform": "matrix(0.998901, 0.046868, -0.046868, 0.998901, 0, 0)",
+        "filter": "none"
+      },
+      "emblem": {
+        "animationName": "ss-loader-emblem-breathe",
+        "animationDuration": "2.4s",
+        "transform": "matrix(0.990225, 0, 0, 0.990225, -62.4893, -65.0912)",
+        "filter": "drop-shadow(oklab(0.7665 -0.0875842 -0.0403493 / 0.460901) 0px 0px 10.0225px) drop-shadow(oklab(0.587329 -0.0231755 -0.0796862 / 0.300601) 0px 0px 22.0451px) drop-shadow(oklab(0.655511 0.0760317 -0.0793299 / 0.220451) 0px 0px 30.0601px)"
+      }
+    }
+  },
+  {
+    "name": "390x844-reduced",
+    "width": 390,
+    "height": 844,
+    "dpr": 1,
+    "reduced": "reduce",
+    "proof": {
+      "devicePixelRatio": 1,
+      "stageDeltaX": 0,
+      "stageDeltaY": 0,
+      "visibleEmblemDeltaX": 0.05637767703035479,
+      "visibleEmblemDeltaY": 0.05317423546404143,
+      "labelGap": 35.1875,
+      "labelText": "Engineering the next advantage...",
+      "outer": {
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "none",
+        "filter": "none"
+      },
+      "emblem": {
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "matrix(1, 0, 0, 1, -46.6511, -48.5914)",
+        "filter": "drop-shadow(color(srgb 0.368627 0.772549 0.815686 / 0.52) 0px 0px 11px) drop-shadow(color(srgb 0.34902 0.498039 0.678431 / 0.34) 0px 0px 24px) drop-shadow(color(srgb 0.662745 0.486275 0.752941 / 0.24) 0px 0px 32px)"
+      }
+    }
+  },
+  {
+    "name": "1366x768-reduced",
+    "width": 1366,
+    "height": 768,
+    "dpr": 1,
+    "reduced": "reduce",
+    "proof": {
+      "devicePixelRatio": 1,
+      "stageDeltaX": 0,
+      "stageDeltaY": 0,
+      "visibleEmblemDeltaX": 0.06770076308134776,
+      "visibleEmblemDeltaY": 0.06341303074964344,
+      "labelGap": 43.7734375,
+      "labelText": "Engineering the next advantage...",
+      "outer": {
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "none",
+        "filter": "none"
+      },
+      "emblem": {
+        "animationName": "none",
+        "animationDuration": "1e-05s",
+        "transform": "matrix(1, 0, 0, 1, -62.4893, -65.0912)",
+        "filter": "drop-shadow(color(srgb 0.368627 0.772549 0.815686 / 0.52) 0px 0px 11px) drop-shadow(color(srgb 0.34902 0.498039 0.678431 / 0.34) 0px 0px 24px) drop-shadow(color(srgb 0.662745 0.486275 0.752941 / 0.24) 0px 0px 32px)"
+      }
+    }
+  }
+]

@@ -1,0 +1,1382 @@
+[
+  {
+    "viewport": {
+      "name": "390x844",
+      "width": 390,
+      "height": 844
+    },
+    "errors": [],
+    "samples": [
+      {
+        "label": "initial",
+        "time": 1782462769014,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 390,
+          "height": 844
+        },
+        "central": {
+          "bright": 1695,
+          "total": 161070,
+          "ratio": 0.01052337493015459
+        },
+        "outer": {
+          "bright": 1986,
+          "total": 167700,
+          "ratio": 0.01184257602862254
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "1-minute",
+        "time": 1782462829035,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 390,
+          "height": 844
+        },
+        "central": {
+          "bright": 1656,
+          "total": 161070,
+          "ratio": 0.010281244179549264
+        },
+        "outer": {
+          "bright": 1371,
+          "total": 167700,
+          "ratio": 0.00817531305903399
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute",
+        "time": 1782462949156,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 390,
+          "height": 844
+        },
+        "central": {
+          "bright": 1222,
+          "total": 161070,
+          "ratio": 0.007586763518966909
+        },
+        "outer": {
+          "bright": 2594,
+          "total": 167700,
+          "ratio": 0.015468097793679188
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "5-minute",
+        "time": 1782463069288,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 390,
+          "height": 844
+        },
+        "central": {
+          "bright": 2425,
+          "total": 161070,
+          "ratio": 0.015055565903023531
+        },
+        "outer": {
+          "bright": 1339,
+          "total": 167700,
+          "ratio": 0.007984496124031008
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "10-minute",
+        "time": 1782463369327,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 390,
+          "height": 844
+        },
+        "central": {
+          "bright": 1913,
+          "total": 161070,
+          "ratio": 0.011876823741230521
+        },
+        "outer": {
+          "bright": 732,
+          "total": 167700,
+          "ratio": 0.004364937388193203
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "after-pointer-path",
+        "time": 1782463381143,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 390,
+          "height": 844
+        },
+        "central": {
+          "bright": 1298,
+          "total": 161070,
+          "ratio": 0.00805860805860806
+        },
+        "outer": {
+          "bright": 977,
+          "total": 167700,
+          "ratio": 0.00582587954680978
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute-post-pointer",
+        "time": 1782463561204,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 390,
+          "height": 844
+        },
+        "central": {
+          "bright": 1586,
+          "total": 161070,
+          "ratio": 0.009846650524616626
+        },
+        "outer": {
+          "bright": 1577,
+          "total": 167700,
+          "ratio": 0.009403697078115683
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "viewport": {
+      "name": "768x1024",
+      "width": 768,
+      "height": 1024
+    },
+    "errors": [],
+    "samples": [
+      {
+        "label": "initial",
+        "time": 1782462769012,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 768,
+          "height": 1024
+        },
+        "central": {
+          "bright": 11669,
+          "total": 384492,
+          "ratio": 0.030349136002829707
+        },
+        "outer": {
+          "bright": 12608,
+          "total": 401172,
+          "ratio": 0.03142791620551783
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "1-minute",
+        "time": 1782462829038,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 768,
+          "height": 1024
+        },
+        "central": {
+          "bright": 9863,
+          "total": 384492,
+          "ratio": 0.025652029170958043
+        },
+        "outer": {
+          "bright": 13965,
+          "total": 401172,
+          "ratio": 0.03481050521970626
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute",
+        "time": 1782462949157,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 768,
+          "height": 1024
+        },
+        "central": {
+          "bright": 13618,
+          "total": 384492,
+          "ratio": 0.03541816214641657
+        },
+        "outer": {
+          "bright": 10292,
+          "total": 401172,
+          "ratio": 0.025654831344161605
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "5-minute",
+        "time": 1782463069291,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 768,
+          "height": 1024
+        },
+        "central": {
+          "bright": 16322,
+          "total": 384492,
+          "ratio": 0.042450818222485774
+        },
+        "outer": {
+          "bright": 8553,
+          "total": 401172,
+          "ratio": 0.02132003230534534
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "10-minute",
+        "time": 1782463369322,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 768,
+          "height": 1024
+        },
+        "central": {
+          "bright": 10591,
+          "total": 384492,
+          "ratio": 0.027545436576053597
+        },
+        "outer": {
+          "bright": 13506,
+          "total": 401172,
+          "ratio": 0.03366635757231312
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "after-pointer-path",
+        "time": 1782463381145,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 768,
+          "height": 1024
+        },
+        "central": {
+          "bright": 10528,
+          "total": 384492,
+          "ratio": 0.027381584012151097
+        },
+        "outer": {
+          "bright": 14207,
+          "total": 401172,
+          "ratio": 0.0354137377483972
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute-post-pointer",
+        "time": 1782463561208,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 768,
+          "height": 1024
+        },
+        "central": {
+          "bright": 15324,
+          "total": 384492,
+          "ratio": 0.03985518554352236
+        },
+        "outer": {
+          "bright": 7778,
+          "total": 401172,
+          "ratio": 0.019388192595694614
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "viewport": {
+      "name": "1366x768",
+      "width": 1366,
+      "height": 768
+    },
+    "errors": [],
+    "samples": [
+      {
+        "label": "initial",
+        "time": 1782462769013,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1366,
+          "height": 768
+        },
+        "central": {
+          "bright": 20320,
+          "total": 513372,
+          "ratio": 0.03958143412574118
+        },
+        "outer": {
+          "bright": 16383,
+          "total": 535179,
+          "ratio": 0.03061218769794779
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "1-minute",
+        "time": 1782462829041,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1366,
+          "height": 768
+        },
+        "central": {
+          "bright": 16777,
+          "total": 513372,
+          "ratio": 0.03268000592163188
+        },
+        "outer": {
+          "bright": 14028,
+          "total": 535179,
+          "ratio": 0.02621179082138873
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute",
+        "time": 1782462949157,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1366,
+          "height": 768
+        },
+        "central": {
+          "bright": 15556,
+          "total": 513372,
+          "ratio": 0.030301613644686504
+        },
+        "outer": {
+          "bright": 17528,
+          "total": 535179,
+          "ratio": 0.0327516587907971
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "5-minute",
+        "time": 1782463069291,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1366,
+          "height": 768
+        },
+        "central": {
+          "bright": 20340,
+          "total": 513372,
+          "ratio": 0.039620392230195645
+        },
+        "outer": {
+          "bright": 14521,
+          "total": 535179,
+          "ratio": 0.027132977938222537
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "10-minute",
+        "time": 1782463369333,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1366,
+          "height": 768
+        },
+        "central": {
+          "bright": 16201,
+          "total": 513372,
+          "ratio": 0.03155801251334315
+        },
+        "outer": {
+          "bright": 15720,
+          "total": 535179,
+          "ratio": 0.02937334985117129
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "after-pointer-path",
+        "time": 1782463381145,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1366,
+          "height": 768
+        },
+        "central": {
+          "bright": 24359,
+          "total": 513372,
+          "ratio": 0.047449023320321325
+        },
+        "outer": {
+          "bright": 14308,
+          "total": 535179,
+          "ratio": 0.0267349802589414
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute-post-pointer",
+        "time": 1782463561210,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1366,
+          "height": 768
+        },
+        "central": {
+          "bright": 18685,
+          "total": 513372,
+          "ratio": 0.03639660908658828
+        },
+        "outer": {
+          "bright": 15606,
+          "total": 535179,
+          "ratio": 0.029160337008739132
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "viewport": {
+      "name": "1440x900",
+      "width": 1440,
+      "height": 900
+    },
+    "errors": [],
+    "samples": [
+      {
+        "label": "initial",
+        "time": 1782462769013,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1440,
+          "height": 900
+        },
+        "central": {
+          "bright": 21385,
+          "total": 634410,
+          "ratio": 0.03370848504910074
+        },
+        "outer": {
+          "bright": 18931,
+          "total": 660960,
+          "ratio": 0.028641672718470103
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "1-minute",
+        "time": 1782462829046,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1440,
+          "height": 900
+        },
+        "central": {
+          "bright": 25418,
+          "total": 634410,
+          "ratio": 0.04006557273687363
+        },
+        "outer": {
+          "bright": 17688,
+          "total": 660960,
+          "ratio": 0.026761074800290486
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute",
+        "time": 1782462949179,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1440,
+          "height": 900
+        },
+        "central": {
+          "bright": 20482,
+          "total": 634410,
+          "ratio": 0.03228511530398323
+        },
+        "outer": {
+          "bright": 20940,
+          "total": 660960,
+          "ratio": 0.03168119099491649
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "5-minute",
+        "time": 1782463069295,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1440,
+          "height": 900
+        },
+        "central": {
+          "bright": 24843,
+          "total": 634410,
+          "ratio": 0.03915921880172128
+        },
+        "outer": {
+          "bright": 19163,
+          "total": 660960,
+          "ratio": 0.028992677317840717
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "10-minute",
+        "time": 1782463369338,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1440,
+          "height": 900
+        },
+        "central": {
+          "bright": 25017,
+          "total": 634410,
+          "ratio": 0.03943348938383695
+        },
+        "outer": {
+          "bright": 17094,
+          "total": 660960,
+          "ratio": 0.02586238198983297
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "after-pointer-path",
+        "time": 1782463381143,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1440,
+          "height": 900
+        },
+        "central": {
+          "bright": 24426,
+          "total": 634410,
+          "ratio": 0.03850191516527167
+        },
+        "outer": {
+          "bright": 21440,
+          "total": 660960,
+          "ratio": 0.03243766642459453
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute-post-pointer",
+        "time": 1782463561216,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1440,
+          "height": 900
+        },
+        "central": {
+          "bright": 24146,
+          "total": 634410,
+          "ratio": 0.03806056020554531
+        },
+        "outer": {
+          "bright": 17603,
+          "total": 660960,
+          "ratio": 0.02663247397724522
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "viewport": {
+      "name": "1920x1080",
+      "width": 1920,
+      "height": 1080
+    },
+    "errors": [],
+    "samples": [
+      {
+        "label": "initial",
+        "time": 1782462769016,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1920,
+          "height": 1080
+        },
+        "central": {
+          "bright": 31632,
+          "total": 1016064,
+          "ratio": 0.031131897203325775
+        },
+        "outer": {
+          "bright": 37838,
+          "total": 1057536,
+          "ratio": 0.03577939663519729
+        },
+        "instrumentation": {
+          "activeRafs": 2,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "1-minute",
+        "time": 1782462829053,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1920,
+          "height": 1080
+        },
+        "central": {
+          "bright": 37541,
+          "total": 1016064,
+          "ratio": 0.03694747574955908
+        },
+        "outer": {
+          "bright": 34564,
+          "total": 1057536,
+          "ratio": 0.032683520939239895
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute",
+        "time": 1782462949212,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1920,
+          "height": 1080
+        },
+        "central": {
+          "bright": 41147,
+          "total": 1016064,
+          "ratio": 0.04049646478961955
+        },
+        "outer": {
+          "bright": 32181,
+          "total": 1057536,
+          "ratio": 0.03043016975308642
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "5-minute",
+        "time": 1782463069302,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1920,
+          "height": 1080
+        },
+        "central": {
+          "bright": 34710,
+          "total": 1016064,
+          "ratio": 0.034161233938019654
+        },
+        "outer": {
+          "bright": 30797,
+          "total": 1057536,
+          "ratio": 0.029121467259743402
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "10-minute",
+        "time": 1782463369352,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1920,
+          "height": 1080
+        },
+        "central": {
+          "bright": 40369,
+          "total": 1016064,
+          "ratio": 0.03973076499118166
+        },
+        "outer": {
+          "bright": 32350,
+          "total": 1057536,
+          "ratio": 0.030589975187605905
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "after-pointer-path",
+        "time": 1782463381156,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1920,
+          "height": 1080
+        },
+        "central": {
+          "bright": 35696,
+          "total": 1016064,
+          "ratio": 0.03513164525069287
+        },
+        "outer": {
+          "bright": 34134,
+          "total": 1057536,
+          "ratio": 0.03227691539578795
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      },
+      {
+        "label": "3-minute-post-pointer",
+        "time": 1782463561216,
+        "state": "intro",
+        "canvasCount": 1,
+        "canvas": {
+          "width": 1920,
+          "height": 1080
+        },
+        "central": {
+          "bright": 44920,
+          "total": 1016064,
+          "ratio": 0.04420981355505165
+        },
+        "outer": {
+          "bright": 32262,
+          "total": 1057536,
+          "ratio": 0.03050676289034132
+        },
+        "instrumentation": {
+          "activeRafs": 1,
+          "adds": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          },
+          "removes": {
+            "resize": 0,
+            "mousemove": 0,
+            "mouseout": 0
+          },
+          "activeListeners": {
+            "resize": 3,
+            "mousemove": 2,
+            "mouseout": 1
+          }
+        }
+      }
+    ]
+  }
+]
