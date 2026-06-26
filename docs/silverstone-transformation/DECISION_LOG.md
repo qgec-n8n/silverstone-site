@@ -1,0 +1,24 @@
+# Silverstone Decision Log
+
+**Status:** Permanent decision ledger for rebuild governance.  
+**Last updated:** 2026-06-26.
+
+| Date       | ID    | Decision                                                                                                                                                                             | Evidence                                                    | Status               |
+| ---------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- | -------------------- |
+| 2026-06-22 | D-001 | Rebuild the presentation layer as a parallel React/Vite application under `/web`; do not incrementally convert the legacy root in place.                                             | `architecture/rebuild-decision-v1.md`, execution blueprint  | approved direction   |
+| 2026-06-22 | D-002 | Keep the legacy root application operational and untouched during rebuild work.                                                                                                      | target architecture, branch/ownership model, current prompt | active               |
+| 2026-06-22 | D-003 | Use 50 canonical routes as the first-release preservation baseline.                                                                                                                  | `audits/route-inventory-v1.csv`, route migration plan       | active               |
+| 2026-06-22 | D-004 | Preserve route equity and useful content, but do not preserve legacy DOM, generated CSS/JS architecture, duplicated page templates, weak IA, unsupported proof, or generic styling.  | rebuild decision retain/refactor/rewrite/discard matrix     | active               |
+| 2026-06-22 | D-005 | `/services/gyms-fitness-studios` remains canonical; `/services/gyms` is unresolved until fresh crawl/owner decision.                                                                 | rebuild decision section 9; route migration plan            | active               |
+| 2026-06-22 | D-006 | Contact form outcome and endpoint compatibility must survive, but validation, abuse controls, and accessible states must improve.                                                    | A-01 contact audit; integration safety model                | active               |
+| 2026-06-22 | D-007 | Calendly production URL `https://calendly.com/silverstone-ai/30min` is preserved, but staging must not create live bookings.                                                         | A-01 Calendly audit; integration safety model               | active               |
+| 2026-06-22 | D-008 | Analytics continuity is a requirement, but current consent defect must not be reproduced.                                                                                            | A-01 analytics/consent finding; privacy policy              | active               |
+| 2026-06-22 | D-009 | Legal wording is preserved exactly until explicit legal review.                                                                                                                      | `privacy-policy.html`; current prompt                       | active               |
+| 2026-06-25 | D-010 | Current `/web` homepage uses V2 dark cinematic presentation under `web/src/visual/home-v2/**`, with header/body mounting controlled by homepage state.                               | `/web/AGENTS.override.md`; active ExecPlan homepage records | active               |
+| 2026-06-26 | D-011 | Current `/web` additive routes are documented as current app surface, but they do not replace the 50-route preservation baseline.                                                    | `web/src/data/approved-routes.ts`, `web/src/app/routes.ts`  | active               |
+| 2026-06-26 | D-012 | Dark `/web/public/brand` logo variants are the primary dark-background assets; legacy white-background logos must not be placed directly on dark sections.                           | image inspection; asset matrix                              | active               |
+| 2026-06-26 | D-013 | Documentation-only local commit is allowed if staged files are limited to `AGENTS.md` and the new transformation contract docs, leaving pre-existing `.codex/config.toml` untouched. | current prompt; git status                                  | active for this pass |
+
+## Reopen Conditions
+
+Reopen a decision only with new evidence, an owner instruction, or a conflict with authenticated production/provider facts. Preferences for smaller implementation steps, visual experimentation, or route-group validation do not reopen the parallel rebuild decision.
