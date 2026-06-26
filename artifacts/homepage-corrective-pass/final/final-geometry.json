@@ -1,0 +1,1661 @@
+{
+  "capturedAt": "2026-06-26T02:13:34.779Z",
+  "baseURL": "http://127.0.0.1:4184/",
+  "viewports": [
+    {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "emblemCenterDelta": {
+          "x": 0,
+          "y": 0.0000152587890625
+        },
+        "labelGapFromSpin": 25.59375,
+        "labelGapFromGlow": 64.61441040039062,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 568,
+          "height": 488,
+          "bottomDelta": 0,
+          "contentOverflow": 6.5625
+        },
+        "trust": {
+          "top": 568,
+          "right": 320,
+          "bottom": 738.78125,
+          "left": 0,
+          "width": 320,
+          "height": 170.78125
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 86.484375
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 86.484375
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 86.5
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 72
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -7289,
+          "bottom": -6801,
+          "height": 488,
+          "bottomDelta": -7369,
+          "contentOverflow": 6801
+        },
+        "trust": {
+          "top": -6801,
+          "right": 320,
+          "bottom": -6630.21875,
+          "left": 0,
+          "width": 320,
+          "height": 170.78125
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 86.484375
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 86.484375
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 86.5
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 72
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": null,
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -310.734375,
+        "locationTopMinusAllServicesTop": -296.4375,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-320x568.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-320x568.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-320x568.png"
+      }
+    },
+    {
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "emblemCenterDelta": {
+          "x": 0,
+          "y": 0.0078125
+        },
+        "labelGapFromSpin": 32.390625,
+        "labelGapFromGlow": 76.29486083984375,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 667,
+          "height": 587,
+          "bottomDelta": 0,
+          "contentOverflow": -8
+        },
+        "trust": {
+          "top": 667,
+          "right": 375,
+          "bottom": 837.78125,
+          "left": 0,
+          "width": 375,
+          "height": 170.78125
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 104.8125
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 104.828125
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 104.8125
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 72
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -6950,
+          "bottom": -6363,
+          "height": 587,
+          "bottomDelta": -7030,
+          "contentOverflow": 6363
+        },
+        "trust": {
+          "top": -6363,
+          "right": 375,
+          "bottom": -6192.21875,
+          "left": 0,
+          "width": 375,
+          "height": 170.78125
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 104.8125
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 104.828125
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 104.8125
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 72
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": null,
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -289.046875,
+        "locationTopMinusAllServicesTop": -296.4375,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-375x667.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-375x667.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-375x667.png"
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "emblemCenterDelta": {
+          "x": 0.00000762939453125,
+          "y": 0.0078125
+        },
+        "labelGapFromSpin": 32.390625,
+        "labelGapFromGlow": 76.29364013671875,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 844,
+          "height": 764,
+          "bottomDelta": 0,
+          "contentOverflow": -10.390625
+        },
+        "trust": {
+          "top": 844,
+          "right": 390,
+          "bottom": 1014.78125,
+          "left": 0,
+          "width": 390,
+          "height": 170.78125
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 108.3125
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 108.328125
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 108.3125
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 72
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -7001,
+          "bottom": -6237,
+          "height": 764,
+          "bottomDelta": -7081,
+          "contentOverflow": 6237
+        },
+        "trust": {
+          "top": -6237,
+          "right": 390,
+          "bottom": -6066.21875,
+          "left": 0,
+          "width": 390,
+          "height": 170.78125
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 108.3125
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 108.328125
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 108.3125
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 72
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": null,
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -289.046875,
+        "locationTopMinusAllServicesTop": -296.4375,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-390x844.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-390x844.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-390x844.png"
+      }
+    },
+    {
+      "viewport": {
+        "width": 430,
+        "height": 932
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "emblemCenterDelta": {
+          "x": 0,
+          "y": 0.0078125
+        },
+        "labelGapFromSpin": 32.390625,
+        "labelGapFromGlow": 76.29486083984375,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 932,
+          "height": 852,
+          "bottomDelta": 0,
+          "contentOverflow": -10.390625
+        },
+        "trust": {
+          "top": 932,
+          "right": 430,
+          "bottom": 1102.78125,
+          "left": 0,
+          "width": 430,
+          "height": 170.78125
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 121.65625
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 121.65625
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 121.65625
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 72
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -6804,
+          "bottom": -5952,
+          "height": 852,
+          "bottomDelta": -6884,
+          "contentOverflow": 5952
+        },
+        "trust": {
+          "top": -5952,
+          "right": 430,
+          "bottom": -5781.21875,
+          "left": 0,
+          "width": 430,
+          "height": 170.78125
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 121.65625
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 121.65625
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 121.65625
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 72
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": null,
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -291.703125,
+        "locationTopMinusAllServicesTop": -296.53125,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-430x932.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-430x932.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-430x932.png"
+      }
+    },
+    {
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0.0078125,
+          "y": 0.0078125
+        },
+        "emblemCenterDelta": {
+          "x": 0.0078125,
+          "y": 0.0077972412109375
+        },
+        "labelGapFromSpin": 36.87030029296875,
+        "labelGapFromGlow": 93.06146240234375,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 1024,
+          "height": 944,
+          "bottomDelta": 0,
+          "contentOverflow": -21.5
+        },
+        "trust": {
+          "top": 1024,
+          "right": 768,
+          "bottom": 1106.09375,
+          "left": 0,
+          "width": 768,
+          "height": 82.09375
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 213.09375
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 213.09375
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 213.09375
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 82.421875
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -5105,
+          "bottom": -4161,
+          "height": 944,
+          "bottomDelta": -5185,
+          "contentOverflow": -21.5
+        },
+        "trust": {
+          "top": -4161,
+          "right": 768,
+          "bottom": -4078.90625,
+          "left": 0,
+          "width": 768,
+          "height": 82.09375
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 213.09375
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 213.09375
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 213.09375
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 82.421875
+        },
+        "firstMarquee": {
+          "animated": "false",
+          "trackAnimationName": "none",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": {
+        "before": {
+          "animationName": "none",
+          "playState": "running"
+        },
+        "after": {
+          "animationName": "none",
+          "playState": "paused"
+        }
+      },
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -330.8125,
+        "locationTopMinusAllServicesTop": -306.671875,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-768x1024.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-768x1024.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-768x1024.png"
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0.0078125,
+          "y": 0.0078125
+        },
+        "emblemCenterDelta": {
+          "x": 0.0078125,
+          "y": 0.0078277587890625
+        },
+        "labelGapFromSpin": 36.87030029296875,
+        "labelGapFromGlow": 93.062255859375,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 768,
+          "height": 688,
+          "bottomDelta": 0,
+          "contentOverflow": -16.125
+        },
+        "trust": {
+          "top": 768,
+          "right": 1024,
+          "bottom": 849.1875,
+          "left": 0,
+          "width": 1024,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 133.65625
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 133.65625
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 133.65625
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 88.5625
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -4212,
+          "bottom": -3524,
+          "height": 688,
+          "bottomDelta": -4292,
+          "contentOverflow": -16.125
+        },
+        "trust": {
+          "top": -3524,
+          "right": 1024,
+          "bottom": -3442.8125,
+          "left": 0,
+          "width": 1024,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 133.65625
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 133.65625
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 133.65625
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 88.56248474121094
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": {
+        "before": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "running"
+        },
+        "after": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "paused"
+        }
+      },
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -17.59375,
+        "locationTopMinusAllServicesTop": -8.984375,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-1024x768.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-1024x768.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-1024x768.png"
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "emblemCenterDelta": {
+          "x": 0.0078125,
+          "y": 0.0078125
+        },
+        "labelGapFromSpin": 38.390625,
+        "labelGapFromGlow": 96.93490600585938,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 800,
+          "height": 720,
+          "bottomDelta": 0,
+          "contentOverflow": -16.796875
+        },
+        "trust": {
+          "top": 800,
+          "right": 1280,
+          "bottom": 881.1875,
+          "left": 0,
+          "width": 1280,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 177.0625
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 177.078125
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 177.078125
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 94.71875
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -4056,
+          "bottom": -3336,
+          "height": 720,
+          "bottomDelta": -4136,
+          "contentOverflow": -16.796875
+        },
+        "trust": {
+          "top": -3336,
+          "right": 1280,
+          "bottom": -3254.8125,
+          "left": 0,
+          "width": 1280,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 177.0625
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 177.078125
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 177.078125
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 94.71875762939453
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": {
+        "before": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "running"
+        },
+        "after": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "paused"
+        }
+      },
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -20.46875,
+        "locationTopMinusAllServicesTop": 12.140625,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-1280x800.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-1280x800.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-1280x800.png"
+      }
+    },
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0.0078125,
+          "y": 0.0078125
+        },
+        "emblemCenterDelta": {
+          "x": 0.0078125,
+          "y": 0.0078125
+        },
+        "labelGapFromSpin": 36.87030029296875,
+        "labelGapFromGlow": 93.06005859375,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 768,
+          "height": 688,
+          "bottomDelta": 0,
+          "contentOverflow": -16.125
+        },
+        "trust": {
+          "top": 768,
+          "right": 1366,
+          "bottom": 849.1875,
+          "left": 0,
+          "width": 1366,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.609375
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.609375
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.609375
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 96.78125
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -4055,
+          "bottom": -3367,
+          "height": 688,
+          "bottomDelta": -4135,
+          "contentOverflow": -16.125
+        },
+        "trust": {
+          "top": -3367,
+          "right": 1366,
+          "bottom": -3285.8125,
+          "left": 0,
+          "width": 1366,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.609375
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.609375
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.609375
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 96.78125
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": {
+        "before": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "running"
+        },
+        "after": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "paused"
+        }
+      },
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -21.84375,
+        "locationTopMinusAllServicesTop": 10.765625,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-1366x768.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-1366x768.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-1366x768.png"
+      }
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "emblemCenterDelta": {
+          "x": 0.0078125,
+          "y": 0
+        },
+        "labelGapFromSpin": 43,
+        "labelGapFromGlow": 108.862548828125,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 900,
+          "height": 820,
+          "bottomDelta": 0,
+          "contentOverflow": -18.890625
+        },
+        "trust": {
+          "top": 900,
+          "right": 1440,
+          "bottom": 981.1875,
+          "left": 0,
+          "width": 1440,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.203125
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.203125
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.203125
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 98.546875
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -4134,
+          "bottom": -3314,
+          "height": 820,
+          "bottomDelta": -4214,
+          "contentOverflow": -18.890625
+        },
+        "trust": {
+          "top": -3314,
+          "right": 1440,
+          "bottom": -3232.8125,
+          "left": 0,
+          "width": 1440,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.203125
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.203125
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 176.203125
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 98.546875
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": {
+        "before": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "running"
+        },
+        "after": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "paused"
+        }
+      },
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -23.03125,
+        "locationTopMinusAllServicesTop": 9.578125,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-1440x900.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-1440x900.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-1440x900.png"
+      }
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "consoleErrors": [],
+      "loader": {
+        "stageCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "spinCenterDelta": {
+          "x": 0,
+          "y": 0
+        },
+        "emblemCenterDelta": {
+          "x": 0,
+          "y": 0.000030517578125
+        },
+        "labelGapFromSpin": 48.390625,
+        "labelGapFromGlow": 114.73138427734375,
+        "ringCount": 3,
+        "labelText": "Engineering the next advantage..."
+      },
+      "body": {
+        "system": {
+          "top": 80,
+          "bottom": 1080,
+          "height": 1000,
+          "bottomDelta": 0,
+          "contentOverflow": -22.671875
+        },
+        "trust": {
+          "top": 1080,
+          "right": 1920,
+          "bottom": 1161.1875,
+          "left": 0,
+          "width": 1920,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 168.140625
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 168.140625
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 168.140625
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 104
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "carousel": {
+        "system": {
+          "top": -4248,
+          "bottom": -3248,
+          "height": 1000,
+          "bottomDelta": -4328,
+          "contentOverflow": -22.671875
+        },
+        "trust": {
+          "top": -3248,
+          "right": 1920,
+          "bottom": -3166.8125,
+          "left": 0,
+          "width": 1920,
+          "height": 81.1875
+        },
+        "pJSDomLength": 1,
+        "particleCanvasCount": 1,
+        "signalMetrics": 4,
+        "signalRows": 3,
+        "rows": [
+          {
+            "text": "167%Patient & lead growthEnquiry growth seen when capture and follow-up never miss.Benchmark source: Physios and Chiropractors",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 168.140625
+          },
+          {
+            "text": "24/7Always answeringCoverage across calls, chat and messaging — no voicemail, no missed window.Benchmark source: AI Receptionists",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 168.140625
+          },
+          {
+            "text": "1200%Peak reported ROIUpper end of return reported across mature automation programmes.Benchmark source: AI Agents & Automation Workflows",
+            "overflowWrap": "normal",
+            "wordBreak": "normal",
+            "labelFits": true,
+            "width": 168.140625
+          }
+        ],
+        "forbiddenRevenue": false,
+        "forbiddenIntegrationSentence": false,
+        "horizontalOverflow": 0,
+        "firstLogo": {
+          "opacity": "1",
+          "transform": "none",
+          "translate": "none",
+          "width": 103.99996948242188
+        },
+        "firstMarquee": {
+          "animated": "true",
+          "trackAnimationName": "ss-hv2-marquee",
+          "trackAnimationPlayState": "running"
+        }
+      },
+      "hoverPause": {
+        "before": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "running"
+        },
+        "after": {
+          "animationName": "ss-hv2-marquee",
+          "playState": "paused"
+        }
+      },
+      "footer": {
+        "navOrder": [
+          "Services",
+          "Industries",
+          "Company"
+        ],
+        "logoTopMinusServicesHeadingTop": -28.796875,
+        "locationTopMinusAllServicesTop": 3.8125,
+        "ctaAfterCompanyLinks": true,
+        "ctaWithinCompanyColumn": true,
+        "logoSrc": "/brand/silverstone-ai-logo-footer.png"
+      },
+      "screenshots": {
+        "loader": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/loader-1920x1080.png",
+        "body": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/body-1920x1080.png",
+        "footer": "/Users/quentingeczy/Desktop/silverstone-site/artifacts/homepage-corrective-pass/final/footer-1920x1080.png"
+      }
+    }
+  ],
+  "reducedMotion": {
+    "loaderTransformA": "none",
+    "loaderTransformB": "none",
+    "loaderLabel": "Engineering the next advantage...",
+    "pJSDomLength": null,
+    "particleCanvasCount": 0,
+    "marquee": {
+      "animationName": "none",
+      "playState": "running"
+    }
+  }
+}
