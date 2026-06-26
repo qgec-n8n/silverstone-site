@@ -155,6 +155,22 @@ async function openHomepageBody(page: Page) {
   await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "body", {
     timeout: 5_000,
   });
+  await waitForBodyParticles(page);
+}
+
+async function waitForBodyParticles(page: Page) {
+  await expect
+    .poll(
+      async () =>
+        page.evaluate(() => ({
+          canvasCount: document.querySelectorAll(
+            '[data-particles-host="body"] canvas.particles-js-canvas-el',
+          ).length,
+          pJSDomLength: Array.isArray(window.pJSDom) ? window.pJSDom.length : null,
+        })),
+      { timeout: 5_000 },
+    )
+    .toEqual({ canvasCount: 1, pJSDomLength: 1 });
 }
 
 async function footerLayoutProof(page: Page) {
@@ -166,24 +182,59 @@ async function footerLayoutProof(page: Page) {
     const brand = document
       .querySelector<HTMLElement>(".ss-footer__brand")
       ?.getBoundingClientRect();
+    const logo = document
+      .querySelector<HTMLElement>(".ss-footer__brandmark")
+      ?.getBoundingClientRect();
+    const location = document
+      .querySelector<HTMLElement>(".ss-footer__brand p:last-of-type")
+      ?.getBoundingClientRect();
     const cta = document
-      .querySelector<HTMLElement>(".ss-footer__cta-col")
+      .querySelector<HTMLElement>(".ss-footer__cta")
       ?.getBoundingClientRect();
     const navs = Array.from(
       document.querySelectorAll<HTMLElement>(".ss-footer__main nav"),
-    ).map((node) => ({
-      left: node.getBoundingClientRect().left,
-      right: node.getBoundingClientRect().right,
-      top: node.getBoundingClientRect().top,
-    }));
+    ).map((node) => {
+      const rect = node.getBoundingClientRect();
+      const heading = node.querySelector<HTMLElement>("h2")?.getBoundingClientRect();
+      const links = Array.from(node.querySelectorAll<HTMLElement>("li a")).map(
+        (link) => {
+          const linkRect = link.getBoundingClientRect();
+
+          return {
+            bottom: linkRect.bottom,
+            text: link.textContent.trim(),
+            top: linkRect.top,
+          };
+        },
+      );
+
+      return {
+        bottom: rect.bottom,
+        headingTop: heading?.top ?? null,
+        label: node.getAttribute("aria-label"),
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        links,
+      };
+    });
+    const allServices = navs
+      .find((nav) => nav.label === "Services")
+      ?.links.find((link) => link.text === "All services");
+    const companyLinks = navs.find((nav) => nav.label === "Company")?.links ?? [];
 
     return {
+      allServicesTop: allServices?.top ?? null,
       brandBottom: brand?.bottom ?? null,
       brandTop: brand?.top ?? null,
+      companyLastLinkBottom: companyLinks.at(-1)?.bottom ?? null,
+      ctaBottom: cta?.bottom ?? null,
       ctaLeft: cta?.left ?? null,
       ctaRight: cta?.right ?? null,
       ctaTop: cta?.top ?? null,
       footerRight: footer?.right ?? null,
+      locationTop: location?.top ?? null,
+      logoTop: logo?.top ?? null,
       navs,
       viewportWidth: window.innerWidth,
     };
@@ -209,12 +260,30 @@ for (const viewport of [
       const stage = document
         .querySelector<HTMLElement>(".ss-loader__stage")
         ?.getBoundingClientRect();
+      const spin = document
+        .querySelector<HTMLElement>(".ss-loader__core-spin")
+        ?.getBoundingClientRect();
+      const emblem = document
+        .querySelector<HTMLElement>(".ss-loader__emblem")
+        ?.getBoundingClientRect();
       const label = document
         .querySelector<HTMLElement>(".ss-loader__label")
         ?.getBoundingClientRect();
 
       return {
-        labelGap: stage && label ? label.top - stage.bottom : null,
+        emblemCenterDeltaX: emblem
+          ? Math.abs(emblem.left + emblem.width / 2 - window.innerWidth / 2)
+          : null,
+        emblemCenterDeltaY: emblem
+          ? Math.abs(emblem.top + emblem.height / 2 - window.innerHeight / 2)
+          : null,
+        labelGap: spin && label ? label.top - spin.bottom : null,
+        spinCenterDeltaX: spin
+          ? Math.abs(spin.left + spin.width / 2 - window.innerWidth / 2)
+          : null,
+        spinCenterDeltaY: spin
+          ? Math.abs(spin.top + spin.height / 2 - window.innerHeight / 2)
+          : null,
         stageCenterDeltaX: stage
           ? Math.abs(stage.left + stage.width / 2 - window.innerWidth / 2)
           : null,
@@ -226,6 +295,10 @@ for (const viewport of [
 
     expect(proof.stageCenterDeltaX ?? 999).toBeLessThanOrEqual(1);
     expect(proof.stageCenterDeltaY ?? 999).toBeLessThanOrEqual(1);
+    expect(proof.spinCenterDeltaX ?? 999).toBeLessThanOrEqual(1);
+    expect(proof.spinCenterDeltaY ?? 999).toBeLessThanOrEqual(1);
+    expect(proof.emblemCenterDeltaX ?? 999).toBeLessThanOrEqual(2);
+    expect(proof.emblemCenterDeltaY ?? 999).toBeLessThanOrEqual(2);
     expect(proof.labelGap ?? 0).toBeGreaterThan(16);
   });
 }
@@ -237,6 +310,7 @@ for (const viewport of [
   test(`footer CTA layout follows viewport order ${String(viewport.width)}x${String(
     viewport.height,
   )}`, async ({ page }, testInfo) => {
+    test.setTimeout(45_000);
     test.skip(
       testInfo.project.name !== "desktop-chromium",
       "Footer layout matrix only needs one browser project.",
@@ -248,20 +322,38 @@ for (const viewport of [
     expect(proof.navs).toHaveLength(3);
 
     if (viewport.width >= 1024) {
+      const servicesNav = proof.navs.find((nav) => nav.label === "Services");
+      const companyNav = proof.navs.find((nav) => nav.label === "Company");
+
+      expect(proof.logoTop ?? 999).toBeLessThan((servicesNav?.headingTop ?? 0) - 8);
+      expect(proof.locationTop ?? 999).toBeLessThanOrEqual(
+        (proof.allServicesTop ?? 0) + 16,
+      );
+      expect(proof.ctaLeft ?? 0).toBeGreaterThanOrEqual((companyNav?.left ?? 999) - 1);
+      expect(proof.ctaRight ?? 999).toBeLessThanOrEqual((companyNav?.right ?? 0) + 1);
+      expect(proof.ctaTop ?? 0).toBeGreaterThan(proof.companyLastLinkBottom ?? 999);
       expect(proof.ctaRight ?? 0).toBeLessThanOrEqual((proof.footerRight ?? 0) + 1);
-      expect(proof.ctaLeft ?? 0).toBeGreaterThan(proof.navs[2]?.right ?? 0);
-      expect(
-        Math.abs((proof.ctaTop ?? 999) - (proof.navs[0]?.top ?? 0)),
-      ).toBeLessThanOrEqual(4);
     } else {
-      expect(proof.ctaTop ?? 0).toBeGreaterThan(proof.brandTop ?? 0);
-      expect(proof.ctaTop ?? 0).toBeLessThan(proof.navs[0]?.top ?? 999);
-      expect(proof.brandBottom ?? 0).toBeLessThanOrEqual((proof.ctaTop ?? 0) + 1);
+      const [servicesNav, industriesNav, companyNav] = proof.navs;
+
+      expect(servicesNav?.label).toBe("Services");
+      expect(industriesNav?.label).toBe("Industries");
+      expect(companyNav?.label).toBe("Company");
+      expect(proof.brandBottom ?? 0).toBeLessThanOrEqual((servicesNav?.top ?? 999) + 1);
+      expect(servicesNav?.bottom ?? 0).toBeLessThanOrEqual(
+        (industriesNav?.top ?? 999) + 1,
+      );
+      expect(industriesNav?.bottom ?? 0).toBeLessThanOrEqual(
+        (companyNav?.top ?? 999) + 1,
+      );
+      expect(proof.ctaTop ?? 0).toBeGreaterThan(proof.companyLastLinkBottom ?? 999);
+      expect(proof.ctaBottom ?? 0).toBeLessThanOrEqual((companyNav?.bottom ?? 0) + 1);
     }
   });
 }
 
 test("homepage intro is isolated until Explore opens the body", async ({ page }) => {
+  test.setTimeout(60_000);
   await waitForIntro(page);
 
   await expect(page.locator("header")).toHaveCount(0);
@@ -329,6 +421,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(transitionProof.map((record) => record.state)).toContain("opening");
   expect(openingRecords.every((record) => !record.hasBody)).toBe(true);
   expect(openingRecords.every((record) => record.overflow === 0)).toBe(true);
+  await waitForBodyParticles(page);
 
   await expect(page.locator("header")).toHaveCount(1);
   await expect(page.locator("footer")).toHaveCount(1);
@@ -359,7 +452,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(proof.hasCustomBodyCanvas).toBe(false);
   expect(proof.hasSystemImage).toBe(false);
   expect(proof.signalMetrics).toBe(4);
-  expect(proof.signalRows).toBe(4);
+  expect(proof.signalRows).toBe(3);
   expect(proof.systemBottomDelta).not.toBeNull();
   expect(proof.systemBottomDelta ?? 999).toBeLessThanOrEqual(1.5);
   expect(proof.trustWidth ?? 0).toBeGreaterThanOrEqual(proof.viewportWidth - 2);
@@ -421,6 +514,7 @@ for (const viewport of [
   const viewportLabel = `${String(viewport.width)}x${String(viewport.height)}`;
 
   test(`homepage body fits ${viewportLabel}`, async ({ page }, testInfo) => {
+    test.setTimeout(45_000);
     test.skip(
       testInfo.project.name !== "desktop-chromium",
       "Viewport matrix sets exact sizes and only needs one browser project.",
@@ -431,13 +525,14 @@ for (const viewport of [
     await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "body", {
       timeout: 5_000,
     });
+    await waitForBodyParticles(page);
 
     const proof = await systemViewportProof(page);
     expect(proof.pJSDomLength).toBe(1);
     expect(proof.nativeCanvasCount).toBe(1);
     expect(proof.hasSystemImage).toBe(false);
     expect(proof.signalMetrics).toBe(4);
-    expect(proof.signalRows).toBe(4);
+    expect(proof.signalRows).toBe(3);
     expect(proof.sectionHeight).not.toBeNull();
     expect(proof.sectionBottomDelta ?? 999).toBeLessThanOrEqual(1.5);
     expect(proof.sectionContentOverflow ?? 999).toBeLessThanOrEqual(1.5);

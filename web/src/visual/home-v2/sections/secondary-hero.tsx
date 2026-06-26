@@ -87,7 +87,9 @@ function CapabilityItem({ cap, index }: { cap: Capability; index: number }) {
  */
 export function SecondaryHero() {
   const consoleMetrics = HEADLINE_BENCHMARKS;
-  const signalRows = SECONDARY_BENCHMARKS;
+  const signalRows = SECONDARY_BENCHMARKS.filter(
+    (metric) => metric.id !== "processing-cost-secondary",
+  );
 
   return (
     <PageSection id="system" tabIndex={-1} className="ss-hv2-secondary relative">
@@ -165,7 +167,10 @@ export function SecondaryHero() {
                       </li>
                     ))}
                   </ul>
-                  <ul className="ss-hv2-system-signal__rows">
+                  <ul
+                    className="ss-hv2-system-signal__rows"
+                    aria-label="Supporting benchmark telemetry"
+                  >
                     {signalRows.map((metric, index) => (
                       <li
                         key={metric.id}
@@ -176,7 +181,7 @@ export function SecondaryHero() {
                           } as CSSProperties
                         }
                       >
-                        <span>
+                        <span className="ss-hv2-system-signal__row-primary">
                           <span className="ss-hv2-system-signal__row-value">
                             {staticBenchmark(metric)}
                           </span>
@@ -184,8 +189,15 @@ export function SecondaryHero() {
                             {metric.label}
                           </span>
                         </span>
-                        <span className="ss-hv2-system-signal__row-source">
-                          {metric.impactArea}
+                        <span className="ss-hv2-system-signal__row-context">
+                          {metric.context}
+                        </span>
+                        <span
+                          className="ss-hv2-system-signal__row-source"
+                          title={metric.source}
+                        >
+                          Benchmark
+                          <span className="sr-only"> source: {metric.source}</span>
                         </span>
                       </li>
                     ))}
