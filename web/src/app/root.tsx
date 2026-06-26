@@ -11,7 +11,7 @@ import { AppShell } from "~/app/components/app-shell";
 import { LoadingBoundary, LoadingFallback } from "~/app/components/loading-boundary";
 import { RouteLoadingIndicator } from "~/app/components/route-loading-indicator";
 import { AppExperienceProvider } from "~/app/experience/app-experience";
-import { CoreSpinLoader } from "~/components/vendor/silverstone/core-spin-loader";
+import { CoreSpinLoader } from "~/components/ui/core-spin-loader";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";

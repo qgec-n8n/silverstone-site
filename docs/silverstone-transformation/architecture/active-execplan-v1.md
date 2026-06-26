@@ -394,3 +394,37 @@ Tradeoffs:
 
 - The full repo formatting backlog remains intentionally untouched; source/test changed-file Prettier passed.
 - Long-duration Aether soak evidence is local under `artifacts/aether-corespin-soak/` and is not intended to be committed.
+
+## CoreSpin canonical ring fidelity pass -- 2026-06-26
+
+Observed before implementation:
+
+- Current repo state was clean on `main` at `d7521cf3`; local checkpoint branch `codex/checkpoint-core-spin-loader-d7521cf3` was created before edits.
+- Active `/web` stack confirmed: npm, Node `v25.9.0`, React `19.2.7`, React Router `7.18.0`, Tailwind CSS `4.3.1`, shadcn-compatible `components.json` with `ui` alias `~/components/ui`.
+- Current loader was imported from `web/src/components/vendor/silverstone/core-spin-loader.tsx` even though the configured canonical UI path is `web/src/components/ui/core-spin-loader.tsx`.
+- The exact attachment filename `silverstone-ai-emblem-dark-transparentbackground.png` was not present in the current Codex attachment directory; the existing project asset `web/public/brand/silverstone-ai-emblem-dark-transparent.png` is the documented 860x929 RGBA transparent emblem derived from that attachment and is already used by the loader.
+- Baseline dev-server proof at `1366x768` and `390x844` showed no console errors, stage/spin centre deltas `0px`, visible emblem centre deltas under `0.08px`, label gap `35.1875px` to `43.7734375px`, copy `Engineering the next advantage...`, and the requested animation durations/direction (`10s`, `2s`, `3s reverse`, `1s`, `4s`).
+- Code inspection found the ring stack already followed the supplied CoreSpin layer order, but the source layer name still used the less precise `inner-ring` selector and regression coverage did not prove the dashed full ring plus top-only, bottom-only, and left-only border-arc construction.
+
+Changed:
+
+- Moved the full loader component to the configured canonical path `web/src/components/ui/core-spin-loader.tsx` and updated the root import; the old vendor component file was deleted to avoid duplicate CoreSpin implementations.
+- Preserved loader lifecycle, app-experience handoff, four-second hold, route asset/font readiness race, `6500ms` asset timeout, fixed viewport-centred stage, copy, ellipsis, label placement, accessibility status, emblem source, and all approved Silverstone colours.
+- Renamed the fifth source layer to `.ss-loader__inner-arc` and kept it as the supplied left-border-only fast inner arc.
+- Reworked the ring CSS variables around `--core-spin-unit: calc(var(--core-spin-size) / 80)` so the supplied 80px CoreSpin demo proportions are explicit for `inset-1`, `inset-3`, `inset-5`, border widths, dot size, and glow/shadow scaling while preserving the rendered approved diameters.
+- Strengthened Playwright coverage to assert one loader/spinner instance, exact source layers, exact spin timings/direction, dashed outer circumference, top-only main arc, bottom-only reverse arc, left-only inner arc, transparent emblem asset, visible emblem centring, and label gap.
+
+Verification procedure:
+
+- Run changed-file formatting check for `src/components/ui/core-spin-loader.tsx`, `src/app/root.tsx`, `src/styles/core-spin-loader.css`, and `tests/e2e/homepage-interaction.spec.ts`.
+- Run `npm run typecheck`, `npm run lint`, relevant Vitest tests, `npm run build`, `npm run staging:safety`, and focused Playwright loader checks from `/web`.
+- Browser-check loader geometry at `320x568`, `375x667`, `390x844`, `430x932`, `768x1024`, `1024x768`, `1280x800`, `1366x768`, `1440x900`, and `1920x1080`; include DPR 1, DPR 2, and reduced-motion proof.
+
+Verification results:
+
+- Changed-file Prettier check passed. Full `npm run format:check` still fails on the known unrelated 31-file formatting backlog outside this loader scope.
+- `npm run typecheck`, `npm run lint`, `npm run test` (`17` files, `35` tests), `npm run build`, and `npm run staging:safety` passed.
+- `PORT=4189 npm run test:e2e -- tests/e2e/homepage-interaction.spec.ts` passed (`12` passed, `10` expected skips), including the strengthened CoreSpin layer, border-side, duration and centring assertions.
+- `PORT=4190 npm run test:a11y` passed (`2` passed). Default-worker full `PORT=4191 npm run test:e2e` hit one desktop timeout in `homepage intro is isolated until Explore opens the body`; the same test passed alone, and `PORT=4193 npm run test:e2e -- --workers=1` passed (`44` passed, `10` expected skips).
+- Built-preview matrix at `320x568`, `375x667`, `390x844`, `430x932`, `768x1024`, `1024x768`, `1280x800`, `1366x768`, `1440x900`, and `1920x1080`: console errors `0`, stage/spin centre deltas `0px`, visible emblem centre max delta about `0.12px`, label gap range `28px` to `57.1875px`, layers present, border contract passed, and durations/direction verified (`10s`, `2s`, `3s reverse`, `1s ease-in-out`, `4s`).
+- DPR 2 checks at `390x844` and `1366x768` preserved `0px` stage/spin centre deltas and sub-`0.09px` visible emblem centre deltas. Reduced-motion at `390x844` set all ring/glow/emblem animation names to `none`, kept the transparent emblem visible and retained the stable copy.

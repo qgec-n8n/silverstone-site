@@ -12,9 +12,15 @@
 
 html[data-js="on"] .ss-loader {
   --core-spin-size: clamp(10.75rem, 30vmin, 17.5rem);
-  --core-spin-hairline: max(1px, calc(var(--core-spin-size) / 80));
-  --core-spin-border: max(2px, calc(var(--core-spin-size) / 40));
-  --core-spin-dot-size: calc(var(--core-spin-size) / 20);
+  --core-spin-unit: calc(var(--core-spin-size) / 80);
+  --core-spin-hairline: max(1px, var(--core-spin-unit));
+  --core-spin-border: max(2px, calc(var(--core-spin-unit) * 2));
+  --core-spin-main-inset: calc(var(--core-spin-unit) * 4);
+  --core-spin-reverse-inset: calc(var(--core-spin-unit) * 12);
+  --core-spin-inner-inset: calc(var(--core-spin-unit) * 20);
+  --core-spin-arc-shadow: calc(var(--core-spin-unit) * 4.4);
+  --core-spin-dot-size: calc(var(--core-spin-unit) * 4);
+  --core-spin-dot-shadow: calc(var(--core-spin-unit) * 2.8);
   --core-spin-glow-overhang: clamp(1rem, calc(var(--core-spin-size) * 0.09), 1.6rem);
   --core-spin-label-gap: clamp(1.2rem, 3vmin, 2rem);
   position: fixed;
@@ -77,7 +83,7 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
 .ss-loader__outer-ring,
 .ss-loader__main-arc,
 .ss-loader__reverse-arc,
-.ss-loader__inner-ring {
+.ss-loader__inner-arc {
   position: absolute;
   border-radius: 999px;
 }
@@ -89,25 +95,25 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
 }
 
 .ss-loader__main-arc {
-  inset: calc(var(--core-spin-size) * 0.05);
+  inset: var(--core-spin-main-inset);
   border: var(--core-spin-border) solid transparent;
   border-top-color: #5ec5d0;
-  box-shadow: 0 0 calc(var(--core-spin-size) * 0.055)
+  box-shadow: 0 0 var(--core-spin-arc-shadow)
     color-mix(in srgb, #5ec5d0 50%, transparent);
   animation: ss-core-spin 2s linear infinite;
 }
 
 .ss-loader__reverse-arc {
-  inset: calc(var(--core-spin-size) * 0.15);
+  inset: var(--core-spin-reverse-inset);
   border: var(--core-spin-border) solid transparent;
   border-bottom-color: #c884c3;
-  box-shadow: 0 0 calc(var(--core-spin-size) * 0.055)
+  box-shadow: 0 0 var(--core-spin-arc-shadow)
     color-mix(in srgb, #a97cc0 48%, transparent);
   animation: ss-core-spin 3s linear infinite reverse;
 }
 
-.ss-loader__inner-ring {
-  inset: calc(var(--core-spin-size) * 0.25);
+.ss-loader__inner-arc {
+  inset: var(--core-spin-inner-inset);
   border: var(--core-spin-hairline) solid transparent;
   border-left-color: color-mix(in srgb, #e9eaef 82%, transparent);
   animation: ss-core-spin 1s ease-in-out infinite;
@@ -127,7 +133,7 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
   height: var(--core-spin-dot-size);
   border-radius: 999px;
   background: #5ec5d0;
-  box-shadow: 0 0 calc(var(--core-spin-size) * 0.035)
+  box-shadow: 0 0 var(--core-spin-dot-shadow)
     color-mix(in srgb, #5ec5d0 82%, transparent);
   transform: translateX(-50%);
 }
@@ -204,7 +210,7 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
   .ss-loader__outer-ring,
   .ss-loader__main-arc,
   .ss-loader__reverse-arc,
-  .ss-loader__inner-ring,
+  .ss-loader__inner-arc,
   .ss-loader__orbital,
   .ss-loader__emblem {
     animation: none;

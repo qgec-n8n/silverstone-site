@@ -147,7 +147,7 @@ export function CoreSpinLoader() {
           <div className="ss-loader__outer-ring" />
           <div className="ss-loader__main-arc" />
           <div className="ss-loader__reverse-arc" />
-          <div className="ss-loader__inner-ring" />
+          <div className="ss-loader__inner-arc" />
           <div className="ss-loader__orbital">
             <div className="ss-loader__orbital-dot" />
           </div>

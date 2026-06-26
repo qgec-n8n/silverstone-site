@@ -272,7 +272,7 @@ for (const viewport of [
         ".ss-loader__outer-ring",
         ".ss-loader__main-arc",
         ".ss-loader__reverse-arc",
-        ".ss-loader__inner-ring",
+        ".ss-loader__inner-arc",
         ".ss-loader__orbital",
         ".ss-loader__orbital-dot",
         ".ss-loader__center-core",
@@ -282,8 +282,23 @@ for (const viewport of [
       const reverseNode = document.querySelector<HTMLElement>(
         ".ss-loader__reverse-arc",
       );
-      const innerNode = document.querySelector<HTMLElement>(".ss-loader__inner-ring");
+      const innerNode = document.querySelector<HTMLElement>(".ss-loader__inner-arc");
       const orbitalNode = document.querySelector<HTMLElement>(".ss-loader__orbital");
+      const isTransparentColor = (value: string | undefined) =>
+        !value || value === "rgba(0, 0, 0, 0)" || value === "transparent";
+      const borderProof = (style: CSSStyleDeclaration | null) =>
+        style
+          ? {
+              bottomColorTransparent: isTransparentColor(style.borderBottomColor),
+              bottomStyle: style.borderBottomStyle,
+              leftColorTransparent: isTransparentColor(style.borderLeftColor),
+              leftStyle: style.borderLeftStyle,
+              rightColorTransparent: isTransparentColor(style.borderRightColor),
+              rightStyle: style.borderRightStyle,
+              topColorTransparent: isTransparentColor(style.borderTopColor),
+              topStyle: style.borderTopStyle,
+            }
+          : null;
       const styles = {
         inner: innerNode ? getComputedStyle(innerNode) : null,
         main: mainNode ? getComputedStyle(mainNode) : null,
@@ -310,6 +325,16 @@ for (const viewport of [
           outerDuration: styles.outer?.animationDuration ?? null,
           reverseDirection: styles.reverse?.animationDirection ?? null,
           reverseDuration: styles.reverse?.animationDuration ?? null,
+        },
+        coreSpinBorders: {
+          inner: borderProof(styles.inner),
+          main: borderProof(styles.main),
+          outer: borderProof(styles.outer),
+          reverse: borderProof(styles.reverse),
+        },
+        coreSpinCounts: {
+          loader: document.querySelectorAll(".ss-loader").length,
+          spinner: document.querySelectorAll(".ss-loader__core-spin").length,
         },
         emblemVisibleCenterDeltaX: visibleEmblem
           ? Math.abs(visibleEmblem.centerX - window.innerWidth / 2)
@@ -341,9 +366,27 @@ for (const viewport of [
     expect(proof.emblemVisibleCenterDeltaY ?? 999).toBeLessThanOrEqual(2);
     expect(proof.labelGap ?? 0).toBeGreaterThan(16);
     expect(proof.coreSpinLayersVisible).toBe(true);
+    expect(proof.coreSpinCounts.loader).toBe(1);
+    expect(proof.coreSpinCounts.spinner).toBe(1);
     expect(proof.coreSpinAsset).toBe(
       "/brand/silverstone-ai-emblem-dark-transparent.png",
     );
+    expect(proof.coreSpinBorders.outer?.topStyle).toBe("dashed");
+    expect(proof.coreSpinBorders.outer?.rightStyle).toBe("dashed");
+    expect(proof.coreSpinBorders.outer?.bottomStyle).toBe("dashed");
+    expect(proof.coreSpinBorders.outer?.leftStyle).toBe("dashed");
+    expect(proof.coreSpinBorders.main?.topColorTransparent).toBe(false);
+    expect(proof.coreSpinBorders.main?.rightColorTransparent).toBe(true);
+    expect(proof.coreSpinBorders.main?.bottomColorTransparent).toBe(true);
+    expect(proof.coreSpinBorders.main?.leftColorTransparent).toBe(true);
+    expect(proof.coreSpinBorders.reverse?.topColorTransparent).toBe(true);
+    expect(proof.coreSpinBorders.reverse?.rightColorTransparent).toBe(true);
+    expect(proof.coreSpinBorders.reverse?.bottomColorTransparent).toBe(false);
+    expect(proof.coreSpinBorders.reverse?.leftColorTransparent).toBe(true);
+    expect(proof.coreSpinBorders.inner?.topColorTransparent).toBe(true);
+    expect(proof.coreSpinBorders.inner?.rightColorTransparent).toBe(true);
+    expect(proof.coreSpinBorders.inner?.bottomColorTransparent).toBe(true);
+    expect(proof.coreSpinBorders.inner?.leftColorTransparent).toBe(false);
     expect(proof.coreSpinAnimations.outerDuration).toBe("10s");
     expect(proof.coreSpinAnimations.mainDuration).toBe("2s");
     expect(proof.coreSpinAnimations.reverseDuration).toBe("3s");

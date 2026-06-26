@@ -30,7 +30,7 @@ The highest-risk areas for a future correction thread are scroll ownership, intr
 | App shell | `/web/src/app/root.tsx`, `/web/src/app/experience/app-experience.tsx`, `/web/src/app/experience/use-capability-tier.ts` |
 | Experience CSS | `/web/src/styles/experience-gate.css`, `/web/src/styles/visual/home-v2.css` |
 | Scroll owner | `/web/src/visual/home-v2/scroll-provider.tsx`, `/web/src/visual/home-v2/lenis-handle.ts` |
-| Intro loader | `/web/src/components/vendor/silverstone/core-spin-loader.tsx` |
+| Intro loader | `/web/src/components/ui/core-spin-loader.tsx` |
 | Hero | `/web/src/visual/home-v2/hero.tsx`, `/web/src/visual/home-v2/hero-aether-field.tsx`, `/web/src/visual/home-v2/explore-system-button.tsx` |
 | Body backdrop | `/web/src/visual/home-v2/body-particles.tsx` |
 | Sections | `/web/src/visual/home-v2/strategy-grid.tsx`, `impact-rail.tsx`, `architecture-process.tsx`, `ventures.tsx`, `integrations-strip.tsx`, `final-cta.tsx` |
