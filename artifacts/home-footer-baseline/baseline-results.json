@@ -1,0 +1,442 @@
+[
+  {
+    "viewport": {
+      "name": "desktop-1366",
+      "width": 1366,
+      "height": 768
+    },
+    "consoleErrors": [],
+    "introProof": {
+      "aetherCanvas": true,
+      "aetherPixelSize": {
+        "width": 1366,
+        "height": 768
+      },
+      "heroText": "The operating system for businesses that refuse to miss.",
+      "scrollHeight": 768,
+      "viewport": 768
+    },
+    "bodyProof": {
+      "bodyTextIncludesRevenue": true,
+      "bodyTextIncludesIntegrationSentence": true,
+      "benchmarkTitle": "The numbers good automation moves.",
+      "ctaLogoPresent": true,
+      "footerLogoSrc": "/brand/silverstone-ai-logo-dark-v3.png",
+      "footerLogoRect": {
+        "x": 111.046875,
+        "y": 160.14749145507812,
+        "width": 288,
+        "height": 205.703125,
+        "top": 160.14749145507812,
+        "right": 399.046875,
+        "bottom": 365.8506164550781,
+        "left": 111.046875
+      },
+      "footerBrandRect": {
+        "x": 91,
+        "y": 140.10061645507812,
+        "width": 328.09375,
+        "height": 245.796875,
+        "top": 140.10061645507812,
+        "right": 419.09375,
+        "bottom": 385.8974914550781,
+        "left": 91
+      },
+      "footerGrid": "361.734px 226.078px 226.094px 226.094px",
+      "companyRight": 1275,
+      "ctaLeft": 91,
+      "ctaTop": 547.8037109375,
+      "brandTop": 140.10061645507812,
+      "signalBeforeAnimation": "ss-hv2-system-border",
+      "signalMetricValues": [
+        {
+          "text": "15 hrs",
+          "width": 91.875,
+          "parentWidth": 121.1875
+        },
+        {
+          "text": "<10s",
+          "width": 91.890625,
+          "parentWidth": 121.203125
+        },
+        {
+          "text": "850%",
+          "width": 91.875,
+          "parentWidth": 121.1875
+        },
+        {
+          "text": "65%",
+          "width": 91.890625,
+          "parentWidth": 121.203125
+        }
+      ],
+      "signalRowValues": [
+        {
+          "text": "167%",
+          "width": 53.03125,
+          "parentWidth": 136.46875
+        },
+        {
+          "text": "24/7",
+          "width": 42.9375,
+          "parentWidth": 153.6875
+        },
+        {
+          "text": "1200%",
+          "width": 66.5,
+          "parentWidth": 180.578125
+        },
+        {
+          "text": "£100k → £300k",
+          "width": 151.734375,
+          "parentWidth": 194.09375
+        }
+      ],
+      "particlesColor": [
+        "#5EC5D0",
+        "#597FAD",
+        "#A97CC0",
+        "#C884C3",
+        "#CE98CF",
+        "#A96EAB",
+        "#E9EAEF",
+        "#7FE9F0",
+        "#38BDF8",
+        "#7C5CFF"
+      ],
+      "lineColor": "#7FE9F0",
+      "pJSDomLength": 1,
+      "horizontalOverflow": 0
+    }
+  },
+  {
+    "viewport": {
+      "name": "mobile-390",
+      "width": 390,
+      "height": 844
+    },
+    "consoleErrors": [],
+    "introProof": {
+      "aetherCanvas": true,
+      "aetherPixelSize": {
+        "width": 390,
+        "height": 844
+      },
+      "heroText": "The operating system for businesses that refuse to miss.",
+      "scrollHeight": 844,
+      "viewport": 844
+    },
+    "bodyProof": {
+      "bodyTextIncludesRevenue": true,
+      "bodyTextIncludesIntegrationSentence": true,
+      "benchmarkTitle": "The numbers good automation moves.",
+      "ctaLogoPresent": true,
+      "footerLogoSrc": "/brand/silverstone-ai-logo-dark-v3.png",
+      "footerLogoRect": {
+        "x": 32,
+        "y": -623.293212890625,
+        "width": 208,
+        "height": 148.5625,
+        "top": -623.293212890625,
+        "right": 240,
+        "bottom": -474.730712890625,
+        "left": 32
+      },
+      "footerBrandRect": {
+        "x": 20,
+        "y": -635.293212890625,
+        "width": 232,
+        "height": 172.5625,
+        "top": -635.293212890625,
+        "right": 252,
+        "bottom": -462.730712890625,
+        "left": 20
+      },
+      "footerGrid": "350px",
+      "companyRight": 370,
+      "ctaLeft": 20,
+      "ctaTop": -300.8244323730469,
+      "brandTop": -635.293212890625,
+      "signalBeforeAnimation": "ss-hv2-system-border",
+      "signalMetricValues": [
+        {
+          "text": "15 hrs",
+          "width": 60.671875,
+          "parentWidth": 77.046875
+        },
+        {
+          "text": "<10s",
+          "width": 60.671875,
+          "parentWidth": 77.046875
+        },
+        {
+          "text": "850%",
+          "width": 60.671875,
+          "parentWidth": 77.046875
+        },
+        {
+          "text": "65%",
+          "width": 60.671875,
+          "parentWidth": 77.046875
+        }
+      ],
+      "signalRowValues": [
+        {
+          "text": "167%",
+          "width": 30.03125,
+          "parentWidth": 77.046875
+        },
+        {
+          "text": "24/7",
+          "width": 24.40625,
+          "parentWidth": 72.53125
+        },
+        {
+          "text": "1200%",
+          "width": 37.640625,
+          "parentWidth": 74.96875
+        },
+        {
+          "text": "£100k → £300k",
+          "width": 85.953125,
+          "parentWidth": 85.953125
+        }
+      ],
+      "particlesColor": [
+        "#5EC5D0",
+        "#597FAD",
+        "#A97CC0",
+        "#C884C3",
+        "#CE98CF",
+        "#A96EAB",
+        "#E9EAEF",
+        "#7FE9F0",
+        "#38BDF8",
+        "#7C5CFF"
+      ],
+      "lineColor": "#7FE9F0",
+      "pJSDomLength": 1,
+      "horizontalOverflow": 0
+    }
+  },
+  {
+    "viewport": {
+      "name": "mobile-375",
+      "width": 375,
+      "height": 667
+    },
+    "consoleErrors": [],
+    "introProof": {
+      "aetherCanvas": true,
+      "aetherPixelSize": {
+        "width": 375,
+        "height": 667
+      },
+      "heroText": "The operating system for businesses that refuse to miss.",
+      "scrollHeight": 667,
+      "viewport": 667
+    },
+    "bodyProof": {
+      "bodyTextIncludesRevenue": true,
+      "bodyTextIncludesIntegrationSentence": true,
+      "benchmarkTitle": "The numbers good automation moves.",
+      "ctaLogoPresent": true,
+      "footerLogoSrc": "/brand/silverstone-ai-logo-dark-v3.png",
+      "footerLogoRect": {
+        "x": 32,
+        "y": -799.9810791015625,
+        "width": 208,
+        "height": 148.5625,
+        "top": -799.9810791015625,
+        "right": 240,
+        "bottom": -651.4185791015625,
+        "left": 32
+      },
+      "footerBrandRect": {
+        "x": 20,
+        "y": -811.9810791015625,
+        "width": 232,
+        "height": 172.5625,
+        "top": -811.9810791015625,
+        "right": 252,
+        "bottom": -639.4185791015625,
+        "left": 20
+      },
+      "footerGrid": "335px",
+      "companyRight": 355,
+      "ctaLeft": 20,
+      "ctaTop": -477.5123291015625,
+      "brandTop": -811.9810791015625,
+      "signalBeforeAnimation": "ss-hv2-system-border",
+      "signalMetricValues": [
+        {
+          "text": "15 hrs",
+          "width": 61.546875,
+          "parentWidth": 74.421875
+        },
+        {
+          "text": "<10s",
+          "width": 61.546875,
+          "parentWidth": 74.421875
+        },
+        {
+          "text": "850%",
+          "width": 61.546875,
+          "parentWidth": 74.421875
+        },
+        {
+          "text": "65%",
+          "width": 61.546875,
+          "parentWidth": 74.421875
+        }
+      ],
+      "signalRowValues": [
+        {
+          "text": "167%",
+          "width": 26.234375,
+          "parentWidth": 74.421875
+        },
+        {
+          "text": "24/7",
+          "width": 21.390625,
+          "parentWidth": 67.515625
+        },
+        {
+          "text": "1200%",
+          "width": 32.875,
+          "parentWidth": 69.8125
+        },
+        {
+          "text": "£100k → £300k",
+          "width": 75.234375,
+          "parentWidth": 75.234375
+        }
+      ],
+      "particlesColor": [
+        "#5EC5D0",
+        "#597FAD",
+        "#A97CC0",
+        "#C884C3",
+        "#CE98CF",
+        "#A96EAB",
+        "#E9EAEF",
+        "#7FE9F0",
+        "#38BDF8",
+        "#7C5CFF"
+      ],
+      "lineColor": "#7FE9F0",
+      "pJSDomLength": 1,
+      "horizontalOverflow": 0
+    }
+  },
+  {
+    "viewport": {
+      "name": "mobile-320",
+      "width": 320,
+      "height": 568
+    },
+    "consoleErrors": [],
+    "introProof": {
+      "aetherCanvas": true,
+      "aetherPixelSize": {
+        "width": 320,
+        "height": 650
+      },
+      "heroText": "The operating system for businesses that refuse to miss.",
+      "scrollHeight": 568,
+      "viewport": 568
+    },
+    "bodyProof": {
+      "bodyTextIncludesRevenue": true,
+      "bodyTextIncludesIntegrationSentence": true,
+      "benchmarkTitle": "The numbers good automation moves.",
+      "ctaLogoPresent": true,
+      "footerLogoSrc": "/brand/silverstone-ai-logo-dark-v3.png",
+      "footerLogoRect": {
+        "x": 32,
+        "y": -921.0120849609375,
+        "width": 208,
+        "height": 148.5625,
+        "top": -921.0120849609375,
+        "right": 240,
+        "bottom": -772.4495849609375,
+        "left": 32
+      },
+      "footerBrandRect": {
+        "x": 20,
+        "y": -933.0120849609375,
+        "width": 232,
+        "height": 172.5625,
+        "top": -933.0120849609375,
+        "right": 252,
+        "bottom": -760.4495849609375,
+        "left": 20
+      },
+      "footerGrid": "280px",
+      "companyRight": 300,
+      "ctaLeft": 20,
+      "ctaTop": -576.8558349609375,
+      "brandTop": -933.0120849609375,
+      "signalBeforeAnimation": "ss-hv2-system-border",
+      "signalMetricValues": [
+        {
+          "text": "15 hrs",
+          "width": 47.796875,
+          "parentWidth": 60.671875
+        },
+        {
+          "text": "<10s",
+          "width": 47.796875,
+          "parentWidth": 60.671875
+        },
+        {
+          "text": "850%",
+          "width": 47.796875,
+          "parentWidth": 60.671875
+        },
+        {
+          "text": "65%",
+          "width": 47.796875,
+          "parentWidth": 60.671875
+        }
+      ],
+      "signalRowValues": [
+        {
+          "text": "167%",
+          "width": 26.234375,
+          "parentWidth": 60.671875
+        },
+        {
+          "text": "24/7",
+          "width": 21.390625,
+          "parentWidth": 60.671875
+        },
+        {
+          "text": "1200%",
+          "width": 32.875,
+          "parentWidth": 60.671875
+        },
+        {
+          "text": "£100k → £300k",
+          "width": 75.234375,
+          "parentWidth": 75.234375
+        }
+      ],
+      "particlesColor": [
+        "#5EC5D0",
+        "#597FAD",
+        "#A97CC0",
+        "#C884C3",
+        "#CE98CF",
+        "#A96EAB",
+        "#E9EAEF",
+        "#7FE9F0",
+        "#38BDF8",
+        "#7C5CFF"
+      ],
+      "lineColor": "#7FE9F0",
+      "pJSDomLength": 1,
+      "horizontalOverflow": 0
+    }
+  }
+]

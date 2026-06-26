@@ -11,6 +11,7 @@ cinematic dark luxury-tech, consistent with the Precision Luminescence directive
 | `silverstone-logo.png` | `attached_assets/silverstone-logo-new@2x_*.png` | Background removed → transparent RGBA (1256×702). Emblem-only crop of the lockup. |
 | `silverstone-emblem-source.png` | original | Untouched original kept for reference. |
 | `silverstone-logo-source.png` / `…-source@2x.png` | originals | Untouched originals kept for reference. |
+| `silverstone-ai-logo-footer.png` | `silverstone-ai-logo-dark-v3.png` | Footer lockup derivative with boundary-connected background normalized to sampled edge color `#0f1222`; visible logo pixels preserved. |
 
 > The original brand PNGs shipped on a white raster background; transparent
 > derivatives are required for the dark theme (no white logo plates).

@@ -1,5 +1,4 @@
 import {
-  ALL_INTEGRATIONS,
   INTEGRATIONS_ROW_A,
   INTEGRATIONS_ROW_B,
   INTEGRATIONS_ROW_C,
@@ -50,9 +49,6 @@ export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps
             label="Integration logos, row three"
           />
         </div>
-        <p className="ss-sr-only">
-          {`Silverstone integrates with ${ALL_INTEGRATIONS.map((mark) => mark.name).join(", ")}.`}
-        </p>
       </div>
     </SectionShell>
   );

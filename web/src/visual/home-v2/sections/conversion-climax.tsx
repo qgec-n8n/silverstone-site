@@ -7,24 +7,26 @@ import { Button } from "~/components/ui/button";
 import { Icon } from "../components/icon";
 import { Reveal } from "../components/reveal";
 
-/** Final conversion moment — emblem, decisive headline and the primary CTAs. */
+/** Final conversion moment — decisive headline and the primary CTAs. */
 export function ConversionClimax() {
   return (
     <PageSection spacing="hero" className="relative">
       <Container size="content" className="relative z-10">
         <div className="ss-hv2-cta">
+          <span
+            className="ss-hv2-cta__light ss-hv2-cta__light--cyan"
+            aria-hidden="true"
+          />
+          <span
+            className="ss-hv2-cta__light ss-hv2-cta__light--violet"
+            aria-hidden="true"
+          />
+          <span className="ss-hv2-cta__grid" aria-hidden="true" />
           <div className="flex flex-col items-center gap-8 text-center">
             <Reveal>
-              <span aria-hidden className="ss-hv2-cta__emblem-wrap">
-                <img
-                  src="/brand/silverstone-ai-logo-dark-v3.png"
-                  alt=""
-                  width={1484}
-                  height={1060}
-                  className="ss-hv2-cta__emblem"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <span className="ss-hv2-cta__signal ss-eyebrow font-mono">
+                <span className="ss-hv2-kicker__dot" aria-hidden="true" />
+                Automation audit
               </span>
             </Reveal>
             <Reveal delayMs={80}>

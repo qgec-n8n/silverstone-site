@@ -16,8 +16,8 @@ export function SiteFooter() {
       <div aria-hidden className="ss-footer__sweep" />
       <div aria-hidden className="ss-footer__lines" />
       <Container className="relative py-16 lg:py-20" size="wide">
-        <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
-          <div className="ss-footer__col max-w-sm">
+        <div className="ss-footer__main">
+          <div className="ss-footer__col ss-footer__brand">
             <Link
               className="ss-focus-ring ss-footer__brandmark inline-flex rounded-[var(--ss-radius-lg)] no-underline"
               to="/"
@@ -28,7 +28,7 @@ export function SiteFooter() {
                 decoding="async"
                 height={1060}
                 loading="lazy"
-                src="/brand/silverstone-ai-logo-dark-v3.png"
+                src="/brand/silverstone-ai-logo-footer.png"
                 width={1484}
               />
               <span className="sr-only">Silverstone AI — home</span>
@@ -41,8 +41,10 @@ export function SiteFooter() {
               <MapPin aria-hidden className="size-4 text-[var(--ss-v2-signal-cyan)]" />
               London, United Kingdom
             </p>
+          </div>
+          <div className="ss-footer__col ss-footer__cta-col">
             <Link
-              className="ss-focus-ring ss-transition-interactive mt-6 inline-flex min-h-11 items-center gap-1.5 rounded-[var(--ss-radius-pill)] border border-[color:var(--ss-v2-hairline)] px-5 text-sm font-semibold text-platinum no-underline hover:bg-[var(--ss-v2-glass)]"
+              className="ss-focus-ring ss-footer__cta ss-transition-interactive inline-flex min-h-11 items-center gap-1.5 rounded-[var(--ss-radius-pill)] border border-[color:var(--ss-v2-hairline)] px-5 text-sm font-semibold text-platinum no-underline hover:bg-[var(--ss-v2-glass)]"
               to={PRIMARY_CTA.href}
             >
               {PRIMARY_CTA.label}

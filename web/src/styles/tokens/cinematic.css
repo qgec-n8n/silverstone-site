@@ -67,6 +67,7 @@
   --silverstone-dark-logo-top: #111423;
   --silverstone-dark-logo-edge: #0f1222;
   --silverstone-dark-logo-bottom: #0f1221;
+  --silverstone-footer-logo-safe: #0f1222;
   --silverstone-dark-logo-field: linear-gradient(
     180deg,
     var(--silverstone-dark-logo-top) 0%,
@@ -78,8 +79,8 @@
         dark logo plate so the embedded lockup reads as part of the surface --- */
   --ss-v2-footer-surface: linear-gradient(
     180deg,
-    var(--silverstone-dark-logo-top) 0%,
-    var(--silverstone-dark-logo-edge) 48%,
+    var(--silverstone-footer-logo-safe) 0%,
+    var(--silverstone-footer-logo-safe) 58%,
     var(--ss-v2-void-black) 100%
   );
 
@@ -271,6 +272,48 @@
     background: var(--ss-v2-footer-surface);
   }
 
+  .ss-footer__main {
+    display: grid;
+    gap: clamp(2rem, 1.2rem + 3vw, 4rem);
+  }
+
+  @media (min-width: 64rem) {
+    .ss-footer__main {
+      column-gap: clamp(1.5rem, 1rem + 1.6vw, 4rem);
+      grid-template-columns:
+        minmax(15rem, 1.45fr) repeat(3, minmax(6.75rem, 0.65fr))
+        minmax(12rem, 0.8fr);
+      align-items: start;
+    }
+
+    .ss-footer__brand {
+      grid-column: 1;
+      max-width: 24rem;
+    }
+
+    .ss-footer__cta-col {
+      grid-column: 5;
+      grid-row: 1;
+      justify-self: end;
+      text-align: right;
+    }
+
+    .ss-footer__main nav:nth-of-type(1) {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .ss-footer__main nav:nth-of-type(2) {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .ss-footer__main nav:nth-of-type(3) {
+      grid-column: 4;
+      grid-row: 1;
+    }
+  }
+
   /* Controlled light sweep riding the top hairline. */
   .ss-footer__sweep {
     position: absolute;
@@ -316,27 +359,22 @@
      cropping, recolouring or masking the logo. */
   .ss-footer__brandmark {
     position: relative;
-    padding: clamp(0.75rem, 0.4rem + 1vw, 1.5rem);
-  }
-
-  .ss-footer__brandmark::before {
-    content: "";
-    position: absolute;
-    inset: -22% -14%;
-    z-index: -1;
-    background: var(--silverstone-dark-logo-field);
-    -webkit-mask-image: radial-gradient(
-      78% 82% at 50% 48%,
-      #000 0 62%,
-      transparent 88%
-    );
-    mask-image: radial-gradient(78% 82% at 50% 48%, #000 0 62%, transparent 88%);
+    background: var(--silverstone-footer-logo-safe);
   }
 
   .ss-footer__logo {
     display: block;
-    width: clamp(13rem, 9rem + 14vw, 18rem);
+    width: clamp(12rem, 9rem + 12vw, 17rem);
     height: auto;
+  }
+
+  .ss-footer__cta {
+    justify-content: center;
+    background: color-mix(
+      in srgb,
+      var(--silverstone-footer-logo-safe) 72%,
+      transparent
+    );
   }
 
   /* Hover illumination on the footer link columns. */
@@ -365,6 +403,10 @@
 
     html[data-js="on"] .ss-footer__col:nth-child(4) {
       transition-delay: 0.24s;
+    }
+
+    html[data-js="on"] .ss-footer__col:nth-child(5) {
+      transition-delay: 0.32s;
     }
 
     html[data-js="on"] .ss-footer[data-revealed="true"] .ss-footer__col {

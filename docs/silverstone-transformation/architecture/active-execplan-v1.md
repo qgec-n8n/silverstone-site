@@ -281,3 +281,44 @@ Verification:
 Tradeoff:
 
 - The viewport matrix runs once in the desktop Chromium project while setting the exact requested viewport sizes explicitly; the mobile Chromium project still runs the intro/body state-machine interaction test, but skips duplicate viewport matrix cases.
+
+## Homepage footer/interaction corrective pass record -- 2026-06-26
+
+Observed before implementation:
+
+- Local browser baseline on `http://localhost:5173/` showed the intro Aether canvas still read `[data-aether-reveal]` element boxes, repelled particles from copy bounds, and skipped links crossing reveal zones instead of behaving like the continuous 21st.dev Aether Flow particle web.
+- The hero reveal still used blur, scale, perspective and z-depth transforms rather than a sequential fade-up.
+- The body `particles.js` config was local and correctly scoped, but still used a multi-colour particle/link palette instead of a single Neural Violet field.
+- The secondary benchmark row still rendered the unapproved `£100k → £300k` revenue trajectory and the integration carousel still rendered the hidden sentence beginning `Silverstone integrates with`.
+- The CTA still rendered the full logo lockup above the headline, and the footer CTA still lived inside the brand column instead of a far-right footer region.
+- Footer logo edge sampling of `silverstone-ai-logo-dark-v3.png` confirmed an edge median around `#0f1222`, but the footer surface/wrapper did not use a footer-specific derivative with an identical boundary field.
+
+Changed:
+
+- Replaced `HeroAetherField` with a continuous canvas particle web using the requested density formula, Electric Cyan particles/links, Platinum Silver pointer-near links, pointer radius `200`, edge bounce, and no DOM reveal-zone measurement or link masking.
+- Simplified the hero reveal to a delayed, sequential opacity/y fade-up and removed the `data-aether-*` reveal attributes.
+- Retuned body `particles.js` to one `#A97CC0` particle/link/grab colour while preserving the local package script, one scoped instance, cleanup, and visibility handling.
+- Replaced the revenue trajectory benchmark with the approved `65% lower` processing-cost benchmark, retitled the section to `The Business Impact of Better Automation`, and removed the rendered integration sentence.
+- Removed the CTA logo lockup and rebalanced the final CTA around the eyebrow, headline, copy and actions.
+- Added `web/public/brand/silverstone-ai-logo-footer.png`, a footer lockup derivative whose boundary-connected background pixels are normalized to `#0f1222`; switched the shared footer to that asset and a five-region footer grid with the CTA in the far-right desktop column and before link groups on mobile.
+- Re-centered the core loader by absolutely centering `.ss-loader__stage` at the viewport midpoint and positioning the label below the rings.
+- Added Playwright regression coverage for loader centering, no Aether reveal attributes, single-violet local particles.js config, removed forbidden homepage text, no CTA logo, footer logo asset, footer desktop CTA placement, and mobile footer order.
+
+Verification:
+
+- Manual Playwright evidence saved to `artifacts/home-footer-after/`: loader/intro/body/footer screenshots for desktop 1366, mobile 390 and mobile 375 plus refreshed `after-results.json`.
+- Manual runtime matrix across `320x568`, `375x667`, `390x844`, `430x932`, `768x1024`, `1024x768`, `1280x720`, `1366x768`, `1440x900`, and `1920x1080`: loader stage center deltas `0`, label gap range `24px`-`32.390625px`, Aether bitmap matched the rendered hero with no reveal attributes, `metricValuesFit` passed, live-signal `::before` was `none`, and document/footer horizontal overflow stayed `0`.
+- Body runtime proof: `window.pJSDom.length === 1`, one native `particles.js` canvas, local `particles-CDlok4Gc.js` script, particle/line colour `#A97CC0` with grab lines inheriting the linked-line colour, no revenue/integration forbidden text, CTA logo count `0`, exact benchmark heading visible, footer logo `/brand/silverstone-ai-logo-footer.png`, footer brandmark background `rgb(15, 18, 34)`, desktop CTA far-right order and mobile CTA-before-links order passed.
+- `npx prettier --check` on changed source/test files passed; full `npm run format:check` still reports pre-existing unrelated formatting issues outside this change scope.
+- `npm run typecheck` passed.
+- `npm run lint` passed.
+- `npm run build` passed and emitted the local `particles-CDlok4Gc.js` asset.
+- `PORT=4183 npm run test:e2e -- tests/e2e/homepage-interaction.spec.ts` passed: 12 passed, 10 expected duplicate viewport skips.
+- `npm run test` passed: 17 files, 35 tests.
+- `npm run staging:safety` passed.
+- `PORT=4183 npm run test:e2e` passed: 44 passed, 10 expected duplicate viewport skips.
+- `npm run bundle:report` exited successfully and reported `Foundation JavaScript: 291.81 KB gzip (target-miss)`.
+
+Tradeoff:
+
+- The archival claims registry still contains the removed revenue trajectory as a source record, but the active homepage data, rendered text, and regression tests no longer expose it.

@@ -19,7 +19,7 @@ export type BenchmarkMetric = {
   id: string;
   /** Numeric target the counter animates toward. */
   value: number;
-  /** Lower bound when the metric expresses a range (e.g. revenue trajectory). */
+  /** Lower bound when the metric expresses a range. */
   fromValue?: number;
   prefix?: string;
   suffix?: string;
@@ -35,7 +35,7 @@ export type BenchmarkMetric = {
 };
 
 export const BENCHMARK_DISCLAIMER =
-  "Benchmark outcomes drawn from published case data across AI automation engagements and industry sources. Figures illustrate what well-scoped automation can achieve — they are not guarantees of individual results.";
+  "Benchmark outcomes drawn from published case data across AI automation engagements and industry sources. Figures illustrate what well-scoped automation can achieve; they are not guarantees of individual results.";
 
 export const HEADLINE_BENCHMARKS: readonly BenchmarkMetric[] = [
   {
@@ -118,17 +118,14 @@ export const SECONDARY_BENCHMARKS: readonly BenchmarkMetric[] = [
     tier: "secondary",
   },
   {
-    id: "revenue-trajectory",
-    fromValue: 100,
-    value: 300,
-    prefix: "£",
-    suffix: "k",
-    display: "£100k → £300k",
-    label: "Revenue trajectory",
-    context:
-      "Illustrative practice revenue path — roughly £100k to £300k, a threefold trajectory over 24 months of compounding automation.",
-    impactArea: "Revenue",
-    source: "AI Automation for Dentists",
+    id: "processing-cost-secondary",
+    value: 65,
+    suffix: "%",
+    display: "65% lower",
+    label: "Processing cost",
+    context: "Document and back-office processing cost removed by agentic workflows.",
+    impactArea: "Cost efficiency",
+    source: "AI Agents & Automation Workflows",
     tier: "secondary",
   },
 ] as const;

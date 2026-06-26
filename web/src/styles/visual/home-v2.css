@@ -307,12 +307,10 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
 .ss-hv2-hero__content {
   max-width: min(100%, 58rem);
   margin-inline: auto;
-  perspective: 900px;
 }
 
 .ss-hv2-aether-reveal {
-  transform-style: preserve-3d;
-  will-change: opacity, filter, transform;
+  will-change: opacity, transform;
 }
 
 .ss-hv2-hero__title {
@@ -608,10 +606,11 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
 .ss-hv2-metric__value {
   font-family: var(--ss-font-display);
   font-weight: 600;
-  font-size: clamp(2.4rem, 1.6rem + 2.6vw, 3.4rem);
+  font-size: clamp(2.1rem, 1.2rem + 1.45vw, 2.65rem);
   line-height: 1;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .ss-hv2-metric__label {
@@ -1070,31 +1069,6 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
     );
 }
 
-.ss-hv2-system-signal::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(
-    from 170deg,
-    transparent,
-    color-mix(in srgb, var(--ss-v2-signal-cyan) 64%, transparent),
-    transparent 26%,
-    transparent 62%,
-    color-mix(in srgb, var(--ss-v2-signal-pink) 48%, transparent),
-    transparent
-  );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.72;
-  animation: ss-hv2-system-border 8s linear infinite;
-}
-
 .ss-hv2-system-signal__header,
 .ss-hv2-system-signal__status,
 .ss-hv2-system-signal__row,
@@ -1120,7 +1094,7 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
 
 .ss-hv2-system-signal__metrics {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(0.65rem, 1.1vw, 1rem);
 }
 
@@ -1146,6 +1120,8 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
 .ss-hv2-system-signal__metric .ss-hv2-hero__stat-value {
   font-size: clamp(1.4rem, 0.8rem + 2.1vw, 2.65rem);
   line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .ss-hv2-system-signal__label {
@@ -1178,6 +1154,8 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   font-family: var(--ss-font-display);
   font-size: clamp(0.96rem, 0.8rem + 0.75vw, 1.35rem);
   line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .ss-hv2-system-signal__row-label,
@@ -1209,6 +1187,14 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
 
   .ss-hv2-system-signal {
     min-height: auto;
+  }
+
+  .ss-hv2-system-signal__metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ss-hv2-system-signal__metric .ss-hv2-hero__stat-value {
+    font-size: clamp(1rem, 2.7vw, 1.45rem);
   }
 }
 
@@ -1476,11 +1462,11 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   position: relative;
   border-radius: var(--ss-radius-lg);
   border: 1px solid var(--ss-v2-hairline-strong);
-  padding: clamp(2.5rem, 1.5rem + 5vw, 5rem);
+  padding: clamp(2.8rem, 1.8rem + 5vw, 5.5rem);
   overflow: hidden;
   background:
     radial-gradient(
-      70% 64% at 50% 8%,
+      70% 64% at 50% 0%,
       color-mix(in srgb, var(--ss-v2-signal-cyan) 18%, transparent),
       transparent 64%
     ),
@@ -1501,89 +1487,71 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
     var(--ss-v2-graphite);
 }
 
-/* Embedded dark master logo — the sampled v3 logo field continues around the
-   untouched PNG. The image itself is not cropped, recoloured or masked. */
-.ss-hv2-cta__emblem-wrap {
-  position: relative;
-  display: inline-flex;
-  padding: clamp(0.65rem, 0.35rem + 1vw, 1.4rem);
-  animation: ss-hv2-emblem-float 7s ease-in-out infinite;
+.ss-hv2-cta__light,
+.ss-hv2-cta__grid {
+  position: absolute;
+  pointer-events: none;
 }
 
-.ss-hv2-cta__emblem-wrap::before {
-  content: "";
-  position: absolute;
-  inset: -10% -7%;
-  z-index: 0;
-  background: var(--silverstone-dark-logo-field);
-  -webkit-mask-image: radial-gradient(82% 78% at 50% 48%, #000 0 66%, transparent 90%);
-  mask-image: radial-gradient(82% 78% at 50% 48%, #000 0 66%, transparent 90%);
+.ss-hv2-cta__light {
+  width: clamp(14rem, 32vw, 28rem);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  filter: blur(32px);
+  opacity: 0.44;
 }
 
-.ss-hv2-cta__emblem-wrap::after {
-  content: "";
-  position: absolute;
-  inset: -28%;
-  z-index: 0;
+.ss-hv2-cta__light--cyan {
+  top: -30%;
+  left: -14%;
   background: radial-gradient(
-    62% 62% at 50% 50%,
-    transparent 58%,
-    color-mix(in srgb, var(--ss-v2-signal-cyan) 16%, transparent) 76%,
-    transparent 100%
+    circle,
+    color-mix(in srgb, var(--ss-v2-signal-cyan) 42%, transparent),
+    transparent 68%
   );
-  opacity: 0.55;
-  animation: ss-hv2-emblem-pulse 5.2s ease-in-out infinite;
 }
 
-.ss-hv2-cta__emblem {
+.ss-hv2-cta__light--violet {
+  right: -16%;
+  bottom: -34%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--ss-v2-signal-violet) 42%, transparent),
+    transparent 70%
+  );
+}
+
+.ss-hv2-cta__grid {
+  inset: 0;
+  opacity: 0.16;
+  background-image:
+    linear-gradient(var(--ss-v2-hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ss-v2-hairline) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(74% 72% at 50% 42%, #000, transparent 78%);
+  mask-image: radial-gradient(74% 72% at 50% 42%, #000, transparent 78%);
+}
+
+.ss-hv2-cta > *:not(.ss-hv2-cta__light, .ss-hv2-cta__grid) {
   position: relative;
   z-index: 1;
-  display: block;
-  width: clamp(16rem, 10rem + 22vw, 31rem);
-  height: auto;
-  filter: drop-shadow(0 18px 34px rgba(5, 7, 10, 0.42));
-  transition:
-    transform var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
-    filter var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard);
 }
 
-.ss-hv2-cta:hover .ss-hv2-cta__emblem {
-  transform: scale(1.04);
-  filter: drop-shadow(0 24px 42px rgba(5, 7, 10, 0.54));
+.ss-hv2-cta__signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid var(--ss-v2-hairline-strong);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 28%, transparent);
+  padding: 0.48rem 0.9rem;
+  color: var(--ss-v2-titanium);
+  backdrop-filter: blur(12px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ss-hv2-cta__emblem-wrap,
-  .ss-hv2-cta__emblem-wrap::after {
+  .ss-hv2-cta__light {
     animation: none;
-  }
-
-  .ss-hv2-cta:hover .ss-hv2-cta__emblem {
-    transform: none;
-  }
-}
-
-@keyframes ss-hv2-emblem-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes ss-hv2-emblem-pulse {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(0.96);
-  }
-
-  50% {
-    opacity: 0.7;
-    transform: scale(1.06);
   }
 }
 
@@ -1631,16 +1599,9 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   }
 }
 
-@keyframes ss-hv2-system-border {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ss-hv2-kicker__dot,
   .ss-hv2-hero__scan::after,
-  .ss-hv2-system-signal::before,
   .ss-hv2-scrollcue__rail,
   .ss-hv2-marquee__track {
     animation: none !important;

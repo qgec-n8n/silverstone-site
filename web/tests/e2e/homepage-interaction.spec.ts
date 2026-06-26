@@ -30,6 +30,10 @@ async function homepageRuntimeProof(page: Page) {
     const instance = Array.isArray(window.pJSDom) ? window.pJSDom[0] : undefined;
     const pJS = instance?.pJS as
       | {
+          particles?: {
+            color?: { value?: string | string[] };
+            line_linked?: { color?: string };
+          };
           canvas?: { el?: HTMLCanvasElement };
           interactivity?: {
             mouse?: { pos_x?: number; pos_y?: number };
@@ -44,9 +48,24 @@ async function homepageRuntimeProof(page: Page) {
     const script = document.querySelector<HTMLScriptElement>(
       'script[data-silverstone-particles="local"]',
     );
+    const signal = document.querySelector<HTMLElement>(".ss-hv2-system-signal");
+    const signalBefore = signal ? getComputedStyle(signal, "::before") : null;
+    const metricValues = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".ss-hv2-system-signal__metric .ss-hv2-hero__stat-value, .ss-hv2-system-signal__row-value, .ss-hv2-metric__value",
+      ),
+    );
+    const text = document.body.innerText;
 
     return {
-      ctaLogoSrc: document.querySelector(".ss-hv2-cta__emblem")?.getAttribute("src"),
+      aetherRevealAttributeCount:
+        document.querySelectorAll("[data-aether-reveal]").length,
+      bodyHasForbiddenRevenue: /£100k|£300k|Revenue trajectory/.test(text),
+      bodyHasIntegrationSentence: text.includes("Silverstone integrates with"),
+      bodyParticleColor: pJS?.particles?.color?.value ?? null,
+      bodyParticleLineColor: pJS?.particles?.line_linked?.color ?? null,
+      ctaLogoSrc:
+        document.querySelector(".ss-hv2-cta__emblem")?.getAttribute("src") ?? null,
       footerLogoSrc: document.querySelector(".ss-footer__logo")?.getAttribute("src"),
       hasCustomBodyCanvas: Boolean(
         document.querySelector(
@@ -54,6 +73,12 @@ async function homepageRuntimeProof(page: Page) {
         ),
       ),
       hasSystemImage: Boolean(document.querySelector(".ss-hv2-secondary__media img")),
+      metricValuesFit: metricValues.every((node) => {
+        const style = getComputedStyle(node);
+        return (
+          style.whiteSpace === "nowrap" && node.scrollWidth <= node.clientWidth + 1
+        );
+      }),
       nativeCanvasCount: document.querySelectorAll(
         '[data-particles-host="body"] canvas.particles-js-canvas-el',
       ).length,
@@ -62,6 +87,8 @@ async function homepageRuntimeProof(page: Page) {
       particlesJSType: typeof window.particlesJS,
       scriptPackage: script?.dataset.silverstoneParticlesPackage ?? null,
       scriptSrc: script?.getAttribute("src") ?? null,
+      signalBeforeAnimation: signalBefore?.animationName ?? null,
+      signalBeforeContent: signalBefore?.content ?? null,
       signalMetrics: document.querySelectorAll(".ss-hv2-system-signal__metric").length,
       signalRows: document.querySelectorAll(".ss-hv2-system-signal__row").length,
       systemBottomDelta: system ? Math.abs(system.bottom - window.innerHeight) : null,
@@ -119,6 +146,118 @@ async function systemViewportProof(page: Page) {
       trustWidth: trustShell?.width ?? null,
       viewportWidth: window.innerWidth,
     };
+  });
+}
+
+async function openHomepageBody(page: Page) {
+  await waitForIntro(page);
+  await page.getByRole("button", { name: "Explore the system" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "body", {
+    timeout: 5_000,
+  });
+}
+
+async function footerLayoutProof(page: Page) {
+  await page.locator("footer").scrollIntoViewIfNeeded();
+  return page.evaluate(() => {
+    const footer = document
+      .querySelector<HTMLElement>("footer")
+      ?.getBoundingClientRect();
+    const brand = document
+      .querySelector<HTMLElement>(".ss-footer__brand")
+      ?.getBoundingClientRect();
+    const cta = document
+      .querySelector<HTMLElement>(".ss-footer__cta-col")
+      ?.getBoundingClientRect();
+    const navs = Array.from(
+      document.querySelectorAll<HTMLElement>(".ss-footer__main nav"),
+    ).map((node) => ({
+      left: node.getBoundingClientRect().left,
+      right: node.getBoundingClientRect().right,
+      top: node.getBoundingClientRect().top,
+    }));
+
+    return {
+      brandBottom: brand?.bottom ?? null,
+      brandTop: brand?.top ?? null,
+      ctaLeft: cta?.left ?? null,
+      ctaRight: cta?.right ?? null,
+      ctaTop: cta?.top ?? null,
+      footerRight: footer?.right ?? null,
+      navs,
+      viewportWidth: window.innerWidth,
+    };
+  });
+}
+
+for (const viewport of [
+  { width: 1366, height: 768 },
+  { width: 390, height: 844 },
+] as const) {
+  test(`core loader keeps spinner centered ${String(viewport.width)}x${String(
+    viewport.height,
+  )}`, async ({ page }, testInfo) => {
+    test.skip(
+      testInfo.project.name !== "desktop-chromium",
+      "Loader geometry only needs one browser project.",
+    );
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await expect(page.locator(".ss-loader")).toBeVisible();
+
+    const proof = await page.evaluate(() => {
+      const stage = document
+        .querySelector<HTMLElement>(".ss-loader__stage")
+        ?.getBoundingClientRect();
+      const label = document
+        .querySelector<HTMLElement>(".ss-loader__label")
+        ?.getBoundingClientRect();
+
+      return {
+        labelGap: stage && label ? label.top - stage.bottom : null,
+        stageCenterDeltaX: stage
+          ? Math.abs(stage.left + stage.width / 2 - window.innerWidth / 2)
+          : null,
+        stageCenterDeltaY: stage
+          ? Math.abs(stage.top + stage.height / 2 - window.innerHeight / 2)
+          : null,
+      };
+    });
+
+    expect(proof.stageCenterDeltaX ?? 999).toBeLessThanOrEqual(1);
+    expect(proof.stageCenterDeltaY ?? 999).toBeLessThanOrEqual(1);
+    expect(proof.labelGap ?? 0).toBeGreaterThan(16);
+  });
+}
+
+for (const viewport of [
+  { width: 1366, height: 768 },
+  { width: 390, height: 844 },
+] as const) {
+  test(`footer CTA layout follows viewport order ${String(viewport.width)}x${String(
+    viewport.height,
+  )}`, async ({ page }, testInfo) => {
+    test.skip(
+      testInfo.project.name !== "desktop-chromium",
+      "Footer layout matrix only needs one browser project.",
+    );
+    await page.setViewportSize(viewport);
+    await openHomepageBody(page);
+
+    const proof = await footerLayoutProof(page);
+    expect(proof.navs).toHaveLength(3);
+
+    if (viewport.width >= 1024) {
+      expect(proof.ctaRight ?? 0).toBeLessThanOrEqual((proof.footerRight ?? 0) + 1);
+      expect(proof.ctaLeft ?? 0).toBeGreaterThan(proof.navs[2]?.right ?? 0);
+      expect(
+        Math.abs((proof.ctaTop ?? 999) - (proof.navs[0]?.top ?? 0)),
+      ).toBeLessThanOrEqual(4);
+    } else {
+      expect(proof.ctaTop ?? 0).toBeGreaterThan(proof.brandTop ?? 0);
+      expect(proof.ctaTop ?? 0).toBeLessThan(proof.navs[0]?.top ?? 999);
+      expect(proof.brandBottom ?? 0).toBeLessThanOrEqual((proof.ctaTop ?? 0) + 1);
+    }
   });
 }
 
@@ -197,6 +336,11 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   await expect(
     page.getByRole("heading", { name: "The Silverstone System" }),
   ).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      name: "The Business Impact of Better Automation",
+    }),
+  ).toBeVisible();
   await expect(page.locator(".ss-hv2-trust__item")).toHaveText([...trustSignals]);
   await expect(page.locator(".ss-hv2-secondary__media img")).toHaveCount(0);
 
@@ -219,8 +363,16 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(proof.systemBottomDelta).not.toBeNull();
   expect(proof.systemBottomDelta ?? 999).toBeLessThanOrEqual(1.5);
   expect(proof.trustWidth ?? 0).toBeGreaterThanOrEqual(proof.viewportWidth - 2);
-  expect(proof.ctaLogoSrc).toBe("/brand/silverstone-ai-logo-dark-v3.png");
-  expect(proof.footerLogoSrc).toBe("/brand/silverstone-ai-logo-dark-v3.png");
+  expect(proof.aetherRevealAttributeCount).toBe(0);
+  expect(proof.bodyHasForbiddenRevenue).toBe(false);
+  expect(proof.bodyHasIntegrationSentence).toBe(false);
+  expect(proof.bodyParticleColor).toBe("#A97CC0");
+  expect(proof.bodyParticleLineColor).toBe("#A97CC0");
+  expect(proof.metricValuesFit).toBe(true);
+  expect(proof.signalBeforeAnimation).toBe("none");
+  expect(proof.signalBeforeContent).toBe("none");
+  expect(proof.ctaLogoSrc).toBeNull();
+  expect(proof.footerLogoSrc).toBe("/brand/silverstone-ai-logo-footer.png");
   if (proof.coarsePointer) {
     expect(proof.hoverStatus).toBeNull();
   } else {

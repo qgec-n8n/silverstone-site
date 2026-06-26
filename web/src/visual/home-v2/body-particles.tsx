@@ -107,60 +107,49 @@ function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
   return {
     particles: {
       number: {
-        value: mobile ? 58 : 118,
+        value: mobile ? 64 : 128,
         density: {
           enable: true,
-          value_area: mobile ? 720 : 940,
+          value_area: mobile ? 700 : 900,
         },
       },
       color: {
-        value: [
-          "#5EC5D0",
-          "#597FAD",
-          "#A97CC0",
-          "#C884C3",
-          "#CE98CF",
-          "#A96EAB",
-          "#E9EAEF",
-          "#7FE9F0",
-          "#38BDF8",
-          "#7C5CFF",
-        ],
+        value: "#A97CC0",
       },
       shape: {
         type: "circle",
         stroke: { width: 0, color: "#000000" },
       },
       opacity: {
-        value: 0.66,
+        value: 0.72,
         random: true,
         anim: {
           enable: true,
-          speed: 0.45,
-          opacity_min: 0.22,
+          speed: 0.8,
+          opacity_min: 0.32,
           sync: false,
         },
       },
       size: {
-        value: mobile ? 2.1 : 2.35,
+        value: mobile ? 2.2 : 2.55,
         random: true,
         anim: {
           enable: true,
-          speed: 1.1,
-          size_min: 0.45,
+          speed: 1.4,
+          size_min: 0.65,
           sync: false,
         },
       },
       line_linked: {
         enable: true,
-        distance: mobile ? 132 : 168,
-        color: "#7FE9F0",
-        opacity: mobile ? 0.24 : 0.34,
+        distance: mobile ? 136 : 176,
+        color: "#A97CC0",
+        opacity: mobile ? 0.36 : 0.48,
         width: 1,
       },
       move: {
         enable: true,
-        speed: mobile ? 0.42 : 0.72,
+        speed: mobile ? 0.55 : 0.82,
         direction: "none",
         random: true,
         straight: false,
@@ -188,9 +177,9 @@ function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
       },
       modes: {
         grab: {
-          distance: mobile ? 150 : 230,
+          distance: mobile ? 160 : 230,
           line_linked: {
-            opacity: mobile ? 0.48 : 0.82,
+            opacity: mobile ? 0.72 : 0.9,
           },
         },
         bubble: {

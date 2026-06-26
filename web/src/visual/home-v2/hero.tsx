@@ -6,29 +6,16 @@ import { Container } from "~/components/layout/container";
 import { ExploreSystemButton } from "./explore-system-button";
 import { HeroAetherField } from "./hero-aether-field";
 
-const container: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.21, delayChildren: 0.08 } },
-};
-
 const item: Variants = {
   hidden: {
     opacity: 0,
-    filter: "blur(14px)",
-    scale: 0.78,
-    transformPerspective: 900,
-    y: 46,
-    z: -150,
+    y: 20,
   },
-  show: {
+  show: (index = 0) => ({
     opacity: 1,
-    filter: "blur(0px)",
-    scale: 1,
-    transformPerspective: 900,
     y: 0,
-    z: 0,
-    transition: { duration: 0.88, ease: [0.22, 1, 0.36, 1] },
-  },
+    transition: { delay: 0.62 + index * 0.24, duration: 1.05, ease: "easeInOut" },
+  }),
 };
 
 type HeroProps = {
@@ -63,17 +50,14 @@ export function Hero({
 
       <Container size="wide" className="relative z-10">
         <motion.div
-          variants={container}
           initial={motionEnabled ? "hidden" : false}
           animate="show"
           className="ss-hv2-hero__content flex flex-col items-center gap-7 text-center"
         >
           <motion.span
             variants={item}
+            custom={0}
             className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
-            data-aether-index="0"
-            data-aether-reveal="true"
-            data-aether-strength="0.58"
           >
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
             UK AI systems studio
@@ -81,10 +65,8 @@ export function Hero({
 
           <motion.h1
             variants={item}
+            custom={1}
             className="ss-hv2-aether-reveal ss-hv2-display ss-hv2-hero__title"
-            data-aether-index="1"
-            data-aether-reveal="true"
-            data-aether-strength="1"
           >
             The operating system for businesses that{" "}
             <span className="ss-chrome-text">refuse to miss</span>.
@@ -92,10 +74,8 @@ export function Hero({
 
           <motion.p
             variants={item}
+            custom={2}
             className="ss-lead ss-hv2-hero__lead text-[color:var(--ss-v2-titanium)]"
-            data-aether-index="2"
-            data-aether-reveal="true"
-            data-aether-strength="0.78"
           >
             Silverstone designs AI voice, reception and automation systems that answer
             every call, capture every enquiry and run the repetitive work — so small UK
@@ -105,10 +85,8 @@ export function Hero({
           {hideExploreButton ? null : (
             <motion.div
               variants={item}
+              custom={3}
               className="flex flex-wrap items-center justify-center gap-4"
-              data-aether-index="3"
-              data-aether-reveal="true"
-              data-aether-strength="0.72"
             >
               <ExploreSystemButton
                 ref={exploreButtonRef}

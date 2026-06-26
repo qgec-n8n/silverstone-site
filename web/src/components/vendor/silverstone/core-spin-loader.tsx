@@ -25,7 +25,7 @@ const MAX_ASSET_WAIT_MS = 6500;
 
 const HOME_IMAGE_ASSETS = [
   "/brand/silverstone-ai-emblem-dark.png",
-  "/brand/silverstone-ai-logo-dark-v3.png",
+  "/brand/silverstone-ai-logo-footer.png",
   "/home-v2/hero-poster.png",
   "/home-v2/hero-poster-portrait.png",
   "/home-v2/story-operating-surface.png",

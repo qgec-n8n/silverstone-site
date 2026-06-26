@@ -18,10 +18,11 @@ export function BenchmarkMetrics({ countersEnabled }: BenchmarkMetricsProps) {
       eyebrow="Benchmarks"
       title={
         <>
-          The numbers good automation <span className="ss-chrome-text">moves</span>.
+          The Business Impact of Better{" "}
+          <span className="ss-chrome-text">Automation</span>
         </>
       }
-      lead="Outcomes observed across well-scoped AI automation engagements and published industry data."
+      lead="Selected automation-performance benchmarks from published case data and industry sources, showing the operational improvements well-designed systems can target. Not guaranteed individual outcomes."
       containerSize="wide"
     >
       <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
