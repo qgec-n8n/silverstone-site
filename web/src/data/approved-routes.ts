@@ -17,8 +17,7 @@ const servicePages = [
     h1: "A website engineered to move buyers forward",
     primaryIntent: "web design and development for UK small businesses",
     contentId: "content-service-web-design-development",
-    sourceFile:
-      "docs/approved-copy/services/01_WEB_DESIGN_AND_DEVELOPMENT.md",
+    sourceFile: "docs/approved-copy/services/01_WEB_DESIGN_AND_DEVELOPMENT.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -40,8 +39,7 @@ const servicePages = [
     h1: "Build the smallest app that proves the value",
     primaryIntent: "custom app development for UK businesses",
     contentId: "content-service-app-development",
-    sourceFile:
-      "docs/approved-copy/services/02_APP_DEVELOPMENT.md",
+    sourceFile: "docs/approved-copy/services/02_APP_DEVELOPMENT.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -63,8 +61,7 @@ const servicePages = [
     h1: "Voice agents designed for real conversations—and real consequences",
     primaryIntent: "AI voice agents for UK businesses",
     contentId: "content-service-ai-voice-agents",
-    sourceFile:
-      "docs/approved-copy/services/03_AI_VOICE_AGENTS.md",
+    sourceFile: "docs/approved-copy/services/03_AI_VOICE_AGENTS.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -86,8 +83,7 @@ const servicePages = [
     h1: "A front desk that answers, qualifies and knows when to hand over",
     primaryIntent: "AI receptionist for UK small businesses",
     contentId: "content-service-ai-receptionists",
-    sourceFile:
-      "docs/approved-copy/services/04_AI_RECEPTIONISTS.md",
+    sourceFile: "docs/approved-copy/services/04_AI_RECEPTIONISTS.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -109,8 +105,7 @@ const servicePages = [
     h1: "Turn expertise into a governed content engine",
     primaryIntent: "content creation and repurposing for UK businesses",
     contentId: "content-service-content-creation",
-    sourceFile:
-      "docs/approved-copy/services/05_CONTENT_CREATION.md",
+    sourceFile: "docs/approved-copy/services/05_CONTENT_CREATION.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -132,8 +127,7 @@ const servicePages = [
     h1: "Engineer the work between your systems",
     primaryIntent: "AI automation agency UK and AI agent workflows",
     contentId: "content-service-ai-automation",
-    sourceFile:
-      "docs/approved-copy/services/06_AI_AUTOMATION.md",
+    sourceFile: "docs/approved-copy/services/06_AI_AUTOMATION.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -155,8 +149,7 @@ const servicePages = [
     h1: "Decide what to automate before you buy the tools",
     primaryIntent: "AI automation consulting UK",
     contentId: "content-service-ai-consulting",
-    sourceFile:
-      "docs/approved-copy/services/07_AI_AND_AUTOMATION_CONSULTING.md",
+    sourceFile: "docs/approved-copy/services/07_AI_AND_AUTOMATION_CONSULTING.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-automation",

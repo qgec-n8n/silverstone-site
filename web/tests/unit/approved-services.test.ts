@@ -37,7 +37,10 @@ describe("approved service content pack", () => {
   it("records source hashes that match copied Markdown files", () => {
     for (const route of expectedRoutes) {
       const service = approvedServicesByRoute[route];
-      const markdown = readFileSync(resolve(process.cwd(), "..", service.sourcePath), "utf8");
+      const markdown = readFileSync(
+        resolve(process.cwd(), "..", service.sourcePath),
+        "utf8",
+      );
       expect(createHash("sha256").update(markdown).digest("hex")).toBe(
         service.sourceSha256,
       );
@@ -46,7 +49,9 @@ describe("approved service content pack", () => {
 
   it("exposes required route-entry fields from Sections 3 and 4", () => {
     const web = approvedServicesByRoute["/services/web-design-development"];
-    expect(web.routeEntry.loaderText).toBe("Aligning message, movement and measurement");
+    expect(web.routeEntry.loaderText).toBe(
+      "Aligning message, movement and measurement",
+    );
     expect(web.routeEntry.pill).toBe("Bespoke digital experience");
     expect(web.routeEntry.title).toBe("Make the website earn its place");
     expect(web.routeEntry.buttonLabel).toBe("Explore the commercial website system");
@@ -87,14 +92,12 @@ describe("approved service content pack", () => {
     expect(
       approvedServicesByRoute["/services/web-design-development"].demo.configSlots,
     ).toEqual(["futureWebsitePreviewPrimaryUrl", "futureWebsitePreviewSecondaryUrl"]);
-    expect(approvedServicesByRoute["/services/ai-voice-agents"].demo.configSlots).toEqual([
-      "futureVoiceElevenLabsAgent",
-      "futureVoiceTranscriptSource",
-    ]);
-    expect(approvedServicesByRoute["/services/ai-receptionists"].demo.configSlots).toEqual([
-      "futureReceptionistChatEmbedUrl",
-      "futureReceptionistElevenLabsAgent",
-    ]);
+    expect(
+      approvedServicesByRoute["/services/ai-voice-agents"].demo.configSlots,
+    ).toEqual(["futureVoiceElevenLabsAgent", "futureVoiceTranscriptSource"]);
+    expect(
+      approvedServicesByRoute["/services/ai-receptionists"].demo.configSlots,
+    ).toEqual(["futureReceptionistChatEmbedUrl", "futureReceptionistElevenLabsAgent"]);
   });
 
   it("preserves documented service aliases without replacing canonicals", () => {

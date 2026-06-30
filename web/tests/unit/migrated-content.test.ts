@@ -8,24 +8,32 @@ import {
   migratedContentIndex,
   validateMigratedContentRecord,
 } from "~/content/migrated";
+import { approvedServiceRoutes } from "~/content/services/approved-services";
 import { futureRouteManifest } from "~/data/future-routes";
 
 describe("migrated content baseline", () => {
-  it("accounts for every retained G-01 route exactly once", () => {
+  it("accounts for every retained migrated route exactly once", () => {
+    const approvedServiceRouteSet = new Set<string>(approvedServiceRoutes);
     const retainedRoutes = futureRouteManifest.filter(
-      (route) => route.lifecycle === "retained",
+      (route) =>
+        route.lifecycle === "retained" && !approvedServiceRouteSet.has(route.path),
     );
 
     expect(migratedContentIndex).toHaveLength(retainedRoutes.length);
-    expect(migratedContentIndex).toHaveLength(58);
+    expect(migratedContentIndex).toHaveLength(51);
     expect(new Set(migratedContentIndex.map((record) => record.routePath)).size).toBe(
-      58,
+      51,
     );
     expect(
       retainedRoutes.every((route) =>
         migratedContentIndex.some((record) => record.contentId === route.contentId),
       ),
     ).toBe(true);
+    for (const route of approvedServiceRoutes) {
+      expect(migratedContentIndex.some((record) => record.routePath === route)).toBe(
+        false,
+      );
+    }
   });
 
   it("loads source-faithful typed content with metadata and schema provenance", async () => {
@@ -53,14 +61,13 @@ describe("migrated content baseline", () => {
     expect(linkedArticle.links.length).toBeGreaterThan(0);
   });
 
-  it("keeps service and industry records structurally distinct", async () => {
-    const [service, industry] = await Promise.all([
-      loadMigratedContent("content-service-ai-receptionists"),
-      loadMigratedContent("content-services-dentists"),
-    ]);
+  it("keeps approved service pages out of the migrated-content registry", async () => {
+    const industry = await loadMigratedContent("content-services-dentists");
 
-    expect(service.kind).toBe("service");
     expect(industry.kind).toBe("industry");
+    await expect(
+      loadMigratedContent("content-service-ai-receptionists"),
+    ).rejects.toThrow("No migrated content module");
   });
 
   it("records disabled booking and contact interactions", async () => {

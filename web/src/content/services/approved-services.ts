@@ -67,8 +67,10 @@ export type ApprovedServiceContent = {
   };
 };
 
-export const approvedServicesByRoute =
-  approvedServicesJson as Record<ApprovedServiceRoute, ApprovedServiceContent>;
+export const approvedServicesByRoute = approvedServicesJson as Record<
+  ApprovedServiceRoute,
+  ApprovedServiceContent
+>;
 
 export const approvedServiceRoutes = Object.keys(
   approvedServicesByRoute,

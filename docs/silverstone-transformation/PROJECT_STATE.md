@@ -1,8 +1,8 @@
 # Silverstone Project State
 
 **Last updated:** 2026-06-30
-**Current phase:** `/web` route-entry experience generalized and verified; legacy root remains frozen.
-**Branch:** `main` tracking `origin/main`.  
+**Current phase:** `/web` Replit/runtime service rendering corrected; obsolete service prototypes removed.
+**Branch:** `codex/prompt-5-5-runtime-forensics`.
 **Remote:** `origin https://github.com/qgec-n8n/silverstone-site.git`.  
 **Pre-existing uncommitted user change:** `.codex/config.toml` modified before this documentation pass; left untouched.
 
@@ -189,6 +189,35 @@
 - Repaired the shared Aether Flow pointer interaction so pointer coordinates are canvas-relative, particles displace from the pointer, connections recalculate from displaced positions, the visible interaction radius follows the pointer, and the RAF/listeners clean up on inactivity or unmount.
 - Preserved canonical routes and documented aliases: `/services/website-design-development` resolves to `/services/web-design-development`; `/services/ai-agents-automation` resolves to `/services/ai-automation`.
 - Validation passed from `/web`: `npm run typecheck`, `npm run lint`, `npm run test`, `npm run build`, `npm run staging:safety`, `npm run test:e2e -- route-entry.spec.ts`, and a custom Playwright browser sweep across all seven service routes at desktop and mobile widths.
+
+## 2026-06-30 Prompt 5.5 Runtime Forensics
+
+- Root Replit/dev/preview commands now delegate to the active `/web` React Router/Vite app instead of leaving root `npm start` pointed at the frozen static root.
+- `.replit` now runs `npm run replit:dev`; root `start`, `build`, `preview`, `test`, `replit:dev`, and `replit:preview` delegate to `/web`. Explicit legacy commands remain available as `legacy:start` and `legacy:build`.
+- Removed obsolete `/web/public/prototypes/services/**` static service prototypes and removed the old React service fallback from `web/src/visual/data/page-modules.tsx`.
+- Removed the seven canonical service pages from the migrated-content registry so approved service routes render only from `web/src/content/services/approved-services.ts` and `web/src/visual/components/approved-service-page.tsx`.
+- Fixed approved service route loading in `web/src/routes/services/detail.tsx` so retained migrated content is not requested for approved service routes.
+- Restored Aether Flow to pointer-displaced particle-network behavior without a visible lens/circle/orb/magnifier.
+- Added runtime/source guardrails:
+  - `web/tests/unit/replit-runtime.test.ts`
+  - `web/tests/e2e/services-rendering.spec.ts`
+  - updated migrated-content, service-asset, approved-service, and Aether unit tests.
+- Added forensic records:
+  - `docs/silverstone-transformation/REPLIT_RUNTIME_AUDIT.md`
+  - `docs/silverstone-transformation/PROTOTYPE_REMOVAL_REPORT.md`
+  - `docs/silverstone-transformation/SERVICE_RENDER_SOURCE_MAP.md`
+  - `docs/silverstone-transformation/AETHER_FLOW_FIDELITY_REPORT.md`
+- Validation passed:
+  - `/web npm run test`: 26 files, 70 tests.
+  - `/web npm run lint`: passed.
+  - `/web npm run typecheck`: passed.
+  - `/web npm run build`: passed; all seven canonical service routes and both aliases prerendered.
+  - `/web npm run staging:safety`: passed.
+  - `/web npm run test:e2e -- services-rendering.spec.ts route-entry.spec.ts`: 26 browser tests passed across desktop and mobile.
+  - Root `PORT=4182 npm run replit:dev` service-route fetch returned approved H1/body phrase and no prototype/legacy-root title.
+  - Root `PORT=4181 npm run replit:preview` served the production preview used for Aether and route-matrix browser probes.
+  - Custom desktop/mobile route matrix across all seven service routes returned `200`, matching titles, canonical links, visible approved body after entry, one Aether canvas, and no console errors.
+  - Aether browser probe showed center network density changing under pointer presence and proximity-colour pixels appearing only while the pointer was inside the field.
 
 ## Unresolved Risks And Evidence Gaps
 

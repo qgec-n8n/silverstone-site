@@ -771,7 +771,11 @@
   border: 1px solid color-mix(in srgb, var(--svc-accent) 28%, var(--vx-border));
   border-radius: var(--vx-radius);
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--svc-accent) 12%, transparent), transparent 34%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--svc-accent) 12%, transparent),
+      transparent 34%
+    ),
     color-mix(in srgb, var(--vx-surface) 90%, black);
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
 }
@@ -924,7 +928,11 @@
   border: 1px solid color-mix(in srgb, var(--svc-accent) 20%, var(--vx-border));
   border-radius: var(--vx-radius-sm);
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--svc-accent-2) 8%, transparent), transparent),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--svc-accent-2) 8%, transparent),
+      transparent
+    ),
     var(--vx-surface);
 }
 

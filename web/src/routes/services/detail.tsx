@@ -2,6 +2,7 @@ import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { useLoaderData } from "react-router";
 
 import { loadMigratedContent, type MigratedContentRecord } from "~/content/migrated";
+import { getApprovedServiceContent } from "~/content/services/approved-services";
 import { getFutureRouteByPath, type FutureRouteRecord } from "~/data/future-routes";
 import { IndustryPage } from "~/routes/templates/industry-page";
 import { ServicePage } from "~/routes/templates/service-page";
@@ -30,9 +31,14 @@ export async function loader({
     });
   }
 
+  const isApprovedService =
+    route.routeGroup === "services" &&
+    route.template === "service" &&
+    Boolean(getApprovedServiceContent(route.path));
+
   return {
     content:
-      route.lifecycle === "retained"
+      route.lifecycle === "retained" && !isApprovedService
         ? await loadMigratedContent(route.contentId)
         : null,
     route,

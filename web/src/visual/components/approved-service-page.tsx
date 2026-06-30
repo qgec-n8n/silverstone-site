@@ -17,9 +17,7 @@ import {
   Workflow,
   type LucideIcon,
 } from "~/components/icons/lucide";
-import {
-  benchmarkDisclaimer,
-} from "~/data/benchmark-metrics";
+import { benchmarkDisclaimer } from "~/data/benchmark-metrics";
 import {
   type ApprovedServiceContent,
   type ApprovedServiceRoute,
@@ -295,7 +293,9 @@ function MarkdownContent({
             </List>
           );
         }
-        return <p key={`${block.text}-${String(index)}`}>{inlineMarkdown(block.text)}</p>;
+        return (
+          <p key={`${block.text}-${String(index)}`}>{inlineMarkdown(block.text)}</p>
+        );
       })}
     </div>
   );
@@ -337,9 +337,10 @@ function CardsSection({
   title: string;
   variant: "feature" | "outcome";
 }) {
-  const icons = variant === "feature"
-    ? [PencilRuler, Workflow, Gauge, Plug]
-    : [Check, TrendingUp, ShieldCheck];
+  const icons =
+    variant === "feature"
+      ? [PencilRuler, Workflow, Gauge, Plug]
+      : [Check, TrendingUp, ShieldCheck];
   return (
     <section className="ss-approved-service__cards" data-card-family={variant}>
       <div className="ss-approved-service__section-head">
@@ -372,7 +373,10 @@ function CardsSection({
 
 function BenchmarkPanel({ service }: { service: ApprovedServiceContent }) {
   return (
-    <section className="ss-approved-service__benchmarks" aria-label="Published benchmark evidence">
+    <section
+      className="ss-approved-service__benchmarks"
+      aria-label="Published benchmark evidence"
+    >
       <div className="ss-approved-service__section-head">
         <span>Published benchmark evidence</span>
         <h2>Evidence is context, not a promise</h2>
@@ -387,7 +391,12 @@ function BenchmarkPanel({ service }: { service: ApprovedServiceContent }) {
               initial={{ opacity: 0, scale: 0.92 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.55 }}
-              transition={{ delay: index * 0.08, type: "spring", stiffness: 160, damping: 22 }}
+              transition={{
+                delay: index * 0.08,
+                type: "spring",
+                stiffness: 160,
+                damping: 22,
+              }}
             >
               <strong>{value}</strong>
               <span>{label}</span>
@@ -430,55 +439,65 @@ function ProcessRail({ service }: { service: ApprovedServiceContent }) {
 function DemoSurface({ service }: { service: ApprovedServiceContent }) {
   const reserved = service.demo.configSlots.length > 0;
   return (
-    <section className="ss-approved-service__demo" data-demo-mode={reserved ? "reserved" : "deterministic"}>
+    <section
+      className="ss-approved-service__demo"
+      data-demo-mode={reserved ? "reserved" : "deterministic"}
+    >
       <div className="ss-approved-service__section-head">
         <span>Demonstration</span>
-        <h2>{reserved ? "Reserved integration surfaces" : "Deterministic demonstration module"}</h2>
+        <h2>
+          {reserved
+            ? "Reserved integration surfaces"
+            : "Deterministic demonstration module"}
+        </h2>
       </div>
       <MarkdownContent
         className="ss-approved-service__demo-copy"
         markdown={service.demo.rawMarkdown}
       />
       <div className="ss-approved-service__demo-stage">
-        {reserved
-          ? service.demo.configSlots.map((slot, index) => (
-              <m.article
-                className="ss-approved-service__reserved-frame"
-                data-config-slot={slot}
-                key={slot}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ delay: index * 0.08, duration: 0.7 }}
-              >
-                <div className="ss-approved-service__window-bar" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                <strong>{slot}</strong>
-                <p>Reserved until approved configuration, consent and source material exist.</p>
-              </m.article>
-            ))
-          : (
+        {reserved ? (
+          service.demo.configSlots.map((slot, index) => (
             <m.article
-              className="ss-approved-service__deterministic-panel"
-              initial={{ opacity: 0, y: 28 }}
+              className="ss-approved-service__reserved-frame"
+              data-config-slot={slot}
+              key={slot}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.45 }}
-              transition={{ duration: 0.72 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ delay: index * 0.08, duration: 0.7 }}
             >
-              <div className="ss-approved-service__signal-row" aria-hidden="true">
-                <span />
+              <div className="ss-approved-service__window-bar" aria-hidden="true">
                 <span />
                 <span />
                 <span />
               </div>
-              <p>Illustrative state sequence</p>
-              <strong>{service.publicHeadings.h2[3] ?? service.routeEntry.title}</strong>
-              <small>{service.componentMicrocopy.ctaButton}</small>
+              <strong>{slot}</strong>
+              <p>
+                Reserved until approved configuration, consent and source material
+                exist.
+              </p>
             </m.article>
-          )}
+          ))
+        ) : (
+          <m.article
+            className="ss-approved-service__deterministic-panel"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ duration: 0.72 }}
+          >
+            <div className="ss-approved-service__signal-row" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <p>Illustrative state sequence</p>
+            <strong>{service.publicHeadings.h2[3] ?? service.routeEntry.title}</strong>
+            <small>{service.componentMicrocopy.ctaButton}</small>
+          </m.article>
+        )}
       </div>
     </section>
   );
@@ -492,7 +511,10 @@ function OpportunityMatrix() {
     ["Governance", "Risk, approval, escalation"],
   ];
   return (
-    <section className="ss-opportunity-matrix" aria-label="Opportunity prioritisation matrix">
+    <section
+      className="ss-opportunity-matrix"
+      aria-label="Opportunity prioritisation matrix"
+    >
       {cells.map(([label, body], index) => (
         <m.article
           key={label}
@@ -518,7 +540,10 @@ export function ApprovedServicePageVisuals({
   const Icon = art.icon;
 
   return (
-    <div className="ss-visual-root ss-approved-service" data-service-variant={art.variant}>
+    <div
+      className="ss-visual-root ss-approved-service"
+      data-service-variant={art.variant}
+    >
       <section className="ss-approved-service__overview">
         <m.div
           className="ss-approved-service__brief"

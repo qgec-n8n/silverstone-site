@@ -183,7 +183,8 @@ function buildExperience(route: FutureRouteRecord): RouteExperience {
     pill: approvedService?.routeEntry.pill ?? pillFor(route, family),
     title: approvedService?.routeEntry.title ?? conciseTitle(route),
     subtitle: approvedService?.routeEntry.subtitle ?? route.description,
-    buttonLabel: approvedService?.routeEntry.buttonLabel ?? buttonLabelFor(route, family),
+    buttonLabel:
+      approvedService?.routeEntry.buttonLabel ?? buttonLabelFor(route, family),
     bodyHeadingId: BODY_FOCUS_TARGET,
     family,
   };
