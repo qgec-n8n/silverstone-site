@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 
 const VOID = "#05070d";
+export const AETHER_PARTICLE_COLOR = "#66E8F0";
 export const AETHER_NETWORK_DEFAULT = "#66E8F0";
 export const AETHER_NETWORK_PROXIMITY = "#F3F7FF";
-const MAX_PARTICLES = 240;
+export const AETHER_POINTER_RADIUS = 200;
 const MAX_DPR = 1.5;
 
 type MouseState = {
-  active: boolean;
   radius: number;
   x: number | null;
   y: number | null;
@@ -15,17 +15,8 @@ type MouseState = {
 
 type Bounds = { height: number; width: number };
 
-type DisplacedParticle = {
-  drawX: number;
-  drawY: number;
-  proximity: number;
-  size: number;
-  source: AetherParticle;
-  x: number;
-  y: number;
-};
-
 export class AetherParticle {
+  color: string;
   directionX: number;
   directionY: number;
   size: number;
@@ -38,28 +29,33 @@ export class AetherParticle {
     directionX: number,
     directionY: number,
     size: number,
+    color = AETHER_PARTICLE_COLOR,
   ) {
     this.x = x;
     this.y = y;
     this.directionX = directionX;
     this.directionY = directionY;
     this.size = size;
+    this.color = color;
   }
 
-  draw(ctx: CanvasRenderingContext2D, color: string, x = this.x, y = this.y) {
+  draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
-    ctx.arc(x, y, this.size, 0, Math.PI * 2, false);
-    ctx.fillStyle = color;
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+    ctx.fillStyle = this.color;
     ctx.fill();
   }
 
-  update(bounds: Bounds) {
+  update(bounds: Bounds, mouse: MouseState) {
     if (this.x > bounds.width || this.x < 0) {
       this.directionX = -this.directionX;
     }
+
     if (this.y > bounds.height || this.y < 0) {
       this.directionY = -this.directionY;
     }
+
+    applyPointerRepulsion(this, mouse);
 
     this.x += this.directionX;
     this.y += this.directionY;
@@ -71,68 +67,50 @@ export function pointerPositionInCanvas(
   rect: Pick<DOMRectReadOnly, "height" | "left" | "top" | "width">,
 ): MouseState {
   if (event.pointerType === "touch") {
-    return { active: false, radius: 0, x: null, y: null };
+    return { radius: AETHER_POINTER_RADIUS, x: null, y: null };
   }
 
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
-  const active = x >= 0 && x <= rect.width && y >= 0 && y <= rect.height;
-  const radius = Math.max(180, Math.min(300, Math.min(rect.width, rect.height) * 0.3));
+  const inside = x >= 0 && x <= rect.width && y >= 0 && y <= rect.height;
 
-  return active ? { active, radius, x, y } : { active: false, radius, x: null, y: null };
+  return inside
+    ? { radius: AETHER_POINTER_RADIUS, x, y }
+    : { radius: AETHER_POINTER_RADIUS, x: null, y: null };
 }
 
-export function displacedParticlePosition(
+export function applyPointerRepulsion(
   particle: AetherParticle,
   mouse: MouseState,
-): DisplacedParticle {
-  if (!mouse.active || mouse.x === null || mouse.y === null) {
-    return {
-      source: particle,
-      size: particle.size,
-      x: particle.x,
-      y: particle.y,
-      drawX: particle.x,
-      drawY: particle.y,
-      proximity: 0,
-    };
+): boolean {
+  if (mouse.x === null || mouse.y === null) {
+    return false;
   }
 
-  const dx = particle.x - mouse.x;
-  const dy = particle.y - mouse.y;
-  const distance = Math.max(Math.sqrt(dx * dx + dy * dy), 0.001);
-  const proximity = Math.max(0, 1 - distance / mouse.radius);
-  if (proximity <= 0) {
-    return {
-      source: particle,
-      size: particle.size,
-      x: particle.x,
-      y: particle.y,
-      drawX: particle.x,
-      drawY: particle.y,
-      proximity: 0,
-    };
+  const deltaX = mouse.x - particle.x;
+  const deltaY = mouse.y - particle.y;
+  const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+  if (distance <= 0 || distance >= mouse.radius + particle.size) {
+    return false;
   }
 
-  const ease = proximity * proximity * (3 - 2 * proximity);
-  const displacement = ease * mouse.radius * 0.56;
-  return {
-    source: particle,
-    size: particle.size,
-    x: particle.x,
-    y: particle.y,
-    drawX: particle.x + (dx / distance) * displacement,
-    drawY: particle.y + (dy / distance) * displacement,
-    proximity,
-  };
+  const forceDirectionX = deltaX / distance;
+  const forceDirectionY = deltaY / distance;
+  const force = (mouse.radius - distance) / mouse.radius;
+
+  particle.x -= forceDirectionX * force * 5;
+  particle.y -= forceDirectionY * force * 5;
+
+  return true;
 }
 
 function hexToRgb(hex: string) {
   const value = hex.replace("#", "");
   return {
-    r: Number.parseInt(value.slice(0, 2), 16),
-    g: Number.parseInt(value.slice(2, 4), 16),
     b: Number.parseInt(value.slice(4, 6), 16),
+    g: Number.parseInt(value.slice(2, 4), 16),
+    r: Number.parseInt(value.slice(0, 2), 16),
   };
 }
 
@@ -156,78 +134,96 @@ export function HeroAetherField({ enabled = true }: { enabled?: boolean }) {
       return undefined;
     }
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
+    const context = canvas.getContext("2d");
+    if (!context) {
       return undefined;
     }
 
     let animationFrameId = 0;
     let particles: AetherParticle[] = [];
     let bounds: Bounds = { height: 1, width: 1 };
-    let dpr = 1;
     let running = false;
-    let mouse: MouseState = { active: false, x: null, y: null, radius: 200 };
+    let mouse: MouseState = {
+      radius: AETHER_POINTER_RADIUS,
+      x: null,
+      y: null,
+    };
 
-    function init() {
+    const initialiseParticles = () => {
       particles = [];
-      const numberOfParticles = Math.min(
-        Math.floor((bounds.height * bounds.width) / 9000),
-        MAX_PARTICLES,
-      );
 
-      for (let i = 0; i < numberOfParticles; i++) {
+      const numberOfParticles = (bounds.height * bounds.width) / 9000;
+
+      for (let index = 0; index < numberOfParticles; index += 1) {
         const size = Math.random() * 2 + 1;
         const x = Math.random() * Math.max(bounds.width - size * 4, 1) + size * 2;
         const y = Math.random() * Math.max(bounds.height - size * 4, 1) + size * 2;
         const directionX = Math.random() * 0.4 - 0.2;
         const directionY = Math.random() * 0.4 - 0.2;
 
-        particles.push(new AetherParticle(x, y, directionX, directionY, size));
+        particles.push(
+          new AetherParticle(x, y, directionX, directionY, size, AETHER_PARTICLE_COLOR),
+        );
       }
-    }
+    };
 
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       bounds = {
         height: Math.max(1, rect.height),
         width: Math.max(1, rect.width),
       };
-      dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       canvas.width = Math.max(1, Math.floor(bounds.width * dpr));
       canvas.height = Math.max(1, Math.floor(bounds.height * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      init();
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      initialiseParticles();
     };
 
-    const connect = (displaced: DisplacedParticle[]) => {
-      const threshold = Math.min((bounds.width / 7) * (bounds.height / 7), 22000);
+    const connectParticles = () => {
+      const connectionThreshold = (bounds.width / 7) * (bounds.height / 7);
 
-      for (let a = 0; a < displaced.length; a++) {
-        for (let b = a + 1; b < displaced.length; b++) {
-          const particleA = displaced[a];
-          const particleB = displaced[b];
-          if (!particleA || !particleB) {
+      for (let firstIndex = 0; firstIndex < particles.length; firstIndex += 1) {
+        for (
+          let secondIndex = firstIndex;
+          secondIndex < particles.length;
+          secondIndex += 1
+        ) {
+          const firstParticle = particles[firstIndex];
+          const secondParticle = particles[secondIndex];
+
+          if (!firstParticle || !secondParticle) {
             continue;
           }
-          const distance =
-            (particleA.drawX - particleB.drawX) * (particleA.drawX - particleB.drawX) +
-            (particleA.drawY - particleB.drawY) * (particleA.drawY - particleB.drawY);
 
-          if (distance < threshold) {
-            const opacityValue = Math.max(0, 1 - distance / threshold);
-            const proximity = Math.max(particleA.proximity, particleB.proximity);
-            const nearPointer = proximity > 0;
+          const distanceSquared =
+            (firstParticle.x - secondParticle.x) *
+              (firstParticle.x - secondParticle.x) +
+            (firstParticle.y - secondParticle.y) * (firstParticle.y - secondParticle.y);
 
-            ctx.strokeStyle = rgba(
-              nearPointer ? AETHER_NETWORK_PROXIMITY : AETHER_NETWORK_DEFAULT,
-              nearPointer ? opacityValue * (0.18 + proximity * 0.45) : opacityValue * 0.68,
+          if (distanceSquared < connectionThreshold) {
+            const opacity = 1 - distanceSquared / 20000;
+            let isNearPointer = false;
+
+            if (mouse.x !== null && mouse.y !== null) {
+              const pointerDeltaX = firstParticle.x - mouse.x;
+              const pointerDeltaY = firstParticle.y - mouse.y;
+              const pointerDistance = Math.sqrt(
+                pointerDeltaX * pointerDeltaX + pointerDeltaY * pointerDeltaY,
+              );
+
+              isNearPointer = pointerDistance < mouse.radius;
+            }
+
+            context.strokeStyle = rgba(
+              isNearPointer ? AETHER_NETWORK_PROXIMITY : AETHER_NETWORK_DEFAULT,
+              opacity,
             );
-
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particleA.drawX, particleA.drawY);
-            ctx.lineTo(particleB.drawX, particleB.drawY);
-            ctx.stroke();
+            context.lineWidth = 1;
+            context.beginPath();
+            context.moveTo(firstParticle.x, firstParticle.y);
+            context.lineTo(secondParticle.x, secondParticle.y);
+            context.stroke();
           }
         }
       }
@@ -237,54 +233,34 @@ export function HeroAetherField({ enabled = true }: { enabled?: boolean }) {
       if (!running) {
         return;
       }
+
       animationFrameId = window.requestAnimationFrame(animate);
 
-      ctx.fillStyle = VOID;
-      ctx.fillRect(0, 0, bounds.width, bounds.height);
+      context.fillStyle = VOID;
+      context.fillRect(0, 0, bounds.width, bounds.height);
 
-      const displaced = particles.map((particle) => {
-        particle.update(bounds);
-        return displacedParticlePosition(particle, mouse);
+      particles.forEach((particle) => {
+        particle.update(bounds, mouse);
+        particle.draw(context);
       });
 
-      if (mouse.active && mouse.x !== null && mouse.y !== null) {
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
-        ctx.fillStyle = rgba(AETHER_NETWORK_PROXIMITY, 0.16);
-        ctx.fill();
-        ctx.strokeStyle = rgba(AETHER_NETWORK_PROXIMITY, 0.58);
-        ctx.lineWidth = 1.4;
-        ctx.setLineDash([8, 10]);
-        ctx.stroke();
-        ctx.setLineDash([]);
-      }
-
-      for (const particle of displaced) {
-        const particleColor =
-          particle.proximity > 0 ? AETHER_NETWORK_PROXIMITY : AETHER_NETWORK_DEFAULT;
-        particle.source.draw(
-          ctx,
-          rgba(particleColor, particleColor === AETHER_NETWORK_DEFAULT ? 0.8 : 0.96),
-          particle.drawX,
-          particle.drawY,
-        );
-      }
-
-      connect(displaced);
+      connectParticles();
     };
 
     const handlePointerMove = (event: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse = pointerPositionInCanvas(event, rect);
+      mouse = pointerPositionInCanvas(event, canvas.getBoundingClientRect());
     };
 
     const handleMouseMove = (event: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse = pointerPositionInCanvas(event, rect);
+      mouse = pointerPositionInCanvas(event, canvas.getBoundingClientRect());
     };
 
-    const handlePointerLeave = () => {
-      mouse = { active: false, x: null, y: null, radius: mouse.radius };
+    const clearPointer = () => {
+      mouse = {
+        radius: AETHER_POINTER_RADIUS,
+        x: null,
+        y: null,
+      };
     };
 
     const stop = () => {
@@ -311,10 +287,11 @@ export function HeroAetherField({ enabled = true }: { enabled?: boolean }) {
 
     const observer = new ResizeObserver(resizeCanvas);
     observer.observe(canvas);
+    window.addEventListener("resize", resizeCanvas);
     window.addEventListener("pointermove", handlePointerMove);
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("pointerout", handlePointerLeave);
-    window.addEventListener("mouseout", handlePointerLeave);
+    window.addEventListener("pointerout", clearPointer);
+    window.addEventListener("mouseout", clearPointer);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     resizeCanvas();
@@ -323,10 +300,11 @@ export function HeroAetherField({ enabled = true }: { enabled?: boolean }) {
     return () => {
       stop();
       observer.disconnect();
+      window.removeEventListener("resize", resizeCanvas);
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("pointerout", handlePointerLeave);
-      window.removeEventListener("mouseout", handlePointerLeave);
+      window.removeEventListener("pointerout", clearPointer);
+      window.removeEventListener("mouseout", clearPointer);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [enabled]);
