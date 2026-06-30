@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
+import * as m from "motion/react-m";
 
-import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
+import { motionViewport, revealVariants } from "~/motion";
 
 type RevealSectionProps = {
   children: ReactNode;
@@ -19,20 +20,19 @@ export function RevealSection({
   className,
   enabled = true,
 }: RevealSectionProps) {
-  const { ref, revealed } = useSectionReveal();
-
   if (!enabled) {
     return className ? <div className={className}>{children}</div> : <>{children}</>;
   }
 
   return (
-    <div
+    <m.div
       className={className}
-      data-reveal=""
-      data-revealed={revealed ? "true" : undefined}
-      ref={ref}
+      initial="hidden"
+      variants={revealVariants}
+      viewport={motionViewport.standard}
+      whileInView="show"
     >
       {children}
-    </div>
+    </m.div>
   );
 }

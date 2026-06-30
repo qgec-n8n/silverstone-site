@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
+import * as m from "motion/react-m";
 
-import { usePageTransition } from "~/visual/hooks/use-page-transition";
+import { routeTransitionVariants } from "~/motion";
 
 type PageEntryProps = {
   children: ReactNode;
@@ -8,18 +9,23 @@ type PageEntryProps = {
 };
 
 /**
- * Wraps a route's main content in the one-shot page-entry transition, mirroring
- * the prototype's page-entry settle. When disabled (e.g. the home route, which
- * owns its own hero motion) it renders children untouched. The hidden initial
- * state is gated in CSS behind `html[data-js="on"]` and reduced-motion, so
- * content is always present without JS or under reduced motion.
+ * Marks route content that participates in the global app-shell route
+ * transition. The actual entrance/exit choreography is owned by AppShell so
+ * there is one route-transition system instead of nested page timers.
  */
 export function PageEntry({ children, enabled = true }: PageEntryProps) {
-  const { className } = usePageTransition();
-
   if (!enabled) {
     return <>{children}</>;
   }
 
-  return <div className={className}>{children}</div>;
+  return (
+    <m.div
+      animate="enter"
+      data-page-entry=""
+      initial="initial"
+      variants={routeTransitionVariants}
+    >
+      {children}
+    </m.div>
+  );
 }

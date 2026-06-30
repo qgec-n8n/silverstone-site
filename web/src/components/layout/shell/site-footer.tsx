@@ -2,17 +2,14 @@ import { Link } from "react-router";
 import { ArrowUpRight, MapPin } from "~/components/icons/lucide";
 
 import { Container } from "~/components/layout/container";
-import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
 
 import { FOOTER_COLUMNS, PRIMARY_CTA } from "./nav-data";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
 export function SiteFooter() {
-  const { ref, revealed } = useSectionReveal();
-
   return (
-    <footer className="ss-footer" data-revealed={revealed} ref={ref}>
+    <footer className="ss-footer">
       <div aria-hidden className="ss-footer__sweep" />
       <div aria-hidden className="ss-footer__lines" />
       <Container className="relative py-16 lg:py-20" size="wide">

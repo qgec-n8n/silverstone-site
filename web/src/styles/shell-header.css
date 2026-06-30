@@ -45,8 +45,8 @@
   );
 }
 
-/* Animated active-route indicator — a signal-gradient underline that grows from
-   the centre on hover/focus and stays lit for the current route. */
+/* Hover/focus hint only. The active route indicator is a Motion shared-layout
+   element rendered in the header so it can move spatially between items. */
 [data-site-header] [data-nav-item] {
   position: relative;
 }
@@ -68,8 +68,7 @@
 }
 
 [data-site-header] [data-nav-item]:hover::after,
-[data-site-header] [data-nav-item]:focus-visible::after,
-[data-site-header] [data-nav-item][data-active]::after {
+[data-site-header] [data-nav-item]:focus-visible::after {
   transform: scaleX(1);
   opacity: 1;
 }

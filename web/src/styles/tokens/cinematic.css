@@ -454,35 +454,6 @@
     text-shadow: 0 0 18px color-mix(in srgb, var(--ss-v2-signal-cyan) 32%, transparent);
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    /* Staggered link-column reveal — progressive enhancement only. Without JS
-       or under reduced motion the columns are fully present. */
-    html[data-js="on"] .ss-footer__col {
-      opacity: 0;
-      transform: translateY(18px);
-      transition:
-        opacity var(--ss-motion-duration-slow) var(--ss-motion-easing-enter),
-        transform var(--ss-motion-duration-slow) var(--ss-motion-easing-enter);
-    }
-
-    html[data-js="on"] .ss-footer__col:nth-child(2) {
-      transition-delay: 0.08s;
-    }
-
-    html[data-js="on"] .ss-footer__col:nth-child(3) {
-      transition-delay: 0.16s;
-    }
-
-    html[data-js="on"] .ss-footer__col:nth-child(4) {
-      transition-delay: 0.24s;
-    }
-
-    html[data-js="on"] .ss-footer[data-revealed="true"] .ss-footer__col {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .ss-footer__sweep::after,
     .ss-footer__lines {

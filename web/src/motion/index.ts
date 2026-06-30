@@ -13,8 +13,17 @@ export {
   motionViewport,
 } from "./tokens";
 export {
+  cardInteractionVariants,
+  faqContentVariants,
+  menuItemVariants,
+  menuPanelVariants,
+  mobileOverlayVariants,
+  mobilePanelVariants,
+  pressableVariants,
   revealVariants,
   routeTransitionVariants,
+  shellRouteVariants,
   staggerGroupVariants,
 } from "./variants";
 export { MotionSection, Reveal, StaggerGroup, StaggerItem } from "./primitives/reveal";
+export { usePageInView } from "./use-page-in-view";

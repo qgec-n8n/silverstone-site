@@ -6,12 +6,27 @@ import {
   useRef,
   useState,
 } from "react";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  useMotionValue,
+  useMotionValueEvent,
+  type Variants,
+} from "motion/react";
+import * as m from "motion/react-m";
 import { Link, useLocation } from "react-router";
 import { ArrowUpRight, ChevronDown, Menu, X } from "~/components/icons/lucide";
 
 import { useAppExperience } from "~/app/experience/app-experience";
 import { Container } from "~/components/layout/container";
 import { cn } from "~/lib/utils";
+import {
+  menuItemVariants,
+  menuPanelVariants,
+  mobileOverlayVariants,
+  mobilePanelVariants,
+  pressableVariants,
+} from "~/motion";
 
 import { BrandLockup } from "./brand-lockup";
 import {
@@ -23,13 +38,37 @@ import {
 } from "./nav-data";
 
 const TRIGGER_CLASS =
-  "ss-focus-ring inline-flex items-center gap-1 rounded-[var(--ss-radius-pill)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]";
+  "ss-focus-ring ss-transition-interactive relative inline-flex items-center gap-1 rounded-[var(--ss-radius-pill)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]";
 
 const ctaClass =
-  "ss-focus-ring ss-transition-interactive inline-flex min-h-11 items-center gap-1.5 rounded-[var(--ss-radius-pill)] bg-[var(--ss-v2-signal-cyan)] px-5 text-sm font-semibold text-[#05070a] hover:-translate-y-px hover:shadow-[var(--ss-v2-glow-cyan)]";
+  "ss-focus-ring ss-transition-interactive inline-flex min-h-11 items-center gap-1.5 rounded-[var(--ss-radius-pill)] bg-[var(--ss-v2-signal-cyan)] px-5 text-sm font-semibold text-[#05070a] hover:shadow-[var(--ss-v2-glow-cyan)]";
+
+const headerMotionVariants: Variants = {
+  rest: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] },
+  },
+  hidden: {
+    opacity: 0,
+    y: "-100%",
+    transition: { duration: 0.18, ease: [0.4, 0, 1, 1] },
+  },
+};
 
 function isActive(menu: NavMenu, path: string): boolean {
   return path === menu.href || menu.items.some((item) => item.href === path);
+}
+
+function ActiveNavIndicator() {
+  return (
+    <m.span
+      aria-hidden
+      className="absolute inset-x-3 bottom-1 h-0.5 rounded-full bg-[var(--ss-v2-gradient-signal)]"
+      layoutId="ss-primary-nav-indicator"
+      transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.7 }}
+    />
+  );
 }
 
 function ServicesPanel({ menu }: { menu: NavMenu }) {
@@ -38,27 +77,28 @@ function ServicesPanel({ menu }: { menu: NavMenu }) {
       {menu.items.map((item) => {
         const Icon = item.icon;
         return (
-          <Link
-            className="ss-focus-ring group flex items-start gap-3 rounded-[var(--ss-radius-md)] p-3 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
-            key={item.href}
-            to={item.href}
-          >
-            {Icon ? (
-              <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_10%,#ffffff)] text-[color:var(--ss-v2-header-accent)]">
-                <Icon className="size-4" />
-              </span>
-            ) : null}
-            <span className="flex flex-col gap-0.5">
-              <span className="text-sm font-semibold text-[color:var(--ss-v2-header-text-strong)]">
-                {item.label}
-              </span>
-              {item.description ? (
-                <span className="text-body-sm text-[color:var(--ss-v2-header-muted)]">
-                  {item.description}
+          <m.div key={item.href} variants={menuItemVariants}>
+            <Link
+              className="ss-focus-ring group flex items-start gap-3 rounded-[var(--ss-radius-md)] p-3 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
+              to={item.href}
+            >
+              {Icon ? (
+                <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_10%,#ffffff)] text-[color:var(--ss-v2-header-accent)]">
+                  <Icon className="size-4" />
                 </span>
               ) : null}
-            </span>
-          </Link>
+              <span className="flex flex-col gap-0.5">
+                <span className="text-sm font-semibold text-[color:var(--ss-v2-header-text-strong)]">
+                  {item.label}
+                </span>
+                {item.description ? (
+                  <span className="text-body-sm text-[color:var(--ss-v2-header-muted)]">
+                    {item.description}
+                  </span>
+                ) : null}
+              </span>
+            </Link>
+          </m.div>
         );
       })}
     </div>
@@ -69,13 +109,14 @@ function IndustriesPanel({ menu }: { menu: NavMenu }) {
   return (
     <div className="grid w-[min(88vw,26rem)] grid-cols-1 gap-x-4 gap-y-0.5 sm:grid-cols-2">
       {menu.items.map((item) => (
-        <Link
-          className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]"
-          key={item.href}
-          to={item.href}
-        >
-          {item.label}
-        </Link>
+        <m.div key={item.href} variants={menuItemVariants}>
+          <Link
+            className="ss-focus-ring block rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]"
+            to={item.href}
+          >
+            {item.label}
+          </Link>
+        </m.div>
       ))}
     </div>
   );
@@ -87,6 +128,7 @@ type HeaderMenuProps = {
   menu: NavMenu;
   onClose: () => void;
   onOpen: () => void;
+  showIndicator: boolean;
   variant: "cards" | "columns";
 };
 
@@ -96,6 +138,7 @@ function HeaderMenu({
   menu,
   onClose,
   onOpen,
+  showIndicator,
   variant,
 }: HeaderMenuProps) {
   const panelId = useId();
@@ -121,7 +164,7 @@ function HeaderMenu({
       onPointerEnter={onOpen}
       onPointerLeave={onClose}
     >
-      <button
+      <m.button
         aria-controls={panelId}
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -132,45 +175,55 @@ function HeaderMenu({
         )}
         data-active={active || undefined}
         data-nav-item=""
+        initial="rest"
         onClick={() => (isOpen ? onClose() : onOpen())}
         ref={triggerRef}
         type="button"
+        variants={pressableVariants}
+        whileHover="hover"
+        whileTap="tap"
       >
         {menu.label}
         <ChevronDown
           aria-hidden
           className={cn("size-4 ss-transition-interactive", isOpen && "rotate-180")}
         />
-      </button>
-      <div
-        aria-label={menu.label}
-        className={cn(
-          "absolute top-[calc(100%-0.25rem)] left-0 pt-3 ss-transition-panel",
-          isOpen
-            ? "visible translate-y-0 opacity-100"
-            : "pointer-events-none invisible -translate-y-1 opacity-0",
-        )}
-        id={panelId}
-        role="region"
-      >
-        <div
-          className="rounded-[var(--ss-radius-lg)] border border-[color:var(--ss-v2-header-panel-border)] bg-[var(--ss-v2-header-panel)] p-3 shadow-[var(--ss-v2-header-shadow)]"
-          data-mega-panel=""
-        >
-          {variant === "cards" ? (
-            <ServicesPanel menu={menu} />
-          ) : (
-            <IndustriesPanel menu={menu} />
-          )}
-          <Link
-            className="ss-focus-ring mt-2 flex items-center gap-1.5 rounded-[var(--ss-radius-sm)] border-t border-[color:var(--ss-v2-header-panel-border)] px-3 pt-3 pb-1 text-sm font-semibold text-[color:var(--ss-v2-header-accent)] no-underline ss-transition-interactive hover:gap-2.5"
-            to={menu.href}
+        {showIndicator ? <ActiveNavIndicator /> : null}
+      </m.button>
+      <AnimatePresence>
+        {isOpen ? (
+          <m.div
+            animate="open"
+            aria-label={menu.label}
+            className="absolute top-[calc(100%-0.25rem)] left-0 pt-3"
+            exit="closed"
+            id={panelId}
+            initial="closed"
+            role="region"
+            variants={menuPanelVariants}
           >
-            {menu.viewAllLabel}
-            <ArrowUpRight aria-hidden className="size-4" />
-          </Link>
-        </div>
-      </div>
+            <div
+              className="rounded-[var(--ss-radius-lg)] border border-[color:var(--ss-v2-header-panel-border)] bg-[var(--ss-v2-header-panel)] p-3 shadow-[var(--ss-v2-header-shadow)]"
+              data-mega-panel=""
+            >
+              {variant === "cards" ? (
+                <ServicesPanel menu={menu} />
+              ) : (
+                <IndustriesPanel menu={menu} />
+              )}
+              <m.div variants={menuItemVariants}>
+                <Link
+                  className="ss-focus-ring mt-2 flex items-center gap-1.5 rounded-[var(--ss-radius-sm)] border-t border-[color:var(--ss-v2-header-panel-border)] px-3 pt-3 pb-1 text-sm font-semibold text-[color:var(--ss-v2-header-accent)] no-underline ss-transition-interactive hover:gap-2.5"
+                  to={menu.href}
+                >
+                  {menu.viewAllLabel}
+                  <ArrowUpRight aria-hidden className="size-4" />
+                </Link>
+              </m.div>
+            </div>
+          </m.div>
+        ) : null}
+      </AnimatePresence>
     </li>
   );
 }
@@ -178,17 +231,13 @@ function HeaderMenu({
 type MobileDrawerProps = {
   currentPath: string;
   onClose: () => void;
-  open: boolean;
 };
 
-function MobileDrawer({ currentPath, onClose, open }: MobileDrawerProps) {
+function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const previousOverflowRef = useRef("");
 
   useEffect(() => {
-    if (!open) {
-      return;
-    }
-
     const node = dialogRef.current;
     const previouslyFocused = document.activeElement as HTMLElement | null;
     const getFocusable = () =>
@@ -198,6 +247,7 @@ function MobileDrawer({ currentPath, onClose, open }: MobileDrawerProps) {
       );
 
     getFocusable()[0]?.focus();
+    previousOverflowRef.current = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
     function onKeyDown(event: KeyboardEvent) {
@@ -231,38 +281,34 @@ function MobileDrawer({ currentPath, onClose, open }: MobileDrawerProps) {
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflowRef.current;
       previouslyFocused?.focus();
     };
-  }, [open, onClose]);
+  }, [onClose]);
 
   return (
-    <div
-      className={cn(
-        "fixed inset-0 z-[500] lg:hidden",
-        open ? "visible" : "pointer-events-none invisible",
-      )}
+    <m.div
+      animate="open"
+      className="fixed inset-0 z-[500] lg:hidden"
+      exit="closed"
       id="mobile-nav"
+      initial="closed"
     >
-      <button
+      <m.button
         aria-label="Close menu"
-        className={cn(
-          "absolute inset-0 h-full w-full cursor-default bg-[color-mix(in_srgb,var(--ss-v2-void-black)_72%,transparent)] backdrop-blur-sm ss-transition-panel",
-          open ? "opacity-100" : "opacity-0",
-        )}
+        className="absolute inset-0 h-full w-full cursor-default bg-[color-mix(in_srgb,var(--ss-v2-void-black)_72%,transparent)] backdrop-blur-sm"
         onClick={onClose}
         tabIndex={-1}
         type="button"
+        variants={mobileOverlayVariants}
       />
-      <div
+      <m.div
         aria-label="Site menu"
         aria-modal="true"
-        className={cn(
-          "ss-void-bg absolute inset-y-0 right-0 flex w-[min(92vw,26rem)] flex-col border-l border-[color:var(--ss-v2-hairline)] ss-transition-panel",
-          open ? "translate-x-0" : "translate-x-full",
-        )}
+        className="ss-void-bg absolute inset-y-0 right-0 flex w-[min(92vw,26rem)] flex-col border-l border-[color:var(--ss-v2-hairline)]"
         ref={dialogRef}
         role="dialog"
+        variants={mobilePanelVariants}
       >
         <div className="ss-hairline-b flex h-[var(--ss-layout-header)] shrink-0 items-center justify-between px-5">
           <BrandLockup tone="onDark" />
@@ -287,6 +333,7 @@ function MobileDrawer({ currentPath, onClose, open }: MobileDrawerProps) {
                   <Link
                     className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm text-titanium no-underline hover:text-platinum"
                     key={item.href}
+                    onClick={onClose}
                     to={item.href}
                   >
                     {item.label}
@@ -294,6 +341,7 @@ function MobileDrawer({ currentPath, onClose, open }: MobileDrawerProps) {
                 ))}
                 <Link
                   className="ss-focus-ring px-3 py-2 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
+                  onClick={onClose}
                   to={menu.href}
                 >
                   {menu.viewAllLabel}
@@ -312,6 +360,7 @@ function MobileDrawer({ currentPath, onClose, open }: MobileDrawerProps) {
                     : "text-titanium hover:text-platinum",
                 )}
                 key={link.href}
+                onClick={onClose}
                 to={link.href}
               >
                 {link.label}
@@ -320,13 +369,17 @@ function MobileDrawer({ currentPath, onClose, open }: MobileDrawerProps) {
           </div>
         </nav>
         <div className="ss-hairline-t shrink-0 p-5">
-          <Link className={cn(ctaClass, "w-full justify-center")} to={PRIMARY_CTA.href}>
+          <Link
+            className={cn(ctaClass, "w-full justify-center")}
+            onClick={onClose}
+            to={PRIMARY_CTA.href}
+          >
             {PRIMARY_CTA.label}
             <ArrowUpRight aria-hidden className="size-4" />
           </Link>
         </div>
-      </div>
-    </div>
+      </m.div>
+    </m.div>
   );
 }
 
@@ -338,13 +391,14 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const location = useLocation();
   const { headerHidden } = useAppExperience();
   const headerRef = useRef<HTMLElement>(null);
-  const [scrolled, setScrolled] = useState(false);
+  const scrollY = useMotionValue(typeof window !== "undefined" ? window.scrollY : 0);
+  const [scrolled, setScrolled] = useState(
+    () => typeof window !== "undefined" && window.scrollY > 12,
+  );
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lastPath, setLastPath] = useState(location.pathname);
 
-  // Adjust state during render (React's recommended pattern) to close any open
-  // menu/drawer when the route changes, without a cascading effect.
   if (location.pathname !== lastPath) {
     setLastPath(location.pathname);
     setOpenMenu(null);
@@ -353,23 +407,28 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
 
   useEffect(() => {
     let frame = 0;
-    function onScroll() {
+    const updateScrollValue = () => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => setScrolled(window.scrollY > 12));
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+      frame = requestAnimationFrame(() => {
+        scrollY.set(window.scrollY);
+      });
+    };
+
+    updateScrollValue();
+    window.addEventListener("scroll", updateScrollValue, { passive: true });
+
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", updateScrollValue);
     };
-  }, []);
+  }, [scrollY]);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 12);
+  });
 
   const elevated = scrolled || openMenu !== null;
 
-  // Mirror the coordinator's hidden state onto `inert` so the lifted header is
-  // fully removed from the tab order and the a11y tree while it is off-screen
-  // (CSS handles the visual lift; `inert` handles focus + assistive tech).
   useEffect(() => {
     const node = headerRef.current;
     if (node) {
@@ -378,17 +437,20 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   }, [headerHidden]);
 
   return (
-    <header
+    <m.header
+      animate={headerHidden ? "hidden" : "rest"}
       aria-hidden={headerHidden || undefined}
       className={cn(
-        "fixed inset-x-0 top-0 z-[400] h-[var(--ss-layout-header)] border-b ss-transition-panel",
+        "fixed inset-x-0 top-0 z-[400] h-[var(--ss-layout-header)] border-b",
         elevated
           ? "border-[color:var(--ss-v2-header-border-strong)] bg-[var(--ss-v2-header-surface-scroll)] shadow-[var(--ss-v2-header-shadow)]"
           : "border-[color:var(--ss-v2-header-border)] bg-[var(--ss-v2-header-surface)]",
       )}
       data-scrolled={scrolled}
       data-site-header=""
+      initial={false}
       ref={headerRef}
+      variants={headerMotionVariants}
     >
       <Container className="flex h-full items-center gap-6" size="wide">
         <BrandLockup
@@ -396,68 +458,105 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
           emblemClassName="h-[3.25rem] w-auto lg:h-[4.75rem]"
           tone="onLight"
         />
-        <nav aria-label="Primary" className="hidden items-center lg:flex">
-          <ul className="flex items-center gap-1">
-            <HeaderMenu
-              currentPath={location.pathname}
-              isOpen={openMenu === "services"}
-              menu={SERVICES_MENU}
-              onClose={() => setOpenMenu(null)}
-              onOpen={() => setOpenMenu("services")}
-              variant="cards"
-            />
-            <HeaderMenu
-              currentPath={location.pathname}
-              isOpen={openMenu === "industries"}
-              menu={INDUSTRIES_MENU}
-              onClose={() => setOpenMenu(null)}
-              onOpen={() => setOpenMenu("industries")}
-              variant="columns"
-            />
-            {PRIMARY_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  aria-current={location.pathname === link.href ? "page" : undefined}
-                  className={cn(
-                    TRIGGER_CLASS,
-                    location.pathname === link.href &&
-                      "text-[color:var(--ss-v2-header-accent)]",
-                  )}
-                  data-active={location.pathname === link.href || undefined}
-                  data-nav-item=""
-                  to={link.href}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <LayoutGroup id="ss-primary-nav">
+          <nav aria-label="Primary" className="hidden items-center lg:flex">
+            <ul className="flex items-center gap-1">
+              <HeaderMenu
+                currentPath={location.pathname}
+                isOpen={openMenu === "services"}
+                menu={SERVICES_MENU}
+                onClose={() => setOpenMenu(null)}
+                onOpen={() => setOpenMenu("services")}
+                showIndicator={
+                  openMenu === "services" ||
+                  (openMenu === null && isActive(SERVICES_MENU, location.pathname))
+                }
+                variant="cards"
+              />
+              <HeaderMenu
+                currentPath={location.pathname}
+                isOpen={openMenu === "industries"}
+                menu={INDUSTRIES_MENU}
+                onClose={() => setOpenMenu(null)}
+                onOpen={() => setOpenMenu("industries")}
+                showIndicator={
+                  openMenu === "industries" ||
+                  (openMenu === null && isActive(INDUSTRIES_MENU, location.pathname))
+                }
+                variant="columns"
+              />
+              {PRIMARY_LINKS.map((link) => {
+                const active = location.pathname === link.href;
+                const showIndicator = openMenu === null && active;
+                return (
+                  <li key={link.href}>
+                    <m.div
+                      initial="rest"
+                      variants={pressableVariants}
+                      whileHover="hover"
+                      whileTap="tap"
+                    >
+                      <Link
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                          TRIGGER_CLASS,
+                          active && "text-[color:var(--ss-v2-header-accent)]",
+                        )}
+                        data-active={active || undefined}
+                        data-nav-item=""
+                        to={link.href}
+                      >
+                        {link.label}
+                        {showIndicator ? <ActiveNavIndicator /> : null}
+                      </Link>
+                    </m.div>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </LayoutGroup>
         <div className="ml-auto flex items-center gap-2">
-          <Link className={cn(ctaClass, "hidden lg:inline-flex")} to={PRIMARY_CTA.href}>
-            {PRIMARY_CTA.label}
-            <ArrowUpRight aria-hidden className="size-4" />
-          </Link>
-          <button
+          <m.div
+            className="hidden lg:block"
+            initial="rest"
+            variants={pressableVariants}
+            whileHover="hover"
+            whileTap="tap"
+          >
+            <Link className={ctaClass} to={PRIMARY_CTA.href}>
+              {PRIMARY_CTA.label}
+              <ArrowUpRight aria-hidden className="size-4" />
+            </Link>
+          </m.div>
+          <m.button
             aria-controls="mobile-nav"
             aria-expanded={mobileOpen}
             aria-label="Open menu"
             className="ss-focus-ring grid size-11 place-items-center rounded-[var(--ss-radius-pill)] border border-[color:var(--ss-v2-header-border-strong)] text-[color:var(--ss-v2-header-text)] ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] lg:hidden"
+            initial="rest"
             onClick={() => setMobileOpen(true)}
             type="button"
+            variants={pressableVariants}
+            whileHover="hover"
+            whileTap="tap"
           >
             <Menu aria-hidden className="size-5" />
-          </button>
+          </m.button>
         </div>
       </Container>
       {pendingIndicator ? (
         <div className="absolute inset-x-0 bottom-0">{pendingIndicator}</div>
       ) : null}
-      <MobileDrawer
-        currentPath={location.pathname}
-        onClose={() => setMobileOpen(false)}
-        open={mobileOpen}
-      />
-    </header>
+      <AnimatePresence>
+        {mobileOpen ? (
+          <MobileDrawer
+            currentPath={location.pathname}
+            key="mobile-nav"
+            onClose={() => setMobileOpen(false)}
+          />
+        ) : null}
+      </AnimatePresence>
+    </m.header>
   );
 }

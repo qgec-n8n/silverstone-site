@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { useEffect } from "react";
 import { MemoryRouter } from "react-router";
 import { describe, expect, it } from "vitest";
@@ -8,6 +9,7 @@ import {
   useAppExperience,
 } from "~/app/experience/app-experience";
 import { AppShell } from "~/components/layout/app-shell";
+import { MotionProvider } from "~/motion";
 
 // The header is intentionally inert + aria-hidden while the opening loader is up.
 // Dismiss it on mount so this landmark test asserts against the post-loader
@@ -28,12 +30,14 @@ describe("AppShell", () => {
     // gating applies to this landmark assertion.
     render(
       <MemoryRouter initialEntries={["/about"]}>
-        <AppExperienceProvider>
-          <DismissLoader />
-          <AppShell>
-            <h1>Foundation content</h1>
-          </AppShell>
-        </AppExperienceProvider>
+        <MotionProvider>
+          <AppExperienceProvider>
+            <DismissLoader />
+            <AppShell>
+              <h1>Foundation content</h1>
+            </AppShell>
+          </AppExperienceProvider>
+        </MotionProvider>
       </MemoryRouter>,
     );
 
@@ -47,5 +51,35 @@ describe("AppShell", () => {
       screen.getByRole("heading", { name: "Foundation content" }),
     );
     expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+  });
+
+  it("locks body scroll while the mobile menu is open and restores it on Escape", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <MemoryRouter initialEntries={["/about"]}>
+        <MotionProvider>
+          <AppExperienceProvider>
+            <DismissLoader />
+            <AppShell>
+              <h1>Foundation content</h1>
+            </AppShell>
+          </AppExperienceProvider>
+        </MotionProvider>
+      </MemoryRouter>,
+    );
+
+    const menuButton = screen.getByRole("button", { name: /open menu/i });
+    await user.click(menuButton);
+
+    expect(screen.getByRole("dialog", { name: /site menu/i })).toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("hidden");
+
+    await user.keyboard("{Escape}");
+
+    await waitFor(() => {
+      expect(document.body.style.overflow).toBe("");
+    });
+    expect(menuButton).toHaveFocus();
   });
 });
