@@ -336,6 +336,31 @@ html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
   overflow: hidden;
 }
 
+.ss-route-experience {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background: var(--ss-v2-void-black);
+  color: var(--ss-v2-platinum);
+}
+
+.ss-route-experience[data-route-experience-state="loading"],
+.ss-route-experience[data-route-experience-state="intro"],
+.ss-route-experience[data-route-experience-state="opening"],
+.ss-route-experience[data-route-experience-state="closing"] {
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+html[data-js="on"]
+  .ss-service-experience:not([data-service-state="body"])
+  .ss-service-experience__body,
+html[data-js="on"]
+  .ss-route-experience:not([data-route-experience-state="body"])
+  .ss-route-experience__body {
+  display: none;
+}
+
 .ss-service-intro {
   position: relative;
   display: flex;

@@ -1,7 +1,7 @@
 # Silverstone Project State
 
 **Last updated:** 2026-06-30
-**Current phase:** `/web` homepage two-state recovery repaired and verified; legacy root remains frozen.
+**Current phase:** `/web` route-entry experience generalized and verified; legacy root remains frozen.
 **Branch:** `main` tracking `origin/main`.  
 **Remote:** `origin https://github.com/qgec-n8n/silverstone-site.git`.  
 **Pre-existing uncommitted user change:** `.codex/config.toml` modified before this documentation pass; left untouched.
@@ -12,6 +12,17 @@
 - Active rebuild target is `/web`, a React Router/Vite app with TypeScript, React 19, Tailwind CSS 4, shadcn/ui configuration, GSAP for exceptional choreography, Motion 12.40.0 as the primary React animation platform, Three/WebGL/shader assets, local integration icons, route manifests, generated migrated content, tests, and staging-safety scripts.
 - Production Netlify root remains configured by `netlify.toml` with root publish and legacy build commands. This pass made no production configuration change.
 - Ignored local generated residue exists on disk: `web/node_modules/`, `web/build/`, `web/.react-router/`, `web/test-results/`, and several `.DS_Store`/log files. None are tracked and none are staged.
+
+## 2026-06-30 Route Entry Experience Pass
+
+- Generalized the protected homepage CoreSpin/Aether/button/body/reverse-X sequence into a route-entry framework for non-home `/web` routes.
+- Added route-specific loader, pill, subtitle, and button copy through `web/src/data/route-experiences.ts`, with unit coverage requiring registry coverage for every governed `futureRouteManifest` path.
+- Kept the homepage-only button label `Explore the system`; non-home routes use route-specific labels.
+- Added narrow app-layer compatibility aliases for the prompt-named `/services/website-design-development` and `/services/ai-agents-automation`, while preserving governed canonicals `/services/web-design-development` and `/services/ai-automation` for metadata, internal links, sitemap sources, and route governance.
+- Extracted selected exact-filename images from `/Users/quentingeczy/Downloads/Images-Approved.zip` into `web/public/approved-images/` and recorded active usage in `web/src/data/service-image-manifest.ts`.
+- Converted the approved benchmark CSV at `attached_assets/silverstone_ai_agency_performance_metrics_23_6_2026_1782315909364.csv` into `web/src/data/generated/benchmark-metrics.json` and service metric selectors with a visible benchmark disclaimer.
+- Added reserved, non-live demo placeholders for website preview, ElevenLabs call, AI chat, and illustrative transcript surfaces without credentials, live IDs, live calls, appointments, or fabricated outcomes.
+- Added route-entry browser coverage for direct entry, loader replay, intro isolation, body reveal, reverse return, reload replay, client navigation replay, desktop/mobile representatives, and prompt alias resolution.
 
 ## 2026-06-30 Pre-Prompt-5 Homepage Recovery
 

@@ -15,7 +15,9 @@ import { TextLink } from "~/components/ui/text-link";
 import type { MigratedContentRecord } from "~/content/migrated";
 import { futureRouteManifest } from "~/data/future-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
+import { getRouteExperienceByPath } from "~/data/route-experiences";
 import { MigratedContentRenderer } from "~/routes/templates/migrated-content-renderer";
+import { RouteExperienceFrame } from "~/routes/templates/route-experience-frame";
 import { buildRouteSchemaGraph, serializeJsonLd } from "~/seo/schema";
 import { PageEntry } from "~/visual/components/page-entry";
 import { RevealSection } from "~/visual/components/reveal-section";
@@ -25,6 +27,7 @@ type RoutePageFrameProps = {
   content: MigratedContentRecord | null;
   emitSchema?: boolean;
   eyebrow: string;
+  entryExperience?: boolean;
   route: FutureRouteRecord;
 };
 
@@ -33,6 +36,7 @@ export function RoutePageFrame({
   content,
   emitSchema = true,
   eyebrow,
+  entryExperience = true,
   route,
 }: RoutePageFrameProps) {
   const routeById = new Map(
@@ -45,7 +49,7 @@ export function RoutePageFrame({
   const schema = buildRouteSchemaGraph(route);
   const motionEnabled = route.path !== "/";
 
-  return (
+  const page = (
     <PageEntry enabled={motionEnabled}>
       <PageSection
         data-content-id={route.contentId}
@@ -121,5 +125,14 @@ export function RoutePageFrame({
         </Container>
       </PageSection>
     </PageEntry>
+  );
+
+  return (
+    <RouteExperienceFrame
+      enabled={entryExperience && route.path !== "/"}
+      experience={getRouteExperienceByPath(route.path)}
+    >
+      {page}
+    </RouteExperienceFrame>
   );
 }

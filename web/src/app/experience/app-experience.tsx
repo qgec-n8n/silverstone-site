@@ -10,12 +10,12 @@ import {
 } from "react";
 import { useLocation } from "react-router";
 
-import { getFutureRouteByPath } from "~/data/future-routes";
+import { getCanonicalRouteExperienceByPath } from "~/data/route-experiences";
 
 /**
  * AppExperience coordinates the opening sequence shared by every route:
  *
- *   loader gate -> (homepage) isolated intro -> Explore morph -> body
+ *   loader gate -> route intro -> Explore morph -> body
  *                                                  ^              |
  *                                                  |____ close ___|
  *
@@ -32,14 +32,19 @@ import { getFutureRouteByPath } from "~/data/future-routes";
  */
 
 export type HomepageState = "loading" | "intro" | "opening" | "body" | "closing";
-export type ServiceExperienceState = "intro" | "opening" | "body" | "closing";
+export type RouteExperienceState = "loading" | "intro" | "opening" | "body" | "closing";
+export type ServiceExperienceState = RouteExperienceState;
 
 type AppExperienceValue = {
   loaderActive: boolean;
   homepageState: HomepageState;
+  routeExperienceState: RouteExperienceState;
   serviceExperienceState: ServiceExperienceState;
   homepageHeroLocked: boolean;
   homepageBodyActive: boolean;
+  routeExperienceActive: boolean;
+  routeIntroLocked: boolean;
+  routeBodyActive: boolean;
   serviceRouteActive: boolean;
   serviceIntroLocked: boolean;
   serviceBodyActive: boolean;
@@ -52,6 +57,10 @@ type AppExperienceValue = {
   completeHomepageOpening: () => void;
   closeHomepageBody: () => void;
   completeHomepageClosing: () => void;
+  openRouteBody: () => void;
+  completeRouteOpening: () => void;
+  closeRouteBody: () => void;
+  completeRouteClosing: () => void;
   openServiceBody: () => void;
   completeServiceOpening: () => void;
   closeServiceBody: () => void;
@@ -93,26 +102,33 @@ function normalizePathname(pathname: string): string {
     : normalized;
 }
 
-function isServiceExperienceRoute(pathname: string): boolean {
-  const route = getFutureRouteByPath(normalizePathname(pathname));
+function isRouteExperienceRoute(pathname: string): boolean {
+  const normalizedPath = normalizePathname(pathname);
 
-  return route?.routeGroup === "services" && route.template === "service";
+  return normalizedPath !== "/";
+}
+
+function isServiceExperienceRoute(pathname: string): boolean {
+  const route = getCanonicalRouteExperienceByPath(normalizePathname(pathname));
+
+  return route?.family === "service";
 }
 
 export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const isHomeRoute = location.pathname === "/";
+  const routeExperienceActive = isRouteExperienceRoute(location.pathname);
   const isServiceRoute = isServiceExperienceRoute(location.pathname);
 
   const [loaderActive, setLoaderActive] = useState(true);
   const [homepageState, setHomepageState] = useState<HomepageState>(
     isHomeRoute ? "loading" : "body",
   );
-  const [serviceExperienceState, setServiceExperienceState] =
-    useState<ServiceExperienceState>(isServiceRoute ? "intro" : "body");
+  const [routeExperienceState, setRouteExperienceState] =
+    useState<RouteExperienceState>(routeExperienceActive ? "loading" : "body");
   const [lastIsHome, setLastIsHome] = useState(isHomeRoute);
-  const [lastServicePath, setLastServicePath] = useState(
-    isServiceRoute ? normalizePathname(location.pathname) : null,
+  const [lastExperiencePath, setLastExperiencePath] = useState(
+    routeExperienceActive ? normalizePathname(location.pathname) : null,
   );
   const previousScrollStylesRef = useRef<{
     bodyOverflow: string;
@@ -128,15 +144,19 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     setHomepageState(isHomeRoute ? (loaderActive ? "loading" : "intro") : "body");
   }
 
-  const servicePath = isServiceRoute ? normalizePathname(location.pathname) : null;
-  if (servicePath !== lastServicePath) {
-    setLastServicePath(servicePath);
-    setServiceExperienceState(servicePath ? "intro" : "body");
+  const experiencePath = routeExperienceActive
+    ? normalizePathname(location.pathname)
+    : null;
+  if (experiencePath !== lastExperiencePath) {
+    setLastExperiencePath(experiencePath);
+    setLoaderActive(true);
+    setRouteExperienceState(experiencePath ? "loading" : "body");
   }
 
   const dismissLoader = useCallback(() => {
     setLoaderActive(false);
     setHomepageState((current) => (current === "loading" ? "intro" : current));
+    setRouteExperienceState((current) => (current === "loading" ? "intro" : current));
   }, []);
 
   const lockHomepageHero = useCallback(() => {
@@ -166,31 +186,34 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     setHomepageState((current) => (current === "closing" ? "intro" : current));
   }, []);
 
-  const openServiceBody = useCallback(() => {
-    setServiceExperienceState((current) => (current === "intro" ? "opening" : current));
+  const openRouteBody = useCallback(() => {
+    setRouteExperienceState((current) => (current === "intro" ? "opening" : current));
   }, []);
 
-  const completeServiceOpening = useCallback(() => {
-    setServiceExperienceState((current) => (current === "opening" ? "body" : current));
+  const completeRouteOpening = useCallback(() => {
+    setRouteExperienceState((current) => (current === "opening" ? "body" : current));
   }, []);
 
-  const closeServiceBody = useCallback(() => {
+  const closeRouteBody = useCallback(() => {
     if (typeof window !== "undefined") {
       window.scrollTo({ left: 0, top: 0, behavior: "auto" });
     }
-    setServiceExperienceState((current) => (current === "body" ? "closing" : current));
+    setRouteExperienceState((current) => (current === "body" ? "closing" : current));
   }, []);
 
-  const completeServiceClosing = useCallback(() => {
-    setServiceExperienceState((current) => (current === "closing" ? "intro" : current));
+  const completeRouteClosing = useCallback(() => {
+    setRouteExperienceState((current) => (current === "closing" ? "intro" : current));
   }, []);
 
   const homepageHeroLocked = isHomeRoute && homepageState !== "body";
   const homepageBodyActive = isHomeRoute && homepageState === "body";
-  const serviceIntroLocked = isServiceRoute && serviceExperienceState !== "body";
-  const serviceBodyActive = isServiceRoute && serviceExperienceState === "body";
-  const headerHidden = loaderActive || homepageHeroLocked || serviceIntroLocked;
-  const scrollLocked = loaderActive || homepageHeroLocked || serviceIntroLocked;
+  const routeIntroLocked = routeExperienceActive && routeExperienceState !== "body";
+  const routeBodyActive = routeExperienceActive && routeExperienceState === "body";
+  const serviceExperienceState = routeExperienceState;
+  const serviceIntroLocked = isServiceRoute && routeIntroLocked;
+  const serviceBodyActive = isServiceRoute && routeBodyActive;
+  const headerHidden = loaderActive || homepageHeroLocked || routeIntroLocked;
+  const scrollLocked = loaderActive || homepageHeroLocked || routeIntroLocked;
 
   useEffect(() => {
     setRootFlag("data-loader-active", loaderActive);
@@ -206,10 +229,10 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setRootAttribute(
-      "data-service-experience-state",
-      isServiceRoute ? serviceExperienceState : null,
+      "data-route-experience-state",
+      routeExperienceActive ? routeExperienceState : null,
     );
-  }, [isServiceRoute, serviceExperienceState]);
+  }, [routeExperienceActive, routeExperienceState]);
 
   useEffect(() => {
     setRootFlag("data-scroll-lock", scrollLocked);
@@ -259,7 +282,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   }, [scrollLocked]);
 
   useEffect(() => {
-    const introLocked = (isHomeRoute && homepageState !== "body") || serviceIntroLocked;
+    const introLocked = (isHomeRoute && homepageState !== "body") || routeIntroLocked;
 
     if (!introLocked || typeof window === "undefined") {
       return undefined;
@@ -307,15 +330,19 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("touchmove", preventDefault, true);
       document.removeEventListener("keydown", preventScrollKeys, true);
     };
-  }, [homepageState, isHomeRoute, serviceIntroLocked]);
+  }, [homepageState, isHomeRoute, routeIntroLocked]);
 
   const value = useMemo<AppExperienceValue>(
     () => ({
       loaderActive,
       homepageState,
+      routeExperienceState,
       serviceExperienceState,
       homepageHeroLocked,
       homepageBodyActive,
+      routeExperienceActive,
+      routeIntroLocked,
+      routeBodyActive,
       serviceRouteActive: isServiceRoute,
       serviceIntroLocked,
       serviceBodyActive,
@@ -328,17 +355,25 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       completeHomepageOpening,
       closeHomepageBody,
       completeHomepageClosing,
-      openServiceBody,
-      completeServiceOpening,
-      closeServiceBody,
-      completeServiceClosing,
+      openRouteBody,
+      completeRouteOpening,
+      closeRouteBody,
+      completeRouteClosing,
+      openServiceBody: openRouteBody,
+      completeServiceOpening: completeRouteOpening,
+      closeServiceBody: closeRouteBody,
+      completeServiceClosing: completeRouteClosing,
     }),
     [
       loaderActive,
       homepageState,
+      routeExperienceState,
       serviceExperienceState,
       homepageHeroLocked,
       homepageBodyActive,
+      routeExperienceActive,
+      routeIntroLocked,
+      routeBodyActive,
       isServiceRoute,
       serviceIntroLocked,
       serviceBodyActive,
@@ -351,10 +386,10 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       completeHomepageOpening,
       closeHomepageBody,
       completeHomepageClosing,
-      openServiceBody,
-      completeServiceOpening,
-      closeServiceBody,
-      completeServiceClosing,
+      openRouteBody,
+      completeRouteOpening,
+      closeRouteBody,
+      completeRouteClosing,
     ],
   );
 

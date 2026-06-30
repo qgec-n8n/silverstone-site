@@ -27,10 +27,15 @@ const futureRouteByPath = new Map(
   futureRouteManifest.map((route) => [route.path, route]),
 );
 
+export const routePathAliases: Readonly<Record<string, string>> = {
+  "/services/ai-agents-automation": "/services/ai-automation",
+  "/services/website-design-development": "/services/web-design-development",
+};
+
 export function getFutureRouteByPath(path: string): FutureRouteRecord | undefined {
   const normalizedPath =
     path !== "/" && path.endsWith("/") ? path.replace(/\/+$/, "") : path;
-  return futureRouteByPath.get(normalizedPath);
+  return futureRouteByPath.get(routePathAliases[normalizedPath] ?? normalizedPath);
 }
 
 export { validateFutureRouteManifest };

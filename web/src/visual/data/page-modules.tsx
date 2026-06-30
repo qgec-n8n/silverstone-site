@@ -1,5 +1,10 @@
 import type { ReactNode } from "react";
 
+import {
+  benchmarkDisclaimer,
+  selectMetrics,
+  type BenchmarkMetric,
+} from "~/data/benchmark-metrics";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import {
   DemoShell,
@@ -563,13 +568,11 @@ type ServiceImageAsset = {
   desktop: {
     height: number;
     jpg: string;
-    webp: string;
     width: number;
   };
   mobile: {
     height: number;
     jpg: string;
-    webp: string;
     width: number;
   };
   loading: "eager" | "lazy";
@@ -585,7 +588,7 @@ type ServiceStory = {
   image: ServiceImageAsset;
   imageSecondary?: ServiceImageAsset;
   lead: string;
-  metrics: { label: string; value: string }[];
+  metrics: BenchmarkMetric[];
   outcomes: string[];
   process: { label: string; detail: string }[];
   related: { href: string; label: string }[];
@@ -600,16 +603,14 @@ const SERVICE_IMAGES = {
   consulting: {
     catalogueId: "csv-01-desktop/csv-01-mobile",
     desktop: {
-      jpg: "/home-v2/service-consulting.jpg",
-      webp: "/home-v2/service-consulting.webp",
-      width: 1280,
-      height: 859,
+      jpg: "/approved-images/services_consulting.jpg",
+      width: 2528,
+      height: 1696,
     },
     mobile: {
-      jpg: "/home-v2/service-consulting-mobile.jpg",
-      webp: "/home-v2/service-consulting-mobile.webp",
-      width: 768,
-      height: 768,
+      jpg: "/approved-images/services_consulting_mobile.jpg",
+      width: 2048,
+      height: 2048,
     },
     loading: "eager",
     sizes: IMAGE_SIZES,
@@ -621,16 +622,14 @@ const SERVICE_IMAGES = {
   dataIntegration: {
     catalogueId: "csv-04-desktop/csv-04-mobile",
     desktop: {
-      jpg: "/home-v2/service-data-integration.jpg",
-      webp: "/home-v2/service-data-integration.webp",
-      width: 1280,
-      height: 859,
+      jpg: "/approved-images/services_data_integration.jpg",
+      width: 2528,
+      height: 1696,
     },
     mobile: {
-      jpg: "/home-v2/service-data-integration-mobile.jpg",
-      webp: "/home-v2/service-data-integration-mobile.webp",
-      width: 768,
-      height: 768,
+      jpg: "/approved-images/services_data_integration_mobile.jpg",
+      width: 2048,
+      height: 2048,
     },
     loading: "eager",
     sizes: IMAGE_SIZES,
@@ -642,16 +641,14 @@ const SERVICE_IMAGES = {
   followUp: {
     catalogueId: "csv-02-desktop/csv-02-mobile",
     desktop: {
-      jpg: "/home-v2/service-lead-followup.jpg",
-      webp: "/home-v2/service-lead-followup.webp",
-      width: 1280,
-      height: 859,
+      jpg: "/approved-images/services_lead_followup.jpg",
+      width: 2528,
+      height: 1696,
     },
     mobile: {
-      jpg: "/home-v2/service-lead-followup-mobile.jpg",
-      webp: "/home-v2/service-lead-followup-mobile.webp",
-      width: 768,
-      height: 768,
+      jpg: "/approved-images/services_lead_followup_mobile.jpg",
+      width: 2048,
+      height: 2048,
     },
     loading: "eager",
     sizes: IMAGE_SIZES,
@@ -663,16 +660,14 @@ const SERVICE_IMAGES = {
   generalOne: {
     catalogueId: "csv-07-desktop/csv-07-mobile",
     desktop: {
-      jpg: "/home-v2/general-services-1.jpg",
-      webp: "/home-v2/general-services-1.webp",
-      width: 960,
-      height: 644,
+      jpg: "/approved-images/general-services-1.png",
+      width: 2528,
+      height: 1696,
     },
     mobile: {
-      jpg: "/home-v2/general-services-1-mobile.jpg",
-      webp: "/home-v2/general-services-1-mobile.webp",
-      width: 768,
-      height: 1145,
+      jpg: "/approved-images/general-services-1-mobile.png",
+      width: 1696,
+      height: 2528,
     },
     loading: "eager",
     sizes: IMAGE_SIZES,
@@ -684,16 +679,14 @@ const SERVICE_IMAGES = {
   generalTwoA: {
     catalogueId: "csv-08-desktop/csv-08-mobile",
     desktop: {
-      jpg: "/home-v2/general-services-2a.jpg",
-      webp: "/home-v2/general-services-2a.webp",
-      width: 960,
-      height: 644,
+      jpg: "/approved-images/general-services-2a.png",
+      width: 2528,
+      height: 1696,
     },
     mobile: {
-      jpg: "/home-v2/general-services-2a-mobile.jpg",
-      webp: "/home-v2/general-services-2a-mobile.webp",
-      width: 768,
-      height: 1145,
+      jpg: "/approved-images/general-services-2a-mobile.png",
+      width: 1696,
+      height: 2528,
     },
     loading: "eager",
     sizes: IMAGE_SIZES,
@@ -705,16 +698,14 @@ const SERVICE_IMAGES = {
   generalTwoB: {
     catalogueId: "csv-09-desktop/csv-09-mobile",
     desktop: {
-      jpg: "/home-v2/general-services-2b.jpg",
-      webp: "/home-v2/general-services-2b.webp",
-      width: 960,
-      height: 644,
+      jpg: "/approved-images/general-services-2b.png",
+      width: 2528,
+      height: 1696,
     },
     mobile: {
-      jpg: "/home-v2/general-services-2b-mobile.jpg",
-      webp: "/home-v2/general-services-2b-mobile.webp",
-      width: 768,
-      height: 1145,
+      jpg: "/approved-images/general-services-2b-mobile.png",
+      width: 1696,
+      height: 2528,
     },
     loading: "lazy",
     sizes: IMAGE_SIZES,
@@ -726,16 +717,14 @@ const SERVICE_IMAGES = {
   generalThree: {
     catalogueId: "csv-10-desktop/csv-10-mobile",
     desktop: {
-      jpg: "/home-v2/general-services-3.jpg",
-      webp: "/home-v2/general-services-3.webp",
-      width: 960,
-      height: 644,
+      jpg: "/approved-images/general-services-3.png",
+      width: 2528,
+      height: 1696,
     },
     mobile: {
-      jpg: "/home-v2/general-services-3-mobile.jpg",
-      webp: "/home-v2/general-services-3-mobile.webp",
-      width: 768,
-      height: 1145,
+      jpg: "/approved-images/general-services-3-mobile.png",
+      width: 1696,
+      height: 2528,
     },
     loading: "lazy",
     sizes: IMAGE_SIZES,
@@ -747,16 +736,14 @@ const SERVICE_IMAGES = {
   workflow: {
     catalogueId: "csv-03-desktop/csv-03-mobile",
     desktop: {
-      jpg: "/home-v2/service-workflow-automation.jpg",
-      webp: "/home-v2/service-workflow-automation.webp",
-      width: 1280,
-      height: 859,
+      jpg: "/approved-images/services_workflow_automation.jpg",
+      width: 2528,
+      height: 1696,
     },
     mobile: {
-      jpg: "/home-v2/service-workflow-automation-mobile.jpg",
-      webp: "/home-v2/service-workflow-automation-mobile.webp",
-      width: 768,
-      height: 768,
+      jpg: "/approved-images/services_workflow_automation_mobile.jpg",
+      width: 2048,
+      height: 2048,
     },
     loading: "eager",
     sizes: IMAGE_SIZES,
@@ -774,18 +761,7 @@ function ServicePicture({ image }: { image: ServiceImageAsset }): ReactNode {
         <source
           media="(max-width: 767px)"
           sizes={image.sizes}
-          srcSet={`${image.mobile.webp} ${String(image.mobile.width)}w`}
-          type="image/webp"
-        />
-        <source
-          media="(max-width: 767px)"
-          sizes={image.sizes}
           srcSet={`${image.mobile.jpg} ${String(image.mobile.width)}w`}
-        />
-        <source
-          sizes={image.sizes}
-          srcSet={`${image.desktop.webp} ${String(image.desktop.width)}w`}
-          type="image/webp"
         />
         <img
           alt={image.alt}
@@ -876,13 +852,15 @@ function ServiceProcess({ story }: { story: ServiceStory }): ReactNode {
 
 function ServiceMetrics({ story }: { story: ServiceStory }): ReactNode {
   return (
-    <section className="ss-service-metrics" aria-label="Planning metrics">
+    <section className="ss-service-metrics" aria-label="Approved benchmark metrics">
       {story.metrics.map((metric) => (
-        <article key={metric.label}>
-          <strong>{metric.value}</strong>
-          <span>{metric.label}</span>
+        <article key={metric.id}>
+          <strong>{metric.metricValueRaw}</strong>
+          <span>{metric.metricName}</span>
+          <small>{metric.impactArea}</small>
         </article>
       ))}
+      <p className="ss-service-metrics__disclaimer">{benchmarkDisclaimer}</p>
     </section>
   );
 }
@@ -911,6 +889,93 @@ function ServiceGovernance({ story }: { story: ServiceStory }): ReactNode {
           </a>
         ))}
       </nav>
+    </section>
+  );
+}
+
+type ReservedDemo = {
+  title: string;
+  label: string;
+  detail: string;
+  configSlot: string;
+};
+
+function ReservedDemoSurface({ demo }: { demo: ReservedDemo }): ReactNode {
+  return (
+    <article className="ss-reserved-demo" data-config-slot={demo.configSlot}>
+      <span>{demo.label}</span>
+      <h3>{demo.title}</h3>
+      <p>{demo.detail}</p>
+      <small>Reserved forthcoming integration. Not live, not connected.</small>
+    </article>
+  );
+}
+
+const REQUIRED_DEMO_PLACEHOLDERS: Record<string, ReservedDemo[]> = {
+  "/services/web-design-development": [
+    {
+      title: "Website preview slot one",
+      label: "Reserved browser-window placeholder",
+      detail:
+        "Prepared for a future live website URL or embed once the approved integration is supplied.",
+      configSlot: "futureWebsitePreviewPrimaryUrl",
+    },
+    {
+      title: "Website preview slot two",
+      label: "Reserved browser-window placeholder",
+      detail:
+        "Prepared for a second distinct live website URL or embed; no mock client site is presented as live.",
+      configSlot: "futureWebsitePreviewSecondaryUrl",
+    },
+  ],
+  "/services/ai-receptionists": [
+    {
+      title: "AI chat window",
+      label: "Reserved AI receptionist chat placeholder",
+      detail:
+        "Prepared for a future approved chat integration. This surface does not simulate a successful real conversation.",
+      configSlot: "futureReceptionistChatEmbedUrl",
+    },
+    {
+      title: "ElevenLabs-ready receptionist call feature",
+      label: "Reserved ElevenLabs call placeholder",
+      detail:
+        "Prepared for a future ElevenLabs call configuration after credentials, consent and scripts are approved.",
+      configSlot: "futureReceptionistElevenLabsAgent",
+    },
+  ],
+  "/services/ai-voice-agents": [
+    {
+      title: "ElevenLabs-ready voice call feature",
+      label: "Reserved ElevenLabs call placeholder",
+      detail:
+        "Prepared for a future voice-agent integration. No microphone, phone number or live agent is connected.",
+      configSlot: "futureVoiceElevenLabsAgent",
+    },
+    {
+      title: "Illustrative transcript window",
+      label: "Reserved transcript placeholder",
+      detail:
+        "Transcript layout only. Any sample transcript content is illustrative and awaits approved scripts.",
+      configSlot: "futureVoiceTranscriptSource",
+    },
+  ],
+};
+
+function RequiredDemoPlaceholders({ route }: { route: FutureRouteRecord }): ReactNode {
+  const placeholders = REQUIRED_DEMO_PLACEHOLDERS[route.path];
+  if (!placeholders) {
+    return null;
+  }
+
+  return (
+    <section
+      className="ss-reserved-demo-grid"
+      aria-label={`${route.h1} reserved demo placeholders`}
+    >
+      {placeholders.map((demo) => (
+        <ReservedDemoSurface demo={demo} key={demo.configSlot} />
+      ))}
     </section>
   );
 }
@@ -969,11 +1034,11 @@ const SERVICE_STORIES: Record<string, ServiceStory> = {
         detail: "Move into discovery with a narrow first decision.",
       },
     ],
-    metrics: [
-      { value: "7", label: "service routes" },
-      { value: "1", label: "shared Silverstone system" },
-      { value: "0", label: "remote runtime images" },
-    ],
+    metrics: selectMetrics("AI Agents & Automation Workflows", [
+      "Time to first automation",
+      "Extraction accuracy",
+      "Document turnaround speed",
+    ]),
     safeguard:
       "The directory does not promise outcomes. It helps a buyer pick a sensible starting point and keeps proofs, metrics and examples clearly illustrative until approved evidence exists.",
     faq: [
@@ -1054,11 +1119,11 @@ const SERVICE_STORIES: Record<string, ServiceStory> = {
         detail: "Use analytics and qualitative feedback to decide what changes next.",
       },
     ],
-    metrics: [
-      { value: "1", label: "primary conversion path" },
-      { value: "WCAG", label: "accessibility lens" },
-      { value: "SEO", label: "technical foundation" },
-    ],
+    metrics: selectMetrics("Web Development", [
+      "Conversion increase",
+      "Lead increase",
+      "Online sales increase",
+    ]),
     safeguard:
       "No ranking, conversion-rate or revenue guarantee is claimed. Portfolio-style visuals remain conceptual unless evidence and client permission are present.",
     faq: [
@@ -1137,11 +1202,11 @@ const SERVICE_STORIES: Record<string, ServiceStory> = {
         detail: "Review errors, adoption and support signals before expanding scope.",
       },
     ],
-    metrics: [
-      { value: "MVP", label: "first release scope" },
-      { value: "Roles", label: "permission design" },
-      { value: "APIs", label: "integration surface" },
-    ],
+    metrics: selectMetrics("App Development", [
+      "No-show reduction",
+      "Direct annual cost savings",
+      "Administrative-time reduction",
+    ]),
     safeguard:
       "The service does not imply unsupported native app delivery, platform certification or real client deployment evidence. Delivery scope is set by discovery and proposal.",
     faq: [
@@ -1220,11 +1285,11 @@ const SERVICE_STORIES: Record<string, ServiceStory> = {
         detail: "Use deterministic evaluation before expanding to more call types.",
       },
     ],
-    metrics: [
-      { value: "Demo", label: "voice adapter mode" },
-      { value: "Human", label: "escalation owner" },
-      { value: "Logs", label: "review trail" },
-    ],
+    metrics: selectMetrics("AI Voice Agents", [
+      "Response time",
+      "Weekly time saved",
+      "New-patient booking increase",
+    ]),
     safeguard:
       "The demo uses deterministic mock data. Live voice credentials, microphone access, call recording, consent and retention controls must be configured before production use.",
     faq: [
@@ -1301,11 +1366,11 @@ const SERVICE_STORIES: Record<string, ServiceStory> = {
         detail: "Adjust rules based on handoffs, failed intents and staff feedback.",
       },
     ],
-    metrics: [
-      { value: "24/7", label: "coverage concept" },
-      { value: "Rules", label: "approved answers" },
-      { value: "Queue", label: "human handoff" },
-    ],
+    metrics: selectMetrics("AI Receptionists", [
+      "Phone availability increase",
+      "Response time",
+      "Direct annual cost savings",
+    ]),
     safeguard:
       "Clinical, legal, financial, complaint or safety-related questions stay with authorised people. Reception automation supports first response, not professional judgement.",
     faq: [
@@ -1382,11 +1447,11 @@ const SERVICE_STORIES: Record<string, ServiceStory> = {
         detail: "Review performance and audience questions before the next cycle.",
       },
     ],
-    metrics: [
-      { value: "1", label: "approved source" },
-      { value: "4", label: "channel forms" },
-      { value: "Review", label: "publish gate" },
-    ],
+    metrics: selectMetrics("Content Creation", [
+      "Campaigns running",
+      "Bookings generated",
+      "SEO and PPC ROI increase",
+    ]),
     safeguard:
       "The system does not fabricate case studies, testimonials, expertise, regulated advice or results. Unsupported claims are blocked or marked for review.",
     faq: [
@@ -1463,11 +1528,11 @@ const SERVICE_STORIES: Record<string, ServiceStory> = {
         detail: "Use run history and exception rates to choose the next workflow.",
       },
     ],
-    metrics: [
-      { value: "0", label: "unchecked deletions" },
-      { value: "1", label: "owner per queue" },
-      { value: "Logs", label: "run evidence" },
-    ],
+    metrics: selectMetrics("AI Agents & Automation Workflows", [
+      "Document-processing cost reduction",
+      "Extraction accuracy",
+      "Time to first automation",
+    ]),
     safeguard:
       "No autonomous, irreversible or high-impact action should run without explicit approval design, monitoring and fallback ownership.",
     faq: [
@@ -1546,11 +1611,11 @@ const SERVICE_STORIES: Record<string, ServiceStory> = {
         detail: "Create decision notes, operating guidance and review checkpoints.",
       },
     ],
-    metrics: [
-      { value: "Audit", label: "first engagement" },
-      { value: "Roadmap", label: "decision output" },
-      { value: "Human", label: "governance owner" },
-    ],
+    metrics: selectMetrics("AI Agents & Automation Workflows", [
+      "Monthly time saved per person",
+      "Manual operations overhead reduction",
+      "Hours saved",
+    ]),
     safeguard:
       "Consulting does not endorse a vendor, promise a return or replace legal, procurement, security or data-protection advice. It gives leaders a clearer technical and commercial decision route.",
     faq: [
@@ -2439,6 +2504,7 @@ export function ServicePageVisuals({ route }: { route: FutureRouteRecord }): Rea
           ) : null}
         </>
       ) : null}
+      <RequiredDemoPlaceholders route={route} />
       <DemoShell scenario={module.scenario} />
       {story ? <ServiceGovernance story={story} /> : null}
       <ToolsCarousel label={SERVICE_TOOLS_LABEL} tools={module.tools} />

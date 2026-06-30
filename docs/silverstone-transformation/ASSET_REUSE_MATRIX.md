@@ -53,6 +53,27 @@ Do not place a white-background logo on a dark, cinematic, gradient, shader, bla
 - Safe usage: homepage Silverstone System narrative only; abstract AI operating-layer visual, not proof of a customer result, live dashboard, guaranteed outcome, or verified integration.
 - The previous simplistic Silverstone System diagram remains removed and must not be substituted with low-grade vector diagramming.
 
+### 2026-06-30 Approved Service Image Intake
+
+- Source archive: `/Users/quentingeczy/Downloads/Images-Approved.zip`.
+- Intake check: extracted to a temporary directory, removed macOS resource-fork entries, inspected a generated contact sheet, and compared approved zip filenames against `assets/images/socialmedia/`.
+- Result: 62 approved filenames matched exact existing source assets; no missing approved filenames were detected in that comparison.
+- `/web` copied only selected approved service assets into `web/public/approved-images/`.
+- Active allowlist and route usage live in `web/src/data/service-image-manifest.ts`.
+
+| Copied asset                                                                   | Source type                 | Current use                                      |
+| ------------------------------------------------------------------------------ | --------------------------- | ------------------------------------------------ |
+| `general-services-1.png` / `general-services-1-mobile.png`                     | approved zip exact filename | Website and AI receptionist service storytelling |
+| `general-services-2a.png` / `general-services-2a-mobile.png`                   | approved zip exact filename | Content creation service storytelling            |
+| `general-services-2b.png` / `general-services-2b-mobile.png`                   | approved zip exact filename | Reserved approved general-service fallback       |
+| `general-services-3.png` / `general-services-3-mobile.png`                     | approved zip exact filename | Reserved approved general-service fallback       |
+| `services_consulting.jpg` / `services_consulting_mobile.jpg`                   | approved zip exact filename | AI consulting service storytelling               |
+| `services_data_integration.jpg` / `services_data_integration_mobile.jpg`       | approved zip exact filename | App/data-integration service storytelling        |
+| `services_lead_followup.jpg` / `services_lead_followup_mobile.jpg`             | approved zip exact filename | AI voice/lead-followup service storytelling      |
+| `services_workflow_automation.jpg` / `services_workflow_automation_mobile.jpg` | approved zip exact filename | Services hub and automation service storytelling |
+
+The intake did not approve industry-specific or proof-like images for decorative use on service pages. Selected imagery is illustrative and must not be treated as customer evidence.
+
 ### 2026-06-30 Homepage V2 Asset Note
 
 - Superseded by the recovery note above. The earlier homepage conversion pass reused existing `/web/public/home-v2/` imagery and `/web/public/brand/` assets; the recovery pass added one generated Silverstone System bitmap.

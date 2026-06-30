@@ -7,6 +7,7 @@
 
     data-loader-active  the Core Spin Loader overlay is up
     data-hero-locked    the homepage is in loading/intro/transition
+    data-route-experience-state a non-home route is in loading/intro/transition/body
     data-homepage-state the explicit homepage state machine
     data-scroll-lock    scrolling is locked (loader up OR hero locked)
 
@@ -14,7 +15,7 @@
   fully scrollable, fully visible shell.
 */
 
-/* Lock scrolling while the loader is up or the homepage hero is locked. */
+/* Lock scrolling while the loader is up or the route intro is locked. */
 html[data-js="on"][data-scroll-lock="on"],
 html[data-js="on"][data-scroll-lock="on"] body {
   overflow: hidden;
@@ -34,7 +35,11 @@ html[data-js="on"][data-scroll-lock="on"] body {
 }
 
 html[data-js="on"][data-loader-active="on"] [data-site-header],
-html[data-js="on"][data-hero-locked="on"] [data-site-header] {
+html[data-js="on"][data-hero-locked="on"] [data-site-header],
+html[data-js="on"][data-route-experience-state]:not(
+    [data-route-experience-state="body"]
+  )
+  [data-site-header] {
   opacity: 0;
   transform: translateY(-115%);
   pointer-events: none;

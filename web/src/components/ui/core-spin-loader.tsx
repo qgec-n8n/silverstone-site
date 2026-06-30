@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
+import { getRouteExperienceByPath } from "~/data/route-experiences";
 
 import "~/styles/core-spin-loader.css";
 
 /*
-  Branded full-screen overlay shown on every full page load and browser reload
-  (not on client-side route changes — it is mounted once in the root Layout and
-  resolves to null). It holds for a fixed duration, then fades out and hands off
-  to the AppExperience coordinator (`dismissLoader`) which reveals the header and
-  releases the scroll lock for non-homepage routes.
+  Branded full-screen overlay shown on every page entry: full load, browser
+  reload, back/forward and client-side route changes. It holds for a fixed
+  duration, then fades out and hands off to the AppExperience coordinator
+  (`dismissLoader`) which reveals the page-specific intro.
 
   Rendered server-side with the overlay active, dismissed only in effects
   (post-hydration), so the server and the initial client render are identical —
@@ -21,7 +21,6 @@ import "~/styles/core-spin-loader.css";
 const HOLD_MS = 4000;
 const EXIT_MS = 600;
 const MAX_ASSET_WAIT_MS = 6500;
-const LOADER_MESSAGE = "Engineering the next advantage";
 const LOADER_EMBLEM_SRC = "/brand/silverstone-ai-emblem-dark-transparent.png";
 
 const HOME_IMAGE_ASSETS = [
@@ -61,9 +60,13 @@ function preloadFetchAsset(src: string): Promise<void> {
 }
 
 function routeAssets(pathname: string): string[] {
+  const experience = getRouteExperienceByPath(pathname);
   const assets = [LOADER_EMBLEM_SRC];
   if (pathname === "/") {
     assets.push(...HOME_IMAGE_ASSETS);
+  }
+  if (experience.preloadAssets) {
+    assets.push(...experience.preloadAssets);
   }
   return Array.from(new Set(assets));
 }
@@ -86,8 +89,13 @@ export function CoreSpinLoader() {
   const { dismissLoader } = useAppExperience();
   const [phase, setPhase] = useState<Phase>("active");
   const [ellipsisStep, setEllipsisStep] = useState(3);
-  // Frozen at mount: the loader only ever runs for the route it loaded with.
-  const [initialPathname] = useState(() => location.pathname);
+  const [activePathname, setActivePathname] = useState(() => location.pathname);
+  const experience = getRouteExperienceByPath(activePathname);
+
+  if (activePathname !== location.pathname) {
+    setActivePathname(location.pathname);
+    setPhase("active");
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -97,13 +105,13 @@ export function CoreSpinLoader() {
       }
     };
 
-    void Promise.all([wait(HOLD_MS), preloadRouteAssets(initialPathname)]).then(
+    void Promise.all([wait(HOLD_MS), preloadRouteAssets(activePathname)]).then(
       beginExit,
     );
     return () => {
       cancelled = true;
     };
-  }, [initialPathname]);
+  }, [activePathname]);
 
   useEffect(() => {
     if (phase !== "exiting") {
@@ -163,12 +171,12 @@ export function CoreSpinLoader() {
         />
       </div>
       <p className="ss-loader__label" aria-hidden="true">
-        <span>{LOADER_MESSAGE}</span>
+        <span>{experience.loaderText}</span>
         <span className="ss-loader__ellipsis" aria-hidden="true">
           {".".repeat(ellipsisStep)}
         </span>
       </p>
-      <span className="sr-only">{LOADER_MESSAGE}.</span>
+      <span className="sr-only">{experience.loaderText}.</span>
     </div>
   );
 }

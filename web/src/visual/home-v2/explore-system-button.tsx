@@ -12,7 +12,7 @@ import { createPortal } from "react-dom";
 
 import type {
   HomepageState,
-  ServiceExperienceState,
+  RouteExperienceState,
 } from "~/app/experience/app-experience";
 
 export const EXPLORE_CARD_LAYOUT_ID = "ss-explore-card";
@@ -25,6 +25,7 @@ const SHARED_TRANSITION: Transition = {
 
 type ExploreSystemButtonProps = {
   disabled?: boolean;
+  label?: string;
   layoutEnabled?: boolean;
   onActivate: () => void;
 };
@@ -33,7 +34,7 @@ export const ExploreSystemButton = forwardRef<
   HTMLButtonElement,
   ExploreSystemButtonProps
 >(function ExploreSystemButton(
-  { disabled = false, layoutEnabled = true, onActivate },
+  { disabled = false, label = "Explore the system", layoutEnabled = true, onActivate },
   ref,
 ) {
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -62,7 +63,7 @@ export const ExploreSystemButton = forwardRef<
         aria-hidden="true"
       />
       <span className="ss-explore-cta__label">
-        Explore the system
+        {label}
         <ArrowRight className="size-[1.05rem]" aria-hidden="true" />
       </span>
     </m.button>
@@ -73,7 +74,7 @@ type ExploreSystemTransitionProps = {
   bodyBackdropReady?: boolean;
   onClosingReady: () => void;
   onOpeningComplete: () => void;
-  state: HomepageState | ServiceExperienceState;
+  state: HomepageState | RouteExperienceState;
 };
 
 /**

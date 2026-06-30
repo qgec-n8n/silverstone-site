@@ -5,11 +5,13 @@ const approvedPrerenderPaths = [
   "/industries",
   "/how-we-work",
   "/services/web-design-development",
+  "/services/website-design-development",
   "/services/app-development",
   "/services/ai-voice-agents",
   "/services/ai-receptionists",
   "/services/content-creation",
   "/services/ai-automation",
+  "/services/ai-agents-automation",
   "/services/ai-consulting",
 ];
 

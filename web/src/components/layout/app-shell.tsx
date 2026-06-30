@@ -16,12 +16,12 @@ type AppShellProps = {
 
 function AppShell({ children, pendingIndicator }: AppShellProps) {
   const location = useLocation();
-  const { homepageState, serviceIntroLocked } = useAppExperience();
+  const { homepageState, routeIntroLocked } = useAppExperience();
   const previousPathRef = useRef(location.pathname);
   usePageInView();
 
   const chromeVisible =
-    (location.pathname !== "/" || homepageState === "body") && !serviceIntroLocked;
+    (location.pathname !== "/" || homepageState === "body") && !routeIntroLocked;
 
   useEffect(() => {
     if (previousPathRef.current === location.pathname) {

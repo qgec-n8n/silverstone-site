@@ -15,10 +15,12 @@ import { MotionProvider } from "~/motion";
 // Dismiss it on mount so this landmark test asserts against the post-loader
 // resting state, where the banner and primary navigation are exposed.
 function DismissLoader() {
-  const { dismissLoader } = useAppExperience();
+  const { completeRouteOpening, dismissLoader, openRouteBody } = useAppExperience();
   useEffect(() => {
     dismissLoader();
-  }, [dismissLoader]);
+    openRouteBody();
+    completeRouteOpening();
+  }, [completeRouteOpening, dismissLoader, openRouteBody]);
   return null;
 }
 

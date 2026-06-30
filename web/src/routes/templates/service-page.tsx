@@ -1,111 +1,51 @@
 import "~/styles/visual/home-v2.css";
 
-import { LayoutGroup, type Variants } from "motion/react";
-import * as m from "motion/react-m";
+import { LayoutGroup } from "motion/react";
 import { useCallback, useEffect, useRef, type Ref } from "react";
 import { RotateCcw } from "~/components/icons/lucide";
 
 import { useAppExperience } from "~/app/experience/app-experience";
-import { Container } from "~/components/layout/container";
 import type { MigratedContentRecord } from "~/content/migrated";
+import { getRouteExperienceByPath } from "~/data/route-experiences";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { RoutePageFrame } from "~/routes/templates/route-page-frame";
 import { ServicePageVisuals } from "~/visual/data/page-modules";
 import { BodyParticles } from "~/visual/home-v2/body-particles";
-import {
-  ExploreSystemButton,
-  ExploreSystemTransition,
-} from "~/visual/home-v2/explore-system-button";
-import { HeroAetherField } from "~/visual/home-v2/hero-aether-field";
+import { ExploreSystemTransition } from "~/visual/home-v2/explore-system-button";
 import { deriveMotionPolicy } from "~/visual/home-v2/motion-policy";
 import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
 import { buildRouteSchemaGraph, serializeJsonLd } from "~/seo/schema";
+import { RouteExperienceIntro } from "~/visual/components/route-experience-intro";
 
 type ServicePageProps = {
   content?: MigratedContentRecord | null;
   route: FutureRouteRecord;
 };
 
-const introItem: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-  show: (index = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.52 + index * 0.2, duration: 0.95, ease: "easeInOut" },
-  }),
-};
-
 function ServiceIntro({
   buttonDisabled,
   buttonHidden,
   buttonRef,
+  experience,
   motionEnabled,
   onExplore,
-  route,
 }: {
   buttonDisabled: boolean;
   buttonHidden: boolean;
   buttonRef: Ref<HTMLButtonElement>;
+  experience: ReturnType<typeof getRouteExperienceByPath>;
   motionEnabled: boolean;
   onExplore: () => void;
-  route: FutureRouteRecord;
 }) {
   return (
-    <section className="ss-service-intro" aria-label={`${route.h1} intro`}>
-      <HeroAetherField />
-      <div className="ss-hv2-hero__grid" aria-hidden="true" />
-      <div className="ss-hv2-hero__veil" aria-hidden="true" />
-
-      <Container size="wide" className="relative z-10">
-        <m.div
-          animate="show"
-          className="ss-service-intro__content flex flex-col items-center gap-7 text-center"
-          initial={motionEnabled ? "hidden" : false}
-        >
-          <m.span
-            className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
-            custom={0}
-            variants={introItem}
-          >
-            <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-            Silverstone service system
-          </m.span>
-
-          <m.h1
-            className="ss-hv2-aether-reveal ss-hv2-display ss-service-intro__title"
-            custom={1}
-            variants={introItem}
-          >
-            {route.h1}
-          </m.h1>
-
-          <m.p
-            className="ss-lead ss-service-intro__lead text-[color:var(--ss-v2-titanium)]"
-            custom={2}
-            variants={introItem}
-          >
-            {route.description}
-          </m.p>
-
-          {buttonHidden ? null : (
-            <m.div
-              className="flex flex-wrap items-center justify-center gap-4"
-              custom={3}
-              variants={introItem}
-            >
-              <ExploreSystemButton
-                ref={buttonRef}
-                disabled={buttonDisabled}
-                onActivate={onExplore}
-              />
-            </m.div>
-          )}
-        </m.div>
-      </Container>
-    </section>
+    <RouteExperienceIntro
+      buttonDisabled={buttonDisabled}
+      buttonHidden={buttonHidden}
+      buttonRef={buttonRef}
+      experience={experience}
+      motionEnabled={motionEnabled}
+      onExplore={onExplore}
+    />
   );
 }
 
@@ -126,6 +66,7 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
     serviceExperienceState,
   } = useAppExperience();
   const exploreButtonRef = useRef<HTMLButtonElement>(null);
+  const experience = getRouteExperienceByPath(route.path);
 
   const introVisible =
     serviceExperienceEnabled &&
@@ -210,9 +151,9 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
             buttonDisabled={serviceExperienceState !== "intro"}
             buttonHidden={serviceExperienceState === "opening"}
             buttonRef={exploreButtonRef}
+            experience={experience}
             motionEnabled={policy.motionEnabled}
             onExplore={handleExplore}
-            route={route}
           />
         ) : null}
         <ExploreSystemTransition
@@ -222,30 +163,36 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
         />
       </LayoutGroup>
 
-      {bodyVisible ? (
-        <div className="ss-service-experience__body">
+      <div
+        className="ss-service-experience__body"
+        aria-hidden={bodyVisible ? undefined : true}
+        data-service-body-visible={bodyVisible ? "true" : "false"}
+      >
+        {bodyVisible ? (
           <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
-          <div className="ss-service-experience__content">
-            <RoutePageFrame
-              content={content}
-              emitSchema={false}
-              eyebrow="Services"
-              route={route}
-            >
-              <ServicePageVisuals route={route} />
-            </RoutePageFrame>
-          </div>
-          <button
-            type="button"
-            className="ss-hv2-return ss-service-experience__return"
-            onClick={handleCloseBody}
-            aria-label="Return to service intro"
-            title="Return to service intro"
+        ) : null}
+        <div className="ss-service-experience__content">
+          <RoutePageFrame
+            content={content}
+            emitSchema={false}
+            eyebrow="Services"
+            entryExperience={false}
+            route={route}
           >
-            <RotateCcw className="size-4" aria-hidden="true" />
-          </button>
+            <ServicePageVisuals route={route} />
+          </RoutePageFrame>
         </div>
-      ) : null}
+        <button
+          type="button"
+          className="ss-hv2-return ss-service-experience__return"
+          onClick={handleCloseBody}
+          aria-label="Return to route intro"
+          title="Return to route intro"
+          hidden={!bodyVisible}
+        >
+          <RotateCcw className="size-4" aria-hidden="true" />
+        </button>
+      </div>
     </div>
   );
 }
