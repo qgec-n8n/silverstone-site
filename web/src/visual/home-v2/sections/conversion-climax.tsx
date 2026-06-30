@@ -46,7 +46,7 @@ export function ConversionClimax() {
               <Reveal delayMs={240}>
                 <Button asChild size="lg" variant="accent">
                   <Link to="/book">
-                    Book a free audit
+                    Book a discovery call
                     <Icon name="ArrowRight" className="size-4" />
                   </Link>
                 </Button>

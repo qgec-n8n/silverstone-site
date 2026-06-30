@@ -14,6 +14,7 @@ import {
   BenchmarkMetrics,
   ConversionClimax,
   ImageStorytelling,
+  IndustryRelevance,
   IntegrationCarousel,
   ProcessStory,
   SecondaryHero,
@@ -130,7 +131,8 @@ export function HomeV2({ contentId }: { contentId?: string }) {
             <TrustStrip />
             <ServicesUniverse />
             <AiConsulting />
-            <BenchmarkMetrics countersEnabled={policy.countersEnabled} />
+            <BenchmarkMetrics />
+            <IndustryRelevance />
             <IntegrationCarousel marqueeEnabled={policy.marqueeEnabled} />
             <ProcessStory />
             <ImageStorytelling />

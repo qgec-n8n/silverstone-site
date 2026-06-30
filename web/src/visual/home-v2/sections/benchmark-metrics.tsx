@@ -1,56 +1,38 @@
-import {
-  BENCHMARK_DISCLAIMER,
-  HEADLINE_BENCHMARKS,
-  SECONDARY_BENCHMARKS,
-} from "~/data/home-v2";
+import { OUTCOME_PATTERNS } from "~/data/home-v2";
 
-import { MetricCounter } from "../components/metric-counter";
+import { Icon } from "../components/icon";
+import { Reveal } from "../components/reveal";
 import { SectionShell } from "../components/section-shell";
 
-type BenchmarkMetricsProps = {
-  countersEnabled: boolean;
-};
-
-/** Benchmark counters — clearly framed as industry outcomes, not guarantees. */
-export function BenchmarkMetrics({ countersEnabled }: BenchmarkMetricsProps) {
+/** Business outcome patterns without unsupported numerical claims. */
+export function BenchmarkMetrics() {
   return (
     <SectionShell
-      eyebrow="Benchmarks"
+      eyebrow="Business outcomes"
       title={
         <>
-          The Business Impact of Better{" "}
-          <span className="ss-chrome-text">Automation</span>
+          Where better systems change the <span className="ss-chrome-text">day</span>.
         </>
       }
-      lead="Selected automation-performance benchmarks from published case data and industry sources, showing the operational improvements well-designed systems can target. Not guaranteed individual outcomes."
+      lead="The homepage is built around practical commercial problems: missed intent, slow admin, weak journeys and disconnected tools. Silverstone designs the operating system that gives each one a clear next action."
       containerSize="wide"
     >
-      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {HEADLINE_BENCHMARKS.map((metric) => (
-          <MetricCounter
-            key={metric.id}
-            metric={metric}
-            countersEnabled={countersEnabled}
-          />
+      <div className="mt-14 grid gap-5 sm:grid-cols-2">
+        {OUTCOME_PATTERNS.map((pattern, index) => (
+          <Reveal key={pattern.id} delayMs={index * 70} className="h-full">
+            <article className="ss-hv2-outcome">
+              <span className="ss-hv2-outcome__icon">
+                <Icon name={pattern.icon} className="size-5" />
+              </span>
+              <div className="flex flex-col gap-2">
+                <p className="ss-hv2-card__index">{pattern.problem}</p>
+                <h3 className="ss-hv2-card__title text-2xl">{pattern.outcome}</h3>
+                <p className="text-[color:var(--ss-v2-titanium)]">{pattern.detail}</p>
+              </div>
+            </article>
+          </Reveal>
         ))}
       </div>
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {SECONDARY_BENCHMARKS.map((metric) => (
-          <MetricCounter
-            key={metric.id}
-            metric={metric}
-            countersEnabled={countersEnabled}
-          />
-        ))}
-      </div>
-      <details className="ss-hv2-benchmark-note mt-8 max-w-(--ss-type-measure-body)">
-        <summary className="cursor-pointer text-xs font-medium text-[color:var(--ss-v2-titanium)] underline-offset-4 transition-colors hover:text-[color:var(--ss-v2-pearl)]">
-          Sources &amp; methodology
-        </summary>
-        <p className="mt-2 text-xs text-[color:var(--ss-v2-titanium)]">
-          {BENCHMARK_DISCLAIMER}
-        </p>
-      </details>
     </SectionShell>
   );
 }

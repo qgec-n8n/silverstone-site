@@ -70,10 +70,14 @@ class AetherParticle {
   }
 }
 
-export function HeroAetherField() {
+export function HeroAetherField({ enabled = true }: { enabled?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (!enabled) {
+      return undefined;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas || typeof window === "undefined") {
       return undefined;
@@ -188,7 +192,7 @@ export function HeroAetherField() {
       window.removeEventListener("mouseout", handleMouseOut);
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [enabled]);
 
   return (
     <div className="ss-hv2-hero__field" data-ss-gsap="hero-field" aria-hidden="true">

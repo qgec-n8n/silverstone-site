@@ -1,7 +1,7 @@
 # Silverstone Asset Reuse Matrix
 
 **Status:** Asset reuse and prevention contract for the `/web` rebuild.  
-**Last updated:** 2026-06-26.  
+**Last updated:** 2026-06-30.
 **Sources:** `docs/silverstone-transformation/audits/asset-integration-inventory-v1.csv`, `docs/codex/image-assets/verified-image-asset-manifest.json`, `docs/codex/image-assets/page-image-selection-policy.md`, `web/public/brand/`, `web/public/home-v2/`, `assets/logo/`, `attached_assets/`.
 
 ## Asset Rules
@@ -45,6 +45,12 @@ Do not place a white-background logo on a dark, cinematic, gradient, shader, bla
 | General service images | `general-services-1*` through `general-services-3*`                                                              | Service overview/editorial sections with proper desktop/mobile pairing | preserve behaviour but redesign presentation        |
 | Story visuals          | `story-human-loop.png`, `story-operating-surface.png`, `story-voice-signal.png`                                  | Narrative sections; not proof/results                                  | preserve behaviour but redesign presentation        |
 | Studio visuals         | `studio-mission.*`, `studio-story.*`, `secondary-hero.png`, `standard-chrome.png`, `consulting-strategy.png`     | About/process/consulting sections after route-specific review          | migrate and improve                                 |
+
+### 2026-06-30 Homepage V2 Asset Note
+
+- The homepage conversion pass reused existing `/web/public/home-v2/` imagery and `/web/public/brand/` assets; it did not add new image assets.
+- Integration marks in `/web/public/integrations/*.svg` remain local visual compatibility/category marks only. They are not proof of active production integrations.
+- Browser network checks on the staging preview recorded no failed image/font requests and no 4xx image/font responses. SVG integration marks can report `naturalWidth: 0` in Chromium because several files do not expose intrinsic dimensions; this is not treated as a network failure.
 
 ## Verified Image Catalogue
 

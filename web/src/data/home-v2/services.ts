@@ -27,7 +27,7 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
       "Natural-sounding voice agents answer, qualify and book — capturing every call your team can't reach.",
     href: "/services/ai-voice-agents",
     icon: "PhoneCall",
-    highlights: ["Answer in under 10s", "Qualify & route", "Live call summaries"],
+    highlights: ["Fast response", "Qualify & route", "Conversation summaries"],
     accent: "cyan",
   },
   {
@@ -39,7 +39,7 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
       "Calls, chat and messaging handled around the clock, with bookings written straight into your calendar.",
     href: "/services/ai-receptionists",
     icon: "Headset",
-    highlights: ["24/7 coverage", "Calendar-aware", "Human handoff"],
+    highlights: ["Extended coverage", "Calendar-aware", "Human handoff"],
     accent: "blue",
   },
   {
@@ -75,7 +75,7 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
       "Bespoke applications that extend your operation — from member portals to internal operating tools.",
     href: "/services/app-development",
     icon: "Smartphone",
-    highlights: ["iOS, Android & web", "Secure by design", "Built to scale"],
+    highlights: ["Mobile & web", "Secure by design", "Built to scale"],
     accent: "blue",
   },
   {
@@ -87,7 +87,7 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
       "AI-assisted content and SEO systems that keep you discoverable and compounding reach month over month.",
     href: "/services/content-creation",
     icon: "Sparkles",
-    highlights: ["SEO engines", "Always-on output", "Brand-safe"],
+    highlights: ["SEO systems", "Governed output", "Brand-safe"],
     accent: "violet",
   },
 ] as const;

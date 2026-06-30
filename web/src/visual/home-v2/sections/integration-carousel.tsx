@@ -21,7 +21,7 @@ export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps
           Plugs into the tools you <span className="ss-chrome-text">already run</span>.
         </>
       }
-      lead="No rip-and-replace. Silverstone connects across voice, messaging, calendars, CRM, commerce, automation and your data stack."
+      lead="No rip-and-replace assumption. Silverstone starts by mapping your existing stack, then confirms the safest connection points for voice, messaging, calendars, CRM, commerce, automation and data."
       align="center"
       containerSize="wide"
     >

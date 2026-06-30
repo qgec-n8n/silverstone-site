@@ -1,7 +1,7 @@
 # Silverstone Quality Baseline
 
 **Status:** Reproducible baseline observations before further presentation-layer work.  
-**Last updated:** 2026-06-26.  
+**Last updated:** 2026-06-30.
 **Primary sources:** A-01 repository/live audit, A-02 external live audit priority findings, Replit visual validation matrices, active ExecPlan records, current repository inspection.
 
 ## Current Validation Surface
@@ -37,7 +37,7 @@
 | QB-011 | Asset pipeline          | A-01, F-022                                                  | Generated image derivative drift, missing derivatives for `blog_40`/`blog_41`, basename collision for `blog_1`              | Deterministic asset source IDs and collision-safe derivatives                    |
 | QB-012 | Pricing no-JS           | A-02 F-011                                                   | Legacy pricing widget was client-rendered React island                                                                      | Pricing essentials available in initial HTML; enhancement-only interactivity     |
 | QB-013 | Footer freshness        | A-02 F-021                                                   | Legacy inspected pages displayed footer year 2025 in June 2026                                                              | Governed content/current-year rule before production release                     |
-| QB-014 | Performance budgets     | active ExecPlan, Replit handoff, 2026-06-30 verification     | `/web` bundle report passes the 300 KB hard ceiling at `299.08 KB gzip` but remains above the 220 KB target                 | Bundle budget, Lighthouse/tracing, FPS/long-task checks on representative routes |
+| QB-014 | Performance budgets     | active ExecPlan, Replit handoff, 2026-06-30 verification     | `/web` bundle report passes the 300 KB hard ceiling at `299.04 KB gzip` but remains above the 220 KB target                 | Bundle budget, Lighthouse/tracing, FPS/long-task checks on representative routes |
 | QB-015 | Format baseline         | active ExecPlan, 2026-06-26 verification                     | Full `/web` `npm run format:check` now passes                                                                               | Keep full formatting check passing without repo-wide unrelated churn             |
 | QB-016 | Transient Vite artifact | Replit unresolved issues                                     | One-time invalid hook/hydration warning can appear after build/restart and clear on reload                                  | Reproduce and fix only in a tooling task if still present                        |
 
@@ -46,6 +46,7 @@
 - Legacy root renders 50 canonical pages in repository evidence, with unique titles, canonical URLs, meta descriptions, and one repository H1 per page.
 - `/web` now has a verified passing foundation command set: format, lint, typecheck, unit tests, build, migrated-content validation, route parity, redirects, staging safety, full e2e and a11y.
 - `/web` premium shell verification passed: header/mobile navigation, route/section Motion reveals, reduced-motion browser state, no horizontal overflow, no console warnings/errors, body-scroll restoration, and page-visibility hidden/restored state across 1440x900, 1024x768, 768x1024, 390x844, and 390x620 browser inspections.
+- `/web` homepage V2 conversion verification passed on 2026-06-30: loader completion, isolated intro, centered CoreSpin loader, premium hero booking CTA, Aether/body particle gates, first-body Silverstone System reveal, trust-strip boundary, reduced motion, keyboard focus, reload/direct entry, blocked-font resilience, and no horizontal overflow across 1440x900, 1280x800, 1024x768, 768x1024, 430x932, 390x844, and 390x667.
 - Booking page copy is a positive contract: it explains the 30-minute call, reduces pressure, and provides contact fallback.
 - Desktop and mobile parallax are active and must not be disabled to hide defects.
 - `/web` has prior records of passing lint, typecheck, unit tests, build, staging safety, Playwright desktop/mobile smoke, and a11y-tagged tests during earlier implementation records.

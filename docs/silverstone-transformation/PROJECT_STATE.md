@@ -141,6 +141,18 @@
 - `web/tests/unit/premium-system.test.tsx`
 - Targeted `/web/src/**` files reformatted by Prettier to clear the previous format backlog.
 
+## 2026-06-30 Homepage V2 Conversion Pass
+
+- `/web` homepage first view now positions Silverstone AI as a premium AI systems studio with visible booking and system-exploration conversion paths.
+- Homepage body opens with the qualitative Silverstone System: strategy, design, AI agents, software, integrations, and optimisation. Numeric benchmark counters and unsupported exact outcome claims were removed from the homepage surface.
+- Trust and service copy were softened to preserve business intent without unsupported timing, revenue, usage, or guarantee-like claims.
+- The homepage now includes qualitative outcome patterns and industry relevance links for estate agents, hospitality, trades, gyms and studios, clinics and practices, and e-commerce.
+- Hero Aether rendering is reduced-motion aware; the animated field effect does not initialise when motion is disabled.
+- Mobile first-body layout hides the duplicate secondary CTA row below 640px so the system reveal remains non-overlapping. The primary mobile booking CTA remains in the hero.
+- Browser QA covered 1440x900, 1280x800, 1024x768, 768x1024, 430x932, 390x844, and 390x667, plus reduced motion, keyboard focus, reload/direct entry, blocked-font resilience, loader completion, and image/network response checks.
+- Validation passed from `/web`: `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test`, `npm run build`, `npm run bundle:report`, `npm run staging:safety`, `npm run test:a11y`, and `npm run test:e2e -- tests/e2e/homepage-interaction.spec.ts --project=desktop-chromium`.
+- Bundle report remains a target miss at `299.04 KB gzip`, but it passes the 300 KB hard ceiling.
+
 ## Unresolved Risks And Evidence Gaps
 
 - No authenticated Netlify, DNS, analytics, Search Console, Resend, Calendly, or production environment control-plane access was used.

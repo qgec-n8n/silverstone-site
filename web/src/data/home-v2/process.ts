@@ -41,7 +41,7 @@ export const PROCESS_STEPS: readonly ProcessStep[] = [
     summary: "We connect it to the tools you already use.",
     detail:
       "Voice, messaging, calendars and back-office systems are wired together and tested against real scenarios until they hold up live.",
-    outcome: "A working system in weeks, not quarters",
+    outcome: "A staged implementation path",
     icon: "Workflow",
   },
   {
@@ -51,7 +51,7 @@ export const PROCESS_STEPS: readonly ProcessStep[] = [
     summary: "We watch it run and tune what matters.",
     detail:
       "After go-live we monitor performance, refine prompts and routing, and compound results — with a human always reviewing the signal.",
-    outcome: "Measurable wins that keep improving",
+    outcome: "A system that can keep improving",
     icon: "TrendingUp",
   },
 ] as const;

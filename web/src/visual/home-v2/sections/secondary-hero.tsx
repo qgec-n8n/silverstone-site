@@ -4,12 +4,7 @@ import { Link } from "react-router";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Button } from "~/components/ui/button";
-import type { BenchmarkMetric } from "~/data/home-v2";
-import {
-  BENCHMARK_DISCLAIMER,
-  HEADLINE_BENCHMARKS,
-  SECONDARY_BENCHMARKS,
-} from "~/data/home-v2";
+import { SYSTEM_LAYERS } from "~/data/home-v2";
 import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
 
 import { Icon } from "../components/icon";
@@ -24,27 +19,20 @@ type Capability = {
 const CAPABILITIES: Capability[] = [
   {
     icon: "Unlock",
-    label: "No lock-in pilots",
-    detail: "Prove the value on real work first, then commit when it earns it.",
+    label: "Scoped first",
+    detail: "Audit, map and prioritise before committing to a larger system.",
   },
   {
     icon: "Zap",
-    label: "Live in weeks",
-    detail: "From audit to a working system in weeks, not quarters.",
+    label: "Staged build",
+    detail: "Launch in controlled phases, with review gates around the risky parts.",
   },
   {
     icon: "UserCheck",
-    label: "Human-in-the-loop",
+    label: "Human review",
     detail: "Your team keeps oversight of every decision the system makes.",
   },
 ];
-
-function staticBenchmark(metric: BenchmarkMetric): string {
-  if (metric.display !== undefined) {
-    return metric.display;
-  }
-  return `${metric.prefix ?? ""}${String(metric.value)}${metric.suffix ?? ""}`;
-}
 
 function SystemScrollCue() {
   return (
@@ -86,11 +74,6 @@ function CapabilityItem({ cap, index }: { cap: Capability; index: number }) {
  * is the scroll/transition target for the hero's "Explore the system" action.
  */
 export function SecondaryHero() {
-  const consoleMetrics = HEADLINE_BENCHMARKS;
-  const signalRows = SECONDARY_BENCHMARKS.filter(
-    (metric) => metric.id !== "processing-cost-secondary",
-  );
-
   return (
     <PageSection id="system" tabIndex={-1} className="ss-hv2-secondary relative">
       <Container size="wide" className="ss-hv2-secondary__container">
@@ -109,9 +92,9 @@ export function SecondaryHero() {
             </Reveal>
             <Reveal delayMs={160}>
               <p className="ss-lead ss-hv2-secondary__lead text-[color:var(--ss-v2-titanium)]">
-                Calls, messages, bookings and follow-ups converge into a single
-                operating layer. Silverstone answers in seconds, captures the detail and
-                routes the work — while your team keeps oversight of every outcome.
+                Strategy, design, automation, AI agents, software, integrations and
+                optimisation converge into one operating layer. Silverstone maps the
+                work, builds the system and keeps the human checkpoints visible.
               </p>
             </Reveal>
             <ul className="ss-hv2-secondary__caps flex flex-col gap-3">
@@ -122,7 +105,7 @@ export function SecondaryHero() {
             <div className="ss-hv2-secondary__actions flex flex-wrap items-center gap-4 pt-1">
               <Reveal delayMs={440}>
                 <Button asChild size="lg" variant="accent">
-                  <Link to="/book">Book a free audit</Link>
+                  <Link to="/book">Book a discovery call</Link>
                 </Button>
               </Reveal>
               <Reveal delayMs={510}>
@@ -140,64 +123,48 @@ export function SecondaryHero() {
                 <div className="relative flex flex-col gap-5">
                   <div className="ss-hv2-console-item ss-hv2-system-signal__header">
                     <span className="ss-eyebrow font-mono text-[color:var(--ss-v2-titanium)]">
-                      Live signal
+                      System architecture
                     </span>
                     <span className="ss-hv2-system-signal__status">
                       <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-                      Benchmark mode
+                      Strategy-led build
                     </span>
                   </div>
-                  <ul className="ss-hv2-system-signal__metrics">
-                    {consoleMetrics.map((metric, index) => (
-                      <li
-                        key={metric.id}
-                        className="ss-hv2-console-item ss-hv2-system-signal__metric"
-                        style={
-                          {
-                            "--ss-hv2-reveal-delay": `${String(70 + index * 50)}ms`,
-                          } as CSSProperties
-                        }
-                      >
-                        <span className="ss-hv2-hero__stat-value ss-signal-text">
-                          {staticBenchmark(metric)}
-                        </span>
-                        <span className="ss-hv2-system-signal__label">
-                          {metric.label}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="ss-hv2-system-map" aria-hidden="true">
+                    <span className="ss-hv2-system-map__core">
+                      Silverstone
+                      <span>System</span>
+                    </span>
+                    <span className="ss-hv2-system-map__orbit ss-hv2-system-map__orbit--a" />
+                    <span className="ss-hv2-system-map__orbit ss-hv2-system-map__orbit--b" />
+                    <span className="ss-hv2-system-map__beam ss-hv2-system-map__beam--a" />
+                    <span className="ss-hv2-system-map__beam ss-hv2-system-map__beam--b" />
+                  </div>
                   <ul
-                    className="ss-hv2-system-signal__rows"
-                    aria-label="Supporting benchmark telemetry"
+                    className="ss-hv2-system-signal__rows ss-hv2-system-signal__rows--layers"
+                    aria-label="Silverstone System layers"
                   >
-                    {signalRows.map((metric, index) => (
+                    {SYSTEM_LAYERS.map((layer, index) => (
                       <li
-                        key={metric.id}
+                        key={layer.id}
                         className="ss-hv2-console-item ss-hv2-system-signal__row"
+                        data-accent={layer.accent}
                         style={
                           {
-                            "--ss-hv2-reveal-delay": `${String(290 + index * 55)}ms`,
+                            "--ss-hv2-reveal-delay": `${String(90 + index * 55)}ms`,
                           } as CSSProperties
                         }
                       >
                         <span className="ss-hv2-system-signal__row-primary">
-                          <span className="ss-hv2-system-signal__row-value">
-                            {staticBenchmark(metric)}
+                          <span className="ss-hv2-system-signal__row-icon">
+                            <Icon name={layer.icon} className="size-4" />
                           </span>
                           <span className="ss-hv2-system-signal__row-label">
-                            {metric.label}
+                            {layer.title}
                           </span>
                         </span>
                         <span className="ss-hv2-system-signal__row-context">
-                          {metric.context}
-                        </span>
-                        <span
-                          className="ss-hv2-system-signal__row-source"
-                          title={metric.source}
-                        >
-                          Benchmark
-                          <span className="sr-only"> source: {metric.source}</span>
+                          {layer.summary}
                         </span>
                       </li>
                     ))}
@@ -206,8 +173,8 @@ export function SecondaryHero() {
                     className="ss-hv2-console-item ss-hv2-system-signal__note"
                     style={{ "--ss-hv2-reveal-delay": "540ms" } as CSSProperties}
                   >
-                    <span aria-hidden="true">Benchmark outcomes, not guarantees.</span>
-                    <span className="sr-only">{BENCHMARK_DISCLAIMER}</span>
+                    Built around the business process first; tools and models come after
+                    the operating design is clear.
                   </p>
                 </div>
               </aside>

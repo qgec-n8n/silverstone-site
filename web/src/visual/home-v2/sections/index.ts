@@ -2,6 +2,7 @@ export { AiConsulting } from "./ai-consulting";
 export { BenchmarkMetrics } from "./benchmark-metrics";
 export { ConversionClimax } from "./conversion-climax";
 export { ImageStorytelling } from "./image-storytelling";
+export { IndustryRelevance } from "./industry-relevance";
 export { IntegrationCarousel } from "./integration-carousel";
 export { ProcessStory } from "./process-story";
 export { SecondaryHero } from "./secondary-hero";

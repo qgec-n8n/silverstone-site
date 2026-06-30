@@ -6,8 +6,8 @@ const trustSignals = [
   "UK-built",
   "London-based",
   "Human-reviewed automation",
-  "No lock-in pilots",
-  "Live in weeks",
+  "Scoped before build",
+  "Staged implementation",
   "GDPR-conscious by design",
 ] as const;
 
@@ -93,6 +93,13 @@ async function homepageRuntimeProof(page: Page) {
       signalBeforeContent: signalBefore?.content ?? null,
       signalMetrics: document.querySelectorAll(".ss-hv2-system-signal__metric").length,
       signalRows: document.querySelectorAll(".ss-hv2-system-signal__row").length,
+      systemLayerLabels: Array.from(
+        document.querySelectorAll<HTMLElement>(
+          ".ss-hv2-system-signal__row .ss-hv2-system-signal__row-label",
+        ),
+      ).map((node) => node.textContent.trim()),
+      outcomeCards: document.querySelectorAll(".ss-hv2-outcome").length,
+      industryCards: document.querySelectorAll(".ss-hv2-industry").length,
       systemBottomDelta: system ? Math.abs(system.bottom - window.innerHeight) : null,
       trustWidth: trustShell?.width ?? null,
       viewportWidth: window.innerWidth,
@@ -456,6 +463,12 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   await expect(page.locator("#system")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-backdrop")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-hero__canvas")).toHaveCount(1);
+  await expect(
+    page.getByRole("heading", {
+      name: "Premium AI systems for serious businesses.",
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Book a discovery call" })).toBeVisible();
   const aetherProof = await page.evaluate(() => {
     const canvas = document.querySelector<HTMLCanvasElement>(".ss-hv2-hero__canvas");
     const context = canvas?.getContext("2d", { willReadFrequently: true });
@@ -557,7 +570,12 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   ).toBeVisible();
   await expect(
     page.getByRole("heading", {
-      name: "The Business Impact of Better Automation",
+      name: "Where better systems change the day.",
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      name: "Built for businesses where response matters.",
     }),
   ).toBeVisible();
   await expect(page.locator(".ss-hv2-trust__item")).toHaveText([...trustSignals]);
@@ -577,8 +595,18 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(proof.scriptSrc).not.toContain("cdn");
   expect(proof.hasCustomBodyCanvas).toBe(false);
   expect(proof.hasSystemImage).toBe(false);
-  expect(proof.signalMetrics).toBe(4);
-  expect(proof.signalRows).toBe(3);
+  expect(proof.signalMetrics).toBe(0);
+  expect(proof.signalRows).toBe(6);
+  expect(proof.systemLayerLabels).toEqual([
+    "Strategy",
+    "Design",
+    "AI agents",
+    "Software",
+    "Integrations",
+    "Optimisation",
+  ]);
+  expect(proof.outcomeCards).toBe(4);
+  expect(proof.industryCards).toBe(6);
   expect(proof.systemBottomDelta).not.toBeNull();
   expect(proof.systemBottomDelta ?? 999).toBeLessThanOrEqual(1.5);
   expect(proof.trustWidth ?? 0).toBeGreaterThanOrEqual(proof.viewportWidth - 2);
@@ -657,8 +685,8 @@ for (const viewport of [
     expect(proof.pJSDomLength).toBe(1);
     expect(proof.nativeCanvasCount).toBe(1);
     expect(proof.hasSystemImage).toBe(false);
-    expect(proof.signalMetrics).toBe(4);
-    expect(proof.signalRows).toBe(3);
+    expect(proof.signalMetrics).toBe(0);
+    expect(proof.signalRows).toBe(6);
     expect(proof.sectionHeight).not.toBeNull();
     expect(proof.sectionBottomDelta ?? 999).toBeLessThanOrEqual(1.5);
     expect(proof.sectionContentOverflow ?? 999).toBeLessThanOrEqual(1.5);

@@ -12,8 +12,8 @@ export const TRUST_SIGNALS: readonly TrustSignal[] = [
   { id: "uk-built", label: "UK-built", icon: "MapPin" },
   { id: "london", label: "London-based", icon: "MapPin" },
   { id: "human", label: "Human-reviewed automation", icon: "UserCheck" },
-  { id: "no-lock-in", label: "No lock-in pilots", icon: "Unlock" },
-  { id: "speed", label: "Live in weeks", icon: "Zap" },
+  { id: "no-lock-in", label: "Scoped before build", icon: "Unlock" },
+  { id: "delivery", label: "Staged implementation", icon: "Zap" },
   { id: "gdpr", label: "GDPR-conscious by design", icon: "ShieldCheck" },
 ] as const;
 
@@ -27,9 +27,9 @@ export type StandardPillar = {
 export const SILVERSTONE_STANDARD: readonly StandardPillar[] = [
   {
     id: "measurable",
-    title: "No hype, just measurable wins",
+    title: "No hype, just visible progress",
     description:
-      "Every engagement is scoped against outcomes you can see — hours saved, enquiries captured, revenue recovered.",
+      "Every engagement is scoped around observable workflow improvements before build decisions are made.",
     icon: "Gauge",
   },
   {
@@ -43,7 +43,7 @@ export const SILVERSTONE_STANDARD: readonly StandardPillar[] = [
     id: "integrated",
     title: "Built on the tools you have",
     description:
-      "We connect to your existing stack rather than forcing a rebuild — no rip-and-replace, no lock-in.",
+      "We assess your current stack first, then design the lightest viable route to connection and control.",
     icon: "Plug",
   },
   {
