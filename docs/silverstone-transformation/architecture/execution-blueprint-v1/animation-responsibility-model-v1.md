@@ -2,13 +2,13 @@
 
 ## 1. Ownership matrix
 
-| Effect category | Owner | Examples | Prohibited overlap |
-|---|---|---|---|
-| CSS | browser/CSS | hover, focus, simple opacity/transform, skeleton pulse | no JS for equivalent effect |
-| Framer Motion | component owner | menu, accordion, modal, card entry/exit, layout transition | GSAP may not animate same element/property |
-| GSAP | motion owner | hero orchestration, scroll-linked sequences, coordinated section timelines | Framer layout animation on controlled properties |
-| WebGL/shader | shader owner | deferred decorative hero background | never essential content or interaction |
-| Native browser | browser | scrolling, anchor navigation, sticky positioning | no virtual-scroll replacement |
+| Effect category | Owner           | Examples                                                                   | Prohibited overlap                               |
+| --------------- | --------------- | -------------------------------------------------------------------------- | ------------------------------------------------ |
+| CSS             | browser/CSS     | hover, focus, simple opacity/transform, skeleton pulse                     | no JS for equivalent effect                      |
+| Motion          | component owner | menu, accordion, modal, card entry/exit, layout transition                 | GSAP may not animate same element/property       |
+| GSAP            | motion owner    | hero orchestration, scroll-linked sequences, coordinated section timelines | Framer layout animation on controlled properties |
+| WebGL/shader    | shader owner    | deferred decorative hero background                                        | never essential content or interaction           |
+| Native browser  | browser         | scrolling, anchor navigation, sticky positioning                           | no virtual-scroll replacement                    |
 
 ## 2. Rules
 
@@ -73,3 +73,6 @@ This blueprint is derived from the following repository authorities on branch `t
 
 Where evidence conflicts, the precedence order is: current owner-approved decision record; fresh implementation-baseline crawl; A-01 route/redirect inventories; A-02 advisory findings; platform and benchmark research. No conflict may be silently reconciled.
 
+## 2026-06-30 package naming update
+
+Decision D-016 updates the React component animation owner from direct `framer-motion` imports to the public `motion` package. The ownership model is unchanged: Motion owns ordinary React component animation, while GSAP remains isolated to exceptional choreography and must not animate the same element/property.

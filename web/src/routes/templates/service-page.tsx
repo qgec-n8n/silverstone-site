@@ -1,6 +1,7 @@
 import "~/styles/visual/home-v2.css";
 
-import { LayoutGroup, motion, type Variants } from "framer-motion";
+import { LayoutGroup, type Variants } from "motion/react";
+import * as m from "motion/react-m";
 import { useCallback, useEffect, useRef, type Ref } from "react";
 import { RotateCcw } from "~/components/icons/lucide";
 
@@ -59,38 +60,38 @@ function ServiceIntro({
       <div className="ss-hv2-hero__veil" aria-hidden="true" />
 
       <Container size="wide" className="relative z-10">
-        <motion.div
+        <m.div
           animate="show"
           className="ss-service-intro__content flex flex-col items-center gap-7 text-center"
           initial={motionEnabled ? "hidden" : false}
         >
-          <motion.span
+          <m.span
             className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
             custom={0}
             variants={introItem}
           >
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
             Silverstone service system
-          </motion.span>
+          </m.span>
 
-          <motion.h1
+          <m.h1
             className="ss-hv2-aether-reveal ss-hv2-display ss-service-intro__title"
             custom={1}
             variants={introItem}
           >
             {route.h1}
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             className="ss-lead ss-service-intro__lead text-[color:var(--ss-v2-titanium)]"
             custom={2}
             variants={introItem}
           >
             {route.description}
-          </motion.p>
+          </m.p>
 
           {buttonHidden ? null : (
-            <motion.div
+            <m.div
               className="flex flex-wrap items-center justify-center gap-4"
               custom={3}
               variants={introItem}
@@ -100,9 +101,9 @@ function ServiceIntro({
                 disabled={buttonDisabled}
                 onActivate={onExplore}
               />
-            </motion.div>
+            </m.div>
           )}
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

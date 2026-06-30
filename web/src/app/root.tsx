@@ -16,6 +16,7 @@ import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";
 import { TextLink } from "~/components/ui/text-link";
+import { MotionProvider } from "~/motion";
 import "./app.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -39,10 +40,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <AppExperienceProvider>
-          <CoreSpinLoader />
-          {children}
-        </AppExperienceProvider>
+        <MotionProvider>
+          <AppExperienceProvider>
+            <CoreSpinLoader />
+            {children}
+          </AppExperienceProvider>
+        </MotionProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

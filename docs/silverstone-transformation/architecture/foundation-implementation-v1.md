@@ -45,8 +45,8 @@
 
 - [x] Initialize shadcn/ui through the current CLI-compatible React Router setup.
 - [x] Add only the Button and Skeleton primitives needed by the internal component route and loading states.
-- [x] Install GSAP and Framer Motion without invoking either runtime in the foundation shell.
-- [x] Record animation ownership: CSS for simple state styling, Framer Motion for local component transitions, GSAP for coordinated/scroll timelines, and lazy visual adapters for WebGL.
+- [x] Install GSAP and Motion without invoking either runtime in the foundation shell.
+- [x] Record animation ownership: CSS for simple state styling, Motion for local component transitions, GSAP for exceptional coordinated/scroll timelines, and lazy visual adapters for WebGL.
 
 ### 5. Test-first acceptance
 
@@ -79,22 +79,33 @@ Key installed versions:
 - React Router, React Router dev tooling, and Node adapter 7.18.0
 - Vite 7.3.5 and TypeScript 5.9.3
 - Tailwind CSS and `@tailwindcss/vite` 4.3.1
-- GSAP 3.15.0 and Framer Motion 12.40.0
+- GSAP 3.15.0 and Motion 12.40.0
 - Vitest 4.1.9 and Testing Library React 16.3.2
 - Playwright 1.61.0 and `@axe-core/playwright` 4.11.3
 - ESLint 9.39.4 and Prettier 3.8.4
 
 ## Animation ownership
 
-| Surface | Owner | Foundation status |
-|---|---|---|
-| Focus, hover, simple opacity/transform | CSS | Available |
-| Local enter/exit and component layout transitions | Framer Motion | Installed, not active |
-| Coordinated timelines and future scroll-linked sequences | GSAP | Installed, not active |
-| WebGL and shader effects | Lazy visual adapter | Boundary only; no implementation |
-| Scrolling and sticky behavior | Browser | Native; no scroll hijacking |
+| Surface                                                  | Owner               | Foundation status                             |
+| -------------------------------------------------------- | ------------------- | --------------------------------------------- |
+| Focus, hover, simple opacity/transform                   | CSS                 | Available                                     |
+| Local enter/exit and component layout transitions        | Motion              | Installed, active through `web/src/motion/**` |
+| Coordinated timelines and future scroll-linked sequences | GSAP                | Installed, not active                         |
+| WebGL and shader effects                                 | Lazy visual adapter | Boundary only; no implementation              |
+| Scrolling and sticky behavior                            | Browser             | Native; no scroll hijacking                   |
 
-GSAP and Framer Motion must never animate the same property on the same element. Motion remains enhancement-only, and reduced-motion handling is required before either runtime is activated.
+GSAP and Motion must never animate the same property on the same element. Motion remains enhancement-only, and reduced-motion handling is required before either runtime is activated.
+
+## 2026-06-30 Motion package update
+
+Prompt 2 migrated `/web` from direct `framer-motion` imports to the public `motion` package. The app root now uses `web/src/motion/MotionProvider.tsx`, which wraps React Router output in `MotionConfig reducedMotion="user"` and strict `LazyMotion` with async `domMax` feature loading. Active components use `motion/react-m` lightweight DOM element exports inside that boundary, while coordination APIs and types come from `motion/react`.
+
+Verified entry points:
+
+- `motion/react`
+- `motion/react-m`
+
+`motion@12.40.0` declares `framer-motion@12.40.0` as a transitive dependency, so the lockfile still contains `node_modules/framer-motion`; application code must not import it directly.
 
 ## Verification record
 

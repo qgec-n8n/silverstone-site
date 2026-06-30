@@ -1,6 +1,6 @@
 import "~/styles/visual/home-v2.css";
 
-import { LayoutGroup } from "framer-motion";
+import { LayoutGroup } from "motion/react";
 import { useCallback, useEffect, useRef } from "react";
 import { RotateCcw } from "~/components/icons/lucide";
 

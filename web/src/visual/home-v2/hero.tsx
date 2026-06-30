@@ -1,4 +1,5 @@
-import { motion, type Variants } from "framer-motion";
+import type { Variants } from "motion/react";
+import * as m from "motion/react-m";
 import type { Ref } from "react";
 
 import { Container } from "~/components/layout/container";
@@ -51,30 +52,30 @@ export function Hero({
       <div className="ss-hv2-hero__veil" aria-hidden="true" />
 
       <Container size="wide" className="relative z-10">
-        <motion.div
+        <m.div
           initial={motionEnabled ? "hidden" : false}
           animate="show"
           className="ss-hv2-hero__content flex flex-col items-center gap-7 text-center"
         >
-          <motion.span
+          <m.span
             variants={item}
             custom={0}
             className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
           >
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
             UK AI systems studio
-          </motion.span>
+          </m.span>
 
-          <motion.h1
+          <m.h1
             variants={item}
             custom={1}
             className="ss-hv2-aether-reveal ss-hv2-display ss-hv2-hero__title"
           >
             The operating system for businesses that{" "}
             <span className="ss-chrome-text">refuse to miss</span>.
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={item}
             custom={2}
             className="ss-lead ss-hv2-hero__lead text-[color:var(--ss-v2-titanium)]"
@@ -82,10 +83,10 @@ export function Hero({
             Silverstone designs AI voice, reception and automation systems that answer
             every call, capture every enquiry and run the repetitive work — so small UK
             teams respond faster, deliver more and grow without adding headcount.
-          </motion.p>
+          </m.p>
 
           {hideExploreButton ? null : (
-            <motion.div
+            <m.div
               variants={item}
               custom={3}
               className="flex flex-wrap items-center justify-center gap-4"
@@ -96,9 +97,9 @@ export function Hero({
                 layoutEnabled={exploreButtonLayoutEnabled}
                 onActivate={onExplore}
               />
-            </motion.div>
+            </m.div>
           )}
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

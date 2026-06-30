@@ -1,9 +1,5 @@
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  type Transition,
-} from "framer-motion";
+import { AnimatePresence, useReducedMotion, type Transition } from "motion/react";
+import * as m from "motion/react-m";
 import { ArrowRight } from "~/components/icons/lucide";
 import {
   forwardRef,
@@ -48,7 +44,7 @@ export const ExploreSystemButton = forwardRef<
   };
 
   return (
-    <motion.button
+    <m.button
       ref={ref}
       type="button"
       onClick={handleClick}
@@ -58,7 +54,7 @@ export const ExploreSystemButton = forwardRef<
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.78, ease: [0.22, 1, 0.36, 1] }}
     >
-      <motion.span
+      <m.span
         {...(layoutEnabled ? { layoutId: EXPLORE_CARD_LAYOUT_ID } : {})}
         className="ss-explore-cta__bg"
         style={{ borderRadius: 999 }}
@@ -69,7 +65,7 @@ export const ExploreSystemButton = forwardRef<
         Explore the system
         <ArrowRight className="size-[1.05rem]" aria-hidden="true" />
       </span>
-    </motion.button>
+    </m.button>
   );
 });
 
@@ -141,7 +137,7 @@ export function ExploreSystemTransition({
     <AnimatePresence>
       {active ? (
         <div className="ss-explore-overlay" data-phase={state} aria-hidden="true">
-          <motion.div
+          <m.div
             layoutId={EXPLORE_CARD_LAYOUT_ID}
             className="ss-explore-overlay__card"
             style={{ borderRadius: state === "opening" ? 28 : 0 }}
@@ -152,13 +148,13 @@ export function ExploreSystemTransition({
             }}
             onLayoutAnimationComplete={handleLayoutComplete}
           >
-            <motion.span
+            <m.span
               className="ss-explore-overlay__glow"
               initial={{ opacity: 0 }}
               animate={{ opacity: state === "closing" ? 0.55 : 1 }}
               transition={{ delay: reduceMotion ? 0 : 0.12, duration: 0.36 }}
             />
-          </motion.div>
+          </m.div>
         </div>
       ) : null}
     </AnimatePresence>,

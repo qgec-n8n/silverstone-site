@@ -5,13 +5,13 @@
 
 ## 1. Ownership matrix
 
-| Responsibility | Owner | Allowed | Prohibited overlap |
-|---|---|---|---|
-| hover, focus, press, colour, simple opacity/transform | CSS | buttons, links, card micro-lift, skeleton | JS recreation of same effect |
-| component presence and layout state | Framer Motion | mobile nav, accordion, status panels, modal, card reorder | GSAP on same element/property |
-| coordinated timeline and scroll orchestration | GSAP | hero sequence, multi-element section story, explicit-start demo | Framer layout/transform on controlled nodes |
-| visibility and measurement | Native APIs | IntersectionObserver, ResizeObserver, visibilityState, matchMedia | polling layout every frame |
-| scrolling and sticky behaviour | Native browser | anchors, scroll, sticky, scroll-snap | hijacking, forced smooth/virtual scrolling |
+| Responsibility                                        | Owner          | Allowed                                                           | Prohibited overlap                          |
+| ----------------------------------------------------- | -------------- | ----------------------------------------------------------------- | ------------------------------------------- |
+| hover, focus, press, colour, simple opacity/transform | CSS            | buttons, links, card micro-lift, skeleton                         | JS recreation of same effect                |
+| component presence and layout state                   | Motion         | mobile nav, accordion, status panels, modal, card reorder         | GSAP on same element/property               |
+| coordinated timeline and scroll orchestration         | GSAP           | hero sequence, multi-element section story, explicit-start demo   | Framer layout/transform on controlled nodes |
+| visibility and measurement                            | Native APIs    | IntersectionObserver, ResizeObserver, visibilityState, matchMedia | polling layout every frame                  |
+| scrolling and sticky behaviour                        | Native browser | anchors, scroll, sticky, scroll-snap                              | hijacking, forced smooth/virtual scrolling  |
 
 ## 2. Property lease
 
@@ -45,20 +45,20 @@ Use `enter` for reveal, `exit` for removal, `standard` for state change, linear 
 
 ## 5. Motion recipes
 
-| Recipe | Owner | Properties | Trigger | Full motion | Reduced motion |
-|---|---|---|---|---|---|
-| nav disclosure | Framer | opacity, clip/height | user action | 220ms | 80ms opacity or instant |
-| mobile nav | Framer | opacity, transform | user action | 320ms, 16px | 80ms opacity |
-| button interaction | CSS | colour, shadow, transform | hover/focus/press | 140ms, ≤2px | colour/focus only |
-| card hover | CSS | transform, shadow | fine pointer hover | 220ms, ≤4px | shadow/outline only |
-| accordion | Framer | height, opacity | user action | 320ms | instant/80ms fade |
-| hero entrance | GSAP | opacity, transform | route ready | 480–800ms, ≤48px | static visible |
-| section reveal | GSAP | opacity, transform | intersection | 480ms, ≤32px | static visible |
-| demo timeline | GSAP | declared per demo | explicit start | bounded timeline | step changes, no travel |
-| layout reorder | Framer | layout transform | state change | 320ms | instant |
-| skeleton | CSS | opacity/background-position | data pending | 1200ms loop | static neutral block |
-| logo rail | Native/CSS | scroll position | user input | scroll-snap | wrapped grid/static |
-| shader | isolated adapter | WebGL uniforms | idle/deferred | low-power bounded | static image |
+| Recipe             | Owner            | Properties                  | Trigger            | Full motion       | Reduced motion          |
+| ------------------ | ---------------- | --------------------------- | ------------------ | ----------------- | ----------------------- |
+| nav disclosure     | Framer           | opacity, clip/height        | user action        | 220ms             | 80ms opacity or instant |
+| mobile nav         | Framer           | opacity, transform          | user action        | 320ms, 16px       | 80ms opacity            |
+| button interaction | CSS              | colour, shadow, transform   | hover/focus/press  | 140ms, ≤2px       | colour/focus only       |
+| card hover         | CSS              | transform, shadow           | fine pointer hover | 220ms, ≤4px       | shadow/outline only     |
+| accordion          | Motion           | height, opacity             | user action        | 320ms             | instant/80ms fade       |
+| hero entrance      | GSAP             | opacity, transform          | route ready        | 480–800ms, ≤48px  | static visible          |
+| section reveal     | GSAP             | opacity, transform          | intersection       | 480ms, ≤32px      | static visible          |
+| demo timeline      | GSAP             | declared per demo           | explicit start     | bounded timeline  | step changes, no travel |
+| layout reorder     | Motion           | layout transform            | state change       | 320ms             | instant                 |
+| skeleton           | CSS              | opacity/background-position | data pending       | 1200ms loop       | static neutral block    |
+| logo rail          | Native/CSS       | scroll position             | user input         | scroll-snap       | wrapped grid/static     |
+| shader             | isolated adapter | WebGL uniforms              | idle/deferred      | low-power bounded | static image            |
 
 ## 6. Scroll-linked rules
 
@@ -69,6 +69,7 @@ GSAP ScrollTrigger or equivalent may read native scroll progress but may not rep
 IntersectionObserver is the default for entering/leaving viewport work because it asynchronously reports intersection changes. [S10] ResizeObserver reports element box-size changes and is used for component measurement rather than window-only assumptions. [S11] `visibilityState`/`visibilitychange` pauses continuous work when the page is hidden. [S12]
 
 Rules:
+
 - one observer can serve multiple targets with the same thresholds;
 - disconnect observers and cancel RAF/timelines on unmount;
 - never call layout reads and writes in alternating loops;
@@ -80,6 +81,7 @@ Rules:
 The browser media feature reports a user's reduced-motion preference. [S9]
 
 **Proposal:** a shared policy layer combines `matchMedia('(prefers-reduced-motion: reduce)')` with any future explicit site control. In reduced mode:
+
 - reveal content is immediately visible;
 - parallax, scroll scrubbing, large translation, continuous shader movement and autoplay are disabled;
 - state changes use instant replacement or ≤80ms opacity;
@@ -89,6 +91,7 @@ The browser media feature reports a user's reduced-motion preference. [S9]
 ## 9. Performance gates
 
 Inherited D-01 gates:
+
 - no animation-caused long task over 50ms;
 - sustained desktop animation ≥45 FPS in representative profiling;
 - no off-screen continuous animation;
@@ -97,11 +100,16 @@ Inherited D-01 gates:
 
 F-01 available bundle baseline: 111.83 KB gzip, leaving 108.17 KB to the target and 188.17 KB to the ceiling before route/design additions. This is budget headroom, not an allocation to spend.
 
+## 2026-06-30 package update
+
+Decision D-016 makes `motion` the package-level owner for React-controlled animation. Use `motion/react` for provider, hooks, `AnimatePresence`, `LayoutGroup`, types, and utilities; use `motion/react-m` lightweight DOM exports inside the strict `LazyMotion` subtree. Motion+ APIs remain excluded unless authenticated access and a separate owner decision are provided.
+
 ## 10. QA evidence
 
 For the heaviest route capture: performance trace, long-task list, FPS sample, reduced-motion screenshot at 390×844, keyboard walkthrough during motion, route-transition cleanup, hidden-tab pause, resize response, and horizontal-overflow check.
 
 ## Sources
+
 - **[S9]** [MDN prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
 - **[S10]** [MDN Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
 - **[S11]** [MDN ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
