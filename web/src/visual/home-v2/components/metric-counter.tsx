@@ -1,11 +1,14 @@
+import { useState } from "react";
+
 import type { BenchmarkMetric } from "~/data/home-v2";
-import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
 
 import { useCountUp } from "../hooks/use-count-up";
+import { Reveal } from "./reveal";
 
 type MetricCounterProps = {
-  metric: BenchmarkMetric;
   countersEnabled: boolean;
+  delayMs?: number;
+  metric: BenchmarkMetric;
 };
 
 function formatNumber(value: number, decimals: number): string {
@@ -20,8 +23,12 @@ function formatNumber(value: number, decimals: number): string {
  * a fixed `display` string (e.g. "<10s", "24/7", ranges) render statically. The
  * count-up is fully disabled under the minimal tier / reduced motion.
  */
-export function MetricCounter({ metric, countersEnabled }: MetricCounterProps) {
-  const { ref, revealed } = useSectionReveal();
+export function MetricCounter({
+  countersEnabled,
+  delayMs = 0,
+  metric,
+}: MetricCounterProps) {
+  const [revealed, setRevealed] = useState(false);
   const hasFixedDisplay = metric.display !== undefined;
   const decimals = metric.decimals ?? 0;
 
@@ -38,18 +45,15 @@ export function MetricCounter({ metric, countersEnabled }: MetricCounterProps) {
     : `${metric.prefix ?? ""}${formatNumber(animated, decimals)}${metric.suffix ?? ""}`;
 
   return (
-    <article
-      ref={ref}
-      data-revealed={revealed}
-      data-tier={metric.tier}
-      className="ss-hv2-metric ss-hv2-reveal"
-    >
-      <p className="ss-hv2-metric__value text-[color:var(--ss-v2-platinum)]">
-        {composed}
-      </p>
-      <p className="ss-hv2-metric__label">{metric.label}</p>
-      <p className="ss-hv2-metric__context">{metric.context}</p>
-      <p className="ss-hv2-metric__source">Benchmark · {metric.source}</p>
-    </article>
+    <Reveal delayMs={delayMs} kind="metric" onReveal={() => setRevealed(true)}>
+      <article data-tier={metric.tier} className="ss-hv2-metric">
+        <p className="ss-hv2-metric__value text-[color:var(--ss-v2-platinum)]">
+          {composed}
+        </p>
+        <p className="ss-hv2-metric__label">{metric.label}</p>
+        <p className="ss-hv2-metric__context">{metric.context}</p>
+        <p className="ss-hv2-metric__source">Benchmark · {metric.source}</p>
+      </article>
+    </Reveal>
   );
 }

@@ -70,6 +70,7 @@ export const ExploreSystemButton = forwardRef<
 });
 
 type ExploreSystemTransitionProps = {
+  bodyBackdropReady?: boolean;
   onClosingReady: () => void;
   onOpeningComplete: () => void;
   state: HomepageState | ServiceExperienceState;
@@ -82,6 +83,7 @@ type ExploreSystemTransitionProps = {
  * overlay exits back to the restored intro button.
  */
 export function ExploreSystemTransition({
+  bodyBackdropReady = true,
   onClosingReady,
   onOpeningComplete,
   state,
@@ -89,11 +91,18 @@ export function ExploreSystemTransition({
   const reduceMotion = useReducedMotion() ?? false;
   const completedOpenRef = useRef(false);
   const closingTimerRef = useRef<number | null>(null);
+  const openingFallbackTimerRef = useRef<number | null>(null);
+  const openingReadyPendingRef = useRef(false);
   const active = state === "opening" || state === "closing";
 
   useEffect(() => {
     if (state !== "opening") {
       completedOpenRef.current = false;
+      openingReadyPendingRef.current = false;
+      if (openingFallbackTimerRef.current !== null) {
+        window.clearTimeout(openingFallbackTimerRef.current);
+        openingFallbackTimerRef.current = null;
+      }
     }
   }, [state]);
 
@@ -102,6 +111,41 @@ export function ExploreSystemTransition({
       onOpeningComplete();
     }
   }, [onOpeningComplete, reduceMotion, state]);
+
+  useEffect(() => {
+    if (state !== "opening" || reduceMotion) {
+      return undefined;
+    }
+
+    openingFallbackTimerRef.current = window.setTimeout(() => {
+      if (!completedOpenRef.current) {
+        completedOpenRef.current = true;
+        onOpeningComplete();
+      }
+    }, 2400);
+
+    return () => {
+      if (openingFallbackTimerRef.current !== null) {
+        window.clearTimeout(openingFallbackTimerRef.current);
+        openingFallbackTimerRef.current = null;
+      }
+    };
+  }, [onOpeningComplete, reduceMotion, state]);
+
+  useEffect(() => {
+    if (
+      state !== "opening" ||
+      !bodyBackdropReady ||
+      !openingReadyPendingRef.current ||
+      completedOpenRef.current ||
+      reduceMotion
+    ) {
+      return;
+    }
+    completedOpenRef.current = true;
+    openingReadyPendingRef.current = false;
+    window.setTimeout(onOpeningComplete, 120);
+  }, [bodyBackdropReady, onOpeningComplete, reduceMotion, state]);
 
   useEffect(() => {
     if (state !== "closing") {
@@ -125,9 +169,13 @@ export function ExploreSystemTransition({
     if (state !== "opening" || completedOpenRef.current || reduceMotion) {
       return;
     }
+    if (!bodyBackdropReady) {
+      openingReadyPendingRef.current = true;
+      return;
+    }
     completedOpenRef.current = true;
     window.setTimeout(onOpeningComplete, 180);
-  }, [onOpeningComplete, reduceMotion, state]);
+  }, [bodyBackdropReady, onOpeningComplete, reduceMotion, state]);
 
   if (typeof document === "undefined") {
     return null;

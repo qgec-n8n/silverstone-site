@@ -1,35 +1,115 @@
-import type { CSSProperties, ReactNode } from "react";
+import { useReducedMotion, type Transition, type Variants } from "motion/react";
+import * as m from "motion/react-m";
+import type { ReactNode } from "react";
 
 import { cn } from "~/lib/utils";
-import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
+
+export type HomeRevealKind =
+  | "card"
+  | "cta"
+  | "footer"
+  | "image"
+  | "item"
+  | "metric"
+  | "section";
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
-  /** Stagger offset applied as a CSS transition-delay. */
+  dataAlign?: "center" | "start";
+  dataWidth?: "full" | "wide";
+  /** Stagger offset applied to the Motion transition. */
   delayMs?: number;
+  kind?: HomeRevealKind;
+  onReveal?: () => void;
 };
 
+const entranceEase = [0.22, 1, 0.36, 1] as const;
+const metricEase = [0.16, 1, 0.3, 1] as const;
+
+const revealVariants: Record<HomeRevealKind, Variants> = {
+  section: {
+    hidden: { filter: "blur(10px)", opacity: 0, y: 34 },
+    show: { filter: "blur(0px)", opacity: 1, y: 0 },
+  },
+  card: {
+    hidden: { opacity: 0, rotateX: 8, scale: 0.965, y: 28 },
+    show: { opacity: 1, rotateX: 0, scale: 1, y: 0 },
+  },
+  metric: {
+    hidden: { opacity: 0, scale: 0.92, y: 18 },
+    show: { opacity: 1, scale: 1, y: 0 },
+  },
+  image: {
+    hidden: { clipPath: "inset(12% 10% round 24px)", opacity: 0, scale: 1.04 },
+    show: { clipPath: "inset(0% 0% round 24px)", opacity: 1, scale: 1 },
+  },
+  item: {
+    hidden: { opacity: 0, x: -18, y: 10 },
+    show: { opacity: 1, x: 0, y: 0 },
+  },
+  cta: {
+    hidden: { filter: "blur(14px)", opacity: 0, scale: 0.96, y: 24 },
+    show: { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 },
+  },
+  footer: {
+    hidden: { opacity: 0, y: 22 },
+    show: { opacity: 1, y: 0 },
+  },
+};
+
+function transitionFor(
+  kind: HomeRevealKind,
+  delayMs: number,
+  reducedMotion: boolean,
+): Transition {
+  if (reducedMotion) {
+    return { delay: 0, duration: 0.01 };
+  }
+
+  const delay = delayMs / 1000;
+  if (kind === "metric") {
+    return { delay, duration: 0.62, ease: metricEase };
+  }
+  if (kind === "card" || kind === "image") {
+    return { delay, duration: 0.72, ease: entranceEase };
+  }
+  if (kind === "cta") {
+    return { delay, duration: 0.84, ease: entranceEase };
+  }
+  return { delay, duration: 0.64, ease: entranceEase };
+}
+
 /**
- * Wraps content in the shared scroll-reveal treatment. The settle transition is
- * gated behind `html[data-js="on"]` (progressive enhancement) and resolves
- * immediately under reduced motion via `useSectionReveal`.
+ * Motion-owned homepage reveal primitive. Entrances replay whenever the homepage
+ * body remounts, while reduced-motion users receive immediate readable content.
  */
-export function Reveal({ children, className, delayMs = 0 }: RevealProps) {
-  const { ref, revealed } = useSectionReveal();
-  const style =
-    delayMs > 0
-      ? ({ "--ss-hv2-reveal-delay": `${String(delayMs)}ms` } as CSSProperties)
-      : undefined;
+export function Reveal({
+  children,
+  className,
+  dataAlign,
+  dataWidth,
+  delayMs = 0,
+  kind = "section",
+  onReveal,
+}: RevealProps) {
+  const reducedMotion = useReducedMotion() ?? false;
+  const viewportEnterProps = onReveal ? { onViewportEnter: onReveal } : {};
 
   return (
-    <div
-      ref={ref}
-      data-revealed={revealed}
-      style={style}
+    <m.div
       className={cn("ss-hv2-reveal", className)}
+      data-align={dataAlign}
+      data-revealed="true"
+      data-width={dataWidth}
+      initial={reducedMotion ? false : "hidden"}
+      whileInView="show"
+      viewport={{ amount: 0.22, margin: "0px 0px -12% 0px", once: true }}
+      variants={revealVariants[kind]}
+      transition={transitionFor(kind, delayMs, reducedMotion)}
+      {...viewportEnterProps}
     >
       {children}
-    </div>
+    </m.div>
   );
 }

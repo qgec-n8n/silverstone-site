@@ -8,4 +8,5 @@ export { ProcessStory } from "./process-story";
 export { SecondaryHero } from "./secondary-hero";
 export { ServicesUniverse } from "./services-universe";
 export { Standard } from "./standard";
+export { SystemVisual } from "./system-visual";
 export { TrustStrip } from "./trust-strip";

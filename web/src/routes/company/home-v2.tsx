@@ -1,8 +1,9 @@
 import "~/styles/visual/home-v2.css";
 
 import { LayoutGroup } from "motion/react";
-import { useCallback, useEffect, useRef } from "react";
-import { RotateCcw } from "~/components/icons/lucide";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { X } from "~/components/icons/lucide";
 
 import { useAppExperience } from "~/app/experience/app-experience";
 import { deriveMotionPolicy } from "~/visual/home-v2/motion-policy";
@@ -20,10 +21,30 @@ import {
   SecondaryHero,
   ServicesUniverse,
   Standard,
+  SystemVisual,
   TrustStrip,
 } from "~/visual/home-v2/sections";
 import { ScrollProvider } from "~/visual/home-v2/scroll-provider";
 import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
+
+function HomepageReturnButton({ onClick }: { onClick: () => void }) {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  return createPortal(
+    <button
+      type="button"
+      className="ss-hv2-return"
+      onClick={onClick}
+      aria-label="Return to intro"
+      title="Return to intro"
+    >
+      <X className="size-4" aria-hidden="true" />
+    </button>,
+    document.body,
+  );
+}
 
 /**
  * V2 homepage presentation. The capability tier and motion policy are resolved
@@ -41,6 +62,7 @@ export function HomeV2({ contentId }: { contentId?: string }) {
     openHomepageBody,
   } = useAppExperience();
   const exploreButtonRef = useRef<HTMLButtonElement>(null);
+  const [bodyBackdropReady, setBodyBackdropReady] = useState(false);
   const policy = deriveMotionPolicy({
     tier: capability.tier,
     reducedMotion: capability.reducedMotion,
@@ -51,6 +73,7 @@ export function HomeV2({ contentId }: { contentId?: string }) {
     homepageState === "opening" ||
     homepageState === "closing";
   const bodyVisible = homepageState === "body";
+  const bodyParticlesPrepared = homepageState === "opening" || homepageState === "body";
 
   const focusExploreButton = useCallback(() => {
     window.setTimeout(
@@ -65,9 +88,10 @@ export function HomeV2({ contentId }: { contentId?: string }) {
     if (homepageState !== "intro") {
       return;
     }
+    setBodyBackdropReady(!policy.motionEnabled);
     window.scrollTo({ left: 0, top: 0, behavior: "auto" });
     openHomepageBody();
-  }, [homepageState, openHomepageBody]);
+  }, [homepageState, openHomepageBody, policy.motionEnabled]);
 
   const handleOpeningComplete = useCallback(() => {
     completeHomepageOpening();
@@ -117,21 +141,30 @@ export function HomeV2({ contentId }: { contentId?: string }) {
           />
         ) : null}
         <ExploreSystemTransition
+          bodyBackdropReady={bodyBackdropReady}
           state={homepageState}
           onOpeningComplete={handleOpeningComplete}
           onClosingReady={handleClosingReady}
         />
       </LayoutGroup>
 
+      {bodyParticlesPrepared ? (
+        <BodyParticles
+          enabled={policy.motionEnabled}
+          onReady={() => setBodyBackdropReady(true)}
+          tier={policy.tier}
+        />
+      ) : null}
+
       {bodyVisible ? (
         <div className="ss-hv2__body">
-          <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />
           <ScrollProvider enabled={policy.scrollChoreography}>
             <SecondaryHero />
             <TrustStrip />
             <ServicesUniverse />
             <AiConsulting />
-            <BenchmarkMetrics />
+            <BenchmarkMetrics countersEnabled={policy.countersEnabled} />
+            <SystemVisual />
             <IndustryRelevance />
             <IntegrationCarousel marqueeEnabled={policy.marqueeEnabled} />
             <ProcessStory />
@@ -139,15 +172,7 @@ export function HomeV2({ contentId }: { contentId?: string }) {
             <Standard />
             <ConversionClimax />
           </ScrollProvider>
-          <button
-            type="button"
-            className="ss-hv2-return"
-            onClick={handleCloseBody}
-            aria-label="Return to intro"
-            title="Return to intro"
-          >
-            <RotateCcw className="size-4" aria-hidden="true" />
-          </button>
+          <HomepageReturnButton onClick={handleCloseBody} />
         </div>
       ) : null}
     </div>

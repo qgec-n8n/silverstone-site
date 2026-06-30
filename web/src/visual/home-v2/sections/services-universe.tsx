@@ -21,7 +21,7 @@ export function ServicesUniverse() {
     >
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {SERVICE_UNIVERSE.map((card, index) => (
-          <Reveal key={card.id} delayMs={index * 70} className="h-full">
+          <Reveal key={card.id} delayMs={index * 70} kind="card" className="h-full">
             <DisplayCard card={card} />
           </Reveal>
         ))}

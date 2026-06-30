@@ -15,7 +15,7 @@ describe("route visual background mapping", () => {
     );
   });
 
-  it("maps the industries directory and industries detail paths to Cybercore and Gradient", () => {
+  it("recognizes industry routes without changing their background mode", () => {
     for (const pathname of [
       "/industries",
       "/industries/",
@@ -23,8 +23,8 @@ describe("route visual background mapping", () => {
     ]) {
       expect(isIndustryBackgroundRoute(pathname)).toBe(true);
       expect(getRouteVisualBackgroundMode(pathname)).toEqual({
-        body: "industry-gradient",
-        intro: "cybercore",
+        body: "particles",
+        intro: "aether",
       });
     }
   });

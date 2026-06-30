@@ -24,7 +24,7 @@ Policy applied:
 1. Add service-route two-state intro/body experience by reusing the shared Aether field, `ExploreSystemButton`, `ExploreSystemTransition`, CoreSpin loader, body `particles.js`, shared header and footer systems.
 2. Expand each service route from the current signature/demo/tools trio into a service-specific sequence: secondary hero, challenge/outcome narrative, responsive image panel, capability architecture, workflow/process, interactive demo, governance, FAQ/related-service links and connector rail.
 3. Add the seventh service, AI & Automation Consulting, through the route manifest, migrated-content overlay, navigation, service directory matrix, related links, metadata, breadcrumbs, sitemap and schema path.
-4. Keep Cybercore and Background Gradient out of Prompt 2 service routes. They remain industry-only assets.
+4. Keep route-specific background exceptions out of Prompt 2 service routes unless a future owner decision explicitly authorizes them.
 
 ## `/services` Services Directory
 
@@ -190,4 +190,3 @@ Rejected:
 - `csv-05-desktop`: no verified mobile pair; generic transformation copy limits reuse.
 - `csv-06-desktop`: no verified mobile pair; small labels are hard to read.
 - `email-email-8-jpeg`: no verified mobile pair and healthcare-specific context.
-

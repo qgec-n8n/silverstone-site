@@ -1,11 +1,8 @@
 import type { Variants } from "motion/react";
 import * as m from "motion/react-m";
 import type { Ref } from "react";
-import { Link } from "react-router";
 
 import { Container } from "~/components/layout/container";
-import { Button } from "~/components/ui/button";
-import CybercoreBackground from "~/components/ui/cybercore-section-hero";
 
 import { ExploreSystemButton } from "./explore-system-button";
 import { HeroAetherField } from "./hero-aether-field";
@@ -18,20 +15,8 @@ const item: Variants = {
   show: (index = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.08 + index * 0.08, duration: 0.58, ease: "easeOut" },
+    transition: { delay: 0.62 + index * 0.24, duration: 1.05, ease: "easeInOut" },
   }),
-};
-
-const interactiveItem: Variants = {
-  hidden: {
-    opacity: 1,
-    y: 16,
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.32, duration: 0.5, ease: "easeOut" },
-  },
 };
 
 type HeroProps = {
@@ -61,8 +46,6 @@ export function Hero({
   return (
     <section className="ss-hv2-hero">
       <HeroAetherField enabled={motionEnabled} />
-      <CybercoreBackground beamCount={70} className="ss-hv2-hero__cybercore" />
-      <div className="ss-hv2-hero__grid" aria-hidden="true" />
       <div className="ss-hv2-hero__veil" aria-hidden="true" />
 
       <Container size="wide" className="relative z-10">
@@ -77,7 +60,7 @@ export function Hero({
             className="ss-hv2-aether-reveal ss-hv2-kicker ss-eyebrow font-mono"
           >
             <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-            Premium AI systems studio
+            UK AI systems studio
           </m.span>
 
           <m.h1
@@ -85,8 +68,8 @@ export function Hero({
             custom={1}
             className="ss-hv2-aether-reveal ss-hv2-display ss-hv2-hero__title"
           >
-            Premium AI systems for{" "}
-            <span className="ss-chrome-text">serious businesses</span>.
+            The operating system for businesses that{" "}
+            <span className="ss-chrome-text">refuse to miss</span>.
           </m.h1>
 
           <m.p
@@ -94,20 +77,17 @@ export function Hero({
             custom={2}
             className="ss-lead ss-hv2-hero__lead text-[color:var(--ss-v2-titanium)]"
           >
-            Silverstone designs and builds automation systems, AI agents, voice and
-            receptionist solutions, websites, applications and content engines for
-            companies that need faster response, cleaner operations and better customer
-            journeys.
+            Silverstone designs AI voice, reception and automation systems that answer
+            every call, capture every enquiry and run the repetitive work — so small UK
+            teams respond faster, deliver more and grow without adding headcount.
           </m.p>
 
           {hideExploreButton ? null : (
             <m.div
-              variants={interactiveItem}
+              variants={item}
+              custom={3}
               className="ss-hv2-hero__actions flex flex-wrap items-center justify-center gap-4"
             >
-              <Button asChild size="lg" variant="accent">
-                <Link to="/book">Book a discovery call</Link>
-              </Button>
               <ExploreSystemButton
                 ref={exploreButtonRef}
                 disabled={exploreButtonDisabled}
@@ -116,19 +96,6 @@ export function Hero({
               />
             </m.div>
           )}
-
-          <m.ul
-            variants={item}
-            custom={4}
-            className="ss-hv2-hero__scope"
-            aria-label="Silverstone AI homepage capabilities"
-          >
-            <li>AI agents</li>
-            <li>Voice and reception</li>
-            <li>Automation</li>
-            <li>Websites and apps</li>
-            <li>Content systems</li>
-          </m.ul>
         </m.div>
       </Container>
     </section>

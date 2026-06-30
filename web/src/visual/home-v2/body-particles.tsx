@@ -10,6 +10,7 @@ import type { CapabilityTier } from "~/visual/hooks/use-capability-tier";
 
 type BodyParticlesProps = {
   enabled: boolean;
+  onReady?: (status: "fallback" | "ready") => void;
   tier: CapabilityTier;
 };
 
@@ -169,7 +170,7 @@ function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
           mode: "grab",
         },
         onclick: {
-          enable: false,
+          enable: true,
           mode: "push",
         },
         resize: true,
@@ -193,7 +194,7 @@ function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
           duration: 0.4,
         },
         push: {
-          particles_nb: 2,
+          particles_nb: mobile ? 2 : 4,
         },
         remove: {
           particles_nb: 2,
@@ -230,7 +231,7 @@ function initializeParticles(
   }
 }
 
-export function BodyParticles({ enabled, tier }: BodyParticlesProps) {
+export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
   const reactId = useId();
   const mountId = useMemo(
     () => `ss-body-particles-${sanitizeReactId(reactId)}`,
@@ -239,9 +240,11 @@ export function BodyParticles({ enabled, tier }: BodyParticlesProps) {
 
   useEffect(() => {
     if (!enabled || typeof window === "undefined") {
+      onReady?.("fallback");
       return undefined;
     }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      onReady?.("fallback");
       return undefined;
     }
 
@@ -282,7 +285,10 @@ export function BodyParticles({ enabled, tier }: BodyParticlesProps) {
       }
     };
 
-    const dispatchCanvasMouseEvent = (event: PointerEvent, type: "mousemove") => {
+    const dispatchCanvasMouseEvent = (
+      event: MouseEvent | PointerEvent,
+      type: "click" | "mousemove",
+    ) => {
       if (coarsePointer) {
         return;
       }
@@ -314,6 +320,10 @@ export function BodyParticles({ enabled, tier }: BodyParticlesProps) {
       dispatchCanvasMouseEvent(event, "mousemove");
     };
 
+    const handleClick = (event: MouseEvent) => {
+      dispatchCanvasMouseEvent(event, "click");
+    };
+
     const handlePointerLeave = () => {
       const canvas = mount.querySelector<HTMLCanvasElement>(
         "canvas.particles-js-canvas-el",
@@ -322,8 +332,19 @@ export function BodyParticles({ enabled, tier }: BodyParticlesProps) {
     };
 
     const start = async () => {
-      await ensureParticlesScript();
-      if (cancelled || !window.particlesJS) {
+      try {
+        await ensureParticlesScript();
+      } catch {
+        if (!cancelled) {
+          onReady?.("fallback");
+        }
+        return;
+      }
+      if (cancelled) {
+        return;
+      }
+      if (!window.particlesJS) {
+        onReady?.("fallback");
         return;
       }
       destroyMountInstances(mount);
@@ -332,10 +353,12 @@ export function BodyParticles({ enabled, tier }: BodyParticlesProps) {
         createParticlesConfig(coarsePointer, mobile),
         capturedWindowListeners,
       );
+      onReady?.("ready");
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("click", handleClick, { passive: true });
     window.addEventListener("pointerleave", handlePointerLeave);
     void start();
 
@@ -343,13 +366,14 @@ export function BodyParticles({ enabled, tier }: BodyParticlesProps) {
       cancelled = true;
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("click", handleClick);
       window.removeEventListener("pointerleave", handlePointerLeave);
       for (const { listener, options, type } of capturedWindowListeners) {
         window.removeEventListener(type, listener, options);
       }
       destroyMountInstances(mount);
     };
-  }, [enabled, mountId]);
+  }, [enabled, mountId, onReady]);
 
   return (
     <div

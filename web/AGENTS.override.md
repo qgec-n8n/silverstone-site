@@ -56,12 +56,10 @@ This file is the Codex instruction source for `/web`. It defines the active Reac
 - Prefer verified high-fit assets and proper desktop/mobile pairs.
 - Record the page-level image decision.
 
-## Industry Background Invariant
+## Route Background Invariant
 
-- `/industries` and `/industries/*` use Cybercore intro plus Background Gradient body.
-- No other route may use those backgrounds.
-- Industry routes must not mount Aether or `particles.js`.
-- All non-industry routes retain Aether plus `particles.js`.
+- All routes use the shared Aether intro and local Particles body baseline unless a future prompt explicitly authorizes a different background system.
+- Do not reintroduce removed hybrid intro backgrounds or route-specific background exceptions without a new owner decision and browser verification.
 - CoreSpin Loader and Expendable Hero Button remain canonical and shared.
 
 ## Implementation Boundary

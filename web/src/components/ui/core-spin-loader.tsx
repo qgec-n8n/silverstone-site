@@ -29,7 +29,9 @@ const HOME_IMAGE_ASSETS = [
   "/brand/silverstone-ai-logo-footer.png",
   "/home-v2/hero-poster.png",
   "/home-v2/hero-poster-portrait.png",
+  "/home-v2/silverstone-system-visual.png",
 ] as const;
+const HOME_FETCH_ASSETS = ["/vendor/particles.js"] as const;
 
 type Phase = "active" | "exiting" | "done";
 
@@ -52,6 +54,12 @@ function preloadImage(src: string): Promise<void> {
   });
 }
 
+function preloadFetchAsset(src: string): Promise<void> {
+  return fetch(src, { cache: "force-cache" })
+    .then(() => undefined)
+    .catch(() => undefined);
+}
+
 function routeAssets(pathname: string): string[] {
   const assets = [LOADER_EMBLEM_SRC];
   if (pathname === "/") {
@@ -68,6 +76,7 @@ function preloadRouteAssets(pathname: string): Promise<void> {
   const assetsReady = Promise.allSettled([
     fontReady,
     ...routeAssets(pathname).map((src) => preloadImage(src)),
+    ...(pathname === "/" ? HOME_FETCH_ASSETS.map((src) => preloadFetchAsset(src)) : []),
   ]).then(() => undefined);
   return Promise.race([assetsReady, wait(MAX_ASSET_WAIT_MS)]);
 }

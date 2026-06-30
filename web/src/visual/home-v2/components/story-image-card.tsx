@@ -17,7 +17,7 @@ export function StoryImageCard({ panel }: StoryImageCardProps) {
 
   return (
     <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
-      <Reveal className={cn(mediaRight && "lg:order-2")}>
+      <Reveal className={cn(mediaRight && "lg:order-2")} kind="image">
         <figure className="ss-hv2-story__media">
           <img
             src={panel.image}
@@ -32,6 +32,7 @@ export function StoryImageCard({ panel }: StoryImageCardProps) {
       <Reveal
         delayMs={110}
         className={cn("flex flex-col gap-4", mediaRight && "lg:order-1")}
+        kind="section"
       >
         <span className="ss-eyebrow font-mono text-[color:var(--ss-v2-signal-cyan-soft)]">
           {panel.eyebrow}

@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { cn } from "~/lib/utils";
-import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
+
+import { Reveal } from "./reveal";
 
 type SectionShellProps = {
   id?: string;
@@ -42,41 +43,41 @@ export function SectionShell({
   className,
   headingClassName,
 }: SectionShellProps) {
-  const { ref, revealed } = useSectionReveal();
   const hasHeading = Boolean(eyebrow ?? title ?? lead);
 
   return (
     <PageSection id={id} className={cn("relative", className)}>
       <Container size={containerSize}>
         {hasHeading ? (
-          <div
-            ref={ref}
-            data-revealed={revealed}
-            data-align={align}
-            data-width={headingWidth}
+          <Reveal
             className={cn(
-              "ss-hv2-reveal ss-hv2-section-head flex flex-col gap-4",
+              "ss-hv2-section-head flex flex-col gap-4",
               align === "center" && "items-center text-center",
               headingClassName,
             )}
+            dataAlign={align}
+            dataWidth={headingWidth}
+            kind="section"
           >
-            {eyebrow ? (
-              <span className="ss-eyebrow ss-hv2-kicker font-mono">
-                <span className="ss-hv2-kicker__dot" aria-hidden="true" />
-                {eyebrow}
-              </span>
-            ) : null}
-            {title ? (
-              <h2 className="ss-hv2-display ss-hv2-section-head__title text-4xl sm:text-5xl">
-                {title}
-              </h2>
-            ) : null}
-            {lead ? (
-              <p className="ss-lead ss-hv2-section-head__lead text-[color:var(--ss-v2-titanium)]">
-                {lead}
-              </p>
-            ) : null}
-          </div>
+            <div>
+              {eyebrow ? (
+                <span className="ss-eyebrow ss-hv2-kicker font-mono">
+                  <span className="ss-hv2-kicker__dot" aria-hidden="true" />
+                  {eyebrow}
+                </span>
+              ) : null}
+              {title ? (
+                <h2 className="ss-hv2-display ss-hv2-section-head__title mt-4 text-4xl sm:text-5xl">
+                  {title}
+                </h2>
+              ) : null}
+              {lead ? (
+                <p className="ss-lead ss-hv2-section-head__lead mt-4 text-[color:var(--ss-v2-titanium)]">
+                  {lead}
+                </p>
+              ) : null}
+            </div>
+          </Reveal>
         ) : null}
         {children}
       </Container>

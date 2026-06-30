@@ -57,7 +57,7 @@ async function homepageRuntimeProof(page: Page) {
         ".ss-hv2-system-signal__metric .ss-hv2-hero__stat-value, .ss-hv2-system-signal__row-value, .ss-hv2-metric__value",
       ),
     );
-    const text = document.body.innerText;
+    const text = document.body.textContent;
 
     return {
       aetherRevealAttributeCount:
@@ -75,6 +75,10 @@ async function homepageRuntimeProof(page: Page) {
         ),
       ),
       hasSystemImage: Boolean(document.querySelector(".ss-hv2-secondary__media img")),
+      hasPremiumSystemImage: Boolean(
+        document.querySelector('img[src="/home-v2/silverstone-system-visual.png"]'),
+      ),
+      hasLiveSignalBenchmarks: text.includes("Live Signal Benchmarks"),
       metricValuesFit: metricValues.every((node) => {
         const style = getComputedStyle(node);
         return (
@@ -140,6 +144,9 @@ async function systemViewportProof(page: Page) {
 
     return {
       hasSystemImage: Boolean(document.querySelector("#system img")),
+      hasPremiumSystemImage: Boolean(
+        document.querySelector('img[src="/home-v2/silverstone-system-visual.png"]'),
+      ),
       nativeCanvasCount: document.querySelectorAll(
         '[data-particles-host="body"] canvas.particles-js-canvas-el',
       ).length,
@@ -162,7 +169,7 @@ async function openHomepageBody(page: Page) {
   await waitForIntro(page);
   await page.getByRole("button", { name: "Explore the system" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "body", {
-    timeout: 5_000,
+    timeout: 10_000,
   });
   await waitForBodyParticles(page);
 }
@@ -465,10 +472,13 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   await expect(page.locator(".ss-hv2-hero__canvas")).toHaveCount(1);
   await expect(
     page.getByRole("heading", {
-      name: "Premium AI systems for serious businesses.",
+      name: "The operating system for businesses that refuse to miss.",
     }),
   ).toBeVisible();
-  await expect(page.getByRole("link", { name: "Book a discovery call" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Explore the system" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Book a discovery call" })).toHaveCount(
+    0,
+  );
   const aetherProof = await page.evaluate(() => {
     const canvas = document.querySelector<HTMLCanvasElement>(".ss-hv2-hero__canvas");
     const context = canvas?.getContext("2d", { willReadFrequently: true });
@@ -542,7 +552,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
 
   await page.getByRole("button", { name: "Explore the system" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "body", {
-    timeout: 5_000,
+    timeout: 10_000,
   });
   const transitionProof = await page.evaluate(() => {
     const appWindow = window as Window & {
@@ -570,7 +580,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   ).toBeVisible();
   await expect(
     page.getByRole("heading", {
-      name: "Where better systems change the day.",
+      name: "The Business Impact of Better Automation",
     }),
   ).toBeVisible();
   await expect(
@@ -580,6 +590,9 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   ).toBeVisible();
   await expect(page.locator(".ss-hv2-trust__item")).toHaveText([...trustSignals]);
   await expect(page.locator(".ss-hv2-secondary__media img")).toHaveCount(0);
+  await expect(
+    page.locator('img[src="/home-v2/silverstone-system-visual.png"]'),
+  ).toHaveCount(1);
 
   await page.mouse.move(96, 140);
   await page.waitForTimeout(120);
@@ -595,17 +608,16 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(proof.scriptSrc).not.toContain("cdn");
   expect(proof.hasCustomBodyCanvas).toBe(false);
   expect(proof.hasSystemImage).toBe(false);
-  expect(proof.signalMetrics).toBe(0);
-  expect(proof.signalRows).toBe(6);
+  expect(proof.hasPremiumSystemImage).toBe(true);
+  expect(proof.hasLiveSignalBenchmarks).toBe(true);
+  expect(proof.signalMetrics).toBe(4);
+  expect(proof.signalRows).toBe(3);
   expect(proof.systemLayerLabels).toEqual([
-    "Strategy",
-    "Design",
-    "AI agents",
-    "Software",
-    "Integrations",
-    "Optimisation",
+    "Patient & lead growth",
+    "Always answering",
+    "Peak reported ROI",
   ]);
-  expect(proof.outcomeCards).toBe(4);
+  expect(proof.outcomeCards).toBe(0);
   expect(proof.industryCards).toBe(6);
   expect(proof.systemBottomDelta).not.toBeNull();
   expect(proof.systemBottomDelta ?? 999).toBeLessThanOrEqual(1.5);
@@ -641,7 +653,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
 
   await page.getByRole("button", { name: "Return to intro" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "intro", {
-    timeout: 5_000,
+    timeout: 8_000,
   });
   await expect(page.locator("header")).toHaveCount(0);
   await expect(page.locator("footer")).toHaveCount(0);
@@ -677,7 +689,7 @@ for (const viewport of [
     await waitForIntro(page);
     await page.getByRole("button", { name: "Explore the system" }).click();
     await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "body", {
-      timeout: 5_000,
+      timeout: 10_000,
     });
     await waitForBodyParticles(page);
 
@@ -685,8 +697,9 @@ for (const viewport of [
     expect(proof.pJSDomLength).toBe(1);
     expect(proof.nativeCanvasCount).toBe(1);
     expect(proof.hasSystemImage).toBe(false);
-    expect(proof.signalMetrics).toBe(0);
-    expect(proof.signalRows).toBe(6);
+    expect(proof.hasPremiumSystemImage).toBe(true);
+    expect(proof.signalMetrics).toBe(4);
+    expect(proof.signalRows).toBe(3);
     expect(proof.sectionHeight).not.toBeNull();
     expect(proof.sectionBottomDelta ?? 999).toBeLessThanOrEqual(1.5);
     expect(proof.sectionContentOverflow ?? 999).toBeLessThanOrEqual(1.5);

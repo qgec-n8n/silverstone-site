@@ -23,7 +23,7 @@ export function IndustryRelevance() {
     >
       <div className="ss-hv2-industries mt-14">
         {INDUSTRY_SIGNALS.map((industry, index) => (
-          <Reveal key={industry.id} delayMs={index * 60} className="h-full">
+          <Reveal key={industry.id} delayMs={index * 60} kind="card" className="h-full">
             <Link to={industry.href} className="ss-hv2-industry">
               <span className="ss-hv2-industry__mark" aria-hidden="true">
                 {String(index + 1).padStart(2, "0")}

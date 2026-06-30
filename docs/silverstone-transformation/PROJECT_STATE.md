@@ -1,7 +1,7 @@
 # Silverstone Project State
 
 **Last updated:** 2026-06-30
-**Current phase:** `/web` premium shell and Motion interaction system implemented and verified; legacy root remains frozen.
+**Current phase:** `/web` homepage two-state recovery repaired and verified; legacy root remains frozen.
 **Branch:** `main` tracking `origin/main`.  
 **Remote:** `origin https://github.com/qgec-n8n/silverstone-site.git`.  
 **Pre-existing uncommitted user change:** `.codex/config.toml` modified before this documentation pass; left untouched.
@@ -12,6 +12,22 @@
 - Active rebuild target is `/web`, a React Router/Vite app with TypeScript, React 19, Tailwind CSS 4, shadcn/ui configuration, GSAP for exceptional choreography, Motion 12.40.0 as the primary React animation platform, Three/WebGL/shader assets, local integration icons, route manifests, generated migrated content, tests, and staging-safety scripts.
 - Production Netlify root remains configured by `netlify.toml` with root publish and legacy build commands. This pass made no production configuration change.
 - Ignored local generated residue exists on disk: `web/node_modules/`, `web/build/`, `web/.react-router/`, `web/test-results/`, and several `.DS_Store`/log files. None are tracked and none are staged.
+
+## 2026-06-30 Pre-Prompt-5 Homepage Recovery
+
+- A pre-change checkpoint commit was created before repair: `54b7614e checkpoint: before homepage recovery repair`.
+- The `/web` homepage is restored to the explicit two-state application model: `loading`, `intro`, `opening`, `body`, and `closing`.
+- Intro state now visibly contains only the pill, approved title, approved subtitle, and the single `Explore the system` button. The white site header, footer, body content, booking CTA, capability chips, and body scroll are absent until `body`.
+- The canonical shared-layout Explore transition is restored with one stable layout id, preload-aware body background readiness, rapid-click state guards, focus restoration, and a portal-mounted reverse X control that returns fully to intro.
+- Aether Flow is the intro-only background: one full-screen canvas, one RAF loop, pointer-reactive displacement, cleanup on unmount, no prohibited hybrid grid/beam/column contamination, and two visible network colours only: default `#66E8F0`, proximity `#F3F7FF`.
+- Body state uses the local `/vendor/particles.js` implementation with one stable body host/canvas, local script loading, lifecycle cleanup, hover-grab, click-push, bounce, retina support, and mobile density reduction.
+- Motion is now applied across the homepage content system through shared reveal, section, card, metric, CTA, image, footer, hover/focus, transition, and reduced-motion families. Route reload and navigate-away/back replay return to the intro sequence.
+- The approved benchmark metrics and Live Signal Benchmarks card are restored from repository history. The simplistic Silverstone System diagram remains removed.
+- A separate premium generated bitmap visual for the Silverstone System was created at `web/public/home-v2/silverstone-system-visual.png` and integrated in a dedicated homepage section with intrinsic dimensions.
+- prohibited hybrid background implementations/instructions were removed from the scoped repository surface; final searches for the prohibited terms returned no matches.
+- Browser verification covered cold intro, opening, body, reverse X, reload replay, navigate-away/back replay, desktop, mobile, short viewport, reduced motion, footer, metrics, Particles readiness, marquee-only integration logos, and prohibited background absence.
+- Validation passed from `/web`: `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test`, `npm run build`, `npm run staging:safety`, and `npm run test:e2e -- tests/e2e/homepage-interaction.spec.ts --project=desktop-chromium`.
+- `/web npm run bundle:report` currently fails the foundation hard ceiling at `301.23 KB gzip`; this is documented as the remaining validation gap for a follow-up performance pass.
 
 ## Completed Work
 
@@ -143,8 +159,9 @@
 
 ## 2026-06-30 Homepage V2 Conversion Pass
 
-- `/web` homepage first view now positions Silverstone AI as a premium AI systems studio with visible booking and system-exploration conversion paths.
-- Homepage body opens with the qualitative Silverstone System: strategy, design, AI agents, software, integrations, and optimisation. Numeric benchmark counters and unsupported exact outcome claims were removed from the homepage surface.
+- Superseded by the Pre-Prompt-5 Homepage Recovery above. This section is retained only as historical evidence of the intermediate state that was repaired.
+- The intermediate `/web` homepage first view positioned Silverstone AI as a premium AI systems studio with visible booking and system-exploration conversion paths.
+- The intermediate homepage body opened with the qualitative Silverstone System: strategy, design, AI agents, software, integrations, and optimisation. The recovery restored protected benchmark counters and the Live Signal Benchmarks card from repository history.
 - Trust and service copy were softened to preserve business intent without unsupported timing, revenue, usage, or guarantee-like claims.
 - The homepage now includes qualitative outcome patterns and industry relevance links for estate agents, hospitality, trades, gyms and studios, clinics and practices, and e-commerce.
 - Hero Aether rendering is reduced-motion aware; the animated field effect does not initialise when motion is disabled.

@@ -46,9 +46,16 @@ Do not place a white-background logo on a dark, cinematic, gradient, shader, bla
 | Story visuals          | `story-human-loop.png`, `story-operating-surface.png`, `story-voice-signal.png`                                  | Narrative sections; not proof/results                                  | preserve behaviour but redesign presentation        |
 | Studio visuals         | `studio-mission.*`, `studio-story.*`, `secondary-hero.png`, `standard-chrome.png`, `consulting-strategy.png`     | About/process/consulting sections after route-specific review          | migrate and improve                                 |
 
+### 2026-06-30 Pre-Prompt-5 Homepage Recovery Asset Note
+
+- Added `web/public/home-v2/silverstone-system-visual.png`, a production-oriented generated bitmap for the separate Silverstone System visual section.
+- Observed dimensions: `1672x941`.
+- Safe usage: homepage Silverstone System narrative only; abstract AI operating-layer visual, not proof of a customer result, live dashboard, guaranteed outcome, or verified integration.
+- The previous simplistic Silverstone System diagram remains removed and must not be substituted with low-grade vector diagramming.
+
 ### 2026-06-30 Homepage V2 Asset Note
 
-- The homepage conversion pass reused existing `/web/public/home-v2/` imagery and `/web/public/brand/` assets; it did not add new image assets.
+- Superseded by the recovery note above. The earlier homepage conversion pass reused existing `/web/public/home-v2/` imagery and `/web/public/brand/` assets; the recovery pass added one generated Silverstone System bitmap.
 - Integration marks in `/web/public/integrations/*.svg` remain local visual compatibility/category marks only. They are not proof of active production integrations.
 - Browser network checks on the staging preview recorded no failed image/font requests and no 4xx image/font responses. SVG integration marks can report `naturalWidth: 0` in Chromium because several files do not expose intrinsic dimensions; this is not treated as a network failure.
 
@@ -75,6 +82,5 @@ Do not place a white-background logo on a dark, cinematic, gradient, shader, bla
 ## Component And Registry Assets
 
 - `web/components.json` configures shadcn style `new-york`, Tailwind CSS at `src/app/app.css`, lucide icons, and an Aceternity registry endpoint.
-- `web/cybercore-section-hero.json` is a shadcn registry item for `src/components/ui/cybercore-section-hero.tsx`.
 - `web/public/integrations/*.svg` contains local integration marks. These are visual compatibility/category marks unless specific integrations are separately verified.
 - `web/public/prototypes/**` and `web/src/visual/**` are visual handoff/prototype assets, not proof of production integration.

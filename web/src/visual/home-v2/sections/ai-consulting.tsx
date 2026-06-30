@@ -41,7 +41,7 @@ export function AiConsulting() {
     <PageSection className="relative">
       <Container size="wide">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <Reveal className="ss-hv2-story__media">
+          <Reveal className="ss-hv2-story__media" kind="image">
             <img
               src="/home-v2/consulting-strategy.png"
               alt="Silverstone strategist mapping an automation blueprint on a dark studio wall."
@@ -76,7 +76,7 @@ export function AiConsulting() {
                 <ConsultingPoint key={point} point={point} index={index} />
               ))}
             </ul>
-            <Reveal delayMs={460}>
+            <Reveal delayMs={460} kind="cta">
               <div>
                 <Button asChild size="lg" variant="accent">
                   <Link to="/services/ai-consulting">Explore consulting</Link>

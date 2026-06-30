@@ -34,7 +34,7 @@ export function Standard() {
 
           <div className="flex flex-col gap-4">
             {SILVERSTONE_STANDARD.map((pillar, index) => (
-              <Reveal key={pillar.id} delayMs={index * 70}>
+              <Reveal key={pillar.id} delayMs={index * 70} kind="card">
                 <article className="ss-hv2-pillar">
                   <span className="ss-hv2-pillar__icon">
                     <Icon name={pillar.icon} className="size-5" />
