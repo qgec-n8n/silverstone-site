@@ -1,0 +1,13 @@
+# Approved Service Image Use Manifest
+
+| Route | Section | Asset | Source | Responsive pair | Rationale | Alt text | Dimensions | Loading |
+|---|---|---|---|---|---|---|---|---|
+| `/services/web-design-development` | Opening service overview | `/approved-images/general-services-1.png` | `Images-Approved.zip` | `/approved-images/general-services-1-mobile.png` | Supports capture, conversion and journey-system motif. Caption marks it illustrative. | Illustrative reception and enquiry-capture panel. | 2528x1696 desktop, 1696x2528 mobile | eager |
+| `/services/app-development` | Opening service overview | `/approved-images/services_data_integration.jpg` | `Images-Approved.zip` | `/approved-images/services_data_integration_mobile.jpg` | Fits product state, data model and integration narrative. | Illustrative systems and data integration panel. | 2528x1696 desktop, 2048x2048 mobile | eager |
+| `/services/ai-voice-agents` | Opening service overview | `/approved-images/services_lead_followup.jpg` | `Images-Approved.zip` | `/approved-images/services_lead_followup_mobile.jpg` | Supports call, lead follow-up and controlled conversation state. | Illustrative automated lead follow-up panel. | 2528x1696 desktop, 2048x2048 mobile | eager |
+| `/services/ai-receptionists` | Opening service overview | `/approved-images/general-services-1.png` | `Images-Approved.zip` | `/approved-images/general-services-1-mobile.png` | Communicates multi-channel capture and front-desk routing. | Illustrative reception and enquiry-capture panel. | 2528x1696 desktop, 1696x2528 mobile | eager |
+| `/services/content-creation` | Opening service overview | `/approved-images/general-services-2a.png` | `Images-Approved.zip` | `/approved-images/general-services-2a-mobile.png` | Supports modular editorial/content-system framing. | Illustrative modular service package panel. | 2528x1696 desktop, 1696x2528 mobile | eager |
+| `/services/ai-automation` | Opening service overview | `/approved-images/services_workflow_automation.jpg` | `Images-Approved.zip` | `/approved-images/services_workflow_automation_mobile.jpg` | Best fit for orchestration, workflow and observability. | Illustrative workflow automation and reporting interface. | 2528x1696 desktop, 2048x2048 mobile | eager |
+| `/services/ai-consulting` | Opening service overview | `/approved-images/services_consulting.jpg` | `Images-Approved.zip` | `/approved-images/services_consulting_mobile.jpg` | Matches advisory, readiness and prioritisation route. | Illustrative AI consulting and readiness audit panel. | 2528x1696 desktop, 2048x2048 mobile | eager |
+
+No generated imagery was added. Existing repository marketing images outside `Images-Approved.zip` are not used for these seven service-offer pages.

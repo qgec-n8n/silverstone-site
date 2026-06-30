@@ -181,6 +181,15 @@
 - Validation passed from `/web`: `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test`, `npm run build`, `npm run bundle:report`, `npm run staging:safety`, `npm run test:a11y`, and `npm run test:e2e -- tests/e2e/homepage-interaction.spec.ts --project=desktop-chromium`.
 - Bundle report remains a target miss at `299.04 KB gzip`, but it passes the 300 KB hard ceiling.
 
+## 2026-06-30 Approved Services Recovery
+
+- Rebuilt the seven canonical `/web` service routes from the approved services copy and SEO pack copied to `docs/approved-copy/services/`.
+- Added source SHA-256, copy-fidelity, image-use, design-brief, and visual/content completion records under `docs/approved-copy/services/`.
+- Replaced rendered service-route body experiences with governed typed approved content, route-specific visual systems, approved images, benchmark evidence, required demo placeholders, and route-specific Motion treatments.
+- Repaired the shared Aether Flow pointer interaction so pointer coordinates are canvas-relative, particles displace from the pointer, connections recalculate from displaced positions, the visible interaction radius follows the pointer, and the RAF/listeners clean up on inactivity or unmount.
+- Preserved canonical routes and documented aliases: `/services/website-design-development` resolves to `/services/web-design-development`; `/services/ai-agents-automation` resolves to `/services/ai-automation`.
+- Validation passed from `/web`: `npm run typecheck`, `npm run lint`, `npm run test`, `npm run build`, `npm run staging:safety`, `npm run test:e2e -- route-entry.spec.ts`, and a custom Playwright browser sweep across all seven service routes at desktop and mobile widths.
+
 ## Unresolved Risks And Evidence Gaps
 
 - No authenticated Netlify, DNS, analytics, Search Console, Resend, Calendly, or production environment control-plane access was used.

@@ -10,14 +10,15 @@ const servicePages = [
   {
     id: "route-service-web-design-development",
     path: "/services/web-design-development",
-    title: "Web Design & Development for UK Businesses | Silverstone AI",
+    label: "Web Design & Development",
+    title: "Bespoke Web Design & Development UK | Silverstone AI",
     description:
-      "Conversion-led websites that explain the offer clearly, work across devices and create a practical path from visit to enquiry.",
-    h1: "Web Design & Development built around a clear business problem",
+      "Bespoke web design and development for UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one commercial system.",
+    h1: "A website engineered to move buyers forward",
     primaryIntent: "web design and development for UK small businesses",
     contentId: "content-service-web-design-development",
     sourceFile:
-      "docs/silverstone-transformation/content/silverstone-content-ia-seo-pack-v1/services/service-web-design-development-copy-v1.md",
+      "docs/approved-copy/services/01_WEB_DESIGN_AND_DEVELOPMENT.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -32,14 +33,15 @@ const servicePages = [
   {
     id: "route-service-app-development",
     path: "/services/app-development",
-    title: "Custom App Development for UK Businesses | Silverstone AI",
+    label: "App Development",
+    title: "Bespoke App Development UK | Silverstone AI",
     description:
-      "Focused web and mobile applications designed around a real operational or customer problem, not a feature wish list.",
-    h1: "Custom App Development built around a clear business problem",
+      "Bespoke app development for UK businesses: product discovery, UX architecture, data, integrations, AI features and release planning built around one valuable workflow.",
+    h1: "Build the smallest app that proves the value",
     primaryIntent: "custom app development for UK businesses",
     contentId: "content-service-app-development",
     sourceFile:
-      "docs/silverstone-transformation/content/silverstone-content-ia-seo-pack-v1/services/service-app-development-copy-v1.md",
+      "docs/approved-copy/services/02_APP_DEVELOPMENT.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -54,14 +56,15 @@ const servicePages = [
   {
     id: "route-service-ai-voice-agents",
     path: "/services/ai-voice-agents",
-    title: "AI Voice Agents for UK Businesses | Silverstone AI",
+    label: "AI Voice Agents",
+    title: "AI Voice Agent Development UK | Silverstone AI",
     description:
-      "Conversational phone agents that handle defined call flows, capture information and take approved actions with clear human escalation.",
-    h1: "AI Voice Agents built around a clear business problem",
+      "AI voice agent development for UK businesses: conversation design, telephony, approved actions, transcripts, monitoring and human escalation for real call workflows.",
+    h1: "Voice agents designed for real conversations—and real consequences",
     primaryIntent: "AI voice agents for UK businesses",
     contentId: "content-service-ai-voice-agents",
     sourceFile:
-      "docs/silverstone-transformation/content/silverstone-content-ia-seo-pack-v1/services/service-ai-voice-agents-copy-v1.md",
+      "docs/approved-copy/services/03_AI_VOICE_AGENTS.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -76,14 +79,15 @@ const servicePages = [
   {
     id: "route-service-ai-receptionists",
     path: "/services/ai-receptionists",
-    title: "AI Receptionists for UK Businesses | Silverstone AI",
+    label: "AI Receptionists",
+    title: "AI Receptionist Services UK | Silverstone AI",
     description:
-      "A practical front-desk layer for common enquiries, message-taking, routing and booking, configured around your operating rules.",
-    h1: "AI Receptionists built around a clear business problem",
+      "AI receptionist services for UK businesses: calls, web chat, booking, reminders, CRM routing and human handoff designed around approved operating rules.",
+    h1: "A front desk that answers, qualifies and knows when to hand over",
     primaryIntent: "AI receptionist for UK small businesses",
     contentId: "content-service-ai-receptionists",
     sourceFile:
-      "docs/silverstone-transformation/content/silverstone-content-ia-seo-pack-v1/services/service-ai-receptionists-copy-v1.md",
+      "docs/approved-copy/services/04_AI_RECEPTIONISTS.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -98,14 +102,15 @@ const servicePages = [
   {
     id: "route-service-content-creation",
     path: "/services/content-creation",
-    title: "Content Creation & Repurposing for UK Businesses | Silverstone AI",
+    label: "Content Creation",
+    title: "AI Content Systems & Repurposing UK | Silverstone AI",
     description:
-      "A governed content system that turns approved expertise into useful website, email and social material without inventing proof.",
-    h1: "Content Creation & Repurposing built around a clear business problem",
+      "AI-assisted content creation and repurposing for UK businesses: source capture, search intent, channel adaptation, approval gates and performance feedback.",
+    h1: "Turn expertise into a governed content engine",
     primaryIntent: "content creation and repurposing for UK businesses",
     contentId: "content-service-content-creation",
     sourceFile:
-      "docs/silverstone-transformation/content/silverstone-content-ia-seo-pack-v1/services/service-content-creation-copy-v1.md",
+      "docs/approved-copy/services/05_CONTENT_CREATION.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -120,14 +125,15 @@ const servicePages = [
   {
     id: "route-service-ai-automation",
     path: "/services/ai-automation",
-    title: "AI Automation & Agent Workflows for UK Businesses | Silverstone AI",
+    label: "AI Automation",
+    title: "Workflow & AI Automation Agency UK | Silverstone AI",
     description:
-      "Connected workflows and task-focused agents that move information, trigger actions and keep people in control of exceptions.",
-    h1: "AI Automation & Agent Workflows built around a clear business problem",
+      "AI automation and workflow systems for UK businesses: triggers, data movement, AI-assisted decisions, approvals, exceptions, observability and secure actions.",
+    h1: "Engineer the work between your systems",
     primaryIntent: "AI automation agency UK and AI agent workflows",
     contentId: "content-service-ai-automation",
     sourceFile:
-      "docs/silverstone-transformation/content/silverstone-content-ia-seo-pack-v1/services/service-ai-automation-copy-v1.md",
+      "docs/approved-copy/services/06_AI_AUTOMATION.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-consulting",
@@ -142,14 +148,15 @@ const servicePages = [
   {
     id: "route-service-ai-consulting",
     path: "/services/ai-consulting",
-    title: "AI & Automation Consulting for UK Businesses | Silverstone AI",
+    label: "AI & Automation Consulting",
+    title: "AI & Automation Consulting UK | Silverstone AI",
     description:
-      "Leadership advisory, opportunity audits and practical AI automation roadmaps for teams deciding what to automate, buy or build.",
-    h1: "AI & Automation Consulting built around clear business decisions",
+      "AI and automation consulting for UK businesses: opportunity audits, workflow prioritisation, data readiness, governance and build-versus-buy roadmaps.",
+    h1: "Decide what to automate before you buy the tools",
     primaryIntent: "AI automation consulting UK",
     contentId: "content-service-ai-consulting",
     sourceFile:
-      "docs/silverstone-transformation/content/silverstone-content-ia-seo-pack-v1/services/service-ai-consulting-copy-v1.md",
+      "docs/approved-copy/services/07_AI_AND_AUTOMATION_CONSULTING.md",
     relatedRouteIds: [
       "route-services",
       "route-service-ai-automation",
@@ -283,10 +290,7 @@ export const approvedAdditionalRoutes: FutureRouteRecord[] = [
     breadcrumbs: [
       breadcrumb("Home", "/"),
       breadcrumb("Services", "/services"),
-      breadcrumb(
-        service.title.replace(" for UK Businesses | Silverstone AI", ""),
-        service.path,
-      ),
+      breadcrumb(service.label, service.path),
     ],
     schemaTypes: ["Service", "WebPage", "BreadcrumbList"],
     contentId: service.contentId,
