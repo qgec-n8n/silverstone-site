@@ -1,0 +1,954 @@
+{
+  "/services/web-design-development": {
+    "route": "/services/web-design-development",
+    "sourceFilename": "01_WEB_DESIGN_AND_DEVELOPMENT.md",
+    "sourcePath": "docs/approved-copy/services/01_WEB_DESIGN_AND_DEVELOPMENT.md",
+    "sourceSha256": "68abc66173881e4d7533b0a9540cedaf2ee5da627c327e773ae595b1344d0df7",
+    "metadata": {
+      "title": "Bespoke Web Design & Development UK | Silverstone AI",
+      "metaDescription": "Bespoke web design and development for UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one commercial system.",
+      "openGraphTitle": "Websites engineered around the decision to buy",
+      "openGraphDescription": "Silverstone combines strategy, copy, premium design, responsive development, technical SEO and operational integrations into one website system.",
+      "canonicalRoute": "`/services/web-design-development`",
+      "h1": "A website engineered to move buyers forward",
+      "h2": [],
+      "h3": [
+        "Positioning and conversion copy",
+        "Information architecture and user journeys",
+        "Premium visual direction",
+        "Responsive development and accessibility",
+        "Technical SEO, CMS and integrations",
+        "1. Discovery: define the decision",
+        "2. Content and structure: build the argument",
+        "3. Design and engineering: create the system",
+        "4. Launch and optimisation: observe real behaviour",
+        "Can Silverstone work with an existing brand?",
+        "Is this only for large websites?",
+        "Can the website connect to our existing tools?",
+        "Will the site rank first?",
+        "Who maintains the site after launch?"
+      ],
+      "breadcrumbs": "Home → Services → Web Design & Development",
+      "schemaTypes": [
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ]
+    },
+    "routeEntry": {
+      "loaderText": "Aligning message, movement and measurement",
+      "pill": "Bespoke digital experience",
+      "title": "Make the website earn its place",
+      "subtitle": "Strategy, copy, design and engineering shaped into one clear route from first visit to qualified enquiry.",
+      "buttonLabel": "Explore the commercial website system"
+    },
+    "publicCopy": "# A website engineered to move buyers forward\n\nA premium website should do more than look expensive. It should make a complex offer easier to understand, give the right buyer confidence, remove avoidable doubt and route the next action into a working commercial process.\n\nSilverstone designs and develops bespoke websites for UK businesses that need the message, interface and underlying system to work together. Positioning, conversion copy, information architecture, responsive engineering, accessibility, technical SEO, CMS structure, analytics and integrations are treated as one programme—not separate hand-offs between disconnected suppliers.\n\nThe result is a site built around a business decision: what a qualified visitor needs to understand, believe and do next.\n\n**Primary action: Book a discovery call**\n\nWe use the first conversation to understand the offer, buyer, current website, commercial objective and systems the site must connect to. It is an exploratory discussion, not a pressure-led sales call.\n\n## Your website is part of the sales system\n\nMost website problems are not purely visual. The page may be attractive but still leave the buyer asking basic questions. Services overlap. Navigation reflects the company chart rather than the customer journey. Forms disappear into an inbox. Mobile visitors receive a compressed version of a desktop idea. Analytics record traffic without explaining where intent breaks down.\n\nA redesign that begins with colours and components can preserve all of those problems beneath a new surface.\n\nSilverstone begins further upstream. We clarify the audience, proposition, evidence, objections and decision path before the interface is treated as finished. That creates a stronger foundation for both human visitors and search systems: one clear page purpose, one primary action and enough substance to answer the questions that delay contact.\n\nThe website then becomes an operating surface. A booking request can reach the right calendar. A qualified form submission can create or update a CRM record. A downloadable resource can enter a consent-led follow-up sequence. Content can be published through a governed CMS rather than becoming dependent on a developer for every change.\n\n## What Silverstone designs and builds\n\n### Positioning and conversion copy\n\nThe first task is not “write more”. It is deciding what the page must make clear.\n\nWe shape the promise, audience, commercial context, proof requirements and call to action. Copy is written to reduce effort for the reader: direct headings, specific language, visible trade-offs and objections answered before they become reasons to leave. Unsupported claims are removed rather than polished.\n\n### Information architecture and user journeys\n\nThe site structure should reflect how people choose, not how internal teams name departments.\n\nWe map the relationship between core pages, services, industries, insights and conversion routes. Each important query family receives one canonical owner. Related pages support that owner through useful internal links instead of competing with it. Navigation, breadcrumbs and page hierarchy are designed to help a visitor move with confidence while giving search engines a coherent site model.\n\n### Premium visual direction\n\nPremium does not mean dense animation, excessive gloss or visual noise. It means control.\n\nTypography, spacing, image use, motion and interface patterns are developed as a reusable system. The visual language should make the business feel considered without making the visitor work to extract the message. Motion earns its place by directing attention or explaining state. Decorative elements never take priority over legibility, speed or the primary action.\n\n### Responsive development and accessibility\n\nThe site is engineered for real viewports, not resized screenshots. Content order, line length, touch targets, navigation behaviour and image choices are reviewed on small phones, tablets and large displays.\n\nAccessibility is treated as part of quality. Semantic structure, keyboard navigation, contrast, labels, focus states and reduced-motion behaviour are considered during implementation. The objective is a robust experience that remains understandable when the visitor’s device, connection or method of interaction changes.\n\n### Technical SEO, CMS and integrations\n\nSearch visibility depends on more than inserting phrases into headings. The implementation needs clean metadata, canonical tags, crawlable links, indexable copy, structured hierarchy, sensible image handling and performance that does not undermine the experience.\n\nWhere a CMS is required, the editing model is designed around the content the team will actually maintain. Integrations are scoped explicitly: booking calendars, forms, CRM hand-off, email platforms, analytics, payments or helpdesk routes. Every connection needs an owner, an error path and a clear source of truth.\n\n## Published evidence, used responsibly\n\nExternal case data in the approved benchmark register includes an **850% reported conversion increase**, a **70% reported lead increase** and a **1,324% reported increase in online sales** across published web-development cases.\n\nThese are not Silverstone results, typical outcomes or forecasts. They illustrate why the website should be treated as a commercial system rather than a cosmetic asset. The size of any real improvement depends on the starting point, traffic quality, offer, market, evidence, implementation and what happens after an enquiry.\n\n> Benchmark outcomes drawn from published case data across AI automation engagements and industry sources. Figures illustrate what well-scoped automation can achieve; they are not guarantees of individual results.\n\n## A disciplined route from offer to launch\n\n### 1. Discovery: define the decision\n\nWe examine the current site, audience, offer, acquisition routes, conversion points, evidence, constraints and connected systems. The purpose is to identify the decision the new site must support and the information required to make it credible.\n\n### 2. Content and structure: build the argument\n\nThe sitemap, page ownership, navigation and content hierarchy are mapped before visual production accelerates. We define what belongs above the fold, where proof should appear, which objections need full sections and how the primary action should repeat without becoming aggressive.\n\n### 3. Design and engineering: create the system\n\nThe interface is developed through reusable patterns, responsive rules and production components. Copy, imagery and interaction are tested together. Technical SEO, accessibility, analytics readiness and integration hand-offs are built into the implementation rather than added during a final checklist.\n\n### 4. Launch and optimisation: observe real behaviour\n\nLaunch is the beginning of evidence, not the end of the project. Search performance, form completion, navigation paths, booking behaviour and qualitative feedback reveal where the next improvement belongs. Optimisation should respond to observed friction, not design fashion.\n\n## What makes the work different\n\nSilverstone can combine strategy, copy, visual design, engineering, AI and automation within one commercial frame. That matters when the website is only the visible edge of a larger process.\n\nA lead-generation page may need qualification logic behind the form. A booking experience may require reminders and CRM updates. A content programme may need templates, approvals and internal-link rules. A complex service may need a focused application rather than another static page.\n\nWe do not force every requirement into the website. Sometimes the correct recommendation is a smaller first release, a better content system, a dedicated app surface or an automation workflow behind the existing interface. The build is shaped around the business problem, not around maximising the number of pages.\n\n## Where the service fits—and where it does not\n\nThis service is a strong fit when the business has a valuable offer, a defined audience and a website that no longer represents the quality or complexity of the work. It also fits a new venture that needs a credible first commercial platform rather than a temporary brochure.\n\nIt is less suitable when the priority is only a rapid visual reskin, when no one can own the content and approvals, or when the commercial proposition is still changing daily. In those situations, a focused discovery or consulting engagement may protect the investment better than moving immediately into full production.\n\n## Questions serious buyers ask\n\n### Can Silverstone work with an existing brand?\n\nYes. The website system can extend an established identity or identify where the digital expression needs refinement. A full rebrand is not assumed.\n\n### Is this only for large websites?\n\nNo. A focused site with a precise proposition can be more valuable than a large architecture filled with repetitive pages. Scope should follow buyer needs and operating requirements.\n\n### Can the website connect to our existing tools?\n\nWhere the systems provide suitable APIs, embeds or webhooks, integrations can be scoped into the build. Reliability, permissions, data ownership and fallback handling are reviewed before a connection is treated as production-ready.\n\n### Will the site rank first?\n\nNo credible agency can guarantee a ranking. Silverstone provides a technically sound, people-first foundation and a deliberate keyword-to-page architecture. Search performance also depends on competition, authority, content, links, demand and ongoing improvement.\n\n### Who maintains the site after launch?\n\nThe answer depends on the selected stack and scope. The implementation should make routine content changes manageable while keeping higher-risk technical changes controlled. Exact support, ownership and hand-off terms belong in the proposal.\n\n## Turn the next website decision into a commercial one\n\nA discovery call is the right next step when the current website feels disconnected from the quality of the business—or when a new site needs to become more than a polished placeholder.\n\nWe will discuss the audience, offer, current friction, required content, integrations and the outcome that would make the project commercially worthwhile. You do not need a finished brief. You do need a real problem worth solving.\n\n**Book a discovery call**\n\nFor a clearer view of delivery, review **how Silverstone works**. For source-led publishing and ongoing authority, explore **Content Creation**. When enquiries need to move into CRM, scheduling or follow-up automatically, see **AI Automation**.\n\n*The strongest website is not the one with the most effects. It is the one that makes the right next action feel obvious and credible.*",
+    "publicHeadings": {
+      "h1": "A website engineered to move buyers forward",
+      "h2": [
+        "Your website is part of the sales system",
+        "What Silverstone designs and builds",
+        "Published evidence, used responsibly",
+        "A disciplined route from offer to launch",
+        "What makes the work different",
+        "Where the service fits—and where it does not",
+        "Questions serious buyers ask",
+        "Turn the next website decision into a commercial one"
+      ],
+      "h3": [
+        "Positioning and conversion copy",
+        "Information architecture and user journeys",
+        "Premium visual direction",
+        "Responsive development and accessibility",
+        "Technical SEO, CMS and integrations",
+        "1. Discovery: define the decision",
+        "2. Content and structure: build the argument",
+        "3. Design and engineering: create the system",
+        "4. Launch and optimisation: observe real behaviour",
+        "Can Silverstone work with an existing brand?",
+        "Is this only for large websites?",
+        "Can the website connect to our existing tools?",
+        "Will the site rank first?",
+        "Who maintains the site after launch?"
+      ]
+    },
+    "componentMicrocopy": {
+      "rawMarkdown": "### Feature cards\n\n- **Positioning before pixels** — Clarify audience, offer, proof and action before interface decisions harden.\n- **One coherent architecture** — Connect services, industries, insights and conversion routes without internal search competition.\n- **Responsive by design** — Shape hierarchy and interaction for small screens first, not as a late compression exercise.\n- **Built to connect** — Plan booking, CRM, analytics, CMS and follow-up hand-offs as part of the site system.\n\n### Outcome cards\n\n- **Clearer buyer understanding** — The right visitor can identify fit, value and next step without interpreting vague claims.\n- **More reliable enquiry handling** — Forms and bookings reach a defined system with ownership and context.\n- **A platform the team can extend** — Reusable patterns and governed content reduce dependence on ad hoc rebuilds.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** 850% — reported conversion increase\n- **Metric 2:** 70% — reported lead increase\n- **Metric 3:** 1,324% — reported online-sales increase\n- **Caption:** External case data demonstrates the range of commercial impact associated with stronger web systems. It does not predict an individual result.\n\n### Process steps\n\n1. **Define the commercial decision** — Align audience, proposition, evidence and action.\n2. **Map the path** — Build page ownership, journeys and content hierarchy.\n3. **Design and engineer** — Create the responsive system, technical foundation and integrations.\n4. **Observe and improve** — Use real behaviour to prioritise the next change.\n\n### Comparison block\n\n- **Surface-led rebuild:** starts with appearance; treats copy, SEO and integration as later tasks.\n- **Silverstone website system:** starts with buyer decisions; develops copy, design, engineering and operations together.\n\n### Trust strip\n\n**People-first copy · Crawlable architecture · Responsive engineering · Human-approved claims · Measurable conversion paths**\n\n### Callout panel\n\n- **Heading:** A beautiful site can still be commercially unclear.\n- **Body:** The design succeeds only when it helps a qualified buyer understand the offer, trust the evidence and complete the next action.\n\n### FAQ accordion labels\n\n- Working with an existing brand\n- Choosing the right site size\n- Connecting existing systems\n- Search visibility and rankings\n- Maintenance and hand-off\n\n### CTA blocks\n\n- **Mid-page heading:** Build the decision path before the interface expands.\n- **Mid-page body:** Use a discovery call to identify the offer, evidence, pages and integrations that deserve the first release.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring the current URL, a rough brief or simply the problem. The first conversation is for fit and scope.\n\n### Labels and notes\n\n- **Image label:** Illustrative system view\n- **Benchmark label:** External evidence—not Silverstone performance\n- **Integration note:** Availability and scope depend on the selected platform and third-party access.",
+      "featureCards": [],
+      "outcomeCards": [],
+      "processSteps": [
+        {
+          "label": "Define the commercial decision",
+          "body": "Align audience, proposition, evidence and action."
+        },
+        {
+          "label": "Map the path",
+          "body": "Build page ownership, journeys and content hierarchy."
+        },
+        {
+          "label": "Design and engineer",
+          "body": "Create the responsive system, technical foundation and integrations."
+        },
+        {
+          "label": "Observe and improve",
+          "body": "Use real behaviour to prioritise the next change."
+        }
+      ],
+      "benchmark": {
+        "metrics": [
+          "850% — reported conversion increase",
+          "70% — reported lead increase",
+          "1,324% — reported online-sales increase"
+        ],
+        "caption": "External case data demonstrates the range of commercial impact associated with stronger web systems. It does not predict an individual result."
+      },
+      "ctaButton": "Book a discovery call",
+      "finalReassurance": "Bring the current URL, a rough brief or simply the problem. The first conversation is for fit and scope.",
+      "faqLabels": [
+        "Working with an existing brand",
+        "Choosing the right site size",
+        "Connecting existing systems",
+        "Search visibility and rankings",
+        "Maintenance and hand-off"
+      ]
+    },
+    "demo": {
+      "rawMarkdown": "### Section introduction\n\n**Two live website showcases are reserved for this page.**\n\nThe final section will let visitors move beyond static portfolio imagery and explore two distinct production websites in a controlled browser-frame presentation. Each showcase will be added only when the live URL, client permission, loading behaviour and descriptive copy have been approved.\n\n### Browser-window placeholder one\n\n- **Label:** Reserved live website showcase · 01\n- **Heading:** A complete customer journey, ready to explore\n- **Body:** This browser window is prepared for the first approved live website. It will demonstrate how positioning, page hierarchy, responsive design and conversion routes work together in production.\n- **Status:** Showcase reserved. No live client website is connected yet.\n- **Configuration slot:** `futureWebsitePreviewPrimaryUrl`\n\n### Browser-window placeholder two\n\n- **Label:** Reserved live website showcase · 02\n- **Heading:** A second system with a different commercial task\n- **Body:** This space is reserved for a separate live website selected to show a different audience, content model or operating integration. It will not reuse or simulate the first showcase.\n- **Status:** Showcase reserved. Awaiting an approved second URL and permission to display it.\n- **Configuration slot:** `futureWebsitePreviewSecondaryUrl`\n\n### Transition copy\n\n**A portfolio image shows the surface. A live route shows the decisions underneath.**\n\nUntil the approved websites are connected, these frames remain intentionally inactive. Explore the process behind the work or book a discovery call to discuss the commercial system your site needs to support.\n\n- **Secondary link:** See how Silverstone works\n- **Primary button:** Book a discovery call",
+      "configSlots": [
+        "futureWebsitePreviewPrimaryUrl",
+        "futureWebsitePreviewSecondaryUrl"
+      ]
+    },
+    "acceptance": {
+      "distinctivePhrases": [
+        "A website engineered to move buyers forward",
+        "Your website is part of the sales system",
+        "Positioning and conversion copy",
+        "850% — reported conversion increase",
+        "Make the website earn its place"
+      ],
+      "faqCount": 5
+    }
+  },
+  "/services/app-development": {
+    "route": "/services/app-development",
+    "sourceFilename": "02_APP_DEVELOPMENT.md",
+    "sourcePath": "docs/approved-copy/services/02_APP_DEVELOPMENT.md",
+    "sourceSha256": "bd6de606338ab2a39f9cfdd8cc9c84721bfe8c4070825bfae2909d61bb1c9183",
+    "metadata": {
+      "title": "Bespoke App Development UK | Silverstone AI",
+      "metaDescription": "Bespoke app development for UK businesses: discovery, UX, data, permissions, integrations, reliable engineering and a focused first release built around real user value.",
+      "openGraphTitle": "Build the smallest app that proves the value",
+      "openGraphDescription": "Silverstone turns a valuable workflow into a focused first release, with product discovery, UX, data, permissions, integrations and operational readiness designed together.",
+      "canonicalRoute": "`/services/app-development`",
+      "h1": "Build the smallest app that proves the value",
+      "h2": [],
+      "h3": [
+        "The user and job to be done",
+        "The state model and experience",
+        "Data, permissions and integrations",
+        "Reliability and release readiness",
+        "1. Discovery sprint",
+        "2. Prototype and acceptance criteria",
+        "3. Focused build",
+        "4. Measured iteration",
+        "Web application, PWA or native app?",
+        "Build, buy or configure?",
+        "Who owns the product and intellectual property?",
+        "How will the app connect to operations?",
+        "Do we need a complete specification before speaking?",
+        "Can AI be included?",
+        "How long will the app take?",
+        "Is a first release the same as a cheap MVP?"
+      ],
+      "breadcrumbs": "Home → Services → App Development",
+      "schemaTypes": [
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ]
+    },
+    "routeEntry": {
+      "loaderText": "Reducing the idea to its most valuable working state",
+      "pill": "Product intelligence / First release",
+      "title": "Prove the workflow before expanding the product",
+      "subtitle": "A focused application designed around one real user, one valuable task and the system states required to deliver it reliably.",
+      "buttonLabel": "Map the first release"
+    },
+    "publicCopy": "# Build the smallest app that proves the value\n\nA useful application is not defined by the number of screens it contains. It is defined by whether a specific user can complete a valuable task more clearly, reliably or efficiently than they can today.\n\nSilverstone designs and develops bespoke applications for UK businesses that need a customer portal, internal operating tool, mobile-ready product or focused digital service. We begin with the user, the workflow and the evidence that would make the first release worth continuing—not with a long technology list or a feature backlog presented as a strategy.\n\nProduct discovery, UX, data structure, permissions, integrations, architecture, testing and release readiness are shaped as one system. That makes the first version easier to understand, easier to test and less likely to become an expensive collection of assumptions.\n\n**Primary action: Book a discovery call**\n\nBring a product idea, a difficult manual workflow, an existing specification or an application that has become hard to maintain. The first discussion is used to identify the real user, the commercial or operational value, the constraints and the smallest credible next step.\n\n## Start with the workflow, not the feature list\n\nApp projects often become over-scoped before anyone has agreed what the product must prove.\n\nStakeholders add dashboards, notifications, payments, messaging, reporting, permissions and AI because each feature sounds useful in isolation. Yet the central workflow remains vague. The result is a larger build with more dependencies, more edge cases and no simple answer to the question: what must work first?\n\nSilverstone reduces the first release to a clear product hypothesis. Who is the primary user? What are they trying to complete? What information enters the system? What decisions are made? What record becomes the source of truth? What happens when an action fails or needs approval? What evidence will show that the product is useful?\n\n## What a serious first release needs\n\n### The user and job to be done\n\nA product becomes easier to design when its first user and first job are explicit.\n\nWe define the main user group, the context in which they act, the outcome they are trying to reach and the friction in the current route. A booking portal, for example, is not simply a calendar on a screen. It may need availability rules, eligibility questions, deposits, staff approval, confirmations, changes, cancellations and a record that other systems can trust.\n\n### The state model and experience\n\nScreens are only the visible layer of an application. The product also needs a clear model of states: empty, in progress, submitted, awaiting review, approved, rejected, failed and complete.\n\nWe prototype the key route before production scope expands. That allows users and stakeholders to test the sequence, language and decision points while change is still inexpensive. Acceptance criteria are attached to the flow so the team can distinguish a finished state from a persuasive demonstration.\n\nThe interface is designed for the devices and environments in which it will be used. In many cases, a responsive web application or progressive web app can validate the product before native iOS and Android delivery is justified. Where native capabilities are genuinely required, the choice should be supported by the use case rather than prestige.\n\n### Data, permissions and integrations\n\nEvery application creates, reads or changes records. Those records need ownership.\n\nSilverstone maps the data model, source-of-truth systems, roles and permissions before integrations are treated as simple connectors. Authentication, profile data, bookings, payments, files, messages and operational events require different controls. A staff member, customer and administrator should not receive the same view merely because it is easier to build.\n\nAPIs, webhooks and third-party services are assessed for reliability, rate limits, data handling, failure behaviour and long-term dependence. When an integration is unavailable, the product needs a visible fallback rather than an invisible broken state.\n\n### Reliability and release readiness\n\nThe first release must be observable as well as usable.\n\nError monitoring, audit history, logs, analytics and support signals help the team understand what is working and where users are becoming stuck. Testing covers the core path, permissions and meaningful edge cases. Deployment, environment configuration and rollback considerations are addressed before the product is described as ready.\n\n## Published evidence, placed in context\n\nPublished app-development case data in the approved benchmark register includes a **75% reduction in no-shows**, **£16,800 in direct annual cost savings** and a **77% reduction in administrative time**.\n\nThese figures illustrate the scale of impact that a well-chosen application workflow can support. They are not Silverstone client results and they are not forecasts. Outcomes depend on the original process, user adoption, scope, data quality, integrations and how consistently the product is operated.\n\nThe useful question is therefore not “Can an app produce these numbers?” It is “Which repeated task is valuable enough, measurable enough and ready enough to justify a product?”\n\n## A product route built to reduce avoidable risk\n\n### 1. Discovery sprint\n\nWe define the user, problem, current process, desired outcome, constraints and evidence of value. Existing systems, data, compliance considerations and stakeholder assumptions are surfaced early.\n\nThe output is a tighter first-release proposition, not an automatically enlarged statement of work.\n\n### 2. Prototype and acceptance criteria\n\nThe main experience is mapped across user, staff and system states. A clickable prototype or structured flow allows the team to review language, permissions and edge cases before production code makes change more expensive.\n\nAcceptance criteria describe what each critical state must do. Open questions are recorded rather than hidden in a polished design.\n\n### 3. Focused build\n\nThe product surface, data model, permissions and integrations are implemented around the approved first release. Reusable architecture is valuable, but premature generalisation is avoided. The aim is a stable product with a clear purpose, not an abstract platform for every possible future idea.\n\nHuman review remains in place where a decision carries material risk. AI features, when relevant, are treated as bounded capabilities with approved inputs, outputs and fallback routes—not as an excuse to make the whole product unpredictable.\n\n### 4. Measured iteration\n\nAfter release, the roadmap is informed by real use: completion rates, errors, support requests, abandoned states, qualitative feedback and the business value of the next feature.\n\nA request moves forward because it improves the product, removes meaningful friction or supports a validated commercial need. It does not move forward simply because it appeared in the original wish list.\n\n**Book a discovery call**\n\nA useful first conversation can establish whether the product needs discovery, a prototype, an integration-led application, an automation behind an existing interface—or no custom build at all.\n\n## The decisions that shape the right technical route\n\n### Web application, PWA or native app?\n\nThe correct route depends on the product. A responsive web application is often the fastest way to reach users across devices and validate a workflow. A progressive web app can add installability and selected device behaviours. Native applications may be justified by deeper device access, app-store distribution, offline requirements or performance constraints.\n\nSilverstone does not recommend native delivery simply to make the project sound more substantial. The delivery route should serve the user and commercial model.\n\n### Build, buy or configure?\n\nCustom software is not always the right answer. An existing product may cover most requirements with less risk. A configured platform may be more sensible than owning a bespoke codebase. In other cases, the workflow or differentiation is specific enough that a purpose-built application is justified.\n\nFor decisions that are not yet clear, **AI & Automation Consulting** provides a structured build-versus-buy assessment before engineering begins.\n\n### Who owns the product and intellectual property?\n\nOwnership, licensing, source access, third-party dependencies and hand-off terms must be defined contractually. The public page does not promise a particular IP arrangement because the correct wording depends on the engagement. Silverstone’s default commercial intent is clarity: the proposal should state what is being created, what depends on external services and what the client can operate after delivery.\n\n### How will the app connect to operations?\n\nA product that collects information but leaves staff to retype it may simply move the bottleneck.\n\nWhere appropriate, the app can connect to CRM, scheduling, payments, messaging, document storage, analytics or internal systems. **AI Automation** can support the operating layer behind the interface, provided every trigger, action and exception has an owner.\n\n## Who this service is designed for\n\nThis service is a strong fit when:\n\n- a repeated customer or staff workflow is valuable enough to justify software;\n- the business can identify a real first user and problem;\n- an existing platform cannot meet the need without excessive compromise;\n- integrations, permissions or data ownership require deliberate design;\n- the team is prepared to prioritise the first release rather than approve every requested feature;\n- success can be observed through adoption, completion, time, cost, quality or revenue-related evidence.\n\nIt is a poor fit when the brief is only “build the next big app”, the business cannot provide access to users or process owners, a template already solves the problem adequately, or a fixed feature list must be accepted without discovery.\n\n## Questions before a build begins\n\n### Do we need a complete specification before speaking?\n\nNo. ### Can Silverstone improve an existing application?\n\nPotentially. The first step is to understand the current architecture, code access, data, product friction and operational risk. A targeted improvement may be more sensible than a rebuild.\n\n### Can AI be included?\n\nYes, where it adds value and can be bounded. AI may support retrieval, classification, summarisation or guided actions. Deterministic logic remains preferable where the rule is known and consistency matters more than interpretation.\n\n### How long will the app take?\n\nA responsible answer requires scope. Delivery depends on the first-release workflow, platforms, integrations, permissions, design depth, data migration, testing and approval speed. The discovery output and proposal should make the delivery route explicit.\n\n### Is a first release the same as a cheap MVP?\n\nNo. A focused first release removes unnecessary scope; it does not remove reliability, permissions, testing or the product logic needed for real use.\n\n## Move from idea to a testable product decision\n\nA discovery call is appropriate when there is a meaningful workflow, an audience and a reason to believe software could create value—but the correct first release is not yet settled.\n\nWe will discuss the user, current route, systems, data, commercial objective and assumptions that need testing. You will leave with a clearer sense of whether to discover, prototype, configure, automate or build.\n\n**Book a discovery call**\n\nReview **How We Work** for the wider delivery model, **Pricing** for the scoping approach, or send an existing brief through **Contact**. For the operating workflows around the product, explore **AI Automation**. For the public acquisition experience around it, see **Web Design & Development**.\n\n*The disciplined product is not the one that starts smallest at any cost. It is the one that proves the most important value before complexity becomes permanent.*",
+    "publicHeadings": {
+      "h1": "Build the smallest app that proves the value",
+      "h2": [
+        "Start with the workflow, not the feature list",
+        "What a serious first release needs",
+        "Published evidence, placed in context",
+        "A product route built to reduce avoidable risk",
+        "The decisions that shape the right technical route",
+        "Who this service is designed for",
+        "Questions before a build begins",
+        "Move from idea to a testable product decision"
+      ],
+      "h3": [
+        "The user and job to be done",
+        "The state model and experience",
+        "Data, permissions and integrations",
+        "Reliability and release readiness",
+        "1. Discovery sprint",
+        "2. Prototype and acceptance criteria",
+        "3. Focused build",
+        "4. Measured iteration",
+        "Web application, PWA or native app?",
+        "Build, buy or configure?",
+        "Who owns the product and intellectual property?",
+        "How will the app connect to operations?",
+        "Do we need a complete specification before speaking?",
+        "Can AI be included?",
+        "How long will the app take?",
+        "Is a first release the same as a cheap MVP?"
+      ]
+    },
+    "componentMicrocopy": {
+      "rawMarkdown": "### Feature cards\n\n- **One user, one valuable task** — Anchor the first release to a specific person and outcome.\n- **States before screens** — Define approvals, errors, empty states and completion before polishing the interface.\n- **Data with ownership** — Map records, roles and sources of truth before integrations multiply.\n- **A roadmap earned by use** — Expand the product from evidence, not the original wish list.\n\n### Outcome cards\n\n- **A testable first release** — A coherent product that can be used and evaluated, not a feature demonstration.\n- **Lower decision risk** — Critical assumptions are surfaced before the most expensive build work.\n- **Operational readiness** — Permissions, monitoring, fallbacks and ownership are included in the product model.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** -75% — reported reduction in no-shows\n- **Metric 2:** £16,800 — reported direct annual cost savings\n- **Metric 3:** -77% — reported reduction in administrative time\n- **Caption:** External case data shows what focused application workflows have achieved elsewhere. It does not predict an individual result.\n\n### Process steps\n\n1. **Discover the value** — Define the user, task, evidence and constraints.\n2. **Prototype the states** — Test the route before production scope expands.\n3. **Build the first release** — Implement the experience, data, permissions and integrations.\n4. **Learn from use** — Prioritise the roadmap from adoption, friction and commercial evidence.\n\n### Comparison block\n\n- **Feature-led project:** accepts a backlog as the product strategy and postpones hard decisions.\n- **Silverstone first-release model:** makes the user, workflow, state and evidence explicit before complexity grows.\n\n### Trust strip\n\n**Discovery before commitment · Explicit permissions · Observable systems · Human review for consequential decisions · No invented delivery promises**\n\n### Callout panel\n\n- **Heading:** A smaller scope is only useful when it remains coherent.\n- **Body:** The first release should remove optional complexity without removing the reliability, data and control required for real use.\n\n### FAQ accordion labels\n\n- Starting without a complete brief\n- Improving an existing app\n- Choosing web, PWA or native\n- Adding AI responsibly\n- Scope, ownership and hand-off\n\n### CTA blocks\n\n- **Mid-page heading:** Reduce the product to the decision it must prove.\n- **Mid-page body:** Use discovery to identify the first user, first workflow and evidence that justifies a build.\n- **Button:** Book a discovery call\n- **Final reassurance:** A rough workflow is enough. The first discussion is designed to clarify fit, not force a full build.\n\n### Labels and notes\n\n- **Prototype label:** Illustrative first-release state map\n- **Benchmark label:** External evidence—not Silverstone performance\n- **Integration note:** Third-party availability, permissions and limits are confirmed during discovery.",
+      "featureCards": [],
+      "outcomeCards": [],
+      "processSteps": [
+        {
+          "label": "Discover the value",
+          "body": "Define the user, task, evidence and constraints."
+        },
+        {
+          "label": "Prototype the states",
+          "body": "Test the route before production scope expands."
+        },
+        {
+          "label": "Build the first release",
+          "body": "Implement the experience, data, permissions and integrations."
+        },
+        {
+          "label": "Learn from use",
+          "body": "Prioritise the roadmap from adoption, friction and commercial evidence."
+        }
+      ],
+      "benchmark": {
+        "metrics": [
+          "-75% — reported reduction in no-shows",
+          "£16,800 — reported direct annual cost savings",
+          "-77% — reported reduction in administrative time"
+        ],
+        "caption": "External case data shows what focused application workflows have achieved elsewhere. It does not predict an individual result."
+      },
+      "ctaButton": "Book a discovery call",
+      "finalReassurance": "A rough workflow is enough. The first discussion is designed to clarify fit, not force a full build.",
+      "faqLabels": [
+        "Starting without a complete brief",
+        "Improving an existing app",
+        "Choosing web, PWA or native",
+        "Adding AI responsibly",
+        "Scope, ownership and hand-off"
+      ]
+    },
+    "demo": {
+      "rawMarkdown": "No mandatory reserved external demo integration is required for this route.\n\n### Recommended product demonstration module\n\n- **Label:** Interactive first-release state map\n- **Heading:** See how one workflow moves across user, staff and system states\n- **Body:** Use the existing deterministic Product State Stack to reveal capture, prototype, review, record and release states. Keep the example synthetic and make clear that it does not estimate effort, cost or delivery time.\n- **Status wording:** Illustrative product map. No live customer data or deployed client application is connected.\n- **CTA transition:** Have a real workflow in mind? Book a discovery call to map the smallest useful release.",
+      "configSlots": []
+    },
+    "acceptance": {
+      "distinctivePhrases": [
+        "Build the smallest app that proves the value",
+        "Start with the workflow, not the feature list",
+        "The user and job to be done",
+        "-75% — reported reduction in no-shows",
+        "Prove the workflow before expanding the product"
+      ],
+      "faqCount": 8
+    }
+  },
+  "/services/ai-voice-agents": {
+    "route": "/services/ai-voice-agents",
+    "sourceFilename": "03_AI_VOICE_AGENTS.md",
+    "sourcePath": "docs/approved-copy/services/03_AI_VOICE_AGENTS.md",
+    "sourceSha256": "54ad35a889a2254b9f28bebb7b2ad8f7d45757a462f043cc0fb71ecaa1407bb8",
+    "metadata": {
+      "title": "AI Voice Agent Development UK | Silverstone AI",
+      "metaDescription": "Custom AI voice-agent development for UK businesses: conversation design, telephony, approved knowledge, CRM actions, human escalation, monitoring and responsible disclosure.",
+      "openGraphTitle": "Voice agents built for real conversations and real consequences",
+      "openGraphDescription": "Silverstone designs governed voice workflows with clear call states, approved actions, telephony integration, transcripts, monitoring and human fallback.",
+      "canonicalRoute": "`/services/ai-voice-agents`",
+      "h1": "Voice agents designed for real conversations—and real consequences",
+      "h2": [],
+      "h3": [
+        "Conversation and state design",
+        "The speech pipeline and latency",
+        "Telephony and business actions",
+        "Approved knowledge and guardrails",
+        "Transcripts, evaluation and monitoring",
+        "Human escalation and disclosure",
+        "1. Define",
+        "2. Prototype",
+        "3. Connect",
+        "4. Evaluate",
+        "What happens when the caller interrupts?",
+        "What happens when speech is unclear?",
+        "What happens when a connected action fails?",
+        "What happens on a sensitive request?",
+        "Can the agent use our existing phone number?",
+        "Can it book appointments during the call?",
+        "Can it speak with a UK voice or understand UK details?",
+        "Is every call recorded?",
+        "Will it replace the team?"
+      ],
+      "breadcrumbs": "Home → Services → AI Voice Agents",
+      "schemaTypes": [
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ]
+    },
+    "routeEntry": {
+      "loaderText": "Synchronising speech, action and human fallback",
+      "pill": "Conversational systems / Voice",
+      "title": "Give every call a controlled next state",
+      "subtitle": "Custom voice workflows that listen, respond, act and escalate within rules your business can inspect.",
+      "buttonLabel": "Explore the call architecture"
+    },
+    "publicCopy": "# Voice agents designed for real conversations—and real consequences\n\nA voice agent is easy to demonstrate and difficult to operate well.\n\nThe production challenge is not making a synthetic voice speak. It is designing a call system that understands defined intents, responds from approved knowledge, manages interruptions, takes permitted actions, records what happened and transfers uncertainty to a person with useful context.\n\nSilverstone develops custom AI voice agents for UK businesses with repeatable inbound or outbound call workflows. Conversation design, speech processing, telephony, integrations, evaluation, monitoring and human escalation are treated as one operating system. The objective is not to imitate a person at any cost. It is to make routine calls faster and more consistent without hiding the point at which judgement, sensitivity or risk requires a human owner.\n\n**Primary action: Book a discovery call**\n\nThe first conversation focuses on call types, volumes, current handling, required actions, excluded topics, systems and fallback ownership. A live voice line should never be the first time those decisions are tested.\n\n## A voice agent is an operating workflow, not a talking FAQ\n\nA scripted demo can sound impressive because every turn is expected. Real callers interrupt. They change their minds, use informal language, provide incomplete details, ask two questions at once or raise an issue that belongs outside the automated path.\n\nA production voice agent therefore needs a state model. It must know whether it is identifying intent, collecting information, confirming details, checking availability, taking an approved action, recovering from an error or handing over. The flow needs limits: how many times to retry, what information may be repeated, which actions require confirmation and what must never be improvised.\n\nThe business process behind the call matters just as much. A booking is only complete if the correct calendar is updated. A qualified lead is only useful if the CRM receives enough context. A transfer is only safe if a person can see why it happened. A summary is only valuable if it can be audited against the transcript and the caller’s consent choices.\n\n## What production voice AI requires\n\n### Conversation and state design\n\nWe begin with a small set of call intents that are frequent, valuable and bounded. Each intent receives an approved opening, information requirements, questions, confirmation language, stop conditions and escalation route.\n\nThe call is designed around states rather than a single long prompt. That makes behaviour easier to test and reduces the chance that a model will invent a path when the conversation moves outside the expected territory.\n\n### The speech pipeline and latency\n\nA typical voice stack combines speech-to-text, a language model and text-to-speech. The quality of the experience depends on the whole sequence: recognition, reasoning, response generation, audio playback and turn management.\n\nLatency matters because long pauses make a call feel broken. Yet speed cannot be pursued by removing confirmation, safety checks or reliable tool handling. Turn-taking and barge-in behaviour must allow a caller to interrupt naturally without causing the system to lose the state of the task.\n\nProvider choice is made against the use case. Voice quality, supported languages, latency, data controls, telephony options, observability, cost and integration depth all matter. Silverstone is not a reseller for one platform; the selected architecture should fit the call.\n\n### Telephony and business actions\n\nThe voice layer must connect to the real phone environment. That may involve a phone number, SIP or another telephony provider, routing rules, opening hours, transfer destinations, voicemail behaviour and call-status events.\n\nActions are permissioned explicitly. An agent might check a calendar, offer an appointment, create a CRM record, send an SMS confirmation or open a helpdesk ticket. Each action needs validation, a success response, an error response and a fallback owner. Irreversible or consequential actions should not be hidden inside free-form model behaviour.\n\n### Approved knowledge and guardrails\n\nThe agent should answer from material the business has approved: service information, opening hours, locations, policies, qualification rules and scripted explanations. Retrieval should narrow the knowledge available to the conversation rather than invite the model to answer from general memory.\n\nBlocked topics are as important as approved topics. Clinical, legal, financial, complaint, safeguarding or other sensitive matters should move to an authorised person. The system should be designed to say that it cannot complete a request rather than manufacture confidence.\n\n### Transcripts, evaluation and monitoring\n\nA transcript is not merely a record. It is an evaluation surface.\n\nTest calls and production samples can be reviewed for intent recognition, information capture, action success, latency, interruption handling, unsupported answers and escalation quality. Summaries should be compared with the source conversation. Failed tool calls and unusual states need visible logs and named ownership.\n\nMonitoring should answer operational questions: which call types are handled, where callers abandon, what causes escalation, which integrations fail and whether changes improve the experience. Expansion should follow evidence, not novelty.\n\n### Human escalation and disclosure\n\nA strong voice system knows when to stop.\n\nEscalation may transfer the call, arrange a callback, create a task or route a summary to a shared queue. The person receiving it should see the caller’s stated need, information already captured and the reason automation did not continue.\n\nThe system should identify itself as automated where required and, as a design principle, avoid misleading callers about who or what they are speaking to. Call recording, consent, retention and disclosure requirements vary by jurisdiction and use case; production wording and controls require specific legal and data-protection review.\n\n## Published evidence, without borrowed certainty\n\nThe approved benchmark register contains published voice-agent examples reporting **response in under 10 seconds**, **15 hours saved per week** and a **22% increase in new-patient bookings**.\n\nThese are external case figures, not Silverstone outcomes. They show why organisations investigate voice automation: speed, staff capacity and conversion of routine demand. They do not establish what a particular implementation will achieve. Call mix, volume, existing response performance, booking rules, integration quality and human adoption all change the result.\n\nA responsible project defines its own baseline before launch: answer rate, response time, qualified outcomes, successful actions, transfers, abandoned calls, staff time and exception rate.\n\n## From call intent to monitored production\n\n### 1. Define\n\nWe map the call types, caller needs, current scripts, systems, permissions, excluded topics and escalation owners. The first release is narrowed to conversations that are both valuable and testable.\n\n### 2. Prototype\n\nConversation paths are written and exercised with synthetic calls. We test interruptions, unclear answers, corrections, tool failures and requests outside scope. The aim is not a flawless showcase; it is a visible list of failure modes and controls.\n\n### 3. Connect\n\nTelephony, knowledge, calendar, CRM, messaging or helpdesk actions are integrated only after the call logic is approved. Credentials, environments, logging and fallback behaviour are treated as production requirements.\n\n### 4. Evaluate\n\nCalls and transcripts are reviewed against explicit criteria. The team monitors action success, unsupported content, latency, handoff quality and caller friction. More intents are added only when the current routes are stable enough to justify expansion.\n\n**Book a discovery call**\n\nA discovery call can determine whether the right starting point is a general voice agent, a dedicated **AI Receptionist**, a narrow outbound workflow or no voice automation at all.\n\n## Control the conversation when reality departs from the script\n\n### What happens when the caller interrupts?\n\nBarge-in behaviour should stop playback, preserve the relevant context and let the caller redirect the conversation. The exact behaviour depends on the provider and state model, which is why interruption testing belongs in the evaluation plan.\n\n### What happens when speech is unclear?\n\nThe agent can ask for repetition, confirm critical details or switch to an alternative route. It should not repeatedly guess. Retry limits prevent a frustrating loop and trigger a human or asynchronous fallback.\n\n### What happens when a connected action fails?\n\nThe caller receives a truthful response. The system records the failure, avoids claiming success and routes the unresolved task to a person. A failed calendar or CRM action must not disappear behind a natural-sounding sentence.\n\n### What happens on a sensitive request?\n\nThe agent does not provide professional judgement. It follows the approved handoff path, captures only the information needed for that handoff and avoids unnecessary exposure of sensitive data.\n\n## Where voice agents fit\n\nThis service is suited to organisations with repeated, high-volume or time-sensitive calls such as availability checks, appointment requests, lead qualification, status updates, routine outbound confirmations and structured follow-up.\n\nIt is less suitable when most conversations require nuanced professional judgement, the source information is unreliable, there is no human fallback, call recording and data handling cannot be governed, or the business expects one unconstrained agent to answer every possible question.\n\nAn **AI Receptionist** is the better product frame when the primary task is a unified front desk across calls, chat, intake, booking and routing. **AI Automation** is relevant when the call needs to trigger downstream data and operational workflows. **AI & Automation Consulting** can assess the route before a provider or architecture is selected.\n\n## Questions before a live line is connected\n\n### Can the agent use our existing phone number?\n\nPotentially, depending on the carrier, telephony setup and chosen voice platform. Number porting, forwarding, SIP and routing options are confirmed during technical discovery.\n\n### Can it book appointments during the call?\n\nYes, where calendar access, availability rules, confirmation language and fallback behaviour are approved. The system should confirm the selected details before writing the booking.\n\n### Can it speak with a UK voice or understand UK details?\n\nProvider voices, accent handling, postcode capture and pronunciation need to be tested against the actual audience. No coverage claim should be made until that evaluation is complete.\n\n### Is every call recorded?\n\nNot automatically. Recording, transcription, notice, retention and access controls must be configured for the use case and legal context.\n\n### Will it replace the team?\n\nThe purpose is to handle bounded call work and improve first response. Complex, sensitive and unusual matters remain with people. The best operating model often gives staff better context rather than trying to remove them from the service.\n\n## Design the call before choosing the voice\n\nA compelling voice is not a substitute for a clear operating model. The most valuable discovery work identifies the calls worth handling, the actions worth connecting and the exact point at which a person should take over.\n\n**Book a discovery call**\n\nReview **How We Work** for the delivery route, **Pricing** for the scoping model, or send a current call script through **Contact**. For a front-desk system, explore **AI Receptionists**. For the workflows that follow the call, see **AI Automation**.\n\n*The credible voice system is not the one that sounds most human. It is the one whose decisions, actions and limits remain visible to the business.*",
+    "publicHeadings": {
+      "h1": "Voice agents designed for real conversations—and real consequences",
+      "h2": [
+        "A voice agent is an operating workflow, not a talking FAQ",
+        "What production voice AI requires",
+        "Published evidence, without borrowed certainty",
+        "From call intent to monitored production",
+        "Control the conversation when reality departs from the script",
+        "Where voice agents fit",
+        "Questions before a live line is connected",
+        "Design the call before choosing the voice"
+      ],
+      "h3": [
+        "Conversation and state design",
+        "The speech pipeline and latency",
+        "Telephony and business actions",
+        "Approved knowledge and guardrails",
+        "Transcripts, evaluation and monitoring",
+        "Human escalation and disclosure",
+        "1. Define",
+        "2. Prototype",
+        "3. Connect",
+        "4. Evaluate",
+        "What happens when the caller interrupts?",
+        "What happens when speech is unclear?",
+        "What happens when a connected action fails?",
+        "What happens on a sensitive request?",
+        "Can the agent use our existing phone number?",
+        "Can it book appointments during the call?",
+        "Can it speak with a UK voice or understand UK details?",
+        "Is every call recorded?",
+        "Will it replace the team?"
+      ]
+    },
+    "componentMicrocopy": {
+      "rawMarkdown": "### Feature cards\n\n- **Stateful conversation design** — Give each call intent, retry, action and escalation a visible state.\n- **Speech pipeline engineering** — Balance recognition, reasoning, voice quality, latency and interruption handling.\n- **Permissioned actions** — Connect calendars, CRM, SMS and tickets only within approved rules.\n- **Evaluation after the demo** — Review transcripts, tool outcomes, latency and handoffs before expanding scope.\n\n### Outcome cards\n\n- **Faster first response** — Routine calls can enter a defined workflow without waiting for an available person.\n- **Structured operational context** — Captured details and summaries reach the team in a usable form.\n- **Safer exception handling** — Sensitive, unusual or failed calls move to a named human route.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** <10 seconds — reported response time\n- **Metric 2:** 15 hours/week — reported staff time saved\n- **Metric 3:** +22% — reported increase in new-patient bookings\n- **Caption:** External voice-agent cases illustrate possible impact categories. They are not Silverstone results or forecasts.\n\n### Process steps\n\n1. **Define the calls** — Select bounded, measurable intents and exclusions.\n2. **Prototype the conversation** — Test normal, interrupted and failed paths.\n3. **Connect the actions** — Add telephony and business systems with fallbacks.\n4. **Evaluate the evidence** — Review transcripts, outcomes and exceptions before expansion.\n\n### Comparison block\n\n- **Voice demo:** optimised for a short expected conversation with no operational consequence.\n- **Silverstone voice system:** designed around real call states, tool outcomes, monitoring and human ownership.\n\n### Trust strip\n\n**Approved knowledge · Explicit disclosure design · Permissioned actions · Transcript review · Human escalation**\n\n### Callout panel\n\n- **Heading:** Natural speech does not make an unreliable action safe.\n- **Body:** Calendar, CRM and messaging actions require confirmation, error handling and a visible fallback regardless of how fluent the voice sounds.\n\n### FAQ accordion labels\n\n- Existing phone numbers and SIP\n- Booking during a call\n- UK voices and detail capture\n- Recording, transcripts and retention\n- Human fallback and team roles\n\n### CTA blocks\n\n- **Mid-page heading:** Start with the call types you can define and inspect.\n- **Mid-page body:** Map the intent, action, failure path and human owner before connecting a live line.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring a sample call, current script or simply the repeated call problem. The first discussion is for fit and architecture.\n\n### Labels and notes\n\n- **Demo label:** Deterministic voice-system preview\n- **Transcript label:** Illustrative transcript—not a live caller\n- **Benchmark label:** External evidence—not Silverstone performance\n- **Privacy note:** No microphone, phone number or live recording is connected in the reserved preview.",
+      "featureCards": [],
+      "outcomeCards": [],
+      "processSteps": [
+        {
+          "label": "Define the calls",
+          "body": "Select bounded, measurable intents and exclusions."
+        },
+        {
+          "label": "Prototype the conversation",
+          "body": "Test normal, interrupted and failed paths."
+        },
+        {
+          "label": "Connect the actions",
+          "body": "Add telephony and business systems with fallbacks."
+        },
+        {
+          "label": "Evaluate the evidence",
+          "body": "Review transcripts, outcomes and exceptions before expansion."
+        }
+      ],
+      "benchmark": {
+        "metrics": [
+          "<10 seconds — reported response time",
+          "15 hours/week — reported staff time saved",
+          "+22% — reported increase in new-patient bookings"
+        ],
+        "caption": "External voice-agent cases illustrate possible impact categories. They are not Silverstone results or forecasts."
+      },
+      "ctaButton": "Book a discovery call",
+      "finalReassurance": "Bring a sample call, current script or simply the repeated call problem. The first discussion is for fit and architecture.",
+      "faqLabels": [
+        "Existing phone numbers and SIP",
+        "Booking during a call",
+        "UK voices and detail capture",
+        "Recording, transcripts and retention",
+        "Human fallback and team roles"
+      ]
+    },
+    "demo": {
+      "rawMarkdown": "### Section introduction\n\n**Experience the architecture before the live agent is connected.**\n\nThis section reserves two coordinated surfaces: an ElevenLabs-ready call feature and an adjacent transcript window. Together they will show how a conversation moves through listening, interpretation, approved response, action and escalation. Both remain intentionally inactive until credentials, scripts, disclosure, consent and privacy controls are approved.\n\n### Future ElevenLabs AI-call placeholder\n\n- **Label:** Reserved voice experience · Live call\n- **Heading:** Test a governed call flow in real time\n- **Body:** This surface is prepared for a future ElevenLabs voice-agent integration using an approved scenario. The final experience will identify its automated nature, request any required permission and keep the available actions within the demonstrated flow.\n- **Privacy note:** No microphone access, telephone number, call recording or live agent is currently connected.\n- **Status:** Integration reserved. Awaiting approved credentials, voice, script and production controls.\n- **Configuration slot:** `futureVoiceElevenLabsAgent`\n\n### Adjacent transcript-window placeholder\n\n- **Label:** Reserved evaluation view · Transcript\n- **Heading:** See what the system heard, decided and handed over\n- **Body:** The transcript surface will display an approved illustrative conversation beside call states, captured details, tool outcomes and escalation notes. It is designed for evaluation—not to imply a real customer conversation.\n- **Privacy note:** Sample text must remain synthetic until a lawful, consented and appropriately redacted production source is approved.\n- **Status:** Transcript layout reserved. No live transcript source is connected.\n- **Configuration slot:** `futureVoiceTranscriptSource`\n\n### Transition copy\n\n**A polished voice is only the audible layer. The transcript and state history reveal whether the system is operating responsibly.**\n\n- **Secondary link:** Explore AI Receptionists\n- **Primary button:** Book a discovery call",
+      "configSlots": [
+        "futureVoiceElevenLabsAgent",
+        "futureVoiceTranscriptSource"
+      ]
+    },
+    "acceptance": {
+      "distinctivePhrases": [
+        "Voice agents designed for real conversations—and real consequences",
+        "A voice agent is an operating workflow, not a talking FAQ",
+        "Conversation and state design",
+        "<10 seconds — reported response time",
+        "Give every call a controlled next state"
+      ],
+      "faqCount": 9
+    }
+  },
+  "/services/ai-receptionists": {
+    "route": "/services/ai-receptionists",
+    "sourceFilename": "04_AI_RECEPTIONISTS.md",
+    "sourcePath": "docs/approved-copy/services/04_AI_RECEPTIONISTS.md",
+    "sourceSha256": "76d38c031c6919f24eeb9130c4e37b80db411928c14da457b961cd2242888344",
+    "metadata": {
+      "title": "AI Receptionist Services UK | Silverstone AI",
+      "metaDescription": "AI receptionist services for UK businesses across calls and chat, with structured intake, qualification, booking, reminders, CRM updates and reliable human handoff.",
+      "openGraphTitle": "A front desk that answers, qualifies and knows when to hand over",
+      "openGraphDescription": "Silverstone builds integrated AI reception systems for calls, chat, intake, booking, routing and CRM updates—within approved rules and human escalation paths.",
+      "canonicalRoute": "`/services/ai-receptionists`",
+      "h1": "A front desk that answers, qualifies and knows when to hand over",
+      "h2": [],
+      "h3": [
+        "Calls and conversational intake",
+        "Web chat and messaging",
+        "Approved answers and qualification",
+        "Booking, reminders and routing",
+        "CRM and operational synchronisation",
+        "Human handoff and sensitive matters",
+        "1. Map",
+        "2. Approve",
+        "3. Connect",
+        "4. Review",
+        "AI receptionist versus a human answering service",
+        "AI receptionist versus a general voice agent",
+        "AI receptionist versus a chatbot",
+        "Can it work outside office hours?",
+        "Can it book directly into our current calendar?",
+        "How is personal data handled?",
+        "Can customers always reach a person?",
+        "Will it understand every caller?"
+      ],
+      "breadcrumbs": "Home → Services → AI Receptionists",
+      "schemaTypes": [
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ]
+    },
+    "routeEntry": {
+      "loaderText": "Converging every enquiry into the right next action",
+      "pill": "Customer operations / Front desk",
+      "title": "Turn every routine enquiry into a controlled handoff",
+      "subtitle": "One governed reception layer for calls, chat, intake, booking, routing and the moments that still need a person.",
+      "buttonLabel": "Open the front-desk system"
+    },
+    "publicCopy": "# A front desk that answers, qualifies and knows when to hand over\n\nAn AI receptionist should not try to answer everything. It should make the first stage of customer contact more reliable.\n\nSilverstone designs AI receptionist systems for UK businesses across phone calls, web chat and structured digital intake. The system can answer approved questions, collect the right details, qualify routine requests, offer appointments, route messages, update connected records and trigger reminders or follow-up. When an enquiry becomes sensitive, unusual or dependent on professional judgement, it moves to a person with context.\n\nThe distinction matters. A generic answering tool may produce a response. An integrated front desk moves the enquiry to a defined destination without pretending that automation is qualified to make every decision.\n\n**Primary action: Book a discovery call**\n\nThe first discussion maps the channels, questions, booking rules, systems and human owners that make up the current reception process. It is designed to determine whether AI reception is appropriate, where it should begin and what must remain outside scope.\n\n## Your front desk is a system of decisions\n\nA customer experiences reception as a conversation. The business experiences it as a sequence of operational choices.\n\nIs this a routine question or a request that needs specialist attention? What minimum information is required? Can the person book directly, or does a staff member need to approve the appointment? Which location, service or team owns the request? What happens outside opening hours? Where is the information recorded? How quickly must someone follow up? Which topics should never be answered automatically?\n\nWhen those rules are undocumented, adding AI can make the inconsistency faster rather than solve it. Calls, chat, forms and inbox messages may still create separate queues. Staff may receive incomplete notes. A booking may be made without the correct eligibility check. A caller may be kept in an automated loop when the safe response is a human handoff.\n\nSilverstone begins by mapping the desk. The technology follows the operating model.\n\n## What an integrated AI receptionist can handle\n\n### Calls and conversational intake\n\nA phone receptionist can respond to routine inbound calls, identify the reason for contact, collect approved details and direct the caller towards an answer, booking or handoff.\n\nThe call flow is designed around explicit states and limits. Critical details are confirmed. Retry behaviour is defined. The system does not claim an action succeeded when the calendar, CRM or transfer failed. UK voices, names, accents, addresses and postcodes are tested against the intended audience rather than assumed from a provider’s marketing page.\n\nFor broader inbound or outbound call use cases, **AI Voice Agents** provides the more general architecture. The receptionist page owns the dedicated front-desk application: first response, intake, scheduling and routing.\n\n### Web chat and messaging\n\nReception does not begin and end on the telephone. Web chat, messaging and forms can enter the same intake model so customers receive consistent questions and the team receives a common record.\n\nA chat route might answer opening hours, explain the next step for a service, collect a callback request or begin an appointment enquiry. It should not expose internal information, improvise professional advice or pressure the visitor into a booking that has not been validated.\n\n### Approved answers and qualification\n\nThe receptionist answers from material the business has reviewed: service descriptions, availability, locations, accepted enquiry types, preparation guidance, policies and routine administrative questions.\n\nQualification is used to route, not to create artificial scarcity or make unapproved decisions. Questions should be limited to information the business genuinely needs. Sensitive data should not be collected merely because the conversational interface makes it possible.\n\nBlocked topics and urgent routes are documented. Clinical symptoms, legal positions, financial decisions, complaints, safeguarding issues and other high-consequence matters belong with authorised people.\n\n### Booking, reminders and routing\n\nWhere booking is appropriate, the receptionist can check permitted availability, offer suitable slots, confirm details and write the appointment into the approved system. Rules may include service type, location, duration, practitioner, buffer, deposit, eligibility or approval.\n\nA useful booking flow also covers change. Cancellations, rescheduling, failed payments, unavailable slots and uncertain requests need truthful responses and named fallbacks.\n\nReminders and confirmations can be triggered through approved channels, subject to consent and communication preferences. Messages, callbacks and exceptions are routed to an inbox, helpdesk or task queue with an owner and expected next action.\n\n### CRM and operational synchronisation\n\nA receptionist creates value when captured information reaches the systems staff already use.\n\nContact details, enquiry type, qualification answers, booking status, transcript summary and handoff reason can be written to a CRM or another source of truth where appropriate. **AI Automation** can support the workflows after intake: follow-up, document requests, task creation, reporting and recovery of incomplete enquiries.\n\nEvery connection needs validation and observability. Duplicate records, missing required fields, failed API calls and permission errors cannot be hidden behind a polite response.\n\n### Human handoff and sensitive matters\n\nHuman escalation is not a failure of the system. It is part of the system.\n\nA caller or visitor may ask to speak to someone, express distress, raise a complaint, provide ambiguous information or request an action outside the approved rules. The receptionist should recognise the boundary, explain the next step and transfer or queue the matter with the context already collected.\n\n## Published evidence, kept separate from promises\n\nThe approved benchmark register includes external AI-receptionist cases reporting a **66% increase in phone availability**, **response in under 10 seconds** and **£16,800 in direct annual cost savings**.\n\nThese figures illustrate why organisations consider front-desk automation: greater coverage, faster first response and reduced manual handling. They are not Silverstone client outcomes and they do not guarantee that a specific receptionist will generate savings.\n\nThe relevant baseline should be established for the business: missed and answered calls, first-response time, bookings, qualified enquiries, staff handling time, transfers, unresolved requests, no-shows and customer feedback. A system should be evaluated against those measures and its exception rate—not against the most dramatic number found in a market comparison.\n\n## Design the desk before connecting the channels\n\n### 1. Map\n\nWe document the enquiry channels, common intents, current scripts, required details, booking paths, destinations and human owners. High-risk and excluded topics are made visible before a build begins.\n\n### 2. Approve\n\nThe business reviews the answer library, qualification questions, confirmation wording, consent points, booking rules and escalation language. The system is not allowed to convert uncertainty into invented policy.\n\n### 3. Connect\n\nCalls, chat, calendars, CRM, inboxes, helpdesk and messaging are integrated in a controlled order. Each action has a success state, failure state and fallback. Synthetic scenarios are tested before real customers enter the flow.\n\n### 4. Review\n\nThe team reviews unresolved intents, transcripts where lawful, failed actions, handoff quality and staff feedback. Rules and content are improved from observed friction. New channels or intents are added only when the existing desk is stable enough to expand.\n\n**Book a discovery call**\n\nA discovery call can establish whether the first useful route is phone reception, web chat, missed-call recovery, booking support or a smaller intake workflow.\n\n## The difference between answering and operating\n\n### AI receptionist versus a human answering service\n\nA human answering service provides real people to answer and pass on calls. It may be the right route when conversations require human nuance from the first moment or the business wants outsourced staffing rather than software.\n\nAn AI receptionist offers consistent, software-based handling of defined enquiries and can integrate directly with booking and data systems. Its value depends on rule quality, integration depth and escalation—not on being the cheapest per-minute option.\n\nA hybrid model may be appropriate: automation handles routine demand, while people receive sensitive or unusual matters. Silverstone’s role is to design the operating boundary, not to declare that one model is universally superior.\n\n### AI receptionist versus a general voice agent\n\nAn AI voice agent is the broader technology category. It may support outbound qualification, surveys, status updates or specialised call workflows. An AI receptionist is a productised use of voice and conversational automation focused on front-desk tasks across one or more channels.\n\nThis separation prevents keyword and product confusion. The receptionist page owns reception, intake, booking and routing. The voice page owns broader custom call-agent development.\n\n### AI receptionist versus a chatbot\n\nA simple chatbot usually answers questions or collects a message inside one channel. A receptionist coordinates multiple outcomes and connected systems. The difference is not the presence of a chat window; it is the operating responsibility behind it.\n\n## Where an AI receptionist fits\n\nThis service is a strong fit when the business receives repeated calls or messages, has clear administrative answers, uses a structured booking or CRM system, and can name the people who own exceptions.\n\nIt is a poor fit when most enquiries require professional judgement, source information changes without governance, the team cannot support handoffs, no system of record exists, or the business expects automation to conceal understaffing while delivering unlimited service.\n\n## Questions buyers should ask before choosing a provider\n\n### Can it work outside office hours?\n\nIt can be configured for out-of-hours handling, subject to the availability of connected systems and the approved fallback model. The public page should not promise uninterrupted production availability until infrastructure and support terms are agreed.\n\n### Can it book directly into our current calendar?\n\nPotentially. The system, API or approved embed must support the required actions. Availability rules, confirmation, duplicate prevention and failures are tested before direct booking is enabled.\n\n### How is personal data handled?\n\nData minimisation, access, retention, provider roles, lawful basis and security requirements are reviewed for the implementation. “GDPR compliant” should not be used as a blanket marketing guarantee. The final posture depends on the selected vendors, configuration and business process.\n\n### Can customers always reach a person?\n\nA human route should be designed for requests that require it. Whether that means a live transfer, callback, task or queue depends on staffing and operating hours. The destination must be truthful and monitored.\n\n### Will it understand every caller?\n\nNo voice system should be presented as universal. Accents, background noise, names, postcodes and unusual phrasing need realistic testing. The agent should confirm important details and hand over when confidence is insufficient.\n\n## Make every routine enquiry reach a defined destination\n\nA reliable front desk is not measured by how many conversations remain automated. It is measured by whether customers receive the right next step and the business can see what happened.\n\n**Book a discovery call**\n\nReview **How We Work** for the delivery route, **Pricing** for the scoping model, or share scripts and FAQs through **Contact**. Explore **AI Voice Agents** for broader call workflows and **AI Automation** for the operational follow-up behind reception.\n\n*The premium front desk is not the one that keeps people away from humans. It is the one that uses people where their judgement matters most.*",
+    "publicHeadings": {
+      "h1": "A front desk that answers, qualifies and knows when to hand over",
+      "h2": [
+        "Your front desk is a system of decisions",
+        "What an integrated AI receptionist can handle",
+        "Published evidence, kept separate from promises",
+        "Design the desk before connecting the channels",
+        "The difference between answering and operating",
+        "Where an AI receptionist fits",
+        "Questions buyers should ask before choosing a provider",
+        "Make every routine enquiry reach a defined destination"
+      ],
+      "h3": [
+        "Calls and conversational intake",
+        "Web chat and messaging",
+        "Approved answers and qualification",
+        "Booking, reminders and routing",
+        "CRM and operational synchronisation",
+        "Human handoff and sensitive matters",
+        "1. Map",
+        "2. Approve",
+        "3. Connect",
+        "4. Review",
+        "AI receptionist versus a human answering service",
+        "AI receptionist versus a general voice agent",
+        "AI receptionist versus a chatbot",
+        "Can it work outside office hours?",
+        "Can it book directly into our current calendar?",
+        "How is personal data handled?",
+        "Can customers always reach a person?",
+        "Will it understand every caller?"
+      ]
+    },
+    "componentMicrocopy": {
+      "rawMarkdown": "### Feature cards\n\n- **One intake model across channels** — Align calls, chat and messages around the same operating rules.\n- **Approved answers only** — Use reviewed service information, policies and qualification questions.\n- **Booking with failure paths** — Confirm availability, write the record and route exceptions honestly.\n- **Handoff with context** — Give staff the reason, details and next action—not an empty notification.\n\n### Outcome cards\n\n- **Greater enquiry coverage** — Routine demand can enter a defined route beyond the moments staff are immediately available.\n- **Faster structured response** — Customers receive a useful first step while the business captures the right context.\n- **Less reception rework** — Connected records reduce repeated copying and incomplete internal messages.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** +66% — reported increase in phone availability\n- **Metric 2:** <10 seconds — reported response time\n- **Metric 3:** £16,800 — reported direct annual cost savings\n- **Caption:** External receptionist cases illustrate possible coverage, speed and cost outcomes. They are not Silverstone results or guarantees.\n\n### Process steps\n\n1. **Map the desk** — Document channels, intents, rules and owners.\n2. **Approve the boundaries** — Sign off answers, questions, actions and exclusions.\n3. **Connect the destinations** — Integrate calendars, CRM, inboxes and handoffs.\n4. **Review the friction** — Improve rules from failed intents, exceptions and staff feedback.\n\n### Comparison block\n\n- **Basic answering tool:** produces a response or message in one channel.\n- **Silverstone reception system:** coordinates intake, actions, records, routing and human ownership across the front desk.\n\n### Trust strip\n\n**Approved content · Data minimisation · Verified actions · Visible audit trail · Human judgement preserved**\n\n### Callout panel\n\n- **Heading:** The goal is not to keep every enquiry automated.\n- **Body:** The goal is to give each routine enquiry a reliable destination and move sensitive matters to the right person without losing context.\n\n### FAQ accordion labels\n\n- Out-of-hours availability\n- Existing calendar and CRM integration\n- Personal data and retention\n- Human transfer and callback routes\n- Voice, accent and postcode testing\n\n### CTA blocks\n\n- **Mid-page heading:** Design the reception rules before choosing the channel tools.\n- **Mid-page body:** Use discovery to map what can be answered, booked, routed and escalated safely.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring call notes, FAQs or a booking process. The first conversation is used to identify the smallest valuable front-desk route.\n\n### Labels and notes\n\n- **Chat label:** Reserved AI reception experience\n- **Call label:** ElevenLabs-ready call surface\n- **Benchmark label:** External evidence—not Silverstone performance\n- **Privacy note:** No real customer, microphone or production data is connected in the preview.",
+      "featureCards": [],
+      "outcomeCards": [],
+      "processSteps": [
+        {
+          "label": "Map the desk",
+          "body": "Document channels, intents, rules and owners."
+        },
+        {
+          "label": "Approve the boundaries",
+          "body": "Sign off answers, questions, actions and exclusions."
+        },
+        {
+          "label": "Connect the destinations",
+          "body": "Integrate calendars, CRM, inboxes and handoffs."
+        },
+        {
+          "label": "Review the friction",
+          "body": "Improve rules from failed intents, exceptions and staff feedback."
+        }
+      ],
+      "benchmark": {
+        "metrics": [
+          "+66% — reported increase in phone availability",
+          "<10 seconds — reported response time",
+          "£16,800 — reported direct annual cost savings"
+        ],
+        "caption": "External receptionist cases illustrate possible coverage, speed and cost outcomes. They are not Silverstone results or guarantees."
+      },
+      "ctaButton": "Book a discovery call",
+      "finalReassurance": "Bring call notes, FAQs or a booking process. The first conversation is used to identify the smallest valuable front-desk route.",
+      "faqLabels": [
+        "Out-of-hours availability",
+        "Existing calendar and CRM integration",
+        "Personal data and retention",
+        "Human transfer and callback routes",
+        "Voice, accent and postcode testing"
+      ]
+    },
+    "demo": {
+      "rawMarkdown": "### Section introduction\n\n**See the two sides of a modern front desk.**\n\nThis section reserves a future AI chat window and an ElevenLabs-ready call feature. They will demonstrate how the same approved intake rules can be adapted across written and spoken channels while preserving booking, routing and human escalation. Neither surface is currently live.\n\n### Future AI chat-window placeholder\n\n- **Label:** Reserved front-desk experience · Chat\n- **Heading:** Follow a routine enquiry from question to destination\n- **Body:** This window is prepared for an approved AI receptionist chat flow covering a bounded scenario such as a service question, callback request or appointment enquiry. The final flow will show what is answered, what is collected and when a person takes over.\n- **Privacy note:** No real enquiry, visitor identity, CRM record or production conversation is connected.\n- **Status:** Chat integration reserved. Awaiting approved content, rules and destination systems.\n- **Configuration slot:** `futureReceptionistChatEmbedUrl`\n\n### Future ElevenLabs AI-call placeholder\n\n- **Label:** Reserved front-desk experience · Call\n- **Heading:** Hear a controlled reception flow, not an unrestricted agent\n- **Body:** This surface is prepared for a future ElevenLabs call configuration using a clearly disclosed, approved scenario. Booking, transfer and follow-up actions will remain limited to the demonstrated rules.\n- **Privacy note:** No microphone, phone number, call recording or live voice agent is currently connected.\n- **Status:** Call integration reserved. Awaiting credentials, voice testing, consent wording and approved scripts.\n- **Configuration slot:** `futureReceptionistElevenLabsAgent`\n\n### Transition copy\n\n**One desk. Two channels. The same answer library, action rules and human boundary.**\n\nThe previews remain inactive until the operating model and privacy controls are ready. Book a discovery call to map the front-desk journey your customers actually need.\n\n- **Secondary link:** Explore custom AI Voice Agents\n- **Primary button:** Book a discovery call",
+      "configSlots": [
+        "futureReceptionistChatEmbedUrl",
+        "futureReceptionistElevenLabsAgent"
+      ]
+    },
+    "acceptance": {
+      "distinctivePhrases": [
+        "A front desk that answers, qualifies and knows when to hand over",
+        "Your front desk is a system of decisions",
+        "Calls and conversational intake",
+        "+66% — reported increase in phone availability",
+        "Turn every routine enquiry into a controlled handoff"
+      ],
+      "faqCount": 5
+    }
+  },
+  "/services/content-creation": {
+    "route": "/services/content-creation",
+    "sourceFilename": "05_CONTENT_CREATION.md",
+    "sourcePath": "docs/approved-copy/services/05_CONTENT_CREATION.md",
+    "sourceSha256": "3ecb7b2b0ce602e9954fb61e93a56d4b0ea9eeafec3e918c967a099c67eb778d",
+    "metadata": {
+      "title": "AI Content Systems & Repurposing UK | Silverstone AI",
+      "metaDescription": "Build a governed content operating system from approved expertise: pillar content, channel-specific repurposing, SEO intent, internal links, human review and measured improvement.",
+      "openGraphTitle": "Turn expertise into a governed content engine",
+      "openGraphDescription": "Silverstone designs source-led content operations that turn approved knowledge into useful website, email and social assets without sacrificing brand control or human review.",
+      "canonicalRoute": "`/services/content-creation`",
+      "h1": "Turn expertise into a governed content engine",
+      "h2": [],
+      "h3": [
+        "Source and knowledge capture",
+        "Pillar strategy and search intent",
+        "Channel-specific adaptation",
+        "Brand, claims and approvals",
+        "Publishing workflow and internal links",
+        "Performance feedback",
+        "1. Collect",
+        "2. Architect",
+        "3. Create and review",
+        "4. Publish and learn",
+        "Website and service content",
+        "Insight articles",
+        "Email",
+        "Social content",
+        "Sales enablement",
+        "Will AI write all the content?",
+        "How do you keep the content original?",
+        "Can the system publish automatically?",
+        "Does this include SEO?",
+        "How much content will be produced?"
+      ],
+      "breadcrumbs": "Home → Services → Content Creation",
+      "schemaTypes": [
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ]
+    },
+    "routeEntry": {
+      "loaderText": "Structuring expertise into reusable editorial momentum",
+      "pill": "Content operations / Editorial system",
+      "title": "Make every strong idea travel further",
+      "subtitle": "A source-led system that turns approved expertise into distinct website, insight, email and social assets—each with a reason to exist.",
+      "buttonLabel": "Explore the content operating system"
+    },
+    "publicCopy": "# Turn expertise into a governed content engine\n\nThe easiest content problem to solve is volume. The harder problem is creating material that remains useful, credible, distinct and recognisably yours.\n\nSilverstone designs content operating systems for UK businesses with valuable expertise but an inconsistent route from source material to publication. We combine content strategy, knowledge capture, search intent, editorial structure, channel-specific adaptation, approval workflows, internal linking and performance feedback.\n\nAI can accelerate parts of that system. It does not replace the need for a point of view, an accountable source or a person who approves what the business publishes.\n\n**Primary action: Book a discovery call**\n\nThe first discussion examines what the business knows, where that knowledge currently lives, which audiences matter, how content is approved and which channels deserve a consistent operating rhythm.\n\n## More content is not the same as more authority\n\nA weak content process usually produces one of two outcomes.\n\nThe first is scarcity: useful insight remains in sales calls, internal documents, voice notes and the heads of subject-matter experts. Publishing happens only when someone finds time, so the website and channels underrepresent the quality of the business.\n\nThe second is volume without direction. Generic drafts are created quickly, but the pieces repeat the same themes, compete for the same search intent, make unsupported claims or sound detached from the people who actually understand the work. The team gains another review burden rather than a stronger market presence.\n\nA credible system begins with source material and page purpose. Every item should have an audience, intended decision, primary channel, evidence base, relationship to existing content and human owner.\n\n## The operating system behind credible output\n\n### Source and knowledge capture\n\nThe strongest content often begins before a blank document appears.\n\nWe identify source material such as expert interviews, service knowledge, customer questions, approved case evidence, reports, webinars, internal playbooks and existing articles. Claims, permissions, sensitive information and areas requiring subject-matter review are recorded with the source.\n\nThis creates traceability. A writer or AI-assisted workflow can see what the business has actually approved instead of filling gaps with plausible language.\n\n### Pillar strategy and search intent\n\nA pillar is not simply a long article. It is a substantial treatment of a topic that the business has the experience and reason to own.\n\nWe assign each core page or article a distinct search and buyer intent. Supporting content answers narrower questions and links back with descriptive anchors. This protects the site from keyword cannibalisation and gives visitors a useful path from education to service consideration.\n\nCommercial pages, industry pages and insights serve different jobs. An article may compare options or explain terminology; a service page should help a buyer assess fit and act. The system keeps those roles separate.\n\n### Channel-specific adaptation\n\nContent atomisation means breaking a substantial source into smaller, purposeful units. It is not copying the same paragraph into every channel.\n\nA detailed interview might support a service-page improvement, an insight article, a short email, a sales-enablement note and several social posts. Each version changes structure, length, context and next action for the channel. The facts remain traceable to the same approved source, but the output is designed for the environment in which it will be read.\n\nRepublishing creates duplication. Adaptation creates utility.\n\n### Brand, claims and approvals\n\nA brand system for content includes more than tone words. It defines the level of formality, terminology, evidence standards, prohibited claims, preferred sentence patterns, formatting and the boundaries around regulated or sensitive subjects.\n\nApproval rules should reflect risk. A low-risk social summary may need a light editorial check. A public performance claim, customer story or professional statement may require source verification, permission and owner approval.\n\nAI-assisted drafts remain behind a human review gate. The workflow should flag unsupported statistics, unattributed testimonials, claims of guaranteed outcomes and language that exceeds the evidence.\n\n### Publishing workflow and internal links\n\nContent should move through visible stages: source captured, brief approved, draft in review, revisions complete, publication ready, scheduled, live and measured.\n\nThe system can connect a CMS, email platform, social scheduler, project tracker and analytics tool, but automation should not publish merely because a draft exists. Named approvals and clear stop conditions protect the brand from accidental or low-quality output.\n\nInternal links are selected for the reader’s next question, not inserted as an SEO afterthought. A relevant service, industry example or supporting guide should deepen understanding and give search systems a coherent hierarchy.\n\n### Performance feedback\n\nMetrics should answer whether the content is helping the intended audience and commercial route. Depending on the asset, that may include qualified search visibility, engaged reading, internal-link use, newsletter response, enquiry quality, assisted conversion or repeated customer questions.\n\nVanity reach alone does not tell the team what to create next. Performance evidence is combined with sales conversations, search demand and operational insight to refine the editorial plan.\n\n## Published evidence, framed as external context\n\nThe approved benchmark register contains external content cases reporting **500 campaigns running**, **more than 3,000 bookings generated in 12 months**, and a reported **increase in SEO and PPC return from 3x to 20x**.\n\nThese are published examples, not Silverstone outcomes. They come from different contexts and should not be presented as a normal expectation or combined into a single promise.\n\nTheir value is directional: mature content and campaign systems can support significant commercial activity when the source quality, distribution, offer, media investment, measurement and conversion route are aligned. The correct benchmark for a new engagement begins with the client’s existing output, authority, audience, traffic and sales process.\n\n## From source material to a repeatable content cycle\n\n### 1. Collect\n\nWe gather the existing knowledge, audience questions, commercial priorities, proof, permissions and brand constraints. Gaps are made explicit so the system does not invent what the business has not supplied.\n\n### 2. Architect\n\nTopics are mapped to pages, formats, channels and search intent. Each planned item receives a purpose, source, audience, owner and next action. Duplicate or competing ideas are consolidated before production.\n\n### 3. Create and review\n\nDrafts are produced from approved material and adapted for the selected channel. Human reviewers check accuracy, usefulness, voice, evidence and risk. Claims remain blocked until the required source or permission exists.\n\n### 4. Publish and learn\n\nApproved assets move into the appropriate CMS, email or scheduling route. Performance and audience questions feed the next cycle. The system becomes more useful through evidence rather than simply producing at a faster rate.\n\n**Book a discovery call**\n\nA discovery call can determine whether the first priority is a content architecture, a pillar-and-repurposing workflow, service-page copy, an approval system or an automation around an existing editorial team.\n\n## Atomise the idea without diluting it\n\nA strong source can produce several assets, but each derivative must earn its place.\n\n### Website and service content\n\nThe website carries the durable commercial explanation: what the business does, who it serves, how it works and why the offer is credible. Content should integrate with the information architecture created through **Web Design & Development**, rather than accumulate as disconnected pages.\n\n### Insight articles\n\nInsights answer specific questions with sufficient depth to be useful. They can target comparisons, definitions, implementation decisions and industry problems that do not belong on money pages. Each article links naturally to the relevant service and related evidence.\n\n### Email\n\nEmail develops an opted-in relationship. It should give the subscriber a clear reason to continue reading and one relevant next step. A newsletter is not a weekly obligation to say something; it is a distribution route for genuinely useful material.\n\n### Social content\n\nSocial posts translate an idea into the conventions of the platform without stripping away meaning. They can surface one argument, example, question or visual from the source. They should not become fabricated personal stories or false urgency.\n\n### Sales enablement\n\nFrequently asked questions, objection notes, explainers and follow-up material can help sales conversations remain consistent. These assets often create value before public reach becomes large because they support live commercial decisions.\n\n## Where the system fits\n\nThis service is suitable when the business has real expertise, access to accountable sources, a need for consistent visibility and a willingness to review what is published.\n\nIt is a poor fit when the objective is to flood search results, copy competitors, fabricate authority, publish without human accountability or use AI to disguise the absence of a point of view.\n\n**AI Automation** can connect brief creation, approvals, CMS handoffs and reporting. **AI & Automation Consulting** can help define governance when multiple teams, vendors or higher-risk subjects are involved.\n\n## Questions about AI, quality and publishing\n\n### Will AI write all the content?\n\nAI may support extraction, structuring, drafting, adaptation and quality checks. It should work from approved sources and remain subject to human judgement. The service is not positioned as unlimited autonomous content generation.\n\n### How do you keep the content original?\n\nOriginality begins with the source, the business context and the decision the asset helps the reader make. We avoid generic synthesis and require each item to add a distinct angle, example, framework or application.\n\n### Can the system publish automatically?\n\nTechnical automation is possible, but automatic publication is not the default. Approval gates are retained according to risk. The workflow should make publishing faster without making accountability optional.\n\n### Does this include SEO?\n\nSearch intent, page ownership, headings, metadata, internal links and content relationships can be included. No ranking is guaranteed. Technical implementation and authority remain important beyond the copy itself.\n\n### How much content will be produced?\n\nVolume depends on source quality, formats, review capacity and scope. The proposal should define deliverables and cadence. The public page deliberately avoids a universal output promise.\n\n## Build a system your expertise can sustain\n\nA better content operation does not begin with a demand for more posts. It begins by making valuable knowledge easier to capture, approve, adapt and distribute.\n\n**Book a discovery call**\n\nReview **How We Work** for the operating route, **Pricing** for scoping, or share an existing library through **Contact**. Explore **Web Design & Development** for the architecture that hosts the content and **AI Automation** for the workflow behind it.\n\n*The content advantage is not infinite output. It is a repeatable ability to turn real expertise into material that helps the right audience decide.*",
+    "publicHeadings": {
+      "h1": "Turn expertise into a governed content engine",
+      "h2": [
+        "More content is not the same as more authority",
+        "The operating system behind credible output",
+        "Published evidence, framed as external context",
+        "From source material to a repeatable content cycle",
+        "Atomise the idea without diluting it",
+        "Where the system fits",
+        "Questions about AI, quality and publishing",
+        "Build a system your expertise can sustain"
+      ],
+      "h3": [
+        "Source and knowledge capture",
+        "Pillar strategy and search intent",
+        "Channel-specific adaptation",
+        "Brand, claims and approvals",
+        "Publishing workflow and internal links",
+        "Performance feedback",
+        "1. Collect",
+        "2. Architect",
+        "3. Create and review",
+        "4. Publish and learn",
+        "Website and service content",
+        "Insight articles",
+        "Email",
+        "Social content",
+        "Sales enablement",
+        "Will AI write all the content?",
+        "How do you keep the content original?",
+        "Can the system publish automatically?",
+        "Does this include SEO?",
+        "How much content will be produced?"
+      ]
+    },
+    "componentMicrocopy": {
+      "rawMarkdown": "### Feature cards\n\n- **Source-led by default** — Every asset traces to approved knowledge, evidence or accountable expertise.\n- **One intent per asset** — Give each page or piece a distinct audience question and role.\n- **Adapted, not duplicated** — Rebuild the idea for the channel rather than reposting the same text.\n- **Human approval preserved** — Keep claims, quality and brand decisions with named reviewers.\n\n### Outcome cards\n\n- **More value from existing expertise** — Turn interviews, documents and customer questions into usable editorial assets.\n- **A clearer publishing rhythm** — Replace ad hoc requests with visible stages, owners and approvals.\n- **Stronger content relationships** — Connect insights, service pages and industry pages without internal competition.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** 500+ — campaigns reported running\n- **Metric 2:** 3,000+ — bookings reported in 12 months\n- **Metric 3:** 3x → 20x — reported SEO and PPC ROI movement\n- **Caption:** External campaign cases illustrate the possible scale of mature content operations. They are not Silverstone results or forecasts.\n\n### Process steps\n\n1. **Collect the sources** — Gather expertise, proof, audience questions and constraints.\n2. **Architect the system** — Assign purpose, intent, format, owner and next action.\n3. **Create and approve** — Adapt each asset and keep publication behind review.\n4. **Publish and learn** — Use performance and audience evidence to guide the next cycle.\n\n### Comparison block\n\n- **AI content factory:** optimises for output volume and generic consistency.\n- **Silverstone content system:** optimises for source quality, distinct intent, governance and commercial usefulness.\n\n### Trust strip\n\n**Approved sources · Distinct search intent · Human-reviewed claims · Channel-specific adaptation · Measured improvement**\n\n### Callout panel\n\n- **Heading:** Repurposing is not copying the same message everywhere.\n- **Body:** Each derivative needs its own context, structure and next action while remaining traceable to the same approved idea.\n\n### FAQ accordion labels\n\n- AI-assisted drafting\n- Originality and source control\n- Publishing approvals\n- SEO and internal linking\n- Deliverables and cadence\n\n### CTA blocks\n\n- **Mid-page heading:** Build the editorial route before increasing output.\n- **Mid-page body:** Use discovery to identify the sources, audiences and approvals that can support a credible content rhythm.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring existing documents, scattered notes or simply the expertise the business struggles to publish consistently.\n\n### Labels and notes\n\n- **Source label:** Approved knowledge input\n- **Output label:** Channel-specific draft\n- **Review label:** Human approval required\n- **Benchmark label:** External evidence—not Silverstone performance",
+      "featureCards": [],
+      "outcomeCards": [],
+      "processSteps": [
+        {
+          "label": "Collect the sources",
+          "body": "Gather expertise, proof, audience questions and constraints."
+        },
+        {
+          "label": "Architect the system",
+          "body": "Assign purpose, intent, format, owner and next action."
+        },
+        {
+          "label": "Create and approve",
+          "body": "Adapt each asset and keep publication behind review."
+        },
+        {
+          "label": "Publish and learn",
+          "body": "Use performance and audience evidence to guide the next cycle."
+        }
+      ],
+      "benchmark": {
+        "metrics": [
+          "500+ — campaigns reported running",
+          "3,000+ — bookings reported in 12 months",
+          "3x → 20x — reported SEO and PPC ROI movement"
+        ],
+        "caption": "External campaign cases illustrate the possible scale of mature content operations. They are not Silverstone results or forecasts."
+      },
+      "ctaButton": "Book a discovery call",
+      "finalReassurance": "Bring existing documents, scattered notes or simply the expertise the business struggles to publish consistently.",
+      "faqLabels": [
+        "AI-assisted drafting",
+        "Originality and source control",
+        "Publishing approvals",
+        "SEO and internal linking",
+        "Deliverables and cadence"
+      ]
+    },
+    "demo": {
+      "rawMarkdown": "No mandatory reserved external demo integration is required for this route.\n\n### Recommended editorial demonstration module\n\n- **Label:** Synthetic content atomisation plan\n- **Heading:** See one approved source become four distinct channel assets\n- **Body:** Use the existing Editorial Loom to show source capture, audience selection, website, insight, email and social outputs, followed by claim checks and a human review gate.\n- **Status wording:** Illustrative planning flow. It does not write, publish or represent a live client campaign.\n- **CTA transition:** Bring one strong source to a discovery call and map the content system around it.",
+      "configSlots": []
+    },
+    "acceptance": {
+      "distinctivePhrases": [
+        "Turn expertise into a governed content engine",
+        "More content is not the same as more authority",
+        "Source and knowledge capture",
+        "500+ — campaigns reported running",
+        "Make every strong idea travel further"
+      ],
+      "faqCount": 5
+    }
+  },
+  "/services/ai-automation": {
+    "route": "/services/ai-automation",
+    "sourceFilename": "06_AI_AUTOMATION.md",
+    "sourcePath": "docs/approved-copy/services/06_AI_AUTOMATION.md",
+    "sourceSha256": "f25fcee8c1adbc24255eafa45a2ba8cf075cbffe6106aea7e2c3a1716bc74c64",
+    "metadata": {
+      "title": "Workflow & AI Automation Agency UK | Silverstone AI",
+      "metaDescription": "Custom AI automation for UK businesses: triggers, deterministic logic, AI judgement, integrations, approvals, exception handling, monitoring and reporting engineered as one operating layer.",
+      "openGraphTitle": "Engineer the work between your systems",
+      "openGraphDescription": "Silverstone builds governed automation and agent workflows that move data, trigger actions, handle exceptions and keep people in control of consequential decisions.",
+      "canonicalRoute": "`/services/ai-automation`",
+      "h1": "Engineer the work between your systems",
+      "h2": [],
+      "h3": [
+        "Triggers and source systems",
+        "Deterministic logic and data movement",
+        "AI judgement and approved context",
+        "Actions, approvals and human-in-the-loop",
+        "Exception handling and recovery",
+        "Observability, security and reporting",
+        "1. Discover",
+        "2. Design",
+        "3. Build and test",
+        "4. Operate and expand",
+        "Deterministic workflow",
+        "AI-assisted workflow",
+        "Agent workflow",
+        "Which platform will you use?",
+        "Can you connect to any tool?",
+        "Will the automation run without people?",
+        "How do you prevent errors?",
+        "What happens when a system changes?"
+      ],
+      "breadcrumbs": "Home → Services → AI Automation",
+      "schemaTypes": [
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ]
+    },
+    "routeEntry": {
+      "loaderText": "Orchestrating data, decisions and accountable action",
+      "pill": "Operational systems / Automation",
+      "title": "Make the handoffs work without hiding the exceptions",
+      "subtitle": "Custom workflows that connect triggers, data, rules, AI judgement, approvals and reporting into an operating layer your team can inspect.",
+      "buttonLabel": "Trace the automation system"
+    },
+    "publicCopy": "# Engineer the work between your systems\n\nMost operational waste does not sit inside one tool. It sits between tools, teams and decisions.\n\nA lead arrives but is copied into a spreadsheet later. A document reaches an inbox but waits for someone to extract the same fields. A booking changes but the follow-up sequence continues. A report depends on several exports. An employee becomes the integration layer because no system owns the handoff.\n\nSilverstone designs custom AI automation and agent workflows for UK businesses that need those handoffs to become more reliable. Triggers, data, deterministic logic, bounded AI judgement, connected actions, approvals, exception handling, monitoring and reporting are engineered as one operating layer.\n\nThe purpose is not to automate everything. It is to remove repeated work where the rules, data and ownership are strong enough—and to keep people in control where judgement or consequence requires them.\n\n**Primary action: Book a discovery call**\n\nThe first discussion identifies one repeated handoff, the systems involved, current effort, failure modes, data ownership and the evidence that would justify a working automation.\n\n## Automation fails where ownership disappears\n\nA workflow can appear successful while quietly creating new risk.\n\nAn AI model classifies a request, but nobody knows how uncertain cases are handled. A CRM update runs, but duplicates accumulate. A document is processed, but the source file and extracted record cannot be reconciled. An automated email sends after the underlying status has changed. A multi-step workflow stops halfway and no person receives an alert.\n\nThe problem is rarely the absence of another integration. It is the absence of a complete operating model.\n\nEvery automation needs a trigger, a clear source of truth, a sequence of transformations and decisions, permissioned actions, stop conditions, exception routes and an owner who can review what happened. Automation becomes durable when the unusual case is designed alongside the normal one.\n\n## The operating layer behind reliable workflows\n\n### Triggers and source systems\n\nA workflow begins with an event: a form submission, incoming email, status change, calendar event, payment, uploaded document, scheduled run or manual approval.\n\nWe identify which system is authoritative and which events are trustworthy enough to start work. Duplicate triggers, delayed events and partial data are considered before they create repeated actions downstream.\n\nThe first workflow is usually strongest when it begins with a handoff the business already understands. Automation cannot repair a process whose owner, inputs and desired outcome remain undefined.\n\n### Deterministic logic and data movement\n\nKnown rules should normally remain deterministic.\n\nRequired fields, date calculations, thresholds, routing tables, validation, deduplication and permission checks do not need a language model simply because AI is available. Clear logic is often cheaper, faster and easier to audit.\n\nData may need to be cleaned, normalised, enriched or mapped between systems. Each transformation should preserve traceability so the team can see where a value came from and why an action occurred.\n\n### AI judgement and approved context\n\nAI becomes useful when the workflow needs interpretation rather than a fixed calculation: classifying a free-text enquiry, extracting fields from varied documents, summarising a conversation, matching content to an approved category or drafting a response for review.\n\nThe model should receive only the context required for the task. Outputs are structured where possible. Confidence, validation and fallback behaviour are defined. An LLM is not allowed to turn uncertainty into an irreversible action simply because the response sounds plausible.\n\nAgents can use tools and maintain state across a task, but “agentic” is not a substitute for architecture. Tool permissions, memory, retrieval sources, evaluation and maximum autonomy must remain visible.\n\n### Actions, approvals and human-in-the-loop\n\nActions may create a CRM record, update a status, send a message, generate a document, schedule a task, write to a database or call another service.\n\nThe consequence determines the control. Low-risk, reversible actions may run automatically after validation. High-impact, customer-facing, financial, legal or irreversible actions should pause for a named human approval or follow a stricter rule set.\n\nA human-in-the-loop design is not a token “approve” button. The reviewer needs enough context to make the decision, a clear view of the proposed action and a record of what was accepted, changed or rejected.\n\n### Exception handling and recovery\n\nExceptions are part of the workflow, not an afterthought.\n\nMissing data, unavailable APIs, invalid records, model uncertainty, rate limits, duplicate events and downstream failures need explicit routes. The system may retry, quarantine the item, request more information, roll back an action or create a task for a person.\n\nThe workflow must avoid silent failure. A polished front end is irrelevant if an unresolved item disappears inside the orchestration layer.\n\n### Observability, security and reporting\n\nRun history, status, errors, approval queues and key outcomes should be visible to the people responsible for the process. Monitoring helps the team distinguish a one-off integration failure from a deteriorating workflow.\n\nCredentials, permissions, retention and environment separation are treated as design requirements. Access should follow least-privilege principles. Sensitive data should not move through systems simply because a connector exists.\n\nReporting focuses on operating evidence: volume, successful completion, exceptions, human review time, processing time, error categories and the business outcome the workflow is intended to support.\n\n## Published evidence, interpreted responsibly\n\nThe approved benchmark register includes external automation cases reporting a **65% reduction in document-processing cost**, **98% extraction accuracy on structured documents** and **two to four weeks to a first working automation**.\n\nThese figures are not Silverstone results and do not establish a normal outcome. They describe different cases, data sets and delivery contexts. Accuracy varies with document consistency and evaluation method. Cost reduction depends on the baseline and operating model. Time to first automation depends on system access, scope, data, approvals and complexity.\n\nThe evidence is useful because it shows what should be measured. A real project defines its own baseline for processing effort, time, accuracy, exceptions, rework, staff involvement and downstream value before the workflow is judged successful.\n\n## From one handoff to a monitored automation system\n\n### 1. Discover\n\nWe observe the current process, identify the owner, document the systems and measure the friction. The first candidate is assessed for value, frequency, rule clarity, data readiness, reversibility and risk.\n\nA poor candidate may be left alone, redesigned manually or moved into consulting before any build begins.\n\n### 2. Design\n\nThe workflow is mapped from trigger to outcome. Data fields, decisions, permissions, AI tasks, approvals, exceptions, logs and fallback owners are specified. The tool is selected after the operating requirements are clear.\n\n### 3. Build and test\n\nThe workflow is implemented in an appropriate orchestration environment. That may involve n8n, Make, Zapier, custom code or a combination. Platform choice is based on integration depth, complexity, hosting, observability, cost and data requirements—not a fixed agency preference.\n\nSynthetic and controlled real examples are tested across normal and failed paths. The workflow does not move to production because the happy-path demonstration succeeded.\n\n### 4. Operate and expand\n\nRuns, failures, exceptions and business outcomes are reviewed after release. Documentation, ownership and change control are maintained. The next automation is selected because the first system provides evidence and a stable operating foundation.\n\n**Book a discovery call**\n\nA useful first call can identify whether the opportunity is ready for a workflow build, needs a broader **AI opportunity audit**, belongs inside an application or should remain manual.\n\n## Use AI where judgement helps—and rules where they are stronger\n\n### Deterministic workflow\n\nUse deterministic logic when inputs are structured and the rule is known. Examples include routing by region, validating required fields, calculating dates, updating a status after payment or moving a record through an approved sequence.\n\nThe advantage is predictable behaviour and straightforward testing.\n\n### AI-assisted workflow\n\nUse AI for bounded interpretation: extracting information from varied layouts, classifying language, summarising content, selecting from approved categories or preparing a draft for review.\n\nThe advantage is flexibility across unstructured inputs. The cost is the need for evaluation, validation and fallback.\n\n### Agent workflow\n\nUse an agent when a task genuinely requires multiple steps, tools and state. The agent may retrieve approved information, choose among permitted tools and continue until a defined completion or stop condition.\n\nThe advantage is adaptable task execution. The risk is hidden decision-making if permissions, memory, evaluation and maximum autonomy are not constrained.\n\nSilverstone selects the least complex system capable of delivering the required outcome. A conditional node is often the premium choice when it is more reliable than a model.\n\n## Where automation creates value\n\nStrong starting points include structured lead handoff, document intake, customer follow-up, booking administration, status synchronisation, report assembly, content approvals, task creation and repeated data movement.\n\nAutomation is a poor fit where the process changes constantly, the source data is untrustworthy, nobody owns exceptions, professional judgement dominates, or the main problem is a broken policy rather than manual execution.\n\n**AI & Automation Consulting** can prioritise opportunities and assess build versus buy. **App Development** can provide a dedicated interface where staff or customers need to interact with the workflow. **AI Receptionists** and **AI Voice Agents** can become controlled entry points into the operating layer.\n\n## Questions before the first workflow runs\n\n### Which platform will you use?\n\nThe platform depends on requirements. n8n can support complex and self-hosted orchestration; Make provides visual flexibility; Zapier can be suitable for straightforward cloud integrations; custom code may be required for specific logic or scale. The decision follows the architecture.\n\n### Can you connect to any tool?\n\nOnly where the system offers a suitable API, webhook, database, export or approved interface. Access, rate limits, vendor restrictions and data handling are verified during discovery.\n\n### Will the automation run without people?\n\nSome bounded actions may. Others should pause for approval or route exceptions to a person. The operating model is designed around consequence rather than a blanket autonomy target.\n\n### How do you prevent errors?\n\nValidation, deterministic rules, structured outputs, test cases, permission boundaries, retries, logs, alerts and human review all contribute. No responsible provider should promise zero errors.\n\n### What happens when a system changes?\n\nDependencies are documented and monitored. Updates may require workflow changes or regression testing. Maintenance and support arrangements are defined in the proposal rather than assumed to be permanent and unlimited.\n\n## Choose the first workflow with enough care to scale\n\nThe best first automation is not necessarily the largest cost centre. It is a meaningful, repeated handoff with clear ownership, accessible data and enough consequence to matter without being unsafe to test.\n\n**Book a discovery call**\n\nReview **How We Work** for the delivery model, **Pricing** for scoping, or send a process map through **Contact**. Explore **AI & Automation Consulting** when the opportunity set needs prioritisation before a build.\n\n*Reliable automation does not remove ownership. It makes ownership visible at every trigger, decision, action and exception.*",
+    "publicHeadings": {
+      "h1": "Engineer the work between your systems",
+      "h2": [
+        "Automation fails where ownership disappears",
+        "The operating layer behind reliable workflows",
+        "Published evidence, interpreted responsibly",
+        "From one handoff to a monitored automation system",
+        "Use AI where judgement helps—and rules where they are stronger",
+        "Where automation creates value",
+        "Questions before the first workflow runs",
+        "Choose the first workflow with enough care to scale"
+      ],
+      "h3": [
+        "Triggers and source systems",
+        "Deterministic logic and data movement",
+        "AI judgement and approved context",
+        "Actions, approvals and human-in-the-loop",
+        "Exception handling and recovery",
+        "Observability, security and reporting",
+        "1. Discover",
+        "2. Design",
+        "3. Build and test",
+        "4. Operate and expand",
+        "Deterministic workflow",
+        "AI-assisted workflow",
+        "Agent workflow",
+        "Which platform will you use?",
+        "Can you connect to any tool?",
+        "Will the automation run without people?",
+        "How do you prevent errors?",
+        "What happens when a system changes?"
+      ]
+    },
+    "componentMicrocopy": {
+      "rawMarkdown": "### Feature cards\n\n- **Rules where rules are stronger** — Keep known logic deterministic, testable and easy to audit.\n- **AI where interpretation adds value** — Bound model tasks with approved context, structure and fallback.\n- **Exceptions with owners** — Route uncertainty, missing data and failed actions into visible queues.\n- **Operations you can inspect** — Monitor runs, approvals, errors and business outcomes after launch.\n\n### Outcome cards\n\n- **Less repeated handoff work** — Move information and actions between systems without manual copying.\n- **More consistent process execution** — Apply approved rules and validations at the point of work.\n- **A safer route to scale** — Expand from a monitored workflow rather than a hidden collection of automations.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** 65% — reported reduction in document-processing cost\n- **Metric 2:** 98% — reported extraction accuracy on structured documents\n- **Metric 3:** 2–4 weeks — reported time to first working automation\n- **Caption:** External cases illustrate potential cost, quality and speed outcomes. They are not Silverstone results or delivery promises.\n\n### Process steps\n\n1. **Discover the handoff** — Identify value, owner, baseline, systems and risk.\n2. **Design the controls** — Map logic, AI tasks, approvals, exceptions and evidence.\n3. **Build and test** — Implement normal and failed paths in the appropriate stack.\n4. **Operate and expand** — Review runs and outcomes before automating the next process.\n\n### Comparison block\n\n- **Connector-first automation:** starts with available apps and a happy-path trigger.\n- **Silverstone operating layer:** starts with ownership, source-of-truth, exception and consequence before selecting tools.\n\n### Trust strip\n\n**Least privilege · Structured outputs · Human approvals · Visible run history · Named exception owners**\n\n### Callout panel\n\n- **Heading:** Automating the normal case is only half the build.\n- **Body:** The production system also needs to know what happens when data is missing, a model is uncertain or a connected action fails.\n\n### FAQ accordion labels\n\n- n8n, Make, Zapier and custom code\n- Integration availability\n- Human-in-the-loop design\n- Error prevention and monitoring\n- Maintenance when systems change\n\n### CTA blocks\n\n- **Mid-page heading:** Start with one handoff the business already understands.\n- **Mid-page body:** Use discovery to map the trigger, data, decision, action, exception and owner before choosing the platform.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring a process map, systems list or simply the repeated task. The first discussion is designed to test readiness.\n\n### Labels and notes\n\n- **Workflow label:** Illustrative orchestration path\n- **Approval label:** Human review required\n- **Exception label:** Routed to named owner\n- **Benchmark label:** External evidence—not Silverstone performance",
+      "featureCards": [],
+      "outcomeCards": [],
+      "processSteps": [
+        {
+          "label": "Discover the handoff",
+          "body": "Identify value, owner, baseline, systems and risk."
+        },
+        {
+          "label": "Design the controls",
+          "body": "Map logic, AI tasks, approvals, exceptions and evidence."
+        },
+        {
+          "label": "Build and test",
+          "body": "Implement normal and failed paths in the appropriate stack."
+        },
+        {
+          "label": "Operate and expand",
+          "body": "Review runs and outcomes before automating the next process."
+        }
+      ],
+      "benchmark": {
+        "metrics": [
+          "65% — reported reduction in document-processing cost",
+          "98% — reported extraction accuracy on structured documents",
+          "2–4 weeks — reported time to first working automation"
+        ],
+        "caption": "External cases illustrate potential cost, quality and speed outcomes. They are not Silverstone results or delivery promises."
+      },
+      "ctaButton": "Book a discovery call",
+      "finalReassurance": "Bring a process map, systems list or simply the repeated task. The first discussion is designed to test readiness.",
+      "faqLabels": [
+        "n8n, Make, Zapier and custom code",
+        "Integration availability",
+        "Human-in-the-loop design",
+        "Error prevention and monitoring",
+        "Maintenance when systems change"
+      ]
+    },
+    "demo": {
+      "rawMarkdown": "No mandatory reserved external demo integration is required for this route.\n\n### Recommended automation demonstration module\n\n- **Label:** Synthetic workflow control surface\n- **Heading:** Trace one item from trigger to action—and through the exception path\n- **Body:** Use the existing Process Lattice or deterministic workflow scenario to reveal source data, validation, AI-assisted interpretation, approval, connected action, logging and fallback ownership.\n- **Status wording:** Illustrative and deterministic. No live client system, credentials, production data or autonomous action is connected.\n- **CTA transition:** Bring one repeated handoff to a discovery call and map the operating layer around it.",
+      "configSlots": []
+    },
+    "acceptance": {
+      "distinctivePhrases": [
+        "Engineer the work between your systems",
+        "Automation fails where ownership disappears",
+        "Triggers and source systems",
+        "65% — reported reduction in document-processing cost",
+        "Make the handoffs work without hiding the exceptions"
+      ],
+      "faqCount": 5
+    }
+  },
+  "/services/ai-consulting": {
+    "route": "/services/ai-consulting",
+    "sourceFilename": "07_AI_AND_AUTOMATION_CONSULTING.md",
+    "sourcePath": "docs/approved-copy/services/07_AI_AND_AUTOMATION_CONSULTING.md",
+    "sourceSha256": "4dd22e951306c5d31af64eda15bea43d0fa1000da5319e5ed012365a541ed2cf",
+    "metadata": {
+      "title": "AI & Automation Consulting UK | Silverstone AI",
+      "metaDescription": "AI and automation consulting for UK businesses: opportunity audits, readiness, value-risk prioritisation, build-versus-buy, governance and a practical implementation roadmap.",
+      "openGraphTitle": "Decide what to automate before you buy the tools",
+      "openGraphDescription": "Silverstone helps leaders assess opportunity, readiness, data, build-versus-buy, governance and implementation priorities before capital and attention are committed.",
+      "canonicalRoute": "`/services/ai-consulting`",
+      "h1": "Decide what to automate before you buy the tools",
+      "h2": [],
+      "h3": [
+        "Operating model and workflow inventory",
+        "Value, effort and risk prioritisation",
+        "Data and systems readiness",
+        "Build, buy, configure or leave alone",
+        "Governance and responsible AI",
+        "Roadmap and change management",
+        "1. Frame",
+        "2. Investigate",
+        "3. Prioritise",
+        "4. Translate",
+        "What is the output of an opportunity audit?",
+        "How long does consulting take?",
+        "Is Silverstone tied to a particular vendor?",
+        "Can consulting support an internal technical team?",
+        "Does the audit include legal or compliance advice?",
+        "What happens after the roadmap?"
+      ],
+      "breadcrumbs": "Home → Services → AI & Automation Consulting",
+      "schemaTypes": [
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ]
+    },
+    "routeEntry": {
+      "loaderText": "Converting ambition into an ordered set of decisions",
+      "pill": "Leadership advisory / Opportunity audit",
+      "title": "Put judgement before implementation",
+      "subtitle": "A senior decision layer for prioritising use cases, testing readiness, choosing build or buy, and defining the controls that delivery will need.",
+      "buttonLabel": "Explore the advisory route"
+    },
+    "publicCopy": "# Decide what to automate before you buy the tools\n\nAI creates pressure to act quickly. It also creates an unusually large number of plausible wrong turns.\n\nA team can buy software before it has defined the workflow. A promising pilot can fail because the source data is inaccessible. Several departments can procure overlapping tools. A use case can look efficient on a slide while transferring risk, review work and maintenance into the operating team.\n\nSilverstone provides AI and automation consulting for UK businesses that need a clearer decision route before or during implementation. The work covers opportunity audits, readiness, use-case prioritisation, data and system review, build-versus-buy, governance, responsible AI, architecture, implementation planning and change management.\n\nConsulting is not a pretext for selling a build. A valuable engagement can conclude that the business should configure an existing platform, redesign the manual process, delay a use case, run a smaller test—or leave it alone.\n\n**Primary action: Book a discovery call**\n\nThe first conversation focuses on the decisions leadership needs to make, the operating context, existing initiatives and the level of evidence required before committing budget or attention.\n\n## The expensive mistake is choosing technology before the operating problem\n\nTools arrive with compelling demonstrations and broad capability lists. The business problem is usually narrower and more demanding.\n\nWhich workflow is causing measurable friction? Who owns it? Is the task repeated enough to justify intervention? Are the inputs accessible and reliable? Which decisions are deterministic, which require judgement and which must remain with an authorised person? What happens when the system is wrong? How will value be measured after deployment?\n\nWithout those answers, an “AI strategy” can become a collection of product names and aspirations. The organisation may automate a low-value task because it is easy to demo, while a more important process remains blocked by data, ownership or policy.\n\nSilverstone starts with the operating model. Technology becomes one possible response to an ordered business decision.\n\n## What a valuable AI opportunity audit examines\n\n### Operating model and workflow inventory\n\nWe identify the workflows, handoffs and decisions that consume time, delay customers, create errors or constrain growth. The aim is not to document every process at the same depth. It is to locate the areas where intervention could be commercially meaningful.\n\nEach candidate receives an owner, current route, frequency, volume, inputs, outputs, systems, exception pattern and consequence of failure. This prevents abstract use cases from outranking real operating problems.\n\n### Value, effort and risk prioritisation\n\nUse cases are assessed across more than theoretical savings.\n\nValue may include staff capacity, response time, consistency, revenue support, customer experience, quality or strategic differentiation. Effort includes integration, data preparation, process change, testing, procurement and ongoing operation. Risk includes data sensitivity, legal or professional consequence, model uncertainty, reversibility, customer exposure and dependency on external vendors.\n\nA value-effort-risk view helps distinguish quick experiments, foundational work, strategic programmes and ideas that should not proceed.\n\n### Data and systems readiness\n\nA use case may be attractive while the required data is fragmented, inconsistent, inaccessible or governed by unclear permissions.\n\nWe review source systems, data quality, ownership, identifiers, access routes, retention, integration options and the records that must become authoritative. Readiness is not simply “we have data”. The business needs data that is suitable for the task and an operating owner who can maintain it.\n\nThe same applies to systems. APIs, webhooks, exports, authentication, vendor limits and security requirements can change the cost and feasibility of a proposed route.\n\n### Build, buy, configure or leave alone\n\nNot every problem needs custom software.\n\nAn existing platform may cover the need with acceptable compromise. A configurable automation may create value without a bespoke application. A custom build may be justified when the workflow is specific, strategically important or poorly served by the market. Some processes should remain manual because the frequency, risk or variability makes automation uneconomic.\n\nThe recommendation should make the trade-off visible: capability, control, time, dependency, internal capacity, total cost and long-term maintenance.\n\n### Governance and responsible AI\n\nGovernance turns principles into operating controls.\n\nRelevant questions include who approves a use case, what data it may access, how users are informed, how outputs are reviewed, which actions require human approval, how incidents are handled, how vendors are assessed and when the system should be paused or retired.\n\nResponsible AI considerations—transparency, fairness, privacy, security, accountability and human oversight—are translated into requirements appropriate to the use case. Consulting does not replace legal, data-protection, security or procurement advice. It gives those specialists a clearer technical and operational context.\n\n### Roadmap and change management\n\nA roadmap should not simply sort projects by enthusiasm.\n\nWe sequence the enabling work, experiments and implementations according to value, dependencies, readiness and risk. The plan identifies decision owners, evidence gates, required capabilities and what must be true before the next stage begins.\n\nChange management is included because a technically working system can still fail operationally. Staff need to understand what is changing, where their judgement remains essential, how exceptions are handled and how feedback reaches the team responsible for the system.\n\n## Published evidence, used to frame—not forecast—the opportunity\n\nThe approved benchmark register includes external automation cases reporting **more than 10 hours saved per person per month**, a **60% average reduction in manual operations overhead**, and **768+ hours saved**.\n\nThese figures demonstrate why leaders investigate automation, but they are not Silverstone results or a forecast for a consulting engagement. The cases differ in team size, process, measurement period and implementation maturity.\n\nTheir practical use is to improve the questions asked during an audit. Where is time being spent today? How much of it is repeated and rules-led? What new review or exception work would automation create? Does the capacity released translate into better service, greater throughput or simply an unmeasured claim?\n\nA roadmap should rely on the client’s baseline and a defensible value model, not borrowed headline numbers.\n\n## A consulting route that ends in decisions\n\n### 1. Frame\n\nWe define the leadership question, boundaries, stakeholders and evidence required. The engagement may focus on one workflow, a function, a portfolio of ideas, a vendor decision or a wider operating roadmap.\n\n### 2. Investigate\n\nRelevant process owners, systems and materials are reviewed. Workflows, data, constraints, existing tools, risk and organisational readiness are made explicit. Assumptions are separated from verified facts.\n\n### 3. Prioritise\n\nUse cases are scored and discussed across value, effort, risk and readiness. The output distinguishes what can begin, what needs enabling work, what should be bought or configured, and what should stop.\n\n### 4. Translate\n\nThe recommendations become a practical roadmap: first decisions, architecture direction, governance requirements, evaluation measures, owners and implementation options. Where a build is appropriate, the handoff into **AI Automation**, **App Development**, **AI Voice Agents** or **AI Receptionists** retains the reasoning that justified it.\n\n**Book a discovery call**\n\nThe first call can establish whether the business needs a focused opportunity audit, a vendor and architecture review, governance work or direct implementation of an already well-defined project.\n\n## What not to automate\n\nSelective restraint is part of competent consulting.\n\nA process should not be automated merely because it is manual. Warning signs include:\n\n- professional judgement is the central value of the task;\n- the inputs are too inconsistent or poorly governed;\n- the process itself is disputed or changes constantly;\n- the consequence of error is high and review would remove the efficiency benefit;\n- there is no owner for exceptions, monitoring or maintenance;\n- the task is infrequent and an existing tool or manual checklist is sufficient;\n- the proposal depends on hiding AI use or making an unsupported compliance claim.\n\nIn some cases, the right first move is process simplification, data cleaning, policy clarification or staff training. Technology should follow that foundation.\n\n## Who benefits from an independent decision layer\n\nConsulting is valuable for owner-led businesses that see several opportunities but cannot identify the first one; scale-ups choosing between vendors and custom development; operating teams that need a roadmap across functions; and technical teams seeking an external commercial, governance or prioritisation lens.\n\nIt is a poor fit when leadership has already chosen the answer and wants a document to validate it, no process owners can participate, the business expects guaranteed savings without baseline access, or advisory work is expected to replace specialist legal or security review.\n\nThe service is designed to stand on its own. A recommendation does not need to result in a Silverstone implementation to be useful.\n\n## Questions leadership teams should resolve\n\n### What is the output of an opportunity audit?\n\nThe exact format depends on scope, but it may include a workflow inventory, prioritisation matrix, readiness findings, build-versus-buy analysis, risk and governance requirements, architecture direction, measurement plan and sequenced roadmap.\n\n### How long does consulting take?\n\nDuration depends on the number of workflows, stakeholders, systems and decisions. The public page does not promise a universal audit or 90-day programme. Scope, access and outputs are defined in the proposal.\n\n### Is Silverstone tied to a particular vendor?\n\nThe recommendation should follow the operating requirement. Any commercial relationship or material constraint must be disclosed. Specific vendor-independence language is an approval item rather than an unsupported blanket claim.\n\n### Can consulting support an internal technical team?\n\nYes. The engagement can provide prioritisation, architecture challenge, use-case definition, governance and decision documentation while internal teams retain implementation ownership.\n\n### Does the audit include legal or compliance advice?\n\nNo. It can identify where legal, privacy, security or procurement review is required and translate the technical context. Specialist advice remains with appropriately qualified professionals.\n\n### What happens after the roadmap?\n\nThe business may implement internally, procure a product, appoint another provider or scope delivery with Silverstone. The roadmap should remain understandable whichever route is selected.\n\n## Leave with a clearer route, including when the answer is no\n\nThe value of consulting is not measured by the number of projects it creates. It is measured by the quality of the decisions it improves.\n\n**Book a discovery call**\n\nReview **How We Work** for the route from advisory to delivery, **Pricing** for the scoping model, or send an existing strategy or vendor proposal through **Contact**. Explore **AI Automation** when the first workflow is already defined.\n\n*The strongest AI roadmap is not the longest list of possibilities. It is a defensible order of decisions, including the opportunities the business chooses not to pursue.*",
+    "publicHeadings": {
+      "h1": "Decide what to automate before you buy the tools",
+      "h2": [
+        "The expensive mistake is choosing technology before the operating problem",
+        "What a valuable AI opportunity audit examines",
+        "Published evidence, used to frame—not forecast—the opportunity",
+        "A consulting route that ends in decisions",
+        "What not to automate",
+        "Who benefits from an independent decision layer",
+        "Questions leadership teams should resolve",
+        "Leave with a clearer route, including when the answer is no"
+      ],
+      "h3": [
+        "Operating model and workflow inventory",
+        "Value, effort and risk prioritisation",
+        "Data and systems readiness",
+        "Build, buy, configure or leave alone",
+        "Governance and responsible AI",
+        "Roadmap and change management",
+        "1. Frame",
+        "2. Investigate",
+        "3. Prioritise",
+        "4. Translate",
+        "What is the output of an opportunity audit?",
+        "How long does consulting take?",
+        "Is Silverstone tied to a particular vendor?",
+        "Can consulting support an internal technical team?",
+        "Does the audit include legal or compliance advice?",
+        "What happens after the roadmap?"
+      ]
+    },
+    "componentMicrocopy": {
+      "rawMarkdown": "### Feature cards\n\n- **Opportunity before tooling** — Start with operating friction, value and ownership rather than product names.\n- **Readiness made explicit** — Review data, systems, people, process and governance before implementation.\n- **Build-versus-buy with trade-offs** — Compare control, time, dependency, cost and long-term operation.\n- **A roadmap with decision gates** — Sequence enabling work and use cases by evidence, not enthusiasm.\n\n### Outcome cards\n\n- **A prioritised opportunity set** — Separate credible first moves from expensive distractions.\n- **Stronger investment decisions** — Understand what must be bought, configured, built or left alone.\n- **Implementation-ready reasoning** — Carry requirements, controls, measures and ownership into delivery.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** 10+ hours — reported monthly time saved per person\n- **Metric 2:** 60% — reported reduction in manual operations overhead\n- **Metric 3:** 768+ hours — reported total hours saved\n- **Caption:** External automation cases illustrate potential capacity outcomes. They are not Silverstone results or a forecast for an audit.\n\n### Process steps\n\n1. **Frame the decision** — Define scope, stakeholders and evidence required.\n2. **Investigate readiness** — Review workflows, data, systems, risk and ownership.\n3. **Prioritise the routes** — Score value, effort, risk and dependency.\n4. **Translate into action** — Produce decisions, controls, measures and a sequenced roadmap.\n\n### Comparison block\n\n- **Tool-led strategy:** begins with a product and searches for places to deploy it.\n- **Silverstone advisory route:** begins with operating value and permits build, buy, configure, defer or stop.\n\n### Trust strip\n\n**Evidence before enthusiasm · Transparent trade-offs · Human accountability · Governance by use case · No automatic build recommendation**\n\n### Callout panel\n\n- **Heading:** “Do not automate this yet” can be a valuable consulting outcome.\n- **Body:** Readiness work, process redesign or an existing platform may create more value than a premature custom build.\n\n### FAQ accordion labels\n\n- Audit outputs\n- Scope and duration\n- Vendor selection\n- Internal-team support\n- Legal and compliance boundaries\n- Implementation after the roadmap\n\n### CTA blocks\n\n- **Mid-page heading:** Turn the AI agenda into an ordered set of decisions.\n- **Mid-page body:** Use discovery to identify the leadership question, evidence and operating scope an audit should resolve.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring a list of ideas, a vendor proposal or simply the pressure to act. The first discussion is designed to clarify the decision route.\n\n### Labels and notes\n\n- **Audit label:** Illustrative opportunity map\n- **Decision label:** Build · Buy · Configure · Defer · Leave alone\n- **Governance label:** Specialist review may be required\n- **Benchmark label:** External evidence—not Silverstone performance",
+      "featureCards": [],
+      "outcomeCards": [],
+      "processSteps": [
+        {
+          "label": "Frame the decision",
+          "body": "Define scope, stakeholders and evidence required."
+        },
+        {
+          "label": "Investigate readiness",
+          "body": "Review workflows, data, systems, risk and ownership."
+        },
+        {
+          "label": "Prioritise the routes",
+          "body": "Score value, effort, risk and dependency."
+        },
+        {
+          "label": "Translate into action",
+          "body": "Produce decisions, controls, measures and a sequenced roadmap."
+        }
+      ],
+      "benchmark": {
+        "metrics": [
+          "10+ hours — reported monthly time saved per person",
+          "60% — reported reduction in manual operations overhead",
+          "768+ hours — reported total hours saved"
+        ],
+        "caption": "External automation cases illustrate potential capacity outcomes. They are not Silverstone results or a forecast for an audit."
+      },
+      "ctaButton": "Book a discovery call",
+      "finalReassurance": "Bring a list of ideas, a vendor proposal or simply the pressure to act. The first discussion is designed to clarify the decision route.",
+      "faqLabels": [
+        "Audit outputs",
+        "Scope and duration",
+        "Vendor selection",
+        "Internal-team support",
+        "Legal and compliance boundaries",
+        "Implementation after the roadmap"
+      ]
+    },
+    "demo": {
+      "rawMarkdown": "No mandatory reserved external demo integration is required for this route.\n\n### Recommended advisory demonstration module\n\n- **Label:** Synthetic opportunity-prioritisation surface\n- **Heading:** See how one use case moves from ambition to a decision\n- **Body:** Use an illustrative matrix or staged advisory instrument to reveal operating value, effort, data readiness, risk, governance and the recommended route: build, buy, configure, defer or leave alone.\n- **Status wording:** Illustrative decision framework. It is not a client audit, legal assessment, procurement recommendation or ROI forecast.\n- **CTA transition:** Bring a real opportunity set to a discovery call and define the evidence needed to prioritise it.",
+      "configSlots": []
+    },
+    "acceptance": {
+      "distinctivePhrases": [
+        "Decide what to automate before you buy the tools",
+        "The expensive mistake is choosing technology before the operating problem",
+        "Operating model and workflow inventory",
+        "10+ hours — reported monthly time saved per person",
+        "Put judgement before implementation"
+      ],
+      "faqCount": 6
+    }
+  }
+}

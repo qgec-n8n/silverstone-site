@@ -6,11 +6,13 @@ import {
   type BenchmarkMetric,
 } from "~/data/benchmark-metrics";
 import type { FutureRouteRecord } from "~/data/route-schema";
+import { getApprovedServiceContent } from "~/content/services/approved-services";
 import {
   DemoShell,
   type DemoScenario,
   type DemoStep,
 } from "~/visual/components/demo-shell";
+import { ApprovedServicePageVisuals } from "~/visual/components/approved-service-page";
 import {
   IndustryInstrument,
   type InstrumentStep,
@@ -2481,6 +2483,11 @@ export function ServicePageVisuals({ route }: { route: FutureRouteRecord }): Rea
         ) : null}
       </VisualRoot>
     );
+  }
+
+  const approvedService = getApprovedServiceContent(route.path);
+  if (approvedService) {
+    return <ApprovedServicePageVisuals service={approvedService} />;
   }
 
   const module = SERVICE_MODULES[route.path];

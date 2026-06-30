@@ -1,5 +1,6 @@
 import { futureRouteManifest, routePathAliases } from "~/data/future-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
+import { getApprovedServiceContent } from "~/content/services/approved-services";
 
 export type RouteExperienceFamily =
   | "home"
@@ -174,14 +175,15 @@ function buttonLabelFor(
 
 function buildExperience(route: FutureRouteRecord): RouteExperience {
   const family = familyForRoute(route);
+  const approvedService = getApprovedServiceContent(route.path);
 
   const experience: RouteExperience = {
     path: route.path,
-    loaderText: loaderTextFor(route, family),
-    pill: pillFor(route, family),
-    title: conciseTitle(route),
-    subtitle: route.description,
-    buttonLabel: buttonLabelFor(route, family),
+    loaderText: approvedService?.routeEntry.loaderText ?? loaderTextFor(route, family),
+    pill: approvedService?.routeEntry.pill ?? pillFor(route, family),
+    title: approvedService?.routeEntry.title ?? conciseTitle(route),
+    subtitle: approvedService?.routeEntry.subtitle ?? route.description,
+    buttonLabel: approvedService?.routeEntry.buttonLabel ?? buttonLabelFor(route, family),
     bodyHeadingId: BODY_FOCUS_TARGET,
     family,
   };

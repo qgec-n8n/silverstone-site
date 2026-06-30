@@ -3,27 +3,24 @@ import { expect, test, type Page } from "@playwright/test";
 const serviceRoutes = [
   {
     path: "/services/web-design-development",
-    loader:
-      "Preparing web design & development built around a clear business problem as a focused growth system.",
-    pill: /Service system \/ Web Design & Development/i,
-    title: "Web Design & Development built around a clear business problem",
-    button: "Explore website systems",
+    loader: "Aligning message, movement and measurement",
+    pill: /Bespoke digital experience/i,
+    title: "Make the website earn its place",
+    button: "Explore the commercial website system",
   },
   {
     path: "/services/app-development",
-    loader:
-      "Preparing custom app development built around a clear business problem as a focused growth system.",
-    pill: /Service system \/ Custom App Development/i,
-    title: "Custom App Development built around a clear business problem",
-    button: "Explore app development",
+    loader: "Reducing the idea to its most valuable working state",
+    pill: /Product intelligence \/ First release/i,
+    title: "Prove the workflow before expanding the product",
+    button: "Map the first release",
   },
   {
     path: "/services/ai-voice-agents",
-    loader:
-      "Preparing ai voice agents built around a clear business problem as a focused growth system.",
-    pill: /Service system \/ AI Voice Agents/i,
-    title: "AI Voice Agents built around a clear business problem",
-    button: "Explore intelligent conversations",
+    loader: "Synchronising speech, action and human fallback",
+    pill: /Conversational systems \/ Voice/i,
+    title: "Give every call a controlled next state",
+    button: "Explore the call architecture",
   },
 ] as const;
 
@@ -44,6 +41,10 @@ async function openBody(page: Page, button: string) {
   );
 }
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 for (const route of serviceRoutes) {
   test(`route-entry sequence works for ${route.path}`, async ({ page }) => {
     test.setTimeout(45_000);
@@ -53,12 +54,16 @@ for (const route of serviceRoutes) {
     await expect(page.getByRole("heading", { name: route.title })).toHaveCount(0);
 
     await waitForRouteIntro(page);
-    await expect(page.getByText(route.pill)).toBeVisible();
+    await expect(
+      page
+        .getByLabel(new RegExp(`${escapeRegExp(route.title)} intro`, "i"))
+        .getByText(route.pill),
+    ).toBeVisible();
     await expect(page.getByRole("heading", { name: route.title })).toBeVisible();
     await expect(page.getByRole("button", { name: route.button })).toBeVisible();
 
     await openBody(page, route.button);
-    await expect(page.getByRole("main")).toContainText("Service architecture");
+    await expect(page.getByRole("main")).toContainText(route.title);
 
     await page.getByRole("button", { name: /return to route intro/i }).click();
     await waitForRouteIntro(page);
@@ -83,12 +88,12 @@ test("client navigation replays CoreSpin and the destination intro", async ({
     .first()
     .click();
   await expect(page.getByRole("status")).toContainText(
-    "Preparing web design & development built around a clear business problem as a focused growth system.",
+    "Aligning message, movement and measurement",
     { timeout: 6_000 },
   );
   await waitForRouteIntro(page);
   await expect(
-    page.getByRole("button", { name: "Explore website systems" }),
+    page.getByRole("button", { name: "Explore the commercial website system" }),
   ).toBeVisible();
 });
 
@@ -97,20 +102,20 @@ test("prompt service aliases resolve to canonical route experiences", async ({
 }) => {
   await page.goto("/services/website-design-development");
   await expect(page.getByRole("status")).toContainText(
-    "Preparing web design & development built around a clear business problem as a focused growth system.",
+    "Aligning message, movement and measurement",
   );
   await waitForRouteIntro(page);
   await expect(
-    page.getByRole("button", { name: "Explore website systems" }),
+    page.getByRole("button", { name: "Explore the commercial website system" }),
   ).toBeVisible();
 
   await page.goto("/services/ai-agents-automation");
   await expect(page.getByRole("status")).toContainText(
-    "Preparing ai automation & agent workflows built around a clear business problem as a focused growth system.",
+    "Orchestrating data, decisions and accountable action",
   );
   await waitForRouteIntro(page);
   await expect(
-    page.getByRole("button", { name: "Explore automation systems" }),
+    page.getByRole("button", { name: "Trace the automation system" }),
   ).toBeVisible();
 });
 
@@ -119,15 +124,17 @@ test("route-entry sequence remains usable with reduced motion", async ({ page })
   await page.goto("/services/ai-receptionists");
 
   await expect(page.getByRole("status")).toContainText(
-    "Preparing ai receptionists built around a clear business problem as a focused growth system.",
+    "Converging every enquiry into the right next action",
   );
   await waitForRouteIntro(page);
-  await openBody(page, "Meet your AI front desk");
-  await expect(page.getByRole("main")).toContainText("Service architecture");
+  await openBody(page, "Open the front-desk system");
+  await expect(page.getByRole("main")).toContainText(
+    "Turn every routine enquiry into a controlled handoff",
+  );
 
   await page.getByRole("button", { name: /return to route intro/i }).click();
   await waitForRouteIntro(page);
   await expect(
-    page.getByRole("button", { name: "Meet your AI front desk" }),
+    page.getByRole("button", { name: "Open the front-desk system" }),
   ).toBeVisible();
 });
