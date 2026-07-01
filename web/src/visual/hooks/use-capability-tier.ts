@@ -91,6 +91,14 @@ function detectLowPower(): boolean {
   return false;
 }
 
+function subscribeLowPower() {
+  return () => undefined;
+}
+
+function getServerLowPowerSnapshot() {
+  return false;
+}
+
 /**
  * Resolves the render tier for the home visuals from the live viewport,
  * the user's motion preference, and coarse device-capability hints.
@@ -98,6 +106,12 @@ function detectLowPower(): boolean {
  * - `full`     ≥1024px, motion allowed, capable device → shader eligible.
  * - `balanced` narrower viewport, motion allowed → CSS motion only.
  * - `minimal`  reduced-motion or low-power → static, no animation.
+ *
+ * NOTE: detectLowPower() is wrapped in useSyncExternalStore so the server
+ * snapshot always returns false. Node.js 22+ exposes navigator.hardwareConcurrency
+ * which would otherwise make the server compute lowPower=true and produce a
+ * different tier/motionEnabled value than the browser, causing a structural
+ * hydration mismatch (HeroAetherField rendered vs. null).
  */
 export function useCapabilityTier(): CapabilitySnapshot {
   const { reducedMotion } = useReducedMotion();
@@ -107,7 +121,11 @@ export function useCapabilityTier(): CapabilitySnapshot {
     getServerViewportWidth,
   );
 
-  const lowPower = detectLowPower();
+  const lowPower = useSyncExternalStore(
+    subscribeLowPower,
+    detectLowPower,
+    getServerLowPowerSnapshot,
+  );
 
   let tier: CapabilityTier;
   if (reducedMotion || lowPower) {

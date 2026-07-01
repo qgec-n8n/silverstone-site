@@ -62,13 +62,23 @@ export default defineConfig(({ mode }) => {
       dedupe: ["react", "react-dom"],
     },
     optimizeDeps: {
-      // Pre-bundle every runtime dependency that appears in the SSR'd route tree
-      // so Vite never discovers one mid-session. Late discovery triggers a
-      // re-optimize + full reload, and during that window two React copies
-      // briefly coexist — surfacing as "Invalid hook call (more than one copy
-      // of React)" + hydration failure, which blanks the Preview iframe. The
-      // UI deps below are pulled in by shared primitives (Breadcrumb, TextLink,
-      // icons, variant helpers) mounted across the routes.
+      // All deps that could be lazily discovered via v8_splitRouteModules
+      // route chunks are pre-declared here so Vite bundles them during the
+      // initial crawl rather than discovering them mid-session.
+      //
+      // Mid-session dep discovery triggers Vite re-optimization; in the window
+      // between the old and new bundles landing in the browser two copies of
+      // React briefly coexist → "Invalid hook call" → the CoreSpinLoader state
+      // machine never advances → all service-page content stays hidden.
+      //
+      // holdUntilCrawlEnd (default: true in Vite 5.3+) protects cold starts:
+      // the server holds requests until the initial crawl + bundle is complete
+      // so the browser always gets a coherent single-React dep set.
+      //
+      // Do NOT add force: true — it re-runs optimization at every server start
+      // in the background while the browser is already serving the page.  That
+      // creates the same duplicate-React window at ~4 s into every page load,
+      // which coincides exactly with the CoreSpinLoader dismiss timer.
       include: [
         "react",
         "react-dom",
@@ -87,9 +97,8 @@ export default defineConfig(({ mode }) => {
         "class-variance-authority",
         "clsx",
         "tailwind-merge",
-        // Heavy V2 home visual deps. Pre-bundle so the first lazy mount of the
-        // WebGL hero does not trigger a mid-session re-optimize + full reload
-        // (which briefly loads two React copies → "Invalid hook call").
+        // Heavy V2 home visual deps — WebGL hero is lazily mounted; without
+        // pre-bundling the first mount triggers mid-session re-optimization.
         "three",
         "@react-three/fiber",
         "@react-three/drei",

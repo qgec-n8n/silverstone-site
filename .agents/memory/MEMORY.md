@@ -11,3 +11,4 @@
 - [/web home SEO/content parity](home-v2-seo-content-parity.md) — bespoke `/` routes must still emit exactly one JSON-LD; homepage copy is replaceable, but /about, /services/*, /blog copy is contractually preserved.
 - [Staging-safety analytics blocklist](staging-safety-analytics-blocklist.md) — integration-marquee brand logos that are analytics products (posthog/mixpanel/sentry/hotjar/fullstory) trip `staging:safety` via svg path + a11y name; check brand id/name before adding.
 - [particles.js strict-mode load](particles-js-strict-mode.md) — particles.js uses `arguments.callee`; ES `import` throws in strict mode. Load as classic `<script>` via Vite `?url`, not `import`.
+- [Node.js 22 navigator in SSR causes hydration mismatch](nodejs22-navigator-ssr-hydration.md) — Node.js 22+ exposes navigator.hardwareConcurrency as a global; any hook that reads navigator directly in component body will return different values server vs browser → structural hydration mismatch.
