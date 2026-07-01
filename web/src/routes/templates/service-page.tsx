@@ -125,7 +125,12 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
 
   if (!serviceExperienceEnabled) {
     return (
-      <RoutePageFrame content={content} eyebrow="Services" route={route}>
+      <RoutePageFrame
+        content={content}
+        eyebrow="Services"
+        route={route}
+        showRelated={false}
+      >
         <ServicePageVisuals route={route} />
       </RoutePageFrame>
     );
@@ -178,6 +183,7 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
             eyebrow="Services"
             entryExperience={false}
             route={route}
+            showRelated={false}
           >
             <ServicePageVisuals route={route} />
           </RoutePageFrame>

@@ -46,6 +46,7 @@ export const motionViewport = {
   standard: { once: true, margin: "0px 0px -12% 0px", amount: 0.24 },
   early: { once: true, margin: "0px 0px -20% 0px", amount: 0.18 },
   precise: { once: true, margin: "0px", amount: 0.5 },
+  block: { once: true, margin: "0px 0px -12% 0px", amount: "some" },
 } as const;
 
 export const motionDistances = {

@@ -29,6 +29,7 @@ type RoutePageFrameProps = {
   eyebrow: string;
   entryExperience?: boolean;
   route: FutureRouteRecord;
+  showRelated?: boolean;
 };
 
 export function RoutePageFrame({
@@ -38,6 +39,7 @@ export function RoutePageFrame({
   eyebrow,
   entryExperience = true,
   route,
+  showRelated = true,
 }: RoutePageFrameProps) {
   const routeById = new Map(
     futureRouteManifest.map((candidate) => [candidate.id, candidate]),
@@ -97,7 +99,7 @@ export function RoutePageFrame({
               </RevealSection>
             ) : null}
 
-            {relatedRoutes.length > 0 ? (
+            {showRelated && relatedRoutes.length > 0 ? (
               <RevealSection enabled={motionEnabled}>
                 <nav aria-label="Related pages">
                   <Stack gap="sm">

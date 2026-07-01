@@ -1,6 +1,7 @@
 - [Smithery skills CLI quirk](smithery-skills-cli.md) — `npx skills add <smithery url>` installs the generic `smithery-ai-cli` wrapper, NOT the named skill; fetch real skill from its canonical GitHub source instead.
 - [Vite dev re-optimize → hook/hydration errors](vite-react-reoptimize-hook-errors.md) — transient "Invalid hook call"/"Hydration failed" in /web dev = stale React chunk during Vite re-optimization, not a code bug; fix with resolve.dedupe + optimizeDeps.include.
 - [Progressive-enhancement motion](progressive-enhancement-motion.md) — /web reveal/page-entry hidden state gated behind reduced-motion + html[data-js="on"]; inline data-js script forces suppressHydrationWarning on <html>.
+- [Reveal threshold vs tall content](reveal-threshold-tall-content.md) — fractional whileInView `amount` permanently hides blocks taller than viewport/amount; use `amount:"some"` (motionViewport.block) for unbounded content wrappers.
 - [Workspace skill & MCP wiring](workspace-skill-wiring.md) — `.agents/skills/` + `.mcp.json` are the sources of truth; run `node .agents/sync-skills.mjs` to regenerate `.claude/skills/` symlinks + Codex MCP block.
 - [Playwright matrix on NixOS](playwright-nixos-prototype-matrix.md) — bundled Chromium needs BOTH `mesa`+`libgbm`; drive via /tmp CJS require; prototype URL needs explicit `.html`.
 - [Playwright bash — never pkill chrome](playwright-bash-no-pkill.md) — `pkill -f chrome|chromium|playwright|headless` SIGKILLs the agent's OWN bash (exit 137, no output); fake "OOM". Run Playwright with no pkill; slice + write incrementally.
