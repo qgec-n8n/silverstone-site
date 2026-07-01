@@ -78,7 +78,12 @@ export function AiReceptionistsComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
-        showcase={<FrontDeskConvergence />}
+        showcase={
+          <FrontDeskConvergence
+            label={art.discipline}
+            metrics={micro.benchmark.metrics.slice(0, 2)}
+          />
+        }
       />
       <TrustStrip />
 

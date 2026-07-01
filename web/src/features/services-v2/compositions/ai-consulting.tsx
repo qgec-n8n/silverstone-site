@@ -75,7 +75,12 @@ export function AiConsultingComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
-        showcase={<OpportunityObservatory />}
+        showcase={
+          <OpportunityObservatory
+            label={art.discipline}
+            metrics={micro.benchmark.metrics.slice(0, 2)}
+          />
+        }
       />
       <TrustStrip />
 

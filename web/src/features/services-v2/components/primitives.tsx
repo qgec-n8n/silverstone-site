@@ -39,6 +39,15 @@ function formatNumeric(raw: string, current: number): string {
   });
 }
 
+/** Splits a benchmark string like "850% — Conversion increase" into its value and label. */
+export function splitMetric(metric: string): { value: string; label: string } {
+  const [head, ...tail] = metric.split(/\s+—\s+/);
+  if (tail.length > 0) {
+    return { value: (head ?? metric).trim(), label: tail.join(" — ").trim() };
+  }
+  return { value: metric.trim(), label: "" };
+}
+
 /**
  * Animated count-up for a benchmark value. Only animates when the value has a
  * single clean leading numeric token (currency/sign/commas/decimals); anything

@@ -81,7 +81,12 @@ export function AiAutomationComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
-        showcase={<OrchestrationLattice />}
+        showcase={
+          <OrchestrationLattice
+            label={art.discipline}
+            metrics={micro.benchmark.metrics.slice(0, 2)}
+          />
+        }
       />
       <TrustStrip />
 

@@ -87,7 +87,12 @@ export function WebDesignComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
-        showcase={<ConversionArchitecture />}
+        showcase={
+          <ConversionArchitecture
+            label={art.discipline}
+            metrics={micro.benchmark.metrics.slice(0, 2)}
+          />
+        }
       />
       <TrustStrip />
 

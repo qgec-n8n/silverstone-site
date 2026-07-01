@@ -78,7 +78,12 @@ export function AiVoiceAgentsComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
-        showcase={<SignalWaveform />}
+        showcase={
+          <SignalWaveform
+            label={art.discipline}
+            metrics={micro.benchmark.metrics.slice(0, 2)}
+          />
+        }
       />
       <TrustStrip />
 

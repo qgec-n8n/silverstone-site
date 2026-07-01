@@ -245,9 +245,13 @@
    * there's room to spare, and safe when there isn't.
    */
   gap: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
-  /* Stretch (not center) so the showcase panel matches the copy column's
-     height exactly. */
-  align-items: stretch;
+  /* Not stretch: letting the grid stretch the showcase to the row's own
+     auto-height would let a tall signature diagram inflate the row (and the
+     whole hero) past the copy's own height, breaking the one-viewport fit
+     above. The showcase is matched to the intro's rendered height directly
+     instead (--srv2-showcase-height, set at runtime — see SecondaryHero's
+     useMatchIntroHeight), so growing a diagram can never grow the hero. */
+  align-items: start;
   grid-template-columns: 1fr;
 }
 
@@ -333,9 +337,29 @@
      grid item with a definite height — otherwise the plain Reveal <div>
      between here and .ss-srv2-signature would have an auto height, and
      .ss-srv2-signature's height:100% would have nothing real to resolve
-     against. */
+     against. Height itself comes from --srv2-showcase-height (matched to the
+     intro column's rendered height at runtime), not from stretching to this
+     grid row's own auto height — see .ss-srv2-hero__grid's align-items.
+     100% is only the pre-measurement fallback. */
   display: grid;
-  height: 100%;
+  height: var(--srv2-showcase-height, 100%);
+  min-height: 0;
+  overflow: hidden;
+}
+
+/*
+ * The Reveal wrapper is a grid item here, and grid items default to
+ * min-width: auto / min-height: auto — "never shrink below your content's
+ * natural size". With the signature SVG at width/height: 100% (needed so it
+ * can scale down to fit a short stage instead of forcing it taller), the
+ * browser has no aspect-ratio to fall back on for that natural-size
+ * calculation and was falling back to the SVG's raw viewBox dimensions —
+ * rendering this box nearly double width, mostly off-screen, so little of it
+ * intersected the viewport that the reveal's whileInView never crossed its
+ * threshold. min-width/height: 0 removes that floor entirely.
+ */
+.ss-srv2-hero__showcase > * {
+  min-width: 0;
   min-height: 0;
 }
 
@@ -1151,14 +1175,17 @@
 .ss-srv2-signature {
   position: relative;
   /* Fills the stretched grid row so its bottom edge lines up with the copy
-     column's bottom edge; the fixed-ratio SVG stays centred inside rather than
-     stretching (which would distort the diagram). Resolves to auto when the
-     row height is indefinite (single-column mobile). */
+     column's bottom edge. Resolves to auto when the row height is indefinite
+     (single-column mobile). A flex column (not the old single centred child):
+     the status bar sits flush at the top, the metric strip flush at the
+     bottom, and the diagram centres in whatever space the stage in between
+     ends up with — so the panel's own edges are always real content, never
+     empty padding, regardless of how tall the copy column next to it is. */
   height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+  flex-direction: column;
+  gap: clamp(0.6rem, 0.4rem + 0.8vh, 1.1rem);
+  padding: clamp(0.85rem, 0.6rem + 1vw, 1.5rem);
   border-radius: var(--ss-radius-2xl);
   border: 1px solid var(--srv2-hairline);
   background-color: var(--srv2-glass);
@@ -1191,12 +1218,146 @@
   overflow: clip;
 }
 
-.ss-srv2-signature__svg {
+.ss-srv2-signature__stage {
   position: relative;
   z-index: 1;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ss-srv2-signature__svg {
   display: block;
+  /* Fills the stage in both dimensions and relies on the SVG's own default
+     preserveAspectRatio ("xMidYMid meet") to scale the viewBox content to fit
+     — the SVG-native equivalent of object-fit: contain. This is what lets a
+     diagram grow to fill a tall stage without ever being able to force the
+     stage (and the hero) taller than the copy column dictates: the box size
+     is set from outside (by --srv2-showcase-height), and the content always
+     scales to match it, never the reverse. */
   width: 100%;
-  height: auto;
+  height: 100%;
+}
+
+/* ---- Signature status bar (top) ---------------------------------------- */
+
+.ss-srv2-signature__status {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: clamp(0.5rem, 0.4rem + 0.5vh, 0.85rem);
+  border-bottom: 1px solid var(--srv2-hairline);
+}
+
+.ss-srv2-signature__status-id {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+.ss-srv2-signature__status-dot {
+  flex: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--srv2-accent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+}
+
+.ss-srv2-signature__status-live {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--ss-v2-signal-cyan) 40%, transparent);
+  background: color-mix(in srgb, var(--ss-v2-signal-cyan) 10%, transparent);
+  color: var(--ss-v2-signal-cyan);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-srv2-signature__status-live-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: var(--ss-v2-signal-cyan);
+  animation: ss-srv2-status-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes ss-srv2-status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-srv2-signature__status-live-dot {
+    animation: none;
+  }
+}
+
+/* ---- Signature metric strip (bottom, verified figures only) ------------ */
+
+.ss-srv2-signature__metrics {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: flex;
+  gap: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+  padding-top: clamp(0.6rem, 0.45rem + 0.6vh, 0.9rem);
+  border-top: 1px solid var(--srv2-hairline);
+}
+
+.ss-srv2-signature__metric {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ss-srv2-signature__metric-value {
+  font-family: var(--ss-font-display);
+  font-weight: 600;
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
+  letter-spacing: -0.02em;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-srv2-signature__metric-label {
+  overflow: hidden;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
 }
 
 /* ---- Signature chrome (shared corner brackets + scanning sweep) -------- */

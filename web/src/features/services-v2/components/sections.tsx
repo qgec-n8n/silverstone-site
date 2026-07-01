@@ -23,6 +23,7 @@ import {
   Reveal,
   RichText,
   ServiceButton,
+  splitMetric,
 } from "./primitives";
 
 /* ---- Responsive figure -------------------------------------------------- */
@@ -82,14 +83,6 @@ export function ServiceCards({
 }
 
 /* ---- Benchmark console -------------------------------------------------- */
-
-function splitMetric(metric: string): { value: string; label: string } {
-  const [head, ...tail] = metric.split(/\s+—\s+/);
-  if (tail.length > 0) {
-    return { value: (head ?? metric).trim(), label: tail.join(" — ").trim() };
-  }
-  return { value: metric.trim(), label: "" };
-}
 
 export function BenchmarkConsole({
   metrics,

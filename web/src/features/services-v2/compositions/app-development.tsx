@@ -81,7 +81,12 @@ export function AppDevelopmentComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
-        showcase={<ProductStateEngine />}
+        showcase={
+          <ProductStateEngine
+            label={art.discipline}
+            metrics={micro.benchmark.metrics.slice(0, 2)}
+          />
+        }
       />
       <TrustStrip />
 

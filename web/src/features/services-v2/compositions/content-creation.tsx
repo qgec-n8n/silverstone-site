@@ -80,7 +80,12 @@ export function ContentCreationComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
-        showcase={<EditorialIntelligence />}
+        showcase={
+          <EditorialIntelligence
+            label={art.discipline}
+            metrics={micro.benchmark.metrics.slice(0, 2)}
+          />
+        }
       />
       <TrustStrip />
 
