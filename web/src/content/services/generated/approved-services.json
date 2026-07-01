@@ -74,8 +74,38 @@
     },
     "componentMicrocopy": {
       "rawMarkdown": "### Feature cards\n\n- **Positioning before pixels** — Clarify audience, offer, proof and action before interface decisions harden.\n- **One coherent architecture** — Connect services, industries, insights and conversion routes without internal search competition.\n- **Responsive by design** — Shape hierarchy and interaction for small screens first, not as a late compression exercise.\n- **Built to connect** — Plan booking, CRM, analytics, CMS and follow-up hand-offs as part of the site system.\n\n### Outcome cards\n\n- **Clearer buyer understanding** — The right visitor can identify fit, value and next step without interpreting vague claims.\n- **More reliable enquiry handling** — Forms and bookings reach a defined system with ownership and context.\n- **A platform the team can extend** — Reusable patterns and governed content reduce dependence on ad hoc rebuilds.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** 850% — reported conversion increase\n- **Metric 2:** 70% — reported lead increase\n- **Metric 3:** 1,324% — reported online-sales increase\n- **Caption:** External case data demonstrates the range of commercial impact associated with stronger web systems. It does not predict an individual result.\n\n### Process steps\n\n1. **Define the commercial decision** — Align audience, proposition, evidence and action.\n2. **Map the path** — Build page ownership, journeys and content hierarchy.\n3. **Design and engineer** — Create the responsive system, technical foundation and integrations.\n4. **Observe and improve** — Use real behaviour to prioritise the next change.\n\n### Comparison block\n\n- **Surface-led rebuild:** starts with appearance; treats copy, SEO and integration as later tasks.\n- **Silverstone website system:** starts with buyer decisions; develops copy, design, engineering and operations together.\n\n### Trust strip\n\n**People-first copy · Crawlable architecture · Responsive engineering · Human-approved claims · Measurable conversion paths**\n\n### Callout panel\n\n- **Heading:** A beautiful site can still be commercially unclear.\n- **Body:** The design succeeds only when it helps a qualified buyer understand the offer, trust the evidence and complete the next action.\n\n### FAQ accordion labels\n\n- Working with an existing brand\n- Choosing the right site size\n- Connecting existing systems\n- Search visibility and rankings\n- Maintenance and hand-off\n\n### CTA blocks\n\n- **Mid-page heading:** Build the decision path before the interface expands.\n- **Mid-page body:** Use a discovery call to identify the offer, evidence, pages and integrations that deserve the first release.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring the current URL, a rough brief or simply the problem. The first conversation is for fit and scope.\n\n### Labels and notes\n\n- **Image label:** Illustrative system view\n- **Benchmark label:** External evidence—not Silverstone performance\n- **Integration note:** Availability and scope depend on the selected platform and third-party access.",
-      "featureCards": [],
-      "outcomeCards": [],
+      "featureCards": [
+        {
+          "label": "Positioning before pixels",
+          "body": "Clarify audience, offer, proof and action before interface decisions harden."
+        },
+        {
+          "label": "One coherent architecture",
+          "body": "Connect services, industries, insights and conversion routes without internal search competition."
+        },
+        {
+          "label": "Responsive by design",
+          "body": "Shape hierarchy and interaction for small screens first, not as a late compression exercise."
+        },
+        {
+          "label": "Built to connect",
+          "body": "Plan booking, CRM, analytics, CMS and follow-up hand-offs as part of the site system."
+        }
+      ],
+      "outcomeCards": [
+        {
+          "label": "Clearer buyer understanding",
+          "body": "The right visitor can identify fit, value and next step without interpreting vague claims."
+        },
+        {
+          "label": "More reliable enquiry handling",
+          "body": "Forms and bookings reach a defined system with ownership and context."
+        },
+        {
+          "label": "A platform the team can extend",
+          "body": "Reusable patterns and governed content reduce dependence on ad hoc rebuilds."
+        }
+      ],
       "processSteps": [
         {
           "label": "Define the commercial decision",
@@ -209,8 +239,38 @@
     },
     "componentMicrocopy": {
       "rawMarkdown": "### Feature cards\n\n- **One user, one valuable task** — Anchor the first release to a specific person and outcome.\n- **States before screens** — Define approvals, errors, empty states and completion before polishing the interface.\n- **Data with ownership** — Map records, roles and sources of truth before integrations multiply.\n- **A roadmap earned by use** — Expand the product from evidence, not the original wish list.\n\n### Outcome cards\n\n- **A testable first release** — A coherent product that can be used and evaluated, not a feature demonstration.\n- **Lower decision risk** — Critical assumptions are surfaced before the most expensive build work.\n- **Operational readiness** — Permissions, monitoring, fallbacks and ownership are included in the product model.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** -75% — reported reduction in no-shows\n- **Metric 2:** £16,800 — reported direct annual cost savings\n- **Metric 3:** -77% — reported reduction in administrative time\n- **Caption:** External case data shows what focused application workflows have achieved elsewhere. It does not predict an individual result.\n\n### Process steps\n\n1. **Discover the value** — Define the user, task, evidence and constraints.\n2. **Prototype the states** — Test the route before production scope expands.\n3. **Build the first release** — Implement the experience, data, permissions and integrations.\n4. **Learn from use** — Prioritise the roadmap from adoption, friction and commercial evidence.\n\n### Comparison block\n\n- **Feature-led project:** accepts a backlog as the product strategy and postpones hard decisions.\n- **Silverstone first-release model:** makes the user, workflow, state and evidence explicit before complexity grows.\n\n### Trust strip\n\n**Discovery before commitment · Explicit permissions · Observable systems · Human review for consequential decisions · No invented delivery promises**\n\n### Callout panel\n\n- **Heading:** A smaller scope is only useful when it remains coherent.\n- **Body:** The first release should remove optional complexity without removing the reliability, data and control required for real use.\n\n### FAQ accordion labels\n\n- Starting without a complete brief\n- Improving an existing app\n- Choosing web, PWA or native\n- Adding AI responsibly\n- Scope, ownership and hand-off\n\n### CTA blocks\n\n- **Mid-page heading:** Reduce the product to the decision it must prove.\n- **Mid-page body:** Use discovery to identify the first user, first workflow and evidence that justifies a build.\n- **Button:** Book a discovery call\n- **Final reassurance:** A rough workflow is enough. The first discussion is designed to clarify fit, not force a full build.\n\n### Labels and notes\n\n- **Prototype label:** Illustrative first-release state map\n- **Benchmark label:** External evidence—not Silverstone performance\n- **Integration note:** Third-party availability, permissions and limits are confirmed during discovery.",
-      "featureCards": [],
-      "outcomeCards": [],
+      "featureCards": [
+        {
+          "label": "One user, one valuable task",
+          "body": "Anchor the first release to a specific person and outcome."
+        },
+        {
+          "label": "States before screens",
+          "body": "Define approvals, errors, empty states and completion before polishing the interface."
+        },
+        {
+          "label": "Data with ownership",
+          "body": "Map records, roles and sources of truth before integrations multiply."
+        },
+        {
+          "label": "A roadmap earned by use",
+          "body": "Expand the product from evidence, not the original wish list."
+        }
+      ],
+      "outcomeCards": [
+        {
+          "label": "A testable first release",
+          "body": "A coherent product that can be used and evaluated, not a feature demonstration."
+        },
+        {
+          "label": "Lower decision risk",
+          "body": "Critical assumptions are surfaced before the most expensive build work."
+        },
+        {
+          "label": "Operational readiness",
+          "body": "Permissions, monitoring, fallbacks and ownership are included in the product model."
+        }
+      ],
       "processSteps": [
         {
           "label": "Discover the value",
@@ -347,8 +407,38 @@
     },
     "componentMicrocopy": {
       "rawMarkdown": "### Feature cards\n\n- **Stateful conversation design** — Give each call intent, retry, action and escalation a visible state.\n- **Speech pipeline engineering** — Balance recognition, reasoning, voice quality, latency and interruption handling.\n- **Permissioned actions** — Connect calendars, CRM, SMS and tickets only within approved rules.\n- **Evaluation after the demo** — Review transcripts, tool outcomes, latency and handoffs before expanding scope.\n\n### Outcome cards\n\n- **Faster first response** — Routine calls can enter a defined workflow without waiting for an available person.\n- **Structured operational context** — Captured details and summaries reach the team in a usable form.\n- **Safer exception handling** — Sensitive, unusual or failed calls move to a named human route.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** <10 seconds — reported response time\n- **Metric 2:** 15 hours/week — reported staff time saved\n- **Metric 3:** +22% — reported increase in new-patient bookings\n- **Caption:** External voice-agent cases illustrate possible impact categories. They are not Silverstone results or forecasts.\n\n### Process steps\n\n1. **Define the calls** — Select bounded, measurable intents and exclusions.\n2. **Prototype the conversation** — Test normal, interrupted and failed paths.\n3. **Connect the actions** — Add telephony and business systems with fallbacks.\n4. **Evaluate the evidence** — Review transcripts, outcomes and exceptions before expansion.\n\n### Comparison block\n\n- **Voice demo:** optimised for a short expected conversation with no operational consequence.\n- **Silverstone voice system:** designed around real call states, tool outcomes, monitoring and human ownership.\n\n### Trust strip\n\n**Approved knowledge · Explicit disclosure design · Permissioned actions · Transcript review · Human escalation**\n\n### Callout panel\n\n- **Heading:** Natural speech does not make an unreliable action safe.\n- **Body:** Calendar, CRM and messaging actions require confirmation, error handling and a visible fallback regardless of how fluent the voice sounds.\n\n### FAQ accordion labels\n\n- Existing phone numbers and SIP\n- Booking during a call\n- UK voices and detail capture\n- Recording, transcripts and retention\n- Human fallback and team roles\n\n### CTA blocks\n\n- **Mid-page heading:** Start with the call types you can define and inspect.\n- **Mid-page body:** Map the intent, action, failure path and human owner before connecting a live line.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring a sample call, current script or simply the repeated call problem. The first discussion is for fit and architecture.\n\n### Labels and notes\n\n- **Demo label:** Deterministic voice-system preview\n- **Transcript label:** Illustrative transcript—not a live caller\n- **Benchmark label:** External evidence—not Silverstone performance\n- **Privacy note:** No microphone, phone number or live recording is connected in the reserved preview.",
-      "featureCards": [],
-      "outcomeCards": [],
+      "featureCards": [
+        {
+          "label": "Stateful conversation design",
+          "body": "Give each call intent, retry, action and escalation a visible state."
+        },
+        {
+          "label": "Speech pipeline engineering",
+          "body": "Balance recognition, reasoning, voice quality, latency and interruption handling."
+        },
+        {
+          "label": "Permissioned actions",
+          "body": "Connect calendars, CRM, SMS and tickets only within approved rules."
+        },
+        {
+          "label": "Evaluation after the demo",
+          "body": "Review transcripts, tool outcomes, latency and handoffs before expanding scope."
+        }
+      ],
+      "outcomeCards": [
+        {
+          "label": "Faster first response",
+          "body": "Routine calls can enter a defined workflow without waiting for an available person."
+        },
+        {
+          "label": "Structured operational context",
+          "body": "Captured details and summaries reach the team in a usable form."
+        },
+        {
+          "label": "Safer exception handling",
+          "body": "Sensitive, unusual or failed calls move to a named human route."
+        }
+      ],
       "processSteps": [
         {
           "label": "Define the calls",
@@ -486,8 +576,38 @@
     },
     "componentMicrocopy": {
       "rawMarkdown": "### Feature cards\n\n- **One intake model across channels** — Align calls, chat and messages around the same operating rules.\n- **Approved answers only** — Use reviewed service information, policies and qualification questions.\n- **Booking with failure paths** — Confirm availability, write the record and route exceptions honestly.\n- **Handoff with context** — Give staff the reason, details and next action—not an empty notification.\n\n### Outcome cards\n\n- **Greater enquiry coverage** — Routine demand can enter a defined route beyond the moments staff are immediately available.\n- **Faster structured response** — Customers receive a useful first step while the business captures the right context.\n- **Less reception rework** — Connected records reduce repeated copying and incomplete internal messages.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** +66% — reported increase in phone availability\n- **Metric 2:** <10 seconds — reported response time\n- **Metric 3:** £16,800 — reported direct annual cost savings\n- **Caption:** External receptionist cases illustrate possible coverage, speed and cost outcomes. They are not Silverstone results or guarantees.\n\n### Process steps\n\n1. **Map the desk** — Document channels, intents, rules and owners.\n2. **Approve the boundaries** — Sign off answers, questions, actions and exclusions.\n3. **Connect the destinations** — Integrate calendars, CRM, inboxes and handoffs.\n4. **Review the friction** — Improve rules from failed intents, exceptions and staff feedback.\n\n### Comparison block\n\n- **Basic answering tool:** produces a response or message in one channel.\n- **Silverstone reception system:** coordinates intake, actions, records, routing and human ownership across the front desk.\n\n### Trust strip\n\n**Approved content · Data minimisation · Verified actions · Visible audit trail · Human judgement preserved**\n\n### Callout panel\n\n- **Heading:** The goal is not to keep every enquiry automated.\n- **Body:** The goal is to give each routine enquiry a reliable destination and move sensitive matters to the right person without losing context.\n\n### FAQ accordion labels\n\n- Out-of-hours availability\n- Existing calendar and CRM integration\n- Personal data and retention\n- Human transfer and callback routes\n- Voice, accent and postcode testing\n\n### CTA blocks\n\n- **Mid-page heading:** Design the reception rules before choosing the channel tools.\n- **Mid-page body:** Use discovery to map what can be answered, booked, routed and escalated safely.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring call notes, FAQs or a booking process. The first conversation is used to identify the smallest valuable front-desk route.\n\n### Labels and notes\n\n- **Chat label:** Reserved AI reception experience\n- **Call label:** ElevenLabs-ready call surface\n- **Benchmark label:** External evidence—not Silverstone performance\n- **Privacy note:** No real customer, microphone or production data is connected in the preview.",
-      "featureCards": [],
-      "outcomeCards": [],
+      "featureCards": [
+        {
+          "label": "One intake model across channels",
+          "body": "Align calls, chat and messages around the same operating rules."
+        },
+        {
+          "label": "Approved answers only",
+          "body": "Use reviewed service information, policies and qualification questions."
+        },
+        {
+          "label": "Booking with failure paths",
+          "body": "Confirm availability, write the record and route exceptions honestly."
+        },
+        {
+          "label": "Handoff with context",
+          "body": "Give staff the reason, details and next action—not an empty notification."
+        }
+      ],
+      "outcomeCards": [
+        {
+          "label": "Greater enquiry coverage",
+          "body": "Routine demand can enter a defined route beyond the moments staff are immediately available."
+        },
+        {
+          "label": "Faster structured response",
+          "body": "Customers receive a useful first step while the business captures the right context."
+        },
+        {
+          "label": "Less reception rework",
+          "body": "Connected records reduce repeated copying and incomplete internal messages."
+        }
+      ],
       "processSteps": [
         {
           "label": "Map the desk",
@@ -629,8 +749,38 @@
     },
     "componentMicrocopy": {
       "rawMarkdown": "### Feature cards\n\n- **Source-led by default** — Every asset traces to approved knowledge, evidence or accountable expertise.\n- **One intent per asset** — Give each page or piece a distinct audience question and role.\n- **Adapted, not duplicated** — Rebuild the idea for the channel rather than reposting the same text.\n- **Human approval preserved** — Keep claims, quality and brand decisions with named reviewers.\n\n### Outcome cards\n\n- **More value from existing expertise** — Turn interviews, documents and customer questions into usable editorial assets.\n- **A clearer publishing rhythm** — Replace ad hoc requests with visible stages, owners and approvals.\n- **Stronger content relationships** — Connect insights, service pages and industry pages without internal competition.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** 500+ — campaigns reported running\n- **Metric 2:** 3,000+ — bookings reported in 12 months\n- **Metric 3:** 3x → 20x — reported SEO and PPC ROI movement\n- **Caption:** External campaign cases illustrate the possible scale of mature content operations. They are not Silverstone results or forecasts.\n\n### Process steps\n\n1. **Collect the sources** — Gather expertise, proof, audience questions and constraints.\n2. **Architect the system** — Assign purpose, intent, format, owner and next action.\n3. **Create and approve** — Adapt each asset and keep publication behind review.\n4. **Publish and learn** — Use performance and audience evidence to guide the next cycle.\n\n### Comparison block\n\n- **AI content factory:** optimises for output volume and generic consistency.\n- **Silverstone content system:** optimises for source quality, distinct intent, governance and commercial usefulness.\n\n### Trust strip\n\n**Approved sources · Distinct search intent · Human-reviewed claims · Channel-specific adaptation · Measured improvement**\n\n### Callout panel\n\n- **Heading:** Repurposing is not copying the same message everywhere.\n- **Body:** Each derivative needs its own context, structure and next action while remaining traceable to the same approved idea.\n\n### FAQ accordion labels\n\n- AI-assisted drafting\n- Originality and source control\n- Publishing approvals\n- SEO and internal linking\n- Deliverables and cadence\n\n### CTA blocks\n\n- **Mid-page heading:** Build the editorial route before increasing output.\n- **Mid-page body:** Use discovery to identify the sources, audiences and approvals that can support a credible content rhythm.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring existing documents, scattered notes or simply the expertise the business struggles to publish consistently.\n\n### Labels and notes\n\n- **Source label:** Approved knowledge input\n- **Output label:** Channel-specific draft\n- **Review label:** Human approval required\n- **Benchmark label:** External evidence—not Silverstone performance",
-      "featureCards": [],
-      "outcomeCards": [],
+      "featureCards": [
+        {
+          "label": "Source-led by default",
+          "body": "Every asset traces to approved knowledge, evidence or accountable expertise."
+        },
+        {
+          "label": "One intent per asset",
+          "body": "Give each page or piece a distinct audience question and role."
+        },
+        {
+          "label": "Adapted, not duplicated",
+          "body": "Rebuild the idea for the channel rather than reposting the same text."
+        },
+        {
+          "label": "Human approval preserved",
+          "body": "Keep claims, quality and brand decisions with named reviewers."
+        }
+      ],
+      "outcomeCards": [
+        {
+          "label": "More value from existing expertise",
+          "body": "Turn interviews, documents and customer questions into usable editorial assets."
+        },
+        {
+          "label": "A clearer publishing rhythm",
+          "body": "Replace ad hoc requests with visible stages, owners and approvals."
+        },
+        {
+          "label": "Stronger content relationships",
+          "body": "Connect insights, service pages and industry pages without internal competition."
+        }
+      ],
       "processSteps": [
         {
           "label": "Collect the sources",
@@ -765,8 +915,38 @@
     },
     "componentMicrocopy": {
       "rawMarkdown": "### Feature cards\n\n- **Rules where rules are stronger** — Keep known logic deterministic, testable and easy to audit.\n- **AI where interpretation adds value** — Bound model tasks with approved context, structure and fallback.\n- **Exceptions with owners** — Route uncertainty, missing data and failed actions into visible queues.\n- **Operations you can inspect** — Monitor runs, approvals, errors and business outcomes after launch.\n\n### Outcome cards\n\n- **Less repeated handoff work** — Move information and actions between systems without manual copying.\n- **More consistent process execution** — Apply approved rules and validations at the point of work.\n- **A safer route to scale** — Expand from a monitored workflow rather than a hidden collection of automations.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** 65% — reported reduction in document-processing cost\n- **Metric 2:** 98% — reported extraction accuracy on structured documents\n- **Metric 3:** 2–4 weeks — reported time to first working automation\n- **Caption:** External cases illustrate potential cost, quality and speed outcomes. They are not Silverstone results or delivery promises.\n\n### Process steps\n\n1. **Discover the handoff** — Identify value, owner, baseline, systems and risk.\n2. **Design the controls** — Map logic, AI tasks, approvals, exceptions and evidence.\n3. **Build and test** — Implement normal and failed paths in the appropriate stack.\n4. **Operate and expand** — Review runs and outcomes before automating the next process.\n\n### Comparison block\n\n- **Connector-first automation:** starts with available apps and a happy-path trigger.\n- **Silverstone operating layer:** starts with ownership, source-of-truth, exception and consequence before selecting tools.\n\n### Trust strip\n\n**Least privilege · Structured outputs · Human approvals · Visible run history · Named exception owners**\n\n### Callout panel\n\n- **Heading:** Automating the normal case is only half the build.\n- **Body:** The production system also needs to know what happens when data is missing, a model is uncertain or a connected action fails.\n\n### FAQ accordion labels\n\n- n8n, Make, Zapier and custom code\n- Integration availability\n- Human-in-the-loop design\n- Error prevention and monitoring\n- Maintenance when systems change\n\n### CTA blocks\n\n- **Mid-page heading:** Start with one handoff the business already understands.\n- **Mid-page body:** Use discovery to map the trigger, data, decision, action, exception and owner before choosing the platform.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring a process map, systems list or simply the repeated task. The first discussion is designed to test readiness.\n\n### Labels and notes\n\n- **Workflow label:** Illustrative orchestration path\n- **Approval label:** Human review required\n- **Exception label:** Routed to named owner\n- **Benchmark label:** External evidence—not Silverstone performance",
-      "featureCards": [],
-      "outcomeCards": [],
+      "featureCards": [
+        {
+          "label": "Rules where rules are stronger",
+          "body": "Keep known logic deterministic, testable and easy to audit."
+        },
+        {
+          "label": "AI where interpretation adds value",
+          "body": "Bound model tasks with approved context, structure and fallback."
+        },
+        {
+          "label": "Exceptions with owners",
+          "body": "Route uncertainty, missing data and failed actions into visible queues."
+        },
+        {
+          "label": "Operations you can inspect",
+          "body": "Monitor runs, approvals, errors and business outcomes after launch."
+        }
+      ],
+      "outcomeCards": [
+        {
+          "label": "Less repeated handoff work",
+          "body": "Move information and actions between systems without manual copying."
+        },
+        {
+          "label": "More consistent process execution",
+          "body": "Apply approved rules and validations at the point of work."
+        },
+        {
+          "label": "A safer route to scale",
+          "body": "Expand from a monitored workflow rather than a hidden collection of automations."
+        }
+      ],
       "processSteps": [
         {
           "label": "Discover the handoff",
@@ -897,8 +1077,38 @@
     },
     "componentMicrocopy": {
       "rawMarkdown": "### Feature cards\n\n- **Opportunity before tooling** — Start with operating friction, value and ownership rather than product names.\n- **Readiness made explicit** — Review data, systems, people, process and governance before implementation.\n- **Build-versus-buy with trade-offs** — Compare control, time, dependency, cost and long-term operation.\n- **A roadmap with decision gates** — Sequence enabling work and use cases by evidence, not enthusiasm.\n\n### Outcome cards\n\n- **A prioritised opportunity set** — Separate credible first moves from expensive distractions.\n- **Stronger investment decisions** — Understand what must be bought, configured, built or left alone.\n- **Implementation-ready reasoning** — Carry requirements, controls, measures and ownership into delivery.\n\n### Benchmark panel\n\n- **Eyebrow:** Published benchmark evidence\n- **Metric 1:** 10+ hours — reported monthly time saved per person\n- **Metric 2:** 60% — reported reduction in manual operations overhead\n- **Metric 3:** 768+ hours — reported total hours saved\n- **Caption:** External automation cases illustrate potential capacity outcomes. They are not Silverstone results or a forecast for an audit.\n\n### Process steps\n\n1. **Frame the decision** — Define scope, stakeholders and evidence required.\n2. **Investigate readiness** — Review workflows, data, systems, risk and ownership.\n3. **Prioritise the routes** — Score value, effort, risk and dependency.\n4. **Translate into action** — Produce decisions, controls, measures and a sequenced roadmap.\n\n### Comparison block\n\n- **Tool-led strategy:** begins with a product and searches for places to deploy it.\n- **Silverstone advisory route:** begins with operating value and permits build, buy, configure, defer or stop.\n\n### Trust strip\n\n**Evidence before enthusiasm · Transparent trade-offs · Human accountability · Governance by use case · No automatic build recommendation**\n\n### Callout panel\n\n- **Heading:** “Do not automate this yet” can be a valuable consulting outcome.\n- **Body:** Readiness work, process redesign or an existing platform may create more value than a premature custom build.\n\n### FAQ accordion labels\n\n- Audit outputs\n- Scope and duration\n- Vendor selection\n- Internal-team support\n- Legal and compliance boundaries\n- Implementation after the roadmap\n\n### CTA blocks\n\n- **Mid-page heading:** Turn the AI agenda into an ordered set of decisions.\n- **Mid-page body:** Use discovery to identify the leadership question, evidence and operating scope an audit should resolve.\n- **Button:** Book a discovery call\n- **Final reassurance:** Bring a list of ideas, a vendor proposal or simply the pressure to act. The first discussion is designed to clarify the decision route.\n\n### Labels and notes\n\n- **Audit label:** Illustrative opportunity map\n- **Decision label:** Build · Buy · Configure · Defer · Leave alone\n- **Governance label:** Specialist review may be required\n- **Benchmark label:** External evidence—not Silverstone performance",
-      "featureCards": [],
-      "outcomeCards": [],
+      "featureCards": [
+        {
+          "label": "Opportunity before tooling",
+          "body": "Start with operating friction, value and ownership rather than product names."
+        },
+        {
+          "label": "Readiness made explicit",
+          "body": "Review data, systems, people, process and governance before implementation."
+        },
+        {
+          "label": "Build-versus-buy with trade-offs",
+          "body": "Compare control, time, dependency, cost and long-term operation."
+        },
+        {
+          "label": "A roadmap with decision gates",
+          "body": "Sequence enabling work and use cases by evidence, not enthusiasm."
+        }
+      ],
+      "outcomeCards": [
+        {
+          "label": "A prioritised opportunity set",
+          "body": "Separate credible first moves from expensive distractions."
+        },
+        {
+          "label": "Stronger investment decisions",
+          "body": "Understand what must be bought, configured, built or left alone."
+        },
+        {
+          "label": "Implementation-ready reasoning",
+          "body": "Carry requirements, controls, measures and ownership into delivery."
+        }
+      ],
       "processSteps": [
         {
           "label": "Frame the decision",

@@ -51,7 +51,7 @@ function h1(markdown) {
 
 function markdownBullets(markdown, sectionHeading) {
   const block = section(markdown, `### ${sectionHeading}`, "\n### ");
-  return [...block.matchAll(/^- \*\*(.+?):\*\*\s+(.+)$/gm)].map((match) => ({
+  return [...block.matchAll(/^- \*\*(.+?):?\*\*\s+(?:—\s+)?(.+)$/gm)].map((match) => ({
     label: match[1].trim(),
     body: match[2].trim(),
   }));
