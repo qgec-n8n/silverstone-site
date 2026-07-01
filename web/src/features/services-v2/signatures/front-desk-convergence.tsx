@@ -31,8 +31,8 @@ const channels = [
 ];
 
 const outcomes = [
-  { label: "Resolved automatically", y: 90 },
-  { label: "Handed to your team", y: 210 },
+  { lines: ["Resolved", "automatically"], y: 90 },
+  { lines: ["Handed to", "your team"], y: 210 },
 ];
 
 export function FrontDeskConvergence({
@@ -60,19 +60,22 @@ export function FrontDeskConvergence({
             </linearGradient>
           </defs>
 
-          {/* Channel inputs converging to the triage node */}
+          {/* Channel inputs converging to the triage node — the curve now runs
+              to x=298, a few units past the triage circle's own edge (310-20
+              = 290), so every channel visibly overlaps the node it feeds
+              into rather than just touching its boundary pixel. */}
           {channels.map((channel, index) => (
             <g key={channel.label}>
               {reducedMotion ? (
                 <path
-                  d={`M 96 ${String(channel.y)} C 200 ${String(channel.y)}, 220 150, 290 150`}
+                  d={`M 96 ${String(channel.y)} C 200 ${String(channel.y)}, 220 150, 298 150`}
                   fill="none"
                   stroke="url(#srv2-desk-accent)"
                   strokeWidth="2"
                 />
               ) : (
                 <m.path
-                  d={`M 96 ${String(channel.y)} C 200 ${String(channel.y)}, 220 150, 290 150`}
+                  d={`M 96 ${String(channel.y)} C 200 ${String(channel.y)}, 220 150, 298 150`}
                   fill="none"
                   stroke="url(#srv2-desk-accent)"
                   strokeWidth="2"
@@ -109,10 +112,10 @@ export function FrontDeskConvergence({
                 </foreignObject>
                 <text
                   x="64"
-                  y={channel.y + 44}
+                  y={channel.y + 46}
                   textAnchor="middle"
                   fill="var(--srv2-ink-faint)"
-                  fontSize="11"
+                  fontSize="14"
                   fontFamily="var(--ss-font-mono)"
                 >
                   {channel.label}
@@ -160,10 +163,10 @@ export function FrontDeskConvergence({
             />
             <text
               x="310"
-              y="196"
+              y="198"
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="12"
+              fontSize="15"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.04em"
             >
@@ -173,7 +176,7 @@ export function FrontDeskConvergence({
 
           {/* Divergence to outcomes */}
           {outcomes.map((outcome, index) => (
-            <g key={outcome.label}>
+            <g key={outcome.lines.join(" ")}>
               {reducedMotion ? (
                 <path
                   d={`M 330 150 C 400 150, 420 ${String(outcome.y)}, 500 ${String(outcome.y)}`}
@@ -231,13 +234,17 @@ export function FrontDeskConvergence({
               </foreignObject>
               <text
                 x="524"
-                y={outcome.y + 38}
+                y={outcome.y + 40}
                 textAnchor="middle"
                 fill="var(--srv2-ink-faint)"
-                fontSize="10.5"
+                fontSize="13"
                 fontFamily="var(--ss-font-mono)"
               >
-                {outcome.label}
+                {outcome.lines.map((line, lineIndex) => (
+                  <tspan key={line} x="524" dy={lineIndex === 0 ? 0 : 17}>
+                    {line}
+                  </tspan>
+                ))}
               </text>
             </g>
           ))}
@@ -263,9 +270,9 @@ export function FrontDeskConvergence({
             />
             <text
               x="40"
-              y="358"
+              y="360"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >
@@ -279,9 +286,9 @@ export function FrontDeskConvergence({
                 <g key={channel.label}>
                   <text
                     x="40"
-                    y={y - 8}
+                    y={y - 9}
                     fill="var(--srv2-ink-soft)"
-                    fontSize="11.5"
+                    fontSize="14"
                     fontFamily="var(--ss-font-body)"
                   >
                     {channel.label}

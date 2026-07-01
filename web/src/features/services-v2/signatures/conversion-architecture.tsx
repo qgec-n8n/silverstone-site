@@ -273,10 +273,10 @@ export function ConversionArchitecture({
                 />
                 <text
                   x={stage.x}
-                  y={392}
+                  y={394}
                   textAnchor="middle"
                   fill="var(--srv2-ink-soft)"
-                  fontSize="13"
+                  fontSize="17"
                   fontFamily="var(--ss-font-mono)"
                 >
                   {stage.label}
@@ -318,9 +318,9 @@ export function ConversionArchitecture({
             />
             <text
               x="40"
-              y="478"
+              y="480"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >
@@ -368,9 +368,9 @@ export function ConversionArchitecture({
                   )}
                   <text
                     textAnchor="middle"
-                    y={RING_RADIUS + 24}
+                    y={RING_RADIUS + 27}
                     fill="var(--srv2-ink-faint)"
-                    fontSize="11"
+                    fontSize="15"
                     fontFamily="var(--ss-font-mono)"
                     letterSpacing="0.02em"
                   >

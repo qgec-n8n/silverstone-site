@@ -52,10 +52,12 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
     accentTo: "#a97cc0",
     icon: PencilRuler,
     image: {
-      desktop: "/approved-images/general-services-1.png",
+      // general-services-1-mobile.png (portrait, 1696x2528) on both
+      // breakpoints — general-services-1.png (landscape) is no longer used.
+      desktop: "/approved-images/general-services-1-mobile.png",
       mobile: "/approved-images/general-services-1-mobile.png",
-      width: 2528,
-      height: 1696,
+      width: 1696,
+      height: 2528,
       alt: "Illustrative reception and enquiry-capture panel.",
     },
   },

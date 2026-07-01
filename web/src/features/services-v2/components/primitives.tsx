@@ -23,7 +23,11 @@ import {
   type ReactNode,
 } from "react";
 
-import { ArrowRight, type LucideIcon } from "~/components/icons/lucide";
+import {
+  ArrowRight,
+  TriangleAlertIcon,
+  type LucideIcon,
+} from "~/components/icons/lucide";
 
 const entranceEase = [0.22, 1, 0.36, 1] as const;
 
@@ -146,16 +150,43 @@ export function Reveal({
   className,
   delayMs = 0,
   kind = "section",
+  trigger = "viewport",
 }: {
   children: ReactNode;
   className?: string;
   delayMs?: number;
   kind?: RevealKind;
+  /**
+   * "viewport" (default): fires via whileInView, for content the user
+   * scrolls down to. "mount": fires via animate as soon as the component
+   * mounts, for content that's guaranteed to already be on screen (the
+   * secondary hero, which is sized to fill exactly one viewport) — for that
+   * content, whileInView's own viewport margin (shrunk 18% from the bottom,
+   * so scroll-triggered reveals don't fire the instant their top pixel
+   * appears) can end up excluding an element sitting near the hero's bottom
+   * edge, so it silently never fires without the user scrolling — exactly
+   * backwards for content that's already fully visible on load.
+   */
+  trigger?: "viewport" | "mount";
 }) {
   const reducedMotion = useReducedMotion() ?? false;
 
   if (reducedMotion) {
     return <div className={className}>{children}</div>;
+  }
+
+  if (trigger === "mount") {
+    return (
+      <m.div
+        className={className}
+        initial="hidden"
+        animate="show"
+        variants={revealVariants[kind]}
+        transition={transitionFor(kind, delayMs)}
+      >
+        {children}
+      </m.div>
+    );
   }
 
   return (
@@ -268,6 +299,45 @@ export function SectionHead({
         </Reveal>
       ) : null}
     </div>
+  );
+}
+
+/**
+ * The "problem" section's warning bullets, revealing one at a time top to
+ * bottom rather than as a single fade-in block — each line is its own claim
+ * about a cost the reader is paying right now, so it should land as its own
+ * beat. A y-offset (not x-offset) reveal, deliberately: it reads as "line
+ * dropping into place" rather than "sliding in from off-screen".
+ */
+export function WarningChecklist({ points }: { points: string[] }) {
+  const reducedMotion = useReducedMotion() ?? false;
+
+  return (
+    <ul className="ss-srv2-checklist" data-tone="warn">
+      {points.map((point, index) =>
+        reducedMotion ? (
+          <li key={point}>
+            <TriangleAlertIcon aria-hidden="true" />
+            <span>{point}</span>
+          </li>
+        ) : (
+          <m.li
+            key={point}
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ amount: 0.6, margin: "0px 0px -10% 0px", once: true }}
+            transition={{
+              delay: (index * 220) / 1000,
+              duration: 0.75,
+              ease: entranceEase,
+            }}
+          >
+            <TriangleAlertIcon aria-hidden="true" />
+            <span>{point}</span>
+          </m.li>
+        ),
+      )}
+    </ul>
   );
 }
 

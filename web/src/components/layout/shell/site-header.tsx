@@ -41,7 +41,7 @@ const TRIGGER_CLASS =
   "ss-focus-ring ss-transition-interactive relative inline-flex items-center gap-1 rounded-[var(--ss-radius-pill)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]";
 
 const ctaClass =
-  "ss-focus-ring ss-transition-interactive inline-flex min-h-11 items-center gap-1.5 rounded-[var(--ss-radius-pill)] bg-[var(--ss-v2-signal-cyan)] px-5 text-sm font-semibold text-[#05070a] hover:shadow-[var(--ss-v2-glow-cyan)]";
+  "ss-focus-ring ss-transition-interactive inline-flex min-h-11 items-center gap-1.5 rounded-[var(--ss-radius-pill)] bg-[image:var(--ss-v2-gradient-signal)] px-5 text-sm font-semibold text-[#05070a] hover:shadow-[var(--ss-v2-glow-cyan)]";
 
 const headerMotionVariants: Variants = {
   rest: {

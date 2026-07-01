@@ -19,14 +19,19 @@ import {
   Smartphone,
   Sparkles,
   TrendingUp,
-  TriangleAlertIcon,
   UserCheck,
   Workflow,
 } from "~/components/icons/lucide";
 
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
-import { Prose, Reveal, RichText, SectionHead } from "../components/primitives";
+import {
+  Prose,
+  Reveal,
+  RichText,
+  SectionHead,
+  WarningChecklist,
+} from "../components/primitives";
 import { SecondaryHero } from "../components/secondary-hero";
 import {
   BenchmarkConsole,
@@ -108,16 +113,7 @@ export function WebDesignComposition({
           <Reveal kind="section">
             <Prose paragraphs={[copy.problem.body]} />
           </Reveal>
-          <Reveal kind="section" delayMs={90}>
-            <ul className="ss-srv2-checklist" data-tone="warn">
-              {copy.problem.painPoints.map((point) => (
-                <li key={point}>
-                  <TriangleAlertIcon aria-hidden="true" />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          <WarningChecklist points={copy.problem.painPoints} />
         </div>
       </section>
 

@@ -80,26 +80,27 @@ export function EditorialIntelligence({
             </foreignObject>
             <text
               x="62"
-              y="200"
+              y="202"
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
             >
               Source
             </text>
           </m.g>
 
-          {/* Path to gate */}
+          {/* Path to gate — reaches the gate's own inner-circle edge (240-22=218),
+              not just partway, so the two nodes read as genuinely connected. */}
           {reducedMotion ? (
             <path
-              d="M94 150 H210"
+              d="M94 150 H218"
               stroke="url(#srv2-editorial-accent)"
               strokeWidth="2"
             />
           ) : (
             <m.path
-              d="M94 150 H210"
+              d="M94 150 H218"
               stroke="url(#srv2-editorial-accent)"
               strokeWidth="2"
               initial={{ pathLength: 0 }}
@@ -148,10 +149,10 @@ export function EditorialIntelligence({
             />
             <text
               x="240"
-              y="196"
+              y="198"
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="11.5"
+              fontSize="13.5"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.03em"
             >
@@ -212,9 +213,9 @@ export function EditorialIntelligence({
                 </foreignObject>
                 <text
                   x="500"
-                  y={channel.y + 4}
+                  y={channel.y + 5}
                   fill="var(--srv2-ink-soft)"
-                  fontSize="12"
+                  fontSize="14"
                   fontFamily="var(--ss-font-body)"
                 >
                   {channel.label}
@@ -244,9 +245,9 @@ export function EditorialIntelligence({
             />
             <text
               x="30"
-              y="348"
+              y="350"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >
@@ -282,9 +283,9 @@ export function EditorialIntelligence({
                 />
                 <text
                   x="42"
-                  y="30"
+                  y="31"
                   fill="var(--ss-v2-chrome)"
-                  fontSize="12"
+                  fontSize="14"
                   fontWeight="600"
                   fontFamily="var(--ss-font-display)"
                 >
@@ -320,7 +321,7 @@ export function EditorialIntelligence({
                   x="44"
                   y="119"
                   fill="var(--srv2-ink-soft)"
-                  fontSize="10.5"
+                  fontSize="12.5"
                   fontFamily="var(--ss-font-mono)"
                 >
                   {item.channel}

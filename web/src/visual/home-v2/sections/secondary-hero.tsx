@@ -123,7 +123,7 @@ export function SecondaryHero() {
             </ul>
             <div className="ss-hv2-secondary__actions flex flex-wrap items-center gap-4 pt-1">
               <Reveal delayMs={440} kind="cta">
-                <Button asChild size="lg" variant="accent">
+                <Button asChild size="lg" variant="accent" className="ss-btn-signal">
                   <Link to="/book">Book a free audit</Link>
                 </Button>
               </Reveal>

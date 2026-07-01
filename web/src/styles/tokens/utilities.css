@@ -95,11 +95,19 @@
     color-scheme: light;
     font-family: var(--ss-font-body);
     scroll-padding-top: 6rem;
+    /* Hard guard against horizontal scroll: with cinematic entrance motion
+       across the site translating elements in from an off-position (hero
+       copy, footer columns) before settling to x: 0, a hairline of scrollable
+       overflow during that transition is an easy, easy-to-miss regression —
+       neither html nor body had an explicit overflow-x anywhere before this,
+       so nothing stopped it from becoming a real, scrollable page width. */
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground min-h-screen antialiased;
     margin: 0;
+    overflow-x: hidden;
     text-rendering: optimizeLegibility;
   }
 
@@ -214,6 +222,26 @@
   .ss-card-surface {
     background: var(--ss-color-surface-raised);
     box-shadow: var(--ss-shadow-sm);
+  }
+
+  /*
+   * The site's one "book a call" action, wherever its copy varies ("Book a
+   * discovery call", "Book a free audit"). background-image (not the plain
+   * bg-[var(...)] the accent Button variant uses elsewhere) so it layers a
+   * genuine multi-stop brand gradient over the solid accent colour rather
+   * than replacing it outright — a flat single hue read as generic here.
+   */
+  .ss-btn-signal {
+    background-image: var(--ss-v2-gradient-signal);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--ss-v2-signal-cyan) 40%, transparent),
+      0 18px 42px -18px color-mix(in srgb, var(--ss-v2-signal-violet) 65%, transparent);
+  }
+
+  .ss-btn-signal:hover {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--ss-v2-signal-cyan) 60%, transparent),
+      0 24px 54px -18px color-mix(in srgb, var(--ss-v2-signal-violet) 80%, transparent);
   }
 
   .ss-focus-ring:focus-visible {

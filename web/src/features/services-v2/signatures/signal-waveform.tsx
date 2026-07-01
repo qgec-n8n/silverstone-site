@@ -149,10 +149,10 @@ export function SignalWaveform({
               />
               <text
                 x={state.x}
-                y="272"
+                y="276"
                 textAnchor="middle"
                 fill="var(--srv2-ink-soft)"
-                fontSize="13"
+                fontSize="17"
                 fontFamily="var(--ss-font-mono)"
               >
                 {state.label}
@@ -172,9 +172,9 @@ export function SignalWaveform({
           >
             <text
               x="40"
-              y="336"
+              y="338"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >

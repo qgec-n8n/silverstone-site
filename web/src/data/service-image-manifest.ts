@@ -93,13 +93,13 @@ export const serviceImageUses: ServiceImageUse[] = [
   {
     route: "/services/web-design-development",
     section: "conversion system panel",
-    desktopAsset: "general-services-1.png",
+    desktopAsset: "general-services-1-mobile.png",
     mobileAsset: "general-services-1-mobile.png",
     rationale:
-      "Shows a premium enquiry-capture panel that supports website conversion-system messaging.",
+      "Shows a premium enquiry-capture panel that supports website conversion-system messaging. Uses the portrait crop on both breakpoints — the landscape general-services-1.png is no longer used on this route.",
     alt: "Illustrative reception and enquiry capture panel.",
     sourceType: "approved-zip",
-    desktopDimensions: { width: 2528, height: 1696 },
+    desktopDimensions: { width: 1696, height: 2528 },
     mobileDimensions: { width: 1696, height: 2528 },
     loading: "eager",
   },

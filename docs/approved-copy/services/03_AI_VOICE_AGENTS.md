@@ -310,7 +310,7 @@ Review **How We Work** for the delivery route, **Pricing** for the scoping model
 
 - **Eyebrow:** Published benchmark evidence
 - **Metric 1:** <10 seconds — reported response time
-- **Metric 2:** 15 hours/week — reported staff time saved
+- **Metric 2:** 15 hrs/week — reported staff time saved
 - **Metric 3:** +22% — reported increase in new-patient bookings
 - **Caption:** External voice-agent cases illustrate possible impact categories. They are not Silverstone results or forecasts.
 

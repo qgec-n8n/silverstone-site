@@ -16,11 +16,16 @@ import {
   ShieldCheck,
   Sparkles,
   TrendingUp,
-  TriangleAlertIcon,
   UserCheck,
 } from "~/components/icons/lucide";
 
-import { Highlight, Reveal, RichText, SectionHead } from "../components/primitives";
+import {
+  Highlight,
+  Reveal,
+  RichText,
+  SectionHead,
+  WarningChecklist,
+} from "../components/primitives";
 import { SecondaryHero } from "../components/secondary-hero";
 import {
   BenchmarkConsole,
@@ -105,16 +110,7 @@ export function ContentCreationComposition({
               <RichText text={copy.problem.body} />
             </p>
           </Reveal>
-          <Reveal kind="section" delayMs={90}>
-            <ul className="ss-srv2-checklist" data-tone="warn">
-              {copy.problem.painPoints.map((point) => (
-                <li key={point}>
-                  <TriangleAlertIcon aria-hidden="true" />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          <WarningChecklist points={copy.problem.painPoints} />
         </div>
       </section>
 

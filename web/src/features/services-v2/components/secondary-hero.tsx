@@ -13,6 +13,18 @@ import type { LucideIcon } from "~/components/icons/lucide";
 
 import { Eyebrow, Reveal, RichText, ServiceButton } from "./primitives";
 
+/**
+ * The route intro overlay (see `route-experience-frame.tsx`) fades out over
+ * 500ms starting the instant the body becomes visible — the same instant this
+ * hero's `whileInView` reveals fire, since the body goes from `display: none`
+ * to laid-out in that same moment. Without an offsetting base delay, every
+ * reveal below would start (and mostly finish) while still hidden behind that
+ * fading overlay, so the user never sees the motion, only the settled result.
+ * 560ms clears the overlay with a small safety margin before the first reveal
+ * (the eyebrow) begins, so the full sequence plays in the open.
+ */
+const HERO_REVEAL_BASE_DELAY = 560;
+
 /** Animated scroll cue, identical to the homepage body cue. */
 export function ScrollCue() {
   return (
@@ -40,10 +52,9 @@ function CapabilityPoint({ text, index }: { text: string; index: number }) {
     <m.li
       className="ss-srv2-hero__cap"
       initial={{ opacity: 0, x: -18 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.5 }}
+      animate={{ opacity: 1, x: 0 }}
       transition={{
-        delay: (420 + index * 100) / 1000,
+        delay: (HERO_REVEAL_BASE_DELAY + 420 + index * 100) / 1000,
         duration: 0.85,
         ease: [0.22, 1, 0.36, 1],
       }}
@@ -51,49 +62,6 @@ function CapabilityPoint({ text, index }: { text: string; index: number }) {
       {content}
     </m.li>
   );
-}
-
-/**
- * Measures the space consumed above the hero (fixed header + breadcrumb row +
- * route-frame padding — there is no single fixed constant for this, since it
- * comes from a shared frame the hero doesn't control) and exposes it as
- * `--srv2-hero-offset`, so the hero's height can resolve to exactly one
- * viewport regardless of what a future frame change does to that space.
- */
-function useHeroViewportOffset(): RefObject<HTMLElement | null> {
-  const ref = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) {
-      return undefined;
-    }
-
-    let frame = 0;
-    const timeouts: ReturnType<typeof setTimeout>[] = [];
-    const measure = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const offset = node.getBoundingClientRect().top + window.scrollY;
-        node.style.setProperty("--srv2-hero-offset", `${String(offset)}px`);
-      });
-    };
-
-    // The route intro -> body transition (and its own entrance reveals) can
-    // still be settling on first mount, so a single measurement can catch a
-    // transient position. Re-measure a couple of times shortly after as those
-    // settle, rather than trusting only the first frame.
-    measure();
-    timeouts.push(setTimeout(measure, 200), setTimeout(measure, 700));
-    window.addEventListener("resize", measure);
-    return () => {
-      cancelAnimationFrame(frame);
-      timeouts.forEach(clearTimeout);
-      window.removeEventListener("resize", measure);
-    };
-  }, []);
-
-  return ref;
 }
 
 /**
@@ -156,27 +124,30 @@ export function SecondaryHero({
   primaryCtaLabel: string;
   showcase: ReactNode;
 }) {
-  const heroRef = useHeroViewportOffset();
   const { introRef, showcaseRef } = useMatchIntroHeight();
 
   return (
-    <section
-      className="ss-srv2-section ss-srv2-hero"
-      aria-labelledby={titleId}
-      ref={heroRef}
-    >
+    <section className="ss-srv2-section ss-srv2-hero" aria-labelledby={titleId}>
       <div className="ss-srv2__container">
         <div className="ss-srv2-hero__grid">
           <div className="ss-srv2-hero__intro" ref={introRef}>
-            <Reveal kind="pill">
+            <Reveal kind="pill" delayMs={HERO_REVEAL_BASE_DELAY} trigger="mount">
               <Eyebrow icon={icon}>{eyebrow}</Eyebrow>
             </Reveal>
-            <Reveal kind="section" delayMs={140}>
+            <Reveal
+              kind="section"
+              delayMs={HERO_REVEAL_BASE_DELAY + 140}
+              trigger="mount"
+            >
               <h1 className="ss-srv2-hero__title" id={titleId}>
                 {title}
               </h1>
             </Reveal>
-            <Reveal kind="section" delayMs={280}>
+            <Reveal
+              kind="section"
+              delayMs={HERO_REVEAL_BASE_DELAY + 280}
+              trigger="mount"
+            >
               <p className="ss-srv2-hero__lead">
                 <RichText text={lead} />
               </p>
@@ -186,7 +157,7 @@ export function SecondaryHero({
                 <CapabilityPoint key={point} text={point} index={index} />
               ))}
             </ul>
-            <Reveal kind="cta" delayMs={750}>
+            <Reveal kind="cta" delayMs={HERO_REVEAL_BASE_DELAY + 750} trigger="mount">
               <div className="ss-srv2-hero__actions">
                 <ServiceButton href="/book" variant="primary">
                   {primaryCtaLabel}
@@ -199,7 +170,7 @@ export function SecondaryHero({
           </div>
 
           <div className="ss-srv2-hero__showcase" ref={showcaseRef}>
-            <Reveal kind="image" delayMs={220}>
+            <Reveal kind="image" delayMs={HERO_REVEAL_BASE_DELAY + 220} trigger="mount">
               {showcase}
             </Reveal>
           </div>

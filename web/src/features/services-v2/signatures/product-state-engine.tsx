@@ -112,7 +112,7 @@ export function ProductStateEngine({
                 x="112"
                 y={layer.y - 4}
                 fill="var(--ss-v2-chrome)"
-                fontSize="15"
+                fontSize="17"
                 fontWeight="600"
                 fontFamily="var(--ss-font-display)"
               >
@@ -120,9 +120,9 @@ export function ProductStateEngine({
               </text>
               <text
                 x="112"
-                y={layer.y + 16}
+                y={layer.y + 17}
                 fill="var(--srv2-ink-faint)"
-                fontSize="12"
+                fontSize="14"
                 fontFamily="var(--ss-font-mono)"
               >
                 {layer.detail}
@@ -134,9 +134,9 @@ export function ProductStateEngine({
           <g transform="translate(430, 48)">
             <text
               x="0"
-              y="-14"
+              y="-16"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >
@@ -172,9 +172,9 @@ export function ProductStateEngine({
                 )}
                 <text
                   x="20"
-                  y="5"
+                  y="6"
                   fill="var(--ss-v2-chrome)"
-                  fontSize="14"
+                  fontSize="16"
                   fontFamily="var(--ss-font-body)"
                 >
                   {state.label}
@@ -204,9 +204,9 @@ export function ProductStateEngine({
             />
             <text
               x="60"
-              y="448"
+              y="450"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >
@@ -277,9 +277,9 @@ export function ProductStateEngine({
                   ) : null}
                   <text
                     textAnchor="middle"
-                    y="32"
+                    y="34"
                     fill="var(--srv2-ink-soft)"
-                    fontSize="12"
+                    fontSize="15"
                     fontFamily="var(--ss-font-mono)"
                   >
                     {stage.label}

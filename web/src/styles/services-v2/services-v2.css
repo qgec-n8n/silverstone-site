@@ -201,29 +201,42 @@
 
 /*
  * Fills exactly one viewport beneath the fixed header, mirroring the
- * homepage's .ss-hv2-secondary mechanism: a flex column whose grid takes the
- * remaining space and whose scroll cue pins to the bottom via margin-top:
- * auto, so nothing from the next section bleeds into view.
+ * homepage's .ss-hv2-secondary mechanism precisely: a static calc() against
+ * 100dvh, no runtime JS measurement. Unlike the homepage, this hero sits
+ * beneath a shared route frame (fixed header + breadcrumb row + frame
+ * padding), so a plain header-height subtraction isn't enough on its own —
+ * --srv2-hero-chrome composes every fixed layout constant that sits above the
+ * hero (header height, the frame's own block padding, the breadcrumb row's
+ * Stack gap and line height) so the subtraction stays correct even if those
+ * tokens change later. Every term is a fixed design-system constant (never
+ * per-page content), because the breadcrumb row is always exactly one line at
+ * these widths — verified empirically across all 7 routes at 1280–1920px.
  *
- * Unlike the homepage, this hero sits beneath a shared route frame (fixed
- * header + breadcrumb row + frame padding), so a plain header-height subtraction
- * isn't enough — --srv2-hero-offset is measured at runtime by SecondaryHero
- * (see secondary-hero.tsx) to the exact space that frame consumes. The
- * fallback here is only what renders before that measurement lands.
- *
- * min-height (not height): on ordinary viewports the content comfortably fits
- * this floor and the section reads as exactly one screen. On unusually short
- * viewports (a cramped laptop window, an extreme zoom level) with a page that
- * has a long title, it's better for the section to grow a little taller than
- * one screen than to clip content or overlap the scroll cue — so nothing here
- * forces children to shrink below their content (no min-height: 0 escape
- * hatches on the flex/grid chain below).
+ * height AND min-height (not just min-height): the hero must never exceed one
+ * viewport, so this is a hard cap, not a floor a page's content can grow past.
+ * overflow: hidden backstops the rare case (e.g. a non-Latin locale, extreme
+ * OS font-size overrides) where the fluid type below still doesn't leave
+ * quite enough room — clipping a sliver beats pushing the trust bar down.
  */
 .ss-srv2-hero {
+  --srv2-hero-chrome: calc(
+    var(--ss-layout-header) + var(--ss-layout-section-mobile) + 2rem + 1.5rem
+  );
+
   display: flex;
   flex-direction: column;
-  min-height: calc(100dvh - var(--srv2-hero-offset, 9.5rem));
+  height: calc(100dvh - var(--srv2-hero-chrome));
+  min-height: calc(100dvh - var(--srv2-hero-chrome));
+  overflow: hidden;
   padding-block: clamp(0.85rem, 0.5rem + 2vh, 1.75rem);
+}
+
+@media (min-width: 64rem) {
+  .ss-srv2-hero {
+    --srv2-hero-chrome: calc(
+      var(--ss-layout-header) + var(--ss-layout-section-desktop) + 2rem + 1.5rem
+    );
+  }
 }
 
 .ss-srv2-hero > .ss-srv2__container {
@@ -274,15 +287,26 @@
      space, start-alignment overflows downward (toward the scroll cue)
      instead of upward (behind the fixed header). */
   justify-content: flex-start;
-  gap: clamp(0.8rem, 0.45rem + 1.1vh, 1.35rem);
+  gap: clamp(0.65rem, 0.3rem + 1vh, 1.2rem);
 }
 
+/*
+ * Title copy runs 7–13 words across the 7 pages, so a purely width-driven
+ * clamp (the old formula) hits its ceiling by ~1440px width regardless of
+ * viewport height — at that width the longer titles wrap one line taller
+ * than the shorter ones, which is exactly what pushed the hero past the
+ * viewport at common laptop sizes (1440x900, 1366x768). Anchoring to vh as
+ * well as vw means the size actually keeps shrinking as height gets tighter,
+ * not just as width gets narrower, so the wrap-count difference between the
+ * longest and shortest titles stops mattering at the sizes that were
+ * overflowing.
+ */
 .ss-srv2-hero__title {
   margin: 0;
   font-family: var(--ss-font-display);
   font-weight: 600;
-  font-size: clamp(2.25rem, 1.55rem + 2.6vw, 3.5rem);
-  line-height: 1.06;
+  font-size: clamp(1.85rem, 0.85rem + 1.3vw + 1.6vh, 3.35rem);
+  line-height: 1.05;
   letter-spacing: -0.03em;
   color: var(--ss-v2-chrome);
   max-width: 27ch;
@@ -293,14 +317,14 @@
   margin: 0;
   max-width: var(--srv2-measure);
   color: var(--srv2-ink-soft);
-  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
-  line-height: 1.56;
+  font-size: clamp(0.95rem, 0.82rem + 0.3vw + 0.4vh, 1.15rem);
+  line-height: 1.52;
 }
 
 .ss-srv2-hero__caps {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: clamp(0.35rem, 0.15rem + 0.5vh, 0.65rem);
   margin: 0.15rem 0 0;
   padding: 0;
   list-style: none;
@@ -377,35 +401,6 @@
   }
 }
 
-/*
- * Short-viewport override (a laptop window with browser chrome, a lower-res
- * display): the title/lead/gaps above are sized generously for typical
- * desktop heights, so on a constrained one, tighten them directly rather than
- * fold every dimension into one clamp() formula. Mirrors the equivalent
- * min-width/max-height override already used for the homepage's own
- * secondary hero (home-v2.css). Must come after the base rules above to win
- * the specificity tie-break.
- */
-@media (min-width: 64rem) and (max-height: 850px) {
-  .ss-srv2-hero__intro {
-    gap: 0.6rem;
-  }
-
-  .ss-srv2-hero__title {
-    font-size: clamp(1.9rem, 1.2rem + 1.8vw, 2.7rem);
-    max-width: 30ch;
-  }
-
-  .ss-srv2-hero__lead {
-    font-size: 0.92rem;
-    line-height: 1.46;
-  }
-
-  .ss-srv2-hero__caps {
-    gap: 0.4rem;
-  }
-}
-
 /* ---- Buttons ----------------------------------------------------------- */
 
 .ss-srv2-btn {
@@ -441,23 +436,26 @@
  * page's own decorative accent colour (used elsewhere for icons, eyebrows,
  * glows). Matches the nav CTA's signal-cyan exactly.
  */
+/*
+ * Each service page's own two-tone accent (--srv2-accent/-2, set per route in
+ * route-art.ts from the cinematic spectral palette) — not a single flat
+ * colour. A uniform flat cyan read as generic; this is what the button looked
+ * like before that flattening and is the intentional, premium, on-brand
+ * treatment for every "Book a discovery call" action in the body.
+ */
 .ss-srv2-btn--primary {
   color: #05070a;
-  background: linear-gradient(
-    120deg,
-    var(--ss-v2-signal-cyan),
-    var(--ss-v2-signal-cyan-soft)
-  );
+  background: linear-gradient(120deg, var(--srv2-accent), var(--srv2-accent-2));
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--ss-v2-signal-cyan) 40%, transparent),
-    0 18px 42px -18px color-mix(in srgb, var(--ss-v2-signal-cyan) 70%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 40%, transparent),
+    0 18px 42px -18px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
 }
 
 .ss-srv2-btn--primary:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--ss-v2-signal-cyan) 60%, transparent),
-    0 24px 54px -18px color-mix(in srgb, var(--ss-v2-signal-cyan) 85%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 60%, transparent),
+    0 24px 54px -18px color-mix(in srgb, var(--srv2-accent) 85%, transparent);
 }
 
 .ss-srv2-btn--primary:hover svg {
@@ -530,9 +528,7 @@
 .ss-srv2-split {
   display: grid;
   gap: clamp(1.75rem, 1.25rem + 2.5vw, 3.5rem);
-  /* Stretch (not center) so the image/card column's bottom edge lines up with
-     the copy column's bottom edge whenever they share a row. */
-  align-items: stretch;
+  align-items: start;
   grid-template-columns: 1fr;
 }
 
@@ -548,22 +544,32 @@
 
 @media (min-width: 62rem) {
   .ss-srv2-split {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 34rem);
+    /* Copy length varies a lot page to page (some carry an extra comparison
+       block, some don't), so the two columns are rarely the same height. The
+       photo must never be stretched or cropped to force-match that height
+       (see .ss-srv2-figure below), so instead of stretching it to the row —
+       which left a visible gap of the card's own background wherever the
+       photo's natural height fell short — it's centred against whatever
+       height the copy column ends up being. */
+    align-items: center;
   }
   .ss-srv2-split[data-flip="true"] > :first-child {
     order: 2;
   }
 }
 
+/*
+ * Sized entirely by the photo's own natural aspect ratio — width bounded by
+ * the grid column (see .ss-srv2-split), height: auto. Never a separately
+ * sized box the photo is stretched or cropped to fit: the card IS the photo's
+ * own dimensions, so there is no box for it to fall short of and no
+ * background to show through.
+ */
 .ss-srv2-figure {
   position: relative;
   margin: 0;
-  /* Fills the stretched grid row (see .ss-srv2-split/.ss-srv2-hero__grid);
-     resolves to auto when the row height is indefinite (single-column mobile),
-     so this never fights natural sizing there. */
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   border-radius: var(--ss-radius-xl);
   border: 1px solid var(--srv2-hairline);
   background: var(--ss-v2-graphite);
@@ -587,11 +593,12 @@
   display: block;
   width: 100%;
   height: auto;
-  /* When the figure is stretched taller/shorter than the photo's native ratio,
-     grow to fill it and crop gracefully rather than leaving gaps. */
-  flex: 1 1 auto;
-  min-height: 12rem;
-  object-fit: cover;
+  /* No crop, ever: width is the only constraint (the grid column, see
+     .ss-srv2-split), height follows the photo's own natural ratio. contain
+     rather than cover — belt and braces so a future source with a different
+     ratio would letterbox rather than silently crop, though width + auto
+     height already means there is nothing here for cover to crop. */
+  object-fit: contain;
 }
 
 /* ---- Capability & outcome cards ---------------------------------------- */
@@ -1348,16 +1355,25 @@
   color: var(--ss-v2-chrome);
 }
 
+/*
+ * Wraps over up to 2 lines rather than truncating with an ellipsis: several
+ * pages' real benchmark labels ("Reported conversion increase", "Reported
+ * staff time saved") don't fit on one line at this column width, and cutting
+ * them off mid-word read as broken. The stage above has flex: 1 / min-height:
+ * 0 (see .ss-srv2-signature__stage), so when this block grows to 2 lines the
+ * stage simply cedes that space — no fixed heights to fight.
+ */
 .ss-srv2-signature__metric-label {
+  display: -webkit-box;
   overflow: hidden;
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
   font-size: 0.64rem;
   line-height: 1.35;
   letter-spacing: 0.02em;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   text-transform: uppercase;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 /* ---- Signature chrome (shared corner brackets + scanning sweep) -------- */

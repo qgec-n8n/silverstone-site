@@ -10,12 +10,27 @@
  */
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
+import { useState } from "react";
 
 import {
   SignatureChrome,
   SignatureMetricStrip,
   SignatureStatusBar,
 } from "./signature-chrome";
+
+const TIER_COLUMNS = [90, 300, 510];
+
+/**
+ * A fresh random column at each of the 3 tiers, so the signal threads a
+ * different set of nodes every cycle — "orchestration" reads as genuinely
+ * flexible routing (any trigger can reach any outcome) rather than one
+ * column locked top-to-bottom forever.
+ */
+function randomTierPath(): [number, number, number] {
+  const pick = () =>
+    TIER_COLUMNS[Math.floor(Math.random() * TIER_COLUMNS.length)] ?? 90;
+  return [pick(), pick(), pick()];
+}
 
 const topRow = [
   { label: "Trigger", x: 90 },
@@ -51,6 +66,8 @@ export function OrchestrationLattice({
     ...middleRow.map((n) => ({ ...n, y: MIDDLE_Y })),
     ...outcomeRow.map((n) => ({ ...n, y: OUTCOME_Y })),
   ];
+  const [tierPath, setTierPath] = useState<[number, number, number]>(randomTierPath);
+  const [routeCycle, setRouteCycle] = useState(0);
 
   return (
     <div
@@ -138,17 +155,25 @@ export function OrchestrationLattice({
                 style={{ filter: "drop-shadow(0 0 6px var(--srv2-accent))" }}
               />
               <m.circle
-                cx="510"
+                key={routeCycle}
                 r="5"
                 fill="var(--srv2-accent-2)"
-                initial={{ cy: TOP_Y, opacity: 0 }}
-                animate={{ cy: [TOP_Y, MIDDLE_Y, OUTCOME_Y], opacity: [0, 1, 1, 0] }}
+                initial={{ cx: tierPath[0], cy: TOP_Y, opacity: 0 }}
+                animate={{
+                  cx: tierPath,
+                  cy: [TOP_Y, MIDDLE_Y, OUTCOME_Y],
+                  opacity: [0, 1, 1, 0],
+                }}
                 transition={{
                   duration: 1.8,
-                  repeat: Infinity,
-                  repeatDelay: 2.4,
-                  delay: 2.2,
+                  delay: routeCycle === 0 ? 2.2 : 0,
                   ease: "easeInOut",
+                }}
+                onAnimationComplete={() => {
+                  window.setTimeout(() => {
+                    setTierPath(randomTierPath());
+                    setRouteCycle((cycle) => cycle + 1);
+                  }, 2400);
                 }}
                 style={{ filter: "drop-shadow(0 0 6px var(--srv2-accent-2))" }}
               />
@@ -194,10 +219,10 @@ export function OrchestrationLattice({
             />
             <text
               x={HUB.x}
-              y={HUB.y + 44}
+              y={HUB.y + 46}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.04em"
             >
@@ -231,10 +256,10 @@ export function OrchestrationLattice({
               />
               <text
                 x={node.x}
-                y={node.y === TOP_Y ? node.y - 20 : node.y + 32}
+                y={node.y === TOP_Y ? node.y - 22 : node.y + 34}
                 textAnchor="middle"
                 fill="var(--srv2-ink-soft)"
-                fontSize="12"
+                fontSize="15"
                 fontFamily="var(--ss-font-mono)"
               >
                 {node.label}
@@ -247,7 +272,7 @@ export function OrchestrationLattice({
             x="40"
             y={TOP_Y - 40}
             fill="var(--srv2-ink-faint)"
-            fontSize="10.5"
+            fontSize="14"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.08em"
           >
@@ -257,7 +282,7 @@ export function OrchestrationLattice({
             x="40"
             y={OUTCOME_Y - 40}
             fill="var(--srv2-ink-faint)"
-            fontSize="10.5"
+            fontSize="14"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.08em"
           >

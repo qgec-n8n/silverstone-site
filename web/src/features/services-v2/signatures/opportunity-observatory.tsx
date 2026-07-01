@@ -112,7 +112,7 @@ export function OpportunityObservatory({
             y="14"
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="11"
+            fontSize="13"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.06em"
           >
@@ -120,10 +120,10 @@ export function OpportunityObservatory({
           </text>
           <text
             x="315"
-            y="315"
+            y="317"
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="11"
+            fontSize="13"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.06em"
           >
@@ -131,10 +131,10 @@ export function OpportunityObservatory({
           </text>
           <text
             x="66"
-            y="164"
+            y="166"
             textAnchor="start"
             fill="var(--srv2-ink-faint)"
-            fontSize="11"
+            fontSize="13"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.04em"
           >
@@ -142,10 +142,10 @@ export function OpportunityObservatory({
           </text>
           <text
             x="564"
-            y="164"
+            y="166"
             textAnchor="end"
             fill="var(--srv2-ink-faint)"
-            fontSize="11"
+            fontSize="13"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.04em"
           >
@@ -165,10 +165,10 @@ export function OpportunityObservatory({
                 />
                 <text
                   x={point.x}
-                  y={point.y - 22}
+                  y={point.y - 24}
                   textAnchor="middle"
                   fill="var(--ss-v2-chrome)"
-                  fontSize="13"
+                  fontSize="15"
                   fontWeight="600"
                   fontFamily="var(--ss-font-display)"
                 >
@@ -176,10 +176,10 @@ export function OpportunityObservatory({
                 </text>
                 <text
                   x={point.x}
-                  y={point.y + 32}
+                  y={point.y + 34}
                   textAnchor="middle"
                   fill="var(--srv2-ink-faint)"
-                  fontSize="10.5"
+                  fontSize="12"
                   fontFamily="var(--ss-font-mono)"
                 >
                   {point.decision}
@@ -231,10 +231,10 @@ export function OpportunityObservatory({
                 </circle>
                 <text
                   x={point.x}
-                  y={point.y - 22}
+                  y={point.y - 24}
                   textAnchor="middle"
                   fill="var(--ss-v2-chrome)"
-                  fontSize="13"
+                  fontSize="15"
                   fontWeight="600"
                   fontFamily="var(--ss-font-display)"
                 >
@@ -242,10 +242,10 @@ export function OpportunityObservatory({
                 </text>
                 <text
                   x={point.x}
-                  y={point.y + 32}
+                  y={point.y + 34}
                   textAnchor="middle"
                   fill="var(--srv2-ink-faint)"
-                  fontSize="10.5"
+                  fontSize="12"
                   fontFamily="var(--ss-font-mono)"
                 >
                   {point.decision}
@@ -275,9 +275,9 @@ export function OpportunityObservatory({
             />
             <text
               x="60"
-              y="368"
+              y="370"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >
@@ -299,10 +299,10 @@ export function OpportunityObservatory({
                   />
                   <text
                     x="76"
-                    y={y}
+                    y={y + 1}
                     textAnchor="middle"
                     fill="var(--ss-v2-chrome)"
-                    fontSize="12"
+                    fontSize="14"
                     fontWeight="600"
                     fontFamily="var(--ss-font-display)"
                   >
@@ -312,7 +312,7 @@ export function OpportunityObservatory({
                     x="100"
                     y={y}
                     fill="var(--srv2-ink-soft)"
-                    fontSize="12.5"
+                    fontSize="15"
                     fontFamily="var(--ss-font-body)"
                   >
                     {item.label}
