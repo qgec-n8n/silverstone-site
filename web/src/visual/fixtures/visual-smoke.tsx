@@ -10,12 +10,6 @@ import { ToolsCarousel, type ToolEntry } from "~/visual/components/tools-carouse
 import { IndustryInstrument } from "~/visual/components/industry-instrument";
 import { ServicesDecisionMatrix } from "~/visual/components/services-decision-matrix";
 import { IndustriesAtlas } from "~/visual/components/industries-atlas";
-import { ConversionPathLens } from "~/visual/components/signatures/conversion-path-lens";
-import { ProductStateStack } from "~/visual/components/signatures/product-state-stack";
-import { CallFlowOscilloscope } from "~/visual/components/signatures/call-flow-oscilloscope";
-import { FrontDeskConvergence } from "~/visual/components/signatures/front-desk-convergence";
-import { EditorialLoom } from "~/visual/components/signatures/editorial-loom";
-import { ProcessLattice } from "~/visual/components/signatures/process-lattice";
 
 const EXAMPLE_SCENARIO: DemoScenario = {
   id: "smoke-conversion-path",
@@ -66,16 +60,6 @@ export default function VisualSmoke() {
       <main>
         <HomeHero />
         <ServicesOverview />
-
-        <section>
-          <h2>Page signatures</h2>
-          <ConversionPathLens />
-          <ProductStateStack />
-          <CallFlowOscilloscope />
-          <FrontDeskConvergence />
-          <EditorialLoom />
-          <ProcessLattice />
-        </section>
 
         <section>
           <h2>Services decision matrix</h2>

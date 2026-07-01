@@ -30,6 +30,12 @@ type RoutePageFrameProps = {
   entryExperience?: boolean;
   route: FutureRouteRecord;
   showRelated?: boolean;
+  /**
+   * When false, the default eyebrow + H1 + description header is suppressed so a
+   * bespoke body (e.g. services-v2) can own the single visible H1. Breadcrumbs,
+   * schema and layout are preserved.
+   */
+  showHeader?: boolean;
 };
 
 export function RoutePageFrame({
@@ -40,6 +46,7 @@ export function RoutePageFrame({
   entryExperience = true,
   route,
   showRelated = true,
+  showHeader = true,
 }: RoutePageFrameProps) {
   const routeById = new Map(
     futureRouteManifest.map((candidate) => [candidate.id, candidate]),
@@ -81,13 +88,15 @@ export function RoutePageFrame({
               </BreadcrumbList>
             </Breadcrumb>
 
-            <RevealSection enabled={motionEnabled}>
-              <Stack className="max-w-4xl" gap="lg">
-                <span className="ss-eyebrow text-muted-foreground">{eyebrow}</span>
-                <h1 className="text-h1">{route.h1}</h1>
-                <p className="ss-lead text-muted-foreground">{route.description}</p>
-              </Stack>
-            </RevealSection>
+            {showHeader ? (
+              <RevealSection enabled={motionEnabled}>
+                <Stack className="max-w-4xl" gap="lg">
+                  <span className="ss-eyebrow text-muted-foreground">{eyebrow}</span>
+                  <h1 className="text-h1">{route.h1}</h1>
+                  <p className="ss-lead text-muted-foreground">{route.description}</p>
+                </Stack>
+              </RevealSection>
+            ) : null}
 
             {children ? (
               <RevealSection enabled={motionEnabled}>{children}</RevealSection>

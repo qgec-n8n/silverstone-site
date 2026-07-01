@@ -50,6 +50,17 @@
       "startup_timeout_sec": 60,
       "tool_timeout_sec": 180,
       "default_tools_approval_mode": "prompt"
+    },
+    "gpt-image-2": {
+      "command": "/bin/zsh",
+      "args": [
+        "/Users/quentingeczy/Desktop/silverstone-site/.codex/bin/gpt-image-2-mcp.sh"
+      ],
+      "cwd": "/Users/quentingeczy/Desktop/silverstone-site",
+      "enabled": true,
+      "startup_timeout_sec": 60,
+      "tool_timeout_sec": 180,
+      "default_tools_approval_mode": "prompt"
     }
   }
 }

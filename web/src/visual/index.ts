@@ -39,12 +39,6 @@ export {
   type ToolEntry,
   type ToolsCarouselProps,
 } from "~/visual/components/tools-carousel";
-export { ConversionPathLens } from "~/visual/components/signatures/conversion-path-lens";
-export { ProductStateStack } from "~/visual/components/signatures/product-state-stack";
-export { CallFlowOscilloscope } from "~/visual/components/signatures/call-flow-oscilloscope";
-export { FrontDeskConvergence } from "~/visual/components/signatures/front-desk-convergence";
-export { EditorialLoom } from "~/visual/components/signatures/editorial-loom";
-export { ProcessLattice } from "~/visual/components/signatures/process-lattice";
 export {
   IndustryInstrument,
   type InstrumentStep,

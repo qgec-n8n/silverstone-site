@@ -184,8 +184,12 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
             entryExperience={false}
             route={route}
             showRelated={false}
+            showHeader={false}
           >
-            <ServicePageVisuals route={route} />
+            <ServicePageVisuals
+              key={serviceExperienceState === "body" ? "svc-body" : "svc-hidden"}
+              route={route}
+            />
           </RoutePageFrame>
         </div>
         <button

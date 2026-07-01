@@ -132,14 +132,14 @@ export const serviceImageUses: ServiceImageUse[] = [
   {
     route: "/services/ai-receptionists",
     section: "front desk capture panel",
-    desktopAsset: "general-services-1.png",
-    mobileAsset: "general-services-1-mobile.png",
+    desktopAsset: "receptionists-hero.png",
+    mobileAsset: "receptionists-hero-mobile.png",
     rationale:
-      "Supports reception capture and enquiry triage while remaining clearly illustrative.",
-    alt: "Illustrative reception and enquiry capture panel.",
-    sourceType: "approved-zip",
+      "Bespoke generated image (gpt-image-2-mcp, 2026-07-01) so this route no longer duplicates the Web Design page's general-services-1.png. Supports reception capture and enquiry triage while remaining clearly illustrative.",
+    alt: "Illustrative front-desk reception panel showing a call being answered, a booking confirmed, and an enquiry escalated to a person.",
+    sourceType: "generated",
     desktopDimensions: { width: 2528, height: 1696 },
-    mobileDimensions: { width: 1696, height: 2528 },
+    mobileDimensions: { width: 1138, height: 1696 },
     loading: "eager",
   },
   {

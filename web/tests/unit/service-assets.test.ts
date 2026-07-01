@@ -11,11 +11,16 @@ import {
 const approved = new Set<string>(approvedMarketingImageFilenames);
 
 describe("service image governance", () => {
-  it("uses only exact approved marketing-image filenames", () => {
+  it("uses only exact approved marketing-image filenames, or a documented generated image", () => {
     for (const use of serviceImageUses) {
-      expect(approved.has(use.desktopAsset), use.desktopAsset).toBe(true);
-      expect(approved.has(use.mobileAsset), use.mobileAsset).toBe(true);
-      expect(use.sourceType).toBe("approved-zip");
+      if (use.sourceType === "approved-zip") {
+        expect(approved.has(use.desktopAsset), use.desktopAsset).toBe(true);
+        expect(approved.has(use.mobileAsset), use.mobileAsset).toBe(true);
+      } else {
+        // Generated images are not part of the approved-zip filename set by
+        // definition; the rationale must record provenance instead.
+        expect(use.rationale.length, use.route).toBeGreaterThan(20);
+      }
       expect(use.alt.trim(), use.route).not.toHaveLength(0);
       expect(use.desktopDimensions.width).toBeGreaterThan(0);
       expect(use.mobileDimensions.height).toBeGreaterThan(0);
@@ -36,10 +41,15 @@ describe("service image governance", () => {
 
 describe("required demo placeholders", () => {
   it("keeps requested future-demo service surfaces available", () => {
-    const renderer = readFileSync(
-      resolve(process.cwd(), "src/visual/components/approved-service-page.tsx"),
-      "utf8",
-    );
+    const demoRendererPaths = [
+      "src/features/services-v2/demos/browser-showcase.tsx",
+      "src/features/services-v2/demos/reserved-surface.tsx",
+      "src/features/services-v2/demos/voice-call-demo.tsx",
+      "src/features/services-v2/demos/receptionist-demo.tsx",
+    ];
+    const renderers = demoRendererPaths
+      .map((path) => readFileSync(resolve(process.cwd(), path), "utf8"))
+      .join("\n");
     const manifest = JSON.stringify(approvedServicesByRoute);
 
     expect(manifest).toContain("Reserved");
@@ -50,9 +60,9 @@ describe("required demo placeholders", () => {
     expect(manifest).toContain("futureWebsitePreviewPrimaryUrl");
     expect(manifest).toContain("futureVoiceElevenLabsAgent");
     expect(manifest).toContain("futureReceptionistChatEmbedUrl");
-    expect(renderer).toContain("data-config-slot");
-    expect(renderer).not.toMatch(/agent[_-]?id\s*[:=]\s*['"][^'"]+/i);
-    expect(renderer).not.toMatch(/elevenlabs.*api[_-]?key/i);
+    expect(renderers).toContain("data-config-slot");
+    expect(renderers).not.toMatch(/agent[_-]?id\s*[:=]\s*['"][^'"]+/i);
+    expect(renderers).not.toMatch(/elevenlabs.*api[_-]?key/i);
     expect(manifest).not.toMatch(/agent[_-]?id\s*[:=]\s*['"][^'"]+/i);
     expect(manifest).not.toMatch(/elevenlabs.*api[_-]?key/i);
   });

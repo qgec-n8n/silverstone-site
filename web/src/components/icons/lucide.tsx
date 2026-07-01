@@ -4,7 +4,7 @@ export type LucideIcon = (
   props: SVGProps<SVGSVGElement> & { size?: number | string },
 ) => ReactElement;
 
-type IconTag = "circle" | "line" | "path" | "polyline" | "rect";
+type IconTag = "circle" | "ellipse" | "line" | "path" | "polyline" | "rect";
 type IconNode = readonly [IconTag, Record<string, string>][];
 
 function createIcon(displayName: string, nodes: IconNode): LucideIcon {
@@ -232,4 +232,73 @@ export const Menu = createIcon("Menu", [
   ["line", { x1: "4", x2: "20", y1: "12", y2: "12" }],
   ["line", { x1: "4", x2: "20", y1: "6", y2: "6" }],
   ["line", { x1: "4", x2: "20", y1: "18", y2: "18" }],
+]);
+export const MessageSquare = createIcon("MessageSquare", [
+  ["path", { d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" }],
+]);
+export const Activity = createIcon("Activity", [
+  [
+    "path",
+    {
+      d: "M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2",
+    },
+  ],
+]);
+export const GitBranch = createIcon("GitBranch", [
+  ["line", { x1: "6", x2: "6", y1: "3", y2: "15" }],
+  ["circle", { cx: "18", cy: "6", r: "3" }],
+  ["circle", { cx: "6", cy: "18", r: "3" }],
+  ["path", { d: "M18 9a9 9 0 0 1-9 9" }],
+]);
+export const Target = createIcon("Target", [
+  ["circle", { cx: "12", cy: "12", r: "10" }],
+  ["circle", { cx: "12", cy: "12", r: "6" }],
+  ["circle", { cx: "12", cy: "12", r: "2" }],
+]);
+export const FileText = createIcon("FileText", [
+  ["path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" }],
+  ["path", { d: "M14 2v4a2 2 0 0 0 2 2h4" }],
+  ["path", { d: "M10 9H8" }],
+  ["path", { d: "M16 13H8" }],
+  ["path", { d: "M16 17H8" }],
+]);
+export const Share2 = createIcon("Share2", [
+  ["circle", { cx: "18", cy: "5", r: "3" }],
+  ["circle", { cx: "6", cy: "12", r: "3" }],
+  ["circle", { cx: "18", cy: "19", r: "3" }],
+  ["line", { x1: "8.59", x2: "15.42", y1: "13.51", y2: "17.49" }],
+  ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49" }],
+]);
+export const Layers = createIcon("Layers", [
+  [
+    "path",
+    {
+      d: "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z",
+    },
+  ],
+  [
+    "path",
+    {
+      d: "M22 17.65a1 1 0 0 1-.6.91l-8.58 3.9a2 2 0 0 1-1.66 0L2.6 18.56a1 1 0 0 1-.6-.91",
+    },
+  ],
+  [
+    "path",
+    {
+      d: "M22 12.65a1 1 0 0 1-.6.91l-8.58 3.9a2 2 0 0 1-1.66 0L2.6 13.56a1 1 0 0 1-.6-.91",
+    },
+  ],
+]);
+export const Database = createIcon("Database", [
+  ["ellipse", { cx: "12", cy: "5", rx: "9", ry: "3" }],
+  ["path", { d: "M3 5V19A9 3 0 0 0 21 19V5" }],
+  ["path", { d: "M3 12A9 3 0 0 0 21 12" }],
+]);
+export const Bot = createIcon("Bot", [
+  ["path", { d: "M12 8V4H8" }],
+  ["rect", { width: "16", height: "12", x: "4", y: "8", rx: "2" }],
+  ["path", { d: "M2 14h2" }],
+  ["path", { d: "M20 14h2" }],
+  ["path", { d: "M15 13v2" }],
+  ["path", { d: "M9 13v2" }],
 ]);

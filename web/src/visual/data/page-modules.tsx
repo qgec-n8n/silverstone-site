@@ -7,7 +7,7 @@ import {
   type DemoScenario,
   type DemoStep,
 } from "~/visual/components/demo-shell";
-import { ApprovedServicePageVisuals } from "~/visual/components/approved-service-page";
+import { ServiceExperienceV2 } from "~/features/services-v2/service-experience";
 import {
   IndustryInstrument,
   type InstrumentStep,
@@ -585,9 +585,7 @@ export function ServicePageVisuals({ route }: { route: FutureRouteRecord }): Rea
   }
 
   const approvedService = getApprovedServiceContent(route.path);
-  return approvedService ? (
-    <ApprovedServicePageVisuals service={approvedService} />
-  ) : null;
+  return approvedService ? <ServiceExperienceV2 content={approvedService} /> : null;
 }
 
 /**

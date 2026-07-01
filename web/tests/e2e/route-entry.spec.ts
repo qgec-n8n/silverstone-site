@@ -5,7 +5,11 @@ const serviceRoutes = [
     path: "/services/web-design-development",
     loader: "Aligning message, movement and measurement",
     pill: /Bespoke digital experience/i,
+    // The Aether intro's teaser title — distinct from the body's public H1
+    // by design (intro teases, body delivers); it is not repeated in <main>.
     title: "Make the website earn its place",
+    // The real public H1 rendered once the body opens.
+    bodyHeading: "A website engineered to move buyers forward",
     button: "Explore the commercial website system",
   },
   {
@@ -13,6 +17,7 @@ const serviceRoutes = [
     loader: "Reducing the idea to its most valuable working state",
     pill: /Product intelligence \/ First release/i,
     title: "Prove the workflow before expanding the product",
+    bodyHeading: "Build the smallest app that proves the value",
     button: "Map the first release",
   },
   {
@@ -20,6 +25,7 @@ const serviceRoutes = [
     loader: "Synchronising speech, action and human fallback",
     pill: /Conversational systems \/ Voice/i,
     title: "Give every call a controlled next state",
+    bodyHeading: "Voice agents built for real conversations",
     button: "Explore the call architecture",
   },
 ] as const;
@@ -63,7 +69,7 @@ for (const route of serviceRoutes) {
     await expect(page.getByRole("button", { name: route.button })).toBeVisible();
 
     await openBody(page, route.button);
-    await expect(page.getByRole("main")).toContainText(route.title);
+    await expect(page.getByRole("main")).toContainText(route.bodyHeading);
 
     await page.getByRole("button", { name: /return to route intro/i }).click();
     await waitForRouteIntro(page);
@@ -129,7 +135,7 @@ test("route-entry sequence remains usable with reduced motion", async ({ page })
   await waitForRouteIntro(page);
   await openBody(page, "Open the front-desk system");
   await expect(page.getByRole("main")).toContainText(
-    "Turn every routine enquiry into a controlled handoff",
+    "A front desk that answers, qualifies, and knows when to hand over",
   );
 
   await page.getByRole("button", { name: /return to route intro/i }).click();
