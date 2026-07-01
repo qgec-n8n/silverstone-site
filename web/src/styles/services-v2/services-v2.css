@@ -199,40 +199,89 @@
 
 /* ---- Secondary hero (body opener, homepage-aligned) -------------------- */
 
+/*
+ * Fills exactly one viewport beneath the fixed header, mirroring the
+ * homepage's .ss-hv2-secondary mechanism: a flex column whose grid takes the
+ * remaining space and whose scroll cue pins to the bottom via margin-top:
+ * auto, so nothing from the next section bleeds into view.
+ *
+ * Unlike the homepage, this hero sits beneath a shared route frame (fixed
+ * header + breadcrumb row + frame padding), so a plain header-height subtraction
+ * isn't enough — --srv2-hero-offset is measured at runtime by SecondaryHero
+ * (see secondary-hero.tsx) to the exact space that frame consumes. The
+ * fallback here is only what renders before that measurement lands.
+ *
+ * min-height (not height): on ordinary viewports the content comfortably fits
+ * this floor and the section reads as exactly one screen. On unusually short
+ * viewports (a cramped laptop window, an extreme zoom level) with a page that
+ * has a long title, it's better for the section to grow a little taller than
+ * one screen than to clip content or overlap the scroll cue — so nothing here
+ * forces children to shrink below their content (no min-height: 0 escape
+ * hatches on the flex/grid chain below).
+ */
 .ss-srv2-hero {
-  padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem) clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - var(--srv2-hero-offset, 9.5rem));
+  padding-block: clamp(0.85rem, 0.5rem + 2vh, 1.75rem);
+}
+
+.ss-srv2-hero > .ss-srv2__container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .ss-srv2-hero__grid {
   display: grid;
-  gap: clamp(2rem, 1.5rem + 3vw, 4rem);
-  /* Stretch (not center) so the showcase panel's bottom edge lines up with the
-     copy column's bottom edge whenever they share a row. */
+  /*
+   * Deliberately no flex: 1 here. A flex item's automatic minimum size
+   * ("don't shrink below your content") is unreliable to compute through a
+   * nested display: grid box containing a percentage-sized child (the
+   * showcase's height: 100%) — in practice this let the browser compress the
+   * grid below what its copy column actually needed, overflowing past the
+   * scroll cue. Sizing to natural content here and letting the scroll cue's
+   * margin-top: auto (below) absorb any leftover space is equivalent when
+   * there's room to spare, and safe when there isn't.
+   */
+  gap: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
+  /* Stretch (not center) so the showcase panel matches the copy column's
+     height exactly. */
   align-items: stretch;
   grid-template-columns: 1fr;
 }
 
 @media (min-width: 64rem) {
   .ss-srv2-hero__grid {
-    grid-template-columns: 1.02fr 0.98fr;
+    /* Slightly more room for copy than showcase — the longest H1s in this set
+       run to ~68 characters, and an even split forces a narrow column that
+       wraps them to five lines. */
+    grid-template-columns: 1.14fr 0.86fr;
+    gap: clamp(2rem, 1.2rem + 3vw, 4.5rem);
   }
 }
 
 .ss-srv2-hero__intro {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  /* Deliberately not centered: this column's own content is what usually
+     drives the row's height, so centering would be a no-op in the common
+     case, and in the rare case where content is taller than the available
+     space, start-alignment overflows downward (toward the scroll cue)
+     instead of upward (behind the fixed header). */
+  justify-content: flex-start;
+  gap: clamp(0.8rem, 0.45rem + 1.1vh, 1.35rem);
 }
 
 .ss-srv2-hero__title {
   margin: 0;
   font-family: var(--ss-font-display);
   font-weight: 600;
-  font-size: clamp(2.75rem, 1.7rem + 4.6vw, 5rem);
-  line-height: 1;
+  font-size: clamp(2.25rem, 1.55rem + 2.6vw, 3.5rem);
+  line-height: 1.06;
   letter-spacing: -0.03em;
   color: var(--ss-v2-chrome);
-  max-width: 16ch;
+  max-width: 27ch;
   text-wrap: balance;
 }
 
@@ -240,15 +289,15 @@
   margin: 0;
   max-width: var(--srv2-measure);
   color: var(--srv2-ink-soft);
-  font-size: clamp(1.08rem, 1rem + 0.4vw, 1.28rem);
-  line-height: 1.62;
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
+  line-height: 1.56;
 }
 
 .ss-srv2-hero__caps {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  margin: 0.25rem 0 0;
+  gap: 0.65rem;
+  margin: 0.15rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -258,7 +307,7 @@
   align-items: center;
   gap: 0.75rem;
   color: var(--srv2-ink);
-  font-size: 1.02rem;
+  font-size: 0.98rem;
 }
 
 .ss-srv2-hero__cap-dot {
@@ -275,22 +324,61 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.9rem 1rem;
-  padding-top: 0.5rem;
+  padding-top: 0.3rem;
 }
 
 .ss-srv2-hero__showcase {
   position: relative;
+  /* A grid (not block) wrapper so its single Reveal child becomes a stretched
+     grid item with a definite height — otherwise the plain Reveal <div>
+     between here and .ss-srv2-signature would have an auto height, and
+     .ss-srv2-signature's height:100% would have nothing real to resolve
+     against. */
+  display: grid;
+  height: 100%;
+  min-height: 0;
 }
 
 .ss-srv2-hero__scrollcue {
   display: flex;
+  flex: none;
   justify-content: center;
-  margin-top: clamp(1.75rem, 1rem + 2vw, 3rem);
+  margin-top: auto;
+  padding-top: clamp(0.75rem, 0.5rem + 1vh, 1.5rem);
 }
 
 @media (max-width: 48rem) {
   .ss-srv2-hero__scrollcue {
     display: none;
+  }
+}
+
+/*
+ * Short-viewport override (a laptop window with browser chrome, a lower-res
+ * display): the title/lead/gaps above are sized generously for typical
+ * desktop heights, so on a constrained one, tighten them directly rather than
+ * fold every dimension into one clamp() formula. Mirrors the equivalent
+ * min-width/max-height override already used for the homepage's own
+ * secondary hero (home-v2.css). Must come after the base rules above to win
+ * the specificity tie-break.
+ */
+@media (min-width: 64rem) and (max-height: 850px) {
+  .ss-srv2-hero__intro {
+    gap: 0.6rem;
+  }
+
+  .ss-srv2-hero__title {
+    font-size: clamp(1.9rem, 1.2rem + 1.8vw, 2.7rem);
+    max-width: 30ch;
+  }
+
+  .ss-srv2-hero__lead {
+    font-size: 0.92rem;
+    line-height: 1.46;
+  }
+
+  .ss-srv2-hero__caps {
+    gap: 0.4rem;
   }
 }
 
@@ -322,19 +410,30 @@
   transition: transform var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
 }
 
+/*
+ * Deliberately brand-fixed, not var(--srv2-accent): this is the site's one
+ * "Book a discovery call" action, so it must read as the same button
+ * everywhere — nav, every service page, the homepage — regardless of each
+ * page's own decorative accent colour (used elsewhere for icons, eyebrows,
+ * glows). Matches the nav CTA's signal-cyan exactly.
+ */
 .ss-srv2-btn--primary {
   color: #05070a;
-  background: linear-gradient(120deg, var(--srv2-accent), var(--srv2-accent-2));
+  background: linear-gradient(
+    120deg,
+    var(--ss-v2-signal-cyan),
+    var(--ss-v2-signal-cyan-soft)
+  );
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 40%, transparent),
-    0 18px 42px -18px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--ss-v2-signal-cyan) 40%, transparent),
+    0 18px 42px -18px color-mix(in srgb, var(--ss-v2-signal-cyan) 70%, transparent);
 }
 
 .ss-srv2-btn--primary:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 60%, transparent),
-    0 24px 54px -18px color-mix(in srgb, var(--srv2-accent) 85%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--ss-v2-signal-cyan) 60%, transparent),
+    0 24px 54px -18px color-mix(in srgb, var(--ss-v2-signal-cyan) 85%, transparent);
 }
 
 .ss-srv2-btn--primary:hover svg {
@@ -469,18 +568,6 @@
   flex: 1 1 auto;
   min-height: 12rem;
   object-fit: cover;
-}
-
-.ss-srv2-figure__caption {
-  flex: none;
-  margin: 0;
-  padding: 0.85rem 1.1rem;
-  border-top: 1px solid var(--ss-v2-hairline);
-  color: var(--srv2-ink-faint);
-  font-family: var(--ss-font-mono);
-  font-size: 0.7rem;
-  line-height: 1.5;
-  letter-spacing: 0.01em;
 }
 
 /* ---- Capability & outcome cards ---------------------------------------- */
@@ -1074,21 +1161,117 @@
   padding: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
   border-radius: var(--ss-radius-2xl);
   border: 1px solid var(--srv2-hairline);
-  background:
+  background-color: var(--srv2-glass);
+  /* A faint instrument grid beneath the diagram, plus the existing top glow —
+     the "premium console" texture shared by every signature panel. */
+  background-image:
     radial-gradient(
       120% 120% at 50% 0%,
       color-mix(in srgb, var(--srv2-accent) 12%, transparent),
       transparent 60%
     ),
-    var(--srv2-glass);
+    linear-gradient(
+      color-mix(in srgb, var(--ss-v2-platinum) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ss-v2-platinum) 5%, transparent) 1px,
+      transparent 1px
+    );
+  background-position:
+    0 0,
+    -0.5px -0.5px,
+    -0.5px -0.5px;
+  background-size:
+    100% 100%,
+    26px 26px,
+    26px 26px;
   backdrop-filter: blur(14px);
   overflow: clip;
 }
 
 .ss-srv2-signature__svg {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* ---- Signature chrome (shared corner brackets + scanning sweep) -------- */
+
+.ss-srv2-signature__chrome {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: clip;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ss-srv2-signature__corner {
+  position: absolute;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-style: solid;
+  border-width: 0;
+  /* border-color set here (not in the border-top/left shorthands below) —
+     those shorthands omit a colour, which resolves to currentColor and would
+     silently override this if declared there instead. */
+  border-color: color-mix(in srgb, var(--srv2-accent) 62%, transparent);
+  opacity: 0.75;
+}
+
+.ss-srv2-signature__corner[data-pos="tl"] {
+  top: 0.75rem;
+  left: 0.75rem;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+  border-top-left-radius: 3px;
+}
+
+.ss-srv2-signature__corner[data-pos="tr"] {
+  top: 0.75rem;
+  right: 0.75rem;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+  border-top-right-radius: 3px;
+}
+
+.ss-srv2-signature__corner[data-pos="bl"] {
+  bottom: 0.75rem;
+  left: 0.75rem;
+  border-bottom-width: 1.5px;
+  border-left-width: 1.5px;
+  border-bottom-left-radius: 3px;
+}
+
+.ss-srv2-signature__corner[data-pos="br"] {
+  bottom: 0.75rem;
+  right: 0.75rem;
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+  border-bottom-right-radius: 3px;
+}
+
+.ss-srv2-signature__scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 32%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--srv2-accent) 11%, transparent),
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-srv2-signature__scan {
+    display: none;
+  }
 }
 
 /* ---- Reserved browser showcases ---------------------------------------- */

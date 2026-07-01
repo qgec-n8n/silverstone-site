@@ -82,37 +82,54 @@ export function AnimatedMetricValue({ value }: { value: string }) {
   return <m.span ref={ref}>{rendered}</m.span>;
 }
 
-export type RevealKind = "section" | "card" | "metric" | "image" | "cta";
+export type RevealKind = "section" | "card" | "metric" | "image" | "cta" | "pill";
 
 const revealVariants: Record<RevealKind, Variants> = {
-  section: { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } },
+  pill: {
+    hidden: { opacity: 0, y: 14, scale: 0.88 },
+    show: { opacity: 1, y: 0, scale: 1 },
+  },
+  section: { hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } },
   card: {
-    hidden: { opacity: 0, y: 26, scale: 0.97 },
+    hidden: { opacity: 0, y: 32, scale: 0.96 },
     show: { opacity: 1, y: 0, scale: 1 },
   },
   metric: {
-    hidden: { opacity: 0, y: 16, scale: 0.94 },
+    hidden: { opacity: 0, y: 20, scale: 0.93 },
     show: { opacity: 1, y: 0, scale: 1 },
   },
   image: {
-    hidden: { opacity: 0, scale: 1.04, clipPath: "inset(8% 6% round 20px)" },
+    hidden: { opacity: 0, scale: 1.06, clipPath: "inset(10% 8% round 20px)" },
     show: { opacity: 1, scale: 1, clipPath: "inset(0% 0% round 20px)" },
   },
   cta: {
-    hidden: { opacity: 0, y: 28, scale: 0.97 },
+    hidden: { opacity: 0, y: 34, scale: 0.96 },
     show: { opacity: 1, y: 0, scale: 1 },
   },
 };
 
+/**
+ * Cinematic, unhurried timing: entrances are meant to be watched, not merely
+ * noticed, so durations run 0.85–1.5s rather than the 150–300ms scale used
+ * for hover/press feedback elsewhere. See the matching viewport threshold on
+ * Reveal itself, which holds off firing until well into view for the same
+ * reason.
+ */
 function transitionFor(kind: RevealKind, delayMs: number): Transition {
   const delay = delayMs / 1000;
+  if (kind === "pill") {
+    return { delay, type: "spring", stiffness: 150, damping: 19, mass: 0.85 };
+  }
   if (kind === "metric") {
-    return { delay, duration: 0.58, ease: entranceEase };
+    return { delay, duration: 0.85, ease: entranceEase };
   }
-  if (kind === "image" || kind === "cta") {
-    return { delay, duration: 0.78, ease: entranceEase };
+  if (kind === "image") {
+    return { delay, duration: 1.4, ease: entranceEase };
   }
-  return { delay, duration: 0.66, ease: entranceEase };
+  if (kind === "cta") {
+    return { delay, duration: 1.05, ease: entranceEase };
+  }
+  return { delay, duration: 1.0, ease: entranceEase };
 }
 
 export function Reveal({
@@ -137,7 +154,7 @@ export function Reveal({
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ amount: 0.2, margin: "0px 0px -10% 0px", once: true }}
+      viewport={{ amount: 0.4, margin: "0px 0px -18% 0px", once: true }}
       variants={revealVariants[kind]}
       transition={transitionFor(kind, delayMs)}
     >
@@ -226,14 +243,20 @@ export function SectionHead({
 }) {
   return (
     <div className="ss-srv2-section__head">
-      <Eyebrow icon={icon}>{eyebrow}</Eyebrow>
-      <h2 className="ss-srv2-heading" id={headingId}>
-        {heading}
-      </h2>
+      <Reveal kind="pill">
+        <Eyebrow icon={icon}>{eyebrow}</Eyebrow>
+      </Reveal>
+      <Reveal kind="section" delayMs={120}>
+        <h2 className="ss-srv2-heading" id={headingId}>
+          {heading}
+        </h2>
+      </Reveal>
       {lead ? (
-        <p className="ss-srv2-lead">
-          <RichText text={lead} />
-        </p>
+        <Reveal kind="section" delayMs={240}>
+          <p className="ss-srv2-lead">
+            <RichText text={lead} />
+          </p>
+        </Reveal>
       ) : null}
     </div>
   );

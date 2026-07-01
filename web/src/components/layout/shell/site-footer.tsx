@@ -13,8 +13,8 @@ const CURRENT_YEAR = new Date().getFullYear();
 export function SiteFooter() {
   const footerRef = useRef<HTMLElement | null>(null);
   const footerInView = useInView(footerRef, {
-    amount: 0.08,
-    margin: "0px 0px -5% 0px",
+    amount: 0.15,
+    margin: "0px 0px -10% 0px",
     once: true,
   });
 
@@ -29,7 +29,7 @@ export function SiteFooter() {
         show: {
           opacity: 1,
           transition: {
-            staggerChildren: 0.07,
+            staggerChildren: 0.22,
           },
         },
       }}
@@ -41,10 +41,10 @@ export function SiteFooter() {
           <m.div
             className="ss-footer__col ss-footer__brand"
             variants={{
-              hidden: { opacity: 0, x: -18, y: 10 },
-              show: { opacity: 1, x: 0, y: 0 },
+              hidden: { opacity: 0, x: -22, y: 12, filter: "blur(8px)" },
+              show: { opacity: 1, x: 0, y: 0, filter: "blur(0px)" },
             }}
-            transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <Link
               className="ss-focus-ring ss-footer__brandmark inline-flex rounded-[var(--ss-radius-lg)] no-underline"
@@ -76,22 +76,22 @@ export function SiteFooter() {
               className="ss-footer__col"
               key={column.title}
               variants={{
-                hidden: { opacity: 0, y: 18 },
-                show: { opacity: 1, y: 0 },
+                hidden: { opacity: 0, y: 22, filter: "blur(8px)" },
+                show: { opacity: 1, y: 0, filter: "blur(0px)" },
               }}
-              transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
             >
               <h2 className="ss-eyebrow text-titanium">{column.title}</h2>
               <ul className="mt-4 flex flex-col gap-2.5">
                 {column.links.map((link, index) => (
                   <m.li
                     key={`${column.title}-${link.href}`}
-                    initial={{ opacity: 0, x: -8 }}
+                    initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ amount: 0.65, once: true }}
                     transition={{
-                      delay: 0.12 + index * 0.035,
-                      duration: 0.36,
+                      delay: 0.3 + index * 0.09,
+                      duration: 0.75,
                       ease: [0.22, 1, 0.36, 1],
                     }}
                   >
@@ -125,10 +125,10 @@ export function SiteFooter() {
         <m.div
           className="ss-hairline-t mt-14 flex flex-col gap-3 pt-6 text-caption text-titanium sm:flex-row sm:items-center sm:justify-between"
           variants={{
-            hidden: { opacity: 0, y: 12 },
+            hidden: { opacity: 0, y: 14 },
             show: { opacity: 1, y: 0 },
           }}
-          transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         >
           <p>© {CURRENT_YEAR} Silverstone AI. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">

@@ -7,6 +7,8 @@
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 
+import { SignatureChrome } from "./signature-chrome";
+
 const routeStates = [
   { label: "Answered", x: 70 },
   { label: "Understood", x: 220 },
@@ -146,6 +148,7 @@ export function SignalWaveform() {
           Live signal · illustrative call flow
         </text>
       </m.svg>
+      <SignatureChrome />
     </div>
   );
 }

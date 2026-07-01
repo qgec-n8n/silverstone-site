@@ -7,7 +7,7 @@
  */
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode, type RefObject } from "react";
 
 import type { LucideIcon } from "~/components/icons/lucide";
 
@@ -39,18 +39,61 @@ function CapabilityPoint({ text, index }: { text: string; index: number }) {
   return (
     <m.li
       className="ss-srv2-hero__cap"
-      initial={{ opacity: 0, x: -16 }}
+      initial={{ opacity: 0, x: -18 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.5 }}
       transition={{
-        delay: (220 + index * 70) / 1000,
-        duration: 0.55,
+        delay: (420 + index * 100) / 1000,
+        duration: 0.85,
         ease: [0.22, 1, 0.36, 1],
       }}
     >
       {content}
     </m.li>
   );
+}
+
+/**
+ * Measures the space consumed above the hero (fixed header + breadcrumb row +
+ * route-frame padding — there is no single fixed constant for this, since it
+ * comes from a shared frame the hero doesn't control) and exposes it as
+ * `--srv2-hero-offset`, so the hero's height can resolve to exactly one
+ * viewport regardless of what a future frame change does to that space.
+ */
+function useHeroViewportOffset(): RefObject<HTMLElement | null> {
+  const ref = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) {
+      return undefined;
+    }
+
+    let frame = 0;
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    const measure = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const offset = node.getBoundingClientRect().top + window.scrollY;
+        node.style.setProperty("--srv2-hero-offset", `${String(offset)}px`);
+      });
+    };
+
+    // The route intro -> body transition (and its own entrance reveals) can
+    // still be settling on first mount, so a single measurement can catch a
+    // transient position. Re-measure a couple of times shortly after as those
+    // settle, rather than trusting only the first frame.
+    measure();
+    timeouts.push(setTimeout(measure, 200), setTimeout(measure, 700));
+    window.addEventListener("resize", measure);
+    return () => {
+      cancelAnimationFrame(frame);
+      timeouts.forEach(clearTimeout);
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  return ref;
 }
 
 export function SecondaryHero({
@@ -72,20 +115,26 @@ export function SecondaryHero({
   primaryCtaLabel: string;
   showcase: ReactNode;
 }) {
+  const heroRef = useHeroViewportOffset();
+
   return (
-    <section className="ss-srv2-section ss-srv2-hero" aria-labelledby={titleId}>
+    <section
+      className="ss-srv2-section ss-srv2-hero"
+      aria-labelledby={titleId}
+      ref={heroRef}
+    >
       <div className="ss-srv2__container">
         <div className="ss-srv2-hero__grid">
           <div className="ss-srv2-hero__intro">
-            <Reveal kind="section">
+            <Reveal kind="pill">
               <Eyebrow icon={icon}>{eyebrow}</Eyebrow>
             </Reveal>
-            <Reveal kind="section" delayMs={70}>
+            <Reveal kind="section" delayMs={140}>
               <h1 className="ss-srv2-hero__title" id={titleId}>
                 {title}
               </h1>
             </Reveal>
-            <Reveal kind="section" delayMs={130}>
+            <Reveal kind="section" delayMs={280}>
               <p className="ss-srv2-hero__lead">
                 <RichText text={lead} />
               </p>
@@ -95,7 +144,7 @@ export function SecondaryHero({
                 <CapabilityPoint key={point} text={point} index={index} />
               ))}
             </ul>
-            <Reveal kind="cta" delayMs={430}>
+            <Reveal kind="cta" delayMs={750}>
               <div className="ss-srv2-hero__actions">
                 <ServiceButton href="/book" variant="primary">
                   {primaryCtaLabel}
@@ -108,7 +157,9 @@ export function SecondaryHero({
           </div>
 
           <div className="ss-srv2-hero__showcase">
-            <Reveal kind="image">{showcase}</Reveal>
+            <Reveal kind="image" delayMs={220}>
+              {showcase}
+            </Reveal>
           </div>
         </div>
         <ScrollCue />

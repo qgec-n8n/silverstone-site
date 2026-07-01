@@ -58,6 +58,13 @@ const revealVariants: Record<HomeRevealKind, Variants> = {
   },
 };
 
+/**
+ * Cinematic, unhurried timing: entrances are meant to be watched, not merely
+ * noticed, so durations run 0.9–1.5s rather than the 150–300ms scale used for
+ * hover/press feedback elsewhere. See the matching viewport threshold on
+ * Reveal itself, which holds off firing until well into view for the same
+ * reason.
+ */
 function transitionFor(
   kind: HomeRevealKind,
   delayMs: number,
@@ -69,15 +76,15 @@ function transitionFor(
 
   const delay = delayMs / 1000;
   if (kind === "metric") {
-    return { delay, duration: 0.62, ease: metricEase };
+    return { delay, duration: 0.95, ease: metricEase };
   }
   if (kind === "card" || kind === "image") {
-    return { delay, duration: 0.72, ease: entranceEase };
+    return { delay, duration: 1.15, ease: entranceEase };
   }
   if (kind === "cta") {
-    return { delay, duration: 0.84, ease: entranceEase };
+    return { delay, duration: 1.3, ease: entranceEase };
   }
-  return { delay, duration: 0.64, ease: entranceEase };
+  return { delay, duration: 1.05, ease: entranceEase };
 }
 
 /**
@@ -104,7 +111,7 @@ export function Reveal({
       data-width={dataWidth}
       initial={reducedMotion ? false : "hidden"}
       whileInView="show"
-      viewport={{ amount: 0.22, margin: "0px 0px -12% 0px", once: true }}
+      viewport={{ amount: 0.4, margin: "0px 0px -18% 0px", once: true }}
       variants={revealVariants[kind]}
       transition={transitionFor(kind, delayMs, reducedMotion)}
       {...viewportEnterProps}

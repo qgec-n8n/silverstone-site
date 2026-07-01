@@ -9,6 +9,8 @@
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 
+import { SignatureChrome } from "./signature-chrome";
+
 const topRow = [
   { label: "Trigger", x: 90 },
   { label: "Condition", x: 300 },
@@ -209,6 +211,7 @@ export function OrchestrationLattice() {
           </m.g>
         ))}
       </m.svg>
+      <SignatureChrome />
     </div>
   );
 }

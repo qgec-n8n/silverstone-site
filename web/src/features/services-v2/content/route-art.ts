@@ -2,9 +2,9 @@
  * Per-route art direction for the services-v2 system.
  *
  * Each service shares the dark cinematic Silverstone language but carries its
- * own accent pairing, primary icon and approved marketing image. Image `alt`
- * and `caption` strings are preserved verbatim from the approved copy pack —
- * they must never describe conceptual UI as a live client deployment.
+ * own accent pairing, primary icon and approved marketing image. The `alt`
+ * string is preserved verbatim from the approved copy pack — it must never
+ * describe conceptual UI as a live client deployment.
  */
 import type { ApprovedServiceRoute } from "~/content/services/approved-services";
 import {
@@ -41,7 +41,6 @@ export type RouteArt = {
     width: number;
     height: number;
     alt: string;
-    caption: string;
   };
 };
 
@@ -58,8 +57,6 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
       width: 2528,
       height: 1696,
       alt: "Illustrative reception and enquiry-capture panel.",
-      caption:
-        "Illustrative system view. This conceptual panel supports the conversion-system narrative and is not a live client dashboard.",
     },
   },
   "/services/app-development": {
@@ -74,8 +71,6 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
       width: 2528,
       height: 1696,
       alt: "Illustrative systems and data integration panel.",
-      caption:
-        "Illustrative product and systems panel. It explains app architecture and operational data flow, not a deployed client application.",
     },
   },
   "/services/ai-voice-agents": {
@@ -90,8 +85,6 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
       width: 2528,
       height: 1696,
       alt: "Illustrative automated lead follow-up panel.",
-      caption:
-        "Illustrative conversation and follow-up surface. Call states and outcomes are synthetic until approved integrations exist.",
     },
   },
   "/services/ai-receptionists": {
@@ -109,8 +102,6 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
       width: 2528,
       height: 1696,
       alt: "Illustrative front-desk reception panel showing a call being answered, a booking confirmed, and an enquiry escalated to a person.",
-      caption:
-        "Illustrative front-desk operating surface. It shows reception routing concepts, not live customer conversations.",
     },
   },
   "/services/content-creation": {
@@ -125,8 +116,6 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
       width: 2528,
       height: 1696,
       alt: "Illustrative modular service package panel.",
-      caption:
-        "Illustrative editorial-system panel. The checklist is conceptual and does not promise a fixed content volume.",
     },
   },
   "/services/ai-automation": {
@@ -141,8 +130,6 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
       width: 2528,
       height: 1696,
       alt: "Illustrative workflow automation and reporting interface.",
-      caption:
-        "Illustrative workflow and observability panel. It is conceptual and separated from benchmark evidence.",
     },
   },
   "/services/ai-consulting": {
@@ -157,8 +144,6 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
       width: 2528,
       height: 1696,
       alt: "Illustrative AI consulting and readiness audit panel.",
-      caption:
-        "Illustrative advisory and readiness panel. It is not a client audit, procurement recommendation or forecast.",
     },
   },
 };

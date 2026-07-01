@@ -17,6 +17,8 @@ import {
   UserCheck,
 } from "~/components/icons/lucide";
 
+import { SignatureChrome } from "./signature-chrome";
+
 const channels = [
   { label: "Call", y: 60, Icon: PhoneCall },
   { label: "Chat", y: 150, Icon: MessageSquare },
@@ -227,6 +229,7 @@ export function FrontDeskConvergence() {
           </g>
         ))}
       </m.svg>
+      <SignatureChrome />
     </div>
   );
 }

@@ -243,8 +243,11 @@
   --ss-color-action-secondary-bg: #39454d;
   --ss-color-action-secondary-fg: #ffffff;
   --ss-color-action-secondary-border: #a0a4ab;
-  --ss-color-action-accent-bg: #ffffff;
-  --ss-color-action-accent-fg: #39454d;
+  /* Matches the nav CTA's signal-cyan (#22d3ee) exactly — this is the site's
+     one "Book a discovery call" action, so it must read as the same button
+     everywhere, not a separate accent treatment. */
+  --ss-color-action-accent-bg: #22d3ee;
+  --ss-color-action-accent-fg: #05070a;
   --ss-color-action-ghost-hover: #ffffff14;
 
   --ss-color-focus-ring: #ffffff;

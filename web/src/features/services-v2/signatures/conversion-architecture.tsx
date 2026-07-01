@@ -9,6 +9,8 @@
 import { useReducedMotion, type Variants } from "motion/react";
 import * as m from "motion/react-m";
 
+import { SignatureChrome } from "./signature-chrome";
+
 const stages = [
   { x: 96, label: "Discover" },
   { x: 236, label: "Experience" },
@@ -281,6 +283,7 @@ export function ConversionArchitecture() {
           ) : null}
         </m.g>
       </m.svg>
+      <SignatureChrome />
     </div>
   );
 }

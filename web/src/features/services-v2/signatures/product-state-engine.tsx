@@ -9,6 +9,8 @@
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 
+import { SignatureChrome } from "./signature-chrome";
+
 const layers = [
   { y: 48, label: "User", detail: "Taps confirm" },
   { y: 148, label: "Interface", detail: "Optimistic update" },
@@ -163,6 +165,7 @@ export function ProductStateEngine() {
           ))}
         </g>
       </m.svg>
+      <SignatureChrome />
     </div>
   );
 }

@@ -41,7 +41,6 @@ export function ServiceFigure({ image }: { image: RouteArt["image"] }) {
           decoding="async"
         />
       </picture>
-      <figcaption className="ss-srv2-figure__caption">{image.caption}</figcaption>
     </figure>
   );
 }
@@ -65,7 +64,7 @@ export function ServiceCards({
           <Reveal
             key={card.label}
             kind="card"
-            delayMs={index * 70}
+            delayMs={index * 120}
             className="ss-srv2-card"
           >
             <span className="ss-srv2-card__icon">
@@ -105,15 +104,17 @@ export function BenchmarkConsole({
 }) {
   return (
     <div className="ss-srv2-bench ss-srv2-beam-border">
-      <span className="ss-srv2-bench__tag">
-        <ShieldCheck aria-hidden="true" />
-        {attribution}
-      </span>
+      <Reveal kind="pill">
+        <span className="ss-srv2-bench__tag">
+          <ShieldCheck aria-hidden="true" />
+          {attribution}
+        </span>
+      </Reveal>
       <div className="ss-srv2-bench__grid">
         {metrics.map((metric, index) => {
           const { value, label } = splitMetric(metric);
           return (
-            <Reveal key={metric} kind="metric" delayMs={index * 90}>
+            <Reveal key={metric} kind="metric" delayMs={150 + index * 110}>
               <div className="ss-srv2-metric">
                 <span className="ss-srv2-metric__value">
                   <AnimatedMetricValue value={value} />
@@ -124,8 +125,12 @@ export function BenchmarkConsole({
           );
         })}
       </div>
-      <p className="ss-srv2-bench__caption">{caption}</p>
-      <p className="ss-srv2-bench__disclaimer">{clarification}</p>
+      <Reveal kind="section" delayMs={150 + metrics.length * 110 + 100}>
+        <p className="ss-srv2-bench__caption">{caption}</p>
+      </Reveal>
+      <Reveal kind="section" delayMs={150 + metrics.length * 110 + 200}>
+        <p className="ss-srv2-bench__disclaimer">{clarification}</p>
+      </Reveal>
     </div>
   );
 }
@@ -139,7 +144,7 @@ export function ProcessTrack({ steps }: { steps: ApprovedCopyCard[] }) {
         <Reveal
           key={step.label}
           kind="card"
-          delayMs={index * 80}
+          delayMs={index * 130}
           className="ss-srv2-step"
         >
           <span className="ss-srv2-step__index">
@@ -161,7 +166,7 @@ export function FaqPanel({ items }: { items: FaqItem[] }) {
   return (
     <Accordion type="single" collapsible className="ss-srv2-faq">
       {items.map((item, index) => (
-        <Reveal key={item.question} kind="section" delayMs={index * 50}>
+        <Reveal key={item.question} kind="section" delayMs={index * 90}>
           <AccordionItem value={item.question} className="ss-srv2-faq__item">
             <AccordionTrigger className="ss-srv2-faq__trigger">
               {item.question}
@@ -196,14 +201,24 @@ export function FinalCta({
   bookHref?: string;
 }) {
   return (
-    <Reveal kind="cta" className="ss-srv2-cta">
-      <h2 className="ss-srv2-cta__title">{heading}</h2>
-      <div className="ss-srv2-cta__body">{body}</div>
-      <ServiceButton href={bookHref} variant="primary">
-        {buttonLabel}
-      </ServiceButton>
-      {reassurance ? <p className="ss-srv2-cta__reassurance">{reassurance}</p> : null}
-    </Reveal>
+    <div className="ss-srv2-cta">
+      <Reveal kind="section">
+        <h2 className="ss-srv2-cta__title">{heading}</h2>
+      </Reveal>
+      <Reveal kind="section" delayMs={130}>
+        <div className="ss-srv2-cta__body">{body}</div>
+      </Reveal>
+      <Reveal kind="cta" delayMs={280}>
+        <ServiceButton href={bookHref} variant="primary">
+          {buttonLabel}
+        </ServiceButton>
+      </Reveal>
+      {reassurance ? (
+        <Reveal kind="section" delayMs={380}>
+          <p className="ss-srv2-cta__reassurance">{reassurance}</p>
+        </Reveal>
+      ) : null}
+    </div>
   );
 }
 
@@ -215,7 +230,7 @@ export function RelatedRail({ links }: { links: RelatedLink[] }) {
   return (
     <div className="ss-srv2-related">
       {links.map((link, index) => (
-        <Reveal key={link.href} kind="card" delayMs={index * 70}>
+        <Reveal key={link.href} kind="card" delayMs={index * 120}>
           <a className="ss-srv2-related__card" href={link.href}>
             <span className="ss-srv2-related__label">{link.label}</span>
             <span className="ss-srv2-related__title">

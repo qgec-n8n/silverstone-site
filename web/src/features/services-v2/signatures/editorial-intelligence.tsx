@@ -10,6 +10,8 @@ import * as m from "motion/react-m";
 
 import { FileText, Globe, MessageSquare, Share2 } from "~/components/icons/lucide";
 
+import { SignatureChrome } from "./signature-chrome";
+
 const channels = [
   { label: "Website", y: 40, Icon: Globe },
   { label: "Insight article", y: 110, Icon: FileText },
@@ -196,6 +198,7 @@ export function EditorialIntelligence() {
           </g>
         ))}
       </m.svg>
+      <SignatureChrome />
     </div>
   );
 }

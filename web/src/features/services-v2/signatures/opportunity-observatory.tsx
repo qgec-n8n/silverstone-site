@@ -9,6 +9,8 @@
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 
+import { SignatureChrome } from "./signature-chrome";
+
 const opportunities = [
   {
     x: 430,
@@ -232,6 +234,7 @@ export function OpportunityObservatory() {
           ),
         )}
       </m.svg>
+      <SignatureChrome />
     </div>
   );
 }

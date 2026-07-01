@@ -387,14 +387,23 @@ type SiteHeaderProps = {
   pendingIndicator?: ReactNode;
 };
 
+/** Scroll distance the header ignores at the very top, so it never hides
+ * during the first small scroll of a page. */
+const SCROLL_HIDE_THRESHOLD = 120;
+/** Minimum scroll delta before counting as a deliberate direction change,
+ * so momentum/bounce scrolling doesn't flicker the header in and out. */
+const SCROLL_DIRECTION_NOISE_FLOOR = 6;
+
 export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const location = useLocation();
   const { headerHidden } = useAppExperience();
   const headerRef = useRef<HTMLElement>(null);
   const scrollY = useMotionValue(typeof window !== "undefined" ? window.scrollY : 0);
+  const lastScrollY = useRef(typeof window !== "undefined" ? window.scrollY : 0);
   const [scrolled, setScrolled] = useState(
     () => typeof window !== "undefined" && window.scrollY > 12,
   );
+  const [hiddenByScroll, setHiddenByScroll] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lastPath, setLastPath] = useState(location.pathname);
@@ -425,21 +434,36 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 12);
+
+    const delta = latest - lastScrollY.current;
+    lastScrollY.current = latest;
+
+    if (Math.abs(delta) < SCROLL_DIRECTION_NOISE_FLOOR) {
+      return;
+    }
+    if (delta > 0 && latest > SCROLL_HIDE_THRESHOLD) {
+      setHiddenByScroll(true);
+    } else if (delta < 0) {
+      setHiddenByScroll(false);
+    }
   });
 
   const elevated = scrolled || openMenu !== null;
+  // Never hide the header while one of its own menus is open — scrolling a
+  // mega-menu or the mobile drawer shouldn't make the trigger disappear.
+  const hidden = headerHidden || (hiddenByScroll && openMenu === null && !mobileOpen);
 
   useEffect(() => {
     const node = headerRef.current;
     if (node) {
-      node.inert = headerHidden;
+      node.inert = hidden;
     }
-  }, [headerHidden]);
+  }, [hidden]);
 
   return (
     <m.header
-      animate={headerHidden ? "hidden" : "rest"}
-      aria-hidden={headerHidden || undefined}
+      animate={hidden ? "hidden" : "rest"}
+      aria-hidden={hidden || undefined}
       className={cn(
         "fixed inset-x-0 top-0 z-[400] h-[var(--ss-layout-header)] border-b",
         elevated
