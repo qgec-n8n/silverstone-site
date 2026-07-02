@@ -82,18 +82,18 @@ export const SERVICES_MENU: NavMenu = {
 export const INDUSTRIES_MENU: NavMenu = {
   id: "industries",
   label: "Industries",
-  href: "/industries",
+  href: "/industry",
   viewAllLabel: "View all industries",
   items: [
-    { href: "/services/estate-agents", label: "Estate Agents" },
-    { href: "/services/hospitality", label: "Hospitality" },
-    { href: "/services/salons-barbers", label: "Salons & Barbers" },
-    { href: "/services/trades", label: "Trades & Home Services" },
-    { href: "/services/ecommerce", label: "eCommerce Brands" },
-    { href: "/services/physios-chiropractors", label: "Physio & Chiropractic" },
-    { href: "/services/dentists", label: "Dental Practices" },
-    { href: "/services/gyms-fitness-studios", label: "Gyms & Fitness Studios" },
-    { href: "/services/fitness-coaches", label: "Fitness Coaches" },
+    { href: "/industry/estate-agents", label: "Estate Agents" },
+    { href: "/industry/hospitality", label: "Hospitality" },
+    { href: "/industry/salons-barbers", label: "Salons & Barbers" },
+    { href: "/industry/trades", label: "Trades & Home Services" },
+    { href: "/industry/ecommerce", label: "eCommerce Brands" },
+    { href: "/industry/physios-chiropractors", label: "Physio & Chiropractic" },
+    { href: "/industry/dentists", label: "Dental Practices" },
+    { href: "/industry/gyms-fitness-studios", label: "Gyms & Fitness Studios" },
+    { href: "/industry/fitness-coaches", label: "Fitness Coaches" },
   ],
 };
 
@@ -126,7 +126,7 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
     title: "Industries",
     links: [
       ...INDUSTRIES_MENU.items.slice(0, 6).map(({ href, label }) => ({ href, label })),
-      { href: "/industries", label: "All industries" },
+      { href: "/industry", label: "All industries" },
     ],
   },
   {

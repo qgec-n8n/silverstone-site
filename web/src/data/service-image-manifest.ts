@@ -181,4 +181,133 @@ export const serviceImageUses: ServiceImageUse[] = [
     mobileDimensions: { width: 2048, height: 2048 },
     loading: "eager",
   },
+  {
+    route: "/industry/estate-agents",
+    section: "architecture split + workflow gallery",
+    desktopAsset: "Real_Estate_1.jpeg",
+    mobileAsset: "Real_Estate_1_Mobile.jpeg",
+    rationale:
+      "Approved estate-agency set (Real_Estate_1/2/3 pairs) showing branch command, enquiry workflow and viewing coordination surfaces.",
+    alt: "Illustrative branch command panel capturing valuation, portal-lead and viewing activity.",
+    sourceType: "approved-zip",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 1696, height: 2528 },
+    loading: "lazy",
+  },
+  {
+    route: "/industry/salons-barbers",
+    section: "chair-economics split + diary gallery",
+    desktopAsset: "Salon_1.jpeg",
+    mobileAsset: "Salon_1_Mobile.jpeg",
+    rationale:
+      "Approved salon set (Salon_1 + salon-2/3 pairs) showing diary coordination, cancellation refill and rebooking prompts.",
+    alt: "Illustrative salon diary panel coordinating bookings and reminders.",
+    sourceType: "approved-zip",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 1696, height: 2528 },
+    loading: "lazy",
+  },
+  {
+    route: "/industry/ecommerce",
+    section: "order-intelligence figure + returns/retention gallery",
+    desktopAsset: "ecommerce-1.png",
+    mobileAsset: "ecommerce-1.png",
+    rationale:
+      "Bespoke generated set (gpt-image-2-mcp, 2026-07-01: ecommerce-1/2/3.png) — the approved zip contained no ecommerce imagery. Landscape asset used on both breakpoints; portrait variants could not be generated (OpenAI billing hard limit reached mid-session).",
+    alt: "Illustrative order-intelligence panel matching customer questions to live order state.",
+    sourceType: "generated",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 2528, height: 1696 },
+    loading: "lazy",
+  },
+  {
+    route: "/industry/dentists",
+    section: "clinical-team split + recall gallery",
+    desktopAsset: "dentist-1.png",
+    mobileAsset: "dentist-1-mobile.png",
+    rationale:
+      "Approved dental set (dentist-1/2/3 pairs) showing patient-admin, recall workflow and form-handoff surfaces.",
+    alt: "Illustrative patient-admin panel at a dental reception.",
+    sourceType: "approved-zip",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 1696, height: 2528 },
+    loading: "lazy",
+  },
+  {
+    route: "/industry/fitness-coaches",
+    section: "problem split + onboarding gallery",
+    desktopAsset: "onlinecoach-1.png",
+    mobileAsset: "onlinecoach-1-mobile.png",
+    rationale:
+      "Approved coaching set (onlinecoach-1/2/3 pairs) showing lead-to-consultation, booking and onboarding surfaces.",
+    alt: "Illustrative lead-to-consultation panel for an online coaching business.",
+    sourceType: "approved-zip",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 1696, height: 2528 },
+    loading: "lazy",
+  },
+  {
+    route: "/industry/hospitality",
+    section: "full-width venue figure + reservation gallery",
+    desktopAsset: "Hospitality_1.jpeg",
+    mobileAsset: "Hospitality_1_Mobile.jpeg",
+    rationale:
+      "Approved hospitality set (Hospitality_1/2/3 pairs) showing guest communication, reservation context and pre-arrival journeys.",
+    alt: "Illustrative guest-communication panel at a hospitality front desk.",
+    sourceType: "approved-zip",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 1696, height: 2528 },
+    loading: "lazy",
+  },
+  {
+    route: "/industry/trades",
+    section: "quote-workflow split + job gallery",
+    desktopAsset: "Trades_1.jpeg",
+    mobileAsset: "Trades_1_Mobile.jpeg",
+    rationale:
+      "Approved trades set (Trades_1/2/3 pairs) showing job intake, quote follow-up and office-to-field handoffs.",
+    alt: "Illustrative job-intake panel capturing a missed call and job context.",
+    sourceType: "approved-zip",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 1696, height: 2528 },
+    loading: "lazy",
+  },
+  {
+    route: "/industry/physios-chiropractors",
+    section: "systems split + intake figure",
+    desktopAsset: "physio-1.png",
+    mobileAsset: "physio-1-mobile.png",
+    rationale:
+      "Approved clinic set (physio-1/3 pairs — the zip supplied two pairs for this sector; a third could not be generated after the OpenAI billing hard limit).",
+    alt: "Illustrative non-clinical booking panel at a physiotherapy reception.",
+    sourceType: "approved-zip",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 1696, height: 2528 },
+    loading: "lazy",
+  },
+  {
+    route: "/industry/gyms-fitness-studios",
+    section: "front-desk split + member gallery",
+    desktopAsset: "gyms-1.png",
+    mobileAsset: "gyms-1-mobile.png",
+    rationale:
+      "Approved gym set (gyms-1/2/3 pairs) showing member journey, retention workflow and trial follow-up surfaces.",
+    alt: "Illustrative member-journey panel at a gym front desk.",
+    sourceType: "approved-zip",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 1696, height: 2528 },
+    loading: "lazy",
+  },
 ];
+
+/**
+ * Generated (non-zip) production assets living alongside the approved set in
+ * /public/approved-images. Provenance: gpt-image-2-mcp.
+ */
+export const generatedMarketingImageFilenames = [
+  "receptionists-hero.png",
+  "receptionists-hero-mobile.png",
+  "ecommerce-1.png",
+  "ecommerce-2.png",
+  "ecommerce-3.png",
+] as const;

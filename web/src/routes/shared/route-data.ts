@@ -8,6 +8,11 @@ import { buildRouteMetadata } from "~/seo/metadata";
 type RouteLoaderOptions = {
   exactPath?: string;
   routeGroup: RouteGroup;
+  /**
+   * Set false for routes whose body is a fully bespoke experience (the
+   * services/industries hubs) so legacy migrated copy never reaches the DOM.
+   */
+  withMigratedContent?: boolean;
 };
 
 export type RouteLoaderData = {
@@ -19,7 +24,11 @@ export function normalizeRouteRequestPath(pathname: string): string {
   return pathname.endsWith(".data") ? pathname.slice(0, -".data".length) : pathname;
 }
 
-export function createRouteLoader({ exactPath, routeGroup }: RouteLoaderOptions) {
+export function createRouteLoader({
+  exactPath,
+  routeGroup,
+  withMigratedContent = true,
+}: RouteLoaderOptions) {
   return async ({ request }: LoaderFunctionArgs): Promise<RouteLoaderData> => {
     const requestPath = normalizeRouteRequestPath(new URL(request.url).pathname);
     const route = getFutureRouteByPath(exactPath ?? requestPath);
@@ -35,7 +44,7 @@ export function createRouteLoader({ exactPath, routeGroup }: RouteLoaderOptions)
 
     return {
       content:
-        route.lifecycle === "retained"
+        withMigratedContent && route.lifecycle === "retained"
           ? await loadMigratedContent(route.contentId)
           : null,
       route,

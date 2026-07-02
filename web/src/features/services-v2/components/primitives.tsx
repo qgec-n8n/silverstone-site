@@ -68,8 +68,11 @@ export function AnimatedMetricValue({ value }: { value: string }) {
   const numericText = match?.[3] ?? "";
   const suffix = match?.[4] ?? "";
 
+  // Starts at the true target so prerendered HTML always contains the exact
+  // verified figure (never "0"); the client resets to 0 and counts up only
+  // once the metric scrolls into view.
   const numericTarget = match ? Number(numericText.replace(/,/g, "")) : 0;
-  const motionValue = useMotionValue(0);
+  const motionValue = useMotionValue(numericTarget);
   const rendered = useTransform(motionValue, (latest) =>
     match ? `${currency}${sign}${formatNumeric(numericText, latest)}${suffix}` : value,
   );
@@ -78,6 +81,7 @@ export function AnimatedMetricValue({ value }: { value: string }) {
     if (!match || reducedMotion || !inView) {
       return;
     }
+    motionValue.set(0);
     const controls = animate(motionValue, numericTarget, {
       duration: 1.4,
       ease: [0.16, 1, 0.3, 1],

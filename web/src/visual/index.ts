@@ -29,22 +29,3 @@ export {
 } from "~/visual/hooks/use-page-transition";
 export { PageEntry } from "~/visual/components/page-entry";
 export { RevealSection } from "~/visual/components/reveal-section";
-export {
-  DemoShell,
-  type DemoScenario,
-  type DemoStep,
-} from "~/visual/components/demo-shell";
-export {
-  ToolsCarousel,
-  type ToolEntry,
-  type ToolsCarouselProps,
-} from "~/visual/components/tools-carousel";
-export {
-  IndustryInstrument,
-  type InstrumentStep,
-  type IndustryInstrumentProps,
-} from "~/visual/components/industry-instrument";
-export { ServicesDecisionMatrix } from "~/visual/components/services-decision-matrix";
-export { IndustriesAtlas } from "~/visual/components/industries-atlas";
-
-export { default as VisualSmoke } from "~/visual/fixtures/visual-smoke";

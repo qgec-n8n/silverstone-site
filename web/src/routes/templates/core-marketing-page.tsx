@@ -1,7 +1,6 @@
 import type { MigratedContentRecord } from "~/content/migrated";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { RoutePageFrame } from "~/routes/templates/route-page-frame";
-import { IndustriesIndexVisuals } from "~/visual/data/page-modules";
 
 type CoreMarketingPageProps = {
   content?: MigratedContentRecord | null;
@@ -35,8 +34,6 @@ function resolveEyebrow(route: FutureRouteRecord): string {
 
 export function CoreMarketingPage({ content = null, route }: CoreMarketingPageProps) {
   return (
-    <RoutePageFrame content={content} eyebrow={resolveEyebrow(route)} route={route}>
-      {route.path === "/industries" ? <IndustriesIndexVisuals /> : null}
-    </RoutePageFrame>
+    <RoutePageFrame content={content} eyebrow={resolveEyebrow(route)} route={route} />
   );
 }

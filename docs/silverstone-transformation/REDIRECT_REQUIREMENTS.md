@@ -45,6 +45,23 @@
 
 The current `/web` app includes additive routes such as `/industries`, `/how-we-work`, and seven service-offer routes. They do not automatically receive production redirects. Redirect sources for these routes require evidence of existing public entry points or an approved launch plan.
 
+## 2026-07-02 Industry Canonical Migration (/services/<industry> → /industry/<slug>)
+
+Owner instruction (2026-07-02): industry detail pages are canonical under `/industry/<slug>` and the industries hub under `/industry`. The `/web` app keeps the legacy URLs serving identical content via route aliases, with canonicals pointing at the new routes:
+
+- `/services/estate-agents` → `/industry/estate-agents`
+- `/services/salons-barbers` → `/industry/salons-barbers`
+- `/services/ecommerce` → `/industry/ecommerce`
+- `/services/dentists` → `/industry/dentists`
+- `/services/fitness-coaches` → `/industry/fitness-coaches`
+- `/services/hospitality` → `/industry/hospitality`
+- `/services/trades` → `/industry/trades`
+- `/services/physios-chiropractors` → `/industry/physios-chiropractors`
+- `/services/gyms-fitness-studios` → `/industry/gyms-fitness-studios`
+- `/industries` → `/industry`
+
+At production release these ten sources should receive deployment-layer 301s to their new canonicals (single hop). Until then the app-level aliases prevent 404s and the sitemap lists only the `/industry` canonicals.
+
 ## Verification Procedure
 
 - Generate redirect expectations from `web/src/data/generated/legacy-route-manifest.json` and `docs/silverstone-transformation/audits/seo-redirect-baseline-v1.csv`.

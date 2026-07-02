@@ -10,7 +10,7 @@ import { buildSitemapXml } from "~/seo/sitemap";
 describe("route SEO generation", () => {
   it("emits complete staging metadata with production canonicals", () => {
     const route = futureRouteManifest.find(
-      (candidate) => candidate.path === "/services/dentists",
+      (candidate) => candidate.path === "/industry/dentists",
     );
     if (!route) {
       throw new Error("Dentists route fixture is missing");
@@ -58,7 +58,7 @@ describe("route SEO generation", () => {
     expect(productionSitemap).toContain(
       "https://silverstone-ai.com/services/ai-consulting",
     );
-    expect(productionSitemap).toContain("https://silverstone-ai.com/industries");
+    expect(productionSitemap).toContain("https://silverstone-ai.com/industry");
     expect(productionSitemap).not.toContain(
       "https://silverstone-ai.com/blog/ai-receptionist-small-business-2026",
     );

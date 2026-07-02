@@ -5,7 +5,10 @@ import type { Ref } from "react";
 import { Container } from "~/components/layout/container";
 import type { RouteExperience } from "~/data/route-experiences";
 import { ExploreSystemButton } from "~/visual/home-v2/explore-system-button";
-import { HeroAetherField } from "~/visual/home-v2/hero-aether-field";
+import {
+  AETHER_INDUSTRIES_PALETTE,
+  HeroAetherField,
+} from "~/visual/home-v2/hero-aether-field";
 
 const familyMotion: Record<RouteExperience["family"], { delay: number; y: number }> = {
   home: { delay: 0.2, y: 18 },
@@ -55,6 +58,10 @@ export function RouteExperienceIntro({
   onExplore,
 }: RouteExperienceIntroProps) {
   const motion = familyMotion[experience.family];
+  // The Industries page family (nine industry routes + the /industries hub)
+  // signals itself with a violet Aether palette; behaviour is unchanged.
+  const industriesFamily =
+    experience.family === "industry" || experience.path === "/industry";
 
   return (
     <section
@@ -62,7 +69,10 @@ export function RouteExperienceIntro({
       data-route-family={experience.family}
       aria-label={`${experience.title} intro`}
     >
-      <HeroAetherField enabled={motionEnabled} />
+      <HeroAetherField
+        enabled={motionEnabled}
+        palette={industriesFamily ? AETHER_INDUSTRIES_PALETTE : undefined}
+      />
       <div className="ss-hv2-hero__grid" aria-hidden="true" />
       <div className="ss-hv2-hero__veil" aria-hidden="true" />
 

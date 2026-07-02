@@ -26,10 +26,7 @@
         "path": "/"
       }
     ],
-    "schemaTypes": [
-      "WebPage",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["WebPage", "BreadcrumbList"],
     "contentId": "content-home",
     "sourceFile": "index.html",
     "sourcePath": "/index.html",
@@ -49,12 +46,7 @@
       "route-contact"
     ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -88,10 +80,7 @@
         "path": "/about"
       }
     ],
-    "schemaTypes": [
-      "WebPage",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["WebPage", "BreadcrumbList"],
     "contentId": "content-about",
     "sourceFile": "about.html",
     "sourcePath": "/about.html",
@@ -102,18 +91,9 @@
     "primaryIntent": "brand and company information",
     "ctaIntent": "service discovery",
     "parentRouteId": null,
-    "relatedRouteIds": [
-      "route-home",
-      "route-services",
-      "route-contact"
-    ],
+    "relatedRouteIds": ["route-home", "route-services", "route-contact"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -147,10 +127,7 @@
         "path": "/services"
       }
     ],
-    "schemaTypes": [
-      "CollectionPage",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["CollectionPage", "BreadcrumbList"],
     "contentId": "content-services",
     "sourceFile": "services.html",
     "sourcePath": "/services.html",
@@ -173,12 +150,7 @@
       "route-services-trades"
     ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -212,10 +184,7 @@
         "path": "/pricing"
       }
     ],
-    "schemaTypes": [
-      "WebPage",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["WebPage", "BreadcrumbList"],
     "contentId": "content-pricing",
     "sourceFile": "pricing.html",
     "sourcePath": "/pricing.html",
@@ -226,18 +195,9 @@
     "primaryIntent": "commercial conversion",
     "ctaIntent": "contact or booking",
     "parentRouteId": null,
-    "relatedRouteIds": [
-      "route-services",
-      "route-book",
-      "route-contact"
-    ],
+    "relatedRouteIds": ["route-services", "route-book", "route-contact"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -271,10 +231,7 @@
         "path": "/blog"
       }
     ],
-    "schemaTypes": [
-      "WebPage",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["WebPage", "BreadcrumbList"],
     "contentId": "content-blog",
     "sourceFile": "blog.html",
     "sourcePath": "/blog.html",
@@ -321,12 +278,7 @@
       "route-blog-quote-follow-up-automation-uk-trades-2026"
     ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -360,10 +312,7 @@
         "path": "/book"
       }
     ],
-    "schemaTypes": [
-      "WebPage",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["WebPage", "BreadcrumbList"],
     "contentId": "content-book",
     "sourceFile": "book.html",
     "sourcePath": "/book.html",
@@ -374,17 +323,9 @@
     "primaryIntent": "commercial conversion",
     "ctaIntent": "contact or booking",
     "parentRouteId": null,
-    "relatedRouteIds": [
-      "route-contact",
-      "route-services"
-    ],
+    "relatedRouteIds": ["route-contact", "route-services"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -418,10 +359,7 @@
         "path": "/contact"
       }
     ],
-    "schemaTypes": [
-      "WebPage",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["WebPage", "BreadcrumbList"],
     "contentId": "content-contact",
     "sourceFile": "contact.html",
     "sourcePath": "/contact.html",
@@ -432,17 +370,9 @@
     "primaryIntent": "commercial conversion",
     "ctaIntent": "contact or booking",
     "parentRouteId": null,
-    "relatedRouteIds": [
-      "route-book",
-      "route-services"
-    ],
+    "relatedRouteIds": ["route-book", "route-services"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -476,10 +406,7 @@
         "path": "/privacy-policy"
       }
     ],
-    "schemaTypes": [
-      "WebPage",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["WebPage", "BreadcrumbList"],
     "contentId": "content-privacy-policy",
     "sourceFile": "privacy-policy.html",
     "sourcePath": "/privacy-policy.html",
@@ -490,17 +417,9 @@
     "primaryIntent": "legal information",
     "ctaIntent": "contact for questions",
     "parentRouteId": null,
-    "relatedRouteIds": [
-      "route-home",
-      "route-contact"
-    ],
+    "relatedRouteIds": ["route-home", "route-contact"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -538,10 +457,7 @@
         "path": "/services/dentists"
       }
     ],
-    "schemaTypes": [
-      "Service",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
     "contentId": "content-services-dentists",
     "sourceFile": "services/dentists.html",
     "sourcePath": "/services/dentists.html",
@@ -552,18 +468,9 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": [
-      "route-services",
-      "route-pricing",
-      "route-book"
-    ],
+    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -601,10 +508,7 @@
         "path": "/services/ecommerce"
       }
     ],
-    "schemaTypes": [
-      "Service",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
     "contentId": "content-services-ecommerce",
     "sourceFile": "services/ecommerce.html",
     "sourcePath": "/services/ecommerce.html",
@@ -615,18 +519,9 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": [
-      "route-services",
-      "route-pricing",
-      "route-book"
-    ],
+    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -664,10 +559,7 @@
         "path": "/services/estate-agents"
       }
     ],
-    "schemaTypes": [
-      "Service",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
     "contentId": "content-services-estate-agents",
     "sourceFile": "services/estate-agents.html",
     "sourcePath": "/services/estate-agents.html",
@@ -678,18 +570,9 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": [
-      "route-services",
-      "route-pricing",
-      "route-book"
-    ],
+    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -727,10 +610,7 @@
         "path": "/services/fitness-coaches"
       }
     ],
-    "schemaTypes": [
-      "Service",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
     "contentId": "content-services-fitness-coaches",
     "sourceFile": "services/fitness-coaches.html",
     "sourcePath": "/services/fitness-coaches.html",
@@ -741,18 +621,9 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": [
-      "route-services",
-      "route-pricing",
-      "route-book"
-    ],
+    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -790,10 +661,7 @@
         "path": "/services/gyms-fitness-studios"
       }
     ],
-    "schemaTypes": [
-      "Service",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
     "contentId": "content-services-gyms-fitness-studios",
     "sourceFile": "services/gyms-fitness-studios.html",
     "sourcePath": "/services/gyms-fitness-studios.html",
@@ -804,18 +672,9 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": [
-      "route-services",
-      "route-pricing",
-      "route-book"
-    ],
+    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -853,10 +712,7 @@
         "path": "/services/hospitality"
       }
     ],
-    "schemaTypes": [
-      "Service",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
     "contentId": "content-services-hospitality",
     "sourceFile": "services/hospitality.html",
     "sourcePath": "/services/hospitality.html",
@@ -867,18 +723,9 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": [
-      "route-services",
-      "route-pricing",
-      "route-book"
-    ],
+    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -916,10 +763,7 @@
         "path": "/services/physios-chiropractors"
       }
     ],
-    "schemaTypes": [
-      "Service",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
     "contentId": "content-services-physios-chiropractors",
     "sourceFile": "services/physios-chiropractors.html",
     "sourcePath": "/services/physios-chiropractors.html",
@@ -930,18 +774,9 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": [
-      "route-services",
-      "route-pricing",
-      "route-book"
-    ],
+    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -979,10 +814,7 @@
         "path": "/services/salons-barbers"
       }
     ],
-    "schemaTypes": [
-      "Service",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
     "contentId": "content-services-salons-barbers",
     "sourceFile": "services/salons-barbers.html",
     "sourcePath": "/services/salons-barbers.html",
@@ -993,18 +825,9 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": [
-      "route-services",
-      "route-pricing",
-      "route-book"
-    ],
+    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -1042,10 +865,7 @@
         "path": "/services/trades"
       }
     ],
-    "schemaTypes": [
-      "Service",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
     "contentId": "content-services-trades",
     "sourceFile": "services/trades.html",
     "sourcePath": "/services/trades.html",
@@ -1056,18 +876,9 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": [
-      "route-services",
-      "route-pricing",
-      "route-book"
-    ],
+    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": []
   },
   {
@@ -1105,10 +916,7 @@
         "path": "/blog/ai-appointment-reminders-uk-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-appointment-reminders-uk-2026",
     "sourceFile": "blog/ai-appointment-reminders-uk-2026.html",
     "sourcePath": "/blog/ai-appointment-reminders-uk-2026.html",
@@ -1119,16 +927,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-12T21:11:34.837Z",
     "modifiedAt": "2026-03-12T21:11:34.837Z"
@@ -1168,10 +969,7 @@
         "path": "/blog/ai-automation-failures-uk-smes-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-automation-failures-uk-smes-2026",
     "sourceFile": "blog/ai-automation-failures-uk-smes-2026.html",
     "sourcePath": "/blog/ai-automation-failures-uk-smes-2026.html",
@@ -1182,16 +980,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -1231,10 +1022,7 @@
         "path": "/blog/ai-automation-uk-gdpr-2026-sme-guide"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-automation-uk-gdpr-2026-sme-guide",
     "sourceFile": "blog/ai-automation-uk-gdpr-2026-sme-guide.html",
     "sourcePath": "/blog/ai-automation-uk-gdpr-2026-sme-guide.html",
@@ -1245,16 +1033,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -1294,10 +1075,7 @@
         "path": "/blog/ai-automations-physio-chiro-clinics-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-automations-physio-chiro-clinics-uk",
     "sourceFile": "blog/ai-automations-physio-chiro-clinics-uk.html",
     "sourcePath": "/blog/ai-automations-physio-chiro-clinics-uk.html",
@@ -1308,16 +1086,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-16T19:43:25.230Z",
     "modifiedAt": "2026-03-16T19:43:25.230Z"
@@ -1357,10 +1128,7 @@
         "path": "/blog/ai-booking-automation-uk-hospitality-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-booking-automation-uk-hospitality-2026",
     "sourceFile": "blog/ai-booking-automation-uk-hospitality-2026.html",
     "sourcePath": "/blog/ai-booking-automation-uk-hospitality-2026.html",
@@ -1371,16 +1139,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -1420,10 +1181,7 @@
         "path": "/blog/ai-call-answering-trades-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-call-answering-trades-uk",
     "sourceFile": "blog/ai-call-answering-trades-uk.html",
     "sourcePath": "/blog/ai-call-answering-trades-uk.html",
@@ -1434,16 +1192,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-17T19:21:46.349Z",
     "modifiedAt": "2026-03-17T19:21:46.349Z"
@@ -1483,10 +1234,7 @@
         "path": "/blog/ai-document-automation-uk-smes-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-document-automation-uk-smes-2026",
     "sourceFile": "blog/ai-document-automation-uk-smes-2026.html",
     "sourcePath": "/blog/ai-document-automation-uk-smes-2026.html",
@@ -1497,16 +1245,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -1546,10 +1287,7 @@
         "path": "/blog/ai-etas-smart-scheduling-uk-trades-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-etas-smart-scheduling-uk-trades-2026",
     "sourceFile": "blog/ai-etas-smart-scheduling-uk-trades-2026.html",
     "sourcePath": "/blog/ai-etas-smart-scheduling-uk-trades-2026.html",
@@ -1560,16 +1298,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T11:39:37.552Z",
     "modifiedAt": "2026-03-13T11:39:37.552Z"
@@ -1609,10 +1340,7 @@
         "path": "/blog/ai-guest-concierge-hotels-bbs-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-guest-concierge-hotels-bbs-uk",
     "sourceFile": "blog/ai-guest-concierge-hotels-bbs-uk.html",
     "sourcePath": "/blog/ai-guest-concierge-hotels-bbs-uk.html",
@@ -1623,16 +1351,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-17T07:06:17.171Z",
     "modifiedAt": "2026-03-17T07:06:17.171Z"
@@ -1672,10 +1393,7 @@
         "path": "/blog/ai-lead-capture-trades-uk-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-lead-capture-trades-uk-2026",
     "sourceFile": "blog/ai-lead-capture-trades-uk-2026.html",
     "sourcePath": "/blog/ai-lead-capture-trades-uk-2026.html",
@@ -1686,16 +1404,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [
       "live canonical is trapped in a forced self-redirect loop; Google Analytics tag absent; 3 images lack width/height; search-intent overlap requires migration-owner decision; browser error: Browser Use cannot open https://silverstone-ai.com/blog/ai-lead-capture-trades-uk-2026 in tab 1. Browser reported: net::ERR_TOO_MANY_REDIRECTS"
     ],
@@ -1737,10 +1448,7 @@
         "path": "/blog/ai-lead-capture-uk-trades-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-lead-capture-uk-trades-2026",
     "sourceFile": "blog/ai-lead-capture-uk-trades-2026.html",
     "sourcePath": "/blog/ai-lead-capture-uk-trades-2026.html",
@@ -1751,16 +1459,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -1800,10 +1501,7 @@
         "path": "/blog/ai-lead-qualification-estate-agents-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-lead-qualification-estate-agents-2026",
     "sourceFile": "blog/ai-lead-qualification-estate-agents-2026.html",
     "sourcePath": "/blog/ai-lead-qualification-estate-agents-2026.html",
@@ -1814,16 +1512,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -1863,10 +1554,7 @@
         "path": "/blog/ai-lead-scoring-fitness-coaches-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-lead-scoring-fitness-coaches-uk",
     "sourceFile": "blog/ai-lead-scoring-fitness-coaches-uk.html",
     "sourcePath": "/blog/ai-lead-scoring-fitness-coaches-uk.html",
@@ -1877,16 +1565,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-19T07:05:00.982Z",
     "modifiedAt": "2026-03-19T07:05:00.982Z"
@@ -1926,10 +1607,7 @@
         "path": "/blog/ai-missed-call-recovery-dentists-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-missed-call-recovery-dentists-uk",
     "sourceFile": "blog/ai-missed-call-recovery-dentists-uk.html",
     "sourcePath": "/blog/ai-missed-call-recovery-dentists-uk.html",
@@ -1940,16 +1618,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-19T12:03:40.660Z",
     "modifiedAt": "2026-03-19T12:03:40.660Z"
@@ -1989,10 +1660,7 @@
         "path": "/blog/ai-no-show-reduction-uk-salons-barbers"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-no-show-reduction-uk-salons-barbers",
     "sourceFile": "blog/ai-no-show-reduction-uk-salons-barbers.html",
     "sourcePath": "/blog/ai-no-show-reduction-uk-salons-barbers.html",
@@ -2003,16 +1671,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -2052,10 +1713,7 @@
         "path": "/blog/ai-quote-follow-up-trades"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-quote-follow-up-trades",
     "sourceFile": "blog/ai-quote-follow-up-trades.html",
     "sourcePath": "/blog/ai-quote-follow-up-trades.html",
@@ -2066,16 +1724,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-20T21:45:49.079Z",
     "modifiedAt": "2026-03-20T21:45:49.079Z"
@@ -2115,10 +1766,7 @@
         "path": "/blog/ai-rebooking-journeys-salons-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-rebooking-journeys-salons-uk",
     "sourceFile": "blog/ai-rebooking-journeys-salons-uk.html",
     "sourcePath": "/blog/ai-rebooking-journeys-salons-uk.html",
@@ -2129,16 +1777,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-17T17:50:13.787Z",
     "modifiedAt": "2026-03-17T17:50:13.787Z"
@@ -2178,10 +1819,7 @@
         "path": "/blog/ai-receptionist-small-business-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-receptionist-small-business-2026",
     "sourceFile": "blog/ai-receptionist-small-business-2026.html",
     "sourcePath": "/blog/ai-receptionist-small-business-2026.html",
@@ -2192,16 +1830,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -2241,10 +1872,7 @@
         "path": "/blog/ai-receptionist-uk-costs-roi-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-receptionist-uk-costs-roi-2026",
     "sourceFile": "blog/ai-receptionist-uk-costs-roi-2026.html",
     "sourcePath": "/blog/ai-receptionist-uk-costs-roi-2026.html",
@@ -2255,16 +1883,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -2304,10 +1925,7 @@
         "path": "/blog/ai-returns-triage-ecommerce-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-returns-triage-ecommerce-uk",
     "sourceFile": "blog/ai-returns-triage-ecommerce-uk.html",
     "sourcePath": "/blog/ai-returns-triage-ecommerce-uk.html",
@@ -2318,16 +1936,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-17T20:02:47.193Z",
     "modifiedAt": "2026-03-17T20:02:47.193Z"
@@ -2367,10 +1978,7 @@
         "path": "/blog/ai-viewing-feedback-estate-agents-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-viewing-feedback-estate-agents-uk",
     "sourceFile": "blog/ai-viewing-feedback-estate-agents-uk.html",
     "sourcePath": "/blog/ai-viewing-feedback-estate-agents-uk.html",
@@ -2381,16 +1989,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-19T20:03:03.545Z",
     "modifiedAt": "2026-03-19T20:03:03.545Z"
@@ -2430,10 +2031,7 @@
         "path": "/blog/ai-voice-agents-uk-smes-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-voice-agents-uk-smes-2026",
     "sourceFile": "blog/ai-voice-agents-uk-smes-2026.html",
     "sourcePath": "/blog/ai-voice-agents-uk-smes-2026.html",
@@ -2444,16 +2042,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -2493,10 +2084,7 @@
         "path": "/blog/ai-website-tools-uk-small-businesses-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-website-tools-uk-small-businesses-2026",
     "sourceFile": "blog/ai-website-tools-uk-small-businesses-2026.html",
     "sourcePath": "/blog/ai-website-tools-uk-small-businesses-2026.html",
@@ -2507,16 +2095,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T00:00:00.000Z",
     "modifiedAt": "2026-03-13T00:00:00.000Z"
@@ -2556,10 +2137,7 @@
         "path": "/blog/ai-win-back-journeys-gyms-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-ai-win-back-journeys-gyms-uk",
     "sourceFile": "blog/ai-win-back-journeys-gyms-uk.html",
     "sourcePath": "/blog/ai-win-back-journeys-gyms-uk.html",
@@ -2570,16 +2148,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-18T07:06:08.690Z",
     "modifiedAt": "2026-03-18T07:06:08.690Z"
@@ -2619,10 +2190,7 @@
         "path": "/blog/clinic-rebooking-physio-chiro-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-clinic-rebooking-physio-chiro-uk",
     "sourceFile": "blog/clinic-rebooking-physio-chiro-uk.html",
     "sourcePath": "/blog/clinic-rebooking-physio-chiro-uk.html",
@@ -2633,16 +2201,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-18T12:05:41.591Z",
     "modifiedAt": "2026-03-18T12:05:41.591Z"
@@ -2682,10 +2243,7 @@
         "path": "/blog/dental-intake-e-consent-automation-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-dental-intake-e-consent-automation-uk",
     "sourceFile": "blog/dental-intake-e-consent-automation-uk.html",
     "sourcePath": "/blog/dental-intake-e-consent-automation-uk.html",
@@ -2696,16 +2254,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-17T12:08:22.835Z",
     "modifiedAt": "2026-03-17T12:08:22.835Z"
@@ -2745,10 +2296,7 @@
         "path": "/blog/dental-recall-automation-uk-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-dental-recall-automation-uk-2026",
     "sourceFile": "blog/dental-recall-automation-uk-2026.html",
     "sourcePath": "/blog/dental-recall-automation-uk-2026.html",
@@ -2759,16 +2307,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-12T21:48:00.147Z",
     "modifiedAt": "2026-03-12T21:48:00.147Z"
@@ -2808,10 +2349,7 @@
         "path": "/blog/dm-to-client-automation-uk-fitness-coaches-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-dm-to-client-automation-uk-fitness-coaches-2026",
     "sourceFile": "blog/dm-to-client-automation-uk-fitness-coaches-2026.html",
     "sourcePath": "/blog/dm-to-client-automation-uk-fitness-coaches-2026.html",
@@ -2822,16 +2360,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T12:39:58.392Z",
     "modifiedAt": "2026-03-13T12:39:58.392Z"
@@ -2871,10 +2402,7 @@
         "path": "/blog/estate-agent-viewing-confirmations-uk"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-estate-agent-viewing-confirmations-uk",
     "sourceFile": "blog/estate-agent-viewing-confirmations-uk.html",
     "sourcePath": "/blog/estate-agent-viewing-confirmations-uk.html",
@@ -2885,16 +2413,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-16T20:44:34.320Z",
     "modifiedAt": "2026-03-16T20:44:34.320Z"
@@ -2934,10 +2455,7 @@
         "path": "/blog/gym-booking-automation-uk-gyms-studios-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-gym-booking-automation-uk-gyms-studios-2026",
     "sourceFile": "blog/gym-booking-automation-uk-gyms-studios-2026.html",
     "sourcePath": "/blog/gym-booking-automation-uk-gyms-studios-2026.html",
@@ -2948,16 +2466,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T12:49:16.318Z",
     "modifiedAt": "2026-03-13T12:49:16.318Z"
@@ -2997,10 +2508,7 @@
         "path": "/blog/post-purchase-automation-uk-ecommerce-repeat-customers"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-post-purchase-automation-uk-ecommerce-repeat-customers",
     "sourceFile": "blog/post-purchase-automation-uk-ecommerce-repeat-customers.html",
     "sourcePath": "/blog/post-purchase-automation-uk-ecommerce-repeat-customers.html",
@@ -3011,16 +2519,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T12:04:28.587Z",
     "modifiedAt": "2026-03-13T12:04:28.587Z"
@@ -3060,10 +2561,7 @@
         "path": "/blog/quote-chase-automation-uk-trades-accepted-jobs-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-quote-chase-automation-uk-trades-accepted-jobs-2026",
     "sourceFile": "blog/quote-chase-automation-uk-trades-accepted-jobs-2026.html",
     "sourcePath": "/blog/quote-chase-automation-uk-trades-accepted-jobs-2026.html",
@@ -3074,16 +2572,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-12T22:05:23.066Z",
     "modifiedAt": "2026-03-12T22:05:23.066Z"
@@ -3123,10 +2614,7 @@
         "path": "/blog/quote-follow-up-automation-uk-trades-2026"
       }
     ],
-    "schemaTypes": [
-      "Article",
-      "BreadcrumbList"
-    ],
+    "schemaTypes": ["Article", "BreadcrumbList"],
     "contentId": "content-blog-quote-follow-up-automation-uk-trades-2026",
     "sourceFile": "blog/quote-follow-up-automation-uk-trades-2026.html",
     "sourcePath": "/blog/quote-follow-up-automation-uk-trades-2026.html",
@@ -3137,16 +2625,9 @@
     "primaryIntent": "informational",
     "ctaIntent": "related guidance and consultation",
     "parentRouteId": "route-blog",
-    "relatedRouteIds": [
-      "route-blog"
-    ],
+    "relatedRouteIds": ["route-blog"],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": [
-      "AC-003",
-      "AC-004",
-      "AC-006",
-      "AC-007"
-    ],
+    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
     "unresolvedNotes": [],
     "publishedAt": "2026-03-13T09:50:00.551Z",
     "modifiedAt": "2026-03-13T09:50:00.551Z"

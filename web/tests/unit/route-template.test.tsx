@@ -24,7 +24,7 @@ function OpenRouteBody() {
 describe("route templates", () => {
   it("renders valid sibling breadcrumb list items for hydration", async () => {
     const route = futureRouteManifest.find(
-      (candidate) => candidate.path === "/services/dentists",
+      (candidate) => candidate.path === "/industry/dentists",
     );
     if (!route) {
       throw new Error("Dentists route fixture is missing");

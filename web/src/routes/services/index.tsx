@@ -6,6 +6,7 @@ import { ServicePage } from "~/routes/templates/service-page";
 export const loader = createRouteLoader({
   exactPath: "/services",
   routeGroup: "services",
+  withMigratedContent: false,
 });
 export const meta = createRouteMeta<typeof loader>();
 

@@ -11,7 +11,7 @@ export const DEFAULT_ROUTE_BACKGROUND_MODE = {
   intro: "aether",
 } as const satisfies RouteVisualBackgroundMode;
 
-const INDUSTRY_ROUTE_PREFIX = "/industries";
+const INDUSTRY_ROUTE_PREFIXES = ["/industries", "/industry"];
 
 export function normalizeVisualRoutePath(pathname: string): string {
   const [pathOnly = "/"] = pathname.split(/[?#]/);
@@ -27,9 +27,8 @@ export function normalizeVisualRoutePath(pathname: string): string {
 export function isIndustryBackgroundRoute(pathname: string): boolean {
   const normalized = normalizeVisualRoutePath(pathname);
 
-  return (
-    normalized === INDUSTRY_ROUTE_PREFIX ||
-    normalized.startsWith(`${INDUSTRY_ROUTE_PREFIX}/`)
+  return INDUSTRY_ROUTE_PREFIXES.some(
+    (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
   );
 }
 

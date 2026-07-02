@@ -1,0 +1,483 @@
+/*
+ * industries-v2 — dark cinematic industry experiences.
+ *
+ * Layered on the services-v2 foundation (.ss-srv2 namespace provides the
+ * shared tokens, sections, cards, bench console, process track, FAQ, CTA and
+ * signature chrome). This sheet adds only the industry-specific components:
+ * the journey rail, human-boundary console, fit panel, trust tokens, image
+ * gallery and workflow grid, plus the two hub experiences.
+ */
+
+/* ---- Journey rail -------------------------------------------------------- */
+
+.ss-ind2-rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 1.1rem + 1.6vw, 2.4rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: ind2-rail;
+}
+
+.ss-ind2-rail__stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.ss-ind2-rail__line {
+  position: absolute;
+  top: 3.6rem;
+  left: 1.7rem;
+  bottom: calc(-1 * clamp(1.5rem, 1.1rem + 1.6vw, 2.4rem));
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--srv2-accent) 55%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 25%, transparent)
+  );
+}
+
+.ss-ind2-rail__stage:last-child .ss-ind2-rail__line {
+  display: none;
+}
+
+.ss-ind2-rail__node {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 42%, transparent);
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      color-mix(in srgb, var(--srv2-accent) 22%, transparent),
+      transparent 70%
+    ),
+    var(--ss-v2-void-black);
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  box-shadow: 0 0 24px -8px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
+}
+
+.ss-ind2-rail__body {
+  padding: clamp(1rem, 0.8rem + 0.6vw, 1.4rem) clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--srv2-glass-raised);
+}
+
+.ss-ind2-rail__title {
+  margin: 0 0 0.45rem;
+  font-family: var(--ss-font-display);
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-ind2-rail__text {
+  margin: 0;
+  max-width: var(--srv2-measure);
+  color: var(--srv2-ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+/* ---- Human-boundary console ---------------------------------------------- */
+
+.ss-ind2-boundary {
+  display: grid;
+  gap: clamp(1.4rem, 1rem + 1.6vw, 2.2rem);
+  padding: clamp(1.5rem, 1.1rem + 1.8vw, 2.6rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--srv2-accent-2) 8%, transparent),
+      transparent 55%
+    ),
+    var(--srv2-glass);
+}
+
+@media (min-width: 56rem) {
+  .ss-ind2-boundary {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.ss-ind2-boundary__body {
+  margin: 0;
+  max-width: var(--srv2-measure);
+  color: var(--srv2-ink-soft);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.ss-ind2-boundary__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.ss-ind2-boundary__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  margin-bottom: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 35%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 10%, transparent);
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-ind2-boundary__tag svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--srv2-accent);
+}
+
+.ss-ind2-boundary__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.75rem 0.95rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid color-mix(in srgb, var(--ss-v2-hairline) 80%, transparent);
+  background: color-mix(in srgb, var(--ss-v2-graphite-raised) 60%, transparent);
+  color: var(--srv2-ink-soft);
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+
+.ss-ind2-boundary__item svg {
+  flex: 0 0 auto;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.1rem;
+  color: var(--srv2-accent);
+}
+
+/* ---- Fit panel ------------------------------------------------------------ */
+
+.ss-ind2-fit {
+  display: grid;
+  gap: clamp(1.2rem, 0.9rem + 1.2vw, 1.8rem);
+}
+
+.ss-ind2-fit__list {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 48rem) {
+  .ss-ind2-fit__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ss-ind2-fit__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--srv2-glass-raised);
+  color: var(--srv2-ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.ss-ind2-fit__item svg {
+  flex: 0 0 auto;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.12rem;
+  color: var(--srv2-accent);
+}
+
+.ss-ind2-fit__caution {
+  margin: 0;
+  max-width: var(--srv2-measure);
+  padding: 1rem 1.2rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid
+    color-mix(in srgb, var(--ss-v2-signal-amber, #f5c86a) 30%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-graphite) 70%, transparent);
+  color: var(--srv2-ink-faint);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* ---- Trust tokens ---------------------------------------------------------- */
+
+.ss-ind2-tokens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 1rem;
+  padding-block: clamp(0.8rem, 0.6rem + 0.8vw, 1.4rem);
+}
+
+.ss-ind2-tokens__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.42rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-graphite-raised) 65%, transparent);
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.ss-ind2-tokens__item::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--srv2-accent), var(--srv2-accent-2));
+}
+
+/* ---- Image gallery --------------------------------------------------------- */
+
+.ss-ind2-duo {
+  display: grid;
+  gap: clamp(1.2rem, 0.9rem + 1.4vw, 2rem);
+}
+
+@media (min-width: 52rem) {
+  .ss-ind2-duo[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ss-ind2-duo > * {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ---- Workflow grid ---------------------------------------------------------- */
+
+.ss-ind2-workflows {
+  display: grid;
+  gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+}
+
+@media (min-width: 48rem) {
+  .ss-ind2-workflows {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ss-ind2-workflow {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  height: 100%;
+  padding: clamp(1.25rem, 1rem + 0.7vw, 1.7rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background:
+    linear-gradient(
+      200deg,
+      color-mix(in srgb, var(--srv2-accent-2) 8%, transparent),
+      transparent 45%
+    ),
+    var(--srv2-glass-raised);
+  transition:
+    transform var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    border-color var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard);
+}
+
+.ss-ind2-workflow:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--srv2-accent-2) 45%, transparent);
+  box-shadow: 0 22px 52px -30px
+    color-mix(in srgb, var(--srv2-accent-2) 60%, transparent);
+}
+
+/* ---- Hub experiences --------------------------------------------------------- */
+
+.ss-hub2-grid {
+  display: grid;
+  gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+}
+
+@media (min-width: 44rem) {
+  .ss-hub2-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 66rem) {
+  .ss-hub2-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ss-hub2-card {
+  --hub2-accent: var(--srv2-accent);
+  --hub2-accent-2: var(--srv2-accent-2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  height: 100%;
+  padding: clamp(1.3rem, 1rem + 0.8vw, 1.8rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background:
+    linear-gradient(
+      170deg,
+      color-mix(in srgb, var(--hub2-accent) 9%, transparent),
+      transparent 48%
+    ),
+    var(--srv2-glass-raised);
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  transition:
+    transform var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    border-color var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard);
+}
+
+.ss-hub2-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--hub2-accent), var(--hub2-accent-2));
+  opacity: 0;
+  transition: opacity var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-hub2-card:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--hub2-accent) 45%, transparent);
+  box-shadow: 0 26px 58px -30px color-mix(in srgb, var(--hub2-accent) 62%, transparent);
+}
+
+.ss-hub2-card:hover::after {
+  opacity: 1;
+}
+
+.ss-hub2-card:focus-visible {
+  outline: 2px solid var(--hub2-accent);
+  outline-offset: 3px;
+}
+
+.ss-hub2-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.ss-hub2-card__icon {
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid color-mix(in srgb, var(--hub2-accent) 32%, transparent);
+  background: color-mix(in srgb, var(--hub2-accent) 12%, var(--ss-v2-void-black));
+  color: var(--hub2-accent);
+}
+
+.ss-hub2-card__icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.ss-hub2-card__arrow {
+  color: var(--srv2-ink-faint);
+  transition: transform var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-hub2-card:hover .ss-hub2-card__arrow {
+  transform: translate(3px, -3px);
+  color: var(--hub2-accent);
+}
+
+.ss-hub2-card__arrow svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.ss-hub2-card__title {
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: 1.16rem;
+  font-weight: 600;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-hub2-card__body {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.ss-hub2-card__meta {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ss-hub2-card__chip {
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--ss-v2-hairline);
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ss-hub2-proof {
+  display: grid;
+  gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+}
+
+@media (min-width: 52rem) {
+  .ss-hub2-proof {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* The services hub's seventh card spans the final row instead of orphaning. */
+@media (min-width: 66rem) {
+  .ss-hub2-grid .ss-hub2-span {
+    grid-column: 1 / -1;
+  }
+}

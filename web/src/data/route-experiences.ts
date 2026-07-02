@@ -1,6 +1,7 @@
 import { futureRouteManifest, routePathAliases } from "~/data/future-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { getApprovedServiceContent } from "~/content/services/approved-services";
+import { getIndustryCopy } from "~/features/industries-v2/content";
 
 export type RouteExperienceFamily =
   | "home"
@@ -43,6 +44,16 @@ const routeAssets: Record<string, string[]> = {
   "/services/content-creation": ["/approved-images/general-services-2a.png"],
   "/services/ai-automation": ["/approved-images/services_workflow_automation.jpg"],
   "/services/ai-consulting": ["/approved-images/services_consulting.jpg"],
+  "/industry": ["/approved-images/general-services-3.png"],
+  "/industry/estate-agents": ["/approved-images/Real_Estate_1.jpeg"],
+  "/industry/salons-barbers": ["/approved-images/Salon_1.jpeg"],
+  "/industry/ecommerce": ["/approved-images/ecommerce-1.png"],
+  "/industry/dentists": ["/approved-images/dentist-1.png"],
+  "/industry/fitness-coaches": ["/approved-images/onlinecoach-1.png"],
+  "/industry/hospitality": ["/approved-images/Hospitality_1.jpeg"],
+  "/industry/trades": ["/approved-images/Trades_1.jpeg"],
+  "/industry/physios-chiropractors": ["/approved-images/physio-1.png"],
+  "/industry/gyms-fitness-studios": ["/approved-images/gyms-1.png"],
 };
 
 function conciseTitle(route: FutureRouteRecord): string {
@@ -78,7 +89,7 @@ function loaderTextFor(
   if (route.path === "/services") {
     return "Preparing the service architecture for your next operating system.";
   }
-  if (route.path === "/industries") {
+  if (route.path === "/industry") {
     return "Mapping sector-specific operating patterns into the Silverstone system.";
   }
   if (route.path === "/book") {
@@ -118,7 +129,7 @@ function loaderTextFor(
 function pillFor(route: FutureRouteRecord, family: RouteExperienceFamily): string {
   if (route.path === "/") return "Silverstone operating system";
   if (route.path === "/services") return "Services command map";
-  if (route.path === "/industries") return "Industry operating patterns";
+  if (route.path === "/industry") return "Industry operating patterns";
   if (route.path === "/blog") return "Practical insight library";
 
   switch (family) {
@@ -147,7 +158,7 @@ function buttonLabelFor(
 ): string {
   if (route.path === "/") return "Explore the system";
   if (route.path === "/services") return "Explore our services";
-  if (route.path === "/industries") return "Explore industry systems";
+  if (route.path === "/industry") return "Explore industry systems";
   if (route.path === "/blog") return "Explore the insights";
   if (route.path === "/book") return "Open the booking experience";
   if (route.path === "/contact") return "Open the contact route";
@@ -177,16 +188,17 @@ function buttonLabelFor(
 
 function buildExperience(route: FutureRouteRecord): RouteExperience {
   const family = familyForRoute(route);
-  const approvedService = getApprovedServiceContent(route.path);
+  const approvedRouteEntry =
+    getApprovedServiceContent(route.path)?.routeEntry ??
+    getIndustryCopy(route.path)?.routeEntry;
 
   const experience: RouteExperience = {
     path: route.path,
-    loaderText: approvedService?.routeEntry.loaderText ?? loaderTextFor(route, family),
-    pill: approvedService?.routeEntry.pill ?? pillFor(route, family),
-    title: approvedService?.routeEntry.title ?? conciseTitle(route),
-    subtitle: approvedService?.routeEntry.subtitle ?? route.description,
-    buttonLabel:
-      approvedService?.routeEntry.buttonLabel ?? buttonLabelFor(route, family),
+    loaderText: approvedRouteEntry?.loaderText ?? loaderTextFor(route, family),
+    pill: approvedRouteEntry?.pill ?? pillFor(route, family),
+    title: approvedRouteEntry?.title ?? conciseTitle(route),
+    subtitle: approvedRouteEntry?.subtitle ?? route.description,
+    buttonLabel: approvedRouteEntry?.buttonLabel ?? buttonLabelFor(route, family),
     bodyHeadingId: BODY_FOCUS_TARGET,
     family,
   };

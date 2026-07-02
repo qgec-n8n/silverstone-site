@@ -29,11 +29,7 @@
         "Who maintains the site after launch?"
       ],
       "breadcrumbs": "Home → Services → Web Design & Development",
-      "schemaTypes": [
-        "Service",
-        "WebPage",
-        "BreadcrumbList"
-      ]
+      "schemaTypes": ["Service", "WebPage", "BreadcrumbList"]
     },
     "routeEntry": {
       "loaderText": "Aligning message, movement and measurement",
@@ -192,11 +188,7 @@
         "Is a first release the same as a cheap MVP?"
       ],
       "breadcrumbs": "Home → Services → App Development",
-      "schemaTypes": [
-        "Service",
-        "WebPage",
-        "BreadcrumbList"
-      ]
+      "schemaTypes": ["Service", "WebPage", "BreadcrumbList"]
     },
     "routeEntry": {
       "loaderText": "Reducing the idea to its most valuable working state",
@@ -357,11 +349,7 @@
         "Will it replace the team?"
       ],
       "breadcrumbs": "Home → Services → AI Voice Agents",
-      "schemaTypes": [
-        "Service",
-        "WebPage",
-        "BreadcrumbList"
-      ]
+      "schemaTypes": ["Service", "WebPage", "BreadcrumbList"]
     },
     "routeEntry": {
       "loaderText": "Synchronising speech, action and human fallback",
@@ -477,10 +465,7 @@
     },
     "demo": {
       "rawMarkdown": "### Section introduction\n\n**Experience the architecture before the live agent is connected.**\n\nThis section reserves two coordinated surfaces: an ElevenLabs-ready call feature and an adjacent transcript window. Together they will show how a conversation moves through listening, interpretation, approved response, action and escalation. Both remain intentionally inactive until credentials, scripts, disclosure, consent and privacy controls are approved.\n\n### Future ElevenLabs AI-call placeholder\n\n- **Label:** Reserved voice experience · Live call\n- **Heading:** Test a governed call flow in real time\n- **Body:** This surface is prepared for a future ElevenLabs voice-agent integration using an approved scenario. The final experience will identify its automated nature, request any required permission and keep the available actions within the demonstrated flow.\n- **Privacy note:** No microphone access, telephone number, call recording or live agent is currently connected.\n- **Status:** Integration reserved. Awaiting approved credentials, voice, script and production controls.\n- **Configuration slot:** `futureVoiceElevenLabsAgent`\n\n### Adjacent transcript-window placeholder\n\n- **Label:** Reserved evaluation view · Transcript\n- **Heading:** See what the system heard, decided and handed over\n- **Body:** The transcript surface will display an approved illustrative conversation beside call states, captured details, tool outcomes and escalation notes. It is designed for evaluation—not to imply a real customer conversation.\n- **Privacy note:** Sample text must remain synthetic until a lawful, consented and appropriately redacted production source is approved.\n- **Status:** Transcript layout reserved. No live transcript source is connected.\n- **Configuration slot:** `futureVoiceTranscriptSource`\n\n### Transition copy\n\n**A polished voice is only the audible layer. The transcript and state history reveal whether the system is operating responsibly.**\n\n- **Secondary link:** Explore AI Receptionists\n- **Primary button:** Book a discovery call",
-      "configSlots": [
-        "futureVoiceElevenLabsAgent",
-        "futureVoiceTranscriptSource"
-      ]
+      "configSlots": ["futureVoiceElevenLabsAgent", "futureVoiceTranscriptSource"]
     },
     "acceptance": {
       "distinctivePhrases": [
@@ -527,11 +512,7 @@
         "Will it understand every caller?"
       ],
       "breadcrumbs": "Home → Services → AI Receptionists",
-      "schemaTypes": [
-        "Service",
-        "WebPage",
-        "BreadcrumbList"
-      ]
+      "schemaTypes": ["Service", "WebPage", "BreadcrumbList"]
     },
     "routeEntry": {
       "loaderText": "Converging every enquiry into the right next action",
@@ -698,11 +679,7 @@
         "How much content will be produced?"
       ],
       "breadcrumbs": "Home → Services → Content Creation",
-      "schemaTypes": [
-        "Service",
-        "WebPage",
-        "BreadcrumbList"
-      ]
+      "schemaTypes": ["Service", "WebPage", "BreadcrumbList"]
     },
     "routeEntry": {
       "loaderText": "Structuring expertise into reusable editorial momentum",
@@ -866,11 +843,7 @@
         "What happens when a system changes?"
       ],
       "breadcrumbs": "Home → Services → AI Automation",
-      "schemaTypes": [
-        "Service",
-        "WebPage",
-        "BreadcrumbList"
-      ]
+      "schemaTypes": ["Service", "WebPage", "BreadcrumbList"]
     },
     "routeEntry": {
       "loaderText": "Orchestrating data, decisions and accountable action",
@@ -1030,11 +1003,7 @@
         "What happens after the roadmap?"
       ],
       "breadcrumbs": "Home → Services → AI & Automation Consulting",
-      "schemaTypes": [
-        "Service",
-        "WebPage",
-        "BreadcrumbList"
-      ]
+      "schemaTypes": ["Service", "WebPage", "BreadcrumbList"]
     },
     "routeEntry": {
       "loaderText": "Converting ambition into an ordered set of decisions",

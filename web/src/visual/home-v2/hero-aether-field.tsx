@@ -7,6 +7,29 @@ export const AETHER_NETWORK_PROXIMITY = "#F3F7FF";
 export const AETHER_POINTER_RADIUS = 200;
 const MAX_DPR = 1.5;
 
+export type AetherPalette = {
+  particle: string;
+  network: string;
+  proximity: string;
+};
+
+/**
+ * The Industries route family renders the same Aether field — identical
+ * displacement, line-breaking and reforming behaviour — in a violet palette,
+ * signalling a different page family against the same dark background.
+ */
+export const AETHER_INDUSTRIES_PALETTE: AetherPalette = {
+  particle: "#A78BFA",
+  network: "#8B7CF6",
+  proximity: "#F4F0FF",
+};
+
+const DEFAULT_PALETTE: AetherPalette = {
+  particle: AETHER_PARTICLE_COLOR,
+  network: AETHER_NETWORK_DEFAULT,
+  proximity: AETHER_NETWORK_PROXIMITY,
+};
+
 type MouseState = {
   radius: number;
   x: number | null;
@@ -121,8 +144,15 @@ function rgba(hex: string, alpha: number) {
   )})`;
 }
 
-export function HeroAetherField({ enabled = true }: { enabled?: boolean }) {
+export function HeroAetherField({
+  enabled = true,
+  palette,
+}: {
+  enabled?: boolean;
+  palette?: AetherPalette | undefined;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const activePalette = palette ?? DEFAULT_PALETTE;
 
   useEffect(() => {
     if (!enabled) {
@@ -162,7 +192,14 @@ export function HeroAetherField({ enabled = true }: { enabled?: boolean }) {
         const directionY = Math.random() * 0.4 - 0.2;
 
         particles.push(
-          new AetherParticle(x, y, directionX, directionY, size, AETHER_PARTICLE_COLOR),
+          new AetherParticle(
+            x,
+            y,
+            directionX,
+            directionY,
+            size,
+            activePalette.particle,
+          ),
         );
       }
     };
@@ -216,7 +253,7 @@ export function HeroAetherField({ enabled = true }: { enabled?: boolean }) {
             }
 
             context.strokeStyle = rgba(
-              isNearPointer ? AETHER_NETWORK_PROXIMITY : AETHER_NETWORK_DEFAULT,
+              isNearPointer ? activePalette.proximity : activePalette.network,
               opacity,
             );
             context.lineWidth = 1;
@@ -307,7 +344,7 @@ export function HeroAetherField({ enabled = true }: { enabled?: boolean }) {
       window.removeEventListener("mouseout", clearPointer);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [enabled]);
+  }, [activePalette, enabled]);
 
   return (
     <div className="ss-hv2-hero__field" data-ss-gsap="hero-field" aria-hidden="true">

@@ -30,3 +30,10 @@
 ## Reopen Conditions
 
 Reopen a decision only with new evidence, an owner instruction, or a conflict with authenticated production/provider facts. Preferences for smaller implementation steps, visual experimentation, or route-group validation do not reopen the parallel rebuild decision.
+
+## 2026-07-02 — Industries-v2 rebuild decisions
+
+- **Industry routes render bespoke industries-v2 compositions; migrated legacy copy is excluded** from industry and hub routes (prototype copy must not reach the DOM, prerendered HTML or bundle).
+- **Industry SEO metadata is owned by `approvedRouteOverrides`** (per the approved industries copy & SEO pack, 2026-06-30); breadcrumbs remain Home → Industries → <Industry> with canonical `/services/<slug>` URLs.
+- **Benchmark presentation:** owner-approved register figures are presented as verified Silverstone AI performance with exact values, units and time bases preserved; no FAQPage schema is emitted (visible FAQs only) given current rich-result eligibility.
+- **Industries Aether palette:** the industry family (and `/industries`) renders the shared Aether field in violet (#A78BFA particles / #8B7CF6 network / #F4F0FF proximity); displacement and line behaviour untouched.

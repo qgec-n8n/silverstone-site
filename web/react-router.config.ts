@@ -3,6 +3,16 @@ import futureRouteManifest from "./src/data/generated/future-route-manifest.json
 
 const approvedPrerenderPaths = [
   "/industries",
+  "/industry",
+  "/industry/estate-agents",
+  "/industry/salons-barbers",
+  "/industry/ecommerce",
+  "/industry/dentists",
+  "/industry/fitness-coaches",
+  "/industry/hospitality",
+  "/industry/trades",
+  "/industry/physios-chiropractors",
+  "/industry/gyms-fitness-studios",
   "/how-we-work",
   "/services/web-design-development",
   "/services/website-design-development",

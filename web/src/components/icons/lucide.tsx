@@ -302,3 +302,138 @@ export const Bot = createIcon("Bot", [
   ["path", { d: "M15 13v2" }],
   ["path", { d: "M9 13v2" }],
 ]);
+export const Building2 = createIcon("Building2", [
+  ["path", { d: "M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" }],
+  ["path", { d: "M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" }],
+  ["path", { d: "M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" }],
+  ["path", { d: "M10 6h4" }],
+  ["path", { d: "M10 10h4" }],
+  ["path", { d: "M10 14h4" }],
+  ["path", { d: "M10 18h4" }],
+]);
+export const Scissors = createIcon("Scissors", [
+  ["circle", { cx: "6", cy: "6", r: "3" }],
+  ["path", { d: "M8.12 8.12 12 12" }],
+  ["path", { d: "M20 4 8.12 15.88" }],
+  ["circle", { cx: "6", cy: "18", r: "3" }],
+  ["path", { d: "M14.8 14.8 20 20" }],
+]);
+export const ShoppingBag = createIcon("ShoppingBag", [
+  ["path", { d: "M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" }],
+  ["path", { d: "M3 6h18" }],
+  ["path", { d: "M16 10a4 4 0 0 1-8 0" }],
+]);
+export const Smile = createIcon("Smile", [
+  ["circle", { cx: "12", cy: "12", r: "10" }],
+  ["path", { d: "M8 14s1.5 2 4 2 4-2 4-2" }],
+  ["line", { x1: "9", x2: "9.01", y1: "9", y2: "9" }],
+  ["line", { x1: "15", x2: "15.01", y1: "9", y2: "9" }],
+]);
+export const Dumbbell = createIcon("Dumbbell", [
+  ["path", { d: "M14.4 14.4 9.6 9.6" }],
+  [
+    "path",
+    {
+      d: "M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z",
+    },
+  ],
+  ["path", { d: "m21.5 21.5-1.4-1.4" }],
+  ["path", { d: "M3.9 3.9 2.5 2.5" }],
+  [
+    "path",
+    {
+      d: "M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z",
+    },
+  ],
+]);
+export const Wrench = createIcon("Wrench", [
+  [
+    "path",
+    {
+      d: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z",
+    },
+  ],
+]);
+export const ConciergeBell = createIcon("ConciergeBell", [
+  [
+    "path",
+    { d: "M3 20a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1Z" },
+  ],
+  ["path", { d: "M20 16a8 8 0 1 0-16 0" }],
+  ["path", { d: "M12 4v4" }],
+  ["path", { d: "M10 4h4" }],
+]);
+export const HeartPulse = createIcon("HeartPulse", [
+  [
+    "path",
+    {
+      d: "M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z",
+    },
+  ],
+  ["path", { d: "M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" }],
+]);
+export const Send = createIcon("Send", [
+  [
+    "path",
+    {
+      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
+    },
+  ],
+  ["path", { d: "m21.854 2.147-10.94 10.939" }],
+]);
+export const CalendarClock = createIcon("CalendarClock", [
+  ["path", { d: "M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5" }],
+  ["path", { d: "M16 2v4" }],
+  ["path", { d: "M8 2v4" }],
+  ["path", { d: "M3 10h5" }],
+  ["path", { d: "M17.5 17.5 16 16.3V14" }],
+  ["circle", { cx: "16", cy: "16", r: "6" }],
+]);
+export const Users = createIcon("Users", [
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" }],
+  ["circle", { cx: "9", cy: "7", r: "4" }],
+  ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87" }],
+  ["path", { d: "M16 3.13a4 4 0 0 1 0 7.75" }],
+]);
+export const Star = createIcon("Star", [
+  [
+    "path",
+    {
+      d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
+    },
+  ],
+]);
+export const Clock = createIcon("Clock", [
+  ["circle", { cx: "12", cy: "12", r: "10" }],
+  ["polyline", { points: "12 6 12 12 16 14" }],
+]);
+export const Inbox = createIcon("Inbox", [
+  ["polyline", { points: "22 12 16 12 14 15 10 15 8 12 2 12" }],
+  [
+    "path",
+    {
+      d: "M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z",
+    },
+  ],
+]);
+export const BellRing = createIcon("BellRing", [
+  ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0" }],
+  ["path", { d: "M22 8c0-2.3-.8-4.3-2-6" }],
+  [
+    "path",
+    {
+      d: "M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326",
+    },
+  ],
+  ["path", { d: "M4 2C2.8 3.7 2 5.7 2 8" }],
+]);
+export const ClipboardCheck = createIcon("ClipboardCheck", [
+  ["rect", { width: "8", height: "4", x: "8", y: "2", rx: "1", ry: "1" }],
+  [
+    "path",
+    {
+      d: "M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2",
+    },
+  ],
+  ["path", { d: "m9 14 2 2 4-4" }],
+]);

@@ -3,7 +3,9 @@ import { expect, test } from "@playwright/test";
 const representativeRoutes = [
   "/",
   "/services",
+  "/industry/dentists",
   "/services/dentists",
+  "/industry",
   "/industries",
   "/how-we-work",
   "/blog",
@@ -18,8 +20,8 @@ const representativeSourceCopy = [
     text: "The work starts with a named problem, an accountable owner and a defined first release. Technology choices follow the workflow, not the other way around.",
   },
   {
-    path: "/services/dentists",
-    text: "Clinical questions must be separated from administrative ones",
+    path: "/industry/dentists",
+    text: "Recall and rebooking with visible responsibility",
   },
   {
     path: "/blog/ai-receptionist-small-business-2026",
@@ -66,7 +68,13 @@ for (const comparison of representativeSourceCopy) {
   test(`source content comparison: ${comparison.path}`, async ({ page }) => {
     await page.goto(comparison.path);
 
-    await expect(page.getByText(comparison.text, { exact: true })).toBeVisible();
+    // Every route opens behind the shared route-entry experience; the body
+    // (and its copy) becomes visible once the explore button is activated.
+    const exploreButton = page.locator(".ss-service-intro button").first();
+    await exploreButton.click();
+    await expect(page.getByText(comparison.text, { exact: true })).toBeVisible({
+      timeout: 15_000,
+    });
     await expect(page.locator("main form, main iframe")).toHaveCount(0);
   });
 }
