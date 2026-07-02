@@ -103,7 +103,7 @@ export function BenchmarkConsole({
           {attribution}
         </span>
       </Reveal>
-      <div className="ss-srv2-bench__grid">
+      <div className="ss-srv2-bench__grid" data-count={metrics.length}>
         {metrics.map((metric, index) => {
           const { value, label } = splitMetric(metric);
           return (
@@ -132,7 +132,7 @@ export function BenchmarkConsole({
 
 export function ProcessTrack({ steps }: { steps: ApprovedCopyCard[] }) {
   return (
-    <div className="ss-srv2-process">
+    <div className="ss-srv2-process" data-count={steps.length}>
       {steps.map((step, index) => (
         <Reveal
           key={step.label}
@@ -196,7 +196,9 @@ export function FinalCta({
   return (
     <div className="ss-srv2-cta">
       <Reveal kind="section">
-        <h2 className="ss-srv2-cta__title">{heading}</h2>
+        <h2 className="ss-srv2-cta__title">
+          <RichText text={heading} />
+        </h2>
       </Reveal>
       <Reveal kind="section" delayMs={130}>
         <div className="ss-srv2-cta__body">{body}</div>

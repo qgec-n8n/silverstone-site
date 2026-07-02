@@ -140,12 +140,30 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
               y={atRiskY + CELL_H / 2 + 3}
               textAnchor="middle"
               fill="var(--srv2-ink-soft)"
-              fontSize="11"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               {rescued ? "Check-in sent ✓" : "Flagged → staff"}
             </text>
           </m.g>
+
+          {/* Flagged cohort flows into tracked follow-up */}
+          <path
+            d="M 487 248 C 495 290, 500 320, 505 352"
+            fill="none"
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="5 6"
+            opacity="0.7"
+          />
+          <path
+            d="M 255 300 C 255 350, 255 390, 255 428"
+            fill="none"
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="5 6"
+            opacity="0.7"
+          />
 
           {/* Trial-to-member dial */}
           <m.g
@@ -206,7 +224,7 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
               y={DIAL.y + 274}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               tracked, owned
@@ -245,7 +263,7 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
               y="471"
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               duty of care — people decide, always

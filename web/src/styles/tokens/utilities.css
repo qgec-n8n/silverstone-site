@@ -315,3 +315,101 @@
     transform: none !important;
   }
 }
+
+/* ---- Header CTA — the one button that must always invite the click ------ */
+
+.ss-nav-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-image: var(--ss-v2-gradient-signal);
+  background-size: 220% 100%;
+  color: #05070a;
+  animation: ss-nav-cta-pan 8s ease-in-out infinite;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ss-v2-signal-cyan) 45%, transparent),
+    0 10px 30px -12px color-mix(in srgb, var(--ss-v2-signal-cyan) 75%, transparent);
+  transition:
+    box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-nav-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--ss-v2-gradient-signal);
+  filter: blur(14px);
+  opacity: 0.35;
+  animation: ss-nav-cta-breathe 3.2s ease-in-out infinite;
+}
+
+.ss-nav-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 70%
+  );
+  transform: translateX(-140%);
+  pointer-events: none;
+}
+
+.ss-nav-cta:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ss-v2-signal-cyan) 70%, transparent),
+    0 14px 40px -12px color-mix(in srgb, var(--ss-v2-signal-violet, #7c5cff) 85%, transparent);
+}
+
+.ss-nav-cta:hover::after {
+  animation: ss-nav-cta-sheen 0.8s ease;
+}
+
+.ss-nav-cta svg {
+  transition: transform var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-nav-cta:hover svg {
+  transform: translate(2px, -2px);
+}
+
+@keyframes ss-nav-cta-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes ss-nav-cta-breathe {
+  0%,
+  100% {
+    opacity: 0.22;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes ss-nav-cta-sheen {
+  to {
+    transform: translateX(140%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-nav-cta,
+  .ss-nav-cta::before {
+    animation: none;
+  }
+  .ss-nav-cta::after {
+    display: none;
+  }
+}

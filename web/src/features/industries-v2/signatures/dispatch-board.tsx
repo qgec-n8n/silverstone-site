@@ -132,7 +132,7 @@ export function DispatchBoard({
                 y={CARD_Y + 22}
                 textAnchor="middle"
                 fill="var(--ss-v2-chrome)"
-                fontSize="11.5"
+                fontSize="12"
                 fontFamily="var(--ss-font-mono)"
               >
                 Leak · SW9
@@ -142,7 +142,7 @@ export function DispatchBoard({
                 y={CARD_Y + 40}
                 textAnchor="middle"
                 fill="var(--srv2-ink-faint)"
-                fontSize="10.5"
+                fontSize="12"
                 fontFamily="var(--ss-font-mono)"
               >
                 photos ✓
@@ -165,7 +165,7 @@ export function DispatchBoard({
                 y={CARD_Y + 22}
                 textAnchor="middle"
                 fill="var(--ss-v2-chrome)"
-                fontSize="11.5"
+                fontSize="12"
                 fontFamily="var(--ss-font-mono)"
               >
                 Leak · SW9
@@ -187,11 +187,33 @@ export function DispatchBoard({
             y={BOARD_BOTTOM + 36}
             textAnchor="end"
             fill="var(--srv2-ink-faint)"
-            fontSize="11.5"
+            fontSize="12"
             fontFamily="var(--ss-font-mono)"
           >
             price + attendance: office only
           </text>
+
+          {/* Gates connect to the board they guard */}
+          <line
+            x1={GATE.x}
+            y1={GATE.y - 26}
+            x2={FIRST_COLUMN.x}
+            y2={BOARD_BOTTOM + 2}
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="5 6"
+            opacity="0.7"
+          />
+          <line
+            x1="456"
+            y1={GATE.y - 26}
+            x2={CALLBACK_COLUMN.x + 40}
+            y2={BOARD_BOTTOM + 2}
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="5 6"
+            opacity="0.7"
+          />
 
           {/* Postcode gate with rejected card */}
           <m.g
@@ -225,7 +247,7 @@ export function DispatchBoard({
               y={GATE.y + 16}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               service-area rules first
@@ -264,7 +286,7 @@ export function DispatchBoard({
                 y={GATE.y - 1}
                 textAnchor="middle"
                 fill="var(--srv2-ink-faint)"
-                fontSize="10.5"
+                fontSize="12"
                 fontFamily="var(--ss-font-mono)"
               >
                 Out of area
@@ -274,7 +296,7 @@ export function DispatchBoard({
                 y={GATE.y + 14}
                 textAnchor="middle"
                 fill="var(--srv2-ink-faint)"
-                fontSize="10.5"
+                fontSize="12"
                 fontFamily="var(--ss-font-mono)"
               >
                 closed politely
@@ -314,7 +336,7 @@ export function DispatchBoard({
               y={GATE.y + 16}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               → approved human response

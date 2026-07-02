@@ -140,7 +140,7 @@ export function SecondaryHero({
               trigger="mount"
             >
               <h1 className="ss-srv2-hero__title" id={titleId}>
-                {title}
+                <RichText text={title} />
               </h1>
             </Reveal>
             <Reveal

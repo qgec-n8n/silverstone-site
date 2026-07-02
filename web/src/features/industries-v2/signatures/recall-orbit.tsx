@@ -170,7 +170,7 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
               y={CENTER.y + 76}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11.5"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               never automated
@@ -201,6 +201,24 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
               }}
             />
           ) : null}
+
+          {/* Static guides: orbit → booked dock, shield → escalation */}
+          <path
+            d={`M ${String(CENTER.x + OUTER_R - 6)} ${String(CENTER.y + 24)} C 440 330, ${String(DOCK.x - 20)} 360, ${String(DOCK.x)} ${String(DOCK.y - 26)}`}
+            fill="none"
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="5 6"
+            opacity="0.7"
+          />
+          <path
+            d={`M ${String(CENTER.x - 34)} ${String(CENTER.y + 34)} C 200 330, 160 360, 140 ${String(DOCK.y - 26)}`}
+            fill="none"
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="5 6"
+            opacity="0.7"
+          />
 
           {/* Booked dock */}
           <m.g
@@ -234,7 +252,7 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
               y={DOCK.y + 17}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11.5"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               owner assigned · journey recorded
@@ -273,7 +291,7 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
               y={DOCK.y + 17}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11.5"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               → practice escalation route

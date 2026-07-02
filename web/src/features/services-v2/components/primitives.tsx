@@ -292,7 +292,7 @@ export function SectionHead({
       </Reveal>
       <Reveal kind="section" delayMs={120}>
         <h2 className="ss-srv2-heading" id={headingId}>
-          {heading}
+          <RichText text={heading} />
         </h2>
       </Reveal>
       {lead ? (

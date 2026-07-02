@@ -218,9 +218,22 @@
  * OS font-size overrides) where the fluid type below still doesn't leave
  * quite enough room — clipping a sliver beats pushing the trust bar down.
  */
+/*
+ * Experience pages sit tight under the header: the default 72/120px section
+ * padding is replaced by a small vh-aware band so breadcrumbs, copy and the
+ * signature feature move up, and the hero gains that space back.
+ */
+:root {
+  --srv2-frame-top: clamp(1rem, 0.4rem + 1.6vh, 2.1rem);
+}
+
+section[data-slot="page-section"]:has(.ss-srv2) {
+  padding-block-start: var(--srv2-frame-top);
+}
+
 .ss-srv2-hero {
   --srv2-hero-chrome: calc(
-    var(--ss-layout-header) + var(--ss-layout-section-mobile) + 2rem + 1.5rem
+    var(--ss-layout-header) + var(--srv2-frame-top) + 2rem + 1.5rem
   );
 
   display: flex;
@@ -229,14 +242,6 @@
   min-height: calc(100dvh - var(--srv2-hero-chrome));
   overflow: hidden;
   padding-block: clamp(0.85rem, 0.5rem + 2vh, 1.75rem);
-}
-
-@media (min-width: 64rem) {
-  .ss-srv2-hero {
-    --srv2-hero-chrome: calc(
-      var(--ss-layout-header) + var(--ss-layout-section-desktop) + 2rem + 1.5rem
-    );
-  }
 }
 
 .ss-srv2-hero > .ss-srv2__container {
@@ -305,7 +310,7 @@
   margin: 0;
   font-family: var(--ss-font-display);
   font-weight: 600;
-  font-size: clamp(1.85rem, 0.85rem + 1.3vw + 1.6vh, 3.35rem);
+  font-size: clamp(1.5rem, 0.45rem + 1.1vw + 2vh, 3.35rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
   color: var(--ss-v2-chrome);
@@ -317,8 +322,8 @@
   margin: 0;
   max-width: var(--srv2-measure);
   color: var(--srv2-ink-soft);
-  font-size: clamp(0.95rem, 0.82rem + 0.3vw + 0.4vh, 1.15rem);
-  line-height: 1.52;
+  font-size: clamp(0.82rem, 0.6rem + 0.2vw + 0.55vh, 1.15rem);
+  line-height: 1.5;
 }
 
 .ss-srv2-hero__caps {
@@ -335,7 +340,7 @@
   align-items: center;
   gap: 0.75rem;
   color: var(--srv2-ink);
-  font-size: 0.98rem;
+  font-size: clamp(0.8rem, 0.6rem + 0.55vh, 0.98rem);
 }
 
 .ss-srv2-hero__cap-dot {
@@ -351,8 +356,19 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.9rem 1rem;
+  gap: clamp(0.5rem, 0.3rem + 0.6vh, 0.9rem) 1rem;
   padding-top: 0.3rem;
+}
+
+/* Hero CTAs and eyebrow shrink with viewport height alongside the copy. */
+.ss-srv2-hero__actions .ss-srv2-btn {
+  padding: clamp(0.55rem, 0.3rem + 0.75vh, 0.85rem)
+    clamp(1rem, 0.75rem + 0.9vh, 1.4rem);
+  font-size: clamp(0.84rem, 0.7rem + 0.4vh, 0.975rem);
+}
+
+.ss-srv2-hero .ss-srv2-eyebrow {
+  font-size: clamp(0.58rem, 0.48rem + 0.3vh, 0.7rem);
 }
 
 .ss-srv2-hero__showcase {
@@ -392,7 +408,7 @@
   flex: none;
   justify-content: center;
   margin-top: auto;
-  padding-top: clamp(0.75rem, 0.5rem + 1vh, 1.5rem);
+  padding-top: clamp(0.4rem, 0.2rem + 0.8vh, 1.5rem);
 }
 
 @media (max-width: 48rem) {
@@ -444,11 +460,63 @@
  * treatment for every "Book a discovery call" action in the body.
  */
 .ss-srv2-btn--primary {
+  position: relative;
+  overflow: hidden;
   color: #05070a;
-  background: linear-gradient(120deg, var(--srv2-accent), var(--srv2-accent-2));
+  background: linear-gradient(
+    120deg,
+    var(--srv2-accent),
+    var(--srv2-accent-2),
+    var(--srv2-accent)
+  );
+  background-size: 230% 100%;
+  animation: srv2-btn-pan 7s ease-in-out infinite;
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--srv2-accent) 40%, transparent),
     0 18px 42px -18px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+}
+
+.ss-srv2-btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 68%
+  );
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+.ss-srv2-btn--primary:hover::after {
+  animation: srv2-btn-sheen 0.85s ease;
+}
+
+@keyframes srv2-btn-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes srv2-btn-sheen {
+  to {
+    transform: translateX(130%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-srv2-btn--primary {
+    animation: none;
+  }
+  .ss-srv2-btn--primary::after {
+    display: none;
+  }
 }
 
 .ss-srv2-btn--primary:hover {
@@ -480,21 +548,25 @@
 }
 
 .ss-srv2-textlink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: color-mix(in srgb, var(--srv2-accent) 82%, var(--ss-v2-chrome));
-  font-weight: 500;
+  display: inline;
+  color: color-mix(in srgb, var(--srv2-accent) 85%, var(--ss-v2-chrome));
+  font-weight: 550;
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--srv2-accent) 35%, transparent);
+  padding-bottom: 0.1em;
+  background-image: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
   transition:
     color var(--ss-motion-duration-base),
-    border-color var(--ss-motion-duration-base);
+    background-size var(--ss-motion-duration-base),
+    text-shadow var(--ss-motion-duration-base);
 }
 
 .ss-srv2-textlink:hover {
   color: var(--ss-v2-chrome);
-  border-color: var(--srv2-accent);
+  background-size: 100% 2px;
+  text-shadow: 0 0 20px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
 }
 
 .ss-srv2-textlink svg {
@@ -792,8 +864,16 @@
 }
 
 @media (min-width: 46rem) {
+  /* Every verified figure sits on one row, whatever the count. */
   .ss-srv2-bench__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 30rem) and (max-width: 45.99rem) {
+  /* Even counts split into equal rows below the single-row breakpoint. */
+  .ss-srv2-bench__grid[data-count="4"] {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -805,9 +885,10 @@
 
 .ss-srv2-metric__value {
   display: block;
+  white-space: nowrap;
   font-family: var(--ss-font-display);
   font-weight: 650;
-  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  font-size: clamp(1.5rem, 0.65rem + 1.75vw, 2.7rem);
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--ss-v2-chrome);
@@ -852,6 +933,12 @@
 @media (min-width: 52rem) {
   .ss-srv2-process {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* 5 or 6 steps balance as 3+2 / 3+3 instead of 4+1 / 4+2. */
+  .ss-srv2-process[data-count="5"],
+  .ss-srv2-process[data-count="6"] {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -1348,9 +1435,10 @@
 }
 
 .ss-srv2-signature__metric-value {
+  white-space: nowrap;
   font-family: var(--ss-font-display);
   font-weight: 600;
-  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
+  font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.45rem);
   letter-spacing: -0.02em;
   color: var(--ss-v2-chrome);
 }
@@ -1364,16 +1452,14 @@
  * stage simply cedes that space — no fixed heights to fight.
  */
 .ss-srv2-signature__metric-label {
-  display: -webkit-box;
-  overflow: hidden;
+  display: block;
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
-  font-size: 0.64rem;
-  line-height: 1.35;
+  font-size: 0.66rem;
+  line-height: 1.4;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  overflow-wrap: break-word;
 }
 
 /* ---- Signature chrome (shared corner brackets + scanning sweep) -------- */
@@ -1892,4 +1978,26 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---- Gradient emphasis ---------------------------------------------------
+ * `*emphasised*` copy inside hero titles and section headings renders as a
+ * spectral gradient sweep — the one deliberate moment of colour in each
+ * heading, guiding the eye to the phrase that sells.
+ */
+.ss-srv2-hero__title em,
+.ss-srv2-heading em,
+.ss-srv2-cta__title em {
+  font-style: normal;
+  background: linear-gradient(100deg, var(--srv2-accent), var(--srv2-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ss-srv2-prose strong,
+.ss-srv2-card__body strong,
+.ss-ind2-boundary__body strong {
+  color: var(--ss-v2-chrome);
+  font-weight: 600;
 }

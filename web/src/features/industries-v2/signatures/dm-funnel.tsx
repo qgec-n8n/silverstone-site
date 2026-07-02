@@ -136,15 +136,24 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
             transition={{ duration: 1.6, delay: reducedMotion ? 0 : 0.6 }}
           />
           <text
-            x="596"
-            y="240"
+            x="560"
+            y="46"
             textAnchor="end"
             fill="var(--srv2-ink-faint)"
-            fontSize="11.5"
+            fontSize="12"
             fontFamily="var(--ss-font-mono)"
-            transform="rotate(90 570 240)"
           >
-            health disclosure → coach, directly
+            health disclosure
+          </text>
+          <text
+            x="560"
+            y="62"
+            textAnchor="end"
+            fill="var(--srv2-ink-faint)"
+            fontSize="12"
+            fontFamily="var(--ss-font-mono)"
+          >
+            → coach, directly
           </text>
 
           {/* Consultation slot at the throat */}
@@ -195,12 +204,24 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
               y={FUNNEL_THROAT + 68}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11.5"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               real calendar capacity only
             </text>
           </m.g>
+
+          {/* Brief feeds the consultation slot */}
+          <line
+            x1="184"
+            y1={FUNNEL_THROAT + 56}
+            x2="212"
+            y2={FUNNEL_THROAT + 52}
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="4 5"
+            opacity="0.8"
+          />
 
           {/* Coach brief assembling */}
           <m.g
@@ -236,7 +257,7 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
                 x="66"
                 y={FUNNEL_THROAT + 52 + index * 18}
                 fill="var(--srv2-ink-soft)"
-                fontSize="11.5"
+                fontSize="12"
                 fontFamily="var(--ss-font-mono)"
                 initial={reducedMotion ? false : { opacity: 0 }}
                 whileInView={{ opacity: 1 }}

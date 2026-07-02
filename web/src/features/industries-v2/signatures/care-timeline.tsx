@@ -65,7 +65,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
             x="60"
             y={BOUNDARY_Y - 14}
             fill="var(--srv2-ink-faint)"
-            fontSize="11.5"
+            fontSize="12"
             fontFamily="var(--ss-font-mono)"
           >
             registered professionals only; automation stops here
@@ -96,7 +96,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
             x="516"
             y={TIMELINE_Y - 60}
             fill="var(--srv2-ink-faint)"
-            fontSize="10.5"
+            fontSize="12"
             fontFamily="var(--ss-font-mono)"
             transform={`rotate(-90 516 ${String(TIMELINE_Y - 60)})`}
           >
@@ -207,7 +207,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
                   y={TIMELINE_Y + 72}
                   textAnchor="middle"
                   fill="var(--srv2-ink-faint)"
-                  fontSize="11.5"
+                  fontSize="12"
                   fontFamily="var(--ss-font-mono)"
                   initial={reducedMotion ? false : { opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -222,6 +222,24 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
               </m.g>
             );
           })}
+
+          {/* Docks connect to the sessions they support */}
+          <path
+            d={`M 195 418 C 175 380, 130 320, 110 ${String(TIMELINE_Y + 16)}`}
+            fill="none"
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="5 6"
+            opacity="0.7"
+          />
+          <path
+            d={`M 405 418 C 400 380, 396 330, 395 ${String(TIMELINE_Y + 18)}`}
+            fill="none"
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="5 6"
+            opacity="0.7"
+          />
 
           {/* Intake dock */}
           <m.g
@@ -255,7 +273,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
               y="461"
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               minimum necessary data
@@ -285,7 +303,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
               y="461"
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               right person, right context
