@@ -21,7 +21,7 @@ const representativeSourceCopy = [
   },
   {
     path: "/industry/dentists",
-    text: "Recall and rebooking with visible responsibility",
+    text: "Recall & rebooking",
   },
   {
     path: "/blog/ai-receptionist-small-business-2026",

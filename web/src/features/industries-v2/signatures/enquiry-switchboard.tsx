@@ -222,6 +222,16 @@ export function EnquirySwitchboard({
             </m.g>
           ))}
 
+          {/* Lanes feed the viewing diary */}
+          <path
+            d={`M ${String(LANE_X + 34)} 312 C ${String(LANE_X + 34)} 360, 330 ${String(DIARY_Y - 50)}, 300 ${String(DIARY_Y - 18)}`}
+            fill="none"
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.4"
+            strokeDasharray="5 6"
+            opacity="0.7"
+          />
+
           {/* Viewing diary strip */}
           <text
             x="92"

@@ -481,3 +481,10 @@
     grid-column: 1 / -1;
   }
 }
+
+/* Odd card counts never leave a lone orphan at the 2-column breakpoint. */
+@media (min-width: 44rem) and (max-width: 65.99rem) {
+  .ss-hub2-grid > :nth-child(odd):last-child {
+    grid-column: 1 / -1;
+  }
+}

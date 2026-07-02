@@ -118,7 +118,7 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
             y={CENTER.y - 3}
             textAnchor="middle"
             fill="var(--ss-v2-chrome)"
-            fontSize="11.5"
+            fontSize="12"
             fontFamily="var(--ss-font-mono)"
           >
             RESERVATION
@@ -128,7 +128,7 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
             y={CENTER.y + 13}
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="10.5"
+            fontSize="12"
             fontFamily="var(--ss-font-mono)"
           >
             source of truth
@@ -191,7 +191,7 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
                   y={position.y + 28}
                   textAnchor="middle"
                   fill="var(--srv2-ink-soft)"
-                  fontSize="11.5"
+                  fontSize="12"
                   fontFamily="var(--ss-font-mono)"
                 >
                   {blip.label}
@@ -199,6 +199,28 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
               </m.g>
             );
           })}
+
+          {/* Routine + commercial blips resolve through the reservation core */}
+          <line
+            x1={polar(-35, 135).x - 10}
+            y1={polar(-35, 135).y + 4}
+            x2={CENTER.x + 36}
+            y2={CENTER.y - 6}
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.2"
+            strokeDasharray="4 6"
+            opacity="0.6"
+          />
+          <line
+            x1={polar(205, 95).x + 8}
+            y1={polar(205, 95).y + 6}
+            x2={CENTER.x - 34}
+            y2={CENTER.y + 4}
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1.2"
+            strokeDasharray="4 6"
+            opacity="0.6"
+          />
 
           {/* Safety line to staff */}
           <m.path
@@ -245,7 +267,7 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
               y={STAFF.y + 16}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="11.5"
+              fontSize="12"
               fontFamily="var(--ss-font-mono)"
             >
               allergens · complaints · emergencies — immediately
