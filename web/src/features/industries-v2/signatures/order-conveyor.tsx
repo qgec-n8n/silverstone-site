@@ -45,7 +45,9 @@ export function OrderConveyor({
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
-        <m.svg viewBox="0 0 600 600" className="ss-srv2-signature__svg">
+        {/* Tight viewBox around the drawn content so the conveyor and its
+            labels render larger for the same stage size. */}
+        <m.svg viewBox="54 54 492 440" className="ss-srv2-signature__svg">
           <defs>
             <linearGradient id="ind2-belt-accent" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="var(--srv2-accent)" />
@@ -79,7 +81,7 @@ export function OrderConveyor({
                   y="84"
                   textAnchor="middle"
                   fill="var(--srv2-ink-faint)"
-                  fontSize="12.5"
+                  fontSize="13.5"
                   fontFamily="var(--ss-font-mono)"
                 >
                   {source}
@@ -142,7 +144,7 @@ export function OrderConveyor({
                 y={BELT_Y + 38}
                 textAnchor="middle"
                 fill="var(--srv2-ink-soft)"
-                fontSize="13.5"
+                fontSize="15"
                 fontFamily="var(--ss-font-mono)"
               >
                 {station.label}
@@ -206,14 +208,18 @@ export function OrderConveyor({
             transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.4 }}
           >
             <m.rect
-              x={DOCK.x - 110}
-              y={DOCK.y - 30}
-              width="220"
-              height="60"
+              x={DOCK.x - 120}
+              y={DOCK.y - 31}
+              width="240"
+              height="62"
               rx="12"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-accent-2)"
               strokeWidth="1.8"
+              style={{
+                filter:
+                  "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent-2) 26%, transparent))",
+              }}
               animate={reducedMotion || !isException ? {} : { opacity: [1, 0.75, 1] }}
               transition={{ duration: 1.4 }}
             />
@@ -222,17 +228,17 @@ export function OrderConveyor({
               y={DOCK.y - 5}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="14"
+              fontSize="15.5"
               fontFamily="var(--ss-font-mono)"
             >
               Human review
             </text>
             <text
               x={DOCK.x}
-              y={DOCK.y + 17}
+              y={DOCK.y + 18}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="13"
               fontFamily="var(--ss-font-mono)"
             >
               refunds · disputes · goodwill
@@ -245,7 +251,7 @@ export function OrderConveyor({
             y="480"
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="12.5"
+            fontSize="13.5"
             fontFamily="var(--ss-font-mono)"
           >
             Every action permitted by state · every exception owned

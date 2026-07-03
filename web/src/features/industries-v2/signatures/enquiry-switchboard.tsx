@@ -52,7 +52,9 @@ export function EnquirySwitchboard({
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
-        <m.svg viewBox="0 0 600 600" className="ss-srv2-signature__svg">
+        {/* Tight viewBox around the drawn content so the switchboard and its
+            labels render larger for the same stage size. */}
+        <m.svg viewBox="14 56 584 448" className="ss-srv2-signature__svg">
           <defs>
             <linearGradient id="ind2-switch-accent" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="var(--srv2-accent)" />
@@ -118,21 +120,21 @@ export function EnquirySwitchboard({
               transition={{ duration: 0.55, delay: reducedMotion ? 0 : index * 0.12 }}
             >
               <rect
-                x={CHANNEL_X - 62}
-                y={channel.y - 20}
-                width="90"
-                height="40"
+                x={CHANNEL_X - 70}
+                y={channel.y - 21}
+                width="110"
+                height="42"
                 rx="10"
                 fill="var(--ss-v2-void-black)"
                 stroke="var(--srv2-accent-2)"
                 strokeWidth="1.5"
               />
               <text
-                x={CHANNEL_X - 17}
+                x={CHANNEL_X - 15}
                 y={channel.y + 5}
                 textAnchor="middle"
                 fill="var(--srv2-ink-soft)"
-                fontSize="13"
+                fontSize="14"
                 fontFamily="var(--ss-font-mono)"
               >
                 {channel.label}
@@ -179,7 +181,7 @@ export function EnquirySwitchboard({
               y={SWITCH.y - 44}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="13"
+              fontSize="14.5"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.08em"
             >
@@ -200,21 +202,21 @@ export function EnquirySwitchboard({
               }}
             >
               <rect
-                x={LANE_X - 14}
-                y={laneDef.y - 20}
-                width="96"
-                height="40"
+                x={LANE_X - 16}
+                y={laneDef.y - 21}
+                width="104"
+                height="42"
                 rx="10"
                 fill="var(--ss-v2-void-black)"
                 stroke={lane === index ? "var(--srv2-accent)" : "var(--srv2-hairline)"}
                 strokeWidth="1.5"
               />
               <text
-                x={LANE_X + 34}
+                x={LANE_X + 36}
                 y={laneDef.y + 5}
                 textAnchor="middle"
                 fill="var(--srv2-ink-soft)"
-                fontSize="13"
+                fontSize="14"
                 fontFamily="var(--ss-font-mono)"
               >
                 {laneDef.label}
@@ -237,7 +239,7 @@ export function EnquirySwitchboard({
             x="92"
             y={DIARY_Y - 26}
             fill="var(--srv2-ink-faint)"
-            fontSize="13"
+            fontSize="14.5"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.08em"
           >
@@ -280,7 +282,7 @@ export function EnquirySwitchboard({
             y={DIARY_Y + 66}
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="12.5"
+            fontSize="14"
             fontFamily="var(--ss-font-mono)"
           >
             Permitted slots only — valuation stays with the branch

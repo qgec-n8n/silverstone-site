@@ -33,7 +33,7 @@ export const dentistsCopy: IndustryCopy = {
   trustTokens: ["Non-clinical", "Data-minimised", "Escalation-led", "Practice-owned"],
   problem: {
     heading: "Reception pressure is *lost revenue*",
-    body: "The goal is simple: **make the practice easier to reach, cut repetitive admin, and never touch clinical judgement.** Both are non-negotiable design requirements — not a trade-off.",
+    body: "The goal is simple: **make the practice easier to reach, cut repetitive admin, and never touch clinical judgement.** Each one is a non-negotiable design requirement — never a trade-off.",
     cards: [
       {
         title: "Desk busy, demand still arriving",

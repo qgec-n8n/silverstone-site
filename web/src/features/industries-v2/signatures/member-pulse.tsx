@@ -17,7 +17,9 @@ import {
 } from "~/features/services-v2/signatures/signature-chrome";
 
 const WEEKS = 8;
-const GRID_X = 90;
+/* 112, not the old 90: the longest row label ("New joiners") is right-anchored
+   at GRID_X - 12 and was starting past the drawable left edge. */
+const GRID_X = 112;
 const GRID_Y = 120;
 const CELL_W = 42;
 const CELL_H = 34;
@@ -51,7 +53,9 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
-        <m.svg viewBox="0 0 600 600" className="ss-srv2-signature__svg">
+        {/* Tight viewBox around the drawn content so the heat grid and its
+            labels render larger for the same stage size. */}
+        <m.svg viewBox="4 76 578 398" className="ss-srv2-signature__svg">
           <defs>
             <linearGradient id="ind2-pulse-dial" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="var(--srv2-accent)" />
@@ -63,7 +67,7 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
             x={GRID_X}
             y={GRID_Y - 30}
             fill="var(--srv2-ink-faint)"
-            fontSize="12.5"
+            fontSize="14"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.08em"
           >
@@ -81,7 +85,7 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
                   y={y + CELL_H / 2 + 4}
                   textAnchor="end"
                   fill={isAtRisk ? "var(--srv2-accent-2)" : "var(--srv2-ink-soft)"}
-                  fontSize="12"
+                  fontSize="13.5"
                   fontFamily="var(--ss-font-mono)"
                 >
                   {row.label}
@@ -127,20 +131,20 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
           >
             <rect
               x={GRID_X + WEEKS * CELL_W + 6}
-              y={atRiskY - 2}
-              width={110}
-              height={CELL_H + 4}
+              y={atRiskY - 4}
+              width={124}
+              height={CELL_H + 8}
               rx="8"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-accent-2)"
               strokeWidth="1.5"
             />
             <text
-              x={GRID_X + WEEKS * CELL_W + 61}
-              y={atRiskY + CELL_H / 2 + 3}
+              x={GRID_X + WEEKS * CELL_W + 68}
+              y={atRiskY + CELL_H / 2 + 4}
               textAnchor="middle"
               fill="var(--srv2-ink-soft)"
-              fontSize="12"
+              fontSize="13"
               fontFamily="var(--ss-font-mono)"
             >
               {rescued ? "Check-in sent ✓" : "Flagged → staff"}
@@ -149,7 +153,7 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
 
           {/* Flagged cohort flows into tracked follow-up */}
           <path
-            d="M 487 248 C 495 290, 500 320, 505 352"
+            d="M 516 252 C 512 290, 508 320, 505 352"
             fill="none"
             stroke="var(--srv2-hairline)"
             strokeWidth="1.4"
@@ -157,7 +161,7 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
             opacity="0.7"
           />
           <path
-            d="M 255 300 C 255 350, 255 390, 255 428"
+            d="M 277 292 C 277 320, 277 350, 277 388"
             fill="none"
             stroke="var(--srv2-hairline)"
             strokeWidth="1.4"
@@ -201,10 +205,10 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
             />
             <text
               x={DIAL.x}
-              y={DIAL.y + 206}
+              y={DIAL.y + 205}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="13"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
             >
               Trial →
@@ -214,7 +218,7 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
               y={DIAL.y + 224}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="13"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
             >
               member
@@ -224,7 +228,7 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
               y={DIAL.y + 274}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="13"
               fontFamily="var(--ss-font-mono)"
             >
               tracked, owned
@@ -239,31 +243,35 @@ export function MemberPulse({ label, metrics }: { label: string; metrics: string
             transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.7 }}
           >
             <rect
-              x="90"
-              y="430"
+              x="112"
+              y="392"
               width="330"
-              height="52"
+              height="56"
               rx="12"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-accent-2)"
-              strokeWidth="1.7"
+              strokeWidth="1.8"
+              style={{
+                filter:
+                  "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent-2) 26%, transparent))",
+              }}
             />
             <text
-              x="255"
-              y="453"
+              x="277"
+              y="416"
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="13"
+              fontSize="14.5"
               fontFamily="var(--ss-font-mono)"
             >
               Injuries · disputes · cancellations
             </text>
             <text
-              x="255"
-              y="471"
+              x="277"
+              y="436"
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="13"
               fontFamily="var(--ss-font-mono)"
             >
               duty of care — people decide, always

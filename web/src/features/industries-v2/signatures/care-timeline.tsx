@@ -41,7 +41,9 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
-        <m.svg viewBox="0 0 600 600" className="ss-srv2-signature__svg">
+        {/* Tight viewBox around the drawn content so the timeline and its
+            labels render larger for the same stage size. */}
+        <m.svg viewBox="44 66 512 420" className="ss-srv2-signature__svg">
           {/* Clinical boundary horizon */}
           <line
             x1="60"
@@ -55,7 +57,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
             x="60"
             y={BOUNDARY_Y - 34}
             fill="var(--ss-v2-chrome)"
-            fontSize="13"
+            fontSize="14.5"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.07em"
           >
@@ -65,7 +67,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
             x="60"
             y={BOUNDARY_Y - 14}
             fill="var(--srv2-ink-faint)"
-            fontSize="12"
+            fontSize="13"
             fontFamily="var(--ss-font-mono)"
           >
             registered professionals only; automation stops here
@@ -96,7 +98,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
             x="516"
             y={TIMELINE_Y - 60}
             fill="var(--srv2-ink-faint)"
-            fontSize="12"
+            fontSize="13"
             fontFamily="var(--ss-font-mono)"
             transform={`rotate(-90 516 ${String(TIMELINE_Y - 60)})`}
           >
@@ -176,7 +178,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
                 y={TIMELINE_Y - 26}
                 textAnchor="middle"
                 fill="var(--srv2-ink-soft)"
-                fontSize="12.5"
+                fontSize="14.5"
                 fontFamily="var(--ss-font-mono)"
               >
                 {session.label}
@@ -207,7 +209,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
                   y={TIMELINE_Y + 72}
                   textAnchor="middle"
                   fill="var(--srv2-ink-faint)"
-                  fontSize="12"
+                  fontSize="13.5"
                   fontFamily="var(--ss-font-mono)"
                   initial={reducedMotion ? false : { opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -225,7 +227,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
 
           {/* Docks connect to the sessions they support */}
           <path
-            d={`M 195 418 C 175 380, 130 320, 110 ${String(TIMELINE_Y + 16)}`}
+            d={`M 192 416 C 172 380, 130 320, 110 ${String(TIMELINE_Y + 16)}`}
             fill="none"
             stroke="var(--srv2-hairline)"
             strokeWidth="1.4"
@@ -233,7 +235,7 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
             opacity="0.7"
           />
           <path
-            d={`M 405 418 C 400 380, 396 330, 395 ${String(TIMELINE_Y + 18)}`}
+            d={`M 408 416 C 402 380, 396 330, 395 ${String(TIMELINE_Y + 18)}`}
             fill="none"
             stroke="var(--srv2-hairline)"
             strokeWidth="1.4"
@@ -249,64 +251,68 @@ export function CareTimeline({ label, metrics }: { label: string; metrics: strin
             transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.5 }}
           >
             <rect
-              x="105"
-              y="420"
-              width="180"
-              height="52"
+              x="94"
+              y="418"
+              width="196"
+              height="56"
               rx="12"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-accent)"
-              strokeWidth="1.7"
+              strokeWidth="1.8"
+              style={{
+                filter:
+                  "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent) 30%, transparent))",
+              }}
             />
             <text
-              x="195"
-              y="443"
+              x="192"
+              y="442"
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="13"
+              fontSize="15"
               fontFamily="var(--ss-font-mono)"
             >
               Intake complete ✓
             </text>
             <text
-              x="195"
-              y="461"
+              x="192"
+              y="462"
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="13"
               fontFamily="var(--ss-font-mono)"
             >
               minimum necessary data
             </text>
             <rect
-              x="315"
-              y="420"
-              width="180"
-              height="52"
+              x="310"
+              y="418"
+              width="196"
+              height="56"
               rx="12"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-hairline)"
               strokeWidth="1.5"
             />
             <text
-              x="405"
-              y="443"
+              x="408"
+              y="442"
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="13"
+              fontSize="15"
               fontFamily="var(--ss-font-mono)"
             >
               Clinician prepared
             </text>
             <text
-              x="405"
-              y="461"
+              x="408"
+              y="462"
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="13"
               fontFamily="var(--ss-font-mono)"
             >
-              right person, right context
+              right context, ready
             </text>
           </m.g>
         </m.svg>

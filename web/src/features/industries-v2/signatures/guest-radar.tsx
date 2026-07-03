@@ -19,7 +19,7 @@ const CENTER = { x: 300, y: 230 };
 const RADII = [60, 110, 160];
 const BLIPS = [
   { angle: -35, r: 135, label: "Parking?", kind: "routine", delay: 0.6 },
-  { angle: 205, r: 95, label: "Group of 40", kind: "commercial", delay: 2.2 },
+  { angle: 205, r: 112, label: "Group of 40", kind: "commercial", delay: 2.2 },
   { angle: 120, r: 145, label: "Allergen", kind: "safety", delay: 3.8 },
 ];
 const STAFF = { x: 300, y: 470 };
@@ -43,7 +43,9 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
-        <m.svg viewBox="0 0 600 600" className="ss-srv2-signature__svg">
+        {/* Tight viewBox around the drawn content so the radar and its labels
+            render larger for the same stage size. */}
+        <m.svg viewBox="116 50 364 456" className="ss-srv2-signature__svg">
           <defs>
             <linearGradient id="ind2-radar-sweep" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0" />
@@ -104,31 +106,36 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
             </m.g>
           ) : null}
 
-          {/* Reservation source-of-truth core */}
+          {/* Reservation source-of-truth core — sized so both lines actually
+              fit inside the dial (the old r=34 clipped them). */}
           <circle
             cx={CENTER.x}
             cy={CENTER.y}
-            r="34"
+            r="48"
             fill="var(--ss-v2-void-black)"
             stroke="var(--srv2-accent)"
             strokeWidth="2"
+            style={{
+              filter:
+                "drop-shadow(0 0 12px color-mix(in srgb, var(--srv2-accent) 28%, transparent))",
+            }}
           />
           <text
             x={CENTER.x}
-            y={CENTER.y - 3}
+            y={CENTER.y - 2}
             textAnchor="middle"
             fill="var(--ss-v2-chrome)"
-            fontSize="12"
+            fontSize="13"
             fontFamily="var(--ss-font-mono)"
           >
             RESERVATION
           </text>
           <text
             x={CENTER.x}
-            y={CENTER.y + 13}
+            y={CENTER.y + 14}
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="12"
+            fontSize="11.5"
             fontFamily="var(--ss-font-mono)"
           >
             source of truth
@@ -177,10 +184,10 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
                 ) : null}
                 <circle cx={position.x} cy={position.y} r="6" fill={stroke} />
                 <rect
-                  x={position.x - 44}
+                  x={position.x - 50}
                   y={position.y + 12}
-                  width="88"
-                  height="24"
+                  width="100"
+                  height="26"
                   rx="7"
                   fill="var(--ss-v2-void-black)"
                   stroke={stroke}
@@ -188,10 +195,10 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
                 />
                 <text
                   x={position.x}
-                  y={position.y + 28}
+                  y={position.y + 30}
                   textAnchor="middle"
                   fill="var(--srv2-ink-soft)"
-                  fontSize="12"
+                  fontSize="13"
                   fontFamily="var(--ss-font-mono)"
                 >
                   {blip.label}
@@ -212,8 +219,8 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
             opacity="0.6"
           />
           <line
-            x1={polar(205, 95).x + 8}
-            y1={polar(205, 95).y + 6}
+            x1={polar(205, 112).x + 8}
+            y1={polar(205, 112).y + 6}
             x2={CENTER.x - 34}
             y2={CENTER.y + 4}
             stroke="var(--srv2-hairline)"
@@ -243,34 +250,38 @@ export function GuestRadar({ label, metrics }: { label: string; metrics: string[
             transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.5 }}
           >
             <rect
-              x={STAFF.x - 130}
-              y={STAFF.y - 26}
-              width="260"
-              height="52"
+              x={STAFF.x - 140}
+              y={STAFF.y - 27}
+              width="280"
+              height="56"
               rx="12"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-accent-2)"
               strokeWidth="1.8"
+              style={{
+                filter:
+                  "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent-2) 26%, transparent))",
+              }}
             />
             <text
               x={STAFF.x}
-              y={STAFF.y - 2}
+              y={STAFF.y - 3}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="13.5"
+              fontSize="15"
               fontFamily="var(--ss-font-mono)"
             >
-              Duty manager · staff on service
+              Duty manager, immediately
             </text>
             <text
               x={STAFF.x}
-              y={STAFF.y + 16}
+              y={STAFF.y + 17}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="12.5"
               fontFamily="var(--ss-font-mono)"
             >
-              allergens · complaints · emergencies — immediately
+              allergens · complaints · emergencies
             </text>
           </m.g>
         </m.svg>

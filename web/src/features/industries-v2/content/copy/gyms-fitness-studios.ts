@@ -24,7 +24,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   eyebrow: "Gym & studio automation",
   h1: "Every enquiry, *tracked to membership*",
   heroSub:
-    "A trial enquiry lands on Instagram, a call hits a second site — plenty of activity, zero visibility. Silverstone gives your front desk one reliable view, end to end.",
+    "A trial enquiry lands on Instagram, a call hits a second site — plenty of activity, zero visibility. Silverstone gives your front desk **one reliable view**, end to end.",
   heroPoints: [
     "Every enquiry lands with a visible owner",
     "Trials tracked from booking to follow-up",
@@ -103,7 +103,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   },
   services: {
     heading: "A system your *front desk can run*",
-    lead: "Existing useful automation is connected, never replaced.",
+    lead: "What already works gets connected — never ripped out.",
     paragraphs: [
       "An [AI receptionist](/services/ai-receptionists) handles routine questions; [lead follow-up workflows](/services/ai-automation) connect forms, calendars and staff tasks.",
       "A [governed content system](/services/content-creation) maintains class and community info; [custom member applications](/services/app-development) power a member portal, with a [conversion-led gym website](/services/web-design-development) sharpening the offer before the enquiry.",

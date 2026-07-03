@@ -51,7 +51,9 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
-        <m.svg viewBox="0 0 600 600" className="ss-srv2-signature__svg">
+        {/* Tight viewBox around the drawn content so the loom and its labels
+            render larger for the same stage size. */}
+        <m.svg viewBox="16 58 568 472" className="ss-srv2-signature__svg">
           {/* Loom warp/weft grid */}
           {COLS.map((x, index) => (
             <g key={x}>
@@ -68,7 +70,7 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
                 y="80"
                 textAnchor="middle"
                 fill="var(--srv2-ink-faint)"
-                fontSize="13"
+                fontSize="15"
                 fontFamily="var(--ss-font-mono)"
               >
                 {DAYS[index]}
@@ -199,7 +201,7 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
               y={WAITLIST.y + 5}
               textAnchor="middle"
               fill="var(--srv2-ink-soft)"
-              fontSize="13"
+              fontSize="14.5"
               fontFamily="var(--ss-font-mono)"
             >
               {phase === "refilled" ? "Slot refilled ✓" : "Waitlist offer"}
@@ -220,7 +222,7 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
               y={WAITLIST.y + 5}
               textAnchor="middle"
               fill="var(--srv2-ink-soft)"
-              fontSize="13"
+              fontSize="14.5"
               fontFamily="var(--ss-font-mono)"
             >
               Deposit rules
@@ -229,7 +231,7 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
             <rect
               x="404"
               y={WAITLIST.y - 22}
-              width="160"
+              width="172"
               height="44"
               rx="10"
               fill="var(--ss-v2-void-black)"
@@ -237,11 +239,11 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
               strokeWidth="1.6"
             />
             <text
-              x="484"
+              x="490"
               y={WAITLIST.y + 5}
               textAnchor="middle"
               fill="var(--srv2-ink-soft)"
-              fontSize="13"
+              fontSize="14.5"
               fontFamily="var(--ss-font-mono)"
             >
               Practitioner gate
@@ -253,7 +255,7 @@ export function DiaryLoom({ label, metrics }: { label: string; metrics: string[]
             y="516"
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="12.5"
+            fontSize="14"
             fontFamily="var(--ss-font-mono)"
           >
             Released time re-offered while it still has value

@@ -18,7 +18,7 @@ import {
 const CENTER = { x: 300, y: 240 };
 const INNER_R = 88;
 const OUTER_R = 158;
-const DOCK = { x: 470, y: 430 };
+const DOCK = { x: 460, y: 430 };
 
 function orbitDots(count: number, radius: number, phase = 0) {
   return Array.from({ length: count }, (_, index) => {
@@ -43,7 +43,10 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
-        <m.svg viewBox="0 0 600 600" className="ss-srv2-signature__svg">
+        {/* Tight viewBox around the drawn content (not the legacy 600×600
+            canvas) so the diagram — and every label — renders ~15% larger
+            for the same stage size. */}
+        <m.svg viewBox="30 40 540 430" className="ss-srv2-signature__svg">
           <defs>
             <radialGradient id="ind2-orbit-glow">
               <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.35" />
@@ -74,7 +77,7 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
             y={CENTER.y - OUTER_R - 14}
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="12.5"
+            fontSize="15"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.08em"
           >
@@ -85,7 +88,7 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
             y={CENTER.y - INNER_R - 12}
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="12.5"
+            fontSize="15"
             fontFamily="var(--ss-font-mono)"
             letterSpacing="0.08em"
           >
@@ -159,7 +162,7 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
               y={CENTER.y + 58}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="12.5"
+              fontSize="15"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >
@@ -167,10 +170,10 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
             </text>
             <text
               x={CENTER.x}
-              y={CENTER.y + 76}
+              y={CENTER.y + 78}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="13.5"
               fontFamily="var(--ss-font-mono)"
             >
               never automated
@@ -228,34 +231,38 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
             transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.45 }}
           >
             <rect
-              x={DOCK.x - 84}
-              y={DOCK.y - 24}
-              width="168"
-              height="48"
-              rx="11"
+              x={DOCK.x - 100}
+              y={DOCK.y - 26}
+              width="200"
+              height="56"
+              rx="12"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-accent)"
-              strokeWidth="1.7"
+              strokeWidth="1.8"
+              style={{
+                filter:
+                  "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent) 30%, transparent))",
+              }}
             />
             <text
               x={DOCK.x}
-              y={DOCK.y - 1}
+              y={DOCK.y - 2}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="13.5"
+              fontSize="16"
               fontFamily="var(--ss-font-mono)"
             >
               Recall booked
             </text>
             <text
               x={DOCK.x}
-              y={DOCK.y + 17}
+              y={DOCK.y + 18}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="13.5"
               fontFamily="var(--ss-font-mono)"
             >
-              owner assigned · journey recorded
+              owner assigned · logged
             </text>
           </m.g>
 
@@ -267,34 +274,38 @@ export function RecallOrbit({ label, metrics }: { label: string; metrics: string
             transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.55 }}
           >
             <rect
-              x="46"
-              y={DOCK.y - 24}
-              width="188"
-              height="48"
-              rx="11"
+              x="40"
+              y={DOCK.y - 26}
+              width="200"
+              height="56"
+              rx="12"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-accent-2)"
-              strokeWidth="1.7"
+              strokeWidth="1.8"
+              style={{
+                filter:
+                  "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent-2) 26%, transparent))",
+              }}
             />
             <text
               x="140"
-              y={DOCK.y - 1}
+              y={DOCK.y - 2}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="13.5"
+              fontSize="16"
               fontFamily="var(--ss-font-mono)"
             >
               Clinical language
             </text>
             <text
               x="140"
-              y={DOCK.y + 17}
+              y={DOCK.y + 18}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="13.5"
               fontFamily="var(--ss-font-mono)"
             >
-              → practice escalation route
+              → escalated to practice
             </text>
           </m.g>
         </m.svg>

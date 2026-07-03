@@ -37,7 +37,9 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
     >
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
-        <m.svg viewBox="0 0 600 600" className="ss-srv2-signature__svg">
+        {/* Tight viewBox around the drawn content so the funnel and its labels
+            render larger for the same stage size. */}
+        <m.svg viewBox="36 10 536 522" className="ss-srv2-signature__svg">
           <defs>
             <linearGradient id="ind2-funnel-accent" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.4" />
@@ -65,11 +67,15 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
                 strokeDasharray="6 6"
                 opacity="0.7"
               />
+              {/* Anchored just left of the funnel wall — the old x=486 spot
+                  ran the longer label past the drawable edge and into the
+                  bypass curve. */}
               <text
-                x="486"
+                x={130 + (y - FUNNEL_TOP) - 12}
                 y={y + 4}
+                textAnchor="end"
                 fill="var(--srv2-ink-faint)"
-                fontSize="12"
+                fontSize="13.5"
                 fontFamily="var(--ss-font-mono)"
               >
                 {index === 0 ? "Goal + format" : "Readiness + timing"}
@@ -137,10 +143,10 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
           />
           <text
             x="560"
-            y="46"
+            y="44"
             textAnchor="end"
             fill="var(--srv2-ink-faint)"
-            fontSize="12"
+            fontSize="13"
             fontFamily="var(--ss-font-mono)"
           >
             health disclosure
@@ -150,7 +156,7 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
             y="62"
             textAnchor="end"
             fill="var(--srv2-ink-faint)"
-            fontSize="12"
+            fontSize="13"
             fontFamily="var(--ss-font-mono)"
           >
             → coach, directly
@@ -164,10 +170,10 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
             transition={{ duration: 0.7, delay: reducedMotion ? 0 : 0.5 }}
           >
             <rect
-              x="212"
+              x="200"
               y={FUNNEL_THROAT + 26}
-              width="176"
-              height="52"
+              width="200"
+              height="56"
               rx="12"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-accent)"
@@ -175,10 +181,10 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
             />
             {!reducedMotion ? (
               <m.rect
-                x="212"
+                x="200"
                 y={FUNNEL_THROAT + 26}
-                width="176"
-                height="52"
+                width="200"
+                height="56"
                 rx="12"
                 fill="none"
                 stroke="var(--srv2-accent)"
@@ -191,32 +197,32 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
             ) : null}
             <text
               x="300"
-              y={FUNNEL_THROAT + 49}
+              y={FUNNEL_THROAT + 50}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="14"
+              fontSize="15.5"
               fontFamily="var(--ss-font-mono)"
             >
               Consultation booked
             </text>
             <text
               x="300"
-              y={FUNNEL_THROAT + 68}
+              y={FUNNEL_THROAT + 70}
               textAnchor="middle"
               fill="var(--srv2-ink-faint)"
-              fontSize="12"
+              fontSize="13"
               fontFamily="var(--ss-font-mono)"
             >
-              real calendar capacity only
+              real calendar slots only
             </text>
           </m.g>
 
           {/* Brief feeds the consultation slot */}
           <line
-            x1="184"
+            x1="196"
             y1={FUNNEL_THROAT + 56}
-            x2="212"
-            y2={FUNNEL_THROAT + 52}
+            x2="200"
+            y2={FUNNEL_THROAT + 54}
             stroke="var(--srv2-hairline)"
             strokeWidth="1.4"
             strokeDasharray="4 5"
@@ -231,10 +237,10 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
             transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.6 }}
           >
             <rect
-              x="52"
+              x="40"
               y={FUNNEL_THROAT + 8}
-              width="132"
-              height="96"
+              width="156"
+              height="100"
               rx="12"
               fill="var(--ss-v2-void-black)"
               stroke="var(--srv2-hairline)"
@@ -242,10 +248,10 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
             />
             <text
               x="118"
-              y={FUNNEL_THROAT + 30}
+              y={FUNNEL_THROAT + 32}
               textAnchor="middle"
               fill="var(--ss-v2-chrome)"
-              fontSize="12.5"
+              fontSize="14"
               fontFamily="var(--ss-font-mono)"
               letterSpacing="0.06em"
             >
@@ -254,10 +260,10 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
             {BRIEF_LINES.map((line, index) => (
               <m.text
                 key={line}
-                x="66"
-                y={FUNNEL_THROAT + 52 + index * 18}
+                x="54"
+                y={FUNNEL_THROAT + 56 + index * 20}
                 fill="var(--srv2-ink-soft)"
-                fontSize="12"
+                fontSize="13"
                 fontFamily="var(--ss-font-mono)"
                 initial={reducedMotion ? false : { opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -277,7 +283,7 @@ export function DmFunnel({ label, metrics }: { label: string; metrics: string[] 
             y="520"
             textAnchor="middle"
             fill="var(--srv2-ink-faint)"
-            fontSize="12.5"
+            fontSize="13.5"
             fontFamily="var(--ss-font-mono)"
           >
             Transparent questions · easy human route · the coach decides

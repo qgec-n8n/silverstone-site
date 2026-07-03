@@ -96,7 +96,14 @@ export function SecondaryHero({
               delayMs={HERO_REVEAL_BASE_DELAY + 140}
               trigger="mount"
             >
-              <h1 className="ss-srv2-hero__title" id={titleId}>
+              {/* data-long lets CSS size the longest H1s (~68 chars on some
+                  service pages) a step smaller, holding the 3-line budget the
+                  shorter industry titles meet at full size. */}
+              <h1
+                className="ss-srv2-hero__title"
+                id={titleId}
+                data-long={title.replace(/[*`]/g, "").length > 64 ? "true" : undefined}
+              >
                 <RichText text={title} />
               </h1>
             </Reveal>

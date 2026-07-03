@@ -283,12 +283,67 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 @media (min-width: 64rem) {
+  /* Break the hero out of the route frame's content-width container (992px)
+     so the hero stage — copy and signature together — scales with the
+     viewport instead of freezing at laptop width. Same full-bleed idiom as
+     the homepage trust strip; the hero's own .ss-srv2__container (74rem,
+     fluid beyond 120rem) re-centres and caps the content. Hero only: body
+     sections keep the shared route-frame measure. */
+  .ss-srv2-hero {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
+
   .ss-srv2-hero__grid {
     /* Slightly more room for copy than showcase — the longest H1s in this set
        run to ~68 characters, and an even split forces a narrow column that
        wraps them to five lines. */
     grid-template-columns: 1.14fr 0.86fr;
     gap: clamp(2rem, 1.2rem + 3vw, 4.5rem);
+  }
+
+  /*
+   * Desktop hero type is sized against the copy column's real width (cqi),
+   * not the viewport: between ~1300 and 1920px wide the shared container is
+   * capped, so the column doesn't grow with vw — viewport-driven type either
+   * under-fills the column (gaps balloon) or over-wraps the title. Column
+   * width + a vh term keeps the wrap count stable (~3 title lines) at every
+   * size while still compacting on short viewports. Overrides the fluid
+   * viewport formulas below, which remain the mobile/stacked sizing.
+   */
+  .ss-srv2-hero__intro {
+    container-type: inline-size;
+  }
+
+  .ss-srv2-hero__intro .ss-srv2-hero__title {
+    font-size: clamp(2rem, 5cqi + 3vh, 5.2rem);
+  }
+
+  /* Longest H1s (>64 chars, flagged by the component) — one step smaller so
+     they hold to 3 lines at the same column width. */
+  .ss-srv2-hero__intro .ss-srv2-hero__title[data-long="true"] {
+    font-size: clamp(1.9rem, 4.5cqi + 2.7vh, 4.6rem);
+  }
+
+  .ss-srv2-hero__intro .ss-srv2-hero__lead {
+    font-size: clamp(0.9rem, 1.9cqi + 0.75vh, 1.65rem);
+  }
+
+  .ss-srv2-hero__intro .ss-srv2-hero__cap {
+    font-size: clamp(0.9rem, 1.7cqi + 0.75vh, 1.45rem);
+  }
+}
+
+/*
+ * Very large displays (≥1920px): the shared 74rem container stops the copy
+ * column growing with the viewport, so the fluid type above would wrap ever
+ * tighter while the stretched column keeps gaining height. Widening the hero
+ * stage (hero only — body sections keep the shared measure) lets both columns
+ * keep scaling proportionally with the type, exactly like the sub-1920 range.
+ */
+@media (min-width: 120rem) {
+  .ss-srv2-hero > .ss-srv2__container {
+    max-width: clamp(74rem, 74rem + (100vw - 120rem) * 0.8, 96rem);
   }
 }
 
@@ -298,12 +353,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   min-height: 0;
   /* Top-anchored, bottom-anchored: the pill and title stay exactly where
      they've always sat (space-between never moves the first item), while the
-     CTA row is pushed flush to the bottom of the now-stretched column, just
-     above the scroll cue. gap is a floor, not the only spacing — any extra
-     height the stretched column has over the content's natural size is
-     added as additional space between each pair of children, so the whole
-     block genuinely fills the section and keeps scaling with viewport
-     height rather than leaving dead space beneath a compact cluster. */
+     CTA row is pushed flush to the bottom of the stretched column, just
+     above the scroll cue. The column's growth is carried by the fluid type
+     below — every copy element's clamp() keeps scaling with vw/vh well past
+     desktop sizes — so space-between only absorbs the small residual slack
+     between the type's natural height and the column height. It must never
+     be the visible scaling mechanism: if gaps read as growing faster than
+     the type, raise the type ceilings below rather than touching this. */
   justify-content: space-between;
   gap: clamp(0.4rem, 0.15rem + 0.9vh, 1.2rem);
 }
@@ -323,8 +379,8 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   margin: 0;
   font-family: var(--ss-font-display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 0.45rem + 1.1vw + 2vh, 3.35rem);
-  line-height: 1.05;
+  font-size: clamp(1.5rem, 0.1rem + 1.35vw + 3.2vh, 5rem);
+  line-height: 1.06;
   letter-spacing: -0.03em;
   color: var(--ss-v2-chrome);
   max-width: 27ch;
@@ -335,14 +391,14 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   margin: 0;
   max-width: var(--srv2-measure);
   color: var(--srv2-ink-soft);
-  font-size: clamp(0.74rem, 0.46rem + 0.16vw + 0.7vh, 1.15rem);
-  line-height: 1.42;
+  font-size: clamp(0.8rem, 0.3rem + 0.28vw + 1.05vh, 1.7rem);
+  line-height: 1.55;
 }
 
 .ss-srv2-hero__caps {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.22rem, 0.08rem + 0.45vh, 0.65rem);
+  gap: clamp(0.3rem, 0.1rem + 0.9vh, 1.1rem);
   margin: 0.1rem 0 0;
   padding: 0;
   list-style: none;
@@ -353,13 +409,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   align-items: center;
   gap: 0.75rem;
   color: var(--srv2-ink);
-  font-size: clamp(0.8rem, 0.6rem + 0.55vh, 0.98rem);
+  font-size: clamp(0.85rem, 0.5rem + 0.12vw + 0.85vh, 1.45rem);
 }
 
 .ss-srv2-hero__cap-dot {
   flex: none;
-  width: 0.55rem;
-  height: 0.55rem;
+  width: 0.6em;
+  height: 0.6em;
   border-radius: 999px;
   background: linear-gradient(120deg, var(--srv2-accent), var(--srv2-accent-2));
   box-shadow: 0 0 12px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
@@ -375,12 +431,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 /* Hero CTAs and eyebrow shrink with viewport height alongside the copy. */
 .ss-srv2-hero__actions .ss-srv2-btn {
-  padding: clamp(0.55rem, 0.3rem + 0.75vh, 0.85rem) clamp(1rem, 0.75rem + 0.9vh, 1.4rem);
-  font-size: clamp(0.84rem, 0.7rem + 0.4vh, 0.975rem);
+  padding: clamp(0.55rem, 0.3rem + 0.9vh, 1.05rem) clamp(1rem, 0.8rem + 1.1vh, 1.7rem);
+  font-size: clamp(0.84rem, 0.6rem + 0.75vh, 1.12rem);
 }
 
 .ss-srv2-hero .ss-srv2-eyebrow {
-  font-size: clamp(0.58rem, 0.48rem + 0.3vh, 0.7rem);
+  font-size: clamp(0.6rem, 0.42rem + 0.5vh, 0.85rem);
 }
 
 .ss-srv2-hero__showcase {
