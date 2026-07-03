@@ -351,17 +351,47 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   display: flex;
   flex-direction: column;
   min-height: 0;
-  /* Top-anchored, bottom-anchored: the pill and title stay exactly where
-     they've always sat (space-between never moves the first item), while the
-     CTA row is pushed flush to the bottom of the stretched column, just
-     above the scroll cue. The column's growth is carried by the fluid type
-     below — every copy element's clamp() keeps scaling with vw/vh well past
-     desktop sizes — so space-between only absorbs the small residual slack
-     between the type's natural height and the column height. It must never
-     be the visible scaling mechanism: if gaps read as growing faster than
-     the type, raise the type ceilings below rather than touching this. */
+  /* Top-anchored, bottom-anchored: the top group (breadcrumbs, pill, title,
+     lead, capabilities) stays exactly where it's always sat — space-between
+     never moves the first of its two children — while the CTA row is pushed
+     flush to the bottom of the stretched column, just above the scroll cue.
+     The column's growth is carried by the fluid type below — every copy
+     element's clamp() keeps scaling with vw/vh well past desktop sizes — so
+     space-between only absorbs the small residual slack between the type's
+     natural height and the column height. It must never be the visible
+     scaling mechanism: if gaps read as growing faster than the type, raise
+     the type ceilings below rather than touching this. */
   justify-content: space-between;
   gap: clamp(0.4rem, 0.15rem + 0.9vh, 1.2rem);
+}
+
+.ss-srv2-hero__top {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: clamp(0.4rem, 0.15rem + 0.9vh, 1.2rem);
+}
+
+.ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
+  gap: 0.4rem;
+  font-family: var(--ss-font-mono);
+  font-size: clamp(0.62rem, 0.5rem + 0.3vh, 0.75rem);
+  letter-spacing: 0.02em;
+  color: var(--srv2-ink-faint);
+}
+
+.ss-srv2-hero__crumbs [data-slot="breadcrumb-separator"] svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.ss-srv2-hero__crumbs [data-slot="breadcrumb-page"] {
+  color: var(--srv2-ink-soft);
+  font-weight: 500;
+}
+
+.ss-srv2-hero__crumbs [data-slot="breadcrumb-link"]:hover {
+  color: var(--srv2-ink);
 }
 
 /*
@@ -696,6 +726,20 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   margin-block-end: 0;
 }
 
+/*
+ * Some split columns wrap the head in a plain <div> alongside the prose that
+ * follows it (head + LinkedProse/Prose sharing one grid cell) rather than
+ * making the head the split's own direct child. The full standalone-section
+ * margin above still leaked through here — the direct-child rule doesn't
+ * match one level down — stacking with the prose's own leading gap to read as
+ * one oversized gap between the lead line and the first paragraph. A smaller,
+ * intentional margin replaces it instead of zeroing it outright, since (unlike
+ * the case above) real content still follows in the same column.
+ */
+.ss-srv2-split > div > .ss-srv2-section__head {
+  margin-block-end: clamp(1rem, 0.7rem + 1vw, 1.5rem);
+}
+
 @media (min-width: 62rem) {
   .ss-srv2-split {
     grid-template-columns: minmax(0, 1fr) minmax(0, 34rem);
@@ -710,6 +754,17 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
   .ss-srv2-split[data-flip="true"] > :first-child {
     order: 2;
+  }
+
+  /*
+   * The Web Design differentiator split pairs a comparison table with a now-
+   * landscape approved image (2528x1696) — a shorter, wider photo than the
+   * shared 34rem cap was set for. Narrowing the image column hands the
+   * comparison copy real extra width instead of wrapping tightly beside a
+   * cap sized for a taller image, shortening the copy block in the process.
+   */
+  .ss-srv2-split--wide-copy {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
   }
 }
 
@@ -1025,6 +1080,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
   grid-template-columns: 1fr;
   counter-reset: srv2-step;
+}
+
+/* Same rationale as the split + workflow-grid rule above: a split's image
+   column is centred against variable copy height, so nothing after it can
+   rely on the split itself for spacing. */
+.ss-srv2-split + .ss-srv2-process {
+  margin-top: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
 }
 
 @media (min-width: 52rem) {

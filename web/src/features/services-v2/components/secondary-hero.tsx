@@ -8,8 +8,18 @@
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import type { ReactNode } from "react";
+import { useLocation } from "react-router";
 
 import type { LucideIcon } from "~/components/icons/lucide";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "~/components/ui/breadcrumb";
+import { getBreadcrumbTrail } from "~/components/layout/shell/breadcrumb-trail";
 
 import { Eyebrow, Reveal, RichText, ServiceButton } from "./primitives";
 
@@ -34,6 +44,30 @@ export function ScrollCue() {
         <span className="ss-hv2-scrollcue__rail" />
       </div>
     </div>
+  );
+}
+
+/** Route-derived breadcrumb trail, top-anchored above the pill. Home renders
+ * no trail (root page), so callers should skip rendering when it's empty. */
+function HeroBreadcrumbs({ trail }: { trail: ReturnType<typeof getBreadcrumbTrail> }) {
+  return (
+    <Breadcrumb className="ss-srv2-hero__crumbs">
+      <BreadcrumbList>
+        {trail.flatMap((crumb, index) => {
+          const current = index === trail.length - 1;
+          return [
+            ...(index > 0 ? [<BreadcrumbSeparator key={`${crumb.href}-sep`} />] : []),
+            <BreadcrumbItem key={crumb.href}>
+              {current ? (
+                <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>
+              )}
+            </BreadcrumbItem>,
+          ];
+        })}
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 }
 
@@ -83,47 +117,63 @@ export function SecondaryHero({
   primaryCtaLabel: string;
   showcase: ReactNode;
 }) {
+  const location = useLocation();
+  const breadcrumbTrail = getBreadcrumbTrail(location.pathname);
+
   return (
     <section className="ss-srv2-section ss-srv2-hero" aria-labelledby={titleId}>
       <div className="ss-srv2__container">
         <div className="ss-srv2-hero__grid">
           <div className="ss-srv2-hero__intro">
-            <Reveal kind="pill" delayMs={HERO_REVEAL_BASE_DELAY} trigger="mount">
-              <Eyebrow icon={icon}>{eyebrow}</Eyebrow>
-            </Reveal>
-            <Reveal
-              kind="section"
-              delayMs={HERO_REVEAL_BASE_DELAY + 140}
-              trigger="mount"
-            >
-              {/* data-long lets CSS size the longest H1s (~68 chars on some
-                  service pages) a step smaller, holding the 3-line budget the
-                  shorter industry titles meet at full size. */}
-              <h1
-                className="ss-srv2-hero__title"
-                id={titleId}
-                data-long={title.replace(/[*`]/g, "").length > 64 ? "true" : undefined}
+            <div className="ss-srv2-hero__top">
+              {breadcrumbTrail.length > 0 ? (
+                <Reveal
+                  kind="section"
+                  delayMs={HERO_REVEAL_BASE_DELAY - 60}
+                  trigger="mount"
+                >
+                  <HeroBreadcrumbs trail={breadcrumbTrail} />
+                </Reveal>
+              ) : null}
+              <Reveal kind="pill" delayMs={HERO_REVEAL_BASE_DELAY} trigger="mount">
+                <Eyebrow icon={icon}>{eyebrow}</Eyebrow>
+              </Reveal>
+              <Reveal
+                kind="section"
+                delayMs={HERO_REVEAL_BASE_DELAY + 140}
+                trigger="mount"
               >
-                <RichText text={title} />
-              </h1>
-            </Reveal>
-            <Reveal
-              kind="section"
-              delayMs={HERO_REVEAL_BASE_DELAY + 280}
-              trigger="mount"
-            >
-              <p className="ss-srv2-hero__lead">
-                <RichText text={lead} />
-              </p>
-            </Reveal>
-            <ul className="ss-srv2-hero__caps">
-              {points.map((point, index) => (
-                <CapabilityPoint key={point} text={point} index={index} />
-              ))}
-            </ul>
+                {/* data-long lets CSS size the longest H1s (~68 chars on some
+                    service pages) a step smaller, holding the 3-line budget the
+                    shorter industry titles meet at full size. */}
+                <h1
+                  className="ss-srv2-hero__title"
+                  id={titleId}
+                  data-long={
+                    title.replace(/[*`]/g, "").length > 64 ? "true" : undefined
+                  }
+                >
+                  <RichText text={title} />
+                </h1>
+              </Reveal>
+              <Reveal
+                kind="section"
+                delayMs={HERO_REVEAL_BASE_DELAY + 280}
+                trigger="mount"
+              >
+                <p className="ss-srv2-hero__lead">
+                  <RichText text={lead} />
+                </p>
+              </Reveal>
+              <ul className="ss-srv2-hero__caps">
+                {points.map((point, index) => (
+                  <CapabilityPoint key={point} text={point} index={index} />
+                ))}
+              </ul>
+            </div>
             <Reveal kind="cta" delayMs={HERO_REVEAL_BASE_DELAY + 750} trigger="mount">
               <div className="ss-srv2-hero__actions">
-                <ServiceButton href="/book" variant="primary">
+                <ServiceButton href="/book#booking-calendar" variant="primary">
                   {primaryCtaLabel}
                 </ServiceButton>
                 <ServiceButton href="/how-we-work" variant="ghost" withArrow={false}>

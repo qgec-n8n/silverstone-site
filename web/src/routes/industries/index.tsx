@@ -28,6 +28,7 @@ export default function IndustriesIndexRoute() {
       eyebrow="Industries"
       route={route}
       showHeader={false}
+      showBreadcrumbs={false}
       showRelated={false}
     >
       <Suspense

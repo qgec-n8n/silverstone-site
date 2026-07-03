@@ -10,7 +10,11 @@ import { Gauge, GitBranch, InfoIcon, Layers } from "~/components/icons/lucide";
 import { PricingMetricInstrument } from "~/features/core-pages/pricing-metric-instrument";
 import { ScopeLedgerSignature } from "~/features/core-pages/signatures";
 import { NumberedRail } from "~/features/core-pages/shared";
-import { Prose, Reveal, SectionHead } from "~/features/services-v2/components/primitives";
+import {
+  Prose,
+  Reveal,
+  SectionHead,
+} from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
   FinalCta,
@@ -93,7 +97,9 @@ export function PricingComposition() {
           "Written proposals shaped around a defined first release",
         ]}
         primaryCtaLabel="Discuss scope and pricing"
-        showcase={<ScopeLedgerSignature label="Investment by design" metrics={HERO_METRICS} />}
+        showcase={
+          <ScopeLedgerSignature label="Investment by design" metrics={HERO_METRICS} />
+        }
       />
       <TrustStrip />
 
@@ -167,7 +173,7 @@ export function PricingComposition() {
             heading="Price the problem *properly*"
             body="A serious proposal makes deliverables, exclusions, assumptions, dependencies, client responsibilities, acceptance criteria, usage costs, support and change control visible."
             buttonLabel="Discuss scope and pricing"
-            bookHref="/book"
+            bookHref="/book#booking-calendar"
           />
         </div>
       </section>

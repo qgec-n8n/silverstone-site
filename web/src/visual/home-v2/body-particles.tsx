@@ -114,37 +114,37 @@ function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
         },
       },
       color: {
-        value: "#A97CC0",
+        value: "#BB8AD4",
       },
       shape: {
         type: "circle",
         stroke: { width: 0, color: "#000000" },
       },
       opacity: {
-        value: 0.72,
+        value: 0.82,
         random: true,
         anim: {
           enable: true,
           speed: 0.8,
-          opacity_min: 0.32,
+          opacity_min: 0.4,
           sync: false,
         },
       },
       size: {
-        value: mobile ? 2.2 : 2.55,
+        value: mobile ? 2.4 : 2.8,
         random: true,
         anim: {
           enable: true,
           speed: 1.4,
-          size_min: 0.65,
+          size_min: 0.7,
           sync: false,
         },
       },
       line_linked: {
         enable: true,
-        distance: mobile ? 136 : 176,
-        color: "#A97CC0",
-        opacity: mobile ? 0.36 : 0.48,
+        distance: mobile ? 144 : 188,
+        color: "#BB8AD4",
+        opacity: mobile ? 0.42 : 0.56,
         width: 1,
       },
       move: {

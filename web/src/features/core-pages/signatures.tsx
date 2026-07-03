@@ -91,7 +91,12 @@ export function DeliveryRouteSignature({
           fill="url(#core-route-accent)"
           initial={{ cx: 60, opacity: 0 }}
           animate={{ cx: [60, 540], opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 4.2, repeat: Infinity, repeatDelay: 0.8, ease: "easeInOut" }}
+          transition={{
+            duration: 4.2,
+            repeat: Infinity,
+            repeatDelay: 0.8,
+            ease: "easeInOut",
+          }}
           style={{ filter: "drop-shadow(0 0 6px var(--srv2-accent))" }}
         />
       ) : null}
@@ -286,14 +291,7 @@ export function StudioOrbitSignature({
   metrics?: string[];
 }) {
   const reducedMotion = useReducedMotion() ?? false;
-  const disciplines = [
-    "Strategy",
-    "Copy",
-    "Design",
-    "Engineering",
-    "AI",
-    "Automation",
-  ];
+  const disciplines = ["Strategy", "Copy", "Design", "Engineering", "AI", "Automation"];
   const cx = 300;
   const cy = 250;
   const r = 168;
@@ -309,7 +307,68 @@ export function StudioOrbitSignature({
           <stop offset="0%" stopColor="var(--srv2-accent)" />
           <stop offset="100%" stopColor="var(--srv2-accent-2)" />
         </linearGradient>
+        <radialGradient id="core-orbit-glow" cx="50%" cy="46%" r="60%">
+          <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.14" />
+          <stop offset="100%" stopColor="var(--srv2-accent)" stopOpacity="0" />
+        </radialGradient>
+        <filter id="core-orbit-blur" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="8" />
+        </filter>
       </defs>
+      <circle cx={cx} cy={cy} r={r + 90} fill="url(#core-orbit-glow)" />
+      {/* Slow counter-rotating satellite ring, independent of the main orbit
+          below — a second layer of live motion at a different radius and
+          speed, matching the treatment used on the Book and Services Hub
+          signatures. */}
+      {!reducedMotion ? (
+        <m.g
+          style={{ transformOrigin: `${String(cx)}px ${String(cy)}px` }}
+          animate={{ rotate: -360 }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+        >
+          <circle
+            cx={cx}
+            cy={cy}
+            r={r + 40}
+            fill="none"
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1"
+            strokeDasharray="1 9"
+          />
+          {[0, 90, 180, 270].map((deg) => {
+            const rad = (deg * Math.PI) / 180;
+            return (
+              <circle
+                key={deg}
+                cx={cx + (r + 40) * Math.cos(rad)}
+                cy={cy + (r + 40) * Math.sin(rad)}
+                r="2.5"
+                fill="var(--srv2-accent-2)"
+                opacity="0.6"
+              />
+            );
+          })}
+        </m.g>
+      ) : null}
+      {/* Fine bezel ticks just inside the main orbit ring. */}
+      {Array.from({ length: 54 }).map((_, tick) => {
+        const angle = (tick / 54) * Math.PI * 2;
+        const major = tick % 3 === 0;
+        const outerTickR = r - 8;
+        const innerTickR = major ? r - 18 : r - 13;
+        return (
+          <line
+            key={tick}
+            x1={cx + innerTickR * Math.cos(angle)}
+            y1={cy + innerTickR * Math.sin(angle)}
+            x2={cx + outerTickR * Math.cos(angle)}
+            y2={cy + outerTickR * Math.sin(angle)}
+            stroke="var(--srv2-ink-faint)"
+            strokeWidth={major ? 1.2 : 0.7}
+            opacity={major ? 0.4 : 0.2}
+          />
+        );
+      })}
       {!reducedMotion ? (
         <m.circle
           cx={cx}
@@ -379,6 +438,36 @@ export function StudioOrbitSignature({
           </m.g>
         );
       })}
+      <circle
+        cx={cx}
+        cy={cy}
+        r="62"
+        fill="var(--srv2-accent)"
+        opacity="0.2"
+        filter="url(#core-orbit-blur)"
+      />
+      {!reducedMotion ? (
+        <m.circle
+          cx={cx}
+          cy={cy}
+          r="55"
+          fill="none"
+          stroke="url(#core-orbit-accent)"
+          strokeWidth="2.5"
+          animate={{ scale: [1, 1.05, 1], opacity: [0.5, 0.9, 0.5] }}
+          style={{ transformOrigin: `${String(cx)}px ${String(cy)}px` }}
+          transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ) : (
+        <circle
+          cx={cx}
+          cy={cy}
+          r="55"
+          fill="none"
+          stroke="url(#core-orbit-accent)"
+          strokeWidth="2.5"
+        />
+      )}
       <circle
         cx={cx}
         cy={cy}
@@ -488,7 +577,10 @@ export function ScopeLedgerSignature({
               initial={reducedMotion ? { width: row.width } : { width: 0 }}
               whileInView={{ width: row.width }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.8, delay: reducedMotion ? 0 : 0.15 + index * 0.1 }}
+              transition={{
+                duration: 0.8,
+                delay: reducedMotion ? 0 : 0.15 + index * 0.1,
+              }}
             />
           </m.g>
         );
@@ -543,7 +635,33 @@ export function SignalRouteSignature({
           <stop offset="0%" stopColor="var(--srv2-accent)" />
           <stop offset="100%" stopColor="var(--srv2-accent-2)" />
         </linearGradient>
+        <radialGradient id="core-signal-glow" cx="50%" cy="44%" r="60%">
+          <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="var(--srv2-accent)" stopOpacity="0" />
+        </radialGradient>
+        <filter id="core-signal-blur" x="-200%" y="-200%" width="500%" height="500%">
+          <feGaussianBlur stdDeviation="7" />
+        </filter>
       </defs>
+      <rect x="10" y="120" width="580" height="220" fill="url(#core-signal-glow)" />
+      {/* Fine measured-path ticks along the route — the same instrument-console
+          precision used on the Book and Services Hub signatures, here reading
+          as a monitored, always-on channel rather than a plain connector. */}
+      {Array.from({ length: 17 }).map((_, tick) => {
+        const x = 150 + tick * 19.5;
+        return (
+          <line
+            key={tick}
+            x1={x}
+            y1="222"
+            x2={x}
+            y2="238"
+            stroke="var(--srv2-ink-faint)"
+            strokeWidth="1"
+            opacity={tick % 4 === 0 ? 0.4 : 0.18}
+          />
+        );
+      })}
       <rect
         x="46"
         y="200"
@@ -553,6 +671,10 @@ export function SignalRouteSignature({
         fill="var(--ss-v2-void-black)"
         stroke="var(--srv2-accent)"
         strokeWidth="2"
+        style={{
+          filter:
+            "drop-shadow(0 0 8px color-mix(in srgb, var(--srv2-accent) 45%, transparent))",
+        }}
       />
       <text
         x="92"
@@ -573,6 +695,10 @@ export function SignalRouteSignature({
         fill="var(--ss-v2-void-black)"
         stroke="var(--srv2-accent-2)"
         strokeWidth="2"
+        style={{
+          filter:
+            "drop-shadow(0 0 8px color-mix(in srgb, var(--srv2-accent-2) 45%, transparent))",
+        }}
       />
       <text
         x="508"
@@ -593,15 +719,37 @@ export function SignalRouteSignature({
         strokeWidth="2"
       />
       {!reducedMotion ? (
-        <m.circle
-          cy="230"
-          r="5"
-          fill="url(#core-signal-accent)"
-          initial={{ cx: 138, opacity: 0 }}
-          animate={{ cx: [138, 462], opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 3.4, repeat: Infinity, repeatDelay: 0.7, ease: "easeInOut" }}
-          style={{ filter: "drop-shadow(0 0 6px var(--srv2-accent))" }}
-        />
+        <>
+          <m.circle
+            cy="230"
+            r="11"
+            fill="var(--srv2-accent)"
+            opacity="0.28"
+            filter="url(#core-signal-blur)"
+            initial={{ cx: 138, opacity: 0 }}
+            animate={{ cx: [138, 462], opacity: [0, 0.28, 0.28, 0] }}
+            transition={{
+              duration: 3.4,
+              repeat: Infinity,
+              repeatDelay: 0.7,
+              ease: "easeInOut",
+            }}
+          />
+          <m.circle
+            cy="230"
+            r="5"
+            fill="url(#core-signal-accent)"
+            initial={{ cx: 138, opacity: 0 }}
+            animate={{ cx: [138, 462], opacity: [0, 1, 1, 0] }}
+            transition={{
+              duration: 3.4,
+              repeat: Infinity,
+              repeatDelay: 0.7,
+              ease: "easeInOut",
+            }}
+            style={{ filter: "drop-shadow(0 0 6px var(--srv2-accent))" }}
+          />
+        </>
       ) : null}
       {checkpoints.map((point, index) => (
         <m.g
@@ -611,6 +759,24 @@ export function SignalRouteSignature({
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5, delay: reducedMotion ? 0 : 0.2 + index * 0.12 }}
         >
+          {!reducedMotion ? (
+            <m.circle
+              cx={point.x}
+              cy="230"
+              r="7"
+              fill="none"
+              stroke="var(--srv2-accent)"
+              strokeWidth="1.5"
+              animate={{ scale: [1, 1.5, 1], opacity: [0.55, 0, 0.55] }}
+              style={{ transformOrigin: `${String(point.x)}px 230px` }}
+              transition={{
+                duration: 2.6,
+                repeat: Infinity,
+                ease: "easeOut",
+                delay: index * 0.4,
+              }}
+            />
+          ) : null}
           <circle
             cx={point.x}
             cy="230"
@@ -678,7 +844,49 @@ export function AgendaDialSignature({
           <stop offset="0%" stopColor="var(--srv2-accent)" />
           <stop offset="100%" stopColor="var(--srv2-accent-2)" />
         </linearGradient>
+        <radialGradient id="core-dial-hub" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stopColor="var(--srv2-accent-2)" />
+          <stop offset="100%" stopColor="var(--srv2-accent)" />
+        </radialGradient>
+        <filter id="core-dial-blur" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="6" />
+        </filter>
       </defs>
+      {/* Slow counter-rotating satellite ring — a second, independent layer of
+          motion so the dial reads as a live instrument rather than a static
+          clock face with one moving hand. */}
+      {!reducedMotion ? (
+        <m.g
+          animate={{ rotate: -360 }}
+          style={{ transformOrigin: `${String(cx)}px ${String(cy)}px` }}
+          transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
+        >
+          <circle
+            cx={cx}
+            cy={cy}
+            r={r + 34}
+            fill="none"
+            stroke="var(--srv2-hairline)"
+            strokeWidth="1"
+            strokeDasharray="1 7"
+          />
+          {[0, 90, 180, 270].map((deg) => {
+            const angle = (deg * Math.PI) / 180;
+            const x = cx + (r + 34) * Math.cos(angle);
+            const y = cy + (r + 34) * Math.sin(angle);
+            return (
+              <circle
+                key={deg}
+                cx={x}
+                cy={y}
+                r="2.5"
+                fill="var(--srv2-accent)"
+                opacity="0.65"
+              />
+            );
+          })}
+        </m.g>
+      ) : null}
       <circle
         cx={cx}
         cy={cy}
@@ -687,6 +895,30 @@ export function AgendaDialSignature({
         stroke="var(--srv2-hairline)"
         strokeWidth="1.5"
       />
+      {/* Fine minute-tick bezel: 60 ticks, every fifth slightly longer —
+          instrument-console precision framing the four bold sector dividers. */}
+      {Array.from({ length: 60 }).map((_, tick) => {
+        const angle = (tick / 60) * Math.PI * 2 - Math.PI / 2;
+        const major = tick % 5 === 0;
+        const innerTickR = r + 8;
+        const outerTickR = major ? r + 20 : r + 13;
+        const x1 = cx + innerTickR * Math.cos(angle);
+        const y1 = cy + innerTickR * Math.sin(angle);
+        const x2 = cx + outerTickR * Math.cos(angle);
+        const y2 = cy + outerTickR * Math.sin(angle);
+        return (
+          <line
+            key={tick}
+            x1={x1}
+            y1={y1}
+            x2={x2}
+            y2={y2}
+            stroke="var(--srv2-ink-faint)"
+            strokeWidth={major ? 1.4 : 0.8}
+            opacity={major ? 0.55 : 0.28}
+          />
+        );
+      })}
       {topics.map((_, index) => {
         const angle = (index / topics.length) * Math.PI * 2 - Math.PI / 2;
         const x1 = cx + (r - 6) * Math.cos(angle);
@@ -706,18 +938,32 @@ export function AgendaDialSignature({
         );
       })}
       {!reducedMotion ? (
-        <m.line
-          x1={cx}
-          y1={cy}
-          x2={cx}
-          y2={cy - r + 20}
-          stroke="url(#core-dial-accent)"
-          strokeWidth="3"
-          strokeLinecap="round"
+        <m.g
           animate={{ rotate: 360 }}
           style={{ transformOrigin: `${String(cx)}px ${String(cy)}px` }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-        />
+        >
+          <line
+            x1={cx}
+            y1={cy}
+            x2={cx}
+            y2={cy - r + 20}
+            stroke="url(#core-dial-accent)"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          {/* Glowing tip travels with the hand — a soft trailing light rather
+              than a sharp, static needle. */}
+          <circle
+            cx={cx}
+            cy={cy - r + 20}
+            r="9"
+            fill="var(--srv2-accent)"
+            opacity="0.3"
+            filter="url(#core-dial-blur)"
+          />
+          <circle cx={cx} cy={cy - r + 20} r="3" fill="var(--srv2-accent-2)" />
+        </m.g>
       ) : (
         <line
           x1={cx}
@@ -729,7 +975,15 @@ export function AgendaDialSignature({
           strokeLinecap="round"
         />
       )}
-      <circle cx={cx} cy={cy} r="6" fill="var(--srv2-accent-2)" />
+      <circle cx={cx} cy={cy} r="9" fill="url(#core-dial-hub)" />
+      <circle
+        cx={cx}
+        cy={cy}
+        r="9"
+        fill="none"
+        stroke="var(--ss-v2-void-black)"
+        strokeWidth="1.5"
+      />
       {topics.map((label2, index) => {
         const angle = (index / topics.length) * Math.PI * 2 - Math.PI / 2 + Math.PI / 4;
         const x = cx + (r + 46) * Math.cos(angle);
@@ -747,7 +1001,7 @@ export function AgendaDialSignature({
               <text
                 key={line}
                 x={x}
-                y={y + lineIndex * 16 - ((lines.length - 1) * 8)}
+                y={y + lineIndex * 16 - (lines.length - 1) * 8}
                 textAnchor="middle"
                 fill="var(--srv2-ink-soft)"
                 fontFamily="var(--ss-font-mono)"

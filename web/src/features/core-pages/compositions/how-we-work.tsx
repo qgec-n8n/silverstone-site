@@ -3,22 +3,24 @@
  * Secondary-hero feature: DeliveryRouteSignature, a five-stage rail broken by
  * explicit diamond decision gates (built for this page only).
  */
-import { CheckCircle2Icon, ShieldCheck, UserCheck, Workflow } from "~/components/icons/lucide";
+import "~/styles/industries-v2/industries-v2.css";
+
+import {
+  CheckCircle2Icon,
+  ShieldCheck,
+  UserCheck,
+  Workflow,
+} from "~/components/icons/lucide";
 import { DeliveryRouteSignature } from "~/features/core-pages/signatures";
 import { NumberedRail } from "~/features/core-pages/shared";
-import {
-  Prose,
-  Reveal,
-  RichText,
-  SectionHead,
-} from "~/features/services-v2/components/primitives";
+import { BoundaryPanel } from "~/features/industries-v2/components/industry-sections";
+import { RichText, SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
   BenchmarkConsole,
   FinalCta,
   ProcessTrack,
   RelatedRail,
-  ServiceFigure,
   type RelatedLink,
 } from "~/features/services-v2/components/sections";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
@@ -92,7 +94,10 @@ export function HowWeWorkComposition() {
         ]}
         primaryCtaLabel="Book a discovery call"
         showcase={
-          <DeliveryRouteSignature label="The Silverstone method" metrics={HERO_METRICS} />
+          <DeliveryRouteSignature
+            label="The Silverstone method"
+            metrics={HERO_METRICS}
+          />
         }
       />
       <TrustStrip />
@@ -106,7 +111,9 @@ export function HowWeWorkComposition() {
             headingId="hww-route"
             lead="The first decision is not which tool to use. It is which problem deserves capital, senior attention and operational change."
           />
-          <ProcessTrack steps={STAGES.map((stage) => ({ label: stage.label, body: stage.body }))} />
+          <ProcessTrack
+            steps={STAGES.map((stage) => ({ label: stage.label, body: stage.body }))}
+          />
         </div>
       </section>
 
@@ -118,27 +125,15 @@ export function HowWeWorkComposition() {
             heading="Automation should make *accountability* clearer, not blur it"
             headingId="hww-human"
           />
-          <div className="ss-core-split">
-            <Reveal kind="section">
-              <Prose
-                paragraphs={[
-                  "Where a decision carries financial, legal, reputational or personal consequence, the workflow needs a named owner and a working escalation path.",
-                  "Silverstone designs the boundary: what can happen automatically, what needs review, who owns exceptions and what gets logged for later improvement.",
-                ]}
-              />
-            </Reveal>
-            <Reveal kind="image">
-              <ServiceFigure
-                image={{
-                  desktop: "/home-v2/silverstone-system-visual.png",
-                  mobile: "/home-v2/silverstone-system-visual.png",
-                  alt: "Silverstone operating system visual showing connected workflow layers.",
-                  width: 1400,
-                  height: 980,
-                }}
-              />
-            </Reveal>
-          </div>
+          <BoundaryPanel
+            body="Where a decision carries financial, legal, reputational or personal consequence, the workflow needs a named owner and a working escalation path. Silverstone designs that boundary up front — what can happen automatically, and what a person must decide."
+            keeps={[
+              "Sign-off on financial, legal or reputational exceptions",
+              "A named owner for every escalation path",
+              "Final review before a workflow goes live",
+              "What gets logged for later improvement",
+            ]}
+          />
         </div>
       </section>
 

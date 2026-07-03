@@ -103,10 +103,11 @@ export const PRIMARY_LINKS: readonly NavLeaf[] = [
   { href: "/about", label: "About" },
   { href: "/pricing", label: "Pricing" },
   { href: "/contact", label: "Contact" },
+  { href: "/book", label: "Book" },
 ];
 
 export const PRIMARY_CTA: NavLeaf = {
-  href: "/book",
+  href: "/book#booking-calendar",
   label: "Book a discovery call",
 };
 

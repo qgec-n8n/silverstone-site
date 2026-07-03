@@ -8,12 +8,23 @@ import { FileText, Layers, ShieldCheck } from "~/components/icons/lucide";
 import { EditorialIndexSignature } from "~/features/core-pages/signatures";
 import { InsightsBoard } from "~/features/core-pages/insights-board";
 import { CoreCardGrid, type CoreCard } from "~/features/core-pages/shared";
-import { Reveal, RichText, SectionHead } from "~/features/services-v2/components/primitives";
+import {
+  Reveal,
+  RichText,
+  SectionHead,
+} from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
-import { FinalCta, RelatedRail, type RelatedLink } from "~/features/services-v2/components/sections";
+import {
+  FinalCta,
+  RelatedRail,
+  type RelatedLink,
+} from "~/features/services-v2/components/sections";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
-const HERO_METRICS = ["3x → 20x — SEO and PPC ROI", "17% → 46% — Lead-to-patient conversion"];
+const HERO_METRICS = [
+  "3x → 20x — SEO and PPC ROI",
+  "17% → 46% — Lead-to-patient conversion",
+];
 
 const TOPIC_CARDS: CoreCard[] = [
   {
@@ -76,23 +87,13 @@ export function InsightsComposition() {
         ]}
         primaryCtaLabel="Open the Insights library"
         showcase={
-          <EditorialIndexSignature label="Silverstone Intelligence" metrics={HERO_METRICS} />
+          <EditorialIndexSignature
+            label="Silverstone Intelligence"
+            metrics={HERO_METRICS}
+          />
         }
       />
       <TrustStrip />
-
-      <section className="ss-srv2-section" aria-labelledby="insights-index">
-        <div className="ss-srv2__container">
-          <SectionHead
-            eyebrow="Find the right topic"
-            icon={FileText}
-            heading="Search or filter by *service and industry*"
-            headingId="insights-index"
-            lead="Every planned guide is tagged against the same 16-category system used across Services and Industries, so the right topic is never more than a search away."
-          />
-          <InsightsBoard />
-        </div>
-      </section>
 
       <section className="ss-srv2-section" aria-labelledby="insights-gdpr">
         <div className="ss-srv2__container" data-width="narrow">
@@ -108,6 +109,19 @@ export function InsightsComposition() {
               <RichText text="The guide, in development, will examine purpose, access, minimisation, human review and the questions to resolve before launch." />
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="ss-srv2-section" aria-labelledby="insights-index">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow="Find the right topic"
+            icon={FileText}
+            heading="Search or filter by *service and industry*"
+            headingId="insights-index"
+            lead="Every planned guide is tagged against the same 16-category system used across Services and Industries, so the right topic is never more than a search away."
+          />
+          <InsightsBoard />
         </div>
       </section>
 

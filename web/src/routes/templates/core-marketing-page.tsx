@@ -1,4 +1,5 @@
 import type { MigratedContentRecord } from "~/content/migrated";
+import { isGateFreeRoute } from "~/data/gate-free-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { CorePageExperience } from "~/features/core-pages/core-page-experience";
 import { RoutePageFrame } from "~/routes/templates/route-page-frame";
@@ -50,7 +51,9 @@ export function CoreMarketingPage({ content = null, route }: CoreMarketingPagePr
         eyebrow={resolveEyebrow(route)}
         route={route}
         showHeader={false}
+        showBreadcrumbs={false}
         showRelated={false}
+        skipIntro={isGateFreeRoute(route.path)}
       >
         <CorePageExperience route={route} />
       </RoutePageFrame>

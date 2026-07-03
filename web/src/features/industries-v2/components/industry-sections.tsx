@@ -49,13 +49,24 @@ export function LinkedText({ text }: { text: string }): ReactNode {
   return nodes;
 }
 
-/** Paragraphs with inline links, for the service-architecture sections. */
+/**
+ * Paragraphs with inline links, for the service-architecture sections. Each
+ * paragraph reads as one connected node on a small system rail — the same
+ * connector language as `JourneyRail` — rather than a plain stacked block of
+ * prose, so "what plugs into what" reads at a glance.
+ */
 export function LinkedProse({ paragraphs }: { paragraphs: string[] }) {
   return (
-    <div className="ss-srv2-prose">
+    <div className="ss-ind2-linkrail">
       {paragraphs.map((paragraph, index) => (
-        <Reveal key={index} kind="section" delayMs={index * 140}>
-          <p>
+        <Reveal
+          key={index}
+          kind="section"
+          delayMs={index * 140}
+          className="ss-ind2-linkrail__row"
+        >
+          <span className="ss-ind2-linkrail__node" aria-hidden="true" />
+          <p className="ss-ind2-linkrail__text">
             <LinkedText text={paragraph} />
           </p>
         </Reveal>
@@ -134,43 +145,45 @@ export function BoundaryPanel({
 
   return (
     <div className="ss-ind2-boundary ss-srv2-beam-border">
-      <Reveal kind="section">
+      <Reveal kind="section" className="ss-ind2-boundary__col">
         <p className="ss-ind2-boundary__body">
           <RichText text={body} />
         </p>
       </Reveal>
-      <div className="ss-ind2-boundary__list" role="list" aria-label={keepsLabel}>
+      <div className="ss-ind2-boundary__col ss-ind2-boundary__col--keeps">
         <Reveal kind="pill">
           <span className="ss-ind2-boundary__tag">
             <UserCheck aria-hidden="true" />
             {keepsLabel}
           </span>
         </Reveal>
-        {keeps.map((item, index) =>
-          reducedMotion ? (
-            <div className="ss-ind2-boundary__item" role="listitem" key={item}>
-              <ShieldCheck aria-hidden="true" />
-              <span>{item}</span>
-            </div>
-          ) : (
-            <m.div
-              className="ss-ind2-boundary__item"
-              role="listitem"
-              key={item}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ amount: 0.6, margin: "0px 0px -10% 0px", once: true }}
-              transition={{
-                delay: (120 + index * 130) / 1000,
-                duration: 0.7,
-                ease: entranceEase,
-              }}
-            >
-              <ShieldCheck aria-hidden="true" />
-              <span>{item}</span>
-            </m.div>
-          ),
-        )}
+        <div className="ss-ind2-boundary__list" role="list" aria-label={keepsLabel}>
+          {keeps.map((item, index) =>
+            reducedMotion ? (
+              <div className="ss-ind2-boundary__item" role="listitem" key={item}>
+                <ShieldCheck aria-hidden="true" />
+                <span>{item}</span>
+              </div>
+            ) : (
+              <m.div
+                className="ss-ind2-boundary__item"
+                role="listitem"
+                key={item}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ amount: 0.6, margin: "0px 0px -10% 0px", once: true }}
+                transition={{
+                  delay: (120 + index * 130) / 1000,
+                  duration: 0.7,
+                  ease: entranceEase,
+                }}
+              >
+                <ShieldCheck aria-hidden="true" />
+                <span>{item}</span>
+              </m.div>
+            ),
+          )}
+        </div>
       </div>
     </div>
   );

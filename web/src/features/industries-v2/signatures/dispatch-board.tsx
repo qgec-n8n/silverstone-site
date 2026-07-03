@@ -25,7 +25,14 @@ const COLUMNS = [
 const BOARD_TOP = 96;
 const BOARD_BOTTOM = 356;
 const CARD_Y = 150;
-const GATE = { x: 116, y: 424 };
+/*
+ * The gates sit far enough below the commitment line (BOARD_BOTTOM + 16, its
+ * label at + 36) that their boxes never crowd or cover it — they used to sit
+ * only ~6px under the label, reading as "too high"/glued to the board rather
+ * than a clearly separated footer beat. The viewBox height below is extended
+ * to match, so the extra clearance never clips.
+ */
+const GATE = { x: 116, y: 452 };
 const FIRST_COLUMN = COLUMNS[0] ?? { label: "Intake", x: 116 };
 const CALLBACK_COLUMN = COLUMNS[2] ?? { label: "Callback", x: 372 };
 const FINAL_COLUMN = COLUMNS[3] ?? { label: "Scheduled", x: 500 };
@@ -49,8 +56,9 @@ export function DispatchBoard({
       <SignatureStatusBar label={label} />
       <div className="ss-srv2-signature__stage">
         {/* Tight viewBox around the drawn content so the board and its labels
-            render larger for the same stage size. */}
-        <m.svg viewBox="24 84 548 388" className="ss-srv2-signature__svg">
+            render larger for the same stage size. Height extended to clear
+            the gates' new lower position (see GATE above) with margin. */}
+        <m.svg viewBox="24 84 548 412" className="ss-srv2-signature__svg">
           {/* Board columns */}
           {COLUMNS.map((column, index) => (
             <m.g

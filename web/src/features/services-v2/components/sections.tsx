@@ -185,7 +185,7 @@ export function FinalCta({
   body,
   reassurance,
   buttonLabel,
-  bookHref = "/book",
+  bookHref = "/book#booking-calendar",
 }: {
   heading: string;
   body: ReactNode;

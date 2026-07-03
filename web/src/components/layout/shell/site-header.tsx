@@ -15,7 +15,13 @@ import {
 } from "motion/react";
 import * as m from "motion/react-m";
 import { Link, useLocation } from "react-router";
-import { ArrowUpRight, ChevronDown, Menu, X } from "~/components/icons/lucide";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  LayoutGrid,
+  Menu,
+  X,
+} from "~/components/icons/lucide";
 
 import { useAppExperience } from "~/app/experience/app-experience";
 import { Container } from "~/components/layout/container";
@@ -73,34 +79,58 @@ function ActiveNavIndicator() {
 
 function ServicesPanel({ menu }: { menu: NavMenu }) {
   return (
-    <div className="grid w-[min(88vw,34rem)] grid-cols-1 gap-1 sm:grid-cols-2">
-      {menu.items.map((item) => {
-        const Icon = item.icon;
-        return (
-          <m.div key={item.href} variants={menuItemVariants}>
-            <Link
-              className="ss-focus-ring group flex items-start gap-3 rounded-[var(--ss-radius-md)] p-3 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
-              to={item.href}
-            >
-              {Icon ? (
-                <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_10%,#ffffff)] text-[color:var(--ss-v2-header-accent)]">
-                  <Icon className="size-4" />
-                </span>
-              ) : null}
-              <span className="flex flex-col gap-0.5">
-                <span className="text-sm font-semibold text-[color:var(--ss-v2-header-text-strong)]">
-                  {item.label}
-                </span>
-                {item.description ? (
-                  <span className="text-body-sm text-[color:var(--ss-v2-header-muted)]">
-                    {item.description}
+    <div className="flex w-[min(88vw,34rem)] flex-col gap-1">
+      <m.div variants={menuItemVariants}>
+        <Link
+          className="ss-focus-ring group flex items-center gap-3.5 rounded-[var(--ss-radius-md)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_7%,transparent)] p-3.5 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
+          to={menu.href}
+        >
+          <span className="grid size-11 shrink-0 place-items-center rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_16%,#ffffff)] text-[color:var(--ss-v2-header-accent)]">
+            <LayoutGrid className="size-5" />
+          </span>
+          <span className="flex flex-1 flex-col gap-0.5">
+            <span className="text-sm font-semibold text-[color:var(--ss-v2-header-text-strong)]">
+              All services
+            </span>
+            <span className="text-body-sm text-[color:var(--ss-v2-header-muted)]">
+              Browse the full service architecture
+            </span>
+          </span>
+          <ArrowUpRight
+            aria-hidden
+            className="size-4 shrink-0 text-[color:var(--ss-v2-header-accent)] ss-transition-interactive group-hover:translate-x-0.5"
+          />
+        </Link>
+      </m.div>
+      <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+        {menu.items.map((item) => {
+          const Icon = item.icon;
+          return (
+            <m.div key={item.href} variants={menuItemVariants}>
+              <Link
+                className="ss-focus-ring group flex items-start gap-3 rounded-[var(--ss-radius-md)] p-3 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
+                to={item.href}
+              >
+                {Icon ? (
+                  <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_10%,#ffffff)] text-[color:var(--ss-v2-header-accent)]">
+                    <Icon className="size-4" />
                   </span>
                 ) : null}
-              </span>
-            </Link>
-          </m.div>
-        );
-      })}
+                <span className="flex flex-col gap-0.5">
+                  <span className="text-sm font-semibold text-[color:var(--ss-v2-header-text-strong)]">
+                    {item.label}
+                  </span>
+                  {item.description ? (
+                    <span className="text-body-sm text-[color:var(--ss-v2-header-muted)]">
+                      {item.description}
+                    </span>
+                  ) : null}
+                </span>
+              </Link>
+            </m.div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -209,17 +239,19 @@ function HeaderMenu({
               {variant === "cards" ? (
                 <ServicesPanel menu={menu} />
               ) : (
-                <IndustriesPanel menu={menu} />
+                <>
+                  <IndustriesPanel menu={menu} />
+                  <m.div variants={menuItemVariants}>
+                    <Link
+                      className="ss-focus-ring mt-2 flex items-center gap-1.5 rounded-[var(--ss-radius-sm)] border-t border-[color:var(--ss-v2-header-panel-border)] px-3 pt-3 pb-1 text-sm font-semibold text-[color:var(--ss-v2-header-accent)] no-underline ss-transition-interactive hover:gap-2.5"
+                      to={menu.href}
+                    >
+                      {menu.viewAllLabel}
+                      <ArrowUpRight aria-hidden className="size-4" />
+                    </Link>
+                  </m.div>
+                </>
               )}
-              <m.div variants={menuItemVariants}>
-                <Link
-                  className="ss-focus-ring mt-2 flex items-center gap-1.5 rounded-[var(--ss-radius-sm)] border-t border-[color:var(--ss-v2-header-panel-border)] px-3 pt-3 pb-1 text-sm font-semibold text-[color:var(--ss-v2-header-accent)] no-underline ss-transition-interactive hover:gap-2.5"
-                  to={menu.href}
-                >
-                  {menu.viewAllLabel}
-                  <ArrowUpRight aria-hidden className="size-4" />
-                </Link>
-              </m.div>
             </div>
           </m.div>
         ) : null}
@@ -329,6 +361,16 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                 <ChevronDown aria-hidden className="size-4 text-titanium" />
               </summary>
               <div className="flex flex-col gap-0.5 pb-2">
+                {menu.id === "services" ? (
+                  <Link
+                    className="ss-focus-ring mb-1 flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-hairline)] bg-[color-mix(in_srgb,var(--ss-v2-signal-cyan)_8%,transparent)] px-3 py-2.5 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
+                    onClick={onClose}
+                    to={menu.href}
+                  >
+                    <LayoutGrid aria-hidden className="size-4" />
+                    All services
+                  </Link>
+                ) : null}
                 {menu.items.map((item) => (
                   <Link
                     className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm text-titanium no-underline hover:text-platinum"
@@ -339,13 +381,15 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                     {item.label}
                   </Link>
                 ))}
-                <Link
-                  className="ss-focus-ring px-3 py-2 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
-                  onClick={onClose}
-                  to={menu.href}
-                >
-                  {menu.viewAllLabel}
-                </Link>
+                {menu.id !== "services" ? (
+                  <Link
+                    className="ss-focus-ring px-3 py-2 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
+                    onClick={onClose}
+                    to={menu.href}
+                  >
+                    {menu.viewAllLabel}
+                  </Link>
+                ) : null}
               </div>
             </details>
           ))}

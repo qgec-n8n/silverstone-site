@@ -71,6 +71,59 @@ function ServiceConstellation() {
       <SignatureStatusBar label="Service architecture" />
       <div className="ss-srv2-signature__stage">
         <m.svg viewBox="0 0 600 600" className="ss-srv2-signature__svg">
+          <defs>
+            <radialGradient id="svc-ambient-glow" cx="50%" cy="46%" r="60%">
+              <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.14" />
+              <stop offset="100%" stopColor="var(--srv2-accent)" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="svc-hub-fill" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stopColor="var(--srv2-accent-2)" />
+              <stop offset="100%" stopColor="var(--srv2-accent)" />
+            </radialGradient>
+            <filter id="svc-hub-blur" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="8" />
+            </filter>
+          </defs>
+          <circle
+            cx={center.x}
+            cy={center.y}
+            r={radius + 90}
+            fill="url(#svc-ambient-glow)"
+          />
+          {/* Slow counter-rotating outer ring with satellite marks — an
+              independent layer of motion beneath the orbiting node ring, so
+              the diagram reads as a live system rather than a static graph
+              with a single moving accent. */}
+          {!reducedMotion ? (
+            <m.g
+              style={{ transformOrigin: "300px 270px" }}
+              animate={{ rotate: -360 }}
+              transition={{ duration: 46, repeat: Infinity, ease: "linear" }}
+            >
+              <circle
+                cx={center.x}
+                cy={center.y}
+                r={radius + 38}
+                fill="none"
+                stroke="var(--srv2-hairline)"
+                strokeWidth="1"
+                strokeDasharray="1 9"
+              />
+              {[0, 120, 240].map((deg) => {
+                const rad = (deg * Math.PI) / 180;
+                return (
+                  <circle
+                    key={deg}
+                    cx={center.x + (radius + 38) * Math.cos(rad)}
+                    cy={center.y + (radius + 38) * Math.sin(rad)}
+                    r="2.5"
+                    fill="var(--srv2-accent-2)"
+                    opacity="0.6"
+                  />
+                );
+              })}
+            </m.g>
+          ) : null}
           <circle
             cx={center.x}
             cy={center.y}
@@ -80,6 +133,26 @@ function ServiceConstellation() {
             strokeWidth="1.3"
             strokeDasharray="4 8"
           />
+          {/* Fine bezel ticks just outside the orbit ring — instrument-console
+              precision framing the seven discipline nodes. */}
+          {Array.from({ length: 48 }).map((_, tick) => {
+            const angle = (tick / 48) * Math.PI * 2;
+            const major = tick % 4 === 0;
+            const innerTickR = radius + 6;
+            const outerTickR = major ? radius + 16 : radius + 11;
+            return (
+              <line
+                key={tick}
+                x1={center.x + innerTickR * Math.cos(angle)}
+                y1={center.y + innerTickR * Math.sin(angle)}
+                x2={center.x + outerTickR * Math.cos(angle)}
+                y2={center.y + outerTickR * Math.sin(angle)}
+                stroke="var(--srv2-ink-faint)"
+                strokeWidth={major ? 1.2 : 0.7}
+                opacity={major ? 0.45 : 0.22}
+              />
+            );
+          })}
           {CONSTELLATION.map((node, index) => {
             const radians = (node.angle * Math.PI) / 180;
             const x = center.x + radius * Math.cos(radians);
@@ -108,6 +181,10 @@ function ServiceConstellation() {
                   fill="var(--ss-v2-void-black)"
                   stroke="var(--srv2-accent)"
                   strokeWidth="1.8"
+                  style={{
+                    filter:
+                      "drop-shadow(0 0 5px color-mix(in srgb, var(--srv2-accent) 55%, transparent))",
+                  }}
                 />
                 <text
                   x={x}
@@ -137,6 +214,36 @@ function ServiceConstellation() {
               />
             </m.g>
           ) : null}
+          <circle
+            cx={center.x}
+            cy={center.y}
+            r="52"
+            fill="var(--srv2-accent)"
+            opacity="0.22"
+            filter="url(#svc-hub-blur)"
+          />
+          {!reducedMotion ? (
+            <m.circle
+              cx={center.x}
+              cy={center.y}
+              r="45"
+              fill="none"
+              stroke="url(#svc-hub-fill)"
+              strokeWidth="2.5"
+              animate={{ scale: [1, 1.05, 1], opacity: [0.55, 0.95, 0.55] }}
+              style={{ transformOrigin: "300px 270px" }}
+              transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
+            />
+          ) : (
+            <circle
+              cx={center.x}
+              cy={center.y}
+              r="45"
+              fill="none"
+              stroke="url(#svc-hub-fill)"
+              strokeWidth="2.5"
+            />
+          )}
           <circle
             cx={center.x}
             cy={center.y}
@@ -204,7 +311,7 @@ export function ServicesHubExperience() {
       <SecondaryHero
         eyebrow="Silverstone service architecture"
         icon={Workflow}
-        title="Services built around real business workflows"
+        title="Services built around *real business workflows*"
         titleId="hub2-lead"
         lead="Seven disciplines, one operating standard: every system is scoped around a costly problem, wired into your source of truth and measured after launch. Choose the entry point — the architecture connects behind it."
         points={[

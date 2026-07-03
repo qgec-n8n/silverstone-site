@@ -201,7 +201,17 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
 
 @media (prefers-reduced-motion: no-preference) {
   html[data-js="on"] .ss-loader__emblem {
-    animation: ss-loader-emblem-breathe 2.4s ease-in-out infinite;
+    animation:
+      ss-loader-emblem-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both,
+      ss-loader-emblem-breathe 2.6s ease-in-out 0.7s infinite;
+  }
+
+  /* A distinct closing beat — brightens and grows slightly rather than just
+     fading out flat with the rest of the overlay — so the emblem's own
+     animation has a beginning (power-on), a middle (breathe) and an end
+     (bloom), matching the loader's actual active/exiting phases. */
+  html[data-js="on"] .ss-loader[data-phase="exiting"] .ss-loader__emblem {
+    animation: ss-loader-emblem-bloom 0.5s ease-out forwards;
   }
 }
 
@@ -234,6 +244,26 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
   }
 }
 
+@keyframes ss-loader-emblem-in {
+  from {
+    opacity: 0;
+    filter: drop-shadow(0 0 0 transparent);
+    transform: translate(-50.23%, -48.44%) scale(0.82) rotate(-6deg);
+  }
+
+  to {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 10px color-mix(in srgb, #5ec5d0 46%, transparent))
+      drop-shadow(0 0 22px color-mix(in srgb, #597fad 30%, transparent))
+      drop-shadow(0 0 30px color-mix(in srgb, #a97cc0 22%, transparent));
+    transform: translate(-50.23%, -48.44%) scale(0.99) rotate(-1.2deg);
+  }
+}
+
+/* Scale (pulse), a small oscillating tilt (rotation, restrained — the emblem
+   is a lettermark and can't spin freely) and a glow that both brightens and
+   shifts hue between the mark's own cyan/blue/purple palette (illumination),
+   combined into one loop rather than three separate competing animations. */
 @keyframes ss-loader-emblem-breathe {
   0%,
   100% {
@@ -241,14 +271,40 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
     filter: drop-shadow(0 0 10px color-mix(in srgb, #5ec5d0 46%, transparent))
       drop-shadow(0 0 22px color-mix(in srgb, #597fad 30%, transparent))
       drop-shadow(0 0 30px color-mix(in srgb, #a97cc0 22%, transparent));
-    transform: translate(-50.23%, -48.44%) scale(0.99);
+    transform: translate(-50.23%, -48.44%) scale(0.99) rotate(-1.2deg);
   }
 
   50% {
     opacity: 1;
-    filter: drop-shadow(0 0 13px color-mix(in srgb, #5ec5d0 58%, transparent))
-      drop-shadow(0 0 28px color-mix(in srgb, #597fad 38%, transparent))
-      drop-shadow(0 0 38px color-mix(in srgb, #a97cc0 28%, transparent));
-    transform: translate(-50.23%, -48.44%) scale(1.02);
+    filter: drop-shadow(0 0 13px color-mix(in srgb, #a97cc0 58%, transparent))
+      drop-shadow(0 0 28px color-mix(in srgb, #5ec5d0 42%, transparent))
+      drop-shadow(0 0 38px color-mix(in srgb, #597fad 30%, transparent));
+    transform: translate(-50.23%, -48.44%) scale(1.02) rotate(1.2deg);
+  }
+}
+
+@keyframes ss-loader-emblem-bloom {
+  0% {
+    opacity: 1;
+    filter: drop-shadow(0 0 13px color-mix(in srgb, #a97cc0 58%, transparent))
+      drop-shadow(0 0 28px color-mix(in srgb, #5ec5d0 42%, transparent))
+      drop-shadow(0 0 38px color-mix(in srgb, #597fad 30%, transparent));
+    transform: translate(-50.23%, -48.44%) scale(1) rotate(0deg);
+  }
+
+  45% {
+    opacity: 1;
+    filter: drop-shadow(0 0 22px color-mix(in srgb, #5ec5d0 74%, transparent))
+      drop-shadow(0 0 40px color-mix(in srgb, #597fad 52%, transparent))
+      drop-shadow(0 0 52px color-mix(in srgb, #a97cc0 40%, transparent));
+    transform: translate(-50.23%, -48.44%) scale(1.07) rotate(0deg);
+  }
+
+  100% {
+    opacity: 0.94;
+    filter: drop-shadow(0 0 10px color-mix(in srgb, #5ec5d0 40%, transparent))
+      drop-shadow(0 0 20px color-mix(in srgb, #597fad 26%, transparent))
+      drop-shadow(0 0 26px color-mix(in srgb, #a97cc0 18%, transparent));
+    transform: translate(-50.23%, -48.44%) scale(1.02) rotate(0deg);
   }
 }

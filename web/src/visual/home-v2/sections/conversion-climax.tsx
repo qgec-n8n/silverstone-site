@@ -46,7 +46,7 @@ export function ConversionClimax() {
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <Reveal delayMs={240}>
                   <Button asChild size="lg" variant="accent" className="ss-btn-signal">
-                    <Link to="/book">
+                    <Link to="/book#booking-calendar">
                       Book a discovery call
                       <Icon name="ArrowRight" className="size-4" />
                     </Link>

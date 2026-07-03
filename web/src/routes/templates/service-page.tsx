@@ -185,6 +185,7 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
             route={route}
             showRelated={false}
             showHeader={false}
+            showBreadcrumbs={false}
           >
             <ServicePageVisuals
               key={serviceExperienceState === "body" ? "svc-body" : "svc-hidden"}

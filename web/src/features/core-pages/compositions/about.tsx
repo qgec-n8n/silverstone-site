@@ -16,7 +16,11 @@ import {
 } from "~/components/icons/lucide";
 import { StudioOrbitSignature } from "~/features/core-pages/signatures";
 import { NumberedRail } from "~/features/core-pages/shared";
-import { Prose, Reveal, SectionHead } from "~/features/services-v2/components/primitives";
+import {
+  Prose,
+  Reveal,
+  SectionHead,
+} from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
   FinalCta,
@@ -129,12 +133,12 @@ export function AboutComposition() {
             heading="Premium is a standard of *attention*"
             headingId="about-premium"
           />
-          <div className="ss-core-split">
+          <div className="ss-core-split ss-core-split--framed ss-srv2-beam-border">
             <Reveal kind="section">
               <Prose
                 paragraphs={[
-                  "Premium does not mean adding complexity or withholding clarity. It means treating the important details as important.",
-                  "Assumptions, dependencies, exclusions, third-party costs and human responsibilities are made visible before they can become points of dispute.",
+                  "Premium does not mean adding complexity or withholding clarity. It means treating *the important details as important*.",
+                  "Assumptions, dependencies, exclusions, third-party costs and human responsibilities are made visible before they can become points of dispute — the same standard of attention behind every engagement, at any scale.",
                 ]}
               />
             </Reveal>

@@ -4,13 +4,18 @@
  * through received/reviewed/routed checkpoints to a monitored inbox (built
  * for this page only).
  */
-import { GitBranch, MessageSquare } from "~/components/icons/lucide";
+import { GitBranch, MapPin, MessageSquare } from "~/components/icons/lucide";
 import { SignalRouteSignature } from "~/features/core-pages/signatures";
 import { ContactForm } from "~/features/core-pages/contact-form";
+import { MapPanel } from "~/features/core-pages/map-panel";
 import { CoreCardGrid, type CoreCard } from "~/features/core-pages/shared";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
-import { FinalCta, RelatedRail, type RelatedLink } from "~/features/services-v2/components/sections";
+import {
+  FinalCta,
+  RelatedRail,
+  type RelatedLink,
+} from "~/features/services-v2/components/sections";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
 const CHOICE_CARDS: CoreCard[] = [
@@ -73,6 +78,18 @@ export function ContactComposition() {
             lead="A concise message is enough. Explain the current situation, the intended outcome and anything that materially affects the decision."
           />
           <ContactForm />
+        </div>
+      </section>
+
+      <section className="ss-srv2-section" aria-labelledby="core-contact-map">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow="Find us"
+            icon={MapPin}
+            heading="Visit *the studio*"
+            headingId="core-contact-map"
+          />
+          <MapPanel />
         </div>
       </section>
 

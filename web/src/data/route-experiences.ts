@@ -55,7 +55,6 @@ const routeAssets: Record<string, string[]> = {
   "/industry/physios-chiropractors": ["/approved-images/physio-1.png"],
   "/industry/gyms-fitness-studios": ["/approved-images/gyms-1.png"],
   "/about": ["/home-v2/studio-mission.webp"],
-  "/how-we-work": ["/home-v2/silverstone-system-visual.png"],
   "/blog": ["/home-v2/story-operating-surface.png"],
   "/pricing": ["/home-v2/consulting-strategy.png"],
 };

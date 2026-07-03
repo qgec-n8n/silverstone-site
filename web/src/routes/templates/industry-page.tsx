@@ -177,6 +177,7 @@ export function IndustryPage({ route }: IndustryPageProps) {
             route={route}
             showRelated={false}
             showHeader={false}
+            showBreadcrumbs={false}
           >
             <IndustryExperienceV2
               key={routeExperienceState === "body" ? "ind-body" : "ind-hidden"}

@@ -148,7 +148,7 @@ export function WebDesignComposition({
       {/* 5 — Why Silverstone is different (with the approved system image) */}
       <section className="ss-srv2-section" aria-labelledby="srv2-different">
         <div className="ss-srv2__container">
-          <div className="ss-srv2-split">
+          <div className="ss-srv2-split ss-srv2-split--wide-copy">
             <div>
               <SectionHead
                 eyebrow="Why Silverstone"
@@ -231,7 +231,11 @@ export function WebDesignComposition({
       </section>
 
       {/* 9 — Reserved live-website showcases */}
-      <section className="ss-srv2-section" aria-labelledby="srv2-showcase">
+      <section
+        className="ss-srv2-section"
+        id="demo-web-design"
+        aria-labelledby="srv2-showcase"
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="Live showcases"

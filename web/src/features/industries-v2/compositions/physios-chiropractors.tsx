@@ -198,24 +198,31 @@ export function PhysiosChiropractorsComposition({
 
       <section className="ss-srv2-section" aria-labelledby="ind2-process">
         <div className="ss-srv2__container">
-          <SectionHead
-            eyebrow="A measured first workflow"
-            icon={Users}
-            heading={copy.process.heading}
-            headingId="ind2-process"
-            lead={copy.process.lead}
-          />
-          <ProcessTrack steps={toCards(copy.process.steps)} />
-        </div>
-      </section>
-
-      <section className="ss-srv2-section" aria-label="Illustrative clinic workflows">
-        <div className="ss-srv2__container">
           {art.gallery[0] ? (
-            <Reveal kind="image">
-              <IndustryFigure image={art.gallery[0]} />
-            </Reveal>
-          ) : null}
+            <div className="ss-srv2-split">
+              <div>
+                <SectionHead
+                  eyebrow="A measured first workflow"
+                  icon={Users}
+                  heading={copy.process.heading}
+                  headingId="ind2-process"
+                  lead={copy.process.lead}
+                />
+              </div>
+              <Reveal kind="image">
+                <IndustryFigure image={art.gallery[0]} />
+              </Reveal>
+            </div>
+          ) : (
+            <SectionHead
+              eyebrow="A measured first workflow"
+              icon={Users}
+              heading={copy.process.heading}
+              headingId="ind2-process"
+              lead={copy.process.lead}
+            />
+          )}
+          <ProcessTrack steps={toCards(copy.process.steps)} />
         </div>
       </section>
 

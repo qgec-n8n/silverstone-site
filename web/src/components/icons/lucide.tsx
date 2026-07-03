@@ -427,6 +427,12 @@ export const BellRing = createIcon("BellRing", [
   ],
   ["path", { d: "M4 2C2.8 3.7 2 5.7 2 8" }],
 ]);
+export const LayoutGrid = createIcon("LayoutGrid", [
+  ["rect", { width: "7", height: "7", x: "3", y: "3", rx: "1" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "3", rx: "1" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "14", rx: "1" }],
+  ["rect", { width: "7", height: "7", x: "3", y: "14", rx: "1" }],
+]);
 export const ClipboardCheck = createIcon("ClipboardCheck", [
   ["rect", { width: "8", height: "4", x: "8", y: "2", rx: "1", ry: "1" }],
   [

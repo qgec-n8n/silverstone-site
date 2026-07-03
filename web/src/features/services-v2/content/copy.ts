@@ -40,7 +40,7 @@ const SILVERSTONE_CLARIFICATION =
 
 export const webDesignCopy: ServiceCopy = {
   eyebrow: "Bespoke web design & development",
-  h1: "A website engineered to move buyers forward",
+  h1: "A website engineered to *move buyers forward*",
   heroSub:
     "Strategy, copy, design and engineering built as one commercial system — a bespoke site that turns qualified visitors into booked calls, not just compliments.",
   heroPoints: [
@@ -128,7 +128,7 @@ export const webDesignCopy: ServiceCopy = {
 
 export const appDevelopmentCopy: ServiceCopy = {
   eyebrow: "Bespoke app development",
-  h1: "Build the smallest app that proves the value",
+  h1: "Build the smallest app that *proves the value*",
   heroSub:
     "A focused application built around one real user, one valuable task, and the system states needed to deliver it reliably — not a feature backlog dressed up as a strategy.",
   heroPoints: [
@@ -202,7 +202,7 @@ export const appDevelopmentCopy: ServiceCopy = {
 
 export const aiVoiceAgentsCopy: ServiceCopy = {
   eyebrow: "AI voice agents",
-  h1: "Voice agents built for real conversations — and real consequences",
+  h1: "Voice agents built for real conversations — and *real consequences*",
   heroSub:
     "Custom voice workflows that listen, respond, act and escalate within rules your business can inspect — not a demo voice bolted onto a talking FAQ.",
   heroPoints: [
@@ -280,7 +280,7 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
 
 export const aiReceptionistsCopy: ServiceCopy = {
   eyebrow: "AI receptionists",
-  h1: "A front desk that answers, qualifies, and knows when to hand over",
+  h1: "A front desk that answers, qualifies, and knows *when to hand over*",
   heroSub:
     "One governed reception layer for calls, chat and intake — answering what it should, and routing the rest to a person with full context.",
   heroPoints: [
@@ -358,7 +358,7 @@ export const aiReceptionistsCopy: ServiceCopy = {
 
 export const contentCreationCopy: ServiceCopy = {
   eyebrow: "Content creation & repurposing",
-  h1: "Turn expertise into a governed content engine",
+  h1: "Turn expertise into a *governed content engine*",
   heroSub:
     "A source-led system that turns your approved expertise into website, insight, email and social assets — each one earning its place, not padding a quota.",
   heroPoints: [
@@ -432,7 +432,7 @@ export const contentCreationCopy: ServiceCopy = {
 
 export const aiAutomationCopy: ServiceCopy = {
   eyebrow: "AI automation",
-  h1: "Engineer the work between your systems",
+  h1: "Engineer the work *between your systems*",
   heroSub:
     "Custom workflows connecting triggers, data, rules, AI judgement and approvals into an operating layer your team can actually inspect.",
   heroPoints: [
@@ -506,7 +506,7 @@ export const aiAutomationCopy: ServiceCopy = {
 
 export const aiConsultingCopy: ServiceCopy = {
   eyebrow: "AI & automation consulting",
-  h1: "Decide what to automate before you buy the tools",
+  h1: "Decide what to automate *before you buy the tools*",
   heroSub:
     "A senior decision layer for prioritising use cases, testing readiness, choosing build-versus-buy, and defining the controls delivery will need.",
   heroPoints: [

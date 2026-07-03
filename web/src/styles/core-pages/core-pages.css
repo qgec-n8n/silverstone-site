@@ -149,6 +149,15 @@
   .ss-core-split:has(.ss-core-image) {
     grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
   }
+
+  /* ServiceFigure (services-v2's photo component) never picked up the split
+     column template above — it carries `.ss-srv2-figure`, not
+     `.ss-core-image` — so a split pairing Prose with ServiceFigure silently
+     fell back to a single stacked column at every width: the image rendered
+     below the copy, not beside it, on any core page using this combination. */
+  .ss-core-split:has(.ss-srv2-figure) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 30rem);
+  }
 }
 
 .ss-core-image img {
@@ -156,8 +165,25 @@
   object-fit: cover;
 }
 
+/* One shared glass frame around copy + figure — reuses the exact panel
+   recipe below (padding, radius, border, gradient, blur) so the two halves
+   read as one integrated composition instead of independent elements merely
+   placed side by side. The figure's own border/shadow/background are
+   neutralised so there's no card-within-a-card doubling. */
+.ss-core-split--framed .ss-srv2-figure {
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+.ss-core-split--framed .ss-srv2-figure::after {
+  border-radius: var(--ss-radius-xl);
+}
+
 .ss-core-form,
-.ss-core-booking {
+.ss-core-booking,
+.ss-core-map,
+.ss-core-split--framed {
   position: relative;
   padding: clamp(1.4rem, 1rem + 1.8vw, 2.4rem);
   border-radius: var(--ss-radius-2xl);
@@ -334,23 +360,143 @@
   font-size: 0.78rem;
 }
 
-.ss-core-booking__confirm {
+.ss-core-booking__live {
   display: inline-flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin: 0;
-  min-height: 1.25rem;
-  color: var(--srv2-ink);
-  font-size: 0.88rem;
-  line-height: 1.5;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.6rem;
+  padding-left: 0.7rem;
+  border-left: 1px solid var(--srv2-hairline);
+  color: #4ade80;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.ss-core-booking__confirm svg {
-  flex: none;
-  width: 1.05rem;
-  height: 1.05rem;
-  margin-top: 0.15rem;
-  color: #4ade80;
+.ss-core-booking__live-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: #4ade80;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #4ade80 22%, transparent);
+  animation: ss-core-booking-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes ss-core-booking-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.ss-core-booking__frame {
+  position: relative;
+  width: 100%;
+  height: clamp(600px, 78vh, 820px);
+  margin-top: 0.4rem;
+  overflow: clip;
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--srv2-hairline);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 92%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 12%, transparent) inset,
+    0 30px 60px -30px color-mix(in srgb, var(--ss-v2-void-black) 80%, transparent);
+}
+
+.ss-core-booking__frame iframe {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  transition: opacity var(--ss-motion-duration-slow, 0.4s)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-core-booking__frame[data-loaded="true"] iframe {
+  opacity: 1;
+}
+
+.ss-core-booking__loading {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  background:
+    radial-gradient(
+      120% 120% at 50% 0%,
+      color-mix(in srgb, var(--srv2-accent) 10%, transparent),
+      transparent 60%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 96%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-core-booking__live-dot {
+    animation: none;
+  }
+}
+
+@media (max-width: 44rem) {
+  .ss-core-booking__frame {
+    height: clamp(560px, 82vh, 700px);
+  }
+}
+
+/* ---- Studio map panel (shares .ss-core-booking's outer panel + loading
+   treatment; only the frame height differs — a map reads well shorter than
+   the Calendly scheduler). --------------------------------------------- */
+
+.ss-core-map {
+  overflow: clip;
+}
+
+.ss-core-map__frame {
+  position: relative;
+  width: 100%;
+  height: clamp(340px, 46vh, 460px);
+  margin-top: 0.4rem;
+  overflow: clip;
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--srv2-hairline);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 92%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 12%, transparent) inset,
+    0 30px 60px -30px color-mix(in srgb, var(--ss-v2-void-black) 80%, transparent);
+}
+
+.ss-core-map__frame iframe {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  transition: opacity var(--ss-motion-duration-slow, 0.4s)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-core-map__frame[data-loaded="true"] iframe {
+  opacity: 1;
+}
+
+@media (max-width: 44rem) {
+  .ss-core-map__frame {
+    height: clamp(300px, 52vh, 380px);
+  }
 }
 
 /* ---- Pricing metric instrument (bespoke, replaces BenchmarkConsole) ----- */
@@ -449,7 +595,8 @@
   font-variant-numeric: tabular-nums;
 }
 
-.ss-core-metric-instrument__value-stage[data-long="true"] .ss-core-metric-instrument__value {
+.ss-core-metric-instrument__value-stage[data-long="true"]
+  .ss-core-metric-instrument__value {
   font-size: clamp(1.02rem, 0.82rem + 3.4cqi, 1.8rem);
 }
 
@@ -574,7 +721,7 @@
 .ss-insight-filters__group-label {
   flex-basis: 100%;
   height: 0;
-  margin-block-start: 0.15rem;
+  margin-block: 0.85rem 0.5rem;
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
   font-size: 0.66rem;
@@ -583,7 +730,7 @@
 }
 
 .ss-insight-filters__group-label:first-of-type {
-  margin-block-start: 0;
+  margin-block-start: 0.2rem;
 }
 
 .ss-insight-filters__pill {

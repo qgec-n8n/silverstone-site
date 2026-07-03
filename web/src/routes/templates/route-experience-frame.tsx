@@ -19,12 +19,20 @@ type RouteExperienceFrameProps = {
   children: ReactNode;
   enabled?: boolean;
   experience?: RouteExperience;
+  /**
+   * When true, this route never shows the Aether intro, the expandable-hero
+   * "Explore" gate, or the return-to-intro control — it renders straight to
+   * the particle body, permanently. For gate-free routes (Book) only; the
+   * body still gets the shared particle background and layout chrome.
+   */
+  skipIntro?: boolean;
 };
 
 export function RouteExperienceFrame({
   children,
   enabled = true,
   experience,
+  skipIntro = false,
 }: RouteExperienceFrameProps) {
   const capability = useCapabilityTier();
   const policy = deriveMotionPolicy({
@@ -48,12 +56,13 @@ export function RouteExperienceFrame({
       : getRouteExperienceByPath(window.location.pathname));
 
   const introVisible =
+    !skipIntro &&
     enabled &&
     (routeExperienceState === "loading" ||
       routeExperienceState === "intro" ||
       routeExperienceState === "opening" ||
       routeExperienceState === "closing");
-  const bodyVisible = !enabled || routeExperienceState === "body";
+  const bodyVisible = skipIntro || !enabled || routeExperienceState === "body";
 
   const focusExploreButton = useCallback(() => {
     const delays = policy.motionEnabled ? [620, 760] : [50, 140, 260];
@@ -98,16 +107,21 @@ export function RouteExperienceFrame({
   }, [closeRouteBody]);
 
   useEffect(() => {
-    if (!enabled || routeExperienceState !== "intro" || !restoreIntroFocusRef.current) {
+    if (
+      skipIntro ||
+      !enabled ||
+      routeExperienceState !== "intro" ||
+      !restoreIntroFocusRef.current
+    ) {
       return;
     }
 
     restoreIntroFocusRef.current = false;
     focusExploreButton();
-  }, [enabled, focusExploreButton, routeExperienceState]);
+  }, [enabled, focusExploreButton, routeExperienceState, skipIntro]);
 
   useEffect(() => {
-    if (!enabled || !bodyVisible) {
+    if (skipIntro || !enabled || !bodyVisible) {
       return undefined;
     }
 
@@ -119,7 +133,7 @@ export function RouteExperienceFrame({
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [bodyVisible, enabled, handleCloseBody]);
+  }, [bodyVisible, enabled, handleCloseBody, skipIntro]);
 
   if (!enabled) {
     return <>{children}</>;
@@ -130,24 +144,27 @@ export function RouteExperienceFrame({
       className="ss-route-experience"
       data-route-experience-state={routeExperienceState}
       data-route-family={resolvedExperience.family}
+      data-skip-intro={skipIntro || undefined}
     >
-      <LayoutGroup id={`ss-route-explore-${resolvedExperience.path}`}>
-        {introVisible && routeExperienceState !== "loading" ? (
-          <RouteExperienceIntro
-            buttonDisabled={routeExperienceState !== "intro"}
-            buttonHidden={routeExperienceState === "opening"}
-            buttonRef={exploreButtonRef}
-            experience={resolvedExperience}
-            motionEnabled={policy.motionEnabled}
-            onExplore={handleExplore}
+      {!skipIntro ? (
+        <LayoutGroup id={`ss-route-explore-${resolvedExperience.path}`}>
+          {introVisible && routeExperienceState !== "loading" ? (
+            <RouteExperienceIntro
+              buttonDisabled={routeExperienceState !== "intro"}
+              buttonHidden={routeExperienceState === "opening"}
+              buttonRef={exploreButtonRef}
+              experience={resolvedExperience}
+              motionEnabled={policy.motionEnabled}
+              onExplore={handleExplore}
+            />
+          ) : null}
+          <ExploreSystemTransition
+            state={routeExperienceState}
+            onOpeningComplete={handleOpeningComplete}
+            onClosingReady={handleClosingReady}
           />
-        ) : null}
-        <ExploreSystemTransition
-          state={routeExperienceState}
-          onOpeningComplete={handleOpeningComplete}
-          onClosingReady={handleClosingReady}
-        />
-      </LayoutGroup>
+        </LayoutGroup>
+      ) : null}
 
       <div
         className="ss-service-experience__body ss-route-experience__body"
@@ -160,16 +177,18 @@ export function RouteExperienceFrame({
         <div className="ss-service-experience__content ss-route-experience__content">
           {children}
         </div>
-        <button
-          type="button"
-          className="ss-hv2-return ss-service-experience__return"
-          onClick={handleCloseBody}
-          aria-label="Return to route intro"
-          title="Return to route intro"
-          hidden={!bodyVisible}
-        >
-          <RotateCcw className="size-4" aria-hidden="true" />
-        </button>
+        {!skipIntro ? (
+          <button
+            type="button"
+            className="ss-hv2-return ss-service-experience__return"
+            onClick={handleCloseBody}
+            aria-label="Return to route intro"
+            title="Return to route intro"
+            hidden={!bodyVisible}
+          >
+            <RotateCcw className="size-4" aria-hidden="true" />
+          </button>
+        ) : null}
       </div>
     </div>
   );

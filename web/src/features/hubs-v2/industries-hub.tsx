@@ -42,12 +42,42 @@ const HUB_METRICS = [
   "167% — Growth in patient leads (clinics, 3 months)",
 ];
 
+/**
+ * SVG text never wraps on its own, so a fixed-width card with a long sector
+ * label (e.g. "Physios & chiropractors") renders as one line that runs past
+ * the card's edge instead of stopping at it. Balancing the label across two
+ * short lines — split at whichever word boundary leaves the two halves
+ * closest in length — keeps every label safely inside the card at every
+ * width instead of overflowing it.
+ */
+function wrapSectorLabel(label: string): string[] {
+  if (label.length <= 15) {
+    return [label];
+  }
+  const words = label.split(" ");
+  if (words.length < 2) {
+    return [label];
+  }
+  let bestSplit = 1;
+  let bestDiff = Infinity;
+  for (let i = 1; i < words.length; i += 1) {
+    const line1 = words.slice(0, i).join(" ");
+    const line2 = words.slice(i).join(" ");
+    const diff = Math.abs(line1.length - line2.length);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      bestSplit = i;
+    }
+  }
+  return [words.slice(0, bestSplit).join(" "), words.slice(bestSplit).join(" ")];
+}
+
 function SectorSignalGrid() {
   const reducedMotion = useReducedMotion() ?? false;
   const cells = industryRoutes.map((route, index) => ({
     route,
     x: 105 + (index % 3) * 165,
-    y: 110 + Math.floor(index / 3) * 130,
+    y: 118 + Math.floor(index / 3) * 140,
   }));
 
   return (
@@ -62,6 +92,12 @@ function SectorSignalGrid() {
           {cells.map((cell, index) => {
             const art = industryArt[cell.route];
             const copy = industryCopyByRoute[cell.route];
+            const labelLines = wrapSectorLabel(copy.sector);
+            const labelLineHeight = 15;
+            const labelStartY =
+              cell.y + (labelLines.length === 1 ? 2 : 2 - labelLineHeight / 2);
+            const liveSystemY =
+              labelStartY + (labelLines.length - 1) * labelLineHeight + 22;
             return (
               <m.g
                 key={cell.route}
@@ -72,9 +108,9 @@ function SectorSignalGrid() {
               >
                 <rect
                   x={cell.x - 72}
-                  y={cell.y - 42}
+                  y={cell.y - 48}
                   width="144"
-                  height="88"
+                  height="96"
                   rx="13"
                   fill="var(--ss-v2-void-black)"
                   stroke={art.accentFrom}
@@ -83,7 +119,7 @@ function SectorSignalGrid() {
                 {!reducedMotion ? (
                   <m.circle
                     cx={cell.x - 56}
-                    cy={cell.y - 26}
+                    cy={cell.y - 32}
                     r="4"
                     fill={art.accentFrom}
                     animate={{ opacity: [0.35, 1, 0.35] }}
@@ -97,26 +133,32 @@ function SectorSignalGrid() {
                 ) : (
                   <circle
                     cx={cell.x - 56}
-                    cy={cell.y - 26}
+                    cy={cell.y - 32}
                     r="4"
                     fill={art.accentFrom}
                   />
                 )}
                 <text
                   x={cell.x}
-                  y={cell.y + 2}
+                  y={labelStartY}
                   textAnchor="middle"
                   fill="var(--ss-v2-chrome)"
-                  fontSize="13"
+                  fontSize="12.5"
                   fontFamily="var(--ss-font-mono)"
                 >
-                  {copy.sector.length > 16
-                    ? copy.sector.replace(" & ", " · ")
-                    : copy.sector}
+                  {labelLines.map((line, lineIndex) => (
+                    <tspan
+                      key={line}
+                      x={cell.x}
+                      dy={lineIndex === 0 ? 0 : labelLineHeight}
+                    >
+                      {line}
+                    </tspan>
+                  ))}
                 </text>
                 <text
                   x={cell.x}
-                  y={cell.y + 24}
+                  y={liveSystemY}
                   textAnchor="middle"
                   fill="var(--srv2-ink-faint)"
                   fontSize="10.5"
@@ -232,14 +274,14 @@ export function IndustriesHubExperience() {
       </section>
 
       <section className="ss-srv2-section" aria-labelledby="hub2-services">
-        <div className="ss-srv2__container" data-width="narrow">
+        <div className="ss-srv2__container ss-hub2-disciplines" data-width="narrow">
           <SectionHead
             eyebrow="The disciplines behind the systems"
             heading="Every sector system draws on the same architecture"
             headingId="hub2-services"
             lead="AI reception, voice, automation, web, apps, content and consulting — combined per sector, never sold as a fixed stack."
           />
-          <Reveal kind="cta">
+          <Reveal kind="cta" className="ss-hub2-disciplines__next">
             <p className="ss-srv2-lead">
               <LinkedText text="Browse the [service architecture](/services), see [how Silverstone designs and delivers](/how-we-work), or review [how scope shapes pricing](/pricing)." />
             </p>

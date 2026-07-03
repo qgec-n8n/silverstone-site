@@ -190,7 +190,11 @@ export function AiVoiceAgentsComposition({
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="srv2-showcase">
+      <section
+        className="ss-srv2-section"
+        id="demo-ai-voice-agents"
+        aria-labelledby="srv2-showcase"
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="Live surfaces"

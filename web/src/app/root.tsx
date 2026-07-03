@@ -11,13 +11,24 @@ import { AppShell } from "~/app/components/app-shell";
 import { LoadingBoundary, LoadingFallback } from "~/app/components/loading-boundary";
 import { RouteLoadingIndicator } from "~/app/components/route-loading-indicator";
 import { AppExperienceProvider } from "~/app/experience/app-experience";
+import { DeepLinkScrollHandler } from "~/app/experience/deep-link-scroll";
 import { CoreSpinLoader } from "~/components/ui/core-spin-loader";
+import { DemosLauncher } from "~/components/layout/shell/demos-launcher";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";
 import { TextLink } from "~/components/ui/text-link";
+import { GATE_FREE_ROUTES } from "~/data/gate-free-routes";
 import { MotionProvider } from "~/motion";
 import "./app.css";
+
+/*
+ * Inlined verbatim into the pre-hydration boot script below, so the gate-free
+ * check runs synchronously before first paint — Book must never flash the
+ * loader/scroll-lock attributes even for a single frame. Kept in sync with
+ * `GATE_FREE_ROUTES` via direct interpolation rather than a duplicated list.
+ */
+const gateFreeRoutesJson = JSON.stringify(GATE_FREE_ROUTES);
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -32,8 +43,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             // loader overlay, the locked-scroll gate and the hidden header are
             // already correct on the very first frame (no flash, no mismatch).
             // The AppExperienceProvider reconciles these after hydration.
-            __html:
-              '(function(){var d=document.documentElement;d.setAttribute("data-js","on");d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(location.pathname==="/"){d.setAttribute("data-hero-locked","on");d.setAttribute("data-homepage-state","loading");}else{d.setAttribute("data-route-experience-state","loading");}})();',
+            // Gate-free routes (Book) set only data-js and stop there — no
+            // loader, no scroll lock, no hero/route-intro lock, ever.
+            __html: `(function(){var d=document.documentElement;d.setAttribute("data-js","on");if(${gateFreeRoutesJson}.indexOf(location.pathname)!==-1){return;}d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(location.pathname==="/"){d.setAttribute("data-hero-locked","on");d.setAttribute("data-homepage-state","loading");}else{d.setAttribute("data-route-experience-state","loading");}})();`,
           }}
         />
         <Meta />
@@ -43,7 +55,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <MotionProvider>
           <AppExperienceProvider>
             <CoreSpinLoader />
+            <DeepLinkScrollHandler />
             {children}
+            <DemosLauncher />
           </AppExperienceProvider>
         </MotionProvider>
         <ScrollRestoration />

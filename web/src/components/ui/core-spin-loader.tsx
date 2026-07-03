@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
+import { isGateFreeRoute } from "~/data/gate-free-routes";
 import { getRouteExperienceByPath } from "~/data/route-experiences";
 
 import "~/styles/core-spin-loader.css";
@@ -92,17 +93,25 @@ function preloadRouteAssets(pathname: string): void {
 export function CoreSpinLoader() {
   const location = useLocation();
   const { dismissLoader } = useAppExperience();
-  const [phase, setPhase] = useState<Phase>("active");
+  const gateFree = isGateFreeRoute(location.pathname);
+  const [phase, setPhase] = useState<Phase>(gateFree ? "done" : "active");
   const [ellipsisStep, setEllipsisStep] = useState(3);
   const [activePathname, setActivePathname] = useState(() => location.pathname);
   const experience = getRouteExperienceByPath(activePathname);
 
   if (activePathname !== location.pathname) {
     setActivePathname(location.pathname);
-    setPhase("active");
+    // A gate-free destination (Book) never plays the loader, whichever route
+    // it's reached from — jump straight to "done" instead of "active".
+    setPhase(gateFree ? "done" : "active");
   }
 
   useEffect(() => {
+    if (gateFree) {
+      dismissLoader();
+      return undefined;
+    }
+
     let cancelled = false;
     const beginExit = () => {
       if (!cancelled) {
@@ -115,7 +124,7 @@ export function CoreSpinLoader() {
     return () => {
       cancelled = true;
     };
-  }, [activePathname]);
+  }, [activePathname, dismissLoader, gateFree]);
 
   useEffect(() => {
     if (phase !== "exiting") {

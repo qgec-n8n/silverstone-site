@@ -210,6 +210,11 @@ export function Reveal({
 /**
  * Render approved inline copy with the small markdown subset used in the source
  * (`**bold**`, `*italic*`, `` `code` ``). No block-level markdown, no raw HTML.
+ * `*italic*` doubles as the site's established gradient-emphasis marker: CSS
+ * scoped to hero titles, section headings and CTA titles (see
+ * `.ss-srv2-hero__title em` and siblings) renders it as a colour sweep, while
+ * the same token in body prose renders as a plain accent tint — one markdown
+ * token, context-appropriate colour, no separate syntax to remember.
  */
 export function RichText({ text }: { text: string }): ReactNode {
   const nodes: ReactNode[] = [];

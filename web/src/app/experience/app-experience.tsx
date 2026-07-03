@@ -11,6 +11,7 @@ import {
 import { useLocation } from "react-router";
 
 import { getCanonicalRouteExperienceByPath } from "~/data/route-experiences";
+import { isGateFreeRoute } from "~/data/gate-free-routes";
 
 /**
  * AppExperience coordinates the opening sequence shared by every route:
@@ -105,7 +106,7 @@ function normalizePathname(pathname: string): string {
 function isRouteExperienceRoute(pathname: string): boolean {
   const normalizedPath = normalizePathname(pathname);
 
-  return normalizedPath !== "/";
+  return normalizedPath !== "/" && !isGateFreeRoute(normalizedPath);
 }
 
 function isServiceExperienceRoute(pathname: string): boolean {
@@ -120,7 +121,9 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const routeExperienceActive = isRouteExperienceRoute(location.pathname);
   const isServiceRoute = isServiceExperienceRoute(location.pathname);
 
-  const [loaderActive, setLoaderActive] = useState(true);
+  const [loaderActive, setLoaderActive] = useState(
+    () => !isGateFreeRoute(normalizePathname(location.pathname)),
+  );
   const [homepageState, setHomepageState] = useState<HomepageState>(
     isHomeRoute ? "loading" : "body",
   );
@@ -149,7 +152,12 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     : null;
   if (experiencePath !== lastExperiencePath) {
     setLastExperiencePath(experiencePath);
-    setLoaderActive(true);
+    // Only routes with a real intro to play re-arm the loader — navigating
+    // to a gate-free route (Book) must never flash it, whichever route the
+    // visitor is coming from.
+    if (experiencePath !== null) {
+      setLoaderActive(true);
+    }
     setRouteExperienceState(experiencePath ? "loading" : "body");
   }
 

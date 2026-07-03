@@ -32,10 +32,22 @@ type RoutePageFrameProps = {
   showRelated?: boolean;
   /**
    * When false, the default eyebrow + H1 + description header is suppressed so a
-   * bespoke body (e.g. services-v2) can own the single visible H1. Breadcrumbs,
-   * schema and layout are preserved.
+   * bespoke body (e.g. services-v2) can own the single visible H1. Schema and
+   * layout are preserved.
    */
   showHeader?: boolean;
+  /**
+   * When false, this frame's own breadcrumb bar is suppressed because the
+   * bespoke body renders its own route-integrated breadcrumb trail (see
+   * `SecondaryHero`) styled to match its hero rhythm instead.
+   */
+  showBreadcrumbs?: boolean;
+  /**
+   * When true, skip the Aether intro / expandable-hero gate entirely and
+   * render straight to the particle body — for gate-free routes (Book) that
+   * must be immediately usable, including on a direct link from another page.
+   */
+  skipIntro?: boolean;
 };
 
 export function RoutePageFrame({
@@ -47,6 +59,8 @@ export function RoutePageFrame({
   route,
   showRelated = true,
   showHeader = true,
+  showBreadcrumbs = true,
+  skipIntro = false,
 }: RoutePageFrameProps) {
   const routeById = new Map(
     futureRouteManifest.map((candidate) => [candidate.id, candidate]),
@@ -66,27 +80,29 @@ export function RoutePageFrame({
       >
         <Container>
           <Stack gap="xl">
-            <Breadcrumb>
-              <BreadcrumbList>
-                {route.breadcrumbs.flatMap((breadcrumb, index) => {
-                  const current = index === route.breadcrumbs.length - 1;
-                  return [
-                    ...(index > 0
-                      ? [<BreadcrumbSeparator key={`${breadcrumb.path}-separator`} />]
-                      : []),
-                    <BreadcrumbItem key={breadcrumb.path}>
-                      {current ? (
-                        <BreadcrumbPage>{breadcrumb.name}</BreadcrumbPage>
-                      ) : (
-                        <BreadcrumbLink href={breadcrumb.path}>
-                          {breadcrumb.name}
-                        </BreadcrumbLink>
-                      )}
-                    </BreadcrumbItem>,
-                  ];
-                })}
-              </BreadcrumbList>
-            </Breadcrumb>
+            {showBreadcrumbs ? (
+              <Breadcrumb>
+                <BreadcrumbList>
+                  {route.breadcrumbs.flatMap((breadcrumb, index) => {
+                    const current = index === route.breadcrumbs.length - 1;
+                    return [
+                      ...(index > 0
+                        ? [<BreadcrumbSeparator key={`${breadcrumb.path}-separator`} />]
+                        : []),
+                      <BreadcrumbItem key={breadcrumb.path}>
+                        {current ? (
+                          <BreadcrumbPage>{breadcrumb.name}</BreadcrumbPage>
+                        ) : (
+                          <BreadcrumbLink href={breadcrumb.path}>
+                            {breadcrumb.name}
+                          </BreadcrumbLink>
+                        )}
+                      </BreadcrumbItem>,
+                    ];
+                  })}
+                </BreadcrumbList>
+              </Breadcrumb>
+            ) : null}
 
             {showHeader ? (
               <RevealSection enabled={motionEnabled}>
@@ -142,6 +158,7 @@ export function RoutePageFrame({
     <RouteExperienceFrame
       enabled={entryExperience && route.path !== "/"}
       experience={getRouteExperienceByPath(route.path)}
+      skipIntro={skipIntro}
     >
       {page}
     </RouteExperienceFrame>
