@@ -54,6 +54,66 @@ const routeAssets: Record<string, string[]> = {
   "/industry/trades": ["/approved-images/Trades_1.jpeg"],
   "/industry/physios-chiropractors": ["/approved-images/physio-1.png"],
   "/industry/gyms-fitness-studios": ["/approved-images/gyms-1.png"],
+  "/about": ["/home-v2/studio-mission.webp"],
+  "/how-we-work": ["/home-v2/silverstone-system-visual.png"],
+  "/blog": ["/home-v2/story-operating-surface.png"],
+  "/pricing": ["/home-v2/consulting-strategy.png"],
+};
+
+const coreRouteEntries: Record<
+  string,
+  Pick<RouteExperience, "loaderText" | "pill" | "title" | "subtitle" | "buttonLabel">
+> = {
+  "/how-we-work": {
+    loaderText: "Calibrating the route from ambition to controlled execution.",
+    pill: "The Silverstone method",
+    title: "Complex technology. Controlled delivery.",
+    subtitle:
+      "A disciplined route from commercial diagnosis to tested, measurable systems, designed around your people, data and operating reality.",
+    buttonLabel: "Enter the delivery framework",
+  },
+  "/blog": {
+    loaderText: "Indexing the evidence behind better digital decisions.",
+    pill: "Silverstone Intelligence",
+    title: "Read before you build.",
+    subtitle:
+      "Practical analysis for leaders deciding what to automate, what to design, what to measure and where human judgement still matters.",
+    buttonLabel: "Open the Insights library",
+  },
+  "/about": {
+    loaderText: "Resolving the standards behind the Silverstone name.",
+    pill: "The Silverstone standard",
+    title: "Capability is common. Judgement is rare.",
+    subtitle:
+      "Silverstone joins commercial strategy, digital craft, engineering, AI and automation, then applies the restraint to use each only where it belongs.",
+    buttonLabel: "Discover the standard",
+  },
+  "/pricing": {
+    loaderText:
+      "Preparing a commercial framework for work that cannot be reduced to a rate card.",
+    pill: "Investment by design",
+    title: "No generic packages. No arbitrary numbers.",
+    subtitle:
+      "Silverstone prices the problem, the scope and the standard of execution after the systems, risks and commercial objective are understood.",
+    buttonLabel: "Review how investment is shaped",
+  },
+  "/contact": {
+    loaderText: "Opening a precise channel for the question in front of you.",
+    pill: "Direct correspondence",
+    title: "Put the problem in writing.",
+    subtitle:
+      "Send the context that matters so Silverstone can decide whether a written answer, discovery call or different route makes sense.",
+    buttonLabel: "Open the enquiry form",
+  },
+  "/book": {
+    loaderText:
+      "Aligning the problem, the people and the next available decision point.",
+    pill: "30-minute discovery",
+    title: "One problem. One focused conversation.",
+    subtitle:
+      "Bring the process, journey or digital decision that matters most. Silverstone will use the call to understand fit and define the most sensible next step.",
+    buttonLabel: "Continue to booking",
+  },
 };
 
 function conciseTitle(route: FutureRouteRecord): string {
@@ -190,7 +250,8 @@ function buildExperience(route: FutureRouteRecord): RouteExperience {
   const family = familyForRoute(route);
   const approvedRouteEntry =
     getApprovedServiceContent(route.path)?.routeEntry ??
-    getIndustryCopy(route.path)?.routeEntry;
+    getIndustryCopy(route.path)?.routeEntry ??
+    coreRouteEntries[route.path];
 
   const experience: RouteExperience = {
     path: route.path,

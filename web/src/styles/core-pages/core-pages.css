@@ -1,0 +1,395 @@
+/*
+ * core-pages — bespoke bodies for How We Work, Insights, About, Pricing,
+ * Contact and Book. Built on the services-v2 cinematic system so CoreSpin,
+ * Aether entry, Particles, trust strip, CTAs and reduced-motion behaviour stay
+ * consistent with the completed service pages.
+ */
+
+.ss-core {
+  --core-card-min: 16rem;
+}
+
+.ss-core-hero .ss-srv2-hero__intro {
+  gap: clamp(0.45rem, 0.2rem + 0.9vh, 1.15rem);
+}
+
+.ss-core-hero .ss-srv2-hero__lead {
+  max-width: 58ch;
+}
+
+.ss-core-sig .ss-srv2-signature__stage {
+  padding: clamp(0.2rem, 0.1rem + 0.7vh, 0.8rem);
+}
+
+.ss-core .ss-hv2-trust-shell {
+  margin-top: clamp(1.75rem, 4vw, 4rem);
+}
+
+.ss-core-cards {
+  display: grid;
+  gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--core-card-min), 100%), 1fr));
+}
+
+@media (min-width: 62rem) {
+  .ss-core-cards[data-count="4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ss-core-cards[data-count="5"],
+  .ss-core-cards[data-count="6"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ss-core-card {
+  min-height: 15rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ss-core-card__label {
+  width: fit-content;
+  margin-block-start: auto;
+  padding: 0.28rem 0.68rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 30%, transparent);
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ss-core-card__arrow {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--srv2-ink-faint);
+  transition:
+    color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-core-card:hover .ss-core-card__arrow {
+  color: var(--srv2-accent);
+  transform: translate(3px, -3px);
+}
+
+.ss-core-card__arrow svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.ss-core-rail {
+  display: grid;
+  gap: clamp(0.9rem, 0.7rem + 0.8vw, 1.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 58rem) {
+  .ss-core-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ss-core-rail__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  height: 100%;
+  padding: clamp(1.15rem, 0.9rem + 0.8vw, 1.55rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--srv2-hairline);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--srv2-accent) 9%, transparent),
+      transparent 56%
+    ),
+    var(--srv2-glass-raised);
+}
+
+.ss-core-rail__index {
+  display: grid;
+  place-items: center;
+  width: 2.55rem;
+  height: 2.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 38%, transparent);
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.78rem;
+}
+
+.ss-core-rail__item h3 {
+  margin: 0 0 0.4rem;
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-display);
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.ss-core-rail__item p {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.ss-core-split {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.8rem);
+  align-items: center;
+}
+
+@media (min-width: 62rem) {
+  .ss-core-split:has(.ss-core-image) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
+  }
+}
+
+.ss-core-image img {
+  aspect-ratio: 10 / 7;
+  object-fit: cover;
+}
+
+.ss-core-form,
+.ss-core-booking {
+  position: relative;
+  padding: clamp(1.4rem, 1rem + 1.8vw, 2.4rem);
+  border-radius: var(--ss-radius-2xl);
+  border: 1px solid var(--srv2-hairline);
+  background:
+    radial-gradient(
+      120% 120% at 0% 0%,
+      color-mix(in srgb, var(--srv2-accent) 14%, transparent),
+      transparent 54%
+    ),
+    var(--srv2-glass);
+  backdrop-filter: blur(16px);
+}
+
+.ss-core-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.ss-core-form__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 44rem) {
+  .ss-core-form__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ss-core-form label {
+  display: grid;
+  gap: 0.45rem;
+  color: var(--ss-v2-chrome);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.ss-core-form label em {
+  color: var(--srv2-ink-faint);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.ss-core-form input,
+.ss-core-form select,
+.ss-core-form textarea {
+  width: 100%;
+  border: 1px solid var(--srv2-hairline);
+  border-radius: var(--ss-radius-md);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
+  color: var(--srv2-ink);
+  font: inherit;
+  font-weight: 450;
+  padding: 0.82rem 0.95rem;
+  outline: none;
+  transition:
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-core-form textarea {
+  resize: vertical;
+  min-height: 10rem;
+}
+
+.ss-core-form input:focus,
+.ss-core-form select:focus,
+.ss-core-form textarea:focus {
+  border-color: color-mix(in srgb, var(--srv2-accent) 62%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--srv2-accent) 18%, transparent);
+}
+
+.ss-core-form__note,
+.ss-core-form__status {
+  margin: 0;
+  color: var(--srv2-ink-faint);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.ss-core-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.ss-core-booking {
+  display: grid;
+  gap: clamp(1.2rem, 0.9rem + 1.5vw, 2rem);
+  overflow: clip;
+}
+
+@media (min-width: 56rem) {
+  .ss-core-booking {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    align-items: stretch;
+  }
+}
+
+.ss-core-booking__calendar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+  min-height: 16rem;
+  padding: 1rem;
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background:
+    linear-gradient(
+      color-mix(in srgb, var(--ss-v2-platinum) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ss-v2-platinum) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    var(--ss-v2-void-black);
+  background-size:
+    34px 34px,
+    34px 34px,
+    100% 100%;
+}
+
+.ss-core-booking__calendar span {
+  display: grid;
+  place-items: center;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid var(--ss-v2-hairline);
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ss-core-booking__calendar span[data-active="true"] {
+  border-color: color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+  color: var(--ss-v2-chrome);
+  box-shadow: inset 0 0 30px color-mix(in srgb, var(--srv2-accent) 18%, transparent);
+}
+
+.ss-core-booking__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.ss-core-booking__body h3 {
+  margin: 0;
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.5rem, 1rem + 2vw, 2.4rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.ss-core-booking__body p {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.ss-core-booking__target {
+  font-family: var(--ss-font-mono);
+  font-size: 0.78rem !important;
+  overflow-wrap: anywhere;
+}
+
+.ss-core-btn-disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+@media (max-width: 48rem) {
+  .ss-core .ss-srv2-hero {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    padding-block-end: clamp(2rem, 9vw, 3.5rem);
+  }
+
+  .ss-core .ss-srv2-hero > .ss-srv2__container,
+  .ss-core .ss-srv2-hero__grid {
+    display: block;
+    min-height: 0;
+  }
+
+  .ss-core .ss-srv2-hero__intro {
+    justify-content: flex-start;
+  }
+
+  .ss-core-hero .ss-srv2-hero__actions {
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .ss-core .ss-srv2-hero__showcase {
+    margin-top: clamp(1.2rem, 6vw, 2rem);
+  }
+
+  .ss-core .ss-hv2-trust-shell {
+    margin-top: clamp(2.25rem, 10vw, 3.5rem);
+  }
+
+  .ss-core .ss-hv2-trust {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+    padding-inline: clamp(1.2rem, 5vw, 2rem);
+  }
+
+  .ss-core .ss-hv2-trust__item {
+    justify-content: flex-start;
+  }
+
+  .ss-core-cards,
+  .ss-core-rail,
+  .ss-core-form,
+  .ss-core-booking {
+    gap: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-core-card__arrow,
+  .ss-core-form input,
+  .ss-core-form select,
+  .ss-core-form textarea {
+    transition: none;
+  }
+}

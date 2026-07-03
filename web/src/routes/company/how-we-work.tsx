@@ -6,6 +6,7 @@ import { CoreMarketingPage } from "~/routes/templates/core-marketing-page";
 export const loader = createRouteLoader({
   exactPath: "/how-we-work",
   routeGroup: "company",
+  withMigratedContent: false,
 });
 export const meta = createRouteMeta<typeof loader>();
 

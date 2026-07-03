@@ -1,5 +1,6 @@
 import type { MigratedContentRecord } from "~/content/migrated";
 import type { FutureRouteRecord } from "~/data/route-schema";
+import { CorePageExperience } from "~/features/core-pages/core-page-experience";
 import { RoutePageFrame } from "~/routes/templates/route-page-frame";
 
 type CoreMarketingPageProps = {
@@ -33,6 +34,30 @@ function resolveEyebrow(route: FutureRouteRecord): string {
 }
 
 export function CoreMarketingPage({ content = null, route }: CoreMarketingPageProps) {
+  const bespokeCoreRoutes = new Set([
+    "/how-we-work",
+    "/blog",
+    "/about",
+    "/pricing",
+    "/contact",
+    "/book",
+  ]);
+
+  if (bespokeCoreRoutes.has(route.path)) {
+    return (
+      <RoutePageFrame
+        content={null}
+        entryExperience={false}
+        eyebrow={resolveEyebrow(route)}
+        route={route}
+        showHeader={false}
+        showRelated={false}
+      >
+        <CorePageExperience route={route} />
+      </RoutePageFrame>
+    );
+  }
+
   return (
     <RoutePageFrame content={content} eyebrow={resolveEyebrow(route)} route={route} />
   );

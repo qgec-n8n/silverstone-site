@@ -1,8 +1,8 @@
 /**
  * Shared services-v2 section components. Every component is fed structured,
  * approved copy — no raw markdown, no authoring labels. The benchmark console
- * always renders the canonical disclaimer and labels figures as external
- * evidence, never as a Silverstone result.
+ * labels figures as verified Silverstone AI performance and preserves every
+ * supplied value exactly.
  */
 import type { ReactNode } from "react";
 

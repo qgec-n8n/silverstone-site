@@ -91,8 +91,78 @@
   opacity: 0.7;
 }
 
+.ss-nav-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ss-v2-header-accent) 35%, #ffffff);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--ss-v2-signal-cyan) 92%, #ffffff),
+    color-mix(in srgb, var(--ss-v2-header-accent-violet) 55%, #ffffff) 58%,
+    color-mix(in srgb, var(--ss-v2-signal-cyan) 92%, #ffffff)
+  );
+  background-size: 220% 100%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.65) inset,
+    0 16px 34px -22px color-mix(in srgb, var(--ss-v2-signal-cyan) 80%, transparent);
+  transition:
+    background-position 480ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.ss-nav-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    115deg,
+    transparent 24%,
+    rgba(255, 255, 255, 0.62) 48%,
+    transparent 72%
+  );
+  transform: translateX(-130%);
+}
+
+.ss-nav-cta:hover,
+.ss-nav-cta:focus-visible {
+  background-position: 100% 50%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.72) inset,
+    0 22px 44px -22px color-mix(in srgb, var(--ss-v2-signal-cyan) 95%, transparent);
+}
+
+.ss-nav-cta:hover::after {
+  animation: ss-nav-cta-sheen 780ms ease;
+}
+
+.ss-nav-cta svg {
+  transition: transform 200ms ease;
+}
+
+.ss-nav-cta:hover svg {
+  transform: translate(2px, -2px);
+}
+
+@keyframes ss-nav-cta-sheen {
+  to {
+    transform: translateX(130%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-site-header] [data-nav-item]::after {
     transition: none;
+  }
+
+  .ss-nav-cta,
+  .ss-nav-cta svg {
+    transition: none;
+  }
+
+  .ss-nav-cta::after {
+    display: none;
   }
 }

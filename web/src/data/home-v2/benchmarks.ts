@@ -91,7 +91,7 @@ export const SECONDARY_BENCHMARKS: readonly BenchmarkMetric[] = [
     value: 167,
     suffix: "%",
     label: "Patient & lead growth",
-    context: "Enquiry growth seen when capture and follow-up never miss.",
+    context: "Enquiry growth seen when capture and follow-up are handled quickly.",
     impactArea: "Lead generation",
     source: "Physios and Chiropractors",
     tier: "secondary",
@@ -101,8 +101,7 @@ export const SECONDARY_BENCHMARKS: readonly BenchmarkMetric[] = [
     value: 24,
     display: "24/7",
     label: "Always answering",
-    context:
-      "Coverage across calls, chat and messaging — no voicemail, no missed window.",
+    context: "Coverage across calls, chat and messaging with defined fallback routes.",
     impactArea: "Availability",
     source: "AI Receptionists",
     tier: "secondary",

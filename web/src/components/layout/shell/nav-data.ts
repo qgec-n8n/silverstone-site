@@ -49,19 +49,19 @@ export const SERVICES_MENU: NavMenu = {
     {
       href: "/services/ai-voice-agents",
       label: "AI Voice Agents",
-      description: "Phone lines that never miss",
+      description: "Controlled call workflows",
       icon: PhoneCall,
     },
     {
       href: "/services/ai-receptionists",
       label: "AI Receptionists",
-      description: "A front desk that never sleeps",
+      description: "Qualified enquiry routing",
       icon: Headset,
     },
     {
       href: "/services/ai-automation",
       label: "AI Automation",
-      description: "Workflows that run themselves",
+      description: "Governed workflow systems",
       icon: Workflow,
     },
     {
@@ -73,7 +73,7 @@ export const SERVICES_MENU: NavMenu = {
     {
       href: "/services/content-creation",
       label: "Content Creation",
-      description: "Visibility on autopilot",
+      description: "Governed authority assets",
       icon: Sparkles,
     },
   ],
