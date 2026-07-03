@@ -18,9 +18,12 @@ import "~/styles/core-spin-loader.css";
   so no-JS visitors never get stuck behind it.
 */
 
-const HOLD_MS = 4000;
+/* Total visible lifetime (HOLD_MS + EXIT_MS) is held to ~2.5s. Route-asset
+   preloading below runs concurrently and is never awaited before dismissal —
+   it keeps warming the cache in the background for whichever assets aren't
+   ready yet. */
+const HOLD_MS = 1900;
 const EXIT_MS = 600;
-const MAX_ASSET_WAIT_MS = 6500;
 const LOADER_EMBLEM_SRC = "/brand/silverstone-ai-emblem-dark-transparent.png";
 
 const HOME_IMAGE_ASSETS = [
@@ -71,17 +74,19 @@ function routeAssets(pathname: string): string[] {
   return Array.from(new Set(assets));
 }
 
-function preloadRouteAssets(pathname: string): Promise<void> {
+/** Fire-and-forget: warms the image/font/asset cache in the background.
+ * Never awaited before dismissal, so slow assets can't extend the loader
+ * past its fixed HOLD_MS budget. */
+function preloadRouteAssets(pathname: string): void {
   const fontReady =
     "fonts" in document
       ? document.fonts.ready.then(() => undefined)
       : Promise.resolve();
-  const assetsReady = Promise.allSettled([
+  void Promise.allSettled([
     fontReady,
     ...routeAssets(pathname).map((src) => preloadImage(src)),
     ...(pathname === "/" ? HOME_FETCH_ASSETS.map((src) => preloadFetchAsset(src)) : []),
-  ]).then(() => undefined);
-  return Promise.race([assetsReady, wait(MAX_ASSET_WAIT_MS)]);
+  ]);
 }
 
 export function CoreSpinLoader() {
@@ -105,9 +110,8 @@ export function CoreSpinLoader() {
       }
     };
 
-    void Promise.all([wait(HOLD_MS), preloadRouteAssets(activePathname)]).then(
-      beginExit,
-    );
+    preloadRouteAssets(activePathname);
+    void wait(HOLD_MS).then(beginExit);
     return () => {
       cancelled = true;
     };

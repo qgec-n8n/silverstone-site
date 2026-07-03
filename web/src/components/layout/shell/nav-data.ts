@@ -102,6 +102,7 @@ export const PRIMARY_LINKS: readonly NavLeaf[] = [
   { href: "/blog", label: "Insights" },
   { href: "/about", label: "About" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export const PRIMARY_CTA: NavLeaf = {

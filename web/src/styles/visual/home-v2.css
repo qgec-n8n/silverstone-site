@@ -1990,8 +1990,8 @@ html[data-js="on"]
   display: inline-flex;
   align-items: center;
   isolation: isolate;
-  height: 3.4rem;
-  padding: 0 1.7rem;
+  height: 3.6rem;
+  padding: 0 1.85rem;
   border: none;
   background: transparent;
   color: var(--ss-v2-void-black, #04060b);
@@ -2000,26 +2000,93 @@ html[data-js="on"]
   font-weight: 600;
   letter-spacing: -0.01em;
   cursor: pointer;
+  transform: translateY(0);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s ease;
+}
+
+.ss-explore-cta:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.ss-explore-cta:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .ss-explore-cta:disabled {
   cursor: default;
 }
 
+/* The shared-layout element (layoutId) that morphs into the full-screen
+   panel on activation — geometry (position/size/radius) is animated by
+   Motion; the material treatment below only ever applies to this resting
+   pill state, since the transition overlay renders its own separate
+   .ss-explore-overlay__card instance under the same layoutId. */
 .ss-explore-cta__bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
   background: linear-gradient(
-    100deg,
-    var(--ss-v2-ice, #7fe9f2),
-    color-mix(in srgb, var(--ss-v2-platinum, #e8ecf5) 70%, var(--ss-v2-ice, #7fe9f2))
-      52%,
-    var(--ss-v2-orchid, #b27be0)
+    118deg,
+    var(--ss-v2-signal-cyan, #22d3ee) 0%,
+    color-mix(in srgb, var(--ss-v2-platinum, #e8ecf5) 58%, var(--ss-v2-signal-cyan, #22d3ee))
+      44%,
+    color-mix(in srgb, var(--ss-v2-platinum, #e8ecf5) 34%, var(--ss-v2-signal-violet, #a97cc0))
+      70%,
+    var(--ss-v2-signal-violet, #a97cc0) 100%
   );
   box-shadow:
-    0 0 0 1px color-mix(in srgb, #ffffff 30%, transparent) inset,
-    0 18px 48px -22px color-mix(in srgb, var(--ss-v2-ice, #7fe9f2) 80%, transparent);
+    0 0 0 1px color-mix(in srgb, #ffffff 46%, transparent) inset,
+    0 1px 0 0 rgba(255, 255, 255, 0.55) inset,
+    0 20px 52px -22px color-mix(in srgb, var(--ss-v2-signal-cyan, #22d3ee) 78%, transparent),
+    0 8px 22px -14px color-mix(in srgb, var(--ss-v2-signal-violet, #a97cc0) 65%, transparent);
+}
+
+/* Restrained signal sheen — a single soft band that sweeps the pill on a
+   slow loop, read as "energy flowing through the material" rather than a
+   glossy button highlight. */
+.ss-explore-cta__bg::before {
+  content: "";
+  position: absolute;
+  inset: -60% -20%;
+  background: linear-gradient(
+    112deg,
+    transparent 34%,
+    rgba(255, 255, 255, 0.65) 48%,
+    transparent 62%
+  );
+  transform: translateX(-135%);
+  animation: ss-explore-sheen 4.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1.1s;
+}
+
+.ss-explore-cta:hover .ss-explore-cta__bg::before {
+  animation-duration: 1.6s;
+  animation-delay: 0s;
+}
+
+/* Fine edge-lit ring so the pill reads as machined metal, not flat colour. */
+.ss-explore-cta__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+@keyframes ss-explore-sheen {
+  0%,
+  16% {
+    transform: translateX(-135%);
+  }
+  55%,
+  100% {
+    transform: translateX(135%);
+  }
 }
 
 .ss-explore-cta__label {
@@ -2027,15 +2094,46 @@ html[data-js="on"]
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.6rem;
+}
+
+.ss-explore-cta__dot {
+  flex: none;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: var(--ss-v2-void-black, #04060b);
+  opacity: 0.5;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #ffffff 40%, transparent);
+  animation: ss-explore-dot-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes ss-explore-dot-pulse {
+  0%,
+  100% {
+    opacity: 0.38;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.15);
+  }
+}
+
+.ss-explore-cta__icon {
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-explore-cta:hover .ss-explore-cta__icon {
+  transform: translate(3px, -2px);
 }
 
 .ss-explore-cta:hover .ss-explore-cta__bg {
-  filter: brightness(1.05);
+  filter: brightness(1.06) saturate(1.08);
 }
 
 .ss-explore-cta:focus-visible {
-  outline: 2px solid var(--ss-v2-ice, #7fe9f2);
+  outline: 2px solid var(--ss-v2-signal-cyan, #22d3ee);
   outline-offset: 4px;
   border-radius: 999px;
 }
@@ -2125,8 +2223,14 @@ html[data-js="on"]
 
 @media (prefers-reduced-motion: reduce) {
   .ss-explore-cta,
+  .ss-explore-cta__icon,
   .ss-hv2-return {
     transition: none;
+  }
+
+  .ss-explore-cta__bg::before,
+  .ss-explore-cta__dot {
+    animation: none;
   }
 }
 

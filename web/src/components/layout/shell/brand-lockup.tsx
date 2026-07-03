@@ -62,7 +62,7 @@ export function BrandLockup({
       />
       <span
         className={cn(
-          "font-display leading-none font-semibold tracking-[var(--ss-type-track-heading)]",
+          "font-display leading-none font-semibold whitespace-nowrap tracking-[var(--ss-type-track-heading)]",
           isLight ? "text-xl lg:text-2xl" : "text-lg",
         )}
       >

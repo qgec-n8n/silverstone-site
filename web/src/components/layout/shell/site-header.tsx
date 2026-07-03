@@ -38,10 +38,10 @@ import {
 } from "./nav-data";
 
 const TRIGGER_CLASS =
-  "ss-focus-ring ss-transition-interactive relative inline-flex items-center gap-1 rounded-[var(--ss-radius-pill)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]";
+  "ss-focus-ring ss-transition-interactive relative inline-flex items-center gap-1 whitespace-nowrap rounded-[var(--ss-radius-pill)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]";
 
 const ctaClass =
-  "ss-focus-ring ss-nav-cta inline-flex min-h-11 items-center gap-1.5 rounded-[var(--ss-radius-pill)] px-5 text-sm font-semibold text-[#05070a]";
+  "ss-focus-ring ss-nav-cta inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap rounded-[var(--ss-radius-pill)] px-5 text-sm font-semibold text-[#05070a]";
 
 const headerMotionVariants: Variants = {
   rest: {
@@ -460,7 +460,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
     }
   }, [hidden]);
 
-  return (
+  const header = (
     <m.header
       animate={hidden ? "hidden" : "rest"}
       aria-hidden={hidden || undefined}
@@ -476,14 +476,14 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
       ref={headerRef}
       variants={headerMotionVariants}
     >
-      <Container className="flex h-full items-center gap-6" size="wide">
+      <Container className="flex h-full items-center gap-6" data-nav-row size="wide">
         <BrandLockup
-          className="mr-1"
+          className="mr-1 shrink-0"
           emblemClassName="h-[3.25rem] w-auto lg:h-[4.75rem]"
           tone="onLight"
         />
         <LayoutGroup id="ss-primary-nav">
-          <nav aria-label="Primary" className="hidden items-center lg:flex">
+          <nav aria-label="Primary" className="hidden min-w-0 items-center lg:flex">
             <ul className="flex items-center gap-1">
               <HeaderMenu
                 currentPath={location.pathname}
@@ -572,6 +572,22 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
       {pendingIndicator ? (
         <div className="absolute inset-x-0 bottom-0">{pendingIndicator}</div>
       ) : null}
+    </m.header>
+  );
+
+  /*
+   * The drawer renders as a sibling of <header>, not nested inside it.
+   * Motion sets `will-change: transform` on the header for its hide/show
+   * variants and, per spec, that alone establishes a new containing block
+   * for fixed-position descendants — so the drawer's `fixed inset-0` would
+   * resolve against the header's own ~80px box instead of the viewport,
+   * squashing the full-screen overlay into a sliver. Being a sibling (rather
+   * than a DOM descendant) sidesteps that without needing a portal or
+   * touching the header's own animation.
+   */
+  return (
+    <>
+      {header}
       <AnimatePresence>
         {mobileOpen ? (
           <MobileDrawer
@@ -581,6 +597,6 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
           />
         ) : null}
       </AnimatePresence>
-    </m.header>
+    </>
   );
 }

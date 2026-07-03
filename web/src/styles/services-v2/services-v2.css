@@ -471,6 +471,20 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   min-height: 0;
 }
 
+/*
+ * The right-column unique feature (signature diagram / showcase panel) is a
+ * desktop enhancement, not essential meaning available nowhere else on the
+ * page. Below the two-column breakpoint (matches the `min-width: 64rem` rule
+ * above that introduces the split grid) it doesn't render at all, so mobile
+ * and tablet visitors get zero reserved height, margin or blank space for it
+ * — the single-column grid collapses to just the intro content.
+ */
+@media (max-width: 63.9375rem) {
+  .ss-srv2-hero__showcase {
+    display: none;
+  }
+}
+
 .ss-srv2-hero__scrollcue {
   display: flex;
   flex: none;

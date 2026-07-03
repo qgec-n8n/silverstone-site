@@ -51,6 +51,35 @@
   position: relative;
 }
 
+/*
+ * Fluid header at reduced desktop widths. Five primary links plus two
+ * mega-menu triggers and the Book CTA all share one row from the `lg`
+ * breakpoint (64rem / 1024px, where the mobile drawer switches off) up to
+ * 90rem — without this, labels start crowding well before the layout falls
+ * back to the mobile drawer. Gaps, padding and type shrink together as width
+ * tightens; `white-space: nowrap` (set directly on the elements) guarantees
+ * no label ever wraps mid-word even at the narrow end of this range.
+ */
+@media (min-width: 64rem) and (max-width: 90rem) {
+  [data-nav-row] {
+    gap: clamp(1rem, -1.5rem + 4vw, 1.5rem);
+  }
+
+  [data-site-header] nav[aria-label="Primary"] ul {
+    gap: clamp(0rem, -0.55rem + 0.75vw, 0.25rem);
+  }
+
+  [data-site-header] [data-nav-item] {
+    padding-inline: clamp(0.5rem, -0.2rem + 1vw, 0.75rem);
+    font-size: clamp(0.8rem, 0.68rem + 0.2vw, 0.875rem);
+  }
+
+  [data-site-header] .ss-nav-cta {
+    padding-inline: clamp(0.9rem, 0.3rem + 1vw, 1.25rem);
+    font-size: clamp(0.82rem, 0.7rem + 0.2vw, 0.875rem);
+  }
+}
+
 [data-site-header] [data-nav-item]::after {
   content: "";
   position: absolute;

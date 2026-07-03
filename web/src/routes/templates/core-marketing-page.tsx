@@ -47,7 +47,6 @@ export function CoreMarketingPage({ content = null, route }: CoreMarketingPagePr
     return (
       <RoutePageFrame
         content={null}
-        entryExperience={false}
         eyebrow={resolveEyebrow(route)}
         route={route}
         showHeader={false}
