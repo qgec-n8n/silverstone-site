@@ -4,7 +4,7 @@ Generated for the Codex preparation task on 2026-06-25.
 
 ## Starting repository state
 
-- Repository root: `/Users/quentingeczy/Desktop/silverstone-site`
+- Repository root: `<repo>`
 - Branch: `main`
 - Commit: `f950740cbc0303de0caa53ff25603492c75cbb42`
 - Remote: `origin https://github.com/qgec-n8n/silverstone-site.git`
@@ -14,7 +14,7 @@ Generated for the Codex preparation task on 2026-06-25.
 - npm: `11.12.1`
 - Package manager declared by project: none in manifest; `/web/package-lock.json` establishes npm as authoritative
 - Codex CLI: `codex-cli 0.136.0`
-- Active `CODEX_HOME`: environment variable unset; default user home is `/Users/quentingeczy/.codex`
+- Active `CODEX_HOME`: environment variable unset; default user home is `~/.codex`
 - Project trust: trusted in Codex configuration
 
 ## Starting git status
@@ -53,12 +53,12 @@ Precedence is highest first:
 
 1. User prompt for this preparation task.
 2. Repository-scoped supplied `AGENTS.md` instructions in the prompt.
-3. `/Users/quentingeczy/Desktop/silverstone-site/web/AGENTS.override.md` for `/web` work.
-4. `/Users/quentingeczy/Desktop/silverstone-site/AGENTS.md` for repository-wide rules.
-5. `/Users/quentingeczy/.codex/AGENTS.md` for user-level Codex defaults.
+3. `<repo>/web/AGENTS.override.md` for `/web` work.
+4. `<repo>/AGENTS.md` for repository-wide rules.
+5. `~/.codex/AGENTS.md` for user-level Codex defaults.
 6. Codex user and project configuration files.
 
-No root `AGENTS.override.md` file exists. `/Users/quentingeczy/.codex/AGENTS.override.md` is also absent.
+No root `AGENTS.override.md` file exists. `~/.codex/AGENTS.override.md` is also absent.
 
 ## Instruction findings
 

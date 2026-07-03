@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-06-25T15:19:25.239Z",
-  "repositoryRoot": "/Users/quentingeczy/Desktop/silverstone-site",
-  "project": "/Users/quentingeczy/Desktop/silverstone-site/web",
+  "repositoryRoot": ".",
+  "project": "./web",
   "packageManager": "npm",
   "packageManifestSha256": "2098c47038f3519f00b72621cce7a123067e8b47a13e0d5ceb57c3c2df4e80cc",
   "lockfileSha256": "86604e40aa4013571b16f359bb8d257b329cb1b891c4e12941f4a4440d9521bf",

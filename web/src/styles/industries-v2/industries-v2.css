@@ -488,3 +488,45 @@
     grid-column: 1 / -1;
   }
 }
+
+/* ---- Split section proportions (industry override) ------------------------ */
+
+/* Industry copy runs longer than services copy, so its column needs more
+   width to keep the rendered height close to the image column's — the
+   shared services-v2 34rem image cap left industry splits badly unbalanced
+   (tall narrow text next to a short photo). Scoped to .ss-ind2 only. */
+@media (min-width: 62rem) {
+  .ss-ind2 .ss-srv2-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
+  }
+}
+
+/* ---- Problem section premium panel -------------------------------------- */
+
+.ss-ind2-problem-panel {
+  position: relative;
+  padding: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
+  border-radius: var(--ss-radius-2xl);
+  border: 1px solid var(--srv2-hairline);
+  background:
+    radial-gradient(
+      130% 120% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent-2) 16%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      120% 120% at 0% 100%,
+      color-mix(in srgb, var(--srv2-accent) 14%, transparent),
+      transparent 55%
+    ),
+    var(--srv2-glass);
+  backdrop-filter: blur(16px);
+}
+
+.ss-ind2-problem-panel .ss-srv2-prose {
+  max-width: none;
+}
+
+.ss-ind2-problem-panel .ss-srv2-cards {
+  margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+}

@@ -116,7 +116,7 @@
   line-height: 1.04;
   letter-spacing: -0.02em;
   color: var(--ss-v2-chrome);
-  max-width: 20ch;
+  max-width: 31ch;
   text-wrap: balance;
 }
 
@@ -247,29 +247,38 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-srv2-hero > .ss-srv2__container {
   display: flex;
   flex: 1;
+  min-height: 0;
   flex-direction: column;
 }
 
 .ss-srv2-hero__grid {
   display: grid;
   /*
-   * Deliberately no flex: 1 here. A flex item's automatic minimum size
-   * ("don't shrink below your content") is unreliable to compute through a
-   * nested display: grid box containing a percentage-sized child (the
-   * showcase's height: 100%) — in practice this let the browser compress the
-   * grid below what its copy column actually needed, overflowing past the
-   * scroll cue. Sizing to natural content here and letting the scroll cue's
-   * margin-top: auto (below) absorb any leftover space is equivalent when
-   * there's room to spare, and safe when there isn't.
+   * flex: 1 + a single explicit row (grid-template-rows: 1fr) gives the grid
+   * a definite height equal to all the space between the intro column's top
+   * (unchanged — it still starts exactly where it always has) and the scroll
+   * cue. align-items: stretch then hands that same definite height to both
+   * columns, so the intro's own justify-content: space-between (below) and
+   * the showcase's height: 100% (see .ss-srv2-hero__showcase) both resolve
+   * against a real number instead of an intrinsic/percentage guess — this
+   * used to be unsafe (see git history) back when the showcase's height came
+   * from a plain CSS percentage with no definite ancestor to resolve against;
+   * a definite flex-allocated row removes that ambiguity entirely.
    */
+  flex: 1;
+  min-height: 0;
+  /* minmax(0, 1fr), not plain 1fr: a bare 1fr row still carries an implicit
+     minmax(auto, 1fr) — the row refuses to shrink below its tallest item's
+     min-content size, which silently overflowed the hero's hard height cap
+     at short viewports (content past the clip boundary pushed the scroll
+     cue down with it, invisibly, since overflow only paints the excess out
+     of view rather than removing it from layout). minmax(0, ...) removes
+     that floor so the row — and everything in it — actually respects the
+     stretched height, gracefully compacting at small viewports exactly like
+     the intro column already does. */
+  grid-template-rows: minmax(0, 1fr);
   gap: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
-  /* Not stretch: letting the grid stretch the showcase to the row's own
-     auto-height would let a tall signature diagram inflate the row (and the
-     whole hero) past the copy's own height, breaking the one-viewport fit
-     above. The showcase is matched to the intro's rendered height directly
-     instead (--srv2-showcase-height, set at runtime — see SecondaryHero's
-     useMatchIntroHeight), so growing a diagram can never grow the hero. */
-  align-items: start;
+  align-items: stretch;
   grid-template-columns: 1fr;
 }
 
@@ -286,12 +295,16 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-srv2-hero__intro {
   display: flex;
   flex-direction: column;
-  /* Deliberately not centered: this column's own content is what usually
-     drives the row's height, so centering would be a no-op in the common
-     case, and in the rare case where content is taller than the available
-     space, start-alignment overflows downward (toward the scroll cue)
-     instead of upward (behind the fixed header). */
-  justify-content: flex-start;
+  min-height: 0;
+  /* Top-anchored, bottom-anchored: the pill and title stay exactly where
+     they've always sat (space-between never moves the first item), while the
+     CTA row is pushed flush to the bottom of the now-stretched column, just
+     above the scroll cue. gap is a floor, not the only spacing — any extra
+     height the stretched column has over the content's natural size is
+     added as additional space between each pair of children, so the whole
+     block genuinely fills the section and keeps scaling with viewport
+     height rather than leaving dead space beneath a compact cluster. */
+  justify-content: space-between;
   gap: clamp(0.4rem, 0.15rem + 0.9vh, 1.2rem);
 }
 
@@ -376,12 +389,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
      grid item with a definite height — otherwise the plain Reveal <div>
      between here and .ss-srv2-signature would have an auto height, and
      .ss-srv2-signature's height:100% would have nothing real to resolve
-     against. Height itself comes from --srv2-showcase-height (matched to the
-     intro column's rendered height at runtime), not from stretching to this
-     grid row's own auto height — see .ss-srv2-hero__grid's align-items.
-     100% is only the pre-measurement fallback. */
+     against. height: 100% now resolves cleanly against the grid row's own
+     definite height (see .ss-srv2-hero__grid's flex: 1 + grid-template-rows:
+     1fr + align-items: stretch) — both columns fill the same real number of
+     pixels, matching the intro column automatically with no JS measurement. */
   display: grid;
-  height: var(--srv2-showcase-height, 100%);
+  height: 100%;
   min-height: 0;
   overflow: hidden;
 }
@@ -628,6 +641,21 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-srv2-split[data-flip="true"] > :first-child {
     order: 2;
   }
+}
+
+/*
+ * .ss-srv2-heading's shared size (--ss-type-h2, up to 3.25rem/52px) is
+ * calibrated for a full-width section head. Inside a split, the copy column
+ * is much narrower (the image column's fixed rem cap eats the rest of the
+ * grid), so that size wraps split headings to 3+ lines. Give split headings
+ * their own smaller clamp so they still read as a heading without overflowing
+ * the tight column. Lives in the shared stylesheet, so it applies to both
+ * services and industry splits by default; industries-v2.css adds a
+ * counter-override where its wider image-column cap leaves more room.
+ */
+.ss-srv2-split .ss-srv2-heading {
+  font-size: clamp(1.7rem, 1.1rem + 1.8vw, 2.5rem);
+  max-width: none;
 }
 
 /*
@@ -1133,7 +1161,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--ss-v2-chrome);
-  max-width: 20ch;
+  max-width: 31ch;
   text-wrap: balance;
 }
 

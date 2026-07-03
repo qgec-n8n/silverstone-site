@@ -20,4 +20,5 @@ if [[ -z "${OPENAI_API_KEY:-}" ]]; then
   exit 1
 fi
 
-exec node "/Users/quentingeczy/.claude-mcp-servers/gpt-image-2-mcp/build/index.js"
+SERVER_DIR="${GPT_IMAGE_2_MCP_DIR:-$HOME/.claude-mcp-servers/gpt-image-2-mcp}"
+exec node "$SERVER_DIR/build/index.js"

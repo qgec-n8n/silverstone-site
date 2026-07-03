@@ -1,65 +1,58 @@
 {
   "mcpServers": {
-    "magicui": {
-      "command": "npx",
-      "args": ["-y", "@magicuidesign/mcp@2.0.0"],
-      "enabled": true,
-      "startup_timeout_sec": 60,
-      "tool_timeout_sec": 180,
-      "default_tools_approval_mode": "prompt"
-    },
     "aceternityui": {
       "command": "npx",
       "args": ["-y", "aceternityui-mcp@1.0.2"],
-      "enabled": true,
-      "startup_timeout_sec": 60,
-      "tool_timeout_sec": 180,
-      "default_tools_approval_mode": "prompt"
-    },
-    "typeui": {
-      "url": "https://mcp.typeui.sh",
-      "enabled": true,
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120,
-      "default_tools_approval_mode": "prompt"
-    },
-    "untitledui": {
-      "url": "https://www.untitledui.com/react/api/mcp",
-      "enabled": true,
-      "startup_timeout_sec": 30,
-      "tool_timeout_sec": 120,
-      "default_tools_approval_mode": "prompt"
-    },
-    "shadcn": {
-      "command": "npx",
-      "args": ["-y", "shadcn@4.11.0", "mcp"],
-      "cwd": "/Users/quentingeczy/Desktop/silverstone-site/web",
-      "enabled": true,
-      "startup_timeout_sec": 60,
-      "tool_timeout_sec": 180,
-      "default_tools_approval_mode": "prompt"
-    },
-    "magic_21st": {
-      "command": "/bin/zsh",
-      "args": [
-        "/Users/quentingeczy/Desktop/silverstone-site/.codex/bin/21st-magic-mcp.sh"
-      ],
-      "cwd": "/Users/quentingeczy/Desktop/silverstone-site",
-      "env_vars": ["API_KEY_21ST"],
-      "enabled": true,
+      "enabled": false,
       "startup_timeout_sec": 60,
       "tool_timeout_sec": 180,
       "default_tools_approval_mode": "prompt"
     },
     "gpt-image-2": {
       "command": "/bin/zsh",
-      "args": [
-        "/Users/quentingeczy/Desktop/silverstone-site/.codex/bin/gpt-image-2-mcp.sh"
-      ],
-      "cwd": "/Users/quentingeczy/Desktop/silverstone-site",
-      "enabled": true,
+      "args": ["-lc", "exec ./.codex/bin/gpt-image-2-mcp.sh"],
+      "enabled": false,
       "startup_timeout_sec": 60,
       "tool_timeout_sec": 180,
+      "default_tools_approval_mode": "prompt"
+    },
+    "magic_21st": {
+      "command": "/bin/zsh",
+      "args": ["-lc", "exec ./.codex/bin/21st-magic-mcp.sh"],
+      "env_vars": ["API_KEY_21ST"],
+      "enabled": false,
+      "startup_timeout_sec": 60,
+      "tool_timeout_sec": 180,
+      "default_tools_approval_mode": "prompt"
+    },
+    "magicui": {
+      "command": "npx",
+      "args": ["-y", "@magicuidesign/mcp@2.0.0"],
+      "enabled": false,
+      "startup_timeout_sec": 60,
+      "tool_timeout_sec": 180,
+      "default_tools_approval_mode": "prompt"
+    },
+    "shadcn": {
+      "command": "/bin/zsh",
+      "args": ["-lc", "cd web && exec npx -y shadcn@4.11.0 mcp"],
+      "enabled": false,
+      "startup_timeout_sec": 60,
+      "tool_timeout_sec": 180,
+      "default_tools_approval_mode": "prompt"
+    },
+    "typeui": {
+      "url": "https://mcp.typeui.sh",
+      "enabled": false,
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120,
+      "default_tools_approval_mode": "prompt"
+    },
+    "untitledui": {
+      "url": "https://www.untitledui.com/react/api/mcp",
+      "enabled": false,
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120,
       "default_tools_approval_mode": "prompt"
     }
   }

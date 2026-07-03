@@ -49,7 +49,7 @@ export const webDesignCopy: ServiceCopy = {
     "Wired into your CRM, calendar and follow-up",
   ],
   problem: {
-    heading: "A handsome website that doesn’t convert is an expensive liability",
+    heading: "A site that doesn’t convert is an *expensive liability*",
     body: "Most sites look the part and still lose the sale. The positioning is vague, the navigation follows your org chart, forms vanish into an inbox, and mobile gets a squeezed desktop layout. Every unanswered question is a buyer who quietly leaves — a cost that never shows up on the invoice.",
     painPoints: [
       "Visitors can’t tell what you do — or why it should be you",
@@ -58,15 +58,15 @@ export const webDesignCopy: ServiceCopy = {
     ],
   },
   outcome: {
-    heading: "What changes when the system works",
+    heading: "What changes when the system *works*",
     body: "A site that makes a complex offer obvious, earns trust early, and routes every qualified enquiry straight into your calendar, CRM and follow-up. Fewer dead ends, more booked calls, and a platform your team can extend without another rebuild.",
   },
   capabilities: {
-    heading: "What you receive",
+    heading: "What you *receive*",
     lead: "A complete commercial website programme — not a set of disconnected hand-offs.",
   },
   differentiator: {
-    heading: "One studio, not five suppliers",
+    heading: "One studio, not *five suppliers*",
     body: "Silverstone combines strategy, copy, design, engineering, AI and automation under one roof. Nothing is lost in translation between agencies, because the website is the visible edge of a working commercial system — designed around the decision a qualified buyer needs to make.",
   },
   comparison: {
@@ -80,17 +80,17 @@ export const webDesignCopy: ServiceCopy = {
     },
   },
   proof: {
-    heading: "Proof, not promises",
+    heading: "*Proof*, not promises",
     lead: "Representative figures observed across Silverstone AI delivery — evidence of what well-scoped systems have achieved.",
     attribution: SILVERSTONE_ATTRIBUTION,
     clarification: SILVERSTONE_CLARIFICATION,
   },
   process: {
-    heading: "How delivery works",
+    heading: "How delivery *works*",
     lead: "A disciplined route from commercial decision to launch and beyond.",
   },
   faqs: {
-    heading: "Questions serious buyers ask",
+    heading: "Questions *serious buyers* ask",
     items: [
       {
         q: "Can you work with our existing brand?",
@@ -115,11 +115,11 @@ export const webDesignCopy: ServiceCopy = {
     ],
   },
   midCta: {
-    heading: "Build the decision path before the interface expands",
+    heading: "Build the *decision path* before the interface expands",
     body: "Use a discovery call to pin down the offer, the proof, the pages and the integrations that deserve the first release.",
   },
   finalCta: {
-    heading: "Turn your next website decision into a commercial one",
+    heading: "Turn your next website decision into a *commercial* one",
     body: "Bring a URL, a rough brief, or just the problem. We’ll map the offer, the evidence, the pages and the integrations worth building first.",
     urgency:
       "Every month a weak site stays live, it quietly costs you enquiries. The first conversation is exploratory and commits you to nothing.",
@@ -137,8 +137,7 @@ export const appDevelopmentCopy: ServiceCopy = {
     "AI where it helps, deterministic logic where it must be certain",
   ],
   problem: {
-    heading:
-      "Most app projects are over-scoped before anyone agrees what it has to prove",
+    heading: "App projects get *over-scoped* before the goal is set",
     body: "Feature lists grow before the workflow is defined. Budgets stretch across screens nobody asked for. By the time it ships, no one can say whether it actually solved the problem — because the problem was never pinned down.",
     painPoints: [
       "Scope balloons before the core workflow is agreed",
@@ -147,29 +146,29 @@ export const appDevelopmentCopy: ServiceCopy = {
     ],
   },
   outcome: {
-    heading: "What a disciplined first release gets you",
+    heading: "What a *disciplined first release* gets you",
     body: "A working product built around a real user and a real task — reliable enough to trust, small enough to ship fast, and structured so the next release extends it instead of rebuilding it.",
   },
   capabilities: {
-    heading: "What you receive",
+    heading: "What you *receive*",
     lead: "Product discovery, UX, data structure and engineering treated as one system — not four separate hand-offs.",
   },
   differentiator: {
-    heading: "A release built to reduce risk, not just ship features",
+    heading: "A release built to *reduce risk*",
     body: "We define the states your system must handle before we design a single screen — what happens when data is missing, when an action fails, when two users collide. That discipline is what makes a first release trustworthy enough to build on.",
   },
   proof: {
-    heading: "Proof, not promises",
+    heading: "*Proof*, not promises",
     lead: "Representative figures observed across Silverstone AI delivery — evidence of what a disciplined build has achieved.",
     attribution: SILVERSTONE_ATTRIBUTION,
     clarification: SILVERSTONE_CLARIFICATION,
   },
   process: {
-    heading: "How delivery works",
+    heading: "How delivery *works*",
     lead: "From workflow to a testable product decision — without the scope creep.",
   },
   faqs: {
-    heading: "Questions before a build begins",
+    heading: "Questions before a *build begins*",
     items: [
       {
         q: "Do we need a complete specification before speaking?",
@@ -190,11 +189,11 @@ export const appDevelopmentCopy: ServiceCopy = {
     ],
   },
   midCta: {
-    heading: "Define the workflow before the build gets expensive",
+    heading: "Define the workflow before the build gets *expensive*",
     body: "Use a discovery call to pin down the user, the task, and the states your system has to handle — before a single screen gets designed.",
   },
   finalCta: {
-    heading: "Move from idea to a testable product decision",
+    heading: "Move from idea to a *testable product decision*",
     body: "Bring a rough workflow — that's enough. We'll help you see whether a first release, an improvement, or something else entirely is the right next step.",
     urgency:
       "Every quarter spent scoping a feature list is a quarter your competitors spend shipping. The first conversation is exploratory and commits you to nothing.",
@@ -212,7 +211,7 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
     "Every uncertain call hands to a human, with context",
   ],
   problem: {
-    heading: "A voice demo is easy. A voice agent that survives production isn't",
+    heading: "A voice demo is easy. *Surviving production* isn't",
     body: "The hard part was never making a synthetic voice speak. It's building a call system that understands real intent, handles interruptions, takes permitted actions, and knows exactly when to hand over to a person — every time, not just in the demo.",
     painPoints: [
       "Missed calls become missed revenue, every single day",
@@ -221,29 +220,29 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
     ],
   },
   outcome: {
-    heading: "What a production-grade voice agent changes",
+    heading: "What a *production-grade* voice agent changes",
     body: "Calls answered in seconds, around the clock. Bookings confirmed without a human touching the calendar. Anything sensitive or unclear routed to your team — with the context they need, not a cold transfer.",
   },
   capabilities: {
-    heading: "What you receive",
+    heading: "What you *receive*",
     lead: "Conversation design, speech processing, telephony, monitoring and escalation — engineered as one operating system.",
   },
   differentiator: {
-    heading: "Designed for the call that goes off-script",
+    heading: "Built for the call that goes *off-script*",
     body: "Real callers interrupt, change their mind, and ask things the script didn't anticipate. We design for that — with confidence thresholds, permitted actions, and a clean human handover before the agent guesses.",
   },
   proof: {
-    heading: "Proof, not promises",
+    heading: "*Proof*, not promises",
     lead: "Representative figures observed across Silverstone AI voice deployments.",
     attribution: SILVERSTONE_ATTRIBUTION,
     clarification: SILVERSTONE_CLARIFICATION,
   },
   process: {
-    heading: "How delivery works",
+    heading: "How delivery *works*",
     lead: "From call intent to a monitored, production voice line.",
   },
   faqs: {
-    heading: "Questions before a live line is connected",
+    heading: "Questions before a *live line* is connected",
     items: [
       {
         q: "Can the agent use our existing phone number?",
@@ -268,11 +267,11 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
     ],
   },
   midCta: {
-    heading: "Design the call before you choose a voice",
+    heading: "Design the call before you choose a *voice*",
     body: "Use a discovery call to map the intents, the actions worth automating, and exactly where a human needs to stay in the loop.",
   },
   finalCta: {
-    heading: "Design the call before choosing the voice",
+    heading: "Design the call before choosing *the voice*",
     body: "Bring a sample call, a current script, or just the call problem that keeps repeating. We'll map the architecture that would actually hold up in production.",
     urgency:
       "Every missed call this week is a lead your competitor answered instead. The first conversation is exploratory and commits you to nothing.",
@@ -290,7 +289,7 @@ export const aiReceptionistsCopy: ServiceCopy = {
     "Routine enquiries handled; the rest routed to a person",
   ],
   problem: {
-    heading: "Your front desk is a system of decisions, not a script",
+    heading: "Your front desk is a system of *decisions*, not a script",
     body: "Callers, chat messages and web enquiries all arrive with different urgency, different detail, and different next steps. Treat them all the same way and routine requests clog your team while genuine emergencies wait in a queue.",
     painPoints: [
       "Out-of-hours enquiries go unanswered until morning",
@@ -299,29 +298,29 @@ export const aiReceptionistsCopy: ServiceCopy = {
     ],
   },
   outcome: {
-    heading: "What an integrated front desk changes",
+    heading: "What an *integrated front desk* changes",
     body: "Calls, chat and intake converge into one system that answers approved questions, books what it's allowed to book, and hands anything sensitive to a person — with the context already attached.",
   },
   capabilities: {
-    heading: "What you receive",
+    heading: "What you *receive*",
     lead: "Intake, triage, booking and escalation — designed and connected as a single operating layer, not disconnected tools.",
   },
   differentiator: {
-    heading: "The difference between answering and operating",
+    heading: "*Answering* versus *operating*",
     body: "A generic answering bot recites information. An operating front desk qualifies the enquiry, checks availability, updates your systems, and knows precisely when a decision needs a human — every time, not most of the time.",
   },
   proof: {
-    heading: "Proof, not promises",
+    heading: "*Proof*, not promises",
     lead: "Representative figures observed across Silverstone AI receptionist deployments.",
     attribution: SILVERSTONE_ATTRIBUTION,
     clarification: SILVERSTONE_CLARIFICATION,
   },
   process: {
-    heading: "How delivery works",
+    heading: "How delivery *works*",
     lead: "Design the desk before connecting the channels.",
   },
   faqs: {
-    heading: "Questions buyers should ask before choosing a provider",
+    heading: "Questions buyers should ask before *choosing a provider*",
     items: [
       {
         q: "Can it work outside office hours?",
@@ -346,11 +345,11 @@ export const aiReceptionistsCopy: ServiceCopy = {
     ],
   },
   midCta: {
-    heading: "Design the desk before you connect the channels",
+    heading: "Design the desk before you connect *the channels*",
     body: "Use a discovery call to map what should be automated, what should stay human, and where the two need to meet.",
   },
   finalCta: {
-    heading: "Make every routine enquiry reach a defined destination",
+    heading: "Make every routine enquiry reach a *defined destination*",
     body: "Bring your call notes, FAQs, or just the booking process as it stands today. We'll identify the smallest valuable front-desk route to start with.",
     urgency:
       "Every enquiry that goes unanswered tonight is a booking your competitor takes tomorrow. The first conversation is exploratory and commits you to nothing.",
@@ -368,7 +367,7 @@ export const contentCreationCopy: ServiceCopy = {
     "Human judgement stays in every approval gate",
   ],
   problem: {
-    heading: "More content isn't the same as more authority",
+    heading: "More content isn't the same as more *authority*",
     body: "Volume is the easy problem. The harder one is producing material that stays credible, distinct, and recognisably yours — instead of generic output that quietly erodes the trust you're trying to build.",
     painPoints: [
       "Publishing more, but rankings and enquiries stay flat",
@@ -377,29 +376,29 @@ export const contentCreationCopy: ServiceCopy = {
     ],
   },
   outcome: {
-    heading: "What a governed content system changes",
+    heading: "What a *governed content system* changes",
     body: "Your real expertise, captured once and adapted across every channel with a defined approval gate — so output scales without your name ending up on something you wouldn't stand behind.",
   },
   capabilities: {
-    heading: "What you receive",
+    heading: "What you *receive*",
     lead: "Source capture, editorial structure, channel adaptation and approval workflow — built as one repeatable cycle.",
   },
   differentiator: {
-    heading: "Atomise the idea without diluting it",
+    heading: "Atomise the idea without *diluting it*",
     body: "AI accelerates extraction, structuring and drafting. It doesn't replace the point of view, the accountable source, or the human sign-off that keeps every asset distinct instead of generic.",
   },
   proof: {
-    heading: "Proof, not promises",
+    heading: "*Proof*, not promises",
     lead: "Representative figures observed across Silverstone AI content programmes.",
     attribution: SILVERSTONE_ATTRIBUTION,
     clarification: SILVERSTONE_CLARIFICATION,
   },
   process: {
-    heading: "How delivery works",
+    heading: "How delivery *works*",
     lead: "From source material to a repeatable content cycle.",
   },
   faqs: {
-    heading: "Questions about AI, quality and publishing",
+    heading: "Questions about AI, *quality* and publishing",
     items: [
       {
         q: "Will AI write all the content?",
@@ -420,11 +419,11 @@ export const contentCreationCopy: ServiceCopy = {
     ],
   },
   midCta: {
-    heading: "Capture the source before scaling the output",
+    heading: "Capture the source before *scaling the output*",
     body: "Use a discovery call to identify the expertise worth publishing and the approval gates that keep it credible.",
   },
   finalCta: {
-    heading: "Build a system your expertise can sustain",
+    heading: "Build a system your expertise can *sustain*",
     body: "Bring existing documents, scattered notes, or just the expertise your business struggles to publish consistently. We'll map the system that turns it into a real content engine.",
     urgency:
       "Every month without a governed system is another month of generic content quietly working against your authority. The first conversation is exploratory and commits you to nothing.",
@@ -442,7 +441,7 @@ export const aiAutomationCopy: ServiceCopy = {
     "First working automation live in 2–4 weeks",
   ],
   problem: {
-    heading: "Automation fails where ownership disappears",
+    heading: "Automation fails where *ownership* disappears",
     body: "Most operational waste doesn't live inside one tool — it lives in the handoffs between them. A lead copied into a spreadsheet by hand. A document waiting in an inbox. A report stitched together from exports. Somewhere, an employee has quietly become the integration layer.",
     painPoints: [
       "The same manual handoff, repeated every single day",
@@ -451,29 +450,29 @@ export const aiAutomationCopy: ServiceCopy = {
     ],
   },
   outcome: {
-    heading: "What an engineered operating layer changes",
+    heading: "What an *engineered operating layer* changes",
     body: "Triggers, data and deterministic rules do the repeatable work. Bounded AI judgement handles what rules can't. Exceptions route to a person — and everything is logged, so your team can see exactly what happened and why.",
   },
   capabilities: {
-    heading: "What you receive",
+    heading: "What you *receive*",
     lead: "Triggers, data pipelines, deterministic logic, bounded AI judgement and human approval gates — engineered as one inspectable system.",
   },
   differentiator: {
-    heading: "AI where judgement helps, rules where they're stronger",
+    heading: "AI where *judgement* helps",
     body: "We don't default to AI for everything. Deterministic logic runs wherever the rule is already known — AI earns its place only where judgement genuinely adds value, and every exception has a defined human owner.",
   },
   proof: {
-    heading: "Proof, not promises",
+    heading: "*Proof*, not promises",
     lead: "Representative figures observed across Silverstone AI automation deployments.",
     attribution: SILVERSTONE_ATTRIBUTION,
     clarification: SILVERSTONE_CLARIFICATION,
   },
   process: {
-    heading: "How delivery works",
+    heading: "How delivery *works*",
     lead: "From one manual handoff to a monitored automation system.",
   },
   faqs: {
-    heading: "Questions before the first workflow runs",
+    heading: "Questions before the first *workflow* runs",
     items: [
       {
         q: "Which platform will you use?",
@@ -494,11 +493,11 @@ export const aiAutomationCopy: ServiceCopy = {
     ],
   },
   midCta: {
-    heading: "Trace the handoff before you automate it",
+    heading: "Trace the handoff before you *automate it*",
     body: "Use a discovery call to map the systems, the exceptions, and the first workflow worth automating.",
   },
   finalCta: {
-    heading: "Choose the first workflow with enough care to scale",
+    heading: "Choose the first workflow with enough care to *scale*",
     body: "Bring a process map, a systems list, or just the repeated task. We'll test readiness and identify where automation earns its place fastest.",
     urgency:
       "Every week you delay is another week of the same manual handoff. The first conversation is exploratory and commits you to nothing.",
@@ -516,8 +515,7 @@ export const aiConsultingCopy: ServiceCopy = {
     "A roadmap that ends in decisions, not more options",
   ],
   problem: {
-    heading:
-      "The expensive mistake is choosing technology before the operating problem",
+    heading: "Technology is chosen before the *operating problem*",
     body: "AI creates pressure to move fast — and an unusually large number of plausible wrong turns. Teams buy software before the workflow is defined. Pilots fail because the source data was never accessible. Departments procure overlapping tools that solve the same problem twice.",
     painPoints: [
       "Multiple teams buying overlapping AI tools independently",
@@ -526,29 +524,29 @@ export const aiConsultingCopy: ServiceCopy = {
     ],
   },
   outcome: {
-    heading: "What an independent decision layer changes",
+    heading: "What an *independent decision layer* changes",
     body: "A prioritised, evidence-based view of where automation actually pays off — with build-versus-buy decided, risk and governance defined, and a sequenced roadmap your team can execute with confidence.",
   },
   capabilities: {
-    heading: "What you receive",
+    heading: "What you *receive*",
     lead: "Opportunity audit, readiness testing, build-versus-buy analysis and a sequenced roadmap — delivered as one decision package.",
   },
   differentiator: {
-    heading: "A route that ends in decisions, not more options",
+    heading: "A route that ends in *decisions*",
     body: "We're not tied to a platform or a delivery pipeline to protect. The output is a clear recommendation — including where the honest answer is to wait, or not automate at all.",
   },
   proof: {
-    heading: "Proof, not promises",
+    heading: "*Proof*, not promises",
     lead: "Representative figures observed across Silverstone AI consulting engagements.",
     attribution: SILVERSTONE_ATTRIBUTION,
     clarification: SILVERSTONE_CLARIFICATION,
   },
   process: {
-    heading: "How delivery works",
+    heading: "How delivery *works*",
     lead: "A consulting route that ends in decisions, not another slide deck.",
   },
   faqs: {
-    heading: "Questions leadership teams should resolve",
+    heading: "Questions leadership teams should *resolve*",
     items: [
       {
         q: "What do we actually get from an opportunity audit?",
@@ -569,11 +567,11 @@ export const aiConsultingCopy: ServiceCopy = {
     ],
   },
   midCta: {
-    heading: "Get an independent view before you commit budget",
+    heading: "Get an independent view before you *commit budget*",
     body: "Use a discovery call to scope the opportunity audit that would actually change your next decision.",
   },
   finalCta: {
-    heading: "Leave with a clearer route — including when the answer is no",
+    heading: "Leave with a clearer route — even when the answer is *no*",
     body: "Bring a list of ideas, a vendor proposal, or just the pressure to act. We'll help you find the decision route that actually holds up.",
     urgency:
       "Every quarter without a prioritised roadmap is another quarter of scattered, overlapping bets. The first conversation is exploratory and commits you to nothing.",

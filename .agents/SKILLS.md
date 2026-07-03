@@ -1,81 +1,64 @@
-# Workspace Skills & MCP
+# Workspace Skills And MCP
 
-This workspace is a multi-agent environment. Agent **skills** (reusable
-instruction packs) and **MCP servers** (tool integrations) are shared across the
-agent tooling used here so every agent — Replit, Claude, Codex — can reach the
-same capabilities.
+This repository keeps project skills and optional MCP server configuration in tracked files, but only a small skill profile is exposed by default.
 
 ## Layout
 
 | Path | Role |
 | --- | --- |
-| `.agents/skills/<name>/SKILL.md` | **Canonical store.** The single source of truth for every skill. |
-| `.claude/skills/<name>` | Symlinks back into `.agents/skills/` so Claude tooling resolves the same skills. |
-| `.mcp.json` | **Canonical MCP server list** (used by Claude / Replit). |
-| `.codex/config.toml` | Codex config; its `[mcp_servers.*]` section is generated from `.mcp.json`. |
-| `.agents/sync-skills.mjs` | The repeatable wiring generator (below). |
+| `.agents/skills/<name>/SKILL.md` | Canonical project skill store. |
+| `.agents/skill-profiles.json` | Source of truth for default and specialist skill exposure profiles. |
+| `.claude/skills/<name>` | Symlinks for the currently active skill profile only. |
+| `.mcp.json` | Repository MCP server definitions. Optional servers are disabled by default. |
+| `.codex/config.toml` | Codex config; the MCP section is generated from `.mcp.json`. |
+| `.agents/sync-skills.mjs` | Validates skills, syncs active links, and regenerates Codex MCP config. |
 
-Each skill is a directory with a `SKILL.md` that begins with YAML frontmatter
-containing at least `name` and `description`. Supporting files (scripts,
-references) live alongside it in the same directory.
+Each skill must be a directory with `SKILL.md` frontmatter containing at least `name` and `description`. Supporting files stay inside that skill directory.
 
-## Keeping it wired: `sync-skills.mjs`
-
-One script (re)generates all cross-tool wiring. It is idempotent — safe to run
-any time, especially after adding, removing, or renaming a skill, or after
-editing `.mcp.json`.
+## Sync Commands
 
 ```bash
-node .agents/sync-skills.mjs          # apply: link skills + regenerate MCP section
-node .agents/sync-skills.mjs --check  # verify only; exits 1 if anything is out of sync
-```
-
-What it does:
-
-1. Inventories every skill in `.agents/skills/` and validates each `SKILL.md`
-   has `name` + `description` frontmatter.
-2. Regenerates `.claude/skills/` symlinks to match the canonical store and prunes
-   stale, broken, or wrong-target links.
-3. Regenerates the `[mcp_servers.*]` block of `.codex/config.toml` from
-   `.mcp.json` (the rest of the Codex config is left untouched), so both tools
-   expose the same MCP servers.
-
-Use `--check` in a verification step to catch drift before it ships.
-
-## MCP servers
-
-`.mcp.json` is the source of truth. To add or change an MCP server, edit
-`.mcp.json` and run `node .agents/sync-skills.mjs` to propagate it into
-`.codex/config.toml`. The currently configured servers are the React
-component-library registries (Magic UI, Aceternity UI); both run over stdio via
-`npx` and need no API key.
-
-## Reusing these skills in future projects
-
-Each Replit Repl is an **isolated environment**. From inside a Repl we can make
-everything available workspace-wide here and ship a portable, repeatable
-mechanism, but we **cannot** silently auto-inject these skills into a separate
-future Repl. There is no cross-Repl background sync — adoption is an explicit,
-one-time step per project. Pick whichever path fits:
-
-1. **Fork / use as template (recommended).** Create the new project from this
-   repo. The `.agents/skills/` store, `.claude/skills/` links, `.mcp.json`, and
-   `.codex/config.toml` come with it. Run `node .agents/sync-skills.mjs` once to
-   refresh symlinks (symlinks may not survive every copy mechanism).
-
-2. **Copy the store into an existing project.** Copy the `.agents/skills/`
-   directory (and `.mcp.json` if you want the MCP servers) into the target repo,
-   then copy `.agents/sync-skills.mjs` and run it. It will create
-   `.claude/skills/` and the Codex MCP section from scratch.
-
-3. **Re-install from source.** `skills-lock.json` records the upstream source
-   (GitHub repo + path + hash) for each externally sourced skill, so a skill can
-   be re-fetched or audited against its origin.
-
-After any of these, always finish with:
-
-```bash
+node .agents/sync-skills.mjs
+node .agents/sync-skills.mjs --profile core
+node .agents/sync-skills.mjs --profile frontend
+node .agents/sync-skills.mjs --profile visual-motion
+node .agents/sync-skills.mjs --profile seo-content
+node .agents/sync-skills.mjs --profile testing
+node .agents/sync-skills.mjs --profile marketing
+node .agents/sync-skills.mjs --profile automation
+node .agents/sync-skills.mjs --profile image-assets
+node .agents/sync-skills.mjs --profile all
 node .agents/sync-skills.mjs --check
 ```
 
-to confirm the wiring resolves in the new project.
+`CLAUDE_SKILL_PROFILE=<profile> node .agents/sync-skills.mjs` is equivalent to `--profile`.
+
+The script:
+
+1. Inventories every canonical project skill.
+2. Validates required skill frontmatter.
+3. Reads the selected profile from `.agents/skill-profiles.json`.
+4. Links only selected skills into `.claude/skills/`.
+5. Prunes stale, broken, wrong-target, or inactive links.
+6. Regenerates the Codex MCP section from `.mcp.json`.
+7. Prints active and inactive skill counts.
+
+## Skill Selection
+
+- Use no skill for routine code reading, simple local edits, or straightforward CLI validation.
+- Use the smallest relevant skill set for specialist work.
+- Read the inventory or profile list first; open full `SKILL.md` files only after selecting them.
+- Switch profiles deliberately, run the task, then return to `core` if the specialist profile is no longer needed.
+
+## MCP Servers
+
+Project MCP servers are optional and disabled by default. For routine work, prefer:
+
+- `rg`, `find`, and `git` for repository discovery.
+- `npm`, `npx`, and package scripts for local validation and scaffolding.
+- `cd web && npx shadcn@4.11.0 ...` for shadcn CLI work.
+- Existing documentation and lockfiles before remote documentation lookups.
+
+To activate an MCP server for a task, edit `.mcp.json`, set that server's `enabled` field to `true`, run `node .agents/sync-skills.mjs`, and restart the MCP host/session if required by the host. Return it to `false` after the task unless there is evidence it should stay default.
+
+Never put token or secret values in `.mcp.json`, `.codex/config.toml`, prompts, or docs. Use environment variables or gitignored local env files.

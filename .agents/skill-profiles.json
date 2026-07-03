@@ -1,0 +1,111 @@
+{
+  "defaultProfile": "core",
+  "profiles": {
+    "core": [
+      "browser-use",
+      "frontend-design",
+      "frontend-testing",
+      "responsive-design",
+      "schema",
+      "seo-audit",
+      "shadcn-ui",
+      "site-architecture",
+      "tailwind-css"
+    ],
+    "frontend": [
+      "browser-use",
+      "frontend-design",
+      "frontend-testing",
+      "interaction-design",
+      "modern-web-design",
+      "responsive-design",
+      "shadcn-ui",
+      "tailwind-css",
+      "tailwind-design-system",
+      "ui-ux-pro-max",
+      "web-design-guidelines"
+    ],
+    "visual-motion": [
+      "animejs",
+      "gsap",
+      "gsap-scrolltrigger",
+      "interaction-design",
+      "lightweight-3d-effects",
+      "locomotive-scroll",
+      "lottie-animations",
+      "motion-framer",
+      "react-spring-physics",
+      "react-three-fiber",
+      "rive-interactive",
+      "scroll-reveal-libraries",
+      "spline-interactive",
+      "threejs-animation",
+      "threejs-fundamentals",
+      "threejs-geometry",
+      "threejs-interaction",
+      "threejs-lighting",
+      "threejs-loaders",
+      "threejs-materials",
+      "threejs-postprocessing",
+      "threejs-shaders",
+      "threejs-textures",
+      "threejs-webgl",
+      "web3d-integration-patterns"
+    ],
+    "seo-content": [
+      "ai-discoverability-audit",
+      "ai-seo",
+      "audit-website",
+      "copy-editing",
+      "copywriting",
+      "cro",
+      "homepage-audit",
+      "product-marketing",
+      "programmatic-seo",
+      "schema",
+      "seo-audit",
+      "site-architecture"
+    ],
+    "testing": [
+      "audit-website",
+      "browser-use",
+      "frontend-testing",
+      "responsive-design",
+      "web-design-guidelines"
+    ],
+    "marketing": [
+      "case-study-builder",
+      "content-strategy",
+      "copy-editing",
+      "copywriting",
+      "cro",
+      "customer-research",
+      "landing-page-design",
+      "marketing-plan",
+      "marketing-principles",
+      "marketing-psychology",
+      "offers",
+      "positioning-basics",
+      "pricing",
+      "product-marketing"
+    ],
+    "automation": [
+      "agent-elements",
+      "agent-tools",
+      "ai-elements",
+      "better-auth-best-practices",
+      "nodejs-backend-patterns",
+      "react-components",
+      "supabase-postgres-best-practices",
+      "web-artifacts-builder"
+    ],
+    "image-assets": [
+      "image",
+      "social-card-gen",
+      "video"
+    ],
+    "all": [
+      "*"
+    ]
+  }
+}

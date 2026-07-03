@@ -94,14 +94,16 @@ export function TradesComposition({
             heading={copy.problem.heading}
             headingId="ind2-problem"
           />
-          <Reveal kind="section">
-            <Prose paragraphs={[copy.problem.body]} />
-          </Reveal>
-          <ServiceCards
-            cards={toCards(copy.problem.cards)}
-            icons={painIcons}
-            columns={4}
-          />
+          <div className="ss-ind2-problem-panel ss-srv2-beam-border">
+            <Reveal kind="section">
+              <Prose paragraphs={[copy.problem.body]} />
+            </Reveal>
+            <ServiceCards
+              cards={toCards(copy.problem.cards)}
+              icons={painIcons}
+              columns={4}
+            />
+          </div>
         </div>
       </section>
 

@@ -93,19 +93,23 @@ export function SalonsBarbersComposition({
                 heading={copy.problem.heading}
                 headingId="ind2-problem"
               />
-              <Reveal kind="section">
-                <Prose paragraphs={[copy.problem.body]} />
-              </Reveal>
+              <div className="ss-ind2-problem-panel ss-srv2-beam-border">
+                <Reveal kind="section">
+                  <Prose paragraphs={[copy.problem.body]} />
+                </Reveal>
+              </div>
             </div>
             <Reveal kind="image">
               <IndustryFigure image={art.primary} />
             </Reveal>
           </div>
-          <ServiceCards
-            cards={toCards(copy.problem.cards)}
-            icons={painIcons}
-            columns={4}
-          />
+          <div className="ss-ind2-problem-panel ss-srv2-beam-border">
+            <ServiceCards
+              cards={toCards(copy.problem.cards)}
+              icons={painIcons}
+              columns={4}
+            />
+          </div>
         </div>
       </section>
 

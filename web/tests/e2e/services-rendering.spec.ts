@@ -42,6 +42,10 @@ const forbiddenBenchmarkDistancing = [
   "unrelated published case data",
 ] as const;
 
+// SSR-rendered HTML entity-encodes a straight apostrophe (') as &#x27; but
+// leaves a curly one (’) as-is; normalize before a raw-HTML substring check.
+const htmlSafe = (text: string) => text.replace(/'/g, "&#x27;");
+
 const serviceRoutes = Object.entries(approvedServices).map(([path, service]) => {
   const copy = serviceCopyByRoute[path as keyof typeof serviceCopyByRoute];
   return {
@@ -49,9 +53,12 @@ const serviceRoutes = Object.entries(approvedServices).map(([path, service]) => 
     h1: copy.h1,
     path,
     // A short, plain (non-bold/italic) phrase guaranteed to render verbatim.
-    phrase: copy.outcome.heading,
+    // Headings now carry *emphasis* markdown (rendered as <em> in HTML), which
+    // breaks a raw-HTML toContain check, so these come from plain body/lead
+    // fields instead.
+    phrase: copy.process.lead,
     faqQuestion: copy.faqs.items[0]?.q ?? "",
-    ctaHeading: copy.finalCta.heading,
+    ctaHeading: copy.finalCta.body,
   };
 });
 
@@ -66,10 +73,10 @@ for (const route of serviceRoutes) {
 
     // Prerendered HTML carries the real H1, distinctive copy, FAQ and CTA —
     // essential content must not be gated behind the Aether entry interaction.
-    expect(html).toContain(route.h1);
-    expect(html).toContain(route.phrase);
-    expect(html).toContain(route.faqQuestion);
-    expect(html).toContain(route.ctaHeading);
+    expect(html).toContain(htmlSafe(route.h1));
+    expect(html).toContain(htmlSafe(route.phrase));
+    expect(html).toContain(htmlSafe(route.faqQuestion));
+    expect(html).toContain(htmlSafe(route.ctaHeading));
     expect(html).toContain("Verified Silverstone AI performance");
     for (const phrase of forbiddenPrototypePhrases) {
       expect(html).not.toContain(phrase);

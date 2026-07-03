@@ -2,41 +2,33 @@ model = "gpt-5.5"
 model_reasoning_effort = "high"
 personality = "pragmatic"
 
-[projects."/Users/quentingeczy/Desktop/DC-Performance-Coaching"]
-trust_level = "trusted"
-
-[projects."/Users/quentingeczy/Desktop/silverstone-site"]
-trust_level = "trusted"
-
 [features]
 unified_exec = true
 
-# --- MCP servers — kept in sync with .mcp.json by .agents/sync-skills.mjs ---
-# Run `node .agents/sync-skills.mjs` after editing .mcp.json.
+# --- MCP servers -- generated from .mcp.json by .agents/sync-skills.mjs ---
+# Edit .mcp.json, then run `node .agents/sync-skills.mjs`.
 
 [mcp_servers.aceternityui]
 command = "npx"
 args = ["-y", "aceternityui-mcp@1.0.2"]
-enabled = true
+enabled = false
 startup_timeout_sec = 60
 tool_timeout_sec = 180
 default_tools_approval_mode = "prompt"
 
 [mcp_servers.gpt-image-2]
 command = "/bin/zsh"
-args = ["/Users/quentingeczy/Desktop/silverstone-site/.codex/bin/gpt-image-2-mcp.sh"]
-cwd = "/Users/quentingeczy/Desktop/silverstone-site"
-enabled = true
+args = ["-lc", "exec ./.codex/bin/gpt-image-2-mcp.sh"]
+enabled = false
 startup_timeout_sec = 60
 tool_timeout_sec = 180
 default_tools_approval_mode = "prompt"
 
 [mcp_servers.magic_21st]
 command = "/bin/zsh"
-args = ["/Users/quentingeczy/Desktop/silverstone-site/.codex/bin/21st-magic-mcp.sh"]
-cwd = "/Users/quentingeczy/Desktop/silverstone-site"
+args = ["-lc", "exec ./.codex/bin/21st-magic-mcp.sh"]
 env_vars = ["API_KEY_21ST"]
-enabled = true
+enabled = false
 startup_timeout_sec = 60
 tool_timeout_sec = 180
 default_tools_approval_mode = "prompt"
@@ -44,30 +36,29 @@ default_tools_approval_mode = "prompt"
 [mcp_servers.magicui]
 command = "npx"
 args = ["-y", "@magicuidesign/mcp@2.0.0"]
-enabled = true
+enabled = false
 startup_timeout_sec = 60
 tool_timeout_sec = 180
 default_tools_approval_mode = "prompt"
 
 [mcp_servers.shadcn]
-command = "npx"
-args = ["-y", "shadcn@4.11.0", "mcp"]
-cwd = "/Users/quentingeczy/Desktop/silverstone-site/web"
-enabled = true
+command = "/bin/zsh"
+args = ["-lc", "cd web && exec npx -y shadcn@4.11.0 mcp"]
+enabled = false
 startup_timeout_sec = 60
 tool_timeout_sec = 180
 default_tools_approval_mode = "prompt"
 
 [mcp_servers.typeui]
 url = "https://mcp.typeui.sh"
-enabled = true
+enabled = false
 startup_timeout_sec = 30
 tool_timeout_sec = 120
 default_tools_approval_mode = "prompt"
 
 [mcp_servers.untitledui]
 url = "https://www.untitledui.com/react/api/mcp"
-enabled = true
+enabled = false
 startup_timeout_sec = 30
 tool_timeout_sec = 120
 default_tools_approval_mode = "prompt"

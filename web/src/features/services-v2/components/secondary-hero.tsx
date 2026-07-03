@@ -7,7 +7,7 @@
  */
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
-import { useEffect, useRef, type ReactNode, type RefObject } from "react";
+import type { ReactNode } from "react";
 
 import type { LucideIcon } from "~/components/icons/lucide";
 
@@ -64,47 +64,6 @@ function CapabilityPoint({ text, index }: { text: string; index: number }) {
   );
 }
 
-/**
- * Measures the intro (copy) column's rendered height and exposes it to the
- * showcase column as `--srv2-showcase-height`, so the showcase always matches
- * the copy's height exactly — never the taller of the two. Signature diagrams
- * are free to grow rich and tall to fill that box (see the SVG's own
- * width/height: 100% + preserveAspectRatio "contain" scaling in CSS), without
- * ever pushing the hero past one viewport by dictating a taller row than the
- * copy needs. A ResizeObserver (not a one-shot measurement) because the
- * intro's height settles gradually as its own Reveal animations play out.
- */
-function useMatchIntroHeight(): {
-  introRef: RefObject<HTMLDivElement | null>;
-  showcaseRef: RefObject<HTMLDivElement | null>;
-} {
-  const introRef = useRef<HTMLDivElement | null>(null);
-  const showcaseRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const introNode = introRef.current;
-    const showcaseNode = showcaseRef.current;
-    if (!introNode || !showcaseNode) {
-      return undefined;
-    }
-
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      if (!entry) {
-        return;
-      }
-      const height = entry.borderBoxSize[0]?.blockSize ?? entry.contentRect.height;
-      showcaseNode.style.setProperty("--srv2-showcase-height", `${String(height)}px`);
-    });
-    observer.observe(introNode);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  return { introRef, showcaseRef };
-}
-
 export function SecondaryHero({
   eyebrow,
   icon,
@@ -124,13 +83,11 @@ export function SecondaryHero({
   primaryCtaLabel: string;
   showcase: ReactNode;
 }) {
-  const { introRef, showcaseRef } = useMatchIntroHeight();
-
   return (
     <section className="ss-srv2-section ss-srv2-hero" aria-labelledby={titleId}>
       <div className="ss-srv2__container">
         <div className="ss-srv2-hero__grid">
-          <div className="ss-srv2-hero__intro" ref={introRef}>
+          <div className="ss-srv2-hero__intro">
             <Reveal kind="pill" delayMs={HERO_REVEAL_BASE_DELAY} trigger="mount">
               <Eyebrow icon={icon}>{eyebrow}</Eyebrow>
             </Reveal>
@@ -169,7 +126,7 @@ export function SecondaryHero({
             </Reveal>
           </div>
 
-          <div className="ss-srv2-hero__showcase" ref={showcaseRef}>
+          <div className="ss-srv2-hero__showcase">
             <Reveal kind="image" delayMs={HERO_REVEAL_BASE_DELAY + 220} trigger="mount">
               {showcase}
             </Reveal>
