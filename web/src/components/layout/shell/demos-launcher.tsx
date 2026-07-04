@@ -1,9 +1,13 @@
 /**
  * Floating demo-preview launcher: a compact icon + invitation bubble that
  * expands into a short list of the site's reserved demo-preview sections.
- * Deep-links use the same shared mechanism as every "Book a discovery call"
- * CTA (`href="path#section-id"`, resolved by `useDeepLinkScroll`), so a click
- * lands on the exact section even from a gated page mid-intro.
+ * Deep-links use the same shared scroll mechanism as every "Book a discovery
+ * call" CTA (`href="path#section-id"`, resolved by `useDeepLinkScroll`), but
+ * via `Link` rather than a native anchor: each target is registered in
+ * `GATE_FREE_DEEP_LINKS` (see `~/data/gate-free-routes`), so the client-side
+ * navigation skips the destination's loader/Aether-intro/explore-hero gate
+ * entirely and lands straight on the demo section — never behind a gate
+ * mid-intro.
  *
  * Deliberately not shaped like a support-chat widget: no message thread, no
  * input field, no avatar — a short menu that expands upward from the icon.
@@ -11,7 +15,7 @@
  * distraction-free.
  */
 import { useEffect, useId, useRef, useState } from "react";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
 import { Sparkles, X } from "~/components/icons/lucide";
@@ -104,9 +108,9 @@ export function DemosLauncher() {
           <ul className="ss-demo-launcher__list">
             {DEMO_REGISTRY.map((demo) => (
               <li key={demo.id}>
-                <a
+                <Link
                   className="ss-demo-launcher__item"
-                  href={demo.href}
+                  to={demo.href}
                   role="menuitem"
                   onClick={() => setOpen(false)}
                 >
@@ -114,7 +118,7 @@ export function DemosLauncher() {
                   <span className="ss-demo-launcher__item-desc">
                     {demo.description}
                   </span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

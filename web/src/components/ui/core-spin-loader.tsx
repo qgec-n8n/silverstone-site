@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
-import { isGateFreeRoute } from "~/data/gate-free-routes";
+import { isGateFreeNavigation } from "~/data/gate-free-routes";
 import { getRouteExperienceByPath } from "~/data/route-experiences";
 
 import "~/styles/core-spin-loader.css";
@@ -93,7 +93,7 @@ function preloadRouteAssets(pathname: string): void {
 export function CoreSpinLoader() {
   const location = useLocation();
   const { dismissLoader } = useAppExperience();
-  const gateFree = isGateFreeRoute(location.pathname);
+  const gateFree = isGateFreeNavigation(location.pathname, location.hash);
   const [phase, setPhase] = useState<Phase>(gateFree ? "done" : "active");
   const [ellipsisStep, setEllipsisStep] = useState(3);
   const [activePathname, setActivePathname] = useState(() => location.pathname);

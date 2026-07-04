@@ -13,12 +13,13 @@ import { RouteLoadingIndicator } from "~/app/components/route-loading-indicator"
 import { AppExperienceProvider } from "~/app/experience/app-experience";
 import { DeepLinkScrollHandler } from "~/app/experience/deep-link-scroll";
 import { CoreSpinLoader } from "~/components/ui/core-spin-loader";
+import { CookieConsentManager } from "~/components/layout/shell/cookie-consent-manager";
 import { DemosLauncher } from "~/components/layout/shell/demos-launcher";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";
 import { TextLink } from "~/components/ui/text-link";
-import { GATE_FREE_ROUTES } from "~/data/gate-free-routes";
+import { GATE_FREE_DEEP_LINKS, GATE_FREE_ROUTES } from "~/data/gate-free-routes";
 import { MotionProvider } from "~/motion";
 import "./app.css";
 
@@ -29,6 +30,11 @@ import "./app.css";
  * `GATE_FREE_ROUTES` via direct interpolation rather than a duplicated list.
  */
 const gateFreeRoutesJson = JSON.stringify(GATE_FREE_ROUTES);
+/*
+ * Same reasoning as above, for the floating demos launcher's deep links: a
+ * direct load of a demo's path+hash must never flash the gate either.
+ */
+const gateFreeDeepLinksJson = JSON.stringify(GATE_FREE_DEEP_LINKS);
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -45,7 +51,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             // The AppExperienceProvider reconciles these after hydration.
             // Gate-free routes (Book) set only data-js and stop there — no
             // loader, no scroll lock, no hero/route-intro lock, ever.
-            __html: `(function(){var d=document.documentElement;d.setAttribute("data-js","on");if(${gateFreeRoutesJson}.indexOf(location.pathname)!==-1){return;}d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(location.pathname==="/"){d.setAttribute("data-hero-locked","on");d.setAttribute("data-homepage-state","loading");}else{d.setAttribute("data-route-experience-state","loading");}})();`,
+            __html: `(function(){var d=document.documentElement;d.setAttribute("data-js","on");if(${gateFreeRoutesJson}.indexOf(location.pathname)!==-1||${gateFreeDeepLinksJson}.indexOf(location.pathname+location.hash)!==-1){return;}d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(location.pathname==="/"){d.setAttribute("data-hero-locked","on");d.setAttribute("data-homepage-state","loading");}else{d.setAttribute("data-route-experience-state","loading");}})();`,
           }}
         />
         <Meta />
@@ -58,6 +64,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <DeepLinkScrollHandler />
             {children}
             <DemosLauncher />
+            <CookieConsentManager />
           </AppExperienceProvider>
         </MotionProvider>
         <ScrollRestoration />

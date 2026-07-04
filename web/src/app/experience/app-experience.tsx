@@ -11,7 +11,7 @@ import {
 import { useLocation } from "react-router";
 
 import { getCanonicalRouteExperienceByPath } from "~/data/route-experiences";
-import { isGateFreeRoute } from "~/data/gate-free-routes";
+import { isGateFreeNavigation } from "~/data/gate-free-routes";
 
 /**
  * AppExperience coordinates the opening sequence shared by every route:
@@ -103,10 +103,10 @@ function normalizePathname(pathname: string): string {
     : normalized;
 }
 
-function isRouteExperienceRoute(pathname: string): boolean {
+function isRouteExperienceRoute(pathname: string, hash: string): boolean {
   const normalizedPath = normalizePathname(pathname);
 
-  return normalizedPath !== "/" && !isGateFreeRoute(normalizedPath);
+  return normalizedPath !== "/" && !isGateFreeNavigation(normalizedPath, hash);
 }
 
 function isServiceExperienceRoute(pathname: string): boolean {
@@ -118,11 +118,12 @@ function isServiceExperienceRoute(pathname: string): boolean {
 export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const isHomeRoute = location.pathname === "/";
-  const routeExperienceActive = isRouteExperienceRoute(location.pathname);
+  const routeExperienceActive = isRouteExperienceRoute(location.pathname, location.hash);
   const isServiceRoute = isServiceExperienceRoute(location.pathname);
 
   const [loaderActive, setLoaderActive] = useState(
-    () => !isGateFreeRoute(normalizePathname(location.pathname)),
+    () =>
+      !isGateFreeNavigation(normalizePathname(location.pathname), location.hash),
   );
   const [homepageState, setHomepageState] = useState<HomepageState>(
     isHomeRoute ? "loading" : "body",
