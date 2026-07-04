@@ -609,7 +609,15 @@ export function ScopeLedgerSignature({
 /** /contact — a correspondence route: a written message travelling from a
  * form node to a reviewed inbox across three checkpoints. Distinct from the
  * voice-agent call-routing timeline elsewhere in the system: framed as
- * asynchronous written correspondence, not a live call. */
+ * asynchronous written correspondence, not a live call.
+ *
+ * Every element sits on a single vertical rhythm (route line at y=210,
+ * checkpoint labels 56px below it, sub-labels 17px below that, the caption
+ * pill a further 34px clear) so nothing crowds the row above it at any
+ * signature-panel height — the failure mode the previous, tighter revision
+ * had at short viewports. No timing claims in the sub-labels: the page's own
+ * copy explicitly promises "no response-time promise", so the extra detail
+ * here describes what happens at each step, never how fast. */
 export function SignalRouteSignature({
   label,
   metrics,
@@ -618,15 +626,20 @@ export function SignalRouteSignature({
   metrics?: string[];
 }) {
   const reducedMotion = useReducedMotion() ?? false;
+  const ROUTE_Y = 210;
+  // Checkpoints sit 114px apart (186 / 300 / 414) — wide enough that even the
+  // longest sub-label ("To the owner", ~72px wide at this font) never
+  // touches its neighbour, with room to spare either side.
   const checkpoints = [
-    { x: 150, name: "Received" },
-    { x: 300, name: "Reviewed" },
-    { x: 450, name: "Routed" },
+    { x: 186, name: "Received", detail: "Logged" },
+    { x: 300, name: "Reviewed", detail: "By a person" },
+    { x: 414, name: "Routed", detail: "To the owner" },
   ];
+  const cycle = { duration: 3.4, repeat: Infinity, repeatDelay: 0.7 } as const;
 
   return (
     <SignatureShell
-      ariaLabel="Diagram: a written enquiry travelling from a form node through received, reviewed and routed checkpoints to a monitored inbox."
+      ariaLabel="Diagram: a written enquiry travelling from a form node through received, reviewed and routed checkpoints to a monitored inbox, arriving with a confirmed read receipt."
       label={label}
       metrics={metrics}
     >
@@ -635,122 +648,194 @@ export function SignalRouteSignature({
           <stop offset="0%" stopColor="var(--srv2-accent)" />
           <stop offset="100%" stopColor="var(--srv2-accent-2)" />
         </linearGradient>
-        <radialGradient id="core-signal-glow" cx="50%" cy="44%" r="60%">
-          <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.12" />
+        <linearGradient id="core-signal-card" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="var(--srv2-glass)" />
+          <stop offset="100%" stopColor="var(--ss-v2-void-black)" />
+        </linearGradient>
+        <radialGradient id="core-signal-glow" cx="50%" cy="46%" r="62%">
+          <stop offset="0%" stopColor="var(--srv2-accent)" stopOpacity="0.14" />
           <stop offset="100%" stopColor="var(--srv2-accent)" stopOpacity="0" />
         </radialGradient>
         <filter id="core-signal-blur" x="-200%" y="-200%" width="500%" height="500%">
           <feGaussianBlur stdDeviation="7" />
         </filter>
       </defs>
-      <rect x="10" y="120" width="580" height="220" fill="url(#core-signal-glow)" />
-      {/* Fine measured-path ticks along the route — the same instrument-console
-          precision used on the Book and Services Hub signatures, here reading
-          as a monitored, always-on channel rather than a plain connector. */}
-      {Array.from({ length: 17 }).map((_, tick) => {
-        const x = 150 + tick * 19.5;
-        return (
-          <line
-            key={tick}
-            x1={x}
-            y1="222"
-            x2={x}
-            y2="238"
-            stroke="var(--srv2-ink-faint)"
-            strokeWidth="1"
-            opacity={tick % 4 === 0 ? 0.4 : 0.18}
-          />
-        );
-      })}
+      <rect x="10" y="140" width="580" height="250" fill="url(#core-signal-glow)" />
+
+      {/* FORM node — two-line card: instrument label + human-readable context. */}
       <rect
-        x="46"
-        y="200"
-        width="92"
-        height="60"
-        rx="14"
-        fill="var(--ss-v2-void-black)"
+        x="24"
+        y="170"
+        width="104"
+        height="80"
+        rx="16"
+        fill="url(#core-signal-card)"
         stroke="var(--srv2-accent)"
         strokeWidth="2"
         style={{
           filter:
-            "drop-shadow(0 0 8px color-mix(in srgb, var(--srv2-accent) 45%, transparent))",
+            "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent) 40%, transparent))",
         }}
       />
       <text
-        x="92"
-        y="235"
+        x="76"
+        y="204"
         textAnchor="middle"
         fill="var(--ss-v2-chrome)"
         fontFamily="var(--ss-font-mono)"
-        fontSize="13"
+        fontSize="14"
+        fontWeight="600"
+        letterSpacing="0.04em"
       >
         FORM
       </text>
+      <text
+        x="76"
+        y="228"
+        textAnchor="middle"
+        fill="var(--srv2-ink-faint)"
+        fontFamily="var(--ss-font-body)"
+        fontSize="10.5"
+      >
+        Web enquiry
+      </text>
+
+      {/* INBOX node — mirrors FORM, plus a read-receipt badge. */}
       <rect
-        x="462"
-        y="200"
-        width="92"
-        height="60"
-        rx="14"
-        fill="var(--ss-v2-void-black)"
+        x="472"
+        y="170"
+        width="104"
+        height="80"
+        rx="16"
+        fill="url(#core-signal-card)"
         stroke="var(--srv2-accent-2)"
         strokeWidth="2"
         style={{
           filter:
-            "drop-shadow(0 0 8px color-mix(in srgb, var(--srv2-accent-2) 45%, transparent))",
+            "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent-2) 40%, transparent))",
         }}
       />
       <text
-        x="508"
-        y="235"
+        x="524"
+        y="204"
         textAnchor="middle"
         fill="var(--ss-v2-chrome)"
         fontFamily="var(--ss-font-mono)"
-        fontSize="13"
+        fontSize="14"
+        fontWeight="600"
+        letterSpacing="0.04em"
       >
         INBOX
       </text>
+      <text
+        x="524"
+        y="228"
+        textAnchor="middle"
+        fill="var(--srv2-ink-faint)"
+        fontFamily="var(--ss-font-body)"
+        fontSize="10.5"
+      >
+        Silverstone
+      </text>
+      {reducedMotion ? (
+        <g>
+          <circle
+            cx="566"
+            cy="179"
+            r="10"
+            fill="var(--ss-v2-void-black)"
+            stroke="var(--srv2-accent-2)"
+            strokeWidth="2"
+          />
+          <path
+            d="M561.5 179 L564.5 182.5 L571 174.5"
+            fill="none"
+            stroke="var(--srv2-accent-2)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+      ) : (
+        <m.g
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: [0, 0, 1, 1, 0], scale: [0.7, 0.7, 1, 1, 0.7] }}
+          style={{ transformOrigin: "566px 179px" }}
+          transition={{
+            duration: cycle.duration + cycle.repeatDelay,
+            repeat: Infinity,
+            times: [0, 0.78, 0.86, 0.97, 1],
+            ease: "easeInOut",
+          }}
+        >
+          <circle
+            cx="566"
+            cy="179"
+            r="10"
+            fill="var(--ss-v2-void-black)"
+            stroke="var(--srv2-accent-2)"
+            strokeWidth="2"
+          />
+          <path
+            d="M561.5 179 L564.5 182.5 L571 174.5"
+            fill="none"
+            stroke="var(--srv2-accent-2)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </m.g>
+      )}
+
+      {/* Measured-path ticks along the route — instrument-console precision,
+          reading as a monitored, always-on channel rather than a plain line. */}
+      {Array.from({ length: 14 }).map((_, tick) => {
+        const x = 128 + tick * 26.46;
+        return (
+          <line
+            key={tick}
+            x1={x}
+            y1={ROUTE_Y - 8}
+            x2={x}
+            y2={ROUTE_Y + 8}
+            stroke="var(--srv2-ink-faint)"
+            strokeWidth="1"
+            opacity={tick % 3 === 0 ? 0.4 : 0.16}
+          />
+        );
+      })}
       <line
-        x1="138"
-        y1="230"
-        x2="462"
-        y2="230"
+        x1="128"
+        y1={ROUTE_Y}
+        x2="472"
+        y2={ROUTE_Y}
         stroke="var(--srv2-hairline)"
         strokeWidth="2"
       />
       {!reducedMotion ? (
         <>
           <m.circle
-            cy="230"
+            cy={ROUTE_Y}
             r="11"
             fill="var(--srv2-accent)"
             opacity="0.28"
             filter="url(#core-signal-blur)"
-            initial={{ cx: 138, opacity: 0 }}
-            animate={{ cx: [138, 462], opacity: [0, 0.28, 0.28, 0] }}
-            transition={{
-              duration: 3.4,
-              repeat: Infinity,
-              repeatDelay: 0.7,
-              ease: "easeInOut",
-            }}
+            initial={{ cx: 128, opacity: 0 }}
+            animate={{ cx: [128, 472], opacity: [0, 0.28, 0.28, 0] }}
+            transition={{ ...cycle, ease: "easeInOut" }}
           />
           <m.circle
-            cy="230"
+            cy={ROUTE_Y}
             r="5"
             fill="url(#core-signal-accent)"
-            initial={{ cx: 138, opacity: 0 }}
-            animate={{ cx: [138, 462], opacity: [0, 1, 1, 0] }}
-            transition={{
-              duration: 3.4,
-              repeat: Infinity,
-              repeatDelay: 0.7,
-              ease: "easeInOut",
-            }}
+            initial={{ cx: 128, opacity: 0 }}
+            animate={{ cx: [128, 472], opacity: [0, 1, 1, 0] }}
+            transition={{ ...cycle, ease: "easeInOut" }}
             style={{ filter: "drop-shadow(0 0 6px var(--srv2-accent))" }}
           />
         </>
       ) : null}
+
       {checkpoints.map((point, index) => (
         <m.g
           key={point.name}
@@ -762,13 +847,13 @@ export function SignalRouteSignature({
           {!reducedMotion ? (
             <m.circle
               cx={point.x}
-              cy="230"
+              cy={ROUTE_Y}
               r="7"
               fill="none"
               stroke="var(--srv2-accent)"
               strokeWidth="1.5"
               animate={{ scale: [1, 1.5, 1], opacity: [0.55, 0, 0.55] }}
-              style={{ transformOrigin: `${String(point.x)}px 230px` }}
+              style={{ transformOrigin: `${String(point.x)}px ${String(ROUTE_Y)}px` }}
               transition={{
                 duration: 2.6,
                 repeat: Infinity,
@@ -779,7 +864,7 @@ export function SignalRouteSignature({
           ) : null}
           <circle
             cx={point.x}
-            cy="230"
+            cy={ROUTE_Y}
             r="7"
             fill="var(--ss-v2-void-black)"
             stroke="var(--srv2-accent)"
@@ -787,24 +872,49 @@ export function SignalRouteSignature({
           />
           <text
             x={point.x}
-            y="268"
+            y={ROUTE_Y + 56}
             textAnchor="middle"
             fill="var(--srv2-ink-soft)"
             fontFamily="var(--ss-font-mono)"
             fontSize="13"
+            fontWeight="600"
           >
             {point.name}
           </text>
+          <text
+            x={point.x}
+            y={ROUTE_Y + 73}
+            textAnchor="middle"
+            fill="var(--srv2-ink-faint)"
+            fontFamily="var(--ss-font-body)"
+            fontSize="10"
+          >
+            {point.detail}
+          </text>
         </m.g>
       ))}
+
+      {/* Caption note — a bordered pill, not bare text, so it reads as an
+          instrument-panel annotation and stays clear of the labels above it
+          (34px gap) at every stage height. */}
+      <rect
+        x="130"
+        y="317"
+        width="340"
+        height="36"
+        rx="18"
+        fill="var(--srv2-glass)"
+        stroke="var(--srv2-hairline)"
+        strokeWidth="1"
+      />
       <text
         x="300"
-        y="360"
+        y="340"
         textAnchor="middle"
         fill="var(--srv2-ink-faint)"
         fontFamily="var(--ss-font-mono)"
-        fontSize="12"
-        letterSpacing="0.06em"
+        fontSize="11.5"
+        letterSpacing="0.05em"
       >
         WRITTEN CONTEXT, READ BEFORE ANY REPLY
       </text>

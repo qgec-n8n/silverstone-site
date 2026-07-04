@@ -203,14 +203,15 @@
  * Fills exactly one viewport beneath the fixed header, mirroring the
  * homepage's .ss-hv2-secondary mechanism precisely: a static calc() against
  * 100dvh, no runtime JS measurement. Unlike the homepage, this hero sits
- * beneath a shared route frame (fixed header + breadcrumb row + frame
- * padding), so a plain header-height subtraction isn't enough on its own —
- * --srv2-hero-chrome composes every fixed layout constant that sits above the
- * hero (header height, the frame's own block padding, the breadcrumb row's
- * Stack gap and line height) so the subtraction stays correct even if those
- * tokens change later. Every term is a fixed design-system constant (never
- * per-page content), because the breadcrumb row is always exactly one line at
- * these widths — verified empirically across all 7 routes at 1280–1920px.
+ * beneath a shared route frame (fixed header + frame padding), so a plain
+ * header-height subtraction isn't enough on its own — --srv2-hero-chrome
+ * composes every fixed layout constant that sits above the hero (header
+ * height + the frame's own block padding, applied once as padding-block-start
+ * on the wrapping page-section below) so the hero's own height cancels out
+ * exactly what already pushed its top down, landing its bottom edge flush
+ * with 100dvh — same target the homepage hits with a single term. Breadcrumbs
+ * render inside the hero itself (see HeroBreadcrumbs in secondary-hero.tsx),
+ * not in a separate chrome row, so no extra term is added for them.
  *
  * height AND min-height (not just min-height): the hero must never exceed one
  * viewport, so this is a hard cap, not a floor a page's content can grow past.
@@ -232,9 +233,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 .ss-srv2-hero {
-  --srv2-hero-chrome: calc(
-    var(--ss-layout-header) + var(--srv2-frame-top) + 2rem + 1.5rem
-  );
+  --srv2-hero-chrome: calc(var(--ss-layout-header) + var(--srv2-frame-top));
 
   display: flex;
   flex-direction: column;
@@ -300,6 +299,16 @@ section[data-slot="page-section"]:has(.ss-srv2) {
        wraps them to five lines. */
     grid-template-columns: 1.14fr 0.86fr;
     gap: clamp(2rem, 1.2rem + 3vw, 4.5rem);
+  }
+
+  /* Homepage-matched centering: the intro column opts out of the row's
+     stretch (showcase keeps it, below) and sizes to its own content instead,
+     so the whole breadcrumb-to-CTA stack centres as one block in the
+     available height rather than pinning to the top with the CTA row shoved
+     to the bottom. */
+  .ss-srv2-hero__intro {
+    align-self: center;
+    justify-content: flex-start;
   }
 
   /*
@@ -471,15 +480,14 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-srv2-hero__showcase {
   position: relative;
-  /* A grid (not block) wrapper so its single Reveal child becomes a stretched
-     grid item with a definite height — otherwise the plain Reveal <div>
-     between here and .ss-srv2-signature would have an auto height, and
-     .ss-srv2-signature's height:100% would have nothing real to resolve
-     against. height: 100% now resolves cleanly against the grid row's own
-     definite height (see .ss-srv2-hero__grid's flex: 1 + grid-template-rows:
-     1fr + align-items: stretch) — both columns fill the same real number of
-     pixels, matching the intro column automatically with no JS measurement. */
+  /* A grid wrapper, still stretched to the row's full definite height (the
+     intro column opts out of that stretch above; this one keeps it) so the
+     panel has real room to centre in — but align-items: center means the
+     panel itself sizes to its own min-height/content (see
+     .ss-srv2-signature) instead of being force-stretched to fill this box,
+     matching the homepage's console-in-a-tall-showcase treatment. */
   display: grid;
+  align-items: center;
   height: 100%;
   min-height: 0;
   overflow: hidden;
@@ -1427,14 +1435,17 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-srv2-signature {
   position: relative;
-  /* Fills the stretched grid row so its bottom edge lines up with the copy
-     column's bottom edge. Resolves to auto when the row height is indefinite
-     (single-column mobile). A flex column (not the old single centred child):
-     the status bar sits flush at the top, the metric strip flush at the
-     bottom, and the diagram centres in whatever space the stage in between
-     ends up with — so the panel's own edges are always real content, never
-     empty padding, regardless of how tall the copy column next to it is. */
-  height: 100%;
+  /* Sized to its own content via min-height (homepage-matched: see
+     .ss-hv2-system-signal), not stretched to fill the showcase box — the
+     showcase itself stays full-height so this panel can centre within it
+     (.ss-srv2-hero__showcase { align-items: center }), but the panel's own
+     height is never forced past what its content needs, so it's never
+     stretched thinner or taller than "the perfect size for what it holds".
+     A flex column: the status bar sits flush at the top, the metric strip
+     flush at the bottom, and the diagram centres in whatever space the stage
+     in between ends up with. */
+  width: 100%;
+  min-height: clamp(20rem, 44vh, 34rem);
   display: flex;
   flex-direction: column;
   gap: clamp(0.6rem, 0.4rem + 0.8vh, 1.1rem);

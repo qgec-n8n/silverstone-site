@@ -1,12 +1,19 @@
 /**
  * Studio-location panel for /contact, for Silverstone's registered address
  * (the same address already used in the site's schema.org Organization
- * markup). The in-page embed uses OpenStreetMap rather than a keyless Google
- * Maps iframe: Google now serves `x-frame-options: SAMEORIGIN` on the
- * no-API-key embed trick (verified directly — every request is refused, not
- * a preview-sandbox artefact), and provisioning a Maps Embed API key is out
- * of scope here. The "Open in Google Maps" link still goes to Google, so
- * the outbound destination visitors expect for directions is unaffected.
+ * markup). Embedded via the Google Maps Embed API "place" mode
+ * (https://developers.google.com/maps/documentation/embed/embedding-map),
+ * authenticated with a Maps Embed API key restricted by HTTP referrer in
+ * Google Cloud Console — this key is designed to be visible client-side
+ * (it appears directly in the iframe URL by design, same as any Maps Embed
+ * integration on the web), so it is read from VITE_GOOGLE_MAPS_EMBED_KEY
+ * rather than treated as a server secret.
+ *
+ * The Embed API offers no style control, so the premium dark treatment is
+ * done outside the iframe: a CSS filter re-grades Google's light cartography
+ * into the site's void-blue palette, and a pointer-transparent HUD layer
+ * (grid, corner brackets, vignette, coordinates chip) integrates the map
+ * into the card. The map stays fully interactive underneath.
  */
 import { useState } from "react";
 
@@ -14,12 +21,9 @@ import { ArrowUpRight, MapPin } from "~/components/icons/lucide";
 import { OrbitalLoader } from "~/components/ui/orbital-loader";
 import { Reveal } from "~/features/services-v2/components/primitives";
 
-const MAP_ADDRESS = "4 Deacon Street, London SE17 1GE, United Kingdom";
-const MAP_LAT = 51.4928009;
-const MAP_LON = -0.0978528;
-const MAP_EMBED_URL = `https://www.openstreetmap.org/export/embed.html?bbox=${String(MAP_LON - 0.004)}%2C${String(MAP_LAT - 0.002)}%2C${String(MAP_LON + 0.004)}%2C${String(MAP_LAT + 0.002)}&layer=mapnik&marker=${String(MAP_LAT)}%2C${String(MAP_LON)}`;
-const MAP_LINK_URL =
-  "https://www.google.com/maps/search/?api=1&query=4+Deacon+Street%2C+SE17+1GE%2C+London%2C+UK";
+const MAP_QUERY = "4 Deacon Street, London SE17 1GE, United Kingdom";
+const MAP_EMBED_URL = `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(import.meta.env.VITE_GOOGLE_MAPS_EMBED_KEY)}&q=${encodeURIComponent(MAP_QUERY)}&zoom=16`;
+const MAP_DIRECTIONS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
 
 export function MapPanel() {
   const [loaded, setLoaded] = useState(false);
@@ -32,7 +36,10 @@ export function MapPanel() {
             <MapPin aria-hidden="true" />
             Studio address
           </span>
-          <h3>{MAP_ADDRESS}</h3>
+          <h3 className="ss-core-map__address">
+            <span>4 Deacon Street, SE17 1GE</span>
+            <span>London, United Kingdom</span>
+          </h3>
         </div>
       </Reveal>
       <Reveal kind="section" delayMs={120}>
@@ -43,22 +50,31 @@ export function MapPanel() {
             </div>
           ) : null}
           <iframe
-            title={`Map showing Silverstone AI's office at ${MAP_ADDRESS}`}
+            title="Map showing Silverstone AI's studio at 4 Deacon Street, SE17 1GE, London, United Kingdom"
             src={MAP_EMBED_URL}
-            loading="lazy"
+            loading="eager"
             onLoad={() => setLoaded(true)}
           />
-        </div>
-      </Reveal>
-      <Reveal kind="section" delayMs={200}>
-        <div className="ss-core-form__actions">
+          <div className="ss-core-map__hud" aria-hidden="true">
+            <span className="ss-core-map__hud-grid" />
+            <span className="ss-core-map__hud-vignette" />
+            <span className="ss-core-map__hud-corner" data-corner="tl" />
+            <span className="ss-core-map__hud-corner" data-corner="tr" />
+            <span className="ss-core-map__hud-corner" data-corner="bl" />
+            <span className="ss-core-map__hud-corner" data-corner="br" />
+          </div>
+          <div className="ss-core-map__chip" aria-hidden="true">
+            <span className="ss-core-map__chip-dot" />
+            SE17 1GE · London
+          </div>
           <a
-            className="ss-srv2-btn ss-srv2-btn--ghost"
-            href={MAP_LINK_URL}
+            className="ss-core-map__directions"
+            href={MAP_DIRECTIONS_URL}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
           >
-            Open in Google Maps <ArrowUpRight aria-hidden="true" />
+            Open in Google Maps
+            <ArrowUpRight aria-hidden="true" />
           </a>
         </div>
       </Reveal>

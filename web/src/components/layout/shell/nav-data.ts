@@ -4,13 +4,22 @@
  * industry slugs live under `/services/*`.
  */
 import {
+  Building2,
+  ConciergeBell,
+  Dumbbell,
   Globe,
+  HeartPulse,
   Headset,
   type LucideIcon,
   PhoneCall,
+  Scissors,
+  Send,
+  ShoppingBag,
   Smartphone,
+  Smile,
   Sparkles,
   Workflow,
+  Wrench,
 } from "~/components/icons/lucide";
 
 export type NavLeaf = {
@@ -25,6 +34,7 @@ export type NavMenu = {
   label: string;
   href: string;
   viewAllLabel: string;
+  viewAllDescription: string;
   items: readonly NavLeaf[];
 };
 
@@ -33,6 +43,7 @@ export const SERVICES_MENU: NavMenu = {
   label: "Services",
   href: "/services",
   viewAllLabel: "View all services",
+  viewAllDescription: "Browse the full service architecture",
   items: [
     {
       href: "/services/web-design-development",
@@ -84,16 +95,62 @@ export const INDUSTRIES_MENU: NavMenu = {
   label: "Industries",
   href: "/industry",
   viewAllLabel: "View all industries",
+  viewAllDescription: "Browse every industry operating system",
   items: [
-    { href: "/industry/estate-agents", label: "Estate Agents" },
-    { href: "/industry/hospitality", label: "Hospitality" },
-    { href: "/industry/salons-barbers", label: "Salons & Barbers" },
-    { href: "/industry/trades", label: "Trades & Home Services" },
-    { href: "/industry/ecommerce", label: "eCommerce Brands" },
-    { href: "/industry/physios-chiropractors", label: "Physio & Chiropractic" },
-    { href: "/industry/dentists", label: "Dental Practices" },
-    { href: "/industry/gyms-fitness-studios", label: "Gyms & Fitness Studios" },
-    { href: "/industry/fitness-coaches", label: "Fitness Coaches" },
+    {
+      href: "/industry/estate-agents",
+      label: "Estate Agents",
+      description: "Enquiry-to-viewing pipeline",
+      icon: Building2,
+    },
+    {
+      href: "/industry/hospitality",
+      label: "Hospitality",
+      description: "Guest-journey orchestration",
+      icon: ConciergeBell,
+    },
+    {
+      href: "/industry/salons-barbers",
+      label: "Salons & Barbers",
+      description: "Full-diary intelligence",
+      icon: Scissors,
+    },
+    {
+      href: "/industry/trades",
+      label: "Trades & Home Services",
+      description: "Job intake & follow-through",
+      icon: Wrench,
+    },
+    {
+      href: "/industry/ecommerce",
+      label: "eCommerce Brands",
+      description: "Commerce ops intelligence",
+      icon: ShoppingBag,
+    },
+    {
+      href: "/industry/physios-chiropractors",
+      label: "Physio & Chiropractic",
+      description: "Clinically bounded access",
+      icon: HeartPulse,
+    },
+    {
+      href: "/industry/dentists",
+      label: "Dental Practices",
+      description: "Patient access systems",
+      icon: Smile,
+    },
+    {
+      href: "/industry/gyms-fitness-studios",
+      label: "Gyms & Fitness Studios",
+      description: "Trial-to-membership conversion",
+      icon: Dumbbell,
+    },
+    {
+      href: "/industry/fitness-coaches",
+      label: "Fitness Coaches",
+      description: "Lead-to-client system",
+      icon: Send,
+    },
   ],
 };
 

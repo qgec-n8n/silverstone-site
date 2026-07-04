@@ -77,9 +77,9 @@ function ActiveNavIndicator() {
   );
 }
 
-function ServicesPanel({ menu }: { menu: NavMenu }) {
+function MegaMenuPanel({ menu }: { menu: NavMenu }) {
   return (
-    <div className="flex w-[min(88vw,34rem)] flex-col gap-1">
+    <div className="flex w-[min(90vw,36rem)] flex-col gap-1">
       <m.div variants={menuItemVariants}>
         <Link
           className="ss-focus-ring group flex items-center gap-3.5 rounded-[var(--ss-radius-md)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_7%,transparent)] p-3.5 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
@@ -90,10 +90,10 @@ function ServicesPanel({ menu }: { menu: NavMenu }) {
           </span>
           <span className="flex flex-1 flex-col gap-0.5">
             <span className="text-sm font-semibold text-[color:var(--ss-v2-header-text-strong)]">
-              All services
+              {menu.viewAllLabel}
             </span>
             <span className="text-body-sm text-[color:var(--ss-v2-header-muted)]">
-              Browse the full service architecture
+              {menu.viewAllDescription}
             </span>
           </span>
           <ArrowUpRight
@@ -135,23 +135,6 @@ function ServicesPanel({ menu }: { menu: NavMenu }) {
   );
 }
 
-function IndustriesPanel({ menu }: { menu: NavMenu }) {
-  return (
-    <div className="grid w-[min(88vw,26rem)] grid-cols-1 gap-x-4 gap-y-0.5 sm:grid-cols-2">
-      {menu.items.map((item) => (
-        <m.div key={item.href} variants={menuItemVariants}>
-          <Link
-            className="ss-focus-ring block rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm font-medium text-[color:var(--ss-v2-header-text)] no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]"
-            to={item.href}
-          >
-            {item.label}
-          </Link>
-        </m.div>
-      ))}
-    </div>
-  );
-}
-
 type HeaderMenuProps = {
   currentPath: string;
   isOpen: boolean;
@@ -159,7 +142,6 @@ type HeaderMenuProps = {
   onClose: () => void;
   onOpen: () => void;
   showIndicator: boolean;
-  variant: "cards" | "columns";
 };
 
 function HeaderMenu({
@@ -169,7 +151,6 @@ function HeaderMenu({
   onClose,
   onOpen,
   showIndicator,
-  variant,
 }: HeaderMenuProps) {
   const panelId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -236,22 +217,7 @@ function HeaderMenu({
               className="rounded-[var(--ss-radius-lg)] border border-[color:var(--ss-v2-header-panel-border)] bg-[var(--ss-v2-header-panel)] p-3 shadow-[var(--ss-v2-header-shadow)]"
               data-mega-panel=""
             >
-              {variant === "cards" ? (
-                <ServicesPanel menu={menu} />
-              ) : (
-                <>
-                  <IndustriesPanel menu={menu} />
-                  <m.div variants={menuItemVariants}>
-                    <Link
-                      className="ss-focus-ring mt-2 flex items-center gap-1.5 rounded-[var(--ss-radius-sm)] border-t border-[color:var(--ss-v2-header-panel-border)] px-3 pt-3 pb-1 text-sm font-semibold text-[color:var(--ss-v2-header-accent)] no-underline ss-transition-interactive hover:gap-2.5"
-                      to={menu.href}
-                    >
-                      {menu.viewAllLabel}
-                      <ArrowUpRight aria-hidden className="size-4" />
-                    </Link>
-                  </m.div>
-                </>
-              )}
+              <MegaMenuPanel menu={menu} />
             </div>
           </m.div>
         ) : null}
@@ -361,16 +327,14 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                 <ChevronDown aria-hidden className="size-4 text-titanium" />
               </summary>
               <div className="flex flex-col gap-0.5 pb-2">
-                {menu.id === "services" ? (
-                  <Link
-                    className="ss-focus-ring mb-1 flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-hairline)] bg-[color-mix(in_srgb,var(--ss-v2-signal-cyan)_8%,transparent)] px-3 py-2.5 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
-                    onClick={onClose}
-                    to={menu.href}
-                  >
-                    <LayoutGrid aria-hidden className="size-4" />
-                    All services
-                  </Link>
-                ) : null}
+                <Link
+                  className="ss-focus-ring mb-1 flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-hairline)] bg-[color-mix(in_srgb,var(--ss-v2-signal-cyan)_8%,transparent)] px-3 py-2.5 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
+                  onClick={onClose}
+                  to={menu.href}
+                >
+                  <LayoutGrid aria-hidden className="size-4" />
+                  {menu.viewAllLabel}
+                </Link>
                 {menu.items.map((item) => (
                   <Link
                     className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm text-titanium no-underline hover:text-platinum"
@@ -381,15 +345,6 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                     {item.label}
                   </Link>
                 ))}
-                {menu.id !== "services" ? (
-                  <Link
-                    className="ss-focus-ring px-3 py-2 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
-                    onClick={onClose}
-                    to={menu.href}
-                  >
-                    {menu.viewAllLabel}
-                  </Link>
-                ) : null}
               </div>
             </details>
           ))}
@@ -527,7 +482,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
           tone="onLight"
         />
         <LayoutGroup id="ss-primary-nav">
-          <nav aria-label="Primary" className="hidden min-w-0 items-center lg:flex">
+          <nav aria-label="Primary" className="hidden shrink-0 items-center lg:flex">
             <ul className="flex items-center gap-1">
               <HeaderMenu
                 currentPath={location.pathname}
@@ -539,7 +494,6 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
                   openMenu === "services" ||
                   (openMenu === null && isActive(SERVICES_MENU, location.pathname))
                 }
-                variant="cards"
               />
               <HeaderMenu
                 currentPath={location.pathname}
@@ -551,7 +505,6 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
                   openMenu === "industries" ||
                   (openMenu === null && isActive(INDUSTRIES_MENU, location.pathname))
                 }
-                variant="columns"
               />
               {PRIMARY_LINKS.map((link) => {
                 const active = location.pathname === link.href;
@@ -592,8 +545,11 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
             whileHover="hover"
             whileTap="tap"
           >
-            <Link className={ctaClass} to={PRIMARY_CTA.href}>
-              {PRIMARY_CTA.label}
+            <Link aria-label={PRIMARY_CTA.label} className={ctaClass} to={PRIMARY_CTA.href}>
+              <span aria-hidden="true">
+                <span className="ss-nav-cta__label-short">Book</span>
+                <span className="ss-nav-cta__label-full">{PRIMARY_CTA.label}</span>
+              </span>
               <ArrowUpRight aria-hidden className="size-4" />
             </Link>
           </m.div>

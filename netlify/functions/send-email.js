@@ -30,6 +30,21 @@ exports.handler = async (event) => {
     const email = (body.email || '').toString().trim();
     const message = (body.message || '').toString().trim();
 
+    // Optional qualifying fields from the contact form. Only included in the
+    // email when provided; absent/empty values are skipped entirely.
+    const optionalFields = [
+      ['Phone', body.phone],
+      ['Company', body.company],
+      ['Area of interest', body.interest],
+      ['Company size', body.companySize],
+      ['Indicative budget', body.budget],
+      ['Timeline', body.timeline],
+    ]
+      .map(([label, value]) => [label, (value || '').toString().trim()])
+      .filter(([, value]) => value)
+      .map(([label, value]) => `${label}: ${value}`)
+      .join('\n');
+
     if (!name || !email || !message) {
       return {
         statusCode: 400,
@@ -54,7 +69,7 @@ exports.handler = async (event) => {
       from: `Silverstone AI <${FROM_EMAIL}>`,
       to: [TO_EMAIL],
       subject: 'New contact form message',
-      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      text: `Name: ${name}\nEmail: ${email}\n${optionalFields ? optionalFields + '\n' : ''}\n${message}`,
       // Provide both forms to be compatible with REST and SDK conventions
       reply_to: email,
       replyTo: email,

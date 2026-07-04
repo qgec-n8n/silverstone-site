@@ -144,7 +144,6 @@ export function SiteFooter() {
             >
               Contact
             </Link>
-            <span>Staging environment — not for production use.</span>
           </div>
         </m.div>
       </Container>

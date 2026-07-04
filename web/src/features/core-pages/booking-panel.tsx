@@ -2,18 +2,31 @@
  * Booking panel for /book. Embeds the repository's real production Calendly
  * destination (the same URL referenced in the approved content registry's
  * book interaction) directly in-page via iframe — no external tab, no
- * fabricated calendar-grid mockup with invented "available" days. Colour
- * params mirror the site's own dark/cyan theme so the embed reads as part of
- * the page rather than a bolted-on third-party widget.
+ * fabricated calendar-grid mockup with invented "available" days.
+ *
+ * Calendly's own booking surface is white and can't be restyled from
+ * outside, so instead of fighting it the scheduler is presented as a
+ * deliberate "screen": a white pane set into the dark card behind a
+ * luminous cyan→violet ring, with a console rail above it and the
+ * light-theme embed params matching the pane so widget and pane read as
+ * one seamless sheet — no grey frame, no box-in-a-box.
  */
 import { useState } from "react";
 
-import { ArrowUpRight, CalendarCheck } from "~/components/icons/lucide";
+import { CalendarCheck, MessageSquare } from "~/components/icons/lucide";
 import { OrbitalLoader } from "~/components/ui/orbital-loader";
 import { Reveal } from "~/features/services-v2/components/primitives";
 
-const CALENDLY_URL =
-  "https://calendly.com/silverstone-ai/30min?hide_landing_page_details=1&hide_event_type_details=1&primary_color=22d3ee&text_color=e9eaef&background_color=05070a";
+/**
+ * Calendly only honours its embed params (background_color, hide_gdpr_banner,
+ * …) when the URL identifies itself as an inline embed via embed_domain +
+ * embed_type, so both are always present; embed_domain reflects the real
+ * host at runtime and falls back to the production domain in prerendered
+ * HTML (Calendly uses it for analytics, not validation).
+ */
+const CALENDLY_EMBED_DOMAIN =
+  typeof window === "undefined" ? "silverstone-ai.com" : window.location.hostname;
+const CALENDLY_URL = `https://calendly.com/silverstone-ai/30min?embed_domain=${encodeURIComponent(CALENDLY_EMBED_DOMAIN)}&embed_type=Inline&hide_landing_page_details=1&hide_event_type_details=1&hide_gdpr_banner=1&primary_color=0891b2&text_color=0b1220&background_color=ffffff`;
 
 export function BookingPanel() {
   const [loaded, setLoaded] = useState(false);
@@ -39,39 +52,53 @@ export function BookingPanel() {
         </div>
       </Reveal>
       <Reveal kind="section" delayMs={120}>
-        <div
-          className="ss-core-booking__frame"
-          data-loaded={loaded}
-          aria-busy={!loaded}
-        >
-          {!loaded ? (
-            <div className="ss-core-booking__loading" role="status">
-              <OrbitalLoader message="Loading your scheduler…" className="h-10 w-10" />
-            </div>
-          ) : null}
-          <iframe
-            title="Book a 30-minute discovery call with Silverstone AI on Calendly"
-            src={CALENDLY_URL}
-            loading="lazy"
-            onLoad={() => setLoaded(true)}
-          />
+        <div className="ss-core-booking__console">
+          <div className="ss-core-booking__rail" aria-hidden="true">
+            <span className="ss-core-booking__rail-label">
+              Secure scheduler · Calendly
+            </span>
+            <span className="ss-core-booking__rail-track" />
+            <span className="ss-core-booking__rail-dots">
+              <span />
+              <span />
+              <span />
+            </span>
+          </div>
+          <div
+            className="ss-core-booking__frame"
+            data-loaded={loaded}
+            aria-busy={!loaded}
+          >
+            {!loaded ? (
+              <div className="ss-core-booking__loading" role="status">
+                <OrbitalLoader
+                  message="Loading your scheduler…"
+                  className="h-10 w-10"
+                />
+              </div>
+            ) : null}
+            <iframe
+              title="Book a 30-minute discovery call with Silverstone AI on Calendly"
+              src={CALENDLY_URL}
+              loading="eager"
+              onLoad={() => setLoaded(true)}
+            />
+          </div>
         </div>
       </Reveal>
       <Reveal kind="section" delayMs={200}>
-        <div className="ss-core-form__actions">
+        <div className="ss-core-booking__footer">
+          <p className="ss-core-booking__footer-note">
+            Rather talk it through in writing first?
+          </p>
           <a
-            className="ss-srv2-btn ss-srv2-btn--ghost"
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            className="ss-srv2-btn ss-srv2-btn--ghost ss-srv2-beam-border ss-core-booking__contact-btn"
+            href="/contact"
           >
-            Open in a new tab <ArrowUpRight aria-hidden="true" />
-          </a>
-          <a className="ss-srv2-btn ss-srv2-btn--ghost" href="/contact">
+            <MessageSquare aria-hidden="true" />
             Contact instead
           </a>
         </div>
-        <p className="ss-core-booking__target">calendly.com/silverstone-ai</p>
       </Reveal>
     </div>
   );

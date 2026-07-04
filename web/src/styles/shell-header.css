@@ -75,8 +75,36 @@
   }
 
   [data-site-header] .ss-nav-cta {
-    padding-inline: clamp(0.9rem, 0.3rem + 1vw, 1.25rem);
+    padding-inline: clamp(0.7rem, -0.1rem + 1vw, 1.25rem);
     font-size: clamp(0.82rem, 0.7rem + 0.2vw, 0.875rem);
+  }
+}
+
+/*
+ * The primary nav row never shrinks its own box past what its (already
+ * fluid, clamped above) content needs — see `shrink-0` on <nav> in
+ * site-header.tsx — so there is nothing left for the CTA button to
+ * encroach on. Below 75rem the primary nav's eight items plus two
+ * mega-menu triggers need more room than the CTA can spare while showing
+ * its full label, so the CTA collapses to "Book" (still distinct via its
+ * pill/gradient styling) rather than ever overlapping a real nav link;
+ * the full label returns once there's genuine room for it.
+ */
+.ss-nav-cta__label-full {
+  display: inline;
+}
+
+.ss-nav-cta__label-short {
+  display: none;
+}
+
+@media (min-width: 64rem) and (max-width: 75rem) {
+  .ss-nav-cta__label-full {
+    display: none;
+  }
+
+  .ss-nav-cta__label-short {
+    display: inline;
   }
 }
 

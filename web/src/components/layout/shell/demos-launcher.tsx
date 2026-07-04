@@ -13,6 +13,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useLocation } from "react-router";
 
+import { useAppExperience } from "~/app/experience/app-experience";
 import { Sparkles, X } from "~/components/icons/lucide";
 import { DEMO_REGISTRY } from "~/data/demo-registry";
 import { isGateFreeRoute } from "~/data/gate-free-routes";
@@ -20,6 +21,7 @@ import "~/styles/visual/home-v2.css";
 
 export function DemosLauncher() {
   const location = useLocation();
+  const { homepageBodyActive, routeBodyActive } = useAppExperience();
   const [open, setOpen] = useState(false);
   const [lastPathname, setLastPathname] = useState(location.pathname);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -68,6 +70,13 @@ export function DemosLauncher() {
   }, [open]);
 
   if (isGateFreeRoute(location.pathname)) {
+    return null;
+  }
+
+  // Only ever floats over the Particles BG body — never over the Aether
+  // Flow hero (loading/intro/opening/closing), on the homepage or any other
+  // route experience.
+  if (!homepageBodyActive && !routeBodyActive) {
     return null;
   }
 

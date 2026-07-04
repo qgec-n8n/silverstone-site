@@ -19,8 +19,10 @@ import * as m from "motion/react-m";
 import {
   useEffect,
   useRef,
+  useState,
   type ComponentPropsWithoutRef,
   type ReactNode,
+  type RefObject,
 } from "react";
 
 import {
@@ -193,6 +195,14 @@ export function Reveal({
     );
   }
 
+  if (kind === "image") {
+    return (
+      <ImageReveal className={className} delayMs={delayMs}>
+        {children}
+      </ImageReveal>
+    );
+  }
+
   return (
     <m.div
       className={className}
@@ -201,6 +211,84 @@ export function Reveal({
       viewport={{ amount: 0.4, margin: "0px 0px -18% 0px", once: true }}
       variants={revealVariants[kind]}
       transition={transitionFor(kind, delayMs)}
+    >
+      {children}
+    </m.div>
+  );
+}
+
+/**
+ * Waits for every real `<img>` inside a container to finish loading (or
+ * fail) before reporting true. Already-cached images resolve synchronously
+ * via `img.complete`, so a repeat view never waits. Non-image children (SVG
+ * diagrams etc.) resolve immediately since there is nothing to wait for.
+ */
+function useImagesLoaded(containerRef: RefObject<HTMLElement | null>): boolean {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const images = containerRef.current?.querySelectorAll("img") ?? [];
+    if (images.length === 0) {
+      setLoaded(true);
+      return;
+    }
+    let remaining = images.length;
+    const settle = () => {
+      remaining -= 1;
+      if (remaining <= 0) {
+        setLoaded(true);
+      }
+    };
+    images.forEach((img) => {
+      if (img.complete) {
+        settle();
+        return;
+      }
+      img.addEventListener("load", settle, { once: true });
+      img.addEventListener("error", settle, { once: true });
+    });
+    return () => {
+      images.forEach((img) => {
+        img.removeEventListener("load", settle);
+        img.removeEventListener("error", settle);
+      });
+    };
+  }, [containerRef]);
+
+  return loaded;
+}
+
+/**
+ * Image variant of Reveal: holds the cinematic clip/scale/opacity entrance
+ * until the wrapped `<img>` has actually finished loading, so the reveal
+ * never lands on an empty frame that then pops the image in unanimated a
+ * beat later.
+ */
+function ImageReveal({
+  children,
+  className,
+  delayMs,
+}: {
+  children: ReactNode;
+  className?: string | undefined;
+  delayMs: number;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, {
+    amount: 0.4,
+    margin: "0px 0px -18% 0px",
+    once: true,
+  });
+  const imagesLoaded = useImagesLoaded(containerRef);
+
+  return (
+    <m.div
+      ref={containerRef}
+      className={className}
+      initial="hidden"
+      animate={inView && imagesLoaded ? "show" : "hidden"}
+      variants={revealVariants.image}
+      transition={transitionFor("image", delayMs)}
     >
       {children}
     </m.div>

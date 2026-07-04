@@ -24,6 +24,24 @@ export const AETHER_INDUSTRIES_PALETTE: AetherPalette = {
   proximity: "#F4F0FF",
 };
 
+/**
+ * The standalone core pages each carry their own two-colour Aether scheme —
+ * one colour for the resting dots + lines, one for pointer proximity — so
+ * arriving on Insights, About, Pricing, Contact or Book reads as entering a
+ * distinct main page rather than another Services (cyan) or Industries
+ * (violet) route. All bases sit in the Silverstone signal family and are
+ * tuned for contrast against the #05070d void. /how-we-work intentionally
+ * keeps the default cyan; /book is gate-free today (no Aether intro), but
+ * its scheme is registered so the palette holds if that ever changes.
+ */
+export const AETHER_ROUTE_PALETTES: Record<string, AetherPalette> = {
+  "/blog": { particle: "#E7BD66", network: "#E7BD66", proximity: "#FFF3D9" },
+  "/about": { particle: "#C3CEDC", network: "#C3CEDC", proximity: "#7DE9F6" },
+  "/pricing": { particle: "#5FE3B2", network: "#5FE3B2", proximity: "#ECFFF7" },
+  "/contact": { particle: "#7FA9FF", network: "#7FA9FF", proximity: "#EAF2FF" },
+  "/book": { particle: "#8CEFA9", network: "#8CEFA9", proximity: "#F0FFF4" },
+};
+
 const DEFAULT_PALETTE: AetherPalette = {
   particle: AETHER_PARTICLE_COLOR,
   network: AETHER_NETWORK_DEFAULT,

@@ -21,10 +21,6 @@
   padding: clamp(0.2rem, 0.1rem + 0.7vh, 0.8rem);
 }
 
-.ss-core .ss-hv2-trust-shell {
-  margin-top: clamp(1.75rem, 4vw, 4rem);
-}
-
 .ss-core-cards {
   display: grid;
   gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
@@ -184,8 +180,9 @@
 .ss-core-booking,
 .ss-core-map,
 .ss-core-split--framed {
+  --ss-core-pad: clamp(1.4rem, 1rem + 1.8vw, 2.4rem);
   position: relative;
-  padding: clamp(1.4rem, 1rem + 1.8vw, 2.4rem);
+  padding: var(--ss-core-pad);
   border-radius: var(--ss-radius-2xl);
   border: 1px solid var(--srv2-hairline);
   background:
@@ -325,6 +322,132 @@
   align-items: center;
 }
 
+/* ---- Discovery snapshot (lead-qualifying segmented controls) ----------
+   A quiet instrument panel inside the form: two one-tap radio-pill groups
+   (budget + timeline) that read as a quick quiz rather than extra form
+   fields. Radios stay real inputs for keyboard and form semantics; the
+   pills are their styled labels. ---------------------------------------- */
+
+.ss-core-form__snapshot {
+  display: grid;
+  gap: 1.1rem;
+  padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-hairline));
+  background:
+    linear-gradient(
+      140deg,
+      color-mix(in srgb, var(--srv2-accent) 8%, transparent),
+      color-mix(in srgb, var(--srv2-accent-2) 6%, transparent) 55%,
+      transparent
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 45%, transparent);
+}
+
+.ss-core-form__snapshot-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0;
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ss-core-form__snapshot-title em {
+  color: var(--srv2-ink-faint);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.ss-core-form__snapshot-hint {
+  margin: -0.5rem 0 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.ss-core-form__seg {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.ss-core-form__seg legend {
+  padding: 0;
+  margin-bottom: 0.55rem;
+  color: var(--ss-v2-chrome);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.ss-core-form__seg-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ss-core-form__seg-option {
+  position: relative;
+  display: inline-flex;
+}
+
+.ss-core-form__seg-option input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ss-core-form__seg-option span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--srv2-hairline);
+  border-radius: var(--ss-radius-pill);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 60%, transparent);
+  color: var(--srv2-ink-soft);
+  font-size: 0.82rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition:
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    background var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-core-form__seg-option input:hover + span {
+  border-color: color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+  color: var(--srv2-ink);
+}
+
+.ss-core-form__seg-option input:checked + span {
+  border-color: color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 16%, transparent);
+  color: var(--ss-v2-chrome);
+  box-shadow: 0 0 18px -6px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
+}
+
+.ss-core-form__seg-option input:focus-visible + span {
+  outline: 2px solid var(--srv2-accent);
+  outline-offset: 2px;
+}
+
+.ss-core-form__seg:disabled .ss-core-form__seg-option span {
+  opacity: 0.55;
+  cursor: default;
+}
+
 .ss-core-booking {
   overflow: clip;
 }
@@ -353,11 +476,45 @@
   line-height: 1.65;
 }
 
-.ss-core-booking__target {
-  margin: -0.4rem 0 0;
-  color: var(--srv2-ink-faint);
-  font-family: var(--ss-font-mono);
-  font-size: 0.78rem;
+/*
+ * Contact instead — sits in its own footer row under the scheduler, cleanly
+ * separated from the white pane by a gradient hairline so its border never
+ * touches the scheduler. Beam-border treatment (same traveling light ring
+ * as the outer booking card), an icon, a slightly deeper glass surface and
+ * a soft glow on hover give it real presence.
+ */
+.ss-core-booking__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+  padding-top: clamp(1.2rem, 1rem + 0.8vw, 1.7rem);
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--srv2-accent) 45%, transparent) 30%,
+      color-mix(in srgb, var(--srv2-accent-2) 35%, transparent) 70%,
+      transparent
+    )
+    1;
+}
+
+.ss-core-booking__footer-note {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.95rem;
+}
+
+.ss-core-booking__contact-btn {
+  padding: 0.95rem 1.7rem;
+  background: color-mix(in srgb, var(--ss-v2-void-black) 45%, var(--srv2-glass));
+}
+
+.ss-core-booking__contact-btn:hover {
+  box-shadow: 0 16px 40px -22px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
 }
 
 .ss-core-booking__live {
@@ -393,26 +550,96 @@
   }
 }
 
+/*
+ * The scheduler console. Calendly's booking surface is white and cannot be
+ * restyled from outside the iframe, so the design embraces it: a slim mono
+ * console rail introduces the pane, then the white scheduler sits inside a
+ * 1px luminous cyan→violet ring (the frame's own gradient background showing
+ * through a 1px padding) with a deep accent glow — a deliberate bright
+ * "screen" set into the dark card rather than a widget in a grey frame.
+ * The embed URL's light-theme params match the pane, so widget and pane
+ * read as one continuous sheet with no internal seams or scrollbars.
+ */
+.ss-core-booking__console {
+  margin-top: clamp(1.2rem, 1rem + 0.8vw, 1.8rem);
+}
+
+.ss-core-booking__rail {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.95rem;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ss-core-booking__rail-track {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--srv2-accent) 50%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 40%, transparent) 60%,
+    transparent
+  );
+}
+
+.ss-core-booking__rail-dots {
+  display: inline-flex;
+  gap: 0.38rem;
+}
+
+.ss-core-booking__rail-dots span {
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--srv2-accent) 65%, transparent);
+}
+
+.ss-core-booking__rail-dots span:nth-child(2) {
+  background: color-mix(in srgb, var(--srv2-accent-2) 65%, transparent);
+}
+
+.ss-core-booking__rail-dots span:nth-child(3) {
+  background: color-mix(in srgb, var(--ss-v2-platinum) 45%, transparent);
+}
+
 .ss-core-booking__frame {
   position: relative;
-  width: 100%;
-  height: clamp(600px, 78vh, 820px);
-  margin-top: 0.4rem;
+  height: clamp(680px, 92vh, 1040px);
+  padding: 1px;
   overflow: clip;
   border-radius: var(--ss-radius-xl);
-  border: 1px solid var(--srv2-hairline);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 92%, transparent);
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--srv2-accent) 70%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 45%, transparent) 45%,
+    color-mix(in srgb, var(--ss-v2-platinum) 22%, transparent) 75%,
+    color-mix(in srgb, var(--srv2-accent) 55%, transparent)
+  );
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 12%, transparent) inset,
-    0 30px 60px -30px color-mix(in srgb, var(--ss-v2-void-black) 80%, transparent);
+    0 30px 90px -42px color-mix(in srgb, var(--srv2-accent) 55%, transparent),
+    0 12px 48px -30px color-mix(in srgb, var(--srv2-accent-2) 45%, transparent);
 }
 
 .ss-core-booking__frame iframe {
   position: relative;
   z-index: 1;
-  width: 100%;
+  display: block;
+  /* 16px wider than the pane: pushes the iframe's own page scrollbar past
+     the clipped edge into Calendly's blank right margin, so no scrollbar
+     ever renders inside the white sheet. Wheel/touch scrolling still works
+     on viewports where Calendly's stacked layout runs taller than the
+     pane. */
+  width: calc(100% + 16px);
   height: 100%;
   border: 0;
+  border-radius: calc(var(--ss-radius-xl) - 1px);
+  background: #ffffff;
   opacity: 0;
   transition: opacity var(--ss-motion-duration-slow, 0.4s)
     var(--ss-motion-easing-standard);
@@ -424,8 +651,9 @@
 
 .ss-core-booking__loading {
   position: absolute;
-  inset: 0;
-  z-index: 2;
+  inset: 1px;
+  z-index: 4;
+  border-radius: calc(var(--ss-radius-xl) - 1px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -454,28 +682,53 @@
   .ss-core-booking__frame {
     height: clamp(560px, 82vh, 700px);
   }
+
+  /* Calendly's stacked mobile layout runs edge-to-edge inside the iframe,
+     so the desktop scrollbar-crop would cut real content here; mobile
+     browsers overlay scrollbars anyway. */
+  .ss-core-booking__frame iframe {
+    width: 100%;
+  }
 }
 
 /* ---- Studio map panel (shares .ss-core-booking's outer panel + loading
-   treatment; only the frame height differs — a map reads well shorter than
-   the Calendly scheduler). --------------------------------------------- */
+   treatment). The Maps Embed API offers no style control, so the premium
+   dark treatment happens outside the iframe: a CSS filter re-grades
+   Google's light cartography into the site's void-blue palette, and a
+   pointer-transparent HUD layer (survey grid, corner brackets, vignette,
+   coordinates chip) integrates the map into the card. -------------------- */
 
 .ss-core-map {
   overflow: clip;
 }
 
+.ss-core-map__address {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ss-core-map__address span:last-child {
+  color: var(--srv2-ink-soft);
+  font-size: 0.62em;
+  font-weight: 450;
+  letter-spacing: 0.01em;
+}
+
+/* Bleeds to the card's own edges, same treatment as before — one continuous
+   panel (the card's beam-border is the only visible border) instead of a
+   map widget floating in a sea of padding. */
 .ss-core-map__frame {
   position: relative;
-  width: 100%;
+  width: calc(100% + var(--ss-core-pad) * 2);
+  margin-inline: calc(var(--ss-core-pad) * -1);
   height: clamp(340px, 46vh, 460px);
   margin-top: 0.4rem;
+  margin-bottom: calc(var(--ss-core-pad) * -1);
   overflow: clip;
-  border-radius: var(--ss-radius-xl);
-  border: 1px solid var(--srv2-hairline);
+  border-radius: 0 0 calc(var(--ss-radius-2xl) - 1px) calc(var(--ss-radius-2xl) - 1px);
   background: color-mix(in srgb, var(--ss-v2-void-black) 92%, transparent);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 12%, transparent) inset,
-    0 30px 60px -30px color-mix(in srgb, var(--ss-v2-void-black) 80%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 6%, transparent);
 }
 
 .ss-core-map__frame iframe {
@@ -485,6 +738,9 @@
   height: 100%;
   border: 0;
   opacity: 0;
+  /* Re-grades Google's light-grey cartography into the site's dark
+     void-blue palette; the map underneath stays fully interactive. */
+  filter: invert(0.89) hue-rotate(185deg) saturate(0.6) brightness(0.94) contrast(1.04);
   transition: opacity var(--ss-motion-duration-slow, 0.4s)
     var(--ss-motion-easing-standard);
 }
@@ -493,9 +749,163 @@
   opacity: 1;
 }
 
+/* HUD overlay — every layer is pointer-events: none so panning and zooming
+   pass straight through to the map. */
+.ss-core-map__hud {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ss-core-map__hud-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--srv2-accent) 30%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--srv2-accent) 30%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 56px 56px;
+  opacity: 0.14;
+  mix-blend-mode: screen;
+}
+
+.ss-core-map__hud-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ss-v2-void-black) 55%, transparent),
+      transparent 16%
+    ),
+    radial-gradient(
+      130% 110% at 50% 42%,
+      transparent 52%,
+      color-mix(in srgb, var(--ss-v2-void-black) 62%, transparent) 100%
+    );
+}
+
+.ss-core-map__hud-corner {
+  position: absolute;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 75%, transparent);
+}
+
+.ss-core-map__hud-corner[data-corner="tl"] {
+  top: 0.9rem;
+  left: 0.9rem;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.ss-core-map__hud-corner[data-corner="tr"] {
+  top: 0.9rem;
+  right: 0.9rem;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.ss-core-map__hud-corner[data-corner="bl"] {
+  bottom: 0.9rem;
+  left: 0.9rem;
+  border-right: 0;
+  border-top: 0;
+}
+
+.ss-core-map__hud-corner[data-corner="br"] {
+  bottom: 0.9rem;
+  right: 0.9rem;
+  border-left: 0;
+  border-top: 0;
+}
+
+.ss-core-map__chip,
+.ss-core-map__directions {
+  position: absolute;
+  bottom: 1.6rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 35%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-void-black) 72%, transparent);
+  backdrop-filter: blur(10px);
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ss-core-map__chip {
+  left: 1.6rem;
+}
+
+.ss-core-map__chip-dot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: var(--srv2-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--srv2-accent) 25%, transparent);
+  animation: ss-core-booking-pulse 2.2s ease-in-out infinite;
+}
+
+.ss-core-map__directions {
+  right: 1.6rem;
+  text-decoration: none;
+  transition:
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-core-map__directions svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--srv2-accent);
+}
+
+.ss-core-map__directions:hover {
+  border-color: color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+  color: var(--ss-v2-chrome);
+  box-shadow: 0 10px 30px -16px color-mix(in srgb, var(--srv2-accent) 60%, transparent);
+}
+
 @media (max-width: 44rem) {
   .ss-core-map__frame {
     height: clamp(300px, 52vh, 380px);
+  }
+
+  /* The postcode chip is decorative; at phone widths it collides with the
+     directions link, so only the functional control stays. */
+  .ss-core-map__chip {
+    display: none;
+  }
+
+  .ss-core-map__directions {
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-core-map__chip-dot {
+    animation: none;
+  }
+
+  .ss-core-map__directions {
+    transition: none;
   }
 }
 
@@ -655,7 +1065,8 @@
   .ss-core-card__arrow,
   .ss-core-form input,
   .ss-core-form select,
-  .ss-core-form textarea {
+  .ss-core-form textarea,
+  .ss-core-form__seg-option span {
     transition: none;
   }
 }

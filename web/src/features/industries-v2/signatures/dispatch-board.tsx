@@ -268,7 +268,55 @@ export function DispatchBoard({
             </text>
           </m.g>
 
-          {/* Rejected out-of-area card sliding away */}
+          {/* Emergency flag */}
+          <m.g
+            initial={reducedMotion ? false : { opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.55 }}
+          >
+            <rect
+              x="356"
+              y={GATE.y - 26}
+              width="200"
+              height="54"
+              rx="12"
+              fill="var(--ss-v2-void-black)"
+              stroke="var(--srv2-accent-2)"
+              strokeWidth="1.8"
+              style={{
+                filter:
+                  "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent-2) 26%, transparent))",
+              }}
+            />
+            <text
+              x="456"
+              y={GATE.y - 3}
+              textAnchor="middle"
+              fill="var(--ss-v2-chrome)"
+              fontSize="15"
+              fontFamily="var(--ss-font-mono)"
+            >
+              Emergency language
+            </text>
+            <text
+              x="456"
+              y={GATE.y + 17}
+              textAnchor="middle"
+              fill="var(--srv2-ink-faint)"
+              fontSize="13"
+              fontFamily="var(--ss-font-mono)"
+            >
+              → approved human reply
+            </text>
+          </m.g>
+
+          {/* Rejected out-of-area card sliding away — painted last (after the
+              postcode gate AND the emergency-language box) so it is always
+              the top-most element for its entire transit; it used to paint
+              before the emergency box, which then covered it for roughly the
+              back half of its slide, exactly where its own opacity was still
+              at full strength. */}
           {!reducedMotion ? (
             <m.g
               initial={{ opacity: 0, x: 0 }}
@@ -317,49 +365,6 @@ export function DispatchBoard({
               </text>
             </m.g>
           ) : null}
-
-          {/* Emergency flag */}
-          <m.g
-            initial={reducedMotion ? false : { opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.55 }}
-          >
-            <rect
-              x="356"
-              y={GATE.y - 26}
-              width="200"
-              height="54"
-              rx="12"
-              fill="var(--ss-v2-void-black)"
-              stroke="var(--srv2-accent-2)"
-              strokeWidth="1.8"
-              style={{
-                filter:
-                  "drop-shadow(0 0 10px color-mix(in srgb, var(--srv2-accent-2) 26%, transparent))",
-              }}
-            />
-            <text
-              x="456"
-              y={GATE.y - 3}
-              textAnchor="middle"
-              fill="var(--ss-v2-chrome)"
-              fontSize="15"
-              fontFamily="var(--ss-font-mono)"
-            >
-              Emergency language
-            </text>
-            <text
-              x="456"
-              y={GATE.y + 17}
-              textAnchor="middle"
-              fill="var(--srv2-ink-faint)"
-              fontSize="13"
-              fontFamily="var(--ss-font-mono)"
-            >
-              → approved human reply
-            </text>
-          </m.g>
         </m.svg>
       </div>
       <SignatureMetricStrip metrics={metrics} />
