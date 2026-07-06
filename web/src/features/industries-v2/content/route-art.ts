@@ -102,18 +102,18 @@ export const industryArt: Record<IndustryRoute, IndustryArt> = {
     icon: ShoppingBag,
     primary: image(
       "/approved-images/ecommerce-1.png",
-      "/approved-images/ecommerce-1.png",
+      "/approved-images/ecommerce-1-mobile.png",
       "Illustrative order-intelligence panel matching customer questions to live order state.",
     ),
     gallery: [
       image(
         "/approved-images/ecommerce-2.png",
-        "/approved-images/ecommerce-2.png",
+        "/approved-images/ecommerce-2-mobile.png",
         "Illustrative returns-triage panel with policy check and human-review exception.",
       ),
       image(
         "/approved-images/ecommerce-3.png",
-        "/approved-images/ecommerce-3.png",
+        "/approved-images/ecommerce-3-mobile.png",
         "Illustrative post-purchase journey panel with review, replenishment and segment states.",
       ),
     ],
@@ -221,6 +221,11 @@ export const industryArt: Record<IndustryRoute, IndustryArt> = {
       "Illustrative non-clinical booking panel at a physiotherapy reception.",
     ),
     gallery: [
+      image(
+        "/approved-images/physio-2.png",
+        "/approved-images/physio-2-mobile.png",
+        "Illustrative recall and follow-up reminder panel in a physiotherapy treatment room.",
+      ),
       image(
         "/approved-images/physio-3.png",
         "/approved-images/physio-3-mobile.png",

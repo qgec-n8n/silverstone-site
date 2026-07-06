@@ -4,9 +4,9 @@
  * here renders structured approved copy — no raw markdown blocks, no
  * authoring labels.
  */
-import { useReducedMotion } from "motion/react";
+import { useInView, useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 
 import {
   Check,
@@ -14,6 +14,7 @@ import {
   UserCheck,
   type LucideIcon,
 } from "~/components/icons/lucide";
+import { useRevealStart } from "~/motion/use-reveal-start";
 
 import { Reveal, RichText } from "~/features/services-v2/components/primitives";
 import type { IndustryCard, IndustryStage } from "../content/types";
@@ -108,23 +109,39 @@ export function JourneyRail({ stages }: { stages: IndustryStage[] }) {
           );
         }
         return (
-          <m.li
-            className="ss-ind2-rail__stage"
-            key={stage.title}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -26 : 26 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ amount: 0.5, margin: "0px 0px -12% 0px", once: true }}
-            transition={{
-              delay: (index * 160) / 1000,
-              duration: 0.9,
-              ease: entranceEase,
-            }}
-          >
+          <JourneyRailStage key={stage.title} index={index}>
             {content}
-          </m.li>
+          </JourneyRailStage>
         );
       })}
     </ol>
+  );
+}
+
+function JourneyRailStage({ children, index }: { children: ReactNode; index: number }) {
+  const ref = useRef<HTMLLIElement>(null);
+  const inView = useInView(ref, {
+    amount: 0.5,
+    margin: "0px 0px -12% 0px",
+    once: true,
+  });
+  const startDelayMs = useRevealStart(ref, inView, index * 160);
+  const hidden = { opacity: 0, x: index % 2 === 0 ? -26 : 26 };
+
+  return (
+    <m.li
+      ref={ref}
+      className="ss-ind2-rail__stage"
+      initial={hidden}
+      animate={startDelayMs !== null ? { opacity: 1, x: 0 } : hidden}
+      transition={{
+        delay: (startDelayMs ?? 0) / 1000,
+        duration: 0.9,
+        ease: entranceEase,
+      }}
+    >
+      {children}
+    </m.li>
   );
 }
 
@@ -165,27 +182,40 @@ export function BoundaryPanel({
                 <span>{item}</span>
               </div>
             ) : (
-              <m.div
-                className="ss-ind2-boundary__item"
-                role="listitem"
-                key={item}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ amount: 0.6, margin: "0px 0px -10% 0px", once: true }}
-                transition={{
-                  delay: (120 + index * 130) / 1000,
-                  duration: 0.7,
-                  ease: entranceEase,
-                }}
-              >
-                <ShieldCheck aria-hidden="true" />
-                <span>{item}</span>
-              </m.div>
+              <BoundaryKeepItem key={item} item={item} index={index} />
             ),
           )}
         </div>
       </div>
     </div>
+  );
+}
+
+function BoundaryKeepItem({ item, index }: { item: string; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, {
+    amount: 0.6,
+    margin: "0px 0px -10% 0px",
+    once: true,
+  });
+  const startDelayMs = useRevealStart(ref, inView, 120 + index * 130);
+
+  return (
+    <m.div
+      ref={ref}
+      className="ss-ind2-boundary__item"
+      role="listitem"
+      initial={{ opacity: 0, y: 18 }}
+      animate={startDelayMs !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+      transition={{
+        delay: (startDelayMs ?? 0) / 1000,
+        duration: 0.7,
+        ease: entranceEase,
+      }}
+    >
+      <ShieldCheck aria-hidden="true" />
+      <span>{item}</span>
+    </m.div>
   );
 }
 
@@ -227,23 +257,32 @@ export function TrustTokens({ tokens }: { tokens: string[] }) {
             {token}
           </span>
         ) : (
-          <m.span
-            className="ss-ind2-tokens__item"
-            key={token}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ amount: 0.8, once: true }}
-            transition={{
-              delay: (index * 110) / 1000,
-              duration: 0.7,
-              ease: entranceEase,
-            }}
-          >
-            {token}
-          </m.span>
+          <TrustTokenItem key={token} token={token} index={index} />
         ),
       )}
     </div>
+  );
+}
+
+function TrustTokenItem({ token, index }: { token: string; index: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { amount: 0.8, once: true });
+  const startDelayMs = useRevealStart(ref, inView, index * 110);
+
+  return (
+    <m.span
+      ref={ref}
+      className="ss-ind2-tokens__item"
+      initial={{ opacity: 0, y: 12 }}
+      animate={startDelayMs !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+      transition={{
+        delay: (startDelayMs ?? 0) / 1000,
+        duration: 0.7,
+        ease: entranceEase,
+      }}
+    >
+      {token}
+    </m.span>
   );
 }
 

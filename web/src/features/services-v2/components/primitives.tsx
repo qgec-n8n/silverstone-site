@@ -30,6 +30,7 @@ import {
   TriangleAlertIcon,
   type LucideIcon,
 } from "~/components/icons/lucide";
+import { useRevealStart } from "~/motion/use-reveal-start";
 
 const entranceEase = [0.22, 1, 0.36, 1] as const;
 
@@ -157,11 +158,19 @@ export function Reveal({
   delayMs = 0,
   kind = "section",
   trigger = "viewport",
+  amount = 0.4,
 }: {
   children: ReactNode;
   className?: string;
   delayMs?: number;
   kind?: RevealKind;
+  /**
+   * Viewport threshold. The 0.4 default suits normal-height content; pass
+   * "some" for blocks that can grow taller than the viewport (long tables,
+   * legal prose), where a fractional threshold could never be reached and the
+   * block would stay hidden forever.
+   */
+  amount?: number | "some" | "all";
   /**
    * "viewport" (default): fires via whileInView, for content the user
    * scrolls down to. "mount": fires via animate as soon as the component
@@ -204,13 +213,48 @@ export function Reveal({
   }
 
   return (
+    <ViewportReveal amount={amount} className={className} delayMs={delayMs} kind={kind}>
+      {children}
+    </ViewportReveal>
+  );
+}
+
+/**
+ * Scroll-triggered branch of Reveal. The start moment goes through the global
+ * reveal scheduler (see `~/motion/reveal-scheduler`) so that when several
+ * reveals fire near-simultaneously — fast scroll, anchor jump, a section
+ * entering whole — the entrances still play strictly top-to-bottom, then
+ * left-to-right, regardless of each element's own stagger delay.
+ */
+function ViewportReveal({
+  amount,
+  children,
+  className,
+  delayMs,
+  kind,
+}: {
+  amount: number | "some" | "all";
+  children: ReactNode;
+  className?: string | undefined;
+  delayMs: number;
+  kind: RevealKind;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, {
+    amount,
+    margin: "0px 0px -18% 0px",
+    once: true,
+  });
+  const startDelayMs = useRevealStart(ref, inView, delayMs);
+
+  return (
     <m.div
+      ref={ref}
       className={className}
       initial="hidden"
-      whileInView="show"
-      viewport={{ amount: 0.4, margin: "0px 0px -18% 0px", once: true }}
+      animate={startDelayMs !== null ? "show" : "hidden"}
       variants={revealVariants[kind]}
-      transition={transitionFor(kind, delayMs)}
+      transition={transitionFor(kind, startDelayMs ?? 0)}
     >
       {children}
     </m.div>
@@ -280,15 +324,16 @@ function ImageReveal({
     once: true,
   });
   const imagesLoaded = useImagesLoaded(containerRef);
+  const startDelayMs = useRevealStart(containerRef, inView && imagesLoaded, delayMs);
 
   return (
     <m.div
       ref={containerRef}
       className={className}
       initial="hidden"
-      animate={inView && imagesLoaded ? "show" : "hidden"}
+      animate={startDelayMs !== null ? "show" : "hidden"}
       variants={revealVariants.image}
-      transition={transitionFor("image", delayMs)}
+      transition={transitionFor("image", startDelayMs ?? 0)}
     >
       {children}
     </m.div>
@@ -418,23 +463,36 @@ export function WarningChecklist({ points }: { points: string[] }) {
             <span>{point}</span>
           </li>
         ) : (
-          <m.li
-            key={point}
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ amount: 0.6, margin: "0px 0px -10% 0px", once: true }}
-            transition={{
-              delay: (index * 220) / 1000,
-              duration: 0.75,
-              ease: entranceEase,
-            }}
-          >
-            <TriangleAlertIcon aria-hidden="true" />
-            <span>{point}</span>
-          </m.li>
+          <WarningChecklistItem key={point} point={point} index={index} />
         ),
       )}
     </ul>
+  );
+}
+
+function WarningChecklistItem({ point, index }: { point: string; index: number }) {
+  const ref = useRef<HTMLLIElement>(null);
+  const inView = useInView(ref, {
+    amount: 0.6,
+    margin: "0px 0px -10% 0px",
+    once: true,
+  });
+  const startDelayMs = useRevealStart(ref, inView, index * 220);
+
+  return (
+    <m.li
+      ref={ref}
+      initial={{ opacity: 0, y: 22 }}
+      animate={startDelayMs !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
+      transition={{
+        delay: (startDelayMs ?? 0) / 1000,
+        duration: 0.75,
+        ease: entranceEase,
+      }}
+    >
+      <TriangleAlertIcon aria-hidden="true" />
+      <span>{point}</span>
+    </m.li>
   );
 }
 

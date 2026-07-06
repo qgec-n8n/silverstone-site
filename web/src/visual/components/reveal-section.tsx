@@ -1,7 +1,9 @@
-import type { ReactNode } from "react";
+import { useInView } from "motion/react";
 import * as m from "motion/react-m";
+import { useRef, type ReactNode } from "react";
 
-import { motionViewport, revealVariants } from "~/motion";
+import { motionDistances, motionDurations, motionEasings } from "~/motion/tokens";
+import { useRevealStart } from "~/motion/use-reveal-start";
 
 type RevealSectionProps = {
   children: ReactNode;
@@ -15,11 +17,15 @@ type RevealSectionProps = {
  * under reduced motion (both gated in CSS); only the settle transition is
  * deferred. When disabled it renders a plain wrapper with no reveal behaviour.
  *
- * Uses `motionViewport.block` (amount: "some") rather than a fractional
- * threshold so blocks taller than the viewport — e.g. a full service body —
- * still settle: a fractional `amount` can never be reached when the element is
- * several times the viewport height, which would leave the block stuck at
- * `initial="hidden"` (opacity 0) forever.
+ * Uses `amount: "some"` rather than a fractional threshold so blocks taller
+ * than the viewport — e.g. a full service body — still settle: a fractional
+ * `amount` can never be reached when the element is several times the viewport
+ * height, which would leave the block stuck at `initial="hidden"` (opacity 0)
+ * forever.
+ *
+ * Start moments go through the global reveal scheduler
+ * (`~/motion/reveal-scheduler`) so near-simultaneous triggers still play
+ * strictly top-to-bottom, then left-to-right.
  */
 export function RevealSection({
   children,
@@ -31,12 +37,40 @@ export function RevealSection({
   }
 
   return (
+    <ScheduledRevealSection className={className}>{children}</ScheduledRevealSection>
+  );
+}
+
+function ScheduledRevealSection({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string | undefined;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, {
+    amount: "some",
+    margin: "0px 0px -12% 0px",
+    once: true,
+  });
+  const startDelayMs = useRevealStart(ref, inView, 0);
+
+  return (
     <m.div
+      ref={ref}
       className={className}
       initial="hidden"
-      variants={revealVariants}
-      viewport={motionViewport.block}
-      whileInView="show"
+      animate={startDelayMs !== null ? "show" : "hidden"}
+      variants={{
+        hidden: { opacity: 0, y: motionDistances.reveal },
+        show: { opacity: 1, y: 0 },
+      }}
+      transition={{
+        delay: (startDelayMs ?? 0) / 1000,
+        duration: motionDurations.route,
+        ease: motionEasings.entrance,
+      }}
     >
       {children}
     </m.div>

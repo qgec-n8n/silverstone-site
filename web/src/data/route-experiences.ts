@@ -54,7 +54,7 @@ const routeAssets: Record<string, string[]> = {
   "/industry/trades": ["/approved-images/Trades_1.jpeg"],
   "/industry/physios-chiropractors": ["/approved-images/physio-1.png"],
   "/industry/gyms-fitness-studios": ["/approved-images/gyms-1.png"],
-  "/about": ["/home-v2/studio-mission.webp"],
+  "/about": ["/approved-images/about-standard.png"],
   "/blog": ["/home-v2/story-operating-surface.png"],
   "/pricing": ["/home-v2/consulting-strategy.png"],
 };
@@ -280,9 +280,9 @@ export const notFoundRouteExperience: RouteExperience = {
   path: "*",
   loaderText: "Checking the requested route before returning a safe way forward.",
   pill: "Route recovery",
-  title: "Page not found",
+  title: "This address doesn't resolve",
   subtitle:
-    "The requested staging route is not part of the approved Silverstone route map.",
+    "The page may have moved while the Silverstone system was being rebuilt. Every live route is one step away.",
   buttonLabel: "Open the recovery route",
   bodyHeadingId: BODY_FOCUS_TARGET,
   family: "utility",

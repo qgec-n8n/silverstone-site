@@ -165,7 +165,7 @@ export function HowWeWorkComposition() {
               "65% — Document-processing cost reduction",
               "10x — Faster document turnaround",
             ]}
-            caption="Verified Silverstone AI performance figures show why disciplined scope, clean data and explicit acceptance criteria matter."
+            caption="Measured on live client systems delivered through this framework — documented outcomes, not projections."
           />
         </div>
       </section>

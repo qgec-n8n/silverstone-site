@@ -1,15 +1,11 @@
 /**
  * Studio-location panel for /contact, for Silverstone's registered address
  * (the same address already used in the site's schema.org Organization
- * markup). Embedded via the Google Maps Embed API "place" mode
- * (https://developers.google.com/maps/documentation/embed/embedding-map),
- * authenticated with a Maps Embed API key restricted by HTTP referrer in
- * Google Cloud Console — this key is designed to be visible client-side
- * (it appears directly in the iframe URL by design, same as any Maps Embed
- * integration on the web), so it is read from VITE_GOOGLE_MAPS_EMBED_KEY
- * rather than treated as a server secret.
+ * markup). Embedded via the keyless Google Maps share embed (the exact
+ * share-URL supplied by the owner from Google Maps' "Embed a map" dialog),
+ * so no Maps Embed API key is required.
  *
- * The Embed API offers no style control, so the premium dark treatment is
+ * The embed offers no style control, so the premium dark treatment is
  * done outside the iframe: a CSS filter re-grades Google's light cartography
  * into the site's void-blue palette, and a pointer-transparent HUD layer
  * (grid, corner brackets, vignette, coordinates chip) integrates the map
@@ -22,7 +18,8 @@ import { OrbitalLoader } from "~/components/ui/orbital-loader";
 import { Reveal } from "~/features/services-v2/components/primitives";
 
 const MAP_QUERY = "4 Deacon Street, London SE17 1GE, United Kingdom";
-const MAP_EMBED_URL = `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(import.meta.env.VITE_GOOGLE_MAPS_EMBED_KEY)}&q=${encodeURIComponent(MAP_QUERY)}&zoom=16`;
+const MAP_EMBED_URL =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2484.1238117846615!2d-0.09805029999999998!3d51.4925954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876049f14d0c721%3A0x1a60c8a8a0a8ba73!2s4%20Deacon%20St%2C%20London%20SE17%201GD!5e0!3m2!1sen!2suk!4v1783362761114!5m2!1sen!2suk";
 const MAP_DIRECTIONS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
 
 export function MapPanel() {
@@ -52,7 +49,9 @@ export function MapPanel() {
           <iframe
             title="Map showing Silverstone AI's studio at 4 Deacon Street, SE17 1GE, London, United Kingdom"
             src={MAP_EMBED_URL}
-            loading="eager"
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
             onLoad={() => setLoaded(true)}
           />
           <div className="ss-core-map__hud" aria-hidden="true">

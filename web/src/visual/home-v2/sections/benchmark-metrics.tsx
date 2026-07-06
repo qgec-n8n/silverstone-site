@@ -5,6 +5,7 @@ import {
 } from "~/data/home-v2";
 
 import { MetricCounter } from "../components/metric-counter";
+import { Reveal } from "../components/reveal";
 import { SectionShell } from "../components/section-shell";
 
 type BenchmarkMetricsProps = {
@@ -45,14 +46,16 @@ export function BenchmarkMetrics({ countersEnabled }: BenchmarkMetricsProps) {
           />
         ))}
       </div>
-      <details className="ss-hv2-benchmark-note mt-8 max-w-(--ss-type-measure-body)">
-        <summary className="cursor-pointer text-xs font-medium text-[color:var(--ss-v2-titanium)] underline-offset-4 transition-colors hover:text-[color:var(--ss-v2-pearl)]">
-          Sources &amp; methodology
-        </summary>
-        <p className="mt-2 text-xs text-[color:var(--ss-v2-titanium)]">
-          {BENCHMARK_DISCLAIMER}
-        </p>
-      </details>
+      <Reveal kind="footer">
+        <details className="ss-hv2-benchmark-note mt-8 max-w-(--ss-type-measure-body)">
+          <summary className="cursor-pointer text-xs font-medium text-[color:var(--ss-v2-titanium)] underline-offset-4 transition-colors hover:text-[color:var(--ss-v2-pearl)]">
+            Sources &amp; methodology
+          </summary>
+          <p className="mt-2 text-xs text-[color:var(--ss-v2-titanium)]">
+            {BENCHMARK_DISCLAIMER}
+          </p>
+        </details>
+      </Reveal>
     </SectionShell>
   );
 }

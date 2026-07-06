@@ -1,8 +1,29 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
 import { loadMigratedContent } from "~/content/migrated";
 import { MigratedContentRenderer } from "~/routes/templates/migrated-content-renderer";
+
+// Every migrated block is wrapped in a scroll-triggered Reveal, and jsdom's
+// IntersectionObserver stub never fires, so the animated branch would keep
+// content at opacity 0 forever. Reduced motion selects the static branch,
+// which is what these content assertions are about.
+beforeAll(() => {
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
+    configurable: true,
+    value: (query: string): MediaQueryList => ({
+      matches: query.includes("prefers-reduced-motion"),
+      media: query,
+      onchange: null,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+      addListener: () => undefined,
+      removeListener: () => undefined,
+      dispatchEvent: () => false,
+    }),
+  });
+});
 
 describe("MigratedContentRenderer", () => {
   it("renders source copy and links without activating legacy integrations", async () => {

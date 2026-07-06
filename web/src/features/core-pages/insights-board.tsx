@@ -54,7 +54,10 @@ function ArticleCard({ article, index }: { article: InsightArticle; index: numbe
             <li key={point}>{point}</li>
           ))}
         </ul>
-        <span className="ss-insight-card__cta" data-active={published ? "true" : undefined}>
+        <span
+          className="ss-insight-card__cta"
+          data-active={published ? "true" : undefined}
+        >
           {published ? (
             <>
               Read the article <ArrowUpRight aria-hidden="true" />
@@ -74,7 +77,11 @@ function ArticleCard({ article, index }: { article: InsightArticle; index: numbe
           {body}
         </a>
       ) : (
-        <article className="ss-insight-card" data-status={article.status} aria-disabled="true">
+        <article
+          className="ss-insight-card"
+          data-status={article.status}
+          aria-disabled="true"
+        >
           {body}
         </article>
       )}
@@ -102,7 +109,7 @@ export function InsightsBoard() {
 
   return (
     <div className="ss-insight-board">
-      <div className="ss-insight-board__controls">
+      <Reveal kind="section" className="ss-insight-board__controls">
         <label className="ss-insight-search">
           <Search aria-hidden="true" />
           <span className="sr-only">Search Insights by title or topic</span>
@@ -114,7 +121,11 @@ export function InsightsBoard() {
           />
         </label>
 
-        <div className="ss-insight-filters" role="group" aria-label="Filter by category">
+        <div
+          className="ss-insight-filters"
+          role="group"
+          aria-label="Filter by category"
+        >
           <button
             type="button"
             className="ss-insight-filters__pill"
@@ -148,7 +159,7 @@ export function InsightsBoard() {
             </button>
           ))}
         </div>
-      </div>
+      </Reveal>
 
       <p className="ss-insight-board__count" role="status" aria-live="polite">
         {filtered.length} {filtered.length === 1 ? "topic" : "topics"}
@@ -166,7 +177,10 @@ export function InsightsBoard() {
         </div>
       ) : (
         <div className="ss-insight-board__empty">
-          <p>No topics match that search yet. Try another term, or clear the category filter.</p>
+          <p>
+            No topics match that search yet. Try another term, or clear the category
+            filter.
+          </p>
         </div>
       )}
     </div>

@@ -7,6 +7,7 @@ import type {
   MigratedContentBlock,
   MigratedContentRecord,
 } from "~/content/migrated/schema";
+import { Reveal } from "~/features/services-v2/components/primitives";
 
 const headingElements = {
   2: "h2",
@@ -165,7 +166,16 @@ export function MigratedContentRenderer({
         <section data-source-selector={section.sourceSelector} key={section.order}>
           <Stack gap="lg">
             {section.blocks.map((block) => (
-              <ContentBlock block={block} content={content} key={block.order} />
+              // Every block — heading, paragraph, list, image, quote, table —
+              // reveals as its own unit; the global reveal scheduler keeps the
+              // cascade strictly top-to-bottom however fast the page scrolls.
+              <Reveal
+                key={block.order}
+                kind={block.type === "image" ? "image" : "section"}
+                amount="some"
+              >
+                <ContentBlock block={block} content={content} />
+              </Reveal>
             ))}
           </Stack>
         </section>

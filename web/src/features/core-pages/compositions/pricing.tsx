@@ -149,7 +149,7 @@ export function PricingComposition() {
           />
           <PricingMetricInstrument
             metrics={PRICING_METRICS}
-            caption="Verified Silverstone AI results show why scope should be priced against commercial value and operating reality, not a generic menu."
+            caption="Documented returns from engagements priced on scope, risk and operating reality — the same discipline every proposal goes through."
             clarification="Results achieved through Silverstone AI systems. Outcomes vary by starting process, data quality, channel mix and implementation scope."
           />
         </div>

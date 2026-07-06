@@ -5,10 +5,39 @@ import { Link } from "react-router";
 import { ArrowUpRight, MapPin } from "~/components/icons/lucide";
 
 import { Container } from "~/components/layout/container";
+import { useRevealStart } from "~/motion/use-reveal-start";
 
 import { FOOTER_COLUMNS, PRIMARY_CTA } from "./nav-data";
 
 const CURRENT_YEAR = new Date().getFullYear();
+
+const entranceEase = [0.22, 1, 0.36, 1] as const;
+
+/**
+ * Footer entrance choreography, strictly top-to-bottom then left-to-right:
+ * the brand block and the column headers form the first visual row (left →
+ * right), then the link rows cascade downward as a diagonal wave (each row
+ * slightly after the previous, each column slightly after its left
+ * neighbour). All offsets hang off one scheduler-gated start, so the footer
+ * can never begin before page content above it has started its own reveal.
+ */
+const HEADER_STEP_S = 0.09;
+const ROW_STEP_S = 0.12;
+/* Kept below ROW_STEP_S ÷ (columns − 1) so a full link row always finishes
+   starting before the next row begins — strict top-to-bottom, left-to-right. */
+const COLUMN_STEP_S = 0.05;
+const LINKS_START_S = 0.46;
+
+/** The bottom bar begins only after the deepest link of the widest column. */
+const BOTTOM_BAR_START_S =
+  Math.max(
+    ...FOOTER_COLUMNS.map(
+      (column, columnIndex) =>
+        LINKS_START_S +
+        (column.links.length - 1) * ROW_STEP_S +
+        columnIndex * COLUMN_STEP_S,
+    ),
+  ) + 0.15;
 
 export function SiteFooter() {
   const footerRef = useRef<HTMLElement | null>(null);
@@ -17,22 +46,15 @@ export function SiteFooter() {
     margin: "0px 0px -10% 0px",
     once: true,
   });
+  const startDelayMs = useRevealStart(footerRef, footerInView, 0);
+  const base = (startDelayMs ?? 0) / 1000;
 
   return (
     <m.footer
       ref={footerRef}
       className="ss-footer"
       initial={false}
-      animate={footerInView ? "show" : "hidden"}
-      variants={{
-        hidden: { opacity: 1 },
-        show: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.22,
-          },
-        },
-      }}
+      animate={startDelayMs !== null ? "show" : "hidden"}
     >
       <div aria-hidden className="ss-footer__sweep" />
       <div aria-hidden className="ss-footer__lines" />
@@ -44,7 +66,7 @@ export function SiteFooter() {
               hidden: { opacity: 0, x: -22, y: 12, filter: "blur(8px)" },
               show: { opacity: 1, x: 0, y: 0, filter: "blur(0px)" },
             }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: base, duration: 1.2, ease: entranceEase }}
           >
             <Link
               className="ss-focus-ring ss-footer__brandmark inline-flex rounded-[var(--ss-radius-lg)] no-underline"
@@ -70,7 +92,7 @@ export function SiteFooter() {
               London, United Kingdom
             </p>
           </m.div>
-          {FOOTER_COLUMNS.map((column) => (
+          {FOOTER_COLUMNS.map((column, columnIndex) => (
             <m.nav
               aria-label={column.title}
               className="ss-footer__col"
@@ -79,20 +101,29 @@ export function SiteFooter() {
                 hidden: { opacity: 0, y: 22, filter: "blur(8px)" },
                 show: { opacity: 1, y: 0, filter: "blur(0px)" },
               }}
-              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                delay: base + 0.18 + columnIndex * HEADER_STEP_S,
+                duration: 1.1,
+                ease: entranceEase,
+              }}
             >
               <h2 className="ss-eyebrow text-titanium">{column.title}</h2>
               <ul className="mt-4 flex flex-col gap-2.5">
-                {column.links.map((link, index) => (
+                {column.links.map((link, rowIndex) => (
                   <m.li
                     key={`${column.title}-${link.href}`}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ amount: 0.65, once: true }}
+                    variants={{
+                      hidden: { opacity: 0, x: -10 },
+                      show: { opacity: 1, x: 0 },
+                    }}
                     transition={{
-                      delay: 0.3 + index * 0.09,
+                      delay:
+                        base +
+                        LINKS_START_S +
+                        rowIndex * ROW_STEP_S +
+                        columnIndex * COLUMN_STEP_S,
                       duration: 0.75,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: entranceEase,
                     }}
                   >
                     <Link
@@ -106,17 +137,33 @@ export function SiteFooter() {
               </ul>
               {column.title === "Company" ? (
                 <m.div
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.18 }}
+                  variants={{
+                    hidden: { opacity: 0, y: 14 },
+                    show: { opacity: 1, y: 0 },
+                  }}
+                  transition={{
+                    delay:
+                      base +
+                      LINKS_START_S +
+                      column.links.length * ROW_STEP_S +
+                      columnIndex * COLUMN_STEP_S,
+                    duration: 0.75,
+                    ease: entranceEase,
+                  }}
                 >
-                  <Link
-                    className="ss-focus-ring ss-footer__cta ss-transition-interactive"
-                    to={PRIMARY_CTA.href}
+                  <m.div
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ duration: 0.18 }}
                   >
-                    {PRIMARY_CTA.label}
-                    <ArrowUpRight aria-hidden className="size-4" />
-                  </Link>
+                    <Link
+                      className="ss-focus-ring ss-footer__cta ss-transition-interactive"
+                      to={PRIMARY_CTA.href}
+                    >
+                      {PRIMARY_CTA.label}
+                      <ArrowUpRight aria-hidden className="size-4" />
+                    </Link>
+                  </m.div>
                 </m.div>
               ) : null}
             </m.nav>
@@ -128,7 +175,11 @@ export function SiteFooter() {
             hidden: { opacity: 0, y: 14 },
             show: { opacity: 1, y: 0 },
           }}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            delay: base + BOTTOM_BAR_START_S,
+            duration: 1.1,
+            ease: entranceEase,
+          }}
         >
           <p>© {CURRENT_YEAR} Silverstone AI. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">

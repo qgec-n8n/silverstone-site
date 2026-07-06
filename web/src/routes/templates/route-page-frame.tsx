@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router";
 
+import { ArrowUpRight } from "~/components/icons/lucide";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";
@@ -11,8 +13,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
-import { TextLink } from "~/components/ui/text-link";
 import type { MigratedContentRecord } from "~/content/migrated";
+import { Reveal } from "~/features/services-v2/components/primitives";
 import { futureRouteManifest } from "~/data/future-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { getRouteExperienceByPath } from "~/data/route-experiences";
@@ -118,29 +120,50 @@ export function RoutePageFrame({
               <RevealSection enabled={motionEnabled}>{children}</RevealSection>
             ) : null}
 
-            {content ? (
-              <RevealSection enabled={motionEnabled}>
-                <MigratedContentRenderer content={content} />
-              </RevealSection>
-            ) : null}
+            {/* Migrated blocks each carry their own scheduled reveal (see
+                MigratedContentRenderer), so no outer RevealSection here —
+                wrapping them again would hide the whole article until the
+                wrapper fired and defeat the per-block cascade. */}
+            {content ? <MigratedContentRenderer content={content} /> : null}
 
             {showRelated && relatedRoutes.length > 0 ? (
-              <RevealSection enabled={motionEnabled}>
-                <nav aria-label="Related pages">
-                  <Stack gap="sm">
+              <nav aria-label="Related pages" className="ss-hairline-t pt-8">
+                <Stack gap="sm">
+                  <Reveal kind="pill">
+                    <span className="ss-eyebrow font-mono text-muted-foreground">
+                      Continue reading
+                    </span>
+                  </Reveal>
+                  <Reveal kind="section" delayMs={120}>
                     <h2 className="text-h5">Related pages</h2>
-                    <ul className="grid gap-3 md:grid-cols-2">
-                      {relatedRoutes.map((relatedRoute) => (
-                        <li key={relatedRoute.id}>
-                          <TextLink href={relatedRoute.path}>
-                            {relatedRoute.title}
-                          </TextLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </Stack>
-                </nav>
-              </RevealSection>
+                  </Reveal>
+                  <ul className="mt-2 grid gap-4 md:grid-cols-2">
+                    {relatedRoutes.map((relatedRoute, index) => (
+                      <li key={relatedRoute.id}>
+                        <Reveal kind="card" delayMs={index * 110} className="h-full">
+                          <Link
+                            to={relatedRoute.path}
+                            className="group flex h-full items-center justify-between gap-4 rounded-[var(--ss-radius-lg)] border border-border bg-card/40 px-5 py-4 no-underline transition-colors hover:border-[color:var(--ss-v2-signal-cyan)] hover:bg-card/70"
+                          >
+                            <span className="flex flex-col gap-1">
+                              <span className="ss-eyebrow font-mono text-[10px] text-muted-foreground">
+                                {relatedRoute.routeGroup.replace("-", " ")}
+                              </span>
+                              <span className="font-semibold text-foreground">
+                                {relatedRoute.title}
+                              </span>
+                            </span>
+                            <ArrowUpRight
+                              aria-hidden="true"
+                              className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[color:var(--ss-v2-signal-cyan)]"
+                            />
+                          </Link>
+                        </Reveal>
+                      </li>
+                    ))}
+                  </ul>
+                </Stack>
+              </nav>
             ) : null}
           </Stack>
           {emitSchema ? (

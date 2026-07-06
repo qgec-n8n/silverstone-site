@@ -95,20 +95,25 @@ export default function App() {
 export function ErrorBoundary({ error }: { error: unknown }) {
   const isRouteError = isRouteErrorResponse(error);
   const title =
-    isRouteError && error.status === 404 ? "Page not found" : "Application error";
+    isRouteError && error.status === 404
+      ? "This address doesn't resolve."
+      : "Something interrupted this route.";
   const message =
     isRouteError && error.status === 404
-      ? "The requested staging route does not exist."
-      : "The staging application could not render this route.";
+      ? "Nothing answers at this address. The homepage links to every live Silverstone system."
+      : "The application could not render this route. The homepage is live and monitored.";
 
   return (
     <AppShell>
       <PageSection spacing="compact">
         <Container>
           <Stack className="max-w-3xl" gap="md">
+            <span className="ss-eyebrow font-mono text-muted-foreground">
+              {isRouteError && error.status === 404 ? "404" : "Error"} · Route recovery
+            </span>
             <h1 className="text-h2">{title}</h1>
             <p className="text-body-lg text-muted-foreground">{message}</p>
-            <TextLink href="/">Return to the foundation</TextLink>
+            <TextLink href="/">Return to the homepage</TextLink>
           </Stack>
         </Container>
       </PageSection>

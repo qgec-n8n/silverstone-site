@@ -145,11 +145,11 @@ export function AboutComposition() {
             <Reveal kind="image">
               <ServiceFigure
                 image={{
-                  desktop: "/home-v2/studio-mission.webp",
-                  mobile: "/home-v2/studio-mission.webp",
-                  alt: "Cinematic Silverstone studio scene with a dark operating surface and luminous system interface.",
-                  width: 1400,
-                  height: 980,
+                  desktop: "/approved-images/about-standard.png",
+                  mobile: "/approved-images/about-standard-mobile.png",
+                  alt: "Illustrative engagement-ledger panel — assumptions, dependencies and ownership made visible — in a Silverstone studio scene overlooking London at night.",
+                  width: 2528,
+                  height: 1696,
                 }}
               />
             </Reveal>

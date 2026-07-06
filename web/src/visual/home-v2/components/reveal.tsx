@@ -1,8 +1,14 @@
-import { useInView, useReducedMotion, type Transition, type Variants } from "motion/react";
+import {
+  useInView,
+  useReducedMotion,
+  type Transition,
+  type Variants,
+} from "motion/react";
 import * as m from "motion/react-m";
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 
 import { cn } from "~/lib/utils";
+import { useRevealStart } from "~/motion/use-reveal-start";
 
 export type HomeRevealKind =
   | "card"
@@ -101,28 +107,84 @@ export function Reveal({
   onReveal,
 }: RevealProps) {
   const reducedMotion = useReducedMotion() ?? false;
-  const viewportEnterProps = onReveal ? { onViewportEnter: onReveal } : {};
 
   if (!reducedMotion && kind === "image") {
     return (
-      <ImageReveal className={className} dataAlign={dataAlign} dataWidth={dataWidth} delayMs={delayMs}>
+      <ImageReveal
+        className={className}
+        dataAlign={dataAlign}
+        dataWidth={dataWidth}
+        delayMs={delayMs}
+      >
         {children}
       </ImageReveal>
     );
   }
 
   return (
+    <ViewportReveal
+      className={className}
+      dataAlign={dataAlign}
+      dataWidth={dataWidth}
+      delayMs={delayMs}
+      kind={kind}
+      onReveal={onReveal}
+      reducedMotion={reducedMotion}
+    >
+      {children}
+    </ViewportReveal>
+  );
+}
+
+/**
+ * Scroll-triggered branch of Reveal. Start moments go through the global
+ * reveal scheduler (`~/motion/reveal-scheduler`) so near-simultaneous
+ * triggers still play strictly top-to-bottom, then left-to-right.
+ */
+function ViewportReveal({
+  children,
+  className,
+  dataAlign,
+  dataWidth,
+  delayMs,
+  kind,
+  onReveal,
+  reducedMotion,
+}: {
+  children: ReactNode;
+  className?: string | undefined;
+  dataAlign?: "center" | "start" | undefined;
+  dataWidth?: "full" | "wide" | undefined;
+  delayMs: number;
+  kind: HomeRevealKind;
+  onReveal?: (() => void) | undefined;
+  reducedMotion: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, {
+    amount: 0.4,
+    margin: "0px 0px -18% 0px",
+    once: true,
+  });
+  const startDelayMs = useRevealStart(ref, inView, delayMs);
+
+  useEffect(() => {
+    if (inView) {
+      onReveal?.();
+    }
+  }, [inView, onReveal]);
+
+  return (
     <m.div
+      ref={ref}
       className={cn("ss-hv2-reveal", className)}
       data-align={dataAlign}
       data-revealed="true"
       data-width={dataWidth}
       initial={reducedMotion ? false : "hidden"}
-      whileInView="show"
-      viewport={{ amount: 0.4, margin: "0px 0px -18% 0px", once: true }}
+      animate={reducedMotion || startDelayMs !== null ? "show" : "hidden"}
       variants={revealVariants[kind]}
-      transition={transitionFor(kind, delayMs, reducedMotion)}
-      {...viewportEnterProps}
+      transition={transitionFor(kind, startDelayMs ?? 0, reducedMotion)}
     >
       {children}
     </m.div>
@@ -195,7 +257,7 @@ function ImageReveal({
     once: true,
   });
   const imagesLoaded = useImagesLoaded(containerRef);
-  const show = inView && imagesLoaded;
+  const startDelayMs = useRevealStart(containerRef, inView && imagesLoaded, delayMs);
 
   return (
     <m.div
@@ -205,9 +267,9 @@ function ImageReveal({
       data-revealed="true"
       data-width={dataWidth}
       initial="hidden"
-      animate={show ? "show" : "hidden"}
+      animate={startDelayMs !== null ? "show" : "hidden"}
       variants={revealVariants.image}
-      transition={transitionFor("image", delayMs, false)}
+      transition={transitionFor("image", startDelayMs ?? 0, false)}
     >
       {children}
     </m.div>
