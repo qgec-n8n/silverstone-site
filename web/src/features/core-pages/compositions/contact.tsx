@@ -26,13 +26,13 @@ const CHOICE_CARDS: CoreCard[] = [
   {
     title: "Use Book when",
     body: "There is a real process, customer journey or digital problem and a live conversation will resolve the next step faster.",
-    href: "/book",
+    href: "/book#booking-calendar",
     label: "30 minutes",
   },
 ];
 
 const related: RelatedLink[] = [
-  { href: "/book", label: "Live route", title: "Book a call" },
+  { href: "/book#booking-calendar", label: "Live route", title: "Book a call" },
   { href: "/services", label: "Services", title: "Explore services" },
   { href: "/privacy-policy", label: "Governance", title: "Privacy policy" },
 ];
@@ -52,6 +52,7 @@ export function ContactComposition() {
           "Your enquiry is routed straight to the Silverstone inbox",
         ]}
         primaryCtaLabel="Open the enquiry form"
+        primaryCtaHref="/contact#contact-form"
         showcase={<SignalRouteSignature label="Direct correspondence" />}
       />
       <TrustStrip />
@@ -68,7 +69,13 @@ export function ContactComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="core-contact-form">
+      {/* `id="contact-form"` is the site-wide contact deep-link target — every
+          "Contact instead" CTA resolves to /contact#contact-form. */}
+      <section
+        className="ss-srv2-section"
+        id="contact-form"
+        aria-labelledby="core-contact-form"
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="Send an enquiry"

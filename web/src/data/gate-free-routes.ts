@@ -2,15 +2,16 @@ import { DEMO_REGISTRY } from "~/data/demo-registry";
 
 /**
  * Routes that skip the CoreSpin loader, Aether Flow intro and expandable-hero
- * gate entirely, rendering their body immediately. The Book page is the only
- * member today: every "Book a discovery call" deep-link across the site must
- * land on a usable, scrollable page with no intro to dismiss first.
+ * gate entirely, rendering their body immediately. Book and Contact are the
+ * two members: every "Book a discovery call" and "Contact instead" deep-link
+ * across the site must land on a usable, scrollable page with no intro to
+ * dismiss first — straight to the scheduler or the enquiry form.
  *
  * Read by the pre-hydration boot script in `root.tsx` (inlined verbatim, so
  * keep this list JSON-serialisable), `AppExperienceProvider` and
  * `CoreSpinLoader`, so all three agree on which routes are gate-free.
  */
-export const GATE_FREE_ROUTES: readonly string[] = ["/book"];
+export const GATE_FREE_ROUTES: readonly string[] = ["/book", "/contact"];
 
 /**
  * Exact path+hash deep links that skip the gate for that one navigation only

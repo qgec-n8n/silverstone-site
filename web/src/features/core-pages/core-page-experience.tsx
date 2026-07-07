@@ -26,15 +26,19 @@ type CorePath = "/how-we-work" | "/blog" | "/about" | "/pricing" | "/contact" | 
 
 const compositionByPath: Record<CorePath, () => Promise<{ default: ComponentType }>> = {
   "/how-we-work": () =>
-    import("./compositions/how-we-work").then((m) => ({ default: m.HowWeWorkComposition })),
+    import("./compositions/how-we-work").then((m) => ({
+      default: m.HowWeWorkComposition,
+    })),
   "/blog": () =>
     import("./compositions/insights").then((m) => ({ default: m.InsightsComposition })),
-  "/about": () => import("./compositions/about").then((m) => ({ default: m.AboutComposition })),
+  "/about": () =>
+    import("./compositions/about").then((m) => ({ default: m.AboutComposition })),
   "/pricing": () =>
     import("./compositions/pricing").then((m) => ({ default: m.PricingComposition })),
   "/contact": () =>
     import("./compositions/contact").then((m) => ({ default: m.ContactComposition })),
-  "/book": () => import("./compositions/book").then((m) => ({ default: m.BookComposition })),
+  "/book": () =>
+    import("./compositions/book").then((m) => ({ default: m.BookComposition })),
 };
 
 const lazyCompositionByPath = Object.fromEntries(

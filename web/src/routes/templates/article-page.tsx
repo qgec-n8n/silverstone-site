@@ -38,8 +38,9 @@ export function ArticlePage({ content = null, route }: ArticlePageProps) {
           </p>
           <p className="text-body-lg text-muted-foreground">
             Use the related service and industry pages below, or{" "}
-            <TextLink href="/book">book a discovery call</TextLink> if you want to
-            discuss the workflow in scope rather than wait for the article review.
+            <TextLink href="/book#booking-calendar">book a discovery call</TextLink> if
+            you want to discuss the workflow in scope rather than wait for the article
+            review.
           </p>
         </Stack>
       ) : null}

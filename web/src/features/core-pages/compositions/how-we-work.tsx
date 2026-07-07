@@ -75,7 +75,7 @@ const CONTROL_RISKS = [
 const related: RelatedLink[] = [
   { href: "/services/ai-consulting", label: "Service", title: "AI consulting" },
   { href: "/pricing", label: "Commercial", title: "Pricing model" },
-  { href: "/book", label: "Next step", title: "Discovery call" },
+  { href: "/book#booking-calendar", label: "Next step", title: "Discovery call" },
 ];
 
 export function HowWeWorkComposition() {

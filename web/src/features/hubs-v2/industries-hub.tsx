@@ -309,7 +309,11 @@ export function IndustriesHubExperience() {
             links={[
               { href: "/services", label: "Services", title: "Service architecture" },
               { href: "/how-we-work", label: "Process", title: "How We Work" },
-              { href: "/book", label: "Next step", title: "Book a discovery call" },
+              {
+                href: "/book#booking-calendar",
+                label: "Next step",
+                title: "Book a discovery call",
+              },
             ]}
           />
         </div>

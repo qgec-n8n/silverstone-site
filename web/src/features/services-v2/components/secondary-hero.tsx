@@ -106,6 +106,7 @@ export function SecondaryHero({
   lead,
   points,
   primaryCtaLabel,
+  primaryCtaHref = "/book#booking-calendar",
   showcase,
 }: {
   eyebrow: string;
@@ -115,6 +116,9 @@ export function SecondaryHero({
   lead: string;
   points: string[];
   primaryCtaLabel: string;
+  /** Defaults to the booking deep link; conversion pages point it at their
+   * own in-page target (e.g. the contact form) instead. */
+  primaryCtaHref?: string;
   showcase: ReactNode;
 }) {
   const location = useLocation();
@@ -173,7 +177,7 @@ export function SecondaryHero({
             </div>
             <Reveal kind="cta" delayMs={HERO_REVEAL_BASE_DELAY + 750} trigger="mount">
               <div className="ss-srv2-hero__actions">
-                <ServiceButton href="/book#booking-calendar" variant="primary">
+                <ServiceButton href={primaryCtaHref} variant="primary">
                   {primaryCtaLabel}
                 </ServiceButton>
                 <ServiceButton href="/how-we-work" variant="ghost" withArrow={false}>

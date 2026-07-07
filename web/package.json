@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "react-router dev --mode staging --host 0.0.0.0",
     "build": "react-router build --mode staging",
+    "build:production": "react-router build --mode production && node scripts/generate-seo-artifacts.mjs",
     "preview": "node --env-file=.env.staging scripts/preview.mjs",
     "typecheck": "react-router typegen && tsc --noEmit",
     "lint": "eslint src tests scripts *.config.ts --max-warnings=0",

@@ -25,7 +25,7 @@ import "~/styles/visual/home-v2.css";
 
 export function DemosLauncher() {
   const location = useLocation();
-  const { homepageBodyActive, routeBodyActive } = useAppExperience();
+  const { headerHidden } = useAppExperience();
   const [open, setOpen] = useState(false);
   const [lastPathname, setLastPathname] = useState(location.pathname);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -77,10 +77,13 @@ export function DemosLauncher() {
     return null;
   }
 
-  // Only ever floats over the Particles BG body — never over the Aether
-  // Flow hero (loading/intro/opening/closing), on the homepage or any other
-  // route experience.
-  if (!homepageBodyActive && !routeBodyActive) {
+  // Only ever floats over the Particles BG body — never over the loader or
+  // the Aether Flow hero (loading/intro/opening/closing). `headerHidden` is
+  // false exactly once the gate has fully cleared, including gate-free
+  // deep-link navigations (the launcher's own demo links), where no route
+  // experience plays at all — the launcher must survive those relocations
+  // rather than vanish on arrival.
+  if (headerHidden) {
     return null;
   }
 

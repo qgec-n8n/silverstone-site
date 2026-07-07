@@ -118,12 +118,14 @@ function isServiceExperienceRoute(pathname: string): boolean {
 export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const isHomeRoute = location.pathname === "/";
-  const routeExperienceActive = isRouteExperienceRoute(location.pathname, location.hash);
+  const routeExperienceActive = isRouteExperienceRoute(
+    location.pathname,
+    location.hash,
+  );
   const isServiceRoute = isServiceExperienceRoute(location.pathname);
 
   const [loaderActive, setLoaderActive] = useState(
-    () =>
-      !isGateFreeNavigation(normalizePathname(location.pathname), location.hash),
+    () => !isGateFreeNavigation(normalizePathname(location.pathname), location.hash),
   );
   const [homepageState, setHomepageState] = useState<HomepageState>(
     isHomeRoute ? "loading" : "body",

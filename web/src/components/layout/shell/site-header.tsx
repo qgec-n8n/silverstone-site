@@ -66,6 +66,12 @@ function isActive(menu: NavMenu, path: string): boolean {
   return path === menu.href || menu.items.some((item) => item.href === path);
 }
 
+/** Nav hrefs may carry an in-page anchor (e.g. /book#booking-calendar); the
+ * active state only cares about the route itself. */
+function linkPath(href: string): string {
+  return href.split("#")[0] ?? href;
+}
+
 function ActiveNavIndicator() {
   return (
     <m.span
@@ -351,10 +357,10 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
           <div className="flex flex-col gap-0.5 py-2">
             {PRIMARY_LINKS.map((link) => (
               <Link
-                aria-current={currentPath === link.href ? "page" : undefined}
+                aria-current={currentPath === linkPath(link.href) ? "page" : undefined}
                 className={cn(
                   "ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-3 text-base font-semibold no-underline",
-                  currentPath === link.href
+                  currentPath === linkPath(link.href)
                     ? "text-platinum"
                     : "text-titanium hover:text-platinum",
                 )}
@@ -507,7 +513,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
                 }
               />
               {PRIMARY_LINKS.map((link) => {
-                const active = location.pathname === link.href;
+                const active = location.pathname === linkPath(link.href);
                 const showIndicator = openMenu === null && active;
                 return (
                   <li key={link.href}>
@@ -545,7 +551,11 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
             whileHover="hover"
             whileTap="tap"
           >
-            <Link aria-label={PRIMARY_CTA.label} className={ctaClass} to={PRIMARY_CTA.href}>
+            <Link
+              aria-label={PRIMARY_CTA.label}
+              className={ctaClass}
+              to={PRIMARY_CTA.href}
+            >
               <span aria-hidden="true">
                 <span className="ss-nav-cta__label-short">Book</span>
                 <span className="ss-nav-cta__label-full">{PRIMARY_CTA.label}</span>

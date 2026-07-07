@@ -79,7 +79,7 @@ const ENGAGEMENT_SHAPES = [
 const related: RelatedLink[] = [
   { href: "/services/ai-automation", label: "Service", title: "Automation" },
   { href: "/how-we-work", label: "Process", title: "Delivery framework" },
-  { href: "/book", label: "Next step", title: "Discuss scope" },
+  { href: "/book#booking-calendar", label: "Next step", title: "Discuss scope" },
 ];
 
 export function PricingComposition() {

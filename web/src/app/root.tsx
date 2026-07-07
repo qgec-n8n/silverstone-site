@@ -20,8 +20,24 @@ import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";
 import { TextLink } from "~/components/ui/text-link";
 import { GATE_FREE_DEEP_LINKS, GATE_FREE_ROUTES } from "~/data/gate-free-routes";
+import { getPublicEnvironment } from "~/lib/environment";
 import { MotionProvider } from "~/motion";
 import "./app.css";
+
+/**
+ * Global robots meta: staging builds carry a blanket noindex; production
+ * builds omit it entirely so each route's own metadata (which emits
+ * "index, follow" for production-indexable routes) is authoritative. A
+ * malformed environment fails closed to noindex.
+ */
+function resolveGlobalRobotsMeta(): string | null {
+  try {
+    const environment = getPublicEnvironment();
+    return environment.isStaging ? environment.robotsMeta : null;
+  } catch {
+    return "noindex,nofollow,noarchive";
+  }
+}
 
 /*
  * Inlined verbatim into the pre-hydration boot script below, so the gate-free
@@ -37,12 +53,19 @@ const gateFreeRoutesJson = JSON.stringify(GATE_FREE_ROUTES);
 const gateFreeDeepLinksJson = JSON.stringify(GATE_FREE_DEEP_LINKS);
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const globalRobotsMeta = resolveGlobalRobotsMeta();
+
   return (
     <html className="dark" lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta content="noindex,nofollow,noarchive" name="robots" />
+        {globalRobotsMeta ? <meta content={globalRobotsMeta} name="robots" /> : null}
+        <link href="/favicon.ico" rel="icon" sizes="48x48" />
+        <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
+        <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
+        <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
+        <link href="/site.webmanifest" rel="manifest" />
         <script
           dangerouslySetInnerHTML={{
             // Set first-paint-safe experience flags before hydration so the

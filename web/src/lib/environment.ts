@@ -19,7 +19,7 @@ function requireValue(
 ): void {
   const actual = readString(source, key);
   if (actual !== expected) {
-    throw new Error(`${key} must be "${expected}" in staging`);
+    throw new Error(`${key} must be "${expected}"`);
   }
 }
 
@@ -38,9 +38,49 @@ function requireSafeUrl(value: string, key: string): string {
   return url.origin;
 }
 
+const PRODUCTION_ORIGIN = "https://silverstone-ai.com";
+const productionRobots = "index,follow";
+
+/**
+ * The production contract: only valid for the real silverstone-ai.com
+ * origin, indexable, live booking. Analytics stays disabled until
+ * explicitly authorised — flipping VITE_ANALYTICS_DISABLED is not enough on
+ * purpose.
+ */
+function parseProductionEnvironment(
+  source: PublicEnvironmentSource,
+): PublicEnvironment {
+  requireValue(source, "VITE_ROBOTS_META", productionRobots);
+  requireValue(source, "VITE_SITE_URL", PRODUCTION_ORIGIN);
+  requireValue(source, "VITE_CANONICAL_ORIGIN", PRODUCTION_ORIGIN);
+  requireValue(source, "VITE_BOOKING_MODE", "live");
+
+  if (readString(source, "VITE_ANALYTICS_DISABLED") !== "true") {
+    throw new Error("Analytics must remain disabled until explicitly authorised");
+  }
+
+  return {
+    analyticsEnabled: false,
+    bookingMode: "live",
+    canonicalOrigin: PRODUCTION_ORIGIN,
+    indexNowEnabled: false,
+    isStaging: false,
+    robotsMeta: productionRobots,
+    siteUrl: PRODUCTION_ORIGIN,
+    xRobotsTag: readString(source, "VITE_X_ROBOTS_TAG") || "all",
+  };
+}
+
 export function parsePublicEnvironment(
   source: PublicEnvironmentSource,
 ): PublicEnvironment {
+  // Production must be requested explicitly; every other value of
+  // VITE_STAGING_MODE falls through to the strict staging contract, which
+  // fails closed (noindex, mocks) on anything unexpected.
+  if (readString(source, "VITE_STAGING_MODE") === "false") {
+    return parseProductionEnvironment(source);
+  }
+
   requireValue(source, "VITE_STAGING_MODE", "true");
   requireValue(source, "VITE_ROBOTS_META", stagingRobots);
   requireValue(source, "VITE_X_ROBOTS_TAG", stagingRobots);

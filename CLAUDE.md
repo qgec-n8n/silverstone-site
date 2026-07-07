@@ -4,11 +4,9 @@ Project-level Claude guidance for `silverstone-site`.
 
 ## Core Rules
 
-- `/web` is the active React application.
+- `/web` is the site: the React/Vite application, deployed to Netlify from `web/build/client` (see root `netlify.toml`). The legacy root HTML/CSS/JS site was removed at the 2026-07-07 cutover; its history remains in git and in `docs/silverstone-transformation/`.
 - To save tokens and reduce usage, default all searches, reads, edits, validation, and browser work to `/web`; avoid broad repository scans.
-- Do not read, index, summarize, or scan frozen legacy-root implementation files, including root `*.html`, root `/src`, `/blog`, `/services`, `/assets`, `/attached_assets`, `/pricing-widget`, screenshots, generated artifacts, or root package/build files.
-- Use root-level files only for repository instructions or active configuration directly needed for the task, such as `AGENTS.md`, `CLAUDE.md`, `.claude/settings.json`, `.gitignore`, or targeted docs under `docs/silverstone-transformation/`.
-- The root HTML/CSS/JS site is frozen legacy production and migration evidence. Do not edit it unless the user explicitly names legacy-root files.
+- Root-level files are deployment and repository infrastructure only: `netlify.toml`, `netlify/functions/` (Resend contact email), `package.json` (proxy scripts to `/web`), instruction files, and docs.
 - Do not deploy, push, alter DNS, production Netlify settings, production environment variables, production Resend configuration, analytics identifiers, consent configuration, or Calendly account settings unless explicitly authorized.
 - Do not send production email, create real Calendly appointments, submit IndexNow requests, expose secrets, or discard uncommitted user changes.
 - Keep diffs minimal and scoped. Leave uncertain items unchanged and flag them for review.

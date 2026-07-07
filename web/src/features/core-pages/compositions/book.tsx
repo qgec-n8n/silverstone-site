@@ -50,7 +50,7 @@ const AGENDA_STEPS = [
 const related: RelatedLink[] = [
   { href: "/how-we-work", label: "Process", title: "How we work" },
   { href: "/pricing", label: "Commercial", title: "Pricing model" },
-  { href: "/contact", label: "Fallback", title: "Contact" },
+  { href: "/contact#contact-form", label: "Fallback", title: "Contact" },
 ];
 
 export function BookComposition() {
@@ -115,7 +115,7 @@ export function BookComposition() {
             heading="Need a *written route* instead?"
             body="No technical preparation is required. Bring one process, journey or digital problem and enough context to decide the sensible next step."
             buttonLabel="Send a written enquiry"
-            bookHref="/contact"
+            bookHref="/contact#contact-form"
           />
         </div>
       </section>

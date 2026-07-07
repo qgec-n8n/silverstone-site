@@ -65,7 +65,10 @@ export const ExploreSystemButton = forwardRef<
       <span className="ss-explore-cta__label">
         <span className="ss-explore-cta__dot" aria-hidden="true" />
         {label}
-        <ArrowRight className="ss-explore-cta__icon size-[1.05rem]" aria-hidden="true" />
+        <ArrowRight
+          className="ss-explore-cta__icon size-[1.05rem]"
+          aria-hidden="true"
+        />
       </span>
     </m.button>
   );

@@ -48,9 +48,11 @@ function parseCsv(text: string): string[][] {
 
 describe("benchmark metrics data layer", () => {
   it("preserves every approved CSV row and key claim field", () => {
+    // Source CSV relocated into the web tree at the 2026-07-07 legacy-root
+    // cutover; the figures are verified Silverstone results (audit 2026-06-23).
     const csvPath = resolve(
       process.cwd(),
-      "../attached_assets/silverstone_ai_agency_performance_metrics_23_6_2026_1782315909364.csv",
+      "tests/fixtures/silverstone_ai_agency_performance_metrics_23_6_2026.csv",
     );
     const parsed = parseCsv(readFileSync(csvPath, "utf8"));
     const header = parsed[0];

@@ -54,7 +54,7 @@ export function ConversionClimax() {
                 </Reveal>
                 <Reveal delayMs={310}>
                   <Button asChild size="lg" variant="outline">
-                    <Link to="/contact">Talk to us</Link>
+                    <Link to="/contact#contact-form">Talk to us</Link>
                   </Button>
                 </Reveal>
               </div>

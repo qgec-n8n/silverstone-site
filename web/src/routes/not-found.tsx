@@ -33,7 +33,7 @@ export default function NotFoundRoute() {
                     <Link to="/services">Explore the services</Link>
                   </Button>
                   <Button asChild size="lg" variant="ghost">
-                    <Link to="/book">Book a discovery call</Link>
+                    <Link to="/book#booking-calendar">Book a discovery call</Link>
                   </Button>
                 </div>
               </Stack>

@@ -6,6 +6,8 @@
  * relationship ServiceCards/ProcessTrack/RelatedRail have to the services-v2
  * compositions.
  */
+import { Link } from "react-router";
+
 import { ArrowUpRight, Check, type LucideIcon } from "~/components/icons/lucide";
 import { Reveal, RichText } from "~/features/services-v2/components/primitives";
 
@@ -48,9 +50,9 @@ export function CoreCardGrid({ cards }: { cards: CoreCard[] }) {
         return (
           <Reveal key={card.title} kind="card" delayMs={index * 110}>
             {card.href ? (
-              <a className="ss-srv2-card ss-core-card" href={card.href}>
+              <Link className="ss-srv2-card ss-core-card" to={card.href}>
                 {body}
-              </a>
+              </Link>
             ) : (
               <article className="ss-srv2-card ss-core-card">{body}</article>
             )}

@@ -1,8 +1,0 @@
-# Robots.txt generated to allow crawling of the Silverstone AI site.
-# This file tells search engine bots they can access all pages and provides
-# the location of the sitemap for better discovery.
-
-User-agent: *
-Allow: /
-
-Sitemap: https://silverstone-ai.com/sitemap.xml

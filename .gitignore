@@ -31,6 +31,7 @@ temp/
 !.env.example
 !web/.env.example
 !web/.env.staging
+!web/.env.production
 
 # OS and editor metadata
 .DS_Store

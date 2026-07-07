@@ -5,6 +5,7 @@
  * supplied value exactly.
  */
 import type { ReactNode } from "react";
+import { Link } from "react-router";
 
 import { ArrowUpRight, ShieldCheck, type LucideIcon } from "~/components/icons/lucide";
 import {
@@ -226,13 +227,13 @@ export function RelatedRail({ links }: { links: RelatedLink[] }) {
     <div className="ss-srv2-related">
       {links.map((link, index) => (
         <Reveal key={link.href} kind="card" delayMs={index * 120}>
-          <a className="ss-srv2-related__card" href={link.href}>
+          <Link className="ss-srv2-related__card" to={link.href}>
             <span className="ss-srv2-related__label">{link.label}</span>
             <span className="ss-srv2-related__title">
               {link.title}
               <ArrowUpRight aria-hidden="true" />
             </span>
-          </a>
+          </Link>
         </Reveal>
       ))}
     </div>

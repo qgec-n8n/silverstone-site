@@ -37,6 +37,10 @@ function createIcon(displayName: string, nodes: IconNode): LucideIcon {
   return Icon;
 }
 
+export const ArrowLeft = createIcon("ArrowLeft", [
+  ["path", { d: "m12 19-7-7 7-7" }],
+  ["path", { d: "M19 12H5" }],
+]);
 export const ArrowRight = createIcon("ArrowRight", [
   ["path", { d: "M5 12h14" }],
   ["path", { d: "m12 5 7 7-7 7" }],

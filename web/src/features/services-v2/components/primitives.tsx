@@ -24,6 +24,7 @@ import {
   type ReactNode,
   type RefObject,
 } from "react";
+import { Link } from "react-router";
 
 import {
   ArrowRight,
@@ -506,15 +507,31 @@ export function ServiceButton({
   withArrow = true,
   children,
   className,
+  href,
   ...rest
 }: ServiceButtonProps) {
-  return (
-    <a
-      className={`ss-srv2-btn ss-srv2-btn--${variant}${className ? ` ${className}` : ""}`}
-      {...rest}
-    >
+  const buttonClassName = `ss-srv2-btn ss-srv2-btn--${variant}${className ? ` ${className}` : ""}`;
+  const content = (
+    <>
       {children}
       {withArrow ? <ArrowRight aria-hidden="true" /> : null}
+    </>
+  );
+
+  // Internal routes navigate client-side so conversion deep links (e.g.
+  // /book#booking-calendar, /contact#contact-form) resolve through the shared
+  // deep-link scroll instead of a full document reload.
+  if (href?.startsWith("/")) {
+    return (
+      <Link className={buttonClassName} to={href} {...rest}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <a className={buttonClassName} href={href} {...rest}>
+      {content}
     </a>
   );
 }

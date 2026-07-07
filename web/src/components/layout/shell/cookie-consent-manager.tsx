@@ -205,7 +205,8 @@ function injectConsentManager(): void {
   const script = document.createElement("script");
   script.src =
     "https://cdn.jsdelivr.net/gh/silktide/consent-manager@v2.0.1/silktide-consent-manager.js";
-  script.integrity = "sha384-5Pt34uiIbCsvfiiZXoLi4HRf/YBXjr9c8e+gYeVo9smUaInNHYVtc8NZ8wUnXJIq";
+  script.integrity =
+    "sha384-5Pt34uiIbCsvfiiZXoLi4HRf/YBXjr9c8e+gYeVo9smUaInNHYVtc8NZ8wUnXJIq";
   script.crossOrigin = "anonymous";
   script.onload = () => {
     window.silktideConsentManager?.init(CONSENT_MANAGER_CONFIG);

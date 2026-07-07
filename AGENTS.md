@@ -4,17 +4,15 @@ Permanent repository contract for agents working in `silverstone-site`.
 
 ## Architecture Boundary
 
-- This repository contains two website implementations.
-- `/web` is the active React application.
-- The root HTML, CSS, and JavaScript site is frozen legacy production and migration evidence. Do not delete, overwrite, migrate, or edit it unless a prompt explicitly names legacy-root files.
+- `/web` is the single website implementation: the React/Vite application, deployed to Netlify from `web/build/client` via the root `netlify.toml` (`npm --prefix web run build:production`).
+- The legacy root HTML/CSS/JS site was deleted at the 2026-07-07 cutover on explicit user instruction; its history lives in git and in the transformation docs. Root-level runtime files are now limited to `netlify.toml`, `netlify/functions/` (Resend contact email) and the proxy `package.json`.
 - `/docs/silverstone-transformation/` contains authoritative architecture, route, functional, redirect, asset, quality, and decision records.
 - `web/AGENTS.override.md` contains `/web`-specific rules.
 
 ## Token And Read Scope
 
 - Default all investigation, search, file reads, edits, validation, and browser work to `/web`, the active React/Vite website.
-- Do not read, index, summarize, or scan frozen legacy-root implementation files, including root `*.html`, root `/src`, `/blog`, `/services`, `/assets`, `/attached_assets`, `/pricing-widget`, screenshots, generated artifacts, or root package/build files.
-- Use root-level files only when they are repository instructions or active configuration needed for the current task, such as `AGENTS.md`, `CLAUDE.md`, `.claude/settings.json`, `.gitignore`, or targeted docs under `docs/silverstone-transformation/`.
+- Use root-level files only when they are repository instructions or active configuration needed for the current task, such as `AGENTS.md`, `CLAUDE.md`, `netlify.toml`, `netlify/functions/`, `.claude/settings.json`, `.gitignore`, or targeted docs under `docs/silverstone-transformation/`.
 - When searching, prefer scoped commands such as `rg <pattern> web` or commands run from `/web`. Do not run broad repository scans unless the user explicitly asks for repository-wide forensics.
 - Read documentation surgically: open only the specific project document needed for the task, not whole docs folders.
 

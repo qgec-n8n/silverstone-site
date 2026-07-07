@@ -1,33 +1,18 @@
 {
-  "name": "silverstone-site-main",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "silverstone-site",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Silverstone AI marketing site — React/Vite application in /web, deployed via Netlify.",
   "scripts": {
     "dev": "npm --prefix web run dev -- --port ${PORT:-5000} --strictPort",
     "start": "npm run replit:dev",
     "replit:dev": "npm --prefix web run dev -- --port ${PORT:-5000} --strictPort",
     "replit:preview": "npm --prefix web run build && npm --prefix web run preview -- --port ${PORT:-5000}",
     "preview": "npm --prefix web run preview -- --port ${PORT:-4173}",
-    "test": "npm --prefix web run test",
-    "legacy:start": "serve . -l 5000 --no-clipboard",
-    "sync:fontawesome": "node scripts/sync-fontawesome.js",
-    "build:css": "npm run sync:fontawesome && node build-css.js",
-    "build:js": "node scripts/build-js.js",
-    "legacy:build": "node scripts/optimize-images.js && npm run build:css && npm run build:js",
     "build": "npm --prefix web run build",
-    "generate:sitemaps": "node scripts/generate-sitemaps.js",
-    "seo:audit": "node scripts/seo-audit.js",
-    "indexnow:submit": "node scripts/indexnow-submit.js"
+    "build:production": "npm --prefix web run build:production",
+    "test": "npm --prefix web run test",
+    "verify": "npm --prefix web run verify"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "prettier": "^3.7.4",
-    "sharp": "^0.34.5"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^7.2.0"
-  }
+  "license": "ISC"
 }

@@ -1,6 +1,13 @@
+# Production deploy of the React/Vite application in /web. The build emits
+# prerendered HTML for every route plus a SPA fallback, then writes
+# sitemap.xml and robots.txt into the publish directory
+# (web/scripts/generate-seo-artifacts.mjs).
 [build]
-  command = "npm run build && npm run generate:sitemaps"
-  publish = "."
+  command = "npm --prefix web ci && npm --prefix web run build:production"
+  publish = "web/build/client"
+
+[build.environment]
+  NODE_VERSION = "22"
 
 [[redirects]]
   from = "/index.html"
@@ -512,14 +519,19 @@
   status = 301
   force = true
 
-# Basic headers for preview environment
-[context.deploy-preview]
-  # Apply noindex headers only to deploy preview builds so that crawlers
-  # do not index temporary preview URLs. Production builds will not have
-  # this header and will be indexable.
+# SPA fallback: prerendered files are served directly (non-forced redirects
+# only apply when no file matches); anything else — client-only routes,
+# unknown URLs — falls through to the React Router SPA shell. Must stay the
+# LAST redirect in this file.
+[[redirects]]
+  from = "/*"
+  to = "/__spa-fallback.html"
+  status = 200
 
-[[context.production.plugins]]
-  package = "/plugins/netlify-plugin-indexnow"
+# Deploy previews live on *.netlify.app URLs; Netlify serves them with its
+# automatic X-Robots-Tag: noindex, so no extra configuration is needed here.
 
+# Serverless functions (contact-form email via Resend). RESEND_API_KEY,
+# CONTACT_TO and CONTACT_FROM come from the Netlify site environment.
 [functions]
   directory = "netlify/functions"

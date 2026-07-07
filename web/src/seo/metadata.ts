@@ -64,13 +64,16 @@ export function buildRouteMetadata(route: FutureRouteRecord): MetadataDescriptor
   const description = articleUnderReview
     ? "This guide is being updated to align with current evidence, provenance and approval requirements."
     : route.description;
-  const robots =
-    !environment.isStaging &&
-    route.productionIndexable &&
-    !articleUnderReview &&
-    route.lifecycle !== "draft"
+  const indexable =
+    route.productionIndexable && !articleUnderReview && route.lifecycle !== "draft";
+  // In production the fallback must be an explicit noindex — the
+  // environment's robotsMeta is the site default for indexable content
+  // ("index,follow"), never a safe value for withheld routes.
+  const robots = environment.isStaging
+    ? environment.robotsMeta
+    : indexable
       ? "index, follow"
-      : environment.robotsMeta;
+      : "noindex,nofollow";
   const descriptors: MetadataDescriptor[] = [
     { title },
     { name: "description", content: description },

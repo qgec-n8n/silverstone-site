@@ -315,62 +315,9 @@
   color: var(--srv2-accent);
 }
 
-.ss-core-form__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem;
-  align-items: center;
-}
-
-/* ---- Discovery snapshot (lead-qualifying segmented controls) ----------
-   A quiet instrument panel inside the form: two one-tap radio-pill groups
-   (budget + timeline) that read as a quick quiz rather than extra form
-   fields. Radios stay real inputs for keyboard and form semantics; the
-   pills are their styled labels. ---------------------------------------- */
-
-.ss-core-form__snapshot {
-  display: grid;
-  gap: 1.1rem;
-  padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
-  border-radius: var(--ss-radius-lg);
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-hairline));
-  background:
-    linear-gradient(
-      140deg,
-      color-mix(in srgb, var(--srv2-accent) 8%, transparent),
-      color-mix(in srgb, var(--srv2-accent-2) 6%, transparent) 55%,
-      transparent
-    ),
-    color-mix(in srgb, var(--ss-v2-void-black) 45%, transparent);
-}
-
-.ss-core-form__snapshot-title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin: 0;
-  color: var(--ss-v2-chrome);
-  font-family: var(--ss-font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.ss-core-form__snapshot-title em {
-  color: var(--srv2-ink-faint);
-  font-style: normal;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-}
-
-.ss-core-form__snapshot-hint {
-  margin: -0.5rem 0 0;
-  color: var(--srv2-ink-soft);
-  font-size: 0.86rem;
-  line-height: 1.5;
-}
+/* ---- Segmented radio pills (one-tap qualifier chips) -------------------
+   Radios stay real inputs for keyboard and form semantics; the pills are
+   their styled labels. Used by the enquiry console's chip groups. -------- */
 
 .ss-core-form__seg {
   display: grid;
@@ -446,6 +393,465 @@
 .ss-core-form__seg:disabled .ss-core-form__seg-option span {
   opacity: 0.55;
   cursor: default;
+}
+
+/* ---- Enquiry console (multi-stage sliding contact form) ---------------
+   The long field list is replaced by four compact sliding stages under a
+   mono console rail and a progress beam, matching the booking panel's
+   "instrument" language: quick qualifiers first, identity next, message
+   last. Stage panels slide horizontally (motion/react); everything below
+   is the console chrome, the budget slider instrument and the recap
+   manifest. ------------------------------------------------------------- */
+
+.ss-enq {
+  gap: 1.15rem;
+  overflow: clip;
+}
+
+.ss-enq__rail {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ss-enq__rail-track {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--srv2-accent) 50%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 40%, transparent) 60%,
+    transparent
+  );
+}
+
+.ss-enq__rail-count {
+  color: var(--srv2-ink-soft);
+}
+
+.ss-enq__stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-enq__stages button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+  border: none;
+  background: none;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-enq__stages li[data-state="done"] button {
+  color: var(--srv2-ink-soft);
+  cursor: pointer;
+}
+
+.ss-enq__stages li[data-state="done"] button:hover {
+  color: var(--srv2-ink);
+}
+
+.ss-enq__stages li[data-state="current"] button {
+  color: var(--ss-v2-chrome);
+}
+
+.ss-enq__stage-index {
+  color: color-mix(in srgb, var(--srv2-accent) 80%, var(--srv2-ink-faint));
+}
+
+.ss-enq__stages li[data-state="ahead"] .ss-enq__stage-index {
+  color: var(--srv2-ink-faint);
+}
+
+.ss-enq__beam {
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--srv2-hairline) 80%, transparent);
+  overflow: hidden;
+}
+
+.ss-enq__beam span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-enq__viewport {
+  position: relative;
+}
+
+.ss-enq__panel {
+  display: grid;
+  gap: 1.05rem;
+}
+
+.ss-enq__panel-title {
+  margin: 0;
+  color: var(--ss-v2-platinum);
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.45rem);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  outline: none;
+}
+
+.ss-enq__fields {
+  display: grid;
+  gap: 1.05rem;
+}
+
+.ss-enq__hint {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.ss-enq__field {
+  display: grid;
+  gap: 0.45rem;
+  color: var(--ss-v2-chrome);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.ss-enq__field em {
+  color: var(--srv2-ink-faint);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.ss-enq input::placeholder,
+.ss-enq textarea::placeholder {
+  color: var(--srv2-ink-faint);
+  opacity: 0.85;
+}
+
+.ss-enq__selectwrap {
+  position: relative;
+  display: block;
+}
+
+.ss-enq__selectwrap::after {
+  content: "";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 1.5px solid var(--srv2-accent);
+  border-bottom: 1.5px solid var(--srv2-accent);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.ss-enq select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 2.4rem;
+}
+
+.ss-enq select option {
+  background: var(--ss-v2-void-black);
+  color: var(--srv2-ink);
+}
+
+.ss-enq__error {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  color: #fca5a5;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.ss-enq__error svg {
+  flex: none;
+  width: 0.95rem;
+  height: 0.95rem;
+  margin-top: 0.12rem;
+}
+
+.ss-enq [aria-invalid="true"] {
+  border-color: color-mix(in srgb, #f87171 65%, transparent);
+}
+
+/* Budget slider instrument: glowing readout, beam track, orb thumb. The
+   fill percentage arrives via --enq-fill from the component. */
+.ss-enq__slider {
+  display: grid;
+  gap: 0.75rem;
+  padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-hairline));
+  background:
+    linear-gradient(
+      140deg,
+      color-mix(in srgb, var(--srv2-accent) 8%, transparent),
+      color-mix(in srgb, var(--srv2-accent-2) 6%, transparent) 55%,
+      transparent
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 45%, transparent);
+}
+
+.ss-enq__slider-readout {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.ss-enq__slider-readout span {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ss-enq__slider-readout strong {
+  color: var(--ss-v2-chrome);
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+}
+
+.ss-enq__slider input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 1.4rem;
+  margin: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.ss-enq__slider input[type="range"]:focus-visible {
+  outline: 2px solid var(--srv2-accent);
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+
+.ss-enq__slider input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2)) 0 0 /
+      var(--enq-fill, 0%) 100% no-repeat,
+    color-mix(in srgb, var(--srv2-hairline) 85%, transparent);
+}
+
+.ss-enq__slider input[type="range"]::-moz-range-track {
+  height: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--srv2-hairline) 85%, transparent);
+}
+
+.ss-enq__slider input[type="range"]::-moz-range-progress {
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
+}
+
+.ss-enq__slider input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: calc((3px - 1.05rem) / 2);
+  border-radius: 999px;
+  border: 2px solid var(--ss-v2-void-black);
+  background: radial-gradient(
+    circle at 35% 35%,
+    #ffffff,
+    var(--srv2-accent) 55%,
+    var(--srv2-accent-2)
+  );
+  box-shadow: 0 0 16px color-mix(in srgb, var(--srv2-accent) 75%, transparent);
+}
+
+.ss-enq__slider input[type="range"]::-moz-range-thumb {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  border: 2px solid var(--ss-v2-void-black);
+  background: radial-gradient(
+    circle at 35% 35%,
+    #ffffff,
+    var(--srv2-accent) 55%,
+    var(--srv2-accent-2)
+  );
+  box-shadow: 0 0 16px color-mix(in srgb, var(--srv2-accent) 75%, transparent);
+}
+
+.ss-enq__slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.ss-enq__slider-ticks span {
+  flex: 1;
+  color: var(--srv2-ink-faint);
+  font-size: 0.68rem;
+  font-weight: 550;
+  text-align: center;
+  transition: color var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-enq__slider-ticks span:first-child {
+  text-align: left;
+}
+
+.ss-enq__slider-ticks span:last-child {
+  text-align: right;
+}
+
+.ss-enq__slider-ticks span[data-active="true"] {
+  color: var(--srv2-ink);
+}
+
+.ss-enq__count {
+  justify-self: end;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+/* Recap manifest on the final stage: what the enquiry will carry. */
+.ss-enq__recap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.ss-enq__recap div {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.42rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 30%, var(--ss-v2-hairline));
+  border-radius: var(--ss-radius-pill);
+  background: color-mix(in srgb, var(--srv2-accent) 8%, transparent);
+}
+
+.ss-enq__recap dt {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ss-enq__recap dd {
+  margin: 0;
+  color: var(--srv2-ink);
+  font-size: 0.8rem;
+  font-weight: 550;
+}
+
+.ss-enq__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.85rem;
+  padding-top: 0.2rem;
+}
+
+.ss-enq__mailto {
+  color: var(--srv2-ink-soft);
+  font-size: 0.86rem;
+  font-weight: 550;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+}
+
+.ss-enq__mailto:hover {
+  color: var(--srv2-ink);
+}
+
+/* Sent state: the console becomes a confirmation terminal. */
+.ss-enq__terminal {
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+  padding: clamp(1.6rem, 1.2rem + 2vw, 3rem) 1rem;
+  text-align: center;
+}
+
+.ss-enq__terminal-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: #4ade80;
+  filter: drop-shadow(0 0 14px color-mix(in srgb, #4ade80 55%, transparent));
+}
+
+.ss-enq__terminal-title {
+  margin: 0;
+  color: var(--ss-v2-platinum);
+  font-size: 1.3rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.ss-enq__terminal-body {
+  margin: 0;
+  max-width: 34rem;
+  color: var(--srv2-ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.ss-enq__terminal-body strong {
+  color: var(--srv2-ink);
+}
+
+@media (max-width: 44rem) {
+  .ss-enq__stages {
+    gap: 0.4rem 0.9rem;
+  }
+
+  .ss-enq__slider-ticks span {
+    font-size: 0.6rem;
+  }
+
+  .ss-enq__nav {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .ss-enq__nav .ss-srv2-btn {
+    justify-content: center;
+  }
+
+  .ss-enq__mailto {
+    text-align: center;
+  }
 }
 
 .ss-core-booking {
@@ -610,9 +1016,15 @@
 
 .ss-core-booking__frame {
   position: relative;
+  /* Fallback height until Calendly's first `calendly.page_height` report
+     lands; once it does, an inline height tracks the widget's current page
+     exactly (see booking-panel.tsx) and this clamp no longer applies. */
   height: clamp(680px, 92vh, 1040px);
   padding: 1px;
   overflow: clip;
+  /* The pane breathes between Calendly's pages (calendar → times → details
+     form) rather than snapping. */
+  transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: var(--ss-radius-xl);
   background: linear-gradient(
     140deg,
@@ -675,6 +1087,10 @@
 @media (prefers-reduced-motion: reduce) {
   .ss-core-booking__live-dot {
     animation: none;
+  }
+
+  .ss-core-booking__frame {
+    transition: none;
   }
 }
 
