@@ -321,6 +321,9 @@
 
 .ss-core-form__seg {
   display: grid;
+  /* Rows hug their content: when two chip groups of different heights share
+     a grid row, the shorter group's chips must not stretch to fill. */
+  align-content: start;
   gap: 0.55rem;
   margin: 0;
   padding: 0;

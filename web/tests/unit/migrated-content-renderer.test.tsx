@@ -38,25 +38,13 @@ describe("MigratedContentRenderer", () => {
     expect(container.querySelectorAll("h1")).toHaveLength(0);
   });
 
-  it("renders article headings, paragraphs, lists and approved images", async () => {
-    const content = await loadMigratedContent(
-      "content-blog-ai-receptionist-small-business-2026",
-    );
+  it("renders headings, paragraphs and lists for legal prose", async () => {
+    const content = await loadMigratedContent("content-privacy-policy");
 
     const { container } = render(<MigratedContentRenderer content={content} />);
 
-    expect(
-      screen.getByRole("heading", {
-        name: "Why the front desk is the strongest first AI project",
-      }),
-    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "1. Introduction" })).toBeVisible();
     expect(container.querySelectorAll("p").length).toBeGreaterThan(5);
     expect(container.querySelectorAll("li").length).toBeGreaterThan(3);
-    expect(container.querySelectorAll("img").length).toBeGreaterThan(0);
-    expect(
-      [...container.querySelectorAll("img")].every(
-        (image) => image.hasAttribute("width") && image.hasAttribute("height"),
-      ),
-    ).toBe(true);
   });
 });

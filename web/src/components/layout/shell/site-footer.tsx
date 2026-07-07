@@ -46,15 +46,15 @@ export function SiteFooter() {
     margin: "0px 0px -10% 0px",
     once: true,
   });
-  const startDelayMs = useRevealStart(footerRef, footerInView, 0);
-  const base = (startDelayMs ?? 0) / 1000;
+  const start = useRevealStart(footerRef, footerInView, 0);
+  const base = (start?.delayMs ?? 0) / 1000;
 
   return (
     <m.footer
       ref={footerRef}
       className="ss-footer"
       initial={false}
-      animate={startDelayMs !== null ? "show" : "hidden"}
+      animate={start !== null ? "show" : "hidden"}
     >
       <div aria-hidden className="ss-footer__sweep" />
       <div aria-hidden className="ss-footer__lines" />

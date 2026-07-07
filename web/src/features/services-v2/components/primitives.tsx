@@ -136,7 +136,11 @@ const revealVariants: Record<RevealKind, Variants> = {
  * Reveal itself, which holds off firing until well into view for the same
  * reason.
  */
-function transitionFor(kind: RevealKind, delayMs: number): Transition {
+function transitionFor(kind: RevealKind, delayMs: number, instant = false): Transition {
+  if (instant) {
+    // Deep-link landing bypass: the shown state applies in a single frame.
+    return { delay: 0, duration: 0 };
+  }
   const delay = delayMs / 1000;
   if (kind === "pill") {
     return { delay, type: "spring", stiffness: 150, damping: 19, mass: 0.85 };
@@ -246,16 +250,16 @@ function ViewportReveal({
     margin: "0px 0px -18% 0px",
     once: true,
   });
-  const startDelayMs = useRevealStart(ref, inView, delayMs);
+  const start = useRevealStart(ref, inView, delayMs);
 
   return (
     <m.div
       ref={ref}
       className={className}
       initial="hidden"
-      animate={startDelayMs !== null ? "show" : "hidden"}
+      animate={start !== null ? "show" : "hidden"}
       variants={revealVariants[kind]}
-      transition={transitionFor(kind, startDelayMs ?? 0)}
+      transition={transitionFor(kind, start?.delayMs ?? 0, start?.instant ?? false)}
     >
       {children}
     </m.div>
@@ -325,16 +329,16 @@ function ImageReveal({
     once: true,
   });
   const imagesLoaded = useImagesLoaded(containerRef);
-  const startDelayMs = useRevealStart(containerRef, inView && imagesLoaded, delayMs);
+  const start = useRevealStart(containerRef, inView && imagesLoaded, delayMs);
 
   return (
     <m.div
       ref={containerRef}
       className={className}
       initial="hidden"
-      animate={startDelayMs !== null ? "show" : "hidden"}
+      animate={start !== null ? "show" : "hidden"}
       variants={revealVariants.image}
-      transition={transitionFor("image", startDelayMs ?? 0)}
+      transition={transitionFor("image", start?.delayMs ?? 0, start?.instant ?? false)}
     >
       {children}
     </m.div>
@@ -478,16 +482,16 @@ function WarningChecklistItem({ point, index }: { point: string; index: number }
     margin: "0px 0px -10% 0px",
     once: true,
   });
-  const startDelayMs = useRevealStart(ref, inView, index * 220);
+  const start = useRevealStart(ref, inView, index * 220);
 
   return (
     <m.li
       ref={ref}
       initial={{ opacity: 0, y: 22 }}
-      animate={startDelayMs !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
+      animate={start !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
       transition={{
-        delay: (startDelayMs ?? 0) / 1000,
-        duration: 0.75,
+        delay: (start?.delayMs ?? 0) / 1000,
+        duration: start?.instant ? 0 : 0.75,
         ease: entranceEase,
       }}
     >

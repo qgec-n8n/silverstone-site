@@ -9,7 +9,6 @@ const representativeRoutes = [
   "/industries",
   "/how-we-work",
   "/blog",
-  "/blog/ai-receptionist-small-business-2026",
   "/pricing",
   "/contact",
   "/book",
@@ -24,10 +23,6 @@ const representativeSourceCopy = [
   {
     path: "/industry/dentists",
     text: "Recall & rebooking",
-  },
-  {
-    path: "/blog/ai-receptionist-small-business-2026",
-    text: "The original article content is temporarily withheld while claim evidence, source provenance or duplication decisions are being reviewed.",
   },
 ];
 

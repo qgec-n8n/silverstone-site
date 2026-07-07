@@ -2,13 +2,13 @@ export type BookingMode = "disabled" | "mock" | "live";
 
 /**
  * Two valid shapes exist: the staging contract (noindex everywhere, mocks
- * only) and the production contract (silverstone-ai.com, indexable, live
- * booking). `parsePublicEnvironment` fails closed to staging rules for
- * anything else — analytics stays disabled in both until explicitly
- * authorised.
+ * only, analytics off) and the production contract (silverstone-ai.com,
+ * indexable, live booking, consent-gated GA4 — authorised for launch
+ * 2026-07-07). `parsePublicEnvironment` fails closed to staging rules for
+ * anything else.
  */
 export type PublicEnvironment = {
-  analyticsEnabled: false;
+  analyticsEnabled: boolean;
   bookingMode: BookingMode;
   canonicalOrigin: string;
   indexNowEnabled: false;

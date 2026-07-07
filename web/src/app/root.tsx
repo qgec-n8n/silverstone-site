@@ -21,6 +21,7 @@ import { Stack } from "~/components/layout/stack";
 import { TextLink } from "~/components/ui/text-link";
 import { GATE_FREE_DEEP_LINKS, GATE_FREE_ROUTES } from "~/data/gate-free-routes";
 import { getPublicEnvironment } from "~/lib/environment";
+import { AnalyticsScripts } from "~/lib/integrations/analytics";
 import { MotionProvider } from "~/motion";
 import "./app.css";
 
@@ -61,11 +62,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         {globalRobotsMeta ? <meta content={globalRobotsMeta} name="robots" /> : null}
+        <meta content="#05070A" name="theme-color" />
         <link href="/favicon.ico" rel="icon" sizes="48x48" />
         <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
         <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
-        <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
+        <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
         <link href="/site.webmanifest" rel="manifest" />
+        <AnalyticsScripts />
         <script
           dangerouslySetInnerHTML={{
             // Set first-paint-safe experience flags before hydration so the

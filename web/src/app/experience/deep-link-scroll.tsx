@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
+import { armRevealBypass } from "~/motion/reveal-bypass";
 
 /**
  * Single shared mechanism for every cross-page "deep link" in the app (the
@@ -12,6 +13,14 @@ import { useAppExperience } from "~/app/experience/app-experience";
  * so a link into a still-gated page (e.g. a demo anchor on a service page)
  * waits for that gate instead of scrolling to a hidden, zero-height target.
  *
+ * Landing directly on an action surface bypasses the entrance choreography:
+ * a cross-page (or initial-load) deep link jumps straight to the target and
+ * arms the reveal bypass so the section is simply there, fully shown — no
+ * scroll tour, no staggered entrance between the click and the calendar,
+ * form or demo frame. A same-page anchor click keeps the smooth scroll for
+ * spatial continuity, but the destination still reveals immediately on
+ * arrival.
+ *
  * The target's route chunk is code-split, so its id can take longer than a
  * couple of frames to mount (slowest in dev, on a cold chunk fetch) — a
  * MutationObserver waits for it to actually appear instead of guessing a
@@ -19,20 +28,40 @@ import { useAppExperience } from "~/app/experience/app-experience";
  */
 const GIVE_UP_AFTER_MS = 8000;
 
+/** Instant jump: reveals triggered in the next beat are the landing view. */
+const LANDING_BYPASS_MS = 1200;
+
+/** Smooth same-page scroll: window long enough to cover the travel time. */
+const SAME_PAGE_BYPASS_MS = 2400;
+
 export function useDeepLinkScroll(): void {
   const location = useLocation();
   const { headerHidden } = useAppExperience();
+  const seenPathnameRef = useRef<string | null>(null);
 
   useEffect(() => {
+    if (headerHidden) {
+      return undefined;
+    }
+
+    // A pathname is only "seen" once its gate has cleared — from then on,
+    // further hash changes on it are in-page anchor clicks, not landings.
+    const isLanding = seenPathnameRef.current !== location.pathname;
+    seenPathnameRef.current = location.pathname;
+
     const hash = location.hash;
-    if (!hash || headerHidden) {
+    if (!hash) {
       return undefined;
     }
 
     const id = decodeURIComponent(hash.slice(1));
 
     const scrollToTarget = (target: HTMLElement) => {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      armRevealBypass(isLanding ? LANDING_BYPASS_MS : SAME_PAGE_BYPASS_MS);
+      target.scrollIntoView({
+        behavior: isLanding ? "auto" : "smooth",
+        block: "start",
+      });
       if (!target.hasAttribute("tabindex")) {
         target.setAttribute("tabindex", "-1");
       }

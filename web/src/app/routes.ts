@@ -10,7 +10,12 @@ const routes = [
   route("industry/:slug", "../routes/industries/detail.tsx"),
   route("industries", "../routes/industries/index.tsx", { id: "industries-hub-alias" }),
   route("blog", "../routes/blog/index.tsx"),
-  route("blog/:slug", "../routes/blog/article.tsx"),
+  // Article routes were removed at the 2026-07-07 blog teardown. When the
+  // blog automation publishes its first article (route manifest entry +
+  // content module), re-register: route("blog/:slug", "../routes/blog/article.tsx")
+  // — with ssr:false the loader is only valid once at least one /blog/<slug>
+  // path is prerendered again. Until then unknown /blog/* URLs 301 to /blog
+  // at the CDN (netlify.toml) and hit the not-found route in the SPA.
   route("pricing", "../routes/conversion/pricing.tsx"),
   route("book", "../routes/conversion/book.tsx"),
   route("contact", "../routes/conversion/contact.tsx"),

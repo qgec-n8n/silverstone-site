@@ -125,7 +125,7 @@ function JourneyRailStage({ children, index }: { children: ReactNode; index: num
     margin: "0px 0px -12% 0px",
     once: true,
   });
-  const startDelayMs = useRevealStart(ref, inView, index * 160);
+  const start = useRevealStart(ref, inView, index * 160);
   const hidden = { opacity: 0, x: index % 2 === 0 ? -26 : 26 };
 
   return (
@@ -133,10 +133,10 @@ function JourneyRailStage({ children, index }: { children: ReactNode; index: num
       ref={ref}
       className="ss-ind2-rail__stage"
       initial={hidden}
-      animate={startDelayMs !== null ? { opacity: 1, x: 0 } : hidden}
+      animate={start !== null ? { opacity: 1, x: 0 } : hidden}
       transition={{
-        delay: (startDelayMs ?? 0) / 1000,
-        duration: 0.9,
+        delay: (start?.delayMs ?? 0) / 1000,
+        duration: start?.instant ? 0 : 0.9,
         ease: entranceEase,
       }}
     >
@@ -198,7 +198,7 @@ function BoundaryKeepItem({ item, index }: { item: string; index: number }) {
     margin: "0px 0px -10% 0px",
     once: true,
   });
-  const startDelayMs = useRevealStart(ref, inView, 120 + index * 130);
+  const start = useRevealStart(ref, inView, 120 + index * 130);
 
   return (
     <m.div
@@ -206,10 +206,10 @@ function BoundaryKeepItem({ item, index }: { item: string; index: number }) {
       className="ss-ind2-boundary__item"
       role="listitem"
       initial={{ opacity: 0, y: 18 }}
-      animate={startDelayMs !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+      animate={start !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
       transition={{
-        delay: (startDelayMs ?? 0) / 1000,
-        duration: 0.7,
+        delay: (start?.delayMs ?? 0) / 1000,
+        duration: start?.instant ? 0 : 0.7,
         ease: entranceEase,
       }}
     >
@@ -267,17 +267,17 @@ export function TrustTokens({ tokens }: { tokens: string[] }) {
 function TrustTokenItem({ token, index }: { token: string; index: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { amount: 0.8, once: true });
-  const startDelayMs = useRevealStart(ref, inView, index * 110);
+  const start = useRevealStart(ref, inView, index * 110);
 
   return (
     <m.span
       ref={ref}
       className="ss-ind2-tokens__item"
       initial={{ opacity: 0, y: 12 }}
-      animate={startDelayMs !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+      animate={start !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       transition={{
-        delay: (startDelayMs ?? 0) / 1000,
-        duration: 0.7,
+        delay: (start?.delayMs ?? 0) / 1000,
+        duration: start?.instant ? 0 : 0.7,
         ease: entranceEase,
       }}
     >

@@ -1,6 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
-
 import { describe, expect, it } from "vitest";
 
 import {
@@ -20,9 +17,11 @@ describe("migrated content baseline", () => {
     );
 
     expect(migratedContentIndex).toHaveLength(retainedRoutes.length);
-    expect(migratedContentIndex).toHaveLength(51);
+    // 19 records since the 2026-07-07 blog teardown (33 article modules
+    // removed; the blog hub itself is a bespoke composition).
+    expect(migratedContentIndex).toHaveLength(19);
     expect(new Set(migratedContentIndex.map((record) => record.routePath)).size).toBe(
-      51,
+      19,
     );
     expect(
       retainedRoutes.every((route) =>
@@ -37,10 +36,7 @@ describe("migrated content baseline", () => {
   });
 
   it("loads source-faithful typed content with metadata and schema provenance", async () => {
-    const [content, linkedArticle] = await Promise.all([
-      loadMigratedContent("content-services-dentists"),
-      loadMigratedContent("content-blog-ai-receptionist-small-business-2026"),
-    ]);
+    const content = await loadMigratedContent("content-services-dentists");
 
     expect(validateMigratedContentRecord(content)).toEqual([]);
     expect(content.kind).toBe("industry");
@@ -58,7 +54,6 @@ describe("migrated content baseline", () => {
       "https://silverstone-ai.com/services/dentists",
     );
     expect(content.schema.some((entry) => entry.types.includes("Service"))).toBe(true);
-    expect(linkedArticle.links.length).toBeGreaterThan(0);
   });
 
   it("keeps approved service pages out of the migrated-content registry", async () => {
@@ -81,25 +76,5 @@ describe("migrated content baseline", () => {
     expect([...book.interactions, ...contact.interactions]).toEqual(
       expect.arrayContaining([expect.objectContaining({ active: false })]),
     );
-  });
-
-  it("copies approved source imagery with provenance and dimensions", async () => {
-    const article = await loadMigratedContent(
-      "content-blog-ai-receptionist-small-business-2026",
-    );
-    const image = article.assets[0];
-
-    expect(image).toBeDefined();
-    if (!image) {
-      return;
-    }
-
-    expect(image.sourcePath).toContain("assets/images/");
-    expect(image.publicPath).toMatch(/^\/migrated-assets\//);
-    expect(image.width).toBeGreaterThan(0);
-    expect(image.height).toBeGreaterThan(0);
-    expect(
-      fs.existsSync(path.resolve(process.cwd(), "public", image.publicPath.slice(1))),
-    ).toBe(true);
   });
 });

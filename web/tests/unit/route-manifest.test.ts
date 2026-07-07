@@ -13,14 +13,14 @@ import {
 
 describe("route migration manifests", () => {
   it("assigns one validated future disposition to every A-01 canonical route", () => {
-    expect(futureRouteManifest).toHaveLength(59);
+    // 26 launch routes since the 2026-07-07 blog teardown; article routes
+    // return through the blog automation.
+    expect(futureRouteManifest).toHaveLength(26);
     expect(validateFutureRouteManifest(futureRouteManifest)).toEqual([]);
-    expect(new Set(futureRouteManifest.map((route) => route.path)).size).toBe(59);
-    expect(
-      futureRouteManifest
-        .filter((route) => route.lifecycle === "draft")
-        .map((route) => route.path),
-    ).toEqual(["/blog/ai-lead-capture-trades-uk-2026"]);
+    expect(new Set(futureRouteManifest.map((route) => route.path)).size).toBe(26);
+    expect(futureRouteManifest.filter((route) => route.lifecycle === "draft")).toEqual(
+      [],
+    );
   });
 
   it("represents every SEO baseline row with one legacy disposition", () => {

@@ -1,27 +1,48 @@
 import { useEffect, useState, type RefObject } from "react";
 
+import { isRevealBypassActive } from "./reveal-bypass";
 import { scheduleReveal } from "./reveal-scheduler";
+
+export type RevealStart = {
+  /** Effective delay before the entrance may begin, in milliseconds. */
+  delayMs: number;
+  /**
+   * True when the reveal fired inside a deep-link landing window (see
+   * `~/motion/reveal-bypass`): render the shown state immediately, with no
+   * entrance animation at all.
+   */
+  instant: boolean;
+};
 
 /**
  * Resolves the moment a reveal may begin. Pass `ready = true` once the
  * element's own trigger conditions are met (in view, images loaded, …); the
  * hook then reserves a slot with the global reveal scheduler exactly once and
- * returns the effective delay in milliseconds. `null` means "not yet
- * scheduled — hold the hidden state".
+ * returns the effective start. `null` means "not yet scheduled — hold the
+ * hidden state". Reveals triggered during a deep-link landing window resolve
+ * as `instant` and skip the scheduler entirely, so they neither wait for nor
+ * hold back other entrances.
  */
+function resolveRevealStart(element: Element, delayMs: number): RevealStart {
+  if (isRevealBypassActive()) {
+    return { delayMs: 0, instant: true };
+  }
+  return { delayMs: scheduleReveal(element, delayMs), instant: false };
+}
+
 export function useRevealStart(
   ref: RefObject<Element | null>,
   ready: boolean,
   delayMs: number,
-): number | null {
-  const [effectiveDelayMs, setEffectiveDelayMs] = useState<number | null>(null);
+): RevealStart | null {
+  const [start, setStart] = useState<RevealStart | null>(null);
 
   useEffect(() => {
-    if (!ready || effectiveDelayMs !== null || !ref.current) {
+    if (!ready || start !== null || !ref.current) {
       return;
     }
-    setEffectiveDelayMs(scheduleReveal(ref.current, delayMs));
-  }, [ready, effectiveDelayMs, delayMs, ref]);
+    setStart(resolveRevealStart(ref.current, delayMs));
+  }, [ready, start, delayMs, ref]);
 
-  return effectiveDelayMs;
+  return start;
 }

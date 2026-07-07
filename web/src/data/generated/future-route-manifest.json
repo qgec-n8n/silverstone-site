@@ -26,7 +26,10 @@
         "path": "/"
       }
     ],
-    "schemaTypes": ["WebPage", "BreadcrumbList"],
+    "schemaTypes": [
+      "WebPage",
+      "BreadcrumbList"
+    ],
     "contentId": "content-home",
     "sourceFile": "index.html",
     "sourcePath": "/index.html",
@@ -46,7 +49,12 @@
       "route-contact"
     ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -80,7 +88,10 @@
         "path": "/about"
       }
     ],
-    "schemaTypes": ["WebPage", "BreadcrumbList"],
+    "schemaTypes": [
+      "WebPage",
+      "BreadcrumbList"
+    ],
     "contentId": "content-about",
     "sourceFile": "about.html",
     "sourcePath": "/about.html",
@@ -91,9 +102,18 @@
     "primaryIntent": "brand and company information",
     "ctaIntent": "service discovery",
     "parentRouteId": null,
-    "relatedRouteIds": ["route-home", "route-services", "route-contact"],
+    "relatedRouteIds": [
+      "route-home",
+      "route-services",
+      "route-contact"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -127,7 +147,10 @@
         "path": "/services"
       }
     ],
-    "schemaTypes": ["CollectionPage", "BreadcrumbList"],
+    "schemaTypes": [
+      "CollectionPage",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services",
     "sourceFile": "services.html",
     "sourcePath": "/services.html",
@@ -150,7 +173,12 @@
       "route-services-trades"
     ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -184,7 +212,10 @@
         "path": "/pricing"
       }
     ],
-    "schemaTypes": ["WebPage", "BreadcrumbList"],
+    "schemaTypes": [
+      "WebPage",
+      "BreadcrumbList"
+    ],
     "contentId": "content-pricing",
     "sourceFile": "pricing.html",
     "sourcePath": "/pricing.html",
@@ -195,9 +226,18 @@
     "primaryIntent": "commercial conversion",
     "ctaIntent": "contact or booking",
     "parentRouteId": null,
-    "relatedRouteIds": ["route-services", "route-book", "route-contact"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-book",
+      "route-contact"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -231,7 +271,10 @@
         "path": "/blog"
       }
     ],
-    "schemaTypes": ["WebPage", "BreadcrumbList"],
+    "schemaTypes": [
+      "WebPage",
+      "BreadcrumbList"
+    ],
     "contentId": "content-blog",
     "sourceFile": "blog.html",
     "sourcePath": "/blog.html",
@@ -278,7 +321,12 @@
       "route-blog-quote-follow-up-automation-uk-trades-2026"
     ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -312,7 +360,10 @@
         "path": "/book"
       }
     ],
-    "schemaTypes": ["WebPage", "BreadcrumbList"],
+    "schemaTypes": [
+      "WebPage",
+      "BreadcrumbList"
+    ],
     "contentId": "content-book",
     "sourceFile": "book.html",
     "sourcePath": "/book.html",
@@ -323,9 +374,17 @@
     "primaryIntent": "commercial conversion",
     "ctaIntent": "contact or booking",
     "parentRouteId": null,
-    "relatedRouteIds": ["route-contact", "route-services"],
+    "relatedRouteIds": [
+      "route-contact",
+      "route-services"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -359,7 +418,10 @@
         "path": "/contact"
       }
     ],
-    "schemaTypes": ["WebPage", "BreadcrumbList"],
+    "schemaTypes": [
+      "WebPage",
+      "BreadcrumbList"
+    ],
     "contentId": "content-contact",
     "sourceFile": "contact.html",
     "sourcePath": "/contact.html",
@@ -370,9 +432,17 @@
     "primaryIntent": "commercial conversion",
     "ctaIntent": "contact or booking",
     "parentRouteId": null,
-    "relatedRouteIds": ["route-book", "route-services"],
+    "relatedRouteIds": [
+      "route-book",
+      "route-services"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -406,7 +476,10 @@
         "path": "/privacy-policy"
       }
     ],
-    "schemaTypes": ["WebPage", "BreadcrumbList"],
+    "schemaTypes": [
+      "WebPage",
+      "BreadcrumbList"
+    ],
     "contentId": "content-privacy-policy",
     "sourceFile": "privacy-policy.html",
     "sourcePath": "/privacy-policy.html",
@@ -417,9 +490,17 @@
     "primaryIntent": "legal information",
     "ctaIntent": "contact for questions",
     "parentRouteId": null,
-    "relatedRouteIds": ["route-home", "route-contact"],
+    "relatedRouteIds": [
+      "route-home",
+      "route-contact"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -457,7 +538,10 @@
         "path": "/services/dentists"
       }
     ],
-    "schemaTypes": ["Service", "BreadcrumbList"],
+    "schemaTypes": [
+      "Service",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services-dentists",
     "sourceFile": "services/dentists.html",
     "sourcePath": "/services/dentists.html",
@@ -468,9 +552,18 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-pricing",
+      "route-book"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -508,7 +601,10 @@
         "path": "/services/ecommerce"
       }
     ],
-    "schemaTypes": ["Service", "BreadcrumbList"],
+    "schemaTypes": [
+      "Service",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services-ecommerce",
     "sourceFile": "services/ecommerce.html",
     "sourcePath": "/services/ecommerce.html",
@@ -519,9 +615,18 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-pricing",
+      "route-book"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -559,7 +664,10 @@
         "path": "/services/estate-agents"
       }
     ],
-    "schemaTypes": ["Service", "BreadcrumbList"],
+    "schemaTypes": [
+      "Service",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services-estate-agents",
     "sourceFile": "services/estate-agents.html",
     "sourcePath": "/services/estate-agents.html",
@@ -570,9 +678,18 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-pricing",
+      "route-book"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -610,7 +727,10 @@
         "path": "/services/fitness-coaches"
       }
     ],
-    "schemaTypes": ["Service", "BreadcrumbList"],
+    "schemaTypes": [
+      "Service",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services-fitness-coaches",
     "sourceFile": "services/fitness-coaches.html",
     "sourcePath": "/services/fitness-coaches.html",
@@ -621,9 +741,18 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-pricing",
+      "route-book"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -661,7 +790,10 @@
         "path": "/services/gyms-fitness-studios"
       }
     ],
-    "schemaTypes": ["Service", "BreadcrumbList"],
+    "schemaTypes": [
+      "Service",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services-gyms-fitness-studios",
     "sourceFile": "services/gyms-fitness-studios.html",
     "sourcePath": "/services/gyms-fitness-studios.html",
@@ -672,9 +804,18 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-pricing",
+      "route-book"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -712,7 +853,10 @@
         "path": "/services/hospitality"
       }
     ],
-    "schemaTypes": ["Service", "BreadcrumbList"],
+    "schemaTypes": [
+      "Service",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services-hospitality",
     "sourceFile": "services/hospitality.html",
     "sourcePath": "/services/hospitality.html",
@@ -723,9 +867,18 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-pricing",
+      "route-book"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -763,7 +916,10 @@
         "path": "/services/physios-chiropractors"
       }
     ],
-    "schemaTypes": ["Service", "BreadcrumbList"],
+    "schemaTypes": [
+      "Service",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services-physios-chiropractors",
     "sourceFile": "services/physios-chiropractors.html",
     "sourcePath": "/services/physios-chiropractors.html",
@@ -774,9 +930,18 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-pricing",
+      "route-book"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -814,7 +979,10 @@
         "path": "/services/salons-barbers"
       }
     ],
-    "schemaTypes": ["Service", "BreadcrumbList"],
+    "schemaTypes": [
+      "Service",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services-salons-barbers",
     "sourceFile": "services/salons-barbers.html",
     "sourcePath": "/services/salons-barbers.html",
@@ -825,9 +993,18 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-pricing",
+      "route-book"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
   },
   {
@@ -865,7 +1042,10 @@
         "path": "/services/trades"
       }
     ],
-    "schemaTypes": ["Service", "BreadcrumbList"],
+    "schemaTypes": [
+      "Service",
+      "BreadcrumbList"
+    ],
     "contentId": "content-services-trades",
     "sourceFile": "services/trades.html",
     "sourcePath": "/services/trades.html",
@@ -876,1760 +1056,18 @@
     "primaryIntent": "industry service discovery",
     "ctaIntent": "pricing or booking",
     "parentRouteId": "route-services",
-    "relatedRouteIds": ["route-services", "route-pricing", "route-book"],
+    "relatedRouteIds": [
+      "route-services",
+      "route-pricing",
+      "route-book"
+    ],
     "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
+    "acceptanceIds": [
+      "AC-003",
+      "AC-004",
+      "AC-006",
+      "AC-007"
+    ],
     "unresolvedNotes": []
-  },
-  {
-    "id": "route-blog-ai-appointment-reminders-uk-2026",
-    "legacyRouteKey": "canonical:/blog/ai-appointment-reminders-uk-2026",
-    "path": "/blog/ai-appointment-reminders-uk-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-appointment-reminders-uk-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Appointment Reminders for UK SMEs | Silverstone AI",
-    "description": "AI appointment reminders help UK small businesses reduce no-shows, refill cancelled slots faster, and recover revenue without adding more manual admin.",
-    "h1": "AI Appointment Reminders for UK Small Businesses: Cut No-Shows and Recover Lost Revenue in 2026",
-    "headingPlan": {
-      "h1": "AI Appointment Reminders for UK Small Businesses: Cut No-Shows and Recover Lost Revenue in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Appointment Reminders for UK Small Businesses: Cut No-Shows and Recover Lost Revenue in 2026",
-        "path": "/blog/ai-appointment-reminders-uk-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-appointment-reminders-uk-2026",
-    "sourceFile": "blog/ai-appointment-reminders-uk-2026.html",
-    "sourcePath": "/blog/ai-appointment-reminders-uk-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-12T21:11:34.837Z",
-    "modifiedAt": "2026-03-12T21:11:34.837Z"
-  },
-  {
-    "id": "route-blog-ai-automation-failures-uk-smes-2026",
-    "legacyRouteKey": "canonical:/blog/ai-automation-failures-uk-smes-2026",
-    "path": "/blog/ai-automation-failures-uk-smes-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-automation-failures-uk-smes-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "Fix AI Automation Failures in UK SMEs | Silverstone AI",
-    "description": "AI automation failures are holding back UK SMEs in 2026. Learn how to fix workflows, data handoffs, compliance gaps and weak ownership.",
-    "h1": "How UK SMEs Can Fix AI Automation Failures in 2026",
-    "headingPlan": {
-      "h1": "How UK SMEs Can Fix AI Automation Failures in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK SMEs Can Fix AI Automation Failures in 2026",
-        "path": "/blog/ai-automation-failures-uk-smes-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-automation-failures-uk-smes-2026",
-    "sourceFile": "blog/ai-automation-failures-uk-smes-2026.html",
-    "sourcePath": "/blog/ai-automation-failures-uk-smes-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-automation-uk-gdpr-2026-sme-guide",
-    "legacyRouteKey": "canonical:/blog/ai-automation-uk-gdpr-2026-sme-guide",
-    "path": "/blog/ai-automation-uk-gdpr-2026-sme-guide",
-    "canonical": "https://silverstone-ai.com/blog/ai-automation-uk-gdpr-2026-sme-guide",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Automation and UK GDPR: A 2026 SME Guide | Silverstone AI",
-    "description": "AI automation UK GDPR guidance for UK SMEs in 2026: learn Article 22 risks, human review, vendor checks and safer rollout steps.",
-    "h1": "AI Automation and UK GDPR: A 2026 SME Guide",
-    "headingPlan": {
-      "h1": "AI Automation and UK GDPR: A 2026 SME Guide",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Automation and UK GDPR: A 2026 SME Guide",
-        "path": "/blog/ai-automation-uk-gdpr-2026-sme-guide"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-automation-uk-gdpr-2026-sme-guide",
-    "sourceFile": "blog/ai-automation-uk-gdpr-2026-sme-guide.html",
-    "sourcePath": "/blog/ai-automation-uk-gdpr-2026-sme-guide.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-automations-physio-chiro-clinics-uk",
-    "legacyRouteKey": "canonical:/blog/ai-automations-physio-chiro-clinics-uk",
-    "path": "/blog/ai-automations-physio-chiro-clinics-uk",
-    "canonical": "https://silverstone-ai.com/blog/ai-automations-physio-chiro-clinics-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Automations for Physio Clinics | Silverstone AI",
-    "description": "Practical AI automations for small physio and chiro clinics to cut missed sessions, improve treatment completion and save admin time with a 30–60 day rollout.",
-    "h1": "How small physio & chiro clinics can cut missed sessions and improve treatment completion with simple AI automations",
-    "headingPlan": {
-      "h1": "How small physio & chiro clinics can cut missed sessions and improve treatment completion with simple AI automations",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How small physio & chiro clinics can cut missed sessions and improve treatment completion with simple AI automations",
-        "path": "/blog/ai-automations-physio-chiro-clinics-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-automations-physio-chiro-clinics-uk",
-    "sourceFile": "blog/ai-automations-physio-chiro-clinics-uk.html",
-    "sourcePath": "/blog/ai-automations-physio-chiro-clinics-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-16T19:43:25.230Z",
-    "modifiedAt": "2026-03-16T19:43:25.230Z"
-  },
-  {
-    "id": "route-blog-ai-booking-automation-uk-hospitality-2026",
-    "legacyRouteKey": "canonical:/blog/ai-booking-automation-uk-hospitality-2026",
-    "path": "/blog/ai-booking-automation-uk-hospitality-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-booking-automation-uk-hospitality-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "rewrite",
-    "title": "AI Booking Automation for UK Hospitality | Silverstone AI",
-    "description": "AI booking automation helps UK hospitality capture more reservations, cut no-shows and answer guests faster across phone, chat and email.",
-    "h1": "AI Booking Automation for UK Hospitality in 2026",
-    "headingPlan": {
-      "h1": "AI Booking Automation for UK Hospitality in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Booking Automation for UK Hospitality in 2026",
-        "path": "/blog/ai-booking-automation-uk-hospitality-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-booking-automation-uk-hospitality-2026",
-    "sourceFile": "blog/ai-booking-automation-uk-hospitality-2026.html",
-    "sourcePath": "/blog/ai-booking-automation-uk-hospitality-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "rewrite",
-    "claimsStatus": "evidence-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-call-answering-trades-uk",
-    "legacyRouteKey": "canonical:/blog/ai-call-answering-trades-uk",
-    "path": "/blog/ai-call-answering-trades-uk",
-    "canonical": "https://silverstone-ai.com/blog/ai-call-answering-trades-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Call Answering for UK Trades | Silverstone AI",
-    "description": "See how UK trades firms can use AI call answering to capture emergency jobs after hours, triage leads, and stop missed calls turning into lost revenue.",
-    "h1": "How UK Trades Businesses Can Use AI Call Answering to Stop After-Hours Emergency Jobs Going to Competitors",
-    "headingPlan": {
-      "h1": "How UK Trades Businesses Can Use AI Call Answering to Stop After-Hours Emergency Jobs Going to Competitors",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK Trades Businesses Can Use AI Call Answering to Stop After-Hours Emergency Jobs Going to Competitors",
-        "path": "/blog/ai-call-answering-trades-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-call-answering-trades-uk",
-    "sourceFile": "blog/ai-call-answering-trades-uk.html",
-    "sourcePath": "/blog/ai-call-answering-trades-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-17T19:21:46.349Z",
-    "modifiedAt": "2026-03-17T19:21:46.349Z"
-  },
-  {
-    "id": "route-blog-ai-document-automation-uk-smes-2026",
-    "legacyRouteKey": "canonical:/blog/ai-document-automation-uk-smes-2026",
-    "path": "/blog/ai-document-automation-uk-smes-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-document-automation-uk-smes-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Document Automation for UK SMEs in 2026 | Silverstone AI",
-    "description": "AI document automation helps UK SMEs cut admin, extract data from forms and invoices, and route work faster with accurate, compliant workflows.",
-    "h1": "AI Document Automation for UK SMEs in 2026",
-    "headingPlan": {
-      "h1": "AI Document Automation for UK SMEs in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Document Automation for UK SMEs in 2026",
-        "path": "/blog/ai-document-automation-uk-smes-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-document-automation-uk-smes-2026",
-    "sourceFile": "blog/ai-document-automation-uk-smes-2026.html",
-    "sourcePath": "/blog/ai-document-automation-uk-smes-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-etas-smart-scheduling-uk-trades-2026",
-    "legacyRouteKey": "canonical:/blog/ai-etas-smart-scheduling-uk-trades-2026",
-    "path": "/blog/ai-etas-smart-scheduling-uk-trades-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-etas-smart-scheduling-uk-trades-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI ETAs and Smart Scheduling for UK Trades | Silverstone AI",
-    "description": "A practical guide for UK trades on using AI ETA automation and smart scheduling to reduce wasted drive time, improve response speed, and convert more enquiries.",
-    "h1": "How AI ETAs and Smart Scheduling Help UK Trades Win More Jobs and Cut Drive Time",
-    "headingPlan": {
-      "h1": "How AI ETAs and Smart Scheduling Help UK Trades Win More Jobs and Cut Drive Time",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How AI ETAs and Smart Scheduling Help UK Trades Win More Jobs and Cut Drive Time",
-        "path": "/blog/ai-etas-smart-scheduling-uk-trades-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-etas-smart-scheduling-uk-trades-2026",
-    "sourceFile": "blog/ai-etas-smart-scheduling-uk-trades-2026.html",
-    "sourcePath": "/blog/ai-etas-smart-scheduling-uk-trades-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T11:39:37.552Z",
-    "modifiedAt": "2026-03-13T11:39:37.552Z"
-  },
-  {
-    "id": "route-blog-ai-guest-concierge-hotels-bbs-uk",
-    "legacyRouteKey": "canonical:/blog/ai-guest-concierge-hotels-bbs-uk",
-    "path": "/blog/ai-guest-concierge-hotels-bbs-uk",
-    "canonical": "https://silverstone-ai.com/blog/ai-guest-concierge-hotels-bbs-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Guest Concierge for Hotels and B&Bs | Silverstone AI",
-    "description": "Practical 90‑day runbook for UK hotels and B&Bs to deploy a 24/7 AI guest‑concierge, with costs, ROI tips and a compact GDPR checklist for safe rollout.",
-    "h1": "How UK hotels and B&Bs can install a 24/7 AI guest‑concierge: a 90‑day checklist, costs and data‑risk",
-    "headingPlan": {
-      "h1": "How UK hotels and B&Bs can install a 24/7 AI guest‑concierge: a 90‑day checklist, costs and data‑risk",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK hotels and B&Bs can install a 24/7 AI guest‑concierge: a 90‑day checklist, costs and data‑risk",
-        "path": "/blog/ai-guest-concierge-hotels-bbs-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-guest-concierge-hotels-bbs-uk",
-    "sourceFile": "blog/ai-guest-concierge-hotels-bbs-uk.html",
-    "sourcePath": "/blog/ai-guest-concierge-hotels-bbs-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-17T07:06:17.171Z",
-    "modifiedAt": "2026-03-17T07:06:17.171Z"
-  },
-  {
-    "id": "route-blog-ai-lead-capture-trades-uk-2026",
-    "legacyRouteKey": "canonical:/blog/ai-lead-capture-trades-uk-2026",
-    "path": "/blog/ai-lead-capture-trades-uk-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-lead-capture-trades-uk-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "draft",
-    "legacyDisposition": "unresolved",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "unresolved",
-    "title": "AI Lead Capture for Trades in the UK | Silverstone AI",
-    "description": "AI lead capture trades helps UK firms answer more enquiries, book more jobs and cut missed calls with always-on automation in 2026.",
-    "h1": "AI Lead Capture for Trades in the UK: 2026 Guide",
-    "headingPlan": {
-      "h1": "AI Lead Capture for Trades in the UK: 2026 Guide",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": false,
-    "sitemap": false,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Lead Capture for Trades in the UK: 2026 Guide",
-        "path": "/blog/ai-lead-capture-trades-uk-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-lead-capture-trades-uk-2026",
-    "sourceFile": "blog/ai-lead-capture-trades-uk-2026.html",
-    "sourcePath": "/blog/ai-lead-capture-trades-uk-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "unresolved",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [
-      "live canonical is trapped in a forced self-redirect loop; Google Analytics tag absent; 3 images lack width/height; search-intent overlap requires migration-owner decision; browser error: Browser Use cannot open https://silverstone-ai.com/blog/ai-lead-capture-trades-uk-2026 in tab 1. Browser reported: net::ERR_TOO_MANY_REDIRECTS"
-    ],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-lead-capture-uk-trades-2026",
-    "legacyRouteKey": "canonical:/blog/ai-lead-capture-uk-trades-2026",
-    "path": "/blog/ai-lead-capture-uk-trades-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-lead-capture-uk-trades-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Lead Capture for UK Trades in 2026 | Silverstone AI",
-    "description": "AI lead capture helps UK trades firms win more jobs in 2026 by rescuing missed calls, speeding replies and turning enquiries into booked work.",
-    "h1": "AI Lead Capture for UK Trades in 2026",
-    "headingPlan": {
-      "h1": "AI Lead Capture for UK Trades in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Lead Capture for UK Trades in 2026",
-        "path": "/blog/ai-lead-capture-uk-trades-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-lead-capture-uk-trades-2026",
-    "sourceFile": "blog/ai-lead-capture-uk-trades-2026.html",
-    "sourcePath": "/blog/ai-lead-capture-uk-trades-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-lead-qualification-estate-agents-2026",
-    "legacyRouteKey": "canonical:/blog/ai-lead-qualification-estate-agents-2026",
-    "path": "/blog/ai-lead-qualification-estate-agents-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-lead-qualification-estate-agents-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Lead Qualification for UK Estate Agents | Silverstone AI",
-    "description": "AI lead qualification helps UK estate agents respond faster, route enquiries better, and turn more portal leads into viewings and valuations.",
-    "h1": "AI Lead Qualification for UK Estate Agents in 2026",
-    "headingPlan": {
-      "h1": "AI Lead Qualification for UK Estate Agents in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Lead Qualification for UK Estate Agents in 2026",
-        "path": "/blog/ai-lead-qualification-estate-agents-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-lead-qualification-estate-agents-2026",
-    "sourceFile": "blog/ai-lead-qualification-estate-agents-2026.html",
-    "sourcePath": "/blog/ai-lead-qualification-estate-agents-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-lead-scoring-fitness-coaches-uk",
-    "legacyRouteKey": "canonical:/blog/ai-lead-scoring-fitness-coaches-uk",
-    "path": "/blog/ai-lead-scoring-fitness-coaches-uk",
-    "canonical": "https://silverstone-ai.com/blog/ai-lead-scoring-fitness-coaches-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Lead Scoring for UK Fitness Coaches | Silverstone AI",
-    "description": "Learn how UK fitness coaches can use AI lead scoring to qualify DMs faster, filter low-intent enquiries, and route serious leads to the right next step.",
-    "h1": "AI Lead Scoring for UK Fitness Coaches",
-    "headingPlan": {
-      "h1": "AI Lead Scoring for UK Fitness Coaches",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Lead Scoring for UK Fitness Coaches",
-        "path": "/blog/ai-lead-scoring-fitness-coaches-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-lead-scoring-fitness-coaches-uk",
-    "sourceFile": "blog/ai-lead-scoring-fitness-coaches-uk.html",
-    "sourcePath": "/blog/ai-lead-scoring-fitness-coaches-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-19T07:05:00.982Z",
-    "modifiedAt": "2026-03-19T07:05:00.982Z"
-  },
-  {
-    "id": "route-blog-ai-missed-call-recovery-dentists-uk",
-    "legacyRouteKey": "canonical:/blog/ai-missed-call-recovery-dentists-uk",
-    "path": "/blog/ai-missed-call-recovery-dentists-uk",
-    "canonical": "https://silverstone-ai.com/blog/ai-missed-call-recovery-dentists-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Missed-Call Recovery for Dentists | Silverstone AI",
-    "description": "See how UK dental practices can use AI missed-call recovery to capture unanswered enquiries, protect revenue, and book more high-value appointments.",
-    "h1": "AI Missed-Call Recovery for Dentists",
-    "headingPlan": {
-      "h1": "AI Missed-Call Recovery for Dentists",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Missed-Call Recovery for Dentists",
-        "path": "/blog/ai-missed-call-recovery-dentists-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-missed-call-recovery-dentists-uk",
-    "sourceFile": "blog/ai-missed-call-recovery-dentists-uk.html",
-    "sourcePath": "/blog/ai-missed-call-recovery-dentists-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-19T12:03:40.660Z",
-    "modifiedAt": "2026-03-19T12:03:40.660Z"
-  },
-  {
-    "id": "route-blog-ai-no-show-reduction-uk-salons-barbers",
-    "legacyRouteKey": "canonical:/blog/ai-no-show-reduction-uk-salons-barbers",
-    "path": "/blog/ai-no-show-reduction-uk-salons-barbers",
-    "canonical": "https://silverstone-ai.com/blog/ai-no-show-reduction-uk-salons-barbers",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI No-Show Reduction for UK Salons | Silverstone AI",
-    "description": "AI no-show reduction helps UK salons and barbers cut missed bookings, fill gaps faster and protect revenue with reminders, deposits and waitlists.",
-    "h1": "AI No-show Reduction for UK Salons and Barbers",
-    "headingPlan": {
-      "h1": "AI No-show Reduction for UK Salons and Barbers",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI No-show Reduction for UK Salons and Barbers",
-        "path": "/blog/ai-no-show-reduction-uk-salons-barbers"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-no-show-reduction-uk-salons-barbers",
-    "sourceFile": "blog/ai-no-show-reduction-uk-salons-barbers.html",
-    "sourcePath": "/blog/ai-no-show-reduction-uk-salons-barbers.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-quote-follow-up-trades",
-    "legacyRouteKey": "canonical:/blog/ai-quote-follow-up-trades",
-    "path": "/blog/ai-quote-follow-up-trades",
-    "canonical": "https://silverstone-ai.com/blog/ai-quote-follow-up-trades",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Quote Follow-Up for Trades in 2026 | Silverstone AI",
-    "description": "Quote follow-up is often where trades jobs are won or lost, and AI can help make that process faster and more consistent. This article explains how to use it in",
-    "h1": "How UK Trades Businesses Can Use AI Quote Follow-Up to Win More Approved Jobs in 2026",
-    "headingPlan": {
-      "h1": "How UK Trades Businesses Can Use AI Quote Follow-Up to Win More Approved Jobs in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK Trades Businesses Can Use AI Quote Follow-Up to Win More Approved Jobs in 2026",
-        "path": "/blog/ai-quote-follow-up-trades"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-quote-follow-up-trades",
-    "sourceFile": "blog/ai-quote-follow-up-trades.html",
-    "sourcePath": "/blog/ai-quote-follow-up-trades.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-20T21:45:49.079Z",
-    "modifiedAt": "2026-03-20T21:45:49.079Z"
-  },
-  {
-    "id": "route-blog-ai-rebooking-journeys-salons-uk",
-    "legacyRouteKey": "canonical:/blog/ai-rebooking-journeys-salons-uk",
-    "path": "/blog/ai-rebooking-journeys-salons-uk",
-    "canonical": "https://silverstone-ai.com/blog/ai-rebooking-journeys-salons-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Rebooking Journeys for Salons | Silverstone AI",
-    "description": "Learn how UK salons and barbers can use consent-aware AI rebooking journeys to recover missed visits, fill diary gaps, and cut front-desk follow-up.",
-    "h1": "How UK Salons and Barbers Can Use AI Rebooking Journeys to Fill Gaps Between Appointments",
-    "headingPlan": {
-      "h1": "How UK Salons and Barbers Can Use AI Rebooking Journeys to Fill Gaps Between Appointments",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK Salons and Barbers Can Use AI Rebooking Journeys to Fill Gaps Between Appointments",
-        "path": "/blog/ai-rebooking-journeys-salons-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-rebooking-journeys-salons-uk",
-    "sourceFile": "blog/ai-rebooking-journeys-salons-uk.html",
-    "sourcePath": "/blog/ai-rebooking-journeys-salons-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-17T17:50:13.787Z",
-    "modifiedAt": "2026-03-17T17:50:13.787Z"
-  },
-  {
-    "id": "route-blog-ai-receptionist-small-business-2026",
-    "legacyRouteKey": "canonical:/blog/ai-receptionist-small-business-2026",
-    "path": "/blog/ai-receptionist-small-business-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-receptionist-small-business-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Receptionist for Small Business | Silverstone AI",
-    "description": "Discover why an AI receptionist is the strongest first AI project for small businesses in 2026, from missed-call capture to bookings, reminders, and follow-up.",
-    "h1": "AI Receptionist for Small Business in 2026: Why the Best First AI Project Is Your Front Desk",
-    "headingPlan": {
-      "h1": "AI Receptionist for Small Business in 2026: Why the Best First AI Project Is Your Front Desk",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Receptionist for Small Business in 2026: Why the Best First AI Project Is Your Front Desk",
-        "path": "/blog/ai-receptionist-small-business-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-receptionist-small-business-2026",
-    "sourceFile": "blog/ai-receptionist-small-business-2026.html",
-    "sourcePath": "/blog/ai-receptionist-small-business-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-receptionist-uk-costs-roi-2026",
-    "legacyRouteKey": "canonical:/blog/ai-receptionist-uk-costs-roi-2026",
-    "path": "/blog/ai-receptionist-uk-costs-roi-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-receptionist-uk-costs-roi-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Receptionists for UK SMEs: Costs and ROI | Silverstone AI",
-    "description": "AI receptionist UK pricing, setup and ROI explained for SMEs in 2026, with practical guidance on costs, compliance and front-desk automation.",
-    "h1": "AI Receptionists for UK SMEs: Costs and ROI in 2026",
-    "headingPlan": {
-      "h1": "AI Receptionists for UK SMEs: Costs and ROI in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Receptionists for UK SMEs: Costs and ROI in 2026",
-        "path": "/blog/ai-receptionist-uk-costs-roi-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-receptionist-uk-costs-roi-2026",
-    "sourceFile": "blog/ai-receptionist-uk-costs-roi-2026.html",
-    "sourcePath": "/blog/ai-receptionist-uk-costs-roi-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-returns-triage-ecommerce-uk",
-    "legacyRouteKey": "canonical:/blog/ai-returns-triage-ecommerce-uk",
-    "path": "/blog/ai-returns-triage-ecommerce-uk",
-    "canonical": "https://silverstone-ai.com/blog/ai-returns-triage-ecommerce-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Returns Triage for UK eCommerce | Silverstone AI",
-    "description": "Learn how UK eCommerce brands can use AI returns triage to answer common questions, route requests, and reduce support load without hiring more staff.",
-    "h1": "How UK eCommerce Brands Can Use AI Returns Triage to Cut Support Load and Keep Customers Happy",
-    "headingPlan": {
-      "h1": "How UK eCommerce Brands Can Use AI Returns Triage to Cut Support Load and Keep Customers Happy",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK eCommerce Brands Can Use AI Returns Triage to Cut Support Load and Keep Customers Happy",
-        "path": "/blog/ai-returns-triage-ecommerce-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-returns-triage-ecommerce-uk",
-    "sourceFile": "blog/ai-returns-triage-ecommerce-uk.html",
-    "sourcePath": "/blog/ai-returns-triage-ecommerce-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-17T20:02:47.193Z",
-    "modifiedAt": "2026-03-17T20:02:47.193Z"
-  },
-  {
-    "id": "route-blog-ai-viewing-feedback-estate-agents-uk",
-    "legacyRouteKey": "canonical:/blog/ai-viewing-feedback-estate-agents-uk",
-    "path": "/blog/ai-viewing-feedback-estate-agents-uk",
-    "canonical": "https://silverstone-ai.com/blog/ai-viewing-feedback-estate-agents-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Viewing Feedback for Estate Agents | Silverstone AI",
-    "description": "Learn how UK estate agents can automate post-viewing feedback, speed vendor updates, and surface hot leads without losing the personal touch.",
-    "h1": "How UK Estate Agents Can Use AI Viewing Feedback Follow-Up to Win More Instructions",
-    "headingPlan": {
-      "h1": "How UK Estate Agents Can Use AI Viewing Feedback Follow-Up to Win More Instructions",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK Estate Agents Can Use AI Viewing Feedback Follow-Up to Win More Instructions",
-        "path": "/blog/ai-viewing-feedback-estate-agents-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-viewing-feedback-estate-agents-uk",
-    "sourceFile": "blog/ai-viewing-feedback-estate-agents-uk.html",
-    "sourcePath": "/blog/ai-viewing-feedback-estate-agents-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-19T20:03:03.545Z",
-    "modifiedAt": "2026-03-19T20:03:03.545Z"
-  },
-  {
-    "id": "route-blog-ai-voice-agents-uk-smes-2026",
-    "legacyRouteKey": "canonical:/blog/ai-voice-agents-uk-smes-2026",
-    "path": "/blog/ai-voice-agents-uk-smes-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-voice-agents-uk-smes-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Voice Agents for UK SMEs in 2026 | Silverstone AI",
-    "description": "AI voice agents help UK SMEs answer more calls, book more enquiries and cut admin in 2026 with faster, smarter front-desk automation.",
-    "h1": "AI Voice Agents for UK SMEs in 2026",
-    "headingPlan": {
-      "h1": "AI Voice Agents for UK SMEs in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Voice Agents for UK SMEs in 2026",
-        "path": "/blog/ai-voice-agents-uk-smes-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-voice-agents-uk-smes-2026",
-    "sourceFile": "blog/ai-voice-agents-uk-smes-2026.html",
-    "sourcePath": "/blog/ai-voice-agents-uk-smes-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-website-tools-uk-small-businesses-2026",
-    "legacyRouteKey": "canonical:/blog/ai-website-tools-uk-small-businesses-2026",
-    "path": "/blog/ai-website-tools-uk-small-businesses-2026",
-    "canonical": "https://silverstone-ai.com/blog/ai-website-tools-uk-small-businesses-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Website Tools for UK Small Businesses | Silverstone AI",
-    "description": "AI website tools UK firms use in 2026 can turn more visitors into leads with chat, personalisation and follow-up automation.",
-    "h1": "AI Website Tools for UK Small Businesses in 2026",
-    "headingPlan": {
-      "h1": "AI Website Tools for UK Small Businesses in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "AI Website Tools for UK Small Businesses in 2026",
-        "path": "/blog/ai-website-tools-uk-small-businesses-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-website-tools-uk-small-businesses-2026",
-    "sourceFile": "blog/ai-website-tools-uk-small-businesses-2026.html",
-    "sourcePath": "/blog/ai-website-tools-uk-small-businesses-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T00:00:00.000Z",
-    "modifiedAt": "2026-03-13T00:00:00.000Z"
-  },
-  {
-    "id": "route-blog-ai-win-back-journeys-gyms-uk",
-    "legacyRouteKey": "canonical:/blog/ai-win-back-journeys-gyms-uk",
-    "path": "/blog/ai-win-back-journeys-gyms-uk",
-    "canonical": "https://silverstone-ai.com/blog/ai-win-back-journeys-gyms-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "AI Win-Back Journeys for Gyms | Silverstone AI",
-    "description": "Learn how UK gyms and fitness studios can use AI win-back journeys to re-engage inactive members, reduce churn, and recover revenue without blanket discounts.",
-    "h1": "How UK Gyms and Fitness Studios Can Use AI Win-Back Journeys to Reactivate Inactive Members",
-    "headingPlan": {
-      "h1": "How UK Gyms and Fitness Studios Can Use AI Win-Back Journeys to Reactivate Inactive Members",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK Gyms and Fitness Studios Can Use AI Win-Back Journeys to Reactivate Inactive Members",
-        "path": "/blog/ai-win-back-journeys-gyms-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-ai-win-back-journeys-gyms-uk",
-    "sourceFile": "blog/ai-win-back-journeys-gyms-uk.html",
-    "sourcePath": "/blog/ai-win-back-journeys-gyms-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-18T07:06:08.690Z",
-    "modifiedAt": "2026-03-18T07:06:08.690Z"
-  },
-  {
-    "id": "route-blog-clinic-rebooking-physio-chiro-uk",
-    "legacyRouteKey": "canonical:/blog/clinic-rebooking-physio-chiro-uk",
-    "path": "/blog/clinic-rebooking-physio-chiro-uk",
-    "canonical": "https://silverstone-ai.com/blog/clinic-rebooking-physio-chiro-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "Clinic Rebooking Automation for Physios | Silverstone AI",
-    "description": "Learn how UK physio and chiropractic clinics can automate rebooking, reduce patient drop-off, and keep treatment plans moving with less admin.",
-    "h1": "How UK Physio and Chiropractic Clinics Can Automate Rebooking to Keep Patients on Plan",
-    "headingPlan": {
-      "h1": "How UK Physio and Chiropractic Clinics Can Automate Rebooking to Keep Patients on Plan",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK Physio and Chiropractic Clinics Can Automate Rebooking to Keep Patients on Plan",
-        "path": "/blog/clinic-rebooking-physio-chiro-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-clinic-rebooking-physio-chiro-uk",
-    "sourceFile": "blog/clinic-rebooking-physio-chiro-uk.html",
-    "sourcePath": "/blog/clinic-rebooking-physio-chiro-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-18T12:05:41.591Z",
-    "modifiedAt": "2026-03-18T12:05:41.591Z"
-  },
-  {
-    "id": "route-blog-dental-intake-e-consent-automation-uk",
-    "legacyRouteKey": "canonical:/blog/dental-intake-e-consent-automation-uk",
-    "path": "/blog/dental-intake-e-consent-automation-uk",
-    "canonical": "https://silverstone-ai.com/blog/dental-intake-e-consent-automation-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "Dental Intake and E-Consent Automation - Silverstone AI",
-    "description": "A practical guide for UK dental practices to automate patient intake and e‑consent, cut reception admin, speed treatment starts, and keep GDPR‑compliant records.",
-    "h1": "How UK dental practices can automate patient intake and e‑consent to cut admin, speed treatment starts and",
-    "headingPlan": {
-      "h1": "How UK dental practices can automate patient intake and e‑consent to cut admin, speed treatment starts and",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How UK dental practices can automate patient intake and e‑consent to cut admin, speed treatment starts and",
-        "path": "/blog/dental-intake-e-consent-automation-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-dental-intake-e-consent-automation-uk",
-    "sourceFile": "blog/dental-intake-e-consent-automation-uk.html",
-    "sourcePath": "/blog/dental-intake-e-consent-automation-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-17T12:08:22.835Z",
-    "modifiedAt": "2026-03-17T12:08:22.835Z"
-  },
-  {
-    "id": "route-blog-dental-recall-automation-uk-2026",
-    "legacyRouteKey": "canonical:/blog/dental-recall-automation-uk-2026",
-    "path": "/blog/dental-recall-automation-uk-2026",
-    "canonical": "https://silverstone-ai.com/blog/dental-recall-automation-uk-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "Dental Recall Automation for UK Practices | Silverstone AI",
-    "description": "A practical guide for UK dental practices on automating recalls, reminders, and DNA follow-up to fill more hygiene appointments and reduce reception workload.",
-    "h1": "Dental Recall Automation for UK Practices: Fill More Hygiene Appointments and Reduce DNAs in 2026",
-    "headingPlan": {
-      "h1": "Dental Recall Automation for UK Practices: Fill More Hygiene Appointments and Reduce DNAs in 2026",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "Dental Recall Automation for UK Practices: Fill More Hygiene Appointments and Reduce DNAs in 2026",
-        "path": "/blog/dental-recall-automation-uk-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-dental-recall-automation-uk-2026",
-    "sourceFile": "blog/dental-recall-automation-uk-2026.html",
-    "sourcePath": "/blog/dental-recall-automation-uk-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-12T21:48:00.147Z",
-    "modifiedAt": "2026-03-12T21:48:00.147Z"
-  },
-  {
-    "id": "route-blog-dm-to-client-automation-uk-fitness-coaches-2026",
-    "legacyRouteKey": "canonical:/blog/dm-to-client-automation-uk-fitness-coaches-2026",
-    "path": "/blog/dm-to-client-automation-uk-fitness-coaches-2026",
-    "canonical": "https://silverstone-ai.com/blog/dm-to-client-automation-uk-fitness-coaches-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "DM Automation for UK Fitness Coaches | Silverstone AI",
-    "description": "A practical 3-step system for UK fitness coaches to turn Instagram DMs into booked calls or paid clients with faster replies and compliant follow-up.",
-    "h1": "3-Step DM-to-Client Automation for UK Fitness Coaches: Close More Clients Without Living in Your Inbox",
-    "headingPlan": {
-      "h1": "3-Step DM-to-Client Automation for UK Fitness Coaches: Close More Clients Without Living in Your Inbox",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "3-Step DM-to-Client Automation for UK Fitness Coaches: Close More Clients Without Living in Your Inbox",
-        "path": "/blog/dm-to-client-automation-uk-fitness-coaches-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-dm-to-client-automation-uk-fitness-coaches-2026",
-    "sourceFile": "blog/dm-to-client-automation-uk-fitness-coaches-2026.html",
-    "sourcePath": "/blog/dm-to-client-automation-uk-fitness-coaches-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T12:39:58.392Z",
-    "modifiedAt": "2026-03-13T12:39:58.392Z"
-  },
-  {
-    "id": "route-blog-estate-agent-viewing-confirmations-uk",
-    "legacyRouteKey": "canonical:/blog/estate-agent-viewing-confirmations-uk",
-    "path": "/blog/estate-agent-viewing-confirmations-uk",
-    "canonical": "https://silverstone-ai.com/blog/estate-agent-viewing-confirmations-uk",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "Estate Agent Viewing Confirmations | Silverstone AI",
-    "description": "A practical guide for small UK estate agents to implement automated viewing confirmations, reduce no-shows, improve diary utilisation, and speed vendor follow-up.",
-    "h1": "How small UK estate agents can use automated viewing confirmations to cut no-shows and win instructions",
-    "headingPlan": {
-      "h1": "How small UK estate agents can use automated viewing confirmations to cut no-shows and win instructions",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How small UK estate agents can use automated viewing confirmations to cut no-shows and win instructions",
-        "path": "/blog/estate-agent-viewing-confirmations-uk"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-estate-agent-viewing-confirmations-uk",
-    "sourceFile": "blog/estate-agent-viewing-confirmations-uk.html",
-    "sourcePath": "/blog/estate-agent-viewing-confirmations-uk.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-16T20:44:34.320Z",
-    "modifiedAt": "2026-03-16T20:44:34.320Z"
-  },
-  {
-    "id": "route-blog-gym-booking-automation-uk-gyms-studios-2026",
-    "legacyRouteKey": "canonical:/blog/gym-booking-automation-uk-gyms-studios-2026",
-    "path": "/blog/gym-booking-automation-uk-gyms-studios-2026",
-    "canonical": "https://silverstone-ai.com/blog/gym-booking-automation-uk-gyms-studios-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "Gym Booking Automation for UK Studios | Silverstone AI",
-    "description": "A practical guide for UK gyms and studios on using booking automation, waitlists, reminders, and rebooking journeys to fill more classes and reduce no-shows.",
-    "h1": "How to fill more classes and cut no-shows: a practical automation guide for UK gyms and studios",
-    "headingPlan": {
-      "h1": "How to fill more classes and cut no-shows: a practical automation guide for UK gyms and studios",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "How to fill more classes and cut no-shows: a practical automation guide for UK gyms and studios",
-        "path": "/blog/gym-booking-automation-uk-gyms-studios-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-gym-booking-automation-uk-gyms-studios-2026",
-    "sourceFile": "blog/gym-booking-automation-uk-gyms-studios-2026.html",
-    "sourcePath": "/blog/gym-booking-automation-uk-gyms-studios-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T12:49:16.318Z",
-    "modifiedAt": "2026-03-13T12:49:16.318Z"
-  },
-  {
-    "id": "route-blog-post-purchase-automation-uk-ecommerce-repeat-customers",
-    "legacyRouteKey": "canonical:/blog/post-purchase-automation-uk-ecommerce-repeat-customers",
-    "path": "/blog/post-purchase-automation-uk-ecommerce-repeat-customers",
-    "canonical": "https://silverstone-ai.com/blog/post-purchase-automation-uk-ecommerce-repeat-customers",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "Post-Purchase Automation for UK eCommerce | Silverstone AI",
-    "description": "A practical UK guide to seven post-purchase automations that recover lost revenue, reduce support load, and turn first orders into repeat customers.",
-    "h1": "Post‑Purchase Automation for UK eCommerce: 7 Simple Systems That Turn One‑Time Buyers into Repeat Customers",
-    "headingPlan": {
-      "h1": "Post‑Purchase Automation for UK eCommerce: 7 Simple Systems That Turn One‑Time Buyers into Repeat Customers",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "Post‑Purchase Automation for UK eCommerce: 7 Simple Systems That Turn One‑Time Buyers into Repeat Customers",
-        "path": "/blog/post-purchase-automation-uk-ecommerce-repeat-customers"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-post-purchase-automation-uk-ecommerce-repeat-customers",
-    "sourceFile": "blog/post-purchase-automation-uk-ecommerce-repeat-customers.html",
-    "sourcePath": "/blog/post-purchase-automation-uk-ecommerce-repeat-customers.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T12:04:28.587Z",
-    "modifiedAt": "2026-03-13T12:04:28.587Z"
-  },
-  {
-    "id": "route-blog-quote-chase-automation-uk-trades-accepted-jobs-2026",
-    "legacyRouteKey": "canonical:/blog/quote-chase-automation-uk-trades-accepted-jobs-2026",
-    "path": "/blog/quote-chase-automation-uk-trades-accepted-jobs-2026",
-    "canonical": "https://silverstone-ai.com/blog/quote-chase-automation-uk-trades-accepted-jobs-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "Quote Chase Automation for UK Trades | Silverstone AI",
-    "description": "A practical guide for UK trades firms on automating quote follow-up, reducing admin, and recovering more accepted jobs without spending evenings chasing.",
-    "h1": "Quote Chase Automation for UK Trades: Win More Accepted Jobs Without Spending Evenings on Follow-Ups",
-    "headingPlan": {
-      "h1": "Quote Chase Automation for UK Trades: Win More Accepted Jobs Without Spending Evenings on Follow-Ups",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "Quote Chase Automation for UK Trades: Win More Accepted Jobs Without Spending Evenings on Follow-Ups",
-        "path": "/blog/quote-chase-automation-uk-trades-accepted-jobs-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-quote-chase-automation-uk-trades-accepted-jobs-2026",
-    "sourceFile": "blog/quote-chase-automation-uk-trades-accepted-jobs-2026.html",
-    "sourcePath": "/blog/quote-chase-automation-uk-trades-accepted-jobs-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-12T22:05:23.066Z",
-    "modifiedAt": "2026-03-12T22:05:23.066Z"
-  },
-  {
-    "id": "route-blog-quote-follow-up-automation-uk-trades-2026",
-    "legacyRouteKey": "canonical:/blog/quote-follow-up-automation-uk-trades-2026",
-    "path": "/blog/quote-follow-up-automation-uk-trades-2026",
-    "canonical": "https://silverstone-ai.com/blog/quote-follow-up-automation-uk-trades-2026",
-    "routeGroup": "blog",
-    "template": "article",
-    "lifecycle": "retained",
-    "legacyDisposition": "retain",
-    "implementationDisposition": "refactor",
-    "contentDisposition": "refactor",
-    "title": "Quote Follow-Up Automation for UK Trades | Silverstone AI",
-    "description": "A practical guide to quote follow-up automation for UK trades businesses in 2026, covering reminders, missed-call capture, compliance, rollout steps, and ROI.",
-    "h1": "Quote Follow-Up Automation for UK Trades: Win More Jobs Without Chasing Every Lead Yourself",
-    "headingPlan": {
-      "h1": "Quote Follow-Up Automation for UK Trades: Win More Jobs Without Chasing Every Lead Yourself",
-      "h1Source": "A-01 route inventory",
-      "supportingHeadingsStatus": "pending content migration"
-    },
-    "productionIndexable": true,
-    "sitemap": true,
-    "breadcrumbs": [
-      {
-        "name": "Home",
-        "path": "/"
-      },
-      {
-        "name": "Blog",
-        "path": "/blog"
-      },
-      {
-        "name": "Quote Follow-Up Automation for UK Trades: Win More Jobs Without Chasing Every Lead Yourself",
-        "path": "/blog/quote-follow-up-automation-uk-trades-2026"
-      }
-    ],
-    "schemaTypes": ["Article", "BreadcrumbList"],
-    "contentId": "content-blog-quote-follow-up-automation-uk-trades-2026",
-    "sourceFile": "blog/quote-follow-up-automation-uk-trades-2026.html",
-    "sourcePath": "/blog/quote-follow-up-automation-uk-trades-2026.html",
-    "migrationOwner": "Codex route migration",
-    "contentOwner": "Silverstone editorial review",
-    "contentStatus": "refactor",
-    "claimsStatus": "review-pending",
-    "primaryIntent": "informational",
-    "ctaIntent": "related guidance and consultation",
-    "parentRouteId": "route-blog",
-    "relatedRouteIds": ["route-blog"],
-    "migrationEvidence": "repository evidence + live HTTP + live browser",
-    "acceptanceIds": ["AC-003", "AC-004", "AC-006", "AC-007"],
-    "unresolvedNotes": [],
-    "publishedAt": "2026-03-13T09:50:00.551Z",
-    "modifiedAt": "2026-03-13T09:50:00.551Z"
   }
 ]

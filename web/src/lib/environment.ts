@@ -43,9 +43,9 @@ const productionRobots = "index,follow";
 
 /**
  * The production contract: only valid for the real silverstone-ai.com
- * origin, indexable, live booking. Analytics stays disabled until
- * explicitly authorised — flipping VITE_ANALYTICS_DISABLED is not enough on
- * purpose.
+ * origin, indexable, live booking. Consent-gated GA4 analytics was
+ * explicitly authorised for launch (2026-07-07); the flag must still be an
+ * exact "false" so an unset or mangled environment fails closed to staging.
  */
 function parseProductionEnvironment(
   source: PublicEnvironmentSource,
@@ -54,13 +54,10 @@ function parseProductionEnvironment(
   requireValue(source, "VITE_SITE_URL", PRODUCTION_ORIGIN);
   requireValue(source, "VITE_CANONICAL_ORIGIN", PRODUCTION_ORIGIN);
   requireValue(source, "VITE_BOOKING_MODE", "live");
-
-  if (readString(source, "VITE_ANALYTICS_DISABLED") !== "true") {
-    throw new Error("Analytics must remain disabled until explicitly authorised");
-  }
+  requireValue(source, "VITE_ANALYTICS_DISABLED", "false");
 
   return {
-    analyticsEnabled: false,
+    analyticsEnabled: true,
     bookingMode: "live",
     canonicalOrigin: PRODUCTION_ORIGIN,
     indexNowEnabled: false,

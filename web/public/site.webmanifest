@@ -1,6 +1,8 @@
 {
   "name": "Silverstone AI",
   "short_name": "Silverstone AI",
+  "description": "Websites, apps and AI workflows for UK businesses.",
+  "start_url": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +15,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF",
+  "theme_color": "#05070A",
+  "background_color": "#05070A",
   "display": "standalone"
 }

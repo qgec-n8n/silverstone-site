@@ -39,6 +39,12 @@ exports.handler = async (event) => {
       ['Company size', body.companySize],
       ['Indicative budget', body.budget],
       ['Timeline', body.timeline],
+      ['New enquiries / week', body.enquiryVolume],
+      ['Admin hours / week', body.adminHours],
+      ['Enquiry channels', body.channels],
+      ['Systems in play', body.systems],
+      ['Automation today', body.automationExperience],
+      ['Decision maker', body.decisionRole],
     ]
       .map(([label, value]) => [label, (value || '').toString().trim()])
       .filter(([, value]) => value)

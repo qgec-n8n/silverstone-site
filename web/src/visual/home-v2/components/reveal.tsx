@@ -75,8 +75,9 @@ function transitionFor(
   kind: HomeRevealKind,
   delayMs: number,
   reducedMotion: boolean,
+  instant = false,
 ): Transition {
-  if (reducedMotion) {
+  if (reducedMotion || instant) {
     return { delay: 0, duration: 0.01 };
   }
 
@@ -166,7 +167,7 @@ function ViewportReveal({
     margin: "0px 0px -18% 0px",
     once: true,
   });
-  const startDelayMs = useRevealStart(ref, inView, delayMs);
+  const start = useRevealStart(ref, inView, delayMs);
 
   useEffect(() => {
     if (inView) {
@@ -182,9 +183,14 @@ function ViewportReveal({
       data-revealed="true"
       data-width={dataWidth}
       initial={reducedMotion ? false : "hidden"}
-      animate={reducedMotion || startDelayMs !== null ? "show" : "hidden"}
+      animate={reducedMotion || start !== null ? "show" : "hidden"}
       variants={revealVariants[kind]}
-      transition={transitionFor(kind, startDelayMs ?? 0, reducedMotion)}
+      transition={transitionFor(
+        kind,
+        start?.delayMs ?? 0,
+        reducedMotion,
+        start?.instant ?? false,
+      )}
     >
       {children}
     </m.div>
@@ -257,7 +263,7 @@ function ImageReveal({
     once: true,
   });
   const imagesLoaded = useImagesLoaded(containerRef);
-  const startDelayMs = useRevealStart(containerRef, inView && imagesLoaded, delayMs);
+  const start = useRevealStart(containerRef, inView && imagesLoaded, delayMs);
 
   return (
     <m.div
@@ -267,9 +273,14 @@ function ImageReveal({
       data-revealed="true"
       data-width={dataWidth}
       initial="hidden"
-      animate={startDelayMs !== null ? "show" : "hidden"}
+      animate={start !== null ? "show" : "hidden"}
       variants={revealVariants.image}
-      transition={transitionFor("image", startDelayMs ?? 0, false)}
+      transition={transitionFor(
+        "image",
+        start?.delayMs ?? 0,
+        false,
+        start?.instant ?? false,
+      )}
     >
       {children}
     </m.div>

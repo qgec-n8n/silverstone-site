@@ -306,6 +306,14 @@ export const approvedAdditionalRoutes: FutureRouteRecord[] = [
 
 export const approvedRouteOverrides: RouteOverride[] = [
   {
+    // Launch indexing policy (2026-07-07): every production route is
+    // indexable except the privacy policy, which stays reachable but out of
+    // the index and the sitemap.
+    id: "route-privacy-policy",
+    productionIndexable: false,
+    sitemap: false,
+  },
+  {
     id: "route-home",
     title: "Home | Silverstone AI",
     description:

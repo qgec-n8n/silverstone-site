@@ -16,6 +16,15 @@ export type MetadataDescriptor =
   | { property: string; content: string }
   | { tagName: "link"; rel: "canonical"; href: string };
 
+/**
+ * One sitewide 1200×630 share image (public/brand/social-card.png). Social
+ * crawlers don't resolve relative URLs reliably, so the address is absolute
+ * to the production origin on every route.
+ */
+const SOCIAL_CARD_URL = "https://silverstone-ai.com/brand/social-card.png";
+const SOCIAL_CARD_ALT =
+  "Silverstone AI — websites, apps and AI workflows for UK businesses";
+
 function getMetadataEnvironment(): { isStaging: boolean; robotsMeta: string } {
   try {
     const environment = getPublicEnvironment();
@@ -80,12 +89,19 @@ export function buildRouteMetadata(route: FutureRouteRecord): MetadataDescriptor
     { tagName: "link", rel: "canonical", href: route.canonical },
     { property: "og:type", content: socialType },
     { property: "og:site_name", content: "Silverstone AI" },
+    { property: "og:locale", content: "en_GB" },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
     { property: "og:url", content: route.canonical },
-    { name: "twitter:card", content: "summary" },
+    { property: "og:image", content: SOCIAL_CARD_URL },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:image:alt", content: SOCIAL_CARD_ALT },
+    { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
+    { name: "twitter:image", content: SOCIAL_CARD_URL },
+    { name: "twitter:image:alt", content: SOCIAL_CARD_ALT },
   ];
 
   if (!environment.isStaging) {

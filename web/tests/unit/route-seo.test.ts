@@ -53,14 +53,15 @@ describe("route SEO generation", () => {
       routes: futureRouteManifest,
     });
 
-    expect(productionSitemap.match(/<url>/g)).toHaveLength(26);
+    // 25 = 26 launch routes minus the noindexed privacy policy.
+    expect(productionSitemap.match(/<url>/g)).toHaveLength(25);
     expect(productionSitemap).toContain("https://silverstone-ai.com/services");
     expect(productionSitemap).toContain(
       "https://silverstone-ai.com/services/ai-consulting",
     );
     expect(productionSitemap).toContain("https://silverstone-ai.com/industry");
     expect(productionSitemap).not.toContain(
-      "https://silverstone-ai.com/blog/ai-receptionist-small-business-2026",
+      "https://silverstone-ai.com/privacy-policy",
     );
     expect(productionSitemap).not.toContain("staging.example.invalid");
     expect(stagingSitemap).toBe("");

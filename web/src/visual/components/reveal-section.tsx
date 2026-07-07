@@ -54,21 +54,21 @@ function ScheduledRevealSection({
     margin: "0px 0px -12% 0px",
     once: true,
   });
-  const startDelayMs = useRevealStart(ref, inView, 0);
+  const start = useRevealStart(ref, inView, 0);
 
   return (
     <m.div
       ref={ref}
       className={className}
       initial="hidden"
-      animate={startDelayMs !== null ? "show" : "hidden"}
+      animate={start !== null ? "show" : "hidden"}
       variants={{
         hidden: { opacity: 0, y: motionDistances.reveal },
         show: { opacity: 1, y: 0 },
       }}
       transition={{
-        delay: (startDelayMs ?? 0) / 1000,
-        duration: motionDurations.route,
+        delay: (start?.delayMs ?? 0) / 1000,
+        duration: start?.instant ? 0 : motionDurations.route,
         ease: motionEasings.entrance,
       }}
     >

@@ -131,8 +131,10 @@ export function validateFutureRouteManifest(input: unknown): string[] {
   }
 
   const issues: string[] = [];
-  if (input.length < 50) {
-    issues.push(`Expected at least 50 future routes, received ${String(input.length)}`);
+  // 26 launch routes since the 2026-07-07 blog teardown (17 manifest records
+  // + 9 approved additions); the blog automation adds article routes later.
+  if (input.length < 26) {
+    issues.push(`Expected at least 26 future routes, received ${String(input.length)}`);
   }
 
   const records = input.filter(isObject);

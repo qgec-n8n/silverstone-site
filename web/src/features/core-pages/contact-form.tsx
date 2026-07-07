@@ -4,9 +4,14 @@
  * field list, so the form reads as a short interactive sequence rather than
  * an intimidating page of inputs. The two qualifying stages are one-tap and
  * fully optional; identity and the written message come last, once momentum
- * exists. Field names stay aligned with the send-email Netlify function's
- * whitelist (name, email, phone, company, interest, companySize, budget,
- * timeline, message).
+ * exists. The Scope stage is a compact qualification instrument — sliders
+ * and tap-chips covering budget, urgency, volume, channels, systems,
+ * automation maturity and sign-off — that lets a discovery call be planned
+ * and priced accurately without asking the visitor to type anything. Field
+ * names stay aligned with the send-email Netlify function's whitelist
+ * (name, email, phone, company, interest, companySize, budget, timeline,
+ * enquiryVolume, adminHours, channels, systems, automationExperience,
+ * decisionRole, message).
  *
  * Submits to the repository's real configured endpoint
  * (`/.netlify/functions/send-email`) and falls back to a direct mailto route
@@ -51,9 +56,40 @@ const TIMELINE_OPTIONS = [
   "Just exploring",
 ];
 
+const ENQUIRY_VOLUME_OPTIONS = ["Under 10", "10–50", "50–200", "200+", "Not sure yet"];
+
+const ADMIN_HOURS_OPTIONS = ["Under 2", "2–5", "5–15", "15+", "Hard to say"];
+
+const CHANNEL_OPTIONS = [
+  "Phone",
+  "Email",
+  "Website",
+  "WhatsApp / SMS",
+  "Social DMs",
+  "Walk-ins",
+];
+
+const SYSTEM_OPTIONS = [
+  "CRM",
+  "Booking / diary",
+  "eCommerce",
+  "Accounting",
+  "Spreadsheets",
+  "None yet",
+];
+
+const AUTOMATION_EXPERIENCE_OPTIONS = [
+  "Nothing yet",
+  "A few basics",
+  "Several tools",
+  "Deeply automated",
+];
+
+const DECISION_OPTIONS = ["Just me", "Me + a partner", "A leadership team"];
+
 const STAGES = [
   { id: "focus", label: "Focus", title: "Where should we look first?" },
-  { id: "scope", label: "Scope", title: "Twenty seconds of scope" },
+  { id: "scope", label: "Scope", title: "Calibrate the discovery call" },
   { id: "details", label: "Details", title: "Where should the reply go?" },
   { id: "transmit", label: "Transmit", title: "Describe what should change" },
 ] as const;
@@ -65,6 +101,12 @@ type EnquiryData = {
   companySize: string;
   budget: string;
   timeline: string;
+  enquiryVolume: string;
+  adminHours: string;
+  channels: string[];
+  systems: string[];
+  automationExperience: string;
+  decisionRole: string;
   name: string;
   email: string;
   phone: string;
@@ -76,10 +118,18 @@ type EnquiryData = {
 const INITIAL_DATA: EnquiryData = {
   interest: "",
   companySize: "",
-  // The slider rests on the honest default; every other qualifier starts
-  // unanswered and is only sent when the visitor actively chooses a value.
+  // Sliders rest on their honest "not sure" default (and that answer is sent
+  // as-is — an unmoved slider is itself a useful signal); every tap-chip
+  // qualifier starts unanswered and is only sent when the visitor actively
+  // chooses a value.
   budget: "Not sure yet",
   timeline: "",
+  enquiryVolume: "Not sure yet",
+  adminHours: "Hard to say",
+  channels: [],
+  systems: [],
+  automationExperience: "",
+  decisionRole: "",
   name: "",
   email: "",
   phone: "",
@@ -125,6 +175,12 @@ async function submitEnquiry(data: EnquiryData): Promise<void> {
     companySize: data.companySize,
     budget: data.budget,
     timeline: data.timeline,
+    enquiryVolume: data.enquiryVolume,
+    adminHours: data.adminHours,
+    channels: data.channels.join(", "),
+    systems: data.systems.join(", "),
+    automationExperience: data.automationExperience,
+    decisionRole: data.decisionRole,
     message: data.message.trim(),
   };
   const response = await fetch(ENQUIRY_ENDPOINT, {
@@ -202,6 +258,107 @@ function ChipGroup({
   );
 }
 
+/** Multi-select variant of ChipGroup: each chip toggles independently. */
+function ChipMultiGroup({
+  legend,
+  name,
+  options,
+  values,
+  onChange,
+  disabled,
+}: {
+  legend: ReactNode;
+  name: string;
+  options: readonly string[];
+  values: string[];
+  onChange: (next: string[]) => void;
+  disabled: boolean;
+}) {
+  const toggle = (option: string) => {
+    onChange(
+      values.includes(option)
+        ? values.filter((value) => value !== option)
+        : [...values, option],
+    );
+  };
+
+  return (
+    <fieldset className="ss-core-form__seg" disabled={disabled}>
+      <legend>{legend}</legend>
+      <div className="ss-core-form__seg-options">
+        {options.map((option) => (
+          <label className="ss-core-form__seg-option" key={option}>
+            <input
+              type="checkbox"
+              name={name}
+              value={option}
+              checked={values.includes(option)}
+              onChange={() => toggle(option)}
+            />
+            <span>{option}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
+/**
+ * Stepped slider instrument (glowing readout, beam track, orb thumb — see
+ * `.ss-enq__slider`). The fill percentage feeds the track gradient via
+ * `--enq-fill`.
+ */
+function ScopeSlider({
+  label,
+  options,
+  value,
+  onChange,
+  disabled,
+}: {
+  label: string;
+  options: readonly string[];
+  value: string;
+  onChange: (next: string) => void;
+  disabled: boolean;
+}) {
+  const index = Math.max(0, options.indexOf(value));
+  const fallback = options[options.length - 1] ?? "";
+
+  return (
+    <div
+      className="ss-enq__slider"
+      style={
+        {
+          "--enq-fill": `${String((index / (options.length - 1)) * 100)}%`,
+        } as CSSProperties
+      }
+    >
+      <div className="ss-enq__slider-readout">
+        <span>{label}</span>
+        <strong>{value}</strong>
+      </div>
+      <input
+        type="range"
+        min={0}
+        max={options.length - 1}
+        step={1}
+        value={index}
+        onChange={(event) => onChange(options[Number(event.target.value)] ?? fallback)}
+        aria-label={label}
+        aria-valuetext={value}
+        disabled={disabled}
+      />
+      <div className="ss-enq__slider-ticks" aria-hidden="true">
+        {options.map((option) => (
+          <span key={option} data-active={option === value}>
+            {option}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function ContactForm() {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -264,7 +421,6 @@ export function ContactForm() {
   }
 
   const submitting = status === "submitting";
-  const budgetIndex = Math.max(0, BUDGET_OPTIONS.indexOf(data.budget));
   const stage = STAGES[step] ?? STAGES[0];
 
   if (status === "sent") {
@@ -287,6 +443,12 @@ export function ContactForm() {
     data.companySize ? ["Team", data.companySize] : null,
     ["Budget", data.budget],
     data.timeline ? ["Timeline", data.timeline] : null,
+    ["Volume", data.enquiryVolume],
+    ["Admin hours", data.adminHours],
+    data.channels.length > 0 ? ["Channels", data.channels.join(", ")] : null,
+    data.systems.length > 0 ? ["Systems", data.systems.join(", ")] : null,
+    data.automationExperience ? ["Automation", data.automationExperience] : null,
+    data.decisionRole ? ["Sign-off", data.decisionRole] : null,
   ].filter((entry): entry is [string, string] => entry !== null);
 
   return (
@@ -397,44 +559,82 @@ export function ContactForm() {
             {step === 1 ? (
               <div className="ss-enq__fields">
                 <p className="ss-enq__hint">
-                  Nothing here is a commitment — it simply means the discovery call
-                  starts with the right questions already prepared.
+                  Every control here is optional and one tap. Nothing is a commitment —
+                  each answer simply calibrates how the discovery call is prepared and
+                  how accurately a first indication of scope can be made.
                 </p>
-                <div
-                  className="ss-enq__slider"
-                  style={
-                    {
-                      "--enq-fill": `${String((budgetIndex / (BUDGET_OPTIONS.length - 1)) * 100)}%`,
-                    } as CSSProperties
-                  }
-                >
-                  <div className="ss-enq__slider-readout">
-                    <span>Indicative budget</span>
-                    <strong>{data.budget}</strong>
-                  </div>
-                  <input
-                    type="range"
-                    min={0}
-                    max={BUDGET_OPTIONS.length - 1}
-                    step={1}
-                    value={budgetIndex}
-                    onChange={(event) =>
-                      patch({
-                        budget:
-                          BUDGET_OPTIONS[Number(event.target.value)] ?? "Not sure yet",
-                      })
-                    }
-                    aria-label="Indicative budget"
-                    aria-valuetext={data.budget}
+                <div className="ss-core-form__grid">
+                  <ScopeSlider
+                    label="Indicative budget"
+                    options={BUDGET_OPTIONS}
+                    value={data.budget}
+                    onChange={(budget) => patch({ budget })}
                     disabled={submitting}
                   />
-                  <div className="ss-enq__slider-ticks" aria-hidden="true">
-                    {BUDGET_OPTIONS.map((option) => (
-                      <span key={option} data-active={option === data.budget}>
-                        {option}
-                      </span>
-                    ))}
-                  </div>
+                  <ScopeSlider
+                    label="New enquiries per week"
+                    options={ENQUIRY_VOLUME_OPTIONS}
+                    value={data.enquiryVolume}
+                    onChange={(enquiryVolume) => patch({ enquiryVolume })}
+                    disabled={submitting}
+                  />
+                </div>
+                <ScopeSlider
+                  label="Hours a week your team loses to manual admin"
+                  options={ADMIN_HOURS_OPTIONS}
+                  value={data.adminHours}
+                  onChange={(adminHours) => patch({ adminHours })}
+                  disabled={submitting}
+                />
+                <ChipMultiGroup
+                  legend={
+                    <>
+                      Where do enquiries arrive? <em>select any</em>
+                    </>
+                  }
+                  name="channels"
+                  options={CHANNEL_OPTIONS}
+                  values={data.channels}
+                  onChange={(channels) => patch({ channels })}
+                  disabled={submitting}
+                />
+                <ChipMultiGroup
+                  legend={
+                    <>
+                      Systems already in play <em>select any</em>
+                    </>
+                  }
+                  name="systems"
+                  options={SYSTEM_OPTIONS}
+                  values={data.systems}
+                  onChange={(systems) => patch({ systems })}
+                  disabled={submitting}
+                />
+                <div className="ss-core-form__grid">
+                  <ChipGroup
+                    legend={
+                      <>
+                        How automated are you today? <em>optional</em>
+                      </>
+                    }
+                    name="automationExperience"
+                    options={AUTOMATION_EXPERIENCE_OPTIONS}
+                    value={data.automationExperience}
+                    onChange={(automationExperience) => patch({ automationExperience })}
+                    disabled={submitting}
+                  />
+                  <ChipGroup
+                    legend={
+                      <>
+                        Who signs this off? <em>optional</em>
+                      </>
+                    }
+                    name="decisionRole"
+                    options={DECISION_OPTIONS}
+                    value={data.decisionRole}
+                    onChange={(decisionRole) => patch({ decisionRole })}
+                    disabled={submitting}
+                  />
                 </div>
                 <ChipGroup
                   legend={
