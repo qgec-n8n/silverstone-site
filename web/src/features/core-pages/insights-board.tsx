@@ -5,6 +5,7 @@
  * summary bullets.
  */
 import { useMemo, useState } from "react";
+import { Link } from "react-router";
 
 import { ArrowUpRight, Clock, Search } from "~/components/icons/lucide";
 import { Reveal } from "~/features/services-v2/components/primitives";
@@ -28,7 +29,8 @@ function matchesQuery(article: InsightArticle, query: string): boolean {
 
 function ArticleCard({ article, index }: { article: InsightArticle; index: number }) {
   const categoryLabel = insightArticleCategoryLabel(article);
-  const published = article.status === "published" && article.href;
+  const articleHref = article.href;
+  const published = article.status === "published" && Boolean(articleHref);
 
   const body = (
     <>
@@ -72,10 +74,15 @@ function ArticleCard({ article, index }: { article: InsightArticle; index: numbe
 
   return (
     <Reveal kind="card" delayMs={Math.min(index, 6) * 90}>
-      {published ? (
-        <a className="ss-insight-card" href={article.href} data-status={article.status}>
+      {published && articleHref ? (
+        <Link
+          className="ss-insight-card"
+          to={articleHref}
+          data-status={article.status}
+          prefetch="intent"
+        >
           {body}
-        </a>
+        </Link>
       ) : (
         <article
           className="ss-insight-card"

@@ -19,7 +19,11 @@ import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";
 import { TextLink } from "~/components/ui/text-link";
-import { GATE_FREE_DEEP_LINKS, GATE_FREE_ROUTES } from "~/data/gate-free-routes";
+import {
+  GATE_FREE_DEEP_LINKS,
+  GATE_FREE_ROUTE_PREFIXES,
+  GATE_FREE_ROUTES,
+} from "~/data/gate-free-routes";
 import { getPublicEnvironment } from "~/lib/environment";
 import { AnalyticsScripts } from "~/lib/integrations/analytics";
 import { MotionProvider } from "~/motion";
@@ -47,6 +51,7 @@ function resolveGlobalRobotsMeta(): string | null {
  * `GATE_FREE_ROUTES` via direct interpolation rather than a duplicated list.
  */
 const gateFreeRoutesJson = JSON.stringify(GATE_FREE_ROUTES);
+const gateFreeRoutePrefixesJson = JSON.stringify(GATE_FREE_ROUTE_PREFIXES);
 /*
  * Same reasoning as above, for the floating demos launcher's deep links: a
  * direct load of a demo's path+hash must never flash the gate either.
@@ -75,9 +80,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             // loader overlay, the locked-scroll gate and the hidden header are
             // already correct on the very first frame (no flash, no mismatch).
             // The AppExperienceProvider reconciles these after hydration.
-            // Gate-free routes (Book) set only data-js and stop there — no
-            // loader, no scroll lock, no hero/route-intro lock, ever.
-            __html: `(function(){var d=document.documentElement;d.setAttribute("data-js","on");if(${gateFreeRoutesJson}.indexOf(location.pathname)!==-1||${gateFreeDeepLinksJson}.indexOf(location.pathname+location.hash)!==-1){return;}d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(location.pathname==="/"){d.setAttribute("data-hero-locked","on");d.setAttribute("data-homepage-state","loading");}else{d.setAttribute("data-route-experience-state","loading");}})();`,
+            // Gate-free routes set only data-js and stop there — no loader,
+            // no scroll lock, no hero/route-intro lock, ever.
+            __html: `(function(){var d=document.documentElement;d.setAttribute("data-js","on");var p=location.pathname;var free=${gateFreeRoutesJson}.indexOf(p)!==-1||${gateFreeDeepLinksJson}.indexOf(p+location.hash)!==-1;var prefixes=${gateFreeRoutePrefixesJson};for(var i=0;i<prefixes.length;i++){if(p.indexOf(prefixes[i])===0){free=true;break;}}if(free){return;}d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(p==="/"){d.setAttribute("data-hero-locked","on");d.setAttribute("data-homepage-state","loading");}else{d.setAttribute("data-route-experience-state","loading");}})();`,
           }}
         />
         <Meta />

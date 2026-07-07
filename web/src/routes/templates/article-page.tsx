@@ -1,9 +1,10 @@
 import "~/styles/services-v2/services-v2.css";
 import "~/styles/core-pages/core-pages.css";
 
+import type { ReactNode } from "react";
 import { Link } from "react-router";
 
-import { CalendarClock, Clock, Sparkles } from "~/components/icons/lucide";
+import { CalendarClock, Clock, FileText, Sparkles } from "~/components/icons/lucide";
 import type { SilverstoneBlogPost, SilverstoneBlogSection } from "~/data/blog-posts";
 import {
   Eyebrow,
@@ -11,11 +12,134 @@ import {
   RichText,
   ServiceButton,
 } from "~/features/services-v2/components/primitives";
+import { ScrollCue } from "~/features/services-v2/components/secondary-hero";
 import { RouteExperienceFrame } from "~/routes/templates/route-experience-frame";
 
 type ArticlePageProps = {
   post: SilverstoneBlogPost;
 };
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function sanitizeHref(href: string): string | null {
+  if (href.startsWith("/")) {
+    return href;
+  }
+
+  try {
+    const url = new URL(href);
+    if (url.hostname === "silverstone-ai.com") {
+      return `${url.pathname}${url.search}${url.hash}`;
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+function ArticleRichText({ text }: { text: string }) {
+  const nodes: ReactNode[] = [];
+  const anchorPattern = /<a\s+href="([^"]+)">([\s\S]*?)<\/a>/gi;
+  let lastIndex = 0;
+  let key = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = anchorPattern.exec(text)) !== null) {
+    const [rawAnchor, rawHref, label] = match;
+    if (match.index > lastIndex) {
+      nodes.push(
+        <RichText
+          key={`text-${String(key++)}`}
+          text={text.slice(lastIndex, match.index)}
+        />,
+      );
+    }
+
+    const href = sanitizeHref(rawHref ?? "");
+    if (href) {
+      nodes.push(
+        <Link key={`link-${String(key++)}`} to={href}>
+          <RichText text={label ?? ""} />
+        </Link>,
+      );
+    } else {
+      nodes.push(
+        <RichText key={`fallback-${String(key++)}`} text={label ?? rawAnchor} />,
+      );
+    }
+
+    lastIndex = match.index + rawAnchor.length;
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push(
+      <RichText key={`text-${String(key++)}`} text={text.slice(lastIndex)} />,
+    );
+  }
+
+  return <>{nodes}</>;
+}
+
+function ArticleHeroTitle({ post }: { post: SilverstoneBlogPost }) {
+  const title = post.title;
+  const keywordWords = post.primaryKeyword
+    .replace(/\bUK\b/gi, "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  const candidates = [
+    keywordWords.join(" "),
+    keywordWords.slice(0, 3).join(" "),
+    keywordWords.slice(0, 2).join(" "),
+    keywordWords[0] ?? "",
+    post.categoryLabel,
+  ].filter((candidate) => candidate.length > 4);
+
+  for (const candidate of candidates) {
+    const expression = new RegExp(escapeRegExp(candidate), "i");
+    const match = expression.exec(title);
+    if (!match) {
+      continue;
+    }
+
+    const start = match.index;
+    const end = start + match[0].length;
+    return (
+      <>
+        {title.slice(0, start)}
+        <em>{title.slice(start, end)}</em>
+        {title.slice(end)}
+      </>
+    );
+  }
+
+  return <RichText text={title} />;
+}
+
+function ArticleFactStrip({ post }: { post: SilverstoneBlogPost }) {
+  const facts = [
+    { icon: Clock, label: post.readTime },
+    { icon: FileText, label: post.categoryLabel },
+    { icon: CalendarClock, label: post.displayDate },
+    { icon: Sparkles, label: post.primaryKeyword },
+  ];
+
+  return (
+    <div className="ss-hv2-trust-shell ss-blog-article__facts">
+      <ul className="ss-hv2-trust" aria-label="Article facts">
+        {facts.map(({ icon: Icon, label }) => (
+          <li className="ss-hv2-trust__item" key={label}>
+            <Icon className="size-5" aria-hidden="true" />
+            <span>{label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 function ArticleSection({
   section,
@@ -34,7 +158,7 @@ function ArticleSection({
         </h2>
         {section.body.map((paragraph, index) => (
           <p key={`${section.heading}-${String(index)}`}>
-            <RichText text={paragraph} />
+            <ArticleRichText text={paragraph} />
           </p>
         ))}
         {section.subsections?.map((subsection, index) => (
@@ -47,7 +171,7 @@ function ArticleSection({
             </h3>
             {subsection.body.map((paragraph, paragraphIndex) => (
               <p key={`${subsection.heading}-${String(paragraphIndex)}`}>
-                <RichText text={paragraph} />
+                <ArticleRichText text={paragraph} />
               </p>
             ))}
           </div>
@@ -107,7 +231,7 @@ export function ArticlePage({ post }: ArticlePageProps) {
             </Reveal>
             <Reveal kind="section" trigger="mount" delayMs={120}>
               <h1>
-                <RichText text={post.title} />
+                <ArticleHeroTitle post={post} />
               </h1>
             </Reveal>
             <Reveal kind="section" trigger="mount" delayMs={220}>
@@ -147,10 +271,12 @@ export function ArticlePage({ post }: ArticlePageProps) {
                 {post.ctaSecondary.label}
               </ServiceButton>
             </Reveal>
+            <ScrollCue />
           </div>
         </header>
 
         <div className="ss-blog-article__body">
+          <ArticleFactStrip post={post} />
           <div className="ss-blog-article__container">
             <Reveal className="ss-blog-article__summary" kind="card">
               <Eyebrow icon={Sparkles}>Executive Summary</Eyebrow>

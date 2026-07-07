@@ -1754,6 +1754,14 @@ a.ss-insight-card:hover {
 /* ---- Blog article pages ----------------------------------------------- */
 
 .ss-blog-article {
+  --srv2-accent: var(--ss-v2-signal-cyan);
+  --srv2-accent-2: var(--ss-v2-signal-violet);
+  --srv2-glass: color-mix(in srgb, var(--ss-v2-graphite) 58%, transparent);
+  --srv2-glass-raised: color-mix(in srgb, var(--ss-v2-graphite) 76%, transparent);
+  --srv2-hairline: color-mix(in srgb, var(--ss-v2-platinum) 15%, transparent);
+  --srv2-ink: var(--ss-v2-platinum);
+  --srv2-ink-faint: color-mix(in srgb, var(--ss-v2-platinum) 64%, transparent);
+  --srv2-ink-soft: color-mix(in srgb, var(--ss-v2-platinum) 76%, transparent);
   color: var(--ss-v2-platinum);
 }
 
@@ -1774,14 +1782,21 @@ a.ss-insight-card:hover {
   z-index: -1;
   background:
     linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ss-v2-void-black) 88%, transparent) 0%,
+      color-mix(in srgb, var(--ss-v2-void-black) 70%, transparent) 38%,
+      color-mix(in srgb, var(--ss-v2-void-black) 30%, transparent) 72%,
+      color-mix(in srgb, var(--ss-v2-void-black) 68%, transparent) 100%
+    ),
+    linear-gradient(
       180deg,
-      color-mix(in srgb, var(--ss-v2-void-black) 14%, transparent) 0%,
-      color-mix(in srgb, var(--ss-v2-void-black) 50%, transparent) 54%,
+      color-mix(in srgb, var(--ss-v2-void-black) 24%, transparent) 0%,
+      color-mix(in srgb, var(--ss-v2-void-black) 42%, transparent) 42%,
       var(--ss-v2-void-black) 100%
     ),
     radial-gradient(
       110% 70% at 20% 80%,
-      color-mix(in srgb, var(--srv2-accent) 18%, transparent),
+      color-mix(in srgb, var(--srv2-accent) 22%, transparent),
       transparent 62%
     );
 }
@@ -1789,7 +1804,7 @@ a.ss-insight-card:hover {
 .ss-blog-article__hero-inner {
   width: min(100% - 2rem, 76rem);
   margin-inline: auto;
-  padding: clamp(4.5rem, 10vh, 8rem) 0 clamp(3rem, 8vh, 6rem);
+  padding: clamp(4.5rem, 10vh, 8rem) 0 clamp(5.4rem, 10vh, 7rem);
 }
 
 .ss-blog-article__crumb {
@@ -1818,15 +1833,34 @@ a.ss-insight-card:hover {
   font-weight: 600;
   letter-spacing: 0;
   line-height: 0.95;
+  text-shadow:
+    0 1px 0 color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent),
+    0 22px 70px color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
   text-wrap: balance;
+}
+
+.ss-blog-article__hero h1 em {
+  font-style: normal;
+  background: linear-gradient(
+    100deg,
+    var(--ss-v2-chrome) 0%,
+    var(--ss-v2-signal-cyan) 48%,
+    #d9c2ff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  -webkit-text-fill-color: transparent;
 }
 
 .ss-blog-article__subtitle {
   max-width: 48rem;
   margin: 1.35rem 0 0;
-  color: color-mix(in srgb, var(--ss-v2-platinum) 86%, transparent);
+  color: color-mix(in srgb, var(--ss-v2-platinum) 92%, transparent);
   font-size: clamp(1.05rem, 0.98rem + 0.45vw, 1.42rem);
   line-height: 1.55;
+  text-shadow: 0 14px 42px color-mix(in srgb, var(--ss-v2-void-black) 80%, transparent);
   text-wrap: balance;
 }
 
@@ -1860,9 +1894,29 @@ a.ss-insight-card:hover {
   margin-top: 1.85rem;
 }
 
+.ss-blog-article__hero .ss-srv2-hero__scrollcue {
+  position: absolute;
+  right: 0;
+  bottom: clamp(0.8rem, 2.2vh, 1.6rem);
+  left: 0;
+  padding-top: 0;
+}
+
 .ss-blog-article__body {
   position: relative;
-  padding: clamp(3rem, 7vw, 6rem) 0 clamp(4rem, 9vw, 7rem);
+  padding: 0 0 clamp(4rem, 9vw, 7rem);
+}
+
+.ss-blog-article__facts {
+  margin-bottom: clamp(3rem, 7vw, 5.5rem);
+}
+
+.ss-blog-article__facts .ss-hv2-trust {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ss-blog-article__facts .ss-hv2-trust__item {
+  text-transform: none;
 }
 
 .ss-blog-article__container {
@@ -1875,8 +1929,17 @@ a.ss-insight-card:hover {
 .ss-blog-article__cta-card {
   border: 1px solid var(--srv2-hairline);
   border-radius: var(--ss-radius-xl);
-  background: var(--srv2-glass-raised);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--ss-v2-platinum) 8%, transparent),
+      transparent 36%
+    ),
+    var(--srv2-glass-raised);
   backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 9%, transparent),
+    0 30px 90px -70px color-mix(in srgb, var(--srv2-accent) 48%, transparent);
 }
 
 .ss-blog-article__summary {
@@ -1932,6 +1995,26 @@ a.ss-insight-card:hover {
   margin: clamp(3rem, 7vw, 5.5rem) auto 0;
 }
 
+.ss-blog-article__section {
+  position: relative;
+  padding-left: clamp(1.25rem, 0.8rem + 1.4vw, 2rem);
+}
+
+.ss-blog-article__section::before {
+  content: "";
+  position: absolute;
+  top: 0.18rem;
+  bottom: 0.25rem;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    var(--srv2-accent),
+    color-mix(in srgb, var(--srv2-accent-2) 48%, transparent),
+    transparent
+  );
+}
+
 .ss-blog-article__section h2,
 .ss-blog-article__subsection h3 {
   margin: 0;
@@ -1954,7 +2037,7 @@ a.ss-insight-card:hover {
 .ss-blog-article__section p,
 .ss-blog-article__subsection p {
   margin: 1rem 0 0;
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-ink-soft) 94%, var(--ss-v2-platinum));
   font-size: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
   line-height: 1.78;
 }
@@ -2036,6 +2119,10 @@ a.ss-insight-card:hover {
 
   .ss-blog-article__hero h1 {
     max-width: 100%;
+  }
+
+  .ss-blog-article__facts .ss-hv2-trust {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
