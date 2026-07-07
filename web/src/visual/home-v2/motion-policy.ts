@@ -37,7 +37,7 @@ export function deriveMotionPolicy({
     tier,
     motionEnabled,
     shaderEnabled: motionEnabled && shaderEligible && tier === "full",
-    marqueeEnabled: motionEnabled && tier === "full",
+    marqueeEnabled: motionEnabled,
     scrollChoreography: motionEnabled,
     countersEnabled: motionEnabled,
   };

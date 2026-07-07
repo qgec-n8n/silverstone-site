@@ -9,6 +9,7 @@ import { useEffect, useRef, useState, type ReactNode, type RefObject } from "rea
 
 import { cn } from "~/lib/utils";
 import { useRevealStart } from "~/motion/use-reveal-start";
+import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
 
 export type HomeRevealKind =
   | "card"
@@ -32,6 +33,19 @@ type RevealProps = {
 
 const entranceEase = [0.22, 1, 0.36, 1] as const;
 const metricEase = [0.16, 1, 0.3, 1] as const;
+
+/**
+ * `useInView`'s percentage margin resolves against the live viewport height,
+ * which shifts as Safari/Chrome's toolbar collapses mid-scroll — the same
+ * trigger re-fires at a different scroll position and reads as a glitch.
+ * Below the desktop tier, use a fixed px margin instead so it's immune to
+ * toolbar-driven viewport churn; desktop keeps the original percentage.
+ */
+function viewportRevealMargin(
+  tier: ReturnType<typeof useCapabilityTier>["tier"],
+): "0px 0px -18% 0px" | "0px 0px -120px 0px" {
+  return tier === "full" ? "0px 0px -18% 0px" : "0px 0px -120px 0px";
+}
 
 const revealVariants: Record<HomeRevealKind, Variants> = {
   section: {
@@ -161,10 +175,11 @@ function ViewportReveal({
   onReveal?: (() => void) | undefined;
   reducedMotion: boolean;
 }) {
+  const { tier } = useCapabilityTier();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, {
     amount: 0.4,
-    margin: "0px 0px -18% 0px",
+    margin: viewportRevealMargin(tier),
     once: true,
   });
   const start = useRevealStart(ref, inView, delayMs);
@@ -256,10 +271,11 @@ function ImageReveal({
   dataWidth?: "full" | "wide" | undefined;
   delayMs: number;
 }) {
+  const { tier } = useCapabilityTier();
   const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef, {
     amount: 0.4,
-    margin: "0px 0px -18% 0px",
+    margin: viewportRevealMargin(tier),
     once: true,
   });
   const imagesLoaded = useImagesLoaded(containerRef);

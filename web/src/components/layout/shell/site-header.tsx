@@ -27,6 +27,7 @@ import { useAppExperience } from "~/app/experience/app-experience";
 import { Container } from "~/components/layout/container";
 import { cn } from "~/lib/utils";
 import {
+  faqContentVariants,
   menuItemVariants,
   menuPanelVariants,
   mobileOverlayVariants,
@@ -239,7 +240,8 @@ type MobileDrawerProps = {
 
 function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
-  const previousOverflowRef = useRef("");
+  const baseId = useId();
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
   useEffect(() => {
     const node = dialogRef.current;
@@ -251,8 +253,23 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
       );
 
     getFocusable()[0]?.focus();
-    previousOverflowRef.current = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+
+    // `overflow: hidden` alone doesn't stop iOS Safari's background
+    // rubber-band scroll behind a fixed-position overlay. Locking the body
+    // to its current scroll offset with `position: fixed` (and restoring
+    // scroll on close) is the standard workaround.
+    const body = document.body;
+    const scrollY = window.scrollY;
+    const previousBodyStyle = {
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+    body.style.position = "fixed";
+    body.style.top = `-${String(scrollY)}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -285,7 +302,11 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = previousOverflowRef.current;
+      body.style.position = previousBodyStyle.position;
+      body.style.top = previousBodyStyle.top;
+      body.style.width = previousBodyStyle.width;
+      body.style.overflow = previousBodyStyle.overflow;
+      window.scrollTo(0, scrollY);
       previouslyFocused?.focus();
     };
   }, [onClose]);
@@ -309,7 +330,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
       <m.div
         aria-label="Site menu"
         aria-modal="true"
-        className="ss-void-bg absolute inset-y-0 right-0 flex w-[min(92vw,26rem)] flex-col border-l border-[color:var(--ss-v2-hairline)]"
+        className="ss-void-bg absolute inset-y-0 right-0 flex w-[min(92vw,26rem)] flex-col border-l border-[color:color-mix(in_srgb,var(--ss-v2-signal-cyan)_32%,var(--ss-v2-hairline-strong))] shadow-[var(--ss-v2-glow-soft)]"
         ref={dialogRef}
         role="dialog"
         variants={mobilePanelVariants}
@@ -325,55 +346,107 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
             <X aria-hidden className="size-5" />
           </button>
         </div>
-        <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5 py-4">
-          {[SERVICES_MENU, INDUSTRIES_MENU].map((menu) => (
-            <details className="ss-hairline-b py-1" key={menu.id}>
-              <summary className="ss-focus-ring flex cursor-pointer list-none items-center justify-between rounded-[var(--ss-radius-sm)] py-3 text-base font-semibold text-platinum [&::-webkit-details-marker]:hidden">
-                {menu.label}
-                <ChevronDown aria-hidden className="size-4 text-titanium" />
-              </summary>
-              <div className="flex flex-col gap-0.5 pb-2">
-                <Link
-                  className="ss-focus-ring mb-1 flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-hairline)] bg-[color-mix(in_srgb,var(--ss-v2-signal-cyan)_8%,transparent)] px-3 py-2.5 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
-                  onClick={onClose}
-                  to={menu.href}
-                >
-                  <LayoutGrid aria-hidden className="size-4" />
-                  {menu.viewAllLabel}
-                </Link>
-                {menu.items.map((item) => (
-                  <Link
-                    className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm text-titanium no-underline hover:text-platinum"
-                    key={item.href}
-                    onClick={onClose}
-                    to={item.href}
+        <nav
+          aria-label="Mobile"
+          className="flex-1 overflow-y-auto overscroll-contain px-5 py-4"
+        >
+          <div className="divide-y divide-[color:var(--ss-v2-hairline)] rounded-[var(--ss-radius-lg)] border border-[color:var(--ss-v2-hairline)] bg-[var(--ss-v2-glass)]">
+            {[SERVICES_MENU, INDUSTRIES_MENU].map((menu) => {
+              const open = openSection === menu.id;
+              const triggerId = `${baseId}-${menu.id}-trigger`;
+              const contentId = `${baseId}-${menu.id}-content`;
+              return (
+                <div key={menu.id}>
+                  <m.button
+                    aria-controls={contentId}
+                    aria-expanded={open}
+                    className="ss-focus-ring flex w-full items-center justify-between gap-2.5 rounded-[var(--ss-radius-sm)] px-4 py-3.5 text-left text-base font-semibold text-platinum"
+                    id={triggerId}
+                    initial="rest"
+                    onClick={() => {
+                      setOpenSection(open ? null : menu.id);
+                    }}
+                    type="button"
+                    variants={pressableVariants}
+                    whileHover="hover"
+                    whileTap="tap"
                   >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </details>
-          ))}
-          <div className="flex flex-col gap-0.5 py-2">
-            {PRIMARY_LINKS.map((link) => (
-              <Link
-                aria-current={currentPath === linkPath(link.href) ? "page" : undefined}
-                className={cn(
-                  "ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-3 text-base font-semibold no-underline",
-                  currentPath === linkPath(link.href)
-                    ? "text-platinum"
-                    : "text-titanium hover:text-platinum",
-                )}
-                key={link.href}
-                onClick={onClose}
-                to={link.href}
-              >
-                {link.label}
-              </Link>
-            ))}
+                    {menu.label}
+                    <ChevronDown
+                      aria-hidden
+                      className={cn(
+                        "size-4 shrink-0 text-[color:var(--ss-v2-signal-cyan)] transition-transform duration-300",
+                        open && "rotate-180",
+                      )}
+                    />
+                  </m.button>
+                  <AnimatePresence initial={false}>
+                    {open ? (
+                      <m.div
+                        animate="open"
+                        aria-labelledby={triggerId}
+                        className="overflow-hidden"
+                        exit="closed"
+                        id={contentId}
+                        initial="closed"
+                        role="region"
+                        variants={faqContentVariants}
+                      >
+                        <div className="flex flex-col gap-0.5 px-3 pb-3">
+                          <Link
+                            className="ss-focus-ring mb-1 flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-hairline)] bg-[color-mix(in_srgb,var(--ss-v2-signal-cyan)_8%,transparent)] px-3 py-2.5 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
+                            onClick={onClose}
+                            to={menu.href}
+                          >
+                            <LayoutGrid aria-hidden className="size-4" />
+                            {menu.viewAllLabel}
+                          </Link>
+                          {menu.items.map((item) => (
+                            <Link
+                              className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm text-titanium no-underline hover:text-platinum"
+                              key={item.href}
+                              onClick={onClose}
+                              to={item.href}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </m.div>
+                    ) : null}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex flex-col gap-0.5 py-4">
+            {PRIMARY_LINKS.map((link) => {
+              const active = currentPath === linkPath(link.href);
+              return (
+                <Link
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "ss-focus-ring flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] px-3 py-3 text-base font-semibold no-underline",
+                    active ? "text-platinum" : "text-titanium hover:text-platinum",
+                  )}
+                  key={link.href}
+                  onClick={onClose}
+                  to={link.href}
+                >
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "size-1.5 shrink-0 rounded-full bg-[var(--ss-v2-signal-cyan)] transition-opacity",
+                      active ? "opacity-100" : "opacity-0",
+                    )}
+                  />
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </nav>
-        <div className="ss-hairline-t shrink-0 p-5">
+        <div className="ss-hairline-t shrink-0 px-5 pt-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))]">
           <Link
             className={cn(ctaClass, "w-full justify-center")}
             onClick={onClose}
@@ -398,6 +471,10 @@ const SCROLL_HIDE_THRESHOLD = 120;
 /** Minimum scroll delta before counting as a deliberate direction change,
  * so momentum/bounce scrolling doesn't flicker the header in and out. */
 const SCROLL_DIRECTION_NOISE_FLOOR = 6;
+/** Window after a viewport resize during which scroll-direction hide/show
+ * decisions are suppressed — iOS/Android toolbar collapse fires `resize`
+ * mid-scroll and can spike `window.scrollY` without any real scrolling. */
+const RESIZE_SUPPRESS_MS = 250;
 
 export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const location = useLocation();
@@ -405,6 +482,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const headerRef = useRef<HTMLElement>(null);
   const scrollY = useMotionValue(typeof window !== "undefined" ? window.scrollY : 0);
   const lastScrollY = useRef(typeof window !== "undefined" ? window.scrollY : 0);
+  const lastResizeAt = useRef(0);
   const [scrolled, setScrolled] = useState(
     () => typeof window !== "undefined" && window.scrollY > 12,
   );
@@ -437,12 +515,28 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
     };
   }, [scrollY]);
 
+  useEffect(() => {
+    const markResize = () => {
+      lastResizeAt.current = Date.now();
+    };
+    const viewport = window.visualViewport;
+    viewport?.addEventListener("resize", markResize);
+    window.addEventListener("resize", markResize);
+    return () => {
+      viewport?.removeEventListener("resize", markResize);
+      window.removeEventListener("resize", markResize);
+    };
+  }, []);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 12);
 
     const delta = latest - lastScrollY.current;
     lastScrollY.current = latest;
 
+    if (Date.now() - lastResizeAt.current < RESIZE_SUPPRESS_MS) {
+      return;
+    }
     if (Math.abs(delta) < SCROLL_DIRECTION_NOISE_FLOOR) {
       return;
     }

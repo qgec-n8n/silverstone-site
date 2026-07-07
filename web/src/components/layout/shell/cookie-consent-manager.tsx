@@ -150,7 +150,7 @@ const OVERRIDES_CSS = `
 #stcm-icon {
   width: 3.1rem;
   height: 3.1rem;
-  bottom: clamp(1rem, 0.5rem + 2vw, 1.75rem);
+  bottom: calc(clamp(1rem, 0.5rem + 2vw, 1.75rem) + env(safe-area-inset-bottom, 0px));
   left: clamp(1rem, 0.5rem + 2vw, 1.75rem);
   border: 1px solid
     color-mix(in srgb, var(--ss-v2-signal-cyan) 38%, var(--ss-v2-hairline-strong));

@@ -65,9 +65,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <html className="dark" lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+          name="viewport"
+        />
         {globalRobotsMeta ? <meta content={globalRobotsMeta} name="robots" /> : null}
-        <meta content="#05070A" name="theme-color" />
+        <meta content="#202a2f" name="theme-color" />
         <link href="/favicon.ico" rel="icon" sizes="48x48" />
         <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
         <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />

@@ -225,14 +225,30 @@ export function HeroAetherField({
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
-      bounds = {
+      const nextBounds: Bounds = {
         height: Math.max(1, rect.height),
         width: Math.max(1, rect.width),
       };
+
+      // iOS/Android toolbar collapse fires a resize mid-scroll with only a
+      // small height delta — regenerating every particle on that reads as
+      // the whole field visibly resetting. Only regenerate on first mount or
+      // a resize that's actually meaningful (width change, or a height swing
+      // too large to be toolbar chrome), mirroring ScrollTrigger's own
+      // `ignoreMobileResize` threshold used elsewhere in the hero.
+      const isFirstRun = particles.length === 0;
+      const widthChanged = nextBounds.width !== bounds.width;
+      const heightChangedSignificantly =
+        Math.abs(nextBounds.height - bounds.height) > bounds.height * 0.25;
+
+      bounds = nextBounds;
       canvas.width = Math.max(1, Math.floor(bounds.width * dpr));
       canvas.height = Math.max(1, Math.floor(bounds.height * dpr));
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
-      initialiseParticles();
+
+      if (isFirstRun || widthChanged || heightChangedSignificantly) {
+        initialiseParticles();
+      }
     };
 
     const connectParticles = () => {

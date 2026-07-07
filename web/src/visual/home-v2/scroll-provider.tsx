@@ -55,6 +55,12 @@ export function ScrollProvider({ enabled, children }: ScrollProviderProps) {
 
       const Lenis = lenisModule.default;
       gsap.registerPlugin(ScrollTrigger);
+      // iOS/Android toolbar collapse fires a `resize` mid-scroll, which would
+      // otherwise recompute every trigger's position live and jump the
+      // in-flight animation. `ignoreMobileResize` skips that recompute on
+      // touch devices unless the resize is a real one (width change, or a
+      // height change >25%, e.g. an orientation change).
+      ScrollTrigger.config({ ignoreMobileResize: true });
 
       const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
       setScrollHandle(lenis);

@@ -521,6 +521,31 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-srv2-hero__showcase {
     display: none;
   }
+
+  /*
+   * The hard `100dvh`-based height clamp above is deliberate on desktop (see
+   * comment on `.ss-srv2-hero`), but below the two-column breakpoint the
+   * intro column alone (breadcrumbs, pill, title, lead, capabilities, two
+   * CTAs) routinely reflows taller than that budget and gets clipped, since
+   * `overflow: hidden` hides the excess instead of letting the section grow.
+   * Let the hero size to its content instead.
+   */
+  .ss-srv2-hero {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .ss-srv2-hero__grid {
+    min-height: 0;
+  }
+
+  .ss-srv2-hero__intro {
+    /* space-between only makes sense pinning the CTA row to a fixed-height
+       ancestor's bottom edge — once the hero is auto-height there's no fixed
+       bottom to pin to, so the CTA row should just follow the content. */
+    justify-content: flex-start;
+  }
 }
 
 .ss-srv2-hero__scrollcue {
