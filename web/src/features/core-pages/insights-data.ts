@@ -2,15 +2,14 @@
  * Insights hub data: the 16-category taxonomy (7 services + 9 industries)
  * and the article-card records that back the searchable/filterable grid.
  *
- * AUTOMATION CONTRACT — the blog-generation automation appends one record
- * per published article to `INSIGHT_ARTICLES`, copying the shape of the
- * single placeholder record below (every field of that record is a
- * placeholder on purpose). For a live article set `status: "published"`,
- * point `href` at the article route (`/blog/<slug>`), fill `publishedDate`
- * with a human-readable date, and use a real 640×420 cover image; the card
- * UI already renders both the published (linked, dated) and planned
- * ("Publishing soon", non-clickable) states.
+ * AUTOMATION CONTRACT — the blog-generation automation appends one
+ * SilverstoneBlogPost object between the marker comments in
+ * `~/data/blog-posts.ts`. The card grid below consumes that data through
+ * `BLOG_CARD_ARTICLES`; the placeholder card remains only for the empty-state
+ * pre-publication build.
  */
+
+import { BLOG_CARD_ARTICLES } from "~/data/blog-posts";
 
 export type InsightCategoryGroup = "service" | "industry";
 
@@ -135,10 +134,9 @@ export type InsightArticle = {
 const categoryLabel = (id: string): string =>
   INSIGHT_CATEGORIES.find((category) => category.id === id)?.label ?? id;
 
-export const INSIGHT_ARTICLES: InsightArticle[] = [
+const PLACEHOLDER_INSIGHT_ARTICLES: InsightArticle[] = [
   // Placeholder card — the automation's reference record. Every value below
-  // is deliberately a placeholder; see the automation contract at the top of
-  // this file before editing or removing it.
+  // is deliberately a placeholder; live posts are appended to blog-posts.ts.
   {
     id: "placeholder-article",
     categoryId: "ai-automation",
@@ -155,6 +153,9 @@ export const INSIGHT_ARTICLES: InsightArticle[] = [
     imageAlt: "Placeholder cover image for a forthcoming Silverstone AI article.",
   },
 ];
+
+export const INSIGHT_ARTICLES: InsightArticle[] =
+  BLOG_CARD_ARTICLES.length > 0 ? BLOG_CARD_ARTICLES : PLACEHOLDER_INSIGHT_ARTICLES;
 
 export function insightArticleCategoryLabel(article: InsightArticle): string {
   return categoryLabel(article.categoryId);

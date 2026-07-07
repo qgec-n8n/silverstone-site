@@ -1,4 +1,5 @@
 import type { Config } from "@react-router/dev/config";
+import { PUBLISHED_BLOG_POSTS } from "./src/data/blog-posts";
 import futureRouteManifest from "./src/data/generated/future-route-manifest.json";
 
 const approvedPrerenderPaths = [
@@ -38,6 +39,7 @@ export default {
   prerender: [
     ...futureRouteManifest.map((route) => route.path),
     ...approvedPrerenderPaths,
+    ...PUBLISHED_BLOG_POSTS.map((post) => `/blog/${post.slug}`),
   ],
   ssr: false,
 } satisfies Config;
