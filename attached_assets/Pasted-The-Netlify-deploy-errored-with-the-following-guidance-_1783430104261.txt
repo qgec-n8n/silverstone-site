@@ -1,0 +1,75 @@
+The Netlify deploy errored, with the following guidance provided:
+
+**Diagnosis**  
+- The build fails during `npm --prefix web ci` because NPM is trying to download packages from `http://package-firewall.replit.local`, which is inaccessible inside Netlify’s build environment. See the ENOTFOUND error at [line 57](#L57).
+
+**Solution**  
+- Remove or update any `.npmrc` or environment variable that forces the registry to `package-firewall.replit.local`.  
+- Ensure the build uses the public registry instead. For example, delete the custom registry entry or run this before the install step:
+
+```bash
+npm config set registry https://registry.npmjs.org/
+```
+
+After the registry points to the public endpoint, re-trigger the Netlify build.
+
+The relevant error logs are:
+
+Line 43: ❯ Config file
+Line 44:   /opt/build/repo/netlify.toml
+Line 45: ​
+Line 46: ❯ Context
+Line 47:   production
+Line 48: ​
+Line 49: build.command from netlify.toml                               
+Line 50: ────────────────────────────────────────────────────────────────
+Line 51: ​
+Line 52: $ npm --prefix web ci && npm --prefix web run build:production
+Line 53: Failed during stage 'building site': Build script returned non-zero exit code: 2
+Line 54: npm error code ENOTFOUND
+Line 55: npm error syscall getaddrinfo
+Line 56: npm error errno ENOTFOUND
+Line 57: npm error network request to http://package-firewall.replit.local/npm/motion-utils/-/motion-utils-12.39.0.tgz failed, reason: ge
+Line 58: npm error network This is a problem related to network connectivity.
+Line 59: npm error network In most cases you are behind a proxy or have bad network settings.
+Line 60: npm error network
+Line 61: npm error network If you are behind a proxy, please make sure that the
+Line 62: npm error network 'proxy' config is set properly.  See: 'npm help config'
+Line 63: npm error A complete log of this run can be found in: /opt/buildhome/.npm/_logs/2026-07-07T13_05_33_457Z-debug-0.log
+Line 64: ​
+Line 65: "build.command" failed                                        
+Line 66: ────────────────────────────────────────────────────────────────
+Line 67: ​
+Line 68:   Error message
+Line 69:   Command failed with exit code 1: npm --prefix web ci && npm --prefix web run build:production
+Line 70: ​
+Line 71:   Error location
+Line 72:   In build.command from netlify.toml:
+Line 73:   npm --prefix web ci && npm --prefix web run build:production
+Line 74: ​
+Line 75:   Resolved config
+Line 76:   build:
+Line 77:     command: npm --prefix web ci && npm --prefix web run build:production
+Line 78:     commandOrigin: config
+Line 79:     environment:
+Line 80:       - CONTACT_FROM
+Line 81:       - CONTACT_TO
+Line 227:       to: /services/trades
+Line 228:     - force: true
+Line 229:       from: /services/trades-virtual-office
+Line 230:       status: 301
+Line 231:       to: /services/trades
+Line 232:     - force: true
+Line 233:       from: /services/trades.html
+Line 234:       status: 301
+Line 235:       to: /services/trades
+Line 236:     - from: /blog/*
+      status: 301
+      to: /blog
+    - from: /*
+      status: 200
+      to: /__spa-fallback.html
+  redirect
+Line 237: Build failed due to a user error: Build script returned non-zero exit code: 2
+Line 238: Failing build: Failed to build site
+Line 239: Finished processing build request in 8m52.079s
