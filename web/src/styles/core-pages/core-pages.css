@@ -1754,6 +1754,7 @@ a.ss-insight-card:hover {
 /* ---- Blog article pages ----------------------------------------------- */
 
 .ss-blog-article {
+  --blog-article-hero-chrome: calc(var(--ss-layout-header) + var(--srv2-frame-top));
   --srv2-accent: var(--ss-v2-signal-cyan);
   --srv2-accent-2: var(--ss-v2-signal-violet);
   --srv2-glass: color-mix(in srgb, var(--ss-v2-graphite) 58%, transparent);
@@ -1762,15 +1763,18 @@ a.ss-insight-card:hover {
   --srv2-ink: var(--ss-v2-platinum);
   --srv2-ink-faint: color-mix(in srgb, var(--ss-v2-platinum) 64%, transparent);
   --srv2-ink-soft: color-mix(in srgb, var(--ss-v2-platinum) 76%, transparent);
+  padding-block-start: var(--srv2-frame-top);
   color: var(--ss-v2-platinum);
 }
 
 .ss-blog-article__hero {
   position: relative;
-  min-height: min(760px, calc(100dvh - var(--ss-layout-header)));
-  display: grid;
-  align-items: end;
-  overflow: clip;
+  display: flex;
+  height: calc(100dvh - var(--blog-article-hero-chrome));
+  min-height: calc(100dvh - var(--blog-article-hero-chrome));
+  flex-direction: column;
+  overflow: hidden;
+  padding-block: clamp(0.55rem, 0.3rem + 1.4vh, 1.75rem);
   background-position: center;
   background-size: cover;
   isolation: isolate;
@@ -1802,9 +1806,24 @@ a.ss-insight-card:hover {
 }
 
 .ss-blog-article__hero-inner {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
   width: min(100% - 2rem, 76rem);
   margin-inline: auto;
-  padding: clamp(4.5rem, 10vh, 8rem) 0 clamp(5.4rem, 10vh, 7rem);
+  padding: 0;
+}
+
+.ss-blog-article__hero-stage {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  align-items: center;
+}
+
+.ss-blog-article__hero-copy {
+  width: min(100%, 62rem);
 }
 
 .ss-blog-article__crumb {
@@ -1837,6 +1856,11 @@ a.ss-insight-card:hover {
     0 1px 0 color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent),
     0 22px 70px color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
   text-wrap: balance;
+}
+
+.ss-blog-article__hero h1[data-long="true"] {
+  max-width: 29ch;
+  font-size: clamp(1.45rem, 0.1rem + 1.18vw + 2.85vh, 4.55rem);
 }
 
 .ss-blog-article__hero h1 em {
@@ -1895,10 +1919,8 @@ a.ss-insight-card:hover {
 }
 
 .ss-blog-article__hero .ss-srv2-hero__scrollcue {
-  position: absolute;
-  right: 0;
-  bottom: clamp(0.8rem, 2.2vh, 1.6rem);
-  left: 0;
+  position: static;
+  margin-top: auto;
   padding-top: 0;
 }
 
@@ -2117,7 +2139,7 @@ a.ss-insight-card:hover {
   }
 
   .ss-blog-article__hero {
-    min-height: auto;
+    padding-block: clamp(0.65rem, 0.45rem + 1.2vh, 1.25rem);
   }
 
   .ss-blog-article__hero h1 {

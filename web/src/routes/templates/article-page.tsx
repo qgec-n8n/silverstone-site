@@ -230,53 +230,57 @@ export function ArticlePage({ post }: ArticlePageProps) {
         >
           <div className="ss-blog-article__hero-scrim" />
           <div className="ss-blog-article__hero-inner">
-            <Reveal kind="pill" trigger="mount">
-              <Link className="ss-blog-article__crumb" to="/blog">
-                Insights / {post.categoryLabel}
-              </Link>
-            </Reveal>
-            <Reveal kind="section" trigger="mount" delayMs={120}>
-              <h1>
-                <ArticleHeroTitle post={post} />
-              </h1>
-            </Reveal>
-            <Reveal kind="section" trigger="mount" delayMs={220}>
-              <p className="ss-blog-article__subtitle">
-                <RichText text={post.subtitle} />
-              </p>
-            </Reveal>
-            <Reveal
-              className="ss-blog-article__meta"
-              kind="section"
-              trigger="mount"
-              delayMs={320}
-            >
-              <span>
-                <CalendarClock aria-hidden="true" />
-                <time dateTime={post.publishedIsoDate}>{post.displayDate}</time>
-              </span>
-              <span>
-                <Clock aria-hidden="true" />
-                {post.readTime}
-              </span>
-            </Reveal>
-            <Reveal
-              className="ss-blog-article__actions"
-              kind="cta"
-              trigger="mount"
-              delayMs={420}
-            >
-              <ServiceButton href={post.ctaPrimary.href} variant="primary">
-                {post.ctaPrimary.label}
-              </ServiceButton>
-              <ServiceButton
-                href={post.ctaSecondary.href}
-                variant="ghost"
-                withArrow={false}
-              >
-                {post.ctaSecondary.label}
-              </ServiceButton>
-            </Reveal>
+            <div className="ss-blog-article__hero-stage">
+              <div className="ss-blog-article__hero-copy">
+                <Reveal kind="pill" trigger="mount">
+                  <Link className="ss-blog-article__crumb" to="/blog">
+                    Insights / {post.categoryLabel}
+                  </Link>
+                </Reveal>
+                <Reveal kind="section" trigger="mount" delayMs={120}>
+                  <h1 data-long={post.title.length > 64 ? "true" : undefined}>
+                    <ArticleHeroTitle post={post} />
+                  </h1>
+                </Reveal>
+                <Reveal kind="section" trigger="mount" delayMs={220}>
+                  <p className="ss-blog-article__subtitle">
+                    <RichText text={post.subtitle} />
+                  </p>
+                </Reveal>
+                <Reveal
+                  className="ss-blog-article__meta"
+                  kind="section"
+                  trigger="mount"
+                  delayMs={320}
+                >
+                  <span>
+                    <CalendarClock aria-hidden="true" />
+                    <time dateTime={post.publishedIsoDate}>{post.displayDate}</time>
+                  </span>
+                  <span>
+                    <Clock aria-hidden="true" />
+                    {post.readTime}
+                  </span>
+                </Reveal>
+                <Reveal
+                  className="ss-blog-article__actions"
+                  kind="cta"
+                  trigger="mount"
+                  delayMs={420}
+                >
+                  <ServiceButton href={post.ctaPrimary.href} variant="primary">
+                    {post.ctaPrimary.label}
+                  </ServiceButton>
+                  <ServiceButton
+                    href={post.ctaSecondary.href}
+                    variant="ghost"
+                    withArrow={false}
+                  >
+                    {post.ctaSecondary.label}
+                  </ServiceButton>
+                </Reveal>
+              </div>
+            </div>
             <ScrollCue />
           </div>
         </header>
