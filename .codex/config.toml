@@ -1,6 +1,4 @@
 model = "gpt-5.5"
-model_reasoning_effort = "high"
-personality = "pragmatic"
 
 [features]
 unified_exec = true

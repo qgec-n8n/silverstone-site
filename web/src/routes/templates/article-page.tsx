@@ -4,7 +4,13 @@ import "~/styles/core-pages/core-pages.css";
 import type { ReactNode } from "react";
 import { Link } from "react-router";
 
-import { CalendarClock, Clock, FileText, Sparkles } from "~/components/icons/lucide";
+import {
+  CalendarClock,
+  Check,
+  Clock,
+  FileText,
+  Sparkles,
+} from "~/components/icons/lucide";
 import type { SilverstoneBlogPost, SilverstoneBlogSection } from "~/data/blog-posts";
 import {
   Eyebrow,
@@ -284,7 +290,10 @@ export function ArticlePage({ post }: ArticlePageProps) {
               <ul>
                 {post.summary.map((item) => (
                   <li key={item}>
-                    <RichText text={item} />
+                    <Check aria-hidden="true" />
+                    <span>
+                      <RichText text={item} />
+                    </span>
                   </li>
                 ))}
               </ul>

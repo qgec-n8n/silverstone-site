@@ -1,5 +1,7 @@
+import { useLocation } from "react-router";
+
 import type { MigratedContentRecord } from "~/content/migrated";
-import { isGateFreeRoute } from "~/data/gate-free-routes";
+import { isGateFreeNavigation } from "~/data/gate-free-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { CorePageExperience } from "~/features/core-pages/core-page-experience";
 import { RoutePageFrame } from "~/routes/templates/route-page-frame";
@@ -35,6 +37,7 @@ function resolveEyebrow(route: FutureRouteRecord): string {
 }
 
 export function CoreMarketingPage({ content = null, route }: CoreMarketingPageProps) {
+  const location = useLocation();
   const bespokeCoreRoutes = new Set([
     "/how-we-work",
     "/blog",
@@ -53,7 +56,7 @@ export function CoreMarketingPage({ content = null, route }: CoreMarketingPagePr
         showHeader={false}
         showBreadcrumbs={false}
         showRelated={false}
-        skipIntro={isGateFreeRoute(route.path)}
+        skipIntro={isGateFreeNavigation(location.pathname, location.hash)}
       >
         <CorePageExperience route={route} />
       </RoutePageFrame>

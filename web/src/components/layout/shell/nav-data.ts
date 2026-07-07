@@ -159,11 +159,8 @@ export const PRIMARY_LINKS: readonly NavLeaf[] = [
   { href: "/blog", label: "Insights" },
   { href: "/about", label: "About" },
   { href: "/pricing", label: "Pricing" },
-  // Conversion links land directly on their actionable panel (enquiry form /
-  // Calendly) — both routes are gate-free, so the deep link resolves with no
-  // loader, intro or hero in the way.
-  { href: "/contact#contact-form", label: "Contact" },
-  { href: "/book#booking-calendar", label: "Book" },
+  { href: "/contact", label: "Contact" },
+  { href: "/book", label: "Book" },
 ];
 
 export const PRIMARY_CTA: NavLeaf = {

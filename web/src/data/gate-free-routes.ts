@@ -2,15 +2,16 @@ import { DEMO_REGISTRY } from "~/data/demo-registry";
 
 /**
  * Routes that skip the CoreSpin loader, Aether Flow intro and expandable-hero
- * gate entirely, rendering their body immediately. Conversion routes must land
- * straight on the scheduler or enquiry form; Insights must open directly from
- * article cards without replaying the route gate.
+ * gate entirely, rendering their body immediately. Article routes open directly
+ * from article cards without replaying the route gate. Conversion pages use
+ * their normal route gate unless the user follows an explicit CTA deep link to
+ * the actionable panel.
  *
  * Read by the pre-hydration boot script in `root.tsx` (inlined verbatim, so
  * keep these lists JSON-serialisable), `AppExperienceProvider` and
  * `CoreSpinLoader`, so all three agree on which routes are gate-free.
  */
-export const GATE_FREE_ROUTES: readonly string[] = ["/book", "/contact", "/blog"];
+export const GATE_FREE_ROUTES: readonly string[] = [];
 
 export const GATE_FREE_ROUTE_PREFIXES: readonly string[] = ["/blog/"];
 
@@ -23,12 +24,14 @@ export const GATE_FREE_ROUTE_PREFIXES: readonly string[] = ["/blog/"];
  */
 export const GATE_FREE_DEEP_LINKS: readonly string[] = DEMO_REGISTRY.map(
   (demo) => demo.href,
-);
+).concat(["/book#booking-calendar", "/contact#contact-form"]);
 
 export function isGateFreeRoute(pathname: string): boolean {
   return (
     GATE_FREE_ROUTES.includes(pathname) ||
-    GATE_FREE_ROUTE_PREFIXES.some((prefix) => pathname.startsWith(prefix))
+    GATE_FREE_ROUTE_PREFIXES.some(
+      (prefix) => pathname.startsWith(prefix) && pathname.length > prefix.length,
+    )
   );
 }
 
