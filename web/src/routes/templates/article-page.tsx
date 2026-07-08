@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router";
 
 import {
+  ArrowUpRight,
   CalendarClock,
   Check,
   Clock,
@@ -27,6 +28,55 @@ type ArticlePageProps = {
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Section headings arrive from the automation pipeline as plain strings, so
+ * the single gradient accent every other page's headings carry (`*phrase*`
+ * emphasis → gradient `em`) is applied here: the closing phrase of the
+ * heading is emphasised, skipping leading connective words so the gradient
+ * never starts on "and"/"the". Headings that already carry `*emphasis*`
+ * markers, or are too short to split, are left untouched.
+ */
+const EMPHASIS_STOPWORDS = new Set([
+  "a",
+  "an",
+  "and",
+  "are",
+  "before",
+  "for",
+  "from",
+  "in",
+  "into",
+  "of",
+  "on",
+  "or",
+  "still",
+  "the",
+  "to",
+  "versus",
+  "vs",
+  "with",
+]);
+
+function emphasiseHeading(heading: string): string {
+  if (heading.includes("*")) {
+    return heading;
+  }
+  const words = heading.trim().split(/\s+/);
+  if (words.length < 3) {
+    return heading;
+  }
+  let start = words.length - (words.length >= 6 ? 3 : 2);
+  while (
+    start < words.length - 1 &&
+    EMPHASIS_STOPWORDS.has((words[start] ?? "").toLowerCase().replace(/[^a-z-]/g, ""))
+  ) {
+    start += 1;
+  }
+  const head = words.slice(0, start).join(" ");
+  const tail = words.slice(start).join(" ");
+  return `${head} *${tail}*`;
 }
 
 function sanitizeHref(href: string): string | null {
@@ -81,9 +131,7 @@ function ArticleRichText({ text }: { text: string }) {
   }
 
   if (lastIndex < text.length) {
-    nodes.push(
-      <RichText key={`text-${String(key++)}`} text={text.slice(lastIndex)} />,
-    );
+    nodes.push(<RichText key={`text-${String(key++)}`} text={text.slice(lastIndex)} />);
   }
 
   return <>{nodes}</>;
@@ -160,7 +208,7 @@ function ArticleSection({
     <Reveal amount="some" kind="section">
       <section className="ss-blog-article__section" aria-labelledby={headingId}>
         <h2 id={headingId}>
-          <RichText text={section.heading} />
+          <RichText text={emphasiseHeading(section.heading)} />
         </h2>
         {section.body.map((paragraph, index) => (
           <p key={`${section.heading}-${String(index)}`}>
@@ -290,7 +338,9 @@ export function ArticlePage({ post }: ArticlePageProps) {
           <div className="ss-blog-article__container">
             <Reveal className="ss-blog-article__summary" kind="card">
               <Eyebrow icon={Sparkles}>Executive Summary</Eyebrow>
-              <h2>What to take from this article</h2>
+              <h2>
+                What to take from <em>this article</em>
+              </h2>
               <ul>
                 {post.summary.map((item) => (
                   <li key={item}>
@@ -314,21 +364,33 @@ export function ArticlePage({ post }: ArticlePageProps) {
             </div>
 
             {post.internalLinks.length > 0 ? (
-              <Reveal className="ss-blog-article__related" kind="section">
-                <h2>Continue Exploring</h2>
+              <Reveal
+                className="ss-blog-article__related ss-srv2-beam-border"
+                kind="section"
+              >
+                <Eyebrow icon={FileText}>Route onwards</Eyebrow>
+                <h2>
+                  Continue <em>Exploring</em>
+                </h2>
                 <div>
                   {post.internalLinks.map((link) => (
                     <Link key={`${link.href}-${link.label}`} to={link.href}>
-                      {link.label}
+                      <span>{link.label}</span>
+                      <ArrowUpRight aria-hidden="true" />
                     </Link>
                   ))}
                 </div>
               </Reveal>
             ) : null}
 
-            <Reveal className="ss-blog-article__cta-card" kind="cta">
+            <Reveal
+              className="ss-blog-article__cta-card ss-srv2-beam-border"
+              kind="cta"
+            >
               <span>Ready to turn this into an operating system?</span>
-              <h2>Build the next Silverstone system around your real workflow.</h2>
+              <h2>
+                Build the next <em>Silverstone system</em> around your real workflow.
+              </h2>
               <p>
                 Bring the problem, the current stack and the commercial outcome. We will
                 map the practical route from idea to deployed AI system.

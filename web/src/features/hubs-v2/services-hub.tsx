@@ -329,7 +329,7 @@ export function ServicesHubExperience() {
           <SectionHead
             eyebrow="Choose your entry point"
             icon={Sparkles}
-            heading="Seven systems, one connected architecture"
+            heading="Seven systems, *one connected architecture*"
             headingId="hub2-services"
             lead="Every service page opens its own cinematic system — explore the discipline closest to the problem you can already name."
           />
@@ -384,7 +384,7 @@ export function ServicesHubExperience() {
           <SectionHead
             eyebrow="Verified results"
             icon={TrendingUp}
-            heading="Proof before promises"
+            heading="Proof before *promises*"
             headingId="hub2-proof"
           />
           <BenchmarkConsole
@@ -400,7 +400,7 @@ export function ServicesHubExperience() {
         <div className="ss-srv2__container" data-width="narrow">
           <SectionHead
             eyebrow="Sector systems"
-            heading="Built for the way your industry actually operates"
+            heading="Built for the way your industry *actually operates*"
             headingId="hub2-industries"
             lead="Nine UK sectors have their own dedicated operating systems — estate agency enquiry switchboards, salon diaries, clinic recall, trades dispatch and more."
           />
@@ -415,7 +415,7 @@ export function ServicesHubExperience() {
       <section className="ss-srv2-section">
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
-            heading="Name the workflow. We'll map the system."
+            heading="Name the workflow. We'll map *the system*."
             body={
               <LinkedText text="A 30-minute discovery call examines one real journey through your business — where it leaks, which system should own the truth and what a controlled first release would need." />
             }
@@ -427,7 +427,7 @@ export function ServicesHubExperience() {
 
       <section className="ss-srv2-section">
         <div className="ss-srv2__container">
-          <SectionHead eyebrow="Continue" heading="Where this connects next" />
+          <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail
             links={[
               { href: "/industry", label: "Industries", title: "Industry systems" },

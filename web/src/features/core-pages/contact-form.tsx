@@ -96,6 +96,24 @@ const STAGES = [
 
 const MESSAGE_MAX_LENGTH = 1600;
 
+/** The eight optional Scope instruments the calibration meter tracks. A
+ * slider counts once it leaves its honest "not sure" default; chips and
+ * multi-selects count once anything is chosen. */
+const SCOPE_QUESTION_COUNT = 8;
+
+function countScopeAnswers(data: EnquiryData): number {
+  return [
+    data.budget !== INITIAL_DATA.budget,
+    data.timeline !== "",
+    data.enquiryVolume !== INITIAL_DATA.enquiryVolume,
+    data.adminHours !== INITIAL_DATA.adminHours,
+    data.channels.length > 0,
+    data.systems.length > 0,
+    data.automationExperience !== "",
+    data.decisionRole !== "",
+  ].filter(Boolean).length;
+}
+
 type EnquiryData = {
   interest: string;
   companySize: string;
@@ -304,6 +322,32 @@ function ChipMultiGroup({
 }
 
 /**
+ * Labelled cluster inside the Scope stage: a numbered mono header over a
+ * glass sub-panel, so the eight qualifying instruments read as three short
+ * themed groups instead of one long undifferentiated column.
+ */
+function ScopeCluster({
+  index,
+  title,
+  children,
+}: {
+  index: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className="ss-enq__cluster" aria-label={title}>
+      <header className="ss-enq__cluster-head" aria-hidden="true">
+        <span className="ss-enq__cluster-index">{index}</span>
+        <span className="ss-enq__cluster-title">{title}</span>
+        <span className="ss-enq__cluster-rule" />
+      </header>
+      <div className="ss-enq__cluster-body">{children}</div>
+    </section>
+  );
+}
+
+/**
  * Stepped slider instrument (glowing readout, beam track, orb thumb — see
  * `.ss-enq__slider`). The fill percentage feeds the track gradient via
  * `--enq-fill`.
@@ -422,6 +466,7 @@ export function ContactForm() {
 
   const submitting = status === "submitting";
   const stage = STAGES[step] ?? STAGES[0];
+  const scopeAnswered = countScopeAnswers(data);
 
   if (status === "sent") {
     return (
@@ -558,96 +603,125 @@ export function ContactForm() {
 
             {step === 1 ? (
               <div className="ss-enq__fields">
-                <p className="ss-enq__hint">
-                  Every control here is optional and one tap. Nothing is a commitment —
-                  each answer simply calibrates how the discovery call is prepared and
-                  how accurately a first indication of scope can be made.
-                </p>
-                <div className="ss-core-form__grid">
-                  <ScopeSlider
-                    label="Indicative budget"
-                    options={BUDGET_OPTIONS}
-                    value={data.budget}
-                    onChange={(budget) => patch({ budget })}
-                    disabled={submitting}
-                  />
-                  <ScopeSlider
-                    label="New enquiries per week"
-                    options={ENQUIRY_VOLUME_OPTIONS}
-                    value={data.enquiryVolume}
-                    onChange={(enquiryVolume) => patch({ enquiryVolume })}
-                    disabled={submitting}
-                  />
+                <div className="ss-enq__scope-intro">
+                  <p className="ss-enq__hint">
+                    Every control here is optional and one tap. Nothing is a commitment
+                    — each answer simply calibrates how the discovery call is prepared
+                    and how accurately a first indication of scope can be made.
+                  </p>
+                  <div
+                    className="ss-enq__meter"
+                    role="status"
+                    aria-label={`${String(scopeAnswered)} of ${String(SCOPE_QUESTION_COUNT)} scope questions answered`}
+                  >
+                    <span className="ss-enq__meter-cells" aria-hidden="true">
+                      {Array.from({ length: SCOPE_QUESTION_COUNT }, (_, index) => (
+                        <span key={index} data-filled={index < scopeAnswered} />
+                      ))}
+                    </span>
+                    <span className="ss-enq__meter-count" aria-hidden="true">
+                      {scopeAnswered} / {SCOPE_QUESTION_COUNT} calibrated
+                    </span>
+                  </div>
                 </div>
-                <ScopeSlider
-                  label="Hours a week your team loses to manual admin"
-                  options={ADMIN_HOURS_OPTIONS}
-                  value={data.adminHours}
-                  onChange={(adminHours) => patch({ adminHours })}
-                  disabled={submitting}
-                />
-                <ChipMultiGroup
-                  legend={
-                    <>
-                      Where do enquiries arrive? <em>select any</em>
-                    </>
-                  }
-                  name="channels"
-                  options={CHANNEL_OPTIONS}
-                  values={data.channels}
-                  onChange={(channels) => patch({ channels })}
-                  disabled={submitting}
-                />
-                <ChipMultiGroup
-                  legend={
-                    <>
-                      Systems already in play <em>select any</em>
-                    </>
-                  }
-                  name="systems"
-                  options={SYSTEM_OPTIONS}
-                  values={data.systems}
-                  onChange={(systems) => patch({ systems })}
-                  disabled={submitting}
-                />
-                <div className="ss-core-form__grid">
-                  <ChipGroup
+
+                <ScopeCluster index="01" title="Commercials">
+                  <div className="ss-core-form__grid">
+                    <ScopeSlider
+                      label="Indicative budget"
+                      options={BUDGET_OPTIONS}
+                      value={data.budget}
+                      onChange={(budget) => patch({ budget })}
+                      disabled={submitting}
+                    />
+                    <ChipGroup
+                      legend={
+                        <>
+                          How soon should this be live? <em>optional</em>
+                        </>
+                      }
+                      name="timeline"
+                      options={TIMELINE_OPTIONS}
+                      value={data.timeline}
+                      onChange={(timeline) => patch({ timeline })}
+                      disabled={submitting}
+                    />
+                  </div>
+                </ScopeCluster>
+
+                <ScopeCluster index="02" title="Workload">
+                  <div className="ss-core-form__grid">
+                    <ScopeSlider
+                      label="New enquiries per week"
+                      options={ENQUIRY_VOLUME_OPTIONS}
+                      value={data.enquiryVolume}
+                      onChange={(enquiryVolume) => patch({ enquiryVolume })}
+                      disabled={submitting}
+                    />
+                    <ScopeSlider
+                      label="Hours a week lost to manual admin"
+                      options={ADMIN_HOURS_OPTIONS}
+                      value={data.adminHours}
+                      onChange={(adminHours) => patch({ adminHours })}
+                      disabled={submitting}
+                    />
+                  </div>
+                  <ChipMultiGroup
                     legend={
                       <>
-                        How automated are you today? <em>optional</em>
+                        Where do enquiries arrive? <em>select any</em>
                       </>
                     }
-                    name="automationExperience"
-                    options={AUTOMATION_EXPERIENCE_OPTIONS}
-                    value={data.automationExperience}
-                    onChange={(automationExperience) => patch({ automationExperience })}
+                    name="channels"
+                    options={CHANNEL_OPTIONS}
+                    values={data.channels}
+                    onChange={(channels) => patch({ channels })}
                     disabled={submitting}
                   />
-                  <ChipGroup
+                </ScopeCluster>
+
+                <ScopeCluster index="03" title="Systems & sign-off">
+                  <ChipMultiGroup
                     legend={
                       <>
-                        Who signs this off? <em>optional</em>
+                        Systems already in play <em>select any</em>
                       </>
                     }
-                    name="decisionRole"
-                    options={DECISION_OPTIONS}
-                    value={data.decisionRole}
-                    onChange={(decisionRole) => patch({ decisionRole })}
+                    name="systems"
+                    options={SYSTEM_OPTIONS}
+                    values={data.systems}
+                    onChange={(systems) => patch({ systems })}
                     disabled={submitting}
                   />
-                </div>
-                <ChipGroup
-                  legend={
-                    <>
-                      How soon should this be live? <em>optional</em>
-                    </>
-                  }
-                  name="timeline"
-                  options={TIMELINE_OPTIONS}
-                  value={data.timeline}
-                  onChange={(timeline) => patch({ timeline })}
-                  disabled={submitting}
-                />
+                  <div className="ss-core-form__grid">
+                    <ChipGroup
+                      legend={
+                        <>
+                          How automated are you today? <em>optional</em>
+                        </>
+                      }
+                      name="automationExperience"
+                      options={AUTOMATION_EXPERIENCE_OPTIONS}
+                      value={data.automationExperience}
+                      onChange={(automationExperience) =>
+                        patch({ automationExperience })
+                      }
+                      disabled={submitting}
+                    />
+                    <ChipGroup
+                      legend={
+                        <>
+                          Who signs this off? <em>optional</em>
+                        </>
+                      }
+                      name="decisionRole"
+                      options={DECISION_OPTIONS}
+                      value={data.decisionRole}
+                      onChange={(decisionRole) => patch({ decisionRole })}
+                      disabled={submitting}
+                    />
+                  </div>
+                </ScopeCluster>
               </div>
             ) : null}
 

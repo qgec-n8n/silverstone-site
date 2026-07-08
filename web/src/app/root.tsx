@@ -15,6 +15,7 @@ import { DeepLinkScrollHandler } from "~/app/experience/deep-link-scroll";
 import { CoreSpinLoader } from "~/components/ui/core-spin-loader";
 import { CookieConsentManager } from "~/components/layout/shell/cookie-consent-manager";
 import { DemosLauncher } from "~/components/layout/shell/demos-launcher";
+import { CalendlyWarmup } from "~/features/core-pages/calendly";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Stack } from "~/components/layout/stack";
@@ -76,6 +77,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
         <link href="/site.webmanifest" rel="manifest" />
+        {/* The embedded Calendly scheduler (booking panel + CTA deep links)
+            lives on calendly.com with static assets on assets.calendly.com —
+            warming both connections shaves the handshake off the embed's
+            first paint. */}
+        <link href="https://calendly.com" rel="preconnect" />
+        <link
+          crossOrigin="anonymous"
+          href="https://assets.calendly.com"
+          rel="preconnect"
+        />
         <AnalyticsScripts />
         <script
           dangerouslySetInnerHTML={{
@@ -99,6 +110,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {children}
             <DemosLauncher />
             <CookieConsentManager />
+            <CalendlyWarmup />
           </AppExperienceProvider>
         </MotionProvider>
         <ScrollRestoration />

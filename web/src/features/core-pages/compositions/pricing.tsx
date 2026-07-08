@@ -180,7 +180,7 @@ export function PricingComposition() {
 
       <section className="ss-srv2-section">
         <div className="ss-srv2__container">
-          <SectionHead eyebrow="Continue" heading="Where this connects next" />
+          <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail links={related} />
         </div>
       </section>

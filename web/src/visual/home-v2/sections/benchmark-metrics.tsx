@@ -20,7 +20,7 @@ export function BenchmarkMetrics({ countersEnabled }: BenchmarkMetricsProps) {
       title={
         <>
           The Business Impact of Better{" "}
-          <span className="ss-chrome-text">Automation</span>
+          <span className="ss-signal-text">Automation</span>
         </>
       }
       lead="Selected automation-performance benchmarks from published case data and industry sources, showing the operational improvements well-designed systems can target. Not guaranteed individual outcomes."

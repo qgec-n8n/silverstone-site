@@ -11,7 +11,7 @@ export function ProcessStory() {
       eyebrow="The method"
       title={
         <>
-          From missed calls to a <span className="ss-chrome-text">working system</span>.
+          From missed calls to a <span className="ss-signal-text">working system</span>.
         </>
       }
       lead="A clear route from problem to live automation — with you in control at every checkpoint."

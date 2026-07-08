@@ -106,7 +106,7 @@ export function SecondaryHero() {
             </Reveal>
             <Reveal delayMs={80}>
               <h2 className="ss-hv2-display ss-hv2-secondary__title text-4xl sm:text-5xl">
-                The Silverstone <span className="ss-chrome-text">System</span>
+                The Silverstone <span className="ss-signal-text">System</span>
               </h2>
             </Reveal>
             <Reveal delayMs={160}>

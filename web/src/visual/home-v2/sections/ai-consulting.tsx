@@ -61,7 +61,7 @@ export function AiConsulting() {
             <Reveal delayMs={80}>
               <h2 className="ss-hv2-display text-4xl sm:text-5xl">
                 Strategy first.{" "}
-                <span className="ss-chrome-text">Technology second.</span>
+                <span className="ss-signal-text">Technology second.</span>
               </h2>
             </Reveal>
             <Reveal delayMs={160}>

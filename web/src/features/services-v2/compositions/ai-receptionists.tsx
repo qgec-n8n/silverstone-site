@@ -199,7 +199,7 @@ export function AiReceptionistsComposition({
           <SectionHead
             eyebrow="Live surfaces"
             icon={Headset}
-            heading="See the two sides of a modern front desk"
+            heading="See the two sides of a modern *front desk*"
             headingId="srv2-showcase"
             lead="This section reserves a future AI chat window and an ElevenLabs-ready call feature. They show how the same approved intake rules can be adapted across written and spoken channels while preserving booking, routing and human escalation."
           />
@@ -231,7 +231,7 @@ export function AiReceptionistsComposition({
 
       <section className="ss-srv2-section">
         <div className="ss-srv2__container">
-          <SectionHead eyebrow="Continue" heading="Where this connects next" />
+          <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail links={related} />
         </div>
       </section>

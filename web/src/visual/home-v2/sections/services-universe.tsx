@@ -12,7 +12,7 @@ export function ServicesUniverse() {
       eyebrow="The system"
       title={
         <>
-          One studio. <span className="ss-chrome-text">Every layer</span> of your
+          One studio. <span className="ss-signal-text">Every layer</span> of your
           operation.
         </>
       }

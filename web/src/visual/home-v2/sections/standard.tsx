@@ -17,7 +17,7 @@ export function Standard() {
               The Silverstone Standard
             </span>
             <h2 className="ss-hv2-display text-4xl sm:text-5xl">
-              Held to a <span className="ss-chrome-text">higher standard</span>.
+              Held to a <span className="ss-signal-text">higher standard</span>.
             </h2>
             <p className="ss-lead text-[color:var(--ss-v2-titanium)]">
               Four commitments behind every system we ship.

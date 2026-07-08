@@ -10,24 +10,19 @@
  * luminous cyan→violet ring, with a console rail above it and the
  * light-theme embed params matching the pane so widget and pane read as
  * one seamless sheet — no grey frame, no box-in-a-box.
+ *
+ * The console rail carries a live three-step trace (Time → Details →
+ * Confirmed) driven by Calendly's own postMessage interaction events
+ * (`calendly.date_and_time_selected`, `calendly.event_scheduled`), so the
+ * dark chrome visibly responds to what happens inside the white sheet.
  */
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 import { CalendarCheck, MessageSquare } from "~/components/icons/lucide";
 import { OrbitalLoader } from "~/components/ui/orbital-loader";
+import { CALENDLY_ORIGIN, CALENDLY_URL } from "~/features/core-pages/calendly";
 import { Reveal } from "~/features/services-v2/components/primitives";
-
-/**
- * Calendly only honours its embed params (background_color, hide_gdpr_banner,
- * …) when the URL identifies itself as an inline embed via embed_domain +
- * embed_type, so both are always present. embed_domain is pinned to the
- * production domain rather than read from window.location: Calendly uses it
- * for analytics, not validation, and a runtime-derived value diverges from
- * the prerendered HTML on any non-production host, tripping a hydration
- * mismatch on the iframe src.
- */
-const CALENDLY_URL = `https://calendly.com/silverstone-ai/30min?embed_domain=silverstone-ai.com&embed_type=Inline&hide_landing_page_details=1&hide_event_type_details=1&hide_gdpr_banner=1&primary_color=0891b2&text_color=0b1220&background_color=ffffff`;
 
 /**
  * Calendly reports its internal page height via `calendly.page_height`
@@ -38,27 +33,44 @@ const CALENDLY_URL = `https://calendly.com/silverstone-ai/30min?embed_domain=sil
  * anything under the floor is ignored; the ceiling guards against a
  * malformed report stretching the page.
  */
-const CALENDLY_ORIGIN = "https://calendly.com";
 const MIN_FRAME_HEIGHT = 480;
 const MAX_FRAME_HEIGHT = 1600;
+
+type BookingStage = "time" | "details" | "confirmed";
+
+const BOOKING_STEPS: { id: BookingStage; label: string }[] = [
+  { id: "time", label: "Time" },
+  { id: "details", label: "Details" },
+  { id: "confirmed", label: "Confirmed" },
+];
+
+const STAGE_ORDER: Record<BookingStage, number> = {
+  time: 0,
+  details: 1,
+  confirmed: 2,
+};
+
+function parseCalendlyEvent(event: MessageEvent): string | null {
+  if (event.origin !== CALENDLY_ORIGIN) {
+    return null;
+  }
+  const data: unknown = event.data;
+  if (typeof data !== "object" || data === null) {
+    return null;
+  }
+  const name = (data as { event?: unknown }).event;
+  return typeof name === "string" ? name : null;
+}
 
 function useCalendlyFrameHeight(): number | null {
   const [height, setHeight] = useState<number | null>(null);
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
-      if (event.origin !== CALENDLY_ORIGIN) {
+      if (parseCalendlyEvent(event) !== "calendly.page_height") {
         return;
       }
-      const data: unknown = event.data;
-      if (
-        typeof data !== "object" ||
-        data === null ||
-        (data as { event?: unknown }).event !== "calendly.page_height"
-      ) {
-        return;
-      }
-      const raw = (data as { payload?: { height?: unknown } }).payload?.height;
+      const raw = (event.data as { payload?: { height?: unknown } }).payload?.height;
       const parsed = typeof raw === "string" ? Number.parseInt(raw, 10) : NaN;
       if (Number.isNaN(parsed) || parsed < MIN_FRAME_HEIGHT) {
         return;
@@ -73,12 +85,43 @@ function useCalendlyFrameHeight(): number | null {
   return height;
 }
 
+/**
+ * Live booking stage, advanced by Calendly's interaction events. Only ever
+ * moves forward — Calendly re-emits view events when the visitor pages back,
+ * but a locked-in time shouldn't visually regress the trace, and a completed
+ * booking is terminal.
+ */
+function useBookingStage(): BookingStage {
+  const [stage, setStage] = useState<BookingStage>("time");
+
+  useEffect(() => {
+    const onMessage = (event: MessageEvent) => {
+      const name = parseCalendlyEvent(event);
+      if (name === "calendly.date_and_time_selected") {
+        setStage((current) => (current === "confirmed" ? current : "details"));
+      } else if (name === "calendly.event_scheduled") {
+        setStage("confirmed");
+      }
+    };
+
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
+
+  return stage;
+}
+
 export function BookingPanel() {
   const [loaded, setLoaded] = useState(false);
   const frameHeight = useCalendlyFrameHeight();
+  const stage = useBookingStage();
 
   return (
-    <div className="ss-core-booking ss-srv2-beam-border" id="booking-calendar">
+    <div
+      className="ss-core-booking ss-srv2-beam-border"
+      id="booking-calendar"
+      data-stage={stage}
+    >
       <Reveal kind="section">
         <div className="ss-core-booking__body">
           <span className="ss-srv2-bench__tag">
@@ -86,10 +129,12 @@ export function BookingPanel() {
             30-minute discovery call
             <span className="ss-core-booking__live" aria-hidden="true">
               <span className="ss-core-booking__live-dot" />
-              Live
+              {stage === "confirmed" ? "Booked" : "Live"}
             </span>
           </span>
-          <h3>Choose a time that works for you</h3>
+          <h3>
+            Choose a time that <em>works for you</em>
+          </h3>
           <p>
             The scheduler is embedded directly on this page — no new tab, no separate
             sign-in. Bring one process, journey or digital decision — no technical
@@ -101,15 +146,37 @@ export function BookingPanel() {
         <div className="ss-core-booking__console">
           <div className="ss-core-booking__rail" aria-hidden="true">
             <span className="ss-core-booking__rail-label">
-              Secure scheduler · Calendly
+              {stage === "confirmed"
+                ? "Booking confirmed · Calendly"
+                : "Secure scheduler · Calendly"}
             </span>
             <span className="ss-core-booking__rail-track" />
-            <span className="ss-core-booking__rail-dots">
-              <span />
-              <span />
-              <span />
-            </span>
+            <ol className="ss-core-booking__steps">
+              {BOOKING_STEPS.map((step, index) => {
+                const state =
+                  STAGE_ORDER[stage] > index
+                    ? "done"
+                    : STAGE_ORDER[stage] === index
+                      ? "current"
+                      : "ahead";
+                return (
+                  <li key={step.id} data-state={state}>
+                    <span className="ss-core-booking__step-index">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    {step.label}
+                  </li>
+                );
+              })}
+            </ol>
           </div>
+          <p className="sr-only" aria-live="polite">
+            {stage === "confirmed"
+              ? "Booking confirmed. A calendar invite is on its way to your inbox."
+              : stage === "details"
+                ? "Time selected. Enter your details to confirm the call."
+                : "Choose an available time in the scheduler."}
+          </p>
           <div
             className="ss-core-booking__frame"
             data-loaded={loaded}
@@ -141,7 +208,9 @@ export function BookingPanel() {
       <Reveal kind="section" delayMs={200}>
         <div className="ss-core-booking__footer">
           <p className="ss-core-booking__footer-note">
-            Rather talk it through in writing first?
+            {stage === "confirmed"
+              ? "Calendar invite sent — check your inbox for the confirmation."
+              : "Rather talk it through in writing first?"}
           </p>
           <Link
             className="ss-srv2-btn ss-srv2-btn--ghost ss-srv2-beam-border ss-core-booking__contact-btn"

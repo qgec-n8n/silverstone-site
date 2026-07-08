@@ -240,7 +240,7 @@ export function WebDesignComposition({
           <SectionHead
             eyebrow="Live showcases"
             icon={PencilRuler}
-            heading="Two live website showcases are reserved for this page"
+            heading="Two live website showcases are *reserved for this page*"
             headingId="srv2-showcase"
             lead="Beyond static portfolio imagery, this space is prepared to explore two production websites in a controlled browser-frame presentation — added only once the live URL, permission and descriptive copy are approved."
           />
@@ -275,7 +275,7 @@ export function WebDesignComposition({
       {/* 12 — Related */}
       <section className="ss-srv2-section">
         <div className="ss-srv2__container">
-          <SectionHead eyebrow="Continue" heading="Where this connects next" />
+          <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail links={related} />
         </div>
       </section>

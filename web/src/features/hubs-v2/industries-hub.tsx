@@ -192,7 +192,7 @@ export function IndustriesHubExperience() {
       <SecondaryHero
         eyebrow="Industry operating systems"
         icon={Layers}
-        title="Technology shaped around your operating reality"
+        title="Technology shaped around your *operating reality*"
         titleId="hub2-lead"
         lead="Generic automation fails at the edges of a real trade. Silverstone builds sector-specific systems around your diary, CRM, reservation book or patient records — with the judgement calls your industry demands kept firmly human."
         points={[
@@ -210,7 +210,7 @@ export function IndustriesHubExperience() {
           <SectionHead
             eyebrow="Find your sector"
             icon={Layers}
-            heading="Nine industries, nine purpose-built systems"
+            heading="Nine industries, nine *purpose-built systems*"
             headingId="hub2-sectors"
             lead="Each page opens a complete operating experience: the sector's costly problem, the journey that fixes it, verified results and the boundaries that keep judgement with your people."
           />
@@ -261,7 +261,7 @@ export function IndustriesHubExperience() {
           <SectionHead
             eyebrow="Verified results"
             icon={TrendingUp}
-            heading="Measured where your sector feels it"
+            heading="Measured where your sector *feels it*"
             headingId="hub2-proof"
           />
           <BenchmarkConsole
@@ -277,7 +277,7 @@ export function IndustriesHubExperience() {
         <div className="ss-srv2__container ss-hub2-disciplines" data-width="narrow">
           <SectionHead
             eyebrow="The disciplines behind the systems"
-            heading="Every sector system draws on the same architecture"
+            heading="Every sector system draws on the *same architecture*"
             headingId="hub2-services"
             lead="AI reception, voice, automation, web, apps, content and consulting — combined per sector, never sold as a fixed stack."
           />
@@ -292,7 +292,7 @@ export function IndustriesHubExperience() {
       <section className="ss-srv2-section">
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
-            heading="Start with the journey your sector loses money on"
+            heading="Start with the journey your sector *loses money on*"
             body={
               <LinkedText text="Bring one real enquiry, booking, recall or quote that went wrong. A 30-minute discovery call maps the system around it — and tells you honestly whether automation belongs there." />
             }
@@ -304,7 +304,7 @@ export function IndustriesHubExperience() {
 
       <section className="ss-srv2-section">
         <div className="ss-srv2__container">
-          <SectionHead eyebrow="Continue" heading="Where this connects next" />
+          <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail
             links={[
               { href: "/services", label: "Services", title: "Service architecture" },

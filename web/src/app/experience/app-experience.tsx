@@ -2,8 +2,8 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
+  useEffect,
   useRef,
   useState,
   type ReactNode,
@@ -115,6 +115,54 @@ function isServiceExperienceRoute(pathname: string): boolean {
   return route?.family === "service";
 }
 
+type GateState = {
+  /** The route-experience path this gate is armed for (null on home and
+   * gate-free routes) — the marker `viewGate` checks against the live
+   * location. */
+  experiencePath: string | null;
+  isHomeRoute: boolean;
+  loaderActive: boolean;
+  homepageState: HomepageState;
+  routeExperienceState: RouteExperienceState;
+};
+
+/**
+ * Re-arm a gate carried over from a previous navigation for the current one.
+ * Only routes with a real intro to play re-arm the loader — navigating to a
+ * gate-free route (Book) must never flash it, whichever route the visitor is
+ * coming from.
+ */
+function rearmGate(
+  current: GateState,
+  experiencePath: string | null,
+  isHomeRoute: boolean,
+): GateState {
+  const loaderActive =
+    experiencePath !== null && experiencePath !== current.experiencePath
+      ? true
+      : current.loaderActive;
+
+  return {
+    experiencePath,
+    isHomeRoute,
+    loaderActive,
+    homepageState:
+      isHomeRoute === current.isHomeRoute
+        ? current.homepageState
+        : isHomeRoute
+          ? loaderActive
+            ? "loading"
+            : "intro"
+          : "body",
+    routeExperienceState:
+      experiencePath === current.experiencePath
+        ? current.routeExperienceState
+        : experiencePath
+          ? "loading"
+          : "body",
+  };
+}
+
 export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const isHomeRoute = location.pathname === "/";
@@ -124,18 +172,6 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   );
   const isServiceRoute = isServiceExperienceRoute(location.pathname);
 
-  const [loaderActive, setLoaderActive] = useState(
-    () => !isGateFreeNavigation(normalizePathname(location.pathname), location.hash),
-  );
-  const [homepageState, setHomepageState] = useState<HomepageState>(
-    isHomeRoute ? "loading" : "body",
-  );
-  const [routeExperienceState, setRouteExperienceState] =
-    useState<RouteExperienceState>(routeExperienceActive ? "loading" : "body");
-  const [lastIsHome, setLastIsHome] = useState(isHomeRoute);
-  const [lastExperiencePath, setLastExperiencePath] = useState(
-    routeExperienceActive ? normalizePathname(location.pathname) : null,
-  );
   const previousScrollStylesRef = useRef<{
     bodyOverflow: string;
     bodyOverscroll: string;
@@ -143,78 +179,152 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     htmlOverscroll: string;
   } | null>(null);
 
-  // Re-arm the homepage interaction on navigation by adjusting state during
-  // render (React's recommended pattern - no effect, no cascading render).
-  if (isHomeRoute !== lastIsHome) {
-    setLastIsHome(isHomeRoute);
-    setHomepageState(isHomeRoute ? (loaderActive ? "loading" : "intro") : "body");
-  }
-
   const experiencePath = routeExperienceActive
     ? normalizePathname(location.pathname)
     : null;
-  if (experiencePath !== lastExperiencePath) {
-    setLastExperiencePath(experiencePath);
-    // Only routes with a real intro to play re-arm the loader — navigating
-    // to a gate-free route (Book) must never flash it, whichever route the
-    // visitor is coming from.
-    if (experiencePath !== null) {
-      setLoaderActive(true);
-    }
-    setRouteExperienceState(experiencePath ? "loading" : "body");
+
+  /*
+   * The whole gate lives in ONE state object. It used to be five separate
+   * useState slots re-armed by render-phase setState calls, but inside React
+   * Router's navigation transition those sibling updates could be partially
+   * lost when the transition render was interrupted (observed on gate-free
+   * article -> /blog navigations: the "which navigation is this armed for"
+   * marker committed while `routeExperienceState`/`loaderActive` reverted,
+   * silently skipping the whole loader/intro gate). A single object updates
+   * atomically — it can be dropped, never torn — and every read below goes
+   * through `viewGate`, which re-arms a stale object on the fly, so even a
+   * dropped update renders correctly and is re-attempted next render.
+   */
+  const [gate, setGate] = useState<GateState>(() => ({
+    experiencePath: routeExperienceActive ? normalizePathname(location.pathname) : null,
+    isHomeRoute,
+    loaderActive: !isGateFreeNavigation(
+      normalizePathname(location.pathname),
+      location.hash,
+    ),
+    homepageState: isHomeRoute ? "loading" : "body",
+    routeExperienceState: routeExperienceActive ? "loading" : "body",
+  }));
+
+  const viewGate =
+    gate.experiencePath === experiencePath && gate.isHomeRoute === isHomeRoute
+      ? gate
+      : rearmGate(gate, experiencePath, isHomeRoute);
+
+  // Persist the re-armed gate (adjusting state during render — React's
+  // sanctioned "derived state" pattern). If this update is ever dropped by an
+  // interrupted transition, the next render simply derives and retries; the
+  // UI meanwhile already rendered from `viewGate`, so nothing skips.
+  if (viewGate !== gate) {
+    setGate(viewGate);
   }
 
+  const { loaderActive, homepageState, routeExperienceState } = viewGate;
+
+  /*
+   * Gate transitions. Each maps the stored gate with a functional update on
+   * the single atomic object — sibling-state tearing is impossible, and every
+   * callback keeps a stable identity so consumers' effects never re-run from
+   * identity churn alone.
+   */
   const dismissLoader = useCallback(() => {
-    setLoaderActive(false);
-    setHomepageState((current) => (current === "loading" ? "intro" : current));
-    setRouteExperienceState((current) => (current === "loading" ? "intro" : current));
-  }, []);
+    setGate((current) => ({
+      ...current,
+      loaderActive: false,
+      homepageState:
+        current.homepageState === "loading" ? "intro" : current.homepageState,
+      routeExperienceState:
+        current.routeExperienceState === "loading"
+          ? "intro"
+          : current.routeExperienceState,
+    }));
+  }, [setGate]);
 
   const lockHomepageHero = useCallback(() => {
-    setHomepageState("intro");
-  }, []);
+    setGate((current) => ({ ...current, homepageState: "intro" }));
+  }, [setGate]);
 
   const unlockHomepageHero = useCallback(() => {
-    setHomepageState("body");
-  }, []);
+    setGate((current) => ({ ...current, homepageState: "body" }));
+  }, [setGate]);
 
   const openHomepageBody = useCallback(() => {
-    setHomepageState((current) => (current === "intro" ? "opening" : current));
-  }, []);
+    setGate((current) => ({
+      ...current,
+      homepageState:
+        current.homepageState === "intro" ? "opening" : current.homepageState,
+    }));
+  }, [setGate]);
 
   const completeHomepageOpening = useCallback(() => {
-    setHomepageState((current) => (current === "opening" ? "body" : current));
-  }, []);
+    setGate((current) => ({
+      ...current,
+      homepageState:
+        current.homepageState === "opening" ? "body" : current.homepageState,
+    }));
+  }, [setGate]);
 
   const closeHomepageBody = useCallback(() => {
     if (typeof window !== "undefined") {
       window.scrollTo({ left: 0, top: 0, behavior: "auto" });
     }
-    setHomepageState((current) => (current === "body" ? "closing" : current));
-  }, []);
+    setGate((current) => ({
+      ...current,
+      homepageState:
+        current.homepageState === "body" ? "closing" : current.homepageState,
+    }));
+  }, [setGate]);
 
   const completeHomepageClosing = useCallback(() => {
-    setHomepageState((current) => (current === "closing" ? "intro" : current));
-  }, []);
+    setGate((current) => ({
+      ...current,
+      homepageState:
+        current.homepageState === "closing" ? "intro" : current.homepageState,
+    }));
+  }, [setGate]);
 
   const openRouteBody = useCallback(() => {
-    setRouteExperienceState((current) => (current === "intro" ? "opening" : current));
-  }, []);
+    setGate((current) => ({
+      ...current,
+      routeExperienceState:
+        current.routeExperienceState === "intro"
+          ? "opening"
+          : current.routeExperienceState,
+    }));
+  }, [setGate]);
 
   const completeRouteOpening = useCallback(() => {
-    setRouteExperienceState((current) => (current === "opening" ? "body" : current));
-  }, []);
+    setGate((current) => ({
+      ...current,
+      routeExperienceState:
+        current.routeExperienceState === "opening"
+          ? "body"
+          : current.routeExperienceState,
+    }));
+  }, [setGate]);
 
   const closeRouteBody = useCallback(() => {
     if (typeof window !== "undefined") {
       window.scrollTo({ left: 0, top: 0, behavior: "auto" });
     }
-    setRouteExperienceState((current) => (current === "body" ? "closing" : current));
-  }, []);
+    setGate((current) => ({
+      ...current,
+      routeExperienceState:
+        current.routeExperienceState === "body"
+          ? "closing"
+          : current.routeExperienceState,
+    }));
+  }, [setGate]);
 
   const completeRouteClosing = useCallback(() => {
-    setRouteExperienceState((current) => (current === "closing" ? "intro" : current));
-  }, []);
+    setGate((current) => ({
+      ...current,
+      routeExperienceState:
+        current.routeExperienceState === "closing"
+          ? "intro"
+          : current.routeExperienceState,
+    }));
+  }, [setGate]);
 
   const homepageHeroLocked = isHomeRoute && homepageState !== "body";
   const homepageBodyActive = isHomeRoute && homepageState === "body";

@@ -199,7 +199,7 @@ export function AiVoiceAgentsComposition({
           <SectionHead
             eyebrow="Live surfaces"
             icon={PhoneCall}
-            heading="Experience the architecture before the live agent is connected"
+            heading="Experience the architecture before the *live agent* is connected"
             headingId="srv2-showcase"
             lead="This section reserves two coordinated surfaces: an ElevenLabs-ready call feature and an adjacent transcript window. Together they show how a conversation moves through listening, interpretation, approved response, action and escalation."
           />
@@ -231,7 +231,7 @@ export function AiVoiceAgentsComposition({
 
       <section className="ss-srv2-section">
         <div className="ss-srv2__container">
-          <SectionHead eyebrow="Continue" heading="Where this connects next" />
+          <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail links={related} />
         </div>
       </section>

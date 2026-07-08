@@ -14,7 +14,7 @@ export function IndustryRelevance() {
       eyebrow="Industry relevance"
       title={
         <>
-          Built for businesses where <span className="ss-chrome-text">response</span>{" "}
+          Built for businesses where <span className="ss-signal-text">response</span>{" "}
           matters.
         </>
       }
