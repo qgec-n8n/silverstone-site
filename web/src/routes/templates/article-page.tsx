@@ -1,7 +1,7 @@
 import "~/styles/services-v2/services-v2.css";
 import "~/styles/core-pages/core-pages.css";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Link } from "react-router";
 
 import {
@@ -183,7 +183,10 @@ function ArticleBulletPanel({
         const Icon = BULLET_ICONS[index % BULLET_ICONS.length] ?? Sparkles;
 
         return (
-          <li key={`${item.label}-${String(index)}`} className="ss-blog-article__bullet-item">
+          <li
+            key={`${item.label}-${String(index)}`}
+            className="ss-blog-article__bullet-item"
+          >
             <span className="ss-blog-article__bullet-icon">
               <Icon aria-hidden="true" />
             </span>
@@ -202,11 +205,7 @@ function ArticleBulletPanel({
   );
 }
 
-function ArticleGrid({
-  items,
-}: {
-  items?: SilverstoneBlogGridItem[] | undefined;
-}) {
+function ArticleGrid({ items }: { items?: SilverstoneBlogGridItem[] | undefined }) {
   const usableItems =
     items?.filter((item) => item.title.trim() && item.body.trim()).slice(0, 6) ?? [];
 
@@ -217,7 +216,10 @@ function ArticleGrid({
   return (
     <div className="ss-blog-article__grid" aria-label="Article grid">
       {usableItems.map((item, index) => (
-        <div className="ss-blog-article__grid-item" key={`${item.title}-${String(index)}`}>
+        <div
+          className="ss-blog-article__grid-item"
+          key={`${item.title}-${String(index)}`}
+        >
           <span>
             {item.label?.trim()
               ? item.label.trim()
@@ -253,8 +255,14 @@ function ArticleComparisonTable({
     return null;
   }
 
+  const columnCount = columns.length + 1;
+  const tableMinWidth = `${String(Math.min(76, Math.max(54, columnCount * 13.5)))}rem`;
+
   return (
-    <div className="ss-blog-article__table-wrap">
+    <div
+      className="ss-blog-article__table-wrap"
+      style={{ "--blog-table-min-width": tableMinWidth } as CSSProperties}
+    >
       <table className="ss-blog-article__table">
         <thead>
           <tr>
@@ -363,11 +371,13 @@ function ArticleSection({
 }) {
   const headingId = `article-section-${String(sectionIndex)}`;
   const variant = section.variant ?? (sectionIndex % 3 === 0 ? "signal" : undefined);
+  const isIntroduction = section.heading.trim().toLowerCase() === "introduction";
 
   return (
     <Reveal amount="some" kind="section">
       <section
         className="ss-blog-article__section"
+        data-intro={isIntroduction ? "true" : undefined}
         data-variant={variant}
         aria-labelledby={headingId}
       >

@@ -27,6 +27,23 @@ function matchesQuery(article: InsightArticle, query: string): boolean {
   return haystack.includes(query);
 }
 
+function articlePublishedTime(article: InsightArticle): number {
+  const dateValue = article.publishedIsoDate ?? article.publishedDate;
+  const timestamp = dateValue ? Date.parse(dateValue) : Number.NaN;
+
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+function compareArticlesByRecency(a: InsightArticle, b: InsightArticle): number {
+  const dateDifference = articlePublishedTime(b) - articlePublishedTime(a);
+
+  if (dateDifference !== 0) {
+    return dateDifference;
+  }
+
+  return a.title.localeCompare(b.title);
+}
+
 function ArticleCard({ article, index }: { article: InsightArticle; index: number }) {
   const categoryLabel = insightArticleCategoryLabel(article);
   const articleHref = article.href;
@@ -107,7 +124,7 @@ export function InsightsBoard() {
         (article) =>
           (activeFilter === "all" || article.categoryId === activeFilter) &&
           matchesQuery(article, normalizedQuery),
-      ),
+      ).sort(compareArticlesByRecency),
     [activeFilter, normalizedQuery],
   );
 

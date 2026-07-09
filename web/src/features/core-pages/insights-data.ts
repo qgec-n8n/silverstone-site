@@ -125,6 +125,7 @@ export type InsightArticle = {
   id: string;
   imageAlt: string;
   imageSrc: string;
+  publishedIsoDate?: string;
   publishedDate?: string;
   status: "planned" | "published";
   summary: string[];

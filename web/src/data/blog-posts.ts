@@ -626,6 +626,7 @@ export const BLOG_CARD_ARTICLES: InsightArticle[] = PUBLISHED_BLOG_POSTS.map(
     href: `/blog/${post.slug}`,
     imageAlt: post.heroImageAlt,
     imageSrc: post.heroImage,
+    publishedIsoDate: post.publishedIsoDate || post.updatedIsoDate,
     publishedDate: post.displayDate,
     status: "published",
     summary: post.summary,
