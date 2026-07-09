@@ -1,6 +1,7 @@
 /**
  * Floating demo-preview launcher: a compact icon + invitation bubble that
- * expands into a short list of the site's reserved demo-preview sections.
+ * expands into a short list of the site's demo sections — the two live
+ * ElevenLabs voice demos and the reserved web-design preview.
  * Deep-links use the same shared scroll mechanism as every "Book a discovery
  * call" CTA (`href="path#section-id"`, resolved by `useDeepLinkScroll`), but
  * via `Link` rather than a native anchor: each target is registered in
@@ -94,15 +95,15 @@ export function DemosLauncher() {
           className="ss-demo-launcher__panel"
           id={panelId}
           role="menu"
-          aria-label="Demo previews"
+          aria-label="Demos"
         >
           <div className="ss-demo-launcher__panel-head">
-            <span>Demo previews</span>
+            <span>Demos</span>
             <button
               type="button"
               className="ss-demo-launcher__close"
               onClick={closeAndRestoreFocus}
-              aria-label="Close demo previews"
+              aria-label="Close demos"
               ref={closeButtonRef}
             >
               <X aria-hidden="true" />
@@ -128,7 +129,7 @@ export function DemosLauncher() {
         </div>
       ) : (
         <span className="ss-demo-launcher__bubble" aria-hidden="true">
-          Preview a reserved demo
+          Try a live demo
         </span>
       )}
       <button
@@ -136,7 +137,7 @@ export function DemosLauncher() {
         className="ss-demo-launcher__fab"
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label={open ? "Close demo previews" : "See demo previews"}
+        aria-label={open ? "Close demos" : "See demos"}
         onClick={() => setOpen((value) => !value)}
         ref={fabRef}
       >

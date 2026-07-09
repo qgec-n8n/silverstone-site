@@ -197,11 +197,11 @@ export function AiVoiceAgentsComposition({
       >
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Live surfaces"
+            eyebrow="Live demo"
             icon={PhoneCall}
-            heading="Experience the architecture before the *live agent* is connected"
+            heading="Talk to a *live voice agent* — right here, right now"
             headingId="srv2-showcase"
-            lead="This section reserves two coordinated surfaces: an ElevenLabs-ready call feature and an adjacent transcript window. Together they show how a conversation moves through listening, interpretation, approved response, action and escalation."
+            lead="This is a fully functional demo, live on this page. Press start, allow the microphone and speak with Grace — our ElevenLabs-powered voice agent — while the panel beside her transcribes both sides of the conversation in real time."
           />
           <VoiceCallDemo />
         </div>

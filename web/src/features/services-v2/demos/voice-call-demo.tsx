@@ -1,47 +1,39 @@
 /**
- * AI Voice Agents demo — reserved ElevenLabs call surface + adjacent transcript,
- * using the approved Section-7 copy verbatim (customer-facing strings only).
+ * AI Voice Agents demo — live ElevenLabs voice console: the audio-reactive
+ * orb connected to Grace (the public Silverstone receptionist demo agent)
+ * with a real-time transcript panel beside the call.
+ *
+ * The data-config-slot values are the config slots reserved in the approved
+ * services manifest for this section — the same slots, now live.
  */
-import { PhoneCall, MessageSquare } from "~/components/icons/lucide";
-
 import { Reveal, TextLink } from "../components/primitives";
-import { CallStage, ReservedSurface, TranscriptStage } from "./reserved-surface";
+import { LiveVoiceDemo, type LiveVoiceDemoCopy } from "./live-voice-demo";
+
+const copy: LiveVoiceDemoCopy = {
+  orbSlot: "futureVoiceElevenLabsAgent",
+  transcriptSlot: "futureVoiceTranscriptSource",
+  consoleLabel: "Live demo · Grace — AI voice agent",
+  transcriptLabel: "Live transcript",
+  footHeading: "Test a governed call flow in real time",
+  footBody:
+    "This is a live ElevenLabs voice agent — the same architecture we deploy for clients. Grace identifies herself as automated, keeps to an approved reception scenario, and everything she hears and says is written into the transcript beside the call as it happens.",
+  emptyTitle: "Your conversation appears here",
+  emptyBody:
+    "Press start and speak naturally — both sides of the call are transcribed live, word by word, while you talk.",
+};
 
 export function VoiceCallDemo() {
   return (
     <div className="ss-srv2-showcase">
-      <div className="ss-srv2-showcase__frames">
-        <ReservedSurface
-          configSlot="futureVoiceElevenLabsAgent"
-          icon={PhoneCall}
-          label="Reserved voice experience · Live call"
-          heading="Test a governed call flow in real time"
-          body="This surface is prepared for a future ElevenLabs voice-agent integration using an approved scenario. The final experience will identify its automated nature, request any required permission and keep the available actions within the demonstrated flow."
-          privacyNote="No microphone access, telephone number, call recording or live agent is currently connected."
-          status="Integration reserved. Awaiting approved credentials, voice, script and production controls."
-        >
-          <CallStage />
-        </ReservedSurface>
-        <ReservedSurface
-          configSlot="futureVoiceTranscriptSource"
-          icon={MessageSquare}
-          label="Reserved evaluation view · Transcript"
-          heading="See what the system heard, decided and handed over"
-          body="The transcript surface will display an approved illustrative conversation beside call states, captured details, tool outcomes and escalation notes. It is designed for evaluation — not to imply a real customer conversation."
-          privacyNote="Sample text must remain synthetic until a lawful, consented and appropriately redacted production source is approved."
-          status="Transcript layout reserved. No live transcript source is connected."
-          delayMs={90}
-        >
-          <TranscriptStage />
-        </ReservedSurface>
-      </div>
+      <LiveVoiceDemo copy={copy} accent={{ from: "#d6f8fb", to: "#22d3ee" }} />
       <Reveal kind="section" className="ss-srv2-showcase__note">
         <p className="ss-srv2-showcase__aphorism">
           A polished voice is only the audible layer.
         </p>
         <p className="ss-srv2-showcase__body">
-          The transcript and state history reveal whether the system is operating
-          responsibly.
+          The transcript beside the orb shows what the system heard, said and
+          decided — the same evaluation view we use when governing production
+          agents.
         </p>
         <TextLink href="/services/ai-receptionists">Explore AI Receptionists</TextLink>
       </Reveal>

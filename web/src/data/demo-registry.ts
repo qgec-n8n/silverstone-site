@@ -6,10 +6,11 @@
  * (`useDeepLinkScroll`), so a click lands on the exact section regardless of
  * which route the visitor is currently on.
  *
- * These are reserved preview frames (see `services-v2/demos/reserved-surface`)
- * rather than fully wired live integrations, so the copy here says "preview",
- * not "live" — matching the honest "reserved / intentionally inactive"
- * language already used on the pages themselves.
+ * The two ElevenLabs voice surfaces are live, fully functional demos
+ * (`services-v2/demos/live-voice-demo`): visitors can speak to Grace and
+ * watch the real-time transcript. The web-design showcase remains a reserved
+ * preview frame (`services-v2/demos/browser-showcase`), so its copy still
+ * says "preview".
  */
 export type DemoEntry = {
   id: string;
@@ -22,13 +23,13 @@ export const DEMO_REGISTRY: readonly DemoEntry[] = [
   {
     id: "ai-receptionists",
     label: "AI receptionist",
-    description: "Preview the reserved front-desk chat and call surfaces",
+    description: "Talk to Grace live — the AI front desk with a real-time transcript",
     href: "/services/ai-receptionists#demo-ai-receptionists",
   },
   {
     id: "ai-voice-agents",
     label: "Voice agent",
-    description: "Preview the reserved inbound-call walkthrough",
+    description: "Speak to the live voice agent and watch it transcribe as you talk",
     href: "/services/ai-voice-agents#demo-ai-voice-agents",
   },
   {

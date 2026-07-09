@@ -237,6 +237,36 @@ export const Menu = createIcon("Menu", [
   ["line", { x1: "4", x2: "20", y1: "6", y2: "6" }],
   ["line", { x1: "4", x2: "20", y1: "18", y2: "18" }],
 ]);
+export const Mic = createIcon("Mic", [
+  ["path", { d: "M12 19v3" }],
+  ["path", { d: "M19 10v2a7 7 0 0 1-14 0v-2" }],
+  ["rect", { x: "9", y: "2", width: "6", height: "13", rx: "3" }],
+]);
+export const MicOff = createIcon("MicOff", [
+  ["line", { x1: "2", x2: "22", y1: "2", y2: "22" }],
+  ["path", { d: "M18.89 13.23A7.12 7.12 0 0 0 19 12v-2" }],
+  ["path", { d: "M5 10v2a7 7 0 0 0 12 4.9" }],
+  ["path", { d: "M15 9.34V5a3 3 0 0 0-5.68-1.33" }],
+  ["path", { d: "M9 9v3a3 3 0 0 0 5.12 2.12" }],
+  ["path", { d: "M12 19v3" }],
+]);
+export const PhoneOff = createIcon("PhoneOff", [
+  [
+    "path",
+    {
+      d: "M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91",
+    },
+  ],
+  ["line", { x1: "22", x2: "2", y1: "2", y2: "22" }],
+]);
+export const AudioLines = createIcon("AudioLines", [
+  ["path", { d: "M2 10v3" }],
+  ["path", { d: "M6 6v11" }],
+  ["path", { d: "M10 3v18" }],
+  ["path", { d: "M14 8v7" }],
+  ["path", { d: "M18 5v13" }],
+  ["path", { d: "M22 10v3" }],
+]);
 export const MessageSquare = createIcon("MessageSquare", [
   ["path", { d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" }],
 ]);

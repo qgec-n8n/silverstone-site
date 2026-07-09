@@ -197,11 +197,11 @@ export function AiReceptionistsComposition({
       >
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Live surfaces"
+            eyebrow="Live demo"
             icon={Headset}
-            heading="See the two sides of a modern *front desk*"
+            heading="Meet Grace, your *AI front desk* — live and answering now"
             headingId="srv2-showcase"
-            lead="This section reserves a future AI chat window and an ElevenLabs-ready call feature. They show how the same approved intake rules can be adapted across written and spoken channels while preserving booking, routing and human escalation."
+            lead="This is a working demo, not a mock-up. Start the call, ask what a receptionist would handle — service questions, bookings, callbacks — and watch the conversation written out beside the call as you speak."
           />
           <ReceptionistDemo />
         </div>

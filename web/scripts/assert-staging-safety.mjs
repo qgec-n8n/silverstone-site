@@ -38,7 +38,10 @@ const FORBIDDEN_ANALYTICS_PATTERNS = [
   /google-analytics\.com/i,
   /\bgtag\s*\(/i,
   /\bgtm-\w+/i,
-  /\bG-[A-Z0-9]+\b/i,
+  // GA4 measurement ids are uppercase G- followed by ~10 uppercase
+  // alphanumerics. Match case-sensitively with a minimum length so hashed
+  // asset filenames (e.g. "entry.client-g-Ey3QrH.js") cannot false-positive.
+  /\bG-[A-Z0-9]{6,}\b/,
   /plausible\.io/i,
   /\bposthog\b/i,
   /\bmixpanel\b/i,

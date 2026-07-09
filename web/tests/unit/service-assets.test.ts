@@ -39,31 +39,69 @@ describe("service image governance", () => {
   });
 });
 
-describe("required demo placeholders", () => {
-  it("keeps requested future-demo service surfaces available", () => {
-    const demoRendererPaths = [
-      "src/features/services-v2/demos/browser-showcase.tsx",
-      "src/features/services-v2/demos/reserved-surface.tsx",
-      "src/features/services-v2/demos/voice-call-demo.tsx",
-      "src/features/services-v2/demos/receptionist-demo.tsx",
-    ];
-    const renderers = demoRendererPaths
+describe("service demo surfaces", () => {
+  // The ElevenLabs voice demo went live on 2026-07-09 (owner-requested):
+  // the reserved call/chat/transcript placeholders were replaced by the
+  // live-voice-demo console wired to the public "Grace" agent. The web-design
+  // showcase remains a reserved preview frame.
+  const liveDemoRendererPaths = [
+    "src/features/services-v2/demos/live-voice-demo.tsx",
+    "src/features/services-v2/demos/live-voice-session.tsx",
+    "src/features/services-v2/demos/live-voice-chrome.tsx",
+    "src/features/services-v2/demos/voice-call-demo.tsx",
+    "src/features/services-v2/demos/receptionist-demo.tsx",
+  ];
+  const agentConfigPath = "src/features/services-v2/demos/elevenlabs-agent-config.ts";
+
+  it("keeps the live voice demo wired to the manifest's demo config slots", () => {
+    const renderers = liveDemoRendererPaths
       .map((path) => readFileSync(resolve(process.cwd(), path), "utf8"))
       .join("\n");
+    const showcase = readFileSync(
+      resolve(process.cwd(), "src/features/services-v2/demos/browser-showcase.tsx"),
+      "utf8",
+    );
     const manifest = JSON.stringify(approvedServicesByRoute);
 
-    expect(manifest).toContain("Reserved");
-    expect(manifest).toContain("live website showcase");
-    expect(manifest).toContain("AI chat window");
-    expect(manifest).toContain("ElevenLabs-ready");
-    expect(manifest).toContain("transcript-window placeholder");
+    // Approved manifest content is unchanged; the demo renderers activate
+    // the exact config slots it reserved for these sections.
     expect(manifest).toContain("futureWebsitePreviewPrimaryUrl");
     expect(manifest).toContain("futureVoiceElevenLabsAgent");
     expect(manifest).toContain("futureReceptionistChatEmbedUrl");
     expect(renderers).toContain("data-config-slot");
-    expect(renderers).not.toMatch(/agent[_-]?id\s*[:=]\s*['"][^'"]+/i);
-    expect(renderers).not.toMatch(/elevenlabs.*api[_-]?key/i);
+    expect(renderers).toContain('"futureVoiceElevenLabsAgent"');
+    expect(renderers).toContain('"futureVoiceTranscriptSource"');
+    expect(renderers).toContain('"futureReceptionistElevenLabsAgent"');
+    expect(renderers).toContain('"futureReceptionistChatEmbedUrl"');
+    expect(showcase).toContain("data-config-slot");
+
+    // Honest-copy guard: the live surfaces must disclose the automated agent
+    // and the processing partner.
+    expect(renderers).toMatch(/ELEVENLABS_DEMO_DISCLOSURE/);
+  });
+
+  it("exposes only the public agent id, and only from the config module", () => {
+    const agentConfig = readFileSync(resolve(process.cwd(), agentConfigPath), "utf8");
+    const renderers = liveDemoRendererPaths
+      .map((path) => readFileSync(resolve(process.cwd(), path), "utf8"))
+      .join("\n");
+    const manifest = JSON.stringify(approvedServicesByRoute);
+
+    // The config module holds exactly one public agent id (the value
+    // ElevenLabs publishes in its widget embed snippet — safe for browsers).
+    const ids = agentConfig.match(/"agent_[a-z0-9]+"/g) ?? [];
+    expect(ids).toHaveLength(1);
+
+    // No renderer hardcodes an agent id; they import the config module.
+    expect(renderers).not.toMatch(/["']agent_[a-z0-9]+["']/);
+    expect(renderers).toContain("ELEVENLABS_DEMO_AGENT_ID");
     expect(manifest).not.toMatch(/agent[_-]?id\s*[:=]\s*['"][^'"]+/i);
-    expect(manifest).not.toMatch(/elevenlabs.*api[_-]?key/i);
+
+    // Hard rule: no ElevenLabs API key or secret anywhere in these files.
+    for (const text of [agentConfig, renderers, manifest]) {
+      expect(text).not.toMatch(/api[_-]?key/i);
+      expect(text).not.toMatch(/\bsk_[a-zA-Z0-9]{8,}/);
+      expect(text).not.toMatch(/\bxi-api-key\b/i);
+    }
   });
 });
