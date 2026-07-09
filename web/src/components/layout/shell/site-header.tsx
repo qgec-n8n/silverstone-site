@@ -466,15 +466,47 @@ type SiteHeaderProps = {
 };
 
 /** Scroll distance the header ignores at the very top, so it never hides
- * during the first small scroll of a page. */
+ * during the first small scroll of a page. Shared by both breakpoints. */
 const SCROLL_HIDE_THRESHOLD = 120;
-/** Minimum scroll delta before counting as a deliberate direction change,
- * so momentum/bounce scrolling doesn't flicker the header in and out. */
-const SCROLL_DIRECTION_NOISE_FLOOR = 6;
-/** Window after a viewport resize during which scroll-direction hide/show
- * decisions are suppressed — iOS/Android toolbar collapse fires `resize`
- * mid-scroll and can spike `window.scrollY` without any real scrolling. */
-const RESIZE_SUPPRESS_MS = 250;
+
+/** Desktop (`lg:fixed` header) hide/show decision — untouched by the mobile
+ * jank fix below. Desktop's fixed header never exhibited the momentum/
+ * toolbar-driven scroll noise mobile does, so its behavior stays exactly
+ * as it was: any qualifying single-sample delta flips it immediately. */
+const DESKTOP_SCROLL_NOISE_FLOOR = 6;
+const DESKTOP_RESIZE_SUPPRESS_MS = 250;
+
+/** Mobile (`sticky` header) hide/show decision. Single-sample deltas below
+ * this are sub-pixel rounding noise, not a scroll signal — filtered before
+ * they can reset direction tracking. */
+const SCROLL_SAMPLE_NOISE_FLOOR = 2;
+/** Sustained distance (px), accumulated across samples travelling the same
+ * direction, the page must cover before the header commits to hiding. A
+ * single noisy sample can no longer flip it — that sample has to be part of
+ * a real run of travel first. This is what makes hide immune to momentum
+ * jitter and iOS's dynamic toolbar nudging `window.scrollY` by a few px. */
+const HIDE_COMMIT_DISTANCE = 32;
+/** Reveal is intentionally far more sensitive than hide: users expect the
+ * header back the instant they start scrolling up, so it needs much less
+ * accumulated travel to commit than hiding does. */
+const SHOW_COMMIT_DISTANCE = 10;
+/** A single-sample delta larger than this, occurring shortly after a resize
+ * (see RESIZE_ADJACENT_MS), is treated as iOS shifting `window.scrollY` by
+ * roughly the dynamic toolbar's own height rather than a real scroll — and
+ * discarded instead of counted as travel. Deliberately scoped to only the
+ * resize-adjacent window: a genuinely large scroll sample at any other time
+ * (a fast fling, a deep-link jump to an anchor) is real and must still
+ * register at full value, exactly as it did before this fix. */
+const SCROLL_ANOMALY_JUMP = 110;
+/** How long after a resize a big delta is still treated as suspect. Chosen
+ * to comfortably outlast iOS's own toolbar show/hide animation (observed
+ * around 300–350ms) rather than to make scrolling feel a particular way. */
+const RESIZE_ADJACENT_MS = 400;
+
+/** Matches the header's own `lg` breakpoint (`sticky lg:fixed`, see the
+ * className below) so the JS decision logic and the CSS positioning it's
+ * driving never disagree about which device class they're running on. */
+const DESKTOP_MEDIA_QUERY = "(min-width: 64rem)";
 
 export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const location = useLocation();
@@ -482,7 +514,12 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const headerRef = useRef<HTMLElement>(null);
   const scrollY = useMotionValue(typeof window !== "undefined" ? window.scrollY : 0);
   const lastScrollY = useRef(typeof window !== "undefined" ? window.scrollY : 0);
+  const travelDistance = useRef(0);
+  const travelDirection = useRef<-1 | 0 | 1>(0);
   const lastResizeAt = useRef(0);
+  const isDesktop = useRef(
+    typeof window !== "undefined" ? window.matchMedia(DESKTOP_MEDIA_QUERY).matches : false,
+  );
   const [scrolled, setScrolled] = useState(
     () => typeof window !== "undefined" && window.scrollY > 12,
   );
@@ -516,15 +553,43 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   }, [scrollY]);
 
   useEffect(() => {
-    const markResize = () => {
+    const mediaQuery = window.matchMedia(DESKTOP_MEDIA_QUERY);
+    const updateIsDesktop = () => {
+      isDesktop.current = mediaQuery.matches;
+    };
+    updateIsDesktop();
+    mediaQuery.addEventListener("change", updateIsDesktop);
+    return () => mediaQuery.removeEventListener("change", updateIsDesktop);
+  }, []);
+
+  useEffect(() => {
+    // Checks `isDesktop.current` (kept live by the effect above) at fire
+    // time rather than branching once at mount, so a resize that crosses
+    // the `lg` breakpoint itself (e.g. a tablet rotation) still gets the
+    // right behavior instead of whichever branch happened to be registered
+    // first.
+    const onResize = () => {
       lastResizeAt.current = Date.now();
+      if (isDesktop.current) {
+        // Desktop path, unchanged: blanket-suppress direction decisions
+        // for a beat after any resize instead of resyncing immediately.
+        return;
+      }
+      // Mobile path: a real viewport resize (toolbar collapse/expand,
+      // orientation change) invalidates whatever direction we were
+      // tracking — resync the baseline immediately rather than guessing
+      // how long the animation might run. The timestamp above additionally
+      // gates SCROLL_ANOMALY_JUMP for the samples right around this resize.
+      lastScrollY.current = window.scrollY;
+      travelDistance.current = 0;
+      travelDirection.current = 0;
     };
     const viewport = window.visualViewport;
-    viewport?.addEventListener("resize", markResize);
-    window.addEventListener("resize", markResize);
+    viewport?.addEventListener("resize", onResize);
+    window.addEventListener("resize", onResize);
     return () => {
-      viewport?.removeEventListener("resize", markResize);
-      window.removeEventListener("resize", markResize);
+      viewport?.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -534,16 +599,50 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
     const delta = latest - lastScrollY.current;
     lastScrollY.current = latest;
 
-    if (Date.now() - lastResizeAt.current < RESIZE_SUPPRESS_MS) {
+    if (isDesktop.current) {
+      // Desktop path, unchanged from before this session's mobile-only
+      // jank fix.
+      if (Date.now() - lastResizeAt.current < DESKTOP_RESIZE_SUPPRESS_MS) {
+        return;
+      }
+      if (Math.abs(delta) < DESKTOP_SCROLL_NOISE_FLOOR) {
+        return;
+      }
+      if (delta > 0 && latest > SCROLL_HIDE_THRESHOLD) {
+        setHiddenByScroll(true);
+      } else if (delta < 0) {
+        setHiddenByScroll(false);
+      }
       return;
     }
-    if (Math.abs(delta) < SCROLL_DIRECTION_NOISE_FLOOR) {
+
+    if (
+      Math.abs(delta) > SCROLL_ANOMALY_JUMP &&
+      Date.now() - lastResizeAt.current < RESIZE_ADJACENT_MS
+    ) {
+      // Discard — see SCROLL_ANOMALY_JUMP. Don't let it reset direction
+      // tracking either, since it isn't a real scroll sample at all.
       return;
     }
-    if (delta > 0 && latest > SCROLL_HIDE_THRESHOLD) {
-      setHiddenByScroll(true);
-    } else if (delta < 0) {
+    if (Math.abs(delta) < SCROLL_SAMPLE_NOISE_FLOOR) {
+      return;
+    }
+
+    const direction = delta > 0 ? 1 : -1;
+    if (direction !== travelDirection.current) {
+      travelDirection.current = direction;
+      travelDistance.current = 0;
+    }
+    travelDistance.current += Math.abs(delta);
+
+    if (direction > 0) {
+      if (travelDistance.current >= HIDE_COMMIT_DISTANCE && latest > SCROLL_HIDE_THRESHOLD) {
+        setHiddenByScroll(true);
+        travelDistance.current = 0;
+      }
+    } else if (travelDistance.current >= SHOW_COMMIT_DISTANCE) {
       setHiddenByScroll(false);
+      travelDistance.current = 0;
     }
   });
 
@@ -564,7 +663,17 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
       animate={hidden ? "hidden" : "rest"}
       aria-hidden={hidden || undefined}
       className={cn(
-        "fixed inset-x-0 top-0 z-[400] h-[var(--ss-layout-header)] border-b",
+        /*
+         * `sticky` below the lg breakpoint, `fixed` at/above it. iOS Safari's
+         * dynamic bottom toolbar resizes the visual viewport on its own native
+         * timeline, independent of any scroll/resize listener — a `fixed`
+         * header gets visibly out of sync with that resize (the jank this is
+         * fixing). `sticky` is tracked by the browser's own scroll/compositing
+         * engine instead of being pinned to the viewport, so it never
+         * desyncs. Desktop has no dynamic toolbar, so it keeps `fixed`
+         * unchanged (unaffected by this at all).
+         */
+        "sticky lg:fixed inset-x-0 top-0 z-[400] h-[var(--ss-layout-header)] border-b",
         elevated
           ? "border-[color:var(--ss-v2-header-border-strong)] bg-[var(--ss-v2-header-surface-scroll)] shadow-[var(--ss-v2-header-shadow)]"
           : "border-[color:var(--ss-v2-header-border)] bg-[var(--ss-v2-header-surface)]",

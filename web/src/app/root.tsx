@@ -71,7 +71,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           name="viewport"
         />
         {globalRobotsMeta ? <meta content={globalRobotsMeta} name="robots" /> : null}
-        <meta content="#202a2f" name="theme-color" />
+        <meta content="#05070a" name="theme-color" />
         <link href="/favicon.ico" rel="icon" sizes="48x48" />
         <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
         <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />

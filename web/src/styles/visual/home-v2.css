@@ -1004,11 +1004,21 @@ html[data-js="on"]
   animation-direction: reverse;
 }
 
-/* Pause on hover and on keyboard focus. */
-.ss-hv2-marquee:hover .ss-hv2-marquee__track,
+/* Pause on keyboard focus, on every input type — a deliberate, non-accidental
+   interaction, so it should always let the reader stop the row to read a
+   name. Hover-driven pause is scoped to true pointer devices below: touch
+   browsers synthesize a `:hover` match on tap with no corresponding "unhover"
+   until the user taps elsewhere, which would otherwise stick the row paused
+   after a single touch. */
 .ss-hv2-marquee:focus-within .ss-hv2-marquee__track,
 .ss-hv2-marquee:focus-visible .ss-hv2-marquee__track {
   animation-play-state: paused;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ss-hv2-marquee:hover .ss-hv2-marquee__track {
+    animation-play-state: paused;
+  }
 }
 
 /* Reduced motion: never auto-scroll, even when the policy enables the marquee.
@@ -1063,7 +1073,6 @@ html[data-js="on"]
   transition: opacity 0.5s ease;
 }
 
-.ss-hv2-marquee:hover .ss-hv2-logo,
 .ss-hv2-marquee:focus-within .ss-hv2-logo {
   border-color: color-mix(
     in srgb,
@@ -1072,12 +1081,22 @@ html[data-js="on"]
   );
 }
 
-.ss-hv2-logo:hover {
-  transform: translateY(-4px);
-}
+@media (hover: hover) and (pointer: fine) {
+  .ss-hv2-marquee:hover .ss-hv2-logo {
+    border-color: color-mix(
+      in srgb,
+      var(--ss-hv2-logo-accent) 45%,
+      var(--ss-v2-hairline)
+    );
+  }
 
-.ss-hv2-logo:hover::after {
-  opacity: 1;
+  .ss-hv2-logo:hover {
+    transform: translateY(-4px);
+  }
+
+  .ss-hv2-logo:hover::after {
+    opacity: 1;
+  }
 }
 
 .ss-hv2-logo img {
@@ -1239,11 +1258,28 @@ html[data-js="on"]
 }
 
 /* ======================= SECONDARY HERO ======================= */
+/*
+ * Desktop's two-column grid (intro + benchmarks side by side, see the
+ * min-width:64rem override below) fits both comfortably inside one viewport,
+ * so the section is clamped to exactly fill it there. Below that breakpoint
+ * the grid stacks to a single column instead — clamping to the same fixed
+ * height would force the hero copy, badges *and* the full benchmark card into
+ * one cramped screen. Mobile instead lets the section grow to its natural
+ * content height: only the intro block (see .ss-hv2-secondary__intro below)
+ * is deliberately sized to fill the first screen, so the benchmark card and
+ * the TrustStrip that follows this section start right at the fold instead
+ * of being visible on load.
+ */
 .ss-hv2-secondary {
   display: flex;
-  height: calc(100dvh - var(--ss-layout-header, 0px));
-  min-height: calc(100dvh - var(--ss-layout-header, 0px));
   padding-block: clamp(0.75rem, 2.1vh, 1.55rem);
+}
+
+@media (min-width: 64rem) {
+  .ss-hv2-secondary {
+    height: calc(100dvh - var(--ss-layout-header, 0px));
+    min-height: calc(100dvh - var(--ss-layout-header, 0px));
+  }
 }
 
 .ss-hv2-secondary__container {
@@ -1269,6 +1305,39 @@ html[data-js="on"]
 
 .ss-hv2-secondary__intro {
   gap: clamp(0.85rem, 1.5vh, 1.5rem);
+}
+
+/*
+ * Below the fold on mobile there is no second grid column stealing width, so
+ * the intro block is free to claim the section's full mobile height instead
+ * of sharing it — sized to exactly one screen so the showcase card (and the
+ * TrustStrip after it) starts right at the fold rather than being partly
+ * visible on load. `svh` (not `dvh`) on purpose: this is a fixed "how tall is
+ * one screen" boundary, not something that should reflow every time iOS's
+ * toolbar animates — see SCROLL_ANOMALY_JUMP in site-header.tsx for what that
+ * kind of live-tracking height causes when it isn't wanted. Only the section's
+ * own top padding is subtracted, not the bottom — an intentional small safety
+ * margin so the showcase reliably stays off-screen rather than being left to
+ * rounding.
+ */
+@media (max-width: 63.9375rem) {
+  .ss-hv2-secondary__intro {
+    min-height: calc(100svh - var(--ss-layout-header, 0px) - clamp(0.75rem, 2.1vh, 1.55rem));
+  }
+
+  .ss-hv2-secondary__cue--intro {
+    display: inline-flex;
+  }
+
+  .ss-hv2-secondary__cue--trailing {
+    display: none;
+  }
+}
+
+@media (min-width: 64rem) {
+  .ss-hv2-secondary__cue--intro {
+    display: none;
+  }
 }
 
 .ss-hv2-secondary__title {
@@ -1511,11 +1580,6 @@ html[data-js="on"]
 }
 
 @media (max-width: 900px) {
-  .ss-hv2-secondary {
-    height: calc(100dvh - var(--ss-layout-header, 0px));
-    min-height: calc(100dvh - var(--ss-layout-header, 0px));
-  }
-
   .ss-hv2-system-signal {
     min-height: auto;
   }
@@ -1587,7 +1651,6 @@ html[data-js="on"]
   }
 
   .ss-hv2-secondary {
-    height: calc(100dvh - var(--ss-layout-header, 0px));
     padding-block: 0.65rem;
   }
 
@@ -1635,7 +1698,13 @@ html[data-js="on"]
   }
 
   .ss-hv2-secondary__actions {
-    display: none;
+    gap: 0.6rem;
+  }
+
+  .ss-hv2-secondary__actions [data-slot="button"] {
+    min-height: 2.5rem;
+    padding-block: 0;
+    font-size: 0.85rem;
   }
 
   .ss-hv2-system-signal {
@@ -1708,12 +1777,23 @@ html[data-js="on"]
   }
 }
 
+/* Both lead variants render in every build (indexable in prerendered HTML);
+   only one is ever visible per breakpoint. Short variants are edited copy,
+   not a mechanical truncation, so no ellipsis / mid-word cut-off. */
+.ss-hv2-hero__lead-short,
+.ss-hv2-secondary__lead-short {
+  display: none;
+}
+
 @media (max-width: 640px) and (max-height: 700px) {
-  .ss-hv2-hero__lead {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+  .ss-hv2-hero__lead-full,
+  .ss-hv2-secondary__lead-full {
+    display: none;
+  }
+
+  .ss-hv2-hero__lead-short,
+  .ss-hv2-secondary__lead-short {
+    display: inline;
   }
 
   .ss-hv2-secondary {
@@ -1733,16 +1813,24 @@ html[data-js="on"]
   }
 
   .ss-hv2-secondary__lead {
-    display: -webkit-box;
-    overflow: hidden;
     font-size: 0.78rem;
     line-height: 1.3;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
   }
 
   .ss-hv2-secondary__cap-icon {
     display: none;
+  }
+
+  /* Icon + detail are hidden at this size (above), leaving just the label —
+     without its own container that reads as bare wrapped text rather than a
+     deliberate badge, so give the label itself the pill treatment. */
+  .ss-hv2-secondary__cap {
+    justify-content: center;
+    text-align: center;
+    padding: 0.4rem 0.5rem;
+    border-radius: var(--ss-radius-pill);
+    border: 1px solid var(--ss-v2-hairline-strong);
+    background: var(--ss-v2-glass);
   }
 
   .ss-hv2-system-signal {
@@ -2154,6 +2242,18 @@ html[data-js="on"]
   inset: 0;
   z-index: 120;
   pointer-events: none;
+}
+
+/* Belt-and-braces for iOS Safari: `inset: 0` on a fixed element already fills
+   the ICB, but reinforcing with an explicit dynamic-viewport height keeps the
+   panel pinned to the true screen edge (behind the collapsing bottom bar)
+   even if the toolbar animation and this element's own paint fall out of
+   sync for a frame. Desktop never has a dynamic toolbar, so this is scoped
+   to mobile/tablet widths only. */
+@media (max-width: 900px) {
+  .ss-explore-overlay {
+    height: 100dvh;
+  }
 }
 
 .ss-explore-overlay__card {

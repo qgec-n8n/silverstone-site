@@ -6,6 +6,7 @@ import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Button } from "~/components/ui/button";
 import type { BenchmarkMetric } from "~/data/home-v2";
+import { cn } from "~/lib/utils";
 import {
   BENCHMARK_DISCLAIMER,
   HEADLINE_BENCHMARKS,
@@ -46,9 +47,9 @@ function staticBenchmark(metric: BenchmarkMetric): string {
   return `${metric.prefix ?? ""}${String(metric.value)}${metric.suffix ?? ""}`;
 }
 
-function SystemScrollCue() {
+function SystemScrollCue({ className }: { className?: string }) {
   return (
-    <div className="ss-hv2-body-scrollcue" aria-hidden="true">
+    <div className={cn("ss-hv2-body-scrollcue", className)} aria-hidden="true">
       <span className="ss-eyebrow font-mono text-[10px]">Scroll</span>
       <span className="ss-hv2-scrollcue__rail" />
     </div>
@@ -111,9 +112,16 @@ export function SecondaryHero() {
             </Reveal>
             <Reveal delayMs={160}>
               <p className="ss-lead ss-hv2-secondary__lead text-[color:var(--ss-v2-titanium)]">
-                Calls, messages, bookings and follow-ups converge into a single
-                operating layer. Silverstone answers in seconds, captures the detail and
-                routes the work — while your team keeps oversight of every outcome.
+                <span className="ss-hv2-secondary__lead-full">
+                  Calls, messages, bookings and follow-ups converge into a single
+                  operating layer. Silverstone answers in seconds, captures the detail and
+                  routes the work — while your team keeps oversight of every outcome.
+                </span>
+                <span className="ss-hv2-secondary__lead-short">
+                  Calls, messages, bookings and follow-ups converge into one operating
+                  layer — answered in seconds, with your team keeping oversight of every
+                  outcome.
+                </span>
               </p>
             </Reveal>
             <ul className="ss-hv2-secondary__caps flex flex-col gap-3">
@@ -133,6 +141,7 @@ export function SecondaryHero() {
                 </Button>
               </Reveal>
             </div>
+            <SystemScrollCue className="ss-hv2-secondary__cue--intro" />
           </div>
 
           <div className="ss-hv2-secondary__showcase">
@@ -216,7 +225,7 @@ export function SecondaryHero() {
             </Reveal>
           </div>
         </div>
-        <SystemScrollCue />
+        <SystemScrollCue className="ss-hv2-secondary__cue--trailing" />
       </Container>
     </PageSection>
   );

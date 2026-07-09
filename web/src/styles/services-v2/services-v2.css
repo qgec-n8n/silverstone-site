@@ -528,11 +528,16 @@ section[data-slot="page-section"]:has(.ss-srv2) {
    * intro column alone (breadcrumbs, pill, title, lead, capabilities, two
    * CTAs) routinely reflows taller than that budget and gets clipped, since
    * `overflow: hidden` hides the excess instead of letting the section grow.
-   * Let the hero size to its content instead.
+   * A `min-height` floor (not the desktop's hard `height` cap) keeps that
+   * "let it grow" escape hatch while still sizing the common case to fill
+   * one screen, so the TrustStrip that follows starts right at the fold
+   * instead of partway up the initial viewport. `svh`, not `dvh`: this is a
+   * fixed "how tall is one screen" boundary, not something that should
+   * reflow every time iOS's toolbar animates.
    */
   .ss-srv2-hero {
     height: auto;
-    min-height: 0;
+    min-height: calc(100svh - var(--srv2-hero-chrome));
     overflow: visible;
   }
 
@@ -554,12 +559,6 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   justify-content: center;
   margin-top: auto;
   padding-top: clamp(0.2rem, 0.05rem + 0.7vh, 1.5rem);
-}
-
-@media (max-width: 48rem) {
-  .ss-srv2-hero__scrollcue {
-    display: none;
-  }
 }
 
 /* ---- Buttons ----------------------------------------------------------- */

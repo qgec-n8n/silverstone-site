@@ -77,9 +77,16 @@ export function Hero({
             custom={2}
             className="ss-lead ss-hv2-hero__lead text-[color:var(--ss-v2-titanium)]"
           >
-            Silverstone designs AI voice, reception and automation systems that answer
-            every call, capture every enquiry and run the repetitive work — so small UK
-            teams respond faster, deliver more and grow without adding headcount.
+            <span className="ss-hv2-hero__lead-full">
+              Silverstone designs AI voice, reception and automation systems that answer
+              every call, capture every enquiry and run the repetitive work — so small UK
+              teams respond faster, deliver more and grow without adding headcount.
+            </span>
+            <span className="ss-hv2-hero__lead-short">
+              Silverstone designs AI voice, reception and automation systems that answer
+              every call and run the repetitive work — so small UK teams respond faster
+              and grow without adding headcount.
+            </span>
           </m.p>
 
           {hideExploreButton ? null : (

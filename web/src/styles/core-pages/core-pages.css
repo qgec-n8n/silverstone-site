@@ -1591,9 +1591,17 @@
 }
 
 @media (max-width: 48rem) {
+  /*
+   * min-height, not 0: below 768px this selector's higher specificity
+   * (.ss-core .ss-srv2-hero) otherwise wins over services-v2.css's own
+   * mobile min-height fix at the 64rem breakpoint, silently reverting core
+   * pages back to natural content height and letting the TrustStrip show
+   * on load. Same svh-based one-screen floor as that fix, for the same
+   * reason (see services-v2.css) — this isn't a plain 0 to grow freely.
+   */
   .ss-core .ss-srv2-hero {
     height: auto;
-    min-height: 0;
+    min-height: calc(100svh - var(--srv2-hero-chrome));
     overflow: visible;
     padding-block-end: clamp(2rem, 9vw, 3.5rem);
   }

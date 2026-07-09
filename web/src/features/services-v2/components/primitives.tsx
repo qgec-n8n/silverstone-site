@@ -32,6 +32,7 @@ import {
   type LucideIcon,
 } from "~/components/icons/lucide";
 import { useRevealStart } from "~/motion/use-reveal-start";
+import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
 
 const entranceEase = [0.22, 1, 0.36, 1] as const;
 
@@ -127,6 +128,18 @@ const revealVariants: Record<RevealKind, Variants> = {
     hidden: { opacity: 0, y: 34, scale: 0.96 },
     show: { opacity: 1, y: 0, scale: 1 },
   },
+};
+
+/**
+ * Below the `full` capability tier, the image reveal drops its animated
+ * `clipPath` — a paint-triggering property the browser has to re-rasterize
+ * on every frame, unlike the opacity/scale every other kind already used.
+ * Same reasoning and pattern as home-v2's reveal.tsx (see its
+ * liteRevealVariants); motion shape (the scale travel) is unchanged.
+ */
+const liteImageVariants: Variants = {
+  hidden: { opacity: 0, scale: 1.06 },
+  show: { opacity: 1, scale: 1 },
 };
 
 /**
@@ -322,6 +335,7 @@ function ImageReveal({
   className?: string | undefined;
   delayMs: number;
 }) {
+  const { tier } = useCapabilityTier();
   const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef, {
     amount: 0.4,
@@ -337,7 +351,7 @@ function ImageReveal({
       className={className}
       initial="hidden"
       animate={start !== null ? "show" : "hidden"}
-      variants={revealVariants.image}
+      variants={tier === "full" ? revealVariants.image : liteImageVariants}
       transition={transitionFor("image", start?.delayMs ?? 0, start?.instant ?? false)}
     >
       {children}

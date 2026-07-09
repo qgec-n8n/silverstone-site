@@ -35,13 +35,18 @@ function AppShell({ children, pendingIndicator }: AppShellProps) {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    <div className="flex min-h-dvh flex-col bg-background text-foreground">
       <SkipLink />
       {chromeVisible ? <SiteHeader pendingIndicator={pendingIndicator} /> : null}
       <main
         className={cn(
           "flex-1 outline-none",
-          chromeVisible ? "pt-[var(--ss-layout-header)]" : "pt-0",
+          /*
+           * Sticky headers (mobile, see SiteHeader) occupy their own space in
+           * flow, so no compensating padding is needed there — only the
+           * lg:fixed desktop header is taken out of flow and needs it.
+           */
+          chromeVisible ? "pt-0 lg:pt-[var(--ss-layout-header)]" : "pt-0",
         )}
         id="main-content"
         tabIndex={-1}

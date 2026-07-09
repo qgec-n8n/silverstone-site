@@ -79,6 +79,36 @@ const revealVariants: Record<HomeRevealKind, Variants> = {
 };
 
 /**
+ * Below the `full` capability tier (every mobile/tablet viewport, plus any
+ * desktop the low-power/reduced-data heuristics flag — see
+ * useCapabilityTier), `section`/`cta` drop their animated `filter: blur()`
+ * and `image` drops its animated `clipPath`. Both are paint-triggering
+ * properties: the browser has to re-rasterize the element on every frame of
+ * the transition, unlike the opacity/transform properties every other kind
+ * already used, which the compositor can animate without repainting at all.
+ * `section` is the default kind and covers most headings/paragraphs on this
+ * page, so this was the main cost behind sluggish scroll-triggered reveals
+ * on mobile. Motion shape (the y/scale travel) is kept identical — only the
+ * expensive property is dropped — so mobile keeps the same entrance, just
+ * without the part its GPU can't afford.
+ */
+const liteRevealVariants: Record<HomeRevealKind, Variants> = {
+  ...revealVariants,
+  section: {
+    hidden: { opacity: 0, y: 34 },
+    show: { opacity: 1, y: 0 },
+  },
+  image: {
+    hidden: { opacity: 0, scale: 1.04 },
+    show: { opacity: 1, scale: 1 },
+  },
+  cta: {
+    hidden: { opacity: 0, scale: 0.96, y: 24 },
+    show: { opacity: 1, scale: 1, y: 0 },
+  },
+};
+
+/**
  * Cinematic, unhurried timing: entrances are meant to be watched, not merely
  * noticed, so durations run 0.9–1.5s rather than the 150–300ms scale used for
  * hover/press feedback elsewhere. See the matching viewport threshold on
@@ -199,7 +229,7 @@ function ViewportReveal({
       data-width={dataWidth}
       initial={reducedMotion ? false : "hidden"}
       animate={reducedMotion || start !== null ? "show" : "hidden"}
-      variants={revealVariants[kind]}
+      variants={tier === "full" ? revealVariants[kind] : liteRevealVariants[kind]}
       transition={transitionFor(
         kind,
         start?.delayMs ?? 0,
@@ -290,7 +320,7 @@ function ImageReveal({
       data-width={dataWidth}
       initial="hidden"
       animate={start !== null ? "show" : "hidden"}
-      variants={revealVariants.image}
+      variants={tier === "full" ? revealVariants.image : liteRevealVariants.image}
       transition={transitionFor(
         "image",
         start?.delayMs ?? 0,
