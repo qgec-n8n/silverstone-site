@@ -1665,6 +1665,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  width: min(100%, 54rem);
+  margin-inline: auto;
   padding: clamp(1.1rem, 0.85rem + 1vw, 1.6rem);
   border-radius: var(--ss-radius-2xl);
   border: 1px solid var(--srv2-hairline);
@@ -1771,13 +1773,16 @@
 
 .ss-insight-grid {
   display: grid;
+  width: min(calc(100vw - 2rem), 78rem);
+  margin-inline: 50%;
   gap: clamp(0.85rem, 0.68rem + 0.7vw, 1.2rem);
-  grid-template-columns: repeat(auto-fill, minmax(min(15.25rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  transform: translateX(-50%);
 }
 
 @media (min-width: 68rem) {
   .ss-insight-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

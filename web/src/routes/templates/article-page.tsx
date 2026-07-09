@@ -249,7 +249,12 @@ function ArticleComparisonTable({
         cells: row.cells.map((cell) => cell.trim()),
         label: row.label.trim(),
       }))
-      .filter((row) => row.label && row.cells.some(Boolean)) ?? [];
+      .filter(
+        (row) =>
+          row.label &&
+          row.cells.length >= columns.length &&
+          columns.every((_, index) => Boolean(row.cells[index])),
+      ) ?? [];
 
   if (columns.length < 2 || rows.length === 0) {
     return null;

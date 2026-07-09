@@ -10,10 +10,36 @@ export type SilverstoneBlogFaq = {
   question: string;
 };
 
+export type SilverstoneBlogBullet = {
+  body: string;
+  icon?: string;
+  label: string;
+};
+
+export type SilverstoneBlogGridItem = {
+  body: string;
+  label?: string;
+  title: string;
+};
+
+export type SilverstoneBlogTable = {
+  columns: string[];
+  rows: {
+    cells: string[];
+    label: string;
+  }[];
+};
+
 export type SilverstoneBlogSection = {
   body: string[];
+  bullets?: SilverstoneBlogBullet[];
+  comparisonTable?: SilverstoneBlogTable;
+  grid?: SilverstoneBlogGridItem[];
   heading: string;
+  lede?: string;
+  pullQuote?: string;
   subsections?: SilverstoneBlogSection[];
+  variant?: "operator" | "signal" | "system";
 };
 
 export type SilverstoneBlogSource = {
@@ -651,7 +677,6 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         "variant": "operator",
         "comparisonTable": {
           "columns": [
-            "Option",
             "Main job",
             "Best when",
             "Key limitation"
@@ -1075,7 +1100,6 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         ],
         "comparisonTable": {
           "columns": [
-            "Workflow type",
             "Best fit",
             "Control model"
           ],
