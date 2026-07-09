@@ -1,6 +1,8 @@
 import { Link, useParams, type MetaFunction } from "react-router";
 
 import { getBlogPostBySlug } from "~/data/blog-posts";
+import { getPublicEnvironment } from "~/lib/environment";
+import { buildCanonicalUrl } from "~/seo/canonical";
 import { ArticlePage } from "~/routes/templates/article-page";
 
 export const meta: MetaFunction = ({ params }) => {
@@ -10,12 +12,21 @@ export const meta: MetaFunction = ({ params }) => {
     return [{ title: "Blog article not found | Silverstone AI" }];
   }
 
+  const environment = getPublicEnvironment();
+  const canonical = buildCanonicalUrl(environment.canonicalOrigin, `/blog/${post.slug}`);
+  // Production is indexable by default (launch policy: every route indexes
+  // unless explicitly withheld); staging always carries its blanket noindex.
+  const robots = environment.isStaging ? environment.robotsMeta : "index, follow";
+
   return [
     { title: post.metaTitle },
     { name: "description", content: post.metaDescription },
+    { name: "robots", content: robots },
+    { tagName: "link", rel: "canonical", href: canonical },
+    { property: "og:type", content: "article" },
     { property: "og:title", content: post.metaTitle },
     { property: "og:description", content: post.metaDescription },
-    { property: "og:type", content: "article" },
+    { property: "og:url", content: canonical },
     { property: "og:image", content: post.heroImage },
     { name: "twitter:card", content: "summary_large_image" },
   ];
