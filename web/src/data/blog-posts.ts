@@ -10,36 +10,10 @@ export type SilverstoneBlogFaq = {
   question: string;
 };
 
-export type SilverstoneBlogBullet = {
-  body: string;
-  icon?: string;
-  label: string;
-};
-
-export type SilverstoneBlogGridItem = {
-  body: string;
-  label?: string;
-  title: string;
-};
-
-export type SilverstoneBlogTable = {
-  columns: string[];
-  rows: {
-    cells: string[];
-    label: string;
-  }[];
-};
-
 export type SilverstoneBlogSection = {
   body: string[];
-  bullets?: SilverstoneBlogBullet[];
-  comparisonTable?: SilverstoneBlogTable;
-  grid?: SilverstoneBlogGridItem[];
   heading: string;
-  lede?: string;
-  pullQuote?: string;
   subsections?: SilverstoneBlogSection[];
-  variant?: "signal" | "system" | "operator";
 };
 
 export type SilverstoneBlogSource = {
@@ -600,15 +574,367 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "href": "/blog"
     }
   },
+  {
+    "slug": "ai-receptionist-uk-what-small-businesses-should-set-up-before-they-buy",
+    "title": "AI Receptionist UK: What Small Businesses Should Set Up Before They Buy",
+    "subtitle": "A practical guide to channels, booking rules, CRM links, escalation paths and privacy boundaries before you choose an AI receptionist service.",
+    "summary": [
+      "A useful AI receptionist is a controlled front desk, not just a voice layer.",
+      "Booking, CRM, channel context and named human escalation matter more than a polished demo.",
+      "UK small businesses should define scope, privacy boundaries and exception ownership before they buy."
+    ],
+    "categoryLabel": "AI Receptionists",
+    "categoryKey": "ai-receptionists",
+    "categoryId": "ai-receptionists",
+    "categoryOrder": 4,
+    "displayDate": "9 July 2026",
+    "publishedIsoDate": "2026-07-09T09:34:42.974Z",
+    "updatedIsoDate": "2026-07-09T09:34:42.974Z",
+    "readTime": "9 min read",
+    "status": "published",
+    "heroImage": "/assets/images/blog/ai-receptionist-uk-what-small-businesses-should-set-up-before-they-buy-hero.webp",
+    "heroImageAlt": "Futuristic multi-channel reception console showing phone, web chat and messaging routed into approved answers, live booking, CRM ownership and human escalation for a UK small business.",
+    "metaTitle": "AI Receptionist UK: What to Set Up Before You Buy",
+    "metaDescription": "A practical UK guide to AI receptionists: booking rules, escalation paths, CRM links, privacy questions and when automation is not the right fit.",
+    "primaryKeyword": "AI receptionist UK",
+    "secondaryKeywords": [
+      "AI receptionist services",
+      "virtual phone receptionist",
+      "AI receptionist vs human answering service",
+      "AI receptionist setup checklist",
+      "AI receptionist for small business UK"
+    ],
+    "articleBody": [
+      {
+        "heading": "Introduction",
+        "variant": "signal",
+        "body": [
+          "An AI receptionist can be useful for a UK small business, but only when it is designed as a controlled front desk rather than a clever voice demo. The real job is not simply to answer calls. It is to recognise intent, give approved answers, collect the right information, book only against real availability, route exceptions to named people and leave a clean system trail behind. That is where many projects succeed or fail.\n\nAt Silverstone AI, we treat reception automation as an operating system problem. Phone, web chat and messaging should converge into the same rules, the same source of truth and the same human handoff logic. If those pieces are unclear, an AI receptionist can create more admin than it removes.\n\nFor UK businesses comparing AI receptionist services, virtual phone receptionist tools or a human answering service, the sensible question is not *\"Can AI answer the phone?\"* It is *\"What should it handle safely, what should it escalate, and what has to connect behind the scenes?\"*"
+        ]
+      },
+      {
+        "heading": "What an AI receptionist should — and should not — do",
+        "body": [
+          "An AI receptionist should handle **repeatable, low-risk, front-door tasks**: opening hours, location details, service categories, availability checks against a live booking source, basic qualification questions, message capture and routing to the right person or team.",
+          "It should *not* improvise policies, invent appointment slots, guess fees, offer regulated advice, argue with a confused caller or pretend to understand when confidence is low. In a UK business context, those boundaries matter even more where diary control, consent, payment, safeguarding, complaints or health-related questions are involved.",
+          "A useful test is simple: if the answer can be written as an approved rule, grounded in a real system and safely reviewed later, it may be a fit for automation. If it depends on judgement, negotiation, diagnosis, discretionary discounts or a sensitive conversation, it needs a person.",
+          "That is why an AI receptionist is different from a general chatbot. A chatbot may answer broad questions across a website. A receptionist sits much closer to live operations. It affects who gets contacted, what gets booked, what data is captured and whether the business appears organised or chaotic."
+        ],
+        "lede": "Start with scope. A good front desk is defined by decisions, not by the novelty of the channel.",
+        "variant": "signal",
+        "pullQuote": "The right question is not whether AI can answer enquiries. It is whether your front desk rules are clear enough for software to follow without inventing its own version of the business.",
+        "bullets": [
+          {
+            "label": "Good uses",
+            "body": "Approved FAQs, enquiry triage, message capture, basic qualification, booking against real calendars, out-of-hours response.",
+            "icon": "check"
+          },
+          {
+            "label": "Poor uses",
+            "body": "Clinical judgement, disputes, complaints handling, bespoke quoting, legal interpretation, emergency or safety decisions.",
+            "icon": "stop"
+          },
+          {
+            "label": "Safe principle",
+            "body": "If confidence is low or the topic is sensitive, escalate to a named human destination.",
+            "icon": "route"
+          }
+        ]
+      },
+      {
+        "heading": "Virtual phone receptionist, web chat or integrated front desk: how they differ",
+        "body": [
+          "An AI receptionist versus a human answering service is not a simple quality contest. The comparison is practical. Humans can manage nuance and unusual cases better. AI can apply the same approved logic consistently across routine tasks and out-of-hours capture. The right choice depends on your enquiry mix, escalation volume and operational maturity.",
+          "In some firms, the best answer is blended: AI handles repeatable first contact and missed-call recovery, while sensitive, high-value or ambiguous enquiries move quickly to a person."
+        ],
+        "lede": "These tools overlap, but they are not interchangeable.",
+        "variant": "operator",
+        "comparisonTable": {
+          "columns": [
+            "Option",
+            "Main job",
+            "Best when",
+            "Key limitation"
+          ],
+          "rows": [
+            {
+              "label": "Virtual phone receptionist",
+              "cells": [
+                "Handle inbound calls and missed-call recovery",
+                "Phone remains the main enquiry route",
+                "Can become isolated from CRM and booking if poorly connected"
+              ]
+            },
+            {
+              "label": "Web chat assistant",
+              "cells": [
+                "Answer site questions and capture web leads",
+                "Most intent begins on the website",
+                "Misses context from calls and messaging unless integrated"
+              ]
+            },
+            {
+              "label": "Integrated front desk",
+              "cells": [
+                "Unify phone, web and message intake under one rule set",
+                "You want one source of truth for enquiry handling",
+                "Needs stronger setup discipline and clearer ownership"
+              ]
+            },
+            {
+              "label": "Human answering service",
+              "cells": [
+                "Provide live human call handling",
+                "Conversations are nuanced or brand tone is highly personal",
+                "Consistency depends on scripting, training and system access"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "heading": "The setup checklist: what a UK small business should define first",
+        "body": [
+          "Most AI receptionist projects go wrong before launch, not after. The common problem is buying a tool before deciding how the front desk should behave. A credible setup starts with business rules, system truth and named exception owners.",
+          "Use this as a pre-purchase checklist. If several of these points are still vague, treat that as a design task first, not a software shopping exercise."
+        ],
+        "lede": "Before buying software, define the front-desk operating model.",
+        "variant": "system",
+        "bullets": [
+          {
+            "label": "Approved answers",
+            "body": "Hours, locations, service list, geographic coverage, accepted payment methods, booking policies and out-of-hours wording.",
+            "icon": "list"
+          },
+          {
+            "label": "Qualification logic",
+            "body": "What must be collected at first contact: name, mobile, email, postcode, service type, urgency, preferred date, existing customer status.",
+            "icon": "filter"
+          },
+          {
+            "label": "Booking controls",
+            "body": "Which diary is authoritative, which appointment types may be booked, what buffers apply and when a person must approve.",
+            "icon": "calendar"
+          },
+          {
+            "label": "Escalation map",
+            "body": "A named person or team for every exception: complaints, urgent issues, high-value sales, safeguarding, clinical questions, custom quotes.",
+            "icon": "handoff"
+          },
+          {
+            "label": "Data boundaries",
+            "body": "What information is necessary, what is sensitive, how long it is kept and which channels may collect it.",
+            "icon": "shield"
+          }
+        ],
+        "grid": [
+          {
+            "title": "Phone",
+            "body": "Handle first-contact calls, route live exceptions, trigger missed-call recovery."
+          },
+          {
+            "title": "Web",
+            "body": "Offer the same approved answers and qualification fields as the phone flow."
+          },
+          {
+            "title": "CRM",
+            "body": "Own contact records, source tracking, status changes and follow-up tasks."
+          },
+          {
+            "title": "Booking",
+            "body": "Remain the single source of truth for availability, reschedules and confirmations."
+          }
+        ],
+        "subsections": [
+          {
+            "heading": "How to avoid double-booking or invented availability",
+            "body": [
+              "Never let the receptionist rely on static schedules or plain-language assumptions such as *\"I can fit you in tomorrow afternoon\"*. Availability must come from the live booking system or a tightly controlled synchronisation layer.",
+              "Where the calendar is fragmented across staff diaries, locations or service durations, reduce scope before launch. It is better to automate a smaller safe booking path than a wide, unreliable one.",
+              "Reschedules and reminders should also reflect real system state. If a human changes the diary manually, the receptionist should not continue speaking from stale information."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Integration matters more than the voice",
+        "body": [
+          "Voice quality gets attention in demos, but integration quality determines whether the system is commercially useful. If the receptionist cannot update the CRM, trigger follow-up or check booking state reliably, the business still ends up chasing loose messages by hand.",
+          "For many UK small businesses, the practical minimum is three-way alignment: **channel intake, booking source and CRM ownership**. After that, follow-up can become more structured — for example, confirmations, reminders, callback tasks or out-of-hours response sequences.",
+          "Missed-call recovery is often one of the clearest early wins. If an unanswered ring turns into a captured context trail, a call-back task or a message link with the same enquiry attached, the business owns the next step instead of losing it to voicemail drift.",
+          "Omnichannel intake matters here too. A prospect may phone, then use web chat, then reply to a text. Those should not become three separate stories. The system should merge context where possible so the next human sees one enquiry history rather than fragments."
+        ],
+        "lede": "The front desk is only as strong as the systems behind it.",
+        "variant": "system",
+        "pullQuote": "A polished voice without booking, CRM and handoff discipline is not a front desk. It is a nicer voicemail.",
+        "bullets": [
+          {
+            "label": "Source of truth",
+            "body": "Booking availability, contact ownership and follow-up status must come from real systems, not AI memory.",
+            "icon": "source"
+          },
+          {
+            "label": "Owned next step",
+            "body": "Every unanswered or incomplete contact should result in a clear task, route or response path.",
+            "icon": "next"
+          },
+          {
+            "label": "Observable state",
+            "body": "You should be able to inspect what happened: what was asked, what was captured, what was routed and what remains open.",
+            "icon": "trace"
+          }
+        ]
+      },
+      {
+        "heading": "When an AI receptionist is not the right answer",
+        "body": [
+          "That is why provider evaluation should include the ability to define boundaries, not just add channels. Ask what always escalates to a person, how confidence thresholds work, how sensitive data is minimised and what happens when systems disagree.",
+          "If you are at the early stage, [AI consulting](/services/ai-consulting) or workflow work may be the right first step before a wider build."
+        ],
+        "lede": "Good selection includes saying no when the fit is poor.",
+        "variant": "operator",
+        "grid": [
+          {
+            "label": "Not yet",
+            "title": "Poor process clarity",
+            "body": "Policies, calendars or service rules are inconsistent across staff."
+          },
+          {
+            "label": "Human-first",
+            "title": "High judgement load",
+            "body": "Most enquiries involve diagnosis, negotiation or sensitive context."
+          },
+          {
+            "label": "Limited scope",
+            "title": "Narrow use case",
+            "body": "A simpler missed-call recovery or web intake system may be enough."
+          }
+        ]
+      },
+      {
+        "heading": "How to choose an AI receptionist service without inflated claims",
+        "body": [
+          "For businesses comparing options, the strongest buying signal is not the smoothest demo. It is a provider that can map your front desk as a controlled decision system with clear UK operational and privacy boundaries.",
+          "If you want to connect reception to wider workflows, see [AI automation](/services/ai-automation), [AI voice agents](/services/ai-voice-agents) and [how we work](/how-we-work). If you are ready to discuss your setup, you can [book a call](/book#booking-calendar)."
+        ],
+        "lede": "Focus on controls, evidence and operational fit.",
+        "variant": "signal",
+        "bullets": [
+          {
+            "label": "Ask about handoffs",
+            "body": "Who gets what, when, and with which context attached?",
+            "icon": "person"
+          },
+          {
+            "label": "Ask about privacy",
+            "body": "What personal data is necessary, where is it processed and how is minimisation enforced?",
+            "icon": "lock"
+          },
+          {
+            "label": "Ask about state",
+            "body": "How does the system know availability, ownership and follow-up status in real time?",
+            "icon": "state"
+          },
+          {
+            "label": "Ask about boundaries",
+            "body": "Which topics are blocked or escalated by design rather than handled optimistically?",
+            "icon": "boundary"
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What is an AI receptionist?",
+        "answer": "An AI receptionist is a controlled software front desk that handles routine first-contact tasks such as answering common questions, collecting enquiry details, checking approved availability, booking within rules and routing exceptions to people. It is not the same as a general chatbot, because it sits closer to live operations and must work against real system state."
+      },
+      {
+        "question": "Is an AI receptionist better than a human answering service?",
+        "answer": "Not automatically. A human answering service is often better for nuance, sensitive situations and unusual conversations. An AI receptionist is often stronger for repeatable tasks, consistent rule-following, missed-call recovery and multi-channel intake. Many small businesses use a blend of both."
+      },
+      {
+        "question": "What should always be escalated to a person?",
+        "answer": "Sensitive, ambiguous or high-judgement situations should always escalate. Typical examples include complaints, safeguarding concerns, emergencies, clinical questions, bespoke quotes, payment disputes, legal issues and any interaction where the system is uncertain or lacks current data."
+      },
+      {
+        "question": "What information should an AI receptionist collect at first contact?",
+        "answer": "Only what is necessary for the next step. For many UK small businesses, that means name, contact details, service type, location or postcode where relevant, preferred timing, brief context and whether the person is an existing customer. Avoid collecting sensitive information unless there is a clear lawful and operational reason."
+      }
+    ],
+    "internalLinks": [
+      {
+        "label": "AI consulting",
+        "href": "/services/ai-consulting"
+      },
+      {
+        "label": "AI automation",
+        "href": "/services/ai-automation"
+      },
+      {
+        "label": "AI voice agents",
+        "href": "/services/ai-voice-agents"
+      },
+      {
+        "label": "how we work",
+        "href": "/how-we-work"
+      },
+      {
+        "label": "book a call",
+        "href": "/book#booking-calendar"
+      }
+    ],
+    "researchSources": [
+      {
+        "title": "Best AI Receptionist for Small Business UK (2026) │ BookedSolid",
+        "url": "https://bookedsolid.co.uk/blog/best-ai-receptionist-for-small-business-uk",
+        "date": "",
+        "summary": "# Best AI Receptionist for Small Business in the UK: 2026 Review. The best AI receptionists for UK small businesses in 2026: RingCentral, Moneypenny, IONOS, BookedSolid, and ARROW compared on features, pricing, and fit. *A 2026 review of the best AI receptionists for UK small businesses, with practical guidance for healthcare clinics, professional services, ",
+        "relevance": "Current UK business context for AI Receptionists"
+      },
+      {
+        "title": "AI Receptionist 2026: Complete Small Business Guide | NextPhone",
+        "url": "https://www.getnextphone.com/blog/ai-receptionist",
+        "date": "",
+        "summary": "# AI Receptionist: The Complete 2026 Guide for Small Businesses. **Quick answer:** An AI receptionist is software that answers your business line in 2–3 rings, understands what the caller wants in natural language, and either handles the call end-to-end (hours, pricing, scheduling), captures a message with verified contact details, or routes urgent calls to ",
+        "relevance": "Current UK business context for AI Receptionists"
+      },
+      {
+        "title": "AI Receptionist for Small Business UK — Setup in 24hrs",
+        "url": "https://aiphonecalls.co.uk/blog/ai-receptionists/simple-ai-receptionist-small-business",
+        "date": "",
+        "summary": "ARROW - AI Answering Service for UK Trades. # AI receptionist for small business: the honest guide (2026). ## (The 2026 Guide to Never Missing a Call). You're on a job. If you run a trades or service business with fewer than 10 people, you already know the problem. You can't be on the tools *and* on the phone. It answers every call, 24/7, captures the lead d",
+        "relevance": "Current UK business context for AI Receptionists"
+      },
+      {
+        "title": "Best AI Receptionist for UK Businesses 2026: 7 Platforms Compared | Softomate Solutions",
+        "url": "https://www.softomatesolutions.com/blog/best-ai-receptionist-uk-2026",
+        "date": "",
+        "summary": "Best AI Receptionist for UK Businesses 2026: 7 Platforms Compared - Softomate Solutions blog. # Best AI Receptionist for UK Businesses 2026: 7 Platforms Compared. The best AI receptionist platforms for UK businesses in 2026 are: Softomate AI (UK-built, full CRM integration), Smith.ai (US platform, strong UK support), Air.ai (voice AI specialist, US-based), I",
+        "relevance": "Current UK business context for AI Receptionists"
+      },
+      {
+        "title": "AI Receptionist UK: Complete Guide | Hand On Web",
+        "url": "https://www.handonweb.com/blog/ai-receptionist-uk-complete-guide-2026",
+        "date": "",
+        "summary": "# AI Receptionist UK: Complete Guide. Everything UK businesses need to know about AI receptionists. Real costs, how it works, ROI calculator, and honest advice from a team that builds them. If you're running a UK business and you're still relying on voicemail or hoping your team catches every call, you're leaving money on the table. We've set up AI reception",
+        "relevance": "Current UK business context for AI Receptionists"
+      }
+    ],
+    "imagePrompt": "Create one premium 16:9 editorial hero image for Silverstone AI in the established visual system, aligned to approved asset reference /approved-images/general-services-1.png and its mobile pair. Scene: a restrained multi-channel reception console for a UK small business, with call, web and message signals converging into one central operational surface on the right side. Show approved-answer routing, live booking state, CRM ownership, named team destinations and one clear human escalation path as conceptual interface layers, not a literal product screenshot. Keep the left 40% calmer, darker and lower contrast for white hero copy, while still lightly detailed for responsive crops. Use deep ink, graphite and dark navy surfaces with platinum panels, precise cyan and teal signal accents, subtle violet depth and a small amber highlight only for the human exception route. Include 2–5 supporting layers: call state, enquiry capture panel, calendar truth, CRM card and escalation destination. No readable text, no logos, no fake metrics, no robots, no call-centre stock scene, no generic chat bubbles. The image should feel commercially precise, high-tech, human-governed and quietly futuristic, with crisp geometry, realistic materials and coherent lighting.",
+    "ctaPrimary": {
+      "label": "Book a discovery call",
+      "href": "/book#booking-calendar"
+    },
+    "ctaSecondary": {
+      "label": "Back to insights",
+      "href": "/blog"
+    }
+  },
   // N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
   (post) => post.status === "published",
-).sort(
-  (a, b) =>
-    Date.parse(b.publishedIsoDate || b.updatedIsoDate) -
-    Date.parse(a.publishedIsoDate || a.updatedIsoDate),
 );
 
 export function getBlogPostBySlug(slug: string | undefined) {
