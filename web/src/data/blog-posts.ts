@@ -10,36 +10,10 @@ export type SilverstoneBlogFaq = {
   question: string;
 };
 
-export type SilverstoneBlogBullet = {
-  body: string;
-  icon?: string;
-  label: string;
-};
-
-export type SilverstoneBlogGridItem = {
-  body: string;
-  label?: string;
-  title: string;
-};
-
-export type SilverstoneBlogTable = {
-  columns: string[];
-  rows: {
-    cells: string[];
-    label: string;
-  }[];
-};
-
 export type SilverstoneBlogSection = {
   body: string[];
-  bullets?: SilverstoneBlogBullet[];
-  comparisonTable?: SilverstoneBlogTable;
-  grid?: SilverstoneBlogGridItem[];
   heading: string;
-  lede?: string;
-  pullQuote?: string;
   subsections?: SilverstoneBlogSection[];
-  variant?: "signal" | "system" | "operator";
 };
 
 export type SilverstoneBlogSource = {
@@ -600,15 +574,701 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "href": "/blog"
     }
   },
+  {
+    "slug": "ai-receptionist-uk-what-small-businesses-should-set-up-before-they-buy",
+    "title": "AI Receptionist UK: What Small Businesses Should Set Up Before They Buy",
+    "subtitle": "A practical guide to channels, booking rules, CRM links, escalation paths and privacy boundaries before you choose an AI receptionist service.",
+    "summary": [
+      "A useful AI receptionist is a controlled front desk, not just a voice layer.",
+      "Booking, CRM, channel context and named human escalation matter more than a polished demo.",
+      "UK small businesses should define scope, privacy boundaries and exception ownership before they buy."
+    ],
+    "categoryLabel": "AI Receptionists",
+    "categoryKey": "ai-receptionists",
+    "categoryId": "ai-receptionists",
+    "categoryOrder": 4,
+    "displayDate": "9 July 2026",
+    "publishedIsoDate": "2026-07-09T09:34:42.974Z",
+    "updatedIsoDate": "2026-07-09T09:34:42.974Z",
+    "readTime": "9 min read",
+    "status": "published",
+    "heroImage": "/assets/images/blog/ai-receptionist-uk-what-small-businesses-should-set-up-before-they-buy-hero.webp",
+    "heroImageAlt": "Futuristic multi-channel reception console showing phone, web chat and messaging routed into approved answers, live booking, CRM ownership and human escalation for a UK small business.",
+    "metaTitle": "AI Receptionist UK: What to Set Up Before You Buy",
+    "metaDescription": "A practical UK guide to AI receptionists: booking rules, escalation paths, CRM links, privacy questions and when automation is not the right fit.",
+    "primaryKeyword": "AI receptionist UK",
+    "secondaryKeywords": [
+      "AI receptionist services",
+      "virtual phone receptionist",
+      "AI receptionist vs human answering service",
+      "AI receptionist setup checklist",
+      "AI receptionist for small business UK"
+    ],
+    "articleBody": [
+      {
+        "heading": "Introduction",
+        "variant": "signal",
+        "body": [
+          "An AI receptionist can be useful for a UK small business, but only when it is designed as a controlled front desk rather than a clever voice demo. The real job is not simply to answer calls. It is to recognise intent, give approved answers, collect the right information, book only against real availability, route exceptions to named people and leave a clean system trail behind. That is where many projects succeed or fail.\n\nAt Silverstone AI, we treat reception automation as an operating system problem. Phone, web chat and messaging should converge into the same rules, the same source of truth and the same human handoff logic. If those pieces are unclear, an AI receptionist can create more admin than it removes.\n\nFor UK businesses comparing AI receptionist services, virtual phone receptionist tools or a human answering service, the sensible question is not *\"Can AI answer the phone?\"* It is *\"What should it handle safely, what should it escalate, and what has to connect behind the scenes?\"*"
+        ]
+      },
+      {
+        "heading": "What an AI receptionist should — and should not — do",
+        "body": [
+          "An AI receptionist should handle **repeatable, low-risk, front-door tasks**: opening hours, location details, service categories, availability checks against a live booking source, basic qualification questions, message capture and routing to the right person or team.",
+          "It should *not* improvise policies, invent appointment slots, guess fees, offer regulated advice, argue with a confused caller or pretend to understand when confidence is low. In a UK business context, those boundaries matter even more where diary control, consent, payment, safeguarding, complaints or health-related questions are involved.",
+          "A useful test is simple: if the answer can be written as an approved rule, grounded in a real system and safely reviewed later, it may be a fit for automation. If it depends on judgement, negotiation, diagnosis, discretionary discounts or a sensitive conversation, it needs a person.",
+          "That is why an AI receptionist is different from a general chatbot. A chatbot may answer broad questions across a website. A receptionist sits much closer to live operations. It affects who gets contacted, what gets booked, what data is captured and whether the business appears organised or chaotic."
+        ],
+        "lede": "Start with scope. A good front desk is defined by decisions, not by the novelty of the channel.",
+        "variant": "signal",
+        "pullQuote": "The right question is not whether AI can answer enquiries. It is whether your front desk rules are clear enough for software to follow without inventing its own version of the business.",
+        "bullets": [
+          {
+            "label": "Good uses",
+            "body": "Approved FAQs, enquiry triage, message capture, basic qualification, booking against real calendars, out-of-hours response.",
+            "icon": "check"
+          },
+          {
+            "label": "Poor uses",
+            "body": "Clinical judgement, disputes, complaints handling, bespoke quoting, legal interpretation, emergency or safety decisions.",
+            "icon": "stop"
+          },
+          {
+            "label": "Safe principle",
+            "body": "If confidence is low or the topic is sensitive, escalate to a named human destination.",
+            "icon": "route"
+          }
+        ]
+      },
+      {
+        "heading": "Virtual phone receptionist, web chat or integrated front desk: how they differ",
+        "body": [
+          "An AI receptionist versus a human answering service is not a simple quality contest. The comparison is practical. Humans can manage nuance and unusual cases better. AI can apply the same approved logic consistently across routine tasks and out-of-hours capture. The right choice depends on your enquiry mix, escalation volume and operational maturity.",
+          "In some firms, the best answer is blended: AI handles repeatable first contact and missed-call recovery, while sensitive, high-value or ambiguous enquiries move quickly to a person."
+        ],
+        "lede": "These tools overlap, but they are not interchangeable.",
+        "variant": "operator",
+        "comparisonTable": {
+          "columns": [
+            "Option",
+            "Main job",
+            "Best when",
+            "Key limitation"
+          ],
+          "rows": [
+            {
+              "label": "Virtual phone receptionist",
+              "cells": [
+                "Handle inbound calls and missed-call recovery",
+                "Phone remains the main enquiry route",
+                "Can become isolated from CRM and booking if poorly connected"
+              ]
+            },
+            {
+              "label": "Web chat assistant",
+              "cells": [
+                "Answer site questions and capture web leads",
+                "Most intent begins on the website",
+                "Misses context from calls and messaging unless integrated"
+              ]
+            },
+            {
+              "label": "Integrated front desk",
+              "cells": [
+                "Unify phone, web and message intake under one rule set",
+                "You want one source of truth for enquiry handling",
+                "Needs stronger setup discipline and clearer ownership"
+              ]
+            },
+            {
+              "label": "Human answering service",
+              "cells": [
+                "Provide live human call handling",
+                "Conversations are nuanced or brand tone is highly personal",
+                "Consistency depends on scripting, training and system access"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "heading": "The setup checklist: what a UK small business should define first",
+        "body": [
+          "Most AI receptionist projects go wrong before launch, not after. The common problem is buying a tool before deciding how the front desk should behave. A credible setup starts with business rules, system truth and named exception owners.",
+          "Use this as a pre-purchase checklist. If several of these points are still vague, treat that as a design task first, not a software shopping exercise."
+        ],
+        "lede": "Before buying software, define the front-desk operating model.",
+        "variant": "system",
+        "bullets": [
+          {
+            "label": "Approved answers",
+            "body": "Hours, locations, service list, geographic coverage, accepted payment methods, booking policies and out-of-hours wording.",
+            "icon": "list"
+          },
+          {
+            "label": "Qualification logic",
+            "body": "What must be collected at first contact: name, mobile, email, postcode, service type, urgency, preferred date, existing customer status.",
+            "icon": "filter"
+          },
+          {
+            "label": "Booking controls",
+            "body": "Which diary is authoritative, which appointment types may be booked, what buffers apply and when a person must approve.",
+            "icon": "calendar"
+          },
+          {
+            "label": "Escalation map",
+            "body": "A named person or team for every exception: complaints, urgent issues, high-value sales, safeguarding, clinical questions, custom quotes.",
+            "icon": "handoff"
+          },
+          {
+            "label": "Data boundaries",
+            "body": "What information is necessary, what is sensitive, how long it is kept and which channels may collect it.",
+            "icon": "shield"
+          }
+        ],
+        "grid": [
+          {
+            "title": "Phone",
+            "body": "Handle first-contact calls, route live exceptions, trigger missed-call recovery."
+          },
+          {
+            "title": "Web",
+            "body": "Offer the same approved answers and qualification fields as the phone flow."
+          },
+          {
+            "title": "CRM",
+            "body": "Own contact records, source tracking, status changes and follow-up tasks."
+          },
+          {
+            "title": "Booking",
+            "body": "Remain the single source of truth for availability, reschedules and confirmations."
+          }
+        ],
+        "subsections": [
+          {
+            "heading": "How to avoid double-booking or invented availability",
+            "body": [
+              "Never let the receptionist rely on static schedules or plain-language assumptions such as *\"I can fit you in tomorrow afternoon\"*. Availability must come from the live booking system or a tightly controlled synchronisation layer.",
+              "Where the calendar is fragmented across staff diaries, locations or service durations, reduce scope before launch. It is better to automate a smaller safe booking path than a wide, unreliable one.",
+              "Reschedules and reminders should also reflect real system state. If a human changes the diary manually, the receptionist should not continue speaking from stale information."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Integration matters more than the voice",
+        "body": [
+          "Voice quality gets attention in demos, but integration quality determines whether the system is commercially useful. If the receptionist cannot update the CRM, trigger follow-up or check booking state reliably, the business still ends up chasing loose messages by hand.",
+          "For many UK small businesses, the practical minimum is three-way alignment: **channel intake, booking source and CRM ownership**. After that, follow-up can become more structured — for example, confirmations, reminders, callback tasks or out-of-hours response sequences.",
+          "Missed-call recovery is often one of the clearest early wins. If an unanswered ring turns into a captured context trail, a call-back task or a message link with the same enquiry attached, the business owns the next step instead of losing it to voicemail drift.",
+          "Omnichannel intake matters here too. A prospect may phone, then use web chat, then reply to a text. Those should not become three separate stories. The system should merge context where possible so the next human sees one enquiry history rather than fragments."
+        ],
+        "lede": "The front desk is only as strong as the systems behind it.",
+        "variant": "system",
+        "pullQuote": "A polished voice without booking, CRM and handoff discipline is not a front desk. It is a nicer voicemail.",
+        "bullets": [
+          {
+            "label": "Source of truth",
+            "body": "Booking availability, contact ownership and follow-up status must come from real systems, not AI memory.",
+            "icon": "source"
+          },
+          {
+            "label": "Owned next step",
+            "body": "Every unanswered or incomplete contact should result in a clear task, route or response path.",
+            "icon": "next"
+          },
+          {
+            "label": "Observable state",
+            "body": "You should be able to inspect what happened: what was asked, what was captured, what was routed and what remains open.",
+            "icon": "trace"
+          }
+        ]
+      },
+      {
+        "heading": "When an AI receptionist is not the right answer",
+        "body": [
+          "That is why provider evaluation should include the ability to define boundaries, not just add channels. Ask what always escalates to a person, how confidence thresholds work, how sensitive data is minimised and what happens when systems disagree.",
+          "If you are at the early stage, [AI consulting](/services/ai-consulting) or workflow work may be the right first step before a wider build."
+        ],
+        "lede": "Good selection includes saying no when the fit is poor.",
+        "variant": "operator",
+        "grid": [
+          {
+            "label": "Not yet",
+            "title": "Poor process clarity",
+            "body": "Policies, calendars or service rules are inconsistent across staff."
+          },
+          {
+            "label": "Human-first",
+            "title": "High judgement load",
+            "body": "Most enquiries involve diagnosis, negotiation or sensitive context."
+          },
+          {
+            "label": "Limited scope",
+            "title": "Narrow use case",
+            "body": "A simpler missed-call recovery or web intake system may be enough."
+          }
+        ]
+      },
+      {
+        "heading": "How to choose an AI receptionist service without inflated claims",
+        "body": [
+          "For businesses comparing options, the strongest buying signal is not the smoothest demo. It is a provider that can map your front desk as a controlled decision system with clear UK operational and privacy boundaries.",
+          "If you want to connect reception to wider workflows, see [AI automation](/services/ai-automation), [AI voice agents](/services/ai-voice-agents) and [how we work](/how-we-work). If you are ready to discuss your setup, you can [book a call](/book#booking-calendar)."
+        ],
+        "lede": "Focus on controls, evidence and operational fit.",
+        "variant": "signal",
+        "bullets": [
+          {
+            "label": "Ask about handoffs",
+            "body": "Who gets what, when, and with which context attached?",
+            "icon": "person"
+          },
+          {
+            "label": "Ask about privacy",
+            "body": "What personal data is necessary, where is it processed and how is minimisation enforced?",
+            "icon": "lock"
+          },
+          {
+            "label": "Ask about state",
+            "body": "How does the system know availability, ownership and follow-up status in real time?",
+            "icon": "state"
+          },
+          {
+            "label": "Ask about boundaries",
+            "body": "Which topics are blocked or escalated by design rather than handled optimistically?",
+            "icon": "boundary"
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What is an AI receptionist?",
+        "answer": "An AI receptionist is a controlled software front desk that handles routine first-contact tasks such as answering common questions, collecting enquiry details, checking approved availability, booking within rules and routing exceptions to people. It is not the same as a general chatbot, because it sits closer to live operations and must work against real system state."
+      },
+      {
+        "question": "Is an AI receptionist better than a human answering service?",
+        "answer": "Not automatically. A human answering service is often better for nuance, sensitive situations and unusual conversations. An AI receptionist is often stronger for repeatable tasks, consistent rule-following, missed-call recovery and multi-channel intake. Many small businesses use a blend of both."
+      },
+      {
+        "question": "What should always be escalated to a person?",
+        "answer": "Sensitive, ambiguous or high-judgement situations should always escalate. Typical examples include complaints, safeguarding concerns, emergencies, clinical questions, bespoke quotes, payment disputes, legal issues and any interaction where the system is uncertain or lacks current data."
+      },
+      {
+        "question": "What information should an AI receptionist collect at first contact?",
+        "answer": "Only what is necessary for the next step. For many UK small businesses, that means name, contact details, service type, location or postcode where relevant, preferred timing, brief context and whether the person is an existing customer. Avoid collecting sensitive information unless there is a clear lawful and operational reason."
+      }
+    ],
+    "internalLinks": [
+      {
+        "label": "AI consulting",
+        "href": "/services/ai-consulting"
+      },
+      {
+        "label": "AI automation",
+        "href": "/services/ai-automation"
+      },
+      {
+        "label": "AI voice agents",
+        "href": "/services/ai-voice-agents"
+      },
+      {
+        "label": "how we work",
+        "href": "/how-we-work"
+      },
+      {
+        "label": "book a call",
+        "href": "/book#booking-calendar"
+      }
+    ],
+    "researchSources": [
+      {
+        "title": "Best AI Receptionist for Small Business UK (2026) │ BookedSolid",
+        "url": "https://bookedsolid.co.uk/blog/best-ai-receptionist-for-small-business-uk",
+        "date": "",
+        "summary": "# Best AI Receptionist for Small Business in the UK: 2026 Review. The best AI receptionists for UK small businesses in 2026: RingCentral, Moneypenny, IONOS, BookedSolid, and ARROW compared on features, pricing, and fit. *A 2026 review of the best AI receptionists for UK small businesses, with practical guidance for healthcare clinics, professional services, ",
+        "relevance": "Current UK business context for AI Receptionists"
+      },
+      {
+        "title": "AI Receptionist 2026: Complete Small Business Guide | NextPhone",
+        "url": "https://www.getnextphone.com/blog/ai-receptionist",
+        "date": "",
+        "summary": "# AI Receptionist: The Complete 2026 Guide for Small Businesses. **Quick answer:** An AI receptionist is software that answers your business line in 2–3 rings, understands what the caller wants in natural language, and either handles the call end-to-end (hours, pricing, scheduling), captures a message with verified contact details, or routes urgent calls to ",
+        "relevance": "Current UK business context for AI Receptionists"
+      },
+      {
+        "title": "AI Receptionist for Small Business UK — Setup in 24hrs",
+        "url": "https://aiphonecalls.co.uk/blog/ai-receptionists/simple-ai-receptionist-small-business",
+        "date": "",
+        "summary": "ARROW - AI Answering Service for UK Trades. # AI receptionist for small business: the honest guide (2026). ## (The 2026 Guide to Never Missing a Call). You're on a job. If you run a trades or service business with fewer than 10 people, you already know the problem. You can't be on the tools *and* on the phone. It answers every call, 24/7, captures the lead d",
+        "relevance": "Current UK business context for AI Receptionists"
+      },
+      {
+        "title": "Best AI Receptionist for UK Businesses 2026: 7 Platforms Compared | Softomate Solutions",
+        "url": "https://www.softomatesolutions.com/blog/best-ai-receptionist-uk-2026",
+        "date": "",
+        "summary": "Best AI Receptionist for UK Businesses 2026: 7 Platforms Compared - Softomate Solutions blog. # Best AI Receptionist for UK Businesses 2026: 7 Platforms Compared. The best AI receptionist platforms for UK businesses in 2026 are: Softomate AI (UK-built, full CRM integration), Smith.ai (US platform, strong UK support), Air.ai (voice AI specialist, US-based), I",
+        "relevance": "Current UK business context for AI Receptionists"
+      },
+      {
+        "title": "AI Receptionist UK: Complete Guide | Hand On Web",
+        "url": "https://www.handonweb.com/blog/ai-receptionist-uk-complete-guide-2026",
+        "date": "",
+        "summary": "# AI Receptionist UK: Complete Guide. Everything UK businesses need to know about AI receptionists. Real costs, how it works, ROI calculator, and honest advice from a team that builds them. If you're running a UK business and you're still relying on voicemail or hoping your team catches every call, you're leaving money on the table. We've set up AI reception",
+        "relevance": "Current UK business context for AI Receptionists"
+      }
+    ],
+    "imagePrompt": "Create one premium 16:9 editorial hero image for Silverstone AI in the established visual system, aligned to approved asset reference /approved-images/general-services-1.png and its mobile pair. Scene: a restrained multi-channel reception console for a UK small business, with call, web and message signals converging into one central operational surface on the right side. Show approved-answer routing, live booking state, CRM ownership, named team destinations and one clear human escalation path as conceptual interface layers, not a literal product screenshot. Keep the left 40% calmer, darker and lower contrast for white hero copy, while still lightly detailed for responsive crops. Use deep ink, graphite and dark navy surfaces with platinum panels, precise cyan and teal signal accents, subtle violet depth and a small amber highlight only for the human exception route. Include 2–5 supporting layers: call state, enquiry capture panel, calendar truth, CRM card and escalation destination. No readable text, no logos, no fake metrics, no robots, no call-centre stock scene, no generic chat bubbles. The image should feel commercially precise, high-tech, human-governed and quietly futuristic, with crisp geometry, realistic materials and coherent lighting.",
+    "ctaPrimary": {
+      "label": "Book a discovery call",
+      "href": "/book#booking-calendar"
+    },
+    "ctaSecondary": {
+      "label": "Back to insights",
+      "href": "/blog"
+    }
+  },
+  {
+    "slug": "how-to-choose-the-first-workflow-to-automate-in-a-uk-small-business",
+    "title": "How to Choose the First Workflow to Automate in a UK Small Business",
+    "subtitle": "A practical framework for picking an automation that is owned, measurable and safe to put into production.",
+    "summary": [
+      "Learn how to identify a strong first automation candidate with clear ownership and measurable value.",
+      "Use a practical audit to score workflows by frequency, effort, impact, stability and exception complexity.",
+      "Choose architecture and agency support based on control, approvals, recovery and operational fit."
+    ],
+    "categoryLabel": "AI Automation",
+    "categoryKey": "ai-automation",
+    "categoryId": "ai-automation",
+    "categoryOrder": 5,
+    "displayDate": "9 July 2026",
+    "publishedIsoDate": "2026-07-09T09:37:56.227Z",
+    "updatedIsoDate": "2026-07-09T09:37:56.227Z",
+    "readTime": "9 min read",
+    "status": "published",
+    "heroImage": "/assets/images/blog/how-to-choose-the-first-workflow-to-automate-in-a-uk-small-business-hero.webp",
+    "heroImageAlt": "Illustrative workflow automation control surface showing triggers, rules, approvals, run logs and a human exception path for a UK small business.",
+    "metaTitle": "Choose the First Workflow to Automate | Silverstone AI",
+    "metaDescription": "A practical UK guide to choosing your first automation workflow with clear ownership, baselines, approvals, exceptions and sensible architecture.",
+    "primaryKeyword": "workflow automation agency UK",
+    "secondaryKeywords": [
+      "business process automation UK",
+      "custom AI automation",
+      "AI agent workflows",
+      "how to choose the first workflow to automate",
+      "automation opportunity audit for UK SMEs"
+    ],
+    "articleBody": [
+      {
+        "heading": "Introduction",
+        "variant": "signal",
+        "body": [
+          "The first automation matters more than most businesses expect. Pick the wrong workflow and you can spend time wiring together tools around a process nobody owns, exceptions nobody has defined and data nobody trusts. Pick the right one and you get a controlled test of how automation should work in the real world: with a clear source of truth, a named owner, approval steps where needed and visible recovery when something fails.\n\nAt Silverstone AI, we advise UK small businesses to resist the urge to \"automate everything\". A better route is to choose one workflow that is repetitive, rules-heavy, operationally annoying and commercially relevant, then baseline it properly before a build. That gives you evidence, not theatre."
+        ]
+      },
+      {
+        "heading": "What makes a strong first automation candidate?",
+        "body": [
+          "The best first automation is rarely the most ambitious one. It is usually a process with a clear trigger, a predictable path through a few systems and a manageable number of exceptions. Think inbound enquiries routed into a CRM, document collection for onboarding, quote follow-up, missed-call handling, diary updates or approval-led document processing.",
+          "For UK SMEs, the practical question is not *can this be automated?* It is *should this be the first thing we trust in production?* That means looking at ownership, data quality, exception volume, approval needs and how consequential the outcome is. If a mistake could create legal, financial, clinical or reputational risk, a human-in-the-loop pattern should sit inside the design from day one.",
+          "A strong candidate normally has one identifiable source of truth, one operational owner and a clear handoff if something does not fit the rules. If those do not exist, the build tends to drift into a clean demo and a messy rollout."
+        ],
+        "lede": "A useful first workflow is boring in the right way: frequent, repetitive, structured and painful enough to justify attention.",
+        "variant": "signal",
+        "pullQuote": "Do not start with the process that sounds most impressive. Start with the one you can actually govern.",
+        "bullets": [
+          {
+            "label": "Good first workflow",
+            "body": "High frequency, low ambiguity, repetitive steps and visible admin drag.",
+            "icon": "✓"
+          },
+          {
+            "label": "Clear control point",
+            "body": "Named owner, defined approval moments and an obvious exception route.",
+            "icon": "↔"
+          },
+          {
+            "label": "Measurable baseline",
+            "body": "You can track time, delay, errors and exception volume before changing anything.",
+            "icon": "◔"
+          },
+          {
+            "label": "Contained risk",
+            "body": "The workflow can be tested safely without pretending AI should run unattended.",
+            "icon": "⛶"
+          }
+        ]
+      },
+      {
+        "heading": "Do an opportunity audit before you build",
+        "body": [
+          "A practical audit helps you avoid automating around noise. List the workflows that repeatedly consume attention across sales, admin, operations and customer service. Then score them against five dimensions: frequency, effort, business impact, process stability and exception complexity.",
+          "This is especially relevant in the UK where many small businesses run across a mix of email, spreadsheets, booking tools, accounting platforms, CRMs and sector software that were never designed as one operating system. An audit shows where deterministic automation can handle the routine path and where bounded AI judgement may help with classification, summarisation or extraction.",
+          "Use rough commercial signals rather than invented precision. How often does the task happen each week? How much delay does it create? How often does someone have to chase, rekey or correct it? Where do edge cases appear? Which actions require approval? If you cannot answer those questions, you do not yet have a reliable automation brief."
+        ],
+        "lede": "Automation selection is an operating decision, not a software shopping exercise.",
+        "variant": "system",
+        "grid": [
+          {
+            "title": "Frequency",
+            "body": "How often the workflow runs and whether repetition is high enough to matter."
+          },
+          {
+            "title": "Effort",
+            "body": "Manual handling time, rekeying, chasing, copying, checking and switching between tools."
+          },
+          {
+            "title": "Impact",
+            "body": "Operational drag, customer delay, missed follow-up, revenue risk or service inconsistency."
+          },
+          {
+            "title": "Stability",
+            "body": "Whether the steps are understood, repeatable and already owned by a person or team."
+          },
+          {
+            "title": "Exceptions",
+            "body": "How often the process breaks pattern and what recovery path is needed."
+          }
+        ],
+        "subsections": [
+          {
+            "heading": "A useful scoring rule",
+            "body": [
+              "Prioritise workflows with **high frequency**, **medium-to-high effort**, **clear ownership** and **moderate exception complexity**. Avoid low-volume vanity projects and avoid highly consequential processes with unclear approvals until governance is stronger.",
+              "That often points UK small businesses towards lead-routing, follow-up orchestration, document collection, scheduling, CRM hygiene, reporting consolidation and invoice or form handling as early candidates."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Do not automate a broken process before it is owned",
+        "body": [
+          "One of the most common project failures is trying to automate a process that changes depending on who happens to be handling it. Different inbox habits, undocumented exceptions, informal approvals and duplicate records all turn a promising workflow into a reliability problem.",
+          "Before any build, define the owner, the standard path, the exception path and the recovery path. The owner is the person accountable for the process outcome. The source of truth is the system whose record the workflow should trust. The exception is any case that falls outside the normal rule set. Recovery is what happens after failure: retry, manual review, rollback or escalation.",
+          "This is where deterministic automation and AI agents should be separated properly. Deterministic automation belongs where the rules are known: route this lead, create that record, send this update, wait for that event. AI judgement belongs in bounded tasks such as extracting fields from a document, drafting a summary or classifying an inbound message. Even then, consequential actions should not proceed without explicit rules or approval."
+        ],
+        "lede": "If nobody owns the workflow, the automation will inherit the confusion.",
+        "variant": "operator",
+        "bullets": [
+          {
+            "label": "Name the owner",
+            "body": "One person must be accountable for the workflow outcome, not just the software setup.",
+            "icon": "◎"
+          },
+          {
+            "label": "Define the source of truth",
+            "body": "Choose the record that wins when systems disagree.",
+            "icon": "▣"
+          },
+          {
+            "label": "Design the exception path",
+            "body": "Decide who handles outliers and how they are notified.",
+            "icon": "!"
+          },
+          {
+            "label": "Plan recovery",
+            "body": "Specify retries, manual intervention and duplicate prevention before launch.",
+            "icon": "↺"
+          }
+        ],
+        "comparisonTable": {
+          "columns": [
+            "Workflow type",
+            "Best fit",
+            "Control model"
+          ],
+          "rows": [
+            {
+              "label": "Deterministic automation",
+              "cells": [
+                "Fixed rules, repeatable steps, system-to-system orchestration",
+                "Triggers, conditions, mappings, retries and audit trail"
+              ]
+            },
+            {
+              "label": "Bounded AI task",
+              "cells": [
+                "Classification, extraction, summarisation, drafting",
+                "Confidence checks, validation rules and human review where needed"
+              ]
+            },
+            {
+              "label": "Human decision",
+              "cells": [
+                "Pricing, legal judgement, sensitive approvals, irreversible actions",
+                "Named approver, documented criteria and exception handling"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "heading": "Baseline time, error, delay and exception volume first",
+        "body": [
+          "A baseline does not need a six-week discovery phase. It does need honesty. Measure the workflow as it runs today for a short period: how many times it happens, how long it takes, how often it stalls, how many records need fixing and how many cases break the normal path.",
+          "For a UK business process automation project, this matters for two reasons. First, it keeps scope grounded in operations rather than enthusiasm. Second, it gives non-technical stakeholders a way to assess the system after launch using run logs, review points and exception reporting instead of vague impressions.",
+          "You do not need to promise guaranteed ROI to estimate value responsibly. A reasonable view might include hours touched, delay reduced, manual handoffs removed, better record consistency and faster response to routine events. Those are commercial signals, not guarantees."
+        ],
+        "lede": "If you do not measure the current state, you cannot judge whether the build is actually useful.",
+        "variant": "signal",
+        "pullQuote": "Baseline first. Otherwise every post-launch opinion becomes a substitute for evidence.",
+        "bullets": [
+          {
+            "label": "Time",
+            "body": "Average manual handling time per case and total weekly volume.",
+            "icon": "⏱"
+          },
+          {
+            "label": "Errors",
+            "body": "Missing fields, duplicate records, wrong destinations and rework frequency.",
+            "icon": "△"
+          },
+          {
+            "label": "Delay",
+            "body": "Where the process waits: inboxes, approvals, document chasing or scheduling gaps.",
+            "icon": "⌛"
+          },
+          {
+            "label": "Exceptions",
+            "body": "Cases that do not fit the normal rules and require human intervention.",
+            "icon": "⇢"
+          }
+        ]
+      },
+      {
+        "heading": "Choose the right architecture for the first build",
+        "body": [
+          "Tool selection is important, but architecture is more important. In practice, many first builds sit well inside workflow platforms such as n8n, Make or Zapier, provided the logic, integrations, volume and governance are understood properly. The point is not vendor fandom. The point is choosing the simplest architecture that can support the required controls.",
+          "A workflow-first decision framework usually starts with triggers, system connections, transformations, approvals, observability and supportability. How will data enter the workflow? Which API or webhook events are available? What transformations are needed between systems? What should happen on failure? Who can inspect the run log? How are credentials, permissions and environments managed?",
+          "Sometimes a custom application should sit on top of the workflow. That becomes useful when users need a dedicated interface for approvals, exception handling, reporting, document review or operational control. In that model, the workflow engine handles orchestration while the app provides a clearer control surface for staff."
+        ],
+        "lede": "The first workflow should prove the operating model as much as the tool choice.",
+        "variant": "system",
+        "subsections": [
+          {
+            "heading": "A simple decision frame for n8n, Make and Zapier",
+            "body": [
+              "**Zapier** can suit straightforward business automations with broad app coverage and lower technical overhead. **Make** often suits visually complex multi-step routing and transformation work. **n8n** can suit teams that want deeper workflow control and more engineering flexibility. None is universally right; fit depends on integration depth, logic complexity, governance needs and who will own the system day to day.",
+              "If the workflow requires substantial custom logic, sensitive approval states, bespoke interfaces or deeper operational reporting, it may be time to combine automation with [app development](/services/app-development) rather than stretching a no-code stack beyond its safe boundary."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "What to ask before hiring a workflow automation agency in the UK",
+        "body": [
+          "A credible automation partner should be able to talk clearly about source of truth, owners, approvals, exceptions, recovery and reporting. That is more useful than a flashy prototype with no governance behind it.",
+          "Ask how the agency selects the first workflow, how it handles failure states, how duplicate prevention is designed and how non-technical stakeholders will inspect what the system is doing. Ask what remains deterministic, where AI is used and what actions must stay human-approved. In a UK SME context, that level of clarity matters because the same people often carry operations, compliance, customer handling and commercial responsibility at once.",
+          "At Silverstone AI, our view is simple: the first automation should create a repeatable operating pattern. Once that exists, a roadmap becomes easier to sequence across customer communications, document processing, reporting, CRM orchestration, [AI consulting](/services/ai-consulting) and broader service design. If you are assessing fit, it also helps to review [how we work](/how-we-work) before booking a conversation."
+        ],
+        "lede": "Most failures happen after the demo, when edge cases, ownership and support were never properly discussed.",
+        "variant": "operator",
+        "bullets": [
+          {
+            "label": "How do you choose the first workflow?",
+            "body": "Look for a methodology, not a generic promise to automate everything."
+          },
+          {
+            "label": "How are failures handled?",
+            "body": "Expect discussion of retries, alerts, dead-letter handling and named owners."
+          },
+          {
+            "label": "Where does AI belong?",
+            "body": "A serious answer separates bounded judgement from deterministic actions."
+          },
+          {
+            "label": "What happens after launch?",
+            "body": "Support, reporting, change control and exception ownership should be explicit."
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What is the best first process to automate for a small business?",
+        "answer": "Usually a high-frequency, repetitive workflow with clear rules, one source of truth and manageable exceptions. Common starting points include lead routing, follow-up sequences, document collection, diary updates and reporting consolidation."
+      },
+      {
+        "question": "Should I use an AI agent or standard workflow automation?",
+        "answer": "Use standard workflow automation for fixed rules and predictable steps. Use AI only for bounded tasks such as classification, summarisation or extraction, with validation and human review where the outcome is consequential."
+      },
+      {
+        "question": "How do I know if a process is ready to automate?",
+        "answer": "Check whether the process has a named owner, a documented normal path, defined exceptions, a trusted source of truth and a measurable baseline for time, delay, errors and volume. If those are unclear, fix the process before building automation around it."
+      },
+      {
+        "question": "What should a UK workflow automation agency explain clearly?",
+        "answer": "It should explain architecture, ownership, approvals, exception handling, duplicate prevention, reporting, permissions and post-launch support. If those details stay vague, the project risk usually rises after the demo."
+      }
+    ],
+    "internalLinks": [
+      {
+        "label": "app development",
+        "href": "/services/app-development"
+      },
+      {
+        "label": "AI consulting",
+        "href": "/services/ai-consulting"
+      },
+      {
+        "label": "how we work",
+        "href": "/how-we-work"
+      }
+    ],
+    "researchSources": [
+      {
+        "title": "Best AI Automation Agencies UK 2026: Compare Pricing, Fit, and Delivery | Elevate AI Blog",
+        "url": "https://www.elevateai.co.uk/blog/ai-automation-agencies-uk-2026",
+        "date": "",
+        "summary": "# Best AI Automation Agencies UK 2026: Compare Pricing, Fit, and Delivery. More agencies are offering AI powered workflow automation, intelligent document processing, AI agents, and chatbot solutions than ever before. If you are comparing AI automation agencies in the UK, start with fit rather than hype. The right partner should understand your sector, price",
+        "relevance": "Current UK business context for AI Automation"
+      },
+      {
+        "title": "AI Automation Use Cases in 2026: Real World Business ... - LinkedIn",
+        "url": "https://www.linkedin.com/pulse/ai-automation-use-cases-2026-real-world-business-applications-wmlif",
+        "date": "",
+        "summary": "[Join now](https://www.linkedin.com/signup/cold-join?session_redirect=%2Fpulse%2Fai-automation-use-cases-2026-real-world-business-applications-wmlif&trk=pulse-article_contextual-sign-in-modal_join-link). * [Report this article](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fpulse%2Fai-automation-use-cases-2026-real-world-business-applications-w",
+        "relevance": "Current UK business context for AI Automation"
+      },
+      {
+        "title": "AI Automation for UK Business: Use Cases, Tools & Getting Started (2026)",
+        "url": "https://automationhire.co.uk/ai-automation-for-uk-business",
+        "date": "",
+        "summary": "# AI Automation for UK Business: Use Cases, Tools & Getting Started. **AI automation** means using software like **Zapier, Make.com, n8n, or AI agents** to handle repetitive business tasks — moving data between apps, answering customer queries, processing invoices, qualifying leads — without a person doing each step manually. The eight highest-ROI use cases ",
+        "relevance": "Current UK business context for AI Automation"
+      },
+      {
+        "title": "AI Automation for UK Small Businesses 2026 | MS IT Solutions",
+        "url": "https://msitsolutions.co.uk/blog-ai-automation-small-business-uk-guide",
+        "date": "",
+        "summary": "Blog Book a Free Strategy Call →. # AI Automation for UK Small Businesses: The Complete 2026 Guide. The complete guide to AI automation for UK small businesses in 2026. What to automate first, how much it costs and how to get started without technical knowledge. AI automation has moved from buzzword to business necessity for UK small businesses in 2026. **On",
+        "relevance": "Current UK business context for AI Automation"
+      },
+      {
+        "title": "AI Workflow Automation UK | 2026 Operations Platform Guide",
+        "url": "https://toptenaiagents.co.uk/core-ai-bus-apps/workflow-operations.html",
+        "date": "",
+        "summary": "Your practical guide to AI-powered workflow automation in the UK. We're covering intelligent task management, process automation, resource planning, Making Tax",
+        "relevance": "Current UK business context for AI Automation"
+      }
+    ],
+    "imagePrompt": "Create one premium 16:9 editorial hero image for Silverstone AI using the approved visual language and matching /approved-images/services_workflow_automation.jpg. Scene: a restrained process lattice and exception-aware control surface for workflow automation, with the densest detail on the right side and calm negative space on the left 40% for white hero copy. Show one main operating surface with fictional interface elements: incoming trigger nodes, deterministic rule paths, a bounded AI judgement step, approval gate, tool actions, document or CRM cards, run logs and one clearly visible human exception path. Add two to four supporting layers only, such as API/webhook connections, reporting tiles and approval status lights. Use deep ink, graphite and navy surfaces with off-white panels, subtle glass layering, controlled electric blue and teal accents, with a small amber highlight only for the exception or approval state. No readable text, logos, fake metrics, stock-photo people, robots or abstract meaningless networks. The image should feel plausible, architectural, premium, futuristic and governed, with realistic lighting, crisp geometry and safe responsive crop.",
+    "ctaPrimary": {
+      "label": "Book a discovery call",
+      "href": "/book#booking-calendar"
+    },
+    "ctaSecondary": {
+      "label": "Back to insights",
+      "href": "/blog"
+    }
+  },
   // N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
   (post) => post.status === "published",
-).sort(
-  (a, b) =>
-    Date.parse(b.publishedIsoDate || b.updatedIsoDate) -
-    Date.parse(a.publishedIsoDate || a.updatedIsoDate),
 );
 
 export function getBlogPostBySlug(slug: string | undefined) {
