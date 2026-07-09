@@ -930,6 +930,340 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "href": "/blog"
     }
   },
+  {
+    "slug": "how-to-choose-the-first-workflow-to-automate-in-a-uk-small-business",
+    "title": "How to Choose the First Workflow to Automate in a UK Small Business",
+    "subtitle": "A practical framework for picking an automation that is owned, measurable and safe to put into production.",
+    "summary": [
+      "Learn how to identify a strong first automation candidate with clear ownership and measurable value.",
+      "Use a practical audit to score workflows by frequency, effort, impact, stability and exception complexity.",
+      "Choose architecture and agency support based on control, approvals, recovery and operational fit."
+    ],
+    "categoryLabel": "AI Automation",
+    "categoryKey": "ai-automation",
+    "categoryId": "ai-automation",
+    "categoryOrder": 5,
+    "displayDate": "9 July 2026",
+    "publishedIsoDate": "2026-07-09T09:37:56.227Z",
+    "updatedIsoDate": "2026-07-09T09:37:56.227Z",
+    "readTime": "9 min read",
+    "status": "published",
+    "heroImage": "/assets/images/blog/how-to-choose-the-first-workflow-to-automate-in-a-uk-small-business-hero.webp",
+    "heroImageAlt": "Illustrative workflow automation control surface showing triggers, rules, approvals, run logs and a human exception path for a UK small business.",
+    "metaTitle": "Choose the First Workflow to Automate | Silverstone AI",
+    "metaDescription": "A practical UK guide to choosing your first automation workflow with clear ownership, baselines, approvals, exceptions and sensible architecture.",
+    "primaryKeyword": "workflow automation agency UK",
+    "secondaryKeywords": [
+      "business process automation UK",
+      "custom AI automation",
+      "AI agent workflows",
+      "how to choose the first workflow to automate",
+      "automation opportunity audit for UK SMEs"
+    ],
+    "articleBody": [
+      {
+        "heading": "Introduction",
+        "variant": "signal",
+        "body": [
+          "The first automation matters more than most businesses expect. Pick the wrong workflow and you can spend time wiring together tools around a process nobody owns, exceptions nobody has defined and data nobody trusts. Pick the right one and you get a controlled test of how automation should work in the real world: with a clear source of truth, a named owner, approval steps where needed and visible recovery when something fails.\n\nAt Silverstone AI, we advise UK small businesses to resist the urge to \"automate everything\". A better route is to choose one workflow that is repetitive, rules-heavy, operationally annoying and commercially relevant, then baseline it properly before a build. That gives you evidence, not theatre."
+        ]
+      },
+      {
+        "heading": "What makes a strong first automation candidate?",
+        "body": [
+          "The best first automation is rarely the most ambitious one. It is usually a process with a clear trigger, a predictable path through a few systems and a manageable number of exceptions. Think inbound enquiries routed into a CRM, document collection for onboarding, quote follow-up, missed-call handling, diary updates or approval-led document processing.",
+          "For UK SMEs, the practical question is not *can this be automated?* It is *should this be the first thing we trust in production?* That means looking at ownership, data quality, exception volume, approval needs and how consequential the outcome is. If a mistake could create legal, financial, clinical or reputational risk, a human-in-the-loop pattern should sit inside the design from day one.",
+          "A strong candidate normally has one identifiable source of truth, one operational owner and a clear handoff if something does not fit the rules. If those do not exist, the build tends to drift into a clean demo and a messy rollout."
+        ],
+        "lede": "A useful first workflow is boring in the right way: frequent, repetitive, structured and painful enough to justify attention.",
+        "variant": "signal",
+        "pullQuote": "Do not start with the process that sounds most impressive. Start with the one you can actually govern.",
+        "bullets": [
+          {
+            "label": "Good first workflow",
+            "body": "High frequency, low ambiguity, repetitive steps and visible admin drag.",
+            "icon": "✓"
+          },
+          {
+            "label": "Clear control point",
+            "body": "Named owner, defined approval moments and an obvious exception route.",
+            "icon": "↔"
+          },
+          {
+            "label": "Measurable baseline",
+            "body": "You can track time, delay, errors and exception volume before changing anything.",
+            "icon": "◔"
+          },
+          {
+            "label": "Contained risk",
+            "body": "The workflow can be tested safely without pretending AI should run unattended.",
+            "icon": "⛶"
+          }
+        ]
+      },
+      {
+        "heading": "Do an opportunity audit before you build",
+        "body": [
+          "A practical audit helps you avoid automating around noise. List the workflows that repeatedly consume attention across sales, admin, operations and customer service. Then score them against five dimensions: frequency, effort, business impact, process stability and exception complexity.",
+          "This is especially relevant in the UK where many small businesses run across a mix of email, spreadsheets, booking tools, accounting platforms, CRMs and sector software that were never designed as one operating system. An audit shows where deterministic automation can handle the routine path and where bounded AI judgement may help with classification, summarisation or extraction.",
+          "Use rough commercial signals rather than invented precision. How often does the task happen each week? How much delay does it create? How often does someone have to chase, rekey or correct it? Where do edge cases appear? Which actions require approval? If you cannot answer those questions, you do not yet have a reliable automation brief."
+        ],
+        "lede": "Automation selection is an operating decision, not a software shopping exercise.",
+        "variant": "system",
+        "grid": [
+          {
+            "title": "Frequency",
+            "body": "How often the workflow runs and whether repetition is high enough to matter."
+          },
+          {
+            "title": "Effort",
+            "body": "Manual handling time, rekeying, chasing, copying, checking and switching between tools."
+          },
+          {
+            "title": "Impact",
+            "body": "Operational drag, customer delay, missed follow-up, revenue risk or service inconsistency."
+          },
+          {
+            "title": "Stability",
+            "body": "Whether the steps are understood, repeatable and already owned by a person or team."
+          },
+          {
+            "title": "Exceptions",
+            "body": "How often the process breaks pattern and what recovery path is needed."
+          }
+        ],
+        "subsections": [
+          {
+            "heading": "A useful scoring rule",
+            "body": [
+              "Prioritise workflows with **high frequency**, **medium-to-high effort**, **clear ownership** and **moderate exception complexity**. Avoid low-volume vanity projects and avoid highly consequential processes with unclear approvals until governance is stronger.",
+              "That often points UK small businesses towards lead-routing, follow-up orchestration, document collection, scheduling, CRM hygiene, reporting consolidation and invoice or form handling as early candidates."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Do not automate a broken process before it is owned",
+        "body": [
+          "One of the most common project failures is trying to automate a process that changes depending on who happens to be handling it. Different inbox habits, undocumented exceptions, informal approvals and duplicate records all turn a promising workflow into a reliability problem.",
+          "Before any build, define the owner, the standard path, the exception path and the recovery path. The owner is the person accountable for the process outcome. The source of truth is the system whose record the workflow should trust. The exception is any case that falls outside the normal rule set. Recovery is what happens after failure: retry, manual review, rollback or escalation.",
+          "This is where deterministic automation and AI agents should be separated properly. Deterministic automation belongs where the rules are known: route this lead, create that record, send this update, wait for that event. AI judgement belongs in bounded tasks such as extracting fields from a document, drafting a summary or classifying an inbound message. Even then, consequential actions should not proceed without explicit rules or approval."
+        ],
+        "lede": "If nobody owns the workflow, the automation will inherit the confusion.",
+        "variant": "operator",
+        "bullets": [
+          {
+            "label": "Name the owner",
+            "body": "One person must be accountable for the workflow outcome, not just the software setup.",
+            "icon": "◎"
+          },
+          {
+            "label": "Define the source of truth",
+            "body": "Choose the record that wins when systems disagree.",
+            "icon": "▣"
+          },
+          {
+            "label": "Design the exception path",
+            "body": "Decide who handles outliers and how they are notified.",
+            "icon": "!"
+          },
+          {
+            "label": "Plan recovery",
+            "body": "Specify retries, manual intervention and duplicate prevention before launch.",
+            "icon": "↺"
+          }
+        ],
+        "comparisonTable": {
+          "columns": [
+            "Workflow type",
+            "Best fit",
+            "Control model"
+          ],
+          "rows": [
+            {
+              "label": "Deterministic automation",
+              "cells": [
+                "Fixed rules, repeatable steps, system-to-system orchestration",
+                "Triggers, conditions, mappings, retries and audit trail"
+              ]
+            },
+            {
+              "label": "Bounded AI task",
+              "cells": [
+                "Classification, extraction, summarisation, drafting",
+                "Confidence checks, validation rules and human review where needed"
+              ]
+            },
+            {
+              "label": "Human decision",
+              "cells": [
+                "Pricing, legal judgement, sensitive approvals, irreversible actions",
+                "Named approver, documented criteria and exception handling"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "heading": "Baseline time, error, delay and exception volume first",
+        "body": [
+          "A baseline does not need a six-week discovery phase. It does need honesty. Measure the workflow as it runs today for a short period: how many times it happens, how long it takes, how often it stalls, how many records need fixing and how many cases break the normal path.",
+          "For a UK business process automation project, this matters for two reasons. First, it keeps scope grounded in operations rather than enthusiasm. Second, it gives non-technical stakeholders a way to assess the system after launch using run logs, review points and exception reporting instead of vague impressions.",
+          "You do not need to promise guaranteed ROI to estimate value responsibly. A reasonable view might include hours touched, delay reduced, manual handoffs removed, better record consistency and faster response to routine events. Those are commercial signals, not guarantees."
+        ],
+        "lede": "If you do not measure the current state, you cannot judge whether the build is actually useful.",
+        "variant": "signal",
+        "pullQuote": "Baseline first. Otherwise every post-launch opinion becomes a substitute for evidence.",
+        "bullets": [
+          {
+            "label": "Time",
+            "body": "Average manual handling time per case and total weekly volume.",
+            "icon": "⏱"
+          },
+          {
+            "label": "Errors",
+            "body": "Missing fields, duplicate records, wrong destinations and rework frequency.",
+            "icon": "△"
+          },
+          {
+            "label": "Delay",
+            "body": "Where the process waits: inboxes, approvals, document chasing or scheduling gaps.",
+            "icon": "⌛"
+          },
+          {
+            "label": "Exceptions",
+            "body": "Cases that do not fit the normal rules and require human intervention.",
+            "icon": "⇢"
+          }
+        ]
+      },
+      {
+        "heading": "Choose the right architecture for the first build",
+        "body": [
+          "Tool selection is important, but architecture is more important. In practice, many first builds sit well inside workflow platforms such as n8n, Make or Zapier, provided the logic, integrations, volume and governance are understood properly. The point is not vendor fandom. The point is choosing the simplest architecture that can support the required controls.",
+          "A workflow-first decision framework usually starts with triggers, system connections, transformations, approvals, observability and supportability. How will data enter the workflow? Which API or webhook events are available? What transformations are needed between systems? What should happen on failure? Who can inspect the run log? How are credentials, permissions and environments managed?",
+          "Sometimes a custom application should sit on top of the workflow. That becomes useful when users need a dedicated interface for approvals, exception handling, reporting, document review or operational control. In that model, the workflow engine handles orchestration while the app provides a clearer control surface for staff."
+        ],
+        "lede": "The first workflow should prove the operating model as much as the tool choice.",
+        "variant": "system",
+        "subsections": [
+          {
+            "heading": "A simple decision frame for n8n, Make and Zapier",
+            "body": [
+              "**Zapier** can suit straightforward business automations with broad app coverage and lower technical overhead. **Make** often suits visually complex multi-step routing and transformation work. **n8n** can suit teams that want deeper workflow control and more engineering flexibility. None is universally right; fit depends on integration depth, logic complexity, governance needs and who will own the system day to day.",
+              "If the workflow requires substantial custom logic, sensitive approval states, bespoke interfaces or deeper operational reporting, it may be time to combine automation with [app development](/services/app-development) rather than stretching a no-code stack beyond its safe boundary."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "What to ask before hiring a workflow automation agency in the UK",
+        "body": [
+          "A credible automation partner should be able to talk clearly about source of truth, owners, approvals, exceptions, recovery and reporting. That is more useful than a flashy prototype with no governance behind it.",
+          "Ask how the agency selects the first workflow, how it handles failure states, how duplicate prevention is designed and how non-technical stakeholders will inspect what the system is doing. Ask what remains deterministic, where AI is used and what actions must stay human-approved. In a UK SME context, that level of clarity matters because the same people often carry operations, compliance, customer handling and commercial responsibility at once.",
+          "At Silverstone AI, our view is simple: the first automation should create a repeatable operating pattern. Once that exists, a roadmap becomes easier to sequence across customer communications, document processing, reporting, CRM orchestration, [AI consulting](/services/ai-consulting) and broader service design. If you are assessing fit, it also helps to review [how we work](/how-we-work) before booking a conversation."
+        ],
+        "lede": "Most failures happen after the demo, when edge cases, ownership and support were never properly discussed.",
+        "variant": "operator",
+        "bullets": [
+          {
+            "label": "How do you choose the first workflow?",
+            "body": "Look for a methodology, not a generic promise to automate everything."
+          },
+          {
+            "label": "How are failures handled?",
+            "body": "Expect discussion of retries, alerts, dead-letter handling and named owners."
+          },
+          {
+            "label": "Where does AI belong?",
+            "body": "A serious answer separates bounded judgement from deterministic actions."
+          },
+          {
+            "label": "What happens after launch?",
+            "body": "Support, reporting, change control and exception ownership should be explicit."
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What is the best first process to automate for a small business?",
+        "answer": "Usually a high-frequency, repetitive workflow with clear rules, one source of truth and manageable exceptions. Common starting points include lead routing, follow-up sequences, document collection, diary updates and reporting consolidation."
+      },
+      {
+        "question": "Should I use an AI agent or standard workflow automation?",
+        "answer": "Use standard workflow automation for fixed rules and predictable steps. Use AI only for bounded tasks such as classification, summarisation or extraction, with validation and human review where the outcome is consequential."
+      },
+      {
+        "question": "How do I know if a process is ready to automate?",
+        "answer": "Check whether the process has a named owner, a documented normal path, defined exceptions, a trusted source of truth and a measurable baseline for time, delay, errors and volume. If those are unclear, fix the process before building automation around it."
+      },
+      {
+        "question": "What should a UK workflow automation agency explain clearly?",
+        "answer": "It should explain architecture, ownership, approvals, exception handling, duplicate prevention, reporting, permissions and post-launch support. If those details stay vague, the project risk usually rises after the demo."
+      }
+    ],
+    "internalLinks": [
+      {
+        "label": "app development",
+        "href": "/services/app-development"
+      },
+      {
+        "label": "AI consulting",
+        "href": "/services/ai-consulting"
+      },
+      {
+        "label": "how we work",
+        "href": "/how-we-work"
+      }
+    ],
+    "researchSources": [
+      {
+        "title": "Best AI Automation Agencies UK 2026: Compare Pricing, Fit, and Delivery | Elevate AI Blog",
+        "url": "https://www.elevateai.co.uk/blog/ai-automation-agencies-uk-2026",
+        "date": "",
+        "summary": "# Best AI Automation Agencies UK 2026: Compare Pricing, Fit, and Delivery. More agencies are offering AI powered workflow automation, intelligent document processing, AI agents, and chatbot solutions than ever before. If you are comparing AI automation agencies in the UK, start with fit rather than hype. The right partner should understand your sector, price",
+        "relevance": "Current UK business context for AI Automation"
+      },
+      {
+        "title": "AI Automation Use Cases in 2026: Real World Business ... - LinkedIn",
+        "url": "https://www.linkedin.com/pulse/ai-automation-use-cases-2026-real-world-business-applications-wmlif",
+        "date": "",
+        "summary": "[Join now](https://www.linkedin.com/signup/cold-join?session_redirect=%2Fpulse%2Fai-automation-use-cases-2026-real-world-business-applications-wmlif&trk=pulse-article_contextual-sign-in-modal_join-link). * [Report this article](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fpulse%2Fai-automation-use-cases-2026-real-world-business-applications-w",
+        "relevance": "Current UK business context for AI Automation"
+      },
+      {
+        "title": "AI Automation for UK Business: Use Cases, Tools & Getting Started (2026)",
+        "url": "https://automationhire.co.uk/ai-automation-for-uk-business",
+        "date": "",
+        "summary": "# AI Automation for UK Business: Use Cases, Tools & Getting Started. **AI automation** means using software like **Zapier, Make.com, n8n, or AI agents** to handle repetitive business tasks — moving data between apps, answering customer queries, processing invoices, qualifying leads — without a person doing each step manually. The eight highest-ROI use cases ",
+        "relevance": "Current UK business context for AI Automation"
+      },
+      {
+        "title": "AI Automation for UK Small Businesses 2026 | MS IT Solutions",
+        "url": "https://msitsolutions.co.uk/blog-ai-automation-small-business-uk-guide",
+        "date": "",
+        "summary": "Blog Book a Free Strategy Call →. # AI Automation for UK Small Businesses: The Complete 2026 Guide. The complete guide to AI automation for UK small businesses in 2026. What to automate first, how much it costs and how to get started without technical knowledge. AI automation has moved from buzzword to business necessity for UK small businesses in 2026. **On",
+        "relevance": "Current UK business context for AI Automation"
+      },
+      {
+        "title": "AI Workflow Automation UK | 2026 Operations Platform Guide",
+        "url": "https://toptenaiagents.co.uk/core-ai-bus-apps/workflow-operations.html",
+        "date": "",
+        "summary": "Your practical guide to AI-powered workflow automation in the UK. We're covering intelligent task management, process automation, resource planning, Making Tax",
+        "relevance": "Current UK business context for AI Automation"
+      }
+    ],
+    "imagePrompt": "Create one premium 16:9 editorial hero image for Silverstone AI using the approved visual language and matching /approved-images/services_workflow_automation.jpg. Scene: a restrained process lattice and exception-aware control surface for workflow automation, with the densest detail on the right side and calm negative space on the left 40% for white hero copy. Show one main operating surface with fictional interface elements: incoming trigger nodes, deterministic rule paths, a bounded AI judgement step, approval gate, tool actions, document or CRM cards, run logs and one clearly visible human exception path. Add two to four supporting layers only, such as API/webhook connections, reporting tiles and approval status lights. Use deep ink, graphite and navy surfaces with off-white panels, subtle glass layering, controlled electric blue and teal accents, with a small amber highlight only for the exception or approval state. No readable text, logos, fake metrics, stock-photo people, robots or abstract meaningless networks. The image should feel plausible, architectural, premium, futuristic and governed, with realistic lighting, crisp geometry and safe responsive crop.",
+    "ctaPrimary": {
+      "label": "Book a discovery call",
+      "href": "/book#booking-calendar"
+    },
+    "ctaSecondary": {
+      "label": "Back to insights",
+      "href": "/blog"
+    }
+  },
   // N8N_BLOG_POSTS_END
 ];
 
