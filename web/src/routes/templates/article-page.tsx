@@ -11,8 +11,16 @@ import {
   Clock,
   FileText,
   Sparkles,
+  Target,
+  Zap,
 } from "~/components/icons/lucide";
-import type { SilverstoneBlogPost, SilverstoneBlogSection } from "~/data/blog-posts";
+import type {
+  SilverstoneBlogBullet,
+  SilverstoneBlogGridItem,
+  SilverstoneBlogPost,
+  SilverstoneBlogSection,
+  SilverstoneBlogTable,
+} from "~/data/blog-posts";
 import {
   Eyebrow,
   Reveal,
@@ -98,13 +106,16 @@ function sanitizeHref(href: string): string | null {
 
 function ArticleRichText({ text }: { text: string }) {
   const nodes: ReactNode[] = [];
-  const anchorPattern = /<a\s+href="([^"]+)">([\s\S]*?)<\/a>/gi;
+  const anchorPattern =
+    /<a\s+href="([^"]+)">([\s\S]*?)<\/a>|\[([^\]]+)\]\(([^)\s]+)\)/gi;
   let lastIndex = 0;
   let key = 0;
   let match: RegExpExecArray | null;
 
   while ((match = anchorPattern.exec(text)) !== null) {
-    const [rawAnchor, rawHref, label] = match;
+    const rawAnchor = match[0];
+    const rawHref = match[1] ?? match[4] ?? "";
+    const label = match[2] ?? match[3] ?? rawAnchor;
     if (match.index > lastIndex) {
       nodes.push(
         <RichText
@@ -114,17 +125,15 @@ function ArticleRichText({ text }: { text: string }) {
       );
     }
 
-    const href = sanitizeHref(rawHref ?? "");
+    const href = sanitizeHref(rawHref);
     if (href) {
       nodes.push(
         <Link key={`link-${String(key++)}`} to={href}>
-          <RichText text={label ?? ""} />
+          <RichText text={label} />
         </Link>,
       );
     } else {
-      nodes.push(
-        <RichText key={`fallback-${String(key++)}`} text={label ?? rawAnchor} />,
-      );
+      nodes.push(<RichText key={`fallback-${String(key++)}`} text={label} />);
     }
 
     lastIndex = match.index + rawAnchor.length;
@@ -135,6 +144,156 @@ function ArticleRichText({ text }: { text: string }) {
   }
 
   return <>{nodes}</>;
+}
+
+const BULLET_ICONS = [Zap, Target, Sparkles, Check] as const;
+
+function ArticlePullQuote({ quote }: { quote?: string | undefined }) {
+  const trimmedQuote = quote?.trim();
+
+  if (!trimmedQuote) {
+    return null;
+  }
+
+  return (
+    <blockquote className="ss-blog-article__pullquote">
+      <Sparkles aria-hidden="true" />
+      <p>
+        <ArticleRichText text={trimmedQuote} />
+      </p>
+    </blockquote>
+  );
+}
+
+function ArticleBulletPanel({
+  items,
+}: {
+  items?: SilverstoneBlogBullet[] | undefined;
+}) {
+  const usableItems =
+    items?.filter((item) => item.label.trim() && item.body.trim()).slice(0, 6) ?? [];
+
+  if (usableItems.length === 0) {
+    return null;
+  }
+
+  return (
+    <ul className="ss-blog-article__bullet-list" aria-label="Article signals">
+      {usableItems.map((item, index) => {
+        const Icon = BULLET_ICONS[index % BULLET_ICONS.length] ?? Sparkles;
+
+        return (
+          <li key={`${item.label}-${String(index)}`} className="ss-blog-article__bullet-item">
+            <span className="ss-blog-article__bullet-icon">
+              <Icon aria-hidden="true" />
+            </span>
+            <span>
+              <strong>
+                <ArticleRichText text={item.label} />
+              </strong>
+              <span>
+                <ArticleRichText text={item.body} />
+              </span>
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function ArticleGrid({
+  items,
+}: {
+  items?: SilverstoneBlogGridItem[] | undefined;
+}) {
+  const usableItems =
+    items?.filter((item) => item.title.trim() && item.body.trim()).slice(0, 6) ?? [];
+
+  if (usableItems.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="ss-blog-article__grid" aria-label="Article grid">
+      {usableItems.map((item, index) => (
+        <div className="ss-blog-article__grid-item" key={`${item.title}-${String(index)}`}>
+          <span>
+            {item.label?.trim()
+              ? item.label.trim()
+              : `Signal ${String(index + 1).padStart(2, "0")}`}
+          </span>
+          <h4>
+            <ArticleRichText text={item.title} />
+          </h4>
+          <p>
+            <ArticleRichText text={item.body} />
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ArticleComparisonTable({
+  table,
+}: {
+  table?: SilverstoneBlogTable | undefined;
+}) {
+  const columns = table?.columns.map((column) => column.trim()).filter(Boolean) ?? [];
+  const rows =
+    table?.rows
+      .map((row) => ({
+        cells: row.cells.map((cell) => cell.trim()),
+        label: row.label.trim(),
+      }))
+      .filter((row) => row.label && row.cells.some(Boolean)) ?? [];
+
+  if (columns.length < 2 || rows.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="ss-blog-article__table-wrap">
+      <table className="ss-blog-article__table">
+        <thead>
+          <tr>
+            <th scope="col">Decision point</th>
+            {columns.map((column) => (
+              <th key={column} scope="col">
+                <ArticleRichText text={column} />
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.label}>
+              <th scope="row">
+                <ArticleRichText text={row.label} />
+              </th>
+              {columns.map((column, index) => (
+                <td key={`${row.label}-${column}`}>
+                  <ArticleRichText text={row.cells[index] ?? ""} />
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function ArticleSectionEnhancements({ section }: { section: SilverstoneBlogSection }) {
+  return (
+    <>
+      <ArticlePullQuote quote={section.pullQuote} />
+      <ArticleBulletPanel items={section.bullets} />
+      <ArticleGrid items={section.grid} />
+      <ArticleComparisonTable table={section.comparisonTable} />
+    </>
+  );
 }
 
 function ArticleHeroTitle({ post }: { post: SilverstoneBlogPost }) {
@@ -203,18 +362,32 @@ function ArticleSection({
   sectionIndex: number;
 }) {
   const headingId = `article-section-${String(sectionIndex)}`;
+  const variant = section.variant ?? (sectionIndex % 3 === 0 ? "signal" : undefined);
 
   return (
     <Reveal amount="some" kind="section">
-      <section className="ss-blog-article__section" aria-labelledby={headingId}>
+      <section
+        className="ss-blog-article__section"
+        data-variant={variant}
+        aria-labelledby={headingId}
+      >
         <h2 id={headingId}>
           <RichText text={emphasiseHeading(section.heading)} />
         </h2>
+        {section.lede ? (
+          <p className="ss-blog-article__lede">
+            <ArticleRichText text={section.lede} />
+          </p>
+        ) : null}
         {section.body.map((paragraph, index) => (
-          <p key={`${section.heading}-${String(index)}`}>
+          <p
+            key={`${section.heading}-${String(index)}`}
+            data-lead={!section.lede && index === 0 ? "true" : undefined}
+          >
             <ArticleRichText text={paragraph} />
           </p>
         ))}
+        <ArticleSectionEnhancements section={section} />
         {section.subsections?.map((subsection, index) => (
           <div
             className="ss-blog-article__subsection"
@@ -228,6 +401,7 @@ function ArticleSection({
                 <ArticleRichText text={paragraph} />
               </p>
             ))}
+            <ArticleSectionEnhancements section={subsection} />
           </div>
         ))}
       </section>

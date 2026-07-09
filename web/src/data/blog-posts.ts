@@ -10,10 +10,36 @@ export type SilverstoneBlogFaq = {
   question: string;
 };
 
+export type SilverstoneBlogBullet = {
+  body: string;
+  icon?: string;
+  label: string;
+};
+
+export type SilverstoneBlogGridItem = {
+  body: string;
+  label?: string;
+  title: string;
+};
+
+export type SilverstoneBlogTable = {
+  columns: string[];
+  rows: {
+    cells: string[];
+    label: string;
+  }[];
+};
+
 export type SilverstoneBlogSection = {
   body: string[];
+  bullets?: SilverstoneBlogBullet[];
+  comparisonTable?: SilverstoneBlogTable;
+  grid?: SilverstoneBlogGridItem[];
   heading: string;
+  lede?: string;
+  pullQuote?: string;
   subsections?: SilverstoneBlogSection[];
+  variant?: "signal" | "system" | "operator";
 };
 
 export type SilverstoneBlogSource = {
@@ -385,6 +411,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
   (post) => post.status === "published",
+).sort(
+  (a, b) =>
+    Date.parse(b.publishedIsoDate || b.updatedIsoDate) -
+    Date.parse(a.publishedIsoDate || a.updatedIsoDate),
 );
 
 export function getBlogPostBySlug(slug: string | undefined) {
