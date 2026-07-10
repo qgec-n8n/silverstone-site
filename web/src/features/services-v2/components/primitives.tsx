@@ -149,25 +149,32 @@ const liteImageVariants: Variants = {
  * Reveal itself, which holds off firing until well into view for the same
  * reason.
  */
-function transitionFor(kind: RevealKind, delayMs: number, instant = false): Transition {
+function transitionFor(
+  kind: RevealKind,
+  delayMs: number,
+  instant = false,
+  durationScale = 1,
+): Transition {
   if (instant) {
     // Deep-link landing bypass: the shown state applies in a single frame.
     return { delay: 0, duration: 0 };
   }
   const delay = delayMs / 1000;
   if (kind === "pill") {
-    return { delay, type: "spring", stiffness: 150, damping: 19, mass: 0.85 };
+    return durationScale < 1
+      ? { delay, type: "spring", stiffness: 260, damping: 25, mass: 0.7 }
+      : { delay, type: "spring", stiffness: 150, damping: 19, mass: 0.85 };
   }
   if (kind === "metric") {
-    return { delay, duration: 0.85, ease: entranceEase };
+    return { delay, duration: 0.85 * durationScale, ease: entranceEase };
   }
   if (kind === "image") {
-    return { delay, duration: 1.4, ease: entranceEase };
+    return { delay, duration: 1.4 * durationScale, ease: entranceEase };
   }
   if (kind === "cta") {
-    return { delay, duration: 1.05, ease: entranceEase };
+    return { delay, duration: 1.05 * durationScale, ease: entranceEase };
   }
-  return { delay, duration: 1.0, ease: entranceEase };
+  return { delay, duration: 1.0 * durationScale, ease: entranceEase };
 }
 
 export function Reveal({
@@ -272,7 +279,12 @@ function ViewportReveal({
       initial="hidden"
       animate={start !== null ? "show" : "hidden"}
       variants={revealVariants[kind]}
-      transition={transitionFor(kind, start?.delayMs ?? 0, start?.instant ?? false)}
+      transition={transitionFor(
+        kind,
+        start?.delayMs ?? 0,
+        start?.instant ?? false,
+        start?.durationScale ?? 1,
+      )}
     >
       {children}
     </m.div>
@@ -352,7 +364,12 @@ function ImageReveal({
       initial="hidden"
       animate={start !== null ? "show" : "hidden"}
       variants={tier === "full" ? revealVariants.image : liteImageVariants}
-      transition={transitionFor("image", start?.delayMs ?? 0, start?.instant ?? false)}
+      transition={transitionFor(
+        "image",
+        start?.delayMs ?? 0,
+        start?.instant ?? false,
+        start?.durationScale ?? 1,
+      )}
     >
       {children}
     </m.div>
@@ -522,7 +539,7 @@ function WarningChecklistItem({ point, index }: { point: string; index: number }
       animate={start !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
       transition={{
         delay: (start?.delayMs ?? 0) / 1000,
-        duration: start?.instant ? 0 : 0.75,
+        duration: start?.instant ? 0 : 0.75 * (start?.durationScale ?? 1),
         ease: entranceEase,
       }}
     >

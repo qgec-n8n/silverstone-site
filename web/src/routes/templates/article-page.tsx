@@ -1,7 +1,14 @@
 import "~/styles/services-v2/services-v2.css";
 import "~/styles/core-pages/core-pages.css";
 
-import type { CSSProperties, ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { Link } from "react-router";
 
 import {
@@ -353,7 +360,13 @@ function ArticleHeroTitle({ post }: { post: SilverstoneBlogPost }) {
   return <RichText text={title} />;
 }
 
-function ArticleFactStrip({ post }: { post: SilverstoneBlogPost }) {
+function ArticleFactStrip({
+  post,
+  unlockRef,
+}: {
+  post: SilverstoneBlogPost;
+  unlockRef: RefObject<HTMLDivElement | null>;
+}) {
   const facts = [
     { icon: Clock, label: post.readTime },
     { icon: FileText, label: post.categoryLabel },
@@ -362,7 +375,7 @@ function ArticleFactStrip({ post }: { post: SilverstoneBlogPost }) {
   ];
 
   return (
-    <div className="ss-hv2-trust-shell ss-blog-article__facts">
+    <div ref={unlockRef} className="ss-hv2-trust-shell ss-blog-article__facts">
       <ul className="ss-hv2-trust" aria-label="Article facts">
         {facts.map(({ icon: Icon, label }) => (
           <li className="ss-hv2-trust__item" key={label}>
@@ -497,10 +510,58 @@ function InsightsReturn({ categoryLabel }: { categoryLabel: string }) {
   );
 }
 
+function FloatingInsightsReturn() {
+  return (
+    <Link
+      aria-label="Back to the Insights search and filters"
+      className="ss-blog-article__floating-return"
+      to="/blog#insights-search"
+    >
+      <span className="ss-blog-article__floating-return-glyph" aria-hidden="true">
+        <Search />
+        <ArrowLeft />
+      </span>
+      <span className="ss-blog-article__floating-return-label" aria-hidden="true">
+        Insights search
+      </span>
+    </Link>
+  );
+}
+
 export function ArticlePage({ post }: ArticlePageProps) {
+  const factStripRef = useRef<HTMLDivElement>(null);
+  const [floatingReturnVisible, setFloatingReturnVisible] = useState(false);
+
+  useEffect(() => {
+    const factStrip = factStripRef.current;
+    if (
+      !factStrip ||
+      floatingReturnVisible ||
+      typeof IntersectionObserver === "undefined"
+    ) {
+      return;
+    }
+
+    // The observer's effective root is the upper half of the viewport. The
+    // control unlocks once the fact/trust strip reaches that zone, then stays
+    // available for the rest of the article without a scroll listener.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setFloatingReturnVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -50% 0px", threshold: 0 },
+    );
+    observer.observe(factStrip);
+    return () => observer.disconnect();
+  }, [floatingReturnVisible]);
+
   return (
     <RouteExperienceFrame skipIntro>
       <BlogJsonLd post={post} />
+      {floatingReturnVisible ? <FloatingInsightsReturn /> : null}
       <article className="ss-blog-article">
         <header
           className="ss-blog-article__hero"
@@ -562,7 +623,7 @@ export function ArticlePage({ post }: ArticlePageProps) {
         </header>
 
         <div className="ss-blog-article__body">
-          <ArticleFactStrip post={post} />
+          <ArticleFactStrip post={post} unlockRef={factStripRef} />
           <div className="ss-blog-article__container">
             <Reveal
               className="ss-blog-article__summary ss-blog-article__neon-border"

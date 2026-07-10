@@ -28,6 +28,11 @@ import {
   ELEVENLABS_DEMO_AGENT_NAME,
 } from "./elevenlabs-agent-config";
 import {
+  applyAgentTranscriptCorrection,
+  applyTranscriptMessage,
+  type TranscriptEntry,
+} from "./agent-transcript";
+import {
   formatClock,
   StaticOrbVisual,
   TranscriptHead,
@@ -35,12 +40,13 @@ import {
   type LiveVoiceDemoCopy,
 } from "./live-voice-chrome";
 
-type TranscriptEntry = {
-  id: number;
-  role: "user" | "agent";
-  text: string;
-  at: number;
-};
+export const BOOKING_CONTEXT_DELAY_MS = 120_000;
+
+export const BOOKING_CONTEXTUAL_UPDATE =
+  "About two minutes of this conversation have elapsed. If you have not already made the early booking bridge, the visitor has not clearly declined a call, and no booking is currently in progress, make the booking bridge at the next natural agent turn. Offer the free 30-minute discovery call and simultaneously provide one relevant question they can answer if they prefer to continue the demo. Do not interrupt the visitor and do not respond solely to this contextual update.";
+
+const AGENT_CONTACT_TOKEN_PATTERN =
+  /(info@silverstone-ai\.com|https:\/\/silverstone-ai\.com\/book)/g;
 
 const ERROR_COPY = {
   unsupported:
@@ -57,6 +63,26 @@ function detectWebgl(): boolean {
   } catch {
     return false;
   }
+}
+
+function AgentTranscriptText({ text }: { text: string }) {
+  return text.split(AGENT_CONTACT_TOKEN_PATTERN).map((part, index) => {
+    if (part === "info@silverstone-ai.com") {
+      return (
+        <a key={index} href="mailto:info@silverstone-ai.com">
+          {part}
+        </a>
+      );
+    }
+    if (part === "https://silverstone-ai.com/book") {
+      return (
+        <a key={index} href={part} target="_blank" rel="noopener noreferrer">
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
 }
 
 export default function LiveVoiceSession(props: {
@@ -91,8 +117,27 @@ function SessionBody({
   const [elapsed, setElapsed] = useState(0);
   const startedAtRef = useRef<number | null>(null);
   const entryIdRef = useRef(0);
+  const bookingPromptTimerRef = useRef<number | null>(null);
+  const timerStartedSessionIdsRef = useRef(new Set<string>());
+  const activeSessionIdRef = useRef<string | null>(null);
+  const connectedSessionRef = useRef(false);
+  const contextSentSessionIdRef = useRef<string | null>(null);
+  const sendContextualUpdateRef = useRef<(text: string) => void>(() => undefined);
   const panelRef = useRef<HTMLDivElement>(null);
   const [overflowing, setOverflowing] = useState(false);
+
+  const clearBookingPromptTimer = useCallback(() => {
+    if (bookingPromptTimerRef.current !== null) {
+      window.clearTimeout(bookingPromptTimerRef.current);
+      bookingPromptTimerRef.current = null;
+    }
+  }, []);
+
+  const markSessionInactive = useCallback(() => {
+    connectedSessionRef.current = false;
+    activeSessionIdRef.current = null;
+    clearBookingPromptTimer();
+  }, [clearBookingPromptTimer]);
 
   const elapsedNow = useCallback(() => {
     return startedAtRef.current === null
@@ -101,32 +146,81 @@ function SessionBody({
   }, []);
 
   const conversation = useConversation({
-    onConnect: () => {
-      startedAtRef.current = Date.now();
-      setElapsed(0);
+    onConnect: ({ conversationId }) => {
       setError(null);
+      connectedSessionRef.current = true;
+
+      if (activeSessionIdRef.current !== conversationId) {
+        clearBookingPromptTimer();
+        activeSessionIdRef.current = conversationId;
+        startedAtRef.current = Date.now();
+        setElapsed(0);
+      }
+      if (
+        bookingPromptTimerRef.current === null &&
+        !timerStartedSessionIdsRef.current.has(conversationId) &&
+        contextSentSessionIdRef.current !== conversationId
+      ) {
+        timerStartedSessionIdsRef.current.add(conversationId);
+        bookingPromptTimerRef.current = window.setTimeout(() => {
+          bookingPromptTimerRef.current = null;
+          if (
+            !connectedSessionRef.current ||
+            activeSessionIdRef.current !== conversationId ||
+            contextSentSessionIdRef.current === conversationId
+          ) {
+            return;
+          }
+          contextSentSessionIdRef.current = conversationId;
+          sendContextualUpdateRef.current(BOOKING_CONTEXTUAL_UPDATE);
+        }, BOOKING_CONTEXT_DELAY_MS);
+      }
     },
-    onMessage: ({ message, role }) => {
-      const entry: TranscriptEntry = {
-        id: entryIdRef.current++,
-        role: role === "user" ? "user" : "agent",
-        text: message,
-        at: elapsedNow(),
-      };
-      setMessages((current) => [...current, entry]);
+    onMessage: ({ message, role, event_id }) => {
+      setMessages((current) =>
+        applyTranscriptMessage(current, {
+          id: entryIdRef.current++,
+          role: role === "user" ? "user" : "agent",
+          message,
+          at: elapsedNow(),
+          ...(event_id === undefined ? {} : { eventId: event_id }),
+        }),
+      );
+    },
+    onAgentResponseCorrection: ({
+      event_id,
+      original_agent_response,
+      corrected_agent_response,
+    }) => {
+      setMessages((current) =>
+        applyAgentTranscriptCorrection(current, {
+          eventId: event_id,
+          originalMessage: original_agent_response,
+          correctedMessage: corrected_agent_response,
+        }),
+      );
     },
     onError: () => {
+      markSessionInactive();
       setError(ERROR_COPY.dropped);
     },
     onDisconnect: (details) => {
+      markSessionInactive();
       if (details.reason === "error") {
         setError(ERROR_COPY.dropped);
       }
     },
   });
 
-  const { status, isSpeaking, isMuted, setMuted, startSession, endSession } =
-    conversation;
+  const {
+    status,
+    isSpeaking,
+    isMuted,
+    setMuted,
+    startSession,
+    endSession,
+    sendContextualUpdate,
+  } = conversation;
   const connected = status === "connected";
   const connecting = status === "connecting";
   const ended = !connected && !connecting && messages.length > 0;
@@ -146,6 +240,10 @@ function SessionBody({
   useEffect(() => {
     onStateChange(state);
   }, [state, onStateChange]);
+
+  useEffect(() => {
+    sendContextualUpdateRef.current = sendContextualUpdate;
+  }, [sendContextualUpdate]);
 
   // The transcript only owns the scroll gesture while it actually overflows
   // its fixed-height pane (live call or post-call review); measure that so
@@ -180,6 +278,7 @@ function SessionBody({
   }, [connected, elapsedNow]);
 
   const handleStart = useCallback(async () => {
+    markSessionInactive();
     setError(null);
     setMessages([]);
     setElapsed(0);
@@ -208,7 +307,7 @@ function SessionBody({
       agentId: ELEVENLABS_DEMO_AGENT_ID,
       connectionType: "webrtc",
     });
-  }, [startSession]);
+  }, [markSessionInactive, startSession]);
 
   const handleEnd = useCallback(() => {
     endSession();
@@ -231,13 +330,14 @@ function SessionBody({
   });
   useEffect(() => {
     return () => {
+      markSessionInactive();
       try {
         endSessionRef.current();
       } catch {
         // Session already closed.
       }
     };
-  }, []);
+  }, [markSessionInactive]);
 
   // WebRTC can be blocked outright (corporate firewalls, some VPNs) and the
   // transport then retries indefinitely — cap the connecting phase so the
@@ -428,7 +528,11 @@ function SessionBody({
                       {formatClock(entry.at)}
                     </span>
                     <MessageContent className="ss-lvd__bubble">
-                      {entry.text}
+                      {entry.role === "agent" ? (
+                        <AgentTranscriptText text={entry.text} />
+                      ) : (
+                        entry.text
+                      )}
                     </MessageContent>
                   </div>
                 </Message>

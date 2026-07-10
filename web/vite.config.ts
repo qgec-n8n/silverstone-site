@@ -127,6 +127,13 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
+      // The two largest assets are intentionally lazy, opt-in demo runtimes:
+      // ElevenLabs + its WebGL orb (~1.41 MB raw) and Botpress (~0.95 MB raw).
+      // Vite's default 500 kB warning targets general entry chunks, but these
+      // never enter the foundation download. Keep their existing lazy loading
+      // graph intact and let scripts/report-bundle.mjs enforce the stricter
+      // gzip budget for JavaScript every visitor actually receives.
+      chunkSizeWarningLimit: 1500,
       sourcemap: false,
     },
   };

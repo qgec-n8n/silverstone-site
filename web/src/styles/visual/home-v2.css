@@ -153,7 +153,7 @@
   --ss-hv2-reveal-shift: 26px;
 }
 
-html[data-js="on"] .ss-hv2-reveal {
+html[data-js="on"] .ss-hv2-reveal:not([data-motion-reveal="true"]) {
   opacity: 0;
   transform: translateY(var(--ss-hv2-reveal-shift));
   transition:
@@ -163,7 +163,8 @@ html[data-js="on"] .ss-hv2-reveal {
   will-change: opacity, transform;
 }
 
-html[data-js="on"] .ss-hv2-reveal[data-revealed="true"] {
+html[data-js="on"]
+  .ss-hv2-reveal:not([data-motion-reveal="true"])[data-revealed="true"] {
   opacity: 1;
   transform: none;
 }

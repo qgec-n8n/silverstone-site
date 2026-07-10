@@ -136,7 +136,7 @@ function JourneyRailStage({ children, index }: { children: ReactNode; index: num
       animate={start !== null ? { opacity: 1, x: 0 } : hidden}
       transition={{
         delay: (start?.delayMs ?? 0) / 1000,
-        duration: start?.instant ? 0 : 0.9,
+        duration: start?.instant ? 0 : 0.9 * (start?.durationScale ?? 1),
         ease: entranceEase,
       }}
     >
@@ -209,7 +209,7 @@ function BoundaryKeepItem({ item, index }: { item: string; index: number }) {
       animate={start !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
       transition={{
         delay: (start?.delayMs ?? 0) / 1000,
-        duration: start?.instant ? 0 : 0.7,
+        duration: start?.instant ? 0 : 0.7 * (start?.durationScale ?? 1),
         ease: entranceEase,
       }}
     >
@@ -277,7 +277,7 @@ function TrustTokenItem({ token, index }: { token: string; index: number }) {
       animate={start !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       transition={{
         delay: (start?.delayMs ?? 0) / 1000,
-        duration: start?.instant ? 0 : 0.7,
+        duration: start?.instant ? 0 : 0.7 * (start?.durationScale ?? 1),
         ease: entranceEase,
       }}
     >

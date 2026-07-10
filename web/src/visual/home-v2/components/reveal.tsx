@@ -120,6 +120,7 @@ function transitionFor(
   delayMs: number,
   reducedMotion: boolean,
   instant = false,
+  durationScale = 1,
 ): Transition {
   if (reducedMotion || instant) {
     return { delay: 0, duration: 0.01 };
@@ -127,15 +128,15 @@ function transitionFor(
 
   const delay = delayMs / 1000;
   if (kind === "metric") {
-    return { delay, duration: 0.95, ease: metricEase };
+    return { delay, duration: 0.95 * durationScale, ease: metricEase };
   }
   if (kind === "card" || kind === "image") {
-    return { delay, duration: 1.15, ease: entranceEase };
+    return { delay, duration: 1.15 * durationScale, ease: entranceEase };
   }
   if (kind === "cta") {
-    return { delay, duration: 1.3, ease: entranceEase };
+    return { delay, duration: 1.3 * durationScale, ease: entranceEase };
   }
-  return { delay, duration: 1.05, ease: entranceEase };
+  return { delay, duration: 1.05 * durationScale, ease: entranceEase };
 }
 
 /**
@@ -225,6 +226,7 @@ function ViewportReveal({
       ref={ref}
       className={cn("ss-hv2-reveal", className)}
       data-align={dataAlign}
+      data-motion-reveal="true"
       data-revealed="true"
       data-width={dataWidth}
       initial={reducedMotion ? false : "hidden"}
@@ -235,6 +237,7 @@ function ViewportReveal({
         start?.delayMs ?? 0,
         reducedMotion,
         start?.instant ?? false,
+        start?.durationScale ?? 1,
       )}
     >
       {children}
@@ -316,6 +319,7 @@ function ImageReveal({
       ref={containerRef}
       className={cn("ss-hv2-reveal", className)}
       data-align={dataAlign}
+      data-motion-reveal="true"
       data-revealed="true"
       data-width={dataWidth}
       initial="hidden"
@@ -326,6 +330,7 @@ function ImageReveal({
         start?.delayMs ?? 0,
         false,
         start?.instant ?? false,
+        start?.durationScale ?? 1,
       )}
     >
       {children}

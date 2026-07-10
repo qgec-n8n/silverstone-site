@@ -822,10 +822,19 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-srv2-hero__intro {
-    /* space-between only makes sense pinning the CTA row to a fixed-height
-       ancestor's bottom edge — once the hero is auto-height there's no fixed
-       bottom to pin to, so the CTA row should just follow the content. */
-    justify-content: flex-start;
+    min-height: 100%;
+    justify-content: space-between;
+  }
+
+  /* Use the available one-screen stage instead of packing the entire copy
+     stack against its top edge. The top group absorbs the flexible space and
+     distributes its pill/title/lead/proof beats; actions remain a distinct
+     closing beat just above the fold-pinned cue. If copy genuinely needs more
+     room, the auto-height hero still grows naturally. */
+  .ss-srv2-hero__top {
+    flex: 1;
+    justify-content: space-evenly;
+    padding-block: clamp(0.3rem, 1.25svh, 0.95rem);
   }
 }
 
@@ -839,6 +848,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
  */
 @media (max-width: 40rem) {
   .ss-srv2-hero {
+    --srv2-mobile-copy-width: min(100%, 21rem);
     padding-block: clamp(0.4rem, 1svh, 0.7rem);
   }
 
@@ -864,7 +874,8 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-srv2-hero__title,
   .ss-srv2-hero__title[data-long="true"] {
-    max-width: 18ch;
+    width: var(--srv2-mobile-copy-width);
+    max-width: var(--srv2-mobile-copy-width);
     font-size: clamp(1.68rem, 8.8vw, 2.35rem);
     line-height: 1.04;
   }
@@ -874,14 +885,15 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-srv2-hero__lead {
-    max-width: 38ch;
+    width: var(--srv2-mobile-copy-width);
+    max-width: var(--srv2-mobile-copy-width);
     font-size: clamp(0.78rem, 2.2vw, 0.88rem);
     line-height: 1.38;
   }
 
   .ss-srv2-hero__caps {
     display: grid;
-    width: min(100%, 22rem);
+    width: var(--srv2-mobile-copy-width);
     gap: clamp(0.32rem, 0.65svh, 0.48rem);
     margin-top: 0;
   }
@@ -914,9 +926,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     height: 1.65rem;
   }
 
+  .ss-srv2-hero__actions-reveal {
+    width: var(--srv2-mobile-copy-width);
+  }
+
   .ss-srv2-hero__actions {
     display: grid;
-    width: min(100%, 22rem);
+    width: 100%;
     grid-template-columns: 1fr;
     gap: clamp(0.4rem, 0.7svh, 0.58rem);
     padding-top: 0;
@@ -945,6 +961,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-srv2-hero__intro,
   .ss-srv2-hero__top {
     gap: 0.32rem;
+  }
+
+  .ss-srv2-hero__top {
+    padding-block: 0.1rem;
   }
 
   .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {

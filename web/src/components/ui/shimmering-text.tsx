@@ -1,5 +1,3 @@
-"use client"
-
 import { useMemo, useRef } from "react"
 import { motion, useInView, type MotionStyle, type UseInViewOptions } from "motion/react"
 

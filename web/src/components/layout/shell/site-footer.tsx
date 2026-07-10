@@ -48,6 +48,7 @@ export function SiteFooter() {
   });
   const start = useRevealStart(footerRef, footerInView, 0);
   const base = (start?.delayMs ?? 0) / 1000;
+  const pace = start?.durationScale ?? 1;
 
   return (
     <m.footer
@@ -66,7 +67,7 @@ export function SiteFooter() {
               hidden: { opacity: 0, x: -22, y: 12, filter: "blur(8px)" },
               show: { opacity: 1, x: 0, y: 0, filter: "blur(0px)" },
             }}
-            transition={{ delay: base, duration: 1.2, ease: entranceEase }}
+            transition={{ delay: base, duration: 1.2 * pace, ease: entranceEase }}
           >
             <Link
               className="ss-focus-ring ss-footer__brandmark inline-flex rounded-[var(--ss-radius-lg)] no-underline"
@@ -111,8 +112,8 @@ export function SiteFooter() {
                 show: { opacity: 1, y: 0, filter: "blur(0px)" },
               }}
               transition={{
-                delay: base + 0.18 + columnIndex * HEADER_STEP_S,
-                duration: 1.1,
+                delay: base + (0.18 + columnIndex * HEADER_STEP_S) * pace,
+                duration: 1.1 * pace,
                 ease: entranceEase,
               }}
             >
@@ -128,10 +129,11 @@ export function SiteFooter() {
                     transition={{
                       delay:
                         base +
-                        LINKS_START_S +
-                        rowIndex * ROW_STEP_S +
-                        columnIndex * COLUMN_STEP_S,
-                      duration: 0.75,
+                        (LINKS_START_S +
+                          rowIndex * ROW_STEP_S +
+                          columnIndex * COLUMN_STEP_S) *
+                          pace,
+                      duration: 0.75 * pace,
                       ease: entranceEase,
                     }}
                   >
@@ -153,10 +155,11 @@ export function SiteFooter() {
                   transition={{
                     delay:
                       base +
-                      LINKS_START_S +
-                      column.links.length * ROW_STEP_S +
-                      columnIndex * COLUMN_STEP_S,
-                    duration: 0.75,
+                      (LINKS_START_S +
+                        column.links.length * ROW_STEP_S +
+                        columnIndex * COLUMN_STEP_S) *
+                        pace,
+                    duration: 0.75 * pace,
                     ease: entranceEase,
                   }}
                 >
@@ -185,8 +188,8 @@ export function SiteFooter() {
             show: { opacity: 1, y: 0 },
           }}
           transition={{
-            delay: base + BOTTOM_BAR_START_S,
-            duration: 1.1,
+            delay: base + BOTTOM_BAR_START_S * pace,
+            duration: 1.1 * pace,
             ease: entranceEase,
           }}
         >

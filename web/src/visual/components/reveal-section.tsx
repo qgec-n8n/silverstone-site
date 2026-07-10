@@ -68,7 +68,9 @@ function ScheduledRevealSection({
       }}
       transition={{
         delay: (start?.delayMs ?? 0) / 1000,
-        duration: start?.instant ? 0 : motionDurations.route,
+        duration: start?.instant
+          ? 0
+          : motionDurations.route * (start?.durationScale ?? 1),
         ease: motionEasings.entrance,
       }}
     >

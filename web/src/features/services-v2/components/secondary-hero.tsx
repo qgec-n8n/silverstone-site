@@ -7,10 +7,22 @@
  */
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
-import type { ReactNode } from "react";
+import { createElement, type ReactNode } from "react";
 import { useLocation } from "react-router";
 
-import type { LucideIcon } from "~/components/icons/lucide";
+import {
+  Database,
+  Layers,
+  Plug,
+  ShieldCheck,
+  Target,
+  TrendingUp,
+  Unlock,
+  UserCheck,
+  Workflow,
+  Zap,
+  type LucideIcon,
+} from "~/components/icons/lucide";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -75,6 +87,49 @@ function HeroBreadcrumbs({ trail }: { trail: ReturnType<typeof getBreadcrumbTrai
  * `{ icon, text }` renders a bordered icon chip instead (core pages). */
 export type SecondaryHeroPoint = string | { icon: LucideIcon; text: string };
 
+const FALLBACK_POINT_ICONS = [Target, Workflow, ShieldCheck] as const;
+
+/**
+ * Service and industry copy is sourced as plain strings. Give those signals
+ * the same icon-chip language as core pages without rewriting generated copy
+ * contracts: the visible text selects a stable, semantically matched icon,
+ * with a varied diagnostic/process/governance fallback.
+ */
+function inferPointIcon(text: string, index: number): LucideIcon {
+  const normalized = text.toLowerCase();
+  if (/human|judgement|oversight|people|team/.test(normalized)) {
+    return UserCheck;
+  }
+  if (/source of truth|crm|record|data|diary|reservation|patient/.test(normalized)) {
+    return Database;
+  }
+  if (/measure|result|proof|impact|performance|kpi|outcome/.test(normalized)) {
+    return TrendingUp;
+  }
+  if (/sector|discipline|architecture|connected|industry/.test(normalized)) {
+    return Layers;
+  }
+  if (/integrat|tool|platform|stack/.test(normalized)) {
+    return Plug;
+  }
+  if (/lock-in|commit/.test(normalized)) {
+    return Unlock;
+  }
+  if (/second|week|fast|live|always|immediate/.test(normalized)) {
+    return Zap;
+  }
+  if (/scope|diagnos|problem|fit|choose|priority/.test(normalized)) {
+    return Target;
+  }
+  if (/govern|safe|secure|compliance|control|guardrail/.test(normalized)) {
+    return ShieldCheck;
+  }
+  if (/workflow|system|process|route|handoff|automation/.test(normalized)) {
+    return Workflow;
+  }
+  return FALLBACK_POINT_ICONS[index % FALLBACK_POINT_ICONS.length] ?? ShieldCheck;
+}
+
 function CapabilityPoint({
   point,
   index,
@@ -84,16 +139,12 @@ function CapabilityPoint({
 }) {
   const reducedMotion = useReducedMotion() ?? false;
   const text = typeof point === "string" ? point : point.text;
-  const Icon = typeof point === "string" ? null : point.icon;
+  const Icon = typeof point === "string" ? inferPointIcon(text, index) : point.icon;
   const content = (
     <>
-      {Icon ? (
-        <span className="ss-srv2-hero__cap-icon" aria-hidden="true">
-          <Icon aria-hidden="true" />
-        </span>
-      ) : (
-        <span className="ss-srv2-hero__cap-dot" aria-hidden="true" />
-      )}
+      <span className="ss-srv2-hero__cap-icon" aria-hidden="true">
+        {createElement(Icon, { "aria-hidden": "true" })}
+      </span>
       <span>{text}</span>
     </>
   );
@@ -203,7 +254,12 @@ export function SecondaryHero({
                 ))}
               </ul>
             </div>
-            <Reveal kind="cta" delayMs={HERO_REVEAL_BASE_DELAY + 750} trigger="mount">
+            <Reveal
+              className="ss-srv2-hero__actions-reveal"
+              kind="cta"
+              delayMs={HERO_REVEAL_BASE_DELAY + 750}
+              trigger="mount"
+            >
               <div className="ss-srv2-hero__actions">
                 <ServiceButton href={primaryCtaHref} variant="primary">
                   {primaryCtaLabel}

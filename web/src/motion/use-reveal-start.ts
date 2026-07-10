@@ -6,6 +6,8 @@ import { scheduleReveal } from "./reveal-scheduler";
 export type RevealStart = {
   /** Effective delay before the entrance may begin, in milliseconds. */
   delayMs: number;
+  /** Multiplier for the entrance duration, compressed during fast scrolling. */
+  durationScale: number;
   /**
    * True when the reveal fired inside a deep-link landing window (see
    * `~/motion/reveal-bypass`): render the shown state immediately, with no
@@ -25,9 +27,9 @@ export type RevealStart = {
  */
 function resolveRevealStart(element: Element, delayMs: number): RevealStart {
   if (isRevealBypassActive()) {
-    return { delayMs: 0, instant: true };
+    return { delayMs: 0, durationScale: 0, instant: true };
   }
-  return { delayMs: scheduleReveal(element, delayMs), instant: false };
+  return { ...scheduleReveal(element, delayMs), instant: false };
 }
 
 export function useRevealStart(
