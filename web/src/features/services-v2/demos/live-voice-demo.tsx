@@ -39,9 +39,11 @@ export type { LiveVoiceAccent, LiveVoiceDemoCopy };
 export function LiveVoiceDemo({
   copy,
   accent,
+  reveal = true,
 }: {
   copy: LiveVoiceDemoCopy;
   accent: LiveVoiceAccent;
+  reveal?: boolean;
 }) {
   const frameRef = useRef<HTMLDivElement>(null);
   const mounted = useSyncExternalStore(
@@ -50,9 +52,7 @@ export function LiveVoiceDemo({
     getServerSnapshot,
   );
   const [engaged, setEngaged] = useState(false);
-  const [state, setState] = useState<"idle" | "connecting" | "live" | "ended">(
-    "idle",
-  );
+  const [state, setState] = useState<"idle" | "connecting" | "live" | "ended">("idle");
   const inView = useInView(frameRef, { once: true, margin: "480px 0px" });
 
   const handleEngage = useCallback(() => {
@@ -64,24 +64,24 @@ export function LiveVoiceDemo({
     <StaticConsoleBody copy={copy} onEngage={handleEngage} engaged={engaged} />
   );
 
-  return (
-    <Reveal kind="card">
-      <div ref={frameRef}>
-        <ConsoleFrame copy={copy} state={state}>
-          {loadSession ? (
-            <Suspense fallback={staticBody}>
-              <LiveVoiceSession
-                copy={copy}
-                accent={accent}
-                autoStart={engaged}
-                onStateChange={setState}
-              />
-            </Suspense>
-          ) : (
-            staticBody
-          )}
-        </ConsoleFrame>
-      </div>
-    </Reveal>
+  const console = (
+    <div ref={frameRef}>
+      <ConsoleFrame copy={copy} state={state}>
+        {loadSession ? (
+          <Suspense fallback={staticBody}>
+            <LiveVoiceSession
+              copy={copy}
+              accent={accent}
+              autoStart={engaged}
+              onStateChange={setState}
+            />
+          </Suspense>
+        ) : (
+          staticBody
+        )}
+      </ConsoleFrame>
+    </div>
   );
+
+  return reveal ? <Reveal kind="card">{console}</Reveal> : console;
 }

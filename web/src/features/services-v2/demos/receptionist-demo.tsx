@@ -6,7 +6,6 @@
  * The data-config-slot values are the config slots reserved in the approved
  * services manifest for this section — the same slots, now live.
  */
-import { Reveal, TextLink } from "../components/primitives";
 import { LiveVoiceDemo, type LiveVoiceDemoCopy } from "./live-voice-demo";
 
 const copy: LiveVoiceDemoCopy = {
@@ -25,18 +24,11 @@ const copy: LiveVoiceDemoCopy = {
 export function ReceptionistDemo() {
   return (
     <div className="ss-srv2-showcase">
-      <LiveVoiceDemo copy={copy} accent={{ from: "#d9e9fb", to: "#59a6e6" }} />
-      <Reveal kind="section" className="ss-srv2-showcase__note">
-        <p className="ss-srv2-showcase__aphorism">One desk. Two channels.</p>
-        <p className="ss-srv2-showcase__body">
-          The same governed answer library behind the voice you just heard also
-          powers written channels — with the same booking rules, routing and
-          human boundary.
-        </p>
-        <TextLink href="/services/ai-voice-agents">
-          Explore custom AI Voice Agents
-        </TextLink>
-      </Reveal>
+      <LiveVoiceDemo
+        copy={copy}
+        accent={{ from: "#d9e9fb", to: "#59a6e6" }}
+        reveal={false}
+      />
     </div>
   );
 }

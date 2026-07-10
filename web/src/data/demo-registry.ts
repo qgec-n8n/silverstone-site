@@ -21,21 +21,27 @@ export type DemoEntry = {
 
 export const DEMO_REGISTRY: readonly DemoEntry[] = [
   {
-    id: "ai-receptionists",
-    label: "AI receptionist",
-    description: "Talk to Grace live — the AI front desk with a real-time transcript",
+    id: "grace-receptionist",
+    label: "Speak with Grace",
+    description: "Call our AI receptionist and see every word transcribed live",
     href: "/services/ai-receptionists#demo-ai-receptionists",
   },
   {
+    id: "sam-receptionist",
+    label: "Chat with Sam",
+    description: "Message our AI receptionist and test his instant written replies",
+    href: "/services/ai-receptionists#demo-sam-messaging",
+  },
+  {
     id: "ai-voice-agents",
-    label: "Voice agent",
-    description: "Speak to the live voice agent and watch it transcribe as you talk",
+    label: "Try a voice agent",
+    description: "Speak naturally and watch the live call transcribe as you talk",
     href: "/services/ai-voice-agents#demo-ai-voice-agents",
   },
   {
     id: "web-design",
-    label: "Web build",
-    description: "Preview the reserved website showcase frames",
+    label: "Explore a web build",
+    description: "Preview a premium website inside the browser-style showcase",
     href: "/services/web-design-development#demo-web-design",
   },
 ];

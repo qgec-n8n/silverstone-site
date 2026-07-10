@@ -21,7 +21,6 @@ import {
 } from "react";
 import { useInView } from "motion/react";
 
-import { Reveal, TextLink } from "../components/primitives";
 import {
   SamConsoleFrame,
   SamStaticBody,
@@ -63,11 +62,20 @@ export function SamChatDemo() {
   // session chunk (and the Botpress connection) is ready to send it.
   const [pendingText, setPendingText] = useState<string | null>(null);
   const [state, setState] = useState<SamChatState>("idle");
+  const [sessionVersion, setSessionVersion] = useState(0);
   const inView = useInView(frameRef, { once: true, margin: "480px 0px" });
 
   const handleEngage = useCallback((text: string) => {
     setPendingText((current) => current ?? text);
     setEngaged(true);
+  }, []);
+
+  const handleRestart = useCallback(() => {
+    window.sessionStorage.removeItem("ss-sam-demo");
+    setEngaged(false);
+    setPendingText(null);
+    setState("idle");
+    setSessionVersion((current) => current + 1);
   }, []);
 
   const loadSession = mounted && (inView || engaged);
@@ -77,36 +85,29 @@ export function SamChatDemo() {
 
   return (
     <div className="ss-srv2-showcase">
-      <Reveal kind="card">
-        <div ref={frameRef}>
-          <SamConsoleFrame copy={copy} state={state}>
-            {loadSession ? (
-              <Suspense fallback={staticBody}>
-                <SamChatSession
-                  copy={copy}
-                  engaged={engaged}
-                  initialText={pendingText}
-                  onEngage={handleEngage}
-                  onStateChange={setState}
-                />
-              </Suspense>
-            ) : (
-              staticBody
-            )}
-          </SamConsoleFrame>
-        </div>
-      </Reveal>
-      <Reveal kind="section" className="ss-srv2-showcase__note">
-        <p className="ss-srv2-showcase__aphorism">Two receptionists. One standard.</p>
-        <p className="ss-srv2-showcase__body">
-          Grace and Sam draw on the same governed answer library — only the channel
-          changes. Phone, website chat or messaging apps: the desk answers them all,
-          with the same booking rules and human boundary.
-        </p>
-        <TextLink href="/services/ai-automation">
-          See how the desk plugs into your systems
-        </TextLink>
-      </Reveal>
+      <div ref={frameRef}>
+        <SamConsoleFrame
+          copy={copy}
+          state={state}
+          canRestart={engaged}
+          onRestart={handleRestart}
+        >
+          {loadSession ? (
+            <Suspense fallback={staticBody}>
+              <SamChatSession
+                key={sessionVersion}
+                copy={copy}
+                engaged={engaged}
+                initialText={pendingText}
+                onEngage={handleEngage}
+                onStateChange={setState}
+              />
+            </Suspense>
+          ) : (
+            staticBody
+          )}
+        </SamConsoleFrame>
+      </div>
     </div>
   );
 }

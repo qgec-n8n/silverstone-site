@@ -107,6 +107,8 @@ export function SecondaryHero({
   points,
   primaryCtaLabel,
   primaryCtaHref = "/book#booking-calendar",
+  secondaryCtaLabel = "See how it works",
+  secondaryCtaHref = "/how-we-work",
   showcase,
 }: {
   eyebrow: string;
@@ -119,6 +121,8 @@ export function SecondaryHero({
   /** Defaults to the booking deep link; conversion pages point it at their
    * own in-page target (e.g. the contact form) instead. */
   primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
   showcase: ReactNode;
 }) {
   const location = useLocation();
@@ -180,8 +184,12 @@ export function SecondaryHero({
                 <ServiceButton href={primaryCtaHref} variant="primary">
                   {primaryCtaLabel}
                 </ServiceButton>
-                <ServiceButton href="/how-we-work" variant="ghost" withArrow={false}>
-                  See how it works
+                <ServiceButton
+                  href={secondaryCtaHref}
+                  variant="ghost"
+                  withArrow={false}
+                >
+                  {secondaryCtaLabel}
                 </ServiceButton>
               </div>
             </Reveal>

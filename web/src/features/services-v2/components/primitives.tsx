@@ -435,29 +435,46 @@ export function SectionHead({
   heading,
   headingId,
   lead,
+  reveal = true,
 }: {
   eyebrow: string;
   icon?: LucideIcon | undefined;
   heading: string;
   headingId?: string | undefined;
   lead?: string | undefined;
+  /** Demo landing sections opt out so anchor arrivals are immediately readable. */
+  reveal?: boolean | undefined;
 }) {
+  const eyebrowNode = <Eyebrow icon={icon}>{eyebrow}</Eyebrow>;
+  const headingNode = (
+    <h2 className="ss-srv2-heading" id={headingId}>
+      <RichText text={heading} />
+    </h2>
+  );
+  const leadNode = lead ? (
+    <p className="ss-srv2-lead">
+      <RichText text={lead} />
+    </p>
+  ) : null;
+
   return (
     <div className="ss-srv2-section__head">
-      <Reveal kind="pill">
-        <Eyebrow icon={icon}>{eyebrow}</Eyebrow>
-      </Reveal>
-      <Reveal kind="section" delayMs={120}>
-        <h2 className="ss-srv2-heading" id={headingId}>
-          <RichText text={heading} />
-        </h2>
-      </Reveal>
-      {lead ? (
-        <Reveal kind="section" delayMs={240}>
-          <p className="ss-srv2-lead">
-            <RichText text={lead} />
-          </p>
+      {reveal ? <Reveal kind="pill">{eyebrowNode}</Reveal> : eyebrowNode}
+      {reveal ? (
+        <Reveal kind="section" delayMs={120}>
+          {headingNode}
         </Reveal>
+      ) : (
+        headingNode
+      )}
+      {leadNode ? (
+        reveal ? (
+          <Reveal kind="section" delayMs={240}>
+            {leadNode}
+          </Reveal>
+        ) : (
+          leadNode
+        )
       ) : null}
     </div>
   );

@@ -24,6 +24,7 @@ import {
   WarningChecklist,
 } from "../components/primitives";
 import { SecondaryHero } from "../components/secondary-hero";
+import { DemoInvitation } from "../components/demo-invitation";
 import {
   BenchmarkConsole,
   FaqPanel,
@@ -83,6 +84,8 @@ export function AiVoiceAgentsComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
+        secondaryCtaLabel="Try the live demo"
+        secondaryCtaHref="/services/ai-voice-agents#demo-ai-voice-agents"
         showcase={
           <SignalWaveform
             label={art.discipline}
@@ -91,6 +94,7 @@ export function AiVoiceAgentsComposition({
         }
       />
       <TrustStrip />
+      <DemoInvitation variant="voice" />
 
       <section className="ss-srv2-section" aria-labelledby="srv2-problem">
         <div className="ss-srv2__container" data-width="narrow">
@@ -202,6 +206,7 @@ export function AiVoiceAgentsComposition({
             heading="Talk to a *live voice agent* — right here, right now"
             headingId="srv2-showcase"
             lead="This is a fully functional demo, live on this page. Press start, allow the microphone and speak with Grace — our ElevenLabs-powered voice agent — while the panel beside her transcribes both sides of the conversation in real time."
+            reveal={false}
           />
           <VoiceCallDemo />
         </div>

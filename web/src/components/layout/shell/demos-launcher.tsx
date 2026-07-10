@@ -19,10 +19,25 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
-import { Sparkles, X } from "~/components/icons/lucide";
+import {
+  Bot,
+  MessageSquare,
+  Mic,
+  PencilRuler,
+  Sparkles,
+  X,
+  type LucideIcon,
+} from "~/components/icons/lucide";
 import { DEMO_REGISTRY } from "~/data/demo-registry";
 import { isGateFreeRoute } from "~/data/gate-free-routes";
 import "~/styles/visual/home-v2.css";
+
+const DEMO_ICONS: Record<string, LucideIcon> = {
+  "grace-receptionist": Mic,
+  "sam-receptionist": MessageSquare,
+  "ai-voice-agents": Bot,
+  "web-design": PencilRuler,
+};
 
 export function DemosLauncher() {
   const location = useLocation();
@@ -98,7 +113,11 @@ export function DemosLauncher() {
           aria-label="Demos"
         >
           <div className="ss-demo-launcher__panel-head">
-            <span>Demos</span>
+            <div className="ss-demo-launcher__panel-copy">
+              <span>Live systems · 04 online</span>
+              <strong>Meet the agents. Test the work.</strong>
+              <p>Call, message or explore — every experience opens at the demo.</p>
+            </div>
             <button
               type="button"
               className="ss-demo-launcher__close"
@@ -110,21 +129,29 @@ export function DemosLauncher() {
             </button>
           </div>
           <ul className="ss-demo-launcher__list">
-            {DEMO_REGISTRY.map((demo) => (
-              <li key={demo.id}>
-                <Link
-                  className="ss-demo-launcher__item"
-                  to={demo.href}
-                  role="menuitem"
-                  onClick={() => setOpen(false)}
-                >
-                  <span className="ss-demo-launcher__item-label">{demo.label}</span>
-                  <span className="ss-demo-launcher__item-desc">
-                    {demo.description}
-                  </span>
-                </Link>
-              </li>
-            ))}
+            {DEMO_REGISTRY.map((demo) => {
+              const Icon = DEMO_ICONS[demo.id] ?? Sparkles;
+              return (
+                <li key={demo.id}>
+                  <Link
+                    className="ss-demo-launcher__item"
+                    to={demo.href}
+                    role="menuitem"
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="ss-demo-launcher__item-icon">
+                      <Icon aria-hidden="true" />
+                    </span>
+                    <span className="ss-demo-launcher__item-copy">
+                      <span className="ss-demo-launcher__item-label">{demo.label}</span>
+                      <span className="ss-demo-launcher__item-desc">
+                        {demo.description}
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       ) : (

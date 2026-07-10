@@ -495,7 +495,9 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const lastScrollY = useRef(typeof window !== "undefined" ? window.scrollY : 0);
   const lastResizeAt = useRef(0);
   const isDesktop = useRef(
-    typeof window !== "undefined" ? window.matchMedia(DESKTOP_MEDIA_QUERY).matches : false,
+    typeof window !== "undefined"
+      ? window.matchMedia(DESKTOP_MEDIA_QUERY).matches
+      : false,
   );
   const [scrolled, setScrolled] = useState(
     () => typeof window !== "undefined" && window.scrollY > 12,
@@ -712,10 +714,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
               className={ctaClass}
               to={PRIMARY_CTA.href}
             >
-              <span aria-hidden="true">
-                <span className="ss-nav-cta__label-short">Book</span>
-                <span className="ss-nav-cta__label-full">{PRIMARY_CTA.label}</span>
-              </span>
+              <span aria-hidden="true">{PRIMARY_CTA.label}</span>
               <ArrowUpRight aria-hidden className="size-4" />
             </Link>
           </m.div>

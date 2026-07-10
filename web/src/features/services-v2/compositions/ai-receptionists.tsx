@@ -24,6 +24,7 @@ import {
   WarningChecklist,
 } from "../components/primitives";
 import { SecondaryHero } from "../components/secondary-hero";
+import { DemoInvitation } from "../components/demo-invitation";
 import {
   BenchmarkConsole,
   FaqPanel,
@@ -84,6 +85,8 @@ export function AiReceptionistsComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
+        secondaryCtaLabel="Try the live demo"
+        secondaryCtaHref="/services/ai-receptionists#demo-ai-receptionists"
         showcase={
           <FrontDeskConvergence
             label={art.discipline}
@@ -92,6 +95,7 @@ export function AiReceptionistsComposition({
         }
       />
       <TrustStrip />
+      <DemoInvitation variant="receptionists" />
 
       <section className="ss-srv2-section" aria-labelledby="srv2-problem">
         <div className="ss-srv2__container" data-width="narrow">
@@ -203,6 +207,7 @@ export function AiReceptionistsComposition({
             heading="Meet Grace, your *AI front desk* — live and answering now"
             headingId="srv2-showcase"
             lead="This is a working demo, not a mock-up. Start the call, ask what a receptionist would handle — service questions, bookings, callbacks — and watch the conversation written out beside the call as you speak."
+            reveal={false}
           />
           <ReceptionistDemo />
         </div>
@@ -220,6 +225,7 @@ export function AiReceptionistsComposition({
             heading="Now meet Sam, your *AI messaging receptionist* — typing back in seconds"
             headingId="srv2-sam"
             lead="Grace answers the call; Sam answers everything written. Pick a conversation starter or write your own message below, and watch a governed written reply land in the thread — exactly as it would for your customers, at any hour."
+            reveal={false}
           />
           <SamChatDemo />
         </div>

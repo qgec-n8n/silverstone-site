@@ -11,7 +11,14 @@
  */
 import { useState, type ReactNode } from "react";
 
-import { MessageSquare, Send, Sparkles } from "~/components/icons/lucide";
+import {
+  Bot,
+  MessageSquare,
+  RotateCcw,
+  Send,
+  Sparkles,
+  UserRound,
+} from "~/components/icons/lucide";
 
 import {
   BOTPRESS_DEMO_AGENT_NAME,
@@ -51,10 +58,14 @@ export function SamConsoleFrame({
   copy,
   state,
   children,
+  onRestart,
+  canRestart = false,
 }: {
   copy: SamChatCopy;
   state: SamChatState;
   children: ReactNode;
+  onRestart?: (() => void) | undefined;
+  canRestart?: boolean | undefined;
 }) {
   return (
     <article className="ss-smc ss-srv2-beam-border" data-state={state}>
@@ -63,10 +74,22 @@ export function SamConsoleFrame({
           <span className="ss-smc__pulse" aria-hidden="true" />
           {copy.consoleLabel}
         </span>
-        <span className="ss-smc__engine">
-          <Sparkles aria-hidden="true" />
-          Botpress Conversational AI
-        </span>
+        <div className="ss-smc__bar-actions">
+          <span className="ss-smc__engine">
+            <Sparkles aria-hidden="true" />
+            Botpress Conversational AI
+          </span>
+          {canRestart && onRestart ? (
+            <button
+              type="button"
+              className="ss-focus-ring ss-smc__restart"
+              onClick={onRestart}
+            >
+              <RotateCcw aria-hidden="true" />
+              Restart chat
+            </button>
+          ) : null}
+        </div>
       </div>
       <div className="ss-smc__body">{children}</div>
       <div className="ss-smc__foot">
@@ -83,7 +106,17 @@ export function SamMonogram({ size = "sm" }: { size?: "sm" | "lg" }) {
   return (
     <span className="ss-smc__monogram" data-size={size} aria-hidden="true">
       <span className="ss-smc__monogram-ring" />
-      <span className="ss-smc__monogram-core">S</span>
+      <span className="ss-smc__monogram-core">
+        <Bot aria-hidden="true" />
+      </span>
+    </span>
+  );
+}
+
+function UserAvatar() {
+  return (
+    <span className="ss-smc__user-avatar" aria-hidden="true">
+      <UserRound />
     </span>
   );
 }
@@ -153,6 +186,7 @@ export function SamMessageRow({
         <span className="ss-smc__meta">{meta}</span>
         <div className="ss-smc__bubble">{children}</div>
       </div>
+      {role === "user" ? <UserAvatar /> : null}
     </div>
   );
 }

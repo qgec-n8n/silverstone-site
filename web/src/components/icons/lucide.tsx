@@ -177,6 +177,10 @@ export const UserCheck = createIcon("UserCheck", [
   ["circle", { cx: "9", cy: "7", r: "4" }],
   ["polyline", { points: "16 11 18 13 22 9" }],
 ]);
+export const UserRound = createIcon("UserRound", [
+  ["circle", { cx: "12", cy: "8", r: "5" }],
+  ["path", { d: "M20 21a8 8 0 0 0-16 0" }],
+]);
 export const Workflow = createIcon("Workflow", [
   ["rect", { width: "8", height: "8", x: "3", y: "3", rx: "2" }],
   ["path", { d: "M7 11v4a2 2 0 0 0 2 2h4" }],
