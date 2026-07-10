@@ -16,7 +16,10 @@
     "baseUrl": ".",
     "rootDirs": [".", ".react-router/types"],
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      // @bpinternal/shared ships raw .ts source that fails our stricter
+      // compiler options; see src/types/bpinternal-shared.d.ts.
+      "@bpinternal/shared": ["./src/types/bpinternal-shared.d.ts"]
     },
     "allowJs": false,
     "resolveJsonModule": true,

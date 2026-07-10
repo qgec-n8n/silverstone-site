@@ -107,6 +107,10 @@ export default defineConfig(({ mode }) => {
         "maath",
         "maath/random",
         "@paper-design/shaders-react",
+        // Botpress webchat client — mounted from the lazy Sam messaging demo
+        // chunk on /services/ai-receptionists.
+        "@botpress/webchat",
+        "use-stick-to-bottom",
       ],
     },
     server: {

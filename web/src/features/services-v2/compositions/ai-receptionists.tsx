@@ -36,6 +36,7 @@ import {
 } from "../components/sections";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 import { ReceptionistDemo } from "../demos/receptionist-demo";
+import { SamChatDemo } from "../demos/sam-chat-demo";
 import { FrontDeskConvergence } from "../signatures/front-desk-convergence";
 import { aiReceptionistsCopy } from "../content/copy";
 import type { RouteArt } from "../content/route-art";
@@ -204,6 +205,23 @@ export function AiReceptionistsComposition({
             lead="This is a working demo, not a mock-up. Start the call, ask what a receptionist would handle — service questions, bookings, callbacks — and watch the conversation written out beside the call as you speak."
           />
           <ReceptionistDemo />
+        </div>
+      </section>
+
+      <section
+        className="ss-srv2-section"
+        id="demo-sam-messaging"
+        aria-labelledby="srv2-sam"
+      >
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow="Live demo"
+            icon={MessageSquare}
+            heading="Now meet Sam, your *AI messaging receptionist* — typing back in seconds"
+            headingId="srv2-sam"
+            lead="Grace answers the call; Sam answers everything written. Pick a conversation starter or write your own message below, and watch a governed written reply land in the thread — exactly as it would for your customers, at any hour."
+          />
+          <SamChatDemo />
         </div>
       </section>
 
