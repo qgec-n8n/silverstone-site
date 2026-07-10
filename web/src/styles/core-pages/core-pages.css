@@ -1210,6 +1210,11 @@
   border: 0;
   border-radius: calc(var(--ss-radius-xl) - 1px);
   background: #ffffff;
+  /* Calendly's default blue-on-silver day buttons have reliable contrast.
+     A modest hue rotation brings that accent into Silverstone cyan without
+     changing relative luminance, unlike Calendly's custom primary-colour
+     parameter, which currently renders custom day circles tone-on-tone. */
+  filter: hue-rotate(-24deg) saturate(0.92);
   opacity: 0;
   transition: opacity var(--ss-motion-duration-slow, 0.4s)
     var(--ss-motion-easing-standard);

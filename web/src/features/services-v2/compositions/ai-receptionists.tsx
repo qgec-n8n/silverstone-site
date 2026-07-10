@@ -202,7 +202,7 @@ export function AiReceptionistsComposition({
       >
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Live demo"
+            eyebrow="Live demo · 1 of 2"
             icon={Headset}
             heading="Meet Grace, your *AI front desk* — live and answering now"
             headingId="srv2-showcase"
@@ -220,7 +220,7 @@ export function AiReceptionistsComposition({
       >
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Live demo"
+            eyebrow="Live demo · 2 of 2"
             icon={MessageSquare}
             heading="Now meet Sam, your *AI messaging receptionist* — typing back in seconds"
             headingId="srv2-sam"

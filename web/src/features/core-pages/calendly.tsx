@@ -32,14 +32,15 @@ export const CALENDLY_ORIGIN = "https://calendly.com";
  * mismatch on the iframe src.
  */
 /*
- * primary_color drives Calendly's available-day circles, which it fills SOLID
- * with the primary while drawing the day number as a ~60% white tint of it —
- * any mid-luminance primary (the previous 0891b2 cyan included) renders the
- * number tone-on-tone and unreadable. Brand void-blue #0b1220 (the same ink
- * passed as text_color) keeps the circles on-palette and lets the tinted
- * number read as light platinum against them.
+ * Calendly's custom `primary_color` currently produces tone-on-tone available
+ * day circles for non-default colours (the day number and solid circle are
+ * neighbouring shades of the same custom colour). Leave its accessible
+ * high-contrast light calendar theme intact here; the booking panel stylesheet applies a
+ * colour-only hue grade to the iframe so the proven contrast is preserved
+ * while the blue accent becomes Silverstone cyan. White and silver remain
+ * unchanged by that grade.
  */
-export const CALENDLY_URL = `${CALENDLY_ORIGIN}/silverstone-ai/30min?embed_domain=silverstone-ai.com&embed_type=Inline&hide_landing_page_details=1&hide_event_type_details=1&hide_gdpr_banner=1&primary_color=0b1220&text_color=0b1220&background_color=ffffff`;
+export const CALENDLY_URL = `${CALENDLY_ORIGIN}/silverstone-ai/30min?embed_domain=silverstone-ai.com&embed_type=Inline&hide_landing_page_details=1&hide_event_type_details=1&hide_gdpr_banner=1`;
 
 export function CalendlyWarmup() {
   const location = useLocation();

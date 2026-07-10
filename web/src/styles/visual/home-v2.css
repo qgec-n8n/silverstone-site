@@ -1271,8 +1271,9 @@ html[data-js="on"]
  * of being visible on load.
  */
 .ss-hv2-secondary {
+  --ss-hv2-secondary-pad: clamp(0.75rem, 2.1vh, 1.55rem);
   display: flex;
-  padding-block: clamp(0.75rem, 2.1vh, 1.55rem);
+  padding-block: var(--ss-hv2-secondary-pad);
 }
 
 @media (min-width: 64rem) {
@@ -1323,7 +1324,8 @@ html[data-js="on"]
 @media (max-width: 63.9375rem) {
   .ss-hv2-secondary__intro {
     min-height: calc(
-      100svh - var(--ss-layout-header, 0px) - clamp(0.75rem, 2.1vh, 1.55rem)
+      100svh - var(--ss-layout-header, 0px) - var(--ss-hv2-secondary-pad) -
+        var(--ss-hv2-secondary-pad)
     );
   }
 
@@ -1494,6 +1496,15 @@ html[data-js="on"]
   display: grid;
   min-height: 0;
   align-items: center;
+}
+
+/* Mobile already carries the compact Live Signal Benchmarks board inside the
+   intro. The full console is its desktop equivalent, not a second mobile
+   section; this rule intentionally follows the base display declaration. */
+@media (max-width: 63.9375rem) {
+  .ss-hv2-secondary__showcase {
+    display: none;
+  }
 }
 
 .ss-hv2-secondary__console {
@@ -1770,7 +1781,7 @@ html[data-js="on"]
   }
 
   .ss-hv2-secondary {
-    padding-block: 0.65rem;
+    --ss-hv2-secondary-pad: 0.65rem;
   }
 
   .ss-hv2-secondary__grid {
@@ -1864,6 +1875,7 @@ html[data-js="on"]
   /* The centred intro column must not shrink the full-width signal board. */
   .ss-hv2-secondary__mobile-signal {
     width: 100%;
+    margin-top: 0.2rem;
   }
 
   .ss-hv2-system-signal {
@@ -1956,7 +1968,7 @@ html[data-js="on"]
   }
 
   .ss-hv2-secondary {
-    padding-block: 0.5rem;
+    --ss-hv2-secondary-pad: 0.5rem;
   }
 
   .ss-hv2-secondary__grid {
@@ -2906,7 +2918,10 @@ html[data-js="on"]
 
 @media (max-width: 26rem) {
   .ss-demo-launcher__bubble {
-    display: none;
+    width: max-content;
+    max-width: min(10.5rem, calc(100vw - 5.5rem));
+    padding: 0.5rem 0.72rem;
+    font-size: 0.75rem;
   }
 }
 

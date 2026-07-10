@@ -829,6 +829,164 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 }
 
+/*
+ * Phone composition — the homepage's centred, instrument-panel language,
+ * adapted for the longer copy carried by service, industry and core pages.
+ * Capability copy remains complete, but uses compact full-width signal rows
+ * instead of the homepage's three tiny label-only tiles. This lets each row
+ * grow to its own page-specific wording without breaking the one-screen
+ * composition or reducing the text to an unreadable size.
+ */
+@media (max-width: 40rem) {
+  .ss-srv2-hero {
+    padding-block: clamp(0.4rem, 1svh, 0.7rem);
+  }
+
+  .ss-srv2-hero__intro,
+  .ss-srv2-hero__top {
+    align-items: center;
+    text-align: center;
+  }
+
+  .ss-srv2-hero__intro {
+    gap: clamp(0.42rem, 0.8svh, 0.65rem);
+  }
+
+  .ss-srv2-hero__top {
+    width: 100%;
+    gap: clamp(0.42rem, 0.8svh, 0.65rem);
+  }
+
+  .ss-srv2-hero__crumbs {
+    width: 100%;
+    text-align: start;
+  }
+
+  .ss-srv2-hero__title,
+  .ss-srv2-hero__title[data-long="true"] {
+    max-width: 18ch;
+    font-size: clamp(1.68rem, 8.8vw, 2.35rem);
+    line-height: 1.04;
+  }
+
+  .ss-srv2-hero__title[data-long="true"] {
+    font-size: clamp(1.55rem, 8vw, 2.12rem);
+  }
+
+  .ss-srv2-hero__lead {
+    max-width: 38ch;
+    font-size: clamp(0.78rem, 2.2vw, 0.88rem);
+    line-height: 1.38;
+  }
+
+  .ss-srv2-hero__caps {
+    display: grid;
+    width: min(100%, 22rem);
+    gap: clamp(0.32rem, 0.65svh, 0.48rem);
+    margin-top: 0;
+  }
+
+  .ss-srv2-hero__cap {
+    min-height: 2.35rem;
+    gap: 0.62rem;
+    padding: 0.42rem 0.7rem;
+    border: 1px solid var(--srv2-hairline);
+    border-radius: var(--ss-radius-sm);
+    background:
+      linear-gradient(
+        115deg,
+        color-mix(in srgb, var(--srv2-accent) 10%, transparent),
+        transparent 58%
+      ),
+      var(--srv2-glass);
+    font-size: clamp(0.7rem, 2.05vw, 0.8rem);
+    line-height: 1.25;
+    text-align: start;
+  }
+
+  .ss-srv2-hero__cap-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .ss-srv2-hero__cap-icon {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+
+  .ss-srv2-hero__actions {
+    display: grid;
+    width: min(100%, 22rem);
+    grid-template-columns: 1fr;
+    gap: clamp(0.4rem, 0.7svh, 0.58rem);
+    padding-top: 0;
+  }
+
+  .ss-srv2-hero__actions .ss-srv2-btn {
+    width: 100%;
+    min-height: 2.5rem;
+    justify-content: center;
+    padding: 0.52rem 1rem;
+    font-size: 0.82rem;
+  }
+
+  .ss-srv2-hero__scrollcue {
+    padding-top: clamp(0.2rem, 0.55svh, 0.42rem);
+  }
+}
+
+/* Short mobile browser viewports (including Safari with both toolbars shown)
+   keep every content group and the full animated cue inside the first screen. */
+@media (max-width: 40rem) and (max-height: 43.75rem) {
+  .ss-srv2-hero {
+    padding-block: 0.3rem;
+  }
+
+  .ss-srv2-hero__intro,
+  .ss-srv2-hero__top {
+    gap: 0.32rem;
+  }
+
+  .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
+    font-size: 0.55rem;
+  }
+
+  .ss-srv2-hero__title,
+  .ss-srv2-hero__title[data-long="true"] {
+    font-size: clamp(1.35rem, 7.2vw, 1.78rem);
+  }
+
+  .ss-srv2-hero__lead {
+    font-size: 0.72rem;
+    line-height: 1.28;
+  }
+
+  .ss-srv2-hero__caps,
+  .ss-srv2-hero__actions {
+    gap: 0.28rem;
+  }
+
+  .ss-srv2-hero__cap {
+    min-height: 1.85rem;
+    padding-block: 0.28rem;
+    font-size: 0.66rem;
+  }
+
+  .ss-srv2-hero__actions .ss-srv2-btn {
+    min-height: 2.1rem;
+    padding-block: 0.38rem;
+    font-size: 0.75rem;
+  }
+
+  .ss-srv2-hero__scrollcue {
+    padding-top: 0.16rem;
+  }
+
+  .ss-srv2-hero__scrollcue .ss-hv2-scrollcue__rail {
+    height: 24px;
+  }
+}
+
 .ss-srv2-hero__scrollcue {
   display: flex;
   flex: none;
