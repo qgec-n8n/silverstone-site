@@ -90,7 +90,9 @@
 
 .ss-srv2-demo-invite {
   position: relative;
-  padding-block: clamp(1.25rem, 0.9rem + 1.4vw, 2.25rem);
+  /* Mirrors the first content section's top rhythm. With no bottom padding,
+     the invitation sits exactly midway between the trust strip and Problem. */
+  padding-block: clamp(3.5rem, 2.5rem + 5vw, 7rem) 0;
 }
 
 .ss-srv2-demo-invite__surface {
@@ -2783,7 +2785,9 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-lvd__foot {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.72fr);
   gap: 0.45rem;
+  column-gap: clamp(1rem, 0.65rem + 2vw, 2rem);
   padding: 1.1rem 1.35rem 1.35rem;
   border-top: 1px solid var(--ss-v2-hairline);
 }
@@ -2805,7 +2809,14 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 .ss-lvd__disclosure {
-  margin: 0.15rem 0 0;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  margin: 0;
+  padding: 0.72rem 0.85rem;
+  border-left: 2px solid color-mix(in srgb, var(--srv2-accent) 58%, transparent);
+  border-radius: 0 var(--ss-radius-md) var(--ss-radius-md) 0;
+  background: color-mix(in srgb, var(--srv2-accent) 7%, transparent);
   color: var(--srv2-ink-faint);
   font-size: 0.74rem;
   line-height: 1.5;
@@ -3670,7 +3681,9 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-smc__foot {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.72fr);
   gap: 0.45rem;
+  column-gap: clamp(1rem, 0.65rem + 2vw, 2rem);
   padding: 1.1rem 1.35rem 1.35rem;
   border-top: 1px solid var(--ss-v2-hairline);
 }
@@ -3692,9 +3705,30 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 .ss-smc__disclosure {
-  margin: 0.15rem 0 0;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  margin: 0;
+  padding: 0.72rem 0.85rem;
+  border-left: 2px solid color-mix(in srgb, var(--srv2-accent) 58%, transparent);
+  border-radius: 0 var(--ss-radius-md) var(--ss-radius-md) 0;
+  background: color-mix(in srgb, var(--srv2-accent) 7%, transparent);
   color: var(--srv2-ink-faint);
   font-size: 0.74rem;
   line-height: 1.5;
   max-width: 88ch;
+}
+
+@media (max-width: 48rem) {
+  .ss-lvd__foot,
+  .ss-smc__foot {
+    grid-template-columns: 1fr;
+  }
+
+  .ss-lvd__disclosure,
+  .ss-smc__disclosure {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 0.15rem;
+  }
 }

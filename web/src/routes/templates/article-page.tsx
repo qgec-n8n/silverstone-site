@@ -265,7 +265,7 @@ function ArticleComparisonTable({
 
   return (
     <div
-      className="ss-blog-article__table-wrap"
+      className="ss-blog-article__table-wrap ss-blog-article__neon-border"
       style={{ "--blog-table-min-width": tableMinWidth } as CSSProperties}
     >
       <table className="ss-blog-article__table">
@@ -386,46 +386,48 @@ function ArticleSection({
 
   return (
     <Reveal amount="some" kind="section">
-      <section
-        className="ss-blog-article__section"
-        data-intro={isIntroduction ? "true" : undefined}
-        data-variant={variant}
-        aria-labelledby={headingId}
-      >
-        <h2 id={headingId}>
-          <RichText text={emphasiseHeading(section.heading)} />
-        </h2>
-        {section.lede ? (
-          <p className="ss-blog-article__lede">
-            <ArticleRichText text={section.lede} />
-          </p>
-        ) : null}
-        {section.body.map((paragraph, index) => (
-          <p
-            key={`${section.heading}-${String(index)}`}
-            data-lead={!section.lede && index === 0 ? "true" : undefined}
-          >
-            <ArticleRichText text={paragraph} />
-          </p>
-        ))}
-        <ArticleSectionEnhancements section={section} includeTable={false} />
-        {section.subsections?.map((subsection, index) => (
-          <div
-            className="ss-blog-article__subsection"
-            key={`${subsection.heading}-${String(index)}`}
-          >
-            <h3>
-              <RichText text={subsection.heading} />
-            </h3>
-            {subsection.body.map((paragraph, paragraphIndex) => (
-              <p key={`${subsection.heading}-${String(paragraphIndex)}`}>
-                <ArticleRichText text={paragraph} />
-              </p>
-            ))}
-            <ArticleSectionEnhancements section={subsection} />
-          </div>
-        ))}
-      </section>
+      <div className="ss-blog-article__section-frame ss-srv2-beam-border">
+        <section
+          className="ss-blog-article__section"
+          data-intro={isIntroduction ? "true" : undefined}
+          data-variant={variant}
+          aria-labelledby={headingId}
+        >
+          <h2 id={headingId}>
+            <RichText text={emphasiseHeading(section.heading)} />
+          </h2>
+          {section.lede ? (
+            <p className="ss-blog-article__lede">
+              <ArticleRichText text={section.lede} />
+            </p>
+          ) : null}
+          {section.body.map((paragraph, index) => (
+            <p
+              key={`${section.heading}-${String(index)}`}
+              data-lead={!section.lede && index === 0 ? "true" : undefined}
+            >
+              <ArticleRichText text={paragraph} />
+            </p>
+          ))}
+          <ArticleSectionEnhancements section={section} includeTable={false} />
+          {section.subsections?.map((subsection, index) => (
+            <div
+              className="ss-blog-article__subsection"
+              key={`${subsection.heading}-${String(index)}`}
+            >
+              <h3>
+                <RichText text={subsection.heading} />
+              </h3>
+              {subsection.body.map((paragraph, paragraphIndex) => (
+                <p key={`${subsection.heading}-${String(paragraphIndex)}`}>
+                  <ArticleRichText text={paragraph} />
+                </p>
+              ))}
+              <ArticleSectionEnhancements section={subsection} />
+            </div>
+          ))}
+        </section>
+      </div>
       {/*
        * The comparison table renders as a sibling of the section rather than
        * inside its card: the section card closes after the icon bullet list /
@@ -540,7 +542,10 @@ export function ArticlePage({ post }: ArticlePageProps) {
         <div className="ss-blog-article__body">
           <ArticleFactStrip post={post} />
           <div className="ss-blog-article__container">
-            <Reveal className="ss-blog-article__summary" kind="card">
+            <Reveal
+              className="ss-blog-article__summary ss-blog-article__neon-border"
+              kind="card"
+            >
               <Eyebrow icon={Sparkles}>Executive Summary</Eyebrow>
               <h2>
                 What to take from <em>this article</em>

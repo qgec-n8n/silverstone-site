@@ -58,10 +58,25 @@ export function useDeepLinkScroll(): void {
 
     const scrollToTarget = (target: HTMLElement) => {
       armRevealBypass(isLanding ? LANDING_BYPASS_MS : SAME_PAGE_BYPASS_MS);
-      target.scrollIntoView({
-        behavior: isLanding ? "auto" : "smooth",
-        block: "start",
-      });
+      const behavior = isLanding ? "auto" : "smooth";
+      if (id.startsWith("demo-")) {
+        /* The global document scroll padding reserves the fixed header for
+           ordinary anchors. Demo relocations are different: the header hides
+           during a desktop downward jump but remains visible on mobile. Use
+           an explicit offset so both final positions are intentional. */
+        const rootFontSize = Number.parseFloat(
+          window.getComputedStyle(document.documentElement).fontSize,
+        );
+        const breathingRoom = Number.isFinite(rootFontSize) ? rootFontSize : 16;
+        const isDesktop = window.matchMedia("(min-width: 64rem)").matches;
+        const headerHeight =
+          document.querySelector<HTMLElement>("[data-site-header]")?.offsetHeight ?? 0;
+        const offset = breathingRoom + (isDesktop ? 0 : headerHeight);
+        const top = window.scrollY + target.getBoundingClientRect().top - offset;
+        window.scrollTo({ behavior, top: Math.max(0, top) });
+      } else {
+        target.scrollIntoView({ behavior, block: "start" });
+      }
       if (!target.hasAttribute("tabindex")) {
         target.setAttribute("tabindex", "-1");
       }

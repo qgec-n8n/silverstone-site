@@ -20,6 +20,4 @@ export const ELEVENLABS_DEMO_AGENT_NAME = "Grace";
  * sharing sensitive details.
  */
 export const ELEVENLABS_DEMO_DISCLOSURE =
-  "You are speaking with Grace, Silverstone's live demo AI receptionist. Audio is " +
-  "processed by ElevenLabs in real time to generate responses and the transcript. " +
-  "It's a public demo — please don't share personal or sensitive details.";
+  "Grace is an AI receptionist. ElevenLabs processes audio and the transcript in real time. Public demo — don't share personal or sensitive information.";

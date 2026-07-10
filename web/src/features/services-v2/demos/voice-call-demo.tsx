@@ -13,9 +13,9 @@ const copy: LiveVoiceDemoCopy = {
   transcriptSlot: "futureVoiceTranscriptSource",
   consoleLabel: "Live demo · Grace — AI voice agent",
   transcriptLabel: "Live transcript",
-  footHeading: "Test a governed call flow in real time",
+  footHeading: "Test Grace's governed call flow",
   footBody:
-    "This is a live ElevenLabs voice agent — the same architecture we deploy for clients. Grace identifies herself as automated, keeps to an approved reception scenario, and everything she hears and says is written into the transcript beside the call as it happens.",
+    "Ask a routine question and watch both sides appear in the transcript. Grace stays within an approved reception scenario.",
   emptyTitle: "Your conversation appears here",
   emptyBody:
     "Press start and speak naturally — both sides of the call are transcribed live, word by word, while you talk.",

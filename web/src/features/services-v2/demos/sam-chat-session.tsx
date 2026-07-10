@@ -13,9 +13,10 @@
  * The UI is entirely bespoke — no Botpress components or stylesheets — built
  * on the headless `useActiveConversation` state.
  */
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import {
   useActiveConversation,
+  useConversations,
   useWebchatContext,
   WebchatProvider,
   type BlockMessage,
@@ -37,6 +38,7 @@ import {
   SamIdentityRail,
   SamMessageRow,
   SamOpeningRow,
+  SamStarters,
   SamStaticBody,
   SamThreadHead,
   SamComposer,
@@ -52,6 +54,7 @@ type SessionProps = {
   engaged: boolean;
   initialText: string | null;
   onEngage: (text: string) => void;
+  onRestartReady: (restart: (() => void) | null) => void;
   onStateChange: (state: SamChatState) => void;
 };
 
@@ -60,6 +63,7 @@ export default function SamChatSession({
   engaged,
   initialText,
   onEngage,
+  onRestartReady,
   onStateChange,
 }: SessionProps) {
   if (!engaged) {
@@ -74,6 +78,7 @@ export default function SamChatSession({
       <SamLiveBody
         copy={copy}
         initialText={initialText}
+        onRestartReady={onRestartReady}
         onStateChange={onStateChange}
       />
     </WebchatProvider>
@@ -83,14 +88,24 @@ export default function SamChatSession({
 function SamLiveBody({
   copy,
   initialText,
+  onRestartReady,
   onStateChange,
 }: {
   copy: SamChatCopy;
   initialText: string | null;
+  onRestartReady: (restart: (() => void) | null) => void;
   onStateChange: (state: SamChatState) => void;
 }) {
-  const { messages, sendMessage, isTyping, isAwaitingResponse, status, error } =
-    useActiveConversation();
+  const {
+    conversationId,
+    messages,
+    sendMessage,
+    isTyping,
+    isAwaitingResponse,
+    status,
+    error,
+  } = useActiveConversation();
+  const { openConversation } = useConversations();
   const { userCredentials } = useWebchatContext();
   const userId = userCredentials?.userId;
 
@@ -119,9 +134,40 @@ function SamLiveBody({
     userId: string | undefined;
   } | null>(null);
   const [sendSettledVersion, setSendSettledVersion] = useState(0);
+  const [resetting, setResetting] = useState(false);
+  const openConversationRef = useRef(openConversation);
+  const conversationIdRef = useRef(conversationId);
+  const restartFromConversationRef = useRef<string | undefined>(undefined);
+
+  useEffect(() => {
+    openConversationRef.current = openConversation;
+    conversationIdRef.current = conversationId;
+    if (
+      resetting &&
+      conversationId !== undefined &&
+      conversationId !== restartFromConversationRef.current
+    ) {
+      setResetting(false);
+    }
+  }, [conversationId, openConversation, resetting]);
+
+  const restartConversation = useCallback(() => {
+    restartFromConversationRef.current = conversationIdRef.current;
+    sendingRef.current = false;
+    lastAttemptRef.current = null;
+    setQueue([]);
+    setResetting(true);
+    openConversationRef.current();
+  }, []);
+
+  useEffect(() => {
+    onRestartReady(restartConversation);
+    return () => onRestartReady(null);
+  }, [onRestartReady, restartConversation]);
+
   useEffect(() => {
     currentUserIdRef.current = userId;
-    if (!connected || sendingRef.current) {
+    if (!connected || resetting || sendingRef.current) {
       return;
     }
     const next = queue[0];
@@ -165,10 +211,10 @@ function SamLiveBody({
         setSendSettledVersion((current) => current + 1);
       });
     return undefined;
-  }, [connected, queue, messages, userId, sendMessage, sendSettledVersion]);
+  }, [connected, resetting, queue, messages, userId, sendMessage, sendSettledVersion]);
 
   const handleSend = (text: string) => {
-    if (connected && queue.length === 0) {
+    if (connected && !resetting && queue.length === 0) {
       void sendMessage({ type: "text", text }).catch(() => {
         // Surfaced through the hook's `error` state.
       });
@@ -177,18 +223,18 @@ function SamLiveBody({
     }
   };
 
-  const hasOutgoing = useMemo(
-    () => messages.some((message) => message.authorId === userId),
-    [messages, userId],
-  );
+  const visibleMessages = resetting ? [] : messages;
+  const hasOutgoing = visibleMessages.some((message) => message.authorId === userId);
 
-  const railStatus = failed
-    ? "Connection interrupted"
-    : !connected
-      ? "Opening the line…"
-      : isTyping || isAwaitingResponse
-        ? `${BOTPRESS_DEMO_AGENT_NAME} is typing…`
-        : "Online — replying in seconds";
+  const railStatus = resetting
+    ? "Opening a fresh conversation…"
+    : failed
+      ? "Connection interrupted"
+      : !connected
+        ? "Opening the line…"
+        : isTyping || isAwaitingResponse
+          ? `${BOTPRESS_DEMO_AGENT_NAME} is typing…`
+          : "Online — replying in seconds";
 
   // Scroll containment: the fixed-height thread only owns the swipe gesture
   // while it actually overflows (same lesson as the Grace transcript).
@@ -210,7 +256,7 @@ function SamLiveBody({
       observer.observe(content);
     }
     return () => observer.disconnect();
-  }, [messages.length]);
+  }, [visibleMessages.length]);
 
   return (
     <>
@@ -222,12 +268,15 @@ function SamLiveBody({
       >
         <SamThreadHead
           label={copy.threadLabel}
-          live={connected && (isTyping || isAwaitingResponse)}
+          live={!resetting && connected && (isTyping || isAwaitingResponse)}
         />
         <Conversation className="ss-smc__thread">
           <ConversationContent className="ss-smc__thread-content">
             <SamOpeningRow />
-            {messages.map((message) => (
+            {!resetting && !hasOutgoing && queue.length === 0 ? (
+              <SamStarters onPick={handleSend} disabled={!connected} />
+            ) : null}
+            {visibleMessages.map((message) => (
               <SamThreadMessage
                 key={message.id}
                 message={message}
@@ -248,7 +297,7 @@ function SamLiveBody({
                   </SamMessageRow>
                 ))
               : null}
-            {isTyping || isAwaitingResponse ? (
+            {!resetting && (isTyping || isAwaitingResponse) ? (
               <div className="ss-smc__row" data-role="sam" aria-hidden="true">
                 <div className="ss-smc__typing">
                   <span />
@@ -261,7 +310,7 @@ function SamLiveBody({
           </ConversationContent>
           <ConversationScrollButton className="ss-smc__scroll-btn" />
         </Conversation>
-        <SamComposer copy={copy} onSend={handleSend} disabled={failed} />
+        <SamComposer copy={copy} onSend={handleSend} disabled={failed || resetting} />
       </div>
     </>
   );

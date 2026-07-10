@@ -2147,7 +2147,7 @@ a.ss-insight-card:hover {
 .ss-blog-article__summary {
   display: grid;
   gap: 1rem;
-  width: min(100%, 52rem);
+  width: min(100%, 62rem);
   margin-inline: auto;
   padding: clamp(1.4rem, 1.05rem + 1.7vw, 2.35rem);
 }
@@ -2223,9 +2223,30 @@ a.ss-insight-card:hover {
   margin: clamp(3rem, 7vw, 5.5rem) auto 0;
 }
 
+.ss-blog-article__section-frame {
+  isolation: isolate;
+  width: min(calc(100vw - 2rem), 62rem);
+  margin-inline: 50%;
+  border-radius: var(--ss-radius-xl);
+  transform: translateX(-50%);
+}
+
 .ss-blog-article__section {
   position: relative;
-  padding-left: clamp(1.25rem, 0.8rem + 1.4vw, 2rem);
+  width: 100%;
+  padding: clamp(1.25rem, 0.95rem + 1.5vw, 2rem);
+  border: 1px solid var(--srv2-hairline);
+  border-radius: var(--ss-radius-xl);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--ss-v2-platinum) 7%, transparent),
+      transparent 42%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 26%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 8%, transparent),
+    0 28px 80px -72px color-mix(in srgb, var(--srv2-accent) 58%, transparent);
 }
 
 .ss-blog-article__section[data-variant] {
@@ -2280,10 +2301,7 @@ a.ss-insight-card:hover {
 }
 
 .ss-blog-article__section[data-intro="true"] {
-  width: min(calc(100vw - 2rem), 62rem);
-  margin-inline: 50%;
   padding: clamp(1.6rem, 1.15rem + 2vw, 2.75rem);
-  transform: translateX(-50%);
   border-color: color-mix(in srgb, var(--srv2-accent) 42%, transparent);
   background:
     radial-gradient(
@@ -2305,6 +2323,39 @@ a.ss-insight-card:hover {
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 12%, transparent),
     0 34px 110px -76px color-mix(in srgb, var(--srv2-accent) 72%, transparent);
+}
+
+/* Summary and comparison tables use a quiet breathing neon edge. The glow is
+   static; only the overlay opacity animates, avoiding repeated layout work. */
+.ss-blog-article__neon-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.ss-blog-article__neon-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 78%, transparent);
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 18px color-mix(in srgb, var(--srv2-accent) 24%, transparent),
+    0 0 26px -8px color-mix(in srgb, var(--srv2-accent) 58%, transparent),
+    0 0 42px -18px color-mix(in srgb, var(--srv2-accent-2) 72%, transparent);
+  opacity: 0.38;
+  pointer-events: none;
+  animation: ss-blog-neon-breathe 3.8s ease-in-out infinite;
+}
+
+@keyframes ss-blog-neon-breathe {
+  0%,
+  100% {
+    opacity: 0.34;
+  }
+  50% {
+    opacity: 0.92;
+  }
 }
 
 .ss-blog-article__section[data-intro="true"]::before,
@@ -2843,12 +2894,12 @@ a.ss-insight-card:hover {
   }
 
   /*
-   * On desktop the intro and the comparison table break out wider than the
+   * On desktop the article cards and comparison table break out wider than the
    * 52rem prose column (margin-inline + translateX centring). On a phone there
    * is no room to break out — the trick just shoves them off-centre and past
    * the viewport edge — so collapse both back onto the article's own column.
    */
-  .ss-blog-article__section[data-intro="true"],
+  .ss-blog-article__section-frame,
   .ss-blog-article__table-wrap {
     width: 100%;
     max-width: 100%;
@@ -2952,5 +3003,10 @@ a.ss-insight-card:hover {
   a.ss-insight-card,
   .ss-blog-article__related a {
     transition: none;
+  }
+
+  .ss-blog-article__neon-border::after {
+    animation: none;
+    opacity: 0.62;
   }
 }

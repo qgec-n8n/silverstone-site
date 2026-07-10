@@ -2554,21 +2554,62 @@ html[data-js="on"]
 }
 
 .ss-demo-launcher__bubble {
-  max-width: 11.5rem;
-  padding: 0.55rem 0.85rem;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: 12.5rem;
+  padding: 0.62rem 0.95rem;
   border-radius: var(--ss-radius-md);
-  border: 1px solid var(--ss-v2-hairline-strong);
-  background: color-mix(in srgb, var(--ss-v2-graphite-raised) 92%, transparent);
+  border: 1px solid transparent;
+  background: transparent;
   color: var(--ss-v2-platinum);
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.86rem;
+  font-weight: 650;
   line-height: 1.4;
   text-align: right;
   backdrop-filter: blur(12px);
-  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 14px 36px -20px rgba(0, 0, 0, 0.78),
+    0 0 26px -14px color-mix(in srgb, var(--ss-v2-signal-cyan) 72%, transparent);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--ss-v2-signal-cyan) 34%, transparent);
   animation:
     ss-demo-bubble-in 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     ss-demo-bubble-float 4.2s ease-in-out 0.4s infinite;
+}
+
+.ss-demo-launcher__bubble::before,
+.ss-demo-launcher__bubble::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.ss-demo-launcher__bubble::before {
+  inset: -190%;
+  z-index: -2;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 70%,
+    color-mix(in srgb, var(--ss-v2-signal-violet) 82%, transparent) 78%,
+    var(--ss-v2-signal-cyan) 86%,
+    color-mix(in srgb, #ffffff 88%, transparent) 90%,
+    transparent 98%
+  );
+  animation: ss-demo-bubble-orbit 5.8s linear infinite;
+  will-change: transform;
+}
+
+.ss-demo-launcher__bubble::after {
+  inset: 1px;
+  z-index: -1;
+  border-radius: calc(var(--ss-radius-md) - 1px);
+  background:
+    radial-gradient(
+      110% 150% at 10% 0%,
+      color-mix(in srgb, var(--ss-v2-signal-violet) 15%, transparent),
+      transparent 58%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite-raised) 94%, transparent);
 }
 
 .ss-demo-launcher__panel {
@@ -2779,6 +2820,12 @@ html[data-js="on"]
   }
 }
 
+@keyframes ss-demo-bubble-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes ss-demo-fab-signal {
   0%,
   100% {
@@ -2839,6 +2886,7 @@ html[data-js="on"]
   }
 
   .ss-demo-launcher__bubble,
+  .ss-demo-launcher__bubble::before,
   .ss-demo-launcher__panel {
     animation: none;
   }

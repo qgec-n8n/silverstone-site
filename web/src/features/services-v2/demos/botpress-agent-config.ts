@@ -19,9 +19,7 @@ export const BOTPRESS_DEMO_AGENT_NAME = "Sam";
  * sharing sensitive details — same contract as the Grace voice demo.
  */
 export const BOTPRESS_DEMO_DISCLOSURE =
-  "You are messaging Sam, Silverstone's live demo AI messaging receptionist. " +
-  "Messages are processed by Botpress in real time to generate replies. It's a " +
-  "public demo — please don't share personal or sensitive details.";
+  "Sam is an AI receptionist. Botpress processes messages in real time. Public demo — don't share personal or sensitive information.";
 
 /**
  * Sam's scripted opening line. Rendered (and prerendered) locally so the

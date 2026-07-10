@@ -39,13 +39,9 @@ const getServerSnapshot = () => false;
 const copy: SamChatCopy = {
   consoleLabel: "Live demo · Sam — AI messaging receptionist",
   threadLabel: "Message thread",
-  footHeading: "Read a governed messaging flow, not an unrestricted agent",
+  footHeading: "Ask Sam a front-desk question",
   footBody:
-    "Sam is our live messaging demo — the written counterpart to Grace's front " +
-    "desk. Ask what an AI receptionist can answer over chat, how a booking or " +
-    "callback request would be captured, or what happens when a person needs " +
-    "to take over — he keeps to an approved reception scenario and every reply " +
-    "arrives in this thread in seconds.",
+    "Test instant answers, booking and callback capture, and human handover. Replies arrive in this thread in seconds.",
   composerPlaceholder: "Write to Sam…",
   composerHint: "Nothing to install — the conversation runs in this page.",
 };
@@ -62,7 +58,8 @@ export function SamChatDemo() {
   // session chunk (and the Botpress connection) is ready to send it.
   const [pendingText, setPendingText] = useState<string | null>(null);
   const [state, setState] = useState<SamChatState>("idle");
-  const [sessionVersion, setSessionVersion] = useState(0);
+  const restartConversationRef = useRef<(() => void) | null>(null);
+  const [restartReady, setRestartReady] = useState(false);
   const inView = useInView(frameRef, { once: true, margin: "480px 0px" });
 
   const handleEngage = useCallback((text: string) => {
@@ -71,11 +68,14 @@ export function SamChatDemo() {
   }, []);
 
   const handleRestart = useCallback(() => {
-    window.sessionStorage.removeItem("ss-sam-demo");
-    setEngaged(false);
+    restartConversationRef.current?.();
     setPendingText(null);
-    setState("idle");
-    setSessionVersion((current) => current + 1);
+    setState("connecting");
+  }, []);
+
+  const handleRestartReady = useCallback((restart: (() => void) | null) => {
+    restartConversationRef.current = restart;
+    setRestartReady(restart !== null);
   }, []);
 
   const loadSession = mounted && (inView || engaged);
@@ -89,17 +89,17 @@ export function SamChatDemo() {
         <SamConsoleFrame
           copy={copy}
           state={state}
-          canRestart={engaged}
+          canRestart={engaged && restartReady}
           onRestart={handleRestart}
         >
           {loadSession ? (
             <Suspense fallback={staticBody}>
               <SamChatSession
-                key={sessionVersion}
                 copy={copy}
                 engaged={engaged}
                 initialText={pendingText}
                 onEngage={handleEngage}
+                onRestartReady={handleRestartReady}
                 onStateChange={setState}
               />
             </Suspense>
