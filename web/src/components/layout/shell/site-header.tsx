@@ -24,11 +24,11 @@ import {
 } from "~/components/icons/lucide";
 
 import { useAppExperience } from "~/app/experience/app-experience";
+import { DEEP_LINK_JUMP_EVENT } from "~/app/experience/deep-link-scroll";
 import { Container } from "~/components/layout/container";
 import { cn } from "~/lib/utils";
 import {
   faqContentVariants,
-  menuItemVariants,
   menuPanelVariants,
   mobileOverlayVariants,
   mobilePanelVariants,
@@ -85,9 +85,11 @@ function ActiveNavIndicator() {
 }
 
 function MegaMenuPanel({ menu }: { menu: NavMenu }) {
+  // Menu entries deliberately carry no per-item reveal variants: the panel
+  // fades in as one surface and every link is simply there, immediately.
   return (
     <div className="flex w-[min(90vw,36rem)] flex-col gap-1">
-      <m.div variants={menuItemVariants}>
+      <div>
         <Link
           className="ss-focus-ring group flex items-center gap-3.5 rounded-[var(--ss-radius-md)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_7%,transparent)] p-3.5 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
           to={menu.href}
@@ -108,12 +110,12 @@ function MegaMenuPanel({ menu }: { menu: NavMenu }) {
             className="size-4 shrink-0 text-[color:var(--ss-v2-header-accent)] ss-transition-interactive group-hover:translate-x-0.5"
           />
         </Link>
-      </m.div>
+      </div>
       <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
         {menu.items.map((item) => {
           const Icon = item.icon;
           return (
-            <m.div key={item.href} variants={menuItemVariants}>
+            <div key={item.href}>
               <Link
                 className="ss-focus-ring group flex items-start gap-3 rounded-[var(--ss-radius-md)] p-3 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
                 to={item.href}
@@ -134,7 +136,7 @@ function MegaMenuPanel({ menu }: { menu: NavMenu }) {
                   ) : null}
                 </span>
               </Link>
-            </m.div>
+            </div>
           );
         })}
       </div>
@@ -482,6 +484,13 @@ const SCROLL_HIDE_THRESHOLD = 120;
 const DESKTOP_SCROLL_NOISE_FLOOR = 6;
 const DESKTOP_RESIZE_SUPPRESS_MS = 250;
 
+/** After a deep-link section jump the desktop header hides so the section
+ * lands 1rem below the viewport top. A smooth same-page scroll to a target
+ * ABOVE the current position emits upward deltas the whole way, which would
+ * re-show the header mid-travel — suppress the upward re-show long enough
+ * for the smooth scroll to settle. */
+const DEEP_LINK_SHOW_SUPPRESS_MS = 1800;
+
 /** Matches the header's own `lg` breakpoint so the JS decision logic and the CSS
  * positioning it's driving never disagree about which device class they're on.
  * Below this width the header is permanently shown; at/above it hides on scroll. */
@@ -494,6 +503,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const scrollY = useMotionValue(typeof window !== "undefined" ? window.scrollY : 0);
   const lastScrollY = useRef(typeof window !== "undefined" ? window.scrollY : 0);
   const lastResizeAt = useRef(0);
+  const suppressShowUntil = useRef(0);
   const isDesktop = useRef(
     typeof window !== "undefined"
       ? window.matchMedia(DESKTOP_MEDIA_QUERY).matches
@@ -568,6 +578,19 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
     };
   }, []);
 
+  useEffect(() => {
+    // Deep-link section jumps land with the desktop header minimised so the
+    // section pill sits 1rem below the viewport top (mobile never hides).
+    const onDeepLinkJump = () => {
+      if (isDesktop.current) {
+        suppressShowUntil.current = Date.now() + DEEP_LINK_SHOW_SUPPRESS_MS;
+        setHiddenByScroll(true);
+      }
+    };
+    window.addEventListener(DEEP_LINK_JUMP_EVENT, onDeepLinkJump);
+    return () => window.removeEventListener(DEEP_LINK_JUMP_EVENT, onDeepLinkJump);
+  }, []);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 12);
 
@@ -592,7 +615,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
     }
     if (delta > 0 && latest > SCROLL_HIDE_THRESHOLD) {
       setHiddenByScroll(true);
-    } else if (delta < 0) {
+    } else if (delta < 0 && Date.now() > suppressShowUntil.current) {
       setHiddenByScroll(false);
     }
   });

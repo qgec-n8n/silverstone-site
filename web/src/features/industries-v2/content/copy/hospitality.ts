@@ -8,7 +8,7 @@ export const hospitalityCopy: IndustryCopy = {
   route: "/industry/hospitality",
   sector: "Hospitality",
   routeEntry: {
-    loaderText: "Coordinating reservations, guest context and staff handoffs.",
+    loaderText: "Coordinating the guest journey",
     pill: "Guest-journey orchestration",
     title: "Be available at peak demand without making service feel automatic",
     subtitle:

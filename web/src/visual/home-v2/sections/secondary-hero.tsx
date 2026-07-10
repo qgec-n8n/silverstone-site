@@ -65,11 +65,7 @@ function SystemScrollCue({ className }: { className?: string }) {
  */
 function MobileSignalBoard({ metrics }: { metrics: readonly BenchmarkMetric[] }) {
   return (
-    <Reveal
-      delayMs={600}
-      kind="card"
-      className="ss-hv2-secondary__mobile-signal"
-    >
+    <Reveal delayMs={600} kind="card" className="ss-hv2-secondary__mobile-signal">
       <aside className="ss-hv2-mobile-signal" aria-label="Live signal benchmarks">
         <div className="ss-hv2-mobile-signal__header">
           <span className="ss-eyebrow font-mono ss-hv2-mobile-signal__title">
@@ -157,8 +153,9 @@ export function SecondaryHero() {
               <p className="ss-lead ss-hv2-secondary__lead text-[color:var(--ss-v2-titanium)]">
                 <span className="ss-hv2-secondary__lead-full">
                   Calls, messages, bookings and follow-ups converge into a single
-                  operating layer. Silverstone answers in seconds, captures the detail and
-                  routes the work — while your team keeps oversight of every outcome.
+                  operating layer. Silverstone answers in seconds, captures the detail
+                  and routes the work — while your team keeps oversight of every
+                  outcome.
                 </span>
                 <span className="ss-hv2-secondary__lead-short">
                   Calls, messages, bookings and follow-ups converge into one operating
@@ -180,7 +177,9 @@ export function SecondaryHero() {
               </Reveal>
               <Reveal delayMs={510} kind="cta">
                 <Button asChild size="lg" variant="ghost">
-                  <Link to="/how-we-work">See how it works</Link>
+                  <Link to="/services/ai-receptionists#demo-ai-receptionists">
+                    Try the live demo
+                  </Link>
                 </Button>
               </Reveal>
             </div>

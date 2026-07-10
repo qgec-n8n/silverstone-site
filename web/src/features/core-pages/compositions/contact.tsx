@@ -4,7 +4,7 @@
  * through received/reviewed/routed checkpoints to a monitored inbox (built
  * for this page only).
  */
-import { GitBranch, MapPin, MessageSquare } from "~/components/icons/lucide";
+import { GitBranch, Mail, MapPin, MessageSquare } from "~/components/icons/lucide";
 import { SignalRouteSignature } from "~/features/core-pages/signatures";
 import { ContactForm } from "~/features/core-pages/contact-form";
 import { MapPanel } from "~/features/core-pages/map-panel";
@@ -45,14 +45,16 @@ export function ContactComposition() {
         icon={MessageSquare}
         title="Start with the question that *matters*"
         titleId="core-contact-title"
-        lead="Send concise written context about the process, journey or project question in front of you. The page is calm by design: no response-time promise, no pressure, no unnecessary data."
+        lead="Built for a written start: when to write rather than book, a short enquiry form and where to find the studio."
         points={[
-          "Accessible written route for project and partnership questions",
-          "Name, work email and message kept clear and required",
-          "Your enquiry is routed straight to the Silverstone inbox",
+          { icon: GitBranch, text: "Contact or Book — which route fits your question" },
+          { icon: Mail, text: "A short form, routed straight to the team" },
+          { icon: MapPin, text: "The studio's location, if you'd rather visit" },
         ]}
         primaryCtaLabel="Open the enquiry form"
         primaryCtaHref="/contact#contact-form"
+        secondaryCtaLabel="Book a call instead"
+        secondaryCtaHref="/book#booking-calendar"
         showcase={<SignalRouteSignature label="Direct correspondence" />}
       />
       <TrustStrip />

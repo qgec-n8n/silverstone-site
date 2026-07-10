@@ -8,7 +8,7 @@ export const gymsFitnessStudiosCopy: IndustryCopy = {
   route: "/industry/gyms-fitness-studios",
   sector: "Gyms & fitness studios",
   routeEntry: {
-    loaderText: "Linking enquiry, trial and membership states across the club.",
+    loaderText: "Linking club and member signals",
     pill: "Trial-to-membership intelligence",
     title: "Make every genuine enquiry visible to the team",
     subtitle:

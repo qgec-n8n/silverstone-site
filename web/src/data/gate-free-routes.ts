@@ -24,7 +24,22 @@ export const GATE_FREE_ROUTE_PREFIXES: readonly string[] = ["/blog/"];
  */
 export const GATE_FREE_DEEP_LINKS: readonly string[] = DEMO_REGISTRY.map(
   (demo) => demo.href,
-).concat(["/book#booking-calendar", "/contact#contact-form"]);
+).concat([
+  "/book#booking-calendar",
+  "/contact#contact-form",
+  // Secondary-hero section CTAs: every hero button that lands on a specific
+  // section skips the loader/intro gate and jumps straight to that section.
+  "/how-we-work#hww-route",
+  "/how-we-work#hww-proof",
+  "/blog#insights-index",
+  "/services#hub2-services",
+  "/industry#hub2-sectors",
+  "/pricing#pricing-covers",
+  "/services/app-development#srv2-proof",
+  "/services/ai-automation#srv2-proof",
+  "/services/content-creation#srv2-proof",
+  "/industry/ecommerce#ind2-proof",
+]);
 
 export function isGateFreeRoute(pathname: string): boolean {
   return (

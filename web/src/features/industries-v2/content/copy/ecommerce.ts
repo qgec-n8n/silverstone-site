@@ -8,7 +8,7 @@ export const ecommerceCopy: IndustryCopy = {
   route: "/industry/ecommerce",
   sector: "eCommerce brands",
   routeEntry: {
-    loaderText: "Synchronising catalogue, order and customer-service states.",
+    loaderText: "Synchronising store and service",
     pill: "Commerce operations intelligence",
     title: "Scale the experience, not the queue",
     subtitle:

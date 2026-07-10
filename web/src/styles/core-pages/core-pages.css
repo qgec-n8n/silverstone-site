@@ -2358,19 +2358,6 @@ a.ss-insight-card:hover {
   }
 }
 
-.ss-blog-article__section[data-intro="true"]::before,
-.ss-blog-article__section[data-intro="true"][data-variant]::before {
-  top: clamp(1.35rem, 1rem + 1vw, 1.9rem);
-  bottom: clamp(1.35rem, 1rem + 1vw, 1.9rem);
-  background: linear-gradient(
-    180deg,
-    var(--srv2-accent),
-    var(--srv2-accent-2),
-    color-mix(in srgb, var(--srv2-accent) 24%, transparent)
-  );
-  box-shadow: 0 0 24px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
-}
-
 /*
  * The intro always arrives auto-titled "Introduction" — a bland headline. We
  * reframe it as a premium mono kicker (with a signal marker) so the opening
@@ -2424,27 +2411,6 @@ a.ss-insight-card:hover {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
-
-.ss-blog-article__section::before {
-  content: "";
-  position: absolute;
-  top: 0.18rem;
-  bottom: 0.25rem;
-  left: 0;
-  width: 1px;
-  background: linear-gradient(
-    180deg,
-    var(--srv2-accent),
-    color-mix(in srgb, var(--srv2-accent-2) 48%, transparent),
-    transparent
-  );
-}
-
-.ss-blog-article__section[data-variant]::before {
-  top: clamp(1.2rem, 0.95rem + 1vw, 1.7rem);
-  bottom: clamp(1.2rem, 0.95rem + 1vw, 1.7rem);
-  left: 0;
 }
 
 .ss-blog-article__section h2,

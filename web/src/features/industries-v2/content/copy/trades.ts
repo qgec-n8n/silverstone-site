@@ -8,7 +8,7 @@ export const tradesCopy: IndustryCopy = {
   route: "/industry/trades",
   sector: "Trades & home services",
   routeEntry: {
-    loaderText: "Structuring the route from incoming call to an owned job.",
+    loaderText: "Routing calls into booked jobs",
     pill: "Field-service intake and follow-through",
     title: "Answer the opportunity before the van is back at the office",
     subtitle:

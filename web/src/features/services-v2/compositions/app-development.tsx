@@ -86,6 +86,8 @@ export function AppDevelopmentComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
+        secondaryCtaLabel="See verified results"
+        secondaryCtaHref="/services/app-development#srv2-proof"
         showcase={
           <ProductStateEngine
             label={art.discipline}

@@ -82,6 +82,8 @@ export function FitnessCoachesComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={copy.finalCta.buttonLabel}
+        secondaryCtaLabel="Chat with Sam live"
+        secondaryCtaHref="/services/ai-receptionists#demo-sam-messaging"
         showcase={<DmFunnel label={art.discipline} metrics={metrics.slice(0, 2)} />}
       />
       <TrustStrip />

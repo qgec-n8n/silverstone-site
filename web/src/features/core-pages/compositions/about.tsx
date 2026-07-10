@@ -97,13 +97,18 @@ export function AboutComposition() {
         icon={Sparkles}
         title="A premium technology partner built around *better judgement*"
         titleId="core-about-title"
-        lead="Silverstone joins commercial strategy, digital craft, engineering, AI and automation in one accountable model for businesses that expect serious delivery."
+        lead="The standard behind the work: six connected disciplines, what premium means in practice and the principles every engagement follows."
         points={[
-          "Strategy, copy, design, engineering, AI and automation connected",
-          "Selective scope, exact communication and visible ownership",
-          "Human responsibility kept explicit where consequence matters",
+          { icon: Layers, text: "Six disciplines, one line of accountability" },
+          { icon: Sparkles, text: "What premium attention actually means here" },
+          {
+            icon: CheckCircle2Icon,
+            text: "Four principles that shape every engagement",
+          },
         ]}
-        primaryCtaLabel="Meet the studio"
+        primaryCtaLabel="Book a discovery call"
+        secondaryCtaLabel="See how we deliver"
+        secondaryCtaHref="/how-we-work#hww-route"
         showcase={<StudioOrbitSignature label="The Silverstone standard" />}
       />
       <TrustStrip />

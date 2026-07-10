@@ -8,7 +8,7 @@ export const dentistsCopy: IndustryCopy = {
   route: "/industry/dentists",
   sector: "Dental practices",
   routeEntry: {
-    loaderText: "Separating routine patient administration from clinical judgement.",
+    loaderText: "Preparing the practice system",
     pill: "Patient access, clinically bounded",
     title: "Protect reception capacity. Preserve clinical responsibility.",
     subtitle:

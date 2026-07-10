@@ -92,6 +92,8 @@ export function WebDesignComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
+        secondaryCtaLabel="Preview a live build"
+        secondaryCtaHref="/services/web-design-development#demo-web-design"
         showcase={
           <ConversionArchitecture
             label={art.discipline}

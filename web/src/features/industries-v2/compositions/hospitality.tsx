@@ -79,6 +79,8 @@ export function HospitalityComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={copy.finalCta.buttonLabel}
+        secondaryCtaLabel="Hear the AI receptionist live"
+        secondaryCtaHref="/services/ai-receptionists#demo-ai-receptionists"
         showcase={<GuestRadar label={art.discipline} metrics={metrics.slice(0, 2)} />}
       />
       <TrustStrip />

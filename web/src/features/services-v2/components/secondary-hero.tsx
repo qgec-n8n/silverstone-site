@@ -71,11 +71,29 @@ function HeroBreadcrumbs({ trail }: { trail: ReturnType<typeof getBreadcrumbTrai
   );
 }
 
-function CapabilityPoint({ text, index }: { text: string; index: number }) {
+/** Hero capability point: a plain string renders with the gradient dot;
+ * `{ icon, text }` renders a bordered icon chip instead (core pages). */
+export type SecondaryHeroPoint = string | { icon: LucideIcon; text: string };
+
+function CapabilityPoint({
+  point,
+  index,
+}: {
+  point: SecondaryHeroPoint;
+  index: number;
+}) {
   const reducedMotion = useReducedMotion() ?? false;
+  const text = typeof point === "string" ? point : point.text;
+  const Icon = typeof point === "string" ? null : point.icon;
   const content = (
     <>
-      <span className="ss-srv2-hero__cap-dot" aria-hidden="true" />
+      {Icon ? (
+        <span className="ss-srv2-hero__cap-icon" aria-hidden="true">
+          <Icon aria-hidden="true" />
+        </span>
+      ) : (
+        <span className="ss-srv2-hero__cap-dot" aria-hidden="true" />
+      )}
       <span>{text}</span>
     </>
   );
@@ -107,8 +125,8 @@ export function SecondaryHero({
   points,
   primaryCtaLabel,
   primaryCtaHref = "/book#booking-calendar",
-  secondaryCtaLabel = "See how it works",
-  secondaryCtaHref = "/how-we-work",
+  secondaryCtaLabel,
+  secondaryCtaHref,
   showcase,
 }: {
   eyebrow: string;
@@ -116,13 +134,15 @@ export function SecondaryHero({
   title: string;
   titleId?: string | undefined;
   lead: string;
-  points: string[];
+  points: SecondaryHeroPoint[];
   primaryCtaLabel: string;
   /** Defaults to the booking deep link; conversion pages point it at their
    * own in-page target (e.g. the contact form) instead. */
   primaryCtaHref?: string;
-  secondaryCtaLabel?: string;
-  secondaryCtaHref?: string;
+  /** Optional second CTA. Only rendered when both label and href are given —
+   * each page decides whether it has a section worth deep-linking to. */
+  secondaryCtaLabel?: string | undefined;
+  secondaryCtaHref?: string | undefined;
   showcase: ReactNode;
 }) {
   const location = useLocation();
@@ -175,7 +195,11 @@ export function SecondaryHero({
               </Reveal>
               <ul className="ss-srv2-hero__caps">
                 {points.map((point, index) => (
-                  <CapabilityPoint key={point} text={point} index={index} />
+                  <CapabilityPoint
+                    key={typeof point === "string" ? point : point.text}
+                    point={point}
+                    index={index}
+                  />
                 ))}
               </ul>
             </div>
@@ -184,13 +208,15 @@ export function SecondaryHero({
                 <ServiceButton href={primaryCtaHref} variant="primary">
                   {primaryCtaLabel}
                 </ServiceButton>
-                <ServiceButton
-                  href={secondaryCtaHref}
-                  variant="ghost"
-                  withArrow={false}
-                >
-                  {secondaryCtaLabel}
-                </ServiceButton>
+                {secondaryCtaLabel && secondaryCtaHref ? (
+                  <ServiceButton
+                    href={secondaryCtaHref}
+                    variant="ghost"
+                    withArrow={false}
+                  >
+                    {secondaryCtaLabel}
+                  </ServiceButton>
+                ) : null}
               </div>
             </Reveal>
           </div>

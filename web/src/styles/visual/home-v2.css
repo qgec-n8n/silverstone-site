@@ -1777,11 +1777,21 @@ html[data-js="on"]
     gap: 0.7rem;
   }
 
+  /* Mobile composition: the whole intro column is centred — kicker, title,
+     lead, capability tiles and stacked full-width CTAs share one axis, so the
+     opening screen reads as a deliberately arranged premium panel rather than
+     a left-ragged desktop column squeezed onto a phone. */
   .ss-hv2-secondary__intro {
     gap: 0.58rem;
+    align-items: center;
+    text-align: center;
     /* Nudge the copy and mobile signal board down a touch from the top of the
        section so they sit lower on the phone screen. */
     padding-top: 1.1rem;
+  }
+
+  .ss-hv2-secondary__intro .ss-hv2-kicker {
+    align-self: center;
   }
 
   .ss-hv2-secondary__title {
@@ -1789,19 +1799,30 @@ html[data-js="on"]
   }
 
   .ss-hv2-secondary__lead {
+    margin-inline: auto;
     font-size: 0.88rem;
     line-height: 1.4;
   }
 
   .ss-hv2-secondary__caps {
     display: grid;
+    width: 100%;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.4rem;
   }
 
+  /* Each capability becomes a small centred tile: icon chip above the label,
+     framed in glass so the row of three reads as a matched set. */
   .ss-hv2-secondary__cap {
+    flex-direction: column;
     align-items: center;
-    gap: 0.45rem;
+    justify-content: flex-start;
+    gap: 0.4rem;
+    padding: 0.6rem 0.4rem 0.55rem;
+    text-align: center;
+    border: 1px solid var(--ss-v2-hairline-strong);
+    border-radius: var(--ss-radius-sm);
+    background: var(--ss-v2-glass);
   }
 
   .ss-hv2-secondary__cap-icon {
@@ -1820,13 +1841,29 @@ html[data-js="on"]
   }
 
   .ss-hv2-secondary__actions {
+    display: grid;
+    width: 100%;
+    max-width: 22rem;
+    margin-inline: auto;
+    grid-template-columns: 1fr;
     gap: 0.6rem;
   }
 
+  .ss-hv2-secondary__actions > * {
+    width: 100%;
+  }
+
   .ss-hv2-secondary__actions [data-slot="button"] {
+    width: 100%;
+    justify-content: center;
     min-height: 2.5rem;
     padding-block: 0;
     font-size: 0.85rem;
+  }
+
+  /* The centred intro column must not shrink the full-width signal board. */
+  .ss-hv2-secondary__mobile-signal {
+    width: 100%;
   }
 
   .ss-hv2-system-signal {

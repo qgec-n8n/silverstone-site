@@ -8,8 +8,7 @@ export const physiosChiropractorsCopy: IndustryCopy = {
   route: "/industry/physios-chiropractors",
   sector: "Physios & chiropractors",
   routeEntry: {
-    loaderText:
-      "Preparing a non-clinical route from enquiry to clinician-ready context.",
+    loaderText: "Preparing the clinic system",
     pill: "Clinic access with clinical boundaries",
     title: "Reduce reception friction. Keep care human.",
     subtitle:

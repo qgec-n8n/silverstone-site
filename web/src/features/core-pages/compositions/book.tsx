@@ -61,13 +61,18 @@ export function BookComposition() {
         icon={CalendarCheck}
         title="Book a *30-minute* discovery call"
         titleId="core-book-title"
-        lead="A focused, no-obligation conversation for businesses with one real process, customer journey or digital problem to improve."
+        lead="One page, one outcome: a booked call. Check the fit, preview the agenda, then pick a time on the live calendar below."
         points={[
-          "Bring one problem, not a full technical specification",
-          "Fit, no-fit or a smaller first step are all valid outcomes",
-          "Calendly opens directly — no forms before you can see times",
+          { icon: Target, text: "A quick fit check — is now the right time?" },
+          { icon: MessageSquare, text: "The four questions we cover in 30 minutes" },
+          {
+            icon: CalendarCheck,
+            text: "The live calendar — book without leaving the page",
+          },
         ]}
         primaryCtaLabel="Continue to booking"
+        secondaryCtaLabel="Email us instead"
+        secondaryCtaHref="/contact#contact-form"
         showcase={<AgendaDialSignature label="30-minute discovery" />}
       />
       <TrustStrip />

@@ -4,7 +4,7 @@
  * Secondary-hero feature: EditorialIndexSignature, a ranked index of topic
  * rows with a reading-progress rail (built for this page only).
  */
-import { FileText, Layers, ShieldCheck } from "~/components/icons/lucide";
+import { FileText, Layers, Search, ShieldCheck } from "~/components/icons/lucide";
 import { EditorialIndexSignature } from "~/features/core-pages/signatures";
 import { InsightsBoard } from "~/features/core-pages/insights-board";
 import { CoreCardGrid, type CoreCard } from "~/features/core-pages/shared";
@@ -79,13 +79,19 @@ export function InsightsComposition() {
         icon={FileText}
         title="Intelligence for *better* technology decisions"
         titleId="core-insights-title"
-        lead="Practical analysis for leaders deciding what to automate, what to design, what to measure and where human judgement still belongs."
+        lead="A searchable library of practical guides, organised by the services and industries we build for — find the topic behind your next decision."
         points={[
-          "Guides organised by commercial decision, not content volume",
-          "Evidence, implementation risk and governance treated together",
-          "Clear routes from research into service, pricing or discovery",
+          { icon: Search, text: "Search and filter every guide by service or sector" },
+          { icon: ShieldCheck, text: "Featured: AI automation and UK GDPR for SMEs" },
+          {
+            icon: Layers,
+            text: "Jump-off points into services, pricing and discovery",
+          },
         ]}
         primaryCtaLabel="Open the Insights library"
+        primaryCtaHref="/blog#insights-index"
+        secondaryCtaLabel="Book a discovery call"
+        secondaryCtaHref="/book#booking-calendar"
         showcase={
           <EditorialIndexSignature
             label="Silverstone Intelligence"

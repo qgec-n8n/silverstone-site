@@ -80,6 +80,8 @@ export function EcommerceComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={copy.finalCta.buttonLabel}
+        secondaryCtaLabel="See verified results"
+        secondaryCtaHref="/industry/ecommerce#ind2-proof"
         showcase={
           <OrderConveyor label={art.discipline} metrics={metrics.slice(0, 2)} />
         }

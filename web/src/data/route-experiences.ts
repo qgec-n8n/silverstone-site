@@ -64,7 +64,7 @@ const coreRouteEntries: Record<
   Pick<RouteExperience, "loaderText" | "pill" | "title" | "subtitle" | "buttonLabel">
 > = {
   "/how-we-work": {
-    loaderText: "Calibrating the route from ambition to controlled execution.",
+    loaderText: "Calibrating the delivery route",
     pill: "The Silverstone method",
     title: "Complex technology. Controlled delivery.",
     subtitle:
@@ -72,7 +72,7 @@ const coreRouteEntries: Record<
     buttonLabel: "Enter the delivery framework",
   },
   "/blog": {
-    loaderText: "Indexing the evidence behind better digital decisions.",
+    loaderText: "Indexing the insight library",
     pill: "Silverstone Intelligence",
     title: "Read before you build.",
     subtitle:
@@ -80,7 +80,7 @@ const coreRouteEntries: Record<
     buttonLabel: "Open the Insights library",
   },
   "/about": {
-    loaderText: "Resolving the standards behind the Silverstone name.",
+    loaderText: "Resolving the Silverstone standard",
     pill: "The Silverstone standard",
     title: "Capability is common. Judgement is rare.",
     subtitle:
@@ -88,8 +88,7 @@ const coreRouteEntries: Record<
     buttonLabel: "Discover the standard",
   },
   "/pricing": {
-    loaderText:
-      "Preparing a commercial framework for work that cannot be reduced to a rate card.",
+    loaderText: "Shaping the investment model",
     pill: "Investment by design",
     title: "No generic packages. No arbitrary numbers.",
     subtitle:
@@ -97,7 +96,7 @@ const coreRouteEntries: Record<
     buttonLabel: "Review how investment is shaped",
   },
   "/contact": {
-    loaderText: "Opening a precise channel for the question in front of you.",
+    loaderText: "Opening a direct channel",
     pill: "Direct correspondence",
     title: "Put the problem in writing.",
     subtitle:
@@ -105,8 +104,7 @@ const coreRouteEntries: Record<
     buttonLabel: "Open the enquiry form",
   },
   "/book": {
-    loaderText:
-      "Aligning the problem, the people and the next available decision point.",
+    loaderText: "Preparing your discovery call",
     pill: "30-minute discovery",
     title: "One problem. One focused conversation.",
     subtitle:
@@ -140,48 +138,46 @@ function loaderTextFor(
   route: FutureRouteRecord,
   family: RouteExperienceFamily,
 ): string {
-  const title = conciseTitle(route);
-
   if (route.path === "/") {
     return "Engineering the next advantage";
   }
   if (route.path === "/services") {
-    return "Preparing the service architecture for your next operating system.";
+    return "Preparing the service architecture";
   }
   if (route.path === "/industry") {
-    return "Mapping sector-specific operating patterns into the Silverstone system.";
+    return "Mapping sector operating patterns";
   }
   if (route.path === "/book") {
-    return "Preparing the discovery-call experience and next-step pathway.";
+    return "Preparing your discovery call";
   }
   if (route.path === "/contact") {
-    return "Opening a direct line to the Silverstone team.";
+    return "Opening a direct channel";
   }
   if (route.path === "/privacy-policy") {
-    return "Presenting the privacy framework and data-handling commitments.";
+    return "Presenting the privacy framework";
   }
   if (route.path === "/pricing") {
-    return "Preparing the scoping model behind a responsible investment decision.";
+    return "Shaping the investment model";
   }
   if (route.path === "/about") {
-    return "Assembling the studio context, standards and operating principles.";
+    return "Resolving the Silverstone standard";
   }
   if (route.path === "/how-we-work") {
-    return "Sequencing the route from business problem to working system.";
+    return "Calibrating the delivery route";
   }
   if (route.path === "/blog") {
-    return "Curating the practical insights library for better digital decisions.";
+    return "Indexing the insight library";
   }
 
   switch (family) {
     case "service":
-      return `Preparing ${title.toLowerCase()} as a focused growth system.`;
+      return "Preparing this service system";
     case "industry":
-      return `Mapping this sector journey: ${title}`;
+      return "Mapping your sector system";
     case "article":
-      return `Loading the evidence and practical guidance for: ${title}`;
+      return "Opening the article";
     default:
-      return `Preparing ${title.toLowerCase()} for a focused Silverstone experience.`;
+      return "Preparing the route";
   }
 }
 
@@ -278,7 +274,7 @@ export const routeExperiences = futureRouteManifest.map(buildExperience);
 
 export const notFoundRouteExperience: RouteExperience = {
   path: "*",
-  loaderText: "Checking the requested route before returning a safe way forward.",
+  loaderText: "Recovering a safe route",
   pill: "Route recovery",
   title: "This address doesn't resolve",
   subtitle:

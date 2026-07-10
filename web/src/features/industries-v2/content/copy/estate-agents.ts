@@ -8,8 +8,7 @@ export const estateAgentsCopy: IndustryCopy = {
   route: "/industry/estate-agents",
   sector: "Estate agents",
   routeEntry: {
-    loaderText:
-      "Mapping the route from first property enquiry to the right branch conversation.",
+    loaderText: "Preparing the agency system",
     pill: "Property enquiry operating system",
     title: "Respond while the opportunity is still live",
     subtitle:

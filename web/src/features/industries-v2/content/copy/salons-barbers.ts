@@ -8,7 +8,7 @@ export const salonsBarbersCopy: IndustryCopy = {
   route: "/industry/salons-barbers",
   sector: "Salons & barbers",
   routeEntry: {
-    loaderText: "Aligning services, practitioners and available chair time.",
+    loaderText: "Aligning diary and chair time",
     pill: "Diary intelligence for client-service businesses",
     title: "Make every available hour easier to sell",
     subtitle:

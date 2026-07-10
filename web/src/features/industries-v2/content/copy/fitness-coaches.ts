@@ -8,7 +8,7 @@ export const fitnessCoachesCopy: IndustryCopy = {
   route: "/industry/fitness-coaches",
   sector: "Fitness coaches",
   routeEntry: {
-    loaderText: "Converting scattered interest into an owned coaching conversation.",
+    loaderText: "Preparing the coaching funnel",
     pill: "Lead-to-client operating system",
     title: "Keep the service personal. Make the journey disciplined.",
     subtitle:

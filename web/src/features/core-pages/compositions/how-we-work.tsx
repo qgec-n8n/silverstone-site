@@ -86,13 +86,18 @@ export function HowWeWorkComposition() {
         icon={Workflow}
         title="From business problem to *working system*"
         titleId="core-hww-title"
-        lead="A disciplined delivery route for AI, automation, web and app work: diagnosis first, bounded scope, explicit decision gates, tested implementation and human oversight after launch."
+        lead="The full delivery method: five gated stages, the judgement that stays human, the failure modes we design against — and the results."
         points={[
-          "Problem, data and people mapped before architecture",
-          "Acceptance criteria and decision gates made visible",
-          "Launch treated as a controlled handover, not a reveal",
+          { icon: Workflow, text: "Five stages, from diagnosis to governed launch" },
+          { icon: UserCheck, text: "Where human judgement stays in charge" },
+          {
+            icon: CheckCircle2Icon,
+            text: "Verified results from live client systems",
+          },
         ]}
         primaryCtaLabel="Book a discovery call"
+        secondaryCtaLabel="See verified results"
+        secondaryCtaHref="/how-we-work#hww-proof"
         showcase={
           <DeliveryRouteSignature
             label="The Silverstone method"

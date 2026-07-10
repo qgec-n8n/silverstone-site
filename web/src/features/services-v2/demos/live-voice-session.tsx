@@ -9,13 +9,7 @@
  * optional: reduced-motion visitors and browsers without WebGL get the static
  * CSS orb while the call itself works identically.
  */
-import {
-  Suspense,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { ConversationProvider, useConversation } from "@elevenlabs/react";
 
 import { useReducedMotion } from "~/components/accessibility/use-reduced-motion";
@@ -59,9 +53,7 @@ const ERROR_COPY = {
 function detectWebgl(): boolean {
   try {
     const canvas = document.createElement("canvas");
-    return Boolean(
-      canvas.getContext("webgl2") ?? canvas.getContext("webgl"),
-    );
+    return Boolean(canvas.getContext("webgl2") ?? canvas.getContext("webgl"));
   } catch {
     return false;
   }
@@ -155,10 +147,11 @@ function SessionBody({
     onStateChange(state);
   }, [state, onStateChange]);
 
-  // The transcript only owns the scroll gesture while a live call is actually
-  // overflowing its fixed-height pane; measure that so `data-overflow` can gate
-  // `overscroll-behavior: contain`. Height is fixed except in "review" mode, so
-  // scrollHeight vs clientHeight is a stable overflow test here.
+  // The transcript only owns the scroll gesture while it actually overflows
+  // its fixed-height pane (live call or post-call review); measure that so
+  // `data-overflow` can gate `overscroll-behavior: contain`. The pane height
+  // is fixed in every mode, so scrollHeight vs clientHeight is a stable
+  // overflow test here.
   useEffect(() => {
     const thread = panelRef.current?.querySelector<HTMLElement>(".ss-lvd__thread");
     if (!thread) {
@@ -293,7 +286,9 @@ function SessionBody({
             <span className="ss-lvd__orb-halo" aria-hidden="true" />
             <span className="ss-lvd__orb-ring" aria-hidden="true" />
             <span className="ss-lvd__orb-ring" data-i="2" aria-hidden="true" />
-            <Suspense fallback={<span className="ss-lvd__orb-core" aria-hidden="true" />}>
+            <Suspense
+              fallback={<span className="ss-lvd__orb-core" aria-hidden="true" />}
+            >
               <Orb
                 colors={[accent.from, accent.to]}
                 seed={7}
@@ -397,7 +392,7 @@ function SessionBody({
         className="ss-lvd__panel"
         data-config-slot={copy.transcriptSlot}
         data-mode={threadMode}
-        data-overflow={threadMode === "live" && overflowing ? "" : undefined}
+        data-overflow={threadMode !== "idle" && overflowing ? "" : undefined}
       >
         <TranscriptHead label={copy.transcriptLabel} live={connected} />
         <Conversation className="ss-lvd__thread">

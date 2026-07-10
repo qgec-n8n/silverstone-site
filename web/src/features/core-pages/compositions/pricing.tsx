@@ -97,6 +97,8 @@ export function PricingComposition() {
           "Written proposals shaped around a defined first release",
         ]}
         primaryCtaLabel="Discuss scope and pricing"
+        secondaryCtaLabel="What your investment covers"
+        secondaryCtaHref="/pricing#pricing-covers"
         showcase={
           <ScopeLedgerSignature label="Investment by design" metrics={HERO_METRICS} />
         }

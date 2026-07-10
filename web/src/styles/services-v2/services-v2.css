@@ -709,6 +709,33 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   box-shadow: 0 0 12px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
 }
 
+/* Icon bullet variant (core pages) — a small bordered chip in place of the
+   gradient dot, sized in em so it scales with the fluid cap type. */
+.ss-srv2-hero__cap-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.7em;
+  height: 1.7em;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 38%, var(--srv2-hairline));
+  border-radius: var(--ss-radius-sm);
+  background:
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--srv2-accent) 16%, transparent),
+      transparent 70%
+    ),
+    var(--srv2-glass);
+  color: var(--srv2-accent);
+  box-shadow: 0 0 14px -6px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
+}
+
+.ss-srv2-hero__cap-icon svg {
+  width: 0.95em;
+  height: 0.95em;
+}
+
 .ss-srv2-hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -2639,26 +2666,14 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 /*
- * Live call, transcript overflowing → the internal scroll is the active one:
- * contain the swipe so streaming messages don't drag the whole page around.
+ * Transcript overflowing (live call or post-call review) → the internal
+ * scroll is the active one: contain the swipe so streaming or re-reading
+ * messages doesn't drag the whole page around. The pane's height is fixed in
+ * every mode — the demo never changes size; a transcript that fits shows no
+ * internal scrollbar, one that overflows keeps it even after the call ends.
  */
-.ss-lvd__panel[data-mode="live"][data-overflow] .ss-lvd__thread {
+.ss-lvd__panel[data-overflow] .ss-lvd__thread {
   overscroll-behavior: contain;
-}
-
-/*
- * After the call ends, lay the full transcript out and let the *page* scroll
- * through it instead of nesting a second scroll region — the reserved height
- * becomes a min so a short transcript keeps the console's shape while a long
- * one grows. The edge mask is dropped so the final line isn't faded away.
- */
-.ss-lvd__panel[data-mode="review"] .ss-lvd__thread {
-  height: auto;
-  min-height: clamp(19rem, 44vh, 24rem);
-  overflow-y: visible;
-  overscroll-behavior: auto;
-  -webkit-mask-image: none;
-  mask-image: none;
 }
 
 .ss-lvd__thread::-webkit-scrollbar {

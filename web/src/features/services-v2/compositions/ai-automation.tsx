@@ -86,6 +86,8 @@ export function AiAutomationComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
+        secondaryCtaLabel="See verified results"
+        secondaryCtaHref="/services/ai-automation#srv2-proof"
         showcase={
           <OrchestrationLattice
             label={art.discipline}

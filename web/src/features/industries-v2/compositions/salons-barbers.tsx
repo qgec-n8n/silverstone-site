@@ -78,6 +78,8 @@ export function SalonsBarbersComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={copy.finalCta.buttonLabel}
+        secondaryCtaLabel="Hear the AI receptionist live"
+        secondaryCtaHref="/services/ai-receptionists#demo-ai-receptionists"
         showcase={<DiaryLoom label={art.discipline} metrics={metrics.slice(0, 2)} />}
       />
       <TrustStrip />

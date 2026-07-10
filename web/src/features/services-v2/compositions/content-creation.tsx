@@ -85,6 +85,8 @@ export function ContentCreationComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
+        secondaryCtaLabel="See verified results"
+        secondaryCtaHref="/services/content-creation#srv2-proof"
         showcase={
           <EditorialIntelligence
             label={art.discipline}

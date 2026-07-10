@@ -320,6 +320,8 @@ export function ServicesHubExperience() {
           "Measured against your baseline, not our slides",
         ]}
         primaryCtaLabel="Book a discovery call"
+        secondaryCtaLabel="Explore the seven services"
+        secondaryCtaHref="/services#hub2-services"
         showcase={<ServiceConstellation />}
       />
       <TrustStrip />

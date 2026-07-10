@@ -159,6 +159,10 @@ export function CoreSpinLoader() {
     return null;
   }
 
+  const labelWords = experience.loaderText.split(" ");
+  const labelTail = labelWords[labelWords.length - 1] ?? "";
+  const labelHead = labelWords.slice(0, -1).join(" ");
+
   return (
     <div className="ss-loader" data-phase={phase} role="status" aria-live="polite">
       <div className="ss-loader__stage" aria-hidden="true">
@@ -184,9 +188,14 @@ export function CoreSpinLoader() {
         />
       </div>
       <p className="ss-loader__label" aria-hidden="true">
-        <span>{experience.loaderText}</span>
-        <span className="ss-loader__ellipsis" aria-hidden="true">
-          {".".repeat(ellipsisStep)}
+        {/* The animated ellipsis is glued to the final word in a no-wrap span
+            so a line break can never strand the dots on a line of their own. */}
+        {labelHead ? <span>{labelHead} </span> : null}
+        <span className="ss-loader__tail">
+          {labelTail}
+          <span className="ss-loader__ellipsis" aria-hidden="true">
+            {".".repeat(ellipsisStep)}
+          </span>
         </span>
       </p>
       <span className="sr-only">{experience.loaderText}.</span>

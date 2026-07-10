@@ -922,6 +922,52 @@ export function SignalRouteSignature({
   );
 }
 
+/** /book — the dial's pink signal dot traces a continuous figure eight
+ * centred on the blue 30-minute hub, sweeping the four agenda quadrants in
+ * order: next step → current reality → decision boundary → commercial
+ * consequence → repeat. Parametrised as x = cx − A·sin(2t), y = cy − B·sin(t):
+ * sin(2t)/sin(t) draw the two lobes and the sign choices fix that exact
+ * quadrant sequence. */
+function FigureEightSignal({ cx, cy }: { cx: number; cy: number }) {
+  const samples = 96;
+  const amplitude = 86;
+  const xs: number[] = [];
+  const ys: number[] = [];
+  for (let step = 0; step <= samples; step += 1) {
+    const t = (step / samples) * Math.PI * 2;
+    xs.push(cx - amplitude * Math.sin(2 * t));
+    ys.push(cy - amplitude * Math.sin(t));
+  }
+  const transition = {
+    duration: 16,
+    repeat: Infinity,
+    ease: "linear" as const,
+  };
+
+  return (
+    <>
+      <m.circle
+        cx={xs[0]}
+        cy={ys[0]}
+        r="8"
+        fill="var(--srv2-accent-2)"
+        opacity="0.32"
+        filter="url(#core-dial-blur)"
+        animate={{ cx: xs, cy: ys }}
+        transition={transition}
+      />
+      <m.circle
+        cx={xs[0]}
+        cy={ys[0]}
+        r="4"
+        fill="var(--srv2-accent-2)"
+        animate={{ cx: xs, cy: ys }}
+        transition={transition}
+      />
+    </>
+  );
+}
+
 /** /book — a 30-minute agenda dial: four sectors of a circular clock face,
  * one for each discussion topic, with a sweeping hand. Distinct from the
  * other five diagrams: the only one built as a clock. */
@@ -1072,7 +1118,6 @@ export function AgendaDialSignature({
             opacity="0.3"
             filter="url(#core-dial-blur)"
           />
-          <circle cx={cx} cy={cy - r + 20} r="3" fill="var(--srv2-accent-2)" />
         </m.g>
       ) : (
         <line
@@ -1094,6 +1139,7 @@ export function AgendaDialSignature({
         stroke="var(--ss-v2-void-black)"
         strokeWidth="1.5"
       />
+      {!reducedMotion ? <FigureEightSignal cx={cx} cy={cy} /> : null}
       {topics.map((label2, index) => {
         const angle = (index / topics.length) * Math.PI * 2 - Math.PI / 2 + Math.PI / 4;
         const x = cx + (r + 46) * Math.cos(angle);

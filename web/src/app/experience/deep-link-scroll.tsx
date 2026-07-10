@@ -34,6 +34,14 @@ const LANDING_BYPASS_MS = 1200;
 /** Smooth same-page scroll: window long enough to cover the travel time. */
 const SAME_PAGE_BYPASS_MS = 2400;
 
+/**
+ * Fired whenever a deep link relocates the viewport to a section. The desktop
+ * header listens for it and hides immediately (see site-header.tsx), so the
+ * landing position — section pill 1rem below the viewport top — is measured
+ * against a minimised header rather than one that happens to still be shown.
+ */
+export const DEEP_LINK_JUMP_EVENT = "ss:deep-link-jump";
+
 export function useDeepLinkScroll(): void {
   const location = useLocation();
   const { headerHidden } = useAppExperience();
@@ -55,27 +63,55 @@ export function useDeepLinkScroll(): void {
     }
 
     const id = decodeURIComponent(hash.slice(1));
+    const correctionTimers: number[] = [];
+    let correctionsCancelled = false;
 
     const scrollToTarget = (target: HTMLElement) => {
       armRevealBypass(isLanding ? LANDING_BYPASS_MS : SAME_PAGE_BYPASS_MS);
       const behavior = isLanding ? "auto" : "smooth";
-      if (id.startsWith("demo-")) {
-        /* The global document scroll padding reserves the fixed header for
-           ordinary anchors. Demo relocations are different: the header hides
-           during a desktop downward jump but remains visible on mobile. Use
-           an explicit offset so both final positions are intentional. */
-        const rootFontSize = Number.parseFloat(
-          window.getComputedStyle(document.documentElement).fontSize,
-        );
-        const breathingRoom = Number.isFinite(rootFontSize) ? rootFontSize : 16;
-        const isDesktop = window.matchMedia("(min-width: 64rem)").matches;
-        const headerHeight =
-          document.querySelector<HTMLElement>("[data-site-header]")?.offsetHeight ?? 0;
-        const offset = breathingRoom + (isDesktop ? 0 : headerHeight);
-        const top = window.scrollY + target.getBoundingClientRect().top - offset;
-        window.scrollTo({ behavior, top: Math.max(0, top) });
-      } else {
-        target.scrollIntoView({ behavior, block: "start" });
+      /* Every section relocation uses one explicit offset policy: on desktop
+         the header hides for the jump (the event below), leaving 1rem between
+         the section's pill and the viewport top; on mobile the header never
+         hides, so it is added to the same 1rem of breathing room. The scroll
+         anchor is the target's enclosing section (when there is one) rather
+         than the target itself — deep-link ids often sit on the section's
+         heading, and the pill above that heading is what should land 1rem
+         from the top. */
+      const rootFontSize = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).fontSize,
+      );
+      const breathingRoom = Number.isFinite(rootFontSize) ? rootFontSize : 16;
+      const isDesktop = window.matchMedia("(min-width: 64rem)").matches;
+      const headerHeight =
+        document.querySelector<HTMLElement>("[data-site-header]")?.offsetHeight ?? 0;
+      const offset = breathingRoom + (isDesktop ? 0 : headerHeight);
+      const anchor = target.closest<HTMLElement>(".ss-srv2-section") ?? target;
+      const idealTop = () =>
+        Math.max(0, window.scrollY + anchor.getBoundingClientRect().top - offset);
+      let appliedTop = idealTop();
+      window.scrollTo({ behavior, top: appliedTop });
+      window.dispatchEvent(new CustomEvent(DEEP_LINK_JUMP_EVENT));
+      if (isLanding) {
+        /* A landing jump measures the page mid-load: webfonts and images that
+           finish afterwards shift the content above the anchor, nudging it off
+           the intended 1rem mark. Re-snap once things settle — but only while
+           the viewport is still exactly where we put it, so a visitor who has
+           already scrolled on is never yanked back. */
+        const correct = () => {
+          if (correctionsCancelled || Math.abs(window.scrollY - appliedTop) > 2) {
+            return;
+          }
+          const top = idealTop();
+          if (Math.abs(top - appliedTop) > 1) {
+            appliedTop = top;
+            window.scrollTo({ behavior: "auto", top });
+          }
+        };
+        correctionTimers.push(window.setTimeout(correct, 450));
+        correctionTimers.push(window.setTimeout(correct, 1200));
+        if ("fonts" in document) {
+          void document.fonts.ready.then(() => correct());
+        }
       }
       if (!target.hasAttribute("tabindex")) {
         target.setAttribute("tabindex", "-1");
@@ -102,6 +138,8 @@ export function useDeepLinkScroll(): void {
     return () => {
       observer.disconnect();
       window.clearTimeout(timeout);
+      correctionsCancelled = true;
+      correctionTimers.forEach((timer) => window.clearTimeout(timer));
     };
   }, [location.pathname, location.hash, headerHidden]);
 }

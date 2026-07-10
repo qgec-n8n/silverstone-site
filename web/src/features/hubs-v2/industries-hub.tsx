@@ -201,6 +201,8 @@ export function IndustriesHubExperience() {
           "Verified Silverstone AI results on every page",
         ]}
         primaryCtaLabel="Book a discovery call"
+        secondaryCtaLabel="Find your sector"
+        secondaryCtaHref="/industry#hub2-sectors"
         showcase={<SectorSignalGrid />}
       />
       <TrustStrip />
