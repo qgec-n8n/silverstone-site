@@ -5,11 +5,13 @@ import type { CSSProperties, ReactNode } from "react";
 import { Link } from "react-router";
 
 import {
+  ArrowLeft,
   ArrowUpRight,
   CalendarClock,
   Check,
   Clock,
   FileText,
+  Search,
   Sparkles,
   Target,
   Zap,
@@ -473,6 +475,28 @@ function BlogJsonLd({ post }: { post: SilverstoneBlogPost }) {
   );
 }
 
+function InsightsReturn({ categoryLabel }: { categoryLabel: string }) {
+  return (
+    <Link
+      aria-label="Back to the Insights search and filters"
+      className="ss-blog-article__return"
+      to="/blog#insights-search"
+    >
+      <span className="ss-blog-article__return-icon" aria-hidden="true">
+        <ArrowLeft />
+      </span>
+      <span className="ss-blog-article__return-copy">
+        <span>Insights / {categoryLabel}</span>
+        <strong>Back to Insights search</strong>
+      </span>
+      <span className="ss-blog-article__return-search" aria-hidden="true">
+        <Search />
+        <span>Open search &amp; filters</span>
+      </span>
+    </Link>
+  );
+}
+
 export function ArticlePage({ post }: ArticlePageProps) {
   return (
     <RouteExperienceFrame skipIntro>
@@ -487,9 +511,7 @@ export function ArticlePage({ post }: ArticlePageProps) {
             <div className="ss-blog-article__hero-stage">
               <div className="ss-blog-article__hero-copy">
                 <Reveal kind="pill" trigger="mount">
-                  <Link className="ss-blog-article__crumb" to="/blog">
-                    Insights / {post.categoryLabel}
-                  </Link>
+                  <InsightsReturn categoryLabel={post.categoryLabel} />
                 </Reveal>
                 <Reveal kind="section" trigger="mount" delayMs={120}>
                   <h1 data-long={post.title.length > 64 ? "true" : undefined}>

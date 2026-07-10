@@ -980,6 +980,12 @@
 }
 
 .ss-core-booking {
+  --booking-cyan: #5ce8ff;
+  --booking-blue: #3299ff;
+  --booking-fuchsia: #ff4fd8;
+  --booking-violet: #9d72ff;
+  --booking-silver: #dbe5f0;
+  --booking-white: #ffffff;
   overflow: clip;
 }
 
@@ -1002,7 +1008,12 @@
 
 .ss-core-booking__body h3 em {
   font-style: normal;
-  background: linear-gradient(100deg, var(--srv2-accent), var(--srv2-accent-2));
+  background: linear-gradient(
+    100deg,
+    var(--booking-cyan),
+    var(--booking-fuchsia) 54%,
+    var(--booking-violet)
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1034,8 +1045,9 @@
   border-image: linear-gradient(
       90deg,
       transparent,
-      color-mix(in srgb, var(--srv2-accent) 45%, transparent) 30%,
-      color-mix(in srgb, var(--srv2-accent-2) 35%, transparent) 70%,
+      color-mix(in srgb, var(--booking-cyan) 52%, transparent) 24%,
+      color-mix(in srgb, var(--booking-fuchsia) 54%, transparent) 52%,
+      color-mix(in srgb, var(--booking-violet) 46%, transparent) 76%,
       transparent
     )
     1;
@@ -1093,7 +1105,7 @@
  * The scheduler console. Calendly's booking surface is white and cannot be
  * restyled from outside the iframe, so the design embraces it: a slim mono
  * console rail introduces the pane, then the white scheduler sits inside a
- * 1px luminous cyan→violet ring (the frame's own gradient background showing
+ * 1px luminous cyan→fuchsia→violet ring (the frame gradient showing
  * through a 1px padding) with a deep accent glow — a deliberate bright
  * "screen" set into the dark card rather than a widget in a grey frame.
  * The embed URL's light-theme params match the pane, so widget and pane
@@ -1108,7 +1120,7 @@
   align-items: center;
   gap: 0.85rem;
   margin-bottom: 0.95rem;
-  color: var(--srv2-ink-faint);
+  color: color-mix(in srgb, var(--booking-silver) 78%, transparent);
   font-family: var(--ss-font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.14em;
@@ -1121,10 +1133,15 @@
   height: 1px;
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--srv2-accent) 50%, transparent),
-    color-mix(in srgb, var(--srv2-accent-2) 40%, transparent) 60%,
+    color-mix(in srgb, var(--booking-cyan) 72%, transparent),
+    color-mix(in srgb, var(--booking-blue) 66%, transparent) 28%,
+    color-mix(in srgb, var(--booking-fuchsia) 68%, transparent) 58%,
+    color-mix(in srgb, var(--booking-violet) 60%, transparent) 82%,
     transparent
   );
+  box-shadow:
+    0 0 14px color-mix(in srgb, var(--booking-cyan) 26%, transparent),
+    0 0 22px color-mix(in srgb, var(--booking-fuchsia) 18%, transparent);
 }
 
 /* Live booking trace — three steps advanced by Calendly's own postMessage
@@ -1152,12 +1169,14 @@
 }
 
 .ss-core-booking__steps li[data-state="current"] {
-  color: var(--ss-v2-chrome);
-  text-shadow: 0 0 14px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
+  color: var(--booking-white);
+  text-shadow:
+    0 0 14px color-mix(in srgb, var(--booking-cyan) 46%, transparent),
+    0 0 24px color-mix(in srgb, var(--booking-fuchsia) 24%, transparent);
 }
 
 .ss-core-booking__steps li[data-state="current"] .ss-core-booking__step-index {
-  color: var(--srv2-accent);
+  color: var(--booking-fuchsia);
 }
 
 .ss-core-booking__steps li[data-state="done"] {
@@ -1186,14 +1205,19 @@
   border-radius: var(--ss-radius-xl);
   background: linear-gradient(
     140deg,
-    color-mix(in srgb, var(--srv2-accent) 70%, transparent),
-    color-mix(in srgb, var(--srv2-accent-2) 45%, transparent) 45%,
-    color-mix(in srgb, var(--ss-v2-platinum) 22%, transparent) 75%,
-    color-mix(in srgb, var(--srv2-accent) 55%, transparent)
+    color-mix(in srgb, var(--booking-cyan) 86%, transparent),
+    color-mix(in srgb, var(--booking-blue) 72%, transparent) 24%,
+    color-mix(in srgb, var(--booking-fuchsia) 78%, transparent) 48%,
+    color-mix(in srgb, var(--booking-violet) 72%, transparent) 68%,
+    color-mix(in srgb, var(--booking-silver) 62%, transparent) 84%,
+    color-mix(in srgb, var(--booking-white) 72%, transparent)
   );
   box-shadow:
-    0 30px 90px -42px color-mix(in srgb, var(--srv2-accent) 55%, transparent),
-    0 12px 48px -30px color-mix(in srgb, var(--srv2-accent-2) 45%, transparent);
+    0 30px 90px -42px color-mix(in srgb, var(--booking-cyan) 66%, transparent),
+    -20px 8px 62px -42px color-mix(in srgb, var(--booking-blue) 58%, transparent),
+    22px 10px 72px -40px color-mix(in srgb, var(--booking-fuchsia) 62%, transparent),
+    0 12px 48px -30px color-mix(in srgb, var(--booking-violet) 56%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--booking-white) 58%, transparent);
 }
 
 .ss-core-booking__frame iframe {
@@ -1240,8 +1264,13 @@
   letter-spacing: 0.04em;
   background:
     radial-gradient(
-      120% 120% at 50% 0%,
-      color-mix(in srgb, var(--srv2-accent) 10%, transparent),
+      90% 100% at 0% 0%,
+      color-mix(in srgb, var(--booking-cyan) 15%, transparent),
+      transparent 64%
+    ),
+    radial-gradient(
+      90% 100% at 100% 0%,
+      color-mix(in srgb, var(--booking-fuchsia) 13%, transparent),
       transparent 60%
     ),
     color-mix(in srgb, var(--ss-v2-void-black) 96%, transparent);
@@ -2011,21 +2040,148 @@ a.ss-insight-card:hover {
   width: min(100%, 62rem);
 }
 
-.ss-blog-article__crumb {
-  display: inline-flex;
+.ss-blog-article__return {
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.78rem;
   width: fit-content;
-  margin-bottom: 1rem;
-  padding: 0.38rem 0.78rem;
-  border-radius: var(--ss-radius-pill);
-  border: 1px solid color-mix(in srgb, #ffffff 22%, transparent);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 52%, transparent);
+  max-width: 100%;
+  margin-bottom: clamp(1rem, 0.75rem + 0.7vw, 1.5rem);
+  padding: 0.52rem 0.66rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ss-v2-signal-cyan) 42%, transparent);
+  border-radius: var(--ss-radius-lg);
+  background:
+    radial-gradient(
+      120% 180% at 0% 0%,
+      color-mix(in srgb, var(--ss-v2-signal-cyan) 15%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      120% 180% at 100% 100%,
+      color-mix(in srgb, #ff4fd8 14%, transparent),
+      transparent 58%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
   color: var(--ss-v2-chrome);
-  font-family: var(--ss-font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
   text-decoration: none;
+  backdrop-filter: blur(16px) saturate(1.18);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent),
+    0 14px 42px -24px color-mix(in srgb, var(--ss-v2-signal-cyan) 64%, transparent),
+    0 14px 44px -28px color-mix(in srgb, #ff4fd8 56%, transparent);
+  transition:
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.ss-blog-article__return::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    112deg,
+    transparent 24%,
+    color-mix(in srgb, #ffffff 14%, transparent) 43%,
+    color-mix(in srgb, #ff4fd8 11%, transparent) 49%,
+    transparent 67%
+  );
+  transform: translateX(-110%);
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-blog-article__return:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, #ff4fd8 56%, var(--ss-v2-signal-cyan));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 18%, transparent),
+    0 18px 48px -25px color-mix(in srgb, var(--ss-v2-signal-cyan) 74%, transparent),
+    0 18px 50px -28px color-mix(in srgb, #ff4fd8 68%, transparent);
+}
+
+.ss-blog-article__return:hover::after {
+  transform: translateX(110%);
+}
+
+.ss-blog-article__return:focus-visible {
+  outline: 2px solid var(--ss-v2-signal-cyan);
+  outline-offset: 4px;
+}
+
+.ss-blog-article__return-icon,
+.ss-blog-article__return-search svg {
+  flex: none;
+  color: var(--ss-v2-signal-cyan);
+  filter: drop-shadow(
+    0 0 9px color-mix(in srgb, var(--ss-v2-signal-cyan) 72%, transparent)
+  );
+}
+
+.ss-blog-article__return-icon {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid color-mix(in srgb, var(--ss-v2-signal-cyan) 40%, transparent);
+  border-radius: var(--ss-radius-md);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--ss-v2-signal-cyan) 17%, transparent),
+    color-mix(in srgb, #9d72ff 10%, transparent)
+  );
+}
+
+.ss-blog-article__return-icon svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-blog-article__return:hover .ss-blog-article__return-icon svg {
+  transform: translateX(-3px);
+}
+
+.ss-blog-article__return-copy {
+  display: grid;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.ss-blog-article__return-copy > span,
+.ss-blog-article__return-search {
+  color: color-mix(in srgb, var(--ss-v2-platinum) 68%, transparent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
   text-transform: uppercase;
-  backdrop-filter: blur(10px);
+}
+
+.ss-blog-article__return-copy strong {
+  color: var(--ss-v2-chrome);
+  font-size: 0.9rem;
+  font-weight: 680;
+  line-height: 1.2;
+}
+
+.ss-blog-article__return-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0 0.3rem 0 0.7rem;
+  border-left: 1px solid color-mix(in srgb, #9d72ff 36%, transparent);
+  color: color-mix(in srgb, var(--ss-v2-platinum) 76%, transparent);
+}
+
+.ss-blog-article__return-search svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  color: #ff7be4;
 }
 
 .ss-blog-article__hero h1 {
@@ -2851,6 +3007,14 @@ a.ss-insight-card:hover {
     max-width: 100%;
   }
 
+  .ss-blog-article__return {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .ss-blog-article__return-search {
+    display: none;
+  }
+
   .ss-blog-article__facts .ss-hv2-trust {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2972,6 +3136,9 @@ a.ss-insight-card:hover {
 @media (prefers-reduced-motion: reduce) {
   .ss-insight-filters__pill,
   a.ss-insight-card,
+  .ss-blog-article__return,
+  .ss-blog-article__return::after,
+  .ss-blog-article__return-icon svg,
   .ss-blog-article__related a {
     transition: none;
   }

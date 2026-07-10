@@ -12,8 +12,9 @@
  *
  * Deliberately not shaped like a support-chat widget: no message thread, no
  * input field, no avatar — a short menu that expands upward from the icon.
- * Hidden on gate-free routes (Book) so the single-intent booking page stays
- * distraction-free.
+ * Article routes are gate-free but deliberately keep the launcher: readers
+ * should have the same immediate demo access as visitors on every other
+ * content page.
  */
 import { useEffect, useId, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
@@ -89,7 +90,7 @@ export function DemosLauncher() {
     };
   }, [open]);
 
-  if (isGateFreeRoute(location.pathname)) {
+  if (isGateFreeRoute(location.pathname) && !location.pathname.startsWith("/blog/")) {
     return null;
   }
 

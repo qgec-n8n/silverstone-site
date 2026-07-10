@@ -32,6 +32,7 @@ export const GATE_FREE_DEEP_LINKS: readonly string[] = DEMO_REGISTRY.map(
   "/how-we-work#hww-route",
   "/how-we-work#hww-proof",
   "/blog#insights-index",
+  "/blog#insights-search",
   "/services#hub2-services",
   "/industry#hub2-sectors",
   "/pricing#pricing-covers",

@@ -85,7 +85,13 @@ export function useDeepLinkScroll(): void {
       const headerHeight =
         document.querySelector<HTMLElement>("[data-site-header]")?.offsetHeight ?? 0;
       const offset = breathingRoom + (isDesktop ? 0 : headerHeight);
-      const anchor = target.closest<HTMLElement>(".ss-srv2-section") ?? target;
+      // Most links align the target's whole section so its eyebrow remains in
+      // view. Explicit action surfaces (for example the Insights search board)
+      // opt into self-alignment so the control itself lands at that same
+      // responsive offset instead of sitting below a section introduction.
+      const anchor = target.hasAttribute("data-deep-link-anchor")
+        ? target
+        : (target.closest<HTMLElement>(".ss-srv2-section") ?? target);
       const idealTop = () =>
         Math.max(0, window.scrollY + anchor.getBoundingClientRect().top - offset);
       let appliedTop = idealTop();

@@ -132,7 +132,7 @@ export function InsightsBoard() {
   const industryCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "industry");
 
   return (
-    <div className="ss-insight-board">
+    <div className="ss-insight-board" data-deep-link-anchor="self" id="insights-search">
       <Reveal kind="section" className="ss-insight-board__controls">
         <label className="ss-insight-search">
           <Search aria-hidden="true" />
