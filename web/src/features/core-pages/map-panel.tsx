@@ -15,7 +15,7 @@ import { useState } from "react";
 
 import { ArrowUpRight, MapPin } from "~/components/icons/lucide";
 import { OrbitalLoader } from "~/components/ui/orbital-loader";
-import { Reveal } from "~/features/services-v2/components/primitives";
+import { BorderBeam, Reveal } from "~/features/services-v2/components/primitives";
 
 const MAP_QUERY = "4 Deacon Street, London SE17 1GE, United Kingdom";
 const MAP_EMBED_URL =
@@ -77,6 +77,7 @@ export function MapPanel() {
           </a>
         </div>
       </Reveal>
+      <BorderBeam />
     </div>
   );
 }

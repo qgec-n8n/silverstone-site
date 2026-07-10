@@ -103,11 +103,33 @@ function destroyMountInstances(mount: HTMLElement) {
   window.pJSDom = remaining;
 }
 
-function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
+/**
+ * particles.js reads window.devicePixelRatio exactly once (retinaInit) and
+ * sizes its full-viewport canvas buffer by it; its resize handler reuses the
+ * stored ratio. On 3x phones that made every frame rasterise 2.25x the pixels
+ * of a 2x buffer — the single largest continuous drain behind long-session
+ * heat and throttling on mobile. The ratio is capped at 2 (the same ceiling
+ * the hero field's compact mode uses) by shadowing devicePixelRatio during
+ * init only. particles.js derives its auto-density particle count from the
+ * device-pixel area, so `countScale` scales the requested count back up and
+ * the rendered field — count, CSS-space sizes, speeds, link reach — is
+ * unchanged.
+ */
+const PARTICLES_DPR_CAP = 2;
+const MOBILE_AMBIENT_IDLE_MS = 20_000;
+const MOBILE_SCROLL_SETTLE_MS = 180;
+
+type ParticlePauseReason = "hidden" | "idle" | "scroll";
+
+function createParticlesConfig(
+  coarsePointer: boolean,
+  mobile: boolean,
+  countScale: number,
+) {
   return {
     particles: {
       number: {
-        value: mobile ? 118 : 128,
+        value: Math.round((mobile ? 118 : 128) * countScale),
         density: {
           enable: true,
           value_area: mobile ? 820 : 900,
@@ -223,11 +245,39 @@ function initializeParticles(
     return originalAddEventListener.call(this, type, listener, options);
   } as typeof window.addEventListener;
 
+  const nativeDpr = window.devicePixelRatio || 1;
+  const cappedDpr = Math.min(nativeDpr, PARTICLES_DPR_CAP);
+  const nativeDprDescriptor = Object.getOwnPropertyDescriptor(
+    window,
+    "devicePixelRatio",
+  );
+  let dprShadowed = false;
+  if (cappedDpr < nativeDpr) {
+    try {
+      // Shadows the Window.prototype getter for the duration of init — the
+      // only moment particles.js reads it. Restored (deleted) right after.
+      Object.defineProperty(window, "devicePixelRatio", {
+        configurable: true,
+        get: () => cappedDpr,
+      });
+      dprShadowed = true;
+    } catch {
+      // Locked-down environment: init proceeds at native ratio.
+    }
+  }
+
   window.addEventListener = trackedAddEventListener;
   try {
     window.particlesJS?.(mountId, config);
   } finally {
     window.addEventListener = originalAddEventListener;
+    if (dprShadowed) {
+      if (nativeDprDescriptor) {
+        Object.defineProperty(window, "devicePixelRatio", nativeDprDescriptor);
+      } else {
+        delete (window as { devicePixelRatio?: number }).devicePixelRatio;
+      }
+    }
   }
 }
 
@@ -254,34 +304,89 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
     }
 
     let cancelled = false;
-    let pausedForVisibility = false;
     const capturedWindowListeners: WindowListener[] = [];
     const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     const mobile = window.matchMedia("(max-width: 768px)").matches;
+    const pauseReasons = new Set<ParticlePauseReason>();
+    let idleTimer = 0;
+    let scrollSettleTimer = 0;
 
-    const pauseInstance = () => {
+    const syncAmbientMotionFlag = () => {
+      if (!mobile) {
+        return;
+      }
+      if (pauseReasons.size > 0) {
+        document.documentElement.setAttribute("data-ambient-motion", "paused");
+      } else {
+        document.documentElement.removeAttribute("data-ambient-motion");
+      }
+    };
+
+    const pauseInstance = (reason: ParticlePauseReason) => {
+      if (pauseReasons.has(reason)) {
+        return;
+      }
+      pauseReasons.add(reason);
       const instance = findMountInstance(mount);
       const frame = instance?.pJS.fn.drawAnimFrame;
       if (typeof frame === "number") {
         window.cancelAnimationFrame(frame);
       }
-      pausedForVisibility = true;
+      syncAmbientMotionFlag();
     };
 
-    const resumeInstance = () => {
-      const instance = findMountInstance(mount);
-      if (!instance || !pausedForVisibility) {
+    const resumeInstance = (reason: ParticlePauseReason) => {
+      if (!pauseReasons.delete(reason)) {
         return;
       }
-      pausedForVisibility = false;
+      syncAmbientMotionFlag();
+      if (pauseReasons.size > 0) {
+        return;
+      }
+      const instance = findMountInstance(mount);
+      if (!instance) {
+        return;
+      }
       instance.pJS.fn.vendors.draw();
+    };
+
+    const armIdlePause = () => {
+      if (!mobile) {
+        return;
+      }
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(() => {
+        pauseInstance("idle");
+      }, MOBILE_AMBIENT_IDLE_MS);
+    };
+
+    const handleActivity = () => {
+      resumeInstance("idle");
+      armIdlePause();
+    };
+
+    const handleScroll = () => {
+      if (!mobile) {
+        return;
+      }
+      pauseInstance("scroll");
+      resumeInstance("idle");
+      window.clearTimeout(idleTimer);
+      window.clearTimeout(scrollSettleTimer);
+      scrollSettleTimer = window.setTimeout(() => {
+        resumeInstance("scroll");
+        armIdlePause();
+      }, MOBILE_SCROLL_SETTLE_MS);
     };
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        pauseInstance();
+        window.clearTimeout(idleTimer);
+        window.clearTimeout(scrollSettleTimer);
+        pauseInstance("hidden");
       } else {
-        resumeInstance();
+        resumeInstance("hidden");
+        handleActivity();
       }
     };
 
@@ -348,26 +453,51 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
         return;
       }
       destroyMountInstances(mount);
+      const nativeDpr = window.devicePixelRatio || 1;
+      const countScale = Math.max(1, nativeDpr / PARTICLES_DPR_CAP);
       initializeParticles(
         mountId,
-        createParticlesConfig(coarsePointer, mobile),
+        createParticlesConfig(coarsePointer, mobile, countScale),
         capturedWindowListeners,
       );
+      /* A slow script load can finish after the tab has already gone hidden
+         or the mobile idle budget has elapsed. Honour that state immediately
+         instead of allowing one unattended draw loop to escape. */
+      if (pauseReasons.size > 0) {
+        const frame = findMountInstance(mount)?.pJS.fn.drawAnimFrame;
+        if (typeof frame === "number") {
+          window.cancelAnimationFrame(frame);
+        }
+      }
       onReady?.("ready");
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("pointerdown", handleActivity, { passive: true });
+    window.addEventListener("touchstart", handleActivity, { passive: true });
+    window.addEventListener("keydown", handleActivity);
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
     window.addEventListener("click", handleClick, { passive: true });
     window.addEventListener("pointerleave", handlePointerLeave);
+    armIdlePause();
     void start();
 
     return () => {
       cancelled = true;
+      window.clearTimeout(idleTimer);
+      window.clearTimeout(scrollSettleTimer);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("pointerdown", handleActivity);
+      window.removeEventListener("touchstart", handleActivity);
+      window.removeEventListener("keydown", handleActivity);
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("click", handleClick);
       window.removeEventListener("pointerleave", handlePointerLeave);
+      if (mobile) {
+        document.documentElement.removeAttribute("data-ambient-motion");
+      }
       for (const { listener, options, type } of capturedWindowListeners) {
         window.removeEventListener(type, listener, options);
       }

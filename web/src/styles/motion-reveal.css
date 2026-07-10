@@ -31,3 +31,21 @@
     transform: none;
   }
 }
+
+/* A button-driven deep link is a relocation, not a page tour. The shared
+   handler marks the destination (and any reveal ancestors) permanently, so
+   even wrappers that mounted hidden before the handler's effect ran settle in
+   the same frame. `!important` is intentional: Motion owns these properties
+   through inline styles and must be overruled for this explicit navigation
+   state. */
+[data-reveal-bypass][data-motion-reveal="true"],
+[data-reveal-bypass] [data-motion-reveal="true"] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+[data-reveal-bypass][data-motion-reveal-kind="image"],
+[data-reveal-bypass] [data-motion-reveal-kind="image"] {
+  clip-path: inset(0% 0% round 20px) !important;
+}

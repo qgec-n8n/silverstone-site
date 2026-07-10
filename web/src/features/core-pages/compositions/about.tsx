@@ -17,6 +17,7 @@ import {
 import { StudioOrbitSignature } from "~/features/core-pages/signatures";
 import { NumberedRail } from "~/features/core-pages/shared";
 import {
+  BorderBeam,
   Prose,
   Reveal,
   SectionHead,
@@ -158,6 +159,7 @@ export function AboutComposition() {
                 }}
               />
             </Reveal>
+            <BorderBeam />
           </div>
         </div>
       </section>

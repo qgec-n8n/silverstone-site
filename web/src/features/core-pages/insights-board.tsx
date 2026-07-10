@@ -44,7 +44,7 @@ function compareArticlesByRecency(a: InsightArticle, b: InsightArticle): number 
   return a.title.localeCompare(b.title);
 }
 
-function ArticleCard({ article, index }: { article: InsightArticle; index: number }) {
+function ArticleCard({ article }: { article: InsightArticle }) {
   const categoryLabel = insightArticleCategoryLabel(article);
   const articleHref = article.href;
   const published = article.status === "published" && Boolean(articleHref);
@@ -89,8 +89,11 @@ function ArticleCard({ article, index }: { article: InsightArticle; index: numbe
     </>
   );
 
+  // Article cards never play an entrance — filtering, searching and deep
+  // links all re-render the grid, and a card that fades in on every
+  // keystroke reads as flicker, not choreography. They are simply present.
   return (
-    <Reveal kind="card" delayMs={Math.min(index, 6) * 90}>
+    <div>
       {published && articleHref ? (
         <Link
           className="ss-insight-card"
@@ -109,7 +112,7 @@ function ArticleCard({ article, index }: { article: InsightArticle; index: numbe
           {body}
         </article>
       )}
-    </Reveal>
+    </div>
   );
 }
 
@@ -195,8 +198,8 @@ export function InsightsBoard() {
 
       {filtered.length > 0 ? (
         <div className="ss-insight-grid">
-          {filtered.map((article, index) => (
-            <ArticleCard article={article} index={index} key={article.id} />
+          {filtered.map((article) => (
+            <ArticleCard article={article} key={article.id} />
           ))}
         </div>
       ) : (

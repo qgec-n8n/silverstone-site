@@ -9,6 +9,8 @@ import {
   type LucideIcon,
 } from "~/components/icons/lucide";
 
+import { BorderBeam } from "./primitives";
+
 type DemoInvitationAction = {
   href: string;
   label: string;
@@ -82,6 +84,7 @@ export function DemoInvitation({ variant }: { variant: "receptionists" | "voice"
               </Link>
             ))}
           </div>
+          <BorderBeam />
         </div>
       </div>
     </section>

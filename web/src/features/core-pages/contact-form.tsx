@@ -29,6 +29,7 @@ import {
   CheckCircle2Icon,
   Send,
 } from "~/components/icons/lucide";
+import { BorderBeam } from "~/features/services-v2/components/primitives";
 
 type Status = "idle" | "submitting" | "sent" | "fallback";
 
@@ -479,6 +480,7 @@ export function ContactForm() {
             <strong>{data.email.trim()}</strong>.
           </p>
         </div>
+        <BorderBeam />
       </div>
     );
   }
@@ -910,6 +912,7 @@ export function ContactForm() {
           </span>
         ) : null}
       </div>
+      <BorderBeam />
     </form>
   );
 }

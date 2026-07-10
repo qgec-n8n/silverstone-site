@@ -20,6 +20,7 @@ import type { FaqItem } from "../content/service-content";
 import type { RouteArt } from "../content/route-art";
 import {
   AnimatedMetricValue,
+  BorderBeam,
   Prose,
   Reveal,
   RichText,
@@ -125,6 +126,7 @@ export function BenchmarkConsole({
       <Reveal kind="section" delayMs={150 + metrics.length * 110 + 200}>
         <p className="ss-srv2-bench__disclaimer">{clarification}</p>
       </Reveal>
+      <BorderBeam />
     </div>
   );
 }

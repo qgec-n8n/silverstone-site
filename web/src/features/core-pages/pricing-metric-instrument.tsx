@@ -9,6 +9,7 @@
 import { ShieldCheck } from "~/components/icons/lucide";
 import {
   AnimatedMetricValue,
+  BorderBeam,
   Reveal,
   splitMetric,
 } from "~/features/services-v2/components/primitives";
@@ -61,6 +62,7 @@ export function PricingMetricInstrument({
       <Reveal kind="section" delayMs={150 + metrics.length * 110 + 200}>
         <p className="ss-srv2-bench__disclaimer">{clarification}</p>
       </Reveal>
+      <BorderBeam />
     </div>
   );
 }

@@ -92,6 +92,19 @@ export function useDeepLinkScroll(): void {
       const anchor = target.hasAttribute("data-deep-link-anchor")
         ? target
         : (target.closest<HTMLElement>(".ss-srv2-section") ?? target);
+      /* The landing section must be fully shown, permanently: reveals inside
+         it that only trigger later (below the fold of a tall section, after
+         the timed bypass window) must not play either. useRevealStart treats
+         anything inside this marker as instant. */
+      anchor.setAttribute("data-reveal-bypass", "true");
+      /* A route-level RevealSection can wrap the destination rather than sit
+         inside it. Mark those ancestors too: otherwise their inline hidden
+         transform can briefly conceal an otherwise bypassed section. */
+      for (let ancestor = anchor.parentElement; ancestor; ancestor = ancestor.parentElement) {
+        if (ancestor.hasAttribute("data-motion-reveal")) {
+          ancestor.setAttribute("data-reveal-bypass", "true");
+        }
+      }
       const idealTop = () =>
         Math.max(0, window.scrollY + anchor.getBoundingClientRect().top - offset);
       let appliedTop = idealTop();

@@ -11,6 +11,7 @@
 import type { ReactNode } from "react";
 
 import { AudioLines, MessageSquare } from "~/components/icons/lucide";
+import { BorderBeam } from "~/features/services-v2/components/primitives";
 
 import { ELEVENLABS_DEMO_DISCLOSURE } from "./elevenlabs-agent-config";
 
@@ -75,6 +76,7 @@ export function ConsoleFrame({
         <p className="ss-lvd__foot-body">{copy.footBody}</p>
         <p className="ss-lvd__disclosure">{ELEVENLABS_DEMO_DISCLOSURE}</p>
       </div>
+      <BorderBeam />
     </article>
   );
 }

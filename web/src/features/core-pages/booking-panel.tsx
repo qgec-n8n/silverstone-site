@@ -22,7 +22,7 @@ import { Link } from "react-router";
 import { CalendarCheck, MessageSquare } from "~/components/icons/lucide";
 import { OrbitalLoader } from "~/components/ui/orbital-loader";
 import { CALENDLY_ORIGIN, CALENDLY_URL } from "~/features/core-pages/calendly";
-import { Reveal } from "~/features/services-v2/components/primitives";
+import { BorderBeam } from "~/features/services-v2/components/primitives";
 
 /**
  * Calendly reports its internal page height via `calendly.page_height`
@@ -122,7 +122,10 @@ export function BookingPanel() {
       id="booking-calendar"
       data-stage={stage}
     >
-      <Reveal kind="section">
+      {/* The booking surface never plays an entrance: visitors are sent here
+          by explicit "book a call" CTAs, so the calendar must simply be
+          present the instant the page is — no reveal choreography, ever. */}
+      <div>
         <div className="ss-core-booking__body">
           <span className="ss-srv2-bench__tag">
             <CalendarCheck aria-hidden="true" />
@@ -141,8 +144,8 @@ export function BookingPanel() {
             preparation required.
           </p>
         </div>
-      </Reveal>
-      <Reveal kind="section" delayMs={120}>
+      </div>
+      <div>
         <div className="ss-core-booking__console">
           <div className="ss-core-booking__rail" aria-hidden="true">
             <span className="ss-core-booking__rail-label">
@@ -204,8 +207,8 @@ export function BookingPanel() {
             />
           </div>
         </div>
-      </Reveal>
-      <Reveal kind="section" delayMs={200}>
+      </div>
+      <div>
         <div className="ss-core-booking__footer">
           <p className="ss-core-booking__footer-note">
             {stage === "confirmed"
@@ -218,9 +221,11 @@ export function BookingPanel() {
           >
             <MessageSquare aria-hidden="true" />
             Contact instead
+            <BorderBeam />
           </Link>
         </div>
-      </Reveal>
+      </div>
+      <BorderBeam />
     </div>
   );
 }

@@ -486,6 +486,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   display: flex;
   flex-direction: column;
+  /* The hero is a viewport stage at every breakpoint. Breaking it out of the
+     route frame's narrower content column removes a redundant mobile gutter;
+     its own container immediately restores the canonical page gutter. That
+     extra line length is what lets premium-size mobile type fit above the
+     fixed controls without shrinking the copy into a dense column. */
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
   height: calc(100dvh - var(--srv2-hero-chrome));
   min-height: calc(100dvh - var(--srv2-hero-chrome));
   overflow: hidden;
@@ -537,11 +544,6 @@ section[data-slot="page-section"]:has(.ss-srv2) {
      the homepage trust strip; the hero's own .ss-srv2__container (74rem,
      fluid beyond 120rem) re-centres and caps the content. Hero only: body
      sections keep the shared route-frame measure. */
-  .ss-srv2-hero {
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
-  }
-
   .ss-srv2-hero__grid {
     /* Slightly more room for copy than showcase — the longest H1s in this set
        run to ~68 characters, and an even split forces a narrow column that
@@ -812,6 +814,11 @@ section[data-slot="page-section"]:has(.ss-srv2) {
    * reflow every time iOS's toolbar animates.
    */
   .ss-srv2-hero {
+    /* Height of the floating chrome cluster pinned to the viewport's bottom
+       corners (demos FAB + "Try a live demo" bubble on the right, consent /
+       article-return controls on the left) — the scroll-cue band below
+       reserves it so the CTA block can never sink behind that chrome. */
+    --srv2-mobile-chrome-reserve: calc(8rem + env(safe-area-inset-bottom, 0px));
     height: auto;
     min-height: calc(100svh - var(--srv2-hero-chrome));
     overflow: visible;
@@ -829,12 +836,24 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   /* Use the available one-screen stage instead of packing the entire copy
      stack against its top edge. The top group absorbs the flexible space and
      distributes its pill/title/lead/proof beats; actions remain a distinct
-     closing beat just above the fold-pinned cue. If copy genuinely needs more
-     room, the auto-height hero still grows naturally. */
+     closing beat just above the reserved chrome band. If copy genuinely needs
+     more room, the auto-height hero still grows naturally. */
   .ss-srv2-hero__top {
     flex: 1;
     justify-content: space-evenly;
     padding-block: clamp(0.3rem, 1.25svh, 0.95rem);
+  }
+
+  /* The cue anchors to the bottom of the reserved band — on the fold, in the
+     clear centre lane between the two floating corner stacks. */
+  .ss-srv2-hero__scrollcue {
+    min-height: var(--srv2-mobile-chrome-reserve);
+    align-items: flex-end;
+    padding-top: 0;
+  }
+
+  .ss-srv2-hero__scrollcue .ss-hv2-body-scrollcue {
+    margin-bottom: 0.3rem;
   }
 }
 
@@ -845,11 +864,25 @@ section[data-slot="page-section"]:has(.ss-srv2) {
  * instead of the homepage's three tiny label-only tiles. This lets each row
  * grow to its own page-specific wording without breaking the one-screen
  * composition or reducing the text to an unreadable size.
+ *
+ * Width hierarchy (deliberate, widest → narrowest): title, then the lead a
+ * step in, then capability rows and CTAs a clear step narrower again — the
+ * stack tapers toward its actions instead of every band running edge-to-edge.
+ *
+ * --srv2-mobile-chrome-reserve is the height of the tallest floating chrome
+ * stack pinned to the viewport's bottom corners: the route-return control sits
+ * above the consent icon on the left, while the demo bubble sits above its FAB
+ * on the right. The scroll-cue band reserves the higher of those top edges, so
+ * the CTA block always ends above every fixed control and the
+ * cue — anchored to the band's bottom — still sits on the fold, in the clear
+ * lane between the two corner stacks.
  */
 @media (max-width: 40rem) {
   .ss-srv2-hero {
-    --srv2-mobile-copy-width: min(100%, 21rem);
-    padding-block: clamp(0.4rem, 1svh, 0.7rem);
+    --srv2-mobile-copy-width: min(100%, 21.5rem);
+    --srv2-mobile-lead-width: min(100%, 19.75rem);
+    --srv2-mobile-block-width: min(88%, 17.5rem);
+    padding-block: clamp(0.3rem, 0.8svh, 0.6rem);
   }
 
   .ss-srv2-hero__intro,
@@ -859,49 +892,53 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-srv2-hero__intro {
-    gap: clamp(0.42rem, 0.8svh, 0.65rem);
+    gap: clamp(0.9rem, 1.6svh, 1.4rem);
   }
 
   .ss-srv2-hero__top {
     width: 100%;
-    gap: clamp(0.42rem, 0.8svh, 0.65rem);
+    gap: clamp(0.5rem, 1.1svh, 0.9rem);
+    padding-block: 0;
   }
 
   .ss-srv2-hero__crumbs {
     width: 100%;
-    text-align: start;
+  }
+
+  .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
+    justify-content: center;
   }
 
   .ss-srv2-hero__title,
   .ss-srv2-hero__title[data-long="true"] {
     width: var(--srv2-mobile-copy-width);
     max-width: var(--srv2-mobile-copy-width);
-    font-size: clamp(1.68rem, 8.8vw, 2.35rem);
-    line-height: 1.04;
+    font-size: clamp(1.9rem, 9.4vw, 2.55rem);
+    line-height: 1.05;
   }
 
   .ss-srv2-hero__title[data-long="true"] {
-    font-size: clamp(1.55rem, 8vw, 2.12rem);
+    font-size: clamp(1.72rem, 8.5vw, 2.3rem);
   }
 
   .ss-srv2-hero__lead {
-    width: var(--srv2-mobile-copy-width);
-    max-width: var(--srv2-mobile-copy-width);
-    font-size: clamp(0.78rem, 2.2vw, 0.88rem);
-    line-height: 1.38;
+    width: var(--srv2-mobile-lead-width);
+    max-width: var(--srv2-mobile-lead-width);
+    font-size: clamp(0.86rem, 2.45vw, 0.98rem);
+    line-height: 1.45;
   }
 
   .ss-srv2-hero__caps {
     display: grid;
-    width: var(--srv2-mobile-copy-width);
+    width: var(--srv2-mobile-block-width);
     gap: clamp(0.32rem, 0.65svh, 0.48rem);
     margin-top: 0;
   }
 
   .ss-srv2-hero__cap {
-    min-height: 2.35rem;
+    min-height: 2.3rem;
     gap: 0.62rem;
-    padding: 0.42rem 0.7rem;
+    padding: 0.4rem 0.7rem;
     border: 1px solid var(--srv2-hairline);
     border-radius: var(--ss-radius-sm);
     background:
@@ -922,12 +959,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-srv2-hero__cap-icon {
-    width: 1.65rem;
-    height: 1.65rem;
+    width: 1.6rem;
+    height: 1.6rem;
   }
 
   .ss-srv2-hero__actions-reveal {
-    width: var(--srv2-mobile-copy-width);
+    width: var(--srv2-mobile-block-width);
   }
 
   .ss-srv2-hero__actions {
@@ -940,31 +977,31 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-srv2-hero__actions .ss-srv2-btn {
     width: 100%;
-    min-height: 2.5rem;
+    min-height: 2.6rem;
     justify-content: center;
     padding: 0.52rem 1rem;
-    font-size: 0.82rem;
+    font-size: 0.84rem;
   }
 
-  .ss-srv2-hero__scrollcue {
-    padding-top: clamp(0.2rem, 0.55svh, 0.42rem);
-  }
 }
 
 /* Short mobile browser viewports (including Safari with both toolbars shown)
    keep every content group and the full animated cue inside the first screen. */
 @media (max-width: 40rem) and (max-height: 43.75rem) {
+  /* The floating chrome cluster keeps its full height on short screens, so
+     the reserve inherited from the stacked-layout rules does not shrink here
+     — only the copy compacts. */
   .ss-srv2-hero {
     padding-block: 0.3rem;
   }
 
-  .ss-srv2-hero__intro,
-  .ss-srv2-hero__top {
-    gap: 0.32rem;
+  .ss-srv2-hero__intro {
+    gap: 0.6rem;
   }
 
   .ss-srv2-hero__top {
-    padding-block: 0.1rem;
+    gap: 0.4rem;
+    padding-block: 0;
   }
 
   .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
@@ -973,12 +1010,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-srv2-hero__title,
   .ss-srv2-hero__title[data-long="true"] {
-    font-size: clamp(1.35rem, 7.2vw, 1.78rem);
+    font-size: clamp(1.5rem, 7.6vw, 1.95rem);
   }
 
   .ss-srv2-hero__lead {
-    font-size: 0.72rem;
-    line-height: 1.28;
+    font-size: 0.78rem;
+    line-height: 1.34;
   }
 
   .ss-srv2-hero__caps,
@@ -993,17 +1030,77 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-srv2-hero__actions .ss-srv2-btn {
-    min-height: 2.1rem;
+    min-height: 2.2rem;
     padding-block: 0.38rem;
-    font-size: 0.75rem;
-  }
-
-  .ss-srv2-hero__scrollcue {
-    padding-top: 0.16rem;
+    font-size: 0.76rem;
   }
 
   .ss-srv2-hero__scrollcue .ss-hv2-scrollcue__rail {
     height: 24px;
+  }
+}
+
+/* Ultra-short phones (for example a 320×568 small viewport with browser chrome
+   visible) need a different action composition, not illegibly tiny controls.
+   CTAs share one row so both retain a 44px touch target; the copy stack then
+   compacts just enough for the action row to clear the demo bubble and for the
+   cue to remain inside the first screen. */
+@media (max-width: 40rem) and (max-height: 38rem) {
+  .ss-srv2-hero__intro {
+    gap: 0.38rem;
+  }
+
+  .ss-srv2-hero__top {
+    gap: 0.28rem;
+  }
+
+  .ss-srv2-hero .ss-srv2-eyebrow {
+    padding-block: 0.3rem;
+    font-size: 0.56rem;
+  }
+
+  .ss-srv2-hero__title,
+  .ss-srv2-hero__title[data-long="true"] {
+    font-size: clamp(1.4rem, 7.2vw, 1.75rem);
+    line-height: 1.04;
+  }
+
+  .ss-srv2-hero__lead {
+    font-size: 0.72rem;
+    line-height: 1.28;
+  }
+
+  .ss-srv2-hero__caps {
+    gap: 0.22rem;
+  }
+
+  .ss-srv2-hero__cap {
+    min-height: 1.7rem;
+    padding-block: 0.2rem;
+    font-size: 0.62rem;
+    line-height: 1.2;
+  }
+
+  .ss-srv2-hero__cap-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .ss-srv2-hero__actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.38rem;
+  }
+
+  .ss-srv2-hero__actions .ss-srv2-btn {
+    min-height: 2.75rem;
+    padding: 0.35rem 0.42rem;
+    font-size: 0.7rem;
+    line-height: 1.15;
+  }
+
+  .ss-srv2-hero__actions .ss-srv2-btn svg {
+    width: 0.8rem;
+    height: 0.8rem;
   }
 }
 
@@ -1405,19 +1502,47 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 /* ---- Border beam (traveling light accent, Magic UI border-beam inspired) */
 
+/*
+ * The frame class only anchors the geometry; the light itself is the
+ * `.ss-srv2-beam` span rendered by the BorderBeam component (see
+ * primitives.tsx) as the frame's last child. The span carries the static XOR
+ * ring mask; its ::before is an oversized conic-gradient square spun with a
+ * plain transform — compositor-driven, no per-frame style recalc or paint,
+ * unlike the old registered-@property angle animation it replaces.
+ */
 .ss-srv2-beam-border {
   position: relative;
 }
 
-.ss-srv2-beam-border::before {
-  content: "";
+.ss-srv2-beam {
   position: absolute;
   inset: -1px;
   z-index: -1;
+  overflow: hidden;
   border-radius: inherit;
   padding: 1px;
+  pointer-events: none;
+  container-type: size;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.ss-srv2-beam::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* A (w+h)/4 square scaled 4× always covers the frame's diagonal
+     ((w+h) ≥ √(w²+h²)) while rasterising at quarter size; the gradient is
+     smooth so the upscale is invisible, and the ring's crisp edge comes from
+     the unscaled mask above. */
+  width: calc(25cqw + 25cqh);
+  aspect-ratio: 1;
   background: conic-gradient(
-    from var(--srv2-beam-angle, 0deg),
+    from 0deg,
     transparent 0%,
     transparent 78%,
     var(--srv2-accent) 88%,
@@ -1425,28 +1550,26 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     var(--srv2-accent-2) 96%,
     transparent 100%
   );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: srv2-beam-rotate 5.5s linear infinite;
+  transform: translate(-50%, -50%) scale(4);
+  /* Paused until the BorderBeam observer marks the frame on-screen. */
+  animation: srv2-beam-rotate 5.5s linear infinite paused;
+}
+
+.ss-srv2-beam[data-active="true"]::before {
+  animation-play-state: running;
 }
 
 @keyframes srv2-beam-rotate {
+  from {
+    transform: translate(-50%, -50%) scale(4) rotate(0turn);
+  }
   to {
-    --srv2-beam-angle: 360deg;
+    transform: translate(-50%, -50%) scale(4) rotate(1turn);
   }
 }
 
-@property --srv2-beam-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .ss-srv2-beam-border::before {
+  .ss-srv2-beam::before {
     animation: none;
   }
 }

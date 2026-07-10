@@ -7,7 +7,7 @@
  */
 import { Globe } from "~/components/icons/lucide";
 
-import { Reveal, TextLink } from "../components/primitives";
+import { BorderBeam, Reveal, TextLink } from "../components/primitives";
 
 type Showcase = {
   index: number;
@@ -59,6 +59,7 @@ function BrowserFrame({ index, title, status, configSlot }: Showcase) {
           <h3 className="ss-srv2-browser__title">{title}</h3>
           <p className="ss-srv2-browser__status">{status}</p>
         </div>
+        <BorderBeam />
       </article>
     </Reveal>
   );

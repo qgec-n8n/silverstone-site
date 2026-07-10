@@ -24,6 +24,7 @@ import {
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
 import {
+  BorderBeam,
   Prose,
   Reveal,
   SectionHead,
@@ -106,6 +107,7 @@ export function EcommerceComposition({
               icons={painIcons}
               columns={4}
             />
+            <BorderBeam />
           </div>
         </div>
       </section>

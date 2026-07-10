@@ -31,6 +31,7 @@ import type {
   SilverstoneBlogTable,
 } from "~/data/blog-posts";
 import {
+  BorderBeam,
   Eyebrow,
   Reveal,
   RichText,
@@ -442,6 +443,7 @@ function ArticleSection({
             </div>
           ))}
         </section>
+        <BorderBeam />
       </div>
       {/*
        * The comparison table renders as a sibling of the section rather than
@@ -510,19 +512,22 @@ function InsightsReturn({ categoryLabel }: { categoryLabel: string }) {
   );
 }
 
-function FloatingInsightsReturn() {
+function FloatingInsightsReturn({ visible }: { visible: boolean }) {
   return (
     <Link
       aria-label="Back to the Insights search and filters"
+      aria-hidden={visible ? undefined : true}
+      tabIndex={visible ? undefined : -1}
       className="ss-blog-article__floating-return"
+      data-visible={visible ? "true" : "false"}
       to="/blog#insights-search"
     >
       <span className="ss-blog-article__floating-return-glyph" aria-hidden="true">
-        <Search />
         <ArrowLeft />
       </span>
-      <span className="ss-blog-article__floating-return-label" aria-hidden="true">
-        Insights search
+      <span className="ss-blog-article__floating-return-copy" aria-hidden="true">
+        <span>Return to</span>
+        <strong>All Insights</strong>
       </span>
     </Link>
   );
@@ -534,34 +539,37 @@ export function ArticlePage({ post }: ArticlePageProps) {
 
   useEffect(() => {
     const factStrip = factStripRef.current;
-    if (
-      !factStrip ||
-      floatingReturnVisible ||
-      typeof IntersectionObserver === "undefined"
-    ) {
+    if (!factStrip || typeof IntersectionObserver === "undefined") {
       return;
     }
 
-    // The observer's effective root is the upper half of the viewport. The
-    // control unlocks once the fact/trust strip reaches that zone, then stays
-    // available for the rest of the article without a scroll listener.
+    // The observed zone is everything below the viewport midline, extended
+    // far past the fold: while the fact/trust strip intersects it, the strip
+    // is still below the midline (the hero with its own return pill is on or
+    // near screen) so the control hides; once the strip climbs past the
+    // midline it leaves the zone and the control shows. Extending the zone
+    // downward means any midline crossing — including instant anchor jumps
+    // that teleport the strip from one side of the viewport to the other —
+    // always changes the intersection state, so the callback can never be
+    // skipped and the control can never be stranded in the wrong state.
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setFloatingReturnVisible(true);
-          observer.disconnect();
+        const entry = entries[entries.length - 1];
+        if (!entry) {
+          return;
         }
+        setFloatingReturnVisible(!entry.isIntersecting);
       },
-      { rootMargin: "0px 0px -50% 0px", threshold: 0 },
+      { rootMargin: "-50% 0px 100000px 0px", threshold: 0 },
     );
     observer.observe(factStrip);
     return () => observer.disconnect();
-  }, [floatingReturnVisible]);
+  }, []);
 
   return (
     <RouteExperienceFrame skipIntro>
       <BlogJsonLd post={post} />
-      {floatingReturnVisible ? <FloatingInsightsReturn /> : null}
+      <FloatingInsightsReturn visible={floatingReturnVisible} />
       <article className="ss-blog-article">
         <header
           className="ss-blog-article__hero"
@@ -672,6 +680,7 @@ export function ArticlePage({ post }: ArticlePageProps) {
                     </Link>
                   ))}
                 </div>
+                <BorderBeam />
               </Reveal>
             ) : null}
 
@@ -690,6 +699,7 @@ export function ArticlePage({ post }: ArticlePageProps) {
               <ServiceButton href="/book#booking-calendar" variant="primary">
                 Book a discovery call
               </ServiceButton>
+              <BorderBeam />
             </Reveal>
           </div>
         </div>

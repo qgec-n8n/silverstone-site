@@ -16,7 +16,11 @@ import {
 } from "~/components/icons/lucide";
 import { useRevealStart } from "~/motion/use-reveal-start";
 
-import { Reveal, RichText } from "~/features/services-v2/components/primitives";
+import {
+  BorderBeam,
+  Reveal,
+  RichText,
+} from "~/features/services-v2/components/primitives";
 import type { IndustryCard, IndustryStage } from "../content/types";
 import type { IndustryImage } from "../content/route-art";
 
@@ -132,6 +136,8 @@ function JourneyRailStage({ children, index }: { children: ReactNode; index: num
     <m.li
       ref={ref}
       className="ss-ind2-rail__stage"
+      data-motion-reveal="true"
+      data-motion-reveal-kind="section"
       initial={hidden}
       animate={start !== null ? { opacity: 1, x: 0 } : hidden}
       transition={{
@@ -187,6 +193,7 @@ export function BoundaryPanel({
           )}
         </div>
       </div>
+      <BorderBeam />
     </div>
   );
 }
@@ -204,6 +211,8 @@ function BoundaryKeepItem({ item, index }: { item: string; index: number }) {
     <m.div
       ref={ref}
       className="ss-ind2-boundary__item"
+      data-motion-reveal="true"
+      data-motion-reveal-kind="section"
       role="listitem"
       initial={{ opacity: 0, y: 18 }}
       animate={start !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
@@ -273,6 +282,8 @@ function TrustTokenItem({ token, index }: { token: string; index: number }) {
     <m.span
       ref={ref}
       className="ss-ind2-tokens__item"
+      data-motion-reveal="true"
+      data-motion-reveal-kind="section"
       initial={{ opacity: 0, y: 12 }}
       animate={start !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       transition={{

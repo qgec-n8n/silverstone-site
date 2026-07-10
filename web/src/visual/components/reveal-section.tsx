@@ -60,6 +60,8 @@ function ScheduledRevealSection({
     <m.div
       ref={ref}
       className={className}
+      data-motion-reveal="true"
+      data-motion-reveal-kind="section"
       initial="hidden"
       animate={start !== null ? "show" : "hidden"}
       variants={{

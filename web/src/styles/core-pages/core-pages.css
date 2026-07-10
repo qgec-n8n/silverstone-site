@@ -2257,10 +2257,11 @@ a.ss-insight-card:hover {
   text-transform: none;
 }
 
-/* Persistent article return: a compact spectral search instrument positioned
-   one control-height above the consent button. It only mounts after the facts
-   strip crosses the viewport midpoint (see article-page.tsx), so the opening
-   hero remains visually quiet. */
+/* Floating article return: a spectral glass capsule pinned one control-height
+   above the consent button. article-page.tsx toggles data-visible as the
+   fact/trust strip crosses the viewport midline, so this control and the
+   hero's own return pill are never on screen together. The label is always
+   visible (not hover-gated) so its function reads instantly on touch. */
 .ss-blog-article__floating-return {
   position: fixed;
   /* One layer below Silktide's #stcm-wrapper (99999): visible beside its
@@ -2270,46 +2271,44 @@ a.ss-insight-card:hover {
   bottom: calc(
     clamp(1rem, 0.5rem + 2vw, 1.75rem) + env(safe-area-inset-bottom, 0px) + 3.85rem
   );
-  display: grid;
-  place-items: center;
-  width: 3.1rem;
-  height: 3.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.62rem;
+  padding: 0.4rem 1.05rem 0.4rem 0.44rem;
   border: 1px solid
-    color-mix(in srgb, var(--ss-v2-signal-violet) 44%, var(--ss-v2-hairline-strong));
+    color-mix(in srgb, var(--ss-v2-signal-cyan) 32%, var(--ss-v2-hairline-strong));
   border-radius: 999px;
   background:
-    radial-gradient(
-      110% 115% at 28% 4%,
-      color-mix(in srgb, var(--ss-v2-signal-cyan) 26%, transparent),
-      transparent 58%
+    linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--ss-v2-signal-cyan) 14%, transparent),
+      color-mix(in srgb, var(--ss-v2-signal-violet) 12%, transparent) 55%,
+      transparent 82%
     ),
-    radial-gradient(
-      90% 100% at 92% 100%,
-      color-mix(in srgb, var(--ss-v2-signal-violet) 24%, transparent),
-      transparent 64%
-    ),
-    color-mix(in srgb, var(--ss-v2-graphite-raised) 90%, transparent);
+    color-mix(in srgb, var(--ss-v2-graphite-raised) 92%, transparent);
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--ss-v2-signal-cyan) 7%, transparent),
-    0 18px 46px -22px color-mix(in srgb, var(--ss-v2-signal-violet) 78%, transparent);
-  color: var(--ss-v2-signal-cyan);
+    inset 0 1px 0 color-mix(in srgb, #ffffff 13%, transparent),
+    0 18px 44px -20px rgba(0, 0, 0, 0.8),
+    0 0 30px -12px color-mix(in srgb, var(--ss-v2-signal-cyan) 55%, transparent);
+  color: var(--ss-v2-platinum);
   text-decoration: none;
   backdrop-filter: blur(14px);
-  animation: ss-blog-floating-return-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
   transition:
-    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 280ms ease,
     box-shadow 280ms ease;
 }
 
-.ss-blog-article__floating-return::after {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  border: 1px solid color-mix(in srgb, var(--ss-v2-signal-cyan) 25%, transparent);
-  border-radius: inherit;
+.ss-blog-article__floating-return[data-visible="false"] {
+  opacity: 0;
+  transform: translateY(14px) scale(0.94);
+  visibility: hidden;
   pointer-events: none;
+  transition:
+    opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 320ms;
 }
 
 .ss-blog-article__floating-return:hover {
@@ -2326,78 +2325,60 @@ a.ss-insight-card:hover {
   outline-offset: 4px;
 }
 
+/* Direction glyph: a luminous cyan→violet coin carrying the back arrow. */
 .ss-blog-article__floating-return-glyph {
-  position: relative;
   display: grid;
   place-items: center;
-  width: 1.45rem;
-  height: 1.45rem;
-}
-
-.ss-blog-article__floating-return-glyph svg:first-child {
-  width: 1.15rem;
-  height: 1.15rem;
-  filter: drop-shadow(
-    0 0 8px color-mix(in srgb, var(--ss-v2-signal-cyan) 72%, transparent)
-  );
-}
-
-.ss-blog-article__floating-return-glyph svg:last-child {
-  position: absolute;
-  right: -0.28rem;
-  bottom: -0.22rem;
-  width: 0.72rem;
-  height: 0.72rem;
-  padding: 0.12rem;
+  flex: none;
+  width: 2.15rem;
+  height: 2.15rem;
   border-radius: 999px;
-  background: var(--ss-v2-signal-violet);
+  background: linear-gradient(
+    135deg,
+    var(--ss-v2-signal-cyan),
+    var(--ss-v2-signal-violet)
+  );
   color: var(--ss-v2-void-black);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--ss-v2-signal-violet) 72%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 45%, transparent),
+    0 0 16px -4px color-mix(in srgb, var(--ss-v2-signal-cyan) 80%, transparent);
 }
 
-.ss-blog-article__floating-return-label {
-  position: absolute;
-  left: calc(100% + 0.65rem);
-  width: max-content;
-  padding: 0.42rem 0.65rem;
-  border: 1px solid var(--ss-v2-hairline-strong);
-  border-radius: var(--ss-radius-pill);
-  background: color-mix(in srgb, var(--ss-v2-graphite-raised) 94%, transparent);
-  color: var(--ss-v2-platinum);
+.ss-blog-article__floating-return-glyph svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-blog-article__floating-return:hover .ss-blog-article__floating-return-glyph svg {
+  transform: translateX(-2px);
+}
+
+.ss-blog-article__floating-return-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.16rem;
+  line-height: 1;
+}
+
+.ss-blog-article__floating-return-copy > span {
   font-family: var(--ss-font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0;
-  transform: translateX(-5px);
-  pointer-events: none;
-  transition:
-    opacity 220ms ease,
-    transform 220ms ease;
+  color: color-mix(in srgb, var(--ss-v2-signal-cyan) 82%, var(--ss-v2-platinum));
 }
 
-.ss-blog-article__floating-return:hover .ss-blog-article__floating-return-label,
-.ss-blog-article__floating-return:focus-visible
-  .ss-blog-article__floating-return-label {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-@keyframes ss-blog-floating-return-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.88);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.ss-blog-article__floating-return-copy > strong {
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ss-blog-article__floating-return,
-  .ss-blog-article__floating-return-label {
-    animation: none;
+  .ss-blog-article__floating-return-glyph svg {
     transition: none;
   }
 }

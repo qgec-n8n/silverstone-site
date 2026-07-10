@@ -19,6 +19,7 @@ import {
   Sparkles,
   UserRound,
 } from "~/components/icons/lucide";
+import { BorderBeam } from "~/features/services-v2/components/primitives";
 
 import {
   BOTPRESS_DEMO_AGENT_NAME,
@@ -97,6 +98,7 @@ export function SamConsoleFrame({
         <p className="ss-smc__foot-body">{copy.footBody}</p>
         <p className="ss-smc__disclosure">{BOTPRESS_DEMO_DISCLOSURE}</p>
       </div>
+      <BorderBeam />
     </article>
   );
 }

@@ -31,6 +31,7 @@ import {
   TriangleAlertIcon,
   type LucideIcon,
 } from "~/components/icons/lucide";
+import { isRevealBypassActive } from "~/motion/reveal-bypass";
 import { useRevealStart } from "~/motion/use-reveal-start";
 import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
 
@@ -84,6 +85,11 @@ export function AnimatedMetricValue({ value }: { value: string }) {
 
   useEffect(() => {
     if (!match || reducedMotion || !inView) {
+      return;
+    }
+    // Deep-link landings show the verified figure immediately: a count-up is
+    // still an entrance animation, and linked-to sections must arrive settled.
+    if (isRevealBypassActive() || ref.current?.closest("[data-reveal-bypass]")) {
       return;
     }
     motionValue.set(0);
@@ -212,13 +218,23 @@ export function Reveal({
   const reducedMotion = useReducedMotion() ?? false;
 
   if (reducedMotion) {
-    return <div className={className}>{children}</div>;
+    return (
+      <div
+        className={className}
+        data-motion-reveal="true"
+        data-motion-reveal-kind={kind}
+      >
+        {children}
+      </div>
+    );
   }
 
   if (trigger === "mount") {
     return (
       <m.div
         className={className}
+        data-motion-reveal="true"
+        data-motion-reveal-kind={kind}
         initial="hidden"
         animate="show"
         variants={revealVariants[kind]}
@@ -276,6 +292,8 @@ function ViewportReveal({
     <m.div
       ref={ref}
       className={className}
+      data-motion-reveal="true"
+      data-motion-reveal-kind={kind}
       initial="hidden"
       animate={start !== null ? "show" : "hidden"}
       variants={revealVariants[kind]}
@@ -361,6 +379,8 @@ function ImageReveal({
     <m.div
       ref={containerRef}
       className={className}
+      data-motion-reveal="true"
+      data-motion-reveal-kind="image"
       initial="hidden"
       animate={start !== null ? "show" : "hidden"}
       variants={tier === "full" ? revealVariants.image : liteImageVariants}
@@ -535,6 +555,8 @@ function WarningChecklistItem({ point, index }: { point: string; index: number }
   return (
     <m.li
       ref={ref}
+      data-motion-reveal="true"
+      data-motion-reveal-kind="section"
       initial={{ opacity: 0, y: 22 }}
       animate={start !== null ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
       transition={{
@@ -547,6 +569,56 @@ function WarningChecklistItem({ point, index }: { point: string; index: number }
       <span>{point}</span>
     </m.li>
   );
+}
+
+/**
+ * Traveling border light for `.ss-srv2-beam-border` frames.
+ *
+ * The effect used to live entirely in CSS as a registered `@property` angle
+ * animated inside the frame pseudo-element's conic-gradient. Interpolating a
+ * custom property runs style recalc on the main thread and repaints the whole
+ * card every frame, so on phones the beam visibly stepped and a page of cards
+ * kept the CPU pinned (and the device hot). This span keeps a static XOR ring
+ * mask while its own ::before — an oversized conic-gradient square — spins
+ * with a plain transform, so the whole effect stays on the compositor. A
+ * shared IntersectionObserver parks the rotation while the card is
+ * off-screen, so a long article only ever animates the beams in view.
+ *
+ * Must be rendered as the LAST child of its `.ss-srv2-beam-border` frame:
+ * some frames (e.g. the pricing metric instrument) place direct children with
+ * `:nth-child`, which a leading span would shift.
+ */
+let beamObserver: IntersectionObserver | null = null;
+
+function observeBeam(element: Element): () => void {
+  if (typeof IntersectionObserver === "undefined") {
+    element.setAttribute("data-active", "true");
+    return () => {};
+  }
+  beamObserver ??= new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      entry.target.setAttribute(
+        "data-active",
+        entry.isIntersecting ? "true" : "false",
+      );
+    }
+  });
+  beamObserver.observe(element);
+  return () => beamObserver?.unobserve(element);
+}
+
+export function BorderBeam() {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) {
+      return;
+    }
+    return observeBeam(element);
+  }, []);
+
+  return <span ref={ref} className="ss-srv2-beam" aria-hidden="true" />;
 }
 
 type ServiceButtonProps = ComponentPropsWithoutRef<"a"> & {

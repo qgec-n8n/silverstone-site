@@ -24,9 +24,15 @@ export type RevealStart = {
  * hidden state". Reveals triggered during a deep-link landing window resolve
  * as `instant` and skip the scheduler entirely, so they neither wait for nor
  * hold back other entrances.
+ *
+ * Reveals inside a section a deep link has landed on (`data-reveal-bypass`,
+ * stamped by the deep-link scroll handler) are instant permanently, not just
+ * during the timed window: a linked-to section must read as simply *there* in
+ * its entirety — including the parts below the fold that only trigger once
+ * the visitor scrolls within it after the window has closed.
  */
 function resolveRevealStart(element: Element, delayMs: number): RevealStart {
-  if (isRevealBypassActive()) {
+  if (isRevealBypassActive() || element.closest("[data-reveal-bypass]") !== null) {
     return { delayMs: 0, durationScale: 0, instant: true };
   }
   return { ...scheduleReveal(element, delayMs), instant: false };

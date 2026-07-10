@@ -227,6 +227,7 @@ function ViewportReveal({
       className={cn("ss-hv2-reveal", className)}
       data-align={dataAlign}
       data-motion-reveal="true"
+      data-motion-reveal-kind={kind}
       data-revealed="true"
       data-width={dataWidth}
       initial={reducedMotion ? false : "hidden"}
@@ -320,6 +321,7 @@ function ImageReveal({
       className={cn("ss-hv2-reveal", className)}
       data-align={dataAlign}
       data-motion-reveal="true"
+      data-motion-reveal-kind="image"
       data-revealed="true"
       data-width={dataWidth}
       initial="hidden"

@@ -22,6 +22,7 @@ import {
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
 import {
+  BorderBeam,
   Prose,
   Reveal,
   SectionHead,
@@ -99,6 +100,7 @@ export function SalonsBarbersComposition({
                 <Reveal kind="section">
                   <Prose paragraphs={[copy.problem.body]} />
                 </Reveal>
+                <BorderBeam />
               </div>
             </div>
             <Reveal kind="image">
@@ -111,6 +113,7 @@ export function SalonsBarbersComposition({
               icons={painIcons}
               columns={4}
             />
+            <BorderBeam />
           </div>
         </div>
       </section>
