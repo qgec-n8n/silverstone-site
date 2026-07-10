@@ -818,7 +818,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
        corners (demos FAB + "Try a live demo" bubble on the right, consent /
        article-return controls on the left) — the scroll-cue band below
        reserves it so the CTA block can never sink behind that chrome. */
-    --srv2-mobile-chrome-reserve: calc(8rem + env(safe-area-inset-bottom, 0px));
+    --srv2-mobile-chrome-reserve: calc(7.4rem + env(safe-area-inset-bottom, 0px));
     height: auto;
     min-height: calc(100svh - var(--srv2-hero-chrome));
     overflow: visible;
@@ -880,8 +880,8 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 @media (max-width: 40rem) {
   .ss-srv2-hero {
     --srv2-mobile-copy-width: min(100%, 21.5rem);
-    --srv2-mobile-lead-width: min(100%, 19.75rem);
-    --srv2-mobile-block-width: min(88%, 17.5rem);
+    --srv2-mobile-lead-width: min(92%, 19rem);
+    --srv2-mobile-block-width: min(84%, 16.5rem);
     padding-block: clamp(0.3rem, 0.8svh, 0.6rem);
   }
 
@@ -907,6 +907,26 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
     justify-content: center;
+  }
+
+  .ss-srv2-hero .ss-srv2-eyebrow {
+    max-width: 82%;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.32rem 0.68rem 0.32rem 0.5rem;
+    font-size: 0.56rem;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .ss-srv2-hero .ss-srv2-eyebrow svg {
+    width: 0.82rem;
+    height: 0.82rem;
+  }
+
+  .ss-srv2-hero .ss-srv2-eyebrow__dot {
+    width: 0.42rem;
+    height: 0.42rem;
   }
 
   .ss-srv2-hero__title,
@@ -1046,6 +1066,16 @@ section[data-slot="page-section"]:has(.ss-srv2) {
    compacts just enough for the action row to clear the demo bubble and for the
    cue to remain inside the first screen. */
 @media (max-width: 40rem) and (max-height: 38rem) {
+  .ss-srv2-hero {
+    /* Keep the reduced hierarchy, but recover a few pixels of line length so
+       ultra-short screens retain their existing first-fold clearance. */
+    --srv2-mobile-lead-width: min(94%, 18rem);
+    --srv2-mobile-block-width: min(84%, 15rem);
+    --srv2-mobile-chrome-reserve: calc(
+      8rem + env(safe-area-inset-bottom, 0px)
+    );
+  }
+
   .ss-srv2-hero__intro {
     gap: 0.38rem;
   }
