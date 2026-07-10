@@ -869,7 +869,10 @@ export function ContactForm() {
             Back
           </button>
         ) : (
-          <a className="ss-enq__mailto" href="mailto:info@silverstone-ai.com">
+          <a
+            className="ss-enq__mailto"
+            href="mailto:info@silverstone-ai.com?subject=Enquiry%20for%20Silverstone%20AI"
+          >
             Email instead
           </a>
         )}

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useInView } from "motion/react";
 import * as m from "motion/react-m";
 import { Link } from "react-router";
-import { ArrowUpRight, MapPin } from "~/components/icons/lucide";
+import { ArrowUpRight, Mail, MapPin } from "~/components/icons/lucide";
 
 import { Container } from "~/components/layout/container";
 import { useRevealStart } from "~/motion/use-reveal-start";
@@ -90,6 +90,15 @@ export function SiteFooter() {
             <p className="mt-3 inline-flex items-center gap-2 text-body-sm text-titanium">
               <MapPin aria-hidden className="size-4 text-[var(--ss-v2-signal-cyan)]" />
               London, United Kingdom
+            </p>
+            <p className="mt-2">
+              <a
+                className="ss-focus-ring ss-transition-interactive inline-flex items-center gap-2 rounded-[var(--ss-radius-xs)] text-body-sm text-titanium no-underline hover:text-platinum"
+                href="mailto:info@silverstone-ai.com"
+              >
+                <Mail aria-hidden className="size-4 text-[var(--ss-v2-signal-cyan)]" />
+                info@silverstone-ai.com
+              </a>
             </p>
           </m.div>
           {FOOTER_COLUMNS.map((column, columnIndex) => (

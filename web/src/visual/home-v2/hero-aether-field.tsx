@@ -7,6 +7,25 @@ export const AETHER_NETWORK_PROXIMITY = "#F3F7FF";
 export const AETHER_POINTER_RADIUS = 200;
 const MAX_DPR = 1.5;
 
+/**
+ * Below the desktop shader breakpoint the hero canvas is physically small, so
+ * the area-proportional particle count and connection reach used at ≥1024px
+ * leave the field looking sparse on a phone. Under this width we raise density,
+ * connection reach and pixel density so a mobile hero reads as rich as the
+ * desktop constellation. At/above 1024px every value below resolves to its
+ * original desktop expression, so the desktop field is byte-for-byte unchanged.
+ */
+const COMPACT_MAX_WIDTH = 1024;
+/** Denser area divisor for compact canvases (desktop keeps 9000). */
+const COMPACT_AREA_DIVISOR = 3400;
+/** Hard particle ceiling on compact canvases to bound the O(n²) link pass. */
+const COMPACT_PARTICLE_CAP = 132;
+/** Fixed squared-distance link threshold on compact canvases — ~138px reach,
+ * matching the ~141px point where desktop link opacity fades to zero. */
+const COMPACT_CONNECTION_THRESHOLD = 19000;
+/** Compact canvases render at up to 2x for crisper dots/lines; desktop 1.5x. */
+const COMPACT_MAX_DPR = 2;
+
 export type AetherPalette = {
   particle: string;
   network: string;
@@ -200,7 +219,13 @@ export function HeroAetherField({
     const initialiseParticles = () => {
       particles = [];
 
-      const numberOfParticles = (bounds.height * bounds.width) / 9000;
+      const compact = bounds.width < COMPACT_MAX_WIDTH;
+      const numberOfParticles = compact
+        ? Math.min(
+            Math.round((bounds.height * bounds.width) / COMPACT_AREA_DIVISOR),
+            COMPACT_PARTICLE_CAP,
+          )
+        : (bounds.height * bounds.width) / 9000;
 
       for (let index = 0; index < numberOfParticles; index += 1) {
         const size = Math.random() * 2 + 1;
@@ -224,7 +249,10 @@ export function HeroAetherField({
 
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+      const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        rect.width < COMPACT_MAX_WIDTH ? COMPACT_MAX_DPR : MAX_DPR,
+      );
       const nextBounds: Bounds = {
         height: Math.max(1, rect.height),
         width: Math.max(1, rect.width),
@@ -252,7 +280,10 @@ export function HeroAetherField({
     };
 
     const connectParticles = () => {
-      const connectionThreshold = (bounds.width / 7) * (bounds.height / 7);
+      const connectionThreshold =
+        bounds.width < COMPACT_MAX_WIDTH
+          ? COMPACT_CONNECTION_THRESHOLD
+          : (bounds.width / 7) * (bounds.height / 7);
 
       for (let firstIndex = 0; firstIndex < particles.length; firstIndex += 1) {
         for (

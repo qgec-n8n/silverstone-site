@@ -56,6 +56,49 @@ function SystemScrollCue({ className }: { className?: string }) {
   );
 }
 
+/**
+ * Compact "Live Signal Benchmarks" board rendered only on mobile
+ * (`.ss-hv2-secondary__mobile-signal` is `display:none` at >=64rem, so desktop
+ * is untouched). Desktop shows the full console in the showcase column, but on
+ * mobile that console stacks below the fold — this brings the flagship signal
+ * above the fold, directly under the CTAs and above the scroll cue.
+ */
+function MobileSignalBoard({ metrics }: { metrics: readonly BenchmarkMetric[] }) {
+  return (
+    <Reveal
+      delayMs={600}
+      kind="card"
+      className="ss-hv2-secondary__mobile-signal"
+    >
+      <aside className="ss-hv2-mobile-signal" aria-label="Live signal benchmarks">
+        <div className="ss-hv2-mobile-signal__header">
+          <span className="ss-eyebrow font-mono ss-hv2-mobile-signal__title">
+            Live Signal Benchmarks
+          </span>
+          <span className="ss-hv2-mobile-signal__status">
+            <span className="ss-hv2-kicker__dot" aria-hidden="true" />
+            Live
+          </span>
+        </div>
+        <ul className="ss-hv2-mobile-signal__grid">
+          {metrics.map((metric) => (
+            <li key={metric.id} className="ss-hv2-mobile-signal__cell">
+              <span className="ss-hv2-mobile-signal__value ss-signal-text">
+                {staticBenchmark(metric)}
+              </span>
+              <span className="ss-hv2-mobile-signal__label">{metric.label}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="ss-hv2-mobile-signal__note">
+          <span aria-hidden="true">Benchmark outcomes, not guarantees.</span>
+          <span className="sr-only">{BENCHMARK_DISCLAIMER}</span>
+        </p>
+      </aside>
+    </Reveal>
+  );
+}
+
 /** A single capability that reveals on its own, top-to-bottom down the list. */
 function CapabilityItem({ cap, index }: { cap: Capability; index: number }) {
   return (
@@ -141,6 +184,7 @@ export function SecondaryHero() {
                 </Button>
               </Reveal>
             </div>
+            <MobileSignalBoard metrics={consoleMetrics} />
             <SystemScrollCue className="ss-hv2-secondary__cue--intro" />
           </div>
 

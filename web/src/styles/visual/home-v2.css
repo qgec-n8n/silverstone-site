@@ -1340,6 +1340,123 @@ html[data-js="on"]
   }
 }
 
+/*
+ * Mobile-only "Live Signal Benchmarks" board. Desktop renders the full console
+ * in the showcase column; on mobile that console stacks below the fold, so this
+ * compact board surfaces the flagship signal above the fold, directly under the
+ * CTAs and above the pinned scroll cue. The reveal wrapper is display:none at
+ * >=64rem so desktop is entirely unchanged.
+ */
+.ss-hv2-secondary__mobile-signal {
+  display: none;
+}
+
+@media (max-width: 63.9375rem) {
+  .ss-hv2-secondary__mobile-signal {
+    display: block;
+    /* Extra breathing room between the two CTAs above and this board, on top
+       of the intro's flex gap. */
+    margin-top: 0.9rem;
+  }
+}
+
+.ss-hv2-mobile-signal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.85rem 0.9rem 0.75rem;
+  border: 1px solid var(--ss-v2-hairline-strong);
+  border-radius: var(--ss-radius-md);
+  background:
+    radial-gradient(
+      130% 100% at 0% 0%,
+      color-mix(in srgb, var(--ss-v2-signal-cyan) 16%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      130% 110% at 100% 100%,
+      color-mix(in srgb, var(--ss-v2-signal-violet) 15%, transparent),
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ss-v2-graphite-raised) 92%, transparent),
+      color-mix(in srgb, var(--ss-v2-void-blue) 96%, transparent)
+    );
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 8%, transparent),
+    0 18px 46px -34px color-mix(in srgb, var(--ss-v2-signal-cyan) 58%, transparent);
+  overflow: hidden;
+}
+
+.ss-hv2-mobile-signal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.ss-hv2-mobile-signal__title {
+  color: var(--ss-v2-titanium);
+  font-size: 0.62rem;
+}
+
+.ss-hv2-mobile-signal__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ss-v2-titanium);
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ss-hv2-mobile-signal__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.ss-hv2-mobile-signal__cell {
+  display: flex;
+  min-width: 0;
+  min-height: clamp(3.4rem, 11vw, 4.2rem);
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--ss-v2-hairline);
+  border-radius: var(--ss-radius-sm);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ss-v2-signal-cyan) 7%, transparent),
+      transparent 72%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 32%, transparent);
+}
+
+.ss-hv2-mobile-signal__value {
+  font-size: clamp(1.2rem, 6.5vw, 1.55rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ss-hv2-mobile-signal__label {
+  color: var(--ss-v2-titanium);
+  font-size: 0.64rem;
+  line-height: 1.2;
+}
+
+.ss-hv2-mobile-signal__note {
+  color: color-mix(in srgb, var(--ss-v2-titanium) 80%, transparent);
+  font-size: 0.58rem;
+  line-height: 1.3;
+}
+
 .ss-hv2-secondary__title {
   font-size: clamp(2rem, 1.35rem + 2.35vw, 4.4rem);
   max-width: var(--ss-v2-measure-title);
@@ -1660,6 +1777,9 @@ html[data-js="on"]
 
   .ss-hv2-secondary__intro {
     gap: 0.58rem;
+    /* Nudge the copy and mobile signal board down a touch from the top of the
+       section so they sit lower on the phone screen. */
+    padding-top: 1.1rem;
   }
 
   .ss-hv2-secondary__title {
@@ -1883,14 +2003,13 @@ html[data-js="on"]
   .ss-hv2-body-scrollcue {
     gap: 0.2rem;
   }
-
-  .ss-hv2-body-scrollcue .ss-eyebrow {
-    display: none;
-  }
-
-  .ss-hv2-scrollcue__rail {
-    height: 18px;
-  }
+  /*
+   * The "SCROLL" word stays visible and the rail keeps the same 28px height as
+   * the wider mobile breakpoint above, so every page's scroll cue reads the
+   * same on mobile (matching the /blog article cue) regardless of viewport
+   * height. Previously this block hid the word and shrank the rail to 18px on
+   * short viewports, which made the home secondary-hero cue diverge from blog.
+   */
 }
 
 /* ============================ STANDARD ============================ */

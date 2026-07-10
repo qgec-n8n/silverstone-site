@@ -107,10 +107,10 @@ function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
   return {
     particles: {
       number: {
-        value: mobile ? 64 : 128,
+        value: mobile ? 118 : 128,
         density: {
           enable: true,
-          value_area: mobile ? 700 : 900,
+          value_area: mobile ? 820 : 900,
         },
       },
       color: {
@@ -131,7 +131,7 @@ function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
         },
       },
       size: {
-        value: mobile ? 2.4 : 2.8,
+        value: mobile ? 2.7 : 2.8,
         random: true,
         anim: {
           enable: true,
@@ -142,14 +142,14 @@ function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
       },
       line_linked: {
         enable: true,
-        distance: mobile ? 144 : 188,
+        distance: mobile ? 178 : 188,
         color: "#BB8AD4",
-        opacity: mobile ? 0.42 : 0.56,
+        opacity: mobile ? 0.54 : 0.56,
         width: 1,
       },
       move: {
         enable: true,
-        speed: mobile ? 0.55 : 0.82,
+        speed: mobile ? 0.82 : 0.82,
         direction: "none",
         random: true,
         straight: false,
@@ -177,9 +177,9 @@ function createParticlesConfig(coarsePointer: boolean, mobile: boolean) {
       },
       modes: {
         grab: {
-          distance: mobile ? 160 : 230,
+          distance: mobile ? 220 : 230,
           line_linked: {
-            opacity: mobile ? 0.72 : 0.9,
+            opacity: mobile ? 0.88 : 0.9,
           },
         },
         bubble: {

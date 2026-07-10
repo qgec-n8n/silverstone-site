@@ -286,7 +286,7 @@ function ArticleComparisonTable({
                 <ArticleRichText text={row.label} />
               </th>
               {columns.map((column, index) => (
-                <td key={`${row.label}-${column}`}>
+                <td key={`${row.label}-${column}`} data-label={column}>
                   <ArticleRichText text={row.cells[index] ?? ""} />
                 </td>
               ))}
@@ -298,13 +298,19 @@ function ArticleComparisonTable({
   );
 }
 
-function ArticleSectionEnhancements({ section }: { section: SilverstoneBlogSection }) {
+function ArticleSectionEnhancements({
+  section,
+  includeTable = true,
+}: {
+  section: SilverstoneBlogSection;
+  includeTable?: boolean;
+}) {
   return (
     <>
       <ArticlePullQuote quote={section.pullQuote} />
       <ArticleBulletPanel items={section.bullets} />
       <ArticleGrid items={section.grid} />
-      <ArticleComparisonTable table={section.comparisonTable} />
+      {includeTable ? <ArticleComparisonTable table={section.comparisonTable} /> : null}
     </>
   );
 }
@@ -402,7 +408,7 @@ function ArticleSection({
             <ArticleRichText text={paragraph} />
           </p>
         ))}
-        <ArticleSectionEnhancements section={section} />
+        <ArticleSectionEnhancements section={section} includeTable={false} />
         {section.subsections?.map((subsection, index) => (
           <div
             className="ss-blog-article__subsection"
@@ -420,6 +426,15 @@ function ArticleSection({
           </div>
         ))}
       </section>
+      {/*
+       * The comparison table renders as a sibling of the section rather than
+       * inside its card: the section card closes after the icon bullet list /
+       * grid, and the table stands as its own card below. Sitting directly in
+       * the Reveal grid item (a full-width, page-centred block) lets its desktop
+       * breakout (margin-inline-start:50% + translateX(-50%)) centre cleanly on
+       * the column instead of the padded section content box.
+       */}
+      <ArticleComparisonTable table={section.comparisonTable} />
     </Reveal>
   );
 }

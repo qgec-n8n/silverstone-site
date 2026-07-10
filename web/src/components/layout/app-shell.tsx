@@ -42,11 +42,15 @@ function AppShell({ children, pendingIndicator }: AppShellProps) {
         className={cn(
           "flex-1 outline-none",
           /*
-           * Sticky headers (mobile, see SiteHeader) occupy their own space in
-           * flow, so no compensating padding is needed there — only the
-           * lg:fixed desktop header is taken out of flow and needs it.
+           * The header is `fixed` at every breakpoint (see SiteHeader), so it
+           * is out of flow and the main content compensates with top padding
+           * equal to the header height. Mobile used to run a `sticky` header
+           * (which occupies flow, needing no padding), but sticky + an animated
+           * hide/show transform visibly flickered against iOS Safari's dynamic
+           * URL-bar resize; `fixed` is immune (the bar only changes viewport
+           * height, never its top edge — visualViewport.offsetTop stays 0).
            */
-          chromeVisible ? "pt-0 lg:pt-[var(--ss-layout-header)]" : "pt-0",
+          chromeVisible ? "pt-[var(--ss-layout-header)]" : "pt-0",
         )}
         id="main-content"
         tabIndex={-1}

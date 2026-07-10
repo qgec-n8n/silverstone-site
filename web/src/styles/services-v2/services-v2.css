@@ -2361,7 +2361,15 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   flex: none;
   height: clamp(19rem, 44vh, 24rem);
   overflow-y: auto;
-  overscroll-behavior: contain;
+  /*
+   * Default to `auto` (not `contain`) so this fixed-height pane never traps
+   * page scroll when it has nothing to scroll — the idle/empty and "just a
+   * couple of messages" cases. `contain` is re-applied below only while a call
+   * is live AND the transcript actually overflows, which is the only time we
+   * want a swipe to stay inside the transcript. See live-voice-session.tsx for
+   * the `data-mode` / `data-overflow` flags that drive this.
+   */
+  overscroll-behavior: auto;
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--srv2-accent) 30%, transparent) transparent;
   scroll-behavior: smooth;
@@ -2379,6 +2387,29 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     black calc(100% - 1.5rem),
     transparent 100%
   );
+}
+
+/*
+ * Live call, transcript overflowing → the internal scroll is the active one:
+ * contain the swipe so streaming messages don't drag the whole page around.
+ */
+.ss-lvd__panel[data-mode="live"][data-overflow] .ss-lvd__thread {
+  overscroll-behavior: contain;
+}
+
+/*
+ * After the call ends, lay the full transcript out and let the *page* scroll
+ * through it instead of nesting a second scroll region — the reserved height
+ * becomes a min so a short transcript keeps the console's shape while a long
+ * one grows. The edge mask is dropped so the final line isn't faded away.
+ */
+.ss-lvd__panel[data-mode="review"] .ss-lvd__thread {
+  height: auto;
+  min-height: clamp(19rem, 44vh, 24rem);
+  overflow-y: visible;
+  overscroll-behavior: auto;
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .ss-lvd__thread::-webkit-scrollbar {

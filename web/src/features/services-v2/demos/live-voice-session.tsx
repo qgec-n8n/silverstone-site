@@ -99,6 +99,8 @@ function SessionBody({
   const [elapsed, setElapsed] = useState(0);
   const startedAtRef = useRef<number | null>(null);
   const entryIdRef = useRef(0);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [overflowing, setOverflowing] = useState(false);
 
   const elapsedNow = useCallback(() => {
     return startedAtRef.current === null
@@ -144,9 +146,36 @@ function SessionBody({
         ? "ended"
         : "idle";
 
+  // Drives the transcript's scroll containment (see .ss-lvd__thread CSS):
+  // "live" while the call is running, "review" once it has ended with a
+  // transcript to read, "idle" otherwise.
+  const threadMode = connected ? "live" : ended ? "review" : "idle";
+
   useEffect(() => {
     onStateChange(state);
   }, [state, onStateChange]);
+
+  // The transcript only owns the scroll gesture while a live call is actually
+  // overflowing its fixed-height pane; measure that so `data-overflow` can gate
+  // `overscroll-behavior: contain`. Height is fixed except in "review" mode, so
+  // scrollHeight vs clientHeight is a stable overflow test here.
+  useEffect(() => {
+    const thread = panelRef.current?.querySelector<HTMLElement>(".ss-lvd__thread");
+    if (!thread) {
+      return;
+    }
+    const measure = () => {
+      setOverflowing(thread.scrollHeight - thread.clientHeight > 8);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(thread);
+    const content = thread.querySelector(".ss-lvd__thread-content");
+    if (content) {
+      observer.observe(content);
+    }
+    return () => observer.disconnect();
+  }, [state, messages.length]);
 
   // Call timer — ticks only while connected; the final value stays on screen.
   useEffect(() => {
@@ -363,7 +392,13 @@ function SessionBody({
         </p>
       </div>
 
-      <div className="ss-lvd__panel" data-config-slot={copy.transcriptSlot}>
+      <div
+        ref={panelRef}
+        className="ss-lvd__panel"
+        data-config-slot={copy.transcriptSlot}
+        data-mode={threadMode}
+        data-overflow={threadMode === "live" && overflowing ? "" : undefined}
+      >
         <TranscriptHead label={copy.transcriptLabel} live={connected} />
         <Conversation className="ss-lvd__thread">
           <ConversationContent className="ss-lvd__thread-content">

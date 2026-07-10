@@ -321,7 +321,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
     >
       <m.button
         aria-label="Close menu"
-        className="absolute inset-0 h-full w-full cursor-default bg-[color-mix(in_srgb,var(--ss-v2-void-black)_72%,transparent)] backdrop-blur-sm"
+        className="absolute inset-0 h-full w-full cursor-default bg-[color-mix(in_srgb,var(--ss-v2-void-black)_38%,transparent)] backdrop-blur-sm"
         onClick={onClose}
         tabIndex={-1}
         type="button"
@@ -330,16 +330,20 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
       <m.div
         aria-label="Site menu"
         aria-modal="true"
-        className="ss-void-bg absolute inset-y-0 right-0 flex w-[min(92vw,26rem)] flex-col border-l border-[color:color-mix(in_srgb,var(--ss-v2-signal-cyan)_32%,var(--ss-v2-hairline-strong))] shadow-[var(--ss-v2-glow-soft)]"
+        className="absolute inset-y-0 right-0 flex w-[min(92vw,26rem)] flex-col overflow-hidden border-l border-[color:var(--ss-v2-header-border-strong)] bg-[var(--ss-v2-header-surface)] shadow-[var(--ss-v2-header-shadow)]"
         ref={dialogRef}
         role="dialog"
         variants={mobilePanelVariants}
       >
-        <div className="ss-hairline-b flex h-[var(--ss-layout-header)] shrink-0 items-center justify-between px-5">
-          <BrandLockup tone="onDark" />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[var(--ss-v2-gradient-signal)] opacity-70"
+        />
+        <div className="flex h-[var(--ss-layout-header)] shrink-0 items-center justify-between border-b border-[color:var(--ss-v2-header-border)] px-5">
+          <BrandLockup tone="onLight" />
           <button
             aria-label="Close menu"
-            className="ss-focus-ring grid size-11 place-items-center rounded-[var(--ss-radius-pill)] border border-[color:var(--ss-v2-hairline)] text-platinum ss-transition-interactive hover:bg-[var(--ss-v2-glass)]"
+            className="ss-focus-ring grid size-11 place-items-center rounded-[var(--ss-radius-pill)] border border-[color:var(--ss-v2-header-border-strong)] text-[color:var(--ss-v2-header-text)] ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]"
             onClick={onClose}
             type="button"
           >
@@ -350,7 +354,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
           aria-label="Mobile"
           className="flex-1 overflow-y-auto overscroll-contain px-5 py-4"
         >
-          <div className="divide-y divide-[color:var(--ss-v2-hairline)] rounded-[var(--ss-radius-lg)] border border-[color:var(--ss-v2-hairline)] bg-[var(--ss-v2-glass)]">
+          <div className="divide-y divide-[color:var(--ss-v2-header-border)] rounded-[var(--ss-radius-lg)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_4%,var(--ss-v2-header-surface))]">
             {[SERVICES_MENU, INDUSTRIES_MENU].map((menu) => {
               const open = openSection === menu.id;
               const triggerId = `${baseId}-${menu.id}-trigger`;
@@ -360,7 +364,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                   <m.button
                     aria-controls={contentId}
                     aria-expanded={open}
-                    className="ss-focus-ring flex w-full items-center justify-between gap-2.5 rounded-[var(--ss-radius-sm)] px-4 py-3.5 text-left text-base font-semibold text-platinum"
+                    className="ss-focus-ring flex w-full items-center justify-between gap-2.5 rounded-[var(--ss-radius-sm)] px-4 py-3.5 text-left text-base font-semibold text-[color:var(--ss-v2-header-text-strong)]"
                     id={triggerId}
                     initial="rest"
                     onClick={() => {
@@ -375,7 +379,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                     <ChevronDown
                       aria-hidden
                       className={cn(
-                        "size-4 shrink-0 text-[color:var(--ss-v2-signal-cyan)] transition-transform duration-300",
+                        "size-4 shrink-0 text-[color:var(--ss-v2-header-accent)] transition-transform duration-300",
                         open && "rotate-180",
                       )}
                     />
@@ -394,7 +398,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                       >
                         <div className="flex flex-col gap-0.5 px-3 pb-3">
                           <Link
-                            className="ss-focus-ring mb-1 flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-hairline)] bg-[color-mix(in_srgb,var(--ss-v2-signal-cyan)_8%,transparent)] px-3 py-2.5 text-sm font-semibold text-[var(--ss-v2-signal-cyan)] no-underline"
+                            className="ss-focus-ring mb-1 flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_10%,var(--ss-v2-header-surface))] px-3 py-2.5 text-sm font-semibold text-[color:var(--ss-v2-header-accent)] no-underline ss-transition-interactive"
                             onClick={onClose}
                             to={menu.href}
                           >
@@ -403,7 +407,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                           </Link>
                           {menu.items.map((item) => (
                             <Link
-                              className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm text-titanium no-underline hover:text-platinum"
+                              className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm text-[color:var(--ss-v2-header-muted)] no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]"
                               key={item.href}
                               onClick={onClose}
                               to={item.href}
@@ -426,8 +430,10 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                 <Link
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "ss-focus-ring flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] px-3 py-3 text-base font-semibold no-underline",
-                    active ? "text-platinum" : "text-titanium hover:text-platinum",
+                    "ss-focus-ring ss-transition-interactive flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] px-3 py-3 text-base font-semibold no-underline",
+                    active
+                      ? "text-[color:var(--ss-v2-header-text-strong)]"
+                      : "text-[color:var(--ss-v2-header-muted)] hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]",
                   )}
                   key={link.href}
                   onClick={onClose}
@@ -436,7 +442,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                   <span
                     aria-hidden
                     className={cn(
-                      "size-1.5 shrink-0 rounded-full bg-[var(--ss-v2-signal-cyan)] transition-opacity",
+                      "size-1.5 shrink-0 rounded-full bg-[var(--ss-v2-header-accent)] transition-opacity",
                       active ? "opacity-100" : "opacity-0",
                     )}
                   />
@@ -446,7 +452,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
             })}
           </div>
         </nav>
-        <div className="ss-hairline-t shrink-0 px-5 pt-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))]">
+        <div className="shrink-0 border-t border-[color:var(--ss-v2-header-border)] px-5 pt-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))]">
           <Link
             className={cn(ctaClass, "w-full justify-center")}
             onClick={onClose}
@@ -466,46 +472,19 @@ type SiteHeaderProps = {
 };
 
 /** Scroll distance the header ignores at the very top, so it never hides
- * during the first small scroll of a page. Shared by both breakpoints. */
+ * during the first small scroll of a page. Desktop-only (mobile never hides). */
 const SCROLL_HIDE_THRESHOLD = 120;
 
-/** Desktop (`lg:fixed` header) hide/show decision — untouched by the mobile
- * jank fix below. Desktop's fixed header never exhibited the momentum/
- * toolbar-driven scroll noise mobile does, so its behavior stays exactly
- * as it was: any qualifying single-sample delta flips it immediately. */
+/** Desktop hide/show decision. The header only auto-hides on scroll on desktop;
+ * on mobile it stays visible the whole time (see the scroll handler below), so
+ * these thresholds and the resize suppression only ever apply at `lg`+. Any
+ * qualifying single-sample delta flips the desktop header immediately. */
 const DESKTOP_SCROLL_NOISE_FLOOR = 6;
 const DESKTOP_RESIZE_SUPPRESS_MS = 250;
 
-/** Mobile (`sticky` header) hide/show decision. Single-sample deltas below
- * this are sub-pixel rounding noise, not a scroll signal — filtered before
- * they can reset direction tracking. */
-const SCROLL_SAMPLE_NOISE_FLOOR = 2;
-/** Sustained distance (px), accumulated across samples travelling the same
- * direction, the page must cover before the header commits to hiding. A
- * single noisy sample can no longer flip it — that sample has to be part of
- * a real run of travel first. This is what makes hide immune to momentum
- * jitter and iOS's dynamic toolbar nudging `window.scrollY` by a few px. */
-const HIDE_COMMIT_DISTANCE = 32;
-/** Reveal is intentionally far more sensitive than hide: users expect the
- * header back the instant they start scrolling up, so it needs much less
- * accumulated travel to commit than hiding does. */
-const SHOW_COMMIT_DISTANCE = 10;
-/** A single-sample delta larger than this, occurring shortly after a resize
- * (see RESIZE_ADJACENT_MS), is treated as iOS shifting `window.scrollY` by
- * roughly the dynamic toolbar's own height rather than a real scroll — and
- * discarded instead of counted as travel. Deliberately scoped to only the
- * resize-adjacent window: a genuinely large scroll sample at any other time
- * (a fast fling, a deep-link jump to an anchor) is real and must still
- * register at full value, exactly as it did before this fix. */
-const SCROLL_ANOMALY_JUMP = 110;
-/** How long after a resize a big delta is still treated as suspect. Chosen
- * to comfortably outlast iOS's own toolbar show/hide animation (observed
- * around 300–350ms) rather than to make scrolling feel a particular way. */
-const RESIZE_ADJACENT_MS = 400;
-
-/** Matches the header's own `lg` breakpoint (`sticky lg:fixed`, see the
- * className below) so the JS decision logic and the CSS positioning it's
- * driving never disagree about which device class they're running on. */
+/** Matches the header's own `lg` breakpoint so the JS decision logic and the CSS
+ * positioning it's driving never disagree about which device class they're on.
+ * Below this width the header is permanently shown; at/above it hides on scroll. */
 const DESKTOP_MEDIA_QUERY = "(min-width: 64rem)";
 
 export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
@@ -514,8 +493,6 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const headerRef = useRef<HTMLElement>(null);
   const scrollY = useMotionValue(typeof window !== "undefined" ? window.scrollY : 0);
   const lastScrollY = useRef(typeof window !== "undefined" ? window.scrollY : 0);
-  const travelDistance = useRef(0);
-  const travelDirection = useRef<-1 | 0 | 1>(0);
   const lastResizeAt = useRef(0);
   const isDesktop = useRef(
     typeof window !== "undefined" ? window.matchMedia(DESKTOP_MEDIA_QUERY).matches : false,
@@ -556,6 +533,12 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
     const mediaQuery = window.matchMedia(DESKTOP_MEDIA_QUERY);
     const updateIsDesktop = () => {
       isDesktop.current = mediaQuery.matches;
+      // The header only auto-hides on desktop. Crossing below `lg` (e.g. a
+      // tablet rotating to portrait, or a desktop window narrowing) must clear
+      // any scroll-hidden state so the permanent mobile header is shown.
+      if (!mediaQuery.matches) {
+        setHiddenByScroll(false);
+      }
     };
     updateIsDesktop();
     mediaQuery.addEventListener("change", updateIsDesktop);
@@ -569,20 +552,10 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
     // right behavior instead of whichever branch happened to be registered
     // first.
     const onResize = () => {
+      // Record the timestamp only; the desktop scroll branch reads it to
+      // suppress direction decisions for a beat after a resize. The mobile
+      // header never hides, so it ignores resizes entirely.
       lastResizeAt.current = Date.now();
-      if (isDesktop.current) {
-        // Desktop path, unchanged: blanket-suppress direction decisions
-        // for a beat after any resize instead of resyncing immediately.
-        return;
-      }
-      // Mobile path: a real viewport resize (toolbar collapse/expand,
-      // orientation change) invalidates whatever direction we were
-      // tracking — resync the baseline immediately rather than guessing
-      // how long the animation might run. The timestamp above additionally
-      // gates SCROLL_ANOMALY_JUMP for the samples right around this resize.
-      lastScrollY.current = window.scrollY;
-      travelDistance.current = 0;
-      travelDirection.current = 0;
     };
     const viewport = window.visualViewport;
     viewport?.addEventListener("resize", onResize);
@@ -599,50 +572,26 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
     const delta = latest - lastScrollY.current;
     lastScrollY.current = latest;
 
-    if (isDesktop.current) {
-      // Desktop path, unchanged from before this session's mobile-only
-      // jank fix.
-      if (Date.now() - lastResizeAt.current < DESKTOP_RESIZE_SUPPRESS_MS) {
-        return;
-      }
-      if (Math.abs(delta) < DESKTOP_SCROLL_NOISE_FLOOR) {
-        return;
-      }
-      if (delta > 0 && latest > SCROLL_HIDE_THRESHOLD) {
-        setHiddenByScroll(true);
-      } else if (delta < 0) {
-        setHiddenByScroll(false);
-      }
+    // Mobile: the header is permanently visible — it never auto-hides on scroll
+    // (only the elevated border/shadow above responds via `setScrolled`). This
+    // deliberately sidesteps iOS Safari's dynamic URL-bar resize, which made a
+    // scroll-driven hide/show animation lag, snap, and shudder no matter how the
+    // decision logic was tuned. Auto-hide stays desktop-only.
+    if (!isDesktop.current) {
       return;
     }
 
-    if (
-      Math.abs(delta) > SCROLL_ANOMALY_JUMP &&
-      Date.now() - lastResizeAt.current < RESIZE_ADJACENT_MS
-    ) {
-      // Discard — see SCROLL_ANOMALY_JUMP. Don't let it reset direction
-      // tracking either, since it isn't a real scroll sample at all.
+    // Desktop path — unchanged: any qualifying single-sample delta flips it.
+    if (Date.now() - lastResizeAt.current < DESKTOP_RESIZE_SUPPRESS_MS) {
       return;
     }
-    if (Math.abs(delta) < SCROLL_SAMPLE_NOISE_FLOOR) {
+    if (Math.abs(delta) < DESKTOP_SCROLL_NOISE_FLOOR) {
       return;
     }
-
-    const direction = delta > 0 ? 1 : -1;
-    if (direction !== travelDirection.current) {
-      travelDirection.current = direction;
-      travelDistance.current = 0;
-    }
-    travelDistance.current += Math.abs(delta);
-
-    if (direction > 0) {
-      if (travelDistance.current >= HIDE_COMMIT_DISTANCE && latest > SCROLL_HIDE_THRESHOLD) {
-        setHiddenByScroll(true);
-        travelDistance.current = 0;
-      }
-    } else if (travelDistance.current >= SHOW_COMMIT_DISTANCE) {
+    if (delta > 0 && latest > SCROLL_HIDE_THRESHOLD) {
+      setHiddenByScroll(true);
+    } else if (delta < 0) {
       setHiddenByScroll(false);
-      travelDistance.current = 0;
     }
   });
 
@@ -664,16 +613,20 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
       aria-hidden={hidden || undefined}
       className={cn(
         /*
-         * `sticky` below the lg breakpoint, `fixed` at/above it. iOS Safari's
-         * dynamic bottom toolbar resizes the visual viewport on its own native
-         * timeline, independent of any scroll/resize listener — a `fixed`
-         * header gets visibly out of sync with that resize (the jank this is
-         * fixing). `sticky` is tracked by the browser's own scroll/compositing
-         * engine instead of being pinned to the viewport, so it never
-         * desyncs. Desktop has no dynamic toolbar, so it keeps `fixed`
-         * unchanged (unaffected by this at all).
+         * `fixed` at every breakpoint. iOS Safari's dynamic bottom URL bar
+         * only changes the visual viewport's HEIGHT as it collapses/expands —
+         * its top edge never moves (visualViewport.offsetTop stays 0, verified
+         * on-device). A `fixed` top:0 header is pinned to that stable top edge,
+         * so the bar's resize can't move it. A `sticky` header (the previous
+         * mobile approach) is re-evaluated by the compositor whenever the
+         * viewport height changes, which — combined with the hide/show
+         * transform animating at the same time — produced a visible two-stage
+         * flicker on every scroll. Desktop was already `fixed`, so it is
+         * unchanged; `translateZ(0)`/`backface-visibility` keep the element on
+         * a stable GPU layer so the transform never triggers an in-place
+         * repaint of the bar underneath it.
          */
-        "sticky lg:fixed inset-x-0 top-0 z-[400] h-[var(--ss-layout-header)] border-b",
+        "fixed inset-x-0 top-0 z-[400] h-[var(--ss-layout-header)] border-b [backface-visibility:hidden] [-webkit-backface-visibility:hidden] transition-[border-color,box-shadow] duration-300 ease-out lg:transition-none",
         elevated
           ? "border-[color:var(--ss-v2-header-border-strong)] bg-[var(--ss-v2-header-surface-scroll)] shadow-[var(--ss-v2-header-shadow)]"
           : "border-[color:var(--ss-v2-header-border)] bg-[var(--ss-v2-header-surface)]",
