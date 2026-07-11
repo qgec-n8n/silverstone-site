@@ -117,9 +117,8 @@ function destroyMountInstances(mount: HTMLElement) {
  */
 const PARTICLES_DPR_CAP = 2;
 const MOBILE_AMBIENT_IDLE_MS = 20_000;
-const MOBILE_SCROLL_SETTLE_MS = 180;
 
-type ParticlePauseReason = "hidden" | "idle" | "scroll";
+type ParticlePauseReason = "hidden" | "idle";
 
 function createParticlesConfig(
   coarsePointer: boolean,
@@ -309,7 +308,6 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
     const mobile = window.matchMedia("(max-width: 768px)").matches;
     const pauseReasons = new Set<ParticlePauseReason>();
     let idleTimer = 0;
-    let scrollSettleTimer = 0;
 
     const syncAmbientMotionFlag = () => {
       if (!mobile) {
@@ -365,24 +363,9 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
       armIdlePause();
     };
 
-    const handleScroll = () => {
-      if (!mobile) {
-        return;
-      }
-      pauseInstance("scroll");
-      resumeInstance("idle");
-      window.clearTimeout(idleTimer);
-      window.clearTimeout(scrollSettleTimer);
-      scrollSettleTimer = window.setTimeout(() => {
-        resumeInstance("scroll");
-        armIdlePause();
-      }, MOBILE_SCROLL_SETTLE_MS);
-    };
-
     const handleVisibilityChange = () => {
       if (document.hidden) {
         window.clearTimeout(idleTimer);
-        window.clearTimeout(scrollSettleTimer);
         pauseInstance("hidden");
       } else {
         resumeInstance("hidden");
@@ -472,8 +455,10 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
       onReady?.("ready");
     };
 
+    /* Keep the canvas draw loop active during scrolling. Mobile browsers can
+       discard a fixed canvas's backing paint mid-gesture; if its frame is
+       cancelled here, it stays blank until a later resume forces a repaint. */
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("pointerdown", handleActivity, { passive: true });
     window.addEventListener("touchstart", handleActivity, { passive: true });
     window.addEventListener("keydown", handleActivity);
@@ -486,9 +471,7 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
     return () => {
       cancelled = true;
       window.clearTimeout(idleTimer);
-      window.clearTimeout(scrollSettleTimer);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("pointerdown", handleActivity);
       window.removeEventListener("touchstart", handleActivity);
       window.removeEventListener("keydown", handleActivity);

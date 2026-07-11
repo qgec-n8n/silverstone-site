@@ -81,12 +81,11 @@
   }
 }
 
-/* Mobile thermal budget: BodyParticles stamps this state while the visitor is
-   actively scrolling and after 20 seconds without interaction. Freezing every
-   CSS animation at its current frame prevents decorative loops elsewhere in
-   the shell (CTA sheen, demo launcher, footer lines, status pulses) from
-   defeating the canvas pause. Interaction removes the marker immediately, so
-   the active experience remains visually identical. */
+/* Mobile thermal budget: BodyParticles stamps this state after 20 seconds
+   without interaction and while the page is hidden. Freezing every CSS
+   animation at its current frame prevents decorative loops elsewhere in the
+   shell (CTA sheen, demo launcher, footer lines, status pulses) from defeating
+   the canvas pause. Interaction removes the marker immediately. */
 html[data-ambient-motion="paused"] *,
 html[data-ambient-motion="paused"] *::before,
 html[data-ambient-motion="paused"] *::after {
