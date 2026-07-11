@@ -13,7 +13,10 @@ export const meta: MetaFunction = ({ params }) => {
   }
 
   const environment = getPublicEnvironment();
-  const canonical = buildCanonicalUrl(environment.canonicalOrigin, `/blog/${post.slug}`);
+  const canonical = buildCanonicalUrl(
+    environment.canonicalOrigin,
+    `/blog/${post.slug}`,
+  );
   // Production is indexable by default (launch policy: every route indexes
   // unless explicitly withheld); staging always carries its blanket noindex.
   const robots = environment.isStaging ? environment.robotsMeta : "index, follow";

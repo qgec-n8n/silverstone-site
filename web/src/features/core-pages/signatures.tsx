@@ -944,6 +944,10 @@ function FigureEightSignal({ cx, cy }: { cx: number; cy: number }) {
     ease: "linear" as const,
   };
 
+  // Both circles need an explicit `initial` (equal to the first keyframe —
+  // sin(0) = 0 puts it at the hub centre): motion resolves keyframe arrays
+  // asynchronously, and without it the first frame renders cx/cy as
+  // "undefined", logging four SVG attribute errors in the console.
   return (
     <>
       <m.circle
@@ -953,6 +957,7 @@ function FigureEightSignal({ cx, cy }: { cx: number; cy: number }) {
         fill="var(--srv2-accent-2)"
         opacity="0.32"
         filter="url(#core-dial-blur)"
+        initial={{ cx, cy }}
         animate={{ cx: xs, cy: ys }}
         transition={transition}
       />
@@ -961,6 +966,7 @@ function FigureEightSignal({ cx, cy }: { cx: number; cy: number }) {
         cy={ys[0]}
         r="4"
         fill="var(--srv2-accent-2)"
+        initial={{ cx, cy }}
         animate={{ cx: xs, cy: ys }}
         transition={transition}
       />

@@ -79,8 +79,8 @@ export function Hero({
           >
             <span className="ss-hv2-hero__lead-full">
               Silverstone designs AI voice, reception and automation systems that answer
-              every call, capture every enquiry and run the repetitive work — so small UK
-              teams respond faster, deliver more and grow without adding headcount.
+              every call, capture every enquiry and run the repetitive work — so small
+              UK teams respond faster, deliver more and grow without adding headcount.
             </span>
             <span className="ss-hv2-hero__lead-short">
               Silverstone designs AI voice, reception and automation systems that answer

@@ -46,6 +46,13 @@
   contain: strict;
   opacity: 1;
   transition: opacity 0.52s ease;
+  /* Promotes this fixed layer to its own GPU compositor layer. Without it,
+     mobile Safari/Chrome can drop the fixed layer's paint mid-scroll and
+     leave it blank until the scroll gesture settles — the whole background
+     (base gradient, light fields, grid and particles) flashing out and back
+     in on every scroll. */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .ss-hv2[data-homepage-state="opening"] .ss-hv2-backdrop {

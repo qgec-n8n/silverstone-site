@@ -597,10 +597,7 @@ function observeBeam(element: Element): () => void {
   }
   beamObserver ??= new IntersectionObserver((entries) => {
     for (const entry of entries) {
-      entry.target.setAttribute(
-        "data-active",
-        entry.isIntersecting ? "true" : "false",
-      );
+      entry.target.setAttribute("data-active", entry.isIntersecting ? "true" : "false");
     }
   });
   beamObserver.observe(element);

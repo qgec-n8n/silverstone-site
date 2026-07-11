@@ -100,7 +100,11 @@ export function useDeepLinkScroll(): void {
       /* A route-level RevealSection can wrap the destination rather than sit
          inside it. Mark those ancestors too: otherwise their inline hidden
          transform can briefly conceal an otherwise bypassed section. */
-      for (let ancestor = anchor.parentElement; ancestor; ancestor = ancestor.parentElement) {
+      for (
+        let ancestor = anchor.parentElement;
+        ancestor;
+        ancestor = ancestor.parentElement
+      ) {
         if (ancestor.hasAttribute("data-motion-reveal")) {
           ancestor.setAttribute("data-reveal-bypass", "true");
         }

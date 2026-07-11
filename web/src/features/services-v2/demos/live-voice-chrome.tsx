@@ -82,13 +82,7 @@ export function ConsoleFrame({
 }
 
 /** Header row inside the transcript panel. `live` lights the REC-style dot. */
-export function TranscriptHead({
-  label,
-  live,
-}: {
-  label: string;
-  live: boolean;
-}) {
+export function TranscriptHead({ label, live }: { label: string; live: boolean }) {
   return (
     <div className="ss-lvd__panel-head">
       <span className="ss-lvd__panel-label">

@@ -1,27 +1,23 @@
-import type { ComponentProps, HTMLAttributes } from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import type { ComponentProps, HTMLAttributes } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "~/lib/utils"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "~/components/ui/avatar"
+import { cn } from "~/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
-  from: "user" | "assistant"
-}
+  from: "user" | "assistant";
+};
 
 export const Message = ({ className, from, ...props }: MessageProps) => (
   <div
     className={cn(
       "group flex w-full items-end justify-end gap-2 py-4",
       from === "user" ? "is-user" : "is-assistant flex-row-reverse justify-end",
-      className
+      className,
     )}
     {...props}
   />
-)
+);
 
 const messageContentVariants = cva(
   "is-user:dark flex flex-col gap-2 overflow-hidden rounded-lg text-sm",
@@ -42,11 +38,11 @@ const messageContentVariants = cva(
     defaultVariants: {
       variant: "contained",
     },
-  }
-)
+  },
+);
 
 export type MessageContentProps = HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof messageContentVariants>
+  VariantProps<typeof messageContentVariants>;
 
 export const MessageContent = ({
   children,
@@ -54,18 +50,15 @@ export const MessageContent = ({
   variant,
   ...props
 }: MessageContentProps) => (
-  <div
-    className={cn(messageContentVariants({ variant, className }))}
-    {...props}
-  >
+  <div className={cn(messageContentVariants({ variant, className }))} {...props}>
     {children}
   </div>
-)
+);
 
 export type MessageAvatarProps = ComponentProps<typeof Avatar> & {
-  src: string
-  name?: string
-}
+  src: string;
+  name?: string;
+};
 
 export const MessageAvatar = ({
   src,
@@ -77,4 +70,4 @@ export const MessageAvatar = ({
     <AvatarImage alt="" className="mt-0 mb-0" src={src} />
     <AvatarFallback>{name && name.length > 0 ? name.slice(0, 2) : "ME"}</AvatarFallback>
   </Avatar>
-)
+);

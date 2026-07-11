@@ -945,9 +945,16 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     font-size: clamp(1.8rem, 9vw, 2.42rem);
   }
 
+  /* margin-inline: auto centres the paragraph itself rather than relying on
+     the parent's flex centring — the lead sits inside an unclassed Reveal
+     wrapper div (width: auto) whose own shrink-to-fit sizing can't resolve
+     while this element's width is a percentage of that same indeterminate
+     wrapper, so align-items: center on `.ss-srv2-hero__top` silently stops
+     centring it and it sits flush against the left edge instead. */
   .ss-srv2-hero__lead {
     width: var(--srv2-mobile-lead-width);
     max-width: var(--srv2-mobile-lead-width);
+    margin-inline: auto;
     font-size: clamp(0.86rem, 2.45vw, 0.98rem);
     line-height: 1.45;
   }
@@ -1026,7 +1033,6 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     padding: 0.52rem 1rem;
     font-size: 0.84rem;
   }
-
 }
 
 /* Short mobile browser viewports (including Safari with both toolbars shown)
@@ -1095,9 +1101,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
        ultra-short screens retain their existing first-fold clearance. */
     --srv2-mobile-lead-width: min(94%, 18rem);
     --srv2-mobile-block-width: min(84%, 15rem);
-    --srv2-mobile-chrome-reserve: calc(
-      8rem + env(safe-area-inset-bottom, 0px)
-    );
+    --srv2-mobile-chrome-reserve: calc(8rem + env(safe-area-inset-bottom, 0px));
   }
 
   .ss-srv2-hero__intro {
