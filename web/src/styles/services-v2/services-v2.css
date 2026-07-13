@@ -858,16 +858,22 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 /*
- * Phone composition — the homepage's centred, instrument-panel language,
- * adapted for the longer copy carried by service, industry and core pages.
- * Capability copy remains complete, but uses compact full-width signal rows
- * instead of the homepage's three tiny label-only tiles. This lets each row
- * grow to its own page-specific wording without breaking the one-screen
- * composition or reducing the text to an unreadable size.
+ * Phone composition — a left-aligned "flight console" editorial, replacing the
+ * earlier centred chip stack. Desktop's voice is left-aligned and instrumental;
+ * mobile now speaks the same language instead of a centred template: a mono
+ * breadcrumb index line, a label-and-rule eyebrow, display-size title, full-
+ * measure lead, and the three signal points fused into one hairline-divided
+ * glass manifest (accent corner arcs, top-left / bottom-right) instead of
+ * three floating pills. The stack is weighted to its two ends: the editorial
+ * block (crumbs → lead) anchors under the header, the manifest and CTAs anchor
+ * above the reserved chrome band (margin-top: auto on the manifest absorbs the
+ * slack inside the flex-grown top group), so tall phones gain deliberate air
+ * in the middle rather than uniform template gaps.
  *
- * Width hierarchy (deliberate, widest → narrowest): title, then the lead a
- * step in, then capability rows and CTAs a clear step narrower again — the
- * stack tapers toward its actions instead of every band running edge-to-edge.
+ * Selector note: these overrides deliberately carry a `.ss-srv2` ancestor
+ * prefix — core-pages.css loads after this file and its `.ss-core-hero ...`
+ * hero tweaks (intro gap, lead measure) would out-cascade equal-specificity
+ * mobile rules on /about, /pricing, /contact, /book, /how-we-work and /blog.
  *
  * --srv2-mobile-chrome-reserve is the height of the tallest floating chrome
  * stack pinned to the viewport's bottom corners: the route-return control sits
@@ -875,168 +881,283 @@ section[data-slot="page-section"]:has(.ss-srv2) {
  * on the right. The scroll-cue band reserves the higher of those top edges, so
  * the CTA block always ends above every fixed control and the
  * cue — anchored to the band's bottom — still sits on the fold, in the clear
- * lane between the two corner stacks.
+ * lane between the two corner stacks, styled exactly as before.
  */
 @media (max-width: 40rem) {
   .ss-srv2-hero {
-    --srv2-mobile-copy-width: min(100%, 22.5rem);
-    --srv2-mobile-lead-width: min(86%, 17.75rem);
-    --srv2-mobile-block-width: min(84%, 16.5rem);
+    --srv2-mobile-hairline: color-mix(
+      in srgb,
+      var(--srv2-accent) 26%,
+      var(--ss-v2-hairline)
+    );
     padding-block: clamp(0.3rem, 0.8svh, 0.6rem);
   }
 
-  .ss-srv2-hero__intro,
-  .ss-srv2-hero__top {
-    align-items: center;
-    text-align: center;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro,
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__top {
+    align-items: stretch;
+    text-align: left;
   }
 
-  .ss-srv2-hero__intro {
-    gap: clamp(0.9rem, 1.6svh, 1.4rem);
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro {
+    gap: clamp(0.85rem, 1.7svh, 1.45rem);
   }
 
-  .ss-srv2-hero__top {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__top {
     width: 100%;
-    gap: clamp(0.5rem, 1.1svh, 0.9rem);
+    justify-content: flex-start;
+    gap: clamp(0.55rem, 1.15svh, 0.95rem);
     padding-block: 0;
   }
 
-  .ss-srv2-hero__crumbs {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__crumbs {
     width: 100%;
   }
 
-  .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
-    justify-content: center;
+  /* Mono index line: slash separators read as a path, not website chevrons;
+     uppercase + wide tracking matches the site's other micro-labels. Long
+     industry trails wrap to a second line at 320px, which the flex list
+     already handles. */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
+    justify-content: flex-start;
+    gap: 0.5rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
-  /* One quiet line, always. A percentage max-width resolves against the
-     shrink-wrapped Reveal parent here and forces a two-line wrap, so the pill
-     instead keeps the compact caption size and refuses to break. The longest
-     hero eyebrow (32 mono chars) clears a 320px viewport at this size. */
-  .ss-srv2-hero .ss-srv2-eyebrow {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__crumbs [data-slot="breadcrumb-separator"] svg {
+    display: none;
+  }
+
+  .ss-srv2
+    .ss-srv2-hero
+    .ss-srv2-hero__crumbs
+    [data-slot="breadcrumb-separator"]::before {
+    content: "/";
+    color: color-mix(in srgb, var(--srv2-accent) 60%, transparent);
+  }
+
+  /* Three-level trails end on an open slash ("HOME / SERVICES /"): on service
+     and industry detail routes the current page's name already leads the
+     console eyebrow one line beneath, so the trail would repeat it verbatim.
+     nth-child(n + 5) counts items and separators ([item, sep, item, sep,
+     item] = 5th child), so two-level trails — hubs and core pages, where the
+     current crumb is informative and never duplicated — keep it. */
+  .ss-srv2
+    .ss-srv2-hero
+    .ss-srv2-hero__crumbs
+    li[data-slot="breadcrumb-item"]:last-child:nth-child(n + 5) {
+    display: none;
+  }
+
+  /* The eyebrow sheds its capsule and becomes a console label: icon, tracked
+     mono caption, then a hairline rule running to the right edge. nowrap +
+     the rule's small flex-basis keep the longest label (32 mono chars) on one
+     line at 320px. */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow {
+    width: 100%;
     max-width: none;
-    justify-content: center;
-    gap: 0.45rem;
-    padding: 0.34rem 0.8rem 0.34rem 0.55rem;
-    font-size: 0.58rem;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
     line-height: 1;
     white-space: nowrap;
   }
 
-  .ss-srv2-hero .ss-srv2-eyebrow svg {
-    width: 0.82rem;
-    height: 0.82rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow::after {
+    content: "";
+    flex: 1 1 0.5rem;
+    height: 1px;
+    margin-left: 0.3rem;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--srv2-accent) 50%, transparent),
+      transparent 94%
+    );
   }
 
-  .ss-srv2-hero .ss-srv2-eyebrow__dot {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow svg {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow__dot {
     width: 0.42rem;
     height: 0.42rem;
   }
 
-  .ss-srv2-hero__title,
-  .ss-srv2-hero__title[data-long="true"] {
-    width: var(--srv2-mobile-copy-width);
-    max-width: var(--srv2-mobile-copy-width);
-    font-size: clamp(2rem, 10vw, 2.7rem);
-    line-height: 1.04;
-  }
-
-  .ss-srv2-hero__title[data-long="true"] {
-    font-size: clamp(1.8rem, 9vw, 2.42rem);
-  }
-
-  /* margin-inline: auto centres the paragraph itself rather than relying on
-     the parent's flex centring — the lead sits inside an unclassed Reveal
-     wrapper div (width: auto) whose own shrink-to-fit sizing can't resolve
-     while this element's width is a percentage of that same indeterminate
-     wrapper, so align-items: center on `.ss-srv2-hero__top` silently stops
-     centring it and it sits flush against the left edge instead. */
-  .ss-srv2-hero__lead {
-    width: var(--srv2-mobile-lead-width);
-    max-width: var(--srv2-mobile-lead-width);
-    margin-inline: auto;
-    font-size: clamp(0.86rem, 2.45vw, 0.98rem);
-    line-height: 1.45;
-  }
-
-  /* Signal rows as centred pills: each row shrink-wraps to its own copy
-     instead of running band-to-band, echoing the eyebrow and CTA stadium
-     shapes so the whole stack reads as one jewelled system. The column is a
-     deliberate step narrower than the CTA block below it, continuing the
-     hero's taper toward its actions. */
-  .ss-srv2-hero__caps {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: min(72%, 14rem);
-    gap: clamp(0.36rem, 0.7svh, 0.52rem);
-    margin-top: 0;
-  }
-
-  .ss-srv2-hero__cap {
-    width: fit-content;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title,
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
+    width: 100%;
     max-width: 100%;
-    min-height: 2.15rem;
-    gap: 0.55rem;
-    padding: 0.32rem 0.55rem 0.32rem 0.32rem;
-    border: 1px solid color-mix(in srgb, var(--srv2-accent) 24%, var(--srv2-hairline));
-    border-radius: var(--ss-radius-pill);
-    background:
-      linear-gradient(
-        120deg,
-        color-mix(in srgb, var(--srv2-accent) 13%, transparent),
-        transparent 62%
-      ),
-      var(--srv2-glass);
-    box-shadow:
-      inset 0 1px 0 color-mix(in srgb, white 7%, transparent),
-      0 14px 28px -22px color-mix(in srgb, var(--srv2-accent) 60%, transparent);
-    font-size: clamp(0.7rem, 2.05vw, 0.8rem);
-    line-height: 1.3;
-    text-align: start;
+    font-size: clamp(2.15rem, 10.6vw, 2.85rem);
+    line-height: 1.03;
+    letter-spacing: -0.035em;
   }
 
-  /* `pretty` avoids single-word orphans on the wrapped rows without
-     `balance`'s dead right-side space (balance evens the lines but leaves the
-     shrink-wrapped pill at its pre-balance width). */
-  .ss-srv2-hero__cap > span:last-child {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
+    font-size: clamp(1.95rem, 9.4vw, 2.55rem);
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+    font-size: clamp(0.9rem, 3.9vw, 1.02rem);
+    line-height: 1.5;
     text-wrap: pretty;
   }
 
-  .ss-srv2-hero__cap-dot {
+  /* The signal manifest: one glass instrument instead of three floating
+     pills. Hairline dividers separate the rows; two accent arcs hug opposite
+     corners (the panel's one decorative flourish). margin-top: auto pins it
+     to the bottom of the flex-grown top group, directly above the CTAs. */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0;
+    margin-top: auto;
+    padding: 0.2rem 0.9rem;
+    border: 1px solid var(--srv2-mobile-hairline);
+    border-radius: 0.85rem;
+    background:
+      linear-gradient(
+        165deg,
+        color-mix(in srgb, var(--srv2-accent) 8%, transparent),
+        transparent 58%
+      ),
+      var(--srv2-glass);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, white 6%, transparent),
+      0 18px 40px -30px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
+    backdrop-filter: blur(14px);
+    /* The rows fade in individually from 980ms (mount reveals); the frame
+       leads them in so the container never sits empty on screen. */
+    animation: srv2-caps-manifest-in 0.65s var(--ss-motion-easing-standard) both;
+    animation-delay: 0.82s;
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps::before,
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps::after {
+    content: "";
+    position: absolute;
+    width: 1.35rem;
+    height: 1.35rem;
+    border: 1px solid color-mix(in srgb, var(--srv2-accent) 80%, transparent);
+    pointer-events: none;
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps::before {
+    top: -1px;
+    left: -1px;
+    border-right: 0;
+    border-bottom: 0;
+    border-top-left-radius: 0.85rem;
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps::after {
+    right: -1px;
+    bottom: -1px;
+    border-left: 0;
+    border-top: 0;
+    border-bottom-right-radius: 0.85rem;
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap {
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    gap: 0.7rem;
+    padding: 0.6rem 0.05rem;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    font-size: clamp(0.8rem, 3.4vw, 0.9rem);
+    line-height: 1.35;
+    text-align: start;
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap + .ss-srv2-hero__cap {
+    border-top: 1px solid color-mix(in srgb, var(--ss-v2-hairline) 62%, transparent);
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap > span:last-child {
+    text-wrap: pretty;
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap-dot {
     width: 0.5rem;
     height: 0.5rem;
   }
 
-  .ss-srv2-hero__cap-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 999px;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap-icon {
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 0.55rem;
   }
 
-  .ss-srv2-hero__actions-reveal {
-    width: var(--srv2-mobile-block-width);
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions-reveal {
+    width: 100%;
   }
 
-  .ss-srv2-hero__actions {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions {
     display: grid;
     width: 100%;
     grid-template-columns: 1fr;
-    gap: clamp(0.4rem, 0.7svh, 0.58rem);
+    gap: 0.55rem;
     padding-top: 0;
   }
 
-  .ss-srv2-hero__actions .ss-srv2-btn {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {
     width: 100%;
-    min-height: 2.6rem;
+    min-height: 3rem;
     justify-content: center;
-    padding: 0.52rem 1rem;
-    font-size: 0.84rem;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  /* One primary action per screen: the ghost quietens (fainter scrim, softer
+     ink) so the animated gradient CTA above it carries the row alone. */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn--ghost {
+    border-color: color-mix(in srgb, var(--ss-v2-hairline) 80%, transparent);
+    background: color-mix(in srgb, var(--ss-v2-graphite) 40%, transparent);
+    color: var(--srv2-ink-soft);
+    font-weight: 500;
+  }
+}
+
+@keyframes srv2-caps-manifest-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 40rem) and (prefers-reduced-motion: reduce) {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
+    animation: none;
   }
 }
 
 /* Short mobile browser viewports (including Safari with both toolbars shown)
-   keep every content group and the full animated cue inside the first screen. */
+   keep every content group and the full animated cue inside the first screen.
+   Selectors match the phone block's `.ss-srv2` prefix so these later tiers
+   still win at equal specificity. */
 @media (max-width: 40rem) and (max-height: 43.75rem) {
   /* The floating chrome cluster keeps its full height on short screens, so
      the reserve inherited from the stacked-layout rules does not shrink here
@@ -1045,44 +1166,51 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     padding-block: 0.3rem;
   }
 
-  .ss-srv2-hero__intro {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro {
     gap: 0.6rem;
   }
 
-  .ss-srv2-hero__top {
-    gap: 0.4rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__top {
+    gap: 0.45rem;
     padding-block: 0;
   }
 
-  .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
     font-size: 0.55rem;
   }
 
-  .ss-srv2-hero__title,
-  .ss-srv2-hero__title[data-long="true"] {
-    font-size: clamp(1.6rem, 8.2vw, 2.1rem);
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title,
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
+    font-size: clamp(1.7rem, 8.6vw, 2.2rem);
   }
 
-  .ss-srv2-hero__lead {
-    font-size: 0.78rem;
-    line-height: 1.34;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead {
+    font-size: 0.8rem;
+    line-height: 1.4;
   }
 
-  .ss-srv2-hero__caps,
-  .ss-srv2-hero__actions {
-    gap: 0.28rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
+    padding: 0.12rem 0.75rem;
   }
 
-  .ss-srv2-hero__cap {
-    min-height: 1.85rem;
-    padding-block: 0.28rem;
-    font-size: 0.66rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap {
+    padding-block: 0.42rem;
+    font-size: 0.74rem;
   }
 
-  .ss-srv2-hero__actions .ss-srv2-btn {
-    min-height: 2.2rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions {
+    gap: 0.4rem;
+  }
+
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {
+    min-height: 2.55rem;
     padding-block: 0.38rem;
-    font-size: 0.76rem;
+    font-size: 0.8rem;
   }
 
   .ss-srv2-hero__scrollcue .ss-hv2-scrollcue__rail {
@@ -1097,66 +1225,63 @@ section[data-slot="page-section"]:has(.ss-srv2) {
    cue to remain inside the first screen. */
 @media (max-width: 40rem) and (max-height: 38rem) {
   .ss-srv2-hero {
-    /* Keep the reduced hierarchy, but recover a few pixels of line length so
-       ultra-short screens retain their existing first-fold clearance. */
-    --srv2-mobile-lead-width: min(94%, 18rem);
-    --srv2-mobile-block-width: min(84%, 15rem);
     --srv2-mobile-chrome-reserve: calc(8rem + env(safe-area-inset-bottom, 0px));
   }
 
-  .ss-srv2-hero__intro {
-    gap: 0.38rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro {
+    gap: 0.42rem;
   }
 
-  .ss-srv2-hero__top {
-    gap: 0.28rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__top {
+    gap: 0.32rem;
   }
 
-  .ss-srv2-hero .ss-srv2-eyebrow {
-    padding-block: 0.3rem;
-    font-size: 0.56rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow {
+    font-size: 0.54rem;
+    letter-spacing: 0.15em;
   }
 
-  .ss-srv2-hero__title,
-  .ss-srv2-hero__title[data-long="true"] {
-    font-size: clamp(1.4rem, 7.2vw, 1.75rem);
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title,
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
+    font-size: clamp(1.5rem, 7.6vw, 1.85rem);
     line-height: 1.04;
   }
 
-  .ss-srv2-hero__lead {
-    font-size: 0.72rem;
-    line-height: 1.28;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead {
+    font-size: 0.74rem;
+    line-height: 1.32;
   }
 
-  .ss-srv2-hero__caps {
-    gap: 0.22rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
+    padding: 0.06rem 0.65rem;
   }
 
-  .ss-srv2-hero__cap {
-    min-height: 1.7rem;
-    padding-block: 0.2rem;
-    font-size: 0.62rem;
-    line-height: 1.2;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap {
+    gap: 0.55rem;
+    padding-block: 0.3rem;
+    font-size: 0.68rem;
+    line-height: 1.25;
   }
 
-  .ss-srv2-hero__cap-icon {
-    width: 1.25rem;
-    height: 1.25rem;
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap-icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 0.45rem;
   }
 
-  .ss-srv2-hero__actions {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.38rem;
   }
 
-  .ss-srv2-hero__actions .ss-srv2-btn {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {
     min-height: 2.75rem;
     padding: 0.35rem 0.42rem;
     font-size: 0.7rem;
     line-height: 1.15;
   }
 
-  .ss-srv2-hero__actions .ss-srv2-btn svg {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn svg {
     width: 0.8rem;
     height: 0.8rem;
   }
