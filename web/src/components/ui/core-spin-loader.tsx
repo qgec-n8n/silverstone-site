@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import { useAppExperience } from "~/app/experience/app-experience";
 import { isGateFreeNavigation } from "~/data/gate-free-routes";
 import { getRouteExperienceByPath } from "~/data/route-experiences";
+import { useHydrated } from "~/lib/use-hydrated";
 
 import "~/styles/core-spin-loader.css";
 
@@ -92,8 +93,20 @@ function preloadRouteAssets(pathname: string): void {
 
 export function CoreSpinLoader() {
   const location = useLocation();
+  const hydrated = useHydrated();
   const { dismissLoader } = useAppExperience();
-  const gateFree = isGateFreeNavigation(location.pathname, location.hash);
+  /*
+   * Prerendered HTML never carries a hash, so the hash half of the gate-free
+   * check must wait for hydration — otherwise a `path#section` deep-link
+   * landing renders "done" against static "active" markup and React reports
+   * a hydration mismatch. During the hidden pre-hydration window the boot
+   * script's `data-gate-free` marker keeps the static overlay invisible; the
+   * effect below then retires the overlay on the first post-hydration pass.
+   */
+  const gateFree = isGateFreeNavigation(
+    location.pathname,
+    hydrated ? location.hash : "",
+  );
   const [phase, setPhase] = useState<Phase>(gateFree ? "done" : "active");
   const [ellipsisStep, setEllipsisStep] = useState(3);
   const [activePathname, setActivePathname] = useState(() => location.pathname);
@@ -104,6 +117,14 @@ export function CoreSpinLoader() {
     // A gate-free destination (Book) never plays the loader, whichever route
     // it's reached from — jump straight to "done" instead of "active".
     setPhase(gateFree ? "done" : "active");
+  }
+
+  // Deep-link hydration hand-off: `phase` initialised to the prerendered
+  // "active" state (the hash is invisible until hydration), and `gateFree`
+  // flips on the first post-hydration render — reconcile in the render
+  // phase, the same derived-state pattern as the pathname block above.
+  if (gateFree && phase === "active") {
+    setPhase("done");
   }
 
   useEffect(() => {
@@ -125,6 +146,16 @@ export function CoreSpinLoader() {
       cancelled = true;
     };
   }, [activePathname, dismissLoader, gateFree]);
+
+  useEffect(() => {
+    // The boot script's synchronous no-flash marker (`data-gate-free`) has
+    // done its job once the overlay has actually retired; removing it only
+    // then keeps the static overlay hidden for every pre-"done" frame, and
+    // frees the marker for later client-side navigations to gated routes.
+    if (phase === "done" && typeof document !== "undefined") {
+      document.documentElement.removeAttribute("data-gate-free");
+    }
+  }, [phase]);
 
   useEffect(() => {
     if (phase !== "exiting") {

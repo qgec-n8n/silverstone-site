@@ -114,7 +114,10 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
     }
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      // An inner surface (e.g. the web-design live showcase putting its demo
+      // on standby) consumes Escape via preventDefault; only an unclaimed
+      // Escape closes the body back to the intro.
+      if (event.key === "Escape" && !event.defaultPrevented) {
         event.preventDefault();
         handleCloseBody();
       }

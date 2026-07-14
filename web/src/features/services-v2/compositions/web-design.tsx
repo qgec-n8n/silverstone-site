@@ -232,9 +232,11 @@ export function WebDesignComposition({
         </div>
       </section>
 
-      {/* 9 — Live client-website showcases */}
+      {/* 9 — Live client-website portfolio journey. The rail itself sits
+          full-bleed below the contained section head: on desktop it pins and
+          travels horizontally with normal vertical scrolling. */}
       <section
-        className="ss-srv2-section"
+        className="ss-srv2-section ss-srv2-section--folio"
         id="demo-web-design"
         aria-labelledby="srv2-showcase"
       >
@@ -242,12 +244,12 @@ export function WebDesignComposition({
           <SectionHead
             eyebrow="Live showcases"
             icon={PencilRuler}
-            heading="Browse two finished builds, *live inside this page*"
+            heading="Two finished builds, *live inside this page*"
             headingId="srv2-showcase"
-            lead="Real production websites. Activate a window and explore every page, form and booking flow yourself."
+            lead="Real production websites, presented as one journey. Keep scrolling to travel between them — then activate a window and browse every page, form and booking flow yourself."
           />
-          <BrowserShowcase />
         </div>
+        <BrowserShowcase />
       </section>
 
       {/* 10 — Objections */}

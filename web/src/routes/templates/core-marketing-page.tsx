@@ -4,6 +4,7 @@ import type { MigratedContentRecord } from "~/content/migrated";
 import { isGateFreeNavigation } from "~/data/gate-free-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { CorePageExperience } from "~/features/core-pages/core-page-experience";
+import { useHydrated } from "~/lib/use-hydrated";
 import { RoutePageFrame } from "~/routes/templates/route-page-frame";
 
 type CoreMarketingPageProps = {
@@ -38,6 +39,7 @@ function resolveEyebrow(route: FutureRouteRecord): string {
 
 export function CoreMarketingPage({ content = null, route }: CoreMarketingPageProps) {
   const location = useLocation();
+  const hydrated = useHydrated();
   const bespokeCoreRoutes = new Set([
     "/how-we-work",
     "/blog",
@@ -56,7 +58,14 @@ export function CoreMarketingPage({ content = null, route }: CoreMarketingPagePr
         showHeader={false}
         showBreadcrumbs={false}
         showRelated={false}
-        skipIntro={isGateFreeNavigation(location.pathname, location.hash)}
+        /* Hash-gated skipping must wait for hydration: static HTML is built
+           hashless, so a deep-link landing (e.g. /book#booking-calendar)
+           first replays the prerendered intro-present markup, then drops the
+           intro on the immediate post-hydration render. */
+        skipIntro={isGateFreeNavigation(
+          location.pathname,
+          hydrated ? location.hash : "",
+        )}
       >
         <CorePageExperience route={route} />
       </RoutePageFrame>

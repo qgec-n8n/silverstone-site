@@ -12,6 +12,7 @@ import { useLocation } from "react-router";
 
 import { getCanonicalRouteExperienceByPath } from "~/data/route-experiences";
 import { isGateFreeNavigation } from "~/data/gate-free-routes";
+import { useHydrated } from "~/lib/use-hydrated";
 
 /**
  * AppExperience coordinates the opening sequence shared by every route:
@@ -137,10 +138,16 @@ function rearmGate(
   experiencePath: string | null,
   isHomeRoute: boolean,
 ): GateState {
+  // A gate-free non-home destination must never show the loader, so arriving
+  // on one clears any loader still armed from the previous state — including
+  // the hydration hand-off, where the gate initialises in its prerendered
+  // (hashless, gated) form and re-arms here once the deep-link hash applies.
   const loaderActive =
     experiencePath !== null && experiencePath !== current.experiencePath
       ? true
-      : current.loaderActive;
+      : experiencePath === null && !isHomeRoute
+        ? false
+        : current.loaderActive;
 
   return {
     experiencePath,
@@ -165,11 +172,19 @@ function rearmGate(
 
 export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
+  const hydrated = useHydrated();
+  /*
+   * The hash is client-only information: prerendered HTML is always built
+   * without one, so any hash-dependent branch (gate-free deep links) must
+   * not differ during the hydration render. Until hydration commits, the
+   * gate renders exactly the hashless state the static HTML contains; the
+   * very next render adopts the real hash and `rearmGate` releases the gate
+   * for deep-link landings. The boot script in root.tsx marks those landings
+   * with `data-gate-free` so the loader overlay stays hidden throughout.
+   */
+  const gateHash = hydrated ? location.hash : "";
   const isHomeRoute = location.pathname === "/";
-  const routeExperienceActive = isRouteExperienceRoute(
-    location.pathname,
-    location.hash,
-  );
+  const routeExperienceActive = isRouteExperienceRoute(location.pathname, gateHash);
   const isServiceRoute = isServiceExperienceRoute(location.pathname);
 
   const previousScrollStylesRef = useRef<{
@@ -198,10 +213,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const [gate, setGate] = useState<GateState>(() => ({
     experiencePath: routeExperienceActive ? normalizePathname(location.pathname) : null,
     isHomeRoute,
-    loaderActive: !isGateFreeNavigation(
-      normalizePathname(location.pathname),
-      location.hash,
-    ),
+    loaderActive: !isGateFreeNavigation(normalizePathname(location.pathname), gateHash),
     homepageState: isHomeRoute ? "loading" : "body",
     routeExperienceState: routeExperienceActive ? "loading" : "body",
   }));

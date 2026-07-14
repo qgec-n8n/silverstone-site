@@ -107,21 +107,22 @@
   body {
     @apply bg-background text-foreground min-h-dvh antialiased;
     margin: 0;
-    overflow-x: hidden;
+    /* `clip`, not `hidden`: hidden registers body as a scroll container in
+       its own right, which silently disables `position: sticky` descendants
+       (they compute their stuck offset against body's own never-changing
+       scrollTop instead of the real documentElement scroller) — observed on
+       iOS Safari for the mobile header and on desktop Chromium for the
+       web-design showcase's pinned journey stage. `clip` keeps the guard
+       without creating a scroll container, so sticky keeps working. */
+    overflow-x: clip;
     text-rendering: optimizeLegibility;
   }
 
   /*
-   * `overflow-x: hidden` on body (needed for the horizontal-scroll guard
-   * above) has a side effect: it makes body register as a scroll container
-   * in its own right, and on iOS Safari that makes `position: sticky`
-   * descendants (the mobile header, see SiteHeader) compute their "stuck"
-   * offset against body's own scrollTop — which never changes, since real
-   * scrolling happens on the documentElement, not body — so sticky silently
-   * never engages. html's own overflow-x: hidden above already clips any
-   * horizontal overflow from body's descendants, so the guard doesn't
-   * actually need body's copy of the rule below the header's own `lg`
-   * breakpoint, where sticky positioning is in play.
+   * Below the header's own `lg` breakpoint the guard doesn't need body's
+   * copy of the rule at all — html's overflow-x above already clips any
+   * horizontal overflow from body's descendants (kept as `visible` from the
+   * original iOS Safari sticky-header fix; see SiteHeader).
    */
   @media (max-width: 1023px) {
     body {

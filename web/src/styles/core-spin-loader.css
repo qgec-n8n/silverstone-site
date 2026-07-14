@@ -48,6 +48,17 @@ html[data-js="on"] .ss-loader[data-phase="exiting"] {
   pointer-events: none;
 }
 
+/*
+  Gate-free landings (boot-script marker, set synchronously before paint for
+  exact routes and path#section deep links) never show the overlay: their
+  prerendered HTML still carries it in the gated "active" phase, and React
+  only reconciles that to "done" on the first post-hydration render. The
+  loader removes the marker itself once its phase reaches "done".
+*/
+html[data-js="on"][data-gate-free="on"] .ss-loader {
+  display: none;
+}
+
 .ss-loader__stage,
 .ss-loader__core-spin {
   position: absolute;
