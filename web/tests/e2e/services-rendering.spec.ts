@@ -50,7 +50,10 @@ const serviceRoutes = Object.entries(approvedServices).map(([path, service]) => 
   const copy = serviceCopyByRoute[path as keyof typeof serviceCopyByRoute];
   return {
     button: service.routeEntry.buttonLabel,
-    h1: copy.h1,
+    // H1s carry *emphasis* markdown (rendered as <em>), so raw-HTML and
+    // accessible-name checks use the plain text, which also appears verbatim
+    // in the page's JSON-LD.
+    h1: copy.h1.replace(/\*/g, ""),
     path,
     // A short, plain (non-bold/italic) phrase guaranteed to render verbatim.
     // Headings now carry *emphasis* markdown (rendered as <em> in HTML), which

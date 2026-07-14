@@ -43,7 +43,8 @@ describe("service demo surfaces", () => {
   // The ElevenLabs voice demo went live on 2026-07-09 (owner-requested):
   // the reserved call/chat/transcript placeholders were replaced by the
   // live-voice-demo console wired to the public "Grace" agent. The web-design
-  // showcase remains a reserved preview frame.
+  // showcase went live on 2026-07-14: two client websites in interactive
+  // browser windows (see the dedicated describe block below).
   const liveDemoRendererPaths = [
     "src/features/services-v2/demos/live-voice-demo.tsx",
     "src/features/services-v2/demos/live-voice-session.tsx",
@@ -102,6 +103,68 @@ describe("service demo surfaces", () => {
       expect(text).not.toMatch(/api[_-]?key/i);
       expect(text).not.toMatch(/\bsk_[a-zA-Z0-9]{8,}/);
       expect(text).not.toMatch(/\bxi-api-key\b/i);
+    }
+  });
+});
+
+describe("live website showcase", () => {
+  const showcasePath = "src/features/services-v2/demos/browser-showcase.tsx";
+  const showcase = readFileSync(resolve(process.cwd(), showcasePath), "utf8");
+
+  // The route-scoped CSP (root netlify.toml) allow-lists exactly the two
+  // demo origins plus the site-wide Calendly warm-up origin — CalendlyWarmup
+  // (features/core-pages/calendly.tsx) mounts a hidden scheduler iframe on
+  // every route, so it must stay framable here too. The showcase component
+  // itself must never reference any origin beyond the two demos.
+  const demoOrigins = [
+    "https://ownly-housing.netlify.app",
+    "https://aestheticsbyclouds.netlify.app",
+  ];
+  const frameSrcAllowList = [...demoOrigins, "https://calendly.com"];
+
+  it("embeds only the two CSP-allow-listed demo origins", () => {
+    for (const origin of demoOrigins) {
+      expect(showcase).toContain(origin);
+    }
+    // Scan code only — doc comments legitimately mention other origins
+    // (Calendly, the demo sites' frame-ancestors values).
+    const showcaseCode = showcase
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/^\s*\/\/.*$/gm, "");
+    const externalUrls = showcaseCode.match(/https:\/\/[a-z0-9.-]+/g) ?? [];
+    for (const url of externalUrls) {
+      expect(
+        demoOrigins.some((origin) => url.startsWith(origin)),
+        url,
+      ).toBe(true);
+    }
+    const csp = readFileSync(resolve(process.cwd(), "../netlify.toml"), "utf8");
+    const headerValues = [...csp.matchAll(/Content-Security-Policy = "([^"]+)"/g)].map(
+      (match) => match[1],
+    );
+    expect(headerValues.length).toBeGreaterThan(0);
+    for (const value of headerValues) {
+      expect(value).toBe(`frame-src ${frameSrcAllowList.join(" ")}`);
+    }
+  });
+
+  it("delegates payment to the booking-enabled demo and never sandboxes", () => {
+    // The Aesthetics by Clouds booking flow can take deposits; its frame
+    // carries the payment permission. Neither frame may be sandboxed — a
+    // restrictive sandbox would break the demos' own navigation and forms.
+    expect(showcase).toContain("allowPayment: true");
+    expect(showcase).toContain('"payment"');
+    expect(showcase).not.toMatch(/\bsandbox\b/);
+  });
+
+  it("ships locally optimised posters for every referenced screenshot", () => {
+    const posters = showcase.match(/\/demos\/web-design\/[a-z0-9-]+\.webp/g) ?? [];
+    expect(posters.length).toBeGreaterThanOrEqual(8);
+    for (const poster of new Set(posters)) {
+      expect(
+        existsSync(resolve(process.cwd(), "public", poster.slice(1))),
+        poster,
+      ).toBe(true);
     }
   });
 });

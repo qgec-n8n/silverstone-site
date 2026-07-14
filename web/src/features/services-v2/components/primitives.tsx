@@ -593,7 +593,9 @@ let beamObserver: IntersectionObserver | null = null;
 function observeBeam(element: Element): () => void {
   if (typeof IntersectionObserver === "undefined") {
     element.setAttribute("data-active", "true");
-    return () => {};
+    return () => {
+      // No observer was created, so there is nothing to disconnect.
+    };
   }
   beamObserver ??= new IntersectionObserver((entries) => {
     for (const entry of entries) {

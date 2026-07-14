@@ -4,7 +4,7 @@
  *
  * Concise, conversion-led structure (British English): opening → costly problem
  * → outcome → what you receive → why Silverstone → verified performance →
- * delivery → reserved live-website showcases → objections → decisive CTA.
+ * delivery → live client-website showcases → objections → decisive CTA.
  * Prose comes from the rewritten copy module; exact benchmark values and the
  * approved capability/outcome/process microcopy come from the verified content.
  */
@@ -92,7 +92,7 @@ export function WebDesignComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
-        secondaryCtaLabel="Preview a live build"
+        secondaryCtaLabel="Explore two live builds"
         secondaryCtaHref="/services/web-design-development#demo-web-design"
         showcase={
           <ConversionArchitecture
@@ -232,7 +232,7 @@ export function WebDesignComposition({
         </div>
       </section>
 
-      {/* 9 — Reserved live-website showcases */}
+      {/* 9 — Live client-website showcases */}
       <section
         className="ss-srv2-section"
         id="demo-web-design"
@@ -242,9 +242,9 @@ export function WebDesignComposition({
           <SectionHead
             eyebrow="Live showcases"
             icon={PencilRuler}
-            heading="Two live website showcases are *reserved for this page*"
+            heading="Browse two finished builds, *live inside this page*"
             headingId="srv2-showcase"
-            lead="Beyond static portfolio imagery, this space is prepared to explore two production websites in a controlled browser-frame presentation — added only once the live URL, permission and descriptive copy are approved."
+            lead="Real production websites. Activate a window and explore every page, form and booking flow yourself."
           />
           <BrowserShowcase />
         </div>

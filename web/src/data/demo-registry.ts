@@ -8,9 +8,9 @@
  *
  * The two ElevenLabs voice surfaces are live, fully functional demos
  * (`services-v2/demos/live-voice-demo`): visitors can speak to Grace and
- * watch the real-time transcript. The web-design showcase remains a reserved
- * preview frame (`services-v2/demos/browser-showcase`), so its copy still
- * says "preview".
+ * watch the real-time transcript. The web-design showcase
+ * (`services-v2/demos/browser-showcase`) presents two live client websites
+ * in interactive browser windows.
  */
 export type DemoEntry = {
   id: string;
@@ -40,8 +40,8 @@ export const DEMO_REGISTRY: readonly DemoEntry[] = [
   },
   {
     id: "web-design",
-    label: "Explore a web build",
-    description: "Preview a premium website inside the browser-style showcase",
+    label: "Explore live builds",
+    description: "Browse two real client websites inside interactive windows",
     href: "/services/web-design-development#demo-web-design",
   },
 ];
