@@ -82,7 +82,7 @@ export type SilverstoneBlogPost = {
 export const BLOG_POSTS: SilverstoneBlogPost[] = [
   // N8N_BLOG_POSTS_START
   {
-    slug: "how-to-plan-a-conversion-focused-website-build-for-a-uk-small-business",
+    slug: "conversion-focused-website-planning",
     title: "How to Plan a Conversion-Focused Website Build for a UK Small Business",
     subtitle:
       "A practical guide to structuring pages, platforms, content and handoffs so your website works as part of the business, not apart from it.",
@@ -100,8 +100,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-07T16:15:32.460Z",
     readTime: "6 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/how-to-plan-a-conversion-focused-website-build-for-a-uk-small-business-hero.webp",
+    heroImage: "/assets/images/blog/conversion-focused-website-planning-hero.webp",
     heroImageAlt:
       "Illustrative premium website design and development operating surface with layered responsive pages, CMS modules, analytics and CRM handoff for a UK small business",
     metaTitle: "Conversion-Focused Web Design for UK Small Businesses",
@@ -262,7 +261,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "bespoke-app-development-for-uk-small-businesses-what-to-build-first",
+    slug: "bespoke-app-development-guide",
     title: "Bespoke App Development for UK Small Businesses: What to Build First",
     subtitle:
       "A pragmatic guide to choosing between a web app, mobile app or internal tool, and defining a first release that proves the workflow rather than inflating scope.",
@@ -280,8 +279,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-07T21:27:12.713Z",
     readTime: "7 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/bespoke-app-development-for-uk-small-businesses-what-to-build-first-hero.webp",
+    heroImage: "/assets/images/blog/bespoke-app-development-guide-hero.webp",
     heroImageAlt:
       "Illustrative product-state stack for a first-release business app showing user journeys, permissions, data model and API connections in a controlled UK studio systems view.",
     metaTitle: "Bespoke App Development for UK Small Businesses",
@@ -436,7 +434,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "ai-voice-agent-development-for-uk-businesses-calls-controls-and-handoffs-expla",
+    slug: "ai-voice-agent-development",
     title:
       "AI Voice Agent Development for UK Businesses: Calls, Controls and Handoffs Explained",
     subtitle:
@@ -455,8 +453,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-09T08:45:42.060Z",
     readTime: "9 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/ai-voice-agent-development-for-uk-businesses-calls-controls-and-handoffs-expla-hero.webp",
+    heroImage: "/assets/images/blog/ai-voice-agent-development-hero.webp",
     heroImageAlt:
       "Abstract call-state machine for an AI voice agent showing waveform, transcript cues, approved tool action and human handoff in a premium dark interface.",
     metaTitle: "AI Voice Agent Development for UK Businesses",
@@ -649,7 +646,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "ai-receptionist-uk-what-small-businesses-should-set-up-before-they-buy",
+    slug: "ai-receptionist-setup-guide",
     title: "AI Receptionist UK: What Small Businesses Should Set Up Before They Buy",
     subtitle:
       "A practical guide to channels, booking rules, CRM links, escalation paths and privacy boundaries before you choose an AI receptionist service.",
@@ -667,8 +664,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-09T09:34:42.974Z",
     readTime: "9 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/ai-receptionist-uk-what-small-businesses-should-set-up-before-they-buy-hero.webp",
+    heroImage: "/assets/images/blog/ai-receptionist-setup-guide-hero.webp",
     heroImageAlt:
       "Futuristic multi-channel reception console showing phone, web chat and messaging routed into approved answers, live booking, CRM ownership and human escalation for a UK small business.",
     metaTitle: "AI Receptionist UK: What to Set Up Before You Buy",
@@ -1019,7 +1015,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "how-to-choose-the-first-workflow-to-automate-in-a-uk-small-business",
+    slug: "workflow-automation-selection-guide",
     title: "How to Choose the First Workflow to Automate in a UK Small Business",
     subtitle:
       "A practical framework for picking an automation that is owned, measurable and safe to put into production.",
@@ -1037,8 +1033,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-09T09:37:56.227Z",
     readTime: "9 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/how-to-choose-the-first-workflow-to-automate-in-a-uk-small-business-hero.webp",
+    heroImage: "/assets/images/blog/workflow-automation-selection-guide-hero.webp",
     heroImageAlt:
       "Illustrative workflow automation control surface showing triggers, rules, approvals, run logs and a human exception path for a UK small business.",
     metaTitle: "Choose the First Workflow to Automate | Silverstone AI",
@@ -1367,7 +1362,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "ai-and-automation-consulting-for-uk-small-businesses-what-to-fix-first",
+    slug: "ai-automation-consulting-guide",
     title: "AI & Automation Consulting for UK Small Businesses: What to Fix First",
     subtitle:
       "A practical framework for choosing the right workflows, controls and tools before you spend money on the wrong build.",
@@ -1385,8 +1380,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T07:22:52.410Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/ai-and-automation-consulting-for-uk-small-businesses-what-to-fix-first-hero.webp",
+    heroImage: "/assets/images/blog/ai-automation-consulting-guide-hero.webp",
     heroImageAlt:
       "Premium visual of a UK small business automation consulting system showing workflow priorities, human approvals and connected operational layers.",
     metaTitle: "AI & Automation Consulting for UK Small Businesses",
@@ -1722,7 +1716,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "a-practical-content-creation-framework-for-uk-small-businesses",
+    slug: "content-creation-framework",
     title: "A Practical Content Creation Framework for UK Small Businesses",
     subtitle:
       "Turn scattered ideas, voice notes and half-finished drafts into a controlled content system that supports sales, service and day-to-day operations.",
@@ -1740,8 +1734,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T08:30:33.260Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/a-practical-content-creation-framework-for-uk-small-businesses-hero.webp",
+    heroImage: "/assets/images/blog/content-creation-framework-hero.webp",
     heroImageAlt:
       "Premium editorial visual of a UK small business content system turning approved source material into website, email and social outputs through controlled review gates.",
     metaTitle: "Content Creation Framework for UK Small Businesses",
@@ -1901,7 +1894,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "The cleanest starting point is a single commercial journey. For example: website enquiries for one core service, better lead follow-up after discovery calls, or a repeatable way to turn service expertise into authority content. Pick one path where stronger content would clearly support revenue or reduce wasted time.",
           "Then define the minimum system. What are the inputs? Who reviews? Which outputs matter first? Where does content live? What happens after publication? A small business does not need a newsroom. It needs a workable production loop.",
           "A useful first stack might include an intake method for source material, a topic framework, a standard article or page structure, a review owner, a publishing cadence and a reuse rule. That is enough to create consistency without bureaucracy.",
-          "If your website is part of the problem, read [conversion-focused website build for a UK small business](/blog/how-to-plan-a-conversion-focused-website-build-for-a-uk-small-business). Content works best when the website, calls to action and service architecture are designed together rather than patched together later.",
+          "If your website is part of the problem, read [conversion-focused website build for a UK small business](/blog/conversion-focused-website-planning). Content works best when the website, calls to action and service architecture are designed together rather than patched together later.",
         ],
         lede: "Start narrow. Build the machine around one real business objective.",
         variant: "system",
@@ -2022,7 +2015,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Conversion-Focused Web Design for UK Small Businesses",
-        url: "https://silverstone-ai.com/blog/how-to-plan-a-conversion-focused-website-build-for-a-uk-small-business",
+        url: "https://silverstone-ai.com/blog/conversion-focused-website-planning",
         date: "",
         summary:
           "A practical guide to structuring pages, platforms, content and handoffs so your website works as part of the business, not apart from it.",
@@ -2074,7 +2067,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "estate-agent-automation-in-the-uk-what-to-build-first-and-what-to-leave-human",
+    slug: "estate-agent-automation-guide",
     title:
       "Estate Agent Automation in the UK: What to Build First and What to Leave Human",
     subtitle:
@@ -2093,8 +2086,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T09:21:37.172Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/estate-agent-automation-in-the-uk-what-to-build-first-and-what-to-leave-human-hero.webp",
+    heroImage: "/assets/images/blog/estate-agent-automation-guide-hero.webp",
     heroImageAlt:
       "Premium high-tech estate agency workflow showing website, calls and portal enquiries routing into a CRM and viewing diary with human oversight",
     metaTitle: "Estate Agent Automation in the UK | Silverstone AI",
@@ -2355,7 +2347,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Conversion-Focused Web Design for UK Small Businesses",
-        url: "https://silverstone-ai.com/blog/how-to-plan-a-conversion-focused-website-build-for-a-uk-small-business",
+        url: "https://silverstone-ai.com/blog/conversion-focused-website-planning",
         date: "",
         summary:
           "# How to Plan a *Conversion-Focused Web*site Build for a UK Small Business. A practical guide to structuring pages, platforms, content and handoffs so your website works as part of the business, not apart from it. * A polished website can still underperform if service structure, user journeys and enquiry handoffs are unclear. * Better website planning starts",
@@ -2406,7 +2398,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "hospitality-automation-for-uk-small-businesses-where-ai-actually-helps",
+    slug: "hospitality-automation-guide",
     title: "Hospitality Automation for UK Small Businesses: Where AI Actually Helps",
     subtitle:
       "Practical websites, booking flows, AI receptionists and back-office systems for hospitality teams that need smoother operations without losing control.",
@@ -2424,8 +2416,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T09:31:47.335Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/hospitality-automation-for-uk-small-businesses-where-ai-actually-helps-hero.webp",
+    heroImage: "/assets/images/blog/hospitality-automation-guide-hero.webp",
     heroImageAlt:
       "Premium hospitality operations system showing reservation flow, guest enquiry routing, pre-arrival messaging and duty-manager escalation in a refined UK business setting",
     metaTitle: "Hospitality Automation for UK Small Businesses",
@@ -2692,7 +2683,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Conversion-Focused Web Design for UK Small Businesses",
-        url: "https://silverstone-ai.com/blog/how-to-plan-a-conversion-focused-website-build-for-a-uk-small-business",
+        url: "https://silverstone-ai.com/blog/conversion-focused-website-planning",
         date: "",
         summary:
           "# How to Plan a *Conversion-Focused Web*site Build for a UK Small Business. A practical guide to structuring pages, platforms, content and handoffs so your website works as part of the business, not apart from it. * A polished website can still underperform if service structure, user journeys and enquiry handoffs are unclear. * Better website planning starts",
@@ -2743,7 +2734,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "how-uk-salons-and-barbers-can-use-ai-without-losing-the-human-touch",
+    slug: "salon-barber-ai-guide",
     title: "How UK Salons and Barbers Can Use AI Without Losing the Human Touch",
     subtitle:
       "Modern websites, booking journeys, AI reception and automation systems that protect service quality while reducing admin drag.",
@@ -2761,8 +2752,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T11:22:54.184Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/how-uk-salons-and-barbers-can-use-ai-without-losing-the-human-touch-hero.webp",
+    heroImage: "/assets/images/blog/salon-barber-ai-guide-hero.webp",
     heroImageAlt:
       "Premium futuristic salon operations dashboard concept showing booking flow, enquiry routing, waitlist logic and human oversight in a UK small business setting",
     metaTitle: "AI for UK Salons and Barbers | Silverstone AI",
@@ -3016,7 +3006,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Bespoke App Development for UK Small Businesses - Silverstone AI",
-        url: "https://silverstone-ai.com/blog/bespoke-app-development-for-uk-small-businesses-what-to-build-first",
+        url: "https://silverstone-ai.com/blog/bespoke-app-development-guide",
         date: "",
         summary:
           "A practical UK guide to scoping bespoke app development, choosing the right platform and defining a first release that proves the workflow.",
@@ -3068,7 +3058,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "websites-ai-receptionists-and-automation-for-uk-trades-businesses",
+    slug: "trades-websites-ai-automation",
     title: "Websites, AI Receptionists and Automation for UK Trades Businesses",
     subtitle:
       "A practical operating system for plumbers, electricians, builders, heating engineers and home service firms that want fewer missed leads, tighter admin and better handoff from enquiry to booked job.",
@@ -3086,8 +3076,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T15:47:02.085Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/websites-ai-receptionists-and-automation-for-uk-trades-businesses-hero.webp",
+    heroImage: "/assets/images/blog/trades-websites-ai-automation-hero.webp",
     heroImageAlt:
       "Premium digital operations system for a UK trades business showing website enquiries, call routing and workflow automation with human oversight.",
     metaTitle: "Automation for UK Trades Businesses | Silverstone AI",
@@ -3386,7 +3375,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "ai-systems-for-ecommerce-brands-what-uk-small-businesses-should-build-first",
+    slug: "ecommerce-ai-systems-guide",
     title:
       "AI Systems for eCommerce Brands: What UK Small Businesses Should Build First",
     subtitle:
@@ -3405,8 +3394,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T15:55:27.928Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/ai-systems-for-ecommerce-brands-what-uk-small-businesses-should-build-first-hero.webp",
+    heroImage: "/assets/images/blog/ecommerce-ai-systems-guide-hero.webp",
     heroImageAlt:
       "Premium visual of an eCommerce operating system showing website, orders, support, returns and automation layers for a UK small business.",
     metaTitle: "AI Systems for eCommerce Brands | Silverstone AI",
@@ -3685,7 +3673,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Bespoke App Development for UK Small Businesses",
-        url: "https://silverstone-ai.com/blog/bespoke-app-development-for-uk-small-businesses-what-to-build-first",
+        url: "https://silverstone-ai.com/blog/bespoke-app-development-guide",
         date: "",
         summary:
           "# *Bespoke App Development* for UK Small Businesses: What to Build First. A pragmatic guide to choosing between a web app, mobile app or internal tool, and defining a first release that proves the workflow rather than inflating scope. * Choose the workflow before the platform: web app, mobile app or internal tool. In practice, the early value often comes fro",
@@ -3736,7 +3724,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "how-uk-physio-and-chiropractic-practices-can-use-ai-without-losing-the-human-t",
+    slug: "physio-chiropractic-ai-guide",
     title:
       "How UK Physio and Chiropractic Practices Can Use AI Without Losing the Human Touch",
     subtitle:
@@ -3755,8 +3743,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T16:00:30.165Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/how-uk-physio-and-chiropractic-practices-can-use-ai-without-losing-the-human-t-hero.webp",
+    heroImage: "/assets/images/blog/physio-chiropractic-ai-guide-hero.webp",
     heroImageAlt:
       "Premium digital system showing a UK physio or chiropractic clinic workflow linking website enquiries, call handling, booking and human clinical handoff.",
     metaTitle: "AI for UK Physio & Chiropractic Practices | Silverstone AI",
@@ -4073,7 +4060,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "dental-practice-automation-in-the-uk-a-practical-systems-guide",
+    slug: "dental-practice-automation-guide",
     title: "Dental Practice Automation in the UK: A Practical Systems Guide",
     subtitle:
       "How modern UK dental practices can connect websites, bookings, recalls, reception and admin into one calmer, more reliable operating system.",
@@ -4091,8 +4078,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T16:25:54.003Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/dental-practice-automation-in-the-uk-a-practical-systems-guide-hero.webp",
+    heroImage: "/assets/images/blog/dental-practice-automation-guide-hero.webp",
     heroImageAlt:
       "Premium futuristic dental practice operations dashboard concept showing website enquiries, recall workflows, reception routing and human oversight in a UK clinical business setting.",
     metaTitle: "Dental Practice Automation UK | Silverstone AI",
@@ -4420,7 +4406,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "gym-automation-for-small-uk-fitness-businesses-a-practical-operating-model",
+    slug: "gym-automation-operating-model",
     title:
       "Gym Automation for Small UK Fitness Businesses: A Practical Operating Model",
     subtitle:
@@ -4439,8 +4425,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T16:30:54.203Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/gym-automation-for-small-uk-fitness-businesses-a-practical-operating-model-hero.webp",
+    heroImage: "/assets/images/blog/gym-automation-operating-model-hero.webp",
     heroImageAlt:
       "Premium high-tech system visual showing a UK gym enquiry, trial booking and follow-up workflow routed through website, reception and staff handoff layers.",
     metaTitle: "Gym Automation for UK Fitness Businesses | Silverstone AI",
@@ -4754,7 +4739,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "how-uk-fitness-coaches-can-turn-enquiries-into-booked-consultations",
+    slug: "fitness-coach-enquiry-automation",
     title: "How UK Fitness Coaches Can Turn Enquiries into Booked Consultations",
     subtitle:
       "A practical systems view of websites, follow-up, booking and AI support for fitness coaches who want cleaner operations and more consistent sales conversations.",
@@ -4772,8 +4757,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T16:32:58.875Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/how-uk-fitness-coaches-can-turn-enquiries-into-booked-consultations-hero.webp",
+    heroImage: "/assets/images/blog/fitness-coach-enquiry-automation-hero.webp",
     heroImageAlt:
       "Premium digital operating system for a UK fitness coach showing lead capture, booking, follow-up automation and human-led consultation handoff.",
     metaTitle: "How UK Fitness Coaches Turn Enquiries Into Consultations",
@@ -5005,7 +4989,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Conversion-Focused Web Design for UK Small Businesses",
-        url: "https://silverstone-ai.com/blog/how-to-plan-a-conversion-focused-website-build-for-a-uk-small-business",
+        url: "https://silverstone-ai.com/blog/conversion-focused-website-planning",
         date: "",
         summary:
           "A practical guide to structuring pages, platforms, content and handoffs so your website works as part of the business, not apart from it.",
@@ -5056,7 +5040,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "web-design-and-development-for-uk-small-businesses-build-a-site-that-operates",
+    slug: "small-business-web-development",
     title:
       "Web Design & Development for UK Small Businesses: Build a Site That Operates",
     subtitle:
@@ -5075,8 +5059,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T16:34:48.938Z",
     readTime: "9 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/web-design-and-development-for-uk-small-businesses-build-a-site-that-operates-hero.webp",
+    heroImage: "/assets/images/blog/small-business-web-development-hero.webp",
     heroImageAlt:
       "Premium website design system for a UK small business showing page architecture, conversion flow and integrated operational handoff.",
     metaTitle: "Web Design & Development for UK Small Businesses",
@@ -5403,7 +5386,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         title: "Bespoke App Development for UK Small Businesses - Silverstone AI",
-        url: "https://silverstone-ai.com/blog/bespoke-app-development-for-uk-small-businesses-what-to-build-first",
+        url: "https://silverstone-ai.com/blog/bespoke-app-development-guide",
         date: "",
         summary:
           "# *Bespoke App Development* for UK Small Businesses: What to Build First. A pragmatic guide to choosing between a web app, mobile app or internal tool, and defining a first release that proves the workflow rather than inflating scope. * Choose the workflow before the platform: web app, mobile app or internal tool. In practice, the early value often comes fro",
@@ -5438,7 +5421,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "app-development-for-uk-small-businesses-what-to-build-first",
+    slug: "small-business-app-development",
     title: "App Development for UK Small Businesses: What to Build First",
     subtitle:
       "A pragmatic framework for choosing the right app, the right first release and the right level of complexity.",
@@ -5456,8 +5439,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T16:38:08.877Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/app-development-for-uk-small-businesses-what-to-build-first-hero.webp",
+    heroImage: "/assets/images/blog/small-business-app-development-hero.webp",
     heroImageAlt:
       "Premium visual of a UK small-business app development system showing a focused first-release workflow, user states, data connections and controlled AI-assisted handoff.",
     metaTitle: "App Development for UK Small Businesses | Silverstone AI",
@@ -5726,7 +5708,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Bespoke App Development for UK Small Businesses - Silverstone AI",
-        url: "https://silverstone-ai.com/blog/bespoke-app-development-for-uk-small-businesses-what-to-build-first",
+        url: "https://silverstone-ai.com/blog/bespoke-app-development-guide",
         date: "",
         summary:
           "# *Bespoke App Development* for UK Small Businesses: What to Build First. A pragmatic guide to choosing between a web app, mobile app or internal tool, and defining a first release that proves the workflow rather than inflating scope. * Choose the workflow before the platform: web app, mobile app or internal tool. In practice, the early value often comes fro",
@@ -5778,7 +5760,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    slug: "ai-voice-agents-in-the-uk-a-practical-buyer-s-guide-for-small-businesses",
+    slug: "ai-voice-agent-buyers-guide",
     title: "AI Voice Agents in the UK: A Practical Buyer’s Guide for Small Businesses",
     subtitle:
       "How to decide where voice automation fits, where it does not, and how to keep calls useful, compliant and commercially sharp.",
@@ -5796,8 +5778,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     updatedIsoDate: "2026-07-10T16:39:55.636Z",
     readTime: "8 min read",
     status: "published",
-    heroImage:
-      "/assets/images/blog/ai-voice-agents-in-the-uk-a-practical-buyer-s-guide-for-small-businesses-hero.webp",
+    heroImage: "/assets/images/blog/ai-voice-agent-buyers-guide-hero.webp",
     heroImageAlt:
       "Premium visual of an AI voice call-handling system with waveform, transcript cues, routing states and human handoff for a UK small business",
     metaTitle: "AI Voice Agents in the UK for Small Businesses",
@@ -6068,7 +6049,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Bespoke App Development for UK Small Businesses - Silverstone AI",
-        url: "https://silverstone-ai.com/blog/bespoke-app-development-for-uk-small-businesses-what-to-build-first",
+        url: "https://silverstone-ai.com/blog/bespoke-app-development-guide",
         date: "",
         summary:
           "# *Bespoke App Development* for UK Small Businesses: What to Build First. A pragmatic guide to choosing between a web app, mobile app or internal tool, and defining a first release that proves the workflow rather than inflating scope. * Choose the workflow before the platform: web app, mobile app or internal tool. In practice, the early value often comes fro",
@@ -6120,733 +6101,761 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     },
   },
   {
-    "slug": "ai-receptionist-uk-a-practical-guide-for-small-business-owners",
-    "title": "AI Receptionist UK: A Practical Guide for Small Business Owners",
-    "subtitle": "How voice AI, booking logic and human handoff work when you need better call handling without losing control.",
-    "summary": [
+    slug: "ai-receptionist-small-business-guide",
+    title: "AI Receptionist UK: A Practical Guide for Small Business Owners",
+    subtitle:
+      "How voice AI, booking logic and human handoff work when you need better call handling without losing control.",
+    summary: [
       "Understand what an AI receptionist really does in a UK small business.",
       "See where voice AI creates value and where human handoff must stay in place.",
-      "Use a practical framework to judge readiness, buying options and rollout scope."
+      "Use a practical framework to judge readiness, buying options and rollout scope.",
     ],
-    "categoryLabel": "AI Receptionists",
-    "categoryKey": "ai-receptionists",
-    "categoryId": "ai-receptionists",
-    "categoryOrder": 4,
-    "displayDate": "11 July 2026",
-    "publishedIsoDate": "2026-07-11T08:01:25.902Z",
-    "updatedIsoDate": "2026-07-11T08:01:25.902Z",
-    "readTime": "8 min read",
-    "status": "published",
-    "heroImage": "/assets/images/blog/ai-receptionist-uk-a-practical-guide-for-small-business-owners-hero.webp",
-    "heroImageAlt": "Premium futuristic reception workflow showing inbound calls, booking logic, CRM routing and human escalation for a UK small business AI receptionist system.",
-    "metaTitle": "AI Receptionist UK: Practical Guide for Small Businesses",
-    "metaDescription": "A practical UK guide to AI receptionists for small businesses: how they work, where they fit, what to automate and what should stay human.",
-    "primaryKeyword": "AI receptionist UK",
-    "secondaryKeywords": [
+    categoryLabel: "AI Receptionists",
+    categoryKey: "ai-receptionists",
+    categoryId: "ai-receptionists",
+    categoryOrder: 4,
+    displayDate: "11 July 2026",
+    publishedIsoDate: "2026-07-11T08:01:25.902Z",
+    updatedIsoDate: "2026-07-11T08:01:25.902Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/ai-receptionist-small-business-guide-hero.webp",
+    heroImageAlt:
+      "Premium futuristic reception workflow showing inbound calls, booking logic, CRM routing and human escalation for a UK small business AI receptionist system.",
+    metaTitle: "AI Receptionist UK: Practical Guide for Small Businesses",
+    metaDescription:
+      "A practical UK guide to AI receptionists for small businesses: how they work, where they fit, what to automate and what should stay human.",
+    primaryKeyword: "AI receptionist UK",
+    secondaryKeywords: [
       "AI receptionist for small business",
       "UK small business call handling",
       "voice AI receptionist",
       "AI phone answering system UK",
-      "AI booking and call routing"
+      "AI booking and call routing",
     ],
-    "articleBody": [
+    articleBody: [
       {
-        "heading": "Introduction",
-        "variant": "signal",
-        "body": [
-          "Missed calls are expensive, but so is a clumsy front desk. The modern answer is not a gimmick bolted onto your phone line. It is a tightly designed reception system that can answer, route, capture, book and escalate with precision across calls, web and messages. For UK small businesses, that matters most when the day is busy, the team is stretched and every new enquiry needs a clean handoff. This is where Silverstone AI approaches AI receptionists as an operating system question, not a chatbot purchase: what should be automated, what must stay human, and how do you keep service standards intact while the business moves faster?"
-        ]
+        heading: "Introduction",
+        variant: "signal",
+        body: [
+          "Missed calls are expensive, but so is a clumsy front desk. The modern answer is not a gimmick bolted onto your phone line. It is a tightly designed reception system that can answer, route, capture, book and escalate with precision across calls, web and messages. For UK small businesses, that matters most when the day is busy, the team is stretched and every new enquiry needs a clean handoff. This is where Silverstone AI approaches AI receptionists as an operating system question, not a chatbot purchase: what should be automated, what must stay human, and how do you keep service standards intact while the business moves faster?",
+        ],
       },
       {
-        "heading": "What an AI receptionist actually is",
-        "body": [
+        heading: "What an AI receptionist actually is",
+        body: [
           "An AI receptionist is a voice-led front-door system that answers inbound enquiries, understands common requests, follows approved business rules and either completes a bounded task or passes the conversation to a person. In a UK small business, that usually means handling first contact for bookings, opening hours, service questions, lead capture, routing and callback requests.",
           "The important phrase is *bounded task*. A good AI receptionist does not replace judgement-heavy work. It works best where the business can define clear rules: which calls can be answered, what information can be collected, when a booking can be offered, and when the call must go to a human.",
-          "This matters in the UK because small firms often run lean teams, mixed mobile and office coverage, and uneven call peaks across mornings, lunch periods and after-hours. A receptionist system needs to cope with local accents, UK time formats, business-hour rules, consent-aware workflows and practical escalation paths, not just answer politely."
+          "This matters in the UK because small firms often run lean teams, mixed mobile and office coverage, and uneven call peaks across mornings, lunch periods and after-hours. A receptionist system needs to cope with local accents, UK time formats, business-hour rules, consent-aware workflows and practical escalation paths, not just answer politely.",
         ],
-        "lede": "Strip away the marketing language and the useful version is simple.",
-        "variant": "signal",
-        "pullQuote": "The real question is not whether AI can answer the phone. It is whether your reception logic is clear enough to trust at first contact.",
-        "bullets": [
+        lede: "Strip away the marketing language and the useful version is simple.",
+        variant: "signal",
+        pullQuote:
+          "The real question is not whether AI can answer the phone. It is whether your reception logic is clear enough to trust at first contact.",
+        bullets: [
           {
-            "label": "Best uses",
-            "body": "Answering common enquiries, routing to the right team, taking details and handling simple bookings.",
-            "icon": "phone"
+            label: "Best uses",
+            body: "Answering common enquiries, routing to the right team, taking details and handling simple bookings.",
+            icon: "phone",
           },
           {
-            "label": "Poor uses",
-            "body": "Clinical judgement, disputes, sensitive complaints, complex pricing or anything needing negotiation.",
-            "icon": "alert-circle"
+            label: "Poor uses",
+            body: "Clinical judgement, disputes, sensitive complaints, complex pricing or anything needing negotiation.",
+            icon: "alert-circle",
           },
           {
-            "label": "Core requirement",
-            "body": "A clean human handoff with context so staff are not forced to start again.",
-            "icon": "arrow-right"
-          }
-        ]
+            label: "Core requirement",
+            body: "A clean human handoff with context so staff are not forced to start again.",
+            icon: "arrow-right",
+          },
+        ],
       },
       {
-        "heading": "Where AI receptionists create value for small businesses",
-        "body": [
+        heading: "Where AI receptionists create value for small businesses",
+        body: [
           "Most small businesses do not need a flashy voice demo. They need fewer missed opportunities, cleaner admin and more consistent first response. That is why AI receptionists create value when they sit inside a wider workflow rather than acting as a standalone tool.",
           "If a caller asks for availability, the system should know whether it is allowed to offer a slot, gather the right details and write that information to the correct destination. If someone calls after hours, the system should know whether to book, log, triage or arrange a callback. If the query falls outside policy, it should escalate immediately.",
-          "That operating-system view is why reception AI often overlaps with [services](/services), workflow logic and internal process design. The voice layer is only the visible edge. The real gain comes from better routing, fewer manual re-entries and less ambiguity in how new enquiries move through the business."
+          "That operating-system view is why reception AI often overlaps with [services](/services), workflow logic and internal process design. The voice layer is only the visible edge. The real gain comes from better routing, fewer manual re-entries and less ambiguity in how new enquiries move through the business.",
         ],
-        "lede": "The strongest commercial case is operational, not theatrical.",
-        "variant": "system",
-        "bullets": [
+        lede: "The strongest commercial case is operational, not theatrical.",
+        variant: "system",
+        bullets: [
           {
-            "label": "Strong fit sectors",
-            "body": "Trades, clinics for non-clinical enquiries, salons, hospitality, property and service businesses with repeated call types.",
-            "icon": "building"
+            label: "Strong fit sectors",
+            body: "Trades, clinics for non-clinical enquiries, salons, hospitality, property and service businesses with repeated call types.",
+            icon: "building",
           },
           {
-            "label": "Strong fit workflows",
-            "body": "Booking requests, FAQs, lead qualification, store-and-forward messages and team routing.",
-            "icon": "git-branch"
+            label: "Strong fit workflows",
+            body: "Booking requests, FAQs, lead qualification, store-and-forward messages and team routing.",
+            icon: "git-branch",
           },
           {
-            "label": "Weak fit workflows",
-            "body": "High-emotion complaints, safeguarding issues, complex case handling and bespoke quoting without guardrails.",
-            "icon": "shield-off"
-          }
+            label: "Weak fit workflows",
+            body: "High-emotion complaints, safeguarding issues, complex case handling and bespoke quoting without guardrails.",
+            icon: "shield-off",
+          },
         ],
-        "grid": [
+        grid: [
           {
-            "title": "Lead capture",
-            "body": "Catch calls that would otherwise ring out, gather structured details and route them to the right owner."
+            title: "Lead capture",
+            body: "Catch calls that would otherwise ring out, gather structured details and route them to the right owner.",
           },
           {
-            "title": "Booking support",
-            "body": "Offer approved slots or callback windows when booking rules are clear and controlled."
+            title: "Booking support",
+            body: "Offer approved slots or callback windows when booking rules are clear and controlled.",
           },
           {
-            "title": "Staff protection",
-            "body": "Reduce interruption load so skilled team members spend less time on repetitive front-desk work."
+            title: "Staff protection",
+            body: "Reduce interruption load so skilled team members spend less time on repetitive front-desk work.",
           },
           {
-            "title": "After-hours cover",
-            "body": "Keep the business responsive outside standard hours without pretending every issue can be solved instantly."
-          }
-        ]
+            title: "After-hours cover",
+            body: "Keep the business responsive outside standard hours without pretending every issue can be solved instantly.",
+          },
+        ],
       },
       {
-        "heading": "The system behind a good AI receptionist",
-        "body": [
+        heading: "The system behind a good AI receptionist",
+        body: [
           "A reliable AI receptionist normally combines five parts: telephony, conversation logic, business rules, destination systems and human exception handling. Remove any one of them and the setup starts to wobble.",
           "Telephony handles the call itself. Conversation logic manages turn-taking, intent recognition and approved answers. Business rules decide what the system may do, such as booking limits or routing rules. Destination systems include calendars, CRMs or inboxes. Human exception handling catches anything uncertain, sensitive or outside policy.",
-          "For UK small businesses, the handoff design matters as much as the voice quality. If the system books into the wrong diary, logs unusable notes or transfers without context, it creates admin debt instead of reducing it. This is why implementation discipline matters more than novelty."
+          "For UK small businesses, the handoff design matters as much as the voice quality. If the system books into the wrong diary, logs unusable notes or transfers without context, it creates admin debt instead of reducing it. This is why implementation discipline matters more than novelty.",
         ],
-        "lede": "What the caller hears is only one layer. The business logic underneath decides whether the experience feels sharp or chaotic.",
-        "variant": "operator",
-        "comparisonTable": {
-          "columns": [
-            "What it covers",
-            "Why it matters",
-            "Failure risk if weak"
-          ],
-          "rows": [
+        lede: "What the caller hears is only one layer. The business logic underneath decides whether the experience feels sharp or chaotic.",
+        variant: "operator",
+        comparisonTable: {
+          columns: ["What it covers", "Why it matters", "Failure risk if weak"],
+          rows: [
             {
-              "label": "Telephony layer",
-              "cells": [
+              label: "Telephony layer",
+              cells: [
                 "Inbound answering, routing, transfer and call state control",
                 "It determines whether callers can actually reach and move through the system cleanly",
-                "Dropped calls, poor transfers or confusing call flow"
-              ]
+                "Dropped calls, poor transfers or confusing call flow",
+              ],
             },
             {
-              "label": "Conversation design",
-              "cells": [
+              label: "Conversation design",
+              cells: [
                 "Approved prompts, responses, confirmations and fallback wording",
                 "It shapes clarity, trust and whether the caller completes the task",
-                "Robotic exchanges, misunderstandings or repeated loops"
-              ]
+                "Robotic exchanges, misunderstandings or repeated loops",
+              ],
             },
             {
-              "label": "Business rules",
-              "cells": [
+              label: "Business rules",
+              cells: [
                 "Opening hours, booking permissions, escalation triggers and stop conditions",
                 "It keeps automation inside safe commercial boundaries",
-                "Wrong bookings, bad promises or policy breaches"
-              ]
+                "Wrong bookings, bad promises or policy breaches",
+              ],
             },
             {
-              "label": "Destination systems",
-              "cells": [
+              label: "Destination systems",
+              cells: [
                 "Calendar, CRM, forms, inboxes and task creation",
                 "It turns the call into a usable operational record",
-                "Manual re-entry, lost leads or fragmented data"
-              ]
+                "Manual re-entry, lost leads or fragmented data",
+              ],
             },
             {
-              "label": "Human handoff",
-              "cells": [
+              label: "Human handoff",
+              cells: [
                 "Warm transfer, callback task or escalation path with context",
                 "It protects edge cases and preserves service quality",
-                "Frustrated callers and duplicated effort"
-              ]
-            }
-          ]
+                "Frustrated callers and duplicated effort",
+              ],
+            },
+          ],
         },
-        "subsections": [
+        subsections: [
           {
-            "heading": "A useful rule of thumb",
-            "body": [
-              "If you cannot write the front-desk policy clearly, you are not ready to automate it. AI receptionists perform well when your service rules are already understandable to a new staff member."
-            ]
-          }
-        ]
+            heading: "A useful rule of thumb",
+            body: [
+              "If you cannot write the front-desk policy clearly, you are not ready to automate it. AI receptionists perform well when your service rules are already understandable to a new staff member.",
+            ],
+          },
+        ],
       },
       {
-        "heading": "How to decide whether your business is ready",
-        "body": [
+        heading: "How to decide whether your business is ready",
+        body: [
           "The best early deployments tend to share three traits. First, the business gets repeatable enquiry types. Second, there is a defined destination for each type of call. Third, management is willing to set boundaries on what the system may and may not do.",
           "If your call handling is currently informal, spread across personal mobiles, or dependent on one person remembering everything, an AI receptionist may still help — but only if you fix the process before the voice layer goes live. Otherwise you automate confusion.",
-          "That is also why implementation should connect to a proper delivery method. Pages like [how we work](/how-we-work) and [pricing](/pricing) are useful decision points because they frame AI as a system build, not a one-click install."
+          "That is also why implementation should connect to a proper delivery method. Pages like [how we work](/how-we-work) and [pricing](/pricing) are useful decision points because they frame AI as a system build, not a one-click install.",
         ],
-        "lede": "Readiness is less about company size and more about process clarity.",
-        "variant": "signal",
-        "bullets": [
+        lede: "Readiness is less about company size and more about process clarity.",
+        variant: "signal",
+        bullets: [
           {
-            "label": "Good first step",
-            "body": "Audit one week of inbound calls and group them by repeatable intent.",
-            "icon": "search"
+            label: "Good first step",
+            body: "Audit one week of inbound calls and group them by repeatable intent.",
+            icon: "search",
           },
           {
-            "label": "Next step",
-            "body": "Define clear stop conditions for complaints, safeguarding, pricing disputes or specialist advice.",
-            "icon": "stop-circle"
+            label: "Next step",
+            body: "Define clear stop conditions for complaints, safeguarding, pricing disputes or specialist advice.",
+            icon: "stop-circle",
           },
           {
-            "label": "Decision test",
-            "body": "If a new team member could follow the rule set, an AI workflow can usually be designed around it.",
-            "icon": "check-circle"
-          }
+            label: "Decision test",
+            body: "If a new team member could follow the rule set, an AI workflow can usually be designed around it.",
+            icon: "check-circle",
+          },
         ],
-        "grid": [
+        grid: [
           {
-            "label": "Ready",
-            "title": "You know the common call types",
-            "body": "Your team can list the top enquiries and the correct next step for each."
+            label: "Ready",
+            title: "You know the common call types",
+            body: "Your team can list the top enquiries and the correct next step for each.",
           },
           {
-            "label": "Ready",
-            "title": "You have a source of truth",
-            "body": "Diary rules, service areas, opening hours and escalation contacts are documented."
+            label: "Ready",
+            title: "You have a source of truth",
+            body: "Diary rules, service areas, opening hours and escalation contacts are documented.",
           },
           {
-            "label": "Not ready",
-            "title": "Every answer depends on one person",
-            "body": "If knowledge lives in someone's head, the system cannot behave consistently."
+            label: "Not ready",
+            title: "Every answer depends on one person",
+            body: "If knowledge lives in someone's head, the system cannot behave consistently.",
           },
           {
-            "label": "Not ready",
-            "title": "You expect fully autonomous handling",
-            "body": "Reception AI should reduce load, not remove human responsibility for edge cases."
-          }
-        ]
+            label: "Not ready",
+            title: "You expect fully autonomous handling",
+            body: "Reception AI should reduce load, not remove human responsibility for edge cases.",
+          },
+        ],
       },
       {
-        "heading": "What to ask before you buy or build",
-        "body": [
+        heading: "What to ask before you buy or build",
+        body: [
           "A sensible buying process starts with control, not features. Who owns the call flow? Where is the booking truth held? What happens when the system is unsure? How are notes stored? Can the team review transcripts, outcomes and failed paths? These questions matter more than a polished demo.",
           "In the UK, you also need to think practically about privacy, call recording, consent wording where relevant, and sector-specific boundaries. A receptionist for a salon, trade business or estate agency will have different operational rules from one handling healthcare-adjacent or sensitive enquiries. The system must reflect that reality.",
-          "For many small firms, a bespoke or semi-bespoke setup is stronger than an off-the-shelf generic voice bot because it can connect to the actual booking, routing and follow-up logic the business already uses. That is the difference between software that sounds clever and a system that becomes useful."
+          "For many small firms, a bespoke or semi-bespoke setup is stronger than an off-the-shelf generic voice bot because it can connect to the actual booking, routing and follow-up logic the business already uses. That is the difference between software that sounds clever and a system that becomes useful.",
         ],
-        "lede": "The wrong question is 'Can it answer calls?'. Nearly every tool can. The right question is whether it can operate safely inside your business.",
-        "variant": "system",
-        "pullQuote": "A reception system should make the business easier to run. If it creates more checking, more apologising or more manual repair, it is not finished.",
-        "bullets": [
+        lede: "The wrong question is 'Can it answer calls?'. Nearly every tool can. The right question is whether it can operate safely inside your business.",
+        variant: "system",
+        pullQuote:
+          "A reception system should make the business easier to run. If it creates more checking, more apologising or more manual repair, it is not finished.",
+        bullets: [
           {
-            "label": "Ask about ownership",
-            "body": "Can you change prompts, rules, destinations and opening-hour logic without rebuilding everything?",
-            "icon": "sliders"
+            label: "Ask about ownership",
+            body: "Can you change prompts, rules, destinations and opening-hour logic without rebuilding everything?",
+            icon: "sliders",
           },
           {
-            "label": "Ask about exceptions",
-            "body": "What exactly triggers transfer, callback or human review, and what context goes with it?",
-            "icon": "users"
+            label: "Ask about exceptions",
+            body: "What exactly triggers transfer, callback or human review, and what context goes with it?",
+            icon: "users",
           },
           {
-            "label": "Ask about integration",
-            "body": "Will it connect cleanly to your diary, CRM, forms and reporting flow?",
-            "icon": "link"
+            label: "Ask about integration",
+            body: "Will it connect cleanly to your diary, CRM, forms and reporting flow?",
+            icon: "link",
           },
           {
-            "label": "Ask about observability",
-            "body": "Can you review call outcomes and improve weak paths over time?",
-            "icon": "activity"
-          }
-        ]
+            label: "Ask about observability",
+            body: "Can you review call outcomes and improve weak paths over time?",
+            icon: "activity",
+          },
+        ],
       },
       {
-        "heading": "A pragmatic rollout plan for UK small businesses",
-        "body": [
+        heading: "A pragmatic rollout plan for UK small businesses",
+        body: [
           "The cleanest rollout usually begins with a limited slice of front-desk work: common inbound enquiries, after-hours capture, or one booking path with obvious rules. That gives the business a safe test bed and reveals where information, wording or routing still need work.",
           "From there, review real interactions. Where did callers ask for something outside scope? Which answers were too vague? Which handoffs lacked enough context for the team? Good deployment is iterative. You are tuning a service layer, not pressing a launch button and hoping for the best.",
-          "If you are weighing this up now, the next step is usually a workflow conversation rather than a product demo. [Book a call](/book#booking-calendar), explore more practical thinking on the [blog](/blog), or use [contact](/contact) if you already know the process gap you need to fix."
+          "If you are weighing this up now, the next step is usually a workflow conversation rather than a product demo. [Book a call](/book#booking-calendar), explore more practical thinking on the [blog](/blog), or use [contact](/contact) if you already know the process gap you need to fix.",
         ],
-        "lede": "Start narrow, prove the workflow, then expand.",
-        "variant": "operator",
-        "subsections": [
+        lede: "Start narrow, prove the workflow, then expand.",
+        variant: "operator",
+        subsections: [
           {
-            "heading": "Phase 1: Narrow scope",
-            "body": [
-              "Choose one call family, one destination and one escalation route. Keep the first version small enough to monitor closely."
-            ]
+            heading: "Phase 1: Narrow scope",
+            body: [
+              "Choose one call family, one destination and one escalation route. Keep the first version small enough to monitor closely.",
+            ],
           },
           {
-            "heading": "Phase 2: Measure friction",
-            "body": [
-              "Review transcripts, failed intents, transfer quality and admin cleanup required by staff after the call."
-            ]
+            heading: "Phase 2: Measure friction",
+            body: [
+              "Review transcripts, failed intents, transfer quality and admin cleanup required by staff after the call.",
+            ],
           },
           {
-            "heading": "Phase 3: Expand with rules",
-            "body": [
-              "Add new pathways only when the underlying policy is clear, owned and testable."
-            ]
-          }
-        ]
-      }
+            heading: "Phase 3: Expand with rules",
+            body: [
+              "Add new pathways only when the underlying policy is clear, owned and testable.",
+            ],
+          },
+        ],
+      },
     ],
-    "faqs": [
+    faqs: [
       {
-        "question": "Can an AI receptionist replace a human receptionist completely?",
-        "answer": "Usually, no. It can reduce repetitive front-desk load and improve coverage, but most UK small businesses still need human ownership for exceptions, sensitive conversations, complaints, negotiation and any judgement-heavy decisions."
+        question: "Can an AI receptionist replace a human receptionist completely?",
+        answer:
+          "Usually, no. It can reduce repetitive front-desk load and improve coverage, but most UK small businesses still need human ownership for exceptions, sensitive conversations, complaints, negotiation and any judgement-heavy decisions.",
       },
       {
-        "question": "Which small businesses are the best fit for an AI receptionist?",
-        "answer": "Businesses with repeatable inbound enquiries and clear routing or booking rules tend to be the best fit. That often includes trades, salons, hospitality, property and service-led firms, plus non-clinical call handling in healthcare-adjacent settings."
+        question: "Which small businesses are the best fit for an AI receptionist?",
+        answer:
+          "Businesses with repeatable inbound enquiries and clear routing or booking rules tend to be the best fit. That often includes trades, salons, hospitality, property and service-led firms, plus non-clinical call handling in healthcare-adjacent settings.",
       },
       {
-        "question": "Does an AI receptionist need to connect to my booking system or CRM?",
-        "answer": "Not always, but it is far more useful when it does. Without integration, the team often ends up retyping notes or chasing context. The strongest setups connect the call flow to the diary, CRM or follow-up system that already runs the business."
+        question:
+          "Does an AI receptionist need to connect to my booking system or CRM?",
+        answer:
+          "Not always, but it is far more useful when it does. Without integration, the team often ends up retyping notes or chasing context. The strongest setups connect the call flow to the diary, CRM or follow-up system that already runs the business.",
       },
       {
-        "question": "What is the biggest mistake when setting up an AI receptionist?",
-        "answer": "Automating unclear process. If your staff do not agree on call handling, service boundaries or booking rules, the voice layer will expose that weakness. Fix the operating rules first, then automate the repeatable parts."
-      }
+        question: "What is the biggest mistake when setting up an AI receptionist?",
+        answer:
+          "Automating unclear process. If your staff do not agree on call handling, service boundaries or booking rules, the voice layer will expose that weakness. Fix the operating rules first, then automate the repeatable parts.",
+      },
     ],
-    "internalLinks": [
+    internalLinks: [
       {
-        "label": "services",
-        "href": "/services"
+        label: "services",
+        href: "/services",
       },
       {
-        "label": "how we work",
-        "href": "/how-we-work"
+        label: "how we work",
+        href: "/how-we-work",
       },
       {
-        "label": "pricing",
-        "href": "/pricing"
+        label: "pricing",
+        href: "/pricing",
       },
       {
-        "label": "book a call",
-        "href": "/book#booking-calendar"
+        label: "book a call",
+        href: "/book#booking-calendar",
       },
       {
-        "label": "blog",
-        "href": "/blog"
-      }
+        label: "blog",
+        href: "/blog",
+      },
     ],
-    "researchSources": [
+    researchSources: [
       {
-        "title": "Conversion-Focused Web Design for UK Small Businesses",
-        "url": "https://silverstone-ai.com/blog/how-to-plan-a-conversion-focused-website-build-for-a-uk-small-business",
-        "date": "",
-        "summary": "# How to Plan a *Conversion-Focused Web*site Build for a UK Small Business. A practical guide to structuring pages, platforms, content and handoffs so your website works as part of the business, not apart from it. * A polished website can still underperform if service structure, user journeys and enquiry handoffs are unclear. * Better website planning starts",
-        "relevance": "Current UK business context for AI Receptionists"
+        title: "Conversion-Focused Web Design for UK Small Businesses",
+        url: "https://silverstone-ai.com/blog/conversion-focused-website-planning",
+        date: "",
+        summary:
+          "# How to Plan a *Conversion-Focused Web*site Build for a UK Small Business. A practical guide to structuring pages, platforms, content and handoffs so your website works as part of the business, not apart from it. * A polished website can still underperform if service structure, user journeys and enquiry handoffs are unclear. * Better website planning starts",
+        relevance: "Current UK business context for AI Receptionists",
       },
       {
-        "title": "Webinity - AI Automation & Website Development Agency",
-        "url": "https://webinity.net/blog",
-        "date": "",
-        "summary": "# Home. Webinity helps business owners understand AI automation, website systems, customer response workflows and operational improvements. This page provides direct navigation and practical information for companies comparing services, pricing, guides, legal details or contact options. The goal is clarity: each page should help visitors find the right servi",
-        "relevance": "Current UK business context for AI Receptionists"
+        title: "Webinity - AI Automation & Website Development Agency",
+        url: "https://webinity.net/blog",
+        date: "",
+        summary:
+          "# Home. Webinity helps business owners understand AI automation, website systems, customer response workflows and operational improvements. This page provides direct navigation and practical information for companies comparing services, pricing, guides, legal details or contact options. The goal is clarity: each page should help visitors find the right servi",
+        relevance: "Current UK business context for AI Receptionists",
       },
       {
-        "title": "AI Automation for UK Small Businesses: A Practical Guide",
-        "url": "https://www.onthehillai.co.uk/blog/ai-automation-for-uk-small-businesses.html",
-        "date": "",
-        "summary": "What it actually is, what it genuinely costs, what it can and can't do — and how to make a good decision about whether it's right for your business. What AI automation actually is, what it costs for a real UK small business, what it does well, what it can't do, and how to make a sensible decision about whether it's worth pursuing. ## What AI automation actua",
-        "relevance": "Current UK business context for AI Receptionists"
+        title: "AI Automation for UK Small Businesses: A Practical Guide",
+        url: "https://www.onthehillai.co.uk/blog/ai-automation-for-uk-small-businesses.html",
+        date: "",
+        summary:
+          "What it actually is, what it genuinely costs, what it can and can't do — and how to make a good decision about whether it's right for your business. What AI automation actually is, what it costs for a real UK small business, what it does well, what it can't do, and how to make a sensible decision about whether it's worth pursuing. ## What AI automation actua",
+        relevance: "Current UK business context for AI Receptionists",
       },
       {
-        "title": "Best AI Receptionist for Small Business UK (2026) │ BookedSolid",
-        "url": "https://bookedsolid.co.uk/blog/best-ai-receptionist-for-small-business-uk",
-        "date": "",
-        "summary": "# Best AI Receptionist for Small Business in the UK: 2026 Review. The best AI receptionists for UK small businesses in 2026: RingCentral, Moneypenny, IONOS, BookedSolid, and ARROW compared on features, pricing, and fit. *A 2026 review of the best AI receptionists for UK small businesses, with practical guidance for healthcare clinics, professional services, ",
-        "relevance": "Current UK business context for AI Receptionists"
+        title: "Best AI Receptionist for Small Business UK (2026) │ BookedSolid",
+        url: "https://bookedsolid.co.uk/blog/best-ai-receptionist-for-small-business-uk",
+        date: "",
+        summary:
+          "# Best AI Receptionist for Small Business in the UK: 2026 Review. The best AI receptionists for UK small businesses in 2026: RingCentral, Moneypenny, IONOS, BookedSolid, and ARROW compared on features, pricing, and fit. *A 2026 review of the best AI receptionists for UK small businesses, with practical guidance for healthcare clinics, professional services, ",
+        relevance: "Current UK business context for AI Receptionists",
       },
       {
-        "title": "AI Receptionist UK: The Complete Guide for Small Businesses 2026",
-        "url": "https://www.softomatesolutions.com/blog/ai-receptionist-uk-complete-guide",
-        "date": "",
-        "summary": "This complete guide covers everything a UK business owner needs to know before deploying an AI receptionist: how the technology works, which",
-        "relevance": "Current UK business context for AI Receptionists"
-      }
+        title: "AI Receptionist UK: The Complete Guide for Small Businesses 2026",
+        url: "https://www.softomatesolutions.com/blog/ai-receptionist-uk-complete-guide",
+        date: "",
+        summary:
+          "This complete guide covers everything a UK business owner needs to know before deploying an AI receptionist: how the technology works, which",
+        relevance: "Current UK business context for AI Receptionists",
+      },
     ],
-    "imagePrompt": "Create one premium 16:9 editorial hero image for Silverstone AI focused on AI receptionists for UK small businesses. Show a refined multi-channel reception console as the main system surface: inbound phone calls, website enquiries and messages converge into approved answer paths, booking logic, CRM routing and one clear human escalation lane. Use a restrained voice-AI motif with waveform hints, call-state transitions, soft transcript cues and named destination modules, but no readable text. Composition should feel architectural, controlled and commercially useful, with generous negative space on one side for live website copy. Materials: deep ink, graphite and dark navy panels with platinum surfaces, subtle glass layers, precise borders and electric blue, teal and a touch of violet signal accents. Include one controlled exception path to show human oversight. No stock call-centre imagery, no robots, no fake dashboards, no logos, no nonsense UI text, no cyberpunk clutter. The scene should feel like a bespoke UK business operating system: calm, precise, premium, futuristic and human-governed.",
-    "ctaPrimary": {
-      "label": "Book a discovery call",
-      "href": "/book#booking-calendar"
+    imagePrompt:
+      "Create one premium 16:9 editorial hero image for Silverstone AI focused on AI receptionists for UK small businesses. Show a refined multi-channel reception console as the main system surface: inbound phone calls, website enquiries and messages converge into approved answer paths, booking logic, CRM routing and one clear human escalation lane. Use a restrained voice-AI motif with waveform hints, call-state transitions, soft transcript cues and named destination modules, but no readable text. Composition should feel architectural, controlled and commercially useful, with generous negative space on one side for live website copy. Materials: deep ink, graphite and dark navy panels with platinum surfaces, subtle glass layers, precise borders and electric blue, teal and a touch of violet signal accents. Include one controlled exception path to show human oversight. No stock call-centre imagery, no robots, no fake dashboards, no logos, no nonsense UI text, no cyberpunk clutter. The scene should feel like a bespoke UK business operating system: calm, precise, premium, futuristic and human-governed.",
+    ctaPrimary: {
+      label: "Book a discovery call",
+      href: "/book#booking-calendar",
     },
-    "ctaSecondary": {
-      "label": "Back to insights",
-      "href": "/blog"
-    }
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
   },
   {
-    "slug": "ai-automation-for-uk-small-businesses-what-to-fix-first",
-    "title": "AI Automation for UK Small Businesses: What to Fix First",
-    "subtitle": "Use AI and automation to remove admin drag, tighten handoffs and build cleaner operations without losing human control.",
-    "summary": [
+    slug: "small-business-ai-automation",
+    title: "AI Automation for UK Small Businesses: What to Fix First",
+    subtitle:
+      "Use AI and automation to remove admin drag, tighten handoffs and build cleaner operations without losing human control.",
+    summary: [
       "Learn where AI automation genuinely fits in a UK small business.",
       "Prioritise the workflows that create the most operational drag.",
-      "Use a practical automate-assist-leave-alone framework before buying."
+      "Use a practical automate-assist-leave-alone framework before buying.",
     ],
-    "categoryLabel": "AI Automation",
-    "categoryKey": "ai-automation",
-    "categoryId": "ai-automation",
-    "categoryOrder": 5,
-    "displayDate": "12 July 2026",
-    "publishedIsoDate": "2026-07-12T08:01:26.674Z",
-    "updatedIsoDate": "2026-07-12T08:01:26.674Z",
-    "readTime": "8 min read",
-    "status": "published",
-    "heroImage": "/assets/images/blog/ai-automation-for-uk-small-businesses-what-to-fix-first-hero.webp",
-    "heroImageAlt": "Premium visual of a UK small business automation system showing enquiry intake, workflow routing, approval points and human oversight in a refined high-tech interface.",
-    "metaTitle": "AI Automation for UK Small Businesses | Silverstone AI",
-    "metaDescription": "Learn what UK small businesses should automate first, where AI genuinely fits, and how to design practical automation systems without losing human control.",
-    "primaryKeyword": "AI automation for UK small businesses",
-    "secondaryKeywords": [
+    categoryLabel: "AI Automation",
+    categoryKey: "ai-automation",
+    categoryId: "ai-automation",
+    categoryOrder: 5,
+    displayDate: "12 July 2026",
+    publishedIsoDate: "2026-07-12T08:01:26.674Z",
+    updatedIsoDate: "2026-07-12T08:01:26.674Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/small-business-ai-automation-hero.webp",
+    heroImageAlt:
+      "Premium visual of a UK small business automation system showing enquiry intake, workflow routing, approval points and human oversight in a refined high-tech interface.",
+    metaTitle: "AI Automation for UK Small Businesses | Silverstone AI",
+    metaDescription:
+      "Learn what UK small businesses should automate first, where AI genuinely fits, and how to design practical automation systems without losing human control.",
+    primaryKeyword: "AI automation for UK small businesses",
+    secondaryKeywords: [
       "UK business automation",
       "small business AI workflows",
       "AI automation agency UK",
       "automation systems for SMEs",
-      "what to automate first"
+      "what to automate first",
     ],
-    "articleBody": [
+    articleBody: [
       {
-        "heading": "Introduction",
-        "variant": "signal",
-        "body": [
-          "The next competitive edge for a UK small business is not louder marketing or another software subscription. It is a cleaner operating system. When enquiries, bookings, follow-ups, documents and internal handoffs move with less friction, the business feels faster, sharper and more expensive than it is. That is where **Silverstone AI** works best: turning messy, manual work into controlled systems with clear rules, visible ownership and sensible use of AI. The goal is not to automate everything. The goal is to fix the work that quietly leaks time, margin and responsiveness every single week."
-        ]
+        heading: "Introduction",
+        variant: "signal",
+        body: [
+          "The next competitive edge for a UK small business is not louder marketing or another software subscription. It is a cleaner operating system. When enquiries, bookings, follow-ups, documents and internal handoffs move with less friction, the business feels faster, sharper and more expensive than it is. That is where **Silverstone AI** works best: turning messy, manual work into controlled systems with clear rules, visible ownership and sensible use of AI. The goal is not to automate everything. The goal is to fix the work that quietly leaks time, margin and responsiveness every single week.",
+        ],
       },
       {
-        "heading": "What AI automation actually means in a small business",
-        "body": [
+        heading: "What AI automation actually means in a small business",
+        body: [
           "AI automation combines two layers. The first is **automation**: triggers, rules, routing, updates, alerts and task creation between the tools you already use. The second is **AI**: bounded judgement inside that flow, such as summarising an enquiry, classifying a lead, drafting a reply or extracting key details from a document.",
           "For a UK small business, the useful question is not *'Do we need AI?'* It is *'Where are we repeating predictable work with enough volume to justify system design?'* If the task happens often, follows a recognisable pattern and slows down a commercial process, it is a candidate.",
-          "The best systems are not fully autonomous. They are structured. They know what can happen automatically, what needs approval, what must be logged, and when a human takes over. That matters even more in the UK, where privacy, consent, customer expectations and sector-specific obligations all shape what should or should not be automated."
+          "The best systems are not fully autonomous. They are structured. They know what can happen automatically, what needs approval, what must be logged, and when a human takes over. That matters even more in the UK, where privacy, consent, customer expectations and sector-specific obligations all shape what should or should not be automated.",
         ],
-        "lede": "Forget sci-fi. In practice, this is about moving routine work through a reliable flow.",
-        "variant": "signal",
-        "pullQuote": "Strong automation is not about replacing people. It is about removing low-value motion so the right people handle the right work.",
-        "bullets": [
+        lede: "Forget sci-fi. In practice, this is about moving routine work through a reliable flow.",
+        variant: "signal",
+        pullQuote:
+          "Strong automation is not about replacing people. It is about removing low-value motion so the right people handle the right work.",
+        bullets: [
           {
-            "label": "Good fit",
-            "body": "Repeating admin with clear inputs, clear outputs and a visible owner.",
-            "icon": "check"
+            label: "Good fit",
+            body: "Repeating admin with clear inputs, clear outputs and a visible owner.",
+            icon: "check",
           },
           {
-            "label": "Bad fit",
-            "body": "High-risk decisions needing nuanced judgement, legal interpretation or regulated advice.",
-            "icon": "stop"
+            label: "Bad fit",
+            body: "High-risk decisions needing nuanced judgement, legal interpretation or regulated advice.",
+            icon: "stop",
           },
           {
-            "label": "Best outcome",
-            "body": "Faster response, cleaner records, fewer missed handoffs and better use of staff time.",
-            "icon": "spark"
+            label: "Best outcome",
+            body: "Faster response, cleaner records, fewer missed handoffs and better use of staff time.",
+            icon: "spark",
           },
           {
-            "label": "Real boundary",
-            "body": "AI supports decisions; it should not silently make sensitive ones without oversight.",
-            "icon": "shield"
-          }
-        ]
+            label: "Real boundary",
+            body: "AI supports decisions; it should not silently make sensitive ones without oversight.",
+            icon: "shield",
+          },
+        ],
       },
       {
-        "heading": "What to fix first: the highest-friction workflows",
-        "body": [
+        heading: "What to fix first: the highest-friction workflows",
+        body: [
           "Start where operational friction touches revenue, service speed or staff time. That usually means front-door enquiries, follow-up, scheduling, document handling, internal handoffs or repetitive customer communication.",
           "In UK service businesses, missed calls, delayed replies and fragmented data are common losses. A prospect fills a form, sends a WhatsApp, leaves a voicemail or books partially, and the trail breaks. Automation closes those gaps by moving information into one usable workflow instead of leaving it scattered across inboxes and apps.",
-          "A practical rule: prioritise work that is frequent, annoying, measurable and commercially adjacent. Do not begin with the most technically interesting problem. Begin with the one that creates visible drag every week."
+          "A practical rule: prioritise work that is frequent, annoying, measurable and commercially adjacent. Do not begin with the most technically interesting problem. Begin with the one that creates visible drag every week.",
         ],
-        "lede": "Most small businesses do not need an AI strategy deck. They need a shortlist.",
-        "variant": "system",
-        "bullets": [
+        lede: "Most small businesses do not need an AI strategy deck. They need a shortlist.",
+        variant: "system",
+        bullets: [
           {
-            "label": "Fix first",
-            "body": "Missed enquiries and delayed responses that directly affect sales.",
-            "icon": "arrow-up"
+            label: "Fix first",
+            body: "Missed enquiries and delayed responses that directly affect sales.",
+            icon: "arrow-up",
           },
           {
-            "label": "Fix next",
-            "body": "Admin loops that steal hours from owners or senior staff.",
-            "icon": "clock"
+            label: "Fix next",
+            body: "Admin loops that steal hours from owners or senior staff.",
+            icon: "clock",
           },
           {
-            "label": "Fix later",
-            "body": "Nice-to-have internal automations with low commercial impact.",
-            "icon": "layers"
-          }
+            label: "Fix later",
+            body: "Nice-to-have internal automations with low commercial impact.",
+            icon: "layers",
+          },
         ],
-        "grid": [
+        grid: [
           {
-            "title": "Lead capture and routing",
-            "body": "Turn web forms, calls and messages into structured records with ownership and next actions."
+            title: "Lead capture and routing",
+            body: "Turn web forms, calls and messages into structured records with ownership and next actions.",
           },
           {
-            "title": "Follow-up systems",
-            "body": "Send timely replies, reminders and internal prompts so leads and customers do not go cold."
+            title: "Follow-up systems",
+            body: "Send timely replies, reminders and internal prompts so leads and customers do not go cold.",
           },
           {
-            "title": "Scheduling and confirmations",
-            "body": "Reduce back-and-forth by connecting diaries, booking logic and communication triggers."
+            title: "Scheduling and confirmations",
+            body: "Reduce back-and-forth by connecting diaries, booking logic and communication triggers.",
           },
           {
-            "title": "Document and data handling",
-            "body": "Extract, categorise and route information from forms, PDFs, emails and notes."
-          }
-        ]
+            title: "Document and data handling",
+            body: "Extract, categorise and route information from forms, PDFs, emails and notes.",
+          },
+        ],
       },
       {
-        "heading": "A simple decision framework: automate, assist or leave alone",
-        "body": [
+        heading: "A simple decision framework: automate, assist or leave alone",
+        body: [
           "A useful operating model has three choices. **Automate** work that is deterministic: clear rules, low ambiguity, low risk. **Assist** work where AI can speed up analysis or drafting, but a person still owns the decision. **Leave alone** work that is too rare, too messy or too sensitive to justify intervention.",
           "This approach prevents two expensive mistakes: overbuilding automations that nobody trusts, and underusing AI where it could remove obvious admin. It also gives a cleaner scoping conversation with a studio like [Silverstone AI's services](/services), because the project starts with business logic rather than software features.",
-          "For many UK SMEs, the strongest wins sit in the middle column. AI-assisted workflows can summarise calls, classify enquiries, prepare replies, suggest next actions and keep records tidy, while a human approves anything that affects pricing, commitments, regulated information or unusual cases."
+          "For many UK SMEs, the strongest wins sit in the middle column. AI-assisted workflows can summarise calls, classify enquiries, prepare replies, suggest next actions and keep records tidy, while a human approves anything that affects pricing, commitments, regulated information or unusual cases.",
         ],
-        "lede": "Not every process should be touched. The discipline is knowing which mode fits.",
-        "variant": "operator",
-        "comparisonTable": {
-          "columns": [
+        lede: "Not every process should be touched. The discipline is knowing which mode fits.",
+        variant: "operator",
+        comparisonTable: {
+          columns: [
             "Best used for",
             "Human involvement",
             "Risk level",
-            "Typical result"
+            "Typical result",
           ],
-          "rows": [
+          rows: [
             {
-              "label": "Automate",
-              "cells": [
+              label: "Automate",
+              cells: [
                 "Routine tasks with fixed rules and repeatable data",
                 "Set rules, review exceptions and monitor logs",
                 "Low when the process is well defined",
-                "Less admin and faster throughput"
-              ]
+                "Less admin and faster throughput",
+              ],
             },
             {
-              "label": "Assist",
-              "cells": [
+              label: "Assist",
+              cells: [
                 "Drafting, sorting, summarising and recommendation tasks",
                 "Approve outputs and own sensitive decisions",
                 "Medium because judgement still matters",
-                "Quicker work without removing accountability"
-              ]
+                "Quicker work without removing accountability",
+              ],
             },
             {
-              "label": "Leave alone",
-              "cells": [
+              label: "Leave alone",
+              cells: [
                 "Rare, complex or highly sensitive processes",
                 "Humans handle the full workflow directly",
                 "High if automated badly",
-                "Avoided cost and lower operational risk"
-              ]
-            }
-          ]
+                "Avoided cost and lower operational risk",
+              ],
+            },
+          ],
         },
-        "subsections": [
+        subsections: [
           {
-            "heading": "A quick test before you automate",
-            "body": [
-              "Ask four questions. Does it happen often? Are the inputs reasonably structured? Can we define a good output? Is there a clear owner for exceptions? If you cannot answer yes to most of those, the process probably needs redesign before automation."
-            ]
-          }
-        ]
+            heading: "A quick test before you automate",
+            body: [
+              "Ask four questions. Does it happen often? Are the inputs reasonably structured? Can we define a good output? Is there a clear owner for exceptions? If you cannot answer yes to most of those, the process probably needs redesign before automation.",
+            ],
+          },
+        ],
       },
       {
-        "heading": "Common UK small business use cases that are worth attention",
-        "body": [
+        heading: "Common UK small business use cases that are worth attention",
+        body: [
           "The strongest use cases are usually operational, not theatrical. They remove delay, inconsistency and hidden admin from the day-to-day running of the business.",
           "Examples include enquiry triage, callback workflows, quote preparation support, appointment reminders, CRM updates, post-service follow-up, invoice-chasing triggers, internal alerts for stalled jobs, and content workflows that turn approved source material into reusable marketing assets.",
-          "Different UK sectors have different boundaries. A trades business may automate job intake and status updates but keep pricing and safety judgement human. A clinic can automate non-clinical bookings and reminders but must keep clinical judgement out of scope. A hospitality operator can automate reservation flows and pre-arrival messaging while escalating exceptions to staff."
+          "Different UK sectors have different boundaries. A trades business may automate job intake and status updates but keep pricing and safety judgement human. A clinic can automate non-clinical bookings and reminders but must keep clinical judgement out of scope. A hospitality operator can automate reservation flows and pre-arrival messaging while escalating exceptions to staff.",
         ],
-        "lede": "Useful automation is often less glamorous than people expect. That is exactly why it pays.",
-        "variant": "signal",
-        "pullQuote": "The best use case is usually the one your team complains about weekly, not the one that sounds clever in a meeting.",
-        "bullets": [
+        lede: "Useful automation is often less glamorous than people expect. That is exactly why it pays.",
+        variant: "signal",
+        pullQuote:
+          "The best use case is usually the one your team complains about weekly, not the one that sounds clever in a meeting.",
+        bullets: [
           {
-            "label": "Reception and enquiries",
-            "body": "Capture inbound demand across phone, web and messaging, then route it cleanly.",
-            "icon": "phone"
+            label: "Reception and enquiries",
+            body: "Capture inbound demand across phone, web and messaging, then route it cleanly.",
+            icon: "phone",
           },
           {
-            "label": "Sales support",
-            "body": "Qualify leads, prepare summaries and keep follow-up moving.",
-            "icon": "target"
+            label: "Sales support",
+            body: "Qualify leads, prepare summaries and keep follow-up moving.",
+            icon: "target",
           },
           {
-            "label": "Delivery operations",
-            "body": "Update records, trigger reminders and surface delays before they become problems.",
-            "icon": "gear"
+            label: "Delivery operations",
+            body: "Update records, trigger reminders and surface delays before they become problems.",
+            icon: "gear",
           },
           {
-            "label": "Content systems",
-            "body": "Repurpose approved ideas into blogs, emails and social content with review gates.",
-            "icon": "pen"
-          }
-        ]
+            label: "Content systems",
+            body: "Repurpose approved ideas into blogs, emails and social content with review gates.",
+            icon: "pen",
+          },
+        ],
       },
       {
-        "heading": "What a good implementation looks like",
-        "body": [
+        heading: "What a good implementation looks like",
+        body: [
           "A solid implementation starts with process mapping, not tool shopping. You need to know where information enters, which system holds the source of truth, which actions are automatic, which decisions need human approval, and how exceptions are logged and resolved.",
           "That is why [how we work](/how-we-work) matters in automation projects. A proper build sequence usually includes workflow discovery, risk boundaries, data mapping, prototype logic, testing with edge cases, controlled rollout and ongoing refinement. Without that structure, businesses end up with brittle automations that fail silently or create more admin than they remove.",
-          "For UK businesses, implementation also needs practical governance. Who can access customer data? How are call notes or transcripts handled? What happens when AI is unsure? How do staff override the system? None of this needs to become heavyweight, but it does need to be explicit."
+          "For UK businesses, implementation also needs practical governance. Who can access customer data? How are call notes or transcripts handled? What happens when AI is unsure? How do staff override the system? None of this needs to become heavyweight, but it does need to be explicit.",
         ],
-        "lede": "Technology matters. Workflow design matters more.",
-        "variant": "system",
-        "grid": [
+        lede: "Technology matters. Workflow design matters more.",
+        variant: "system",
+        grid: [
           {
-            "label": "Step 1",
-            "title": "Map the workflow",
-            "body": "Define triggers, inputs, outputs, owners and exceptions before selecting tools."
+            label: "Step 1",
+            title: "Map the workflow",
+            body: "Define triggers, inputs, outputs, owners and exceptions before selecting tools.",
           },
           {
-            "label": "Step 2",
-            "title": "Set boundaries",
-            "body": "Decide what the system can do alone, what needs approval and what stays manual."
+            label: "Step 2",
+            title: "Set boundaries",
+            body: "Decide what the system can do alone, what needs approval and what stays manual.",
           },
           {
-            "label": "Step 3",
-            "title": "Test edge cases",
-            "body": "Run unusual scenarios, incomplete data and messy real-world examples."
+            label: "Step 3",
+            title: "Test edge cases",
+            body: "Run unusual scenarios, incomplete data and messy real-world examples.",
           },
           {
-            "label": "Step 4",
-            "title": "Monitor and refine",
-            "body": "Review logs, failure points and user behaviour after launch."
-          }
-        ]
+            label: "Step 4",
+            title: "Monitor and refine",
+            body: "Review logs, failure points and user behaviour after launch.",
+          },
+        ],
       },
       {
-        "heading": "How to buy AI automation without wasting money",
-        "body": [
+        heading: "How to buy AI automation without wasting money",
+        body: [
           "If you are evaluating automation support, do not ask vendors which tools they use first. Ask how they define the workflow, boundary conditions, exception handling and ownership model. If those answers are vague, the build will be vague too.",
           "A commercially sound project has a narrow starting scope, measurable operational aim and realistic human oversight. It might begin with enquiry intake, receptionist logic, lead follow-up or content operations rather than a business-wide transformation story. That is a better route to durable value.",
-          "Silverstone AI is strongest when the brief is treated like systems design for a real company, not a generic AI experiment. If you want to explore that properly, the cleanest next step is to [book a call](/book#booking-calendar), review the broader [blog](/blog) for adjacent thinking, or use the [contact page](/contact) if the workflow already feels clear enough to discuss."
+          "Silverstone AI is strongest when the brief is treated like systems design for a real company, not a generic AI experiment. If you want to explore that properly, the cleanest next step is to [book a call](/book#booking-calendar), review the broader [blog](/blog) for adjacent thinking, or use the [contact page](/contact) if the workflow already feels clear enough to discuss.",
         ],
-        "lede": "The wrong buy is usually a scope problem dressed up as a software problem.",
-        "variant": "operator",
-        "bullets": [
+        lede: "The wrong buy is usually a scope problem dressed up as a software problem.",
+        variant: "operator",
+        bullets: [
           {
-            "label": "Ask this",
-            "body": "What exact process are we improving, and how will we know it is cleaner?",
-            "icon": "question"
+            label: "Ask this",
+            body: "What exact process are we improving, and how will we know it is cleaner?",
+            icon: "question",
           },
           {
-            "label": "Watch for",
-            "body": "Big promises with no exception design, no testing plan and no ownership model.",
-            "icon": "alert"
+            label: "Watch for",
+            body: "Big promises with no exception design, no testing plan and no ownership model.",
+            icon: "alert",
           },
           {
-            "label": "Prefer",
-            "body": "A phased system with visible logs, approval points and room to iterate.",
-            "icon": "route"
-          }
-        ]
-      }
+            label: "Prefer",
+            body: "A phased system with visible logs, approval points and room to iterate.",
+            icon: "route",
+          },
+        ],
+      },
     ],
-    "faqs": [
+    faqs: [
       {
-        "question": "What is AI automation for a small business?",
-        "answer": "It is the use of software workflows and bounded AI to handle routine business tasks such as routing enquiries, updating records, drafting responses, extracting information and triggering follow-up. The aim is to reduce manual admin and improve consistency, while keeping human control where judgement is needed."
+        question: "What is AI automation for a small business?",
+        answer:
+          "It is the use of software workflows and bounded AI to handle routine business tasks such as routing enquiries, updating records, drafting responses, extracting information and triggering follow-up. The aim is to reduce manual admin and improve consistency, while keeping human control where judgement is needed.",
       },
       {
-        "question": "What should a UK small business automate first?",
-        "answer": "Start with high-frequency, low-ambiguity work that affects revenue or staff time: missed enquiries, lead follow-up, appointment handling, document processing or internal status updates. The best first project is usually a narrow workflow with clear inputs, outputs and an obvious owner."
+        question: "What should a UK small business automate first?",
+        answer:
+          "Start with high-frequency, low-ambiguity work that affects revenue or staff time: missed enquiries, lead follow-up, appointment handling, document processing or internal status updates. The best first project is usually a narrow workflow with clear inputs, outputs and an obvious owner.",
       },
       {
-        "question": "Is AI automation suitable for regulated or sensitive work?",
-        "answer": "Sometimes, but only within clear boundaries. AI can assist with summarising, categorising or preparing information, but sensitive decisions, regulated advice and high-risk exceptions should remain with a human. UK privacy expectations and sector rules make this especially important."
+        question: "Is AI automation suitable for regulated or sensitive work?",
+        answer:
+          "Sometimes, but only within clear boundaries. AI can assist with summarising, categorising or preparing information, but sensitive decisions, regulated advice and high-risk exceptions should remain with a human. UK privacy expectations and sector rules make this especially important.",
       },
       {
-        "question": "Do small businesses need a full AI strategy before starting?",
-        "answer": "No. Most do better with one well-scoped operational problem than a broad strategy document. Start with a workflow that is repetitive, commercially important and frustrating enough to justify change, then expand once the business trusts the system."
-      }
+        question: "Do small businesses need a full AI strategy before starting?",
+        answer:
+          "No. Most do better with one well-scoped operational problem than a broad strategy document. Start with a workflow that is repetitive, commercially important and frustrating enough to justify change, then expand once the business trusts the system.",
+      },
     ],
-    "internalLinks": [
+    internalLinks: [
       {
-        "label": "Silverstone AI's services",
-        "href": "/services"
+        label: "Silverstone AI's services",
+        href: "/services",
       },
       {
-        "label": "how we work",
-        "href": "/how-we-work"
+        label: "how we work",
+        href: "/how-we-work",
       },
       {
-        "label": "book a call",
-        "href": "/book#booking-calendar"
+        label: "book a call",
+        href: "/book#booking-calendar",
       },
       {
-        "label": "blog",
-        "href": "/blog"
+        label: "blog",
+        href: "/blog",
       },
       {
-        "label": "contact page",
-        "href": "/contact"
-      }
+        label: "contact page",
+        href: "/contact",
+      },
     ],
-    "researchSources": [
+    researchSources: [
       {
-        "title": "AI Automation for UK Small Businesses: A Practical Guide",
-        "url": "https://www.onthehillai.co.uk/blog/ai-automation-for-uk-small-businesses.html",
-        "date": "",
-        "summary": "What it actually is, what it genuinely costs, what it can and can't do — and how to make a good decision about whether it's right for your business. What AI automation actually is, what it costs for a real UK small business, what it does well, what it can't do, and how to make a sensible decision about whether it's worth pursuing. ## What AI automation actua",
-        "relevance": "Current UK business context for AI Automation"
+        title: "AI Automation for UK Small Businesses: A Practical Guide",
+        url: "https://www.onthehillai.co.uk/blog/ai-automation-for-uk-small-businesses.html",
+        date: "",
+        summary:
+          "What it actually is, what it genuinely costs, what it can and can't do — and how to make a good decision about whether it's right for your business. What AI automation actually is, what it costs for a real UK small business, what it does well, what it can't do, and how to make a sensible decision about whether it's worth pursuing. ## What AI automation actua",
+        relevance: "Current UK business context for AI Automation",
       },
       {
-        "title": "AI & Automation Consulting for UK Small Businesses",
-        "url": "https://silverstone-ai.com/blog/ai-and-automation-consulting-for-uk-small-businesses-what-to-fix-first",
-        "date": "",
-        "summary": "Learn what to automate first, where AI fits, and how UK small businesses should assess readiness before investing in automation consulting.",
-        "relevance": "Current UK business context for AI Automation"
+        title: "AI & Automation Consulting for UK Small Businesses",
+        url: "https://silverstone-ai.com/blog/ai-automation-consulting-guide",
+        date: "",
+        summary:
+          "Learn what to automate first, where AI fits, and how UK small businesses should assess readiness before investing in automation consulting.",
+        relevance: "Current UK business context for AI Automation",
       },
       {
-        "title": "AI Automation for UK Business: Use Cases, Tools & Getting Started (2026)",
-        "url": "https://automationhire.co.uk/ai-automation-for-uk-business",
-        "date": "",
-        "summary": "# AI Automation for UK Business: Use Cases, Tools & Getting Started. **AI automation** means using software like **Zapier, Make.com, n8n, or AI agents** to handle repetitive business tasks — moving data between apps, answering customer queries, processing invoices, qualifying leads — without a person doing each step manually. The eight highest-ROI use cases ",
-        "relevance": "Current UK business context for AI Automation"
+        title:
+          "AI Automation for UK Business: Use Cases, Tools & Getting Started (2026)",
+        url: "https://automationhire.co.uk/ai-automation-for-uk-business",
+        date: "",
+        summary:
+          "# AI Automation for UK Business: Use Cases, Tools & Getting Started. **AI automation** means using software like **Zapier, Make.com, n8n, or AI agents** to handle repetitive business tasks — moving data between apps, answering customer queries, processing invoices, qualifying leads — without a person doing each step manually. The eight highest-ROI use cases ",
+        relevance: "Current UK business context for AI Automation",
       },
       {
-        "title": "AI Automation for UK Small Businesses 2026 | MS IT Solutions",
-        "url": "https://msitsolutions.co.uk/blog-ai-automation-small-business-uk-guide",
-        "date": "",
-        "summary": "Blog Book a Free Strategy Call →. # AI Automation for UK Small Businesses: The Complete 2026 Guide. The complete guide to AI automation for UK small businesses in 2026. What to automate first, how much it costs and how to get started without technical knowledge. AI automation has moved from buzzword to business necessity for UK small businesses in 2026. **On",
-        "relevance": "Current UK business context for AI Automation"
+        title: "AI Automation for UK Small Businesses 2026 | MS IT Solutions",
+        url: "https://msitsolutions.co.uk/blog-ai-automation-small-business-uk-guide",
+        date: "",
+        summary:
+          "Blog Book a Free Strategy Call →. # AI Automation for UK Small Businesses: The Complete 2026 Guide. The complete guide to AI automation for UK small businesses in 2026. What to automate first, how much it costs and how to get started without technical knowledge. AI automation has moved from buzzword to business necessity for UK small businesses in 2026. **On",
+        relevance: "Current UK business context for AI Automation",
       },
       {
-        "title": "Blog - AI Development Insights & Tutorials | App Web Dev Ltd",
-        "url": "https://appwebdev.co.uk/blog",
-        "date": "",
-        "summary": "Practical articles on AI development, automation, and building modern web products,from Manchester's AI agency. Complete Guide to Artificial Intelligence for UK Businesses. Discover how artificial intelligence transforms UK businesses in 2025. SaaS vs AaaS explained for UK businesses, with practical guidance on where AI agents fit, where they fail, and how t",
-        "relevance": "Current UK business context for AI Automation"
-      }
+        title: "Blog - AI Development Insights & Tutorials | App Web Dev Ltd",
+        url: "https://appwebdev.co.uk/blog",
+        date: "",
+        summary:
+          "Practical articles on AI development, automation, and building modern web products,from Manchester's AI agency. Complete Guide to Artificial Intelligence for UK Businesses. Discover how artificial intelligence transforms UK businesses in 2025. SaaS vs AaaS explained for UK businesses, with practical guidance on where AI agents fit, where they fail, and how t",
+        relevance: "Current UK business context for AI Automation",
+      },
     ],
-    "imagePrompt": "Create one premium 16:9 editorial hero image for Silverstone AI focused on AI automation for UK small businesses. Show a restrained process lattice as the main metaphor: one central operating surface with enquiry intake flowing into structured routing, deterministic rules, bounded AI judgement, approval controls, actions, exception paths and visible run-state monitoring. Include two to four supporting layers such as CRM cards, booking states, document blocks and alert modules. Keep generous negative space on one side for real website text. Style it like a commissioned Silverstone campaign image: deep ink, graphite and dark navy surfaces with platinum panels, luminous blue-cyan and teal accents, subtle violet highlights, precise hairline borders, realistic reflections and coherent light. Optional single human operator only as an approval owner, not a stock-photo subject. No readable text, logos, metrics, fake dashboards, robots, holograms, binary, cyberpunk effects or gimmicky AI tropes. The scene should feel controlled, commercial, modern, quietly futuristic and clearly human-governed.",
-    "ctaPrimary": {
-      "label": "Book a discovery call",
-      "href": "/book#booking-calendar"
+    imagePrompt:
+      "Create one premium 16:9 editorial hero image for Silverstone AI focused on AI automation for UK small businesses. Show a restrained process lattice as the main metaphor: one central operating surface with enquiry intake flowing into structured routing, deterministic rules, bounded AI judgement, approval controls, actions, exception paths and visible run-state monitoring. Include two to four supporting layers such as CRM cards, booking states, document blocks and alert modules. Keep generous negative space on one side for real website text. Style it like a commissioned Silverstone campaign image: deep ink, graphite and dark navy surfaces with platinum panels, luminous blue-cyan and teal accents, subtle violet highlights, precise hairline borders, realistic reflections and coherent light. Optional single human operator only as an approval owner, not a stock-photo subject. No readable text, logos, metrics, fake dashboards, robots, holograms, binary, cyberpunk effects or gimmicky AI tropes. The scene should feel controlled, commercial, modern, quietly futuristic and clearly human-governed.",
+    ctaPrimary: {
+      label: "Book a discovery call",
+      href: "/book#booking-calendar",
     },
-    "ctaSecondary": {
-      "label": "Back to insights",
-      "href": "/blog"
-    }
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
   },
   // N8N_BLOG_POSTS_END
 ];

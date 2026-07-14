@@ -75,7 +75,7 @@ These routes are present in the current React application through `web/src/data/
 | Current route                    | Route type          | Canonical plan                                             | Indexability        | Source content                    | Migration status | Verification status                  |
 | -------------------------------- | ------------------- | ---------------------------------------------------------- | ------------------- | --------------------------------- | ---------------- | ------------------------------------ |
 | /industry                        | industry hub        | https://silverstone-ai.com/industry                        | indexable           | content IA/SEO pack sitewide copy | active in `/web` | prerender and sitemap verified       |
-| /industry/&lt;slug&gt;           | industry detail     | https://silverstone-ai.com/industry/&lt;slug&gt;           | indexable           | approved industry copy             | active in `/web` | all nine prerenders verified         |
+| /industry/&lt;slug&gt;           | industry detail     | https://silverstone-ai.com/industry/&lt;slug&gt;           | indexable           | approved industry copy            | active in `/web` | all nine prerenders verified         |
 | /how-we-work                     | company/process     | https://silverstone-ai.com/how-we-work                     | planned indexable   | content IA/SEO pack sitewide copy | create in `/web` | app manifest; needs fresh route test |
 | /services/web-design-development | service offer       | https://silverstone-ai.com/services/web-design-development | planned indexable   | service web design copy           | create in `/web` | app manifest; needs fresh route test |
 | /services/app-development        | service offer       | https://silverstone-ai.com/services/app-development        | planned indexable   | service app development copy      | create in `/web` | app manifest; needs fresh route test |
@@ -95,6 +95,36 @@ These routes are present in the current React application through `web/src/data/
 - Contact: `/contact`.
 - Booking: `/book`.
 - Utility: genuine static-hosting 404 behavior and development-only `/__components`; no production SPA fallback document.
+
+### Current Blog Detail Canonicals
+
+`web/src/data/blog-posts.ts` is authoritative for the published article set. The
+current slashless `/blog/*` canonicals are:
+
+- `/blog/ai-automation-consulting-guide`
+- `/blog/ai-receptionist-setup-guide`
+- `/blog/ai-receptionist-small-business-guide`
+- `/blog/ai-voice-agent-buyers-guide`
+- `/blog/ai-voice-agent-development`
+- `/blog/bespoke-app-development-guide`
+- `/blog/content-creation-framework`
+- `/blog/conversion-focused-website-planning`
+- `/blog/dental-practice-automation-guide`
+- `/blog/ecommerce-ai-systems-guide`
+- `/blog/estate-agent-automation-guide`
+- `/blog/fitness-coach-enquiry-automation`
+- `/blog/gym-automation-operating-model`
+- `/blog/hospitality-automation-guide`
+- `/blog/physio-chiropractic-ai-guide`
+- `/blog/salon-barber-ai-guide`
+- `/blog/small-business-ai-automation`
+- `/blog/small-business-app-development`
+- `/blog/small-business-web-development`
+- `/blog/trades-websites-ai-automation`
+- `/blog/workflow-automation-selection-guide`
+
+No alternate or retired blog-detail slug is an application route or redirect
+source.
 
 ## Route Acceptance Rules
 

@@ -22,6 +22,18 @@
 - Regenerated the approved services manifest from its Markdown sources after aligning AI Voice Agents and AI Receptionists H1 values with rendered `copy.ts` wording; built JSON-LD `Service.name` now matches the visible H1 for all seven service routes.
 - Fresh production build emitted 46 self-canonical sitemap URLs: 7 service details, 9 industry details, 21 articles, and the approved hubs/core pages. Every sitemap URL mapped to a direct local `200`; removed aliases and unknown paths returned `404` in the production-routing simulation.
 
+## 2026-07-14 Blog Slug Canonicalisation Pass
+
+- Replaced all 21 published article slugs with unique, descriptive 3–5-word
+  canonicals measuring 21–36 characters.
+- Updated every active internal article URL and renamed every matching blog hero
+  asset; no retired slug remains in the application source or asset filenames.
+- Added unit policy coverage for slug shape, word count, character count,
+  repeated tokens, uniqueness, and slug-matched hero assets, plus production
+  preview coverage for direct `200` article and asset responses.
+- Added no blog aliases or redirects. Retired and unknown article paths remain
+  absent and return the hosting layer's genuine `404`.
+
 ## 2026-07-02 Industries-v2 Rebuild
 
 - **Canonical industry routing moved to `/industry`** on owner instruction: hub at `/industry`, detail pages at `/industry/<slug>`; services remain at `/services` + `/services/<service>`. The temporary app aliases recorded during this pass were removed by the superseding 2026-07-14 production URL decision.
