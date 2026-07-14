@@ -1,0 +1,21 @@
+{
+  "$comment": "Single source of truth for the Web Design showcase demo sites (approved manifest slots on /services/web-design-development). Read by demos/browser-showcase.tsx for embed/link targets and by scripts/generate-demo-walkthrough.mjs to derive walkthrough pages. Presentation copy stays in browser-showcase.tsx.",
+  "sites": [
+    {
+      "id": "ownly-housing",
+      "configSlot": "futureWebsitePreviewPrimaryUrl",
+      "url": "https://ownly-housing.netlify.app/",
+      "origin": "https://ownly-housing.netlify.app",
+      "domain": "ownly-housing.netlify.app",
+      "allowPayment": false
+    },
+    {
+      "id": "aesthetics-by-clouds",
+      "configSlot": "futureWebsitePreviewSecondaryUrl",
+      "url": "https://aestheticsbyclouds.netlify.app/",
+      "origin": "https://aestheticsbyclouds.netlify.app",
+      "domain": "aestheticsbyclouds.netlify.app",
+      "allowPayment": true
+    }
+  ]
+}

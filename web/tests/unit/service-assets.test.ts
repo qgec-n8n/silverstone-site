@@ -110,12 +110,16 @@ describe("service demo surfaces", () => {
 describe("live website showcase", () => {
   const showcasePath = "src/features/services-v2/demos/browser-showcase.tsx";
   const showcase = readFileSync(resolve(process.cwd(), showcasePath), "utf8");
+  // Embed/link targets live in the shared config the walkthrough generator
+  // also reads; the component must render from it, never from its own URLs.
+  const sitesPath = "src/features/services-v2/demos/showcase-sites.json";
+  const sitesJson = readFileSync(resolve(process.cwd(), sitesPath), "utf8");
 
   // The route-scoped CSP (root netlify.toml) allow-lists exactly the two
   // demo origins plus the site-wide Calendly warm-up origin — CalendlyWarmup
   // (features/core-pages/calendly.tsx) mounts a hidden scheduler iframe on
-  // every route, so it must stay framable here too. The showcase component
-  // itself must never reference any origin beyond the two demos.
+  // every route, so it must stay framable here too. The showcase surfaces
+  // must never reference any origin beyond the two demos.
   const demoOrigins = [
     "https://ownly-housing.netlify.app",
     "https://aestheticsbyclouds.netlify.app",
@@ -124,14 +128,19 @@ describe("live website showcase", () => {
 
   it("embeds only the two CSP-allow-listed demo origins", () => {
     for (const origin of demoOrigins) {
-      expect(showcase).toContain(origin);
+      expect(sitesJson).toContain(origin);
     }
+    expect(showcase).toContain('from "./showcase-sites.json"');
     // Scan code only — doc comments legitimately mention other origins
     // (Calendly, the demo sites' frame-ancestors values).
     const showcaseCode = showcase
       .replace(/\/\*[\s\S]*?\*\//g, "")
       .replace(/^\s*\/\/.*$/gm, "");
-    const externalUrls = showcaseCode.match(/https:\/\/[a-z0-9.-]+/g) ?? [];
+    const externalUrls = [
+      ...(showcaseCode.match(/https:\/\/[a-z0-9.-]+/g) ?? []),
+      ...(sitesJson.match(/https:\/\/[a-z0-9.-]+/g) ?? []),
+    ];
+    expect(externalUrls.length).toBeGreaterThan(0);
     for (const url of externalUrls) {
       expect(
         demoOrigins.some((origin) => url.startsWith(origin)),
@@ -152,7 +161,7 @@ describe("live website showcase", () => {
     // The Aesthetics by Clouds booking flow can take deposits; its frame
     // carries the payment permission. Neither frame may be sandboxed — a
     // restrictive sandbox would break the demos' own navigation and forms.
-    expect(showcase).toContain("allowPayment: true");
+    expect(sitesJson).toContain('"allowPayment": true');
     expect(showcase).toContain('"payment"');
     expect(showcase).not.toMatch(/\bsandbox\b/);
   });
