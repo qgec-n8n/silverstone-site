@@ -58,7 +58,7 @@ const servicePages = [
     title: "AI Voice Agent Development UK | Silverstone AI",
     description:
       "AI voice agent development for UK businesses: conversation design, telephony, approved actions, transcripts, monitoring and human escalation for real call workflows.",
-    h1: "Voice agents designed for real conversations—and real consequences",
+    h1: "Voice agents built for real conversations — and real consequences",
     primaryIntent: "AI voice agents for UK businesses",
     contentId: "content-service-ai-voice-agents",
     sourceFile: "docs/approved-copy/services/03_AI_VOICE_AGENTS.md",
@@ -80,7 +80,7 @@ const servicePages = [
     title: "AI Receptionist Services UK | Silverstone AI",
     description:
       "AI receptionist services for UK businesses: calls, web chat, booking, reminders, CRM routing and human handoff designed around approved operating rules.",
-    h1: "A front desk that answers, qualifies and knows when to hand over",
+    h1: "A front desk that answers, qualifies, and knows when to hand over",
     primaryIntent: "AI receptionist for UK small businesses",
     contentId: "content-service-ai-receptionists",
     sourceFile: "docs/approved-copy/services/04_AI_RECEPTIONISTS.md",

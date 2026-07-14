@@ -1,18 +1,19 @@
 # Silverstone Route Manifest
 
-**Status:** Authoritative route contract for the current rebuild baseline.  
-**Last updated:** 2026-06-26.  
+**Status:** Authoritative production route contract with retained historical baseline evidence.
+**Last updated:** 2026-07-14.
 **Primary sources:** `docs/silverstone-transformation/audits/route-inventory-v1.csv`, `docs/silverstone-transformation/architecture/execution-blueprint-v1/route-content-migration-plan-v1.md`, `web/src/data/generated/future-route-manifest.json`, `web/src/data/approved-routes.ts`, `web/src/app/routes.ts`.
 
 ## Contract
 
-- The approved first-release migration baseline is 50 canonical routes.
-- All 50 baseline routes must be preserved unless a later owner-approved content/SEO decision changes them.
-- The current `/web` app also contains approved additive routes. These are current routes, but they do not erase the 50-route preservation baseline.
+- The production route surface is the React Router/Vite application under `/web`, derived from `web/src/data/approved-routes.ts`, the retained core records, and published blog records.
+- The 50-route table below is retained as migration evidence only. The 2026-07-14 owner instruction supersedes its legacy path-preservation and redirect requirements.
 - Every indexable route requires initial HTML, canonical metadata, title, description, visible H1, robots status, schema where applicable, sitemap inclusion when production-indexable, and route-level verification.
-- `/services/gyms-fitness-studios` remains canonical. `/services/gyms` is not a replacement canonical.
+- Production canonicals are lowercase and slashless except for the root `/`.
+- Industry canonicals are `/industry` and `/industry/<slug>`; legacy `/services/<industry>` and `/industries` aliases are not production routes.
+- Service canonicals are the seven approved service-offer routes under `/services/*`; prompt aliases are not production routes.
 
-## Baseline Route Table
+## Historical Baseline Route Table (Migration Evidence Only)
 
 | Current route                                                | Approved future canonical                                                              | Route type | Indexability | Source content                                                   | Migration status                                                                              | Redirect requirement                                                                               | Title/meta status             | Pre-render requirement                     | Verification status                   |
 | ------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ---------- | ------------ | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ----------------------------- | ------------------------------------------ | ------------------------------------- |
@@ -67,13 +68,14 @@
 | /blog/quote-chase-automation-uk-trades-accepted-jobs-2026    | https://silverstone-ai.com/blog/quote-chase-automation-uk-trades-accepted-jobs-2026    | article    | indexable    | blog/quote-chase-automation-uk-trades-accepted-jobs-2026.html    | migrate and improve; overlap review                                                           | preserve .html redirect                                                                            | present                       | yes                                        | source manifest; needs fresh crawl    |
 | /blog/quote-follow-up-automation-uk-trades-2026              | https://silverstone-ai.com/blog/quote-follow-up-automation-uk-trades-2026              | article    | indexable    | blog/quote-follow-up-automation-uk-trades-2026.html              | migrate and improve; overlap review                                                           | preserve .html redirect                                                                            | present                       | yes                                        | source manifest; needs fresh crawl    |
 
-## Current `/web` Additive Routes
+## Current `/web` Canonical Routes Added During The Rebuild
 
 These routes are present in the current React application through `web/src/data/approved-routes.ts` and `web/src/app/routes.ts`. They are current app surface area, not legacy-root canonicals.
 
 | Current route                    | Route type          | Canonical plan                                             | Indexability        | Source content                    | Migration status | Verification status                  |
 | -------------------------------- | ------------------- | ---------------------------------------------------------- | ------------------- | --------------------------------- | ---------------- | ------------------------------------ |
-| /industries                      | industry hub        | https://silverstone-ai.com/industries                      | planned indexable   | content IA/SEO pack sitewide copy | create in `/web` | app manifest; needs fresh route test |
+| /industry                        | industry hub        | https://silverstone-ai.com/industry                        | indexable           | content IA/SEO pack sitewide copy | active in `/web` | prerender and sitemap verified       |
+| /industry/&lt;slug&gt;           | industry detail     | https://silverstone-ai.com/industry/&lt;slug&gt;           | indexable           | approved industry copy             | active in `/web` | all nine prerenders verified         |
 | /how-we-work                     | company/process     | https://silverstone-ai.com/how-we-work                     | planned indexable   | content IA/SEO pack sitewide copy | create in `/web` | app manifest; needs fresh route test |
 | /services/web-design-development | service offer       | https://silverstone-ai.com/services/web-design-development | planned indexable   | service web design copy           | create in `/web` | app manifest; needs fresh route test |
 | /services/app-development        | service offer       | https://silverstone-ai.com/services/app-development        | planned indexable   | service app development copy      | create in `/web` | app manifest; needs fresh route test |
@@ -86,13 +88,13 @@ These routes are present in the current React application through `web/src/data/
 
 ## Current Service, Industry, Blog, Legal, Contact, Booking, And Utility Coverage
 
-- Service/industry baseline: `/services`, nine `/services/{industry}` routes, and seven additive service-offer routes under `/services/*`.
-- Industry hub: additive `/industries`; industry detail prototypes exist under `web/public/prototypes/industries/*` but are not production React routes in `web/src/app/routes.ts`.
-- Blog: `/blog` plus 33 article routes in the 50-route baseline.
+- Services: `/services` plus seven approved service-offer routes under `/services/*`.
+- Industries: `/industry` plus nine `/industry/{slug}` routes.
+- Blog: `/blog` plus every record in `PUBLISHED_BLOG_POSTS`.
 - Legal: `/privacy-policy`.
 - Contact: `/contact`.
 - Booking: `/book`.
-- Utility: catch-all 404 route and development-only `/__components`.
+- Utility: genuine static-hosting 404 behavior and development-only `/__components`; no production SPA fallback document.
 
 ## Route Acceptance Rules
 

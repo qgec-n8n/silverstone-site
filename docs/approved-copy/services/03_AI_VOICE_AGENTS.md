@@ -28,7 +28,7 @@
 - **Open Graph title:** Voice agents built for real conversations and real consequences
 - **Open Graph description:** Silverstone designs governed voice workflows with clear call states, approved actions, telephony integration, transcripts, monitoring and human fallback.
 - **Canonical route:** `/services/ai-voice-agents`
-- **H1:** Voice agents designed for real conversations—and real consequences
+- **H1:** Voice agents built for real conversations — and real consequences
 
 ### H2 structure
 
@@ -139,7 +139,7 @@ AI voice agents UK, human-like, natural conversation, voice AI, intelligent call
 
 ## 5. Complete public page copy
 
-# Voice agents designed for real conversations—and real consequences
+# Voice agents built for real conversations — and real consequences
 
 A voice agent is easy to demonstrate and difficult to operate well.
 

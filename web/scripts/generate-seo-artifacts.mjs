@@ -46,7 +46,9 @@ function extract(html, pattern) {
 async function main() {
   const htmlFiles = await collectHtmlFiles(clientDir);
   if (htmlFiles.length === 0) {
-    throw new Error(`No prerendered HTML found under ${clientDir} — run the build first`);
+    throw new Error(
+      `No prerendered HTML found under ${clientDir} — run the build first`,
+    );
   }
 
   const canonicals = new Set();
@@ -88,6 +90,7 @@ async function main() {
   }
 
   if (stagingBuild) {
+    await fs.rm(path.join(clientDir, "__spa-fallback.html"), { force: true });
     await fs.writeFile(
       path.join(clientDir, "robots.txt"),
       "User-agent: *\nDisallow: /\n",
@@ -99,6 +102,24 @@ async function main() {
   }
 
   const urls = [...canonicals].sort();
+  for (const url of urls) {
+    const parsed = new URL(url);
+    if (
+      parsed.origin !== PRODUCTION_ORIGIN ||
+      parsed.search ||
+      parsed.hash ||
+      parsed.pathname.endsWith(".html") ||
+      (parsed.pathname !== "/" && parsed.pathname.endsWith("/"))
+    ) {
+      throw new Error(`Non-canonical sitemap URL: ${url}`);
+    }
+  }
+
+  // Every valid public route is prerendered. Keeping React Router's generic
+  // SPA shell would expose a soft-404 document if a hosting fallback were ever
+  // reintroduced, so remove it from the production artifact.
+  await fs.rm(path.join(clientDir, "__spa-fallback.html"), { force: true });
+
   const lastmod = new Date().toISOString().slice(0, 10);
   const sitemap = [
     '<?xml version="1.0" encoding="UTF-8"?>',

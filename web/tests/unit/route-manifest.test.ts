@@ -51,13 +51,13 @@ describe("route migration manifests", () => {
   });
 
   it("resolves known routes and rejects unknown paths", () => {
-    expect(getFutureRouteByPath("/services/dentists")?.routeGroup).toBe("industries");
-    expect(getFutureRouteByPath("/services/website-design-development")?.path).toBe(
-      "/services/web-design-development",
-    );
-    expect(getFutureRouteByPath("/services/ai-agents-automation")?.path).toBe(
-      "/services/ai-automation",
-    );
+    expect(getFutureRouteByPath("/industry/dentists")?.routeGroup).toBe("industries");
+    expect(getFutureRouteByPath("/services/dentists")).toBeUndefined();
+    expect(
+      getFutureRouteByPath("/services/website-design-development"),
+    ).toBeUndefined();
+    expect(getFutureRouteByPath("/services/ai-agents-automation")).toBeUndefined();
+    expect(getFutureRouteByPath("/about/")).toBeUndefined();
     expect(getFutureRouteByPath("/not-a-route")).toBeUndefined();
   });
 });

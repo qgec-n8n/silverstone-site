@@ -73,6 +73,15 @@ for (const route of serviceRoutes) {
     const response = await request.get(route.path);
     expect(response.ok()).toBe(true);
     const html = await response.text();
+    const jsonLd = [
+      ...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs),
+    ]
+      .map((match) => JSON.parse(match[1] ?? "{}") as { "@graph"?: unknown[] })
+      .flatMap((schema) => schema["@graph"] ?? []) as {
+      "@type"?: string;
+      name?: string;
+    }[];
+    const serviceSchema = jsonLd.find((entry) => entry["@type"] === "Service");
 
     // Prerendered HTML carries the real H1, distinctive copy, FAQ and CTA —
     // essential content must not be gated behind the Aether entry interaction.
@@ -81,6 +90,7 @@ for (const route of serviceRoutes) {
     expect(html).toContain(htmlSafe(route.faqQuestion));
     expect(html).toContain(htmlSafe(route.ctaHeading));
     expect(html).toContain("Verified Silverstone AI performance");
+    expect(serviceSchema?.name).toBe(route.h1);
     for (const phrase of forbiddenPrototypePhrases) {
       expect(html).not.toContain(phrase);
     }

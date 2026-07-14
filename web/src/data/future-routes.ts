@@ -27,26 +27,8 @@ const futureRouteByPath = new Map(
   futureRouteManifest.map((route) => [route.path, route]),
 );
 
-export const routePathAliases: Readonly<Record<string, string>> = {
-  "/services/ai-agents-automation": "/services/ai-automation",
-  "/services/website-design-development": "/services/web-design-development",
-  // Legacy industry URLs remain served; canonical routes live under /industry.
-  "/services/estate-agents": "/industry/estate-agents",
-  "/services/salons-barbers": "/industry/salons-barbers",
-  "/services/ecommerce": "/industry/ecommerce",
-  "/services/dentists": "/industry/dentists",
-  "/services/fitness-coaches": "/industry/fitness-coaches",
-  "/services/hospitality": "/industry/hospitality",
-  "/services/trades": "/industry/trades",
-  "/services/physios-chiropractors": "/industry/physios-chiropractors",
-  "/services/gyms-fitness-studios": "/industry/gyms-fitness-studios",
-  "/industries": "/industry",
-};
-
 export function getFutureRouteByPath(path: string): FutureRouteRecord | undefined {
-  const normalizedPath =
-    path !== "/" && path.endsWith("/") ? path.replace(/\/+$/, "") : path;
-  return futureRouteByPath.get(routePathAliases[normalizedPath] ?? normalizedPath);
+  return futureRouteByPath.get(path);
 }
 
 export { validateFutureRouteManifest };

@@ -1,25 +1,34 @@
 # Silverstone Project State
 
-**Last updated:** 2026-07-02
-**Current phase:** `/web` industries-v2 rebuild complete — nine industry routes plus the `/services` and `/industries` hubs now use the dark cinematic route-entry architecture with approved industries copy pack content.
-**Branch:** `codex/prompt-5-5-runtime-forensics`.
+**Last updated:** 2026-07-14
+**Current phase:** `/web` is the production React Router/Vite site; canonical prerendering, Netlify hostname routing, sitemap generation, URL-variant rejection, and service schema/H1 alignment were verified locally.
+**Branch:** `main`.
 **Remote:** `origin https://github.com/qgec-n8n/silverstone-site.git`.  
-**Pre-existing uncommitted user change:** `.codex/config.toml` modified before this documentation pass; left untouched.
+**Worktree at 2026-07-14 task start:** clean.
 
 ## Current Architecture
 
 - Legacy root application remains operational and frozen as migration evidence.
 - Active rebuild target is `/web`, a React Router/Vite app with TypeScript, React 19, Tailwind CSS 4, shadcn/ui configuration, GSAP for exceptional choreography, Motion 12.40.0 as the primary React animation platform, Three/WebGL/shader assets, local integration icons, route manifests, generated migrated content, tests, and staging-safety scripts.
-- Production Netlify root remains configured by `netlify.toml` with root publish and legacy build commands. This pass made no production configuration change.
+- Production Netlify builds with `npm --prefix web ci && npm --prefix web run build:production` and publishes `web/build/client`.
 - Ignored local generated residue exists on disk: `web/node_modules/`, `web/build/`, `web/.react-router/`, `web/test-results/`, and several `.DS_Store`/log files. None are tracked and none are staged.
+
+## 2026-07-14 Production Routing, Sitemap, And Service Schema Pass
+
+- Reduced `netlify.toml` to the single permanent `www` → apex hostname redirect, disabled Pretty URLs, removed every legacy/alias redirect and the catch-all SPA rewrite, and retained only the canonical slashless CSP header target.
+- Added a narrowly matched Netlify edge guard that returns `404` for non-root trailing-slash, repeated-slash, and `.html` variants without invoking on canonical routes or normal static assets.
+- Made the React Router prerender list derive from the approved route overrides/additions plus published blog records; duplicate prompt, industry, and hub aliases are no longer prerendered or resolved by application route data.
+- Removed the generic SPA fallback from production output and hardened sitemap generation against wrong-host, query, fragment, trailing-slash, and `.html` URLs.
+- Regenerated the approved services manifest from its Markdown sources after aligning AI Voice Agents and AI Receptionists H1 values with rendered `copy.ts` wording; built JSON-LD `Service.name` now matches the visible H1 for all seven service routes.
+- Fresh production build emitted 46 self-canonical sitemap URLs: 7 service details, 9 industry details, 21 articles, and the approved hubs/core pages. Every sitemap URL mapped to a direct local `200`; removed aliases and unknown paths returned `404` in the production-routing simulation.
 
 ## 2026-07-02 Industries-v2 Rebuild
 
-- **Canonical industry routing moved to `/industry`** on owner instruction: hub at `/industry`, detail pages at `/industry/<slug>`; services remain at `/services` + `/services/<service>`. Legacy `/services/<industry>` and `/industries` URLs stay live as aliases whose canonicals point at the new routes; deployment-layer 301s are recorded in REDIRECT_REQUIREMENTS.md.
+- **Canonical industry routing moved to `/industry`** on owner instruction: hub at `/industry`, detail pages at `/industry/<slug>`; services remain at `/services` + `/services/<service>`. The temporary app aliases recorded during this pass were removed by the superseding 2026-07-14 production URL decision.
 
 - Replaced the light-mode industry prototype (`INDUSTRY_DATA` registry, `IndustryPageVisuals`, `IndustryInstrument`, `DemoShell`, `ToolsCarousel`, `ServicesDecisionMatrix`, `IndustriesAtlas`, `visual-smoke` fixture and all `.ss-visual-root` prototype CSS) with `web/src/features/industries-v2/**`: a typed per-route content registry rewritten from the approved industries copy & SEO pack (2026-06-30), per-route art direction, nine bespoke lazy compositions with unique signature systems, and shared industry section components layered on the services-v2 foundation.
 - `industry-page.tsx` now mirrors the ServicePage experience shell exactly (CoreSpin → Aether intro → expandable hero button → Particles body → reverse return); the Aether field gained an optional palette prop and the Industries family renders a violet palette with behaviour unchanged.
-- `/services` and `/industries` hubs rebuilt as bespoke discovery experiences (`web/src/features/hubs-v2/**`); migrated legacy copy no longer loads for hub or industry routes.
+- `/services` and `/industry` hubs use bespoke discovery experiences (`web/src/features/hubs-v2/**`); migrated legacy copy no longer loads for hub or industry routes.
 - Industry SEO metadata (titles, descriptions, H1s, primary intent) updated in `approvedRouteOverrides` from the pack; route-entry copy (CoreSpin/pill/title/subtitle/button) supplied per route from the industries content registry.
 - Benchmark figures render from the approved register with exact values/units/time bases, attributed as verified Silverstone AI performance; `AnimatedMetricValue` now prerenders the true value (previously prerendered "0").
 - New imagery: approved industry pairs staged into `web/public/approved-images/`; three ecommerce images generated via gpt-image-2 (the zip had none). Portrait ecommerce variants and a third physio image could not be generated — the OpenAI account hit its billing hard limit mid-session.

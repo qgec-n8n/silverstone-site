@@ -1,70 +1,50 @@
 # Silverstone Redirect Requirements
 
-**Status:** Redirect preservation and cutover contract.  
-**Last updated:** 2026-06-26.  
-**Sources:** `netlify.toml`, `docs/silverstone-transformation/audits/seo-redirect-baseline-v1.csv`, `web/src/data/generated/legacy-route-manifest.json`, `docs/silverstone-transformation/architecture/execution-blueprint-v1/route-content-migration-plan-v1.md`.
+**Status:** Current production redirect and URL-variant contract.
+**Last updated:** 2026-07-14.
+**Sources:** `netlify.toml`, `netlify/edge-functions/reject-noncanonical-paths.ts`, `web/react-router.config.ts`, `web/scripts/generate-seo-artifacts.mjs`.
 
 ## Contract
 
-- Redirects are deployment-layer behaviour, not client-router-only behaviour.
-- Existing redirect sources must be preserved until a later owner-approved redirect diff changes them.
-- Redirects must terminate in one hop where approved and must not self-redirect or loop.
-- Canonical routes must return terminal success responses, not route-shell 200s for missing pages.
-- Unknown routes must return a genuine 404 in deployment-equivalent staging.
-- No redirect can be removed because its source is old, ugly, or inconvenient.
+- The only production redirect is the permanent hostname redirect from `https://www.silverstone-ai.com/*` to `https://silverstone-ai.com/:splat`.
+- The hostname redirect preserves the complete path and Netlify-forwarded query string and terminates at the final canonical host in one hop.
+- No legacy-path, `.html`, niche, service-alias, article-alias, or catch-all redirect is active or approved.
+- Every canonical application route is prerendered and must return `200` directly from the publish directory.
+- Netlify Pretty URLs are disabled so slashless canonical requests are not redirected to trailing-slash paths.
+- Non-root trailing-slash, repeated-slash, and `.html` variants return `404` through the narrowly matched edge guard. Uppercase and mixed-case route variants miss the case-sensitive static files and return `404` naturally.
+- Unknown paths and removed aliases return genuine `404` responses. They must not be rewritten to the React shell or another valid page.
+- Static assets, `sitemap.xml`, and `robots.txt` are served as files and are not subject to an application fallback.
 
-## Current Inventory
+## Active Redirect Inventory
 
-- `web/src/data/generated/legacy-route-manifest.json` contains 133 records: 50 canonical and 83 redirect records.
-- `docs/silverstone-transformation/audits/seo-redirect-baseline-v1.csv` is the authoritative audit CSV for canonical and redirect evidence.
-- `netlify.toml` contains current production redirect definitions for legacy `.html`, `/niches/*`, service aliases, article `.html`, and long-form article slugs.
+`netlify.toml` contains exactly one `[[redirects]]` entry:
 
-## Redirect Classes To Preserve
+| Source | Destination | Status | Forced | Query handling |
+| --- | --- | ---: | --- | --- |
+| `https://www.silverstone-ai.com/*` | `https://silverstone-ai.com/:splat` | 301 | yes | forwarded by Netlify |
 
-| Class                       | Examples                                                                                                                                                                                                                                                                                                      | Requirement                                                                               |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Root HTML to clean URL      | `/index.html` -> `/`, `/about.html` -> `/about`                                                                                                                                                                                                                                                               | Preserve one-hop 301                                                                      |
-| Main page HTML to clean URL | `/services.html`, `/pricing.html`, `/blog.html`, `/book.html`, `/contact.html`, `/privacy-policy.html`                                                                                                                                                                                                        | Preserve one-hop 301                                                                      |
-| Legacy niche pages          | `/niches/dentists(.html)`, `/niches/ecommerce(.html)`, `/niches/estate-agents(.html)`, `/niches/fitness-coaches(.html)`, `/niches/gyms-fitness-studios(.html)`, `/niches/hospitality(.html)`, `/niches/physios-chiropractors(.html)`, `/niches/salons-barbers(.html)`, `/niches/trades-virtual-office(.html)` | Preserve to matching `/services/*` canonical                                              |
-| Service HTML aliases        | `/services/dentists.html`, `/services/ecommerce.html`, `/services/estate-agents.html`, `/services/fitness-coaches.html`, `/services/gyms-fitness-studios.html`, `/services/hospitality.html`, `/services/physios-chiropractors.html`, `/services/salons-barbers.html`, `/services/trades.html`                | Preserve one-hop 301                                                                      |
-| Trades legacy alias         | `/services/trades-virtual-office(.html)`                                                                                                                                                                                                                                                                      | Preserve to `/services/trades`                                                            |
-| Blog HTML aliases           | every retained `/blog/*.html` source in the baseline                                                                                                                                                                                                                                                          | Preserve to matching clean article route                                                  |
-| Long-form article slugs     | historical "how-..." paths in `netlify.toml` and redirect CSV                                                                                                                                                                                                                                                 | Preserve to current article canonical                                                     |
-| Duplicate definitions       | `/blog/ai-returns-triage-ecommerce-uk.html`, `/blog/ai-lead-capture-trades-uk-2026.html`                                                                                                                                                                                                                      | Consolidate only through approved redirect diff; verify no duplicate behavioural conflict |
+There is no `_redirects` file in `web/public` or the generated publish directory.
 
-## Explicit Blocker
+## Canonical Route Policy
 
-`/blog/ai-lead-capture-trades-uk-2026` is unresolved. A-01 recorded a forced self-redirect/loop, while later advisory evidence found it loading with a legacy shell. Before any cutover or redirect work:
+- The root canonical is `https://silverstone-ai.com/`.
+- Every non-root canonical is lowercase and slashless.
+- Service canonicals are the seven approved `/services/<service>` routes.
+- Industry canonicals are `/industry` and the nine approved `/industry/<slug>` routes.
+- Blog canonicals are `/blog` and the published `/blog/<slug>` routes.
+- `/industries`, `/services/<industry>`, `/services/website-design-development`, and `/services/ai-agents-automation` are not routes or redirect sources.
 
-1. Freshly crawl `/blog/ai-lead-capture-trades-uk-2026`.
-2. Freshly crawl `/blog/ai-lead-capture-trades-uk-2026.html`.
-3. Verify terminal status, final URL, canonical, shell, sitemap membership, and internal links.
-4. Decide retain, differentiate, consolidate, or redirect through an owner-approved SEO/content decision.
+## Sitemap Contract
 
-## Future Additive Route Redirects
-
-The current `/web` app includes additive routes such as `/industries`, `/how-we-work`, and seven service-offer routes. They do not automatically receive production redirects. Redirect sources for these routes require evidence of existing public entry points or an approved launch plan.
-
-## 2026-07-02 Industry Canonical Migration (/services/<industry> → /industry/<slug>)
-
-Owner instruction (2026-07-02): industry detail pages are canonical under `/industry/<slug>` and the industries hub under `/industry`. The `/web` app keeps the legacy URLs serving identical content via route aliases, with canonicals pointing at the new routes:
-
-- `/services/estate-agents` → `/industry/estate-agents`
-- `/services/salons-barbers` → `/industry/salons-barbers`
-- `/services/ecommerce` → `/industry/ecommerce`
-- `/services/dentists` → `/industry/dentists`
-- `/services/fitness-coaches` → `/industry/fitness-coaches`
-- `/services/hospitality` → `/industry/hospitality`
-- `/services/trades` → `/industry/trades`
-- `/services/physios-chiropractors` → `/industry/physios-chiropractors`
-- `/services/gyms-fitness-studios` → `/industry/gyms-fitness-studios`
-- `/industries` → `/industry`
-
-At production release these ten sources should receive deployment-layer 301s to their new canonicals (single hop). Until then the app-level aliases prevent 404s and the sitemap lists only the `/industry` canonicals.
+- `web/scripts/generate-seo-artifacts.mjs` derives the production sitemap from self-canonical, indexable prerendered HTML.
+- The generator rejects wrong-origin, query-bearing, fragment-bearing, trailing-slash, and `.html` sitemap URLs.
+- The generic React Router SPA fallback is removed from the publish artifact after route generation.
+- Every emitted sitemap URL must have a matching prerendered document and return `200` without a redirect.
 
 ## Verification Procedure
 
-- Generate redirect expectations from `web/src/data/generated/legacy-route-manifest.json` and `docs/silverstone-transformation/audits/seo-redirect-baseline-v1.csv`.
-- Run deployment-equivalent redirect tests, not only local client navigation.
-- Fail on status mismatch, self-loop, multi-hop chain without approval, wrong final canonical, unexpected 200 shell, or missing 404.
-- Compare sitemap entries to terminal indexable canonicals.
+- Parse `netlify.toml` and fail unless there is exactly one redirect with the source, destination, status, and force values above.
+- Run the configured Netlify build command and confirm `web/build/client` is the publish output.
+- Confirm the approved canonical routes are prerendered and alias/fallback documents are absent.
+- Check canonical, hostname, variant, query-string, missing-resource, static-asset, sitemap, and robots requests with deployment-equivalent tooling when available.
+- Fail on a canonical redirect, redirect chain, wrong host, query loss, soft 404, alias `200`, duplicate sitemap URL, or schema/canonical mismatch.

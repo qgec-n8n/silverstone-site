@@ -1,4 +1,4 @@
-import { futureRouteManifest, routePathAliases } from "~/data/future-routes";
+import { futureRouteManifest } from "~/data/future-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { getApprovedServiceContent } from "~/content/services/approved-services";
 import { getIndustryCopy } from "~/features/industries-v2/content";
@@ -266,8 +266,7 @@ function buildExperience(route: FutureRouteRecord): RouteExperience {
 }
 
 function canonicalExperiencePath(pathname: string): string {
-  const normalized = normalizeExperiencePath(pathname);
-  return routePathAliases[normalized] ?? normalized;
+  return normalizeExperiencePath(pathname);
 }
 
 export const routeExperiences = futureRouteManifest.map(buildExperience);

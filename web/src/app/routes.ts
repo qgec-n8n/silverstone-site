@@ -8,7 +8,6 @@ const routes = [
   route("services/:slug", "../routes/services/detail.tsx"),
   route("industry", "../routes/industries/index.tsx"),
   route("industry/:slug", "../routes/industries/detail.tsx"),
-  route("industries", "../routes/industries/index.tsx", { id: "industries-hub-alias" }),
   route("blog", "../routes/blog/index.tsx"),
   route("blog/:slug", "../routes/blog/article.tsx"),
   route("pricing", "../routes/conversion/pricing.tsx"),

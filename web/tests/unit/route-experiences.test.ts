@@ -15,13 +15,14 @@ describe("route experience registry", () => {
     }
   });
 
-  it("maps prompt compatibility aliases to governed canonical experiences", () => {
+  it("does not register duplicate route aliases", () => {
     expect(
-      getCanonicalRouteExperienceByPath("/services/website-design-development")?.path,
-    ).toBe("/services/web-design-development");
+      getCanonicalRouteExperienceByPath("/services/website-design-development"),
+    ).toBeUndefined();
     expect(
-      getCanonicalRouteExperienceByPath("/services/ai-agents-automation")?.path,
-    ).toBe("/services/ai-automation");
+      getCanonicalRouteExperienceByPath("/services/ai-agents-automation"),
+    ).toBeUndefined();
+    expect(getCanonicalRouteExperienceByPath("/services/dentists")).toBeUndefined();
   });
 
   it("has the required route-specific copy fields", () => {

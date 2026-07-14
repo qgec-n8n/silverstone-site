@@ -103,26 +103,13 @@ test("client navigation replays CoreSpin and the destination intro", async ({
   ).toBeVisible();
 });
 
-test("prompt service aliases resolve to canonical route experiences", async ({
-  page,
-}) => {
-  await page.goto("/services/website-design-development");
-  await expect(page.getByRole("status")).toContainText(
-    "Aligning message, movement and measurement",
-  );
-  await waitForRouteIntro(page);
-  await expect(
-    page.getByRole("button", { name: "Explore the commercial website system" }),
-  ).toBeVisible();
-
-  await page.goto("/services/ai-agents-automation");
-  await expect(page.getByRole("status")).toContainText(
-    "Orchestrating data, decisions and accountable action",
-  );
-  await waitForRouteIntro(page);
-  await expect(
-    page.getByRole("button", { name: "Trace the automation system" }),
-  ).toBeVisible();
+test("noncanonical service aliases return 404", async ({ request }) => {
+  for (const path of [
+    "/services/website-design-development",
+    "/services/ai-agents-automation",
+  ]) {
+    expect((await request.get(path)).status(), path).toBe(404);
+  }
 });
 
 test("route-entry sequence remains usable with reduced motion", async ({ page }) => {

@@ -7,9 +7,9 @@ import {
   approvedServiceRoutes,
   approvedServicesByRoute,
 } from "~/content/services/approved-services";
-import { routePathAliases } from "~/data/future-routes";
 import { getCanonicalRouteExperienceByPath } from "~/data/route-experiences";
 import { benchmarkDisclaimer } from "~/data/benchmark-metrics";
+import { serviceCopyByRoute } from "~/features/services-v2/content/copy";
 
 const expectedRoutes = [
   "/services/web-design-development",
@@ -100,13 +100,15 @@ describe("approved service content pack", () => {
     ).toEqual(["futureReceptionistChatEmbedUrl", "futureReceptionistElevenLabsAgent"]);
   });
 
-  it("preserves documented service aliases without replacing canonicals", () => {
-    expect(routePathAliases["/services/website-design-development"]).toBe(
-      "/services/web-design-development",
-    );
-    expect(routePathAliases["/services/ai-agents-automation"]).toBe(
-      "/services/ai-automation",
-    );
+  it("keeps approved metadata H1 values aligned with rendered service H1 values", () => {
+    for (const route of expectedRoutes) {
+      const renderedH1 = serviceCopyByRoute[route].h1.replace(/\*/g, "");
+      expect(approvedServicesByRoute[route].metadata.h1, route).toBe(renderedH1);
+      expect(approvedServicesByRoute[route].publicHeadings.h1, route).toBe(renderedH1);
+    }
+  });
+
+  it("does not include duplicate service aliases", () => {
     expect(approvedServiceRoutes).not.toContain("/services/website-design-development");
     expect(approvedServiceRoutes).not.toContain("/services/ai-agents-automation");
   });

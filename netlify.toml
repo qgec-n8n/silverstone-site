@@ -9,244 +9,19 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# React Router emits canonical route documents as <path>/index.html. Disable
+# Netlify's Pretty URLs post-processing so requests for the approved slashless
+# paths are served directly instead of being redirected to trailing slashes.
+[build.processing.html]
+  pretty_urls = false
+
+# The only redirect: collapse the assigned www hostname to the canonical host.
+# Netlify forwards the unmatched query string automatically for 301 rules.
 [[redirects]]
-  from = "/index.html"
-  to = "/"
+  from = "https://www.silverstone-ai.com/*"
+  to = "https://silverstone-ai.com/:splat"
   status = 301
   force = true
-
-[[redirects]]
-  from = "/about.html"
-  to = "/about"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services.html"
-  to = "/services"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/pricing.html"
-  to = "/pricing"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/blog.html"
-  to = "/blog"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/book.html"
-  to = "/book"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/contact.html"
-  to = "/contact"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/privacy-policy.html"
-  to = "/privacy-policy"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/dentists.html"
-  to = "/services/dentists"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/ecommerce.html"
-  to = "/services/ecommerce"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/estate-agents.html"
-  to = "/services/estate-agents"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/fitness-coaches.html"
-  to = "/services/fitness-coaches"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/gyms-fitness-studios.html"
-  to = "/services/gyms-fitness-studios"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/hospitality.html"
-  to = "/services/hospitality"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/physios-chiropractors.html"
-  to = "/services/physios-chiropractors"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/salons-barbers.html"
-  to = "/services/salons-barbers"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/trades-virtual-office.html"
-  to = "/services/trades"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/dentists"
-  to = "/services/dentists"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/ecommerce"
-  to = "/services/ecommerce"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/estate-agents"
-  to = "/services/estate-agents"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/fitness-coaches"
-  to = "/services/fitness-coaches"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/gyms-fitness-studios"
-  to = "/services/gyms-fitness-studios"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/hospitality"
-  to = "/services/hospitality"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/physios-chiropractors"
-  to = "/services/physios-chiropractors"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/salons-barbers"
-  to = "/services/salons-barbers"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/niches/trades-virtual-office"
-  to = "/services/trades"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/dentists.html"
-  to = "/services/dentists"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/ecommerce.html"
-  to = "/services/ecommerce"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/estate-agents.html"
-  to = "/services/estate-agents"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/fitness-coaches.html"
-  to = "/services/fitness-coaches"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/gyms-fitness-studios.html"
-  to = "/services/gyms-fitness-studios"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/hospitality.html"
-  to = "/services/hospitality"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/physios-chiropractors.html"
-  to = "/services/physios-chiropractors"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/salons-barbers.html"
-  to = "/services/salons-barbers"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/trades-virtual-office.html"
-  to = "/services/trades"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/trades-virtual-office"
-  to = "/services/trades"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/trades.html"
-  to = "/services/trades"
-  status = 301
-  force = true
-
-# The pre-launch article placeholders were removed on 2026-07-07. Old article
-# URLs (clean or .html) 301 to the blog hub; this rule is NOT forced, so any
-# future prerendered article file at /blog/<slug> is served ahead of it.
-[[redirects]]
-  from = "/blog/*"
-  to = "/blog"
-  status = 301
-
-# SPA fallback: prerendered files are served directly (non-forced redirects
-# only apply when no file matches); anything else — client-only routes,
-# unknown URLs — falls through to the React Router SPA shell. Must stay the
-# LAST redirect in this file.
-[[redirects]]
-  from = "/*"
-  to = "/__spa-fallback.html"
-  status = 200
 
 # Deploy previews live on *.netlify.app URLs; Netlify serves them with its
 # automatic X-Robots-Tag: noindex, so no extra configuration is needed here.
@@ -266,11 +41,6 @@
 # posters and open-in-new-tab links).
 [[headers]]
   for = "/services/web-design-development"
-  [headers.values]
-    Content-Security-Policy = "frame-src https://ownly-housing.netlify.app https://aestheticsbyclouds.netlify.app https://calendly.com"
-
-[[headers]]
-  for = "/services/web-design-development/"
   [headers.values]
     Content-Security-Policy = "frame-src https://ownly-housing.netlify.app https://aestheticsbyclouds.netlify.app https://calendly.com"
 
