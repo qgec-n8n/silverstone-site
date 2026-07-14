@@ -10,19 +10,9 @@ interface ParticlesPjsInstance {
   pJS: {
     canvas?: {
       el?: HTMLCanvasElement;
-      /** Canvas buffer size in device pixels (offset size × pxratio). */
-      w?: number;
-      h?: number;
-      /** Device-pixel ratio captured at init (DPR-capped — see BodyParticles). */
-      pxratio?: number;
-    };
-    tmp?: {
-      retina?: boolean;
     };
     fn: {
       drawAnimFrame?: number;
-      /** One frame: clear, update positions, draw. Schedules nothing. */
-      particlesDraw?: () => void;
       vendors: {
         destroypJS: () => void;
         draw: () => void;

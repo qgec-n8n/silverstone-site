@@ -232,9 +232,9 @@ export function WebDesignComposition({
         </div>
       </section>
 
-      {/* 9 — Live client-website portfolio showcase. The rail itself sits
-          full-bleed below the contained section head: one project at a time,
-          switched from the per-scene console row. */}
+      {/* 9 — Live client-website portfolio journey. The rail itself sits
+          full-bleed below the contained section head: on desktop it pins and
+          travels horizontally with normal vertical scrolling. */}
       <section
         className="ss-srv2-section ss-srv2-section--folio"
         id="demo-web-design"
@@ -246,7 +246,7 @@ export function WebDesignComposition({
             icon={PencilRuler}
             heading="Two finished builds, *live inside this page*"
             headingId="srv2-showcase"
-            lead="Real production websites, live inside this page. Switch between the two builds, flip each between its desktop and mobile presentation, then activate a window and browse every page, form and booking flow yourself."
+            lead="Real production websites, presented as one journey. Keep scrolling to travel between them — then activate a window and browse every page, form and booking flow yourself."
           />
         </div>
         <BrowserShowcase />
