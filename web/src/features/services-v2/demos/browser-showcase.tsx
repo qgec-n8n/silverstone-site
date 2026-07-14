@@ -1,47 +1,42 @@
 /**
- * Web Design & Development portfolio journey — two live client websites
- * presented as one horizontal showcase rail.
+ * Web Design & Development portfolio showcase — two live client websites,
+ * presented one project at a time on a control-driven rail.
  *
- * Desktop (≥64rem, hover-capable fine pointer): the section pins for a short
- * scroll run and normal vertical scrolling drives the rail horizontally
- * between the two projects — a scroll-linked sticky track, never wheel
- * interception, so the page releases naturally at both boundaries, reverses
- * cleanly, and can never trap scrolling. Each scene composes a dominant live
- * browser window with an art-directed phone capture. Explicit prev/next and
- * per-project controls mirror the scroll journey.
+ * Every breakpoint shares one scene grammar: the project copy sits ABOVE the
+ * devices, a console row (project switcher · device focus toggle · live link)
+ * sits between the copy and the stage, and the stage composes the two device
+ * previews. On desktop and tablet the stage holds a dominant live browser
+ * window and a phone; a two-state Desktop/Mobile control decides which device
+ * owns the foreground, and switching it orbits the devices around one another
+ * — they arc in opposite directions while their depth order crosses mid-
+ * flight (reduced motion: an instant depth swap with a short opacity fade).
+ * The background device is inert: it can never intercept input meant for the
+ * foreground preview.
  *
- * Tablet (≥48rem otherwise): the same scenes become a native scroll-snap
- * rail — swipe, arrows or project pips, no wheel mapping — with a
- * Desktop/Mobile focus toggle per project. Mobile (<48rem): phone-first snap
- * cards; no iframe ever mounts there.
+ * The browser window is the interactive embed (activation click → live
+ * iframe, exactly as before). The phone is the guided walkthrough: on
+ * desktop/tablet, activating it never navigates away — it auto-scrolls the
+ * real site page by page (see `showcase-walkthrough.ts`; the page list and
+ * heights are generated from the demo sites' own sitemaps/navigation). On
+ * mobile (<48rem) no iframe ever mounts and the phone is a plain link that
+ * opens the live site in a new tab.
  *
- * The production site loads in an iframe only after an explicit activation
- * click — nothing is requested from the demo origins on initial page load;
- * idle windows show locally hosted posters. The embed always receives a
- * fixed logical viewport for the host's device class (1440 on desktop, 834
- * on tablet — see `showcase-state.ts`), scaled with a CSS transform to fit
- * its frame, so the embedded site renders its intended breakpoint with no
- * internal horizontal scrolling regardless of host width. After activation
- * the frame is directly interactive: the first click on any link or field
- * reaches it — there is no interception shield. Only one demo can be live at
- * a time, and a live demo returns to standby after sustained inactivity
- * (`SHOWCASE_IDLE_TIMEOUT_MS`), on Escape, on the standby control, or when
- * the journey moves to the other project.
+ * One demo may be live at a time across both surfaces; a demo stands down on
+ * Escape, on its standby control, after sustained inactivity (window embed),
+ * when its tour completes (phone), when the project or device focus changes,
+ * and whenever the section effectively leaves the viewport
+ * (`showcase-presence.ts`) — returning never auto-resumes.
  *
- * Posters were captured from the live sites with Playwright (desktop
- * 1440×900 @2x, mobile 390×844 @2x, consent banner pre-dismissed) and
- * optimised to responsive WebP under `public/demos/web-design/`.
- *
- * The route-scoped CSP `frame-src` allow-list (root netlify.toml) holds the
- * two demo origins used here plus the Calendly origin used by the site-wide
- * scheduler warm-up. The Aesthetics by Clouds frame carries
- * `allow="payment"` for its booking deposit flow, and neither frame is
- * sandboxed, so navigation, forms and the nested booking portal behave
- * exactly as they do on the live site. Both demo sites serve
- * `frame-ancestors 'self' https://silverstone-ai.com
- * https://www.silverstone-ai.com`, so the live windows only activate on the
- * production domain; everywhere else the posters and open-in-new-tab links
- * still work.
+ * The embed always receives a fixed logical viewport for its device class
+ * (desktop 1440 / tablet 834 / walkthrough phone 390) scaled onto its frame
+ * with a CSS transform, so the embedded site renders its intended breakpoint
+ * regardless of host width. Posters are locally hosted captures; nothing is
+ * requested from the demo origins before an explicit activation. The
+ * route-scoped CSP `frame-src` allow-list (root netlify.toml) holds the two
+ * demo origins plus Calendly; both demo sites serve `frame-ancestors 'self'
+ * https://silverstone-ai.com https://www.silverstone-ai.com`, so live windows
+ * only activate on the production domain — elsewhere the posters and
+ * open-in-new-tab links still work.
  */
 import {
   useCallback,
@@ -56,9 +51,8 @@ import {
   type RefObject,
 } from "react";
 import {
-  useMotionValueEvent,
+  useMotionValue,
   useReducedMotion,
-  useScroll,
   useTransform,
   type MotionStyle,
   type MotionValue,
@@ -69,12 +63,11 @@ import {
   ArrowUpRight,
   Building2,
   CalendarCheck,
-  ChevronLeft,
-  ChevronRight,
   Globe,
   HeartPulse,
   Layers,
   Monitor,
+  Play,
   Power,
   RotateCcw,
   ShieldCheck,
@@ -87,12 +80,22 @@ import {
 
 import { BorderBeam, Reveal } from "../components/primitives";
 import { useShowcaseIdleTimeout } from "./showcase-idle";
+import { useShowcasePresence } from "./showcase-presence";
+import {
+  pageLabel,
+  useShowcaseWalkthrough,
+  walkthroughSite,
+  WALKTHROUGH_VIEWPORT,
+  type WalkthroughSite,
+} from "./showcase-walkthrough";
+import showcaseSitesJson from "./showcase-sites.json";
 import {
   EMBED_VIEWPORT_WIDTH,
   initialShowcaseState,
   showcaseReducer,
   type ShowcaseDeviceClass,
   type ShowcaseSiteId,
+  type ShowcaseSurface,
 } from "./showcase-state";
 
 type PosterSource = {
@@ -103,10 +106,18 @@ type PosterSource = {
   alt: string;
 };
 
-type ShowcaseSite = {
+type ShowcaseSiteConfig = {
   id: ShowcaseSiteId;
   /** Approved manifest slot this window activates. */
   configSlot: string;
+  url: string;
+  origin: string;
+  domain: string;
+  /** Delegates the Payment Request API to the embedded site (booking deposits). */
+  allowPayment: boolean;
+};
+
+type ShowcaseSite = ShowcaseSiteConfig & {
   name: string;
   sector: string;
   /** Distinctive scene headline (h3 under the section heading). */
@@ -115,11 +126,6 @@ type ShowcaseSite = {
   line: string;
   /** Verifiable capability chips shown in the scene intro. */
   chips: { icon: LucideIcon; label: string }[];
-  url: string;
-  origin: string;
-  domain: string;
-  /** Delegates the Payment Request API to the embedded site (booking deposits). */
-  allowPayment?: boolean;
   /** Client-brand light: LIVE dot, beam ring and glows inside this scene only. */
   tint: string;
   tintSecondary: string;
@@ -127,10 +133,19 @@ type ShowcaseSite = {
   mobilePoster: PosterSource;
 };
 
+/** Embed/link targets come from the shared config (`showcase-sites.json`) —
+ * the same source the walkthrough generator script reads. */
+function siteConfig(id: ShowcaseSiteId): ShowcaseSiteConfig {
+  const config = showcaseSitesJson.sites.find((entry) => entry.id === id);
+  if (!config) {
+    throw new Error(`showcase-sites.json is missing the "${id}" demo site`);
+  }
+  return { ...config, id };
+}
+
 const sites: ShowcaseSite[] = [
   {
-    id: "ownly-housing",
-    configSlot: "futureWebsitePreviewPrimaryUrl",
+    ...siteConfig("ownly-housing"),
     name: "Ownly Housing",
     sector: "Shared-ownership housing",
     headline: "Calm authority for a specialist housing launch",
@@ -141,9 +156,6 @@ const sites: ShowcaseSite[] = [
       { icon: ShieldCheck, label: "Policy-led content system" },
       { icon: Layers, label: "Portal-ready architecture" },
     ],
-    url: "https://ownly-housing.netlify.app/",
-    origin: "https://ownly-housing.netlify.app",
-    domain: "ownly-housing.netlify.app",
     tint: "#d0685a",
     tintSecondary: "#c9a25e",
     desktopPoster: {
@@ -164,8 +176,7 @@ const sites: ShowcaseSite[] = [
     },
   },
   {
-    id: "aesthetics-by-clouds",
-    configSlot: "futureWebsitePreviewSecondaryUrl",
+    ...siteConfig("aesthetics-by-clouds"),
     name: "Aesthetics by Clouds",
     sector: "Aesthetic clinic · Abingdon",
     headline: "A serene clinic journey that closes with a deposit",
@@ -176,10 +187,6 @@ const sites: ShowcaseSite[] = [
       { icon: Sparkles, label: "Free consultation funnel" },
       { icon: Workflow, label: "Nested booking portal" },
     ],
-    url: "https://aestheticsbyclouds.netlify.app/",
-    origin: "https://aestheticsbyclouds.netlify.app",
-    domain: "aestheticsbyclouds.netlify.app",
-    allowPayment: true,
     tint: "#9db284",
     tintSecondary: "#d8a08b",
     desktopPoster: {
@@ -202,23 +209,6 @@ const sites: ShowcaseSite[] = [
 ];
 
 const SCENE_COUNT = sites.length;
-
-/**
- * Fraction of the pinned run held at each end before/after the horizontal
- * travel: a settle-in dwell on the first project and a release dwell on the
- * last, so the rail never moves the instant the section pins or unpins.
- */
-const JOURNEY_DWELL = 0.18;
-
-/** Progress point (0–1 across the pinned run) at which scene `i` is centred. */
-function sceneProgress(index: number): number {
-  return JOURNEY_DWELL + (index / (SCENE_COUNT - 1)) * (1 - 2 * JOURNEY_DWELL);
-}
-
-function progressToIndex(progress: number): number {
-  const travel = (progress - JOURNEY_DWELL) / (1 - 2 * JOURNEY_DWELL);
-  return Math.min(SCENE_COUNT - 1, Math.max(0, Math.round(travel * (SCENE_COUNT - 1))));
-}
 
 /* ---- Device class ------------------------------------------------------ */
 
@@ -313,6 +303,225 @@ function preconnect(origin: string) {
   document.head.appendChild(link);
 }
 
+/* ---- Device orbit ------------------------------------------------------- */
+
+/**
+ * Foreground/background poses for the two devices. `null` first keyframes
+ * start each arc from the device's current position, so rapid toggles reverse
+ * smoothly instead of teleporting; the devices sweep in opposite lateral
+ * directions while `zIndex` tweens across the crossover, which is what makes
+ * them read as orbiting around one another. Reduced motion never uses these —
+ * the stylesheet's static `[data-plane]` poses apply instead, with an
+ * opacity-only fade.
+ */
+const ORBIT_TRANSITION = {
+  duration: 0.85,
+  ease: [0.3, 0.75, 0.3, 1] as [number, number, number, number],
+  opacity: { duration: 0.5 },
+};
+
+const windowPoses = {
+  front: {
+    x: [null, "1.5%", "0%"],
+    y: [null, "0.8%", "0%"],
+    scale: [null, 0.975, 1],
+    rotateY: [null, -3, 0],
+    opacity: 1,
+    zIndex: 3,
+  },
+  back: {
+    x: [null, "-0.6%", "-2%"],
+    y: [null, "-1.2%", "-2.5%"],
+    scale: [null, 0.96, 0.92],
+    rotateY: [null, 5, 8],
+    opacity: 0.48,
+    zIndex: 1,
+  },
+};
+
+const phonePoses = {
+  front: {
+    x: [null, "-52%", "-105%"],
+    y: [null, "4%", "0%"],
+    scale: [null, 1.08, 1.22],
+    rotateY: [null, -8, 0],
+    opacity: 1,
+    zIndex: 3,
+  },
+  back: {
+    x: [null, "-48%", "0%"],
+    y: [null, "4.5%", "0%"],
+    scale: [null, 1.05, 1],
+    rotateY: [null, -8, -12],
+    opacity: 0.92,
+    zIndex: 1,
+  },
+};
+
+/* ---- Walkthrough phone --------------------------------------------------- */
+
+type WalkthroughPhoneProps = {
+  site: ShowcaseSite;
+  tour: WalkthroughSite | null;
+  deviceClass: ShowcaseDeviceClass;
+  /** connecting/live while THIS site's phone surface owns the demo. */
+  phase: "idle" | "connecting" | "live";
+  frameNonce: number;
+  reducedMotion: boolean;
+  onStartTour: (site: ShowcaseSiteId) => void;
+  onStopTour: () => void;
+  onEnded: () => void;
+  onLoaded: (site: ShowcaseSiteId) => void;
+};
+
+function WalkthroughPhone({
+  site,
+  tour,
+  deviceClass,
+  phase,
+  frameNonce,
+  reducedMotion,
+  onStartTour,
+  onStopTour,
+  onEnded,
+  onLoaded,
+}: WalkthroughPhoneProps) {
+  const screenRef = useRef<HTMLDivElement>(null);
+  const touring = phase !== "idle";
+  const y = useMotionValue(0);
+
+  const { pageIndex, stage, currentPage, onFrameLoad } = useShowcaseWalkthrough({
+    active: touring,
+    site: tour,
+    reducedMotion,
+    y,
+    onEnded,
+  });
+
+  const scalerStyle = useEmbedScale(screenRef, touring, WALKTHROUGH_VIEWPORT.width);
+  const travel = currentPage
+    ? Math.max(0, currentPage.height - WALKTHROUGH_VIEWPORT.height)
+    : 0;
+  const progress: MotionValue<number> = useTransform(y, (value) =>
+    travel > 0 ? Math.min(1, -value / travel) : 0,
+  );
+
+  const poster = (
+    <img
+      className="ss-folio-phone__shot"
+      src={site.mobilePoster.src}
+      srcSet={site.mobilePoster.srcSet}
+      sizes="(min-width: 48rem) 15rem, 66vw"
+      width={site.mobilePoster.width}
+      height={site.mobilePoster.height}
+      alt={site.mobilePoster.alt}
+      loading="lazy"
+      decoding="async"
+    />
+  );
+
+  // Mobile (<48rem): the phone is a plain safe external link — tapping a demo
+  // opens the configured live site in a new tab; no walkthrough, no iframe.
+  if (deviceClass === "mobile") {
+    return (
+      <a
+        className="ss-focus-ring ss-folio-phone"
+        href={site.url}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`Open the ${site.name} website in a new tab`}
+      >
+        <span className="ss-folio-phone__island" aria-hidden="true" />
+        {poster}
+        <span className="ss-folio-phone__tag" aria-hidden="true">
+          Tap to open live site
+          <ArrowUpRight aria-hidden="true" />
+        </span>
+      </a>
+    );
+  }
+
+  return (
+    <div className="ss-folio-phone" data-tour-phase={phase} tabIndex={-1}>
+      <span className="ss-folio-phone__island" aria-hidden="true" />
+      <div ref={screenRef} className="ss-folio-phone__screen">
+        {poster}
+
+        {touring && scalerStyle && currentPage ? (
+          <div className="ss-folio-phone__scaler" style={scalerStyle} aria-hidden="true">
+            <m.div className="ss-folio-phone__scroller" style={{ y }}>
+              <iframe
+                key={`${String(frameNonce)}:${String(pageIndex)}`}
+                className="ss-folio-phone__frame"
+                style={{
+                  width: `${String(WALKTHROUGH_VIEWPORT.width)}px`,
+                  height: `${String(currentPage.height)}px`,
+                }}
+                src={new URL(currentPage.path, tour?.origin ?? site.origin).href}
+                title={`${site.name} — guided mobile tour`}
+                tabIndex={-1}
+                onLoad={() => {
+                  onLoaded(site.id);
+                  onFrameLoad();
+                }}
+              />
+            </m.div>
+          </div>
+        ) : null}
+
+        {touring && stage === "loading" ? (
+          <span className="ss-folio-phone__veil" role="status">
+            <span className="ss-folio-phone__veil-ring" aria-hidden="true" />
+            {currentPage ? `Opening ${pageLabel(currentPage)}` : "Connecting"}
+          </span>
+        ) : null}
+
+        {touring ? (
+          <button
+            type="button"
+            className="ss-folio-phone__stop"
+            data-tour-stop={site.id}
+            onClick={onStopTour}
+            aria-label={`Stop the ${site.name} guided tour`}
+          />
+        ) : (
+          <button
+            type="button"
+            className="ss-folio-phone__play"
+            data-tour={site.id}
+            onClick={() => onStartTour(site.id)}
+            aria-label={`Play the ${site.name} guided mobile tour`}
+          >
+            <span className="ss-folio-phone__play-ring" aria-hidden="true">
+              <Play />
+            </span>
+            <span className="ss-folio-phone__play-label">Play site tour</span>
+          </button>
+        )}
+      </div>
+
+      {touring ? (
+        <div className="ss-folio-phone__hud" aria-hidden="true">
+          <span className="ss-folio-phone__hud-page">
+            {String(pageIndex + 1).padStart(2, "0")}
+            <i> / {String(tour?.pages.length ?? 0).padStart(2, "0")}</i>
+          </span>
+          <span className="ss-folio-phone__hud-label">
+            {currentPage ? pageLabel(currentPage) : ""}
+          </span>
+          <span className="ss-folio-phone__hud-track">
+            <m.span style={{ scaleX: progress }} />
+          </span>
+        </div>
+      ) : (
+        <span className="ss-folio-phone__tag" aria-hidden="true">
+          Mobile · guided tour
+        </span>
+      )}
+    </div>
+  );
+}
+
 /* ---- Scene ------------------------------------------------------------- */
 
 /** Delay before the connecting veil offers the direct link out. */
@@ -323,18 +532,20 @@ type SceneProps = {
   index: number;
   current: boolean;
   deviceClass: ShowcaseDeviceClass;
-  /** Phase of THIS site (idle unless it owns the live embed). */
+  /** Phase of THIS site (idle unless it owns the live demo). */
   phase: "idle" | "connecting" | "live";
+  /** Surface the live demo runs on (only meaningful while phase ≠ idle). */
+  surface: ShowcaseSurface;
   idlePaused: boolean;
   frameNonce: number;
-  journeyProgress: MotionValue<number>;
   reducedMotion: boolean;
   frameHolderRef: RefObject<HTMLDivElement | null>;
-  onActivate: (site: ShowcaseSiteId) => void;
+  onActivate: (site: ShowcaseSiteId, surface: ShowcaseSurface) => void;
   onLoaded: (site: ShowcaseSiteId) => void;
   onRestart: (site: ShowcaseSiteId) => void;
   onStandby: () => void;
-  onFocusScene: (index: number) => void;
+  onViewChange: (site: ShowcaseSiteId, focus: ShowcaseSurface) => void;
+  onSelectScene: (index: number) => void;
 };
 
 function ShowcaseScene({
@@ -343,16 +554,17 @@ function ShowcaseScene({
   current,
   deviceClass,
   phase,
+  surface,
   idlePaused,
   frameNonce,
-  journeyProgress,
   reducedMotion,
   frameHolderRef,
   onActivate,
   onLoaded,
   onRestart,
   onStandby,
-  onFocusScene,
+  onViewChange,
+  onSelectScene,
 }: SceneProps) {
   const screenRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -362,36 +574,28 @@ function ShowcaseScene({
   // without an imperative reset.
   const [slowAttempt, setSlowAttempt] = useState(-1);
 
-  const mountFrame = phase !== "idle" && deviceClass !== "mobile";
+  const windowPhase = surface === "window" ? phase : "idle";
+  const phonePhase = surface === "phone" ? phase : "idle";
+  const mountFrame = windowPhase !== "idle" && deviceClass !== "mobile";
   const logicalWidth =
     EMBED_VIEWPORT_WIDTH[deviceClass === "tablet" ? "tablet" : "desktop"];
   const frameStyle = useEmbedScale(screenRef, mountFrame, logicalWidth);
 
   useEffect(() => {
-    if (phase !== "connecting") {
+    if (windowPhase !== "connecting") {
       return undefined;
     }
     const timer = window.setTimeout(() => setSlowAttempt(frameNonce), SLOW_CONNECT_MS);
     return () => window.clearTimeout(timer);
-  }, [phase, frameNonce]);
-  const slowConnect = phase === "connecting" && slowAttempt === frameNonce;
-
-  // Cinematic settle: the scene entering focus rises to full presence while
-  // its neighbour recedes slightly. Purely scroll-linked (1:1, reversible);
-  // disabled entirely for reduced motion and non-journey layouts.
-  const centre = sceneProgress(index);
-  const presence = useTransform(
-    journeyProgress,
-    [centre - 0.5, centre, centre + 0.5],
-    [0.42, 1, 0.42],
-  );
-  const sceneOpacity = useTransform(presence, [0.42, 1], [0.55, 1]);
-  const sceneScale = useTransform(presence, [0.42, 1], [0.965, 1]);
-  const phoneDrift = useTransform(journeyProgress, [0, 1], [14, -14]);
-  const journeyMotion = deviceClass === "desktop" && !reducedMotion;
+  }, [windowPhase, frameNonce]);
+  const slowConnect = windowPhase === "connecting" && slowAttempt === frameNonce;
 
   const status =
-    phase === "live" ? "Live" : phase === "connecting" ? "Connecting" : "Standby";
+    windowPhase === "live"
+      ? "Live"
+      : windowPhase === "connecting"
+        ? "Connecting"
+        : "Standby";
 
   const tintStyle = {
     "--demo-tint": site.tint,
@@ -399,7 +603,7 @@ function ShowcaseScene({
   } as MotionStyle;
 
   const handleLoad = () => {
-    const firstLoad = phase === "connecting";
+    const firstLoad = windowPhase === "connecting";
     onLoaded(site.id);
     // Hand focus to the embed once, on the connecting → live transition (the
     // visitor just asked for it); onLoad also refires on every in-embed
@@ -409,6 +613,30 @@ function ShowcaseScene({
     }
   };
 
+  const setFocusDevice = (next: "desktop" | "mobile") => {
+    if (view !== next) {
+      setView(next);
+      onViewChange(site.id, next === "desktop" ? "window" : "phone");
+    }
+  };
+
+  const startTour = (id: ShowcaseSiteId) => {
+    // The tour lives on the phone: bring it to the foreground in the same
+    // action so the walkthrough is never playing behind the window.
+    setView("mobile");
+    onActivate(id, "phone");
+    window.requestAnimationFrame(() => {
+      screenRef.current
+        ?.closest(".ss-folio-scene")
+        ?.querySelector<HTMLButtonElement>(`[data-tour-stop="${id}"]`)
+        ?.focus({ preventScroll: true });
+    });
+  };
+
+  const composed = deviceClass !== "mobile";
+  const windowFront = view === "desktop";
+  const orbit = composed && !reducedMotion;
+
   return (
     <m.article
       className="ss-folio-scene"
@@ -417,17 +645,9 @@ function ShowcaseScene({
       data-phase={phase}
       data-current={current || undefined}
       data-view={view}
-      style={
-        journeyMotion
-          ? { ...tintStyle, opacity: sceneOpacity, scale: sceneScale }
-          : tintStyle
-      }
+      style={tintStyle}
+      inert={!current}
       aria-label={`Project ${String(index + 1)} of ${String(SCENE_COUNT)}: ${site.name}`}
-      onFocusCapture={() => {
-        if (!current) {
-          onFocusScene(index);
-        }
-      }}
     >
       <div className="ss-folio-scene__inner">
         <span className="ss-folio-scene__ghost" aria-hidden="true">
@@ -452,6 +672,66 @@ function ShowcaseScene({
               </li>
             ))}
           </ul>
+        </Reveal>
+
+        {/* Console row — between the copy and the demo on every breakpoint:
+            project switcher, device focus toggle (composed stage only) and
+            the safe external link to the live site. */}
+        <Reveal kind="section" delayMs={80} className="ss-folio-console">
+          <div
+            className="ss-folio-console__switch"
+            role="group"
+            aria-label="Choose showcased project"
+          >
+            {sites.map((entry, entryIndex) => (
+              <button
+                key={entry.id}
+                type="button"
+                className="ss-focus-ring"
+                data-scene-switch={entry.id}
+                aria-pressed={entry.id === site.id}
+                onClick={() => onSelectScene(entryIndex)}
+              >
+                <span aria-hidden="true">
+                  {String(entryIndex + 1).padStart(2, "0")}
+                </span>
+                {entry.name}
+              </button>
+            ))}
+          </div>
+          <div
+            className="ss-folio__toggle"
+            role="group"
+            aria-label={`${site.name} foreground device`}
+          >
+            <button
+              type="button"
+              className="ss-focus-ring"
+              aria-pressed={view === "desktop"}
+              onClick={() => setFocusDevice("desktop")}
+            >
+              <Monitor aria-hidden="true" />
+              Desktop
+            </button>
+            <button
+              type="button"
+              className="ss-focus-ring"
+              aria-pressed={view === "mobile"}
+              onClick={() => setFocusDevice("mobile")}
+            >
+              <Smartphone aria-hidden="true" />
+              Mobile
+            </button>
+          </div>
+          <a
+            className="ss-focus-ring ss-folio-scene__visit"
+            href={site.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open live site
+            <ArrowUpRight aria-hidden="true" />
+          </a>
           <p className="ss-folio-scene__meta">
             <span>
               {String(index + 1).padStart(2, "0")} /{" "}
@@ -459,231 +739,220 @@ function ShowcaseScene({
             </span>
             <span aria-hidden="true">·</span>
             <span>Live production build</span>
-            <span aria-hidden="true">·</span>
-            <span>Netlify edge</span>
           </p>
-          <div className="ss-folio-scene__actions">
-            <div
-              className="ss-folio__toggle"
-              role="group"
-              aria-label={`${site.name} preview device`}
-            >
-              <button
-                type="button"
-                className="ss-focus-ring"
-                aria-pressed={view === "desktop"}
-                onClick={() => setView("desktop")}
-              >
-                <Monitor aria-hidden="true" />
-                Desktop
-              </button>
-              <button
-                type="button"
-                className="ss-focus-ring"
-                aria-pressed={view === "mobile"}
-                onClick={() => setView("mobile")}
-              >
-                <Smartphone aria-hidden="true" />
-                Mobile
-              </button>
-            </div>
-            <a
-              className="ss-focus-ring ss-folio-scene__visit"
-              href={site.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open live site
-              <ArrowUpRight aria-hidden="true" />
-            </a>
-          </div>
         </Reveal>
 
         <div className="ss-folio-scene__stage">
-          <Reveal kind="card" delayMs={90} className="ss-folio-window-holder">
-            <div
-              className="ss-folio-window ss-srv2-beam-border"
-              // Click-focusable (not tabbable) so a click anywhere on the
-              // window chrome parks focus here — otherwise focus falls to
-              // <body> and Escape reaches only the route frame's document
-              // listener (page close-to-intro) instead of demo standby.
-              tabIndex={-1}
-              onPointerEnter={() => preconnect(site.origin)}
-              onKeyDown={(event: ReactKeyboardEvent) => {
-                if (event.key === "Escape" && phase !== "idle") {
-                  // preventDefault marks the Escape as consumed for the route
-                  // experience frame's document-level close-to-intro listener
-                  // (same event target as React's root, so stopPropagation
-                  // alone cannot suppress it).
-                  event.preventDefault();
-                  event.stopPropagation();
-                  onStandby();
+          <m.div
+            className="ss-folio-device ss-folio-device--window"
+            data-plane={!composed || windowFront ? "front" : "back"}
+            inert={composed && !windowFront}
+            initial={false}
+            {...(orbit
+              ? {
+                  animate: windowFront ? windowPoses.front : windowPoses.back,
+                  transition: ORBIT_TRANSITION,
                 }
-              }}
-            >
-              <div className="ss-folio-window__bar">
-                <span className="ss-folio-window__dots" aria-hidden="true">
-                  <i /> <i /> <i />
-                </span>
-                <span className="ss-folio-window__addr">
-                  <Globe aria-hidden="true" />
-                  <span className="ss-folio-window__addr-domain">{site.domain}</span>
-                </span>
-                <span
-                  className="ss-folio-window__status"
-                  data-status={phase}
-                  role="status"
-                >
-                  <i aria-hidden="true" />
-                  {status}
-                </span>
-                {phase !== "idle" ? (
-                  <>
-                    <button
-                      type="button"
-                      className="ss-focus-ring ss-folio-window__ctl"
-                      onClick={() => onRestart(site.id)}
-                      aria-label={`Restart the ${site.name} demo`}
-                      title="Restart demo"
-                    >
-                      <RotateCcw aria-hidden="true" />
-                    </button>
-                    <button
-                      type="button"
-                      className="ss-focus-ring ss-folio-window__ctl"
-                      onClick={onStandby}
-                      aria-label={`Return the ${site.name} demo to standby`}
-                      title="Return to standby"
-                    >
-                      <Power aria-hidden="true" />
-                    </button>
-                  </>
-                ) : null}
-                <a
-                  className="ss-focus-ring ss-folio-window__open"
-                  href={site.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Open the ${site.name} website in a new tab`}
-                >
-                  Open site
-                  <ArrowUpRight aria-hidden="true" />
-                </a>
-              </div>
-
+              : {})}
+          >
+            <Reveal kind="card" delayMs={90} className="ss-folio-window-holder">
               <div
-                ref={(node) => {
-                  screenRef.current = node;
-                  if (mountFrame) {
-                    frameHolderRef.current = node;
+                className="ss-folio-window ss-srv2-beam-border"
+                // Click-focusable (not tabbable) so a click anywhere on the
+                // window chrome parks focus here — otherwise focus falls to
+                // <body> and Escape reaches only the route frame's document
+                // listener (page close-to-intro) instead of demo standby.
+                tabIndex={-1}
+                onPointerEnter={() => preconnect(site.origin)}
+                onKeyDown={(event: ReactKeyboardEvent) => {
+                  if (event.key === "Escape" && phase !== "idle") {
+                    // preventDefault marks the Escape as consumed for the route
+                    // experience frame's document-level close-to-intro listener
+                    // (same event target as React's root, so stopPropagation
+                    // alone cannot suppress it).
+                    event.preventDefault();
+                    event.stopPropagation();
+                    onStandby();
                   }
                 }}
-                className="ss-folio-window__screen"
               >
-                <img
-                  className="ss-folio-window__poster"
-                  src={site.desktopPoster.src}
-                  srcSet={site.desktopPoster.srcSet}
-                  sizes="(min-width: 64rem) 58vw, 94vw"
-                  width={site.desktopPoster.width}
-                  height={site.desktopPoster.height}
-                  alt={site.desktopPoster.alt}
-                  loading="lazy"
-                  decoding="async"
-                />
-
-                {mountFrame && frameStyle ? (
-                  <iframe
-                    ref={frameRef}
-                    key={frameNonce}
-                    className="ss-folio-window__frame"
-                    style={frameStyle}
-                    src={site.url}
-                    title={`${site.name} — live website`}
-                    allow={site.allowPayment ? "payment" : undefined}
-                    data-live={phase === "live" || undefined}
-                    onLoad={handleLoad}
-                  />
-                ) : null}
-
-                {phase === "idle" ? (
-                  <button
-                    type="button"
-                    className="ss-folio-window__activate"
-                    data-activate={site.id}
-                    onClick={() => onActivate(site.id)}
-                  >
-                    <span className="ss-folio-window__activate-ring" aria-hidden="true">
-                      <Power />
-                    </span>
-                    <span className="ss-folio-window__activate-label">
-                      Activate live demo
-                    </span>
-                    <span className="ss-folio-window__activate-sub">
-                      {idlePaused && current
-                        ? "Paused after inactivity — pick up where you left off"
-                        : "Browse the real website right here"}
-                    </span>
-                  </button>
-                ) : null}
-
-                {phase === "connecting" ? (
-                  <span className="ss-folio-window__connecting" role="status">
-                    <span
-                      className="ss-folio-window__connecting-ring"
-                      aria-hidden="true"
-                    />
-                    Connecting to {site.domain}
-                    {slowConnect ? (
-                      <a
-                        className="ss-focus-ring ss-folio-window__connecting-out"
-                        href={site.url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Taking a while? Open the site directly
-                        <ArrowUpRight aria-hidden="true" />
-                      </a>
-                    ) : null}
+                <div className="ss-folio-window__bar">
+                  <span className="ss-folio-window__dots" aria-hidden="true">
+                    <i /> <i /> <i />
                   </span>
-                ) : null}
+                  <span className="ss-folio-window__addr">
+                    <Globe aria-hidden="true" />
+                    <span className="ss-folio-window__addr-domain">{site.domain}</span>
+                  </span>
+                  <span
+                    className="ss-folio-window__status"
+                    data-status={windowPhase}
+                    role="status"
+                  >
+                    <i aria-hidden="true" />
+                    {status}
+                  </span>
+                  {windowPhase !== "idle" ? (
+                    <>
+                      <button
+                        type="button"
+                        className="ss-focus-ring ss-folio-window__ctl"
+                        onClick={() => onRestart(site.id)}
+                        aria-label={`Restart the ${site.name} demo`}
+                        title="Restart demo"
+                      >
+                        <RotateCcw aria-hidden="true" />
+                      </button>
+                      <button
+                        type="button"
+                        className="ss-focus-ring ss-folio-window__ctl"
+                        onClick={onStandby}
+                        aria-label={`Return the ${site.name} demo to standby`}
+                        title="Return to standby"
+                      >
+                        <Power aria-hidden="true" />
+                      </button>
+                    </>
+                  ) : null}
+                  <a
+                    className="ss-focus-ring ss-folio-window__open"
+                    href={site.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Open the ${site.name} website in a new tab`}
+                  >
+                    Open site
+                    <ArrowUpRight aria-hidden="true" />
+                  </a>
+                </div>
+
+                <div
+                  ref={(node) => {
+                    screenRef.current = node;
+                    if (mountFrame) {
+                      frameHolderRef.current = node;
+                    }
+                  }}
+                  className="ss-folio-window__screen"
+                >
+                  <img
+                    className="ss-folio-window__poster"
+                    src={site.desktopPoster.src}
+                    srcSet={site.desktopPoster.srcSet}
+                    sizes="(min-width: 64rem) 92vw, 94vw"
+                    width={site.desktopPoster.width}
+                    height={site.desktopPoster.height}
+                    alt={site.desktopPoster.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+
+                  {mountFrame && frameStyle ? (
+                    <iframe
+                      ref={frameRef}
+                      key={frameNonce}
+                      className="ss-folio-window__frame"
+                      style={frameStyle}
+                      src={site.url}
+                      title={`${site.name} — live website`}
+                      allow={site.allowPayment ? "payment" : undefined}
+                      data-live={windowPhase === "live" || undefined}
+                      onLoad={handleLoad}
+                    />
+                  ) : null}
+
+                  {windowPhase === "idle" ? (
+                    <button
+                      type="button"
+                      className="ss-folio-window__activate"
+                      data-activate={site.id}
+                      onClick={() => onActivate(site.id, "window")}
+                    >
+                      <span
+                        className="ss-folio-window__activate-ring"
+                        aria-hidden="true"
+                      >
+                        <Power />
+                      </span>
+                      <span className="ss-folio-window__activate-label">
+                        Activate live demo
+                      </span>
+                      <span className="ss-folio-window__activate-sub">
+                        {idlePaused && current
+                          ? "Paused after inactivity — pick up where you left off"
+                          : "Browse the real website right here"}
+                      </span>
+                    </button>
+                  ) : null}
+
+                  {windowPhase === "connecting" ? (
+                    <span className="ss-folio-window__connecting" role="status">
+                      <span
+                        className="ss-folio-window__connecting-ring"
+                        aria-hidden="true"
+                      />
+                      Connecting to {site.domain}
+                      {slowConnect ? (
+                        <a
+                          className="ss-focus-ring ss-folio-window__connecting-out"
+                          href={site.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Taking a while? Open the site directly
+                          <ArrowUpRight aria-hidden="true" />
+                        </a>
+                      ) : null}
+                    </span>
+                  ) : null}
+                </div>
+
+                <BorderBeam />
               </div>
+            </Reveal>
+          </m.div>
 
-              <BorderBeam />
-            </div>
-          </Reveal>
-
-          <m.a
-            className="ss-focus-ring ss-folio-phone"
-            {...(journeyMotion ? { style: { y: phoneDrift } } : {})}
-            href={site.url}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Open the ${site.name} website in a new tab`}
+          <m.div
+            className="ss-folio-device ss-folio-device--phone"
+            data-plane={!composed || !windowFront ? "front" : "back"}
+            inert={composed && windowFront}
+            initial={false}
+            {...(orbit
+              ? {
+                  animate: windowFront ? phonePoses.back : phonePoses.front,
+                  transition: ORBIT_TRANSITION,
+                }
+              : {})}
+            onKeyDown={(event: ReactKeyboardEvent) => {
+              if (event.key === "Escape" && phonePhase !== "idle") {
+                event.preventDefault();
+                event.stopPropagation();
+                onStandby();
+              }
+            }}
           >
-            <span className="ss-folio-phone__island" aria-hidden="true" />
-            <img
-              className="ss-folio-phone__shot"
-              src={site.mobilePoster.src}
-              srcSet={site.mobilePoster.srcSet}
-              sizes="(min-width: 64rem) 12.5rem, (min-width: 48rem) 15rem, 66vw"
-              width={site.mobilePoster.width}
-              height={site.mobilePoster.height}
-              alt={site.mobilePoster.alt}
-              loading="lazy"
-              decoding="async"
-            />
-            <span className="ss-folio-phone__tag" aria-hidden="true">
-              Mobile capture
-            </span>
-          </m.a>
+            <Reveal kind="card" delayMs={150}>
+              <WalkthroughPhone
+                site={site}
+                tour={walkthroughSite(site.id)}
+                deviceClass={deviceClass}
+                phase={phonePhase}
+                frameNonce={frameNonce}
+                reducedMotion={reducedMotion}
+                onStartTour={startTour}
+                onStopTour={onStandby}
+                onEnded={onStandby}
+                onLoaded={onLoaded}
+              />
+            </Reveal>
+          </m.div>
         </div>
       </div>
     </m.article>
   );
 }
 
-/* ---- Rail ---------------------------------------------------------------- */
+/* ---- Showcase ------------------------------------------------------------ */
 
 export function BrowserShowcase(): ReactNode {
   const folioRef = useRef<HTMLDivElement>(null);
@@ -693,111 +962,80 @@ export function BrowserShowcase(): ReactNode {
   const reducedMotion = useReducedMotion() ?? false;
   const [state, dispatch] = useReducer(showcaseReducer, initialShowcaseState);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const currentIndexRef = useRef(0);
 
-  const { scrollYProgress } = useScroll({
-    target: folioRef,
-    offset: ["start start", "end end"],
-  });
-  const railX = useTransform(scrollYProgress, (progress) => {
-    const travel = Math.min(
-      1,
-      Math.max(0, (progress - JOURNEY_DWELL) / (1 - 2 * JOURNEY_DWELL)),
-    );
-    return `${String(-travel * (SCENE_COUNT - 1) * 100)}%`;
-  });
-
-  const setIndex = useCallback(
+  const selectScene = useCallback(
     (index: number) => {
-      if (currentIndexRef.current === index) {
+      const clamped = Math.min(SCENE_COUNT - 1, Math.max(0, index));
+      const target = sites[clamped];
+      if (!target) {
         return;
       }
-      currentIndexRef.current = index;
-      setCurrentIndex(index);
-      const site = sites[index];
-      if (site) {
-        dispatch({ type: "scene-change", site: site.id });
+      // Switching scenes makes the outgoing scene inert, which would silently
+      // drop keyboard focus to <body>; carry it to the same control in the
+      // incoming scene instead.
+      const hadFocus = railRef.current?.contains(document.activeElement) ?? false;
+      setCurrentIndex(clamped);
+      dispatch({ type: "scene-change", site: target.id });
+      if (hadFocus) {
+        window.requestAnimationFrame(() => {
+          folioRef.current
+            ?.querySelector<HTMLButtonElement>(
+              `.ss-folio-scene[data-demo="${target.id}"] [data-scene-switch="${target.id}"]`,
+            )
+            ?.focus({ preventScroll: true });
+        });
       }
     },
     [dispatch],
   );
 
-  // Journey position → current scene (desktop only; the snap rail reports
-  // through its own scroll handler below).
-  useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    if (deviceClass === "desktop") {
-      setIndex(progressToIndex(progress));
-    }
-  });
-
-  const onRailScroll = useCallback(() => {
-    const rail = railRef.current;
-    if (!rail || deviceClass === "desktop" || rail.clientWidth === 0) {
-      return;
-    }
-    setIndex(
-      Math.min(
-        SCENE_COUNT - 1,
-        Math.max(0, Math.round(rail.scrollLeft / rail.clientWidth)),
-      ),
-    );
-  }, [deviceClass, setIndex]);
-
   useEffect(() => {
     dispatch({ type: "device-class", deviceClass });
   }, [deviceClass]);
 
+  // The window embed times out after sustained inactivity; the phone
+  // walkthrough is excluded — it always terminates itself.
   useShowcaseIdleTimeout({
-    active: state.activeSite !== null,
+    active: state.activeSite !== null && state.surface === "window",
     sectionRef: folioRef,
     frameHolderRef,
     onTimeout: useCallback(() => dispatch({ type: "idle-timeout" }), []),
   });
 
-  const goToScene = useCallback(
-    (index: number, behavior?: ScrollBehavior) => {
-      const clamped = Math.min(SCENE_COUNT - 1, Math.max(0, index));
-      const resolved: ScrollBehavior = behavior ?? (reducedMotion ? "auto" : "smooth");
-      if (deviceClass === "desktop") {
-        const track = folioRef.current;
-        if (!track) {
-          return;
-        }
-        const trackTop = window.scrollY + track.getBoundingClientRect().top;
-        const run = track.offsetHeight - window.innerHeight;
-        window.scrollTo({
-          top: trackTop + sceneProgress(clamped) * Math.max(0, run),
-          behavior: resolved,
-        });
-        return;
-      }
-      const rail = railRef.current;
-      rail?.scrollTo({ left: clamped * rail.clientWidth, behavior: resolved });
-    },
-    [deviceClass, reducedMotion],
-  );
+  // Any live demo stands down once the section is no longer meaningfully
+  // visible; playback never resumes by itself on return.
+  useShowcasePresence({
+    active: state.activeSite !== null,
+    sectionRef: folioRef,
+    onExit: useCallback(() => dispatch({ type: "section-exit" }), []),
+  });
 
-  const activate = useCallback((site: ShowcaseSiteId) => {
+  const activate = useCallback((site: ShowcaseSiteId, surface: ShowcaseSurface) => {
     const record = sites.find((entry) => entry.id === site);
     if (record) {
       preconnect(record.origin);
     }
-    dispatch({ type: "activate", site });
+    dispatch({ type: "activate", site, surface });
   }, []);
 
   const standby = useCallback(() => {
     const active = state.activeSite;
+    const surface = state.surface;
     dispatch({ type: "standby" });
     if (active) {
       // Deterministic focus hand-back: the activation control replaces the
-      // frame in the next commit.
+      // live frame in the next commit.
       window.requestAnimationFrame(() => {
         folioRef.current
-          ?.querySelector<HTMLButtonElement>(`[data-activate="${active}"]`)
+          ?.querySelector<HTMLButtonElement>(
+            surface === "phone"
+              ? `[data-tour="${active}"]`
+              : `[data-activate="${active}"]`,
+          )
           ?.focus({ preventScroll: true });
       });
     }
-  }, [state.activeSite]);
+  }, [state.activeSite, state.surface]);
 
   const onSectionKeyDown = useCallback(
     (event: ReactKeyboardEvent) => {
@@ -821,11 +1059,15 @@ export function BrowserShowcase(): ReactNode {
     >
       <div className="ss-folio__stage">
         <m.div
-          key={deviceClass === "desktop" ? "journey" : "snap"}
           ref={railRef}
           className="ss-folio__rail"
-          {...(deviceClass === "desktop" ? { style: { x: railX } } : {})}
-          onScroll={onRailScroll}
+          initial={false}
+          animate={{ x: `${String(-currentIndex * 100)}%` }}
+          transition={
+            reducedMotion
+              ? { duration: 0 }
+              : { duration: 0.65, ease: [0.22, 1, 0.36, 1] }
+          }
         >
           {sites.map((site, index) => (
             <ShowcaseScene
@@ -835,65 +1077,22 @@ export function BrowserShowcase(): ReactNode {
               current={index === currentIndex}
               deviceClass={deviceClass}
               phase={state.activeSite === site.id ? state.phase : "idle"}
+              surface={state.surface}
               idlePaused={state.idlePaused}
               frameNonce={state.frameNonce}
-              journeyProgress={scrollYProgress}
               reducedMotion={reducedMotion}
               frameHolderRef={frameHolderRef}
               onActivate={activate}
               onLoaded={(id) => dispatch({ type: "loaded", site: id })}
               onRestart={(id) => dispatch({ type: "restart", site: id })}
               onStandby={standby}
-              onFocusScene={(target) => goToScene(target, "auto")}
+              onViewChange={(id, focus) =>
+                dispatch({ type: "view-change", site: id, focus })
+              }
+              onSelectScene={selectScene}
             />
           ))}
         </m.div>
-
-        <nav className="ss-folio__nav" aria-label="Showcased projects">
-          <button
-            type="button"
-            className="ss-focus-ring ss-folio__arrow"
-            onClick={() => goToScene(currentIndex - 1)}
-            disabled={currentIndex === 0}
-            aria-label="Previous project"
-          >
-            <ChevronLeft aria-hidden="true" />
-          </button>
-          <ol className="ss-folio__pips">
-            {sites.map((site, index) => (
-              <li key={site.id}>
-                <button
-                  type="button"
-                  className="ss-focus-ring ss-folio__pip"
-                  aria-current={index === currentIndex || undefined}
-                  aria-label={`Go to project ${String(index + 1)}: ${site.name}`}
-                  onClick={() => goToScene(index)}
-                >
-                  <span className="ss-folio__pip-index" aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="ss-folio__pip-name">{site.name}</span>
-                </button>
-              </li>
-            ))}
-          </ol>
-          <button
-            type="button"
-            className="ss-focus-ring ss-folio__arrow"
-            onClick={() => goToScene(currentIndex + 1)}
-            disabled={currentIndex === SCENE_COUNT - 1}
-            aria-label="Next project"
-          >
-            <ChevronRight aria-hidden="true" />
-          </button>
-          <div className="ss-folio__progress" aria-hidden="true">
-            <m.span style={{ scaleX: scrollYProgress }} />
-          </div>
-          <p className="ss-folio__count" aria-live="polite">
-            {String(currentIndex + 1).padStart(2, "0")}
-            <span> / {String(SCENE_COUNT).padStart(2, "0")}</span>
-          </p>
-        </nav>
       </div>
     </div>
   );

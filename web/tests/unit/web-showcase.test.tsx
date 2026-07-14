@@ -8,40 +8,82 @@ import {
   showcaseReducer,
   SHOWCASE_IDLE_TIMEOUT_MS,
   type ShowcaseState,
+  type ShowcaseSurface,
 } from "~/features/services-v2/demos/showcase-state";
+import {
+  pageLabel,
+  pageScrollDistance,
+  pageScrollDuration,
+  walkthroughSite,
+  WALKTHROUGH_SCROLL_SPEED,
+  WALKTHROUGH_VIEWPORT,
+} from "~/features/services-v2/demos/showcase-walkthrough";
 
 const OWNLY = "ownly-housing" as const;
 const CLOUDS = "aesthetics-by-clouds" as const;
 
 describe("showcase state model", () => {
-  const live = (site: typeof OWNLY | typeof CLOUDS): ShowcaseState =>
-    showcaseReducer(showcaseReducer(initialShowcaseState, { type: "activate", site }), {
-      type: "loaded",
-      site,
-    });
+  const live = (
+    site: typeof OWNLY | typeof CLOUDS,
+    surface: ShowcaseSurface = "window",
+  ): ShowcaseState =>
+    showcaseReducer(
+      showcaseReducer(initialShowcaseState, { type: "activate", site, surface }),
+      { type: "loaded", site },
+    );
 
   it("activates through connecting to live", () => {
     const connecting = showcaseReducer(initialShowcaseState, {
       type: "activate",
       site: OWNLY,
+      surface: "window",
     });
-    expect(connecting).toMatchObject({ activeSite: OWNLY, phase: "connecting" });
+    expect(connecting).toMatchObject({
+      activeSite: OWNLY,
+      surface: "window",
+      phase: "connecting",
+    });
     expect(showcaseReducer(connecting, { type: "loaded", site: OWNLY })).toMatchObject({
       activeSite: OWNLY,
       phase: "live",
     });
   });
 
-  it("only ever holds one active site — activating the other takes over", () => {
-    const takeover = showcaseReducer(live(OWNLY), { type: "activate", site: CLOUDS });
+  it("only ever holds one active demo — activating the other site takes over", () => {
+    const takeover = showcaseReducer(live(OWNLY), {
+      type: "activate",
+      site: CLOUDS,
+      surface: "window",
+    });
     expect(takeover.activeSite).toBe(CLOUDS);
     expect(takeover.phase).toBe("connecting");
+  });
+
+  it("starting the phone walkthrough deactivates a live window embed", () => {
+    const tour = showcaseReducer(live(OWNLY), {
+      type: "activate",
+      site: OWNLY,
+      surface: "phone",
+    });
+    expect(tour).toMatchObject({
+      activeSite: OWNLY,
+      surface: "phone",
+      phase: "connecting",
+    });
+    // ...and vice versa: the window takes the demo back from the phone.
+    const window_ = showcaseReducer(showcaseReducer(tour, { type: "loaded", site: OWNLY }), {
+      type: "activate",
+      site: OWNLY,
+      surface: "window",
+    });
+    expect(window_).toMatchObject({ surface: "window", phase: "connecting" });
   });
 
   it("ignores load events from a site that is not the active one", () => {
     const state = showcaseReducer(initialShowcaseState, {
       type: "activate",
       site: OWNLY,
+      surface: "window",
     });
     expect(showcaseReducer(state, { type: "loaded", site: CLOUDS })).toBe(state);
   });
@@ -64,10 +106,12 @@ describe("showcase state model", () => {
     const first = showcaseReducer(initialShowcaseState, {
       type: "activate",
       site: OWNLY,
+      surface: "window",
     });
     const reactivated = showcaseReducer(showcaseReducer(first, { type: "standby" }), {
       type: "activate",
       site: OWNLY,
+      surface: "window",
     });
     expect(reactivated.frameNonce).toBe(first.frameNonce + 1);
   });
@@ -88,17 +132,56 @@ describe("showcase state model", () => {
       showcaseReducer(showcaseReducer(live(OWNLY), { type: "idle-timeout" }), {
         type: "activate",
         site: OWNLY,
+        surface: "window",
       }).idlePaused,
     ).toBe(false);
   });
 
-  it("moving the journey to the other project releases the live embed", () => {
+  it("moving to the other project releases the live demo on either surface", () => {
     expect(
       showcaseReducer(live(OWNLY), { type: "scene-change", site: CLOUDS }),
+    ).toMatchObject({ activeSite: null, phase: "idle" });
+    expect(
+      showcaseReducer(live(OWNLY, "phone"), { type: "scene-change", site: CLOUDS }),
     ).toMatchObject({ activeSite: null, phase: "idle" });
     // Staying on the active project changes nothing.
     const state = live(OWNLY);
     expect(showcaseReducer(state, { type: "scene-change", site: OWNLY })).toBe(state);
+  });
+
+  it("sending the live surface to the background deactivates it", () => {
+    // Window live, focus moves to the phone → the embed stands down.
+    expect(
+      showcaseReducer(live(OWNLY), { type: "view-change", site: OWNLY, focus: "phone" }),
+    ).toMatchObject({ activeSite: null, phase: "idle" });
+    // Phone tour live, focus back to the window → the tour stands down.
+    expect(
+      showcaseReducer(live(OWNLY, "phone"), {
+        type: "view-change",
+        site: OWNLY,
+        focus: "window",
+      }),
+    ).toMatchObject({ activeSite: null, phase: "idle" });
+    // Bringing the live surface itself forward changes nothing…
+    const state = live(OWNLY);
+    expect(
+      showcaseReducer(state, { type: "view-change", site: OWNLY, focus: "window" }),
+    ).toBe(state);
+    // …and the inactive scene's toggle never affects the live demo.
+    expect(
+      showcaseReducer(state, { type: "view-change", site: CLOUDS, focus: "phone" }),
+    ).toBe(state);
+  });
+
+  it("leaving the section stops playback on either surface, without a pause marker", () => {
+    for (const surface of ["window", "phone"] as const) {
+      expect(showcaseReducer(live(OWNLY, surface), { type: "section-exit" })).toMatchObject(
+        { activeSite: null, phase: "idle", idlePaused: false },
+      );
+    }
+    expect(showcaseReducer(initialShowcaseState, { type: "section-exit" })).toBe(
+      initialShowcaseState,
+    );
   });
 
   it("entering the mobile class deactivates; desktop↔tablet keeps the session", () => {
@@ -122,6 +205,40 @@ describe("showcase state model", () => {
     expect(EMBED_VIEWPORT_WIDTH.desktop).toBeGreaterThanOrEqual(1024);
     expect(EMBED_VIEWPORT_WIDTH.tablet).toBeGreaterThanOrEqual(768);
     expect(EMBED_VIEWPORT_WIDTH.tablet).toBeLessThan(1024);
+  });
+});
+
+describe("walkthrough page data", () => {
+  it("provides a generated multi-page tour for both demo sites", () => {
+    for (const id of [OWNLY, CLOUDS]) {
+      const site = walkthroughSite(id);
+      expect(site).not.toBeNull();
+      expect(site?.pages.length).toBeGreaterThanOrEqual(2);
+      expect(site?.pages[0]?.path).toBe("/");
+      for (const page of site?.pages ?? []) {
+        expect(page.path.startsWith("/")).toBe(true);
+        // Every page was measured taller than the phone viewport, so each
+        // one genuinely scrolls.
+        expect(page.height).toBeGreaterThan(WALKTHROUGH_VIEWPORT.height);
+      }
+    }
+  });
+
+  it("derives scroll distance and a clamped, speed-based duration", () => {
+    const page = { path: "/", title: "Home", height: 10_844 };
+    expect(pageScrollDistance(page)).toBe(10_000);
+    expect(pageScrollDuration(10_000)).toBeCloseTo(10_000 / WALKTHROUGH_SCROLL_SPEED);
+    // Short pages still read as a deliberate pan; marathon pages are capped.
+    expect(pageScrollDuration(0)).toBe(1.6);
+    expect(pageScrollDuration(1_000_000)).toBe(16);
+  });
+
+  it("labels pages from the leading title segment", () => {
+    expect(pageLabel({ path: "/about-us", title: "About Us | Site", height: 1 })).toBe(
+      "About Us",
+    );
+    expect(pageLabel({ path: "/find-us", title: "", height: 1 })).toBe("Find us");
+    expect(pageLabel({ path: "/", title: "", height: 1 })).toBe("Home");
   });
 });
 

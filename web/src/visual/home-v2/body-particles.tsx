@@ -419,6 +419,45 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
       canvas?.dispatchEvent(new MouseEvent("mouseleave", { bubbles: false }));
     };
 
+    /**
+     * particles.js's own window-resize handler is destructive: it reassigns
+     * the canvas buffer (which CLEARS every pixel) and then re-derives the
+     * particle count from the new area, pushing new particles at random
+     * positions / culling existing ones. On mobile the URL bar collapsing and
+     * expanding fires exactly those resizes on every scroll direction change
+     * — the visible "particles blank out / reshuffle / restart while
+     * scrolling" glitch (and a blank canvas for as long as the draw loop is
+     * idle-paused, since nothing repaints after the clear).
+     *
+     * The library's listener (captured at init) is removed and replaced with
+     * this guard: it no-ops while the canvas box is unchanged (the
+     * 100lvh-sized mount makes URL-bar chatter exactly that), and on a REAL
+     * box change (orientation, window resize) it resizes the buffer, keeps
+     * the existing particle field (the update loop's out-of-canvas handling
+     * re-folds strays; no density pop), and repaints one frame immediately so
+     * a paused canvas is never left cleared.
+     */
+    const guardedResize = () => {
+      const instance = findMountInstance(mount);
+      const pJS = instance?.pJS;
+      const canvas = pJS?.canvas;
+      const el = canvas?.el;
+      if (!pJS || !canvas || !el) {
+        return;
+      }
+      const ratio = (pJS.tmp?.retina ?? false) ? (canvas.pxratio ?? 1) : 1;
+      const width = Math.round(el.offsetWidth * ratio);
+      const height = Math.round(el.offsetHeight * ratio);
+      if (width === canvas.w && height === canvas.h) {
+        return;
+      }
+      canvas.w = width;
+      canvas.h = height;
+      el.width = width;
+      el.height = height;
+      pJS.fn.particlesDraw?.();
+    };
+
     const start = async () => {
       try {
         await ensureParticlesScript();
@@ -443,6 +482,11 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
         createParticlesConfig(coarsePointer, mobile, countScale),
         capturedWindowListeners,
       );
+      for (const { listener, options, type } of capturedWindowListeners) {
+        window.removeEventListener(type, listener, options);
+      }
+      capturedWindowListeners.length = 0;
+      window.addEventListener("resize", guardedResize);
       /* A slow script load can finish after the tab has already gone hidden
          or the mobile idle budget has elapsed. Honour that state immediately
          instead of allowing one unattended draw loop to escape. */
@@ -478,9 +522,12 @@ export function BodyParticles({ enabled, onReady, tier }: BodyParticlesProps) {
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("click", handleClick);
       window.removeEventListener("pointerleave", handlePointerLeave);
+      window.removeEventListener("resize", guardedResize);
       if (mobile) {
         document.documentElement.removeAttribute("data-ambient-motion");
       }
+      // Init listeners are normally stripped right after start(); this covers
+      // an unmount racing a slow script load.
       for (const { listener, options, type } of capturedWindowListeners) {
         window.removeEventListener(type, listener, options);
       }

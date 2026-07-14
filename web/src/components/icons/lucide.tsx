@@ -139,6 +139,7 @@ export const Power = createIcon("Power", [
   ["path", { d: "M12 2v10" }],
   ["path", { d: "M18.4 6.6a9 9 0 1 1-12.77.04" }],
 ]);
+export const Play = createIcon("Play", [["path", { d: "m6 3 14 9-14 9V3z" }]]);
 export const MousePointerClick = createIcon("MousePointerClick", [
   ["path", { d: "M14 4.1 12 6" }],
   ["path", { d: "m5.1 8-2.9-.8" }],

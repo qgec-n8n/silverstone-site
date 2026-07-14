@@ -2491,17 +2491,24 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 }
 
-/* ---- Live website portfolio journey -------------------------------------
- * Two client-website scenes on one horizontal rail (demos/browser-showcase.tsx).
+/* ---- Live website portfolio showcase -------------------------------------
+ * Two client-website scenes on one control-driven rail
+ * (demos/browser-showcase.tsx). One project shows at a time; the per-scene
+ * console row switches projects and the rail translates horizontally.
  *
  * Layout families follow the same media conditions the component reads:
- *   base (<48rem)        — phone-first snap cards, no browser window.
- *   ≥48rem               — touch-first snap rail, Desktop/Mobile focus toggle.
- *   ≥64rem + hover+fine  — pinned scroll journey: .ss-folio grows by
- *                          --folio-run, .ss-folio__stage stays sticky for one
- *                          viewport, and the rail is translated horizontally
- *                          by scroll progress (transform set by the
- *                          component; never wheel interception).
+ *   base (<48rem)        — phone-first: no browser window, the phone links
+ *                          out to the live site in a new tab.
+ *   ≥48rem               — composed stage: the browser window dominates and
+ *                          the phone sits at its right edge; the Desktop /
+ *                          Mobile toggle decides which device holds the
+ *                          foreground plane.
+ *   ≥64rem + hover+fine  — the same composition at full scale.
+ *
+ * The foreground/background orbit is driven by the component (motion
+ * keyframes with a zIndex crossover). The static `[data-plane]` rules below
+ * are the no-JS / prerender / reduced-motion pose: correct stacking, dimmed
+ * background plane, opacity-only transition.
  *
  * Each scene scopes the beam/accent system to its client's brand light via
  * --demo-tint / --demo-tint-2 (set inline by the component), so the traveling
@@ -2517,38 +2524,25 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-folio {
   --folio-gutter: var(--srv2-gutter);
-  /* Extra pinned scroll distance driving the horizontal travel (desktop). */
-  --folio-run: 170vh;
   position: relative;
 }
+
+/* -- Rail: one scene per viewport, translated by the project switcher -- */
 
 .ss-folio__stage {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  overflow-x: clip;
 }
-
-/* -- Rail: snap scroller by default, transform-driven on the journey -- */
 
 .ss-folio__rail {
   display: flex;
   align-items: stretch;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-}
-
-.ss-folio__rail::-webkit-scrollbar {
-  display: none;
 }
 
 .ss-folio-scene {
   position: relative;
   flex: 0 0 100%;
   min-width: 0;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   padding-inline: var(--folio-gutter);
 }
 
@@ -2556,14 +2550,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: clamp(1.2rem, 1rem + 1vw, 1.75rem);
-  height: 100%;
+  gap: clamp(1.1rem, 0.9rem + 0.9vw, 1.6rem);
   max-width: 100rem;
   margin-inline: auto;
   padding-block: 0.5rem 1rem;
 }
 
-/* -- Scene intro: index, sector, headline, chips, metadata -- */
+/* -- Scene intro: index ghost, sector, headline, chips -- */
 
 .ss-folio-scene__ghost {
   position: absolute;
@@ -2629,7 +2622,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   line-height: 1.12;
   letter-spacing: -0.015em;
   color: var(--srv2-ink);
-  max-width: 24ch;
+  max-width: 26ch;
   text-wrap: balance;
 }
 
@@ -2638,7 +2631,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   color: var(--srv2-ink-soft);
   font-size: 0.95rem;
   line-height: 1.6;
-  max-width: 44ch;
+  max-width: 52ch;
 }
 
 .ss-folio-scene__chips {
@@ -2673,14 +2666,69 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   color: var(--demo-tint);
 }
 
+/* -- Console row: project switcher · device toggle · live link · meta.
+      Sits between the scene copy and the stage on every breakpoint. -- */
+
+.ss-folio-console {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.75rem;
+}
+
+.ss-folio-console__switch {
+  display: inline-flex;
+  padding: 0.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--srv2-hairline);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 55%, transparent);
+}
+
+.ss-folio-console__switch button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.4rem;
+  padding: 0.42rem 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease;
+}
+
+.ss-folio-console__switch button span {
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--srv2-ink-faint);
+}
+
+.ss-folio-console__switch button[aria-pressed="true"] {
+  color: var(--ss-v2-chrome);
+  background: color-mix(in srgb, var(--demo-tint) 16%, transparent);
+}
+
+.ss-folio-console__switch button[aria-pressed="true"] span {
+  color: color-mix(in srgb, var(--demo-tint) 85%, var(--ss-v2-chrome));
+}
+
 .ss-folio-scene__meta {
-  margin: 0.35rem 0 0;
+  margin: 0 0 0 auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.55rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--srv2-hairline);
   font-family: var(--ss-font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.13em;
@@ -2692,19 +2740,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   color: color-mix(in srgb, var(--demo-tint) 80%, var(--ss-v2-chrome));
 }
 
-.ss-folio-scene__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 0.2rem;
-}
-
 .ss-folio-scene__visit {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.62rem 1.2rem;
+  min-height: 2.4rem;
+  padding: 0.55rem 1.2rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--demo-tint) 40%, var(--srv2-hairline));
   background: color-mix(in srgb, var(--demo-tint) 10%, transparent);
@@ -2730,7 +2771,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   height: 0.85rem;
 }
 
-/* -- Device focus toggle (touch rail only) -- */
+/* -- Device focus toggle (composed stage only) -- */
 
 .ss-folio__toggle {
   display: inline-flex;
@@ -2744,6 +2785,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  min-height: 2.4rem;
   padding: 0.42rem 0.9rem;
   border: 0;
   border-radius: 999px;
@@ -2769,15 +2811,55 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   height: 0.85rem;
 }
 
-/* -- Scene stage: browser window + phone composition -- */
+/* -- Stage: the two device planes ------------------------------------------
+   The component animates transform/opacity/z-index inline for the orbit;
+   these [data-plane] rules are the resting pose for prerendered HTML and the
+   whole pose under reduced motion (opacity-only fade, instant depth swap). */
 
 .ss-folio-scene__stage {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
+  z-index: 1;
+  perspective: 120rem;
 }
+
+.ss-folio-device {
+  position: relative;
+  will-change: transform;
+}
+
+.ss-folio-device[data-plane="front"] {
+  z-index: 3;
+}
+
+.ss-folio-device[data-plane="back"] {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ss-folio-device--window[data-plane="back"] {
+  opacity: 0.48;
+}
+
+.ss-folio-device--phone[data-plane="back"] {
+  opacity: 0.92;
+}
+
+/* A backgrounded phone shows only its screen — the play affordance and tag
+   belong to the foreground state (the device is inert while backgrounded). */
+.ss-folio-device--phone[data-plane="back"] .ss-folio-phone__play,
+.ss-folio-device--phone[data-plane="back"] .ss-folio-phone__tag,
+.ss-folio-device--phone[data-plane="back"] .ss-folio-phone__hud {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ss-folio-device--phone[data-plane="front"] .ss-folio-phone__play,
+.ss-folio-device--phone[data-plane="front"] .ss-folio-phone__tag,
+.ss-folio-device--phone[data-plane="front"] .ss-folio-phone__hud {
+  transition: opacity 0.3s ease 0.25s;
+}
+
+/* -- Browser window (interactive embed) -- */
 
 .ss-folio-window-holder {
   width: 100%;
@@ -3116,12 +3198,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   height: 0.8rem;
 }
 
-/* -- Phone: art-directed mobile capture -- */
+/* -- Phone: guided walkthrough device (link-out capture on mobile) -- */
 
 .ss-folio-phone {
   position: relative;
   display: block;
-  width: min(16rem, 68vw);
+  width: 100%;
   padding: 9px;
   border-radius: 2.4rem;
   border: 1px solid color-mix(in srgb, var(--ss-v2-chrome) 14%, transparent);
@@ -3130,16 +3212,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     0 24px 60px -28px rgb(0 0 0 / 0.8),
     0 0 44px -10px color-mix(in srgb, var(--demo-tint) 30%, transparent);
   text-decoration: none;
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease;
 }
 
-.ss-folio-phone:hover {
-  transform: translateY(-4px);
+.ss-folio-phone[data-tour-phase="live"] {
   box-shadow:
-    0 30px 70px -28px rgb(0 0 0 / 0.85),
-    0 0 54px -8px color-mix(in srgb, var(--demo-tint) 40%, transparent);
+    0 24px 60px -28px rgb(0 0 0 / 0.8),
+    0 0 54px -8px color-mix(in srgb, var(--demo-tint) 42%, transparent);
 }
 
 .ss-folio-phone__island {
@@ -3147,11 +3225,19 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   top: calc(9px + 0.5rem);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 4;
   width: 5rem;
   height: 1rem;
   border-radius: 999px;
   border: 1px solid rgb(255 255 255 / 0.05);
+  background: var(--ss-v2-void-black);
+}
+
+.ss-folio-phone__screen {
+  position: relative;
+  overflow: clip;
+  border-radius: 1.9rem;
+  aspect-ratio: 390 / 844;
   background: var(--ss-v2-void-black);
 }
 
@@ -3165,13 +3251,208 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   border-radius: 1.9rem;
 }
 
+/* The tall page frame renders at the phone's logical viewport (390 wide) and
+   is mapped onto the screen with a scale; the scroller's translateY is the
+   walkthrough's "scroll". */
+.ss-folio-phone__scaler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transform-origin: top left;
+}
+
+.ss-folio-phone__scroller {
+  will-change: transform;
+}
+
+.ss-folio-phone__frame {
+  display: block;
+  border: 0;
+  background: #fff;
+}
+
+.ss-folio-phone__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding-inline: 1.25rem;
+  text-align: center;
+  background: color-mix(in srgb, var(--ss-v2-void-black) 84%, transparent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--srv2-ink-soft);
+}
+
+.ss-folio-phone__veil-ring {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--demo-tint) 28%, transparent);
+  border-top-color: var(--demo-tint);
+  animation: ss-folio-spin 0.9s linear infinite;
+}
+
+.ss-folio-phone__play {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  width: 100%;
+  border: 0;
+  border-radius: 1.9rem;
+  cursor: pointer;
+  color: var(--ss-v2-chrome);
+  background: radial-gradient(
+    70% 52% at 50% 48%,
+    color-mix(in srgb, var(--ss-v2-void-black) 46%, transparent),
+    color-mix(in srgb, var(--ss-v2-void-black) 76%, transparent)
+  );
+  transition: background 0.45s ease;
+}
+
+.ss-folio-phone__play-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--ss-v2-chrome) 32%, transparent);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 55%, transparent);
+  backdrop-filter: blur(6px);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.ss-folio-phone__play-ring svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-left: 2px;
+}
+
+.ss-folio-phone__play-ring::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid color-mix(in srgb, var(--demo-tint) 55%, transparent);
+  opacity: 0;
+  animation: ss-folio-halo 2.8s ease-out infinite;
+}
+
+.ss-folio-phone__play:hover .ss-folio-phone__play-ring,
+.ss-folio-phone__play:focus-visible .ss-folio-phone__play-ring {
+  transform: scale(1.08);
+  border-color: color-mix(in srgb, var(--demo-tint) 65%, transparent);
+  box-shadow: 0 0 40px 0 color-mix(in srgb, var(--demo-tint) 30%, transparent);
+}
+
+.ss-folio-phone__play-label {
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 0.9);
+}
+
+/* Click anywhere on a playing phone to stop — an invisible full-screen
+   control so the stop affordance is also keyboard-reachable. */
+.ss-folio-phone__stop {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: 0;
+  border-radius: 1.9rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ss-folio-phone__stop:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--demo-tint) 75%, transparent);
+  outline-offset: -4px;
+}
+
+.ss-folio-phone__hud {
+  position: absolute;
+  left: 50%;
+  bottom: calc(9px + 0.8rem);
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: calc(100% - 3rem);
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--ss-v2-chrome) 18%, transparent);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 80%, transparent);
+  backdrop-filter: blur(8px);
+  font-family: var(--ss-font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--srv2-ink-soft);
+  pointer-events: none;
+}
+
+.ss-folio-phone__hud-page {
+  color: color-mix(in srgb, var(--demo-tint) 85%, var(--ss-v2-chrome));
+  white-space: nowrap;
+}
+
+.ss-folio-phone__hud-page i {
+  font-style: normal;
+  color: var(--srv2-ink-faint);
+}
+
+.ss-folio-phone__hud-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ss-folio-phone__hud-track {
+  width: 2.6rem;
+  height: 2px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--srv2-hairline);
+  overflow: hidden;
+}
+
+.ss-folio-phone__hud-track span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--demo-tint), var(--demo-tint-2));
+}
+
 .ss-folio-phone__tag {
   position: absolute;
   left: 50%;
-  bottom: 1.1rem;
+  bottom: calc(9px + 0.8rem);
   transform: translateX(-50%);
+  z-index: 4;
   display: inline-flex;
   align-items: center;
+  gap: 0.4rem;
   padding: 0.32rem 0.7rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--ss-v2-chrome) 18%, transparent);
@@ -3183,139 +3464,21 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   letter-spacing: 0.13em;
   text-transform: uppercase;
   white-space: nowrap;
+  pointer-events: none;
 }
 
-/* -- Rail navigation: arrows, project pips, progress, counter -- */
-
-.ss-folio__nav {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 100rem;
-  margin-inline: auto;
-  padding: 1rem var(--folio-gutter) 0;
+.ss-folio-phone__tag svg {
+  width: 0.7rem;
+  height: 0.7rem;
 }
 
-.ss-folio__arrow {
-  display: grid;
-  place-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  flex: none;
-  border-radius: 999px;
-  border: 1px solid var(--srv2-hairline);
-  background: color-mix(in srgb, var(--ss-v2-graphite) 60%, transparent);
-  color: var(--ss-v2-chrome);
-  cursor: pointer;
-  transition:
-    border-color 0.25s ease,
-    background 0.25s ease,
-    opacity 0.25s ease;
-}
-
-.ss-folio__arrow:hover:not(:disabled) {
-  border-color: color-mix(in srgb, var(--srv2-accent) 50%, transparent);
-  background: color-mix(in srgb, var(--srv2-accent) 12%, transparent);
-}
-
-.ss-folio__arrow:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
-.ss-folio__arrow svg {
-  width: 1rem;
-  height: 1rem;
-}
-
-.ss-folio__pips {
-  display: flex;
-  gap: 0.4rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  min-width: 0;
-}
-
-.ss-folio__pip {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  padding: 0.5rem 0.95rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  background: transparent;
-  color: var(--srv2-ink-faint);
-  cursor: pointer;
-  transition:
-    color 0.25s ease,
-    border-color 0.25s ease,
-    background 0.25s ease;
-}
-
-.ss-folio__pip:hover {
-  color: var(--ss-v2-chrome);
-  border-color: var(--srv2-hairline);
-}
-
-.ss-folio__pip[aria-current] {
-  color: var(--ss-v2-chrome);
-  border-color: color-mix(in srgb, var(--srv2-accent) 40%, var(--srv2-hairline));
-  background: color-mix(in srgb, var(--srv2-accent) 10%, transparent);
-}
-
-.ss-folio__pip-index {
-  font-family: var(--ss-font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-}
-
-.ss-folio__pip-name {
-  font-family: var(--ss-font-display);
-  font-size: 0.78rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.ss-folio__progress {
-  display: none;
-  flex: 1;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--srv2-hairline);
-  overflow: hidden;
-}
-
-.ss-folio__progress span {
-  display: block;
-  width: 100%;
-  height: 100%;
-  transform-origin: left center;
-  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
-}
-
-.ss-folio__count {
-  margin: 0;
-  margin-left: auto;
-  font-family: var(--ss-font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  color: var(--ss-v2-chrome);
-  white-space: nowrap;
-}
-
-.ss-folio__count span {
-  color: var(--srv2-ink-faint);
-}
-
-/* -- Mobile (<48rem): phone-first cards, no browser window, no iframe -- */
+/* -- Mobile (<48rem): phone-first, no browser window, no iframe -- */
 
 @media (max-width: 47.9375rem) {
-  .ss-folio-window-holder,
+  .ss-folio-device--window,
   .ss-folio-scene__ghost,
   .ss-folio__toggle,
-  .ss-folio__pip-name {
+  .ss-folio-scene__meta {
     display: none;
   }
 
@@ -3323,7 +3486,19 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     padding-block: 0.25rem 0.75rem;
   }
 
+  .ss-folio-console__switch,
+  .ss-folio-scene__visit {
+    min-height: 2.75rem;
+  }
+
+  .ss-folio-console__switch button {
+    min-height: 2.35rem;
+  }
+
   .ss-folio-scene__stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding-block: 0.75rem 0.5rem;
     background: radial-gradient(
       85% 75% at 50% 12%,
@@ -3333,132 +3508,60 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     border-radius: var(--ss-radius-xl);
   }
 
+  .ss-folio-device--phone {
+    width: min(16rem, 68vw);
+  }
+
   .ss-folio-scene__chips li:nth-child(n + 4) {
     display: none;
   }
-
-  .ss-folio__nav {
-    padding-top: 1.25rem;
-  }
 }
 
-/* -- Tablet rail (≥48rem, touch-first): device focus toggle -- */
+/* -- Composed stage (≥48rem): dominant window, phone at its right edge -- */
 
 @media (min-width: 48rem) {
   .ss-folio-scene__inner {
-    gap: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+    gap: clamp(1.3rem, 1rem + 1.1vw, 1.9rem);
     padding-block: 0.75rem 1rem;
   }
 
   .ss-folio-scene__intro {
-    max-width: 44rem;
-  }
-
-  .ss-folio-scene[data-view="desktop"] .ss-folio-phone {
-    display: none;
-  }
-
-  .ss-folio-scene[data-view="mobile"] .ss-folio-window-holder {
-    display: none;
-  }
-}
-
-/* -- Desktop journey (≥64rem, hover + fine pointer): pinned scroll rail -- */
-
-@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
-  .ss-folio {
-    height: calc(100svh + var(--folio-run));
-  }
-
-  .ss-folio__stage {
-    position: sticky;
-    top: 0;
-    height: 100svh;
-    overflow: clip;
-    padding-top: calc(var(--ss-layout-header, 5rem) + 0.5rem);
-    padding-bottom: 1.1rem;
-  }
-
-  .ss-folio__rail {
-    flex: 1;
-    min-height: 0;
-    overflow: visible;
-    scroll-snap-type: none;
-    will-change: transform;
-  }
-
-  .ss-folio-scene {
-    height: 100%;
-  }
-
-  .ss-folio-scene__inner {
-    display: grid;
-    grid-template-columns: minmax(19rem, 23rem) minmax(0, 1fr);
-    gap: clamp(2rem, 1rem + 3vw, 4.5rem);
-    align-items: center;
-    padding-block: 0;
-  }
-
-  .ss-folio-scene__ghost {
-    top: auto;
-    right: auto;
-    bottom: calc(50% + 9rem);
-    left: -0.75rem;
-  }
-
-  /* Desktop composes both devices; the touch-only focus toggle retires and
-     the visit link lives in the window chrome instead. */
-  .ss-folio__toggle {
-    display: none;
-  }
-
-  .ss-folio-scene__visit {
-    display: none;
-  }
-
-  .ss-folio-scene[data-view] .ss-folio-phone {
-    display: block;
-  }
-
-  .ss-folio-scene[data-view] .ss-folio-window-holder {
-    display: block;
+    max-width: 56rem;
   }
 
   .ss-folio-scene__stage {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    padding-left: clamp(4rem, 5vw, 6.5rem);
-    padding-bottom: clamp(1rem, 3vh, 2.25rem);
+    padding-block: 0.25rem 2rem;
   }
 
-  .ss-folio-window-holder {
-    width: min(100%, calc((100svh - var(--ss-layout-header, 5rem) - 12.5rem) * 1.6));
+  /* The window keeps a breathing band on the right where the resting phone
+     peeks out from behind its edge. */
+  .ss-folio-device--window {
+    width: calc(100% - clamp(3.5rem, 7vw, 6.5rem));
   }
 
-  .ss-folio-phone {
+  .ss-folio-device--phone {
     position: absolute;
-    left: 0;
-    bottom: clamp(1.25rem, 4vh, 3rem);
-    z-index: 2;
-    width: clamp(10rem, 11.5vw, 13rem);
-  }
-
-  .ss-folio__nav {
-    padding-top: 1.1rem;
-  }
-
-  .ss-folio__progress {
-    display: block;
+    right: 0;
+    bottom: -0.9rem;
+    width: clamp(10.5rem, 21vw, 13rem);
+    transform-origin: 50% 62%;
   }
 }
 
-/* Wide desktop: let the intro column breathe. */
-@media (min-width: 120rem) {
-  .ss-folio-scene__inner {
-    grid-template-columns: minmax(22rem, 26rem) minmax(0, 1fr);
+/* -- Desktop (≥64rem, hover + fine pointer): full scale -- */
+
+@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
+  .ss-folio-scene__ghost {
+    top: -1.5rem;
+  }
+
+  .ss-folio-device--phone {
+    width: clamp(12rem, 14vw, 14.5rem);
+    bottom: -1.25rem;
+  }
+
+  .ss-folio-scene__stage {
+    padding-block: 0.5rem 2.5rem;
   }
 }
 
@@ -3492,29 +3595,35 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 @media (prefers-reduced-motion: reduce) {
   .ss-folio-window__status[data-status="live"] i,
-  .ss-folio-window__activate-ring::after {
+  .ss-folio-window__activate-ring::after,
+  .ss-folio-phone__play-ring::after {
     animation: none;
   }
 
-  .ss-folio-window__activate-ring::after {
+  .ss-folio-window__activate-ring::after,
+  .ss-folio-phone__play-ring::after {
     opacity: 0;
   }
 
-  .ss-folio-window__connecting-ring {
+  .ss-folio-window__connecting-ring,
+  .ss-folio-phone__veil-ring {
     animation: none;
     border-top-color: color-mix(in srgb, var(--demo-tint) 28%, transparent);
   }
 
   .ss-folio-window__frame,
   .ss-folio-window__activate-ring,
-  .ss-folio-phone,
-  .ss-folio__arrow,
-  .ss-folio__pip {
+  .ss-folio-phone__play-ring,
+  .ss-folio-console__switch button,
+  .ss-folio__toggle button {
     transition: none;
   }
 
-  .ss-folio-phone:hover {
-    transform: none;
+  /* Depth swap without travel: the planes exchange stacking instantly and
+     only their opacity eases. */
+  .ss-folio-device {
+    transition: opacity 0.3s ease;
+    will-change: auto;
   }
 }
 
