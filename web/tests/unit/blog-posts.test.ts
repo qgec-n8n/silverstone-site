@@ -9,7 +9,10 @@ describe("published blog slug policy", () => {
   it("keeps every canonical slug concise, descriptive, unique, and asset-backed", () => {
     const slugs = PUBLISHED_BLOG_POSTS.map((post) => post.slug);
 
-    expect(PUBLISHED_BLOG_POSTS).toHaveLength(21);
+    // The catalogue only ever grows through the daily publishing automation;
+    // a hard-coded exact count broke on every publish. Guard against mass
+    // deletion instead (21 posts existed at the 2026-07-14 slug migration).
+    expect(PUBLISHED_BLOG_POSTS.length).toBeGreaterThanOrEqual(21);
     expect(new Set(slugs).size).toBe(slugs.length);
 
     for (const post of PUBLISHED_BLOG_POSTS) {
