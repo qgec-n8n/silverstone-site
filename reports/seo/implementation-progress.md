@@ -74,3 +74,33 @@ Session started 2026-07-15 02:30 BST. Working branch: `main` (HEAD at start: `2a
   animation-seed attr); see visual-regression-report.md.
 
 ## Next: deploy (push to main), watch Netlify build, live URL matrix, independent verifier.
+
+## Phase 15–16 — DEPLOYED & LIVE-VERIFIED (2026-07-15 16:41Z)
+
+Netlify production deploy (from `get-deploy` API):
+- Deploy ID: `6a57b827146f7d000835d2f3` (build `6a57b827146f7d000835d2f1`)
+- Commit: `6fab6f7582a395013a00cfa3ceecaad2f314875d` (branch main, context production)
+- State: **ready**, error_message: null, deploy_time 39s, published 2026-07-15T16:41:51Z
+- edge_functions_present: true — "1 edge function deployed", "99 redirect rules
+  processed — All redirect rules deployed without errors", "3 header rules
+  processed", secret scan 3310 files / 0 matches.
+- This is the same edge-bundling step that previously failed on the HEAD method.
+
+Two intermediate deploys preceded it in this session:
+- `ce6f9839` (initial migration) then `80ddbadf` (n8n auto-published the 22nd
+  article — live proof the blog automation flows into the sitemap unattended)
+  + `e6f298c1` (floored the post-count test), then `6fab6f75` (forced redirects
+  + www edge cleanup after the first live matrix surfaced /index and www hops).
+
+Live URL matrix (reports/seo/production-url-matrix.csv): **191 checks, 0 failures.**
+- All 47 canonicals: direct 200, self-canonical, index,follow (privacy noindex).
+- 53 legacy 301s + variant 301s: one hop to canonical, destination 200.
+- 45 deleted articles: genuine 410. Unknown paths: genuine 404 (no 200 shell).
+- HEAD requests (200/301/404/410) all correct at the CDN — the original blocker,
+  now verified working live.
+- www: 301 to apex with query preserved (www+variant = accepted 2 hops).
+- /index 301->/; /About served 200 by Netlify case-insensitively but with a
+  correct self-canonical to /about (search engines consolidate it).
+- sitemap.xml index + 2 children all 200; robots.txt 200 text/plain.
+- Newest auto-published article present in sitemap-posts.xml, 200 live, with
+  BlogPosting JSON-LD + visible H1 in initial HTML.
