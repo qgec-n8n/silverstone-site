@@ -15,7 +15,7 @@
  *  - `git show 318527e2^:netlify.toml` — production redirect set until
  *    2026-07-14 (.html cores, /niches/*, /services/<industry> aliases).
  *  - Live production sitemap (last successful deploy, captured 2026-07-15) —
- *    21 pre-rename blog slugs, all 301-mapped below.
+ *    the pre-rename blog slugs, all 301-mapped below.
  *  - `git show 10dcca0a -- web/src/data/blog-posts.ts` — the 21 old→new blog
  *    slug rename pairs (19 unquoted + 2 automation-written quoted entries).
  *  - `git show 9fcfb1fe^:sitemap.xml` — legacy static site surface at the
@@ -85,9 +85,10 @@ export const LEGACY_REDIRECTS: Readonly<Record<string, string>> = {
   "/services/website-design-development": "/services/web-design-development",
   "/services/ai-agents-automation": "/services/ai-automation",
 
-  // Blog slug renames (10dcca0a, 2026-07-14): the same 21 articles live on
-  // under shorter canonical slugs. These are the URLs in the live sitemap
-  // and Google's index today.
+  // Blog slug renames (10dcca0a, 2026-07-14): the 21 articles that existed at
+  // that migration live on under shorter canonical slugs (later articles are
+  // published directly under their canonical slug and need no entry). These
+  // old slugs are the URLs in the live sitemap and Google's index today.
   "/blog/how-to-plan-a-conversion-focused-website-build-for-a-uk-small-business":
     "/blog/conversion-focused-website-planning",
   "/blog/bespoke-app-development-for-uk-small-businesses-what-to-build-first":
@@ -138,7 +139,7 @@ export const LEGACY_REDIRECTS: Readonly<Record<string, string>> = {
  *
  * The 33 short slugs are the legacy static site's blog articles (canonical
  * extensionless form in `9fcfb1fe^:sitemap.xml`), deleted at the 2026-07-07
- * cutover; the current 21-post blog contains no equivalent content. The 12
+ * cutover; the current blog contains no equivalent content. The 12
  * long slugs are earlier aliases of those same deleted articles (redirect
  * sources in the March 2026 netlify.toml generations) and terminate as Gone
  * rather than chaining into a 410.

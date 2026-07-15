@@ -34,8 +34,11 @@ Every change is metadata, config, build tooling or data:
 `netlify/edge-functions/*`, `netlify.toml`, `web/scripts/*`,
 `web/public/410.html` (new static file), test files, `tsconfig`/`vitest`
 config, and data-only edits (route titles/h1 metadata fields, blog metaTitle,
-schema builders, JSON date map). No component markup, CSS, animation, or
-route destination changed.
+schema builders, JSON date map). Two route components were touched
+(`web/src/routes/blog/article.tsx`, `web/src/routes/templates/article-page.tsx`)
+but only their `<head>`/JSON-LD emission (og/twitter/article-date tags,
+publisher logo) — no visible body markup, and no CSS, animation, or route
+destination changed. The byte-level body diff below confirms this.
 
 ## Verdict
 
