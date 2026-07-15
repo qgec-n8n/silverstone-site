@@ -246,7 +246,7 @@ export function WebDesignComposition({
             icon={PencilRuler}
             heading="Two finished builds, *live inside this page*"
             headingId="srv2-showcase"
-            lead="Real production websites, live inside this page. Switch between the two builds, flip each between its desktop and mobile presentation, then activate a window and browse every page, form and booking flow yourself."
+            lead="Real production websites, live inside this page. Switch between the two builds, compare each desktop and mobile presentation, then browse the live window or play the guided phone tour. On smaller screens, each preview opens the live site in a new tab."
           />
         </div>
         <BrowserShowcase />

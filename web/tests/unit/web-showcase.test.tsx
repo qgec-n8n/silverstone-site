@@ -15,7 +15,9 @@ import {
   pageScrollDistance,
   pageScrollDuration,
   walkthroughSite,
+  WALKTHROUGH_BOTTOM_DWELL_MS,
   WALKTHROUGH_SCROLL_SPEED,
+  WALKTHROUGH_SETTLE_MS,
   WALKTHROUGH_VIEWPORT,
 } from "~/features/services-v2/demos/showcase-walkthrough";
 
@@ -71,11 +73,14 @@ describe("showcase state model", () => {
       phase: "connecting",
     });
     // ...and vice versa: the window takes the demo back from the phone.
-    const window_ = showcaseReducer(showcaseReducer(tour, { type: "loaded", site: OWNLY }), {
-      type: "activate",
-      site: OWNLY,
-      surface: "window",
-    });
+    const window_ = showcaseReducer(
+      showcaseReducer(tour, { type: "loaded", site: OWNLY }),
+      {
+        type: "activate",
+        site: OWNLY,
+        surface: "window",
+      },
+    );
     expect(window_).toMatchObject({ surface: "window", phase: "connecting" });
   });
 
@@ -152,7 +157,11 @@ describe("showcase state model", () => {
   it("sending the live surface to the background deactivates it", () => {
     // Window live, focus moves to the phone → the embed stands down.
     expect(
-      showcaseReducer(live(OWNLY), { type: "view-change", site: OWNLY, focus: "phone" }),
+      showcaseReducer(live(OWNLY), {
+        type: "view-change",
+        site: OWNLY,
+        focus: "phone",
+      }),
     ).toMatchObject({ activeSite: null, phase: "idle" });
     // Phone tour live, focus back to the window → the tour stands down.
     expect(
@@ -175,9 +184,9 @@ describe("showcase state model", () => {
 
   it("leaving the section stops playback on either surface, without a pause marker", () => {
     for (const surface of ["window", "phone"] as const) {
-      expect(showcaseReducer(live(OWNLY, surface), { type: "section-exit" })).toMatchObject(
-        { activeSite: null, phase: "idle", idlePaused: false },
-      );
+      expect(
+        showcaseReducer(live(OWNLY, surface), { type: "section-exit" }),
+      ).toMatchObject({ activeSite: null, phase: "idle", idlePaused: false });
     }
     expect(showcaseReducer(initialShowcaseState, { type: "section-exit" })).toBe(
       initialShowcaseState,
@@ -231,6 +240,8 @@ describe("walkthrough page data", () => {
     // Short pages still read as a deliberate pan; marathon pages are capped.
     expect(pageScrollDuration(0)).toBe(1.6);
     expect(pageScrollDuration(1_000_000)).toBe(16);
+    expect(WALKTHROUGH_SETTLE_MS).toBe(700);
+    expect(WALKTHROUGH_BOTTOM_DWELL_MS).toBe(1000);
   });
 
   it("labels pages from the leading title segment", () => {

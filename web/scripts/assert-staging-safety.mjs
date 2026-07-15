@@ -230,6 +230,34 @@ async function scanPath(targetPath, errors) {
   }
 }
 
+async function indexPrerenderedContent(targetPath, contentPaths = new Map()) {
+  const stat = await fs.stat(targetPath);
+  if (stat.isDirectory()) {
+    const entries = await fs.readdir(targetPath, { withFileTypes: true });
+    for (const entry of entries) {
+      if (skipDirectoryNames.has(entry.name)) {
+        continue;
+      }
+      await indexPrerenderedContent(path.join(targetPath, entry.name), contentPaths);
+    }
+    return contentPaths;
+  }
+
+  if (!isHtmlFile(targetPath)) {
+    return contentPaths;
+  }
+
+  const text = await fs.readFile(targetPath, 'utf8');
+  for (const match of text.matchAll(/data-content-id=["']([^"']+)["']/g)) {
+    const contentId = match[1];
+    const paths = contentPaths.get(contentId) ?? new Set();
+    paths.add(targetPath);
+    contentPaths.set(contentId, paths);
+  }
+
+  return contentPaths;
+}
+
 async function validateBuildOutput(root, errors) {
   const resolvedRoot = path.resolve(root);
   if (path.basename(resolvedRoot) !== 'client') {
@@ -241,13 +269,23 @@ async function validateBuildOutput(root, errors) {
     addError(errors, `${manifestPath}: missing future route manifest`);
   } else {
     const routes = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+    const contentPaths = await indexPrerenderedContent(resolvedRoot);
     for (const route of routes) {
       const routeHtmlPath =
         route.path === '/'
           ? path.join(resolvedRoot, 'index.html')
           : path.join(resolvedRoot, route.path.replace(/^\/+/, ''), 'index.html');
       if (!(await exists(routeHtmlPath))) {
-        addError(errors, `${routeHtmlPath}: missing prerendered route HTML`);
+        // Approved route overrides can move baseline content to a new canonical
+        // path. In that case, require the content to exist at exactly one
+        // prerendered location instead of reporting the obsolete baseline path.
+        const matchingPaths = [...(contentPaths.get(route.contentId) ?? [])];
+        if (matchingPaths.length !== 1) {
+          addError(
+            errors,
+            `${routeHtmlPath}: missing prerendered route HTML (found ${matchingPaths.length} output matches for ${route.contentId})`,
+          );
+        }
         continue;
       }
       const routeHtml = await fs.readFile(routeHtmlPath, 'utf8');

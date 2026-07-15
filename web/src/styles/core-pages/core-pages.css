@@ -1026,6 +1026,18 @@
   line-height: 1.65;
 }
 
+.ss-core-booking__body .ss-core-booking__preview-target {
+  margin-top: 0.35rem;
+  color: var(--booking-silver);
+  font-family: var(--ss-font-mono);
+  font-size: 0.82rem;
+  overflow-wrap: anywhere;
+}
+
+.ss-core-booking__live[data-tone="preview"] {
+  color: var(--booking-cyan);
+}
+
 /*
  * Contact instead — sits in its own footer row under the scheduler, cleanly
  * separated from the white pane by a gradient hairline so its border never

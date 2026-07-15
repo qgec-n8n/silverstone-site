@@ -428,7 +428,7 @@ function WalkthroughPhone({
         className="ss-focus-ring ss-folio-phone"
         href={site.url}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         aria-label={`Open the ${site.name} website in a new tab`}
       >
         <span className="ss-folio-phone__island" aria-hidden="true" />
@@ -448,7 +448,11 @@ function WalkthroughPhone({
         {poster}
 
         {touring && scalerStyle && currentPage ? (
-          <div className="ss-folio-phone__scaler" style={scalerStyle} aria-hidden="true">
+          <div
+            className="ss-folio-phone__scaler"
+            style={scalerStyle}
+            aria-hidden="true"
+          >
             <m.div className="ss-folio-phone__scroller" style={{ y }}>
               <iframe
                 key={`${String(frameNonce)}:${String(pageIndex)}`}
@@ -727,7 +731,7 @@ function ShowcaseScene({
             className="ss-focus-ring ss-folio-scene__visit"
             href={site.url}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             Open live site
             <ArrowUpRight aria-hidden="true" />
@@ -818,7 +822,7 @@ function ShowcaseScene({
                     className="ss-focus-ring ss-folio-window__open"
                     href={site.url}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     aria-label={`Open the ${site.name} website in a new tab`}
                   >
                     Open site
@@ -897,7 +901,7 @@ function ShowcaseScene({
                           className="ss-focus-ring ss-folio-window__connecting-out"
                           href={site.url}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                         >
                           Taking a while? Open the site directly
                           <ArrowUpRight aria-hidden="true" />

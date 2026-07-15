@@ -3260,6 +3260,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   left: 0;
   z-index: 1;
   transform-origin: top left;
+  /* The walkthrough iframe is deliberately thousands of logical pixels tall.
+     Keep it out of the host page's scroll-anchor candidate tree so mounting or
+     removing a tour cannot pull the Silverstone viewport away from the demo. */
+  overflow-anchor: none;
 }
 
 .ss-folio-phone__scroller {
@@ -3475,6 +3479,16 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 /* -- Mobile (<48rem): phone-first, no browser window, no iframe -- */
 
 @media (max-width: 47.9375rem) {
+  /* The route body already sits inside the shared 20px mobile container.
+     Break its two full-bleed surfaces out by that known gutter instead of
+     using 100vw, which includes a classic scrollbar and creates an 8px
+     horizontally scrollable sliver in Chromium. */
+  .ss-srv2-hero,
+  .ss-srv2 > .ss-hv2-trust-shell {
+    width: calc(100% + (2 * var(--ss-layout-gutter-mobile)));
+    margin-inline: calc(-1 * var(--ss-layout-gutter-mobile));
+  }
+
   .ss-folio-device--window,
   .ss-folio-scene__ghost,
   .ss-folio__toggle,
@@ -3492,7 +3506,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-folio-console__switch button {
-    min-height: 2.35rem;
+    min-height: 2.75rem;
   }
 
   .ss-folio-scene__stage {
@@ -3513,6 +3527,25 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-folio-scene__chips li:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+@media (max-width: 23.75rem) {
+  .ss-folio-console__switch {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ss-folio-console__switch button {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-inline: 0.75rem;
+  }
+
+  /* The index is decorative and costs the exact space the longer project
+     label needs at 375px; the accessible button names remain unchanged. */
+  .ss-folio-console__switch button span {
     display: none;
   }
 }

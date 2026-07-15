@@ -21,8 +21,13 @@ import { Link } from "react-router";
 
 import { CalendarCheck, MessageSquare } from "~/components/icons/lucide";
 import { OrbitalLoader } from "~/components/ui/orbital-loader";
-import { CALENDLY_ORIGIN, CALENDLY_URL } from "~/features/core-pages/calendly";
+import {
+  CALENDLY_ORIGIN,
+  CALENDLY_PUBLIC_URL,
+  CALENDLY_URL,
+} from "~/features/core-pages/calendly";
 import { BorderBeam } from "~/features/services-v2/components/primitives";
+import { getPublicEnvironment } from "~/lib/environment";
 
 /**
  * Calendly reports its internal page height via `calendly.page_height`
@@ -62,10 +67,13 @@ function parseCalendlyEvent(event: MessageEvent): string | null {
   return typeof name === "string" ? name : null;
 }
 
-function useCalendlyFrameHeight(): number | null {
+function useCalendlyFrameHeight(enabled: boolean): number | null {
   const [height, setHeight] = useState<number | null>(null);
 
   useEffect(() => {
+    if (!enabled) {
+      return undefined;
+    }
     const onMessage = (event: MessageEvent) => {
       if (parseCalendlyEvent(event) !== "calendly.page_height") {
         return;
@@ -80,7 +88,7 @@ function useCalendlyFrameHeight(): number | null {
 
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, []);
+  }, [enabled]);
 
   return height;
 }
@@ -91,10 +99,13 @@ function useCalendlyFrameHeight(): number | null {
  * but a locked-in time shouldn't visually regress the trace, and a completed
  * booking is terminal.
  */
-function useBookingStage(): BookingStage {
+function useBookingStage(enabled: boolean): BookingStage {
   const [stage, setStage] = useState<BookingStage>("time");
 
   useEffect(() => {
+    if (!enabled) {
+      return undefined;
+    }
     const onMessage = (event: MessageEvent) => {
       const name = parseCalendlyEvent(event);
       if (name === "calendly.date_and_time_selected") {
@@ -106,15 +117,61 @@ function useBookingStage(): BookingStage {
 
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, []);
+  }, [enabled]);
 
   return stage;
 }
 
 export function BookingPanel() {
   const [loaded, setLoaded] = useState(false);
-  const frameHeight = useCalendlyFrameHeight();
-  const stage = useBookingStage();
+  const bookingMode = getPublicEnvironment().bookingMode;
+  const liveBookingEnabled = bookingMode === "live";
+  const frameHeight = useCalendlyFrameHeight(liveBookingEnabled);
+  const stage = useBookingStage(liveBookingEnabled);
+
+  if (!liveBookingEnabled) {
+    return (
+      <div
+        className="ss-core-booking ss-srv2-beam-border"
+        id="booking-calendar"
+        data-booking-mode={bookingMode}
+      >
+        <div className="ss-core-booking__body">
+          <span className="ss-srv2-bench__tag">
+            <CalendarCheck aria-hidden="true" />
+            30-minute discovery call
+            <span className="ss-core-booking__live" data-tone="preview">
+              Preview
+            </span>
+          </span>
+          <h3>
+            Booking is disabled in this <em>non-production preview</em>
+          </h3>
+          <p>
+            This environment cannot load or submit the live scheduler. Production
+            booking remains available only on the authorised Silverstone site.
+          </p>
+          <p className="ss-core-booking__preview-target">
+            Production scheduler: {CALENDLY_PUBLIC_URL}
+          </p>
+        </div>
+        <div className="ss-core-booking__footer">
+          <p className="ss-core-booking__footer-note">
+            Need to continue this preview journey safely?
+          </p>
+          <Link
+            className="ss-srv2-btn ss-srv2-btn--ghost ss-srv2-beam-border ss-core-booking__contact-btn"
+            to="/contact#contact-form"
+          >
+            <MessageSquare aria-hidden="true" />
+            Contact instead
+            <BorderBeam />
+          </Link>
+        </div>
+        <BorderBeam />
+      </div>
+    );
+  }
 
   return (
     <div

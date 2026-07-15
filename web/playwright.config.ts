@@ -12,6 +12,20 @@ export default defineConfig({
   reporter: [["list"]],
   use: {
     baseURL,
+    storageState: {
+      cookies: [],
+      origins: [
+        {
+          origin: baseURL,
+          localStorage: [
+            { name: "stcm.consent.essential", value: "true" },
+            { name: "stcm.consent.analytics", value: "false" },
+            { name: "stcm.consent.marketing", value: "false" },
+            { name: "stcm.hasConsented", value: "1" },
+          ],
+        },
+      ],
+    },
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },

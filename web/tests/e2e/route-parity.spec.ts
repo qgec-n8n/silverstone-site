@@ -92,20 +92,27 @@ for (const comparison of representativeSourceCopy) {
 
 test("rebuilt contact route renders a staging-safe enquiry form", async ({ page }) => {
   await page.goto("/contact");
+  await revealRouteTextIfNeeded(page, "Start with the question that matters");
 
   await expect(
     page.getByRole("heading", { name: "Start with the question that matters" }),
   ).toBeVisible();
   await expect(page.getByRole("form")).toHaveCount(1);
+  await page.getByRole("button", { name: "Continue" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Calibrate the discovery call" }),
+  ).toBeFocused();
+  await page.getByRole("button", { name: "Continue" }).click();
   await expect(page.getByLabel("Name")).toBeVisible();
   await expect(page.getByLabel("Work email")).toBeVisible();
-  await expect(page.getByRole("button", { name: "Send enquiry" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Continue" })).toBeVisible();
 });
 
 test("rebuilt book route exposes Calendly destination without embedding live booking", async ({
   page,
 }) => {
   await page.goto("/book");
+  await revealRouteTextIfNeeded(page, "Book a 30-minute discovery call");
 
   await expect(
     page.getByRole("heading", { name: "Book a 30-minute discovery call" }),
@@ -116,6 +123,6 @@ test("rebuilt book route exposes Calendly destination without embedding live boo
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "Contact instead" })).toHaveAttribute(
     "href",
-    "/contact",
+    "/contact#contact-form",
   );
 });

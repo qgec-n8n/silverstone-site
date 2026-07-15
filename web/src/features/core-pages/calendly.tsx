@@ -19,8 +19,10 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import { useAppExperience } from "~/app/experience/app-experience";
+import { getPublicEnvironment } from "~/lib/environment";
 
 export const CALENDLY_ORIGIN = "https://calendly.com";
+export const CALENDLY_PUBLIC_URL = `${CALENDLY_ORIGIN}/silverstone-ai/30min`;
 
 /**
  * Calendly only honours its embed params (background_color, hide_gdpr_banner,
@@ -40,15 +42,16 @@ export const CALENDLY_ORIGIN = "https://calendly.com";
  * while the blue accent becomes Silverstone cyan. White and silver remain
  * unchanged by that grade.
  */
-export const CALENDLY_URL = `${CALENDLY_ORIGIN}/silverstone-ai/30min?embed_domain=silverstone-ai.com&embed_type=Inline&hide_landing_page_details=1&hide_event_type_details=1&hide_gdpr_banner=1`;
+export const CALENDLY_URL = `${CALENDLY_PUBLIC_URL}?embed_domain=silverstone-ai.com&embed_type=Inline&hide_landing_page_details=1&hide_event_type_details=1&hide_gdpr_banner=1`;
 
 export function CalendlyWarmup() {
   const location = useLocation();
   const { headerHidden } = useAppExperience();
   const [warmed, setWarmed] = useState(false);
+  const liveBookingEnabled = getPublicEnvironment().bookingMode === "live";
 
   useEffect(() => {
-    if (warmed || headerHidden) {
+    if (!liveBookingEnabled || warmed || headerHidden) {
       return undefined;
     }
     // Wait for genuine idle time so the warm-up never competes with the
@@ -61,9 +64,9 @@ export function CalendlyWarmup() {
     }
     const timer = window.setTimeout(() => setWarmed(true), 2500);
     return () => window.clearTimeout(timer);
-  }, [headerHidden, warmed]);
+  }, [headerHidden, liveBookingEnabled, warmed]);
 
-  if (!warmed || location.pathname === "/book") {
+  if (!liveBookingEnabled || !warmed || location.pathname === "/book") {
     return null;
   }
 

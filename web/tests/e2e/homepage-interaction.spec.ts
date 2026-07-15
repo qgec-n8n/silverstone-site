@@ -190,10 +190,20 @@ async function waitForBodyParticles(page: Page) {
 }
 
 async function footerLayoutProof(page: Page) {
-  await page.locator("footer").scrollIntoViewIfNeeded();
+  await page.locator("footer.ss-footer").scrollIntoViewIfNeeded();
+  await expect
+    .poll(() =>
+      page.locator(".ss-footer__cta").evaluate((cta) => {
+        const animatedWrapper = cta.parentElement?.parentElement;
+        return animatedWrapper
+          ? getComputedStyle(animatedWrapper).transform
+          : "missing";
+      }),
+    )
+    .toBe("none");
   return page.evaluate(() => {
     const footer = document
-      .querySelector<HTMLElement>("footer")
+      .querySelector<HTMLElement>("footer.ss-footer")
       ?.getBoundingClientRect();
     const brand = document
       .querySelector<HTMLElement>(".ss-footer__brand")
@@ -465,8 +475,8 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   test.setTimeout(60_000);
   await waitForIntro(page);
 
-  await expect(page.locator("header")).toHaveCount(0);
-  await expect(page.locator("footer")).toHaveCount(0);
+  await expect(page.locator("header[data-site-header]")).toHaveCount(0);
+  await expect(page.locator("footer.ss-footer")).toHaveCount(0);
   await expect(page.locator("#system")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-backdrop")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-hero__canvas")).toHaveCount(1);
@@ -572,8 +582,8 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(openingRecords.every((record) => record.overflow === 0)).toBe(true);
   await waitForBodyParticles(page);
 
-  await expect(page.locator("header")).toHaveCount(1);
-  await expect(page.locator("footer")).toHaveCount(1);
+  await expect(page.locator("header[data-site-header]")).toHaveCount(1);
+  await expect(page.locator("footer.ss-footer")).toHaveCount(1);
   await expect(page.locator('[data-particles-host="body"] canvas')).toHaveCount(1);
   await expect(
     page.getByRole("heading", { name: "The Silverstone System" }),
@@ -625,8 +635,8 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(proof.aetherRevealAttributeCount).toBe(0);
   expect(proof.bodyHasForbiddenRevenue).toBe(false);
   expect(proof.bodyHasIntegrationSentence).toBe(false);
-  expect(proof.bodyParticleColor).toBe("#A97CC0");
-  expect(proof.bodyParticleLineColor).toBe("#A97CC0");
+  expect(proof.bodyParticleColor).toBe("#BB8AD4");
+  expect(proof.bodyParticleLineColor).toBe("#BB8AD4");
   expect(proof.metricValuesFit).toBe(true);
   expect(proof.signalBeforeAnimation).toBe("none");
   expect(proof.signalBeforeContent).toBe("none");
@@ -641,12 +651,12 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   }
 
   const headerColorAtTop = await page
-    .locator("header")
+    .locator("header[data-site-header]")
     .evaluate((node) => getComputedStyle(node).backgroundColor);
   await page.evaluate(() => window.scrollTo(0, 900));
   await expect.poll(async () => (await scrollMetrics(page)).y).toBeGreaterThan(0);
   const headerColorAfterScroll = await page
-    .locator("header")
+    .locator("header[data-site-header]")
     .evaluate((node) => getComputedStyle(node).backgroundColor);
   expect(headerColorAtTop).toBe("rgb(255, 255, 255)");
   expect(headerColorAfterScroll).toBe("rgb(255, 255, 255)");
@@ -655,8 +665,8 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   await expect(page.locator("html")).toHaveAttribute("data-homepage-state", "intro", {
     timeout: 8_000,
   });
-  await expect(page.locator("header")).toHaveCount(0);
-  await expect(page.locator("footer")).toHaveCount(0);
+  await expect(page.locator("header[data-site-header]")).toHaveCount(0);
+  await expect(page.locator("footer.ss-footer")).toHaveCount(0);
   await expect(page.locator("#system")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-backdrop")).toHaveCount(0);
   await expect(page.locator("canvas.particles-js-canvas-el")).toHaveCount(0);
