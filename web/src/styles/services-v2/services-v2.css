@@ -2822,6 +2822,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   perspective: 120rem;
 }
 
+/* Mid-orbit the devices are in motion and their depth order is mid-exchange:
+   nothing in the stage is a legitimate pointer target until they settle. */
+.ss-folio-scene__stage[data-orbiting] {
+  pointer-events: none;
+}
+
 .ss-folio-device {
   position: relative;
   will-change: transform;

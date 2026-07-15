@@ -51,6 +51,7 @@ import {
   type RefObject,
 } from "react";
 import {
+  animate,
   useMotionValue,
   useReducedMotion,
   useTransform,
@@ -305,58 +306,111 @@ function preconnect(origin: string) {
 
 /* ---- Device orbit ------------------------------------------------------- */
 
-/**
- * Foreground/background poses for the two devices. `null` first keyframes
- * start each arc from the device's current position, so rapid toggles reverse
- * smoothly instead of teleporting; the devices sweep in opposite lateral
- * directions while `zIndex` tweens across the crossover, which is what makes
- * them read as orbiting around one another. Reduced motion never uses these —
- * the stylesheet's static `[data-plane]` poses apply instead, with an
- * opacity-only fade.
+/*
+ * One shallow ellipse, two opposite halves.
+ *
+ * A single eased progress value drives every transform through `useTransform`
+ * (0 = window in front, 1 = phone in front), which buys three things at once:
+ * the path is a pure function of that value, so MOBILE→DESKTOP retraces
+ * DESKTOP→MOBILE exactly rather than approximating it; nothing re-renders per
+ * frame; and a mid-flight reversal simply re-targets from wherever the devices
+ * currently are.
+ *
+ * `theta` is the turntable angle (0 → π). The phone sweeps the near half: at
+ * small angles `sin` moves it down and out while `1 - cos` is still flat, so it
+ * emerges around the window's outer-right edge before it travels across —
+ * rounding the frame instead of cutting over its centre. The window sweeps the
+ * far half in the opposite direction. They are furthest apart at θ = π/2, which
+ * is exactly where depth crosses (see `orbitDepth`).
+ *
+ * Reduced motion never uses any of this: no `style` is attached at all, so the
+ * stylesheet's static `[data-plane]` poses apply with an opacity-only fade.
  */
+
+/** Symmetric by construction, so the depth crossover at progress 0.5 lands on
+ * the arc's midpoint in wall-clock time too, not just in geometry. */
 const ORBIT_TRANSITION = {
   duration: 0.85,
-  ease: [0.3, 0.75, 0.3, 1] as [number, number, number, number],
-  opacity: { duration: 0.5 },
+  ease: [0.5, 0, 0.5, 1] as [number, number, number, number],
 };
 
-const windowPoses = {
-  front: {
-    x: [null, "1.5%", "0%"],
-    y: [null, "0.8%", "0%"],
-    scale: [null, 0.975, 1],
-    rotateY: [null, -3, 0],
-    opacity: 1,
-    zIndex: 3,
-  },
-  back: {
-    x: [null, "-0.6%", "-2%"],
-    y: [null, "-1.2%", "-2.5%"],
-    scale: [null, 0.96, 0.92],
-    rotateY: [null, 5, 8],
-    opacity: 0.48,
-    zIndex: 1,
-  },
-};
+/** Settled endpoint poses — the DESKTOP/MOBILE compositions, unchanged. */
+const PHONE_X_FRONT = -105;
+const PHONE_SCALE_FRONT = 1.22;
+const PHONE_ROTATE_Y_BACK = -12;
+const PHONE_OPACITY_BACK = 0.92;
+const WINDOW_X_BACK = -2;
+const WINDOW_Y_BACK = -2.5;
+const WINDOW_SCALE_BACK = 0.92;
+const WINDOW_ROTATE_Y_BACK = 8;
+const WINDOW_OPACITY_BACK = 0.48;
 
-const phonePoses = {
-  front: {
-    x: [null, "-52%", "-105%"],
-    y: [null, "4%", "0%"],
-    scale: [null, 1.08, 1.22],
-    rotateY: [null, -8, 0],
-    opacity: 1,
-    zIndex: 3,
-  },
-  back: {
-    x: [null, "-48%", "0%"],
-    y: [null, "4.5%", "0%"],
-    scale: [null, 1.05, 1],
-    rotateY: [null, -8, -12],
-    opacity: 0.92,
-    zIndex: 1,
-  },
-};
+/* Orbit-only shaping. Every one of these is zero at BOTH endpoints, so the
+   settled compositions above are the only thing that survives the arc. */
+/** Outward lobe rounding the window's right edge, % of phone width. */
+const PHONE_OUT = 14;
+/**
+ * How far the phone's lateral sweep LAGS its swing forward. Without this the
+ * phone is already deep across the window's face by the crossover — the
+ * straight-line read the arc exists to avoid. At >1 the phone instead holds the
+ * window's outer-right edge while it comes forward, and only draws across once
+ * it is unambiguously in front. Velocity still vanishes at both ends.
+ */
+const PHONE_SWEEP_LAG = 1.7;
+/** Near-half dip, % of phone height (kept inside the stage's bottom padding). */
+const PHONE_BOW = 11;
+/** Far-half lift, % of window height. */
+const WINDOW_BOW = 3.5;
+/** Opposing roll at the arc's strongest point, degrees. */
+const PHONE_TILT = -3;
+const WINDOW_TILT = 2.5;
+
+/** 0 → 1 with zero gradient at both ends: the endpoints settle, never snap. */
+const ramp = (theta: number) => (1 - Math.cos(theta)) / 2;
+
+/** A first-quarter-only bulge (0 at θ=0 and θ≥π/2, peak at θ=π/4). */
+const lobe = (theta: number) => Math.sin(theta) * Math.max(0, Math.cos(theta));
+
+/** Depth crosses once, at the midpoint, as an integer — never a fractional
+ * z-index the browser would drop, and never a per-frame React render. */
+const orbitDepth = (progress: number, frontAt: 0 | 1) =>
+  (frontAt === 1 ? progress > 0.5 : progress <= 0.5) ? 3 : 1;
+
+function usePhoneOrbit(progress: MotionValue<number>): MotionStyle {
+  const theta = useTransform(progress, (value) => Math.PI * value);
+  return {
+    x: useTransform(
+      theta,
+      (a) =>
+        `${String(PHONE_X_FRONT * ramp(a) ** PHONE_SWEEP_LAG + PHONE_OUT * lobe(a))}%`,
+    ),
+    y: useTransform(theta, (a) => `${String(PHONE_BOW * Math.sin(a))}%`),
+    scale: useTransform(theta, (a) => 1 + (PHONE_SCALE_FRONT - 1) * ramp(a)),
+    rotateY: useTransform(theta, (a) => PHONE_ROTATE_Y_BACK * (1 - ramp(a))),
+    rotateZ: useTransform(theta, (a) => PHONE_TILT * Math.sin(a)),
+    opacity: useTransform(
+      theta,
+      (a) => PHONE_OPACITY_BACK + (1 - PHONE_OPACITY_BACK) * ramp(a),
+    ),
+    zIndex: useTransform(progress, (value) => orbitDepth(value, 1)),
+  };
+}
+
+function useWindowOrbit(progress: MotionValue<number>): MotionStyle {
+  const theta = useTransform(progress, (value) => Math.PI * value);
+  return {
+    x: useTransform(theta, (a) => `${String(WINDOW_X_BACK * ramp(a))}%`),
+    y: useTransform(
+      theta,
+      (a) => `${String(WINDOW_Y_BACK * ramp(a) - WINDOW_BOW * Math.sin(a))}%`,
+    ),
+    scale: useTransform(theta, (a) => 1 - (1 - WINDOW_SCALE_BACK) * ramp(a)),
+    rotateY: useTransform(theta, (a) => WINDOW_ROTATE_Y_BACK * ramp(a)),
+    rotateZ: useTransform(theta, (a) => WINDOW_TILT * Math.sin(a)),
+    opacity: useTransform(theta, (a) => 1 - (1 - WINDOW_OPACITY_BACK) * ramp(a)),
+    zIndex: useTransform(progress, (value) => orbitDepth(value, 0)),
+  };
+}
 
 /* ---- Walkthrough phone --------------------------------------------------- */
 
@@ -641,6 +695,37 @@ function ShowcaseScene({
   const windowFront = view === "desktop";
   const orbit = composed && !reducedMotion;
 
+  // 0 = window in front, 1 = phone in front. One driver, both devices.
+  const orbitProgress = useMotionValue(windowFront ? 0 : 1);
+  const phoneOrbit = usePhoneOrbit(orbitProgress);
+  const windowOrbit = useWindowOrbit(orbitProgress);
+  // Devices are untouchable mid-flight: a control sliding under the pointer is
+  // never a control the visitor aimed at.
+  const [orbiting, setOrbiting] = useState(false);
+  /** False until the arc has a resting pose to depart FROM. */
+  const posed = useRef(false);
+
+  useEffect(() => {
+    const target = windowFront ? 0 : 1;
+    // Taking up the resting pose is a placement, not an animation — only a
+    // genuine toggle travels. Entering/leaving orbit (reduced motion, or the
+    // mobile breakpoint dropping the window) re-places rather than flying.
+    if (!orbit || !posed.current) {
+      posed.current = orbit;
+      orbitProgress.set(target);
+      setOrbiting(false);
+      return undefined;
+    }
+    setOrbiting(true);
+    // Re-targeting from wherever the arc currently is: a mid-flight reversal
+    // rejoins the same ellipse instead of stacking a second animation.
+    const controls = animate(orbitProgress, target, {
+      ...ORBIT_TRANSITION,
+      onComplete: () => setOrbiting(false),
+    });
+    return () => controls.stop();
+  }, [orbit, windowFront, orbitProgress]);
+
   return (
     <m.article
       className="ss-folio-scene"
@@ -746,18 +831,13 @@ function ShowcaseScene({
           </p>
         </Reveal>
 
-        <div className="ss-folio-scene__stage">
+        <div className="ss-folio-scene__stage" data-orbiting={orbiting || undefined}>
           <m.div
             className="ss-folio-device ss-folio-device--window"
             data-plane={!composed || windowFront ? "front" : "back"}
             inert={composed && !windowFront}
             initial={false}
-            {...(orbit
-              ? {
-                  animate: windowFront ? windowPoses.front : windowPoses.back,
-                  transition: ORBIT_TRANSITION,
-                }
-              : {})}
+            {...(orbit ? { style: windowOrbit } : {})}
           >
             <Reveal kind="card" delayMs={90} className="ss-folio-window-holder">
               <div
@@ -921,12 +1001,7 @@ function ShowcaseScene({
             data-plane={!composed || !windowFront ? "front" : "back"}
             inert={composed && windowFront}
             initial={false}
-            {...(orbit
-              ? {
-                  animate: windowFront ? phonePoses.back : phonePoses.front,
-                  transition: ORBIT_TRANSITION,
-                }
-              : {})}
+            {...(orbit ? { style: phoneOrbit } : {})}
             onKeyDown={(event: ReactKeyboardEvent) => {
               if (event.key === "Escape" && phonePhase !== "idle") {
                 event.preventDefault();
