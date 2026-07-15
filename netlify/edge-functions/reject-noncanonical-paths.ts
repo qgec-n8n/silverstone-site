@@ -47,13 +47,20 @@ function redirectTo(target: string, url: URL): Response {
   });
 }
 
-const APEX_ORIGIN = "https://silverstone-ai.com";
-
 export default function rejectNoncanonicalPath(
   request: Request,
 ): Response | undefined {
   const url = new URL(request.url);
-  const isWwwHost = url.hostname === "www.silverstone-ai.com";
+
+  // The www hostname is collapsed to the apex by the forced netlify.toml
+  // redirect, which Netlify applies ahead of this function, so www requests
+  // never reach the logic below. A www request that also carries a
+  // noncanonical variant therefore resolves in two 301 hops (www -> apex,
+  // then apex-side normalization here) — accepted, since production URLs use
+  // the apex host and a single www redirect cannot also rewrite the path.
+  if (url.hostname === "www.silverstone-ai.com") {
+    return undefined;
+  }
 
   const { pathname } = url;
   const isNoncanonical =
@@ -69,22 +76,6 @@ export default function rejectNoncanonicalPath(
   const target = canonicalPaths.has(normalized)
     ? normalized
     : LEGACY_REDIRECTS[normalized];
-
-  if (isWwwHost) {
-    // Edge Functions run before redirects. Recognised variants collapse host
-    // and path in a single 301 straight to the apex canonical; everything
-    // else falls through to the hostname redirect (and then resolves on the
-    // apex host).
-    if (target) {
-      const location = new URL(target, APEX_ORIGIN);
-      location.search = url.search;
-      return new Response(null, {
-        status: 301,
-        headers: { location: location.toString() },
-      });
-    }
-    return undefined;
-  }
 
   if (target) {
     return redirectTo(target, url);

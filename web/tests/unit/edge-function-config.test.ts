@@ -58,21 +58,15 @@ describe("reject-noncanonical-paths edge function", () => {
     expect(pattern.test("/assets/entry.client.js")).toBe(false);
   });
 
-  it("collapses recognised www variants to the apex canonical in one hop", () => {
-    expectRedirect(
-      "https://www.silverstone-ai.com/about/",
-      "https://silverstone-ai.com/about",
-    );
-    expectRedirect(
-      "https://www.silverstone-ai.com/about.html?x=1",
-      "https://silverstone-ai.com/about?x=1",
-    );
-    expectRedirect(
-      "https://www.silverstone-ai.com/niches/dentists.html",
-      "https://silverstone-ai.com/industry/dentists",
-    );
-    // Unrecognised www variants defer to the hostname redirect and resolve
-    // (404/410) on the apex host.
+  it("defers every www request to the forced hostname redirect", () => {
+    // Netlify applies the forced netlify.toml www->apex redirect before this
+    // function runs, so the function must not act on www requests at all; the
+    // apex-side hop then normalizes any variant.
+    expect(invoke("https://www.silverstone-ai.com/about/")).toBeUndefined();
+    expect(invoke("https://www.silverstone-ai.com/about.html?x=1")).toBeUndefined();
+    expect(
+      invoke("https://www.silverstone-ai.com/niches/dentists.html"),
+    ).toBeUndefined();
     expect(invoke("https://www.silverstone-ai.com/not-a-page/")).toBeUndefined();
   });
 

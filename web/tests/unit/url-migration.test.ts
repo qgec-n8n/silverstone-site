@@ -137,16 +137,18 @@ describe("deployed redirect artifacts", () => {
       Object.keys(LEGACY_REDIRECTS).length + GONE_PATHS.length,
     );
     for (const line of ruleLines) {
-      expect(line).toMatch(/^\/\S+ \/\S* (301|410)$/);
+      // Forced (!) exact-path rules so they win over any coincidental static
+      // file (e.g. Netlify resolving /index to /index.html).
+      expect(line).toMatch(/^\/\S+ \/\S* (301|410)!$/);
       expect(line).not.toContain("*");
       expect(line).not.toContain(":splat");
     }
-    expect(rendered).toContain("/niches/dentists /industry/dentists 301");
+    expect(rendered).toContain("/niches/dentists /industry/dentists 301!");
     expect(rendered).toContain(
-      "/blog/ai-receptionist-uk-a-practical-guide-for-small-business-owners /blog/ai-receptionist-small-business-guide 301",
+      "/blog/ai-receptionist-uk-a-practical-guide-for-small-business-owners /blog/ai-receptionist-small-business-guide 301!",
     );
     expect(rendered).toContain(
-      "/blog/ai-missed-call-recovery-dentists-uk /410.html 410",
+      "/blog/ai-missed-call-recovery-dentists-uk /410.html 410!",
     );
   });
 
