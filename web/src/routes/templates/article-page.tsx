@@ -473,12 +473,16 @@ function BlogJsonLd({ post }: { post: SilverstoneBlogPost }) {
     author: {
       "@type": "Organization",
       name: "Silverstone AI",
-      url: baseUrl,
+      url: `${baseUrl}/`,
     },
     publisher: {
       "@type": "Organization",
       name: "Silverstone AI",
-      url: baseUrl,
+      url: `${baseUrl}/`,
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/brand/silverstone-logo.png`,
+      },
     },
   };
 

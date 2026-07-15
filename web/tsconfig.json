@@ -22,6 +22,9 @@
       "@bpinternal/shared": ["./src/types/bpinternal-shared.d.ts"]
     },
     "allowJs": false,
+    // The Netlify edge function (typechecked via its unit test) must import
+    // sibling modules with explicit .ts extensions for Deno bundling.
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": true,

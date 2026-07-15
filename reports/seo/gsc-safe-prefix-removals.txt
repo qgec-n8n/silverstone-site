@@ -1,0 +1,5 @@
+# No prefix qualifies for a Search Console prefix removal.
+# /niches/, /industries/ and /services/<industry> URLs all 301 to live
+# replacements (removing them would hide the redirect targets' signals);
+# /blog/ contains live articles. Deleted legacy articles are listed as
+# exact removals instead.

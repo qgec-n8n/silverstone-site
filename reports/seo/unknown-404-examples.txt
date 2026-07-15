@@ -1,0 +1,13 @@
+https://silverstone-ai.com/no-such-page-xyz
+https://silverstone-ai.com/About
+https://silverstone-ai.com/ABOUT/
+https://silverstone-ai.com/blog/unknown-article
+https://silverstone-ai.com/services/unknown-service
+https://silverstone-ai.com/industry/unknown-industry
+https://silverstone-ai.com/wp-admin
+https://silverstone-ai.com/wp-login.php
+https://silverstone-ai.com/xmlrpc.php
+https://silverstone-ai.com/foo//bar
+https://silverstone-ai.com/random.html
+https://silverstone-ai.com/niches/unknown-niche
+https://silverstone-ai.com/industries/unknown-industry

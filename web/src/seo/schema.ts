@@ -70,12 +70,10 @@ function buildPageSchema(route: FutureRouteRecord): SchemaEntry {
       description: route.description,
       url: route.canonical,
       serviceType: route.h1,
-      areaServed: [
-        { "@type": "City", name: "London" },
-        { "@type": "Country", name: "United Kingdom" },
-        { "@type": "Continent", name: "Europe" },
-        { "@type": "Country", name: "United States" },
-      ],
+      // Matches the visible positioning ("UK businesses" sitewide) and the
+      // London studio address on /contact; broader Europe/US claims had no
+      // visible support and were removed 2026-07-15.
+      areaServed: { "@type": "Country", name: "United Kingdom" },
       audience: {
         "@type": "BusinessAudience",
         audienceType:
@@ -138,6 +136,24 @@ export function buildRouteSchemaGraph(route: FutureRouteRecord): {
         "@type": "Organization",
         name: "Silverstone AI",
         url: "https://silverstone-ai.com/",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://silverstone-ai.com/brand/silverstone-logo.png",
+        },
+        // Official profiles carried over from the legacy site's own
+        // Organization schema (src/content/migrated/generated/company/home.ts).
+        sameAs: [
+          "https://www.instagram.com/silverstone.ai/",
+          "https://www.facebook.com/people/Silverstone-AI/61583930930530/",
+        ],
+        // Studio address as shown on /contact.
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "4 Deacon Street",
+          addressLocality: "London",
+          postalCode: "SE17 1GE",
+          addressCountry: "GB",
+        },
       },
     );
   }

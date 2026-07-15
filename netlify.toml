@@ -44,6 +44,24 @@
   [headers.values]
     Content-Security-Policy = "frame-src https://ownly-housing.netlify.app https://aestheticsbyclouds.netlify.app https://calendly.com"
 
+# Conservative site-wide security headers (additive; none affect rendering).
+# X-Frame-Options and Permissions-Policy are intentionally omitted pending a
+# review of the Calendly warm-up and demo iframes.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Client documents served for direct sharing (e.g. invoices) must never be
+# indexed by search engines. Header-only change; the files stay reachable
+# for anyone holding the link.
+[[headers]]
+  for = "/invoices/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 # Serverless functions (contact-form email via Resend). RESEND_API_KEY,
 # CONTACT_TO and CONTACT_FROM come from the Netlify site environment.
 [functions]

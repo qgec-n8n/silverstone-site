@@ -315,7 +315,11 @@ export const approvedRouteOverrides: RouteOverride[] = [
   },
   {
     id: "route-home",
-    title: "Home | Silverstone AI",
+    // 2026-07-15 SEO pass: descriptive title replacing the generic
+    // "Home | Silverstone AI"; phrasing mirrors the approved description and
+    // the social-card alt ("websites, apps and AI workflows for UK
+    // businesses"). Metadata only — the visible H1 is unchanged.
+    title: "Silverstone AI | Websites, Apps & AI Workflows for UK Businesses",
     description:
       "Web, app, content and AI workflow services for UK businesses, designed around clear problems, connected systems and human oversight.",
     h1: "Practical technology that helps small teams respond, deliver and grow",
@@ -470,7 +474,8 @@ export const approvedRouteOverrides: RouteOverride[] = [
     h1: "Turn property enquiries into owned branch conversations",
     headingPlan: {
       h1: "Turn property enquiries into owned branch conversations",
-      h1Source: "Approved industries copy & SEO pack (2026-06-30)",
+      h1Source:
+        "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
     },
     breadcrumbs: [
@@ -497,10 +502,11 @@ export const approvedRouteOverrides: RouteOverride[] = [
     title: "Hospitality Automation UK for Reservations and Guests",
     description:
       "Coordinate reservations, guest enquiries, confirmations, groups, pre-arrival communication and staff handoffs with hospitality automation designed around service and safety.",
-    h1: "Coordinate guest demand without flattening the service",
+    h1: "Never miss a guest. Never feel automated.",
     headingPlan: {
-      h1: "Coordinate guest demand without flattening the service",
-      h1Source: "Approved industries copy & SEO pack (2026-06-30)",
+      h1: "Never miss a guest. Never feel automated.",
+      h1Source:
+        "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
     },
     breadcrumbs: [
@@ -530,7 +536,8 @@ export const approvedRouteOverrides: RouteOverride[] = [
     h1: "Protect sellable chair time without adding front-desk pressure",
     headingPlan: {
       h1: "Protect sellable chair time without adding front-desk pressure",
-      h1Source: "Approved industries copy & SEO pack (2026-06-30)",
+      h1Source:
+        "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
     },
     breadcrumbs: [
@@ -557,10 +564,11 @@ export const approvedRouteOverrides: RouteOverride[] = [
     title: "AI Automation for Trades and Home Services UK",
     description:
       "Capture missed calls, qualify jobs, check service areas, coordinate callbacks, follow up quotes and connect office-to-field workflows with trades automation.",
-    h1: "Capture the job properly before the opportunity goes cold",
+    h1: "Win the job before the callback ever happens",
     headingPlan: {
-      h1: "Capture the job properly before the opportunity goes cold",
-      h1Source: "Approved industries copy & SEO pack (2026-06-30)",
+      h1: "Win the job before the callback ever happens",
+      h1Source:
+        "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
     },
     breadcrumbs: [
@@ -587,10 +595,11 @@ export const approvedRouteOverrides: RouteOverride[] = [
     title: "eCommerce Automation Agency UK | Silverstone AI",
     description:
       "Connect product questions, order status, returns, support, post-purchase and retention workflows with bespoke ecommerce automation built around authoritative data.",
-    h1: "Scale customer experience without multiplying operational friction",
+    h1: "Scale the experience without scaling the chaos",
     headingPlan: {
-      h1: "Scale customer experience without multiplying operational friction",
-      h1Source: "Approved industries copy & SEO pack (2026-06-30)",
+      h1: "Scale the experience without scaling the chaos",
+      h1Source:
+        "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
     },
     breadcrumbs: [
@@ -617,10 +626,11 @@ export const approvedRouteOverrides: RouteOverride[] = [
     title: "Physio and Chiropractic Practice Automation UK",
     description:
       "Improve new-patient enquiries, booking, reminders, intake and rebooking with non-clinical automation designed for physio and chiropractic practices.",
-    h1: "Make the clinic easier to access without automating care",
+    h1: "Easier access. Care stays entirely yours.",
     headingPlan: {
-      h1: "Make the clinic easier to access without automating care",
-      h1Source: "Approved industries copy & SEO pack (2026-06-30)",
+      h1: "Easier access. Care stays entirely yours.",
+      h1Source:
+        "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
     },
     breadcrumbs: [
@@ -648,10 +658,11 @@ export const approvedRouteOverrides: RouteOverride[] = [
     title: "Dental Practice Automation UK | Silverstone AI",
     description:
       "Improve missed-call recovery, new-patient booking, recalls, reminders and administrative follow-up with dental automation that keeps clinical judgement with the practice.",
-    h1: "Recover patient demand without automating clinical judgement",
+    h1: "Recover every patient. Automate none of the care.",
     headingPlan: {
-      h1: "Recover patient demand without automating clinical judgement",
-      h1Source: "Approved industries copy & SEO pack (2026-06-30)",
+      h1: "Recover every patient. Automate none of the care.",
+      h1Source:
+        "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
     },
     breadcrumbs: [
@@ -678,10 +689,11 @@ export const approvedRouteOverrides: RouteOverride[] = [
     title: "Gym Automation UK for Leads, Trials and Retention",
     description:
       "Connect membership enquiries, trial bookings, class questions, onboarding, follow-up and reactivation with gym automation built around staff and member systems.",
-    h1: "Connect the journey from first enquiry to active membership",
+    h1: "Every enquiry, tracked to membership",
     headingPlan: {
-      h1: "Connect the journey from first enquiry to active membership",
-      h1Source: "Approved industries copy & SEO pack (2026-06-30)",
+      h1: "Every enquiry, tracked to membership",
+      h1Source:
+        "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
     },
     breadcrumbs: [
@@ -708,10 +720,11 @@ export const approvedRouteOverrides: RouteOverride[] = [
     title: "Automation for Online Fitness Coaches UK | Silverstone",
     description:
       "Move website and social leads into qualified consultations, onboarding and follow-up with fitness-coach automation that preserves personal coaching judgement.",
-    h1: "Move more of the right leads from message to consultation",
+    h1: "More consultations. Zero lost DMs.",
     headingPlan: {
-      h1: "Move more of the right leads from message to consultation",
-      h1Source: "Approved industries copy & SEO pack (2026-06-30)",
+      h1: "More consultations. Zero lost DMs.",
+      h1Source:
+        "Live industries-v2 hero copy (2026-07-02); reconciled with Service schema 2026-07-15",
       supportingHeadingsStatus: "approved editorial overlay",
     },
     breadcrumbs: [

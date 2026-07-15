@@ -19,6 +19,14 @@ export const meta: MetaFunction = ({ params }) => {
   // Production is indexable by default (launch policy: every route indexes
   // unless explicitly withheld); staging always carries its blanket noindex.
   const robots = environment.isStaging ? environment.robotsMeta : "index, follow";
+  // Social crawlers require absolute image URLs.
+  const heroImageUrl = post.heroImage.startsWith("http")
+    ? post.heroImage
+    : `${BLOG_CANONICAL_ORIGIN}${post.heroImage}`;
+  const modifiedTime =
+    post.updatedIsoDate && post.updatedIsoDate !== post.publishedIsoDate
+      ? post.updatedIsoDate
+      : post.publishedIsoDate;
 
   return [
     { title: post.metaTitle },
@@ -26,11 +34,20 @@ export const meta: MetaFunction = ({ params }) => {
     { name: "robots", content: robots },
     { tagName: "link", rel: "canonical", href: canonical },
     { property: "og:type", content: "article" },
+    { property: "og:site_name", content: "Silverstone AI" },
+    { property: "og:locale", content: "en_GB" },
     { property: "og:title", content: post.metaTitle },
     { property: "og:description", content: post.metaDescription },
     { property: "og:url", content: canonical },
-    { property: "og:image", content: post.heroImage },
+    { property: "og:image", content: heroImageUrl },
+    { property: "og:image:alt", content: post.heroImageAlt },
+    { property: "article:published_time", content: post.publishedIsoDate },
+    { property: "article:modified_time", content: modifiedTime },
     { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: post.metaTitle },
+    { name: "twitter:description", content: post.metaDescription },
+    { name: "twitter:image", content: heroImageUrl },
+    { name: "twitter:image:alt", content: post.heroImageAlt },
   ];
 };
 

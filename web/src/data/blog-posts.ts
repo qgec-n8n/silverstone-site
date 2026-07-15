@@ -4081,7 +4081,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage: "/assets/images/blog/dental-practice-automation-guide-hero.webp",
     heroImageAlt:
       "Premium futuristic dental practice operations dashboard concept showing website enquiries, recall workflows, reception routing and human oversight in a UK clinical business setting.",
-    metaTitle: "Dental Practice Automation UK | Silverstone AI",
+    metaTitle: "Dental Practice Automation: UK Systems Guide | Silverstone AI",
     metaDescription:
       "A practical UK guide to automation for dental practices, including websites, recalls, AI reception, admin workflows and where to keep humans in control.",
     primaryKeyword: "dental practice automation UK",

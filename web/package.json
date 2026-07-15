@@ -12,9 +12,9 @@
   "scripts": {
     "dev": "react-router dev --mode staging --host 0.0.0.0",
     "build": "react-router build --mode staging",
-    "build:production": "react-router build --mode production && node scripts/generate-seo-artifacts.mjs",
+    "build:production": "react-router build --mode production && node scripts/generate-edge-route-data.mjs && node scripts/generate-seo-artifacts.mjs",
     "preview": "node --env-file=.env.staging scripts/preview.mjs",
-    "typecheck": "react-router typegen && tsc --noEmit",
+    "typecheck": "react-router typegen && node scripts/generate-edge-route-data.mjs && tsc --noEmit",
     "lint": "eslint src tests scripts *.config.ts --max-warnings=0",
     "format": "prettier --write \"{src,tests}/**/*.{ts,tsx,js,mjs,css}\" \"scripts/{preview,report-bundle}.mjs\" \"*.{ts,js,mjs,json}\"",
     "format:check": "prettier --check \"{src,tests}/**/*.{ts,tsx,js,mjs,css}\" \"scripts/{preview,report-bundle}.mjs\" \"*.{ts,js,mjs,json}\"",

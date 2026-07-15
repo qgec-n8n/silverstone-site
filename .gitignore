@@ -3,6 +3,7 @@ node_modules/
 
 # Build, framework, and test output
 build/
+netlify/edge-functions/generated/
 dist/
 coverage/
 playwright-report/
@@ -51,3 +52,7 @@ temp/
 !.codex/README.md
 !.codex/bin/
 !.codex/bin/21st-magic-mcp.sh
+
+# Local Netlify CLI build artifacts
+.netlify/
+deno.lock
