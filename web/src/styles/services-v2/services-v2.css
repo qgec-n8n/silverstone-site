@@ -1757,6 +1757,121 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 }
 
+/* ---- Panel reveal: premium framed-card entrance --------------------------
+   Applied by the PanelReveal primitive to the framed feature panels (proof
+   consoles, CTA cards, boundary panels, verified-results instruments). The
+   component animates the rise-and-settle; these pseudo-elements carry the
+   light work — a one-shot edge-light ignition drawing outward from centre
+   (which then hands off to the resident border beam), followed by a single
+   diagonal sheen across the settled surface. Both are timed against the same
+   scheduler delay the entrance uses (--panel-delay, set inline), so frame,
+   light and copy read as one choreographed system. */
+
+[data-motion-reveal-kind="panel"] {
+  position: relative;
+}
+
+[data-motion-reveal-kind="panel"]::before,
+[data-motion-reveal-kind="panel"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Edge ignition: accent hairlines along the top and bottom edges. */
+[data-motion-reveal-kind="panel"]::before {
+  background:
+    linear-gradient(
+        90deg,
+        transparent 2%,
+        color-mix(in srgb, var(--srv2-accent) 90%, transparent) 50%,
+        transparent 98%
+      )
+      top center / 100% 1px no-repeat,
+    linear-gradient(
+        90deg,
+        transparent 10%,
+        color-mix(in srgb, var(--srv2-accent-2) 65%, transparent) 50%,
+        transparent 90%
+      )
+      bottom center / 100% 1px no-repeat;
+  transform: scaleX(0.12);
+}
+
+[data-motion-reveal-kind="panel"][data-panel-shown="true"]::before {
+  animation: ss-panel-ignite calc(1.3s * var(--panel-scale, 1))
+    cubic-bezier(0.22, 1, 0.36, 1) var(--panel-delay, 0ms) both;
+}
+
+/* Sheen: one pass of light across the surface as the copy lands. */
+[data-motion-reveal-kind="panel"]::after {
+  background: linear-gradient(
+      105deg,
+      transparent 42%,
+      color-mix(in srgb, var(--ss-v2-chrome) 9%, transparent) 50%,
+      transparent 58%
+    )
+    no-repeat;
+  background-size: 240% 100%;
+  background-position: 170% 0;
+}
+
+[data-motion-reveal-kind="panel"][data-panel-shown="true"]::after {
+  animation: ss-panel-sheen calc(1.5s * var(--panel-scale, 1))
+    cubic-bezier(0.4, 0, 0.2, 1) calc(var(--panel-delay, 0ms) + 320ms) both;
+}
+
+@keyframes ss-panel-ignite {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.12);
+  }
+  22% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.6;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ss-panel-sheen {
+  0% {
+    opacity: 0;
+    background-position: 170% 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    background-position: -70% 0;
+  }
+}
+
+/* Deep-link arrivals land settled: no light pass, no delay. */
+[data-motion-reveal-kind="panel"][data-panel-instant]::before,
+[data-motion-reveal-kind="panel"][data-panel-instant]::after {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-motion-reveal-kind="panel"]::before,
+  [data-motion-reveal-kind="panel"]::after {
+    content: none;
+  }
+}
+
 /* ---- Benchmark console ------------------------------------------------- */
 
 .ss-srv2-bench {
@@ -2527,23 +2642,40 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   position: relative;
 }
 
-/* -- Rail: one scene per viewport, translated by the project switcher -- */
-
-.ss-folio__stage {
-  position: relative;
-  overflow-x: clip;
-}
-
-.ss-folio__rail {
-  display: flex;
-  align-items: stretch;
-}
+/* -- One fixed scene; the project switcher morphs its layers in place -------
+   `.ss-folio-stack` overlays the per-project layers in one grid cell — the
+   scene's height is the max of both projects, so the morph can never shift
+   layout — and `.ss-folio-morph` cross-fades/blurs/settles them. The tint
+   variables are colour-interpolated per frame by the component, so every
+   accent derived from them (chips, dots, pills, glows, beams) transforms in
+   the same breath: one interface becoming the other, never a slide. -- */
 
 .ss-folio-scene {
   position: relative;
-  flex: 0 0 100%;
-  min-width: 0;
   padding-inline: var(--folio-gutter);
+}
+
+.ss-folio-stack {
+  display: grid;
+}
+
+.ss-folio-stack > .ss-folio-morph {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.ss-folio-morph {
+  transition:
+    opacity 0.45s ease,
+    filter 0.45s ease,
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-folio-morph[data-active="false"] {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(8px) scale(0.99);
+  pointer-events: none;
 }
 
 .ss-folio-scene__inner {
@@ -2576,6 +2708,9 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-folio-scene__intro {
   position: relative;
   z-index: 1;
+}
+
+.ss-folio-scene__intro-layer {
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
@@ -2850,18 +2985,19 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   opacity: 0.92;
 }
 
-/* A backgrounded phone shows only its screen — the play affordance and tag
-   belong to the foreground state (the device is inert while backgrounded). */
-.ss-folio-device--phone[data-plane="back"] .ss-folio-phone__play,
+/* A backgrounded phone shows only its screen — the activation affordance,
+   tag and demo controls belong to the foreground state (the device is inert
+   while backgrounded). */
+.ss-folio-device--phone[data-plane="back"] .ss-folio-phone__activate,
 .ss-folio-device--phone[data-plane="back"] .ss-folio-phone__tag,
-.ss-folio-device--phone[data-plane="back"] .ss-folio-phone__hud {
+.ss-folio-device--phone[data-plane="back"] .ss-folio-phone__ctls {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-.ss-folio-device--phone[data-plane="front"] .ss-folio-phone__play,
+.ss-folio-device--phone[data-plane="front"] .ss-folio-phone__activate,
 .ss-folio-device--phone[data-plane="front"] .ss-folio-phone__tag,
-.ss-folio-device--phone[data-plane="front"] .ss-folio-phone__hud {
+.ss-folio-device--phone[data-plane="front"] .ss-folio-phone__ctls {
   transition: opacity 0.3s ease 0.25s;
 }
 
@@ -2946,6 +3082,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 .ss-folio-window__addr-domain {
+  min-width: 0;
+}
+
+.ss-folio-window__addr-domain > span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -3204,7 +3344,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   height: 0.8rem;
 }
 
-/* -- Phone: guided walkthrough device (link-out capture on mobile) -- */
+/* -- Phone: interactive mobile embed (link-out capture on mobile) -- */
 
 .ss-folio-phone {
   position: relative;
@@ -3220,7 +3360,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   text-decoration: none;
 }
 
-.ss-folio-phone[data-tour-phase="live"] {
+.ss-folio-phone[data-phase="live"] {
   box-shadow:
     0 24px 60px -28px rgb(0 0 0 / 0.8),
     0 0 54px -8px color-mix(in srgb, var(--demo-tint) 42%, transparent);
@@ -3248,38 +3388,39 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 .ss-folio-phone__shot {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 390 / 844;
+  height: 100%;
   object-fit: cover;
   object-position: top center;
   border-radius: 1.9rem;
 }
 
-/* The tall page frame renders at the phone's logical viewport (390 wide) and
-   is mapped onto the screen with a scale; the scroller's translateY is the
-   walkthrough's "scroll". */
-.ss-folio-phone__scaler {
+.ss-folio-phone[data-phase="live"] .ss-folio-phone__shot {
+  visibility: hidden;
+}
+
+/* Fixed logical phone viewport (width/height/scale set inline by the
+   component): the embed renders the site's true mobile breakpoint and is
+   mapped onto the phone screen with a pointer-accurate CSS scale — the real
+   mobile build, sized exactly for the phone it sits inside. */
+.ss-folio-phone__frame {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
-  transform-origin: top left;
-  /* The walkthrough iframe is deliberately thousands of logical pixels tall.
-     Keep it out of the host page's scroll-anchor candidate tree so mounting or
-     removing a tour cannot pull the Silverstone viewport away from the demo. */
-  overflow-anchor: none;
-}
-
-.ss-folio-phone__scroller {
-  will-change: transform;
-}
-
-.ss-folio-phone__frame {
   display: block;
   border: 0;
   background: #fff;
+  transform-origin: top left;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.ss-folio-phone__frame[data-live] {
+  opacity: 1;
 }
 
 .ss-folio-phone__veil {
@@ -3310,7 +3451,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   animation: ss-folio-spin 0.9s linear infinite;
 }
 
-.ss-folio-phone__play {
+.ss-folio-phone__activate {
   position: absolute;
   inset: 0;
   z-index: 3;
@@ -3332,7 +3473,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   transition: background 0.45s ease;
 }
 
-.ss-folio-phone__play-ring {
+.ss-folio-phone__activate-ring {
   position: relative;
   display: grid;
   place-items: center;
@@ -3348,13 +3489,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     box-shadow 0.45s ease;
 }
 
-.ss-folio-phone__play-ring svg {
+.ss-folio-phone__activate-ring svg {
   width: 1.05rem;
   height: 1.05rem;
-  margin-left: 2px;
 }
 
-.ss-folio-phone__play-ring::after {
+.ss-folio-phone__activate-ring::after {
   content: "";
   position: absolute;
   inset: -1px;
@@ -3364,14 +3504,14 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   animation: ss-folio-halo 2.8s ease-out infinite;
 }
 
-.ss-folio-phone__play:hover .ss-folio-phone__play-ring,
-.ss-folio-phone__play:focus-visible .ss-folio-phone__play-ring {
+.ss-folio-phone__activate:hover .ss-folio-phone__activate-ring,
+.ss-folio-phone__activate:focus-visible .ss-folio-phone__activate-ring {
   transform: scale(1.08);
   border-color: color-mix(in srgb, var(--demo-tint) 65%, transparent);
   box-shadow: 0 0 40px 0 color-mix(in srgb, var(--demo-tint) 30%, transparent);
 }
 
-.ss-folio-phone__play-label {
+.ss-folio-phone__activate-label {
   font-family: var(--ss-font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.13em;
@@ -3379,79 +3519,32 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   text-shadow: 0 1px 10px rgb(0 0 0 / 0.9);
 }
 
-/* Click anywhere on a playing phone to stop — an invisible full-screen
-   control so the stop affordance is also keyboard-reachable. */
-.ss-folio-phone__stop {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border: 0;
-  border-radius: 1.9rem;
-  background: transparent;
-  cursor: pointer;
+.ss-folio-phone__activate-sub {
+  max-width: 13rem;
+  padding-inline: 0.75rem;
+  font-family: var(--ss-font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  color: var(--srv2-ink-soft);
+  text-shadow: 0 1px 10px rgb(0 0 0 / 0.9);
 }
 
-.ss-folio-phone__stop:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--demo-tint) 75%, transparent);
-  outline-offset: -4px;
-}
-
-.ss-folio-phone__hud {
+/* Live-demo controls: restart + standby, floated clear of the site's own
+   header but always reachable — the same contract as the window bar's. */
+.ss-folio-phone__ctls {
   position: absolute;
-  left: 50%;
-  bottom: calc(9px + 0.8rem);
-  transform: translateX(-50%);
+  top: calc(9px + 2.1rem);
+  right: calc(9px + 0.55rem);
   z-index: 5;
   display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  width: calc(100% - 3rem);
-  padding: 0.45rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--ss-v2-chrome) 18%, transparent);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 80%, transparent);
+  gap: 0.4rem;
+}
+
+.ss-folio-phone__ctls .ss-folio-window__ctl {
+  background: color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
   backdrop-filter: blur(8px);
-  font-family: var(--ss-font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: var(--srv2-ink-soft);
-  pointer-events: none;
-}
-
-.ss-folio-phone__hud-page {
-  color: color-mix(in srgb, var(--demo-tint) 85%, var(--ss-v2-chrome));
-  white-space: nowrap;
-}
-
-.ss-folio-phone__hud-page i {
-  font-style: normal;
-  color: var(--srv2-ink-faint);
-}
-
-.ss-folio-phone__hud-label {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.ss-folio-phone__hud-track {
-  width: 2.6rem;
-  height: 2px;
-  flex: none;
-  border-radius: 999px;
-  background: var(--srv2-hairline);
-  overflow: hidden;
-}
-
-.ss-folio-phone__hud-track span {
-  display: block;
-  width: 100%;
-  height: 100%;
-  transform-origin: left center;
-  background: linear-gradient(90deg, var(--demo-tint), var(--demo-tint-2));
 }
 
 .ss-folio-phone__tag {
@@ -3635,12 +3728,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 @media (prefers-reduced-motion: reduce) {
   .ss-folio-window__status[data-status="live"] i,
   .ss-folio-window__activate-ring::after,
-  .ss-folio-phone__play-ring::after {
+  .ss-folio-phone__activate-ring::after {
     animation: none;
   }
 
   .ss-folio-window__activate-ring::after,
-  .ss-folio-phone__play-ring::after {
+  .ss-folio-phone__activate-ring::after {
     opacity: 0;
   }
 
@@ -3651,10 +3744,17 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-folio-window__frame,
+  .ss-folio-phone__frame,
   .ss-folio-window__activate-ring,
-  .ss-folio-phone__play-ring,
+  .ss-folio-phone__activate-ring,
   .ss-folio-console__switch button,
   .ss-folio__toggle button {
+    transition: none;
+  }
+
+  /* Project morph without motion: the layers swap in a single frame (the
+     component also zeroes the tint interpolation). */
+  .ss-folio-morph {
     transition: none;
   }
 

@@ -12,6 +12,7 @@ import {
   useMotionValue,
   useTransform,
   animate,
+  type MotionStyle,
   type Transition,
   type Variants,
 } from "motion/react";
@@ -303,6 +304,107 @@ function ViewportReveal({
         start?.instant ?? false,
         start?.durationScale ?? 1,
       )}
+    >
+      {children}
+    </m.div>
+  );
+}
+
+/**
+ * Premium entrance for the framed feature panels (proof consoles, CTA cards,
+ * boundary panels, verified-results instruments). The frame itself
+ * materialises — an unhurried rise-and-settle from the component, plus a
+ * one-shot edge-light ignition and a single diagonal sheen carried by the
+ * panel's own ::before/::after (see the `[data-motion-reveal-kind="panel"]`
+ * styles) — while the copy inside plays its usual scheduled reveals, so card
+ * and copy land as one choreographed entrance rather than copy arriving in a
+ * frame that was always just sitting there.
+ *
+ * Renders AS the panel's root element (same className, same child order), so
+ * `:nth-child` layouts inside framed panels are untouched. The light work is
+ * timed against the same scheduler delay the entrance uses (`--panel-delay`),
+ * and both respect the deep-link bypass and reduced motion.
+ */
+export function PanelReveal({
+  children,
+  className,
+  delayMs = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delayMs?: number;
+}) {
+  const reducedMotion = useReducedMotion() ?? false;
+
+  if (reducedMotion) {
+    return (
+      <div
+        className={className}
+        data-motion-reveal="true"
+        data-motion-reveal-kind="panel"
+      >
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <PanelRevealMotion className={className} delayMs={delayMs}>
+      {children}
+    </PanelRevealMotion>
+  );
+}
+
+function PanelRevealMotion({
+  children,
+  className,
+  delayMs,
+}: {
+  children: ReactNode;
+  className?: string | undefined;
+  delayMs: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  // A fractional threshold a tall panel could never reach would hold the
+  // entrance forever; 0.25 fires once a meaningful band of the frame is in.
+  const inView = useInView(ref, {
+    amount: 0.25,
+    margin: "0px 0px -18% 0px",
+    once: true,
+  });
+  const start = useRevealStart(ref, inView, delayMs);
+  const instant = start?.instant ?? false;
+  const durationScale = start?.durationScale ?? 1;
+
+  return (
+    <m.div
+      ref={ref}
+      className={className}
+      data-motion-reveal="true"
+      data-motion-reveal-kind="panel"
+      data-panel-shown={start !== null ? "true" : undefined}
+      data-panel-instant={instant || undefined}
+      style={
+        {
+          "--panel-delay": `${String(start?.delayMs ?? 0)}ms`,
+          "--panel-scale": durationScale,
+        } as MotionStyle
+      }
+      initial="hidden"
+      animate={start !== null ? "show" : "hidden"}
+      variants={{
+        hidden: { opacity: 0, y: 34, scale: 0.965 },
+        show: { opacity: 1, y: 0, scale: 1 },
+      }}
+      transition={
+        instant
+          ? { delay: 0, duration: 0 }
+          : {
+              delay: (start?.delayMs ?? 0) / 1000,
+              duration: 1.15 * durationScale,
+              ease: entranceEase,
+            }
+      }
     >
       {children}
     </m.div>

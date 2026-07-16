@@ -2,7 +2,7 @@
  * Pure state model for the Web Design & Development live showcase
  * (`browser-showcase.tsx`). Kept free of React and the DOM so the invariants
  * that matter — one live demo at a time across BOTH surfaces (the browser
- * window embed and the phone walkthrough), activation as a one-time entry
+ * window embed and the phone's mobile embed), activation as a one-time entry
  * action, clean idle/timeout/section-exit transitions — are directly
  * unit-testable.
  */
@@ -12,9 +12,9 @@ export type ShowcaseSiteId = "ownly-housing" | "aesthetics-by-clouds";
 export type DemoPhase = "idle" | "connecting" | "live";
 
 /**
- * Which device surface holds the live demo: the desktop browser window
- * (interactive embed) or the phone (guided walkthrough). Only meaningful
- * while `activeSite` is non-null.
+ * Which device surface holds the live demo: the desktop browser window or the
+ * phone — both are interactive embeds of the same site at different logical
+ * viewports. Only meaningful while `activeSite` is non-null.
  */
 export type ShowcaseSurface = "window" | "phone";
 
@@ -48,14 +48,21 @@ export const EMBED_VIEWPORT_WIDTH: Record<
 };
 
 /**
- * Inactivity window before a live window embed returns to standby. The
- * countdown only runs while the visitor's attention is observably *outside*
- * the demo — the timer suspends while the embedded page holds focus and
- * re-arms instead of firing while the pointer rests over the frame (see
- * `browser-showcase.tsx`) — so two minutes of genuinely elsewhere-focused
- * time is generous without keeping an unused live embed (and its network
- * activity) alive indefinitely. The phone walkthrough is excluded: it always
- * terminates itself after its final page.
+ * Logical CSS-pixel viewport for the PHONE surface's live embed. Both demo
+ * sites treat everything below 768px as their phone band, and the captured
+ * posters are 390 wide — so the embed renders the exact mobile build the
+ * posters promise, scaled to sit precisely inside the phone screen.
+ */
+export const PHONE_EMBED_VIEWPORT_WIDTH = 390;
+
+/**
+ * Inactivity window before a live embed returns to standby — the same rule on
+ * both surfaces (browser window and phone). The countdown only runs while the
+ * visitor's attention is observably *outside* the demo — the timer suspends
+ * while the embedded page holds focus and re-arms instead of firing while the
+ * pointer rests over the frame (see `browser-showcase.tsx`) — so two minutes
+ * of genuinely elsewhere-focused time is generous without keeping an unused
+ * live embed (and its network activity) alive indefinitely.
  */
 export const SHOWCASE_IDLE_TIMEOUT_MS = 120_000;
 

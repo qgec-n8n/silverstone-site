@@ -5,21 +5,12 @@ import { useShowcaseIdleTimeout } from "~/features/services-v2/demos/showcase-id
 import {
   EMBED_VIEWPORT_WIDTH,
   initialShowcaseState,
+  PHONE_EMBED_VIEWPORT_WIDTH,
   showcaseReducer,
   SHOWCASE_IDLE_TIMEOUT_MS,
   type ShowcaseState,
   type ShowcaseSurface,
 } from "~/features/services-v2/demos/showcase-state";
-import {
-  pageLabel,
-  pageScrollDistance,
-  pageScrollDuration,
-  walkthroughSite,
-  WALKTHROUGH_BOTTOM_DWELL_MS,
-  WALKTHROUGH_SCROLL_SPEED,
-  WALKTHROUGH_SETTLE_MS,
-  WALKTHROUGH_VIEWPORT,
-} from "~/features/services-v2/demos/showcase-walkthrough";
 
 const OWNLY = "ownly-housing" as const;
 const CLOUDS = "aesthetics-by-clouds" as const;
@@ -61,20 +52,20 @@ describe("showcase state model", () => {
     expect(takeover.phase).toBe("connecting");
   });
 
-  it("starting the phone walkthrough deactivates a live window embed", () => {
-    const tour = showcaseReducer(live(OWNLY), {
+  it("activating the phone's mobile embed deactivates a live window embed", () => {
+    const phone = showcaseReducer(live(OWNLY), {
       type: "activate",
       site: OWNLY,
       surface: "phone",
     });
-    expect(tour).toMatchObject({
+    expect(phone).toMatchObject({
       activeSite: OWNLY,
       surface: "phone",
       phase: "connecting",
     });
     // ...and vice versa: the window takes the demo back from the phone.
     const window_ = showcaseReducer(
-      showcaseReducer(tour, { type: "loaded", site: OWNLY }),
+      showcaseReducer(phone, { type: "loaded", site: OWNLY }),
       {
         type: "activate",
         site: OWNLY,
@@ -207,49 +198,14 @@ describe("showcase state model", () => {
   });
 
   it("gives embeds a logical viewport inside each host class's intended band", () => {
-    // Both demo sites switch to their desktop layout at 1024px and use the
-    // 768–1023px band for tablet — the fixed logical widths must land safely
-    // inside those bands so the embedded breakpoint never depends on the
-    // host container's width.
+    // Both demo sites switch to their desktop layout at 1024px, use the
+    // 768–1023px band for tablet and treat everything below 768px as phone —
+    // the fixed logical widths must land safely inside those bands so the
+    // embedded breakpoint never depends on the host container's width.
     expect(EMBED_VIEWPORT_WIDTH.desktop).toBeGreaterThanOrEqual(1024);
     expect(EMBED_VIEWPORT_WIDTH.tablet).toBeGreaterThanOrEqual(768);
     expect(EMBED_VIEWPORT_WIDTH.tablet).toBeLessThan(1024);
-  });
-});
-
-describe("walkthrough page data", () => {
-  it("provides a generated multi-page tour for both demo sites", () => {
-    for (const id of [OWNLY, CLOUDS]) {
-      const site = walkthroughSite(id);
-      expect(site).not.toBeNull();
-      expect(site?.pages.length).toBeGreaterThanOrEqual(2);
-      expect(site?.pages[0]?.path).toBe("/");
-      for (const page of site?.pages ?? []) {
-        expect(page.path.startsWith("/")).toBe(true);
-        // Every page was measured taller than the phone viewport, so each
-        // one genuinely scrolls.
-        expect(page.height).toBeGreaterThan(WALKTHROUGH_VIEWPORT.height);
-      }
-    }
-  });
-
-  it("derives scroll distance and a clamped, speed-based duration", () => {
-    const page = { path: "/", title: "Home", height: 10_844 };
-    expect(pageScrollDistance(page)).toBe(10_000);
-    expect(pageScrollDuration(10_000)).toBeCloseTo(10_000 / WALKTHROUGH_SCROLL_SPEED);
-    // Short pages still read as a deliberate pan; marathon pages are capped.
-    expect(pageScrollDuration(0)).toBe(1.6);
-    expect(pageScrollDuration(1_000_000)).toBe(16);
-    expect(WALKTHROUGH_SETTLE_MS).toBe(700);
-    expect(WALKTHROUGH_BOTTOM_DWELL_MS).toBe(1000);
-  });
-
-  it("labels pages from the leading title segment", () => {
-    expect(pageLabel({ path: "/about-us", title: "About Us | Site", height: 1 })).toBe(
-      "About Us",
-    );
-    expect(pageLabel({ path: "/find-us", title: "", height: 1 })).toBe("Find us");
-    expect(pageLabel({ path: "/", title: "", height: 1 })).toBe("Home");
+    expect(PHONE_EMBED_VIEWPORT_WIDTH).toBeLessThan(768);
   });
 });
 

@@ -10,6 +10,7 @@ import { ShieldCheck } from "~/components/icons/lucide";
 import {
   AnimatedMetricValue,
   BorderBeam,
+  PanelReveal,
   Reveal,
   splitMetric,
 } from "~/features/services-v2/components/primitives";
@@ -24,7 +25,7 @@ export function PricingMetricInstrument({
   clarification: string;
 }) {
   return (
-    <div className="ss-core-metric-instrument ss-srv2-beam-border">
+    <PanelReveal className="ss-core-metric-instrument ss-srv2-beam-border">
       <Reveal kind="pill">
         <span className="ss-srv2-bench__tag">
           <ShieldCheck aria-hidden="true" />
@@ -63,6 +64,6 @@ export function PricingMetricInstrument({
         <p className="ss-srv2-bench__disclaimer">{clarification}</p>
       </Reveal>
       <BorderBeam />
-    </div>
+    </PanelReveal>
   );
 }

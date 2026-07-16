@@ -18,6 +18,7 @@ import { StudioOrbitSignature } from "~/features/core-pages/signatures";
 import { NumberedRail } from "~/features/core-pages/shared";
 import {
   BorderBeam,
+  PanelReveal,
   Prose,
   Reveal,
   SectionHead,
@@ -139,7 +140,7 @@ export function AboutComposition() {
             heading="Premium is a standard of *attention*"
             headingId="about-premium"
           />
-          <div className="ss-core-split ss-core-split--framed ss-srv2-beam-border">
+          <PanelReveal className="ss-core-split ss-core-split--framed ss-srv2-beam-border">
             <Reveal kind="section">
               <Prose
                 paragraphs={[
@@ -160,7 +161,7 @@ export function AboutComposition() {
               />
             </Reveal>
             <BorderBeam />
-          </div>
+          </PanelReveal>
         </div>
       </section>
 

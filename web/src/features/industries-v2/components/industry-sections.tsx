@@ -18,6 +18,7 @@ import { useRevealStart } from "~/motion/use-reveal-start";
 
 import {
   BorderBeam,
+  PanelReveal,
   Reveal,
   RichText,
 } from "~/features/services-v2/components/primitives";
@@ -167,7 +168,7 @@ export function BoundaryPanel({
   const reducedMotion = useReducedMotion() ?? false;
 
   return (
-    <div className="ss-ind2-boundary ss-srv2-beam-border">
+    <PanelReveal className="ss-ind2-boundary ss-srv2-beam-border">
       <Reveal kind="section" className="ss-ind2-boundary__col">
         <p className="ss-ind2-boundary__body">
           <RichText text={body} />
@@ -194,7 +195,7 @@ export function BoundaryPanel({
         </div>
       </div>
       <BorderBeam />
-    </div>
+    </PanelReveal>
   );
 }
 

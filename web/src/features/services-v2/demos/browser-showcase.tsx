@@ -1,35 +1,44 @@
 /**
  * Web Design & Development portfolio showcase — two live client websites,
- * presented one project at a time on a control-driven rail.
+ * presented in ONE fixed scene that morphs between projects.
  *
  * Every breakpoint shares one scene grammar: the project copy sits ABOVE the
  * devices, a console row (project switcher · device focus toggle · live link)
  * sits between the copy and the stage, and the stage composes the two device
- * previews. On desktop and tablet the stage holds a dominant live browser
- * window and a phone; a two-state Desktop/Mobile control decides which device
- * owns the foreground, and switching it orbits the devices around one another
- * — they arc in opposite directions while their depth order crosses mid-
- * flight (reduced motion: an instant depth swap with a short opacity fade).
- * The background device is inert: it can never intercept input meant for the
- * foreground preview.
+ * previews. Switching projects never slides panels: the section keeps its
+ * position and dimensions while the per-project layers (copy, chips, index
+ * numerals, posters, domain) cross-morph in place and the client tint
+ * variables (`--demo-tint`/`--demo-tint-2`) are colour-interpolated per frame,
+ * so every derived accent — chips, dots, buttons, glows, beams — transforms
+ * with them. Both projects' copy stays in the prerendered HTML (stacked
+ * layers), which also pins the scene's height so the morph can never shift
+ * layout. Reduced motion swaps the layers instantly.
  *
- * The browser window is the interactive embed (activation click → live
- * iframe, exactly as before). The phone is the guided walkthrough: on
- * desktop/tablet, activating it never navigates away — it auto-scrolls the
- * real site page by page (see `showcase-walkthrough.ts`; the page list and
- * heights are generated from the demo sites' own sitemaps/navigation). On
- * mobile (<48rem) no iframe ever mounts and the phone is a plain link that
- * opens the live site in a new tab.
+ * On desktop and tablet the stage holds a dominant live browser window and a
+ * phone; a two-state Desktop/Mobile control decides which device owns the
+ * foreground. Switching it plays a turntable orbit: the devices sit on
+ * opposite ends of one spinning circle, so the phone arcs around the window's
+ * right edge while the window eases back and to the left — both always facing
+ * forward, passing on opposite sides, never through one another (see the
+ * device-orbit section for the solid-object guarantee). The background device
+ * is inert: it can never intercept input meant for the foreground preview.
+ *
+ * BOTH devices are interactive embeds with identical rules. The browser
+ * window activates into a live iframe at a fixed desktop/tablet logical
+ * viewport; the phone activates into the same site at a fixed 390px phone
+ * logical viewport, scaled to sit exactly inside the phone screen — the real
+ * mobile build, browsable in place. On mobile (<48rem) no iframe ever mounts
+ * and the phone is a plain link that opens the live site in a new tab.
  *
  * One demo may be live at a time across both surfaces; a demo stands down on
- * Escape, on its standby control, after sustained inactivity (window embed),
- * when its tour completes (phone), when the project or device focus changes,
- * and whenever the section effectively leaves the viewport
- * (`showcase-presence.ts`) — returning never auto-resumes.
+ * Escape, on its standby control, after sustained inactivity, when the
+ * project or device focus changes, and whenever the section effectively
+ * leaves the viewport (`showcase-presence.ts`) — returning never
+ * auto-resumes.
  *
  * The embed always receives a fixed logical viewport for its device class
- * (desktop 1440 / tablet 834 / walkthrough phone 390) scaled onto its frame
- * with a CSS transform, so the embedded site renders its intended breakpoint
+ * (desktop 1440 / tablet 834 / phone surface 390) scaled onto its frame with
+ * a CSS transform, so the embedded site renders its intended breakpoint
  * regardless of host width. Posters are locally hosted captures; nothing is
  * requested from the demo origins before an explicit activation. The
  * route-scoped CSP `frame-src` allow-list (root netlify.toml) holds the two
@@ -57,6 +66,7 @@ import {
   useTransform,
   type MotionStyle,
   type MotionValue,
+  type TargetAndTransition,
 } from "motion/react";
 import * as m from "motion/react-m";
 
@@ -68,7 +78,6 @@ import {
   HeartPulse,
   Layers,
   Monitor,
-  Play,
   Power,
   RotateCcw,
   ShieldCheck,
@@ -82,17 +91,11 @@ import {
 import { BorderBeam, Reveal } from "../components/primitives";
 import { useShowcaseIdleTimeout } from "./showcase-idle";
 import { useShowcasePresence } from "./showcase-presence";
-import {
-  pageLabel,
-  useShowcaseWalkthrough,
-  walkthroughSite,
-  WALKTHROUGH_VIEWPORT,
-  type WalkthroughSite,
-} from "./showcase-walkthrough";
 import showcaseSitesJson from "./showcase-sites.json";
 import {
   EMBED_VIEWPORT_WIDTH,
   initialShowcaseState,
+  PHONE_EMBED_VIEWPORT_WIDTH,
   showcaseReducer,
   type ShowcaseDeviceClass,
   type ShowcaseSiteId,
@@ -135,7 +138,7 @@ type ShowcaseSite = ShowcaseSiteConfig & {
 };
 
 /** Embed/link targets come from the shared config (`showcase-sites.json`) —
- * the same source the walkthrough generator script reads. */
+ * the single source of truth for the demo origins. */
 function siteConfig(id: ShowcaseSiteId): ShowcaseSiteConfig {
   const config = showcaseSitesJson.sites.find((entry) => entry.id === id);
   if (!config) {
@@ -307,175 +310,204 @@ function preconnect(origin: string) {
 /* ---- Device orbit ------------------------------------------------------- */
 
 /*
- * One shallow ellipse, two opposite halves.
+ * A turntable, not a fly-past. The two devices are solid objects on opposite
+ * ends of one spinning circle; toggling the foreground rotates that circle
+ * half a turn, so the phone arcs around the window's RIGHT edge while the
+ * window eases back and to the LEFT — they pass on opposite sides, both
+ * always facing forward (no rotation anywhere on the arc), and never through
+ * one another.
  *
- * A single eased progress value drives every transform through `useTransform`
- * (0 = window in front, 1 = phone in front), which buys three things at once:
- * the path is a pure function of that value, so MOBILE→DESKTOP retraces
- * DESKTOP→MOBILE exactly rather than approximating it; nothing re-renders per
- * frame; and a mid-flight reversal simply re-targets from wherever the devices
- * currently are.
+ * One eased progress value drives every transform through `useTransform`
+ * (0 = window in front, 1 = phone in front): the path is a pure function of
+ * that value, so MOBILE→DESKTOP retraces DESKTOP→MOBILE exactly, nothing
+ * re-renders per frame, and a mid-flight reversal simply re-targets from
+ * wherever the devices currently are.
  *
- * `theta` is the turntable angle (0 → π). The phone sweeps the near half: at
- * small angles `sin` moves it down and out while `1 - cos` is still flat, so it
- * emerges around the window's outer-right edge before it travels across —
- * rounding the frame instead of cutting over its centre. The window sweeps the
- * far half in the opposite direction. They are furthest apart at θ = π/2, which
- * is exactly where depth crosses (see `orbitDepth`).
+ * Solid-object guarantee: depth may only swap while the two silhouettes are
+ * laterally clear of each other. Depth crosses once, exactly at progress 0.5,
+ * so the choreography splits the turn around that moment — the window
+ * completes its recede entirely in the first half (`backArc`), the phone's
+ * cross-stage travel to its front pose plays entirely in the second half
+ * (`frontArc`, i.e. only once it is unambiguously the front plane), and the
+ * phone's sideways clearance is MEASURED from the live layout
+ * (`measureOrbitOutPx`) so its inner edge always clears the window's receded
+ * right edge at the crossover, on every breakpoint. Reversing swaps the roles
+ * symmetrically: the phone first retraces across the front to the window's
+ * edge, and only after the depth swap does the window come forward again.
  *
- * Reduced motion never uses any of this: no `style` is attached at all, so the
- * stylesheet's static `[data-plane]` poses apply with an opacity-only fade.
+ * Reduced motion never uses any of this: no `style` is attached at all, so
+ * the stylesheet's static `[data-plane]` poses apply with an opacity-only
+ * fade.
  */
 
 /** Symmetric by construction, so the depth crossover at progress 0.5 lands on
  * the arc's midpoint in wall-clock time too, not just in geometry. */
 const ORBIT_TRANSITION = {
-  duration: 0.85,
+  duration: 0.95,
   ease: [0.5, 0, 0.5, 1] as [number, number, number, number],
 };
 
-/** Settled endpoint poses — the DESKTOP/MOBILE compositions, unchanged. */
+/** Settled endpoint poses — the DESKTOP/MOBILE compositions. */
 const PHONE_X_FRONT = -105;
 const PHONE_SCALE_FRONT = 1.22;
-const PHONE_ROTATE_Y_BACK = -12;
 const PHONE_OPACITY_BACK = 0.92;
 const WINDOW_X_BACK = -2;
 const WINDOW_Y_BACK = -2.5;
 const WINDOW_SCALE_BACK = 0.92;
-const WINDOW_ROTATE_Y_BACK = 8;
 const WINDOW_OPACITY_BACK = 0.48;
 
-/* Orbit-only shaping. Every one of these is zero at BOTH endpoints, so the
-   settled compositions above are the only thing that survives the arc. */
-/** Outward lobe rounding the window's right edge, % of phone width. */
-const PHONE_OUT = 14;
-/**
- * How far the phone's lateral sweep LAGS its swing forward. Without this the
- * phone is already deep across the window's face by the crossover — the
- * straight-line read the arc exists to avoid. At >1 the phone instead holds the
- * window's outer-right edge while it comes forward, and only draws across once
- * it is unambiguously in front. Velocity still vanishes at both ends.
- */
-const PHONE_SWEEP_LAG = 1.7;
-/** Near-half dip, % of phone height (kept inside the stage's bottom padding). */
-const PHONE_BOW = 11;
-/** Far-half lift, % of window height. */
-const WINDOW_BOW = 3.5;
-/** Opposing roll at the arc's strongest point, degrees. */
-const PHONE_TILT = -3;
-const WINDOW_TILT = 2.5;
+/* Turntable shaping — every term is zero at BOTH endpoints, so the settled
+   compositions above are the only thing that survives the arc. */
+/** Tilted-circle read: near-side dip / far-side lift, % of own height. */
+const PHONE_BOW = 9;
+const WINDOW_BOW = 3;
+/** The window's sideways sweep at the quarter-turns, % of its own width —
+ * its half of the pass; the phone's half is measured in px per layout. */
+const WINDOW_SIDE = 4;
+/** Minimum edge-to-edge daylight between the silhouettes at the crossover. */
+const ORBIT_CLEARANCE_PX = 28;
 
-/** 0 → 1 with zero gradient at both ends: the endpoints settle, never snap. */
-const ramp = (theta: number) => (1 - Math.cos(theta)) / 2;
-
-/** A first-quarter-only bulge (0 at θ=0 and θ≥π/2, peak at θ=π/4). */
-const lobe = (theta: number) => Math.sin(theta) * Math.max(0, Math.cos(theta));
+/** 0→1→0 across the turn; peaks exactly at the depth crossover. */
+const swing = (p: number) => Math.sin(Math.PI * p);
+/** 0→1 with zero gradient at both ends: the endpoints settle, never snap. */
+const ramp = (p: number) => (1 - Math.cos(Math.PI * p)) / 2;
+const smooth = (t: number) => {
+  const clamped = Math.min(1, Math.max(0, t));
+  return clamped * clamped * (3 - 2 * clamped);
+};
+/** Plays entirely in the second half of the turn, and only from a beat AFTER
+ * the depth crossover — the phone holds its outward station through the flip
+ * before drawing across the front. */
+const frontArc = (p: number) => smooth((p - 0.55) / 0.45);
+/** Completes entirely in the first half of the turn, a beat BEFORE the depth
+ * crossover — the window is already parked back-left when depth exchanges. */
+const backArc = (p: number) => smooth(p / 0.45);
 
 /** Depth crosses once, at the midpoint, as an integer — never a fractional
  * z-index the browser would drop, and never a per-frame React render. */
 const orbitDepth = (progress: number, frontAt: 0 | 1) =>
   (frontAt === 1 ? progress > 0.5 : progress <= 0.5) ? 3 : 1;
 
-function usePhoneOrbit(progress: MotionValue<number>): MotionStyle {
-  const theta = useTransform(progress, (value) => Math.PI * value);
+/**
+ * The phone's sideways clearance, measured from the resting layout (offset*
+ * geometry ignores transforms). At the crossover the window has fully receded
+ * (backArc = 1, swing = 1) and the phone has not yet begun its cross-stage
+ * travel (frontArc = 0) but is halfway through its scale-up — the phone's
+ * inner edge must clear the window's receded right edge with daylight to
+ * spare at that exact moment, whatever the breakpoint's real dimensions.
+ */
+function measureOrbitOutPx(windowEl: HTMLElement, phoneEl: HTMLElement): number {
+  const phoneWidth = phoneEl.offsetWidth;
+  const windowWidth = windowEl.offsetWidth;
+  const windowRightAtCross =
+    windowEl.offsetLeft +
+    windowWidth -
+    (windowWidth * (1 - WINDOW_SCALE_BACK)) / 2 +
+    (windowWidth * WINDOW_X_BACK) / 100 -
+    (windowWidth * WINDOW_SIDE) / 100;
+  const phoneScaleAtCross = 1 + (PHONE_SCALE_FRONT - 1) * ramp(0.5);
+  const phoneLeftAtCross =
+    phoneEl.offsetLeft - (phoneWidth * (phoneScaleAtCross - 1)) / 2;
+  return Math.max(
+    // Always a visible arc, even in a layout that already clears.
+    phoneWidth * 0.18,
+    windowRightAtCross + ORBIT_CLEARANCE_PX - phoneLeftAtCross,
+  );
+}
+
+function usePhoneOrbit(
+  progress: MotionValue<number>,
+  outPx: RefObject<number>,
+): MotionStyle {
   return {
     x: useTransform(
-      theta,
-      (a) =>
-        `${String(PHONE_X_FRONT * ramp(a) ** PHONE_SWEEP_LAG + PHONE_OUT * lobe(a))}%`,
+      progress,
+      (p) =>
+        `calc(${String(PHONE_X_FRONT * frontArc(p))}% + ${String(outPx.current * swing(p))}px)`,
     ),
-    y: useTransform(theta, (a) => `${String(PHONE_BOW * Math.sin(a))}%`),
-    scale: useTransform(theta, (a) => 1 + (PHONE_SCALE_FRONT - 1) * ramp(a)),
-    rotateY: useTransform(theta, (a) => PHONE_ROTATE_Y_BACK * (1 - ramp(a))),
-    rotateZ: useTransform(theta, (a) => PHONE_TILT * Math.sin(a)),
+    y: useTransform(progress, (p) => `${String(PHONE_BOW * swing(p))}%`),
+    scale: useTransform(progress, (p) => 1 + (PHONE_SCALE_FRONT - 1) * ramp(p)),
     opacity: useTransform(
-      theta,
-      (a) => PHONE_OPACITY_BACK + (1 - PHONE_OPACITY_BACK) * ramp(a),
+      progress,
+      (p) => PHONE_OPACITY_BACK + (1 - PHONE_OPACITY_BACK) * ramp(p),
     ),
-    zIndex: useTransform(progress, (value) => orbitDepth(value, 1)),
+    zIndex: useTransform(progress, (p) => orbitDepth(p, 1)),
   };
 }
 
 function useWindowOrbit(progress: MotionValue<number>): MotionStyle {
-  const theta = useTransform(progress, (value) => Math.PI * value);
   return {
-    x: useTransform(theta, (a) => `${String(WINDOW_X_BACK * ramp(a))}%`),
-    y: useTransform(
-      theta,
-      (a) => `${String(WINDOW_Y_BACK * ramp(a) - WINDOW_BOW * Math.sin(a))}%`,
+    x: useTransform(
+      progress,
+      (p) => `${String(WINDOW_X_BACK * backArc(p) - WINDOW_SIDE * swing(p))}%`,
     ),
-    scale: useTransform(theta, (a) => 1 - (1 - WINDOW_SCALE_BACK) * ramp(a)),
-    rotateY: useTransform(theta, (a) => WINDOW_ROTATE_Y_BACK * ramp(a)),
-    rotateZ: useTransform(theta, (a) => WINDOW_TILT * Math.sin(a)),
-    opacity: useTransform(theta, (a) => 1 - (1 - WINDOW_OPACITY_BACK) * ramp(a)),
-    zIndex: useTransform(progress, (value) => orbitDepth(value, 0)),
+    y: useTransform(
+      progress,
+      (p) => `${String(WINDOW_Y_BACK * backArc(p) - WINDOW_BOW * swing(p))}%`,
+    ),
+    scale: useTransform(progress, (p) => 1 - (1 - WINDOW_SCALE_BACK) * backArc(p)),
+    opacity: useTransform(progress, (p) => 1 - (1 - WINDOW_OPACITY_BACK) * ramp(p)),
+    zIndex: useTransform(progress, (p) => orbitDepth(p, 0)),
   };
 }
 
-/* ---- Walkthrough phone --------------------------------------------------- */
+/* ---- Phone: interactive mobile embed ------------------------------------- */
 
-type WalkthroughPhoneProps = {
+type MobileDemoPhoneProps = {
   site: ShowcaseSite;
-  tour: WalkthroughSite | null;
   deviceClass: ShowcaseDeviceClass;
   /** connecting/live while THIS site's phone surface owns the demo. */
   phase: "idle" | "connecting" | "live";
+  idlePaused: boolean;
   frameNonce: number;
-  reducedMotion: boolean;
-  onStartTour: (site: ShowcaseSiteId) => void;
-  onStopTour: () => void;
-  onEnded: () => void;
+  slowConnect: boolean;
+  frameHolderRef: RefObject<HTMLDivElement | null>;
+  onActivate: (site: ShowcaseSiteId, surface: ShowcaseSurface) => void;
+  onRestart: (site: ShowcaseSiteId) => void;
+  onStandby: () => void;
   onLoaded: (site: ShowcaseSiteId) => void;
 };
 
-function WalkthroughPhone({
+function MobileDemoPhone({
   site,
-  tour,
   deviceClass,
   phase,
+  idlePaused,
   frameNonce,
-  reducedMotion,
-  onStartTour,
-  onStopTour,
-  onEnded,
+  slowConnect,
+  frameHolderRef,
+  onActivate,
+  onRestart,
+  onStandby,
   onLoaded,
-}: WalkthroughPhoneProps) {
+}: MobileDemoPhoneProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
-  const touring = phase !== "idle";
-  const y = useMotionValue(0);
+  const frameRef = useRef<HTMLIFrameElement>(null);
+  const mountFrame = phase !== "idle" && deviceClass !== "mobile";
+  const scalerStyle = useEmbedScale(screenRef, mountFrame, PHONE_EMBED_VIEWPORT_WIDTH);
 
-  const { pageIndex, stage, currentPage, onFrameLoad } = useShowcaseWalkthrough({
-    active: touring,
-    site: tour,
-    reducedMotion,
-    y,
-    onEnded,
-  });
-
-  const scalerStyle = useEmbedScale(screenRef, touring, WALKTHROUGH_VIEWPORT.width);
-  const travel = currentPage
-    ? Math.max(0, currentPage.height - WALKTHROUGH_VIEWPORT.height)
-    : 0;
-  const progress: MotionValue<number> = useTransform(y, (value) =>
-    travel > 0 ? Math.min(1, -value / travel) : 0,
-  );
-
-  const poster = (
+  // Both projects' captures stay mounted so a project switch cross-morphs
+  // them in place instead of swapping an image source.
+  const posters = sites.map((entry) => (
     <img
-      className="ss-folio-phone__shot"
-      src={site.mobilePoster.src}
-      srcSet={site.mobilePoster.srcSet}
+      key={entry.id}
+      className="ss-folio-phone__shot ss-folio-morph"
+      data-active={entry.id === site.id}
+      aria-hidden={entry.id !== site.id || undefined}
+      src={entry.mobilePoster.src}
+      srcSet={entry.mobilePoster.srcSet}
       sizes="(min-width: 48rem) 15rem, 66vw"
-      width={site.mobilePoster.width}
-      height={site.mobilePoster.height}
-      alt={site.mobilePoster.alt}
+      width={entry.mobilePoster.width}
+      height={entry.mobilePoster.height}
+      alt={entry.mobilePoster.alt}
       loading="lazy"
       decoding="async"
     />
-  );
+  ));
 
   // Mobile (<48rem): the phone is a plain safe external link — tapping a demo
-  // opens the configured live site in a new tab; no walkthrough, no iframe.
+  // opens the configured live site in a new tab; no iframe ever mounts.
   if (deviceClass === "mobile") {
     return (
       <a
@@ -486,7 +518,7 @@ function WalkthroughPhone({
         aria-label={`Open the ${site.name} website in a new tab`}
       >
         <span className="ss-folio-phone__island" aria-hidden="true" />
-        {poster}
+        <div className="ss-folio-phone__screen">{posters}</div>
         <span className="ss-folio-phone__tag" aria-hidden="true">
           Tap to open live site
           <ArrowUpRight aria-hidden="true" />
@@ -495,85 +527,126 @@ function WalkthroughPhone({
     );
   }
 
-  return (
-    <div className="ss-folio-phone" data-tour-phase={phase} tabIndex={-1}>
-      <span className="ss-folio-phone__island" aria-hidden="true" />
-      <div ref={screenRef} className="ss-folio-phone__screen">
-        {poster}
+  const handleLoad = () => {
+    const firstLoad = phase === "connecting";
+    onLoaded(site.id);
+    // Hand focus to the embed once, on the connecting → live transition (the
+    // visitor just asked for it); onLoad also refires on every in-embed
+    // navigation, which must not re-steal focus.
+    if (firstLoad) {
+      frameRef.current?.focus({ preventScroll: true });
+    }
+  };
 
-        {touring && scalerStyle && currentPage ? (
-          <div
-            className="ss-folio-phone__scaler"
+  const activateDemo = () => {
+    onActivate(site.id, "phone");
+    // The activation control unmounts in the next commit; keep keyboard focus
+    // deterministic by parking it on the standby control (the iframe then
+    // takes it on first load, exactly like the window embed).
+    window.requestAnimationFrame(() => {
+      rootRef.current
+        ?.querySelector<HTMLButtonElement>(`[data-phone-standby="${site.id}"]`)
+        ?.focus({ preventScroll: true });
+    });
+  };
+
+  return (
+    <div
+      ref={rootRef}
+      className="ss-folio-phone"
+      data-phase={phase}
+      tabIndex={-1}
+      onPointerEnter={() => preconnect(site.origin)}
+    >
+      <span className="ss-folio-phone__island" aria-hidden="true" />
+      <div
+        ref={(node) => {
+          screenRef.current = node;
+          if (mountFrame) {
+            frameHolderRef.current = node;
+          }
+        }}
+        className="ss-folio-phone__screen"
+      >
+        {posters}
+
+        {mountFrame && scalerStyle ? (
+          <iframe
+            ref={frameRef}
+            key={frameNonce}
+            className="ss-folio-phone__frame"
             style={scalerStyle}
-            aria-hidden="true"
-          >
-            <m.div className="ss-folio-phone__scroller" style={{ y }}>
-              <iframe
-                key={`${String(frameNonce)}:${String(pageIndex)}`}
-                className="ss-folio-phone__frame"
-                style={{
-                  width: `${String(WALKTHROUGH_VIEWPORT.width)}px`,
-                  height: `${String(currentPage.height)}px`,
-                }}
-                src={new URL(currentPage.path, tour?.origin ?? site.origin).href}
-                title={`${site.name} — guided mobile tour`}
-                tabIndex={-1}
-                onLoad={() => {
-                  onLoaded(site.id);
-                  onFrameLoad();
-                }}
-              />
-            </m.div>
-          </div>
+            src={site.url}
+            title={`${site.name} — live mobile website`}
+            allow={site.allowPayment ? "payment" : undefined}
+            data-live={phase === "live" || undefined}
+            onLoad={handleLoad}
+          />
         ) : null}
 
-        {touring && stage === "loading" ? (
+        {phase === "connecting" ? (
           <span className="ss-folio-phone__veil" role="status">
             <span className="ss-folio-phone__veil-ring" aria-hidden="true" />
-            {currentPage ? `Opening ${pageLabel(currentPage)}` : "Connecting"}
+            Connecting to {site.domain}
+            {slowConnect ? (
+              <a
+                className="ss-focus-ring ss-folio-window__connecting-out"
+                href={site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Taking a while? Open the site directly
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+            ) : null}
           </span>
         ) : null}
 
-        {touring ? (
+        {phase === "idle" ? (
           <button
             type="button"
-            className="ss-folio-phone__stop"
-            data-tour-stop={site.id}
-            onClick={onStopTour}
-            aria-label={`Stop the ${site.name} guided tour`}
-          />
-        ) : (
-          <button
-            type="button"
-            className="ss-folio-phone__play"
-            data-tour={site.id}
-            onClick={() => onStartTour(site.id)}
-            aria-label={`Play the ${site.name} guided mobile tour`}
+            className="ss-folio-phone__activate"
+            data-activate-phone={site.id}
+            onClick={activateDemo}
           >
-            <span className="ss-folio-phone__play-ring" aria-hidden="true">
-              <Play />
+            <span className="ss-folio-phone__activate-ring" aria-hidden="true">
+              <Power />
             </span>
-            <span className="ss-folio-phone__play-label">Play site tour</span>
+            <span className="ss-folio-phone__activate-label">Activate mobile demo</span>
+            <span className="ss-folio-phone__activate-sub">
+              {idlePaused
+                ? "Paused after inactivity — pick up where you left off"
+                : "Browse the real mobile site right here"}
+            </span>
           </button>
-        )}
+        ) : null}
       </div>
 
-      {touring ? (
-        <div className="ss-folio-phone__hud" aria-hidden="true">
-          <span className="ss-folio-phone__hud-page">
-            {String(pageIndex + 1).padStart(2, "0")}
-            <i> / {String(tour?.pages.length ?? 0).padStart(2, "0")}</i>
-          </span>
-          <span className="ss-folio-phone__hud-label">
-            {currentPage ? pageLabel(currentPage) : ""}
-          </span>
-          <span className="ss-folio-phone__hud-track">
-            <m.span style={{ scaleX: progress }} />
-          </span>
+      {phase !== "idle" ? (
+        <div className="ss-folio-phone__ctls">
+          <button
+            type="button"
+            className="ss-focus-ring ss-folio-window__ctl"
+            onClick={() => onRestart(site.id)}
+            aria-label={`Restart the ${site.name} mobile demo`}
+            title="Restart demo"
+          >
+            <RotateCcw aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className="ss-focus-ring ss-folio-window__ctl"
+            data-phone-standby={site.id}
+            onClick={onStandby}
+            aria-label={`Return the ${site.name} demo to standby`}
+            title="Return to standby"
+          >
+            <Power aria-hidden="true" />
+          </button>
         </div>
       ) : (
         <span className="ss-folio-phone__tag" aria-hidden="true">
-          Mobile · guided tour
+          Mobile · live demo
         </span>
       )}
     </div>
@@ -588,9 +661,8 @@ const SLOW_CONNECT_MS = 10_000;
 type SceneProps = {
   site: ShowcaseSite;
   index: number;
-  current: boolean;
   deviceClass: ShowcaseDeviceClass;
-  /** Phase of THIS site (idle unless it owns the live demo). */
+  /** Phase of the current site (idle unless it owns the live demo). */
   phase: "idle" | "connecting" | "live";
   /** Surface the live demo runs on (only meaningful while phase ≠ idle). */
   surface: ShowcaseSurface;
@@ -609,7 +681,6 @@ type SceneProps = {
 function ShowcaseScene({
   site,
   index,
-  current,
   deviceClass,
   phase,
   surface,
@@ -626,6 +697,8 @@ function ShowcaseScene({
 }: SceneProps) {
   const screenRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
+  const windowDeviceRef = useRef<HTMLDivElement>(null);
+  const phoneDeviceRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState<"desktop" | "mobile">("desktop");
   // The connect attempt (frame nonce) whose patience timer has elapsed; every
   // activation/restart bumps the nonce, so the hint derives per attempt
@@ -640,13 +713,13 @@ function ShowcaseScene({
   const frameStyle = useEmbedScale(screenRef, mountFrame, logicalWidth);
 
   useEffect(() => {
-    if (windowPhase !== "connecting") {
+    if (phase !== "connecting") {
       return undefined;
     }
     const timer = window.setTimeout(() => setSlowAttempt(frameNonce), SLOW_CONNECT_MS);
     return () => window.clearTimeout(timer);
-  }, [windowPhase, frameNonce]);
-  const slowConnect = windowPhase === "connecting" && slowAttempt === frameNonce;
+  }, [phase, frameNonce]);
+  const slowConnect = phase === "connecting" && slowAttempt === frameNonce;
 
   const status =
     windowPhase === "live"
@@ -654,11 +727,6 @@ function ShowcaseScene({
       : windowPhase === "connecting"
         ? "Connecting"
         : "Standby";
-
-  const tintStyle = {
-    "--demo-tint": site.tint,
-    "--demo-tint-2": site.tintSecondary,
-  } as MotionStyle;
 
   const handleLoad = () => {
     const firstLoad = windowPhase === "connecting";
@@ -678,26 +746,14 @@ function ShowcaseScene({
     }
   };
 
-  const startTour = (id: ShowcaseSiteId) => {
-    // The tour lives on the phone: bring it to the foreground in the same
-    // action so the walkthrough is never playing behind the window.
-    setView("mobile");
-    onActivate(id, "phone");
-    window.requestAnimationFrame(() => {
-      screenRef.current
-        ?.closest(".ss-folio-scene")
-        ?.querySelector<HTMLButtonElement>(`[data-tour-stop="${id}"]`)
-        ?.focus({ preventScroll: true });
-    });
-  };
-
   const composed = deviceClass !== "mobile";
   const windowFront = view === "desktop";
   const orbit = composed && !reducedMotion;
 
   // 0 = window in front, 1 = phone in front. One driver, both devices.
   const orbitProgress = useMotionValue(windowFront ? 0 : 1);
-  const phoneOrbit = usePhoneOrbit(orbitProgress);
+  const orbitOutPx = useRef(0);
+  const phoneOrbit = usePhoneOrbit(orbitProgress, orbitOutPx);
   const windowOrbit = useWindowOrbit(orbitProgress);
   // Devices are untouchable mid-flight: a control sliding under the pointer is
   // never a control the visitor aimed at.
@@ -716,9 +772,14 @@ function ShowcaseScene({
       setOrbiting(false);
       return undefined;
     }
+    const windowEl = windowDeviceRef.current;
+    const phoneEl = phoneDeviceRef.current;
+    if (windowEl && phoneEl) {
+      orbitOutPx.current = measureOrbitOutPx(windowEl, phoneEl);
+    }
     setOrbiting(true);
     // Re-targeting from wherever the arc currently is: a mid-flight reversal
-    // rejoins the same ellipse instead of stacking a second animation.
+    // rejoins the same turntable instead of stacking a second animation.
     const controls = animate(orbitProgress, target, {
       ...ORBIT_TRANSITION,
       onComplete: () => setOrbiting(false),
@@ -726,41 +787,70 @@ function ShowcaseScene({
     return () => controls.stop();
   }, [orbit, windowFront, orbitProgress]);
 
+  // Interpolating the tint variables per frame morphs every derived colour
+  // (chips, dots, active pills, glows, beams) between the client palettes in
+  // place — one interface transforming into the other, never a slide.
+  const tintTarget = {
+    "--demo-tint": site.tint,
+    "--demo-tint-2": site.tintSecondary,
+  } as unknown as TargetAndTransition;
+
   return (
     <m.article
       className="ss-folio-scene"
       data-demo={site.id}
       data-config-slot={site.configSlot}
       data-phase={phase}
-      data-current={current || undefined}
+      data-current
       data-view={view}
-      style={tintStyle}
-      inert={!current}
+      initial={false}
+      animate={tintTarget}
+      transition={
+        reducedMotion ? { duration: 0 } : { duration: 0.7, ease: "easeInOut" }
+      }
       aria-label={`Project ${String(index + 1)} of ${String(SCENE_COUNT)}: ${site.name}`}
     >
       <div className="ss-folio-scene__inner">
-        <span className="ss-folio-scene__ghost" aria-hidden="true">
-          {String(index + 1).padStart(2, "0")}
+        <span className="ss-folio-scene__ghost ss-folio-stack" aria-hidden="true">
+          {sites.map((entry, entryIndex) => (
+            <span
+              key={entry.id}
+              className="ss-folio-morph"
+              data-active={entry.id === site.id}
+            >
+              {String(entryIndex + 1).padStart(2, "0")}
+            </span>
+          ))}
         </span>
 
-        <Reveal kind="section" className="ss-folio-scene__intro">
-          <header>
-            <p className="ss-folio-scene__eyebrow">
-              <span className="ss-folio-scene__dot" aria-hidden="true" />
-              <strong>{site.name}</strong>
-              <span className="ss-folio-scene__sector">{site.sector}</span>
-            </p>
-            <h3 className="ss-folio-scene__headline">{site.headline}</h3>
-            <p className="ss-folio-scene__line">{site.line}</p>
-          </header>
-          <ul className="ss-folio-scene__chips">
-            {site.chips.map((chip) => (
-              <li key={chip.label}>
-                <chip.icon aria-hidden="true" />
-                {chip.label}
-              </li>
-            ))}
-          </ul>
+        <Reveal kind="section" className="ss-folio-scene__intro ss-folio-stack">
+          {sites.map((entry) => (
+            <div
+              key={entry.id}
+              className="ss-folio-scene__intro-layer ss-folio-morph"
+              data-active={entry.id === site.id}
+              inert={entry.id !== site.id}
+              aria-hidden={entry.id !== site.id}
+            >
+              <header>
+                <p className="ss-folio-scene__eyebrow">
+                  <span className="ss-folio-scene__dot" aria-hidden="true" />
+                  <strong>{entry.name}</strong>
+                  <span className="ss-folio-scene__sector">{entry.sector}</span>
+                </p>
+                <h3 className="ss-folio-scene__headline">{entry.headline}</h3>
+                <p className="ss-folio-scene__line">{entry.line}</p>
+              </header>
+              <ul className="ss-folio-scene__chips">
+                {entry.chips.map((chip) => (
+                  <li key={chip.label}>
+                    <chip.icon aria-hidden="true" />
+                    {chip.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </Reveal>
 
         {/* Console row — between the copy and the demo on every breakpoint:
@@ -822,9 +912,17 @@ function ShowcaseScene({
             <ArrowUpRight aria-hidden="true" />
           </a>
           <p className="ss-folio-scene__meta">
-            <span>
-              {String(index + 1).padStart(2, "0")} /{" "}
-              {String(SCENE_COUNT).padStart(2, "0")}
+            <span className="ss-folio-stack">
+              {sites.map((entry, entryIndex) => (
+                <span
+                  key={entry.id}
+                  className="ss-folio-morph"
+                  data-active={entry.id === site.id}
+                >
+                  {String(entryIndex + 1).padStart(2, "0")} /{" "}
+                  {String(SCENE_COUNT).padStart(2, "0")}
+                </span>
+              ))}
             </span>
             <span aria-hidden="true">·</span>
             <span>Live production build</span>
@@ -833,6 +931,7 @@ function ShowcaseScene({
 
         <div className="ss-folio-scene__stage" data-orbiting={orbiting || undefined}>
           <m.div
+            ref={windowDeviceRef}
             className="ss-folio-device ss-folio-device--window"
             data-plane={!composed || windowFront ? "front" : "back"}
             inert={composed && !windowFront}
@@ -866,7 +965,17 @@ function ShowcaseScene({
                   </span>
                   <span className="ss-folio-window__addr">
                     <Globe aria-hidden="true" />
-                    <span className="ss-folio-window__addr-domain">{site.domain}</span>
+                    <span className="ss-folio-window__addr-domain ss-folio-stack">
+                      {sites.map((entry) => (
+                        <span
+                          key={entry.id}
+                          className="ss-folio-morph"
+                          data-active={entry.id === site.id}
+                        >
+                          {entry.domain}
+                        </span>
+                      ))}
+                    </span>
                   </span>
                   <span
                     className="ss-folio-window__status"
@@ -919,17 +1028,22 @@ function ShowcaseScene({
                   }}
                   className="ss-folio-window__screen"
                 >
-                  <img
-                    className="ss-folio-window__poster"
-                    src={site.desktopPoster.src}
-                    srcSet={site.desktopPoster.srcSet}
-                    sizes="(min-width: 64rem) 92vw, 94vw"
-                    width={site.desktopPoster.width}
-                    height={site.desktopPoster.height}
-                    alt={site.desktopPoster.alt}
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  {sites.map((entry) => (
+                    <img
+                      key={entry.id}
+                      className="ss-folio-window__poster ss-folio-morph"
+                      data-active={entry.id === site.id}
+                      aria-hidden={entry.id !== site.id || undefined}
+                      src={entry.desktopPoster.src}
+                      srcSet={entry.desktopPoster.srcSet}
+                      sizes="(min-width: 64rem) 92vw, 94vw"
+                      width={entry.desktopPoster.width}
+                      height={entry.desktopPoster.height}
+                      alt={entry.desktopPoster.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ))}
 
                   {mountFrame && frameStyle ? (
                     <iframe
@@ -962,7 +1076,7 @@ function ShowcaseScene({
                         Activate live demo
                       </span>
                       <span className="ss-folio-window__activate-sub">
-                        {idlePaused && current
+                        {idlePaused && surface === "window"
                           ? "Paused after inactivity — pick up where you left off"
                           : "Browse the real website right here"}
                       </span>
@@ -997,6 +1111,7 @@ function ShowcaseScene({
           </m.div>
 
           <m.div
+            ref={phoneDeviceRef}
             className="ss-folio-device ss-folio-device--phone"
             data-plane={!composed || !windowFront ? "front" : "back"}
             inert={composed && windowFront}
@@ -1011,16 +1126,17 @@ function ShowcaseScene({
             }}
           >
             <Reveal kind="card" delayMs={150}>
-              <WalkthroughPhone
+              <MobileDemoPhone
                 site={site}
-                tour={walkthroughSite(site.id)}
                 deviceClass={deviceClass}
                 phase={phonePhase}
+                idlePaused={idlePaused && surface === "phone"}
                 frameNonce={frameNonce}
-                reducedMotion={reducedMotion}
-                onStartTour={startTour}
-                onStopTour={onStandby}
-                onEnded={onStandby}
+                slowConnect={slowConnect && surface === "phone"}
+                frameHolderRef={frameHolderRef}
+                onActivate={onActivate}
+                onRestart={onRestart}
+                onStandby={onStandby}
                 onLoaded={onLoaded}
               />
             </Reveal>
@@ -1035,47 +1151,31 @@ function ShowcaseScene({
 
 export function BrowserShowcase(): ReactNode {
   const folioRef = useRef<HTMLDivElement>(null);
-  const railRef = useRef<HTMLDivElement>(null);
   const frameHolderRef = useRef<HTMLDivElement>(null);
   const deviceClass = useDeviceClass();
   const reducedMotion = useReducedMotion() ?? false;
   const [state, dispatch] = useReducer(showcaseReducer, initialShowcaseState);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const selectScene = useCallback(
-    (index: number) => {
-      const clamped = Math.min(SCENE_COUNT - 1, Math.max(0, index));
-      const target = sites[clamped];
-      if (!target) {
-        return;
-      }
-      // Switching scenes makes the outgoing scene inert, which would silently
-      // drop keyboard focus to <body>; carry it to the same control in the
-      // incoming scene instead.
-      const hadFocus = railRef.current?.contains(document.activeElement) ?? false;
-      setCurrentIndex(clamped);
-      dispatch({ type: "scene-change", site: target.id });
-      if (hadFocus) {
-        window.requestAnimationFrame(() => {
-          folioRef.current
-            ?.querySelector<HTMLButtonElement>(
-              `.ss-folio-scene[data-demo="${target.id}"] [data-scene-switch="${target.id}"]`,
-            )
-            ?.focus({ preventScroll: true });
-        });
-      }
-    },
-    [dispatch],
-  );
+  const selectScene = useCallback((index: number) => {
+    const clamped = Math.min(SCENE_COUNT - 1, Math.max(0, index));
+    const target = sites[clamped];
+    if (!target) {
+      return;
+    }
+    setCurrentIndex(clamped);
+    dispatch({ type: "scene-change", site: target.id });
+  }, []);
 
   useEffect(() => {
     dispatch({ type: "device-class", deviceClass });
   }, [deviceClass]);
 
-  // The window embed times out after sustained inactivity; the phone
-  // walkthrough is excluded — it always terminates itself.
+  // A live embed times out after sustained inactivity, whichever device
+  // surface it runs on; the frame holder ref always points at the screen
+  // that holds the live frame.
   useShowcaseIdleTimeout({
-    active: state.activeSite !== null && state.surface === "window",
+    active: state.activeSite !== null,
     sectionRef: folioRef,
     frameHolderRef,
     onTimeout: useCallback(() => dispatch({ type: "idle-timeout" }), []),
@@ -1108,7 +1208,7 @@ export function BrowserShowcase(): ReactNode {
         folioRef.current
           ?.querySelector<HTMLButtonElement>(
             surface === "phone"
-              ? `[data-tour="${active}"]`
+              ? `[data-activate-phone="${active}"]`
               : `[data-activate="${active}"]`,
           )
           ?.focus({ preventScroll: true });
@@ -1129,6 +1229,11 @@ export function BrowserShowcase(): ReactNode {
     [standby, state.activeSite],
   );
 
+  const currentSite = sites[currentIndex] ?? sites[0];
+  if (!currentSite) {
+    return null;
+  }
+
   return (
     <div
       ref={folioRef}
@@ -1136,43 +1241,23 @@ export function BrowserShowcase(): ReactNode {
       data-device={deviceClass}
       onKeyDown={onSectionKeyDown}
     >
-      <div className="ss-folio__stage">
-        <m.div
-          ref={railRef}
-          className="ss-folio__rail"
-          initial={false}
-          animate={{ x: `${String(-currentIndex * 100)}%` }}
-          transition={
-            reducedMotion
-              ? { duration: 0 }
-              : { duration: 0.65, ease: [0.22, 1, 0.36, 1] }
-          }
-        >
-          {sites.map((site, index) => (
-            <ShowcaseScene
-              key={site.id}
-              site={site}
-              index={index}
-              current={index === currentIndex}
-              deviceClass={deviceClass}
-              phase={state.activeSite === site.id ? state.phase : "idle"}
-              surface={state.surface}
-              idlePaused={state.idlePaused}
-              frameNonce={state.frameNonce}
-              reducedMotion={reducedMotion}
-              frameHolderRef={frameHolderRef}
-              onActivate={activate}
-              onLoaded={(id) => dispatch({ type: "loaded", site: id })}
-              onRestart={(id) => dispatch({ type: "restart", site: id })}
-              onStandby={standby}
-              onViewChange={(id, focus) =>
-                dispatch({ type: "view-change", site: id, focus })
-              }
-              onSelectScene={selectScene}
-            />
-          ))}
-        </m.div>
-      </div>
+      <ShowcaseScene
+        site={currentSite}
+        index={currentIndex}
+        deviceClass={deviceClass}
+        phase={state.activeSite === currentSite.id ? state.phase : "idle"}
+        surface={state.surface}
+        idlePaused={state.idlePaused}
+        frameNonce={state.frameNonce}
+        reducedMotion={reducedMotion}
+        frameHolderRef={frameHolderRef}
+        onActivate={activate}
+        onLoaded={(id) => dispatch({ type: "loaded", site: id })}
+        onRestart={(id) => dispatch({ type: "restart", site: id })}
+        onStandby={standby}
+        onViewChange={(id, focus) => dispatch({ type: "view-change", site: id, focus })}
+        onSelectScene={selectScene}
+      />
     </div>
   );
 }

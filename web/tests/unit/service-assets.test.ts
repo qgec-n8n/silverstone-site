@@ -110,8 +110,8 @@ describe("service demo surfaces", () => {
 describe("live website showcase", () => {
   const showcasePath = "src/features/services-v2/demos/browser-showcase.tsx";
   const showcase = readFileSync(resolve(process.cwd(), showcasePath), "utf8");
-  // Embed/link targets live in the shared config the walkthrough generator
-  // also reads; the component must render from it, never from its own URLs.
+  // Embed/link targets live in the shared config; the component must render
+  // from it, never from its own URLs.
   const sitesPath = "src/features/services-v2/demos/showcase-sites.json";
   const sitesJson = readFileSync(resolve(process.cwd(), sitesPath), "utf8");
 

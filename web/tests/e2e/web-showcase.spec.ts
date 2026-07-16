@@ -1,17 +1,17 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("web design live showcase", () => {
-  test("cancelling a guided phone tour preserves the host scroll position", async ({
+  test("standing the phone's mobile demo down preserves scroll and focus", async ({
     page,
   }, testInfo) => {
     test.skip(testInfo.project.name !== "desktop-chromium");
 
     // The production demos only allow Silverstone's production origin to frame
-    // them. Fulfil the tour request locally so this regression check exercises
+    // them. Fulfil the embed request locally so this regression check exercises
     // the host lifecycle without depending on external CSP or network timing.
     await page.route("https://ownly-housing.netlify.app/**", async (route) => {
       await route.fulfill({
-        body: "<!doctype html><html><body style='min-height:12040px'>Tour page</body></html>",
+        body: "<!doctype html><html><body style='min-height:12040px'>Mobile page</body></html>",
         contentType: "text/html",
         status: 200,
       });
@@ -26,43 +26,45 @@ test.describe("web design live showcase", () => {
     const mobile = scene.getByRole("button", { name: "Mobile", exact: true });
     await mobile.click();
     await expect(mobile).toHaveAttribute("aria-pressed", "true");
+    // The devices are untouchable mid-orbit; wait for them to settle.
+    await expect(scene.locator(".ss-folio-scene__stage")).not.toHaveAttribute(
+      "data-orbiting",
+      "true",
+    );
 
-    const play = scene.getByRole("button", {
-      name: "Play the Ownly Housing guided mobile tour",
-      exact: true,
-    });
-    await play.scrollIntoViewIfNeeded();
-    const playBox = await play.boundingBox();
-    expect(playBox).not.toBeNull();
-    if (!playBox) {
+    const activate = scene.locator('[data-activate-phone="ownly-housing"]');
+    await activate.scrollIntoViewIfNeeded();
+    const activateBox = await activate.boundingBox();
+    expect(activateBox).not.toBeNull();
+    if (!activateBox) {
       return;
     }
     await page.mouse.click(
-      playBox.x + playBox.width / 2,
-      playBox.y + playBox.height / 2,
+      activateBox.x + activateBox.width / 2,
+      activateBox.y + activateBox.height / 2,
     );
 
     await expect(scene).toHaveAttribute("data-phase", "live");
     await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(1);
     const beforeCancel = await page.evaluate(() => window.scrollY);
 
-    const stop = scene.getByRole("button", {
-      name: "Stop the Ownly Housing guided tour",
+    const standby = scene.getByRole("button", {
+      name: "Return the Ownly Housing demo to standby",
       exact: true,
     });
-    const stopBox = await stop.boundingBox();
-    expect(stopBox).not.toBeNull();
-    if (!stopBox) {
+    const standbyBox = await standby.boundingBox();
+    expect(standbyBox).not.toBeNull();
+    if (!standbyBox) {
       return;
     }
     await page.mouse.click(
-      stopBox.x + stopBox.width / 2,
-      stopBox.y + stopBox.height / 2,
+      standbyBox.x + standbyBox.width / 2,
+      standbyBox.y + standbyBox.height / 2,
     );
 
     await expect(scene).toHaveAttribute("data-phase", "idle");
     await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(0);
-    await expect(play).toBeFocused();
+    await expect(activate).toBeFocused();
     expect(await page.evaluate(() => window.scrollY)).toBe(beforeCancel);
   });
 

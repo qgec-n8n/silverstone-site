@@ -21,6 +21,7 @@ import type { RouteArt } from "../content/route-art";
 import {
   AnimatedMetricValue,
   BorderBeam,
+  PanelReveal,
   Prose,
   Reveal,
   RichText,
@@ -98,7 +99,7 @@ export function BenchmarkConsole({
   clarification?: string;
 }) {
   return (
-    <div className="ss-srv2-bench ss-srv2-beam-border">
+    <PanelReveal className="ss-srv2-bench ss-srv2-beam-border">
       <Reveal kind="pill">
         <span className="ss-srv2-bench__tag">
           <ShieldCheck aria-hidden="true" />
@@ -127,7 +128,7 @@ export function BenchmarkConsole({
         <p className="ss-srv2-bench__disclaimer">{clarification}</p>
       </Reveal>
       <BorderBeam />
-    </div>
+    </PanelReveal>
   );
 }
 
@@ -197,7 +198,7 @@ export function FinalCta({
   bookHref?: string;
 }) {
   return (
-    <div className="ss-srv2-cta">
+    <PanelReveal className="ss-srv2-cta">
       <Reveal kind="section">
         <h2 className="ss-srv2-cta__title">
           <RichText text={heading} />
@@ -216,7 +217,7 @@ export function FinalCta({
           <p className="ss-srv2-cta__reassurance">{reassurance}</p>
         </Reveal>
       ) : null}
-    </div>
+    </PanelReveal>
   );
 }
 
