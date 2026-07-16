@@ -90,7 +90,10 @@ export function DemosLauncher() {
     };
   }, [open]);
 
-  if (isGateFreeRoute(location.pathname) && !location.pathname.startsWith("/blog/")) {
+  if (
+    location.pathname === "/book" ||
+    (isGateFreeRoute(location.pathname) && !location.pathname.startsWith("/blog/"))
+  ) {
     return null;
   }
 

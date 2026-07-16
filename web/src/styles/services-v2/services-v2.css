@@ -3144,7 +3144,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   transition: border-color 0.4s ease;
 }
 
-.ss-folio-scene[data-phase="live"] .ss-folio-window {
+.ss-folio-window[data-phase="live"] {
   border-color: color-mix(in srgb, var(--demo-tint) 30%, var(--srv2-hairline));
 }
 
@@ -3314,7 +3314,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   object-position: top center;
 }
 
-.ss-folio-scene[data-phase="live"] .ss-folio-window__visual {
+.ss-folio-window[data-phase="live"] .ss-folio-window__visual {
   visibility: hidden;
 }
 
@@ -3499,6 +3499,25 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   border-radius: 999px;
   border: 1px solid rgb(255 255 255 / 0.05);
   background: var(--ss-v2-void-black);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.38);
+  transition:
+    width 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.42s ease,
+    box-shadow 0.42s ease;
+}
+
+/* Like a restrained Dynamic Island, the sensor contracts when its two live
+   controls arrive. This preserves a clean physical gap even at the narrowest
+   composed-phone size rather than letting chrome collide. */
+.ss-folio-phone:is([data-phase="connecting"], [data-phase="live"])
+  .ss-folio-phone__island {
+  width: 3rem;
+  transform: translateX(-74%);
+  border-color: color-mix(in srgb, var(--demo-tint-2) 14%, transparent);
+  box-shadow:
+    0 3px 10px rgb(0 0 0 / 0.42),
+    0 0 12px color-mix(in srgb, var(--demo-tint) 10%, transparent);
 }
 
 .ss-folio-phone__screen {
@@ -3729,20 +3748,62 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   text-shadow: 0 1px 10px rgb(0 0 0 / 0.9);
 }
 
-/* Live-demo controls: restart + standby, floated clear of the site's own
-   header but always reachable — the same contract as the window bar's. */
+/* Live-demo controls: restart + standby, inset into the physical sensor band
+   rather than floated over the client's website. The restrained black-chrome
+   treatment reads as part of the handset while keeping the controls distinct
+   from the sensor island and fully keyboard reachable. */
 .ss-folio-phone__ctls {
   position: absolute;
-  top: calc(9px + 2.1rem);
-  right: calc(9px + 0.55rem);
-  z-index: 5;
+  top: 0.1875rem;
+  right: 0.32rem;
+  z-index: 6;
   display: flex;
-  gap: 0.4rem;
+  gap: 0.18rem;
 }
 
 .ss-folio-phone__ctls .ss-folio-window__ctl {
-  background: color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
-  backdrop-filter: blur(8px);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  border-color: color-mix(in srgb, var(--ss-v2-chrome) 16%, transparent);
+  color: color-mix(in srgb, var(--ss-v2-chrome) 72%, transparent);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--ss-v2-chrome) 10%, transparent),
+      transparent 42%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 88%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.09),
+    0 3px 10px rgb(0 0 0 / 0.45);
+  backdrop-filter: blur(10px) saturate(1.15);
+}
+
+.ss-folio-phone__ctls .ss-folio-window__ctl:last-child {
+  border-color: color-mix(in srgb, var(--demo-tint) 30%, transparent);
+  color: color-mix(in srgb, var(--demo-tint-2) 62%, var(--ss-v2-chrome));
+}
+
+.ss-folio-phone__ctls .ss-folio-window__ctl:hover,
+.ss-folio-phone__ctls .ss-folio-window__ctl:focus-visible {
+  border-color: color-mix(in srgb, var(--demo-tint-2) 54%, transparent);
+  color: var(--ss-v2-chrome);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--demo-tint-2) 22%, transparent),
+      transparent 48%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 84%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    0 0 12px color-mix(in srgb, var(--demo-tint) 24%, transparent);
+}
+
+.ss-folio-phone__ctls .ss-folio-window__ctl svg {
+  width: 0.65rem;
+  height: 0.65rem;
 }
 
 .ss-folio-phone__tag {
@@ -3870,6 +3931,14 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     padding-block: 0;
   }
 
+  /* The foreground phone scales about its lower body and bows down during
+     the orbit. A dedicated clip-safe apron keeps its complete lower shell in
+     view without relaxing the rail's horizontal mask or exposing a neighbour
+     project's off-screen devices. */
+  .ss-folio-device-viewport {
+    padding-block-end: 2.5rem;
+  }
+
   /* The window keeps a breathing band on the right where the resting phone
      peeks out from behind its edge. */
   .ss-folio-device--window {
@@ -3881,7 +3950,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     right: 0;
     bottom: 0.75rem;
     width: clamp(10.5rem, 21vw, 13rem);
-    transform-origin: 50% 62%;
+    transform-origin: 50% 92%;
   }
 }
 

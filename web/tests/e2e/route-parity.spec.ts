@@ -108,7 +108,7 @@ test("rebuilt contact route renders a staging-safe enquiry form", async ({ page 
   await expect(page.getByRole("button", { name: "Continue" })).toBeVisible();
 });
 
-test("rebuilt book route exposes Calendly destination without embedding live booking", async ({
+test("rebuilt book route exposes the native staging-safe booking console", async ({
   page,
 }) => {
   await page.goto("/book");
@@ -118,8 +118,15 @@ test("rebuilt book route exposes Calendly destination without embedding live boo
     page.getByRole("heading", { name: "Book a 30-minute discovery call" }),
   ).toBeVisible();
   await expect(page.locator("main iframe")).toHaveCount(0);
+  await expect(page.getByTestId("booking-shell")).toHaveAttribute(
+    "data-booking-mode",
+    "mock",
+  );
   await expect(
-    page.getByText("Production scheduler: https://calendly.com/silverstone-ai/30min"),
+    page.getByRole("navigation", { name: "Booking progress" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Frame the call in under a minute" }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "Contact instead" })).toHaveAttribute(
     "href",

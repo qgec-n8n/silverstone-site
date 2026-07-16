@@ -253,6 +253,15 @@
 
 ## Unresolved Risks And Evidence Gaps
 
+### 2026-07-16 native booking update
+
+- `/web` now owns a native Qualify → Date & time → Your details → Confirmed flow; the Calendly iframe, postMessage height tracking, embed constants, connection warm-up, and Calendly frame CSP allowance are removed.
+- Live availability and invitee creation are isolated in same-origin Netlify Functions. The functions read only server-side `CALENDLY_API_TOKEN` and optional `CALENDLY_EVENT_TYPE_URI`, resolve the preserved public event type, recheck the selected slot, and return reduced safe response shapes.
+- The application cache unit is exactly 42 days and the current upstream maximum is represented as 31-day chunks, producing a 31-day plus 11-day pair for one application window.
+- Staging uses deterministic mock availability and booking responses; no provider credential was configured or exercised and no real appointment was created.
+- The booking shell uses stable breakpoint heights, retains the calendar while the time list scrolls independently, and has fresh desktop/mobile Playwright assertions across validation, submission, and confirmation.
+- Production Calendly account plan, token scopes, event-type custom questions, location configuration, availability, and real invitee creation remain externally unverified.
+
 - No authenticated Netlify, DNS, analytics, Search Console, Resend, Calendly, or production environment control-plane access was used.
 - No production form submission, email send, Calendly booking, analytics verification, deployment, or DNS verification was performed.
 - Fresh live route and redirect crawl still required before any cutover or redirect edit.

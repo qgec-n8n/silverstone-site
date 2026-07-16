@@ -696,31 +696,33 @@ function MobileDemoPhone({
           ) : null}
         </div>
         {browserBar}
+
+        {interactive && phase !== "idle" ? (
+          <div className="ss-folio-phone__ctls" data-phone-controls>
+            <button
+              type="button"
+              className="ss-focus-ring ss-folio-window__ctl"
+              onClick={() => onRestart(site.id)}
+              aria-label={`Restart the ${site.name} mobile demo`}
+              title="Restart demo"
+            >
+              <RotateCcw aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className="ss-focus-ring ss-folio-window__ctl"
+              data-phone-standby={site.id}
+              onClick={onStandby}
+              aria-label={`Return the ${site.name} demo to standby`}
+              title="Return to standby"
+            >
+              <Power aria-hidden="true" />
+            </button>
+          </div>
+        ) : null}
       </div>
 
-      {interactive && phase !== "idle" ? (
-        <div className="ss-folio-phone__ctls">
-          <button
-            type="button"
-            className="ss-focus-ring ss-folio-window__ctl"
-            onClick={() => onRestart(site.id)}
-            aria-label={`Restart the ${site.name} mobile demo`}
-            title="Restart demo"
-          >
-            <RotateCcw aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            className="ss-focus-ring ss-folio-window__ctl"
-            data-phone-standby={site.id}
-            onClick={onStandby}
-            aria-label={`Return the ${site.name} demo to standby`}
-            title="Return to standby"
-          >
-            <Power aria-hidden="true" />
-          </button>
-        </div>
-      ) : interactive ? (
+      {interactive && phase === "idle" ? (
         <span className="ss-folio-phone__tag" aria-hidden="true">
           Mobile · live demo
         </span>

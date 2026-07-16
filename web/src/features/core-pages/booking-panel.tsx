@@ -1,287 +1,341 @@
-/**
- * Booking panel for /book. Embeds the repository's real production Calendly
- * destination (the same URL referenced in the approved content registry's
- * book interaction) directly in-page via iframe — no external tab, no
- * fabricated calendar-grid mockup with invented "available" days.
- *
- * Calendly's own booking surface is white and can't be restyled from
- * outside, so instead of fighting it the scheduler is presented as a
- * deliberate "screen": a white pane set into the dark card behind a
- * luminous cyan→violet ring, with a console rail above it and the
- * light-theme embed params matching the pane so widget and pane read as
- * one seamless sheet — no grey frame, no box-in-a-box.
- *
- * The console rail carries a live three-step trace (Time → Details →
- * Confirmed) driven by Calendly's own postMessage interaction events
- * (`calendly.date_and_time_selected`, `calendly.event_scheduled`), so the
- * dark chrome visibly responds to what happens inside the white sheet.
- */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
-import { CalendarCheck, MessageSquare } from "~/components/icons/lucide";
-import { OrbitalLoader } from "~/components/ui/orbital-loader";
 import {
-  CALENDLY_ORIGIN,
-  CALENDLY_PUBLIC_URL,
-  CALENDLY_URL,
-} from "~/features/core-pages/calendly";
+  ArrowLeft,
+  ArrowRight,
+  CalendarCheck,
+  Check,
+  MessageSquare,
+  ShieldCheck,
+} from "~/components/icons/lucide";
+import { Button } from "~/components/ui/button";
+import { submitBooking } from "~/features/booking/booking-api";
+import { AvailabilityStage } from "~/features/booking/availability-stage";
+import { BookingProgress } from "~/features/booking/booking-progress";
+import { ConfirmationStage } from "~/features/booking/confirmation-stage";
+import { DetailsStage, type DetailErrors } from "~/features/booking/details-stage";
+import { QualificationStage } from "~/features/booking/qualification-stage";
+import {
+  EMPTY_DETAILS,
+  EMPTY_QUALIFICATION,
+  qualificationIsComplete,
+  type AvailabilitySlot,
+  type BookingConfirmation,
+  type BookingDetails,
+  type BookingMode,
+  type BookingStage,
+  type QualificationAnswers,
+} from "~/features/booking/booking-types";
 import { BorderBeam } from "~/features/services-v2/components/primitives";
 import { getPublicEnvironment } from "~/lib/environment";
 
-/**
- * Calendly reports its internal page height via `calendly.page_height`
- * postMessage events — one per step (event view → time picker → details
- * form), each a different height. The pane tracks those reports so the white
- * sheet always fits the current Calendly page exactly: no dead white space,
- * no internal scrollbar. During load Calendly emits bogus 2–26px reports, so
- * anything under the floor is ignored; the ceiling guards against a
- * malformed report stretching the page.
- */
-const MIN_FRAME_HEIGHT = 480;
-const MAX_FRAME_HEIGHT = 1600;
-
-type BookingStage = "time" | "details" | "confirmed";
-
-const BOOKING_STEPS: { id: BookingStage; label: string }[] = [
-  { id: "time", label: "Time" },
-  { id: "details", label: "Details" },
-  { id: "confirmed", label: "Confirmed" },
-];
-
-const STAGE_ORDER: Record<BookingStage, number> = {
-  time: 0,
-  details: 1,
-  confirmed: 2,
+const STAGE_ANNOUNCEMENTS: Record<BookingStage, string> = {
+  qualify: "Step 1 of 4. Qualify the discovery call.",
+  schedule: "Step 2 of 4. Choose a date and time.",
+  details: "Step 3 of 4. Enter your details.",
+  confirmed: "Step 4 of 4. Booking confirmed.",
 };
 
-function parseCalendlyEvent(event: MessageEvent): string | null {
-  if (event.origin !== CALENDLY_ORIGIN) {
-    return null;
-  }
-  const data: unknown = event.data;
-  if (typeof data !== "object" || data === null) {
-    return null;
-  }
-  const name = (data as { event?: unknown }).event;
-  return typeof name === "string" ? name : null;
+function createIdempotencyKey(): string {
+  if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
+  return `booking-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
 }
 
-function useCalendlyFrameHeight(enabled: boolean): number | null {
-  const [height, setHeight] = useState<number | null>(null);
+function validateDetails(value: BookingDetails): DetailErrors {
+  const errors: DetailErrors = {};
+  if (!value.name.trim()) errors.name = "Enter your name.";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/u.test(value.email.trim())) {
+    errors.email = "Enter a valid email address.";
+  }
+  if (!value.acknowledged) {
+    errors.acknowledged = "Please confirm the booking acknowledgement.";
+  }
+  return errors;
+}
+
+export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
+  const bookingMode = mode ?? getPublicEnvironment().bookingMode;
+  const reducedMotion = useReducedMotion() ?? false;
+  const [stage, setStage] = useState<BookingStage>("qualify");
+  const [qualification, setQualification] =
+    useState<QualificationAnswers>(EMPTY_QUALIFICATION);
+  const [details, setDetails] = useState<BookingDetails>(EMPTY_DETAILS);
+  const [selectedSlot, setSelectedSlot] = useState<AvailabilitySlot | null>(null);
+  const [timeZone, setTimeZone] = useState(() => {
+    if (typeof window === "undefined") return "Europe/London";
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || "Europe/London";
+  });
+  const [qualificationError, setQualificationError] = useState("");
+  const [scheduleError, setScheduleError] = useState("");
+  const [detailErrors, setDetailErrors] = useState<DetailErrors>({});
+  const [submitError, setSubmitError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [confirmation, setConfirmation] = useState<BookingConfirmation | null>(null);
+  const hasMounted = useRef(false);
+  const idempotencyKey = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!enabled) {
-      return undefined;
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
     }
-    const onMessage = (event: MessageEvent) => {
-      if (parseCalendlyEvent(event) !== "calendly.page_height") {
+    const frame = requestAnimationFrame(() => {
+      document.getElementById("booking-stage-heading")?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [stage]);
+
+  const goToStage = (nextStage: BookingStage) => {
+    if (stage === "confirmed") return;
+    setQualificationError("");
+    setScheduleError("");
+    setSubmitError("");
+    setStage(nextStage);
+  };
+
+  const continueFromQualification = () => {
+    if (!qualificationIsComplete(qualification)) {
+      setQualificationError(
+        "Choose at least one service, then select an industry, budget and timing.",
+      );
+      return;
+    }
+    setQualificationError("");
+    setStage("schedule");
+  };
+
+  const continueFromSchedule = () => {
+    if (!selectedSlot) {
+      setScheduleError("Select an available date and time to continue.");
+      return;
+    }
+    setScheduleError("");
+    setStage("details");
+  };
+
+  const book = async () => {
+    const errors = validateDetails(details);
+    setDetailErrors(errors);
+    if (Object.keys(errors).length > 0 || !selectedSlot || submitting) return;
+
+    setSubmitting(true);
+    setSubmitError("");
+    idempotencyKey.current ??= createIdempotencyKey();
+    try {
+      const response = await submitBooking(
+        bookingMode,
+        {
+          startTime: selectedSlot.startTime,
+          timezone: timeZone,
+          qualification,
+          details,
+        },
+        idempotencyKey.current,
+      );
+      if (!response.ok) {
+        if (response.error.code === "SLOT_UNAVAILABLE") {
+          setSelectedSlot(null);
+          setScheduleError(response.error.message);
+          setStage("schedule");
+          idempotencyKey.current = null;
+          return;
+        }
+        setSubmitError(response.error.message);
+        if (!response.error.retryable) idempotencyKey.current = null;
         return;
       }
-      const raw = (event.data as { payload?: { height?: unknown } }).payload?.height;
-      const parsed = typeof raw === "string" ? Number.parseInt(raw, 10) : NaN;
-      if (Number.isNaN(parsed) || parsed < MIN_FRAME_HEIGHT) {
-        return;
-      }
-      setHeight(Math.min(parsed, MAX_FRAME_HEIGHT));
-    };
-
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
-  }, [enabled]);
-
-  return height;
-}
-
-/**
- * Live booking stage, advanced by Calendly's interaction events. Only ever
- * moves forward — Calendly re-emits view events when the visitor pages back,
- * but a locked-in time shouldn't visually regress the trace, and a completed
- * booking is terminal.
- */
-function useBookingStage(enabled: boolean): BookingStage {
-  const [stage, setStage] = useState<BookingStage>("time");
-
-  useEffect(() => {
-    if (!enabled) {
-      return undefined;
+      setConfirmation(response.confirmation);
+      setStage("confirmed");
+    } catch {
+      setSubmitError(
+        "The booking could not be completed. Please try again or contact us in writing.",
+      );
+    } finally {
+      setSubmitting(false);
     }
-    const onMessage = (event: MessageEvent) => {
-      const name = parseCalendlyEvent(event);
-      if (name === "calendly.date_and_time_selected") {
-        setStage((current) => (current === "confirmed" ? current : "details"));
-      } else if (name === "calendly.event_scheduled") {
-        setStage("confirmed");
-      }
-    };
+  };
 
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
-  }, [enabled]);
-
-  return stage;
-}
-
-export function BookingPanel() {
-  const [loaded, setLoaded] = useState(false);
-  const bookingMode = getPublicEnvironment().bookingMode;
-  const liveBookingEnabled = bookingMode === "live";
-  const frameHeight = useCalendlyFrameHeight(liveBookingEnabled);
-  const stage = useBookingStage(liveBookingEnabled);
-
-  if (!liveBookingEnabled) {
-    return (
-      <div
-        className="ss-core-booking ss-srv2-beam-border"
-        id="booking-calendar"
-        data-booking-mode={bookingMode}
-      >
-        <div className="ss-core-booking__body">
-          <span className="ss-srv2-bench__tag">
-            <CalendarCheck aria-hidden="true" />
-            30-minute discovery call
-            <span className="ss-core-booking__live" data-tone="preview">
-              Preview
-            </span>
-          </span>
-          <h3>
-            Booking is disabled in this <em>non-production preview</em>
-          </h3>
-          <p>
-            This environment cannot load or submit the live scheduler. Production
-            booking remains available only on the authorised Silverstone site.
-          </p>
-          <p className="ss-core-booking__preview-target">
-            Production scheduler: {CALENDLY_PUBLIC_URL}
-          </p>
-        </div>
-        <div className="ss-core-booking__footer">
-          <p className="ss-core-booking__footer-note">
-            Need to continue this preview journey safely?
-          </p>
-          <Link
-            className="ss-srv2-btn ss-srv2-btn--ghost ss-srv2-beam-border ss-core-booking__contact-btn"
-            to="/contact#contact-form"
-          >
-            <MessageSquare aria-hidden="true" />
-            Contact instead
-            <BorderBeam />
-          </Link>
-        </div>
-        <BorderBeam />
-      </div>
-    );
-  }
+  const selectedTimeLabel = selectedSlot
+    ? new Intl.DateTimeFormat("en-GB", {
+        timeZone,
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(new Date(selectedSlot.startTime))
+    : "No time selected";
 
   return (
     <div
       className="ss-core-booking ss-srv2-beam-border"
       id="booking-calendar"
+      data-booking-mode={bookingMode}
       data-stage={stage}
+      data-testid="booking-shell"
     >
-      {/* The booking surface never plays an entrance: visitors are sent here
-          by explicit "book a call" CTAs, so the calendar must simply be
-          present the instant the page is — no reveal choreography, ever. */}
-      <div>
-        <div className="ss-core-booking__body">
+      <div className="ss-booking-shell__ambient" aria-hidden="true">
+        <span />
+        <span />
+      </div>
+      <header className="ss-booking-shell__header">
+        <div className="ss-booking-shell__intro">
           <span className="ss-srv2-bench__tag">
             <CalendarCheck aria-hidden="true" />
             30-minute discovery call
-            <span className="ss-core-booking__live" aria-hidden="true">
-              <span className="ss-core-booking__live-dot" />
-              {stage === "confirmed" ? "Booked" : "Live"}
-            </span>
           </span>
           <h3>
-            Choose a time that <em>works for you</em>
+            A private channel for <em>clear decisions</em>
           </h3>
           <p>
-            The scheduler is embedded directly on this page — no new tab, no separate
-            sign-in. Bring one process, journey or digital decision — no technical
-            preparation required.
+            Qualify the conversation, select a verified time and secure the call without
+            leaving Silverstone.
           </p>
         </div>
-      </div>
-      <div>
-        <div className="ss-core-booking__console">
-          <div className="ss-core-booking__rail" aria-hidden="true">
-            <span className="ss-core-booking__rail-label">
-              {stage === "confirmed"
-                ? "Booking confirmed · Calendly"
-                : "Secure scheduler · Calendly"}
-            </span>
-            <span className="ss-core-booking__rail-track" />
-            <ol className="ss-core-booking__steps">
-              {BOOKING_STEPS.map((step, index) => {
-                const state =
-                  STAGE_ORDER[stage] > index
-                    ? "done"
-                    : STAGE_ORDER[stage] === index
-                      ? "current"
-                      : "ahead";
-                return (
-                  <li key={step.id} data-state={state}>
-                    <span className="ss-core-booking__step-index">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    {step.label}
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
-          <p className="sr-only" aria-live="polite">
-            {stage === "confirmed"
-              ? "Booking confirmed. A calendar invite is on its way to your inbox."
-              : stage === "details"
-                ? "Time selected. Enter your details to confirm the call."
-                : "Choose an available time in the scheduler."}
-          </p>
-          <div
-            className="ss-core-booking__frame"
-            data-loaded={loaded}
-            aria-busy={!loaded}
-            style={
-              frameHeight !== null
-                ? // +2px covers the 1px luminous ring padding top and bottom.
-                  { height: `${String(frameHeight + 2)}px` }
-                : undefined
-            }
+        <div className="ss-booking-shell__security">
+          <ShieldCheck aria-hidden="true" />
+          <span>
+            {bookingMode === "live"
+              ? "Secure live availability"
+              : bookingMode === "mock"
+                ? "Safe preview simulation"
+                : "Preview unavailable"}
+          </span>
+          <i data-live={bookingMode !== "disabled"} />
+        </div>
+      </header>
+
+      <BookingProgress stage={stage} onNavigate={goToStage} />
+      <p className="sr-only" aria-live="polite">
+        {STAGE_ANNOUNCEMENTS[stage]}
+      </p>
+
+      <main className="ss-booking-shell__viewport">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={stage}
+            className="ss-booking-shell__stage-frame"
+            initial={reducedMotion ? { opacity: 1 } : { opacity: 0, x: 14 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={reducedMotion ? { opacity: 1 } : { opacity: 0, x: -10 }}
+            transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            {!loaded ? (
-              <div className="ss-core-booking__loading" role="status">
-                <OrbitalLoader
-                  message="Loading your scheduler…"
-                  className="h-10 w-10"
-                />
-              </div>
+            {stage === "qualify" ? (
+              <QualificationStage
+                value={qualification}
+                error={qualificationError}
+                onChange={(value) => {
+                  setQualification(value);
+                  setQualificationError("");
+                  idempotencyKey.current = null;
+                }}
+              />
+            ) : stage === "schedule" ? (
+              <AvailabilityStage
+                mode={bookingMode}
+                timeZone={timeZone}
+                selectedSlot={selectedSlot}
+                error={scheduleError}
+                onTimeZoneChange={(value) => {
+                  setTimeZone(value);
+                  setScheduleError("");
+                  idempotencyKey.current = null;
+                }}
+                onSelectSlot={(slot) => {
+                  setSelectedSlot(slot);
+                  setScheduleError("");
+                  idempotencyKey.current = null;
+                }}
+              />
+            ) : stage === "details" ? (
+              <DetailsStage
+                value={details}
+                errors={detailErrors}
+                submitError={submitError}
+                onChange={(value) => {
+                  setDetails(value);
+                  setDetailErrors({});
+                  setSubmitError("");
+                  idempotencyKey.current = null;
+                }}
+                onSubmit={() => void book()}
+              />
+            ) : confirmation ? (
+              <ConfirmationStage
+                confirmation={confirmation}
+                mode={bookingMode}
+                qualification={qualification}
+              />
             ) : null}
-            <iframe
-              title="Book a 30-minute discovery call with Silverstone AI on Calendly"
-              src={CALENDLY_URL}
-              loading="eager"
-              onLoad={() => setLoaded(true)}
-            />
-          </div>
+          </motion.div>
+        </AnimatePresence>
+      </main>
+
+      <footer className="ss-booking-shell__footer">
+        <div className="ss-booking-shell__footer-secondary">
+          {stage !== "qualify" && stage !== "confirmed" ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              disabled={submitting}
+              onClick={() => goToStage(stage === "details" ? "schedule" : "qualify")}
+            >
+              <ArrowLeft aria-hidden="true" />
+              Back
+            </Button>
+          ) : (
+            <Link to="/contact#contact-form">
+              <MessageSquare aria-hidden="true" />
+              Contact instead
+            </Link>
+          )}
+          {stage === "schedule" ? (
+            <span className="ss-booking-shell__selection">{selectedTimeLabel}</span>
+          ) : null}
         </div>
-      </div>
-      <div>
-        <div className="ss-core-booking__footer">
-          <p className="ss-core-booking__footer-note">
-            {stage === "confirmed"
-              ? "Calendar invite sent — check your inbox for the confirmation."
-              : "Rather talk it through in writing first?"}
-          </p>
-          <Link
-            className="ss-srv2-btn ss-srv2-btn--ghost ss-srv2-beam-border ss-core-booking__contact-btn"
-            to="/contact#contact-form"
+        {stage === "qualify" ? (
+          <Button
+            type="button"
+            className="ss-booking-shell__primary"
+            onClick={continueFromQualification}
           >
-            <MessageSquare aria-hidden="true" />
-            Contact instead
-            <BorderBeam />
+            Continue to availability
+            <ArrowRight aria-hidden="true" />
+          </Button>
+        ) : stage === "schedule" ? (
+          <Button
+            type="button"
+            className="ss-booking-shell__primary"
+            disabled={!selectedSlot}
+            onClick={continueFromSchedule}
+          >
+            Continue to details
+            <ArrowRight aria-hidden="true" />
+          </Button>
+        ) : stage === "details" ? (
+          <Button
+            type="submit"
+            form="booking-details-form"
+            className="ss-booking-shell__primary"
+            disabled={submitting}
+          >
+            {submitting ? (
+              <span className="ss-booking-submit-spinner" aria-hidden="true" />
+            ) : (
+              <Check aria-hidden="true" />
+            )}
+            {submitting ? "Securing the call…" : "Confirm booking"}
+          </Button>
+        ) : (
+          <Link className="ss-booking-shell__complete" to="/how-we-work">
+            See how we work
+            <ArrowRight aria-hidden="true" />
           </Link>
-        </div>
-      </div>
+        )}
+      </footer>
       <BorderBeam />
     </div>
   );

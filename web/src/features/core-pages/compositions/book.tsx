@@ -61,13 +61,13 @@ export function BookComposition() {
         icon={CalendarCheck}
         title="Book a *30-minute* discovery call"
         titleId="core-book-title"
-        lead="One page, one outcome: a booked call. Check the fit, preview the agenda, then pick a time on the live calendar below."
+        lead="One page, one outcome: a booked call. Check the fit, preview the agenda, then calibrate the conversation and choose a verified time below."
         points={[
           { icon: Target, text: "A quick fit check — is now the right time?" },
           { icon: MessageSquare, text: "The four questions we cover in 30 minutes" },
           {
             icon: CalendarCheck,
-            text: "The live calendar — book without leaving the page",
+            text: "A native booking console — qualify, choose and confirm",
           },
         ]}
         primaryCtaLabel="Continue to booking"
@@ -104,11 +104,11 @@ export function BookComposition() {
       <section className="ss-srv2-section" aria-labelledby="core-booking">
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Choose a time"
+            eyebrow="Secure your call"
             icon={CalendarCheck}
             heading="Bring *one real problem* to the calendar"
             headingId="core-booking"
-            lead="Check the displayed timezone before confirming. Do not submit passwords, payment data or sensitive personal information through the scheduler."
+            lead="Start with four quick discovery cues, then check the displayed timezone before confirming. Do not submit passwords, payment data or sensitive personal information."
           />
           <BookingPanel />
         </div>

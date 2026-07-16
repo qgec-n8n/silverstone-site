@@ -116,15 +116,13 @@ describe("live website showcase", () => {
   const sitesJson = readFileSync(resolve(process.cwd(), sitesPath), "utf8");
 
   // The route-scoped CSP (root netlify.toml) allow-lists exactly the two
-  // demo origins plus the site-wide Calendly warm-up origin — CalendlyWarmup
-  // (features/core-pages/calendly.tsx) mounts a hidden scheduler iframe on
-  // every route, so it must stay framable here too. The showcase surfaces
-  // must never reference any origin beyond the two demos.
+  // demo origins. The native booking flow no longer requires a Calendly
+  // frame origin. Showcase surfaces must not reference anything else.
   const demoOrigins = [
     "https://ownly-housing.netlify.app",
     "https://aestheticsbyclouds.netlify.app",
   ];
-  const frameSrcAllowList = [...demoOrigins, "https://calendly.com"];
+  const frameSrcAllowList = demoOrigins;
 
   it("embeds only the two CSP-allow-listed demo origins", () => {
     for (const origin of demoOrigins) {

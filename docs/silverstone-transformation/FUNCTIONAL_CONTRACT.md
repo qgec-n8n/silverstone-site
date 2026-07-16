@@ -63,21 +63,29 @@
 
 - Public route: `/book`.
 - Production event URL: `https://calendly.com/silverstone-ai/30min`.
-- Current embed customisation: `hide_landing_page_details=1`, `hide_event_type_details=1`, `primary_color=00FF9D`.
 - Contact fallback from booking route to `/contact`.
 - Booking proposition: a free 30-minute automation/discovery audit that sets expectations and reduces pressure.
 
-**Preserve behaviour but redesign presentation:**
+**Current native-booking contract:**
 
-- Inline booking outcome with reserved space.
-- Clear fallback when the embed does not load.
+- Four stages: Qualify, Date & time, Your details, Confirmed.
+- Qualification preserves service, industry, indicative budget, and urgency through confirmation.
+- React DayPicker is exposed through the local shadcn/ui Calendar component.
+- The console has a stable breakpoint-defined height; workflow state and availability volume do not resize it.
+- The calendar remains stationary and only the dedicated time-slot viewport scrolls.
+- The application availability unit is exactly 42 days. Server requests split that unit into API-compliant upstream ranges, then merge, deduplicate, and sort reduced slot data.
+- Live availability and booking creation use same-origin Netlify Functions; `CALENDLY_API_TOKEN` and optional `CALENDLY_EVENT_TYPE_URI` are server-only.
+- The event type resolves from the preserved public event URL and is cached server-side.
+- Booking creation rechecks the slot, validates all fields, limits abuse, and controls duplicate submissions.
+- Clear loading, empty, rate-limit, unavailable-slot, configuration, and upstream fallback states.
 - No-pressure copy and practical next-step framing.
 
 **Staging/local rule:**
 
-- `VITE_BOOKING_MODE=disabled` or authorized test event only.
+- `VITE_BOOKING_MODE=mock` (or `disabled`) and deterministic availability/booking fixtures only.
+- `CALENDLY_BOOKING_MODE=mock` for any non-production function environment.
 - Do not create a real Calendly appointment.
-- Production event URL may be rendered as reference text only when booking cannot be initiated.
+- Never expose a Calendly credential through `VITE_*`, rendered HTML, browser payloads, logs, screenshots, or source maps.
 
 ## Analytics And Consent
 

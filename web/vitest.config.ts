@@ -12,7 +12,7 @@ export default defineConfig({
     globals: true,
     globalSetup: ["./tests/global-setup.ts"],
     setupFiles: ["./tests/setup.ts"],
-    include: ["tests/unit/**/*.test.{ts,tsx}"],
+    include: ["tests/unit/**/*.test.{ts,tsx,mjs}"],
     coverage: {
       reporter: ["text", "json-summary"],
     },

@@ -28,11 +28,8 @@
 
 # The Web Design & Development page embeds the two live demo websites in
 # iframes (web/src/features/services-v2/demos/browser-showcase.tsx). This
-# frame-src allow-list is scoped to that route only and holds exactly the two
-# demo origins plus https://calendly.com — the site-wide CalendlyWarmup
-# (web/src/features/core-pages/calendly.tsx) mounts a hidden scheduler iframe
-# on every route, so omitting it here would break the booking warm-up on this
-# page. Nested integrations inside the demos (e.g. the Aesthetics by Clouds
+# frame-src allow-list is scoped to that route and holds exactly the two demo
+# origins. Nested integrations inside the demos (e.g. the Aesthetics by Clouds
 # booking portal and Calendly's own Stripe frames) are governed by those
 # embedded documents, not this policy. Both demo sites answer with
 # frame-ancestors allowing https://silverstone-ai.com and
@@ -42,11 +39,11 @@
 [[headers]]
   for = "/services/web-design-development"
   [headers.values]
-    Content-Security-Policy = "frame-src https://ownly-housing.netlify.app https://aestheticsbyclouds.netlify.app https://calendly.com"
+    Content-Security-Policy = "frame-src https://ownly-housing.netlify.app https://aestheticsbyclouds.netlify.app"
 
 # Conservative site-wide security headers (additive; none affect rendering).
 # X-Frame-Options and Permissions-Policy are intentionally omitted pending a
-# review of the Calendly warm-up and demo iframes.
+# review of the live demo iframes.
 [[headers]]
   for = "/*"
   [headers.values]
@@ -62,7 +59,8 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
-# Serverless functions (contact-form email via Resend). RESEND_API_KEY,
-# CONTACT_TO and CONTACT_FROM come from the Netlify site environment.
+# Serverless functions: contact email uses Resend; native booking reads the
+# server-only CALENDLY_API_TOKEN and optional CALENDLY_EVENT_TYPE_URI from the
+# Netlify site environment. None are exposed to the Vite client.
 [functions]
   directory = "netlify/functions"

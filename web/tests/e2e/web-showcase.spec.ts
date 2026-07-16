@@ -38,6 +38,71 @@ async function readPhoneGeometry(phone: Locator) {
   });
 }
 
+async function readRearDesktopAppearance(windowDevice: Locator) {
+  return windowDevice.evaluate((device) => {
+    const window = device.querySelector<HTMLElement>(".ss-folio-window");
+    const visual = device.querySelector<HTMLElement>(".ss-folio-window__visual");
+    const poster = device.querySelector<HTMLElement>(".ss-folio-window__poster");
+    const shade = device.querySelector<HTMLElement>(".ss-folio-device__depth-shade");
+    if (!window || !visual || !poster || !shade) return null;
+
+    return {
+      windowPhase: window.dataset.phase,
+      windowBorder: getComputedStyle(window).borderColor,
+      visualVisibility: getComputedStyle(visual).visibility,
+      visualOpacity: getComputedStyle(visual).opacity,
+      posterVisibility: getComputedStyle(poster).visibility,
+      posterOpacity: getComputedStyle(poster).opacity,
+      shadeOpacity: getComputedStyle(shade).opacity,
+      shadeBackdrop: getComputedStyle(shade).backdropFilter,
+    };
+  });
+}
+
+async function readForegroundPhoneBounds(phoneDevice: Locator) {
+  return phoneDevice.evaluate((device) => {
+    const phone = device.querySelector<HTMLElement>(".ss-folio-phone");
+    const viewport = device.closest<HTMLElement>(".ss-folio-device-viewport");
+    if (!phone || !viewport) return null;
+    const phoneBox = phone.getBoundingClientRect();
+    const viewportBox = viewport.getBoundingClientRect();
+    return {
+      phoneTop: phoneBox.top,
+      phoneBottom: phoneBox.bottom,
+      viewportTop: viewportBox.top,
+      viewportBottom: viewportBox.bottom,
+    };
+  });
+}
+
+async function readPhoneControlGeometry(phoneControls: Locator) {
+  return phoneControls.evaluate((controls) => {
+    const screen = controls.parentElement;
+    const phone = controls.closest<HTMLElement>(".ss-folio-phone");
+    const island = phone?.querySelector<HTMLElement>(".ss-folio-phone__island");
+    const viewport = phone?.querySelector<HTMLElement>(".ss-folio-phone__viewport");
+    if (!screen || !island || !viewport) return null;
+    const controlsBox = controls.getBoundingClientRect();
+    const screenBox = screen.getBoundingClientRect();
+    const islandBox = island.getBoundingClientRect();
+    const viewportBox = viewport.getBoundingClientRect();
+    const buttonBoxes = Array.from(controls.querySelectorAll("button"), (button) => {
+      const box = button.getBoundingClientRect();
+      return {
+        width: box.width,
+        height: box.height,
+        cssWidth: Number.parseFloat(getComputedStyle(button).width),
+      };
+    });
+    return {
+      topInset: controlsBox.top - screenBox.top,
+      bottomClearance: viewportBox.top - controlsBox.bottom,
+      islandClearance: controlsBox.left - islandBox.right,
+      buttonBoxes,
+    };
+  });
+}
+
 test.describe("web design live showcase", () => {
   test("standing the phone's mobile demo down preserves scroll and focus", async ({
     page,
@@ -78,6 +143,21 @@ test.describe("web design live showcase", () => {
       "true",
     );
 
+    const phoneDevice = activePair.locator(".ss-folio-device--phone");
+    const rearDesktop = activePair.locator(".ss-folio-device--window");
+    const foregroundBounds = await readForegroundPhoneBounds(phoneDevice);
+    expect(foregroundBounds).not.toBeNull();
+    expect(foregroundBounds?.phoneTop ?? -1).toBeGreaterThanOrEqual(
+      (foregroundBounds?.viewportTop ?? 0) - 0.75,
+    );
+    expect(
+      foregroundBounds?.phoneBottom ?? Number.POSITIVE_INFINITY,
+    ).toBeLessThanOrEqual((foregroundBounds?.viewportBottom ?? 0) + 0.75);
+
+    const rearDesktopBeforeLive = await readRearDesktopAppearance(rearDesktop);
+    expect(rearDesktopBeforeLive).not.toBeNull();
+    expect(rearDesktopBeforeLive?.visualVisibility).toBe("visible");
+
     const activate = scene.locator('[data-activate-phone="ownly-housing"]');
     await activate.scrollIntoViewIfNeeded();
     const activateBox = await activate.boundingBox();
@@ -96,6 +176,24 @@ test.describe("web design live showcase", () => {
     );
     await expect(scene).toHaveAttribute("data-phase", "live");
     await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(1);
+    expect(await readRearDesktopAppearance(rearDesktop)).toEqual(rearDesktopBeforeLive);
+
+    const phoneControls = activePair.locator(
+      ".ss-folio-phone__screen > [data-phone-controls]",
+    );
+    await expect(phoneControls).toBeVisible();
+    await expect(phoneControls.locator("button")).toHaveCount(2);
+    const controlGeometry = await readPhoneControlGeometry(phoneControls);
+    expect(controlGeometry).not.toBeNull();
+    expect(controlGeometry?.topInset ?? -1).toBeGreaterThanOrEqual(0);
+    expect(controlGeometry?.bottomClearance ?? -1).toBeGreaterThanOrEqual(0);
+    expect(controlGeometry?.islandClearance ?? -1).toBeGreaterThanOrEqual(0);
+    for (const box of controlGeometry?.buttonBoxes ?? []) {
+      expect(box.cssWidth).toBe(24);
+      expect(box.width).toBeLessThanOrEqual(30);
+      expect(box.height).toBeLessThanOrEqual(30);
+    }
+
     const geometry = await readPhoneGeometry(activePair.locator(".ss-folio-phone"));
     expect(geometry).not.toBeNull();
     expect(geometry?.logicalWidth).toBe("390px");
@@ -213,6 +311,70 @@ test.describe("web design live showcase", () => {
     await page.keyboard.press("Escape");
     await expect(scene).toHaveAttribute("data-phase", "idle");
     await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(0);
+  });
+
+  test("foreground phone and sensor controls clear the narrow composed frame", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop-chromium");
+    await page.setViewportSize({ width: 800, height: 1_000 });
+    await page.route("https://ownly-housing.netlify.app/**", (route) =>
+      route.fulfill({
+        body: "<!doctype html><html><head><meta name='viewport' content='width=device-width,initial-scale=1'></head><body style='margin:0;min-height:4000px'>Ownly mobile page</body></html>",
+        contentType: "text/html",
+        status: 200,
+      }),
+    );
+
+    await page.goto("/services/web-design-development#demo-web-design");
+    const scene = page.locator(".ss-folio-scene[data-current]");
+    await expect(scene).toBeVisible({ timeout: 10_000 });
+    const activePair = scene.locator('.ss-folio-device-slide[data-active="true"]');
+    const phoneDevice = activePair.locator(".ss-folio-device--phone");
+    const rearDesktop = activePair.locator(".ss-folio-device--window");
+
+    await scene.getByRole("button", { name: "Mobile", exact: true }).click();
+    await expect(scene.locator(".ss-folio-scene__stage")).toHaveAttribute(
+      "data-orbiting",
+      "true",
+    );
+    await expect(scene.locator(".ss-folio-scene__stage")).not.toHaveAttribute(
+      "data-orbiting",
+      "true",
+      { timeout: 2_000 },
+    );
+
+    const bounds = await readForegroundPhoneBounds(phoneDevice);
+    expect(bounds).not.toBeNull();
+    expect(bounds?.phoneBottom ?? Number.POSITIVE_INFINITY).toBeLessThanOrEqual(
+      (bounds?.viewportBottom ?? 0) + 0.75,
+    );
+
+    const rearBeforeLive = await readRearDesktopAppearance(rearDesktop);
+    await scene.locator('[data-activate-phone="ownly-housing"]').click();
+    await expect(scene).toHaveAttribute("data-phase", "live");
+    expect(await readRearDesktopAppearance(rearDesktop)).toEqual(rearBeforeLive);
+
+    const controls = activePair.locator(
+      ".ss-folio-phone__screen > [data-phone-controls]",
+    );
+    await expect(controls).toBeVisible();
+    // The physical island contracts around the arriving controls; inspect the
+    // settled handset geometry rather than the intentional shared-black-band
+    // overlap during that brief chrome morph.
+    await expect
+      .poll(async () => (await readPhoneControlGeometry(controls))?.islandClearance)
+      .toBeGreaterThanOrEqual(1);
+    const geometry = await readPhoneControlGeometry(controls);
+    expect(geometry).not.toBeNull();
+    expect(geometry?.topInset ?? -1).toBeGreaterThanOrEqual(0);
+    expect(geometry?.bottomClearance ?? -1).toBeGreaterThanOrEqual(0);
+    expect(geometry?.islandClearance ?? -1).toBeGreaterThanOrEqual(1);
+    for (const box of geometry?.buttonBoxes ?? []) {
+      expect(box.cssWidth).toBe(24);
+      expect(box.width).toBeLessThanOrEqual(30);
+      expect(box.height).toBeLessThanOrEqual(30);
+    }
   });
 
   test("window demos preserve exclusive loading, restart, switch and Escape lifecycles", async ({
