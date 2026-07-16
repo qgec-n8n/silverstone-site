@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useShowcaseIdleTimeout } from "~/features/services-v2/demos/showcase-idle";
 import {
   EMBED_VIEWPORT_WIDTH,
+  fitEmbedViewport,
   initialShowcaseState,
   PHONE_EMBED_VIEWPORT_WIDTH,
   showcaseReducer,
@@ -206,6 +207,30 @@ describe("showcase state model", () => {
     expect(EMBED_VIEWPORT_WIDTH.tablet).toBeGreaterThanOrEqual(768);
     expect(EMBED_VIEWPORT_WIDTH.tablet).toBeLessThan(1024);
     expect(PHONE_EMBED_VIEWPORT_WIDTH).toBeLessThan(768);
+  });
+
+  it("fits the logical phone viewport exactly inside the safe visible box", () => {
+    const visible = { width: 214, height: 435 };
+    const fitted = fitEmbedViewport(
+      visible.width,
+      visible.height,
+      PHONE_EMBED_VIEWPORT_WIDTH,
+    );
+
+    expect(fitted).not.toBeNull();
+    expect((fitted?.logicalWidth ?? 0) * (fitted?.scale ?? 0)).toBeCloseTo(
+      visible.width,
+      6,
+    );
+    expect((fitted?.logicalHeight ?? 0) * (fitted?.scale ?? 0)).toBeCloseTo(
+      visible.height,
+      6,
+    );
+  });
+
+  it("does not derive an embed transform from an empty screen box", () => {
+    expect(fitEmbedViewport(0, 435, PHONE_EMBED_VIEWPORT_WIDTH)).toBeNull();
+    expect(fitEmbedViewport(214, 0, PHONE_EMBED_VIEWPORT_WIDTH)).toBeNull();
   });
 });
 

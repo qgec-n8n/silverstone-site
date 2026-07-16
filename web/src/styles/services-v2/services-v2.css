@@ -2642,13 +2642,16 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   position: relative;
 }
 
-/* -- One fixed scene; the project switcher morphs its layers in place -------
+/* -- One fixed scene; copy morphs while the site visuals rail ---------------
    `.ss-folio-stack` overlays the per-project layers in one grid cell — the
    scene's height is the max of both projects, so the morph can never shift
-   layout — and `.ss-folio-morph` cross-fades/blurs/settles them. The tint
+   layout — and `.ss-folio-morph` cross-fades/blurs/settles them. Inside both
+   device screens, a synchronized visual rail moves the outgoing production
+   capture away while the incoming one settles into the same clipped viewport.
+   Device shells and browser metadata stay anchored. The tint
    variables are colour-interpolated per frame by the component, so every
    accent derived from them (chips, dots, pills, glows, beams) transforms in
-   the same breath: one interface becoming the other, never a slide. -- */
+   the same breath. -- */
 
 .ss-folio-scene {
   position: relative;
@@ -2676,6 +2679,72 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   filter: blur(12px);
   transform: translateY(8px) scale(0.99);
   pointer-events: none;
+}
+
+.ss-folio-visual-viewport {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.ss-folio-visual-rail {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.ss-folio-visual-slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow: clip;
+  transform: scale(1);
+  transform-origin: center;
+  opacity: 1;
+  filter: blur(0) brightness(1) saturate(1);
+  transition:
+    opacity 0.58s ease,
+    filter 0.72s ease,
+    transform 0.82s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-folio-visual-slide[data-active="false"] {
+  opacity: 0.48;
+  filter: blur(5px) brightness(0.68) saturate(0.72);
+  transform: scale(0.975);
+}
+
+/* A single narrow light front binds the copy morph, palette interpolation and
+   twin rails into one transition. It is clipped to the website displays and
+   never crosses controls or receives input. */
+.ss-folio-visual-viewport::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: -18%;
+  z-index: 1;
+  width: 18%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--demo-tint-2) 30%, transparent),
+    color-mix(in srgb, var(--ss-v2-chrome) 16%, transparent),
+    transparent
+  );
+  filter: blur(12px);
+  opacity: 0;
+  transform: skewX(-12deg);
+  pointer-events: none;
+}
+
+.ss-folio-scene__stage[data-rail-moving] .ss-folio-visual-viewport::after {
+  animation: ss-folio-rail-light 0.82s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ss-folio-scene__inner {
@@ -2741,6 +2810,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-folio-scene__eyebrow strong {
   font-weight: 600;
   white-space: nowrap;
+  color: color-mix(in srgb, var(--demo-tint) 52%, var(--ss-v2-chrome));
 }
 
 .ss-folio-scene__sector {
@@ -2756,7 +2826,14 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   font-weight: 600;
   line-height: 1.12;
   letter-spacing: -0.015em;
-  color: var(--srv2-ink);
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--demo-title-tint) 46%, var(--ss-v2-chrome)),
+    color-mix(in srgb, var(--demo-title-tint-2) 76%, var(--ss-v2-chrome))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   max-width: 26ch;
   text-wrap: balance;
 }
@@ -2822,15 +2899,17 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 .ss-folio-console__switch button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   min-height: 2.4rem;
   padding: 0.42rem 0.95rem;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 999px;
-  background: transparent;
-  color: var(--srv2-ink-faint);
+  background: color-mix(in srgb, var(--project-tint) 5%, transparent);
+  color: color-mix(in srgb, var(--project-tint) 24%, var(--srv2-ink-soft));
+  border-color: color-mix(in srgb, var(--project-tint) 22%, transparent);
   font-family: var(--ss-font-display);
   font-size: 0.78rem;
   font-weight: 600;
@@ -2838,7 +2917,9 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   cursor: pointer;
   transition:
     color 0.25s ease,
-    background 0.25s ease;
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .ss-folio-console__switch button span {
@@ -2846,16 +2927,24 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   font-size: 0.6rem;
   font-weight: 500;
   letter-spacing: 0.1em;
-  color: var(--srv2-ink-faint);
+  color: color-mix(in srgb, var(--project-tint) 70%, var(--srv2-ink-faint));
 }
 
 .ss-folio-console__switch button[aria-pressed="true"] {
   color: var(--ss-v2-chrome);
-  background: color-mix(in srgb, var(--demo-tint) 16%, transparent);
+  border-color: color-mix(in srgb, var(--demo-tint) 68%, var(--srv2-hairline));
+  background: linear-gradient(
+    110deg,
+    color-mix(in srgb, var(--demo-tint) 34%, var(--ss-v2-graphite)),
+    color-mix(in srgb, var(--demo-tint-2) 18%, var(--ss-v2-void-black))
+  );
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--demo-tint) 12%, transparent) inset,
+    0 10px 26px -16px color-mix(in srgb, var(--demo-tint) 78%, transparent);
 }
 
 .ss-folio-console__switch button[aria-pressed="true"] span {
-  color: color-mix(in srgb, var(--demo-tint) 85%, var(--ss-v2-chrome));
+  color: color-mix(in srgb, var(--demo-tint-2) 78%, var(--ss-v2-chrome));
 }
 
 .ss-folio-scene__meta {
@@ -2959,7 +3048,8 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 /* Mid-orbit the devices are in motion and their depth order is mid-exchange:
    nothing in the stage is a legitimate pointer target until they settle. */
-.ss-folio-scene__stage[data-orbiting] {
+.ss-folio-scene__stage[data-orbiting],
+.ss-folio-scene__stage[data-rail-moving] {
   pointer-events: none;
 }
 
@@ -3195,7 +3285,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   object-position: top center;
 }
 
-.ss-folio-scene[data-phase="live"] .ss-folio-window__poster {
+.ss-folio-scene[data-phase="live"] .ss-folio-window__visual {
   visibility: hidden;
 }
 
@@ -3347,6 +3437,8 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 /* -- Phone: interactive mobile embed (link-out capture on mobile) -- */
 
 .ss-folio-phone {
+  --folio-phone-safe-top: 1.875rem;
+
   position: relative;
   display: block;
   width: 100%;
@@ -3387,6 +3479,20 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   background: var(--ss-v2-void-black);
 }
 
+/* The sensor is physical phone chrome, not part of the website viewport.
+   The live page and its poster therefore share an explicit clipped viewport
+   whose first pixel begins immediately beneath the island. ResizeObserver
+   measures this exact box, so the iframe's logical height and CSS scale cover
+   it edge-to-edge without rendering the site's header behind the sensor. */
+.ss-folio-phone__viewport {
+  position: absolute;
+  inset: var(--folio-phone-safe-top) 0 0;
+  overflow: clip;
+  border-radius: 0 0 1.9rem 1.9rem;
+  background: #fff;
+  overscroll-behavior: contain;
+}
+
 .ss-folio-phone__shot {
   position: absolute;
   inset: 0;
@@ -3398,7 +3504,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   border-radius: 1.9rem;
 }
 
-.ss-folio-phone[data-phase="live"] .ss-folio-phone__shot {
+.ss-folio-phone[data-phase="live"] .ss-folio-phone__visual {
   visibility: hidden;
 }
 
@@ -3462,7 +3568,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   gap: 0.7rem;
   width: 100%;
   border: 0;
-  border-radius: 1.9rem;
+  border-radius: 0 0 1.9rem 1.9rem;
   cursor: pointer;
   color: var(--ss-v2-chrome);
   background: radial-gradient(
@@ -3725,6 +3831,23 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 }
 
+@keyframes ss-folio-rail-light {
+  0% {
+    left: -18%;
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.72;
+  }
+  72% {
+    opacity: 0.38;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ss-folio-window__status[data-status="live"] i,
   .ss-folio-window__activate-ring::after,
@@ -3750,6 +3873,18 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-folio-console__switch button,
   .ss-folio__toggle button {
     transition: none;
+  }
+
+  .ss-folio-visual-rail {
+    will-change: auto;
+  }
+
+  .ss-folio-visual-slide {
+    transition: none;
+  }
+
+  .ss-folio-scene__stage[data-rail-moving] .ss-folio-visual-viewport::after {
+    animation: none;
   }
 
   /* Project morph without motion: the layers swap in a single frame (the

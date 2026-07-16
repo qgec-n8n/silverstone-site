@@ -1,4 +1,32 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Locator } from "@playwright/test";
+
+async function readPhoneGeometry(phone: Locator) {
+  return phone.evaluate((root) => {
+    const screen = root.querySelector<HTMLElement>(".ss-folio-phone__screen");
+    const island = root.querySelector<HTMLElement>(".ss-folio-phone__island");
+    const viewport = root.querySelector<HTMLElement>(".ss-folio-phone__viewport");
+    const frame = root.querySelector<HTMLIFrameElement>(".ss-folio-phone__frame");
+    if (!screen || !island || !viewport || !frame) {
+      return null;
+    }
+
+    const screenBox = screen.getBoundingClientRect();
+    const islandBox = island.getBoundingClientRect();
+    const viewportBox = viewport.getBoundingClientRect();
+    const frameBox = frame.getBoundingClientRect();
+    return {
+      logicalWidth: frame.style.width,
+      overflow: getComputedStyle(viewport).overflow,
+      safeGap: viewportBox.top - islandBox.bottom,
+      safeTop: viewportBox.top - screenBox.top,
+      leftDelta: frameBox.left - viewportBox.left,
+      rightDelta: frameBox.right - viewportBox.right,
+      topDelta: frameBox.top - viewportBox.top,
+      bottomDelta: frameBox.bottom - viewportBox.bottom,
+      pageOverflow: document.documentElement.scrollWidth - window.innerWidth,
+    };
+  });
+}
 
 test.describe("web design live showcase", () => {
   test("standing the phone's mobile demo down preserves scroll and focus", async ({
@@ -10,8 +38,17 @@ test.describe("web design live showcase", () => {
     // them. Fulfil the embed request locally so this regression check exercises
     // the host lifecycle without depending on external CSP or network timing.
     await page.route("https://ownly-housing.netlify.app/**", async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 140));
       await route.fulfill({
-        body: "<!doctype html><html><body style='min-height:12040px'>Mobile page</body></html>",
+        body: "<!doctype html><html><head><meta name='viewport' content='width=device-width,initial-scale=1'></head><body style='margin:0;min-height:12040px'>Ownly mobile page</body></html>",
+        contentType: "text/html",
+        status: 200,
+      });
+    });
+    await page.route("https://aestheticsbyclouds.netlify.app/**", async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 140));
+      await route.fulfill({
+        body: "<!doctype html><html><head><meta name='viewport' content='width=device-width,initial-scale=1'></head><body style='margin:0;min-height:12040px'>Clouds mobile page</body></html>",
         contentType: "text/html",
         status: 200,
       });
@@ -19,9 +56,7 @@ test.describe("web design live showcase", () => {
 
     await page.goto("/services/web-design-development#demo-web-design");
 
-    const scene = page.locator(
-      '.ss-folio-scene[data-demo="ownly-housing"][data-current]',
-    );
+    const scene = page.locator(".ss-folio-scene[data-current]");
     await expect(scene).toBeVisible({ timeout: 10_000 });
     const mobile = scene.getByRole("button", { name: "Mobile", exact: true });
     await mobile.click();
@@ -44,8 +79,31 @@ test.describe("web design live showcase", () => {
       activateBox.y + activateBox.height / 2,
     );
 
+    await expect(scene).toHaveAttribute("data-phase", "connecting");
+    await expect(scene.locator(".ss-folio-phone__veil")).toContainText(
+      "ownly-housing.netlify.app",
+    );
     await expect(scene).toHaveAttribute("data-phase", "live");
     await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(1);
+    const geometry = await readPhoneGeometry(scene.locator(".ss-folio-phone"));
+    expect(geometry).not.toBeNull();
+    expect(geometry?.logicalWidth).toBe("390px");
+    expect(geometry?.overflow).toBe("clip");
+    expect(geometry?.safeTop ?? 0).toBeGreaterThan(0);
+    expect(geometry?.safeGap ?? -1).toBeGreaterThanOrEqual(0);
+    expect(Math.abs(geometry?.leftDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(Math.abs(geometry?.rightDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(Math.abs(geometry?.topDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(Math.abs(geometry?.bottomDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(geometry?.pageOverflow ?? 99).toBeLessThanOrEqual(0);
+
+    const ownlyRestart = scene.getByRole("button", {
+      name: "Restart the Ownly Housing mobile demo",
+      exact: true,
+    });
+    await ownlyRestart.click();
+    await expect(scene).toHaveAttribute("data-phase", "connecting");
+    await expect(scene).toHaveAttribute("data-phase", "live");
     const beforeCancel = await page.evaluate(() => window.scrollY);
 
     const standby = scene.getByRole("button", {
@@ -66,6 +124,291 @@ test.describe("web design live showcase", () => {
     await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(0);
     await expect(activate).toBeFocused();
     expect(await page.evaluate(() => window.scrollY)).toBe(beforeCancel);
+
+    const clouds = scene.getByRole("button", {
+      name: "Aesthetics by Clouds",
+      exact: true,
+    });
+    await clouds.click();
+    await expect(scene).toHaveAttribute("data-demo", "aesthetics-by-clouds");
+    await expect(scene.locator(".ss-folio-scene__stage")).toHaveAttribute(
+      "data-rail-moving",
+      "true",
+    );
+    await expect(scene.locator(".ss-folio-scene__stage")).not.toHaveAttribute(
+      "data-rail-moving",
+      "true",
+      { timeout: 2_000 },
+    );
+
+    const cloudsActivate = scene.locator(
+      '[data-activate-phone="aesthetics-by-clouds"]',
+    );
+    await cloudsActivate.click();
+    await expect(scene).toHaveAttribute("data-phase", "connecting");
+    await expect(scene).toHaveAttribute("data-phase", "live");
+    await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(1);
+    const cloudsGeometry = await readPhoneGeometry(scene.locator(".ss-folio-phone"));
+    expect(Math.abs(cloudsGeometry?.rightDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(cloudsGeometry?.safeGap ?? -1).toBeGreaterThanOrEqual(0);
+
+    const cloudsRestart = scene.getByRole("button", {
+      name: "Restart the Aesthetics by Clouds mobile demo",
+      exact: true,
+    });
+    await cloudsRestart.click();
+    await expect(scene).toHaveAttribute("data-phase", "connecting");
+    await expect(scene).toHaveAttribute("data-phase", "live");
+
+    await scene.getByRole("button", { name: "Ownly Housing", exact: true }).click();
+    await expect(scene).toHaveAttribute("data-phase", "idle");
+    await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(0);
+    await expect(scene.locator(".ss-folio-scene__stage")).toHaveAttribute(
+      "data-rail-moving",
+      "true",
+    );
+    await expect(scene.locator(".ss-folio-scene__stage")).not.toHaveAttribute(
+      "data-rail-moving",
+      "true",
+      { timeout: 2_000 },
+    );
+    await scene
+      .getByRole("button", { name: "Aesthetics by Clouds", exact: true })
+      .click();
+    await expect(scene.locator(".ss-folio-scene__stage")).toHaveAttribute(
+      "data-rail-moving",
+      "true",
+    );
+    await expect(scene.locator(".ss-folio-scene__stage")).not.toHaveAttribute(
+      "data-rail-moving",
+      "true",
+      { timeout: 2_000 },
+    );
+    await scene.locator('[data-activate-phone="aesthetics-by-clouds"]').click();
+    await expect(scene).toHaveAttribute("data-phase", "live");
+
+    await scene.locator(".ss-folio-phone").focus();
+    await page.keyboard.press("Escape");
+    await expect(scene).toHaveAttribute("data-phase", "idle");
+    await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(0);
+  });
+
+  test("window demos preserve exclusive loading, restart, switch and Escape lifecycles", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop-chromium");
+    for (const origin of [
+      "https://ownly-housing.netlify.app/**",
+      "https://aestheticsbyclouds.netlify.app/**",
+    ]) {
+      await page.route(origin, async (route) => {
+        await new Promise((resolve) => setTimeout(resolve, 120));
+        await route.fulfill({
+          body: "<!doctype html><html><body style='margin:0;min-height:4000px'>Desktop demo</body></html>",
+          contentType: "text/html",
+          status: 200,
+        });
+      });
+    }
+
+    await page.goto("/services/web-design-development#demo-web-design");
+    const scene = page.locator(".ss-folio-scene[data-current]");
+    await expect(scene).toBeVisible({ timeout: 10_000 });
+    await scene.locator('[data-activate="ownly-housing"]').click();
+    await expect(scene).toHaveAttribute("data-phase", "connecting");
+    await expect(scene).toHaveAttribute("data-phase", "live");
+    await expect(scene.locator("iframe")).toHaveCount(1);
+
+    const ownlyGeometry = await scene.locator(".ss-folio-window").evaluate((root) => {
+      const screen = root.querySelector<HTMLElement>(".ss-folio-window__screen");
+      const frame = root.querySelector<HTMLIFrameElement>(".ss-folio-window__frame");
+      if (!screen || !frame) return null;
+      const screenBox = screen.getBoundingClientRect();
+      const frameBox = frame.getBoundingClientRect();
+      return {
+        logicalWidth: frame.style.width,
+        rightDelta: frameBox.right - screenBox.right,
+        bottomDelta: frameBox.bottom - screenBox.bottom,
+      };
+    });
+    expect(ownlyGeometry?.logicalWidth).toBe("1440px");
+    expect(Math.abs(ownlyGeometry?.rightDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(Math.abs(ownlyGeometry?.bottomDelta ?? 99)).toBeLessThanOrEqual(0.75);
+
+    await scene
+      .getByRole("button", { name: "Restart the Ownly Housing demo", exact: true })
+      .click();
+    await expect(scene).toHaveAttribute("data-phase", "connecting");
+    await expect(scene).toHaveAttribute("data-phase", "live");
+
+    await scene
+      .getByRole("button", { name: "Aesthetics by Clouds", exact: true })
+      .click();
+    await expect(scene).toHaveAttribute("data-phase", "idle");
+    await expect(scene.locator("iframe")).toHaveCount(0);
+    await expect(scene.locator(".ss-folio-scene__stage")).toHaveAttribute(
+      "data-rail-moving",
+      "true",
+    );
+    await expect(scene.locator(".ss-folio-scene__stage")).not.toHaveAttribute(
+      "data-rail-moving",
+      "true",
+      { timeout: 2_000 },
+    );
+
+    await scene.locator('[data-activate="aesthetics-by-clouds"]').click();
+    await expect(scene).toHaveAttribute("data-phase", "connecting");
+    await expect(scene).toHaveAttribute("data-phase", "live");
+    await expect(scene.locator("iframe")).toHaveCount(1);
+    await scene.locator(".ss-folio-window").focus();
+    await page.keyboard.press("Escape");
+    await expect(scene).toHaveAttribute("data-phase", "idle");
+    await expect(scene.locator("iframe")).toHaveCount(0);
+  });
+
+  test("project copy morphs in place while both website visuals travel on the rail", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop-chromium");
+    await page.goto("/services/web-design-development#demo-web-design");
+
+    const scene = page.locator(".ss-folio-scene[data-current]");
+    await expect(scene).toBeVisible({ timeout: 10_000 });
+    const stage = scene.locator(".ss-folio-scene__stage");
+    const windowRail = scene.locator(".ss-folio-window__rail");
+    const phoneRail = scene.locator(".ss-folio-phone__rail");
+    const clouds = scene.getByRole("button", {
+      name: "Aesthetics by Clouds",
+      exact: true,
+    });
+    const ownly = scene.getByRole("button", { name: "Ownly Housing", exact: true });
+
+    const anchoredBefore = await scene.evaluate((root) => {
+      const intro = root.querySelector(".ss-folio-scene__intro");
+      const domain = root.querySelector(".ss-folio-window__addr-domain");
+      if (!intro || !domain) return null;
+      const introBox = intro.getBoundingClientRect();
+      const domainBox = domain.getBoundingClientRect();
+      return {
+        introTop: introBox.top,
+        introHeight: introBox.height,
+        domainLeft: domainBox.left,
+        domainTop: domainBox.top,
+      };
+    });
+
+    const windowWidth = await scene
+      .locator(".ss-folio-window__visual")
+      .evaluate((element) => element.getBoundingClientRect().width);
+    await clouds.click();
+    await expect(scene).toHaveAttribute("data-demo", "aesthetics-by-clouds");
+    await expect(stage).toHaveAttribute("data-rail-moving", "true");
+
+    const outgoingSamples = await windowRail.evaluate(async (rail) => {
+      const positions: number[] = [];
+      for (let frame = 0; frame < 12; frame += 1) {
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+        positions.push(new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41);
+      }
+      return positions;
+    });
+    expect(
+      outgoingSamples.some((position) => position < -1 && position > -windowWidth + 1),
+    ).toBe(true);
+
+    await expect(stage).not.toHaveAttribute("data-rail-moving", "true", {
+      timeout: 2_000,
+    });
+    await expect(windowRail).toHaveAttribute("data-rail-index", "1");
+    await expect(phoneRail).toHaveAttribute("data-rail-index", "1");
+    const settled = await windowRail.evaluate(
+      (rail) => new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41,
+    );
+    expect(settled).toBeCloseTo(-windowWidth, 0);
+    await expect(
+      windowRail.locator('.ss-folio-visual-slide[data-active="true"] img'),
+    ).toHaveAttribute("alt", /Aesthetics by Clouds/i);
+    await expect(
+      phoneRail.locator('.ss-folio-visual-slide[data-active="false"]'),
+    ).toHaveAttribute("aria-hidden", "true");
+    await expect(scene.locator(".ss-folio-visual-rail iframe")).toHaveCount(0);
+    await expect(scene.locator("iframe")).toHaveCount(0);
+
+    const cloudsTitle = scene.locator(
+      '.ss-folio-scene__intro-layer[data-active="true"] .ss-folio-scene__headline',
+    );
+    await expect(cloudsTitle).toHaveAttribute(
+      "data-title-accent",
+      "aesthetics-by-clouds",
+    );
+    expect(
+      await cloudsTitle.evaluate((title) => ({
+        accent: title.style.getPropertyValue("--demo-title-tint"),
+        background: getComputedStyle(title).backgroundImage,
+        color: getComputedStyle(title).color,
+      })),
+    ).toEqual(
+      expect.objectContaining({
+        accent: "#536035",
+        color: "rgba(0, 0, 0, 0)",
+      }),
+    );
+    expect(
+      await clouds.evaluate((button) => getComputedStyle(button).backgroundImage),
+    ).not.toBe("none");
+
+    const anchoredAfter = await scene.evaluate((root) => {
+      const intro = root.querySelector(".ss-folio-scene__intro");
+      const domain = root.querySelector(".ss-folio-window__addr-domain");
+      if (!intro || !domain) return null;
+      const introBox = intro.getBoundingClientRect();
+      const domainBox = domain.getBoundingClientRect();
+      return {
+        introTop: introBox.top,
+        introHeight: introBox.height,
+        domainLeft: domainBox.left,
+        domainTop: domainBox.top,
+      };
+    });
+    expect(anchoredAfter).not.toBeNull();
+    expect(anchoredBefore).not.toBeNull();
+    for (const key of ["introTop", "introHeight", "domainLeft", "domainTop"] as const) {
+      expect(
+        Math.abs((anchoredAfter?.[key] ?? 99) - (anchoredBefore?.[key] ?? 0)),
+      ).toBeLessThan(1);
+    }
+
+    await ownly.click();
+    await expect(stage).toHaveAttribute("data-rail-moving", "true");
+    const incomingSamples = await windowRail.evaluate(async (rail) => {
+      const positions: number[] = [];
+      for (let frame = 0; frame < 12; frame += 1) {
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+        positions.push(new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41);
+      }
+      return positions;
+    });
+    expect(
+      incomingSamples.some((position) => position < -1 && position > -windowWidth + 1),
+    ).toBe(true);
+    expect(incomingSamples.at(-1) ?? -windowWidth).toBeGreaterThan(
+      incomingSamples[0] ?? 0,
+    );
+    await expect(stage).not.toHaveAttribute("data-rail-moving", "true", {
+      timeout: 2_000,
+    });
+    expect(
+      await scene
+        .locator(
+          '.ss-folio-scene__intro-layer[data-active="true"] .ss-folio-scene__headline',
+        )
+        .evaluate((title) => title.style.getPropertyValue("--demo-title-tint")),
+    ).toBe("#5e0000");
+    expect(
+      await windowRail.evaluate(
+        (rail) => new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41,
+      ),
+    ).toBeCloseTo(0, 0);
   });
 
   test("reduced motion swaps device depth without orbit travel", async ({
@@ -75,9 +418,7 @@ test.describe("web design live showcase", () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/services/web-design-development#demo-web-design");
 
-    const scene = page.locator(
-      '.ss-folio-scene[data-demo="ownly-housing"][data-current]',
-    );
+    const scene = page.locator(".ss-folio-scene[data-current]");
     await expect(scene).toBeVisible({ timeout: 10_000 });
     const mobile = scene.getByRole("button", { name: "Mobile", exact: true });
     await mobile.click();
@@ -102,6 +443,29 @@ test.describe("web design live showcase", () => {
       transform: "none",
       transitionProperty: "opacity",
     });
+
+    await scene
+      .getByRole("button", { name: "Aesthetics by Clouds", exact: true })
+      .click();
+    await expect(scene).toHaveAttribute("data-demo", "aesthetics-by-clouds");
+    await expect(scene.locator(".ss-folio-scene__stage")).not.toHaveAttribute(
+      "data-rail-moving",
+      "true",
+    );
+    await expect(scene.locator(".ss-folio-window__rail")).toHaveAttribute(
+      "data-rail-index",
+      "1",
+    );
+    const reducedRail = await scene
+      .locator(".ss-folio-visual-slide")
+      .first()
+      .evaluate((slide) => ({
+        transitionDurationMs:
+          Number.parseFloat(getComputedStyle(slide).transitionDuration) * 1000,
+        reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      }));
+    expect(reducedRail.reduced).toBe(true);
+    expect(reducedRail.transitionDurationMs).toBeLessThanOrEqual(0.01);
   });
 
   test("showcase controls follow a logical visible keyboard order", async ({

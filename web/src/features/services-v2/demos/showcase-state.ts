@@ -55,6 +55,35 @@ export const EMBED_VIEWPORT_WIDTH: Record<
  */
 export const PHONE_EMBED_VIEWPORT_WIDTH = 390;
 
+export type ScaledEmbedViewport = {
+  logicalWidth: number;
+  logicalHeight: number;
+  scale: number;
+};
+
+/**
+ * Maps a fixed logical iframe viewport onto a visible screen rectangle without
+ * changing its aspect or leaving a fractional strip uncovered. Keeping the
+ * calculation pure makes the phone/window fitting contract directly testable
+ * instead of relying on CSS-transform intuition alone.
+ */
+export function fitEmbedViewport(
+  visibleWidth: number,
+  visibleHeight: number,
+  logicalWidth: number,
+): ScaledEmbedViewport | null {
+  if (visibleWidth <= 0 || visibleHeight <= 0 || logicalWidth <= 0) {
+    return null;
+  }
+
+  const scale = visibleWidth / logicalWidth;
+  return {
+    logicalWidth,
+    logicalHeight: visibleHeight / scale,
+    scale,
+  };
+}
+
 /**
  * Inactivity window before a live embed returns to standby — the same rule on
  * both surfaces (browser window and phone). The countdown only runs while the

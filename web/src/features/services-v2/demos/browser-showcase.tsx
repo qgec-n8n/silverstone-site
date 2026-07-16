@@ -1,18 +1,20 @@
 /**
  * Web Design & Development portfolio showcase — two live client websites,
- * presented in ONE fixed scene that morphs between projects.
+ * presented in one stable scene whose copy morphs while the demo visuals rail
+ * between projects.
  *
  * Every breakpoint shares one scene grammar: the project copy sits ABOVE the
  * devices, a console row (project switcher · device focus toggle · live link)
  * sits between the copy and the stage, and the stage composes the two device
- * previews. Switching projects never slides panels: the section keeps its
- * position and dimensions while the per-project layers (copy, chips, index
- * numerals, posters, domain) cross-morph in place and the client tint
+ * previews. The section keeps its position and dimensions while the
+ * per-project copy layers (copy, chips, index numerals, domain and metadata)
+ * cross-morph in place and the browser/phone website visuals travel together
+ * on synchronized horizontal rails. The client tint
  * variables (`--demo-tint`/`--demo-tint-2`) are colour-interpolated per frame,
  * so every derived accent — chips, dots, buttons, glows, beams — transforms
- * with them. Both projects' copy stays in the prerendered HTML (stacked
- * layers), which also pins the scene's height so the morph can never shift
- * layout. Reduced motion swaps the layers instantly.
+ * with them. Both projects' copy and visual captures stay in the prerendered
+ * HTML, which pins the scene's height and makes both rail directions
+ * deterministic. Reduced motion swaps every layer and rail instantly.
  *
  * On desktop and tablet the stage holds a dominant live browser window and a
  * phone; a two-state Desktop/Mobile control decides which device owns the
@@ -94,6 +96,7 @@ import { useShowcasePresence } from "./showcase-presence";
 import showcaseSitesJson from "./showcase-sites.json";
 import {
   EMBED_VIEWPORT_WIDTH,
+  fitEmbedViewport,
   initialShowcaseState,
   PHONE_EMBED_VIEWPORT_WIDTH,
   showcaseReducer,
@@ -160,8 +163,9 @@ const sites: ShowcaseSite[] = [
       { icon: ShieldCheck, label: "Policy-led content system" },
       { icon: Layers, label: "Portal-ready architecture" },
     ],
-    tint: "#d0685a",
-    tintSecondary: "#c9a25e",
+    // Source site theme tokens: #5e0000 oxblood and #c8a84a gold.
+    tint: "#5e0000",
+    tintSecondary: "#c8a84a",
     desktopPoster: {
       src: "/demos/web-design/ownly-desktop-1440.webp",
       srcSet:
@@ -191,8 +195,9 @@ const sites: ShowcaseSite[] = [
       { icon: Sparkles, label: "Free consultation funnel" },
       { icon: Workflow, label: "Nested booking portal" },
     ],
-    tint: "#9db284",
-    tintSecondary: "#d8a08b",
+    // Source site theme green plus its lighter in-site green accent.
+    tint: "#536035",
+    tintSecondary: "#7cb69c",
     desktopPoster: {
       src: "/demos/web-design/clouds-desktop-1440.webp",
       srcSet:
@@ -248,10 +253,11 @@ function useDeviceClass(): ShowcaseDeviceClass {
 /* ---- Embed scaling ------------------------------------------------------ */
 
 /**
- * Measures the visible screen box and derives the transform that maps the
- * fixed logical embed viewport onto it. Pointer coordinates, focus and touch
- * all pass through a CSS scale correctly, and the embed stays sharp because
- * the browser rasterises it at device resolution.
+ * Measures the screen's untransformed layout box and derives the local
+ * transform that maps the fixed logical embed viewport onto it. The device
+ * itself can then orbit/scale without that ancestor transform being counted
+ * twice. Pointer coordinates, focus and touch all pass through both CSS
+ * transforms correctly, and the embed stays sharp at device resolution.
  */
 function useEmbedScale(
   screenRef: RefObject<HTMLDivElement | null>,
@@ -269,13 +275,15 @@ function useEmbedScale(
     // ResizeObserver always delivers an initial notification on observe(),
     // so it covers the first measurement as well as later resizes and zoom.
     const observer = new ResizeObserver(() => {
-      const rect = screen.getBoundingClientRect();
+      // clientWidth/clientHeight deliberately ignore ancestor transforms.
+      // getBoundingClientRect() would include the phone's foreground scale,
+      // then that same scale would be applied to the iframe a second time.
+      const width = screen.clientWidth;
+      const height = screen.clientHeight;
       setBox((current) =>
-        current !== null &&
-        current.width === rect.width &&
-        current.height === rect.height
+        current !== null && current.width === width && current.height === height
           ? current
-          : { width: rect.width, height: rect.height },
+          : { width, height },
       );
     });
     observer.observe(screen);
@@ -285,11 +293,15 @@ function useEmbedScale(
   if (!enabled || !box || box.width <= 0) {
     return null;
   }
-  const scale = box.width / logicalWidth;
+  const viewport = fitEmbedViewport(box.width, box.height, logicalWidth);
+  if (!viewport) {
+    return null;
+  }
   return {
-    width: `${String(logicalWidth)}px`,
-    height: `${String(box.height / scale)}px`,
-    transform: `scale(${String(scale)})`,
+    width: `${String(viewport.logicalWidth)}px`,
+    height: `${String(viewport.logicalHeight)}px`,
+    maxWidth: "none",
+    transform: `scale(${String(viewport.scale)})`,
   };
 }
 
@@ -305,6 +317,45 @@ function preconnect(origin: string) {
   link.rel = "preconnect";
   link.href = origin;
   document.head.appendChild(link);
+}
+
+/* ---- Project visual rail ----------------------------------------------- */
+
+const PROJECT_RAIL_DURATION_S = 0.82;
+const PROJECT_RAIL_TRANSITION = {
+  duration: PROJECT_RAIL_DURATION_S,
+  ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+};
+
+type ProjectVisualRailProps = {
+  index: number;
+  reducedMotion: boolean;
+  className: string;
+  children: ReactNode;
+};
+
+/**
+ * A full-width two-project strip. Its own width stays equal to the visible
+ * screen while the 100%-wide children overflow horizontally, so x:-100%
+ * always lands the second project exactly on the screen bounds.
+ */
+function ProjectVisualRail({
+  index,
+  reducedMotion,
+  className,
+  children,
+}: ProjectVisualRailProps) {
+  return (
+    <m.div
+      className={`ss-folio-visual-rail ${className}`}
+      data-rail-index={index}
+      initial={false}
+      animate={{ x: `${String(-index * 100)}%` }}
+      transition={reducedMotion ? { duration: 0 } : PROJECT_RAIL_TRANSITION}
+    >
+      {children}
+    </m.div>
+  );
 }
 
 /* ---- Device orbit ------------------------------------------------------- */
@@ -455,12 +506,14 @@ function useWindowOrbit(progress: MotionValue<number>): MotionStyle {
 
 type MobileDemoPhoneProps = {
   site: ShowcaseSite;
+  projectIndex: number;
   deviceClass: ShowcaseDeviceClass;
   /** connecting/live while THIS site's phone surface owns the demo. */
   phase: "idle" | "connecting" | "live";
   idlePaused: boolean;
   frameNonce: number;
   slowConnect: boolean;
+  reducedMotion: boolean;
   frameHolderRef: RefObject<HTMLDivElement | null>;
   onActivate: (site: ShowcaseSiteId, surface: ShowcaseSurface) => void;
   onRestart: (site: ShowcaseSiteId) => void;
@@ -470,11 +523,13 @@ type MobileDemoPhoneProps = {
 
 function MobileDemoPhone({
   site,
+  projectIndex,
   deviceClass,
   phase,
   idlePaused,
   frameNonce,
   slowConnect,
+  reducedMotion,
   frameHolderRef,
   onActivate,
   onRestart,
@@ -482,29 +537,45 @@ function MobileDemoPhone({
   onLoaded,
 }: MobileDemoPhoneProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const screenRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
   const mountFrame = phase !== "idle" && deviceClass !== "mobile";
-  const scalerStyle = useEmbedScale(screenRef, mountFrame, PHONE_EMBED_VIEWPORT_WIDTH);
+  const scalerStyle = useEmbedScale(
+    viewportRef,
+    mountFrame,
+    PHONE_EMBED_VIEWPORT_WIDTH,
+  );
 
-  // Both projects' captures stay mounted so a project switch cross-morphs
-  // them in place instead of swapping an image source.
-  const posters = sites.map((entry) => (
-    <img
-      key={entry.id}
-      className="ss-folio-phone__shot ss-folio-morph"
-      data-active={entry.id === site.id}
-      aria-hidden={entry.id !== site.id || undefined}
-      src={entry.mobilePoster.src}
-      srcSet={entry.mobilePoster.srcSet}
-      sizes="(min-width: 48rem) 15rem, 66vw"
-      width={entry.mobilePoster.width}
-      height={entry.mobilePoster.height}
-      alt={entry.mobilePoster.alt}
-      loading="lazy"
-      decoding="async"
-    />
-  ));
+  const posters = (
+    <div className="ss-folio-phone__visual ss-folio-visual-viewport">
+      <ProjectVisualRail
+        index={projectIndex}
+        reducedMotion={reducedMotion}
+        className="ss-folio-phone__rail"
+      >
+        {sites.map((entry) => (
+          <div
+            key={entry.id}
+            className="ss-folio-visual-slide"
+            data-active={entry.id === site.id}
+            aria-hidden={entry.id !== site.id}
+          >
+            <img
+              className="ss-folio-phone__shot"
+              src={entry.mobilePoster.src}
+              srcSet={entry.mobilePoster.srcSet}
+              sizes="(min-width: 48rem) 15rem, 66vw"
+              width={entry.mobilePoster.width}
+              height={entry.mobilePoster.height}
+              alt={entry.mobilePoster.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        ))}
+      </ProjectVisualRail>
+    </div>
+  );
 
   // Mobile (<48rem): the phone is a plain safe external link — tapping a demo
   // opens the configured live site in a new tab; no iframe ever mounts.
@@ -518,7 +589,9 @@ function MobileDemoPhone({
         aria-label={`Open the ${site.name} website in a new tab`}
       >
         <span className="ss-folio-phone__island" aria-hidden="true" />
-        <div className="ss-folio-phone__screen">{posters}</div>
+        <div className="ss-folio-phone__screen">
+          <div className="ss-folio-phone__viewport">{posters}</div>
+        </div>
         <span className="ss-folio-phone__tag" aria-hidden="true">
           Tap to open live site
           <ArrowUpRight aria-hidden="true" />
@@ -559,67 +632,71 @@ function MobileDemoPhone({
       onPointerEnter={() => preconnect(site.origin)}
     >
       <span className="ss-folio-phone__island" aria-hidden="true" />
-      <div
-        ref={(node) => {
-          screenRef.current = node;
-          if (mountFrame) {
-            frameHolderRef.current = node;
-          }
-        }}
-        className="ss-folio-phone__screen"
-      >
-        {posters}
+      <div className="ss-folio-phone__screen">
+        <div
+          ref={(node) => {
+            viewportRef.current = node;
+            if (mountFrame) {
+              frameHolderRef.current = node;
+            }
+          }}
+          className="ss-folio-phone__viewport"
+        >
+          {posters}
 
-        {mountFrame && scalerStyle ? (
-          <iframe
-            ref={frameRef}
-            key={frameNonce}
-            className="ss-folio-phone__frame"
-            style={scalerStyle}
-            src={site.url}
-            title={`${site.name} — live mobile website`}
-            allow={site.allowPayment ? "payment" : undefined}
-            data-live={phase === "live" || undefined}
-            onLoad={handleLoad}
-          />
-        ) : null}
+          {mountFrame && scalerStyle ? (
+            <iframe
+              ref={frameRef}
+              key={frameNonce}
+              className="ss-folio-phone__frame"
+              style={scalerStyle}
+              src={site.url}
+              title={`${site.name} — live mobile website`}
+              allow={site.allowPayment ? "payment" : undefined}
+              data-live={phase === "live" || undefined}
+              onLoad={handleLoad}
+            />
+          ) : null}
 
-        {phase === "connecting" ? (
-          <span className="ss-folio-phone__veil" role="status">
-            <span className="ss-folio-phone__veil-ring" aria-hidden="true" />
-            Connecting to {site.domain}
-            {slowConnect ? (
-              <a
-                className="ss-focus-ring ss-folio-window__connecting-out"
-                href={site.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Taking a while? Open the site directly
-                <ArrowUpRight aria-hidden="true" />
-              </a>
-            ) : null}
-          </span>
-        ) : null}
-
-        {phase === "idle" ? (
-          <button
-            type="button"
-            className="ss-folio-phone__activate"
-            data-activate-phone={site.id}
-            onClick={activateDemo}
-          >
-            <span className="ss-folio-phone__activate-ring" aria-hidden="true">
-              <Power />
+          {phase === "connecting" ? (
+            <span className="ss-folio-phone__veil" role="status">
+              <span className="ss-folio-phone__veil-ring" aria-hidden="true" />
+              Connecting to {site.domain}
+              {slowConnect ? (
+                <a
+                  className="ss-focus-ring ss-folio-window__connecting-out"
+                  href={site.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Taking a while? Open the site directly
+                  <ArrowUpRight aria-hidden="true" />
+                </a>
+              ) : null}
             </span>
-            <span className="ss-folio-phone__activate-label">Activate mobile demo</span>
-            <span className="ss-folio-phone__activate-sub">
-              {idlePaused
-                ? "Paused after inactivity — pick up where you left off"
-                : "Browse the real mobile site right here"}
-            </span>
-          </button>
-        ) : null}
+          ) : null}
+
+          {phase === "idle" ? (
+            <button
+              type="button"
+              className="ss-folio-phone__activate"
+              data-activate-phone={site.id}
+              onClick={activateDemo}
+            >
+              <span className="ss-folio-phone__activate-ring" aria-hidden="true">
+                <Power />
+              </span>
+              <span className="ss-folio-phone__activate-label">
+                Activate mobile demo
+              </span>
+              <span className="ss-folio-phone__activate-sub">
+                {idlePaused
+                  ? "Paused after inactivity — pick up where you left off"
+                  : "Browse the real mobile site right here"}
+              </span>
+            </button>
+          ) : null}
+        </div>
       </div>
 
       {phase !== "idle" ? (
@@ -704,6 +781,8 @@ function ShowcaseScene({
   // activation/restart bumps the nonce, so the hint derives per attempt
   // without an imperative reset.
   const [slowAttempt, setSlowAttempt] = useState(-1);
+  const [railMoving, setRailMoving] = useState(false);
+  const previousProjectIndex = useRef(index);
 
   const windowPhase = surface === "window" ? phase : "idle";
   const phonePhase = surface === "phone" ? phase : "idle";
@@ -720,6 +799,22 @@ function ShowcaseScene({
     return () => window.clearTimeout(timer);
   }, [phase, frameNonce]);
   const slowConnect = phase === "connecting" && slowAttempt === frameNonce;
+
+  useEffect(() => {
+    const changed = previousProjectIndex.current !== index;
+    previousProjectIndex.current = index;
+    if (!changed || reducedMotion) {
+      setRailMoving(false);
+      return undefined;
+    }
+
+    setRailMoving(true);
+    const timer = window.setTimeout(
+      () => setRailMoving(false),
+      PROJECT_RAIL_DURATION_S * 1000 + 80,
+    );
+    return () => window.clearTimeout(timer);
+  }, [index, reducedMotion]);
 
   const status =
     windowPhase === "live"
@@ -838,7 +933,18 @@ function ShowcaseScene({
                   <strong>{entry.name}</strong>
                   <span className="ss-folio-scene__sector">{entry.sector}</span>
                 </p>
-                <h3 className="ss-folio-scene__headline">{entry.headline}</h3>
+                <h3
+                  className="ss-folio-scene__headline"
+                  data-title-accent={entry.id}
+                  style={
+                    {
+                      "--demo-title-tint": entry.tint,
+                      "--demo-title-tint-2": entry.tintSecondary,
+                    } as CSSProperties
+                  }
+                >
+                  {entry.headline}
+                </h3>
                 <p className="ss-folio-scene__line">{entry.line}</p>
               </header>
               <ul className="ss-folio-scene__chips">
@@ -870,6 +976,12 @@ function ShowcaseScene({
                 data-scene-switch={entry.id}
                 aria-pressed={entry.id === site.id}
                 onClick={() => onSelectScene(entryIndex)}
+                style={
+                  {
+                    "--project-tint": entry.tint,
+                    "--project-tint-2": entry.tintSecondary,
+                  } as CSSProperties
+                }
               >
                 <span aria-hidden="true">
                   {String(entryIndex + 1).padStart(2, "0")}
@@ -929,7 +1041,11 @@ function ShowcaseScene({
           </p>
         </Reveal>
 
-        <div className="ss-folio-scene__stage" data-orbiting={orbiting || undefined}>
+        <div
+          className="ss-folio-scene__stage"
+          data-orbiting={orbiting || undefined}
+          data-rail-moving={railMoving || undefined}
+        >
           <m.div
             ref={windowDeviceRef}
             className="ss-folio-device ss-folio-device--window"
@@ -1028,22 +1144,34 @@ function ShowcaseScene({
                   }}
                   className="ss-folio-window__screen"
                 >
-                  {sites.map((entry) => (
-                    <img
-                      key={entry.id}
-                      className="ss-folio-window__poster ss-folio-morph"
-                      data-active={entry.id === site.id}
-                      aria-hidden={entry.id !== site.id || undefined}
-                      src={entry.desktopPoster.src}
-                      srcSet={entry.desktopPoster.srcSet}
-                      sizes="(min-width: 64rem) 92vw, 94vw"
-                      width={entry.desktopPoster.width}
-                      height={entry.desktopPoster.height}
-                      alt={entry.desktopPoster.alt}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ))}
+                  <div className="ss-folio-window__visual ss-folio-visual-viewport">
+                    <ProjectVisualRail
+                      index={index}
+                      reducedMotion={reducedMotion}
+                      className="ss-folio-window__rail"
+                    >
+                      {sites.map((entry) => (
+                        <div
+                          key={entry.id}
+                          className="ss-folio-visual-slide"
+                          data-active={entry.id === site.id}
+                          aria-hidden={entry.id !== site.id}
+                        >
+                          <img
+                            className="ss-folio-window__poster"
+                            src={entry.desktopPoster.src}
+                            srcSet={entry.desktopPoster.srcSet}
+                            sizes="(min-width: 64rem) 92vw, 94vw"
+                            width={entry.desktopPoster.width}
+                            height={entry.desktopPoster.height}
+                            alt={entry.desktopPoster.alt}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </div>
+                      ))}
+                    </ProjectVisualRail>
+                  </div>
 
                   {mountFrame && frameStyle ? (
                     <iframe
@@ -1128,11 +1256,13 @@ function ShowcaseScene({
             <Reveal kind="card" delayMs={150}>
               <MobileDemoPhone
                 site={site}
+                projectIndex={index}
                 deviceClass={deviceClass}
                 phase={phonePhase}
                 idlePaused={idlePaused && surface === "phone"}
                 frameNonce={frameNonce}
                 slowConnect={slowConnect && surface === "phone"}
+                reducedMotion={reducedMotion}
                 frameHolderRef={frameHolderRef}
                 onActivate={onActivate}
                 onRestart={onRestart}
