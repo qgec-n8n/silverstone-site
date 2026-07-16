@@ -6,7 +6,9 @@ async function readPhoneGeometry(phone: Locator) {
     const island = root.querySelector<HTMLElement>(".ss-folio-phone__island");
     const viewport = root.querySelector<HTMLElement>(".ss-folio-phone__viewport");
     const frame = root.querySelector<HTMLIFrameElement>(".ss-folio-phone__frame");
-    if (!screen || !island || !viewport || !frame) {
+    const shot = root.querySelector<HTMLElement>(".ss-folio-phone__shot");
+    const browserBar = root.querySelector<HTMLElement>(".ss-folio-phone__browser-bar");
+    if (!screen || !island || !viewport || !frame || !shot || !browserBar) {
       return null;
     }
 
@@ -14,11 +16,19 @@ async function readPhoneGeometry(phone: Locator) {
     const islandBox = island.getBoundingClientRect();
     const viewportBox = viewport.getBoundingClientRect();
     const frameBox = frame.getBoundingClientRect();
+    const shotBox = shot.getBoundingClientRect();
+    const browserBarBox = browserBar.getBoundingClientRect();
     return {
       logicalWidth: frame.style.width,
       overflow: getComputedStyle(viewport).overflow,
+      touchAction: getComputedStyle(frame).touchAction,
+      shotRadius: getComputedStyle(shot).borderRadius,
       safeGap: viewportBox.top - islandBox.bottom,
       safeTop: viewportBox.top - screenBox.top,
+      safeBottom: screenBox.bottom - viewportBox.bottom,
+      browserBarHeight: browserBarBox.height,
+      shotLeftDelta: shotBox.left - viewportBox.left,
+      shotRightDelta: shotBox.right - viewportBox.right,
       leftDelta: frameBox.left - viewportBox.left,
       rightDelta: frameBox.right - viewportBox.right,
       topDelta: frameBox.top - viewportBox.top,
@@ -58,6 +68,7 @@ test.describe("web design live showcase", () => {
 
     const scene = page.locator(".ss-folio-scene[data-current]");
     await expect(scene).toBeVisible({ timeout: 10_000 });
+    const activePair = scene.locator('.ss-folio-device-slide[data-active="true"]');
     const mobile = scene.getByRole("button", { name: "Mobile", exact: true });
     await mobile.click();
     await expect(mobile).toHaveAttribute("aria-pressed", "true");
@@ -85,12 +96,19 @@ test.describe("web design live showcase", () => {
     );
     await expect(scene).toHaveAttribute("data-phase", "live");
     await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(1);
-    const geometry = await readPhoneGeometry(scene.locator(".ss-folio-phone"));
+    const geometry = await readPhoneGeometry(activePair.locator(".ss-folio-phone"));
     expect(geometry).not.toBeNull();
     expect(geometry?.logicalWidth).toBe("390px");
     expect(geometry?.overflow).toBe("clip");
+    expect(geometry?.touchAction).toContain("pan-y");
+    expect(geometry?.shotRadius).toBe("0px");
     expect(geometry?.safeTop ?? 0).toBeGreaterThan(0);
     expect(geometry?.safeGap ?? -1).toBeGreaterThanOrEqual(0);
+    expect(
+      Math.abs((geometry?.safeBottom ?? 99) - (geometry?.browserBarHeight ?? 0)),
+    ).toBeLessThanOrEqual(0.75);
+    expect(Math.abs(geometry?.shotLeftDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(Math.abs(geometry?.shotRightDelta ?? 99)).toBeLessThanOrEqual(0.75);
     expect(Math.abs(geometry?.leftDelta ?? 99)).toBeLessThanOrEqual(0.75);
     expect(Math.abs(geometry?.rightDelta ?? 99)).toBeLessThanOrEqual(0.75);
     expect(Math.abs(geometry?.topDelta ?? 99)).toBeLessThanOrEqual(0.75);
@@ -148,9 +166,13 @@ test.describe("web design live showcase", () => {
     await expect(scene).toHaveAttribute("data-phase", "connecting");
     await expect(scene).toHaveAttribute("data-phase", "live");
     await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(1);
-    const cloudsGeometry = await readPhoneGeometry(scene.locator(".ss-folio-phone"));
+    const cloudsGeometry = await readPhoneGeometry(
+      activePair.locator(".ss-folio-phone"),
+    );
     expect(Math.abs(cloudsGeometry?.rightDelta ?? 99)).toBeLessThanOrEqual(0.75);
     expect(cloudsGeometry?.safeGap ?? -1).toBeGreaterThanOrEqual(0);
+    expect(cloudsGeometry?.touchAction).toContain("pan-y");
+    expect(cloudsGeometry?.shotRadius).toBe("0px");
 
     const cloudsRestart = scene.getByRole("button", {
       name: "Restart the Aesthetics by Clouds mobile demo",
@@ -187,7 +209,7 @@ test.describe("web design live showcase", () => {
     await scene.locator('[data-activate-phone="aesthetics-by-clouds"]').click();
     await expect(scene).toHaveAttribute("data-phase", "live");
 
-    await scene.locator(".ss-folio-phone").focus();
+    await activePair.locator(".ss-folio-phone").focus();
     await page.keyboard.press("Escape");
     await expect(scene).toHaveAttribute("data-phase", "idle");
     await expect(scene.locator(".ss-folio-phone__frame")).toHaveCount(0);
@@ -202,7 +224,7 @@ test.describe("web design live showcase", () => {
       "https://aestheticsbyclouds.netlify.app/**",
     ]) {
       await page.route(origin, async (route) => {
-        await new Promise((resolve) => setTimeout(resolve, 120));
+        await new Promise((resolve) => setTimeout(resolve, 300));
         await route.fulfill({
           body: "<!doctype html><html><body style='margin:0;min-height:4000px'>Desktop demo</body></html>",
           contentType: "text/html",
@@ -214,23 +236,26 @@ test.describe("web design live showcase", () => {
     await page.goto("/services/web-design-development#demo-web-design");
     const scene = page.locator(".ss-folio-scene[data-current]");
     await expect(scene).toBeVisible({ timeout: 10_000 });
+    const activePair = scene.locator('.ss-folio-device-slide[data-active="true"]');
     await scene.locator('[data-activate="ownly-housing"]').click();
     await expect(scene).toHaveAttribute("data-phase", "connecting");
     await expect(scene).toHaveAttribute("data-phase", "live");
     await expect(scene.locator("iframe")).toHaveCount(1);
 
-    const ownlyGeometry = await scene.locator(".ss-folio-window").evaluate((root) => {
-      const screen = root.querySelector<HTMLElement>(".ss-folio-window__screen");
-      const frame = root.querySelector<HTMLIFrameElement>(".ss-folio-window__frame");
-      if (!screen || !frame) return null;
-      const screenBox = screen.getBoundingClientRect();
-      const frameBox = frame.getBoundingClientRect();
-      return {
-        logicalWidth: frame.style.width,
-        rightDelta: frameBox.right - screenBox.right,
-        bottomDelta: frameBox.bottom - screenBox.bottom,
-      };
-    });
+    const ownlyGeometry = await activePair
+      .locator(".ss-folio-window")
+      .evaluate((root) => {
+        const screen = root.querySelector<HTMLElement>(".ss-folio-window__screen");
+        const frame = root.querySelector<HTMLIFrameElement>(".ss-folio-window__frame");
+        if (!screen || !frame) return null;
+        const screenBox = screen.getBoundingClientRect();
+        const frameBox = frame.getBoundingClientRect();
+        return {
+          logicalWidth: frame.style.width,
+          rightDelta: frameBox.right - screenBox.right,
+          bottomDelta: frameBox.bottom - screenBox.bottom,
+        };
+      });
     expect(ownlyGeometry?.logicalWidth).toBe("1440px");
     expect(Math.abs(ownlyGeometry?.rightDelta ?? 99)).toBeLessThanOrEqual(0.75);
     expect(Math.abs(ownlyGeometry?.bottomDelta ?? 99)).toBeLessThanOrEqual(0.75);
@@ -260,13 +285,13 @@ test.describe("web design live showcase", () => {
     await expect(scene).toHaveAttribute("data-phase", "connecting");
     await expect(scene).toHaveAttribute("data-phase", "live");
     await expect(scene.locator("iframe")).toHaveCount(1);
-    await scene.locator(".ss-folio-window").focus();
+    await activePair.locator(".ss-folio-window").focus();
     await page.keyboard.press("Escape");
     await expect(scene).toHaveAttribute("data-phase", "idle");
     await expect(scene.locator("iframe")).toHaveCount(0);
   });
 
-  test("project copy morphs in place while both website visuals travel on the rail", async ({
+  test("project copy morphs in place while complete device pairs travel on the rail", async ({
     page,
   }, testInfo) => {
     test.skip(testInfo.project.name !== "desktop-chromium");
@@ -275,8 +300,10 @@ test.describe("web design live showcase", () => {
     const scene = page.locator(".ss-folio-scene[data-current]");
     await expect(scene).toBeVisible({ timeout: 10_000 });
     const stage = scene.locator(".ss-folio-scene__stage");
-    const windowRail = scene.locator(".ss-folio-window__rail");
-    const phoneRail = scene.locator(".ss-folio-phone__rail");
+    const deviceRail = scene.locator(".ss-folio-device-rail");
+    const deviceViewport = scene.locator(".ss-folio-device-viewport");
+    const ownlySlide = deviceRail.locator('[data-project="ownly-housing"]');
+    const cloudsSlide = deviceRail.locator('[data-project="aesthetics-by-clouds"]');
     const clouds = scene.getByRole("button", {
       name: "Aesthetics by Clouds",
       exact: true,
@@ -284,27 +311,45 @@ test.describe("web design live showcase", () => {
     const ownly = scene.getByRole("button", { name: "Ownly Housing", exact: true });
 
     const anchoredBefore = await scene.evaluate((root) => {
-      const intro = root.querySelector(".ss-folio-scene__intro");
-      const domain = root.querySelector(".ss-folio-window__addr-domain");
-      if (!intro || !domain) return null;
-      const introBox = intro.getBoundingClientRect();
-      const domainBox = domain.getBoundingClientRect();
+      const intro = root.querySelector<HTMLElement>(".ss-folio-scene__intro");
+      if (!intro) return null;
       return {
-        introTop: introBox.top,
-        introHeight: introBox.height,
-        domainLeft: domainBox.left,
-        domainTop: domainBox.top,
+        introTop: intro.offsetTop,
+        introHeight: intro.offsetHeight,
       };
     });
 
-    const windowWidth = await scene
-      .locator(".ss-folio-window__visual")
-      .evaluate((element) => element.getBoundingClientRect().width);
+    await expect(ownlySlide.locator(".ss-folio-device")).toHaveCount(2);
+    await expect(cloudsSlide.locator(".ss-folio-device")).toHaveCount(2);
+    await expect(cloudsSlide).toHaveAttribute("inert", "");
+    await expect(cloudsSlide.locator("iframe")).toHaveCount(0);
+
+    const beforeDevices = await deviceRail.evaluate((rail) => {
+      const read = (project: string) => {
+        const slide = rail.querySelector(`[data-project="${project}"]`);
+        const windowDevice = slide?.querySelector(".ss-folio-device--window");
+        const phoneDevice = slide?.querySelector(".ss-folio-device--phone");
+        const poster = slide?.querySelector(".ss-folio-window__poster");
+        if (!windowDevice || !phoneDevice || !poster) return null;
+        const windowBox = windowDevice.getBoundingClientRect();
+        const phoneBox = phoneDevice.getBoundingClientRect();
+        const posterBox = poster.getBoundingClientRect();
+        return {
+          windowX: windowBox.x,
+          phoneX: phoneBox.x,
+          posterOffset: posterBox.x - windowBox.x,
+        };
+      };
+      return { ownly: read("ownly-housing"), clouds: read("aesthetics-by-clouds") };
+    });
+    const railWidth = await deviceViewport.evaluate(
+      (element) => element.getBoundingClientRect().width,
+    );
     await clouds.click();
     await expect(scene).toHaveAttribute("data-demo", "aesthetics-by-clouds");
     await expect(stage).toHaveAttribute("data-rail-moving", "true");
 
-    const outgoingSamples = await windowRail.evaluate(async (rail) => {
+    const outgoingSamples = await deviceRail.evaluate(async (rail) => {
       const positions: number[] = [];
       for (let frame = 0; frame < 12; frame += 1) {
         await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
@@ -313,25 +358,61 @@ test.describe("web design live showcase", () => {
       return positions;
     });
     expect(
-      outgoingSamples.some((position) => position < -1 && position > -windowWidth + 1),
+      outgoingSamples.some((position) => position < -1 && position > -railWidth + 1),
     ).toBe(true);
+
+    const movingDevices = await deviceRail.evaluate((rail) => {
+      const read = (project: string) => {
+        const slide = rail.querySelector(`[data-project="${project}"]`);
+        const windowDevice = slide?.querySelector(".ss-folio-device--window");
+        const phoneDevice = slide?.querySelector(".ss-folio-device--phone");
+        const poster = slide?.querySelector(".ss-folio-window__poster");
+        if (!windowDevice || !phoneDevice || !poster) return null;
+        const windowBox = windowDevice.getBoundingClientRect();
+        const phoneBox = phoneDevice.getBoundingClientRect();
+        const posterBox = poster.getBoundingClientRect();
+        return {
+          windowX: windowBox.x,
+          phoneX: phoneBox.x,
+          posterOffset: posterBox.x - windowBox.x,
+        };
+      };
+      return { ownly: read("ownly-housing"), clouds: read("aesthetics-by-clouds") };
+    });
+    expect(movingDevices.ownly?.windowX ?? 99).toBeLessThan(
+      beforeDevices.ownly?.windowX ?? 0,
+    );
+    expect(movingDevices.ownly?.phoneX ?? 99).toBeLessThan(
+      beforeDevices.ownly?.phoneX ?? 0,
+    );
+    expect(
+      Math.abs(
+        (movingDevices.ownly?.posterOffset ?? 99) -
+          (beforeDevices.ownly?.posterOffset ?? 0),
+      ),
+    ).toBeLessThan(1);
 
     await expect(stage).not.toHaveAttribute("data-rail-moving", "true", {
       timeout: 2_000,
     });
-    await expect(windowRail).toHaveAttribute("data-rail-index", "1");
-    await expect(phoneRail).toHaveAttribute("data-rail-index", "1");
-    const settled = await windowRail.evaluate(
+    await expect(deviceRail).toHaveAttribute("data-rail-index", "1");
+    const settled = await deviceRail.evaluate(
       (rail) => new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41,
     );
-    expect(settled).toBeCloseTo(-windowWidth, 0);
-    await expect(
-      windowRail.locator('.ss-folio-visual-slide[data-active="true"] img'),
-    ).toHaveAttribute("alt", /Aesthetics by Clouds/i);
-    await expect(
-      phoneRail.locator('.ss-folio-visual-slide[data-active="false"]'),
-    ).toHaveAttribute("aria-hidden", "true");
-    await expect(scene.locator(".ss-folio-visual-rail iframe")).toHaveCount(0);
+    expect(settled).toBeCloseTo(-railWidth, 0);
+    await expect(cloudsSlide).toHaveAttribute("data-active", "true");
+    await expect(cloudsSlide.locator(".ss-folio-window__poster")).toHaveAttribute(
+      "alt",
+      /Aesthetics by Clouds/i,
+    );
+    await expect(cloudsSlide.locator(".ss-folio-phone__shot")).toHaveAttribute(
+      "alt",
+      /Aesthetics by Clouds/i,
+    );
+    await expect(cloudsSlide.locator(".ss-folio-phone__browser-domain")).toContainText(
+      "aestheticsbyclouds.netlify.app",
+    );
+    await expect(ownlySlide).toHaveAttribute("aria-hidden", "true");
     await expect(scene.locator("iframe")).toHaveCount(0);
 
     const cloudsTitle = scene.locator(
@@ -346,6 +427,7 @@ test.describe("web design live showcase", () => {
         accent: title.style.getPropertyValue("--demo-title-tint"),
         background: getComputedStyle(title).backgroundImage,
         color: getComputedStyle(title).color,
+        filter: getComputedStyle(title).filter,
       })),
     ).toEqual(
       expect.objectContaining({
@@ -354,25 +436,26 @@ test.describe("web design live showcase", () => {
       }),
     );
     expect(
+      await cloudsTitle.evaluate((title) => getComputedStyle(title).backgroundImage),
+    ).toContain("oklch");
+    expect(
+      await cloudsTitle.evaluate((title) => getComputedStyle(title).filter),
+    ).not.toBe("none");
+    expect(
       await clouds.evaluate((button) => getComputedStyle(button).backgroundImage),
     ).not.toBe("none");
 
     const anchoredAfter = await scene.evaluate((root) => {
-      const intro = root.querySelector(".ss-folio-scene__intro");
-      const domain = root.querySelector(".ss-folio-window__addr-domain");
-      if (!intro || !domain) return null;
-      const introBox = intro.getBoundingClientRect();
-      const domainBox = domain.getBoundingClientRect();
+      const intro = root.querySelector<HTMLElement>(".ss-folio-scene__intro");
+      if (!intro) return null;
       return {
-        introTop: introBox.top,
-        introHeight: introBox.height,
-        domainLeft: domainBox.left,
-        domainTop: domainBox.top,
+        introTop: intro.offsetTop,
+        introHeight: intro.offsetHeight,
       };
     });
     expect(anchoredAfter).not.toBeNull();
     expect(anchoredBefore).not.toBeNull();
-    for (const key of ["introTop", "introHeight", "domainLeft", "domainTop"] as const) {
+    for (const key of ["introTop", "introHeight"] as const) {
       expect(
         Math.abs((anchoredAfter?.[key] ?? 99) - (anchoredBefore?.[key] ?? 0)),
       ).toBeLessThan(1);
@@ -380,7 +463,7 @@ test.describe("web design live showcase", () => {
 
     await ownly.click();
     await expect(stage).toHaveAttribute("data-rail-moving", "true");
-    const incomingSamples = await windowRail.evaluate(async (rail) => {
+    const incomingSamples = await deviceRail.evaluate(async (rail) => {
       const positions: number[] = [];
       for (let frame = 0; frame < 12; frame += 1) {
         await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
@@ -389,9 +472,9 @@ test.describe("web design live showcase", () => {
       return positions;
     });
     expect(
-      incomingSamples.some((position) => position < -1 && position > -windowWidth + 1),
+      incomingSamples.some((position) => position < -1 && position > -railWidth + 1),
     ).toBe(true);
-    expect(incomingSamples.at(-1) ?? -windowWidth).toBeGreaterThan(
+    expect(incomingSamples.at(-1) ?? -railWidth).toBeGreaterThan(
       incomingSamples[0] ?? 0,
     );
     await expect(stage).not.toHaveAttribute("data-rail-moving", "true", {
@@ -405,10 +488,63 @@ test.describe("web design live showcase", () => {
         .evaluate((title) => title.style.getPropertyValue("--demo-title-tint")),
     ).toBe("#5e0000");
     expect(
-      await windowRail.evaluate(
+      await deviceRail.evaluate(
         (rail) => new DOMMatrixReadOnly(getComputedStyle(rail).transform).m41,
       ),
     ).toBeCloseTo(0, 0);
+  });
+
+  test("inactive depth glass is darker on the rear device and mirrors with focus", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop-chromium");
+    await page.goto("/services/web-design-development#demo-web-design");
+
+    const scene = page.locator(".ss-folio-scene[data-current]");
+    await expect(scene).toBeVisible({ timeout: 10_000 });
+    const activePair = scene.locator('.ss-folio-device-slide[data-active="true"]');
+    const windowDevice = activePair.locator(".ss-folio-device--window");
+    const phoneDevice = activePair.locator(".ss-folio-device--phone");
+    const windowShade = windowDevice.locator(".ss-folio-device__depth-shade");
+    const phoneShade = phoneDevice.locator(".ss-folio-device__depth-shade");
+
+    await expect(windowDevice).toHaveAttribute("data-plane", "front");
+    await expect(phoneDevice).toHaveAttribute("data-plane", "back");
+    expect(await windowShade.evaluate((shade) => getComputedStyle(shade).opacity)).toBe(
+      "0",
+    );
+    expect(await phoneShade.evaluate((shade) => getComputedStyle(shade).opacity)).toBe(
+      "1",
+    );
+    expect(
+      await phoneShade.evaluate((shade) => getComputedStyle(shade).backdropFilter),
+    ).toContain("blur");
+    await expect(phoneDevice.locator(".ss-folio-phone__shot")).toBeVisible();
+
+    await scene.getByRole("button", { name: "Mobile", exact: true }).click();
+    await expect(scene.locator(".ss-folio-scene__stage")).toHaveAttribute(
+      "data-orbiting",
+      "true",
+    );
+    await expect(scene.locator(".ss-folio-scene__stage")).not.toHaveAttribute(
+      "data-orbiting",
+      "true",
+      { timeout: 2_000 },
+    );
+    await expect(windowDevice).toHaveAttribute("data-plane", "back");
+    await expect(phoneDevice).toHaveAttribute("data-plane", "front");
+    expect(await windowShade.evaluate((shade) => getComputedStyle(shade).opacity)).toBe(
+      "1",
+    );
+    expect(await phoneShade.evaluate((shade) => getComputedStyle(shade).opacity)).toBe(
+      "0",
+    );
+    await expect(windowDevice.locator(".ss-folio-window__poster")).toBeVisible();
+    expect(
+      await windowDevice
+        .locator(".ss-folio-window__visual")
+        .evaluate((visual) => getComputedStyle(visual).visibility),
+    ).toBe("visible");
   });
 
   test("reduced motion swaps device depth without orbit travel", async ({
@@ -420,20 +556,21 @@ test.describe("web design live showcase", () => {
 
     const scene = page.locator(".ss-folio-scene[data-current]");
     await expect(scene).toBeVisible({ timeout: 10_000 });
+    const activePair = scene.locator('.ss-folio-device-slide[data-active="true"]');
     const mobile = scene.getByRole("button", { name: "Mobile", exact: true });
     await mobile.click();
 
     await expect(mobile).toHaveAttribute("aria-pressed", "true");
-    await expect(scene.locator(".ss-folio-device--window")).toHaveAttribute(
+    await expect(activePair.locator(".ss-folio-device--window")).toHaveAttribute(
       "data-plane",
       "back",
     );
-    await expect(scene.locator(".ss-folio-device--phone")).toHaveAttribute(
+    await expect(activePair.locator(".ss-folio-device--phone")).toHaveAttribute(
       "data-plane",
       "front",
     );
     expect(
-      await scene.locator(".ss-folio-device--window").evaluate((device) => ({
+      await activePair.locator(".ss-folio-device--window").evaluate((device) => ({
         reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
         transform: getComputedStyle(device).transform,
         transitionProperty: getComputedStyle(device).transitionProperty,
@@ -452,12 +589,12 @@ test.describe("web design live showcase", () => {
       "data-rail-moving",
       "true",
     );
-    await expect(scene.locator(".ss-folio-window__rail")).toHaveAttribute(
+    await expect(scene.locator(".ss-folio-device-rail")).toHaveAttribute(
       "data-rail-index",
       "1",
     );
     const reducedRail = await scene
-      .locator(".ss-folio-visual-slide")
+      .locator(".ss-folio-device-slide")
       .first()
       .evaluate((slide) => ({
         transitionDurationMs:
@@ -478,6 +615,7 @@ test.describe("web design live showcase", () => {
       '.ss-folio-scene[data-demo="ownly-housing"][data-current]',
     );
     await expect(scene).toBeVisible({ timeout: 10_000 });
+    const activePair = scene.locator('.ss-folio-device-slide[data-active="true"]');
     const ownly = scene.getByRole("button", { name: "Ownly Housing", exact: true });
     const clouds = scene.getByRole("button", {
       name: "Aesthetics by Clouds",
@@ -507,10 +645,83 @@ test.describe("web design live showcase", () => {
     await mobile.focus();
     await page.keyboard.press("Enter");
     await expect(mobile).toHaveAttribute("aria-pressed", "true");
-    await expect(scene.locator(".ss-folio-device--window")).toHaveAttribute(
+    await expect(activePair.locator(".ss-folio-device--window")).toHaveAttribute(
       "inert",
       "",
     );
+  });
+
+  test("mobile rail keeps each phone centered with a seamless website viewport", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile-chromium");
+    await page.goto("/services/web-design-development#demo-web-design");
+
+    const scene = page.locator(".ss-folio-scene[data-current]");
+    await expect(scene).toBeVisible({ timeout: 10_000 });
+    const stage = scene.locator(".ss-folio-scene__stage");
+    const activePair = scene.locator('.ss-folio-device-slide[data-active="true"]');
+
+    const readPosterFit = () =>
+      activePair.locator(".ss-folio-phone").evaluate((phone) => {
+        const viewport = phone.querySelector<HTMLElement>(".ss-folio-phone__viewport");
+        const shot = phone.querySelector<HTMLElement>(".ss-folio-phone__shot");
+        const bar = phone.querySelector<HTMLElement>(".ss-folio-phone__browser-bar");
+        if (!viewport || !shot || !bar) return null;
+        const phoneBox = phone.getBoundingClientRect();
+        const stageBox = phone
+          .closest(".ss-folio-scene__stage")
+          ?.getBoundingClientRect();
+        const viewportBox = viewport.getBoundingClientRect();
+        const shotBox = shot.getBoundingClientRect();
+        return {
+          phoneCenter: phoneBox.left + phoneBox.width / 2,
+          stageCenter: stageBox?.x,
+          stageWidth: stageBox?.width,
+          leftDelta: shotBox.left - viewportBox.left,
+          rightDelta: shotBox.right - viewportBox.right,
+          radius: getComputedStyle(shot).borderRadius,
+          barHeight: bar.getBoundingClientRect().height,
+          pageOverflow: document.documentElement.scrollWidth - innerWidth,
+        };
+      });
+
+    const ownly = await readPosterFit();
+    expect(ownly?.radius).toBe("0px");
+    expect(ownly?.barHeight ?? 0).toBeGreaterThan(0);
+    expect(Math.abs(ownly?.leftDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(Math.abs(ownly?.rightDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(ownly?.pageOverflow ?? 99).toBeLessThanOrEqual(0);
+    expect(
+      Math.abs(
+        (ownly?.phoneCenter ?? 0) -
+          ((ownly?.stageCenter ?? 0) + (ownly?.stageWidth ?? 0) / 2),
+      ),
+    ).toBeLessThanOrEqual(1);
+
+    await scene
+      .getByRole("button", { name: "Aesthetics by Clouds", exact: true })
+      .click();
+    await expect(stage).toHaveAttribute("data-rail-moving", "true");
+    await expect(stage).not.toHaveAttribute("data-rail-moving", "true", {
+      timeout: 2_000,
+    });
+    await expect(scene.locator(".ss-folio-device-rail")).toHaveAttribute(
+      "data-rail-index",
+      "1",
+    );
+    const clouds = await readPosterFit();
+    expect(clouds?.radius).toBe("0px");
+    expect(clouds?.barHeight ?? 0).toBeGreaterThan(0);
+    expect(Math.abs(clouds?.leftDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(Math.abs(clouds?.rightDelta ?? 99)).toBeLessThanOrEqual(0.75);
+    expect(clouds?.pageOverflow ?? 99).toBeLessThanOrEqual(0);
+    expect(
+      Math.abs(
+        (clouds?.phoneCenter ?? 0) -
+          ((clouds?.stageCenter ?? 0) + (clouds?.stageWidth ?? 0) / 2),
+      ),
+    ).toBeLessThanOrEqual(1);
   });
 
   test("particle canvas and engine survive repeated demo-section scrolling", async ({

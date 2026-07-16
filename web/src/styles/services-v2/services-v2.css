@@ -2642,14 +2642,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   position: relative;
 }
 
-/* -- One fixed scene; copy morphs while the site visuals rail ---------------
+/* -- One fixed scene; copy morphs while complete device pairs rail ---------
    `.ss-folio-stack` overlays the per-project layers in one grid cell — the
    scene's height is the max of both projects, so the morph can never shift
-   layout — and `.ss-folio-morph` cross-fades/blurs/settles them. Inside both
-   device screens, a synchronized visual rail moves the outgoing production
-   capture away while the incoming one settles into the same clipped viewport.
-   Device shells and browser metadata stay anchored. The tint
-   variables are colour-interpolated per frame by the component, so every
+   layout — and `.ss-folio-morph` cross-fades/blurs/settles them. The project
+   rail carries each complete browser-and-phone composition, so the outgoing
+   hardware travels away with its website and the incoming hardware arrives as
+   one object. The tint variables are colour-interpolated per frame by the component, so every
    accent derived from them (chips, dots, pills, glows, beams) transforms in
    the same breath. -- */
 
@@ -2681,14 +2680,6 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   pointer-events: none;
 }
 
-.ss-folio-visual-viewport {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: clip;
-  isolation: isolate;
-}
-
 .ss-folio-visual-rail {
   position: absolute;
   inset: 0;
@@ -2698,12 +2689,27 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   will-change: transform;
 }
 
-.ss-folio-visual-slide {
+.ss-folio-device-viewport {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.ss-folio-device-rail {
+  position: relative;
+  inset: auto;
+  align-items: stretch;
+  height: auto;
+}
+
+.ss-folio-device-slide {
   position: relative;
   flex: 0 0 100%;
   width: 100%;
-  height: 100%;
-  overflow: clip;
+  min-width: 0;
+  padding-block: 0.5rem 2.5rem;
   transform: scale(1);
   transform-origin: center;
   opacity: 1;
@@ -2714,21 +2720,21 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     transform 0.82s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.ss-folio-visual-slide[data-active="false"] {
-  opacity: 0.48;
-  filter: blur(5px) brightness(0.68) saturate(0.72);
-  transform: scale(0.975);
+.ss-folio-device-slide[data-active="false"] {
+  opacity: 0.66;
+  filter: blur(2px) brightness(0.74) saturate(0.78);
+  transform: scale(0.986);
 }
 
 /* A single narrow light front binds the copy morph, palette interpolation and
-   twin rails into one transition. It is clipped to the website displays and
-   never crosses controls or receives input. */
-.ss-folio-visual-viewport::after {
+   complete-device rail into one transition. It is clipped to the stage and
+   never receives input. */
+.ss-folio-device-viewport::after {
   content: "";
   position: absolute;
   inset-block: 0;
   left: -18%;
-  z-index: 1;
+  z-index: 30;
   width: 18%;
   background: linear-gradient(
     90deg,
@@ -2743,7 +2749,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   pointer-events: none;
 }
 
-.ss-folio-scene__stage[data-rail-moving] .ss-folio-visual-viewport::after {
+.ss-folio-scene__stage[data-rail-moving] .ss-folio-device-viewport::after {
   animation: ss-folio-rail-light 0.82s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -2827,13 +2833,21 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   line-height: 1.12;
   letter-spacing: -0.015em;
   background: linear-gradient(
-    100deg,
-    color-mix(in srgb, var(--demo-title-tint) 46%, var(--ss-v2-chrome)),
-    color-mix(in srgb, var(--demo-title-tint-2) 76%, var(--ss-v2-chrome))
+    108deg,
+    color-mix(in oklch, var(--demo-title-tint) 82%, var(--ss-v2-chrome)) 0%,
+    color-mix(in oklch, var(--demo-title-tint) 68%, var(--ss-v2-chrome)) 28%,
+    var(--demo-title-tint-2) 51%,
+    color-mix(in oklch, var(--demo-title-tint-2) 74%, var(--ss-v2-chrome)) 63%,
+    color-mix(in oklch, var(--demo-title-tint) 88%, var(--ss-v2-chrome)) 100%
   );
+  background-size: 145% 100%;
+  background-position: 42% 50%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  filter: drop-shadow(
+    0 0 14px color-mix(in srgb, var(--demo-title-tint-2) 20%, transparent)
+  );
   max-width: 26ch;
   text-wrap: balance;
 }
@@ -3058,6 +3072,22 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   will-change: transform;
 }
 
+.ss-folio-device__depth-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  border-radius: var(--ss-radius-xl);
+  background: rgb(2 7 12 / 0.62);
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(3px) saturate(0.72);
+  transition: opacity 0.42s ease;
+}
+
+.ss-folio-device--phone .ss-folio-device__depth-shade {
+  border-radius: 2.4rem;
+}
+
 .ss-folio-device[data-plane="front"] {
   z-index: 3;
 }
@@ -3067,17 +3097,15 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   pointer-events: none;
 }
 
-.ss-folio-device--window[data-plane="back"] {
-  opacity: 0.48;
+.ss-folio-device[data-plane="back"] .ss-folio-device__depth-shade {
+  opacity: 1;
 }
 
-.ss-folio-device--phone[data-plane="back"] {
-  opacity: 0.92;
-}
-
-/* A backgrounded phone shows only its screen — the activation affordance,
-   tag and demo controls belong to the foreground state (the device is inert
-   while backgrounded). */
+/* A backgrounded device keeps the client website visible through one shared
+   dark glass treatment. Activation affordances and controls belong only to
+   the foreground plane; this keeps the front preview lighter and the rear
+   preview unambiguously deeper in either orientation. */
+.ss-folio-device--window[data-plane="back"] .ss-folio-window__activate,
 .ss-folio-device--phone[data-plane="back"] .ss-folio-phone__activate,
 .ss-folio-device--phone[data-plane="back"] .ss-folio-phone__tag,
 .ss-folio-device--phone[data-plane="back"] .ss-folio-phone__ctls {
@@ -3085,6 +3113,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   transition: opacity 0.3s ease;
 }
 
+.ss-folio-device--window[data-plane="front"] .ss-folio-window__activate,
 .ss-folio-device--phone[data-plane="front"] .ss-folio-phone__activate,
 .ss-folio-device--phone[data-plane="front"] .ss-folio-phone__tag,
 .ss-folio-device--phone[data-plane="front"] .ss-folio-phone__ctls {
@@ -3323,13 +3352,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   background:
     radial-gradient(
       24% 34% at 50% 54%,
-      color-mix(in srgb, var(--ss-v2-void-black) 82%, transparent),
+      color-mix(in srgb, var(--ss-v2-void-black) 54%, transparent),
       transparent 72%
     ),
     radial-gradient(
       62% 58% at 50% 46%,
-      color-mix(in srgb, var(--ss-v2-void-black) 42%, transparent),
-      color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent)
+      color-mix(in srgb, var(--ss-v2-void-black) 24%, transparent),
+      color-mix(in srgb, var(--ss-v2-void-black) 52%, transparent)
     );
   transition: background 0.45s ease;
 }
@@ -3438,6 +3467,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-folio-phone {
   --folio-phone-safe-top: 1.875rem;
+  --folio-phone-browser-bar: 2.2rem;
 
   position: relative;
   display: block;
@@ -3486,11 +3516,18 @@ section[data-slot="page-section"]:has(.ss-srv2) {
    it edge-to-edge without rendering the site's header behind the sensor. */
 .ss-folio-phone__viewport {
   position: absolute;
-  inset: var(--folio-phone-safe-top) 0 0;
+  inset: var(--folio-phone-safe-top) 0 var(--folio-phone-browser-bar);
   overflow: clip;
-  border-radius: 0 0 1.9rem 1.9rem;
+  border-radius: 0;
   background: #fff;
   overscroll-behavior: contain;
+  overscroll-behavior-inline: none;
+  touch-action: pan-y pinch-zoom;
+}
+
+.ss-folio-phone__visual {
+  position: absolute;
+  inset: 0;
 }
 
 .ss-folio-phone__shot {
@@ -3501,7 +3538,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  border-radius: 1.9rem;
+  border-radius: 0;
 }
 
 .ss-folio-phone[data-phase="live"] .ss-folio-phone__visual {
@@ -3521,12 +3558,67 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   border: 0;
   background: #fff;
   transform-origin: top left;
+  overscroll-behavior-inline: none;
+  touch-action: pan-y pinch-zoom;
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 
 .ss-folio-phone__frame[data-live] {
   opacity: 1;
+}
+
+.ss-folio-phone__browser-bar {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: var(--folio-phone-browser-bar);
+  padding: 0.35rem 0.48rem;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 0 0 1.9rem 1.9rem;
+  background:
+    linear-gradient(180deg, rgb(28 35 45 / 0.96), rgb(9 13 19 / 0.99)),
+    var(--ss-v2-graphite);
+  box-shadow: 0 -8px 20px rgb(0 0 0 / 0.18);
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.03em;
+}
+
+.ss-folio-phone__browser-domain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28rem;
+  flex: 1;
+  min-width: 0;
+  height: 1.4rem;
+  padding-inline: 0.45rem;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.32);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ss-folio-phone__browser-domain svg {
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  color: var(--demo-tint-2);
+}
+
+.ss-folio-phone__browser-menu {
+  flex: none;
+  width: 1.15rem;
+  text-align: center;
+  color: color-mix(in srgb, var(--ss-v2-chrome) 64%, transparent);
+  letter-spacing: 0.04em;
 }
 
 .ss-folio-phone__veil {
@@ -3568,13 +3660,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   gap: 0.7rem;
   width: 100%;
   border: 0;
-  border-radius: 0 0 1.9rem 1.9rem;
+  border-radius: 0;
   cursor: pointer;
   color: var(--ss-v2-chrome);
   background: radial-gradient(
     70% 52% at 50% 48%,
-    color-mix(in srgb, var(--ss-v2-void-black) 46%, transparent),
-    color-mix(in srgb, var(--ss-v2-void-black) 76%, transparent)
+    color-mix(in srgb, var(--ss-v2-void-black) 24%, transparent),
+    color-mix(in srgb, var(--ss-v2-void-black) 52%, transparent)
   );
   transition: background 0.45s ease;
 }
@@ -3656,7 +3748,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-folio-phone__tag {
   position: absolute;
   left: 50%;
-  bottom: calc(9px + 0.8rem);
+  bottom: calc(9px + var(--folio-phone-browser-bar) + 0.45rem);
   transform: translateX(-50%);
   z-index: 4;
   display: inline-flex;
@@ -3727,6 +3819,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     border-radius: var(--ss-radius-xl);
   }
 
+  .ss-folio-device-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 0;
+  }
+
   .ss-folio-device--phone {
     width: min(16rem, 68vw);
   }
@@ -3768,7 +3867,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-folio-scene__stage {
-    padding-block: 0.25rem 2rem;
+    padding-block: 0;
   }
 
   /* The window keeps a breathing band on the right where the resting phone
@@ -3780,7 +3879,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-folio-device--phone {
     position: absolute;
     right: 0;
-    bottom: -0.9rem;
+    bottom: 0.75rem;
     width: clamp(10.5rem, 21vw, 13rem);
     transform-origin: 50% 62%;
   }
@@ -3795,11 +3894,11 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-folio-device--phone {
     width: clamp(12rem, 14vw, 14.5rem);
-    bottom: -1.25rem;
+    bottom: 0.75rem;
   }
 
   .ss-folio-scene__stage {
-    padding-block: 0.5rem 2.5rem;
+    padding-block: 0;
   }
 }
 
@@ -3879,11 +3978,11 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     will-change: auto;
   }
 
-  .ss-folio-visual-slide {
+  .ss-folio-device-slide {
     transition: none;
   }
 
-  .ss-folio-scene__stage[data-rail-moving] .ss-folio-visual-viewport::after {
+  .ss-folio-scene__stage[data-rail-moving] .ss-folio-device-viewport::after {
     animation: none;
   }
 
