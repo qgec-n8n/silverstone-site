@@ -14,6 +14,7 @@ import {
   enforceRateLimit,
   ensureSameOrigin,
   getHeader,
+  isProductionContext,
   jsonResponse,
   liveCalendlyEnabled,
   readCalendlyToken,
@@ -42,7 +43,10 @@ export async function handler(event) {
       });
     }
     const live = liveCalendlyEnabled();
-    ensureSameOrigin(event, live);
+    /* Production keeps the strict origin contract; a non-production
+       environment explicitly opted into live Calendly (CALENDLY_BOOKING_MODE
+       = "live") books through the localhost-only branch instead. */
+    ensureSameOrigin(event, live && isProductionContext());
     enforceRateLimit(event, "book", 8, 60_000);
     if (typeof event.body !== "string" || event.body.length > 12_000) {
       throw new PublicApiError(

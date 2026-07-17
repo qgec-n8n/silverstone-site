@@ -92,62 +92,62 @@ export const SERVICES_MENU: NavMenu = {
 
 export const INDUSTRIES_MENU: NavMenu = {
   id: "industries",
-  label: "Industries",
+  label: "Solutions",
   href: "/industry",
-  viewAllLabel: "View all industries",
-  viewAllDescription: "Browse every industry operating system",
+  viewAllLabel: "Explore all solutions",
+  viewAllDescription: "One operating system for every industry",
   items: [
     {
       href: "/industry/estate-agents",
-      label: "Estate Agents",
+      label: "For Estate Agents",
       description: "Enquiry-to-viewing pipeline",
       icon: Building2,
     },
     {
       href: "/industry/hospitality",
-      label: "Hospitality",
+      label: "For Hospitality Venues",
       description: "Guest-journey orchestration",
       icon: ConciergeBell,
     },
     {
       href: "/industry/salons-barbers",
-      label: "Salons & Barbers",
+      label: "For Salons & Barbers",
       description: "Full-diary intelligence",
       icon: Scissors,
     },
     {
       href: "/industry/trades",
-      label: "Trades & Home Services",
+      label: "For Trades & Home Services",
       description: "Job intake & follow-through",
       icon: Wrench,
     },
     {
       href: "/industry/ecommerce",
-      label: "eCommerce Brands",
+      label: "For eCommerce Brands",
       description: "Commerce ops intelligence",
       icon: ShoppingBag,
     },
     {
       href: "/industry/physios-chiropractors",
-      label: "Physio & Chiropractic",
+      label: "For Physios & Chiropractors",
       description: "Clinically bounded access",
       icon: HeartPulse,
     },
     {
       href: "/industry/dentists",
-      label: "Dental Practices",
+      label: "For Dental Practices",
       description: "Patient access systems",
       icon: Smile,
     },
     {
       href: "/industry/gyms-fitness-studios",
-      label: "Gyms & Fitness Studios",
+      label: "For Gyms & Fitness Studios",
       description: "Trial-to-membership conversion",
       icon: Dumbbell,
     },
     {
       href: "/industry/fitness-coaches",
-      label: "Fitness Coaches",
+      label: "For Fitness Coaches",
       description: "Lead-to-client system",
       icon: Send,
     },
@@ -184,7 +184,11 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
   {
     title: "Industries",
     links: [
-      ...INDUSTRIES_MENU.items.slice(0, 6).map(({ href, label }) => ({ href, label })),
+      /* The footer keeps plain industry names; the "For …" framing belongs
+         to the header's Solutions menu. */
+      ...INDUSTRIES_MENU.items
+        .slice(0, 6)
+        .map(({ href, label }) => ({ href, label: label.replace(/^For /u, "") })),
       { href: "/industry", label: "All industries" },
     ],
   },

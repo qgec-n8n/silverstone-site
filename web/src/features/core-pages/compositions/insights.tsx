@@ -5,14 +5,11 @@
  * rows with a reading-progress rail (built for this page only).
  */
 import { FileText, Layers, Search, ShieldCheck } from "~/components/icons/lucide";
+import { FeaturedInsights } from "~/features/core-pages/featured-insights";
 import { EditorialIndexSignature } from "~/features/core-pages/signatures";
 import { InsightsBoard } from "~/features/core-pages/insights-board";
 import { CoreCardGrid, type CoreCard } from "~/features/core-pages/shared";
-import {
-  Reveal,
-  RichText,
-  SectionHead,
-} from "~/features/services-v2/components/primitives";
+import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
   FinalCta,
@@ -82,7 +79,7 @@ export function InsightsComposition() {
         lead="A searchable library of practical guides, organised by the services and industries we build for — find the topic behind your next decision."
         points={[
           { icon: Search, text: "Search and filter every guide by service or sector" },
-          { icon: ShieldCheck, text: "Featured: AI automation and UK GDPR for SMEs" },
+          { icon: ShieldCheck, text: "Featured: this week’s selected intelligence" },
           {
             icon: Layers,
             text: "Jump-off points into services, pricing and discovery",
@@ -101,22 +98,7 @@ export function InsightsComposition() {
       />
       <TrustStrip />
 
-      <section className="ss-srv2-section" aria-labelledby="insights-gdpr">
-        <div className="ss-srv2__container" data-width="narrow">
-          <SectionHead
-            eyebrow="Featured topic"
-            icon={ShieldCheck}
-            heading="AI automation and UK GDPR: a *practical guide* for SMEs"
-            headingId="insights-gdpr"
-            lead="A useful automation is not only technically possible. It must have a lawful, understandable and operationally controlled relationship with the data it uses."
-          />
-          <Reveal kind="section">
-            <p className="ss-srv2-lead">
-              <RichText text="The guide, in development, will examine purpose, access, minimisation, human review and the questions to resolve before launch." />
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <FeaturedInsights />
 
       <section className="ss-srv2-section" aria-labelledby="insights-index">
         <div className="ss-srv2__container">

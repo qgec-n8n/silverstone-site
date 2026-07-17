@@ -142,6 +142,21 @@ export const EMPTY_DETAILS: BookingDetails = {
   acknowledged: false,
 };
 
+export type DetailErrors = Partial<Record<"name" | "email" | "acknowledged", string>>;
+
+/** Shared submit-time validation for the desktop and mobile booking flows. */
+export function validateBookingDetails(value: BookingDetails): DetailErrors {
+  const errors: DetailErrors = {};
+  if (!value.name.trim()) errors.name = "Enter your name.";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/u.test(value.email.trim())) {
+    errors.email = "Enter a valid email address.";
+  }
+  if (!value.acknowledged) {
+    errors.acknowledged = "Please confirm the booking acknowledgement.";
+  }
+  return errors;
+}
+
 export function qualificationIsComplete(value: QualificationAnswers): boolean {
   return (
     value.services.length > 0 &&

@@ -11,6 +11,7 @@ import {
 import {
   enforceRateLimit,
   ensureSameOrigin,
+  isProductionContext,
   jsonResponse,
   liveCalendlyEnabled,
   readCalendlyToken,
@@ -29,7 +30,10 @@ export async function handler(event) {
       });
     }
     const live = liveCalendlyEnabled();
-    if (live) ensureSameOrigin(event, true, false);
+    /* Production keeps the strict origin contract; a non-production
+       environment explicitly opted into live Calendly (CALENDLY_BOOKING_MODE
+       = "live") verifies through the localhost-only branch instead. */
+    if (live) ensureSameOrigin(event, isProductionContext(), false);
     enforceRateLimit(event, "availability", 30, 60_000);
     const parameters = new URLSearchParams(event.queryStringParameters ?? {});
     const window = parseAvailabilityQuery(parameters);

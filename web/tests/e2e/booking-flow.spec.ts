@@ -45,12 +45,11 @@ test("native booking runs Date & time first with a fixed shell and local time sc
   page,
   isMobile,
 }) => {
+  test.skip(isMobile, "Phones run the dedicated mobile flow, covered below");
   await page.goto("/book#booking-calendar");
   const shell = page.getByTestId("booking-shell");
   await shell.scrollIntoViewIfNeeded();
-  await expect(
-    page.getByRole("heading", { name: "Choose your moment" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Choose your moment" })).toBeVisible();
   const baseline = await shellGeometry(shell);
 
   /* Stage 1 — Date & time: the calendar stays put, only the time list scrolls. */
@@ -59,7 +58,7 @@ test("native booking runs Date & time first with a fixed shell and local time sc
     .first();
   await expect(availableDay).toBeVisible();
   const calendarPane = page.locator(".ss-booking-calendar-pane");
-  const calendarBefore = isMobile ? null : await calendarPane.boundingBox();
+  const calendarBefore = await calendarPane.boundingBox();
   await availableDay.click();
 
   const times = page.getByTestId("booking-times-scroll");
@@ -75,25 +74,31 @@ test("native booking runs Date & time first with a fixed shell and local time sc
   await times.evaluate((element) => element.scrollTo({ top: element.scrollHeight }));
   expect(await times.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
 
-  if (!isMobile) {
-    expect(
-      await calendarPane.evaluate((element) => getComputedStyle(element).overflowY),
-    ).not.toBe("auto");
-    const calendarAfter = await calendarPane.boundingBox();
-    expect(calendarBefore).not.toBeNull();
-    expect(calendarAfter).not.toBeNull();
-    expect(
-      Math.abs((calendarAfter?.x ?? 0) - (calendarBefore?.x ?? 0)),
-    ).toBeLessThanOrEqual(1);
-    expect(
-      Math.abs((calendarAfter?.y ?? 0) - (calendarBefore?.y ?? 0)),
-    ).toBeLessThanOrEqual(1);
-  } else {
-    await expect(calendarPane).toBeHidden();
-    await expect(page.getByRole("tab", { name: /Times/ })).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+  expect(
+    await calendarPane.evaluate((element) => getComputedStyle(element).overflowY),
+  ).not.toBe("auto");
+  const calendarAfter = await calendarPane.boundingBox();
+  expect(calendarBefore).not.toBeNull();
+  expect(calendarAfter).not.toBeNull();
+  expect(
+    Math.abs((calendarAfter?.x ?? 0) - (calendarBefore?.x ?? 0)),
+  ).toBeLessThanOrEqual(1);
+  expect(
+    Math.abs((calendarAfter?.y ?? 0) - (calendarBefore?.y ?? 0)),
+  ).toBeLessThanOrEqual(1);
+
+  /* The legend reads from the pane's bottom edge with clear air below the
+     final week row — it must never overlap the day grid. (Short viewports
+     hide the legend entirely via the compact media query; only measure it
+     where it renders.) */
+  const legendClearance = await calendarPane.evaluate((element) => {
+    const legend = element.querySelector<HTMLElement>(".ss-booking-calendar-legend");
+    const grid = element.querySelector(".ss-booking-calendar__grid");
+    if (!legend || !grid || legend.offsetParent === null) return null;
+    return legend.getBoundingClientRect().top - grid.getBoundingClientRect().bottom;
+  });
+  if (legendClearance !== null) {
+    expect(legendClearance).toBeGreaterThanOrEqual(4);
   }
 
   await times.locator("button").first().click();
@@ -108,7 +113,19 @@ test("native booking runs Date & time first with a fixed shell and local time sc
   await completeQualification(page);
   expectStable(await shellGeometry(shell), baseline);
 
-  /* Stage 3 — Your details: inline errors never resize the shell. */
+  /* Stage 3 — Your details: everything fits with no internal scrollbar. */
+  const detailsBody = page.locator(".ss-booking-details__body");
+  await expect(detailsBody).toBeVisible();
+  expect(
+    await detailsBody.evaluate(
+      (element) => element.scrollHeight - element.clientHeight,
+    ),
+  ).toBeLessThanOrEqual(1);
+  expect(
+    await detailsBody.evaluate((element) => getComputedStyle(element).overflowY),
+  ).not.toBe("auto");
+
+  /* Inline errors never resize the shell. */
   await page.getByRole("button", { name: "Confirm booking" }).click();
   await expect(page.getByText("Enter your name.")).toBeVisible();
   await expect(page.getByRole("textbox", { name: "Name" })).toBeFocused();
@@ -137,13 +154,148 @@ test("native booking runs Date & time first with a fixed shell and local time sc
   ).toBe(true);
 });
 
+test("mobile flow walks one decision per screen with no internal scroll", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Dedicated mobile flow");
+  await page.goto("/book#booking-calendar");
+  const shell = page.getByTestId("booking-shell");
+  await expect(shell).toHaveAttribute("data-flow", "mobile");
+  const baseline = await shellGeometry(shell);
+
+  /* Nothing inside the shell may be a working vertical scroller. */
+  const assertNoInternalScroll = async () => {
+    const overflowing = await shell.evaluate((root) =>
+      [...root.querySelectorAll("*")]
+        .filter((element) => {
+          const scrollable = element.scrollHeight - element.clientHeight > 1;
+          if (!scrollable) return false;
+          const overflowY = getComputedStyle(element).overflowY;
+          return overflowY === "auto" || overflowY === "scroll";
+        })
+        .map((element) => element.className),
+    );
+    expect(overflowing).toEqual([]);
+  };
+
+  /* 01a — Day. */
+  await expect(page.getByRole("heading", { name: "Pick a day" })).toBeVisible();
+  await assertNoInternalScroll();
+  const availableDay = page
+    .locator(".ss-booking-calendar__day.is-available button")
+    .first();
+  await expect(availableDay).toBeVisible();
+  await availableDay.click();
+
+  /* 01b — Time dial: first slot pre-armed, stepping moves the readout. */
+  await expect(page.getByRole("heading", { name: "Choose your moment" })).toBeVisible();
+  /* The readout animates via AnimatePresence, so the outgoing and incoming
+     time can briefly coexist — always read the newest (last) element. */
+  const readout = page.locator(".ss-booking-mdial__readout strong").last();
+  await expect(readout).toHaveText(/^\d{2}:\d{2}$/);
+  const firstTime = await readout.innerText();
+  await page.getByRole("button", { name: "Later time" }).click();
+  await expect(page.locator(".ss-booking-mdial__readout strong").last()).not.toHaveText(
+    firstTime,
+  );
+  await expect(page.locator(".ss-booking-mdial__track i[data-active]")).toHaveCount(1);
+  await assertNoInternalScroll();
+  expectStable(await shellGeometry(shell), baseline);
+  await page.getByRole("button", { name: /^Lock in / }).click();
+
+  /* 02a — Focus. */
+  await expect(
+    page.getByRole("heading", { name: "What should we look at?" }),
+  ).toBeVisible();
+  await assertNoInternalScroll();
+  await page.getByRole("button", { name: "Web design & development" }).click();
+  await page.getByRole("button", { name: "Continue" }).click();
+
+  /* 02b — Context. */
+  await expect(
+    page.getByRole("heading", { name: "Frame the conversation" }),
+  ).toBeVisible();
+  await page.getByLabel("Industry").selectOption("Hospitality");
+  await page.getByLabel("Indicative budget").selectOption("£3k–£10k");
+  await page.getByLabel("Timing").selectOption("Within a month");
+  await assertNoInternalScroll();
+  await page.getByRole("button", { name: "Continue" }).click();
+
+  /* 03a — Details. */
+  await expect(
+    page.getByRole("heading", { name: "Who are we meeting?" }),
+  ).toBeVisible();
+  await page.getByRole("textbox", { name: "Name" }).fill("Ada Lovelace");
+  await page.getByRole("textbox", { name: "Email" }).fill("ada@example.com");
+  await assertNoInternalScroll();
+  await page.getByRole("button", { name: "Review booking" }).click();
+
+  /* 03b — Consent. */
+  await expect(page.getByRole("heading", { name: "Lock it in" })).toBeVisible();
+  await expect(page.locator(".ss-booking-details__summary")).toBeVisible();
+  await page.getByRole("checkbox").check();
+  await assertNoInternalScroll();
+  expectStable(await shellGeometry(shell), baseline);
+  await page.getByRole("button", { name: "Confirm booking" }).click();
+
+  /* 04 — Confirmed. */
+  await expect(
+    page.getByRole("heading", { name: "Preview booking simulated" }),
+  ).toBeVisible();
+  await expect(page.getByText("ada@example.com")).toBeVisible();
+  await assertNoInternalScroll();
+  expectStable(await shellGeometry(shell), baseline);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth + 1,
+    ),
+  ).toBe(true);
+});
+
+test("mobile flow keeps selections and re-routes validation to the right panel", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Dedicated mobile flow");
+  await page.goto("/book#booking-calendar");
+  await expect(page.getByRole("heading", { name: "Pick a day" })).toBeVisible();
+  await page.locator(".ss-booking-calendar__day.is-available button").first().click();
+  await expect(page.getByRole("heading", { name: "Choose your moment" })).toBeVisible();
+  const chosenTime = await page
+    .locator(".ss-booking-mdial__readout strong")
+    .innerText();
+
+  /* The day chip returns to the calendar with the day still selected. */
+  await page.locator(".ss-booking-mtime__day-chip").click();
+  await expect(page.locator(".ss-booking-calendar__day.is-selected")).toHaveCount(1);
+  await page.getByRole("button", { name: "Choose a time" }).click();
+  await expect(page.locator(".ss-booking-mdial__readout strong")).toHaveText(
+    chosenTime,
+  );
+  await page.getByRole("button", { name: /^Lock in / }).click();
+
+  /* Skipping ahead with an empty name bounces back to Details. */
+  await page.getByRole("button", { name: "Web design & development" }).click();
+  await page.getByRole("button", { name: "Continue" }).click();
+  await page.getByLabel("Industry").selectOption("Hospitality");
+  await page.getByLabel("Indicative budget").selectOption("£3k–£10k");
+  await page.getByLabel("Timing").selectOption("Within a month");
+  await page.getByRole("button", { name: "Continue" }).click();
+  await page.getByRole("button", { name: "Review booking" }).click();
+  await expect(page.getByText("Enter your name.")).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Who are we meeting?" }),
+  ).toBeVisible();
+});
+
 test("selections survive navigating backwards through the workflow", async ({
   page,
+  isMobile,
 }) => {
+  test.skip(isMobile, "Phones run the dedicated mobile flow, covered above");
   await page.goto("/book#booking-calendar");
-  await expect(
-    page.getByRole("heading", { name: "Choose your moment" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Choose your moment" })).toBeVisible();
   await selectFirstSlot(page);
   await page.getByRole("button", { name: "Continue with this time" }).click();
   await expect(
@@ -156,9 +308,7 @@ test("selections survive navigating backwards through the workflow", async ({
 
   /* Back to Date & time: the chosen date and slot are still selected. */
   await page.getByRole("button", { name: "Back" }).click();
-  await expect(
-    page.getByRole("heading", { name: "Choose your moment" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Choose your moment" })).toBeVisible();
   await expect(page.locator(".ss-booking-calendar__day.is-selected")).toHaveCount(1);
   await expect(
     page.getByRole("button", { name: "Continue with this time" }),
@@ -251,31 +401,33 @@ test("mobile composition activates on width alone, never on short height", async
 }) => {
   test.skip(isMobile, "Runs from the desktop project with explicit viewports");
 
-  /* ≤44rem wide: the tabbed mobile calendar/times composition activates. */
+  /* ≤44rem wide: the dedicated mobile flow activates (Day panel first). */
   await page.setViewportSize({ width: 700, height: 900 });
   await page.goto("/book#booking-calendar");
-  await expect(
-    page.getByRole("heading", { name: "Choose your moment" }),
-  ).toBeVisible();
-  await expect(page.locator(".ss-booking-availability__tabs")).toBeVisible();
-  await expect(page.locator(".ss-booking-times-pane")).toBeHidden();
+  await expect(page.getByRole("heading", { name: "Pick a day" })).toBeVisible();
+  await expect(page.getByTestId("booking-shell")).toHaveAttribute(
+    "data-flow",
+    "mobile",
+  );
+  await expect(page.locator(".ss-booking-times-pane")).toHaveCount(0);
 
   /* Short but desktop-wide: stays a compact desktop composition. */
   await page.setViewportSize({ width: 1180, height: 620 });
   await page.goto("/book#booking-calendar");
-  await expect(
-    page.getByRole("heading", { name: "Choose your moment" }),
-  ).toBeVisible();
-  await expect(page.locator(".ss-booking-availability__tabs")).toBeHidden();
+  await expect(page.getByRole("heading", { name: "Choose your moment" })).toBeVisible();
+  await expect(page.getByTestId("booking-shell")).toHaveAttribute(
+    "data-flow",
+    "desktop",
+  );
   await expect(page.locator(".ss-booking-calendar-pane")).toBeVisible();
   await expect(page.locator(".ss-booking-times-pane")).toBeVisible();
 
-  /* Narrow phone: mobile composition with a viewport-bounded shell. */
+  /* Narrow phone: mobile flow with a viewport-bounded shell. */
   await page.setViewportSize({ width: 360, height: 640 });
   await page.goto("/book#booking-calendar");
   const shell = page.getByTestId("booking-shell");
   await shell.scrollIntoViewIfNeeded();
-  await expect(page.locator(".ss-booking-availability__tabs")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Pick a day" })).toBeVisible();
   const box = await mustBox(shell);
   expect(box.width).toBeLessThanOrEqual(360);
   expect(
@@ -287,11 +439,9 @@ test("mobile composition activates on width alone, never on short height", async
 
 test("@a11y native booking stages have no serious or critical axe violations", async ({
   page,
+  isMobile,
 }) => {
   await page.goto("/book#booking-calendar");
-  await expect(
-    page.getByRole("heading", { name: "Choose your moment" }),
-  ).toBeVisible();
 
   const analyzeBooking = async () => {
     const results = await new AxeBuilder({ page })
@@ -303,6 +453,32 @@ test("@a11y native booking stages have no serious or critical axe violations", a
     );
   };
 
+  if (isMobile) {
+    /* Mobile flow: Day, dial and Focus panels. */
+    await expect(page.getByRole("heading", { name: "Pick a day" })).toBeVisible();
+    await expect(
+      page.locator(".ss-booking-calendar__day.is-available button").first(),
+    ).toBeVisible();
+    expect(await analyzeBooking()).toEqual([]);
+
+    await page.locator(".ss-booking-calendar__day.is-available button").first().click();
+    await expect(
+      page.getByRole("heading", { name: "Choose your moment" }),
+    ).toBeVisible();
+    await expect(page.locator(".ss-booking-mdial__readout strong")).toHaveText(
+      /^\d{2}:\d{2}$/,
+    );
+    expect(await analyzeBooking()).toEqual([]);
+
+    await page.getByRole("button", { name: /^Lock in / }).click();
+    await expect(
+      page.getByRole("heading", { name: "What should we look at?" }),
+    ).toBeVisible();
+    expect(await analyzeBooking()).toEqual([]);
+    return;
+  }
+
+  await expect(page.getByRole("heading", { name: "Choose your moment" })).toBeVisible();
   await expect(
     page.locator(".ss-booking-calendar__day.is-available button").first(),
   ).toBeVisible();

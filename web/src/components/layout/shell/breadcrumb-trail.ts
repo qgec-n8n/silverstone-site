@@ -37,8 +37,10 @@ export function getBreadcrumbTrail(pathname: string): BreadcrumbCrumb[] {
     }
   }
 
+  /* Breadcrumbs (and their JSON-LD) keep the plain "Industries / <name>"
+     taxonomy; the "Solutions" + "For …" framing is header-menu copy only. */
   if (path === INDUSTRIES_MENU.href || path === "/industries") {
-    return [HOME_CRUMB, { label: INDUSTRIES_MENU.label, href: INDUSTRIES_MENU.href }];
+    return [HOME_CRUMB, { label: "Industries", href: INDUSTRIES_MENU.href }];
   }
 
   if (path.startsWith(`${INDUSTRIES_MENU.href}/`)) {
@@ -46,8 +48,8 @@ export function getBreadcrumbTrail(pathname: string): BreadcrumbCrumb[] {
     if (item) {
       return [
         HOME_CRUMB,
-        { label: INDUSTRIES_MENU.label, href: INDUSTRIES_MENU.href },
-        { label: item.label, href: item.href },
+        { label: "Industries", href: INDUSTRIES_MENU.href },
+        { label: item.label.replace(/^For /u, ""), href: item.href },
       ];
     }
   }

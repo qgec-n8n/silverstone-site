@@ -463,7 +463,6 @@ test.describe("web design live showcase", () => {
     await expect(scene).toBeVisible({ timeout: 10_000 });
     const stage = scene.locator(".ss-folio-scene__stage");
     const deviceRail = scene.locator(".ss-folio-device-rail");
-    const deviceViewport = scene.locator(".ss-folio-device-viewport");
     const ownlySlide = deviceRail.locator('[data-project="ownly-housing"]');
     const cloudsSlide = deviceRail.locator('[data-project="aesthetics-by-clouds"]');
     const clouds = scene.getByRole("button", {
@@ -504,7 +503,10 @@ test.describe("web design live showcase", () => {
       };
       return { ownly: read("ownly-housing"), clouds: read("aesthetics-by-clouds") };
     });
-    const railWidth = await deviceViewport.evaluate(
+    /* The rail is wider than the visible viewport by the inter-slide gap
+       (orbit clearance); its own width IS the per-project stride the
+       x: -100% translation resolves against. */
+    const railWidth = await deviceRail.evaluate(
       (element) => element.getBoundingClientRect().width,
     );
     await clouds.click();

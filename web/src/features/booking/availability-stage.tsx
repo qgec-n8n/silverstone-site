@@ -171,7 +171,9 @@ export function AvailabilityStage({
               onMonthChange={onMonthChange}
               onSelect={chooseDate}
               startMonth={new Date(zonedToday.getFullYear(), zonedToday.getMonth(), 1)}
-              endMonth={new Date(zonedToday.getFullYear() + 1, zonedToday.getMonth(), 1)}
+              endMonth={
+                new Date(zonedToday.getFullYear() + 1, zonedToday.getMonth(), 1)
+              }
               disabled={(date) => {
                 const key = formatDateKey(date);
                 return key < todayKey || !availability.slotsByDate.has(key);

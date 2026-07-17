@@ -2710,6 +2710,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   width: 100%;
   min-width: 0;
   padding-block: 0.5rem 2.5rem;
+  padding-inline-end: var(--folio-slide-gap, 0px);
   transform: scale(1);
   transform-origin: center;
   opacity: 1;
@@ -2727,13 +2728,18 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 /* A single narrow light front binds the copy morph, palette interpolation and
-   complete-device rail into one transition. It is clipped to the stage and
-   never receives input. */
+   complete-device rail into one transition — a specular pass over the sliding
+   surface, so it always travels AGAINST the rail's content motion and mirrors
+   per direction. It moves on transform only (compositor friendly; `left`
+   would relayout under the 12px blur every frame) and is clipped to the
+   stage without ever receiving input. The element spans 18% of the stage, so
+   a −120% → 680% own-width translation carries it fully across and clear of
+   both edges. */
 .ss-folio-device-viewport::after {
   content: "";
   position: absolute;
   inset-block: 0;
-  left: -18%;
+  left: 0;
   z-index: 30;
   width: 18%;
   background: linear-gradient(
@@ -2745,12 +2751,17 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   );
   filter: blur(12px);
   opacity: 0;
-  transform: skewX(-12deg);
+  transform: translateX(-120%) skewX(-12deg);
   pointer-events: none;
 }
 
 .ss-folio-scene__stage[data-rail-moving] .ss-folio-device-viewport::after {
-  animation: ss-folio-rail-light 0.82s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: ss-folio-rail-light-forward 0.82s cubic-bezier(0.3, 0.1, 0.3, 1);
+}
+
+.ss-folio-scene__stage[data-rail-moving][data-rail-direction="backward"]
+  .ss-folio-device-viewport::after {
+  animation-name: ss-folio-rail-light-backward;
 }
 
 .ss-folio-scene__inner {
@@ -3896,6 +3907,28 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 }
 
+/* The same classic-scrollbar-safe breakout for the tablet and desktop
+   container gutters: up to 76rem (1120px content + 2 × 48px gutter) the
+   shared .ss-container still tracks the viewport, so breaking out by the
+   known gutter is exactly full-bleed without the 100vw hack's ~8px
+   scrollable sliver. Above 76rem the container caps and true full-bleed
+   needs the base 100vw rule again. */
+@media (min-width: 48rem) and (max-width: 75.9375rem) {
+  .ss-srv2-hero,
+  .ss-srv2 > .ss-hv2-trust-shell {
+    width: calc(100% + (2 * var(--ss-layout-gutter-tablet)));
+    margin-inline: calc(-1 * var(--ss-layout-gutter-tablet));
+  }
+}
+
+@media (min-width: 64rem) and (max-width: 75.9375rem) {
+  .ss-srv2-hero,
+  .ss-srv2 > .ss-hv2-trust-shell {
+    width: calc(100% + (2 * var(--ss-layout-gutter-desktop)));
+    margin-inline: calc(-1 * var(--ss-layout-gutter-desktop));
+  }
+}
+
 @media (max-width: 23.75rem) {
   .ss-folio-console__switch {
     width: 100%;
@@ -3931,23 +3964,56 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     padding-block: 0;
   }
 
+  /* Orbit clearance. The phone's turntable arc swings it OUTWARD past the
+     window's right edge (measured per layout in measureOrbitOutPx), so the
+     stage reserves three kinds of room:
+     - --folio-orbit-apron insets the whole composition from the slide's
+       right edge, giving the arc swing room inside the clip window;
+     - the viewport trades the scene gutter for padding (negative margin +
+       equal padding), widening the visible clip window by the exact page
+       gutter on both sides without ever exceeding the page width;
+     - --folio-slide-gap separates neighbouring project slides by more than
+       the arc's worst-case outward swing, so the OTHER project's devices
+       can never drift into the widened window mid-orbit. The rail grows by
+       the same gap so the component's x: -100% stride still lands each
+       project exactly on the screen bounds. */
+  .ss-folio-scene__stage {
+    --folio-orbit-apron: clamp(4.5rem, 6vw, 6.5rem);
+    --folio-slide-gap: clamp(9rem, 14vw, 14rem);
+  }
+
   /* The foreground phone scales about its lower body and bows down during
      the orbit. A dedicated clip-safe apron keeps its complete lower shell in
      view without relaxing the rail's horizontal mask or exposing a neighbour
      project's off-screen devices. */
   .ss-folio-device-viewport {
+    width: calc(100% + (2 * var(--folio-gutter)));
+    margin-inline: calc(-1 * var(--folio-gutter));
     padding-block-end: 2.5rem;
+    padding-inline: var(--folio-gutter);
+  }
+
+  .ss-folio-device-rail {
+    width: calc(100% + var(--folio-slide-gap, 0px));
   }
 
   /* The window keeps a breathing band on the right where the resting phone
-     peeks out from behind its edge. */
+     peeks out from behind its edge, plus a small left inset so its own
+     back-left sweep during the orbit stays inside the widened clip window. */
   .ss-folio-device--window {
-    width: calc(100% - clamp(3.5rem, 7vw, 6.5rem));
+    width: calc(
+      100% - clamp(3.5rem, 7vw, 6.5rem) - var(--folio-orbit-apron) -
+        clamp(1rem, 1.5vw, 1.5rem)
+    );
+    margin-left: clamp(1rem, 1.5vw, 1.5rem);
   }
 
   .ss-folio-device--phone {
     position: absolute;
-    right: 0;
+    /* Absolute offsets resolve against the slide's PADDING box, which now
+       carries the inter-slide gap on its right — add it back so the phone
+       rests apron-deep inside the slide's content area. */
+    right: calc(var(--folio-orbit-apron) + var(--folio-slide-gap, 0px));
     bottom: 0.75rem;
     width: clamp(10.5rem, 21vw, 13rem);
     transform-origin: 50% 92%;
@@ -3999,20 +4065,37 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 }
 
-@keyframes ss-folio-rail-light {
+@keyframes ss-folio-rail-light-forward {
   0% {
-    left: -18%;
     opacity: 0;
+    transform: translateX(-120%) skewX(-12deg);
   }
-  18% {
-    opacity: 0.72;
+  16% {
+    opacity: 0.68;
   }
-  72% {
-    opacity: 0.38;
+  74% {
+    opacity: 0.34;
   }
   100% {
-    left: 100%;
     opacity: 0;
+    transform: translateX(680%) skewX(-12deg);
+  }
+}
+
+@keyframes ss-folio-rail-light-backward {
+  0% {
+    opacity: 0;
+    transform: translateX(680%) skewX(12deg);
+  }
+  16% {
+    opacity: 0.68;
+  }
+  74% {
+    opacity: 0.34;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-120%) skewX(12deg);
   }
 }
 
@@ -4051,7 +4134,9 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     transition: none;
   }
 
-  .ss-folio-scene__stage[data-rail-moving] .ss-folio-device-viewport::after {
+  .ss-folio-scene__stage[data-rail-moving] .ss-folio-device-viewport::after,
+  .ss-folio-scene__stage[data-rail-moving][data-rail-direction]
+    .ss-folio-device-viewport::after {
     animation: none;
   }
 

@@ -972,6 +972,9 @@ function ShowcaseScene({
   // without an imperative reset.
   const [slowAttempt, setSlowAttempt] = useState(-1);
   const [railMoving, setRailMoving] = useState(false);
+  /* The light front sweeps WITH the rail: forward project changes travel
+     left→right, backward ones right→left. */
+  const [railDirection, setRailDirection] = useState<"forward" | "backward">("forward");
   const previousProjectIndex = useRef(index);
 
   const windowPhase = surface === "window" ? phase : "idle";
@@ -989,13 +992,15 @@ function ShowcaseScene({
   const slowConnect = phase === "connecting" && slowAttempt === frameNonce;
 
   useEffect(() => {
-    const changed = previousProjectIndex.current !== index;
+    const previous = previousProjectIndex.current;
+    const changed = previous !== index;
     previousProjectIndex.current = index;
     if (!changed || reducedMotion) {
       setRailMoving(false);
       return undefined;
     }
 
+    setRailDirection(index > previous ? "forward" : "backward");
     setRailMoving(true);
     const timer = window.setTimeout(
       () => setRailMoving(false),
@@ -1215,6 +1220,7 @@ function ShowcaseScene({
           className="ss-folio-scene__stage"
           data-orbiting={orbiting || undefined}
           data-rail-moving={railMoving || undefined}
+          data-rail-direction={railDirection}
         >
           <div className="ss-folio-device-viewport">
             <ProjectVisualRail

@@ -9,7 +9,7 @@ unified_exec = true
 [mcp_servers.aceternityui]
 command = "npx"
 args = ["-y", "aceternityui-mcp@1.0.2"]
-enabled = false
+enabled = true
 startup_timeout_sec = 60
 tool_timeout_sec = 180
 default_tools_approval_mode = "prompt"
@@ -34,7 +34,7 @@ default_tools_approval_mode = "prompt"
 [mcp_servers.magicui]
 command = "npx"
 args = ["-y", "@magicuidesign/mcp@2.0.0"]
-enabled = false
+enabled = true
 startup_timeout_sec = 60
 tool_timeout_sec = 180
 default_tools_approval_mode = "prompt"
@@ -42,7 +42,7 @@ default_tools_approval_mode = "prompt"
 [mcp_servers.shadcn]
 command = "/bin/zsh"
 args = ["-lc", "cd web && exec npx -y shadcn@4.11.0 mcp"]
-enabled = false
+enabled = true
 startup_timeout_sec = 60
 tool_timeout_sec = 180
 default_tools_approval_mode = "prompt"

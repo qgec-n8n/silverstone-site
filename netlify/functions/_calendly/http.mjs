@@ -102,6 +102,12 @@ export function readCalendlyToken() {
   return token;
 }
 
+/* Netlify sets CONTEXT per deploy context; anything else (local bridges,
+   `netlify dev`, tests) is non-production. */
+export function isProductionContext() {
+  return process.env.CONTEXT === "production";
+}
+
 export function liveCalendlyEnabled() {
   /* CALENDLY_BOOKING_MODE is the explicit server-side override: "mock" forces
      deterministic fixtures anywhere (including production), "live" opts a

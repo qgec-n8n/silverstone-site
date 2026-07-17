@@ -1,7 +1,9 @@
 import tailwindcss from "@tailwindcss/vite";
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig, loadEnv, type Plugin } from "vite";
-import { fileURLToPath, URL } from "node:url";
+import { readFileSync } from "node:fs";
+import type { ServerResponse } from "node:http";
+import { fileURLToPath, pathToFileURL, URL } from "node:url";
 
 function stagingHeaders(robotsHeader: string): Plugin {
   return {
@@ -44,14 +46,145 @@ function prototypeLiveReload(): Plugin {
   };
 }
 
+/* Dev-only bridge for the repo's Netlify booking functions: the plain Vite
+ * dev server has no /.netlify/functions runtime, so the booking console can
+ * never exercise the real availability/booking pipeline locally. This
+ * middleware imports the two Calendly handlers from the repo root and adapts
+ * Node requests to their event shape. Server-only credentials come from the
+ * root .env (exactly the file `netlify dev` would use); nothing here is
+ * reachable in a build — the plugin only applies to `serve`.
+ *
+ * The bridge runs the functions in live mode only when the developer has
+ * opted in with VITE_DEV_BOOKING_MODE=live (web/.env.staging.local); the
+ * functions themselves fall back to their deterministic server mocks
+ * otherwise.
+ */
+function netlifyBookingFunctionsBridge(devBookingMode: string): Plugin {
+  const FUNCTION_ALLOW_LIST = new Set(["calendly-availability", "calendly-book"]);
+
+  type NetlifyEvent = {
+    httpMethod: string;
+    headers: Record<string, string>;
+    queryStringParameters: Record<string, string>;
+    body?: string;
+  };
+  type NetlifyResult = {
+    statusCode: number;
+    headers?: Record<string, string>;
+    body?: string;
+  };
+  type NetlifyFunctionModule = {
+    handler: (event: NetlifyEvent) => Promise<NetlifyResult>;
+  };
+
+  function loadRootServerEnv(): void {
+    let raw: string;
+    try {
+      raw = readFileSync(fileURLToPath(new URL("../.env", import.meta.url)), "utf8");
+    } catch {
+      return; // No root .env — the functions answer with SERVER_MISCONFIGURED.
+    }
+    for (const line of raw.split("\n")) {
+      const match = /^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/u.exec(line);
+      if (!match) continue;
+      const [, key, value] = match;
+      if (key && value !== undefined && process.env[key] === undefined) {
+        process.env[key] = value;
+      }
+    }
+  }
+
+  return {
+    name: "silverstone-netlify-booking-bridge",
+    apply: "serve",
+    configureServer(server) {
+      loadRootServerEnv();
+      if (
+        devBookingMode === "live" &&
+        process.env.CALENDLY_BOOKING_MODE === undefined
+      ) {
+        process.env.CALENDLY_BOOKING_MODE = "live";
+      }
+
+      server.middlewares.use(
+        "/.netlify/functions",
+        (request, response: ServerResponse, next) => {
+          const url = new URL(request.url ?? "/", "http://localhost");
+          const name = url.pathname.replace(/^\/+/u, "").split("/")[0] ?? "";
+          if (!FUNCTION_ALLOW_LIST.has(name)) {
+            next();
+            return;
+          }
+
+          const chunks: Buffer[] = [];
+          request.on("data", (chunk: Buffer) => chunks.push(chunk));
+          request.on("end", () => {
+            void (async () => {
+              const moduleUrl = new URL(
+                `../netlify/functions/${name}.mjs`,
+                import.meta.url,
+              );
+              const { handler } = (await import(
+                pathToFileURL(fileURLToPath(moduleUrl)).href
+              )) as NetlifyFunctionModule;
+              const headers: Record<string, string> = {};
+              for (const [key, value] of Object.entries(request.headers)) {
+                if (typeof value === "string") headers[key] = value;
+                else if (Array.isArray(value)) headers[key] = value.join(", ");
+              }
+              const result = await handler({
+                httpMethod: request.method ?? "GET",
+                headers,
+                queryStringParameters: Object.fromEntries(url.searchParams),
+                ...(chunks.length > 0
+                  ? { body: Buffer.concat(chunks).toString("utf8") }
+                  : {}),
+              });
+              response.statusCode = result.statusCode;
+              for (const [key, value] of Object.entries(result.headers ?? {})) {
+                response.setHeader(key, value);
+              }
+              response.end(result.body ?? "");
+            })().catch((error: unknown) => {
+              server.config.logger.error(
+                `[netlify-bridge] ${name} failed: ${String(error)}`,
+              );
+              response.statusCode = 500;
+              response.setHeader("Content-Type", "application/json; charset=utf-8");
+              response.end(
+                JSON.stringify({
+                  ok: false,
+                  error: {
+                    code: "UPSTREAM_UNAVAILABLE",
+                    message: "The local booking bridge failed.",
+                    retryable: true,
+                  },
+                }),
+              );
+            });
+          });
+        },
+      );
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const robotsHeader = env.VITE_X_ROBOTS_TAG ?? "noindex,nofollow,noarchive";
+  // One build-stable UTC date is compiled into both prerender and client code.
+  // Weekly featured editions can therefore activate by date without a live
+  // clock read during hydration.
+  const silverstoneBuildDate = new Date().toISOString().slice(0, 10);
 
   return {
+    define: {
+      __SILVERSTONE_BUILD_DATE__: JSON.stringify(silverstoneBuildDate),
+    },
     plugins: [
       stagingHeaders(robotsHeader),
       prototypeLiveReload(),
+      netlifyBookingFunctionsBridge(env.VITE_DEV_BOOKING_MODE ?? ""),
       tailwindcss(),
       reactRouter(),
     ],

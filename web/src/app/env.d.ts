@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+declare const __SILVERSTONE_BUILD_DATE__: string;
+
 interface ImportMetaEnv {
   readonly VITE_ANALYTICS_DISABLED: string;
   readonly VITE_BOOKING_MODE: string;
