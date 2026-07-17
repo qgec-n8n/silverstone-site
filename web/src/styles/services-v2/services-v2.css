@@ -864,11 +864,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
  * breadcrumb index line, a label-and-rule eyebrow, display-size title, full-
  * measure lead, and the three signal points fused into one hairline-divided
  * glass manifest (accent corner arcs, top-left / bottom-right) instead of
- * three floating pills. The stack is weighted to its two ends: the editorial
- * block (crumbs → lead) anchors under the header, the manifest and CTAs anchor
- * above the reserved chrome band (margin-top: auto on the manifest absorbs the
- * slack inside the flex-grown top group), so tall phones gain deliberate air
- * in the middle rather than uniform template gaps.
+ * three floating pills. The whole stack (crumbs → eyebrow → title → lead →
+ * manifest → CTAs) flows at ONE shared rhythm — --srv2-mobile-flow-gap — and
+ * sits vertically centred in the one-screen stage: the intro is the centring
+ * container, the top group no longer flex-grows, and viewport slack splits
+ * above the crumbs and below the CTAs instead of pooling between the lead and
+ * the manifest.
  *
  * Selector note: these overrides deliberately carry a `.ss-srv2` ancestor
  * prefix — core-pages.css loads after this file and its `.ss-core-hero ...`
@@ -890,6 +891,9 @@ section[data-slot="page-section"]:has(.ss-srv2) {
       var(--srv2-accent) 26%,
       var(--ss-v2-hairline)
     );
+    /* One rhythm for every hero beat (crumbs/eyebrow/title/lead/manifest/CTAs)
+       — the short-viewport tiers below only retune this variable. */
+    --srv2-mobile-flow-gap: clamp(0.7rem, 1.4svh, 1.15rem);
     padding-block: clamp(0.3rem, 0.8svh, 0.6rem);
   }
 
@@ -900,13 +904,17 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro {
-    gap: clamp(0.85rem, 1.7svh, 1.45rem);
+    justify-content: center;
+    gap: var(--srv2-mobile-flow-gap);
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__top {
     width: 100%;
+    /* No flex-grow: the intro centres the whole stack, so slack lives above
+       and below the group instead of inside it. */
+    flex: 0 0 auto;
     justify-content: flex-start;
-    gap: clamp(0.55rem, 1.15svh, 0.95rem);
+    gap: var(--srv2-mobile-flow-gap);
     padding-block: 0;
   }
 
@@ -1016,8 +1024,8 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   /* The signal manifest: one glass instrument instead of three floating
      pills. Hairline dividers separate the rows; two accent arcs hug opposite
-     corners (the panel's one decorative flourish). margin-top: auto pins it
-     to the bottom of the flex-grown top group, directly above the CTAs. */
+     corners (the panel's one decorative flourish). It sits at the shared flow
+     gap beneath the lead — the same beat as every other hero row. */
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
     position: relative;
     display: flex;
@@ -1025,7 +1033,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     align-items: stretch;
     width: 100%;
     gap: 0;
-    margin-top: auto;
+    margin-top: 0;
     padding: 0.2rem 0.9rem;
     border: 1px solid var(--srv2-mobile-hairline);
     border-radius: 0.85rem;
@@ -1114,7 +1122,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     display: grid;
     width: 100%;
     grid-template-columns: 1fr;
-    gap: 0.55rem;
+    gap: var(--srv2-mobile-flow-gap);
     padding-top: 0;
   }
 
@@ -1163,16 +1171,8 @@ section[data-slot="page-section"]:has(.ss-srv2) {
      the reserve inherited from the stacked-layout rules does not shrink here
      — only the copy compacts. */
   .ss-srv2-hero {
+    --srv2-mobile-flow-gap: 0.5rem;
     padding-block: 0.3rem;
-  }
-
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro {
-    gap: 0.6rem;
-  }
-
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__top {
-    gap: 0.45rem;
-    padding-block: 0;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__crumbs [data-slot="breadcrumb-list"] {
@@ -1203,10 +1203,6 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     height: 1.6rem;
   }
 
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions {
-    gap: 0.4rem;
-  }
-
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {
     min-height: 2.55rem;
     padding-block: 0.38rem;
@@ -1226,14 +1222,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 @media (max-width: 40rem) and (max-height: 38rem) {
   .ss-srv2-hero {
     --srv2-mobile-chrome-reserve: calc(8rem + env(safe-area-inset-bottom, 0px));
-  }
-
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro {
-    gap: 0.42rem;
-  }
-
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__top {
-    gap: 0.32rem;
+    --srv2-mobile-flow-gap: 0.36rem;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow {
@@ -1271,7 +1260,6 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.38rem;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {

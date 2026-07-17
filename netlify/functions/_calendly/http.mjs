@@ -102,10 +102,17 @@ export function readCalendlyToken() {
   return token;
 }
 
-/* Netlify sets CONTEXT per deploy context; anything else (local bridges,
-   `netlify dev`, tests) is non-production. */
+/* Netlify sets CONTEXT per deploy context at BUILD time only — it is not
+   injected into the deployed function runtime (verified 2026-07-17: the
+   production availability function served mock data despite CONTEXT gating).
+   CALENDLY_DEPLOY_CONTEXT is a site env var whose production-context value is
+   "production" (unset for previews/branches/local), so functions can tell
+   where they are at request time. */
 export function isProductionContext() {
-  return process.env.CONTEXT === "production";
+  return (
+    process.env.CONTEXT === "production" ||
+    process.env.CALENDLY_DEPLOY_CONTEXT === "production"
+  );
 }
 
 export function liveCalendlyEnabled() {
@@ -115,5 +122,5 @@ export function liveCalendlyEnabled() {
      Without an override, only production deploys go live. */
   if (process.env.CALENDLY_BOOKING_MODE === "mock") return false;
   if (process.env.CALENDLY_BOOKING_MODE === "live") return true;
-  return process.env.CONTEXT === "production";
+  return isProductionContext();
 }
