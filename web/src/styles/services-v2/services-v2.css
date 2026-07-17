@@ -1048,10 +1048,9 @@ section[data-slot="page-section"]:has(.ss-srv2) {
       inset 0 1px 0 color-mix(in srgb, white 6%, transparent),
       0 18px 40px -30px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
     backdrop-filter: blur(14px);
-    /* The rows fade in individually from 980ms (mount reveals); the frame
-       leads them in so the container never sits empty on screen. */
-    animation: srv2-caps-manifest-in 0.65s var(--ss-motion-easing-standard) both;
-    animation-delay: 0.82s;
+    /* Mobile presents the manifest with the rest of the secondary hero. The
+       shared component keeps its staggered point reveal on larger screens. */
+    animation: none;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps::before,
@@ -1093,6 +1092,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     font-size: clamp(0.8rem, 3.4vw, 0.9rem);
     line-height: 1.35;
     text-align: start;
+    /* Motion writes the desktop reveal state inline, so the mobile
+       composition explicitly settles every row from the first frame. */
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap + .ss-srv2-hero__cap {
@@ -1141,24 +1144,6 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     background: color-mix(in srgb, var(--ss-v2-graphite) 40%, transparent);
     color: var(--srv2-ink-soft);
     font-weight: 500;
-  }
-}
-
-@keyframes srv2-caps-manifest-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (max-width: 40rem) and (prefers-reduced-motion: reduce) {
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
-    animation: none;
   }
 }
 
