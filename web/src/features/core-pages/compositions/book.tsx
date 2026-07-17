@@ -67,7 +67,7 @@ export function BookComposition() {
           { icon: MessageSquare, text: "The four questions we cover in 30 minutes" },
           {
             icon: CalendarCheck,
-            text: "A native booking console — qualify, choose and confirm",
+            text: "A native booking console — choose a time, qualify and confirm",
           },
         ]}
         primaryCtaLabel="Continue to booking"
@@ -108,7 +108,7 @@ export function BookComposition() {
             icon={CalendarCheck}
             heading="Bring *one real problem* to the calendar"
             headingId="core-booking"
-            lead="Start with four quick discovery cues, then check the displayed timezone before confirming. Do not submit passwords, payment data or sensitive personal information."
+            lead="Choose a verified time first, add four quick discovery cues, then confirm your details. Check the displayed timezone before confirming, and do not submit passwords, payment data or sensitive personal information."
           />
           <BookingPanel />
         </div>

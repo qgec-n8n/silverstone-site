@@ -99,6 +99,10 @@ async function fetchAvailability(
   return (await response.json()) as AvailabilityResponse;
 }
 
+function isAbortError(error: unknown): boolean {
+  return error instanceof DOMException && error.name === "AbortError";
+}
+
 export async function loadAvailabilityWindow(
   options: AvailabilityLoadOptions,
   transport: AvailabilityTransport = fetchAvailability,
@@ -111,7 +115,17 @@ export async function loadAvailabilityWindow(
 
   const pending = inFlight.get(key);
   if (pending) {
-    return pending;
+    /* The pending request belongs to another caller and carries that caller's
+       abort signal. If it aborts while this caller is still interested,
+       re-issue the request instead of surfacing a foreign AbortError — without
+       this, an aborted shared promise (e.g. a StrictMode remount) leaves every
+       waiting consumer stuck. */
+    return pending.catch((error: unknown) => {
+      if (isAbortError(error) && !options.signal?.aborted) {
+        return loadAvailabilityWindow(options, transport);
+      }
+      throw error;
+    });
   }
 
   const request = transport(options)

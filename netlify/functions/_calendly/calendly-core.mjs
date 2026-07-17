@@ -2,7 +2,9 @@ import { createHash } from "node:crypto";
 
 export const PUBLIC_EVENT_URL = "https://calendly.com/silverstone-ai/30min";
 export const APPLICATION_WINDOW_DAYS = 42;
-export const UPSTREAM_MAX_DAYS = 31;
+/* Calendly documents a 7-day maximum range for event_type_available_times;
+   larger ranges currently succeed but are undocumented behaviour. */
+export const UPSTREAM_MAX_DAYS = 7;
 export const BOOKING_DURATION_MINUTES = 30;
 export const DAY_MS = 86_400_000;
 
@@ -357,6 +359,9 @@ export function validateBookingRequest(value, now = Date.now()) {
   };
 }
 
+const QUALIFICATION_KINDS = ["services", "industry", "budget", "urgency"];
+const ANSWER_MAX_LENGTH = 1000;
+
 function questionKind(name) {
   const normalised = name.toLowerCase();
   if (/service|help with|project type/u.test(normalised)) return "services";
@@ -365,9 +370,31 @@ function questionKind(name) {
   if (/urgency|timeline|timeframe|start/u.test(normalised)) return "urgency";
   if (/company|organisation|organization/u.test(normalised)) return "company";
   if (/role|position|job title/u.test(normalised)) return "role";
-  if (/context|anything else|share|problem|goal/u.test(normalised))
+  if (/context|anything else|share|problem|goal|prepare/u.test(normalised))
     return "context";
   return null;
+}
+
+function isFreeTextQuestion(question) {
+  return (
+    !Array.isArray(question.answer_choices) || question.answer_choices.length === 0
+  );
+}
+
+export function composeDiscoveryBrief(booking) {
+  const lines = [
+    `Services: ${booking.qualification.services
+      .map((service) => SERVICE_LABELS.get(service))
+      .filter(Boolean)
+      .join(", ")}`,
+    `Industry: ${booking.qualification.industry}`,
+    `Budget: ${booking.qualification.budget}`,
+    `Timing: ${booking.qualification.urgency}`,
+  ];
+  if (booking.details.company) lines.push(`Company: ${booking.details.company}`);
+  if (booking.details.role) lines.push(`Role: ${booking.details.role}`);
+  if (booking.details.context) lines.push(`Context: ${booking.details.context}`);
+  return lines.join("\n").slice(0, ANSWER_MAX_LENGTH);
 }
 
 export function buildQuestionsAndAnswers(eventType, booking) {
@@ -387,32 +414,66 @@ export function buildQuestionsAndAnswers(eventType, booking) {
     context: booking.details.context,
   };
   const answers = [];
+  const transmittedKinds = new Set();
+  let contextQuestion = null;
   for (const question of questions) {
     if (question?.enabled === false || typeof question?.name !== "string")
       continue;
     const kind = questionKind(question.name);
+    if (kind === "context" && isFreeTextQuestion(question) && !contextQuestion) {
+      contextQuestion = question;
+      continue;
+    }
     const answer = kind ? values[kind] : "";
     if (!answer) continue;
+    transmittedKinds.add(kind);
     answers.push({
       question: question.name,
-      answer,
+      answer: answer.slice(0, ANSWER_MAX_LENGTH),
       position: Number.isInteger(question.position)
         ? question.position
         : answers.length,
     });
   }
+
+  /* Qualification must never be discarded silently. When the event type lacks
+     dedicated qualification questions, the whole discovery brief travels in a
+     free-text question (the live event type asks invitees to "share anything
+     that will help prepare"). */
+  const qualificationCovered = QUALIFICATION_KINDS.every((kind) =>
+    transmittedKinds.has(kind),
+  );
+  if (contextQuestion) {
+    const answer = qualificationCovered
+      ? values.context
+      : composeDiscoveryBrief(booking);
+    if (answer) {
+      answers.push({
+        question: contextQuestion.name,
+        answer: answer.slice(0, ANSWER_MAX_LENGTH),
+        position: Number.isInteger(contextQuestion.position)
+          ? contextQuestion.position
+          : answers.length,
+      });
+      if (!qualificationCovered) {
+        for (const kind of QUALIFICATION_KINDS) transmittedKinds.add(kind);
+      }
+    }
+  }
+
   return {
-    answers,
-    qualificationTransmitted: answers.some((answer) =>
-      /service|industr|sector|budget|urgency|timeline|timeframe|start|help with|project type|investment|business type/iu.test(
-        answer.question,
-      ),
+    answers: answers.sort((left, right) => left.position - right.position),
+    qualificationTransmitted: QUALIFICATION_KINDS.every((kind) =>
+      transmittedKinds.has(kind),
     ),
   };
 }
 
 export function buildInviteePayload(eventType, booking) {
   const mapped = buildQuestionsAndAnswers(eventType, booking);
+  /* No `location` field: the Scheduling API treats it as optional and the
+     event type's own location configuration (e.g. google_conference) governs
+     where the call happens, exactly as with a Calendly-hosted booking. */
   const payload = {
     event_type: eventType.uri,
     start_time: booking.startTime,
@@ -424,19 +485,6 @@ export function buildInviteePayload(eventType, booking) {
   };
   if (mapped.answers.length > 0) {
     payload.questions_and_answers = mapped.answers;
-  }
-
-  const locations = Array.isArray(eventType.locations)
-    ? eventType.locations
-    : [];
-  const location = locations.find(
-    (candidate) => candidate?.kind !== "ask_invitee",
-  );
-  if (location?.kind) {
-    payload.location = { kind: location.kind };
-    if (typeof location.location === "string" && location.location) {
-      payload.location.location = location.location;
-    }
   }
   return { payload, qualificationTransmitted: mapped.qualificationTransmitted };
 }

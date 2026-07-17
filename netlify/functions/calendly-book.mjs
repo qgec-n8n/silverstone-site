@@ -16,6 +16,7 @@ import {
   getHeader,
   jsonResponse,
   liveCalendlyEnabled,
+  readCalendlyToken,
 } from "./_calendly/http.mjs";
 
 const duplicateBookings = new Map();
@@ -94,7 +95,7 @@ export async function handler(event) {
           },
         };
       }
-      const token = process.env.CALENDLY_API_TOKEN;
+      const token = readCalendlyToken();
       if (!token) {
         throw new PublicApiError(
           503,

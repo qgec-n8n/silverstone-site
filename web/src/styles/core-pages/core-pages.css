@@ -979,36 +979,78 @@
   }
 }
 
+/* ---- Booking console ---------------------------------------------------
+   A private AI-consultation console in four stages (Date & time → Qualify →
+   Your details → Confirmed). The shell reuses the site's canonical CTA-card
+   surface (dual radial accent washes over --srv2-glass-raised) and the
+   body-title accent family (signal cyan → violet → pink). Interior panels sit
+   on a lighter graphite-raised elevation ladder — never on void-black.
+
+   Sizing contract: the shell height derives from the viewport (bounded
+   clamp), never from stage content, so the console occupies one stable frame
+   at any given viewport. Desktop keeps the two-column calendar/times
+   composition at every height (a max-height query only compacts it); the
+   distinct mobile composition activates on width alone at ≤44rem. */
+
 .ss-core-booking {
-  --booking-cyan: #5ce8ff;
-  --booking-blue: #3299ff;
-  --booking-fuchsia: #ff4fd8;
-  --booking-violet: #9d72ff;
-  --booking-silver: #dbe5f0;
-  --booking-white: #ffffff;
+  /* Brand accent family (from the cinematic token set) */
+  --booking-accent: var(--ss-v2-signal-cyan);
+  --booking-accent-soft: var(--ss-v2-signal-cyan-soft);
+  --booking-blue: var(--ss-v2-signal-blue);
+  --booking-violet: var(--ss-v2-signal-violet);
+  --booking-pink: var(--ss-v2-signal-pink);
+  --booking-ink: var(--ss-v2-chrome);
+  --booking-silver: var(--ss-v2-platinum);
+  --booking-success: #55e6a5;
+  --booking-danger: #ff9fbc;
+  /* Elevation ladder lifted from the CTA-card surface (graphite-raised) */
+  --booking-raise: color-mix(in srgb, var(--ss-v2-platinum) 5%, var(--ss-v2-graphite-raised));
+  --booking-raise-strong: color-mix(in srgb, var(--ss-v2-platinum) 10%, var(--ss-v2-graphite-raised));
+  --booking-pane: color-mix(in srgb, var(--booking-raise) 62%, transparent);
+  --booking-field: color-mix(in srgb, var(--booking-raise) 82%, transparent);
+  --booking-field-strong: color-mix(in srgb, var(--booking-raise-strong) 88%, transparent);
+  --booking-line: color-mix(in srgb, var(--ss-v2-platinum) 14%, transparent);
+  --booking-line-soft: color-mix(in srgb, var(--ss-v2-platinum) 9%, transparent);
+  --booking-iridescent: linear-gradient(
+    100deg,
+    var(--booking-accent-soft),
+    var(--booking-violet) 55%,
+    var(--booking-pink)
+  );
+
   isolation: isolate;
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr) auto;
-  height: 58rem;
-  padding: clamp(1.25rem, 1rem + 1.25vw, 2rem);
+  /* Viewport-derived stable shell: min keeps the composition intact on very
+     short screens, max stops oversized empty panels on tall monitors. */
+  height: clamp(37rem, 100vh - var(--ss-layout-header, 4.5rem) - clamp(2.25rem, 6vh, 4.5rem), 51rem);
+  height: clamp(37rem, 100dvh - var(--ss-layout-header, 4.5rem) - clamp(2.25rem, 6dvh, 4.5rem), 51rem);
+  min-width: 0;
+  padding: clamp(1.1rem, 0.75rem + 1.1vw, 1.9rem) clamp(1.1rem, 0.75rem + 1.3vw, 2.1rem);
   overflow: hidden;
+  scroll-margin-top: calc(var(--ss-layout-header, 0px) + 1rem);
+  border: 1px solid color-mix(in srgb, var(--booking-accent) 24%, var(--srv2-hairline));
   background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--booking-cyan) 7%, transparent),
-      transparent 32%,
-      color-mix(in srgb, var(--booking-violet) 8%, transparent) 72%,
-      transparent
+    radial-gradient(
+      120% 130% at 12% -10%,
+      color-mix(in srgb, var(--srv2-accent) 20%, transparent),
+      transparent 55%
     ),
     radial-gradient(
-      90% 90% at 100% 0%,
-      color-mix(in srgb, var(--booking-fuchsia) 8%, transparent),
-      transparent 58%
+      120% 130% at 100% 120%,
+      color-mix(in srgb, var(--srv2-accent-2) 20%, transparent),
+      transparent 55%
     ),
-    color-mix(in srgb, var(--ss-v2-void-black) 82%, var(--srv2-glass));
+    radial-gradient(
+      70% 60% at 88% -6%,
+      color-mix(in srgb, var(--booking-pink) 9%, transparent),
+      transparent 60%
+    ),
+    var(--srv2-glass-raised);
+  backdrop-filter: blur(18px);
   box-shadow:
-    0 44px 100px -56px color-mix(in srgb, var(--booking-blue) 48%, transparent),
-    inset 0 1px 0 color-mix(in srgb, var(--booking-white) 9%, transparent);
+    0 44px 110px -60px color-mix(in srgb, var(--booking-blue) 55%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--booking-silver) 12%, transparent);
 }
 
 .ss-booking-shell__ambient {
@@ -1016,6 +1058,7 @@
   inset: 0;
   z-index: -1;
   overflow: hidden;
+  border-radius: inherit;
   pointer-events: none;
 }
 
@@ -1023,88 +1066,87 @@
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.18;
+  opacity: 0.14;
   background-image:
     linear-gradient(
-      color-mix(in srgb, var(--booking-cyan) 11%, transparent) 1px,
+      color-mix(in srgb, var(--booking-accent) 10%, transparent) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      color-mix(in srgb, var(--booking-cyan) 9%, transparent) 1px,
+      color-mix(in srgb, var(--booking-violet) 9%, transparent) 1px,
       transparent 1px
     );
   background-size: 44px 44px;
-  mask-image: linear-gradient(to bottom, black, transparent 75%);
+  mask-image: linear-gradient(to bottom, black, transparent 70%);
 }
 
 .ss-booking-shell__ambient span {
   position: absolute;
-  width: 28rem;
-  height: 28rem;
+  width: 26rem;
+  height: 26rem;
   border-radius: 50%;
   filter: blur(90px);
-  opacity: 0.1;
+  opacity: 0.14;
 }
 
 .ss-booking-shell__ambient span:first-child {
-  top: -19rem;
-  left: -8rem;
-  background: var(--booking-cyan);
+  top: -17rem;
+  left: -7rem;
+  background: var(--booking-accent);
 }
 
 .ss-booking-shell__ambient span:last-child {
-  right: -10rem;
-  bottom: -22rem;
-  background: var(--booking-fuchsia);
+  right: -9rem;
+  bottom: -19rem;
+  background: var(--booking-violet);
 }
+
+/* ---- Shell header ------------------------------------------------------ */
 
 .ss-booking-shell__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1.5rem;
   min-width: 0;
-  padding-bottom: 1.2rem;
+  padding-bottom: clamp(0.8rem, 1.6dvh, 1.2rem);
 }
 
 .ss-booking-shell__intro {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.65rem;
+  gap: clamp(0.4rem, 0.9dvh, 0.65rem);
   max-width: 46rem;
   min-width: 0;
 }
 
 .ss-booking-shell__intro h3 {
   margin: 0;
-  color: var(--ss-v2-chrome);
+  color: var(--booking-ink);
   font-family: var(--ss-font-display);
-  font-size: clamp(1.45rem, 1.05rem + 1.35vw, 2.1rem);
+  font-size: clamp(1.3rem, 1rem + 1.1vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
   line-height: 1.08;
   text-wrap: balance;
 }
 
 .ss-booking-shell__intro h3 em {
   font-style: normal;
-  background: linear-gradient(
-    100deg,
-    var(--booking-cyan),
-    var(--booking-fuchsia) 58%,
-    var(--booking-violet)
-  );
+  background: var(--booking-iridescent);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .ss-booking-shell__intro p {
-  max-width: 43rem;
+  max-width: 44rem;
   margin: 0;
   color: var(--srv2-ink-soft);
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 .ss-booking-shell__security {
@@ -1112,24 +1154,26 @@
   flex: none;
   align-items: center;
   gap: 0.55rem;
-  min-height: 2.5rem;
-  padding: 0.55rem 0.8rem;
-  border: 1px solid color-mix(in srgb, var(--booking-cyan) 18%, var(--srv2-hairline));
+  min-height: 2.4rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--booking-accent) 22%, var(--booking-line-soft));
   border-radius: var(--ss-radius-pill);
-  color: var(--booking-silver);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 68%, transparent);
+  color: color-mix(in srgb, var(--booking-silver) 88%, transparent);
+  background: var(--booking-pane);
   font-family: var(--ss-font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.04em;
+  font-size: 0.64rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .ss-booking-shell__security svg {
   width: 0.95rem;
-  color: var(--booking-cyan);
+  color: var(--booking-accent);
 }
 
 .ss-booking-shell__security i,
 .ss-booking-status-dot {
+  flex: none;
   width: 0.42rem;
   height: 0.42rem;
   border-radius: 50%;
@@ -1138,15 +1182,17 @@
 
 .ss-booking-shell__security i[data-live="true"],
 .ss-booking-status-dot[data-active="true"] {
-  background: #55e6a5;
-  box-shadow: 0 0 0 3px color-mix(in srgb, #55e6a5 15%, transparent);
+  background: var(--booking-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--booking-success) 16%, transparent);
 }
+
+/* ---- Progress rail ------------------------------------------------------ */
 
 .ss-booking-progress {
   position: relative;
   min-width: 0;
-  padding-block: 0.8rem 1rem;
-  border-block: 1px solid color-mix(in srgb, var(--booking-silver) 9%, transparent);
+  padding-block: clamp(0.55rem, 1.2dvh, 0.85rem) clamp(0.65rem, 1.4dvh, 1rem);
+  border-block: 1px solid var(--booking-line-soft);
 }
 
 .ss-booking-progress__signal {
@@ -1154,13 +1200,14 @@
   top: -1px;
   left: 0;
   width: 25%;
-  height: 1px;
-  background: linear-gradient(90deg, var(--booking-cyan), var(--booking-fuchsia));
-  box-shadow: 0 0 16px color-mix(in srgb, var(--booking-cyan) 55%, transparent);
+  height: 2px;
+  border-radius: 999px;
+  background: var(--booking-iridescent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--booking-violet) 45%, transparent);
   transition: width var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
 }
 
-.ss-core-booking[data-stage="schedule"] .ss-booking-progress__signal {
+.ss-core-booking[data-stage="qualify"] .ss-booking-progress__signal {
   width: 50%;
 }
 
@@ -1189,10 +1236,14 @@
   content: "";
   position: absolute;
   top: 50%;
-  right: 0.4rem;
-  width: min(2.5rem, 22%);
+  right: 0.5rem;
+  width: min(2.6rem, 24%);
   height: 1px;
-  background: color-mix(in srgb, var(--booking-silver) 15%, transparent);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--booking-silver) 18%, transparent),
+    color-mix(in srgb, var(--booking-silver) 6%, transparent)
+  );
 }
 
 .ss-booking-progress button {
@@ -1203,10 +1254,10 @@
   min-height: 2.5rem;
   padding: 0.2rem 0.4rem;
   border: 0;
-  color: color-mix(in srgb, var(--srv2-ink-faint) 78%, transparent);
+  color: color-mix(in srgb, var(--srv2-ink-faint) 80%, transparent);
   background: transparent;
   font-family: var(--ss-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   letter-spacing: 0.06em;
   text-align: left;
   text-transform: uppercase;
@@ -1216,20 +1267,35 @@
   cursor: pointer;
 }
 
+.ss-booking-progress button:not(:disabled):hover {
+  color: var(--booking-ink);
+}
+
 .ss-booking-progress button:disabled {
   opacity: 1;
+}
+
+.ss-booking-progress button:focus-visible {
+  border-radius: var(--ss-radius-xs);
+  outline: 2px solid color-mix(in srgb, var(--booking-accent) 70%, transparent);
+  outline-offset: 2px;
 }
 
 .ss-booking-progress__index {
   display: grid;
   flex: none;
   place-items: center;
-  width: 1.8rem;
-  height: 1.8rem;
-  border: 1px solid color-mix(in srgb, var(--booking-silver) 16%, transparent);
+  width: 1.85rem;
+  height: 1.85rem;
+  border: 1px solid color-mix(in srgb, var(--booking-silver) 18%, transparent);
   border-radius: 50%;
   color: inherit;
+  background: var(--booking-pane);
   font-size: 0.62rem;
+  transition:
+    border-color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
 }
 
 .ss-booking-progress__index svg {
@@ -1237,29 +1303,42 @@
 }
 
 .ss-booking-progress li[data-state="current"] button {
-  color: var(--booking-white);
+  color: var(--booking-ink);
 }
 
 .ss-booking-progress li[data-state="current"] .ss-booking-progress__index {
-  border-color: color-mix(in srgb, var(--booking-cyan) 65%, transparent);
-  color: var(--booking-cyan);
-  background: color-mix(in srgb, var(--booking-cyan) 9%, transparent);
-  box-shadow: 0 0 18px color-mix(in srgb, var(--booking-cyan) 20%, transparent);
+  border-color: color-mix(in srgb, var(--booking-accent) 60%, transparent);
+  color: var(--booking-accent);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--booking-accent) 14%, transparent),
+      color-mix(in srgb, var(--booking-violet) 12%, transparent)
+    ),
+    var(--booking-pane);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--booking-accent) 22%, transparent);
 }
 
 .ss-booking-progress li[data-state="complete"] button {
-  color: #78e6b0;
+  color: color-mix(in srgb, var(--booking-violet) 78%, var(--booking-silver));
+}
+
+.ss-booking-progress li[data-state="complete"] .ss-booking-progress__index {
+  border-color: color-mix(in srgb, var(--booking-violet) 45%, transparent);
+  color: color-mix(in srgb, var(--booking-pink) 80%, white);
 }
 
 .ss-booking-progress__label-short {
   display: none;
 }
 
+/* ---- Stage viewport ------------------------------------------------------ */
+
 .ss-booking-shell__viewport {
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  padding-block: 1.1rem 0.7rem;
+  padding-block: clamp(0.7rem, 1.6dvh, 1.1rem) clamp(0.4rem, 1dvh, 0.7rem);
 }
 
 .ss-booking-shell__stage-frame,
@@ -1272,8 +1351,8 @@
 
 .ss-booking-stage {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) 1.5rem;
-  gap: 0.75rem;
+  grid-template-rows: auto minmax(0, 1fr) 1.25rem;
+  gap: clamp(0.55rem, 1.3dvh, 0.9rem);
 }
 
 .ss-booking-stage__heading {
@@ -1287,18 +1366,24 @@
 
 .ss-booking-stage__heading > span {
   grid-row: 1 / span 2;
-  color: var(--booking-cyan);
+  background: var(--booking-iridescent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   font-family: var(--ss-font-mono);
   font-size: 0.64rem;
+  font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
 .ss-booking-stage__heading h4 {
   margin: 0;
-  color: var(--booking-white);
+  color: var(--booking-ink);
   font-family: var(--ss-font-display);
-  font-size: clamp(1.1rem, 0.9rem + 0.65vw, 1.45rem);
+  font-size: clamp(1.05rem, 0.9rem + 0.55vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1.15;
   text-wrap: balance;
   outline: none;
@@ -1315,15 +1400,18 @@
   align-self: center;
   min-height: 1.25rem;
   margin: 0;
-  color: #ff9fbc;
+  color: var(--booking-danger);
   font-size: 0.76rem;
   line-height: 1.25;
 }
 
+/* ---- Qualify stage ------------------------------------------------------- */
+
 .ss-booking-qualify__grid {
   display: grid;
-  grid-template-columns: minmax(18rem, 0.9fr) minmax(24rem, 1.1fr);
-  gap: 1.2rem;
+  grid-template-columns: minmax(18rem, 0.92fr) minmax(24rem, 1.08fr);
+  align-content: center;
+  gap: clamp(1rem, 1.2vw, 1.5rem);
   min-height: 0;
 }
 
@@ -1341,9 +1429,9 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 0.55rem;
-  color: var(--booking-silver);
-  font-size: 0.76rem;
-  font-weight: 680;
+  color: color-mix(in srgb, var(--booking-silver) 92%, transparent);
+  font-size: 0.78rem;
+  font-weight: 650;
   letter-spacing: 0.01em;
 }
 
@@ -1359,24 +1447,25 @@
 .ss-booking-service-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.48rem;
+  gap: clamp(0.45rem, 1dvh, 0.6rem);
 }
 
 .ss-booking-service-grid button,
 .ss-booking-segments button {
   position: relative;
   min-width: 0;
-  min-height: 2.75rem;
-  border: 1px solid color-mix(in srgb, var(--booking-silver) 13%, transparent);
+  min-height: clamp(2.6rem, 5dvh, 2.95rem);
+  border: 1px solid var(--booking-line);
   border-radius: var(--ss-radius-sm);
   color: var(--srv2-ink-soft);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 58%, transparent);
-  font-size: 0.71rem;
+  background: var(--booking-field);
+  font-size: 0.72rem;
   line-height: 1.2;
   transition:
     border-color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
     background var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
     color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
     transform var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
 }
 
@@ -1385,29 +1474,46 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.6rem;
-  padding: 0.55rem 0.62rem 0.55rem 0.75rem;
+  padding: 0.55rem 0.62rem 0.55rem 0.8rem;
   text-align: left;
 }
 
 .ss-booking-service-grid button:hover:not(:disabled),
 .ss-booking-segments button:hover {
-  border-color: color-mix(in srgb, var(--booking-cyan) 38%, transparent);
-  color: var(--booking-white);
+  border-color: color-mix(in srgb, var(--booking-accent) 40%, transparent);
+  color: var(--booking-ink);
+  background: var(--booking-field-strong);
   transform: translateY(-1px);
+}
+
+.ss-booking-service-grid button:focus-visible,
+.ss-booking-segments button:focus-visible,
+.ss-booking-availability__tabs button:focus-visible,
+.ss-booking-time-group button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--booking-accent) 70%, transparent);
+  outline-offset: 2px;
 }
 
 .ss-booking-service-grid button[aria-pressed="true"],
 .ss-booking-segments button[aria-pressed="true"] {
-  border-color: color-mix(in srgb, var(--booking-cyan) 62%, transparent);
-  color: var(--booking-white);
+  border-color: color-mix(in srgb, var(--booking-accent) 55%, var(--booking-violet));
+  color: var(--booking-ink);
   background:
     linear-gradient(
       125deg,
-      color-mix(in srgb, var(--booking-cyan) 13%, transparent),
-      color-mix(in srgb, var(--booking-violet) 9%, transparent)
+      color-mix(in srgb, var(--booking-accent) 16%, transparent),
+      color-mix(in srgb, var(--booking-violet) 13%, transparent) 62%,
+      color-mix(in srgb, var(--booking-pink) 10%, transparent)
     ),
-    color-mix(in srgb, var(--ss-v2-void-black) 76%, transparent);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--booking-white) 8%, transparent);
+    var(--booking-field-strong);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--booking-silver) 10%, transparent),
+    0 8px 22px -14px color-mix(in srgb, var(--booking-violet) 60%, transparent);
+}
+
+.ss-booking-service-grid button:active:not(:disabled),
+.ss-booking-segments button:active {
+  transform: translateY(0);
 }
 
 .ss-booking-service-grid button:disabled {
@@ -1420,19 +1526,25 @@
   place-items: center;
   width: 1.3rem;
   height: 1.3rem;
-  border: 1px solid color-mix(in srgb, var(--booking-silver) 17%, transparent);
+  border: 1px solid color-mix(in srgb, var(--booking-silver) 20%, transparent);
   border-radius: 50%;
+  transition: border-color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
+}
+
+.ss-booking-service-grid button[aria-pressed="true"] .ss-booking-choice-mark {
+  border-color: color-mix(in srgb, var(--booking-accent) 65%, transparent);
+  background: color-mix(in srgb, var(--booking-accent) 12%, transparent);
 }
 
 .ss-booking-choice-mark svg {
   width: 0.68rem;
-  color: var(--booking-cyan);
+  color: var(--booking-accent);
 }
 
 .ss-booking-qualify__secondary {
   display: grid;
-  align-content: start;
-  gap: 0.8rem;
+  align-content: center;
+  gap: clamp(0.7rem, 1.6dvh, 1rem);
   min-width: 0;
 }
 
@@ -1444,39 +1556,51 @@
 .ss-booking-select select,
 .ss-booking-timezone select {
   width: 100%;
-  min-height: 2.75rem;
+  min-height: clamp(2.6rem, 5dvh, 2.95rem);
   appearance: none;
-  border: 1px solid color-mix(in srgb, var(--booking-silver) 14%, transparent);
+  border: 1px solid var(--booking-line);
   border-radius: var(--ss-radius-sm);
-  color: var(--booking-white);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 72%, transparent);
-  font-size: 0.75rem;
+  color: var(--booking-ink);
+  background: var(--booking-field);
+  font-size: 0.76rem;
   outline: none;
+  transition: border-color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
+}
+
+.ss-booking-select select:hover,
+.ss-booking-timezone select:hover {
+  border-color: color-mix(in srgb, var(--booking-accent) 40%, transparent);
+}
+
+.ss-booking-select select:focus-visible,
+.ss-booking-timezone select:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--booking-accent) 70%, transparent);
+  outline-offset: 2px;
 }
 
 .ss-booking-select select {
-  padding: 0 2.4rem 0 0.8rem;
+  padding: 0 2.4rem 0 0.85rem;
 }
 
 .ss-booking-select select option,
 .ss-booking-timezone select option {
-  color: var(--booking-white);
-  background: #090d14;
+  color: var(--booking-ink);
+  background: var(--ss-v2-graphite-raised);
 }
 
 .ss-booking-select__control > svg {
   position: absolute;
   top: 50%;
-  right: 0.8rem;
+  right: 0.85rem;
   width: 0.85rem;
-  color: var(--booking-cyan);
+  color: var(--booking-accent);
   pointer-events: none;
   transform: translateY(-50%);
 }
 
 .ss-booking-segments {
   display: grid;
-  gap: 0.42rem;
+  gap: clamp(0.4rem, 0.9dvh, 0.55rem);
 }
 
 .ss-booking-segments[data-columns="5"] {
@@ -1490,6 +1614,8 @@
 .ss-booking-segments button {
   padding: 0.45rem;
 }
+
+/* ---- Date & time stage --------------------------------------------------- */
 
 .ss-booking-stage__heading--schedule {
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -1512,13 +1638,15 @@
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
   font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .ss-booking-timezone select {
   width: auto;
   min-width: 12rem;
-  min-height: 2.2rem;
-  padding: 0 1.8rem 0 0.65rem;
+  min-height: 2.25rem;
+  padding: 0 1.8rem 0 0.7rem;
   border-radius: var(--ss-radius-xs);
   font-family: inherit;
   font-size: 0.64rem;
@@ -1530,8 +1658,8 @@
 
 .ss-booking-availability__layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(17rem, 0.92fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(17rem, 0.95fr);
+  gap: clamp(0.8rem, 1.2vw, 1.1rem);
   min-height: 0;
   overflow: hidden;
 }
@@ -1540,17 +1668,33 @@
 .ss-booking-times-pane {
   min-width: 0;
   min-height: 0;
-  border: 1px solid color-mix(in srgb, var(--booking-silver) 10%, transparent);
+  border: 1px solid var(--booking-line-soft);
   border-radius: var(--ss-radius-lg);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 64%, transparent);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--booking-white) 5%, transparent);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--booking-accent) 4%, transparent),
+      transparent 45%
+    ),
+    var(--booking-pane);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--booking-silver) 7%, transparent);
+}
+
+.ss-booking-times-pane {
+  background:
+    linear-gradient(
+      200deg,
+      color-mix(in srgb, var(--booking-violet) 5%, transparent),
+      transparent 45%
+    ),
+    var(--booking-pane);
 }
 
 .ss-booking-calendar-pane {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   place-items: stretch center;
-  padding: 0.75rem;
+  padding: clamp(0.55rem, 1.2dvh, 0.85rem) 0.85rem;
   overflow: hidden;
 }
 
@@ -1559,7 +1703,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  min-height: 1.5rem;
+  min-height: 1.4rem;
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
   font-size: 0.6rem;
@@ -1571,6 +1715,19 @@
   align-self: center;
   width: min(100%, 24rem);
   color: var(--booking-silver);
+}
+
+.ss-booking-calendar-skeleton {
+  display: grid;
+  align-self: center;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.3rem;
+  width: min(100%, 24rem);
+}
+
+.ss-booking-calendar-skeleton > * {
+  height: clamp(1.9rem, 4.2dvh, 2.5rem);
+  border-radius: 0.6rem;
 }
 
 .ss-booking-calendar__months,
@@ -1586,11 +1743,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.6rem;
+  height: clamp(2.2rem, 4.4dvh, 2.6rem);
 }
 
 .ss-booking-calendar__caption-label {
-  color: var(--booking-white);
+  color: var(--booking-ink);
   font-family: var(--ss-font-display);
   font-size: 0.92rem;
   font-weight: 650;
@@ -1605,27 +1762,36 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 2.6rem;
+  height: clamp(2.2rem, 4.4dvh, 2.6rem);
   pointer-events: none;
 }
 
 .ss-booking-calendar__nav-button {
   display: grid;
   place-items: center;
-  width: 2.6rem;
-  height: 2.6rem;
+  width: clamp(2.2rem, 4.4dvh, 2.6rem);
+  height: clamp(2.2rem, 4.4dvh, 2.6rem);
   padding: 0;
   border: 1px solid transparent;
   border-radius: 50%;
   color: var(--srv2-ink-soft);
   background: transparent;
   pointer-events: auto;
+  transition:
+    border-color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    background var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
 }
 
 .ss-booking-calendar__nav-button:hover:not(:disabled) {
-  border-color: color-mix(in srgb, var(--booking-cyan) 24%, transparent);
-  color: var(--booking-cyan);
-  background: color-mix(in srgb, var(--booking-cyan) 7%, transparent);
+  border-color: color-mix(in srgb, var(--booking-accent) 26%, transparent);
+  color: var(--booking-accent);
+  background: color-mix(in srgb, var(--booking-accent) 8%, transparent);
+}
+
+.ss-booking-calendar__nav-button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--booking-accent) 70%, transparent);
+  outline-offset: 2px;
 }
 
 .ss-booking-calendar__nav-button:disabled {
@@ -1640,7 +1806,7 @@
 }
 
 .ss-booking-calendar__weekday {
-  height: 1.8rem;
+  height: 1.7rem;
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
   font-size: 0.58rem;
@@ -1651,7 +1817,7 @@
 
 .ss-booking-calendar__day {
   position: relative;
-  height: 2.55rem;
+  height: clamp(2rem, 4.3dvh, 2.6rem);
   padding: 0;
   text-align: center;
 }
@@ -1661,7 +1827,7 @@
   display: grid;
   place-items: center;
   width: 100%;
-  height: 2.55rem;
+  height: clamp(2rem, 4.3dvh, 2.6rem);
   padding: 0;
   border: 1px solid transparent;
   border-radius: 0.72rem;
@@ -1670,42 +1836,90 @@
   font-family: var(--ss-font-mono);
   font-size: 0.7rem;
   font-variant-numeric: tabular-nums;
+  transition:
+    border-color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    background var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
+}
+
+.ss-booking-calendar__day-button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--booking-accent) 70%, transparent);
+  outline-offset: 1px;
+}
+
+/* Desktop panes have a fixed, shell-derived height while dvh tracks the
+   viewport, so viewport-tied cell heights overflow the pane on tall
+   screens (the calendar then centre-bleeds over the status and legend
+   rows). Size the calendar from the pane itself: 100cqh less the status,
+   legend, weekday and border-spacing budget, split across caption + six
+   week rows. Mobile keeps the dvh/svh sizing — its panes are
+   content-sized, where a size container would collapse. */
+@media (min-width: 44.0625rem) {
+  .ss-booking-calendar-pane {
+    container-type: size;
+  }
+
+  .ss-booking-calendar__caption,
+  .ss-booking-calendar__nav {
+    height: clamp(2.2rem, calc((100cqh - 6.8rem) / 7 + 0.4rem), 2.6rem);
+  }
+
+  .ss-booking-calendar__nav-button {
+    width: clamp(2.2rem, calc((100cqh - 6.8rem) / 7 + 0.4rem), 2.6rem);
+    height: clamp(2.2rem, calc((100cqh - 6.8rem) / 7 + 0.4rem), 2.6rem);
+  }
+
+  .ss-booking-calendar__day,
+  .ss-booking-calendar__day-button {
+    height: clamp(1.7rem, calc((100cqh - 6.8rem) / 7), 2.6rem);
+  }
+
+  .ss-booking-calendar-skeleton > * {
+    height: clamp(1.7rem, calc((100cqh - 6.8rem) / 7), 2.5rem);
+  }
 }
 
 .ss-booking-calendar__day.is-available .ss-booking-calendar__day-button {
-  color: var(--booking-white);
+  border-color: color-mix(in srgb, var(--booking-accent) 14%, transparent);
+  color: var(--booking-ink);
+  background: color-mix(in srgb, var(--booking-raise) 40%, transparent);
 }
 
 .ss-booking-calendar__day.is-available .ss-booking-calendar__day-button::after {
   content: "";
   position: absolute;
-  bottom: 0.24rem;
+  bottom: 0.22rem;
   width: 0.2rem;
   height: 0.2rem;
   border-radius: 50%;
-  background: var(--booking-cyan);
-  box-shadow: 0 0 7px color-mix(in srgb, var(--booking-cyan) 60%, transparent);
+  background: var(--booking-accent);
+  box-shadow: 0 0 7px color-mix(in srgb, var(--booking-accent) 60%, transparent);
 }
 
 .ss-booking-calendar__day.is-available .ss-booking-calendar__day-button:hover {
-  border-color: color-mix(in srgb, var(--booking-cyan) 34%, transparent);
-  background: color-mix(in srgb, var(--booking-cyan) 8%, transparent);
+  border-color: color-mix(in srgb, var(--booking-accent) 42%, transparent);
+  background: color-mix(in srgb, var(--booking-accent) 10%, var(--booking-field));
 }
 
 .ss-booking-calendar__day.is-selected .ss-booking-calendar__day-button {
-  border-color: color-mix(in srgb, var(--booking-cyan) 70%, transparent);
-  color: #031015;
-  background: linear-gradient(135deg, var(--booking-white), var(--booking-cyan));
-  box-shadow: 0 0 22px color-mix(in srgb, var(--booking-cyan) 28%, transparent);
+  border-color: transparent;
+  color: #0b1220;
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    var(--booking-accent) 62%,
+    color-mix(in srgb, var(--booking-violet) 70%, white)
+  );
+  box-shadow: 0 0 22px color-mix(in srgb, var(--booking-accent) 30%, transparent);
 }
 
 .ss-booking-calendar__day.is-selected .ss-booking-calendar__day-button::after {
-  background: #06151a;
+  background: #0b1220;
   box-shadow: none;
 }
 
 .ss-booking-calendar__day.is-today:not(.is-selected) .ss-booking-calendar__day-button {
-  border-color: color-mix(in srgb, var(--booking-fuchsia) 46%, transparent);
+  border-color: color-mix(in srgb, var(--booking-pink) 55%, transparent);
 }
 
 .ss-booking-calendar__day.is-outside .ss-booking-calendar__day-button {
@@ -1714,7 +1928,7 @@
 
 .ss-booking-calendar__day.is-disabled .ss-booking-calendar__day-button {
   cursor: not-allowed;
-  opacity: 0.28;
+  opacity: 0.3;
 }
 
 .ss-booking-calendar__day.is-loading:not(.is-available)
@@ -1742,7 +1956,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  min-height: 1.6rem;
+  min-height: 1.5rem;
   color: var(--srv2-ink-faint);
   font-size: 0.58rem;
 }
@@ -1756,21 +1970,22 @@
 .ss-booking-calendar-legend i {
   width: 0.45rem;
   height: 0.45rem;
-  border: 1px solid color-mix(in srgb, var(--booking-silver) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--booking-silver) 22%, transparent);
   border-radius: 50%;
 }
 
 .ss-booking-calendar-legend i[data-tone="available"] {
-  border-color: var(--booking-cyan);
-  background: var(--booking-cyan);
+  border-color: var(--booking-accent);
+  background: var(--booking-accent);
 }
 
 .ss-booking-calendar-legend i[data-tone="selected"] {
-  background: var(--booking-white);
+  border-color: transparent;
+  background: linear-gradient(135deg, #ffffff, var(--booking-accent));
 }
 
 .ss-booking-calendar-legend i[data-tone="today"] {
-  border-color: var(--booking-fuchsia);
+  border-color: var(--booking-pink);
 }
 
 .ss-booking-times-pane {
@@ -1784,9 +1999,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 4.4rem;
-  padding: 0.8rem 1rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--booking-silver) 9%, transparent);
+  min-height: clamp(3.4rem, 6.5dvh, 4.2rem);
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--booking-line-soft);
 }
 
 .ss-booking-times-pane > header div {
@@ -1797,17 +2012,21 @@
 
 .ss-booking-times-pane > header span,
 .ss-booking-time-group > span {
-  color: var(--booking-cyan);
+  background: var(--booking-iridescent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   font-family: var(--ss-font-mono);
   font-size: 0.58rem;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .ss-booking-times-pane > header strong {
   overflow: hidden;
-  color: var(--booking-white);
-  font-size: 0.8rem;
+  color: var(--booking-ink);
+  font-size: 0.82rem;
   font-weight: 620;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1816,7 +2035,7 @@
 .ss-booking-times-pane > header svg {
   flex: none;
   width: 1rem;
-  color: var(--booking-fuchsia);
+  color: var(--booking-violet);
 }
 
 .ss-booking-times-scroll {
@@ -1824,8 +2043,13 @@
   overflow-x: hidden;
   overflow-y: auto;
   padding: 0.75rem;
-  scrollbar-color: color-mix(in srgb, var(--booking-cyan) 36%, transparent) transparent;
+  scrollbar-color: color-mix(in srgb, var(--booking-violet) 40%, transparent) transparent;
   scrollbar-width: thin;
+}
+
+.ss-booking-times-scroll:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--booking-accent) 70%, transparent);
+  outline-offset: -2px;
 }
 
 .ss-booking-times-scroll::-webkit-scrollbar {
@@ -1834,7 +2058,7 @@
 
 .ss-booking-times-scroll::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: linear-gradient(var(--booking-cyan), var(--booking-violet));
+  background: linear-gradient(var(--booking-accent), var(--booking-violet), var(--booking-pink));
 }
 
 .ss-booking-time-groups {
@@ -1850,7 +2074,7 @@
 .ss-booking-time-group > div {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.42rem;
+  gap: 0.45rem;
 }
 
 .ss-booking-time-group button {
@@ -1858,18 +2082,23 @@
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  min-height: 2.9rem;
-  padding: 0.45rem 0.6rem;
-  border: 1px solid color-mix(in srgb, var(--booking-silver) 12%, transparent);
+  min-height: clamp(2.6rem, 5dvh, 2.95rem);
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--booking-line);
   border-radius: var(--ss-radius-sm);
-  color: var(--booking-white);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 54%, transparent);
+  color: var(--booking-ink);
+  background: var(--booking-field);
   text-align: left;
+  transition:
+    border-color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    background var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
 }
 
 .ss-booking-time-group button span {
   font-family: var(--ss-font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -1883,22 +2112,32 @@
   top: 50%;
   right: 0.55rem;
   width: 0.8rem;
-  color: var(--booking-cyan);
+  color: var(--booking-accent);
   transform: translateY(-50%);
 }
 
+.ss-booking-time-group button:hover {
+  border-color: color-mix(in srgb, var(--booking-accent) 42%, transparent);
+  background: var(--booking-field-strong);
+  transform: translateY(-1px);
+}
+
 .ss-booking-time-group button[aria-pressed="true"] {
-  border-color: color-mix(in srgb, var(--booking-cyan) 66%, transparent);
-  background: color-mix(in srgb, var(--booking-cyan) 13%, var(--ss-v2-void-black));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--booking-cyan) 12%, transparent);
+  border-color: color-mix(in srgb, var(--booking-accent) 58%, var(--booking-violet));
+  background:
+    linear-gradient(
+      125deg,
+      color-mix(in srgb, var(--booking-accent) 16%, transparent),
+      color-mix(in srgb, var(--booking-violet) 13%, transparent)
+    ),
+    var(--booking-field-strong);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--booking-silver) 9%, transparent),
+    0 8px 22px -14px color-mix(in srgb, var(--booking-accent) 55%, transparent);
 }
 
 .ss-booking-time-group button[aria-pressed="true"] small {
   visibility: hidden;
-}
-
-.ss-booking-time-group button:hover {
-  border-color: color-mix(in srgb, var(--booking-cyan) 38%, transparent);
 }
 
 .ss-booking-times-skeleton {
@@ -1920,11 +2159,11 @@
 
 .ss-booking-times-state > svg {
   width: 1.5rem;
-  color: var(--booking-cyan);
+  color: var(--booking-accent);
 }
 
 .ss-booking-times-state strong {
-  color: var(--booking-white);
+  color: var(--booking-ink);
   font-size: 0.9rem;
 }
 
@@ -1935,24 +2174,92 @@
   line-height: 1.5;
 }
 
+/* ---- Details stage ------------------------------------------------------- */
+
+.ss-booking-details__body {
+  display: grid;
+  align-content: center;
+  gap: clamp(0.5rem, 1.1dvh, 0.75rem);
+  min-height: 0;
+  /* Safety valve only: at generous viewports everything fits, but the
+     required acknowledgement must never be clipped by the fixed shell. */
+  overflow-y: auto;
+  padding-right: 0.15rem;
+  scrollbar-color: color-mix(in srgb, var(--booking-violet) 40%, transparent) transparent;
+  scrollbar-width: thin;
+}
+
+.ss-booking-details__summary {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: clamp(0.4rem, 1dvh, 0.6rem) 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--booking-accent) 26%, var(--booking-line-soft));
+  border-radius: var(--ss-radius-md);
+  background:
+    linear-gradient(
+      105deg,
+      color-mix(in srgb, var(--booking-accent) 10%, transparent),
+      color-mix(in srgb, var(--booking-violet) 8%, transparent) 60%,
+      transparent
+    ),
+    var(--booking-pane);
+}
+
+.ss-booking-details__summary > svg {
+  flex: none;
+  width: 1.05rem;
+  color: var(--booking-accent);
+}
+
+.ss-booking-details__summary div {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.ss-booking-details__summary strong {
+  color: var(--booking-ink);
+  font-size: 0.8rem;
+  font-weight: 640;
+}
+
+.ss-booking-details__summary span {
+  overflow: hidden;
+  color: var(--srv2-ink-faint);
+  font-size: 0.66rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .ss-booking-details__form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-content: start;
-  gap: 0.55rem 0.8rem;
+  gap: clamp(0.35rem, 0.9dvh, 0.55rem) 0.8rem;
   min-height: 0;
-  padding: 0.9rem;
-  border: 1px solid color-mix(in srgb, var(--booking-silver) 10%, transparent);
+  padding: clamp(0.7rem, 1.4dvh, 1rem);
+  border: 1px solid var(--booking-line-soft);
   border-radius: var(--ss-radius-lg);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 58%, transparent);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--booking-violet) 4%, transparent),
+      transparent 50%
+    ),
+    var(--booking-pane);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--booking-silver) 7%, transparent);
 }
 
 .ss-booking-details__form > label {
+  position: relative;
   display: grid;
-  grid-template-rows: auto auto 1rem;
-  gap: 0.3rem;
+  grid-template-rows: auto auto;
+  gap: 0.26rem;
   min-width: 0;
-  color: var(--booking-silver);
+  color: color-mix(in srgb, var(--booking-silver) 92%, transparent);
   font-size: 0.72rem;
   font-weight: 620;
 }
@@ -1960,7 +2267,12 @@
 .ss-booking-details__form > label > span {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 0.3rem;
+}
+
+.ss-booking-details__form > label > span em {
+  margin-left: auto;
 }
 
 .ss-booking-details__form label em {
@@ -1973,41 +2285,71 @@
 }
 
 .ss-booking-details__form label b {
-  color: var(--booking-fuchsia);
+  color: var(--booking-pink);
 }
 
 .ss-booking-details__form input:not([type="checkbox"]),
 .ss-booking-details__form textarea {
-  border-color: color-mix(in srgb, var(--booking-silver) 13%, transparent);
-  color: var(--booking-white);
-  background: color-mix(in srgb, var(--ss-v2-void-black) 62%, transparent);
+  min-height: clamp(2.4rem, 4.4dvh, 2.75rem);
+  border-color: var(--booking-line);
+  color: var(--booking-ink);
+  background: var(--booking-field);
+  transition:
+    border-color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    background var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
+}
+
+.ss-booking-details__form input:not([type="checkbox"]):hover,
+.ss-booking-details__form textarea:hover {
+  border-color: color-mix(in srgb, var(--booking-accent) 34%, transparent);
+}
+
+.ss-booking-details__form input:not([type="checkbox"]):focus-visible,
+.ss-booking-details__form textarea:focus-visible {
+  border-color: color-mix(in srgb, var(--booking-accent) 55%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--booking-accent) 45%, transparent);
+  outline-offset: 1px;
+}
+
+.ss-booking-details__form input[aria-invalid="true"],
+.ss-booking-details__form textarea[aria-invalid="true"] {
+  border-color: color-mix(in srgb, var(--booking-danger) 60%, transparent);
 }
 
 .ss-booking-details__form textarea {
-  min-height: 4.8rem;
+  min-height: clamp(3rem, 5.5dvh, 4.4rem);
   resize: none;
 }
 
+/* Inline errors live in the label's top-right corner so validation never
+   adds rows — the shell cannot change size when errors appear. */
 .ss-booking-details__form label small {
-  min-height: 1rem;
-  color: #ff9fbc;
+  position: absolute;
+  top: 0.05rem;
+  right: 0;
+  color: var(--booking-danger);
   font-size: 0.6rem;
   font-weight: 500;
+  line-height: 1.2;
 }
 
 .ss-booking-details__context {
   grid-column: 1 / -1;
 }
 
-.ss-booking-details__context small {
-  justify-self: end;
+/* The live character counter sits inside the textarea's bottom-right corner. */
+.ss-booking-details__form label.ss-booking-details__context small {
+  top: auto;
+  right: 0.6rem;
+  bottom: 0.4rem;
   color: var(--srv2-ink-faint) !important;
+  pointer-events: none;
 }
 
 .ss-booking-details__acknowledgement {
   grid-column: 1 / -1;
   grid-template-columns: auto 1fr !important;
-  grid-template-rows: auto 1rem !important;
+  grid-template-rows: auto 0.85rem !important;
   align-items: start;
   column-gap: 0.65rem !important;
 }
@@ -2017,7 +2359,12 @@
   width: 1.1rem;
   height: 1.1rem;
   margin: 0.05rem 0 0;
-  accent-color: var(--booking-cyan);
+  accent-color: var(--booking-accent);
+}
+
+.ss-booking-details__acknowledgement input:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--booking-accent) 70%, transparent);
+  outline-offset: 2px;
 }
 
 .ss-booking-details__acknowledgement > span {
@@ -2029,14 +2376,18 @@
 }
 
 .ss-booking-details__acknowledgement a {
-  color: var(--booking-cyan);
+  color: var(--booking-accent);
   text-decoration: underline;
   text-underline-offset: 0.16rem;
 }
 
-.ss-booking-details__acknowledgement small {
+.ss-booking-details__form label.ss-booking-details__acknowledgement small {
+  position: static;
   grid-column: 2;
+  min-height: 0.85rem;
 }
+
+/* ---- Confirmed stage ----------------------------------------------------- */
 
 .ss-booking-confirmation {
   grid-template-rows: auto auto auto minmax(0, 1fr) auto;
@@ -2051,13 +2402,13 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 4rem;
-  height: 4rem;
-  border: 1px solid color-mix(in srgb, #55e6a5 44%, transparent);
+  width: clamp(3.4rem, 7dvh, 4rem);
+  height: clamp(3.4rem, 7dvh, 4rem);
+  border: 1px solid color-mix(in srgb, var(--booking-success) 44%, transparent);
   border-radius: 50%;
-  color: #7cf0b7;
-  background: color-mix(in srgb, #55e6a5 8%, transparent);
-  box-shadow: 0 0 44px color-mix(in srgb, #55e6a5 15%, transparent);
+  color: color-mix(in srgb, var(--booking-success) 82%, white);
+  background: color-mix(in srgb, var(--booking-success) 9%, transparent);
+  box-shadow: 0 0 44px color-mix(in srgb, var(--booking-success) 16%, transparent);
 }
 
 .ss-booking-confirmation__mark svg {
@@ -2067,7 +2418,7 @@
 .ss-booking-confirmation__mark span {
   position: absolute;
   inset: -0.45rem;
-  border: 1px solid color-mix(in srgb, var(--booking-cyan) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--booking-violet) 26%, transparent);
   border-radius: 50%;
 }
 
@@ -2087,7 +2438,7 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   width: 100%;
   margin: 0;
-  border-block: 1px solid color-mix(in srgb, var(--booking-silver) 10%, transparent);
+  border-block: 1px solid var(--booking-line-soft);
 }
 
 .ss-booking-confirmation__facts > div {
@@ -2096,7 +2447,7 @@
 }
 
 .ss-booking-confirmation__facts > div:not(:last-child) {
-  border-right: 1px solid color-mix(in srgb, var(--booking-silver) 9%, transparent);
+  border-right: 1px solid var(--booking-line-soft);
 }
 
 .ss-booking-confirmation__facts dt {
@@ -2113,13 +2464,14 @@
 
 .ss-booking-confirmation__facts dt svg {
   width: 0.75rem;
+  color: var(--booking-accent);
 }
 
 .ss-booking-confirmation__facts dd {
   margin: 0.4rem 0 0;
   overflow-wrap: anywhere;
-  color: var(--booking-white);
-  font-size: 0.68rem;
+  color: var(--booking-ink);
+  font-size: 0.7rem;
   line-height: 1.4;
 }
 
@@ -2129,15 +2481,25 @@
   gap: 0.35rem;
   width: min(100%, 40rem);
   padding: 0.8rem 1rem;
-  border: 1px solid color-mix(in srgb, var(--booking-violet) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--booking-violet) 30%, transparent);
   border-radius: var(--ss-radius-md);
-  background: color-mix(in srgb, var(--booking-violet) 6%, transparent);
+  background:
+    linear-gradient(
+      110deg,
+      color-mix(in srgb, var(--booking-violet) 9%, transparent),
+      color-mix(in srgb, var(--booking-pink) 7%, transparent)
+    ),
+    var(--booking-pane);
 }
 
 .ss-booking-confirmation__brief span {
-  color: var(--booking-cyan);
+  background: var(--booking-iridescent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   font-family: var(--ss-font-mono);
   font-size: 0.57rem;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -2146,7 +2508,7 @@
 .ss-booking-confirmation__brief small {
   margin: 0;
   color: var(--srv2-ink-soft);
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   line-height: 1.45;
 }
 
@@ -2160,11 +2522,13 @@
 }
 
 .ss-booking-confirmation__links a {
-  color: var(--booking-cyan);
+  color: var(--booking-accent);
   font-size: 0.7rem;
   text-decoration: underline;
   text-underline-offset: 0.2rem;
 }
+
+/* ---- Shell footer -------------------------------------------------------- */
 
 .ss-booking-shell__footer {
   display: flex;
@@ -2172,9 +2536,9 @@
   justify-content: space-between;
   gap: 1rem;
   min-width: 0;
-  min-height: 4.4rem;
-  padding-top: 0.9rem;
-  border-top: 1px solid color-mix(in srgb, var(--booking-silver) 10%, transparent);
+  min-height: clamp(3.2rem, 5.8dvh, 4.2rem);
+  padding-top: clamp(0.55rem, 1.2dvh, 0.85rem);
+  border-top: 1px solid var(--booking-line-soft);
 }
 
 .ss-booking-shell__footer-secondary {
@@ -2192,11 +2556,12 @@
   min-height: 2.75rem;
   color: var(--srv2-ink-soft);
   font-size: 0.74rem;
+  transition: color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
 }
 
 .ss-booking-shell__footer-secondary > a:hover,
 .ss-booking-shell__complete:hover {
-  color: var(--booking-cyan);
+  color: var(--booking-accent);
 }
 
 .ss-booking-shell__footer-secondary svg,
@@ -2207,45 +2572,62 @@
 .ss-booking-shell__selection {
   overflow: hidden;
   max-width: 20rem;
-  color: var(--booking-silver);
+  color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
   font-size: 0.62rem;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.ss-booking-shell__selection[data-set="true"] {
+  color: color-mix(in srgb, var(--booking-accent) 75%, var(--booking-silver));
+}
+
 .ss-booking-shell__primary {
   min-width: 14rem;
-  border-color: color-mix(in srgb, var(--booking-cyan) 42%, transparent);
-  color: #051116;
+  border-color: color-mix(in srgb, var(--booking-accent) 42%, transparent);
+  color: #0b1220;
   background: linear-gradient(
     105deg,
-    var(--booking-white),
-    var(--booking-cyan) 62%,
-    #aaf6ff
+    #ffffff,
+    color-mix(in srgb, var(--booking-accent) 72%, white) 55%,
+    color-mix(in srgb, var(--booking-violet) 55%, white)
   );
-  box-shadow: 0 12px 32px -18px color-mix(in srgb, var(--booking-cyan) 78%, transparent);
+  box-shadow: 0 12px 32px -18px color-mix(in srgb, var(--booking-accent) 78%, transparent);
+  transition:
+    box-shadow var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+    opacity var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
 }
 
 .ss-booking-shell__primary:hover:not(:disabled) {
-  background: linear-gradient(105deg, var(--booking-white), #85efff 62%, #c5f9ff);
+  box-shadow: 0 16px 38px -18px color-mix(in srgb, var(--booking-violet) 80%, transparent);
   transform: translateY(-1px);
+}
+
+.ss-booking-shell__primary:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--booking-accent) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.ss-booking-shell__primary:disabled {
+  opacity: 0.45;
 }
 
 .ss-booking-shell__complete {
   min-width: 12rem;
   justify-content: center;
-  border: 1px solid color-mix(in srgb, var(--booking-cyan) 30%, transparent);
+  border: 1px solid color-mix(in srgb, var(--booking-accent) 30%, transparent);
   border-radius: var(--ss-radius-sm);
-  color: var(--booking-white);
-  background: color-mix(in srgb, var(--booking-cyan) 8%, transparent);
+  color: var(--booking-ink);
+  background: color-mix(in srgb, var(--booking-accent) 9%, transparent);
 }
 
 .ss-booking-submit-spinner {
   width: 0.95rem;
   height: 0.95rem;
-  border: 2px solid color-mix(in srgb, #051116 30%, transparent);
-  border-top-color: #051116;
+  border: 2px solid color-mix(in srgb, #0b1220 30%, transparent);
+  border-top-color: #0b1220;
   border-radius: 50%;
   animation: ss-booking-spin 0.7s linear infinite;
 }
@@ -2263,13 +2645,50 @@
   }
 }
 
-@media (max-width: 64rem) {
-  .ss-core-booking {
-    height: 59rem;
+/* ---- Compact desktop (short viewports keep the desktop composition) ------ */
+
+@media (min-width: 44.0625rem) and (max-height: 53.75rem) {
+  .ss-booking-shell__intro p {
+    display: none;
   }
 
+  .ss-booking-shell__intro h3 {
+    font-size: clamp(1.15rem, 1rem + 0.7vw, 1.45rem);
+  }
+
+  .ss-booking-shell__header {
+    padding-bottom: 0.6rem;
+  }
+
+  .ss-booking-calendar-legend {
+    display: none;
+  }
+
+  .ss-booking-shell__security {
+    min-height: 2.1rem;
+    padding-block: 0.35rem;
+  }
+}
+
+@media (min-width: 44.0625rem) and (max-height: 44rem) {
+  .ss-booking-shell__intro .ss-srv2-bench__tag {
+    display: none;
+  }
+
+  .ss-booking-calendar-pane__status {
+    min-height: 1.1rem;
+  }
+
+  .ss-booking-stage__heading p {
+    display: none;
+  }
+}
+
+/* ---- Mid widths ---------------------------------------------------------- */
+
+@media (max-width: 64rem) and (min-width: 44.0625rem) {
   .ss-booking-qualify__grid {
-    grid-template-columns: minmax(17rem, 0.82fr) minmax(21rem, 1.18fr);
+    grid-template-columns: minmax(16rem, 0.85fr) minmax(20rem, 1.15fr);
   }
 
   .ss-booking-time-group > div {
@@ -2279,37 +2698,48 @@
   .ss-booking-progress li:not(:last-child)::after {
     display: none;
   }
+
+  .ss-booking-availability__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.9fr);
+  }
 }
+
+/* ---- Mobile composition (width-gated only, never height-gated) ----------- */
 
 @media (max-width: 44rem) {
   .ss-core-booking {
-    height: 66rem;
-    padding: 1rem;
+    /* svh keeps the shell steady while mobile browser chrome expands and
+       collapses; safe-area padding keeps the footer reachable. */
+    height: clamp(29rem, 100svh - var(--ss-layout-header, 3.75rem) - 1.5rem, 46rem);
+    /* The shell sits inside both the core-pages layout gutter and the
+       .ss-srv2__container gutter; reclaim the inner one so the console
+       spans the page's single mobile gutter instead of a doubled one. */
+    margin-inline: calc(-1 * var(--srv2-gutter));
+    padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom, 0px));
     border-radius: var(--ss-radius-xl);
   }
 
   .ss-booking-shell__header {
     display: grid;
-    gap: 0.65rem;
-    padding-bottom: 0.75rem;
+    gap: 0.55rem;
+    padding-bottom: 0.7rem;
   }
 
   .ss-booking-shell__intro {
-    gap: 0.42rem;
+    gap: 0.4rem;
   }
 
   .ss-booking-shell__intro h3 {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
   }
 
   .ss-booking-shell__intro p {
-    font-size: 0.76rem;
-    line-height: 1.4;
+    display: none;
   }
 
   .ss-booking-shell__security {
     min-height: 2rem;
-    padding-block: 0.35rem;
+    padding-block: 0.32rem;
     justify-self: start;
   }
 
@@ -2322,14 +2752,18 @@
     justify-items: center;
     gap: 0.28rem;
     width: 100%;
-    min-height: 2.7rem;
+    min-height: 2.9rem;
     padding: 0;
     text-align: center;
   }
 
+  .ss-booking-progress li:not(:last-child)::after {
+    display: none;
+  }
+
   .ss-booking-progress__index {
-    width: 1.55rem;
-    height: 1.55rem;
+    width: 1.6rem;
+    height: 1.6rem;
   }
 
   .ss-booking-progress__label-full {
@@ -2338,15 +2772,44 @@
 
   .ss-booking-progress__label-short {
     display: inline;
-    font-size: 0.54rem;
+    font-size: 0.56rem;
   }
 
   .ss-booking-shell__viewport {
-    padding-block: 0.72rem 0.45rem;
+    padding-block: 0.7rem 0.45rem;
+    overflow-y: auto;
+    overscroll-behavior-y: auto;
+  }
+
+  /* Qualify, details and the calendar sub-view flow naturally and scroll
+     inside the shell viewport. */
+  .ss-booking-shell__stage-frame,
+  .ss-booking-stage {
+    height: auto;
+    min-height: 100%;
+  }
+
+  /* The times sub-view pins the stage instead (the calendar pane is hidden
+     there, so nothing can clip) so only the time-slot list scrolls. */
+  .ss-booking-shell__stage-frame:has(
+      .ss-booking-availability__layout[data-mobile-view="times"]
+    ),
+  .ss-booking-shell__stage-frame:has(
+      .ss-booking-availability__layout[data-mobile-view="times"]
+    )
+    .ss-booking-stage {
+    height: 100%;
+    min-height: 0;
   }
 
   .ss-booking-stage {
-    gap: 0.55rem;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 0.6rem;
+  }
+
+  .ss-booking-stage__error {
+    min-height: 1rem;
+    font-size: 0.7rem;
   }
 
   .ss-booking-stage__heading {
@@ -2359,46 +2822,48 @@
   }
 
   .ss-booking-stage__heading p {
-    font-size: 0.68rem;
+    font-size: 0.7rem;
   }
 
   .ss-booking-qualify__grid {
     grid-template-columns: 1fr;
     align-content: start;
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
 
   .ss-booking-service-grid {
-    gap: 0.35rem;
+    gap: 0.4rem;
   }
 
   .ss-booking-service-grid button,
   .ss-booking-segments button {
-    min-height: 2.55rem;
-    font-size: 0.64rem;
+    min-height: 2.75rem;
+    font-size: 0.7rem;
   }
 
   .ss-booking-service-grid button {
-    padding-inline: 0.55rem;
+    padding-inline: 0.6rem;
   }
 
   .ss-booking-choice-mark {
-    width: 1rem;
-    height: 1rem;
+    width: 1.05rem;
+    height: 1.05rem;
   }
 
   .ss-booking-qualify__secondary {
-    gap: 0.6rem;
+    align-content: start;
+    gap: 0.7rem;
   }
 
   .ss-booking-control-group legend,
   .ss-booking-control-group__label {
-    margin-bottom: 0.38rem;
-    font-size: 0.68rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.7rem;
   }
 
   .ss-booking-select select {
-    min-height: 2.55rem;
+    min-height: 2.75rem;
+    font-size: 1rem;
   }
 
   .ss-booking-segments[data-columns="5"] {
@@ -2409,58 +2874,86 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Row 1: eyebrow left, timezone select right; row 2: full-width heading.
+     The eyebrow keeps its natural width and the select flexes into the
+     remaining space so neither wraps into the other. */
   .ss-booking-stage__heading--schedule {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    row-gap: 0.4rem;
   }
 
   .ss-booking-stage__heading--schedule > span {
     grid-column: 1;
+    grid-row: 1;
+    white-space: nowrap;
   }
 
   .ss-booking-stage__heading--schedule h4 {
-    grid-column: 1;
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 
   .ss-booking-timezone {
     grid-column: 2;
-    grid-row: 1 / span 2;
-    display: grid;
-    justify-items: end;
-    gap: 0.25rem;
+    grid-row: 1;
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
+  }
+
+  .ss-booking-timezone > span {
+    display: none;
   }
 
   .ss-booking-timezone select {
-    min-width: 9.5rem;
-    max-width: 10.5rem;
+    width: min(100%, 10.5rem);
+    min-width: 0;
   }
 
   .ss-booking-availability {
-    grid-template-rows: auto auto minmax(0, 1fr) 1.5rem;
+    height: 100%;
+    grid-template-rows: auto auto minmax(0, 1fr) 1rem;
   }
 
   .ss-booking-availability__tabs {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding: 0.22rem;
-    border: 1px solid color-mix(in srgb, var(--booking-silver) 10%, transparent);
+    border: 1px solid var(--booking-line-soft);
     border-radius: var(--ss-radius-pill);
-    background: color-mix(in srgb, var(--ss-v2-void-black) 60%, transparent);
+    background: var(--booking-pane);
   }
 
   .ss-booking-availability__tabs button {
-    min-height: 2.3rem;
+    min-height: 2.5rem;
     border: 0;
     border-radius: var(--ss-radius-pill);
     color: var(--srv2-ink-faint);
     background: transparent;
     font-family: var(--ss-font-mono);
-    font-size: 0.62rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition:
+      color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard),
+      background var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
   }
 
   .ss-booking-availability__tabs button[aria-selected="true"] {
-    color: var(--booking-white);
-    background: color-mix(in srgb, var(--booking-cyan) 11%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--booking-cyan) 24%, transparent);
+    color: var(--booking-ink);
+    background:
+      linear-gradient(
+        120deg,
+        color-mix(in srgb, var(--booking-accent) 14%, transparent),
+        color-mix(in srgb, var(--booking-violet) 12%, transparent)
+      ),
+      var(--booking-field-strong);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--booking-accent) 26%, transparent);
+  }
+
+  .ss-booking-availability__tabs button:disabled {
+    opacity: 0.45;
   }
 
   .ss-booking-availability__layout {
@@ -2485,12 +2978,9 @@
     width: min(100%, 22rem);
   }
 
-  .ss-booking-calendar__day {
-    height: 2.7rem;
-  }
-
+  .ss-booking-calendar__day,
   .ss-booking-calendar__day-button {
-    height: 2.7rem;
+    height: clamp(2.4rem, 5.4svh, 2.75rem);
   }
 
   .ss-booking-time-group > div,
@@ -2498,23 +2988,35 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .ss-booking-time-group button {
+    min-height: 2.75rem;
+  }
+
+  .ss-booking-details__body {
+    align-content: start;
+  }
+
+  .ss-booking-details__summary span {
+    white-space: normal;
+  }
+
   .ss-booking-details__form {
-    gap: 0.42rem 0.55rem;
-    padding: 0.65rem;
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+    padding: 0.75rem;
   }
 
   .ss-booking-details__form > label {
-    grid-template-rows: auto auto 0.78rem;
-    gap: 0.2rem;
-    font-size: 0.65rem;
+    grid-template-rows: auto auto 0.85rem;
+    gap: 0.22rem;
+    font-size: 0.68rem;
   }
 
-  .ss-booking-details__form input:not([type="checkbox"]) {
-    min-height: 2.55rem;
-  }
-
+  /* 16px inputs prevent the iOS focus zoom. */
+  .ss-booking-details__form input:not([type="checkbox"]),
   .ss-booking-details__form textarea {
-    min-height: 4.2rem;
+    min-height: 2.75rem;
+    font-size: 1rem;
   }
 
   .ss-booking-confirmation__facts {
@@ -2526,18 +3028,13 @@
   }
 
   .ss-booking-confirmation__facts > div:nth-child(-n + 2) {
-    border-bottom: 1px solid color-mix(in srgb, var(--booking-silver) 9%, transparent);
-  }
-
-  .ss-booking-confirmation__mark {
-    width: 3.4rem;
-    height: 3.4rem;
+    border-bottom: 1px solid var(--booking-line-soft);
   }
 
   .ss-booking-shell__footer {
-    min-height: 4rem;
+    min-height: 3.6rem;
     gap: 0.55rem;
-    padding-top: 0.65rem;
+    padding-top: 0.6rem;
   }
 
   .ss-booking-shell__footer-secondary {
@@ -2550,27 +3047,73 @@
 
   .ss-booking-shell__primary {
     min-width: 0;
+    flex: 1;
     padding-inline: 0.85rem;
-    font-size: 0.68rem;
+    font-size: 0.72rem;
   }
 }
 
 @media (max-width: 23.5rem) {
-  .ss-core-booking {
-    height: 68rem;
-  }
-
   .ss-booking-time-group > div,
   .ss-booking-times-skeleton {
     grid-template-columns: 1fr;
   }
+
+  .ss-booking-segments[data-columns="5"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ss-booking-stage__heading--schedule {
+    grid-template-columns: 1fr;
+  }
+
+  .ss-booking-timezone {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: start;
+  }
+
+  /* Below ~375px the single footer row cannot fit the secondary link plus
+     the longest CTA label; stack them so the CTA never clips. Every stage
+     renders exactly one secondary control and one primary, so the stacked
+     footer height stays constant across stages. */
+  .ss-booking-shell__footer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .ss-booking-shell__footer-secondary {
+    justify-content: center;
+  }
+
+  .ss-booking-shell__primary,
+  .ss-booking-shell__complete {
+    width: 100%;
+    justify-content: center;
+  }
 }
+
+/* ---- Reduced motion ------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
   .ss-booking-progress__signal,
+  .ss-booking-progress__index,
   .ss-booking-service-grid button,
-  .ss-booking-segments button {
+  .ss-booking-segments button,
+  .ss-booking-time-group button,
+  .ss-booking-calendar__day-button,
+  .ss-booking-calendar__nav-button,
+  .ss-booking-availability__tabs button,
+  .ss-booking-shell__primary {
     transition: none;
+  }
+
+  .ss-booking-service-grid button:hover:not(:disabled),
+  .ss-booking-segments button:hover,
+  .ss-booking-time-group button:hover,
+  .ss-booking-shell__primary:hover:not(:disabled) {
+    transform: none;
   }
 
   .ss-booking-submit-spinner,
@@ -2750,6 +3293,12 @@
   animation: ss-core-booking-pulse 2.2s ease-in-out infinite;
 }
 
+@keyframes ss-core-booking-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
 .ss-core-map__directions {
   right: 1.6rem;
   text-decoration: none;
@@ -2927,8 +3476,7 @@
 
   .ss-core-cards,
   .ss-core-rail,
-  .ss-core-form,
-  .ss-core-booking {
+  .ss-core-form {
     gap: 0.9rem;
   }
 }

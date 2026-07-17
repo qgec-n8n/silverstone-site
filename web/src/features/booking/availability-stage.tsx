@@ -26,9 +26,14 @@ const COMMON_TIMEZONES = [
 
 type AvailabilityStageProps = {
   mode: BookingMode;
+  hydrated: boolean;
   timeZone: string;
+  month: Date;
+  selectedDateKey: string;
   selectedSlot: AvailabilitySlot | null;
   error: string;
+  onMonthChange: (month: Date) => void;
+  onSelectDate: (dateKey: string) => void;
   onTimeZoneChange: (timeZone: string) => void;
   onSelectSlot: (slot: AvailabilitySlot | null) => void;
 };
@@ -55,17 +60,22 @@ function groupSlots(slots: readonly AvailabilitySlot[], timeZone: string) {
 
 export function AvailabilityStage({
   mode,
+  hydrated,
   timeZone,
+  month,
+  selectedDateKey,
   selectedSlot,
   error,
+  onMonthChange,
+  onSelectDate,
   onTimeZoneChange,
   onSelectSlot,
 }: AvailabilityStageProps) {
-  const [month, setMonth] = useState(() => new Date());
   const [today] = useState(() => new Date());
-  const [selectedDateKey, setSelectedDateKey] = useState("");
-  const [mobileView, setMobileView] = useState<"calendar" | "times">("calendar");
-  const availability = useBookingAvailability(month, timeZone, mode, true);
+  const [mobileView, setMobileView] = useState<"calendar" | "times">(
+    selectedDateKey ? "times" : "calendar",
+  );
+  const availability = useBookingAvailability(month, timeZone, mode, hydrated);
   const todayKey = dateKeyInTimeZone(today.toISOString(), timeZone);
   const zonedToday = parseDateKey(todayKey);
   const availableDates = useMemo(
@@ -80,21 +90,21 @@ export function AvailabilityStage({
     () => [...new Set([timeZone, ...COMMON_TIMEZONES])],
     [timeZone],
   );
+  const loading =
+    !hydrated || availability.status === "loading" || availability.status === "idle";
 
   const chooseDate = (date: Date | undefined) => {
     if (!date) return;
-    const key = formatDateKey(date);
-    setSelectedDateKey(key);
-    onSelectSlot(null);
+    onSelectDate(formatDateKey(date));
     setMobileView("times");
   };
 
   return (
     <div className="ss-booking-stage ss-booking-availability">
       <div className="ss-booking-stage__heading ss-booking-stage__heading--schedule">
-        <span>02 · Availability</span>
+        <span>01 · Date &amp; time</span>
         <h4 id="booking-stage-heading" tabIndex={-1}>
-          Choose a precise moment
+          Choose your moment
         </h4>
         <label className="ss-booking-timezone">
           <span>Times shown in</span>
@@ -102,8 +112,6 @@ export function AvailabilityStage({
             aria-label="Booking timezone"
             value={timeZone}
             onChange={(event) => {
-              setSelectedDateKey("");
-              onSelectSlot(null);
               onTimeZoneChange(event.target.value);
             }}
           >
@@ -148,35 +156,43 @@ export function AvailabilityStage({
               className="ss-booking-status-dot"
               data-active={availability.status === "ready"}
             />
-            {availability.status === "loading"
-              ? "Loading six-week window…"
+            {loading
+              ? "Scanning the six-week window…"
               : availability.status === "refreshing"
                 ? "Refreshing availability…"
-                : `${String(availableDates.length)} bookable dates loaded`}
+                : `${String(availableDates.length)} open dates in view`}
           </div>
-          <Calendar
-            mode="single"
-            month={month}
-            selected={selectedDate}
-            today={zonedToday}
-            onMonthChange={setMonth}
-            onSelect={chooseDate}
-            startMonth={new Date(zonedToday.getFullYear(), zonedToday.getMonth(), 1)}
-            endMonth={new Date(zonedToday.getFullYear() + 1, zonedToday.getMonth(), 1)}
-            disabled={(date) => {
-              const key = formatDateKey(date);
-              return key < todayKey || !availability.slotsByDate.has(key);
-            }}
-            modifiers={{
-              available: availableDates,
-              loading:
-                availability.status === "loading" ||
-                availability.status === "refreshing"
-                  ? { after: new Date(today.getTime() - 86_400_000) }
-                  : [],
-            }}
-            modifiersClassNames={{ available: "is-available", loading: "is-loading" }}
-          />
+          {hydrated ? (
+            <Calendar
+              mode="single"
+              month={month}
+              selected={selectedDate}
+              today={zonedToday}
+              onMonthChange={onMonthChange}
+              onSelect={chooseDate}
+              startMonth={new Date(zonedToday.getFullYear(), zonedToday.getMonth(), 1)}
+              endMonth={new Date(zonedToday.getFullYear() + 1, zonedToday.getMonth(), 1)}
+              disabled={(date) => {
+                const key = formatDateKey(date);
+                return key < todayKey || !availability.slotsByDate.has(key);
+              }}
+              modifiers={{
+                available: availableDates,
+                loading:
+                  availability.status === "loading" ||
+                  availability.status === "refreshing"
+                    ? { after: new Date(today.getTime() - 86_400_000) }
+                    : [],
+              }}
+              modifiersClassNames={{ available: "is-available", loading: "is-loading" }}
+            />
+          ) : (
+            <div className="ss-booking-calendar-skeleton" aria-hidden="true">
+              {Array.from({ length: 42 }, (_, index) => (
+                <Skeleton key={index} />
+              ))}
+            </div>
+          )}
           <div className="ss-booking-calendar-legend" aria-hidden="true">
             <span>
               <i data-tone="available" />
@@ -211,7 +227,7 @@ export function AvailabilityStage({
             tabIndex={0}
             aria-label="Scrollable available time slots"
           >
-            {availability.status === "loading" ? (
+            {loading ? (
               <div className="ss-booking-times-skeleton" role="status">
                 <span className="sr-only">Loading available times</span>
                 {Array.from({ length: 8 }, (_, index) => (
@@ -243,7 +259,7 @@ export function AvailabilityStage({
             ) : !selectedDateKey ? (
               <div className="ss-booking-times-state">
                 <CalendarCheck aria-hidden="true" />
-                <strong>Choose an illuminated date</strong>
+                <strong>Pick an illuminated date</strong>
                 <p>Only dates with verified availability can be selected.</p>
               </div>
             ) : selectedDateSlots.length === 0 ? (

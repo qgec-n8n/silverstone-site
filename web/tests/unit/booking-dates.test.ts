@@ -23,15 +23,16 @@ describe("booking date windows", () => {
     expect(addDays(window.start, window.days)).toBe(window.endExclusive);
   });
 
-  it("splits 42 days into a contiguous 31-day and 11-day pair", () => {
+  it("splits 42 days into six contiguous 7-day chunks", () => {
     const window = createApplicationWindow("2026-07-16");
     const chunks = chunkDateRange(window);
 
-    expect(chunks).toEqual([
-      { start: "2026-07-16", endExclusive: "2026-08-16" },
-      { start: "2026-08-16", endExclusive: "2026-08-27" },
-    ]);
-    expect(chunks[0]?.endExclusive).toBe(chunks[1]?.start);
+    expect(chunks).toHaveLength(6);
+    expect(chunks[0]).toEqual({ start: "2026-07-16", endExclusive: "2026-07-23" });
+    expect(chunks.at(-1)).toEqual({ start: "2026-08-20", endExclusive: "2026-08-27" });
+    for (let index = 1; index < chunks.length; index += 1) {
+      expect(chunks[index]?.start).toBe(chunks[index - 1]?.endExclusive);
+    }
   });
 
   it("normalises duplicate slots and sorts them chronologically", () => {

@@ -5,7 +5,8 @@ import {
 } from "~/features/booking/booking-types";
 
 export const DAY_MS = 86_400_000;
-export const CALENDLY_MAX_RANGE_DAYS = 31;
+/* Calendly's documented maximum range for event_type_available_times. */
+export const CALENDLY_MAX_RANGE_DAYS = 7;
 
 export type DateRange = {
   start: string;
@@ -122,6 +123,20 @@ export function formatSlotTime(isoTimestamp: string, timeZone: string): string {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
+  }).format(new Date(isoTimestamp));
+}
+
+export function formatSelectedSlotLabel(
+  isoTimestamp: string,
+  timeZone: string,
+): string {
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone,
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
   }).format(new Date(isoTimestamp));
 }
 

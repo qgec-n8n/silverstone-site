@@ -13,6 +13,7 @@ import {
   ensureSameOrigin,
   jsonResponse,
   liveCalendlyEnabled,
+  readCalendlyToken,
 } from "./_calendly/http.mjs";
 
 export async function handler(event) {
@@ -46,7 +47,7 @@ export async function handler(event) {
       );
     }
 
-    const token = process.env.CALENDLY_API_TOKEN;
+    const token = readCalendlyToken();
     if (!token) {
       throw new PublicApiError(
         503,

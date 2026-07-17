@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link } from "react-router";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
@@ -28,15 +28,36 @@ import {
   type BookingStage,
   type QualificationAnswers,
 } from "~/features/booking/booking-types";
+import { formatSelectedSlotLabel } from "~/features/booking/booking-dates";
 import { BorderBeam } from "~/features/services-v2/components/primitives";
 import { getPublicEnvironment } from "~/lib/environment";
 
 const STAGE_ANNOUNCEMENTS: Record<BookingStage, string> = {
-  qualify: "Step 1 of 4. Qualify the discovery call.",
-  schedule: "Step 2 of 4. Choose a date and time.",
+  schedule: "Step 1 of 4. Choose a date and time.",
+  qualify: "Step 2 of 4. Add four quick discovery cues.",
   details: "Step 3 of 4. Enter your details.",
   confirmed: "Step 4 of 4. Booking confirmed.",
 };
+
+const BACK_TARGET: Partial<Record<BookingStage, BookingStage>> = {
+  qualify: "schedule",
+  details: "qualify",
+};
+
+/* Hydration-safe client detection (matches the repo's demo components):
+   the server snapshot renders the London fallback, the client snapshot flips
+   once after hydration without a state-setting effect. */
+const emptySubscribe = () => () => undefined;
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
+
+function detectTimeZone(): string {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || "Europe/London";
+  } catch {
+    return "Europe/London";
+  }
+}
 
 function createIdempotencyKey(): string {
   if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
@@ -58,15 +79,24 @@ function validateDetails(value: BookingDetails): DetailErrors {
 export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
   const bookingMode = mode ?? getPublicEnvironment().bookingMode;
   const reducedMotion = useReducedMotion() ?? false;
-  const [stage, setStage] = useState<BookingStage>("qualify");
+  const [stage, setStage] = useState<BookingStage>("schedule");
   const [qualification, setQualification] =
     useState<QualificationAnswers>(EMPTY_QUALIFICATION);
   const [details, setDetails] = useState<BookingDetails>(EMPTY_DETAILS);
   const [selectedSlot, setSelectedSlot] = useState<AvailabilitySlot | null>(null);
-  const [timeZone, setTimeZone] = useState(() => {
-    if (typeof window === "undefined") return "Europe/London";
-    return Intl.DateTimeFormat().resolvedOptions().timeZone || "Europe/London";
-  });
+  /* Month + date selection live here (not in the stage component) so leaving
+     Date & time and returning never loses the visitor's place. */
+  const [month, setMonth] = useState(() => new Date());
+  const [selectedDateKey, setSelectedDateKey] = useState("");
+  /* Server-rendered HTML uses the London fallback; the visitor's real
+     timezone is applied after hydration so the markup never mismatches. */
+  const hydrated = useSyncExternalStore(
+    emptySubscribe,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
+  const [timeZoneOverride, setTimeZoneOverride] = useState<string | null>(null);
+  const timeZone = timeZoneOverride ?? (hydrated ? detectTimeZone() : "Europe/London");
   const [qualificationError, setQualificationError] = useState("");
   const [scheduleError, setScheduleError] = useState("");
   const [detailErrors, setDetailErrors] = useState<DetailErrors>({});
@@ -95,6 +125,15 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
     setStage(nextStage);
   };
 
+  const continueFromSchedule = () => {
+    if (!selectedSlot) {
+      setScheduleError("Select an available date and time to continue.");
+      return;
+    }
+    setScheduleError("");
+    setStage("qualify");
+  };
+
   const continueFromQualification = () => {
     if (!qualificationIsComplete(qualification)) {
       setQualificationError(
@@ -103,15 +142,6 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
       return;
     }
     setQualificationError("");
-    setStage("schedule");
-  };
-
-  const continueFromSchedule = () => {
-    if (!selectedSlot) {
-      setScheduleError("Select an available date and time to continue.");
-      return;
-    }
-    setScheduleError("");
     setStage("details");
   };
 
@@ -158,15 +188,8 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
   };
 
   const selectedTimeLabel = selectedSlot
-    ? new Intl.DateTimeFormat("en-GB", {
-        timeZone,
-        weekday: "short",
-        day: "numeric",
-        month: "short",
-        hour: "2-digit",
-        minute: "2-digit",
-      }).format(new Date(selectedSlot.startTime))
-    : "No time selected";
+    ? formatSelectedSlotLabel(selectedSlot.startTime, timeZone)
+    : "No time selected yet";
 
   return (
     <div
@@ -187,18 +210,18 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
             30-minute discovery call
           </span>
           <h3>
-            A private channel for <em>clear decisions</em>
+            Reserve a private <em>decision-grade</em> conversation
           </h3>
           <p>
-            Qualify the conversation, select a verified time and secure the call without
-            leaving Silverstone.
+            Choose a verified time, add four quick cues so we arrive prepared, and
+            confirm — all without leaving Silverstone.
           </p>
         </div>
         <div className="ss-booking-shell__security">
           <ShieldCheck aria-hidden="true" />
           <span>
             {bookingMode === "live"
-              ? "Secure live availability"
+              ? "Live availability · secured"
               : bookingMode === "mock"
                 ? "Safe preview simulation"
                 : "Preview unavailable"}
@@ -212,7 +235,7 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
         {STAGE_ANNOUNCEMENTS[stage]}
       </p>
 
-      <main className="ss-booking-shell__viewport">
+      <div className="ss-booking-shell__viewport">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={stage}
@@ -222,24 +245,25 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
             exit={reducedMotion ? { opacity: 1 } : { opacity: 0, x: -10 }}
             transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            {stage === "qualify" ? (
-              <QualificationStage
-                value={qualification}
-                error={qualificationError}
-                onChange={(value) => {
-                  setQualification(value);
-                  setQualificationError("");
-                  idempotencyKey.current = null;
-                }}
-              />
-            ) : stage === "schedule" ? (
+            {stage === "schedule" ? (
               <AvailabilityStage
                 mode={bookingMode}
+                hydrated={hydrated}
                 timeZone={timeZone}
+                month={month}
+                selectedDateKey={selectedDateKey}
                 selectedSlot={selectedSlot}
                 error={scheduleError}
+                onMonthChange={setMonth}
+                onSelectDate={(dateKey) => {
+                  setSelectedDateKey(dateKey);
+                  setSelectedSlot(null);
+                  setScheduleError("");
+                }}
                 onTimeZoneChange={(value) => {
-                  setTimeZone(value);
+                  setSelectedDateKey("");
+                  setSelectedSlot(null);
+                  setTimeZoneOverride(value);
                   setScheduleError("");
                   idempotencyKey.current = null;
                 }}
@@ -249,11 +273,24 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
                   idempotencyKey.current = null;
                 }}
               />
+            ) : stage === "qualify" ? (
+              <QualificationStage
+                value={qualification}
+                error={qualificationError}
+                onChange={(value) => {
+                  setQualification(value);
+                  setQualificationError("");
+                  idempotencyKey.current = null;
+                }}
+              />
             ) : stage === "details" ? (
               <DetailsStage
                 value={details}
                 errors={detailErrors}
                 submitError={submitError}
+                selectedSlot={selectedSlot}
+                timeZone={timeZone}
+                qualification={qualification}
                 onChange={(value) => {
                   setDetails(value);
                   setDetailErrors({});
@@ -271,17 +308,17 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
             ) : null}
           </motion.div>
         </AnimatePresence>
-      </main>
+      </div>
 
       <footer className="ss-booking-shell__footer">
         <div className="ss-booking-shell__footer-secondary">
-          {stage !== "qualify" && stage !== "confirmed" ? (
+          {stage !== "schedule" && stage !== "confirmed" ? (
             <Button
               type="button"
               variant="ghost"
               size="sm"
               disabled={submitting}
-              onClick={() => goToStage(stage === "details" ? "schedule" : "qualify")}
+              onClick={() => goToStage(BACK_TARGET[stage] ?? "schedule")}
             >
               <ArrowLeft aria-hidden="true" />
               Back
@@ -292,27 +329,29 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
               Contact instead
             </Link>
           )}
-          {stage === "schedule" ? (
-            <span className="ss-booking-shell__selection">{selectedTimeLabel}</span>
+          {stage === "schedule" || stage === "qualify" ? (
+            <span className="ss-booking-shell__selection" data-set={Boolean(selectedSlot)}>
+              {selectedTimeLabel}
+            </span>
           ) : null}
         </div>
-        {stage === "qualify" ? (
-          <Button
-            type="button"
-            className="ss-booking-shell__primary"
-            onClick={continueFromQualification}
-          >
-            Continue to availability
-            <ArrowRight aria-hidden="true" />
-          </Button>
-        ) : stage === "schedule" ? (
+        {stage === "schedule" ? (
           <Button
             type="button"
             className="ss-booking-shell__primary"
             disabled={!selectedSlot}
             onClick={continueFromSchedule}
           >
-            Continue to details
+            Continue with this time
+            <ArrowRight aria-hidden="true" />
+          </Button>
+        ) : stage === "qualify" ? (
+          <Button
+            type="button"
+            className="ss-booking-shell__primary"
+            onClick={continueFromQualification}
+          >
+            Continue to your details
             <ArrowRight aria-hidden="true" />
           </Button>
         ) : stage === "details" ? (

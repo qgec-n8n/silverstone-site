@@ -13,10 +13,13 @@ import {
 } from "../../../netlify/functions/_calendly/calendly-core.mjs";
 
 const previousContext = process.env.CONTEXT;
+const previousToken = process.env.CALENDLY_API_TOKEN;
 
 afterEach(() => {
   if (previousContext === undefined) delete process.env.CONTEXT;
   else process.env.CONTEXT = previousContext;
+  if (previousToken === undefined) delete process.env.CALENDLY_API_TOKEN;
+  else process.env.CALENDLY_API_TOKEN = previousToken;
 });
 
 function validRequest(startTime = new Date(Date.now() + 7 * 86_400_000).toISOString()) {
@@ -48,20 +51,23 @@ function collectSourceFiles(directory) {
 }
 
 describe("Calendly server boundary", () => {
-  it("splits one 42-day ISO range into two gap-free upstream ranges", () => {
+  it("splits one 42-day ISO range into six gap-free 7-day upstream ranges", () => {
     const start = "2026-07-16T00:00:00.000Z";
     const end = "2026-08-27T00:00:00.000Z";
     const chunks = chunkIsoRange(start, end);
 
-    expect(chunks).toHaveLength(2);
+    expect(chunks).toHaveLength(6);
     expect(chunks[0]).toEqual({
       startTime: start,
-      endTime: "2026-08-16T00:00:00.000Z",
+      endTime: "2026-07-23T00:00:00.000Z",
     });
-    expect(chunks[1]).toEqual({
-      startTime: "2026-08-16T00:00:00.000Z",
+    expect(chunks.at(-1)).toEqual({
+      startTime: "2026-08-20T00:00:00.000Z",
       endTime: end,
     });
+    for (let index = 1; index < chunks.length; index += 1) {
+      expect(chunks[index].startTime).toBe(chunks[index - 1].endTime);
+    }
   });
 
   it("normalises, deduplicates and sorts reduced availability fields", () => {
@@ -137,8 +143,10 @@ describe("Calendly server boundary", () => {
         email: "ada@example.com",
         timezone: "Europe/London",
       },
-      location: { kind: "zoom_conference" },
     });
+    /* The event type's own location configuration governs the meeting
+       location; the invitee payload must not restate it. */
+    expect(built.payload.location).toBeUndefined();
     expect(built.payload.questions_and_answers).toEqual([
       {
         question: "Which service can we help with?",
@@ -147,6 +155,40 @@ describe("Calendly server boundary", () => {
       },
       { question: "What is your budget?", answer: "£3k–£10k", position: 1 },
     ]);
+    /* Industry and timing had no matching question and no free-text carrier,
+       so the qualification cannot be reported as fully transmitted. */
+    expect(built.qualificationTransmitted).toBe(false);
+  });
+
+  it("composes the full discovery brief into a lone free-text question", () => {
+    /* Mirrors the live silverstone-ai/30min event type: one optional
+       free-text question and no dedicated qualification questions. */
+    const eventType = {
+      uri: "https://api.calendly.com/event_types/live-shape",
+      locations: [{ kind: "google_conference" }],
+      custom_questions: [
+        {
+          name: "Please share anything that will help prepare for our meeting.",
+          position: 0,
+          enabled: true,
+          required: false,
+          type: "text",
+          answer_choices: [],
+        },
+      ],
+    };
+    const built = buildInviteePayload(
+      eventType,
+      validateBookingRequest(validRequest(), Date.now()),
+    );
+
+    expect(built.payload.questions_and_answers).toHaveLength(1);
+    const answer = built.payload.questions_and_answers[0].answer;
+    expect(answer).toContain("Services: Web design & development, AI automation");
+    expect(answer).toContain("Industry: Hospitality");
+    expect(answer).toContain("Budget: £3k–£10k");
+    expect(answer).toContain("Timing: Within a month");
+    expect(answer).toContain("Context: A clearer enquiry and follow-up journey.");
     expect(built.qualificationTransmitted).toBe(true);
   });
 
@@ -211,6 +253,7 @@ describe("Calendly server boundary", () => {
 
   it("fails safely without a production credential and keeps token access out of client source", async () => {
     process.env.CONTEXT = "production";
+    delete process.env.CALENDLY_API_TOKEN;
     const today = new Date().toISOString().slice(0, 10);
     const response = await availabilityHandler({
       httpMethod: "GET",
@@ -221,6 +264,17 @@ describe("Calendly server boundary", () => {
         timezone: "Europe/London",
       },
     });
+    process.env.CALENDLY_API_TOKEN = "PASTE_YOUR_CALENDLY_API_TOKEN_HERE";
+    const placeholderResponse = await availabilityHandler({
+      httpMethod: "GET",
+      headers: { "sec-fetch-site": "same-origin" },
+      queryStringParameters: {
+        start: today,
+        days: "42",
+        timezone: "Europe/London",
+      },
+    });
+    delete process.env.CALENDLY_API_TOKEN;
     const clientSource = collectSourceFiles(resolve(process.cwd(), "src"))
       .filter((path) => /\.(?:ts|tsx|css)$/u.test(path))
       .map((path) => readFileSync(path, "utf8"))
@@ -228,6 +282,13 @@ describe("Calendly server boundary", () => {
 
     expect(response.statusCode).toBe(503);
     expect(JSON.parse(response.body)).toMatchObject({
+      ok: false,
+      error: { code: "SERVER_MISCONFIGURED", retryable: false },
+    });
+    /* The committed placeholder value must behave exactly like a missing
+       token — a clear configuration error, never a Calendly call. */
+    expect(placeholderResponse.statusCode).toBe(503);
+    expect(JSON.parse(placeholderResponse.body)).toMatchObject({
       ok: false,
       error: { code: "SERVER_MISCONFIGURED", retryable: false },
     });

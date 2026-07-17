@@ -33,11 +33,11 @@ export function QualificationStage({
   return (
     <div className="ss-booking-stage ss-booking-qualify">
       <div className="ss-booking-stage__heading">
-        <span>01 · Calibration</span>
+        <span>02 · Qualify</span>
         <h4 id="booking-stage-heading" tabIndex={-1}>
           Frame the call in under a minute
         </h4>
-        <p>Choose what matters now. These are conversation cues, not a quote.</p>
+        <p>Four quick cues so we arrive prepared — conversation cues, not a quote.</p>
       </div>
 
       <div className="ss-booking-qualify__grid">

@@ -29,11 +29,11 @@ export function ConfirmationStage({
       <div className="ss-booking-stage__heading">
         <span>04 · Confirmed</span>
         <h4 id="booking-stage-heading" tabIndex={-1}>
-          {isLive ? "The call is secured" : "Preview booking simulated"}
+          {isLive ? "Your call is secured" : "Preview booking simulated"}
         </h4>
         <p>
           {isLive
-            ? "Calendly accepted the booking. Watch your email for calendar details."
+            ? "Calendly accepted the booking. The calendar invitation is on its way to your email."
             : "No appointment or email was created in this safe preview."}
         </p>
       </div>

@@ -91,9 +91,23 @@ export function enforceRateLimit(event, namespace, maximum, windowMs) {
   }
 }
 
+const TOKEN_PLACEHOLDER = "PASTE_YOUR_CALENDLY_API_TOKEN_HERE";
+
+/* Returns the configured server-only token, or null when it is missing or
+   still the committed placeholder — callers turn null into a safe
+   SERVER_MISCONFIGURED error instead of calling Calendly with junk. */
+export function readCalendlyToken() {
+  const token = process.env.CALENDLY_API_TOKEN?.trim();
+  if (!token || token === TOKEN_PLACEHOLDER) return null;
+  return token;
+}
+
 export function liveCalendlyEnabled() {
-  return (
-    process.env.CONTEXT === "production" &&
-    process.env.CALENDLY_BOOKING_MODE !== "mock"
-  );
+  /* CALENDLY_BOOKING_MODE is the explicit server-side override: "mock" forces
+     deterministic fixtures anywhere (including production), "live" opts a
+     non-production environment into real Calendly calls for verification.
+     Without an override, only production deploys go live. */
+  if (process.env.CALENDLY_BOOKING_MODE === "mock") return false;
+  if (process.env.CALENDLY_BOOKING_MODE === "live") return true;
+  return process.env.CONTEXT === "production";
 }

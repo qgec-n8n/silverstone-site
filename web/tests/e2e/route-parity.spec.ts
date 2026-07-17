@@ -126,7 +126,7 @@ test("rebuilt book route exposes the native staging-safe booking console", async
     page.getByRole("navigation", { name: "Booking progress" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Frame the call in under a minute" }),
+    page.getByRole("heading", { name: "Choose your moment" }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "Contact instead" })).toHaveAttribute(
     "href",

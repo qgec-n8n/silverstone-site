@@ -2,15 +2,15 @@ import { Check } from "~/components/icons/lucide";
 import type { BookingStage } from "~/features/booking/booking-types";
 
 const STAGES: { id: BookingStage; label: string; shortLabel: string }[] = [
+  { id: "schedule", label: "Date & time", shortLabel: "Time" },
   { id: "qualify", label: "Qualify", shortLabel: "Qualify" },
-  { id: "schedule", label: "Date & time", shortLabel: "Schedule" },
   { id: "details", label: "Your details", shortLabel: "Details" },
   { id: "confirmed", label: "Confirmed", shortLabel: "Done" },
 ];
 
 const STAGE_INDEX: Record<BookingStage, number> = {
-  qualify: 0,
-  schedule: 1,
+  schedule: 0,
+  qualify: 1,
   details: 2,
   confirmed: 3,
 };
