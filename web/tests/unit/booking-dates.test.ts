@@ -2,6 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import {
   addDays,
+  addMonths,
+  bookingHorizonEndExclusive,
+  bookingHorizonKey,
   chunkDateRange,
   createApplicationWindow,
   dateKeyInTimeZone,
@@ -21,6 +24,20 @@ describe("booking date windows", () => {
       days: 42,
     });
     expect(addDays(window.start, window.days)).toBe(window.endExclusive);
+  });
+
+  it("clamps the horizon to exactly three calendar months at month end", () => {
+    expect(addMonths("2026-08-31", 3)).toBe("2026-11-30");
+    expect(bookingHorizonKey("2026-08-31")).toBe("2026-11-30");
+    expect(bookingHorizonEndExclusive("2026-08-31")).toBe("2026-12-01");
+  });
+
+  it("shortens the final request at the booking horizon", () => {
+    expect(createApplicationWindow("2026-10-01", "2026-10-18")).toEqual({
+      start: "2026-10-01",
+      endExclusive: "2026-10-18",
+      days: 17,
+    });
   });
 
   it("splits 42 days into six contiguous 7-day chunks", () => {

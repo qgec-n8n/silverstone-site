@@ -14,9 +14,9 @@ Activate a server by setting `enabled` to `true` in `.mcp.json`, running the syn
 
 | Server | Default State | Purpose | Requires Secret | CLI/Local Alternative | Reason |
 | --- | --- | --- | --- | --- | --- |
-| `aceternityui` | disabled | Aceternity component registry lookup for animated marketing UI. | no | Existing components, local code search, manual implementation. | Useful for specific component lookup, not routine development. |
+| `aceternityui` | enabled | Aceternity component registry lookup through `aceternity-mcp` 2.1.0 for animated marketing UI. | no | Existing components, local code search, manual implementation. | Enabled for the `/blog` card upgrade and installed in an isolated `pipx` environment. |
 | `gpt-image-2` | disabled | Generate or edit imagery through the local gpt-image-2 wrapper. | local gitignored env file | Existing verified image assets and manifests. | Unique capability, but only for explicit image-generation tasks. |
-| `magic_21st` | disabled | 21st.dev Magic generated variants and icon/logo search. | `API_KEY_21ST` | Manual design/code search and existing assets. | Requires auth and is specialist visual exploration. |
+| `magic_21st` | enabled | Current authenticated 21st.dev catalog, component retrieval, generated variants, and icon/logo search. | `API_KEY_21ST` | `npx @21st-dev/cli@1.7.2 ...` | Enabled for the `/blog` card upgrade through `https://21st.dev/api/mcp`. |
 | `magicui` | disabled | Magic UI registry lookup for animated UI components. | no | Existing components, local code search, manual implementation. | Useful only when Magic UI is explicitly in scope. |
 | `shadcn` | disabled | shadcn MCP registry access from `/web`. | no | `cd web && npx shadcn@4.11.0 ...` | CLI is sufficient for routine shadcn work. |
 | `typeui` | disabled | Remote TypeUI design-system and layout metadata. | no | Existing project tokens and components. | Specialist design reference, not a default dependency. |

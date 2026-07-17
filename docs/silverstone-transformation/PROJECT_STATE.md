@@ -257,17 +257,25 @@
 
 - `/web` now owns a native Qualify → Date & time → Your details → Confirmed flow; the Calendly iframe, postMessage height tracking, embed constants, connection warm-up, and Calendly frame CSP allowance are removed.
 - Live availability and invitee creation are isolated in same-origin Netlify Functions. The functions read only server-side `CALENDLY_API_TOKEN` and optional `CALENDLY_EVENT_TYPE_URI`, resolve the preserved public event type, recheck the selected slot, and return reduced safe response shapes.
-- The application cache unit is exactly 42 days and the current upstream maximum is represented as 31-day chunks, producing a 31-day plus 11-day pair for one application window.
-- Staging uses deterministic mock availability and booking responses; no provider credential was configured or exercised and no real appointment was created.
+- Each application request is capped at 42 days and the provider request is split into Calendly's documented maximum seven-day chunks. The selectable horizon ends on the same calendar date three months after today.
+- Staging uses deterministic mock availability and booking responses. A local opt-in live bridge was exercised with read-only Calendly requests; no real appointment was created.
 - The booking shell uses stable breakpoint heights, retains the calendar while the time list scrolls independently, and has fresh desktop/mobile Playwright assertions across validation, submission, and confirmation.
-- Production Calendly account plan, token scopes, event-type custom questions, location configuration, availability, and real invitee creation remain externally unverified.
+- The live event type, its one Google conferencing location, its optional preparation question, and returned availability were verified through read-only Calendly API calls. Account plan, PAT write scope, and real invitee creation remain externally unverified.
+
+### 2026-07-17 mobile booking and Calendly correction
+
+- The phone calendar now assigns separate layout rows to the availability status, month navigation/date grid, and availability key. At 320×568, 360×640, 375×667, and 390×844 the shell, labels, controls, grid, and key fit without internal scrolling or horizontal overflow; the desktop rules were not changed.
+- Month navigation uses a three-calendar-month horizon, bounded 42-day prefetch windows, overlap-aware caching, and stale-response guards. Only dates backed by returned Calendly slots become interactive.
+- Calendly's Scheduling API invitee payload now carries the live event type's configured `google_conference` location. Upstream schema errors are no longer mislabeled as unavailable slots.
+- Reservation conflicts keep their retryable `SLOT_UNAVAILABLE` classification, expire the failed slot, refresh availability once, clear the stale selection, and guide the invitee back to a verified time.
+- Live read-only validation on 2026-07-17 found returned slots through 2026-08-16 and none from 2026-08-17 onward, matching a 30-calendar-day event-type date range. The application fetches through 2026-10-17, but Calendly must expose availability in that range before those dates can become selectable.
 
 - No authenticated Netlify, DNS, analytics, Search Console, Resend, Calendly, or production environment control-plane access was used.
 - No production form submission, email send, Calendly booking, analytics verification, deployment, or DNS verification was performed.
 - Fresh live route and redirect crawl still required before any cutover or redirect edit.
 - Root legacy `npm run seo:audit` currently fails on stale generated sitemap content; this pass did not regenerate root artifacts because the legacy root is frozen.
 - `/web` foundation JavaScript remains above the 220 KB target despite passing the 300 KB hard ceiling.
-- Provider-side Calendly availability, buffers, notifications, timezone, and calendar ownership remain unverified.
+- Provider-side Calendly buffers, notifications, timezone ownership, PAT write scope, and real invitee creation remain unverified. The event type's current 30-calendar-day date range must be expanded in Calendly to expose the full application horizon.
 - Production Resend sender/domain/recipient settings remain unverified beyond env variable names and legacy function defaults.
 - Current ranking, traffic, conversion rate, Core Web Vitals field data, and Search Console coverage were not accessed.
 

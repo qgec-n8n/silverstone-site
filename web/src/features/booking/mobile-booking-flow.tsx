@@ -39,6 +39,9 @@ import { Skeleton } from "~/components/ui/skeleton";
 import { BookingProgress } from "~/features/booking/booking-progress";
 import { ConfirmationStage } from "~/features/booking/confirmation-stage";
 import {
+  addDays,
+  bookingHorizonKey,
+  calendarGridStart,
   dateKeyInTimeZone,
   formatDateKey,
   formatSelectedSlotLabel,
@@ -166,6 +169,7 @@ type MobileBookingFlowProps = {
   details: BookingDetails;
   detailErrors: DetailErrors;
   scheduleError: string;
+  availabilityRefreshToken?: number;
   submitError: string;
   submitting: boolean;
   confirmation: BookingConfirmation | null;
@@ -193,6 +197,7 @@ export function MobileBookingFlow({
   details,
   detailErrors,
   scheduleError,
+  availabilityRefreshToken = 0,
   submitError,
   submitting,
   confirmation,
@@ -213,10 +218,27 @@ export function MobileBookingFlow({
   const hasMounted = useRef(false);
 
   const [today] = useState(() => new Date());
-  const availability = useBookingAvailability(month, timeZone, mode, hydrated);
+  const availability = useBookingAvailability(
+    month,
+    timeZone,
+    mode,
+    hydrated,
+    availabilityRefreshToken,
+  );
   const todayKey = dateKeyInTimeZone(today.toISOString(), timeZone);
+  const horizonKey = bookingHorizonKey(todayKey);
+  const horizonDate = parseDateKey(horizonKey);
+  const gridStart = calendarGridStart(month);
+  const gridEndExclusive = addDays(gridStart, 42);
   const zonedToday = parseDateKey(todayKey);
-  const availableDates = [...availability.slotsByDate.keys()].map(parseDateKey);
+  const availableDateKeys = [...availability.slotsByDate.keys()].filter(
+    (key) =>
+      key >= todayKey &&
+      key <= horizonKey &&
+      key >= gridStart &&
+      key < gridEndExclusive,
+  );
+  const availableDates = availableDateKeys.map(parseDateKey);
   const selectedDate = selectedDateKey ? parseDateKey(selectedDateKey) : undefined;
   const daySlots = useMemo(
     () =>
@@ -382,6 +404,7 @@ export function MobileBookingFlow({
                 <section
                   className="ss-booking-calendar-pane ss-booking-mdate__pane"
                   aria-label="Available dates"
+                  aria-busy={loading || availability.status === "refreshing"}
                 >
                   <div className="ss-booking-calendar-pane__status" aria-live="polite">
                     <span
@@ -389,10 +412,10 @@ export function MobileBookingFlow({
                       data-active={availability.status === "ready"}
                     />
                     {loading
-                      ? "Scanning the six-week window…"
+                      ? "Checking verified availability…"
                       : availability.status === "refreshing"
                         ? "Refreshing availability…"
-                        : `${String(availableDates.length)} open dates in view`}
+                        : `${String(availableDateKeys.length)} open dates in view`}
                   </div>
                   {hydrated ? (
                     <Calendar
@@ -410,18 +433,25 @@ export function MobileBookingFlow({
                         new Date(zonedToday.getFullYear(), zonedToday.getMonth(), 1)
                       }
                       endMonth={
-                        new Date(zonedToday.getFullYear() + 1, zonedToday.getMonth(), 1)
+                        new Date(horizonDate.getFullYear(), horizonDate.getMonth(), 1)
                       }
                       disabled={(date) => {
                         const key = formatDateKey(date);
-                        return key < todayKey || !availability.slotsByDate.has(key);
+                        return (
+                          key < todayKey ||
+                          key > horizonKey ||
+                          !availability.slotsByDate.has(key)
+                        );
                       }}
                       modifiers={{
                         available: availableDates,
                         loading:
                           availability.status === "loading" ||
                           availability.status === "refreshing"
-                            ? { after: new Date(today.getTime() - 86_400_000) }
+                            ? {
+                                after: new Date(today.getTime() - 86_400_000),
+                                before: parseDateKey(addDays(horizonKey, 1)),
+                              }
                             : [],
                       }}
                       modifiersClassNames={{

@@ -1,5 +1,10 @@
 export const BOOKING_DURATION_MINUTES = 30;
+/** Maximum size of one same-origin availability request. */
 export const APPLICATION_WINDOW_DAYS = 42;
+/** The public calendar is intentionally bounded to today + three calendar months. */
+export const BOOKING_HORIZON_MONTHS = 3;
+/** The site has one canonical Calendly event type; include it in client cache keys. */
+export const BOOKING_EVENT_TYPE_KEY = "silverstone-ai/30min";
 
 export const SERVICE_OPTIONS = [
   { id: "web", label: "Web design & development" },

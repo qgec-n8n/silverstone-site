@@ -1,5 +1,6 @@
 import {
   APPLICATION_WINDOW_DAYS,
+  BOOKING_HORIZON_MONTHS,
   type AvailabilitySlot,
   type AvailabilityWindow,
 } from "~/features/booking/booking-types";
@@ -35,11 +36,50 @@ export function addDays(value: string, days: number): string {
   return formatDateKey(date);
 }
 
-export function createApplicationWindow(start: string): AvailabilityWindow {
+/** Add calendar months while clamping dates such as 31 August to month end. */
+export function addMonths(value: string, months: number): string {
+  const date = parseDateKey(value);
+  const day = date.getDate();
+  date.setDate(1);
+  date.setMonth(date.getMonth() + months);
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  date.setDate(Math.min(day, lastDay));
+  return formatDateKey(date);
+}
+
+export function bookingHorizonKey(todayKey: string): string {
+  return addMonths(todayKey, BOOKING_HORIZON_MONTHS);
+}
+
+export function bookingHorizonEndExclusive(todayKey: string): string {
+  return addDays(bookingHorizonKey(todayKey), 1);
+}
+
+export function daysBetween(start: string, endExclusive: string): number {
+  return Math.round(
+    (Date.parse(`${endExclusive}T00:00:00Z`) - Date.parse(`${start}T00:00:00Z`)) /
+      DAY_MS,
+  );
+}
+
+/** Build a bounded request window, shortening the final horizon window as needed. */
+export function createApplicationWindow(
+  start: string,
+  boundaryEndExclusive?: string,
+): AvailabilityWindow {
+  const maximumEnd = addDays(start, APPLICATION_WINDOW_DAYS);
+  const endExclusive =
+    boundaryEndExclusive && boundaryEndExclusive < maximumEnd
+      ? boundaryEndExclusive
+      : maximumEnd;
+  const days = daysBetween(start, endExclusive);
+  if (days < 1 || days > APPLICATION_WINDOW_DAYS) {
+    throw new Error("Availability window must contain between 1 and 42 days");
+  }
   return {
     start,
-    endExclusive: addDays(start, APPLICATION_WINDOW_DAYS),
-    days: APPLICATION_WINDOW_DAYS,
+    endExclusive,
+    days,
   };
 }
 
@@ -102,12 +142,17 @@ export function groupSlotsByDate(
 }
 
 export function visibleGridStart(month: Date, today: Date): string {
+  const gridKey = calendarGridStart(month);
+  const todayKey = formatDateKey(today);
+  return gridKey < todayKey ? todayKey : gridKey;
+}
+
+/** First Monday rendered by DayPicker's fixed six-week month grid. */
+export function calendarGridStart(month: Date): string {
   const first = new Date(month.getFullYear(), month.getMonth(), 1, 12);
   const mondayOffset = (first.getDay() + 6) % 7;
   first.setDate(first.getDate() - mondayOffset);
-  const todayKey = formatDateKey(today);
-  const gridKey = formatDateKey(first);
-  return gridKey < todayKey ? todayKey : gridKey;
+  return formatDateKey(first);
 }
 
 export function isDateCovered(

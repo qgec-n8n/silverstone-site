@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   clearAvailabilityCache,
   getAvailabilitySnapshot,
+  invalidateAvailabilitySlot,
   loadAvailabilityWindow,
   windowForMonth,
   type AvailabilityTransport,
@@ -86,28 +87,55 @@ describe("availability cache", () => {
     expect(transport).toHaveBeenCalledTimes(2);
   });
 
-  it("merges new navigation windows without duplicating overlapping slots", async () => {
-    const sharedTime = "2026-08-01T09:00:00.000Z";
-    const first = success("2026-07-16", sharedTime);
-    const second = success("2026-07-27", sharedTime);
+  it("fetches only the uncovered tail when navigation windows overlap", async () => {
+    const first = success("2026-07-16", "2026-08-01T09:00:00.000Z");
+    const secondWindow = createApplicationWindow("2026-07-27");
     const transport = vi
       .fn<AvailabilityTransport>()
       .mockResolvedValueOnce(first)
-      .mockResolvedValueOnce(second);
+      .mockImplementationOnce(({ window }) =>
+        Promise.resolve({
+          ...success(window.start, "2026-08-30T09:00:00.000Z"),
+          window,
+        }),
+      );
 
     await loadAvailabilityWindow(
       { mode: "mock", timeZone: "Europe/London", window: first.window },
       transport,
     );
     await loadAvailabilityWindow(
-      { mode: "mock", timeZone: "Europe/London", window: second.window },
+      { mode: "mock", timeZone: "Europe/London", window: secondWindow },
       transport,
     );
 
     const snapshot = getAvailabilitySnapshot("mock", "Europe/London");
     expect(transport).toHaveBeenCalledTimes(2);
+    expect(transport.mock.calls[1]?.[0].window).toEqual({
+      start: "2026-08-27",
+      endExclusive: "2026-09-07",
+      days: 11,
+    });
     expect(snapshot.windows).toHaveLength(2);
-    expect(snapshot.slots).toHaveLength(1);
+    expect(snapshot.slots).toHaveLength(2);
+  });
+
+  it("keeps a provider-rejected slot excluded while availability refreshes", async () => {
+    const rejectedTime = "2026-07-20T09:00:00.000Z";
+    const response = success("2026-07-16", rejectedTime);
+    const transport = vi.fn<AvailabilityTransport>().mockResolvedValue(response);
+    const options = {
+      mode: "mock" as const,
+      timeZone: "Europe/London",
+      window: response.window,
+    };
+
+    await loadAvailabilityWindow(options, transport);
+    invalidateAvailabilitySlot("mock", "Europe/London", rejectedTime);
+    await loadAvailabilityWindow({ ...options, force: true }, transport);
+
+    expect(transport).toHaveBeenCalledTimes(2);
+    expect(getAvailabilitySnapshot("mock", "Europe/London").slots).toEqual([]);
   });
 
   it("releases an aborted in-flight key so navigation can retry", async () => {

@@ -5,6 +5,9 @@ import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";
 import { Skeleton } from "~/components/ui/skeleton";
 import {
+  addDays,
+  bookingHorizonKey,
+  calendarGridStart,
   formatDateKey,
   dateKeyInTimeZone,
   formatLongDate,
@@ -32,6 +35,7 @@ type AvailabilityStageProps = {
   selectedDateKey: string;
   selectedSlot: AvailabilitySlot | null;
   error: string;
+  availabilityRefreshToken?: number;
   onMonthChange: (month: Date) => void;
   onSelectDate: (dateKey: string) => void;
   onTimeZoneChange: (timeZone: string) => void;
@@ -66,6 +70,7 @@ export function AvailabilityStage({
   selectedDateKey,
   selectedSlot,
   error,
+  availabilityRefreshToken = 0,
   onMonthChange,
   onSelectDate,
   onTimeZoneChange,
@@ -75,13 +80,26 @@ export function AvailabilityStage({
   const [mobileView, setMobileView] = useState<"calendar" | "times">(
     selectedDateKey ? "times" : "calendar",
   );
-  const availability = useBookingAvailability(month, timeZone, mode, hydrated);
-  const todayKey = dateKeyInTimeZone(today.toISOString(), timeZone);
-  const zonedToday = parseDateKey(todayKey);
-  const availableDates = useMemo(
-    () => [...availability.slotsByDate.keys()].map(parseDateKey),
-    [availability.slotsByDate],
+  const availability = useBookingAvailability(
+    month,
+    timeZone,
+    mode,
+    hydrated,
+    availabilityRefreshToken,
   );
+  const todayKey = dateKeyInTimeZone(today.toISOString(), timeZone);
+  const horizonKey = bookingHorizonKey(todayKey);
+  const gridStart = calendarGridStart(month);
+  const gridEndExclusive = addDays(gridStart, 42);
+  const zonedToday = parseDateKey(todayKey);
+  const availableDateKeys = [...availability.slotsByDate.keys()].filter(
+    (key) =>
+      key >= todayKey &&
+      key <= horizonKey &&
+      key >= gridStart &&
+      key < gridEndExclusive,
+  );
+  const availableDates = availableDateKeys.map(parseDateKey);
   const selectedDate = selectedDateKey ? parseDateKey(selectedDateKey) : undefined;
   const selectedDateSlots = selectedDateKey
     ? (availability.slotsByDate.get(selectedDateKey) ?? [])
@@ -150,17 +168,21 @@ export function AvailabilityStage({
       </div>
 
       <div className="ss-booking-availability__layout" data-mobile-view={mobileView}>
-        <section className="ss-booking-calendar-pane" aria-label="Available dates">
+        <section
+          className="ss-booking-calendar-pane"
+          aria-label="Available dates"
+          aria-busy={loading || availability.status === "refreshing"}
+        >
           <div className="ss-booking-calendar-pane__status" aria-live="polite">
             <span
               className="ss-booking-status-dot"
               data-active={availability.status === "ready"}
             />
             {loading
-              ? "Scanning the six-week window…"
+              ? "Checking verified availability…"
               : availability.status === "refreshing"
                 ? "Refreshing availability…"
-                : `${String(availableDates.length)} open dates in view`}
+                : `${String(availableDateKeys.length)} open dates in view`}
           </div>
           {hydrated ? (
             <Calendar
@@ -172,18 +194,29 @@ export function AvailabilityStage({
               onSelect={chooseDate}
               startMonth={new Date(zonedToday.getFullYear(), zonedToday.getMonth(), 1)}
               endMonth={
-                new Date(zonedToday.getFullYear() + 1, zonedToday.getMonth(), 1)
+                new Date(
+                  parseDateKey(horizonKey).getFullYear(),
+                  parseDateKey(horizonKey).getMonth(),
+                  1,
+                )
               }
               disabled={(date) => {
                 const key = formatDateKey(date);
-                return key < todayKey || !availability.slotsByDate.has(key);
+                return (
+                  key < todayKey ||
+                  key > horizonKey ||
+                  !availability.slotsByDate.has(key)
+                );
               }}
               modifiers={{
                 available: availableDates,
                 loading:
                   availability.status === "loading" ||
                   availability.status === "refreshing"
-                    ? { after: new Date(today.getTime() - 86_400_000) }
+                    ? {
+                        after: new Date(today.getTime() - 86_400_000),
+                        before: parseDateKey(addDays(horizonKey, 1)),
+                      }
                     : [],
               }}
               modifiersClassNames={{ available: "is-available", loading: "is-loading" }}
@@ -256,7 +289,7 @@ export function AvailabilityStage({
               <div className="ss-booking-times-state">
                 <CalendarCheck aria-hidden="true" />
                 <strong>No times in this window</strong>
-                <p>Move to the next month or use the written contact route.</p>
+                <p>Move to another month within the three-month booking horizon.</p>
               </div>
             ) : !selectedDateKey ? (
               <div className="ss-booking-times-state">

@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router";
 
 import { ArrowUpRight, Clock, Search } from "~/components/icons/lucide";
+import { CardHoverEffect } from "~/components/ui/card-hover-effect";
 import { Reveal } from "~/features/services-v2/components/primitives";
 
 import {
@@ -92,27 +93,25 @@ function ArticleCard({ article }: { article: InsightArticle }) {
   // Article cards never play an entrance — filtering, searching and deep
   // links all re-render the grid, and a card that fades in on every
   // keystroke reads as flicker, not choreography. They are simply present.
-  return (
-    <div>
-      {published && articleHref ? (
-        <Link
-          className="ss-insight-card"
-          to={articleHref}
-          data-status={article.status}
-          prefetch="intent"
-        >
-          {body}
-        </Link>
-      ) : (
-        <article
-          className="ss-insight-card"
-          data-status={article.status}
-          aria-disabled="true"
-        >
-          {body}
-        </article>
-      )}
-    </div>
+  return published && articleHref ? (
+    <Link
+      className="ss-insight-card"
+      data-insight-id={article.id}
+      data-status={article.status}
+      prefetch="intent"
+      to={articleHref}
+    >
+      {body}
+    </Link>
+  ) : (
+    <article
+      aria-disabled="true"
+      className="ss-insight-card"
+      data-insight-id={article.id}
+      data-status={article.status}
+    >
+      {body}
+    </article>
   );
 }
 
@@ -197,11 +196,15 @@ export function InsightsBoard() {
       </p>
 
       {filtered.length > 0 ? (
-        <div className="ss-insight-grid">
-          {filtered.map((article) => (
-            <ArticleCard article={article} key={article.id} />
-          ))}
-        </div>
+        <CardHoverEffect
+          className="ss-insight-grid"
+          itemClassName="ss-insight-grid__item"
+          items={filtered.map((article) => ({
+            id: article.id,
+            content: <ArticleCard article={article} />,
+          }))}
+          layoutId="insight-card-hover-surface"
+        />
       ) : (
         <div className="ss-insight-board__empty">
           <p>

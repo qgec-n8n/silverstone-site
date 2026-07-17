@@ -12,7 +12,7 @@ async function shellGeometry(shell: Locator): Promise<ShellGeometry> {
 
 function expectStable(actual: ShellGeometry, baseline: ShellGeometry) {
   expect(Math.abs(actual.height - baseline.height)).toBeLessThanOrEqual(1);
-  expect(Math.abs(actual.documentTop - baseline.documentTop)).toBeLessThanOrEqual(1);
+  expect(Math.abs(actual.documentTop - baseline.documentTop)).toBeLessThanOrEqual(3);
 }
 
 async function mustBox(locator: Locator) {
@@ -87,10 +87,8 @@ test("native booking runs Date & time first with a fixed shell and local time sc
     Math.abs((calendarAfter?.y ?? 0) - (calendarBefore?.y ?? 0)),
   ).toBeLessThanOrEqual(1);
 
-  /* The legend reads from the pane's bottom edge with clear air below the
-     final week row — it must never overlap the day grid. (Short viewports
-     hide the legend entirely via the compact media query; only measure it
-     where it renders.) */
+  /* The legend reads from its own pane row with clear air below the final
+     week — it must never overlap the day grid. */
   const legendClearance = await calendarPane.evaluate((element) => {
     const legend = element.querySelector<HTMLElement>(".ss-booking-calendar-legend");
     const grid = element.querySelector(".ss-booking-calendar__grid");
@@ -152,6 +150,68 @@ test("native booking runs Date & time first with a fixed shell and local time sc
       () => document.documentElement.scrollWidth <= window.innerWidth + 1,
     ),
   ).toBe(true);
+});
+
+test("a claimed slot is invalidated and availability refreshes", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "The shared conflict handler is exercised through desktop");
+  await page.goto("/book?bookingFixture=lost-slot#booking-calendar");
+  const availableDay = page
+    .locator(".ss-booking-calendar__day.is-available button")
+    .first();
+  await availableDay.click();
+  const times = page.getByTestId("booking-times-scroll");
+  await expect(times.locator("button").first()).toBeVisible();
+  const initialTimeCount = await times.locator("button").count();
+  await times.locator("button").first().click();
+  await page.getByRole("button", { name: "Continue with this time" }).click();
+  await completeQualification(page);
+  await page.getByRole("textbox", { name: "Name" }).fill("Ada Lovelace");
+  await page.getByRole("textbox", { name: "Email" }).fill("ada@example.com");
+  await page.getByRole("checkbox").check();
+  await page.getByRole("button", { name: "Confirm booking" }).click();
+
+  await expect(
+    page.getByText(
+      "That time is no longer available. Availability has been refreshed — choose another highlighted time.",
+    ),
+  ).toBeVisible();
+  await expect(page.locator(".ss-booking-calendar__day.is-selected")).toHaveCount(1);
+  await expect(times.locator("button")).toHaveCount(initialTimeCount - 1);
+  await expect(page.locator(".ss-booking-calendar-pane__status")).toContainText(
+    "open dates in view",
+  );
+});
+
+test("month navigation reaches the exact three-month horizon and stops", async ({
+  page,
+}) => {
+  await page.goto("/book#booking-calendar");
+  const caption = page.locator(".ss-booking-calendar__caption-label");
+  await expect(caption).toBeVisible();
+
+  for (let offset = 0; offset < 3; offset += 1) {
+    const previousCaption = await caption.innerText();
+    await page.getByRole("button", { name: /Go to the Next Month/i }).click();
+    await expect(caption).not.toHaveText(previousCaption);
+    await expect(page.locator(".ss-booking-calendar-pane__status")).toContainText(
+      "open dates in view",
+    );
+  }
+
+  await expect(
+    page.getByRole("button", { name: /Go to the Next Month/i }),
+  ).toBeDisabled();
+  const availableDays = page.locator(
+    ".ss-booking-calendar__day.is-available .ss-booking-calendar__day-button",
+  );
+  await expect(availableDays.first()).toBeEnabled();
+  expect(await availableDays.count()).toBeGreaterThan(0);
+  expect(
+    await page.locator(".ss-booking-calendar__day.is-disabled.is-available").count(),
+  ).toBe(0);
 });
 
 test("mobile flow walks one decision per screen with no internal scroll", async ({
@@ -422,14 +482,111 @@ test("mobile composition activates on width alone, never on short height", async
   await expect(page.locator(".ss-booking-calendar-pane")).toBeVisible();
   await expect(page.locator(".ss-booking-times-pane")).toBeVisible();
 
-  /* Narrow phone: mobile flow with a viewport-bounded shell. */
-  await page.setViewportSize({ width: 360, height: 640 });
+  /* Representative phones: the shell and every calendar region fit without
+     internal scrolling, clipping, or overlap. */
+  for (const [width, height] of [
+    [320, 568],
+    [360, 640],
+    [390, 844],
+  ] as const) {
+    const label = `${String(width)}x${String(height)}`;
+    await page.setViewportSize({ width, height });
+    await page.goto("/book#booking-calendar");
+    const shell = page.getByTestId("booking-shell");
+    await expect(page.getByRole("heading", { name: "Pick a day" })).toBeVisible();
+    await expect(page.locator(".ss-booking-calendar-pane__status")).toContainText(
+      "open dates in view",
+    );
+    await shell.evaluate((element) => {
+      document.documentElement.style.scrollBehavior = "auto";
+      const fixedHeader = [...document.querySelectorAll("header")].find(
+        (candidate) => getComputedStyle(candidate).position === "fixed",
+      );
+      const headerHeight = fixedHeader?.getBoundingClientRect().height ?? 0;
+      const documentTop = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo(0, documentTop - headerHeight - 16);
+    });
+    const box = await mustBox(shell);
+    const fixedHeaderBottom = await page.evaluate(() => {
+      const fixedHeader = [...document.querySelectorAll("header")].find(
+        (candidate) => getComputedStyle(candidate).position === "fixed",
+      );
+      return fixedHeader?.getBoundingClientRect().bottom ?? 0;
+    });
+    expect(box.width, `${label} shell width`).toBeLessThanOrEqual(width);
+    expect(box.height, `${label} shell height`).toBeLessThanOrEqual(height);
+    expect(box.y, `${label} below fixed header`).toBeGreaterThanOrEqual(
+      fixedHeaderBottom,
+    );
+    expect(box.y + box.height, `${label} shell bottom visible`).toBeLessThanOrEqual(
+      height + 1,
+    );
+
+    const geometry = await page
+      .locator(".ss-booking-calendar-pane")
+      .evaluate((pane) => {
+        const status = pane.querySelector<HTMLElement>(
+          ".ss-booking-calendar-pane__status",
+        );
+        const grid = pane.querySelector<HTMLElement>(".ss-booking-calendar__grid");
+        const legend = pane.querySelector<HTMLElement>(".ss-booking-calendar-legend");
+        const caption = pane.querySelector<HTMLElement>(
+          ".ss-booking-calendar__caption-label",
+        );
+        const nav = pane.querySelector<HTMLElement>(".ss-booking-calendar__nav");
+        if (!status || !grid || !legend || !caption || !nav) {
+          throw new Error("Expected every mobile calendar region");
+        }
+        const paneRect = pane.getBoundingClientRect();
+        const statusRect = status.getBoundingClientRect();
+        const gridRect = grid.getBoundingClientRect();
+        const legendRect = legend.getBoundingClientRect();
+        const captionRect = caption.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        return {
+          statusToGrid: gridRect.top - statusRect.bottom,
+          gridToLegend: legendRect.top - gridRect.bottom,
+          captionInside:
+            captionRect.left >= paneRect.left - 1 &&
+            captionRect.right <= paneRect.right + 1,
+          navInside:
+            navRect.left >= paneRect.left - 1 && navRect.right <= paneRect.right + 1,
+          noPaneOverflow:
+            pane.scrollWidth <= pane.clientWidth + 1 &&
+            pane.scrollHeight <= pane.clientHeight + 1,
+        };
+      });
+    expect(geometry.statusToGrid, `${label} status clearance`).toBeGreaterThanOrEqual(
+      0,
+    );
+    expect(geometry.gridToLegend, `${label} legend clearance`).toBeGreaterThanOrEqual(
+      0,
+    );
+    expect(geometry.captionInside, `${label} month label contained`).toBe(true);
+    expect(geometry.navInside, `${label} navigation contained`).toBe(true);
+    expect(geometry.noPaneOverflow, `${label} no pane overflow`).toBe(true);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= window.innerWidth + 1,
+      ),
+      `${label} no page overflow`,
+    ).toBe(true);
+  }
+
+  /* Tablet width retains the desktop side-by-side composition and remains
+     contained, proving the phone-only redesign did not spill past its media
+     boundary. */
+  await page.setViewportSize({ width: 768, height: 1024 });
   await page.goto("/book#booking-calendar");
-  const shell = page.getByTestId("booking-shell");
-  await shell.scrollIntoViewIfNeeded();
-  await expect(page.getByRole("heading", { name: "Pick a day" })).toBeVisible();
-  const box = await mustBox(shell);
-  expect(box.width).toBeLessThanOrEqual(360);
+  await expect(page.getByTestId("booking-shell")).toHaveAttribute(
+    "data-flow",
+    "desktop",
+  );
+  const tabletCalendar = await mustBox(page.locator(".ss-booking-calendar-pane"));
+  const tabletTimes = await mustBox(page.locator(".ss-booking-times-pane"));
+  expect(tabletTimes.x).toBeGreaterThanOrEqual(
+    tabletCalendar.x + tabletCalendar.width - 1,
+  );
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth + 1,

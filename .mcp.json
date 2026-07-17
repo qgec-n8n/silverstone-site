@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "aceternityui": {
-      "command": "npx",
-      "args": ["-y", "aceternityui-mcp@1.0.2"],
+      "command": "/bin/zsh",
+      "args": ["-lc", "exec ./.codex/bin/aceternity-mcp.sh"],
       "enabled": true,
       "startup_timeout_sec": 60,
       "tool_timeout_sec": 180,
@@ -17,10 +17,9 @@
       "default_tools_approval_mode": "prompt"
     },
     "magic_21st": {
-      "command": "/bin/zsh",
-      "args": ["-lc", "exec ./.codex/bin/21st-magic-mcp.sh"],
-      "env_vars": ["API_KEY_21ST"],
-      "enabled": false,
+      "url": "https://21st.dev/api/mcp",
+      "bearer_token_env_var": "API_KEY_21ST",
+      "enabled": true,
       "startup_timeout_sec": 60,
       "tool_timeout_sec": 180,
       "default_tools_approval_mode": "prompt"

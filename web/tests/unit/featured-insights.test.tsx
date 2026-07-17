@@ -54,6 +54,7 @@ const alpha = makePost({ slug: "alpha-signal", date: "2026-07-01" });
 const beta = makePost({ slug: "beta-signal", date: "2026-07-02" });
 const gamma = makePost({ slug: "gamma-signal", date: "2026-07-03" });
 const delta = makePost({ slug: "delta-signal", date: "2026-07-04" });
+const epsilon = makePost({ slug: "epsilon-signal", date: "2026-07-05" });
 
 function edition(slugs: readonly string[]): FeaturedInsightEdition {
   return {
@@ -140,10 +141,11 @@ describe("resolveFeaturedInsights", () => {
       "alpha-signal",
       "delta-signal",
       "gamma-signal",
+      "beta-signal",
     ]);
   });
 
-  it("uses the newest three posts when no edition is active", () => {
+  it("uses the newest posts up to the five-card limit when no edition is active", () => {
     const selection = resolveFeaturedInsights({
       editions: [edition(["alpha-signal"])],
       posts: [alpha, beta, gamma, delta],
@@ -155,10 +157,11 @@ describe("resolveFeaturedInsights", () => {
       "delta-signal",
       "gamma-signal",
       "beta-signal",
+      "alpha-signal",
     ]);
   });
 
-  it("returns only the eligible posts available when fewer than three exist", () => {
+  it("returns only the eligible posts available when fewer than five exist", () => {
     const selection = resolveFeaturedInsights({
       editions: [],
       posts: [alpha, beta],
@@ -210,5 +213,41 @@ describe("FeaturedInsights", () => {
     expect(
       within(section).queryByText(/The guide, in development/i),
     ).not.toBeInTheDocument();
+  });
+
+  it("renders one primary and exactly four ordered supporting article links", () => {
+    const selection = {
+      articles: [alpha, beta, gamma, delta, epsilon],
+      edition: edition([alpha.slug, beta.slug, gamma.slug, delta.slug, epsilon.slug]),
+      primary: alpha,
+      supporting: [beta, gamma, delta, epsilon],
+    };
+
+    render(
+      <MemoryRouter>
+        <MotionProvider>
+          <FeaturedInsights selection={selection} />
+        </MotionProvider>
+      </MemoryRouter>,
+    );
+
+    const section = screen.getByRole("region", {
+      name: "This week’s selected signals",
+    });
+    const primary = section.querySelectorAll('[data-featured-card="primary"]');
+    const supporting = section.querySelectorAll('[data-featured-card="supporting"]');
+    const links = within(section).getAllByRole("link");
+
+    expect(primary).toHaveLength(1);
+    expect(supporting).toHaveLength(4);
+    expect(links).toHaveLength(5);
+    expect(links.map((link) => link.getAttribute("href"))).toEqual([
+      `/blog/${alpha.slug}`,
+      `/blog/${beta.slug}`,
+      `/blog/${gamma.slug}`,
+      `/blog/${delta.slug}`,
+      `/blog/${epsilon.slug}`,
+    ]);
+    expect(section.querySelector("a a, a button, button a")).toBeNull();
   });
 });

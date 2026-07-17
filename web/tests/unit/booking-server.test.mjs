@@ -1,10 +1,11 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { handler as availabilityHandler } from "../../../netlify/functions/calendly-availability.mjs";
 import { handler as bookingHandler } from "../../../netlify/functions/calendly-book.mjs";
+import { createCalendlyBooking } from "../../../netlify/functions/_calendly/calendly-client.mjs";
 import {
   buildInviteePayload,
   chunkIsoRange,
@@ -144,9 +145,9 @@ describe("Calendly server boundary", () => {
         timezone: "Europe/London",
       },
     });
-    /* The event type's own location configuration governs the meeting
-       location; the invitee payload must not restate it. */
-    expect(built.payload.location).toBeUndefined();
+    /* Scheduling API invitee creation requires the configured event-type
+       location. Host-generated conference kinds need the kind only. */
+    expect(built.payload.location).toEqual({ kind: "zoom_conference" });
     expect(built.payload.questions_and_answers).toEqual([
       {
         question: "Which service can we help with?",
@@ -183,6 +184,7 @@ describe("Calendly server boundary", () => {
     );
 
     expect(built.payload.questions_and_answers).toHaveLength(1);
+    expect(built.payload.location).toEqual({ kind: "google_conference" });
     const answer = built.payload.questions_and_answers[0].answer;
     expect(answer).toContain("Services: Web design & development, AI automation");
     expect(answer).toContain("Industry: Hospitality");
@@ -192,7 +194,7 @@ describe("Calendly server boundary", () => {
     expect(built.qualificationTransmitted).toBe(true);
   });
 
-  it("enforces a six-week availability request and uses mocks outside production", async () => {
+  it("bounds each availability request to six weeks and uses mocks outside production", async () => {
     process.env.CONTEXT = "deploy-preview";
     const today = new Date().toISOString().slice(0, 10);
     const valid = await availabilityHandler({
@@ -220,6 +222,154 @@ describe("Calendly server boundary", () => {
     expect(JSON.parse(invalid.body)).toMatchObject({
       ok: false,
       error: { code: "INVALID_REQUEST", retryable: false },
+    });
+  });
+
+  it("accepts a shortened final availability window inside the horizon", async () => {
+    process.env.CONTEXT = "deploy-preview";
+    const today = new Date().toISOString().slice(0, 10);
+    const response = await availabilityHandler({
+      httpMethod: "GET",
+      headers: {},
+      queryStringParameters: {
+        start: today,
+        days: "9",
+        timezone: "Europe/London",
+      },
+    });
+
+    expect(response.statusCode).toBe(200);
+    const body = JSON.parse(response.body);
+    expect(body).toMatchObject({
+      ok: true,
+      window: { start: today, days: 9 },
+      source: "mock",
+    });
+    expect(
+      body.slots.every(
+        (slot) => slot.startTime.slice(0, 10) < body.window.endExclusive,
+      ),
+    ).toBe(true);
+  });
+
+  it("rechecks the slot and sends the configured location to invitee creation", async () => {
+    const booking = validateBookingRequest(validRequest(), Date.now());
+    const eventType = {
+      uri: "https://api.calendly.com/event_types/live-shape",
+      duration: 30,
+      locations: [{ kind: "google_conference" }],
+      custom_questions: [],
+    };
+    let inviteePayload;
+    const fetcher = vi.fn(async (url, init = {}) => {
+      if (url.includes("/event_type_available_times?")) {
+        return new Response(
+          JSON.stringify({
+            collection: [{ start_time: booking.startTime, status: "available" }],
+          }),
+          { status: 200 },
+        );
+      }
+      if (url.endsWith("/invitees")) {
+        inviteePayload = JSON.parse(init.body);
+        return new Response(
+          JSON.stringify({
+            resource: {
+              cancel_url: "https://calendly.com/cancellations/example",
+              reschedule_url: "https://calendly.com/reschedulings/example",
+            },
+          }),
+          { status: 200 },
+        );
+      }
+      throw new Error(`Unexpected request: ${url}`);
+    });
+
+    const confirmation = await createCalendlyBooking(
+      eventType,
+      booking,
+      "test-token",
+      fetcher,
+    );
+
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    expect(inviteePayload).toMatchObject({
+      event_type: eventType.uri,
+      start_time: booking.startTime,
+      location: { kind: "google_conference" },
+      invitee: {
+        name: "Ada Lovelace",
+        email: "ada@example.com",
+        timezone: "Europe/London",
+      },
+    });
+    expect(confirmation).toMatchObject({
+      startTime: booking.startTime,
+      durationMinutes: 30,
+      confirmationEmail: "ada@example.com",
+    });
+  });
+
+  it("preserves an invitee reservation conflict as a retryable slot error", async () => {
+    const booking = validateBookingRequest(validRequest(), Date.now());
+    const eventType = {
+      uri: "https://api.calendly.com/event_types/live-shape",
+      duration: 30,
+      locations: [{ kind: "google_conference" }],
+      custom_questions: [],
+    };
+    const fetcher = vi.fn(async (url) => {
+      if (url.includes("/event_type_available_times?")) {
+        return new Response(
+          JSON.stringify({
+            collection: [{ start_time: booking.startTime, status: "available" }],
+          }),
+          { status: 200 },
+        );
+      }
+      return new Response(
+        JSON.stringify({ message: "That time could not be reserved." }),
+        { status: 409 },
+      );
+    });
+
+    await expect(
+      createCalendlyBooking(eventType, booking, "test-token", fetcher),
+    ).rejects.toMatchObject({
+      status: 409,
+      code: "SLOT_UNAVAILABLE",
+      retryable: true,
+    });
+  });
+
+  it("does not disguise an invitee payload rejection as a claimed slot", async () => {
+    const booking = validateBookingRequest(validRequest(), Date.now());
+    const eventType = {
+      uri: "https://api.calendly.com/event_types/live-shape",
+      duration: 30,
+      locations: [{ kind: "google_conference" }],
+      custom_questions: [],
+    };
+    const fetcher = vi.fn(async (url) => {
+      if (url.includes("/event_type_available_times?")) {
+        return new Response(
+          JSON.stringify({
+            collection: [{ start_time: booking.startTime, status: "available" }],
+          }),
+          { status: 200 },
+        );
+      }
+      return new Response(JSON.stringify({ message: "location.kind is required" }), {
+        status: 422,
+      });
+    });
+
+    await expect(
+      createCalendlyBooking(eventType, booking, "test-token", fetcher),
+    ).rejects.toMatchObject({
+      status: 503,
+      code: "SERVER_MISCONFIGURED",
+      retryable: false,
     });
   });
 

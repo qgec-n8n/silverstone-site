@@ -12,6 +12,28 @@ const EVENT_TYPE_CACHE_MS = 5 * 60_000;
 
 let eventTypeCache = null;
 
+function calendlyErrorText(value) {
+  if (!value || typeof value !== "object") return "";
+  const candidates = [
+    value.message,
+    value.title,
+    value.detail,
+    value.error,
+    ...(Array.isArray(value.details) ? value.details : []),
+  ];
+  return candidates
+    .flatMap((candidate) => {
+      if (typeof candidate === "string") return [candidate];
+      if (candidate && typeof candidate === "object") {
+        return [candidate.message, candidate.detail].filter(
+          (item) => typeof item === "string",
+        );
+      }
+      return [];
+    })
+    .join(" ");
+}
+
 async function calendlyRequest(path, token, init = {}, fetcher = fetch) {
   const response = await fetcher(`${API_ORIGIN}${path}`, {
     ...init,
@@ -24,6 +46,8 @@ async function calendlyRequest(path, token, init = {}, fetcher = fetch) {
   });
 
   if (!response.ok) {
+    const errorBody = await response.json().catch(() => ({}));
+    const errorText = calendlyErrorText(errorBody);
     if (response.status === 429) {
       throw new PublicApiError(
         429,
@@ -38,6 +62,32 @@ async function calendlyRequest(path, token, init = {}, fetcher = fetch) {
         "SERVER_MISCONFIGURED",
         "Live booking is temporarily unavailable. Please use the contact route.",
       );
+    }
+    if (path === "/invitees") {
+      const slotConflict =
+        response.status === 409 ||
+        /(?:time|slot).*(?:available|open|reserve|schedule)|(?:available|open|reserve|schedule).*(?:time|slot)/iu.test(
+          errorText,
+        );
+      if (slotConflict) {
+        throw new PublicApiError(
+          409,
+          "SLOT_UNAVAILABLE",
+          "That time is no longer available. Please choose another available slot.",
+          true,
+        );
+      }
+      if (
+        response.status === 400 ||
+        response.status === 404 ||
+        response.status === 422
+      ) {
+        throw new PublicApiError(
+          503,
+          "SERVER_MISCONFIGURED",
+          "Live booking is temporarily unavailable. Please use the contact route.",
+        );
+      }
     }
     throw new PublicApiError(
       503,
@@ -170,7 +220,8 @@ export async function createCalendlyBooking(
   fetcher = fetch,
 ) {
   const recheckEnd = new Date(
-    Date.parse(booking.startTime) + BOOKING_DURATION_MINUTES * 60_000,
+    Date.parse(booking.startTime) +
+      (Number(eventType.duration) || BOOKING_DURATION_MINUTES) * 60_000,
   ).toISOString();
   const available = await fetchEventAvailability(
     eventType,
@@ -189,28 +240,12 @@ export async function createCalendlyBooking(
   }
 
   const built = buildInviteePayload(eventType, booking);
-  let response;
-  try {
-    response = await calendlyRequest(
-      "/invitees",
-      token,
-      { method: "POST", body: JSON.stringify(built.payload) },
-      fetcher,
-    );
-  } catch (error) {
-    if (
-      error instanceof PublicApiError &&
-      error.code === "UPSTREAM_UNAVAILABLE"
-    ) {
-      throw new PublicApiError(
-        409,
-        "SLOT_UNAVAILABLE",
-        "That time could not be reserved. Please choose another available slot.",
-        true,
-      );
-    }
-    throw error;
-  }
+  const response = await calendlyRequest(
+    "/invitees",
+    token,
+    { method: "POST", body: JSON.stringify(built.payload) },
+    fetcher,
+  );
   const resource = response?.resource ?? {};
   const cancelUrl = safeCalendlyUrl(resource.cancel_url);
   const rescheduleUrl = safeCalendlyUrl(resource.reschedule_url);

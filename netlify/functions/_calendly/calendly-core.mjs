@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 
 export const PUBLIC_EVENT_URL = "https://calendly.com/silverstone-ai/30min";
 export const APPLICATION_WINDOW_DAYS = 42;
+export const BOOKING_HORIZON_MONTHS = 3;
 /* Calendly documents a 7-day maximum range for event_type_available_times;
    larger ranges currently succeed but are undocumented behaviour. */
 export const UPSTREAM_MAX_DAYS = 7;
@@ -105,6 +106,37 @@ export function isValidTimeZone(value) {
   }
 }
 
+function dateKeyInTimeZone(isoTimestamp, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date(isoTimestamp));
+  const values = Object.fromEntries(
+    parts.map((part) => [part.type, part.value]),
+  );
+  return `${values.year ?? ""}-${values.month ?? ""}-${values.day ?? ""}`;
+}
+
+function addDateKeyDays(value, days) {
+  const next = new Date(`${value}T00:00:00Z`);
+  next.setUTCDate(next.getUTCDate() + days);
+  return next.toISOString().slice(0, 10);
+}
+
+function addDateKeyMonths(value, months) {
+  const source = new Date(`${value}T00:00:00Z`);
+  const day = source.getUTCDate();
+  source.setUTCDate(1);
+  source.setUTCMonth(source.getUTCMonth() + months);
+  const lastDay = new Date(
+    Date.UTC(source.getUTCFullYear(), source.getUTCMonth() + 1, 0),
+  ).getUTCDate();
+  source.setUTCDate(Math.min(day, lastDay));
+  return source.toISOString().slice(0, 10);
+}
+
 export function parseAvailabilityQuery(parameters) {
   const start = parameters.get("start") ?? "";
   const days = Number(parameters.get("days"));
@@ -119,11 +151,11 @@ export function parseAvailabilityQuery(parameters) {
       "Choose a valid start date.",
     );
   }
-  if (days !== APPLICATION_WINDOW_DAYS) {
+  if (!Number.isInteger(days) || days < 1 || days > APPLICATION_WINDOW_DAYS) {
     throw new PublicApiError(
       400,
       "INVALID_REQUEST",
-      "Availability requests must cover exactly six weeks.",
+      "Availability requests must cover between one day and six weeks.",
     );
   }
   if (!isValidTimeZone(timezone)) {
@@ -134,11 +166,17 @@ export function parseAvailabilityQuery(parameters) {
     );
   }
 
-  const startMs = Date.parse(`${start}T00:00:00Z`);
-  const todayMs = Date.parse(
-    new Date().toISOString().slice(0, 10) + "T00:00:00Z",
+  const todayKey = dateKeyInTimeZone(new Date().toISOString(), timezone);
+  const horizonEndExclusive = addDateKeyDays(
+    addDateKeyMonths(todayKey, BOOKING_HORIZON_MONTHS),
+    1,
   );
-  if (startMs < todayMs - DAY_MS || startMs > todayMs + 370 * DAY_MS) {
+  const endExclusive = addDateKeyDays(start, days);
+  if (
+    start < todayKey ||
+    start >= horizonEndExclusive ||
+    endExclusive > horizonEndExclusive
+  ) {
     throw new PublicApiError(
       400,
       "INVALID_REQUEST",
@@ -149,7 +187,7 @@ export function parseAvailabilityQuery(parameters) {
     start,
     days,
     timezone,
-    endExclusive: new Date(startMs + days * DAY_MS).toISOString().slice(0, 10),
+    endExclusive,
   };
 }
 
@@ -300,25 +338,27 @@ export function validateBookingRequest(value, now = Date.now()) {
     );
   }
 
-  const startTime = cleanString(value.startTime, 40, true);
-  const startMs = Date.parse(startTime);
-  if (
-    !Number.isFinite(startMs) ||
-    startMs < now + 30_000 ||
-    startMs > now + 370 * DAY_MS
-  ) {
-    throw new PublicApiError(
-      400,
-      "INVALID_REQUEST",
-      "Choose a valid future time.",
-    );
-  }
   const timezone = cleanString(value.timezone, 80, true);
   if (!isValidTimeZone(timezone)) {
     throw new PublicApiError(
       400,
       "INVALID_TIMEZONE",
       "Choose a valid timezone.",
+    );
+  }
+  const startTime = cleanString(value.startTime, 40, true);
+  const startMs = Date.parse(startTime);
+  const todayKey = dateKeyInTimeZone(new Date(now).toISOString(), timezone);
+  const horizonKey = addDateKeyMonths(todayKey, BOOKING_HORIZON_MONTHS);
+  if (
+    !Number.isFinite(startMs) ||
+    startMs < now + 30_000 ||
+    dateKeyInTimeZone(new Date(startMs).toISOString(), timezone) > horizonKey
+  ) {
+    throw new PublicApiError(
+      400,
+      "INVALID_REQUEST",
+      "Choose a valid future time within the three-month booking horizon.",
     );
   }
 
@@ -377,7 +417,8 @@ function questionKind(name) {
 
 function isFreeTextQuestion(question) {
   return (
-    !Array.isArray(question.answer_choices) || question.answer_choices.length === 0
+    !Array.isArray(question.answer_choices) ||
+    question.answer_choices.length === 0
   );
 }
 
@@ -391,9 +432,11 @@ export function composeDiscoveryBrief(booking) {
     `Budget: ${booking.qualification.budget}`,
     `Timing: ${booking.qualification.urgency}`,
   ];
-  if (booking.details.company) lines.push(`Company: ${booking.details.company}`);
+  if (booking.details.company)
+    lines.push(`Company: ${booking.details.company}`);
   if (booking.details.role) lines.push(`Role: ${booking.details.role}`);
-  if (booking.details.context) lines.push(`Context: ${booking.details.context}`);
+  if (booking.details.context)
+    lines.push(`Context: ${booking.details.context}`);
   return lines.join("\n").slice(0, ANSWER_MAX_LENGTH);
 }
 
@@ -420,7 +463,11 @@ export function buildQuestionsAndAnswers(eventType, booking) {
     if (question?.enabled === false || typeof question?.name !== "string")
       continue;
     const kind = questionKind(question.name);
-    if (kind === "context" && isFreeTextQuestion(question) && !contextQuestion) {
+    if (
+      kind === "context" &&
+      isFreeTextQuestion(question) &&
+      !contextQuestion
+    ) {
       contextQuestion = question;
       continue;
     }
@@ -471,9 +518,43 @@ export function buildQuestionsAndAnswers(eventType, booking) {
 
 export function buildInviteePayload(eventType, booking) {
   const mapped = buildQuestionsAndAnswers(eventType, booking);
-  /* No `location` field: the Scheduling API treats it as optional and the
-     event type's own location configuration (e.g. google_conference) governs
-     where the call happens, exactly as with a Calendly-hosted booking. */
+  const configuredLocations = Array.isArray(eventType.locations)
+    ? eventType.locations.filter(
+        (location) => location && typeof location === "object" && location.kind,
+      )
+    : [];
+  if (configuredLocations.length > 1) {
+    throw new PublicApiError(
+      503,
+      "SERVER_MISCONFIGURED",
+      "This event type requires a location choice that the booking form does not collect.",
+    );
+  }
+  const configuredLocation = configuredLocations[0];
+  let location;
+  if (configuredLocation) {
+    const kind = cleanString(configuredLocation.kind, 80, true);
+    const suppliedLocation = cleanString(configuredLocation.location, 300);
+    if (
+      (kind === "ask_invitee" || kind === "outbound_call") &&
+      !suppliedLocation
+    ) {
+      throw new PublicApiError(
+        503,
+        "SERVER_MISCONFIGURED",
+        "This event type requires location details that the booking form does not collect.",
+      );
+    }
+    location = {
+      kind,
+      ...(suppliedLocation ? { location: suppliedLocation } : {}),
+    };
+  }
+
+  /* Calendly's Scheduling API requires the event type's configured location
+     whenever that event type has one. Host-generated conference kinds such as
+     google_conference need the kind only; invitee-supplied locations also need
+     a value, and are rejected above until the UI explicitly collects it. */
   const payload = {
     event_type: eventType.uri,
     start_time: booking.startTime,
@@ -482,6 +563,7 @@ export function buildInviteePayload(eventType, booking) {
       email: booking.details.email,
       timezone: booking.timezone,
     },
+    ...(location ? { location } : {}),
   };
   if (mapped.answers.length > 0) {
     payload.questions_and_answers = mapped.answers;
@@ -511,7 +593,7 @@ export function bookingFingerprint(idempotencyKey, booking) {
 export function createServerMockAvailability(window) {
   const slots = [];
   const startMs = Date.parse(`${window.start}T00:00:00Z`);
-  for (let day = 0; day < APPLICATION_WINDOW_DAYS; day += 1) {
+  for (let day = 0; day < window.days; day += 1) {
     const current = new Date(startMs + day * DAY_MS);
     if (current.getUTCDay() === 0 || day % 9 === 4) continue;
     for (let minutes = 510; minutes <= 1080; minutes += 30) {

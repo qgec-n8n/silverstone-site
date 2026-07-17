@@ -244,6 +244,7 @@ function syncCodexMcpConfig() {
       "args",
       "cwd",
       "env_vars",
+      "bearer_token_env_var",
       "enabled",
       "startup_timeout_sec",
       "tool_timeout_sec",

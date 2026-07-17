@@ -73,10 +73,14 @@
 - React DayPicker is exposed through the local shadcn/ui Calendar component.
 - The console has a stable breakpoint-defined height; workflow state and availability volume do not resize it.
 - The calendar remains stationary and only the dedicated time-slot viewport scrolls.
-- The application availability unit is exactly 42 days. Server requests split that unit into API-compliant upstream ranges, then merge, deduplicate, and sort reduced slot data.
+- The selectable horizon runs from the current local date through the same calendar date three months later, inclusive. Dates beyond that boundary cannot be selected or submitted.
+- Each application request covers at most 42 days and shortens at the final horizon boundary. The server splits requests into Calendly's documented maximum seven-day upstream ranges, then merges, deduplicates, and sorts reduced slot data.
+- Availability is cached by event type, booking mode, timezone, and date range. Overlapping navigation requests fetch only uncovered ranges, share in-flight work, and cannot let an older response replace newer state.
 - Live availability and booking creation use same-origin Netlify Functions; `CALENDLY_API_TOKEN` and optional `CALENDLY_EVENT_TYPE_URI` are server-only.
 - The event type resolves from the preserved public event URL and is cached server-side.
-- Booking creation rechecks the slot, validates all fields, limits abuse, and controls duplicate submissions.
+- Booking creation rechecks the slot, validates all fields, sends the event type's configured location, limits abuse, and controls duplicate submissions.
+- A stale or concurrently claimed slot is invalidated locally, availability is refreshed, the failed time selection is cleared, and the invitee is returned to another verified time.
+- The phone layout keeps status, month navigation, six-week date grid, and availability key in dedicated non-overlapping rows inside a viewport-bounded shell. The desktop composition remains outside the phone-only media boundary.
 - Clear loading, empty, rate-limit, unavailable-slot, configuration, and upstream fallback states.
 - No-pressure copy and practical next-step framing.
 

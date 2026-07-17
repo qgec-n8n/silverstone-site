@@ -1,6 +1,5 @@
 import { addDays, parseDateKey } from "~/features/booking/booking-dates";
 import {
-  APPLICATION_WINDOW_DAYS,
   BOOKING_DURATION_MINUTES,
   type AvailabilityResponse,
   type AvailabilitySlot,
@@ -33,7 +32,7 @@ function atUtc(dateKey: string, hour: number, minute: number): string {
 
 export function createMockSlots(window: AvailabilityWindow): AvailabilitySlot[] {
   const slots: AvailabilitySlot[] = [];
-  for (let offset = 0; offset < APPLICATION_WINDOW_DAYS; offset += 1) {
+  for (let offset = 0; offset < window.days; offset += 1) {
     const dateKey = addDays(window.start, offset);
     const day = parseDateKey(dateKey).getDay();
     if (day === 0 || (day === 6 && offset % 2 !== 0) || offset % 9 === 4) {

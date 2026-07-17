@@ -27,6 +27,7 @@ export function useBookingAvailability(
   timeZone: string,
   mode: BookingMode,
   enabled: boolean,
+  refreshToken = 0,
 ): BookingAvailabilityState {
   const [revision, setRevision] = useState(0);
   const [error, setError] = useState<BookingApiError | null>(null);
@@ -34,6 +35,8 @@ export function useBookingAvailability(
   const [slots, setSlots] = useState<AvailabilitySlot[]>([]);
   const [now] = useState(() => new Date());
   const requestVersion = useRef(0);
+  const appliedRevision = useRef(0);
+  const appliedRefreshToken = useRef(0);
   const window = useMemo(
     () => windowForMonth(month, now, timeZone),
     [month, now, timeZone],
@@ -46,6 +49,11 @@ export function useBookingAvailability(
 
     const version = requestVersion.current + 1;
     requestVersion.current = version;
+    const force =
+      revision !== appliedRevision.current ||
+      refreshToken !== appliedRefreshToken.current;
+    appliedRevision.current = revision;
+    appliedRefreshToken.current = refreshToken;
     const controller = new AbortController();
     void Promise.resolve().then(() => {
       if (requestVersion.current !== version) return;
@@ -64,7 +72,7 @@ export function useBookingAvailability(
       timeZone,
       window,
       signal: controller.signal,
-      force: revision > 0,
+      force,
     })
       .then((response) => {
         if (requestVersion.current !== version) {
@@ -94,7 +102,7 @@ export function useBookingAvailability(
       });
 
     return () => controller.abort();
-  }, [enabled, mode, revision, timeZone, window]);
+  }, [enabled, mode, refreshToken, revision, timeZone, window]);
 
   const retry = useCallback(() => setRevision((value) => value + 1), []);
   const slotsByDate = useMemo(

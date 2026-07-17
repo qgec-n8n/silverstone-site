@@ -90,7 +90,7 @@ export function resolveFeaturedInsights({
   referenceDate,
   posts = PUBLISHED_BLOG_POSTS,
   editions = FEATURED_INSIGHT_EDITIONS,
-  limit = 3,
+  limit = 5,
 }: ResolveFeaturedInsightsOptions): FeaturedInsightSelection {
   const selectionLimit = Math.max(0, Math.floor(limit));
   const published = posts

@@ -2799,29 +2799,34 @@
 
 @media (max-width: 44rem) {
   .ss-core-booking {
-    /* svh keeps the shell steady while mobile browser chrome expands and
-       collapses; safe-area padding keeps the footer reachable. */
-    height: clamp(29rem, 100svh - var(--ss-layout-header, 3.75rem) - 1.5rem, 46rem);
+    /* Fit between the fixed site header and the bottom of the small viewport.
+       The previous 29rem floor starved the calendar's middle track on
+       568–667px phones, while using 100svh hid the progress rail behind the
+       fixed header. */
+    width: auto;
+    max-width: 100vw;
+    height: min(46rem, calc(100svh - var(--ss-layout-header, 5rem) - 1rem));
     /* The shell sits inside both the core-pages layout gutter and the
        .ss-srv2__container gutter; reclaim the inner one so the console
        spans the page's single mobile gutter instead of a doubled one. */
     margin-inline: calc(-1 * var(--srv2-gutter));
-    padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.75rem 0.75rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
     border-radius: var(--ss-radius-xl);
   }
 
   .ss-booking-shell__header {
-    display: grid;
-    gap: 0.55rem;
-    padding-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding-bottom: 0.5rem;
   }
 
   .ss-booking-shell__intro {
-    gap: 0.4rem;
+    gap: 0;
   }
 
   .ss-booking-shell__intro h3 {
-    font-size: 1.25rem;
+    display: none;
   }
 
   .ss-booking-shell__intro p {
@@ -2829,13 +2834,11 @@
   }
 
   .ss-booking-shell__security {
-    min-height: 2rem;
-    padding-block: 0.32rem;
-    justify-self: start;
+    display: none;
   }
 
   .ss-booking-progress {
-    padding-block: 0.55rem 0.65rem;
+    padding-block: 0.42rem 0.5rem;
   }
 
   .ss-booking-progress button {
@@ -2843,7 +2846,7 @@
     justify-items: center;
     gap: 0.28rem;
     width: 100%;
-    min-height: 2.9rem;
+    min-height: 2.35rem;
     padding: 0;
     text-align: center;
   }
@@ -2853,8 +2856,8 @@
   }
 
   .ss-booking-progress__index {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 1.45rem;
+    height: 1.45rem;
   }
 
   .ss-booking-progress__label-full {
@@ -2867,9 +2870,8 @@
   }
 
   .ss-booking-shell__viewport {
-    padding-block: 0.7rem 0.45rem;
-    overflow-y: auto;
-    overscroll-behavior-y: auto;
+    padding-block: 0.5rem 0.3rem;
+    overflow: hidden;
   }
 
   /* Qualify, details and the calendar sub-view flow naturally and scroll
@@ -2899,7 +2901,7 @@
   }
 
   .ss-booking-stage__error {
-    min-height: 1rem;
+    min-height: 0.9rem;
     font-size: 0.7rem;
   }
 
@@ -3124,9 +3126,9 @@
   }
 
   .ss-booking-shell__footer {
-    min-height: 3.6rem;
-    gap: 0.55rem;
-    padding-top: 0.6rem;
+    min-height: 3.15rem;
+    gap: 0.45rem;
+    padding-top: 0.45rem;
   }
 
   .ss-booking-shell__footer-secondary {
@@ -3165,43 +3167,94 @@
 
   .ss-booking-mstage {
     grid-template-rows: auto minmax(0, 1fr) 1rem;
-    gap: 0.6rem;
+    gap: 0.4rem;
   }
 
   /* -- 01a · Day: pane-derived calendar sizing (same cqh technique as the
         desktop pane) so six weeks + status + legend always fit. */
   .ss-booking-mdate__pane {
     container-type: size;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 0.3rem;
+    min-height: 0;
     padding: 0.5rem 0.6rem;
     overflow: hidden;
   }
 
   .ss-booking-mdate__pane .ss-booking-calendar {
+    container-type: size;
+    align-self: center;
     width: 100%;
+    height: min(100%, 22rem);
+    min-height: 0;
+  }
+
+  .ss-booking-mdate .ss-booking-stage__heading--schedule {
+    grid-template-columns: minmax(0, 1fr) minmax(7.5rem, 9.75rem);
+    min-height: 2.5rem;
+    column-gap: 0.55rem;
+    row-gap: 0;
+  }
+
+  .ss-booking-mdate .ss-booking-stage__heading--schedule > span {
+    display: none;
+  }
+
+  .ss-booking-mdate .ss-booking-stage__heading--schedule h4 {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    font-size: 1rem;
+  }
+
+  .ss-booking-mdate .ss-booking-timezone {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .ss-booking-mdate .ss-booking-timezone select {
+    min-height: 2.5rem;
   }
 
   .ss-booking-mdate__pane .ss-booking-calendar__caption,
   .ss-booking-mdate__pane .ss-booking-calendar__nav {
-    height: clamp(1.8rem, calc((100cqh - 8.2rem) / 7 + 0.3rem), 2.6rem);
+    height: clamp(2.35rem, 17cqh, 2.75rem);
   }
 
   .ss-booking-mdate__pane .ss-booking-calendar__nav-button {
-    width: clamp(1.8rem, calc((100cqh - 8.2rem) / 7 + 0.3rem), 2.6rem);
-    height: clamp(1.8rem, calc((100cqh - 8.2rem) / 7 + 0.3rem), 2.6rem);
+    width: clamp(2.35rem, 17cqh, 2.75rem);
+    height: clamp(2.35rem, 17cqh, 2.75rem);
+  }
+
+  .ss-booking-mdate__pane .ss-booking-calendar__grid {
+    border-spacing: clamp(0.06rem, 0.5cqh, 0.14rem);
+  }
+
+  .ss-booking-mdate__pane .ss-booking-calendar__weekday {
+    height: clamp(1.1rem, 8cqh, 1.4rem);
   }
 
   .ss-booking-mdate__pane .ss-booking-calendar__day,
   .ss-booking-mdate__pane .ss-booking-calendar__day-button {
-    height: clamp(1.5rem, calc((100cqh - 8.2rem) / 7), 2.75rem);
+    height: clamp(1.65rem, calc((100cqh - 4.5rem) / 6), 2.75rem);
   }
 
   .ss-booking-mdate__pane .ss-booking-calendar-skeleton > * {
-    height: clamp(1.5rem, calc((100cqh - 8.2rem) / 7), 2.6rem);
+    height: clamp(1.65rem, calc((100cqh - 4.5rem) / 6), 2.6rem);
   }
 
   .ss-booking-mdate__pane .ss-booking-calendar-legend {
     align-self: end;
     min-height: 1.3rem;
+    gap: clamp(0.45rem, 3.2vw, 0.9rem);
+    font-size: 0.55rem;
+  }
+
+  .ss-booking-mdate__pane .ss-booking-calendar-pane__status {
+    min-height: 1.35rem;
+    padding-inline: 0.1rem;
+    border-bottom: 1px solid var(--booking-line-soft);
+    font-size: 0.57rem;
   }
 
   /* -- 01b · Time: the slot dial. Fixed-height instrument for any number
@@ -3582,13 +3635,30 @@
   }
 }
 
+/* Compact-height phones trade the redundant shell tag and progress rail for
+   calendar height. The active stage heading remains visible, so no task or
+   navigation control is lost. */
+@media (max-width: 44rem) and (max-height: 42rem) {
+  .ss-booking-shell__header {
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  .ss-booking-progress {
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+}
+
 /* Very short phones (landscape, compact devices): reclaim decorative chrome
    so the pinned mobile panels keep usable content heights. */
 @media (max-width: 44rem) and (max-height: 38rem) {
-  .ss-booking-shell__intro .ss-srv2-bench__tag,
-  .ss-booking-shell__security,
-  .ss-booking-mdate__pane .ss-booking-calendar-pane__status,
-  .ss-booking-mdate__pane .ss-booking-calendar-legend,
   .ss-core-booking[data-flow="mobile"] .ss-booking-confirmation__brief,
   .ss-booking-stage__heading p {
     display: none;
@@ -3596,10 +3666,6 @@
 
   .ss-booking-shell__intro h3 {
     font-size: 1.1rem;
-  }
-
-  .ss-booking-progress button {
-    min-height: 2.3rem;
   }
 
   .ss-booking-shell__footer {
@@ -3627,24 +3693,14 @@
     justify-self: start;
   }
 
-  /* Below ~375px the single footer row cannot fit the secondary link plus
-     the longest CTA label; stack them so the CTA never clips. Every stage
-     renders exactly one secondary control and one primary, so the stacked
-     footer height stays constant across stages. */
-  .ss-booking-shell__footer {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-  }
-
   .ss-booking-shell__footer-secondary {
-    justify-content: center;
+    min-width: 0;
   }
 
-  .ss-booking-shell__primary,
-  .ss-booking-shell__complete {
-    width: 100%;
-    justify-content: center;
+  .ss-core-booking[data-flow="mobile"] .ss-booking-shell__primary,
+  .ss-core-booking[data-flow="mobile"] .ss-booking-shell__complete {
+    min-width: 0;
+    width: auto;
   }
 }
 
@@ -4442,8 +4498,7 @@ a.ss-insight-card:hover {
 .ss-featured-primary,
 .ss-featured-support,
 .ss-featured-primary__link,
-.ss-featured-support__link,
-.ss-focus-cards__item {
+.ss-featured-support__link {
   min-width: 0;
   min-height: 0;
 }
@@ -4634,16 +4689,9 @@ a.ss-insight-card:hover {
   transition: transform 220ms var(--ss-motion-easing-standard);
 }
 
-.ss-focus-cards,
 .ss-featured-insights__supporting {
   display: grid;
   gap: clamp(0.85rem, 0.65rem + 0.8vw, 1.35rem);
-}
-
-.ss-focus-cards__item {
-  transition:
-    opacity 260ms var(--ss-motion-easing-standard),
-    transform 260ms var(--ss-motion-easing-standard);
 }
 
 .ss-featured-support,
@@ -4758,27 +4806,6 @@ a.ss-insight-card:hover {
   .ss-featured-support__link:hover .ss-featured-card__action svg {
     transform: translate(0.16rem, -0.16rem);
   }
-
-  .ss-focus-cards__item[data-focus-state="quiet"] {
-    opacity: 0.72;
-    transform: scale(0.99);
-  }
-
-  .ss-focus-cards__item[data-focus-state="active"] .ss-featured-support__link {
-    border-color: color-mix(in srgb, var(--srv2-accent) 48%, var(--srv2-hairline));
-    background:
-      linear-gradient(
-        145deg,
-        color-mix(in srgb, var(--srv2-accent) 11%, transparent),
-        transparent 42%
-      ),
-      color-mix(in srgb, var(--ss-v2-graphite-raised) 91%, transparent);
-  }
-
-  .ss-focus-cards__item[data-focus-state="active"] .ss-featured-support__media img {
-    filter: saturate(0.96) brightness(0.9);
-    transform: scale(1.04);
-  }
 }
 
 @media (min-width: 48rem) {
@@ -4792,6 +4819,7 @@ a.ss-insight-card:hover {
 
   .ss-featured-insights__supporting {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr);
   }
 }
 
@@ -4848,12 +4876,797 @@ a.ss-insight-card:hover {
   .ss-featured-primary__media img,
   .ss-featured-primary__illumination,
   .ss-featured-card__action svg,
-  .ss-focus-cards__item,
   .ss-featured-support__link,
   .ss-featured-support__media img {
     transition: none;
   }
 
+  .ss-featured-primary__media img,
+  .ss-featured-support__media img {
+    transform: none;
+  }
+}
+
+/* ---- Premium editorial card systems ---------------------------------- */
+
+/* Aceternity 3D Card Effect: the registry's demo shell is intentionally
+   absent. Perspective belongs to the card bounds, not a centred page demo. */
+.ss-3d-card,
+.ss-3d-card__stage,
+.ss-3d-card__body {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.ss-3d-card {
+  perspective: 1100px;
+}
+
+.ss-3d-card__stage,
+.ss-3d-card__body,
+.ss-featured-primary__link,
+.ss-featured-support__link {
+  transform-style: preserve-3d;
+}
+
+.ss-3d-card__stage {
+  transform-origin: 50% 50%;
+}
+
+/* Aceternity Card Hover Effect: one luminous surface travels between stable
+   article IDs. The article itself stays opaque and readable at all times. */
+.ss-card-hover-effect__item {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  height: 100%;
+  padding: 0.34rem;
+}
+
+.ss-card-hover-effect__surface {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 46%, var(--srv2-hairline));
+  border-radius: calc(var(--ss-radius-xl) + 0.34rem);
+  pointer-events: none;
+  background:
+    radial-gradient(
+      16rem 10rem at 20% 0%,
+      color-mix(in srgb, var(--srv2-accent) 18%, transparent),
+      transparent 72%
+    ),
+    linear-gradient(
+      125deg,
+      color-mix(in srgb, var(--srv2-accent) 9%, transparent),
+      color-mix(in srgb, var(--srv2-accent-2) 10%, transparent)
+    );
+  box-shadow:
+    0 18px 42px -28px color-mix(in srgb, var(--srv2-accent) 72%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 10%, transparent);
+}
+
+.ss-insight-grid.ss-card-hover-effect {
+  align-items: stretch;
+}
+
+.ss-insight-grid__item > .ss-insight-card {
+  position: relative;
+  z-index: 1;
+}
+
+.ss-insight-card {
+  border-color: color-mix(in srgb, var(--ss-v2-platinum) 13%, var(--srv2-hairline));
+  border-radius: var(--ss-radius-xl);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--ss-v2-platinum) 4%, transparent),
+      transparent 42%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite-raised) 91%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 7%, transparent),
+    0 20px 38px -34px rgba(0, 0, 0, 0.96);
+  transition:
+    border-color 220ms var(--ss-motion-easing-standard),
+    box-shadow 220ms var(--ss-motion-easing-standard),
+    transform 220ms var(--ss-motion-easing-standard);
+}
+
+a.ss-insight-card:hover,
+.ss-insight-grid__item[data-card-hover-state="active"] > .ss-insight-card {
+  border-color: color-mix(in srgb, var(--srv2-accent) 42%, var(--srv2-hairline));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 10%, transparent),
+    0 24px 52px -34px color-mix(in srgb, var(--srv2-accent) 35%, black);
+  transform: translateY(-2px);
+}
+
+.ss-insight-card:focus-visible {
+  outline: 2px solid var(--srv2-accent);
+  outline-offset: 3px;
+}
+
+.ss-insight-card__media {
+  aspect-ratio: 16 / 8.8;
+  border-bottom: 1px solid color-mix(in srgb, var(--ss-v2-platinum) 10%, transparent);
+}
+
+.ss-insight-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 48%, rgba(1, 5, 12, 0.78)),
+    linear-gradient(110deg, rgba(38, 221, 255, 0.04), transparent 38%);
+}
+
+.ss-insight-card__media img {
+  filter: saturate(0.82) contrast(1.05) brightness(0.86);
+  transform: scale(1.012);
+  transition:
+    filter 320ms var(--ss-motion-easing-standard),
+    transform 420ms var(--ss-motion-easing-standard);
+}
+
+.ss-insight-card__category {
+  z-index: 1;
+  border-color: color-mix(in srgb, var(--srv2-accent) 34%, transparent);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 68%, transparent);
+  color: color-mix(in srgb, var(--srv2-accent) 84%, white);
+}
+
+.ss-insight-card__body {
+  gap: 0.62rem;
+  padding: 1.05rem 1.08rem 1.15rem;
+}
+
+.ss-insight-card__title {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--ss-v2-chrome);
+  font-size: clamp(1.04rem, 0.98rem + 0.28vw, 1.16rem);
+  font-weight: 570;
+  letter-spacing: -0.024em;
+  line-height: 1.2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.ss-insight-card__summary {
+  gap: 0.34rem;
+  color: color-mix(in srgb, var(--ss-v2-platinum) 67%, transparent);
+}
+
+.ss-insight-card__summary li::before {
+  border-radius: 0;
+  box-shadow: 0 0 0.55rem color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+  transform: rotate(45deg);
+}
+
+.ss-insight-card__cta {
+  min-height: 2.75rem;
+  color: color-mix(in srgb, var(--srv2-accent) 88%, white);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ss-insight-grid__item[data-card-hover-state="active"] .ss-insight-card__media img {
+    filter: saturate(0.98) contrast(1.04) brightness(0.91);
+    transform: scale(1.04);
+  }
+}
+
+/* Featured Intelligence — compact editorial hierarchy. The media-first,
+   split-copy structure adapts 21st.dev's Editorial Image Hero reference into
+   Silverstone's cinematic material language. */
+.ss-featured-insights.ss-srv2-section {
+  padding-block: clamp(2.4rem, 3.8vw, 3.4rem);
+}
+
+.ss-featured-insights::before {
+  inset: 2% 0 3%;
+  background:
+    radial-gradient(
+      48rem 24rem at 12% 38%,
+      color-mix(in srgb, var(--srv2-accent) 9%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38rem 24rem at 90% 74%,
+      color-mix(in srgb, var(--srv2-accent-2) 8%, transparent),
+      transparent 72%
+    );
+}
+
+.ss-featured-insights__intro {
+  align-items: center;
+  gap: clamp(1.1rem, 2vw, 2.25rem);
+  margin-block-end: clamp(1.1rem, 2vw, 1.7rem);
+}
+
+.ss-featured-insights__eyebrow {
+  margin-block-end: 0.52rem;
+}
+
+.ss-featured-insights__intro h2 {
+  max-width: 22ch;
+  font-size: clamp(1.9rem, 1.5rem + 1.8vw, 2.9rem);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+
+.ss-featured-insights__dispatch {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.8rem 1.1rem;
+  max-width: none;
+}
+
+.ss-featured-insights__dispatch > p {
+  max-width: 44ch;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.ss-featured-insights__edition {
+  min-height: 2.35rem;
+  padding: 0.42rem 0.72rem;
+  background: color-mix(in srgb, var(--ss-v2-graphite) 74%, transparent);
+  font-size: 0.65rem;
+}
+
+.ss-featured-insights__grid {
+  display: grid;
+  gap: clamp(0.72rem, 1.2vw, 1rem);
+  height: auto;
+}
+
+.ss-featured-primary,
+.ss-featured-primary__perspective,
+.ss-featured-primary__stage,
+.ss-featured-primary__body {
+  height: clamp(24rem, 68vw, 34rem);
+  min-height: 0;
+}
+
+.ss-featured-primary__link,
+.ss-featured-support__link {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ss-featured-primary__link {
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 34%, var(--srv2-hairline));
+  border-radius: clamp(1.15rem, 1rem + 0.7vw, 1.55rem);
+  background: var(--ss-v2-graphite-raised);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 10%, transparent),
+    0 28px 64px -46px color-mix(in srgb, var(--srv2-accent) 48%, transparent);
+}
+
+.ss-featured-primary__link::before,
+.ss-featured-primary__link::after,
+.ss-featured-support__link::before,
+.ss-featured-support__link::after {
+  content: none;
+}
+
+.ss-featured-primary__media,
+.ss-featured-primary__atmosphere,
+.ss-featured-support__media,
+.ss-featured-support__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ss-featured-primary__media,
+.ss-featured-support__media {
+  z-index: 0;
+  overflow: hidden;
+  background: var(--ss-v2-void-black);
+}
+
+.ss-featured-primary__media img,
+.ss-featured-support__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.83) contrast(1.06) brightness(0.79);
+  transform: scale(1.018);
+  transition:
+    filter 340ms var(--ss-motion-easing-standard),
+    transform 440ms var(--ss-motion-easing-standard);
+}
+
+.ss-featured-primary__media img {
+  object-position: center 52%;
+}
+
+.ss-featured-primary__atmosphere {
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 3, 8, 0.9) 0%,
+      rgba(0, 3, 8, 0.42) 56%,
+      transparent 86%
+    ),
+    linear-gradient(0deg, rgba(0, 3, 8, 0.92) 0%, transparent 76%),
+    linear-gradient(120deg, rgba(38, 221, 255, 0.09), transparent 38%);
+}
+
+.ss-featured-primary__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  gap: 0.58rem;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  padding: clamp(1.15rem, 0.85rem + 1.5vw, 2rem);
+}
+
+.ss-featured-primary__topline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.46rem 0.68rem;
+  width: 100%;
+}
+
+.ss-featured-primary__topline .ss-featured-card__meta {
+  margin-inline-start: 0;
+}
+
+.ss-featured-primary__title,
+.ss-featured-primary__footer {
+  width: 100%;
+}
+
+.ss-featured-primary__title h3,
+.ss-featured-primary__content h3 {
+  display: -webkit-box;
+  overflow: hidden;
+  max-width: 21ch;
+  margin: 0;
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.65rem, 1.15rem + 2.1vw, 2.85rem);
+  font-weight: 545;
+  letter-spacing: -0.04em;
+  line-height: 1.01;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(0, 3, 8, 0.78);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.ss-featured-primary__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.ss-featured-primary__footer > p,
+.ss-featured-primary__content > p {
+  display: -webkit-box;
+  overflow: hidden;
+  max-width: 53ch;
+  margin: 0;
+  color: color-mix(in srgb, var(--ss-v2-platinum) 78%, transparent);
+  font-size: clamp(0.82rem, 0.76rem + 0.25vw, 0.94rem);
+  line-height: 1.46;
+  text-shadow: 0 2px 18px rgba(0, 3, 8, 0.88);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ss-featured-card__category,
+.ss-featured-primary__rank {
+  min-height: 1.7rem;
+  padding-inline: 0.62rem;
+  font-size: 0.58rem;
+}
+
+.ss-featured-card__meta {
+  font-size: 0.63rem;
+}
+
+.ss-featured-card__action {
+  min-height: 2.75rem;
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.ss-featured-card__inner-rule {
+  position: absolute;
+  z-index: 5;
+  inset: 0.48rem;
+  border-top: 1px solid color-mix(in srgb, white 11%, transparent);
+  border-left: 1px solid color-mix(in srgb, white 7%, transparent);
+  border-radius: calc(clamp(1.15rem, 1rem + 0.7vw, 1.55rem) - 0.48rem);
+  clip-path: polygon(0 0, 4rem 0, 4rem 1px, 0 1px, 0 100%, 1px 100%, 1px 0);
+  pointer-events: none;
+}
+
+.ss-featured-support,
+.ss-featured-support__perspective,
+.ss-featured-support__stage,
+.ss-featured-support__body {
+  height: 17rem;
+  min-height: 0;
+}
+
+.ss-featured-support__link {
+  border: 1px solid color-mix(in srgb, var(--ss-v2-platinum) 15%, var(--srv2-hairline));
+  border-radius: var(--ss-radius-xl);
+  background: var(--ss-v2-graphite-raised);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 8%, transparent),
+    0 22px 50px -42px rgba(0, 0, 0, 0.95);
+}
+
+.ss-featured-support__media {
+  aspect-ratio: auto;
+}
+
+.ss-featured-support__media::after {
+  content: none;
+}
+
+.ss-featured-support__media img {
+  object-position: center 48%;
+}
+
+.ss-featured-support__scrim {
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      0deg,
+      rgba(0, 3, 8, 0.97) 0%,
+      rgba(0, 3, 8, 0.74) 42%,
+      transparent 82%
+    ),
+    linear-gradient(110deg, rgba(38, 221, 255, 0.08), transparent 44%);
+}
+
+.ss-featured-support__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  gap: 0.45rem;
+  width: 100%;
+  height: 100%;
+  padding: clamp(1rem, 0.82rem + 0.7vw, 1.3rem);
+}
+
+.ss-featured-support__topline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.42rem 0.65rem;
+  width: 100%;
+}
+
+.ss-featured-support__title,
+.ss-featured-support__action {
+  width: 100%;
+}
+
+.ss-featured-support__title h3,
+.ss-featured-support__content h3 {
+  display: -webkit-box;
+  overflow: hidden;
+  max-width: 31ch;
+  margin: 0;
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.08rem, 0.98rem + 0.45vw, 1.34rem);
+  font-weight: 560;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+  text-wrap: balance;
+  text-shadow: 0 2px 18px rgba(0, 3, 8, 0.86);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ss-featured-support__action .ss-featured-card__action {
+  min-height: 2.45rem;
+  color: color-mix(in srgb, var(--srv2-accent) 88%, white);
+  font-size: 0.73rem;
+}
+
+.ss-featured-primary__link:focus-visible,
+.ss-featured-support__link:focus-visible {
+  outline: 2px solid var(--srv2-accent);
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ss-3d-card[data-3d-active="true"] .ss-featured-primary__media img,
+  .ss-3d-card[data-3d-active="true"] .ss-featured-support__media img {
+    filter: saturate(0.96) contrast(1.05) brightness(0.86);
+    transform: scale(1.035);
+  }
+
+  .ss-featured-primary__link:hover .ss-featured-card__action svg,
+  .ss-featured-support__link:hover .ss-featured-card__action svg {
+    transform: translate(0.14rem, -0.14rem);
+  }
+}
+
+@media (min-width: 48rem) {
+  .ss-featured-insights__intro {
+    grid-template-columns: minmax(0, 0.9fr) minmax(25rem, 1.1fr);
+  }
+
+  .ss-featured-primary,
+  .ss-featured-primary__perspective,
+  .ss-featured-primary__stage,
+  .ss-featured-primary__body {
+    height: 25rem;
+  }
+
+  .ss-featured-support,
+  .ss-featured-support__perspective,
+  .ss-featured-support__stage,
+  .ss-featured-support__body {
+    height: 15rem;
+  }
+
+  .ss-featured-primary__content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(15rem, 0.75fr);
+    grid-template-areas:
+      "top top"
+      "title footer";
+    align-content: end;
+    align-items: end;
+    column-gap: clamp(1.25rem, 3vw, 3rem);
+    row-gap: 0.5rem;
+  }
+
+  .ss-featured-primary__topline {
+    grid-area: top;
+  }
+
+  .ss-featured-primary__title {
+    grid-area: title;
+  }
+
+  .ss-featured-primary__footer {
+    grid-area: footer;
+  }
+
+  .ss-featured-primary__footer > p {
+    -webkit-line-clamp: 3;
+  }
+}
+
+@media (min-width: 64rem) {
+  .ss-featured-insights.ss-srv2-section {
+    padding-block: clamp(1.7rem, 3vh, 2.2rem);
+  }
+
+  .ss-featured-insights__grid {
+    --featured-card-height: clamp(17rem, 29vh, 19rem);
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, var(--featured-card-height));
+    height: auto;
+  }
+
+  .ss-featured-primary,
+  .ss-featured-primary__perspective,
+  .ss-featured-primary__stage,
+  .ss-featured-primary__body {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+    width: 100%;
+    height: var(--featured-card-height);
+  }
+
+  .ss-featured-support,
+  .ss-featured-support__perspective,
+  .ss-featured-support__stage,
+  .ss-featured-support__body {
+    width: 100%;
+    height: var(--featured-card-height);
+  }
+
+  .ss-featured-support[data-featured-position="1"] {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .ss-featured-support[data-featured-position="2"] {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .ss-featured-support[data-featured-position="3"] {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .ss-featured-support[data-featured-position="4"] {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  .ss-featured-support__content {
+    padding: 1rem 1.05rem;
+  }
+
+  .ss-featured-support__title h3,
+  .ss-featured-support__content h3 {
+    max-width: 38ch;
+    font-size: clamp(1rem, 0.86rem + 0.35vw, 1.22rem);
+  }
+
+  .ss-featured-support__action .ss-featured-card__action {
+    min-height: 2.25rem;
+  }
+}
+
+@media (min-width: 64rem) and (max-height: 48rem) {
+  .ss-featured-insights.ss-srv2-section {
+    padding-block: 0.35rem;
+  }
+
+  .ss-featured-insights__intro {
+    gap: 1rem;
+    margin-block-end: 0.5rem;
+  }
+
+  .ss-featured-insights__eyebrow {
+    margin-block-end: 0.35rem;
+  }
+
+  .ss-featured-insights__intro h2 {
+    font-size: clamp(1.65rem, 2.15vw, 2rem);
+  }
+
+  .ss-featured-insights__dispatch > p {
+    display: none;
+  }
+
+  .ss-featured-insights__dispatch {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .ss-featured-insights__edition {
+    min-height: 1.8rem;
+    padding-block: 0.2rem;
+  }
+
+  .ss-featured-insights__grid {
+    --featured-card-height: 17rem;
+
+    gap: 0.5rem;
+  }
+
+  .ss-featured-primary,
+  .ss-featured-primary__perspective,
+  .ss-featured-primary__stage,
+  .ss-featured-primary__body {
+    height: var(--featured-card-height);
+  }
+
+  .ss-featured-support,
+  .ss-featured-support__perspective,
+  .ss-featured-support__stage,
+  .ss-featured-support__body {
+    height: var(--featured-card-height);
+  }
+
+  .ss-featured-primary__content {
+    padding: 1rem 1.2rem;
+  }
+
+  .ss-featured-primary__title h3,
+  .ss-featured-primary__content h3 {
+    font-size: clamp(1.65rem, 2.65vw, 2.25rem);
+  }
+
+  .ss-featured-primary__footer > p {
+    -webkit-line-clamp: 2;
+  }
+
+  .ss-featured-support__content {
+    gap: 0.4rem;
+    padding: 0.9rem 0.95rem;
+  }
+
+  .ss-featured-support__action .ss-featured-card__action {
+    min-height: 2rem;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .ss-insight-grid.ss-card-hover-effect {
+    width: 100%;
+    margin-inline: 0;
+    grid-template-columns: minmax(0, 1fr);
+    transform: none;
+  }
+
+  .ss-card-hover-effect__item {
+    padding: 0.22rem;
+  }
+
+  .ss-featured-insights__dispatch {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ss-featured-insights__edition {
+    width: 100%;
+    max-width: 22rem;
+  }
+}
+
+@media (max-width: 24rem) {
+  .ss-featured-primary,
+  .ss-featured-primary__perspective,
+  .ss-featured-primary__stage,
+  .ss-featured-primary__body {
+    height: 31rem;
+  }
+
+  .ss-featured-support,
+  .ss-featured-support__perspective,
+  .ss-featured-support__stage,
+  .ss-featured-support__body {
+    height: 16rem;
+  }
+
+  .ss-featured-primary__title h3,
+  .ss-featured-primary__content h3 {
+    font-size: 1.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-3d-card__stage,
+  .ss-3d-card__item,
+  .ss-card-hover-effect__surface,
+  .ss-insight-card,
+  .ss-insight-card__media img,
+  .ss-featured-primary__media img,
+  .ss-featured-support__media img {
+    animation: none;
+    transition: none;
+  }
+
+  .ss-3d-card__stage,
+  .ss-3d-card__item,
+  .ss-insight-card,
+  .ss-insight-card__media img,
   .ss-featured-primary__media img,
   .ss-featured-support__media img {
     transform: none;

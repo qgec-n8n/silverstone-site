@@ -11,7 +11,10 @@ import {
   ShieldCheck,
 } from "~/components/icons/lucide";
 import { Button } from "~/components/ui/button";
-import { submitBooking } from "~/features/booking/booking-api";
+import {
+  invalidateAvailabilitySlot,
+  submitBooking,
+} from "~/features/booking/booking-api";
 import { AvailabilityStage } from "~/features/booking/availability-stage";
 import { BookingProgress } from "~/features/booking/booking-progress";
 import { ConfirmationStage } from "~/features/booking/confirmation-stage";
@@ -126,6 +129,7 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
   const [scheduleError, setScheduleError] = useState("");
   const [detailErrors, setDetailErrors] = useState<DetailErrors>({});
   const [submitError, setSubmitError] = useState("");
+  const [availabilityRefreshToken, setAvailabilityRefreshToken] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [confirmation, setConfirmation] = useState<BookingConfirmation | null>(null);
   const hasMounted = useRef(false);
@@ -199,8 +203,12 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
       );
       if (!response.ok) {
         if (response.error.code === "SLOT_UNAVAILABLE") {
+          invalidateAvailabilitySlot(bookingMode, timeZone, selectedSlot.startTime);
           setSelectedSlot(null);
-          setScheduleError(response.error.message);
+          setScheduleError(
+            "That time is no longer available. Availability has been refreshed — choose another highlighted time.",
+          );
+          setAvailabilityRefreshToken((value) => value + 1);
           setStage("schedule");
           setMobilePanel("date");
           idempotencyKey.current = null;
@@ -311,6 +319,7 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
           details={details}
           detailErrors={detailErrors}
           scheduleError={scheduleError}
+          availabilityRefreshToken={availabilityRefreshToken}
           submitError={submitError}
           submitting={submitting}
           confirmation={confirmation}
@@ -353,6 +362,7 @@ export function BookingPanel({ mode }: { mode?: BookingMode } = {}) {
                     selectedDateKey={selectedDateKey}
                     selectedSlot={selectedSlot}
                     error={scheduleError}
+                    availabilityRefreshToken={availabilityRefreshToken}
                     onMonthChange={setMonth}
                     onSelectDate={handleSelectDate}
                     onTimeZoneChange={handleTimeZoneChange}

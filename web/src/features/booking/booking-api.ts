@@ -1,4 +1,6 @@
 import {
+  addDays,
+  bookingHorizonEndExclusive,
   createApplicationWindow,
   dateKeyInTimeZone,
   mergeAvailabilitySlots,
@@ -9,6 +11,7 @@ import {
   createMockBooking,
   getMockAvailability,
 } from "~/features/booking/booking-mocks";
+import { BOOKING_EVENT_TYPE_KEY } from "~/features/booking/booking-types";
 import type {
   AvailabilityResponse,
   AvailabilitySlot,
@@ -20,7 +23,8 @@ import type {
 } from "~/features/booking/booking-types";
 
 const AVAILABILITY_TTL_MS = 60_000;
-const MAX_CACHE_WINDOWS = 8;
+const INVALIDATED_SLOT_TTL_MS = 5 * 60_000;
+const MAX_CACHE_WINDOWS = 16;
 
 type CacheEntry = {
   response: AvailabilitySuccess;
@@ -41,14 +45,49 @@ type AvailabilitySnapshot = {
 };
 
 const availabilityCache = new Map<string, CacheEntry>();
-const inFlight = new Map<string, Promise<AvailabilityResponse>>();
+const invalidatedSlots = new Map<string, Map<string, number>>();
+const inFlight = new Map<
+  string,
+  {
+    mode: BookingMode;
+    timeZone: string;
+    window: AvailabilityWindow;
+    promise: Promise<AvailabilityResponse>;
+  }
+>();
 
 export function availabilityCacheKey(
   mode: BookingMode,
   timeZone: string,
   window: AvailabilityWindow,
 ): string {
-  return `${mode}:${timeZone}:${window.start}:${window.endExclusive}`;
+  return `${BOOKING_EVENT_TYPE_KEY}:${mode}:${timeZone}:${window.start}:${window.endExclusive}`;
+}
+
+function availabilityScopeKey(mode: BookingMode, timeZone: string): string {
+  return `${BOOKING_EVENT_TYPE_KEY}:${mode}:${timeZone}`;
+}
+
+function withoutInvalidatedSlots(
+  response: AvailabilitySuccess,
+  mode: BookingMode,
+  timeZone: string,
+): AvailabilitySuccess {
+  const scope = availabilityScopeKey(mode, timeZone);
+  const excluded = invalidatedSlots.get(scope);
+  if (!excluded) return response;
+  const now = Date.now();
+  for (const [startTime, expiresAt] of excluded) {
+    if (expiresAt <= now) excluded.delete(startTime);
+  }
+  if (excluded.size === 0) {
+    invalidatedSlots.delete(scope);
+    return response;
+  }
+  return {
+    ...response,
+    slots: response.slots.filter((slot) => !excluded.has(slot.startTime)),
+  };
 }
 
 function trimCache(): void {
@@ -103,9 +142,69 @@ function isAbortError(error: unknown): boolean {
   return error instanceof DOMException && error.name === "AbortError";
 }
 
-export async function loadAvailabilityWindow(
+function windowsOverlap(left: AvailabilityWindow, right: AvailabilityWindow): boolean {
+  return left.start < right.endExclusive && right.start < left.endExclusive;
+}
+
+function freshCacheEntries(mode: BookingMode, timeZone: string): CacheEntry[] {
+  const prefix = `${BOOKING_EVENT_TYPE_KEY}:${mode}:${timeZone}:`;
+  const now = Date.now();
+  return [...availabilityCache.entries()]
+    .filter(
+      ([key, entry]) =>
+        key.startsWith(prefix) && now - entry.fetchedAt < AVAILABILITY_TTL_MS,
+    )
+    .map(([, entry]) => entry);
+}
+
+/** Subtract cached half-open ranges so month navigation only fetches missing days. */
+function uncoveredWindows(
+  requested: AvailabilityWindow,
+  covered: readonly AvailabilityWindow[],
+): AvailabilityWindow[] {
+  const relevant = covered
+    .filter((window) => windowsOverlap(window, requested))
+    .sort((left, right) => left.start.localeCompare(right.start));
+  const gaps: AvailabilityWindow[] = [];
+  let cursor = requested.start;
+  for (const window of relevant) {
+    if (window.endExclusive <= cursor) continue;
+    if (window.start > cursor) {
+      const gapEnd =
+        window.start < requested.endExclusive ? window.start : requested.endExclusive;
+      if (gapEnd > cursor) gaps.push(createApplicationWindow(cursor, gapEnd));
+    }
+    if (window.endExclusive > cursor) cursor = window.endExclusive;
+    if (cursor >= requested.endExclusive) break;
+  }
+  if (cursor < requested.endExclusive) {
+    gaps.push(createApplicationWindow(cursor, requested.endExclusive));
+  }
+  return gaps;
+}
+
+function responseForWindow(
+  mode: BookingMode,
+  timeZone: string,
+  window: AvailabilityWindow,
+): AvailabilitySuccess {
+  const start = Date.parse(`${window.start}T00:00:00Z`);
+  const end = Date.parse(`${window.endExclusive}T00:00:00Z`);
+  const snapshot = getAvailabilitySnapshot(mode, timeZone);
+  return {
+    ok: true,
+    source: mode === "mock" ? "mock" : "calendly",
+    window,
+    slots: snapshot.slots.filter((slot) => {
+      const time = Date.parse(slot.startTime);
+      return time >= start && time < end;
+    }),
+  };
+}
+
+async function loadOneAvailabilityWindow(
   options: AvailabilityLoadOptions,
-  transport: AvailabilityTransport = fetchAvailability,
+  transport: AvailabilityTransport,
 ): Promise<AvailabilityResponse> {
   const key = availabilityCacheKey(options.mode, options.timeZone, options.window);
   const cached = availabilityCache.get(key);
@@ -113,7 +212,7 @@ export async function loadAvailabilityWindow(
     return cached.response;
   }
 
-  const pending = inFlight.get(key);
+  const pending = inFlight.get(key)?.promise;
   if (pending) {
     /* The pending request belongs to another caller and carries that caller's
        abort signal. If it aborts while this caller is still interested,
@@ -131,24 +230,76 @@ export async function loadAvailabilityWindow(
   const request = transport(options)
     .then((response) => {
       if (response.ok) {
+        const safeResponse = withoutInvalidatedSlots(
+          response,
+          options.mode,
+          options.timeZone,
+        );
         availabilityCache.delete(key);
-        availabilityCache.set(key, { response, fetchedAt: Date.now() });
+        availabilityCache.set(key, {
+          response: safeResponse,
+          fetchedAt: Date.now(),
+        });
         trimCache();
+        return safeResponse;
       }
       return response;
     })
     .finally(() => {
       inFlight.delete(key);
     });
-  inFlight.set(key, request);
+  inFlight.set(key, {
+    mode: options.mode,
+    timeZone: options.timeZone,
+    window: options.window,
+    promise: request,
+  });
   return request;
+}
+
+export async function loadAvailabilityWindow(
+  options: AvailabilityLoadOptions,
+  transport: AvailabilityTransport = fetchAvailability,
+): Promise<AvailabilityResponse> {
+  if (!options.force) {
+    const overlapping = [...inFlight.values()]
+      .filter(
+        (entry) =>
+          entry.mode === options.mode &&
+          entry.timeZone === options.timeZone &&
+          windowsOverlap(entry.window, options.window),
+      )
+      .map((entry) => entry.promise);
+    if (overlapping.length > 0) {
+      await Promise.allSettled(overlapping);
+      if (options.signal?.aborted) throw new DOMException("Aborted", "AbortError");
+    }
+  }
+
+  const gaps = options.force
+    ? [options.window]
+    : uncoveredWindows(
+        options.window,
+        freshCacheEntries(options.mode, options.timeZone).map(
+          (entry) => entry.response.window,
+        ),
+      );
+  if (gaps.length === 0) {
+    return responseForWindow(options.mode, options.timeZone, options.window);
+  }
+
+  const responses = await Promise.all(
+    gaps.map((window) => loadOneAvailabilityWindow({ ...options, window }, transport)),
+  );
+  const failure = responses.find((response) => !response.ok);
+  return failure ?? responseForWindow(options.mode, options.timeZone, options.window);
 }
 
 export function getAvailabilitySnapshot(
   mode: BookingMode,
   timeZone: string,
 ): AvailabilitySnapshot {
-  const prefix = `${mode}:${timeZone}:`;
+  const prefix = `${BOOKING_EVENT_TYPE_KEY}:${mode}:${timeZone}:`;
   const entries = [...availabilityCache.entries()]
     .filter(([key]) => key.startsWith(prefix))
     .map(([, entry]) => entry.response);
@@ -161,6 +312,32 @@ export function getAvailabilitySnapshot(
 export function clearAvailabilityCache(): void {
   availabilityCache.clear();
   inFlight.clear();
+  invalidatedSlots.clear();
+}
+
+/** Remove a failed slot immediately and expire every window that contained it. */
+export function invalidateAvailabilitySlot(
+  mode: BookingMode,
+  timeZone: string,
+  startTime: string,
+): void {
+  const prefix = `${BOOKING_EVENT_TYPE_KEY}:${mode}:${timeZone}:`;
+  const scope = availabilityScopeKey(mode, timeZone);
+  const excluded = invalidatedSlots.get(scope) ?? new Map<string, number>();
+  excluded.set(startTime, Date.now() + INVALIDATED_SLOT_TTL_MS);
+  invalidatedSlots.set(scope, excluded);
+  for (const [key, entry] of availabilityCache) {
+    if (!key.startsWith(prefix)) continue;
+    const nextSlots = entry.response.slots.filter(
+      (slot) => slot.startTime !== startTime,
+    );
+    if (nextSlots.length !== entry.response.slots.length) {
+      availabilityCache.set(key, {
+        fetchedAt: 0,
+        response: { ...entry.response, slots: nextSlots },
+      });
+    }
+  }
 }
 
 export function windowForMonth(
@@ -169,7 +346,14 @@ export function windowForMonth(
   timeZone = "Europe/London",
 ): AvailabilityWindow {
   const zonedToday = parseDateKey(dateKeyInTimeZone(now.toISOString(), timeZone));
-  return createApplicationWindow(visibleGridStart(month, zonedToday));
+  const todayKey = dateKeyInTimeZone(now.toISOString(), timeZone);
+  const horizonEndExclusive = bookingHorizonEndExclusive(todayKey);
+  const requestedStart = visibleGridStart(month, zonedToday);
+  const start =
+    requestedStart < horizonEndExclusive
+      ? requestedStart
+      : addDays(horizonEndExclusive, -1);
+  return createApplicationWindow(start, horizonEndExclusive);
 }
 
 export async function submitBooking(
