@@ -184,16 +184,6 @@ export function AiVoiceAgentsComposition({
         </div>
       </section>
 
-      <section className="ss-srv2-section">
-        <div className="ss-srv2__container" data-width="narrow">
-          <FinalCta
-            heading={copy.midCta.heading}
-            body={<RichText text={copy.midCta.body} />}
-            buttonLabel={micro.ctaButton}
-          />
-        </div>
-      </section>
-
       <section
         className="ss-srv2-section"
         id="demo-ai-voice-agents"
@@ -209,6 +199,16 @@ export function AiVoiceAgentsComposition({
             reveal={false}
           />
           <VoiceCallDemo />
+        </div>
+      </section>
+
+      <section className="ss-srv2-section">
+        <div className="ss-srv2__container" data-width="narrow">
+          <FinalCta
+            heading={copy.midCta.heading}
+            body={<RichText text={copy.midCta.body} />}
+            buttonLabel={micro.ctaButton}
+          />
         </div>
       </section>
 

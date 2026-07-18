@@ -32,6 +32,7 @@ import {
   SectionHead,
   WarningChecklist,
 } from "../components/primitives";
+import { DemoInvitation } from "../components/demo-invitation";
 import { SecondaryHero } from "../components/secondary-hero";
 import {
   BenchmarkConsole,
@@ -102,6 +103,7 @@ export function WebDesignComposition({
         }
       />
       <TrustStrip />
+      <DemoInvitation variant="web-design" />
 
       {/* 2 — Costly problem */}
       <section className="ss-srv2-section" aria-labelledby="srv2-problem">
@@ -221,18 +223,7 @@ export function WebDesignComposition({
         </div>
       </section>
 
-      {/* 8 — Mid CTA */}
-      <section className="ss-srv2-section">
-        <div className="ss-srv2__container" data-width="narrow">
-          <FinalCta
-            heading={copy.midCta.heading}
-            body={<RichText text={copy.midCta.body} />}
-            buttonLabel={micro.ctaButton}
-          />
-        </div>
-      </section>
-
-      {/* 9 — Live client-website portfolio showcase. The rail itself sits
+      {/* 8 — Live client-website portfolio showcase. The rail itself sits
           full-bleed below the contained section head: one project at a time,
           switched from the per-scene console row. */}
       <section
@@ -250,6 +241,17 @@ export function WebDesignComposition({
           />
         </div>
         <BrowserShowcase />
+      </section>
+
+      {/* 9 — Mid CTA */}
+      <section className="ss-srv2-section">
+        <div className="ss-srv2__container" data-width="narrow">
+          <FinalCta
+            heading={copy.midCta.heading}
+            body={<RichText text={copy.midCta.body} />}
+            buttonLabel={micro.ctaButton}
+          />
+        </div>
       </section>
 
       {/* 10 — Objections */}

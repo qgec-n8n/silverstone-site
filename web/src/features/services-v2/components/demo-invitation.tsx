@@ -5,6 +5,7 @@ import {
   Bot,
   MessageSquare,
   Mic,
+  Monitor,
   Sparkles,
   type LucideIcon,
 } from "~/components/icons/lucide";
@@ -39,17 +40,51 @@ const VOICE_GRACE_ACTION: DemoInvitationAction = {
   icon: Mic,
 };
 
-export function DemoInvitation({ variant }: { variant: "receptionists" | "voice" }) {
-  const actions =
-    variant === "receptionists" ? [GRACE_ACTION, SAM_ACTION] : [VOICE_GRACE_ACTION];
-  const heading =
-    variant === "receptionists"
-      ? "Meet the front desk before you hire it."
-      : "Hear the agent before you build it.";
-  const body =
-    variant === "receptionists"
-      ? "Call Grace or message Sam. Both demos are live, governed and ready now."
-      : "Speak naturally with a live voice agent and watch both sides transcribe in real time.";
+const WEB_DESIGN_ACTION: DemoInvitationAction = {
+  href: "/services/web-design-development#demo-web-design",
+  label: "Explore the live builds",
+  detail: "Two production websites, desktop and mobile",
+  icon: Monitor,
+};
+
+type DemoInvitationVariant = "receptionists" | "voice" | "web-design";
+
+const invitationByVariant: Record<
+  DemoInvitationVariant,
+  {
+    actions: DemoInvitationAction[];
+    body: string;
+    heading: string;
+    signalIcon: LucideIcon;
+  }
+> = {
+  receptionists: {
+    actions: [GRACE_ACTION, SAM_ACTION],
+    body: "Call Grace or message Sam. Both demos are live, governed and ready now.",
+    heading: "Meet the front desk before you hire it.",
+    signalIcon: Bot,
+  },
+  voice: {
+    actions: [VOICE_GRACE_ACTION],
+    body: "Speak naturally with a live voice agent and watch both sides transcribe in real time.",
+    heading: "Hear the agent before you build it.",
+    signalIcon: Bot,
+  },
+  "web-design": {
+    actions: [WEB_DESIGN_ACTION],
+    body: "Step inside two finished production websites and compare every detail across desktop and mobile.",
+    heading: "Experience the finished product before you commission it.",
+    signalIcon: Monitor,
+  },
+};
+
+export function DemoInvitation({ variant }: { variant: DemoInvitationVariant }) {
+  const {
+    actions,
+    body,
+    heading,
+    signalIcon: SignalIcon,
+  } = invitationByVariant[variant];
 
   return (
     <section className="ss-srv2-demo-invite" aria-labelledby={`demo-invite-${variant}`}>
@@ -57,7 +92,7 @@ export function DemoInvitation({ variant }: { variant: "receptionists" | "voice"
         <div className="ss-srv2-demo-invite__surface ss-srv2-beam-border">
           <div className="ss-srv2-demo-invite__signal" aria-hidden="true">
             <span />
-            <Bot />
+            <SignalIcon />
           </div>
           <div className="ss-srv2-demo-invite__copy">
             <span className="ss-srv2-demo-invite__eyebrow">
