@@ -4,7 +4,13 @@ import * as m from "motion/react-m";
 
 import { ArrowUpRight, Clock } from "~/components/icons/lucide";
 import { BorderBeam } from "~/components/ui/border-beam";
-import { CardBody, CardContainer, CardGlare, CardItem } from "~/components/ui/3d-card";
+import {
+  CardBody,
+  CardContainer,
+  CardGlare,
+  CardGlow,
+  CardItem,
+} from "~/components/ui/3d-card";
 import {
   CURRENT_FEATURED_INSIGHTS,
   type FeaturedInsightSelection,
@@ -109,6 +115,7 @@ function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
               </CardItem>
             </div>
             <CardGlare />
+            <CardGlow />
             <span aria-hidden="true" className="ss-featured-card__inner-rule" />
             <span aria-hidden="true" className="ss-featured-primary__beam">
               <BorderBeam
@@ -184,6 +191,7 @@ function SupportingInsight({
               </CardItem>
             </div>
             <CardGlare />
+            <CardGlow />
             <span aria-hidden="true" className="ss-featured-card__inner-rule" />
           </Link>
         </CardBody>

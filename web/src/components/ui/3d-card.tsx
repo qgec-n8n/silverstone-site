@@ -23,12 +23,16 @@ type CardMotionContextValue = {
   active: boolean;
   enabled: boolean;
   glareBackground: MotionValue<string>;
+  glowX: MotionValue<string>;
+  glowY: MotionValue<string>;
 };
 
 const CardMotionContext = createContext<CardMotionContextValue>({
   active: false,
   enabled: false,
   glareBackground: motionValue("none"),
+  glowX: motionValue("50%"),
+  glowY: motionValue("50%"),
 });
 
 function useFineHoverPointer() {
@@ -85,6 +89,8 @@ export function CardContainer({
   const glareX = useSpring(glareXSource, { damping: 34, mass: 0.5, stiffness: 220 });
   const glareY = useSpring(glareYSource, { damping: 34, mass: 0.5, stiffness: 220 });
   const glareBackground = useMotionTemplate`radial-gradient(32rem 24rem at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.16), rgba(38, 221, 255, 0.07) 42%, transparent 72%)`;
+  const glowX = useMotionTemplate`${glareX}%`;
+  const glowY = useMotionTemplate`${glareY}%`;
 
   function reset() {
     setActive(false);
@@ -115,7 +121,9 @@ export function CardContainer({
   }
 
   return (
-    <CardMotionContext.Provider value={{ active, enabled, glareBackground }}>
+    <CardMotionContext.Provider
+      value={{ active, enabled, glareBackground, glowX, glowY }}
+    >
       <div
         className={cn("ss-3d-card", containerClassName)}
         data-3d-active={active ? "true" : "false"}
@@ -154,6 +162,24 @@ export function CardGlare({ className }: { className?: string }) {
       aria-hidden="true"
       className={cn("ss-3d-card__glare", className)}
       style={{ backgroundImage: glareBackground }}
+    />
+  );
+}
+
+/**
+ * Cursor-following glow border (Aceternity Glowing Effect / Magic UI Magic Card
+ * lineage): a radial light rides the card's edge nearest the pointer, masked to
+ * the border ring. CSS fades it in only while the container is active, so it is
+ * inert for touch, coarse pointers and reduced motion.
+ */
+export function CardGlow({ className }: { className?: string }) {
+  const { glowX, glowY } = useContext(CardMotionContext);
+
+  return (
+    <m.span
+      aria-hidden="true"
+      className={cn("ss-glow-border", className)}
+      style={{ "--glow-x": glowX, "--glow-y": glowY } as never}
     />
   );
 }

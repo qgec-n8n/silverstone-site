@@ -4459,11 +4459,27 @@ a.ss-insight-card:hover {
   font-style: normal;
   background: linear-gradient(
     100deg,
-    var(--ss-v2-chrome) 4%,
-    var(--srv2-accent) 46%,
-    color-mix(in srgb, var(--srv2-accent-2) 82%, white)
+    var(--ss-v2-chrome) 0%,
+    var(--srv2-accent) 30%,
+    color-mix(in srgb, var(--srv2-accent-2) 82%, white) 50%,
+    var(--srv2-accent) 70%,
+    var(--ss-v2-chrome) 100%
   );
+  background-size: 220% 100%;
   background-clip: text;
+  -webkit-background-clip: text;
+  /* A slow chrome-to-signal sheen drifts across the emphasised words. */
+  animation: ss-featured-title-sheen 9s linear infinite;
+}
+
+@keyframes ss-featured-title-sheen {
+  from {
+    background-position: 120% 50%;
+  }
+
+  to {
+    background-position: -120% 50%;
+  }
 }
 
 .ss-featured-insights__dispatch {
@@ -5499,6 +5515,59 @@ a.ss-insight-card:hover,
   opacity: 1;
 }
 
+/* Cursor-following glow border (Aceternity Glowing Effect / Magic UI Magic Card
+   lineage). A radial light is positioned at the pointer (--glow-x/--glow-y) and
+   masked to the border ring via the padding-box XOR technique. Colour follows
+   the signal palette; --glow-opacity is toggled on by the active ancestor. */
+.ss-glow-border {
+  --glow-c1: color-mix(in srgb, var(--srv2-accent) 92%, white);
+  --glow-c2: var(--srv2-accent-2);
+  --glow-border-width: 1.6px;
+
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ss-glow-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--glow-border-width);
+  background: radial-gradient(
+    14rem 14rem at var(--glow-x, 50%) var(--glow-y, 50%),
+    var(--glow-c1) 0%,
+    var(--glow-c2) 32%,
+    transparent 62%
+  );
+  opacity: var(--glow-opacity, 0);
+  transition: opacity 260ms var(--ss-motion-easing-standard);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.ss-3d-card[data-3d-active="true"] .ss-glow-border {
+  --glow-opacity: 1;
+}
+
+/* Grid cards hug the card border (inset by the item padding) rather than the
+   travelling-surface frame, so the edge lights up on the card itself. */
+.ss-insight-grid__item .ss-glow-border {
+  inset: 0.34rem;
+  border-radius: var(--ss-radius-xl);
+}
+
+.ss-insight-grid__item[data-card-hover-state="active"] .ss-glow-border {
+  --glow-opacity: 1;
+}
+
 @media (min-width: 48rem) {
   .ss-featured-insights__intro {
     grid-template-columns: minmax(0, 0.9fr) minmax(25rem, 1.1fr);
@@ -5691,6 +5760,10 @@ a.ss-insight-card:hover,
     padding: 0.22rem;
   }
 
+  .ss-insight-grid__item .ss-glow-border {
+    inset: 0.22rem;
+  }
+
   .ss-featured-insights__dispatch {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -5725,6 +5798,7 @@ a.ss-insight-card:hover,
 
 @media (prefers-reduced-motion: reduce) {
   .ss-3d-card__glare,
+  .ss-glow-border,
   .ss-featured-primary__beam,
   .ss-featured-insights__edition::after {
     display: none;
@@ -5749,6 +5823,11 @@ a.ss-insight-card:hover,
   .ss-featured-primary__media img,
   .ss-featured-support__media img {
     transform: none;
+  }
+
+  .ss-featured-insights__intro h2 em {
+    animation: none;
+    background-position: 0 50%;
   }
 }
 

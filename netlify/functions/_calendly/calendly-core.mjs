@@ -2,7 +2,9 @@ import { createHash } from "node:crypto";
 
 export const PUBLIC_EVENT_URL = "https://calendly.com/silverstone-ai/30min";
 export const APPLICATION_WINDOW_DAYS = 42;
-export const BOOKING_HORIZON_MONTHS = 3;
+/* Today + twelve calendar months, matching the Calendly event type's open
+   scheduling window. */
+export const BOOKING_HORIZON_MONTHS = 12;
 /* Calendly documents a 7-day maximum range for event_type_available_times;
    larger ranges currently succeed but are undocumented behaviour. */
 export const UPSTREAM_MAX_DAYS = 7;
@@ -358,7 +360,7 @@ export function validateBookingRequest(value, now = Date.now()) {
     throw new PublicApiError(
       400,
       "INVALID_REQUEST",
-      "Choose a valid future time within the three-month booking horizon.",
+      "Choose a valid future time within the booking horizon.",
     );
   }
 

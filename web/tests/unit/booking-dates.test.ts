@@ -26,10 +26,10 @@ describe("booking date windows", () => {
     expect(addDays(window.start, window.days)).toBe(window.endExclusive);
   });
 
-  it("clamps the horizon to exactly three calendar months at month end", () => {
+  it("clamps addMonths at month end and resolves the twelve-month horizon", () => {
     expect(addMonths("2026-08-31", 3)).toBe("2026-11-30");
-    expect(bookingHorizonKey("2026-08-31")).toBe("2026-11-30");
-    expect(bookingHorizonEndExclusive("2026-08-31")).toBe("2026-12-01");
+    expect(bookingHorizonKey("2026-08-31")).toBe("2027-08-31");
+    expect(bookingHorizonEndExclusive("2026-08-31")).toBe("2027-09-01");
   });
 
   it("shortens the final request at the booking horizon", () => {

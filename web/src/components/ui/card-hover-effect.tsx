@@ -16,10 +16,14 @@ type CardHoverEffectProps = {
   layoutId?: string;
 };
 
-function itemIdFromTarget(target: EventTarget | null): string | null {
+function itemFromTarget(target: EventTarget | null): HTMLElement | null {
   return target instanceof Element
-    ? (target.closest<HTMLElement>("[data-card-hover-id]")?.dataset.cardHoverId ?? null)
+    ? target.closest<HTMLElement>("[data-card-hover-id]")
     : null;
+}
+
+function itemIdFromTarget(target: EventTarget | null): string | null {
+  return itemFromTarget(target)?.dataset.cardHoverId ?? null;
 }
 
 /**
@@ -45,6 +49,28 @@ export function CardHoverEffect({
     setActiveId(itemIdFromTarget(event.target));
   }
 
+  /* A single grid-level listener writes the pointer position onto the hovered
+     card as CSS variables, so the cursor-follow glow border needs no per-card
+     listener and no React re-render. */
+  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse" && event.pointerType !== "pen") {
+      return;
+    }
+    const item = itemFromTarget(event.target);
+    if (!item) {
+      return;
+    }
+    const bounds = item.getBoundingClientRect();
+    item.style.setProperty(
+      "--glow-x",
+      `${String(((event.clientX - bounds.left) / bounds.width) * 100)}%`,
+    );
+    item.style.setProperty(
+      "--glow-y",
+      `${String(((event.clientY - bounds.top) / bounds.height) * 100)}%`,
+    );
+  }
+
   function handleFocus(event: FocusEvent<HTMLDivElement>) {
     setActiveId(itemIdFromTarget(event.target));
   }
@@ -64,6 +90,7 @@ export function CardHoverEffect({
       onBlurCapture={handleBlur}
       onFocusCapture={handleFocus}
       onPointerLeave={() => setActiveId(null)}
+      onPointerMove={handlePointerMove}
       onPointerOver={handlePointerOver}
     >
       {items.map((item) => {
@@ -76,6 +103,9 @@ export function CardHoverEffect({
             data-card-hover-state={active ? "active" : "idle"}
             key={item.id}
           >
+            {reduceMotion ? null : (
+              <span aria-hidden="true" className="ss-glow-border" />
+            )}
             {reduceMotion ? (
               active ? (
                 <span aria-hidden="true" className="ss-card-hover-effect__surface" />

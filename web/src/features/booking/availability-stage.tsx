@@ -289,7 +289,7 @@ export function AvailabilityStage({
               <div className="ss-booking-times-state">
                 <CalendarCheck aria-hidden="true" />
                 <strong>No times in this window</strong>
-                <p>Move to another month within the three-month booking horizon.</p>
+                <p>Move to another month within the booking horizon.</p>
               </div>
             ) : !selectedDateKey ? (
               <div className="ss-booking-times-state">

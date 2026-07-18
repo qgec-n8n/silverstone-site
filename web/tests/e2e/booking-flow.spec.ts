@@ -185,25 +185,28 @@ test("a claimed slot is invalidated and availability refreshes", async ({
   );
 });
 
-test("month navigation reaches the exact three-month horizon and stops", async ({
-  page,
-}) => {
+test("month navigation reaches the booking horizon and stops", async ({ page }) => {
   await page.goto("/book#booking-calendar");
   const caption = page.locator(".ss-booking-calendar__caption-label");
   await expect(caption).toBeVisible();
 
-  for (let offset = 0; offset < 3; offset += 1) {
+  const nextButton = page.getByRole("button", { name: /Go to the Next Month/i });
+  /* Walk forward to the far edge of the (now twelve-month) horizon rather than a
+     hard-coded month count, asserting live availability at every step. */
+  let steps = 0;
+  while (!(await nextButton.isDisabled()) && steps < 18) {
     const previousCaption = await caption.innerText();
-    await page.getByRole("button", { name: /Go to the Next Month/i }).click();
+    await nextButton.click();
     await expect(caption).not.toHaveText(previousCaption);
     await expect(page.locator(".ss-booking-calendar-pane__status")).toContainText(
       "open dates in view",
     );
+    steps += 1;
   }
 
-  await expect(
-    page.getByRole("button", { name: /Go to the Next Month/i }),
-  ).toBeDisabled();
+  /* The extended horizon must allow materially more than the old three months. */
+  expect(steps).toBeGreaterThan(3);
+  await expect(nextButton).toBeDisabled();
   const availableDays = page.locator(
     ".ss-booking-calendar__day.is-available .ss-booking-calendar__day-button",
   );
