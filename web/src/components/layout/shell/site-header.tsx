@@ -63,6 +63,12 @@ const headerMotionVariants: Variants = {
   },
 };
 
+/** The header's own hide animation (see `headerMotionVariants.hidden`, 0.18s)
+ * plus a small margin. Interactivity (`inert`) is only disabled once the header
+ * has finished animating off-screen — see the effect in `SiteHeader` — so a
+ * click on a still-visible header is never dropped. */
+const HEADER_HIDE_ANIM_MS = 240;
+
 function isActive(menu: NavMenu, path: string): boolean {
   return path === menu.href || menu.items.some((item) => item.href === path);
 }
@@ -625,11 +631,27 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   // mega-menu or the mobile drawer shouldn't make the trigger disappear.
   const hidden = headerHidden || (hiddenByScroll && openMenu === null && !mobileOpen);
 
+  // Interactivity must follow the header's VISIBILITY, not the logical `hidden`
+  // flag — the header keeps animating for a beat after the flag flips. Disabling
+  // interaction (`inert`) the instant `hidden` turns true would drop a click on
+  // a header that is still on-screen (e.g. a scroll that momentarily flags a
+  // re-hide right as the user clicks a nav link, or a click landing while the
+  // header animates back in). So re-enable immediately on reveal, and only
+  // disable once the hide-out animation has finished. A reveal that interrupts a
+  // pending hide cancels the deferred disable via the cleanup below.
   useEffect(() => {
     const node = headerRef.current;
-    if (node) {
-      node.inert = hidden;
+    if (!node) {
+      return undefined;
     }
+    if (!hidden) {
+      node.inert = false;
+      return undefined;
+    }
+    const timer = window.setTimeout(() => {
+      node.inert = true;
+    }, HEADER_HIDE_ANIM_MS);
+    return () => window.clearTimeout(timer);
   }, [hidden]);
 
   const header = (
