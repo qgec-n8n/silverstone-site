@@ -83,14 +83,17 @@ export function CardHoverEffect({
             ) : (
               <AnimatePresence initial={false}>
                 {active ? (
+                  /* The registry demo's timing: a fast fade-in, a delayed
+                     fade-out, and a shared layoutId so the surface visibly
+                     travels from the previous card to this one. */
                   <m.span
-                    animate={{ opacity: 1 }}
+                    animate={{ opacity: 1, transition: { duration: 0.15 } }}
                     aria-hidden="true"
                     className="ss-card-hover-effect__surface"
-                    exit={{ opacity: 0 }}
+                    exit={{ opacity: 0, transition: { delay: 0.2, duration: 0.15 } }}
                     initial={{ opacity: 0 }}
                     layoutId={layoutId}
-                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ layout: { duration: 0.26, ease: [0.16, 1, 0.3, 1] } }}
                   />
                 ) : null}
               </AnimatePresence>

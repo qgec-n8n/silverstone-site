@@ -3,7 +3,8 @@ import { AnimatePresence, useReducedMotion, type Variants } from "motion/react";
 import * as m from "motion/react-m";
 
 import { ArrowUpRight, Clock } from "~/components/icons/lucide";
-import { CardBody, CardContainer, CardItem } from "~/components/ui/3d-card";
+import { BorderBeam } from "~/components/ui/border-beam";
+import { CardBody, CardContainer, CardGlare, CardItem } from "~/components/ui/3d-card";
 import {
   CURRENT_FEATURED_INSIGHTS,
   type FeaturedInsightSelection,
@@ -66,7 +67,7 @@ function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
       <CardContainer
         className="ss-featured-primary__stage"
         containerClassName="ss-featured-primary__perspective"
-        tiltStrength={2.25}
+        tiltStrength={5}
       >
         <CardBody className="ss-featured-primary__body">
           <Link
@@ -88,18 +89,18 @@ function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
             <CardItem
               aria-hidden="true"
               className="ss-featured-primary__atmosphere"
-              translateZ={9}
+              translateZ={12}
             />
             <div className="ss-featured-primary__content">
-              <CardItem className="ss-featured-primary__topline" translateZ={16}>
+              <CardItem className="ss-featured-primary__topline" translateZ={40}>
                 <span className="ss-featured-card__category">{post.categoryLabel}</span>
                 <span className="ss-featured-primary__rank">Primary signal</span>
                 <ArticleMeta post={post} />
               </CardItem>
-              <CardItem className="ss-featured-primary__title" translateZ={25}>
+              <CardItem className="ss-featured-primary__title" translateZ={64}>
                 <h3 id={titleId}>{post.title}</h3>
               </CardItem>
-              <CardItem className="ss-featured-primary__footer" translateZ={20}>
+              <CardItem className="ss-featured-primary__footer" translateZ={48}>
                 <p>{post.subtitle}</p>
                 <span className="ss-featured-card__action">
                   Read the intelligence
@@ -107,7 +108,16 @@ function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
                 </span>
               </CardItem>
             </div>
+            <CardGlare />
             <span aria-hidden="true" className="ss-featured-card__inner-rule" />
+            <span aria-hidden="true" className="ss-featured-primary__beam">
+              <BorderBeam
+                colorFrom="#26ddff"
+                colorTo="#8b7bff"
+                duration={9}
+                size={110}
+              />
+            </span>
           </Link>
         </CardBody>
       </CardContainer>
@@ -135,7 +145,7 @@ function SupportingInsight({
       <CardContainer
         className="ss-featured-support__stage"
         containerClassName="ss-featured-support__perspective"
-        tiltStrength={1.6}
+        tiltStrength={4}
       >
         <CardBody className="ss-featured-support__body">
           <Link
@@ -156,23 +166,24 @@ function SupportingInsight({
             <CardItem
               aria-hidden="true"
               className="ss-featured-support__scrim"
-              translateZ={6}
+              translateZ={8}
             />
             <div className="ss-featured-support__content">
-              <CardItem className="ss-featured-support__topline" translateZ={12}>
+              <CardItem className="ss-featured-support__topline" translateZ={30}>
                 <span className="ss-featured-card__category">{post.categoryLabel}</span>
                 <ArticleMeta post={post} />
               </CardItem>
-              <CardItem className="ss-featured-support__title" translateZ={18}>
+              <CardItem className="ss-featured-support__title" translateZ={46}>
                 <h3 id={titleId}>{post.title}</h3>
               </CardItem>
-              <CardItem className="ss-featured-support__action" translateZ={22}>
+              <CardItem className="ss-featured-support__action" translateZ={54}>
                 <span className="ss-featured-card__action">
                   Read article
                   <ArrowUpRight aria-hidden="true" />
                 </span>
               </CardItem>
             </div>
+            <CardGlare />
             <span aria-hidden="true" className="ss-featured-card__inner-rule" />
           </Link>
         </CardBody>
@@ -220,10 +231,6 @@ export function FeaturedInsights({
             </h2>
           </div>
           <div className="ss-featured-insights__dispatch">
-            <p>
-              Five practical reads for the systems, sites and technology decisions in
-              front of UK operators now.
-            </p>
             <span className="ss-featured-insights__edition">
               <span>Current dispatch</span>
               {edition?.label ?? "Latest published intelligence"}

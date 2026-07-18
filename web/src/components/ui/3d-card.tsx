@@ -7,7 +7,14 @@ import {
   type PointerEvent,
   type ReactNode,
 } from "react";
-import { useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import {
+  motionValue,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  type MotionValue,
+} from "motion/react";
 import * as m from "motion/react-m";
 
 import { cn } from "~/lib/utils";
@@ -15,11 +22,13 @@ import { cn } from "~/lib/utils";
 type CardMotionContextValue = {
   active: boolean;
   enabled: boolean;
+  glareBackground: MotionValue<string>;
 };
 
 const CardMotionContext = createContext<CardMotionContextValue>({
   active: false,
   enabled: false,
+  glareBackground: motionValue("none"),
 });
 
 function useFineHoverPointer() {
@@ -71,6 +80,11 @@ export function CardContainer({
     mass: 0.45,
     stiffness: 250,
   });
+  const glareXSource = useMotionValue(50);
+  const glareYSource = useMotionValue(36);
+  const glareX = useSpring(glareXSource, { damping: 34, mass: 0.5, stiffness: 220 });
+  const glareY = useSpring(glareYSource, { damping: 34, mass: 0.5, stiffness: 220 });
+  const glareBackground = useMotionTemplate`radial-gradient(32rem 24rem at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.16), rgba(38, 221, 255, 0.07) 42%, transparent 72%)`;
 
   function reset() {
     setActive(false);
@@ -96,10 +110,12 @@ export function CardContainer({
 
     rotateXSource.set(y * -tiltStrength * 2);
     rotateYSource.set(x * tiltStrength * 2);
+    glareXSource.set((x + 0.5) * 100);
+    glareYSource.set((y + 0.5) * 100);
   }
 
   return (
-    <CardMotionContext.Provider value={{ active, enabled }}>
+    <CardMotionContext.Provider value={{ active, enabled, glareBackground }}>
       <div
         className={cn("ss-3d-card", containerClassName)}
         data-3d-active={active ? "true" : "false"}
@@ -122,6 +138,23 @@ export function CardContainer({
         </m.div>
       </div>
     </CardMotionContext.Provider>
+  );
+}
+
+/**
+ * Glass-reflection layer that tracks the pointer inside a CardContainer.
+ * Render it inside the card's clipped, rounded surface; CSS fades it in only
+ * while the container reports `data-3d-active="true"`.
+ */
+export function CardGlare({ className }: { className?: string }) {
+  const { glareBackground } = useContext(CardMotionContext);
+
+  return (
+    <m.span
+      aria-hidden="true"
+      className={cn("ss-3d-card__glare", className)}
+      style={{ backgroundImage: glareBackground }}
+    />
   );
 }
 

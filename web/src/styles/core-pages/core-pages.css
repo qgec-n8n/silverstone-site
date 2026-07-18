@@ -4130,6 +4130,16 @@
   border-radius: var(--ss-radius-pill);
   border: 1px solid var(--srv2-hairline);
   background: color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
+  transition:
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-insight-search:focus-within {
+  border-color: color-mix(in srgb, var(--srv2-accent) 55%, var(--srv2-hairline));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 24%, transparent),
+    0 14px 34px -24px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
 }
 
 .ss-insight-search svg {
@@ -4199,8 +4209,13 @@
 
 .ss-insight-filters__pill[data-active="true"] {
   border-color: color-mix(in srgb, var(--srv2-accent) 65%, transparent);
-  background: color-mix(in srgb, var(--srv2-accent) 16%, transparent);
+  background: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--srv2-accent) 22%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 18%, transparent)
+  );
   color: var(--ss-v2-chrome);
+  box-shadow: 0 10px 26px -18px color-mix(in srgb, var(--srv2-accent) 80%, transparent);
 }
 
 .ss-insight-board__count {
@@ -5007,7 +5022,7 @@ a.ss-insight-card:hover,
 }
 
 .ss-insight-card__media img {
-  filter: saturate(0.82) contrast(1.05) brightness(0.86);
+  filter: saturate(0.92) contrast(1.04) brightness(0.93);
   transform: scale(1.012);
   transition:
     filter 320ms var(--ss-motion-easing-standard),
@@ -5056,7 +5071,7 @@ a.ss-insight-card:hover,
 
 @media (hover: hover) and (pointer: fine) {
   .ss-insight-grid__item[data-card-hover-state="active"] .ss-insight-card__media img {
-    filter: saturate(0.98) contrast(1.04) brightness(0.91);
+    filter: saturate(1) contrast(1.03) brightness(0.98);
     transform: scale(1.04);
   }
 }
@@ -5101,23 +5116,48 @@ a.ss-insight-card:hover,
 }
 
 .ss-featured-insights__dispatch {
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 0.8rem 1.1rem;
   max-width: none;
 }
 
-.ss-featured-insights__dispatch > p {
-  max-width: 44ch;
-  font-size: 0.88rem;
-  line-height: 1.5;
-}
-
 .ss-featured-insights__edition {
+  position: relative;
+  overflow: hidden;
   min-height: 2.35rem;
   padding: 0.42rem 0.72rem;
   background: color-mix(in srgb, var(--ss-v2-graphite) 74%, transparent);
   font-size: 0.65rem;
+}
+
+/* Periodic light sweep across the dispatch chip. */
+.ss-featured-insights__edition::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.09) 48%,
+    rgba(38, 221, 255, 0.13) 52%,
+    transparent 68%
+  );
+  transform: translateX(-120%);
+  animation: ss-edition-shimmer 5.6s var(--ss-motion-easing-standard) infinite;
+}
+
+@keyframes ss-edition-shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  55%,
+  100% {
+    transform: translateX(120%);
+  }
 }
 
 .ss-featured-insights__grid {
@@ -5184,7 +5224,7 @@ a.ss-insight-card:hover,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.83) contrast(1.06) brightness(0.79);
+  filter: saturate(0.94) contrast(1.05) brightness(0.9);
   transform: scale(1.018);
   transition:
     filter 340ms var(--ss-motion-easing-standard),
@@ -5201,11 +5241,11 @@ a.ss-insight-card:hover,
   background:
     linear-gradient(
       90deg,
-      rgba(0, 3, 8, 0.9) 0%,
-      rgba(0, 3, 8, 0.42) 56%,
-      transparent 86%
+      rgba(0, 3, 8, 0.72) 0%,
+      rgba(0, 3, 8, 0.26) 52%,
+      transparent 80%
     ),
-    linear-gradient(0deg, rgba(0, 3, 8, 0.92) 0%, transparent 76%),
+    linear-gradient(0deg, rgba(0, 3, 8, 0.82) 0%, transparent 62%),
     linear-gradient(120deg, rgba(38, 221, 255, 0.09), transparent 38%);
 }
 
@@ -5296,6 +5336,17 @@ a.ss-insight-card:hover,
   font-size: 0.78rem;
 }
 
+/* Anchors the Magic UI border beam above the card's overlay layers so the
+   traveling light stays visible along the full frame. */
+.ss-featured-primary__beam {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
 .ss-featured-card__inner-rule {
   position: absolute;
   z-index: 5;
@@ -5342,9 +5393,9 @@ a.ss-insight-card:hover,
   background:
     linear-gradient(
       0deg,
-      rgba(0, 3, 8, 0.97) 0%,
-      rgba(0, 3, 8, 0.74) 42%,
-      transparent 82%
+      rgba(0, 3, 8, 0.88) 0%,
+      rgba(0, 3, 8, 0.52) 38%,
+      transparent 72%
     ),
     linear-gradient(110deg, rgba(38, 221, 255, 0.08), transparent 44%);
 }
@@ -5408,14 +5459,44 @@ a.ss-insight-card:hover,
 @media (hover: hover) and (pointer: fine) {
   .ss-3d-card[data-3d-active="true"] .ss-featured-primary__media img,
   .ss-3d-card[data-3d-active="true"] .ss-featured-support__media img {
-    filter: saturate(0.96) contrast(1.05) brightness(0.86);
-    transform: scale(1.035);
+    filter: saturate(1) contrast(1.04) brightness(0.97);
+    transform: scale(1.045);
+  }
+
+  .ss-3d-card[data-3d-active="true"] .ss-featured-primary__link {
+    border-color: color-mix(in srgb, var(--srv2-accent) 62%, var(--srv2-hairline));
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, white 14%, transparent),
+      0 44px 96px -48px color-mix(in srgb, var(--srv2-accent) 68%, transparent);
+  }
+
+  .ss-3d-card[data-3d-active="true"] .ss-featured-support__link {
+    border-color: color-mix(in srgb, var(--srv2-accent) 48%, var(--srv2-hairline));
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, white 11%, transparent),
+      0 34px 74px -44px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
   }
 
   .ss-featured-primary__link:hover .ss-featured-card__action svg,
   .ss-featured-support__link:hover .ss-featured-card__action svg {
     transform: translate(0.14rem, -0.14rem);
   }
+}
+
+/* Cursor-tracking glass reflection inside each featured card. */
+.ss-3d-card__glare {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: opacity 280ms var(--ss-motion-easing-standard);
+}
+
+.ss-3d-card[data-3d-active="true"] .ss-3d-card__glare {
+  opacity: 1;
 }
 
 @media (min-width: 48rem) {
@@ -5550,15 +5631,6 @@ a.ss-insight-card:hover,
     font-size: clamp(1.65rem, 2.15vw, 2rem);
   }
 
-  .ss-featured-insights__dispatch > p {
-    display: none;
-  }
-
-  .ss-featured-insights__dispatch {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   .ss-featured-insights__edition {
     min-height: 1.8rem;
     padding-block: 0.2rem;
@@ -5652,6 +5724,13 @@ a.ss-insight-card:hover,
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .ss-3d-card__glare,
+  .ss-featured-primary__beam,
+  .ss-featured-insights__edition::after {
+    display: none;
+    animation: none;
+  }
+
   .ss-3d-card__stage,
   .ss-3d-card__item,
   .ss-card-hover-effect__surface,
