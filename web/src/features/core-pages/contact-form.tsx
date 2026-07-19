@@ -6,12 +6,14 @@
  * grid row, panels are composed to fit it by construction, and the whole
  * console stays entirely visible inside the browser window.
  *
- * Desktop (≥48rem) runs five compact sliding stages — Focus → Scope →
- * Signals → Details → Transmit — under a mono console rail with a live
- * calibration meter. Mobile (<48rem) gets a dedicated seven-panel flow (one
- * decision per screen) inside the same fixed shell, so no panel ever needs
- * internal scroll. Both shells share one state object, so rotating or
- * resizing never loses the visitor's place.
+ * Desktop (≥48rem) runs four dense sliding stages — Focus → Signals →
+ * Details → Transmit — under a mono console rail with a live calibration
+ * meter; every stage is a fully populated board of equal glass instrument
+ * bays. Mobile (<48rem) gets a dedicated seven-panel flow (one decision per
+ * screen) inside a tighter fixed shell whose bays stretch to fill it, so no
+ * panel ever needs internal scroll and none trails empty space. Both shells
+ * share one state object, so rotating or resizing never loses the visitor's
+ * place.
  *
  * The qualifying stages are one-tap and fully optional; identity and the
  * written message come last, once momentum exists. Field names stay aligned
@@ -181,7 +183,6 @@ type PanelId =
   | "scope"
   | "workload"
   | "signals"
-  | "systems"
   | "calibration"
   | "details"
   | "transmit";
@@ -193,22 +194,20 @@ type StageDef = {
 };
 
 const DESKTOP_STAGES: readonly StageDef[] = [
-  { id: "focus", label: "Focus", title: "Where should we look first?" },
-  { id: "scope", label: "Scope", title: "Size the engagement" },
-  { id: "signals", label: "Signals", title: "Map your channels and systems" },
+  { id: "focus", label: "Focus", title: "Frame the engagement" },
+  { id: "signals", label: "Signals", title: "Map today’s operation" },
   { id: "details", label: "Details", title: "Where should the reply go?" },
   { id: "transmit", label: "Transmit", title: "Describe what should change" },
 ];
 
 const MOBILE_STAGES: readonly StageDef[] = [
-  { id: "focus", label: "Focus", title: "Where should we look first?" },
+  { id: "focus", label: "Focus", title: "Choose a starting point" },
   { id: "scope", label: "Budget", title: "Budget and timing" },
   { id: "workload", label: "Workload", title: "Today’s workload" },
-  { id: "signals", label: "Channels", title: "Where enquiries arrive" },
-  { id: "systems", label: "Systems", title: "What runs the work" },
+  { id: "signals", label: "Signals", title: "Channels and systems" },
   { id: "calibration", label: "Sign-off", title: "Automation and sign-off" },
-  { id: "details", label: "Details", title: "Where should the reply go?" },
-  { id: "transmit", label: "Transmit", title: "Describe what should change" },
+  { id: "details", label: "Details", title: "Where should replies go?" },
+  { id: "transmit", label: "Transmit", title: "What should change?" },
 ];
 
 function validatePanel(id: PanelId, data: EnquiryData): FieldErrors {
@@ -581,43 +580,40 @@ export function ContactForm() {
 
   /* -- Shared field clusters, sequenced differently per shell ------------- */
 
-  const focusFields = (
-    <div className="ss-enq__fields">
-      <p className="ss-enq__hint">
-        Two taps, both optional — they route your enquiry to the right preparation
-        before anyone replies.
-      </p>
-      <label className="ss-enq__field">
-        <span>
-          Area of interest <em>optional</em>
-        </span>
-        <span className="ss-enq__selectwrap">
-          <select
-            name="interest"
-            value={data.interest}
-            onChange={(event) => patch({ interest: event.target.value })}
-            disabled={submitting}
-          >
-            <option value="">Select the closest match</option>
-            {INTEREST_OPTIONS.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
-        </span>
-      </label>
-      <ChipGroup
-        legend={
-          <>
-            Company size <em>optional</em>
-          </>
-        }
-        name="companySize"
-        options={COMPANY_SIZE_OPTIONS}
-        value={data.companySize}
-        onChange={(companySize) => patch({ companySize })}
-        disabled={submitting}
-      />
-    </div>
+  const interestField = (
+    <label className="ss-enq__field">
+      <span>
+        Area of interest <em>optional</em>
+      </span>
+      <span className="ss-enq__selectwrap">
+        <select
+          name="interest"
+          value={data.interest}
+          onChange={(event) => patch({ interest: event.target.value })}
+          disabled={submitting}
+        >
+          <option value="">{mobile ? "Select a match" : "Select the closest match"}</option>
+          {INTEREST_OPTIONS.map((option) => (
+            <option key={option}>{option}</option>
+          ))}
+        </select>
+      </span>
+    </label>
+  );
+
+  const companyChips = (
+    <ChipGroup
+      legend={
+        <>
+          Company size <em>optional</em>
+        </>
+      }
+      name="companySize"
+      options={COMPANY_SIZE_OPTIONS}
+      value={data.companySize}
+      onChange={(companySize) => patch({ companySize })}
+      disabled={submitting}
+    />
   );
 
   const budgetSlider = (
@@ -635,9 +631,15 @@ export function ContactForm() {
   const timelineChips = (
     <ChipGroup
       legend={
-        <>
-          How soon should this be live? <em>optional</em>
-        </>
+        mobile ? (
+          <>
+            Target go-live <em>optional</em>
+          </>
+        ) : (
+          <>
+            How soon should this be live? <em>optional</em>
+          </>
+        )
       }
       name="timeline"
       options={TIMELINE_OPTIONS}
@@ -674,9 +676,15 @@ export function ContactForm() {
   const channelChips = (
     <ChipMultiGroup
       legend={
-        <>
-          Where do enquiries arrive? <em>select any</em>
-        </>
+        mobile ? (
+          <>
+            Enquiry channels <em>select any</em>
+          </>
+        ) : (
+          <>
+            Where do enquiries arrive? <em>select any</em>
+          </>
+        )
       }
       name="channels"
       options={CHANNEL_OPTIONS}
@@ -689,9 +697,15 @@ export function ContactForm() {
   const systemChips = (
     <ChipMultiGroup
       legend={
-        <>
-          Systems already in play <em>select any</em>
-        </>
+        mobile ? (
+          <>
+            Systems in play <em>select any</em>
+          </>
+        ) : (
+          <>
+            Systems already in play <em>select any</em>
+          </>
+        )
       }
       name="systems"
       options={SYSTEM_OPTIONS}
@@ -704,9 +718,15 @@ export function ContactForm() {
   const automationChips = (
     <ChipGroup
       legend={
-        <>
-          How automated are you today? <em>optional</em>
-        </>
+        mobile ? (
+          <>
+            Automation today <em>optional</em>
+          </>
+        ) : (
+          <>
+            How automated are you today? <em>optional</em>
+          </>
+        )
       }
       name="automationExperience"
       options={AUTOMATION_EXPERIENCE_OPTIONS}
@@ -731,80 +751,75 @@ export function ContactForm() {
     />
   );
 
-  const scopeHint = (
-    <p className="ss-enq__hint">
-      {mobile
-        ? "Optional — each answer helps us prepare."
-        : "Every control here is optional and one tap — each answer calibrates how the discovery call is prepared."}
-    </p>
+  const nameField = (
+    <label className="ss-enq__field">
+      <span>Name</span>
+      <input
+        name="name"
+        autoComplete="name"
+        placeholder="e.g. Alex Morgan"
+        value={data.name}
+        onChange={(event) => patch({ name: event.target.value })}
+        aria-invalid={errors.name ? true : undefined}
+        aria-describedby={errors.name ? "enq-error-name" : undefined}
+        disabled={submitting}
+      />
+      {errors.name ? <FieldError id="enq-error-name">{errors.name}</FieldError> : null}
+    </label>
   );
 
-  const identityFields = (
-    <div className="ss-enq__fields">
-      <div className="ss-core-form__grid" data-enq-identity>
-        <label className="ss-enq__field">
-          <span>Name</span>
-          <input
-            name="name"
-            autoComplete="name"
-            placeholder="e.g. Alex Morgan"
-            value={data.name}
-            onChange={(event) => patch({ name: event.target.value })}
-            aria-invalid={errors.name ? true : undefined}
-            aria-describedby={errors.name ? "enq-error-name" : undefined}
-            disabled={submitting}
-          />
-          {errors.name ? (
-            <FieldError id="enq-error-name">{errors.name}</FieldError>
-          ) : null}
-        </label>
-        <label className="ss-enq__field">
-          <span>Work email</span>
-          <input
-            name="email"
-            type="email"
-            autoComplete="email"
-            placeholder="e.g. alex@yourcompany.co.uk"
-            value={data.email}
-            onChange={(event) => patch({ email: event.target.value })}
-            aria-invalid={errors.email ? true : undefined}
-            aria-describedby={errors.email ? "enq-error-email" : undefined}
-            disabled={submitting}
-          />
-          {errors.email ? (
-            <FieldError id="enq-error-email">{errors.email}</FieldError>
-          ) : null}
-        </label>
-        <label className="ss-enq__field">
-          <span>
-            Phone <em>optional</em>
-          </span>
-          <input
-            name="phone"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder="e.g. +44 7911 123456"
-            value={data.phone}
-            onChange={(event) => patch({ phone: event.target.value })}
-            disabled={submitting}
-          />
-        </label>
-        <label className="ss-enq__field">
-          <span>
-            Company <em>optional</em>
-          </span>
-          <input
-            name="company"
-            autoComplete="organization"
-            placeholder="e.g. Morgan & Co Clinics"
-            value={data.company}
-            onChange={(event) => patch({ company: event.target.value })}
-            disabled={submitting}
-          />
-        </label>
-      </div>
-    </div>
+  const emailField = (
+    <label className="ss-enq__field">
+      <span>Work email</span>
+      <input
+        name="email"
+        type="email"
+        autoComplete="email"
+        placeholder="e.g. alex@yourcompany.co.uk"
+        value={data.email}
+        onChange={(event) => patch({ email: event.target.value })}
+        aria-invalid={errors.email ? true : undefined}
+        aria-describedby={errors.email ? "enq-error-email" : undefined}
+        disabled={submitting}
+      />
+      {errors.email ? (
+        <FieldError id="enq-error-email">{errors.email}</FieldError>
+      ) : null}
+    </label>
+  );
+
+  const phoneField = (
+    <label className="ss-enq__field">
+      <span>
+        Phone <em>optional</em>
+      </span>
+      <input
+        name="phone"
+        type="tel"
+        inputMode="tel"
+        autoComplete="tel"
+        placeholder="e.g. +44 7911 123456"
+        value={data.phone}
+        onChange={(event) => patch({ phone: event.target.value })}
+        disabled={submitting}
+      />
+    </label>
+  );
+
+  const companyField = (
+    <label className="ss-enq__field">
+      <span>
+        Company <em>optional</em>
+      </span>
+      <input
+        name="company"
+        autoComplete="organization"
+        placeholder="e.g. Morgan & Co Clinics"
+        value={data.company}
+        onChange={(event) => patch({ company: event.target.value })}
+        disabled={submitting}
+      />
+    </label>
   );
 
   const transmitFields = (
@@ -839,8 +854,9 @@ export function ContactForm() {
         ) : null}
       </label>
       <p className="ss-core-form__note">
-        Do not include passwords, payment information, health records or other sensitive
-        personal data.
+        {mobile
+          ? "No passwords or sensitive data, please."
+          : "Do not include passwords, payment information, health records or other sensitive personal data."}
       </p>
       <label className="ss-core-form__consent">
         <input
@@ -853,8 +869,16 @@ export function ContactForm() {
           disabled={submitting}
         />
         <span>
-          I agree to be contacted about this enquiry, in line with the{" "}
-          <a href="/privacy-policy">privacy policy</a>.
+          {mobile ? (
+            <>
+              I agree to be contacted — <a href="/privacy-policy">privacy policy</a>.
+            </>
+          ) : (
+            <>
+              I agree to be contacted about this enquiry, in line with the{" "}
+              <a href="/privacy-policy">privacy policy</a>.
+            </>
+          )}
         </span>
       </label>
       {errors.consent ? (
@@ -864,24 +888,28 @@ export function ContactForm() {
   );
 
   const panelContent: Record<PanelId, ReactNode> = {
-    focus: focusFields,
-    scope: mobile ? (
+    focus: mobile ? (
       <div className="ss-enq__fields">
-        {scopeHint}
-        {budgetSlider}
-        {timelineChips}
+        {interestField}
+        {companyChips}
       </div>
     ) : (
       <div className="ss-enq__fields">
-        {scopeHint}
+        <p className="ss-enq__hint">
+          Every control is optional — each answer calibrates the reply.
+        </p>
         <div className="ss-core-form__grid">
-          {budgetSlider}
+          {interestField}
+          {companyChips}
           {timelineChips}
+          {budgetSlider}
         </div>
-        <div className="ss-core-form__grid">
-          {volumeSlider}
-          {adminSlider}
-        </div>
+      </div>
+    ),
+    scope: (
+      <div className="ss-enq__fields">
+        {budgetSlider}
+        {timelineChips}
       </div>
     ),
     workload: (
@@ -891,27 +919,45 @@ export function ContactForm() {
       </div>
     ),
     signals: mobile ? (
-      <div className="ss-enq__fields">{channelChips}</div>
+      <div className="ss-enq__fields">
+        {channelChips}
+        {systemChips}
+      </div>
     ) : (
       <div className="ss-enq__fields">
         <div className="ss-core-form__grid">
+          {volumeSlider}
+          {adminSlider}
           {channelChips}
           {systemChips}
         </div>
-        <div className="ss-core-form__grid">
-          {automationChips}
-          {decisionChips}
-        </div>
       </div>
     ),
-    systems: <div className="ss-enq__fields">{systemChips}</div>,
     calibration: (
       <div className="ss-enq__fields">
         {automationChips}
         {decisionChips}
       </div>
     ),
-    details: identityFields,
+    details: mobile ? (
+      <div className="ss-enq__fields">
+        {nameField}
+        {emailField}
+        {phoneField}
+        {companyField}
+      </div>
+    ) : (
+      <div className="ss-enq__fields">
+        <div className="ss-core-form__grid" data-enq-identity>
+          {nameField}
+          {emailField}
+          {phoneField}
+          {companyField}
+          {automationChips}
+          {decisionChips}
+        </div>
+      </div>
+    ),
     transmit: transmitFields,
   };
 

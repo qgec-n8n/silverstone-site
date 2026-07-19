@@ -46,9 +46,8 @@ test("desktop enquiry panels fill one stable shell without empty bottom space", 
     (element) => element.getBoundingClientRect().height,
   );
   const headings = [
-    "Where should we look first?",
-    "Size the engagement",
-    "Map your channels and systems",
+    "Frame the engagement",
+    "Map today’s operation",
     "Where should the reply go?",
     "Describe what should change",
   ];
@@ -119,7 +118,7 @@ test("mobile panels fit at 320px and every slider label remains single-line", as
     sliderLabels: readonly (readonly string[])[];
   }[] = [
     {
-      heading: "Where should we look first?",
+      heading: "Choose a starting point",
       sliderLabels: [],
     },
     {
@@ -133,11 +132,10 @@ test("mobile panels fit at 320px and every slider label remains single-line", as
         ["<2", "2–5", "5–15", "15+", "Unsure"],
       ],
     },
-    { heading: "Where enquiries arrive", sliderLabels: [] },
-    { heading: "What runs the work", sliderLabels: [] },
+    { heading: "Channels and systems", sliderLabels: [] },
     { heading: "Automation and sign-off", sliderLabels: [] },
-    { heading: "Where should the reply go?", sliderLabels: [] },
-    { heading: "Describe what should change", sliderLabels: [] },
+    { heading: "Where should replies go?", sliderLabels: [] },
+    { heading: "What should change?", sliderLabels: [] },
   ];
 
   for (const [stageIndex, stage] of stages.entries()) {
@@ -162,7 +160,7 @@ test("mobile panels fit at 320px and every slider label remains single-line", as
       for (const tick of await ticks.all()) await expectSingleLine(tick);
     }
 
-    if (stage.heading === "Where should the reply go?") await setRequiredDetails(page);
+    if (stage.heading === "Where should replies go?") await setRequiredDetails(page);
     if (stageIndex < stages.length - 1) await advance(form);
   }
 

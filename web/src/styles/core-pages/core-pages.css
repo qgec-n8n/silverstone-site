@@ -459,12 +459,14 @@
   scroll-margin-top: calc(var(--ss-layout-header, 0px) + 1.25rem);
 }
 
+/* The mobile console is a deliberately tight instrument: capped at 39rem so
+   seven dense panels fill it edge to edge instead of trailing empty glass. */
 .ss-enq[data-enq-shell="mobile"] {
   height: clamp(
     35.25rem,
     var(--enq-mobile-viewport-height, 100svh) - var(--ss-layout-header, 4.5rem) -
       1.75rem,
-    44rem
+    39rem
   );
   gap: clamp(0.7rem, 1.5svh, 1.15rem);
   padding: clamp(0.95rem, 2svh, 1.4rem) clamp(0.9rem, 4vw, 1.4rem);
@@ -623,49 +625,37 @@
   min-height: 0;
 }
 
-/* Desktop-only composition: every panel uses the full stage area without
-   changing the shell height. Controls sit in evenly sized glass instrument
-   bays rather than clustering at the top of an otherwise empty console. */
+/* Desktop-only composition: every stage is a fully populated instrument
+   board — at most a one-line hint row, then a grid of equal glass bays that
+   split the whole stage area between them. No bay ever floats in empty
+   console space. */
 .ss-enq[data-enq-shell="desktop"] .ss-enq__fields {
   height: 100%;
   align-content: stretch;
+  grid-template-rows: minmax(0, 1fr);
 }
 
 .ss-enq[data-enq-shell="desktop"]
   .ss-enq__panel[data-enq-panel="focus"]
-  .ss-enq__fields,
-.ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel[data-enq-panel="scope"]
   .ss-enq__fields {
-  grid-template-rows: auto repeat(2, minmax(0, 1fr));
-}
-
-.ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel[data-enq-panel="signals"]
-  .ss-enq__fields {
-  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto minmax(0, 1fr);
 }
 
 .ss-enq[data-enq-shell="desktop"] .ss-enq__panel .ss-core-form__grid {
   height: 100%;
   align-items: stretch;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+.ss-enq[data-enq-shell="desktop"] .ss-enq__panel .ss-core-form__grid > * {
+  height: 100%;
+  min-width: 0;
 }
 
 .ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel:is([data-enq-panel="focus"], [data-enq-panel="signals"])
-  .ss-core-form__seg,
-.ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel[data-enq-panel="scope"]
+  .ss-enq__panel
   .ss-core-form__grid
-  > .ss-core-form__seg,
-.ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel[data-enq-panel="focus"]
-  .ss-enq__fields
-  > .ss-enq__field,
-.ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel[data-enq-panel="details"]
-  .ss-enq__field {
-  height: 100%;
+  > :is(.ss-core-form__seg, .ss-enq__field) {
   align-content: center;
   padding: clamp(0.7rem, 1.45dvh, 1.05rem) clamp(0.85rem, 0.75rem + 0.5vw, 1.25rem);
   border: 1px solid color-mix(in srgb, var(--srv2-accent) 22%, var(--ss-v2-hairline));
@@ -680,24 +670,39 @@
     color-mix(in srgb, var(--ss-v2-void-black) 42%, transparent);
 }
 
-.ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel:is([data-enq-panel="scope"], [data-enq-panel="signals"])
-  .ss-core-form__grid
-  > * {
-  height: 100%;
-}
-
-.ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel:is([data-enq-panel="scope"], [data-enq-panel="signals"])
-  .ss-core-form__seg,
 .ss-enq[data-enq-shell="desktop"] .ss-enq__slider {
   align-content: center;
 }
 
+/* Details board: identity fields keep a tab-logical DOM order (name, email,
+   phone, company, then the two qualifier decks); placement puts identity in
+   columns 1–2 and the decks in column 3. */
 .ss-enq[data-enq-shell="desktop"] [data-enq-identity] {
-  height: 100%;
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  align-items: stretch;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(1) {
+  grid-area: 1 / 1;
+}
+
+.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(2) {
+  grid-area: 1 / 2;
+}
+
+.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(3) {
+  grid-area: 2 / 1;
+}
+
+.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(4) {
+  grid-area: 2 / 2;
+}
+
+.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(5) {
+  grid-area: 1 / 3;
+}
+
+.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(6) {
+  grid-area: 2 / 3;
 }
 
 .ss-enq .ss-core-form__grid {
@@ -777,6 +782,18 @@
   font-weight: 600;
 }
 
+/* Every bay speaks one language: the caption above a control is the same
+   mono micro-label the slider readouts use, so inputs, chip decks and
+   sliders all read as instruments on the same board. */
+.ss-enq__field > span:first-child {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .ss-enq__field em {
   color: var(--srv2-ink-faint);
   font-style: normal;
@@ -845,9 +862,19 @@
   gap: clamp(0.3rem, 0.8dvh, 0.55rem);
 }
 
+/* Chip-deck captions live INSIDE the bay, not on its border: floating the
+   legend evicts it from the fieldset's border slot into normal flow, where
+   it takes the same mono voice as the slider readouts. */
 .ss-enq .ss-core-form__seg legend {
+  float: left;
+  width: 100%;
   margin-bottom: clamp(0.25rem, 0.7dvh, 0.5rem);
-  font-size: 0.85rem;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .ss-enq .ss-core-form__seg-option span {
@@ -894,12 +921,83 @@
   gap: clamp(0.6rem, 1.3svh, 1.05rem);
 }
 
+/* Mobile bays: each control sits in its own glass bay and the bays share
+   the fixed panel area, so every panel fills the console — content centres
+   inside its bay instead of pooling at the top of the shell. Flex (not 1fr
+   grid rows) so spare space is distributed without fr-equalisation inflating
+   the panel's intrinsic height past the viewport on short screens. */
 .ss-enq[data-enq-shell="mobile"] .ss-enq__fields {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   gap: clamp(0.6rem, 1.4svh, 1.05rem);
 }
 
-.ss-enq[data-enq-shell="mobile"] .ss-core-form__grid {
-  gap: clamp(0.6rem, 1.3svh, 1rem);
+.ss-enq[data-enq-shell="mobile"] .ss-enq__fields:not([data-enq-transmit]) > * {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.ss-enq[data-enq-shell="mobile"]
+  .ss-enq__fields:not([data-enq-transmit])
+  > :is(.ss-core-form__seg, .ss-enq__field) {
+  align-content: center;
+  padding: clamp(0.55rem, 1.3svh, 0.95rem) clamp(0.7rem, 3.5vw, 1rem);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 22%, var(--ss-v2-hairline));
+  border-radius: var(--ss-radius-lg);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--srv2-accent) 7%, transparent),
+      color-mix(in srgb, var(--srv2-accent-2) 4%, transparent) 62%,
+      transparent
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 42%, transparent);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg legend,
+.ss-enq[data-enq-shell="mobile"] .ss-enq__field > span:first-child {
+  font-size: clamp(0.55rem, 2.15vw, 0.62rem);
+  letter-spacing: 0.1em;
+}
+
+/* Titles and chips are sized so no mobile copy ever breaks to two lines,
+   down to a 320px viewport. */
+.ss-enq[data-enq-shell="mobile"] .ss-enq__panel-title {
+  font-size: clamp(1rem, 4.6vw, 1.3rem);
+  white-space: nowrap;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg-option span {
+  padding-inline: 0.7rem;
+}
+
+/* Sub-360px compaction: the narrowest phones keep every panel inside the
+   fixed shell by tightening the chip instruments, never by scrolling. The
+   calibration meter yields its rail space so the stage count never clips. */
+@media (max-width: 22.5rem) {
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__meter {
+    display: none;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-core-form__seg-option span {
+    padding: 0.32rem 0.55rem;
+    font-size: 0.75rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-core-form__seg {
+    gap: 0.25rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-core-form__seg-options {
+    gap: 0.35rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"]
+    .ss-enq__fields:not([data-enq-transmit])
+    > :is(.ss-core-form__seg, .ss-enq__field) {
+    padding: 0.5rem 0.6rem;
+  }
 }
 
 .ss-enq[data-enq-shell="mobile"] .ss-core-form__seg {
@@ -1055,6 +1153,7 @@
 }
 
 .ss-enq[data-enq-shell="mobile"] .ss-enq__slider {
+  align-content: center;
   gap: clamp(0.45rem, 1.1svh, 0.75rem);
   padding-block: clamp(0.75rem, 1.7svh, 1.35rem);
 }

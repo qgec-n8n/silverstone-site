@@ -93,7 +93,7 @@ for (const comparison of representativeSourceCopy) {
 test("rebuilt contact route renders a staging-safe enquiry form", async ({
   page,
 }, testInfo) => {
-  // The console sequences the same content as five desktop stages or seven
+  // The console sequences the same content as four desktop stages or seven
   // mobile panels; both paths end at the identity stage.
   const mobile = testInfo.project.name === "mobile-chromium";
   await page.goto("/contact");
@@ -107,10 +107,10 @@ test("rebuilt contact route renders a staging-safe enquiry form", async ({
   await continueButton.click();
   await expect(
     page.getByRole("heading", {
-      name: mobile ? "Budget and timing" : "Size the engagement",
+      name: mobile ? "Budget and timing" : "Map today’s operation",
     }),
   ).toBeFocused();
-  const remainingQualifierPanels = mobile ? 4 : 2;
+  const remainingQualifierPanels = mobile ? 4 : 1;
   for (let hop = 0; hop < remainingQualifierPanels; hop += 1) {
     await continueButton.click();
   }
