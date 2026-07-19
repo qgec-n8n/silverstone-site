@@ -92,6 +92,7 @@ export function DemosLauncher() {
 
   if (
     location.pathname === "/book" ||
+    location.pathname === "/contact" ||
     (isGateFreeRoute(location.pathname) && !location.pathname.startsWith("/blog/"))
   ) {
     return null;

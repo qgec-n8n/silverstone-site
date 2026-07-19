@@ -433,8 +433,9 @@
    Sizing contract (both shells): the console height derives from the
    viewport (bounded clamp), never from stage content, so the instrument
    occupies one stable, fully visible frame while panels change inside its
-   flexible stage viewport. dvh-clamped gaps compress on short screens so
-   panels keep fitting by construction. ---------------------------------- */
+   flexible stage viewport. Desktop tracks the live viewport. Mobile stores
+   its first usable viewport height so collapsing browser chrome cannot
+   resize the console mid-scroll. ---------------------------------------- */
 
 .ss-enq {
   gap: clamp(0.7rem, 1.5dvh, 1.15rem);
@@ -460,16 +461,13 @@
 
 .ss-enq[data-enq-shell="mobile"] {
   height: clamp(
-    26rem,
-    100vh - var(--ss-layout-header, 4.5rem) - clamp(1.5rem, 4vh, 2.5rem),
+    35.25rem,
+    var(--enq-mobile-viewport-height, 100svh) - var(--ss-layout-header, 4.5rem) -
+      1.75rem,
     44rem
   );
-  height: clamp(
-    26rem,
-    100dvh - var(--ss-layout-header, 4.5rem) - clamp(1.5rem, 4dvh, 2.5rem),
-    44rem
-  );
-  padding: clamp(0.95rem, 2dvh, 1.4rem) clamp(0.9rem, 4vw, 1.4rem);
+  gap: clamp(0.7rem, 1.5svh, 1.15rem);
+  padding: clamp(0.95rem, 2svh, 1.4rem) clamp(0.9rem, 4vw, 1.4rem);
 }
 
 /* Sent state: one centred terminal inside the same stable frame. */
@@ -490,10 +488,14 @@
 .ss-enq[data-enq-shell="mobile"] .ss-enq__nav {
   flex-direction: row;
   align-items: center;
+  padding-inline-start: 0.75rem;
 }
 
 .ss-enq[data-enq-shell="mobile"] .ss-enq__nav .ss-srv2-btn {
+  flex: 0 0 auto;
   justify-content: center;
+  padding-inline: 0.75rem;
+  white-space: nowrap;
 }
 
 .ss-enq__rail {
@@ -619,6 +621,83 @@
   align-content: start;
   gap: clamp(0.6rem, 1.4dvh, 1.05rem);
   min-height: 0;
+}
+
+/* Desktop-only composition: every panel uses the full stage area without
+   changing the shell height. Controls sit in evenly sized glass instrument
+   bays rather than clustering at the top of an otherwise empty console. */
+.ss-enq[data-enq-shell="desktop"] .ss-enq__fields {
+  height: 100%;
+  align-content: stretch;
+}
+
+.ss-enq[data-enq-shell="desktop"]
+  .ss-enq__panel[data-enq-panel="focus"]
+  .ss-enq__fields,
+.ss-enq[data-enq-shell="desktop"]
+  .ss-enq__panel[data-enq-panel="scope"]
+  .ss-enq__fields {
+  grid-template-rows: auto repeat(2, minmax(0, 1fr));
+}
+
+.ss-enq[data-enq-shell="desktop"]
+  .ss-enq__panel[data-enq-panel="signals"]
+  .ss-enq__fields {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+.ss-enq[data-enq-shell="desktop"] .ss-enq__panel .ss-core-form__grid {
+  height: 100%;
+  align-items: stretch;
+}
+
+.ss-enq[data-enq-shell="desktop"]
+  .ss-enq__panel:is([data-enq-panel="focus"], [data-enq-panel="signals"])
+  .ss-core-form__seg,
+.ss-enq[data-enq-shell="desktop"]
+  .ss-enq__panel[data-enq-panel="scope"]
+  .ss-core-form__grid
+  > .ss-core-form__seg,
+.ss-enq[data-enq-shell="desktop"]
+  .ss-enq__panel[data-enq-panel="focus"]
+  .ss-enq__fields
+  > .ss-enq__field,
+.ss-enq[data-enq-shell="desktop"]
+  .ss-enq__panel[data-enq-panel="details"]
+  .ss-enq__field {
+  height: 100%;
+  align-content: center;
+  padding: clamp(0.7rem, 1.45dvh, 1.05rem) clamp(0.85rem, 0.75rem + 0.5vw, 1.25rem);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 22%, var(--ss-v2-hairline));
+  border-radius: var(--ss-radius-lg);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--srv2-accent) 7%, transparent),
+      color-mix(in srgb, var(--srv2-accent-2) 4%, transparent) 62%,
+      transparent
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 42%, transparent);
+}
+
+.ss-enq[data-enq-shell="desktop"]
+  .ss-enq__panel:is([data-enq-panel="scope"], [data-enq-panel="signals"])
+  .ss-core-form__grid
+  > * {
+  height: 100%;
+}
+
+.ss-enq[data-enq-shell="desktop"]
+  .ss-enq__panel:is([data-enq-panel="scope"], [data-enq-panel="signals"])
+  .ss-core-form__seg,
+.ss-enq[data-enq-shell="desktop"] .ss-enq__slider {
+  align-content: center;
+}
+
+.ss-enq[data-enq-shell="desktop"] [data-enq-identity] {
+  height: 100%;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
 }
 
 .ss-enq .ss-core-form__grid {
@@ -809,6 +888,37 @@
   height: 0.24rem;
 }
 
+/* Stable mobile rhythm: `svh` is insensitive to the URL bar, while the
+   shell itself is locked to the initial pixel measurement above. */
+.ss-enq[data-enq-shell="mobile"] .ss-enq__panel {
+  gap: clamp(0.6rem, 1.3svh, 1.05rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__fields {
+  gap: clamp(0.6rem, 1.4svh, 1.05rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-core-form__grid {
+  gap: clamp(0.6rem, 1.3svh, 1rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg {
+  gap: clamp(0.3rem, 0.8svh, 0.55rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg legend {
+  margin-bottom: clamp(0.25rem, 0.7svh, 0.5rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg-option span {
+  padding-block: clamp(0.4rem, 1svh, 0.5rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] input,
+.ss-enq[data-enq-shell="mobile"] select {
+  padding-block: clamp(0.6rem, 1.4svh, 0.82rem);
+}
+
 /* Budget slider instrument: glowing readout, beam track, orb thumb. The
    fill percentage arrives via --enq-fill from the component. */
 .ss-enq__slider {
@@ -942,6 +1052,41 @@
 
 .ss-enq__slider-ticks span[data-active="true"] {
   color: var(--srv2-ink);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__slider {
+  gap: clamp(0.45rem, 1.1svh, 0.75rem);
+  padding-block: clamp(0.75rem, 1.7svh, 1.35rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout {
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout span,
+.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout strong,
+.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-ticks span {
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout span {
+  font-size: clamp(0.55rem, 2.15vw, 0.62rem);
+  letter-spacing: 0.1em;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout strong {
+  flex: none;
+  font-size: clamp(0.82rem, 3.7vw, 0.98rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-ticks {
+  gap: 0.16rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-ticks span {
+  font-size: clamp(0.54rem, 2.15vw, 0.62rem);
 }
 
 .ss-enq__count {

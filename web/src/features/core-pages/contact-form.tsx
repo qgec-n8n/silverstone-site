@@ -74,6 +74,13 @@ const ENQUIRY_VOLUME_OPTIONS = ["Under 10", "10–50", "50–200", "200+", "Not 
 
 const ADMIN_HOURS_OPTIONS = ["Under 2", "2–5", "5–15", "15+", "Hard to say"];
 
+/* Mobile tick labels are intentionally terse: the full values remain in
+ * state, accessibility text and the submission payload, while the compact
+ * instrument face stays single-line even on a 320px viewport. */
+const MOBILE_BUDGET_LABELS = ["<£1k", "£1–3k", "£3–10k", "£10k+", "Unsure"];
+const MOBILE_ENQUIRY_VOLUME_LABELS = ["<10", "10–50", "50–200", "200+", "Unsure"];
+const MOBILE_ADMIN_HOURS_LABELS = ["<2", "2–5", "5–15", "15+", "Unsure"];
+
 const CHANNEL_OPTIONS = [
   "Phone",
   "Email",
@@ -174,6 +181,7 @@ type PanelId =
   | "scope"
   | "workload"
   | "signals"
+  | "systems"
   | "calibration"
   | "details"
   | "transmit";
@@ -196,7 +204,8 @@ const MOBILE_STAGES: readonly StageDef[] = [
   { id: "focus", label: "Focus", title: "Where should we look first?" },
   { id: "scope", label: "Budget", title: "Budget and timing" },
   { id: "workload", label: "Workload", title: "Today’s workload" },
-  { id: "signals", label: "Channels", title: "Channels and systems" },
+  { id: "signals", label: "Channels", title: "Where enquiries arrive" },
+  { id: "systems", label: "Systems", title: "What runs the work" },
   { id: "calibration", label: "Sign-off", title: "Automation and sign-off" },
   { id: "details", label: "Details", title: "Where should the reply go?" },
   { id: "transmit", label: "Transmit", title: "Describe what should change" },
@@ -390,19 +399,24 @@ function ChipMultiGroup({
  */
 function ScopeSlider({
   label,
+  displayLabel,
   options,
+  displayOptions,
   value,
   onChange,
   disabled,
 }: {
   label: string;
+  displayLabel?: string | undefined;
   options: readonly string[];
+  displayOptions?: readonly string[] | undefined;
   value: string;
   onChange: (next: string) => void;
   disabled: boolean;
 }) {
   const index = Math.max(0, options.indexOf(value));
   const fallback = options[options.length - 1] ?? "";
+  const readout = displayOptions?.[index] ?? value;
 
   return (
     <div
@@ -414,8 +428,8 @@ function ScopeSlider({
       }
     >
       <div className="ss-enq__slider-readout">
-        <span>{label}</span>
-        <strong>{value}</strong>
+        <span>{displayLabel ?? label}</span>
+        <strong>{readout}</strong>
       </div>
       <input
         type="range"
@@ -429,9 +443,9 @@ function ScopeSlider({
         disabled={disabled}
       />
       <div className="ss-enq__slider-ticks" aria-hidden="true">
-        {options.map((option) => (
+        {options.map((option, optionIndex) => (
           <span key={option} data-active={option === value}>
-            {option}
+            {displayOptions?.[optionIndex] ?? option}
           </span>
         ))}
       </div>
@@ -447,8 +461,23 @@ export function ContactForm() {
   const [data, setData] = useState<EnquiryData>(INITIAL_DATA);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const mobileViewportHeightRef = useRef<number | null>(null);
   const lastFocusedStepRef = useRef(step);
   const reducedMotion = useReducedMotion() ?? false;
+
+  /* Capture the mobile browser's usable height once when the mobile shell
+   commits. Collapsing/expanding URL chrome then fires height-only resizes, but
+   the console keeps this initial measurement. Callback refs also cover the
+   sent-state shell without introducing a render solely for measurement. */
+  const attachShell = (node: HTMLDivElement | HTMLFormElement | null) => {
+    if (node && mobile) {
+      mobileViewportHeightRef.current ??= window.innerHeight;
+      node.style.setProperty(
+        "--enq-mobile-viewport-height",
+        `${String(mobileViewportHeightRef.current)}px`,
+      );
+    }
+  };
 
   // The two shells sequence the same content differently; entering the other
   // shell mid-journey simply clamps to its last panel rather than crashing
@@ -522,6 +551,7 @@ export function ContactForm() {
         className="ss-core-form ss-enq ss-enq--sent ss-srv2-beam-border"
         data-enq-shell={shellKind}
         id="contact-form-panel"
+        ref={attachShell}
       >
         <div className="ss-enq__terminal" role="status">
           <CheckCircle2Icon aria-hidden="true" className="ss-enq__terminal-icon" />
@@ -593,7 +623,9 @@ export function ContactForm() {
   const budgetSlider = (
     <ScopeSlider
       label="Indicative budget"
+      displayLabel={mobile ? "Budget range" : undefined}
       options={BUDGET_OPTIONS}
+      displayOptions={mobile ? MOBILE_BUDGET_LABELS : undefined}
       value={data.budget}
       onChange={(budget) => patch({ budget })}
       disabled={submitting}
@@ -618,7 +650,9 @@ export function ContactForm() {
   const volumeSlider = (
     <ScopeSlider
       label="New enquiries per week"
+      displayLabel={mobile ? "Enquiries / week" : undefined}
       options={ENQUIRY_VOLUME_OPTIONS}
+      displayOptions={mobile ? MOBILE_ENQUIRY_VOLUME_LABELS : undefined}
       value={data.enquiryVolume}
       onChange={(enquiryVolume) => patch({ enquiryVolume })}
       disabled={submitting}
@@ -628,7 +662,9 @@ export function ContactForm() {
   const adminSlider = (
     <ScopeSlider
       label="Hours a week lost to manual admin"
+      displayLabel={mobile ? "Manual admin / week" : undefined}
       options={ADMIN_HOURS_OPTIONS}
+      displayOptions={mobile ? MOBILE_ADMIN_HOURS_LABELS : undefined}
       value={data.adminHours}
       onChange={(adminHours) => patch({ adminHours })}
       disabled={submitting}
@@ -697,8 +733,9 @@ export function ContactForm() {
 
   const scopeHint = (
     <p className="ss-enq__hint">
-      Every control here is optional and one tap — each answer calibrates how the
-      discovery call is prepared.
+      {mobile
+        ? "Optional — each answer helps us prepare."
+        : "Every control here is optional and one tap — each answer calibrates how the discovery call is prepared."}
     </p>
   );
 
@@ -854,10 +891,7 @@ export function ContactForm() {
       </div>
     ),
     signals: mobile ? (
-      <div className="ss-enq__fields">
-        {channelChips}
-        {systemChips}
-      </div>
+      <div className="ss-enq__fields">{channelChips}</div>
     ) : (
       <div className="ss-enq__fields">
         <div className="ss-core-form__grid">
@@ -870,6 +904,7 @@ export function ContactForm() {
         </div>
       </div>
     ),
+    systems: <div className="ss-enq__fields">{systemChips}</div>,
     calibration: (
       <div className="ss-enq__fields">
         {automationChips}
@@ -885,6 +920,7 @@ export function ContactForm() {
       className="ss-core-form ss-enq ss-srv2-beam-border"
       data-enq-shell={shellKind}
       aria-label="Silverstone enquiry form"
+      ref={attachShell}
       onSubmit={(event) => {
         event.preventDefault();
         if (activeStep < stages.length - 1) {
@@ -949,6 +985,7 @@ export function ContactForm() {
           <m.section
             key={`${shellKind}-${stage.id}`}
             className="ss-enq__panel"
+            data-enq-panel={stage.id}
             custom={direction}
             variants={reducedMotion ? REDUCED_PANEL_VARIANTS : PANEL_VARIANTS}
             initial="enter"
@@ -999,7 +1036,7 @@ export function ContactForm() {
               "Transmitting…"
             ) : (
               <>
-                Transmit enquiry <Send aria-hidden="true" />
+                {mobile ? "Send" : "Transmit enquiry"} <Send aria-hidden="true" />
               </>
             )}
           </button>
