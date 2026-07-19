@@ -9,7 +9,6 @@ import { Link } from "react-router";
 
 import { ArrowUpRight, Clock, Search } from "~/components/icons/lucide";
 import { CardHoverEffect } from "~/components/ui/card-hover-effect";
-import { Reveal } from "~/features/services-v2/components/primitives";
 
 import {
   INSIGHT_ARTICLES,
@@ -135,7 +134,9 @@ export function InsightsBoard() {
 
   return (
     <div className="ss-insight-board" data-deep-link-anchor="self" id="insights-search">
-      <Reveal kind="section" className="ss-insight-board__controls">
+      {/* No entrance reveal here: the search and filters are working
+          controls and are simply present with the article grid. */}
+      <div className="ss-insight-board__controls">
         <label className="ss-insight-search">
           <Search aria-hidden="true" />
           <span className="sr-only">Search Insights by title or topic</span>
@@ -185,7 +186,7 @@ export function InsightsBoard() {
             </button>
           ))}
         </div>
-      </Reveal>
+      </div>
 
       <p className="ss-insight-board__count" role="status" aria-live="polite">
         {filtered.length} {filtered.length === 1 ? "topic" : "topics"}

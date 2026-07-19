@@ -153,38 +153,6 @@ function siteConfig(id: ShowcaseSiteId): ShowcaseSiteConfig {
 
 const sites: ShowcaseSite[] = [
   {
-    ...siteConfig("ownly-housing"),
-    name: "Ownly Housing",
-    sector: "Shared-ownership housing",
-    headline: "Calm authority for a specialist housing launch",
-    line: "Three audiences — shared owners, housing associations, developers — carried through one trust-led, policy-aware journey.",
-    chips: [
-      { icon: Building2, label: "Three audience journeys" },
-      { icon: UserCheck, label: "Shared-owner support hub" },
-      { icon: ShieldCheck, label: "Policy-led content system" },
-      { icon: Layers, label: "Portal-ready architecture" },
-    ],
-    // Source site theme tokens: #5e0000 oxblood and #c8a84a gold.
-    tint: "#5e0000",
-    tintSecondary: "#c8a84a",
-    desktopPoster: {
-      src: "/demos/web-design/ownly-desktop-1440.webp",
-      srcSet:
-        "/demos/web-design/ownly-desktop-1440.webp 1440w, /demos/web-design/ownly-desktop-2880.webp 2880w",
-      width: 2880,
-      height: 1800,
-      alt: "Ownly Housing homepage — “Managing shared ownership. Protecting what matters most.”",
-    },
-    mobilePoster: {
-      src: "/demos/web-design/ownly-mobile-390.webp",
-      srcSet:
-        "/demos/web-design/ownly-mobile-390.webp 390w, /demos/web-design/ownly-mobile-780.webp 780w",
-      width: 780,
-      height: 1688,
-      alt: "The Ownly Housing homepage on a phone.",
-    },
-  },
-  {
     ...siteConfig("aesthetics-by-clouds"),
     name: "Aesthetics by Clouds",
     sector: "Aesthetic clinic · Abingdon",
@@ -214,6 +182,38 @@ const sites: ShowcaseSite[] = [
       width: 780,
       height: 1688,
       alt: "The Aesthetics by Clouds homepage on a phone.",
+    },
+  },
+  {
+    ...siteConfig("ownly-housing"),
+    name: "Ownly Housing",
+    sector: "Shared-ownership housing",
+    headline: "Calm authority for a specialist housing launch",
+    line: "Three audiences — shared owners, housing associations, developers — carried through one trust-led, policy-aware journey.",
+    chips: [
+      { icon: Building2, label: "Three audience journeys" },
+      { icon: UserCheck, label: "Shared-owner support hub" },
+      { icon: ShieldCheck, label: "Policy-led content system" },
+      { icon: Layers, label: "Portal-ready architecture" },
+    ],
+    // Source site theme tokens: #5e0000 oxblood and #c8a84a gold.
+    tint: "#5e0000",
+    tintSecondary: "#c8a84a",
+    desktopPoster: {
+      src: "/demos/web-design/ownly-desktop-1440.webp",
+      srcSet:
+        "/demos/web-design/ownly-desktop-1440.webp 1440w, /demos/web-design/ownly-desktop-2880.webp 2880w",
+      width: 2880,
+      height: 1800,
+      alt: "Ownly Housing homepage — “Managing shared ownership. Protecting what matters most.”",
+    },
+    mobilePoster: {
+      src: "/demos/web-design/ownly-mobile-390.webp",
+      srcSet:
+        "/demos/web-design/ownly-mobile-390.webp 390w, /demos/web-design/ownly-mobile-780.webp 780w",
+      width: 780,
+      height: 1688,
+      alt: "The Ownly Housing homepage on a phone.",
     },
   },
 ];

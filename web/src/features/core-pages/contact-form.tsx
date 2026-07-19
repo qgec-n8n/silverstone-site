@@ -1,24 +1,37 @@
 /**
- * Contact enquiry console. The enquiry is captured across four compact
- * sliding stages (Focus → Scope → Details → Transmit) instead of one long
- * field list, so the form reads as a short interactive sequence rather than
- * an intimidating page of inputs. The two qualifying stages are one-tap and
- * fully optional; identity and the written message come last, once momentum
- * exists. The Scope stage is a compact qualification instrument — sliders
- * and tap-chips covering budget, urgency, volume, channels, systems,
- * automation maturity and sign-off — that lets a discovery call be planned
- * and priced accurately without asking the visitor to type anything. Field
- * names stay aligned with the send-email Netlify function's whitelist
- * (name, email, phone, company, interest, companySize, budget, timeline,
- * enquiryVolume, adminHours, channels, systems, automationExperience,
- * decisionRole, message).
+ * Contact enquiry console — a fixed-size instrument on every breakpoint.
+ *
+ * The shell is sized once from the viewport (like the booking console) and
+ * never grows or shrinks between panels: the stage viewport is the flexible
+ * grid row, panels are composed to fit it by construction, and the whole
+ * console stays entirely visible inside the browser window.
+ *
+ * Desktop (≥48rem) runs five compact sliding stages — Focus → Scope →
+ * Signals → Details → Transmit — under a mono console rail with a live
+ * calibration meter. Mobile (<48rem) gets a dedicated seven-panel flow (one
+ * decision per screen) inside the same fixed shell, so no panel ever needs
+ * internal scroll. Both shells share one state object, so rotating or
+ * resizing never loses the visitor's place.
+ *
+ * The qualifying stages are one-tap and fully optional; identity and the
+ * written message come last, once momentum exists. Field names stay aligned
+ * with the send-email Netlify function's whitelist (name, email, phone,
+ * company, interest, companySize, budget, timeline, enquiryVolume,
+ * adminHours, channels, systems, automationExperience, decisionRole,
+ * message).
  *
  * Submits to the repository's real configured endpoint
  * (`/.netlify/functions/send-email`) and falls back to a direct mailto route
  * if that request can't be confirmed — no staging language, no fabricated
  * always-succeeds mock.
  */
-import { useRef, useState, type CSSProperties, type ReactNode } from "react";
+import {
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { AnimatePresence, useReducedMotion, type Variants } from "motion/react";
 import * as m from "motion/react-m";
 
@@ -88,16 +101,9 @@ const AUTOMATION_EXPERIENCE_OPTIONS = [
 
 const DECISION_OPTIONS = ["Just me", "Me + a partner", "A leadership team"];
 
-const STAGES = [
-  { id: "focus", label: "Focus", title: "Where should we look first?" },
-  { id: "scope", label: "Scope", title: "Calibrate the discovery call" },
-  { id: "details", label: "Details", title: "Where should the reply go?" },
-  { id: "transmit", label: "Transmit", title: "Describe what should change" },
-] as const;
-
 const MESSAGE_MAX_LENGTH = 1600;
 
-/** The eight optional Scope instruments the calibration meter tracks. A
+/** The eight optional qualifying instruments the calibration meter tracks. A
  * slider counts once it leaves its honest "not sure" default; chips and
  * multi-selects count once anything is chosen. */
 const SCOPE_QUESTION_COUNT = 8;
@@ -161,9 +167,44 @@ type FieldErrors = Partial<Record<"name" | "email" | "message" | "consent", stri
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function validateStage(step: number, data: EnquiryData): FieldErrors {
+/** Panel content ids. Stages validate by what they contain, not by index, so
+ * the desktop and mobile sequencing can differ freely. */
+type PanelId =
+  | "focus"
+  | "scope"
+  | "workload"
+  | "signals"
+  | "calibration"
+  | "details"
+  | "transmit";
+
+type StageDef = {
+  id: PanelId;
+  label: string;
+  title: string;
+};
+
+const DESKTOP_STAGES: readonly StageDef[] = [
+  { id: "focus", label: "Focus", title: "Where should we look first?" },
+  { id: "scope", label: "Scope", title: "Size the engagement" },
+  { id: "signals", label: "Signals", title: "Map your channels and systems" },
+  { id: "details", label: "Details", title: "Where should the reply go?" },
+  { id: "transmit", label: "Transmit", title: "Describe what should change" },
+];
+
+const MOBILE_STAGES: readonly StageDef[] = [
+  { id: "focus", label: "Focus", title: "Where should we look first?" },
+  { id: "scope", label: "Budget", title: "Budget and timing" },
+  { id: "workload", label: "Workload", title: "Today’s workload" },
+  { id: "signals", label: "Channels", title: "Channels and systems" },
+  { id: "calibration", label: "Sign-off", title: "Automation and sign-off" },
+  { id: "details", label: "Details", title: "Where should the reply go?" },
+  { id: "transmit", label: "Transmit", title: "Describe what should change" },
+];
+
+function validatePanel(id: PanelId, data: EnquiryData): FieldErrors {
   const errors: FieldErrors = {};
-  if (step === 2) {
+  if (id === "details") {
     if (!data.name.trim()) {
       errors.name = "Add the name we should reply to.";
     }
@@ -173,7 +214,7 @@ function validateStage(step: number, data: EnquiryData): FieldErrors {
       errors.email = "That email address doesn't look complete.";
     }
   }
-  if (step === 3) {
+  if (id === "transmit") {
     if (!data.message.trim()) {
       errors.message = "A sentence or two is enough to route this properly.";
     }
@@ -210,6 +251,26 @@ async function submitEnquiry(data: EnquiryData): Promise<void> {
   if (!response.ok) {
     throw new Error(`Enquiry endpoint responded with ${String(response.status)}`);
   }
+}
+
+/* ---- Shell breakpoint ---------------------------------------------------
+   Mirrors the stylesheet's mobile cut. Behaviour-only: it decides which
+   panel sequence mounts; presentation is media-query CSS. Prerender renders
+   the desktop console. */
+
+const MOBILE_MEDIA = "(max-width: 47.9375rem)";
+
+function subscribeMobileShell(onChange: () => void): () => void {
+  const query = window.matchMedia(MOBILE_MEDIA);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+const readMobileShell = () => window.matchMedia(MOBILE_MEDIA).matches;
+const serverMobileShell = () => false;
+
+function useMobileShell(): boolean {
+  return useSyncExternalStore(subscribeMobileShell, readMobileShell, serverMobileShell);
 }
 
 const PANEL_VARIANTS: Variants = {
@@ -323,32 +384,6 @@ function ChipMultiGroup({
 }
 
 /**
- * Labelled cluster inside the Scope stage: a numbered mono header over a
- * glass sub-panel, so the eight qualifying instruments read as three short
- * themed groups instead of one long undifferentiated column.
- */
-function ScopeCluster({
-  index,
-  title,
-  children,
-}: {
-  index: string;
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <section className="ss-enq__cluster" aria-label={title}>
-      <header className="ss-enq__cluster-head" aria-hidden="true">
-        <span className="ss-enq__cluster-index">{index}</span>
-        <span className="ss-enq__cluster-title">{title}</span>
-        <span className="ss-enq__cluster-rule" />
-      </header>
-      <div className="ss-enq__cluster-body">{children}</div>
-    </section>
-  );
-}
-
-/**
  * Stepped slider instrument (glowing readout, beam track, orb thumb — see
  * `.ss-enq__slider`). The fill percentage feeds the track gradient via
  * `--enq-fill`.
@@ -405,6 +440,8 @@ function ScopeSlider({
 }
 
 export function ContactForm() {
+  const mobile = useMobileShell();
+  const stages = mobile ? MOBILE_STAGES : DESKTOP_STAGES;
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
   const [data, setData] = useState<EnquiryData>(INITIAL_DATA);
@@ -412,6 +449,16 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const lastFocusedStepRef = useRef(step);
   const reducedMotion = useReducedMotion() ?? false;
+
+  // The two shells sequence the same content differently; entering the other
+  // shell mid-journey simply clamps to its last panel rather than crashing
+  // past the end.
+  const activeStep = Math.min(step, stages.length - 1);
+  const stage: StageDef = stages[activeStep] ?? {
+    id: "focus",
+    label: "Focus",
+    title: "Where should we look first?",
+  };
 
   const patch = (partial: Partial<EnquiryData>) => {
     setData((current) => ({ ...current, ...partial }));
@@ -423,14 +470,14 @@ export function ContactForm() {
   // heading). Comparing against the last-focused step keeps the first mount
   // focus-free — the page never scroll-jumps to the form on load.
   const focusPanelHeading = (node: HTMLHeadingElement | null) => {
-    if (node && lastFocusedStepRef.current !== step) {
-      lastFocusedStepRef.current = step;
+    if (node && lastFocusedStepRef.current !== activeStep) {
+      lastFocusedStepRef.current = activeStep;
       node.focus();
     }
   };
 
   const goTo = (next: number) => {
-    setDirection(next > step ? 1 : -1);
+    setDirection(next > activeStep ? 1 : -1);
     setErrors({});
     // A failed transmit shouldn't keep warning once the visitor goes back to
     // adjust the enquiry — the next attempt reports its own outcome.
@@ -439,19 +486,19 @@ export function ContactForm() {
   };
 
   const advance = () => {
-    const stageErrors = validateStage(step, data);
+    const stageErrors = validatePanel(stage.id, data);
     if (Object.keys(stageErrors).length > 0) {
       setErrors(stageErrors);
       return false;
     }
-    if (step < STAGES.length - 1) {
-      goTo(step + 1);
+    if (activeStep < stages.length - 1) {
+      goTo(activeStep + 1);
     }
     return true;
   };
 
   async function transmit() {
-    const stageErrors = validateStage(3, data);
+    const stageErrors = validatePanel("transmit", data);
     if (Object.keys(stageErrors).length > 0) {
       setErrors(stageErrors);
       return;
@@ -466,12 +513,16 @@ export function ContactForm() {
   }
 
   const submitting = status === "submitting";
-  const stage = STAGES[step] ?? STAGES[0];
   const scopeAnswered = countScopeAnswers(data);
+  const shellKind = mobile ? "mobile" : "desktop";
 
   if (status === "sent") {
     return (
-      <div className="ss-core-form ss-enq ss-srv2-beam-border" id="contact-form-panel">
+      <div
+        className="ss-core-form ss-enq ss-enq--sent ss-srv2-beam-border"
+        data-enq-shell={shellKind}
+        id="contact-form-panel"
+      >
         <div className="ss-enq__terminal" role="status">
           <CheckCircle2Icon aria-hidden="true" className="ss-enq__terminal-icon" />
           <p className="ss-enq__terminal-title">Transmission received</p>
@@ -498,13 +549,345 @@ export function ContactForm() {
     data.decisionRole ? ["Sign-off", data.decisionRole] : null,
   ].filter((entry): entry is [string, string] => entry !== null);
 
+  /* -- Shared field clusters, sequenced differently per shell ------------- */
+
+  const focusFields = (
+    <div className="ss-enq__fields">
+      <p className="ss-enq__hint">
+        Two taps, both optional — they route your enquiry to the right preparation
+        before anyone replies.
+      </p>
+      <label className="ss-enq__field">
+        <span>
+          Area of interest <em>optional</em>
+        </span>
+        <span className="ss-enq__selectwrap">
+          <select
+            name="interest"
+            value={data.interest}
+            onChange={(event) => patch({ interest: event.target.value })}
+            disabled={submitting}
+          >
+            <option value="">Select the closest match</option>
+            {INTEREST_OPTIONS.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
+        </span>
+      </label>
+      <ChipGroup
+        legend={
+          <>
+            Company size <em>optional</em>
+          </>
+        }
+        name="companySize"
+        options={COMPANY_SIZE_OPTIONS}
+        value={data.companySize}
+        onChange={(companySize) => patch({ companySize })}
+        disabled={submitting}
+      />
+    </div>
+  );
+
+  const budgetSlider = (
+    <ScopeSlider
+      label="Indicative budget"
+      options={BUDGET_OPTIONS}
+      value={data.budget}
+      onChange={(budget) => patch({ budget })}
+      disabled={submitting}
+    />
+  );
+
+  const timelineChips = (
+    <ChipGroup
+      legend={
+        <>
+          How soon should this be live? <em>optional</em>
+        </>
+      }
+      name="timeline"
+      options={TIMELINE_OPTIONS}
+      value={data.timeline}
+      onChange={(timeline) => patch({ timeline })}
+      disabled={submitting}
+    />
+  );
+
+  const volumeSlider = (
+    <ScopeSlider
+      label="New enquiries per week"
+      options={ENQUIRY_VOLUME_OPTIONS}
+      value={data.enquiryVolume}
+      onChange={(enquiryVolume) => patch({ enquiryVolume })}
+      disabled={submitting}
+    />
+  );
+
+  const adminSlider = (
+    <ScopeSlider
+      label="Hours a week lost to manual admin"
+      options={ADMIN_HOURS_OPTIONS}
+      value={data.adminHours}
+      onChange={(adminHours) => patch({ adminHours })}
+      disabled={submitting}
+    />
+  );
+
+  const channelChips = (
+    <ChipMultiGroup
+      legend={
+        <>
+          Where do enquiries arrive? <em>select any</em>
+        </>
+      }
+      name="channels"
+      options={CHANNEL_OPTIONS}
+      values={data.channels}
+      onChange={(channels) => patch({ channels })}
+      disabled={submitting}
+    />
+  );
+
+  const systemChips = (
+    <ChipMultiGroup
+      legend={
+        <>
+          Systems already in play <em>select any</em>
+        </>
+      }
+      name="systems"
+      options={SYSTEM_OPTIONS}
+      values={data.systems}
+      onChange={(systems) => patch({ systems })}
+      disabled={submitting}
+    />
+  );
+
+  const automationChips = (
+    <ChipGroup
+      legend={
+        <>
+          How automated are you today? <em>optional</em>
+        </>
+      }
+      name="automationExperience"
+      options={AUTOMATION_EXPERIENCE_OPTIONS}
+      value={data.automationExperience}
+      onChange={(automationExperience) => patch({ automationExperience })}
+      disabled={submitting}
+    />
+  );
+
+  const decisionChips = (
+    <ChipGroup
+      legend={
+        <>
+          Who signs this off? <em>optional</em>
+        </>
+      }
+      name="decisionRole"
+      options={DECISION_OPTIONS}
+      value={data.decisionRole}
+      onChange={(decisionRole) => patch({ decisionRole })}
+      disabled={submitting}
+    />
+  );
+
+  const scopeHint = (
+    <p className="ss-enq__hint">
+      Every control here is optional and one tap — each answer calibrates how the
+      discovery call is prepared.
+    </p>
+  );
+
+  const identityFields = (
+    <div className="ss-enq__fields">
+      <div className="ss-core-form__grid" data-enq-identity>
+        <label className="ss-enq__field">
+          <span>Name</span>
+          <input
+            name="name"
+            autoComplete="name"
+            placeholder="e.g. Alex Morgan"
+            value={data.name}
+            onChange={(event) => patch({ name: event.target.value })}
+            aria-invalid={errors.name ? true : undefined}
+            aria-describedby={errors.name ? "enq-error-name" : undefined}
+            disabled={submitting}
+          />
+          {errors.name ? (
+            <FieldError id="enq-error-name">{errors.name}</FieldError>
+          ) : null}
+        </label>
+        <label className="ss-enq__field">
+          <span>Work email</span>
+          <input
+            name="email"
+            type="email"
+            autoComplete="email"
+            placeholder="e.g. alex@yourcompany.co.uk"
+            value={data.email}
+            onChange={(event) => patch({ email: event.target.value })}
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? "enq-error-email" : undefined}
+            disabled={submitting}
+          />
+          {errors.email ? (
+            <FieldError id="enq-error-email">{errors.email}</FieldError>
+          ) : null}
+        </label>
+        <label className="ss-enq__field">
+          <span>
+            Phone <em>optional</em>
+          </span>
+          <input
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="e.g. +44 7911 123456"
+            value={data.phone}
+            onChange={(event) => patch({ phone: event.target.value })}
+            disabled={submitting}
+          />
+        </label>
+        <label className="ss-enq__field">
+          <span>
+            Company <em>optional</em>
+          </span>
+          <input
+            name="company"
+            autoComplete="organization"
+            placeholder="e.g. Morgan & Co Clinics"
+            value={data.company}
+            onChange={(event) => patch({ company: event.target.value })}
+            disabled={submitting}
+          />
+        </label>
+      </div>
+    </div>
+  );
+
+  const transmitFields = (
+    <div className="ss-enq__fields" data-enq-transmit>
+      {!mobile && recap.length > 0 ? (
+        <dl className="ss-enq__recap" aria-label="Enquiry summary">
+          {recap.map(([label, value]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
+      <label className="ss-enq__field" data-enq-message>
+        <span>What would you like to improve?</span>
+        <textarea
+          name="message"
+          maxLength={MESSAGE_MAX_LENGTH}
+          placeholder="e.g. Enquiries reach us by phone and Instagram, but half go unanswered outside opening hours — we want them captured, qualified and booked automatically."
+          value={data.message}
+          onChange={(event) => patch({ message: event.target.value })}
+          aria-invalid={errors.message ? true : undefined}
+          aria-describedby={errors.message ? "enq-error-message" : "enq-message-count"}
+          disabled={submitting}
+        />
+        <span className="ss-enq__count" id="enq-message-count">
+          {data.message.length} / {MESSAGE_MAX_LENGTH}
+        </span>
+        {errors.message ? (
+          <FieldError id="enq-error-message">{errors.message}</FieldError>
+        ) : null}
+      </label>
+      <p className="ss-core-form__note">
+        Do not include passwords, payment information, health records or other sensitive
+        personal data.
+      </p>
+      <label className="ss-core-form__consent">
+        <input
+          type="checkbox"
+          name="consent"
+          checked={data.consent}
+          onChange={(event) => patch({ consent: event.target.checked })}
+          aria-invalid={errors.consent ? true : undefined}
+          aria-describedby={errors.consent ? "enq-error-consent" : undefined}
+          disabled={submitting}
+        />
+        <span>
+          I agree to be contacted about this enquiry, in line with the{" "}
+          <a href="/privacy-policy">privacy policy</a>.
+        </span>
+      </label>
+      {errors.consent ? (
+        <FieldError id="enq-error-consent">{errors.consent}</FieldError>
+      ) : null}
+    </div>
+  );
+
+  const panelContent: Record<PanelId, ReactNode> = {
+    focus: focusFields,
+    scope: mobile ? (
+      <div className="ss-enq__fields">
+        {scopeHint}
+        {budgetSlider}
+        {timelineChips}
+      </div>
+    ) : (
+      <div className="ss-enq__fields">
+        {scopeHint}
+        <div className="ss-core-form__grid">
+          {budgetSlider}
+          {timelineChips}
+        </div>
+        <div className="ss-core-form__grid">
+          {volumeSlider}
+          {adminSlider}
+        </div>
+      </div>
+    ),
+    workload: (
+      <div className="ss-enq__fields">
+        {volumeSlider}
+        {adminSlider}
+      </div>
+    ),
+    signals: mobile ? (
+      <div className="ss-enq__fields">
+        {channelChips}
+        {systemChips}
+      </div>
+    ) : (
+      <div className="ss-enq__fields">
+        <div className="ss-core-form__grid">
+          {channelChips}
+          {systemChips}
+        </div>
+        <div className="ss-core-form__grid">
+          {automationChips}
+          {decisionChips}
+        </div>
+      </div>
+    ),
+    calibration: (
+      <div className="ss-enq__fields">
+        {automationChips}
+        {decisionChips}
+      </div>
+    ),
+    details: identityFields,
+    transmit: transmitFields,
+  };
+
   return (
     <form
       className="ss-core-form ss-enq ss-srv2-beam-border"
+      data-enq-shell={shellKind}
       aria-label="Silverstone enquiry form"
       onSubmit={(event) => {
         event.preventDefault();
-        if (step < STAGES.length - 1) {
+        if (activeStep < stages.length - 1) {
           advance();
         } else {
           void transmit();
@@ -514,21 +897,33 @@ export function ContactForm() {
       <div className="ss-enq__rail" aria-hidden="true">
         <span className="ss-enq__rail-label">Enquiry console</span>
         <span className="ss-enq__rail-track" />
+        <span className="ss-enq__meter">
+          <span className="ss-enq__meter-cells">
+            {Array.from({ length: SCOPE_QUESTION_COUNT }, (_, index) => (
+              <span key={index} data-filled={index < scopeAnswered} />
+            ))}
+          </span>
+          <span className="ss-enq__meter-count">
+            {scopeAnswered}/{SCOPE_QUESTION_COUNT} calibrated
+          </span>
+        </span>
         <span className="ss-enq__rail-count">
-          {String(step + 1).padStart(2, "0")} / {String(STAGES.length).padStart(2, "0")}
+          {String(activeStep + 1).padStart(2, "0")} /{" "}
+          {String(stages.length).padStart(2, "0")}
         </span>
       </div>
 
       <ol className="ss-enq__stages">
-        {STAGES.map((entry, index) => {
-          const state = index === step ? "current" : index < step ? "done" : "ahead";
+        {stages.map((entry, index) => {
+          const state =
+            index === activeStep ? "current" : index < activeStep ? "done" : "ahead";
           return (
             <li key={entry.id} data-state={state}>
               <button
                 type="button"
-                onClick={() => index < step && goTo(index)}
-                disabled={index >= step || submitting}
-                aria-current={index === step ? "step" : undefined}
+                onClick={() => index < activeStep && goTo(index)}
+                disabled={index >= activeStep || submitting}
+                aria-current={index === activeStep ? "step" : undefined}
               >
                 <span className="ss-enq__stage-index">
                   {String(index + 1).padStart(2, "0")}
@@ -540,17 +935,19 @@ export function ContactForm() {
         })}
       </ol>
       <div className="ss-enq__beam" aria-hidden="true">
-        <span style={{ width: `${String(((step + 1) / STAGES.length) * 100)}%` }} />
+        <span
+          style={{ width: `${String(((activeStep + 1) / stages.length) * 100)}%` }}
+        />
       </div>
 
       <p className="sr-only" aria-live="polite">
-        Step {step + 1} of {STAGES.length}: {stage.label}
+        Step {activeStep + 1} of {stages.length}: {stage.label}
       </p>
 
       <div className="ss-enq__viewport">
         <AnimatePresence mode="wait" initial={false} custom={direction}>
           <m.section
-            key={stage.id}
+            key={`${shellKind}-${stage.id}`}
             className="ss-enq__panel"
             custom={direction}
             variants={reducedMotion ? REDUCED_PANEL_VARIANTS : PANEL_VARIANTS}
@@ -558,313 +955,22 @@ export function ContactForm() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-            aria-label={`${stage.label} — step ${String(step + 1)} of ${String(STAGES.length)}`}
+            aria-label={`${stage.label} — step ${String(activeStep + 1)} of ${String(stages.length)}`}
           >
             <h3 className="ss-enq__panel-title" ref={focusPanelHeading} tabIndex={-1}>
               {stage.title}
             </h3>
-
-            {step === 0 ? (
-              <div className="ss-enq__fields">
-                <p className="ss-enq__hint">
-                  Two taps, both optional — they route your enquiry to the right
-                  preparation before anyone replies.
-                </p>
-                <label className="ss-enq__field">
-                  <span>
-                    Area of interest <em>optional</em>
-                  </span>
-                  <span className="ss-enq__selectwrap">
-                    <select
-                      name="interest"
-                      value={data.interest}
-                      onChange={(event) => patch({ interest: event.target.value })}
-                      disabled={submitting}
-                    >
-                      <option value="">Select the closest match</option>
-                      {INTEREST_OPTIONS.map((option) => (
-                        <option key={option}>{option}</option>
-                      ))}
-                    </select>
-                  </span>
-                </label>
-                <ChipGroup
-                  legend={
-                    <>
-                      Company size <em>optional</em>
-                    </>
-                  }
-                  name="companySize"
-                  options={COMPANY_SIZE_OPTIONS}
-                  value={data.companySize}
-                  onChange={(companySize) => patch({ companySize })}
-                  disabled={submitting}
-                />
-              </div>
-            ) : null}
-
-            {step === 1 ? (
-              <div className="ss-enq__fields">
-                <div className="ss-enq__scope-intro">
-                  <p className="ss-enq__hint">
-                    Every control here is optional and one tap. Nothing is a commitment
-                    — each answer simply calibrates how the discovery call is prepared
-                    and how accurately a first indication of scope can be made.
-                  </p>
-                  <div
-                    className="ss-enq__meter"
-                    role="status"
-                    aria-label={`${String(scopeAnswered)} of ${String(SCOPE_QUESTION_COUNT)} scope questions answered`}
-                  >
-                    <span className="ss-enq__meter-cells" aria-hidden="true">
-                      {Array.from({ length: SCOPE_QUESTION_COUNT }, (_, index) => (
-                        <span key={index} data-filled={index < scopeAnswered} />
-                      ))}
-                    </span>
-                    <span className="ss-enq__meter-count" aria-hidden="true">
-                      {scopeAnswered} / {SCOPE_QUESTION_COUNT} calibrated
-                    </span>
-                  </div>
-                </div>
-
-                <ScopeCluster index="01" title="Commercials">
-                  <div className="ss-core-form__grid">
-                    <ScopeSlider
-                      label="Indicative budget"
-                      options={BUDGET_OPTIONS}
-                      value={data.budget}
-                      onChange={(budget) => patch({ budget })}
-                      disabled={submitting}
-                    />
-                    <ChipGroup
-                      legend={
-                        <>
-                          How soon should this be live? <em>optional</em>
-                        </>
-                      }
-                      name="timeline"
-                      options={TIMELINE_OPTIONS}
-                      value={data.timeline}
-                      onChange={(timeline) => patch({ timeline })}
-                      disabled={submitting}
-                    />
-                  </div>
-                </ScopeCluster>
-
-                <ScopeCluster index="02" title="Workload">
-                  <div className="ss-core-form__grid">
-                    <ScopeSlider
-                      label="New enquiries per week"
-                      options={ENQUIRY_VOLUME_OPTIONS}
-                      value={data.enquiryVolume}
-                      onChange={(enquiryVolume) => patch({ enquiryVolume })}
-                      disabled={submitting}
-                    />
-                    <ScopeSlider
-                      label="Hours a week lost to manual admin"
-                      options={ADMIN_HOURS_OPTIONS}
-                      value={data.adminHours}
-                      onChange={(adminHours) => patch({ adminHours })}
-                      disabled={submitting}
-                    />
-                  </div>
-                  <ChipMultiGroup
-                    legend={
-                      <>
-                        Where do enquiries arrive? <em>select any</em>
-                      </>
-                    }
-                    name="channels"
-                    options={CHANNEL_OPTIONS}
-                    values={data.channels}
-                    onChange={(channels) => patch({ channels })}
-                    disabled={submitting}
-                  />
-                </ScopeCluster>
-
-                <ScopeCluster index="03" title="Systems & sign-off">
-                  <ChipMultiGroup
-                    legend={
-                      <>
-                        Systems already in play <em>select any</em>
-                      </>
-                    }
-                    name="systems"
-                    options={SYSTEM_OPTIONS}
-                    values={data.systems}
-                    onChange={(systems) => patch({ systems })}
-                    disabled={submitting}
-                  />
-                  <div className="ss-core-form__grid">
-                    <ChipGroup
-                      legend={
-                        <>
-                          How automated are you today? <em>optional</em>
-                        </>
-                      }
-                      name="automationExperience"
-                      options={AUTOMATION_EXPERIENCE_OPTIONS}
-                      value={data.automationExperience}
-                      onChange={(automationExperience) =>
-                        patch({ automationExperience })
-                      }
-                      disabled={submitting}
-                    />
-                    <ChipGroup
-                      legend={
-                        <>
-                          Who signs this off? <em>optional</em>
-                        </>
-                      }
-                      name="decisionRole"
-                      options={DECISION_OPTIONS}
-                      value={data.decisionRole}
-                      onChange={(decisionRole) => patch({ decisionRole })}
-                      disabled={submitting}
-                    />
-                  </div>
-                </ScopeCluster>
-              </div>
-            ) : null}
-
-            {step === 2 ? (
-              <div className="ss-enq__fields">
-                <div className="ss-core-form__grid">
-                  <label className="ss-enq__field">
-                    <span>Name</span>
-                    <input
-                      name="name"
-                      autoComplete="name"
-                      placeholder="e.g. Alex Morgan"
-                      value={data.name}
-                      onChange={(event) => patch({ name: event.target.value })}
-                      aria-invalid={errors.name ? true : undefined}
-                      aria-describedby={errors.name ? "enq-error-name" : undefined}
-                      disabled={submitting}
-                    />
-                    {errors.name ? (
-                      <FieldError id="enq-error-name">{errors.name}</FieldError>
-                    ) : null}
-                  </label>
-                  <label className="ss-enq__field">
-                    <span>Work email</span>
-                    <input
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="e.g. alex@yourcompany.co.uk"
-                      value={data.email}
-                      onChange={(event) => patch({ email: event.target.value })}
-                      aria-invalid={errors.email ? true : undefined}
-                      aria-describedby={errors.email ? "enq-error-email" : undefined}
-                      disabled={submitting}
-                    />
-                    {errors.email ? (
-                      <FieldError id="enq-error-email">{errors.email}</FieldError>
-                    ) : null}
-                  </label>
-                </div>
-                <div className="ss-core-form__grid">
-                  <label className="ss-enq__field">
-                    <span>
-                      Phone <em>optional</em>
-                    </span>
-                    <input
-                      name="phone"
-                      type="tel"
-                      inputMode="tel"
-                      autoComplete="tel"
-                      placeholder="e.g. +44 7911 123456"
-                      value={data.phone}
-                      onChange={(event) => patch({ phone: event.target.value })}
-                      disabled={submitting}
-                    />
-                  </label>
-                  <label className="ss-enq__field">
-                    <span>
-                      Company <em>optional</em>
-                    </span>
-                    <input
-                      name="company"
-                      autoComplete="organization"
-                      placeholder="e.g. Morgan & Co Clinics"
-                      value={data.company}
-                      onChange={(event) => patch({ company: event.target.value })}
-                      disabled={submitting}
-                    />
-                  </label>
-                </div>
-              </div>
-            ) : null}
-
-            {step === 3 ? (
-              <div className="ss-enq__fields">
-                {recap.length > 0 ? (
-                  <dl className="ss-enq__recap" aria-label="Enquiry summary">
-                    {recap.map(([label, value]) => (
-                      <div key={label}>
-                        <dt>{label}</dt>
-                        <dd>{value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                ) : null}
-                <label className="ss-enq__field">
-                  <span>What would you like to improve?</span>
-                  <textarea
-                    name="message"
-                    rows={6}
-                    maxLength={MESSAGE_MAX_LENGTH}
-                    placeholder="e.g. Enquiries reach us by phone and Instagram, but half go unanswered outside opening hours — we want them captured, qualified and booked automatically."
-                    value={data.message}
-                    onChange={(event) => patch({ message: event.target.value })}
-                    aria-invalid={errors.message ? true : undefined}
-                    aria-describedby={
-                      errors.message ? "enq-error-message" : "enq-message-count"
-                    }
-                    disabled={submitting}
-                  />
-                  <span className="ss-enq__count" id="enq-message-count">
-                    {data.message.length} / {MESSAGE_MAX_LENGTH}
-                  </span>
-                  {errors.message ? (
-                    <FieldError id="enq-error-message">{errors.message}</FieldError>
-                  ) : null}
-                </label>
-                <p className="ss-core-form__note">
-                  Do not include passwords, payment information, health records or other
-                  sensitive personal data.
-                </p>
-                <label className="ss-core-form__consent">
-                  <input
-                    type="checkbox"
-                    name="consent"
-                    checked={data.consent}
-                    onChange={(event) => patch({ consent: event.target.checked })}
-                    aria-invalid={errors.consent ? true : undefined}
-                    aria-describedby={errors.consent ? "enq-error-consent" : undefined}
-                    disabled={submitting}
-                  />
-                  <span>
-                    I agree to be contacted about this enquiry, in line with the{" "}
-                    <a href="/privacy-policy">privacy policy</a>.
-                  </span>
-                </label>
-                {errors.consent ? (
-                  <FieldError id="enq-error-consent">{errors.consent}</FieldError>
-                ) : null}
-              </div>
-            ) : null}
+            {panelContent[stage.id]}
           </m.section>
         </AnimatePresence>
       </div>
 
       <div className="ss-enq__nav">
-        {step > 0 ? (
+        {activeStep > 0 ? (
           <button
             className="ss-srv2-btn ss-srv2-btn--ghost"
             type="button"
-            onClick={() => goTo(step - 1)}
+            onClick={() => goTo(activeStep - 1)}
             disabled={submitting}
           >
             <ArrowLeft aria-hidden="true" />
@@ -878,7 +984,7 @@ export function ContactForm() {
             Email instead
           </a>
         )}
-        {step < STAGES.length - 1 ? (
+        {activeStep < stages.length - 1 ? (
           <button className="ss-srv2-btn ss-srv2-btn--primary" type="submit">
             Continue
             <ArrowRight aria-hidden="true" />

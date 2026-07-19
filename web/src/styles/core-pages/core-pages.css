@@ -424,16 +424,76 @@
 }
 
 /* ---- Enquiry console (multi-stage sliding contact form) ---------------
-   The long field list is replaced by four compact sliding stages under a
-   mono console rail and a progress beam, matching the booking panel's
+   The long field list is replaced by compact sliding stages under a mono
+   console rail and a progress beam, matching the booking panel's
    "instrument" language: quick qualifiers first, identity next, message
    last. Stage panels slide horizontally (motion/react); everything below
-   is the console chrome, the budget slider instrument and the recap
-   manifest. ------------------------------------------------------------- */
+   is the console chrome, the slider instruments and the recap manifest.
+
+   Sizing contract (both shells): the console height derives from the
+   viewport (bounded clamp), never from stage content, so the instrument
+   occupies one stable, fully visible frame while panels change inside its
+   flexible stage viewport. dvh-clamped gaps compress on short screens so
+   panels keep fitting by construction. ---------------------------------- */
 
 .ss-enq {
-  gap: 1.15rem;
+  gap: clamp(0.7rem, 1.5dvh, 1.15rem);
   overflow: clip;
+}
+
+.ss-enq[data-enq-shell] {
+  display: flex;
+  flex-direction: column;
+  height: clamp(
+    30rem,
+    100vh - var(--ss-layout-header, 4.5rem) - clamp(2.5rem, 7vh, 5rem),
+    46rem
+  );
+  height: clamp(
+    30rem,
+    100dvh - var(--ss-layout-header, 4.5rem) - clamp(2.5rem, 7dvh, 5rem),
+    46rem
+  );
+  padding-block: clamp(1.1rem, 2.2dvh, 2.4rem);
+  scroll-margin-top: calc(var(--ss-layout-header, 0px) + 1.25rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] {
+  height: clamp(
+    26rem,
+    100vh - var(--ss-layout-header, 4.5rem) - clamp(1.5rem, 4vh, 2.5rem),
+    44rem
+  );
+  height: clamp(
+    26rem,
+    100dvh - var(--ss-layout-header, 4.5rem) - clamp(1.5rem, 4dvh, 2.5rem),
+    44rem
+  );
+  padding: clamp(0.95rem, 2dvh, 1.4rem) clamp(0.9rem, 4vw, 1.4rem);
+}
+
+/* Sent state: one centred terminal inside the same stable frame. */
+.ss-enq--sent {
+  justify-content: center;
+}
+
+/* The seven mobile panels are labelled by the rail count and panel title;
+   the stage list itself is desktop chrome. */
+.ss-enq[data-enq-shell="mobile"] .ss-enq__stages {
+  display: none;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__meter-count {
+  display: none;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__nav {
+  flex-direction: row;
+  align-items: center;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__nav .ss-srv2-btn {
+  justify-content: center;
 }
 
 .ss-enq__rail {
@@ -527,11 +587,22 @@
 
 .ss-enq__viewport {
   position: relative;
+  /* The one flexible region of the fixed shell. Panels are composed to fit
+     it by construction; the thin scrollbar is an emergency relief valve for
+     viewports shorter than the shell's floor, never the design. */
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--srv2-accent) 45%, transparent) transparent;
 }
 
 .ss-enq__panel {
   display: grid;
-  gap: 1.05rem;
+  align-content: start;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(0.6rem, 1.3dvh, 1.05rem);
+  min-height: 100%;
 }
 
 .ss-enq__panel-title {
@@ -545,7 +616,34 @@
 
 .ss-enq__fields {
   display: grid;
-  gap: 1.05rem;
+  align-content: start;
+  gap: clamp(0.6rem, 1.4dvh, 1.05rem);
+  min-height: 0;
+}
+
+.ss-enq .ss-core-form__grid {
+  gap: clamp(0.6rem, 1.3dvh, 1rem);
+}
+
+/* Transmit stage: the message area is the panel's flexible instrument — it
+   absorbs whatever height the fixed shell has spare. */
+.ss-enq__fields[data-enq-transmit] {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ss-enq__fields[data-enq-transmit] > [data-enq-message] {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.ss-enq [data-enq-message] textarea {
+  height: 100%;
+  min-height: 3.25rem;
+  resize: none;
 }
 
 .ss-enq__hint {
@@ -555,17 +653,12 @@
   line-height: 1.55;
 }
 
-/* ---- Scope stage: intro row, calibration meter and themed clusters ------ */
-
-.ss-enq__scope-intro {
-  display: grid;
-  gap: 0.8rem;
-}
+/* ---- Calibration meter — lives in the console rail on both shells ------ */
 
 .ss-enq__meter {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.55rem;
 }
 
 .ss-enq__meter-cells {
@@ -574,7 +667,7 @@
 }
 
 .ss-enq__meter-cells span {
-  width: 1.15rem;
+  width: 1.05rem;
   height: 0.28rem;
   border-radius: 999px;
   background: color-mix(in srgb, var(--srv2-hairline) 80%, transparent);
@@ -595,61 +688,6 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
-}
-
-.ss-enq__cluster {
-  display: grid;
-  gap: 0.9rem;
-  padding: clamp(1rem, 0.85rem + 0.7vw, 1.4rem);
-  border-radius: var(--ss-radius-lg);
-  border: 1px solid var(--srv2-hairline);
-  background:
-    linear-gradient(
-      160deg,
-      color-mix(in srgb, var(--ss-v2-platinum) 4%, transparent),
-      transparent 42%
-    ),
-    color-mix(in srgb, var(--ss-v2-void-black) 34%, transparent);
-}
-
-.ss-enq__cluster-head {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--srv2-ink-faint);
-  font-family: var(--ss-font-mono);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.ss-enq__cluster-index {
-  background: linear-gradient(100deg, var(--srv2-accent), var(--srv2-accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-weight: 700;
-}
-
-.ss-enq__cluster-title {
-  color: color-mix(in srgb, var(--ss-v2-platinum) 86%, transparent);
-}
-
-.ss-enq__cluster-rule {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--srv2-accent) 38%, transparent),
-    transparent
-  );
-}
-
-.ss-enq__cluster-body {
-  display: grid;
-  gap: 1.05rem;
 }
 
 .ss-enq__field {
@@ -722,12 +760,61 @@
   border-color: color-mix(in srgb, #f87171 65%, transparent);
 }
 
+/* Console-scoped compression: the fixed shell trades ornament for fit on
+   short viewports — every internal gap tracks dvh. */
+.ss-enq .ss-core-form__seg {
+  gap: clamp(0.3rem, 0.8dvh, 0.55rem);
+}
+
+.ss-enq .ss-core-form__seg legend {
+  margin-bottom: clamp(0.25rem, 0.7dvh, 0.5rem);
+  font-size: 0.85rem;
+}
+
+.ss-enq .ss-core-form__seg-option span {
+  padding: clamp(0.4rem, 1dvh, 0.5rem) 0.9rem;
+  font-size: 0.8rem;
+}
+
+.ss-enq input,
+.ss-enq select {
+  padding-block: clamp(0.6rem, 1.4dvh, 0.82rem);
+}
+
+.ss-enq .ss-core-form__status {
+  min-height: 1.2rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__rail {
+  gap: 0.4rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__rail-track {
+  flex: 1 1 0.5rem;
+  min-width: 0.5rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__meter {
+  gap: 0.4rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__meter-cells {
+  gap: 0.14rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__meter-cells span {
+  width: 0.4rem;
+  height: 0.24rem;
+}
+
 /* Budget slider instrument: glowing readout, beam track, orb thumb. The
    fill percentage arrives via --enq-fill from the component. */
 .ss-enq__slider {
   display: grid;
-  gap: 0.75rem;
-  padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
+  gap: clamp(0.45rem, 1.1dvh, 0.75rem);
+  padding: clamp(0.75rem, 1.7dvh, 1.35rem) clamp(0.85rem, 0.75rem + 0.5vw, 1.4rem);
   border-radius: var(--ss-radius-lg);
   border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-hairline));
   background:
@@ -5177,8 +5264,10 @@ a.ss-insight-card:hover,
 }
 
 .ss-featured-insights__grid {
+  --featured-grid-gap: clamp(0.72rem, 1.2vw, 1rem);
+
   display: grid;
-  gap: clamp(0.72rem, 1.2vw, 1rem);
+  gap: var(--featured-grid-gap);
   height: auto;
 }
 
@@ -5186,26 +5275,49 @@ a.ss-insight-card:hover,
 .ss-featured-primary__perspective,
 .ss-featured-primary__stage,
 .ss-featured-primary__body {
-  height: clamp(24rem, 68vw, 34rem);
+  height: clamp(29rem, 112vw, 36rem);
   min-height: 0;
 }
 
 .ss-featured-primary__link,
 .ss-featured-support__link {
   position: relative;
-  isolation: isolate;
   display: block;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  /* Both featured systems are true 3D compositions (lift-off layers on the
+     primary, a turning face plane on the supports); overflow clipping or
+     `isolation: isolate` here are grouping properties that would force
+     `transform-style: flat` and kill the depth. The tilting 3D stage above
+     already establishes the stacking context the z-indexed layers need. */
+  overflow: visible;
+  isolation: auto;
   color: inherit;
   text-decoration: none;
 }
 
+/* The framed background panel the primary card's copy and image lift off. */
 .ss-featured-primary__link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.55rem, 0.45rem + 0.5vw, 0.85rem);
+  min-height: 0;
+  padding: clamp(1.15rem, 0.95rem + 1vw, 1.9rem);
   border: 1px solid color-mix(in srgb, var(--srv2-accent) 34%, var(--srv2-hairline));
   border-radius: clamp(1.15rem, 1rem + 0.7vw, 1.55rem);
-  background: var(--ss-v2-graphite-raised);
+  background:
+    radial-gradient(
+      120% 120% at 0% 0%,
+      color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+      transparent 54%
+    ),
+    radial-gradient(
+      110% 120% at 100% 100%,
+      color-mix(in srgb, var(--srv2-accent-2) 9%, transparent),
+      transparent 58%
+    ),
+    var(--ss-v2-graphite-raised);
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, white 10%, transparent),
     0 28px 64px -46px color-mix(in srgb, var(--srv2-accent) 48%, transparent);
@@ -5218,66 +5330,8 @@ a.ss-insight-card:hover,
   content: none;
 }
 
-.ss-featured-primary__media,
-.ss-featured-primary__atmosphere,
-.ss-featured-support__media,
-.ss-featured-support__scrim {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.ss-featured-primary__media,
-.ss-featured-support__media {
-  z-index: 0;
-  overflow: hidden;
-  background: var(--ss-v2-void-black);
-}
-
-.ss-featured-primary__media img,
-.ss-featured-support__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.94) contrast(1.05) brightness(0.9);
-  transform: scale(1.018);
-  transition:
-    filter 340ms var(--ss-motion-easing-standard),
-    transform 440ms var(--ss-motion-easing-standard);
-}
-
-.ss-featured-primary__media img {
-  object-position: center 52%;
-}
-
-.ss-featured-primary__atmosphere {
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0, 3, 8, 0.72) 0%,
-      rgba(0, 3, 8, 0.26) 52%,
-      transparent 80%
-    ),
-    linear-gradient(0deg, rgba(0, 3, 8, 0.82) 0%, transparent 62%),
-    linear-gradient(120deg, rgba(38, 221, 255, 0.09), transparent 38%);
-}
-
-.ss-featured-primary__content {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: stretch;
-  gap: 0.58rem;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  padding: clamp(1.15rem, 0.85rem + 1.5vw, 2rem);
-}
+/* -- Primary card layers (each an Aceternity CardItem lifting off the
+      panel; the media frame rides highest, exactly like the registry demo) */
 
 .ss-featured-primary__topline {
   display: flex;
@@ -5292,47 +5346,70 @@ a.ss-insight-card:hover,
 }
 
 .ss-featured-primary__title,
+.ss-featured-primary__lead,
 .ss-featured-primary__footer {
   width: 100%;
 }
 
-.ss-featured-primary__title h3,
-.ss-featured-primary__content h3 {
+.ss-featured-primary__title h3 {
   display: -webkit-box;
   overflow: hidden;
-  max-width: 21ch;
+  max-width: 26ch;
   margin: 0;
   color: var(--ss-v2-chrome);
   font-family: var(--ss-font-display);
-  font-size: clamp(1.65rem, 1.15rem + 2.1vw, 2.85rem);
+  font-size: clamp(1.55rem, 1.1rem + 1.9vw, 2.6rem);
   font-weight: 545;
   letter-spacing: -0.04em;
-  line-height: 1.01;
+  line-height: 1.02;
   text-wrap: balance;
-  text-shadow: 0 2px 24px rgba(0, 3, 8, 0.78);
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
+}
+
+.ss-featured-primary__lead p {
+  display: -webkit-box;
+  overflow: hidden;
+  max-width: 64ch;
+  margin: 0;
+  color: color-mix(in srgb, var(--ss-v2-platinum) 76%, transparent);
+  font-size: clamp(0.84rem, 0.78rem + 0.25vw, 0.96rem);
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ss-featured-primary__media {
+  position: relative;
+  flex: 1 1 auto;
+  align-self: stretch;
+  width: 100%;
+  min-height: 8rem;
+  inset: auto;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ss-v2-platinum) 14%, transparent);
+  border-radius: clamp(0.8rem, 0.7rem + 0.5vw, 1.1rem);
+  background: var(--ss-v2-void-black);
+  box-shadow: 0 24px 52px -30px rgba(0, 3, 8, 0.92);
+}
+
+.ss-featured-primary__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  filter: saturate(0.96) contrast(1.05) brightness(0.94);
+  transform: none;
+  transition: filter 340ms var(--ss-motion-easing-standard);
 }
 
 .ss-featured-primary__footer {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.ss-featured-primary__footer > p,
-.ss-featured-primary__content > p {
-  display: -webkit-box;
-  overflow: hidden;
-  max-width: 53ch;
-  margin: 0;
-  color: color-mix(in srgb, var(--ss-v2-platinum) 78%, transparent);
-  font-size: clamp(0.82rem, 0.76rem + 0.25vw, 0.94rem);
-  line-height: 1.46;
-  text-shadow: 0 2px 18px rgba(0, 3, 8, 0.88);
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .ss-featured-card__category,
@@ -5374,25 +5451,107 @@ a.ss-insight-card:hover,
   pointer-events: none;
 }
 
+/* -- Supporting cards: 21st.dev Flipping Card ----------------------------
+   The card is one link; the face plane inside it turns about the Y axis on
+   hover / keyboard focus. Front: cover image and title. Back: the article's
+   subtitle, meta and call to action. Chrome (border, background, shadow)
+   lives on the faces, never on the link — the link only defines footprint. */
+
 .ss-featured-support,
-.ss-featured-support__perspective,
-.ss-featured-support__stage,
-.ss-featured-support__body {
+.ss-featured-support__link {
   height: 17rem;
   min-height: 0;
 }
 
 .ss-featured-support__link {
-  border: 1px solid color-mix(in srgb, var(--ss-v2-platinum) 15%, var(--srv2-hairline));
+  border: 0;
   border-radius: var(--ss-radius-xl);
+  background: none;
+  box-shadow: none;
+}
+
+.ss-flip-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+}
+
+.ss-flip-card__plane {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 680ms cubic-bezier(0.35, 0.15, 0.2, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ss-featured-support__link:hover .ss-flip-card__plane {
+    transform: rotateY(180deg);
+  }
+}
+
+.ss-featured-support__link:focus-visible .ss-flip-card__plane {
+  transform: rotateY(180deg);
+}
+
+.ss-flip-card__face {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--ss-radius-xl);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.ss-flip-card__face--front {
+  transform: rotateY(0deg);
+  border: 1px solid color-mix(in srgb, var(--ss-v2-platinum) 15%, var(--srv2-hairline));
   background: var(--ss-v2-graphite-raised);
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, white 8%, transparent),
     0 22px 50px -42px rgba(0, 0, 0, 0.95);
 }
 
+.ss-flip-card__face--back {
+  transform: rotateY(180deg);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 38%, var(--srv2-hairline));
+  background:
+    radial-gradient(
+      130% 130% at 12% 0%,
+      color-mix(in srgb, var(--srv2-accent) 14%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      120% 130% at 100% 100%,
+      color-mix(in srgb, var(--srv2-accent-2) 10%, transparent),
+      transparent 60%
+    ),
+    var(--ss-v2-graphite-raised);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 10%, transparent),
+    0 26px 56px -40px color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+}
+
+.ss-featured-support__front {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .ss-featured-support__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
   aspect-ratio: auto;
+  overflow: hidden;
+  background: var(--ss-v2-void-black);
 }
 
 .ss-featured-support__media::after {
@@ -5400,11 +5559,18 @@ a.ss-insight-card:hover,
 }
 
 .ss-featured-support__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   object-position: center 48%;
+  filter: saturate(0.94) contrast(1.05) brightness(0.9);
 }
 
 .ss-featured-support__scrim {
+  position: absolute;
+  inset: 0;
   z-index: 1;
+  display: block;
   pointer-events: none;
   background:
     linear-gradient(
@@ -5418,11 +5584,11 @@ a.ss-insight-card:hover,
 
 .ss-featured-support__content {
   position: relative;
-  z-index: 3;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 0.45rem;
   width: 100%;
   height: 100%;
@@ -5437,12 +5603,6 @@ a.ss-insight-card:hover,
   width: 100%;
 }
 
-.ss-featured-support__title,
-.ss-featured-support__action {
-  width: 100%;
-}
-
-.ss-featured-support__title h3,
 .ss-featured-support__content h3 {
   display: -webkit-box;
   overflow: hidden;
@@ -5460,7 +5620,29 @@ a.ss-insight-card:hover,
   -webkit-line-clamp: 2;
 }
 
-.ss-featured-support__action .ss-featured-card__action {
+.ss-featured-support__back {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  height: 100%;
+  padding: clamp(1.05rem, 0.9rem + 0.6vw, 1.5rem);
+}
+
+.ss-featured-support__summary {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: color-mix(in srgb, var(--ss-v2-platinum) 82%, transparent);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.ss-featured-support__back .ss-featured-card__action {
   min-height: 2.45rem;
   color: color-mix(in srgb, var(--srv2-accent) 88%, white);
   font-size: 0.73rem;
@@ -5473,10 +5655,8 @@ a.ss-insight-card:hover,
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .ss-3d-card[data-3d-active="true"] .ss-featured-primary__media img,
-  .ss-3d-card[data-3d-active="true"] .ss-featured-support__media img {
-    filter: saturate(1) contrast(1.04) brightness(0.97);
-    transform: scale(1.045);
+  .ss-3d-card[data-3d-active="true"] .ss-featured-primary__media img {
+    filter: saturate(1) contrast(1.04) brightness(1);
   }
 
   .ss-3d-card[data-3d-active="true"] .ss-featured-primary__link {
@@ -5484,13 +5664,6 @@ a.ss-insight-card:hover,
     box-shadow:
       inset 0 1px 0 color-mix(in srgb, white 14%, transparent),
       0 44px 96px -48px color-mix(in srgb, var(--srv2-accent) 68%, transparent);
-  }
-
-  .ss-3d-card[data-3d-active="true"] .ss-featured-support__link {
-    border-color: color-mix(in srgb, var(--srv2-accent) 48%, var(--srv2-hairline));
-    box-shadow:
-      inset 0 1px 0 color-mix(in srgb, white 11%, transparent),
-      0 34px 74px -44px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
   }
 
   .ss-featured-primary__link:hover .ss-featured-card__action svg,
@@ -5573,46 +5746,24 @@ a.ss-insight-card:hover,
     grid-template-columns: minmax(0, 0.9fr) minmax(25rem, 1.1fr);
   }
 
+  .ss-featured-insights__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ss-featured-primary {
+    grid-column: 1 / -1;
+  }
+
   .ss-featured-primary,
   .ss-featured-primary__perspective,
   .ss-featured-primary__stage,
   .ss-featured-primary__body {
-    height: 25rem;
+    height: 29rem;
   }
 
   .ss-featured-support,
-  .ss-featured-support__perspective,
-  .ss-featured-support__stage,
-  .ss-featured-support__body {
+  .ss-featured-support__link {
     height: 15rem;
-  }
-
-  .ss-featured-primary__content {
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(15rem, 0.75fr);
-    grid-template-areas:
-      "top top"
-      "title footer";
-    align-content: end;
-    align-items: end;
-    column-gap: clamp(1.25rem, 3vw, 3rem);
-    row-gap: 0.5rem;
-  }
-
-  .ss-featured-primary__topline {
-    grid-area: top;
-  }
-
-  .ss-featured-primary__title {
-    grid-area: title;
-  }
-
-  .ss-featured-primary__footer {
-    grid-area: footer;
-  }
-
-  .ss-featured-primary__footer > p {
-    -webkit-line-clamp: 3;
   }
 }
 
@@ -5629,40 +5780,33 @@ a.ss-insight-card:hover,
     height: auto;
   }
 
+  /* The primary is the large square: both left columns across both rows.
+     The two supports stack in the right-hand column. */
+  .ss-featured-primary {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+  }
+
   .ss-featured-primary,
   .ss-featured-primary__perspective,
   .ss-featured-primary__stage,
   .ss-featured-primary__body {
-    grid-column: 1 / span 2;
-    grid-row: 1;
     width: 100%;
-    height: var(--featured-card-height);
+    height: calc(2 * var(--featured-card-height) + var(--featured-grid-gap));
   }
 
   .ss-featured-support,
-  .ss-featured-support__perspective,
-  .ss-featured-support__stage,
-  .ss-featured-support__body {
+  .ss-featured-support__link {
     width: 100%;
     height: var(--featured-card-height);
   }
 
   .ss-featured-support[data-featured-position="1"] {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .ss-featured-support[data-featured-position="2"] {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .ss-featured-support[data-featured-position="3"] {
     grid-column: 3;
     grid-row: 1;
   }
 
-  .ss-featured-support[data-featured-position="4"] {
+  .ss-featured-support[data-featured-position="2"] {
     grid-column: 3;
     grid-row: 2;
   }
@@ -5671,13 +5815,12 @@ a.ss-insight-card:hover,
     padding: 1rem 1.05rem;
   }
 
-  .ss-featured-support__title h3,
   .ss-featured-support__content h3 {
     max-width: 38ch;
     font-size: clamp(1rem, 0.86rem + 0.35vw, 1.22rem);
   }
 
-  .ss-featured-support__action .ss-featured-card__action {
+  .ss-featured-support__back .ss-featured-card__action {
     min-height: 2.25rem;
   }
 }
@@ -5706,36 +5849,21 @@ a.ss-insight-card:hover,
   }
 
   .ss-featured-insights__grid {
-    --featured-card-height: 17rem;
+    --featured-card-height: 15rem;
+    --featured-grid-gap: 0.5rem;
+  }
 
+  .ss-featured-primary__link {
     gap: 0.5rem;
-  }
-
-  .ss-featured-primary,
-  .ss-featured-primary__perspective,
-  .ss-featured-primary__stage,
-  .ss-featured-primary__body {
-    height: var(--featured-card-height);
-  }
-
-  .ss-featured-support,
-  .ss-featured-support__perspective,
-  .ss-featured-support__stage,
-  .ss-featured-support__body {
-    height: var(--featured-card-height);
-  }
-
-  .ss-featured-primary__content {
     padding: 1rem 1.2rem;
   }
 
-  .ss-featured-primary__title h3,
-  .ss-featured-primary__content h3 {
-    font-size: clamp(1.65rem, 2.65vw, 2.25rem);
+  .ss-featured-primary__title h3 {
+    font-size: clamp(1.55rem, 2.5vw, 2.1rem);
   }
 
-  .ss-featured-primary__footer > p {
-    -webkit-line-clamp: 2;
+  .ss-featured-primary__lead p {
+    -webkit-line-clamp: 1;
   }
 
   .ss-featured-support__content {
@@ -5743,7 +5871,16 @@ a.ss-insight-card:hover,
     padding: 0.9rem 0.95rem;
   }
 
-  .ss-featured-support__action .ss-featured-card__action {
+  .ss-featured-support__back {
+    gap: 0.45rem;
+    padding: 0.95rem 1.05rem;
+  }
+
+  .ss-featured-support__summary {
+    -webkit-line-clamp: 3;
+  }
+
+  .ss-featured-support__back .ss-featured-card__action {
     min-height: 2rem;
   }
 }
@@ -5780,19 +5917,16 @@ a.ss-insight-card:hover,
   .ss-featured-primary__perspective,
   .ss-featured-primary__stage,
   .ss-featured-primary__body {
-    height: 31rem;
+    height: 30rem;
   }
 
   .ss-featured-support,
-  .ss-featured-support__perspective,
-  .ss-featured-support__stage,
-  .ss-featured-support__body {
+  .ss-featured-support__link {
     height: 16rem;
   }
 
-  .ss-featured-primary__title h3,
-  .ss-featured-primary__content h3 {
-    font-size: 1.55rem;
+  .ss-featured-primary__title h3 {
+    font-size: 1.5rem;
   }
 }
 
@@ -5828,6 +5962,32 @@ a.ss-insight-card:hover,
   .ss-featured-insights__intro h2 em {
     animation: none;
     background-position: 0 50%;
+  }
+
+  /* Flipping cards: no turn — the back face crossfades over the front so
+     its content stays reachable without rotation. */
+  .ss-flip-card__plane,
+  .ss-featured-support__link:hover .ss-flip-card__plane,
+  .ss-featured-support__link:focus-visible .ss-flip-card__plane {
+    transform: none;
+    transition: none;
+    transform-style: flat;
+  }
+
+  .ss-flip-card__face {
+    transform: none;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    transition: opacity 180ms linear;
+  }
+
+  .ss-flip-card__face--back {
+    opacity: 0;
+  }
+
+  .ss-featured-support__link:hover .ss-flip-card__face--back,
+  .ss-featured-support__link:focus-visible .ss-flip-card__face--back {
+    opacity: 1;
   }
 }
 

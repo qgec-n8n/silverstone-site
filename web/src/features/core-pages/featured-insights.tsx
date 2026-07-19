@@ -4,13 +4,8 @@ import * as m from "motion/react-m";
 
 import { ArrowUpRight, Clock } from "~/components/icons/lucide";
 import { BorderBeam } from "~/components/ui/border-beam";
-import {
-  CardBody,
-  CardContainer,
-  CardGlare,
-  CardGlow,
-  CardItem,
-} from "~/components/ui/3d-card";
+import { CardBody, CardContainer, CardItem } from "~/components/ui/3d-card";
+import { FlippingCard } from "~/components/ui/flipping-card";
 import {
   CURRENT_FEATURED_INSIGHTS,
   type FeaturedInsightSelection,
@@ -60,6 +55,12 @@ function ArticleMeta({ post }: { post: SilverstoneBlogPost }) {
   );
 }
 
+/**
+ * Primary featured card: the article's copy and hero image sit as separate
+ * layers on a framed background panel, and the Aceternity 3D Card Effect
+ * (CardContainer/CardItem) lifts them off that panel while the whole
+ * composition tilts with the pointer.
+ */
 function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
   const titleId = `featured-insight-${post.slug}`;
 
@@ -73,7 +74,7 @@ function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
       <CardContainer
         className="ss-featured-primary__stage"
         containerClassName="ss-featured-primary__perspective"
-        tiltStrength={5}
+        tiltStrength={6}
       >
         <CardBody className="ss-featured-primary__body">
           <Link
@@ -81,7 +82,23 @@ function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
             prefetch="intent"
             to={`/blog/${post.slug}`}
           >
-            <CardItem className="ss-featured-primary__media" translateZ={5}>
+            <CardItem className="ss-featured-primary__topline" translateZ={40}>
+              <span className="ss-featured-card__category">{post.categoryLabel}</span>
+              <span className="ss-featured-primary__rank">Primary signal</span>
+              <ArticleMeta post={post} />
+            </CardItem>
+            <CardItem className="ss-featured-primary__title" translateZ={70}>
+              <h3 id={titleId}>{post.title}</h3>
+            </CardItem>
+            <CardItem className="ss-featured-primary__lead" translateZ={50}>
+              <p>{post.subtitle}</p>
+            </CardItem>
+            <CardItem
+              className="ss-featured-primary__media"
+              translateZ={90}
+              rotateX={5}
+              rotateZ={-1.2}
+            >
               <img
                 alt={post.heroImageAlt}
                 decoding="async"
@@ -92,30 +109,12 @@ function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
                 width="1536"
               />
             </CardItem>
-            <CardItem
-              aria-hidden="true"
-              className="ss-featured-primary__atmosphere"
-              translateZ={12}
-            />
-            <div className="ss-featured-primary__content">
-              <CardItem className="ss-featured-primary__topline" translateZ={40}>
-                <span className="ss-featured-card__category">{post.categoryLabel}</span>
-                <span className="ss-featured-primary__rank">Primary signal</span>
-                <ArticleMeta post={post} />
-              </CardItem>
-              <CardItem className="ss-featured-primary__title" translateZ={64}>
-                <h3 id={titleId}>{post.title}</h3>
-              </CardItem>
-              <CardItem className="ss-featured-primary__footer" translateZ={48}>
-                <p>{post.subtitle}</p>
-                <span className="ss-featured-card__action">
-                  Read the intelligence
-                  <ArrowUpRight aria-hidden="true" />
-                </span>
-              </CardItem>
-            </div>
-            <CardGlare />
-            <CardGlow />
+            <CardItem className="ss-featured-primary__footer" translateZ={35}>
+              <span className="ss-featured-card__action">
+                Read the intelligence
+                <ArrowUpRight aria-hidden="true" />
+              </span>
+            </CardItem>
             <span aria-hidden="true" className="ss-featured-card__inner-rule" />
             <span aria-hidden="true" className="ss-featured-primary__beam">
               <BorderBeam
@@ -132,6 +131,12 @@ function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
   );
 }
 
+/**
+ * Supporting featured card: a 21st.dev Flipping Card. The front face carries
+ * the cover image and title; hovering (or keyboard focus) turns the card to a
+ * back face holding the article's subtitle, meta and call to action. The
+ * whole card stays one link — the turn is presentation only.
+ */
 function SupportingInsight({
   position,
   post,
@@ -149,53 +154,49 @@ function SupportingInsight({
       data-featured-position={position}
       variants={cardVariants}
     >
-      <CardContainer
-        className="ss-featured-support__stage"
-        containerClassName="ss-featured-support__perspective"
-        tiltStrength={4}
+      <Link
+        className="ss-featured-support__link"
+        prefetch="intent"
+        to={`/blog/${post.slug}`}
       >
-        <CardBody className="ss-featured-support__body">
-          <Link
-            className="ss-featured-support__link"
-            prefetch="intent"
-            to={`/blog/${post.slug}`}
-          >
-            <CardItem className="ss-featured-support__media" translateZ={3}>
-              <img
-                alt={post.heroImageAlt}
-                decoding="async"
-                height="864"
-                loading="lazy"
-                src={post.heroImage}
-                width="1536"
-              />
-            </CardItem>
-            <CardItem
-              aria-hidden="true"
-              className="ss-featured-support__scrim"
-              translateZ={8}
-            />
-            <div className="ss-featured-support__content">
-              <CardItem className="ss-featured-support__topline" translateZ={30}>
-                <span className="ss-featured-card__category">{post.categoryLabel}</span>
-                <ArticleMeta post={post} />
-              </CardItem>
-              <CardItem className="ss-featured-support__title" translateZ={46}>
-                <h3 id={titleId}>{post.title}</h3>
-              </CardItem>
-              <CardItem className="ss-featured-support__action" translateZ={54}>
-                <span className="ss-featured-card__action">
-                  Read article
-                  <ArrowUpRight aria-hidden="true" />
+        <FlippingCard
+          frontContent={
+            <div className="ss-featured-support__front">
+              <div className="ss-featured-support__media">
+                <img
+                  alt={post.heroImageAlt}
+                  decoding="async"
+                  height="864"
+                  loading="lazy"
+                  src={post.heroImage}
+                  width="1536"
+                />
+              </div>
+              <span aria-hidden="true" className="ss-featured-support__scrim" />
+              <div className="ss-featured-support__content">
+                <span className="ss-featured-support__topline">
+                  <span className="ss-featured-card__category">
+                    {post.categoryLabel}
+                  </span>
+                  <ArticleMeta post={post} />
                 </span>
-              </CardItem>
+                <h3 id={titleId}>{post.title}</h3>
+              </div>
             </div>
-            <CardGlare />
-            <CardGlow />
-            <span aria-hidden="true" className="ss-featured-card__inner-rule" />
-          </Link>
-        </CardBody>
-      </CardContainer>
+          }
+          backContent={
+            <div className="ss-featured-support__back">
+              <span className="ss-featured-card__category">{post.categoryLabel}</span>
+              <p className="ss-featured-support__summary">{post.subtitle}</p>
+              <ArticleMeta post={post} />
+              <span className="ss-featured-card__action">
+                Read article
+                <ArrowUpRight aria-hidden="true" />
+              </span>
+            </div>
+          }
+        />
+      </Link>
     </m.article>
   );
 }
@@ -207,7 +208,7 @@ export function FeaturedInsights({
 }) {
   const reducedMotion = useReducedMotion() ?? false;
   const { edition, primary } = selection;
-  const supporting = selection.supporting.slice(0, 4);
+  const supporting = selection.supporting.slice(0, 2);
 
   if (!primary) {
     return null;

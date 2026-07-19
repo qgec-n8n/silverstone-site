@@ -196,7 +196,14 @@ describe("FeaturedInsights", () => {
       }),
     ).toBeInTheDocument();
 
-    for (const post of CURRENT_FEATURED_INSIGHTS.articles) {
+    // The layout shows the primary plus two supporting cards; any further
+    // selected articles are held in reserve and never rendered.
+    const displayed = [
+      CURRENT_FEATURED_INSIGHTS.primary,
+      ...CURRENT_FEATURED_INSIGHTS.supporting.slice(0, 2),
+    ].filter((post): post is NonNullable<typeof post> => post !== undefined);
+    expect(displayed.length).toBeGreaterThan(0);
+    for (const post of displayed) {
       expect(
         within(section).getByRole("article", { name: post.title }),
       ).toBeInTheDocument();
@@ -215,7 +222,9 @@ describe("FeaturedInsights", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("renders one primary and exactly four ordered supporting article links", () => {
+  it("renders one primary and exactly two ordered supporting article links", () => {
+    // The selection may carry more supporting posts than the layout shows;
+    // the component itself caps the display at two supporting cards.
     const selection = {
       articles: [alpha, beta, gamma, delta, epsilon],
       edition: edition([alpha.slug, beta.slug, gamma.slug, delta.slug, epsilon.slug]),
@@ -239,14 +248,12 @@ describe("FeaturedInsights", () => {
     const links = within(section).getAllByRole("link");
 
     expect(primary).toHaveLength(1);
-    expect(supporting).toHaveLength(4);
-    expect(links).toHaveLength(5);
+    expect(supporting).toHaveLength(2);
+    expect(links).toHaveLength(3);
     expect(links.map((link) => link.getAttribute("href"))).toEqual([
       `/blog/${alpha.slug}`,
       `/blog/${beta.slug}`,
       `/blog/${gamma.slug}`,
-      `/blog/${delta.slug}`,
-      `/blog/${epsilon.slug}`,
     ]);
     expect(section.querySelector("a a, a button, button a")).toBeNull();
   });

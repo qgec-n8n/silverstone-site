@@ -90,7 +90,12 @@ for (const comparison of representativeSourceCopy) {
   });
 }
 
-test("rebuilt contact route renders a staging-safe enquiry form", async ({ page }) => {
+test("rebuilt contact route renders a staging-safe enquiry form", async ({
+  page,
+}, testInfo) => {
+  // The console sequences the same content as five desktop stages or seven
+  // mobile panels; both paths end at the identity stage.
+  const mobile = testInfo.project.name === "mobile-chromium";
   await page.goto("/contact");
   await revealRouteTextIfNeeded(page, "Start with the question that matters");
 
@@ -98,19 +103,26 @@ test("rebuilt contact route renders a staging-safe enquiry form", async ({ page 
     page.getByRole("heading", { name: "Start with the question that matters" }),
   ).toBeVisible();
   await expect(page.getByRole("form")).toHaveCount(1);
-  await page.getByRole("button", { name: "Continue" }).click();
+  const continueButton = page.getByRole("button", { name: "Continue" });
+  await continueButton.click();
   await expect(
-    page.getByRole("heading", { name: "Calibrate the discovery call" }),
+    page.getByRole("heading", {
+      name: mobile ? "Budget and timing" : "Size the engagement",
+    }),
   ).toBeFocused();
-  await page.getByRole("button", { name: "Continue" }).click();
+  const remainingQualifierPanels = mobile ? 4 : 2;
+  for (let hop = 0; hop < remainingQualifierPanels; hop += 1) {
+    await continueButton.click();
+  }
   await expect(page.getByLabel("Name")).toBeVisible();
   await expect(page.getByLabel("Work email")).toBeVisible();
-  await expect(page.getByRole("button", { name: "Continue" })).toBeVisible();
+  await expect(continueButton).toBeVisible();
 });
 
 test("rebuilt book route exposes the native staging-safe booking console", async ({
   page,
-}) => {
+}, testInfo) => {
+  const mobile = testInfo.project.name === "mobile-chromium";
   await page.goto("/book");
   await revealRouteTextIfNeeded(page, "Book a 30-minute discovery call");
 
@@ -126,7 +138,9 @@ test("rebuilt book route exposes the native staging-safe booking console", async
     page.getByRole("navigation", { name: "Booking progress" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Choose your moment" }),
+    page.getByRole("heading", {
+      name: mobile ? "Pick a day" : "Choose your moment",
+    }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "Contact instead" })).toHaveAttribute(
     "href",

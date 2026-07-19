@@ -122,27 +122,24 @@ test("desktop Featured Intelligence is compact, ordered and viewport-fit", async
     expect(geometry.section.height).toBeLessThanOrEqual(
       viewport.height - geometry.headerHeight + 1,
     );
-    expect(geometry.primary.height).toBeGreaterThanOrEqual(270);
-    expect(geometry.primary.height).toBeLessThanOrEqual(306);
-    expect(geometry.supporting).toHaveLength(4);
+    expect(geometry.supporting).toHaveLength(2);
     const first = required(geometry.supporting.at(0), "Supporting card 1 missing");
     const second = required(geometry.supporting.at(1), "Supporting card 2 missing");
-    const third = required(geometry.supporting.at(2), "Supporting card 3 missing");
-    const fourth = required(geometry.supporting.at(3), "Supporting card 4 missing");
-    expect(first.top).toBeGreaterThan(geometry.primary.bottom);
-    expect(Math.abs(first.top - second.top)).toBeLessThan(1);
-    expect(Math.abs(third.top - geometry.primary.top)).toBeLessThan(1);
-    expect(Math.abs(fourth.top - first.top)).toBeLessThan(1);
-    for (const support of geometry.supporting) {
-      expect(Math.abs(support.height - geometry.primary.height)).toBeLessThan(1);
-      expect(Math.abs(support.width - first.width)).toBeLessThan(1);
-    }
-    const lowerRowGap = second.left - (first.left + first.width);
-    expect(lowerRowGap).toBeGreaterThan(0);
+    // The primary is the large square: both supports stack in a column to
+    // its right, together spanning exactly the primary's height.
+    expect(Math.abs(first.top - geometry.primary.top)).toBeLessThan(1);
+    expect(second.top).toBeGreaterThan(first.bottom);
+    expect(first.left).toBeGreaterThan(geometry.primary.left + geometry.primary.width);
+    expect(Math.abs(first.left - second.left)).toBeLessThan(1);
+    expect(Math.abs(first.width - second.width)).toBeLessThan(1);
+    expect(Math.abs(first.height - second.height)).toBeLessThan(1);
+    const columnGap = second.top - first.bottom;
+    expect(columnGap).toBeGreaterThan(0);
     expect(
-      Math.abs(geometry.primary.width - (first.width + lowerRowGap + second.width)),
+      Math.abs(geometry.primary.height - (first.height + columnGap + second.height)),
     ).toBeLessThan(2);
-    expect(third.left).toBeGreaterThan(geometry.primary.left + geometry.primary.width);
+    expect(Math.abs(second.bottom - geometry.primary.bottom)).toBeLessThan(2);
+    expect(geometry.primary.width).toBeGreaterThan(first.width * 1.8);
     for (const [index, media] of geometry.supportingMedia.entries()) {
       const link = required(
         geometry.supportingLinks.at(index),
@@ -162,8 +159,8 @@ test("desktop Featured Intelligence is compact, ordered and viewport-fit", async
 
   const feature = page.locator(".ss-featured-insights");
   await expect(feature.locator('[data-featured-card="primary"]')).toHaveCount(1);
-  await expect(feature.locator('[data-featured-card="supporting"]')).toHaveCount(4);
-  await expect(feature.getByRole("link")).toHaveCount(5);
+  await expect(feature.locator('[data-featured-card="supporting"]')).toHaveCount(2);
+  await expect(feature.getByRole("link")).toHaveCount(3);
   await expect(feature.locator("a a, a button, button a")).toHaveCount(0);
 });
 
@@ -336,7 +333,7 @@ test("touch layouts are flat, stacked and free of horizontal overflow", async ({
       };
     });
 
-    expect(geometry.supporting).toHaveLength(4);
+    expect(geometry.supporting).toHaveLength(2);
     let previousBottom = geometry.primaryBottom;
     for (const [index, support] of geometry.supporting.entries()) {
       expect(
