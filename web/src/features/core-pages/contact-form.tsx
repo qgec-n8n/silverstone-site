@@ -676,7 +676,7 @@ export function ContactForm() {
         type="tel"
         inputMode="tel"
         autoComplete="tel"
-        placeholder="e.g. +44 7911 123456"
+        placeholder={mobile ? "+44 7911 123456" : "e.g. +44 7911 123456"}
         value={data.phone}
         onChange={(event) => patch({ phone: event.target.value })}
         disabled={submitting}
@@ -692,7 +692,7 @@ export function ContactForm() {
       <input
         name="company"
         autoComplete="organization"
-        placeholder="e.g. Morgan & Co Clinics"
+        placeholder={mobile ? "Morgan & Co" : "e.g. Morgan & Co Clinics"}
         value={data.company}
         onChange={(event) => patch({ company: event.target.value })}
         disabled={submitting}
@@ -751,9 +751,18 @@ export function ContactForm() {
             <Check />
           </span>
           <span>
-            I'm happy to be contacted about this enquiry —{" "}
-            <a href="/privacy-policy">privacy policy</a>. Please don't include passwords
-            or sensitive personal data.
+            {mobile ? (
+              <>
+                I'm happy to be contacted — <a href="/privacy-policy">privacy policy</a>
+                .
+              </>
+            ) : (
+              <>
+                I'm happy to be contacted about this enquiry —{" "}
+                <a href="/privacy-policy">privacy policy</a>. Please don't include
+                passwords or sensitive personal data.
+              </>
+            )}
           </span>
         </label>
         {errors.consent ? (
@@ -765,12 +774,9 @@ export function ContactForm() {
 
   const panelContent: Record<PanelId, ReactNode> = {
     focus: mobile ? (
-      <div className="ss-enq__fields">
-        <p className="ss-enq__hint">
-          Everything here is optional — answer what's useful, skip the rest.
-        </p>
-        {interestCards}
-      </div>
+      // No hint paragraph on a phone — the title plus the honest Skip
+      // affordance carry the same message without spending a line.
+      <div className="ss-enq__fields">{interestCards}</div>
     ) : (
       <div className="ss-enq__fields">
         <p className="ss-enq__hint">
@@ -912,9 +918,18 @@ export function ContactForm() {
         ) : null}
         {mobile ? (
           <div className="ss-enq__beam" aria-hidden="true">
-            <span
-              style={{ width: `${String(((activeStep + 1) / stages.length) * 100)}%` }}
-            />
+            {stages.map((entry, index) => (
+              <span
+                key={entry.id}
+                data-state={
+                  index < activeStep
+                    ? "done"
+                    : index === activeStep
+                      ? "current"
+                      : "ahead"
+                }
+              />
+            ))}
           </div>
         ) : null}
 
@@ -975,7 +990,9 @@ export function ContactForm() {
               Email instead
             </a>
           ) : (
-            <span />
+            <span className="ss-enq__nav-note">
+              Nothing is sent until the final step
+            </span>
           )}
           {!lastStage ? (
             <button className="ss-srv2-btn ss-srv2-btn--primary" type="submit">
@@ -999,7 +1016,7 @@ export function ContactForm() {
           )}
         </div>
 
-        {mobile ? (
+        {mobile && (stage.id === "focus" || stage.id === "send") ? (
           <p className="ss-enq__mob-assure">
             Reviewed personally — replies within one working day.
           </p>

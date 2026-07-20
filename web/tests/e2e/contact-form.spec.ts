@@ -41,6 +41,49 @@ async function expectNoHorizontalOverflow(page: Page) {
   ).toBeLessThanOrEqual(1);
 }
 
+/** Fit contract: the whole console sits inside the browser viewport. */
+async function expectFitsViewport(page: Page, form: Locator) {
+  const viewport = page.viewportSize();
+  if (!viewport) throw new Error("viewport size unavailable");
+  const height = await form.evaluate(
+    (element) => element.getBoundingClientRect().height,
+  );
+  expect(height).toBeLessThanOrEqual(viewport.height);
+}
+
+/** Copy contract: nothing button-like ever renders more than two text lines. */
+async function expectButtonCopyMaxTwoLines(form: Locator) {
+  const overLimit = await form.evaluate((root): string[] => {
+    const controls = root.querySelectorAll(
+      "button, .ss-enq__card span, .ss-core-form__seg-option span",
+    );
+    const offenders: string[] = [];
+    for (const el of controls) {
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      const tops: number[] = [];
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (!node.textContent?.trim()) continue;
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        for (const rect of range.getClientRects()) {
+          if (rect.width > 1 && rect.height > 1) {
+            if (!tops.some((top) => Math.abs(top - rect.top) < rect.height / 2)) {
+              tops.push(rect.top);
+            }
+          }
+        }
+      }
+      if (tops.length > 2) {
+        offenders.push(
+          `${el.textContent.trim().slice(0, 40)} (${String(tops.length)})`,
+        );
+      }
+    }
+    return offenders;
+  });
+  expect(overLimit).toEqual([]);
+}
+
 async function fillRequiredSendFields(page: Page) {
   await page.getByLabel("Name").fill("Visual Review");
   await page.getByLabel("Work email").fill("review@example.com");
@@ -76,24 +119,52 @@ test("desktop console walks three dossier stages beside a live brief rail", asyn
     "AI Receptionists",
   );
   await expectNoInternalScroll(form);
+  await expectFitsViewport(page, form);
+  await expectButtonCopyMaxTwoLines(form);
 
   await advance(form);
   await expect(
     page.getByRole("heading", { name: "How you operate today" }),
   ).toBeFocused();
   await expectNoInternalScroll(form);
+  await expectFitsViewport(page, form);
+  await expectButtonCopyMaxTwoLines(form);
 
   await advance(form);
   await expect(page.getByRole("heading", { name: "Send your enquiry" })).toBeFocused();
   await expect(page.getByLabel("Name")).toBeVisible();
   await expect(page.getByLabel("Work email")).toBeVisible();
   await expectNoInternalScroll(form);
+  await expectFitsViewport(page, form);
+  await expectButtonCopyMaxTwoLines(form);
 
   // Completed steps stay reachable from the rail.
   await rail.getByRole("button", { name: "Focus" }).click();
   await expect(
     page.getByRole("heading", { name: "What should we look at?" }),
   ).toBeFocused();
+});
+
+test("desktop console fits a short laptop viewport on every stage", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "Desktop-only enquiry composition");
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto("/contact#contact-form");
+
+  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  const headings = [
+    "What should we look at?",
+    "How you operate today",
+    "Send your enquiry",
+  ];
+  for (const [index, heading] of headings.entries()) {
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+    await expectFitsViewport(page, form);
+    await expectButtonCopyMaxTwoLines(form);
+    if (index < headings.length - 1) await advance(form);
+  }
 });
 
 test("desktop send stage validates identity, message and consent in place", async ({
@@ -146,6 +217,8 @@ test("mobile flow runs four content-sized steps with honest skip labels", async 
     await expect(page.getByRole("heading", { name: stepDef.heading })).toBeVisible();
     await expectNoInternalScroll(form);
     await expectNoHorizontalOverflow(page);
+    await expectFitsViewport(page, form);
+    await expectButtonCopyMaxTwoLines(form);
     if (index < steps.length - 1) {
       const submit = form.locator('button[type="submit"]');
       await expect(submit).toHaveText(
@@ -181,6 +254,29 @@ test("mobile qualifier answers flip Skip to Continue and surface in the brief", 
   await expect(form.locator(".ss-enq__brief-line")).toContainText("£3k–£10k");
 });
 
+test("mobile flow fits a compact 667px phone on every step", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Mobile-only enquiry composition");
+  await page.setViewportSize({ width: 375, height: 667 });
+  await page.goto("/contact#contact-form");
+
+  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  const headings = [
+    "What should we look at?",
+    "Scope and timing",
+    "Your operation today",
+    "Send your enquiry",
+  ];
+  for (const [index, heading] of headings.entries()) {
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+    await expectFitsViewport(page, form);
+    await expectButtonCopyMaxTwoLines(form);
+    if (index < headings.length - 1) await advance(form);
+  }
+});
+
 test("mobile flow fits a 320px viewport without horizontal overflow", async ({
   page,
   isMobile,
@@ -200,6 +296,7 @@ test("mobile flow fits a 320px viewport without horizontal overflow", async ({
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
     await expectNoHorizontalOverflow(page);
     await expectNoInternalScroll(form);
+    await expectFitsViewport(page, form);
     if (index < headings.length - 1) await advance(form);
   }
 });

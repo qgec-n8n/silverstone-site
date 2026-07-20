@@ -425,18 +425,26 @@
 
 /* ---- Enquiry console (dossier rail + guided stages) --------------------
    Desktop is a two-column dossier console: a fixed intelligence rail
-   (step list, live brief manifest, reply promise) beside a content-sized
-   stage that runs three dense boards. Mobile is a guided four-step flow in
-   a normal flowing card — every panel is content-height, the page scrolls,
-   nothing scrolls internally. Both shells share the chip instruments and
-   the mono micro-label voice; the accent gradient is reserved for state
-   (checked chips, progress, primary CTA), never for chrome. ------------- */
+   (step list, live brief manifest with dotted leaders, reply promise)
+   beside a dense stage running three boards. Mobile is a guided four-step
+   flow with a segmented progress beam. Both shells share the chip
+   instruments and the mono micro-label voice; the accent gradient is
+   reserved for state (checked chips, progress, primary CTA), never chrome.
+
+   Fit contract: the whole console must sit inside the browser viewport on
+   both shells. Content is never stretched to fill a frame — instead every
+   vertical quantum (paddings, gaps, control heights, the textarea) tracks
+   dvh/svh through bounded clamps so the console compresses continuously on
+   shorter windows, with discrete max-height tiers as the final safety
+   margin. Button/chip/card copy never exceeds two lines: chips are
+   single-line by contract (they wrap as units in their flex deck) and
+   cards balance their text across at most two lines. ------------------- */
 
 .ss-enq {
   padding: 0;
   gap: 0;
   overflow: clip;
-  scroll-margin-top: calc(var(--ss-layout-header, 0px) + 1.25rem);
+  scroll-margin-top: calc(var(--ss-layout-header, 0px) + 0.75rem);
 }
 
 .ss-enq[data-enq-shell="desktop"] {
@@ -462,8 +470,8 @@
 .ss-enq__rail {
   display: flex;
   flex-direction: column;
-  gap: clamp(1.4rem, 1.1rem + 1vw, 2rem);
-  padding: clamp(1.4rem, 1rem + 1.4vw, 2.1rem) clamp(1.2rem, 0.9rem + 1vw, 1.7rem);
+  gap: clamp(1.1rem, 2.6dvh, 1.9rem);
+  padding: clamp(1.1rem, 2.4dvh, 1.9rem) clamp(1.2rem, 0.9rem + 1vw, 1.7rem);
   border-right: 1px solid var(--srv2-hairline);
   background:
     linear-gradient(
@@ -487,7 +495,7 @@
 .ss-enq__steps {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: clamp(0.55rem, 1.6dvh, 0.9rem);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -506,6 +514,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  white-space: nowrap;
   transition: color var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
 }
 
@@ -513,8 +522,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.7rem;
-  height: 1.7rem;
+  width: clamp(1.5rem, 3.4dvh, 1.7rem);
+  height: clamp(1.5rem, 3.4dvh, 1.7rem);
   flex: none;
   border: 1px solid var(--srv2-hairline);
   border-radius: 999px;
@@ -563,25 +572,24 @@
 .ss-enq__manifest-block {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: clamp(0.5rem, 1.4dvh, 0.7rem);
   flex: 1 1 auto;
   min-height: 0;
-  padding-top: clamp(1rem, 0.8rem + 0.6vw, 1.4rem);
+  padding-top: clamp(0.8rem, 2dvh, 1.4rem);
   border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 75%, transparent);
 }
 
 .ss-enq__manifest {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: clamp(0.35rem, 1dvh, 0.5rem);
   margin: 0;
 }
 
 .ss-enq__manifest > div {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 0.8rem;
+  gap: 0.5rem;
   animation: enq-line-in 0.45s var(--ss-motion-easing-standard) both;
 }
 
@@ -603,19 +611,34 @@
   }
 }
 
+/* Dossier leader dots run from each label to its value. */
 .ss-enq__manifest dt {
-  flex: none;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ss-enq__manifest dt::after {
+  content: "";
+  flex: 1 1 0.5rem;
+  min-width: 0.5rem;
+  border-bottom: 1px dotted color-mix(in srgb, var(--srv2-ink-faint) 45%, transparent);
+  transform: translateY(-0.2em);
 }
 
 .ss-enq__manifest dd {
   margin: 0;
-  min-width: 0;
+  flex: none;
+  max-width: 58%;
   color: var(--srv2-ink);
   font-size: 0.78rem;
   font-weight: 550;
@@ -634,8 +657,8 @@
 .ss-enq__assure {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  padding-top: clamp(1rem, 0.8rem + 0.6vw, 1.4rem);
+  gap: clamp(0.3rem, 1dvh, 0.45rem);
+  padding-top: clamp(0.8rem, 2dvh, 1.4rem);
   border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 75%, transparent);
   font-size: 0.82rem;
   line-height: 1.5;
@@ -670,9 +693,9 @@
 .ss-enq__stagearea {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.9rem, 0.7rem + 0.7vw, 1.3rem);
+  gap: clamp(0.65rem, 1.7dvh, 1.15rem);
   min-width: 0;
-  padding: clamp(1.4rem, 1rem + 1.4vw, 2.1rem) clamp(1.3rem, 1rem + 1.2vw, 2rem);
+  padding: clamp(1rem, 2.2dvh, 1.7rem) clamp(1.3rem, 1rem + 1.2vw, 2rem);
 }
 
 .ss-enq__viewport {
@@ -682,13 +705,13 @@
 .ss-enq[data-enq-shell="desktop"] .ss-enq__viewport {
   /* Stages are composed to comparable natural heights; the floor keeps the
      shell steady while the shorter boards breathe. */
-  min-height: clamp(22rem, 18rem + 12vw, 27rem);
+  min-height: clamp(16rem, 42dvh, 24rem);
 }
 
 .ss-enq__panel {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.9rem, 0.7rem + 0.6vw, 1.25rem);
+  gap: clamp(0.65rem, 1.7dvh, 1.15rem);
 }
 
 .ss-enq__stage-head {
@@ -696,12 +719,20 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
+  padding-bottom: clamp(0.45rem, 1.2dvh, 0.7rem);
+  background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--srv2-accent) 45%, transparent),
+      color-mix(in srgb, var(--srv2-accent-2) 28%, transparent) 45%,
+      transparent 80%
+    )
+    bottom / 100% 1px no-repeat;
 }
 
 .ss-enq__panel-title {
   margin: 0;
   color: var(--ss-v2-platinum);
-  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.45rem);
+  font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.35rem);
   font-weight: 650;
   letter-spacing: -0.015em;
   outline: none;
@@ -718,14 +749,14 @@
 .ss-enq__fields {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.9rem, 0.7rem + 0.6vw, 1.2rem);
+  gap: clamp(0.6rem, 1.6dvh, 1.05rem);
 }
 
 .ss-enq__hint {
   margin: 0;
   color: var(--srv2-ink-soft);
-  font-size: 0.86rem;
-  line-height: 1.55;
+  font-size: 0.84rem;
+  line-height: 1.5;
 }
 
 /* ---- Interest cards ----------------------------------------------------- */
@@ -733,16 +764,17 @@
 .ss-enq__cards-group {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: clamp(0.4rem, 1.1dvh, 0.6rem);
 }
 
 .ss-enq__cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.6rem;
+  gap: clamp(0.45rem, 1.2dvh, 0.6rem);
 }
 
-.ss-enq__card {
+/* Beats the base `.ss-core-form label { display: grid }` rule. */
+.ss-enq .ss-enq__card {
   position: relative;
   display: flex;
 }
@@ -755,26 +787,20 @@
   cursor: pointer;
 }
 
-/* Beats the base `.ss-core-form label { display: grid }` rule. */
-.ss-enq .ss-enq__card {
-  position: relative;
-  display: flex;
-}
-
 .ss-enq__card span {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  min-height: 3.4rem;
-  padding: 0.65rem 2rem 0.65rem 0.85rem;
+  min-height: clamp(2.6rem, 5.6dvh, 3.1rem);
+  padding: clamp(0.45rem, 1.2dvh, 0.6rem) 1.1rem clamp(0.45rem, 1.2dvh, 0.6rem) 0.75rem;
   border: 1px solid var(--srv2-hairline);
   border-radius: var(--ss-radius-lg);
   background: color-mix(in srgb, var(--ss-v2-void-black) 55%, transparent);
   color: var(--srv2-ink-soft);
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 560;
-  line-height: 1.3;
+  line-height: 1.28;
   text-wrap: balance;
   cursor: pointer;
   transition:
@@ -787,10 +813,10 @@
 
 .ss-enq__card span svg {
   position: absolute;
-  top: 0.6rem;
-  right: 0.65rem;
-  width: 0.9rem;
-  height: 0.9rem;
+  top: 0.45rem;
+  right: 0.45rem;
+  width: 0.85rem;
+  height: 0.85rem;
   color: var(--srv2-accent);
   opacity: 0;
   transform: scale(0.5);
@@ -842,11 +868,11 @@
 
 .ss-enq__row {
   display: grid;
-  grid-template-columns: minmax(8.5rem, 12.5rem) minmax(0, 1fr);
+  grid-template-columns: minmax(7.5rem, 11rem) minmax(0, 1fr);
   align-items: center;
   column-gap: 1.25rem;
   margin: 0;
-  padding: 0.72rem 0;
+  padding: clamp(0.45rem, 1.3dvh, 0.7rem) 0;
   border: none;
   border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 65%, transparent);
   min-width: 0;
@@ -854,7 +880,7 @@
 
 .ss-enq__rows .ss-enq__row:first-child {
   border-top: none;
-  padding-top: 0.2rem;
+  padding-top: 0.15rem;
 }
 
 .ss-enq__row-label {
@@ -878,13 +904,19 @@
   letter-spacing: 0.1em;
 }
 
+/* Chips are single-line by contract: text never wraps inside a chip, the
+   chip wraps as a unit inside its deck. */
+.ss-enq .ss-core-form__seg-option span {
+  white-space: nowrap;
+}
+
 .ss-enq__row .ss-core-form__seg-options {
-  gap: 0.45rem;
+  gap: clamp(0.3rem, 0.9dvh, 0.45rem);
 }
 
 .ss-enq__row .ss-core-form__seg-option span {
-  padding: 0.42rem 0.82rem;
-  font-size: 0.79rem;
+  padding: clamp(0.34rem, 1dvh, 0.44rem) 0.78rem;
+  font-size: 0.78rem;
 }
 
 /* ---- Identity + message ------------------------------------------------- */
@@ -892,12 +924,12 @@
 .ss-enq__idgrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.9rem 1rem;
+  gap: clamp(0.55rem, 1.5dvh, 0.9rem) 1rem;
 }
 
 .ss-enq__field {
   display: grid;
-  gap: 0.42rem;
+  gap: clamp(0.28rem, 0.8dvh, 0.42rem);
   color: var(--ss-v2-chrome);
   font-size: 0.92rem;
   font-weight: 600;
@@ -921,7 +953,7 @@
 .ss-enq input,
 .ss-enq select,
 .ss-enq textarea {
-  padding: 0.7rem 0.85rem;
+  padding: clamp(0.52rem, 1.5dvh, 0.7rem) 0.85rem;
 }
 
 .ss-enq input::placeholder,
@@ -930,9 +962,11 @@
   opacity: 0.85;
 }
 
+/* The message area is the send stage's tallest instrument — it tracks the
+   viewport so the whole stage always fits. */
 .ss-enq [data-enq-message] textarea {
-  min-height: 8.5rem;
-  height: 8.5rem;
+  height: clamp(5.6rem, 16dvh, 8.5rem);
+  min-height: 5.6rem;
   resize: none;
 }
 
@@ -1066,7 +1100,20 @@
   justify-content: space-between;
   align-items: center;
   gap: 0.85rem;
-  padding-top: 0.2rem;
+  padding-top: clamp(0.1rem, 0.6dvh, 0.25rem);
+}
+
+.ss-enq__nav .ss-srv2-btn {
+  white-space: nowrap;
+}
+
+.ss-enq__nav-note {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .ss-enq__mailto {
@@ -1082,15 +1129,16 @@
   color: var(--srv2-ink);
 }
 
-.ss-enq .ss-core-form__status {
-  min-height: 1.2rem;
+/* The status strip only occupies space when it has something to say. */
+.ss-enq .ss-core-form__status:empty {
+  display: none;
 }
 
 /* ---- Mobile shell ------------------------------------------------------- */
 
 .ss-enq[data-enq-shell="mobile"] .ss-enq__stagearea {
-  gap: 0.85rem;
-  padding: 1.15rem 1.05rem 1.2rem;
+  gap: clamp(0.55rem, 1.5svh, 0.85rem);
+  padding: clamp(0.85rem, 1.8svh, 1.15rem) 1.05rem clamp(0.9rem, 1.9svh, 1.2rem);
 }
 
 .ss-enq__mobhead {
@@ -1107,38 +1155,71 @@
   letter-spacing: 0.14em;
 }
 
+/* Segmented progress beam: one cell per step, lit as the visitor moves. */
 .ss-enq__beam {
-  height: 2px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--srv2-hairline) 80%, transparent);
-  overflow: hidden;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 0.35rem;
+  height: 3px;
 }
 
 .ss-enq__beam span {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
-  box-shadow: 0 0 12px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
-  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--srv2-hairline) 80%, transparent);
+  transition:
+    background var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
 }
 
+.ss-enq__beam span[data-state="done"] {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--srv2-accent) 65%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 55%, transparent)
+  );
+}
+
+.ss-enq__beam span[data-state="current"] {
+  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--srv2-accent) 60%, transparent);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__panel {
+  gap: clamp(0.55rem, 1.5svh, 0.9rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__fields {
+  gap: clamp(0.5rem, 1.4svh, 0.85rem);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__stage-head {
+  padding-bottom: clamp(0.35rem, 1svh, 0.55rem);
+}
+
+/* Single-column interest list: every option reads on one line, targets stay
+   tall, and the two-line rule can never break on a narrow screen. */
 .ss-enq[data-enq-shell="mobile"] .ss-enq__cards {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.55rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(0.32rem, 0.9svh, 0.45rem);
 }
 
 .ss-enq[data-enq-shell="mobile"] .ss-enq__card span {
-  min-height: 3.1rem;
-  padding: 0.6rem 0.75rem;
-  font-size: 0.8rem;
+  min-height: clamp(2.3rem, 4.8svh, 2.7rem);
+  padding-block: clamp(0.35rem, 1svh, 0.5rem);
+  padding-left: 0.8rem;
+  font-size: 0.82rem;
 }
 
 /* Mobile qualifier rows stack caption over chips with a calmer rhythm. */
 .ss-enq[data-enq-shell="mobile"] .ss-enq__row {
   grid-template-columns: minmax(0, 1fr);
-  row-gap: 0.5rem;
-  padding: 0.85rem 0;
+  row-gap: clamp(0.3rem, 0.8svh, 0.45rem);
+  padding: clamp(0.42rem, 1.2svh, 0.65rem) 0;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__rows .ss-enq__row:first-child {
+  padding-top: 0.1rem;
 }
 
 /* The step-level hint and the honest Skip button already say these are
@@ -1147,52 +1228,169 @@
   display: none;
 }
 
-.ss-enq[data-enq-shell="mobile"] .ss-enq__rows .ss-enq__row:first-child {
-  padding-top: 0.1rem;
+/* Comfortable one-thumb targets that still compress on short phones. */
+.ss-enq[data-enq-shell="mobile"] .ss-enq__row .ss-core-form__seg-options {
+  gap: clamp(0.28rem, 0.8svh, 0.4rem);
 }
 
-/* Comfortable one-thumb targets. */
 .ss-enq[data-enq-shell="mobile"] .ss-enq__row .ss-core-form__seg-option span {
-  padding: 0.55rem 0.9rem;
-  font-size: 0.82rem;
+  padding: clamp(0.36rem, 1.1svh, 0.5rem) 0.7rem;
+  font-size: 0.78rem;
 }
 
+/* Name and email stay full-width; the two optional identity fields share a
+   row so the send step keeps its one-screen promise. */
 .ss-enq[data-enq-shell="mobile"] .ss-enq__idgrid {
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.4svh, 0.8rem) 0.6rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__idgrid > :nth-child(-n + 2) {
+  grid-column: 1 / -1;
+}
+
+.ss-enq[data-enq-shell="mobile"] input,
+.ss-enq[data-enq-shell="mobile"] select,
+.ss-enq[data-enq-shell="mobile"] textarea {
+  padding-block: clamp(0.48rem, 1.4svh, 0.65rem);
 }
 
 .ss-enq[data-enq-shell="mobile"] [data-enq-message] textarea {
-  min-height: 7.5rem;
-  height: 7.5rem;
+  height: clamp(4.4rem, 13svh, 6.6rem);
+  min-height: 4.4rem;
 }
 
 .ss-enq[data-enq-shell="mobile"] .ss-enq__nav {
-  padding-top: 0.35rem;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__nav .ss-srv2-btn {
-  flex: 0 0 auto;
-  justify-content: center;
-  white-space: nowrap;
+  padding-top: clamp(0.15rem, 0.8svh, 0.35rem);
 }
 
 .ss-enq__mob-assure {
   margin: 0;
   color: var(--srv2-ink-faint);
-  font-size: 0.78rem;
-  line-height: 1.5;
+  font-size: 0.76rem;
+  line-height: 1.45;
   text-align: center;
 }
 
-@media (max-width: 22.5rem) {
-  .ss-enq[data-enq-shell="mobile"] .ss-enq__cards {
-    grid-template-columns: minmax(0, 1fr);
+/* Short-phone tier: yield the courtesy copy before anything essential. */
+@media (max-height: 43rem) {
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__mob-assure,
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__brief-line,
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__count {
+    display: none;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__stagearea {
+    padding-block: 0.75rem 0.85rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__panel-title {
+    font-size: 1rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__row-label {
+    font-size: 0.6rem;
   }
 
   .ss-enq[data-enq-shell="mobile"] .ss-enq__row .ss-core-form__seg-option span {
-    padding: 0.45rem 0.7rem;
+    padding: 0.3rem 0.55rem;
+    font-size: 0.74rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__stagearea,
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__panel,
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__fields {
+    gap: 0.5rem;
+  }
+}
+
+/* Legacy-small phones (≤592px tall): the send step sheds its last slack. */
+@media (max-height: 37rem) {
+  .ss-enq[data-enq-shell="mobile"] input,
+  .ss-enq[data-enq-shell="mobile"] select,
+  .ss-enq[data-enq-shell="mobile"] textarea {
+    padding-block: 0.42rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] [data-enq-message] textarea {
+    height: 3.9rem;
+    min-height: 3.9rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__consent {
     font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__panel-title {
+    font-size: 0.95rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__idgrid {
+    gap: 0.4rem 0.6rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__field {
+    gap: 0.22rem;
+  }
+}
+
+/* Narrowest phones: chip decks become one-line scrollable rails so every
+   qualifier step still fits the viewport; identity fields stack. */
+@media (max-width: 22.5rem) {
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__row .ss-core-form__seg-options {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 0.1rem;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__row .ss-core-form__seg-option {
+    flex: none;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__mob-assure {
+    display: none;
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__idgrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__idgrid > :nth-child(-n + 2) {
+    grid-column: auto;
+  }
+}
+
+/* ---- Desktop short-window tier ------------------------------------------
+   The dvh clamps above compress continuously; below ~820px of height the
+   console also sheds its hint line and tightens the boards so the whole
+   instrument stays inside a 1366×768 or 1280×720 laptop viewport. */
+@media (max-height: 51.5rem) {
+  .ss-enq[data-enq-shell="desktop"] .ss-enq__hint {
+    display: none;
+  }
+
+  .ss-enq[data-enq-shell="desktop"] .ss-enq__viewport {
+    min-height: 14rem;
+  }
+
+  .ss-enq[data-enq-shell="desktop"] .ss-enq__panel-title {
+    font-size: 1.1rem;
+  }
+
+  .ss-enq[data-enq-shell="desktop"] .ss-enq__row .ss-core-form__seg-option span {
+    padding-inline: 0.66rem;
+    font-size: 0.76rem;
+  }
+
+  .ss-enq[data-enq-shell="desktop"] .ss-enq__card span {
+    font-size: 0.78rem;
+  }
+
+  .ss-enq__manifest-empty,
+  .ss-enq__assure {
+    font-size: 0.76rem;
   }
 }
 
