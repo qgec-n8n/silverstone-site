@@ -423,190 +423,279 @@
   cursor: default;
 }
 
-/* ---- Enquiry console (multi-stage sliding contact form) ---------------
-   The long field list is replaced by compact sliding stages under a mono
-   console rail and a progress beam, matching the booking panel's
-   "instrument" language: quick qualifiers first, identity next, message
-   last. Stage panels slide horizontally (motion/react); everything below
-   is the console chrome, the slider instruments and the recap manifest.
-
-   Sizing contract (both shells): the console height derives from the
-   viewport (bounded clamp), never from stage content, so the instrument
-   occupies one stable, fully visible frame while panels change inside its
-   flexible stage viewport. Desktop tracks the live viewport. Mobile stores
-   its first usable viewport height so collapsing browser chrome cannot
-   resize the console mid-scroll. ---------------------------------------- */
+/* ---- Enquiry console (dossier rail + guided stages) --------------------
+   Desktop is a two-column dossier console: a fixed intelligence rail
+   (step list, live brief manifest, reply promise) beside a content-sized
+   stage that runs three dense boards. Mobile is a guided four-step flow in
+   a normal flowing card — every panel is content-height, the page scrolls,
+   nothing scrolls internally. Both shells share the chip instruments and
+   the mono micro-label voice; the accent gradient is reserved for state
+   (checked chips, progress, primary CTA), never for chrome. ------------- */
 
 .ss-enq {
-  gap: clamp(0.7rem, 1.5dvh, 1.15rem);
+  padding: 0;
+  gap: 0;
   overflow: clip;
-}
-
-.ss-enq[data-enq-shell] {
-  display: flex;
-  flex-direction: column;
-  height: clamp(
-    30rem,
-    100vh - var(--ss-layout-header, 4.5rem) - clamp(2.5rem, 7vh, 5rem),
-    46rem
-  );
-  height: clamp(
-    30rem,
-    100dvh - var(--ss-layout-header, 4.5rem) - clamp(2.5rem, 7dvh, 5rem),
-    46rem
-  );
-  padding-block: clamp(1.1rem, 2.2dvh, 2.4rem);
   scroll-margin-top: calc(var(--ss-layout-header, 0px) + 1.25rem);
 }
 
-/* The mobile console is a deliberately tight instrument: capped at 39rem so
-   seven dense panels fill it edge to edge instead of trailing empty glass. */
+.ss-enq[data-enq-shell="desktop"] {
+  grid-template-columns: clamp(15rem, 22vw, 18.5rem) minmax(0, 1fr);
+}
+
 .ss-enq[data-enq-shell="mobile"] {
-  height: clamp(
-    35.25rem,
-    var(--enq-mobile-viewport-height, 100svh) - var(--ss-layout-header, 4.5rem) -
-      1.75rem,
-    39rem
-  );
-  gap: clamp(0.7rem, 1.5svh, 1.15rem);
-  padding: clamp(0.95rem, 2svh, 1.4rem) clamp(0.9rem, 4vw, 1.4rem);
+  display: flex;
+  flex-direction: column;
 }
 
-/* Sent state: one centred terminal inside the same stable frame. */
+/* Sent state: one centred terminal card. */
 .ss-enq--sent {
-  justify-content: center;
-}
-
-/* The seven mobile panels are labelled by the rail count and panel title;
-   the stage list itself is desktop chrome. */
-.ss-enq[data-enq-shell="mobile"] .ss-enq__stages {
-  display: none;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__meter-count {
-  display: none;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__nav {
-  flex-direction: row;
+  display: flex;
   align-items: center;
-  padding-inline-start: 0.75rem;
+  justify-content: center;
+  min-height: 18rem;
+  padding: var(--ss-core-pad);
 }
 
-.ss-enq[data-enq-shell="mobile"] .ss-enq__nav .ss-srv2-btn {
-  flex: 0 0 auto;
-  justify-content: center;
-  padding-inline: 0.75rem;
-  white-space: nowrap;
-}
+/* ---- Dossier rail (desktop only) --------------------------------------- */
 
 .ss-enq__rail {
   display: flex;
-  align-items: center;
-  gap: 0.85rem;
+  flex-direction: column;
+  gap: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+  padding: clamp(1.4rem, 1rem + 1.4vw, 2.1rem) clamp(1.2rem, 0.9rem + 1vw, 1.7rem);
+  border-right: 1px solid var(--srv2-hairline);
+  background:
+    linear-gradient(
+      190deg,
+      color-mix(in srgb, var(--srv2-accent) 7%, transparent),
+      transparent 42%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 34%, transparent);
+}
+
+.ss-enq__rail-label {
+  margin: 0;
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  white-space: nowrap;
 }
 
-.ss-enq__rail-track {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--srv2-accent) 50%, transparent),
-    color-mix(in srgb, var(--srv2-accent-2) 40%, transparent) 60%,
-    transparent
-  );
-}
-
-.ss-enq__rail-count {
-  color: var(--srv2-ink-soft);
-}
-
-.ss-enq__stages {
+.ss-enq__steps {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.4rem;
+  flex-direction: column;
+  gap: 0.9rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.ss-enq__stages button {
+.ss-enq__steps button {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.2rem 0;
+  gap: 0.7rem;
+  padding: 0;
   border: none;
   background: none;
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   transition: color var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
 }
 
-.ss-enq__stages li[data-state="done"] button {
+.ss-enq__step-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  flex: none;
+  border: 1px solid var(--srv2-hairline);
+  border-radius: 999px;
+  color: var(--srv2-ink-faint);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  transition:
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    background var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-enq__step-marker svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.ss-enq__steps li[data-state="current"] button {
+  color: var(--ss-v2-chrome);
+}
+
+.ss-enq__steps li[data-state="current"] .ss-enq__step-marker {
+  border-color: color-mix(in srgb, var(--srv2-accent) 75%, transparent);
+  color: var(--srv2-accent);
+  box-shadow: 0 0 14px -4px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
+}
+
+.ss-enq__steps li[data-state="done"] button {
   color: var(--srv2-ink-soft);
   cursor: pointer;
 }
 
-.ss-enq__stages li[data-state="done"] button:hover {
+.ss-enq__steps li[data-state="done"] button:hover {
   color: var(--srv2-ink);
 }
 
-.ss-enq__stages li[data-state="current"] button {
-  color: var(--ss-v2-chrome);
+.ss-enq__steps li[data-state="done"] .ss-enq__step-marker {
+  border-color: color-mix(in srgb, var(--srv2-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 14%, transparent);
+  color: var(--srv2-accent);
 }
 
-.ss-enq__stage-index {
-  color: color-mix(in srgb, var(--srv2-accent) 80%, var(--srv2-ink-faint));
+/* ---- Live brief manifest ----------------------------------------------- */
+
+.ss-enq__manifest-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-top: clamp(1rem, 0.8rem + 0.6vw, 1.4rem);
+  border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 75%, transparent);
 }
 
-.ss-enq__stages li[data-state="ahead"] .ss-enq__stage-index {
+.ss-enq__manifest {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.ss-enq__manifest > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+  animation: enq-line-in 0.45s var(--ss-motion-easing-standard) both;
+}
+
+@keyframes enq-line-in {
+  from {
+    opacity: 0;
+    transform: translateX(-0.4rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-enq__manifest > div {
+    animation: none;
+  }
+}
+
+.ss-enq__manifest dt {
+  flex: none;
   color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.ss-enq__beam {
-  height: 2px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--srv2-hairline) 80%, transparent);
-  overflow: hidden;
+.ss-enq__manifest dd {
+  margin: 0;
+  min-width: 0;
+  color: var(--srv2-ink);
+  font-size: 0.78rem;
+  font-weight: 550;
+  text-align: right;
 }
 
-.ss-enq__beam span {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
-  box-shadow: 0 0 12px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
-  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+.ss-enq__manifest-empty {
+  margin: 0;
+  color: var(--srv2-ink-faint);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* ---- Reply promise ------------------------------------------------------ */
+
+.ss-enq__assure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: clamp(1rem, 0.8rem + 0.6vw, 1.4rem);
+  border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 75%, transparent);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.ss-enq__assure p {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+}
+
+.ss-enq__assure strong {
+  color: var(--srv2-ink);
+  font-weight: 600;
+}
+
+.ss-enq__assure a {
+  width: fit-content;
+  color: var(--srv2-ink-soft);
+  font-weight: 550;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+  transition: color var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-enq__assure a:hover {
+  color: var(--srv2-ink);
+}
+
+/* ---- Stage area --------------------------------------------------------- */
+
+.ss-enq__stagearea {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.9rem, 0.7rem + 0.7vw, 1.3rem);
+  min-width: 0;
+  padding: clamp(1.4rem, 1rem + 1.4vw, 2.1rem) clamp(1.3rem, 1rem + 1.2vw, 2rem);
 }
 
 .ss-enq__viewport {
   position: relative;
-  /* The one flexible region of the fixed shell. Panels are composed to fit
-     it by construction; the thin scrollbar is an emergency relief valve for
-     viewports shorter than the shell's floor, never the design. */
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden auto;
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--srv2-accent) 45%, transparent) transparent;
+}
+
+.ss-enq[data-enq-shell="desktop"] .ss-enq__viewport {
+  /* Stages are composed to comparable natural heights; the floor keeps the
+     shell steady while the shorter boards breathe. */
+  min-height: clamp(22rem, 18rem + 12vw, 27rem);
 }
 
 .ss-enq__panel {
-  display: grid;
-  align-content: start;
-  grid-template-rows: auto minmax(0, 1fr);
-  gap: clamp(0.6rem, 1.3dvh, 1.05rem);
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.9rem, 0.7rem + 0.6vw, 1.25rem);
+}
+
+.ss-enq__stage-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .ss-enq__panel-title {
@@ -618,179 +707,208 @@
   outline: none;
 }
 
+.ss-enq__stage-count {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
 .ss-enq__fields {
-  display: grid;
-  align-content: start;
-  gap: clamp(0.6rem, 1.4dvh, 1.05rem);
-  min-height: 0;
-}
-
-/* Desktop-only composition: every stage is a fully populated instrument
-   board — at most a one-line hint row, then a grid of equal glass bays that
-   split the whole stage area between them. No bay ever floats in empty
-   console space. */
-.ss-enq[data-enq-shell="desktop"] .ss-enq__fields {
-  height: 100%;
-  align-content: stretch;
-  grid-template-rows: minmax(0, 1fr);
-}
-
-.ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel[data-enq-panel="focus"]
-  .ss-enq__fields {
-  grid-template-rows: auto minmax(0, 1fr);
-}
-
-.ss-enq[data-enq-shell="desktop"] .ss-enq__panel .ss-core-form__grid {
-  height: 100%;
-  align-items: stretch;
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-}
-
-.ss-enq[data-enq-shell="desktop"] .ss-enq__panel .ss-core-form__grid > * {
-  height: 100%;
-  min-width: 0;
-}
-
-.ss-enq[data-enq-shell="desktop"]
-  .ss-enq__panel
-  .ss-core-form__grid
-  > :is(.ss-core-form__seg, .ss-enq__field) {
-  align-content: center;
-  padding: clamp(0.7rem, 1.45dvh, 1.05rem) clamp(0.85rem, 0.75rem + 0.5vw, 1.25rem);
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 22%, var(--ss-v2-hairline));
-  border-radius: var(--ss-radius-lg);
-  background:
-    linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--srv2-accent) 7%, transparent),
-      color-mix(in srgb, var(--srv2-accent-2) 4%, transparent) 62%,
-      transparent
-    ),
-    color-mix(in srgb, var(--ss-v2-void-black) 42%, transparent);
-}
-
-.ss-enq[data-enq-shell="desktop"] .ss-enq__slider {
-  align-content: center;
-}
-
-/* Details board: identity fields keep a tab-logical DOM order (name, email,
-   phone, company, then the two qualifier decks); placement puts identity in
-   columns 1–2 and the decks in column 3. */
-.ss-enq[data-enq-shell="desktop"] [data-enq-identity] {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(1) {
-  grid-area: 1 / 1;
-}
-
-.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(2) {
-  grid-area: 1 / 2;
-}
-
-.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(3) {
-  grid-area: 2 / 1;
-}
-
-.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(4) {
-  grid-area: 2 / 2;
-}
-
-.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(5) {
-  grid-area: 1 / 3;
-}
-
-.ss-enq[data-enq-shell="desktop"] [data-enq-identity] > :nth-child(6) {
-  grid-area: 2 / 3;
-}
-
-.ss-enq .ss-core-form__grid {
-  gap: clamp(0.6rem, 1.3dvh, 1rem);
-}
-
-/* Transmit stage: the message area is the panel's flexible instrument — it
-   absorbs whatever height the fixed shell has spare. */
-.ss-enq__fields[data-enq-transmit] {
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
-
-.ss-enq__fields[data-enq-transmit] > [data-enq-message] {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-}
-
-.ss-enq [data-enq-message] textarea {
-  height: 100%;
-  min-height: 3.25rem;
-  resize: none;
+  gap: clamp(0.9rem, 0.7rem + 0.6vw, 1.2rem);
 }
 
 .ss-enq__hint {
   margin: 0;
   color: var(--srv2-ink-soft);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   line-height: 1.55;
 }
 
-/* ---- Calibration meter — lives in the console rail on both shells ------ */
+/* ---- Interest cards ----------------------------------------------------- */
 
-.ss-enq__meter {
-  display: inline-flex;
+.ss-enq__cards-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ss-enq__cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.ss-enq__card {
+  position: relative;
+  display: flex;
+}
+
+.ss-enq__card input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Beats the base `.ss-core-form label { display: grid }` rule. */
+.ss-enq .ss-enq__card {
+  position: relative;
+  display: flex;
+}
+
+.ss-enq__card span {
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 0.55rem;
-}
-
-.ss-enq__meter-cells {
-  display: inline-flex;
-  gap: 0.28rem;
-}
-
-.ss-enq__meter-cells span {
-  width: 1.05rem;
-  height: 0.28rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--srv2-hairline) 80%, transparent);
+  width: 100%;
+  min-height: 3.4rem;
+  padding: 0.65rem 2rem 0.65rem 0.85rem;
+  border: 1px solid var(--srv2-hairline);
+  border-radius: var(--ss-radius-lg);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 55%, transparent);
+  color: var(--srv2-ink-soft);
+  font-size: 0.84rem;
+  font-weight: 560;
+  line-height: 1.3;
+  text-wrap: balance;
+  cursor: pointer;
   transition:
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
     background var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
     box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
 }
 
-.ss-enq__meter-cells span[data-filled="true"] {
-  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
-  box-shadow: 0 0 10px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
+.ss-enq__card span svg {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.65rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  color: var(--srv2-accent);
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
 }
 
-.ss-enq__meter-count {
-  color: var(--srv2-ink-faint);
+.ss-enq__card input:hover + span {
+  border-color: color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+  color: var(--srv2-ink);
+  transform: translateY(-1px);
+}
+
+.ss-enq__card input:checked + span {
+  border-color: color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--srv2-accent) 14%, transparent),
+      color-mix(in srgb, var(--srv2-accent-2) 9%, transparent)
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 55%, transparent);
+  color: var(--ss-v2-chrome);
+  box-shadow: 0 0 22px -8px color-mix(in srgb, var(--srv2-accent) 60%, transparent);
+}
+
+.ss-enq__card input:checked + span svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ss-enq__card input:focus-visible + span {
+  outline: 2px solid var(--srv2-accent);
+  outline-offset: 2px;
+}
+
+.ss-enq__cards-group:disabled .ss-enq__card span {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* ---- Qualifier spec rows ------------------------------------------------ */
+
+.ss-enq__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.ss-enq__row {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, 12.5rem) minmax(0, 1fr);
+  align-items: center;
+  column-gap: 1.25rem;
+  margin: 0;
+  padding: 0.72rem 0;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 65%, transparent);
+  min-width: 0;
+}
+
+.ss-enq__rows .ss-enq__row:first-child {
+  border-top: none;
+  padding-top: 0.2rem;
+}
+
+.ss-enq__row-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: var(--srv2-ink-soft);
   font-family: var(--ss-font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  white-space: nowrap;
+  line-height: 1.35;
+}
+
+.ss-enq__row-label em {
+  color: var(--srv2-ink-faint);
+  font-size: 0.6rem;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+.ss-enq__row .ss-core-form__seg-options {
+  gap: 0.45rem;
+}
+
+.ss-enq__row .ss-core-form__seg-option span {
+  padding: 0.42rem 0.82rem;
+  font-size: 0.79rem;
+}
+
+/* ---- Identity + message ------------------------------------------------- */
+
+.ss-enq__idgrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1rem;
 }
 
 .ss-enq__field {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.42rem;
   color: var(--ss-v2-chrome);
   font-size: 0.92rem;
   font-weight: 600;
 }
 
-/* Every bay speaks one language: the caption above a control is the same
-   mono micro-label the slider readouts use, so inputs, chip decks and
-   sliders all read as instruments on the same board. */
 .ss-enq__field > span:first-child {
-  color: var(--srv2-ink-faint);
+  color: var(--srv2-ink-soft);
   font-family: var(--ss-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
@@ -800,40 +918,127 @@
   font-weight: 500;
 }
 
+.ss-enq input,
+.ss-enq select,
+.ss-enq textarea {
+  padding: 0.7rem 0.85rem;
+}
+
 .ss-enq input::placeholder,
 .ss-enq textarea::placeholder {
   color: var(--srv2-ink-faint);
   opacity: 0.85;
 }
 
-.ss-enq__selectwrap {
+.ss-enq [data-enq-message] textarea {
+  min-height: 8.5rem;
+  height: 8.5rem;
+  resize: none;
+}
+
+.ss-enq__count {
+  justify-self: end;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+}
+
+.ss-enq__brief-line {
+  margin: 0;
+  overflow: hidden;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ---- Consent ------------------------------------------------------------ */
+
+.ss-enq__sendfoot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Beats the base `.ss-core-form label { display: grid }` rule. */
+.ss-enq .ss-enq__consent {
   position: relative;
-  display: block;
-}
-
-.ss-enq__selectwrap::after {
-  content: "";
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  width: 0.55rem;
-  height: 0.55rem;
-  border-right: 1.5px solid var(--srv2-accent);
-  border-bottom: 1.5px solid var(--srv2-accent);
-  transform: translateY(-70%) rotate(45deg);
-  pointer-events: none;
-}
-
-.ss-enq select {
-  appearance: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  color: var(--srv2-ink-soft);
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
-  padding-right: 2.4rem;
 }
 
-.ss-enq select option {
-  background: var(--ss-v2-void-black);
-  color: var(--srv2-ink);
+.ss-enq__consent input {
+  position: absolute;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
 }
+
+.ss-enq__consent-box {
+  /* Purely decorative — clicks must fall through to the real checkbox. */
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.12rem;
+  border: 1px solid var(--srv2-hairline);
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--ss-v2-void-black) 70%, transparent);
+  transition:
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    background var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-enq__consent-box svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: var(--ss-v2-void-black);
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-enq__consent input:checked ~ .ss-enq__consent-box {
+  border-color: color-mix(in srgb, var(--srv2-accent) 80%, transparent);
+  background: linear-gradient(135deg, var(--srv2-accent), var(--srv2-accent-2));
+  box-shadow: 0 0 14px -4px color-mix(in srgb, var(--srv2-accent) 60%, transparent);
+}
+
+.ss-enq__consent input:checked ~ .ss-enq__consent-box svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ss-enq__consent input:focus-visible ~ .ss-enq__consent-box {
+  outline: 2px solid var(--srv2-accent);
+  outline-offset: 2px;
+}
+
+.ss-enq__consent a {
+  color: var(--srv2-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---- Errors, nav, status ------------------------------------------------ */
 
 .ss-enq__error {
   display: inline-flex;
@@ -854,380 +1059,6 @@
 
 .ss-enq [aria-invalid="true"] {
   border-color: color-mix(in srgb, #f87171 65%, transparent);
-}
-
-/* Console-scoped compression: the fixed shell trades ornament for fit on
-   short viewports — every internal gap tracks dvh. */
-.ss-enq .ss-core-form__seg {
-  gap: clamp(0.3rem, 0.8dvh, 0.55rem);
-}
-
-/* Chip-deck captions live INSIDE the bay, not on its border: floating the
-   legend evicts it from the fieldset's border slot into normal flow, where
-   it takes the same mono voice as the slider readouts. */
-.ss-enq .ss-core-form__seg legend {
-  float: left;
-  width: 100%;
-  margin-bottom: clamp(0.25rem, 0.7dvh, 0.5rem);
-  color: var(--srv2-ink-faint);
-  font-family: var(--ss-font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.ss-enq .ss-core-form__seg-option span {
-  padding: clamp(0.4rem, 1dvh, 0.5rem) 0.9rem;
-  font-size: 0.8rem;
-}
-
-.ss-enq input,
-.ss-enq select {
-  padding-block: clamp(0.6rem, 1.4dvh, 0.82rem);
-}
-
-.ss-enq .ss-core-form__status {
-  min-height: 1.2rem;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__rail {
-  gap: 0.4rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__rail-track {
-  flex: 1 1 0.5rem;
-  min-width: 0.5rem;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__meter {
-  gap: 0.4rem;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__meter-cells {
-  gap: 0.14rem;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__meter-cells span {
-  width: 0.4rem;
-  height: 0.24rem;
-}
-
-/* Stable mobile rhythm: `svh` is insensitive to the URL bar, while the
-   shell itself is locked to the initial pixel measurement above. */
-.ss-enq[data-enq-shell="mobile"] .ss-enq__panel {
-  gap: clamp(0.6rem, 1.3svh, 1.05rem);
-}
-
-/* Mobile bays: each control sits in its own glass bay and the bays share
-   the fixed panel area, so every panel fills the console — content centres
-   inside its bay instead of pooling at the top of the shell. Flex (not 1fr
-   grid rows) so spare space is distributed without fr-equalisation inflating
-   the panel's intrinsic height past the viewport on short screens. */
-.ss-enq[data-enq-shell="mobile"] .ss-enq__fields {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  gap: clamp(0.6rem, 1.4svh, 1.05rem);
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__fields:not([data-enq-transmit]) > * {
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-.ss-enq[data-enq-shell="mobile"]
-  .ss-enq__fields:not([data-enq-transmit])
-  > :is(.ss-core-form__seg, .ss-enq__field) {
-  align-content: center;
-  padding: clamp(0.55rem, 1.3svh, 0.95rem) clamp(0.7rem, 3.5vw, 1rem);
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 22%, var(--ss-v2-hairline));
-  border-radius: var(--ss-radius-lg);
-  background:
-    linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--srv2-accent) 7%, transparent),
-      color-mix(in srgb, var(--srv2-accent-2) 4%, transparent) 62%,
-      transparent
-    ),
-    color-mix(in srgb, var(--ss-v2-void-black) 42%, transparent);
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg legend,
-.ss-enq[data-enq-shell="mobile"] .ss-enq__field > span:first-child {
-  font-size: clamp(0.55rem, 2.15vw, 0.62rem);
-  letter-spacing: 0.1em;
-}
-
-/* Titles and chips are sized so no mobile copy ever breaks to two lines,
-   down to a 320px viewport. */
-.ss-enq[data-enq-shell="mobile"] .ss-enq__panel-title {
-  font-size: clamp(1rem, 4.6vw, 1.3rem);
-  white-space: nowrap;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg-option span {
-  padding-inline: 0.7rem;
-}
-
-/* Sub-360px compaction: the narrowest phones keep every panel inside the
-   fixed shell by tightening the chip instruments, never by scrolling. The
-   calibration meter yields its rail space so the stage count never clips. */
-@media (max-width: 22.5rem) {
-  .ss-enq[data-enq-shell="mobile"] .ss-enq__meter {
-    display: none;
-  }
-
-  .ss-enq[data-enq-shell="mobile"] .ss-core-form__seg-option span {
-    padding: 0.32rem 0.55rem;
-    font-size: 0.75rem;
-  }
-
-  .ss-enq[data-enq-shell="mobile"] .ss-core-form__seg {
-    gap: 0.25rem;
-  }
-
-  .ss-enq[data-enq-shell="mobile"] .ss-core-form__seg-options {
-    gap: 0.35rem;
-  }
-
-  .ss-enq[data-enq-shell="mobile"]
-    .ss-enq__fields:not([data-enq-transmit])
-    > :is(.ss-core-form__seg, .ss-enq__field) {
-    padding: 0.5rem 0.6rem;
-  }
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg {
-  gap: clamp(0.3rem, 0.8svh, 0.55rem);
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg legend {
-  margin-bottom: clamp(0.25rem, 0.7svh, 0.5rem);
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-core-form__seg-option span {
-  padding-block: clamp(0.4rem, 1svh, 0.5rem);
-}
-
-.ss-enq[data-enq-shell="mobile"] input,
-.ss-enq[data-enq-shell="mobile"] select {
-  padding-block: clamp(0.6rem, 1.4svh, 0.82rem);
-}
-
-/* Budget slider instrument: glowing readout, beam track, orb thumb. The
-   fill percentage arrives via --enq-fill from the component. */
-.ss-enq__slider {
-  display: grid;
-  gap: clamp(0.45rem, 1.1dvh, 0.75rem);
-  padding: clamp(0.75rem, 1.7dvh, 1.35rem) clamp(0.85rem, 0.75rem + 0.5vw, 1.4rem);
-  border-radius: var(--ss-radius-lg);
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-hairline));
-  background:
-    linear-gradient(
-      140deg,
-      color-mix(in srgb, var(--srv2-accent) 8%, transparent),
-      color-mix(in srgb, var(--srv2-accent-2) 6%, transparent) 55%,
-      transparent
-    ),
-    color-mix(in srgb, var(--ss-v2-void-black) 45%, transparent);
-}
-
-.ss-enq__slider-readout {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.8rem;
-}
-
-.ss-enq__slider-readout span {
-  color: var(--srv2-ink-faint);
-  font-family: var(--ss-font-mono);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.ss-enq__slider-readout strong {
-  color: var(--ss-v2-chrome);
-  font-size: 1.05rem;
-  font-weight: 650;
-  letter-spacing: -0.01em;
-  text-shadow: 0 0 18px color-mix(in srgb, var(--srv2-accent) 45%, transparent);
-}
-
-.ss-enq__slider input[type="range"] {
-  appearance: none;
-  width: 100%;
-  height: 1.4rem;
-  margin: 0;
-  background: none;
-  cursor: pointer;
-}
-
-.ss-enq__slider input[type="range"]:focus-visible {
-  outline: 2px solid var(--srv2-accent);
-  outline-offset: 4px;
-  border-radius: 999px;
-}
-
-.ss-enq__slider input[type="range"]::-webkit-slider-runnable-track {
-  height: 3px;
-  border-radius: 999px;
-  background:
-    linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2)) 0 0 /
-      var(--enq-fill, 0%) 100% no-repeat,
-    color-mix(in srgb, var(--srv2-hairline) 85%, transparent);
-}
-
-.ss-enq__slider input[type="range"]::-moz-range-track {
-  height: 3px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--srv2-hairline) 85%, transparent);
-}
-
-.ss-enq__slider input[type="range"]::-moz-range-progress {
-  height: 3px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
-}
-
-.ss-enq__slider input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 1.05rem;
-  height: 1.05rem;
-  margin-top: calc((3px - 1.05rem) / 2);
-  border-radius: 999px;
-  border: 2px solid var(--ss-v2-void-black);
-  background: radial-gradient(
-    circle at 35% 35%,
-    #ffffff,
-    var(--srv2-accent) 55%,
-    var(--srv2-accent-2)
-  );
-  box-shadow: 0 0 16px color-mix(in srgb, var(--srv2-accent) 75%, transparent);
-}
-
-.ss-enq__slider input[type="range"]::-moz-range-thumb {
-  width: 1.05rem;
-  height: 1.05rem;
-  border-radius: 999px;
-  border: 2px solid var(--ss-v2-void-black);
-  background: radial-gradient(
-    circle at 35% 35%,
-    #ffffff,
-    var(--srv2-accent) 55%,
-    var(--srv2-accent-2)
-  );
-  box-shadow: 0 0 16px color-mix(in srgb, var(--srv2-accent) 75%, transparent);
-}
-
-.ss-enq__slider-ticks {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.4rem;
-}
-
-.ss-enq__slider-ticks span {
-  flex: 1;
-  color: var(--srv2-ink-faint);
-  font-size: 0.68rem;
-  font-weight: 550;
-  text-align: center;
-  transition: color var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
-}
-
-.ss-enq__slider-ticks span:first-child {
-  text-align: left;
-}
-
-.ss-enq__slider-ticks span:last-child {
-  text-align: right;
-}
-
-.ss-enq__slider-ticks span[data-active="true"] {
-  color: var(--srv2-ink);
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__slider {
-  align-content: center;
-  gap: clamp(0.45rem, 1.1svh, 0.75rem);
-  padding-block: clamp(0.75rem, 1.7svh, 1.35rem);
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout {
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout span,
-.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout strong,
-.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-ticks span {
-  min-width: 0;
-  white-space: nowrap;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout span {
-  font-size: clamp(0.55rem, 2.15vw, 0.62rem);
-  letter-spacing: 0.1em;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-readout strong {
-  flex: none;
-  font-size: clamp(0.82rem, 3.7vw, 0.98rem);
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-ticks {
-  gap: 0.16rem;
-}
-
-.ss-enq[data-enq-shell="mobile"] .ss-enq__slider-ticks span {
-  font-size: clamp(0.54rem, 2.15vw, 0.62rem);
-}
-
-.ss-enq__count {
-  justify-self: end;
-  color: var(--srv2-ink-faint);
-  font-family: var(--ss-font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-}
-
-/* Recap manifest on the final stage: what the enquiry will carry. */
-.ss-enq__recap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0;
-}
-
-.ss-enq__recap div {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.45rem;
-  padding: 0.42rem 0.8rem;
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 30%, var(--ss-v2-hairline));
-  border-radius: var(--ss-radius-pill);
-  background: color-mix(in srgb, var(--srv2-accent) 8%, transparent);
-}
-
-.ss-enq__recap dt {
-  color: var(--srv2-ink-faint);
-  font-family: var(--ss-font-mono);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.ss-enq__recap dd {
-  margin: 0;
-  color: var(--srv2-ink);
-  font-size: 0.8rem;
-  font-weight: 550;
 }
 
 .ss-enq__nav {
@@ -1251,7 +1082,122 @@
   color: var(--srv2-ink);
 }
 
-/* Sent state: the console becomes a confirmation terminal. */
+.ss-enq .ss-core-form__status {
+  min-height: 1.2rem;
+}
+
+/* ---- Mobile shell ------------------------------------------------------- */
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__stagearea {
+  gap: 0.85rem;
+  padding: 1.15rem 1.05rem 1.2rem;
+}
+
+.ss-enq__mobhead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.ss-enq__mobhead-count {
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+}
+
+.ss-enq__beam {
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--srv2-hairline) 80%, transparent);
+  overflow: hidden;
+}
+
+.ss-enq__beam span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__cards {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__card span {
+  min-height: 3.1rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+/* Mobile qualifier rows stack caption over chips with a calmer rhythm. */
+.ss-enq[data-enq-shell="mobile"] .ss-enq__row {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 0.5rem;
+  padding: 0.85rem 0;
+}
+
+/* The step-level hint and the honest Skip button already say these are
+   optional — the per-row reminders are pure copy noise on a phone. */
+.ss-enq[data-enq-shell="mobile"] .ss-enq__row-label em {
+  display: none;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__rows .ss-enq__row:first-child {
+  padding-top: 0.1rem;
+}
+
+/* Comfortable one-thumb targets. */
+.ss-enq[data-enq-shell="mobile"] .ss-enq__row .ss-core-form__seg-option span {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.82rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__idgrid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] [data-enq-message] textarea {
+  min-height: 7.5rem;
+  height: 7.5rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__nav {
+  padding-top: 0.35rem;
+}
+
+.ss-enq[data-enq-shell="mobile"] .ss-enq__nav .ss-srv2-btn {
+  flex: 0 0 auto;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.ss-enq__mob-assure {
+  margin: 0;
+  color: var(--srv2-ink-faint);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 22.5rem) {
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ss-enq[data-enq-shell="mobile"] .ss-enq__row .ss-core-form__seg-option span {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.78rem;
+  }
+}
+
+/* ---- Sent terminal ------------------------------------------------------ */
+
 .ss-enq__terminal {
   display: grid;
   justify-items: center;
@@ -1285,29 +1231,6 @@
 
 .ss-enq__terminal-body strong {
   color: var(--srv2-ink);
-}
-
-@media (max-width: 44rem) {
-  .ss-enq__stages {
-    gap: 0.4rem 0.9rem;
-  }
-
-  .ss-enq__slider-ticks span {
-    font-size: 0.6rem;
-  }
-
-  .ss-enq__nav {
-    flex-direction: column-reverse;
-    align-items: stretch;
-  }
-
-  .ss-enq__nav .ss-srv2-btn {
-    justify-content: center;
-  }
-
-  .ss-enq__mailto {
-    text-align: center;
-  }
 }
 
 /* ---- Booking console ---------------------------------------------------

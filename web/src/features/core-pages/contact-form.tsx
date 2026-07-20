@@ -1,39 +1,28 @@
 /**
- * Contact enquiry console — a fixed-size instrument on every breakpoint.
+ * Contact enquiry console — two purpose-built shells sharing one state.
  *
- * The shell is sized once from the viewport (like the booking console) and
- * never grows or shrinks between panels: the stage viewport is the flexible
- * grid row, panels are composed to fit it by construction, and the whole
- * console stays entirely visible inside the browser window.
+ * Desktop (≥48rem) is a dossier console: a fixed intelligence rail on the
+ * left (step list, live brief manifest that assembles as answers land, and
+ * the studio's reply promise) beside a content-sized stage that runs three
+ * dense boards — Focus → Operation → Send. Mobile (<48rem) is a guided
+ * four-step flow (Focus → Scope → Operation → Send) in a normal flowing
+ * card: every panel is content-height, the page scrolls, nothing scrolls
+ * internally. Optional qualifier steps advance with an honest "Skip" when
+ * nothing is chosen.
  *
- * Desktop (≥48rem) runs four dense sliding stages — Focus → Signals →
- * Details → Transmit — under a mono console rail with a live calibration
- * meter; every stage is a fully populated board of equal glass instrument
- * bays. Mobile (<48rem) gets a dedicated seven-panel flow (one decision per
- * screen) inside a tighter fixed shell whose bays stretch to fill it, so no
- * panel ever needs internal scroll and none trails empty space. Both shells
- * share one state object, so rotating or resizing never loses the visitor's
- * place.
- *
- * The qualifying stages are one-tap and fully optional; identity and the
- * written message come last, once momentum exists. Field names stay aligned
- * with the send-email Netlify function's whitelist (name, email, phone,
- * company, interest, companySize, budget, timeline, enquiryVolume,
- * adminHours, channels, systems, automationExperience, decisionRole,
- * message).
+ * All qualifiers are one-tap chips (the sliders are gone — a stepped range
+ * whose "not sure" default sat at 100% fill read as a maxed answer).
+ * Qualifying stays fully optional; identity and the written message come
+ * last, once momentum exists. Field names stay aligned with the send-email
+ * Netlify function's whitelist (name, email, phone, company, interest,
+ * companySize, budget, timeline, enquiryVolume, adminHours, channels,
+ * systems, automationExperience, decisionRole, message).
  *
  * Submits to the repository's real configured endpoint
- * (`/.netlify/functions/send-email`) and falls back to a direct mailto route
- * if that request can't be confirmed — no staging language, no fabricated
- * always-succeeds mock.
+ * (`/.netlify/functions/send-email`) and falls back to a direct mailto
+ * route if that request can't be confirmed.
  */
-import {
-  useRef,
-  useState,
-  useSyncExternalStore,
-  type CSSProperties,
-  type ReactNode,
-} from "react";
+import { useState, useSyncExternalStore, type ReactNode } from "react";
 import { AnimatePresence, useReducedMotion, type Variants } from "motion/react";
 import * as m from "motion/react-m";
 
@@ -41,6 +30,7 @@ import {
   AlertCircleIcon,
   ArrowLeft,
   ArrowRight,
+  Check,
   CheckCircle2Icon,
   Send,
 } from "~/components/icons/lucide";
@@ -76,13 +66,6 @@ const ENQUIRY_VOLUME_OPTIONS = ["Under 10", "10–50", "50–200", "200+", "Not 
 
 const ADMIN_HOURS_OPTIONS = ["Under 2", "2–5", "5–15", "15+", "Hard to say"];
 
-/* Mobile tick labels are intentionally terse: the full values remain in
- * state, accessibility text and the submission payload, while the compact
- * instrument face stays single-line even on a 320px viewport. */
-const MOBILE_BUDGET_LABELS = ["<£1k", "£1–3k", "£3–10k", "£10k+", "Unsure"];
-const MOBILE_ENQUIRY_VOLUME_LABELS = ["<10", "10–50", "50–200", "200+", "Unsure"];
-const MOBILE_ADMIN_HOURS_LABELS = ["<2", "2–5", "5–15", "15+", "Unsure"];
-
 const CHANNEL_OPTIONS = [
   "Phone",
   "Email",
@@ -112,24 +95,6 @@ const DECISION_OPTIONS = ["Just me", "Me + a partner", "A leadership team"];
 
 const MESSAGE_MAX_LENGTH = 1600;
 
-/** The eight optional qualifying instruments the calibration meter tracks. A
- * slider counts once it leaves its honest "not sure" default; chips and
- * multi-selects count once anything is chosen. */
-const SCOPE_QUESTION_COUNT = 8;
-
-function countScopeAnswers(data: EnquiryData): number {
-  return [
-    data.budget !== INITIAL_DATA.budget,
-    data.timeline !== "",
-    data.enquiryVolume !== INITIAL_DATA.enquiryVolume,
-    data.adminHours !== INITIAL_DATA.adminHours,
-    data.channels.length > 0,
-    data.systems.length > 0,
-    data.automationExperience !== "",
-    data.decisionRole !== "",
-  ].filter(Boolean).length;
-}
-
 type EnquiryData = {
   interest: string;
   companySize: string;
@@ -152,14 +117,10 @@ type EnquiryData = {
 const INITIAL_DATA: EnquiryData = {
   interest: "",
   companySize: "",
-  // Sliders rest on their honest "not sure" default (and that answer is sent
-  // as-is — an unmoved slider is itself a useful signal); every tap-chip
-  // qualifier starts unanswered and is only sent when the visitor actively
-  // chooses a value.
-  budget: "Not sure yet",
+  budget: "",
   timeline: "",
-  enquiryVolume: "Not sure yet",
-  adminHours: "Hard to say",
+  enquiryVolume: "",
+  adminHours: "",
   channels: [],
   systems: [],
   automationExperience: "",
@@ -178,14 +139,7 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Panel content ids. Stages validate by what they contain, not by index, so
  * the desktop and mobile sequencing can differ freely. */
-type PanelId =
-  | "focus"
-  | "scope"
-  | "workload"
-  | "signals"
-  | "calibration"
-  | "details"
-  | "transmit";
+type PanelId = "focus" | "scope" | "operation" | "send";
 
 type StageDef = {
   id: PanelId;
@@ -194,25 +148,47 @@ type StageDef = {
 };
 
 const DESKTOP_STAGES: readonly StageDef[] = [
-  { id: "focus", label: "Focus", title: "Frame the engagement" },
-  { id: "signals", label: "Signals", title: "Map today’s operation" },
-  { id: "details", label: "Details", title: "Where should the reply go?" },
-  { id: "transmit", label: "Transmit", title: "Describe what should change" },
+  { id: "focus", label: "Focus", title: "What should we look at?" },
+  { id: "operation", label: "Operation", title: "How you operate today" },
+  { id: "send", label: "Send", title: "Send your enquiry" },
 ];
 
 const MOBILE_STAGES: readonly StageDef[] = [
-  { id: "focus", label: "Focus", title: "Choose a starting point" },
-  { id: "scope", label: "Budget", title: "Budget and timing" },
-  { id: "workload", label: "Workload", title: "Today’s workload" },
-  { id: "signals", label: "Signals", title: "Channels and systems" },
-  { id: "calibration", label: "Sign-off", title: "Automation and sign-off" },
-  { id: "details", label: "Details", title: "Where should replies go?" },
-  { id: "transmit", label: "Transmit", title: "What should change?" },
+  { id: "focus", label: "Focus", title: "What should we look at?" },
+  { id: "scope", label: "Scope", title: "Scope and timing" },
+  { id: "operation", label: "Operation", title: "Your operation today" },
+  { id: "send", label: "Send", title: "Send your enquiry" },
 ];
+
+/** Which optional qualifiers each panel carries — drives the honest
+ * Skip/Continue label on mobile qualifier steps. */
+function panelAnswered(id: PanelId, data: EnquiryData): boolean {
+  switch (id) {
+    case "focus":
+      return data.interest !== "";
+    case "scope":
+      return (
+        data.companySize !== "" ||
+        data.budget !== "" ||
+        data.timeline !== "" ||
+        data.decisionRole !== ""
+      );
+    case "operation":
+      return (
+        data.enquiryVolume !== "" ||
+        data.adminHours !== "" ||
+        data.channels.length > 0 ||
+        data.systems.length > 0 ||
+        data.automationExperience !== ""
+      );
+    default:
+      return true;
+  }
+}
 
 function validatePanel(id: PanelId, data: EnquiryData): FieldErrors {
   const errors: FieldErrors = {};
-  if (id === "details") {
+  if (id === "send") {
     if (!data.name.trim()) {
       errors.name = "Add the name we should reply to.";
     }
@@ -221,8 +197,6 @@ function validatePanel(id: PanelId, data: EnquiryData): FieldErrors {
     } else if (!EMAIL_PATTERN.test(data.email.trim())) {
       errors.email = "That email address doesn't look complete.";
     }
-  }
-  if (id === "transmit") {
     if (!data.message.trim()) {
       errors.message = "A sentence or two is enough to route this properly.";
     }
@@ -262,9 +236,9 @@ async function submitEnquiry(data: EnquiryData): Promise<void> {
 }
 
 /* ---- Shell breakpoint ---------------------------------------------------
-   Mirrors the stylesheet's mobile cut. Behaviour-only: it decides which
-   panel sequence mounts; presentation is media-query CSS. Prerender renders
-   the desktop console. */
+   Mirrors the stylesheet's mobile cut. It decides which panel sequence and
+   chrome mount; presentation details stay in media-query CSS. Prerender
+   renders the desktop console. */
 
 const MOBILE_MEDIA = "(max-width: 47.9375rem)";
 
@@ -310,15 +284,23 @@ function FieldError({ id, children }: { id: string; children: ReactNode }) {
   );
 }
 
-function ChipGroup({
+/**
+ * One qualifier row: a fieldset whose visible caption sits beside (desktop)
+ * or above (mobile) its chip deck. The real legend is visually hidden so the
+ * caption can be a plain grid item instead of living in the fieldset's
+ * border slot.
+ */
+function ChipRow({
   legend,
+  hint,
   name,
   options,
   value,
   onChange,
   disabled,
 }: {
-  legend: ReactNode;
+  legend: string;
+  hint?: string | undefined;
   name: string;
   options: readonly string[];
   value: string;
@@ -326,8 +308,12 @@ function ChipGroup({
   disabled: boolean;
 }) {
   return (
-    <fieldset className="ss-core-form__seg" disabled={disabled}>
-      <legend>{legend}</legend>
+    <fieldset className="ss-core-form__seg ss-enq__row" disabled={disabled}>
+      <legend className="sr-only">{legend}</legend>
+      <span className="ss-enq__row-label" aria-hidden="true">
+        {legend}
+        {hint ? <em>{hint}</em> : null}
+      </span>
       <div className="ss-core-form__seg-options">
         {options.map((option) => (
           <label className="ss-core-form__seg-option" key={option}>
@@ -346,16 +332,18 @@ function ChipGroup({
   );
 }
 
-/** Multi-select variant of ChipGroup: each chip toggles independently. */
-function ChipMultiGroup({
+/** Multi-select variant of ChipRow: each chip toggles independently. */
+function ChipMultiRow({
   legend,
+  hint,
   name,
   options,
   values,
   onChange,
   disabled,
 }: {
-  legend: ReactNode;
+  legend: string;
+  hint?: string | undefined;
   name: string;
   options: readonly string[];
   values: string[];
@@ -371,8 +359,12 @@ function ChipMultiGroup({
   };
 
   return (
-    <fieldset className="ss-core-form__seg" disabled={disabled}>
-      <legend>{legend}</legend>
+    <fieldset className="ss-core-form__seg ss-enq__row" disabled={disabled}>
+      <legend className="sr-only">{legend}</legend>
+      <span className="ss-enq__row-label" aria-hidden="true">
+        {legend}
+        {hint ? <em>{hint}</em> : null}
+      </span>
       <div className="ss-core-form__seg-options">
         {options.map((option) => (
           <label className="ss-core-form__seg-option" key={option}>
@@ -391,67 +383,6 @@ function ChipMultiGroup({
   );
 }
 
-/**
- * Stepped slider instrument (glowing readout, beam track, orb thumb — see
- * `.ss-enq__slider`). The fill percentage feeds the track gradient via
- * `--enq-fill`.
- */
-function ScopeSlider({
-  label,
-  displayLabel,
-  options,
-  displayOptions,
-  value,
-  onChange,
-  disabled,
-}: {
-  label: string;
-  displayLabel?: string | undefined;
-  options: readonly string[];
-  displayOptions?: readonly string[] | undefined;
-  value: string;
-  onChange: (next: string) => void;
-  disabled: boolean;
-}) {
-  const index = Math.max(0, options.indexOf(value));
-  const fallback = options[options.length - 1] ?? "";
-  const readout = displayOptions?.[index] ?? value;
-
-  return (
-    <div
-      className="ss-enq__slider"
-      style={
-        {
-          "--enq-fill": `${String((index / (options.length - 1)) * 100)}%`,
-        } as CSSProperties
-      }
-    >
-      <div className="ss-enq__slider-readout">
-        <span>{displayLabel ?? label}</span>
-        <strong>{readout}</strong>
-      </div>
-      <input
-        type="range"
-        min={0}
-        max={options.length - 1}
-        step={1}
-        value={index}
-        onChange={(event) => onChange(options[Number(event.target.value)] ?? fallback)}
-        aria-label={label}
-        aria-valuetext={value}
-        disabled={disabled}
-      />
-      <div className="ss-enq__slider-ticks" aria-hidden="true">
-        {options.map((option, optionIndex) => (
-          <span key={option} data-active={option === value}>
-            {displayOptions?.[optionIndex] ?? option}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function ContactForm() {
   const mobile = useMobileShell();
   const stages = mobile ? MOBILE_STAGES : DESKTOP_STAGES;
@@ -460,23 +391,8 @@ export function ContactForm() {
   const [data, setData] = useState<EnquiryData>(INITIAL_DATA);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
-  const mobileViewportHeightRef = useRef<number | null>(null);
-  const lastFocusedStepRef = useRef(step);
+  const [lastFocusedStep, setLastFocusedStep] = useState(0);
   const reducedMotion = useReducedMotion() ?? false;
-
-  /* Capture the mobile browser's usable height once when the mobile shell
-   commits. Collapsing/expanding URL chrome then fires height-only resizes, but
-   the console keeps this initial measurement. Callback refs also cover the
-   sent-state shell without introducing a render solely for measurement. */
-  const attachShell = (node: HTMLDivElement | HTMLFormElement | null) => {
-    if (node && mobile) {
-      mobileViewportHeightRef.current ??= window.innerHeight;
-      node.style.setProperty(
-        "--enq-mobile-viewport-height",
-        `${String(mobileViewportHeightRef.current)}px`,
-      );
-    }
-  };
 
   // The two shells sequence the same content differently; entering the other
   // shell mid-journey simply clamps to its last panel rather than crashing
@@ -485,7 +401,7 @@ export function ContactForm() {
   const stage: StageDef = stages[activeStep] ?? {
     id: "focus",
     label: "Focus",
-    title: "Where should we look first?",
+    title: "What should we look at?",
   };
 
   const patch = (partial: Partial<EnquiryData>) => {
@@ -498,8 +414,8 @@ export function ContactForm() {
   // heading). Comparing against the last-focused step keeps the first mount
   // focus-free — the page never scroll-jumps to the form on load.
   const focusPanelHeading = (node: HTMLHeadingElement | null) => {
-    if (node && lastFocusedStepRef.current !== activeStep) {
-      lastFocusedStepRef.current = activeStep;
+    if (node && lastFocusedStep !== activeStep) {
+      setLastFocusedStep(activeStep);
       node.focus();
     }
   };
@@ -507,7 +423,7 @@ export function ContactForm() {
   const goTo = (next: number) => {
     setDirection(next > activeStep ? 1 : -1);
     setErrors({});
-    // A failed transmit shouldn't keep warning once the visitor goes back to
+    // A failed send shouldn't keep warning once the visitor goes back to
     // adjust the enquiry — the next attempt reports its own outcome.
     setStatus((current) => (current === "fallback" ? "idle" : current));
     setStep(next);
@@ -525,8 +441,8 @@ export function ContactForm() {
     return true;
   };
 
-  async function transmit() {
-    const stageErrors = validatePanel("transmit", data);
+  async function send() {
+    const stageErrors = validatePanel("send", data);
     if (Object.keys(stageErrors).length > 0) {
       setErrors(stageErrors);
       return;
@@ -541,7 +457,6 @@ export function ContactForm() {
   }
 
   const submitting = status === "submitting";
-  const scopeAnswered = countScopeAnswers(data);
   const shellKind = mobile ? "mobile" : "desktop";
 
   if (status === "sent") {
@@ -550,14 +465,13 @@ export function ContactForm() {
         className="ss-core-form ss-enq ss-enq--sent ss-srv2-beam-border"
         data-enq-shell={shellKind}
         id="contact-form-panel"
-        ref={attachShell}
       >
         <div className="ss-enq__terminal" role="status">
           <CheckCircle2Icon aria-hidden="true" className="ss-enq__terminal-icon" />
-          <p className="ss-enq__terminal-title">Transmission received</p>
+          <p className="ss-enq__terminal-title">Enquiry sent</p>
           <p className="ss-enq__terminal-body">
             Thank you — your enquiry is now in the Silverstone inbox. We'll reply to{" "}
-            <strong>{data.email.trim()}</strong>.
+            <strong>{data.email.trim()}</strong> within one working day.
           </p>
         </div>
         <BorderBeam />
@@ -565,49 +479,52 @@ export function ContactForm() {
     );
   }
 
-  const recap = [
+  /* The live brief manifest: every answered qualifier, in reading order. */
+  const manifest = [
     data.interest ? ["Focus", data.interest] : null,
     data.companySize ? ["Team", data.companySize] : null,
-    ["Budget", data.budget],
+    data.budget ? ["Budget", data.budget] : null,
     data.timeline ? ["Timeline", data.timeline] : null,
-    ["Volume", data.enquiryVolume],
-    ["Admin hours", data.adminHours],
+    data.decisionRole ? ["Sign-off", data.decisionRole] : null,
+    data.enquiryVolume ? ["Enquiries / wk", data.enquiryVolume] : null,
+    data.adminHours ? ["Admin hrs / wk", data.adminHours] : null,
     data.channels.length > 0 ? ["Channels", data.channels.join(", ")] : null,
     data.systems.length > 0 ? ["Systems", data.systems.join(", ")] : null,
     data.automationExperience ? ["Automation", data.automationExperience] : null,
-    data.decisionRole ? ["Sign-off", data.decisionRole] : null,
   ].filter((entry): entry is [string, string] => entry !== null);
 
   /* -- Shared field clusters, sequenced differently per shell ------------- */
 
-  const interestField = (
-    <label className="ss-enq__field">
-      <span>
+  const interestCards = (
+    <fieldset className="ss-core-form__seg ss-enq__cards-group" disabled={submitting}>
+      <legend className="sr-only">Area of interest (optional)</legend>
+      <span className="ss-enq__row-label" aria-hidden="true">
         Area of interest <em>optional</em>
       </span>
-      <span className="ss-enq__selectwrap">
-        <select
-          name="interest"
-          value={data.interest}
-          onChange={(event) => patch({ interest: event.target.value })}
-          disabled={submitting}
-        >
-          <option value="">{mobile ? "Select a match" : "Select the closest match"}</option>
-          {INTEREST_OPTIONS.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </select>
-      </span>
-    </label>
+      <div className="ss-enq__cards">
+        {INTEREST_OPTIONS.map((option) => (
+          <label className="ss-enq__card" key={option}>
+            <input
+              type="radio"
+              name="interest"
+              value={option}
+              checked={data.interest === option}
+              onChange={() => patch({ interest: option })}
+            />
+            <span>
+              {option}
+              <Check aria-hidden="true" />
+            </span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
   );
 
-  const companyChips = (
-    <ChipGroup
-      legend={
-        <>
-          Company size <em>optional</em>
-        </>
-      }
+  const companyRow = (
+    <ChipRow
+      legend="Company size"
+      hint="optional"
       name="companySize"
       options={COMPANY_SIZE_OPTIONS}
       value={data.companySize}
@@ -616,31 +533,22 @@ export function ContactForm() {
     />
   );
 
-  const budgetSlider = (
-    <ScopeSlider
-      label="Indicative budget"
-      displayLabel={mobile ? "Budget range" : undefined}
+  const budgetRow = (
+    <ChipRow
+      legend="Indicative budget"
+      hint="optional"
+      name="budget"
       options={BUDGET_OPTIONS}
-      displayOptions={mobile ? MOBILE_BUDGET_LABELS : undefined}
       value={data.budget}
       onChange={(budget) => patch({ budget })}
       disabled={submitting}
     />
   );
 
-  const timelineChips = (
-    <ChipGroup
-      legend={
-        mobile ? (
-          <>
-            Target go-live <em>optional</em>
-          </>
-        ) : (
-          <>
-            How soon should this be live? <em>optional</em>
-          </>
-        )
-      }
+  const timelineRow = (
+    <ChipRow
+      legend="Target go-live"
+      hint="optional"
       name="timeline"
       options={TIMELINE_OPTIONS}
       value={data.timeline}
@@ -649,43 +557,46 @@ export function ContactForm() {
     />
   );
 
-  const volumeSlider = (
-    <ScopeSlider
-      label="New enquiries per week"
-      displayLabel={mobile ? "Enquiries / week" : undefined}
+  const decisionRow = (
+    <ChipRow
+      legend="Sign-off"
+      hint="optional"
+      name="decisionRole"
+      options={DECISION_OPTIONS}
+      value={data.decisionRole}
+      onChange={(decisionRole) => patch({ decisionRole })}
+      disabled={submitting}
+    />
+  );
+
+  const volumeRow = (
+    <ChipRow
+      legend="Enquiries per week"
+      hint="optional"
+      name="enquiryVolume"
       options={ENQUIRY_VOLUME_OPTIONS}
-      displayOptions={mobile ? MOBILE_ENQUIRY_VOLUME_LABELS : undefined}
       value={data.enquiryVolume}
       onChange={(enquiryVolume) => patch({ enquiryVolume })}
       disabled={submitting}
     />
   );
 
-  const adminSlider = (
-    <ScopeSlider
-      label="Hours a week lost to manual admin"
-      displayLabel={mobile ? "Manual admin / week" : undefined}
+  const adminRow = (
+    <ChipRow
+      legend="Admin hours per week"
+      hint="optional"
+      name="adminHours"
       options={ADMIN_HOURS_OPTIONS}
-      displayOptions={mobile ? MOBILE_ADMIN_HOURS_LABELS : undefined}
       value={data.adminHours}
       onChange={(adminHours) => patch({ adminHours })}
       disabled={submitting}
     />
   );
 
-  const channelChips = (
-    <ChipMultiGroup
-      legend={
-        mobile ? (
-          <>
-            Enquiry channels <em>select any</em>
-          </>
-        ) : (
-          <>
-            Where do enquiries arrive? <em>select any</em>
-          </>
-        )
-      }
+  const channelsRow = (
+    <ChipMultiRow
+      legend="Enquiry channels"
+      hint="select any"
       name="channels"
       options={CHANNEL_OPTIONS}
       values={data.channels}
@@ -694,19 +605,10 @@ export function ContactForm() {
     />
   );
 
-  const systemChips = (
-    <ChipMultiGroup
-      legend={
-        mobile ? (
-          <>
-            Systems in play <em>select any</em>
-          </>
-        ) : (
-          <>
-            Systems already in play <em>select any</em>
-          </>
-        )
-      }
+  const systemsRow = (
+    <ChipMultiRow
+      legend="Systems in use"
+      hint="select any"
       name="systems"
       options={SYSTEM_OPTIONS}
       values={data.systems}
@@ -715,38 +617,14 @@ export function ContactForm() {
     />
   );
 
-  const automationChips = (
-    <ChipGroup
-      legend={
-        mobile ? (
-          <>
-            Automation today <em>optional</em>
-          </>
-        ) : (
-          <>
-            How automated are you today? <em>optional</em>
-          </>
-        )
-      }
+  const automationRow = (
+    <ChipRow
+      legend="Automation today"
+      hint="optional"
       name="automationExperience"
       options={AUTOMATION_EXPERIENCE_OPTIONS}
       value={data.automationExperience}
       onChange={(automationExperience) => patch({ automationExperience })}
-      disabled={submitting}
-    />
-  );
-
-  const decisionChips = (
-    <ChipGroup
-      legend={
-        <>
-          Who signs this off? <em>optional</em>
-        </>
-      }
-      name="decisionRole"
-      options={DECISION_OPTIONS}
-      value={data.decisionRole}
-      onChange={(decisionRole) => patch({ decisionRole })}
       disabled={submitting}
     />
   );
@@ -822,24 +700,29 @@ export function ContactForm() {
     </label>
   );
 
-  const transmitFields = (
-    <div className="ss-enq__fields" data-enq-transmit>
-      {!mobile && recap.length > 0 ? (
-        <dl className="ss-enq__recap" aria-label="Enquiry summary">
-          {recap.map(([label, value]) => (
-            <div key={label}>
-              <dt>{label}</dt>
-              <dd>{value}</dd>
-            </div>
-          ))}
-        </dl>
+  const sendFields = (
+    <div className="ss-enq__fields" data-enq-send>
+      {mobile && manifest.length > 0 ? (
+        <p className="ss-enq__brief-line" aria-label="Enquiry summary">
+          {manifest.map(([, value]) => value).join(" · ")}
+        </p>
       ) : null}
+      <div className="ss-enq__idgrid">
+        {nameField}
+        {emailField}
+        {phoneField}
+        {companyField}
+      </div>
       <label className="ss-enq__field" data-enq-message>
         <span>What would you like to improve?</span>
         <textarea
           name="message"
           maxLength={MESSAGE_MAX_LENGTH}
-          placeholder="e.g. Enquiries reach us by phone and Instagram, but half go unanswered outside opening hours — we want them captured, qualified and booked automatically."
+          placeholder={
+            mobile
+              ? "e.g. Half our enquiries go unanswered after hours — we want them captured and booked automatically."
+              : "e.g. Enquiries reach us by phone and Instagram, but half go unanswered outside opening hours — we want them captured, qualified and booked automatically."
+          }
           value={data.message}
           onChange={(event) => patch({ message: event.target.value })}
           aria-invalid={errors.message ? true : undefined}
@@ -853,253 +736,287 @@ export function ContactForm() {
           <FieldError id="enq-error-message">{errors.message}</FieldError>
         ) : null}
       </label>
-      <p className="ss-core-form__note">
-        {mobile
-          ? "No passwords or sensitive data, please."
-          : "Do not include passwords, payment information, health records or other sensitive personal data."}
-      </p>
-      <label className="ss-core-form__consent">
-        <input
-          type="checkbox"
-          name="consent"
-          checked={data.consent}
-          onChange={(event) => patch({ consent: event.target.checked })}
-          aria-invalid={errors.consent ? true : undefined}
-          aria-describedby={errors.consent ? "enq-error-consent" : undefined}
-          disabled={submitting}
-        />
-        <span>
-          {mobile ? (
-            <>
-              I agree to be contacted — <a href="/privacy-policy">privacy policy</a>.
-            </>
-          ) : (
-            <>
-              I agree to be contacted about this enquiry, in line with the{" "}
-              <a href="/privacy-policy">privacy policy</a>.
-            </>
-          )}
-        </span>
-      </label>
-      {errors.consent ? (
-        <FieldError id="enq-error-consent">{errors.consent}</FieldError>
-      ) : null}
+      <div className="ss-enq__sendfoot">
+        <label className="ss-enq__consent">
+          <input
+            type="checkbox"
+            name="consent"
+            checked={data.consent}
+            onChange={(event) => patch({ consent: event.target.checked })}
+            aria-invalid={errors.consent ? true : undefined}
+            aria-describedby={errors.consent ? "enq-error-consent" : undefined}
+            disabled={submitting}
+          />
+          <span className="ss-enq__consent-box" aria-hidden="true">
+            <Check />
+          </span>
+          <span>
+            I'm happy to be contacted about this enquiry —{" "}
+            <a href="/privacy-policy">privacy policy</a>. Please don't include passwords
+            or sensitive personal data.
+          </span>
+        </label>
+        {errors.consent ? (
+          <FieldError id="enq-error-consent">{errors.consent}</FieldError>
+        ) : null}
+      </div>
     </div>
   );
 
   const panelContent: Record<PanelId, ReactNode> = {
     focus: mobile ? (
       <div className="ss-enq__fields">
-        {interestField}
-        {companyChips}
+        <p className="ss-enq__hint">
+          Everything here is optional — answer what's useful, skip the rest.
+        </p>
+        {interestCards}
       </div>
     ) : (
       <div className="ss-enq__fields">
         <p className="ss-enq__hint">
-          Every control is optional — each answer calibrates the reply.
+          Everything here is optional — answer what's useful, skip the rest.
         </p>
-        <div className="ss-core-form__grid">
-          {interestField}
-          {companyChips}
-          {timelineChips}
-          {budgetSlider}
+        {interestCards}
+        <div className="ss-enq__rows">
+          {companyRow}
+          {budgetRow}
+          {timelineRow}
         </div>
       </div>
     ),
     scope: (
       <div className="ss-enq__fields">
-        {budgetSlider}
-        {timelineChips}
-      </div>
-    ),
-    workload: (
-      <div className="ss-enq__fields">
-        {volumeSlider}
-        {adminSlider}
-      </div>
-    ),
-    signals: mobile ? (
-      <div className="ss-enq__fields">
-        {channelChips}
-        {systemChips}
-      </div>
-    ) : (
-      <div className="ss-enq__fields">
-        <div className="ss-core-form__grid">
-          {volumeSlider}
-          {adminSlider}
-          {channelChips}
-          {systemChips}
+        <div className="ss-enq__rows">
+          {companyRow}
+          {budgetRow}
+          {timelineRow}
+          {decisionRow}
         </div>
       </div>
     ),
-    calibration: (
+    operation: mobile ? (
+      // Automation experience is desktop-only: on a phone the step stays
+      // four short groups so the whole panel reads in one sweep.
       <div className="ss-enq__fields">
-        {automationChips}
-        {decisionChips}
-      </div>
-    ),
-    details: mobile ? (
-      <div className="ss-enq__fields">
-        {nameField}
-        {emailField}
-        {phoneField}
-        {companyField}
+        <div className="ss-enq__rows">
+          {volumeRow}
+          {adminRow}
+          {channelsRow}
+          {systemsRow}
+        </div>
       </div>
     ) : (
       <div className="ss-enq__fields">
-        <div className="ss-core-form__grid" data-enq-identity>
-          {nameField}
-          {emailField}
-          {phoneField}
-          {companyField}
-          {automationChips}
-          {decisionChips}
+        <div className="ss-enq__rows">
+          {volumeRow}
+          {adminRow}
+          {channelsRow}
+          {systemsRow}
+          {automationRow}
+          {decisionRow}
         </div>
       </div>
     ),
-    transmit: transmitFields,
+    send: sendFields,
   };
+
+  const lastStage = activeStep === stages.length - 1;
+  const skipLabel =
+    mobile &&
+    stage.id !== "send" &&
+    stage.id !== "focus" &&
+    !panelAnswered(stage.id, data);
 
   return (
     <form
       className="ss-core-form ss-enq ss-srv2-beam-border"
       data-enq-shell={shellKind}
       aria-label="Silverstone enquiry form"
-      ref={attachShell}
       onSubmit={(event) => {
         event.preventDefault();
-        if (activeStep < stages.length - 1) {
-          advance();
+        if (lastStage) {
+          void send();
         } else {
-          void transmit();
+          advance();
         }
       }}
     >
-      <div className="ss-enq__rail" aria-hidden="true">
-        <span className="ss-enq__rail-label">Enquiry console</span>
-        <span className="ss-enq__rail-track" />
-        <span className="ss-enq__meter">
-          <span className="ss-enq__meter-cells">
-            {Array.from({ length: SCOPE_QUESTION_COUNT }, (_, index) => (
-              <span key={index} data-filled={index < scopeAnswered} />
-            ))}
-          </span>
-          <span className="ss-enq__meter-count">
-            {scopeAnswered}/{SCOPE_QUESTION_COUNT} calibrated
-          </span>
-        </span>
-        <span className="ss-enq__rail-count">
-          {String(activeStep + 1).padStart(2, "0")} /{" "}
-          {String(stages.length).padStart(2, "0")}
-        </span>
-      </div>
-
-      <ol className="ss-enq__stages">
-        {stages.map((entry, index) => {
-          const state =
-            index === activeStep ? "current" : index < activeStep ? "done" : "ahead";
-          return (
-            <li key={entry.id} data-state={state}>
-              <button
-                type="button"
-                onClick={() => index < activeStep && goTo(index)}
-                disabled={index >= activeStep || submitting}
-                aria-current={index === activeStep ? "step" : undefined}
-              >
-                <span className="ss-enq__stage-index">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                {entry.label}
-              </button>
-            </li>
-          );
-        })}
-      </ol>
-      <div className="ss-enq__beam" aria-hidden="true">
-        <span
-          style={{ width: `${String(((activeStep + 1) / stages.length) * 100)}%` }}
-        />
-      </div>
-
-      <p className="sr-only" aria-live="polite">
-        Step {activeStep + 1} of {stages.length}: {stage.label}
-      </p>
-
-      <div className="ss-enq__viewport">
-        <AnimatePresence mode="wait" initial={false} custom={direction}>
-          <m.section
-            key={`${shellKind}-${stage.id}`}
-            className="ss-enq__panel"
-            data-enq-panel={stage.id}
-            custom={direction}
-            variants={reducedMotion ? REDUCED_PANEL_VARIANTS : PANEL_VARIANTS}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-            aria-label={`${stage.label} — step ${String(activeStep + 1)} of ${String(stages.length)}`}
-          >
-            <h3 className="ss-enq__panel-title" ref={focusPanelHeading} tabIndex={-1}>
-              {stage.title}
-            </h3>
-            {panelContent[stage.id]}
-          </m.section>
-        </AnimatePresence>
-      </div>
-
-      <div className="ss-enq__nav">
-        {activeStep > 0 ? (
-          <button
-            className="ss-srv2-btn ss-srv2-btn--ghost"
-            type="button"
-            onClick={() => goTo(activeStep - 1)}
-            disabled={submitting}
-          >
-            <ArrowLeft aria-hidden="true" />
-            Back
-          </button>
-        ) : (
-          <a
-            className="ss-enq__mailto"
-            href="mailto:info@silverstone-ai.com?subject=Enquiry%20for%20Silverstone%20AI"
-          >
-            Email instead
-          </a>
-        )}
-        {activeStep < stages.length - 1 ? (
-          <button className="ss-srv2-btn ss-srv2-btn--primary" type="submit">
-            Continue
-            <ArrowRight aria-hidden="true" />
-          </button>
-        ) : (
-          <button
-            className="ss-srv2-btn ss-srv2-btn--primary"
-            type="submit"
-            disabled={submitting}
-          >
-            {submitting ? (
-              "Transmitting…"
+      {!mobile ? (
+        <aside className="ss-enq__rail">
+          <p className="ss-enq__rail-label">Direct enquiry</p>
+          <ol className="ss-enq__steps">
+            {stages.map((entry, index) => {
+              const state =
+                index === activeStep
+                  ? "current"
+                  : index < activeStep
+                    ? "done"
+                    : "ahead";
+              return (
+                <li key={entry.id} data-state={state}>
+                  <button
+                    type="button"
+                    onClick={() => index < activeStep && goTo(index)}
+                    disabled={index >= activeStep || submitting}
+                    aria-current={index === activeStep ? "step" : undefined}
+                  >
+                    <span className="ss-enq__step-marker" aria-hidden="true">
+                      {state === "done" ? (
+                        <Check />
+                      ) : (
+                        String(index + 1).padStart(2, "0")
+                      )}
+                    </span>
+                    {entry.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+          <div className="ss-enq__manifest-block">
+            <p className="ss-enq__rail-label">Live brief</p>
+            {manifest.length > 0 ? (
+              <dl className="ss-enq__manifest" aria-label="Enquiry summary">
+                {manifest.map(([label, value]) => (
+                  <div key={label}>
+                    <dt>{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
             ) : (
-              <>
-                {mobile ? "Send" : "Transmit enquiry"} <Send aria-hidden="true" />
-              </>
+              <p className="ss-enq__manifest-empty">
+                Answers you choose are attached here.
+              </p>
             )}
-          </button>
-        )}
-      </div>
+          </div>
+          <div className="ss-enq__assure">
+            <p>
+              <strong>Reviewed personally.</strong> Replies within one working day.
+            </p>
+            <a href="mailto:info@silverstone-ai.com">info@silverstone-ai.com</a>
+            <a href="/book#booking-calendar">Prefer to talk? Book a 30-minute call</a>
+          </div>
+        </aside>
+      ) : null}
 
-      <div className="ss-core-form__status" role="status" aria-live="polite">
-        {status === "fallback" ? (
-          <span className="ss-core-form__status-line" data-tone="fallback">
-            <AlertCircleIcon aria-hidden="true" />
-            We couldn't confirm delivery just now. Please{" "}
-            <a href="mailto:info@silverstone-ai.com">
-              email info@silverstone-ai.com
-            </a>{" "}
-            directly and we'll pick it up from there.
-          </span>
+      <div className="ss-enq__stagearea">
+        {mobile ? (
+          <div className="ss-enq__mobhead" aria-hidden="true">
+            <span className="ss-enq__rail-label">Direct enquiry</span>
+            <span className="ss-enq__mobhead-count">
+              {String(activeStep + 1).padStart(2, "0")} /{" "}
+              {String(stages.length).padStart(2, "0")}
+            </span>
+          </div>
         ) : null}
+        {mobile ? (
+          <div className="ss-enq__beam" aria-hidden="true">
+            <span
+              style={{ width: `${String(((activeStep + 1) / stages.length) * 100)}%` }}
+            />
+          </div>
+        ) : null}
+
+        <p className="sr-only" aria-live="polite">
+          Step {activeStep + 1} of {stages.length}: {stage.label}
+        </p>
+
+        <div className="ss-enq__viewport">
+          <AnimatePresence mode="wait" initial={false} custom={direction}>
+            <m.section
+              key={`${shellKind}-${stage.id}`}
+              className="ss-enq__panel"
+              data-enq-panel={stage.id}
+              custom={direction}
+              variants={reducedMotion ? REDUCED_PANEL_VARIANTS : PANEL_VARIANTS}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+              aria-label={`${stage.label} — step ${String(activeStep + 1)} of ${String(stages.length)}`}
+            >
+              <div className="ss-enq__stage-head">
+                <h3
+                  className="ss-enq__panel-title"
+                  ref={focusPanelHeading}
+                  tabIndex={-1}
+                >
+                  {stage.title}
+                </h3>
+                {!mobile ? (
+                  <span className="ss-enq__stage-count" aria-hidden="true">
+                    {String(activeStep + 1).padStart(2, "0")} /{" "}
+                    {String(stages.length).padStart(2, "0")}
+                  </span>
+                ) : null}
+              </div>
+              {panelContent[stage.id]}
+            </m.section>
+          </AnimatePresence>
+        </div>
+
+        <div className="ss-enq__nav">
+          {activeStep > 0 ? (
+            <button
+              className="ss-srv2-btn ss-srv2-btn--ghost"
+              type="button"
+              onClick={() => goTo(activeStep - 1)}
+              disabled={submitting}
+            >
+              <ArrowLeft aria-hidden="true" />
+              Back
+            </button>
+          ) : mobile ? (
+            <a
+              className="ss-enq__mailto"
+              href="mailto:info@silverstone-ai.com?subject=Enquiry%20for%20Silverstone%20AI"
+            >
+              Email instead
+            </a>
+          ) : (
+            <span />
+          )}
+          {!lastStage ? (
+            <button className="ss-srv2-btn ss-srv2-btn--primary" type="submit">
+              {skipLabel ? "Skip" : "Continue"}
+              <ArrowRight aria-hidden="true" />
+            </button>
+          ) : (
+            <button
+              className="ss-srv2-btn ss-srv2-btn--primary"
+              type="submit"
+              disabled={submitting}
+            >
+              {submitting ? (
+                "Sending…"
+              ) : (
+                <>
+                  Send enquiry <Send aria-hidden="true" />
+                </>
+              )}
+            </button>
+          )}
+        </div>
+
+        {mobile ? (
+          <p className="ss-enq__mob-assure">
+            Reviewed personally — replies within one working day.
+          </p>
+        ) : null}
+
+        <div className="ss-core-form__status" role="status" aria-live="polite">
+          {status === "fallback" ? (
+            <span className="ss-core-form__status-line" data-tone="fallback">
+              <AlertCircleIcon aria-hidden="true" />
+              We couldn't confirm delivery just now. Please{" "}
+              <a href="mailto:info@silverstone-ai.com">
+                email info@silverstone-ai.com
+              </a>{" "}
+              directly and we'll pick it up from there.
+            </span>
+          ) : null}
+        </div>
       </div>
       <BorderBeam />
     </form>

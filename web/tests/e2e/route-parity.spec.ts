@@ -93,8 +93,8 @@ for (const comparison of representativeSourceCopy) {
 test("rebuilt contact route renders a staging-safe enquiry form", async ({
   page,
 }, testInfo) => {
-  // The console sequences the same content as four desktop stages or seven
-  // mobile panels; both paths end at the identity stage.
+  // The console sequences the same content as three desktop stages or four
+  // mobile steps; both paths end at the send stage.
   const mobile = testInfo.project.name === "mobile-chromium";
   await page.goto("/contact");
   await revealRouteTextIfNeeded(page, "Start with the question that matters");
@@ -103,20 +103,22 @@ test("rebuilt contact route renders a staging-safe enquiry form", async ({
     page.getByRole("heading", { name: "Start with the question that matters" }),
   ).toBeVisible();
   await expect(page.getByRole("form")).toHaveCount(1);
-  const continueButton = page.getByRole("button", { name: "Continue" });
-  await continueButton.click();
+  const advanceButton = page.locator(
+    'form[aria-label="Silverstone enquiry form"] button[type="submit"]',
+  );
+  await advanceButton.click();
   await expect(
     page.getByRole("heading", {
-      name: mobile ? "Budget and timing" : "Map today’s operation",
+      name: mobile ? "Scope and timing" : "How you operate today",
     }),
   ).toBeFocused();
-  const remainingQualifierPanels = mobile ? 4 : 1;
+  const remainingQualifierPanels = mobile ? 2 : 1;
   for (let hop = 0; hop < remainingQualifierPanels; hop += 1) {
-    await continueButton.click();
+    await advanceButton.click();
   }
   await expect(page.getByLabel("Name")).toBeVisible();
   await expect(page.getByLabel("Work email")).toBeVisible();
-  await expect(continueButton).toBeVisible();
+  await expect(page.getByRole("button", { name: "Send enquiry" })).toBeVisible();
 });
 
 test("rebuilt book route exposes the native staging-safe booking console", async ({

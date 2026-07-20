@@ -6,105 +6,182 @@ async function advance(form: Locator) {
   });
 }
 
-async function expectNoPanelOverflow(form: Locator) {
+async function expectNoInternalScroll(form: Locator) {
+  // The console has no scrollable interior on either shell: every element
+  // inside the form must be content-sized. The message textarea is the one
+  // legitimate scroller (long placeholder or long messages).
+  const overflowing = await form.evaluate((root): string[] => {
+    const nodes: Element[] = [root, ...root.querySelectorAll("*")];
+    return nodes
+      .filter((node) => {
+        if (node.tagName === "TEXTAREA") return false;
+        const style = getComputedStyle(node);
+        const scrollable = ["auto", "scroll"].includes(style.overflowY);
+        return scrollable && node.scrollHeight - node.clientHeight > 1;
+      })
+      .map((node) => node.getAttribute("class") ?? node.tagName);
+  });
+  expect(overflowing).toEqual([]);
+}
+
+/** Chips and cards keep their real input stretched across the styled label,
+ * so the input itself is the honest click target (it's opacity-0, which
+ * Playwright's actionability check refuses without force). */
+function pickOption(form: Locator, name: string, value: string) {
+  return form.locator(`input[name="${name}"][value="${value}"]`).click({
+    force: true,
+  });
+}
+
+async function expectNoHorizontalOverflow(page: Page) {
   expect(
-    await form
-      .locator(".ss-enq__viewport")
-      .evaluate((viewport) => viewport.scrollHeight - viewport.clientHeight),
+    await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    ),
   ).toBeLessThanOrEqual(1);
 }
 
-async function expectSingleLine(locator: Locator) {
-  const result = await locator.evaluate((element) => {
-    const style = getComputedStyle(element);
-    return {
-      whiteSpace: style.whiteSpace,
-      horizontalOverflow: element.scrollWidth - element.clientWidth,
-    };
-  });
-  expect(result.whiteSpace).toBe("nowrap");
-  expect(result.horizontalOverflow).toBeLessThanOrEqual(1);
-}
-
-async function setRequiredDetails(page: Page) {
+async function fillRequiredSendFields(page: Page) {
   await page.getByLabel("Name").fill("Visual Review");
   await page.getByLabel("Work email").fill("review@example.com");
+  await page
+    .getByLabel("What would you like to improve?")
+    .fill("Reviewing the enquiry console end to end.");
+  await page.getByRole("checkbox").check();
 }
 
-test("desktop enquiry panels fill one stable shell without empty bottom space", async ({
+test("desktop console walks three dossier stages beside a live brief rail", async ({
   page,
   isMobile,
 }) => {
   test.skip(isMobile, "Desktop-only enquiry composition");
-  await page.setViewportSize({ width: 1920, height: 1080 });
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/contact#contact-form");
 
   const form = page.getByRole("form", { name: "Silverstone enquiry form" });
-  await expect(page.getByRole("button", { name: "See demos" })).toHaveCount(0);
   await expect(form).toHaveAttribute("data-enq-shell", "desktop");
-  const baselineHeight = await form.evaluate(
-    (element) => element.getBoundingClientRect().height,
+
+  // Rail chrome: step list, empty manifest, reply promise.
+  const rail = form.locator(".ss-enq__rail");
+  await expect(rail.getByRole("button", { name: "Focus" })).toBeVisible();
+  await expect(rail.getByText("Answers you choose are attached here.")).toBeVisible();
+  await expect(rail.getByText("Replies within one working day.")).toBeVisible();
+
+  // Stage 1: choosing an interest lands in the live brief manifest.
+  await expect(
+    page.getByRole("heading", { name: "What should we look at?" }),
+  ).toBeVisible();
+  await pickOption(form, "interest", "AI Receptionists");
+  await expect(rail.locator(".ss-enq__manifest dd").first()).toHaveText(
+    "AI Receptionists",
   );
-  const headings = [
-    "Frame the engagement",
-    "Map today’s operation",
-    "Where should the reply go?",
-    "Describe what should change",
-  ];
+  await expectNoInternalScroll(form);
 
-  for (const [index, heading] of headings.entries()) {
-    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
-    await expectNoPanelOverflow(form);
-    expect(
-      Math.abs(
-        (await form.evaluate((element) => element.getBoundingClientRect().height)) -
-          baselineHeight,
-      ),
-    ).toBeLessThanOrEqual(1);
+  await advance(form);
+  await expect(
+    page.getByRole("heading", { name: "How you operate today" }),
+  ).toBeFocused();
+  await expectNoInternalScroll(form);
 
-    const bottomGap = await form.locator(".ss-enq__fields").evaluate((fields) => {
-      const lastModule = fields.lastElementChild;
-      if (!lastModule) return Number.POSITIVE_INFINITY;
-      return (
-        fields.getBoundingClientRect().bottom -
-        lastModule.getBoundingClientRect().bottom
-      );
-    });
-    expect(bottomGap).toBeLessThanOrEqual(1);
+  await advance(form);
+  await expect(page.getByRole("heading", { name: "Send your enquiry" })).toBeFocused();
+  await expect(page.getByLabel("Name")).toBeVisible();
+  await expect(page.getByLabel("Work email")).toBeVisible();
+  await expectNoInternalScroll(form);
 
-    if (heading === "Where should the reply go?") await setRequiredDetails(page);
-    if (index < headings.length - 1) await advance(form);
-  }
+  // Completed steps stay reachable from the rail.
+  await rail.getByRole("button", { name: "Focus" }).click();
+  await expect(
+    page.getByRole("heading", { name: "What should we look at?" }),
+  ).toBeFocused();
 });
 
-test("mobile enquiry shell ignores height-only browser chrome changes", async ({
+test("desktop send stage validates identity, message and consent in place", async ({
   page,
   isMobile,
 }) => {
-  test.skip(!isMobile, "Mobile-only viewport behavior");
-  await page.setViewportSize({ width: 390, height: 667 });
+  test.skip(isMobile, "Desktop-only enquiry composition");
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/contact#contact-form");
+
+  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  await advance(form);
+  await advance(form);
+  await expect(page.getByRole("heading", { name: "Send your enquiry" })).toBeVisible();
+
+  await advance(form);
+  await expect(page.getByText("Add the name we should reply to.")).toBeVisible();
+  await expect(page.getByText("Add the email address for our reply.")).toBeVisible();
+  await expect(
+    page.getByText("A sentence or two is enough to route this properly."),
+  ).toBeVisible();
+  await expect(
+    page.getByText("Please confirm you're happy to be contacted about this."),
+  ).toBeVisible();
+
+  await fillRequiredSendFields(page);
+  await expect(page.getByRole("button", { name: "Send enquiry" })).toBeEnabled();
+});
+
+test("mobile flow runs four content-sized steps with honest skip labels", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Mobile-only enquiry composition");
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/contact#contact-form");
 
   const form = page.getByRole("form", { name: "Silverstone enquiry form" });
   await expect(form).toHaveAttribute("data-enq-shell", "mobile");
-  const initialHeight = await form.evaluate(
-    (element) => element.getBoundingClientRect().height,
-  );
+  await expect(form.locator(".ss-enq__rail")).toHaveCount(0);
 
-  await page.setViewportSize({ width: 390, height: 780 });
-  await expect
-    .poll(() => form.evaluate((element) => element.getBoundingClientRect().height))
-    .toBeCloseTo(initialHeight, 0);
+  const steps: readonly { heading: string; skippable: boolean }[] = [
+    { heading: "What should we look at?", skippable: false },
+    { heading: "Scope and timing", skippable: true },
+    { heading: "Your operation today", skippable: true },
+    { heading: "Send your enquiry", skippable: false },
+  ];
 
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.reload();
-  const reloadedHeight = await form.evaluate(
-    (element) => element.getBoundingClientRect().height,
-  );
-  expect(reloadedHeight).toBeGreaterThan(initialHeight);
+  for (const [index, stepDef] of steps.entries()) {
+    await expect(page.getByRole("heading", { name: stepDef.heading })).toBeVisible();
+    await expectNoInternalScroll(form);
+    await expectNoHorizontalOverflow(page);
+    if (index < steps.length - 1) {
+      const submit = form.locator('button[type="submit"]');
+      await expect(submit).toHaveText(
+        new RegExp(stepDef.skippable ? "Skip" : "Continue"),
+      );
+      await advance(form);
+    }
+  }
+
+  await expect(page.getByRole("button", { name: "Send enquiry" })).toBeVisible();
 });
 
-test("mobile panels fit at 320px and every slider label remains single-line", async ({
+test("mobile qualifier answers flip Skip to Continue and surface in the brief", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, "Mobile-only enquiry composition");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/contact#contact-form");
+
+  const form = page.getByRole("form", { name: "Silverstone enquiry form" });
+  await advance(form);
+  await expect(page.getByRole("heading", { name: "Scope and timing" })).toBeVisible();
+
+  const submit = form.locator('button[type="submit"]');
+  await expect(submit).toHaveText(/Skip/);
+  await pickOption(form, "budget", "£3k–£10k");
+  await expect(submit).toHaveText(/Continue/);
+
+  await advance(form);
+  await advance(form);
+  await expect(page.getByRole("heading", { name: "Send your enquiry" })).toBeVisible();
+  await expect(form.locator(".ss-enq__brief-line")).toContainText("£3k–£10k");
+});
+
+test("mobile flow fits a 320px viewport without horizontal overflow", async ({
   page,
   isMobile,
 }) => {
@@ -113,58 +190,16 @@ test("mobile panels fit at 320px and every slider label remains single-line", as
   await page.goto("/contact#contact-form");
 
   const form = page.getByRole("form", { name: "Silverstone enquiry form" });
-  const stages: readonly {
-    heading: string;
-    sliderLabels: readonly (readonly string[])[];
-  }[] = [
-    {
-      heading: "Choose a starting point",
-      sliderLabels: [],
-    },
-    {
-      heading: "Budget and timing",
-      sliderLabels: [["<£1k", "£1–3k", "£3–10k", "£10k+", "Unsure"]],
-    },
-    {
-      heading: "Today’s workload",
-      sliderLabels: [
-        ["<10", "10–50", "50–200", "200+", "Unsure"],
-        ["<2", "2–5", "5–15", "15+", "Unsure"],
-      ],
-    },
-    { heading: "Channels and systems", sliderLabels: [] },
-    { heading: "Automation and sign-off", sliderLabels: [] },
-    { heading: "Where should replies go?", sliderLabels: [] },
-    { heading: "What should change?", sliderLabels: [] },
+  const headings = [
+    "What should we look at?",
+    "Scope and timing",
+    "Your operation today",
+    "Send your enquiry",
   ];
-
-  for (const [stageIndex, stage] of stages.entries()) {
-    await expect(page.getByRole("heading", { name: stage.heading })).toBeVisible();
-    await expectNoPanelOverflow(form);
-
-    const sliders = form.locator('.ss-enq__slider input[type="range"]');
-    expect(await sliders.count()).toBe(stage.sliderLabels.length);
-    for (const [sliderIndex, labels] of stage.sliderLabels.entries()) {
-      const slider = sliders.nth(sliderIndex);
-      const instrument = slider.locator("xpath=..");
-      const readout = instrument.locator(".ss-enq__slider-readout strong");
-      const ticks = instrument.locator(".ss-enq__slider-ticks span");
-
-      await slider.focus();
-      await slider.press("Home");
-      for (const [valueIndex, label] of labels.entries()) {
-        if (valueIndex > 0) await slider.press("ArrowRight");
-        await expect(readout).toHaveText(label);
-        await expectSingleLine(readout);
-      }
-      for (const tick of await ticks.all()) await expectSingleLine(tick);
-    }
-
-    if (stage.heading === "Where should replies go?") await setRequiredDetails(page);
-    if (stageIndex < stages.length - 1) await advance(form);
+  for (const [index, heading] of headings.entries()) {
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+    await expectNoInternalScroll(form);
+    if (index < headings.length - 1) await advance(form);
   }
-
-  const sendButton = form.getByRole("button", { name: "Send" });
-  await expect(sendButton).toBeVisible();
-  await expectSingleLine(sendButton);
 });
