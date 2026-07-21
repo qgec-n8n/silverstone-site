@@ -9230,6 +9230,365 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
+  {
+    slug: "how-dental-practices-should-run",
+    title: "How Dental Practices Should Run When the Diary or PMS Goes Down",
+    subtitle:
+      "A practical downtime procedure for UK dental practices so reception, bookings and records stay controlled until the system is back.",
+    summary: [
+      "Set a minimum safe operating model for reception and bookings during PMS downtime.",
+      "Use a small, structured fallback record with a named owner and clear escalation path.",
+      "Restore records in a controlled order to avoid duplicate bookings and messy patient data.",
+    ],
+    categoryLabel: "Dental Practices",
+    categoryKey: "dental-practices",
+    categoryId: "dentists",
+    categoryOrder: 14,
+    displayDate: "21 July 2026",
+    publishedIsoDate: "2026-07-21T18:52:13.921Z",
+    updatedIsoDate: "2026-07-21T18:52:13.921Z",
+    readTime: "9 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/how-dental-practices-should-run-hero.webp",
+    heroImageAlt:
+      "Dental practice downtime workflow showing calls, messages and bookings routed into a controlled fallback queue with human oversight.",
+    metaTitle: "Dental PMS Downtime Plan | Silverstone AI",
+    metaDescription:
+      "A practical UK downtime procedure for dental practices covering calls, bookings, temporary records and safe restoration after PMS failure.",
+    primaryKeyword: "dental practice PMS downtime procedure",
+    secondaryKeywords: [
+      "dental diary downtime",
+      "dental practice management software downtime",
+      "UK dental reception fallback process",
+      "dental booking downtime procedure",
+      "restore dental records without duplicates",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "Picture the practice one hour after the diary or PMS drops out.\n\nThe phones have not stopped. Patients still need directions, arrival times, cancellations, finance queries and paperwork chased. Clinicians still need a clear list of who is expected next. What matters in that moment is not clever software. It is whether the team already knows what the practice will keep doing, what it will stop doing, who owns each decision and where temporary records will live.\n\nFor a UK dental practice, a sound PMS downtime procedure is less about improvisation and more about boundaries. The source of truth changes for a short period. A named human owner takes charge. Anything administrative that can be captured safely is captured. Anything clinical, urgent or complaint-related is escalated to the practice. Silverstone AI helps businesses design automation that still makes sense when systems are interrupted, and that same thinking applies here: define the fallback process before you need it.",
+        ],
+      },
+      {
+        heading: "Decide what the front desk must still be able to do",
+        body: [
+          "When the diary or PMS is unavailable, the front desk should switch to a reduced set of tasks that keeps the day moving without creating uncontrolled records. That means separating patient-facing continuity from system-dependent actions.",
+          "A sensible first decision is the incident owner. In most UK practices that is usually the practice manager, lead receptionist or principal’s delegated operations lead. That person owns the temporary process, the escalation path and the stop condition for returning to normal automation.",
+          "The front desk should usually still be able to:",
+          "• answer calls and identify the reason for contact\n• check whether the issue is administrative or clinical\n• capture new enquiries in a temporary record\n• note arrival, cancellation and callback requests\n• tell patients when the team will confirm appointments rather than promising immediately\n• route emergencies, clinical questions and complaints to the practice team",
+          "The front desk should usually stop trying to:",
+          "• amend multiple future appointments from memory\n• promise exact diary availability without a verified source\n• create duplicate patient profiles in side systems\n• give clinical guidance, urgency decisions or treatment advice\n• restart every automation manually without an owner",
+          "A useful operating rule is simple: if the action changes the patient record, future diary or financial position, it needs a named owner and a temporary audit trail.",
+          "If you are planning broader resilience across calls and admin workflows, [AI automation for operational handoffs](/services/ai-automation) is often the right place to map these fallback rules rather than relying on staff memory.",
+        ],
+        lede:
+          "Start with the minimum safe operating model, not the full normal-service wish list.",
+        variant: "operator",
+        bullets: [
+          {
+            label: "Source of truth",
+            body:
+              "During downtime, the temporary capture log becomes the live administrative record until reconciliation is complete.",
+          },
+          {
+            label: "Human owner",
+            body:
+              "Name one operations lead for the incident, one deputy and one escalation route to a clinician or principal.",
+          },
+          {
+            label: "Stop condition",
+            body:
+              "Return to normal only when access is restored, the backlog is reconciled and duplicate-checks are complete.",
+          },
+        ],
+      },
+      {
+        heading: "What the fallback capture record should contain",
+        body: [
+          "Avoid collecting treatment detail unless the practice specifically needs a non-clinical reason code to route the request. Clinical assessment, diagnosis, medication and consent stay with the practice team and should not be recreated in a temporary admin workflow.",
+          "This is where many downtime procedures go wrong: the practice captures too much, mixes admin and clinical notes, and then struggles to know what belongs in the permanent record.",
+        ],
+        lede:
+          "A bad temporary record creates rework. A good one makes restoration clean.",
+        variant: "system",
+        grid: [
+          {
+            title: "Patient identification",
+            body:
+              "Full name, date of birth, contact number and, where available, an existing patient number or a clear note that the person is a new enquiry.",
+          },
+          {
+            title: "Contact context",
+            body:
+              "Time received, channel used, staff member handling it and whether the patient called, completed a form, replied by message or arrived in person.",
+          },
+          {
+            title: "Request type",
+            body:
+              "Booking request, cancellation, reschedule, arrival note, finance query, membership query, paperwork chase or general non-clinical enquiry.",
+          },
+          {
+            title: "Action status",
+            body:
+              "Held, confirmed later, deferred, escalated or closed, with the name of the person now responsible.",
+          },
+          {
+            title: "Escalation note",
+            body:
+              "Clinical question, complaint or urgent concern routed to the appropriate practice contact, with time and recipient recorded.",
+          },
+          {
+            title: "Re-entry check",
+            body:
+              "A blank field or tick-box confirming the item has been restored to the PMS and checked for duplication.",
+          },
+        ],
+      },
+      {
+        heading: "How calls, web forms and messages should queue during downtime",
+        body: [
+          "During a PMS outage, the risk is fragmentation. Calls are answered one way, web forms land elsewhere, and WhatsApp or SMS messages build up with no consistent owner. The answer is to decide where all inbound demand is collected while the main system is unavailable.",
+          "The best temporary design is a single queue with clear labels for channel, urgency and next action. That queue does not need to automate every step. It needs to stop work from being lost.",
+          "For example, your rule set might be:",
+          "• calls are answered live where possible, otherwise logged for callback\n• web forms continue to collect essential admin fields only\n• messages receive a holding reply that sets expectation for confirmation\n• anything clinical, urgent or complaint-related is transferred to the practice escalation route\n• one admin lead reviews the queue at set intervals and assigns action",
+          "This is also where tools such as [AI receptionists](/services/ai-receptionists) or [AI voice agents](/services/ai-voice-agents) can help if they are designed properly. The point is not unsupervised booking during an outage. The point is controlled capture, consistent triage and reliable handoff to a human owner.",
+          "A simple queueing model keeps the script honest. The system may acknowledge, capture and route. A person confirms, defers or escalates.",
+        ],
+        lede:
+          "Channel traffic should converge into one controlled queue, not three separate piles of work.",
+        variant: "signal",
+        comparisonTable: {
+          columns: ["What to keep doing", "What to avoid", "Owner"],
+          rows: [
+            {
+              label: "Phone",
+              cells: [
+                "Answer, identify reason for contact, capture details, set callback expectation",
+                "Quoting unverified appointment times or altering complex bookings from memory",
+                "Front desk lead",
+              ],
+            },
+            {
+              label: "Web forms",
+              cells: [
+                "Collect core contact details and request type into a temporary queue",
+                "Posting directly into live patient records without reconciliation",
+                "Admin owner",
+              ],
+            },
+            {
+              label: "SMS or messaging",
+              cells: [
+                "Acknowledge receipt and route to callback or admin review",
+                "Back-and-forth clinical discussion or consent handling",
+                "Assigned receptionist",
+              ],
+            },
+          ],
+        },
+      },
+      {
+        heading: "When to hold, confirm or defer bookings",
+        body: [
+          "The practical question is not whether the practice can keep speaking to patients. It is whether it can safely commit diary capacity without the normal source of truth.",
+          "If the team cannot verify real-time availability, chair allocation, clinician schedules or linked appointment rules, the default should be to hold the request rather than confirm it. That protects the diary from duplicate entries and protects patients from being given a time that later moves.",
+          "Use three statuses during downtime:",
+          "Held: the request is captured with a clear promise that the practice will confirm after the system is restored or checked against another approved source.",
+          "Confirmed: only where the practice has a verified secondary source and a named person authorised to use it.",
+          "Deferred: where the request depends on missing information, a clinician decision, finance context or linked treatment planning.",
+        ],
+        lede:
+          "Not every request should be treated as a booking decision during downtime.",
+        pullQuote:
+          "During downtime, a held request is often better service than a fast but unreliable confirmation.",
+        subsections: [
+          {
+            heading: "Good reasons to hold",
+            body: [
+              "New patient enquiries, routine hygiene requests, non-urgent reschedules and cancellation-slot interest often fit a hold status. The patient receives a clear callback or message window, and the queue owner keeps the request visible.",
+            ],
+          },
+          {
+            heading: "Good reasons to confirm",
+            body: [
+              "Same-day operational adjustments may be confirmable if the practice has an approved printed list, mirrored schedule or another validated record for that day only. The key is that the secondary source must be explicit, limited and owned.",
+            ],
+          },
+          {
+            heading: "Good reasons to defer",
+            body: [
+              "Anything that depends on treatment sequencing, clinician preference, consent, finance arrangements or complaint handling should wait for the appropriate person. Downtime is not the moment to make borderline decisions at reception.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "How to restore records without duplicate entries",
+        body: [
+          "Once the PMS returns, the temptation is to re-enter everything quickly. That is exactly how practices create duplicate bookings, duplicate patient records and mismatched notes.",
+          "Restoration should happen in a fixed order. Start with same-day appointments and active callbacks. Then process future booking requests, cancellations and lower-priority admin items. Keep one person responsible for final sign-off on each restored batch.",
+          "A straightforward reconciliation sequence looks like this:",
+          "1. Freeze new manual workarounds and announce that the system is back in a controlled restore mode.",
+          "2. Compare the temporary queue against what is now visible in the PMS.",
+          "3. Match by patient identity first, then date and request type.",
+          "4. Mark each item as restored, not needed, escalated or duplicate-risk.",
+          "5. Review anything ambiguous before entry rather than guessing.",
+          "6. Only close the incident when the queue is empty and checked.",
+          "The technical term some teams use here is idempotency: entering the same event twice should not create two outcomes. In plain English, your restore process needs a way to tell whether the action has already happened.",
+          "This is one reason bespoke workflow design matters. Silverstone AI tends to recommend explicit restoration states, operator check steps and exception queues rather than assuming every integration will always be available.",
+        ],
+        lede: "Restoration is where tidy temporary capture pays for itself.",
+        variant: "system",
+      },
+      {
+        heading: "The checks to run before returning to normal automation",
+        body: [
+          "If your current process still depends on disconnected inboxes, ad hoc spreadsheets and individual memory, that is usually the point to redesign the workflow rather than accept the risk. For dental operators looking at the wider picture, [our dental practice automation guide](/blog/dental-practice-automation-guide) is a useful next read, and Silverstone AI’s [dental industry page](/industry/dentists) outlines where structured automation helps without crossing clinical boundaries.",
+          "The aim is not to automate everything. It is to make sure the practice can keep operating with a clear source of truth, a visible owner and a clean route back to normal.",
+        ],
+        lede: "System access alone is not the finish line.",
+        variant: "operator",
+        bullets: [
+          {
+            label: "Queue cleared",
+            body:
+              "Every temporary record has a final status: restored, closed, escalated or intentionally cancelled.",
+          },
+          {
+            label: "Duplicate spot-check",
+            body:
+              "Review a sample of bookings and patient records created during the outage window to confirm no duplicate entries were introduced.",
+          },
+          {
+            label: "Escalations complete",
+            body:
+              "Clinical queries, emergencies and complaints have been handed to the practice and are no longer sitting in an admin queue.",
+          },
+          {
+            label: "Scripts updated",
+            body:
+              "Reception, phone and message templates are switched back from downtime wording to standard wording.",
+          },
+          {
+            label: "Owner closes incident",
+            body:
+              "The named incident owner confirms normal operations have resumed and logs any improvements needed for the next outage.",
+          },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "What is the source of truth during dental PMS downtime?",
+        answer:
+          "During the outage, the source of truth should be the practice’s approved temporary capture log or queue, owned by a named operations lead. Once the PMS is restored and reconciliation is complete, the PMS becomes the source of truth again.",
+      },
+      {
+        question:
+          "Should a dental practice keep booking patients if the diary is down?",
+        answer:
+          "Only where availability can be verified from an approved secondary source and a named person is authorised to confirm it. Otherwise, hold the request and confirm later. That is usually safer than creating avoidable diary conflicts.",
+      },
+      {
+        question: "What should be escalated immediately during downtime?",
+        answer:
+          "Clinical questions, emergencies, urgent concerns and complaints should go straight to the practice escalation route. Reception can capture the contact and route it, but should not give clinical advice or make urgency decisions.",
+      },
+      {
+        question: "How can practices avoid duplicate entries after the PMS comes back?",
+        answer:
+          "Use a structured restore process: compare the temporary log against the live PMS, match identity first, process by priority, mark each item with a final status and keep one person responsible for reconciliation sign-off.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "AI automation for operational handoffs",
+        href: "/services/ai-automation",
+      },
+      {
+        label: "AI receptionists",
+        href: "/services/ai-receptionists",
+      },
+      {
+        label: "AI voice agents",
+        href: "/services/ai-voice-agents",
+      },
+      {
+        label: "our dental practice automation guide",
+        href: "/blog/dental-practice-automation-guide",
+      },
+      {
+        label: "dental industry page",
+        href: "/industry/dentists",
+      },
+    ],
+    researchSources: [
+      {
+        title: "How to Choose the Right Dental Practice Management Software",
+        url:
+          "https://remedico.app/newsfeed/dental-practice-management-software-how-to-choose-right",
+        date: "",
+        summary:
+          "The benefits extend across the entire team. Reception staff can manage NHS bands, private fees, and membership plans from a single interface. Clinicians gain easy access to charting, treatment history, and clinical notes without toggling between platforms. Meanwhile, practice owners can monitor chair utilisation, outstanding balances, and recall performance. This visibility supports smarter decisions on staffing, opening hours, and service expansion. ### Core Features of Dental PMS Software Cert",
+        relevance: "Matches: dental, practice, pms, how, practices, when",
+      },
+      {
+        title:
+          "Best Dental Practice Management Software in the UK 2026: Complete Comparison | Clero Blog | Clero",
+        url:
+          "https://cleroai.com/blog/best-dental-practice-management-software-uk-2026",
+        date: "",
+        summary:
+          "When patients call the practice, the AI receptionist securely authenticates their identity against the PMS database, analyzes real-time calendar availability across multiple practitioners, and books appointments directly into the system while maintaining conversational flow. The integration eliminates traditional voicemail abandonment by providing 24/7 automated booking capability during out-of-hours periods when the physical practice is closed. [...] Clero Back to Blog # Best Dental Practice Ma",
+        relevance: "Matches: dental, practice, pms, when, must, during",
+      },
+      {
+        title: "Zimworx - In dentistry, every minute of downtime affects...",
+        url:
+          "https://www.facebook.com/Zimworx/posts/in-dentistry-every-minute-of-downtime-affects-patients-productivity-and-revenue-/1515807073879420",
+        date: "",
+        summary:
+          "d='M1.3582 7.6194C.836 7.1064.318 7.2994.118 7.9596c-.2.6603-.0513 2.4955 1.0427 3.3962 2.752 2.2662 5.464.8613 5.5191-.5247.0498-1.2472-1.3555-1.113-1.8127-1.0879-.0311.0018-.0445-.0412-.0178-.0582.096-.0626.2535-.1719.4198-.3125.3594-.3044.1753-.8326-.3264-.6813-.0756.0224-1.2968.3904-2.0707.0967-.8778-.3331-.9828-.6465-1.5147-1.1685h.0009Z' fill='url(%23paint12_radial_15251_63610)'/%3E%3Cpath d='M1.3582 7.6194C.836 7.1064.318 7.2994.118 7.9596c-.2.6603-.0513 2.4955 1.0427 3.3962 2.752 2.2662 ",
+        relevance: "Matches: downtime",
+      },
+      {
+        title: "New speakers announced for the Scottish Dental Show ...",
+        url:
+          "https://scottish-dental-mag.s3.eu-west-2.amazonaws.com/wp-content/uploads/2026/02/04122121/Scottish-Dental-magazine-February-2026_Rd.pdf",
+        date: "",
+        summary:
+          "Greater Glasgow and Clyde Radiology: radiation protection update Dr Lewis Olsson Lead Trainer Glasgow Dental School Oral Cancer: early detection James Elliott Regional Sales Director, Clark Dental Six ways to improve your x-rays constantly Simon Kidd General Dental Practitioner, DDU Intelligence without error? Navigating the risks of AI Jenny Walker Specialist in Restorative Dentistry and Prosthodontics, Glencairn Dental Group Practice Team-Based Periodontal Management: from evidence to implemen",
+        relevance: "Matches: dental, practice, how, practices, forms, without",
+      },
+      {
+        title: "Dental Practice Management Software: Features & Examples",
+        url: "https://www.heidihealth.com/blog/dental-practice-management-software",
+        date: "",
+        summary:
+          "### Product Quality & Accuracy The quality of the system is composed of tools that can perform reliably with integration and resiliently during downtime. Emerging dental practice management software systems are now driven by the precision of AI. This renders modern platforms stable and consistent in processes such as analyzing treatment stats, validating claims, and syncing patient records. Ultimately, a product's enduring quality and investment value are realized when its features are consisten",
+        relevance: "Matches: dental, practice, downtime, practices, when, web",
+      },
+      {
+        title: "Nick Fotache, Author at RevUp Dental",
+        url: "https://revupdental.com/author/revupmanager",
+        date: "",
+        summary:
+          "Here’s what comes up over and over: ### PMS Integration No feature matters more than whether your imaging software plugs cleanly into your practice management system. If X-rays don’t auto-link to the patient chart, someone has to match them manually. That creates errors and wastes time in an environment where every extra minute at the chair costs money. Before you commit to anything, confirm the integration works with your specific PMS version, not just the PMS name. A dentist running Dentrix 11",
+        relevance: "Matches: dental, practice, pms, downtime, how, practices",
+      },
+    ],
+    imagePrompt:
+      "Create one premium 16:9 editorial hero image for Silverstone AI showing a UK dental practice downtime operating system. Use the process-lattice and multi-channel reception-console metaphor for physio/chiropractic and dental: non-clinical enquiry, diary, forms, records and explicit clinical stop. Scene: a refined reception operations surface in deep navy and graphite with luminous blue-cyan and teal accents, showing inbound phone, web form and message signals converging into one controlled fallback queue, then passing through labelled conceptual stages such as capture, hold, confirm, defer, restore and exception, with one visible human approval point and one explicit clinical escalation stop. No readable text. Include subtle calendar blocks, patient-record cards as abstract shapes, routing lines, status lights and one calm UK business operator at a desk reviewing the queue, not posing. Keep generous negative space on one side for page copy. Strong subject separation, elegant technical detail, realistic materials, soft lifted shadows, platinum highlights and restrained violet accents. No logos, no fake dashboards, no stock-photo smiles, no robots, no medical treatment scene, no readable patient data, no holograms, no clutter.",
+    ctaPrimary: {
+      label: "Book a discovery call",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+  },
   // N8N_BLOG_POSTS_END
 ];
 
