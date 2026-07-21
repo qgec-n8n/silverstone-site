@@ -2982,3 +2982,82 @@ html[data-js="on"]
   outline: 2px solid var(--ss-v2-ice, #7fe9f2);
   outline-offset: 6px;
 }
+
+/* ------------------------------------------------------------------ */
+/* Crawlable site index — always rendered at the end of the homepage  */
+/* document (see visual/home-v2/home-site-index.tsx). During the      */
+/* loader/intro states it sits below the locked viewport; in the body */
+/* state it closes the journey ahead of the global footer.            */
+/* ------------------------------------------------------------------ */
+
+.ss-hv2-site-index {
+  position: relative;
+  border-top: 1px solid var(--ss-v2-hairline);
+  background: var(--ss-v2-void-black);
+  padding: clamp(3.5rem, 8vw, 6rem) 1.5rem clamp(3rem, 7vw, 5rem);
+}
+
+.ss-hv2-site-index__inner {
+  margin-inline: auto;
+  width: min(72rem, 100%);
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.ss-hv2-site-index__header {
+  display: grid;
+  gap: 1rem;
+  max-width: 46rem;
+}
+
+.ss-hv2-site-index__title {
+  color: var(--ss-v2-platinum);
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.ss-hv2-site-index__lead {
+  color: var(--ss-v2-titanium);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 60ch;
+}
+
+.ss-hv2-site-index__columns {
+  display: grid;
+  gap: 2.5rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.ss-hv2-site-index__column-title {
+  color: var(--ss-v2-platinum);
+  font-family: var(--ss-font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.ss-hv2-site-index__list {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ss-hv2-site-index__link {
+  color: var(--ss-v2-titanium);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: color 160ms ease;
+}
+
+.ss-hv2-site-index__link:hover,
+.ss-hv2-site-index__link:focus-visible {
+  color: var(--ss-v2-signal-cyan);
+}

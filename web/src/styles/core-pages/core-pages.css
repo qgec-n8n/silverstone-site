@@ -6437,6 +6437,33 @@ a.ss-insight-card:hover,
   width: min(100%, 62rem);
 }
 
+/* Visible Home → Blog → article trail above the hero return pill; mirrors
+   the BreadcrumbList JSON-LD emitted by BlogJsonLd (article-page.tsx). */
+.ss-blog-article__breadcrumbs {
+  margin-bottom: clamp(0.6rem, 0.5rem + 0.4vw, 0.9rem);
+}
+
+.ss-blog-article__breadcrumbs ol {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.ss-blog-article__breadcrumbs a:hover,
+.ss-blog-article__breadcrumbs a:focus-visible {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.ss-blog-article__breadcrumb-current {
+  color: rgba(255, 255, 255, 0.85);
+  display: inline-block;
+  max-width: min(52ch, 70vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
 .ss-blog-article__return {
   position: relative;
   isolation: isolate;

@@ -76,9 +76,20 @@ export function expectedPostPaths() {
   return PUBLISHED_BLOG_POSTS.map((post) => `/blog/${post.slug}`).sort();
 }
 
+/**
+ * Deploy gate for the blog article contract (docs/blog-article-contract.md).
+ * Every published post must carry complete, unique metadata before a
+ * production bundle can ship — a violation names the article and the field
+ * so the publishing automation (or a human editor) can fix it directly.
+ */
 export function validateBlogData(now = new Date()) {
   const errors = [];
   const slugs = new Set();
+  const uniqueFields = [
+    ["title", new Map()],
+    ["metaTitle", new Map()],
+    ["metaDescription", new Map()],
+  ];
   for (const post of BLOG_POSTS) {
     if (!/^[a-z0-9][a-z0-9-]*$/.test(post.slug)) {
       errors.push(`Invalid blog slug: ${post.slug}`);
@@ -89,8 +100,26 @@ export function validateBlogData(now = new Date()) {
     slugs.add(post.slug);
     if (post.status !== "published") continue;
     if (!post.title?.trim()) errors.push(`Post ${post.slug} is missing a title`);
-    if (!post.metaDescription?.trim() && !post.subtitle?.trim()) {
-      errors.push(`Post ${post.slug} is missing a description`);
+    // The article route renders metaTitle as <title> and metaDescription as
+    // the meta description verbatim (routes/blog/article.tsx) — neither may
+    // be empty, and neither may repeat another post's value.
+    if (!post.metaTitle?.trim()) {
+      errors.push(`Post ${post.slug} is missing a metaTitle`);
+    }
+    if (!post.metaDescription?.trim()) {
+      errors.push(`Post ${post.slug} is missing a metaDescription`);
+    }
+    for (const [field, seen] of uniqueFields) {
+      const value = post[field]?.trim();
+      if (!value) continue;
+      const existing = seen.get(value);
+      if (existing) {
+        errors.push(
+          `Posts ${existing} and ${post.slug} share the same ${field} ("${value}")`,
+        );
+      } else {
+        seen.set(value, post.slug);
+      }
     }
     const published = Date.parse(post.publishedIsoDate);
     if (Number.isNaN(published)) {
@@ -100,8 +129,14 @@ export function validateBlogData(now = new Date()) {
         `Post ${post.slug} is dated in the future (${post.publishedIsoDate}) but marked published`,
       );
     }
-    if (post.updatedIsoDate && Number.isNaN(Date.parse(post.updatedIsoDate))) {
+    const updated = Date.parse(post.updatedIsoDate ?? "");
+    if (post.updatedIsoDate && Number.isNaN(updated)) {
       errors.push(`Post ${post.slug} has an invalid updatedIsoDate`);
+    }
+    if (!Number.isNaN(published) && !Number.isNaN(updated) && updated < published) {
+      errors.push(
+        `Post ${post.slug} has updatedIsoDate before publishedIsoDate`,
+      );
     }
   }
   return errors;

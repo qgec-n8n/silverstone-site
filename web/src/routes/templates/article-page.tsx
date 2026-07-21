@@ -23,6 +23,14 @@ import {
   Target,
   Zap,
 } from "~/components/icons/lucide";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "~/components/ui/breadcrumb";
 import type {
   SilverstoneBlogBullet,
   SilverstoneBlogGridItem,
@@ -461,29 +469,50 @@ function ArticleSection({
 function BlogJsonLd({ post }: { post: SilverstoneBlogPost }) {
   const baseUrl = "https://silverstone-ai.com";
   const articleUrl = `${baseUrl}/blog/${post.slug}`;
+  // Social/schema crawlers require absolute image URLs; hero images are
+  // normally site-relative but an automation-written post could already
+  // carry an absolute URL.
+  const heroImageUrl = post.heroImage.startsWith("http")
+    ? post.heroImage
+    : `${baseUrl}${post.heroImage}`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.metaDescription,
-    image: `${baseUrl}${post.heroImage}`,
-    datePublished: post.publishedIsoDate,
-    dateModified: post.updatedIsoDate,
-    mainEntityOfPage: articleUrl,
-    author: {
-      "@type": "Organization",
-      name: "Silverstone AI",
-      url: `${baseUrl}/`,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Silverstone AI",
-      url: `${baseUrl}/`,
-      logo: {
-        "@type": "ImageObject",
-        url: `${baseUrl}/brand/silverstone-logo.png`,
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.metaDescription,
+        image: heroImageUrl,
+        datePublished: post.publishedIsoDate,
+        dateModified: post.updatedIsoDate,
+        mainEntityOfPage: articleUrl,
+        author: {
+          "@type": "Organization",
+          name: "Silverstone AI",
+          url: `${baseUrl}/`,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Silverstone AI",
+          url: `${baseUrl}/`,
+          logo: {
+            "@type": "ImageObject",
+            url: `${baseUrl}/brand/silverstone-logo.png`,
+          },
+        },
       },
-    },
+      // Mirrors the visible Home → Blog → article trail in the hero and the
+      // BreadcrumbList pattern used by every other page template
+      // (~/seo/schema.ts) — names and URLs must stay canonical.
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${baseUrl}/` },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${baseUrl}/blog` },
+          { "@type": "ListItem", position: 3, name: post.title, item: articleUrl },
+        ],
+      },
+    ],
   };
 
   return (
@@ -584,6 +613,25 @@ export function ArticlePage({ post }: ArticlePageProps) {
             <div className="ss-blog-article__hero-stage">
               <div className="ss-blog-article__hero-copy">
                 <Reveal kind="pill" trigger="mount">
+                  <Breadcrumb className="ss-blog-article__breadcrumbs">
+                    <BreadcrumbList>
+                      <BreadcrumbItem>
+                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                      </BreadcrumbItem>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        <BreadcrumbLink href="/blog">Blog</BreadcrumbLink>
+                      </BreadcrumbItem>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage className="ss-blog-article__breadcrumb-current">
+                          {post.title}
+                        </BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </BreadcrumbList>
+                  </Breadcrumb>
+                </Reveal>
+                <Reveal kind="pill" trigger="mount" delayMs={60}>
                   <InsightsReturn categoryLabel={post.categoryLabel} />
                 </Reveal>
                 <Reveal kind="section" trigger="mount" delayMs={120}>

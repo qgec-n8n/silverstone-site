@@ -33,4 +33,27 @@ describe("published blog slug policy", () => {
       ).toBe(true);
     }
   });
+
+  it("keeps title, metaTitle and metaDescription present and unique per post", () => {
+    // Mirrors the production deploy gate in
+    // web/scripts/generate-seo-artifacts.mjs (validateBlogData) and the
+    // article contract in docs/blog-article-contract.md.
+    for (const field of ["title", "metaTitle", "metaDescription"] as const) {
+      const values = PUBLISHED_BLOG_POSTS.map((post) => {
+        expect(post[field].trim(), `${post.slug} ${field}`).toBeTruthy();
+        return post[field].trim();
+      });
+      expect(new Set(values).size, field).toBe(values.length);
+    }
+  });
+
+  it("never dates an update before publication", () => {
+    for (const post of PUBLISHED_BLOG_POSTS) {
+      const published = Date.parse(post.publishedIsoDate);
+      const updated = Date.parse(post.updatedIsoDate);
+      expect(Number.isNaN(published), post.slug).toBe(false);
+      expect(Number.isNaN(updated), post.slug).toBe(false);
+      expect(updated, post.slug).toBeGreaterThanOrEqual(published);
+    }
+  });
 });

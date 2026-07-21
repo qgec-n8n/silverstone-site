@@ -10,6 +10,7 @@ import { deriveMotionPolicy } from "~/visual/home-v2/motion-policy";
 import { BodyParticles } from "~/visual/home-v2/body-particles";
 import { ExploreSystemTransition } from "~/visual/home-v2/explore-system-button";
 import { Hero } from "~/visual/home-v2/hero";
+import { HomeSiteIndex } from "~/visual/home-v2/home-site-index";
 import {
   AiConsulting,
   BenchmarkMetrics,
@@ -175,6 +176,10 @@ export function HomeV2({ contentId }: { contentId?: string }) {
           <HomepageReturnButton onClick={handleCloseBody} />
         </div>
       ) : null}
+
+      {/* Always rendered (never gated): the crawlable site index must exist in
+          the prerendered document regardless of the experience state. */}
+      <HomeSiteIndex />
     </div>
   );
 }
