@@ -7188,6 +7188,115 @@ a.ss-insight-card:hover,
   font-size: 0.88em;
 }
 
+/*
+ * Article body lists. Bulleted lists get a luminous gradient node; numbered
+ * lists get a glass index chip linked by a faint gradient rail so a sequence
+ * reads as a signal path — the one memorable list treatment, kept consistent
+ * with the section glass + accent-gradient language.
+ */
+.ss-blog-article__list {
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.ss-blog-article__list-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.ss-blog-article__list-text {
+  color: color-mix(in srgb, var(--srv2-ink-soft) 94%, var(--ss-v2-platinum));
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
+  line-height: 1.72;
+}
+
+.ss-blog-article__list-text strong {
+  color: var(--ss-v2-chrome);
+  font-weight: 650;
+}
+
+.ss-blog-article__list-text em {
+  color: color-mix(in srgb, var(--srv2-accent) 82%, var(--ss-v2-chrome));
+  font-style: normal;
+}
+
+/* Bulleted: a gradient diamond node aligned to the first text line. */
+.ss-blog-article__list--bullet .ss-blog-article__list-marker {
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-top: 0.56em;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, var(--srv2-accent), var(--srv2-accent-2));
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+    0 0 16px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
+}
+
+/* Numbered: glass index chips linked by a gradient rail. */
+.ss-blog-article__list--number {
+  gap: 1.05rem;
+}
+
+.ss-blog-article__list--number .ss-blog-article__list-count {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.15rem;
+  height: 2.15rem;
+  padding: 0 0.42rem;
+  border-radius: 0.72rem;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 34%, transparent);
+  background:
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--srv2-accent) 16%, transparent),
+      transparent 66%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 44%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 12%, transparent),
+    0 12px 28px -18px color-mix(in srgb, var(--srv2-accent) 72%, transparent);
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-mono);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-blog-article__list--number .ss-blog-article__list-item::before {
+  content: "";
+  position: absolute;
+  left: 1.075rem;
+  top: 2.15rem;
+  bottom: -1.05rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--srv2-accent) 52%, transparent),
+    transparent
+  );
+}
+
+.ss-blog-article__list--number .ss-blog-article__list-item:last-child::before {
+  display: none;
+}
+
+.ss-blog-article__list-item a {
+  color: var(--srv2-accent);
+  text-decoration-color: color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+  text-underline-offset: 0.18em;
+}
+
 .ss-blog-article__pullquote {
   position: relative;
   display: grid;

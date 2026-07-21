@@ -397,6 +397,121 @@ function ArticleFactStrip({
   );
 }
 
+type BodyBlock =
+  | { kind: "p"; text: string }
+  | { kind: "ul"; items: string[] }
+  | { kind: "ol"; items: string[] };
+
+const BULLET_LINE = /^\s*[-*•‣▪◦]\s+(.*\S)\s*$/;
+const ORDERED_LINE = /^\s*\d{1,2}[.)]\s+(.*\S)\s*$/;
+
+/**
+ * Turn a section's body strings into rendered blocks. A body entry (or a line
+ * within one) that begins with a markdown bullet marker becomes a <ul>, one
+ * that begins with "1." / "1)" becomes a numbered <ol>, and everything else is
+ * a paragraph. Consecutive list items merge into a single list, so a list the
+ * model writes across separate body entries still renders as one list.
+ */
+function parseBodyBlocks(body: readonly string[]): BodyBlock[] {
+  const blocks: BodyBlock[] = [];
+  const pushItem = (kind: "ul" | "ol", text: string) => {
+    const last = blocks.at(-1);
+    if (last?.kind === kind) {
+      last.items.push(text);
+    } else {
+      blocks.push({ kind, items: [text] });
+    }
+  };
+
+  for (const entry of body) {
+    const lines = entry
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+    for (const line of lines) {
+      const bulletText = BULLET_LINE.exec(line)?.[1];
+      const orderedText = ORDERED_LINE.exec(line)?.[1];
+      if (bulletText) {
+        pushItem("ul", bulletText);
+      } else if (orderedText) {
+        pushItem("ol", orderedText);
+      } else {
+        blocks.push({ kind: "p", text: line });
+      }
+    }
+  }
+
+  return blocks;
+}
+
+function ArticleBody({
+  body,
+  firstIsLead = false,
+}: {
+  body: readonly string[];
+  firstIsLead?: boolean;
+}) {
+  const blocks = parseBodyBlocks(body);
+  const firstParagraphIndex = blocks.findIndex((block) => block.kind === "p");
+
+  return (
+    <>
+      {blocks.map((block, index) => {
+        if (block.kind === "ul") {
+          return (
+            <ul
+              className="ss-blog-article__list ss-blog-article__list--bullet"
+              key={`ul-${String(index)}`}
+            >
+              {block.items.map((item, itemIndex) => (
+                <li
+                  className="ss-blog-article__list-item"
+                  key={`uli-${String(index)}-${String(itemIndex)}`}
+                >
+                  <span className="ss-blog-article__list-marker" aria-hidden="true" />
+                  <span className="ss-blog-article__list-text">
+                    <ArticleRichText text={item} />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          );
+        }
+
+        if (block.kind === "ol") {
+          return (
+            <ol
+              className="ss-blog-article__list ss-blog-article__list--number"
+              key={`ol-${String(index)}`}
+            >
+              {block.items.map((item, itemIndex) => (
+                <li
+                  className="ss-blog-article__list-item"
+                  key={`oli-${String(index)}-${String(itemIndex)}`}
+                >
+                  <span className="ss-blog-article__list-count" aria-hidden="true">
+                    {String(itemIndex + 1).padStart(2, "0")}
+                  </span>
+                  <span className="ss-blog-article__list-text">
+                    <ArticleRichText text={item} />
+                  </span>
+                </li>
+              ))}
+            </ol>
+          );
+        }
+
+        const isLead = firstIsLead && index === firstParagraphIndex;
+        return (
+          <p key={`p-${String(index)}`} data-lead={isLead ? "true" : undefined}>
+            <ArticleRichText text={block.text} />
+          </p>
+        );
+      })}
+    </>
+  );
+}
+
 function ArticleSection({
   section,
   sectionIndex,
@@ -425,14 +540,7 @@ function ArticleSection({
               <ArticleRichText text={section.lede} />
             </p>
           ) : null}
-          {section.body.map((paragraph, index) => (
-            <p
-              key={`${section.heading}-${String(index)}`}
-              data-lead={!section.lede && index === 0 ? "true" : undefined}
-            >
-              <ArticleRichText text={paragraph} />
-            </p>
-          ))}
+          <ArticleBody body={section.body} firstIsLead={!section.lede} />
           <ArticleSectionEnhancements section={section} includeTable={false} />
           {section.subsections?.map((subsection, index) => (
             <div
@@ -442,11 +550,7 @@ function ArticleSection({
               <h3>
                 <RichText text={subsection.heading} />
               </h3>
-              {subsection.body.map((paragraph, paragraphIndex) => (
-                <p key={`${subsection.heading}-${String(paragraphIndex)}`}>
-                  <ArticleRichText text={paragraph} />
-                </p>
-              ))}
+              <ArticleBody body={subsection.body} />
               <ArticleSectionEnhancements section={subsection} />
             </div>
           ))}
