@@ -14,10 +14,17 @@ import {
  * with no headings and no internal links at all
  * (reports/seo/visible-content-recommendations.md §1).
  *
- * Visually the section sits at the very end of the homepage flow: during the
- * loader/intro states it is below the locked viewport, and once the visitor
- * opens the system view it reads as the closing capability map before the
- * global footer. Same content for users and crawlers — no hidden text.
+ * `homepageState` starts as `"loading"` (~app/experience/app-experience.tsx)
+ * during prerendering and first paint — `introVisible`/`bodyVisible` in
+ * home-v2.tsx are both false then, so neither the Hero nor the body sections
+ * exist in the static document at all. This component is deliberately the
+ * only thing guaranteed to render regardless of state.
+ *
+ * Styled as a quiet, low-profile "capability index" (small heading, pill
+ * links) rather than a second boxed nav grid — it sits directly above the
+ * real global footer, so it must read as a distinct closing note, not a
+ * duplicate of the footer's own column layout. Same content for users and
+ * crawlers — no hidden text.
  *
  * Link lists come from the shared navigation data so this section can never
  * drift from the header/footer route surface.
@@ -51,33 +58,31 @@ export function HomeSiteIndex() {
   return (
     <section aria-labelledby="ss-hv2-site-index-title" className="ss-hv2-site-index">
       <div className="ss-hv2-site-index__inner">
-        <header className="ss-hv2-site-index__header">
-          <span className="ss-eyebrow font-mono text-muted-foreground">
-            Silverstone AI
-          </span>
-          <h1 className="ss-hv2-site-index__title" id="ss-hv2-site-index-title">
-            Websites, apps and AI automation for UK businesses
-          </h1>
-          <p className="ss-hv2-site-index__lead">
-            Silverstone AI designs and engineers bespoke websites, applications, AI
-            receptionists, voice agents and workflow automation for nine UK industries —
-            from dental practices and estate agencies to hospitality venues and
-            eCommerce brands. Every system is specified, built and reviewed around one
-            measurable commercial outcome.
-          </p>
-        </header>
-        <div className="ss-hv2-site-index__columns">
+        <span className="ss-eyebrow ss-hv2-site-index__eyebrow font-mono">
+          Silverstone AI
+        </span>
+        <h1 className="ss-hv2-site-index__title" id="ss-hv2-site-index-title">
+          Websites, apps and AI automation for UK businesses
+        </h1>
+        <p className="ss-hv2-site-index__lead">
+          Silverstone designs and engineers bespoke websites, applications, AI
+          receptionists, voice agents and workflow automation for nine UK industries —
+          from dental practices and estate agencies to hospitality venues and eCommerce
+          brands. Every system is specified, built and reviewed around one measurable
+          commercial outcome.
+        </p>
+        <div className="ss-hv2-site-index__groups">
           {INDEX_COLUMNS.map((column) => (
             <nav
               aria-label={`${column.title} pages`}
-              className="ss-hv2-site-index__column"
+              className="ss-hv2-site-index__group"
               key={column.title}
             >
-              <h2 className="ss-hv2-site-index__column-title">{column.title}</h2>
-              <ul className="ss-hv2-site-index__list">
+              <span className="ss-hv2-site-index__group-label">{column.title}</span>
+              <ul className="ss-hv2-site-index__chips">
                 {column.links.map((link) => (
                   <li key={link.href}>
-                    <Link className="ss-hv2-site-index__link" to={link.href}>
+                    <Link className="ss-hv2-site-index__chip" to={link.href}>
                       {link.label}
                     </Link>
                   </li>
