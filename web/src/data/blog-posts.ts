@@ -10250,6 +10250,335 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
+  {
+    slug: "homepage-first-redesigns-misdiagnose-conversion",
+    title:
+      "Why Homepage-First Website Redesigns Misdiagnose the Real Conversion Problem",
+    subtitle:
+      "A homepage can look sharper and still leave the core buying journey unchanged. The better question is where UK buyers actually decide, hesitate or drop out.",
+    summary: [
+      "A homepage redesign can improve presentation while leaving the real conversion bottleneck untouched.",
+      "Many UK websites lose leads on service pages, mobile handoff points or weak buyer-route structure.",
+      "Audit landing pages, intent alignment and enquiry quality before approving a homepage-first rebuild.",
+    ],
+    categoryLabel: "Web Design & Development",
+    categoryKey: "web-design-development",
+    categoryId: "web-design-development",
+    categoryOrder: 1,
+    displayDate: "22 July 2026",
+    publishedIsoDate: "2026-07-22T08:01:54.393Z",
+    updatedIsoDate: "2026-07-22T08:01:54.393Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage:
+      "/assets/images/blog/homepage-first-redesigns-misdiagnose-conversion-hero.webp",
+    heroImageAlt:
+      "Conceptual website conversion audit showing homepage, service pages and enquiry routes across a premium UK business website",
+    metaTitle: "Homepage Redesign Conversion Problems | Silverstone",
+    metaDescription:
+      "Learn why homepage-first redesigns often miss the real conversion problem and what UK businesses should audit before changing website design.",
+    primaryKeyword: "homepage redesign conversion problem",
+    secondaryKeywords: [
+      "homepage-first redesign",
+      "website redesign conversion",
+      "service page conversion issues",
+      "website conversion audit UK",
+      "homepage redesign strategy",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "A homepage redesign is often the most visible answer to a website that is underperforming. It feels decisive. Stakeholders can see it. Agencies can scope it. But if enquiry quality is weak, sales calls are patchy or traffic lands deep on service pages, starting with the homepage can misread the real conversion problem.\n\nFor many UK businesses, the issue sits further down the journey: unclear service positioning, weak proof on decision pages, poor mobile page structure, slow handoff into forms or booking, or content that attracts the wrong kind of lead. Silverstone AI sees this regularly in web projects where the commercial problem is not visual freshness but route design. A homepage matters, but it is rarely the whole mechanism by which someone decides to contact you.",
+        ],
+      },
+      {
+        heading: "Why the homepage is often not the real point of failure",
+        body: [
+          "For a UK owner reviewing leads, the first practical question is simple: where are serious prospects actually landing? Organic search, paid traffic, maps, social and referrals frequently send people straight to a service page, location page, treatment page, product category or contact route. If those pages are vague, thin or poorly structured, a homepage redesign will not repair the break in the buying path.",
+          "This is especially true where the service is specific and the buyer intent is already formed. Someone searching for emergency electrical work, Invisalign options, commercial fit-out design or bookkeeping automation is often trying to validate fit quickly. They want evidence, relevance, next steps and confidence. The homepage may support that decision, but it may not be the page doing the heavy lifting.",
+          "A homepage-first redesign can also overstate aesthetic problems and understate structural ones. If users reach the site but still do not enquire, the cause may be one of the following:",
+        ],
+        lede:
+          "Most visitors do not behave like internal teams imagine. They do not always start at the front door, read every section and then convert neatly.",
+        variant: "signal",
+        bullets: [
+          {
+            label: "Traffic mismatch",
+            body:
+              "The site attracts broad visitors, but decision pages do not narrow them into the right enquiry.",
+          },
+          {
+            label: "Route friction",
+            body:
+              "Calls to action, forms, booking steps or contact options are hard to find or hard to trust.",
+          },
+          {
+            label: "Weak service proof",
+            body:
+              "Pages explain what you do in general terms but do not help a buyer judge suitability.",
+          },
+          {
+            label: "Mobile loss",
+            body:
+              "Layouts, speed or form design break confidence on smaller screens, where many UK visitors browse first.",
+          },
+        ],
+      },
+      {
+        heading: "The hidden risks of redesigning before mapping buyer routes",
+        body: [
+          "A redesign without route mapping tends to reward opinion over evidence. Senior staff may prefer a new look, a shorter homepage or a different menu style, but those decisions can easily distract from what buyers need to do next.",
+          "Before changing page design, it helps to map the main commercial journeys on the site. That means identifying how different visitors arrive, what question they need answered, which page should answer it, what proof supports it and how they move into an enquiry, booking or call.",
+          "If that work has not been done, redesign risk increases in several ways:",
+        ],
+        pullQuote:
+          "A redesign should follow the buyer route, not the internal org chart.",
+        subsections: [
+          {
+            heading: "You preserve the wrong assumptions",
+            body: [
+              "If the existing site structure is flawed, a visual redesign can simply repackage the same weaknesses. New typography and better imagery may improve perception, but they do not correct unclear positioning, overlapping services or poor route logic.",
+            ],
+          },
+          {
+            heading: "You create content drift",
+            body: [
+              "Content often gets treated as something to fill in later. That is where redesigns start to lose commercial accuracy. A polished layout with weak copy produces a better-looking site that still cannot qualify demand. For service businesses in the UK, that usually means more time spent fielding unsuitable enquiries.",
+            ],
+          },
+          {
+            heading: "You optimise the wrong page",
+            body: [
+              "Some businesses have a homepage that performs reasonably well, while service pages, quote pages or booking paths do not. In that case, the homepage is not the priority. The audit should follow revenue logic, not design visibility.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "How service-page gaps create weak enquiry quality",
+        body: [
+          "For example, a UK trades business might redesign its homepage to look more premium, yet still lose good enquiries because each service page fails to explain coverage area, job type, response process and what should be phoned through urgently. An estate agency might refresh branding, but valuation or landlord pages still leave sellers unsure what happens next. A dental clinic may modernise its homepage while treatment pages remain too thin to answer cost-qualification questions sensibly.",
+          "The practical consequence is lower enquiry quality. Visitors either contact you with the wrong expectations or leave because the site gives them too little confidence to proceed.",
+          "This is one reason Silverstone AI treats web design and development as a route problem, not just a page problem. The pages that qualify intent deserve as much attention as the page that introduces the brand.",
+        ],
+        lede:
+          "Poor conversion is not always too few enquiries. Sometimes it is too many of the wrong ones.",
+        grid: [
+          {
+            title: "Unclear scope",
+            body:
+              "The page names the service but does not explain what is included, excluded or handled manually.",
+          },
+          {
+            title: "Weak fit signals",
+            body:
+              "The buyer cannot tell whether you serve their size of business, urgency, location or use case.",
+          },
+          {
+            title: "Thin process detail",
+            body:
+              "There is no clear explanation of how the project starts, what information is needed or what happens after enquiry.",
+          },
+          {
+            title: "Poor proof structure",
+            body:
+              "Trust cues are buried or vague, making the service feel less established even if the firm is credible.",
+          },
+        ],
+      },
+      {
+        heading: "What to audit before approving new homepage design",
+        body: [
+          "It also helps to look for route-specific evidence, not just top-line analytics. Session recordings, form-drop patterns, call-tracking notes, search-console landing data and sales feedback often show where confidence breaks.",
+          "If you want a practical planning framework before changing templates, our guide to [conversion-focused website planning](/blog/conversion-focused-website-planning) is a sensible place to start.",
+          "A useful audit sequence is:",
+        ],
+        variant: "system",
+        comparisonTable: {
+          columns: ["What to check", "Why it matters"],
+          rows: [
+            {
+              label: "Landing pages",
+              cells: [
+                "Which pages receive commercial traffic from search, ads, social and referral sources",
+                "Shows whether the homepage is actually the main decision page",
+              ],
+            },
+            {
+              label: "Intent alignment",
+              cells: [
+                "Whether each key page matches the visitor's query, urgency and decision stage",
+                "Prevents broad messaging from weakening high-intent visits",
+              ],
+            },
+            {
+              label: "Service clarity",
+              cells: [
+                "How clearly pages explain scope, process, fit and next steps",
+                "Improves qualification and reduces unsuitable enquiries",
+              ],
+            },
+            {
+              label: "Mobile experience",
+              cells: [
+                "Readability, speed, form friction and call actions on mobile devices",
+                "Many UK visitors will judge credibility and convenience on mobile first",
+              ],
+            },
+            {
+              label: "Conversion handoff",
+              cells: [
+                "Forms, booking routes, phone visibility, CRM capture and confirmation flows",
+                "Even strong pages fail if the handoff into action is clumsy",
+              ],
+            },
+          ],
+        },
+        subsections: [
+          {
+            heading: "A straightforward decision sequence",
+            body: [
+              "1. Identify the pages that attract commercial-intent visitors.",
+              "2. Check whether each page answers the buyer's core question clearly.",
+              "3. Review whether proof, scope and process are easy to find.",
+              "4. Test the next action on mobile, not just desktop.",
+              "5. Compare lead quality by landing page, not only lead volume.",
+              "6. Redesign the homepage only after confirming it is a material bottleneck.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "When a homepage redesign is justified after all",
+        body: [
+          "The important distinction is that a homepage redesign should solve a diagnosed problem, not act as a substitute for diagnosis.",
+          "For firms considering a broader rebuild, Silverstone AI's [web design and development service](/services/web-design-development) focuses on commercial structure, content logic and operational handoff as well as design. That matters because websites do not convert in isolation; they convert through a chain of pages, decisions and internal follow-up.",
+          "If the homepage is holding that chain back, redesign it. If it is not, fix the page or process that is.",
+        ],
+        variant: "operator",
+        bullets: [
+          {
+            label: "Positioning is unclear",
+            body:
+              "Visitors cannot tell quickly what you do, who you serve in the UK or why one route matters more than another.",
+          },
+          {
+            label: "Navigation misroutes buyers",
+            body:
+              "Menus, page hierarchy or calls to action send people into the wrong journey.",
+          },
+          {
+            label: "The page undermines trust",
+            body:
+              "Outdated design, weak messaging or poor mobile presentation makes the business feel less credible than it is.",
+          },
+          {
+            label: "Key next steps are buried",
+            body:
+              "Visitors who are ready to call, book or enquire have to hunt for the right action.",
+          },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Should a small UK business redesign its homepage first?",
+        answer:
+          "Only if the homepage is clearly a major source of conversion loss. Many small UK businesses get better results from improving service pages, enquiry forms, booking routes or mobile usability before changing the homepage.",
+      },
+      {
+        question: "How do I know whether my homepage is hurting conversions?",
+        answer:
+          "Check landing-page data, user behaviour and lead quality. If visitors often enter through deeper pages, or if poor-fit enquiries come from unclear service content, the homepage may be less important than the route beneath it.",
+      },
+      {
+        question: "Can better content fix conversion problems without a full redesign?",
+        answer:
+          "Often, yes. Clearer service scope, stronger buyer-fit signals, better proof and simpler next steps can improve how the site qualifies enquiries without rebuilding every template.",
+      },
+      {
+        question: "What should happen before a redesign brief is signed off?",
+        answer:
+          "Map the main buyer journeys, review the pages that receive commercial traffic, test mobile handoff points and compare enquiry quality by route. That gives the redesign a commercial reason rather than a purely visual one.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "conversion-focused website planning",
+        href: "/blog/conversion-focused-website-planning",
+      },
+      {
+        label: "web design and development service",
+        href: "/services/web-design-development",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Website Redesign Services UK for Better UX & SEO Performance",
+        url:
+          "https://primeliondigital.co.uk/services/web-design-development/website-redesign/website-redesign-services",
+        date: "",
+        summary:
+          "Solution: We redesigned the website structure, simplified navigation, improved conversion pathways, modernised the interface, and strengthened technical performance across the platform. Results: substantial increase in qualified enquiries within the first few months bounce rate reduced from 59% to 34% mobile engagement improved significantly across service pages page speed improved from 3.8s to 1.6s ### Manchester E-commerce Business — Conversion-Focused Redesign Client: Manchester-based online ",
+        relevance: "Matches: redesign, conversion, first, website, often, before",
+      },
+      {
+        title:
+          "How a Simple Website Redesign Doubled Lead Generation | Zentric Solutions",
+        url:
+          "https://www.zentricsolutions.com/blogs/website-redesign-doubled-lead-generation",
+        date: "",
+        summary:
+          "### The Audit: What Was Wrong Before redesigning, we ran a comprehensive conversion audit using heatmaps, session recordings, and analytics. The findings: Problem 1: Unclear homepage value proposition The headline read \"IT Solutions for Modern Businesses.\" A visitor couldn't tell if they served startups or enterprise, whether they were in Manchester or Mumbai, or what \"IT solutions\" meant for their specific problem. Problem 2: No social proof above the fold Visitors had to scroll past three cont",
+        relevance: "Matches: homepage, redesign, conversion, problem, why, first",
+      },
+      {
+        title: "Website Redesign Services for UK | Andersen - web redesign company",
+        url: "https://andersenlab.co.uk/services/website-redesign",
+        date: "",
+        summary:
+          "### End-to-End website redesign delivery We manage your entire redesign journey from audit to launch and beyond. Our stakeholder interviews and structured process ensure seamless execution, so you get a high-quality result without operational disruptions. ### Cross-Industry web redesign expertise Andersen brings proven experience across specific industries, from healthcare to finance to retail. We apply industry-specific insights to your redesign, helping you attract visitors and stay ahead of c",
+        relevance: "Matches: redesign, conversion, website, how, page, create",
+      },
+      {
+        title:
+          "How to Improve Website Conversions Without Redesigning Everything - Invesp",
+        url:
+          "https://www.invespcro.com/blog/website-conversions-without-redesigning-everything",
+        date: "",
+        summary:
+          "Here are some ways to implement intent-based popups without annoying visitors: Trigger popups only on high-intent pages. Skip homepage or blog-level popups. Focus instead on pages like Pricing, Product features, Comparison pages, Checkout flows, and the like. For example, Skates.co.uk launched a discount code pop-up triggered after 25 seconds of inactivity on the cart or checkout page—helping them convert over 10% of abandoned visitors, simply by timing the offer to match intent and behavior. Ex",
+        relevance: "Matches: homepage, redesign, problem, why, first, website",
+      },
+      {
+        title: "Website redesign: A 12-step guide - GoDaddy Resources - United Kingdom",
+        url: "https://www.godaddy.com/resources/uk/smallbusiness/website-redesign",
+        date: "",
+        summary:
+          "### 3. Consider your audience A beautiful design means nothing if it doesn’t connect with your visitors. Understanding your audience’s needs, habits, and motivations helps you create a website that feels made for them. To get to know your target audience: Create personas: Build profiles that describe your ideal customers, their pain points, and what they’re looking for. Analyse user behaviour: Review analytics to see how visitors currently interact with your site. Conduct surveys or interviews: ",
+        relevance: "Matches: homepage, redesign, conversion, website, how, create",
+      },
+      {
+        title: "9 website redesign mistakes to avoid | 16i",
+        url: "https://www.16i.co.uk/insights/website-redesign-mistakes-to-avoid",
+        date: "",
+        summary:
+          "This is also where stakeholder bias can creep in. Internal teams often have strong opinions about what users want, but evidence matters more than assumptions. A strategic redesign uses data to decide what needs rethinking and what should be protected. ## 3. Treating content as something to sort out later Content delays are one of the biggest causes of redesign drift. They slow launches, create rushed decisions and leave smart design systems filled with weak copy. More importantly, content is not",
+        relevance: "Matches: redesign, conversion, first, website, often, not",
+      },
+    ],
+    imagePrompt:
+      "Create one premium 16:9 editorial hero image for Silverstone AI showing a conversion-path audit for a UK business website. Use the web design motif: a central premium browser-like website architecture surface with a homepage in one layer, several deeper service-page modules in supporting layers, and a visible route flowing from search/referral entry points through content sections into form, call or CRM handoff. Make the visual point that the homepage is only one part of the system, not the sole focus. Include one controlled exception or human approval moment, such as a calm business operator reviewing journey routes on a side panel, but keep people minimal or omit them if cleaner. Use deep ink, graphite and navy surfaces with off-white information cards, luminous blue-cyan and teal accents, and a slight violet signal edge. Strong contrast, refined glass layering only where useful, crisp geometry, premium realistic materials, subtle depth, generous negative space on one side for HTML text, safe responsive crop, no readable text, no logos, no fake analytics numbers, no stock-photo posing, no gimmicky AI imagery, no whole-image browser frame.",
+    ctaPrimary: {
+      label: "Book a discovery call",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+  },
   // N8N_BLOG_POSTS_END
 ];
 
