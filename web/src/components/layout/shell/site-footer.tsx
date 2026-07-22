@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { ArrowUpRight, Mail, MapPin } from "~/components/icons/lucide";
 
 import { Container } from "~/components/layout/container";
+import { useHydrated } from "~/lib/use-hydrated";
 import { useRevealStart } from "~/motion/use-reveal-start";
 
 import { FOOTER_COLUMNS, PRIMARY_CTA } from "./nav-data";
@@ -39,7 +40,21 @@ const BOTTOM_BAR_START_S =
     ),
   ) + 0.15;
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  /**
+   * True while the homepage intro owns the screen. The footer stays in the
+   * document (it is the homepage's crawlable link graph) but must not be
+   * reachable by keyboard or exposed to assistive technology while it sits
+   * below the locked viewport — the same treatment SiteHeader applies to
+   * itself. Deferred until hydration so the prerendered HTML ships a clean,
+   * fully exposed footer.
+   */
+  hidden?: boolean;
+};
+
+export function SiteFooter({ hidden = false }: SiteFooterProps) {
+  const hydrated = useHydrated();
+  const suppressed = hydrated && hidden;
   const footerRef = useRef<HTMLElement | null>(null);
   const footerInView = useInView(footerRef, {
     amount: 0.15,
@@ -54,6 +69,8 @@ export function SiteFooter() {
     <m.footer
       ref={footerRef}
       className="ss-footer"
+      aria-hidden={suppressed || undefined}
+      inert={suppressed}
       initial={false}
       animate={start !== null ? "show" : "hidden"}
     >

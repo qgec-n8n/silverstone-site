@@ -53,12 +53,13 @@ const PRODUCTION_ORIGIN = "https://silverstone-ai.com";
 // current page carries ~2,200 visible characters, so 800 catches an empty
 // or shell document without flagging legitimate lean pages.
 const MIN_VISIBLE_CHARS = 800;
-// The homepage deliberately prerenders only its intro experience — the body
-// sections mount after the user's Explore action, and changing that journey
-// is out of scope. Documented in
-// reports/seo/visible-content-recommendations.md; every other route must
-// carry substantial prerendered copy.
-const CONTENT_LENGTH_EXCEPTIONS = new Set(["/"]);
+// No exceptions. The homepage used to be one: its hero and body were mounted
+// only after the visitor's Explore action, so the prerendered document held
+// ~85 characters and no headings. The hero and footer now render into the
+// static HTML and are gated visually instead (visual/home-v2/hero.tsx,
+// components/layout/app-shell.tsx), so every indexable route is held to the
+// same bar.
+const CONTENT_LENGTH_EXCEPTIONS = new Set();
 
 export function expectedPagePaths() {
   const overrideById = new Map(
@@ -246,6 +247,10 @@ function extract(html, pattern) {
   return match ? match[1] : null;
 }
 
+export function countHeadings(html) {
+  return (html.match(/<h1[\s>]/gi) ?? []).length;
+}
+
 function visibleTextLength(html) {
   const body = html.split(/<body[^>]*>/)[1] ?? html;
   return body
@@ -299,6 +304,7 @@ async function main() {
     docs.set(normalizedPath, {
       canonical,
       robots,
+      headingCount: countHeadings(html),
       textLength: visibleTextLength(html),
     });
   }
@@ -375,6 +381,17 @@ async function main() {
       ) {
         failures.push(
           `${routePath} has only ${doc.textLength} visible characters of content`,
+        );
+        continue;
+      }
+      // Exactly one prerendered <h1> per indexable page. This is the guard
+      // that keeps route content out of client-only branches: a heading that
+      // renders only after an interaction (the homepage hero before
+      // 2026-07-22) disappears from the static document and takes the page's
+      // primary topical signal with it.
+      if (doc.headingCount !== 1) {
+        failures.push(
+          `${routePath} prerenders ${doc.headingCount} <h1> elements (expected exactly 1)`,
         );
         continue;
       }

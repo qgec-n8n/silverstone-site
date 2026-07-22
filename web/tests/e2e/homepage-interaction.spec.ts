@@ -18,6 +18,22 @@ async function waitForIntro(page: Page) {
   });
 }
 
+/**
+ * The footer IS in the document during the homepage intro — it carries the
+ * homepage's crawlable link graph, which the prerendered HTML would otherwise
+ * ship without entirely. What the intro guarantees is that it contributes
+ * nothing to the live page: dropped from layout (so the intro stays a single
+ * non-scrollable screen, asserted separately) and inert + aria-hidden, so the
+ * role queries in these tests still resolve to nothing.
+ */
+async function expectIntroFooterParked(page: Page) {
+  const footer = page.locator("footer.ss-footer");
+  await expect(footer).toHaveCount(1);
+  await expect(footer).toHaveAttribute("inert", "");
+  await expect(footer).toHaveAttribute("aria-hidden", "true");
+  expect(await footer.evaluate((node) => getComputedStyle(node).display)).toBe("none");
+}
+
 async function scrollMetrics(page: Page) {
   return page.evaluate(() => ({
     height: document.documentElement.scrollHeight,
@@ -476,7 +492,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   await waitForIntro(page);
 
   await expect(page.locator("header[data-site-header]")).toHaveCount(0);
-  await expect(page.locator("footer.ss-footer")).toHaveCount(0);
+  await expectIntroFooterParked(page);
   await expect(page.locator("#system")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-backdrop")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-hero__canvas")).toHaveCount(1);
@@ -666,7 +682,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
     timeout: 8_000,
   });
   await expect(page.locator("header[data-site-header]")).toHaveCount(0);
-  await expect(page.locator("footer.ss-footer")).toHaveCount(0);
+  await expectIntroFooterParked(page);
   await expect(page.locator("#system")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-backdrop")).toHaveCount(0);
   await expect(page.locator("canvas.particles-js-canvas-el")).toHaveCount(0);

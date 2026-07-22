@@ -10,7 +10,6 @@ import { deriveMotionPolicy } from "~/visual/home-v2/motion-policy";
 import { BodyParticles } from "~/visual/home-v2/body-particles";
 import { ExploreSystemTransition } from "~/visual/home-v2/explore-system-button";
 import { Hero } from "~/visual/home-v2/hero";
-import { HomeSiteIndex } from "~/visual/home-v2/home-site-index";
 import {
   AiConsulting,
   BenchmarkMetrics,
@@ -132,15 +131,23 @@ export function HomeV2({ contentId }: { contentId?: string }) {
       data-content-id={contentId}
     >
       <LayoutGroup id="ss-home-explore">
-        {introVisible ? (
-          <Hero
-            exploreButtonDisabled={homepageState !== "intro"}
-            exploreButtonRef={exploreButtonRef}
-            hideExploreButton={homepageState === "opening"}
-            motionEnabled={policy.motionEnabled}
-            onExplore={handleExplore}
-          />
-        ) : null}
+        {/*
+         * Always mounted — never conditionally rendered. The homepage
+         * prerenders in the "loading" state, so anything gated on
+         * `introVisible`/`bodyVisible` is simply absent from the static
+         * document; that is why the homepage used to ship no H1 and no
+         * crawlable copy at all. The hero now renders into the HTML and is
+         * gated visually instead: `revealed` drives its entrance animation,
+         * and CSS drops it once the body owns the screen.
+         */}
+        <Hero
+          exploreButtonDisabled={homepageState !== "intro"}
+          exploreButtonRef={exploreButtonRef}
+          hideExploreButton={homepageState === "opening"}
+          motionEnabled={policy.motionEnabled}
+          onExplore={handleExplore}
+          revealed={introVisible}
+        />
         <ExploreSystemTransition
           bodyBackdropReady={bodyBackdropReady}
           state={homepageState}
@@ -176,10 +183,6 @@ export function HomeV2({ contentId }: { contentId?: string }) {
           <HomepageReturnButton onClick={handleCloseBody} />
         </div>
       ) : null}
-
-      {/* Always rendered (never gated): the crawlable site index must exist in
-          the prerendered document regardless of the experience state. */}
-      <HomeSiteIndex />
     </div>
   );
 }

@@ -24,8 +24,9 @@ html[data-js="on"][data-scroll-lock="on"] body {
 
 /*
   Non-homepage headers stay mounted during the loader and are lifted out of view.
-  The homepage intro does not mount header/footer at all; this rule remains for
-  non-homepage loading and any transient legacy header render during hydration.
+  The homepage intro does not mount the header; the footer, however, stays
+  mounted throughout (it is the homepage's crawlable link graph) and is parked
+  below the 100dvh hero, inert, until the body opens — see AppShell.
 */
 [data-site-header] {
   transition:
@@ -49,4 +50,25 @@ html[data-js="on"][data-route-experience-state]:not(
   [data-site-header] {
     transition: none;
   }
+}
+
+/*
+  Footer. It stays MOUNTED on every route so each prerendered document carries
+  the site's canonical link graph (gated routes would otherwise ship with only
+  their own body links — see AppShell), but a loader or route intro is
+  contractually a single non-scrollable screen, so the footer must not add
+  document height while one is up.
+
+  `data-homepage-state` is only ever present on the homepage and
+  `data-route-experience-state` only while a route intro is armed; both rules
+  sit behind `data-js`, so the static HTML and any no-JS visitor always keep a
+  fully laid-out, fully exposed footer.
+*/
+html[data-js="on"][data-homepage-state]:not([data-homepage-state="body"]) .ss-footer,
+html[data-js="on"][data-loader-active="on"] .ss-footer,
+html[data-js="on"][data-route-experience-state]:not(
+    [data-route-experience-state="body"]
+  )
+  .ss-footer {
+  display: none;
 }

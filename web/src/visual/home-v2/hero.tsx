@@ -3,6 +3,7 @@ import * as m from "motion/react-m";
 import type { Ref } from "react";
 
 import { Container } from "~/components/layout/container";
+import { useHydrated } from "~/lib/use-hydrated";
 
 import { ExploreSystemButton } from "./explore-system-button";
 import { HeroAetherField } from "./hero-aether-field";
@@ -11,6 +12,10 @@ const item: Variants = {
   hidden: {
     opacity: 0,
     y: 20,
+    // Instant: the only transition INTO `hidden` happens on the first
+    // post-hydration render, underneath the opaque loader overlay. Animating
+    // it would just burn time on a frame nobody can see.
+    transition: { duration: 0 },
   },
   show: (index = 0) => ({
     opacity: 1,
@@ -26,6 +31,13 @@ type HeroProps = {
   hideExploreButton?: boolean;
   motionEnabled: boolean;
   onExplore: () => void;
+  /**
+   * Whether the homepage state machine has released the hero (intro / opening
+   * / closing). False while the loader is still up, and once the body owns the
+   * screen — but the hero stays MOUNTED either way, so its heading, lead and
+   * copy are always present in the prerendered document.
+   */
+  revealed?: boolean;
 };
 
 /**
@@ -42,7 +54,25 @@ export function Hero({
   hideExploreButton = false,
   motionEnabled,
   onExplore,
+  revealed = true,
 }: HeroProps) {
+  const hydrated = useHydrated();
+  /*
+   * The entrance is driven by the homepage STATE, not by mounting, so the hero
+   * can stay in the tree from the very first byte of HTML.
+   *
+   * Prerender and the hydration render both resolve to `show`, so the static
+   * document carries the real H1 and lead as visible copy (no `opacity: 0`
+   * baked into the HTML for a crawler to discount). The first post-hydration
+   * render then snaps to `hidden` — invisible, because the loader overlay owns
+   * the screen at that point — and the loader → intro transition plays the
+   * staged reveal exactly as it did when the hero was mounted on demand.
+   *
+   * With motion disabled (reduced motion / low power) the hero simply stays at
+   * `show` and never animates, matching the previous behaviour.
+   */
+  const atRest = !motionEnabled || !hydrated || revealed;
+
   return (
     <section className="ss-hv2-hero">
       <HeroAetherField enabled={motionEnabled} />
@@ -50,8 +80,8 @@ export function Hero({
 
       <Container size="wide" className="relative z-10">
         <m.div
-          initial={motionEnabled ? "hidden" : false}
-          animate="show"
+          initial={false}
+          animate={atRest ? "show" : "hidden"}
           className="ss-hv2-hero__content flex flex-col items-center gap-7 text-center"
         >
           <m.span

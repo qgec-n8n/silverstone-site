@@ -20,8 +20,24 @@ function AppShell({ children, pendingIndicator }: AppShellProps) {
   const previousPathRef = useRef(location.pathname);
   usePageInView();
 
-  const chromeVisible =
-    (location.pathname !== "/" || homepageState === "body") && !routeIntroLocked;
+  const isHome = location.pathname === "/";
+  const chromeVisible = (!isHome || homepageState === "body") && !routeIntroLocked;
+  /*
+   * The footer is ALWAYS mounted — never gated on `chromeVisible`.
+   *
+   * Every gated route prerenders in its "loading" state, so a footer gated on
+   * chrome visibility is simply absent from the static document. That cost the
+   * homepage every internal link it had, and left the 23 other gated routes
+   * (both hubs, all service and industry pages, the company pages) carrying
+   * only the handful of links inside their own body copy. The footer is the
+   * site's canonical link graph, so it must be in the HTML on every page.
+   *
+   * `hidden` keeps the live experience identical: inert + aria-hidden here,
+   * and experience-gate.css drops it from layout while a loader or intro owns
+   * the screen, so those routes stay the single non-scrollable viewport their
+   * intros promise. Gate-free routes (blog articles, /book) are unaffected —
+   * they already rendered it.
+   */
 
   useEffect(() => {
     if (previousPathRef.current === location.pathname) {
@@ -57,7 +73,7 @@ function AppShell({ children, pendingIndicator }: AppShellProps) {
       >
         {children}
       </main>
-      {chromeVisible ? <SiteFooter /> : null}
+      <SiteFooter hidden={!chromeVisible} />
     </div>
   );
 }

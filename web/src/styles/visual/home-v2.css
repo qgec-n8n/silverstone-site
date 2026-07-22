@@ -2983,110 +2983,14 @@ html[data-js="on"]
   outline-offset: 6px;
 }
 
-/* ------------------------------------------------------------------ */
-/* Crawlable site index — always rendered at the end of the homepage  */
-/* document (see visual/home-v2/home-site-index.tsx), because the     */
-/* prerendered document starts in homepageState "loading", where      */
-/* neither the Hero nor the body sections exist yet. Kept deliberately*/
-/* quiet — a slim capability index on the ambient page field, not a   */
-/* second boxed nav grid — so it reads as a closing note rather than  */
-/* a duplicate of the global footer immediately below it.             */
-/* ------------------------------------------------------------------ */
-
-.ss-hv2-site-index {
-  position: relative;
-  border-top: 1px solid var(--ss-v2-hairline);
-  padding: clamp(2.75rem, 6vw, 4rem) 1.5rem;
-}
-
-.ss-hv2-site-index::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    60% 100% at 12% 0%,
-    color-mix(in srgb, var(--ss-v2-signal-cyan) 6%, transparent),
-    transparent 70%
-  );
-}
-
-.ss-hv2-site-index__inner {
-  position: relative;
-  margin-inline: auto;
-  width: min(64rem, 100%);
-  display: grid;
-  gap: 1.75rem;
-}
-
-.ss-hv2-site-index__eyebrow {
-  color: var(--ss-v2-titanium);
-}
-
-.ss-hv2-site-index__title {
-  color: var(--ss-v2-platinum);
-  font-size: clamp(1.05rem, 1.3vw + 0.7rem, 1.35rem);
-  font-weight: 600;
-  letter-spacing: -0.005em;
-  line-height: 1.3;
-  max-width: 42rem;
-}
-
-.ss-hv2-site-index__lead {
-  color: var(--ss-v2-titanium);
-  font-size: 0.9rem;
-  line-height: 1.7;
-  max-width: 60ch;
-}
-
-.ss-hv2-site-index__groups {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.75rem 3rem;
-  margin-top: 0.5rem;
-}
-
-.ss-hv2-site-index__group-label {
-  display: block;
-  color: color-mix(in srgb, var(--ss-v2-titanium) 70%, transparent);
-  font-family: var(--ss-font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  margin-bottom: 0.7rem;
-}
-
-.ss-hv2-site-index__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: 22rem;
-}
-
-.ss-hv2-site-index__chip {
-  display: inline-flex;
-  align-items: center;
-  border-radius: var(--ss-radius-pill);
-  border: 1px solid var(--ss-v2-hairline);
-  background: color-mix(in srgb, var(--ss-v2-graphite) 40%, transparent);
-  padding: 0.4rem 0.85rem;
-  color: var(--ss-v2-titanium);
-  text-decoration: none;
-  font-size: 0.78rem;
-  line-height: 1.2;
-  transition:
-    color 160ms ease,
-    border-color 160ms ease,
-    background-color 160ms ease;
-}
-
-.ss-hv2-site-index__chip:hover,
-.ss-hv2-site-index__chip:focus-visible {
-  color: var(--ss-v2-platinum);
-  border-color: color-mix(in srgb, var(--ss-v2-signal-cyan) 55%, transparent);
-  background: color-mix(in srgb, var(--ss-v2-signal-cyan) 10%, transparent);
+/*
+  The hero is always mounted (see visual/home-v2/hero.tsx) so the prerendered
+  homepage document carries a real H1 and lead copy. Once the body owns the
+  screen it is dropped from layout entirely — the previous behaviour, when the
+  hero was conditionally rendered, but without hiding it from the static HTML.
+  No `data-js` guard: without JavaScript the state never leaves "loading", so
+  a no-JS visitor keeps the full hero.
+*/
+.ss-hv2[data-homepage-state="body"] .ss-hv2-hero {
+  display: none;
 }
