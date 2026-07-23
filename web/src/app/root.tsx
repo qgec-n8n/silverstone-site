@@ -26,6 +26,7 @@ import {
 } from "~/data/gate-free-routes";
 import { getPublicEnvironment } from "~/lib/environment";
 import { AnalyticsScripts } from "~/lib/integrations/analytics";
+import { SeoJuiceScripts } from "~/lib/integrations/seojuice";
 import { MotionProvider } from "~/motion";
 import "./app.css";
 
@@ -103,6 +104,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </MotionProvider>
         <ScrollRestoration />
         <Scripts />
+        <SeoJuiceScripts />
       </body>
     </html>
   );
