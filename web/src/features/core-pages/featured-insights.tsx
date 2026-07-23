@@ -60,8 +60,17 @@ function ArticleMeta({ post }: { post: SilverstoneBlogPost }) {
  * layers on a framed background panel, and the Aceternity 3D Card Effect
  * (CardContainer/CardItem) lifts them off that panel while the whole
  * composition tilts with the pointer.
+ *
+ * The rank chip carries the rotation: when the card arrived on the dispatch
+ * day it reads as a live arrival instead of a standing position.
  */
-function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
+function PrimaryInsight({
+  fresh,
+  post,
+}: {
+  fresh: boolean;
+  post: SilverstoneBlogPost;
+}) {
   const titleId = `featured-insight-${post.slug}`;
 
   return (
@@ -84,7 +93,12 @@ function PrimaryInsight({ post }: { post: SilverstoneBlogPost }) {
           >
             <CardItem className="ss-featured-primary__topline" translateZ={40}>
               <span className="ss-featured-card__category">{post.categoryLabel}</span>
-              <span className="ss-featured-primary__rank">Primary signal</span>
+              <span
+                className="ss-featured-primary__rank"
+                data-fresh={fresh ? "true" : undefined}
+              >
+                {fresh ? "New today" : "Primary signal"}
+              </span>
               <ArticleMeta post={post} />
             </CardItem>
             <CardItem className="ss-featured-primary__title" translateZ={70}>
@@ -216,6 +230,7 @@ export function FeaturedInsights({
 
   const editionKey =
     edition?.id ?? selection.articles.map((post) => post.slug).join(":");
+  const freshSlugs = new Set(selection.freshSlugs);
 
   return (
     <section
@@ -236,14 +251,18 @@ export function FeaturedInsights({
               Featured intelligence
             </p>
             <h2 id="featured-insights-title">
-              This week’s <em>selected signals</em>
+              The newest <em>selected signals</em>
             </h2>
           </div>
           <div className="ss-featured-insights__dispatch">
             <span className="ss-featured-insights__edition">
               <span>Current dispatch</span>
-              {edition?.label ?? "Latest published intelligence"}
+              {edition?.label ?? selection.dispatchLabel}
             </span>
+            <p className="ss-featured-insights__cadence">
+              <span aria-hidden="true" />
+              The three most recent briefings, newest first
+            </p>
           </div>
         </m.div>
 
@@ -258,7 +277,7 @@ export function FeaturedInsights({
               ? {}
               : ({ exit: "exit", whileInView: "visible" } as const))}
           >
-            <PrimaryInsight post={primary} />
+            <PrimaryInsight fresh={freshSlugs.has(primary.slug)} post={primary} />
             {supporting.map((post, index) => (
               <SupportingInsight key={post.slug} position={index + 1} post={post} />
             ))}

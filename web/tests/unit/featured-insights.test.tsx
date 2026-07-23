@@ -56,6 +56,9 @@ const gamma = makePost({ slug: "gamma-signal", date: "2026-07-03" });
 const delta = makePost({ slug: "delta-signal", date: "2026-07-04" });
 const epsilon = makePost({ slug: "epsilon-signal", date: "2026-07-05" });
 
+/** Inside the default seven-day window of the pin below. */
+const PINNED_DAY = "2026-07-12";
+
 function edition(slugs: readonly string[]): FeaturedInsightEdition {
   return {
     id: "test-edition",
@@ -70,7 +73,7 @@ describe("resolveFeaturedInsights", () => {
     const selection = resolveFeaturedInsights({
       editions: [edition(["beta-signal", "alpha-signal", "gamma-signal"])],
       posts: [alpha, beta, gamma],
-      referenceDate: "2026-07-17",
+      referenceDate: PINNED_DAY,
     });
 
     expect(selection.primary?.slug).toBe("beta-signal");
@@ -84,7 +87,7 @@ describe("resolveFeaturedInsights", () => {
     const selection = resolveFeaturedInsights({
       editions: [edition(["missing-signal", "beta-signal"])],
       posts: [alpha, beta, gamma],
-      referenceDate: "2026-07-17",
+      referenceDate: PINNED_DAY,
     });
 
     expect(selection.articles.map((post) => post.slug)).toEqual([
@@ -98,7 +101,7 @@ describe("resolveFeaturedInsights", () => {
     const selection = resolveFeaturedInsights({
       editions: [edition(["beta-signal", "beta-signal", "alpha-signal"])],
       posts: [alpha, beta, gamma],
-      referenceDate: "2026-07-17",
+      referenceDate: PINNED_DAY,
     });
 
     expect(selection.articles.map((post) => post.slug)).toEqual([
@@ -121,7 +124,7 @@ describe("resolveFeaturedInsights", () => {
     const selection = resolveFeaturedInsights({
       editions: [edition([draft.slug, placeholder.slug, beta.slug])],
       posts: [alpha, beta, draft, placeholder],
-      referenceDate: "2026-07-17",
+      referenceDate: PINNED_DAY,
     });
 
     expect(selection.articles.map((post) => post.slug)).toEqual([
@@ -134,7 +137,7 @@ describe("resolveFeaturedInsights", () => {
     const selection = resolveFeaturedInsights({
       editions: [edition(["alpha-signal"])],
       posts: [alpha, beta, gamma, delta],
-      referenceDate: "2026-07-17",
+      referenceDate: PINNED_DAY,
     });
 
     expect(selection.articles.map((post) => post.slug)).toEqual([
@@ -165,7 +168,7 @@ describe("resolveFeaturedInsights", () => {
     const selection = resolveFeaturedInsights({
       editions: [],
       posts: [alpha, beta],
-      referenceDate: "2026-07-17",
+      referenceDate: PINNED_DAY,
     });
 
     expect(selection.articles.map((post) => post.slug)).toEqual([
@@ -173,6 +176,94 @@ describe("resolveFeaturedInsights", () => {
       "alpha-signal",
     ]);
     expect(selection.supporting).toHaveLength(1);
+  });
+
+  it("rotates on recency alone when nothing is pinned", () => {
+    const selection = resolveFeaturedInsights({
+      editions: [],
+      posts: [gamma, alpha, epsilon, beta, delta],
+      referenceDate: "2026-07-05",
+    });
+
+    expect(selection.edition).toBeNull();
+    expect(selection.primary?.slug).toBe("epsilon-signal");
+    expect(selection.supporting.slice(0, 2).map((post) => post.slug)).toEqual([
+      "delta-signal",
+      "gamma-signal",
+    ]);
+  });
+
+  it("promotes a newly published post to the primary card", () => {
+    const zeta = makePost({ slug: "zeta-signal", date: "2026-07-06" });
+    const before = resolveFeaturedInsights({
+      editions: [],
+      posts: [alpha, beta, gamma, delta, epsilon],
+      referenceDate: "2026-07-05",
+    });
+    const after = resolveFeaturedInsights({
+      editions: [],
+      posts: [alpha, beta, gamma, delta, epsilon, zeta],
+      referenceDate: "2026-07-06",
+    });
+
+    expect(before.primary?.slug).toBe("epsilon-signal");
+    expect(after.primary?.slug).toBe("zeta-signal");
+    expect(after.supporting[0]?.slug).toBe("epsilon-signal");
+  });
+
+  it("resumes rotation once a pin's window has closed", () => {
+    const pinned = resolveFeaturedInsights({
+      editions: [edition(["alpha-signal"])],
+      posts: [alpha, beta, gamma, delta],
+      referenceDate: "2026-07-16",
+    });
+    const expired = resolveFeaturedInsights({
+      editions: [edition(["alpha-signal"])],
+      posts: [alpha, beta, gamma, delta],
+      referenceDate: "2026-07-17",
+    });
+
+    expect(pinned.primary?.slug).toBe("alpha-signal");
+    expect(expired.edition).toBeNull();
+    expect(expired.primary?.slug).toBe("delta-signal");
+  });
+
+  it("honours an explicit pin end date", () => {
+    const options = {
+      editions: [{ ...edition(["alpha-signal"]), endsOn: "2026-07-12" }],
+      posts: [alpha, beta, gamma, delta],
+    } as const;
+
+    expect(
+      resolveFeaturedInsights({ ...options, referenceDate: "2026-07-11" }).primary
+        ?.slug,
+    ).toBe("alpha-signal");
+    expect(
+      resolveFeaturedInsights({ ...options, referenceDate: "2026-07-12" }).primary
+        ?.slug,
+    ).toBe("delta-signal");
+  });
+
+  it("marks the posts published on the dispatch day and dates the dispatch", () => {
+    const selection = resolveFeaturedInsights({
+      editions: [],
+      posts: [alpha, beta, gamma, delta, epsilon],
+      referenceDate: "2026-07-05",
+    });
+
+    expect(selection.dispatchDate).toBe("2026-07-05");
+    expect(selection.dispatchLabel).toBe(epsilon.displayDate);
+    expect(selection.freshSlugs).toEqual(["epsilon-signal"]);
+  });
+
+  it("leaves the freshness marker off when nothing published that day", () => {
+    const selection = resolveFeaturedInsights({
+      editions: [],
+      posts: [alpha, beta, gamma],
+      referenceDate: PINNED_DAY,
+    });
+
+    expect(selection.freshSlugs).toEqual([]);
   });
 });
 
@@ -187,12 +278,12 @@ describe("FeaturedInsights", () => {
     );
 
     const section = screen.getByRole("region", {
-      name: "This week’s selected signals",
+      name: "The newest selected signals",
     });
     expect(
       within(section).getByRole("heading", {
         level: 2,
-        name: "This week’s selected signals",
+        name: "The newest selected signals",
       }),
     ).toBeInTheDocument();
 
@@ -227,7 +318,10 @@ describe("FeaturedInsights", () => {
     // the component itself caps the display at two supporting cards.
     const selection = {
       articles: [alpha, beta, gamma, delta, epsilon],
+      dispatchDate: PINNED_DAY,
+      dispatchLabel: alpha.displayDate,
       edition: edition([alpha.slug, beta.slug, gamma.slug, delta.slug, epsilon.slug]),
+      freshSlugs: [],
       primary: alpha,
       supporting: [beta, gamma, delta, epsilon],
     };
@@ -241,7 +335,7 @@ describe("FeaturedInsights", () => {
     );
 
     const section = screen.getByRole("region", {
-      name: "This week’s selected signals",
+      name: "The newest selected signals",
     });
     const primary = section.querySelectorAll('[data-featured-card="primary"]');
     const supporting = section.querySelectorAll('[data-featured-card="supporting"]');

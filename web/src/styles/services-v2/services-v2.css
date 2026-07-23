@@ -2938,21 +2938,28 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   color: color-mix(in srgb, var(--project-tint) 70%, var(--srv2-ink-faint));
 }
 
+/* Selected project reads at the same brand strength as the selected device in
+   `.ss-folio__toggle` — same gradient, glow and text treatment, so the two
+   controls in the console row share one active-state language. */
 .ss-folio-console__switch button[aria-pressed="true"] {
-  color: var(--ss-v2-chrome);
-  border-color: color-mix(in srgb, var(--demo-tint) 68%, var(--srv2-hairline));
+  color: white;
+  border-color: transparent;
   background: linear-gradient(
-    110deg,
-    color-mix(in srgb, var(--demo-tint) 34%, var(--ss-v2-graphite)),
-    color-mix(in srgb, var(--demo-tint-2) 18%, var(--ss-v2-void-black))
+    120deg,
+    color-mix(in srgb, var(--demo-tint) 86%, white),
+    color-mix(in srgb, var(--demo-tint-2) 52%, var(--demo-tint))
   );
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--demo-tint) 12%, transparent) inset,
-    0 10px 26px -16px color-mix(in srgb, var(--demo-tint) 78%, transparent);
+    0 0 18px -2px color-mix(in srgb, var(--demo-tint-2) 62%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 26%, transparent);
+  text-shadow: 0 1px 8px rgba(0, 3, 8, 0.45);
 }
 
+/* Mirrors the toggle's active icon tint so the index sits on the bright fill
+   the same way the Monitor/Smartphone glyphs do. */
 .ss-folio-console__switch button[aria-pressed="true"] span {
-  color: color-mix(in srgb, var(--demo-tint-2) 78%, var(--ss-v2-chrome));
+  color: color-mix(in srgb, var(--demo-tint-2) 45%, white);
+  text-shadow: 0 1px 8px rgba(0, 3, 8, 0.45);
 }
 
 .ss-folio-scene__meta {

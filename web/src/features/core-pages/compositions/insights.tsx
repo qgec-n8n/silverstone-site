@@ -79,7 +79,10 @@ export function InsightsComposition() {
         lead="A searchable library of practical guides, organised by the services and industries we build for — find the topic behind your next decision."
         points={[
           { icon: Search, text: "Search and filter every guide by service or sector" },
-          { icon: ShieldCheck, text: "Featured: this week’s selected intelligence" },
+          {
+            icon: ShieldCheck,
+            text: "Featured: the three newest intelligence briefings",
+          },
           {
             icon: Layers,
             text: "Jump-off points into services, pricing and discovery",
