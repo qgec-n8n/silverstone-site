@@ -86,6 +86,13 @@
   margin-block-end: clamp(2rem, 1.5rem + 2vw, 3.25rem);
 }
 
+/* The live-showcase head is the eyebrow pill on its own: every scene already
+   names and describes its own build, so the demos sit directly under the
+   label rather than a heading block's full rhythm below it. */
+.ss-srv2-section--folio .ss-srv2-section__head {
+  margin-block-end: clamp(1rem, 0.8rem + 0.7vw, 1.6rem);
+}
+
 /* ---- Live demo invitation --------------------------------------------- */
 
 .ss-srv2-demo-invite {
@@ -2711,7 +2718,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-folio-device-viewport::after {
   content: "";
   position: absolute;
-  inset-block: 0;
+  /* Stays in the device band: the clip window's top apron (--folio-orbit-lift)
+     is orbit clearance overlapping the console row, not stage the light
+     should sweep. */
+  inset-block: var(--folio-orbit-lift, 0px) 0;
   left: 0;
   z-index: 30;
   width: 18%;
@@ -3976,6 +3986,16 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   .ss-folio-scene__stage {
     --folio-orbit-apron: clamp(4.5rem, 6vw, 6.5rem);
     --folio-slide-gap: clamp(9rem, 14vw, 14rem);
+    /* Foreground room ABOVE the devices. The phone scales to 1.22 about
+       50% 92%, lifting its top edge by ~a fifth of its own height; past
+       ~1500px the phone keeps growing on 14vw while the window (which alone
+       sets the slide's height) narrows, so that lift outruns the slack above
+       the phone and the clip window shears the phone's top off. This apron
+       buys the room inside the clip window and the viewport's matching
+       negative margin trades it straight back, so the scene's vertical rhythm
+       is unchanged — the same swap the horizontal gutter makes below. It also
+       covers the window's own upward sweep mid-orbit. */
+    --folio-orbit-lift: 6rem;
   }
 
   /* The foreground phone scales about its lower body and bows down during
@@ -3984,9 +4004,18 @@ section[data-slot="page-section"]:has(.ss-srv2) {
      project's off-screen devices. */
   .ss-folio-device-viewport {
     width: calc(100% + (2 * var(--folio-gutter)));
+    margin-block-start: calc(-1 * var(--folio-orbit-lift));
     margin-inline: calc(-1 * var(--folio-gutter));
-    padding-block-end: 2.5rem;
+    padding-block: var(--folio-orbit-lift) 2.5rem;
     padding-inline: var(--folio-gutter);
+    /* The lift strip now overlaps the console row above it, so the clip
+       window itself is transparent to input; the slides carry every real
+       target back. */
+    pointer-events: none;
+  }
+
+  .ss-folio-device-slide {
+    pointer-events: auto;
   }
 
   .ss-folio-device-rail {
@@ -4028,8 +4057,15 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     bottom: 0.75rem;
   }
 
+  /* Headroom for the foreground phone. Two curves cross near 1550px: the
+     phone keeps growing on 14vw while the window — which alone sets the
+     slide's height — narrows as the orbit apron and inter-slide gap take
+     more of the row. Past the crossing the scaled-up phone stands taller
+     than its own slide and reaches into the console row above it, so the
+     stage opens exactly the band it climbs into: nothing before the
+     crossing, capped once both sizes settle around 1920px. */
   .ss-folio-scene__stage {
-    padding-block: 0;
+    padding-block: clamp(0rem, (100vw - 96rem) * 0.25, 3.25rem) 0;
   }
 }
 

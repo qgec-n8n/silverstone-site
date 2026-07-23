@@ -26,6 +26,7 @@ import {
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
 import {
+  Eyebrow,
   Prose,
   Reveal,
   RichText,
@@ -225,20 +226,20 @@ export function WebDesignComposition({
 
       {/* 8 — Live client-website portfolio showcase. The rail itself sits
           full-bleed below the contained section head: one project at a time,
-          switched from the per-scene console row. */}
+          switched from the per-scene console row. The head is deliberately the
+          eyebrow pill alone — each scene already names and describes its own
+          build, so the demos start immediately under the label. */}
       <section
         className="ss-srv2-section ss-srv2-section--folio"
         id="demo-web-design"
-        aria-labelledby="srv2-showcase"
+        aria-label="Live showcases"
       >
         <div className="ss-srv2__container">
-          <SectionHead
-            eyebrow="Live showcases"
-            icon={PencilRuler}
-            heading="Two finished builds, *live inside this page*"
-            headingId="srv2-showcase"
-            lead="Real production websites, live inside this page. Switch between the two builds, compare each desktop and mobile presentation, then browse the live window or play the guided phone tour. On smaller screens, each preview opens the live site in a new tab."
-          />
+          <div className="ss-srv2-section__head">
+            <Reveal kind="pill">
+              <Eyebrow icon={PencilRuler}>Live showcases</Eyebrow>
+            </Reveal>
+          </div>
         </div>
         <BrowserShowcase />
       </section>
