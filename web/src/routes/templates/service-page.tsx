@@ -133,6 +133,11 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
         eyebrow="Services"
         route={route}
         showRelated={false}
+        /* ServicePageVisuals owns the visible H1 (SecondaryHero), exactly as in
+           the gated branch below. Leaving the frame's default header on would
+           render a second one the moment a service route stopped qualifying for
+           the experience — latent today, silent when it fires. */
+        showHeader={false}
       >
         <ServicePageVisuals route={route} />
       </RoutePageFrame>

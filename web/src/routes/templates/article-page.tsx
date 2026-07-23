@@ -223,13 +223,27 @@ function ArticleBulletPanel({
   );
 }
 
-function ArticleGrid({ items }: { items?: SilverstoneBlogGridItem[] | undefined }) {
+/**
+ * Card titles sit one level below whatever heading introduced the block, so the
+ * level follows the caller: `h3` under a section's `h2`, `h4` under a
+ * subsection's `h3`. Hard-coding `h4` skipped a level on every article whose
+ * grid hangs off a section heading (31 of 34).
+ */
+function ArticleGrid({
+  headingLevel,
+  items,
+}: {
+  headingLevel: 3 | 4;
+  items?: SilverstoneBlogGridItem[] | undefined;
+}) {
   const usableItems =
     items?.filter((item) => item.title.trim() && item.body.trim()).slice(0, 6) ?? [];
 
   if (usableItems.length === 0) {
     return null;
   }
+
+  const Heading = headingLevel === 3 ? "h3" : "h4";
 
   return (
     <div className="ss-blog-article__grid" aria-label="Article grid">
@@ -243,9 +257,9 @@ function ArticleGrid({ items }: { items?: SilverstoneBlogGridItem[] | undefined 
               ? item.label.trim()
               : `Signal ${String(index + 1).padStart(2, "0")}`}
           </span>
-          <h4>
+          <Heading>
             <ArticleRichText text={item.title} />
-          </h4>
+          </Heading>
           <p>
             <ArticleRichText text={item.body} />
           </p>
@@ -317,9 +331,11 @@ function ArticleComparisonTable({
 }
 
 function ArticleSectionEnhancements({
+  headingLevel,
   section,
   includeTable = true,
 }: {
+  headingLevel: 3 | 4;
   section: SilverstoneBlogSection;
   includeTable?: boolean;
 }) {
@@ -327,7 +343,7 @@ function ArticleSectionEnhancements({
     <>
       <ArticlePullQuote quote={section.pullQuote} />
       <ArticleBulletPanel items={section.bullets} />
-      <ArticleGrid items={section.grid} />
+      <ArticleGrid headingLevel={headingLevel} items={section.grid} />
       {includeTable ? <ArticleComparisonTable table={section.comparisonTable} /> : null}
     </>
   );
@@ -541,7 +557,11 @@ function ArticleSection({
             </p>
           ) : null}
           <ArticleBody body={section.body} firstIsLead={!section.lede} />
-          <ArticleSectionEnhancements section={section} includeTable={false} />
+          <ArticleSectionEnhancements
+            headingLevel={3}
+            section={section}
+            includeTable={false}
+          />
           {section.subsections?.map((subsection, index) => (
             <div
               className="ss-blog-article__subsection"
@@ -551,7 +571,7 @@ function ArticleSection({
                 <RichText text={subsection.heading} />
               </h3>
               <ArticleBody body={subsection.body} />
-              <ArticleSectionEnhancements section={subsection} />
+              <ArticleSectionEnhancements headingLevel={4} section={subsection} />
             </div>
           ))}
         </section>

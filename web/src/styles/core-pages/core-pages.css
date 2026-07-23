@@ -1610,7 +1610,10 @@
   background: var(--booking-iridescent);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  /* Solid stop for contrast checkers; the transparent fill still paints the
+     clipped gradient. See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--booking-accent-soft);
+  -webkit-text-fill-color: transparent;
 }
 
 .ss-booking-shell__intro p {
@@ -1842,7 +1845,10 @@
   background: var(--booking-iridescent);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  /* Solid stop for contrast checkers; the transparent fill still paints the
+     clipped gradient. See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--booking-accent-soft);
+  -webkit-text-fill-color: transparent;
   font-family: var(--ss-font-mono);
   font-size: 0.64rem;
   font-weight: 600;
@@ -2501,7 +2507,10 @@
   background: var(--booking-iridescent);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  /* Solid stop for contrast checkers; the transparent fill still paints the
+     clipped gradient. See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--booking-accent-soft);
+  -webkit-text-fill-color: transparent;
   font-family: var(--ss-font-mono);
   font-size: 0.58rem;
   font-weight: 600;
@@ -3022,7 +3031,10 @@
   background: var(--booking-iridescent);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  /* Solid stop for contrast checkers; the transparent fill still paints the
+     clipped gradient. See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--booking-accent-soft);
+  -webkit-text-fill-color: transparent;
   font-family: var(--ss-font-mono);
   font-size: 0.57rem;
   font-weight: 600;
@@ -3823,7 +3835,9 @@
     background: var(--booking-iridescent);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+    /* Solid stop for contrast checkers; see .ss-chrome-text. */
+    color: var(--booking-accent-soft);
+    -webkit-text-fill-color: transparent;
     filter: drop-shadow(
       0 0 18px color-mix(in srgb, var(--booking-accent) 26%, transparent)
     );
@@ -4907,7 +4921,10 @@ a.ss-insight-card:hover {
 }
 
 .ss-featured-insights__intro h2 em {
-  color: transparent;
+  /* Solid stop for contrast checkers; the transparent fill still paints the
+     clipped gradient. See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--ss-v2-chrome);
+  -webkit-text-fill-color: transparent;
   font-style: normal;
   background: linear-gradient(
     100deg,
@@ -6719,7 +6736,9 @@ a.ss-insight-card:hover,
   );
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  /* Solid stop for contrast checkers; the transparent fill below still wins.
+     See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--ss-v2-chrome);
   text-shadow: none;
   -webkit-text-fill-color: transparent;
 }
@@ -6967,7 +6986,10 @@ a.ss-insight-card:hover,
   background: linear-gradient(100deg, var(--srv2-accent), var(--srv2-accent-2));
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  /* Solid stop for contrast checkers; the transparent fill still paints the
+     clipped gradient. See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--srv2-accent);
+  -webkit-text-fill-color: transparent;
 }
 
 .ss-blog-article__summary ul {
@@ -7202,7 +7224,10 @@ a.ss-insight-card:hover,
   background: linear-gradient(160deg, var(--srv2-accent), var(--srv2-accent-2));
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  /* Solid stop for contrast checkers; the transparent fill still paints the
+     clipped gradient. See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--srv2-accent);
+  -webkit-text-fill-color: transparent;
 }
 
 .ss-blog-article__section h2,
@@ -7514,7 +7539,9 @@ a.ss-insight-card:hover,
   text-transform: uppercase;
 }
 
-.ss-blog-article__grid-item h4 {
+/* `h3` at section level, `h4` under a subsection — see ArticleGrid. Both carry
+   identical type here; only the outline level differs. */
+.ss-blog-article__grid-item :is(h3, h4) {
   margin: 0;
   color: var(--ss-v2-chrome);
   font-family: var(--ss-font-display);

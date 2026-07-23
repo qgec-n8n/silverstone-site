@@ -280,7 +280,12 @@ async function footerLayoutProof(page: Page) {
       document.querySelectorAll<HTMLElement>(".ss-footer__main nav"),
     ).map((node) => {
       const rect = node.getBoundingClientRect();
-      const heading = node.querySelector<HTMLElement>("h2")?.getBoundingClientRect();
+      // The column label is the nav's first child. It is deliberately not a
+      // heading — the `nav[aria-label]` already names the column — so this is
+      // addressed by position, not by tag.
+      const heading = (
+        node.firstElementChild as HTMLElement | null
+      )?.getBoundingClientRect();
       const links = Array.from(node.querySelectorAll<HTMLElement>("li a")).map(
         (link) => {
           const linkRect = link.getBoundingClientRect();

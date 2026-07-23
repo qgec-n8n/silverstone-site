@@ -3,8 +3,8 @@
 | Stage | Cards | Instances | Theme | Risk |
 |---|---:|---:|---|---|
 | **1 — done** | 78 | 78 | Stop third-party mutation of live metadata | low |
-| **2 — next** | 235 | 238 | Document outline & heading semantics | low–medium |
-| **3 — later** | 386 | 385 | Editorial depth, obsolete advice, closure | low |
+| **2 — done** | 235 | 238 | Document outline & heading semantics | low–medium |
+| **3 — next** | 386 | 385 | Editorial depth, obsolete advice, closure | low |
 
 ---
 ## Stage 1 — Shared technical root cause (COMPLETE)
@@ -12,9 +12,12 @@
 dimensions. See `session-1-changes.md`. Exit criteria met: 0 seojuice
 references in `build/client`, 211/211 unit tests, build green.
 
-## Stage 2 — Heading semantics and document outline (RC-03, RC-04, RC-08)
-All are rendering-only defects invisible to the build gate. None requires a
-visual redesign; each is a tag or attribute change behind existing classes.
+## Stage 2 — Heading semantics and document outline (COMPLETE)
+**RC-03, RC-04, RC-08.** All were rendering-only defects invisible to the build
+gate; each was a tag or attribute change behind existing classes. Every route now
+renders exactly one `h1` in the hydrated DOM (32/32 measured states, from 2 on 30
+of them). See `session-2-changes.md` and `session-2-validation.md`. The table
+below is the original worklist, kept for traceability.
 
 | # | Fix | File:line | Visual risk |
 |---|---|---|---|
@@ -31,7 +34,13 @@ visual redesign; each is a tag or attribute change behind existing classes.
 `crawlable-content.spec.ts` to assert on `page.request.get()` raw HTML, scope
 counts to `<main>`, assert exactly one h1 **in the hydrated DOM**, and add a
 test that `document.title` after hydration equals the prerendered `<title>`
-(this would have caught RC-06 automatically).
+(this would have caught RC-06 automatically). **Done** — the spec now covers all
+59 URLs for the served-bytes contract.
+
+Two Stage-2 items were deliberately not closed and are carried into Stage 3:
+Silktide still does not trap focus behind the consent modal, and the consent
+*banner* still has no role or accessible name. Both need vendor-behaviour
+intervention. See `handover-session-3.md` §Carried forward.
 
 ## Stage 3 — Editorial and closure (RC-01, RC-02, RC-05, RC-07)
 - Trim 5 meta descriptions to ≤165 chars.

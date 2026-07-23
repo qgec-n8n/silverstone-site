@@ -509,7 +509,9 @@ function SessionBody({
                   </p>
                 ) : (
                   <>
-                    <h4 className="ss-lvd__empty-title">{copy.emptyTitle}</h4>
+                    {/* `h3` — see live-voice-chrome.tsx; the static shell and
+                        the live session must not disagree on heading level. */}
+                    <h3 className="ss-lvd__empty-title">{copy.emptyTitle}</h3>
                     <p className="ss-lvd__empty-body">{copy.emptyBody}</p>
                   </>
                 )}

@@ -586,13 +586,21 @@ test.describe("web design live showcase", () => {
       await ownlyTitle.evaluate((title) => ({
         accent: title.style.getPropertyValue("--demo-title-tint"),
         background: getComputedStyle(title).backgroundImage,
+        // The headline is painted by `background-clip: text`, so what must be
+        // transparent is the text FILL, not `color`. `color` deliberately
+        // carries a solid fallback so contrast checkers stop scoring the
+        // clipped gradient at 1:1 — it is never painted while the fill is
+        // transparent. Asserting on `color` here would re-lock the old
+        // `color: transparent` idiom that produced the contrast findings.
         color: getComputedStyle(title).color,
+        textFill: getComputedStyle(title).webkitTextFillColor,
         filter: getComputedStyle(title).filter,
       })),
     ).toEqual(
       expect.objectContaining({
         accent: "#5e0000",
-        color: "rgba(0, 0, 0, 0)",
+        color: "rgb(245, 247, 251)",
+        textFill: "rgba(0, 0, 0, 0)",
       }),
     );
     expect(
