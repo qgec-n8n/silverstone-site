@@ -93,13 +93,26 @@ export function RouteExperienceIntro({
             {experience.pill}
           </m.span>
 
-          <m.h1
+          {/*
+            A `div`, not an `h1`. This splash is a teaser for the route, not the
+            route's title — the real H1 lives in the body hero (`SecondaryHero`)
+            and is the one in the prerendered HTML. Rendering this as an `h1`
+            gave every gated non-home route a SECOND h1 the moment it hydrated
+            (prerendered 1, hydrated 2, measured on production), invisible to
+            the build's one-h1 gate because that gate only counts prerendered
+            headings. The section already carries `aria-label="<title> intro"`,
+            so the region keeps its accessible name without a heading. Both
+            classes set every property the `h1` base rule did — font-family,
+            size, weight, tracking, leading and max-width — so the rendering is
+            byte-identical; see reports/seo/seojuice-699/session-2-validation.md.
+          */}
+          <m.div
             className="ss-hv2-aether-reveal ss-hv2-display ss-service-intro__title"
             custom={{ delay: motion.delay, index: 1, y: motion.y }}
             variants={introItem}
           >
             {experience.title}
-          </m.h1>
+          </m.div>
 
           <m.p
             className="ss-lead ss-service-intro__lead text-[color:var(--ss-v2-titanium)]"

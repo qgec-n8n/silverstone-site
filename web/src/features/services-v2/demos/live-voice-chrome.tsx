@@ -152,7 +152,9 @@ export function StaticConsoleBody({
         <TranscriptHead label={copy.transcriptLabel} live={false} />
         <div className="ss-lvd__thread" data-static="true">
           <div className="ss-lvd__empty">
-            <h4 className="ss-lvd__empty-title">{copy.emptyTitle}</h4>
+            {/* `h3`, matching ConsoleFrame's own foot heading: the console sits
+                under a section `h2`, so `h4` skipped a level. */}
+            <h3 className="ss-lvd__empty-title">{copy.emptyTitle}</h3>
             <p className="ss-lvd__empty-body">{copy.emptyBody}</p>
           </div>
         </div>

@@ -6,6 +6,11 @@ import { buildCanonicalUrl } from "~/seo/canonical";
 import { ArticlePage } from "~/routes/templates/article-page";
 
 const BLOG_CANONICAL_ORIGIN = "https://silverstone-ai.com";
+// Uniform across all 34 generated hero images; blog-posts.test.ts fails if a
+// post ever ships a hero at a different size, which would make these og:image
+// dimension hints lie to social crawlers.
+export const BLOG_HERO_IMAGE_WIDTH = 1536;
+export const BLOG_HERO_IMAGE_HEIGHT = 864;
 
 export const meta: MetaFunction = ({ params }) => {
   const post = getBlogPostBySlug(params.slug);
@@ -40,6 +45,13 @@ export const meta: MetaFunction = ({ params }) => {
     { property: "og:description", content: post.metaDescription },
     { property: "og:url", content: canonical },
     { property: "og:image", content: heroImageUrl },
+    // Every generated hero is 1536x864 (asserted in blog-posts.test.ts), so the
+    // dimensions are safe to declare. Non-blog routes already ship these via
+    // buildRouteMetadata; without them a social crawler has to fetch the image
+    // before it can lay the card out, and some renderers fall back to a small
+    // summary card instead of the large one twitter:card asks for.
+    { property: "og:image:width", content: String(BLOG_HERO_IMAGE_WIDTH) },
+    { property: "og:image:height", content: String(BLOG_HERO_IMAGE_HEIGHT) },
     { property: "og:image:alt", content: post.heroImageAlt },
     { property: "article:published_time", content: post.publishedIsoDate },
     { property: "article:modified_time", content: modifiedTime },

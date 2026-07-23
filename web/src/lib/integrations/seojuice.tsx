@@ -32,8 +32,48 @@ import { getPublicEnvironment } from "~/lib/environment";
  * including both seojuice.io literals — is dead code the minifier drops. The
  * runtime contract check is the second belt: a malformed environment fails
  * closed to "no SEOJuice".
+ *
+ * DISABLED BY DEFAULT (2026-07-23). `suggestions.v1.js` is not a passive
+ * reporter: it rewrites SEO-critical head and body elements at runtime.
+ * Measured on live production at this commit, with the script loaded from
+ * the deployed build:
+ *
+ *   route                       prerendered <title>              rewritten to
+ *   /                           Silverstone AI | Websites, ...   "AI Voice Systems for UK Teams |
+ *                                                                 Automation | Silverstone.ai"
+ *   /services/ai-receptionists  AI Receptionist Services UK|...  "Live Transcription Front Desk
+ *                                                                 Automation Demo Now"
+ *   /about                      About Silverstone AI | ...       "Discipline Framework: Strategy
+ *                                                                 Definition & AI/Automation"
+ *
+ * It also replaced og:image with an asset on `seojuiced.b-cdn.net`. The
+ * rewritten titles are keyword-stuffed, drift from the page's actual subject,
+ * and use inconsistent brand casing ("Silverstone.ai"), so the report then
+ * bills the resulting title/content mismatch back as an issue to fix — the
+ * optimiser manufactures work for itself while overwriting deliberate,
+ * reviewed metadata that the build already gates for uniqueness.
+ *
+ * (The second <h1> visible in the hydrated DOM on gated non-home routes is
+ * NOT from this script: it is the route intro splash title in
+ * visual/components/route-experience-intro.tsx, which renders client-side
+ * only. That is tracked separately; disabling SEOJuice does not fix it.)
+ *
+ * Separately, `smart.seojuice.io/views` fires on every page view carrying
+ * URL, referrer and full user agent with no consent gate, while this site's
+ * own analytics is held behind Consent Mode v2 defaults (see
+ * AnalyticsScripts). That is outside the consent contract the rest of the
+ * site keeps.
+ *
+ * Re-enabling is one environment variable — set VITE_SEOJUICE_ENABLED="true"
+ * — but do it only with the on-page rewriting turned off in the SEOJuice
+ * dashboard, and re-check titles and h1 counts in the hydrated DOM
+ * afterwards. `tests/unit/seojuice.test.tsx` locks the default-off contract.
  */
 export function SeoJuiceScripts() {
+  if (import.meta.env.VITE_SEOJUICE_ENABLED !== "true") {
+    return null;
+  }
+
   if (import.meta.env.VITE_STAGING_MODE !== "false") {
     return null;
   }

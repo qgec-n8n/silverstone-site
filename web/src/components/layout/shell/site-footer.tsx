@@ -157,7 +157,18 @@ export function SiteFooter({ hidden = false }: SiteFooterProps) {
                 ease: entranceEase,
               }}
             >
-              <h2 className="ss-eyebrow text-titanium">{column.title}</h2>
+              {/*
+                Not a heading. Each column is already a `<nav aria-label>`, so
+                the label is exposed to assistive tech by the landmark; an `h2`
+                on top of that put three extra level-2 entries into every page's
+                outline, at the same level as the page's own section headings.
+                `block font-display max-w-[…]` reproduce exactly what the `h2`
+                base rule contributed here (`.ss-eyebrow` already owns size,
+                weight, tracking, leading and casing), so the box is unchanged.
+              */}
+              <span className="ss-eyebrow text-titanium block font-display max-w-[var(--ss-type-measure-heading)]">
+                {column.title}
+              </span>
               <ul className="mt-4 flex flex-col gap-2.5">
                 {column.links.map((link, rowIndex) => (
                   <m.li

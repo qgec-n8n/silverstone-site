@@ -229,19 +229,31 @@
     border-bottom: 1px solid var(--ss-v2-hairline);
   }
 
-  /* Metallic chrome text — reserve for display headings, never body copy. */
+  /*
+   * Metallic chrome text — reserve for display headings, never body copy.
+   *
+   * `color` carries a solid stop from the gradient and `-webkit-text-fill-color`
+   * does the hiding. Painting is unchanged (text-fill-color wins over `color`
+   * wherever `background-clip: text` is supported, which is everywhere it is
+   * used), but a contrast checker now reads a real foreground colour instead of
+   * scoring `transparent` at 1:1 — the false positive behind the two contrast
+   * findings. If an engine ever drops `-webkit-text-fill-color`, the fallback
+   * is legible solid text rather than invisible text.
+   */
   .ss-chrome-text {
     background: var(--ss-v2-gradient-chrome);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+    color: var(--ss-v2-chrome);
+    -webkit-text-fill-color: transparent;
   }
 
   .ss-signal-text {
     background: var(--ss-v2-gradient-signal);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+    color: var(--ss-v2-signal-cyan);
+    -webkit-text-fill-color: transparent;
   }
 
   .ss-glow-cyan {

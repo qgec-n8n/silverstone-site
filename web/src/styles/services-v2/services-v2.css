@@ -2838,7 +2838,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   background-position: 42% 50%;
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  /* Solid stop for contrast checkers; the transparent fill still paints the
+     clipped gradient. See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--ss-v2-chrome);
+  -webkit-text-fill-color: transparent;
   filter: drop-shadow(
     0 0 14px color-mix(in srgb, var(--demo-title-tint-2) 20%, transparent)
   );
@@ -4850,7 +4853,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   background: linear-gradient(100deg, var(--srv2-accent), var(--srv2-accent-2));
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  /* Solid stop for contrast checkers; -webkit-text-fill-color still paints the
+     clipped gradient. See .ss-chrome-text in tokens/cinematic.css. */
+  color: var(--srv2-accent);
+  -webkit-text-fill-color: transparent;
 }
 
 .ss-srv2-prose strong,

@@ -177,7 +177,64 @@ const OVERRIDES_CSS = `
   outline-offset: 4px;
   box-shadow: none;
 }
+
+/* The preferences title is re-tagged from h1 to h2 after init (see
+   applyModalHeadingSemantics). Silktide's own stylesheet only targets
+   \`#stcm-modal h1\`, so mirror that rule verbatim for the h2 — the vendor CSS
+   is loaded from a pinned, SRI-checked URL and cannot be edited. */
+#stcm-modal h2 {
+  font-family: var(--fontFamily);
+  color: var(--textColor);
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0px;
+}
 `;
+
+const MODAL_ID = "stcm-modal";
+const MODAL_TITLE_ID = "stcm-modal-title";
+
+/**
+ * Silktide v2.0.1 builds the preferences modal with `<header><h1>…</h1>` and
+ * `init()` calls `createModal()` unconditionally, inserting the wrapper as
+ * `document.body.firstChild` — so from the moment consent initialises, that h1
+ * is the FIRST h1 in document order, ahead of the page's own title, even though
+ * the modal itself is `display: none`. Measured: every route showed 2 h1s once
+ * the gate cleared.
+ *
+ * The script is third-party and SRI-pinned, so the tag is corrected in place
+ * afterwards. The same pass gives the modal the dialog semantics it ships
+ * without: no `role`, no `aria-modal` and no accessible name.
+ *
+ * Note this closes the heading and naming gaps only. Silktide still does not
+ * make the page behind the modal `inert`, so focus is not trapped — tracked
+ * separately; fixing it means intervening in the vendor's focus handling.
+ */
+function applyModalHeadingSemantics(): void {
+  const modal = document.getElementById(MODAL_ID);
+  if (!modal) {
+    return;
+  }
+
+  const title = modal.querySelector("h1");
+  if (title) {
+    const replacement = document.createElement("h2");
+    replacement.id = MODAL_TITLE_ID;
+    for (const attribute of title.attributes) {
+      if (attribute.name !== "id") {
+        replacement.setAttribute(attribute.name, attribute.value);
+      }
+    }
+    replacement.innerHTML = title.innerHTML;
+    title.replaceWith(replacement);
+  }
+
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  if (modal.querySelector(`#${MODAL_TITLE_ID}`)) {
+    modal.setAttribute("aria-labelledby", MODAL_TITLE_ID);
+  }
+}
 
 function injectConsentManager(): void {
   if (document.getElementById(CSS_ID)) {
@@ -210,6 +267,8 @@ function injectConsentManager(): void {
   script.crossOrigin = "anonymous";
   script.onload = () => {
     window.silktideConsentManager?.init(CONSENT_MANAGER_CONFIG);
+    // `init` builds the whole widget synchronously, so the modal exists here.
+    applyModalHeadingSemantics();
   };
 
   document.head.append(preconnect, stylesheet, overrides, script);

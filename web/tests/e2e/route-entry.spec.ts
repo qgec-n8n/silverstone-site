@@ -42,6 +42,15 @@ function loaderStatus(page: Page) {
   return page.locator(".ss-loader[role='status']");
 }
 
+/**
+ * The intro splash title. Deliberately NOT a heading: the route's only H1 is
+ * the body hero's, so the splash renders as a plain element (see
+ * RouteExperienceIntro) and has to be addressed by class, not by role.
+ */
+function introTitle(page: Page) {
+  return page.locator(".ss-service-intro__title");
+}
+
 async function waitForRouteIntro(page: Page) {
   await expect(page.locator("html")).toHaveAttribute(
     "data-route-experience-state",
@@ -69,7 +78,7 @@ for (const route of serviceRoutes) {
     await page.goto(route.path);
 
     await expect(loaderStatus(page)).toContainText(route.loader);
-    await expect(page.getByRole("heading", { name: route.title })).toHaveCount(0);
+    await expect(introTitle(page)).toHaveCount(0);
 
     await waitForRouteIntro(page);
     await expect(
@@ -77,7 +86,8 @@ for (const route of serviceRoutes) {
         .getByLabel(new RegExp(`${escapeRegExp(route.title)} intro`, "i"))
         .getByText(route.pill),
     ).toBeVisible();
-    await expect(page.getByRole("heading", { name: route.title })).toBeVisible();
+    await expect(introTitle(page)).toHaveText(route.title);
+    await expect(introTitle(page)).toBeVisible();
     await expect(page.getByRole("button", { name: route.button })).toBeVisible();
 
     await openBody(page, route.button);

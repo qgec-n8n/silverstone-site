@@ -639,17 +639,31 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   // header animates back in). So re-enable immediately on reveal, and only
   // disable once the hide-out animation has finished. A reveal that interrupts a
   // pending hide cancels the deferred disable via the cleanup below.
+  //
+  // `aria-hidden` is applied HERE rather than in the JSX so it can never lead
+  // `inert`. Driving it from the render flipped it the instant `hidden` turned
+  // true, leaving the header removed from the accessibility tree while still
+  // focusable for HEADER_HIDE_ANIM_MS — the `aria-hidden-focus` violation. The
+  // two now move as one: still announced while it is still reachable.
   useEffect(() => {
     const node = headerRef.current;
     if (!node) {
       return undefined;
     }
+    const setDisabled = (disabled: boolean) => {
+      node.inert = disabled;
+      if (disabled) {
+        node.setAttribute("aria-hidden", "true");
+      } else {
+        node.removeAttribute("aria-hidden");
+      }
+    };
     if (!hidden) {
-      node.inert = false;
+      setDisabled(false);
       return undefined;
     }
     const timer = window.setTimeout(() => {
-      node.inert = true;
+      setDisabled(true);
     }, HEADER_HIDE_ANIM_MS);
     return () => window.clearTimeout(timer);
   }, [hidden]);
@@ -657,7 +671,6 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
   const header = (
     <m.header
       animate={hidden ? "hidden" : "rest"}
-      aria-hidden={hidden || undefined}
       className={cn(
         /*
          * `fixed` at every breakpoint. iOS Safari's dynamic bottom URL bar

@@ -1,9 +1,10 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
 import { PUBLISHED_BLOG_POSTS } from "~/data/blog-posts";
+import { BLOG_HERO_IMAGE_HEIGHT, BLOG_HERO_IMAGE_WIDTH } from "~/routes/blog/article";
 
 describe("published blog slug policy", () => {
   it("keeps every canonical slug concise, descriptive, unique, and asset-backed", () => {
@@ -31,6 +32,25 @@ describe("published blog slug policy", () => {
         existsSync(path.join(process.cwd(), "public", post.heroImage)),
         post.title,
       ).toBe(true);
+    }
+  });
+
+  it("keeps every hero at the dimensions the article og:image tags declare", () => {
+    // routes/blog/article.tsx advertises BLOG_HERO_IMAGE_WIDTH/HEIGHT to social
+    // crawlers as a constant rather than measuring per post. If the publishing
+    // automation ever emits a differently sized hero, those tags would describe
+    // the wrong box, so pin the invariant here instead.
+    for (const post of PUBLISHED_BLOG_POSTS) {
+      const file = readFileSync(path.join(process.cwd(), "public", post.heroImage));
+
+      expect(file.subarray(0, 4).toString("ascii"), post.title).toBe("RIFF");
+      expect(file.subarray(8, 12).toString("ascii"), post.title).toBe("WEBP");
+      // Lossy VP8 bitstream: the keyframe header carries width and height as
+      // 14-bit little-endian fields at byte 26 and 28 (the top 2 bits are the
+      // upscaling hint, which nothing here uses).
+      expect(file.subarray(12, 16).toString("ascii"), post.title).toBe("VP8 ");
+      expect(file.readUInt16LE(26) & 0x3fff, post.title).toBe(BLOG_HERO_IMAGE_WIDTH);
+      expect(file.readUInt16LE(28) & 0x3fff, post.title).toBe(BLOG_HERO_IMAGE_HEIGHT);
     }
   });
 
