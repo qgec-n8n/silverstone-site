@@ -454,10 +454,66 @@
     text-shadow: 0 0 18px color-mix(in srgb, var(--ss-v2-signal-cyan) 32%, transparent);
   }
 
+  /* --- Directory recognition seal: a quiet credential in the brand block ---
+     The supplied badge is a light plate on a near-black footer. It gets no
+     outer bezel — a frame around its own rounded plate reads as a box inside a
+     box. It is seated instead: hugged to its own edge and grounded by a soft
+     cast shadow, so it sits on the surface as a small plaque rather than an
+     applied sticker. The mark is never recoloured or cropped. */
+  .ss-footer__seal {
+    position: relative;
+    display: inline-flex;
+    margin-top: 1.6rem;
+    /* Matches the badge's own 6px corner at its rendered scale. */
+    border-radius: var(--ss-radius-xs);
+    box-shadow:
+      0 1px 1px color-mix(in srgb, #000 40%, transparent),
+      0 14px 30px -16px color-mix(in srgb, #000 85%, transparent);
+    text-decoration: none;
+    transition:
+      box-shadow var(--ss-motion-duration-fast) var(--ss-motion-easing-enter),
+      transform var(--ss-motion-duration-fast) var(--ss-motion-easing-enter);
+  }
+
+  /* Small and crisp, never large and dimmed: desaturating a white plate only
+     turns it muddy grey, so the mark keeps its own colour and recedes through
+     scale, a faint scrim of transparency, and the dark well behind it. */
+  .ss-footer__seal-img {
+    display: block;
+    width: clamp(7.75rem, 7rem + 1.5vw, 8.75rem);
+    height: auto;
+    opacity: 0.86;
+    transition: opacity var(--ss-motion-duration-fast) var(--ss-motion-easing-enter);
+  }
+
+  /* Lifts and takes the footer's cyan signal, matching the link columns. */
+  .ss-footer__seal:hover,
+  .ss-footer__seal:focus-visible {
+    box-shadow:
+      0 1px 1px color-mix(in srgb, #000 40%, transparent),
+      0 18px 34px -16px color-mix(in srgb, #000 85%, transparent),
+      0 10px 40px -18px color-mix(in srgb, var(--ss-v2-signal-cyan) 70%, transparent);
+    transform: translateY(-2px);
+  }
+
+  .ss-footer__seal:hover .ss-footer__seal-img,
+  .ss-footer__seal:focus-visible .ss-footer__seal-img {
+    opacity: 1;
+  }
+
+  .ss-footer__seal:active {
+    transform: translateY(0);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .ss-footer__sweep::after,
     .ss-footer__lines {
       animation: none;
+    }
+
+    .ss-footer__seal:hover,
+    .ss-footer__seal:focus-visible {
+      transform: none;
     }
 
     .ss-footer__sweep::after {

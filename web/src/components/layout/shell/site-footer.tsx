@@ -118,6 +118,26 @@ export function SiteFooter({ hidden = false }: SiteFooterProps) {
                 info@silverstone-ai.com
               </a>
             </p>
+            {/* Directory recognition seal — a credential, so it belongs with
+                the brand block rather than the legal row. */}
+            <a
+              className="ss-focus-ring ss-footer__seal"
+              href="https://aiagentsdirectory.com/agent/silverstone-ai"
+              rel="noopener"
+              target="_blank"
+              title="Discover Silverstone AI on AI Agents Directory"
+            >
+              <img
+                alt="Silverstone AI - Featured on AI Agents Directory"
+                className="ss-footer__seal-img"
+                decoding="async"
+                height={50}
+                loading="lazy"
+                src="https://aiagentsdirectory.com/featured-badge.svg?v=2024"
+                width={200}
+              />
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
           </m.div>
           {FOOTER_COLUMNS.map((column, columnIndex) => (
             <m.nav

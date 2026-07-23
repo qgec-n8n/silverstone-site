@@ -111,6 +111,7 @@ export function InsightsComposition() {
             heading="Search or filter by *service and industry*"
             headingId="insights-index"
             lead="Every planned guide is tagged against the same 16-category system used across Services and Industries, so the right topic is never more than a search away."
+            reveal={false}
           />
           <InsightsBoard />
         </div>
