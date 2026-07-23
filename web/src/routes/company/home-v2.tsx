@@ -164,9 +164,26 @@ export function HomeV2({ contentId }: { contentId?: string }) {
         />
       ) : null}
 
-      {bodyVisible ? (
-        <div className="ss-hv2__body">
-          <ScrollProvider enabled={policy.scrollChoreography}>
+      {/*
+       * Always mounted, for the same reason the hero above is: anything gated
+       * on `bodyVisible` is simply absent from the prerendered document, and
+       * this is the homepage's entire body — every section of copy plus the
+       * footer link graph. Mounting it only after the explore click left the
+       * homepage shipping ~500 crawlable characters and zero visible links.
+       *
+       * It is gated visually instead: `.ss-hv2__body` collapses to zero
+       * height while the intro owns the screen (see home-v2.css), and `inert`
+       * keeps it out of the tab order and the accessibility tree until the
+       * body opens. The `key` remounts the sections on open so their scroll
+       * entrances play from the top, matching the service routes.
+       */}
+      <div
+        className="ss-hv2__body"
+        data-home-body-visible={bodyVisible ? "true" : "false"}
+        inert={!bodyVisible}
+      >
+        <ScrollProvider enabled={policy.scrollChoreography}>
+          <div key={bodyVisible ? "home-body" : "home-idle"}>
             <SecondaryHero />
             <TrustStrip />
             <ServicesUniverse />
@@ -179,10 +196,10 @@ export function HomeV2({ contentId }: { contentId?: string }) {
             <ImageStorytelling />
             <Standard />
             <ConversionClimax />
-          </ScrollProvider>
-          <HomepageReturnButton onClick={handleCloseBody} />
-        </div>
-      ) : null}
+          </div>
+        </ScrollProvider>
+      </div>
+      {bodyVisible ? <HomepageReturnButton onClick={handleCloseBody} /> : null}
     </div>
   );
 }

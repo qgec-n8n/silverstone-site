@@ -20,18 +20,61 @@ async function waitForIntro(page: Page) {
 
 /**
  * The footer IS in the document during the homepage intro — it carries the
- * homepage's crawlable link graph, which the prerendered HTML would otherwise
- * ship without entirely. What the intro guarantees is that it contributes
- * nothing to the live page: dropped from layout (so the intro stays a single
- * non-scrollable screen, asserted separately) and inert + aria-hidden, so the
- * role queries in these tests still resolve to nothing.
+ * homepage's crawlable link graph. What the intro guarantees is that it
+ * contributes nothing to the live page: zero layout height (so the intro
+ * stays a single non-scrollable screen, asserted separately) and `inert`, so
+ * it is out of the tab order and the role queries in these tests resolve to
+ * nothing.
+ *
+ * It is deliberately NOT `display: none` and NOT `aria-hidden`. Both erase
+ * the footer from the text a crawler extracts, which is the whole reason the
+ * footer stays mounted here; a zero-height clip parks it just as completely
+ * while keeping its copy and links in the rendered page.
  */
 async function expectIntroFooterParked(page: Page) {
   const footer = page.locator("footer.ss-footer");
   await expect(footer).toHaveCount(1);
   await expect(footer).toHaveAttribute("inert", "");
-  await expect(footer).toHaveAttribute("aria-hidden", "true");
-  expect(await footer.evaluate((node) => getComputedStyle(node).display)).toBe("none");
+  await expect(footer).not.toHaveAttribute("aria-hidden", "true");
+
+  const parked = await footer.evaluate((node) => ({
+    display: getComputedStyle(node).display,
+    height: Math.round(node.getBoundingClientRect().height),
+    textLength: (node as HTMLElement).textContent.trim().length,
+  }));
+  expect(parked.display).not.toBe("none");
+  expect(parked.height).toBe(0);
+  expect(parked.textLength).toBeGreaterThan(400);
+}
+
+/**
+ * The homepage body is MOUNTED during the intro — it is the page's entire
+ * indexable surface, and gating it on the explore click left the prerendered
+ * homepage shipping ~500 characters and no links at all. Isolation is a
+ * layout and interaction property, not an absence: the body is `inert` and
+ * collapsed to zero height behind the intro.
+ *
+ * Note this asserts the wrapper's own box, not its descendants'. The wrapper
+ * clips them, but clipping does not shrink a child's bounding box, so a
+ * `toBeVisible()` check on anything inside would still pass — and should, as
+ * far as a crawler is concerned.
+ */
+async function expectIntroBodyParked(page: Page) {
+  const body = page.locator(".ss-hv2__body");
+  await expect(body).toHaveCount(1);
+  await expect(body).toHaveAttribute("inert", "");
+  await expect(page.locator("#system")).toHaveCount(1);
+
+  const parked = await body.evaluate((node) => ({
+    display: getComputedStyle(node).display,
+    height: Math.round(node.getBoundingClientRect().height),
+    bottom: Math.round(node.getBoundingClientRect().bottom),
+    textLength: (node as HTMLElement).innerText.trim().length,
+  }));
+  expect(parked.display).not.toBe("none");
+  // Clipped away below the hero rather than removed from the document.
+  expect(parked.bottom).toBeGreaterThanOrEqual(page.viewportSize()?.height ?? 0);
+  expect(parked.textLength).toBeGreaterThan(1_500);
 }
 
 async function scrollMetrics(page: Page) {
@@ -493,7 +536,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
 
   await expect(page.locator("header[data-site-header]")).toHaveCount(0);
   await expectIntroFooterParked(page);
-  await expect(page.locator("#system")).toHaveCount(0);
+  await expectIntroBodyParked(page);
   await expect(page.locator(".ss-hv2-backdrop")).toHaveCount(0);
   await expect(page.locator(".ss-hv2-hero__canvas")).toHaveCount(1);
   await expect(
@@ -502,9 +545,6 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
     }),
   ).toBeVisible();
   await expect(page.getByRole("button", { name: "Explore the system" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Book a discovery call" })).toHaveCount(
-    0,
-  );
   const aetherProof = await page.evaluate(() => {
     const canvas = document.querySelector<HTMLCanvasElement>(".ss-hv2-hero__canvas");
     const context = canvas?.getContext("2d", { willReadFrequently: true });
@@ -550,7 +590,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
     const appWindow = window as Window & {
       __ssHomepageStateObserver?: MutationObserver;
       __ssHomepageStateRecords?: {
-        hasBody: boolean;
+        bodyInert: boolean;
         overflow: number;
         state: string | null;
       }[];
@@ -558,7 +598,9 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
     const root = document.querySelector(".ss-hv2");
     const record = () => {
       appWindow.__ssHomepageStateRecords?.push({
-        hasBody: Boolean(document.querySelector("#system")),
+        bodyInert: Boolean(
+          document.querySelector(".ss-hv2__body")?.hasAttribute("inert"),
+        ),
         overflow: document.documentElement.scrollHeight - window.innerHeight,
         state: root?.getAttribute("data-homepage-state") ?? null,
       });
@@ -584,7 +626,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
     const appWindow = window as Window & {
       __ssHomepageStateObserver?: MutationObserver;
       __ssHomepageStateRecords?: {
-        hasBody: boolean;
+        bodyInert: boolean;
         overflow: number;
         state: string | null;
       }[];
@@ -594,7 +636,10 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   });
   const openingRecords = transitionProof.filter((record) => record.state === "opening");
   expect(transitionProof.map((record) => record.state)).toContain("opening");
-  expect(openingRecords.every((record) => !record.hasBody)).toBe(true);
+  // The body is mounted throughout (it is the homepage's indexable surface),
+  // so what the opening transition guarantees is that it is not yet live:
+  // still inert, and still adding no scrollable height.
+  expect(openingRecords.every((record) => record.bodyInert)).toBe(true);
   expect(openingRecords.every((record) => record.overflow === 0)).toBe(true);
   await waitForBodyParticles(page);
 
@@ -683,7 +728,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   });
   await expect(page.locator("header[data-site-header]")).toHaveCount(0);
   await expectIntroFooterParked(page);
-  await expect(page.locator("#system")).toHaveCount(0);
+  await expectIntroBodyParked(page);
   await expect(page.locator(".ss-hv2-backdrop")).toHaveCount(0);
   await expect(page.locator("canvas.particles-js-canvas-el")).toHaveCount(0);
   await expect

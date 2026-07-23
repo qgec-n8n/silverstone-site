@@ -171,10 +171,19 @@ export function ServicePage({ content = null, route }: ServicePageProps) {
         />
       </LayoutGroup>
 
+      {/*
+        `inert`, not `aria-hidden`. Both keep the closed body out of the tab
+        order and the accessibility tree, but `aria-hidden="true"` is baked
+        into the prerendered HTML, where text extractors read it as "this
+        content is not for the user" and skip the entire subtree — which is
+        why this route reported a few hundred characters of content while
+        shipping several thousand. `inert` carries the same interaction
+        semantics without suppressing the copy.
+      */}
       <div
         className="ss-service-experience__body"
-        aria-hidden={bodyVisible ? undefined : true}
         data-service-body-visible={bodyVisible ? "true" : "false"}
+        inert={!bodyVisible}
       >
         {bodyVisible ? (
           <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />

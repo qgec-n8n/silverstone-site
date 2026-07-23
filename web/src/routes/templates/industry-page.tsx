@@ -160,10 +160,15 @@ export function IndustryPage({ route }: IndustryPageProps) {
         />
       </LayoutGroup>
 
+      {/*
+        `inert` rather than `aria-hidden` — see the note in `service-page.tsx`.
+        `aria-hidden="true"` in the prerendered HTML makes text extractors skip
+        the whole body, which left every gated route looking thin.
+      */}
       <div
         className="ss-service-experience__body"
-        aria-hidden={bodyVisible ? undefined : true}
         data-service-body-visible={bodyVisible ? "true" : "false"}
+        inert={!bodyVisible}
       >
         {bodyVisible ? (
           <BodyParticles enabled={policy.motionEnabled} tier={policy.tier} />

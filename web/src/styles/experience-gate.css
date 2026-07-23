@@ -70,5 +70,21 @@ html[data-js="on"][data-route-experience-state]:not(
     [data-route-experience-state="body"]
   )
   .ss-footer {
-  display: none;
+  /*
+    Collapsed to zero height rather than `display: none`. The requirement is
+    only that the footer add no document height while a loader or intro owns
+    the screen, and a zero-height clip satisfies that — but unlike
+    `display: none` it keeps the footer's layout boxes, so the canonical link
+    graph this footer exists to carry stays in the page's rendered text
+    instead of disappearing from it on every gated route.
+  */
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /*
+    `max-height` bounds the content box, so the footer's 1px hairline would
+    survive the collapse — enough to draw a stray rule under the intro and to
+    make the "single non-scrollable screen" a 1px scroll.
+  */
+  border-block-width: 0;
 }

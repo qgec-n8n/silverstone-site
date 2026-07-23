@@ -364,13 +364,32 @@ html[data-js="on"]
   overflow: hidden;
 }
 
+/*
+  The gated body collapses to zero height instead of `display: none`.
+
+  A crawler measures the text a page actually renders, and `display: none` /
+  `visibility: hidden` erase every character inside them — so a gated route
+  used to report only its intro splash (~200-550 chars) no matter how much
+  copy it shipped. A zero-height clip keeps the intro the only thing on
+  screen while the body keeps its layout boxes, so its copy and link graph
+  stay in the rendered text. `min-height` has to be zeroed too: against a
+  conflicting `max-height` the used value would otherwise resolve back to the
+  `min-height: 100vh` on `.ss-service-experience__body`.
+
+  The components pair this with `inert` while the body is closed, which keeps
+  the collapsed content out of the tab order and the accessibility tree
+  without hiding it from text extraction.
+*/
 html[data-js="on"]
   .ss-service-experience:not([data-service-state="body"])
   .ss-service-experience__body,
 html[data-js="on"]
   .ss-route-experience:not([data-route-experience-state="body"])
   .ss-route-experience__body {
-  display: none;
+  min-height: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 .ss-service-intro {

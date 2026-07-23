@@ -30,6 +30,18 @@ const serviceRoutes = [
   },
 ] as const;
 
+/**
+ * The CoreSpin loader, addressed by element rather than by bare role.
+ *
+ * A route's body is rendered (inert and clipped) from the first paint so it
+ * stays indexable, and some bodies carry their own `role="status"` live
+ * regions — `.ss-lvd__status` on the voice route, for one. A bare
+ * `getByRole("status")` matches those too and trips strict mode.
+ */
+function loaderStatus(page: Page) {
+  return page.locator(".ss-loader[role='status']");
+}
+
 async function waitForRouteIntro(page: Page) {
   await expect(page.locator("html")).toHaveAttribute(
     "data-route-experience-state",
@@ -56,7 +68,7 @@ for (const route of serviceRoutes) {
     test.setTimeout(45_000);
     await page.goto(route.path);
 
-    await expect(page.getByRole("status")).toContainText(route.loader);
+    await expect(loaderStatus(page)).toContainText(route.loader);
     await expect(page.getByRole("heading", { name: route.title })).toHaveCount(0);
 
     await waitForRouteIntro(page);
@@ -76,7 +88,7 @@ for (const route of serviceRoutes) {
     await expect(page.getByRole("button", { name: route.button })).toBeFocused();
 
     await page.reload();
-    await expect(page.getByRole("status")).toContainText(route.loader);
+    await expect(loaderStatus(page)).toContainText(route.loader);
     await waitForRouteIntro(page);
   });
 }
@@ -93,7 +105,7 @@ test("client navigation replays CoreSpin and the destination intro", async ({
     .getByRole("link", { name: /Web Design & Development/i })
     .first()
     .click();
-  await expect(page.getByRole("status")).toContainText(
+  await expect(loaderStatus(page)).toContainText(
     "Aligning message, movement and measurement",
     { timeout: 6_000 },
   );
@@ -116,7 +128,7 @@ test("route-entry sequence remains usable with reduced motion", async ({ page })
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/services/ai-receptionists");
 
-  await expect(page.getByRole("status")).toContainText(
+  await expect(loaderStatus(page)).toContainText(
     "Converging every enquiry into the right next action",
   );
   await waitForRouteIntro(page);

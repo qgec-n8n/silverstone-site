@@ -69,7 +69,10 @@ export function SiteFooter({ hidden = false }: SiteFooterProps) {
     <m.footer
       ref={footerRef}
       className="ss-footer"
-      aria-hidden={suppressed || undefined}
+      // `inert` alone. It already removes the suppressed footer from the tab
+      // order and the accessibility tree; pairing it with `aria-hidden` added
+      // nothing for users and made text extractors skip the site's canonical
+      // link graph on every gated route.
       inert={suppressed}
       initial={false}
       animate={start !== null ? "show" : "hidden"}
