@@ -12,7 +12,7 @@ import {
   Workflow,
 } from "~/components/icons/lucide";
 import { DeliveryRouteSignature } from "~/features/core-pages/signatures";
-import { NumberedRail } from "~/features/core-pages/shared";
+import { coreSectionStyle, NumberedRail } from "~/features/core-pages/shared";
 import { BoundaryPanel } from "~/features/industries-v2/components/industry-sections";
 import { RichText, SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
@@ -33,42 +33,42 @@ const HERO_METRICS = [
 const STAGES = [
   {
     label: "Diagnose",
-    body: "Map the people, systems, handoffs, exceptions and commercial consequence before a solution is proposed. Nothing is scoped until the current reality is understood.",
+    body: "Map the people, systems, handoffs, exceptions and *commercial consequence* before a solution is proposed. Nothing is scoped until the current reality is understood.",
   },
   {
     label: "Scope",
-    body: "Select a single bounded release around value, feasibility, risk and a measurable acceptance standard. Everything else is named and deferred, not silently dropped.",
+    body: "Select a *single bounded release* around value, feasibility, risk and a measurable acceptance standard. Everything else is named and deferred, not silently dropped.",
   },
   {
     label: "Design",
-    body: "Plan the workflow, interface, content, data and escalation path as one operating experience — not a diagram that stops at the happy path.",
+    body: "Plan the workflow, interface, content, data and escalation path as *one operating experience* — not a diagram that stops at the happy path.",
   },
   {
     label: "Build",
-    body: "Implementation runs against the acceptance criteria set at scoping, so the definition of done was never in doubt during delivery.",
+    body: "Implementation runs against the *acceptance criteria* set at scoping, so the definition of done was never in doubt during delivery.",
   },
   {
     label: "Govern",
-    body: "Launch is a controlled handover: tested edge cases, a named owner for exceptions and a documented system nobody has to reverse-engineer later.",
+    body: "Launch is a *controlled handover*: tested edge cases, a named owner for exceptions and a documented system nobody has to reverse-engineer later.",
   },
 ];
 
 const CONTROL_RISKS = [
   {
     title: "The tool becomes the strategy",
-    body: "The project is shaped around a platform instead of the business problem it was meant to solve.",
+    body: "The project is shaped around a platform instead of *the business problem* it was meant to solve.",
   },
   {
     title: "Scope expands invisibly",
-    body: "Every review introduces another small requirement without a commercial decision behind it.",
+    body: "Every review introduces another small requirement without a *commercial decision* behind it.",
   },
   {
     title: "The demo becomes the test",
-    body: "The ideal path works while real exceptions, permissions and fallbacks are never exercised.",
+    body: "The ideal path works while *real exceptions, permissions and fallbacks* are never exercised.",
   },
   {
     title: "Nobody owns the live system",
-    body: "Prompts, accounts, automations and decisions become undocumented dependencies with no named owner.",
+    body: "Prompts, accounts, automations and decisions become *undocumented dependencies* with no named owner.",
   },
 ];
 
@@ -107,14 +107,18 @@ export function HowWeWorkComposition() {
       />
       <TrustStrip />
 
-      <section className="ss-srv2-section" aria-labelledby="hww-route">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="hww-route"
+        style={coreSectionStyle(0)}
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="The route"
             icon={Workflow}
             heading="Five stages, each with its own *gate*"
             headingId="hww-route"
-            lead="The first decision is not which tool to use. It is which problem deserves capital, senior attention and operational change."
+            lead="The first decision is not which tool to use. It is *which problem deserves capital*, senior attention and operational change."
           />
           <ProcessTrack
             steps={STAGES.map((stage) => ({ label: stage.label, body: stage.body }))}
@@ -122,7 +126,11 @@ export function HowWeWorkComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="hww-human">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="hww-human"
+        style={coreSectionStyle(1)}
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="What remains human"
@@ -131,7 +139,7 @@ export function HowWeWorkComposition() {
             headingId="hww-human"
           />
           <BoundaryPanel
-            body="Where a decision carries financial, legal, reputational or personal consequence, the workflow needs a named owner and a working escalation path. Silverstone designs that boundary up front — what can happen automatically, and what a person must decide."
+            body="Where a decision carries financial, legal, reputational or personal consequence, the workflow needs a *named owner and a working escalation path*. Silverstone designs that boundary up front — what can happen automatically, and what a person must decide."
             keeps={[
               "Sign-off on financial, legal or reputational exceptions",
               "A named owner for every escalation path",
@@ -142,7 +150,11 @@ export function HowWeWorkComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="hww-risk">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="hww-risk"
+        style={coreSectionStyle(2)}
+      >
         <div className="ss-srv2__container" data-width="narrow">
           <SectionHead
             eyebrow="Where projects lose control"
@@ -154,14 +166,18 @@ export function HowWeWorkComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="hww-proof">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="hww-proof"
+        style={coreSectionStyle(3)}
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="Verified results"
             icon={CheckCircle2Icon}
             heading="Why the *discipline* matters"
             headingId="hww-proof"
-            lead="Verified Silverstone AI performance figures show why disciplined scope, clean data and explicit acceptance criteria matter."
+            lead="Verified Silverstone AI performance figures show why *disciplined scope, clean data and explicit acceptance criteria* matter."
           />
           <BenchmarkConsole
             metrics={[
@@ -175,7 +191,7 @@ export function HowWeWorkComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section">
+      <section className="ss-srv2-section" style={coreSectionStyle(4)}>
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
             heading="Start with *one real problem*"
@@ -187,7 +203,7 @@ export function HowWeWorkComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section">
+      <section className="ss-srv2-section" style={coreSectionStyle(5)}>
         <div className="ss-srv2__container">
           <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail links={related} />

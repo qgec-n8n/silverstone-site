@@ -28,10 +28,34 @@ import {
   SUPPORT_COMMITMENTS,
   SUPPORT_PRINCIPLES,
   SUPPORT_TIERS,
+  type PricingCssVars,
 } from "./pricing-content";
 
 /** One metaphor per principle, in SUPPORT_PRINCIPLES order. */
 const PRINCIPLE_ICONS: readonly LucideIcon[] = [Gauge, Wrench, Users];
+
+/**
+ * A spectral accent per principle — the same cyan→violet arc the rest of
+ * /pricing cycles through — so each retainer benefit's marker and title carry
+ * their own on-brand colour and the card reads as fast-to-skim rather than a
+ * flat grey list.
+ */
+const PRINCIPLE_ACCENTS: readonly string[] = [
+  "var(--ss-v2-aqua)",
+  "var(--ss-v2-sky)",
+  "var(--ss-v2-orchid)",
+];
+
+/**
+ * Service-commitment accents — a four-step spectral run so the guarantee tiles
+ * read as a spectrum of assurances rather than four identical chrome values.
+ */
+const COMMITMENT_ACCENTS: readonly string[] = [
+  "var(--ss-v2-aqua)",
+  "var(--ss-v2-azure)",
+  "var(--ss-v2-indigo)",
+  "var(--ss-v2-orchid)",
+];
 
 export function SupportRetainerGrid() {
   return (
@@ -88,7 +112,14 @@ export function SupportRetainerGrid() {
             {SUPPORT_PRINCIPLES.map((principle, index) => {
               const Icon = PRINCIPLE_ICONS[index] ?? Gauge;
               return (
-                <li key={principle.title}>
+                <li
+                  key={principle.title}
+                  style={
+                    {
+                      "--pri-accent": PRINCIPLE_ACCENTS[index] ?? PRINCIPLE_ACCENTS[0],
+                    } as PricingCssVars
+                  }
+                >
                   <span className="ss-pri-benefits__marker" aria-hidden="true">
                     <Icon />
                   </span>
@@ -105,8 +136,15 @@ export function SupportRetainerGrid() {
         <div className="ss-pri-benefits__panel">
           <span className="ss-pri-panel__tag">Service commitments</span>
           <ul className="ss-pri-commitments">
-            {SUPPORT_COMMITMENTS.map((commitment) => (
-              <li key={commitment.value}>
+            {SUPPORT_COMMITMENTS.map((commitment, index) => (
+              <li
+                key={commitment.value}
+                style={
+                  {
+                    "--pri-accent": COMMITMENT_ACCENTS[index] ?? COMMITMENT_ACCENTS[0],
+                  } as PricingCssVars
+                }
+              >
                 <span className="ss-pri-commitments__value">{commitment.value}</span>
                 <span className="ss-pri-commitments__label">{commitment.label}</span>
               </li>

@@ -1158,9 +1158,14 @@
   width: 2rem;
   height: 2rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 34%, transparent);
-  background: color-mix(in srgb, var(--srv2-accent) 10%, transparent);
-  color: var(--srv2-accent);
+  border: 1px solid
+    color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 40%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 12%,
+    transparent
+  );
+  color: var(--pri-accent, var(--srv2-accent));
 }
 
 .ss-pri-benefits__marker svg {
@@ -1173,7 +1178,7 @@
   font-family: var(--ss-font-display);
   font-size: 0.98rem;
   font-weight: 600;
-  color: var(--ss-v2-chrome);
+  color: var(--pri-accent, var(--ss-v2-chrome));
 }
 
 .ss-pri-benefits__list p {
@@ -1214,7 +1219,7 @@
   font-size: 1.02rem;
   font-weight: 650;
   letter-spacing: -0.01em;
-  color: var(--ss-v2-chrome);
+  color: var(--pri-accent, var(--ss-v2-chrome));
 }
 
 .ss-pri-commitments__label {

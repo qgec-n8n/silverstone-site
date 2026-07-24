@@ -249,11 +249,57 @@
   }
 
   .ss-signal-text {
-    background: var(--ss-v2-gradient-signal);
+    /* Themeable: `--sig-gradient`/`--sig-a` default to the signature cyan→violet
+       signal, so every existing usage (hero, secondary-hero stats, any span
+       without a `data-sig`) is byte-identical. Adding `data-sig="<hue>"` swaps
+       in one of the brand-spectrum sweeps below — this is how the homepage body
+       walks the whole palette across its section headings, the /pricing "all
+       brand colours, one page" logic applied to the flagship. */
+    background: var(--sig-gradient, var(--ss-v2-gradient-signal));
     -webkit-background-clip: text;
     background-clip: text;
-    color: var(--ss-v2-signal-cyan);
+    color: var(--sig-a, var(--ss-v2-signal-cyan));
     -webkit-text-fill-color: transparent;
+  }
+
+  .ss-signal-text[data-sig="aqua"] {
+    --sig-gradient: linear-gradient(100deg, #7fe9f0, #38bdf8);
+    --sig-a: #7fe9f0;
+  }
+
+  .ss-signal-text[data-sig="azure"] {
+    --sig-gradient: linear-gradient(100deg, #38bdf8, #5b62f0);
+    --sig-a: #38bdf8;
+  }
+
+  .ss-signal-text[data-sig="sky"] {
+    --sig-gradient: linear-gradient(100deg, #59a6e6, #7fe9f0);
+    --sig-a: #7bc0ee;
+  }
+
+  .ss-signal-text[data-sig="indigo"] {
+    --sig-gradient: linear-gradient(100deg, #5b62f0, #7c5cff);
+    --sig-a: #8b8ff6;
+  }
+
+  .ss-signal-text[data-sig="ultraviolet"] {
+    --sig-gradient: linear-gradient(100deg, #7c5cff, #c47bd6);
+    --sig-a: #a78bfa;
+  }
+
+  .ss-signal-text[data-sig="orchid"] {
+    --sig-gradient: linear-gradient(100deg, #c47bd6, #e45ba6);
+    --sig-a: #d29ce0;
+  }
+
+  .ss-signal-text[data-sig="magenta"] {
+    --sig-gradient: linear-gradient(100deg, #e45ba6, #f0789a);
+    --sig-a: #ef86bb;
+  }
+
+  .ss-signal-text[data-sig="rose"] {
+    --sig-gradient: linear-gradient(100deg, #f0789a, #c47bd6);
+    --sig-a: #f593ad;
   }
 
   .ss-glow-cyan {

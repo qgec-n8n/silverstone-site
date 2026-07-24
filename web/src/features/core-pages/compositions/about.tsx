@@ -15,7 +15,7 @@ import {
   Workflow,
 } from "~/components/icons/lucide";
 import { StudioOrbitSignature } from "~/features/core-pages/signatures";
-import { NumberedRail } from "~/features/core-pages/shared";
+import { coreSectionStyle, NumberedRail } from "~/features/core-pages/shared";
 import {
   BorderBeam,
   PanelReveal,
@@ -36,32 +36,32 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 const DISCIPLINE_CARDS = [
   {
     label: "Strategy",
-    body: "Define the commercial problem, first release and evidence required to justify expansion.",
+    body: "Define the *commercial problem*, first release and evidence required to justify expansion.",
     icon: Target,
   },
   {
     label: "Copy",
-    body: "Give propositions, interfaces and journeys language precise enough to reduce uncertainty.",
+    body: "Give propositions, interfaces and journeys *language precise enough* to reduce uncertainty.",
     icon: FileText,
   },
   {
     label: "Design",
-    body: "Shape experiences that feel clear, intentional and appropriate to the standard of the business.",
+    body: "Shape experiences that feel *clear, intentional* and appropriate to the standard of the business.",
     icon: Sparkles,
   },
   {
     label: "Engineering",
-    body: "Build maintainable products, integrations and interfaces around defined acceptance criteria.",
+    body: "Build *maintainable products*, integrations and interfaces around defined acceptance criteria.",
     icon: Database,
   },
   {
     label: "AI",
-    body: "Use models where interpretation, conversation or generation creates genuine value and clear review.",
+    body: "Use models where interpretation, conversation or generation creates *genuine value* and clear review.",
     icon: Bot,
   },
   {
     label: "Automation",
-    body: "Connect data, actions, approvals and handoffs while keeping exceptions visible.",
+    body: "Connect data, actions, approvals and handoffs while *keeping exceptions visible*.",
     icon: Workflow,
   },
 ];
@@ -69,19 +69,19 @@ const DISCIPLINE_CARDS = [
 const PROOF_PRINCIPLES = [
   {
     title: "Evidence before claim",
-    body: "Client outcomes, benchmarks, demonstrations and methods are treated as different classes of proof, never blended into one.",
+    body: "Client outcomes, benchmarks, demonstrations and methods are treated as *different classes of proof*, never blended into one.",
   },
   {
     title: "Operating reality before novelty",
-    body: "A concept only matters once it fits the people, data and systems that must sustain it after launch.",
+    body: "A concept only matters once it fits *the people, data and systems* that must sustain it after launch.",
   },
   {
     title: "Quality before unnecessary scale",
-    body: "Channels, features and agents must earn their place in the first release, not arrive by default.",
+    body: "Channels, features and agents must *earn their place* in the first release, not arrive by default.",
   },
   {
     title: "Maintainability before dependency",
-    body: "Accounts, prompts, code, documentation and decisions cannot disappear into an opaque, unowned model.",
+    body: "Accounts, prompts, code, documentation and decisions cannot disappear into an *opaque, unowned model*.",
   },
 ];
 
@@ -115,7 +115,11 @@ export function AboutComposition() {
       />
       <TrustStrip />
 
-      <section className="ss-srv2-section" aria-labelledby="about-disciplines">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="about-disciplines"
+        style={coreSectionStyle(0)}
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="One accountable system"
@@ -132,7 +136,11 @@ export function AboutComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="about-premium">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="about-premium"
+        style={coreSectionStyle(1)}
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="What premium means here"
@@ -165,7 +173,11 @@ export function AboutComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="about-proof">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="about-proof"
+        style={coreSectionStyle(2)}
+      >
         <div className="ss-srv2__container" data-width="narrow">
           <SectionHead
             eyebrow="Proof without theatre"
@@ -177,7 +189,7 @@ export function AboutComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section">
+      <section className="ss-srv2-section" style={coreSectionStyle(3)}>
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
             heading="See the judgement become a *working system*"
@@ -188,7 +200,7 @@ export function AboutComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section">
+      <section className="ss-srv2-section" style={coreSectionStyle(4)}>
         <div className="ss-srv2__container">
           <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail links={related} />

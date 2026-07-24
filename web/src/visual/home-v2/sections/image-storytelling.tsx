@@ -10,7 +10,11 @@ export function ImageStorytelling() {
       eyebrow="In practice"
       title={
         <>
-          What it feels like when nothing <span className="ss-signal-text">slips</span>.
+          What it feels like when nothing{" "}
+          <span className="ss-signal-text" data-sig="rose">
+            slips
+          </span>
+          .
         </>
       }
       containerSize="wide"

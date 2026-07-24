@@ -6,7 +6,7 @@ import { Container } from "~/components/layout/container";
 import { useHydrated } from "~/lib/use-hydrated";
 
 import { ExploreSystemButton } from "./explore-system-button";
-import { HeroAetherField } from "./hero-aether-field";
+import { AETHER_ROUTE_PALETTES, HeroAetherField } from "./hero-aether-field";
 
 const item: Variants = {
   hidden: {
@@ -75,7 +75,7 @@ export function Hero({
 
   return (
     <section className="ss-hv2-hero">
-      <HeroAetherField enabled={motionEnabled} />
+      <HeroAetherField enabled={motionEnabled} palette={AETHER_ROUTE_PALETTES["/"]} />
       <div className="ss-hv2-hero__veil" aria-hidden="true" />
 
       <Container size="wide" className="relative z-10">

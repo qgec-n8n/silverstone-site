@@ -6,7 +6,11 @@
 import { CalendarCheck, MessageSquare, Target } from "~/components/icons/lucide";
 import { AgendaDialSignature } from "~/features/core-pages/signatures";
 import { BookingPanel } from "~/features/core-pages/booking-panel";
-import { CoreCardGrid, type CoreCard } from "~/features/core-pages/shared";
+import {
+  coreSectionStyle,
+  CoreCardGrid,
+  type CoreCard,
+} from "~/features/core-pages/shared";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
@@ -20,30 +24,30 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 const FIT_CARDS: CoreCard[] = [
   {
     title: "A strong fit",
-    body: "You can name a process, journey or product decision that affects time, response, conversion, delivery quality, visibility or control.",
+    body: "You can name a *process, journey or product decision* that affects time, response, conversion, delivery quality, visibility or control.",
   },
   {
     title: "Not ready yet",
-    body: "The brief is only “we need AI”, there is no process owner, or the main aim is a generic price without discussing scope.",
+    body: "The brief is only “we need AI”, there is *no process owner*, or the main aim is a generic price without discussing scope.",
   },
 ];
 
 const AGENDA_STEPS = [
   {
     label: "Current reality",
-    body: "What happens today, where friction appears and which systems or channels shape the journey.",
+    body: "What happens today, where *friction appears* and which systems or channels shape the journey.",
   },
   {
     label: "Commercial consequence",
-    body: "Why the problem matters: time, experience, response, capacity, conversion, control or risk.",
+    body: "Why the problem matters: *time, experience, response*, capacity, conversion, control or risk.",
   },
   {
     label: "Decision boundary",
-    body: "What could be automated, built or redesigned, and what should remain human.",
+    body: "What could be automated, built or redesigned, and *what should remain human*.",
   },
   {
     label: "Sensible next step",
-    body: "Whether the opportunity merits a defined scope, advisory step, smaller release or no project.",
+    body: "Whether the opportunity merits a *defined scope*, advisory step, smaller release or no project.",
   },
 ];
 
@@ -77,7 +81,11 @@ export function BookComposition() {
       />
       <TrustStrip />
 
-      <section className="ss-srv2-section" aria-labelledby="book-fit">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="book-fit"
+        style={coreSectionStyle(0)}
+      >
         <div className="ss-srv2__container" data-width="narrow">
           <SectionHead
             eyebrow="Who the call is for"
@@ -89,7 +97,11 @@ export function BookComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="book-agenda">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="book-agenda"
+        style={coreSectionStyle(1)}
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="What we'll discuss"
@@ -101,7 +113,11 @@ export function BookComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="core-booking">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="core-booking"
+        style={coreSectionStyle(2)}
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="Secure your call"
@@ -114,7 +130,7 @@ export function BookComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section">
+      <section className="ss-srv2-section" style={coreSectionStyle(3)}>
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
             heading="Need a *written route* instead?"
@@ -125,7 +141,7 @@ export function BookComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section">
+      <section className="ss-srv2-section" style={coreSectionStyle(4)}>
         <div className="ss-srv2__container">
           <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail links={related} />

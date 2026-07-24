@@ -403,9 +403,17 @@
   font-weight: 600;
 }
 
-.ss-srv2-prose em {
+.ss-srv2-prose em,
+.ss-srv2-lead em,
+.ss-srv2-card__body em,
+.ss-core-card__body em,
+.ss-srv2-step__body em,
+.ss-core-rail__item p em,
+.ss-ind2-boundary__body em,
+.ss-ind2-rail__body em {
   color: color-mix(in srgb, var(--srv2-accent) 80%, var(--srv2-ink));
   font-style: normal;
+  font-weight: 500;
 }
 
 /* ---- Lead / opening ---------------------------------------------------- */

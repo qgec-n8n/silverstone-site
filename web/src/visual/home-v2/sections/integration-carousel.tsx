@@ -18,7 +18,11 @@ export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps
       eyebrow="Connected"
       title={
         <>
-          Plugs into the tools you <span className="ss-signal-text">already run</span>.
+          Plugs into the tools you{" "}
+          <span className="ss-signal-text" data-sig="orchid">
+            already run
+          </span>
+          .
         </>
       }
       lead="No rip-and-replace assumption. Silverstone starts by mapping your existing stack, then confirms the safest connection points for voice, messaging, calendars, CRM, commerce, automation and data."

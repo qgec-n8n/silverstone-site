@@ -7,7 +7,9 @@ import type { RouteExperience } from "~/data/route-experiences";
 import { ExploreSystemButton } from "~/visual/home-v2/explore-system-button";
 import {
   AETHER_INDUSTRIES_PALETTE,
+  AETHER_INDUSTRY_PALETTES,
   AETHER_ROUTE_PALETTES,
+  AETHER_SERVICE_PALETTES,
   HeroAetherField,
 } from "~/visual/home-v2/hero-aether-field";
 
@@ -59,13 +61,17 @@ export function RouteExperienceIntro({
   onExplore,
 }: RouteExperienceIntroProps) {
   const motion = familyMotion[experience.family];
-  // The Industries page family (nine industry routes + the /industries hub)
-  // signals itself with a violet Aether palette; the standalone core pages
-  // each carry their own registered two-colour scheme. Behaviour is unchanged.
+  // Each page family signals itself through the Aether palette: the standalone
+  // core pages, the seven Services routes and the nine Industries routes each
+  // carry their own registered two-colour scheme (matched to that page's copy
+  // accent). The /industry hub falls back to the shared violet family
+  // signature; anything still unmatched uses the default cyan field.
   const industriesFamily =
     experience.family === "industry" || experience.path === "/industry";
   const palette =
     AETHER_ROUTE_PALETTES[experience.path] ??
+    AETHER_SERVICE_PALETTES[experience.path] ??
+    AETHER_INDUSTRY_PALETTES[experience.path] ??
     (industriesFamily ? AETHER_INDUSTRIES_PALETTE : undefined);
 
   return (

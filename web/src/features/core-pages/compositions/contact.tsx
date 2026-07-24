@@ -8,7 +8,11 @@ import { GitBranch, Mail, MapPin, MessageSquare } from "~/components/icons/lucid
 import { SignalRouteSignature } from "~/features/core-pages/signatures";
 import { ContactForm } from "~/features/core-pages/contact-form";
 import { MapPanel } from "~/features/core-pages/map-panel";
-import { CoreCardGrid, type CoreCard } from "~/features/core-pages/shared";
+import {
+  coreSectionStyle,
+  CoreCardGrid,
+  type CoreCard,
+} from "~/features/core-pages/shared";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
@@ -21,11 +25,11 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 const CHOICE_CARDS: CoreCard[] = [
   {
     title: "Use Contact when",
-    body: "You want to ask a question first, need an accessible alternative to the calendar, or written context will make the reply more useful.",
+    body: "You want to *ask a question first*, need an accessible alternative to the calendar, or written context will make the reply more useful.",
   },
   {
     title: "Use Book when",
-    body: "There is a real process, customer journey or digital problem and a live conversation will resolve the next step faster.",
+    body: "There is a *real process, customer journey or digital problem* and a live conversation will resolve the next step faster.",
     href: "/book#booking-calendar",
     label: "30 minutes",
   },
@@ -59,7 +63,11 @@ export function ContactComposition() {
       />
       <TrustStrip />
 
-      <section className="ss-srv2-section" aria-labelledby="contact-choice">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="contact-choice"
+        style={coreSectionStyle(0)}
+      >
         <div className="ss-srv2__container" data-width="narrow">
           <SectionHead
             eyebrow="Contact or Book?"
@@ -77,6 +85,7 @@ export function ContactComposition() {
         className="ss-srv2-section"
         id="contact-form"
         aria-labelledby="core-contact-form"
+        style={coreSectionStyle(1)}
       >
         <div className="ss-srv2__container">
           <SectionHead
@@ -84,13 +93,17 @@ export function ContactComposition() {
             icon={MessageSquare}
             heading="Tell Silverstone what is happening *now*"
             headingId="core-contact-form"
-            lead="A concise message is enough. Explain the current situation, the intended outcome and anything that materially affects the decision."
+            lead="A concise message is enough. Explain *the current situation, the intended outcome* and anything that materially affects the decision."
           />
           <ContactForm />
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="core-contact-map">
+      <section
+        className="ss-srv2-section"
+        aria-labelledby="core-contact-map"
+        style={coreSectionStyle(2)}
+      >
         <div className="ss-srv2__container">
           <SectionHead
             eyebrow="Find us"
@@ -102,7 +115,7 @@ export function ContactComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section">
+      <section className="ss-srv2-section" style={coreSectionStyle(3)}>
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
             heading="Prefer a *conversation*?"
@@ -112,7 +125,7 @@ export function ContactComposition() {
         </div>
       </section>
 
-      <section className="ss-srv2-section">
+      <section className="ss-srv2-section" style={coreSectionStyle(4)}>
         <div className="ss-srv2__container">
           <SectionHead eyebrow="Continue" heading="Where this *connects next*" />
           <RelatedRail links={related} />

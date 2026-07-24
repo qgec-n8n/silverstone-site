@@ -333,7 +333,7 @@ export function ServicesHubExperience() {
             icon={Sparkles}
             heading="Seven systems, *one connected architecture*"
             headingId="hub2-services"
-            lead="Every service page opens its own cinematic system — explore the discipline closest to the problem you can already name."
+            lead="Every service page opens *its own cinematic system* — explore the discipline closest to the problem you can already name."
           />
           <div className="ss-hub2-grid">
             {SERVICE_ORDER.map((route, index) => {
@@ -404,7 +404,7 @@ export function ServicesHubExperience() {
             eyebrow="Sector systems"
             heading="Built for the way your industry *actually operates*"
             headingId="hub2-industries"
-            lead="Nine UK sectors have their own dedicated operating systems — estate agency enquiry switchboards, salon diaries, clinic recall, trades dispatch and more."
+            lead="Nine UK sectors have *their own dedicated operating systems* — estate agency enquiry switchboards, salon diaries, clinic recall, trades dispatch and more."
           />
           <Reveal kind="cta">
             <p className="ss-srv2-lead">

@@ -12,8 +12,11 @@ export function ServicesUniverse() {
       eyebrow="The system"
       title={
         <>
-          One studio. <span className="ss-signal-text">Every layer</span> of your
-          operation.
+          One studio.{" "}
+          <span className="ss-signal-text" data-sig="aqua">
+            Every layer
+          </span>{" "}
+          of your operation.
         </>
       }
       lead="Six connected capabilities that plug into the tools you already run — deployed on their own or as one operating system."

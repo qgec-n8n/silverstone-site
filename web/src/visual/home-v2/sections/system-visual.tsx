@@ -16,7 +16,10 @@ export function SystemVisual() {
             </span>
             <h2 className="ss-hv2-display text-4xl sm:text-5xl">
               One calm operating layer for{" "}
-              <span className="ss-signal-text">moving parts</span>.
+              <span className="ss-signal-text" data-sig="indigo">
+                moving parts
+              </span>
+              .
             </h2>
             <p className="ss-lead text-[color:var(--ss-v2-titanium)]">
               The Silverstone System is designed around the real business process first:

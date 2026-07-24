@@ -59,7 +59,7 @@ export const webDesignCopy: ServiceCopy = {
   },
   outcome: {
     heading: "What changes when the system *works*",
-    body: "A site that makes a complex offer obvious, earns trust early, and routes every qualified enquiry straight into your calendar, CRM and follow-up. Fewer dead ends, more booked calls, and a platform your team can extend without another rebuild.",
+    body: "A site that makes a complex offer obvious, earns trust early, and routes *every qualified enquiry straight into your calendar, CRM and follow-up*. Fewer dead ends, more booked calls, and a platform your team can extend without another rebuild.",
   },
   capabilities: {
     heading: "What you *receive*",
@@ -67,7 +67,7 @@ export const webDesignCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "One studio, not *five suppliers*",
-    body: "Silverstone combines strategy, copy, design, engineering, AI and automation under one roof. Nothing is lost in translation between agencies, because the website is the visible edge of a working commercial system — designed around the decision a qualified buyer needs to make.",
+    body: "Silverstone combines strategy, copy, design, engineering, AI and automation under one roof. Nothing is lost in translation between agencies, because the website is *the visible edge of a working commercial system* — designed around the decision a qualified buyer needs to make.",
   },
   comparison: {
     before: {
@@ -147,7 +147,7 @@ export const appDevelopmentCopy: ServiceCopy = {
   },
   outcome: {
     heading: "What a *disciplined first release* gets you",
-    body: "A working product built around a real user and a real task — reliable enough to trust, small enough to ship fast, and structured so the next release extends it instead of rebuilding it.",
+    body: "A working product built around a real user and a real task — *reliable enough to trust, small enough to ship fast*, and structured so the next release extends it instead of rebuilding it.",
   },
   capabilities: {
     heading: "What you *receive*",
@@ -155,7 +155,7 @@ export const appDevelopmentCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "A release built to *reduce risk*",
-    body: "We define the states your system must handle before we design a single screen — what happens when data is missing, when an action fails, when two users collide. That discipline is what makes a first release trustworthy enough to build on.",
+    body: "We define the states your system must handle before we design a single screen — *what happens when data is missing, when an action fails, when two users collide*. That discipline is what makes a first release trustworthy enough to build on.",
   },
   proof: {
     heading: "*Proof*, not promises",
@@ -221,7 +221,7 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
   },
   outcome: {
     heading: "What a *production-grade* voice agent changes",
-    body: "Calls answered in seconds, around the clock. Bookings confirmed without a human touching the calendar. Anything sensitive or unclear routed to your team — with the context they need, not a cold transfer.",
+    body: "Calls answered in seconds, around the clock. *Bookings confirmed without a human touching the calendar.* Anything sensitive or unclear routed to your team — with the context they need, not a cold transfer.",
   },
   capabilities: {
     heading: "What you *receive*",
@@ -229,7 +229,7 @@ export const aiVoiceAgentsCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "Built for the call that goes *off-script*",
-    body: "Real callers interrupt, change their mind, and ask things the script didn't anticipate. We design for that — with confidence thresholds, permitted actions, and a clean human handover before the agent guesses.",
+    body: "Real callers interrupt, change their mind, and ask things the script didn't anticipate. We design for that — *with confidence thresholds, permitted actions, and a clean human handover* before the agent guesses.",
   },
   proof: {
     heading: "*Proof*, not promises",
@@ -299,7 +299,7 @@ export const aiReceptionistsCopy: ServiceCopy = {
   },
   outcome: {
     heading: "What an *integrated front desk* changes",
-    body: "Calls, chat and intake converge into one system that answers approved questions, books what it's allowed to book, and hands anything sensitive to a person — with the context already attached.",
+    body: "Calls, chat and intake converge into one system that answers approved questions, *books what it's allowed to book*, and hands anything sensitive to a person — with the context already attached.",
   },
   capabilities: {
     heading: "What you *receive*",
@@ -307,7 +307,7 @@ export const aiReceptionistsCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "*Answering* versus *operating*",
-    body: "A generic answering bot recites information. An operating front desk qualifies the enquiry, checks availability, updates your systems, and knows precisely when a decision needs a human — every time, not most of the time.",
+    body: "A generic answering bot recites information. An operating front desk *qualifies the enquiry, checks availability, updates your systems*, and knows precisely when a decision needs a human — every time, not most of the time.",
   },
   proof: {
     heading: "*Proof*, not promises",
@@ -377,7 +377,7 @@ export const contentCreationCopy: ServiceCopy = {
   },
   outcome: {
     heading: "What a *governed content system* changes",
-    body: "Your real expertise, captured once and adapted across every channel with a defined approval gate — so output scales without your name ending up on something you wouldn't stand behind.",
+    body: "Your real expertise, *captured once and adapted across every channel* with a defined approval gate — so output scales without your name ending up on something you wouldn't stand behind.",
   },
   capabilities: {
     heading: "What you *receive*",
@@ -451,7 +451,7 @@ export const aiAutomationCopy: ServiceCopy = {
   },
   outcome: {
     heading: "What an *engineered operating layer* changes",
-    body: "Triggers, data and deterministic rules do the repeatable work. Bounded AI judgement handles what rules can't. Exceptions route to a person — and everything is logged, so your team can see exactly what happened and why.",
+    body: "*Triggers, data and deterministic rules do the repeatable work.* Bounded AI judgement handles what rules can't. Exceptions route to a person — and everything is logged, so your team can see exactly what happened and why.",
   },
   capabilities: {
     heading: "What you *receive*",
@@ -459,7 +459,7 @@ export const aiAutomationCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "AI where *judgement* helps",
-    body: "We don't default to AI for everything. Deterministic logic runs wherever the rule is already known — AI earns its place only where judgement genuinely adds value, and every exception has a defined human owner.",
+    body: "We don't default to AI for everything. Deterministic logic runs wherever the rule is already known — AI earns its place only *where judgement genuinely adds value*, and every exception has a defined human owner.",
   },
   proof: {
     heading: "*Proof*, not promises",
@@ -525,7 +525,7 @@ export const aiConsultingCopy: ServiceCopy = {
   },
   outcome: {
     heading: "What an *independent decision layer* changes",
-    body: "A prioritised, evidence-based view of where automation actually pays off — with build-versus-buy decided, risk and governance defined, and a sequenced roadmap your team can execute with confidence.",
+    body: "A *prioritised, evidence-based view of where automation actually pays off* — with build-versus-buy decided, risk and governance defined, and a sequenced roadmap your team can execute with confidence.",
   },
   capabilities: {
     heading: "What you *receive*",
@@ -533,7 +533,7 @@ export const aiConsultingCopy: ServiceCopy = {
   },
   differentiator: {
     heading: "A route that ends in *decisions*",
-    body: "We're not tied to a platform or a delivery pipeline to protect. The output is a clear recommendation — including where the honest answer is to wait, or not automate at all.",
+    body: "We're not tied to a platform or a delivery pipeline to protect. The output is a clear recommendation — *including where the honest answer is to wait, or not automate at all*.",
   },
   proof: {
     heading: "*Proof*, not promises",

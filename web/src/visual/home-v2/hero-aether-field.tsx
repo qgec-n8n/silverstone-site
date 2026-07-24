@@ -46,19 +46,125 @@ export const AETHER_INDUSTRIES_PALETTE: AetherPalette = {
 /**
  * The standalone core pages each carry their own two-colour Aether scheme —
  * one colour for the resting dots + lines, one for pointer proximity — so
- * arriving on Insights, About, Pricing, Contact or Book reads as entering a
- * distinct main page rather than another Services (cyan) or Industries
- * (violet) route. All bases sit in the Silverstone signal family and are
- * tuned for contrast against the #05070d void. /how-we-work intentionally
- * keeps the default cyan; /book is gate-free today (no Aether intro), but
- * its scheme is registered so the palette holds if that ever changes.
+ * arriving on Home, How we work, Insights, About, Pricing, Contact or Book
+ * reads as entering a distinct main page rather than another Services or
+ * Industries route. Every base is tuned for contrast against the #05070d void,
+ * and every proximity value shifts hue *and* lifts toward light so the field
+ * visibly re-colours the instant the pointer approaches. Home carries the
+ * signature cyan→ultraviolet signal; How we work inverts it (ultraviolet
+ * resting → ice-cyan proximity). /book is gate-free today (no Aether intro),
+ * but its scheme is registered so the palette holds if that ever changes.
  */
 export const AETHER_ROUTE_PALETTES: Record<string, AetherPalette> = {
+  "/": { particle: "#28D7EC", network: "#28D7EC", proximity: "#C9B8FF" },
+  "/how-we-work": { particle: "#7C5CFF", network: "#7C5CFF", proximity: "#9BF0FF" },
   "/blog": { particle: "#E7BD66", network: "#E7BD66", proximity: "#FFF3D9" },
   "/about": { particle: "#C3CEDC", network: "#C3CEDC", proximity: "#7DE9F6" },
   "/pricing": { particle: "#5FE3B2", network: "#5FE3B2", proximity: "#ECFFF7" },
   "/contact": { particle: "#7FA9FF", network: "#7FA9FF", proximity: "#EAF2FF" },
   "/book": { particle: "#8CEFA9", network: "#8CEFA9", proximity: "#F0FFF4" },
+};
+
+/**
+ * The seven Services routes share one cinematic "signal spectrum" thread —
+ * every resting base sits in the cyan / azure / aqua region and every
+ * proximity flare resolves toward the violet / indigo / orchid end — so the
+ * family reads as one system while each page still owns a distinct hue pairing
+ * (matched to that route's copy accent in services-v2 route-art). The
+ * /services hub carries the leading cyan-azure of the family.
+ */
+export const AETHER_SERVICE_PALETTES: Record<string, AetherPalette> = {
+  "/services": { particle: "#3AC7EE", network: "#3AC7EE", proximity: "#D6F5FF" },
+  "/services/web-design-development": {
+    particle: "#34D5E8",
+    network: "#34D5E8",
+    proximity: "#E4C7F5",
+  },
+  "/services/app-development": {
+    particle: "#38BDF8",
+    network: "#38BDF8",
+    proximity: "#C3C8FF",
+  },
+  "/services/ai-voice-agents": {
+    particle: "#7FE9F0",
+    network: "#7FE9F0",
+    proximity: "#DFFCFF",
+  },
+  "/services/ai-receptionists": {
+    particle: "#59A6E6",
+    network: "#59A6E6",
+    proximity: "#CFF1FB",
+  },
+  "/services/content-creation": {
+    particle: "#C47BD6",
+    network: "#C47BD6",
+    proximity: "#C6F1F5",
+  },
+  "/services/ai-automation": {
+    particle: "#20CFEA",
+    network: "#20CFEA",
+    proximity: "#C7B4FF",
+  },
+  "/services/ai-consulting": {
+    particle: "#7FE9F0",
+    network: "#7FE9F0",
+    proximity: "#BFC4FF",
+  },
+};
+
+/**
+ * The nine Industries routes each carry their own hue pairing, derived from
+ * that sector's copy accent (industries-v2 route-art accentFrom → accentTo):
+ * resting base takes the accent's leading colour, proximity lifts toward the
+ * trailing colour as a light tint. The /industry hub keeps the shared violet
+ * family signature ({@link AETHER_INDUSTRIES_PALETTE}).
+ */
+export const AETHER_INDUSTRY_PALETTES: Record<string, AetherPalette> = {
+  "/industry/estate-agents": {
+    particle: "#8B7CF6",
+    network: "#8B7CF6",
+    proximity: "#B6ECF7",
+  },
+  "/industry/salons-barbers": {
+    particle: "#E879B9",
+    network: "#E879B9",
+    proximity: "#CDBBFF",
+  },
+  "/industry/ecommerce": {
+    particle: "#38BDF8",
+    network: "#38BDF8",
+    proximity: "#CFC3FF",
+  },
+  "/industry/dentists": {
+    particle: "#5EEAD4",
+    network: "#5EEAD4",
+    proximity: "#C7E8FF",
+  },
+  "/industry/fitness-coaches": {
+    particle: "#22D3EE",
+    network: "#22D3EE",
+    proximity: "#F6C2DC",
+  },
+  "/industry/hospitality": {
+    particle: "#A78BFA",
+    network: "#A78BFA",
+    proximity: "#F7CFFF",
+  },
+  "/industry/trades": {
+    particle: "#4F7DF9",
+    network: "#4F7DF9",
+    proximity: "#C2F6FA",
+  },
+  "/industry/physios-chiropractors": {
+    particle: "#6EE7D8",
+    network: "#6EE7D8",
+    proximity: "#CDBBFF",
+  },
+  "/industry/gyms-fitness-studios": {
+    particle: "#7C5CFF",
+    network: "#7C5CFF",
+    proximity: "#F6C2DC",
+  },
 };
 
 const DEFAULT_PALETTE: AetherPalette = {

@@ -128,7 +128,10 @@
 
 .ss-core-rail__item h3 {
   margin: 0 0 0.4rem;
-  color: var(--ss-v2-chrome);
+  /* Mostly the item's assigned spectral accent, lifted toward chrome so it
+     stays legible on the void — each numbered point owns a colour, keeping the
+     rail fast to skim. */
+  color: color-mix(in srgb, var(--srv2-accent) 78%, var(--ss-v2-chrome));
   font-family: var(--ss-font-display);
   font-size: 1.05rem;
   line-height: 1.25;
