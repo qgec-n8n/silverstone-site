@@ -89,11 +89,11 @@ const coreRouteEntries: Record<
   },
   "/pricing": {
     loaderText: "Shaping the investment model",
-    pill: "Investment by design",
-    title: "No generic packages. No arbitrary numbers.",
+    pill: "Pricing, scope and return",
+    title: "Investment made visible before the build begins.",
     subtitle:
-      "Silverstone prices the problem, the scope and the standard of execution after the systems, risks and commercial objective are understood.",
-    buttonLabel: "Review how investment is shaped",
+      "Clear starting prices, defined implementation bands and written proposals shaped around scope, risk and measurable commercial value.",
+    buttonLabel: "See the pricing model",
   },
   "/contact": {
     loaderText: "Opening a direct channel",
@@ -218,7 +218,7 @@ function buttonLabelFor(
   if (route.path === "/book") return "Open the booking experience";
   if (route.path === "/contact") return "Open the contact route";
   if (route.path === "/privacy-policy") return "Review our privacy approach";
-  if (route.path === "/pricing") return "Review the scoping model";
+  if (route.path === "/pricing") return "See the pricing model";
   if (route.path === "/about") return "Meet the studio";
   if (route.path === "/how-we-work") return "Explore the delivery route";
 

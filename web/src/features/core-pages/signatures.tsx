@@ -1,10 +1,12 @@
 /**
- * Six distinct hero signatures for the core marketing routes — replaces the
+ * Distinct hero signatures for the core marketing routes — replaces the
  * single reused hex-diagram ("CoreShowcase") that previously rendered on
  * every core page with only its labels swapped. Each diagram uses its own
  * visual metaphor tied to the page's argument: a gated delivery pipeline, an
- * editorial index, an orbiting discipline ring, an investment ledger, a
- * correspondence route and a 30-minute agenda dial. Same instrument-console
+ * editorial index, an orbiting discipline ring, a correspondence route and a
+ * 30-minute agenda dial. /pricing is the exception: it now publishes real
+ * prices, so its showcase is a DOM instrument
+ * (`./pricing/pricing-model-signature`) rather than an SVG diagram. Same instrument-console
  * chrome language as the services/industries signatures (status bar, corner
  * brackets, scan sweep) so the frame reads as one system, but the diagram
  * inside is never shared between routes.
@@ -495,112 +497,6 @@ export function StudioOrbitSignature({
         fontSize="11"
       >
         one standard
-      </text>
-    </SignatureShell>
-  );
-}
-
-/** /pricing — an investment ledger: four proportioned bars for the components
- * that make up a scope, closing on a summed total. Distinct from a diagram:
- * this is a data visualisation, not a process map. */
-export function ScopeLedgerSignature({
-  label,
-  metrics,
-}: {
-  label: string;
-  metrics: string[];
-}) {
-  const reducedMotion = useReducedMotion() ?? false;
-  const rows = [
-    { name: "Commercial definition", width: 150 },
-    { name: "Experience & system design", width: 300 },
-    { name: "Implementation & assurance", width: 420 },
-    { name: "Ownership & evolution", width: 210 },
-  ];
-  const maxWidth = 420;
-
-  return (
-    <SignatureShell
-      ariaLabel="Diagram: an investment ledger with four proportioned bars — commercial definition, experience and system design, implementation and assurance, ownership and evolution — summing to one scoped total."
-      label={label}
-      metrics={metrics}
-    >
-      <defs>
-        <linearGradient id="core-ledger-accent" x1="0" x2="1">
-          <stop offset="0%" stopColor="var(--srv2-accent)" />
-          <stop offset="100%" stopColor="var(--srv2-accent-2)" />
-        </linearGradient>
-      </defs>
-      <text
-        x="60"
-        y="82"
-        fill="var(--srv2-ink-faint)"
-        fontFamily="var(--ss-font-mono)"
-        fontSize="12"
-        letterSpacing="0.08em"
-      >
-        SCOPE LEDGER / PRICED AFTER DISCOVERY
-      </text>
-      {rows.map((row, index) => {
-        const y = 128 + index * 72;
-        return (
-          <m.g
-            key={row.name}
-            initial={reducedMotion ? false : { opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, delay: reducedMotion ? 0 : index * 0.1 }}
-          >
-            <text
-              x="60"
-              y={y - 12}
-              fill="var(--ss-v2-chrome)"
-              fontFamily="var(--ss-font-mono)"
-              fontSize="13"
-            >
-              {row.name}
-            </text>
-            <rect
-              x="60"
-              y={y}
-              width={maxWidth}
-              height="16"
-              rx="8"
-              fill="rgba(255,255,255,0.05)"
-            />
-            <m.rect
-              x="60"
-              y={y}
-              height="16"
-              rx="8"
-              fill="url(#core-ledger-accent)"
-              initial={reducedMotion ? { width: row.width } : { width: 0 }}
-              whileInView={{ width: row.width }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{
-                duration: 0.8,
-                delay: reducedMotion ? 0 : 0.15 + index * 0.1,
-              }}
-            />
-          </m.g>
-        );
-      })}
-      <line
-        x1="60"
-        y1="420"
-        x2="480"
-        y2="420"
-        stroke="var(--srv2-hairline)"
-        strokeWidth="1"
-      />
-      <text
-        x="60"
-        y="450"
-        fill="var(--srv2-ink-faint)"
-        fontFamily="var(--ss-font-mono)"
-        fontSize="12"
-      >
-        ONE WRITTEN PROPOSAL, NO PUBLIC RATE CARD
       </text>
     </SignatureShell>
   );

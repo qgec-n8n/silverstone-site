@@ -3,7 +3,13 @@
  * Contact and Book. Built on the services-v2 cinematic system so CoreSpin,
  * Aether entry, Particles, trust strip, CTAs and reduced-motion behaviour stay
  * consistent with the completed service pages.
+ *
+ * /pricing's own system lives in ./pricing.css — it is the only core route that
+ * publishes prices, and it carries enough bespoke instruments to warrant its
+ * own file. Imported here (rather than from the composition) so it stays in the
+ * same stylesheet and load order as the rest of the core-page system.
  */
+@import "./pricing.css";
 
 .ss-core {
   --core-card-min: 16rem;

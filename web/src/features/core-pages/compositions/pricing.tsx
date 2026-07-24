@@ -1,171 +1,202 @@
 /**
- * /pricing — executive investment and value page.
- * Secondary-hero feature: ScopeLedgerSignature, four proportioned bars
- * summing to one scoped total (built for this page only).
- * Verified-results display uses the bespoke PricingMetricInstrument, not the
- * generic BenchmarkConsole — the only page allowed a second results row, and
- * only in a deliberately balanced 3-over-2 shape.
+ * /pricing — published investment bands, scope drivers and return.
+ *
+ * The page used to argue that no price could be published until after
+ * discovery. It now publishes starting prices and typical bands for every
+ * service family, and keeps the qualification where it belongs: a final
+ * proposal still follows confirmed scope, integrations, risk, assurance and
+ * support. Every figure lives in `../pricing/pricing-content` (and the FAQ in
+ * `~/data/pricing-faq`, which the route's JSON-LD graph also reads) so there is
+ * exactly one place to audit when commercial terms change.
+ *
+ * Secondary-hero feature: PricingModelOverviewSignature — a DOM instrument, not
+ * an SVG diagram, so the headline prices are real selectable text.
+ * Verified-results display keeps the bespoke PricingMetricInstrument: the only
+ * page allowed a second results row, and only in its balanced 3-over-2 shape.
  */
-import { Gauge, GitBranch, InfoIcon, Layers } from "~/components/icons/lucide";
-import { PricingMetricInstrument } from "~/features/core-pages/pricing-metric-instrument";
-import { ScopeLedgerSignature } from "~/features/core-pages/signatures";
-import { NumberedRail } from "~/features/core-pages/shared";
 import {
-  Prose,
-  Reveal,
-  SectionHead,
-} from "~/features/services-v2/components/primitives";
+  Building2,
+  Diamond,
+  Gauge,
+  Globe,
+  Headset,
+  InfoIcon,
+  Layers,
+  ShieldCheck,
+  TrendingUp,
+} from "~/components/icons/lucide";
+import { PricingMetricInstrument } from "~/features/core-pages/pricing-metric-instrument";
+import { BespokeEngagementCards } from "~/features/core-pages/pricing/bespoke-engagement-cards";
+import { ImplementationBreakdown } from "~/features/core-pages/pricing/implementation-breakdown";
+import { ImplementationPackages } from "~/features/core-pages/pricing/implementation-packages";
+import { PricingFaq } from "~/features/core-pages/pricing/pricing-faq";
+import { PricingModelOverviewSignature } from "~/features/core-pages/pricing/pricing-model-signature";
+import { PricingValueModel } from "~/features/core-pages/pricing/pricing-value-model";
+import { SupportRetainerGrid } from "~/features/core-pages/pricing/support-retainer-grid";
+import { WebsitePricingBento } from "~/features/core-pages/pricing/website-pricing-bento";
+import { VERIFIED_METRICS } from "~/features/core-pages/pricing/pricing-content";
+import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
   FinalCta,
   RelatedRail,
-  ServiceCards,
   type RelatedLink,
 } from "~/features/services-v2/components/sections";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
-const HERO_METRICS = ["3.84x — Return on investment", "-77% — Reduction in admin time"];
-
-const PRICING_METRICS = [
-  "£16,800.00 — Annual direct cost savings",
-  "3.84x — Return on investment",
-  "-77% — Reduction in admin time",
-  "10+ hours — Saved per person per month",
-  "15 hours/week — Time saved",
-];
-
-const COVERAGE_CARDS = [
-  {
-    label: "Commercial definition",
-    body: "Problem selection, baseline, first-release scope and the evidence needed to justify expansion.",
-    icon: InfoIcon,
-  },
-  {
-    label: "Experience and system design",
-    body: "Customer journey, content, interface, workflow, data, permissions and fallbacks.",
-    icon: Layers,
-  },
-  {
-    label: "Implementation and assurance",
-    body: "Engineering, configuration, testing, acceptance, security and launch control.",
-    icon: Gauge,
-  },
-  {
-    label: "Ownership and evolution",
-    body: "Documentation, handover, monitoring, support, third-party usage and change.",
-    icon: GitBranch,
-  },
-];
-
-const ENGAGEMENT_SHAPES = [
-  {
-    title: "Strategic definition",
-    body: "Current-state analysis, opportunity selection, roadmap, governance or solution direction.",
-  },
-  {
-    title: "Focused first release",
-    body: "A bounded workflow, website, application feature or customer journey with limited dependencies.",
-  },
-  {
-    title: "Integrated programme",
-    body: "Work spanning multiple journeys, systems, channels or disciplines.",
-  },
-  {
-    title: "Ongoing evolution",
-    body: "Monitoring, optimisation, support, new scope or continued product development.",
-  },
-];
-
 const related: RelatedLink[] = [
-  { href: "/services/ai-automation", label: "Service", title: "Automation" },
+  { href: "/services/ai-automation", label: "Service", title: "AI automation" },
+  {
+    href: "/services/web-design-development",
+    label: "Service",
+    title: "Web design & development",
+  },
+  {
+    href: "/services/ai-consulting",
+    label: "Service",
+    title: "AI & automation consulting",
+  },
+  { href: "/services/app-development", label: "Service", title: "App development" },
   { href: "/how-we-work", label: "Process", title: "Delivery framework" },
-  { href: "/book#booking-calendar", label: "Next step", title: "Discuss scope" },
+  {
+    href: "/book#booking-calendar",
+    label: "Next step",
+    title: "Book a discovery call",
+  },
 ];
 
 export function PricingComposition() {
   return (
-    <div className="ss-srv2 ss-core" data-core-route="/pricing">
+    <div className="ss-srv2 ss-core ss-pri" data-core-route="/pricing">
       <SecondaryHero
-        eyebrow="Investment by design"
-        icon={Gauge}
-        title="Bespoke investment, defined *after discovery*"
+        eyebrow="Transparent pricing"
+        icon={Diamond}
+        title="AI automation pricing for *UK SMEs*"
         titleId="core-pricing-title"
-        lead="No generic packages, rate cards, budget bands or artificial anchors. Silverstone prices the problem, scope, risk and execution standard after discovery."
+        lead="Straightforward pricing for UK SMEs: focused pilots from £3,000, most full implementations between £10,000 and £25,000, and ongoing support from £350 per month. Start with one workflow, prove the value, then scale."
         points={[
-          "No public price until the real scope is understood",
-          "Third-party usage, integrations and support made visible",
-          "Written proposals shaped around a defined first release",
+          "No hidden implementation costs",
+          "ROI modelled before build",
+          "24/7 support on Premium and Enterprise retainers",
         ]}
-        primaryCtaLabel="Discuss scope and pricing"
-        secondaryCtaLabel="What your investment covers"
-        secondaryCtaHref="/pricing#pricing-covers"
-        showcase={
-          <ScopeLedgerSignature label="Investment by design" metrics={HERO_METRICS} />
-        }
+        primaryCtaLabel="Get a custom quote"
+        primaryCtaHref="/contact#contact-form"
+        secondaryCtaLabel="Schedule a consultation"
+        secondaryCtaHref="/book#booking-calendar"
+        showcase={<PricingModelOverviewSignature />}
       />
       <TrustStrip />
 
-      <section className="ss-srv2-section" aria-labelledby="pricing-rate-card">
-        <div className="ss-srv2__container" data-width="narrow">
+      <section className="ss-srv2-section" aria-labelledby="pricing-packages">
+        <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="Why there is no rate card"
-            icon={InfoIcon}
-            heading="A rate card works when the product is *fixed*"
-            headingId="pricing-rate-card"
+            eyebrow="AI systems implementation"
+            icon={Layers}
+            heading="Choose the right *first level* of implementation"
+            headingId="pricing-packages"
+            lead="Flexible pricing based on workflow scope, integrations, assurance and complexity. Begin with one valuable use case, prove it in operation, then expand with evidence."
           />
-          <Reveal kind="section">
-            <Prose
-              paragraphs={[
-                "Silverstone's work is deliberately bespoke. The same label can describe a narrow workflow or a multi-channel operating system with integrations, data risk, escalation logic and support.",
-                "One number would either conceal the real scope or shape the project around a price instead of the problem — so pricing follows discovery, not the other way round.",
-              ]}
-            />
-          </Reveal>
+          <ImplementationPackages />
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="pricing-covers">
+      <section className="ss-srv2-section" aria-labelledby="pricing-breakdown">
         <div className="ss-srv2__container">
           <SectionHead
-            eyebrow="What the investment covers"
-            icon={Layers}
-            heading="Four components, *priced together*"
-            headingId="pricing-covers"
+            eyebrow="What shapes the investment"
+            icon={Gauge}
+            heading="Implementation pricing, *made understandable*"
+            headingId="pricing-breakdown"
+            lead="One-time implementation fees reflect project complexity, delivery scope, assurance requirements and the value the system is designed to create."
           />
-          <ServiceCards
-            cards={COVERAGE_CARDS}
-            icons={COVERAGE_CARDS.map((card) => card.icon)}
-            columns={4}
+          <ImplementationBreakdown />
+        </div>
+      </section>
+
+      <section className="ss-srv2-section" aria-labelledby="pricing-support">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow="Ongoing performance"
+            icon={Headset}
+            heading="Support that *protects the value* after launch"
+            headingId="pricing-support"
+            lead="Monthly retainers keep AI systems monitored, maintained and improving through structured support, optimisation and enhancement."
           />
+          <SupportRetainerGrid />
+        </div>
+      </section>
+
+      <section className="ss-srv2-section" aria-labelledby="pricing-value">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow="Commercial value"
+            icon={TrendingUp}
+            heading="Understanding the *value proposition*"
+            headingId="pricing-value"
+            lead="Pricing is scoped around the workflows, systems, risk controls and support needed to make automation commercially worthwhile. We model expected value before build, then track whether the workflow is delivering."
+          />
+          <PricingValueModel />
         </div>
       </section>
 
       <section className="ss-srv2-section" aria-labelledby="pricing-proof">
         <div className="ss-srv2__container">
           <SectionHead
+            /* The instrument below carries the full "Verified Silverstone AI
+               performance" attribution on its own tag, so the eyebrow stays
+               short rather than printing the same sentence twice. */
             eyebrow="Verified results"
-            icon={Gauge}
+            icon={ShieldCheck}
             heading="What *disciplined scoping* delivers"
             headingId="pricing-proof"
-            lead="Verified Silverstone AI results show why scope should be priced against commercial value and operating reality, not a generic menu."
+            lead="Different projects create value in different ways. The same discipline applies to each: establish the baseline, define the operating problem, measure the result and scale only when the evidence supports it."
           />
           <PricingMetricInstrument
-            metrics={PRICING_METRICS}
-            caption="Documented returns from engagements priced on scope, risk and operating reality — the same discipline every proposal goes through."
+            metrics={[...VERIFIED_METRICS]}
+            caption="Documented figures from separate Silverstone AI engagements — app development, voice agents, receptionists and workflow automation — each measured against its own baseline rather than combined into a single client result."
             clarification="Results achieved through Silverstone AI systems. Outcomes vary by starting process, data quality, channel mix and implementation scope."
           />
         </div>
       </section>
 
-      <section className="ss-srv2-section" aria-labelledby="pricing-shapes">
+      <section className="ss-srv2-section" aria-labelledby="pricing-web">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow="Website investment"
+            icon={Globe}
+            heading="Website pricing shaped around *depth, not decoration*"
+            headingId="pricing-web"
+            lead="Clear build tiers based on page count, content depth, technical requirements and the number of journeys the website must support."
+          />
+          <WebsitePricingBento />
+        </div>
+      </section>
+
+      <section className="ss-srv2-section" aria-labelledby="pricing-bespoke">
+        <div className="ss-srv2__container">
+          <SectionHead
+            eyebrow="Bespoke engagements"
+            icon={Building2}
+            heading="When scope matters more than a *published band*"
+            headingId="pricing-bespoke"
+          />
+          <BespokeEngagementCards />
+        </div>
+      </section>
+
+      <section
+        className="ss-srv2-section ss-pri-faq-section"
+        aria-labelledby="pricing-faq"
+      >
         <div className="ss-srv2__container" data-width="narrow">
           <SectionHead
-            eyebrow="Shapes an engagement can take"
-            icon={GitBranch}
-            heading="Four ways engagements are *structured*"
-            headingId="pricing-shapes"
+            eyebrow="Pricing questions"
+            icon={InfoIcon}
+            heading="Pricing *FAQ*"
+            headingId="pricing-faq"
+            lead="Common questions about pricing, contracts and what is included in your investment."
           />
-          <NumberedRail items={ENGAGEMENT_SHAPES} />
+          <PricingFaq />
         </div>
       </section>
 
@@ -173,7 +204,7 @@ export function PricingComposition() {
         <div className="ss-srv2__container" data-width="narrow">
           <FinalCta
             heading="Price the problem *properly*"
-            body="A serious proposal makes deliverables, exclusions, assumptions, dependencies, client responsibilities, acceptance criteria, usage costs, support and change control visible."
+            body="A serious proposal makes scope, deliverables, exclusions, assumptions, dependencies, acceptance criteria, third-party costs, support and change control visible before work begins."
             buttonLabel="Discuss scope and pricing"
             bookHref="/book#booking-calendar"
           />

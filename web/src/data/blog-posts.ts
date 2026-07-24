@@ -3776,29 +3776,24 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "If you cannot answer those three points clearly, adding AI on top will only speed up confusion. If you can, automation becomes useful. It can acknowledge, collect structured non-clinical details, route the request and keep the diary aligned with the actual booking source.",
           "For clinics comparing options, the core commercial decision is not whether AI sounds modern. It is whether your current access process is dependable enough to protect enquiry value without pushing patients into a cold, scripted experience.",
         ],
-        lede:
-          "Most clinics do not have a demand problem first. They have an access-routing problem.",
+        lede: "Most clinics do not have a demand problem first. They have an access-routing problem.",
         variant: "signal",
         bullets: [
           {
             label: "Source of truth",
-            body:
-              "Usually the live practice diary by practitioner and site. If the diary is wrong, every automation downstream is wrong.",
+            body: "Usually the live practice diary by practitioner and site. If the diary is wrong, every automation downstream is wrong.",
           },
           {
             label: "Human owner",
-            body:
-              "A named clinic manager, owner or lead receptionist who decides rules, exceptions and approval boundaries.",
+            body: "A named clinic manager, owner or lead receptionist who decides rules, exceptions and approval boundaries.",
           },
           {
             label: "Escalation path",
-            body:
-              "A clear route for anything involving clinical questions, record-specific requests, complaints or unusual booking constraints.",
+            body: "A clear route for anything involving clinical questions, record-specific requests, complaints or unusual booking constraints.",
           },
           {
             label: "Stop condition",
-            body:
-              "The exact point at which the system stops collecting information and hands off to a human.",
+            body: "The exact point at which the system stops collecting information and hands off to a human.",
           },
         ],
       },
@@ -3859,29 +3854,24 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Silverstone AI typically frames this as a control issue, not a novelty issue. The question is: which system is permitted to create, amend or suggest appointments, and under what conditions?",
           "A simple planning grid helps.",
         ],
-        lede:
-          "Booking only feels simple when one person, one site and one calendar are involved. Many clinics are not that tidy.",
+        lede: "Booking only feels simple when one person, one site and one calendar are involved. Many clinics are not that tidy.",
         variant: "system",
         grid: [
           {
             title: "Single practitioner clinic",
-            body:
-              "Often suitable for straightforward availability checks, missed-call capture and basic form/reminder flows.",
+            body: "Often suitable for straightforward availability checks, missed-call capture and basic form/reminder flows.",
           },
           {
             title: "Multi-practitioner single site",
-            body:
-              "Needs practitioner-level diary rules, appointment-type mapping and clear ownership for exceptions.",
+            body: "Needs practitioner-level diary rules, appointment-type mapping and clear ownership for exceptions.",
           },
           {
             title: "Multi-site clinic",
-            body:
-              "Needs location logic, practitioner-site alignment, local contact routing and tighter data governance.",
+            body: "Needs location logic, practitioner-site alignment, local contact routing and tighter data governance.",
           },
           {
             title: "Hybrid online and in-person booking",
-            body:
-              "Needs careful separation between admin options and anything that could imply clinical suitability.",
+            body: "Needs careful separation between admin options and anything that could imply clinical suitability.",
           },
         ],
         subsections: [
@@ -3911,18 +3901,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Safe to automate",
-            body:
-              "Directions, confirmations, reminders, standard forms, cancellation instructions, payment prompts and callback scheduling.",
+            body: "Directions, confirmations, reminders, standard forms, cancellation instructions, payment prompts and callback scheduling.",
           },
           {
             label: "Needs human review",
-            body:
-              "Any message touching symptoms, treatment choices, exercise advice, care suitability, complaints or sensitive record questions.",
+            body: "Any message touching symptoms, treatment choices, exercise advice, care suitability, complaints or sensitive record questions.",
           },
           {
             label: "Best owner",
-            body:
-              "A clinic operations lead working with the lead practitioner to define wording and stop conditions.",
+            body: "A clinic operations lead working with the lead practitioner to define wording and stop conditions.",
           },
         ],
       },
@@ -3941,8 +3928,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "named responsibility for checking errors, escalations and unusual edge cases",
           "For clinics at an earlier stage, this often starts with workflow design rather than tooling. Silverstone AI's work in [AI automation](/services/ai-automation) is usually about making those operational rules explicit before any build is considered.",
         ],
-        lede:
-          "If the clinic cannot see what the system collected, changed or escalated, it is not a controlled process.",
+        lede: "If the clinic cannot see what the system collected, changed or escalated, it is not a controlled process.",
         variant: "system",
       },
       {
@@ -4007,8 +3993,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         title: "Physiotherapy - Evidence Brief - eWIN",
-        url:
-          "https://www.ewin.nhs.uk/sites/default/files/AHP%20Physiotherapy%20Evidence%20Brief%202025.pdf",
+        url: "https://www.ewin.nhs.uk/sites/default/files/AHP%20Physiotherapy%20Evidence%20Brief%202025.pdf",
         date: "",
         summary:
           "the interventions most in need of further evaluation and implementation research, including tiered models of universal, targeted, and intensive allied health support. Evidence Brief: Physiotherapy 8 Digital Shaping the future: perspectives on the Integration of Artificial Intelligence in health profession education: a multi-country survey BMC Medical Education 24, 2024 This study clarified key considerations when integrating AI in HPE. Enhancing students’ awareness and fostering innovation in an",
@@ -4041,8 +4026,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         title: "AI Tools For Physiotherapy Clinics UK 2026: Software Benchmarks",
-        url:
-          "https://hmdg.co.uk/private-practice-barometer/ai-software-tools-physiotherapy-clinics-uk-2026",
+        url: "https://hmdg.co.uk/private-practice-barometer/ai-software-tools-physiotherapy-clinics-uk-2026",
         date: "",
         summary:
           "Skip to content HMDG The problem isn't cost. It's paralysis. Data from the Private Practice Barometer 2026, the first independent survey of the UK MSK industry, drawing on 700+ clinic owners, shows that 60% of UK private practices are open to adopting AI tools. But 75% don't know where to start. The market is flooded with products and owners are waiting for someone to tell them which ones actually work. Key Findings at a Glance [...] ### What are the biggest barriers to AI adoption in UK physiot",
@@ -9282,24 +9266,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "A useful operating rule is simple: if the action changes the patient record, future diary or financial position, it needs a named owner and a temporary audit trail.",
           "If you are planning broader resilience across calls and admin workflows, [AI automation for operational handoffs](/services/ai-automation) is often the right place to map these fallback rules rather than relying on staff memory.",
         ],
-        lede:
-          "Start with the minimum safe operating model, not the full normal-service wish list.",
+        lede: "Start with the minimum safe operating model, not the full normal-service wish list.",
         variant: "operator",
         bullets: [
           {
             label: "Source of truth",
-            body:
-              "During downtime, the temporary capture log becomes the live administrative record until reconciliation is complete.",
+            body: "During downtime, the temporary capture log becomes the live administrative record until reconciliation is complete.",
           },
           {
             label: "Human owner",
-            body:
-              "Name one operations lead for the incident, one deputy and one escalation route to a clinician or principal.",
+            body: "Name one operations lead for the incident, one deputy and one escalation route to a clinician or principal.",
           },
           {
             label: "Stop condition",
-            body:
-              "Return to normal only when access is restored, the backlog is reconciled and duplicate-checks are complete.",
+            body: "Return to normal only when access is restored, the backlog is reconciled and duplicate-checks are complete.",
           },
         ],
       },
@@ -9309,39 +9289,32 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Avoid collecting treatment detail unless the practice specifically needs a non-clinical reason code to route the request. Clinical assessment, diagnosis, medication and consent stay with the practice team and should not be recreated in a temporary admin workflow.",
           "This is where many downtime procedures go wrong: the practice captures too much, mixes admin and clinical notes, and then struggles to know what belongs in the permanent record.",
         ],
-        lede:
-          "A bad temporary record creates rework. A good one makes restoration clean.",
+        lede: "A bad temporary record creates rework. A good one makes restoration clean.",
         variant: "system",
         grid: [
           {
             title: "Patient identification",
-            body:
-              "Full name, date of birth, contact number and, where available, an existing patient number or a clear note that the person is a new enquiry.",
+            body: "Full name, date of birth, contact number and, where available, an existing patient number or a clear note that the person is a new enquiry.",
           },
           {
             title: "Contact context",
-            body:
-              "Time received, channel used, staff member handling it and whether the patient called, completed a form, replied by message or arrived in person.",
+            body: "Time received, channel used, staff member handling it and whether the patient called, completed a form, replied by message or arrived in person.",
           },
           {
             title: "Request type",
-            body:
-              "Booking request, cancellation, reschedule, arrival note, finance query, membership query, paperwork chase or general non-clinical enquiry.",
+            body: "Booking request, cancellation, reschedule, arrival note, finance query, membership query, paperwork chase or general non-clinical enquiry.",
           },
           {
             title: "Action status",
-            body:
-              "Held, confirmed later, deferred, escalated or closed, with the name of the person now responsible.",
+            body: "Held, confirmed later, deferred, escalated or closed, with the name of the person now responsible.",
           },
           {
             title: "Escalation note",
-            body:
-              "Clinical question, complaint or urgent concern routed to the appropriate practice contact, with time and recipient recorded.",
+            body: "Clinical question, complaint or urgent concern routed to the appropriate practice contact, with time and recipient recorded.",
           },
           {
             title: "Re-entry check",
-            body:
-              "A blank field or tick-box confirming the item has been restored to the PMS and checked for duplication.",
+            body: "A blank field or tick-box confirming the item has been restored to the PMS and checked for duplication.",
           },
         ],
       },
@@ -9355,8 +9328,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "This is also where tools such as [AI receptionists](/services/ai-receptionists) or [AI voice agents](/services/ai-voice-agents) can help if they are designed properly. The point is not unsupervised booking during an outage. The point is controlled capture, consistent triage and reliable handoff to a human owner.",
           "A simple queueing model keeps the script honest. The system may acknowledge, capture and route. A person confirms, defers or escalates.",
         ],
-        lede:
-          "Channel traffic should converge into one controlled queue, not three separate piles of work.",
+        lede: "Channel traffic should converge into one controlled queue, not three separate piles of work.",
         variant: "signal",
         comparisonTable: {
           columns: ["What to keep doing", "What to avoid", "Owner"],
@@ -9398,8 +9370,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Confirmed: only where the practice has a verified secondary source and a named person authorised to use it.",
           "Deferred: where the request depends on missing information, a clinician decision, finance context or linked treatment planning.",
         ],
-        lede:
-          "Not every request should be treated as a booking decision during downtime.",
+        lede: "Not every request should be treated as a booking decision during downtime.",
         pullQuote:
           "During downtime, a held request is often better service than a fast but unreliable confirmation.",
         subsections: [
@@ -9452,28 +9423,23 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Queue cleared",
-            body:
-              "Every temporary record has a final status: restored, closed, escalated or intentionally cancelled.",
+            body: "Every temporary record has a final status: restored, closed, escalated or intentionally cancelled.",
           },
           {
             label: "Duplicate spot-check",
-            body:
-              "Review a sample of bookings and patient records created during the outage window to confirm no duplicate entries were introduced.",
+            body: "Review a sample of bookings and patient records created during the outage window to confirm no duplicate entries were introduced.",
           },
           {
             label: "Escalations complete",
-            body:
-              "Clinical queries, emergencies and complaints have been handed to the practice and are no longer sitting in an admin queue.",
+            body: "Clinical queries, emergencies and complaints have been handed to the practice and are no longer sitting in an admin queue.",
           },
           {
             label: "Scripts updated",
-            body:
-              "Reception, phone and message templates are switched back from downtime wording to standard wording.",
+            body: "Reception, phone and message templates are switched back from downtime wording to standard wording.",
           },
           {
             label: "Owner closes incident",
-            body:
-              "The named incident owner confirms normal operations have resumed and logs any improvements needed for the next outage.",
+            body: "The named incident owner confirms normal operations have resumed and logs any improvements needed for the next outage.",
           },
         ],
       },
@@ -9526,8 +9492,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "How to Choose the Right Dental Practice Management Software",
-        url:
-          "https://remedico.app/newsfeed/dental-practice-management-software-how-to-choose-right",
+        url: "https://remedico.app/newsfeed/dental-practice-management-software-how-to-choose-right",
         date: "",
         summary:
           "The benefits extend across the entire team. Reception staff can manage NHS bands, private fees, and membership plans from a single interface. Clinicians gain easy access to charting, treatment history, and clinical notes without toggling between platforms. Meanwhile, practice owners can monitor chair utilisation, outstanding balances, and recall performance. This visibility supports smarter decisions on staffing, opening hours, and service expansion. ### Core Features of Dental PMS Software Cert",
@@ -9536,8 +9501,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         title:
           "Best Dental Practice Management Software in the UK 2026: Complete Comparison | Clero Blog | Clero",
-        url:
-          "https://cleroai.com/blog/best-dental-practice-management-software-uk-2026",
+        url: "https://cleroai.com/blog/best-dental-practice-management-software-uk-2026",
         date: "",
         summary:
           "When patients call the practice, the AI receptionist securely authenticates their identity against the PMS database, analyzes real-time calendar availability across multiple practitioners, and books appointments directly into the system while maintaining conversational flow. The integration eliminates traditional voicemail abandonment by providing 24/7 automated booking capability during out-of-hours periods when the physical practice is closed. [...] Clero Back to Blog # Best Dental Practice Ma",
@@ -9545,8 +9509,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         title: "Zimworx - In dentistry, every minute of downtime affects...",
-        url:
-          "https://www.facebook.com/Zimworx/posts/in-dentistry-every-minute-of-downtime-affects-patients-productivity-and-revenue-/1515807073879420",
+        url: "https://www.facebook.com/Zimworx/posts/in-dentistry-every-minute-of-downtime-affects-patients-productivity-and-revenue-/1515807073879420",
         date: "",
         summary:
           "d='M1.3582 7.6194C.836 7.1064.318 7.2994.118 7.9596c-.2.6603-.0513 2.4955 1.0427 3.3962 2.752 2.2662 5.464.8613 5.5191-.5247.0498-1.2472-1.3555-1.113-1.8127-1.0879-.0311.0018-.0445-.0412-.0178-.0582.096-.0626.2535-.1719.4198-.3125.3594-.3044.1753-.8326-.3264-.6813-.0756.0224-1.2968.3904-2.0707.0967-.8778-.3331-.9828-.6465-1.5147-1.1685h.0009Z' fill='url(%23paint12_radial_15251_63610)'/%3E%3Cpath d='M1.3582 7.6194C.836 7.1064.318 7.2994.118 7.9596c-.2.6603-.0513 2.4955 1.0427 3.3962 2.752 2.2662 ",
@@ -9554,8 +9517,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         title: "New speakers announced for the Scottish Dental Show ...",
-        url:
-          "https://scottish-dental-mag.s3.eu-west-2.amazonaws.com/wp-content/uploads/2026/02/04122121/Scottish-Dental-magazine-February-2026_Rd.pdf",
+        url: "https://scottish-dental-mag.s3.eu-west-2.amazonaws.com/wp-content/uploads/2026/02/04122121/Scottish-Dental-magazine-February-2026_Rd.pdf",
         date: "",
         summary:
           "Greater Glasgow and Clyde Radiology: radiation protection update Dr Lewis Olsson Lead Trainer Glasgow Dental School Oral Cancer: early detection James Elliott Regional Sales Director, Clark Dental Six ways to improve your x-rays constantly Simon Kidd General Dental Practitioner, DDU Intelligence without error? Navigating the risks of AI Jenny Walker Specialist in Restorative Dentistry and Prosthodontics, Glencairn Dental Group Practice Team-Based Periodontal Management: from evidence to implemen",
@@ -9646,18 +9608,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Source of truth",
-            body:
-              "Usually the membership or billing platform, not inboxes or informal spreadsheets.",
+            body: "Usually the membership or billing platform, not inboxes or informal spreadsheets.",
           },
           {
             label: "Human owner",
-            body:
-              "A named operations or membership lead should own exceptions and approval boundaries.",
+            body: "A named operations or membership lead should own exceptions and approval boundaries.",
           },
           {
             label: "Stop condition",
-            body:
-              "If dates, eligibility or evidence are unclear, the workflow should pause and route to staff review.",
+            body: "If dates, eligibility or evidence are unclear, the workflow should pause and route to staff review.",
           },
         ],
       },
@@ -9788,18 +9747,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             title: "Before launch",
-            body:
-              "Document your current policy, cut-off dates, owners, exception routes and baseline handling times.",
+            body: "Document your current policy, cut-off dates, owners, exception routes and baseline handling times.",
           },
           {
             title: "During rollout",
-            body:
-              "Watch for failed handoffs, duplicate records, missing staff visibility and unclear member messages.",
+            body: "Watch for failed handoffs, duplicate records, missing staff visibility and unclear member messages.",
           },
           {
             title: "After launch",
-            body:
-              "Review whether the workflow reduces admin without creating policy confusion or billing clean-up.",
+            body: "Review whether the workflow reduces admin without creating policy confusion or billing clean-up.",
           },
         ],
       },
@@ -9850,8 +9806,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         title: "long-term-sustainability-nhs-committee-written-evidence. ...",
-        url:
-          "https://www.parliament.uk/globalassets/documents/lords-committees/NHS-Sustainability/long-term-sustainability-nhs-committee-written-evidence.pdf",
+        url: "https://www.parliament.uk/globalassets/documents/lords-committees/NHS-Sustainability/long-term-sustainability-nhs-committee-written-evidence.pdf",
         date: "",
         summary:
           "levels through smart phone apps and gym memberships and providing relevant discounts. 193 NHS Partners Network, Independent sector providers: Our contribution to NHS Services, 2016 Association of Independent Healthcare Organisations – Written evidence (NHS0083) 137 c) Should the UK Government legislate for greater industry responsibility to safeguard national health, for example the sugar tax? If so how? 20. The UK government should encourage employers to take a greater interest in their employe",
@@ -9956,26 +9911,22 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "This matters commercially because a consultation no-show is not always low intent. People miss calls for ordinary reasons: work overruns, school pick-up, train delays, diary confusion or cold feet. A defined workflow lets you respond quickly without sounding robotic.",
           "Research around coaching and scheduling platforms consistently points to the value of standardised follow-up and clear process steps after consultations. The practical lesson for fitness coaches is simple: treat no-show follow-up as an operating system, not as an afterthought.",
         ],
-        lede:
-          "A missed consultation is not just a diary issue. It is a workflow issue.",
+        lede: "A missed consultation is not just a diary issue. It is a workflow issue.",
         variant: "system",
         bullets: [
           {
             label: "Source of truth",
-            body:
-              "The booking or CRM record must decide whether the prospect attended, cancelled, rebooked or asked not to be contacted.",
+            body: "The booking or CRM record must decide whether the prospect attended, cancelled, rebooked or asked not to be contacted.",
             icon: "database",
           },
           {
             label: "Human owner",
-            body:
-              "One person must own exceptions, replies and handoffs. In most coaching businesses, that is the coach or a named admin.",
+            body: "One person must own exceptions, replies and handoffs. In most coaching businesses, that is the coach or a named admin.",
             icon: "user",
           },
           {
             label: "Stop condition",
-            body:
-              "Automation should stop when the lead replies, rebooks, opts out or moves into a different sales stage.",
+            body: "Automation should stop when the lead replies, rebooks, opts out or moves into a different sales stage.",
             icon: "stop",
           },
         ],
@@ -9995,8 +9946,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "This stage often exposes the real process gaps. You may find duplicated messages, unclear diary status, or leads who sit in several places at once. That is useful information. It shows what needs sorting before automation is layered on top.",
           "If you want a broader view of how this fits into the full lead journey, see Silverstone AI’s page for [fitness coaches](/industry/fitness-coaches) and the related article on [fitness coach enquiry automation](/blog/fitness-coach-enquiry-automation).",
         ],
-        lede:
-          "If your current process is messy, start by making it visible before you make it automatic.",
+        lede: "If your current process is messy, start by making it visible before you make it automatic.",
         variant: "operator",
         pullQuote:
           "Good automation starts with a reliable manual process. If a human cannot follow the path clearly, software will only hide the confusion.",
@@ -10007,8 +9957,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "A sensible stop condition at Level 2 is essential. If the prospect rebooks, replies, asks not to be contacted or is moved into another pipeline stage, the no-show automation should stop immediately.",
           "This is where a bespoke setup matters. Silverstone AI typically approaches these workflows by mapping the trigger, approved actions, owner and exception route first, then building the automation around the real operating process rather than forcing the coach into a generic template.",
         ],
-        lede:
-          "Once ownership is clear, you can automate the obvious parts: reminders before the call and rebooking after a no-show.",
+        lede: "Once ownership is clear, you can automate the obvious parts: reminders before the call and rebooking after a no-show.",
         variant: "system",
         comparisonTable: {
           columns: ["What it handles well", "Where it needs a human"],
@@ -10058,8 +10007,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Any mention of injury, medical conditions, medications or similar topics creates an immediate stop and handoff to the coach",
           "This is where many UK fitness businesses benefit from a bespoke automation agency rather than an off-the-shelf sequence. The branching logic has to match the business model, the offer, the channels in use and the coach’s sales process. One size rarely fits cleanly.",
         ],
-        lede:
-          "Only move to branching logic when you already trust your data, ownership and stop rules.",
+        lede: "Only move to branching logic when you already trust your data, ownership and stop rules.",
         variant: "system",
         grid: [
           {
@@ -10068,18 +10016,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Decision layer",
-            body:
-              "Check channel, previous contact, reply status and repeat no-show history.",
+            body: "Check channel, previous contact, reply status and repeat no-show history.",
           },
           {
             title: "Approved action",
-            body:
-              "Send the right rebooking or pause message, then update the lead stage.",
+            body: "Send the right rebooking or pause message, then update the lead stage.",
           },
           {
             title: "Human handoff",
-            body:
-              "Coach or admin takes over if the prospect replies, objects, asks detailed questions or raises health-related context.",
+            body: "Coach or admin takes over if the prospect replies, objects, asks detailed questions or raises health-related context.",
           },
         ],
       },
@@ -10099,8 +10044,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "For UK operators, this is also where process discipline matters from a privacy and consumer perspective. Use the contact permissions you actually have. Keep records accurate. Make sure a staff member can see what the automation sent and why. If calls or messages are handled through tools such as [AI receptionists](/services/ai-receptionists) or related systems, the handoff route must still end with a named human owner.",
           "In practical terms, the coach should always remain accountable for relationship-sensitive moments. Automation can support the process, but it should not replace judgement.",
         ],
-        lede:
-          "Good follow-up automation is defined as much by its boundaries as by its messages.",
+        lede: "Good follow-up automation is defined as much by its boundaries as by its messages.",
         variant: "operator",
       },
       {
@@ -10125,8 +10069,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "For a UK fitness coach, that discipline often matters more than the choice of software. The best setup is the one your business can operate confidently. Silverstone AI’s role in projects like this is usually to help define the workflow, the ownership rules and the exception paths so the automation stays commercially useful instead of becoming another moving part to babysit.",
           "If your current process still depends on checking several inboxes and calendars by hand, that is often the first sign to review your underlying workflow before adding more tools.",
         ],
-        lede:
-          "Do not judge the workflow by message volume. Judge it by operational clarity and next-step movement.",
+        lede: "Do not judge the workflow by message volume. Judge it by operational clarity and next-step movement.",
         variant: "signal",
         bullets: [
           {
@@ -10206,8 +10149,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         title:
           "The Best Fitness and Wellness Conferences for Personal Trainers in 2026",
-        url:
-          "https://www.ptdistinction.com/blog/fitness-conferences-personal-trainers-2026",
+        url: "https://www.ptdistinction.com/blog/fitness-conferences-personal-trainers-2026",
         date: "",
         summary:
           "### Post-Conference Implementation Schedule implementation time within 48 hours. Review notes whilst the content remains fresh, and create action plans to apply new knowledge. Follow up with new connections within one week. Reference specific conversations to personalise outreach and establish genuine professional relationships. Share key learnings with clients and colleagues. Teaching reinforces your own understanding whilst positioning you as an industry expert committed to ongoing education. ",
@@ -10299,29 +10241,24 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "This is especially true where the service is specific and the buyer intent is already formed. Someone searching for emergency electrical work, Invisalign options, commercial fit-out design or bookkeeping automation is often trying to validate fit quickly. They want evidence, relevance, next steps and confidence. The homepage may support that decision, but it may not be the page doing the heavy lifting.",
           "A homepage-first redesign can also overstate aesthetic problems and understate structural ones. If users reach the site but still do not enquire, the cause may be one of the following:",
         ],
-        lede:
-          "Most visitors do not behave like internal teams imagine. They do not always start at the front door, read every section and then convert neatly.",
+        lede: "Most visitors do not behave like internal teams imagine. They do not always start at the front door, read every section and then convert neatly.",
         variant: "signal",
         bullets: [
           {
             label: "Traffic mismatch",
-            body:
-              "The site attracts broad visitors, but decision pages do not narrow them into the right enquiry.",
+            body: "The site attracts broad visitors, but decision pages do not narrow them into the right enquiry.",
           },
           {
             label: "Route friction",
-            body:
-              "Calls to action, forms, booking steps or contact options are hard to find or hard to trust.",
+            body: "Calls to action, forms, booking steps or contact options are hard to find or hard to trust.",
           },
           {
             label: "Weak service proof",
-            body:
-              "Pages explain what you do in general terms but do not help a buyer judge suitability.",
+            body: "Pages explain what you do in general terms but do not help a buyer judge suitability.",
           },
           {
             label: "Mobile loss",
-            body:
-              "Layouts, speed or form design break confidence on smaller screens, where many UK visitors browse first.",
+            body: "Layouts, speed or form design break confidence on smaller screens, where many UK visitors browse first.",
           },
         ],
       },
@@ -10362,28 +10299,23 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "The practical consequence is lower enquiry quality. Visitors either contact you with the wrong expectations or leave because the site gives them too little confidence to proceed.",
           "This is one reason Silverstone AI treats web design and development as a route problem, not just a page problem. The pages that qualify intent deserve as much attention as the page that introduces the brand.",
         ],
-        lede:
-          "Poor conversion is not always too few enquiries. Sometimes it is too many of the wrong ones.",
+        lede: "Poor conversion is not always too few enquiries. Sometimes it is too many of the wrong ones.",
         grid: [
           {
             title: "Unclear scope",
-            body:
-              "The page names the service but does not explain what is included, excluded or handled manually.",
+            body: "The page names the service but does not explain what is included, excluded or handled manually.",
           },
           {
             title: "Weak fit signals",
-            body:
-              "The buyer cannot tell whether you serve their size of business, urgency, location or use case.",
+            body: "The buyer cannot tell whether you serve their size of business, urgency, location or use case.",
           },
           {
             title: "Thin process detail",
-            body:
-              "There is no clear explanation of how the project starts, what information is needed or what happens after enquiry.",
+            body: "There is no clear explanation of how the project starts, what information is needed or what happens after enquiry.",
           },
           {
             title: "Poor proof structure",
-            body:
-              "Trust cues are buried or vague, making the service feel less established even if the firm is credible.",
+            body: "Trust cues are buried or vague, making the service feel less established even if the firm is credible.",
           },
         ],
       },
@@ -10460,23 +10392,19 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Positioning is unclear",
-            body:
-              "Visitors cannot tell quickly what you do, who you serve in the UK or why one route matters more than another.",
+            body: "Visitors cannot tell quickly what you do, who you serve in the UK or why one route matters more than another.",
           },
           {
             label: "Navigation misroutes buyers",
-            body:
-              "Menus, page hierarchy or calls to action send people into the wrong journey.",
+            body: "Menus, page hierarchy or calls to action send people into the wrong journey.",
           },
           {
             label: "The page undermines trust",
-            body:
-              "Outdated design, weak messaging or poor mobile presentation makes the business feel less credible than it is.",
+            body: "Outdated design, weak messaging or poor mobile presentation makes the business feel less credible than it is.",
           },
           {
             label: "Key next steps are buried",
-            body:
-              "Visitors who are ready to call, book or enquire have to hunt for the right action.",
+            body: "Visitors who are ready to call, book or enquire have to hunt for the right action.",
           },
         ],
       },
@@ -10516,8 +10444,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Website Redesign Services UK for Better UX & SEO Performance",
-        url:
-          "https://primeliondigital.co.uk/services/web-design-development/website-redesign/website-redesign-services",
+        url: "https://primeliondigital.co.uk/services/web-design-development/website-redesign/website-redesign-services",
         date: "",
         summary:
           "Solution: We redesigned the website structure, simplified navigation, improved conversion pathways, modernised the interface, and strengthened technical performance across the platform. Results: substantial increase in qualified enquiries within the first few months bounce rate reduced from 59% to 34% mobile engagement improved significantly across service pages page speed improved from 3.8s to 1.6s ### Manchester E-commerce Business — Conversion-Focused Redesign Client: Manchester-based online ",
@@ -10526,11 +10453,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         title:
           "How a Simple Website Redesign Doubled Lead Generation | Zentric Solutions",
-        url:
-          "https://www.zentricsolutions.com/blogs/website-redesign-doubled-lead-generation",
+        url: "https://www.zentricsolutions.com/blogs/website-redesign-doubled-lead-generation",
         date: "",
         summary:
-          "### The Audit: What Was Wrong Before redesigning, we ran a comprehensive conversion audit using heatmaps, session recordings, and analytics. The findings: Problem 1: Unclear homepage value proposition The headline read \"IT Solutions for Modern Businesses.\" A visitor couldn't tell if they served startups or enterprise, whether they were in Manchester or Mumbai, or what \"IT solutions\" meant for their specific problem. Problem 2: No social proof above the fold Visitors had to scroll past three cont",
+          '### The Audit: What Was Wrong Before redesigning, we ran a comprehensive conversion audit using heatmaps, session recordings, and analytics. The findings: Problem 1: Unclear homepage value proposition The headline read "IT Solutions for Modern Businesses." A visitor couldn\'t tell if they served startups or enterprise, whether they were in Manchester or Mumbai, or what "IT solutions" meant for their specific problem. Problem 2: No social proof above the fold Visitors had to scroll past three cont',
         relevance: "Matches: homepage, redesign, conversion, problem, why, first",
       },
       {
@@ -10544,8 +10470,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         title:
           "How to Improve Website Conversions Without Redesigning Everything - Invesp",
-        url:
-          "https://www.invespcro.com/blog/website-conversions-without-redesigning-everything",
+        url: "https://www.invespcro.com/blog/website-conversions-without-redesigning-everything",
         date: "",
         summary:
           "Here are some ways to implement intent-based popups without annoying visitors: Trigger popups only on high-intent pages. Skip homepage or blog-level popups. Focus instead on pages like Pricing, Product features, Comparison pages, Checkout flows, and the like. For example, Skates.co.uk launched a discount code pop-up triggered after 25 seconds of inactivity on the cart or checkout page—helping them convert over 10% of abandoned visitors, simply by timing the offer to match intent and behavior. Ex",
@@ -10633,14 +10558,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Is the commercial model strong enough to justify a broader build?",
           "If your question is about behaviour in a live setting, a prototype is too early a stage to answer it well. If your question is about journey design, proposition clarity or internal alignment, an MVP may be too expensive a first move.",
         ],
-        lede:
-          "Most startup teams say they are choosing between two build types. In reality, they are choosing which risk to test first.",
+        lede: "Most startup teams say they are choosing between two build types. In reality, they are choosing which risk to test first.",
         variant: "signal",
         bullets: [
           {
             label: "Prototype is for",
-            body:
-              "Testing interaction, flow, positioning and decision-maker alignment.",
+            body: "Testing interaction, flow, positioning and decision-maker alignment.",
           },
           {
             label: "MVP is for",
@@ -10720,18 +10643,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             title: "Prototype first",
-            body:
-              "Best when your next decision is about usability, flow, buy-in or product shape.",
+            body: "Best when your next decision is about usability, flow, buy-in or product shape.",
           },
           {
             title: "MVP first",
-            body:
-              "Best when your next decision is about adoption, operations or a live commercial signal.",
+            body: "Best when your next decision is about adoption, operations or a live commercial signal.",
           },
           {
             title: "Neither first",
-            body:
-              "If the idea is still vague, you may need product scoping or AI consulting before either route.",
+            body: "If the idea is still vague, you may need product scoping or AI consulting before either route.",
           },
         ],
       },
@@ -10773,8 +10693,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Who owns approvals, exceptions and next-stage decisions",
           "This is where many startups benefit from a tighter discovery process. Silverstone AI works across app builds, automation and operational design, so the brief can be framed around the decision you need to make rather than a default assumption that more code is always better. If you want adjacent reading before that conversation, our article on [small business app development](/blog/small-business-app-development) is a useful companion for shaping scope and expectations.",
         ],
-        lede:
-          "Use this short test before any proposal, scope or sprint plan is written.",
+        lede: "Use this short test before any proposal, scope or sprint plan is written.",
         variant: "operator",
       },
     ],
@@ -10839,8 +10758,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         title: "12 Best Web & App Dev Agencies for UK Startups",
-        url:
-          "https://foundry-5.com/resources/12-best-web-app-development-agencies-for-uk-startups-2026",
+        url: "https://foundry-5.com/resources/12-best-web-app-development-agencies-for-uk-startups-2026",
         date: "",
         summary:
           "### MVP and Prototype Development The MVP is not the final product with features removed. It’s the smallest version of the product that tests the riskiest assumption. The best startup agencies understand this distinction: they build for learning, not for completeness. A ten-week MVP that teaches you your users don’t want feature X is worth more than a six-month build that delivers feature X perfectly. ### Full-Stack Web and Mobile App Development [...] ### Evaluate Portfolios for Startup-Specifi",
@@ -10924,8 +10842,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "For a UK business, that often means one service for evenings, weekends and bank holidays, but with different thresholds by industry. An estate agency may escalate for lockouts or flooding. A dental practice may separate administrative requests from urgent pain or post-treatment concerns, while keeping clinical judgement with a human. A trades business may capture postcode, hazard type and site access details before contacting the duty engineer.",
           "External context supports this emphasis on routing and staffing rather than pure conversation quality. Research on conversational agents in call-centre settings found call patterns can shift by time block after introduction, which means owners still need to align staff cover and escalation capacity. In other words, an agent can improve responsiveness, but it does not remove the need for deliberate on-call design.",
         ],
-        lede:
-          "A good after-hours setup is less about sounding fluent and more about creating a calm, predictable path from caller to owner.",
+        lede: "A good after-hours setup is less about sounding fluent and more about creating a calm, predictable path from caller to owner.",
         variant: "signal",
         bullets: [
           {
@@ -10935,14 +10852,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Human boundary",
-            body:
-              "Urgent judgement, approvals, sensitive cases and exceptions stay owner-led.",
+            body: "Urgent judgement, approvals, sensitive cases and exceptions stay owner-led.",
             icon: "handoff",
           },
           {
             label: "UK relevance",
-            body:
-              "Recording, disclosure, consent wording and data handling need explicit review.",
+            body: "Recording, disclosure, consent wording and data handling need explicit review.",
             icon: "shield",
           },
         ],
@@ -10951,7 +10866,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         heading:
           "Myth: an after-hours voice agent should try to resolve every caller request",
         body: [
-          "This is where many projects drift off course. Owners hear \"AI agent\" and assume the goal is full resolution. For out-of-hours call handling, that is usually the wrong target.",
+          'This is where many projects drift off course. Owners hear "AI agent" and assume the goal is full resolution. For out-of-hours call handling, that is usually the wrong target.',
           "At night and over weekends, the operational priority is rarely to complete every task on the call. It is to classify urgency, reduce caller effort, prevent missed critical details and move the right cases to the right human at the right time.",
           "Trying to resolve everything creates avoidable risk. The agent may stray into areas where the business has not approved wording, where the live system record is incomplete, or where a human should make the decision because context matters. A polished conversation can still be a badly designed service if it handles the wrong work.",
           "Voicemail proved for years that capturing a message is not enough. Over-ambitious voice AI creates the opposite problem: too much action without enough control. The better middle ground is controlled capability.",
@@ -10996,8 +10911,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "This is also where sector boundaries matter. A hospitality business may need duty-manager escalation for access or guest welfare. An eCommerce business may keep most order queries for next-day handling. A physio or dental business should draw clear lines around non-clinical versus clinical matters. If your operation spans multiple workflows, pairing the voice layer with broader [AI automation](/services/ai-automation) can help join triage, CRM updates, alerts and audit logs into one controlled process.",
           "One more point often missed: on-call ownership is part of customer experience. If the caller reaches a good agent but the handoff lands in an unattended inbox, the design has failed. Escalation only works when the receiving side is defined, staffed and accountable.",
         ],
-        lede:
-          "If you want a reliable out-of-hours line, design the operating rules before you polish the script.",
+        lede: "If you want a reliable out-of-hours line, design the operating rules before you polish the script.",
         variant: "system",
         comparisonTable: {
           columns: ["Poor approach", "Stronger approach"],
@@ -11084,7 +10998,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- How the caller is told when they should expect a reply",
           "- What the system logs when the agent hands off, fails over or cannot classify the issue confidently",
           "- How long call artefacts are retained and who can access them",
-          "Call-back windows deserve particular care. If the agent tells a caller they will hear back \"shortly\" but your rota only reviews the queue at 09:00, you have created a trust gap. Better to state a precise, approved expectation than a vague reassurance.",
+          'Call-back windows deserve particular care. If the agent tells a caller they will hear back "shortly" but your rota only reviews the queue at 09:00, you have created a trust gap. Better to state a precise, approved expectation than a vague reassurance.',
           "Audit trails are just as important internally. A manager should be able to review what the caller said, what the agent captured, which rule fired, who was notified and whether the issue was accepted. That matters for quality control, complaints, and simply learning which after-hours scenarios deserve a better script or clearer routing logic.",
           "This is one area where a bespoke agency approach matters. Silverstone AI can shape the voice flow around your existing service standards, team ownership and data-handling requirements rather than forcing your operation into a generic template.",
         ],
@@ -11097,18 +11011,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             title: "Disclose",
-            body:
-              "Use clear UK-appropriate wording about automation and any recording or follow-up.",
+            body: "Use clear UK-appropriate wording about automation and any recording or follow-up.",
           },
           {
             title: "Route",
-            body:
-              "Send urgent cases to a named human path with fallback if no response.",
+            body: "Send urgent cases to a named human path with fallback if no response.",
           },
           {
             title: "Audit",
-            body:
-              "Keep an accessible record of what happened, why, and who owned the next step.",
+            body: "Keep an accessible record of what happened, why, and who owned the next step.",
           },
         ],
       },
@@ -11221,8 +11132,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         title:
           "11x - What Is an AI Phone Agent? Complete Guide with Real-World Examples",
-        url:
-          "https://www.11x.ai/blog/what-is-an-ai-phone-agent-complete-guide-with-real-world-examples",
+        url: "https://www.11x.ai/blog/what-is-an-ai-phone-agent-complete-guide-with-real-world-examples",
         date: "",
         summary:
           "Businesses lose qualified leads every minute calls go unanswered. Wait times frustrate customers. After-hours inquiries aren’t answered until the next morning. AI phone agents solve these problems by providing instant, intelligent responses to every caller. They improve the customer experience and reduce operational costs. ## What Is an AI Phone Agent? An AI phone agent is enterprise-grade software that conducts phone calls autonomously using conversational AI, natural language processing, and h",
@@ -11298,18 +11208,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         bullets: [
           {
             label: "Good fit",
-            body:
-              "Repeatable inbound quote enquiries with known service areas, job categories and routing rules.",
+            body: "Repeatable inbound quote enquiries with known service areas, job categories and routing rules.",
           },
           {
             label: "Poor fit",
-            body:
-              "Safety-critical, disputed or highly bespoke situations that rely on professional judgement from the start.",
+            body: "Safety-critical, disputed or highly bespoke situations that rely on professional judgement from the start.",
           },
           {
             label: "Commercial aim",
-            body:
-              "Protect field time and estimator time rather than simply answer more calls.",
+            body: "Protect field time and estimator time rather than simply answer more calls.",
           },
         ],
       },
@@ -11336,18 +11243,15 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             title: "Enough detail",
-            body:
-              "What is the job, where is it, how urgent is it, and is there enough evidence to choose a next step?",
+            body: "What is the job, where is it, how urgent is it, and is there enough evidence to choose a next step?",
           },
           {
             title: "Too little detail",
-            body:
-              "Name and number only. The office has to re-qualify every enquiry from scratch.",
+            body: "Name and number only. The office has to re-qualify every enquiry from scratch.",
           },
           {
             title: "Too much ambition",
-            body:
-              "Trying to quote, diagnose or commit before a person has reviewed the facts.",
+            body: "Trying to quote, diagnose or commit before a person has reviewed the facts.",
           },
         ],
       },
@@ -11444,8 +11348,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "There is also an expectation-management issue. If the receptionist sounds certain where the business itself would still need to inspect, the caller may assume more than the process can support. It is usually better to be precise about what happens next than to sound impressively confident.",
           "This is also where data handling needs discipline. Capture only what is relevant, store it in the right system, and limit access to the team that actually needs the information. Those system and handoff boundaries are part of a good commercial setup, not an afterthought.",
         ],
-        lede:
-          "Some calls should leave the automated path quickly, even when routine quote handling is working well.",
+        lede: "Some calls should leave the automated path quickly, even when routine quote handling is working well.",
       },
       {
         heading: "What to measure before expanding the workflow",
@@ -11499,8 +11402,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "What Is an AI Receptionist? Complete Guide for UK Businesses",
-        url:
-          "https://blog.antekautomation.com/what-is-an-ai-receptionist-a-complete-guide-for-uk-businesses",
+        url: "https://blog.antekautomation.com/what-is-an-ai-receptionist-a-complete-guide-for-uk-businesses",
         date: "",
         summary:
           "Local businesses in Hampshire, from estate agents in Winchester and Southampton to trades in Basingstoke and Andover, are adopting AI receptionists to handle enquiry spikes without hiring additional staff. The technology has matured to the point where implementation is straightforward and ROI is measurable within weeks. ## AI Receptionist for Estate Agents Estate agents live and die by responsiveness. A buyer calls about a property, and if no one answers within a few minutes, they move on to the",

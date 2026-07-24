@@ -1,0 +1,2050 @@
+/*
+ * /pricing — the site's only route that publishes prices.
+ *
+ * Imported by core-pages.css so it loads in the same stylesheet as the rest of
+ * the core-page system (and therefore after services-v2.css, which is what lets
+ * these rules refine `.ss-srv2-*` surfaces without !important).
+ *
+ * Materials, all drawn from the existing cinematic tokens:
+ *   · tile      — translucent graphite glass, 1px hairline, top inset light
+ *   · panel     — the larger instrument frame: dual radial accent wash
+ *   · plate     — the darkest inset surface, for figures and spec rows
+ *   · mono chrome — uppercase JetBrains microcopy at --srv2-ink-faint
+ *
+ * Motion contract: entrances are owned by Reveal/PanelReveal. Anything this
+ * file animates is either (a) a one-shot transition keyed off the
+ * `data-panel-shown` flag PanelReveal writes — so it inherits the global reveal
+ * scheduler's ordering, its `--panel-delay` and its deep-link bypass — or (b)
+ * a slow compositor-only loop on a single small element. Both are disabled
+ * under `prefers-reduced-motion`, and (a) falls back to its settled state so
+ * nothing can be left at zero width.
+ */
+
+.ss-pri {
+  --pri-tile:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--srv2-accent) 7%, transparent),
+      transparent 44%
+    ),
+    var(--srv2-glass-raised);
+  --pri-plate: color-mix(in srgb, var(--ss-v2-void-black) 42%, transparent);
+  --pri-inset-light: inset 0 22px 58px -44px rgba(255, 255, 255, 0.5);
+  --pri-lift: 0 26px 60px -38px color-mix(in srgb, var(--srv2-accent) 60%, transparent);
+  --pri-gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+}
+
+/* ---- Shared pricing primitives ----------------------------------------- */
+
+.ss-pri-subhead {
+  margin: 0 0 1.15rem;
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-footnote {
+  margin: 1.25rem 0 0;
+  max-width: 76ch;
+  color: var(--srv2-ink-faint);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.ss-pri-footnote[data-align="tight"] {
+  margin-block-start: 0.9rem;
+}
+
+.ss-pri-notes {
+  display: grid;
+  gap: 0.75rem;
+  margin-block-start: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.ss-pri-notes__line {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid var(--ss-v2-hairline);
+  border-inline-start: 2px solid color-mix(in srgb, var(--srv2-accent) 50%, transparent);
+  background: var(--pri-plate);
+  color: var(--srv2-ink-faint);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.ss-pri-notes__line[data-standalone="true"] {
+  margin-block-start: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.ss-pri-notes__key {
+  display: block;
+  margin-block-end: 0.3rem;
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Service-applicability chips above the implementation grid. */
+.ss-pri-chips-reveal {
+  margin-block-end: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.ss-pri-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-pri-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-plate);
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ss-pri-chip svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  color: var(--srv2-accent);
+}
+
+/* The larger instrument frame shared by the allocation, milestone, ROI and
+   hosting panels. */
+.ss-pri-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 1rem + 1vw, 1.85rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background:
+    radial-gradient(
+      120% 130% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent-2) 14%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      110% 120% at 0% 100%,
+      color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+      transparent 58%
+    ),
+    var(--srv2-glass);
+  box-shadow: var(--pri-inset-light);
+}
+
+.ss-pri-panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-block-end: 1.25rem;
+  padding-block-end: 0.85rem;
+  border-block-end: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-pri-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-panel__tag {
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 32%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 10%, transparent);
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ss-pri-panel__tag[data-tone="warn"] {
+  border-color: color-mix(in srgb, var(--ss-color-state-warning-fg) 40%, transparent);
+  background: color-mix(in srgb, var(--ss-color-state-warning-fg) 12%, transparent);
+  color: var(--ss-color-state-warning-fg);
+}
+
+/* ---- Secondary-hero pricing-model instrument --------------------------- */
+
+.ss-pri-model {
+  --pri-row-gap: 0.5rem;
+}
+
+.ss-pri-model__stage {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 0.35rem + 0.6vh, 0.9rem);
+  justify-content: center;
+  padding-block: clamp(0.4rem, 0.2rem + 0.8vh, 0.9rem);
+}
+
+.ss-pri-model__caption {
+  margin: 0;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ss-pri-model__rows {
+  position: relative;
+  padding-inline-start: 0.9rem;
+}
+
+/* Calibration marker: travels pilot → implementation → support and back.
+   Its own height equals one row, so the translateY percentages below resolve
+   against a row, and the whole loop stays a single compositor transform. */
+.ss-pri-model__marker {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  width: 2px;
+  height: calc((100% - 2 * var(--pri-row-gap)) / 3);
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--srv2-accent), var(--srv2-accent-2));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+  animation: ss-pri-marker 12s var(--ss-motion-easing-standard) infinite;
+}
+
+@keyframes ss-pri-marker {
+  0%,
+  14% {
+    transform: translateY(0);
+  }
+
+  25%,
+  39% {
+    transform: translateY(calc(100% + var(--pri-row-gap)));
+  }
+
+  50%,
+  64% {
+    transform: translateY(calc(200% + 2 * var(--pri-row-gap)));
+  }
+
+  75%,
+  89% {
+    transform: translateY(calc(100% + var(--pri-row-gap)));
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.ss-pri-model__list {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: var(--pri-row-gap);
+  margin: 0;
+}
+
+.ss-pri-model__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.75rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--ss-radius-sm);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-plate);
+}
+
+.ss-pri-model__name {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ss-pri-model__figure {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin: 0;
+  text-align: end;
+}
+
+.ss-pri-model__prefix,
+.ss-pri-model__suffix {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ss-pri-model__value {
+  font-family: var(--ss-font-display);
+  font-size: clamp(0.95rem, 0.85rem + 0.35vw, 1.15rem);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  color: var(--ss-v2-chrome);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ss-pri-model__best {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.3rem 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--ss-radius-sm);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 34%, transparent);
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--srv2-accent) 14%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 12%, transparent)
+  );
+}
+
+.ss-pri-model__best-label {
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-pri-model__best-value {
+  font-family: var(--ss-font-display);
+  font-size: clamp(0.95rem, 0.85rem + 0.35vw, 1.1rem);
+  font-weight: 650;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-model__note {
+  margin: 0;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+/* ---- Implementation packages ------------------------------------------- */
+
+.ss-pri-tiers {
+  display: grid;
+  gap: var(--pri-gap);
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+
+/* 3 has no clean two-column split, so the grid goes straight from 1 to 3 —
+   the same orphan rule the shared card grids follow. */
+@media (min-width: 62rem) {
+  .ss-pri-tiers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ss-pri-tier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  height: 100%;
+  /* The extra top padding is on every card, not only the badged one, so all
+     three titles sit on the same baseline. */
+  padding: clamp(1.85rem, 1.5rem + 1vw, 2.4rem) clamp(1.35rem, 1.1rem + 0.9vw, 1.9rem)
+    clamp(1.35rem, 1.1rem + 0.9vw, 1.9rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-tile);
+  box-shadow: var(--pri-inset-light);
+  transition:
+    transform var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    border-color var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard);
+}
+
+.ss-pri-tier:hover {
+  border-color: color-mix(in srgb, var(--srv2-accent) 42%, transparent);
+  box-shadow: var(--pri-inset-light), var(--pri-lift);
+}
+
+/* The featured tier: brighter substrate, a spectral top edge and the resident
+   border beam, so exactly one card in the row carries continuous energy. */
+.ss-pri-tier.ss-srv2-beam-border {
+  border-color: color-mix(in srgb, var(--srv2-accent) 34%, transparent);
+  background:
+    radial-gradient(
+      130% 80% at 50% 0%,
+      color-mix(in srgb, var(--srv2-accent) 16%, transparent),
+      transparent 62%
+    ),
+    var(--srv2-glass-raised);
+}
+
+.ss-pri-tier__badge {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--srv2-accent) 92%, var(--ss-v2-void-black)),
+    color-mix(in srgb, var(--srv2-accent-2) 88%, var(--ss-v2-void-black))
+  );
+  color: var(--ss-v2-void-black);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ss-pri-tier__badge[data-tone="soft"] {
+  background: color-mix(in srgb, var(--ss-v2-graphite-raised) 92%, transparent);
+  color: var(--srv2-accent);
+}
+
+.ss-pri-tier__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ss-pri-tier__title {
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-tier__desc {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+.ss-pri-tier__price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  padding-block: 0.9rem;
+  border-block: 1px solid var(--ss-v2-hairline);
+  /* cqi, not vw: "£10,000–£50,000" is 15 characters and has to stay on one
+     line in a ~233px column at 1440 as well as at 320. Scoped to the price
+     block, never the card — the card is the beam frame, and layout
+     containment there would create a stacking context the z-index:-1 beam
+     could not paint out of. */
+  container-type: inline-size;
+}
+
+.ss-pri-tier__figure {
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.35rem, 0.25rem + 9cqi, 2rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ss-v2-chrome);
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-pri-tier__qualifier {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ss-pri-tier__block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ss-pri-tier__block--ideal {
+  margin-block-start: auto;
+  padding-block-start: 0.9rem;
+  border-block-start: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-pri-tier__label {
+  margin: 0;
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-pri-tier__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-pri-tier__list[data-size="compact"] {
+  gap: 0.4rem;
+}
+
+.ss-pri-tier__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  color: var(--srv2-ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.ss-pri-tier__list svg {
+  flex: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-block-start: 0.28rem;
+  color: var(--srv2-accent);
+}
+
+.ss-pri-tier__list[data-tone="muted"] li {
+  color: var(--srv2-ink-faint);
+  font-size: 0.86rem;
+}
+
+.ss-pri-tier__dot {
+  flex: none;
+  width: 0.3rem;
+  height: 0.3rem;
+  margin-block-start: 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+}
+
+/* ---- Implementation breakdown ------------------------------------------ */
+
+.ss-pri-breakdown__grid {
+  display: grid;
+  gap: clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 62rem) {
+  .ss-pri-breakdown__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.ss-pri-drivers__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-pri-driver {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 0.35rem 0.9rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-tile);
+  transition:
+    border-color var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard);
+}
+
+.ss-pri-driver:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--srv2-accent) 38%, transparent);
+}
+
+.ss-pri-driver__icon {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 30%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 12%, var(--ss-v2-void-black));
+  color: var(--srv2-accent);
+}
+
+.ss-pri-driver__icon svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.ss-pri-driver__index {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+}
+
+.ss-pri-driver__copy h4 {
+  margin: 0 0 0.3rem;
+  font-family: var(--ss-font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-driver__copy p {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.ss-pri-breakdown__instruments {
+  display: grid;
+  gap: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+  align-content: start;
+}
+
+/* -- Budget allocation band ---- */
+
+.ss-pri-alloc__band {
+  display: flex;
+  gap: 3px;
+  height: 0.85rem;
+  margin-block-end: 1.15rem;
+}
+
+.ss-pri-alloc__segment {
+  flex: var(--pri-share) 1 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ss-v2-platinum) 8%, transparent);
+}
+
+.ss-pri-alloc__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--srv2-accent) 85%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 85%, transparent)
+  );
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.85s var(--ss-motion-easing-enter);
+  transition-delay: calc(var(--panel-delay, 0ms) + var(--pri-i) * 110ms);
+}
+
+[data-panel-shown="true"] .ss-pri-alloc__fill {
+  transform: scaleX(1);
+}
+
+[data-panel-instant="true"] .ss-pri-alloc__fill {
+  transition: none;
+}
+
+.ss-pri-alloc__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-pri-alloc__legend li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--ss-radius-sm);
+  background: var(--pri-plate);
+}
+
+.ss-pri-alloc__swatch {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: color-mix(
+    in srgb,
+    var(--srv2-accent) calc(100% - var(--pri-i) * 18%),
+    var(--srv2-accent-2)
+  );
+}
+
+.ss-pri-alloc__name {
+  color: var(--srv2-ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.ss-pri-alloc__share {
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* -- Payment milestone rail ---- */
+
+.ss-pri-milestones__rail {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-pri-milestones__rail li {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 0 0.75rem 0.15rem;
+}
+
+/* The connector between nodes — drawn from the node down to the next row. */
+.ss-pri-milestones__rail li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: calc(0.15rem + 0.28rem);
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--srv2-accent) 55%, transparent),
+    color-mix(in srgb, var(--srv2-accent) 12%, transparent)
+  );
+}
+
+.ss-pri-milestones__node {
+  position: relative;
+  z-index: 1;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 65%, transparent);
+  background: var(--ss-v2-void-black);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+  transform: scale(0.4);
+  opacity: 0.35;
+  transition:
+    transform 0.5s var(--ss-motion-easing-emphasis),
+    opacity 0.5s var(--ss-motion-easing-standard),
+    box-shadow 0.5s var(--ss-motion-easing-standard);
+  transition-delay: calc(var(--panel-delay, 0ms) + var(--pri-i) * 160ms);
+}
+
+[data-panel-shown="true"] .ss-pri-milestones__node {
+  transform: scale(1);
+  opacity: 1;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--srv2-accent) 14%, transparent);
+}
+
+[data-panel-instant="true"] .ss-pri-milestones__node {
+  transition: none;
+}
+
+.ss-pri-milestones__name {
+  color: var(--srv2-ink-soft);
+  font-size: 0.9rem;
+}
+
+.ss-pri-milestones__share {
+  font-family: var(--ss-font-display);
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--ss-v2-chrome);
+  font-variant-numeric: tabular-nums;
+}
+
+/* -- Bottom instrument cards ---- */
+
+.ss-pri-instruments {
+  display: grid;
+  gap: var(--pri-gap);
+  grid-template-columns: 1fr;
+  margin-block-start: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+@media (min-width: 46rem) {
+  .ss-pri-instruments {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ss-pri-instrument {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: 100%;
+  padding: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-tile);
+  box-shadow: var(--pri-inset-light);
+  text-align: center;
+  align-items: center;
+  container-type: inline-size;
+}
+
+.ss-pri-instrument__value {
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.4rem, 1.05rem + 3cqi, 2.1rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ss-v2-chrome);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-pri-instrument__label {
+  color: var(--srv2-ink-soft);
+  font-size: 0.88rem;
+}
+
+.ss-pri-instrument__note {
+  margin-block-start: 0.35rem;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* ---- Support retainers -------------------------------------------------- */
+
+.ss-pri-support {
+  display: grid;
+  gap: var(--pri-gap);
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+
+@media (min-width: 62rem) {
+  .ss-pri-support {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Deliberately quieter than .ss-pri-tier: flat plate substrate, no accent
+   wash, a smaller price step. The section has to read as the companion to the
+   implementation row, not a competing offer. */
+.ss-pri-retainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  padding: clamp(1.25rem, 1rem + 0.8vw, 1.7rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-plate);
+  transition:
+    border-color var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard);
+}
+
+.ss-pri-retainer:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--srv2-accent) 38%, transparent);
+}
+
+.ss-pri-retainer.ss-srv2-beam-border {
+  padding-block-start: clamp(1.75rem, 1.45rem + 1vw, 2.2rem);
+  border-color: color-mix(in srgb, var(--srv2-accent) 28%, transparent);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--srv2-accent) 8%, transparent),
+      transparent 40%
+    ),
+    var(--pri-plate);
+}
+
+.ss-pri-retainer__title {
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-retainer__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin: 0;
+  padding-block-end: 0.85rem;
+  border-block-end: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-pri-retainer__figure {
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.7rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--ss-v2-chrome);
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-pri-retainer__qualifier {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ss-pri-retainer .ss-pri-tier__label:last-of-type {
+  margin-block-start: auto;
+  padding-block-start: 0.35rem;
+}
+
+.ss-pri-retainer__spec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  padding-block-start: 0.2rem;
+}
+
+.ss-pri-retainer__spec > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--ss-radius-xs);
+  background: color-mix(in srgb, var(--ss-v2-platinum) 4%, transparent);
+}
+
+.ss-pri-retainer__spec dt {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ss-pri-retainer__spec dd {
+  margin: 0;
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-mono);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* -- Benefits + commitments panel ---- */
+
+.ss-pri-benefits {
+  display: grid;
+  gap: clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
+  margin-block-start: var(--pri-gap);
+  padding: clamp(1.35rem, 1.1rem + 1.2vw, 2.25rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background:
+    radial-gradient(
+      120% 130% at 0% 0%,
+      color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+      transparent 58%
+    ),
+    var(--srv2-glass);
+  box-shadow: var(--pri-inset-light);
+}
+
+@media (min-width: 62rem) {
+  .ss-pri-benefits {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.ss-pri-benefits__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-pri-benefits__list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.85rem;
+}
+
+.ss-pri-benefits__marker {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 34%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 10%, transparent);
+  color: var(--srv2-accent);
+}
+
+.ss-pri-benefits__marker svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.ss-pri-benefits__list h4 {
+  margin: 0 0 0.25rem;
+  font-family: var(--ss-font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-benefits__list p {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.ss-pri-benefits__panel {
+  padding: clamp(1rem, 0.85rem + 0.7vw, 1.4rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-plate);
+}
+
+.ss-pri-commitments {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-pri-commitments li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.8rem 0.85rem;
+  border-radius: var(--ss-radius-sm);
+  border: 1px solid var(--ss-v2-hairline);
+  background: color-mix(in srgb, var(--ss-v2-platinum) 4%, transparent);
+}
+
+.ss-pri-commitments__value {
+  font-family: var(--ss-font-display);
+  font-size: 1.02rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-commitments__label {
+  color: var(--srv2-ink-faint);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+/* ---- Value proposition -------------------------------------------------- */
+
+.ss-pri-value__grid {
+  display: grid;
+  gap: clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 62rem) {
+  .ss-pri-value__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.ss-pri-roi__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.ss-pri-roi__steps li {
+  position: relative;
+  padding: 0.9rem 1.05rem 0.95rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-plate);
+}
+
+.ss-pri-roi__steps li[data-emphasis="true"] {
+  border-color: color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--srv2-accent) 16%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 14%, transparent)
+  );
+}
+
+.ss-pri-roi__step-index {
+  position: absolute;
+  inset-block-start: 0.85rem;
+  inset-inline-end: 1rem;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+}
+
+.ss-pri-roi__steps h4 {
+  margin: 0 0 0.35rem;
+  padding-inline-end: 2.5rem;
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--srv2-accent);
+}
+
+.ss-pri-roi__steps li[data-emphasis="true"] h4 {
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-roi__steps p {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-pri-roi__steps li[data-emphasis="true"] p {
+  color: var(--srv2-ink);
+}
+
+.ss-pri-beyond__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-pri-beyond__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.85rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-tile);
+  transition: border-color var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-pri-beyond__item:hover {
+  border-color: color-mix(in srgb, var(--srv2-accent) 38%, transparent);
+}
+
+.ss-pri-beyond__marker {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--ss-radius-sm);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent-2) 34%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent-2) 12%, transparent);
+  color: var(--srv2-accent-2);
+}
+
+.ss-pri-beyond__marker svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.ss-pri-beyond__item h4 {
+  margin: 0 0 0.25rem;
+  font-family: var(--ss-font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-beyond__item p {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.ss-pri-value__cards {
+  display: grid;
+  gap: var(--pri-gap);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-block-start: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+@media (min-width: 62rem) {
+  .ss-pri-value__cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ss-pri-proofcard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  height: 100%;
+  padding: clamp(1rem, 0.85rem + 0.6vw, 1.4rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-tile);
+  box-shadow: var(--pri-inset-light);
+  text-align: center;
+  container-type: inline-size;
+}
+
+.ss-pri-proofcard__icon {
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 30%, transparent);
+  color: var(--srv2-accent);
+}
+
+.ss-pri-proofcard__icon svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.ss-pri-proofcard__value {
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.25rem, 0.95rem + 3.4cqi, 1.9rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ss-v2-chrome);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-pri-proofcard__label {
+  color: var(--srv2-ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+/* ---- Website design and development bento ------------------------------ */
+
+.ss-pri-web__bento {
+  display: grid;
+  gap: var(--pri-gap);
+  grid-template-columns: 1fr;
+}
+
+/* Two-column mosaic. */
+@media (min-width: 46rem) {
+  .ss-pri-web__bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "found prof"
+      "growth ent"
+      "host host";
+  }
+
+  .ss-pri-web__bento > :nth-child(1) {
+    grid-area: found;
+  }
+
+  .ss-pri-web__bento > :nth-child(2) {
+    grid-area: prof;
+  }
+
+  .ss-pri-web__bento > :nth-child(3) {
+    grid-area: growth;
+  }
+
+  .ss-pri-web__bento > :nth-child(4) {
+    grid-area: ent;
+  }
+
+  .ss-pri-web__bento > :nth-child(5) {
+    grid-area: host;
+  }
+}
+
+/*
+ * Six-column mosaic. Hierarchy comes from width, never from a row span: a tile
+ * forced two rows tall would have to stretch ~350px of copy over ~800px, which
+ * is exactly the hollow oversized-card look this page is meant to avoid. Every
+ * tile is one row; the rhythm is 2-4 / 3-3 / 6.
+ */
+@media (min-width: 68rem) {
+  .ss-pri-web__bento {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-areas:
+      "found found prof prof prof prof"
+      "growth growth growth ent ent ent"
+      "host host host host host host";
+  }
+
+  .ss-pri-web__bento > :nth-child(1) {
+    grid-area: found;
+  }
+
+  .ss-pri-web__bento > :nth-child(2) {
+    grid-area: prof;
+  }
+
+  .ss-pri-web__bento > :nth-child(3) {
+    grid-area: growth;
+  }
+
+  .ss-pri-web__bento > :nth-child(4) {
+    grid-area: ent;
+  }
+
+  .ss-pri-web__bento > :nth-child(5) {
+    grid-area: host;
+  }
+}
+
+/* The Enterprise tile. Positional, like the grid-area assignments above. */
+.ss-pri-web__bento > :nth-child(4) {
+  border-color: color-mix(in srgb, var(--srv2-accent) 26%, transparent);
+  background:
+    radial-gradient(
+      110% 150% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent-2) 14%, transparent),
+      transparent 60%
+    ),
+    var(--pri-tile);
+}
+
+.ss-pri-webtile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  height: 100%;
+  padding: clamp(1.25rem, 1rem + 0.9vw, 1.75rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-tile);
+  box-shadow: var(--pri-inset-light);
+  transition:
+    border-color var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard);
+}
+
+.ss-pri-webtile:hover {
+  border-color: color-mix(in srgb, var(--srv2-accent) 40%, transparent);
+  box-shadow: var(--pri-inset-light), var(--pri-lift);
+}
+
+.ss-pri-webtile__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 0.75rem;
+}
+
+.ss-pri-webtile__title {
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-webtile__band {
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid var(--ss-v2-hairline);
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* Page-band meter: a shared linear 1–100 page scale with this tier's own band
+   lit, so the four tiles read as one continuous scale rather than four
+   unrelated graphics. */
+.ss-pri-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ss-pri-meter__track {
+  position: relative;
+  display: block;
+  height: 0.4rem;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ss-v2-platinum) 16%, transparent) 0 1px,
+      transparent 1px 10%
+    ),
+    color-mix(in srgb, var(--ss-v2-platinum) 7%, transparent);
+}
+
+.ss-pri-meter__fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(var(--pri-lo) * 1%);
+  width: calc((var(--pri-hi) - var(--pri-lo)) * 1%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
+  box-shadow: 0 0 12px -2px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.8s var(--ss-motion-easing-enter);
+  transition-delay: calc(var(--panel-delay, 0ms) + 120ms);
+}
+
+[data-panel-shown="true"] .ss-pri-meter__fill {
+  transform: scaleX(1);
+}
+
+[data-panel-instant="true"] .ss-pri-meter__fill {
+  transition: none;
+}
+
+.ss-pri-meter__scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+}
+
+.ss-pri-webtile__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0;
+  padding-block: 0.7rem;
+  border-block: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-pri-webtile__figure {
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ss-v2-chrome);
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-pri-webtile__desc {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.ss-pri-webtile__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  margin-block-start: auto;
+  padding-block-start: 0.85rem;
+  border-block-start: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-pri-webtile__meta dt {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-pri-webtile__meta dd {
+  margin: 0.25rem 0 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.ss-pri-webtile__maint dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 0.75rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--ss-radius-sm);
+  background: var(--pri-plate);
+}
+
+.ss-pri-webtile__maint-name {
+  color: var(--srv2-ink-soft);
+  font-size: 0.84rem;
+}
+
+.ss-pri-webtile__maint-price {
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* -- Hosting and ownership rail ---- */
+
+.ss-pri-hosting {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 1rem + 1vw, 1.85rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background:
+    radial-gradient(
+      100% 160% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent-2) 12%, transparent),
+      transparent 60%
+    ),
+    var(--srv2-glass);
+  box-shadow: var(--pri-inset-light);
+}
+
+.ss-pri-hosting__icon {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: var(--ss-radius-xs);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 30%, transparent);
+  color: var(--srv2-accent);
+}
+
+.ss-pri-hosting__icon svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.ss-pri-hosting__list {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: 1fr;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 52rem) {
+  .ss-pri-hosting__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ss-pri-hosting__list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-plate);
+}
+
+.ss-pri-hosting__marker {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-block-end: 0.2rem;
+  border-radius: var(--ss-radius-sm);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, transparent);
+  color: var(--srv2-accent);
+}
+
+.ss-pri-hosting__marker svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.ss-pri-hosting__list h4 {
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-hosting__price {
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: 1.2rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--srv2-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-pri-hosting__body {
+  margin: 0;
+  color: var(--srv2-ink-faint);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* -- Maintenance plans ---- */
+
+.ss-pri-maint {
+  display: grid;
+  gap: var(--pri-gap);
+  grid-template-columns: 1fr;
+  margin: var(--pri-gap) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 46rem) {
+  .ss-pri-maint {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 68rem) {
+  .ss-pri-maint {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ss-pri-maint__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  height: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  border-block-start: 2px solid color-mix(in srgb, var(--srv2-accent) 45%, transparent);
+  background: var(--pri-plate);
+}
+
+.ss-pri-maint__item h4 {
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-maint__price {
+  margin: 0;
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-pri-maint__body {
+  margin: 0.2rem 0 0;
+  color: var(--srv2-ink-faint);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* ---- Bespoke price-on-application cards -------------------------------- */
+
+.ss-pri-bespoke {
+  display: grid;
+  gap: var(--pri-gap);
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+
+@media (min-width: 56rem) {
+  .ss-pri-bespoke {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ss-pri-poa {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  padding: clamp(1.35rem, 1.1rem + 1vw, 2rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline-strong);
+  background: var(--pri-plate);
+  box-shadow: var(--pri-inset-light);
+  transition: border-color var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-pri-poa:hover {
+  border-color: color-mix(in srgb, var(--srv2-accent) 34%, transparent);
+}
+
+.ss-pri-poa__icon {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 8%, transparent);
+  color: var(--srv2-accent);
+}
+
+.ss-pri-poa__icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.ss-pri-poa__title {
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-poa__price {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid var(--ss-v2-hairline-strong);
+  background: color-mix(in srgb, var(--ss-v2-platinum) 5%, transparent);
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-pri-poa__body {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.ss-pri-poa__supporting {
+  margin: 0;
+  color: var(--srv2-ink);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+/* Scope labels double as the card's instrument: a stepped bar per label —
+   a release ladder on the product card, a depth scale on the advisory one. */
+.ss-pri-poa__scope {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0.2rem 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-pri-poa__scope li {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ss-pri-poa__scope-bar {
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--srv2-accent) 75%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 55%, transparent)
+  );
+  /* Each row is one step longer than the last: the ladder is the information,
+     not an ornament. */
+  transform: scaleX(calc(0.4 + var(--pri-i) * 0.2));
+  transform-origin: left center;
+}
+
+.ss-pri-poa .ss-srv2-btn {
+  align-self: flex-start;
+  margin-block-start: 0.85rem;
+}
+
+/* ---- Pricing FAQ -------------------------------------------------------- */
+
+.ss-pri-faq-section .ss-srv2-section__head {
+  margin-inline: auto;
+  text-align: center;
+  align-items: center;
+}
+
+.ss-pri-faq-section .ss-srv2-section__head .ss-srv2-lead {
+  margin-inline: auto;
+}
+
+.ss-pri-faq-section .ss-srv2-heading {
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+.ss-pri-faq {
+  padding: clamp(0.5rem, 0.35rem + 0.6vw, 1rem) clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--srv2-glass);
+  box-shadow: var(--pri-inset-light);
+}
+
+.ss-pri-faq__item {
+  border-block-end: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-pri-faq > :last-child .ss-pri-faq__item {
+  border-block-end: 0;
+}
+
+.ss-pri-faq__heading {
+  margin: 0;
+}
+
+.ss-pri-faq__trigger {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.15rem 0.35rem;
+  border: 0;
+  border-radius: var(--ss-radius-sm);
+  background: none;
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-display);
+  font-size: clamp(0.98rem, 0.94rem + 0.2vw, 1.08rem);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: start;
+  cursor: pointer;
+  transition: color var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-pri-faq__trigger:hover {
+  color: var(--srv2-accent);
+}
+
+.ss-pri-faq__trigger:focus-visible {
+  outline: 2px solid var(--srv2-accent);
+  outline-offset: -2px;
+}
+
+.ss-pri-faq__item[data-state="open"] .ss-pri-faq__trigger {
+  color: var(--srv2-accent);
+}
+
+.ss-pri-faq__chevron {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-block-start: 0.1rem;
+  color: var(--srv2-ink-faint);
+  transition: transform var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-pri-faq__item[data-state="open"] .ss-pri-faq__chevron {
+  transform: rotate(180deg);
+  color: var(--srv2-accent);
+}
+
+/*
+ * Collapsed with grid rather than by unmounting: these answers carry published
+ * prices and back the page's FAQPage structured data, so they have to stay in
+ * the prerendered HTML. `inert` (set by the component when closed) is what
+ * keeps a collapsed answer out of the accessibility tree and off the tab order,
+ * since a zero-height overflow-hidden box is still "rendered".
+ */
+.ss-pri-faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-enter);
+}
+
+.ss-pri-faq__item[data-state="open"] .ss-pri-faq__panel {
+  grid-template-rows: 1fr;
+}
+
+.ss-pri-faq__panel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ss-pri-faq__panel-inner p {
+  margin: 0;
+  padding: 0 2.5rem 1.25rem 0.35rem;
+  max-width: 74ch;
+  color: var(--srv2-ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+/* ---- Narrow-viewport tuning -------------------------------------------- */
+
+@media (max-width: 30rem) {
+  .ss-pri-model__row,
+  .ss-pri-model__best {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ss-pri-model__figure {
+    text-align: start;
+  }
+
+  .ss-pri-commitments {
+    grid-template-columns: 1fr;
+  }
+
+  .ss-pri-value__cards {
+    grid-template-columns: 1fr;
+  }
+
+  .ss-pri-driver {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ss-pri-driver__icon {
+    grid-row: auto;
+  }
+
+  .ss-pri-faq__panel-inner p {
+    padding-inline-end: 0.35rem;
+  }
+}
+
+/* ---- Reduced motion ----------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-pri-model__marker {
+    animation: none;
+  }
+
+  /* Settled state, never the pre-entrance one: without a reveal to key off,
+     a scaleX(0) fill would leave the instrument permanently empty. */
+  .ss-pri-alloc__fill,
+  .ss-pri-meter__fill {
+    transform: scaleX(1);
+    transition: none;
+  }
+
+  .ss-pri-milestones__node {
+    transform: scale(1);
+    opacity: 1;
+    transition: none;
+  }
+
+  .ss-pri-tier,
+  .ss-pri-driver,
+  .ss-pri-retainer,
+  .ss-pri-webtile,
+  .ss-pri-beyond__item,
+  .ss-pri-poa,
+  .ss-pri-faq__trigger,
+  .ss-pri-faq__chevron,
+  .ss-pri-faq__panel {
+    transition: none;
+  }
+
+  .ss-pri-tier:hover,
+  .ss-pri-driver:hover,
+  .ss-pri-retainer:hover,
+  .ss-pri-webtile:hover {
+    transform: none;
+  }
+}

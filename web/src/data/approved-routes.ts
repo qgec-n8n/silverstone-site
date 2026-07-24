@@ -385,16 +385,18 @@ export const approvedRouteOverrides: RouteOverride[] = [
   },
   {
     id: "route-pricing",
-    title: "How Pricing Works | Silverstone AI",
+    title: "AI Automation & Website Pricing UK | Silverstone AI",
     description:
-      "Understand how Silverstone scopes web, app, content and AI workflow projects before an approved proposal is prepared.",
-    h1: "Pricing starts with a defined scope",
+      "Transparent UK pricing for AI automation, voice agents, AI receptionists and website development. Pilots from £3,000, websites from £1,500, support from £350/month.",
+    h1: "AI automation pricing for UK SMEs",
     headingPlan: {
-      h1: "Pricing starts with a defined scope",
-      h1Source: "H-03 pricing research",
+      h1: "AI automation pricing for UK SMEs",
+      h1Source: "2026-07-23 transparent-pricing rebuild",
       supportingHeadingsStatus: "approved editorial overlay",
     },
-    schemaTypes: ["WebPage", "BreadcrumbList"],
+    // FAQPage is emitted from the visible accordion's own copy — see
+    // `~/data/pricing-faq` and the /pricing branch in `~/seo/schema.ts`.
+    schemaTypes: ["WebPage", "FAQPage", "BreadcrumbList"],
     contentStatus: "approved-editorial-overlay",
     claimsStatus: "safe-copy-human-review-pending",
     primaryIntent: "AI automation pricing UK",

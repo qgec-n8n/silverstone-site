@@ -1,3 +1,4 @@
+import { PRICING_FAQ } from "~/data/pricing-faq";
 import type { FutureRouteRecord } from "~/data/route-schema";
 
 export type OrganizationSchemaInput = {
@@ -104,6 +105,31 @@ function buildPageSchema(route: FutureRouteRecord): SchemaEntry {
   };
 }
 
+/**
+ * /pricing only. Built from the exact strings the visible accordion renders
+ * (`~/data/pricing-faq`), because Google requires the structured data and the
+ * on-page answer to match — and because those answers are always present in the
+ * prerendered HTML, the accordion collapses them with CSS rather than
+ * unmounting them.
+ *
+ * Emitted into the route's single existing `@graph`, never as a second
+ * `<script type="application/ld+json">`: one JSON-LD block per document is
+ * asserted in `tests/e2e/route-parity.spec.ts`.
+ */
+function buildFaqPageSchema(): SchemaEntry {
+  return {
+    "@type": "FAQPage",
+    mainEntity: PRICING_FAQ.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+}
+
 export function buildBreadcrumbListSchema(route: FutureRouteRecord): SchemaEntry {
   return {
     "@type": "BreadcrumbList",
@@ -158,7 +184,13 @@ export function buildRouteSchemaGraph(route: FutureRouteRecord): {
     );
   }
 
-  graph.push(buildPageSchema(route), buildBreadcrumbListSchema(route));
+  graph.push(buildPageSchema(route));
+
+  if (route.path === "/pricing" && route.schemaTypes.includes("FAQPage")) {
+    graph.push(buildFaqPageSchema());
+  }
+
+  graph.push(buildBreadcrumbListSchema(route));
 
   return {
     "@context": "https://schema.org",
