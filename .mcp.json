@@ -2,7 +2,10 @@
   "mcpServers": {
     "aceternityui": {
       "command": "/bin/zsh",
-      "args": ["-lc", "exec ./.codex/bin/aceternity-mcp.sh"],
+      "args": [
+        "-lc",
+        "exec ./.codex/bin/aceternity-mcp.sh"
+      ],
       "enabled": true,
       "startup_timeout_sec": 60,
       "tool_timeout_sec": 180,
@@ -10,7 +13,10 @@
     },
     "gpt-image-2": {
       "command": "/bin/zsh",
-      "args": ["-lc", "exec ./.codex/bin/gpt-image-2-mcp.sh"],
+      "args": [
+        "-lc",
+        "exec ./.codex/bin/gpt-image-2-mcp.sh"
+      ],
       "enabled": false,
       "startup_timeout_sec": 60,
       "tool_timeout_sec": 180,
@@ -26,15 +32,21 @@
     },
     "magicui": {
       "command": "npx",
-      "args": ["-y", "@magicuidesign/mcp@2.0.0"],
+      "args": [
+        "-y",
+        "@magicuidesign/mcp@2.0.0"
+      ],
       "enabled": true,
       "startup_timeout_sec": 60,
       "tool_timeout_sec": 180,
       "default_tools_approval_mode": "prompt"
     },
     "shadcn": {
-      "command": "/bin/zsh",
-      "args": ["-lc", "cd web && exec npx -y shadcn@4.11.0 mcp"],
+      "command": "npx",
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ],
       "enabled": true,
       "startup_timeout_sec": 60,
       "tool_timeout_sec": 180,
@@ -53,6 +65,14 @@
       "startup_timeout_sec": 30,
       "tool_timeout_sec": 120,
       "default_tools_approval_mode": "prompt"
+    },
+    "flowbite": {
+      "command": "npx",
+      "args": ["-y", "flowbite-mcp"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "YOUR_PERSONAL_FIGMA_ACCESS_TOKEN"
+      }
     }
   }
 }
+

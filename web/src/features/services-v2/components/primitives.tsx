@@ -18,6 +18,8 @@ import {
 } from "motion/react";
 import * as m from "motion/react-m";
 import {
+  createContext,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -37,6 +39,14 @@ import { useRevealStart } from "~/motion/use-reveal-start";
 import { useCapabilityTier } from "~/visual/hooks/use-capability-tier";
 
 const entranceEase = [0.22, 1, 0.36, 1] as const;
+
+/**
+ * When a `Reveal`/`PanelReveal` sits inside a `RevealGroup`, this carries the
+ * group's "has the group scrolled into view yet" flag. `null` means there is no
+ * surrounding group, so the child falls back to observing its own element — the
+ * original per-element behaviour.
+ */
+const RevealGroupContext = createContext<boolean | null>(null);
 
 /** Parses a benchmark value like "£16,800.00", "+66%", "1,324%" into count-up parts. */
 const NUMERIC_METRIC = /^([£$]?)([+-]?)([\d,]+(?:\.\d+)?)(.*)$/;
@@ -262,6 +272,66 @@ export function Reveal({
 }
 
 /**
+ * Coordinates a set of child `Reveal`/`PanelReveal`s so the whole group ignites
+ * the moment it scrolls into view, rather than each card waiting to reach its
+ * own viewport threshold. Children keep their individual stagger delays and the
+ * global top-to-bottom scheduler, so the group still lands as a choreographed
+ * wave — the reader just sees the entire mosaic arrive from the first card
+ * instead of discovering more cards only by scrolling further.
+ *
+ * Renders AS `as` (a grid/list container, default div) so it never inserts an
+ * extra layout box: point it at the element that already wraps the cards.
+ * Reduced motion resolves the group as started immediately, so nothing is held.
+ */
+export function RevealGroup({
+  children,
+  className,
+  as: Tag = "div",
+  amount = 0.15,
+  role,
+  "aria-label": ariaLabel,
+}: {
+  children: ReactNode;
+  className?: string;
+  as?: "div" | "ul" | "ol";
+  amount?: number;
+  role?: string;
+  "aria-label"?: string;
+}) {
+  const reducedMotion = useReducedMotion() ?? false;
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { amount, margin: "0px 0px -12% 0px", once: true });
+  const started = reducedMotion || inView;
+
+  const inner = (
+    <RevealGroupContext.Provider value={started}>
+      {children}
+    </RevealGroupContext.Provider>
+  );
+  const shared = { className, role, "aria-label": ariaLabel };
+
+  if (Tag === "ol") {
+    return (
+      <ol ref={ref as RefObject<HTMLOListElement>} {...shared}>
+        {inner}
+      </ol>
+    );
+  }
+  if (Tag === "ul") {
+    return (
+      <ul ref={ref as RefObject<HTMLUListElement>} {...shared}>
+        {inner}
+      </ul>
+    );
+  }
+  return (
+    <div ref={ref as RefObject<HTMLDivElement>} {...shared}>
+      {inner}
+    </div>
+  );
+}
+
+/**
  * Scroll-triggered branch of Reveal. The start moment goes through the global
  * reveal scheduler (see `~/motion/reveal-scheduler`) so that when several
  * reveals fire near-simultaneously — fast scroll, anchor jump, a section
@@ -282,11 +352,15 @@ function ViewportReveal({
   kind: RevealKind;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, {
+  const ownInView = useInView(ref, {
     amount,
     margin: "0px 0px -18% 0px",
     once: true,
   });
+  // Inside a RevealGroup, readiness is the group's — so every card in the group
+  // begins the instant the group is in view, keeping its own stagger delay.
+  const groupStarted = useContext(RevealGroupContext);
+  const inView = groupStarted ?? ownInView;
   const start = useRevealStart(ref, inView, delayMs);
 
   return (
@@ -367,11 +441,13 @@ function PanelRevealMotion({
   const ref = useRef<HTMLDivElement>(null);
   // A fractional threshold a tall panel could never reach would hold the
   // entrance forever; 0.25 fires once a meaningful band of the frame is in.
-  const inView = useInView(ref, {
+  const ownInView = useInView(ref, {
     amount: 0.25,
     margin: "0px 0px -18% 0px",
     once: true,
   });
+  const groupStarted = useContext(RevealGroupContext);
+  const inView = groupStarted ?? ownInView;
   const start = useRevealStart(ref, inView, delayMs);
   const instant = start?.instant ?? false;
   const durationScale = start?.durationScale ?? 1;

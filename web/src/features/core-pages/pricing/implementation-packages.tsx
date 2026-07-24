@@ -8,7 +8,7 @@
  * price hierarchy, inclusion lists, hover lift — is CSS, so nothing here
  * animates layout.
  */
-import { Check, Layers } from "~/components/icons/lucide";
+import { Check, ChevronDown, InfoIcon, Layers } from "~/components/icons/lucide";
 import {
   BorderBeam,
   PanelReveal,
@@ -16,10 +16,11 @@ import {
 } from "~/features/services-v2/components/primitives";
 
 import {
-  BAND_RECONCILIATION,
+  BAND_LADDER,
   IMPLEMENTATION_SCOPE_CHIPS,
   IMPLEMENTATION_TIERS,
   PAGE_PRICING_DISCLOSURE,
+  type PricingCssVars,
 } from "./pricing-content";
 
 export function ImplementationPackages() {
@@ -90,15 +91,41 @@ export function ImplementationPackages() {
       </div>
 
       <Reveal kind="section" delayMs={160}>
-        <div className="ss-pri-notes">
-          <p className="ss-pri-notes__line">
-            <span className="ss-pri-notes__key">Where the bands meet</span>
-            {BAND_RECONCILIATION}
-          </p>
-          <p className="ss-pri-notes__line">
-            <span className="ss-pri-notes__key">Pricing disclosure</span>
-            {PAGE_PRICING_DISCLOSURE}
-          </p>
+        <div className="ss-pri-reconcile">
+          <div className="ss-pri-reconcile__head">
+            <span className="ss-pri-reconcile__eyebrow">Where the bands meet</span>
+            <p className="ss-pri-reconcile__lead">
+              The tiers overlap on purpose. Here is where most projects actually land.
+            </p>
+          </div>
+
+          <ol className="ss-pri-ladder">
+            {BAND_LADDER.map((stop, index) => (
+              <li
+                className="ss-pri-ladder__stop"
+                data-emphasis={stop.emphasis ? "true" : undefined}
+                key={stop.point}
+                style={{ "--pri-i": index } as PricingCssVars}
+              >
+                <span className="ss-pri-ladder__node" aria-hidden="true" />
+                <span className="ss-pri-ladder__point">{stop.point}</span>
+                <span className="ss-pri-ladder__label">{stop.label}</span>
+                {stop.emphasis ? (
+                  <span className="ss-pri-ladder__flag">Most SMEs land here</span>
+                ) : null}
+              </li>
+            ))}
+          </ol>
+
+          <details className="ss-pri-disclosure">
+            <summary className="ss-pri-disclosure__summary">
+              <InfoIcon aria-hidden="true" className="ss-pri-disclosure__icon" />
+              <span className="ss-pri-disclosure__label">Pricing disclosure</span>
+              <span className="ss-pri-disclosure__hint">Read the fine print</span>
+              <ChevronDown aria-hidden="true" className="ss-pri-disclosure__chevron" />
+            </summary>
+            <p className="ss-pri-disclosure__body">{PAGE_PRICING_DISCLOSURE}</p>
+          </details>
         </div>
       </Reveal>
     </>

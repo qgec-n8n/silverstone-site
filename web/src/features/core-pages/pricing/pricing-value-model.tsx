@@ -18,13 +18,32 @@ import {
   Zap,
   type LucideIcon,
 } from "~/components/icons/lucide";
-import { PanelReveal, Reveal } from "~/features/services-v2/components/primitives";
+import {
+  PanelReveal,
+  Reveal,
+  RevealGroup,
+} from "~/features/services-v2/components/primitives";
 
 /** One metaphor per value, in the order VALUE_BEYOND_SAVINGS declares them. */
 const BEYOND_ICONS: readonly LucideIcon[] = [Zap, TrendingUp, Smile, ShieldCheck];
 
+/** One spectral hue per value, so the four benefits read as distinct. */
+const BEYOND_ACCENTS = [
+  "var(--ss-v2-signal-cyan)",
+  "var(--ss-v2-azure)",
+  "var(--ss-v2-orchid)",
+  "var(--ss-v2-rose)",
+] as const;
+
 /** Break-even, tracking, pilot proof, human review. */
 const PROOF_ICONS: readonly LucideIcon[] = [Clock, Target, Sparkles, ClipboardCheck];
+
+const PROOF_ACCENTS = [
+  "var(--ss-v2-aqua)",
+  "var(--ss-v2-sky)",
+  "var(--ss-v2-ultraviolet)",
+  "var(--ss-v2-orchid)",
+] as const;
 
 import {
   ROI_MODEL,
@@ -57,7 +76,11 @@ export function PricingValueModel() {
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <h4>{step.title}</h4>
-                <p>{step.body}</p>
+                <p className="ss-pri-roi__figure">
+                  <span className="ss-pri-roi__figure-value">{step.figure}</span>
+                  <span className="ss-pri-roi__figure-unit">{step.unit}</span>
+                </p>
+                <p className="ss-pri-roi__note">{step.body}</p>
               </li>
             ))}
           </ol>
@@ -71,14 +94,19 @@ export function PricingValueModel() {
           <Reveal kind="section">
             <h3 className="ss-pri-subhead">Value beyond cost savings</h3>
           </Reveal>
-          {/* Roles restored explicitly: `Reveal` renders a div between the
-              list and its items. */}
-          <ul className="ss-pri-beyond__list" role="list">
+          {/* A RevealGroup rendered AS the `ul`, so all four benefits arrive
+              together once in view; roles restored explicitly since `Reveal`
+              renders a div between the list and its items. */}
+          <RevealGroup as="ul" className="ss-pri-beyond__list" role="list">
             {VALUE_BEYOND_SAVINGS.map((item, index) => {
               const Icon = BEYOND_ICONS[index] ?? TrendingUp;
               return (
-                <Reveal key={item.title} kind="card" delayMs={index * 110}>
-                  <li className="ss-pri-beyond__item" role="listitem">
+                <Reveal key={item.title} kind="card" delayMs={index * 90}>
+                  <li
+                    className="ss-pri-beyond__item"
+                    role="listitem"
+                    style={{ "--pri-accent": BEYOND_ACCENTS[index] } as PricingCssVars}
+                  >
                     <span className="ss-pri-beyond__marker" aria-hidden="true">
                       <Icon />
                     </span>
@@ -90,29 +118,38 @@ export function PricingValueModel() {
                 </Reveal>
               );
             })}
-          </ul>
+          </RevealGroup>
         </div>
       </div>
 
-      <div className="ss-pri-value__cards">
+      <RevealGroup className="ss-pri-value__cards">
         {VALUE_PROOF_CARDS.map((card, index) => {
           const Icon = PROOF_ICONS[index] ?? Sparkles;
           return (
             <Reveal
               className="ss-pri-proofcard"
-              delayMs={index * 110}
+              delayMs={index * 90}
               key={card.value}
               kind="metric"
             >
-              <span className="ss-pri-proofcard__icon" aria-hidden="true">
+              <span
+                className="ss-pri-proofcard__icon"
+                aria-hidden="true"
+                style={{ "--pri-accent": PROOF_ACCENTS[index] } as PricingCssVars}
+              >
                 <Icon />
               </span>
-              <span className="ss-pri-proofcard__value">{card.value}</span>
+              <span
+                className="ss-pri-proofcard__value"
+                style={{ "--pri-accent": PROOF_ACCENTS[index] } as PricingCssVars}
+              >
+                {card.value}
+              </span>
               <span className="ss-pri-proofcard__label">{card.label}</span>
             </Reveal>
           );
         })}
-      </div>
+      </RevealGroup>
     </div>
   );
 }

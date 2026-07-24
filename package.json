@@ -14,5 +14,13 @@
     "test": "npm --prefix web run test",
     "verify": "npm --prefix web run verify"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@iconify-json/tabler": "^1.2.37",
+    "@iconify/tailwind4": "^1.2.3",
+    "shadcn": "^4.14.1"
+  },
+  "dependencies": {
+    "flyonui": "^2.4.1"
+  }
 }

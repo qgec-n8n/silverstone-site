@@ -9,7 +9,11 @@
  * `transform: scaleX` rather than width so nothing re-lays-out mid-entrance.
  */
 import { Clock, Gauge, Layers, Target } from "~/components/icons/lucide";
-import { PanelReveal, Reveal } from "~/features/services-v2/components/primitives";
+import {
+  PanelReveal,
+  Reveal,
+  RevealGroup,
+} from "~/features/services-v2/components/primitives";
 
 import {
   BREAKDOWN_INSTRUMENTS,
@@ -22,6 +26,21 @@ import {
 
 const DRIVER_ICONS = [Layers, Gauge, Target, Clock] as const;
 
+/** One spectral hue per cost driver, so the mosaic reads as four distinct
+    considerations rather than one grey list. */
+const DRIVER_ACCENTS = [
+  "var(--ss-v2-aqua)",
+  "var(--ss-v2-azure)",
+  "var(--ss-v2-ultraviolet)",
+  "var(--ss-v2-orchid)",
+] as const;
+
+const INSTRUMENT_ACCENTS = [
+  "var(--ss-v2-aqua)",
+  "var(--ss-v2-sky)",
+  "var(--ss-v2-orchid)",
+] as const;
+
 export function ImplementationBreakdown() {
   return (
     <div className="ss-pri-breakdown">
@@ -30,14 +49,20 @@ export function ImplementationBreakdown() {
           <Reveal kind="section">
             <h3 className="ss-pri-subhead">What determines implementation cost?</h3>
           </Reveal>
-          {/* `Reveal` renders a div, so the implicit list semantics between the
-              ol and its items are restored explicitly. */}
-          <ol className="ss-pri-drivers__list" role="list">
+          {/* A RevealGroup so all four cards ignite together once the mosaic
+              enters view (rather than one-at-a-time on scroll). It renders AS
+              the `ol`, so the list semantics between it and its items stay
+              intact — restored explicitly since `Reveal` renders a div. */}
+          <RevealGroup as="ol" className="ss-pri-drivers__list" role="list">
             {COST_DRIVERS.map((driver, index) => {
               const Icon = DRIVER_ICONS[index] ?? Layers;
               return (
-                <Reveal key={driver.title} kind="card" delayMs={index * 110}>
-                  <li className="ss-pri-driver" role="listitem">
+                <Reveal key={driver.title} kind="card" delayMs={index * 90}>
+                  <li
+                    className="ss-pri-driver"
+                    role="listitem"
+                    style={{ "--pri-accent": DRIVER_ACCENTS[index] } as PricingCssVars}
+                  >
                     <span className="ss-pri-driver__icon" aria-hidden="true">
                       <Icon />
                     </span>
@@ -52,7 +77,7 @@ export function ImplementationBreakdown() {
                 </Reveal>
               );
             })}
-          </ol>
+          </RevealGroup>
         </div>
 
         <div className="ss-pri-breakdown__instruments">
@@ -113,20 +138,25 @@ export function ImplementationBreakdown() {
         </div>
       </div>
 
-      <div className="ss-pri-instruments">
+      <RevealGroup className="ss-pri-instruments">
         {BREAKDOWN_INSTRUMENTS.map((instrument, index) => (
           <Reveal
             className="ss-pri-instrument"
-            delayMs={index * 120}
+            delayMs={index * 100}
             key={instrument.value}
             kind="metric"
           >
-            <span className="ss-pri-instrument__value">{instrument.value}</span>
+            <span
+              className="ss-pri-instrument__value"
+              style={{ "--pri-accent": INSTRUMENT_ACCENTS[index] } as PricingCssVars}
+            >
+              {instrument.value}
+            </span>
             <span className="ss-pri-instrument__label">{instrument.label}</span>
             <span className="ss-pri-instrument__note">{instrument.note}</span>
           </Reveal>
         ))}
-      </div>
+      </RevealGroup>
 
       <Reveal kind="section" delayMs={140}>
         <p className="ss-pri-footnote">{HOURLY_RATE_NOTE}</p>

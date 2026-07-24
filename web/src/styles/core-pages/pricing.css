@@ -274,10 +274,10 @@
 
 .ss-pri-model__row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 0.35rem 0.75rem;
+  gap: 0.6rem;
   padding: 0.5rem 0.7rem;
   border-radius: var(--ss-radius-sm);
   border: 1px solid var(--ss-v2-hairline);
@@ -285,36 +285,45 @@
 }
 
 .ss-pri-model__name {
+  min-width: 0;
   margin: 0;
+  overflow: hidden;
   color: var(--srv2-ink-soft);
   font-family: var(--ss-font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+/* The figure never wraps or shrinks — the label yields first (it ellipsises),
+   so a range like "£10,000–£25,000 typical" always sits on one line to the
+   right, matching the shorter pilot/retainer rows. */
 .ss-pri-model__figure {
+  flex: none;
   display: flex;
   align-items: baseline;
-  gap: 0.35rem;
+  gap: 0.3rem;
   margin: 0;
   text-align: end;
+  white-space: nowrap;
 }
 
 .ss-pri-model__prefix,
 .ss-pri-model__suffix {
   color: var(--srv2-ink-faint);
   font-family: var(--ss-font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
+  font-size: 0.58rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .ss-pri-model__value {
   font-family: var(--ss-font-display);
-  font-size: clamp(0.95rem, 0.85rem + 0.35vw, 1.15rem);
+  font-size: clamp(0.88rem, 0.8rem + 0.3vw, 1.05rem);
   font-weight: 650;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   color: var(--ss-v2-chrome);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -458,11 +467,31 @@
   color: var(--ss-v2-chrome);
 }
 
+/* Title + desc reserve a fixed number of lines so the price rule below lands on
+   the same baseline across all three cards, whatever each card's copy length. */
+@media (min-width: 62rem) {
+  .ss-pri-tier__title {
+    min-height: 2.4em;
+  }
+}
+
 .ss-pri-tier__desc {
   margin: 0;
   color: var(--srv2-ink-soft);
   font-size: 0.93rem;
   line-height: 1.55;
+}
+
+/* Only clamp + reserve at the 3-up breakpoint, where equal head height is what
+   lands all three prices on one line. Narrow layouts show the copy in full. */
+@media (min-width: 62rem) {
+  .ss-pri-tier__desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    min-height: calc(2 * 1.55em);
+  }
 }
 
 .ss-pri-tier__price {
@@ -561,7 +590,68 @@
   height: 0.3rem;
   margin-block-start: 0.55rem;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 70%,
+    transparent
+  );
+}
+
+/* -- Per-card colour identity. Each card owns one spectral hue; the price
+   figure and inclusion ticks carry it as a solid colour (never a transparent
+   gradient — these figures must stay crawlable and high-contrast). -- */
+.ss-pri-tiers > :nth-child(1) {
+  --pri-accent: var(--ss-v2-aqua);
+}
+
+.ss-pri-tiers > :nth-child(2) {
+  --pri-accent: var(--ss-v2-signal-cyan);
+}
+
+.ss-pri-tiers > :nth-child(3) {
+  --pri-accent: var(--ss-v2-orchid);
+}
+
+.ss-pri-tier__figure {
+  color: var(--pri-accent, var(--ss-v2-chrome));
+}
+
+.ss-pri-tier__list svg {
+  color: var(--pri-accent, var(--srv2-accent));
+}
+
+.ss-pri-tier__label {
+  color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-ink)) 82%,
+    var(--ss-v2-chrome)
+  );
+}
+
+/* The featured card pops: larger, lifted above its neighbours, with a distinct
+   accent halo. Only from the 3-up breakpoint — while stacked it is full width,
+   where a scale-up would overflow. Uses the independent `scale`/`translate`
+   properties, NOT `transform`: PanelReveal's motion sets an inline `transform`
+   that would override a CSS transform, but leaves `scale`/`translate` free, and
+   the two compose. Neither affects scrollWidth, so no horizontal overflow. */
+@media (min-width: 62rem) {
+  .ss-pri-tier.ss-srv2-beam-border {
+    z-index: 2;
+    scale: 1.05;
+    box-shadow:
+      var(--pri-inset-light),
+      0 34px 90px -44px color-mix(in srgb, var(--srv2-accent) 78%, transparent),
+      0 0 46px -12px color-mix(in srgb, var(--srv2-accent) 40%, transparent);
+  }
+
+  .ss-pri-tier.ss-srv2-beam-border:hover {
+    scale: 1.06;
+    translate: 0 -4px;
+    box-shadow:
+      var(--pri-inset-light),
+      0 40px 100px -44px color-mix(in srgb, var(--srv2-accent) 85%, transparent),
+      0 0 58px -10px color-mix(in srgb, var(--srv2-accent) 48%, transparent);
+  }
 }
 
 /* ---- Implementation breakdown ------------------------------------------ */
@@ -605,7 +695,11 @@
 
 .ss-pri-driver:hover {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--srv2-accent) 38%, transparent);
+  border-color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 42%,
+    transparent
+  );
 }
 
 .ss-pri-driver__icon {
@@ -615,9 +709,14 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: var(--ss-radius-md);
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 30%, transparent);
-  background: color-mix(in srgb, var(--srv2-accent) 12%, var(--ss-v2-void-black));
-  color: var(--srv2-accent);
+  border: 1px solid
+    color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 34%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 14%,
+    var(--ss-v2-void-black)
+  );
+  color: var(--pri-accent, var(--srv2-accent));
 }
 
 .ss-pri-driver__icon svg {
@@ -625,17 +724,22 @@
   height: 1.15rem;
 }
 
+/* The step number is its own accented display digit, not grey microcopy — one
+   more place the mosaic carries colour and size variation. */
 .ss-pri-driver__index {
-  color: var(--srv2-ink-faint);
-  font-family: var(--ss-font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
+  align-self: center;
+  font-family: var(--ss-font-display);
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 70%, transparent);
+  font-variant-numeric: tabular-nums;
 }
 
 .ss-pri-driver__copy h4 {
   margin: 0 0 0.3rem;
   font-family: var(--ss-font-display);
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 600;
   color: var(--ss-v2-chrome);
 }
@@ -851,7 +955,7 @@
   font-weight: 650;
   line-height: 1.05;
   letter-spacing: -0.025em;
-  color: var(--ss-v2-chrome);
+  color: var(--pri-accent, var(--ss-v2-chrome));
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
@@ -883,6 +987,19 @@
   .ss-pri-support {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
+
+/* One spectral hue per retainer, carried by the price figure and ticks. */
+.ss-pri-support > :nth-child(1) {
+  --pri-accent: var(--ss-v2-sky);
+}
+
+.ss-pri-support > :nth-child(2) {
+  --pri-accent: var(--ss-v2-signal-cyan);
+}
+
+.ss-pri-support > :nth-child(3) {
+  --pri-accent: var(--ss-v2-orchid);
 }
 
 /* Deliberately quieter than .ss-pri-tier: flat plate substrate, no accent
@@ -943,7 +1060,7 @@
   font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.7rem);
   font-weight: 650;
   letter-spacing: -0.02em;
-  color: var(--ss-v2-chrome);
+  color: var(--pri-accent, var(--ss-v2-chrome));
   font-variant-numeric: tabular-nums;
 }
 
@@ -1121,22 +1238,47 @@
   }
 }
 
+/* At the 2-column layout breakpoint the four steps go 2×2 — halving the panel
+   height (it was overrunning the benefits column and opening a gap above the
+   proof cards) and turning the worked example into a scannable grid of four
+   figures rather than a tall paragraph stack. */
 .ss-pri-roi__steps {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
   margin: 0;
   padding: 0;
   list-style: none;
   counter-reset: none;
 }
 
+@media (min-width: 62rem) {
+  .ss-pri-roi__steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .ss-pri-roi__steps li {
   position: relative;
-  padding: 0.9rem 1.05rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.7rem 0.9rem 0.75rem;
   border-radius: var(--ss-radius-md);
   border: 1px solid var(--ss-v2-hairline);
   background: var(--pri-plate);
+}
+
+/* Tighten the ROI frame so its 2×2 body lands level with the benefits column
+   beside it (no gap above the proof cards). */
+.ss-pri-roi .ss-pri-panel__head {
+  margin-block-end: 0.85rem;
+  padding-block-end: 0.55rem;
+}
+
+.ss-pri-roi .ss-pri-footnote {
+  margin-block-start: 0.7rem;
+  font-size: 0.74rem;
+  line-height: 1.45;
 }
 
 .ss-pri-roi__steps li[data-emphasis="true"] {
@@ -1158,30 +1300,89 @@
   letter-spacing: 0.12em;
 }
 
+/* Storytelling colour: cost today reads neutral, the investment reads as an
+   outflow (rose), recovered value as a gain (aqua), and the net result in the
+   brand cyan on the emphasised plate. */
+.ss-pri-roi__steps li:nth-child(1) {
+  --pri-accent: var(--ss-v2-mercury);
+}
+
+.ss-pri-roi__steps li:nth-child(2) {
+  --pri-accent: var(--ss-v2-rose);
+}
+
+.ss-pri-roi__steps li:nth-child(3) {
+  --pri-accent: var(--ss-v2-aqua);
+}
+
+.ss-pri-roi__steps li:nth-child(4) {
+  --pri-accent: var(--ss-v2-signal-cyan);
+}
+
 .ss-pri-roi__steps h4 {
-  margin: 0 0 0.35rem;
+  margin: 0;
   padding-inline-end: 2.5rem;
   font-family: var(--ss-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 600;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--srv2-accent);
+  color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 85%,
+    var(--ss-v2-chrome)
+  );
 }
 
 .ss-pri-roi__steps li[data-emphasis="true"] h4 {
   color: var(--ss-v2-chrome);
 }
 
-.ss-pri-roi__steps p {
-  margin: 0;
-  color: var(--srv2-ink-soft);
-  font-size: 0.92rem;
-  line-height: 1.6;
+/* The headline figure — big, coloured, scannable, so the arithmetic reads at a
+   glance instead of as a paragraph. */
+.ss-pri-roi__figure {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.55rem;
+  margin: 0.2rem 0 0.25rem;
+}
+
+.ss-pri-roi__figure-value {
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 1.85rem);
+  font-weight: 680;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--pri-accent, var(--ss-v2-chrome));
   font-variant-numeric: tabular-nums;
 }
 
-.ss-pri-roi__steps li[data-emphasis="true"] p {
+.ss-pri-roi__steps li[data-emphasis="true"] .ss-pri-roi__figure-value {
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-roi__figure-unit {
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--srv2-ink-faint);
+}
+
+.ss-pri-roi__steps li[data-emphasis="true"] .ss-pri-roi__figure-unit {
+  color: color-mix(in srgb, var(--ss-v2-chrome) 74%, transparent);
+}
+
+.ss-pri-roi__note {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.ss-pri-roi__steps li[data-emphasis="true"] .ss-pri-roi__note {
   color: var(--srv2-ink);
 }
 
@@ -1245,7 +1446,7 @@
   display: grid;
   gap: var(--pri-gap);
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-block-start: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+  margin-block-start: var(--pri-gap);
 }
 
 @media (min-width: 62rem) {
@@ -1272,16 +1473,22 @@
 .ss-pri-proofcard__icon {
   display: grid;
   place-items: center;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--srv2-accent) 30%, transparent);
-  color: var(--srv2-accent);
+  border: 1px solid
+    color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 36%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 10%,
+    transparent
+  );
+  color: var(--pri-accent, var(--srv2-accent));
 }
 
 .ss-pri-proofcard__icon svg {
-  width: 0.85rem;
-  height: 0.85rem;
+  width: 0.9rem;
+  height: 0.9rem;
 }
 
 .ss-pri-proofcard__value {
@@ -1290,7 +1497,7 @@
   font-weight: 650;
   line-height: 1.05;
   letter-spacing: -0.02em;
-  color: var(--ss-v2-chrome);
+  color: var(--pri-accent, var(--ss-v2-chrome));
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
@@ -2045,6 +2252,839 @@
   .ss-pri-driver:hover,
   .ss-pri-retainer:hover,
   .ss-pri-webtile:hover {
+    transform: none;
+  }
+}
+
+/* ======================================================================== *
+ * Premium refinements (2026-07-24 pass)
+ * Band reconciliation ladder · verified-results palette · website tier
+ * explorer · solid hosting rail · maintenance ladder · bespoke chips.
+ * ======================================================================== */
+
+/* ---- #3 · Where the bands meet — ladder + collapsible disclosure ------- */
+
+.ss-pri-reconcile {
+  margin-block-start: clamp(1.75rem, 1.4rem + 1.2vw, 2.75rem);
+  padding: clamp(1.35rem, 1.1rem + 1.2vw, 2.1rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background:
+    radial-gradient(
+      120% 140% at 0% 0%,
+      color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+      transparent 56%
+    ),
+    radial-gradient(
+      120% 140% at 100% 100%,
+      color-mix(in srgb, var(--srv2-accent-2) 12%, transparent),
+      transparent 56%
+    ),
+    var(--srv2-glass);
+  box-shadow: var(--pri-inset-light);
+}
+
+.ss-pri-reconcile__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-block-end: 0.5rem;
+}
+
+.ss-pri-reconcile__eyebrow {
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--srv2-accent);
+}
+
+.ss-pri-reconcile__lead {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--srv2-ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.ss-pri-ladder {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+  margin: clamp(1rem, 0.8rem + 0.6vw, 1.4rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 46rem) {
+  .ss-pri-ladder {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 60rem) {
+  .ss-pri-ladder {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ss-pri-ladder__stop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: var(--pri-plate);
+  overflow: hidden;
+}
+
+/* An ascending accent stripe at the top edge — each stop's fill is one step
+   longer than the last, so the row reads as a rising scale at a glance. */
+.ss-pri-ladder__stop::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  height: 2px;
+  width: calc(34% + var(--pri-i, 0) * 22%);
+  background: linear-gradient(90deg, var(--srv2-accent), var(--srv2-accent-2));
+}
+
+.ss-pri-ladder__stop[data-emphasis="true"] {
+  border-color: color-mix(in srgb, var(--srv2-accent) 46%, transparent);
+  background:
+    linear-gradient(
+      158deg,
+      color-mix(in srgb, var(--srv2-accent) 18%, transparent),
+      color-mix(in srgb, var(--srv2-accent-2) 13%, transparent)
+    ),
+    var(--pri-plate);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--srv2-accent) 22%, transparent),
+    0 20px 46px -32px color-mix(in srgb, var(--srv2-accent) 60%, transparent);
+}
+
+.ss-pri-ladder__node {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: var(--srv2-accent);
+  box-shadow: 0 0 9px color-mix(in srgb, var(--srv2-accent) 65%, transparent);
+}
+
+.ss-pri-ladder__stop[data-emphasis="true"] .ss-pri-ladder__node {
+  background: var(--ss-v2-chrome);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--ss-v2-chrome) 55%, transparent);
+}
+
+.ss-pri-ladder__point {
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.05rem, 0.92rem + 0.5vw, 1.28rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--ss-v2-chrome);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ss-pri-ladder__stop[data-emphasis="true"] .ss-pri-ladder__point {
+  color: var(--srv2-accent);
+}
+
+.ss-pri-ladder__label {
+  color: var(--srv2-ink-soft);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.ss-pri-ladder__flag {
+  align-self: flex-start;
+  margin-block-start: 0.1rem;
+  padding: 0.16rem 0.55rem;
+  border-radius: var(--ss-radius-pill);
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--srv2-accent) 92%, var(--ss-v2-void-black)),
+    color-mix(in srgb, var(--srv2-accent-2) 88%, var(--ss-v2-void-black))
+  );
+  color: var(--ss-v2-void-black);
+  font-family: var(--ss-font-mono);
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Collapsible disclosure — the fine print, opened on demand. */
+.ss-pri-disclosure {
+  margin-block-start: clamp(1rem, 0.8rem + 0.6vw, 1.4rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 30%, transparent);
+}
+
+.ss-pri-disclosure[data-standalone="true"] {
+  margin-block-start: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+}
+
+.ss-pri-disclosure__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.05rem;
+  border-radius: inherit;
+  cursor: pointer;
+  list-style: none;
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-pri-disclosure__summary::-webkit-details-marker {
+  display: none;
+}
+
+.ss-pri-disclosure__summary:hover {
+  color: var(--srv2-accent);
+}
+
+.ss-pri-disclosure__summary:focus-visible {
+  outline: 2px solid var(--srv2-accent);
+  outline-offset: 2px;
+}
+
+.ss-pri-disclosure__icon {
+  flex: none;
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--srv2-accent);
+}
+
+.ss-pri-disclosure__label {
+  color: inherit;
+}
+
+.ss-pri-disclosure__hint {
+  margin-inline-start: auto;
+  color: var(--srv2-ink-faint);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+}
+
+.ss-pri-disclosure__chevron {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--srv2-ink-faint);
+  transition: transform var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-pri-disclosure[open] .ss-pri-disclosure__chevron {
+  transform: rotate(180deg);
+  color: var(--srv2-accent);
+}
+
+.ss-pri-disclosure__body {
+  margin: 0;
+  padding: 0 1.05rem 1.05rem;
+  max-width: 76ch;
+  color: var(--srv2-ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+/* ---- #7 · Verified-results palette (pricing only) ---------------------- */
+
+.ss-pri
+  .ss-core-metric-instrument__cell:nth-child(1)
+  .ss-core-metric-instrument__value {
+  color: var(--ss-v2-aqua);
+}
+
+.ss-pri
+  .ss-core-metric-instrument__cell:nth-child(2)
+  .ss-core-metric-instrument__value {
+  color: var(--ss-v2-signal-cyan);
+}
+
+.ss-pri
+  .ss-core-metric-instrument__cell:nth-child(3)
+  .ss-core-metric-instrument__value {
+  color: var(--ss-v2-azure);
+}
+
+.ss-pri
+  .ss-core-metric-instrument__cell:nth-child(4)
+  .ss-core-metric-instrument__value {
+  color: var(--ss-v2-ultraviolet);
+}
+
+.ss-pri
+  .ss-core-metric-instrument__cell:nth-child(5)
+  .ss-core-metric-instrument__value {
+  color: var(--ss-v2-orchid);
+}
+
+/* ---- #8 · Website tier explorer ---------------------------------------- */
+
+.ss-pri-tierx {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 0.8rem + 0.9vw, 1.6rem);
+  padding: clamp(1.1rem, 0.9rem + 0.9vw, 1.75rem);
+  border-radius: var(--ss-radius-2xl);
+  border: 1px solid var(--ss-v2-hairline);
+  background:
+    radial-gradient(
+      120% 130% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent-2) 13%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      120% 130% at 0% 100%,
+      color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+      transparent 55%
+    ),
+    var(--srv2-glass-raised);
+  box-shadow: var(--pri-inset-light);
+}
+
+.ss-pri-tierx__seg {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+  padding: 0.35rem;
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--ss-v2-hairline);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 34%, transparent);
+}
+
+@media (min-width: 46rem) {
+  .ss-pri-tierx__seg {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ss-pri-tierx__seg-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: var(--ss-radius-md);
+  background: transparent;
+  color: var(--srv2-ink-soft);
+  text-align: start;
+  cursor: pointer;
+  transition:
+    background var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    color var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-pri-tierx__seg-btn:hover {
+  color: var(--ss-v2-chrome);
+  border-color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 34%,
+    transparent
+  );
+}
+
+.ss-pri-tierx__seg-btn:focus-visible {
+  outline: 2px solid var(--pri-accent, var(--srv2-accent));
+  outline-offset: 2px;
+}
+
+.ss-pri-tierx__seg-btn[data-active="true"] {
+  color: var(--ss-v2-chrome);
+  border-color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 55%,
+    transparent
+  );
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 22%, transparent),
+    color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 6%, transparent)
+  );
+  box-shadow: 0 10px 28px -20px
+    color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 80%, transparent);
+}
+
+.ss-pri-tierx__seg-name {
+  font-family: var(--ss-font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ss-pri-tierx__seg-band {
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--srv2-ink-faint);
+}
+
+.ss-pri-tierx__seg-btn[data-active="true"] .ss-pri-tierx__seg-band {
+  color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 85%,
+    var(--ss-v2-chrome)
+  );
+}
+
+/* The showcase: all four panels share one grid cell so the frame height is
+   stable and every tier's figures stay in the served HTML; only the active
+   one is shown. */
+.ss-pri-tierx__stage {
+  display: grid;
+}
+
+.ss-pri-tierx__panel {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: clamp(1.15rem, 0.95rem + 0.9vw, 1.75rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid
+    color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 26%, transparent);
+  background:
+    radial-gradient(
+      120% 130% at 100% 0%,
+      color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 14%, transparent),
+      transparent 58%
+    ),
+    var(--pri-plate);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity 0.4s var(--ss-motion-easing-standard),
+    transform 0.4s var(--ss-motion-easing-standard),
+    visibility 0s linear 0.4s;
+}
+
+.ss-pri-tierx__panel[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+  transition:
+    opacity 0.4s var(--ss-motion-easing-standard),
+    transform 0.4s var(--ss-motion-easing-standard);
+}
+
+.ss-pri-tierx__panel:focus-visible {
+  outline: 2px solid var(--pri-accent, var(--srv2-accent));
+  outline-offset: 3px;
+}
+
+.ss-pri-tierx__panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding-block-end: 0.9rem;
+  border-block-end: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-pri-tierx__panel-eyebrow {
+  display: block;
+  margin-block-end: 0.35rem;
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 82%,
+    var(--ss-v2-chrome)
+  );
+}
+
+.ss-pri-tierx__panel-title {
+  margin: 0;
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--ss-v2-chrome);
+}
+
+.ss-pri-tierx__price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  margin: 0;
+  text-align: end;
+}
+
+.ss-pri-tierx__price-value {
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.6rem, 1.3rem + 1.3vw, 2.3rem);
+  font-weight: 680;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--pri-accent, var(--ss-v2-chrome));
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ss-pri-tierx__price-note {
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--srv2-ink-faint);
+}
+
+.ss-pri-tierx__desc {
+  margin: 0;
+  max-width: 54ch;
+  color: var(--srv2-ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.ss-pri-tierx__meta {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  margin-block-start: auto;
+  padding-block-start: 0.9rem;
+  border-block-start: 1px solid var(--ss-v2-hairline);
+}
+
+@media (min-width: 40rem) {
+  .ss-pri-tierx__meta {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+  }
+}
+
+.ss-pri-tierx__meta dt {
+  margin-block-end: 0.25rem;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-pri-tierx__meta dd {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.ss-pri-tierx__maint dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--ss-radius-sm);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 30%, transparent);
+}
+
+.ss-pri-tierx__maint-name {
+  color: var(--srv2-ink-soft);
+  font-size: 0.84rem;
+}
+
+.ss-pri-tierx__maint-price {
+  color: var(--pri-accent, var(--srv2-accent));
+  font-family: var(--ss-font-mono);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---- #8 · Hosting rail — solidified, per-option colour ----------------- */
+
+.ss-pri-hosting {
+  margin-block-start: var(--pri-gap);
+  background:
+    radial-gradient(
+      110% 150% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent-2) 15%, transparent),
+      transparent 58%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite-raised) 92%, transparent);
+}
+
+.ss-pri-hosting__list > :nth-child(1) {
+  --pri-accent: var(--ss-v2-aqua);
+}
+
+.ss-pri-hosting__list > :nth-child(2) {
+  --pri-accent: var(--ss-v2-sky);
+}
+
+.ss-pri-hosting__list > :nth-child(3) {
+  --pri-accent: var(--ss-v2-orchid);
+}
+
+.ss-pri-hosting__list li {
+  background: color-mix(in srgb, var(--ss-v2-graphite-raised) 78%, transparent);
+  border-color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 22%,
+    var(--ss-v2-hairline)
+  );
+}
+
+.ss-pri-hosting__marker {
+  border-color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 32%,
+    transparent
+  );
+  background: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 12%,
+    transparent
+  );
+  color: var(--pri-accent, var(--srv2-accent));
+}
+
+.ss-pri-hosting__price {
+  color: var(--pri-accent, var(--srv2-accent));
+}
+
+.ss-pri-hosting__body {
+  color: var(--srv2-ink-soft);
+}
+
+/* ---- #8 · Maintenance ladder ------------------------------------------- */
+
+.ss-pri-maint__intro {
+  margin: clamp(1.5rem, 1.2rem + 1vw, 2.25rem) 0 0;
+  max-width: 70ch;
+  color: var(--srv2-ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.ss-pri-maint__item {
+  gap: 0.4rem;
+  padding: 1.1rem 1.15rem;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 8%, transparent),
+      transparent 46%
+    ),
+    var(--pri-plate);
+  border-block-start: 2px solid
+    color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 60%, transparent);
+}
+
+.ss-pri-maint > :nth-child(1) .ss-pri-maint__item {
+  --pri-accent: var(--ss-v2-aqua);
+}
+
+.ss-pri-maint > :nth-child(2) .ss-pri-maint__item {
+  --pri-accent: var(--ss-v2-signal-cyan);
+}
+
+.ss-pri-maint > :nth-child(3) .ss-pri-maint__item {
+  --pri-accent: var(--ss-v2-azure);
+}
+
+.ss-pri-maint > :nth-child(4) .ss-pri-maint__item {
+  --pri-accent: var(--ss-v2-orchid);
+}
+
+.ss-pri-maint__item .ss-pri-maint__price {
+  order: -1;
+  color: var(--pri-accent, var(--srv2-accent));
+  font-family: var(--ss-font-display);
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.ss-pri-maint__item h4 {
+  font-size: 0.9rem;
+  color: var(--ss-v2-chrome);
+}
+
+/* ---- #9 · Bespoke engagements — colour, larger type, scope chips ------- */
+
+.ss-pri-bespoke > :nth-child(1) {
+  --pri-accent: var(--ss-v2-signal-cyan);
+}
+
+.ss-pri-bespoke > :nth-child(2) {
+  --pri-accent: var(--ss-v2-orchid);
+}
+
+.ss-pri-poa {
+  background:
+    radial-gradient(
+      120% 130% at 100% 0%,
+      color-mix(in srgb, var(--pri-accent, var(--srv2-accent)) 12%, transparent),
+      transparent 56%
+    ),
+    var(--pri-plate);
+}
+
+.ss-pri-poa:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 40%,
+    transparent
+  );
+}
+
+.ss-pri-poa__icon {
+  width: 3rem;
+  height: 3rem;
+  border-color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 32%,
+    transparent
+  );
+  background: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 12%,
+    transparent
+  );
+  color: var(--pri-accent, var(--srv2-accent));
+}
+
+.ss-pri-poa__icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.ss-pri-poa__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.9rem;
+}
+
+.ss-pri-poa__title {
+  font-size: clamp(1.3rem, 1.1rem + 0.7vw, 1.6rem);
+}
+
+.ss-pri-poa__price {
+  align-self: auto;
+  margin: 0;
+  border-color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 40%,
+    transparent
+  );
+  background: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 12%,
+    transparent
+  );
+  color: color-mix(
+    in srgb,
+    var(--pri-accent, var(--srv2-accent)) 85%,
+    var(--ss-v2-chrome)
+  );
+}
+
+.ss-pri-poa__body {
+  font-size: 0.95rem;
+}
+
+.ss-pri-poa__supporting {
+  color: var(--srv2-ink-soft);
+}
+
+/* Scope as skimmable ticked chips — a two-column grid of what's covered. */
+.ss-pri-poa__scope {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem 0.75rem;
+  margin: 0.2rem 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 30rem) {
+  .ss-pri-poa__scope {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ss-pri-poa__scope li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--ss-radius-sm);
+  border: 1px solid var(--ss-v2-hairline);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 26%, transparent);
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-body);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.ss-pri-poa__scope svg {
+  flex: none;
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-block-start: 0.15rem;
+  color: var(--pri-accent, var(--srv2-accent));
+}
+
+/* ---- New-component narrow-viewport tuning ------------------------------ */
+
+@media (max-width: 30rem) {
+  .ss-pri-tierx__panel-head {
+    align-items: flex-start;
+  }
+
+  .ss-pri-tierx__price {
+    align-items: flex-start;
+    text-align: start;
+  }
+}
+
+/* ---- New-component reduced motion -------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-pri-tierx__panel,
+  .ss-pri-tierx__seg-btn,
+  .ss-pri-disclosure__summary,
+  .ss-pri-disclosure__chevron,
+  .ss-pri-poa:hover {
+    transition: none;
+  }
+
+  .ss-pri-tierx__panel {
     transform: none;
   }
 }

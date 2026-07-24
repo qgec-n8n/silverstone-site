@@ -46,7 +46,7 @@ export const IMPLEMENTATION_TIERS: readonly PricingTier[] = [
   {
     id: "simple-automation",
     title: "Simple Automation",
-    description: "A focused workflow solution for a clear, contained automation need.",
+    description: "One focused workflow, automated end to end.",
     price: "£2,000–£10,000",
     priceNote: "One-time implementation",
     includedLabel: "What’s included",
@@ -69,10 +69,9 @@ export const IMPLEMENTATION_TIERS: readonly PricingTier[] = [
     badge: "Most popular",
     featured: true,
     title: "Multi-System Solution",
-    description:
-      "A coordinated automation system spanning multiple workflows, tools or customer touchpoints.",
+    description: "Coordinated automation across workflows and touchpoints.",
     price: "£10,000–£50,000",
-    priceNote: "Implementation with ongoing support options",
+    priceNote: "Implementation + support",
     includedLabel: "What’s included",
     included: [
       "Full process audit",
@@ -92,8 +91,7 @@ export const IMPLEMENTATION_TIERS: readonly PricingTier[] = [
   {
     id: "enterprise",
     title: "Enterprise Solution",
-    description:
-      "A complex, governed AI implementation designed for larger organisations and higher-risk operating environments.",
+    description: "Governed, higher-risk AI for larger organisations.",
     price: "£50,000+",
     priceNote: "Custom-scoped implementation",
     includedLabel: "What’s included",
@@ -115,11 +113,20 @@ export const IMPLEMENTATION_TIERS: readonly PricingTier[] = [
 ];
 
 /**
- * The one place the overlapping bands are reconciled. Deliberately stated once
- * rather than re-explained under every card.
+ * The one place the overlapping bands are reconciled — as an ascending ladder
+ * rather than a paragraph, so a reader can place themselves on it at a glance.
+ * The £10,000–£25,000 stop is the marked "most SMEs land here" sweet spot.
  */
-export const BAND_RECONCILIATION =
-  "A very narrow standalone automation can begin at £2,000. Most structured pilots begin at £3,000, most SME implementations sit between £10,000 and £25,000, and broader multi-system programmes extend towards £50,000. Enterprise programmes begin at £50,000.";
+export const BAND_LADDER: readonly {
+  point: string;
+  label: string;
+  emphasis: boolean;
+}[] = [
+  { point: "£2,000", label: "Narrow standalone automation", emphasis: false },
+  { point: "£3,000", label: "Most structured pilots", emphasis: false },
+  { point: "£10,000–£25,000", label: "Most SME implementations", emphasis: true },
+  { point: "£50,000+", label: "Multi-system & enterprise", emphasis: false },
+];
 
 export const PAGE_PRICING_DISCLOSURE =
   "All prices exclude VAT unless stated. Final quotations depend on confirmed scope. Third-party software, API, telephony, hosting and usage costs are identified separately before work begins.";
@@ -287,9 +294,6 @@ export const SUPPORT_COMMITMENTS = [
   { value: "Reported", label: "Written performance summaries" },
 ] as const;
 
-export const SUPPORT_COMMITMENTS_NOTE =
-  "Service commitments defined in your agreement. Specific targets, cadence and reporting depth are set per retainer, and are not a statement of historic performance.";
-
 /* ---- Value model -------------------------------------------------------- */
 
 /**
@@ -299,33 +303,43 @@ export const SUPPORT_COMMITMENTS_NOTE =
  */
 export const ROI_MODEL: readonly {
   title: string;
+  figure: string;
+  unit: string;
   body: string;
   emphasis: boolean;
 }[] = [
   {
     emphasis: false,
-    title: "Current state",
-    body: "Five employees collectively spend 20 hours each week on manual processes, representing approximately £50,000 in annual time cost.",
+    title: "Manual cost today",
+    figure: "£50,000",
+    unit: "per year",
+    body: "5 people · ~20 hrs/week on manual work.",
   },
   {
     emphasis: false,
-    title: "AI implementation",
-    body: "£15,000 implementation plus £4,200 annual Essential Support equals £19,200 total first-year investment.",
+    title: "First-year investment",
+    figure: "£19,200",
+    unit: "one-off + support",
+    body: "£15,000 build plus £4,200 Essential Support.",
   },
   {
     emphasis: false,
-    title: "Efficiency gains",
-    body: "Illustrative assumption: 75% of the manual workload is removed, representing £37,500 in annual time value, alongside faster turnaround.",
+    title: "Time value recovered",
+    figure: "£37,500",
+    unit: "per year",
+    body: "75% of the manual workload removed.",
   },
   {
     emphasis: true,
     title: "Net ROI — year one",
-    body: "£37,500 value less £19,200 investment equals £18,300 indicative net first-year value, with break-even at approximately month seven if the assumptions are proven in delivery.",
+    figure: "£18,300",
+    unit: "net · year one",
+    body: "£37,500 value − £19,200 cost = £18,300 net. Break-even ~ month seven.",
   },
 ];
 
 export const ROI_MODEL_NOTE =
-  "Every ROI model is based on the client’s actual baseline, assumptions and measurable outcomes. Illustrative figures are not a guarantee.";
+  "Illustrative model on a sample baseline. Every quote is built on your actual figures — not a guarantee.";
 
 export const VALUE_BEYOND_SAVINGS = [
   {
@@ -444,24 +458,24 @@ export const MAINTENANCE_PLANS = [
 
 export const HOSTING_OPTIONS = [
   {
-    title: "Managed Netlify hosting — under 15 pages",
+    title: "Managed hosting — small site",
     price: "£15/month",
-    body: "Silverstone AI-managed hosting on Netlify. Due from go-live and only where Silverstone AI hosts the website.",
+    body: "Fully managed on Netlify, under 15 pages. Billed from go-live.",
   },
   {
-    title: "Managed Netlify hosting — over 15 pages",
+    title: "Managed hosting — larger site",
     price: "£25/month",
-    body: "Silverstone AI-managed hosting on Netlify. Due from go-live and only where Silverstone AI hosts the website.",
+    body: "Fully managed on Netlify, over 15 pages. Billed from go-live.",
   },
   {
     title: "Self-hosting handover",
     price: "£350 one-off",
-    body: "One handover call, DNS and deployment guidance, and up to two capped support hours.",
+    body: "Handover call, DNS and deploy guidance, plus two capped support hours.",
   },
 ] as const;
 
 export const HOSTING_NOTE =
-  "Self-hosting is optional. Final project files are supplied after full payment even where no hosting package is selected.";
+  "Hosting is optional. Final project files are always supplied after full payment.";
 
 export const WEBSITE_DISCLOSURE =
   "Build fees exclude VAT, third-party services and separately quoted functionality. Milestone payments may be made by Stripe Payment Link or the business-account details shown on the invoice.";
@@ -487,9 +501,9 @@ export const BESPOKE_ENGAGEMENTS: readonly BespokeEngagement[] = [
     id: "app-development",
     title: "App Development",
     price: "Price on application",
-    body: "App development is quoted around product scope, platforms, user roles, integrations, data architecture, compliance, testing and release requirements. A focused MVP and a production-scale application require materially different levels of design and engineering.",
+    body: "Quoted around product scope, platforms, integrations, data and release. An MVP and a production app are very different builds.",
     supporting:
-      "The proposal defines the smallest valuable release before wider development begins.",
+      "We define the smallest valuable release before wider development begins.",
     scope: [
       "MVP or full product",
       "Web, mobile or cross-platform",
@@ -503,9 +517,9 @@ export const BESPOKE_ENGAGEMENTS: readonly BespokeEngagement[] = [
     id: "ai-consulting",
     title: "AI & Automation Consulting",
     price: "Price on application",
-    body: "Consulting is scoped around the depth and duration of the engagement, the number of workflows or stakeholders involved, and whether a focused review or full operating audit is required.",
+    body: "Scoped around engagement depth, the workflows and stakeholders involved, and whether it's a focused review or a full operating audit.",
     supporting:
-      "Engagements may be quoted at an hourly rate, day rate or fixed project fee, with the basis confirmed before work begins.",
+      "Priced by the hour, day or fixed fee — the basis confirmed before work begins.",
     scope: [
       "Focused review",
       "Full workflow audit",

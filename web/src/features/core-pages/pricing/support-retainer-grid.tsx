@@ -21,12 +21,11 @@ import {
 import {
   BorderBeam,
   PanelReveal,
-  Reveal,
+  RevealGroup,
 } from "~/features/services-v2/components/primitives";
 
 import {
   SUPPORT_COMMITMENTS,
-  SUPPORT_COMMITMENTS_NOTE,
   SUPPORT_PRINCIPLES,
   SUPPORT_TIERS,
 } from "./pricing-content";
@@ -37,11 +36,11 @@ const PRINCIPLE_ICONS: readonly LucideIcon[] = [Gauge, Wrench, Users];
 export function SupportRetainerGrid() {
   return (
     <>
-      <div className="ss-pri-support">
+      <RevealGroup className="ss-pri-support">
         {SUPPORT_TIERS.map((tier, index) => (
           <PanelReveal
             className={`ss-pri-retainer${tier.featured ? " ss-srv2-beam-border" : ""}`}
-            delayMs={index * 140}
+            delayMs={index * 120}
             key={tier.id}
           >
             {tier.badge ? (
@@ -80,7 +79,7 @@ export function SupportRetainerGrid() {
             {tier.featured ? <BorderBeam /> : null}
           </PanelReveal>
         ))}
-      </div>
+      </RevealGroup>
 
       <PanelReveal className="ss-pri-benefits" delayMs={120}>
         <div className="ss-pri-benefits__copy">
@@ -113,11 +112,6 @@ export function SupportRetainerGrid() {
               </li>
             ))}
           </ul>
-          <Reveal kind="section" delayMs={200}>
-            <p className="ss-pri-footnote" data-align="tight">
-              {SUPPORT_COMMITMENTS_NOTE}
-            </p>
-          </Reveal>
         </div>
       </PanelReveal>
     </>
