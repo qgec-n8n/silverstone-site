@@ -210,7 +210,7 @@ describe("search-led presentation blocks", () => {
 
     const costSection = [
       ...container.querySelectorAll(".ss-blog-article__section"),
-    ].find((node) => node.textContent?.includes("BODY_MARKER"));
+    ].find((node) => node.textContent.includes("BODY_MARKER"));
     expect(costSection).toBeDefined();
     const text = costSection?.textContent ?? "";
     expect(text.indexOf("ANSWER_MARKER")).toBeGreaterThanOrEqual(0);
@@ -218,7 +218,7 @@ describe("search-led presentation blocks", () => {
 
     const assumptionSection = [
       ...container.querySelectorAll(".ss-blog-article__section"),
-    ].find((node) => node.textContent?.includes("ASSUMPTION_MARKER"));
+    ].find((node) => node.textContent.includes("ASSUMPTION_MARKER"));
     const assumptionText = assumptionSection?.textContent ?? "";
     expect(assumptionText.indexOf("Second body")).toBeLessThan(
       assumptionText.indexOf("ASSUMPTION_MARKER"),
