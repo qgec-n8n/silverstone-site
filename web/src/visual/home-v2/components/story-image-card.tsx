@@ -38,7 +38,7 @@ export function StoryImageCard({ panel }: StoryImageCardProps) {
           {panel.eyebrow}
         </span>
         <h3 className="ss-hv2-display text-3xl sm:text-4xl">{panel.title}</h3>
-        <p className="ss-lead text-[color:var(--ss-v2-titanium)]">{panel.body}</p>
+        <p className="ss-lead ss-hv2-copy">{panel.body}</p>
       </Reveal>
     </div>
   );

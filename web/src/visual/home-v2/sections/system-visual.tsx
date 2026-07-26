@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 
@@ -6,7 +8,10 @@ import { Reveal } from "../components/reveal";
 /** Premium generated bitmap visual for the Silverstone System narrative. */
 export function SystemVisual() {
   return (
-    <PageSection className="ss-hv2-system-visual-section relative">
+    <PageSection
+      className="ss-hv2-system-visual-section relative"
+      style={{ "--ss-hv2-accent": "var(--ss-v2-indigo)" } as CSSProperties}
+    >
       <Container size="wide">
         <div className="ss-hv2-system-visual">
           <Reveal className="ss-hv2-system-visual__copy" kind="section">
@@ -21,7 +26,7 @@ export function SystemVisual() {
               </span>
               .
             </h2>
-            <p className="ss-lead text-[color:var(--ss-v2-titanium)]">
+            <p className="ss-lead ss-hv2-copy">
               The Silverstone System is designed around the real business process first:
               signal capture, triage, handoff, review and optimisation. Technology is
               selected only after the operating model is clear.

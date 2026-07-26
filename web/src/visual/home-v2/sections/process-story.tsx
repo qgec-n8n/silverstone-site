@@ -8,6 +8,7 @@ import { SectionShell } from "../components/section-shell";
 export function ProcessStory() {
   return (
     <SectionShell
+      tone="magenta"
       eyebrow="The method"
       title={
         <>
@@ -37,10 +38,8 @@ export function ProcessStory() {
                     />
                     <h3 className="ss-hv2-card__title text-2xl">{step.title}</h3>
                   </div>
-                  <p className="font-semibold text-[color:var(--ss-v2-platinum)]">
-                    {step.summary}
-                  </p>
-                  <p className="text-[color:var(--ss-v2-titanium)]">{step.detail}</p>
+                  <p className="font-semibold ss-hv2-copy-strong">{step.summary}</p>
+                  <p className="ss-hv2-copy">{step.detail}</p>
                   <p className="ss-hv2-card__index mt-1">{step.outcome}</p>
                 </div>
               </Reveal>

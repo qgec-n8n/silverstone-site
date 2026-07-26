@@ -16,6 +16,7 @@ type BenchmarkMetricsProps = {
 export function BenchmarkMetrics({ countersEnabled }: BenchmarkMetricsProps) {
   return (
     <SectionShell
+      tone="sky"
       eyebrow="Benchmarks"
       title={
         <>

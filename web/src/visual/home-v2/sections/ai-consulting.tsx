@@ -25,7 +25,7 @@ function ConsultingPoint({ point, index }: { point: string; index: number }) {
       style={
         { "--ss-hv2-reveal-delay": `${String(240 + index * 70)}ms` } as CSSProperties
       }
-      className="ss-hv2-reveal flex items-start gap-3 text-[color:var(--ss-v2-platinum)]"
+      className="ss-hv2-reveal flex items-start gap-3 ss-hv2-copy-strong"
     >
       <span className="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full border border-[color:var(--ss-v2-hairline-strong)] text-[color:var(--ss-v2-signal-cyan-soft)]">
         <Icon name="Check" className="size-3.5" />
@@ -38,7 +38,10 @@ function ConsultingPoint({ point, index }: { point: string; index: number }) {
 /** Advisory-led split section: cinematic strategy image + consulting narrative. */
 export function AiConsulting() {
   return (
-    <PageSection className="relative">
+    <PageSection
+      className="relative"
+      style={{ "--ss-hv2-accent": "var(--ss-v2-azure)" } as CSSProperties}
+    >
       <Container size="wide">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal className="ss-hv2-story__media" kind="image">
@@ -67,7 +70,7 @@ export function AiConsulting() {
               </h2>
             </Reveal>
             <Reveal delayMs={160}>
-              <p className="ss-lead text-[color:var(--ss-v2-titanium)]">
+              <p className="ss-lead ss-hv2-copy">
                 Most automation fails because it starts with a tool. We start with your
                 numbers — where time leaks and where revenue slips — then design the
                 smallest system that fixes it.

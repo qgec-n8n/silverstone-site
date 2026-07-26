@@ -37,7 +37,7 @@ export function ConversionClimax() {
                 </h2>
               </Reveal>
               <Reveal delayMs={160}>
-                <p className="ss-lead max-w-(--ss-type-measure-lead) text-[color:var(--ss-v2-titanium)]">
+                <p className="ss-lead max-w-(--ss-type-measure-lead) ss-hv2-copy">
                   Book a free automation audit. We&rsquo;ll map where time and revenue
                   leak, and show you the smallest system that closes the gap — no
                   obligation, no jargon.
@@ -59,7 +59,7 @@ export function ConversionClimax() {
                 </Reveal>
               </div>
               <Reveal delayMs={390}>
-                <p className="text-sm text-[color:var(--ss-v2-titanium)]">
+                <p className="text-sm ss-hv2-copy">
                   London-based · Working with UK businesses nationwide
                 </p>
               </Reveal>

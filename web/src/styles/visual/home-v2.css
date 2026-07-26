@@ -212,6 +212,15 @@ html[data-js="on"]
 
 .ss-hv2-section-head__lead {
   max-width: var(--ss-v2-measure-lead);
+  /* Titanium cast toward the section's spectrum hue (SectionShell `tone`), so
+     each section's opening paragraph belongs to its own colour rather than
+     repeating the same grey down the page. Defaults to plain titanium on any
+     section that sets no tone. */
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-titanium)) 20%,
+    var(--ss-v2-titanium)
+  );
 }
 
 .ss-hv2-section-head[data-align="center"] .ss-hv2-section-head__title,
@@ -598,6 +607,18 @@ html[data-js="on"]
   --ss-hv2-accent: var(--ss-v2-platinum);
 }
 
+.ss-hv2-card[data-accent="aqua"] {
+  --ss-hv2-accent: var(--ss-v2-aqua);
+}
+
+.ss-hv2-card[data-accent="indigo"] {
+  --ss-hv2-accent: var(--ss-v2-indigo);
+}
+
+.ss-hv2-card[data-accent="orchid"] {
+  --ss-hv2-accent: var(--ss-v2-orchid);
+}
+
 .ss-hv2-card::before {
   content: "";
   position: absolute;
@@ -656,6 +677,9 @@ html[data-js="on"]
   font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  /* Each card's own accent (data-accent) pulled into its title, so a grid of
+     cards skims as colour-coded entries rather than a wall of white. */
+  color: color-mix(in srgb, var(--ss-hv2-accent) 42%, var(--ss-v2-chrome));
 }
 
 .ss-hv2-card__highlight {
@@ -663,7 +687,7 @@ html[data-js="on"]
   align-items: center;
   gap: 0.45rem;
   font-size: 0.85rem;
-  color: var(--ss-v2-titanium);
+  color: color-mix(in srgb, var(--ss-hv2-accent) 26%, var(--ss-v2-titanium));
 }
 
 .ss-hv2-card__highlight svg {
@@ -720,16 +744,32 @@ html[data-js="on"]
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  /* The headline figures carry the section's accent, so the benchmark row
+     reads as the page's proof moment instead of four platinum numbers.
+     Falls back to flat platinum where no section tone is set. */
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-platinum)) 52%,
+    var(--ss-v2-platinum)
+  );
 }
 
 .ss-hv2-metric__label {
   font-weight: 600;
-  color: var(--ss-v2-platinum);
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-platinum)) 34%,
+    var(--ss-v2-platinum)
+  );
 }
 
 .ss-hv2-metric__context {
   font-size: 0.875rem;
-  color: var(--ss-v2-titanium);
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-titanium)) 18%,
+    var(--ss-v2-titanium)
+  );
 }
 
 .ss-hv2-metric__source {
@@ -921,7 +961,11 @@ html[data-js="on"]
 }
 
 .ss-hv2-industry:hover {
-  background: color-mix(in srgb, var(--ss-v2-signal-cyan) 7%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-signal-cyan)) 7%,
+    transparent
+  );
 }
 
 .ss-hv2-industry:focus-visible {
@@ -934,11 +978,19 @@ html[data-js="on"]
   font-family: var(--ss-font-mono);
   font-size: 0.76rem;
   letter-spacing: 0.16em;
-  color: color-mix(in srgb, var(--ss-v2-signal-cyan) 72%, var(--ss-v2-titanium));
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-signal-cyan)) 72%,
+    var(--ss-v2-titanium)
+  );
 }
 
 .ss-hv2-industry__arrow {
-  color: var(--ss-v2-signal-cyan-soft);
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-signal-cyan-soft)) 70%,
+    var(--ss-v2-signal-cyan-soft)
+  );
   transition: transform 0.28s ease;
 }
 
@@ -1181,7 +1233,11 @@ html[data-js="on"]
   border-radius: var(--ss-radius-pill);
   border: 1px solid var(--ss-v2-hairline-strong);
   background: var(--ss-v2-graphite-raised);
-  color: var(--ss-v2-signal-cyan-soft);
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-signal-cyan-soft)) 72%,
+    var(--ss-v2-signal-cyan-soft)
+  );
   font-family: var(--ss-font-mono);
   font-size: 1.05rem;
 }
@@ -2112,8 +2168,50 @@ html[data-js="on"]
   height: 46px;
   flex-shrink: 0;
   border-radius: var(--ss-radius-md);
-  border: 1px solid var(--ss-v2-hairline-strong);
-  color: var(--ss-v2-signal-cyan-soft);
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--ss-hv2-accent, var(--ss-v2-signal-cyan-soft)) 34%,
+      var(--ss-v2-hairline-strong)
+    );
+  background: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-signal-cyan-soft)) 10%,
+    transparent
+  );
+  color: var(--ss-hv2-accent, var(--ss-v2-signal-cyan-soft));
+}
+
+.ss-hv2-pillar__text {
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-titanium)) 18%,
+    var(--ss-v2-titanium)
+  );
+}
+
+/* ---- Tinted body copy ------------------------------------------------------
+ * Replaces the repeated `text-[color:var(--ss-v2-titanium)]` /
+ * `…-platinum]` utilities across the homepage body. Same base greys, cast
+ * toward whatever `--ss-hv2-accent` is in scope (the section's `tone`, or a
+ * card's own accent), so paragraphs, list text and lead-ins belong to their
+ * section's colour instead of repeating one grey down the whole page. Both
+ * fall back to the flat grey wherever no accent is set.
+ */
+.ss-hv2-copy {
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-titanium)) 18%,
+    var(--ss-v2-titanium)
+  );
+}
+
+.ss-hv2-copy-strong {
+  color: color-mix(
+    in srgb,
+    var(--ss-hv2-accent, var(--ss-v2-platinum)) 30%,
+    var(--ss-v2-platinum)
+  );
 }
 
 /* ============================ CTA ============================ */

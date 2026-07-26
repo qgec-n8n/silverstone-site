@@ -11517,14 +11517,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "The second brief is not just 'more work'. It carries more delivery risk. An agency has to spend more time discovering the real process, setting boundaries and protecting the business from bad automation decisions.",
           "If you are still at the selection stage, our guide on [how to choose a workflow approach](/blog/workflow-automation-selection-guide) can help you separate a good first use case from an expensive one.",
         ],
-        lede:
-          "The first price shift usually happens before anyone writes a rule or connects an API.",
+        lede: "The first price shift usually happens before anyone writes a rule or connects an API.",
         variant: "signal",
         bullets: [
           {
             label: "Source of truth",
-            body:
-              "Name the system that owns the final record before discussing AI behaviour.",
+            body: "Name the system that owns the final record before discussing AI behaviour.",
           },
           {
             label: "Owner",
@@ -11553,8 +11551,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Silverstone AI usually treats the first workflow as a bounded system, not a wide transformation project. That reduces the risk of paying for complexity you do not need yet.",
           "A sensible first brief is often narrower than expected: one trigger, one owned destination, one approval rule and one named exception route.",
         ],
-        lede:
-          "The biggest scope increases tend to come from operational reality rather than the headline use case.",
+        lede: "The biggest scope increases tend to come from operational reality rather than the headline use case.",
         variant: "system",
         pullQuote:
           "The cheaper brief is not always the simpler workflow. Sometimes it is just the less honest description of complexity.",
@@ -11569,10 +11566,13 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "If your current process depends on staff judgement, the right question is not 'Can AI replace that?' It is 'Which parts are deterministic, which parts are bounded judgement, and which parts must remain human-owned?'",
           "That distinction often makes the estimate far clearer.",
         ],
-        lede:
-          "Once you move from concept to execution, integration detail starts to dominate the estimate.",
+        lede: "Once you move from concept to execution, integration detail starts to dominate the estimate.",
         comparisonTable: {
-          columns: ["Lower-effort condition", "Higher-effort condition", "Why price changes"],
+          columns: [
+            "Lower-effort condition",
+            "Higher-effort condition",
+            "Why price changes",
+          ],
           rows: [
             {
               label: "Integrations",
@@ -11628,14 +11628,12 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Silverstone AI tends to frame this around observability and ownership. Observability means you can see what the workflow did, what it could not do and where it stopped. Ownership means someone on the client side can approve changes, answer operational questions and validate whether the outputs still match the real process.",
           "Without those two things, the cheapest launch can become the most expensive workflow to maintain.",
         ],
-        lede:
-          "Launch cost is only part of the commercial picture. The operating model matters just as much.",
+        lede: "Launch cost is only part of the commercial picture. The operating model matters just as much.",
         variant: "operator",
         grid: [
           {
             title: "Monitoring",
-            body:
-              "Run status, failure alerts, queue visibility and basic operational checks.",
+            body: "Run status, failure alerts, queue visibility and basic operational checks.",
           },
           {
             title: "Tuning",
@@ -11673,8 +11671,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "If those answers are vague, pricing will stay vague. If they are sharp, the estimate becomes easier to trust.",
           "For SMEs that are still deciding whether the first project is even the right one to automate, our [AI automation service](/services/ai-automation) explains how bounded workflows are normally assessed before build.",
         ],
-        lede:
-          "If you answer these points first, you will usually get a more accurate estimate and a safer first scope.",
+        lede: "If you answer these points first, you will usually get a more accurate estimate and a safer first scope.",
       },
     ],
     faqs: [
@@ -11826,24 +11823,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- AI is used where it helps classify, extract, summarise or route work, not where unmanaged judgement would create operational risk.",
           "External context supports a pragmatic route. Many SMEs are still working through workflow readiness, system fit and internal capability. That matters because the first gain is usually not an advanced model. It is getting an important but messy workflow into a controlled state leadership can trust.",
         ],
-        lede:
-          "The strongest audit candidates sit where a physical event in the factory should trigger a predictable office response, but currently depends on manual follow-up.",
+        lede: "The strongest audit candidates sit where a physical event in the factory should trigger a predictable office response, but currently depends on manual follow-up.",
         variant: "signal",
         bullets: [
           {
             label: "Good first-audit signal",
-            body:
-              "A repeat admin task linked to production, planning, stock, quality or fulfilment.",
+            body: "A repeat admin task linked to production, planning, stock, quality or fulfilment.",
           },
           {
             label: "Poor first-audit signal",
-            body:
-              "A vague ambition with no workflow owner, no source data and no clear exception route.",
+            body: "A vague ambition with no workflow owner, no source data and no clear exception route.",
           },
           {
             label: "Leadership question",
-            body:
-              "Where does delay between factory action and office action create the most friction?",
+            body: "Where does delay between factory action and office action create the most friction?",
           },
         ],
       },
@@ -11860,7 +11853,10 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "These tend to justify an audit because they combine volume with process drag. They also sit in a useful middle ground: important enough to matter, but often bounded enough to improve without redesigning the whole business.\n\nIf you are reviewing options internally, it helps to distinguish between automation and AI support. Some steps may only need rules-based integration. Others may benefit from AI for document extraction, categorisation, summarisation or drafting. A combined consulting view is usually stronger than chasing AI for its own sake. That is where a structured [AI consulting approach](/services/ai-consulting) helps.",
         ],
         comparisonTable: {
-          columns: ["Why it is often a strong audit candidate", "Typical human boundary"],
+          columns: [
+            "Why it is often a strong audit candidate",
+            "Typical human boundary",
+          ],
           rows: [
             {
               label: "Order admin",
@@ -11909,8 +11905,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- If the process owner cannot explain the decision criteria clearly, the workflow is not ready for AI; it needs process definition first.",
           "For manufacturing SMEs, common rules-based steps include extracting order details from documents, routing standard enquiries, matching routine records, generating draft updates and flagging exceptions against tolerances. Judgement-heavy steps include approving substitutions, resolving quality disputes, committing to revised delivery dates or interpreting ambiguous customer specifications.\n\nThat distinction matters commercially. It affects risk, system design and staff confidence. Silverstone AI typically treats AI as one component in a wider operating workflow, with explicit approval points where business judgement must remain with your team.\n\nIf internal discussions keep collapsing into tool debates, this broader framing may help: [AI & automation consulting as a smarter operating system](/blog/ai-automation-consulting-smarter-operating-system).",
         ],
-        lede:
-          "The fastest way to waste an audit is to treat every messy process as an automation problem.",
+        lede: "The fastest way to waste an audit is to treat every messy process as an automation problem.",
         pullQuote:
           "The best first audit target is rarely the most impressive use case. It is the process where decisions are clear, exceptions are known and delays are expensive.",
       },
@@ -11934,23 +11929,19 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
         grid: [
           {
             title: "Ready now",
-            body:
-              "Structured inputs, clear owner, manageable exceptions, workable integrations.",
+            body: "Structured inputs, clear owner, manageable exceptions, workable integrations.",
           },
           {
             title: "Ready after prep",
-            body:
-              "Valuable workflow, but naming, data quality or approval rules need tightening first.",
+            body: "Valuable workflow, but naming, data quality or approval rules need tightening first.",
           },
           {
             title: "Monitor only",
-            body:
-              "Interesting idea, but weak data, low volume or unclear operational value.",
+            body: "Interesting idea, but weak data, low volume or unclear operational value.",
           },
           {
             title: "Keep human-led",
-            body:
-              "High judgement, sensitive trade-offs or safety-critical interpretation.",
+            body: "High judgement, sensitive trade-offs or safety-critical interpretation.",
           },
         ],
       },
@@ -11973,8 +11964,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "5. Prioritise one or two workflows with solid value, tolerable effort and controlled risk.",
           "For many firms, the winning candidate is not the largest process by headcount. It is the workflow where slow office follow-up causes disproportionate knock-on effects across planning, customer communication or cash collection.\n\nIf the scoring shows that a workflow is strategically interesting but operationally immature, leadership can defer it without losing momentum. That is a better outcome than launching a fragile project that staff will not trust.",
         ],
-        lede:
-          "Once you have a shortlist, rank it with a consistent method rather than whoever argues hardest in the room.",
+        lede: "Once you have a shortlist, rank it with a consistent method rather than whoever argues hardest in the room.",
         variant: "system",
       },
       {
@@ -12029,8 +12019,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       {
         title:
           "Suggested policy measures for the United Kingdom: SME Technology Adoption in the United Kingdom",
-        url:
-          "https://www.oecd.org/en/publications/sme-technology-adoption-in-the-united-kingdom_5f25ce2a-en/full-report/suggested-policy-measures-for-the-united-kingdom_5695e400.html",
+        url: "https://www.oecd.org/en/publications/sme-technology-adoption-in-the-united-kingdom_5f25ce2a-en/full-report/suggested-policy-measures-for-the-united-kingdom_5695e400.html",
         date: "",
         summary:
           "UK evidence suggests that AI adoption, understandably, is still at an early stage at national level. ONS pulse data show roughly 25% of businesses reporting some AI use in late December 2025[(Office for National Statistics, 2026)]( Similarly, only 7% of UK manufacturers report being “very knowledgeable” about AI applications [(Department for Science, Innovation and Technology, 2025)]( Existing evidence points to three recurring frictions for SMEs: (1) getting data and workflows ready and meeting",
@@ -12055,8 +12044,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         title: "How UK SMEs can use AI to save costs and boost efficiency",
-        url:
-          "https://www.brightmine.com/uk/resources/hr-strategy/hr-technology/ai-in-hr/ai-fundamentals-how-uk-smes-can-use-ai-to-save-costs-and-boost-efficiency",
+        url: "https://www.brightmine.com/uk/resources/hr-strategy/hr-technology/ai-in-hr/ai-fundamentals-how-uk-smes-can-use-ai-to-save-costs-and-boost-efficiency",
         date: "",
         summary:
           "10. Energy optimisation: A hotel chain in Cornwall implemented AI-driven energy management systems, reducing energy bills by 20% across its properties. This not only cut costs but also aligned with the business’s sustainability goals. 11. Quality control in manufacturing: A food-processing SME in Sheffield adopted AI for quality control using computer vision. The technology reduced defective products by 40%, saving £30,000 annually in wastage and ensuring consistent product quality. 12. Scheduli",
@@ -12147,8 +12135,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- time-sensitive campaign content with limited exposure windows",
           "Silverstone AI tends to treat approval as a design problem, not a copyediting ritual. That is also why workflow thinking often overlaps with broader [AI automation](/services/ai-automation) work: the useful question is what route each content type should take, not how to force everything through one queue.",
         ],
-        lede:
-          "If the agency promises frictionless publishing, ask what kinds of decisions they expect software to make without a named human owner.",
+        lede: "If the agency promises frictionless publishing, ask what kinds of decisions they expect software to make without a named human owner.",
         variant: "signal",
         bullets: [
           {
@@ -12157,13 +12144,11 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           },
           {
             label: "Weak sign",
-            body:
-              "The agency talks about publishing at scale before explaining review boundaries.",
+            body: "The agency talks about publishing at scale before explaining review boundaries.",
           },
           {
             label: "Decision test",
-            body:
-              "You can name who approves claims, who approves brand, and who stops publication.",
+            body: "You can name who approves claims, who approves brand, and who stops publication.",
           },
         ],
       },
@@ -12225,24 +12210,20 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "Once those lenses are defined, approval routes become easier to standardise. A UK eCommerce brand may have one route for product collection pages, another for retention emails, and another for help-centre updates. A dental clinic may define a clear stop condition where non-clinical content can be drafted quickly, but anything that could imply treatment suitability requires explicit review.",
           "This is also where a bespoke agency earns its place. A workflow should fit the operating reality of the business, not a generic agency template. Silverstone AI works across sectors with very different review needs, so the content process should reflect the actual decision rights in the business rather than forcing everyone into the same model.",
         ],
-        lede:
-          "A homepage, a nurture email and a social caption should not share the same approval logic just because they all count as content.",
+        lede: "A homepage, a nurture email and a social caption should not share the same approval logic just because they all count as content.",
         variant: "system",
         grid: [
           {
             title: "Claim risk",
-            body:
-              "Does the content make statements about service scope, outcomes, suitability, policies or terms that need a named owner?",
+            body: "Does the content make statements about service scope, outcomes, suitability, policies or terms that need a named owner?",
           },
           {
             title: "Channel risk",
-            body:
-              "Is the content going to a public website, paid campaign, email list, social platform or a lower-exposure internal draft stage?",
+            body: "Is the content going to a public website, paid campaign, email list, social platform or a lower-exposure internal draft stage?",
           },
           {
             title: "Page purpose",
-            body:
-              "Is the asset designed to inform, convert, qualify, reassure, or prompt a booking or enquiry?",
+            body: "Is the asset designed to inform, convert, qualify, reassure, or prompt a booking or enquiry?",
           },
         ],
       },
@@ -12349,8 +12330,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     researchSources: [
       {
         title: "Content Approval Workflow: What It Is & How to Fix Yours",
-        url:
-          "https://www.screendragon.com/blog/content-approval-workflow-meaning-best-practices",
+        url: "https://www.screendragon.com/blog/content-approval-workflow-meaning-best-practices",
         date: "",
         summary:
           "##### For Enterprise Marketing In-house Agency Management Marketing Resource Management Content Operations External Agency Management Marketing Product Overview › ##### For Agencies Estimates & Scopes Resourcing Management Project Management Creative Workflows & Approvals Reporting Agency Software Overview › ##### Capabilities AI AI Hub AI Foundry Integrations View All Products › ##### Use Cases Agency Operations Inhouse Agency Management Content Operations Brand Management Workflow Management R",
@@ -12366,8 +12346,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       },
       {
         title: "8 Marketing Agency Workflows to Automate First | Agenticise",
-        url:
-          "https://www.agenticise.co.uk/blog/workflows-marketing-agencies-automate-first",
+        url: "https://www.agenticise.co.uk/blog/workflows-marketing-agencies-automate-first",
         date: "",
         summary:
           "### How long does it take to set up agency automation? A first workflow lands in roughly 2 to 4 weeks of build time once the process is clearly documented. Most UK agencies in the £4M to £40M revenue band see their first end-to-end workflow live inside 6 weeks, with measurable hours saved in the first month of operation. The second workflow is faster because the connections, brand-voice training, and approval patterns already exist. By the third workflow the marginal cost has dropped sharply. ##",

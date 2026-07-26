@@ -10,6 +10,7 @@ import { SectionShell } from "../components/section-shell";
 export function IndustryRelevance() {
   return (
     <SectionShell
+      tone="ultraviolet"
       id="industries"
       eyebrow="Industry relevance"
       title={
@@ -33,9 +34,7 @@ export function IndustryRelevance() {
               </span>
               <span className="flex flex-col gap-2">
                 <span className="ss-hv2-card__title text-xl">{industry.name}</span>
-                <span className="text-sm text-[color:var(--ss-v2-titanium)]">
-                  {industry.need}
-                </span>
+                <span className="text-sm ss-hv2-copy">{industry.need}</span>
               </span>
               <Icon name="ArrowUpRight" className="ss-hv2-industry__arrow size-4" />
             </Link>

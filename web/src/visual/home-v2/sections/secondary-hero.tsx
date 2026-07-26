@@ -113,10 +113,8 @@ function CapabilityItem({ cap, index }: { cap: Capability; index: number }) {
         <Icon name={cap.icon} className="size-4" />
       </span>
       <span className="flex flex-col gap-0.5">
-        <span className="font-semibold text-[color:var(--ss-v2-platinum)]">
-          {cap.label}
-        </span>
-        <span className="text-sm text-[color:var(--ss-v2-titanium)]">{cap.detail}</span>
+        <span className="font-semibold ss-hv2-copy-strong">{cap.label}</span>
+        <span className="text-sm ss-hv2-copy">{cap.detail}</span>
       </span>
     </m.li>
   );
@@ -150,7 +148,7 @@ export function SecondaryHero() {
               </h2>
             </Reveal>
             <Reveal delayMs={160}>
-              <p className="ss-lead ss-hv2-secondary__lead text-[color:var(--ss-v2-titanium)]">
+              <p className="ss-lead ss-hv2-secondary__lead ss-hv2-copy">
                 <span className="ss-hv2-secondary__lead-full">
                   Calls, messages, bookings and follow-ups converge into a single
                   operating layer. Silverstone answers in seconds, captures the detail
@@ -193,7 +191,7 @@ export function SecondaryHero() {
                 <div className="ss-hv2-hero__scan" aria-hidden="true" />
                 <div className="relative flex flex-col gap-5">
                   <div className="ss-hv2-console-item ss-hv2-system-signal__header">
-                    <span className="ss-eyebrow font-mono text-[color:var(--ss-v2-titanium)]">
+                    <span className="ss-eyebrow font-mono ss-hv2-copy">
                       Live Signal Benchmarks
                     </span>
                     <span className="ss-hv2-system-signal__status">

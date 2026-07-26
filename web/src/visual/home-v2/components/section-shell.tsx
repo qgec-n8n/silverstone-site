@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
@@ -23,6 +23,36 @@ type SectionShellProps = {
   containerSize?: "compact" | "content" | "wide" | "max";
   className?: string;
   headingClassName?: string;
+  /**
+   * Brand-spectrum hue for this section. Sets `--ss-hv2-accent` on the section,
+   * which tints the lead, card titles, markers, figures and bullet icons
+   * beneath it — so the homepage body walks the whole palette top to bottom
+   * instead of reading as one long block of white and grey. Matches the
+   * `data-sig` hue on the section's own heading emphasis.
+   */
+  tone?: HomeTone;
+};
+
+/** The homepage body spectrum, in the order the sections appear. */
+export type HomeTone =
+  | "aqua"
+  | "azure"
+  | "sky"
+  | "indigo"
+  | "ultraviolet"
+  | "orchid"
+  | "magenta"
+  | "rose";
+
+const TONE_ACCENTS: Record<HomeTone, string> = {
+  aqua: "var(--ss-v2-aqua)",
+  azure: "var(--ss-v2-azure)",
+  sky: "var(--ss-v2-sky)",
+  indigo: "var(--ss-v2-indigo)",
+  ultraviolet: "var(--ss-v2-ultraviolet)",
+  orchid: "var(--ss-v2-orchid)",
+  magenta: "var(--ss-v2-magenta)",
+  rose: "var(--ss-v2-rose)",
 };
 
 /**
@@ -42,11 +72,15 @@ export function SectionShell({
   containerSize = "content",
   className,
   headingClassName,
+  tone,
 }: SectionShellProps) {
   const hasHeading = Boolean(eyebrow ?? title ?? lead);
+  const toneStyle = tone
+    ? ({ "--ss-hv2-accent": TONE_ACCENTS[tone] } as CSSProperties)
+    : undefined;
 
   return (
-    <PageSection id={id} className={cn("relative", className)}>
+    <PageSection id={id} className={cn("relative", className)} style={toneStyle}>
       <Container size={containerSize}>
         {hasHeading ? (
           <Reveal
@@ -72,9 +106,7 @@ export function SectionShell({
                 </h2>
               ) : null}
               {lead ? (
-                <p className="ss-lead ss-hv2-section-head__lead mt-4 text-[color:var(--ss-v2-titanium)]">
-                  {lead}
-                </p>
+                <p className="ss-lead ss-hv2-section-head__lead mt-4">{lead}</p>
               ) : null}
             </div>
           </Reveal>

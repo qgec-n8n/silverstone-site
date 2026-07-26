@@ -7,6 +7,7 @@ import { StoryImageCard } from "../components/story-image-card";
 export function ImageStorytelling() {
   return (
     <SectionShell
+      tone="rose"
       eyebrow="In practice"
       title={
         <>

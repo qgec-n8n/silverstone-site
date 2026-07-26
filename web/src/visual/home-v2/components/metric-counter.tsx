@@ -47,9 +47,7 @@ export function MetricCounter({
   return (
     <Reveal delayMs={delayMs} kind="metric" onReveal={() => setRevealed(true)}>
       <article data-tier={metric.tier} className="ss-hv2-metric">
-        <p className="ss-hv2-metric__value text-[color:var(--ss-v2-platinum)]">
-          {composed}
-        </p>
+        <p className="ss-hv2-metric__value">{composed}</p>
         <p className="ss-hv2-metric__label">{metric.label}</p>
         <p className="ss-hv2-metric__context">{metric.context}</p>
         <p className="ss-hv2-metric__source">Benchmark · {metric.source}</p>

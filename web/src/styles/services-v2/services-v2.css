@@ -376,10 +376,14 @@
   text-wrap: balance;
 }
 
+/* Body greys across the route family carry a subtle cast of the page accent —
+   copy reads as part of the page's palette rather than neutral grey, without
+   sacrificing long-form legibility. Stronger colour is reserved for titles,
+   markers, figures and emphasis. */
 .ss-srv2-lead {
   margin: 0;
   max-width: var(--srv2-measure);
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 16%, var(--srv2-ink-soft));
   font-size: var(--ss-type-body-lg);
   line-height: 1.6;
 }
@@ -389,7 +393,7 @@
   flex-direction: column;
   gap: 1.1em;
   max-width: var(--srv2-measure);
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 12%, var(--srv2-ink-soft));
   font-size: 1.0625rem;
   line-height: 1.72;
 }
@@ -399,7 +403,7 @@
 }
 
 .ss-srv2-prose strong {
-  color: var(--srv2-ink);
+  color: color-mix(in srgb, var(--srv2-accent) 30%, var(--ss-v2-chrome));
   font-weight: 600;
 }
 
@@ -695,7 +699,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-srv2-hero__lead {
   margin: 0;
   max-width: var(--srv2-measure);
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 15%, var(--srv2-ink-soft));
   font-size: clamp(0.8rem, 0.3rem + 0.28vw + 1.05vh, 1.7rem);
   line-height: 1.55;
 }
@@ -713,7 +717,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: var(--srv2-ink);
+  color: color-mix(in srgb, var(--srv2-accent) 22%, var(--srv2-ink));
   font-size: clamp(0.85rem, 0.5rem + 0.12vw + 0.85vh, 1.45rem);
 }
 
@@ -1661,12 +1665,14 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   font-size: 1.12rem;
   font-weight: 600;
   line-height: 1.25;
-  color: var(--ss-v2-chrome);
+  /* Chrome pulled toward the card's accent — titles skim as colour-coded
+     entries in the page's palette instead of a column of white. */
+  color: color-mix(in srgb, var(--srv2-accent) 46%, var(--ss-v2-chrome));
 }
 
 .ss-srv2-card__body {
   margin: 0;
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 12%, var(--srv2-ink-soft));
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -1938,14 +1944,22 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   font-size: clamp(1.5rem, 0.65rem + 1.75vw, 2.7rem);
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--ss-v2-chrome);
+  /* The verified figures carry the page's accent sweep — the same gradient
+     treatment as heading emphasis, so stats read as the palette's proof
+     moments. Solid `color` stop kept for contrast checkers (see
+     .ss-chrome-text in tokens/cinematic.css). */
+  background: linear-gradient(100deg, var(--srv2-accent), var(--srv2-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--srv2-accent);
+  -webkit-text-fill-color: transparent;
   font-variant-numeric: tabular-nums;
 }
 
 .ss-srv2-metric__label {
   display: block;
   margin-block-start: 0.5rem;
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 16%, var(--srv2-ink-soft));
   font-size: 0.9rem;
   line-height: 1.45;
 }
@@ -1953,7 +1967,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-srv2-bench__caption {
   margin: 0;
   max-width: 70ch;
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 14%, var(--srv2-ink-soft));
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -2024,12 +2038,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   font-family: var(--ss-font-display);
   font-size: 1.02rem;
   font-weight: 600;
-  color: var(--ss-v2-chrome);
+  color: color-mix(in srgb, var(--srv2-accent) 46%, var(--ss-v2-chrome));
 }
 
 .ss-srv2-step__body {
   margin: 0;
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 12%, var(--srv2-ink-soft));
   font-size: 0.9rem;
   line-height: 1.55;
 }
@@ -2081,7 +2095,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-srv2-compare__text {
   margin: 0;
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 12%, var(--srv2-ink-soft));
   font-size: 0.98rem;
   line-height: 1.6;
 }
@@ -2107,7 +2121,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-srv2-faq__trigger {
   padding: 1.15rem 1.35rem !important;
-  color: var(--ss-v2-chrome) !important;
+  color: color-mix(in srgb, var(--srv2-accent) 38%, var(--ss-v2-chrome)) !important;
   font-family: var(--ss-font-display) !important;
   font-size: 1.02rem !important;
   font-weight: 600 !important;
@@ -2131,7 +2145,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-srv2-faq__panel-inner {
   padding: 0 1.35rem 1.25rem !important;
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 12%, var(--srv2-ink-soft));
   font-size: 0.98rem;
   line-height: 1.65;
   display: flex;
@@ -2195,7 +2209,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-srv2-cta__body {
   margin: 0;
   max-width: 58ch;
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 14%, var(--srv2-ink-soft));
   font-size: 1.05rem;
   line-height: 1.6;
 }
@@ -2262,7 +2276,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   font-family: var(--ss-font-display);
   font-size: 1.05rem;
   font-weight: 600;
-  color: var(--ss-v2-chrome);
+  color: color-mix(in srgb, var(--srv2-accent) 42%, var(--ss-v2-chrome));
 }
 
 .ss-srv2-related__title svg {
@@ -2301,7 +2315,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   display: flex;
   align-items: flex-start;
   gap: 0.7rem;
-  color: var(--srv2-ink-soft);
+  color: color-mix(in srgb, var(--srv2-accent) 14%, var(--srv2-ink-soft));
   font-size: 1.02rem;
   line-height: 1.5;
 }
@@ -2497,7 +2511,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   font-weight: 600;
   font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.45rem);
   letter-spacing: -0.02em;
-  color: var(--ss-v2-chrome);
+  color: color-mix(in srgb, var(--srv2-accent) 40%, var(--ss-v2-chrome));
 }
 
 /*
@@ -4870,7 +4884,7 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 .ss-srv2-prose strong,
 .ss-srv2-card__body strong,
 .ss-ind2-boundary__body strong {
-  color: var(--ss-v2-chrome);
+  color: color-mix(in srgb, var(--srv2-accent) 30%, var(--ss-v2-chrome));
   font-weight: 600;
 }
 

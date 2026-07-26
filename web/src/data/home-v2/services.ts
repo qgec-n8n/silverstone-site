@@ -13,8 +13,12 @@ export type ServiceUniverseCard = {
   /** lucide-react icon name resolved by the card component. */
   icon: string;
   highlights: readonly string[];
-  /** Token-driven accent used for the card glow + iconography. */
-  accent: "cyan" | "blue" | "violet" | "platinum";
+  /**
+   * Token-driven accent used for the card glow, title and iconography. The six
+   * universe cards each take a distinct hue so the grid skims as a spectrum of
+   * capabilities rather than three repeated colours.
+   */
+  accent: "cyan" | "blue" | "violet" | "platinum" | "aqua" | "indigo" | "orchid";
 };
 
 export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
@@ -64,7 +68,7 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
     href: "/services/web-design-development",
     icon: "Globe",
     highlights: ["Conversion-first", "Core Web Vitals", "Booking flows"],
-    accent: "cyan",
+    accent: "aqua",
   },
   {
     id: "app",
@@ -76,7 +80,7 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
     href: "/services/app-development",
     icon: "Smartphone",
     highlights: ["Mobile & web", "Secure by design", "Built to scale"],
-    accent: "blue",
+    accent: "indigo",
   },
   {
     id: "content",
@@ -88,6 +92,6 @@ export const SERVICE_UNIVERSE: readonly ServiceUniverseCard[] = [
     href: "/services/content-creation",
     icon: "Sparkles",
     highlights: ["SEO systems", "Governed output", "Brand-safe"],
-    accent: "violet",
+    accent: "orchid",
   },
 ] as const;

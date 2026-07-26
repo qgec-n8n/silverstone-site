@@ -15,6 +15,7 @@ type IntegrationCarouselProps = {
 export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps) {
   return (
     <SectionShell
+      tone="orchid"
       eyebrow="Connected"
       title={
         <>

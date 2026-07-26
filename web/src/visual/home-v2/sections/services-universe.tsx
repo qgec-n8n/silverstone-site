@@ -8,6 +8,7 @@ import { SectionShell } from "../components/section-shell";
 export function ServicesUniverse() {
   return (
     <SectionShell
+      tone="aqua"
       id="services"
       eyebrow="The system"
       title={

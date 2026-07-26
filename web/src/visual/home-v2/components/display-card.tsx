@@ -34,9 +34,7 @@ export function DisplayCard({ card }: DisplayCardProps) {
         </p>
       </div>
 
-      <p className="text-sm leading-relaxed text-[color:var(--ss-v2-titanium)]">
-        {card.description}
-      </p>
+      <p className="text-sm leading-relaxed ss-hv2-copy">{card.description}</p>
 
       <ul className="flex flex-col gap-2">
         {card.highlights.map((highlight) => (

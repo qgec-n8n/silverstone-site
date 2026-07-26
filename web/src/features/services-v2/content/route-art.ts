@@ -123,8 +123,12 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
   "/services/ai-automation": {
     variant: "automation",
     discipline: "AI automation",
-    accentFrom: "#22d3ee",
-    accentTo: "#7c5cff",
+    // Leads with ultraviolet (the same pair as before, reversed) so this route's
+    // dominant accent stays distinct from Web Design's cyan — with the accent now
+    // driving titles, figures and body copy, a shared lead colour made the two
+    // pages read as the same theme.
+    accentFrom: "#7c5cff",
+    accentTo: "#22d3ee",
     icon: Workflow,
     image: {
       desktop: "/approved-images/services_workflow_automation.jpg",
@@ -137,8 +141,10 @@ export const routeArt: Record<ApprovedServiceRoute, RouteArt> = {
   "/services/ai-consulting": {
     variant: "consulting",
     discipline: "AI & automation consulting",
-    accentFrom: "#7fe9f0",
-    accentTo: "#5b62f0",
+    // Leads with indigo (same pair, reversed) to stay distinct from AI Voice
+    // Agents' aqua — see the note on /services/ai-automation above.
+    accentFrom: "#5b62f0",
+    accentTo: "#7fe9f0",
     icon: Search,
     image: {
       desktop: "/approved-images/services_consulting.jpg",

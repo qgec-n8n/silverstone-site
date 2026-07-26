@@ -101,14 +101,14 @@ export const AETHER_SERVICE_PALETTES: Record<string, AetherPalette> = {
     proximity: "#C6F1F5",
   },
   "/services/ai-automation": {
-    particle: "#20CFEA",
-    network: "#20CFEA",
-    proximity: "#C7B4FF",
+    particle: "#8B72FF",
+    network: "#8B72FF",
+    proximity: "#B6F2FB",
   },
   "/services/ai-consulting": {
-    particle: "#7FE9F0",
-    network: "#7FE9F0",
-    proximity: "#BFC4FF",
+    particle: "#6E74F4",
+    network: "#6E74F4",
+    proximity: "#CDFAFD",
   },
 };
 
