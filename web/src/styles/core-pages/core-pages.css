@@ -7924,3 +7924,599 @@ a.ss-insight-card:hover,
     opacity: 0.62;
   }
 }
+
+/* ==========================================================================
+   Search-led presentation blocks
+   ==========================================================================
+   Rendered only for posts written by the `search_led_general_ai` stream. Each
+   block reuses the article card idiom already established above — one hairline
+   border, layered accent gradients, an inset top highlight and a soft accent
+   glow — so a ranking, cost or prompt article still reads as the same website,
+   while the block shapes themselves differ enough that the families do not
+   collapse into one another. Service-and-industry posts emit none of these
+   classes, so their rendering is untouched.
+   ========================================================================== */
+
+.ss-blog-article__callout {
+  display: flex;
+  gap: 0.85rem;
+  margin: clamp(1.2rem, 0.95rem + 1vw, 1.75rem) 0 0;
+  padding: clamp(1rem, 0.85rem + 0.7vw, 1.4rem);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 34%, var(--srv2-hairline));
+  border-left: 3px solid var(--srv2-accent);
+  border-radius: var(--ss-radius-lg);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--srv2-accent) 10%, transparent),
+      transparent 56%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 34%, transparent);
+}
+
+/* The direct-answer panel leads a section, so it carries the strongest edge. */
+.ss-blog-article__callout[data-tone="answer"] {
+  border-left-color: var(--srv2-accent-2);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--srv2-accent-2) 15%, transparent),
+      transparent 58%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite) 52%, transparent);
+}
+
+.ss-blog-article__callout[data-tone="caution"] {
+  border-left-color: color-mix(in srgb, #f5a524 78%, var(--srv2-accent));
+}
+
+.ss-blog-article__callout[data-tone="assumption"],
+.ss-blog-article__callout[data-tone="evidence"] {
+  border-left-color: color-mix(in srgb, var(--ss-v2-chrome) 60%, var(--srv2-accent));
+  background: color-mix(in srgb, var(--ss-v2-void-black) 38%, transparent);
+}
+
+.ss-blog-article__callout-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--srv2-accent) 16%, transparent);
+  color: var(--srv2-accent);
+}
+
+.ss-blog-article__callout-icon svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.ss-blog-article__callout-copy {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.ss-blog-article__callout-label {
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ss-blog-article__callout-copy strong {
+  color: var(--ss-v2-platinum);
+  font-size: 1.02rem;
+}
+
+.ss-blog-article__callout-copy p {
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.ss-blog-article__metrics {
+  margin: clamp(1.2rem, 0.95rem + 1vw, 1.75rem) 0 0;
+}
+
+.ss-blog-article__metrics-title,
+.ss-blog-article__checklist-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.7rem;
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ss-blog-article__metrics-title svg,
+.ss-blog-article__checklist-title svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.ss-blog-article__metrics dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.ss-blog-article__metrics dl > div {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--srv2-hairline);
+  border-radius: var(--ss-radius-lg);
+  background:
+    radial-gradient(
+      130% 140% at 0% 0%,
+      color-mix(in srgb, var(--srv2-accent) 12%, transparent),
+      transparent 60%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 32%, transparent);
+}
+
+.ss-blog-article__metrics dt {
+  color: color-mix(in srgb, var(--ss-v2-chrome) 82%, transparent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-blog-article__metrics dd {
+  margin: 0.3rem 0 0;
+  color: var(--ss-v2-platinum);
+  font-size: 1.32rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.ss-blog-article__metrics dl > div p {
+  margin: 0.35rem 0 0;
+  font-size: 0.86rem;
+  opacity: 0.78;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.ss-blog-article__ranked {
+  display: grid;
+  gap: 0.9rem;
+  margin: clamp(1.35rem, 1rem + 1.1vw, 2rem) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.ss-blog-article__ranked-card {
+  position: relative;
+  padding: clamp(1.05rem, 0.9rem + 0.7vw, 1.5rem);
+  border: 1px solid var(--srv2-hairline);
+  border-radius: var(--ss-radius-xl);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--ss-v2-platinum) 6%, transparent),
+      transparent 44%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 30%, transparent);
+}
+
+/* The top-ranked provider is the article's recommendation; it earns the accent. */
+.ss-blog-article__ranked-card[data-lead="true"] {
+  border-color: color-mix(in srgb, var(--srv2-accent) 46%, transparent);
+  background:
+    radial-gradient(
+      110% 130% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent-2) 16%, transparent),
+      transparent 56%
+    ),
+    radial-gradient(
+      120% 130% at 0% 0%,
+      color-mix(in srgb, var(--srv2-accent) 16%, transparent),
+      transparent 54%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite) 58%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ss-v2-platinum) 12%, transparent),
+    0 30px 90px -74px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+}
+
+.ss-blog-article__ranked-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.55rem;
+}
+
+.ss-blog-article__ranked-rank {
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.ss-blog-article__ranked-head h3,
+.ss-blog-article__ranked-head h4 {
+  margin: 0;
+  color: var(--ss-v2-platinum);
+  font-size: clamp(1.08rem, 1rem + 0.4vw, 1.32rem);
+  line-height: 1.25;
+}
+
+.ss-blog-article__ranked-score {
+  margin-left: auto;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 40%, transparent);
+  border-radius: 999px;
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.ss-blog-article__ranked-card > p {
+  margin: 0;
+}
+
+.ss-blog-article__ranked-card ul {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-blog-article__ranked-card ul li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  font-size: 0.94rem;
+}
+
+.ss-blog-article__ranked-card ul svg {
+  flex: 0 0 auto;
+  width: 0.95rem;
+  height: 0.95rem;
+  margin-top: 0.25rem;
+  color: var(--srv2-accent);
+}
+
+.ss-blog-article__ranked-fit,
+.ss-blog-article__ranked-limit {
+  margin: 0.7rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 70%, transparent);
+  font-size: 0.92rem;
+}
+
+.ss-blog-article__ranked-fit span,
+.ss-blog-article__ranked-limit span {
+  display: block;
+  margin-bottom: 0.18rem;
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ss-blog-article__ranked-limit span {
+  color: color-mix(in srgb, var(--ss-v2-chrome) 80%, transparent);
+}
+
+/* -------------------------------------------------------------------------- */
+
+.ss-blog-article__table--scorecard tfoot th,
+.ss-blog-article__table--scorecard tfoot td {
+  border-top: 1px solid color-mix(in srgb, var(--srv2-accent) 46%, transparent);
+  color: var(--ss-v2-platinum);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.ss-blog-article__prompts {
+  display: grid;
+  gap: 0.9rem;
+  margin: clamp(1.35rem, 1rem + 1.1vw, 2rem) 0 0;
+}
+
+.ss-blog-article__prompt {
+  margin: 0;
+  border: 1px solid var(--srv2-hairline);
+  border-radius: var(--ss-radius-lg);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 46%, transparent);
+  overflow: hidden;
+}
+
+.ss-blog-article__prompt[data-tone="weak"] {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--ss-v2-chrome) 42%, transparent);
+  opacity: 0.86;
+}
+
+.ss-blog-article__prompt figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--srv2-hairline);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--srv2-accent) 13%, transparent),
+      transparent 62%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite) 62%, transparent);
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-blog-article__prompt figcaption svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+/* Prompts are meant to be copied, so the text wraps rather than scrolls. */
+.ss-blog-article__prompt pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  color: color-mix(in srgb, var(--ss-v2-platinum) 92%, transparent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+
+.ss-blog-article__prompt > p {
+  margin: 0;
+  padding: 0.75rem 1rem 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 60%, transparent);
+  font-size: 0.92rem;
+  opacity: 0.86;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.ss-blog-article__checklist {
+  margin: clamp(1.2rem, 0.95rem + 1vw, 1.75rem) 0 0;
+  padding: clamp(1rem, 0.85rem + 0.7vw, 1.4rem);
+  border: 1px solid var(--srv2-hairline);
+  border-radius: var(--ss-radius-lg);
+  background:
+    radial-gradient(
+      120% 140% at 100% 0%,
+      color-mix(in srgb, var(--srv2-accent-2) 10%, transparent),
+      transparent 58%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 32%, transparent);
+}
+
+.ss-blog-article__checklist ul,
+.ss-blog-article__checklist ol {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-blog-article__checklist li {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+}
+
+.ss-blog-article__checklist li > span:last-child {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.ss-blog-article__checklist li strong {
+  color: var(--ss-v2-platinum);
+  font-weight: 600;
+}
+
+.ss-blog-article__checklist li > span:last-child > span {
+  font-size: 0.92rem;
+  opacity: 0.82;
+}
+
+.ss-blog-article__checklist-mark {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.1rem;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 40%, transparent);
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--srv2-accent) 12%, transparent);
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
+.ss-blog-article__checklist-mark svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.ss-blog-article__steps {
+  display: grid;
+  gap: 0;
+  margin: clamp(1.35rem, 1rem + 1.1vw, 2rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-blog-article__steps li {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1.15rem;
+}
+
+.ss-blog-article__steps li:last-child {
+  padding-bottom: 0;
+}
+
+/* A single continuous rail connects the sequence, drawn per item so the last
+   item stops the line instead of trailing past it. */
+.ss-blog-article__steps li:not(:last-child) .ss-blog-article__steps-index::after {
+  content: "";
+  position: absolute;
+  top: 2.5rem;
+  bottom: -1.15rem;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--srv2-accent) 58%, transparent),
+    color-mix(in srgb, var(--srv2-accent) 8%, transparent)
+  );
+  transform: translateX(-50%);
+}
+
+.ss-blog-article__steps-index {
+  position: relative;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  gap: 0.1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ss-v2-void-black) 52%, transparent);
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ss-blog-article__steps-index svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.ss-blog-article__steps li > div {
+  min-width: 0;
+  padding-top: 0.1rem;
+}
+
+.ss-blog-article__steps-label {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: color-mix(in srgb, var(--ss-v2-chrome) 82%, transparent);
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ss-blog-article__steps li h3,
+.ss-blog-article__steps li h4 {
+  margin: 0 0 0.25rem;
+  color: var(--ss-v2-platinum);
+  font-size: clamp(1.02rem, 0.97rem + 0.3vw, 1.2rem);
+  line-height: 1.3;
+}
+
+.ss-blog-article__steps li p {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Per-family accents. `data-family` is only present on search-led posts, so
+   these rules can never reach a service-and-industry article.
+   -------------------------------------------------------------------------- */
+
+.ss-blog-article[data-family="Ranked Shortlist"]
+  .ss-blog-article__callout[data-tone="recommendation"],
+.ss-blog-article[data-family="Comparison Matrix"]
+  .ss-blog-article__callout[data-tone="recommendation"] {
+  border-left-color: var(--srv2-accent-2);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--srv2-accent-2) 16%, transparent),
+      transparent 56%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite) 54%, transparent);
+}
+
+.ss-blog-article[data-family="Cost Breakdown"] .ss-blog-article__metrics dd,
+.ss-blog-article[data-family="Calculator / Interactive"] .ss-blog-article__metrics dd {
+  color: var(--srv2-accent);
+  font-family: var(--ss-font-mono);
+  font-size: 1.24rem;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 40rem) {
+  .ss-blog-article__callout {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .ss-blog-article__metrics dl {
+    grid-template-columns: 1fr;
+  }
+
+  .ss-blog-article__ranked-score {
+    margin-left: 0;
+  }
+
+  /* Keep the scorecard's total row readable once the table stacks into cards. */
+  .ss-blog-article__table--scorecard tfoot,
+  .ss-blog-article__table--scorecard tfoot tr,
+  .ss-blog-article__table--scorecard tfoot th,
+  .ss-blog-article__table--scorecard tfoot td {
+    display: block;
+    width: auto;
+    min-width: 0;
+  }
+
+  .ss-blog-article__table-spacer {
+    display: none;
+  }
+
+  .ss-blog-article__table--scorecard tfoot td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.28rem;
+    color: var(--srv2-accent);
+    font-family: var(--ss-font-mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+}

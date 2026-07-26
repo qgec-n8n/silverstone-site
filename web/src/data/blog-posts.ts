@@ -30,16 +30,120 @@ export type SilverstoneBlogTable = {
   }[];
 };
 
+/*
+ * Search-led presentation blocks.
+ *
+ * The `search_led_general_ai` stream writes articles whose bodies vary by
+ * presentation family (ranking, comparison, cost/ROI, prompt guide, strategy,
+ * troubleshooting, governance, …). The four original block types — bullets,
+ * grid, comparisonTable, pullQuote — could not express a ranked provider card
+ * or a copy-ready prompt without every family collapsing into the same two
+ * shapes, so these blocks were added.
+ *
+ * Every field below is optional and every renderer returns null when its block
+ * is absent, so the service-and-industry posts written before this existed are
+ * unaffected: same DOM, same styles.
+ */
+
+/** One ranked provider in a shortlist article. `rank` drives the displayed position. */
+export type SilverstoneBlogRankedCard = {
+  bestFor?: string;
+  limitations?: string;
+  name: string;
+  rank: number;
+  score?: string;
+  strengths?: string[];
+  summary: string;
+};
+
+/** A weighted criterion scored across the options named in `options`. */
+export type SilverstoneBlogScorecard = {
+  options: string[];
+  rows: {
+    cells: string[];
+    criterion: string;
+    weight?: string;
+  }[];
+  totals?: string[];
+};
+
+/**
+ * A copy-ready prompt. `tone: "weak"` renders the deliberately poor example in a
+ * bad-vs-improved pair, so the two are visually distinguishable.
+ */
+export type SilverstoneBlogPromptBlock = {
+  explanation?: string;
+  label: string;
+  prompt: string;
+  tone?: "improved" | "weak";
+};
+
+export type SilverstoneBlogChecklist = {
+  items: {
+    detail?: string;
+    label: string;
+  }[];
+  ordered?: boolean;
+  title?: string;
+};
+
+/** An ordered implementation, diagnostic or roadmap sequence. */
+export type SilverstoneBlogStep = {
+  body: string;
+  label?: string;
+  title: string;
+};
+
+/**
+ * A framed panel. `answer` renders above the section body so a cost or
+ * definition article can lead with its direct answer; every other tone renders
+ * after the body.
+ */
+export type SilverstoneBlogCallout = {
+  body: string[];
+  label?: string;
+  title?: string;
+  tone: "answer" | "assumption" | "caution" | "evidence" | "recommendation";
+};
+
+/** Figure strip — research dates, budget bands, break-even points. */
+export type SilverstoneBlogMetricPanel = {
+  items: {
+    label: string;
+    note?: string;
+    value: string;
+  }[];
+  title?: string;
+};
+
 export type SilverstoneBlogSection = {
   body: string[];
   bullets?: SilverstoneBlogBullet[];
+  callout?: SilverstoneBlogCallout;
+  checklist?: SilverstoneBlogChecklist;
   comparisonTable?: SilverstoneBlogTable;
   grid?: SilverstoneBlogGridItem[];
   heading: string;
   lede?: string;
+  metricPanel?: SilverstoneBlogMetricPanel;
+  promptBlocks?: SilverstoneBlogPromptBlock[];
   pullQuote?: string;
+  rankedCards?: SilverstoneBlogRankedCard[];
+  scorecard?: SilverstoneBlogScorecard;
+  steps?: SilverstoneBlogStep[];
   subsections?: SilverstoneBlogSection[];
   variant?: "operator" | "signal" | "system";
+};
+
+/**
+ * Which presentation family the search-led branch composed the article from.
+ * Carried so the article shell can vary its accent treatment per family and so
+ * the automation's design fingerprint stays auditable in the published data.
+ */
+export type SilverstoneBlogPresentation = {
+  ctaPlacement?: string;
+  family?: string;
+  fingerprint?: string;
 };
 
 export type SilverstoneBlogSource = {
@@ -66,6 +170,7 @@ export type SilverstoneBlogPost = {
   internalLinks: SilverstoneBlogLink[];
   metaDescription: string;
   metaTitle: string;
+  presentation?: SilverstoneBlogPresentation;
   primaryKeyword: string;
   publishedIsoDate: string;
   readTime: string;

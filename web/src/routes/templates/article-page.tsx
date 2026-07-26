@@ -16,12 +16,22 @@ import {
   ArrowUpRight,
   CalendarClock,
   Check,
+  CheckCircle2Icon,
+  ClipboardCheck,
   Clock,
   FileText,
+  InfoIcon,
+  Layers,
+  MessageSquare,
   Search,
+  ShieldCheck,
   Sparkles,
   Target,
+  TrendingUp,
+  TriangleAlertIcon,
+  Workflow,
   Zap,
+  type LucideIcon,
 } from "~/components/icons/lucide";
 import {
   Breadcrumb,
@@ -33,9 +43,16 @@ import {
 } from "~/components/ui/breadcrumb";
 import type {
   SilverstoneBlogBullet,
+  SilverstoneBlogCallout,
+  SilverstoneBlogChecklist,
   SilverstoneBlogGridItem,
+  SilverstoneBlogMetricPanel,
   SilverstoneBlogPost,
+  SilverstoneBlogPromptBlock,
+  SilverstoneBlogRankedCard,
+  SilverstoneBlogScorecard,
   SilverstoneBlogSection,
+  SilverstoneBlogStep,
   SilverstoneBlogTable,
 } from "~/data/blog-posts";
 import {
@@ -330,6 +347,396 @@ function ArticleComparisonTable({
   );
 }
 
+/*
+ * Search-led presentation blocks.
+ *
+ * Each renderer returns null when its block is absent, so a post written before
+ * these existed renders exactly the DOM it always did. Only the search-led
+ * stream populates them, and it picks which to emit from the article's
+ * presentation family — that is what stops a ranking article and a prompt guide
+ * from looking identical.
+ */
+
+/*
+ * Declared Partial deliberately: the tone arrives from automation-written data,
+ * so an unrecognised value must fall back to a usable icon rather than render
+ * `undefined` as a component. The type mirrors that runtime reality.
+ */
+const CALLOUT_ICONS: Partial<Record<SilverstoneBlogCallout["tone"], LucideIcon>> = {
+  answer: InfoIcon,
+  assumption: Layers,
+  caution: TriangleAlertIcon,
+  evidence: ShieldCheck,
+  recommendation: CheckCircle2Icon,
+};
+
+function ArticleCallout({ callout }: { callout?: SilverstoneBlogCallout | undefined }) {
+  const body = callout?.body.map((entry) => entry.trim()).filter(Boolean) ?? [];
+
+  if (!callout || body.length === 0) {
+    return null;
+  }
+
+  const Icon = CALLOUT_ICONS[callout.tone] ?? InfoIcon;
+
+  return (
+    <aside className="ss-blog-article__callout" data-tone={callout.tone}>
+      <span className="ss-blog-article__callout-icon">
+        <Icon aria-hidden="true" />
+      </span>
+      <div className="ss-blog-article__callout-copy">
+        {callout.label?.trim() ? (
+          <span className="ss-blog-article__callout-label">{callout.label.trim()}</span>
+        ) : null}
+        {callout.title?.trim() ? (
+          <strong>
+            <ArticleRichText text={callout.title.trim()} />
+          </strong>
+        ) : null}
+        {body.map((entry, index) => (
+          <p key={`callout-${String(index)}`}>
+            <ArticleRichText text={entry} />
+          </p>
+        ))}
+      </div>
+    </aside>
+  );
+}
+
+function ArticleMetricPanel({
+  panel,
+}: {
+  panel?: SilverstoneBlogMetricPanel | undefined;
+}) {
+  const items =
+    panel?.items.filter((item) => item.label.trim() && item.value.trim()).slice(0, 6) ??
+    [];
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="ss-blog-article__metrics">
+      {panel?.title?.trim() ? (
+        <span className="ss-blog-article__metrics-title">
+          <TrendingUp aria-hidden="true" />
+          {panel.title.trim()}
+        </span>
+      ) : null}
+      <dl>
+        {items.map((item, index) => (
+          <div key={`${item.label}-${String(index)}`}>
+            <dt>{item.label.trim()}</dt>
+            <dd>
+              <ArticleRichText text={item.value.trim()} />
+            </dd>
+            {item.note?.trim() ? <p>{item.note.trim()}</p> : null}
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+/**
+ * Ranked provider cards. Rendered as an <ol> so the ranking is conveyed to
+ * assistive technology and not only by the visible badge.
+ */
+function ArticleRankedCards({
+  cards,
+  headingLevel,
+}: {
+  cards?: SilverstoneBlogRankedCard[] | undefined;
+  headingLevel: 3 | 4;
+}) {
+  const usable =
+    cards
+      ?.filter((card) => card.name.trim() && card.summary.trim())
+      .slice(0, 8)
+      .sort((left, right) => left.rank - right.rank) ?? [];
+
+  if (usable.length === 0) {
+    return null;
+  }
+
+  const Heading = headingLevel === 3 ? "h3" : "h4";
+
+  return (
+    <ol className="ss-blog-article__ranked" aria-label="Ranked providers">
+      {usable.map((card, index) => (
+        <li
+          className="ss-blog-article__ranked-card"
+          data-lead={index === 0 ? "true" : undefined}
+          key={`${card.name}-${String(card.rank)}`}
+        >
+          <div className="ss-blog-article__ranked-head">
+            <span className="ss-blog-article__ranked-rank" aria-hidden="true">
+              {String(card.rank).padStart(2, "0")}
+            </span>
+            <Heading>
+              <ArticleRichText text={card.name} />
+            </Heading>
+            {card.score?.trim() ? (
+              <span className="ss-blog-article__ranked-score">{card.score.trim()}</span>
+            ) : null}
+          </div>
+          <p>
+            <ArticleRichText text={card.summary} />
+          </p>
+          {card.strengths && card.strengths.length > 0 ? (
+            <ul>
+              {card.strengths
+                .filter((entry) => entry.trim())
+                .slice(0, 5)
+                .map((entry, entryIndex) => (
+                  <li key={`strength-${String(entryIndex)}`}>
+                    <Check aria-hidden="true" />
+                    <span>
+                      <ArticleRichText text={entry} />
+                    </span>
+                  </li>
+                ))}
+            </ul>
+          ) : null}
+          {card.bestFor?.trim() ? (
+            <p className="ss-blog-article__ranked-fit">
+              <span>Best for</span>
+              <ArticleRichText text={card.bestFor.trim()} />
+            </p>
+          ) : null}
+          {card.limitations?.trim() ? (
+            <p className="ss-blog-article__ranked-limit">
+              <span>Limitations</span>
+              <ArticleRichText text={card.limitations.trim()} />
+            </p>
+          ) : null}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function ArticleScorecard({
+  scorecard,
+}: {
+  scorecard?: SilverstoneBlogScorecard | undefined;
+}) {
+  const options =
+    scorecard?.options.map((option) => option.trim()).filter(Boolean) ?? [];
+  const rows =
+    scorecard?.rows
+      .map((row) => ({
+        cells: row.cells.map((cell) => cell.trim()),
+        criterion: row.criterion.trim(),
+        weight: row.weight?.trim() ?? "",
+      }))
+      .filter(
+        (row) =>
+          row.criterion &&
+          row.cells.length >= options.length &&
+          options.every((_, index) => Boolean(row.cells[index])),
+      ) ?? [];
+
+  if (options.length < 2 || rows.length === 0) {
+    return null;
+  }
+
+  const showWeight = rows.some((row) => row.weight);
+  const totals = scorecard?.totals?.map((total) => total.trim()) ?? [];
+  const showTotals = totals.length >= options.length;
+  const columnCount = options.length + (showWeight ? 2 : 1);
+  const tableMinWidth = `${String(Math.min(76, Math.max(52, columnCount * 13)))}rem`;
+
+  return (
+    <div
+      className="ss-blog-article__table-wrap ss-blog-article__neon-border"
+      style={{ "--blog-table-min-width": tableMinWidth } as CSSProperties}
+    >
+      <table className="ss-blog-article__table ss-blog-article__table--scorecard">
+        <thead>
+          <tr>
+            <th scope="col">Criterion</th>
+            {showWeight ? <th scope="col">Weight</th> : null}
+            {options.map((option) => (
+              <th key={option} scope="col">
+                <ArticleRichText text={option} />
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.criterion}>
+              <th scope="row">
+                <ArticleRichText text={row.criterion} />
+              </th>
+              {showWeight ? <td data-label="Weight">{row.weight || "—"}</td> : null}
+              {options.map((option, index) => (
+                <td key={`${row.criterion}-${option}`} data-label={option}>
+                  <ArticleRichText text={row.cells[index] ?? ""} />
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+        {showTotals ? (
+          <tfoot>
+            <tr>
+              <th scope="row">Total</th>
+              {/* Weights do not total; the spacer is hidden once rows stack. */}
+              {showWeight ? (
+                <td aria-hidden="true" className="ss-blog-article__table-spacer" />
+              ) : null}
+              {options.map((option, index) => (
+                <td key={`total-${option}`} data-label={option}>
+                  {totals[index] ?? ""}
+                </td>
+              ))}
+            </tr>
+          </tfoot>
+        ) : null}
+      </table>
+    </div>
+  );
+}
+
+function ArticlePromptBlocks({
+  blocks,
+}: {
+  blocks?: SilverstoneBlogPromptBlock[] | undefined;
+}) {
+  const usable =
+    blocks?.filter((block) => block.label.trim() && block.prompt.trim()).slice(0, 4) ??
+    [];
+
+  if (usable.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="ss-blog-article__prompts">
+      {usable.map((block, index) => (
+        <figure
+          className="ss-blog-article__prompt"
+          data-tone={block.tone ?? "improved"}
+          key={`${block.label}-${String(index)}`}
+        >
+          <figcaption>
+            <MessageSquare aria-hidden="true" />
+            <span>{block.label.trim()}</span>
+          </figcaption>
+          {/* Prompts must stay copyable verbatim, so the text is not rich-parsed. */}
+          <pre>
+            <code>{block.prompt.trim()}</code>
+          </pre>
+          {block.explanation?.trim() ? (
+            <p>
+              <ArticleRichText text={block.explanation.trim()} />
+            </p>
+          ) : null}
+        </figure>
+      ))}
+    </div>
+  );
+}
+
+function ArticleChecklist({
+  checklist,
+}: {
+  checklist?: SilverstoneBlogChecklist | undefined;
+}) {
+  const items = checklist?.items.filter((item) => item.label.trim()).slice(0, 12) ?? [];
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  const ListTag = checklist?.ordered ? "ol" : "ul";
+  const checklistTitle = checklist?.title?.trim() ?? "";
+
+  return (
+    <div className="ss-blog-article__checklist">
+      <span className="ss-blog-article__checklist-title">
+        <ClipboardCheck aria-hidden="true" />
+        {checklistTitle === "" ? "Checklist" : checklistTitle}
+      </span>
+      <ListTag>
+        {items.map((item, index) => (
+          <li key={`${item.label}-${String(index)}`}>
+            <span className="ss-blog-article__checklist-mark" aria-hidden="true">
+              {checklist?.ordered ? String(index + 1).padStart(2, "0") : <Check />}
+            </span>
+            <span>
+              <strong>
+                <ArticleRichText text={item.label.trim()} />
+              </strong>
+              {item.detail?.trim() ? (
+                <span>
+                  <ArticleRichText text={item.detail.trim()} />
+                </span>
+              ) : null}
+            </span>
+          </li>
+        ))}
+      </ListTag>
+    </div>
+  );
+}
+
+function ArticleSteps({
+  headingLevel,
+  steps,
+}: {
+  headingLevel: 3 | 4;
+  steps?: SilverstoneBlogStep[] | undefined;
+}) {
+  const usable =
+    steps?.filter((step) => step.title.trim() && step.body.trim()).slice(0, 8) ?? [];
+
+  if (usable.length === 0) {
+    return null;
+  }
+
+  const Heading = headingLevel === 3 ? "h3" : "h4";
+
+  return (
+    <ol className="ss-blog-article__steps" aria-label="Sequence">
+      {usable.map((step, index) => (
+        <li key={`${step.title}-${String(index)}`}>
+          <span className="ss-blog-article__steps-index" aria-hidden="true">
+            <Workflow />
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <div>
+            {step.label?.trim() ? (
+              <span className="ss-blog-article__steps-label">{step.label.trim()}</span>
+            ) : null}
+            <Heading>
+              <ArticleRichText text={step.title} />
+            </Heading>
+            <p>
+              <ArticleRichText text={step.body} />
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/**
+ * The direct-answer callout renders above the body so a cost, definition or
+ * troubleshooting article can lead with its answer. Every other tone is a
+ * commentary on what was just said and renders below.
+ */
+function ArticleLeadCallout({ section }: { section: SilverstoneBlogSection }) {
+  if (section.callout?.tone !== "answer") {
+    return null;
+  }
+  return <ArticleCallout callout={section.callout} />;
+}
+
 function ArticleSectionEnhancements({
   headingLevel,
   section,
@@ -341,9 +748,18 @@ function ArticleSectionEnhancements({
 }) {
   return (
     <>
+      <ArticleMetricPanel panel={section.metricPanel} />
       <ArticlePullQuote quote={section.pullQuote} />
       <ArticleBulletPanel items={section.bullets} />
+      <ArticleRankedCards cards={section.rankedCards} headingLevel={headingLevel} />
+      <ArticleScorecard scorecard={section.scorecard} />
+      <ArticlePromptBlocks blocks={section.promptBlocks} />
+      <ArticleSteps headingLevel={headingLevel} steps={section.steps} />
       <ArticleGrid headingLevel={headingLevel} items={section.grid} />
+      <ArticleChecklist checklist={section.checklist} />
+      {section.callout?.tone === "answer" ? null : (
+        <ArticleCallout callout={section.callout} />
+      )}
       {includeTable ? <ArticleComparisonTable table={section.comparisonTable} /> : null}
     </>
   );
@@ -556,6 +972,7 @@ function ArticleSection({
               <ArticleRichText text={section.lede} />
             </p>
           ) : null}
+          <ArticleLeadCallout section={section} />
           <ArticleBody body={section.body} firstIsLead={!section.lede} />
           <ArticleSectionEnhancements
             headingLevel={3}
@@ -570,6 +987,7 @@ function ArticleSection({
               <h3>
                 <RichText text={subsection.heading} />
               </h3>
+              <ArticleLeadCallout section={subsection} />
               <ArticleBody body={subsection.body} />
               <ArticleSectionEnhancements headingLevel={4} section={subsection} />
             </div>
@@ -727,7 +1145,12 @@ export function ArticlePage({ post }: ArticlePageProps) {
     <RouteExperienceFrame skipIntro>
       <BlogJsonLd post={post} />
       <FloatingInsightsReturn visible={floatingReturnVisible} />
-      <article className="ss-blog-article">
+      {/*
+       * `data-family` lets the search-led families carry distinct accent
+       * treatments without a second page shell. Absent on service-and-industry
+       * posts, which therefore keep the default styling exactly.
+       */}
+      <article className="ss-blog-article" data-family={post.presentation?.family}>
         <header
           className="ss-blog-article__hero"
           style={{ backgroundImage: `url(${post.heroImage})` }}
