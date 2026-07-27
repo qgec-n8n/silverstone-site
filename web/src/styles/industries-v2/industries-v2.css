@@ -556,6 +556,647 @@
   }
 }
 
+/* ---- Live demo systems bay (services hub) --------------------------------
+   One machined console panel beneath the hub's trust strip, holding a pod per
+   entry in DEMO_REGISTRY. The shell borrows the established premium framing
+   (PanelReveal entrance + resident BorderBeam), but its interior is its own
+   language: a recessed screen per pod running a bespoke signature loop, lit
+   along a left-to-right spectrum so the four bays never read as one repeated
+   card. Every loop is transform/opacity only and stops under reduced motion. */
+
+.ss-hub2-bay {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  display: grid;
+  gap: clamp(1.15rem, 0.85rem + 1.3vw, 2rem);
+  padding: clamp(1.25rem, 0.9rem + 1.6vw, 2.4rem);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--srv2-hairline));
+  border-radius: var(--ss-radius-2xl);
+  background:
+    linear-gradient(
+      168deg,
+      color-mix(in srgb, var(--ss-v2-graphite-raised) 88%, transparent),
+      color-mix(in srgb, var(--ss-v2-void-black) 88%, transparent) 62%
+    ),
+    var(--ss-v2-void-black);
+  box-shadow:
+    /* Machined edge: a single bright hairline along the top inner lip, the
+       cue that separates a milled object from a flat rectangle. */
+    inset 0 1px 0 color-mix(in srgb, var(--ss-v2-chrome) 12%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--srv2-accent) 6%, transparent),
+    0 44px 90px -60px color-mix(in srgb, var(--srv2-accent) 80%, transparent),
+    0 2px 30px -18px rgb(0 0 0 / 80%);
+  backdrop-filter: blur(20px);
+}
+
+/* Ambient interior light + engraved instrument grid, both masked so the panel
+   glows from within rather than showing a visible texture rectangle. */
+.ss-hub2-bay__aura {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      62% 78% at 6% -8%,
+      color-mix(in srgb, var(--ss-v2-signal-cyan) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      58% 74% at 102% 108%,
+      color-mix(in srgb, var(--ss-v2-ultraviolet) 15%, transparent),
+      transparent 68%
+    );
+}
+
+.ss-hub2-bay__aura::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(var(--ss-v2-hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ss-v2-hairline) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(80% 70% at 50% 0%, black, transparent 78%);
+}
+
+/* Spectrum rail: the four bay accents drawn as one continuous filament along
+   the panel's top edge, with a single highlight travelling across it. */
+.ss-hub2-bay__rail {
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 auto 0;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #7fe9f0 12%,
+    #38bdf8 36%,
+    #7c5cff 62%,
+    #c47bd6 86%,
+    transparent
+  );
+  opacity: 0.85;
+}
+
+.ss-hub2-bay__rail::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  width: 22%;
+  background: linear-gradient(90deg, transparent, var(--ss-v2-chrome), transparent);
+  animation: ss-bay-rail 7s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes ss-bay-rail {
+  0% {
+    transform: translateX(-120%);
+  }
+  55%,
+  100% {
+    transform: translateX(560%);
+  }
+}
+
+.ss-hub2-bay__corners {
+  position: absolute;
+  z-index: 2;
+  inset: clamp(0.6rem, 0.45rem + 0.5vw, 0.95rem);
+  pointer-events: none;
+}
+
+.ss-hub2-bay__corners span {
+  position: absolute;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 42%, transparent);
+}
+
+.ss-hub2-bay__corners span[data-pos="tl"] {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+
+.ss-hub2-bay__corners span[data-pos="tr"] {
+  top: 0;
+  right: 0;
+  border-width: 1px 1px 0 0;
+}
+
+.ss-hub2-bay__corners span[data-pos="bl"] {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 1px 1px;
+}
+
+.ss-hub2-bay__corners span[data-pos="br"] {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
+}
+
+/* ---- Bay header ---------------------------------------------------------- */
+
+.ss-hub2-bay__status {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-block-end: clamp(0.6rem, 0.5rem + 0.4vw, 0.95rem);
+  border-block-end: 1px solid var(--srv2-hairline);
+}
+
+.ss-hub2-bay__status-id {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-hub2-bay__status-dot {
+  flex: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--srv2-accent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+}
+
+.ss-hub2-bay__status-live {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid color-mix(in srgb, #5df2b8 40%, transparent);
+  background: color-mix(in srgb, #5df2b8 10%, transparent);
+  color: #7af0c0;
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ss-hub2-bay__status-live-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: #5df2b8;
+  box-shadow: 0 0 10px #5df2b8;
+  animation: ss-bay-blink 1.8s ease-in-out infinite;
+}
+
+@keyframes ss-bay-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.ss-hub2-bay__intro {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.6rem;
+  max-width: 66ch;
+}
+
+.ss-hub2-bay__title {
+  margin: 0;
+  color: var(--ss-v2-chrome);
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.5rem, 1.15rem + 1.5vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* The emphasis carries the bay's own four-stop spectrum rather than the hub's
+   two-stop accent sweep, tying the headline to the rail above it. Solid stop
+   kept for contrast checkers; -webkit-text-fill-color paints the gradient
+   (same contract as .ss-srv2-heading em). */
+.ss-hub2-bay__title em {
+  font-style: normal;
+  background: linear-gradient(100deg, #7fe9f0, #7c5cff 52%, #c47bd6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: #7fe9f0;
+  -webkit-text-fill-color: transparent;
+}
+
+.ss-hub2-bay__lead {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: clamp(0.9rem, 0.85rem + 0.25vw, 1.02rem);
+  line-height: 1.62;
+}
+
+/* ---- Pods ---------------------------------------------------------------- */
+
+.ss-hub2-bay__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(0.7rem, 0.5rem + 0.8vw, 1.05rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .ss-hub2-bay__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Four across from the first width where a ~200px pod still reads: below this
+   the 2×2 fallback stretches each screen plate wide enough to dominate the
+   pod, which the max-height cap on the stage then tames. */
+@media (min-width: 64rem) {
+  .ss-hub2-bay__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ss-hub2-bay__pod {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 0.5rem;
+  height: 100%;
+  padding: clamp(0.7rem, 0.6rem + 0.4vw, 0.95rem);
+  border: 1px solid color-mix(in srgb, var(--bay-accent) 20%, var(--ss-v2-hairline));
+  border-radius: var(--ss-radius-lg);
+  background:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--bay-accent) 10%, transparent),
+      transparent 54%
+    ),
+    color-mix(in srgb, var(--ss-v2-graphite) 72%, transparent);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    border-color var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-moderate) var(--ss-motion-easing-standard);
+}
+
+/* Accent filament along the pod's base, drawn out from the centre on hover. */
+.ss-hub2-bay__pod::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--bay-accent), var(--bay-accent-2));
+  transform: scaleX(0);
+  transition: transform var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-hub2-bay__pod:hover::after,
+.ss-hub2-bay__pod:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ss-hub2-bay__pod:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--bay-accent) 55%, transparent);
+    box-shadow: 0 26px 50px -32px color-mix(in srgb, var(--bay-accent) 85%, transparent);
+  }
+}
+
+/* Recessed screen: the pod's signature runs on a darker inset plate, so each
+   bay reads as an instrument with a display rather than a decorated card. */
+.ss-hub2-bay__pod-stage {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  /* The plate keeps the signature's own 128:56 proportion until it would grow
+     into a billboard (wide 2-column pods, full-width mobile), at which point
+     the cap holds the height and the SVG's default "meet" fit centres the
+     readout on a wider plate rather than blowing it up. */
+  aspect-ratio: 128 / 56;
+  max-height: 6.5rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid color-mix(in srgb, var(--bay-accent) 16%, var(--ss-v2-hairline));
+  background:
+    radial-gradient(
+      120% 140% at 50% 0%,
+      color-mix(in srgb, var(--bay-accent) 14%, transparent),
+      transparent 72%
+    ),
+    var(--ss-v2-void-black);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ss-v2-chrome) 7%, transparent);
+  color: var(--bay-accent);
+}
+
+.ss-hub2-bay__sig {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.88;
+  transition: opacity var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-hub2-bay__pod:hover .ss-hub2-bay__sig,
+.ss-hub2-bay__pod:focus-visible .ss-hub2-bay__sig {
+  opacity: 1;
+}
+
+/* Bay number etched into the top-right of the screen plate. Its own backdrop
+   keeps it legible where a signature runs beneath it (the waveform reaches
+   the plate's full height). */
+.ss-hub2-bay__pod-index {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.45rem;
+  padding: 0.08rem 0.3rem;
+  border-radius: var(--ss-radius-xs);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 78%, transparent);
+  color: color-mix(in srgb, var(--bay-accent) 55%, var(--srv2-ink-soft));
+  font-family: var(--ss-font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+}
+
+.ss-hub2-bay__pod-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-block-start: 0.15rem;
+  /* Mixed into ink-soft rather than ink-faint: the deeper violet accents drag
+     a faint grey under the AA floor at this ~10px size (same finding as the
+     hub card chips above). */
+  color: color-mix(in srgb, var(--bay-accent) 34%, var(--srv2-ink-soft));
+  font-family: var(--ss-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ss-hub2-bay__pod-kicker svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.ss-hub2-bay__pod-label {
+  color: color-mix(in srgb, var(--bay-accent) 45%, var(--ss-v2-chrome));
+  font-family: var(--ss-font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.ss-hub2-bay__pod-desc {
+  color: var(--srv2-ink-soft);
+  font-size: 0.83rem;
+  line-height: 1.5;
+}
+
+.ss-hub2-bay__pod-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-block-start: 0.15rem;
+  padding-block-start: 0.55rem;
+  border-block-start: 1px solid var(--ss-v2-hairline);
+  /* Mixed into chrome rather than used raw: the ultraviolet bay's accent
+     measures 4.33:1 on its own pod at this ~11px size, just under the AA
+     floor. The mix keeps every bay's CTA visibly its own colour and clears
+     4.5:1 across all four. */
+  color: color-mix(in srgb, var(--bay-accent) 55%, var(--ss-v2-chrome));
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-hub2-bay__pod-cta svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform var(--ss-motion-duration-moderate)
+    var(--ss-motion-easing-standard);
+}
+
+.ss-hub2-bay__pod:hover .ss-hub2-bay__pod-cta svg,
+.ss-hub2-bay__pod:focus-visible .ss-hub2-bay__pod-cta svg {
+  transform: translate(3px, -3px);
+}
+
+/* Pods land as a wave once the panel itself has settled. The keyframe only
+   runs while the panel is marked shown (JS + motion), so prerendered HTML and
+   reduced-motion visitors get the pods fully visible with no animation.
+   `backwards`, never `forwards`: a forwards fill would keep applying the
+   keyframe's final `transform: translateY(0)` for the element's lifetime and
+   silently kill the hover lift below. */
+[data-panel-shown="true"] .ss-hub2-bay__pod {
+  animation: ss-bay-pod-in calc(0.8s * var(--panel-scale, 1))
+    cubic-bezier(0.22, 1, 0.36, 1)
+    calc(var(--panel-delay, 0ms) + 260ms + var(--pod, 0) * 90ms) backwards;
+}
+
+[data-panel-instant] .ss-hub2-bay__pod {
+  animation: none;
+}
+
+@keyframes ss-bay-pod-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Pod signatures ------------------------------------------------------ */
+
+/* Grace — live voice: a symmetrical waveform breathing outward from centre. */
+.ss-hub2-bay__wave {
+  fill: currentColor;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ss-bay-wave 1.7s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+@keyframes ss-bay-wave {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scaleY(0.35);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* Sam — live messaging: a settled thread with a reply still being typed. */
+.ss-hub2-bay__bubble {
+  fill: currentColor;
+  opacity: 0.16;
+}
+
+.ss-hub2-bay__bubble[data-side="out"] {
+  opacity: 0.32;
+}
+
+.ss-hub2-bay__dot {
+  fill: currentColor;
+  animation: ss-bay-type 1.4s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 180ms);
+}
+
+@keyframes ss-bay-type {
+  0%,
+  70%,
+  100% {
+    opacity: 0.35;
+  }
+  35% {
+    opacity: 1;
+  }
+}
+
+/* Voice agent — a live call: pulse rings leaving the transmitter. */
+.ss-hub2-bay__orbit {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-dasharray: 2 7;
+  opacity: 0.45;
+}
+
+.ss-hub2-bay__ring {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ss-bay-pulse 2.7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-delay: calc(var(--i, 0) * 900ms);
+}
+
+@keyframes ss-bay-pulse {
+  0% {
+    opacity: 0.65;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+
+.ss-hub2-bay__core {
+  fill: currentColor;
+  opacity: 0.9;
+}
+
+/* Web — live builds: a browser frame whose content resolves under a scan. */
+.ss-hub2-bay__chrome {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1;
+  opacity: 0.42;
+}
+
+.ss-hub2-bay__chrome-dot {
+  fill: currentColor;
+  opacity: 0.42;
+}
+
+.ss-hub2-bay__tile {
+  fill: currentColor;
+  opacity: 0.2;
+}
+
+.ss-hub2-bay__bar {
+  fill: currentColor;
+  animation: ss-bay-bar 3.4s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 260ms);
+}
+
+@keyframes ss-bay-bar {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+  40% {
+    opacity: 0.72;
+  }
+}
+
+.ss-hub2-bay__scan {
+  fill: currentColor;
+  opacity: 0.55;
+  animation: ss-bay-scan 3.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes ss-bay-scan {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  12%,
+  70% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-hub2-bay__rail::after,
+  .ss-hub2-bay__status-live-dot,
+  .ss-hub2-bay__wave,
+  .ss-hub2-bay__dot,
+  .ss-hub2-bay__ring,
+  .ss-hub2-bay__bar,
+  .ss-hub2-bay__scan,
+  [data-panel-shown="true"] .ss-hub2-bay__pod {
+    animation: none;
+  }
+
+  /* Rings would otherwise stack invisibly on the transmitter; one static halo
+     keeps the plate composed. */
+  .ss-hub2-bay__ring {
+    opacity: 0.3;
+  }
+
+  .ss-hub2-bay__wave {
+    opacity: 0.8;
+  }
+}
+
 /* ---- Split section proportions (industry override) ------------------------ */
 
 /* Industry copy runs longer than services copy, so its column needs more

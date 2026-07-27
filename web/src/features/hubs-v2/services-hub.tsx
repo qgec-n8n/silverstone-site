@@ -21,6 +21,7 @@ import {
 import { approvedServicesByRoute } from "~/content/services/approved-services";
 import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
+import { DemoBay } from "~/features/hubs-v2/demo-bay";
 import { Reveal, SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
@@ -325,6 +326,7 @@ export function ServicesHubExperience() {
         showcase={<ServiceConstellation />}
       />
       <TrustStrip />
+      <DemoBay />
 
       <section className="ss-srv2-section" aria-labelledby="hub2-services">
         <div className="ss-srv2__container">
