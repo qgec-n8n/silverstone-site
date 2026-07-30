@@ -13516,6 +13516,481 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Calculator / Interactive|customer-question|6|calculator",
     },
   },
+  {
+    slug: "ai-readiness-assessment-small-businesses",
+    title:
+      "AI Readiness Assessment for UK Small Businesses: A Practical Decision Guide",
+    subtitle:
+      "A practical way for UK SME owners to decide what to automate, what to prepare first and when to involve a delivery partner.",
+    summary: [
+      "Score one workflow across process, data, systems, ownership and risk.",
+      "Use the result to choose between foundation work, a controlled pilot or scoped implementation.",
+      "Keep human oversight for high-impact decisions and define exception routes before launch.",
+    ],
+    categoryLabel: "AI & Automation Consulting",
+    categoryKey: "ai-consulting",
+    categoryId: "ai-consulting",
+    categoryOrder: 6,
+    displayDate: "30 July 2026",
+    publishedIsoDate: "2026-07-30T22:12:30.154Z",
+    updatedIsoDate: "2026-07-30T22:12:30.154Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/ai-readiness-assessment-small-businesses-hero.webp",
+    heroImageAlt:
+      "Small business operations leader reviewing physical workflow cards on a table, with subtle projected pathways representing process, data and oversight.",
+    metaTitle: "AI Readiness Assessment for UK Small Businesses |",
+    metaDescription:
+      "Assess whether your SME is ready for AI or automation with a practical five-part framework for processes, data, systems, ownership and risk.",
+    primaryKeyword: "AI readiness assessment for small businesses",
+    secondaryKeywords: [
+      "AI readiness assessment UK",
+      "small business AI strategy",
+      "AI implementation readiness",
+      "automation readiness assessment",
+      "SME AI governance",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "If AI feels promising but your team is still chasing information, rekeying data or deciding who owns routine follow-up, do not begin with a tool shortlist. Begin with one workflow. An AI readiness assessment for small businesses should establish whether that workflow is stable, its data is usable, its systems can connect, a named owner can run it and the risks have clear controls. A low score is not a failure; it is a useful signal about what to fix before spending money.",
+        ],
+      },
+      {
+        heading: "What AI readiness actually means for a small business",
+        body: [
+          "For a UK SME, AI readiness is not a test of whether you have a large data team or an ambitious innovation programme. It is a practical test of whether a specific business problem can be improved safely, measured sensibly and operated by real people.",
+          "A ready workflow has a clear trigger, repeatable steps, a recognisable outcome and someone accountable for exceptions. It does not need to be entirely automated. In fact, retaining human judgement for high-impact, nuanced or strategic decisions is an important implementation principle for SMEs, particularly where stakeholder relationships or ethical judgement matter. [The Journal of Small Business Strategy](https://jsbs.scholasticahq.com/article/157792) frames automation as an augmentation of human expertise rather than a replacement for it.",
+          "The most useful starting point is therefore operational: where does work regularly stall, get copied between systems, wait for a reply or depend on one person remembering the next action? Those symptoms reveal a workflow worth assessing.",
+        ],
+        lede:
+          "Readiness is the ability to introduce a useful system without creating a new operational burden.",
+        variant: "signal",
+        callout: {
+          body: [
+            "You are ready to test AI on a workflow when the process is repeatable, the input data is accessible, the necessary systems can exchange information, an accountable owner is available and a human can review meaningful exceptions.",
+            "If two or more of those conditions are missing, improve the operating foundations before committing to a broad AI rollout.",
+          ],
+          tone: "answer",
+          title: "The direct answer",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Research checked",
+              value: "30 July 2026",
+              note:
+                "Supplied implementation, governance, SME and maturity-model sources.",
+            },
+            {
+              label: "Assessment unit",
+              value: "One workflow",
+              note:
+                "For example, enquiry triage, quote follow-up or appointment reminders.",
+            },
+            {
+              label: "Suggested first test",
+              value: "2–4 weeks",
+              note: "A planning assumption, not a guaranteed delivery timeframe.",
+            },
+          ],
+          title: "Evidence and assessment scope",
+        },
+      },
+      {
+        heading: "Assess the five foundations before you invest",
+        body: [
+          "The framework below is an original decision tool for this guide. Its five areas align with commonly used maturity dimensions covering strategy, data, talent, technology and operating model, while translating them into questions a small business can answer. [The supplied maturity-model source](https://academy.theartofservice.com/course/view.php?id=1503&guest=true) supports those broad dimensions.",
+          "Score each area from 0 to 2: 0 means absent or unclear; 1 means partly in place or inconsistent; 2 means documented, repeatable and owned. Score the actual workflow, not the business at its best.",
+        ],
+        lede:
+          "Use the same five questions for every candidate workflow. This keeps a promising demo from becoming an unclear operating model.",
+        variant: "system",
+        pullQuote:
+          "A workflow is not ready because the technology is impressive. It is ready when the business can explain how it will be run on an ordinary Tuesday.",
+        grid: [
+          {
+            body:
+              "Is the trigger clear? Are the main steps repeatable? Can you define what a successful hand-off or outcome looks like?",
+            title: "1. Process",
+          },
+          {
+            body:
+              "Are the required records available, current enough and understandable? Can you identify their source and who may access them?",
+            title: "2. Data",
+          },
+          {
+            body:
+              "Do the tools involved have a sensible connection route, or is a controlled manual hand-off acceptable for an initial test?",
+            title: "3. Systems",
+          },
+          {
+            body:
+              "Is one person responsible for approving rules, handling exceptions, checking quality and deciding whether to continue?",
+            title: "4. Ownership",
+          },
+          {
+            body:
+              "Have you defined what the system must not decide, when it must escalate and how errors, changes and feedback will be reviewed?",
+            title: "5. Risk and oversight",
+          },
+        ],
+      },
+      {
+        heading: "Score a workflow for automation or AI suitability",
+        body: [
+          "Add your five scores for a total out of 10. The thresholds below are decision bands, not an industry benchmark or a promise of return. They are designed to turn an informal conversation into a prioritised action.",
+        ],
+        lede:
+          "A score helps you choose the next action, rather than pretending it predicts a result.",
+        variant: "operator",
+        comparisonTable: {
+          columns: ["Total score", "Readiness interpretation", "Recommended next move"],
+          rows: [
+            {
+              cells: [
+                "Foundation gap",
+                "The workflow is still variable, poorly evidenced or unowned.",
+                "Map the current process and resolve the lowest-scoring foundation before considering a build.",
+              ],
+              label: "0–3",
+            },
+            {
+              cells: [
+                "Controlled pilot candidate",
+                "There is a viable use case, but material assumptions remain.",
+                "Run a narrow, reversible test with human review and a defined stop condition.",
+              ],
+              label: "4–6",
+            },
+            {
+              cells: [
+                "Implementation candidate",
+                "The workflow is sufficiently defined for scoped delivery.",
+                "Specify integrations, acceptance checks, exception routes and an operating owner.",
+              ],
+              label: "7–8",
+            },
+            {
+              cells: [
+                "Scale candidate",
+                "The workflow has strong foundations and governance.",
+                "Consider extending the proven pattern to adjacent workflows, one at a time.",
+              ],
+              label: "9–10",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "This framework assumes you can inspect the present workflow with the people who perform it. If the process is not visible or staff cannot safely raise concerns, treat the ownership score as zero until that changes.",
+          ],
+          tone: "assumption",
+          title: "Use the score honestly",
+        },
+        subsections: [
+          {
+            heading: "Prioritise impact separately from readiness",
+            body: [
+              "A high score does not automatically make a workflow the best first project. Rank shortlisted workflows on two further questions: does it remove a persistent bottleneck, and can you observe whether the change is helping?",
+              "A sensible first project is usually high-frequency, bounded and easy to reverse. Examples may include routing routine enquiries, preparing a draft from approved information or prompting a follow-up task. Decisions affecting price, employment, eligibility, safety or major customer commitments deserve stronger human review.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Common readiness gaps that delay implementation",
+        body: [
+          "The gaps below are not reasons to abandon AI. They are design constraints to make visible early. Governance-oriented implementation guidance emphasises documented controls, data provenance, lifecycle oversight, transparency, continuous validation and human oversight. [The supplied Walden research excerpt](https://scholarworks.waldenu.edu/cgi/viewcontent.cgi?article=22364&context=dissertations) summarises these as foundational to trustworthy AI performance.",
+        ],
+        lede:
+          "Most stalled projects begin with an understandable business need, then meet an unexamined dependency.",
+        variant: "signal",
+        bullets: [
+          {
+            body:
+              "Different staff follow different steps, so the proposed system would merely automate inconsistency.",
+            label: "An unstable process",
+          },
+          {
+            body:
+              "No one can say where a record came from, whether it is current or whether it should be used for the proposed purpose.",
+            label: "Unclear data provenance",
+          },
+          {
+            body:
+              "The happy path is designed, but no one has decided what happens when confidence is low, details conflict or a customer asks for something unusual.",
+            label: "A missing exception path",
+          },
+          {
+            body:
+              "The initiative belongs to a project group, rather than a named person who can maintain rules and make day-to-day decisions.",
+            label: "No operational owner",
+          },
+          {
+            body:
+              "There is no agreed service, quality or workload measure to review after launch.",
+            label: "Success defined as ‘using AI’",
+          },
+        ],
+        callout: {
+          body: [
+            "Where a workflow can materially affect a customer, employee or commercial commitment, define the human authority, escalation rule and audit trail before introducing automation. Tool capability alone does not answer those operating questions.",
+          ],
+          tone: "caution",
+          title: "Do not automate a hidden policy decision",
+        },
+      },
+      {
+        heading: "What to fix before you buy tools or hire a delivery partner",
+        body: [
+          "If you need independent structure around this work, review Silverstone AI’s [AI and automation consulting service](/services/ai-consulting) and its published approach to [how we work](/how-we-work). For a deeper buying lens, see the [AI automation consulting guide](/blog/ai-automation-consulting-guide) and the [workflow automation selection guide](/blog/workflow-automation-selection-guide).",
+          "Publisher disclosure: Silverstone AI publishes the article and may include itself as a provider reference; any self-reference must be limited to verified first-party capability statements. This is editorial guidance for UK SME owners and operations leaders, not independent procurement advice. Public information about providers and tools can be incomplete; corrections or concerns can be raised through [contact](/contact).",
+        ],
+        lede:
+          "Preparation should produce decisions and artefacts that make a later pilot smaller, clearer and easier to evaluate.",
+        variant: "system",
+        checklist: {
+          items: [
+            {
+              label: "Map one current workflow",
+              detail:
+                "Record trigger, steps, systems, hand-offs, delays and the point at which human judgement is required.",
+            },
+            {
+              label: "Define an outcome measure",
+              detail:
+                "Choose a measure you already understand, such as time to first response, incomplete requests or staff rework.",
+            },
+            {
+              label: "List inputs and permissions",
+              detail:
+                "Identify which information is needed, its source, who can access it and what should be excluded.",
+            },
+            {
+              label: "Write exception rules",
+              detail:
+                "State when work is sent to a person, who receives it and how they correct or override it.",
+            },
+            {
+              label: "Name the operating owner",
+              detail:
+                "Give one person authority to approve changes, review output and collect feedback.",
+            },
+            {
+              label: "Set a review point",
+              detail:
+                "Agree when to assess quality, workload, unexpected effects and whether to stop, adapt or proceed.",
+            },
+          ],
+          title: "Minimum pilot preparation pack",
+        },
+      },
+      {
+        heading: "Choose your next step from the score, not the hype",
+        body: [
+          "Use your total score and the lowest individual score together. A total of seven is not a green light if risk and oversight scored zero. Equally, a low data score may be easy to resolve if the workflow already has a clear process and owner.",
+          "Before committing budget, distinguish verified supplier facts from your own planning assumptions. Scope, integration requirements, internal time and ongoing review all affect cost. Visit [pricing](/pricing) for Silverstone AI’s published commercial information, and use the [AI automation cost audit](/blog/ai-automation-cost-audit) to structure the questions behind an estimate. No assessment can guarantee ROI.",
+        ],
+        lede:
+          "The right next move is often a workshop, a process fix or a narrow pilot—not a company-wide transformation.",
+        variant: "operator",
+        steps: [
+          {
+            body:
+              "Document the process, remove obvious duplication and appoint an owner. Reassess when the work is repeatable.",
+            title: "Stabilise the workflow",
+            label: "Score 0–3",
+          },
+          {
+            body:
+              "Pick one user group, approved inputs, clear escalation and a review date. Keep a manual fallback.",
+            title: "Design a bounded pilot",
+            label: "Score 4–6",
+          },
+          {
+            body:
+              "Confirm system interfaces, acceptance criteria, training needs and governance checks before build begins.",
+            title: "Scope implementation",
+            label: "Score 7–8",
+          },
+          {
+            body:
+              "Use the established controls and learning to assess one adjacent workflow, rather than scaling by default.",
+            title: "Extend carefully",
+            label: "Score 9–10",
+          },
+        ],
+        callout: {
+          body: [
+            "Bring one workflow map, your five scores and two examples of real inputs to a scoping discussion. If you would like help turning that into a practical next-step plan, [book a discovery conversation](/book#booking-calendar).",
+          ],
+          tone: "recommendation",
+          title: "A useful first conversation",
+        },
+      },
+    ],
+    faqs: [
+      {
+        question: "What is an AI readiness assessment for a small business?",
+        answer:
+          "It is a structured review of whether a specific workflow has a repeatable process, usable data, workable systems, accountable ownership and suitable controls for human oversight. It should lead to a practical next action, not simply a technology recommendation.",
+      },
+      {
+        question: "What is a good first AI project for an SME?",
+        answer:
+          "Choose a frequent, bounded workflow with a clear trigger and outcome, manageable risk and a human fallback. Start with a narrow test rather than a business-wide rollout.",
+      },
+      {
+        question: "Do small businesses need perfect data before using AI?",
+        answer:
+          "No. They need data that is adequate for the narrowly defined workflow, with known sources, appropriate access and a way to spot or correct errors. If the data source is unknown or inconsistent, improve that foundation first.",
+      },
+      {
+        question: "Who should own an AI or automation workflow?",
+        answer:
+          "A named operational owner should be accountable for the rules, output review, exception handling and feedback. Technical delivery can be supported by specialists, but ownership should remain close to the business process.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "AI automation consulting guide",
+        href: "/blog/ai-automation-consulting-guide",
+      },
+      {
+        label: "workflow automation selection guide",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+      {
+        label: "AI automation cost audit",
+        href: "/blog/ai-automation-cost-audit",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Successful Strategies Business Leaders Use to Implement ...",
+        url:
+          "https://scholarworks.waldenu.edu/cgi/viewcontent.cgi?article=22364&context=dissertations",
+        domain: "scholarworks.waldenu.edu",
+        verifiedAt: "2026-07-30T22:10:45.331Z",
+        publishedDate: "",
+        summary:
+          "AI governance required documented controls, lifecycle oversight, and organizational readiness (National Institute of Standards and Technology, 2023). Regulatory guidance identified reliability, data provenance, transparency, continuous validation, stakeholder engagement, and human oversight as foundational elements of trustworthy AI performance (National Institute of Standards and Technology, 2023). These governance components established operational structures that supported responsible system development, monitoring, and decision accountability. Organizations that implemented mature data governance practices, phased implementation strategie",
+        matchedTerms: ["readiness", "decision", "data", "gaps", "implementation"],
+      },
+      {
+        title:
+          "Procurement 4.0: A Three-Pillar Framework for Ethical AI Adoption in Small Businesses | Published in Journal of Small Business Strategy",
+        url: "https://jsbs.scholasticahq.com/article/157792",
+        domain: "jsbs.scholasticahq.com",
+        verifiedAt: "2026-07-30T22:10:45.332Z",
+        publishedDate: "",
+        summary:
+          "Maintain human oversight for strategic decisions. While automation and predictive tools can significantly enhance procurement efficiency, final authority for high-impact strategic decisions should remain with experienced human managers. This is particularly important in areas requiring nuanced judgment, ethical considerations, or stakeholder negotiations. As the current literature stresses, technology adoption in SMEs is most successful when it is positioned as augmenting rather than replacing human expertise, since the best automation can rarely outperform the best human (Goldsby et al., 2024). By retaining human oversight, SMEs can balance ",
+        matchedTerms: [
+          "readiness",
+          "small",
+          "areas",
+          "process",
+          "data",
+          "systems",
+          "workflow",
+          "automation",
+        ],
+      },
+      {
+        title:
+          "AI Maturity Model for Asian Businesses | Pertama Partners Research | Pertama Partners",
+        url:
+          "https://www.pertamapartners.com/insights/research/ai-maturity-model-asian-businesses",
+        domain: "pertamapartners.com",
+        verifiedAt: "2026-07-30T22:10:45.332Z",
+        publishedDate: "",
+        summary:
+          "Data sources include Gartner AI Maturity Model Framework, IDC Asia/Pacific AI Research 2025, McKinsey Global Survey: The State of AI 2025, BCG Generative AI Adoption in Asia 2025, Stanford HAI AI Index Report 2025, Forrester AI Maturity Assessment Framework, OECD AI Adoption by SMEs 2025, Deloitte State of AI in the Enterprise 2026, HKPC AI Readiness in Workplace Survey 2025, ASEAN Expanded Guide on AI Governance and Ethics 2025, Workera/IDC AI Workforce Readiness Report 2025, and GTIA mid-market Technology and Buying Trends 2025. ## Key Statistics The vast majority of Asian small and medium businesses have not yet deployed AI in production, ",
+        matchedTerms: ["readiness", "assessment", "small", "data"],
+      },
+      {
+        title: "Understanding the use of AI among small businesses",
+        url:
+          "https://www.jpmorganchase.com/institute/all-topics/business-growth-and-entrepreneurship/understanding-ai-use-by-small-businesses",
+        domain: "jpmorganchase.com",
+        verifiedAt: "2026-07-30T22:10:45.332Z",
+        publishedDate: "",
+        summary:
+          "McElheran, Kristina, J. Frank Li, Erik Brynjolfsson, Zachary Kroff, Emin Dinlersoz, Lucia Foster, and Nikolas Zolas. 2024. “AI Adoption in America: Who, What, and Where.” _Journal of Economics & Management Strategy_ Vol. 33, No. 2: 375–415. McKinsey & Company. 2025. The State of AI: Global Survey 2025. Microsoft. 2018. The Future Computed: Artificial Intelligence and its Role in Society. Muro, Mark, and Shriya Methkupally. 2025. “Mapping the AI economy: Which regions are ready for the next technological leap?” _Brookings Institution_. National Federation of Independent Business. 2025. Small Business and Technology Survey. OECD. 2024. SME Digi",
+        matchedTerms: ["small", "what", "data", "tools", "next"],
+      },
+      {
+        title:
+          "Public Sector AI Readiness 2026: Government Benchmarks by Country | Alice Labs",
+        url: "https://alicelabs.ai/reports/global-public-sector-ai-index-2026",
+        domain: "alicelabs.ai",
+        verifiedAt: "2026-07-30T22:10:45.332Z",
+        publishedDate: "",
+        summary:
+          "# Public Sector AI Readiness 2026: Government Benchmarks by Country Benchmark government AI maturity worldwide using open indicators on readiness, governance, and digital capacity ## Contents Linus Ingemarsson - Author at Alice Labs Eric Lundberg - Reviewer at Alice Labs Methodology & Transparency: This analysis draws on primary sources — including Eurostat, OECD, national statistical agencies, peer-reviewed literature, and official vendor disclosures — combined with Alice Labs implementation data. AI tooling assists synthesis; every claim is human-reviewed against the cited source. All figures and claims link to their public source for verif",
+        matchedTerms: ["readiness", "decision", "data", "automation", "implementation", "next"],
+      },
+      {
+        title: "Government AI Readiness Tracker | Vorp Labs",
+        url: "https://vorplabs.com/ai-regulatory-updates/government-ai-readiness",
+        domain: "vorplabs.com",
+        verifiedAt: "2026-07-30T22:10:45.332Z",
+        publishedDate: "",
+        summary:
+          "#### Monitoring, evaluation and public participation | | | | --- | Human oversight and appeal | ? | Per-organization. | | Monitoring and incident management | None | No national-level incident registry located. | | Public participation | Announced | Target-group research, open meetings and feedback channels exist; no specific governance change was traced to public input. | | Freshness discipline | Deployed | Current release notes and recently modified records support operational freshness through 2025–2026. | #### Sources [...] | | | | --- | Public-facing AI deployed | Deployed | The current inventory describes SDAT's Custom Business Chatbot ",
+        matchedTerms: ["readiness", "process", "common"],
+      },
+      {
+        title:
+          "AI Governance with CloudPedagogy AI Ethics Review | Jonathan Wong posted on the topic | LinkedIn",
+        url:
+          "https://www.linkedin.com/posts/jonathan-wong-cloudpedagogy_cloudpedagogy-governance-ready-ai-capability-activity-7470746664669057024-rswI",
+        domain: "linkedin.com",
+        verifiedAt: "2026-07-30T22:10:45.333Z",
+        publishedDate: "",
+        summary:
+          "Help organizations assess readiness, train employees, and manage change effectively. Address ethical, legal, and governance considerations, ensuring responsible AI adoption. Demonstrate how to measure ROI and long-term impact of AI initiatives. Highlight real-world case studies to illustrate best practices and lessons learned. Target Audience Business Leaders & Executives: To understand strategic AI adoption and organizational transformation. Managers & Department Heads: To identify AI applications in marketing, operations, finance, HR, and supply chain. IT Professionals & AI Practitioners: To integrate AI tools effectively into existing syst",
+        matchedTerms: ["readiness", "assess", "systems", "how", "tools"],
+      },
+      {
+        title:
+          "Course: AI-Driven Business Transformation; Strategies and Frameworks | The Art of Service Academy",
+        url: "https://academy.theartofservice.com/course/view.php?id=1503&guest=true",
+        domain: "academy.theartofservice.com",
+        verifiedAt: "2026-07-30T22:10:45.333Z",
+        publishedDate: "",
+        summary:
+          "### 2. The AI Maturity Model (by McKinsey and BCG) This model evaluates an organization’s readiness across five dimensions: + Strategy: Clear AI vision aligned with business goals. + Data: Availability, quality, and governance of data assets. + Talent: Skilled workforce including data scientists, data engineers, and AI product managers. + Technology: Infrastructure for training, deploying, and monitoring AI models. + Operating Model: Cross-functional collaboration, agile development, and change management. Organizations can use this model to assess current maturity and define a roadmap to reach higher levels—such as moving from isolated exper",
+        matchedTerms: [
+          "readiness",
+          "assessment",
+          "five",
+          "assess",
+          "process",
+          "data",
+          "systems",
+          "automation",
+        ],
+      },
+    ],
+    imagePrompt:
+      "Create an original premium editorial hero image in 1536x864 WebP format. Scene: a commercially plausible UK small-business operations workshop viewed from a slightly elevated angle, centred on a tactile circular table with five unlabelled coloured workflow tokens arranged around a slim paper process map with no readable text. A calm, realistic operations leader is present only as a cropped torso and naturally posed arms, checking a small physical token; no distorted hands. Soft daylight, warm stone, brushed aluminium and deep forest-green accents. Add a restrained futuristic element: transparent, abstract light paths rising gently from the table and joining five small geometric markers, implying controlled workflow design rather than a dashboard. Keep the primary subject within the central 9:16 crop-safe area. Sophisticated editorial photography with subtle cinematic depth, commercially plausible and optimistic. No readable text, letters, numbers, logos, screens, fake statistics, generic robots, exaggerated holograms, uncanny people, dark office plus UI-wall composition, or meaningless network graphics.",
+    ctaPrimary: {
+      label: "Assess your automation readiness",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Decision Framework",
+      fingerprint: "Decision Framework|operational-symptom|6|decision-guide",
+    },
+  },
 // N8N_BLOG_POSTS_END
 ];
 
