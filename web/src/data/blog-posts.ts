@@ -12494,7 +12494,504 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
-  // N8N_BLOG_POSTS_END
+    {
+    slug: "ai-automation-cost-uk-small",
+    title: "How Much Does AI Automation Cost in the UK for a Small Business?",
+    subtitle:
+      "A practical first-year cost model for comparing quotes without relying on misleading market averages.",
+    summary: [
+      "There is no robust universal UK SME price range for bespoke AI automation.",
+      "A complete estimate includes delivery, software, integrations, internal time, support and explicit uncertainty.",
+      "Comparable quotes require identical scope assumptions, cost categories and acceptance criteria.",
+    ],
+    categoryLabel: "AI Automation",
+    categoryKey: "ai-automation",
+    categoryId: "ai-automation",
+    categoryOrder: 5,
+    displayDate: "30 July 2026",
+    publishedIsoDate: "2026-07-30T19:06:23.156Z",
+    updatedIsoDate: "2026-07-30T19:06:23.156Z",
+    readTime: "9 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/ai-automation-cost-uk-small-hero.webp",
+    heroImageAlt:
+      "Layered physical cost-model components arranged around a central automated workflow mechanism",
+    metaTitle: "How Much Does AI Automation Cost in the UK?",
+    metaDescription:
+      "Calculate the first-year cost of AI automation for a UK small business, including implementation, tools, integrations, internal time and support.",
+    primaryKeyword: "How Much Does AI Automation Cost in the UK?",
+    secondaryKeywords: [
+      "AI automation cost UK",
+      "small business automation costs",
+      "AI implementation budget",
+      "automation cost calculator",
+      "first-year automation cost",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "“How much will AI automation cost us?” sounds like a simple customer question. In practice, the answer depends on what must be automated, which systems are involved, how reliable the result needs to be and who will maintain it.\n\nThere is no sufficiently robust public dataset supporting a universal UK small-business price range for bespoke AI automation. A useful budget should therefore combine implementation, software, integration, internal time and ongoing support rather than start with an unsupported headline figure.\n\nThis guide provides a calculator-style framework for producing that budget. It separates known costs from assumptions, gives you a consistent basis for comparing quotes and shows where uncertainty should remain visible.",
+        ],
+      },
+      {
+        heading: "What businesses usually mean when they ask about AI automation cost",
+        body: [
+          "A request for “AI automation” can describe anything from configuring a low-code tool to building a governed workflow that connects several business systems. Those are not comparable purchases.",
+          "Begin with a specific operational outcome: triaging enquiries, extracting information from documents, preparing draft responses or moving approved data between systems. Then define where the workflow starts, where it ends and which decisions must remain with a person.",
+          "Accessible low-code products can reduce the technical barrier to experimentation, as research into SME adoption notes. That does not make implementation free. Process design, data preparation, testing, training and oversight still consume time.",
+          "For businesses exploring the category, [a guide to small-business AI automation](/blog/small-business-ai-automation) explains how to identify a sensible first workflow before requesting a price.",
+        ],
+        lede:
+          "The short answer is that you need to define the unit being priced before any figure becomes meaningful.",
+        variant: "signal",
+        grid: [
+          {
+            body:
+              "The workflow uses established software and a controlled process. Budget pressure usually comes from configuration, testing, licences and staff time.",
+            title: "Existing tools, limited connections",
+            label: "Configuration",
+          },
+          {
+            body:
+              "Cost increases when records must be matched, permissions handled and failures reconciled across applications.",
+            title: "Several systems and data sources",
+            label: "Integration",
+          },
+          {
+            body:
+              "The estimate must cover design, development, infrastructure, quality assurance, deployment and maintenance.",
+            title: "Custom logic or user experience",
+            label: "Bespoke delivery",
+          },
+        ],
+        callout: {
+          body: [
+            "There is no defensible single average price for AI automation in a UK small business. Calculate the first-year cost as discovery and design, implementation, tools and usage, integrations, testing, internal time, support and an explicit allowance for identified uncertainty.",
+            "A quote that omits any of those categories may look cheaper without representing a lower total cost.",
+          ],
+          tone: "answer",
+          title: "Direct answer",
+        },
+        subsections: [
+          {
+            heading: "Publisher disclosure",
+            body: [
+              "Silverstone AI publishes the article and includes itself where relevant; this topic is not a ranking or comparison. Silverstone first-party capability evidence is limited to publicly stated claims about being a UK AI systems studio, offering bespoke AI workflow and automation delivery, AI and automation consulting, and a published implementation process.",
+              "This editorial guide is for UK SME budget owners. Public information is incomplete, and no Silverstone project price is stated in the supplied research. Corrections can be submitted through the [contact page](/contact).",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "The cost drivers that change a first workflow price",
+        body: [
+          "Two apparently similar automations can require very different delivery effort. A workflow that drafts text for approval has a different risk profile from one that changes customer records or initiates a financial action.",
+          "The most useful quote describes each driver rather than hiding everything inside a project total. GOV.UK cost-estimating guidance supports documenting assumptions, testing the quality of underlying data and refining an estimate as better information becomes available.",
+          "If the current process is inconsistent, discovery may reveal that standardisation should happen before automation. That is useful evidence, not wasted work.",
+        ],
+        lede:
+          "Scope size matters, but uncertainty and operational risk can matter just as much.",
+        variant: "system",
+        pullQuote:
+          "The cheapest workflow to describe is not necessarily the cheapest workflow to operate.",
+        bullets: [
+          {
+            body: "The number of triggers, paths, exceptions and hand-offs included.",
+            label: "Workflow boundaries",
+          },
+          {
+            body:
+              "Whether applications offer suitable interfaces, permissions and test environments.",
+            label: "System access",
+          },
+          {
+            body: "How complete, consistent and accessible the required records are.",
+            label: "Data condition",
+          },
+          {
+            body:
+              "The consequence of an incorrect output and the level of human review required.",
+            label: "Decision risk",
+          },
+          {
+            body: "Expected transaction volume, document size, frequency and peaks.",
+            label: "Usage",
+          },
+          {
+            body:
+              "Who handles alerts, exceptions, changes, access reviews and supplier updates.",
+            label: "Operating model",
+          },
+        ],
+      },
+      {
+        heading: "Typical build stages: discovery, implementation, testing and support",
+        body: [
+          "The exact sequence varies, but each stage should produce evidence that improves the next estimate. Silverstone describes its approach on [how we work](/how-we-work), while its [AI automation service](/services/ai-automation) covers bespoke workflow and automation delivery.",
+          "Ask whether the quote includes project management, documentation, deployment and post-launch defect handling. If these items are outside scope, record who will provide them and what budget they require.",
+        ],
+        lede:
+          "A credible estimate should follow the delivery lifecycle rather than treating automation as a one-off installation.",
+        variant: "operator",
+        steps: [
+          {
+            body:
+              "Map the current process, transaction volumes, staff effort, exceptions, systems and desired control points. Record the evidence behind each assumption.",
+            title: "Discovery and baseline",
+            label: "Stage 1",
+          },
+          {
+            body:
+              "Define workflow boundaries, data movement, human approvals, failure handling, access controls and measurable acceptance criteria.",
+            title: "Solution design",
+            label: "Stage 2",
+          },
+          {
+            body:
+              "Configure or build the workflow, connect approved systems and establish logging, alerts and recovery routes.",
+            title: "Implementation and integration",
+            label: "Stage 3",
+          },
+          {
+            body:
+              "Test normal cases, exceptions, incorrect inputs and system failures. Train the people who approve outputs or resolve problems.",
+            title: "Testing and launch",
+            label: "Stage 4",
+          },
+          {
+            body:
+              "Monitor performance, investigate failures, manage software changes and reassess whether the workflow remains useful and appropriately controlled.",
+            title: "Support and improvement",
+            label: "Stage 5",
+          },
+        ],
+      },
+      {
+        heading: "Tool fees, integration costs and internal time to budget for",
+        body: [
+          "Software may be charged by user, task, transaction, environment or consumption. Public prices can help with an initial licence estimate, but the chosen plan, taxes, usage limits and contract terms should be verified directly before approval.",
+          "Enterprise figures should not be repurposed as small-business benchmarks. A Worcestershire County Council document, for example, cites an OutSystems platform cost of approximately £300,000 annually and additional environments at approximately £80,000. It also notes adjacent platform and integration expenditure. This is useful evidence that environments and integrations can be separate cost lines, not evidence of what an SME workflow should cost.",
+          "Broader UK bespoke-software guides publish very wide ranges, but they cover materially different products and are vendor-authored. They should be treated as context rather than an AI automation rate card.",
+        ],
+        lede: "The implementation invoice is only one part of first-year cost.",
+        variant: "system",
+        comparisonTable: {
+          columns: ["What to include", "Evidence to request"],
+          rows: [
+            {
+              cells: [
+                "Licences, consumption, environments and required add-ons",
+                "Current supplier quotation, plan limits and renewal basis",
+              ],
+              label: "Software and usage",
+            },
+            {
+              cells: [
+                "Connection build, authentication, data mapping and error recovery",
+                "System documentation, access confirmation and test results",
+              ],
+              label: "Integration",
+            },
+            {
+              cells: [
+                "Workshops, data preparation, testing, training and operational ownership",
+                "Named roles, estimated hours and loaded internal hourly cost",
+              ],
+              label: "Internal time",
+            },
+            {
+              cells: [
+                "Monitoring, support, changes, incident handling and periodic review",
+                "Service scope, response arrangements and exclusions",
+              ],
+              label: "Operations",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "Silverstone project pricing: Not publicly stated in the supplied research. The cost of an individual workflow therefore requires a scoped quotation.",
+            "Do not replace missing information with a market average. Label it as unknown, identify how it will be resolved and show who owns the decision.",
+          ],
+          tone: "caution",
+          title: "Unknowns must stay visible",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Evidence checked",
+              value: "30 July 2026",
+              note:
+                "Pricing and terms should be rechecked before a purchasing decision.",
+            },
+            {
+              label: "OutSystems platform example",
+              value: "c. £300,000 annually",
+              note: "Public-sector enterprise context; not a UK SME benchmark.",
+            },
+            {
+              label: "Additional environments",
+              value: "c. £80,000",
+              note: "From the same council document; scope and applicability differ.",
+            },
+          ],
+          title: "Public evidence snapshot",
+        },
+      },
+      {
+        heading: "How to estimate total first-year cost with clear assumptions",
+        body: [
+          "**First-year cost = discovery and design + implementation + software and usage + integration and data work + testing and training + internal time + first-year support + explicit risk allowance.**",
+          "Enter supplier figures only where scope and validity are documented. For internal time, multiply the hours required from each role by that role’s loaded hourly cost. Keep recoverable VAT treatment separate and confirm it with your finance adviser.",
+          "The risk allowance is not a standard percentage. Build it from named uncertainties, such as unconfirmed system access, poor sample data or unknown transaction volumes. Remove or revise allowances as discovery produces better evidence.",
+          "To test value, calculate a conservative annual benefit from evidenced time released, avoided external expenditure or additional contribution. Subtract recurring annual operating costs before considering payback. If the resulting benefit is not positive or cannot be evidenced, do not claim an ROI.",
+          "**Indicative break-even period in months = first-year cost ÷ evidenced monthly net benefit.** This is a scenario calculation, not a guarantee. Test a lower-benefit and higher-cost case as well as the expected case.",
+          "A structured [AI automation cost audit](/blog/ai-automation-cost-audit) can help expose omitted cost lines. You can also review [pricing and engagement routes](/pricing) or [book a scoping conversation](/book#booking-calendar) when your assumptions are ready.",
+        ],
+        lede:
+          "Use one calculation structure for every option so that differences in scope cannot hide behind different quote formats.",
+        variant: "operator",
+        callout: {
+          body: [
+            "Suppose a business knows its software quotation and internal testing hours, but integration effort remains uncertain. The model should enter the verified software figure, calculate internal time from the business’s own employment cost, and mark integration as a range supplied by the delivery team after technical discovery.",
+            "The approval paper should show a base case and a downside case in which integration effort and support demand are higher. It should not present either case as a promised outcome.",
+          ],
+          tone: "assumption",
+          title: "Worked example without invented market prices",
+        },
+      },
+      {
+        heading: "How to reduce scope risk before you ask for quotes",
+        body: [
+          "Choose one bounded workflow rather than asking for a general transformation proposal. Provide representative examples, describe exceptions and identify every system the automation may need to read or update.",
+          "Ask each supplier to price against the same brief and to separate one-off implementation from recurring costs. A quote should also state its assumptions, exclusions, validity period and the responsibilities retained by your team.",
+          "The [workflow automation selection guide](/blog/workflow-automation-selection-guide) can help you test whether the chosen process is suitable before committing budget.",
+        ],
+        lede:
+          "A short, evidence-led brief improves quote comparability and helps suppliers identify genuine unknowns.",
+        variant: "signal",
+        checklist: {
+          items: [
+            {
+              label: "Define one outcome",
+              detail: "State the operational result and how it will be measured.",
+            },
+            {
+              label: "Map boundaries",
+              detail:
+                "List the trigger, endpoint, hand-offs, exceptions and human approvals.",
+            },
+            {
+              label: "Name every system",
+              detail:
+                "Confirm ownership, access method, permissions and test-environment availability.",
+            },
+            {
+              label: "Provide sample data",
+              detail:
+                "Use representative, appropriately protected examples and explain known quality issues.",
+            },
+            {
+              label: "Estimate usage",
+              detail:
+                "Record present volumes, peaks and a plausible first-year scenario.",
+            },
+            {
+              label: "Set acceptance tests",
+              detail:
+                "Define successful outputs, unacceptable errors and the route for failed cases.",
+            },
+            {
+              label: "Separate cost categories",
+              detail:
+                "Request one-off, recurring, usage-based and internally supplied costs.",
+            },
+            {
+              label: "Record unknowns",
+              detail:
+                "Assign an owner and resolution date rather than disguising uncertainty as precision.",
+            },
+          ],
+          title: "Quote-ready scope checklist",
+        },
+        callout: {
+          body: [
+            "Approve discovery, a controlled test or a narrowly bounded first workflow when material assumptions remain unresolved. Re-estimate before expanding scope.",
+            "This preserves the business case without pretending that an early estimate is more certain than the available evidence.",
+          ],
+          tone: "recommendation",
+          title: "Make the next decision smaller",
+        },
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "Why is there no average UK small-business AI automation price in this guide?",
+        answer:
+          "The supplied evidence does not provide a robust, current UK SME dataset covering comparable AI automation projects. Published examples vary in scope, software, integrations, governance and support, so presenting a universal range would create false precision.",
+      },
+      {
+        question: "Is a software subscription the same as the cost of automation?",
+        answer:
+          "No. A subscription may provide the underlying tool, but the total budget can also include process design, configuration, integration, data preparation, testing, training, internal time, monitoring and support.",
+      },
+      {
+        question: "Should we choose a fixed-price or time-and-materials quote?",
+        answer:
+          "The appropriate commercial model depends on scope certainty. Fixed pricing can suit a well-defined workflow with agreed acceptance criteria. Time and materials may be more transparent when technical unknowns remain. Compare the assumptions, change process, exclusions and maximum exposure rather than the label alone.",
+      },
+      {
+        question: "How should we compare two AI automation quotes?",
+        answer:
+          "Reformat both quotes using the same first-year cost categories. Check that they cover the same workflow boundaries, integrations, usage, testing, support period and internal responsibilities. Treat an omitted item as an unknown, not as a saving.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "a guide to small-business AI automation",
+        href: "/blog/small-business-ai-automation",
+      },
+      {
+        label: "AI automation cost audit",
+        href: "/blog/ai-automation-cost-audit",
+      },
+      {
+        label: "workflow automation selection guide",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+    ],
+    researchSources: [
+      {
+        title: "[PDF] Customer Automation, AI and Tech Review of current state and ...",
+        url:
+          "https://worcestershire.moderngov.co.uk/documents/s60871/Appendix%205.%20WCC%20Customer%20Automation%20AI%20and%20Tech%20Opportunities%20Overview%20-%20ACCESSIBLE%202.pdf",
+        domain: "worcestershire.moderngov.co.uk",
+        verifiedAt: "2026-07-30T19:03:22.988Z",
+        publishedDate: "",
+        summary:
+          "OutSystems operates an enterprise, application-based pricing model with no published public-sector list price, and UK councils typically report annual platform costs in the £150k–£300k range, rising with additional environments and scale, and thus likely to increase as requirements of LGR are considered. OutSystems does not include Contact centre functions, CRM/customer interaction history or AI chat/virtual agents. These functions will incur additional expenditure on other platforms, and additional costs to develop and maintain integrations: OutSystems Typical Annual Cost OutSystems Platform c. £300K Additional environments c. £80K Integrati",
+        matchedTerms: [
+          "does",
+          "automation",
+          "cost",
+          "price",
+          "typical",
+          "implementation",
+          "support",
+          "integration",
+        ],
+      },
+      {
+        title: "Bespoke Software Cost UK: £10K to £500K+ Guide (2026)",
+        url: "https://redeagle.tech/blog/bespoke-software-cost-uk",
+        domain: "redeagle.tech",
+        verifiedAt: "2026-07-30T19:03:22.988Z",
+        publishedDate: "",
+        summary:
+          "What you can build: Complete digital transformation of business operations AI-powered analytics and automation platforms High-traffic, high-availability public platforms Regulated industry solutions (healthcare, finance) Multi-geography, multi-language systems Typical scope: 12-24 months, 5-10+ team members, phased delivery, ongoing development Example: Projects at this level typically involve transforming core business operations or creating platforms that become central to the business model. ## Fixed price vs time and materials: Which is right for you? How you're charged for development can significantly impact your total cost and risk exp",
+        matchedTerms: ["how", "automation", "cost", "what", "when", "change", "price", "typical"],
+      },
+      {
+        title: "Cost Estimating Guidance - GOV.UK",
+        url:
+          "https://www.gov.uk/government/publications/cost-estimating-guidance/cost-estimating-guidance",
+        domain: "gov.uk",
+        verifiedAt: "2026-07-30T19:03:22.988Z",
+        publishedDate: "",
+        summary:
+          "#### Data integrity Building a credible and robust cost estimate is reliant on a good foundation of evidence supported by high quality data. The less robust the evidence and data available, the more uncertainty a cost estimate will have. Benchmarking should be introduced and used to challenge the integrity of the data, with specific attention to areas of high value within the cost estimate. The quality and maturity of the data should improve progressively. The cost estimating team must review the underlying data throughout the project lifecycle, incorporating new information and any lessons learned as the project develops. #### Document assum",
+        matchedTerms: ["how", "cost", "drivers", "build", "costs", "estimate", "clear", "assumptions"],
+      },
+      {
+        title: "IPA_Cost_Estimating_Guidance.pdf",
+        url:
+          "https://assets.publishing.service.gov.uk/media/6050c9528fa8f55d324b0c84/IPA_Cost_Estimating_Guidance.pdf",
+        domain: "assets.publishing.service.gov.uk",
+        verifiedAt: "2026-07-30T19:03:22.988Z",
+        publishedDate: "",
+        summary:
+          "Review 1: Business justification: www. gov .uk /government/publications/ogc-gateway-review-1-business-justification-guidance-and-templates Review 2: Delivery strategy: www. gov .uk /government/publications/ogc-gateway-review-2-delivery-strategy-guidance-and-templates Review 3: Investment decision: www. gov .uk /government/publications/ogc-gateway-review-3-investment-decision-guidance-and-templates Cost Estimating Guidance Cabinet Office Correspondence team 70 Whitehall London SW1A 2AS publiccorrespondence@ cabinetoffice.gov .uk General enquiries: 020 7276 1234 HM Treasury Correspondence team 1 Horse Guards Road London SW1A 2HQ public.enquirie",
+        matchedTerms: ["cost"],
+      },
+      {
+        title: "Real Cost of Generative AI: What SMEs Actually Pay",
+        url: "https://smartdev.com/fr/gen-ai-implementation-cost-sme",
+        domain: "smartdev.com",
+        verifiedAt: "2026-07-30T19:03:22.989Z",
+        publishedDate: "",
+        summary:
+          "There is no responsible universal price range for “generative AI implementation.” Public pricing can support a reliable license example and a directional project benchmark. Integrated and higher-governance deployments require a scope-specific estimate because public sources do not define them consistently. #### 2.1 How to interpret cost ranges and assumptions No two quotes are directly comparable unless they specify the same use case, integrations, data condition, compliance scope, usage volume, operating model, delivery geography, and support period. Before comparing estimates, confirm what each one includes and excludes. The terms “cost est",
+        matchedTerms: ["how", "much", "does", "cost", "what", "they", "change", "price"],
+      },
+      {
+        title: "[PDF] Software Development Cost Estimating Handbook",
+        url:
+          "https://www.waru.edu/sites/default/files/Migrated/CopDocuments/SW%20Cost%20Est%20Manual%20Vol%20I%20rev%2010.pdf",
+        domain: "waru.edu",
+        verifiedAt: "2026-07-30T19:03:22.989Z",
+        publishedDate: "",
+        summary:
+          "PA=7 Interactive text editor Overlay linker Simple program design language (PDL) Batch source editor Interactive debug aids Basic library aids Source language debugger Basic database aids Fault reporting system Advanced batch debug aids Basic program support library Source code control system I-23 Nominal Level of Automation (1970s era) PA=5 Virtual memory operating system Extended program design language High Level of Automation (1980s era) PA=3 V-High Level of Automation (2000s era) PA=1 CASE tools Integrated application development environment Basic graphical design aids Integrated project support environment Advanced text editor (word pro",
+        matchedTerms: ["automation", "cost", "implementation", "testing", "support", "tool"],
+      },
+      {
+        title: "Analysis Archives - Future Health Intelligence",
+        url: "https://futurehealthintelligence.com/article/category/analysis",
+        domain: "futurehealthintelligence.com",
+        verifiedAt: "2026-07-30T19:03:22.989Z",
+        publishedDate: "",
+        summary:
+          "Modelling assumptions Total NHS IT spend in England (combining both national and local spend) in 2025-26 is modelled at a total of £6.8bn. This all-in figure is significantly higher than previous FHI estimates; the main difference is that we have previously excluded spend on national platforms This comprises the known national investments, including in current and planned national platforms and services, plus typical local IT spend across trusts/ICBs/primary care once you include EPR lifecycle costs, infrastructure refresh, licences, support, and device estates. The figures include IT and digital staffing. [...] The Eight Lots are: Lot 1 — Ra",
+        matchedTerms: [
+          "automation",
+          "typical",
+          "support",
+          "integration",
+          "costs",
+          "total",
+          "assumptions",
+          "you",
+        ],
+      },
+      {
+        title:
+          "Artificial Intelligence Adoption in SMEs: Survey Based on TOE–DOI Framework, Primary Methodology and Challenges",
+        url: "https://www.mdpi.com/2076-3417/15/12/6465",
+        domain: "mdpi.com",
+        verifiedAt: "2026-07-30T19:03:22.989Z",
+        publishedDate: "",
+        summary:
+          "A. : Adopt Accessible, Low-Code Gen-AI Platforms Begin with intuitive, commercially available Gen-AI tools that support content creation, communication, ideation, and task automation. Low-code platforms such as Jasper, Notion AI, Copy.ai, ChatGPT, and Canva Magic Write offer SMEs immediate entry points to experiment with AI without needing specialized technical skills. These tools require minimal onboarding, typically follow a free-mium pricing model, and can be embedded into existing workflows. B. : Enhance Workforce Capabilities through Augmentation [...] To mitigate this challenge, SMEs should adopt a combination of financial strategies an",
+        matchedTerms: [
+          "automation",
+          "cost",
+          "implementation",
+          "support",
+          "integration",
+          "costs",
+          "reduce",
+          "risk",
+        ],
+      },
+    ],
+    imagePrompt:
+      "Create an original 1536x864 premium editorial WebP hero image for a British business article about calculating AI automation costs. Show a commercially plausible tabletop planning scene built around a precise central mechanical workflow model: modular translucent channels connecting understated data blocks, cost tokens and approval gates, with one central component remaining fully meaningful in a 9:16 crop. Use refined silver, warm stone, muted cobalt and soft amber accents, natural studio light and subtle depth. Futuristic but realistic, calm and analytical rather than spectacular. Wide composition with generous crop-safe negative space, but avoid the familiar dark office, lone operator or luminous interface-wall arrangement. No people, hands, robots, logos, readable text, currency figures, fake statistics, charts, meaningless network graphics or recognisable software interfaces.",
+    ctaPrimary: {
+      label: "Review your automation case",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Calculator / Interactive",
+      fingerprint: "Calculator / Interactive|customer-question|6|calculator",
+    },
+  },
+// N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
