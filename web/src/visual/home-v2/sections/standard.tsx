@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { SILVERSTONE_STANDARD } from "~/data/home-v2";
+import { RasterPicture } from "~/components/ui/raster-picture";
 
 import { Icon } from "../components/icon";
 import { Reveal } from "../components/reveal";
@@ -40,7 +41,7 @@ export function Standard() {
               Four commitments behind every system we ship.
             </p>
             <figure className="ss-hv2-story__media mt-2 hidden lg:block">
-              <img
+              <RasterPicture
                 src="/home-v2/standard-chrome.png"
                 alt="Polished chrome Silverstone emblem catching cyan and violet light in darkness."
                 loading="lazy"

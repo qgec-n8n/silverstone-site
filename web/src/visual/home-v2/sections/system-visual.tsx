@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
+import { RasterPicture } from "~/components/ui/raster-picture";
 
 import { Reveal } from "../components/reveal";
 
@@ -34,7 +35,7 @@ export function SystemVisual() {
           </Reveal>
           <Reveal className="ss-hv2-system-visual__media" delayMs={140} kind="image">
             <figure>
-              <img
+              <RasterPicture
                 src="/home-v2/silverstone-system-visual.png"
                 alt="Abstract chrome AI operating layer with cyan signal paths resolving into a central Silverstone system core."
                 width={1672}

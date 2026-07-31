@@ -35,9 +35,9 @@ const routeAssets: Record<string, string[]> = {
     "/home-v2/silverstone-system-visual.png",
   ],
   "/services": ["/approved-images/services_workflow_automation.jpg"],
-  "/services/web-design-development": [
-    "/approved-images/general-services-1-mobile.png",
-  ],
+  // Every other route warms its desktop hero; this one warmed the mobile crop,
+  // so wide viewports downloaded an image they never displayed.
+  "/services/web-design-development": ["/approved-images/general-services-1.png"],
   "/services/app-development": ["/approved-images/services_data_integration.jpg"],
   "/services/ai-voice-agents": ["/approved-images/services_lead_followup.jpg"],
   "/services/ai-receptionists": ["/approved-images/receptionists-hero.png"],

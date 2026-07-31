@@ -129,44 +129,35 @@ type GateState = {
 
 /**
  * Re-arm a gate carried over from a previous navigation for the current one.
- * Only routes with a real intro to play re-arm the loader — navigating to a
- * gate-free route (Book) must never flash it, whichever route the visitor is
- * coming from.
+ *
+ * Reaching here always means the location changed *after* the provider mounted
+ * — a client-side navigation. A full document load never rearms: the
+ * `useState` initialiser below already describes its destination, and the two
+ * comparisons in `viewGate` hold on that first render.
+ *
+ * The opening sequence (loader → Aether Flow intro → Explore morph) is a
+ * first-impression device for visitors arriving cold from search or a shared
+ * link, so it plays on full document loads only. Replaying its ~5s
+ * scroll-locked hold on every header click turned the reveal into a toll on
+ * people who had already seen it, so in-app navigation now lands directly on
+ * the body. Deep-link landings during the hydration hand-off also pass through
+ * here, and they equally must never flash the loader.
+ *
+ * This is a presentation change only: every route's content is prerendered and
+ * always present in the DOM, so crawlers were never gated either way.
  */
 function rearmGate(
   current: GateState,
   experiencePath: string | null,
   isHomeRoute: boolean,
 ): GateState {
-  // A gate-free non-home destination must never show the loader, so arriving
-  // on one clears any loader still armed from the previous state — including
-  // the hydration hand-off, where the gate initialises in its prerendered
-  // (hashless, gated) form and re-arms here once the deep-link hash applies.
-  const loaderActive =
-    experiencePath !== null && experiencePath !== current.experiencePath
-      ? true
-      : experiencePath === null && !isHomeRoute
-        ? false
-        : current.loaderActive;
-
   return {
     experiencePath,
     isHomeRoute,
-    loaderActive,
-    homepageState:
-      isHomeRoute === current.isHomeRoute
-        ? current.homepageState
-        : isHomeRoute
-          ? loaderActive
-            ? "loading"
-            : "intro"
-          : "body",
+    loaderActive: false,
+    homepageState: isHomeRoute === current.isHomeRoute ? current.homepageState : "body",
     routeExperienceState:
-      experiencePath === current.experiencePath
-        ? current.routeExperienceState
-        : experiencePath
-          ? "loading"
-          : "body",
+      experiencePath === current.experiencePath ? current.routeExperienceState : "body",
   };
 }
 

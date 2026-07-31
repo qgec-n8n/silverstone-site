@@ -67,7 +67,9 @@ describe("route SEO generation", () => {
 
       const faq = buildRouteSchemaGraph(route)["@graph"].find(
         (entry) => entry["@type"] === "FAQPage",
-      ) as { mainEntity: { name: string; acceptedAnswer: { text: string } }[] };
+      ) as unknown as {
+        mainEntity: { name: string; acceptedAnswer: { text: string } }[];
+      };
 
       expect(faq, path).toBeDefined();
       expect(faq.mainEntity, path).toHaveLength(items.length);

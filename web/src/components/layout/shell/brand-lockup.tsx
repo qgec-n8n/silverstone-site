@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router";
 
 import { cn } from "~/lib/utils";
+import { RasterPicture } from "~/components/ui/raster-picture";
 
 type BrandTone = "onDark" | "onLight";
 
@@ -49,7 +50,7 @@ export function BrandLockup({
       )}
       to={to}
     >
-      <img
+      <RasterPicture
         alt=""
         aria-hidden
         className={cn("select-none", emblemClassName)}

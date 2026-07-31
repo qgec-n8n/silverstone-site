@@ -7,6 +7,7 @@ import { ArrowUpRight, Mail, MapPin } from "~/components/icons/lucide";
 import { Container } from "~/components/layout/container";
 import { useHydrated } from "~/lib/use-hydrated";
 import { useRevealStart } from "~/motion/use-reveal-start";
+import { RasterPicture } from "~/components/ui/raster-picture";
 
 import { FOOTER_COLUMNS, PRIMARY_CTA } from "./nav-data";
 
@@ -93,7 +94,7 @@ export function SiteFooter({ hidden = false }: SiteFooterProps) {
               className="ss-focus-ring ss-footer__brandmark inline-flex rounded-[var(--ss-radius-lg)] no-underline"
               to="/"
             >
-              <img
+              <RasterPicture
                 alt="Silverstone AI"
                 className="ss-footer__logo"
                 decoding="async"

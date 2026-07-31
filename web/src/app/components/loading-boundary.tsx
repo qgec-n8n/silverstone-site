@@ -2,6 +2,7 @@ import { Suspense, type ReactNode } from "react";
 
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
+import { RasterPicture } from "~/components/ui/raster-picture";
 
 type LoadingBoundaryProps = {
   children: ReactNode;
@@ -14,7 +15,7 @@ export function LoadingFallback() {
         <div className="flex min-h-[40vh] flex-col items-center justify-center gap-6 text-center">
           <div className="ss-emblem-loader">
             <span aria-hidden="true" className="ss-emblem-loader__ring" />
-            <img
+            <RasterPicture
               alt=""
               aria-hidden="true"
               className="ss-emblem-loader__emblem"

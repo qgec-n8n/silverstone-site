@@ -54,6 +54,20 @@ export function IntegrationCarousel({ marqueeEnabled }: IntegrationCarouselProps
             label="Integration logos, row three"
           />
         </div>
+        {/* The three marquee tracks are aria-hidden and repeat each mark for the
+            loop, so this is where the integrations are actually named — once
+            each, in source order. `MarqueeRow` has always documented this list
+            as its accessible counterpart, but it was never built, which left
+            the entire stack unreadable to assistive tech and to any crawler or
+            answer engine relying on text. */}
+        <h3 className="sr-only">Platforms Silverstone AI integrates with</h3>
+        <ul className="sr-only">
+          {[...INTEGRATIONS_ROW_A, ...INTEGRATIONS_ROW_B, ...INTEGRATIONS_ROW_C].map(
+            (mark) => (
+              <li key={mark.id}>{mark.name}</li>
+            ),
+          )}
+        </ul>
       </div>
     </SectionShell>
   );

@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import { useAppExperience } from "~/app/experience/app-experience";
 import { isGateFreeNavigation } from "~/data/gate-free-routes";
 import { getRouteExperienceByPath } from "~/data/route-experiences";
+import { webpSource } from "~/lib/image-sources";
 import { useHydrated } from "~/lib/use-hydrated";
 
 import "~/styles/core-spin-loader.css";
@@ -26,7 +27,12 @@ import "~/styles/core-spin-loader.css";
    ready yet. */
 const HOLD_MS = 1900;
 const EXIT_MS = 600;
-const LOADER_EMBLEM_SRC = "/brand/silverstone-ai-emblem-dark-transparent.png";
+// WebP directly rather than through `RasterPicture`: the loader CSS positions
+// `.ss-loader__emblem` as a child of `.ss-loader__stage`, so introducing a
+// <picture> wrapper between them would break the centring the homepage
+// interaction spec measures. Every browser this build targets decodes WebP,
+// at 860x929 the PNG cost 125 KB on every route against 51 KB here.
+const LOADER_EMBLEM_SRC = "/brand/silverstone-ai-emblem-dark-transparent.webp";
 
 const HOME_IMAGE_ASSETS = [
   LOADER_EMBLEM_SRC,
@@ -73,7 +79,13 @@ function routeAssets(pathname: string): string[] {
   if (experience.preloadAssets) {
     assets.push(...experience.preloadAssets);
   }
-  return Array.from(new Set(assets));
+  // Warm the WebP sibling, which is what `<picture>` actually resolves to for
+  // every client that can decode it. Warming the JPEG/PNG original instead
+  // downloaded the heavy copy the page then never used — on
+  // /industry/salons-barbers that was a redundant 201 KB, and the fallbacks
+  // are far larger elsewhere. A client without WebP support simply fails this
+  // decode (`preloadImage` swallows the error) and loads its own fallback.
+  return Array.from(new Set(assets.map(webpSource)));
 }
 
 /** Fire-and-forget: warms the image/font/asset cache in the background.
@@ -114,9 +126,12 @@ export function CoreSpinLoader() {
 
   if (activePathname !== location.pathname) {
     setActivePathname(location.pathname);
-    // A gate-free destination (Book) never plays the loader, whichever route
-    // it's reached from — jump straight to "done" instead of "active".
-    setPhase(gateFree ? "done" : "active");
+    // This block only ever runs for a client-side navigation — a full document
+    // load mounts fresh, initialising `activePathname` to the current path. The
+    // overlay is reserved for those cold entries (see `rearmGate` in
+    // app/experience/app-experience.tsx), so moving around the site retires it
+    // rather than replaying it.
+    setPhase("done");
   }
 
   // Deep-link hydration hand-off: `phase` initialised to the prerendered

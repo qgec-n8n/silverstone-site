@@ -14,6 +14,7 @@ import {
   type LucideIcon,
 } from "~/components/icons/lucide";
 import type { ApprovedCopyCard } from "~/content/services/approved-services";
+import { hasWebpSibling, webpSource } from "~/lib/image-sources";
 
 import type { FaqItem } from "../content/service-content";
 import type { RouteArt } from "../content/route-art";
@@ -34,7 +35,17 @@ export function ServiceFigure({ image }: { image: RouteArt["image"] }) {
   return (
     <figure className="ss-srv2-figure">
       <picture>
+        {hasWebpSibling(image.mobile) ? (
+          <source
+            media="(max-width: 767px)"
+            srcSet={webpSource(image.mobile)}
+            type="image/webp"
+          />
+        ) : null}
         <source media="(max-width: 767px)" srcSet={image.mobile} />
+        {hasWebpSibling(image.desktop) ? (
+          <source srcSet={webpSource(image.desktop)} type="image/webp" />
+        ) : null}
         <img
           src={image.desktop}
           alt={image.alt}

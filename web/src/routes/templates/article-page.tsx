@@ -55,6 +55,7 @@ import type {
   SilverstoneBlogStep,
   SilverstoneBlogTable,
 } from "~/data/blog-posts";
+import { getRelatedPosts } from "~/data/blog-related";
 import {
   BorderBeam,
   Eyebrow,
@@ -1111,6 +1112,7 @@ function FloatingInsightsReturn({ visible }: { visible: boolean }) {
 export function ArticlePage({ post }: ArticlePageProps) {
   const factStripRef = useRef<HTMLDivElement>(null);
   const [floatingReturnVisible, setFloatingReturnVisible] = useState(false);
+  const relatedPosts = getRelatedPosts(post);
 
   useEffect(() => {
     const factStrip = factStripRef.current;
@@ -1261,6 +1263,27 @@ export function ArticlePage({ post }: ArticlePageProps) {
                 />
               ))}
             </div>
+
+            {relatedPosts.length > 0 ? (
+              <Reveal
+                className="ss-blog-article__related ss-srv2-beam-border"
+                kind="section"
+              >
+                <Eyebrow icon={FileText}>Related reading</Eyebrow>
+                <h2>
+                  More on <em>this topic</em>
+                </h2>
+                <div>
+                  {relatedPosts.map((related) => (
+                    <Link key={related.slug} to={`/blog/${related.slug}`}>
+                      <span>{related.title}</span>
+                      <ArrowUpRight aria-hidden="true" />
+                    </Link>
+                  ))}
+                </div>
+                <BorderBeam />
+              </Reveal>
+            ) : null}
 
             {post.internalLinks.length > 0 ? (
               <Reveal

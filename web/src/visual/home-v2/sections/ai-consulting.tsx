@@ -5,6 +5,7 @@ import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
 import { Button } from "~/components/ui/button";
 import { useSectionReveal } from "~/visual/hooks/use-section-reveal";
+import { RasterPicture } from "~/components/ui/raster-picture";
 
 import { Icon } from "../components/icon";
 import { Reveal } from "../components/reveal";
@@ -45,7 +46,7 @@ export function AiConsulting() {
       <Container size="wide">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal className="ss-hv2-story__media" kind="image">
-            <img
+            <RasterPicture
               src="/home-v2/consulting-strategy.png"
               alt="Silverstone strategist mapping an automation blueprint on a dark studio wall."
               className="ss-hv2-img-mask"

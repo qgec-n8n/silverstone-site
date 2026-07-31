@@ -14,6 +14,7 @@ import {
   UserCheck,
   type LucideIcon,
 } from "~/components/icons/lucide";
+import { hasWebpSibling, webpSource } from "~/lib/image-sources";
 import { useRevealStart } from "~/motion/use-reveal-start";
 
 import {
@@ -310,7 +311,19 @@ export function IndustryFigure({
     <figure className="ss-srv2-figure">
       <picture>
         {image.mobile !== image.desktop ? (
-          <source media="(max-width: 767px)" srcSet={image.mobile} />
+          <>
+            {hasWebpSibling(image.mobile) ? (
+              <source
+                media="(max-width: 767px)"
+                srcSet={webpSource(image.mobile)}
+                type="image/webp"
+              />
+            ) : null}
+            <source media="(max-width: 767px)" srcSet={image.mobile} />
+          </>
+        ) : null}
+        {hasWebpSibling(image.desktop) ? (
+          <source srcSet={webpSource(image.desktop)} type="image/webp" />
         ) : null}
         <img
           src={image.desktop}

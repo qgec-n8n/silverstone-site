@@ -459,7 +459,7 @@ for (const viewport of [
     expect(proof.coreSpinCounts.loader).toBe(1);
     expect(proof.coreSpinCounts.spinner).toBe(1);
     expect(proof.coreSpinAsset).toBe(
-      "/brand/silverstone-ai-emblem-dark-transparent.png",
+      "/brand/silverstone-ai-emblem-dark-transparent.webp",
     );
     expect(proof.coreSpinBorders.outer?.topStyle).toBe("dashed");
     expect(proof.coreSpinBorders.outer?.rightStyle).toBe("dashed");

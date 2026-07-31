@@ -51,9 +51,15 @@ export function MarqueeRow({
               } as CSSProperties
             }
           >
+            {/* The track is aria-hidden and each mark appears twice for the
+                seamless loop, so this alt never reaches a screen reader — the
+                names are announced once from the parent's visually-hidden
+                list. It names the brand anyway because image crawlers do not
+                honour aria-hidden, and 141 alt-less marks were the largest
+                accessibility finding in the 2026-07-31 Ahrefs crawl. */}
             <img
               src={mark.file}
-              alt=""
+              alt={`${mark.name} logo`}
               width={88}
               height={88}
               loading="lazy"
