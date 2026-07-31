@@ -13991,7 +13991,265 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Decision Framework|operational-symptom|6|decision-guide",
     },
   },
-// N8N_BLOG_POSTS_END
+  {
+    slug: "content-repurposing-audit-webinar-moments",
+    title:
+      "Content Repurposing Audit: Which Webinar Moments Should Become Search-Led Articles?",
+    subtitle:
+      "A practical audit for UK firms deciding which webinar segments merit a proper article, which should stay supporting content, and where overlap creates avoidable SEO risk.",
+    summary: [
+      "Use webinars as source material, not as blog posts waiting to be transcribed.",
+      "Score each segment by search intent, specificity and proof before briefing.",
+      "Publish only the moments that deserve a URL and keep lighter material in social or sales channels.",
+    ],
+    categoryLabel: "Content Creation",
+    categoryKey: "content-creation",
+    categoryId: "content-creation",
+    categoryOrder: 7,
+    displayDate: "31 July 2026",
+    publishedIsoDate: "2026-07-31T12:01:16.720Z",
+    updatedIsoDate: "2026-07-31T12:01:16.720Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage:
+      "/assets/images/blog/content-repurposing-audit-webinar-moments-hero.webp",
+    heroImageAlt:
+      "Editorial system showing webinar source material being assessed through review gates into selected article modules, with clear human approval in a premium UK business setting.",
+    metaTitle: "Webinar Moments for Search Articles | Silverstone",
+    metaDescription:
+      "Audit webinar segments before turning them into articles. Learn how UK firms can score moments, avoid overlap and choose what deserves a URL.",
+    primaryKeyword: "how to repurpose a webinar into SEO articles",
+    secondaryKeywords: [
+      "webinar repurposing for SEO",
+      "which webinar clips should become articles",
+      "content repurposing audit",
+      "search-led content planning",
+      "avoid content cannibalisation",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "Picture the next quarter with a cleaner content engine. One recorded webinar has already produced a handful of useful, search-led articles. Each piece owns a distinct question. Sales can send them to prospects. Marketing is not rewriting the same point in three formats. Your website gains durable pages rather than a pile of thin summaries.\n\nThat outcome rarely comes from chopping a webinar into equal slices. It comes from judging each moment properly: does this segment answer a real search question, stand on its own, and contain enough substance to deserve a URL?\n\nFor UK firms, that matters because content costs time twice: once to create, and again to maintain. Silverstone AI sees the same issue across service businesses and multi-step sales environments. The useful move is not to repurpose everything. It is to audit what deserves publication, what needs consolidation, and what should remain social or sales enablement material.",
+        ],
+      },
+      {
+        heading: "The future state: one webinar feeding a useful article pipeline",
+        body: [
+          "The strongest future state is simple. Your webinar becomes a source library. From that library, you create articles that each solve one clear problem for one reader at one stage of a buying journey.",
+          "That is different from publishing a recap. Search-led articles need a defined question, a stable angle and enough standalone context to help someone who never watched the webinar.",
+          "External context supports this direction. RepurposeMyWebinar notes that webinar material can produce stronger consideration-stage assets than many teams assume, including on-demand replays with timestamps and comparison-style content. The point is not volume. It is turning substance into assets buyers can actually use when evaluating options.",
+          "For most UK owners, the practical pipeline looks like this:",
+          "- One webinar recording as the approved source",
+          "- A transcript or notes set broken into topic segments",
+          "- A decision pass to identify distinct search questions",
+          "- Briefs for the few segments that deserve full articles",
+          "- Supporting assets for the rest, such as clips, email content or sales follow-up",
+          "If your team needs the service layer behind that process, Silverstone AI’s [content creation service](/services/content-creation) is the relevant pillar page for planning, briefing and controlled production.",
+        ],
+        lede:
+          "A good repurposing system treats the webinar as source material, not as a blog post waiting to be transcribed.",
+        variant: "system",
+      },
+      {
+        heading:
+          "Which webinar segments are worth turning into standalone search assets",
+        body: [
+          "A segment deserves its own article when it can survive outside the webinar. That means the reader can land on the page cold, understand the issue quickly and leave with a better decision.",
+          "The best candidates usually have these traits:",
+          "- A clear user question sits underneath the segment",
+          "- The answer has commercial relevance without becoming a sales page",
+          "- The segment covers one topic deeply enough to justify a standalone URL",
+          "- The language is specific, not vague panel chatter",
+          "- There is enough proof, process or explanation to expand into an article brief",
+          "- The topic is likely to stay useful beyond the week of the event",
+          "Good examples include a webinar section explaining how to choose between two implementation approaches, how to audit a current process before buying software, or which mistakes usually appear during onboarding.",
+          "Weaker candidates tend to be opening remarks, broad trend commentary, housekeeping, audience banter, or short opinions that work better as clips than destination pages.",
+        ],
+        lede: "Not every strong spoken moment makes a strong article.",
+        variant: "operator",
+      },
+      {
+        heading: "The cannibalisation risks when multiple clips cover the same topic",
+        body: [
+          "This is where many content programmes lose discipline. A host answers a question in the main presentation, revisits it in the Q&A, then touches it again while comparing tools. Three clips appear useful. Three article ideas get logged. In practice, all three may target the same search need.",
+          "Cannibalisation is not only about duplicated keywords. It is about duplicated intent. If two URLs mainly answer the same question, you split authority, confuse internal linking and create maintenance work.",
+          "Typical overlap patterns include:",
+          "- A 'what is it' article and a 'how it works' article that cover nearly identical ground",
+          "- Separate pages for clip-level variants of the same buying question",
+          "- A webinar recap competing with the stronger article extracted from it",
+          "- A blog post trying to rank for a service term that should belong to a core service page",
+          "Before you approve a new article, compare the planned title, slug, intro and headings against existing pages. On Silverstone AI sites, that usually means checking whether a new article supports the service pillar cleanly rather than drifting into pillar ownership.",
+        ],
+        lede:
+          "Repurposing can create overlap fast, especially when one webinar circles around a central theme from several angles.",
+        variant: "signal",
+      },
+      {
+        heading: "How to score moments by search intent, specificity and proof",
+        body: [
+          "When owners ask how to repurpose a webinar into SEO articles, the useful answer is to score each segment before anyone starts writing. A simple three-part model usually works better than a complicated editorial matrix.",
+          "Score each moment against three criteria:",
+          "1. Search intent: is there a real informational or commercial-investigation question underneath the segment?",
+          "2. Specificity: is the topic narrow enough to own one article without becoming vague or repetitive?",
+          "3. Proof: do you have enough explanation, examples, process detail or source material to support a trustworthy article?",
+          "Use a low, medium or high judgement, or a simple 1-3 rating for each criterion. Then look at the combined picture.",
+          "A high-intent, high-specificity, high-proof moment is a strong article candidate. A high-intent topic with weak proof may still work, but only if you can add approved evidence before briefing. A low-specificity segment usually belongs in social, email or a broader article rather than as its own page.",
+        ],
+        lede:
+          "A practical score helps remove personal preference from repurposing decisions.",
+        variant: "system",
+        subsections: [
+          {
+            heading: "What a strong score looks like",
+            body: [
+              "A segment on 'how to audit webinar content before turning it into articles' is usually stronger than a segment on 'thoughts on content strategy'. The first has a precise decision behind it. The second may be interesting, but it is too broad unless narrowed heavily.",
+            ],
+          },
+          {
+            heading: "Why proof matters",
+            body: [
+              "Search-led content should not rely on polished speaking alone. Webinar delivery often includes shorthand, assumptions and examples that make sense live but become thin on the page. If the segment lacks proof or structure, do not force it into article form.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "What source checks to run before drafting article briefs",
+        body: [
+          "Once a segment passes the relevance test, run a source check before briefing a writer or feeding a workflow. This protects accuracy and stops the article becoming a cleaned-up transcript with unsupported claims.",
+          "Useful checks include:",
+          "- Confirm the segment still reflects current platform, market or regulatory reality where recency matters",
+          "- Remove any throwaway numbers that cannot be evidenced",
+          "- Separate host opinion from claims that need support",
+          "- Check whether the segment references client work that cannot be published",
+          "- Decide what needs external context and what should remain a bounded internal recommendation",
+          "The supplied research gives two practical cues. RepurposeMyWebinar highlights the strength of more substantial consideration content derived from webinars. OctoSpark suggests extracting moments quickly and then running quality review and consistency checks before distribution. The principle is sound: speed helps, but quality control still decides what deserves a permanent page.",
+          "For UK-facing content, also sense-check terminology, legal references and market assumptions. A US webinar can easily introduce language, legal framing or buyer context that does not translate cleanly to a British audience.",
+        ],
+        lede: "A transcript is a starting point, not enough evidence on its own.",
+        variant: "operator",
+      },
+      {
+        heading:
+          "When a webinar moment should stay social-only instead of becoming a URL",
+        body: [
+          "This is the judgement many teams skip. They assume every decent point should become a page because a page feels more permanent. Often the opposite is true. A short, punchy or reactive moment can perform better as a clip, carousel, email section or sales follow-up note.",
+          "Keep a webinar moment social-only when:",
+          "- The value is mostly emotional energy, not detailed explanation",
+          "- The point is timely but likely to date quickly",
+          "- The topic is too slight for a full article",
+          "- The segment mainly reinforces a point already owned by another page",
+          "- The claim would need too much extra evidence to publish responsibly",
+          "- The clip works because of tone, delivery or context rather than information depth",
+          "This is often the right decision for opinion-led hot takes, brief audience questions, event-specific references and snippets designed to create interest rather than satisfy a search query.",
+          "If you are building a broader system for approval and publication control, Silverstone AI’s thinking on governance in [AI content agency UK approval](/blog/ai-content-agency-uk-approval) is a useful adjacent read.",
+        ],
+        lede:
+          "Some moments are genuinely useful, but useful in the wrong format for search.",
+        variant: "signal",
+      },
+    ],
+    faqs: [
+      {
+        question: "How many articles can one webinar realistically produce?",
+        answer:
+          "It depends on how many distinct questions the webinar answers well. In practice, one webinar may yield a small number of strong article candidates and several supporting clips. Treat 2-5 articles as an illustrative band, not a quota.",
+      },
+      {
+        question: "Should I publish a webinar transcript as a blog post?",
+        answer:
+          "Usually no. A raw or lightly edited transcript rarely matches search intent well enough. It often contains repetition, event-specific context and unsupported claims. Use the transcript as source material for sharper articles instead.",
+      },
+      {
+        question: "What is the biggest SEO risk in webinar repurposing?",
+        answer:
+          "Topic overlap. Multiple clips from one webinar can easily target the same user question. If you publish separate articles for each angle, you create internal competition and unnecessary maintenance work.",
+      },
+      {
+        question: "Can AI help choose webinar moments for articles?",
+        answer:
+          "Yes, if used with clear human review. AI can help segment transcripts, suggest themes and draft briefs, but a person still needs to judge search intent, proof, overlap and commercial relevance before publication.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "content creation service",
+        href: "/services/content-creation",
+      },
+      {
+        label: "AI content agency UK approval",
+        href: "/blog/ai-content-agency-uk-approval",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Demand Generation Content Playbook for B2B Teams | RepurposeMyWebinar",
+        url:
+          "https://www.repurposemywebinar.com/blog/demand-generation-content-playbook",
+        date: "",
+        summary:
+          "### Consideration content that helps evaluation Middle-funnel content needs more substance. At this stage, buyers compare approaches, shortlist vendors, and pressure-test whether your category fit is real. Your webinar can produce stronger consideration assets than many teams realize: On-demand replay with timestamps. Let buyers skip to the parts they care about. LinkedIn carousels. Turn the webinar into a visual walkthrough of the problem, options, and trade-offs. Comparison guides. Pull langua",
+        relevance: "Matches: how, webinar, into, seo, articles, content",
+      },
+      {
+        title: "Content Repurposing Strategies Guide 2026 | InfluenceFlow",
+        url:
+          "https://influenceflow.io/resources/content-repurposing-strategies-a-complete-guide-to-maximizing-your-content-roi-in-2026",
+        date: "",
+        summary:
+          "Webinar Repurposing: Your webinar becomes 8-10 blog posts (one per slide topic), social media clips, email sequences, and a downloadable guide. According to Demandbase's 2025 research, comprehensive webinar content repurposing strategies increase lead quality by 32%. ### eCommerce and Direct-to-Consumer eCommerce brands use content repurposing strategies to drive both awareness and conversions. Product Description: A detailed product description becomes Pinterest pins with styling ideas, Instagr",
+        relevance: "Matches: how, repurpose, webinar, into, content, repurposing",
+      },
+      {
+        title:
+          "How AI Search Changes SEO: A Webinar with Jeff Coyle and Siteimprove | Garrett Sussman posted on the topic | LinkedIn",
+        url:
+          "https://www.linkedin.com/posts/garrettsussman_yesterday-while-prepping-for-my-webinar-activity-7369772710148743168-aTpQ",
+        date: "",
+        summary:
+          "for engines. 👉 Freshness counts. Updated figures and “last reviewed” stamps boost visibility. 👉 Licensing is rising. Publishers now set AI-use rules, and engines will reward clarity. 👉 Distribution deals are rising. Some engines partner with publishers for links but restrict training. 👉 Attribution varies. Sometimes, LLMs cite unevenly. Original research gets cited more. 👉 Technical hygiene still non-negotiable. Fast pages, clean sitemaps, and crawl allowances are the foundation. 👉 Own you",
+        relevance: "Matches: how, webinar, seo, content, search, one",
+      },
+      {
+        title:
+          "Automate Content Repurposing: Turn 1 Video into 12 Assets - Victoria Olsina",
+        url: "https://victoriaolsina.com/blog/automate-content-repurposing",
+        date: "",
+        summary:
+          "Evidence line: High-authority platforms like YouTube, LinkedIn, and Medium have domain ratings above 90. Publishing the same content across these domains increases your chances of dominating positions one through five on search engine results pages. ### The Parasite SEO Advantage Parasite SEO means leveraging third-party authority to rank your content. When you publish on LinkedIn Articles or Medium, you are borrowing their domain strength. This matters for AI search visibility too. ChatGPT prio",
+        relevance: "Matches: into, seo, articles, content, repurposing, which",
+      },
+      {
+        title: "Guide to Repurposing Old Content - DemandScience",
+        url: "https://demandscience.com/resources/blog/repurpose-old-blog-content",
+        date: "",
+        summary:
+          "Review your existing content – The first step in identifying content for repurposing is to review your existing content. Look for pieces that performed well in terms of engagement, traffic, or conversions. These are likely to be topics that your audience found interesting or valuable and could be good candidates for repurposing. Check its relevance – Another factor to consider when identifying content for repurposing is its relevance. Choose pieces of content that are still relevant to your audi",
+        relevance: "Matches: how, repurpose, seo, content, repurposing, search",
+      },
+      {
+        title:
+          "Video Content Repurposing Guide: 1 Video, 10 Formats Strateg | OctoSpark",
+        url: "https://octospark.ai/blog/video-content-repurposing-guide-10-formats",
+        date: "",
+        summary:
+          "##### Repurposing Workflow Template 1. Content Creation: Record with repurposing in mind 2. Immediate Processing: Extract moments within 24 hours 3. Format Production: Create all formats within 3 days 4. Quality Review: Check all formats for brand consistency 5. Strategic Release: Follow 4-week distribution calendar 6. Performance Tracking: Monitor and optimize based on data ### E - Engage and Evolve #### Community-Driven Repurposing Use audience feedback to guide repurposing decisions: ##### En",
+        relevance: "Matches: repurpose, webinar, seo, content, repurposing, moments",
+      },
+    ],
+    imagePrompt:
+      "Create one cohesive, premium editorial website hero image for Silverstone AI, a UK AI agency and automation studio. Show an editorial loom concept for content: one principal publishing surface in the centre displaying abstract webinar source modules flowing through controlled review gates into a small set of refined website article cards, with several other source fragments diverted into social and email modules rather than published as pages. Include one visible human approval point as a calm operator reviewing what becomes a permanent URL. Use a wide 16:9 composition with generous negative space on one side for HTML title overlay. Palette should lean deep ink, graphite and dark navy with platinum surfaces, electric blue and teal signals, and a restrained amber warning accent for overlap risk. Materials should feel premium, architectural and realistic, not like a literal dashboard screenshot. Keep paths, cards and approval layers crisp and plausible. No readable text, logos, stock-photo poses, fake metrics, robots or generic AI imagery.",
+    ctaPrimary: {
+      label: "Book a discovery call",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+  },
+  // N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
