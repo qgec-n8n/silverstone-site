@@ -14249,7 +14249,546 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
-  // N8N_BLOG_POSTS_END
+    {
+    slug: "human-approval-to-an-ai-agent",
+    title: "How to Add Human Approval to an AI Agent Without Slowing Everything Down",
+    subtitle:
+      "A practical decision framework for UK SME teams that need agents to move work forward while people retain control of consequential decisions.",
+    summary: [
+      "Classify actions as auto-run, approval-gated or always human-led according to impact, reversibility and policy certainty.",
+      "Make approvals fast with clear triggers, decision-ready evidence and named escalation routes.",
+      "Log the full decision path and test the manual fallback before expanding an agent’s authority.",
+    ],
+    categoryLabel: "AI Automation",
+    categoryKey: "ai-automation",
+    categoryId: "ai-automation",
+    categoryOrder: 5,
+    displayDate: "31 July 2026",
+    publishedIsoDate: "2026-07-31T12:03:41.668Z",
+    updatedIsoDate: "2026-07-31T12:03:41.668Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/human-approval-to-an-ai-agent-hero.webp",
+    heroImageAlt:
+      "Operations team reviewing an AI agent approval workflow at a collaborative desk",
+    metaTitle: "How to Add Human Approval to an AI Agent | Silverstone AI",
+    metaDescription:
+      "Learn how to add human approval to an AI agent using clear decision boundaries, audit logs, manual fallback and a practical UK SME rollout checklist.",
+    primaryKeyword: "how to add human approval to an AI agent",
+    secondaryKeywords: [
+      "human in the loop AI agents",
+      "AI agent approval workflow",
+      "AI agent governance",
+      "manual fallback for AI agents",
+      "AI agent audit trail",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "When an AI agent starts drafting replies, updating records or preparing actions, the real operational question is not whether a person should review everything. It is which moments genuinely require a person to decide. The practical answer is to set clear approval boundaries: let the agent complete low-impact, reversible work; pause it for policy, financial or customer-impacting decisions; and keep sensitive or ambiguous decisions human-led from the outset. This keeps routine work moving while making accountability visible.",
+        ],
+      },
+      {
+        heading: "Why AI agents need approval boundaries before they go live",
+        body: [
+          "Human approval is not a blanket brake on automation. It is a deliberately designed control point between an agent's recommendation and an action that could be difficult to reverse.",
+          "A useful distinction is between **human-in-the-loop**, where the agent pauses for a decision, and **human-on-the-loop**, where a supervisor monitors activity and intervenes when an anomaly appears. Both can belong in the same workflow.",
+          "Start with a co-pilot pattern: the agent gathers context, drafts an action and presents its rationale. This gives the implementation team a chance to discover failure modes and improve verification before expanding the agent's authority. Public guidance also stresses human accountability, output review, manual override and periodic quality review.",
+        ],
+        lede:
+          "The symptom of poor control is usually not a dramatic failure. It is a team that no longer knows what the agent may do, who can stop it, or how a questionable action was approved.",
+        variant: "signal",
+        pullQuote:
+          "A useful approval step changes the quality of a decision; an unnecessary one merely moves a queue from software to people.",
+        callout: {
+          body: [
+            "Add approval at the point where an action becomes consequential, hard to reverse, outside policy or uncertain—not after every small step. Give the reviewer a concise evidence pack, a clear choice and a route to escalate or override.",
+          ],
+          tone: "answer",
+          title: "The direct answer",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Research checked",
+              value: "31 July 2026",
+              note:
+                "Public policy, implementation guidance, academic review and practitioner sources supplied for this article.",
+            },
+            {
+              label: "Decision states",
+              value: "3",
+              note: "Auto-run, approval-gated and always human-led.",
+            },
+            {
+              label: "Minimum fallback test",
+              value: "Tabletop before launch",
+              note:
+                "Test how the function continues when the agent is unavailable or stopped.",
+            },
+          ],
+          title: "Control design inputs",
+        },
+        subsections: [
+          {
+            heading: "Publisher disclosure",
+            body: [
+              "Silverstone AI publishes the article and includes itself where relevant. No ranking is used for this topic. This is editorial guidance for UK SME implementation teams, not legal advice. Public information can be incomplete; contact us via [booking](/book#booking-calendar) with corrections or implementation questions.",
+            ],
+          },
+        ],
+      },
+      {
+        heading:
+          "Which decisions should be auto-run, approval-gated or always human-led",
+        body: [
+          "Use the matrix below before configuring tools or prompts. It makes the trade-off visible: impact and reversibility matter more than whether an action feels technically sophisticated.",
+        ],
+        lede:
+          "Classify the decision, not the entire agent. One workflow can contain all three control modes.",
+        variant: "system",
+        bullets: [
+          {
+            body:
+              "What happens if the action is wrong, late or applied to the wrong person?",
+            label: "Impact",
+          },
+          {
+            body:
+              "Can the team undo the action quickly, completely and without further cost or confusion?",
+            label: "Reversibility",
+          },
+          {
+            body:
+              "Is there a clear, current rule that the agent can apply, including exceptions?",
+            label: "Policy certainty",
+          },
+          {
+            body:
+              "Can the agent show the source, relevant context and uncertainty in a form a reviewer can verify?",
+            label: "Confidence and evidence",
+          },
+        ],
+        comparisonTable: {
+          columns: ["Use when", "Examples", "Required safeguard"],
+          rows: [
+            {
+              cells: [
+                "The action is low impact, reversible and inside a defined policy.",
+                "Routine classification, duplicate detection, creating a draft, routing a standard enquiry.",
+                "Action log, defined permissions and alert thresholds.",
+              ],
+              label: "Auto-run",
+            },
+            {
+              cells: [
+                "The action is usually routine but has a meaningful customer, operational or financial effect.",
+                "Sending a tailored customer response, changing a booking, publishing a non-standard offer, updating a key record.",
+                "Pause, reviewer evidence pack, reason-coded decision and escalation route.",
+              ],
+              label: "Approval-gated",
+            },
+            {
+              cells: [
+                "The case is high impact, novel, sensitive, policy-bound or difficult to undo.",
+                "Contractual commitments, exceptional refunds, safeguarding matters, employment decisions or disputed cases.",
+                "Agent may prepare evidence, but cannot execute or represent the decision as final.",
+              ],
+              label: "Always human-led",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "Treat a decision as approval-gated when it commits money, changes a customer promise, exposes sensitive information, changes a system of record, or falls outside a documented rule. Your own policies and risk appetite must determine the final boundary.",
+          ],
+          tone: "assumption",
+          title: "A practical default",
+        },
+      },
+      {
+        heading: "How to design approval steps without creating bottlenecks",
+        body: [
+          "The reviewer should not have to reconstruct the case from several systems. An approval request needs the proposed action, the reason it was triggered, the evidence used, the applicable rule, the expected effect and the available alternatives.",
+          "Route by capability, not just seniority. A standard booking exception may go to an operations lead; a policy exception may require a named owner. Give each route a service expectation, an escalation path and an expiry rule so requests do not sit indefinitely.",
+          "For help choosing the workflow before building it, see our guide to [selecting workflow automation](/blog/workflow-automation-selection-guide). For a wider view of operating with AI in a smaller organisation, read [small business AI automation](/blog/small-business-ai-automation).",
+        ],
+        lede:
+          "A slow approval process normally signals poor routing or poor reviewer context, rather than an unavoidable cost of human oversight.",
+        variant: "operator",
+        promptBlocks: [
+          {
+            label: "Weak approval instruction",
+            prompt: "Ask a human if you are not sure.",
+            tone: "weak",
+          },
+          {
+            label: "Improved approval instruction",
+            prompt:
+              "Pause before sending, changing or committing any customer-facing action when the request is outside the documented policy, required evidence is missing or conflicting, the action is not reversible, or the value exceeds the defined threshold. Present: proposed action, triggering rule, supporting sources, uncertainty, alternatives and the required approver. Do not proceed without a recorded decision.",
+            tone: "improved",
+          },
+        ],
+        steps: [
+          {
+            body:
+              "Use explicit conditions such as a value threshold, missing evidence, conflicting data, unusual pattern, restricted action or low confidence. Avoid a vague instruction to “ask when unsure”.",
+            title: "Trigger a pause from a rule",
+            label: "1. Detect",
+          },
+          {
+            body:
+              "Include the proposed action, source references where available, relevant history, policy match or mismatch, and what will happen if no decision is made.",
+            title: "Give the reviewer a decision-ready brief",
+            label: "2. Package",
+          },
+          {
+            body:
+              "Approve, reject, amend, request more information or escalate. Capture a reason code, especially when a reviewer overrides the agent.",
+            title: "Offer bounded choices",
+            label: "3. Decide",
+          },
+          {
+            body:
+              "The agent proceeds only with the approved scope. A rejection should either close the task safely or route it to a human-owned queue.",
+            title: "Return a controlled outcome",
+            label: "4. Resume or stop",
+          },
+        ],
+      },
+      {
+        heading: "What to log for auditability, traceability and incident review",
+        body: [
+          "Keep the record proportionate to the workflow, but make it possible to answer four questions: what did the agent receive, what did it propose, who decided, and what happened next? Guidance on human-in-the-loop workflows recommends documenting review triggers, approvers, evidence, decisions, escalation routes, data sources, limitations and known failure modes.",
+          "Link change records to the version of the decision policy and agent configuration in use at the time. Otherwise, a later adjustment can make an earlier incident impossible to reconstruct.",
+          "If an agent handles customer communications or operational tasks, our [AI automation cost audit](/blog/ai-automation-cost-audit) can help frame the work that should remain visible in your operating model. Discuss the delivery approach through [how we work](/how-we-work).",
+        ],
+        lede:
+          "Logging is not an afterthought for technical teams. It is the record that lets an operator explain, challenge and improve a decision path.",
+        grid: [
+          {
+            body:
+              "Task ID, time, initiating event, user or system context, data sources used and action permissions available.",
+            title: "Task record",
+          },
+          {
+            body:
+              "Proposed action, trigger for review, policy or rule applied, confidence or uncertainty signal and evidence shown.",
+            title: "Decision record",
+          },
+          {
+            body:
+              "Named approver or role, decision, reason code, amendment, escalation and decision time.",
+            title: "Human record",
+          },
+          {
+            body:
+              "Action actually taken, downstream result, rollback or correction, incident reference and follow-up owner.",
+            title: "Outcome record",
+          },
+        ],
+        callout: {
+          body: [
+            "The available sources support documented review and escalation paths, source and limitation records, manual override, periodic review, and monitoring of anomalous activity. They do not establish a universal retention period, approval threshold or UK-specific legal requirement.",
+          ],
+          tone: "evidence",
+          title: "What the supplied research supports",
+        },
+      },
+      {
+        heading: "Failure modes, manual fallback and exception handling",
+        body: [
+          "Common design failures include an approval queue with no owner, evidence that is too thin to verify, an agent that retries the same rejected action, and reviewers who rubber-stamp because the request is too frequent. Interaction timing and feedback cycles can themselves create workflow failures when they are poorly designed.",
+          "Define an exception path before launch. It should state who owns the case, when the agent stops, what information is preserved, how the work is completed without AI and how the incident feeds back into policy or testing.",
+          "A manual fallback is not simply an emergency inbox. Implementation guidance recommends documenting how the function operates without the AI system, training staff who may need to execute it, maintaining sufficient capacity for the defined period and testing the procedure.",
+        ],
+        lede:
+          "The safest approval workflow still needs a plan for the cases it cannot resolve and the moments it cannot run.",
+        checklist: {
+          items: [
+            {
+              label: "Named stop authority",
+              detail:
+                "Specify who can disable the agent, revoke an action permission or suspend a workflow.",
+            },
+            {
+              label: "Human operating procedure",
+              detail:
+                "Document the manual steps, source systems, handover information and service priority.",
+            },
+            {
+              label: "Queue ownership",
+              detail:
+                "Assign an accountable person and escalation route for paused, expired and rejected cases.",
+            },
+            {
+              label: "Test scenarios",
+              detail:
+                "Run normal, edge, erroneous and adversarial inputs before production, then rehearse the fallback path.",
+            },
+            {
+              label: "Learning loop",
+              detail:
+                "Review overrides, incidents and recurring exceptions to refine rules, evidence packs and training.",
+            },
+          ],
+          title: "Manual fallback and exception checklist",
+        },
+        callout: {
+          body: [
+            "An agent should pause when evidence conflicts or a case falls outside scope. Forcing a confident-looking answer through an unclear policy boundary removes the very safeguard the approval step is meant to provide.",
+          ],
+          tone: "caution",
+          title: "Do not hide uncertainty",
+        },
+      },
+      {
+        heading: "A practical rollout checklist for UK SME implementation teams",
+        body: [
+          "This rollout sequence is designed for implementation teams that need useful control without turning every task into a committee decision. It is operational guidance, not a claim that any configuration will deliver a particular result.",
+          "For bespoke workflow and automation delivery, explore [AI automation services](/services/ai-automation). If the first question is strategy, process selection or governance, [AI consulting](/services/ai-consulting) may be the better starting point. Cost depends on scope, integration and operating requirements; see [pricing](/pricing) and our guide to [calculating AI automation ROI](/blog/calculate-ai-automation-roi-uk) for a disciplined way to assess assumptions.",
+        ],
+        lede:
+          "Begin with one contained workflow, prove that people can review it efficiently, then widen the agent’s authority only where the evidence supports it.",
+        variant: "system",
+        scorecard: {
+          options: ["Keep human-led", "Approval-gate the agent", "Allow auto-run"],
+          rows: [
+            {
+              cells: [
+                "Suitable for high-impact outcomes",
+                "Suitable where a reviewer can prevent the outcome",
+                "Only suitable for low-impact outcomes",
+              ],
+              criterion: "Impact if wrong",
+              weight: "High",
+            },
+            {
+              cells: [
+                "Suitable when reversal is difficult",
+                "Suitable when approval occurs before commitment",
+                "Suitable only when quick, reliable reversal exists",
+              ],
+              criterion: "Reversibility",
+              weight: "High",
+            },
+            {
+              cells: [
+                "Suitable for ambiguous or novel cases",
+                "Suitable when rules identify exceptions",
+                "Requires stable, testable rules",
+              ],
+              criterion: "Rule clarity",
+              weight: "Medium",
+            },
+            {
+              cells: [
+                "Requires specialist capacity",
+                "Requires clear routing and manageable volume",
+                "Requires monitoring rather than per-task review",
+              ],
+              criterion: "Reviewer capacity",
+              weight: "Medium",
+            },
+          ],
+        },
+        steps: [
+          {
+            body:
+              "Choose a repeatable workflow. Define permitted actions, prohibited actions, triggers, owners and the manual procedure.",
+            title: "Map one decision boundary",
+            label: "Week 1",
+          },
+          {
+            body:
+              "Run representative cases with reviewers. Remove fields they do not use and add evidence they need to decide confidently.",
+            title: "Prototype the evidence pack",
+            label: "Week 2",
+          },
+          {
+            body:
+              "Exercise rejected actions, absent approvers, conflicting inputs, system unavailability and a full manual handover.",
+            title: "Test exceptions and stopping",
+            label: "Week 3",
+          },
+          {
+            body:
+              "Inspect override reasons, queue age, anomalous actions and incidents on a defined cadence. Change authority only after reviewing the evidence.",
+            title: "Review and adjust",
+            label: "Ongoing",
+          },
+        ],
+        callout: {
+          body: [
+            "Bring one real workflow, its current exceptions and the person who owns the outcome to a [discovery conversation](/book#booking-calendar). The aim is to define a workable control boundary before choosing how much of the process to automate.",
+          ],
+          tone: "recommendation",
+          title: "A sensible next move",
+        },
+      },
+    ],
+    faqs: [
+      {
+        question: "What is human approval in an AI agent workflow?",
+        answer:
+          "It is a defined pause where an agent presents a proposed action and supporting context to an authorised person. That person can approve, reject, amend or escalate before the agent continues.",
+      },
+      {
+        question: "Should every AI agent action require approval?",
+        answer:
+          "No. Requiring approval for low-impact, reversible and clearly governed tasks can create unnecessary queues. Reserve approval for consequential, uncertain, exceptional or policy-sensitive actions, while retaining logs and monitoring for auto-run tasks.",
+      },
+      {
+        question: "What should happen if no one approves an AI agent request?",
+        answer:
+          "Set an expiry rule. The agent should not silently proceed; it should either route the case to a named escalation queue, complete a safe non-committal action, or stop and preserve the case for manual handling.",
+      },
+      {
+        question: "How do you test manual fallback for an AI agent?",
+        answer:
+          "Document how the task is performed without the agent, identify trained staff and required systems, then run a tabletop exercise or live drill. Test unavailable approvers, agent outages, incomplete data and urgent cases.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "selecting workflow automation",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+      {
+        label: "small business AI automation",
+        href: "/blog/small-business-ai-automation",
+      },
+      {
+        label: "AI automation cost audit",
+        href: "/blog/ai-automation-cost-audit",
+      },
+      {
+        label: "calculating AI automation ROI",
+        href: "/blog/calculate-ai-automation-roi-uk",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Statewide Policy",
+        url:
+          "https://www.oregon.gov/eis/Documents/Responsible_AI_Usage_Packet_for_agency_comment[1].pdf",
+        domain: "oregon.gov",
+        verifiedAt: "2026-07-31T12:01:04.496Z",
+        publishedDate: "",
+        summary:
+          "human accountability, staff training on limitations and verification, prohibition on bypassing review or approval processes 4 Data Quality, Validation, & Output Review Human review of outputs, curated and authoritative data sources, validation against laws and policies, source referencing where feasible, periodic quality reviews and audits 5 Bias, Fairness, & Inclusion Bias and fairness assessments, review of data representativeness, explainability for people-impacting uses, appeal or challenge mechanisms, DEIA or subject-matter review 6 Reliability, Oversight, & Human-in-the-Loop Human oversight and intervention, manual override capability, ",
+        matchedTerms: [
+          "human",
+          "approval",
+          "boundaries",
+          "before",
+          "review",
+          "failure",
+          "manual",
+          "fallback",
+        ],
+      },
+      {
+        title: "AI Agent Failure Rate: Why 70-95% Fail in Production",
+        url: "https://www.fiddler.ai/blog/ai-agent-failure-rate",
+        domain: "fiddler.ai",
+        verifiedAt: "2026-07-31T12:01:04.497Z",
+        publishedDate: "",
+        summary:
+          "Start with co-pilots. Build human-in-the-loop workflows before attempting full autonomy. This gives you time to understand failure modes and build verification systems before removing human oversight. Implement evaluation early. Discover failure modes in development, not production. Run your agent through test scenarios that cover edge cases, error conditions, and adversarial inputs before you deploy. Track business KPIs. Connect agent performance to revenue impact and operational efficiency. Measure whether the agent reduces support ticket resolution time, increases conversion rates, or decreases manual processing costs. Technical metrics li",
+        matchedTerms: ["human", "approval", "agent", "without", "why", "agents", "need", "before"],
+      },
+      {
+        title: "AI-Cyber-Governance-Framework-Implementation-Guide. ...",
+        url:
+          "https://healthsectorcouncil.org/wp-content/uploads/2026/05/AI-Cyber-Governance-Framework-Implementation-Guide.pdf",
+        domain: "healthsectorcouncil.org",
+        verifiedAt: "2026-07-31T12:01:04.497Z",
+        publishedDate: "",
+        summary:
+          "• The fallback procedure must describe how the function is performed without the AI system. • The fallback procedure must be tested at least annually (or more frequently for High and Critical risk systems) through tabletop exercises or live drills. • Staff who may need to execute the fallback procedure must be trained and must demonstrate competency. • The organization should maintain sufficient capacity (staffing, equipment, process documentation) to operate under manual fallback for a defined period aligned with the AI system's RTO. • Key AI data as part of the plan should be backed up on a schedule defined by the business continuity plan. ",
+        matchedTerms: ["how", "without", "need", "they", "live", "which", "decisions", "should"],
+      },
+      {
+        title: "Human-in-the-Loop Artificial Intelligence: A Systematic Review of ...",
+        url: "https://www.mdpi.com/1099-4300/28/4/377",
+        domain: "mdpi.com",
+        verifiedAt: "2026-07-31T12:01:04.497Z",
+        publishedDate: "",
+        summary:
+          "the connections between the various method families, failure modes, and ethical considerations to configuration possibilities within a practical HITL design. [...] The temporal structure of human–AI interaction affects both the quality of human contributions and the efficiency of collaborative workflows. Ou et al. conducted a case study on revealing and explaining human–AI interaction loop failures, identifying patterns of breakdown that occur when interaction timing, feedback cycles, or task sequencing are poorly designed . Their analysis suggests that one of the most troublesome types of failure modes identified by their model are infinite ",
+        matchedTerms: ["human", "without", "design", "review", "failure", "modes", "practical"],
+      },
+      {
+        title: "Building AI Agents: Architecture Patterns and Implementation",
+        url: "https://tetrate.io/learn/ai/building-ai-agents",
+        domain: "tetrate.io",
+        verifiedAt: "2026-07-31T12:01:04.497Z",
+        publishedDate: "",
+        summary:
+          "Memory management is crucial for this use case. The agent stores discovered facts with metadata including source, confidence level, and timestamp. When synthesizing information, it retrieves relevant facts using vector similarity search, then validates consistency and recency. If conflicting information appears, the agent notes the discrepancy and may prioritize more recent or authoritative sources. Error handling addresses common research challenges. If a search returns no results, the agent reformulates the query or tries alternative sources. If information seems outdated, it explicitly searches for more recent data. The agent maintains awa",
+        matchedTerms: [
+          "how",
+          "agent",
+          "agents",
+          "they",
+          "decisions",
+          "design",
+          "handling",
+          "practical",
+        ],
+      },
+      {
+        title: "Human-in-the-Loop: How Oversight Drives AI Quality",
+        url:
+          "https://productschool.com/blog/artificial-intelligence/human-in-the-loop-ai",
+        domain: "productschool.com",
+        verifiedAt: "2026-07-31T12:01:04.497Z",
+        publishedDate: "",
+        summary:
+          "Document the workflow in plain terms. Include what triggers review, who approves, what evidence is shown, and how decisions are logged. What to document so it stays useful: Decision policies and routing rules. Reviewer guidelines and reason codes. Escalation paths and incident procedures. Data sources, model limitations, and known failure modes. Model and policy change logs tied to evaluation results. This connects directly to what Murtaza Chowdhury shared when he said: ### 7. Validate HITL workflows during AI prototyping before you scale [...] ### 3. Train and support the humans in the loop Humans in the loop are not a generic QA function. T",
+        matchedTerms: ["how", "human", "without", "need", "before", "they", "decisions", "what"],
+      },
+      {
+        title: "A 2026 Guide to Human-in-the-Loop | Strata",
+        url:
+          "https://www.strata.io/blog/agentic-identity/practicing-the-human-in-the-loop",
+        domain: "strata.io",
+        verifiedAt: "2026-07-31T12:01:04.497Z",
+        publishedDate: "",
+        summary:
+          "But the agent encounters a first-class passenger on an international itinerary with a connecting flight, a loyalty tier override, and a fare class requiring manual reissuance. The agent recognizes a policy boundary, pauses execution, packages the context, and routes an approval request to a senior reservations agent. Human-in-the-loop. Meanwhile, a supervisor monitors the overall rebooking flow, watching for anomalies: unusually high costs, patterns suggesting the agent is choosing more expensive alternatives, or edge cases handled incorrectly. Human-on-the-loop. [...] Agentic AI inverts that relationship. AI agents plan, decide, and execute ",
+        matchedTerms: ["human", "approval", "agent", "without", "agents", "they", "what", "failure"],
+      },
+      {
+        title: "Why 88% of AI Agents Fail Production: Analysis Guide",
+        url:
+          "https://www.digitalapplied.com/blog/88-percent-ai-agents-never-reach-production-failure-framework",
+        domain: "digitalapplied.com",
+        verifiedAt: "2026-07-31T12:01:04.497Z",
+        publishedDate: "",
+        summary:
+          "Governance Framework Minimum Named agent owner with response authority Performance dashboard reviewed on defined cadence Behavioral boundary definitions with alert thresholds Incident response runbook for common failure modes Human escalation path for decisions outside scope Scheduled review cycle for model updates and retraining Post-Deployment Monitoring Task success rate tracked per workflow type Human override rate as agent quality signal Latency and cost per task over time Anomalous action log reviewed weekly User satisfaction score from human operators Drift detection comparing current vs. baseline behavior ## Pattern 7: Organizational ",
+        matchedTerms: ["how", "human", "agent", "why", "agents", "before", "they", "decisions"],
+      },
+    ],
+    imagePrompt:
+      "Create an original premium editorial photograph-style scene, 1536x864 WebP composition: a commercially plausible UK SME operations workspace viewed from a slightly elevated three-quarter angle, with three diverse professionals collaborating around a large matte table. At the centre is a physical translucent decision tray with subtle amber and cool-blue light reflections suggesting a paused workflow; one person is placing a small neutral token into an approval lane while another reviews a tablet with abstract non-readable shapes only. Include restrained futuristic details such as soft projected geometric status markers on the tabletop, but no readable words, numbers, logos, charts, generic robots, floating interface walls or meaningless network lines. Bright refined daylight, warm stone and brushed metal materials, nuanced editorial colour grading. Keep the central 9:16 crop focused on the decision tray and hands, with anatomically natural hands and no uncanny faces. Avoid a dark office, a solitary right-side operator, and a luminous UI wall.",
+    ctaPrimary: {
+      label: "Assess your automation readiness",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Decision Framework",
+      fingerprint: "Decision Framework|operational-symptom|6|decision-guide",
+    },
+  },
+// N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
