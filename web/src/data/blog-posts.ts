@@ -15098,7 +15098,487 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
-  // N8N_BLOG_POSTS_END
+    {
+    slug: "bespoke-ai-automation",
+    title:
+      "Bespoke AI Automation vs Off-the-Shelf Software: Which Is the Better Fit for a UK SME?",
+    subtitle:
+      "A practical build, buy or blend decision for UK SMEs weighing speed against workflow fit.",
+    summary: [
+      "Off-the-shelf is usually the right starting point for standard processes and low-disruption adoption.",
+      "Bespoke automation earns its place where an important workflow is specific, integrated and repeatedly manual.",
+      "Use a weighted matrix and a controlled rollout to choose based on evidence, not product enthusiasm.",
+    ],
+    categoryLabel: "AI Automation",
+    categoryKey: "ai-automation",
+    categoryId: "ai-automation",
+    categoryOrder: 5,
+    displayDate: "31 July 2026",
+    publishedIsoDate: "2026-07-31T16:43:47.029Z",
+    updatedIsoDate: "2026-07-31T16:43:47.029Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/bespoke-ai-automation-hero.webp",
+    heroImageAlt:
+      "A premium editorial scene showing three interconnected operational pathways converging around a central workflow decision desk",
+    metaTitle: "Bespoke AI Automation vs Off-the-Shelf Software | UK SME",
+    metaDescription:
+      "Compare bespoke AI automation, off-the-shelf software and hybrid options for UK SMEs. Assess speed, integration, control, cost assumptions and workflow fit.",
+    primaryKeyword: "Bespoke AI Automation vs Off-the-Shelf Software",
+    secondaryKeywords: [
+      "bespoke AI automation UK",
+      "off-the-shelf software for SMEs",
+      "build vs buy AI",
+      "AI automation for small business",
+      "hybrid automation approach",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "For most UK SMEs, off-the-shelf software is the better first choice when the task is common, the process can sensibly follow the product, and a fast, low-disruption rollout matters most. Bespoke AI automation becomes more compelling when a high-value workflow is genuinely distinctive, crosses several systems, or repeatedly forces people into manual workarounds.,The strongest answer is often neither extreme: use established software for standard work, then design a focused bespoke layer only around the exceptions that create cost, delay or poor customer experience.",
+        ],
+      },
+      {
+        heading: "What each option actually means in practice",
+        body: [
+          "Off-the-shelf software is a ready-made product sold to many organisations. It usually comes with a defined feature set, configuration options and standard integrations. In an AI context, that may mean a business platform with AI features, or an automation tool that connects commonly used applications.",
+          "Bespoke AI automation is designed around a particular workflow, decision point or hand-off. It may connect existing systems, structure information, route work and introduce defined human approval. It should not mean automating every process simply because automation is possible.",
+          "A third route is hybrid: retain standard software where it already fits, then add a tailored integration or workflow only where the standard product stops serving the business. UK government research on SME technology adoption notes the importance of minimising disruption, using pre-built integrations or easy APIs, and meeting specific operational needs.",
+        ],
+        lede:
+          "This is less a technology contest than a decision about how your business should operate.",
+        grid: [
+          {
+            body:
+              "A configured product for familiar tasks such as mainstream CRM activity, routine notifications or common business workflows.",
+            title: "Off-the-shelf",
+          },
+          {
+            body:
+              "A designed workflow for a specific operational problem, especially where data, approvals or hand-offs do not follow a standard pattern.",
+            title: "Bespoke automation",
+          },
+          {
+            body:
+              "A standard product remains the system of record while tailored automation handles the costly or awkward exceptions.",
+            title: "Hybrid",
+          },
+        ],
+        callout: {
+          body: [
+            "Buy off-the-shelf when your process is standard and adoption speed is the priority. Build bespoke when a distinctive, important workflow cannot be handled without repeated workarounds. Choose hybrid when only part of the process is exceptional.",
+          ],
+          tone: "answer",
+          title: "The direct answer",
+        },
+      },
+      {
+        heading: "When off-the-shelf software is the better choice",
+        body: [
+          "Choose an established product first if the problem is widely understood and the team can adopt its operating model without material compromise. This route is particularly sensible when the business needs a dependable starting point rather than a new technical asset to maintain.",
+          "The UK government's AI procurement guidance frames this as a requirements question: buyers should consider whether an off-the-shelf product, an existing product with AI elements, an outsourced build or co-creation is most appropriate. Start with the requirement, not the tool.",
+          "Off-the-shelf is usually the more proportionate choice where the value lies in getting consistent basics in place: capturing enquiries, assigning routine tasks, standardising reminders or giving staff a clearer shared process.",
+        ],
+        bullets: [
+          {
+            body:
+              "Your process resembles how many other firms handle the same task, and a sensible configuration can cover it.",
+            label: "The workflow is conventional",
+          },
+          {
+            body:
+              "You need a contained rollout with limited migration, training and process redesign.",
+            label: "Time to adoption matters",
+          },
+          {
+            body:
+              "The product already connects to the systems you rely on, or has an API your team can realistically use.",
+            label: "Known integrations are enough",
+          },
+          {
+            body:
+              "It is premature to encode a workflow before ownership, exceptions and measures of success are stable.",
+            label: "The process is still changing",
+          },
+        ],
+        callout: {
+          body: [
+            "If a process has no clear owner, no agreed exception rules and no useful baseline measure, resolve those operating questions before commissioning bespoke work.",
+          ],
+          tone: "caution",
+          title: "Do not customise around uncertainty",
+        },
+      },
+      {
+        heading: "When bespoke AI automation is worth the extra effort",
+        body: [
+          "Bespoke is justified by a specific business case, not by the label. Look for a narrow workflow that matters commercially or operationally, has recurring volume, and depends on information moving between systems or people in a way generic software cannot represent well.",
+          "Government SME adoption research recognises that bespoke solutions may suit niche industries or unique business cases. Supplier-authored commentary similarly argues that specific integration needs and workflows unmet by standard products can make custom work appropriate. These are decision signals, not proof that a bespoke build will produce a particular outcome.",
+          "A useful test is the workaround test: if staff repeatedly export data, rekey information, chase context across inboxes, or manually interpret the same rules before passing work on, document that path. The point is to improve a defined system of work, not to remove judgment from it.",
+        ],
+        checklist: {
+          items: [
+            {
+              label: "A defined problem",
+              detail:
+                "Describe the costly friction in one sentence, without starting with a preferred tool.",
+            },
+            {
+              label: "A process owner",
+              detail:
+                "Name the person who can decide rules, exceptions and acceptance criteria.",
+            },
+            {
+              label: "Accessible systems and data",
+              detail:
+                "Confirm what information is needed, where it sits and what access is appropriate.",
+            },
+            {
+              label: "A human approval point",
+              detail:
+                "Set where people review consequential, ambiguous or customer-sensitive decisions.",
+            },
+            {
+              label: "A testable measure",
+              detail:
+                "Choose a baseline such as cycle time, incomplete hand-offs or manual touches; do not assume savings before testing.",
+            },
+          ],
+          title: "Bespoke readiness checklist",
+        },
+        subsections: [
+          {
+            heading: "Signs that the case is becoming stronger",
+            body: [
+              "The workflow has clear inputs, outputs, decision rules and an accountable owner. It affects enough work to justify discovery, and the business can explain what must remain under human review.",
+              "The requirement may involve integrating systems, designing approval gates or translating a service-specific process into a repeatable flow. Explore this route through [AI automation services](/services/ai-automation) or an initial [AI consulting engagement](/services/ai-consulting).",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "How cost, control, speed and risk differ",
+        body: [
+          "The purchase price is only one part of the decision. A standard product may have lower initial commitment but can create ongoing configuration, licence and workaround costs. Bespoke work generally needs more discovery and design up front, while its continuing cost depends on the support, changes and integrations required. Public, comparable pricing and delivery outcomes for suppliers are not publicly stated in the supplied evidence.",
+          "Control is also not absolute. A bespoke workflow can be designed around your rules, but it still needs governance over data, access, changes and human escalation. A packaged product can be easier to administer, but its constraints may become more visible as the business changes.",
+          "Use a cost model that separates verified facts from assumptions. Your actual cost and return depend on your process, systems, adoption and ongoing operating choices. Read [how to audit automation costs](/blog/ai-automation-cost-audit), [UK small-business automation costs](/blog/ai-automation-cost-uk-small) and [how to calculate an automation ROI case](/blog/calculate-ai-automation-roi-uk) before setting a budget.",
+        ],
+        callout: {
+          body: [
+            "A projected benefit is an assumption until a pilot or controlled rollout measures it. Avoid treating supplier illustrations, including those in market commentary, as a guaranteed return.",
+          ],
+          tone: "assumption",
+          title: "Keep the business case honest",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Current research",
+              value: "31 July 2026",
+              note:
+                "Evidence reviewed across government, Silverstone and supplier-authored sources.",
+            },
+            {
+              label: "Baseline workload",
+              value: "Measured, not assumed",
+              note:
+                "Record volume, manual touches, delays and rework for the chosen workflow.",
+            },
+            {
+              label: "Budget view",
+              value: "Initial plus ongoing",
+              note:
+                "Include licences, implementation, internal time, support and change requests.",
+            },
+          ],
+          title: "Decision inputs to collect before comparing proposals",
+        },
+      },
+      {
+        heading: "A practical comparison matrix for UK SME buyers",
+        body: [
+          "The matrix below is a decision aid, not a market ranking. Give greater weight to the criteria that matter for the workflow in question. It deliberately shows where each route is weak as well as where it fits.",
+        ],
+        lede:
+          "Assess the routes against six declared criteria before looking at product features: buyer fit, implementation speed and disruption, workflow flexibility, integration needs, control and governance, and procurement framing.",
+        comparisonTable: {
+          columns: ["Strengths", "Limitations", "Best for"],
+          rows: [
+            {
+              cells: [
+                "Established patterns, potentially quicker adoption and commonly available integrations.",
+                "May require the business to adapt its process; exceptions can remain manual.",
+                "Standard, stable workflows where minimising disruption is the main objective.",
+              ],
+              label: "Off-the-shelf software",
+            },
+            {
+              cells: [
+                "Can be designed around a specific workflow, integration path and approval model.",
+                "Needs discovery, clear ownership, testing and ongoing change management.",
+                "Distinctive, high-value workflows where standard products create persistent workarounds.",
+              ],
+              label: "Bespoke AI automation",
+            },
+            {
+              cells: [
+                "Preserves useful standard software while targeting the most valuable gaps.",
+                "Requires clear boundaries so the overall system does not become confusing.",
+                "SMEs with mostly conventional operations and a small number of material exceptions.",
+              ],
+              label: "Hybrid approach",
+            },
+          ],
+        },
+        scorecard: {
+          options: ["Off-the-shelf", "Bespoke", "Hybrid"],
+          rows: [
+            {
+              cells: [
+                "Strong where the process is standard",
+                "Strong where the process is distinctive",
+                "Strong where only selected steps differ",
+              ],
+              criterion: "Buyer fit for the current workflow",
+              weight: "30%",
+            },
+            {
+              cells: [
+                "Usually simpler to begin",
+                "Requires discovery and controlled delivery",
+                "Moderate: retain core product, change targeted steps",
+              ],
+              criterion: "Technical delivery and disruption",
+              weight: "25%",
+            },
+            {
+              cells: [
+                "Best when existing connectors fit",
+                "Best when specific system interactions are necessary",
+                "Best when standard connectors cover most needs",
+              ],
+              criterion: "Integration depth",
+              weight: "20%",
+            },
+            {
+              cells: [
+                "Work within product settings and operating limits",
+                "Define workflow rules, access and approval design",
+                "Apply governance across both layers",
+              ],
+              criterion: "Governance and control",
+              weight: "15%",
+            },
+            {
+              cells: [
+                "Request product documentation and implementation scope",
+                "Request scope, assumptions, testing and support arrangements",
+                "Request clarity on ownership and support boundaries",
+              ],
+              criterion: "Evidence transparency",
+              weight: "10%",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "Silverstone AI publishes this article and includes itself in the comparison. It is editorial guidance for UK SME technology buyers, not independent procurement advice or a claim that one route suits every business. The comparison uses buyer fit (30%), technical delivery (25%), integration depth (20%), governance (15%) and evidence transparency (10%). Public information about provider pricing, outcomes and some capabilities is incomplete; where it is unavailable, it is treated as Not publicly stated. To suggest a factual correction, contact Silverstone AI through its [contact route](/contact).",
+          ],
+          tone: "evidence",
+          title: "Publisher disclosure",
+        },
+      },
+      {
+        heading: "Questions to settle before you choose either route",
+        body: [
+          "A good buying decision begins with the workflow, not a demo. Map the current path with the people who do the work, identify the exceptions and decide what an acceptable first release must achieve. For a broader selection process, use the [workflow automation selection guide](/blog/workflow-automation-selection-guide) and the [small-business AI automation guide](/blog/small-business-ai-automation).",
+          "If a tailored route looks appropriate, ask how the provider will discover the process, define scope, test the workflow, handle changes and support launch. Silverstone describes its delivery approach at [how we work](/how-we-work); review [pricing](/pricing) alongside a scoped conversation rather than treating a generic figure as a quote.",
+        ],
+        steps: [
+          {
+            body:
+              "Prioritise a repeated, visible operational problem over a broad transformation ambition.",
+            title: "Choose one workflow",
+            label: "1",
+          },
+          {
+            body:
+              "Capture systems, people, decisions, exceptions, current delays and the point where human review is required.",
+            title: "Map the reality",
+            label: "2",
+          },
+          {
+            body:
+              "Check whether a sensible configuration and existing integrations meet the requirement without forcing damaging process changes.",
+            title: "Test standard fit first",
+            label: "3",
+          },
+          {
+            body:
+              "If standard fit fails, specify only the exceptional workflow, interfaces, approvals and acceptance measures that need tailored work.",
+            title: "Define the bespoke boundary",
+            label: "4",
+          },
+          {
+            body:
+              "Agree ownership, training, review points and a way to compare the new process with the baseline.",
+            title: "Run a controlled launch",
+            label: "5",
+          },
+        ],
+        callout: {
+          body: [
+            "Bring one mapped workflow, its pain points and the systems involved to a [booking conversation](/book#booking-calendar). The goal is to decide whether you should configure, integrate or build—not to force a bespoke solution.",
+          ],
+          tone: "recommendation",
+          title: "A sensible next move",
+        },
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "Is bespoke AI automation always more expensive than off-the-shelf software?",
+        answer:
+          "Not necessarily over the full life of a workflow, but bespoke work normally requires more upfront discovery and delivery. Compare initial implementation, licences, internal effort, support, change requests and the cost of continuing manual workarounds. Do not assume a return before measuring a pilot or rollout.",
+      },
+      {
+        question:
+          "Can a UK SME use both off-the-shelf software and bespoke automation?",
+        answer:
+          "Yes. A hybrid approach can retain a standard system for mainstream work while using tailored automation for a narrow, distinctive workflow. Clear ownership, system boundaries and approval rules are important so the setup remains understandable.",
+      },
+      {
+        question: "What should we ask before commissioning bespoke AI automation?",
+        answer:
+          "Ask what problem is being solved, which systems and data are involved, who owns the process, how exceptions are handled, where human approval sits, how success will be tested, and what support is needed after launch.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "workflow automation selection guide",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+      {
+        label: "small-business AI automation guide",
+        href: "/blog/small-business-ai-automation",
+      },
+      {
+        label: "how to audit automation costs",
+        href: "/blog/ai-automation-cost-audit",
+      },
+      {
+        label: "how to calculate an automation ROI case",
+        href: "/blog/calculate-ai-automation-roi-uk",
+      },
+      {
+        label: "UK small-business automation costs",
+        href: "/blog/ai-automation-cost-uk-small",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Bespoke AI Automation for Small Businesses UK (2026) | Tecveq",
+        url: "https://tecveq.com/bespoke-ai-automation-small-businesses-uk",
+        domain: "tecveq.com",
+        verifiedAt: "2026-07-31T16:41:46.846Z",
+        publishedDate: "",
+        summary:
+          "Here is a simple side by side comparison: | Off the Shelf Tools | Bespoke AI Automation | --- | | Built for | All businesses | Your business only | | Flexibility | Limited by platform rules | Unlimited | | Cost over time | Grows monthly with subscriptions | One investment, you own it | | Integration | Works with popular apps only | Works with any system | | Scalability | Hits ceilings fast | Grows with your business | | UK GDPR control | Shared responsibility | You are fully in control | The switch from off the shelf to bespoke is not about spending more money. It is about spending smarter and getting a system that actually works for your spe",
+        matchedTerms: ["bespoke", "automation", "off", "shelf", "which", "what", "actually", "when"],
+      },
+      {
+        title:
+          "Custom AI vs Off-the-Shelf: When UK SMEs Should Build Bespoke AI Solutions",
+        url: "https://redeagle.tech/blog/custom-ai-solutions-uk-smes",
+        domain: "redeagle.tech",
+        verifiedAt: "2026-07-31T16:41:46.847Z",
+        publishedDate: "",
+        summary:
+          "#### Score 21-30 Build custom Your business has specific needs that off-the-shelf tools won't meet. Custom AI will cost more upfront but deliver significantly better results and ROI over 2-3 years. Build vs buy AI decision flowchart showing when UK SMEs should choose off-the-shelf, hybrid, or custom AI solutions Contract management is a great example of where this build-vs-buy decision plays out in practice. There's a healthy market of off-the-shelf CLM tools, but custom-built solutions on Azure are often the right call for UK SMEs with complex workflows or specific integration needs. See our complete AI contract management guide for a domain",
+        matchedTerms: ["bespoke", "automation", "off", "shelf", "better", "practice", "when", "cost"],
+      },
+      {
+        title: "15 Best AI Automation Tools for UK Small Businesses (2026)",
+        url:
+          "https://factoryjet.com/blog/best-ai-automation-tools-small-business-uk-2026",
+        domain: "factoryjet.com",
+        verifiedAt: "2026-07-31T16:41:46.847Z",
+        publishedDate: "",
+        summary:
+          "Zapier for 500 tasks would recoup custom development costs within 24 months while gaining unlimited capacity. FactoryJet builds custom AI agents that integrate with Xero, Sage, Shopify, and bespoke UK systems. These handle workflows generic tools cannot support: multi-stage B2B quotation management, artwork approval with revision tracking, trade account administration, and dynamic pricing based on customer history. Development takes 3-6 weeks, with ongoing maintenance and support available afterward. Most UK SMBs benefit from a hybrid approach. Deploy off-the-shelf tools for 80% of automation needs: the standard CRM tasks, email workflows, an",
+        matchedTerms: ["bespoke", "automation", "off", "shelf", "when"],
+      },
+      {
+        title: "AI Automation Agencies London & UK 2026: Honest Comparison",
+        url: "https://www.softomatesolutions.com/blog/ai-automation-agencies-london",
+        domain: "softomatesolutions.com",
+        verifiedAt: "2026-07-31T16:41:46.847Z",
+        publishedDate: "",
+        summary:
+          "### 4. MQLFlow - Best for Day-Rate Consulting MQLFlow is a London automation consultancy working on a day-rate basis, suited to focused sales and marketing automation engagements where a fixed scope is not yet defined. It is a strong option for shorter, consulting-led pieces of work. Softomate delivers fixed-price, end-to-end automation programmes from £8,000 with a defined timeline. ### 5. Ronins - Best for Sector-Specific Custom AI Products Ronins is a London-based agency that builds custom AI products and intelligent automation, with experience across healthcare, retail and education. It takes a product-first approach rather than configuri",
+        matchedTerms: ["automation", "off", "shelf", "option", "comparison", "before"],
+      },
+      {
+        title: "Bespoke Software Development UK: A 2026 CTO's Guide",
+        url: "https://wearearch.com/blog/bespoke-software-development-uk",
+        domain: "wearearch.com",
+        verifiedAt: "2026-07-31T16:41:46.847Z",
+        publishedDate: "",
+        summary:
+          "## Your Guide to Bespoke Software in the UK A common mistake is treating bespoke software as a technical purchase. It isn't. It's an operating model decision. You're deciding how work moves through the business, what teams can automate, how customers interact with you, and how much control you want over the product you rely on every day. That's why the best buying conversations don't start with features. They start with friction. Where are people wasting time? Where are handoffs failing? Which system limitation is now affecting revenue, compliance, or customer experience? ## Bespoke vs Off The Shelf Software Off-the-shelf software is built fo",
+        matchedTerms: ["bespoke", "off", "shelf", "software", "which", "better", "what", "when"],
+      },
+      {
+        title: "Understanding technology adoption among UK SMEs",
+        url:
+          "https://assets.publishing.service.gov.uk/media/688a438aff8c05468cb7b0f0/sme_tech_adoption_dbt_report.pdf",
+        domain: "assets.publishing.service.gov.uk",
+        verifiedAt: "2026-07-31T16:41:46.847Z",
+        publishedDate: "",
+        summary:
+          "that minimised disruption and migration challenges, often prioritising technologies that offered pre-built integrations or easy-to-use APIs (Application Programming Interfaces). SMEs favoured digital solutions that directly addressed their specific needs, along with customisation options to tailor the technology to their unique workflows. This perception of unique business needs was a common thread across SMEs. A strong preference was expressed for technology that could be moulded to existing processes, rather than forcing the business to adapt to the technology. For niche industries or unique business cases, bespoke solutions may in fact be ",
+        matchedTerms: ["bespoke", "off", "shelf", "software", "sme", "what", "option", "when"],
+      },
+      {
+        title: "AI-Powered Workflow Automation in Small Businesses",
+        url: "https://sryahwapublications.com/article/download/2638-549X.0701003",
+        domain: "sryahwapublications.com",
+        verifiedAt: "2026-07-31T16:41:46.848Z",
+        publishedDate: "",
+        summary:
+          "6.1.3 AI Adoption Is Positively Associated with Productivity and Innovation Firms that adopted AI reported significantly improved performance outcomes. Linear regression models revealed a strong positive relationship between AI use and firm-level performance indicators (β = 0.382, p< 0.001). This includes both quantitative measures (e.g., revenue growth, efficiency gains) and qualitative assessments of innovation capacity. Importantly, performance gains were most evident among SMEs that implemented narrow, well-scoped AI applications such as automated customer engagement, predictive analytics for inventory, or AI-enhanced CRM. Conversely, fir",
+        matchedTerms: ["automation", "sme", "practice", "when", "effort", "how"],
+      },
+      {
+        title: "Artificial Intelligence Playbook for the UK Government (HTML) - GOV.UK",
+        url:
+          "https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html",
+        domain: "gov.uk",
+        verifiedAt: "2026-07-31T16:41:46.848Z",
+        publishedDate: "",
+        summary:
+          "### Specifying your requirements When buying AI products and services, you’ll need to document your requirements to tell your suppliers what you need. To define what you need, you should engage with subject matter experts (SMEs) as soon as possible, and take time to consider the most appropriate type of AI solution for your project. This might be an off-the-shelf product, an existing technology with bolt-on AI elements (paid or free), outsourcing AI builds (if applicable), or co-creating AI with suppliers. The Digital, Data and Technology Playbook has guidance on commercial off-the-shelf (COTS) software licensing terms and build versus buy de",
+        matchedTerms: ["off", "shelf", "software", "which", "better", "what", "when", "control"],
+      },
+    ],
+    imagePrompt:
+      "Create an original premium editorial hero image, 1536x864 WebP, for a UK SME article comparing bespoke AI automation with off-the-shelf software. Show a commercially plausible modern operations studio viewed slightly from above: a central physical decision table with three distinct material pathways converging into it—one orderly modular track representing standard software, one precisely crafted adaptive track representing bespoke workflow design, and one combined track representing a hybrid route. Include subtle abstract documents, connection ports and translucent workflow tokens, but no readable text, charts, numbers, logos or interfaces. Use warm limestone, brushed aluminium, deep forest green and restrained electric cobalt accents. The central table and converging pathways must be safely contained within the middle 9:16 crop. No people, robots, hands, screens full of UI, dark office setting, glowing wall display, generic network graphics or visual clutter. Cinematic daylight, tactile materials, high-end British editorial art direction, realistic yet gently futuristic.",
+    ctaPrimary: {
+      label: "Discuss the right delivery model",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Comparison Matrix",
+      fingerprint: "Comparison Matrix|decision-moment|6|comparison",
+    },
+  },
+// N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
