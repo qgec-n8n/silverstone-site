@@ -13,7 +13,7 @@ const servicePages = [
     label: "Web Design & Development",
     title: "Bespoke Web Design & Development UK | Silverstone AI",
     description:
-      "Bespoke web design and development for UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one commercial system.",
+      "Bespoke web design and development for UK businesses: positioning, conversion copy, responsive engineering, technical SEO, CMS and integrations in one system.",
     h1: "A website engineered to move buyers forward",
     primaryIntent: "web design and development for UK small businesses",
     contentId: "content-service-web-design-development",
@@ -35,7 +35,7 @@ const servicePages = [
     label: "App Development",
     title: "Bespoke App Development UK | Silverstone AI",
     description:
-      "Bespoke app development for UK businesses: product discovery, UX architecture, data, integrations, AI features and release planning built around one valuable workflow.",
+      "Bespoke app development for UK businesses: product discovery, UX architecture, data, integrations, AI features and release planning around one core workflow.",
     h1: "Build the smallest app that proves the value",
     primaryIntent: "custom app development for UK businesses",
     contentId: "content-service-app-development",
@@ -57,7 +57,7 @@ const servicePages = [
     label: "AI Voice Agents",
     title: "AI Voice Agent Development UK | Silverstone AI",
     description:
-      "AI voice agent development for UK businesses: conversation design, telephony, approved actions, transcripts, monitoring and human escalation for real call workflows.",
+      "AI voice agent development for UK businesses: conversation design, telephony, approved actions, transcripts, monitoring and human escalation for real calls.",
     h1: "Voice agents built for real conversations — and real consequences",
     primaryIntent: "AI voice agents for UK businesses",
     contentId: "content-service-ai-voice-agents",
@@ -387,7 +387,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     id: "route-pricing",
     title: "AI Automation & Website Pricing UK | Silverstone AI",
     description:
-      "Transparent UK pricing for AI automation, voice agents, AI receptionists and website development. Pilots from £3,000, websites from £1,500, support from £350/month.",
+      "Transparent UK pricing for AI automation, voice agents, AI receptionists and websites. Pilots from £3,000, websites from £1,500, support from £350/month.",
     h1: "AI automation pricing for UK SMEs",
     headingPlan: {
       h1: "AI automation pricing for UK SMEs",
@@ -472,7 +472,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     canonical: "https://silverstone-ai.com/industry/estate-agents",
     title: "AI Automation for Estate Agents UK | Silverstone AI",
     description:
-      "Connect portal, phone and website enquiries to qualification, viewing requests, CRM updates and human branch follow-up with estate agent automation built for UK workflows.",
+      "Connect portal, phone and website enquiries to qualification, viewing requests, CRM updates and human branch follow-up with UK estate agent automation.",
     h1: "Turn property enquiries into owned branch conversations",
     headingPlan: {
       h1: "Turn property enquiries into owned branch conversations",
@@ -503,7 +503,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     canonical: "https://silverstone-ai.com/industry/hospitality",
     title: "Hospitality Automation UK for Reservations and Guests",
     description:
-      "Coordinate reservations, guest enquiries, confirmations, groups, pre-arrival communication and staff handoffs with hospitality automation designed around service and safety.",
+      "Coordinate reservations, guest enquiries, confirmations, groups and staff handoffs with hospitality automation designed around service and safety.",
     h1: "Never miss a guest. Never feel automated.",
     headingPlan: {
       h1: "Never miss a guest. Never feel automated.",
@@ -534,7 +534,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     canonical: "https://silverstone-ai.com/industry/salons-barbers",
     title: "Salon Automation UK for Bookings and Rebooking | Silverstone",
     description:
-      "Connect calls, messages, booking rules, deposits, waitlists and rebooking with salon automation designed around your existing diary and human suitability decisions.",
+      "Connect calls, messages, booking rules, deposits, waitlists and rebooking with salon automation designed around your diary and human suitability calls.",
     h1: "Protect sellable chair time without adding front-desk pressure",
     headingPlan: {
       h1: "Protect sellable chair time without adding front-desk pressure",
@@ -596,7 +596,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     canonical: "https://silverstone-ai.com/industry/ecommerce",
     title: "eCommerce Automation Agency UK | Silverstone AI",
     description:
-      "Connect product questions, order status, returns, support, post-purchase and retention workflows with bespoke ecommerce automation built around authoritative data.",
+      "Connect product questions, order status, returns, support and retention workflows with bespoke ecommerce automation built around authoritative data.",
     h1: "Scale the experience without scaling the chaos",
     headingPlan: {
       h1: "Scale the experience without scaling the chaos",
@@ -659,7 +659,7 @@ export const approvedRouteOverrides: RouteOverride[] = [
     canonical: "https://silverstone-ai.com/industry/dentists",
     title: "Dental Practice Automation UK | Silverstone AI",
     description:
-      "Improve missed-call recovery, new-patient booking, recalls, reminders and administrative follow-up with dental automation that keeps clinical judgement with the practice.",
+      "Improve missed-call recovery, new-patient booking, recalls and reminders with dental automation that keeps clinical judgement with the practice.",
     h1: "Recover every patient. Automate none of the care.",
     headingPlan: {
       h1: "Recover every patient. Automate none of the care.",

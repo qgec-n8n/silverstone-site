@@ -4,16 +4,15 @@
  * labels figures as verified Silverstone AI performance and preserves every
  * supplied value exactly.
  */
-import type { ReactNode } from "react";
+import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Link } from "react-router";
 
-import { ArrowUpRight, ShieldCheck, type LucideIcon } from "~/components/icons/lucide";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "~/components/ui/accordion";
+  ArrowUpRight,
+  ChevronDown,
+  ShieldCheck,
+  type LucideIcon,
+} from "~/components/icons/lucide";
 import type { ApprovedCopyCard } from "~/content/services/approved-services";
 
 import type { FaqItem } from "../content/service-content";
@@ -157,28 +156,109 @@ export function ProcessTrack({ steps }: { steps: ApprovedCopyCard[] }) {
   );
 }
 
-/* ---- FAQ (Radix Accordion — accessible, animated, answers in prerendered HTML) */
+/* ---- FAQ ---------------------------------------------------------------- */
 
+/**
+ * Hand-built rather than the shared Radix `Accordion`, for the same reason
+ * `/pricing` is (see `features/core-pages/pricing/pricing-faq.tsx`): Radix
+ * unmounts a closed panel, so the answers never reached the prerendered HTML.
+ * Every service and industry page renders this panel, which left 76 answers
+ * invisible to search and AI crawlers and made the FAQ ineligible for FAQPage
+ * structured data — Google requires the marked-up answer to be present and to
+ * match visible copy.
+ *
+ * Answers are therefore always in the document and merely collapsed by CSS
+ * (`grid-template-rows: 0fr → 1fr`), with `inert` keeping closed panels out of
+ * the accessibility tree and off the tab order.
+ *
+ * Interaction parity with the Radix implementation it replaces: real buttons
+ * with `aria-expanded`/`aria-controls`, one open item at a time, collapsible,
+ * and Arrow/Home/End roving between triggers.
+ */
 export function FaqPanel({ items }: { items: FaqItem[] }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const triggers = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const focusTrigger = (index: number) => {
+    const target = (index + items.length) % items.length;
+    triggers.current[target]?.focus();
+  };
+
+  const onTriggerKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    switch (event.key) {
+      case "ArrowDown":
+        event.preventDefault();
+        focusTrigger(index + 1);
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        focusTrigger(index - 1);
+        break;
+      case "Home":
+        event.preventDefault();
+        focusTrigger(0);
+        break;
+      case "End":
+        event.preventDefault();
+        focusTrigger(items.length - 1);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
-    <Accordion type="single" collapsible className="ss-srv2-faq">
-      {items.map((item, index) => (
-        <Reveal key={item.question} kind="section" delayMs={index * 90}>
-          <AccordionItem value={item.question} className="ss-srv2-faq__item">
-            <AccordionTrigger className="ss-srv2-faq__trigger">
-              {item.question}
-            </AccordionTrigger>
-            <AccordionContent className="ss-srv2-faq__panel-inner">
-              {item.answer.map((paragraph, answerIndex) => (
-                <p key={answerIndex}>
-                  <RichText text={paragraph} />
-                </p>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        </Reveal>
-      ))}
-    </Accordion>
+    <div className="ss-srv2-faq">
+      {items.map((item, index) => {
+        const open = openIndex === index;
+        const triggerId = `srv2-faq-trigger-${String(index)}`;
+        const panelId = `srv2-faq-panel-${String(index)}`;
+
+        return (
+          <Reveal key={item.question} kind="section" delayMs={index * 90}>
+            <div className="ss-srv2-faq__item" data-state={open ? "open" : "closed"}>
+              <h3 className="ss-srv2-faq__heading">
+                <button
+                  aria-controls={panelId}
+                  aria-expanded={open}
+                  className="ss-srv2-faq__trigger"
+                  id={triggerId}
+                  onClick={() => {
+                    setOpenIndex(open ? null : index);
+                  }}
+                  onKeyDown={(event) => {
+                    onTriggerKeyDown(event, index);
+                  }}
+                  ref={(node) => {
+                    triggers.current[index] = node;
+                  }}
+                  type="button"
+                >
+                  <span>{item.question}</span>
+                  <ChevronDown aria-hidden="true" className="ss-srv2-faq__chevron" />
+                </button>
+              </h3>
+
+              <div
+                aria-labelledby={triggerId}
+                className="ss-srv2-faq__panel"
+                id={panelId}
+                inert={!open}
+                role="region"
+              >
+                <div className="ss-srv2-faq__panel-inner">
+                  {item.answer.map((paragraph, answerIndex) => (
+                    <p key={answerIndex}>
+                      <RichText text={paragraph} />
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        );
+      })}
+    </div>
   );
 }
 

@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import { futureRouteManifest } from "~/data/future-routes";
 import { validateInternalLinks } from "~/data/internal-links";
+import { industryCopyByRoute } from "~/features/industries-v2/content";
+import { serviceCopyByRoute } from "~/features/services-v2/content/copy";
 import { buildRouteMetadata } from "~/seo/metadata";
 import { buildRobotsTxt } from "~/seo/robots";
 import { buildRouteSchemaGraph, serializeJsonLd } from "~/seo/schema";
@@ -38,9 +40,44 @@ describe("route SEO generation", () => {
     const graph = buildRouteSchemaGraph(route);
     expect(graph["@graph"].map((entry) => entry["@type"])).toEqual([
       "Service",
+      "FAQPage",
       "BreadcrumbList",
     ]);
     expect(serializeJsonLd({ value: "</script>" })).not.toContain("</script>");
+  });
+
+  it("builds every service and industry FAQPage from the copy the page renders", () => {
+    const faqRoutes = [
+      ...Object.keys(serviceCopyByRoute).map((path) => ({
+        path,
+        items: serviceCopyByRoute[path as keyof typeof serviceCopyByRoute].faqs.items,
+      })),
+      ...Object.keys(industryCopyByRoute).map((path) => ({
+        path,
+        items: industryCopyByRoute[path as keyof typeof industryCopyByRoute].faqs.items,
+      })),
+    ];
+    expect(faqRoutes).toHaveLength(16);
+
+    for (const { path, items } of faqRoutes) {
+      const route = futureRouteManifest.find((candidate) => candidate.path === path);
+      if (!route) {
+        throw new Error(`Route fixture is missing for ${path}`);
+      }
+
+      const faq = buildRouteSchemaGraph(route)["@graph"].find(
+        (entry) => entry["@type"] === "FAQPage",
+      ) as { mainEntity: { name: string; acceptedAnswer: { text: string } }[] };
+
+      expect(faq, path).toBeDefined();
+      expect(faq.mainEntity, path).toHaveLength(items.length);
+      // Structured data has to carry the rendered text, so the authored
+      // emphasis markup must be unwrapped rather than published verbatim.
+      for (const question of faq.mainEntity) {
+        expect(question.name, path).not.toMatch(/[*`]/);
+        expect(question.acceptedAnswer.text, path).not.toMatch(/[*`]/);
+      }
+    }
   });
 
   it("generates production sitemap entries while blocking staging crawling", () => {

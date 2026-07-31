@@ -135,9 +135,7 @@ export function validateBlogData(now = new Date()) {
       errors.push(`Post ${post.slug} has an invalid updatedIsoDate`);
     }
     if (!Number.isNaN(published) && !Number.isNaN(updated) && updated < published) {
-      errors.push(
-        `Post ${post.slug} has updatedIsoDate before publishedIsoDate`,
-      );
+      errors.push(`Post ${post.slug} has updatedIsoDate before publishedIsoDate`);
     }
   }
   return errors;
@@ -200,6 +198,69 @@ export function renderSitemapIndex(children) {
     "</sitemapindex>",
     "",
   ].join("\n");
+}
+
+/** The handful of entities the prerendered title/description tags carry. */
+function decodeEntities(value) {
+  return value
+    .replaceAll("&amp;", "&")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&#x27;", "'")
+    .replaceAll("&#39;", "'")
+    .replaceAll("&nbsp;", " ");
+}
+
+/**
+ * /llms.txt — the llmstxt.org curated index, for assistants that fetch a
+ * site-level summary before crawling. It is an addition to, never a
+ * replacement for, robots.txt + sitemap.xml: Google Search ignores it, so
+ * nothing here affects indexing. Its value is giving answer engines the
+ * canonical URL, one-line purpose and grouping for every page, instead of
+ * leaving them to infer all three from raw HTML.
+ *
+ * Built from the same validated sitemap entries as the XML sitemaps, so a page
+ * can never appear here after failing a canonical, h1 or thin-content gate.
+ */
+export function renderLlmsTxt(sections, docs) {
+  const lines = [
+    "# Silverstone AI",
+    "",
+    "> Web, app, content and AI workflow services for UK businesses, designed" +
+      " around clear problems, connected systems and human oversight.",
+    "",
+    "British English. Scopes, safeguards and published pricing bands are stated" +
+      " on the pages below; figures shown as results are verified Silverstone AI" +
+      " performance and vary by scope and operating environment.",
+    "",
+  ];
+
+  for (const { heading, entries } of sections) {
+    if (entries.length === 0) continue;
+    lines.push(`## ${heading}`, "");
+    for (const entry of entries) {
+      const doc = docs.get(
+        new URL(entry.loc).pathname === "/"
+          ? "/"
+          : new URL(entry.loc).pathname.replace(/\/$/, ""),
+      );
+      const title = decodeEntities(doc?.title ?? "").replace(
+        /\s*\|\s*Silverstone AI\s*$/,
+        "",
+      );
+      const description = decodeEntities(doc?.description ?? "");
+      lines.push(`- [${title}](${entry.loc})${description ? `: ${description}` : ""}`);
+    }
+    lines.push("");
+  }
+
+  return (
+    lines
+      .join("\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trimEnd() + "\n"
+  );
 }
 
 export function renderRedirectsFile() {
@@ -294,8 +355,7 @@ async function main() {
         .replace(/index\.html$/, "")
         .replace(/\.html$/, "")
         .replace(/\/$/, "");
-    const normalizedPath =
-      routePath === "/" ? "/" : routePath.replace(/\/$/, "");
+    const normalizedPath = routePath === "/" ? "/" : routePath.replace(/\/$/, "");
 
     if (robots?.includes("noindex") && relative === "index.html") {
       stagingBuild = true;
@@ -306,6 +366,10 @@ async function main() {
       robots,
       headingCount: countHeadings(html),
       textLength: visibleTextLength(html),
+      title: extract(html, /<title>([^<]*)<\/title>/i),
+      description:
+        extract(html, /<meta[^>]+name="description"[^>]+content="([^"]*)"/i) ??
+        extract(html, /<meta[^>]+content="([^"]*)"[^>]+name="description"/i),
     });
   }
 
@@ -370,9 +434,7 @@ async function main() {
         doc.canonical !== expectedCanonical &&
         doc.canonical !== PRODUCTION_ORIGIN + routePath
       ) {
-        failures.push(
-          `${routePath} is not self-canonical (found ${doc.canonical})`,
-        );
+        failures.push(`${routePath} is not self-canonical (found ${doc.canonical})`);
         continue;
       }
       if (
@@ -427,9 +489,7 @@ async function main() {
   }
 
   if (failures.length > 0) {
-    throw new Error(
-      `SEO artifact generation failed:\n - ${failures.join("\n - ")}`,
-    );
+    throw new Error(`SEO artifact generation failed:\n - ${failures.join("\n - ")}`);
   }
 
   // Keep a branded genuine-404 document: Netlify automatically serves
@@ -479,9 +539,29 @@ async function main() {
   );
   await fs.writeFile(path.join(clientDir, "_redirects"), renderRedirectsFile());
 
+  const startsWith = (prefix) => (entry) =>
+    new URL(entry.loc).pathname.startsWith(prefix);
+  const serviceEntries = pageEntries.filter(startsWith("/services"));
+  const industryEntries = pageEntries.filter(startsWith("/industry"));
+  const companyEntries = pageEntries.filter(
+    (entry) => !serviceEntries.includes(entry) && !industryEntries.includes(entry),
+  );
+  await fs.writeFile(
+    path.join(clientDir, "llms.txt"),
+    renderLlmsTxt(
+      [
+        { heading: "Company", entries: companyEntries },
+        { heading: "Services", entries: serviceEntries },
+        { heading: "Industries", entries: industryEntries },
+        { heading: "Insights", entries: postEntries },
+      ],
+      docs,
+    ),
+  );
+
   console.log(
     `Wrote sitemap index (${pageEntries.length} pages + ${postEntries.length} posts), ` +
-      `robots.txt, _redirects (${Object.keys(LEGACY_REDIRECTS).length} redirects, ` +
+      `robots.txt, llms.txt, _redirects (${Object.keys(LEGACY_REDIRECTS).length} redirects, ` +
       `${GONE_PATHS.length} gone), and 404.html.`,
   );
 }

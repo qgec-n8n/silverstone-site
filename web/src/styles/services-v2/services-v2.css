@@ -2119,18 +2119,44 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   border-color: color-mix(in srgb, var(--srv2-accent) 40%, transparent);
 }
 
-.ss-srv2-faq__trigger {
-  padding: 1.15rem 1.35rem !important;
-  color: color-mix(in srgb, var(--srv2-accent) 38%, var(--ss-v2-chrome)) !important;
-  font-family: var(--ss-font-display) !important;
-  font-size: 1.02rem !important;
-  font-weight: 600 !important;
+/* The panel is collapsed by CSS rather than unmounted, so every answer stays in
+   the prerendered HTML for search and AI crawlers and backs the FAQPage
+   structured data. See `FaqPanel` in services-v2/components/sections.tsx. */
+
+.ss-srv2-faq__heading {
+  margin: 0;
+  font: inherit;
 }
 
-.ss-srv2-faq__trigger svg {
-  color: var(--srv2-accent);
+.ss-srv2-faq__trigger {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.15rem 1.35rem;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: color-mix(in srgb, var(--srv2-accent) 38%, var(--ss-v2-chrome));
+  font-family: var(--ss-font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.ss-srv2-faq__chevron {
+  flex: none;
   width: 1.2rem;
   height: 1.2rem;
+  margin-block-start: 0.1em;
+  color: var(--srv2-accent);
+  transition: transform var(--ss-motion-duration-base) var(--ss-motion-easing-enter);
+}
+
+.ss-srv2-faq__item[data-state="open"] .ss-srv2-faq__chevron {
+  transform: rotate(180deg);
 }
 
 .ss-srv2-faq__trigger:focus-visible {
@@ -2138,13 +2164,25 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   outline-offset: -3px;
 }
 
-.ss-srv2-faq__item[data-state="open"] .ss-srv2-faq__panel-inner {
-  animation: srv2-faq-open var(--ss-motion-duration-moderate)
+.ss-srv2-faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows var(--ss-motion-duration-moderate)
     var(--ss-motion-easing-enter);
 }
 
+.ss-srv2-faq__item[data-state="open"] .ss-srv2-faq__panel {
+  grid-template-rows: 1fr;
+}
+
+/* The collapsing grid track only zeroes this element's content box, so it must
+   carry no padding of its own — otherwise every closed item keeps its
+   padding-bottom as a visible gap. Spacing therefore sits on the paragraphs,
+   which the `overflow: hidden` above clips away with the rest of the answer. */
 .ss-srv2-faq__panel-inner {
-  padding: 0 1.35rem 1.25rem !important;
+  min-height: 0;
+  overflow: hidden;
   color: color-mix(in srgb, var(--srv2-accent) 12%, var(--srv2-ink-soft));
   font-size: 0.98rem;
   line-height: 1.65;
@@ -2155,16 +2193,17 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
 .ss-srv2-faq__panel-inner p {
   margin: 0;
+  padding-inline: 1.35rem;
 }
 
-@keyframes srv2-faq-open {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+.ss-srv2-faq__panel-inner p:last-child {
+  padding-block-end: 1.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-srv2-faq__panel,
+  .ss-srv2-faq__chevron {
+    transition: none;
   }
 }
 
