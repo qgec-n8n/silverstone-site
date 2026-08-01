@@ -15863,7 +15863,495 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
-  // N8N_BLOG_POSTS_END
+    {
+    slug: "automate-lead-qualification",
+    title: "How to Automate Lead Qualification",
+    subtitle:
+      "A practical decision framework for UK SME sales teams that want faster routing without losing judgement, consent controls or CRM discipline.",
+    summary: [
+      "Automate repeatable, low-consequence qualification tasks; retain human review for ambiguity and commercial judgement.",
+      "Build consent, ownership, capacity, data validation and override controls into the workflow from the start.",
+      "Pilot one narrow route, measure exceptions and decision quality, then expand only when the operating model is stable.",
+    ],
+    categoryLabel: "AI Automation",
+    categoryKey: "ai-automation",
+    categoryId: "ai-automation",
+    categoryOrder: 5,
+    displayDate: "1 August 2026",
+    publishedIsoDate: "2026-08-01T09:17:29.037Z",
+    updatedIsoDate: "2026-08-01T09:17:29.037Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/automate-lead-qualification-hero.webp",
+    heroImageAlt:
+      "Premium editorial illustration of a controlled lead-routing workflow, with an enquiry moving through three distinct decision paths towards a human review desk.",
+    metaTitle: "How to Automate Lead Qualification | UK SME Guide",
+    metaDescription:
+      "Learn how to automate lead qualification with explainable rules, consent checks, CRM data controls and human review paths for UK SME sales teams.",
+    primaryKeyword: "How to Automate Lead Qualification",
+    secondaryKeywords: [
+      "automated lead qualification",
+      "lead scoring automation",
+      "CRM lead routing",
+      "AI sales workflow automation",
+      "lead qualification workflow",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "Lead qualification should be automated where the decision is repeatable, the data is trustworthy and the consequence of a wrong decision is low. Keep people involved where context, commercial judgement, consent uncertainty or an exception could materially affect a prospect or the business.,For most UK SME teams, the first useful workflow is not an autonomous sales agent. It is a controlled system that captures an enquiry, checks required fields and permitted contact rules, applies transparent qualification criteria, routes clear cases to an owner and sends ambiguous cases to a named review queue.",
+        ],
+      },
+      {
+        heading:
+          "Why lead qualification breaks when ownership and criteria are unclear",
+        body: [
+          "A lead can be technically ‘qualified’ yet still sit untouched if no one owns the next action. Equally, a sales team can be busy with enquiries that were never suitable for the offer. These are operating-model problems before they are automation problems.",
+          "Start by defining the decision your workflow must make. Is it deciding whether an enquiry is complete, whether it fits a target segment, who should respond, or whether a person should review it? Combining all four into one opaque score makes errors harder to diagnose.",
+          "Use observable rules before inferred intent. A completed service area, stated budget range or requested appointment can be checked. A vague AI judgement that someone is ‘high intent’ should not alone decide whether they are contacted, rejected or deprioritised.",
+        ],
+        lede:
+          "Automation exposes unclear sales operations. It cannot reliably resolve them.",
+        pullQuote: "A fast route to the wrong owner is not a qualification win.",
+        bullets: [
+          {
+            body:
+              "Every route needs a named team, queue or individual responsible for accepting or correcting it.",
+            label: "One accountable owner",
+          },
+          {
+            body:
+              "Sales and operations should agree the minimum evidence needed before a lead is treated as ready.",
+            label: "A shared definition of qualified",
+          },
+          {
+            body:
+              "Conflicts, missing fields, duplicate records and unusual requests should not disappear into an automated sequence.",
+            label: "A visible exception path",
+          },
+        ],
+        callout: {
+          body: [
+            "Automate the administrative and evidence-based parts of qualification first: capture, validation, deduplication checks, enrichment review, score calculation, routing and acknowledgements. Put a human review point before sensitive outreach, ambiguous rejection, commercial approval or any decision based on incomplete or conflicting data.",
+          ],
+          tone: "answer",
+          title: "The direct answer",
+        },
+      },
+      {
+        heading:
+          "Which parts of lead qualification are safe to automate and which need human review",
+        body: [
+          "Deloitte identifies lead qualification and CRM automation as use cases for AI support, including data validation and routine CRM record-keeping. That is a sensible starting point for SMEs: reduce repetitive handling while keeping sales expertise focused on the conversations and decisions that carry context.",
+          "AETHUS similarly frames sales automation as augmentation rather than replacement, with human review appropriate around qualification notes, proposal tailoring and commercial approvals. Treat this as an operating principle, not a temporary compromise.",
+        ],
+        lede:
+          "The dividing line is not whether AI can produce an answer; it is whether the organisation can safely act on that answer without further judgement.",
+        grid: [
+          {
+            body:
+              "Create or update a CRM record; standardise format; check mandatory fields; identify obvious duplicates; calculate a published score; assign a queue using territory or capacity rules; acknowledge receipt; and create a task with a deadline.",
+            title: "Usually suitable for controlled automation",
+          },
+          {
+            body:
+              "Interpret complex free text; decide whether an unusual prospect is strategically valuable; resolve conflicting account ownership; approve pricing or terms; determine whether outreach is appropriate when permission is unclear; and handle complaints or sensitive circumstances.",
+            title: "Usually needs a human decision",
+          },
+          {
+            body:
+              "Summarise an enquiry, suggest a category, flag missing evidence, propose an owner or draft a reply. The system can assist, but a person should confirm the consequential action.",
+            title: "Use automation with a review gate",
+          },
+        ],
+        callout: {
+          body: [
+            "A false positive can waste sales time. A false negative can hide a viable opportunity. Until your team has reviewed enough borderline cases, route them to review rather than automatically rejecting or suppressing them.",
+          ],
+          tone: "caution",
+          title: "Do not automate rejection by default",
+        },
+        subsections: [
+          {
+            heading: "A three-lane qualification decision",
+            body: [
+              "Use three outcomes rather than a binary pass-or-fail rule: automatic route for clear, complete cases; human review for uncertainty or exceptions; and hold for records that cannot yet be actioned. The hold lane should say what evidence is missing and who resolves it.",
+            ],
+          },
+        ],
+      },
+      {
+        heading:
+          "How to design qualification rules, consent checks and escalation paths",
+        body: [
+          "Write qualification rules in plain language before building them in a CRM or automation platform. For each rule, record the source field, the accepted values, the action, the owner and what happens when the value is absent or contradictory.",
+          "Edilec’s CRM automation guidance usefully highlights guardrails around lead assignment, consent, frequency, exit rules, capacity and account-owner review. These controls matter because a technically successful workflow can still create poor customer experience if its routing or messaging is inappropriate.",
+          "For consent and permitted-purpose checks, use your organisation’s agreed policy and obtain appropriate privacy or legal advice where needed. This article is general operational information, not legal advice. Do not assume that an email address, a form completion or a third-party data point automatically permits every follow-up action.",
+        ],
+        lede:
+          "A dependable workflow is explicit about inputs, decisions, action and recovery when the data does not support a decision.",
+        scorecard: {
+          options: ["Automatic route", "Human review queue", "Hold and request evidence"],
+          rows: [
+            {
+              cells: [
+                "Yes, where all required values pass validation",
+                "Use where one field is unclear or conflicting",
+                "Use where essential evidence is absent",
+              ],
+              criterion: "Required contact and qualification fields are complete",
+              weight: "30%",
+            },
+            {
+              cells: [
+                "Yes, only for actions approved by that policy",
+                "Use where the record needs interpretation",
+                "Use where the basis is unknown",
+              ],
+              criterion:
+                "Contact and communication basis is confirmed under your policy",
+              weight: "25%",
+            },
+            {
+              cells: [
+                "Route to the nominated owner or queue",
+                "Resolve territory, conflict or capacity exception",
+                "Hold where no responsible queue exists",
+              ],
+              criterion: "Account ownership and capacity are unambiguous",
+              weight: "20%",
+            },
+            {
+              cells: [
+                "Use for clear matches supported by recorded fields",
+                "Use for borderline or unusual cases",
+                "Use where the score cannot be explained",
+              ],
+              criterion: "Fit against agreed, explainable criteria",
+              weight: "15%",
+            },
+            {
+              cells: [
+                "Appropriate for low-consequence, reversible actions",
+                "Appropriate for material or sensitive outcomes",
+                "Appropriate where action could create avoidable risk",
+              ],
+              criterion: "Potential impact of a wrong decision",
+              weight: "10%",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "If an AI component suggests a category or summary, preserve the source data and the suggested rationale. A low-confidence or unsupported suggestion belongs in review, not in an automatic outreach path.",
+          ],
+          tone: "assumption",
+          title: "Use confidence as a routing signal, not a claim of truth",
+        },
+      },
+      {
+        heading: "How CRM data quality affects routing, scoring and follow-up",
+        body: [
+          "If this checklist reveals widespread gaps, pause the scoring project and fix the underlying record design first. The guide to [selecting workflow automation](/blog/workflow-automation-selection-guide) can help separate a process issue from a tooling issue, while our [AI automation service](/services/ai-automation) is relevant where a workflow needs bespoke integration and controls.",
+        ],
+        lede:
+          "A workflow can only be as reliable as the records and definitions it receives.",
+        checklist: {
+          items: [
+            {
+              label: "Define the minimum record",
+              detail:
+                "List the fields needed to route, review or hold a lead, along with accepted formats and owners.",
+            },
+            {
+              label: "Check duplicates and identity conflicts",
+              detail:
+                "Specify whether matching email, company name, phone number or account relationship creates a review case.",
+            },
+            {
+              label: "Protect source and audit information",
+              detail:
+                "Retain original enquiry content, source, timestamps and meaningful changes to qualification status.",
+            },
+            {
+              label: "Set lifecycle definitions",
+              detail:
+                "Make stages such as new, reviewed, accepted, disqualified and nurture operationally distinct.",
+            },
+            {
+              label: "Test suppression and exit behaviour",
+              detail:
+                "Confirm that opt-outs, account changes and closed cases stop inappropriate automated follow-up.",
+            },
+            {
+              label: "Give people an override",
+              detail:
+                "Allow authorised users to correct a score, owner or status, with a reason recorded for learning.",
+            },
+          ],
+          title: "CRM readiness checklist before switching on routing",
+        },
+      },
+      {
+        heading:
+          "A practical rollout plan for a first automated qualification workflow",
+        body: [
+          "For a structured discovery and delivery approach, see [how Silverstone AI works](/how-we-work). If you are still deciding where automation belongs in a wider operating model, [small-business AI automation](/blog/small-business-ai-automation) offers useful context.",
+        ],
+        lede:
+          "Pilot one narrow, observable decision before expanding to more channels, scores or AI-assisted actions.",
+        steps: [
+          {
+            body:
+              "Capture source, fields, qualification criteria, hand-off, follow-up expectation and exception handling. Identify the decision that currently causes the most delay or inconsistency.",
+            title: "Document the current path",
+            label: "Phase 1 — Map",
+          },
+          {
+            body:
+              "Set mandatory fields, permitted actions, routing logic, capacity and conflict rules. Name the reviewers and define service expectations for their queue.",
+            title: "Build transparent rules and queues",
+            label: "Phase 2 — Design",
+          },
+          {
+            body:
+              "Check whether the workflow reaches the intended route and whether people can understand, correct and recover from each outcome.",
+            title: "Run against historical or supervised live cases",
+            label: "Phase 3 — Test",
+          },
+          {
+            body:
+              "Use one source or segment first. Review overrides, holds, duplicate patterns and contact-related exceptions frequently.",
+            title: "Limit scope and monitor exceptions",
+            label: "Phase 4 — Pilot",
+          },
+          {
+            body:
+              "Extend to new sources or assisted classification once the original route is stable and the team can maintain its rules.",
+            title: "Add only validated decisions",
+            label: "Phase 5 — Expand",
+          },
+        ],
+        callout: {
+          body: [
+            "Give reviewers a short evidence view, a clear choice of actions and a required reason for overrides. Those reasons become the best input for refining rules, forms and training data.",
+          ],
+          tone: "recommendation",
+          title: "Make the review queue a product, not a dumping ground",
+        },
+      },
+      {
+        heading: "What to measure before expanding the system",
+        body: [
+          "For a grounded conversation about scope and cost assumptions, review [AI automation cost considerations](/blog/ai-automation-cost-audit) and [calculating AI automation ROI](/blog/calculate-ai-automation-roi-uk). When you have mapped one workflow worth testing, [book a discovery conversation](/book#booking-calendar) to discuss a controlled pilot rather than a wholesale replacement.",
+        ],
+        lede:
+          "Measure decision quality and operational control, not just the number of leads processed.",
+        bullets: [
+          {
+            body:
+              "How long it takes for a clear lead to reach, and be accepted by, the right owner.",
+            label: "Routing timeliness",
+          },
+          {
+            body:
+              "The share of leads entering review, their age and the reasons they could not be resolved automatically.",
+            label: "Review burden",
+          },
+          {
+            body:
+              "A regular human comparison of automated outcomes with the evidence available at the time.",
+            label: "Decision accuracy through sampling",
+          },
+          {
+            body:
+              "Missing required fields, duplicate conflicts, invalid formats and unactionable records by source.",
+            label: "Data-health trend",
+          },
+        ],
+        callout: {
+          body: [
+            "The available sources support automation for routine CRM handling, validation and structured routing, with guardrails for consent, capacity, conflicts and escalation. They do not establish a universal scoring threshold, false-positive benchmark or guaranteed financial outcome.",
+          ],
+          tone: "evidence",
+          title: "What the supplied evidence supports",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Research checked",
+              value: "1 August 2026",
+              note:
+                "Supplied current research was assessed across AETHUS, Edilec, Deloitte and User.com.",
+            },
+            {
+              label: "Ownership measure",
+              value: "Time to accepted ownership",
+              note:
+                "Track from lead arrival to explicit acceptance by the responsible person or queue.",
+            },
+            {
+              label: "Quality measure",
+              value: "Override and exception reasons",
+              note:
+                "Review why people changed scores, owners or statuses; counts alone do not explain the problem.",
+            },
+            {
+              label: "Customer-impact measure",
+              value: "Complaint and opt-out signals",
+              note:
+                "Monitor alongside lifecycle messaging and follow-up activity under your own policy.",
+            },
+          ],
+          title: "Evidence and measurement starting points",
+        },
+      },
+    ],
+    faqs: [
+      {
+        question: "Can AI qualify leads without a sales person?",
+        answer:
+          "AI can support structured qualification, CRM updates, data checks and suggested categorisation. A sales person or designated reviewer should remain responsible for ambiguous, sensitive, commercially material or policy-dependent decisions.",
+      },
+      {
+        question: "What is the first lead-qualification workflow to automate?",
+        answer:
+          "Start with a narrow, repeatable route such as a standard web enquiry: validate required fields, identify obvious duplicates, apply published fit rules, assign a clear owner and send exceptions to review.",
+      },
+      {
+        question:
+          "How do we prevent automated lead scoring from creating bad follow-up?",
+        answer:
+          "Keep the score explainable, retain source data, test consent and suppression behaviour, use capacity and ownership rules, sample outcomes with human reviewers and record override reasons.",
+      },
+      {
+        question: "Should we buy a tool before mapping the process?",
+        answer:
+          "Usually no. First define the lead stages, inputs, owners, exceptions and desired measures. That makes it easier to judge whether existing CRM automation is sufficient or whether bespoke integration is justified.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "selecting workflow automation",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+      {
+        label: "small-business AI automation",
+        href: "/blog/small-business-ai-automation",
+      },
+      {
+        label: "AI automation cost considerations",
+        href: "/blog/ai-automation-cost-audit",
+      },
+      {
+        label: "calculating AI automation ROI",
+        href: "/blog/calculate-ai-automation-roi-uk",
+      },
+    ],
+    researchSources: [
+      {
+        title:
+          "Sales workflow automation guides for improving team collaboration | Sera",
+        url:
+          "https://blog.seraleads.com/kb/optimized-sales-workflows/sales-workflow-automation-guides",
+        domain: "blog.seraleads.com",
+        verifiedAt: "2026-08-01T09:15:39.819Z",
+        publishedDate: "",
+        summary:
+          "### 1. Lead qualification and scoring Manual lead scoring is inconsistent and time-consuming. Automating this process ensures your team focuses on prospects most likely to convert. Implementation tip: Set up automated lead scoring based on prospect behaviors like pricing guide downloads or website visits. LinkedIn CRM sync can further enhance this by bringing social engagement data into your scoring model, giving you a more holistic view of prospect intent. UK SaaS companies using HubSpot’s automated lead scoring have reported qualification times reduced by up to 30%. This means your sales team spends time talking to the right prospects, not ",
+        matchedTerms: ["automate", "lead", "qualification", "why", "when", "are", "need", "human"],
+      },
+      {
+        title: "Sales process automation UK mid-sized businesses | AETHUS",
+        url:
+          "https://aethus.co.uk/posts/automating-sales-processes-enhancing-efficiency-for-uk-mid-sized-businesses",
+        domain: "aethus.co.uk",
+        verifiedAt: "2026-08-01T09:15:39.820Z",
+        publishedDate: "",
+        summary:
+          "Secondly, improved customer relationship management. Automated sales workflows UK enforce consistent engagement: every new enquiry receives timely acknowledgment, every qualified lead enters the right sequence, and every renewal receives a reminder before the date. This steadiness builds trust and reduces missed opportunities. Dynamic segmentation and trigger-based messaging keep content relevant without spamming. Crucially, automation should augment, not replace, your team. Human-in-the-loop reviews at key stages—qualification notes, proposal tailoring, commercial approvals—ensure context and judgement stay central while the system handles p",
+        matchedTerms: ["lead", "qualification", "when", "are", "which", "human", "rules", "crm"],
+      },
+      {
+        title: "7 AI Sales Automation Workflows That Closed £2.4M for UK SMBs",
+        url: "https://factoryjet.com/blog/sales-automation-ai-uk-smbs-workflows",
+        domain: "factoryjet.com",
+        verifiedAt: "2026-08-01T09:15:39.820Z",
+        publishedDate: "",
+        summary:
+          "17 Sales Automation Tools UK SMBs Actually Use in 2026 (Ranked by ROI)UK SMBs report the highest ROI from CRM-native automation (HubSpot, Pipedrive), followed by email sequencing tools and AI voice agents that handle qualification calls. This ranking reflects real adoption data from 500+ UK businesses, weighted by payback period and revenue impact per £ spent. Best Sales Automation for Small Business UK: 2026 Buyer's Guide (HubSpot vs Zoho vs Custom AI)UK small businesses choosing sales automation in 2026 face three paths: HubSpot (£40-£400/mo, enterprise features), Zoho (£12-£40/mo, value leader), or custom AI agents (£3,000+ upfront, zero r",
+        matchedTerms: ["lead", "qualification", "ownership", "are", "review", "rules", "paths", "crm"],
+      },
+      {
+        title: "Sales Pipeline Automation",
+        url:
+          "https://www.linkedin.com/top-content/sales/sales-pipeline-management/sales-pipeline-automation",
+        domain: "linkedin.com",
+        verifiedAt: "2026-08-01T09:15:39.820Z",
+        publishedDate: "",
+        summary:
+          "We automate 90% of our repetitive tasks or GTM motions. And honestly, it's the only reason we can move this fast Most of us are doing manual work… Copywriting, following up, building lists. We used to do that too. Then we asked… \"what if we only touched things that actually need a human?\" So, here's what we automate: 1️⃣ Lead & Account Enrichment → Clay auto-enriches companies & contacts with firmographics, tech stack, and intent signals. 2️⃣ ICP Qualification & Scoring → Clearbit/Clay score accounts automatically based on size, industry, and buying signals. 3️⃣ CRM Hygiene → HubSpot auto-deduplicates records, standardizes fields, and keeps p",
+        matchedTerms: ["automate", "lead", "qualification", "are", "need", "human", "rules", "crm"],
+      },
+      {
+        title: "CRM Automation: A Plain-Language Guide to... | Edilec Blog",
+        url:
+          "https://edilec.com/blog/km-ent-0142/the-plain-language-guide-to-crm-automation",
+        domain: "edilec.com",
+        verifiedAt: "2026-08-01T09:15:39.820Z",
+        publishedDate: "",
+        summary:
+          "| CRM automation example | Useful trigger | Required guardrail | Outcome measure | --- --- | | Lead assignment | Qualified event with complete territory data | Conflict and capacity rule | Time to accepted ownership | | Renewal reminder | Contract window and active relationship | Suppression and account-owner review | On-time renewal action | | Case escalation | Severity or elapsed-time threshold | Named queue and acknowledgement | Time to qualified response | | Lifecycle message | Verified behavior and permitted purpose | Consent, frequency and exit rules | Customer action and complaint rate | | Record enrichment | Trusted source update | Fi",
+        matchedTerms: ["how", "lead", "ownership", "are", "which", "human", "review", "design"],
+      },
+      {
+        title: "AI use cases by industry, function and type | Deloitte Global",
+        url: "https://www.deloitte.com/global/en/issues/ai/ai-use-cases.html",
+        domain: "deloitte.com",
+        verifiedAt: "2026-08-01T09:15:39.820Z",
+        publishedDate: "",
+        summary:
+          "##### How AI can help Prospecting and research support An AI-based business development representative (BDR) agent can research prospects, prepare initial pitch materials, and draft outreach communications, helping to provide consistent and timely engagement. Lead qualification and CRM automation Specialized AI agents can automatically update CRM systems, validate customer data, and handle routine record-keeping, reducing errors and freeing sales staff for higher-value activities. Account executive (AE) enablement An account executive AI agent can support the next stage of the sales process by preparing detailed materials, assisting with live",
+        matchedTerms: ["how", "lead", "qualification", "crm", "data"],
+      },
+      {
+        title: "User.com: Mastering Sales Workflow Automation",
+        url: "https://www.user.com/blog/best-practices-sales-workflow-automations",
+        domain: "user.com",
+        verifiedAt: "2026-08-01T09:15:39.820Z",
+        publishedDate: "",
+        summary:
+          "### Frequently Asked Questions #### Q: Does automation replace human sales reps? A: No. Automation can reduce the need for human workers in repetitive administrative tasks, but it does not replace the need for human expertise in sales. It allows humans to focus on high-value activities like strategy and creative production. #### Q: What is the best automation tool for SMEs? A: Positive User is highly recommended for its robust features and visual workflow builders at an affordable price point. #### Q: How long does it take to see ROI? A: Most companies see a return on investment within 6 to 9 months, depending on data quality and strategy ‍ #",
+        matchedTerms: ["how", "automate", "lead", "parts", "need", "human", "crm", "data"],
+      },
+      {
+        title: "AI Marketing Automation: How It Works & What to Look For",
+        url: "https://www.marketingmary.ai/blog/ai-marketing-automation-guide",
+        domain: "marketingmary.ai",
+        verifiedAt: "2026-08-01T09:15:39.820Z",
+        publishedDate: "",
+        summary:
+          "Key Takeaway AI marketing automation goes beyond scheduling emails. The highest-performing SME teams use it to unify fragmented tool stacks, score leads with 70–85% accuracy, and produce 3× more content without adding headcount. The ROI compounds: teams that automate routine tasks redirect 30–60 hours weekly toward strategy, competitive analysis, and creative work that AI cannot replicate. Return per £1 Invested Across marketing automation deployments 451% Increase in Qualified Leads Vs manual lead management 88% Marketers Using AI In at least one marketing function 30–60 hrs Weekly Time Reclaimed From routine task automation Sources: Nucleus",
+        matchedTerms: ["how", "automate", "lead", "need", "consent", "data", "scoring", "automated"],
+      },
+    ],
+    imagePrompt:
+      "Create an original premium editorial hero image, 1536x864 WebP composition. A commercially plausible, futuristic lead-qualification operations scene viewed from a refined elevated angle: a central physical translucent routing table with three clearly different illuminated pathways represented only by abstract colour and form, flowing from small neutral enquiry tokens towards an organised review station, a secure archive tray and a sales hand-off tray. Include one small, natural human operations team in the mid-ground collaboratively reviewing a tangible folder and tablet, with realistic proportions and no distorted hands. The central routing table must remain fully visible in a 9:16 centre crop. Use warm ivory, graphite, brushed metal, muted cobalt and restrained amber light; sophisticated editorial photography-meets-architectural-diagram aesthetic. No readable text, letters, numbers, logos, dashboards, fake statistics, generic robots, floating UI walls, dark office scene, single right-side operator, meaningless network graphics or uncanny faces.",
+    ctaPrimary: {
+      label: "Assess your automation readiness",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Decision Framework",
+      fingerprint: "Decision Framework|operational-symptom|6|decision-guide",
+    },
+  },
+// N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
