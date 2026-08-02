@@ -146,12 +146,34 @@ export type SilverstoneBlogPresentation = {
   fingerprint?: string;
 };
 
+/*
+ * One cited research source, as recorded by the publishing automation.
+ *
+ * Two generations of workflow write this record and both remain in the data:
+ * the earlier posts carry `date` + `relevance`, while the current search-led
+ * and service-and-industry publish payloads carry the verification fields
+ * instead — `domain`, `verifiedAt`, `publishedDate` and `matchedTerms`, which
+ * record where a source came from, when the URL was last confirmed reachable,
+ * and which query terms it matched. Only `title`, `url` and `summary` are
+ * written by every generation, so everything else is optional and neither
+ * generation's posts fail the type.
+ *
+ * These sources are provenance, not presentation: nothing renders
+ * `researchSources`, so adding a field here has no runtime or markup effect.
+ * Keep this type in step with the publish payload builders — an unlisted field
+ * fails `npm run typecheck` on the next publish, and TypeScript names only the
+ * first unknown property per source, which hides any others behind it.
+ */
 export type SilverstoneBlogSource = {
   date?: string;
+  domain?: string;
+  matchedTerms?: string[];
+  publishedDate?: string;
   relevance?: string;
   summary?: string;
   title: string;
   url: string;
+  verifiedAt?: string;
 };
 
 export type SilverstoneBlogPost = {
