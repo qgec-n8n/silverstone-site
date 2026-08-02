@@ -73,6 +73,34 @@ describe("InsightsBoard", () => {
     expect(hoverGrid).not.toHaveAttribute("data-card-hover-active");
   });
 
+  it("keeps the keyboard-focused card lit until the pointer really moves", () => {
+    const { container } = renderBoard();
+    const grid = container.querySelector<HTMLElement>(".ss-card-hover-effect");
+    const items = container.querySelectorAll<HTMLElement>("[data-card-hover-id]");
+    const hoverGrid = required(grid, "Expected the Aceternity hover grid");
+    const first = required(items.item(0), "Expected a first hover item");
+    const second = required(items.item(1), "Expected a second hover item");
+    const firstId = required(first.dataset.cardHoverId, "Expected a stable first ID");
+    const secondId = required(
+      second.dataset.cardHoverId,
+      "Expected a stable second ID",
+    );
+    const parked = { clientX: 240, clientY: 320, pointerType: "mouse" };
+
+    fireEvent.pointerOver(second, parked);
+    expect(hoverGrid).toHaveAttribute("data-card-hover-active", secondId);
+
+    fireEvent.focus(within(first).getByRole("link"));
+    /* Focusing scrolls the card into view, so the browser re-dispatches
+       `pointerover` for whatever now sits under the unmoved cursor. Those
+       repeat coordinates must not steal the surface back from the keyboard. */
+    fireEvent.pointerOver(second, parked);
+    expect(hoverGrid).toHaveAttribute("data-card-hover-active", firstId);
+
+    fireEvent.pointerMove(second, { ...parked, clientX: 268 });
+    expect(hoverGrid).toHaveAttribute("data-card-hover-active", secondId);
+  });
+
   it("filters by category without changing article IDs or destinations", () => {
     const { container } = renderBoard();
     const category = INSIGHT_CATEGORIES.find((candidate) =>
