@@ -1,4 +1,10 @@
-import { useState, type FocusEvent, type PointerEvent, type ReactNode } from "react";
+import {
+  useRef,
+  useState,
+  type FocusEvent,
+  type PointerEvent,
+  type ReactNode,
+} from "react";
 import { AnimatePresence, useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 
@@ -26,6 +32,15 @@ function itemIdFromTarget(target: EventTarget | null): string | null {
   return itemFromTarget(target)?.dataset.cardHoverId ?? null;
 }
 
+type PointerPosition = { x: number; y: number };
+
+function isSamePosition(
+  previous: PointerPosition | null,
+  next: PointerPosition,
+): boolean {
+  return previous !== null && previous.x === next.x && previous.y === next.y;
+}
+
 /**
  * Aceternity's Card Hover Effect adapted for arbitrary, semantic card content.
  * One grid-level listener moves a shared surface by stable item ID and mirrors
@@ -39,6 +54,14 @@ export function CardHoverEffect({
 }: CardHoverEffectProps) {
   const reduceMotion = useReducedMotion() ?? false;
   const [activeId, setActiveId] = useState<string | null>(null);
+  /* Moving focus scrolls the newly focused card into view, which slides other
+     cards under a stationary cursor; the browser then re-dispatches
+     `pointerover` for whichever card the mouse now happens to sit on. That
+     re-dispatch carries the unchanged cursor coordinates, so remembering the
+     last pointer position — and who last claimed the surface — lets keyboard
+     focus keep the surface until the mouse is genuinely moved again. */
+  const lastPointerRef = useRef<PointerPosition | null>(null);
+  const surfaceOwnerRef = useRef<"focus" | "pointer">("pointer");
   const resolvedActiveId =
     activeId && items.some((item) => item.id === activeId) ? activeId : null;
 
@@ -46,6 +69,15 @@ export function CardHoverEffect({
     if (event.pointerType !== "mouse" && event.pointerType !== "pen") {
       return;
     }
+    const position = { x: event.clientX, y: event.clientY };
+    if (
+      surfaceOwnerRef.current === "focus" &&
+      isSamePosition(lastPointerRef.current, position)
+    ) {
+      return;
+    }
+    lastPointerRef.current = position;
+    surfaceOwnerRef.current = "pointer";
     setActiveId(itemIdFromTarget(event.target));
   }
 
@@ -57,6 +89,15 @@ export function CardHoverEffect({
       return;
     }
     const item = itemFromTarget(event.target);
+    const position = { x: event.clientX, y: event.clientY };
+    /* A real mouse move is what hands the surface back to the pointer. */
+    if (!isSamePosition(lastPointerRef.current, position)) {
+      lastPointerRef.current = position;
+      if (surfaceOwnerRef.current === "focus") {
+        surfaceOwnerRef.current = "pointer";
+        setActiveId(item?.dataset.cardHoverId ?? null);
+      }
+    }
     if (!item) {
       return;
     }
@@ -72,15 +113,28 @@ export function CardHoverEffect({
   }
 
   function handleFocus(event: FocusEvent<HTMLDivElement>) {
+    surfaceOwnerRef.current = "focus";
     setActiveId(itemIdFromTarget(event.target));
   }
 
   function handleBlur(event: FocusEvent<HTMLDivElement>) {
+    /* Focus keeps the surface through the blur too: tabbing out of the grid
+       scrolls as well, and the parked cursor must not light a card back up. */
+    surfaceOwnerRef.current = "focus";
     if (!event.currentTarget.contains(event.relatedTarget)) {
       setActiveId(null);
       return;
     }
     setActiveId(itemIdFromTarget(event.relatedTarget));
+  }
+
+  function handlePointerLeave() {
+    /* Same scroll, other direction: the grid can slide out from under a parked
+       cursor, and that leave must not cancel the focused card's surface. */
+    if (surfaceOwnerRef.current === "focus") {
+      return;
+    }
+    setActiveId(null);
   }
 
   return (
@@ -89,7 +143,7 @@ export function CardHoverEffect({
       data-card-hover-active={resolvedActiveId ?? undefined}
       onBlurCapture={handleBlur}
       onFocusCapture={handleFocus}
-      onPointerLeave={() => setActiveId(null)}
+      onPointerLeave={handlePointerLeave}
       onPointerMove={handlePointerMove}
       onPointerOver={handlePointerOver}
     >
