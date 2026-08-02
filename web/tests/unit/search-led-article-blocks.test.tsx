@@ -7,7 +7,11 @@ import {
   AppExperienceProvider,
   useAppExperience,
 } from "~/app/experience/app-experience";
-import { PUBLISHED_BLOG_POSTS, type SilverstoneBlogPost } from "~/data/blog-posts";
+import {
+  PUBLISHED_BLOG_POSTS,
+  type SilverstoneBlogPost,
+  type SilverstoneBlogSection,
+} from "~/data/blog-posts";
 import { MotionProvider } from "~/motion";
 import { ArticlePage } from "~/routes/templates/article-page";
 
@@ -32,6 +36,20 @@ function renderArticle(post: SilverstoneBlogPost) {
       </MotionProvider>
     </MemoryRouter>,
   );
+}
+
+/**
+ * Every section in a post, subsections included. A subsection renders the same
+ * search-led blocks as its parent, so a guard that only walked the top level
+ * would miss a back-fill one level down.
+ */
+function flattenSections(
+  sections: SilverstoneBlogSection[],
+): SilverstoneBlogSection[] {
+  return sections.flatMap((section) => [
+    section,
+    ...flattenSections(section.subsections ?? []),
+  ]);
 }
 
 /** A minimal post carrying only the fields every article has always carried. */
@@ -109,11 +127,29 @@ describe("search-led presentation blocks", () => {
     ).toBe(null);
   });
 
-  it("leaves every already-published post free of search-led blocks", () => {
-    // Guards against a future edit accidentally back-filling presentation data
-    // onto the existing catalogue.
-    for (const post of PUBLISHED_BLOG_POSTS) {
-      for (const section of post.articleBody) {
+  it("leaves posts without a presentation family free of search-led blocks", () => {
+    /*
+     * Guards against a future edit accidentally back-filling presentation data
+     * onto the catalogue written before the search-led stream existed.
+     *
+     * A post is search-led exactly when the automation stamped it with a
+     * presentation family; those posts are *supposed* to carry these blocks, so
+     * they are excluded here. This originally asserted over the whole
+     * catalogue, which was correct only while no search-led article had been
+     * published yet.
+     *
+     * Only this direction is asserted. A family does not imply search-led
+     * blocks: a "Comparison Matrix" article can express its comparison through
+     * the older `comparisonTable` block and legitimately carry none of these.
+     */
+    const legacyPosts = PUBLISHED_BLOG_POSTS.filter(
+      (post) => !post.presentation?.family,
+    );
+    // A filter that matched nothing would leave this guard silently vacuous.
+    expect(legacyPosts.length).toBeGreaterThan(0);
+
+    for (const post of legacyPosts) {
+      for (const section of flattenSections(post.articleBody)) {
         expect(section.rankedCards, post.slug).toBeUndefined();
         expect(section.promptBlocks, post.slug).toBeUndefined();
         expect(section.scorecard, post.slug).toBeUndefined();
