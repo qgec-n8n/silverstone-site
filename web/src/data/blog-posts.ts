@@ -146,12 +146,22 @@ export type SilverstoneBlogPresentation = {
   fingerprint?: string;
 };
 
+/**
+ * Research citation emitted by the blog automation. Two generations of the
+ * automation are represented in the data: the older shape carries `date` and
+ * `relevance`, the newer one carries `domain`, `verifiedAt`, `publishedDate`
+ * and `matchedTerms`. Every field except `title`/`url` is therefore optional.
+ */
 export type SilverstoneBlogSource = {
   date?: string;
+  domain?: string;
+  matchedTerms?: string[];
+  publishedDate?: string;
   relevance?: string;
   summary?: string;
   title: string;
   url: string;
+  verifiedAt?: string;
 };
 
 export type SilverstoneBlogPost = {
