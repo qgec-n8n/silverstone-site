@@ -1,0 +1,5 @@
+# Generated data. The n8n blog automation appends article objects between the
+# N8N_BLOG_POSTS_START / N8N_BLOG_POSTS_END markers as raw text rather than
+# Prettier output, so every publish would otherwise fail `npm run format:check`
+# and block `npm run verify` at its first step.
+src/data/blog-posts.ts
