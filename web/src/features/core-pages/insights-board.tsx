@@ -19,12 +19,37 @@ import {
 
 type FilterId = "all" | (string & {});
 
+/**
+ * The search box and the category pills answer the same question, so they read
+ * the same fields. Matching only title and summary meant typing a category name
+ * — "dentists", "consulting", "voice agents" — returned nothing unless the words
+ * happened to appear in a headline, even while a pill for that exact category
+ * sat next to the box. The category label and the post's own keywords are part
+ * of the haystack for that reason.
+ */
+function normaliseForSearch(value: string): string {
+  // "AI & Automation Consulting" is the label on the pill, but nobody types the
+  // ampersand, so both sides of the comparison spell it out.
+  return value.toLowerCase().replace(/&/g, " and ").replace(/\s+/g, " ").trim();
+}
+
+function articleHaystack(article: InsightArticle): string {
+  return normaliseForSearch(
+    [
+      article.title,
+      ...article.summary,
+      insightArticleCategoryLabel(article),
+      ...(article.keywords ?? []),
+    ].join(" "),
+  );
+}
+
 function matchesQuery(article: InsightArticle, query: string): boolean {
   if (!query) {
     return true;
   }
-  const haystack = `${article.title} ${article.summary.join(" ")}`.toLowerCase();
-  return haystack.includes(query);
+
+  return articleHaystack(article).includes(query);
 }
 
 function articlePublishedTime(article: InsightArticle): number {
@@ -118,7 +143,7 @@ export function InsightsBoard() {
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterId>("all");
 
-  const normalizedQuery = query.trim().toLowerCase();
+  const normalizedQuery = normaliseForSearch(query);
   const filtered = useMemo(
     () =>
       INSIGHT_ARTICLES.filter(

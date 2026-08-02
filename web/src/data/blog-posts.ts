@@ -16685,6 +16685,7 @@ export const BLOG_CARD_ARTICLES: InsightArticle[] = PUBLISHED_BLOG_POSTS.map(
     href: `/blog/${post.slug}`,
     imageAlt: post.heroImageAlt,
     imageSrc: post.heroImage,
+    keywords: [post.primaryKeyword, ...post.secondaryKeywords].filter(Boolean),
     publishedIsoDate: post.publishedIsoDate || post.updatedIsoDate,
     publishedDate: post.displayDate,
     status: "published",

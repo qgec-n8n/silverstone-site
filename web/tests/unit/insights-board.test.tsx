@@ -99,6 +99,69 @@ describe("InsightsBoard", () => {
     }
   });
 
+  it("searches the category label, so a pill name typed into the box matches", () => {
+    // The pills and the box answer the same question. Searching only title and
+    // summary meant a category name returned nothing while a pill for that
+    // exact category sat beside the box.
+    const category = required(
+      INSIGHT_CATEGORIES.find((candidate) =>
+        INSIGHT_ARTICLES.some((article) => article.categoryId === candidate.id),
+      ),
+      "Expected a populated category",
+    );
+
+    renderBoard();
+    fireEvent.change(
+      screen.getByRole("searchbox", {
+        name: /search insights by title or topic/i,
+      }),
+      // Spelled out, because nobody types the ampersand in "AI & Automation
+      // Consulting".
+      { target: { value: category.label.replace(/&/g, "and") } },
+    );
+
+    const matched = INSIGHT_ARTICLES.filter(
+      (article) => article.categoryId === category.id,
+    );
+    expect(matched.length).toBeGreaterThan(0);
+    expect(screen.getByRole("status")).toHaveTextContent(
+      new RegExp(`${String(matched.length)} topics?`),
+    );
+  });
+
+  it("searches the post keywords, not just the headline", () => {
+    const article = required(
+      INSIGHT_ARTICLES.find((candidate) =>
+        (candidate.keywords ?? []).some(
+          (keyword) =>
+            keyword.trim().length > 8 &&
+            !candidate.title.toLowerCase().includes(keyword.toLowerCase()),
+        ),
+      ),
+      "Expected a published article with a keyword absent from its title",
+    );
+    const keyword = required(
+      (article.keywords ?? []).find(
+        (candidate) =>
+          candidate.trim().length > 8 &&
+          !article.title.toLowerCase().includes(candidate.toLowerCase()),
+      ),
+      "Expected a keyword absent from the title",
+    );
+
+    renderBoard();
+    fireEvent.change(
+      screen.getByRole("searchbox", {
+        name: /search insights by title or topic/i,
+      }),
+      { target: { value: keyword } },
+    );
+
+    expect(
+      screen.getByRole("link", { name: (name) => name.includes(article.title) }),
+    ).toBeInTheDocument();
+  });
+
   it("keeps the no-results state functional", () => {
     renderBoard();
 

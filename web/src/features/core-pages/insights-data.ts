@@ -125,6 +125,13 @@ export type InsightArticle = {
   id: string;
   imageAlt: string;
   imageSrc: string;
+  /**
+   * The post's primary and secondary search keywords, used only to widen the
+   * free-text search. A reader who types "missed calls" or "no-show" is
+   * describing the problem, not quoting the headline, and those phrases live in
+   * the keywords rather than in the title or the three summary bullets.
+   */
+  keywords?: string[];
   publishedIsoDate?: string;
   publishedDate?: string;
   status: "planned" | "published";
