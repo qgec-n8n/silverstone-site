@@ -7591,6 +7591,23 @@ a.ss-insight-card:hover,
   -webkit-overflow-scrolling: touch;
 }
 
+/*
+ * The breakout above only works for a wrap that sits directly in the article
+ * column (a full-width, page-centred block) — that is where `ArticleSection`
+ * hoists both section-level tables to. A table rendered INSIDE a section card
+ * (a subsection's, or anything a future post nests) resolves the same
+ * `margin-inline-start: 50%` against the card's 62rem content box, so the
+ * 70rem table hangs ~4rem past each edge of the card it is meant to sit in.
+ * Inside a card, hold the card's own width and scroll the table within it.
+ */
+.ss-blog-article__section .ss-blog-article__table-wrap,
+.ss-blog-article__subsection .ss-blog-article__table-wrap {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  transform: none;
+}
+
 .ss-blog-article__table {
   width: max(100%, var(--blog-table-min-width));
   min-width: var(--blog-table-min-width);

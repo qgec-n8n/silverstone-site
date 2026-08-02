@@ -18,39 +18,18 @@
 import "~/styles/services-v2/services-v2.css";
 import "~/styles/core-pages/core-pages.css";
 
-import { lazy, Suspense, type ComponentType, type ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 
+import { coreCompositionByPath, type CorePath } from "~/data/route-compositions";
 import type { FutureRouteRecord } from "~/data/route-schema";
 
-type CorePath = "/how-we-work" | "/blog" | "/about" | "/pricing" | "/contact" | "/book";
-
-const compositionByPath: Record<CorePath, () => Promise<{ default: ComponentType }>> = {
-  "/how-we-work": () =>
-    import("./compositions/how-we-work").then((m) => ({
-      default: m.HowWeWorkComposition,
-    })),
-  "/blog": () =>
-    import("./compositions/insights").then((m) => ({ default: m.InsightsComposition })),
-  "/about": () =>
-    import("./compositions/about").then((m) => ({ default: m.AboutComposition })),
-  "/pricing": () =>
-    import("./compositions/pricing").then((m) => ({ default: m.PricingComposition })),
-  "/contact": () =>
-    import("./compositions/contact").then((m) => ({ default: m.ContactComposition })),
-  "/book": () =>
-    import("./compositions/book").then((m) => ({ default: m.BookComposition })),
-};
-
-const lazyCompositionByPath = Object.fromEntries(
-  Object.entries(compositionByPath).map(([path, importer]) => [path, lazy(importer)]),
-) as Record<CorePath, ReturnType<typeof lazy<ComponentType>>>;
-
 function isCorePath(path: string): path is CorePath {
-  return path in compositionByPath;
+  return path in coreCompositionByPath;
 }
 
 /** Loading state for the brief window while a composition chunk downloads on
- * client-side navigation (prerendered HTML never shows this). */
+ * client-side navigation (prerendered HTML never shows this, and a nav that
+ * preloaded the chunk — see `preloadRouteComposition` — never reaches it). */
 function CoreLoadingFallback({ route }: { route: FutureRouteRecord }) {
   return (
     <div className="ss-srv2-loading">
@@ -66,11 +45,11 @@ export function CorePageExperience({ route }: { route: FutureRouteRecord }): Rea
     return null;
   }
 
-  const LazyComposition = lazyCompositionByPath[route.path];
+  const Composition = coreCompositionByPath[route.path];
 
   return (
     <Suspense fallback={<CoreLoadingFallback route={route} />}>
-      <LazyComposition />
+      <Composition />
     </Suspense>
   );
 }

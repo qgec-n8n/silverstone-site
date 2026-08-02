@@ -2,6 +2,7 @@ import "~/styles/services-v2/services-v2.css";
 import "~/styles/core-pages/core-pages.css";
 
 import {
+  Fragment,
   useEffect,
   useRef,
   useState,
@@ -741,11 +742,15 @@ function ArticleLeadCallout({ section }: { section: SilverstoneBlogSection }) {
 function ArticleSectionEnhancements({
   headingLevel,
   section,
-  includeTable = true,
+  includeTables = true,
 }: {
   headingLevel: 3 | 4;
   section: SilverstoneBlogSection;
-  includeTable?: boolean;
+  /** Every table is hoisted out of the card by `ArticleSection` — subsection
+   * tables included. A subsection has no card of its own, but it renders
+   * *inside* the section's card, so its 70rem breakout resolves against that
+   * same 62rem box and hangs 4rem past each edge just as the scorecard did. */
+  includeTables?: boolean;
 }) {
   return (
     <>
@@ -753,7 +758,7 @@ function ArticleSectionEnhancements({
       <ArticlePullQuote quote={section.pullQuote} />
       <ArticleBulletPanel items={section.bullets} />
       <ArticleRankedCards cards={section.rankedCards} headingLevel={headingLevel} />
-      <ArticleScorecard scorecard={section.scorecard} />
+      {includeTables ? <ArticleScorecard scorecard={section.scorecard} /> : null}
       <ArticlePromptBlocks blocks={section.promptBlocks} />
       <ArticleSteps headingLevel={headingLevel} steps={section.steps} />
       <ArticleGrid headingLevel={headingLevel} items={section.grid} />
@@ -761,7 +766,9 @@ function ArticleSectionEnhancements({
       {section.callout?.tone === "answer" ? null : (
         <ArticleCallout callout={section.callout} />
       )}
-      {includeTable ? <ArticleComparisonTable table={section.comparisonTable} /> : null}
+      {includeTables ? (
+        <ArticleComparisonTable table={section.comparisonTable} />
+      ) : null}
     </>
   );
 }
@@ -978,7 +985,7 @@ function ArticleSection({
           <ArticleSectionEnhancements
             headingLevel={3}
             section={section}
-            includeTable={false}
+            includeTables={false}
           />
           {section.subsections?.map((subsection, index) => (
             <div
@@ -990,21 +997,39 @@ function ArticleSection({
               </h3>
               <ArticleLeadCallout section={subsection} />
               <ArticleBody body={subsection.body} />
-              <ArticleSectionEnhancements headingLevel={4} section={subsection} />
+              <ArticleSectionEnhancements
+                headingLevel={4}
+                section={subsection}
+                includeTables={false}
+              />
             </div>
           ))}
         </section>
         <BorderBeam />
       </div>
       {/*
-       * The comparison table renders as a sibling of the section rather than
-       * inside its card: the section card closes after the icon bullet list /
-       * grid, and the table stands as its own card below. Sitting directly in
-       * the Reveal grid item (a full-width, page-centred block) lets its desktop
+       * Both tables render as siblings of the section rather than inside its
+       * card: the section card closes after the icon bullet list / grid, and
+       * each table stands as its own card below. Sitting directly in the
+       * Reveal grid item (a full-width, page-centred block) lets their desktop
        * breakout (margin-inline-start:50% + translateX(-50%)) centre cleanly on
-       * the column instead of the padded section content box.
+       * the column instead of the padded section content box. Inside the card
+       * that same breakout resolves against the 62rem content box and the
+       * 70rem table hangs 4rem past each edge — which is exactly what the
+       * scorecard did while it rendered in place.
+       *
+       * Order matches the order they were authored in: the section's own
+       * scorecard first (it scores the routes), then its comparison matrix,
+       * then the same pair for each subsection in reading order.
        */}
+      <ArticleScorecard scorecard={section.scorecard} />
       <ArticleComparisonTable table={section.comparisonTable} />
+      {section.subsections?.map((subsection, index) => (
+        <Fragment key={`tables-${subsection.heading}-${String(index)}`}>
+          <ArticleScorecard scorecard={subsection.scorecard} />
+          <ArticleComparisonTable table={subsection.comparisonTable} />
+        </Fragment>
+      ))}
     </Reveal>
   );
 }

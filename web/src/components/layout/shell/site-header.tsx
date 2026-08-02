@@ -98,6 +98,7 @@ function MegaMenuPanel({ menu }: { menu: NavMenu }) {
       <div>
         <Link
           className="ss-focus-ring group flex items-center gap-3.5 rounded-[var(--ss-radius-md)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_7%,transparent)] p-3.5 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
+          prefetch="intent"
           to={menu.href}
         >
           <span className="grid size-11 shrink-0 place-items-center rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_16%,#ffffff)] text-[color:var(--ss-v2-header-accent)]">
@@ -124,6 +125,7 @@ function MegaMenuPanel({ menu }: { menu: NavMenu }) {
             <div key={item.href}>
               <Link
                 className="ss-focus-ring group flex items-start gap-3 rounded-[var(--ss-radius-md)] p-3 no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)]"
+                prefetch="intent"
                 to={item.href}
               >
                 {Icon ? (
@@ -408,6 +410,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                           <Link
                             className="ss-focus-ring mb-1 flex items-center gap-2.5 rounded-[var(--ss-radius-sm)] border border-[color:var(--ss-v2-header-panel-border)] bg-[color-mix(in_srgb,var(--ss-v2-header-accent)_10%,var(--ss-v2-header-surface))] px-3 py-2.5 text-sm font-semibold text-[color:var(--ss-v2-header-accent)] no-underline ss-transition-interactive"
                             onClick={onClose}
+                            prefetch="intent"
                             to={menu.href}
                           >
                             <LayoutGrid aria-hidden className="size-4" />
@@ -418,6 +421,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                               className="ss-focus-ring rounded-[var(--ss-radius-sm)] px-3 py-2 text-sm text-[color:var(--ss-v2-header-muted)] no-underline ss-transition-interactive hover:bg-[var(--ss-v2-header-hover)] hover:text-[color:var(--ss-v2-header-text-strong)]"
                               key={item.href}
                               onClick={onClose}
+                              prefetch="intent"
                               to={item.href}
                             >
                               {item.label}
@@ -445,6 +449,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
                   )}
                   key={link.href}
                   onClick={onClose}
+                  prefetch="intent"
                   to={link.href}
                 >
                   <span
@@ -464,6 +469,7 @@ function MobileDrawer({ currentPath, onClose }: MobileDrawerProps) {
           <Link
             className={cn(ctaClass, "w-full justify-center")}
             onClick={onClose}
+            prefetch="intent"
             to={PRIMARY_CTA.href}
           >
             {PRIMARY_CTA.label}
@@ -747,6 +753,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
                         )}
                         data-active={active || undefined}
                         data-nav-item=""
+                        prefetch="intent"
                         to={link.href}
                       >
                         {link.label}
@@ -770,6 +777,7 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
             <Link
               aria-label={PRIMARY_CTA.label}
               className={ctaClass}
+              prefetch="intent"
               to={PRIMARY_CTA.href}
             >
               <span aria-hidden="true">{PRIMARY_CTA.label}</span>

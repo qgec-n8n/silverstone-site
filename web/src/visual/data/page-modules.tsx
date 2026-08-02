@@ -1,7 +1,8 @@
-import { lazy, Suspense, type ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { getApprovedServiceContent } from "~/content/services/approved-services";
+import { hubCompositionByPath } from "~/data/route-compositions";
 import { ServiceExperienceV2 } from "~/features/services-v2/service-experience";
 
 /**
@@ -11,11 +12,7 @@ import { ServiceExperienceV2 } from "~/features/services-v2/service-experience";
  * route's HTML is written, so prerendered output always contains the full
  * hub content.
  */
-const LazyServicesHub = lazy(() =>
-  import("~/features/hubs-v2/services-hub").then((module) => ({
-    default: module.ServicesHubExperience,
-  })),
-);
+const ServicesHub = hubCompositionByPath["/services"];
 
 /** Visuals for `/services` and each approved canonical service route. */
 export function ServicePageVisuals({ route }: { route: FutureRouteRecord }): ReactNode {
@@ -28,7 +25,7 @@ export function ServicePageVisuals({ route }: { route: FutureRouteRecord }): Rea
           </div>
         }
       >
-        <LazyServicesHub />
+        <ServicesHub />
       </Suspense>
     );
   }

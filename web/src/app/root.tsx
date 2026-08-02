@@ -12,6 +12,7 @@ import { LoadingBoundary, LoadingFallback } from "~/app/components/loading-bound
 import { RouteLoadingIndicator } from "~/app/components/route-loading-indicator";
 import { AppExperienceProvider } from "~/app/experience/app-experience";
 import { DeepLinkScrollHandler } from "~/app/experience/deep-link-scroll";
+import { RoutePreloadHandler } from "~/app/experience/route-preload";
 import { CoreSpinLoader } from "~/components/ui/core-spin-loader";
 import { CookieConsentManager } from "~/components/layout/shell/cookie-consent-manager";
 import { DemosLauncher } from "~/components/layout/shell/demos-launcher";
@@ -97,6 +98,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <AppExperienceProvider>
             <CoreSpinLoader />
             <DeepLinkScrollHandler />
+            <RoutePreloadHandler />
             {children}
             <DemosLauncher />
             <CookieConsentManager />

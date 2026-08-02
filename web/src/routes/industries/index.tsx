@@ -1,16 +1,13 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { useLoaderData } from "react-router";
 
+import { hubCompositionByPath } from "~/data/route-compositions";
 import { createRouteLoader, createRouteMeta } from "~/routes/shared/route-data";
 import { RoutePageFrame } from "~/routes/templates/route-page-frame";
 
 // Code-splits the hub body like every services/industries composition;
 // static prerendering resolves the boundary before HTML is written.
-const LazyIndustriesHub = lazy(() =>
-  import("~/features/hubs-v2/industries-hub").then((module) => ({
-    default: module.IndustriesHubExperience,
-  })),
-);
+const IndustriesHub = hubCompositionByPath["/industry"];
 
 export const loader = createRouteLoader({
   exactPath: "/industry",
@@ -38,7 +35,7 @@ export default function IndustriesIndexRoute() {
           </div>
         }
       >
-        <LazyIndustriesHub />
+        <IndustriesHub />
       </Suspense>
     </RoutePageFrame>
   );
