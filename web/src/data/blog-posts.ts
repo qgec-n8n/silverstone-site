@@ -24,6 +24,13 @@ export type SilverstoneBlogGridItem = {
 
 export type SilverstoneBlogTable = {
   columns: string[];
+  /**
+   * Heading for the row-label column. Optional because every table written
+   * before this existed relies on the "Decision point" default, which is what
+   * those articles already render. A table converted from a markdown source
+   * carries its own first-column heading here so the meaning is not lost.
+   */
+  rowHeader?: string;
   rows: {
     cells: string[];
     label: string;
@@ -15713,17 +15720,57 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- Complaint or exception routing",
           "These workflows usually justify attention first because they sit near revenue, customer experience or utilisation. They also create useful structured data once standardised.",
           "A simple comparison helps leadership avoid spreading effort too widely at the start:",
-          "| Workflow type | Why it is often a strong first target | Main caution |",
-          "| --- | --- | --- |",
-          "| Enquiry capture | High volume, easy to compare across sites, shapes follow-up quality | Sites may define a 'qualified' enquiry differently |",
-          "| Booking and rescheduling | Direct effect on capacity and customer handling | Local calendars and staffing rules may differ |",
-          "| Missed-call follow-up | Clear ownership gap in many estates | Escalation rules need to be explicit |",
-          "| Quote preparation | Standard fields can reduce rework | Specialist pricing judgement may still vary |",
-          "| Post-service follow-up | Repeatable prompts and reminders suit standardisation | Tone, timing and permissions need governance |",
-          "| Complaint routing | Important control and service issue | High-risk cases need human review points |",
           "By contrast, some workflows should wait. Anything shaped heavily by specialist judgement, complex local constraints or sensitive approvals may need stronger policy definition before standardisation becomes useful.",
           "That does not rule AI out. It means the workflow needs firmer boundaries first, potentially alongside [AI automation](/services/ai-automation) planning that respects operational control.",
         ],
+        comparisonTable: {
+          columns: ["Why it is often a strong first target", "Main caution"],
+          rowHeader: "Workflow type",
+          rows: [
+            {
+              cells: [
+                "High volume, easy to compare across sites, shapes follow-up quality",
+                "Sites may define a 'qualified' enquiry differently",
+              ],
+              label: "Enquiry capture",
+            },
+            {
+              cells: [
+                "Direct effect on capacity and customer handling",
+                "Local calendars and staffing rules may differ",
+              ],
+              label: "Booking and rescheduling",
+            },
+            {
+              cells: [
+                "Clear ownership gap in many estates",
+                "Escalation rules need to be explicit",
+              ],
+              label: "Missed-call follow-up",
+            },
+            {
+              cells: [
+                "Standard fields can reduce rework",
+                "Specialist pricing judgement may still vary",
+              ],
+              label: "Quote preparation",
+            },
+            {
+              cells: [
+                "Repeatable prompts and reminders suit standardisation",
+                "Tone, timing and permissions need governance",
+              ],
+              label: "Post-service follow-up",
+            },
+            {
+              cells: [
+                "Important control and service issue",
+                "High-risk cases need human review points",
+              ],
+              label: "Complaint routing",
+            },
+          ],
+        },
         lede: "Start where work is frequent, commercially visible and already similar enough to support one clear standard.",
         variant: "operator",
       },
@@ -15784,16 +15831,56 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
           "- The delays, duplicate entries or recurring workarounds staff mention repeatedly",
           "This evidence is best gathered through a mix of document review, short structured interviews and direct observation of a small number of representative sites. The goal is not to audit every branch in the same depth. It is to understand the main patterns, the edge cases and the sources of variation that matter.",
           "A practical evidence grid often helps:",
-          "| Evidence area | What to capture | Why it matters |",
-          "| --- | --- | --- |",
-          "| Trigger | Call, web form, walk-in, referral, repeat customer request | Defines where standardisation should begin |",
-          "| Mandatory fields | Contact details, service need, urgency, location constraints | Prevents incomplete records from flowing downstream |",
-          "| Handoffs | Who passes work to whom, and on what basis | Exposes ambiguity and delay points |",
-          "| Exceptions | Complaints, urgent cases, refunds, safeguarding or unusual requests | Defines where automation needs boundaries |",
-          "| Approval points | Manager, clinician, owner or finance sign-off | Protects control and accountability |",
-          "| Reporting reality | Which fields are trusted in practice | Stops weak data becoming a false KPI source |",
           "If three sites follow one stable pattern and two sites rely on ad hoc fixes, the answer is rarely to preserve the fixes unchanged. More often, you need to understand what caused them and whether the standard process can remove that cause.",
         ],
+        comparisonTable: {
+          columns: ["What to capture", "Why it matters"],
+          rowHeader: "Evidence area",
+          rows: [
+            {
+              cells: [
+                "Call, web form, walk-in, referral, repeat customer request",
+                "Defines where standardisation should begin",
+              ],
+              label: "Trigger",
+            },
+            {
+              cells: [
+                "Contact details, service need, urgency, location constraints",
+                "Prevents incomplete records from flowing downstream",
+              ],
+              label: "Mandatory fields",
+            },
+            {
+              cells: [
+                "Who passes work to whom, and on what basis",
+                "Exposes ambiguity and delay points",
+              ],
+              label: "Handoffs",
+            },
+            {
+              cells: [
+                "Complaints, urgent cases, refunds, safeguarding or unusual requests",
+                "Defines where automation needs boundaries",
+              ],
+              label: "Exceptions",
+            },
+            {
+              cells: [
+                "Manager, clinician, owner or finance sign-off",
+                "Protects control and accountability",
+              ],
+              label: "Approval points",
+            },
+            {
+              cells: [
+                "Which fields are trusted in practice",
+                "Stops weak data becoming a false KPI source",
+              ],
+              label: "Reporting reality",
+            },
+          ],
+        },
         lede: "The right standard comes from evidence gathered where the work happens, not from assumptions made at group level.",
         variant: "operator",
       },

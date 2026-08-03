@@ -11,7 +11,17 @@
 
 import { BLOG_CARD_ARTICLES } from "~/data/blog-posts";
 
-export type InsightCategoryGroup = "service" | "industry";
+/**
+ * `topic` joins the original service/industry split so the editorial programme
+ * has somewhere to file the ~380 planned titles that are about a subject rather
+ * than about something Silverstone sells. "What Is Agentic AI?" is not a service
+ * page and not a vertical; filing it under AI Automation with everything else
+ * made the existing pills useless at that volume.
+ *
+ * A topic category still carries a real `href`: it is reused as the article's
+ * `categoryTarget` internal link, so it has to resolve to a live route.
+ */
+export type InsightCategoryGroup = "service" | "industry" | "topic";
 
 export type InsightCategory = {
   group: InsightCategoryGroup;
@@ -116,6 +126,82 @@ export const INSIGHT_CATEGORIES: InsightCategory[] = [
     label: "Fitness Coaches",
     group: "industry",
     href: "/industry/fitness-coaches",
+  },
+  // Editorial topic pills. Ordered by how a reader browses the programme:
+  // what it is, what it runs on, what it costs, how it is governed, what
+  // breaks, what is changing. `href` is the article's categoryTarget internal
+  // link, so each points at the live page that best serves that reader.
+  {
+    id: "ai-fundamentals",
+    label: "AI Fundamentals",
+    group: "topic",
+    href: "/services/ai-automation",
+  },
+  {
+    id: "ai-agents",
+    label: "AI Agents",
+    group: "topic",
+    href: "/services/ai-automation",
+  },
+  {
+    id: "ai-models-prompting",
+    label: "AI Models & Prompting",
+    group: "topic",
+    href: "/services/ai-consulting",
+  },
+  {
+    id: "automation-platforms",
+    label: "Automation Platforms",
+    group: "topic",
+    href: "/services/ai-automation",
+  },
+  {
+    id: "ai-integrations",
+    label: "Integrations & Data",
+    group: "topic",
+    href: "/services/ai-automation",
+  },
+  {
+    id: "ai-cost-roi",
+    label: "Costs & ROI",
+    group: "topic",
+    href: "/pricing",
+  },
+  {
+    id: "ai-strategy-adoption",
+    label: "Strategy & Adoption",
+    group: "topic",
+    href: "/services/ai-consulting",
+  },
+  {
+    id: "ai-governance",
+    label: "Governance & Compliance",
+    group: "topic",
+    href: "/services/ai-consulting",
+  },
+  {
+    id: "ai-comparisons",
+    label: "Comparisons & Alternatives",
+    group: "topic",
+    href: "/services/ai-automation",
+  },
+  {
+    id: "automation-troubleshooting",
+    label: "Troubleshooting",
+    group: "topic",
+    href: "/services/ai-automation",
+  },
+  {
+    id: "ai-trends-news",
+    label: "Trends & Analysis",
+    group: "topic",
+    href: "/services/ai-consulting",
+  },
+  {
+    id: "ai-toolkits",
+    label: "Templates & Toolkits",
+    group: "topic",
+    href: "/services/ai-consulting",
   },
 ];
 

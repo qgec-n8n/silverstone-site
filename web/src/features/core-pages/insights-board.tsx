@@ -156,6 +156,14 @@ export function InsightsBoard() {
 
   const serviceCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "service");
   const industryCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "industry");
+  // A pill with nothing behind it is a dead end, so topic pills only appear once
+  // that topic has published articles. The editorial programme fills these in
+  // over time and the row grows with it rather than shipping empty on day one.
+  const topicCategories = INSIGHT_CATEGORIES.filter(
+    (c) =>
+      c.group === "topic" &&
+      INSIGHT_ARTICLES.some((article) => article.categoryId === c.id),
+  );
 
   return (
     <div className="ss-insight-board" data-deep-link-anchor="self" id="insights-search">
@@ -210,6 +218,22 @@ export function InsightsBoard() {
               {category.label}
             </button>
           ))}
+          {topicCategories.length > 0 ? (
+            <>
+              <span className="ss-insight-filters__group-label">Topics</span>
+              {topicCategories.map((category) => (
+                <button
+                  key={category.id}
+                  type="button"
+                  className="ss-insight-filters__pill"
+                  data-active={activeFilter === category.id ? "true" : undefined}
+                  onClick={() => setActiveFilter(category.id)}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </>
+          ) : null}
         </div>
       </div>
 

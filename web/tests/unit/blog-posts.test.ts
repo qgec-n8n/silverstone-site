@@ -76,4 +76,83 @@ describe("published blog slug policy", () => {
       expect(updated, post.slug).toBeGreaterThanOrEqual(published);
     }
   });
+
+  /**
+   * Every hero is a WebP and nothing else — both publishing streams request
+   * `output_format: "webp"` and both bundle validators reject an asset whose
+   * bytes are not RIFF/WEBP. The `-hero.webp` path is asserted above; this
+   * guards the alt text that goes with it.
+   *
+   * The hero renders as a CSS background, so this string's only job is
+   * `og:image:alt` and `twitter:image:alt` — which makes it the single
+   * accessibility and social-preview description for the image. An empty or
+   * title-echoing value would still ship a valid-looking post.
+   */
+  it("gives every WebP hero usable alt text", () => {
+    for (const post of PUBLISHED_BLOG_POSTS) {
+      const alt = post.heroImageAlt.trim();
+
+      expect(alt, `${post.slug} heroImageAlt`).toBeTruthy();
+      // Long enough to describe a scene rather than name a topic.
+      expect(alt.length, `${post.slug} heroImageAlt too short: ${alt}`).toBeGreaterThanOrEqual(20);
+      expect(alt.length, `${post.slug} heroImageAlt too long`).toBeLessThanOrEqual(300);
+      // Alt text that repeats the headline describes the article, not the image.
+      expect(
+        alt.toLowerCase(),
+        `${post.slug} heroImageAlt duplicates the title`,
+      ).not.toBe(post.title.trim().toLowerCase());
+      // Screen readers already announce it as an image.
+      expect(alt.toLowerCase(), `${post.slug} heroImageAlt`).not.toMatch(
+        /^(image|picture|photo|graphic) of\b/,
+      );
+    }
+  });
+
+  /**
+   * A table belongs in `comparisonTable` or `scorecard`, which `ArticleSection`
+   * hoists out of the copy card and renders as a real `<table>`. A model that
+   * writes one as markdown pipes inside `body` instead produces a run of literal
+   * "| a | b |" paragraphs stranded in the prose — which is exactly how the two
+   * tables in cross-location-workflows-standardise-first shipped.
+   *
+   * `researchSources` is deliberately not walked: those summaries are verbatim
+   * third-party excerpts kept as provenance metadata and are never rendered, so
+   * pipes inside them are not a display fault.
+   */
+  it("never leaves a markdown table in rendered article copy", () => {
+    const looksLikeTable = (value: string) =>
+      /^\s*\|.*\|/m.test(value) || /\|\s*-{3,}\s*\|/.test(value);
+
+    const offenders: string[] = [];
+    const walk = (node: unknown, path: string, slug: string) => {
+      if (typeof node === "string") {
+        if (looksLikeTable(node)) {
+          offenders.push(`${slug}${path}: ${node.slice(0, 80)}`);
+        }
+        return;
+      }
+      if (Array.isArray(node)) {
+        node.forEach((entry, index) => {
+          walk(entry, `${path}[${String(index)}]`, slug);
+        });
+        return;
+      }
+      if (node && typeof node === "object") {
+        for (const [key, value] of Object.entries(node)) {
+          if (key === "researchSources") {
+            continue;
+          }
+          walk(value, `${path}.${key}`, slug);
+        }
+      }
+    };
+
+    for (const post of PUBLISHED_BLOG_POSTS) {
+      walk(post.articleBody, ".articleBody", post.slug);
+      walk(post.summary, ".summary", post.slug);
+      walk(post.faqs, ".faqs", post.slug);
+    }
+
+    expect(offenders, offenders.join("\n")).toEqual([]);
+  });
 });
