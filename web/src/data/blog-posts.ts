@@ -17551,7 +17551,541 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
-  // N8N_BLOG_POSTS_END
+    {
+    slug: "ai-receptionist-vs-answering-service",
+    title: "AI Receptionist vs Answering Service: Which Is Better for a UK Business?",
+    subtitle:
+      "A practical comparison for UK SMEs deciding how inbound calls should be answered, progressed and safely handed over.",
+    summary: [
+      "AI receptionists suit bounded, repeatable call journeys with approved information and a clear fallback.",
+      "Human answering services suit sensitive, complex or judgement-heavy conversations.",
+      "The right choice depends on operating design, not a headline claim about cost or availability.",
+    ],
+    categoryLabel: "AI Receptionists",
+    categoryKey: "ai-receptionists",
+    categoryId: "ai-receptionists",
+    categoryOrder: 4,
+    displayDate: "3 August 2026",
+    publishedIsoDate: "2026-08-03T09:17:40.962Z",
+    updatedIsoDate: "2026-08-03T09:17:40.962Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/ai-receptionist-vs-answering-service-hero.webp",
+    heroImageAlt:
+      "Photoreal futuristic AI call-routing core in a bright British architectural setting, with luminous optical pathways branching to human support channels.",
+    metaTitle: "AI Receptionist vs Answering Service | UK SME Guide",
+    metaDescription:
+      "Compare an AI receptionist with a human answering service for a UK business: coverage, handover, workflow control, risks and a six-question decision framework.",
+    primaryKeyword: "AI Receptionist vs Answering Service",
+    secondaryKeywords: [
+      "AI receptionist UK",
+      "human answering service",
+      "virtual receptionist comparison",
+      "AI call handling for small business",
+      "AI voice agent escalation",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "An AI receptionist is usually the stronger fit when your calls follow repeatable patterns and you need consistent coverage, structured capture and workflow progression. A human answering service is usually the safer fit when callers regularly need empathy, judgement or nuanced handling that cannot be reduced to approved rules and escalation routes.\n\nThe better option is not the one that sounds more modern. It is the one that can handle your highest-value routine calls without creating risk when a caller falls outside the intended path.",
+        ],
+      },
+      {
+        heading: "The short answer: choose the operating model, not the label",
+        body: [
+          "An AI receptionist is voice software configured with approved information, rules and, where appropriate, authorised connections to business systems. It can answer defined questions, collect details and request permitted actions. Its usefulness depends on clear source information, permissions, testing and a reliable fallback route.",
+          "An answering service is normally a third-party human team answering calls under your brand or script. It is often used for message-taking, triage and passing enquiries to the right person. The quality of coverage, scripting, staffing and escalation varies by provider.",
+          "For a UK SME, the practical distinction is simple: use automation where the intended outcome is bounded and repeatable; retain human handling where the caller's situation needs interpretation, reassurance or accountable judgement.",
+        ],
+        lede:
+          "Start with the type of call, the consequence of getting it wrong and the handover your team can genuinely support.",
+        callout: {
+          body: [
+            "Silverstone AI publishes this editorial comparison for UK SMEs handling inbound calls. It may recommend its own services where the evidence supports the fit. The assessment uses buyer fit, technical delivery, integration depth, governance and evidence transparency; public information is incomplete and provider-specific settings may not be publicly stated. This is general operational information, not legal advice. To suggest a correction, contact Silverstone AI through its contact route.",
+          ],
+          tone: "evidence",
+          title: "Publisher disclosure",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Evidence reviewed",
+              value: "8 sources across 8 domains",
+              note:
+                "Supplier and industry commentary, plus Silverstone AI first-party information.",
+            },
+            {
+              label: "Research checked",
+              value: "3 August 2026",
+              note: "Provider settings, pricing and operational policies can change.",
+            },
+            {
+              label: "Verified Silverstone evidence",
+              value: "Automation, consulting and implementation process",
+              note:
+                "Specific voice-receptionist product features are not publicly verified in the supplied evidence.",
+            },
+          ],
+          title: "Research scope",
+        },
+      },
+      {
+        heading: "AI receptionist vs answering service: the comparison matrix",
+        body: [
+          "The matrix below compares the two models, not individual suppliers. It deliberately separates what the model can make possible from what any particular provider has publicly confirmed.",
+          "Use it as a requirements sheet. If a provider cannot show how it handles a criterion in your real call flow, treat that item as unresolved rather than assumed.",
+        ],
+        lede:
+          "These criteria should be agreed before you watch demos or compare prices.",
+        comparisonTable: {
+          columns: ["AI receptionist", "Human answering service"],
+          rows: [
+            {
+              cells: [
+                "Can provide repeatable coverage for configured journeys, including outside normal hours where the service is designed to do so. Strength: consistent availability for defined flows. Limitation: does not replace human",
+                "Hours and peak-time capacity vary by provider. Strength: a person can adapt within their training and brief. Limitation: availability and queueing depend on staffing.",
+              ],
+              label: "Coverage and availability",
+            },
+            {
+              cells: [
+                "Designed to deal with variable volumes of defined calls. Strength: structured handling can scale across routine enquiries. Limitation: unusual calls still require a fallback.",
+                "Typically handles conversations through staffed agents. Strength: human conversation where needed. Limitation: capacity may be constrained during busy periods.",
+              ],
+              label: "Call volume",
+            },
+            {
+              cells: [
+                "Can use approved knowledge, rules and authorised system actions. Strength: can create structured outcomes. Limitation: requires stable data, permissions and testing.",
+                "Usually centres on script-led triage and messages. Strength: flexible interpretation of a brief. Limitation: system actions and data capture depend on the provider's process.",
+              ],
+              label: "Workflow control and integrations",
+            },
+            {
+              cells: [
+                "Best for: teams able to define triggers, transfer destinations and failure handling. Strength: consistent routing rules. Limitation: escalation design must be explicit.",
+                "Best for: businesses needing people to assess unexpected calls. Strength: conversational judgement. Limitation: handover quality depends on training, instructions and availability.",
+              ],
+              label: "Escalation and fallback",
+            },
+            {
+              cells: [
+                "Best for: callers with straightforward needs and a clear next action. Strength: consistent questions and information capture. Limitation: must be tested against real phrasing and difficult scenarios.",
+                "Best for: callers needing reassurance or a nuanced conversation. Strength: human rapport and contextual interpretation. Limitation: consistency can vary between agents and shifts.",
+              ],
+              label: "Customer experience",
+            },
+            {
+              cells: [
+                "Typically presented as a software subscription category. Strength: cost may be less tied to individual agent time. Limitation: implementation, integration and optimisation still need budgeting.",
+                "Often priced around human handling time or call activity. Strength: can be appropriate for low-volume, high-touch work. Limitation: pricing and coverage arrangements vary by provider.",
+              ],
+              label: "Cost drivers",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "Public supplier commentary describes different cost structures for AI and human models, but individual pricing, recording defaults, escalation design and emergency protocols are not publicly stated in the supplied evidence. Compare the total operating design: setup, ongoing review, system access, transfer routes and internal callback capacity.",
+          ],
+          tone: "assumption",
+          title: "Do not compare headline prices alone",
+        },
+      },
+      {
+        heading: "When an AI receptionist is the better fit",
+        body: [
+          "An AI receptionist is most credible when the calls you want it to handle can be described as a small number of approved journeys. Think: identify the caller's need, collect the required details, give an approved response, route to the right place or request a permitted action.",
+          "It is particularly worth investigating if missed calls happen outside staffed hours, several calls arrive together, or your team repeatedly copies the same information from phone conversations into another system. Read the practical setup considerations in our guide to an [AI receptionist setup](/blog/ai-receptionist-setup-guide), then assess whether the workflow is mature enough to automate.",
+          "The strongest implementation is not a broad promise to answer everything. It is a constrained launch with defined knowledge, named owners and review of actual call outcomes.",
+        ],
+        bullets: [
+          {
+            body:
+              "The majority of callers ask approved questions or follow a predictable route such as a booking, quote request or basic qualification.",
+            label: "Repeatable enquiry types",
+          },
+          {
+            body:
+              "Opening hours, service information, eligibility rules and contact routes are accurate, owned and available for review.",
+            label: "Clear data sources",
+          },
+          {
+            body:
+              "You know precisely which actions may be requested, which need human approval and which must never be attempted.",
+            label: "Authorised next actions",
+          },
+          {
+            body:
+              "A person, team or alternative route can take over when the caller asks for help outside the configured scope.",
+            label: "Named fallback",
+          },
+        ],
+        subsections: [
+          {
+            heading: "What good fit looks like in practice",
+            body: [
+              "A trade business might use a defined flow to capture location, job type and urgency before passing a qualified request to the duty person. A clinic or professional service should be more conservative: an assistant can gather administrative details, but it should not improvise advice or decide on urgent matters.",
+              "If your goal is to progress enquiries rather than merely collect messages, review how voice journeys connect to the rest of the operating system in our [AI voice agent development guide](/blog/ai-voice-agent-development).",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "When a human answering service is the better fit",
+        body: [
+          "Choose a human answering service where the call itself is part of the service experience and where a script cannot safely cover the range of situations. This may include distressed callers, complaints, complex account conversations, safeguarding concerns or matters where a person must interpret context before deciding what happens next.",
+          "Human coverage can also be the sensible interim option when your processes are not yet documented. If nobody can agree the approved answer, transfer rule or owner for an enquiry, an automated version of that uncertainty will not improve it.",
+          "A blended approach can work well: automation handles the narrow, well-tested administrative routes, while people receive sensitive or uncertain calls. The important question is whether the transfer is prompt, explained and visible to the receiving team.",
+        ],
+        pullQuote:
+          "Do not automate a decision merely because it occurs on a phone call; automate the repeatable administrative path around it.",
+        grid: [
+          {
+            body:
+              "Complex, sensitive or unusual conversations where empathy, discretion and judgement materially affect the outcome.",
+            title: "Best for human-first handling",
+          },
+          {
+            body:
+              "Businesses still documenting call reasons, scripts, ownership and escalation rules before configuring automation.",
+            title: "Best for a phased transition",
+          },
+          {
+            body:
+              "Calls that are infrequent but consequential, where a mistaken response would be costly or harmful.",
+            title: "Best for high-value exceptions",
+          },
+        ],
+      },
+      {
+        heading: "UK call-handling risks to resolve before choosing",
+        body: [
+          "Neither an AI receptionist nor an answering service is safe by default. The control comes from what is collected, what is said to callers, where information goes, who can access it and what happens when the intended journey fails.",
+          "The supplied research supports the need for explicit permissions, difficult-case testing, observation and reliable human fallback. It does not provide comprehensive UK legal guidance, so this section is deliberately practical rather than a statement of legal compliance.",
+          "For system-wide planning, our [workflow automation selection guide](/blog/workflow-automation-selection-guide) can help separate a useful workflow from a risky one.",
+        ],
+        lede:
+          "Recording, consent, escalation and emergency handling are operating-design questions first. Seek appropriate professional advice for your specific legal and regulatory obligations.",
+        checklist: {
+          items: [
+            {
+              label: "Define call categories",
+              detail:
+                "List routine calls, sensitive calls, complaints, urgent issues and calls that must go directly to a person.",
+            },
+            {
+              label: "Decide recording and notice arrangements",
+              detail:
+                "Confirm your intended approach with appropriate privacy, telecoms and sector-specific advice before launch.",
+            },
+            {
+              label: "Set escalation triggers",
+              detail:
+                "Specify phrases, categories, confidence limits or caller requests that require transfer or message-taking.",
+            },
+            {
+              label: "Map emergency handling",
+              detail:
+                "State whether the service is unsuitable for emergencies, how callers are directed and what staff must do after a flagged call.",
+            },
+            {
+              label: "Limit system permissions",
+              detail:
+                "Allow only the data access and actions needed for the chosen journeys; keep higher-risk actions behind human approval.",
+            },
+            {
+              label: "Review real calls",
+              detail:
+                "Sample outcomes, transfers, repeated calls, errors and customer feedback; update rules rather than assuming the first configuration is final.",
+            },
+          ],
+          title: "Pre-launch control checklist",
+        },
+        callout: {
+          body: [
+            "Do not position either model as an emergency response service unless you have separately designed, tested and approved that role. For sensitive sectors, define boundaries with the relevant operational and professional stakeholders before deployment.",
+          ],
+          tone: "caution",
+          title: "Emergency and sensitive calls",
+        },
+      },
+      {
+        heading: "A six-question decision framework for your front desk",
+        body: [
+          "This framework is the article's original decision tool. It is not a vendor score and it does not predict return on investment. Its purpose is to reveal whether your call operation is ready for a defined automated workflow.",
+        ],
+        lede:
+          "Score each question honestly. It will usually point to AI, human handling or a deliberately blended model.",
+        promptBlocks: [
+          {
+            label: "Weak briefing example",
+            prompt:
+              "Build an AI receptionist that answers every call, books everything and deals with any problem.",
+            tone: "weak",
+          },
+          {
+            label: "Improved briefing example",
+            prompt:
+              "Handle only opening-hours, location, routine quote-request and appointment-enquiry calls. Collect the agreed fields, use approved service information, transfer complaints and urgent issues to the duty route, and take a message when no transfer is available. Do not give advice or make decisions outside these rules.",
+            explanation:
+              "This gives a delivery team a bounded scope, a defined handover and clear exclusions to test.",
+            tone: "improved",
+          },
+        ],
+        steps: [
+          {
+            body:
+              "If the common reasons for calling are unknown or constantly changing, begin with call analysis and human coverage. If they are stable and repeated, automation may be suitable.",
+            title: "Can you name the top call journeys?",
+            label: "1",
+          },
+          {
+            body:
+              "If the answer relies on individual judgement, keep a person in the loop. If it comes from controlled sources and rules, it is a candidate for configuration.",
+            title: "Is there an approved answer and action for each journey?",
+            label: "2",
+          },
+          {
+            body:
+              "If you cannot name a reachable recipient and a transfer rule, do not launch the automated path. A fallback is part of the service, not an afterthought.",
+            title: "What happens when the flow fails?",
+            label: "3",
+          },
+          {
+            body:
+              "The higher the impact, the narrower the automated scope should be and the stronger the review and approval controls need to be.",
+            title: "How costly is a wrong response?",
+            label: "4",
+          },
+          {
+            body:
+              "If empathy or nuanced interpretation is central, a human answering service or direct internal team route is likely the better default.",
+            title: "Does the caller need human reassurance?",
+            label: "5",
+          },
+          {
+            body:
+              "If someone can review calls, maintain information and adjust the workflow, a carefully scoped AI receptionist can improve. If not, favour the model you can reliably supervise.",
+            title: "Can your team own continuous improvement?",
+            label: "6",
+          },
+        ],
+        callout: {
+          body: [
+            "Start with one low-risk call journey and a measurable handover, rather than replacing every inbound call at once. Silverstone AI can help assess and design bespoke workflows through its [AI receptionist service](/services/ai-receptionists), [AI automation delivery](/services/ai-automation) and [consulting approach](/services/ai-consulting). See [how we work](/how-we-work) for the implementation process, or [book a scoping conversation](/book#booking-calendar) when you have your top call journeys ready.",
+          ],
+          tone: "recommendation",
+          title: "A sensible next move",
+        },
+      },
+    ],
+    faqs: [
+      {
+        question: "Is an AI receptionist cheaper than an answering service?",
+        answer:
+          "They have different cost structures, but a headline fee is not enough to decide. Compare setup, integrations, review time, coverage, call volumes, internal callback capacity and the cost of an incorrect or missed handover. Provider-specific prices are not publicly stated in the supplied evidence.",
+      },
+      {
+        question: "Can an AI receptionist replace a human receptionist?",
+        answer:
+          "It can support or handle defined, repeatable call journeys. It should not be assumed to replace human judgement, empathy or specialist decision-making. Many businesses will benefit more from a blended design than an all-or-nothing replacement.",
+      },
+      {
+        question: "What should an AI receptionist do when it cannot help?",
+        answer:
+          "It should follow a pre-agreed fallback: transfer to a named person or team, take a structured message, or direct the caller to an appropriate alternative route. The fallback should be tested with difficult and out-of-scope calls.",
+      },
+      {
+        question:
+          "Should UK businesses record calls handled by AI or an answering service?",
+        answer:
+          "Recording and notice arrangements should be designed for your circumstances and reviewed with appropriate privacy, telecoms and sector-specific advice. This article is general information, not legal advice.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "AI receptionist setup",
+        href: "/blog/ai-receptionist-setup-guide",
+      },
+      {
+        label: "AI voice agent development guide",
+        href: "/blog/ai-voice-agent-development",
+      },
+      {
+        label: "workflow automation selection guide",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+    ],
+    researchSources: [
+      {
+        title:
+          "AI Receptionist vs Answering Service: Which is Better? (2026) | AgentZap",
+        url:
+          "https://agentzap.ai/blog/ai-receptionist-vs-answering-service-which-is-better-2025",
+        domain: "agentzap.ai",
+        verifiedAt: "2026-08-03T09:15:47.330Z",
+        publishedDate: "",
+        summary:
+          "### Availability and Reliability AI Receptionist: True 24/7/365. Same quality at 3 AM as 3 PM. Never calls in sick. Never takes breaks. Handles holidays automatically. Answering Service: Hours vary by provider. After-hours coverage costs extra. Holidays may have limited staffing. Busy periods mean longer hold times. Winner: AI Receptionist ✅ ### Call Handling Capacity AI Receptionist: Unlimited simultaneous calls. If 10 people call at once, all 10 get answered instantly. No busy signals, no hold times, no dropped calls. Answering Service: Limited by available operators. Peak times mean hold queues. Very busy periods may result in voicemail or",
+        matchedTerms: [
+          "receptionist",
+          "answering",
+          "service",
+          "which",
+          "better",
+          "coverage",
+          "cost",
+          "experience",
+        ],
+      },
+      {
+        title: "AI Receptionist vs Telephone Answering Service | Yourcall",
+        url:
+          "https://yourcall.ai/articles/en/ai-receptionist-vs-telephone-answering-service.html",
+        domain: "yourcall.ai",
+        verifiedAt: "2026-08-03T09:15:47.330Z",
+        publishedDate: "",
+        summary:
+          "### AI receptionist A voice agent handles configured call types using approved knowledge, rules and integrations. It can collect details, answer defined questions and request authorised system actions. Value comes from: Repeatable coverage, structured outcomes and the ability to operate a defined workflow at variable volume. Constraint: It needs stable sources, explicit permissions, testing of difficult and failure cases, observation and a reliable human or fallback path. [...] ### Measure outcomes and risk Track correct completion, message-only outcomes, successful transfers, repeats, errors, caller experience, quality-review time and total ",
+        matchedTerms: [
+          "receptionist",
+          "answering",
+          "service",
+          "which",
+          "what",
+          "coverage",
+          "cost",
+          "control",
+        ],
+      },
+      {
+        title: "AI Receptionist vs Answering Service vs Voice AI (2026) | Klariqo",
+        url: "https://klariqo.com/blog/ai-receptionist-vs-answering-service-comparison",
+        domain: "klariqo.com",
+        verifiedAt: "2026-08-03T09:15:47.330Z",
+        publishedDate: "",
+        summary:
+          "An AI receptionist is software that uses voice AI to answer your inbound phone calls, typically priced as a flat monthly subscription and aimed at small businesses. An answering service is a human-staffed call center that picks up your forwarded calls, typically priced per-minute or per-call and aimed at the same SMB segment. An enterprise AI voice agent is infrastructure that registers as an extension on a dialer like VICIdial and runs outbound or inbound campaigns at high volume. Each one solves a different call-handling problem at a different price band. ## Why this comparison matters in 2026 [...] Yes → Category 3 is the only one that int",
+        matchedTerms: [
+          "receptionist",
+          "answering",
+          "service",
+          "what",
+          "each",
+          "comparison",
+          "cost",
+          "where",
+        ],
+      },
+      {
+        title: "6 Best AI Answering Services in the UK (2026 Business Guide)",
+        url: "https://www.thevoipshop.co.uk/blog/best-ai-answering-services-uk",
+        domain: "thevoipshop.co.uk",
+        verifiedAt: "2026-08-03T09:15:47.330Z",
+        publishedDate: "",
+        summary:
+          "Competitors Are Already Moving 65% of UK businesses adopting AI cite efficiency as their primary motivation. Only 14% of micro-businesses currently use AI — the early mover advantage is real. ## AI Receptionist vs Human Receptionist | Feature | 🤖 AI Receptionist | 👤Human Receptionist | --- | Cost | £10–£120/month | £18,000–£25,000/year + benefits | | Availability | 24/7/365 | Business hours only (40 hrs/week) | | Call Handling | Unlimited simultaneous calls | 1 call at a time | | Sick Days | Never | 5–10 days annually | | Holidays | None required | 28 days statutory | | Setup Time | 24–48 hours | 2–4 weeks recruitment + training | | Consist",
+        matchedTerms: [
+          "receptionist",
+          "answering",
+          "service",
+          "which",
+          "cost",
+          "human",
+          "you",
+          "handling",
+        ],
+      },
+      {
+        title: "AI Receptionist vs Answering Service | Clero Blog | Clero",
+        url: "https://cleroai.com/blog/ai-receptionist-vs-answering-service",
+        domain: "cleroai.com",
+        verifiedAt: "2026-08-03T09:15:47.330Z",
+        publishedDate: "",
+        summary:
+          "This page is the canonical industry-neutral comparison for “AI receptionist vs answering service” (also: virtual receptionist vs AI, outsourced answering alternatives, AI phone answering comparison). UK dental buyers wanting a decision-led guide: AI receptionist vs answering service for UK dental practices. Dental ROI deep-dive: dental AI receptionist vs answering service. AI vs in-house reception teams: AI vs human staff. Hand-off design: human escalation. ## Clear definitions Answering service (outsourced human). Third-party agents answer under your brand (or a generic script), usually one conversation per agent seat. Typical outcomes: mess",
+        matchedTerms: [
+          "receptionist",
+          "answering",
+          "service",
+          "better",
+          "what",
+          "comparison",
+          "human",
+          "before",
+        ],
+      },
+      {
+        title:
+          "AI Receptionists vs Human Answering Services UK Cost Comparison | Code Elevator posted on the topic | LinkedIn",
+        url:
+          "https://www.linkedin.com/posts/code-elevator_aivoiceagents-aiautomation-enterpriseai-activity-7479751414563459072-VEP8",
+        domain: "linkedin.com",
+        verifiedAt: "2026-08-03T09:15:47.330Z",
+        publishedDate: "",
+        summary:
+          "An answering service logs the missed call. An AI receptionist closes it. That distinction is where most UK SME cost comparisons fall apart. The pricing difference is real — managed answering services typically run £100–£200+ per month, AI receptionist plans start around £9.99 — but that's not where the payback decision lives. The decision lives in what happens at 9pm when a dental patient searches, calls, gets no answer, and books with the practice that picks up. A human answering service takes a message. The callback happens the next morning. By then, the lead has moved. An AI receptionist qualifies the caller, checks availability, and books",
+        matchedTerms: [
+          "receptionist",
+          "answering",
+          "service",
+          "what",
+          "comparison",
+          "cost",
+          "where",
+          "human",
+        ],
+      },
+      {
+        title: "AI vs Human Receptionist: An Honest Comparison | Safina AI",
+        url: "https://safina.ai/en/blog/ai-vs-human-receptionist",
+        domain: "safina.ai",
+        verifiedAt: "2026-08-03T09:15:47.331Z",
+        publishedDate: "",
+        summary:
+          "Consistency. Humans have off days. They get tired, distracted, or flustered when three calls come in at once. AI handles every call with the same tone, asks the same follow-up questions, and captures the same level of detail, whether it is the first call of the day or the fiftieth. Scalability. When call volume spikes, a receptionist is overwhelmed. AI handles volume without breaking a sweat. There is no hold music, no “please call back later,” and no missed calls during peak hours. Multilingual support. Hiring a bilingual receptionist costs more. Hiring one who speaks four or five languages is nearly impossible. Safina supports 50+ languages",
+        matchedTerms: [
+          "receptionist",
+          "answering",
+          "better",
+          "what",
+          "actually",
+          "comparison",
+          "coverage",
+          "cost",
+        ],
+      },
+      {
+        title:
+          "AI in Customer Service: 10 Statistics UK Leaders Need to Know- Automaise Blog",
+        url:
+          "https://www.automaise.com/ai-in-customer-service-10-statistics-uk-leaders-need-to-know",
+        domain: "automaise.com",
+        verifiedAt: "2026-08-03T09:15:47.331Z",
+        publishedDate: "",
+        summary:
+          "What this means: Satisfaction rates correlate with implementation sophistication, not technology selection alone. Leaders must budget for ongoing optimisation, not just initial deployment. (Source: Shout Digital) 9. Around 80% of Routine Customer Service Issues Can Now Be Resolved by AI Current 2026 guidance for contact centres treats human agents handling basic FAQs like “Where’s my order?” as an efficiency red flag. Research cited in 2026 contact centre analysis shows that approximately 80% of common customer service enquiries can be resolved autonomously by AI, with Gartner projecting similar levels of autonomous resolution becoming standa",
+        matchedTerms: ["service", "what", "customer", "where", "human", "handling"],
+      },
+    ],
+    imagePrompt:
+      "Create a 1536x864 photoreal premium editorial WebP image for an article comparing an AI receptionist with a human answering service. In a bright, gallery-grade near-future atrium inspired by contemporary British civic architecture, place a compact liquid-cooled photonic compute core at the centre of the safe 9:16 crop area. From the core, two clearly distinct but abstract optical pathways emerge: one precise cyan and electric-blue path flowing through wafer-scale processors and optical interconnects, and one softer violet-teal path arriving at a refined analogue-to-digital relay structure that subtly suggests human escalation without showing a person. Include pale stone, white composite surfaces, platinum, anodised aluminium and optical glass. High-key daylight, crisp realistic reflections, physically plausible cooling channels and precision sensing arrays. Keep the central subject large and uncluttered, with generous bright negative space around it. No readable text, logos, dashboards, statistics, generic robots, hands, faces, desks, offices, meeting tables, shopfronts or dark cinematic lighting.",
+    ctaPrimary: {
+      label: "Discuss the right delivery model",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Comparison Matrix",
+      fingerprint: "Comparison Matrix|decision-moment|6|comparison",
+    },
+  },
+// N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
