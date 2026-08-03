@@ -225,7 +225,7 @@ export function CoreSpinLoader() {
         <img
           className="ss-loader__emblem ss-loader__center-core"
           src={LOADER_EMBLEM_SRC}
-          alt=""
+          alt="Silverstone AI emblem"
           width={860}
           height={929}
           decoding="async"

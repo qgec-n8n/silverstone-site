@@ -2,7 +2,7 @@
  * /pricing — what shapes the investment.
  *
  * Two instruments sit beside the cost drivers: a budget-allocation band
- * (15/60/15/10) and a milestone rail (30/50/20). Both animate from CSS off the
+ * (15/60/15/10) and a milestone rail (50/30/20). Both animate from CSS off the
  * `data-panel-shown` flag `PanelReveal` already writes, so the fills and nodes
  * inherit the global reveal scheduler's ordering and its deep-link bypass for
  * free — no second animation system, no per-frame JS, and the bars move on

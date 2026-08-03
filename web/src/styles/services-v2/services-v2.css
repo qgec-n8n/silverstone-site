@@ -1917,31 +1917,60 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 @media (min-width: 46rem) {
-  /* Every verified figure sits on one row, whatever the count. */
   .ss-srv2-bench__grid {
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   }
+
+  /* Four figures stay in a balanced 2 × 2 through tablet and compact-laptop
+     widths. Forcing four narrow equal tracks here was the point where longer
+     values could paint beneath the next column and appear cropped. */
+  .ss-srv2-bench__grid[data-count="4"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-@media (min-width: 30rem) and (max-width: 45.99rem) {
+@media (min-width: 30rem) and (max-width: 63.99rem) {
   /* Even counts split into equal rows below the single-row breakpoint. */
   .ss-srv2-bench__grid[data-count="4"] {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+@media (min-width: 64rem) {
+  /* At full-card widths, every result returns to one row. Container-relative
+     type below—not the viewport—keeps each value inside its own track. */
+  .ss-srv2-bench__grid[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ss-srv2-bench__grid[data-count="3"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ss-srv2-bench__grid[data-count="4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ss-srv2-bench__grid > * {
+  min-width: 0;
 }
 
 .ss-srv2-metric {
   position: relative;
+  min-width: 0;
   padding-inline-start: 1.1rem;
   border-inline-start: 2px solid color-mix(in srgb, var(--srv2-accent) 55%, transparent);
+  container-type: inline-size;
 }
 
 .ss-srv2-metric__value {
   display: block;
+  max-width: 100%;
   white-space: nowrap;
   font-family: var(--ss-font-display);
   font-weight: 650;
-  font-size: clamp(1.5rem, 0.65rem + 1.75vw, 2.7rem);
+  font-size: clamp(1.35rem, 0.78rem + 6.6cqi, 2.7rem);
   line-height: 1;
   letter-spacing: -0.02em;
   /* The verified figures carry the page's accent sweep — the same gradient
@@ -1954,6 +1983,14 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   color: var(--srv2-accent);
   -webkit-text-fill-color: transparent;
   font-variant-numeric: tabular-nums;
+}
+
+.ss-srv2-metric[data-value-size="medium"] .ss-srv2-metric__value {
+  font-size: clamp(1.2rem, 0.72rem + 5.7cqi, 2.35rem);
+}
+
+.ss-srv2-metric[data-value-size="long"] .ss-srv2-metric__value {
+  font-size: clamp(1.05rem, 0.65rem + 4.6cqi, 2rem);
 }
 
 .ss-srv2-metric__label {

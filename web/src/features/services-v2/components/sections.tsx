@@ -32,6 +32,10 @@ import {
 /* ---- Responsive figure -------------------------------------------------- */
 
 export function ServiceFigure({ image }: { image: RouteArt["image"] }) {
+  const optimizedDesktop = hasWebpSibling(image.desktop)
+    ? webpSource(image.desktop)
+    : image.desktop;
+
   return (
     <figure className="ss-srv2-figure">
       <picture>
@@ -44,10 +48,13 @@ export function ServiceFigure({ image }: { image: RouteArt["image"] }) {
         ) : null}
         <source media="(max-width: 767px)" srcSet={image.mobile} />
         {hasWebpSibling(image.desktop) ? (
-          <source srcSet={webpSource(image.desktop)} type="image/webp" />
+          <>
+            <source srcSet={optimizedDesktop} type="image/webp" />
+            <source srcSet={image.desktop} />
+          </>
         ) : null}
         <img
-          src={image.desktop}
+          src={optimizedDesktop}
           alt={image.alt}
           width={image.width}
           height={image.height}
@@ -119,9 +126,12 @@ export function BenchmarkConsole({
       <div className="ss-srv2-bench__grid" data-count={metrics.length}>
         {metrics.map((metric, index) => {
           const { value, label } = splitMetric(metric);
+          const valueLength = Array.from(value).length;
+          const valueSize =
+            valueLength >= 11 ? "long" : valueLength >= 8 ? "medium" : "short";
           return (
             <Reveal key={metric} kind="metric" delayMs={150 + index * 110}>
-              <div className="ss-srv2-metric">
+              <div className="ss-srv2-metric" data-value-size={valueSize}>
                 <span className="ss-srv2-metric__value">
                   <AnimatedMetricValue value={value} />
                 </span>

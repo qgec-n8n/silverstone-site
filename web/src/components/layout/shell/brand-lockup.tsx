@@ -51,7 +51,7 @@ export function BrandLockup({
       to={to}
     >
       <RasterPicture
-        alt=""
+        alt="Silverstone AI emblem"
         aria-hidden
         className={cn("select-none", emblemClassName)}
         decoding="async"

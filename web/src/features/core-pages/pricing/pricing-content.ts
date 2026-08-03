@@ -162,16 +162,16 @@ export const IMPLEMENTATION_PHASES = [
 
 /** Shares sum to 100 — asserted in tests. */
 export const PAYMENT_MILESTONES = [
-  { title: "Project kickoff", share: 30 },
-  { title: "Development milestones", share: 50 },
+  { title: "Project kickoff", share: 50 },
+  { title: "Development milestones", share: 30 },
   { title: "Project completion", share: 20 },
 ] as const;
 
 export const BREAKDOWN_INSTRUMENTS = [
   {
-    value: "£500",
-    label: "Per development hour",
-    note: "Senior AI engineer rate",
+    value: "£150",
+    label: "Per hour",
+    note: "Senior AI engineer · hourly work only",
   },
   {
     value: "12 weeks",
@@ -186,7 +186,7 @@ export const BREAKDOWN_INSTRUMENTS = [
 ] as const;
 
 export const HOURLY_RATE_NOTE =
-  "Implementation is normally quoted as a defined project. Hourly rates are used where time-based specialist work is more appropriate.";
+  "Most projects are scoped and quoted as a defined project fee. The £150 per hour Senior AI engineer rate applies only where specialist work is explicitly priced hourly.";
 
 /* ---- Support retainers -------------------------------------------------- */
 

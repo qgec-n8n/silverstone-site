@@ -5,6 +5,7 @@ import { PRICING_FAQ } from "~/data/pricing-faq";
 import {
   BREAKDOWN_INSTRUMENTS,
   HOSTING_OPTIONS,
+  HOURLY_RATE_NOTE,
   IMPLEMENTATION_PHASES,
   IMPLEMENTATION_TIERS,
   MAINTENANCE_PLANS,
@@ -75,12 +76,20 @@ describe("pricing figures", () => {
     ]);
   });
 
-  it("publishes the senior engineer rate and delivery duration", () => {
+  it("publishes the senior engineer rate only for explicitly hourly work", () => {
     expect(BREAKDOWN_INSTRUMENTS.map((instrument) => instrument.value)).toEqual([
-      "£500",
+      "£150",
       "12 weeks",
       "Measured",
     ]);
+    expect(BREAKDOWN_INSTRUMENTS[0]).toEqual({
+      value: "£150",
+      label: "Per hour",
+      note: "Senior AI engineer · hourly work only",
+    });
+    expect(HOURLY_RATE_NOTE).toBe(
+      "Most projects are scoped and quoted as a defined project fee. The £150 per hour Senior AI engineer rate applies only where specialist work is explicitly priced hourly.",
+    );
   });
 
   it("keeps the verified benchmark figures unchanged", () => {
@@ -108,7 +117,7 @@ describe("pricing instruments", () => {
     );
     expect(total).toBe(100);
     expect(PAYMENT_MILESTONES.map((milestone) => milestone.share)).toEqual([
-      30, 50, 20,
+      50, 30, 20,
     ]);
   });
 

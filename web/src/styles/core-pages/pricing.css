@@ -21,6 +21,15 @@
  */
 
 .ss-pri {
+  /* Pricing carries denser glass than the shared service-page defaults. The
+     stronger substrates keep cards legible over the cinematic background while
+     preserving a clear raised / base / inset material hierarchy. */
+  --srv2-glass: color-mix(in srgb, var(--ss-v2-graphite) 80%, transparent);
+  --srv2-glass-raised: color-mix(
+    in srgb,
+    var(--ss-v2-graphite-raised) 90%,
+    transparent
+  );
   --pri-tile:
     linear-gradient(
       180deg,
@@ -28,7 +37,7 @@
       transparent 44%
     ),
     var(--srv2-glass-raised);
-  --pri-plate: color-mix(in srgb, var(--ss-v2-void-black) 42%, transparent);
+  --pri-plate: color-mix(in srgb, var(--ss-v2-void-black) 72%, transparent);
   --pri-inset-light: inset 0 22px 58px -44px rgba(255, 255, 255, 0.5);
   --pri-lift: 0 26px 60px -38px color-mix(in srgb, var(--srv2-accent) 60%, transparent);
   --pri-gap: clamp(1rem, 0.75rem + 1vw, 1.5rem);
@@ -2510,6 +2519,12 @@
 }
 
 /* ---- #7 · Verified-results palette (pricing only) ---------------------- */
+
+/* The shared metric cells use a deliberately light glass on other core pages;
+   pricing keeps those nested proof cards aligned with its denser inset plate. */
+.ss-pri .ss-core-metric-instrument__cell {
+  background: var(--pri-plate);
+}
 
 .ss-pri
   .ss-core-metric-instrument__cell:nth-child(1)

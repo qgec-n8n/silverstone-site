@@ -322,7 +322,11 @@ function ArticleComparisonTable({
       <table className="ss-blog-article__table">
         <thead>
           <tr>
-            <th scope="col">{table?.rowHeader?.trim() || "Decision point"}</th>
+            <th scope="col">
+              {table?.rowHeader?.trim().length
+                ? table.rowHeader.trim()
+                : "Decision point"}
+            </th>
             {columns.map((column) => (
               <th key={column} scope="col">
                 <ArticleRichText text={column} />
@@ -427,15 +431,22 @@ function ArticleMetricPanel({
         </span>
       ) : null}
       <dl>
-        {items.map((item, index) => (
-          <div key={`${item.label}-${String(index)}`}>
-            <dt>{item.label.trim()}</dt>
-            <dd>
-              <ArticleRichText text={item.value.trim()} />
-            </dd>
-            {item.note?.trim() ? <p>{item.note.trim()}</p> : null}
-          </div>
-        ))}
+        {items.map((item, index) => {
+          const value = item.value.trim();
+          const valueLength = Array.from(value).length;
+          const valueSize =
+            valueLength > 36 ? "full" : valueLength > 18 ? "wide" : "standard";
+
+          return (
+            <div data-value-size={valueSize} key={`${item.label}-${String(index)}`}>
+              <dt>{item.label.trim()}</dt>
+              <dd>
+                <ArticleRichText text={value} />
+              </dd>
+              {item.note?.trim() ? <p>{item.note.trim()}</p> : null}
+            </div>
+          );
+        })}
       </dl>
     </div>
   );

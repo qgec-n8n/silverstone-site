@@ -17709,7 +17709,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
             },
             {
               label: "Verified Silverstone evidence",
-              value: "Automation, consulting and implementation process",
+              value: "Automation · consulting · delivery",
               note:
                 "Specific voice-receptionist product features are not publicly verified in the supplied evidence.",
             },

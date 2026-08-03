@@ -307,6 +307,10 @@ export function IndustryFigure({
   image: IndustryImage;
   loading?: "lazy" | "eager";
 }) {
+  const optimizedDesktop = hasWebpSibling(image.desktop)
+    ? webpSource(image.desktop)
+    : image.desktop;
+
   return (
     <figure className="ss-srv2-figure">
       <picture>
@@ -323,10 +327,13 @@ export function IndustryFigure({
           </>
         ) : null}
         {hasWebpSibling(image.desktop) ? (
-          <source srcSet={webpSource(image.desktop)} type="image/webp" />
+          <>
+            <source srcSet={optimizedDesktop} type="image/webp" />
+            <source srcSet={image.desktop} />
+          </>
         ) : null}
         <img
-          src={image.desktop}
+          src={optimizedDesktop}
           alt={image.alt}
           width={image.width}
           height={image.height}

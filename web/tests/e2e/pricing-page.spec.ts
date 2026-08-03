@@ -30,7 +30,7 @@ const PUBLISHED_FIGURES = [
   "From £1,250",
   "£10,000+",
   // Implementation breakdown
-  "£500",
+  "£150",
   "12 weeks",
   // Website build tiers
   "£1,500",

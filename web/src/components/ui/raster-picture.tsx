@@ -19,12 +19,17 @@ export function RasterPicture({
   pictureClassName,
   ...props
 }: ComponentProps<"img"> & { src: string; pictureClassName?: string }) {
+  const optimizedSrc = hasWebpSibling(src) ? webpSource(src) : src;
+
   return (
     <picture className={pictureClassName}>
       {hasWebpSibling(src) ? (
-        <source srcSet={webpSource(src)} type="image/webp" />
+        <>
+          <source srcSet={optimizedSrc} type="image/webp" />
+          <source srcSet={src} />
+        </>
       ) : null}
-      <img src={src} {...props} />
+      <img src={optimizedSrc} {...props} />
     </picture>
   );
 }
