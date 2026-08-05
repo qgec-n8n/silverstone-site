@@ -1381,8 +1381,8 @@
 
 .ss-ind2-sprint-banner {
   position: relative;
-  /* No bottom padding: the trust strip below brings its own top rhythm, so
-     the band reads as attached to the hero rather than floating between. */
+  /* No bottom padding: the live-build section below brings its own top rhythm,
+     keeping the offer visibly connected to the proof it introduces. */
   padding-block: clamp(1.5rem, 1.1rem + 2vw, 3rem) 0;
 }
 
@@ -1867,6 +1867,10 @@
     ),
     var(--srv2-glass-raised);
   backdrop-filter: blur(14px);
+}
+
+.ss-ind2-sprint-terms-wrap {
+  min-width: 0;
 }
 
 .ss-ind2-sprint-terms__price {

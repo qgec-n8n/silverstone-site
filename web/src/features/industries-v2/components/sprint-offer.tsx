@@ -6,8 +6,9 @@
  * element on the page allowed to read as instrumentation: a void-black band
  * ruled off with an animated accent rim, corner ticks borrowed from the
  * signature chrome, a live capacity light, and a segmented mono clock in its
- * own bezel. It sits directly under the hero so the offer is the first thing
- * after the H1, and it is deliberately the loudest surface above the fold.
+ * own bezel. It sits after the route's trust strip and operating-principle
+ * pills, directly before the live client build, and it is deliberately the
+ * loudest promotional surface near the top of the page.
  *
  * HONESTY CONTRACT — the clock counts to the end of *this week's intake*, a
  * recurring capacity window, not to an expiring price. It resets every week
@@ -322,49 +323,51 @@ export function SprintPanel({ sprint }: { sprint: SprintOffer }) {
             })}
           </div>
 
-          <aside className="ss-ind2-sprint-terms" aria-label="Price and terms">
-            <Reveal kind="card">
-              <div className="ss-ind2-sprint-terms__price">
-                <span className="ss-ind2-sprint-terms__figure">{sprint.price}</span>
-                <span className="ss-ind2-sprint-terms__figure-label">
-                  Fixed, for the six deliverables
-                </span>
-              </div>
-            </Reveal>
+          <aside className="ss-ind2-sprint-terms-wrap" aria-label="Price and terms">
+            <PanelReveal className="ss-ind2-sprint-terms">
+              <Reveal kind="card">
+                <div className="ss-ind2-sprint-terms__price">
+                  <span className="ss-ind2-sprint-terms__figure">{sprint.price}</span>
+                  <span className="ss-ind2-sprint-terms__figure-label">
+                    Fixed, for the six deliverables
+                  </span>
+                </div>
+              </Reveal>
 
-            <ol className="ss-ind2-sprint-terms__ladder">
-              {sprint.payments.map((payment, index) => (
-                <li className="ss-ind2-sprint-terms__cell" key={payment.when}>
-                  <Reveal
-                    kind="section"
-                    delayMs={120 + index * 90}
-                    className="ss-ind2-sprint-terms__rung"
-                  >
-                    <span className="ss-ind2-sprint-terms__amount">
-                      {payment.amount}
-                    </span>
-                    <span className="ss-ind2-sprint-terms__when">{payment.when}</span>
-                    <span className="ss-ind2-sprint-terms__note">{payment.note}</span>
-                  </Reveal>
-                </li>
-              ))}
-            </ol>
+              <ol className="ss-ind2-sprint-terms__ladder">
+                {sprint.payments.map((payment, index) => (
+                  <li className="ss-ind2-sprint-terms__cell" key={payment.when}>
+                    <Reveal
+                      kind="section"
+                      delayMs={120 + index * 90}
+                      className="ss-ind2-sprint-terms__rung"
+                    >
+                      <span className="ss-ind2-sprint-terms__amount">
+                        {payment.amount}
+                      </span>
+                      <span className="ss-ind2-sprint-terms__when">{payment.when}</span>
+                      <span className="ss-ind2-sprint-terms__note">{payment.note}</span>
+                    </Reveal>
+                  </li>
+                ))}
+              </ol>
 
-            {/* Rendered verbatim: this is the exact sentence quoted on calls. */}
-            <Reveal kind="card" delayMs={420}>
-              <div className="ss-ind2-sprint-terms__guarantee">
-                <p className="ss-ind2-sprint-terms__guarantee-tag">
-                  <ShieldCheck aria-hidden="true" />
-                  The guarantee
-                </p>
-                <blockquote className="ss-ind2-sprint-terms__guarantee-quote">
-                  {sprint.guarantee}
-                </blockquote>
-                <p className="ss-ind2-sprint-terms__guarantee-note">
-                  {sprint.guaranteeNote}
-                </p>
-              </div>
-            </Reveal>
+              {/* Rendered verbatim: this is the exact sentence quoted on calls. */}
+              <Reveal kind="card" delayMs={420}>
+                <div className="ss-ind2-sprint-terms__guarantee">
+                  <p className="ss-ind2-sprint-terms__guarantee-tag">
+                    <ShieldCheck aria-hidden="true" />
+                    The guarantee
+                  </p>
+                  <blockquote className="ss-ind2-sprint-terms__guarantee-quote">
+                    {sprint.guarantee}
+                  </blockquote>
+                  <p className="ss-ind2-sprint-terms__guarantee-note">
+                    {sprint.guaranteeNote}
+                  </p>
+                </div>
+              </Reveal>
+            </PanelReveal>
           </aside>
         </div>
 

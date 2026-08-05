@@ -7,18 +7,19 @@
  *
  * Ordering differs from its siblings on purpose. This page is the sector's
  * landing page, so evidence and conversion come first: the live Aesthetics by
- * Clouds build is EMBEDDED immediately under the hero — a visitor can browse a
- * real clinic site we built without leaving the page — then the
+ * Clouds build is EMBEDDED near the top — a visitor can browse a real clinic
+ * site we built without leaving the page — then the
  * revenue-critical workflows and verified results precede the architectural
  * detail. The booking architecture, boundary and process sections then carry
  * the depth a clinician needs before a call.
  *
  * It also carries the live Seven-Day Booking Conversion Sprint, so the CTA
  * ladder descends by commitment rather than repeating one ask: the offer
- * banner sits directly under the hero, the full sprint section follows the
- * verified figures, the softer "bring one week of enquiries" ask sits *after*
- * the implementation detail for readers not ready to commit today, and the
- * final CTA closes on the sprint again. See `copy.sprint` for every figure.
+ * banner follows the trust strip and operating-principle pills, immediately
+ * before the live build; the full sprint section follows the verified figures,
+ * the softer "bring one week of enquiries" ask sits *after* the implementation
+ * detail for readers not ready to commit today, and the final CTA closes on
+ * the sprint again. See `copy.sprint` for every figure.
  */
 import type { CSSProperties } from "react";
 
@@ -39,6 +40,7 @@ import { TrustStrip } from "~/visual/home-v2/sections/trust-strip";
 
 import {
   BorderBeam,
+  PanelReveal,
   Prose,
   Reveal,
   SectionHead,
@@ -56,7 +58,6 @@ import {
 
 import {
   BoundaryPanel,
-  CaseStudyPanel,
   FitPanel,
   ImageDuo,
   IndustryFigure,
@@ -108,13 +109,12 @@ export function AestheticClinicsComposition({
           <ConsultLadder label={art.discipline} metrics={metrics.slice(0, 2)} />
         }
       />
-      {/* The live offer, immediately after the H1 and before anything else —
-          this page is currently being sold on cold calls, so the sprint is the
-          first thing a visitor who was just spoken to needs to find. */}
-      {copy.sprint ? <SprintBanner sprint={copy.sprint} route={copy.route} /> : null}
-
       <TrustStrip />
       <TrustTokens tokens={copy.trustTokens} />
+
+      {/* Keep the offer next to the proof it leads into, after the shared trust
+          strip and this sector's four operating-principle pills. */}
+      {copy.sprint ? <SprintBanner sprint={copy.sprint} route={copy.route} /> : null}
 
       {/* Live client build, embedded rather than linked. The showcase is
           restricted to this sector's own site, so the section is proof for an
@@ -138,7 +138,6 @@ export function AestheticClinicsComposition({
               heading={copy.caseStudy.heading}
               headingId="ind2-case"
             />
-            <CaseStudyPanel caseStudy={copy.caseStudy} />
           </div>
           <BrowserShowcase only={copy.caseStudy.showcaseSiteId} />
         </section>
@@ -154,25 +153,24 @@ export function AestheticClinicsComposition({
                 heading={copy.problem.heading}
                 headingId="ind2-problem"
               />
-              <div className="ss-ind2-problem-panel ss-srv2-beam-border">
+              <div className="ss-ind2-problem-panel">
                 <Reveal kind="section">
                   <Prose paragraphs={[copy.problem.body]} />
                 </Reveal>
-                <BorderBeam />
               </div>
             </div>
             <Reveal kind="image">
               <IndustryFigure image={art.primary} />
             </Reveal>
           </div>
-          <div className="ss-ind2-problem-panel ss-srv2-beam-border">
+          <PanelReveal className="ss-ind2-problem-panel ss-srv2-beam-border">
             <ServiceCards
               cards={toCards(copy.problem.cards)}
               icons={painIcons}
               columns={4}
             />
             <BorderBeam />
-          </div>
+          </PanelReveal>
         </div>
       </section>
 
