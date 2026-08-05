@@ -1,6 +1,6 @@
 /**
  * /industries hub — premium sector-discovery experience.
- * Visual concept: Sector Signal Grid — nine industries as live channels on
+ * Visual concept: Sector Signal Grid — ten industries as live channels on
  * one operating board. Each discovery card carries its industry's own accent
  * and trust language, with verified cross-sector figures anchoring the proof
  * band. The Aether intro for this route renders in the Industries palette.
@@ -72,19 +72,39 @@ function wrapSectorLabel(label: string): string[] {
   return [words.slice(0, bestSplit).join(" "), words.slice(bestSplit).join(" ")];
 }
 
+/*
+ * Board geometry. Four rows of three fit the 600-unit board once the row pitch
+ * drops to 112 (card height 96 + a 16 gutter): first row top 48, last row
+ * bottom 480, clear of the 520 caption. Rows are centred rather than
+ * left-aligned so a short final row — ten sectors leaves one — sits in the
+ * middle of the board instead of hanging off the left edge.
+ */
+const BOARD_COLUMNS = 3;
+const BOARD_COLUMN_PITCH = 165;
+const BOARD_ROW_PITCH = 112;
+const BOARD_FIRST_ROW_Y = 96;
+
 function SectorSignalGrid() {
   const reducedMotion = useReducedMotion() ?? false;
-  const cells = industryRoutes.map((route, index) => ({
-    route,
-    x: 105 + (index % 3) * 165,
-    y: 118 + Math.floor(index / 3) * 140,
-  }));
+  const cells = industryRoutes.map((route, index) => {
+    const row = Math.floor(index / BOARD_COLUMNS);
+    const column = index % BOARD_COLUMNS;
+    const cardsInRow = Math.min(
+      BOARD_COLUMNS,
+      industryRoutes.length - row * BOARD_COLUMNS,
+    );
+    return {
+      route,
+      x: 300 + (column - (cardsInRow - 1) / 2) * BOARD_COLUMN_PITCH,
+      y: BOARD_FIRST_ROW_Y + row * BOARD_ROW_PITCH,
+    };
+  });
 
   return (
     <div
       className="ss-srv2-signature"
       role="img"
-      aria-label="Diagram: nine industry channels — estate agents, salons, ecommerce, dentists, coaches, hospitality, trades, clinics and gyms — live on one Silverstone operating board."
+      aria-label="Diagram: ten industry channels — estate agents, salons, aesthetic clinics, ecommerce, dentists, coaches, hospitality, trades, physio clinics and gyms — live on one Silverstone operating board."
     >
       <SignatureStatusBar label="Sector operating board" />
       <div className="ss-srv2-signature__stage">
@@ -177,7 +197,7 @@ function SectorSignalGrid() {
             fontSize="12.5"
             fontFamily="var(--ss-font-mono)"
           >
-            Nine sectors · one operating standard · human judgement kept
+            Ten sectors · one operating standard · human judgement kept
           </text>
         </m.svg>
       </div>
@@ -196,7 +216,7 @@ export function IndustriesHubExperience() {
         titleId="hub2-lead"
         lead="Generic automation fails at the edges of a real trade. Silverstone builds sector-specific systems around your diary, CRM, reservation book or patient records — with the judgement calls your industry demands kept firmly human."
         points={[
-          "Nine UK sectors, each with a purpose-built system",
+          "Ten UK sectors, each with a purpose-built system",
           "Grounded in your source of truth, not a script",
           "Verified Silverstone AI results on every page",
         ]}
@@ -212,7 +232,7 @@ export function IndustriesHubExperience() {
           <SectionHead
             eyebrow="Find your sector"
             icon={Layers}
-            heading="Nine industries, nine *purpose-built systems*"
+            heading="Ten industries, ten *purpose-built systems*"
             headingId="hub2-sectors"
             lead="Each page opens a complete operating experience: the sector's costly problem, the journey that fixes it, verified results and the boundaries that keep judgement with your people."
           />

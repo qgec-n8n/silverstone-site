@@ -57,7 +57,7 @@ const TOPIC_CARDS: CoreCard[] = [
   {
     href: "/industry",
     title: "Industry applications",
-    body: "Sector-specific systems for nine UK operating realities.",
+    body: "Sector-specific systems for ten UK operating realities.",
     icon: Layers,
   },
 ];

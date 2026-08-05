@@ -108,6 +108,13 @@ export type IndustrySignal = {
   href: string;
 };
 
+/*
+ * A curated six, not the full sector list — the /industry hub carries all ten.
+ * Six is also load-bearing: `.ss-hv2-industries` is a three-column grid whose
+ * hairlines assume two complete rows, so a seventh entry would leave a ragged
+ * row with two empty cells inside the bordered container. Broaden an existing
+ * entry's `need` copy rather than appending a seventh here.
+ */
 export const INDUSTRY_SIGNALS: readonly IndustrySignal[] = [
   {
     id: "estate-agents",
@@ -136,7 +143,7 @@ export const INDUSTRY_SIGNALS: readonly IndustrySignal[] = [
   {
     id: "clinics",
     name: "Clinics and practices",
-    need: "Patient enquiries, appointment intent and admin handoffs that need care.",
+    need: "Patient and aesthetic consultation enquiries, appointment intent and admin handoffs that need care.",
     href: "/industry/physios-chiropractors",
   },
   {

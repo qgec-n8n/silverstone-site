@@ -11,6 +11,7 @@ import { useRef, type ReactNode } from "react";
 import {
   Check,
   ShieldCheck,
+  Sparkles,
   UserCheck,
   type LucideIcon,
 } from "~/components/icons/lucide";
@@ -23,7 +24,7 @@ import {
   Reveal,
   RichText,
 } from "~/features/services-v2/components/primitives";
-import type { IndustryCard, IndustryStage } from "../content/types";
+import type { IndustryCard, IndustryCaseStudy, IndustryStage } from "../content/types";
 import type { IndustryImage } from "../content/route-art";
 
 const entranceEase = [0.22, 1, 0.36, 1] as const;
@@ -227,6 +228,48 @@ function BoundaryKeepItem({ item, index }: { item: string; index: number }) {
       <ShieldCheck aria-hidden="true" />
       <span>{item}</span>
     </m.div>
+  );
+}
+
+/**
+ * Live-client proof intro: the copy that sits immediately above an embedded
+ * `BrowserShowcase` for a named Silverstone build in this page's own sector.
+ * It carries no CTA of its own — the demo underneath IS the call to action, so
+ * a button here would only compete with it.
+ */
+export function CaseStudyPanel({ caseStudy }: { caseStudy: IndustryCaseStudy }) {
+  return (
+    <PanelReveal className="ss-ind2-boundary ss-ind2-case ss-srv2-beam-border">
+      <Reveal kind="section" className="ss-ind2-boundary__col">
+        <p className="ss-ind2-boundary__body">
+          <RichText text={caseStudy.lead} />
+        </p>
+        <Reveal kind="section" delayMs={240}>
+          <p className="ss-ind2-case__note">{caseStudy.note}</p>
+        </Reveal>
+      </Reveal>
+      <div className="ss-ind2-boundary__col ss-ind2-boundary__col--keeps">
+        <Reveal kind="pill">
+          <span className="ss-ind2-boundary__tag">
+            <Sparkles aria-hidden="true" />
+            {caseStudy.eyebrow}
+          </span>
+        </Reveal>
+        <div
+          className="ss-ind2-boundary__list"
+          role="list"
+          aria-label={caseStudy.eyebrow}
+        >
+          {caseStudy.points.map((point) => (
+            <div className="ss-ind2-boundary__item" role="listitem" key={point}>
+              <Check aria-hidden="true" />
+              <span>{point}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <BorderBeam />
+    </PanelReveal>
   );
 }
 

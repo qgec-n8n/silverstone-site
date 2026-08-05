@@ -38,6 +38,7 @@ const marketingRoutes = [
   "/contact",
   "/how-we-work",
   "/industry",
+  "/industry/aesthetic-clinics",
   "/industry/dentists",
   "/industry/ecommerce",
   "/industry/estate-agents",

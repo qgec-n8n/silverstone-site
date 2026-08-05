@@ -406,7 +406,7 @@ export function ServicesHubExperience() {
             eyebrow="Sector systems"
             heading="Built for the way your industry *actually operates*"
             headingId="hub2-industries"
-            lead="Nine UK sectors have *their own dedicated operating systems* — estate agency enquiry switchboards, salon diaries, clinic recall, trades dispatch and more."
+            lead="Ten UK sectors have *their own dedicated operating systems* — estate agency enquiry switchboards, salon diaries, aesthetic-clinic consultations, trades dispatch and more."
           />
           <Reveal kind="cta">
             <p className="ss-srv2-lead">

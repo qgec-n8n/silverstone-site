@@ -160,7 +160,7 @@ function buildQuestionList(items: readonly { q: string; a: string }[]): SchemaEn
 }
 
 /**
- * FAQPage for the seven service and nine industry routes, built from the same
+ * FAQPage for the seven service and ten industry routes, built from the same
  * copy registries their compositions render (`serviceCopyByRoute` /
  * `industryCopyByRoute`) so the structured data and the visible accordion can
  * never drift apart.

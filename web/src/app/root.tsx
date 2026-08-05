@@ -46,6 +46,21 @@ function resolveGlobalRobotsMeta(): string | null {
   }
 }
 
+/**
+ * Feed autodiscovery is advertised only where the feed actually exists:
+ * `build:production` writes /feed.xml (web/scripts/generate-seo-artifacts.mjs)
+ * while staging builds deliberately ship no sitemap or feed at all. A
+ * malformed environment fails closed to omitting the link rather than pointing
+ * crawlers and readers at a 404.
+ */
+function shouldAdvertiseFeed(): boolean {
+  try {
+    return !getPublicEnvironment().isStaging;
+  } catch {
+    return false;
+  }
+}
+
 /*
  * Inlined verbatim into the pre-hydration boot script below, so the gate-free
  * check runs synchronously before first paint — Book must never flash the
@@ -62,6 +77,7 @@ const gateFreeDeepLinksJson = JSON.stringify(GATE_FREE_DEEP_LINKS);
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const globalRobotsMeta = resolveGlobalRobotsMeta();
+  const advertiseFeed = shouldAdvertiseFeed();
 
   return (
     <html className="dark" lang="en" suppressHydrationWarning>
@@ -78,6 +94,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
         <link href="/site.webmanifest" rel="manifest" />
+        {advertiseFeed ? (
+          <link
+            href="/feed.xml"
+            rel="alternate"
+            title="Silverstone AI Insights"
+            type="application/atom+xml"
+          />
+        ) : null}
         <AnalyticsScripts />
         <script
           dangerouslySetInnerHTML={{

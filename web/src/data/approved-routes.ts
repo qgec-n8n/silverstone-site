@@ -176,7 +176,7 @@ export const approvedAdditionalRoutes: FutureRouteRecord[] = [
     contentDisposition: "create",
     title: "Industries We Support | Silverstone AI",
     description:
-      "Explore practical website, app and AI workflow ideas for nine UK business sectors, with industry-specific use cases and safeguards.",
+      "Explore practical website, app and AI workflow ideas for ten UK business sectors, with industry-specific use cases and safeguards.",
     h1: "Technology shaped around your operating reality",
     headingPlan: {
       h1: "Technology shaped around your operating reality",
@@ -203,6 +203,7 @@ export const approvedAdditionalRoutes: FutureRouteRecord[] = [
       "route-services-estate-agents",
       "route-services-hospitality",
       "route-services-salons-barbers",
+      "route-industry-aesthetic-clinics",
       "route-services-trades",
       "route-services-ecommerce",
       "route-services-physios-chiropractors",
@@ -302,6 +303,65 @@ export const approvedAdditionalRoutes: FutureRouteRecord[] = [
     acceptanceIds: ["AC-003", "AC-004", "AC-006", "AC-007"],
     unresolvedNotes: [],
   })),
+  /*
+   * Skin & Aesthetic Clinics (added 2026-08-05). The tenth industry and the
+   * first with no legacy `/services/<industry>` predecessor, so it is a full
+   * record here rather than an override on the generated baseline manifest —
+   * there is nothing in the baseline to override. No 301 is needed for the
+   * same reason: the path has never existed publicly.
+   */
+  {
+    id: "route-industry-aesthetic-clinics",
+    legacyRouteKey: "approved:/industry/aesthetic-clinics",
+    path: "/industry/aesthetic-clinics",
+    canonical: "https://silverstone-ai.com/industry/aesthetic-clinics",
+    routeGroup: "industries",
+    template: "industry",
+    lifecycle: "retained",
+    legacyDisposition: "new",
+    implementationDisposition: "create",
+    contentDisposition: "create",
+    title: "Aesthetic Clinic Automation UK | Silverstone AI",
+    description:
+      "Seven-Day Booking Conversion Sprint for UK aesthetic clinics — £1,500, £750 to begin. Turn enquiries into deposit-secured consultations, with clinical judgement kept with your prescriber.",
+    h1: "Turn interest into booked, deposit-backed consultations",
+    headingPlan: {
+      h1: "Turn interest into booked, deposit-backed consultations",
+      h1Source: "industries-v2 hero copy (2026-08-05); reconciled with Service schema",
+      supportingHeadingsStatus: "approved editorial overlay",
+    },
+    productionIndexable: true,
+    sitemap: true,
+    breadcrumbs: [
+      breadcrumb("Home", "/"),
+      breadcrumb("Industries", "/industry"),
+      breadcrumb("Skin & Aesthetic Clinics", "/industry/aesthetic-clinics"),
+    ],
+    schemaTypes: ["WebPage", "Service", "BreadcrumbList"],
+    contentId: "content-industry-aesthetic-clinics",
+    sourceFile: "web/src/features/industries-v2/content/copy/aesthetic-clinics.ts",
+    sourcePath: "/web/src/features/industries-v2/content/copy/aesthetic-clinics.ts",
+    migrationOwner: "Silverstone route implementation",
+    contentOwner: "Silverstone editorial review",
+    contentStatus: "approved-editorial-overlay",
+    claimsStatus: "safe-copy-human-review-pending",
+    primaryIntent:
+      "aesthetic clinic automation UK; AI receptionist for aesthetic clinics",
+    ctaIntent: "booking",
+    parentRouteId: "route-industries",
+    relatedRouteIds: [
+      "route-service-ai-receptionists",
+      "route-service-web-design-development",
+      "route-service-ai-automation",
+      "route-service-content-creation",
+    ],
+    migrationEvidence:
+      "New sector page; copy authored against UK POM advertising rules and the live Aesthetics by Clouds client build",
+    acceptanceIds: ["AC-003", "AC-004", "AC-006", "AC-007"],
+    unresolvedNotes: [
+      "Carries a live commercial offer (Seven-Day Booking Conversion Sprint, £1,500 / £750 + £750). Price, payment split, delivery window and guarantee sentence are authored in copy/aesthetic-clinics.ts `sprint` and must be re-checked against the current sales script whenever either changes.",
+    ],
+  },
 ];
 
 export const approvedRouteOverrides: RouteOverride[] = [

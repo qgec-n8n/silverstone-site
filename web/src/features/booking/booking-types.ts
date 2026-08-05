@@ -22,6 +22,7 @@ export const INDUSTRY_OPTIONS = [
   "Estate agents",
   "Hospitality",
   "Salons & barbers",
+  "Skin & aesthetic clinics",
   "Trades & home services",
   "eCommerce brands",
   "Physio & chiropractic clinics",

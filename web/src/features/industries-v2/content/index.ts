@@ -1,4 +1,5 @@
 import type { IndustryCopy, IndustryRoute } from "./types";
+import { aestheticClinicsCopy } from "./copy/aesthetic-clinics";
 import { dentistsCopy } from "./copy/dentists";
 import { ecommerceCopy } from "./copy/ecommerce";
 import { estateAgentsCopy } from "./copy/estate-agents";
@@ -12,6 +13,7 @@ import { tradesCopy } from "./copy/trades";
 export const industryCopyByRoute: Record<IndustryRoute, IndustryCopy> = {
   "/industry/estate-agents": estateAgentsCopy,
   "/industry/salons-barbers": salonsBarbersCopy,
+  "/industry/aesthetic-clinics": aestheticClinicsCopy,
   "/industry/ecommerce": ecommerceCopy,
   "/industry/dentists": dentistsCopy,
   "/industry/fitness-coaches": fitnessCoachesCopy,

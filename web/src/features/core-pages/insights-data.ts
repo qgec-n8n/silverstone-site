@@ -1,5 +1,5 @@
 /**
- * Insights hub data: the 16-category taxonomy (7 services + 9 industries)
+ * Insights hub data: the 17-category taxonomy (7 services + 10 industries)
  * and the article-card records that back the searchable/filterable grid.
  *
  * AUTOMATION CONTRACT — the blog-generation automation appends one
@@ -90,6 +90,12 @@ export const INSIGHT_CATEGORIES: InsightCategory[] = [
     label: "Salons & Barbers",
     group: "industry",
     href: "/industry/salons-barbers",
+  },
+  {
+    id: "aesthetic-clinics",
+    label: "Skin & Aesthetic Clinics",
+    group: "industry",
+    href: "/industry/aesthetic-clinics",
   },
   {
     id: "trades",

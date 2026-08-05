@@ -15,6 +15,7 @@ const BENCHMARK_ROUTES = [
   "/services/ai-consulting",
   "/industry/estate-agents",
   "/industry/salons-barbers",
+  "/industry/aesthetic-clinics",
   "/industry/ecommerce",
   "/industry/dentists",
   "/industry/fitness-coaches",
@@ -53,18 +54,14 @@ async function settleResponsiveLayout(page: Page) {
 }
 
 async function settleViewport(page: Page, width: number) {
-  await expect
-    .poll(() => page.evaluate(() => window.innerWidth))
-    .toBe(width);
+  await expect.poll(() => page.evaluate(() => window.innerWidth)).toBe(width);
   await settleResponsiveLayout(page);
 }
 
 async function openRouteBody(page: Page, path: string) {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(path, { waitUntil: "load" });
-  const serviceExperience = page.locator(
-    ".ss-service-experience[data-service-state]",
-  );
+  const serviceExperience = page.locator(".ss-service-experience[data-service-state]");
   const routeExperience = page.locator(
     ".ss-route-experience[data-route-experience-state]",
   );
@@ -87,9 +84,7 @@ async function openRouteBody(page: Page, path: string) {
 }
 
 async function reopenRouteBodyAfterResize(page: Page) {
-  const serviceExperience = page.locator(
-    ".ss-service-experience[data-service-state]",
-  );
+  const serviceExperience = page.locator(".ss-service-experience[data-service-state]");
   const routeExperience = page.locator(
     ".ss-route-experience[data-route-experience-state]",
   );

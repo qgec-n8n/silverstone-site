@@ -94,7 +94,10 @@ describe("published blog slug policy", () => {
 
       expect(alt, `${post.slug} heroImageAlt`).toBeTruthy();
       // Long enough to describe a scene rather than name a topic.
-      expect(alt.length, `${post.slug} heroImageAlt too short: ${alt}`).toBeGreaterThanOrEqual(20);
+      expect(
+        alt.length,
+        `${post.slug} heroImageAlt too short: ${alt}`,
+      ).toBeGreaterThanOrEqual(20);
       expect(alt.length, `${post.slug} heroImageAlt too long`).toBeLessThanOrEqual(300);
       // Alt text that repeats the headline describes the article, not the image.
       expect(

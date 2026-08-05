@@ -43,9 +43,7 @@ function renderArticle(post: SilverstoneBlogPost) {
  * search-led blocks as its parent, so a guard that only walked the top level
  * would miss a back-fill one level down.
  */
-function flattenSections(
-  sections: SilverstoneBlogSection[],
-): SilverstoneBlogSection[] {
+function flattenSections(sections: SilverstoneBlogSection[]): SilverstoneBlogSection[] {
   return sections.flatMap((section) => [
     section,
     ...flattenSections(section.subsections ?? []),

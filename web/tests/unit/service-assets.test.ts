@@ -115,14 +115,12 @@ describe("live website showcase", () => {
   const sitesPath = "src/features/services-v2/demos/showcase-sites.json";
   const sitesJson = readFileSync(resolve(process.cwd(), sitesPath), "utf8");
 
-  // The route-scoped CSP (root netlify.toml) allow-lists exactly the two
-  // demo origins. The native booking flow no longer requires a Calendly
-  // frame origin. Showcase surfaces must not reference anything else.
+  // The showcase may reference exactly these two client origins. The native
+  // booking flow no longer requires a Calendly frame origin.
   const demoOrigins = [
     "https://ownly-housing.netlify.app",
     "https://aestheticsbyclouds.netlify.app",
   ];
-  const frameSrcAllowList = demoOrigins;
 
   it("embeds only the two CSP-allow-listed demo origins", () => {
     for (const origin of demoOrigins) {
@@ -145,14 +143,25 @@ describe("live website showcase", () => {
         url,
       ).toBe(true);
     }
+    // Every route allow-lists exactly the origins it can actually mount, and
+    // nothing more: the web-design portfolio rails between both builds, while
+    // the aesthetic-clinics page embeds only its own sector's build and must
+    // not be able to frame the housing site.
     const csp = readFileSync(resolve(process.cwd(), "../netlify.toml"), "utf8");
-    const headerValues = [...csp.matchAll(/Content-Security-Policy = "([^"]+)"/g)].map(
-      (match) => match[1],
+    const cspByRoute = Object.fromEntries(
+      csp
+        .split("[[headers]]")
+        .slice(1)
+        .flatMap((block) => {
+          const route = /for = "([^"]+)"/.exec(block)?.[1];
+          const policy = /Content-Security-Policy = "([^"]+)"/.exec(block)?.[1];
+          return route && policy ? [[route, policy] as const] : [];
+        }),
     );
-    expect(headerValues.length).toBeGreaterThan(0);
-    for (const value of headerValues) {
-      expect(value).toBe(`frame-src ${frameSrcAllowList.join(" ")}`);
-    }
+    expect(cspByRoute).toEqual({
+      "/services/web-design-development": `frame-src ${demoOrigins.join(" ")}`,
+      "/industry/aesthetic-clinics": "frame-src https://aestheticsbyclouds.netlify.app",
+    });
   });
 
   it("delegates payment to the booking-enabled demo and never sandboxes", () => {

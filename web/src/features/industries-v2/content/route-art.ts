@@ -10,6 +10,7 @@ import type { IndustryRoute } from "./types";
 import {
   Building2,
   ConciergeBell,
+  Diamond,
   Dumbbell,
   HeartPulse,
   Scissors,
@@ -92,6 +93,59 @@ export const industryArt: Record<IndustryRoute, IndustryArt> = {
         "/approved-images/salon-3.png",
         "/approved-images/salon-3-mobile.png",
         "Illustrative rebooking prompt panel in a salon setting.",
+      ),
+    ],
+  },
+  /*
+   * Image decision log — /industry/aesthetic-clinics, 2026-08-05
+   * (page-image-selection-policy.md Step 10).
+   *
+   * Candidates: the preserved catalogue holds no aesthetic-clinic scenes, so
+   * the physiotherapy set was used as a temporary placeholder at first build
+   * and rejected on 2026-08-05 — clinic-adjacent, but the wrong sector and
+   * carrying its own baked-in "Automate Patient Flow" headline. Replaced with
+   * three purpose-generated stills.
+   *
+   * Selected: aesthetic-1 (primary, beside the problem split — an enquiry
+   * arriving on DM/WhatsApp/web form and resolving to a deposit-secured
+   * consultation), aesthetic-2 and aesthetic-3 (gallery duo — deposit
+   * confirmation and treatment-cycle recall).
+   *
+   * Baked-in copy (Step 8): all three are self-contained visual panels with
+   * their own headline and mock UI. They carry no live text over them, and the
+   * gallery duo sits in a section with no adjacent copy to repeat. Every label,
+   * dashboard and figure inside the artwork — including "Reply < 2s" — is
+   * illustrative mock content, not a verified Silverstone result; the page's
+   * verified figures live only in the benchmark console.
+   *
+   * Responsive pairing (Step 7): the mobile files are same-aspect 1080-wide
+   * downscales, NOT the portrait recompositions used elsewhere in this record.
+   * A portrait crop of a landscape-composed headline would cut the headline in
+   * half, which Step 7 explicitly forbids. Matching the desktop aspect also
+   * keeps the declared 2528x1696 box exact, so there is no CLS on any
+   * viewport. If portrait mobile art is wanted later, it has to be generated
+   * as its own composition rather than cropped from these.
+   */
+  "/industry/aesthetic-clinics": {
+    discipline: "Aesthetic clinic automation",
+    accentFrom: "#f0abfc",
+    accentTo: "#5eead4",
+    icon: Diamond,
+    primary: image(
+      "/approved-images/aesthetic-1.png",
+      "/approved-images/aesthetic-1-mobile.png",
+      "Illustrative aesthetic clinic panel titled “Zero Missed Consultations”, showing DM, WhatsApp and web-form enquiries routed to a booking calendar with mock “Reply < 2s”, “Deposit Secured” and “Consult Booked” states.",
+    ),
+    gallery: [
+      image(
+        "/approved-images/aesthetic-2.png",
+        "/approved-images/aesthetic-2-mobile.png",
+        "Illustrative clinic reception panel titled “Deposit Secured. Consultation Confirmed.”, showing a confirmation tick with mock “Deposit Verified”, “Slot Reserved” and “Terms Met” states.",
+      ),
+      image(
+        "/approved-images/aesthetic-3.png",
+        "/approved-images/aesthetic-3-mobile.png",
+        "Illustrative clinic counter panel titled “Precision Patient Recall”, showing a treatment-interval timeline with mock “Interval Matched”, “Recall Triggered” and “Consent Verified” states.",
       ),
     ],
   },

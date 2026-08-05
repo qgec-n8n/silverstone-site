@@ -6,6 +6,7 @@
 import {
   Building2,
   ConciergeBell,
+  Diamond,
   Dumbbell,
   Globe,
   HeartPulse,
@@ -116,6 +117,12 @@ export const INDUSTRIES_MENU: NavMenu = {
       icon: Scissors,
     },
     {
+      href: "/industry/aesthetic-clinics",
+      label: "For Skin & Aesthetic Clinics",
+      description: "Consultations, secured",
+      icon: Diamond,
+    },
+    {
       href: "/industry/trades",
       label: "For Trades & Home Services",
       description: "Job intake & follow-through",
@@ -185,9 +192,12 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
     title: "Industries",
     links: [
       /* The footer keeps plain industry names; the "For …" framing belongs
-         to the header's Solutions menu. */
+         to the header's Solutions menu. Seven rather than six since the
+         aesthetic-clinics page joined the menu at position four — widening
+         the slice adds it without displacing a sector that already held a
+         site-wide footer link. */
       ...INDUSTRIES_MENU.items
-        .slice(0, 6)
+        .slice(0, 7)
         .map(({ href, label }) => ({ href, label: label.replace(/^For /u, "") })),
       { href: "/industry", label: "All industries" },
     ],

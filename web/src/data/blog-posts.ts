@@ -169,6 +169,21 @@ export type SilverstoneBlogSource = {
   title: string;
   url: string;
   verifiedAt?: string;
+  /*
+   * Registry-verified provider fields. The `search_led_general_ai` stream
+   * emits these on sources it resolved through a provider registry rather than
+   * an open web search, so a ranked-shortlist article can record what was
+   * verified about each named organisation. They were undeclared here until
+   * 2026-08-05, which failed `npm run typecheck` (excess-property errors on
+   * every affected source) even though the production build — esbuild, no type
+   * checking — shipped happily. Nothing renders them yet; they are provenance.
+   */
+  organisationName?: string;
+  pricingVisibility?: string;
+  providerType?: string;
+  registryProvider?: boolean;
+  smeFit?: string;
+  verifiedCapabilities?: string;
 };
 
 export type SilverstoneBlogPost = {

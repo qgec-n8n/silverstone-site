@@ -6,6 +6,7 @@
  *  - sitemap.xml            sitemap index → sitemap-pages.xml + sitemap-posts.xml
  *  - sitemap-pages.xml      current non-blog canonical pages
  *  - sitemap-posts.xml      current published blog articles
+ *  - feed.xml               Atom 1.0 feed of the newest published articles
  *  - robots.txt             production allow + sitemap reference
  *  - _redirects             one-hop 301s and 410s from the legacy URL map
  *                           (netlify/edge-functions/lib/url-migration.mts)
@@ -196,6 +197,118 @@ export function renderSitemapIndex(children) {
       ].join("\n"),
     ),
     "</sitemapindex>",
+    "",
+  ].join("\n");
+}
+
+/**
+ * Atom 1.0 feed (/feed.xml) of the newest published articles.
+ *
+ * Why Atom rather than RSS 2.0: every post record carries both
+ * `publishedIsoDate` and `updatedIsoDate`, and Atom has distinct <published>
+ * and <updated> elements for exactly that. RSS 2.0's single <pubDate> would
+ * force one of the two dates to be discarded or misreported.
+ *
+ * Why a feed at all, when sitemap.xml already lists every article: the site
+ * publishes daily through an n8n automation, and a small, always-newest-first
+ * document is the cheapest possible thing for a crawler or feed consumer to
+ * re-fetch. The sitemap stays the complete archive; the feed is the recency
+ * signal.
+ *
+ * The entries are derived from the same validated sitemap set as
+ * sitemap-posts.xml, so the feed inherits every gate that set already passes:
+ * self-canonical URL, not noindex, a real prerendered document (i.e. 200 OK),
+ * exactly one <h1>, and substantive body copy. Dates come from the article
+ * records, never from the build clock — rebuilding unchanged content must
+ * never restamp an entry, which is precisely what Google warns against.
+ */
+const FEED_TITLE = "Silverstone AI Insights";
+const FEED_SUBTITLE =
+  "Practical guidance on websites, apps and AI workflows for UK businesses.";
+const FEED_PATH = "/feed.xml";
+/**
+ * Recency window, not an archive. 50 entries is roughly seven weeks at the
+ * current daily cadence — comfortably wider than any crawler's re-fetch
+ * interval, while keeping the document small enough to be cheap to poll.
+ */
+export const FEED_MAX_ENTRIES = 50;
+
+/** RFC 3339 timestamp normalised to UTC, or null when unparseable. */
+function rfc3339(value) {
+  const parsed = Date.parse(value ?? "");
+  return Number.isNaN(parsed) ? null : new Date(parsed).toISOString();
+}
+
+/**
+ * Newest-first feed entries for `posts`, capped at `limit`.
+ *
+ * Ordering is by <updated> (a meaningfully revised article should resurface),
+ * then <published>, then slug so the output is byte-stable for identical
+ * input. A post whose stored update predates its publication is a data error
+ * the deploy gate above already rejects; it is clamped here as well so
+ * <updated> can never be older than <published> in shipped XML.
+ */
+export function buildFeedEntries(posts, limit = FEED_MAX_ENTRIES) {
+  return posts
+    .flatMap((post) => {
+      const published = rfc3339(post.publishedIsoDate);
+      if (!published) return [];
+      const updated = rfc3339(post.updatedIsoDate) ?? published;
+      return [
+        {
+          id: `${PRODUCTION_ORIGIN}/blog/${post.slug}`,
+          published,
+          slug: post.slug,
+          summary: post.metaDescription,
+          title: post.title,
+          updated: Date.parse(updated) < Date.parse(published) ? published : updated,
+        },
+      ];
+    })
+    .sort(
+      (a, b) =>
+        b.updated.localeCompare(a.updated) ||
+        b.published.localeCompare(a.published) ||
+        a.slug.localeCompare(b.slug),
+    )
+    .slice(0, limit);
+}
+
+export function renderAtomFeed(entries) {
+  if (entries.length === 0) {
+    throw new Error("Refusing to write an empty Atom feed");
+  }
+  // The feed's own <updated> is the newest entry's — derived from content,
+  // like every other timestamp here, so a no-op rebuild produces an identical
+  // document.
+  const feedUpdated = entries[0].updated;
+
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<feed xmlns="http://www.w3.org/2005/Atom">',
+    `  <id>${PRODUCTION_ORIGIN}${FEED_PATH}</id>`,
+    `  <title>${escapeXml(FEED_TITLE)}</title>`,
+    `  <subtitle>${escapeXml(FEED_SUBTITLE)}</subtitle>`,
+    `  <updated>${feedUpdated}</updated>`,
+    `  <link rel="self" type="application/atom+xml" href="${PRODUCTION_ORIGIN}${FEED_PATH}"/>`,
+    `  <link rel="alternate" type="text/html" href="${PRODUCTION_ORIGIN}/blog"/>`,
+    "  <author>",
+    "    <name>Silverstone AI</name>",
+    `    <uri>${PRODUCTION_ORIGIN}</uri>`,
+    "  </author>",
+    ...entries.map((entry) =>
+      [
+        "  <entry>",
+        `    <id>${escapeXml(entry.id)}</id>`,
+        `    <title>${escapeXml(entry.title)}</title>`,
+        `    <link rel="alternate" type="text/html" href="${escapeXml(entry.id)}"/>`,
+        `    <published>${entry.published}</published>`,
+        `    <updated>${entry.updated}</updated>`,
+        `    <summary>${escapeXml(entry.summary)}</summary>`,
+        "  </entry>",
+      ].join("\n"),
+    ),
+    "</feed>",
     "",
   ].join("\n");
 }
@@ -539,6 +652,15 @@ async function main() {
   );
   await fs.writeFile(path.join(clientDir, "_redirects"), renderRedirectsFile());
 
+  // Built from `postEntries`, not from PUBLISHED_BLOG_POSTS directly: those
+  // entries are the posts that survived the canonical / noindex / thin-content
+  // / single-h1 gates above and have a prerendered document, so the feed can
+  // only ever advertise URLs that answer 200 with indexable content.
+  const feedEntries = buildFeedEntries(
+    postEntries.map((entry) => postBySlugPath.get(new URL(entry.loc).pathname)),
+  );
+  await fs.writeFile(path.join(clientDir, "feed.xml"), renderAtomFeed(feedEntries));
+
   const startsWith = (prefix) => (entry) =>
     new URL(entry.loc).pathname.startsWith(prefix);
   const serviceEntries = pageEntries.filter(startsWith("/services"));
@@ -561,7 +683,8 @@ async function main() {
 
   console.log(
     `Wrote sitemap index (${pageEntries.length} pages + ${postEntries.length} posts), ` +
-      `robots.txt, llms.txt, _redirects (${Object.keys(LEGACY_REDIRECTS).length} redirects, ` +
+      `feed.xml (${feedEntries.length} entries), robots.txt, llms.txt, ` +
+      `_redirects (${Object.keys(LEGACY_REDIRECTS).length} redirects, ` +
       `${GONE_PATHS.length} gone), and 404.html.`,
   );
 }

@@ -9,10 +9,12 @@
  * units, ranges, currencies and time bases are preserved verbatim and must
  * never be edited here without a new approved register.
  */
+import type { ShowcaseSiteId } from "~/features/services-v2/demos/showcase-state";
 
 export type IndustryRoute =
   | "/industry/estate-agents"
   | "/industry/salons-barbers"
+  | "/industry/aesthetic-clinics"
   | "/industry/ecommerce"
   | "/industry/dentists"
   | "/industry/fitness-coaches"
@@ -50,6 +52,77 @@ export type IndustrySeo = {
   h1: string;
 };
 
+/**
+ * A named, live Silverstone build in the page's own sector, embedded on the
+ * page itself through the showcase demo (`BrowserShowcase only=…`) rather than
+ * linked away to the web-design portfolio. Optional because most sectors have
+ * no publishable client site; where one exists it outranks any illustrative
+ * panel as evidence, so it sits directly under the hero.
+ */
+export type IndustryCaseStudy = {
+  eyebrow: string;
+  heading: string;
+  /** Intro line above the embedded demo. */
+  lead: string;
+  points: string[];
+  /** `showcase-sites.json` id of the build this section embeds. */
+  showcaseSiteId: ShowcaseSiteId;
+  note: string;
+};
+
+/**
+ * A time-boxed, fixed-price productised offer promoted at the top of a sector
+ * page and expanded into its own section further down.
+ *
+ * Deliberately optional and per-sector: this is a live commercial offer, not a
+ * page pattern, so only the sector currently being sold carries one. Every
+ * figure, payment term and guarantee sentence lives here rather than in the
+ * components, so the offer can be repriced, retimed or withdrawn from one file.
+ *
+ * Honesty contract — the banner's countdown measures a *recurring weekly
+ * capacity window*, not an expiring price. `capacity` states the scarcity
+ * claim ("one clinic this week") and `windowNote` states in plain words what
+ * the clock is counting to, so nothing on the page implies the price or the
+ * offer disappears when it reaches zero. The seven days in `dayTrack` are the
+ * delivery window, and `guarantee` is the exact sentence that backs it.
+ */
+export type SprintOffer = {
+  /** Anchor id — also the banner's in-page CTA target. */
+  id: string;
+  eyebrow: string;
+  /** Scarcity claim shown beside the countdown, e.g. "One clinic · this week". */
+  capacity: string;
+  name: string;
+  /** Headline price, exactly as quoted, e.g. "£1,500". */
+  price: string;
+  /** One-line payment summary for the banner. */
+  priceNote: string;
+  /** Plain-words explanation of what the countdown counts to. */
+  windowNote: string;
+  /** Short banner pitch, rich text. */
+  bannerBody: string;
+  bannerCtaLabel: string;
+  /** Label for the banner's link down to the full offer section. */
+  bannerDetailLabel: string;
+  section: {
+    eyebrow: string;
+    heading: string;
+    lead: string;
+  };
+  /** What the sprint delivers, in the order it is delivered. */
+  deliverables: IndustryCard[];
+  /** Payment ladder — each rung is a stage and the amount due at it. */
+  payments: { amount: string; when: string; note: string }[];
+  /** The seven-business-day delivery track, one label per stage. */
+  dayTrack: { day: string; label: string }[];
+  /** The exact guarantee sentence used on calls. Rendered verbatim. */
+  guarantee: string;
+  guaranteeNote: string;
+  ctaLabel: string;
+  /** Reassurance line under the section CTA. */
+  reassurance: string;
+};
+
 export type IndustryCopy = {
   route: IndustryRoute;
   /** Sector name, e.g. "Estate agents" — used in eyebrows and hub cards. */
@@ -62,6 +135,9 @@ export type IndustryCopy = {
   heroPoints: string[];
   /** Short trust tokens rendered under the secondary hero. */
   trustTokens: string[];
+  caseStudy?: IndustryCaseStudy;
+  /** Live productised offer promoted above the fold. See `SprintOffer`. */
+  sprint?: SprintOffer;
   problem: { heading: string; body: string; cards: IndustryCard[] };
   journey: { heading: string; lead: string; stages: IndustryStage[] };
   workflows: { heading: string; lead: string; items: IndustryCard[] };

@@ -11,9 +11,17 @@ import { futureRouteManifest } from "~/data/future-routes";
 describe("migrated content baseline", () => {
   it("accounts for every retained migrated route exactly once", () => {
     const approvedServiceRouteSet = new Set<string>(approvedServiceRoutes);
+    // Routes authored after the legacy migration have no migrated record by
+    // definition — their copy lives in the feature tree, and the detail loader
+    // never reads migrated content for an industry template
+    // (routes/services/detail.tsx). /industry/aesthetic-clinics (2026-08-05) is
+    // the first: every earlier industry page inherited a legacy source file.
+    const postMigrationRoutes = new Set(["/industry/aesthetic-clinics"]);
     const retainedRoutes = futureRouteManifest.filter(
       (route) =>
-        route.lifecycle === "retained" && !approvedServiceRouteSet.has(route.path),
+        route.lifecycle === "retained" &&
+        !approvedServiceRouteSet.has(route.path) &&
+        !postMigrationRoutes.has(route.path),
     );
 
     expect(migratedContentIndex).toHaveLength(retainedRoutes.length);

@@ -41,6 +41,15 @@
   [headers.values]
     Content-Security-Policy = "frame-src https://ownly-housing.netlify.app https://aestheticsbyclouds.netlify.app"
 
+# The Skin & Aesthetic Clinics industry page embeds the same showcase component
+# restricted to a single build — the Aesthetics by Clouds clinic site — as
+# sector proof directly under its hero. Only that one origin is allowed here;
+# Ownly Housing is not shown on this route and must not be frameable from it.
+[[headers]]
+  for = "/industry/aesthetic-clinics"
+  [headers.values]
+    Content-Security-Policy = "frame-src https://aestheticsbyclouds.netlify.app"
+
 # Conservative site-wide security headers (additive; none affect rendering).
 # X-Frame-Options and Permissions-Policy are intentionally omitted pending a
 # review of the live demo iframes.
@@ -50,6 +59,16 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# The Atom 1.0 article feed (web/scripts/generate-seo-artifacts.mjs). Netlify
+# would otherwise serve it as generic XML; feed readers and crawlers should see
+# the real media type. Short max-age because the publishing automation adds an
+# article most days and the feed exists to be re-polled cheaply.
+[[headers]]
+  for = "/feed.xml"
+  [headers.values]
+    Content-Type = "application/atom+xml; charset=utf-8"
+    Cache-Control = "public, max-age=600"
 
 # Client documents served for direct sharing (e.g. invoices) must never be
 # indexed by search engines. Header-only change; the files stay reachable

@@ -40,6 +40,8 @@ export const GATE_FREE_DEEP_LINKS: readonly string[] = DEMO_REGISTRY.map(
   "/services/ai-automation#srv2-proof",
   "/services/content-creation#srv2-proof",
   "/industry/ecommerce#ind2-proof",
+  "/industry/aesthetic-clinics#ind2-demo",
+  "/industry/aesthetic-clinics#ind2-sprint",
 ]);
 
 export function isGateFreeRoute(pathname: string): boolean {

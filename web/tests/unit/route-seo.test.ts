@@ -57,7 +57,7 @@ describe("route SEO generation", () => {
         items: industryCopyByRoute[path as keyof typeof industryCopyByRoute].faqs.items,
       })),
     ];
-    expect(faqRoutes).toHaveLength(16);
+    expect(faqRoutes).toHaveLength(17);
 
     for (const { path, items } of faqRoutes) {
       const route = futureRouteManifest.find((candidate) => candidate.path === path);
@@ -92,8 +92,8 @@ describe("route SEO generation", () => {
       routes: futureRouteManifest,
     });
 
-    // 25 = 26 launch routes minus the noindexed privacy policy.
-    expect(productionSitemap.match(/<url>/g)).toHaveLength(25);
+    // 26 = 27 routes minus the noindexed privacy policy.
+    expect(productionSitemap.match(/<url>/g)).toHaveLength(26);
     expect(productionSitemap).toContain("https://silverstone-ai.com/services");
     expect(productionSitemap).toContain(
       "https://silverstone-ai.com/services/ai-consulting",

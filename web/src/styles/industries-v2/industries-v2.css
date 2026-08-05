@@ -1340,3 +1340,729 @@
     var(--srv2-glass);
   backdrop-filter: blur(14px);
 }
+
+/*
+ * Live-client proof panel (CaseStudyPanel). Reuses the boundary panel's split
+ * frame, but its first column carries a CTA rather than a single paragraph, so
+ * it needs vertical rhythm and top alignment instead of the boundary's
+ * centred, copy-only column.
+ */
+.ss-ind2-case .ss-ind2-boundary__col {
+  gap: 1.1rem;
+  align-items: flex-start;
+}
+
+.ss-ind2-case .ss-ind2-boundary__col--keeps {
+  align-items: stretch;
+}
+
+.ss-ind2-case__note {
+  margin: 0;
+  max-width: var(--srv2-measure);
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+/* ---- Seven-day sprint offer -------------------------------------------- */
+
+/*
+ * The live productised offer (SprintBanner + SprintPanel). Visual concept:
+ * Intake Board — the one surface on an industry page allowed to read as
+ * instrumentation rather than as another glass island. Void-black ground,
+ * a rim light that sweeps the top edge, a live capacity light and a segmented
+ * mono clock in its own bezel.
+ *
+ * It inherits `--srv2-accent` / `--srv2-accent-2` from the route root, so the
+ * band is the page's own two-tone spectral pair at full strength instead of a
+ * separate "promo" colour that would read as bolted-on.
+ */
+
+.ss-ind2-sprint-banner {
+  position: relative;
+  /* No bottom padding: the trust strip below brings its own top rhythm, so
+     the band reads as attached to the hero rather than floating between. */
+  padding-block: clamp(1.5rem, 1.1rem + 2vw, 3rem) 0;
+}
+
+.ss-ind2-sprint__board {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(1.35rem, 1.05rem + 1.6vw, 2.4rem);
+  border-radius: var(--ss-radius-2xl);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 40%, transparent);
+  background:
+    radial-gradient(
+      118% 140% at 8% -8%,
+      color-mix(in srgb, var(--srv2-accent) 26%, transparent),
+      transparent 56%
+    ),
+    radial-gradient(
+      104% 132% at 100% 108%,
+      color-mix(in srgb, var(--srv2-accent-2) 22%, transparent),
+      transparent 60%
+    ),
+    color-mix(in srgb, var(--ss-v2-void-black) 84%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--srv2-accent) 26%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--srv2-accent) 10%, transparent),
+    0 34px 90px -42px color-mix(in srgb, var(--srv2-accent) 78%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+/* Rim light travelling the top edge — the band's only ambient motion, and the
+   thing that makes it read as live rather than printed. */
+.ss-ind2-sprint__board::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--srv2-accent),
+    var(--srv2-accent-2),
+    transparent
+  );
+  background-size: 42% 100%;
+  background-repeat: no-repeat;
+  animation: ss-ind2-sprint-rim 7s var(--ss-motion-easing-standard) infinite;
+  pointer-events: none;
+}
+
+@keyframes ss-ind2-sprint-rim {
+  0% {
+    background-position: -45% 0;
+  }
+  100% {
+    background-position: 145% 0;
+  }
+}
+
+.ss-ind2-sprint__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(1.2rem, 0.95rem + 1.4vw, 2.1rem);
+}
+
+@media (min-width: 58rem) {
+  .ss-ind2-sprint__grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(16.5rem, 0.8fr);
+    align-items: center;
+  }
+}
+
+.ss-ind2-sprint__offer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.ss-ind2-sprint__capacity {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.32rem 0.8rem 0.32rem 0.62rem;
+  border-radius: var(--ss-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 46%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 13%, transparent);
+  color: color-mix(in srgb, var(--srv2-accent) 52%, var(--ss-v2-platinum));
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.ss-ind2-sprint__pulse {
+  position: relative;
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--srv2-accent);
+  box-shadow: 0 0 10px var(--srv2-accent);
+}
+
+.ss-ind2-sprint__pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--srv2-accent);
+  animation: ss-ind2-sprint-pulse 2.4s var(--ss-motion-easing-standard) infinite;
+}
+
+@keyframes ss-ind2-sprint-pulse {
+  0% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(2.8);
+  }
+}
+
+.ss-ind2-sprint__title {
+  margin: 0;
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.ss-ind2-sprint__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.85rem;
+  margin: 0;
+}
+
+.ss-ind2-sprint__price-figure {
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-display);
+  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.1rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  /* The one gradient figure on the page: the price is the offer. Solid `color`
+     stop for contrast checkers; -webkit-text-fill-color still paints the
+     clipped gradient. Matches .ss-srv2-heading em. */
+  background: linear-gradient(104deg, var(--srv2-accent), var(--srv2-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--srv2-accent);
+  -webkit-text-fill-color: transparent;
+}
+
+.ss-ind2-sprint__price-note {
+  color: var(--srv2-ink-soft);
+  font-family: var(--ss-font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+}
+
+.ss-ind2-sprint__body {
+  margin: 0;
+  max-width: var(--srv2-measure);
+  color: var(--srv2-ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.ss-ind2-sprint__body strong {
+  color: var(--srv2-ink);
+  font-weight: 600;
+}
+
+.ss-ind2-sprint__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-block-start: 0.35rem;
+}
+
+/* ---- Weekly intake clock ----------------------------------------------- */
+
+.ss-ind2-sprint__clock-col {
+  min-width: 0;
+}
+
+.ss-ind2-sprint__clock-frame {
+  position: relative;
+  padding: clamp(0.9rem, 0.75rem + 0.7vw, 1.3rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent-2) 32%, var(--ss-v2-hairline));
+  background: color-mix(in srgb, var(--ss-v2-void-black) 74%, transparent);
+}
+
+.ss-ind2-sprint__clock-head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ss-ind2-sprint__clock-head svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  color: var(--srv2-accent-2);
+}
+
+.ss-ind2-sprint__clock {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.38rem;
+  margin-block: 0.8rem 0.75rem;
+}
+
+.ss-ind2-sprint__clock-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18rem;
+  padding: 0.5rem 0.15rem 0.42rem;
+  border-radius: var(--ss-radius-md);
+  border: 1px solid var(--srv2-hairline);
+  background: color-mix(in srgb, var(--ss-v2-graphite) 52%, transparent);
+}
+
+.ss-ind2-sprint__clock-value {
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-mono);
+  font-size: clamp(1.3rem, 1.05rem + 0.9vw, 1.8rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.ss-ind2-sprint__clock-label {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ss-ind2-sprint__clock-note {
+  margin: 0;
+  color: var(--srv2-ink-faint);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+/* ---- Delivery track ----------------------------------------------------- */
+
+.ss-ind2-sprint-track {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0 0 clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem);
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 60rem) {
+  .ss-ind2-sprint-track {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0;
+  }
+}
+
+.ss-ind2-sprint-track__cell {
+  position: relative;
+  min-width: 0;
+}
+
+/* The connecting rail, drawn per cell so it never outruns the last stage. */
+.ss-ind2-sprint-track__cell::before {
+  content: "";
+  position: absolute;
+  inset-block: 0 auto;
+  inset-inline-start: 0.44rem;
+  width: 1px;
+  height: 100%;
+  background: var(--srv2-hairline);
+}
+
+.ss-ind2-sprint-track__cell[data-last="true"]::before {
+  display: none;
+}
+
+/* Desktop lays the stages out horizontally, and the node sits at each cell's
+   leading edge rather than its centre — so the rail runs from this node's
+   centre (half the 0.9rem node) exactly one cell across, landing on the next
+   node's centre instead of overshooting past it. */
+@media (min-width: 60rem) {
+  .ss-ind2-sprint-track__cell::before {
+    inset-block: 0.45rem auto;
+    inset-inline: 0.45rem auto;
+    width: 100%;
+    height: 1px;
+  }
+}
+
+.ss-ind2-sprint-track__stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.15rem 0.7rem;
+  padding-block: 0.15rem 0.85rem;
+}
+
+@media (min-width: 60rem) {
+  .ss-ind2-sprint-track__stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+    padding: 0 0.7rem 0 0;
+  }
+}
+
+.ss-ind2-sprint-track__node {
+  position: relative;
+  z-index: 1;
+  grid-row: span 2;
+  align-self: start;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-block-start: 0.2rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 55%, transparent);
+  background: var(--ss-v2-void-black);
+}
+
+@media (min-width: 60rem) {
+  .ss-ind2-sprint-track__node {
+    grid-row: auto;
+  }
+}
+
+/* Launch day is the promise, so it is the only lit node on the rail. */
+.ss-ind2-sprint-track__cell[data-last="true"] .ss-ind2-sprint-track__node {
+  border-color: var(--srv2-accent);
+  background: var(--srv2-accent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--srv2-accent) 70%, transparent);
+}
+
+.ss-ind2-sprint-track__day {
+  color: color-mix(in srgb, var(--srv2-accent) 46%, var(--ss-v2-platinum));
+  font-family: var(--ss-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ss-ind2-sprint-track__label {
+  color: var(--srv2-ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* ---- Deliverables + terms ---------------------------------------------- */
+
+.ss-ind2-sprint-body {
+  display: grid;
+  gap: clamp(1.1rem, 0.9rem + 1vw, 1.8rem);
+}
+
+@media (min-width: 64rem) {
+  .ss-ind2-sprint-body {
+    grid-template-columns: minmax(0, 1.55fr) minmax(18rem, 0.85fr);
+    align-items: start;
+  }
+}
+
+.ss-ind2-sprint-deliverables {
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+@media (min-width: 40rem) {
+  .ss-ind2-sprint-deliverables {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ss-ind2-sprint-deliverables > * {
+  min-width: 0;
+  height: 100%;
+}
+
+.ss-ind2-sprint-deliverable {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  height: 100%;
+  padding: clamp(0.95rem, 0.85rem + 0.5vw, 1.3rem);
+  border-radius: var(--ss-radius-lg);
+  border: 1px solid var(--srv2-hairline);
+  background: var(--srv2-glass);
+  transition:
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    transform var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ss-ind2-sprint-deliverable:hover {
+    border-color: color-mix(in srgb, var(--srv2-accent) 48%, transparent);
+    translate: 0 -2px;
+  }
+}
+
+.ss-ind2-sprint-deliverable__mark {
+  position: absolute;
+  inset-block-start: clamp(0.95rem, 0.85rem + 0.5vw, 1.3rem);
+  inset-inline-end: clamp(0.95rem, 0.85rem + 0.5vw, 1.3rem);
+  /* Accent-tinted but mixed into titanium rather than into transparency: a
+     40%-of-accent-over-nothing ordinal measured 2.64:1 on the card ground,
+     which is visible text a sighted reader still parses. Mixing into an opaque
+     neutral keeps the tint and clears AA. Same treatment as the day labels on
+     the delivery track. */
+  color: color-mix(in srgb, var(--srv2-accent) 40%, var(--ss-v2-titanium));
+  font-family: var(--ss-font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.ss-ind2-sprint-deliverable__icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--srv2-accent);
+}
+
+.ss-ind2-sprint-deliverable__title {
+  margin: 0;
+  padding-inline-end: 2rem;
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.ss-ind2-sprint-deliverable__body {
+  margin: 0;
+  color: var(--srv2-ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.ss-ind2-sprint-terms {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+  padding: clamp(1.1rem, 0.95rem + 0.7vw, 1.5rem);
+  border-radius: var(--ss-radius-xl);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 26%, var(--ss-v2-hairline));
+  background:
+    linear-gradient(
+      168deg,
+      color-mix(in srgb, var(--srv2-accent) 10%, transparent),
+      transparent 58%
+    ),
+    var(--srv2-glass-raised);
+  backdrop-filter: blur(14px);
+}
+
+.ss-ind2-sprint-terms__price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-block-end: 0.85rem;
+  border-block-end: 1px solid var(--srv2-hairline);
+}
+
+.ss-ind2-sprint-terms__figure {
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-display);
+  font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.5rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.ss-ind2-sprint-terms__figure-label {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ss-ind2-sprint-terms__ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-ind2-sprint-terms__cell {
+  min-width: 0;
+}
+
+.ss-ind2-sprint-terms__rung {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.05rem 0.7rem;
+}
+
+.ss-ind2-sprint-terms__amount {
+  grid-row: span 2;
+  align-self: center;
+  min-width: 3.6rem;
+  padding: 0.32rem 0.5rem;
+  border-radius: var(--ss-radius-sm);
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 34%, transparent);
+  background: color-mix(in srgb, var(--srv2-accent) 10%, transparent);
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.ss-ind2-sprint-terms__when {
+  color: var(--srv2-ink);
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ss-ind2-sprint-terms__note {
+  color: var(--srv2-ink-faint);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.ss-ind2-sprint-terms__guarantee {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-block-start: 0.85rem;
+  border-block-start: 1px solid var(--srv2-hairline);
+}
+
+.ss-ind2-sprint-terms__guarantee-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  color: var(--srv2-accent-2);
+  font-family: var(--ss-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ss-ind2-sprint-terms__guarantee-tag svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.ss-ind2-sprint-terms__guarantee-quote {
+  margin: 0;
+  padding-inline-start: 0.8rem;
+  border-inline-start: 2px solid
+    color-mix(in srgb, var(--srv2-accent-2) 55%, transparent);
+  color: var(--srv2-ink);
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.ss-ind2-sprint-terms__guarantee-note {
+  margin: 0;
+  color: var(--srv2-ink-faint);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.ss-ind2-sprint-close {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  margin-block-start: clamp(1.4rem, 1.1rem + 1.3vw, 2.2rem);
+  text-align: center;
+}
+
+.ss-ind2-sprint-close__reassurance {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/*
+ * Phones. The board stacks to one column, which makes it the tallest thing on
+ * the page after the hero — so the copy compacts rather than the offer being
+ * cut: the terms, the clock and both CTAs all still fit one screen's scroll.
+ */
+@media (max-width: 47.9375rem) {
+  .ss-ind2-sprint__offer {
+    gap: 0.65rem;
+  }
+
+  .ss-ind2-sprint__body {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .ss-ind2-sprint__price {
+    gap: 0.15rem 0.6rem;
+  }
+
+  .ss-ind2-sprint__price-note {
+    font-size: 0.76rem;
+  }
+
+  .ss-ind2-sprint__clock-note {
+    font-size: 0.72rem;
+  }
+}
+
+/* The clock is the one row that must never wrap, so it tightens before the
+   cells are allowed to shrink below four across. */
+@media (max-width: 30rem) {
+  .ss-ind2-sprint__clock {
+    gap: 0.28rem;
+  }
+
+  .ss-ind2-sprint__clock-cell {
+    padding-inline: 0.1rem;
+  }
+
+  .ss-ind2-sprint__actions {
+    width: 100%;
+  }
+
+  .ss-ind2-sprint__actions .ss-srv2-btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-ind2-sprint__board::before,
+  .ss-ind2-sprint__pulse::after {
+    animation: none;
+  }
+
+  .ss-ind2-sprint-deliverable {
+    transition: none;
+  }
+}

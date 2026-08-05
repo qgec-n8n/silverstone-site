@@ -1,7 +1,13 @@
 /**
- * Web Design & Development portfolio showcase — two live client websites,
- * presented in one stable scene whose copy morphs while the demo visuals rail
- * between projects.
+ * Live client-website showcase — presented in one stable scene whose copy
+ * morphs while the demo visuals rail between projects.
+ *
+ * Two callers, one component. /services/web-design-development mounts the full
+ * catalogue as a portfolio rail. An industry page passes `only=<site id>` to
+ * mount a single build as sector proof; that drops the project switcher and
+ * the "01 / 02" counter, and everything below about railing between projects
+ * simply never happens. Each route's CSP `frame-src` allow-list (root
+ * netlify.toml) must name exactly the origins that route can mount.
  *
  * Every breakpoint shares one scene grammar: the project copy sits ABOVE the
  * devices, a console row (project switcher · device focus toggle · live link)
@@ -53,6 +59,7 @@
 import {
   useCallback,
   useEffect,
+  useMemo,
   useReducer,
   useRef,
   useState,
@@ -217,8 +224,6 @@ const sites: ShowcaseSite[] = [
     },
   },
 ];
-
-const SCENE_COUNT = sites.length;
 
 /* ---- Device class ------------------------------------------------------ */
 
@@ -945,6 +950,13 @@ type SceneProps = {
   onStandby: () => void;
   onViewChange: (site: ShowcaseSiteId, focus: ShowcaseSurface) => void;
   onSelectScene: (index: number) => void;
+  /**
+   * The scenes this instance presents. Usually every site in the catalogue;
+   * a single-site instance (the aesthetic-clinics page shows only its own
+   * sector's build) passes one, which drops the project switcher and the
+   * "01 / 02" counter rather than rendering a one-option control.
+   */
+  scenes: ShowcaseSite[];
 };
 
 function ShowcaseScene({
@@ -963,7 +975,9 @@ function ShowcaseScene({
   onStandby,
   onViewChange,
   onSelectScene,
+  scenes,
 }: SceneProps) {
+  const sceneCount = scenes.length;
   const windowDeviceRef = useRef<HTMLDivElement>(null);
   const phoneDeviceRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState<"desktop" | "mobile">("desktop");
@@ -1078,11 +1092,15 @@ function ShowcaseScene({
       transition={
         reducedMotion ? { duration: 0 } : { duration: 0.7, ease: "easeInOut" }
       }
-      aria-label={`Project ${String(index + 1)} of ${String(SCENE_COUNT)}: ${site.name}`}
+      aria-label={
+        sceneCount > 1
+          ? `Project ${String(index + 1)} of ${String(sceneCount)}: ${site.name}`
+          : `Live client website: ${site.name}`
+      }
     >
       <div className="ss-folio-scene__inner">
         <span className="ss-folio-scene__ghost ss-folio-stack" aria-hidden="true">
-          {sites.map((entry, entryIndex) => (
+          {scenes.map((entry, entryIndex) => (
             <span
               key={entry.id}
               className="ss-folio-morph"
@@ -1094,7 +1112,7 @@ function ShowcaseScene({
         </span>
 
         <Reveal kind="section" className="ss-folio-scene__intro ss-folio-stack">
-          {sites.map((entry) => (
+          {scenes.map((entry) => (
             <div
               key={entry.id}
               className="ss-folio-scene__intro-layer ss-folio-morph"
@@ -1138,33 +1156,35 @@ function ShowcaseScene({
             project switcher, device focus toggle (composed stage only) and
             the safe external link to the live site. */}
         <Reveal kind="section" delayMs={80} className="ss-folio-console">
-          <div
-            className="ss-folio-console__switch"
-            role="group"
-            aria-label="Choose showcased project"
-          >
-            {sites.map((entry, entryIndex) => (
-              <button
-                key={entry.id}
-                type="button"
-                className="ss-focus-ring"
-                data-scene-switch={entry.id}
-                aria-pressed={entry.id === site.id}
-                onClick={() => onSelectScene(entryIndex)}
-                style={
-                  {
-                    "--project-tint": entry.tint,
-                    "--project-tint-2": entry.tintSecondary,
-                  } as CSSProperties
-                }
-              >
-                <span aria-hidden="true">
-                  {String(entryIndex + 1).padStart(2, "0")}
-                </span>
-                {entry.name}
-              </button>
-            ))}
-          </div>
+          {sceneCount > 1 ? (
+            <div
+              className="ss-folio-console__switch"
+              role="group"
+              aria-label="Choose showcased project"
+            >
+              {scenes.map((entry, entryIndex) => (
+                <button
+                  key={entry.id}
+                  type="button"
+                  className="ss-focus-ring"
+                  data-scene-switch={entry.id}
+                  aria-pressed={entry.id === site.id}
+                  onClick={() => onSelectScene(entryIndex)}
+                  style={
+                    {
+                      "--project-tint": entry.tint,
+                      "--project-tint-2": entry.tintSecondary,
+                    } as CSSProperties
+                  }
+                >
+                  <span aria-hidden="true">
+                    {String(entryIndex + 1).padStart(2, "0")}
+                  </span>
+                  {entry.name}
+                </button>
+              ))}
+            </div>
+          ) : null}
           <div
             className="ss-folio__toggle"
             role="group"
@@ -1199,19 +1219,23 @@ function ShowcaseScene({
             <ArrowUpRight aria-hidden="true" />
           </a>
           <p className="ss-folio-scene__meta">
-            <span className="ss-folio-stack">
-              {sites.map((entry, entryIndex) => (
-                <span
-                  key={entry.id}
-                  className="ss-folio-morph"
-                  data-active={entry.id === site.id}
-                >
-                  {String(entryIndex + 1).padStart(2, "0")} /{" "}
-                  {String(SCENE_COUNT).padStart(2, "0")}
+            {sceneCount > 1 ? (
+              <>
+                <span className="ss-folio-stack">
+                  {scenes.map((entry, entryIndex) => (
+                    <span
+                      key={entry.id}
+                      className="ss-folio-morph"
+                      data-active={entry.id === site.id}
+                    >
+                      {String(entryIndex + 1).padStart(2, "0")} /{" "}
+                      {String(sceneCount).padStart(2, "0")}
+                    </span>
+                  ))}
                 </span>
-              ))}
-            </span>
-            <span aria-hidden="true">·</span>
+                <span aria-hidden="true">·</span>
+              </>
+            ) : null}
             <span>Live production build</span>
           </p>
         </Reveal>
@@ -1228,7 +1252,7 @@ function ShowcaseScene({
               reducedMotion={reducedMotion}
               className="ss-folio-device-rail"
             >
-              {sites.map((entry) => {
+              {scenes.map((entry) => {
                 const active = entry.id === site.id;
                 return (
                   <div
@@ -1328,7 +1352,14 @@ function ShowcaseScene({
 
 /* ---- Showcase ------------------------------------------------------------ */
 
-export function BrowserShowcase(): ReactNode {
+/**
+ * `only` restricts the showcase to a single client build. The
+ * /services/web-design-development portfolio omits it and presents the whole
+ * catalogue; an industry page passes its own sector's build so the section is
+ * proof for that sector rather than a portfolio rail — no switcher, no
+ * unrelated second project.
+ */
+export function BrowserShowcase({ only }: { only?: ShowcaseSiteId } = {}): ReactNode {
   const folioRef = useRef<HTMLDivElement>(null);
   const frameHolderRef = useRef<HTMLDivElement>(null);
   const deviceClass = useDeviceClass();
@@ -1336,15 +1367,27 @@ export function BrowserShowcase(): ReactNode {
   const [state, dispatch] = useReducer(showcaseReducer, initialShowcaseState);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const selectScene = useCallback((index: number) => {
-    const clamped = Math.min(SCENE_COUNT - 1, Math.max(0, index));
-    const target = sites[clamped];
-    if (!target) {
-      return;
-    }
-    setCurrentIndex(clamped);
-    dispatch({ type: "scene-change", site: target.id });
-  }, []);
+  // Falls back to the full catalogue rather than rendering nothing if `only`
+  // ever names a site that has been removed from showcase-sites.json.
+  const scenes = useMemo(() => {
+    if (!only) return sites;
+    const picked = sites.filter((entry) => entry.id === only);
+    return picked.length > 0 ? picked : sites;
+  }, [only]);
+  const sceneCount = scenes.length;
+
+  const selectScene = useCallback(
+    (index: number) => {
+      const clamped = Math.min(sceneCount - 1, Math.max(0, index));
+      const target = scenes[clamped];
+      if (!target) {
+        return;
+      }
+      setCurrentIndex(clamped);
+      dispatch({ type: "scene-change", site: target.id });
+    },
+    [sceneCount, scenes],
+  );
 
   useEffect(() => {
     dispatch({ type: "device-class", deviceClass });
@@ -1368,13 +1411,19 @@ export function BrowserShowcase(): ReactNode {
     onExit: useCallback(() => dispatch({ type: "section-exit" }), []),
   });
 
-  const activate = useCallback((site: ShowcaseSiteId, surface: ShowcaseSurface) => {
-    const record = sites.find((entry) => entry.id === site);
-    if (record) {
-      preconnect(record.origin);
-    }
-    dispatch({ type: "activate", site, surface });
-  }, []);
+  // Scoped to `scenes`, not the whole catalogue: an instance must never warm a
+  // connection to an origin it does not present — and cannot frame, since each
+  // route's CSP allow-lists only the origins that route mounts.
+  const activate = useCallback(
+    (site: ShowcaseSiteId, surface: ShowcaseSurface) => {
+      const record = scenes.find((entry) => entry.id === site);
+      if (record) {
+        preconnect(record.origin);
+      }
+      dispatch({ type: "activate", site, surface });
+    },
+    [scenes],
+  );
 
   const standby = useCallback(() => {
     const active = state.activeSite;
@@ -1408,7 +1457,7 @@ export function BrowserShowcase(): ReactNode {
     [standby, state.activeSite],
   );
 
-  const currentSite = sites[currentIndex] ?? sites[0];
+  const currentSite = scenes[currentIndex] ?? scenes[0];
   if (!currentSite) {
     return null;
   }
@@ -1436,6 +1485,7 @@ export function BrowserShowcase(): ReactNode {
         onStandby={standby}
         onViewChange={(id, focus) => dispatch({ type: "view-change", site: id, focus })}
         onSelectScene={selectScene}
+        scenes={scenes}
       />
     </div>
   );

@@ -13,11 +13,12 @@ import {
 
 describe("route migration manifests", () => {
   it("assigns one validated future disposition to every A-01 canonical route", () => {
-    // 26 launch routes since the 2026-07-07 blog teardown; article routes
-    // return through the blog automation.
-    expect(futureRouteManifest).toHaveLength(26);
+    // 27 launch routes: 26 since the 2026-07-07 blog teardown plus
+    // /industry/aesthetic-clinics (2026-08-05). Article routes return through
+    // the blog automation.
+    expect(futureRouteManifest).toHaveLength(27);
     expect(validateFutureRouteManifest(futureRouteManifest)).toEqual([]);
-    expect(new Set(futureRouteManifest.map((route) => route.path)).size).toBe(26);
+    expect(new Set(futureRouteManifest.map((route) => route.path)).size).toBe(27);
     expect(futureRouteManifest.filter((route) => route.lifecycle === "draft")).toEqual(
       [],
     );

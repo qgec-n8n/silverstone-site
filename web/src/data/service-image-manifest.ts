@@ -299,6 +299,19 @@ export const serviceImageUses: ServiceImageUse[] = [
     loading: "lazy",
   },
   {
+    route: "/industry/aesthetic-clinics",
+    section: "enquiry split + deposit/recall gallery",
+    desktopAsset: "aesthetic-1.png",
+    mobileAsset: "aesthetic-1-mobile.png",
+    rationale:
+      "Purpose-generated aesthetic-clinic set (aesthetic-1/2/3) commissioned 2026-08-05 for the new sector page; the preserved catalogue holds no aesthetic-clinic scenes, and the physiotherapy placeholders carried their own conflicting baked-in headline. Each still is a self-contained panel: multi-channel enquiry capture, deposit-secured confirmation, treatment-cycle recall. Every label and figure inside the artwork is illustrative mock content, never a verified result. Mobile counterparts are same-aspect 1080-wide downscales rather than portrait recompositions, because a portrait crop would cut the landscape-composed headline (see route-art.ts decision log).",
+    alt: "Illustrative aesthetic clinic panel titled “Zero Missed Consultations”, showing DM, WhatsApp and web-form enquiries routed to a booking calendar with mock “Reply < 2s”, “Deposit Secured” and “Consult Booked” states.",
+    sourceType: "generated",
+    desktopDimensions: { width: 2528, height: 1696 },
+    mobileDimensions: { width: 1080, height: 725 },
+    loading: "lazy",
+  },
+  {
     route: "/industry/gyms-fitness-studios",
     section: "front-desk split + member gallery",
     desktopAsset: "gyms-1.png",
@@ -330,4 +343,10 @@ export const generatedMarketingImageFilenames = [
   "physio-2-mobile.png",
   "about-standard.png",
   "about-standard-mobile.png",
+  "aesthetic-1.png",
+  "aesthetic-1-mobile.png",
+  "aesthetic-2.png",
+  "aesthetic-2-mobile.png",
+  "aesthetic-3.png",
+  "aesthetic-3-mobile.png",
 ] as const;

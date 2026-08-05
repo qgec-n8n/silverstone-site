@@ -18,6 +18,7 @@ const routes = [
   "/industry",
   "/industry/estate-agents",
   "/industry/salons-barbers",
+  "/industry/aesthetic-clinics",
   "/industry/ecommerce",
   "/industry/dentists",
   "/industry/fitness-coaches",

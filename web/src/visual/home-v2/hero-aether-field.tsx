@@ -113,7 +113,7 @@ export const AETHER_SERVICE_PALETTES: Record<string, AetherPalette> = {
 };
 
 /**
- * The nine Industries routes each carry their own hue pairing, derived from
+ * The ten Industries routes each carry their own hue pairing, derived from
  * that sector's copy accent (industries-v2 route-art accentFrom → accentTo):
  * resting base takes the accent's leading colour, proximity lifts toward the
  * trailing colour as a light tint. The /industry hub keeps the shared violet
@@ -129,6 +129,11 @@ export const AETHER_INDUSTRY_PALETTES: Record<string, AetherPalette> = {
     particle: "#E879B9",
     network: "#E879B9",
     proximity: "#CDBBFF",
+  },
+  "/industry/aesthetic-clinics": {
+    particle: "#F0ABFC",
+    network: "#F0ABFC",
+    proximity: "#C8F5EA",
   },
   "/industry/ecommerce": {
     particle: "#38BDF8",

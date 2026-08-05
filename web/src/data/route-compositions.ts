@@ -129,6 +129,11 @@ export const industryCompositionByRoute: Record<
       default: m.SalonsBarbersComposition,
     })),
   ),
+  "/industry/aesthetic-clinics": preloadableComponent(() =>
+    import("~/features/industries-v2/compositions/aesthetic-clinics").then((m) => ({
+      default: m.AestheticClinicsComposition,
+    })),
+  ),
   "/industry/ecommerce": preloadableComponent(() =>
     import("~/features/industries-v2/compositions/ecommerce").then((m) => ({
       default: m.EcommerceComposition,
