@@ -434,6 +434,14 @@ function ArticleMetricPanel({
         {items.map((item, index) => {
           const value = item.value.trim();
           const valueLength = Array.from(value).length;
+          /*
+           * These tiers drive grid spans as well as type size ("wide" spans 2
+           * columns, "full" spans the row — see core-pages.css), so the
+           * boundaries cannot be retuned to solve a type-fitting problem:
+           * moving one value between tiers repacks the auto-fit grid and
+           * changes its siblings' widths. Long values are fitted in CSS
+           * instead, via the `wide` clamp inside the <= 40rem block.
+           */
           const valueSize =
             valueLength > 36 ? "full" : valueLength > 18 ? "wide" : "standard";
 

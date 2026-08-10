@@ -1,0 +1,51 @@
+{
+  "/services/web-design-development": {
+    "loaderText": "Aligning message, movement and measurement",
+    "pill": "Bespoke digital experience",
+    "title": "Make the website earn its place",
+    "subtitle": "Strategy, copy, design and engineering shaped into one clear route from first visit to qualified enquiry.",
+    "buttonLabel": "Explore the commercial website system"
+  },
+  "/services/app-development": {
+    "loaderText": "Reducing the idea to its most valuable working state",
+    "pill": "Product intelligence / First release",
+    "title": "Prove the workflow before expanding the product",
+    "subtitle": "A focused application designed around one real user, one valuable task and the system states required to deliver it reliably.",
+    "buttonLabel": "Map the first release"
+  },
+  "/services/ai-voice-agents": {
+    "loaderText": "Synchronising speech, action and human fallback",
+    "pill": "Conversational systems / Voice",
+    "title": "Give every call a controlled next state",
+    "subtitle": "Custom voice workflows that listen, respond, act and escalate within rules your business can inspect.",
+    "buttonLabel": "Explore the call architecture"
+  },
+  "/services/ai-receptionists": {
+    "loaderText": "Converging every enquiry into the right next action",
+    "pill": "Customer operations / Front desk",
+    "title": "Turn every routine enquiry into a controlled handoff",
+    "subtitle": "One governed reception layer for calls, chat, intake, booking, routing and the moments that still need a person.",
+    "buttonLabel": "Open the front-desk system"
+  },
+  "/services/content-creation": {
+    "loaderText": "Structuring expertise into reusable editorial momentum",
+    "pill": "Content operations / Editorial system",
+    "title": "Make every strong idea travel further",
+    "subtitle": "A source-led system that turns approved expertise into distinct website, insight, email and social assets—each with a reason to exist.",
+    "buttonLabel": "Explore the content operating system"
+  },
+  "/services/ai-automation": {
+    "loaderText": "Orchestrating data, decisions and accountable action",
+    "pill": "Operational systems / Automation",
+    "title": "Make the handoffs work without hiding the exceptions",
+    "subtitle": "Custom workflows that connect triggers, data, rules, AI judgement, approvals and reporting into an operating layer your team can inspect.",
+    "buttonLabel": "Trace the automation system"
+  },
+  "/services/ai-consulting": {
+    "loaderText": "Converting ambition into an ordered set of decisions",
+    "pill": "Leadership advisory / Opportunity audit",
+    "title": "Put judgement before implementation",
+    "subtitle": "A senior decision layer for prioritising use cases, testing readiness, choosing build or buy, and defining the controls that delivery will need.",
+    "buttonLabel": "Explore the advisory route"
+  }
+}

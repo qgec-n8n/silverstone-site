@@ -24,6 +24,39 @@
   overflow: hidden;
 }
 
+/*
+ * The intro hero is a full-screen overlay, not a block the body sits beneath.
+ *
+ * It used to be in normal flow, which meant the body below it started one
+ * whole viewport down; dropping the hero at `state="body"` then pulled the
+ * entire page up by 100dvh. That is a layout shift of 1.0 — measured, on the
+ * site's most-visited page — and because the handover animates it lands well
+ * outside the 500ms window that would have attributed it to the click, so it
+ * counted against Cumulative Layout Shift in full.
+ *
+ * Taking the hero out of flow puts the body at its final position from the
+ * very first layout, so the handover paints new content into a box that never
+ * moves. Nothing about either screen looks different: the clamp above already
+ * sizes this container to exactly one viewport, which is the height the hero
+ * claimed in flow.
+ *
+ * Keyed on `data-homepage-state`, which only exists once the pre-hydration
+ * boot script runs — a visitor without JavaScript keeps the in-flow hero and
+ * the full scrollable document beneath it, exactly as before.
+ *
+ * z-index 2 clears `.ss-hv2__body` (1) and the fixed backdrop (0) while
+ * staying under the explore overlay (120), so the opening curtain still
+ * sweeps over the hero.
+ */
+.ss-hv2[data-homepage-state="loading"] .ss-hv2-hero,
+.ss-hv2[data-homepage-state="intro"] .ss-hv2-hero,
+.ss-hv2[data-homepage-state="opening"] .ss-hv2-hero,
+.ss-hv2[data-homepage-state="closing"] .ss-hv2-hero {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
 .ss-hv2__body {
   position: relative;
   z-index: 1;
@@ -2148,6 +2181,133 @@ html[data-js="on"]
    * height. Previously this block hid the word and shrank the rail to 18px on
    * short viewports, which made the home secondary-hero cue diverge from blog.
    */
+}
+
+/*
+ * Phone fold contract for the homepage's secondary hero — the same rule every
+ * other route's hero follows (see the `max-width: 40rem` block in
+ * styles/services-v2/services-v2.css): the section is exactly one screen, so
+ * the scroll cue is the last thing above the fold and the TrustStrip starts
+ * immediately beneath it.
+ *
+ * The `min-height` floor above sized the intro to one screen but could not
+ * stop it growing past one: at 360x640 the copy wrapped 47px over, and at
+ * 320x568 the benchmark board alone claimed 42% of the budget and put the
+ * whole stack 136px over — cue and trust bar both off-screen. So the section
+ * takes a hard height and everything inside it is driven off
+ * --ss-hv2-stage: the intro's real content budget, one screen minus the fixed
+ * header and the section's own padding.
+ *
+ * Each formula is a line through two calibration points — a 390x844 stage
+ * reproduces what this hero already shipped, a 320x568 stage lands on the
+ * tightest legible composition — because the beats that never scale (kicker,
+ * the CTA row's touch target, the cue) take a far larger share of a short
+ * phone's screen than a tall one's, so the copy and the board have to give up
+ * more than their proportional share as the screen shortens.
+ */
+@media (max-width: 40rem) {
+  .ss-hv2-secondary {
+    --ss-hv2-stage: calc(
+      100svh - var(--ss-layout-header, 0px) - 2 * var(--ss-hv2-secondary-pad)
+    );
+    /* svh, not dvh: the contract is "at load", when every mobile browser shows
+       its toolbars, and a dvh box would reflow on every toolbar animation. The
+       plain vh line is a fallback for engines without svh. */
+    height: calc(100vh - var(--ss-layout-header, 0px));
+    height: calc(100svh - var(--ss-layout-header, 0px));
+    overflow: hidden;
+  }
+
+  .ss-hv2-secondary__intro {
+    /* Cancels the one-screen floor from the stacked-layout block above: the
+       section now owns that height, and the intro has to be free to fit
+       inside it rather than force it open. */
+    min-height: 0;
+    /* The grid centres its items; the intro instead fills the row, because the
+       scroll cue is anchored to the bottom of this column by its own
+       `margin-top: auto` and needs real slack to be pushed into. */
+    align-self: stretch;
+    gap: clamp(0.2rem, calc(0.0158 * var(--ss-hv2-stage) - 2.45px), 0.58rem);
+    padding-top: clamp(0.1rem, calc(0.0575 * var(--ss-hv2-stage) - 25.15px), 1.1rem);
+  }
+
+  .ss-hv2-secondary__title {
+    font-size: clamp(
+      1.3rem,
+      min(10vw, calc(0.0627 * var(--ss-hv2-stage) - 7.59px)),
+      2.45rem
+    );
+  }
+
+  .ss-hv2-secondary__lead {
+    font-size: clamp(0.62rem, calc(0.0114 * var(--ss-hv2-stage) + 5.64px), 0.88rem);
+  }
+
+  .ss-hv2-secondary__cap {
+    padding: clamp(0.28rem, calc(0.0118 * var(--ss-hv2-stage) - 1.19px), 0.6rem) 0.4rem
+      clamp(0.26rem, calc(0.0107 * var(--ss-hv2-stage) - 1.15px), 0.55rem);
+  }
+
+  .ss-hv2-secondary__cap span span:first-child {
+    font-size: clamp(0.56rem, calc(0.0047 * var(--ss-hv2-stage) + 7.37px), 0.68rem);
+  }
+
+  /* The benchmark board is the single largest beat in this hero — two rows of
+     metric cells plus a header and a note. Scaling it with the stage is what
+     buys the short-phone budget back without dropping a metric. */
+  .ss-hv2-mobile-signal {
+    gap: clamp(0.24rem, calc(0.0229 * var(--ss-hv2-stage) - 5.79px), 0.7rem);
+    padding: clamp(0.3rem, calc(0.028 * var(--ss-hv2-stage) - 7.23px), 0.85rem)
+      clamp(0.4rem, calc(0.0236 * var(--ss-hv2-stage) - 3.14px), 0.9rem)
+      clamp(0.26rem, calc(0.0258 * var(--ss-hv2-stage) - 7.18px), 0.75rem);
+  }
+
+  .ss-hv2-mobile-signal__grid {
+    gap: clamp(0.2rem, calc(0.0147 * var(--ss-hv2-stage) - 2.96px), 0.5rem);
+  }
+
+  .ss-hv2-mobile-signal__cell {
+    min-height: clamp(1.75rem, calc(0.0679 * var(--ss-hv2-stage) - 2.06px), 3.4rem);
+    padding: clamp(0.2rem, calc(0.0177 * var(--ss-hv2-stage) - 4.35px), 0.55rem)
+      clamp(0.3rem, calc(0.0162 * var(--ss-hv2-stage) - 1.66px), 0.65rem);
+  }
+
+  .ss-hv2-mobile-signal__value {
+    font-size: clamp(
+      0.95rem,
+      min(6.5vw, calc(0.0288 * var(--ss-hv2-stage) + 3.42px)),
+      1.55rem
+    );
+  }
+
+  .ss-hv2-mobile-signal__label {
+    font-size: clamp(0.52rem, calc(0.0046 * var(--ss-hv2-stage) + 6.84px), 0.64rem);
+  }
+
+  .ss-hv2-mobile-signal__note {
+    font-size: clamp(0.48rem, calc(0.0047 * var(--ss-hv2-stage) + 5.77px), 0.58rem);
+  }
+}
+
+/*
+ * Short phones: the two CTAs share one row rather than stacking, each keeping
+ * a 44px touch target. Two stacked controls plus their gap cost ~94px — a
+ * fifth of a 640px-tall phone's whole content budget — and this is the same
+ * composition every other page's hero adopts at this height, so the site reads
+ * consistently on small screens rather than the homepage alone staying tall.
+ */
+@media (max-width: 40rem) and (max-height: 43.75rem) {
+  .ss-hv2-secondary__actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ss-hv2-secondary__actions [data-slot="button"],
+  .ss-hv2-secondary__actions .ss-explore-cta {
+    min-height: 2.75rem;
+    padding-inline: 0.45rem;
+    font-size: 0.72rem;
+    line-height: 1.15;
+  }
 }
 
 /* ============================ STANDARD ============================ */

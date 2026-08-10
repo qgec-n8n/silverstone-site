@@ -8530,8 +8530,16 @@ a.ss-insight-card:hover,
     grid-column: auto;
   }
 
+  /* The "wide" tier spans 19–36 characters on one `nowrap` line, so the floor
+     has to fit its LONGEST value on the narrowest supported screen, not its
+     average one. At 320px the value box is 208px and the old floor resolved to
+     13.6px — enough for ~31 characters, so a 34-character value ("Automation ·
+     consulting · delivery") rendered clipped. Retuning the tier boundary in
+     article-page.tsx is not an option: the tiers also set grid spans, so
+     re-tiering one value repacks the grid and narrows its siblings. Fitting it
+     here keeps the layout identical and only trims type on small screens. */
   .ss-blog-article__metrics [data-value-size="wide"] dd {
-    font-size: clamp(0.68rem, 0.45rem + 2cqi, 1.05rem);
+    font-size: clamp(0.62rem, 0.37rem + 2cqi, 1.05rem);
     letter-spacing: -0.015em;
   }
 

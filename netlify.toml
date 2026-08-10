@@ -60,6 +60,38 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Vite writes every file in /assets with a content hash in its name, so a given
+# URL can never change meaning — a new build emits a new filename. Netlify's
+# default for static files is `max-age=0, must-revalidate`, which costs a
+# conditional request for both render-blocking stylesheets (and every JS chunk)
+# before a repeat visitor can paint. `immutable` removes that round trip
+# entirely. Safe precisely because of the hashing: nothing here is ever
+# overwritten in place.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Static media served from /web/public keeps stable (unhashed) filenames, so it
+# must stay revalidatable — a replaced logo or poster has to be able to reach
+# visitors. `stale-while-revalidate` gives repeat views an instant cache hit
+# while the refresh happens in the background, which matters here because the
+# loader emblem and hero posters are on the critical path for LCP.
+[[headers]]
+  for = "/brand/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/home-v2/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/approved-images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
 # The Atom 1.0 article feed (web/scripts/generate-seo-artifacts.mjs). Netlify
 # would otherwise serve it as generic XML; feed readers and crawlers should see
 # the real media type. Short max-age because the publishing automation adds an

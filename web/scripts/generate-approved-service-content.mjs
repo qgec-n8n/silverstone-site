@@ -186,6 +186,25 @@ writeFileSync(
   `${JSON.stringify(data, null, 2)}\n`,
 );
 
+/*
+ * A strict projection of the file above, holding only each route's five
+ * intro-splash strings. The full record is ~162 KB (~42 KB gzipped) of
+ * approved copy, headings, microcopy and build provenance, and the route
+ * experience registry — which every visitor loads on every route, because the
+ * app shell imports it — used to pull all of that in for these five strings
+ * alone. Splitting the projection out keeps the heavy record behind the
+ * service detail route's own chunk. One source, one pass, so they cannot
+ * drift.
+ */
+const routeEntries = Object.fromEntries(
+  Object.entries(data).map(([route, record]) => [route, record.routeEntry]),
+);
+
+writeFileSync(
+  join(outputDir, "approved-service-route-entries.json"),
+  `${JSON.stringify(routeEntries, null, 2)}\n`,
+);
+
 const allMarkdown = readdirSync(docsDir)
   .filter((filename) => filename.endsWith(".md"))
   .sort()

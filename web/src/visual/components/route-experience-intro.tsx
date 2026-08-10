@@ -35,9 +35,18 @@ const introItem: Variants = {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
+    /*
+     * Lead-in trimmed from 0.42s/0.82s on 2026-08-10. This splash only mounts
+     * once the route chunk has hydrated (~3.1s on a throttled phone), so every
+     * millisecond here lands on top of that and directly sets LCP: the hero
+     * lead was measured reaching full opacity at 4485ms, 750ms AFTER the
+     * loader overlay had already been removed — the visitor was looking at an
+     * empty stage. The stagger is preserved, so the beats still arrive in
+     * order; the sequence just no longer runs on past the overlay.
+     */
     transition: {
-      delay: 0.42 + custom.index * custom.delay,
-      duration: 0.82,
+      delay: 0.14 + custom.index * custom.delay * 0.7,
+      duration: 0.58,
       ease: [0.22, 1, 0.36, 1],
     },
   }),

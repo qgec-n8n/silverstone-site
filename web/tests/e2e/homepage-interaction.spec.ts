@@ -135,7 +135,11 @@ async function homepageRuntimeProof(page: Page) {
       ),
       hasSystemImage: Boolean(document.querySelector(".ss-hv2-secondary__media img")),
       hasPremiumSystemImage: Boolean(
-        document.querySelector('img[src="/home-v2/silverstone-system-visual.png"]'),
+        document.querySelector(
+          // RasterPicture points the <img> at the WebP sibling and keeps the
+          // PNG as a <source> fallback, so match the stem, not one encoding.
+          'img[src^="/home-v2/silverstone-system-visual."]',
+        ),
       ),
       hasLiveSignalBenchmarks: text.includes("Live Signal Benchmarks"),
       metricValuesFit: metricValues.every((node) => {
@@ -204,7 +208,11 @@ async function systemViewportProof(page: Page) {
     return {
       hasSystemImage: Boolean(document.querySelector("#system img")),
       hasPremiumSystemImage: Boolean(
-        document.querySelector('img[src="/home-v2/silverstone-system-visual.png"]'),
+        document.querySelector(
+          // RasterPicture points the <img> at the WebP sibling and keeps the
+          // PNG as a <source> fallback, so match the stem, not one encoding.
+          'img[src^="/home-v2/silverstone-system-visual."]',
+        ),
       ),
       nativeCanvasCount: document.querySelectorAll(
         '[data-particles-host="body"] canvas.particles-js-canvas-el',
@@ -667,7 +675,7 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   await expect(page.locator(".ss-hv2-trust__item")).toHaveText([...trustSignals]);
   await expect(page.locator(".ss-hv2-secondary__media img")).toHaveCount(0);
   await expect(
-    page.locator('img[src="/home-v2/silverstone-system-visual.png"]'),
+    page.locator('img[src^="/home-v2/silverstone-system-visual."]'),
   ).toHaveCount(1);
 
   await page.mouse.move(96, 140);
@@ -707,7 +715,11 @@ test("homepage intro is isolated until Explore opens the body", async ({ page })
   expect(proof.signalBeforeAnimation).toBe("none");
   expect(proof.signalBeforeContent).toBe("none");
   expect(proof.ctaLogoSrc).toBeNull();
-  expect(proof.footerLogoSrc).toBe("/brand/silverstone-ai-logo-footer.png");
+  // RasterPicture serves the WebP sibling from the <img> and keeps the PNG as
+  // a <source> fallback, so assert the asset, not the encoding.
+  expect(proof.footerLogoSrc).toMatch(
+    /^\/brand\/silverstone-ai-logo-footer\.(?:png|webp)$/,
+  );
   if (proof.coarsePointer) {
     expect(proof.hoverStatus).toBeNull();
   } else {

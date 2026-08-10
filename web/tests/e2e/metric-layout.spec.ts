@@ -53,9 +53,47 @@ async function settleResponsiveLayout(page: Page) {
   );
 }
 
-async function settleViewport(page: Page, width: number) {
+/**
+ * `innerWidth` reaching the target is not the same as layout reaching it. These
+ * values size themselves in container-query units, so their type is only
+ * correct once their own box has stopped moving — two frames after a resize it
+ * is still partway there (measured 158px, then 180px, then its settled 190px at
+ * 320px wide). Sampling inside that window reads a wide-container font inside an
+ * already narrow box and reports a false clipping failure.
+ *
+ * Settle against the elements actually being measured. An earlier version
+ * polled a hard-coded `.ss-srv2-bench__grid`, which does not exist on article
+ * routes — there it resolved "absent" immediately and the article assertions ran
+ * with no settling at all, which is why they failed only under parallel load
+ * (a `wide` value was caught still carrying the base tier's 17.3px type).
+ */
+async function settleViewport(page: Page, width: number, settleSelector: string) {
   await expect.poll(() => page.evaluate(() => window.innerWidth)).toBe(width);
   await settleResponsiveLayout(page);
+
+  await expect
+    .poll(
+      async () =>
+        page.evaluate(
+          (selector) =>
+            new Promise<string>((resolve) => {
+              const read = () =>
+                [...document.querySelectorAll(selector)]
+                  .map((element) => {
+                    const style = window.getComputedStyle(element);
+                    return `${element.getBoundingClientRect().width.toFixed(1)}/${style.fontSize}`;
+                  })
+                  .join(",");
+              const first = read();
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => resolve(`${first}|${read()}`));
+              });
+            }),
+          settleSelector,
+        ),
+      { timeout: 10_000 },
+    )
+    .toMatch(/^(.*)\|\1$/);
 }
 
 async function openRouteBody(page: Page, path: string) {
@@ -147,7 +185,7 @@ test("every shared verified-results value stays complete on one line", async ({
 
     for (const width of VIEWPORT_WIDTHS) {
       await page.setViewportSize({ width, height: 900 });
-      await settleViewport(page, width);
+      await settleViewport(page, width, ".ss-srv2-bench .ss-srv2-metric__value");
       await reopenRouteBodyAfterResize(page);
       expect(
         await fitFailures(page, ".ss-srv2-bench .ss-srv2-metric__value"),
@@ -175,7 +213,7 @@ test("every article metric value stays complete on one line", async ({
 
     for (const width of VIEWPORT_WIDTHS) {
       await page.setViewportSize({ width, height: 900 });
-      await settleViewport(page, width);
+      await settleViewport(page, width, ".ss-blog-article__metrics dd");
       expect(
         await fitFailures(page, ".ss-blog-article__metrics dd"),
         `${route} has a clipped or wrapped article metric at ${String(width)}px`,

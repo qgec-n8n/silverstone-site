@@ -1,6 +1,6 @@
 import { futureRouteManifest } from "~/data/future-routes";
 import type { FutureRouteRecord } from "~/data/route-schema";
-import { getApprovedServiceContent } from "~/content/services/approved-services";
+import { getApprovedServiceRouteEntry } from "~/content/services/approved-service-route-entries";
 import { getIndustryCopy } from "~/features/industries-v2/content";
 
 export type RouteExperienceFamily =
@@ -245,7 +245,7 @@ function buttonLabelFor(
 function buildExperience(route: FutureRouteRecord): RouteExperience {
   const family = familyForRoute(route);
   const approvedRouteEntry =
-    getApprovedServiceContent(route.path)?.routeEntry ??
+    getApprovedServiceRouteEntry(route.path) ??
     getIndustryCopy(route.path)?.routeEntry ??
     coreRouteEntries[route.path];
 

@@ -21,12 +21,20 @@ import "~/styles/core-spin-loader.css";
   so no-JS visitors never get stuck behind it.
 */
 
-/* Total visible lifetime (HOLD_MS + EXIT_MS) is held to ~2.5s. Route-asset
+/* Total visible lifetime (HOLD_MS + EXIT_MS) is held to ~1.65s. Route-asset
    preloading below runs concurrently and is never awaited before dismissal —
    it keeps warming the cache in the background for whichever assets aren't
-   ready yet. */
-const HOLD_MS = 1900;
-const EXIT_MS = 600;
+   ready yet.
+
+   Trimmed from 1900/600 on 2026-08-10. Measured on a throttled phone, the
+   opening chain was: FCP 734ms, route chunk hydrated 3146ms, loader gone
+   3734ms, hero lead not fully visible until 4485ms — so the branded beat was
+   costing ~1.5s of Largest Contentful Paint on all 24 gated routes, and the
+   hero was still fading in three quarters of a second AFTER the overlay had
+   already lifted. The beat is still deliberate and still reads as one; it just
+   no longer outlasts the content it is covering. */
+const HOLD_MS = 1200;
+const EXIT_MS = 450;
 // WebP directly rather than through `RasterPicture`: the loader CSS positions
 // `.ss-loader__emblem` as a child of `.ss-loader__stage`, so introducing a
 // <picture> wrapper between them would break the centring the homepage

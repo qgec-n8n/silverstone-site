@@ -103,6 +103,55 @@ async function readPhoneControlGeometry(phoneControls: Locator) {
   });
 }
 
+/**
+ * The rear desktop's depth shade fades in on its own CSS transition once the
+ * mobile orbit settles, and `data-orbiting` clears *before* that transition
+ * finishes. A baseline captured the moment the orbit ends can therefore record
+ * a mid-fade `shadeOpacity` of "0" which has reached its settled "1" by the
+ * time the post-activation comparison runs — the appearance never actually
+ * changed, the baseline was just read too early. Wait for every finite
+ * animation on the device to finish, then require two consecutive frames to
+ * agree, before treating the reading as the baseline.
+ */
+async function readSettledRearDesktopAppearance(windowDevice: Locator) {
+  await windowDevice.evaluate(async (device) => {
+    await Promise.all(
+      device
+        .getAnimations({ subtree: true })
+        .filter((animation) => animation.effect?.getTiming().iterations !== Infinity)
+        .map((animation) => animation.finished.catch(() => undefined)),
+    );
+  });
+
+  await expect
+    .poll(
+      async () =>
+        windowDevice.evaluate(
+          (device) =>
+            new Promise<string>((resolve) => {
+              const read = () => {
+                const shade = device.querySelector<HTMLElement>(
+                  ".ss-folio-device__depth-shade",
+                );
+                const visual = device.querySelector<HTMLElement>(
+                  ".ss-folio-window__visual",
+                );
+                if (!shade || !visual) return "absent";
+                return `${getComputedStyle(shade).opacity}/${getComputedStyle(visual).opacity}`;
+              };
+              const first = read();
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => resolve(`${first}|${read()}`));
+              });
+            }),
+        ),
+      { timeout: 10_000 },
+    )
+    .toMatch(/^(.+)\|\1$/);
+
+  return readRearDesktopAppearance(windowDevice);
+}
+
 test.describe("web design live showcase", () => {
   test("standing the phone's mobile demo down preserves scroll and focus", async ({
     page,
@@ -154,7 +203,7 @@ test.describe("web design live showcase", () => {
       foregroundBounds?.phoneBottom ?? Number.POSITIVE_INFINITY,
     ).toBeLessThanOrEqual((foregroundBounds?.viewportBottom ?? 0) + 0.75);
 
-    const rearDesktopBeforeLive = await readRearDesktopAppearance(rearDesktop);
+    const rearDesktopBeforeLive = await readSettledRearDesktopAppearance(rearDesktop);
     expect(rearDesktopBeforeLive).not.toBeNull();
     expect(rearDesktopBeforeLive?.visualVisibility).toBe("visible");
 

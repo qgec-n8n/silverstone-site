@@ -131,52 +131,75 @@ export const LEGACY_REDIRECTS: Readonly<Record<string, string>> = {
     "/blog/ai-receptionist-small-business-guide",
   "/blog/ai-automation-for-uk-small-businesses-what-to-fix-first":
     "/blog/small-business-ai-automation",
+
+  /*
+   * Recovered 2026-08-10 from GONE_PATHS (see the note on that list). Each of
+   * these legacy articles was deleted at the 2026-07-07 cutover and returned
+   * 410, but every one of them was still earning Search Console impressions
+   * a month later, and the blog automations have since published a current
+   * article covering the same topic. Each source is mapped to the closest
+   * live article rather than to /blog, so the redirect resolves a real
+   * intent match instead of reading as a soft 404.
+   */
+  "/blog/ai-voice-agents-uk-smes-2026": "/blog/ai-voice-agent-buyers-guide",
+  "/blog/dental-recall-automation-uk-2026": "/blog/dental-practice-automation-guide",
+  "/blog/ai-missed-call-recovery-dentists-uk": "/blog/dental-practice-automation-guide",
+  "/blog/ai-automations-physio-chiro-clinics-uk": "/blog/physio-chiropractic-ai-guide",
+  "/blog/ai-no-show-reduction-uk-salons-barbers": "/blog/salon-barber-ai-guide",
+  "/blog/ai-guest-concierge-hotels-bbs-uk": "/blog/hospitality-automation-guide",
+  "/blog/ai-booking-automation-uk-hospitality-2026": "/blog/hospitality-automation-guide",
+  "/blog/ai-lead-qualification-estate-agents-2026": "/blog/estate-agent-automation-guide",
+  "/blog/post-purchase-automation-uk-ecommerce-repeat-customers":
+    "/blog/ecommerce-ai-systems-guide",
+  "/blog/ai-lead-capture-uk-trades-2026": "/blog/trades-websites-ai-automation",
+  "/blog/ai-quote-follow-up-trades": "/blog/trades-websites-ai-automation",
+  "/blog/ai-etas-smart-scheduling-uk-trades-2026": "/blog/trades-websites-ai-automation",
+  "/blog/quote-chase-automation-uk-trades-accepted-jobs-2026":
+    "/blog/trades-websites-ai-automation",
+  "/blog/ai-website-tools-uk-small-businesses-2026": "/blog/small-business-web-development",
+  "/blog/ai-document-automation-uk-smes-2026": "/blog/small-business-ai-automation",
+  "/blog/ai-automation-failures-uk-smes-2026": "/blog/small-business-ai-automation",
+  "/blog/ai-appointment-reminders-uk-2026": "/blog/small-business-ai-automation",
 };
 
 /**
  * Intentionally removed pages with no sufficiently equivalent replacement.
  * These return HTTP 410 (Gone) and stay out of sitemaps, feeds and links.
  *
- * The 33 short slugs are the legacy static site's blog articles (canonical
+ * The short slugs are the legacy static site's blog articles (canonical
  * extensionless form in `9fcfb1fe^:sitemap.xml`), deleted at the 2026-07-07
- * cutover; the current blog contains no equivalent content. The 12
- * long slugs are earlier aliases of those same deleted articles (redirect
- * sources in the March 2026 netlify.toml generations) and terminate as Gone
- * rather than chaining into a 410.
+ * cutover. The 12 long slugs are earlier aliases of those same deleted
+ * articles (redirect sources in the March 2026 netlify.toml generations) and
+ * terminate as Gone rather than chaining into a 410.
+ *
+ * 2026-08-10 — seventeen entries were promoted out of this list into
+ * `LEGACY_REDIRECTS` above. The "no equivalent replacement" premise held at
+ * the cutover but stopped being true: the blog automations have since
+ * published current articles covering each of those topics, while Search
+ * Console still showed the dead URLs earning 168 impressions over the
+ * trailing 30 days (`/blog/dental-recall-automation-uk-2026` alone at 76 —
+ * the highest of any blog URL on the site). Serving 410 for a page Google
+ * still ranks throws that equity away instead of passing it to the article
+ * that replaced it, and it leaves the replacement competing against a URL
+ * Google already knows — which is why those replacements sat at "Discovered
+ * — currently not indexed". Entries with no current equivalent stay here.
  */
 export const GONE_PATHS: readonly string[] = [
-  "/blog/ai-appointment-reminders-uk-2026",
-  "/blog/ai-automation-failures-uk-smes-2026",
   "/blog/ai-automation-uk-gdpr-2026-sme-guide",
-  "/blog/ai-automations-physio-chiro-clinics-uk",
-  "/blog/ai-booking-automation-uk-hospitality-2026",
   "/blog/ai-call-answering-trades-uk",
-  "/blog/ai-document-automation-uk-smes-2026",
-  "/blog/ai-etas-smart-scheduling-uk-trades-2026",
-  "/blog/ai-guest-concierge-hotels-bbs-uk",
   "/blog/ai-lead-capture-trades-uk-2026",
-  "/blog/ai-lead-capture-uk-trades-2026",
-  "/blog/ai-lead-qualification-estate-agents-2026",
   "/blog/ai-lead-scoring-fitness-coaches-uk",
-  "/blog/ai-missed-call-recovery-dentists-uk",
-  "/blog/ai-no-show-reduction-uk-salons-barbers",
-  "/blog/ai-quote-follow-up-trades",
   "/blog/ai-rebooking-journeys-salons-uk",
   "/blog/ai-receptionist-small-business-2026",
   "/blog/ai-receptionist-uk-costs-roi-2026",
   "/blog/ai-returns-triage-ecommerce-uk",
   "/blog/ai-viewing-feedback-estate-agents-uk",
-  "/blog/ai-voice-agents-uk-smes-2026",
-  "/blog/ai-website-tools-uk-small-businesses-2026",
   "/blog/ai-win-back-journeys-gyms-uk",
   "/blog/clinic-rebooking-physio-chiro-uk",
   "/blog/dental-intake-e-consent-automation-uk",
-  "/blog/dental-recall-automation-uk-2026",
   "/blog/dm-to-client-automation-uk-fitness-coaches-2026",
   "/blog/estate-agent-viewing-confirmations-uk",
   "/blog/gym-booking-automation-uk-gyms-studios-2026",
-  "/blog/post-purchase-automation-uk-ecommerce-repeat-customers",
-  "/blog/quote-chase-automation-uk-trades-accepted-jobs-2026",
   "/blog/quote-follow-up-automation-uk-trades-2026",
   "/blog/how-small-physio-and-chiro-clinics-can-cut-missed-sessions-and-improve-treatment-completion-with-simple-ai-automations",
   "/blog/how-small-uk-estate-agents-can-use-automated-viewing-confirmations-to-cut-no-shows-and-win-instructions",

@@ -910,10 +910,51 @@ section[data-slot="page-section"]:has(.ss-srv2) {
       var(--srv2-accent) 26%,
       var(--ss-v2-hairline)
     );
+    /*
+     * The phone hero's real content budget: one screen, minus everything that
+     * is not the copy stack — the fixed header + frame band above it, and the
+     * scroll-cue / floating-chrome band below it. Every fluid value in this
+     * block is expressed as a fraction of this stage rather than of viewport
+     * width alone, so the composition shrinks continuously as the screen gets
+     * shorter instead of stepping down at fixed breakpoints and overflowing in
+     * between.
+     *
+     * Each formula is a straight line through two calibration points rather
+     * than a plain fraction: a 390x844 stage reproduces this hero's shipped
+     * pixel values to within ~2%, and a 320x568 stage lands on the tightest
+     * still-legible composition. A plain fraction cannot do both, because the
+     * beats that never scale (breadcrumb line, eyebrow, the CTA row's touch
+     * target) eat a fifth of a short phone's stage but only a tenth of a tall
+     * one's — the copy has to give up more than its share as the screen
+     * shortens, which is exactly the slope these lines encode.
+     */
+    --srv2-mobile-stage: calc(
+      100svh - var(--srv2-hero-chrome) - var(--srv2-mobile-chrome-reserve)
+    );
     /* One rhythm for every hero beat (crumbs/eyebrow/title/lead/manifest/CTAs)
-       — the short-viewport tiers below only retune this variable. */
-    --srv2-mobile-flow-gap: clamp(0.7rem, 1.4svh, 1.15rem);
+       — stage-driven, so the short-viewport tiers no longer retune it. */
+    --srv2-mobile-flow-gap: clamp(
+      0.24rem,
+      calc(0.0229 * var(--srv2-mobile-stage) - 2.98px),
+      1.15rem
+    );
     padding-block: clamp(0.3rem, 0.8svh, 0.6rem);
+    /*
+     * The fold contract, phones only: the hero is exactly one screen tall, so
+     * the scroll cue lands just above the fold and the TrustStrip starts
+     * immediately beneath it — on every route and every phone. This is the
+     * desktop mechanism (a hard height, not a min-height floor) applied to
+     * portrait phones; the stage-driven type above is what lets the content
+     * actually fit inside it rather than being clipped. svh, not dvh: the
+     * contract is "at load", when every mobile browser shows its toolbars, and
+     * a dvh box would reflow the whole hero each time Safari's toolbar
+     * animates. The plain vh line is a fallback for engines without svh.
+     */
+    height: calc(100vh - var(--srv2-hero-chrome));
+    height: calc(100svh - var(--srv2-hero-chrome));
+    min-height: calc(100vh - var(--srv2-hero-chrome));
+    min-height: calc(100svh - var(--srv2-hero-chrome));
+    overflow: hidden;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro,
@@ -924,7 +965,13 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__intro {
     justify-content: center;
+    /* `safe` degrades the centring to flex-start the moment the stack would
+       overflow the (now hard-capped) stage, so an unexpectedly tall
+       composition clips its tail rather than losing the breadcrumbs and title
+       off the top. Engines without `safe` keep the plain centring above. */
+    justify-content: safe center;
     gap: var(--srv2-mobile-flow-gap);
+    min-height: 0;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__top {
@@ -1019,26 +1066,55 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     height: 0.42rem;
   }
 
+  /* Width still sets the display size on a tall phone (unchanged there); the
+     stage term is a ceiling that only bites once the screen is short enough
+     that the old width-only value would push the CTAs past the fold. */
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title,
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
     width: 100%;
     max-width: 100%;
-    font-size: clamp(2.15rem, 10.6vw, 2.85rem);
+    font-size: clamp(
+      1.1rem,
+      min(10.6vw, calc(0.0762 * var(--srv2-mobile-stage) - 7.21px)),
+      2.85rem
+    );
     line-height: 1.03;
     letter-spacing: -0.035em;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
-    font-size: clamp(1.95rem, 9.4vw, 2.55rem);
+    font-size: clamp(
+      1rem,
+      min(9.4vw, calc(0.0672 * var(--srv2-mobile-stage) - 6.11px)),
+      2.55rem
+    );
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead {
     width: 100%;
     max-width: 100%;
     margin-inline: 0;
-    font-size: clamp(0.9rem, 3.9vw, 1.02rem);
+    font-size: clamp(
+      0.62rem,
+      min(3.9vw, calc(0.016 * var(--srv2-mobile-stage) + 4.89px)),
+      1.02rem
+    );
     line-height: 1.5;
     text-wrap: pretty;
+  }
+
+  /* An outlier-length lead (see the note on data-long in secondary-hero.tsx)
+     wraps two lines past the budget at the normal size, which is what pushes
+     that route's CTAs down into the floating-chrome band. Sizing it to hold
+     the same line count as every other route keeps one composition rather
+     than one exception. */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead[data-long="true"] {
+    font-size: clamp(
+      0.6rem,
+      min(2.95vw, calc(0.0146 * var(--srv2-mobile-stage) + 2.36px)),
+      0.85rem
+    );
+    line-height: 1.4;
   }
 
   /* The signal manifest: one glass instrument instead of three floating
@@ -1067,9 +1143,17 @@ section[data-slot="page-section"]:has(.ss-srv2) {
       inset 0 1px 0 color-mix(in srgb, white 6%, transparent),
       0 18px 40px -30px color-mix(in srgb, var(--srv2-accent) 55%, transparent);
     backdrop-filter: blur(14px);
-    /* Mobile presents the manifest with the rest of the secondary hero. The
-       shared component keeps its staggered point reveal on larger screens. */
-    animation: none;
+    /*
+     * The manifest is the one hero beat that has no component-level Reveal of
+     * its own (it is a bare <ul>, and wrapping it would add a panel fade to
+     * desktop too), so the phone composition animates the panel here. 900ms
+     * lands it after the lead (840ms) and before its own rows (980ms) and the
+     * CTAs (1310ms) — the card arrives, then fills, then the actions follow.
+     * `backwards`, never `forwards`: the fill has to hold the hidden state
+     * through the delay, and a forwards fill would freeze the settled
+     * transform and kill every later hover/tap transform on the panel.
+     */
+    animation: srv2-caps-panel-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 900ms backwards;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps::before,
@@ -1103,18 +1187,22 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     max-width: none;
     min-height: 0;
     gap: 0.7rem;
-    padding: 0.6rem 0.05rem;
+    padding: clamp(0.2rem, calc(0.0192 * var(--srv2-mobile-stage) - 2.59px), 0.6rem)
+      0.05rem;
     border: 0;
     border-radius: 0;
     background: none;
     box-shadow: none;
-    font-size: clamp(0.8rem, 3.4vw, 0.9rem);
+    font-size: clamp(
+      0.6rem,
+      min(3.4vw, calc(0.0107 * var(--srv2-mobile-stage) + 6.34px)),
+      0.9rem
+    );
     line-height: 1.35;
     text-align: start;
-    /* Motion writes the desktop reveal state inline, so the mobile
-       composition explicitly settles every row from the first frame. */
-    opacity: 1 !important;
-    transform: none !important;
+    /* No settle override here: the shared component's staggered row reveal
+       (980/1080/1180ms) runs on phones too, landing each signal inside the
+       panel that has just arrived and before the CTAs below. */
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap + .ss-srv2-hero__cap {
@@ -1131,8 +1219,8 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap-icon {
-    width: 1.9rem;
-    height: 1.9rem;
+    width: clamp(1rem, calc(0.0454 * var(--srv2-mobile-stage) + 1.37px), 1.9rem);
+    height: clamp(1rem, calc(0.0454 * var(--srv2-mobile-stage) + 1.37px), 1.9rem);
     border-radius: 0.55rem;
   }
 
@@ -1150,10 +1238,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {
     width: 100%;
-    min-height: 3rem;
+    min-height: clamp(2.75rem, calc(0.0107 * var(--srv2-mobile-stage) + 40.34px), 3rem);
     justify-content: center;
     padding: 0.6rem 1.1rem;
-    font-size: 0.9rem;
+    font-size: clamp(0.68rem, calc(0.0103 * var(--srv2-mobile-stage) + 7.66px), 0.9rem);
   }
 
   /* One primary action per screen: the ghost quietens (fainter scrim, softer
@@ -1166,16 +1254,39 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 }
 
+/* The phone manifest's arrival — the panel rises and fades in as one glass
+   instrument, immediately before its own rows stagger in. */
+@keyframes srv2-caps-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The row reveals opt themselves out via `useReducedMotion` in the component;
+   the panel's entrance is CSS, so it opts out here. */
+@media (prefers-reduced-motion: reduce) {
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
+    animation: none;
+  }
+}
+
 /* Short mobile browser viewports (including Safari with both toolbars shown)
    keep every content group and the full animated cue inside the first screen.
-   Selectors match the phone block's `.ss-srv2` prefix so these later tiers
-   still win at equal specificity. */
+   Type, gaps and control sizes are already continuous functions of
+   --srv2-mobile-stage in the block above, so these tiers only carry the
+   changes a formula cannot express: the compositional switch to a single CTA
+   row, and the cue's own proportions. Selectors match the phone block's
+   `.ss-srv2` prefix so these later tiers still win at equal specificity. */
 @media (max-width: 40rem) and (max-height: 43.75rem) {
   /* The floating chrome cluster keeps its full height on short screens, so
      the reserve inherited from the stacked-layout rules does not shrink here
      — only the copy compacts. */
   .ss-srv2-hero {
-    --srv2-mobile-flow-gap: 0.5rem;
     padding-block: 0.3rem;
   }
 
@@ -1183,34 +1294,25 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     font-size: 0.55rem;
   }
 
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title,
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
-    font-size: clamp(1.7rem, 8.6vw, 2.2rem);
-  }
-
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead {
-    font-size: 0.8rem;
-    line-height: 1.4;
-  }
-
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__caps {
     padding: 0.12rem 0.75rem;
   }
 
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap {
-    padding-block: 0.42rem;
-    font-size: 0.74rem;
-  }
-
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap-icon {
-    width: 1.6rem;
-    height: 1.6rem;
+  /*
+   * Stacked CTAs cost two full control rows plus a gap — roughly 90px, or a
+   * fifth of the entire content stage on a 640px-tall phone. That is the one
+   * block big enough to decide whether the scroll cue lands above the fold on
+   * short screens, so from here down the two actions share a single row (the
+   * composition the ultra-short tier below has always used), each keeping a
+   * 44px touch target.
+   */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {
-    min-height: 2.55rem;
-    padding-block: 0.38rem;
-    font-size: 0.8rem;
+    padding-inline: 0.5rem;
+    line-height: 1.2;
   }
 
   .ss-srv2-hero__scrollcue .ss-hv2-scrollcue__rail {
@@ -1219,14 +1321,12 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 /* Ultra-short phones (for example a 320×568 small viewport with browser chrome
-   visible) need a different action composition, not illegibly tiny controls.
-   CTAs share one row so both retain a 44px touch target; the copy stack then
-   compacts just enough for the action row to clear the demo bubble and for the
-   cue to remain inside the first screen. */
+   visible) keep the single CTA row inherited from the tier above, and tighten
+   the few remaining fixed values — the label-scale beats (eyebrow, cap line
+   rhythm, button glyphs) that don't ride the stage formula. */
 @media (max-width: 40rem) and (max-height: 38rem) {
   .ss-srv2-hero {
     --srv2-mobile-chrome-reserve: calc(8rem + env(safe-area-inset-bottom, 0px));
-    --srv2-mobile-flow-gap: 0.36rem;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-eyebrow {
@@ -1236,12 +1336,10 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title,
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__title[data-long="true"] {
-    font-size: clamp(1.5rem, 7.6vw, 1.85rem);
     line-height: 1.04;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__lead {
-    font-size: 0.74rem;
     line-height: 1.32;
   }
 
@@ -1251,25 +1349,15 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap {
     gap: 0.55rem;
-    padding-block: 0.3rem;
-    font-size: 0.68rem;
     line-height: 1.25;
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__cap-icon {
-    width: 1.35rem;
-    height: 1.35rem;
     border-radius: 0.45rem;
   }
 
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {
-    min-height: 2.75rem;
-    padding: 0.35rem 0.42rem;
-    font-size: 0.7rem;
+    padding-inline: 0.42rem;
     line-height: 1.15;
   }
 

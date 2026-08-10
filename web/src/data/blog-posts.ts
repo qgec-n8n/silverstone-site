@@ -8030,7 +8030,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "Premium hospitality operations system showing website booking flow, AI reception routing, pre-arrival automation and duty-manager handoff for a UK small business.",
     metaTitle: "Hospitality Automation: What UK SMEs Should Build First",
     metaDescription:
-      "A practical guide to websites, AI reception, booking flows and automation for UK hospitality businesses. Learn what to build first and where to keep human control.",
+      "A practical guide to websites, AI reception, booking flows and automation for UK hospitality businesses: what to build first, and where to keep humans.",
     primaryKeyword: "hospitality automation UK",
     secondaryKeywords: [
       "AI receptionist for hospitality",
@@ -13605,7 +13605,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage: "/assets/images/blog/ai-readiness-assessment-small-businesses-hero.webp",
     heroImageAlt:
       "Small business operations leader reviewing physical workflow cards on a table, with subtle projected pathways representing process, data and oversight.",
-    metaTitle: "AI Readiness Assessment for UK Small Businesses |",
+    metaTitle: "AI Readiness Assessment for UK Small Businesses",
     metaDescription:
       "Assess whether your SME is ready for AI or automation with a practical five-part framework for processes, data, systems, ownership and risk.",
     primaryKeyword: "AI readiness assessment for small businesses",
@@ -16855,7 +16855,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "Photoreal futuristic optical computing core linking modular enterprise systems through luminous glass interfaces",
     metaTitle: "How to Integrate AI Without Replacing Existing Software",
     metaDescription:
-      "Learn how to integrate AI alongside existing business software with a practical framework for workflow mapping, governance, pilots and safe operational",
+      "Learn how to integrate AI alongside the business software you already run, with a framework for workflow mapping, governance, pilots and safe rollout.",
     primaryKeyword: "How to Integrate AI Without Replacing Existing Software",
     secondaryKeywords: [
       "AI integration with existing software",
@@ -18209,9 +18209,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage: "/assets/images/blog/best-ai-agency-newcastle-2026-hero.webp",
     heroImageAlt:
       "Photoreal luminous AI compute core with optical connections inside a contemporary Newcastle-inspired architectural setting.",
-    metaTitle: "Best AI Automation Agency in Newcastle (2026) | Silverstone",
+    metaTitle: "Best AI Automation Agency in Newcastle (2026)",
     metaDescription:
-      "Compare seven AI automation agencies for Newcastle buyers in 2026. See an evidence-led shortlist, methodology, provider fit and questions to verify before",
+      "Compare seven AI automation agencies for Newcastle buyers in 2026: an evidence-led shortlist, the methodology behind it, provider fit and what to verify.",
     primaryKeyword: "best AI automation agency Newcastle",
     secondaryKeywords: [
       "AI automation agency Newcastle",
@@ -18866,7 +18866,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage: "/assets/images/blog/best-ai-automation-agencies-uk-2026-hero.webp",
     heroImageAlt:
       "Photoreal luminous AI compute core with optical pathways inside a bright contemporary British architectural setting",
-    metaTitle: "Best AI Automation Agencies UK in 2026: Costs, Services and",
+    metaTitle: "Best AI Automation Agencies UK 2026: Costs and Services",
     metaDescription:
       "Compare seven AI automation agencies for UK buyers in 2026. Review stated services, buyer fit, cost transparency limits and a practical procurement checklist.",
     primaryKeyword:
@@ -19923,7 +19923,7 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       "Photoreal luminous AI compute core integrated into a contemporary London-inspired architectural structure",
     metaTitle: "Best AI Agencies in London (2026): 7 Leading Providers",
     metaDescription:
-      "Compare seven AI agencies relevant to London buyers in 2026, including Faculty, Aiimi, Silverstone AI, Satalia and Robiquity. Evidence-led fit, limits and",
+      "Compare seven AI agencies relevant to London buyers in 2026, including Faculty, Aiimi, Silverstone AI, Satalia and Robiquity: fit, limits and evidence.",
     primaryKeyword: "best AI agencies in London",
     secondaryKeywords: [
       "AI consultancy London",
@@ -21817,9 +21817,9 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
     heroImage: "/assets/images/blog/best-ai-receptionist-providers-for-uk-hero.webp",
     heroImageAlt:
       "Photoreal futuristic voice AI core with optical circuits and a British architectural setting",
-    metaTitle: "Best AI Receptionist Providers for UK Businesses |",
+    metaTitle: "Best AI Receptionist Providers for UK Businesses",
     metaDescription:
-      "Compare six UK-relevant AI and automation partners for receptionist workflows, with transparent evidence limits, buyer-fit criteria and a practical supplier",
+      "Compare six UK-relevant AI and automation partners for receptionist workflows, with transparent evidence limits, buyer-fit criteria and supplier questions.",
     primaryKeyword: "Best AI Receptionist Providers for UK Businesses",
     secondaryKeywords: [
       "AI receptionist providers UK",

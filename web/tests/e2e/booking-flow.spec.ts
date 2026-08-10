@@ -10,6 +10,31 @@ async function shellGeometry(shell: Locator): Promise<ShellGeometry> {
   });
 }
 
+/**
+ * `PageEntry` wraps route content in a Motion route transition, so for a few
+ * hundred milliseconds after `goto` the shell sits under a residual transform.
+ * A baseline captured inside that window is offset from every later reading by
+ * ~3.8px — over `expectStable`'s 3px budget — even though nothing moved and
+ * nothing scrolled. Motion clears the inline transform when the entrance
+ * finishes, so gate on the inline style: the computed value already reads as
+ * settled mid-animation.
+ */
+async function settlePageEntry(page: Page) {
+  await page.waitForFunction(
+    () => {
+      const entry = document.querySelector<HTMLElement>("[data-page-entry]");
+      if (!entry) return true;
+      const { opacity, transform } = entry.style;
+      return (
+        (transform === "" || transform === "none") &&
+        (opacity === "" || opacity === "1")
+      );
+    },
+    undefined,
+    { timeout: 10_000 },
+  );
+}
+
 function expectStable(actual: ShellGeometry, baseline: ShellGeometry) {
   expect(Math.abs(actual.height - baseline.height)).toBeLessThanOrEqual(1);
   expect(Math.abs(actual.documentTop - baseline.documentTop)).toBeLessThanOrEqual(3);
@@ -50,6 +75,7 @@ test("native booking runs Date & time first with a fixed shell and local time sc
   const shell = page.getByTestId("booking-shell");
   await shell.scrollIntoViewIfNeeded();
   await expect(page.getByRole("heading", { name: "Choose your moment" })).toBeVisible();
+  await settlePageEntry(page);
   const baseline = await shellGeometry(shell);
 
   /* Stage 1 — Date & time: the calendar stays put, only the time list scrolls. */
@@ -225,6 +251,7 @@ test("mobile flow walks one decision per screen with no internal scroll", async 
   await page.goto("/book#booking-calendar");
   const shell = page.getByTestId("booking-shell");
   await expect(shell).toHaveAttribute("data-flow", "mobile");
+  await settlePageEntry(page);
   const baseline = await shellGeometry(shell);
 
   /* Nothing inside the shell may be a working vertical scroller. */

@@ -147,8 +147,12 @@ describe("deployed redirect artifacts", () => {
     expect(rendered).toContain(
       "/blog/ai-receptionist-uk-a-practical-guide-for-small-business-owners /blog/ai-receptionist-small-business-guide 301!",
     );
+    expect(rendered).toContain("/blog/ai-rebooking-journeys-salons-uk /410.html 410!");
+    // Promoted out of GONE_PATHS on 2026-08-10: a deleted article that was
+    // still earning impressions now hands its equity to the current article
+    // covering the same topic rather than terminating as Gone.
     expect(rendered).toContain(
-      "/blog/ai-missed-call-recovery-dentists-uk /410.html 410!",
+      "/blog/dental-recall-automation-uk-2026 /blog/dental-practice-automation-guide 301!",
     );
   });
 

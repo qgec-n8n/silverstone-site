@@ -240,7 +240,18 @@ export function SecondaryHero({
                 delayMs={HERO_REVEAL_BASE_DELAY + 280}
                 trigger="mount"
               >
-                <p className="ss-srv2-hero__lead">
+                {/* Same idea as the H1's data-long, for the lead: one route's
+                    hero lead runs to ~218 characters where every other sits
+                    between 88 and 165, and on a phone that single outlier
+                    wraps two lines past the copy budget — enough to push the
+                    CTAs down under the floating demo and consent controls.
+                    The threshold sits above every current lead but that one. */}
+                <p
+                  className="ss-srv2-hero__lead"
+                  data-long={
+                    lead.replace(/[*`]/g, "").length > 175 ? "true" : undefined
+                  }
+                >
                   <RichText text={lead} />
                 </p>
               </Reveal>
