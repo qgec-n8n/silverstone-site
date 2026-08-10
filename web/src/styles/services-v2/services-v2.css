@@ -674,6 +674,35 @@ section[data-slot="page-section"]:has(.ss-srv2) {
 }
 
 /*
+ * Touch-target inflation for the hero index line.
+ *
+ * On phones the crumbs are a 0.58rem console caption by design (see the
+ * `max-width: 40rem` block below), which leaves each link about 14px tall —
+ * fine to read, awkward to hit. The hero's one-screen budget
+ * (--srv2-mobile-stage) has no room to grow them, so the hit area is
+ * inflated with an overlay instead: ~44px tall without adding a single pixel
+ * to the hero's height. Vertical only, and inset by less than the 0.5rem
+ * gap, so neighbouring crumbs never steal each other's taps. Coarse pointers
+ * only — a mouse needs no help and desktop is untouched.
+ */
+@media (hover: none) and (pointer: coarse) {
+  .ss-srv2-hero__crumbs [data-slot="breadcrumb-link"] {
+    position: relative;
+  }
+
+  .ss-srv2-hero__crumbs [data-slot="breadcrumb-link"]::after {
+    content: "";
+    position: absolute;
+    /* Asymmetric: the console eyebrow sits ~8px under the trail and paints
+       over anything reaching further down, so the height it cannot give is
+       taken upwards instead — into the hero's top padding, which is empty
+       and still clears the fixed header by 20px+. */
+    inset-block: -1.4rem -0.95rem;
+    inset-inline: -0.2rem;
+  }
+}
+
+/*
  * Title copy runs 7–13 words across the 7 pages, so a purely width-driven
  * clamp (the old formula) hits its ceiling by ~1440px width regardless of
  * viewport height — at that width the longer titles wrap one line taller

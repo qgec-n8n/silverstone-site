@@ -185,6 +185,67 @@
   }
 }
 
+/*
+ * Mobile drawer — navigation commit state.
+ *
+ * A drawer link tap holds the drawer open until its destination has actually
+ * committed (see site-header.tsx), so the panel, not the page being left
+ * behind, is what the visitor looks at while the route resolves. These rules
+ * make that hold read as a deliberate commit rather than a stall: the tapped
+ * row lifts into the accent and everything around it recedes.
+ */
+.ss-mobile-nav-link,
+.ss-mobile-nav-section {
+  transition:
+    opacity 200ms ease,
+    background-color 200ms ease;
+}
+
+[data-mobile-nav][data-navigating] .ss-mobile-nav-link:not([data-pending]),
+[data-mobile-nav][data-navigating] .ss-mobile-nav-section {
+  opacity: 0.38;
+}
+
+.ss-mobile-nav-link[data-pending] {
+  background-color: color-mix(in srgb, var(--ss-v2-header-accent) 13%, transparent);
+  color: var(--ss-v2-header-text-strong);
+}
+
+.ss-mobile-nav-pulse {
+  display: inline-flex;
+  gap: 3px;
+  margin-inline-start: auto;
+  padding-inline-start: 0.5rem;
+}
+
+.ss-mobile-nav-pulse > span {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: currentColor;
+  animation: ss-mobile-nav-pulse 1050ms ease-in-out infinite;
+}
+
+.ss-mobile-nav-pulse > span:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.ss-mobile-nav-pulse > span:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+@keyframes ss-mobile-nav-pulse {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scale(0.75);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-site-header] [data-nav-item]::after {
     transition: none;
@@ -197,5 +258,15 @@
 
   .ss-nav-cta::after {
     display: none;
+  }
+
+  .ss-mobile-nav-link,
+  .ss-mobile-nav-section {
+    transition: none;
+  }
+
+  .ss-mobile-nav-pulse > span {
+    animation: none;
+    opacity: 0.8;
   }
 }
