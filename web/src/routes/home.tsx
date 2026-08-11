@@ -1,6 +1,6 @@
 import { getPublicEnvironment } from "~/lib/environment";
 import { buildMetadata } from "~/seo/metadata";
-import { buildOrganizationSchema } from "~/seo/schema";
+import { buildOrganizationSchema, serializeJsonLd } from "~/seo/schema";
 import { Cluster } from "~/components/layout/cluster";
 import { Container } from "~/components/layout/container";
 import { PageSection } from "~/components/layout/page-section";
@@ -76,7 +76,7 @@ export default function Home() {
           </Cluster>
         </Stack>
         <script
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationSchema) }}
           type="application/ld+json"
         />
       </Container>

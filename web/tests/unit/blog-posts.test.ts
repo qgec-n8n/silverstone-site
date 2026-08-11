@@ -51,40 +51,102 @@ describe("published blog slug policy", () => {
     expect(editorialSection.statBand?.items[0]?.tone).toBe("time");
   });
 
-  it("keeps published post payloads free of opt-in v2 fields and inline markers", () => {
-    const sectionFields = [
+  // This previously asserted that no published post carried any v2 field or
+  // inline marker. That held only because nothing had published between the
+  // contract landing and the automation's next run, so it encoded "v2 is unused
+  // yet" as a permanent rule and went red on the first v2 article. Absence was
+  // never the invariant worth guarding. Conformance is: the rules below are the
+  // ones the renderer and the n8n serializer each rely on the other to keep.
+  it("holds every published post to the v2 block contract", () => {
+    const optionalSectionFields = [
+      "bullets",
+      "callout",
+      "checklist",
+      "comparisonTable",
       "definitions",
       "entityLinks",
+      "grid",
       "keyTakeaways",
       "leadStyle",
+      "lede",
+      "metricPanel",
+      "promptBlocks",
+      "pullQuote",
       "quoteCard",
+      "rankedCards",
+      "scorecard",
       "sectionNumber",
       "statBand",
+      "steps",
+      "subsections",
       "timeline",
+      "variant",
       "versusCard",
     ] as const;
-    const walkSections = (sections: SilverstoneBlogSection[]) => {
+
+    // The renderer drops any link that is not site-relative or https, and a
+    // dropped button is silent: the reader just never sees the action. So an
+    // unrenderable href in published data is lost content, not a cosmetic slip.
+    const expectRenderableHref = (value: string | undefined, label: string) => {
+      if (value === undefined) return;
+      expect(
+        value.startsWith("/") || value.startsWith("https://"),
+        `${label}: ${value}`,
+      ).toBe(true);
+    };
+
+    const walkSections = (sections: SilverstoneBlogSection[], depth: number) => {
       for (const section of sections) {
-        for (const field of sectionFields) {
-          expect(Object.hasOwn(section, field), `${section.heading}.${field}`).toBe(
-            false,
-          );
-        }
-        for (const card of section.rankedCards ?? []) {
+        for (const field of optionalSectionFields) {
+          // "Omit the field instead" — an explicit null survives the renderer's
+          // presence checks and then fails when the block is read.
           expect(
-            Object.hasOwn(card, "website"),
-            `${section.heading}.${card.name}.website`,
+            Object.hasOwn(section, field) &&
+              (section as Record<string, unknown>)[field] === null,
+            `${section.heading}.${field} is null`,
           ).toBe(false);
         }
-        walkSections(section.subsections ?? []);
+
+        for (const card of section.rankedCards ?? []) {
+          expectRenderableHref(card.website, `${section.heading}.${card.name}.website`);
+        }
+        for (const link of section.entityLinks ?? []) {
+          expectRenderableHref(link.url, `${section.heading}.${link.name}.url`);
+        }
+        expectRenderableHref(
+          section.quoteCard?.url,
+          `${section.heading}.quoteCard.url`,
+        );
+
+        if (depth > 0) {
+          // Only one nesting level renders, and a subsection's lede is ignored.
+          // Emitting either means the copy exists in the data and never reaches
+          // the page.
+          expect(
+            (section.subsections ?? []).length,
+            `${section.heading}.subsections nested too deep`,
+          ).toBe(0);
+          expect(
+            Object.hasOwn(section, "lede"),
+            `${section.heading}.lede on a subsection`,
+          ).toBe(false);
+        }
+
+        walkSections(section.subsections ?? [], depth + 1);
       }
     };
 
     for (const post of PUBLISHED_BLOG_POSTS) {
-      walkSections(post.articleBody);
-      expect(JSON.stringify(post), post.slug).not.toMatch(
-        /(?<!=)==[^=]+==(?![=])|\{\{(?:underline|accent):[^{}]+\}\}|\{\{chip:(?:action|idea|proof|warning)\|[^{}|]+\}\}/,
-      );
+      walkSections(post.articleBody, 0);
+
+      // Chips are the one inline token with a closed vocabulary. An unknown kind
+      // does not degrade — it renders literally as "{{chip:...}}" mid-sentence.
+      for (const match of JSON.stringify(post).matchAll(/\{\{chip:([^|{}]*)\|/g)) {
+        expect(
+          ["action", "idea", "proof", "warning"],
+          `${post.slug}: ${match[0]}`,
+        ).toContain(match[1]);
+      }
     }
   });
 

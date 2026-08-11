@@ -73,6 +73,7 @@ import {
 } from "~/features/services-v2/components/primitives";
 import { ScrollCue } from "~/features/services-v2/components/secondary-hero";
 import { RouteExperienceFrame } from "~/routes/templates/route-experience-frame";
+import { serializeJsonLd } from "~/seo/schema";
 
 type ArticlePageProps = {
   post: SilverstoneBlogPost;
@@ -1552,9 +1553,13 @@ function BlogJsonLd({ post }: { post: SilverstoneBlogPost }) {
   };
 
   return (
+    // serializeJsonLd, not JSON.stringify: every other template already uses it,
+    // and this is the one page whose schema is built from automation-written
+    // copy. A title or metaDescription containing "</script>" would otherwise
+    // close this tag early and put model output into the document as markup.
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
     />
   );
 }
