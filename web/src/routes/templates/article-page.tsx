@@ -287,12 +287,14 @@ function ArticleKeyTakeaways({
   if (items.length === 0) {
     return null;
   }
+  const title = block?.title?.trim();
+  const displayedTitle = title?.length ? title : undefined;
 
   return (
     <aside className="ss-blog-article__takeaways" aria-label="Key takeaways">
       <div className="ss-blog-article__takeaways-head">
         <CheckCircle2Icon aria-hidden="true" />
-        <strong>{block?.title?.trim() || "Key takeaways"}</strong>
+        <strong>{displayedTitle ?? "Key takeaways"}</strong>
       </div>
       <ul>
         {items.map((item, index) => (
@@ -353,8 +355,7 @@ function ArticleVersusCard({
   headingLevel: 3 | 4;
 }) {
   if (
-    !card ||
-    !card.left.title.trim() ||
+    !card?.left.title.trim() ||
     !card.left.body.trim() ||
     !card.right.title.trim() ||
     !card.right.body.trim()

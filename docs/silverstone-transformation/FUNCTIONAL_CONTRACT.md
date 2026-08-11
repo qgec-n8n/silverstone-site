@@ -1,7 +1,7 @@
 # Silverstone Functional Contract
 
 **Status:** Required behaviour to preserve through the `/web` rebuild.  
-**Last updated:** 2026-06-26.  
+**Last updated:** 2026-08-11.
 **Sources:** `contact.html`, `book.html`, `privacy-policy.html`, `assets/js/app.js`, `netlify/functions/send-email.js`, `web/.env.example`, `web/.env.staging`, `docs/silverstone-transformation/architecture/execution-blueprint-v1/integration-safety-model-v1.md`.
 
 ## Production Safety Contract
@@ -145,6 +145,19 @@
 - Blog/article education to relevant service/industry/booking routes.
 - Booking route as high-intent CTA.
 - Contact route as fallback and lower-friction path.
+
+## Blog Article Presentation And Links
+
+**Preserve exactly:**
+
+- Existing post fields remain valid without v2 presentation fields.
+- Relative and Silverstone-owned article links remain internal navigation and never receive `nofollow`.
+- Third-party article links accept HTTPS only and open in a new tab with `noopener noreferrer nofollow`.
+- Wide article tables and stat bands render from the full-width article column, never from inside the padded section containing block.
+
+**Authoritative automation contract:**
+
+- `docs/silverstone-transformation/contracts/blog-block-contract-v2.md` defines every supported block, inline marker, optional field, link rule, cap, and ignored field for automation-written posts.
 
 **Do not preserve merely because it exists:**
 
