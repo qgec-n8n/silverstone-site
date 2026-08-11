@@ -2,11 +2,15 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
+import { industryArt } from "~/features/industries-v2/content/route-art";
+import { routeArt as serviceRouteArt } from "~/features/services-v2/content/route-art";
 import {
+  AETHER_INDUSTRY_PALETTES,
   AETHER_NETWORK_DEFAULT,
   AETHER_NETWORK_PROXIMITY,
   AETHER_PARTICLE_COLOR,
   AETHER_POINTER_RADIUS,
+  AETHER_SERVICE_PALETTES,
   AetherParticle,
   applyPointerRepulsion,
   pointerPositionInCanvas,
@@ -57,6 +61,37 @@ describe("HeroAetherField geometry helpers", () => {
     expect(AETHER_NETWORK_DEFAULT).toBe("#66E8F0");
     expect(AETHER_NETWORK_PROXIMITY).toBe("#F3F7FF");
   });
+
+  /*
+   * The Explore CTA tints itself from the palette of the field it stands on, so
+   * a base that drifts off its route's copy accent silently puts the button on
+   * a hue the body never uses. Three Services bases had drifted this way
+   * (#34D5E8, #8B72FF, #6E74F4 against accents #22d3ee, #7c5cff, #5b62f0);
+   * these lock the two registries together so it cannot recur unnoticed.
+   */
+  const expectBasesMatchAccents = (
+    family: string,
+    palettes: Record<string, { network: string; particle: string }>,
+    art: Record<string, { accentFrom: string }>,
+  ) => {
+    describe(`${family} field bases`, () => {
+      it.each(Object.keys(art))(
+        "%s draws its dots and lines in its copy accent",
+        (route) => {
+          const palette = palettes[route];
+          const accent = art[route]?.accentFrom.toLowerCase();
+
+          expect(accent).toBeDefined();
+          expect(palette).toBeDefined();
+          expect(palette?.network.toLowerCase()).toBe(accent);
+          expect(palette?.particle.toLowerCase()).toBe(accent);
+        },
+      );
+    });
+  };
+
+  expectBasesMatchAccents("Services", AETHER_SERVICE_PALETTES, serviceRouteArt);
+  expectBasesMatchAccents("Industries", AETHER_INDUSTRY_PALETTES, industryArt);
 
   it("does not render a cursor lens or circular overlay around the pointer", () => {
     const source = readFileSync(

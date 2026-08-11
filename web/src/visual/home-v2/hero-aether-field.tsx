@@ -72,12 +72,20 @@ export const AETHER_ROUTE_PALETTES: Record<string, AetherPalette> = {
  * family reads as one system while each page still owns a distinct hue pairing
  * (matched to that route's copy accent in services-v2 route-art). The
  * /services hub carries the leading cyan-azure of the family.
+ *
+ * The invariant, matching the Industries block below: `particle`/`network` is
+ * *exactly* that route's `routeArt[path].accentFrom`, and `proximity` is a
+ * light tint of its `accentTo`. Three bases used to sit a few points off their
+ * accent (`#34D5E8`, `#8B72FF`, `#6E74F4`) — one-off values on no palette,
+ * whereas every accent is a cinematic spectrum token — which put the Explore
+ * CTA, tinted from this pair, on a hue the body copy never used. Keep these
+ * two files in step: a new Services route registers `accentFrom` verbatim.
  */
 export const AETHER_SERVICE_PALETTES: Record<string, AetherPalette> = {
   "/services": { particle: "#3AC7EE", network: "#3AC7EE", proximity: "#D6F5FF" },
   "/services/web-design-development": {
-    particle: "#34D5E8",
-    network: "#34D5E8",
+    particle: "#22D3EE",
+    network: "#22D3EE",
     proximity: "#E4C7F5",
   },
   "/services/app-development": {
@@ -101,13 +109,13 @@ export const AETHER_SERVICE_PALETTES: Record<string, AetherPalette> = {
     proximity: "#C6F1F5",
   },
   "/services/ai-automation": {
-    particle: "#8B72FF",
-    network: "#8B72FF",
+    particle: "#7C5CFF",
+    network: "#7C5CFF",
     proximity: "#B6F2FB",
   },
   "/services/ai-consulting": {
-    particle: "#6E74F4",
-    network: "#6E74F4",
+    particle: "#5B62F0",
+    network: "#5B62F0",
     proximity: "#CDFAFD",
   },
 };
