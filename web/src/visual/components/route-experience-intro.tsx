@@ -74,7 +74,9 @@ export function RouteExperienceIntro({
   // core pages, the seven Services routes and the nine Industries routes each
   // carry their own registered two-colour scheme (matched to that page's copy
   // accent). The /industry hub falls back to the shared violet family
-  // signature; anything still unmatched uses the default cyan field.
+  // signature; anything still unmatched uses the default cyan field. The same
+  // pair also tints the Explore CTA below, so the button never reads as a
+  // different page's colour to the field it is standing on.
   const industriesFamily =
     experience.family === "industry" || experience.path === "/industry";
   const palette =
@@ -148,6 +150,7 @@ export function RouteExperienceIntro({
                 disabled={buttonDisabled}
                 label={experience.buttonLabel}
                 onActivate={onExplore}
+                palette={palette}
               />
             </m.div>
           )}

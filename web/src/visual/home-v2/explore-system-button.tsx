@@ -14,6 +14,10 @@ import type {
   HomepageState,
   RouteExperienceState,
 } from "~/app/experience/app-experience";
+import {
+  DEFAULT_AETHER_PALETTE,
+  type AetherPalette,
+} from "~/visual/home-v2/hero-aether-field";
 
 export const EXPLORE_CARD_LAYOUT_ID = "ss-explore-card";
 
@@ -28,13 +32,26 @@ type ExploreSystemButtonProps = {
   label?: string;
   layoutEnabled?: boolean;
   onActivate: () => void;
+  /**
+   * The Aether field this button is sitting on. The pill takes its gradient,
+   * glow and focus ring from the very colours drawn behind it — resting base
+   * for the dots and lines, proximity flare for the second stop — so every
+   * route's CTA wears that route's signal rather than the homepage cyan.
+   */
+  palette?: AetherPalette | undefined;
 };
 
 export const ExploreSystemButton = forwardRef<
   HTMLButtonElement,
   ExploreSystemButtonProps
 >(function ExploreSystemButton(
-  { disabled = false, label = "Explore the system", layoutEnabled = true, onActivate },
+  {
+    disabled = false,
+    label = "Explore the system",
+    layoutEnabled = true,
+    onActivate,
+    palette,
+  },
   ref,
 ) {
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -44,12 +61,25 @@ export const ExploreSystemButton = forwardRef<
     }
   };
 
+  // Resolved here rather than left to CSS `var()` fallbacks: an unregistered
+  // route's field draws DEFAULT_AETHER_PALETTE, so that — not the cinematic
+  // cyan/violet tokens — is what the button has to fall back to.
+  const field = palette ?? DEFAULT_AETHER_PALETTE;
+  // Left unannotated on purpose: `CSSProperties` widens motion's own style
+  // props to `| undefined` under exactOptionalPropertyTypes and stops being
+  // assignable to `MotionStyle`.
+  const accentStyle = {
+    "--ss-explore-accent": field.network,
+    "--ss-explore-accent-2": field.proximity,
+  };
+
   return (
     <m.button
       ref={ref}
       type="button"
       onClick={handleClick}
       className="ss-explore-cta"
+      style={accentStyle}
       disabled={disabled}
       initial={{ opacity: 0, scale: 0.9, y: 18 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}

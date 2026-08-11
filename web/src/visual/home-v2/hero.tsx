@@ -130,6 +130,7 @@ export function Hero({
                 disabled={exploreButtonDisabled}
                 layoutEnabled={exploreButtonLayoutEnabled}
                 onActivate={onExplore}
+                palette={AETHER_ROUTE_PALETTES["/"]}
               />
             </m.div>
           )}

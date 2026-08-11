@@ -2569,7 +2569,16 @@ html[data-js="on"]
    panel on activation — geometry (position/size/radius) is animated by
    Motion; the material treatment below only ever applies to this resting
    pill state, since the transition overlay renders its own separate
-   .ss-explore-overlay__card instance under the same layoutId. */
+   .ss-explore-overlay__card instance under the same layoutId.
+
+   The two hues are the route's own Aether pair, set inline by
+   ExploreSystemButton: `--ss-explore-accent` is the colour the field behind
+   this pill draws its dots and lines in, `--ss-explore-accent-2` its pointer
+   proximity flare. Because the Services and Industries fields are themselves
+   derived from each route's copy accent (route-art accentFrom → accentTo),
+   tinting from the field also lands the button on the body copy's colour. The
+   literals kept as `var()` fallbacks are the homepage signature, so a stylesheet
+   loaded without the inline vars still paints the original cyan → violet pill. */
 .ss-explore-cta__bg {
   position: absolute;
   inset: 0;
@@ -2577,28 +2586,36 @@ html[data-js="on"]
   overflow: hidden;
   background: linear-gradient(
     118deg,
-    var(--ss-v2-signal-cyan, #22d3ee) 0%,
+    var(--ss-explore-accent, var(--ss-v2-signal-cyan, #22d3ee)) 0%,
     color-mix(
         in srgb,
         var(--ss-v2-platinum, #e8ecf5) 58%,
-        var(--ss-v2-signal-cyan, #22d3ee)
+        var(--ss-explore-accent, var(--ss-v2-signal-cyan, #22d3ee))
       )
       44%,
     color-mix(
         in srgb,
         var(--ss-v2-platinum, #e8ecf5) 34%,
-        var(--ss-v2-signal-violet, #a97cc0)
+        var(--ss-explore-accent-2, var(--ss-v2-signal-violet, #a97cc0))
       )
       70%,
-    var(--ss-v2-signal-violet, #a97cc0) 100%
+    var(--ss-explore-accent-2, var(--ss-v2-signal-violet, #a97cc0)) 100%
   );
   box-shadow:
     0 0 0 1px color-mix(in srgb, #ffffff 46%, transparent) inset,
     0 1px 0 0 rgba(255, 255, 255, 0.55) inset,
     0 20px 52px -22px
-      color-mix(in srgb, var(--ss-v2-signal-cyan, #22d3ee) 78%, transparent),
+      color-mix(
+        in srgb,
+        var(--ss-explore-accent, var(--ss-v2-signal-cyan, #22d3ee)) 78%,
+        transparent
+      ),
     0 8px 22px -14px
-      color-mix(in srgb, var(--ss-v2-signal-violet, #a97cc0) 65%, transparent);
+      color-mix(
+        in srgb,
+        var(--ss-explore-accent-2, var(--ss-v2-signal-violet, #a97cc0)) 65%,
+        transparent
+      );
 }
 
 /* Restrained signal sheen — a single soft band that sweeps the pill on a
@@ -2690,7 +2707,7 @@ html[data-js="on"]
 }
 
 .ss-explore-cta:focus-visible {
-  outline: 2px solid var(--ss-v2-signal-cyan, #22d3ee);
+  outline: 2px solid var(--ss-explore-accent, var(--ss-v2-signal-cyan, #22d3ee));
   outline-offset: 4px;
   border-radius: 999px;
 }

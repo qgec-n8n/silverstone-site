@@ -172,7 +172,14 @@ export const AETHER_INDUSTRY_PALETTES: Record<string, AetherPalette> = {
   },
 };
 
-const DEFAULT_PALETTE: AetherPalette = {
+/**
+ * Field colours for a route with no registered scheme. Exported because the
+ * Explore CTA tints itself from the same pair the field behind it is drawing
+ * with — an unmatched route has to fall back to *this*, not to the cinematic
+ * cyan/violet tokens, or the button would be the one thing on the page not
+ * wearing its own hero's colour.
+ */
+export const DEFAULT_AETHER_PALETTE: AetherPalette = {
   particle: AETHER_PARTICLE_COLOR,
   network: AETHER_NETWORK_DEFAULT,
   proximity: AETHER_NETWORK_PROXIMITY,
@@ -300,7 +307,7 @@ export function HeroAetherField({
   palette?: AetherPalette | undefined;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const activePalette = palette ?? DEFAULT_PALETTE;
+  const activePalette = palette ?? DEFAULT_AETHER_PALETTE;
 
   useEffect(() => {
     if (!enabled) {
