@@ -23373,6 +23373,543 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Troubleshooting Flow|decision-moment|6|diagnostic-teardown",
     },
   },
+  {
+    slug: "why-n8n-workflow-triggering",
+    title: "Why Your n8n Workflow Is Not Triggering",
+    subtitle:
+      "A practical diagnostic route for finding the broken hand-off before it becomes an operational blind spot.",
+    summary: [
+      "Start with workflow activation and one traceable live event.",
+      "Separate source delivery, credentials, webhook access and execution evidence.",
+      "Stabilise the trigger with ownership, repeatable tests and documented controls.",
+    ],
+    categoryLabel: "Troubleshooting",
+    categoryKey: "automation-troubleshooting",
+    categoryId: "automation-troubleshooting",
+    categoryOrder: 26,
+    displayDate: "11 August 2026",
+    publishedIsoDate: "2026-08-11T15:47:09.663Z",
+    updatedIsoDate: "2026-08-11T15:47:09.663Z",
+    readTime: "6 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/why-n8n-workflow-triggering-hero.webp",
+    heroImageAlt:
+      "Photoreal futuristic liquid-cooled computing core with cyan optical pathways representing a monitored automation trigger.",
+    metaTitle: "Why Your n8n Workflow Is Not Triggering | Silverstone AI",
+    metaDescription:
+      "Diagnose an n8n workflow not triggering by checking activation, credentials, webhook delivery, polling and execution evidence before rebuilding automation.",
+    primaryKeyword: "why your n8n workflow is not triggering",
+    secondaryKeywords: [
+      "n8n trigger not working",
+      "n8n webhook troubleshooting",
+      "n8n workflow activation",
+      "n8n credentials and permissions",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "If an [n8n](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook) workflow is not triggering, start at the boundary: is the workflow active, can the event source reach it, and did n8n receive or reject the event? **Do not rebuild the workflow first**; isolate the missing hand-off.",
+          "For UK organisations, that means checking the production endpoint, credentials and access controls before changing business logic. Silverstone AI is UK-based and serves UK and international clients; this diagnostic sequence generalises wherever n8n connects systems across public networks and third-party APIs.",
+        ],
+      },
+      {
+        heading: "What a non-triggering n8n workflow usually means",
+        body: [
+          "A workflow can appear idle for several different reasons: it is inactive, the source did not emit an event, the source cannot reach the endpoint, authentication has changed, or n8n received the request but stopped on a configuration or execution error. ==Treat each as a separate testable hypothesis==.",
+          "The quickest route is to move from the outside in. First establish whether the source created an event. Then establish whether n8n received it. Only then inspect workflow logic. This avoids confusing a delivery problem with a downstream processing problem.",
+        ],
+        sectionNumber: "01",
+        lede:
+          "**A trigger failure is usually a broken boundary, not a broken automation.** Find the last system that can prove it handled the event.",
+        leadStyle: "lead",
+        variant: "signal",
+        grid: [
+          {
+            body:
+              "Is the intended production workflow active, rather than merely open for editing?",
+            title: "Workflow state",
+          },
+          {
+            body:
+              "Did the external application create the event and retain evidence of its attempted delivery?",
+            title: "Event source",
+          },
+          {
+            body: "Can the source reach the configured webhook or polling connection?",
+            title: "Delivery boundary",
+          },
+          {
+            body:
+              "Did n8n record an execution, rejection or error after receiving the event?",
+            title: "Execution path",
+          },
+        ],
+        callout: {
+          body: [
+            "Check **activation status**, then the source connection, then the trigger configuration and execution evidence. A successful manual test does not by itself prove that a live event can reach the production trigger.",
+          ],
+          tone: "answer",
+          title: "Direct answer",
+        },
+      },
+      {
+        heading: "Check trigger activation status and workflow state first",
+        body: [
+          "Confirm that the workflow intended to receive live events is active and that the trigger node is configured for the production route or account. Keep a note of the exact event, time and source record you are using as a test. {{chip:action|Start with one known event}}",
+          "Use this short diagnostic route before editing nodes:\n\n1. Confirm the live workflow name, environment and trigger node.\n2. Create one traceable source event and record its timestamp.\n3. Check whether n8n recorded an execution before editing downstream nodes.\n4. Retest after each individual change.",
+        ],
+        sectionNumber: "02",
+        lede:
+          "Begin with the smallest reversible checks: **the right workflow, the right trigger, the right live state**.",
+        leadStyle: "drop-cap",
+        variant: "system",
+        bullets: [
+          {
+            body:
+              "A test or retired workflow may be receiving attention while the live source points elsewhere.",
+            label: "Wrong environment",
+          },
+          {
+            body: "An inactive workflow cannot act as the live endpoint you expect.",
+            label: "Inactive state",
+          },
+          {
+            body:
+              "Without a timestamp and source identifier, it is hard to distinguish delay from non-delivery.",
+            label: "Untraceable test",
+          },
+        ],
+        steps: [
+          {
+            body:
+              "Confirm the workflow name, environment and trigger node that should receive the event.",
+            title: "Identify the live workflow",
+            label: "1",
+          },
+          {
+            body:
+              "Use a single source record and record its timestamp, identifier and expected destination.",
+            title: "Create one traceable test event",
+            label: "2",
+          },
+          {
+            body:
+              "If no execution exists, investigate activation and delivery before downstream nodes.",
+            title: "Check for an execution",
+            label: "3",
+          },
+          {
+            body: "Retest after each change so the repaired boundary is clear.",
+            title: "Make one change at a time",
+            label: "4",
+          },
+        ],
+        callout: {
+          body: [
+            "This guide assumes you are authorised to inspect the connected accounts and workflow configuration. If access is split between operations, IT and a supplier, assign one owner for the test record and one for the change.",
+          ],
+          tone: "assumption",
+          title: "Working assumption",
+        },
+      },
+      {
+        heading: "Verify credentials, permissions and external app connection health",
+        body: [
+          "Review the credential attached to the trigger and the permissions granted in the external application. The HubSpot community guidance specifically points users back to n8n credential setup and app configuration when integrations do not behave as expected. Credentials should be checked as an operational dependency, not as a one-off installation task.",
+          "For a private app, OAuth connection or service account, compare the configured account with the account that owns the event source. *Do not expose secrets in logs or support tickets.* {{underline:Check authority before changing logic}}.",
+        ],
+        sectionNumber: "03",
+        lede:
+          "A trigger can be correctly built yet fail because **the connected account no longer has the expected authority**.",
+        leadStyle: "lead",
+        variant: "operator",
+        checklist: {
+          items: [
+            {
+              label: "Credential selected",
+              detail:
+                "Confirm the trigger uses the intended credential rather than a stale test connection.",
+            },
+            {
+              label: "Permissions still valid",
+              detail:
+                "Verify the external application still grants the scope or access needed for the trigger.",
+            },
+            {
+              label: "Account ownership aligned",
+              detail:
+                "Check that the connected account can see the object, channel or resource producing events.",
+            },
+            {
+              label: "Secret handling controlled",
+              detail:
+                "Rotate or replace credentials through approved processes rather than copying them into notes.",
+            },
+          ],
+          title: "Connection health check",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "Inspect webhook, event source and polling configuration",
+        body: [
+          "Webhook triggers depend on a route that the sender can reach and that n8n is configured to accept. The official [n8n Webhook documentation](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook) covers controls including allowed origins and IP whitelisting. **An over-restrictive allow-list can look exactly like a silent trigger failure**.",
+          "Work through the route in order. Do not publish a webhook URL in shared documents: third-party operational guidance recommends treating the full URL as a secret and auditing paths periodically. {{chip:warning|Protect the endpoint}}",
+          "- **Endpoint match:** Compare the configured source URL with the live n8n webhook route character for character.\n- **Network access:** Check domain resolution, reverse-proxy rules and any IP restrictions.\n- **Origin rules:** Where a browser-originated request is relevant, review configured allowed origins.\n- **Alternative method:** If the source supports it, polling can be a useful diagnostic alternative when webhook registration or delivery is the uncertain boundary.",
+        ],
+        sectionNumber: "04",
+        leadStyle: "drop-cap",
+        variant: "signal",
+        callout: {
+          body: [
+            "Do not weaken IP or origin controls permanently simply to make a test pass. Record the minimum valid access rule, retest it, and retain an owner for future changes. International deployments follow the same principle, though network ownership and hosting arrangements differ.",
+          ],
+          tone: "caution",
+          title: "Security and reliability",
+        },
+        versusCard: {
+          left: {
+            title: "Webhook trigger",
+            body:
+              "Best where the source can reliably reach a protected public endpoint.",
+            label: "Push delivery",
+            points: [
+              "Check URL, access rules and registration",
+              "Review sender-side delivery evidence",
+            ],
+          },
+          right: {
+            title: "Polling trigger",
+            body:
+              "Useful where the source offers polling and webhook delivery is the uncertain variable.",
+            label: "Scheduled retrieval",
+            points: [
+              "Check credential and resource access",
+              "Expect behaviour to depend on the source and configured polling cycle",
+            ],
+          },
+          eyebrow: "Choose the diagnostic path",
+          verdict:
+            "**Use polling as a diagnostic alternative, not an assumption that the webhook is fixed.**",
+        },
+      },
+      {
+        heading: "Review rate limits, execution logs and error handling paths",
+        body: [
+          "Inspect the source-side event record and n8n execution evidence together. The n8n observability guidance describes using execution completion through webhook or polling follow-up workflows, including alerting on anomalies. ==Execution data is the bridge between an operational symptom and a reproducible fault==.",
+          "Where a connected platform applies request limits, an error may originate outside n8n. Do not infer a universal limit or timeout without that platform’s own documentation. Instead, capture the returned status, error text, timestamp and affected request pattern. *Rate-limit diagnosis requires source-specific evidence*.",
+        ],
+        sectionNumber: "05",
+        lede:
+          "Logs turn “nothing happened” into a decision: **no event, no delivery, rejected request or failed execution**.",
+        leadStyle: "lead",
+        variant: "system",
+        metricPanel: {
+          items: [
+            {
+              label: "Event identifier",
+              value: "1",
+              note: "Use one traceable source event per test.",
+            },
+            {
+              label: "Timestamps",
+              value: "2",
+              note: "Record source creation and n8n receipt or execution time.",
+            },
+            {
+              label: "Error location",
+              value: "1",
+              note: "Classify source, network, trigger or downstream execution.",
+            },
+          ],
+          title: "Minimum incident record",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Delivery evidence",
+              definition:
+                "A source-side record showing whether an event was sent or a webhook registration was attempted.",
+            },
+            {
+              term: "Execution evidence",
+              definition:
+                "An n8n record showing whether the workflow started, completed or errored.",
+            },
+            {
+              term: "Observability",
+              definition:
+                "The ability to inspect operational signals and act on anomalies.",
+              note: "It is not a substitute for access control or change management.",
+            },
+          ],
+          title: "Evidence vocabulary",
+        },
+      },
+      {
+        heading: "How to stabilise triggering before expanding the workflow",
+        body: [
+          "Once the trigger works, make its behaviour repeatable before adding more branches, AI steps or destinations. **A stable trigger has a named owner, a repeatable test and enough evidence to diagnose the next failure**. This is where many promising automations become dependable operating systems rather than fragile demonstrations.",
+          "Use the following launch standard. It is an original practical framework for decision-makers: {{accent:prove the boundary, then scale the workflow}}. For implementation planning, see [how Silverstone AI works](/how-we-work), explore [AI automation services](/services/ai-automation), and review [workflow automation selection](/blog/workflow-automation-selection-guide) before committing to a wider build.",
+        ],
+        sectionNumber: "06",
+        leadStyle: "drop-cap",
+        variant: "operator",
+        scorecard: {
+          options: ["Not ready", "Stable enough to extend"],
+          rows: [
+            {
+              cells: [
+                "State is uncertain or untested",
+                "Active workflow confirmed with a traceable live event",
+              ],
+              criterion: "Live trigger activation",
+              weight: "30%",
+            },
+            {
+              cells: [
+                "Credential owner or permissions unclear",
+                "Credential, scope and owner are confirmed",
+              ],
+              criterion: "Connection authority",
+              weight: "25%",
+            },
+            {
+              cells: [
+                "Endpoint and access rules are undocumented",
+                "Route, access rules and test method are recorded",
+              ],
+              criterion: "Delivery controls",
+              weight: "25%",
+            },
+            {
+              cells: [
+                "No repeatable incident record",
+                "Source and execution evidence can be correlated",
+              ],
+              criterion: "Operational evidence",
+              weight: "20%",
+            },
+          ],
+          totals: [
+            "Resolve the weakest boundary first",
+            "Extend only after all four checks are evidenced",
+          ],
+        },
+        callout: {
+          body: [
+            "If ownership, network controls and application permissions cross several teams, arrange a focused diagnostic rather than repeated ad hoc edits. You can [book an automation review](/book#booking-calendar), explore [AI automation consulting](/services/ai-consulting), or read our guide to [integrating AI without replacing existing software](/blog/integrate-ai-without-replacing-software).",
+          ],
+          tone: "recommendation",
+          title: "When to bring in help",
+        },
+        keyTakeaways: {
+          items: [
+            "Confirm the active production workflow before changing nodes.",
+            "Test one known event and retain its identifier and timestamps.",
+            "Check credentials, permissions and ownership at the external source.",
+            "Protect and audit webhook routes; do not relax controls without a documented replacement.",
+            "Use execution evidence to classify failures before adding complexity.",
+          ],
+          title: "Trigger stabilisation checklist",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        answer:
+          "A manual test can prove downstream logic while leaving the live trigger boundary untested. Confirm activation, the production route, source-side event delivery, credentials and whether n8n recorded an execution.",
+        question: "Why does my n8n workflow work manually but not trigger live?",
+      },
+      {
+        answer:
+          "Use polling as a diagnostic alternative where the source supports it and webhook delivery is uncertain. It does not remove the need to validate credentials, permissions and the source’s own behaviour.",
+        question: "Should I switch from webhooks to polling?",
+      },
+      {
+        answer:
+          "Capture the source event identifier, source timestamp, configured trigger route or connection, n8n execution outcome, returned error information and the change made before the next test.",
+        question: "What should I record when a trigger fails?",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "workflow automation selection",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+      {
+        label: "integrating AI without replacing existing software",
+        href: "/blog/integrate-ai-without-replacing-software",
+      },
+    ],
+    researchSources: [
+      {
+        title:
+          "n8n integration and private apps - Third-Party Apps - HubSpot Community",
+        url: "https://community.hubspot.com/t/n8n-integration-and-private-apps/138902",
+        domain: "community.hubspot.com",
+        summary:
+          "This page indicates it isn’t a plan issue (near bottom): Legacy private apps - HubSpot docs Completely lost. Details: - Hubspot Free - n8n Cloud - Super Admin Hi @JRobinson81 and welcome, we are delighted to see you here! Thanks for reaching out to the HubSpot Community! Just for information, I have see a recent similar thread “Hubspot trigger issues in n8n” from @NDory, I thought you might want to troubleshoot/share your work together. And here are related documentation that might help you: - Use webhooks with HubSpot workflows - Webhooks API @JRobinson81 just to confirm, did you set up HubSpot Credentials in n8n? Does this work? Did you add",
+        verifiedAt: "2026-08-11T15:43:32.564Z",
+        matchedTerms: [
+          "n8n",
+          "workflow",
+          "not",
+          "trigger",
+          "credentials",
+          "app",
+          "webhook",
+          "polling",
+        ],
+      },
+      {
+        title: "Telegram Trigger Delay Issue - Questions - n8n Community",
+        url: "https://community.n8n.io/t/telegram-trigger-delay-issue/289235",
+        domain: "community.n8n.io",
+        summary:
+          "` Test with a fresh bot token on a completely different domain (not .ru). If registration succeeds immediately, you’ve confirmed it’s a .ru-specific block on Telegram’s end, not your infrastructure. The Cloudflare Tunnel result suggests the problem isn’t your DNS at all it’s Telegram’s outbound connection to your region being unstable. The polling approach sidesteps that entirely. I also deployed a fresh n8n instance on a `.tech` domain to rule out any issues specific to `.ru`, but I’m seeing exactly the same behavior: existing Telegram Trigger webhooks continue to work, while any new webhook registration fails with “Failed to resolve host” o",
+        verifiedAt: "2026-08-11T15:43:32.564Z",
+        matchedTerms: [
+          "n8n",
+          "not",
+          "check",
+          "trigger",
+          "activation",
+          "connection",
+          "webhook",
+          "polling",
+        ],
+      },
+      {
+        title: "n8n Webhook Explained: How Real-Time Triggers Work",
+        url: "https://alltomate.com/blogs/n8n-webhooks-explained",
+        domain: "alltomate.com",
+        summary:
+          "The third failure point is timeout behavior. Many webhook providers enforce relatively short response windows. According to Svix’s webhook reliability documentation, platforms like GitHub, Shopify, and Stripe all impose timeout limits on webhook endpoints. If your n8n workflow performs meaningful processing before responding — calling external APIs, running queries, or sending emails — the sender may classify the delivery as failed and retry the event, causing duplicate executions. [...] Scale Effect: In high-volume scenarios — think hundreds of form submissions per hour or webhook bursts from an e-commerce platform during a sale event — this",
+        verifiedAt: "2026-08-11T15:43:32.564Z",
+        matchedTerms: ["why", "n8n", "workflow", "not", "means", "trigger", "external", "webhook"],
+      },
+      {
+        title: "Webhook | Nodes - n8n Docs",
+        url:
+          "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook",
+        domain: "docs.n8n.io",
+        summary:
+          "Allowed Origins (CORS): Set the permitted cross-origin domains. Enter a comma-separated list of URLs allowed for cross-origin non-preflight requests. Use `` (default) to allow all origins. Binary Property: Enabling this setting allows the Webhook node to receive binary data, such as an image or audio file. Enter the name of the binary property to write the data of the received file to. Ignore Bots: Ignore requests from bots like link previewers and web crawlers. IP(s) Whitelist: Enable this to limit who (or what) can invoke a Webhook trigger URL. Enter a comma-separated list of allowed IP addresses. Access from IP addresses outside the whitel",
+        verifiedAt: "2026-08-11T15:43:32.564Z",
+        matchedTerms: ["n8n", "workflow", "what", "non", "means", "trigger", "app", "webhook"],
+      },
+      {
+        title: "LLM Observability: What To Instrument and How To Act on It – n8n Blog",
+        url: "https://blog.n8n.io/llm-observability",
+        domain: "blog.n8n.io",
+        summary:
+          "### Automated Post-Processing n8n doesn’t just collect data — it can act on it. You can build workflows that that trigger on execution completion (via a webhook or polling) to: Score the response: Send the output to a smaller, cheaper model to run evals for hallucinations or adherence to official documents. Sanitize logs: Strip PII from execution data before it reaches external platforms or storage. Alert on anomalies: Send a Slack notification if a request’s latency exceeds a certain threshold or if the token cost for a single execution spikes unexpectedly. n8n Get Execution node output showing execution data retrieved via the n8n API for po",
+        verifiedAt: "2026-08-11T15:43:32.564Z",
+        matchedTerms: [
+          "n8n",
+          "what",
+          "trigger",
+          "external",
+          "webhook",
+          "polling",
+          "execution",
+          "logs",
+        ],
+      },
+      {
+        title: "Best Workflow Automation Software 2026 | Playcode Blog",
+        url: "https://playcode.io/blog/best-workflow-automation-software-2026",
+        domain: "playcode.io",
+        summary:
+          "| Audit and observability | Execution logging, error workflows, saved-execution limits, retention, search, insights, audit logging, and external log streaming are documented with plan boundaries. Self-hosted operators can also configure logs, metrics, and tracing. Sources: (#source-n8n-pricing), (#source-n8n-security) | | Export and ownership | Workflows are JSON and can be exported from the editor or CLI; source-control environments can version selected workflow changes on higher plans. Credentials and workflow definitions are separate exports, and decrypted credential export is sensitive. Sources: (#source-n8n-cli), (#source-n8n-pricing) |",
+        verifiedAt: "2026-08-11T15:43:32.564Z",
+        matchedTerms: [
+          "n8n",
+          "workflow",
+          "trigger",
+          "credentials",
+          "external",
+          "app",
+          "webhook",
+          "event",
+        ],
+      },
+      {
+        title: "n8n Best Practices Checklist for Production (2026)",
+        url: "https://hatchworks.com/blog/ai-agents/n8n-best-practices",
+        domain: "hatchworks.com",
+        summary:
+          "Treat the full webhook URL as a secret even after authentication is in place — n8n generates long paths for webhooks; do not shorten them. Implement rate limiting at the reverse proxy level (not inside n8n) to prevent resource exhaustion from request flooding. Audit webhook paths across your instance periodically. Duplicate or orphaned webhook paths are a collision risk that's easy to miss as workflow libraries grow. Role-based access control applies to your team as much as to your credentials. In production environments, not everyone needs editor access. Viewers and auditors should have read-only roles. Workflow ownership should be explicit",
+        verifiedAt: "2026-08-11T15:43:32.565Z",
+        matchedTerms: [
+          "n8n",
+          "workflow",
+          "not",
+          "trigger",
+          "first",
+          "credentials",
+          "permissions",
+          "webhook",
+        ],
+      },
+      {
+        title: "n8n",
+        url: "https://docs.datadoghq.com/integrations/n8n",
+        domain: "docs.datadoghq.com",
+        summary:
+          "- Troubleshooting Container Hostname Detection Debug Mode Agent Flare Agent Check Status NTP Issues Permission Issues Integrations Issues Site Issues Autodiscovery Issues Windows Container Issues Agent Runtime Configuration High CPU or Memory Consumption - Guides - Data Security + Integrations - Guides + Client SDKs - Setup - Advanced Configuration - Data Collected - Integrated Libraries - Troubleshooting + Extend Datadog - Authorization OAuth2 in Datadog Authorization Endpoints - DogStatsD Datagram Format Unix Domain Socket High Throughput Data Data Aggregation DogStatsD Mapper - Custom Checks [...] | n8n.audit.user.credentials.updated.count",
+        verifiedAt: "2026-08-11T15:43:32.565Z",
+        matchedTerms: ["n8n", "workflow", "check", "trigger", "status", "credentials", "app", "event"],
+      },
+      {
+        title: "Headcount Zero",
+        url: "https://headcountzero.me/feed",
+        domain: "headcountzero.me",
+        summary:
+          "Slack Limits: ~1 message/second per channel 429 responses include Retry-After header Rate limits are per-method, per-workspace ### Implementation Pattern 1. Single Webhook: Create one Make/Zapier/n8n scenario that accepts POST requests and writes to Notion 2. Post-Run Hook: Add HTTP request step to every automation that posts run summary 3. Smart Alerts: Only trigger Slack messages on: Any status = fail p95 duration crosses threshold (last 10 runs) 3+ consecutive failures within 10 minutes ### Slack Alert Format Parent Message: Compact one-liner using chat.postMessage (capture timestamp) Thread Reply: Detailed breakdown using thread\\_ts for o",
+        verifiedAt: "2026-08-11T15:43:32.565Z",
+        matchedTerms: [
+          "n8n",
+          "workflow",
+          "non",
+          "trigger",
+          "status",
+          "first",
+          "webhook",
+          "configuration",
+        ],
+      },
+    ],
+    imagePrompt:
+      "1536x864 photoreal premium editorial WebP image, a near-future liquid-cooled edge-compute chamber embedded within dark contemporary British architectural stone and blackened steel, central vertical crop-safe composition featuring a luminous wafer-scale processor core and precision optical interconnects receiving a single cyan pulse that branches into controlled violet and electric-blue diagnostic light paths, smoked optical glass, gunmetal coolant manifolds, subtle autonomous sensing arrays, deep near-black shadows, electric cyan #00e5ff dominant with electric blue #38bdf8, violet #a78bfa, magenta-pink #ef86bb, mint #7fe9f0, and one restrained warm amber #ffb86c contrast accent, gallery-grade product-photography realism, low-key machine lighting only, generous negative space around the central subject, no readable text, no logos, no dashboards, no people, no robots, no hands, no generic network graphics, no daylight, no white room, no tabletop props.",
+    ctaPrimary: {
+      label: "Review an existing automation",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Troubleshooting Flow",
+      fingerprint: "Troubleshooting Flow|operational-symptom|6|diagnostic-teardown",
+    },
+  },
 // N8N_BLOG_POSTS_END
 ];
 
