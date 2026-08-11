@@ -23910,6 +23910,489 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Troubleshooting Flow|operational-symptom|6|diagnostic-teardown",
     },
   },
+  {
+    slug: "ai-automation-trends-2026",
+    title: "AI Automation Trends for 2026",
+    subtitle:
+      "A UK-first implementation guide for turning current AI automation signals into governed, measurable workflow decisions.",
+    summary: [
+      "AI automation is moving from isolated experimentation towards connected, accountable workflows.",
+      "UK leaders should test trends against their own data, systems, controls and measurable operating outcomes.",
+      "Use a bounded pilot with human exception handling before committing to wider deployment.",
+    ],
+    categoryLabel: "Trends & Analysis",
+    categoryKey: "ai-trends-news",
+    categoryId: "ai-trends-news",
+    categoryOrder: 27,
+    displayDate: "11 August 2026",
+    publishedIsoDate: "2026-08-11T16:16:21.698Z",
+    updatedIsoDate: "2026-08-11T16:16:21.698Z",
+    readTime: "7 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/ai-automation-trends-2026-hero.webp",
+    heroImageAlt:
+      "Photoreal near-future AI compute core glowing in cyan and violet within dark British industrial architecture.",
+    metaTitle: "AI Automation Trends for 2026 | UK Business Guide",
+    metaDescription:
+      "A UK guide to 2026 AI automation trends: assess adoption signals, integration, governance and controlled workflow pilots with measurable outcomes.",
+    primaryKeyword: "AI Automation Trends for 2026",
+    secondaryKeywords: [
+      "AI automation UK",
+      "AI workflow automation",
+      "AI governance",
+      "enterprise AI adoption",
+      "AI implementation strategy",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "The defining AI automation trend for 2026 is not simply wider tool use: it is the move from isolated experiments towards **governed workflows connected to real operating systems**. UK leaders should prioritise integration, information quality, accountable oversight and a small number of measurable use cases.",
+          "That shift is commercially practical rather than futuristic. Current UK and enterprise research points to more investment and piloting alongside persistent integration, skills and scaling barriers. The question is where automation can safely earn its place within an existing process.",
+        ],
+      },
+      {
+        heading: "What changed in AI automation going into 2026",
+        body: [
+          "The near-term signal is clear: organisations are trying to connect AI to business processes, but dependable delivery still depends on the foundations beneath it. [OneAdvanced’s 2026 UK research](https://www.oneadvanced.com/resources/the-real-ai-adoption-challenges-holding-uk-businesses-back) reports more investment and piloting while implementation barriers remain material.",
+          "Silverstone AI is UK-based and serves UK and international clients. The UK is the primary lens here: data protection, sector obligations and internal accountability should shape deployment. The practical disciplines below generalise internationally, but local legal and regulatory requirements must still be checked.",
+          "- **Start with a bounded workflow:** choose one repeatable process with a clear owner, input and outcome.\n- **Connect before expanding:** establish how data, permissions and exceptions pass between existing systems.\n- **Measure the hand-off:** record time, quality, escalation and rework before claiming value.",
+        ],
+        sectionNumber: "01",
+        lede:
+          "**AI automation is becoming an operating-model decision, not a software trial.**",
+        leadStyle: "lead",
+        callout: {
+          body: [
+            "Treat 2026 as the year to move from attractive demonstrations to **controlled, integrated workflow automation**. Begin where a human team already follows a repeatable decision path and can review exceptions.",
+          ],
+          tone: "answer",
+          title: "Direct answer",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Integration barrier",
+              value: "58%",
+              note:
+                "OneAdvanced reports organisations facing a platform integration crisis.",
+            },
+            {
+              label: "Automation stagnation",
+              value: "55%",
+              note:
+                "OneAdvanced reports organisations stuck in “automation purgatory”.",
+            },
+          ],
+          title: "Current UK implementation signals",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "How to separate verified market change from vendor narrative",
+        body: [
+          "A credible trend has a named source, a defined population and a decision it can inform. A weak trend is often a broad prediction, a statistic without primary context, or a capability claim that has not been tested in your environment.",
+          "Use this four-part filter before taking any trend into a roadmap. {{chip:proof|Evidence check}} **Source quality matters more than headline size**.",
+        ],
+        sectionNumber: "02",
+        lede:
+          "Use evidence to set priorities; use vendor claims only to form questions.",
+        leadStyle: "drop-cap",
+        grid: [
+          {
+            body:
+              "Prefer official statistics, current documentation and direct research. Note whether a source is UK-specific, international or vendor-produced.",
+            title: "1. Confirm the source",
+          },
+          {
+            body:
+              "State exactly what changed: adoption, workflow deployment, governance practice or a supplier feature.",
+            title: "2. Define the claim",
+          },
+          {
+            body:
+              "Ask whether your data, systems, staff roles and regulatory exposure resemble the source context.",
+            title: "3. Test local relevance",
+          },
+          {
+            body:
+              "Require a baseline, an accountable owner and a review point before scaling a live workflow.",
+            title: "4. Set a proof threshold",
+          },
+        ],
+        callout: {
+          body: [
+            "Rossum reports a move from pilots to enterprise-scale deployment and widespread governance activity in its surveyed market. This is useful international vendor evidence, not a universal forecast for every UK organisation.",
+          ],
+          tone: "evidence",
+          title: "Evidence boundary",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Workflow automation",
+              definition:
+                "A defined sequence of triggers, actions, decisions and exceptions across people and systems.",
+            },
+            {
+              term: "Governance",
+              definition:
+                "The controls that assign accountability, manage risk, document decisions and support review.",
+              note: "*Governance is not a separate paperwork exercise.*",
+            },
+            {
+              term: "Independent validation",
+              definition:
+                "A proportionate check by someone not responsible for building the workflow.",
+            },
+          ],
+          title: "Terms worth keeping precise",
+        },
+      },
+      {
+        heading: "The workflow patterns businesses are adopting now",
+        body: [
+          "The supplied evidence is strongest on scaling, governance and information management rather than on a universal list of use cases. For that reason, treat the following as a practical design pattern, not a market-wide ranking.",
+          "A durable workflow commonly follows this route:\n1. Capture a structured request or document.\n2. Classify, extract or prepare information against defined rules.\n3. Route low-confidence, high-impact or unusual cases to a named reviewer.\n4. Write the approved result back to the system of record.\n5. Review exceptions and outcomes on a fixed cadence.",
+          "This structure protects the point at which human judgement matters. It also makes {{accent:conversion path}} easier to observe: enquiry or document, triage, decision, system update, then follow-up. For related implementation choices, read [how to integrate AI without replacing software](/blog/integrate-ai-without-replacing-software).",
+        ],
+        sectionNumber: "03",
+        lede:
+          "**The useful pattern is augmentation with accountable hand-offs, not unattended automation.**",
+        leadStyle: "lead",
+        steps: [
+          {
+            body:
+              "Choose a process with recurring inputs, known exceptions and a business owner who can decide what “good” looks like.",
+            title: "Select the stable process",
+            label: "A",
+          },
+          {
+            body:
+              "Define confidence thresholds, stop conditions and the reviewer responsible for resolving edge cases.",
+            title: "Map the exception path",
+            label: "B",
+          },
+          {
+            body:
+              "Compare cycle time, rework, quality and escalation volume with the pre-automation process.",
+            title: "Pilot against a baseline",
+            label: "C",
+          },
+          {
+            body:
+              "Extend the workflow after evidence shows it is reliable, supportable and understood by the people using it.",
+            title: "Scale only after review",
+            label: "D",
+          },
+        ],
+        versusCard: {
+          left: {
+            title: "Tool-led experiment",
+            body:
+              "A standalone trial may demonstrate a capability, but often leaves ownership, system hand-offs and exception management unresolved.",
+            label: "Fast to start",
+            points: [
+              "Limited process scope",
+              "Unclear integration design",
+              "Value can be difficult to prove",
+            ],
+          },
+          right: {
+            title: "Workflow-led implementation",
+            body:
+              "A bounded workflow starts with the operating process, includes human review and produces evidence for a scale decision.",
+            label: "Built to operate",
+            points: [
+              "Named owner and baseline",
+              "Explicit exception route",
+              "Reviewable performance evidence",
+            ],
+          },
+          eyebrow: "Implementation choice",
+          verdict:
+            "**Choose workflow-led implementation** when the work affects customers, records, money or regulated decisions.",
+        },
+      },
+      {
+        heading: "Where governance, security and human oversight are tightening",
+        body: [
+          "As automation reaches more consequential work, the control environment needs to travel with it. [Deloitte’s 2026 enterprise AI report](https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-ai-in-the-enterprise.html) argues for governance integrated with existing risk and oversight structures, including high-risk identification, responsible design and independent validation where appropriate.",
+          "For UK organisations, this should sit alongside applicable data-protection duties, contractual commitments and sector rules. This is general information, not legal advice; obtain specialist advice for your circumstances.",
+        ],
+        sectionNumber: "04",
+        leadStyle: "drop-cap",
+        checklist: {
+          items: [
+            {
+              label: "Named accountable owner",
+              detail: "One person owns the business outcome and escalation path.",
+            },
+            {
+              label: "Data and access map",
+              detail:
+                "Document inputs, system permissions, retention and supplier boundaries.",
+            },
+            {
+              label: "Risk tier",
+              detail:
+                "Classify impact if output is wrong, delayed, unavailable or misused.",
+            },
+            {
+              label: "Human intervention route",
+              detail:
+                "Specify who can pause, correct and approve consequential exceptions.",
+            },
+            {
+              label: "Validation record",
+              detail: "Keep test cases, results, changes and review dates.",
+            },
+            {
+              label: "Monitoring owner",
+              detail:
+                "Assign a cadence for drift, incidents and legal or policy changes.",
+            },
+          ],
+          title: "Minimum governance check before a live launch",
+        },
+        callout: {
+          body: [
+            "Human oversight should be *proportionate* to the workflow’s impact. **High-risk decisions need stronger controls**, clearer escalation and, where appropriate, independent validation.",
+          ],
+          tone: "caution",
+          title: "Do not confuse automation with delegation of accountability",
+        },
+      },
+      {
+        heading: "A practical method to assess which trends matter to your business",
+        body: [
+          "Use this five-question decision framework for each candidate workflow. It turns broad trends into an implementation decision and prevents a pilot from becoming a permanent holding pattern.",
+          "### A decision rule for pilot readiness\n\nScore each question from 0 to 2, then discuss the total with the process owner. A higher score is a signal to design a controlled pilot, *not* a promise of return. {{chip:idea|Prioritisation model}}",
+        ],
+        sectionNumber: "05",
+        lede: "Score the workflow, not the excitement around the technology.",
+        leadStyle: "lead",
+        callout: {
+          body: [
+            "It assumes an existing process is worth improving. If the underlying process is inconsistent, first standardise it; automation may otherwise reproduce confusion faster.",
+          ],
+          tone: "assumption",
+          title: "What this framework assumes",
+        },
+        keyTakeaways: {
+          items: [
+            "Prioritise measurable work, not the most visible AI feature.",
+            "Require an owner, an exception route and a baseline before launch.",
+            "Use evidence from the pilot to decide whether to extend scope.",
+            "If integration or governance is unresolved, treat it as a design task rather than an afterthought.",
+          ],
+          title: "Decision rule",
+        },
+      },
+      {
+        heading: "What to monitor over the next two quarters",
+        body: [
+          "Do not treat 2026 trend coverage as a prediction engine. Monitor changes that could alter your workflow’s risk, cost or practical fit, then revise controls and scope when evidence warrants it.",
+          "Track integration reliability, exception volume, reviewer workload and outcome quality alongside supplier changes and relevant legal developments. {{underline:Keep the operating evidence close to the workflow.}} These are *monitoring priorities*, not predictions about a particular supplier or market outcome.",
+          "Related articles:\n- [AI readiness assessment for small businesses](/blog/ai-readiness-assessment-small-businesses)\n- [UK AI automation cost audit](/blog/ai-automation-cost-uk-small)\n- [How to add human approval to an AI agent](/blog/human-approval-to-an-ai-agent)",
+          "If you need to understand delivery stages before committing to a project, review [the implementation process](/how-we-work). If a budget discussion is useful once scope is clearer, see [pricing](/pricing). When you have a defined workflow, arrange a scoped conversation through [the booking calendar](/book#booking-calendar).",
+          "Silverstone AI is a UK-based AI automation agency serving clients in the UK and internationally; its [automation delivery support](/services/ai-automation) and [consulting support](/services/ai-consulting) can turn this framework into a practical delivery plan.",
+        ],
+        sectionNumber: "06",
+        leadStyle: "drop-cap",
+        callout: {
+          body: [
+            "Start with one workflow where the business owner can see the before-and-after clearly. Build controls into the design, review live evidence, then scale deliberately. {{chip:action|Plan a pilot}}",
+          ],
+          tone: "recommendation",
+          title: "A sensible next move",
+        },
+        timeline: {
+          items: [
+            {
+              title: "Baseline the current process",
+              body: "Record volume, cycle time, rework, exceptions and ownership.",
+              label: "Weeks 1–2",
+            },
+            {
+              title: "Run a controlled pilot",
+              body: "Test defined cases, retain review records and refine thresholds.",
+              label: "Weeks 3–6",
+            },
+            {
+              title: "Review evidence",
+              body:
+                "Decide whether reliability, workload and outcome quality justify a wider scope.",
+              label: "Weeks 7–10",
+            },
+            {
+              title: "Refresh the control plan",
+              body:
+                "Update documentation, access, training and monitoring for the next release.",
+              label: "Weeks 11–12",
+            },
+          ],
+          title: "Two-quarter monitoring cadence",
+        },
+      },
+    ],
+    faqs: [
+      {
+        answer:
+          "The practical trend is moving from isolated pilots towards integrated, governed workflows with measurable outcomes, clear ownership and human exception handling.",
+        question: "What is the biggest AI automation trend for UK businesses in 2026?",
+      },
+      {
+        answer:
+          "Oversight should be proportionate to risk. Workflows affecting consequential decisions, sensitive information or customer commitments need defined escalation, review and accountability.",
+        question: "Should every AI automation workflow have human oversight?",
+      },
+      {
+        answer:
+          "Choose a frequent, repeatable process with reliable inputs, a named owner, measurable baseline and a workable route for handling exceptions.",
+        question: "How should a business choose its first AI automation project?",
+      },
+      {
+        answer:
+          "The operational themes of integration, information management and governance generalise internationally. Legal, regulatory, data and sector requirements must be assessed in the relevant jurisdiction.",
+        question: "Are AI automation trends the same outside the UK?",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "how to integrate AI without replacing software",
+        href: "/blog/integrate-ai-without-replacing-software",
+      },
+      {
+        label: "AI readiness assessment for small businesses",
+        href: "/blog/ai-readiness-assessment-small-businesses",
+      },
+      {
+        label: "UK AI automation cost audit",
+        href: "/blog/ai-automation-cost-uk-small",
+      },
+      {
+        label: "How to add human approval to an AI agent",
+        href: "/blog/human-approval-to-an-ai-agent",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Overcoming AI adoption challenges in 2026",
+        url:
+          "https://www.oneadvanced.com/resources/the-real-ai-adoption-challenges-holding-uk-businesses-back",
+        domain: "oneadvanced.com",
+        summary:
+          "by OneAdvanced PRPublished on 7 April 2026 11 minute read AI is reshaping industries at speed, compressing years of innovation into months. Yet for many UK businesses, progress remains uneven. They are investing and piloting more, but struggling to move from experimentation to real, enterprise-wide impact. Our Annual Trends Report highlights the core barriers driving this gap: 58% of organisations face a platform integration crisis, 55% remain stuck in “automation purgatory,” and skills gaps rank among the top operational challenges. Together, these AI adoption challenges are widening the divide between ambition and execution. Download the fu",
+        verifiedAt: "2026-08-11T16:12:17.703Z",
+        matchedTerms: ["automation", "trends", "2026", "what", "into", "how", "are", "governance"],
+      },
+      {
+        title:
+          "50+ Workflow Automation Statistics for UK Businesses (2026) | SwiftCase",
+        url: "https://swiftcase.co.uk/2026/03/02/workflow-automation-statistics-uk",
+        domain: "swiftcase.co.uk",
+        summary:
+          "5. Organisations using AI-augmented workflows report 34% faster decision-making. AI handles data gathering, analysis, and option generation, allowing human decision-makers to focus on judgement calls rather than information assembly. (Deloitte AI in the Enterprise, 2025) 6. 59% of UK businesses have now adopted or are piloting AI solutions, a 20 percentage point increase from 2023. The UK government's pro-AI policy stance and investment in AI safety research have contributed to business confidence in adoption. (UK Department for Science, Innovation and Technology, 2025) [...] 1. 72% of organisations have adopted AI in at least one business fu",
+        verifiedAt: "2026-08-11T16:12:17.703Z",
+        matchedTerms: ["automation", "2026", "workflow", "are", "now", "governance", "human"],
+      },
+      {
+        title: "AI Automation Statistics 2026: 60+ UK & Global Data Points | Aristral",
+        url: "https://aristral.com/blog/ai-automation-statistics-2026",
+        domain: "aristral.com",
+        summary:
+          "| Metric | Value | Source | --- | UK large business AI adoption | 36% | DSIT AI Adoption Research, 2025 | | UK mid-sized business AI adoption | 23% | DSIT AI Adoption Research, 2025 | | UK micro-business AI adoption | 14% | DSIT AI Adoption Research, 2025 | | Information & Communication sector AI adoption (UK) | 43% | DSIT AI Adoption Research, 2025 | | Business Services / Administration sector AI adoption (UK) | 23% | DSIT AI Adoption Research, 2025 | | Construction sector AI adoption (UK) | 12% | DSIT AI Adoption Research, 2025 | | Transport & Storage AI adoption (UK) | 10% | DSIT AI Adoption Research, 2025 | | BCC: AI adoption among UK B2B",
+        verifiedAt: "2026-08-11T16:12:17.703Z",
+        matchedTerms: ["automation", "2026", "workflow", "are", "now", "two"],
+      },
+      {
+        title: "Rossum’s Document Automation Trends 2026 Report",
+        url: "https://rossum.ai/document-automation-trends",
+        domain: "rossum.ai",
+        summary:
+          "## \"AIIM's research revealed a surprising evolution of AI adoption in 2025. Organizations are moving from pilot projects to enterprise-scale deployments. Both agentic AI and generative AI as information management tools have achieved 91% total adoption. What's behind this maturity? Organizations have renewed their focus on governance and information management. 93% of organizations either now have or are developing AI governance. Beyond governance, our research validates that AI preparedness directly correlates with fundamental information management effectiveness. Organizations that excel at the basics (data quality, information lifecycle ma",
+        verifiedAt: "2026-08-11T16:12:17.704Z",
+        matchedTerms: ["automation", "trends", "2026", "what", "into", "how", "are", "now"],
+      },
+      {
+        title: "Global AI Adoption Statistics 2026: Country Rankings & Data",
+        url: "https://alicelabs.ai/reports/global-ai-adoption-index-2026",
+        domain: "alicelabs.ai",
+        summary:
+          "# Global AI Adoption Statistics 2026: Country Rankings & Data Official benchmarks on enterprise AI adoption across EU, OECD, Canada, US, and UK — reproducible and citable ## Contents Linus Ingemarsson - Author at Alice Labs Eric Lundberg - Reviewer at Alice Labs Methodology & Transparency: This analysis draws on primary sources — including Eurostat, OECD, national statistical agencies, peer-reviewed literature, and official vendor disclosures — combined with Alice Labs implementation data. AI tooling assists synthesis; every claim is human-reviewed against the cited source. All figures and claims link to their public source for verification.",
+        verifiedAt: "2026-08-11T16:12:17.704Z",
+        matchedTerms: ["2026", "what", "into", "how", "vendor", "are", "human", "over"],
+      },
+      {
+        title: "AI Adoption in UK SMEs: Why 2026 Is Already Different - TC Group",
+        url: "https://www.tc-group.com/news/business-insights/ai-adoption-in-uk-smes",
+        domain: "tc-group.com",
+        summary:
+          "I see 2026 being fundamental to SMEs where: AI knowledge is increasing. Technology is stabilising. Data foundations are being created. Vendors are more focused on business objectives and solutions. SMEs are moving from curiosity to practical adoption. At TC Group, we’re committed to supporting that journey, not only through our own internal AI evolution but also ultimately empowering our clients to understand, adopt, and benefit from AI safely and meaningfully. \\DATA SOURCE: UK GOVERNMENT AI ADOPTION RESEARCH Published 13 February 2026 ### supporting SMEs AI Journey If your objectives are clear and your foundations are forming, we can help yo",
+        verifiedAt: "2026-08-11T16:12:17.704Z",
+        matchedTerms: ["automation", "2026", "what", "into", "are", "now", "where", "human"],
+      },
+      {
+        title: "Best AI Tools for Business in 2026 | Whitehat",
+        url: "https://whitehat-seo.co.uk/blog/ai-tools-for-business",
+        domain: "whitehat-seo.co.uk",
+        summary:
+          "Three trends define today's market: generative AI dominance (ChatGPT, Claude, and Gemini variants are now embedded in 60%+ of UK business tool ecosystems), enterprise integration focus (organisations increasingly favour integrated platform solutions over point tools), and security-first purchasing (vendor security certifications—SOC 2, ISO 27001—are now prerequisites for 82% of UK corporate procurement). For UK organisations, data residency and GDPR compliance are now table-stakes. 94% of UK businesses prioritise data residency and compliance features when selecting AI tools. EU-hosted alternatives to US-based platforms are gaining share, ref",
+        verifiedAt: "2026-08-11T16:12:17.704Z",
+        matchedTerms: ["trends", "2026", "market", "vendor", "workflow", "are", "now", "governance"],
+      },
+      {
+        title: "UK AI in Workforce Automation Market Analysis & Outlook 2031",
+        url:
+          "https://www.knowledge-sourcing.com/report/uk-ai-in-workforce-automation-market",
+        domain: "knowledge-sourcing.com",
+        summary:
+          "Frequently Asked Questions The UK AI in Workforce Automation market is forecast to grow at a Compound Annual Growth Rate (CAGR) of 16.1% during the specified period. This robust growth is projected to see the market expand from USD 4.4 billion in 2026 to reach USD 9.3 billion by 2031. Large enterprises are identified as the primary adopters, with 68% of large companies integrating at least one AI technology in 2023, creating high demand. The services sector is also experiencing a major acceleration in the integration of automation technologies, indicating significant uptake. [...] Home/ICT/Artificial Intelligence/UK AI in Workforce Automation",
+        verifiedAt: "2026-08-11T16:12:17.704Z",
+        matchedTerms: ["automation", "trends", "2026", "market", "are"],
+      },
+      {
+        title: "The State of AI in the Enterprise - 2026 AI report",
+        url:
+          "https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-ai-in-the-enterprise.html",
+        domain: "deloitte.com",
+        summary:
+          "In terms of regulation, effective governance integrates with existing risk and oversight structures, not parallel \"shadow\" functions. It focuses on identifying high-risk applications, enforcing responsible design practices, and ensuring independent validation where appropriate. Leading organizations proactively monitor evolving legal requirements and build systems that can demonstrate safety, fairness, and compliance. [...] # The State of AI in the Enterprise ## Deloitte's 2026 AI report tracking adoption and impact Download the report Video 1 ### The untapped edge Organizations today stand at the untapped edge of AI's potential. Our 2026 AI",
+        verifiedAt: "2026-08-11T16:12:17.704Z",
+        matchedTerms: [
+          "2026",
+          "what",
+          "workflow",
+          "are",
+          "where",
+          "governance",
+          "oversight",
+          "monitor",
+        ],
+      },
+    ],
+    imagePrompt:
+      "Create a 1536x864 photoreal premium editorial WebP hero for an article about AI automation trends in 2026. A physically plausible near-future machine-intelligence installation occupies the central 9:16 crop-safe area: a suspended photonic compute core with layered smoked optical-glass rings, wafer-scale processors, liquid-cooled blackened-steel channels and precise optical interconnects. Its volumetric light structures show abstract flowing process streams without readable text, numbers, dashboards or network-node graphics. Place it inside a monumental dark modern British architectural interior suggested only by charcoal stone arches and gunmetal structural detailing, no office, desk, workshop, warehouse, shopfront or people. Near-black, charcoal, gunmetal, blackened steel and smoked glass materials. Low-key gallery-grade product photography, deep shadow, cinematic realism, illuminated almost entirely by electric cyan #00e5ff dominant light, electric blue #38bdf8, violet #a78bfa, magenta-pink #ef86bb, mint #7fe9f0, and a single restrained warm amber #ffb86c contrast accent. Generous negative space around the central subject. No logos, readable text, fake statistics, generic humanoid robots, hands or people, illustration style, bright daylight, white rooms or science-fiction kitsch.",
+    ctaPrimary: {
+      label: "Discuss a bespoke workflow",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Step-by-Step Guide",
+      fingerprint: "Step-by-Step Guide|future-backcast|6|implementation-playbook",
+    },
+  },
 // N8N_BLOG_POSTS_END
 ];
 
