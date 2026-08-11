@@ -24393,6 +24393,539 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Step-by-Step Guide|future-backcast|6|implementation-playbook",
     },
   },
+  {
+    slug: "ai-automation-roi-calculator",
+    title: "AI Automation ROI Calculator",
+    subtitle:
+      "A conservative UK decision framework for estimating automation value, full cost and payback before you approve a build.",
+    summary: [
+      "Start with observed workflow volume, time, cost and exceptions.",
+      "Model realised benefit separately from gross time released.",
+      "Use conservative scenarios and a bounded pilot when the result is unclear.",
+    ],
+    categoryLabel: "Templates & Toolkits",
+    categoryKey: "ai-toolkits",
+    categoryId: "ai-toolkits",
+    categoryOrder: 28,
+    displayDate: "11 August 2026",
+    publishedIsoDate: "2026-08-11T16:29:40.344Z",
+    updatedIsoDate: "2026-08-11T16:29:40.344Z",
+    readTime: "7 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/ai-automation-roi-calculator-hero.webp",
+    heroImageAlt:
+      "A luminous cyan photonic compute core processing flowing operational data within a dark British architectural setting.",
+    metaTitle: "AI Automation ROI Calculator | UK Decision Framework",
+    metaDescription:
+      "Use this AI automation ROI calculator to estimate UK workflow benefits, full costs, payback and risk before committing to a measured pilot.",
+    primaryKeyword: "ai automation roi calculator",
+    secondaryKeywords: [
+      "AI automation ROI UK",
+      "automation payback calculator",
+      "AI business case",
+      "automation implementation costs",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "An AI automation ROI calculator should answer one practical question: **will this workflow create enough verified value to justify its full cost and risk?** Start with the existing process, model conservative benefit scenarios, then compare annual net benefit with year-one investment and ongoing operating cost.",
+          "For UK decision-makers, use fully loaded employment costs, GBP and documented assumptions. The same framework generalises internationally when you replace local labour, tax and compliance inputs. Silverstone AI is UK-based and serves UK and international clients, with the UK as its primary commercial and regulatory lens.",
+        ],
+      },
+      {
+        heading: "What this calculator is designed to answer",
+        body: [
+          "The calculator is deliberately simple: establish the current monthly cost, estimate the portion automation can safely change, subtract every delivery and operating cost, then test the result under less favourable assumptions. {{chip:idea|Decision framework}}",
+          "A credible result is a range, not a sales headline. ==Observed baseline data== is more useful than a generic benchmark because volume, exception rates, adoption and integration needs differ materially between businesses.",
+        ],
+        sectionNumber: "01",
+        lede:
+          "**Do not use ROI to prove a preferred project; use it to decide whether a specific workflow deserves a pilot.**",
+        leadStyle: "lead",
+        grid: [
+          {
+            body:
+              "How many eligible cases occur, how long they take, who performs them and what errors or delays cost today.",
+            title: "Current-state baseline",
+          },
+          {
+            body:
+              "Only the time, error reduction or additional capacity likely to be realised after exceptions and human checks.",
+            title: "Realistic benefit",
+          },
+          {
+            body:
+              "One-time discovery, design, integration and change effort plus recurring software, infrastructure, monitoring and review.",
+            title: "Full cost",
+          },
+          {
+            body:
+              "The minimum return, payback window and risk tolerance your organisation requires before proceeding.",
+            title: "Decision threshold",
+          },
+        ],
+        callout: {
+          body: [
+            "**Annual ROI %** = ((annual benefit − year-one cost) ÷ year-one cost) × 100.",
+            "**Payback months** = year-one cost ÷ monthly net benefit. Use a monthly net benefit only after recurring costs and internal review time have been deducted.",
+          ],
+          tone: "answer",
+          title: "The core calculation",
+        },
+      },
+      {
+        heading: "The inputs you need before you calculate ROI",
+        body: [
+          "Collect one comparable monthly period where possible. The UK-oriented worksheet approach described by [JD Teach AI](https://jdteachai.com/en/blog/ai-automation-examples-business-roi) starts with business-as-usual evidence, affected tasks and operating costs rather than vendor claims.",
+          "Use the following input set. {{chip:proof|Baseline first}}\n- **Eligible monthly volume:** Cases that genuinely meet the automation criteria, excluding work that will always need specialist judgement.\n- **Current effort per case:** Timed handling minutes, including rework where it is routinely present.\n- **Fully loaded hourly cost:** Salary plus employer costs, pension, management and relevant overhead allocation.\n- Automation and acceptance rate: The share processed and accepted without creating equivalent downstream work.\n- Cash costs and capacity value: Distinguish a hard saving from *released capacity* that still needs a plan to be used.\n- Cost and risk inputs: Delivery, subscriptions, support, internal ownership, security review and contingency.",
+          "### Input definitions",
+        ],
+        sectionNumber: "02",
+        variant: "system",
+        definitions: {
+          items: [
+            {
+              term: "Eligible volume",
+              definition:
+                "The cases the proposed workflow can reasonably receive after exclusions, not the total number of cases in the process.",
+            },
+            {
+              term: "Fully loaded cost",
+              definition:
+                "The employment cost of time, beyond base salary, used to value labour released by a workflow.",
+            },
+            {
+              term: "Realised benefit",
+              definition:
+                "Value that has a credible route to cash saving, avoided recruitment, throughput or service improvement.",
+              note: "It is not automatically equal to every minute saved.",
+            },
+          ],
+          title: "Three inputs often confused",
+        },
+      },
+      {
+        heading: "How to estimate benefit without overstating gains",
+        body: [
+          "Estimate labour value from the process, not from an assumed percentage improvement. [Wingenious](https://www.wingenious.ai/services/use-cases/ai-roi-calculation) illustrates the structure as hours saved multiplied by fully loaded hourly rate and volume, while documenting ranges for uncertain inputs.",
+          "Worked structure: 12 minutes saved per invoice across 800 invoices monthly at £28 per fully loaded hour produces £4,480 gross monthly labour value, or £53,760 annualised, before costs, exceptions or whether the capacity can be realised. ==This is an illustrative source scenario, not a forecast for your business.==",
+          "Use {{accent:three scenarios}} rather than one estimate: conservative, expected and downside. The downside case should reduce acceptance, lower time saved, add review time and allow for a slower launch.",
+        ],
+        sectionNumber: "03",
+        variant: "operator",
+        bullets: [
+          {
+            body:
+              "Do not claim the same saved hour as both payroll reduction and additional productive capacity.",
+            label: "Avoid double counting",
+          },
+          {
+            body:
+              "Count only correction, leakage or risk costs you can evidence from the current process.",
+            label: "Value error reduction carefully",
+          },
+          {
+            body:
+              "Treat prospective conversion or retention uplift as a separately evidenced scenario, not a default automation benefit.",
+            label: "Keep revenue separate",
+          },
+        ],
+        versusCard: {
+          left: {
+            title: "Gross time released",
+            body:
+              "Minutes removed from a repeatable task valued at a fully loaded rate.",
+            label: "Useful starting point",
+            points: ["Can reveal workflow scale", "Does not prove cash saving"],
+          },
+          right: {
+            title: "Realised business value",
+            body:
+              "Capacity linked to reduced spend, avoided hiring, higher throughput or a measured service outcome.",
+            label: "Approval case",
+            points: ["Requires an operating plan", "Should include exception handling"],
+          },
+          eyebrow: "Benefit discipline",
+          verdict:
+            "Approve against realised value, while retaining gross time released as a diagnostic measure.",
+        },
+      },
+      {
+        heading: "How to include implementation, software and internal costs",
+        body: [
+          "Count costs over the same period as benefits. [Vladislav Ioanno](https://vladislavioanno.com/blog/calculate-ai-automation-roi) identifies one-time implementation alongside recurring model, infrastructure, monitoring and review costs, and recommends stress-testing a delay scenario.",
+          "For a UK business, cost drivers commonly include scope, data readiness, integration complexity and organisational change requirements, as set out by [Helium42](https://helium42.com/blog/ai-business-case-roi). Internationally, the categories remain useful, but procurement, data-protection and employment-cost treatment should be checked locally.",
+        ],
+        sectionNumber: "04",
+        lede:
+          "A low subscription price can still sit inside a high-cost change programme.",
+        leadStyle: "drop-cap",
+        variant: "signal",
+        comparisonTable: {
+          columns: ["Include in year one?", "Evidence to obtain"],
+          rows: [
+            {
+              cells: ["Yes", "Quoted scope, process mapping and technical design effort"],
+              label: "Discovery and design",
+            },
+            {
+              cells: ["Yes", "Supplier quote, API work, testing and data preparation"],
+              label: "Build and integration",
+            },
+            {
+              cells: ["Yes", "Contracted recurring fees, usage charges and hosting"],
+              label: "Software and infrastructure",
+            },
+            {
+              cells: ["Yes", "Training, process ownership, UAT and management time"],
+              label: "Internal change effort",
+            },
+            {
+              cells: ["Yes", "Ongoing exception, quality and governance workload"],
+              label: "Monitoring and human review",
+            },
+          ],
+          rowHeader: "Cost area",
+        },
+        callout: {
+          body: [
+            "{{underline:Include internal owner time}} even where no invoice is raised. A business case that ignores review, training and exception work can make automation look cheaper than it is.",
+            "For a scoped cost conversation, review [AI automation pricing](/pricing) alongside the operational requirements, not in isolation.",
+          ],
+          tone: "caution",
+          title: "Do not hide internal effort",
+        },
+      },
+      {
+        heading: "How to read payback, risk and decision thresholds",
+        body: [
+          "Payback is a liquidity and confidence measure, not a guarantee of quality. A short calculated payback may still be unacceptable if the workflow touches sensitive data, creates material customer risk or lacks a clear human escalation route.",
+          "Set the decision rule before you see the result. {{chip:warning|Risk-adjusted decision}} A strong case has **positive conservative net benefit**, a feasible delivery path and an accountable owner; a weak case relies on *optimistic adoption* or benefits that cannot be captured.",
+        ],
+        sectionNumber: "05",
+        variant: "system",
+        scorecard: {
+          options: ["Proceed to pilot", "Improve the case", "Pause"],
+          rows: [
+            {
+              cells: ["Positive", "Uncertain", "Negative"],
+              criterion: "Conservative net benefit",
+              weight: "High",
+            },
+            {
+              cells: ["Measured", "Partly estimated", "Absent"],
+              criterion: "Baseline evidence",
+              weight: "High",
+            },
+            {
+              cells: ["Controlled", "Needs design", "Unacceptable"],
+              criterion: "Operational risk",
+              weight: "High",
+            },
+            {
+              cells: ["Confirmed", "To assign", "None"],
+              criterion: "Named owner",
+              weight: "Medium",
+            },
+          ],
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Annual gross benefit",
+              value: "£",
+              note: "Before all delivery and operating costs",
+            },
+            {
+              label: "Year-one cost",
+              value: "£",
+              note: "One-time plus 12 months of recurring and internal cost",
+            },
+            {
+              label: "Annual net benefit",
+              value: "£",
+              note: "Benefit minus year-one cost",
+            },
+            {
+              label: "Payback",
+              value: "Months",
+              note: "Year-one cost divided by monthly net benefit",
+            },
+          ],
+          title: "Use these four outputs together",
+        },
+        keyTakeaways: {
+          items: [
+            "Proceed to a bounded pilot when the conservative case is positive and risks have controls.",
+            "Improve the case when the workflow looks promising but baseline, scope or capture plan is incomplete.",
+            "Pause the proposal when net value is negative, ownership is absent or risk cannot be reduced.",
+          ],
+          title: "Decision rule",
+        },
+      },
+      {
+        heading: "What to do if the calculator result is unclear",
+        body: [
+          "An unclear result is not a failure; it means the decision needs cheaper evidence. {{accent:run a bounded pilot}} around one workflow, a defined population and a short measurement period. Read [how to select a workflow](/blog/workflow-automation-selection-guide) before expanding scope, and use [AI automation consulting](/services/ai-consulting) when integration or governance choices need independent structure.",
+          "Follow this route:\n1. Measure the baseline for volume, handling time, exceptions, error correction and service level.\n2. Define the capture mechanism: reduced spend, deferred recruitment, additional throughput or a service metric.\n3. Pilot with human oversight and log acceptance, failures, review time and adoption.\n4. Recalculate from observed evidence and compare conservative results with the original threshold.\n5. Scale only after controls work, including ownership, monitoring and escalation.",
+        ],
+        sectionNumber: "06",
+        variant: "operator",
+        grid: [
+          {
+            body:
+              "Learn how to scope a business case and operating model in the [AI automation consulting guide](/blog/ai-automation-consulting-guide).",
+            title: "AI automation consulting guide",
+          },
+          {
+            body:
+              "See a practical automation use case in the [AI receptionist setup guide](/blog/ai-receptionist-setup-guide).",
+            title: "AI receptionist setup guide",
+          },
+        ],
+        checklist: {
+          items: [
+            {
+              label: "Baseline retained",
+              detail: "The original current-state evidence is saved.",
+            },
+            {
+              label: "Benefits capture owner named",
+              detail:
+                "Someone is accountable for turning released capacity into value.",
+            },
+            {
+              label: "All costs included",
+              detail: "Internal time and recurring review are in the model.",
+            },
+            {
+              label: "Exceptions designed",
+              detail: "Human hand-off and escalation are clear.",
+            },
+            {
+              label: "Downside scenario tested",
+              detail:
+                "The case still makes sense with lower acceptance or delayed delivery.",
+            },
+          ],
+          title: "Before approving a broader rollout",
+        },
+        steps: [
+          {
+            body:
+              "Prefer repeatable, sufficiently frequent work with visible exceptions and a named process owner.",
+            title: "Choose one measurable workflow",
+            label: "Week 1",
+          },
+          {
+            body:
+              "Record actual volumes, duration, quality outcomes and the human work still required.",
+            title: "Capture baseline and pilot evidence",
+            label: "Weeks 2–3",
+          },
+          {
+            body:
+              "Compare the revised conservative case with your pre-agreed payback and risk threshold.",
+            title: "Make the investment decision",
+            label: "Week 4",
+          },
+        ],
+        callout: {
+          body: [
+            "If the conservative result is close to your threshold, do not force a yes-or-no spreadsheet verdict. Book a [workflow and ROI discussion](/book#booking-calendar), or explore [how Silverstone AI works](/how-we-work), to frame a measured pilot and its decision gates.",
+          ],
+          tone: "recommendation",
+          title: "Turn uncertainty into evidence",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        answer:
+          "There is no universal good figure. A useful case has a positive conservative net benefit, a credible route to capture value, complete costs and risks that the business can control. Sector-wide payback claims should not replace your own baseline and pilot evidence.",
+        question: "What is a good AI automation ROI?",
+      },
+      {
+        answer:
+          "It can count as released capacity, but it becomes a financial benefit only when linked to a credible outcome such as reduced overtime, avoided recruitment, higher throughput or redeployed work with measurable value.",
+        question: "Should saved staff time count as ROI?",
+      },
+      {
+        answer:
+          "Internal process ownership, data preparation, integration, testing, staff training, monitoring, exception handling and recurring review are commonly missed when a calculation focuses only on a supplier subscription.",
+        question: "What costs are most often missed?",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "how to select a workflow",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+      {
+        label: "AI receptionist setup guide",
+        href: "/blog/ai-receptionist-setup-guide",
+      },
+      {
+        label: "AI automation consulting guide",
+        href: "/blog/ai-automation-consulting-guide",
+      },
+    ],
+    researchSources: [
+      {
+        title: "AI ROI Calculation for UK SMEs | Wingenious",
+        url: "https://www.wingenious.ai/services/use-cases/ai-roi-calculation",
+        domain: "wingenious.ai",
+        summary:
+          "1. Labour savings. Hours saved multiplied by fully-loaded hourly rate multiplied by volume. The most defensible category. If automating an invoice workflow saves 12 minutes per invoice across 800 invoices a month at a fully-loaded rate of £28 per hour, the annual saving is £53,760. The model documents each assumption: minutes per invoice (with range), volume (with seasonality), fully-loaded rate (including pension, NI, overheads). Sensitivity is explicit. [...] The model includes all six. Hiding any one of them produces a misleadingly attractive headline. ## Payback realism Realistic payback periods vary by category of build. Operational AI (",
+        verifiedAt: "2026-08-11T16:25:44.571Z",
+        matchedTerms: ["automation", "roi", "what", "before", "benefit", "without", "payback"],
+      },
+      {
+        title: "The Real Results UK Businesses Get from AI Automation",
+        url:
+          "https://www.conversion360.co.uk/blog/the-real-results-uk-businesses-get-from-ai-automation",
+        domain: "conversion360.co.uk",
+        summary:
+          "Finance automation is the fastest-ROI entry point for most UK SMEs. According to automation benchmarking data across UK finance teams, businesses processing 200 or more invoices monthly report 8, 14 hours per week saved post-automation, with error rates dropping by up to 90%. Build costs sit between £1,500 and £4,000, with payback typically inside three months. These results are repeatable, volume-dependent, and compound as the business scales, making invoice processing and financial reconciliation the closest thing to a reliable win in the current AI automation landscape. See an SME example in How Manchester Home Buyers Scaled Fast with AI A",
+        verifiedAt: "2026-08-11T16:25:44.571Z",
+        matchedTerms: [
+          "automation",
+          "roi",
+          "what",
+          "answer",
+          "before",
+          "how",
+          "implementation",
+          "software",
+        ],
+      },
+      {
+        title: "AI Automation ROI: A Practical Calculation Guide | Vladislav Ioanno",
+        url: "https://vladislavioanno.com/blog/calculate-ai-automation-roi",
+        domain: "vladislavioanno.com",
+        summary:
+          "Recurring model, infrastructure, monitoring and review cost $1,600 per month. The one-time implementation cost is $16,000. This is a hypothetical calculation, not a promise of results. Replace every assumption with your own baseline and pilot evidence. Before approving the budget, reduce the accepted automation rate, increase review time and add a delay scenario. The UK government's Digital and Data Benefits Framework also treats benefits, costs and optimism bias as variables that need evidence rather than fixed sales claims. ## What businesses often count incorrectly For a fuller map of cost categories, use How Much Does AI Automation Cost i",
+        verifiedAt: "2026-08-11T16:25:44.571Z",
+        matchedTerms: ["automation", "roi", "what", "inputs", "need", "before", "calculate", "how"],
+      },
+      {
+        title:
+          "The CFO's Guide to AI ROI: UK Finance Directors' Practical Framework for 2026 | TopTenAIAgents.co.uk",
+        url:
+          "https://toptenaiagents.co.uk/blog/cfo-guide-ai-roi-uk-finance-directors-2026.html",
+        domain: "toptenaiagents.co.uk",
+        summary:
+          "### Use Case B: Manchester E-commerce Retailer - Customer Support Automation Scenario: Online retailer with 20 support staff handling 15,000 tickets/month. Solution: Agentic AI platform (e.g., Intercom Fin) to resolve queries autonomously. Cost Inputs: AI vendor cost: £0.65 per resolution Volume: 15,000 tickets/month × 50% deflection = 7,500 resolutions/month Annual run cost: 7,500 × £0.65 × 12 = £58,500 Implementation: £15,000 (workflow design, API integration) Total Year 1 Cost: £73,500 Benefit Inputs: Support staff cost: £25,000 base → £35,000 fully loaded Capacity: Average agent handles 1,000 tickets/month Headcount reduction: 7,500 ticke",
+        verifiedAt: "2026-08-11T16:25:44.571Z",
+        matchedTerms: [
+          "automation",
+          "roi",
+          "inputs",
+          "before",
+          "benefit",
+          "gains",
+          "implementation",
+          "software",
+        ],
+      },
+      {
+        title:
+          "How Much Does a Bespoke AI Strategy Cost? UK Business Guide 2026 | Softomate Solutions",
+        url: "https://www.softomatesolutions.com/blog/bespoke-ai-strategy-cost-uk",
+        domain: "softomatesolutions.com",
+        summary:
+          "UK businesses typically see 3-8x ROI over three years from a well-executed bespoke AI implementation. A £15,000 implementation delivering £45,000-£120,000 in cumulative savings over three years is a realistic expectation for a 10-30 person business. ROI varies significantly based on how labour-intensive your current processes are and how effectively staff adopt the AI systems. Businesses with high-volume customer interactions consistently see the fastest payback. [...] The cost of a bespoke AI strategy for a UK business ranges from £2,000 for an initial audit to £100,000+ for a full enterprise implementation. Most UK SMEs invest £8,000-£30,00",
+        verifiedAt: "2026-08-11T16:25:44.572Z",
+        matchedTerms: ["automation", "roi", "before", "how", "implementation", "payback", "risk"],
+      },
+      {
+        title: "The Business Case for AI: ROI, Timeline & Budget Planning",
+        url: "https://helium42.com/blog/ai-business-case-roi",
+        domain: "helium42.com",
+        summary:
+          "## What Does AI Actually Cost for UK Organisations? AI costs for UK organisations range from £15,000 for a targeted automation pilot AI MVP development framework to £250,000 or more for enterprise-scale implementations. The range reflects substantial variation in project scope, data readiness, integration complexity, and organisational change requirements. Understanding where a specific initiative falls within this range — and what drives cost variation — is essential for building credible business cases. [...] 1 Establish the Cost Baseline Document the current cost of the process AI will improve — staff hours, error rates, customer churn, ma",
+        verifiedAt: "2026-08-11T16:25:44.572Z",
+        matchedTerms: [
+          "automation",
+          "roi",
+          "what",
+          "before",
+          "calculate",
+          "include",
+          "implementation",
+          "costs",
+        ],
+      },
+      {
+        title: "12 AI Automation Examples and a Business ROI Formula",
+        url: "https://jdteachai.com/en/blog/ai-automation-examples-business-roi",
+        domain: "jdteachai.com",
+        summary:
+          "## Build a transparent monthly automation ROI worksheet An automation ROI estimate should begin with an observed business-as-usual baseline, not a vendor benchmark. The UK Government's Digital and Data Benefits Framework recommends identifying affected roles and tasks, estimating current time, avoiding double counting, including operating costs, and testing uncertain assumptions. The formulas below adapt that method for a small business pilot. Use one currency and one monthly period. Replace every assumption with observed pilot data when it becomes available. [...] | Input | Meaning | Evidence to collect | --- | `V` | Eligible cases per month",
+        verifiedAt: "2026-08-11T16:25:44.572Z",
+        matchedTerms: ["automation", "roi", "estimate", "costs"],
+      },
+      {
+        title: "10 Best AI Agents for Business in 2025: Tested & Compared",
+        url:
+          "https://technovapartners.com/en/insights/complete-guide-ai-agents-business-2025",
+        domain: "technovapartners.com",
+        summary:
+          "Week 2: Calculate estimated ROI Use framework from this guide (labour saved + incremental revenue) Be conservative (realistic assumptions) If ROI >150% Year 1, highly viable Week 3: Download evaluation checklist Validate readiness (budget, sponsorship, data, systems) Address gaps if 3-4 ✅ (yellow) If 5-6 ✅ (green), proceed Week 4: Schedule free consultation Present case to experts Validate technical viability Receive personalised roadmap without commitment ## Frequently Asked Questions (FAQ) {#frequently-asked-questions} 1. How much does it cost to implement AI Agents in my SME? £20k-£70k depending on complexity. Simple projects (single use c",
+        verifiedAt: "2026-08-11T16:25:44.572Z",
+        matchedTerms: ["roi", "calculate", "how", "without", "payback"],
+      },
+      {
+        title: "Task Automation: 5 High-Impact Examples for Small Business",
+        url: "https://redeagle.tech/blog/business-automation-guide",
+        domain: "redeagle.tech",
+        summary:
+          "## Frequently asked questions ### Costs vary widely depending on approach. No-code tools like Zapier start from £19.99/month, while Microsoft Power Automate Premium costs £11.50/user/month. Enterprise RPA platforms like UiPath start from around £12/user/month. For bespoke automation solutions, expect £5,000-£50,000+ depending on complexity. Most UK SMEs achieve ROI within 6-12 months. ### Yes, if implemented correctly. UK SMEs typically save £15,000-£50,000 annually through automation. Workers save 240-360 hours per year on automated tasks. Technology-adopting businesses show 17.7% higher turnover per worker. However, success depends on choos",
+        verifiedAt: "2026-08-11T16:25:44.572Z",
+        matchedTerms: ["automation", "roi", "gains", "implementation", "costs", "payback"],
+      },
+      {
+        title: "AI in Finance Archives - CFO Engine",
+        url: "https://cfoiquk.com/category/ai-in-finance",
+        domain: "cfoiquk.com",
+        summary:
+          "Based on data from 47 startups, median first-year ROI is 287% with strong variation by company size and implementation quality. Small startups (£500K-£2M revenue) typically see 180-240% ROI, mid-size companies (£2M-£8M) achieve 230-300% ROI, and larger startups (£8M-£15M) reach 280-425% ROI. These returns come from three primary sources: (1) Labor cost reduction—62% average time savings across finance processes translates to £50K-£150K annual savings depending on company size, (2) Error reduction—73% fewer financial errors saves £15K-£50K annually in correction costs plus improved decision quality, (3) Deferred hiring—automation allows compan",
+        verifiedAt: "2026-08-11T16:25:44.572Z",
+        matchedTerms: [
+          "automation",
+          "roi",
+          "before",
+          "without",
+          "include",
+          "implementation",
+          "software",
+          "costs",
+        ],
+      },
+    ],
+    imagePrompt:
+      "1536x864 photoreal premium editorial WebP image, a near-future AI automation ROI concept made physical: a luminous photonic compute core suspended within a dark, monumental British industrial-architecture interior of charcoal stone, blackened steel and smoked optical glass. The core channels multiple distinct streams of cyan light through precision optical interconnects into liquid-cooled edge-compute modules, with a small warm amber calibration glow as the single contrast accent. Volumetric data forms appear as abstract flowing light geometry, not charts or dashboards. Palette dominated by electric cyan #00e5ff, electric blue #38bdf8, violet #a78bfa, magenta-pink #ef86bb and mint #7fe9f0, set against near-black shadow. Low-key machine lighting only, gallery-grade product-photography realism, physically plausible materials and reflections, generous negative space, meaningful subject centred inside a 9:16 crop-safe area. No readable text, logos, numbers, fake statistics, dashboards, people, humanoid robots, hands, tabletop props, paper, meeting rooms or generic network-node graphics.",
+    ctaPrimary: {
+      label: "Assess your automation readiness",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Decision Framework",
+      fingerprint: "Decision Framework|decision-moment|6|decision-guide",
+    },
+  },
 // N8N_BLOG_POSTS_END
 ];
 
