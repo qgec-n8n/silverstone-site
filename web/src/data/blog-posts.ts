@@ -24926,6 +24926,503 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Decision Framework|decision-moment|6|decision-guide",
     },
   },
+  {
+    slug: "what-is-ai-automation-guide",
+    title: "What Is AI Automation? A Guide for Business Owners",
+    subtitle:
+      "A practical, UK-focused way to understand intelligent workflows, choose sensible starting points and keep people in control.",
+    summary: [
+      "AI automation combines AI interpretation with bounded workflow actions.",
+      "Use it where variable inputs slow a repeatable process, not where rules already work.",
+      "Start small, assign an owner and build human intervention into the design.",
+    ],
+    categoryLabel: "AI Fundamentals",
+    categoryKey: "ai-fundamentals",
+    categoryId: "ai-fundamentals",
+    categoryOrder: 17,
+    displayDate: "11 August 2026",
+    publishedIsoDate: "2026-08-11T17:09:25.011Z",
+    updatedIsoDate: "2026-08-11T17:09:25.011Z",
+    readTime: "7 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/what-is-ai-automation-guide-hero.webp",
+    heroImageAlt:
+      "Photoreal near-future AI workflow core with luminous optical processing channels in a dark architectural setting.",
+    metaTitle: "What Is AI Automation? A Guide for Business Owners",
+    metaDescription:
+      "Understand AI automation, how it differs from standard automation, where it fits and how UK business owners can introduce it with practical human controls.",
+    primaryKeyword: "what is ai automation",
+    secondaryKeywords: [
+      "AI automation for business",
+      "workflow automation",
+      "AI governance",
+      "human in the loop",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "AI automation is the use of AI within a workflow to interpret information, make bounded judgements or generate a useful next action before systems carry out routine steps. For a business owner, its value is usually {{accent:less manual handling at repeatable decision points}}, not automation for its own sake.",
+          "Unlike fixed-rule automation, it can work with less structured inputs such as emails, calls, documents and customer enquiries. That flexibility also makes **clear guardrails, testing and human ownership** essential before a workflow reaches customers, staff records or commercially important decisions.",
+          "This guide uses the UK as its primary commercial and regulatory lens. Silverstone AI is UK-based and serves UK and international clients; the practical principles here generalise internationally, while sector rules, contracts and data obligations should always be checked locally.",
+        ],
+      },
+      {
+        heading: "What AI automation means in a business context",
+        body: [
+          "A conventional workflow follows a prewritten path: if a form field equals a value, send an email or create a task. AI automation adds an interpretation layer. It may classify an enquiry, extract details from a document, draft a response or route work according to context. The resulting action should still be constrained by **approved business rules**.",
+          "The direct answer is simple: use it where people repeatedly read, sort, summarise or prepare information before completing a predictable process. Guidance on AI-enabled business transformation points to high-volume, repetitive work and data governance as sensible starting considerations. ==The aim is a more reliable operating flow, not a replacement for accountable management.==",
+          "A useful boundary is {{underline:AI proposes or interprets; the workflow executes within permission}}. For critical outcomes, a person should be able to *review, override or stop* the process.",
+        ],
+        sectionNumber: "01",
+        lede:
+          "Think of AI automation as a workflow that can understand a variable input, then take a defined next step.",
+        leadStyle: "lead",
+        variant: "signal",
+        callout: {
+          body: [
+            "**AI automation combines machine interpretation with workflow execution.** It is most useful when inputs vary but the acceptable actions, escalation route and owner can be defined in advance.",
+          ],
+          tone: "answer",
+          title: "Business-owner definition",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Workflow",
+              definition:
+                "The sequence of triggers, decisions, actions and hand-offs that moves work from start to finish.",
+            },
+            {
+              term: "Rule-based automation",
+              definition:
+                "A workflow that acts on explicit conditions and fixed logic.",
+            },
+            {
+              term: "AI automation",
+              definition:
+                "A workflow using AI to interpret or generate part of the process before a bounded action or escalation.",
+            },
+            {
+              term: "Human in the loop",
+              definition:
+                "A named person reviews, approves, overrides or intervenes at an appropriate point.",
+            },
+          ],
+          title: "Four terms worth separating",
+        },
+      },
+      {
+        heading: "How AI automation differs from standard automation",
+        body: [
+          "Standard automation is usually the better fit when every input is structured and every route is known. AI becomes relevant when the process begins with natural language, inconsistent documents or a judgement that can be safely bounded. *It is not automatically the better technology simply because AI is available.*",
+          "For example, a rule can move a completed web form into a CRM. An AI-assisted step may first identify whether a free-text enquiry is a sales lead, support request or supplier message, then send it to the appropriate queue. In both cases, **the process owner remains responsible for the outcome**.",
+        ],
+        sectionNumber: "02",
+        lede: "The difference is not magic; it is how the workflow handles ambiguity.",
+        leadStyle: "drop-cap",
+        variant: "system",
+        bullets: [
+          {
+            body:
+              "Keep deterministic checks for permissions, required fields, thresholds and final routing.",
+            label: "Use rules first",
+          },
+          {
+            body:
+              "Specify the input, allowed output, confidence or exception route, and what it must never decide.",
+            label: "Bound the AI task",
+          },
+          {
+            body:
+              "Give ambiguous, incomplete or sensitive items a human queue rather than forcing a result.",
+            label: "Design for exceptions",
+          },
+        ],
+        versusCard: {
+          left: {
+            title: "Standard automation",
+            body:
+              "Best where data is consistent and the decision path can be written exactly.",
+            label: "Fixed conditions",
+            points: [
+              "Predictable inputs",
+              "Explicit if/then rules",
+              "Straightforward exception handling",
+            ],
+          },
+          right: {
+            title: "AI automation",
+            body:
+              "Best where a workflow must understand variable language or content before acting.",
+            label: "Bounded interpretation",
+            points: [
+              "Unstructured inputs",
+              "Classification or extraction",
+              "Review route for uncertainty",
+            ],
+          },
+          eyebrow: "Choose the smallest reliable mechanism",
+          verdict:
+            "**Start with standard automation where it is sufficient; add AI only at the interpretation bottleneck.**",
+        },
+      },
+      {
+        heading: "The main components of an AI automation workflow",
+        body: [
+          "The most useful design question is not “Which AI should we use?” but “Where does a reliable hand-off fail today?” Map the current journey before changing it. [Silverstone AI](/services/ai-automation) publishes information about bespoke AI workflow and automation delivery for organisations considering a supported implementation.",
+          "Use this five-part frame to turn an idea into a testable design. {{chip:idea|Working idea}} Keep each component visible to the person who owns the workflow, rather than hiding the logic inside a technical build.",
+        ],
+        sectionNumber: "03",
+        lede:
+          "A dependable workflow is a small operating system: input, interpretation, action, control and learning.",
+        leadStyle: "lead",
+        variant: "operator",
+        grid: [
+          {
+            body:
+              "A new enquiry, document, call summary, record change or scheduled event begins the flow.",
+            title: "1. Trigger",
+          },
+          {
+            body:
+              "Approved data gives the workflow enough information to interpret the item safely.",
+            title: "2. Context",
+          },
+          {
+            body:
+              "A narrow instruction classifies, extracts, summarises or drafts within a defined scope.",
+            title: "3. AI task",
+          },
+          {
+            body:
+              "The workflow creates a task, updates a record, prepares a message or routes an item.",
+            title: "4. Action",
+          },
+          {
+            body:
+              "Logs, review, correction and escalation show whether the workflow remains useful.",
+            title: "5. Control loop",
+          },
+        ],
+        steps: [
+          {
+            body:
+              "Capture the trigger, systems touched, decisions made and current manual effort.",
+            title: "Map one real journey",
+            label: "Step 1",
+          },
+          {
+            body:
+              "Define exactly what the workflow may do without review and what requires approval.",
+            title: "Set the permitted action",
+            label: "Step 2",
+          },
+          {
+            body:
+              "Use incomplete, unusual and sensitive examples before releasing the workflow.",
+            title: "Test edge cases",
+            label: "Step 3",
+          },
+          {
+            body: "Give one role responsibility for quality, exceptions and changes.",
+            title: "Assign an accountable owner",
+            label: "Step 4",
+          },
+        ],
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "Where AI automation tends to help most",
+        body: [
+          "Useful early examples include:",
+          "- **Enquiry triage:** classify incoming requests and prepare the right team’s next task.\n- **Document intake:** extract agreed fields for staff verification rather than rekeying.\n- **Follow-up preparation:** draft a contextual response or reminder for approval.\n- **Knowledge routing:** direct a question to the maintained source or accountable specialist.",
+          "For a focused discovery discussion, [arrange a conversation](/book#booking-calendar). If the issue is broader operating design rather than a single process, [AI consulting](/services/ai-consulting) may be the more appropriate starting point.",
+        ],
+        sectionNumber: "04",
+        leadStyle: "drop-cap",
+        variant: "signal",
+        checklist: {
+          items: [
+            {
+              label: "One workflow owner",
+              detail: "Name the person who can approve changes and resolve exceptions.",
+            },
+            {
+              label: "Known baseline",
+              detail:
+                "Record the current process and a useful quality or time measure.",
+            },
+            {
+              label: "Safe fallback",
+              detail:
+                "Make manual handling available whenever the workflow is uncertain.",
+            },
+            {
+              label: "Limited scope",
+              detail: "Pilot one team, process or request type before expanding.",
+            },
+          ],
+          title: "A sensible first-pilot checklist",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Volume",
+              value: "Repeated",
+              note: "Does the task recur often enough to learn from?",
+            },
+            {
+              label: "Input",
+              value: "Variable",
+              note:
+                "Does the work begin with text, documents or other inconsistent information?",
+            },
+            {
+              label: "Action",
+              value: "Bounded",
+              note: "Can permitted actions and escalation be written down?",
+            },
+            {
+              label: "Review",
+              value: "Practical",
+              note: "Can a person sample, approve or correct outcomes?",
+            },
+          ],
+          title: "Candidate-screening questions",
+        },
+      },
+      {
+        heading: "Common risks, limits and human-control requirements",
+        body: [
+          "AI can produce an unsuitable interpretation, rely on poor source data or create overconfidence when its output looks fluent. Governance guidance stresses that human involvement should be defined for critical decisions, and that people with oversight need the authority to intervene. ==Human oversight is a design feature, not a last-minute sign-off.==",
+          "For UK businesses, this is general operational guidance, not legal advice. The supplied material describes a context-specific UK approach with sector guidance, while the EU AI Act summary is European context rather than a statement of UK law. **Check obligations with the relevant adviser or regulator for your sector and data use.**",
+        ],
+        sectionNumber: "05",
+        lede: "Automation should make responsibility clearer, not harder to find.",
+        leadStyle: "lead",
+        variant: "system",
+        comparisonTable: {
+          columns: ["Practical question", "Safer design response"],
+          rows: [
+            {
+              cells: [
+                "Is the source current and appropriate?",
+                "Use approved sources and a correction route.",
+              ],
+              label: "Data quality",
+            },
+            {
+              cells: [
+                "What may the workflow do alone?",
+                "Limit actions and require approval beyond the boundary.",
+              ],
+              label: "Authority",
+            },
+            {
+              cells: ["Who can override or stop it?", "Assign a trained, empowered owner."],
+              label: "Oversight",
+            },
+            {
+              cells: [
+                "Do affected teams understand the change?",
+                "Involve operational, security and people stakeholders.",
+              ],
+              label: "Employee impact",
+            },
+          ],
+          rowHeader: "Control area",
+        },
+        callout: {
+          body: [
+            "Before launch, decide who can pause the workflow, who reviews exceptions, what evidence is retained and when an output must be escalated. {{chip:warning|Control point}} A workflow without an intervention route is not ready for consequential use.",
+          ],
+          tone: "caution",
+          title: "Do not automate the accountability gap",
+        },
+      },
+      {
+        heading: "How to assess whether a workflow is a good candidate",
+        body: [
+          "Use a short decision route before buying software or commissioning a build. The strongest candidate is usually a narrow workflow with a known owner, measurable friction and a safe fallback. **A pilot should prove operational fit before it attempts scale.**",
+          "1. Describe the existing workflow in one sentence.\n2. Identify the repeated interpretation step.\n3. State the permitted action and prohibited action.\n4. Define the human review point.\n5. Test representative exceptions.\n6. Decide whether the result is worth extending.",
+          "This creates a workable {{accent:from-process-map-to-controlled-pilot}} path. A *small, controlled pilot* is usually more useful than a broad first deployment. Review [how Silverstone AI works](/how-we-work) when implementation support is relevant, and consult [pricing](/pricing) only when you need indicative service information for planning.",
+          "Related articles:\n- [Bespoke AI automation](/blog/bespoke-ai-automation)\n- [Human approval to an AI agent](/blog/human-approval-to-an-ai-agent)",
+        ],
+        sectionNumber: "06",
+        leadStyle: "drop-cap",
+        variant: "operator",
+        scorecard: {
+          options: ["Good pilot candidate", "Needs redesign first"],
+          rows: [
+            {
+              cells: ["Frequent, recognisable task", "Rare or highly bespoke task"],
+              criterion: "Repeated volume",
+              weight: "High",
+            },
+            {
+              cells: [
+                "Actions and escalation are explicit",
+                "Authority is unclear or changes constantly",
+              ],
+              criterion: "Decision boundary",
+              weight: "High",
+            },
+            {
+              cells: [
+                "A named owner can check exceptions",
+                "Nobody owns quality or intervention",
+              ],
+              criterion: "Human review",
+              weight: "High",
+            },
+            {
+              cells: [
+                "Approved, maintained inputs exist",
+                "Information is fragmented or unreliable",
+              ],
+              criterion: "Source quality",
+              weight: "Medium",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "**Choose one contained workflow, define its control points and test it with real exceptions.** If the process is not yet stable enough to describe, improve the process first; automation will not repair unclear ownership.",
+          ],
+          tone: "recommendation",
+          title: "Make the next move small",
+        },
+        keyTakeaways: {
+          items: [
+            "**AI automation adds interpretation to workflow execution.**",
+            "Rules remain valuable for permissions, thresholds and predictable checks.",
+            "Start where work is repetitive, inputs vary and correction is practical.",
+            "Keep a human able to review, override or stop consequential workflows.",
+            "Use a pilot to test process fit, not to promise a guaranteed return.",
+          ],
+          title: "What to remember",
+        },
+      },
+    ],
+    faqs: [
+      {
+        answer:
+          "Not necessarily. AI automation describes a workflow using AI for an interpretation or generation step. An AI agent may be one way to perform work within a workflow, but the business still needs defined permissions, controls and ownership.",
+        question: "Is AI automation the same as an AI agent?",
+      },
+      {
+        answer:
+          "It can, provided the first use case is contained. Choose repeated work with a clear owner, approved information, a reversible action and a practical human review route. Begin with the process problem rather than a preferred tool.",
+        question: "Should a small business start with AI automation?",
+      },
+      {
+        answer:
+          "The appropriate boundary depends on the business and sector. As a general principle, consequential decisions, uncertain cases and actions outside agreed authority should have defined human oversight and an escalation route.",
+        question: "What should never be left entirely to an automated workflow?",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "Bespoke AI automation",
+        href: "/blog/bespoke-ai-automation",
+      },
+      {
+        label: "Human approval to an AI agent",
+        href: "/blog/human-approval-to-an-ai-agent",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Course: AI-Driven Business Transformation; Strategies and ...",
+        url: "https://academy.theartofservice.com/course/view.php?id=1503&guest=true",
+        domain: "academy.theartofservice.com",
+        summary:
+          "### United Kingdom: Principles-Based Approach with Sector Guidance The UK has adopted a context-specific, proportionate regulatory model. Instead of a single AI law, regulators such as the Information Commissioner’s Office (ICO), Financial Conduct Authority (FCA), and Health and Care Professions Council (HCPC) are issuing sector-specific guidance. [...] + Start with High-Volume, Repetitive Tasks: Prioritize use cases where AI can immediately reduce workload, such as password resets, balance inquiries, or tracking updates. Quick wins build stakeholder confidence and fund larger initiatives. + Invest in Data Quality and Governance: AI models ar",
+        verifiedAt: "2026-08-11T17:05:39.847Z",
+        matchedTerms: ["automation", "context", "where", "risks", "human"],
+      },
+      {
+        title: "AI Governance Guide: Risks, ROI & Enterprise Strategy",
+        url:
+          "https://www.protiviti.com/us-en/research-guide/guide-ai-governance-frequently-asked-questions",
+        domain: "protiviti.com",
+        summary:
+          "Human oversight: Maintain human involvement (human-in-the-loop) in critical decision-making processes to ensure organizational values, ethical considerations and regulatory requirements are taken into account. Sustainability: Promote AI technologies that support the organization’s environmental, social and governance (ESG) initiatives, referencing such frameworks as the ones promulgated by the Carbon Disclosure Project and International Sustainability Standards Board. [...] _Overreliance on automation:_ Controls that rely heavily on AI may degrade if human oversight is not defined clearly. _Regulatory and compliance risk:_ Deployed AI systems",
+        verifiedAt: "2026-08-11T17:05:39.847Z",
+        matchedTerms: ["automation", "risks", "human", "control", "requirements"],
+      },
+      {
+        title: "AI Governance Framework: The Complete Enterprise Guide",
+        url:
+          "https://www.adaptivesecurity.com/blog/ai-governance-framework-enterprise-guide",
+        domain: "adaptivesecurity.com",
+        summary:
+          "Human oversight is the governance principle that a qualified human must remain capable of intervening in, overriding, or discontinuing an AI system's operation when it behaves unexpectedly or causes unintended harm. The EU AI Act makes this principle legally binding for high-risk systems through Article 14, which requires that oversight measures be built into the system by design and that humans assigned oversight responsibilities possess the necessary competence, training, and authority to carry out their role. [...] For mid-sized and large organizations, expect a 6- to 8-month rollout, with governance investment typically landing between 0.",
+        verifiedAt: "2026-08-11T17:05:39.847Z",
+        matchedTerms: ["what", "means", "most", "human", "control"],
+      },
+      {
+        title:
+          "What Is a Work Intelligence Platform? Benefits, Use Cases and Why Businesses Are Paying Attention - Insight Blog",
+        url: "https://agilityportal.io/blog/what-is-a-work-intelligence-platform",
+        domain: "agilityportal.io",
+        summary:
+          "The key point is that AI governance in the workplace needs shared ownership. IT can connect the systems, but HR needs to understand the employee impact. Security teams need to control access, knowledge owners need to maintain accurate information, and department managers need to decide where intelligent workflow automation genuinely makes sense. And employees need a voice too. If people don't understand what workplace data is being collected, how enterprise AI is using it or which decisions remain under human control, trust can disappear quickly. The best approach is therefore cross-functional: use technology to make work smarter, while keepi",
+        verifiedAt: "2026-08-11T17:05:39.847Z",
+        matchedTerms: ["what", "automation", "owners", "how", "workflow", "where", "common", "human"],
+      },
+      {
+        title: "High-level summary of the AI Act",
+        url: "https://artificialintelligenceact.eu/high-level-summary",
+        domain: "artificialintelligenceact.eu",
+        summary:
+          "#### Free, independent, and here to stay. Our goal is to build the most useful, authoritative, and comprehensive guide to the AI Act anywhere on the internet. We’ll never put this behind a paywall or use it to sell you a service. We do this because we think good AI governance matters, and that means making authoritative guidance genuinely accessible. If you want to help us out, please consider contributing a guest post to help others understand and navigate the Act, or send your ideas and feedback for the website to me (Taylor, Design & Web Manager) at: websites@futureoflife.org. To stay up-to-date, subscribe to our bi-weekly AI Act newslette",
+        verifiedAt: "2026-08-11T17:05:39.847Z",
+        matchedTerms: ["means", "help", "most", "human", "good"],
+      },
+      {
+        title:
+          "Of (AI) Machine and Human (Labour): An Integrated Nexus of Work Operating System Architecture for Orchestrating Human–AI Collaborations",
+        url:
+          "https://www.acigjournal.com/Of-AI-Machine-and-Human-Labour-An-Integrated-Nexus-of-Work-Operating-System-Architecture,217714,0,2.html",
+        domain: "acigjournal.com",
+        summary:
+          "unique capability in the agent ecosystem is acting as the immutable compliance backbone, ensuring that all agent and human actions are consistently captured, reconciled, and available for regulatory, financial, and governance needs, thereby giving enterprises the confidence to scale automation under full transparency and accountability. [...] In designing the UOMAMS layer, we emphasise the alignment between NOW OS and the major AI governance/compliance frameworks, including National Institute of Standards and Technology (NIST) AI risk management framework, European Union (EU) AI Act, and ISO 42001. Such alignments ensure NOW OS to achieve dat",
+        verifiedAt: "2026-08-11T17:05:39.847Z",
+        matchedTerms: ["automation", "human"],
+      },
+      {
+        title: "What is Current? | Fluke",
+        url: "https://www.fluke.com/en-gb/learn/blog/electrical/what-is-current",
+        domain: "fluke.com",
+        summary:
+          "Electrons flow through a conductor (typically a metal wire, usually copper) when two prerequisites of an electric circuit are met: 1. The circuit includes an energy source (a battery, for instance) that produces voltage. Without voltage, electrons move randomly and fairly evenly within a wire, and current cannot flow. Voltage creates pressure that drives electrons in a single direction. 2. The circuit forms a closed, conducting loop through which electrons can flow, providing energy to any device (a load) connected to the circuit. A circuit is closed (complete) when a switch is turned to the ON, or closed, position (see diagram at the top of",
+        verifiedAt: "2026-08-11T17:05:39.847Z",
+        matchedTerms: ["what", "how", "components", "most"],
+      },
+    ],
+    imagePrompt:
+      "1536x864 WebP, photoreal premium editorial product photography of a near-future AI automation engine integrated into a monumental contemporary British architectural interior: a central wafer-scale photonic compute core suspended within blackened steel and smoked optical glass, precision mechatronic routing arms directing glowing cyan optical fibres into several contained workflow channels, liquid-cooled gunmetal server modules recessed in deep shadow, subtle volumetric holographic flow sculptures with no text or interface labels. Near-black charcoal stone, gunmetal, blackened steel and smoked glass; lighting almost entirely from electric cyan #00e5ff as dominant hue, electric blue #38bdf8, violet #a78bfa, magenta-pink #ef86bb, mint #7fe9f0, with one restrained warm amber #ffb86c status glow. Low-key gallery-grade realism, physically plausible materials and engineering, central 9:16 crop-safe subject with generous dark negative space, no people, no robots, no readable text, no logos, no fake dashboards, no statistics, no network-node graphics, no daylight, no white room, no tabletop or office scene.",
+    ctaPrimary: {
+      label: "Discuss a bespoke workflow",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Step-by-Step Guide",
+      fingerprint: "Step-by-Step Guide|customer-question|6|implementation-playbook",
+    },
+  },
 // N8N_BLOG_POSTS_END
 ];
 
