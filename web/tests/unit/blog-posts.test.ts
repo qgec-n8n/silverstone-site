@@ -3,10 +3,91 @@ import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { PUBLISHED_BLOG_POSTS } from "~/data/blog-posts";
+import {
+  PUBLISHED_BLOG_POSTS,
+  type SilverstoneBlogRankedCard,
+  type SilverstoneBlogSection,
+} from "~/data/blog-posts";
 import { BLOG_HERO_IMAGE_HEIGHT, BLOG_HERO_IMAGE_WIDTH } from "~/routes/blog/article";
 
 describe("published blog slug policy", () => {
+  it("keeps the v2 editorial contract optional and additive", () => {
+    const legacyRankedCard: SilverstoneBlogRankedCard = {
+      name: "Existing provider",
+      rank: 1,
+      summary: "The original required fields remain sufficient.",
+    };
+    const editorialSection: SilverstoneBlogSection = {
+      heading: "Contract fixture",
+      body: ["A typed fixture exercises every additive field."],
+      sectionNumber: "02",
+      leadStyle: "drop-cap",
+      entityLinks: [
+        {
+          name: "Silverstone AI",
+          url: "https://silverstone-ai.com",
+          kind: "silverstone",
+        },
+      ],
+      keyTakeaways: { items: ["One explicit takeaway"] },
+      statBand: {
+        items: [{ label: "Time saved", value: "8 hours", tone: "time" }],
+      },
+      versusCard: {
+        left: { title: "Mapped", body: "The workflow is explicit." },
+        right: { title: "Unmapped", body: "The workflow stays implicit." },
+      },
+      definitions: {
+        items: [{ term: "Handoff", definition: "A transfer of work or context." }],
+      },
+      timeline: {
+        items: [{ title: "Discovery", body: "Map the current state." }],
+      },
+      quoteCard: { quote: "Make the process legible.", attribution: "Operator" },
+    };
+
+    expect(legacyRankedCard.website).toBeUndefined();
+    expect(editorialSection.entityLinks?.[0]?.kind).toBe("silverstone");
+    expect(editorialSection.statBand?.items[0]?.tone).toBe("time");
+  });
+
+  it("keeps published post payloads free of opt-in v2 fields and inline markers", () => {
+    const sectionFields = [
+      "definitions",
+      "entityLinks",
+      "keyTakeaways",
+      "leadStyle",
+      "quoteCard",
+      "sectionNumber",
+      "statBand",
+      "timeline",
+      "versusCard",
+    ] as const;
+    const walkSections = (sections: SilverstoneBlogSection[]) => {
+      for (const section of sections) {
+        for (const field of sectionFields) {
+          expect(Object.hasOwn(section, field), `${section.heading}.${field}`).toBe(
+            false,
+          );
+        }
+        for (const card of section.rankedCards ?? []) {
+          expect(
+            Object.hasOwn(card, "website"),
+            `${section.heading}.${card.name}.website`,
+          ).toBe(false);
+        }
+        walkSections(section.subsections ?? []);
+      }
+    };
+
+    for (const post of PUBLISHED_BLOG_POSTS) {
+      walkSections(post.articleBody);
+      expect(JSON.stringify(post), post.slug).not.toMatch(
+        /(?<!=)==[^=]+==(?![=])|\{\{(?:underline|accent):[^{}]+\}\}|\{\{chip:(?:action|idea|proof|warning)\|[^{}|]+\}\}/,
+      );
+    }
+  });
+
   it("keeps every canonical slug concise, descriptive, unique, and asset-backed", () => {
     const slugs = PUBLISHED_BLOG_POSTS.map((post) => post.slug);
 

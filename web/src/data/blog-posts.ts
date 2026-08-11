@@ -61,6 +61,72 @@ export type SilverstoneBlogRankedCard = {
   score?: string;
   strengths?: string[];
   summary: string;
+  website?: string;
+};
+
+/** A deliberately placed entity action; the renderer never guesses from prose. */
+export type SilverstoneBlogEntityLink = {
+  kind?: "agency" | "platform" | "silverstone" | "source" | "tool";
+  name: string;
+  url: string;
+};
+
+/** Compact editorial recap for readers scanning a long section. */
+export type SilverstoneBlogKeyTakeaways = {
+  items: string[];
+  title?: string;
+};
+
+/** A visually dominant evidence band. Values are rendered verbatim. */
+export type SilverstoneBlogStatBand = {
+  items: {
+    detail?: string;
+    label: string;
+    tone?: "benchmark" | "cost" | "growth" | "time";
+    value: string;
+  }[];
+  title?: string;
+};
+
+export type SilverstoneBlogVersusSide = {
+  body: string;
+  label?: string;
+  points?: string[];
+  title: string;
+};
+
+/** Two explicitly contrasted positions, approaches or products. */
+export type SilverstoneBlogVersusCard = {
+  eyebrow?: string;
+  left: SilverstoneBlogVersusSide;
+  right: SilverstoneBlogVersusSide;
+  verdict?: string;
+};
+
+export type SilverstoneBlogDefinitionList = {
+  items: {
+    definition: string;
+    note?: string;
+    term: string;
+  }[];
+  title?: string;
+};
+
+/** A dated or phased sequence; use `steps` when labels are not time-based. */
+export type SilverstoneBlogTimeline = {
+  items: {
+    body: string;
+    label?: string;
+    title: string;
+  }[];
+  title?: string;
+};
+
+export type SilverstoneBlogQuoteCard = {
+  attribution: string;
+  quote: string;
+  role?: string;
+  url?: string;
 };
 
 /** A weighted criterion scored across the options named in `options`. */
@@ -129,17 +195,26 @@ export type SilverstoneBlogSection = {
   callout?: SilverstoneBlogCallout;
   checklist?: SilverstoneBlogChecklist;
   comparisonTable?: SilverstoneBlogTable;
+  definitions?: SilverstoneBlogDefinitionList;
+  entityLinks?: SilverstoneBlogEntityLink[];
   grid?: SilverstoneBlogGridItem[];
   heading: string;
+  keyTakeaways?: SilverstoneBlogKeyTakeaways;
+  leadStyle?: "drop-cap" | "lead";
   lede?: string;
   metricPanel?: SilverstoneBlogMetricPanel;
   promptBlocks?: SilverstoneBlogPromptBlock[];
   pullQuote?: string;
+  quoteCard?: SilverstoneBlogQuoteCard;
   rankedCards?: SilverstoneBlogRankedCard[];
   scorecard?: SilverstoneBlogScorecard;
+  sectionNumber?: string;
+  statBand?: SilverstoneBlogStatBand;
   steps?: SilverstoneBlogStep[];
   subsections?: SilverstoneBlogSection[];
+  timeline?: SilverstoneBlogTimeline;
   variant?: "operator" | "signal" | "system";
+  versusCard?: SilverstoneBlogVersusCard;
 };
 
 /**

@@ -13,7 +13,7 @@ import {
   type SilverstoneBlogSection,
 } from "~/data/blog-posts";
 import { MotionProvider } from "~/motion";
-import { ArticlePage } from "~/routes/templates/article-page";
+import { ArticlePage, sanitizeHref } from "~/routes/templates/article-page";
 
 function OpenRouteBody() {
   const { completeRouteOpening, dismissLoader, openRouteBody } = useAppExperience();
@@ -115,6 +115,13 @@ describe("search-led presentation blocks", () => {
       ".ss-blog-article__prompts",
       ".ss-blog-article__checklist",
       ".ss-blog-article__steps",
+      ".ss-blog-article__takeaways",
+      ".ss-blog-article__stat-band",
+      ".ss-blog-article__versus",
+      ".ss-blog-article__definitions",
+      ".ss-blog-article__timeline",
+      ".ss-blog-article__quote-card",
+      ".ss-blog-article__entities",
     ]) {
       expect(container.querySelector(selector), selector).toBeNull();
     }
@@ -155,6 +162,15 @@ describe("search-led presentation blocks", () => {
         expect(section.checklist, post.slug).toBeUndefined();
         expect(section.metricPanel, post.slug).toBeUndefined();
         expect(section.callout, post.slug).toBeUndefined();
+        expect(section.keyTakeaways, post.slug).toBeUndefined();
+        expect(section.statBand, post.slug).toBeUndefined();
+        expect(section.versusCard, post.slug).toBeUndefined();
+        expect(section.definitions, post.slug).toBeUndefined();
+        expect(section.timeline, post.slug).toBeUndefined();
+        expect(section.quoteCard, post.slug).toBeUndefined();
+        expect(section.entityLinks, post.slug).toBeUndefined();
+        expect(section.sectionNumber, post.slug).toBeUndefined();
+        expect(section.leadStyle, post.slug).toBeUndefined();
       }
     }
   });
@@ -305,6 +321,16 @@ describe("search-led presentation blocks", () => {
           steps: [{ title: "", body: "" }],
           metricPanel: { items: [{ label: "", value: "" }] },
           callout: { tone: "caution", body: ["   "] },
+          keyTakeaways: { items: ["   "] },
+          statBand: { items: [{ label: "", value: "" }] },
+          versusCard: {
+            left: { title: "", body: "" },
+            right: { title: "", body: "" },
+          },
+          definitions: { items: [{ term: "", definition: "" }] },
+          timeline: { items: [{ title: "", body: "" }] },
+          quoteCard: { quote: "", attribution: "" },
+          entityLinks: [{ name: "Unsafe", url: "javascript:alert(1)" }],
           // Fewer than two options can never be a comparison.
           scorecard: {
             options: ["Only one"],
@@ -328,6 +354,13 @@ describe("search-led presentation blocks", () => {
       ".ss-blog-article__metrics",
       ".ss-blog-article__callout",
       ".ss-blog-article__table--scorecard",
+      ".ss-blog-article__takeaways",
+      ".ss-blog-article__stat-band",
+      ".ss-blog-article__versus",
+      ".ss-blog-article__definitions",
+      ".ss-blog-article__timeline",
+      ".ss-blog-article__quote-card",
+      ".ss-blog-article__entities",
     ]) {
       expect(container.querySelector(selector), selector).toBeNull();
     }
@@ -424,5 +457,308 @@ describe("search-led presentation blocks", () => {
       expect(level - previous).toBeLessThanOrEqual(1);
       previous = level;
     }
+  });
+
+  it("allows only relative or HTTPS destinations and classifies Silverstone as internal", () => {
+    expect(sanitizeHref("/services/ai-automation?from=blog#scope")).toEqual({
+      external: false,
+      href: "/services/ai-automation?from=blog#scope",
+    });
+    expect(
+      sanitizeHref("https://www.silverstone-ai.com/services/websites?from=blog#work"),
+    ).toEqual({
+      external: false,
+      href: "/services/websites?from=blog#work",
+    });
+    expect(sanitizeHref("https://example.com/reference")).toMatchObject({
+      external: true,
+      hostname: "example.com",
+    });
+
+    for (const unsafe of [
+      "javascript:alert(1)",
+      "data:text/html,unsafe",
+      "http://example.com",
+      "mailto:hello@example.com",
+      "//example.com/path",
+      "/\\example.com/path",
+    ]) {
+      expect(sanitizeHref(unsafe), unsafe).toBeNull();
+    }
+  });
+
+  it("renders third-party links with nofollow but never applies it to Silverstone links", async () => {
+    const post = baselinePost({
+      articleBody: [
+        {
+          heading: "Introduction",
+          body: [
+            'Read [the external research](https://example.com/research), [our service](https://silverstone-ai.com/services/ai-automation), [a relative page](/contact), [unsafe script](javascript:alert(1)) and <a href="data:text/html,unsafe">unsafe data</a>.',
+          ],
+        },
+      ],
+    });
+
+    const { container } = renderArticle(post);
+
+    await waitFor(() => {
+      expect(container.querySelector(".ss-blog-article__external-link")).not.toBeNull();
+    });
+
+    const external = container.querySelector<HTMLAnchorElement>(
+      'a[href="https://example.com/research"]',
+    );
+    expect(external?.getAttribute("target")).toBe("_blank");
+    expect(external?.getAttribute("rel")).toBe("noopener noreferrer nofollow");
+    expect(external?.querySelector("svg")).not.toBeNull();
+
+    for (const href of ["/services/ai-automation", "/contact"]) {
+      const internal = container.querySelector<HTMLAnchorElement>(`a[href="${href}"]`);
+      expect(internal, href).not.toBeNull();
+      expect(internal?.hasAttribute("target"), href).toBe(false);
+      expect(internal?.hasAttribute("rel"), href).toBe(false);
+      expect(internal?.classList.contains("ss-blog-article__external-link"), href).toBe(
+        false,
+      );
+    }
+
+    expect(container.querySelectorAll(".ss-blog-article__section a").length).toBe(3);
+    expect(container.textContent).toContain("unsafe script");
+    expect(container.textContent).toContain("unsafe data");
+  });
+
+  it("renders ranked websites and declarative entity links as capped actions", async () => {
+    const repeatedEntity = {
+      kind: "tool" as const,
+      name: "Example Tool",
+      url: "https://tool.example/product",
+    };
+    const post = baselinePost({
+      articleBody: [
+        { heading: "Introduction", body: ["Opening."], entityLinks: [repeatedEntity] },
+        {
+          heading: "Named options",
+          body: ["The named entities are declared alongside this section."],
+          rankedCards: [
+            {
+              name: "External Provider",
+              rank: 2,
+              summary: "An external provider.",
+              website: "https://provider.example/platform",
+            },
+            {
+              name: "Silverstone AI",
+              rank: 1,
+              summary: "The internal option.",
+              website: "https://silverstone-ai.com/services/ai-automation",
+            },
+          ],
+          entityLinks: [
+            repeatedEntity,
+            repeatedEntity,
+            {
+              kind: "silverstone",
+              name: "Silverstone AI",
+              url: "https://silverstone-ai.com/contact",
+            },
+          ],
+        },
+        {
+          heading: "Repeated mention",
+          body: ["The same tool appears again."],
+          entityLinks: [repeatedEntity],
+        },
+      ],
+    });
+
+    const { container } = renderArticle(post);
+
+    await waitFor(() => {
+      expect(
+        container.querySelector(".ss-blog-article__ranked-website"),
+      ).not.toBeNull();
+    });
+
+    const provider = container.querySelector<HTMLAnchorElement>(
+      'a[href="https://provider.example/platform"]',
+    );
+    expect(provider?.textContent).toContain("Visit provider.example");
+    expect(provider?.getAttribute("rel")).toContain("nofollow");
+
+    const silverstoneWebsite = container.querySelector<HTMLAnchorElement>(
+      'a.ss-blog-article__ranked-website[href="/services/ai-automation"]',
+    );
+    expect(silverstoneWebsite).not.toBeNull();
+    expect(silverstoneWebsite?.hasAttribute("rel")).toBe(false);
+
+    expect(
+      [...container.querySelectorAll(".ss-blog-article__entities a")].filter((link) =>
+        link.textContent.includes("Example Tool"),
+      ).length,
+    ).toBe(2);
+    const internalEntity = container.querySelector<HTMLAnchorElement>(
+      '.ss-blog-article__entities a[href="/contact"]',
+    );
+    expect(internalEntity?.hasAttribute("rel")).toBe(false);
+  });
+
+  it("renders every inline marker without colliding with body list parsing", async () => {
+    const post = baselinePost({
+      articleBody: [
+        {
+          heading: "Introduction",
+          body: [
+            "==Highlighted evidence== starts a paragraph.",
+            "{{underline:Underlined phrase}} starts another paragraph.",
+            "{{accent:Semantic keyword}} has an accent.",
+            "{{chip:proof|Verified}} is a proof chip.",
+            "{{chip:warning|Caution}} is a warning chip.",
+            "Legacy **bold**, *italic* and `code` still render.",
+          ],
+        },
+      ],
+    });
+
+    const { container } = renderArticle(post);
+
+    await waitFor(() => {
+      expect(container.querySelector(".ss-rich-text__mark")).not.toBeNull();
+    });
+
+    expect(container.querySelector("mark")?.textContent).toBe("Highlighted evidence");
+    expect(container.querySelector("u")?.textContent).toBe("Underlined phrase");
+    expect(container.querySelector(".ss-rich-text__accent")?.textContent).toBe(
+      "Semantic keyword",
+    );
+    expect(container.querySelectorAll(".ss-rich-text__chip").length).toBe(2);
+    expect(
+      container.querySelector('.ss-rich-text__chip[data-kind="proof"] svg'),
+    ).not.toBeNull();
+    expect(
+      container.querySelector(".ss-blog-article__section strong")?.textContent,
+    ).toBe("bold");
+    expect(container.querySelector(".ss-blog-article__section em")?.textContent).toBe(
+      "italic",
+    );
+    expect(container.querySelector(".ss-blog-article__section code")?.textContent).toBe(
+      "code",
+    );
+    expect(container.querySelector(".ss-blog-article__list")).toBeNull();
+    for (const marker of [
+      ".ss-rich-text__mark",
+      ".ss-rich-text__underline",
+      ".ss-rich-text__accent",
+      ".ss-rich-text__chip",
+    ]) {
+      expect(container.querySelector(marker)?.closest("p"), marker).not.toBeNull();
+    }
+  });
+
+  it("renders the complete premium block vocabulary with its documented caps", async () => {
+    const post = baselinePost({
+      articleBody: [
+        { heading: "Introduction", body: ["Opening."] },
+        {
+          heading: "Premium editorial system",
+          sectionNumber: "02",
+          leadStyle: "drop-cap",
+          body: ["A visually distinct lead paragraph explains the system."],
+          keyTakeaways: {
+            title: "In brief",
+            items: Array.from(
+              { length: 8 },
+              (_, index) => `Takeaway ${String(index + 1)}`,
+            ),
+          },
+          statBand: {
+            title: "Evidence at a glance",
+            items: Array.from({ length: 5 }, (_, index) => ({
+              value: `${String(index + 1)}x`,
+              label: `Metric ${String(index + 1)}`,
+              detail: "Measured outcome",
+              tone: index === 1 ? ("cost" as const) : ("growth" as const),
+            })),
+          },
+          versusCard: {
+            eyebrow: "Operating choice",
+            left: {
+              label: "Pro",
+              title: "Build around the workflow",
+              body: "The operating model stays visible.",
+              points: ["Clear ownership", "Measured handoffs"],
+            },
+            right: {
+              label: "Con",
+              title: "Buy before mapping",
+              body: "Tool choice hides the process gap.",
+              points: ["Unclear ownership", "Duplicate systems"],
+            },
+            verdict: "Map the workflow before choosing the platform.",
+          },
+          definitions: {
+            title: "Working definitions",
+            items: Array.from({ length: 9 }, (_, index) => ({
+              term: `Term ${String(index + 1)}`,
+              definition: `Definition ${String(index + 1)}`,
+              note: "Editorial note",
+            })),
+          },
+          timeline: {
+            title: "Delivery sequence",
+            items: Array.from({ length: 9 }, (_, index) => ({
+              label: `Week ${String(index + 1)}`,
+              title: `Milestone ${String(index + 1)}`,
+              body: "A time-bound delivery milestone.",
+            })),
+          },
+          quoteCard: {
+            quote: "The workflow should be legible before it is automated.",
+            attribution: "Operations source",
+            role: "Independent research",
+            url: "https://source.example/research",
+          },
+        },
+      ],
+    });
+
+    const { container } = renderArticle(post);
+
+    await waitFor(() => {
+      expect(container.querySelector(".ss-blog-article__stat-band")).not.toBeNull();
+    });
+
+    const premiumSection = [
+      ...container.querySelectorAll(".ss-blog-article__section"),
+    ].find((section) => section.textContent.includes("Premium editorial system"));
+    expect(premiumSection?.getAttribute("data-lead-style")).toBe("drop-cap");
+    expect(
+      premiumSection?.querySelector(".ss-blog-article__section-heading > span")
+        ?.textContent,
+    ).toBe("02");
+    expect(premiumSection?.querySelector('p[data-lead="true"]')).not.toBeNull();
+    expect(
+      premiumSection?.querySelectorAll(".ss-blog-article__takeaways li").length,
+    ).toBe(7);
+    expect(
+      premiumSection?.querySelectorAll(".ss-blog-article__versus-grid article").length,
+    ).toBe(2);
+    expect(
+      premiumSection?.querySelectorAll(".ss-blog-article__definitions dl > div").length,
+    ).toBe(8);
+    expect(
+      premiumSection?.querySelectorAll(".ss-blog-article__timeline li").length,
+    ).toBe(8);
+    expect(
+      premiumSection?.querySelector(".ss-blog-article__quote-card figcaption")
+        ?.textContent,
+    ).toContain("Operations source");
+
+    const statBand = container.querySelector(".ss-blog-article__stat-band");
+    expect(statBand?.querySelectorAll("dl > div").length).toBe(4);
+    expect(statBand?.closest(".ss-blog-article__section")).toBeNull();
+    const quoteLink = premiumSection?.querySelector<HTMLAnchorElement>(
+      'a[href="https://source.example/research"]',
+    );
+    expect(quoteLink?.getAttribute("rel")).toBe("noopener noreferrer nofollow");
   });
 });

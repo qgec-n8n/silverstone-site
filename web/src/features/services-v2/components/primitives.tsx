@@ -31,7 +31,10 @@ import { Link } from "react-router";
 
 import {
   ArrowRight,
+  CheckCircle2Icon,
+  Sparkles,
   TriangleAlertIcon,
+  Zap,
   type LucideIcon,
 } from "~/components/icons/lucide";
 import { isRevealBypassActive } from "~/motion/reveal-bypass";
@@ -576,7 +579,9 @@ function ImageReveal({
 
 /**
  * Render approved inline copy with the small markdown subset used in the source
- * (`**bold**`, `*italic*`, `` `code` ``). No block-level markdown, no raw HTML.
+ * (`**bold**`, `*italic*`, `` `code` ``, `==mark==`,
+ * `{{underline:text}}`, `{{accent:text}}`, and `{{chip:kind|label}}`). No
+ * block-level markdown, nesting or raw HTML.
  * `*italic*` doubles as the site's established gradient-emphasis marker: CSS
  * scoped to hero titles, section headings and CTA titles (see
  * `.ss-srv2-hero__title em` and siblings) renders it as a colour sweep, while
@@ -585,7 +590,8 @@ function ImageReveal({
  */
 export function RichText({ text }: { text: string }): ReactNode {
   const nodes: ReactNode[] = [];
-  const pattern = /(\*\*[^*]+\*\*|(?<!\*)\*[^*]+\*(?!\*)|`[^`]+`)/g;
+  const pattern =
+    /(\*\*[^*]+\*\*|(?<!\*)\*[^*]+\*(?!\*)|`[^`]+`|(?<!=)==[^=]+==(?![=])|\{\{(?:underline|accent):[^{}]+\}\}|\{\{chip:(?:action|idea|proof|warning)\|[^{}|]+\}\})/g;
   let lastIndex = 0;
   let key = 0;
   let match: RegExpExecArray | null;
@@ -599,6 +605,40 @@ export function RichText({ text }: { text: string }): ReactNode {
       nodes.push(<strong key={key++}>{token.slice(2, -2)}</strong>);
     } else if (token.startsWith("`")) {
       nodes.push(<code key={key++}>{token.slice(1, -1)}</code>);
+    } else if (token.startsWith("==")) {
+      nodes.push(
+        <mark className="ss-rich-text__mark" key={key++}>
+          {token.slice(2, -2)}
+        </mark>,
+      );
+    } else if (token.startsWith("{{underline:")) {
+      nodes.push(
+        <u className="ss-rich-text__underline" key={key++}>
+          {token.slice(12, -2)}
+        </u>,
+      );
+    } else if (token.startsWith("{{accent:")) {
+      nodes.push(
+        <span className="ss-rich-text__accent" key={key++}>
+          {token.slice(9, -2)}
+        </span>,
+      );
+    } else if (token.startsWith("{{chip:")) {
+      const [kind = "idea", label = ""] = token.slice(7, -2).split("|", 2);
+      const ChipIcon =
+        kind === "proof"
+          ? CheckCircle2Icon
+          : kind === "action"
+            ? Zap
+            : kind === "warning"
+              ? TriangleAlertIcon
+              : Sparkles;
+      nodes.push(
+        <span className="ss-rich-text__chip" data-kind={kind} key={key++}>
+          <ChipIcon aria-hidden="true" />
+          {label}
+        </span>,
+      );
     } else {
       nodes.push(<em key={key++}>{token.slice(1, -1)}</em>);
     }

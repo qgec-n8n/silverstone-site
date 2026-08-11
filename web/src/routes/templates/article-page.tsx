@@ -46,15 +46,22 @@ import type {
   SilverstoneBlogBullet,
   SilverstoneBlogCallout,
   SilverstoneBlogChecklist,
+  SilverstoneBlogDefinitionList,
+  SilverstoneBlogEntityLink,
   SilverstoneBlogGridItem,
+  SilverstoneBlogKeyTakeaways,
   SilverstoneBlogMetricPanel,
   SilverstoneBlogPost,
   SilverstoneBlogPromptBlock,
+  SilverstoneBlogQuoteCard,
   SilverstoneBlogRankedCard,
   SilverstoneBlogScorecard,
   SilverstoneBlogSection,
+  SilverstoneBlogStatBand,
   SilverstoneBlogStep,
   SilverstoneBlogTable,
+  SilverstoneBlogTimeline,
+  SilverstoneBlogVersusCard,
 } from "~/data/blog-posts";
 import { getRelatedPosts } from "~/data/blog-related";
 import {
@@ -124,21 +131,85 @@ function emphasiseHeading(heading: string): string {
   return `${head} *${tail}*`;
 }
 
-function sanitizeHref(href: string): string | null {
-  if (href.startsWith("/")) {
-    return href;
+type SanitizedHref = {
+  external: boolean;
+  href: string;
+  hostname?: string;
+};
+
+function isSilverstoneHostname(hostname: string): boolean {
+  const normalized = hostname.toLowerCase().replace(/\.$/, "");
+  return (
+    normalized === "silverstone-ai.com" || normalized.endsWith(".silverstone-ai.com")
+  );
+}
+
+export function sanitizeHref(href: string): SanitizedHref | null {
+  const trimmed = href.trim();
+
+  if (/^\/(?![\\/])/.test(trimmed)) {
+    return { external: false, href: trimmed };
   }
 
   try {
-    const url = new URL(href);
-    if (url.hostname === "silverstone-ai.com") {
-      return `${url.pathname}${url.search}${url.hash}`;
+    const url = new URL(trimmed);
+    if (url.protocol !== "https:") {
+      return null;
     }
+    if (isSilverstoneHostname(url.hostname)) {
+      return {
+        external: false,
+        href: `${url.pathname}${url.search}${url.hash}`,
+      };
+    }
+    return {
+      external: true,
+      href: url.href,
+      hostname: url.hostname.replace(/^www\./i, ""),
+    };
   } catch {
     return null;
   }
+}
 
-  return null;
+function ArticleLink({
+  children,
+  className,
+  href,
+}: {
+  children: ReactNode;
+  className?: string;
+  href: string;
+}) {
+  const destination = sanitizeHref(href);
+
+  if (!destination) {
+    return null;
+  }
+
+  if (destination.external) {
+    return (
+      <a
+        className={
+          className
+            ? `${className} ss-blog-article__external-link`
+            : "ss-blog-article__external-link"
+        }
+        href={destination.href}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+      >
+        <span>{children}</span>
+        <ArrowUpRight aria-hidden="true" />
+      </a>
+    );
+  }
+
+  return (
+    <Link className={className} to={destination.href}>
+      {children}
+    </Link>
+  );
 }
 
 function ArticleRichText({ text }: { text: string }) {
@@ -165,9 +236,9 @@ function ArticleRichText({ text }: { text: string }) {
     const href = sanitizeHref(rawHref);
     if (href) {
       nodes.push(
-        <Link key={`link-${String(key++)}`} to={href}>
+        <ArticleLink href={rawHref} key={`link-${String(key++)}`}>
           <RichText text={label} />
-        </Link>,
+        </ArticleLink>,
       );
     } else {
       nodes.push(<RichText key={`fallback-${String(key++)}`} text={label} />);
@@ -200,6 +271,328 @@ function ArticlePullQuote({ quote }: { quote?: string | undefined }) {
       </p>
     </blockquote>
   );
+}
+
+function ArticleKeyTakeaways({
+  block,
+}: {
+  block?: SilverstoneBlogKeyTakeaways | undefined;
+}) {
+  const items =
+    block?.items
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .slice(0, 7) ?? [];
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  return (
+    <aside className="ss-blog-article__takeaways" aria-label="Key takeaways">
+      <div className="ss-blog-article__takeaways-head">
+        <CheckCircle2Icon aria-hidden="true" />
+        <strong>{block?.title?.trim() || "Key takeaways"}</strong>
+      </div>
+      <ul>
+        {items.map((item, index) => (
+          <li key={`${item}-${String(index)}`}>
+            <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <ArticleRichText text={item} />
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+}
+
+function ArticleStatBand({ band }: { band?: SilverstoneBlogStatBand | undefined }) {
+  const items =
+    band?.items.filter((item) => item.label.trim() && item.value.trim()).slice(0, 4) ??
+    [];
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  return (
+    <aside className="ss-blog-article__wide-block ss-blog-article__stat-band ss-blog-article__neon-border">
+      {band?.title?.trim() ? (
+        <strong className="ss-blog-article__stat-band-title">
+          <TrendingUp aria-hidden="true" />
+          {band.title.trim()}
+        </strong>
+      ) : null}
+      <dl>
+        {items.map((item, index) => (
+          <div
+            data-tone={item.tone ?? "benchmark"}
+            key={`${item.label}-${String(index)}`}
+          >
+            <dd>
+              <ArticleRichText text={item.value.trim()} />
+            </dd>
+            <dt>{item.label.trim()}</dt>
+            {item.detail?.trim() ? (
+              <p>
+                <ArticleRichText text={item.detail.trim()} />
+              </p>
+            ) : null}
+          </div>
+        ))}
+      </dl>
+    </aside>
+  );
+}
+
+function ArticleVersusCard({
+  card,
+  headingLevel,
+}: {
+  card?: SilverstoneBlogVersusCard | undefined;
+  headingLevel: 3 | 4;
+}) {
+  if (
+    !card ||
+    !card.left.title.trim() ||
+    !card.left.body.trim() ||
+    !card.right.title.trim() ||
+    !card.right.body.trim()
+  ) {
+    return null;
+  }
+
+  const Heading = headingLevel === 3 ? "h3" : "h4";
+  const sides = [
+    { key: "left", side: card.left, tone: "consider" },
+    { key: "right", side: card.right, tone: "prefer" },
+  ] as const;
+
+  return (
+    <div className="ss-blog-article__versus">
+      {card.eyebrow?.trim() ? (
+        <span className="ss-blog-article__versus-eyebrow">
+          <Layers aria-hidden="true" />
+          {card.eyebrow.trim()}
+        </span>
+      ) : null}
+      <div className="ss-blog-article__versus-grid">
+        {sides.map(({ key, side, tone }) => (
+          <article data-tone={tone} key={key}>
+            {side.label?.trim() ? <span>{side.label.trim()}</span> : null}
+            <Heading>
+              <ArticleRichText text={side.title.trim()} />
+            </Heading>
+            <p>
+              <ArticleRichText text={side.body.trim()} />
+            </p>
+            {side.points?.some((point) => point.trim()) ? (
+              <ul>
+                {side.points
+                  .filter((point) => point.trim())
+                  .slice(0, 4)
+                  .map((point, index) => (
+                    <li key={`${point}-${String(index)}`}>
+                      <Check aria-hidden="true" />
+                      <ArticleRichText text={point.trim()} />
+                    </li>
+                  ))}
+              </ul>
+            ) : null}
+          </article>
+        ))}
+      </div>
+      {card.verdict?.trim() ? (
+        <p className="ss-blog-article__versus-verdict">
+          <strong>Verdict</strong>
+          <ArticleRichText text={card.verdict.trim()} />
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function ArticleDefinitions({
+  list,
+}: {
+  list?: SilverstoneBlogDefinitionList | undefined;
+}) {
+  const items =
+    list?.items
+      .filter((item) => item.term.trim() && item.definition.trim())
+      .slice(0, 8) ?? [];
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="ss-blog-article__definitions">
+      {list?.title?.trim() ? (
+        <strong className="ss-blog-article__definitions-title">
+          <FileText aria-hidden="true" />
+          {list.title.trim()}
+        </strong>
+      ) : null}
+      <dl>
+        {items.map((item, index) => (
+          <div key={`${item.term}-${String(index)}`}>
+            <dt>
+              <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <ArticleRichText text={item.term.trim()} />
+            </dt>
+            <dd>
+              <ArticleRichText text={item.definition.trim()} />
+              {item.note?.trim() ? (
+                <small>
+                  <ArticleRichText text={item.note.trim()} />
+                </small>
+              ) : null}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+function ArticleTimeline({
+  headingLevel,
+  timeline,
+}: {
+  headingLevel: 3 | 4;
+  timeline?: SilverstoneBlogTimeline | undefined;
+}) {
+  const items =
+    timeline?.items
+      .filter((item) => item.title.trim() && item.body.trim())
+      .slice(0, 8) ?? [];
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  const Heading = headingLevel === 3 ? "h3" : "h4";
+
+  return (
+    <div className="ss-blog-article__timeline">
+      {timeline?.title?.trim() ? (
+        <strong className="ss-blog-article__timeline-title">
+          <Workflow aria-hidden="true" />
+          {timeline.title.trim()}
+        </strong>
+      ) : null}
+      <ol>
+        {items.map((item, index) => (
+          <li key={`${item.title}-${String(index)}`}>
+            <span className="ss-blog-article__timeline-node" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              {item.label?.trim() ? <span>{item.label.trim()}</span> : null}
+              <Heading>
+                <ArticleRichText text={item.title.trim()} />
+              </Heading>
+              <p>
+                <ArticleRichText text={item.body.trim()} />
+              </p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+function ArticleQuoteCard({ card }: { card?: SilverstoneBlogQuoteCard | undefined }) {
+  if (!card?.quote.trim() || !card.attribution.trim()) {
+    return null;
+  }
+
+  const attributionUrl = card.url?.trim();
+  const attribution =
+    attributionUrl && sanitizeHref(attributionUrl) ? (
+      <ArticleLink href={attributionUrl}>{card.attribution.trim()}</ArticleLink>
+    ) : (
+      card.attribution.trim()
+    );
+
+  return (
+    <figure className="ss-blog-article__quote-card">
+      <Sparkles aria-hidden="true" />
+      <blockquote>
+        <ArticleRichText text={card.quote.trim()} />
+      </blockquote>
+      <figcaption>
+        <strong>{attribution}</strong>
+        {card.role?.trim() ? <span>{card.role.trim()}</span> : null}
+      </figcaption>
+    </figure>
+  );
+}
+
+function ArticleEntityLinks({
+  links,
+}: {
+  links?: SilverstoneBlogEntityLink[] | undefined;
+}) {
+  if (!links || links.length === 0) {
+    return null;
+  }
+
+  return (
+    <nav className="ss-blog-article__entities" aria-label="Referenced entities">
+      {links.map((link) => (
+        <ArticleLink
+          className="ss-blog-article__entity-button"
+          href={link.url}
+          key={`${link.name}-${link.url}`}
+        >
+          <span>
+            {link.kind ? <small>{link.kind}</small> : null}
+            {link.name}
+          </span>
+        </ArticleLink>
+      ))}
+    </nav>
+  );
+}
+
+function resolveArticleEntityLinks(
+  sections: readonly SilverstoneBlogSection[],
+): Map<SilverstoneBlogSection, SilverstoneBlogEntityLink[]> {
+  const resolved = new Map<SilverstoneBlogSection, SilverstoneBlogEntityLink[]>();
+  const articleCounts = new Map<string, number>();
+
+  const walk = (entries: readonly SilverstoneBlogSection[]) => {
+    for (const section of entries) {
+      const localNames = new Set<string>();
+      const usable: SilverstoneBlogEntityLink[] = [];
+      for (const entity of section.entityLinks ?? []) {
+        const name = entity.name.trim();
+        const key = name.toLocaleLowerCase("en-GB");
+        if (
+          usable.length >= 4 ||
+          !name ||
+          !sanitizeHref(entity.url) ||
+          localNames.has(key) ||
+          (articleCounts.get(key) ?? 0) >= 2
+        ) {
+          continue;
+        }
+        localNames.add(key);
+        articleCounts.set(key, (articleCounts.get(key) ?? 0) + 1);
+        usable.push({ ...entity, name });
+      }
+      if (usable.length > 0) {
+        resolved.set(section, usable);
+      }
+      walk(section.subsections ?? []);
+    }
+  };
+
+  walk(sections);
+  return resolved;
 }
 
 function ArticleBulletPanel({
@@ -489,55 +882,69 @@ function ArticleRankedCards({
 
   return (
     <ol className="ss-blog-article__ranked" aria-label="Ranked providers">
-      {usable.map((card, index) => (
-        <li
-          className="ss-blog-article__ranked-card"
-          data-lead={index === 0 ? "true" : undefined}
-          key={`${card.name}-${String(card.rank)}`}
-        >
-          <div className="ss-blog-article__ranked-head">
-            <span className="ss-blog-article__ranked-rank" aria-hidden="true">
-              {String(card.rank).padStart(2, "0")}
-            </span>
-            <Heading>
-              <ArticleRichText text={card.name} />
-            </Heading>
-            {card.score?.trim() ? (
-              <span className="ss-blog-article__ranked-score">{card.score.trim()}</span>
+      {usable.map((card, index) => {
+        const website = card.website?.trim() ? sanitizeHref(card.website.trim()) : null;
+
+        return (
+          <li
+            className="ss-blog-article__ranked-card"
+            data-lead={index === 0 ? "true" : undefined}
+            key={`${card.name}-${String(card.rank)}`}
+          >
+            <div className="ss-blog-article__ranked-head">
+              <span className="ss-blog-article__ranked-rank" aria-hidden="true">
+                {String(card.rank).padStart(2, "0")}
+              </span>
+              <Heading>
+                <ArticleRichText text={card.name} />
+              </Heading>
+              {card.score?.trim() ? (
+                <span className="ss-blog-article__ranked-score">
+                  {card.score.trim()}
+                </span>
+              ) : null}
+            </div>
+            <p>
+              <ArticleRichText text={card.summary} />
+            </p>
+            {card.strengths && card.strengths.length > 0 ? (
+              <ul>
+                {card.strengths
+                  .filter((entry) => entry.trim())
+                  .slice(0, 5)
+                  .map((entry, entryIndex) => (
+                    <li key={`strength-${String(entryIndex)}`}>
+                      <Check aria-hidden="true" />
+                      <span>
+                        <ArticleRichText text={entry} />
+                      </span>
+                    </li>
+                  ))}
+              </ul>
             ) : null}
-          </div>
-          <p>
-            <ArticleRichText text={card.summary} />
-          </p>
-          {card.strengths && card.strengths.length > 0 ? (
-            <ul>
-              {card.strengths
-                .filter((entry) => entry.trim())
-                .slice(0, 5)
-                .map((entry, entryIndex) => (
-                  <li key={`strength-${String(entryIndex)}`}>
-                    <Check aria-hidden="true" />
-                    <span>
-                      <ArticleRichText text={entry} />
-                    </span>
-                  </li>
-                ))}
-            </ul>
-          ) : null}
-          {card.bestFor?.trim() ? (
-            <p className="ss-blog-article__ranked-fit">
-              <span>Best for</span>
-              <ArticleRichText text={card.bestFor.trim()} />
-            </p>
-          ) : null}
-          {card.limitations?.trim() ? (
-            <p className="ss-blog-article__ranked-limit">
-              <span>Limitations</span>
-              <ArticleRichText text={card.limitations.trim()} />
-            </p>
-          ) : null}
-        </li>
-      ))}
+            {card.bestFor?.trim() ? (
+              <p className="ss-blog-article__ranked-fit">
+                <span>Best for</span>
+                <ArticleRichText text={card.bestFor.trim()} />
+              </p>
+            ) : null}
+            {card.limitations?.trim() ? (
+              <p className="ss-blog-article__ranked-limit">
+                <span>Limitations</span>
+                <ArticleRichText text={card.limitations.trim()} />
+              </p>
+            ) : null}
+            {website && card.website ? (
+              <ArticleLink
+                className="ss-blog-article__entity-button ss-blog-article__ranked-website"
+                href={card.website}
+              >
+                Visit {website.hostname ?? "site"}
+              </ArticleLink>
+            ) : null}
+          </li>
+        );
+      })}
     </ol>
   );
 }
@@ -763,10 +1170,12 @@ function ArticleLeadCallout({ section }: { section: SilverstoneBlogSection }) {
 }
 
 function ArticleSectionEnhancements({
+  entityLinks,
   headingLevel,
   section,
   includeTables = true,
 }: {
+  entityLinks?: SilverstoneBlogEntityLink[] | undefined;
   headingLevel: 3 | 4;
   section: SilverstoneBlogSection;
   /** Every table is hoisted out of the card by `ArticleSection` — subsection
@@ -777,13 +1186,18 @@ function ArticleSectionEnhancements({
 }) {
   return (
     <>
+      <ArticleKeyTakeaways block={section.keyTakeaways} />
       <ArticleMetricPanel panel={section.metricPanel} />
       <ArticlePullQuote quote={section.pullQuote} />
+      <ArticleQuoteCard card={section.quoteCard} />
       <ArticleBulletPanel items={section.bullets} />
       <ArticleRankedCards cards={section.rankedCards} headingLevel={headingLevel} />
       {includeTables ? <ArticleScorecard scorecard={section.scorecard} /> : null}
       <ArticlePromptBlocks blocks={section.promptBlocks} />
       <ArticleSteps headingLevel={headingLevel} steps={section.steps} />
+      <ArticleTimeline headingLevel={headingLevel} timeline={section.timeline} />
+      <ArticleVersusCard card={section.versusCard} headingLevel={headingLevel} />
+      <ArticleDefinitions list={section.definitions} />
       <ArticleGrid headingLevel={headingLevel} items={section.grid} />
       <ArticleChecklist checklist={section.checklist} />
       {section.callout?.tone === "answer" ? null : (
@@ -792,6 +1206,7 @@ function ArticleSectionEnhancements({
       {includeTables ? (
         <ArticleComparisonTable table={section.comparisonTable} />
       ) : null}
+      <ArticleEntityLinks links={entityLinks} />
     </>
   );
 }
@@ -976,9 +1391,11 @@ function ArticleBody({
 }
 
 function ArticleSection({
+  entityLinksBySection,
   section,
   sectionIndex,
 }: {
+  entityLinksBySection: Map<SilverstoneBlogSection, SilverstoneBlogEntityLink[]>;
   section: SilverstoneBlogSection;
   sectionIndex: number;
 }) {
@@ -992,12 +1409,22 @@ function ArticleSection({
         <section
           className="ss-blog-article__section"
           data-intro={isIntroduction ? "true" : undefined}
+          data-lead-style={section.leadStyle}
           data-variant={variant}
           aria-labelledby={headingId}
         >
-          <h2 id={headingId}>
-            <RichText text={emphasiseHeading(section.heading)} />
-          </h2>
+          {section.sectionNumber?.trim() ? (
+            <div className="ss-blog-article__section-heading">
+              <span>{section.sectionNumber.trim()}</span>
+              <h2 id={headingId}>
+                <RichText text={emphasiseHeading(section.heading)} />
+              </h2>
+            </div>
+          ) : (
+            <h2 id={headingId}>
+              <RichText text={emphasiseHeading(section.heading)} />
+            </h2>
+          )}
           {section.lede ? (
             <p className="ss-blog-article__lede">
               <ArticleRichText text={section.lede} />
@@ -1006,6 +1433,7 @@ function ArticleSection({
           <ArticleLeadCallout section={section} />
           <ArticleBody body={section.body} firstIsLead={!section.lede} />
           <ArticleSectionEnhancements
+            entityLinks={entityLinksBySection.get(section)}
             headingLevel={3}
             section={section}
             includeTables={false}
@@ -1013,14 +1441,28 @@ function ArticleSection({
           {section.subsections?.map((subsection, index) => (
             <div
               className="ss-blog-article__subsection"
+              data-lead-style={subsection.leadStyle}
               key={`${subsection.heading}-${String(index)}`}
             >
-              <h3>
-                <RichText text={subsection.heading} />
-              </h3>
+              {subsection.sectionNumber?.trim() ? (
+                <div className="ss-blog-article__section-heading ss-blog-article__section-heading--subsection">
+                  <span>{subsection.sectionNumber.trim()}</span>
+                  <h3>
+                    <RichText text={subsection.heading} />
+                  </h3>
+                </div>
+              ) : (
+                <h3>
+                  <RichText text={subsection.heading} />
+                </h3>
+              )}
               <ArticleLeadCallout section={subsection} />
-              <ArticleBody body={subsection.body} />
+              <ArticleBody
+                body={subsection.body}
+                firstIsLead={Boolean(subsection.leadStyle)}
+              />
               <ArticleSectionEnhancements
+                entityLinks={entityLinksBySection.get(subsection)}
                 headingLevel={4}
                 section={subsection}
                 includeTables={false}
@@ -1047,10 +1489,12 @@ function ArticleSection({
        */}
       <ArticleScorecard scorecard={section.scorecard} />
       <ArticleComparisonTable table={section.comparisonTable} />
+      <ArticleStatBand band={section.statBand} />
       {section.subsections?.map((subsection, index) => (
         <Fragment key={`tables-${subsection.heading}-${String(index)}`}>
           <ArticleScorecard scorecard={subsection.scorecard} />
           <ArticleComparisonTable table={subsection.comparisonTable} />
+          <ArticleStatBand band={subsection.statBand} />
         </Fragment>
       ))}
     </Reveal>
@@ -1161,6 +1605,7 @@ export function ArticlePage({ post }: ArticlePageProps) {
   const factStripRef = useRef<HTMLDivElement>(null);
   const [floatingReturnVisible, setFloatingReturnVisible] = useState(false);
   const relatedPosts = getRelatedPosts(post);
+  const entityLinksBySection = resolveArticleEntityLinks(post.articleBody);
 
   useEffect(() => {
     const factStrip = factStripRef.current;
@@ -1305,6 +1750,7 @@ export function ArticlePage({ post }: ArticlePageProps) {
             <div className="ss-blog-article__content">
               {post.articleBody.map((section, index) => (
                 <ArticleSection
+                  entityLinksBySection={entityLinksBySection}
                   key={`${section.heading}-${String(index)}`}
                   section={section}
                   sectionIndex={index}
