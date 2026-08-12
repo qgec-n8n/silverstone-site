@@ -26246,6 +26246,514 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Step-by-Step Guide|decision-moment|6|implementation-playbook",
     },
   },
+  {
+    slug: "how-to-write-better-ai-prompts",
+    title: "How to Write Better AI Prompts",
+    subtitle:
+      "A practical UK business field guide for clearer, safer and more reusable AI instructions",
+    summary: [
+      "Write prompts as compact operating briefs: task, reader, context, constraints and output.",
+      "Use the Brief–Build–Check framework to create reusable patterns with visible review points.",
+      "Test prompts on representative cases and retain human accountability for important outputs.",
+    ],
+    categoryLabel: "AI Models & Prompting",
+    categoryKey: "ai-models-prompting",
+    categoryId: "ai-models-prompting",
+    categoryOrder: 19,
+    displayDate: "12 August 2026",
+    publishedIsoDate: "2026-08-12T14:08:26.404Z",
+    updatedIsoDate: "2026-08-12T14:08:26.404Z",
+    readTime: "7 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/how-to-write-better-ai-prompts-hero.webp",
+    heroImageAlt:
+      "Photoreal futuristic AI compute core with luminous layered instruction structures in cyan and violet light",
+    metaTitle: "How to Write Better AI Prompts | UK Business Guide",
+    metaDescription:
+      "Learn how to write better AI prompts for business with a practical framework, reusable patterns, testing checks and UK-focused governance considerations.",
+    primaryKeyword: "how to write better ai prompts",
+    secondaryKeywords: [
+      "AI prompt writing for business",
+      "prompt engineering UK",
+      "business prompt template",
+      "how to improve AI prompts",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "Better AI prompts are not clever questions; they are **compact operating briefs**. State the job, audience, context, boundaries and required format, then test the result against a defined standard. That approach makes output more useful, reviewable and repeatable across business teams.",
+          "Silverstone AI is the publisher, is UK-based, and serves clients in the UK and internationally. For UK businesses, prompt design should sit alongside internal data, approval and risk practices; the clarity and testing principles in this guide generalise internationally.",
+        ],
+      },
+      {
+        heading: "What a better prompt is actually trying to achieve",
+        body: [
+          "The direct answer is simple: write prompts as if briefing a capable colleague who cannot see your context. **Specific instructions and relevant context** help steer output towards the intended task, while clear boundaries make it easier for a person to review what comes back.",
+          "A prompt should create a {{accent:repeatable decision path}}, not merely a one-off answer. The useful question is not “Did it sound convincing?” but “Can the right person verify, amend or reuse it?” [Harvard HUIT guidance](https://www.huit.harvard.edu/news/ai-prompts) and [ICAS guidance](https://www.icas.com/news-insights-events/news/ai-technology/writing-effective-ai-prompts) both support being specific about the request and its context.",
+          "For organisations deciding where prompt practice fits into a wider operating model, [AI consulting](/services/ai-consulting) can help connect task design, governance and implementation choices.",
+        ],
+        sectionNumber: "01",
+        lede: "A good prompt reduces ambiguity before the model starts generating.",
+        leadStyle: "lead",
+        callout: {
+          body: [
+            "A **better prompt** tells the AI what to do, for whom, with what inputs, within which limits, and in what output shape. It does not remove the need for human judgement.",
+          ],
+          tone: "answer",
+          title: "The working definition",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Role",
+              definition: "The perspective or expertise requested for the task.",
+            },
+            {
+              term: "Context",
+              definition: "The business situation, source material and intended use.",
+            },
+            {
+              term: "Constraint",
+              definition:
+                "A boundary on scope, length, evidence, tone or excluded content.",
+            },
+            {
+              term: "Evaluation rule",
+              definition: "The test used to decide whether an output is usable.",
+            },
+          ],
+          title: "Prompt terms worth standardising",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "Start with task, audience and output constraints",
+        body: [
+          "Begin with the business decision or deliverable. Then name the reader and the output format. **Audience, length and structure constraints** are practical controls: they reduce interpretation and give reviewers a visible standard. PMI specifically recommends specifying format, length, detail and audience.",
+          "Use this minimum brief before adding specialist detail:\n- Task: **Name the deliverable**, such as a client-email draft or risk summary.\n- Audience: State who will read it and their prior knowledge.\n- Context: Supply only the relevant facts, source text or assumptions.\n- Constraints: Set length, tone, format, exclusions and evidence requirements.\n- Review: Ask for uncertainties, missing inputs or items needing human confirmation.",
+        ],
+        sectionNumber: "02",
+        lede:
+          "The strongest improvements usually come from defining the brief, not adding more words.",
+        leadStyle: "drop-cap",
+        grid: [
+          {
+            body:
+              "Use an action and an outcome: summarise, compare, draft, classify or plan.",
+            title: "Task",
+          },
+          {
+            body: "Specify reader, knowledge level and decision they need to make.",
+            title: "Audience",
+          },
+          {
+            body:
+              "Provide the relevant material rather than assuming the system has it.",
+            title: "Inputs",
+          },
+          {
+            body:
+              "Request the exact shape: table, numbered actions, email or briefing.",
+            title: "Output",
+          },
+        ],
+        callout: {
+          body: [
+            "{{chip:warning|Constraint}} If a fact is not supplied, instruct the system to label it as an assumption or ask a question. *Do not treat plausible wording as verified evidence.*",
+          ],
+          tone: "assumption",
+          title: "Keep assumptions visible",
+        },
+      },
+      {
+        heading: "How to structure prompts for clarity and repeatability",
+        body: [
+          "Use the five-part **Brief–Build–Check framework** below for recurring work. It is an original working framework for this guide, built from the overlapping guidance on roles, context, direct instruction, examples and iterative refinement. ==It is a practical template, not a universal standard.==",
+          "For complex work, split the request into stages rather than asking for every decision at once. Birmingham City University guidance recommends *chaining* smaller prompts, while official UK guidance frames experimentation as an iterative activity.",
+        ],
+        sectionNumber: "03",
+        lede:
+          "A shared template turns individual prompting into a manageable team practice.",
+        leadStyle: "lead",
+        promptBlocks: [
+          {
+            label: "Copy-ready business prompt",
+            prompt:
+              "Act as a business analyst. Create a concise decision brief for a UK operations director using the source notes below. State the three main options, evidence available in the notes, assumptions, risks requiring human review and a recommendation. Use a five-row table followed by no more than five actions. If evidence is missing, say so rather than filling gaps.",
+            tone: "improved",
+          },
+        ],
+        steps: [
+          {
+            body: "State the role, task, intended reader and business context.",
+            title: "Brief",
+            label: "B",
+          },
+          {
+            body:
+              "Provide the source inputs, required output shape and explicit constraints.",
+            title: "Build",
+            label: "B",
+          },
+          {
+            body:
+              "Require gaps, assumptions and uncertainty to be surfaced for human review.",
+            title: "Check",
+            label: "C",
+          },
+          {
+            body:
+              "Save the approved pattern with its owner, use case and test example.",
+            title: "Reuse",
+            label: "R",
+          },
+        ],
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "Examples of prompt patterns businesses can reuse",
+        body: [
+          "Reusable patterns should be narrow enough to guide a task and flexible enough to accept current inputs. **Examples clarify format and style**, but they should never be mistaken for proof that an output is factually correct. ICAS and Birmingham City University both recommend roles, context and examples as useful prompt elements.",
+          "1. Start with one high-value, low-risk workflow.\n2. Define the approved input sources and the reviewer.\n3. Run the same test cases after each material change.\n4. Store the prompt, expected format and known limitations together.",
+        ],
+        sectionNumber: "04",
+        leadStyle: "drop-cap",
+        comparisonTable: {
+          columns: ["Use it for", "Prompt ingredients", "Human check"],
+          rows: [
+            {
+              cells: [
+                "Turning supplied notes into a decision summary",
+                "Reader, decision, sources, maximum length, table layout",
+                "Evidence and recommendation",
+              ],
+              label: "Executive brief",
+            },
+            {
+              cells: [
+                "Preparing a first version of routine communication",
+                "Recipient, tone, facts that may be used, prohibited claims",
+                "Accuracy, tone and commitments",
+              ],
+              label: "Client draft",
+            },
+            {
+              cells: [
+                "Mapping a process before automation",
+                "Current steps, exceptions, owners, desired output",
+                "Operational feasibility and data handling",
+              ],
+              label: "Workflow discovery",
+            },
+          ],
+          rowHeader: "Pattern",
+        },
+        versusCard: {
+          left: {
+            title: "One vague request",
+            body: "“Write a proposal for our service.”",
+            label: "Low control",
+            points: ["Unclear audience", "No source boundary", "No review standard"],
+          },
+          right: {
+            title: "A constrained operating brief",
+            body:
+              "“Draft a 300-word proposal from these approved notes for a procurement lead; identify missing evidence.”",
+            label: "Higher control",
+            points: ["Defined reader", "Defined inputs", "Visible uncertainty"],
+          },
+          eyebrow: "Prompt design choice",
+          verdict:
+            "**Choose the constrained brief** when the output will inform customers, operations or decisions.",
+        },
+      },
+      {
+        heading: "Common prompt failures and how to fix them",
+        body: [
+          "When an answer is generic, inconsistent or unusable, first inspect the instruction. **More detail is not automatically better**: relevant detail, a requested format and a clear test are more valuable than a long, unfocused prompt. Salesforce and Harvard HUIT both emphasise specificity and context.",
+          "Use this quick diagnosis before changing a workflow or tool. {{underline:Fix the missing instruction, then rerun the same test case.}} That isolates whether the improvement came from the prompt rather than from different input material.",
+        ],
+        sectionNumber: "05",
+        lede: "Most prompt problems are briefing problems disguised as model problems.",
+        leadStyle: "lead",
+        bullets: [
+          {
+            body: "Add the reader, decision and required output format.",
+            label: "Generic output",
+          },
+          {
+            body:
+              "Limit the response to supplied material and require missing evidence to be flagged.",
+            label: "Unsupported claims",
+          },
+          {
+            body: "Specify a tone with a short approved example.",
+            label: "Inconsistent tone",
+          },
+          {
+            body: "Set a word limit, section count or numbered output.",
+            label: "Overlong answer",
+          },
+          {
+            body: "Break the task into {{accent:smaller reviewable stages}}.",
+            label: "Complex task drift",
+          },
+        ],
+        checklist: {
+          items: [
+            {
+              label: "Purpose is explicit",
+              detail: "The task produces a named business deliverable.",
+            },
+            {
+              label: "Inputs are bounded",
+              detail: "The permitted source material is clear.",
+            },
+            {
+              label: "Output is reviewable",
+              detail: "Format and acceptance criteria are visible.",
+            },
+            {
+              label: "Human owner is named",
+              detail: "Someone can approve, amend or reject the result.",
+            },
+          ],
+          title: "Pre-use prompt check",
+        },
+        callout: {
+          body: [
+            "{{chip:warning|Review required}} Prompts can carry confidential or personal information. Follow your organisation’s approved data-handling rules and obtain appropriate advice for regulated, legal or high-impact decisions. This guide is general information, not legal advice.",
+          ],
+          tone: "caution",
+          title: "UK business caution",
+        },
+      },
+      {
+        heading: "How to test and improve prompts over time",
+        body: [
+          "Treat prompts used in business processes as working assets. **Test against representative cases**, record what changed and retain a human approval point where the output matters. AI.gov.uk recommends experimenting with prompts; that supports a measured cycle of trial, review and refinement rather than assuming a first draft is final.",
+          "A practical test compares outputs against the same brief. ==Consistency across a small set of realistic cases== is more useful than judging a single impressive response. *Model behaviour and product settings can change*, so review important prompt patterns when the workflow, source material or risk level changes.",
+          "For adjacent implementation reading, see the [AI automation consulting guide](/blog/ai-automation-consulting-guide) and the [workflow automation selection guide](/blog/workflow-automation-selection-guide). If a tested prompt will be connected to systems or processes, compare [AI automation options](/services/ai-automation) and [pricing](/pricing); review [how we work](/how-we-work) where delivery scope needs clarification.",
+        ],
+        sectionNumber: "06",
+        leadStyle: "drop-cap",
+        callout: {
+          body: [
+            "Choose one recurring, low-risk task this week and build a **reusable prompt card** around it. For a workflow-level prompt review, [book a conversation](/book#booking-calendar).",
+          ],
+          tone: "recommendation",
+          title: "Where to start",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Test cases",
+              value: "3–5",
+              note: "Representative scenarios, including an awkward edge case.",
+            },
+            {
+              label: "Pass rule",
+              value: "Defined",
+              note:
+                "For example: correct format, bounded claims and useful next action.",
+            },
+            {
+              label: "Owner",
+              value: "Named",
+              note: "The person accountable for approving changes.",
+            },
+            {
+              label: "Review trigger",
+              value: "Changed",
+              note: "Re-test when inputs, process or governance conditions change.",
+            },
+          ],
+          title: "A simple prompt test record",
+        },
+        keyTakeaways: {
+          items: [
+            "**Brief the task, audience, context and output** before asking for prose.",
+            "Use examples and constraints to make the expected result inspectable.",
+            "Split complex work into smaller steps with human review points.",
+            "Save approved prompts with test cases, ownership and limitations.",
+            "{{chip:action|Next step}} For a workflow-level prompt review, book a conversation.",
+          ],
+          title: "The practical verdict",
+        },
+      },
+    ],
+    faqs: [
+      {
+        answer:
+          "Long enough to specify the task, context, constraints and output shape. A concise, relevant brief is usually more useful than a long prompt containing unrelated detail.",
+        question: "How long should an AI prompt be?",
+      },
+      {
+        answer:
+          "No. A role is useful when it clarifies perspective, expertise, tone or audience. It should support the task rather than add decorative wording.",
+        question: "Should every prompt assign the AI a role?",
+      },
+      {
+        answer:
+          "No. Better prompting can request sources, surface uncertainty and constrain use of supplied material, but important outputs still need appropriate human checking.",
+        question: "Can a good prompt make AI output accurate?",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "workflow automation selection guide",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+      {
+        label: "AI automation consulting guide",
+        href: "/blog/ai-automation-consulting-guide",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Writing effective AI prompts - ICAS",
+        url:
+          "https://www.icas.com/news-insights-events/news/ai-technology/writing-effective-ai-prompts",
+        domain: "icas.com",
+        summary:
+          "A well-constructed prompt usually has a few key elements: Role: Tell the AI who it is by assigning it a role to play. + Why it matters: When the AI “knows” who it is supposed to be it can tailor the response appropriately. + Example: \"You are a tax advisor to UK owner managed businesses\" or “You are an insolvency practitioner in the UK specialising in personal insolvency.” Context: Set the scene. Tell the AI the context or what perspective to take. + Why it matters: Context guides the AI to produce an answer at the right level of detail and tone. [...] + Example: “I want to share with a client...” or “We are writing to clients to update them",
+        verifiedAt: "2026-08-12T14:04:40.135Z",
+        matchedTerms: ["how", "prompts", "what", "prompt", "constraints", "can", "common", "them"],
+      },
+      {
+        title: "Prompt Engineering for Professionals: Complete Guide",
+        url:
+          "https://growskills.store/stop-treating-chatgpt-like-google-why-your-business-prompts-are-failing",
+        domain: "growskills.store",
+        summary:
+          "### Role: Clearly Define Who AI Should Act As Start every prompt by assigning a role that matches the task you’re trying to complete. Rather than asking AI to simply “write a report,” specify the expertise you want it to apply, such as a UK GDPR Consultant, Financial Analyst, Marketing Strategist, HR Manager, or Project Manager. This immediately establishes the perspective from which the response should be written. ### Exact Task: Explain Exactly What You Need Don’t assume AI understands your intention. Clearly state what you want it to do. Be precise whether that’s summarising a report, drafting a client email, analysing business risks, revi",
+        verifiedAt: "2026-08-12T14:04:40.135Z",
+        matchedTerms: ["how", "write", "better", "prompts", "what", "prompt", "trying", "start"],
+      },
+      {
+        title: "Prompt Engineering for Business - The 2026 Practical Guide",
+        url: "https://www.gend.co/blog/prompt-engineering-for-business",
+        domain: "gend.co",
+        summary:
+          "Use when: Converting goals to a delivery plan. Prompt Role: Programme manager (PRINCE2/Agile). Task: Build a 90‑day plan for an AI rollout. Context: 50‑person UK retailer; SSO and data governance required. Content: 5 high‑level goals (paste). Constraints: Week‑by‑week; include owners, risks, and success metrics. Output: Markdown table + RAID log + weekly status template. Evaluation: Dependencies explicit; measurable milestones; risks mitigated. ## The Business Prompt Quality Rubric (BPQR) Score each criterion 0–2 (Poor / Adequate / Strong). Target ≥8/10; Mandatory criteria marked . [...] ### E) Self‑Critique → Improve Loop End prompts with: “",
+        verifiedAt: "2026-08-12T14:04:40.135Z",
+        matchedTerms: [
+          "prompts",
+          "prompt",
+          "task",
+          "audience",
+          "output",
+          "constraints",
+          "examples",
+          "patterns",
+        ],
+      },
+      {
+        title:
+          "Prompt engineering - Artificial Intelligence (AI) and the literature review process - Guides at Birmingham City University",
+        url: "https://libguides.bcu.ac.uk/generativeAI/prompt-engineering",
+        domain: "libguides.bcu.ac.uk",
+        summary:
+          "> Be clear & direct: Provide clear instructions and context to guide Claude's responses > Use examples: Include examples in your prompts to illustrate the desired output format or style > Give Claude a role: Prime Claude to inhabit a specific role (like that of an expert) in order to increase performance for your use case > Use XML tags: Incorporate XML tags to structure prompts and responses for greater clarity > Chain prompts: Divide complex tasks into smaller, manageable steps for better results > Let Claude think: Encourage step-by-step thinking to improve the quality of Claude's output > Prefill Claude's response: Start Claude's response",
+        verifiedAt: "2026-08-12T14:04:40.136Z",
+        matchedTerms: [
+          "better",
+          "prompts",
+          "prompt",
+          "start",
+          "output",
+          "structure",
+          "clarity",
+          "examples",
+        ],
+      },
+      {
+        title:
+          "20 Practical AI Prompts Every FP&A Professional Should Use | FP&A Trends",
+        url:
+          "https://fpa-trends.com/article/20-practical-ai-prompts-every-fpa-professional-should-use",
+        domain: "fpa-trends.com",
+        summary:
+          "Example: Industry Benchmarking Prompt: | | | What are typical SaaS metrics for Series B companies with ARR between $10M-$30M? Include: revenue growth rate, gross margin, net revenue retention, sales efficiency, and burn multiple. Cite sources - ideally from Bessemer, OpenView, or KeyBanc reports. | Example: Competitor Analysis Prompt: | | | Summarise the financial performance of [public competitor] over the last four quarters. Include revenue growth, margin trends, and any guidance commentary from earnings calls. Cite the source for each data point. | Example: Macroeconomic Context Prompt: | | | What are the current consensus forecasts for UK",
+        verifiedAt: "2026-08-12T14:04:40.136Z",
+        matchedTerms: ["how", "write", "prompts", "what", "prompt", "structure", "improve", "over"],
+      },
+      {
+        title: "Getting started with prompts for text-based Generative AI ...",
+        url: "https://www.huit.harvard.edu/news/ai-prompts",
+        domain: "huit.harvard.edu",
+        summary:
+          "### Be specific Generic prompts like “Write a story” will produce generic results. What kind of story do you want? What genre? Is it for adults or children? How long should it be? Is it funny or serious? Adding this type of context and being specific, clear, and concise will help generate more useful outputs. More specificity can also limit the chances of inaccurate responses. If you’re looking for a good meal near Harvard Square, asking “What is the best restaurant in Cambridge?” could return results from Cambridge, UK. Asking “What is the best restaurant in Cambridge, Massachusetts, within walking distance of Harvard Yard” gives you a bette",
+        verifiedAt: "2026-08-12T14:04:40.136Z",
+        matchedTerms: ["how", "write", "better", "prompts", "what", "prompt", "start", "audience"],
+      },
+      {
+        title: "A Simple Approach to Building Better Prompts",
+        url: "https://www.pmi.org/blog/how-to-write-better-prompts-framework",
+        domain: "pmi.org",
+        summary:
+          "Be precise about the structure you need: \"Respond with a concise paragraph.\" \"Consolidate findings into a numbered list.\" \"Give me a table with 3 columns: 1) A, 2) B, 3) C.\" Set the LENGTH and DETAIL_(Basic)_ Help control verbosity and precision: \"In five bullet points\" \"No more than 350 words\" \"Just one-sentence summary” Clear boundaries help AI deliver precisely what you need. Adapt to your AUDIENCE_(Intermediate)_ Tailor the output to the person or group it’s meant for: \"Make it understandable to non-technical personnel.\" \"Use business language for executives.\" \"Explain as if to a skeptical engineer.\" Select the STYLE and TONE_(Intermediat",
+        verifiedAt: "2026-08-12T14:04:40.136Z",
+        matchedTerms: ["how", "better", "prompts", "what", "audience", "output", "structure", "can"],
+      },
+      {
+        title:
+          "Prompt Engineering 101: Try My Secret Formula for Crafting AI Prompts That Actually Work",
+        url:
+          "https://uk.pcmag.com/ai/163221/prompt-engineering-101-the-secret-formula-for-writing-ai-prompts-that-actually-work",
+        domain: "uk.pcmag.com",
+        summary:
+          "PCMag UK PCMag editors select and review products independently. If you buy through affiliate links, we may earn commissions, which help support our testing. PCMag UK ExplainersAI # Prompt Engineering 101: Try My Secret Formula for Crafting AI Prompts That Actually Work ## Whether you're doing a simple web search or generating a complicated video, better prompts mean better results. Upgrade your prompt game with these tips and tricks. Ruben Circelli & Ruben Circelli Writer, Software Our team tests, rates, and reviews more than 1,500 products each year to help you make better buying decisions and get more from technology. Our Expert LOOK INSID",
+        verifiedAt: "2026-08-12T14:04:40.136Z",
+        matchedTerms: ["how", "better", "prompts", "prompt", "actually", "test"],
+      },
+      {
+        title: "AI Prompts: 6 Tips For Writing Generative AI Prompts | Salesforce",
+        url: "https://www.salesforce.com/artificial-intelligence/generative-ai-prompts",
+        domain: "salesforce.com",
+        summary:
+          "With the rise in popularity of generative AI tools for personal and business use, good prompt engineering skills can help with your queries. The more specific and detailed your prompt, the better your result. And you can get super creative — even asking the generative AI product to reply as someone well known, like Albert Einstein, to get a response from that person’s point of view. It mostly pulls the information from reams of data available on the internet, but narrowing your prompt and adding context will deliver more refined, creative results. ## 6 tips to write better generative AI prompts Here are 6 rules to help guide you when writing",
+        verifiedAt: "2026-08-12T14:04:40.136Z",
+        matchedTerms: ["how", "write", "better", "prompts", "what", "prompt", "audience", "output"],
+      },
+      {
+        title: "Experimenting with prompts - AI Knowledge Hub",
+        url: "https://ai.gov.uk/knowledge-hub/how-to/experiment-with-prompts",
+        domain: "ai.gov.uk",
+        summary:
+          "## Cookies on AI Knowledge Hub We’d like to use analytics cookies so we can understand how you use the service and make improvements. View cookies You’ve accepted analytics cookies. You can change your cookie settings at any time. You’ve rejected analytics cookies. You can change your cookie settings at any time. AI.GOV.UK Knowledge Hub # Experimenting with prompts ! Warning This is not a comprehensive guide, but a starting point to support your AI journey. This is not intended to be any form of legal guidance or advice, and should not be used as a substitute for independent legal advice. AI assistants use written, visual or audio information",
+        verifiedAt: "2026-08-12T14:04:40.137Z",
+        matchedTerms: ["how", "write", "better", "prompts", "what", "prompt", "output", "structure"],
+      },
+    ],
+    imagePrompt:
+      "1536x864 WebP, photoreal premium editorial product photography. Inside a dark contemporary British architectural atrium of blackened steel, smoked optical glass and charcoal stone, a physically plausible liquid-cooled photonic compute core rises from a near-black plinth. Suspended around its central wafer-scale processor are elegant volumetric translucent light layers representing structured AI instructions: distinct nested planes, constraint rails and flowing optical interconnects, with no readable text, symbols, dashboards or numbers. Electric cyan #00e5ff dominates, with electric blue #38bdf8, violet #a78bfa, magenta-pink #ef86bb and mint #7fe9f0 in precision machine light; one restrained warm amber #ffb86c status glow provides contrast. Low-key deep-shadow lighting, gallery-grade realism, visible cooling channels and precision mechatronic detail, central subject safely contained in a 9:16 crop-safe area with generous dark negative space. No people, hands, robots, logos, paper, desks, screens, fake statistics or meaningless network graphics.",
+    ctaPrimary: {
+      label: "Plan the right technical stack",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Platform / Model Guide",
+      fingerprint: "Platform / Model Guide|decision-moment|6|field-guide",
+    },
+  },
 // N8N_BLOG_POSTS_END
 ];
 
