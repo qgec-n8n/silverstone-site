@@ -25765,7 +25765,488 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       href: "/blog",
     },
   },
-  // N8N_BLOG_POSTS_END
+    {
+    slug: "how-build-ai-agent-business",
+    title: "How to Build an AI Agent for Your Business",
+    subtitle:
+      "A practical UK-first route from one controlled workflow to a measurable, governable AI agent.",
+    summary: [
+      "Start with one bounded workflow, not a general automation ambition.",
+      "Define data, system, approval and hand-off boundaries before deployment.",
+      "Use pilot evidence to decide whether to expand, improve or stop.",
+    ],
+    categoryLabel: "AI Agents",
+    categoryKey: "ai-agents",
+    categoryId: "ai-agents",
+    categoryOrder: 18,
+    displayDate: "12 August 2026",
+    publishedIsoDate: "2026-08-12T08:04:44.708Z",
+    updatedIsoDate: "2026-08-12T08:04:44.708Z",
+    readTime: "7 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/how-build-ai-agent-business-hero.webp",
+    heroImageAlt:
+      "Photoreal near-future AI workflow core with cyan optical interconnects in a dark British architectural setting.",
+    metaTitle: "How to Build an AI Agent for Your Business | Silverstone AI",
+    metaDescription:
+      "Learn how to build a controlled AI agent: select a bounded use case, map decisions, set governance boundaries and measure a safe business pilot.",
+    primaryKeyword: "how to build an ai agent for your business",
+    secondaryKeywords: [
+      "business AI agent",
+      "AI agent workflow",
+      "AI agent governance",
+      "bounded AI automation",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "The sensible way to build an AI agent is to start with **one bounded business workflow**, not a broad ambition to automate everything. Define the decision, approved systems, human hand-off and success measure before choosing a model or platform.",
+          "Silverstone AI is UK-based and serves UK and international clients. For UK businesses, use a *principles-based, context-specific* governance lens; the same design disciplines generally travel well internationally, although local legal, sector and data obligations may differ.",
+        ],
+      },
+      {
+        heading: "What an AI agent is in a business workflow",
+        body: [
+          "In practical terms, an agent combines a model, tools, data sources and an orchestration layer to interpret context, choose or recommend a next action, and record what happened. [GOV.UK](https://www.gov.uk/government/publications/agentic-ai-and-consumers/agentic-ai-and-consumers) notes that current business deployment is primarily **bounded and controlled**.",
+          "Use an agent where inputs are messy, context sits across systems and a judgement is needed. Use conventional automation where inputs are structured and the same rule should always produce the same outcome. [Appian](https://appian.com/learn/topics/enterprise-ai/ai-agent-use-cases) makes this distinction explicit.",
+        ],
+        sectionNumber: "01",
+        lede:
+          "**An agent progresses a multi-step task; it is not simply a chatbot with a prompt.**",
+        leadStyle: "lead",
+        callout: {
+          body: [
+            "Build your first agent as a **controlled decision-and-action loop**: trigger, retrieve approved context, reason within a defined scope, act through permitted tools, then escalate exceptions to a person.",
+          ],
+          tone: "answer",
+          title: "Direct answer",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Trigger",
+              definition:
+                "The event that starts the workflow, such as a submitted enquiry or an exception queue.",
+            },
+            {
+              term: "Tool",
+              definition:
+                "An approved system action or information retrieval route available to the agent.",
+            },
+            {
+              term: "Human hand-off",
+              definition:
+                "A defined point where a person reviews, approves or completes the work.",
+            },
+          ],
+          title: "Working vocabulary",
+        },
+      },
+      {
+        heading: "Choose one bounded use case before selecting tools",
+        body: [
+          "Prioritise a workflow with a known owner, a repeatable trigger and an existing baseline. An agent can recommend an outcome before it executes one; that is often the right first production boundary.",
+          "A useful first-use-case test is deliberately demanding:\n\n- **Known trigger:** the task begins from a recognisable event, document, request or queue.\n- Meaningful judgement: the work needs context or reasoning rather than a fixed rule lookup.\n- Approved action: the next action occurs only through known tools, permissions and thresholds.\n- Safe exception path: a person can review uncertainty, high-impact cases or missing information.\n- Measurable baseline: compare time, quality, rework or conversion with the current process.\n\nThese characteristics reflect the workflow conditions described by [Appian](https://appian.com/learn/topics/enterprise-ai/ai-agent-use-cases). For a delivery overview, see [AI automation](/services/ai-automation) and [how we work](/how-we-work).",
+        ],
+        sectionNumber: "02",
+        lede: "The first win should be narrow enough to observe, reverse and improve.",
+        leadStyle: "drop-cap",
+        variant: "system",
+        bullets: [
+          {
+            body:
+              "The task begins from a recognisable event, document, request or queue.",
+            label: "Clear input",
+          },
+          {
+            body:
+              "The work needs context or reasoning rather than a fixed rule lookup.",
+            label: "Meaningful judgement",
+          },
+          {
+            body:
+              "The next action can occur only through known tools, permissions and thresholds.",
+            label: "Approved action",
+          },
+          {
+            body:
+              "A person can review uncertainty, high-impact cases or missing information.",
+            label: "Safe exception path",
+          },
+          {
+            body:
+              "You can compare time, quality, rework or conversion with the current process.",
+            label: "Measurable baseline",
+          },
+        ],
+        grid: [
+          {
+            body:
+              "**Enquiry triage** that gathers approved information, suggests routing and leaves final acceptance with a team member.",
+            title: "Good first candidate",
+          },
+          {
+            body:
+              "*Structured* reminders, status updates and simple field validation with stable business rules.",
+            title: "Usually rule-based instead",
+          },
+          {
+            body:
+              "High-impact decisions where ownership, evidence quality or escalation routes are not yet defined.",
+            title: "Delay until later",
+          },
+        ],
+        callout: {
+          body: [
+            "Treat the agent as an addition to a current process, not evidence that the current process is already well designed. Map and simplify avoidable steps first.",
+          ],
+          tone: "assumption",
+          title: "Planning assumption",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "Map triggers, decisions, actions and handoffs",
+        body: [
+          "Bird & Bird describes an agent as a composition of components and recommends governance at the **workflow level**, with constituent parts traceable. Build a route that a process owner, technical team and reviewer can all inspect. [Bird & Bird](https://www.twobirds.com/-/media/new-website-content/pdfs/capabilities/artificial-intelligence/ai-governance-guide.pdf) provides the governance context.",
+          "Document the route in this order:",
+        ],
+        sectionNumber: "03",
+        lede: "Make the workflow visible before you make it intelligent.",
+        leadStyle: "lead",
+        variant: "operator",
+        steps: [
+          {
+            body: "Specify the event, source system and workflow owner.",
+            title: "Name the trigger",
+            label: "1",
+          },
+          {
+            body: "State what the agent may classify, recommend or decline to answer.",
+            title: "List the decisions",
+            label: "2",
+          },
+          {
+            body: "Define each permitted tool action, threshold and required approval.",
+            title: "Constrain the actions",
+            label: "3",
+          },
+          {
+            body:
+              "Route uncertainty, missing data and sensitive cases to a named human queue.",
+            title: "Design the hand-off",
+            label: "4",
+          },
+          {
+            body:
+              "Retain the relevant inputs, sources, action and hand-off reason for review.",
+            title: "Keep the record",
+            label: "5",
+          },
+        ],
+        versusCard: {
+          left: {
+            title: "Opaque assistant",
+            body:
+              "A broad prompt can produce useful text, but it does not define authority or accountability.",
+            label: "Avoid",
+            points: ["Unclear action scope", "No reliable exception route"],
+          },
+          right: {
+            title: "Traceable agent route",
+            body:
+              "A mapped workflow makes permissions, evidence and human oversight explicit.",
+            label: "Prefer",
+            points: ["Defined tool access", "Recorded escalation logic"],
+          },
+          eyebrow: "Workflow design choice",
+          verdict: "{{accent:Map the operating route before connecting systems.}}",
+        },
+      },
+      {
+        heading: "Set data, system and approval boundaries early",
+        body: [
+          "Give the agent the minimum access needed for its stated job. Critical information should come from approved, authoritative sources rather than generated text. The [FINOS AI Governance Framework](https://air-governance-framework.finos.org/single-page.html) highlights cross-reference checks, timestamps, stale-data detection and source distinction.",
+          "For UK organisations, this is general operational guidance rather than legal advice. The UK approach is principles-based and context-specific; organisations operating internationally should also assess applicable local and EU requirements. [The Law Society](https://www.lawsociety.org.uk/topics/ai-and-lawtech/generative-ai-the-essentials) notes that EU business activity can matter.",
+        ],
+        sectionNumber: "04",
+        variant: "signal",
+        checklist: {
+          items: [
+            {
+              label: "Data allow-list",
+              detail: "Name the sources the agent may read and the fields it may use.",
+            },
+            {
+              label: "Freshness rule",
+              detail:
+                "Decide how stale or conflicting information is detected and handled.",
+            },
+            {
+              label: "Permission model",
+              detail: "Limit each tool to the actions required for the workflow.",
+            },
+            {
+              label: "Approval threshold",
+              detail:
+                "Set monetary, reputational or customer-impact limits requiring review.",
+            },
+            {
+              label: "Audit record",
+              detail: "Record source, action, outcome and escalation rationale.",
+            },
+          ],
+          title: "Boundary checklist before connection",
+        },
+        callout: {
+          body: [
+            "Do not let an agent invent calculations, risk scores or transactions in generated prose. {{underline:Use validated systems for consequential outputs}} and reserve the model for interpretation and orchestration.",
+          ],
+          tone: "caution",
+          title: "Boundary rule",
+        },
+      },
+      {
+        heading: "Build, test and monitor the first agent safely",
+        body: [
+          "1. Test against historical or representative cases before live use.\n2. Review incorrect, uncertain and escalated outputs with the process owner.\n3. Release to a limited queue with human approval where needed.\n4. Monitor actions, failures, source freshness and override reasons.\n5. Pause or narrow the route when controls no longer hold.",
+          "Use a {{chip:proof|Reviewable trail}} for every action path, and a {{chip:warning|Stop condition}} for unexpected behaviour or boundary breaches. ==A limited production route is evidence gathering, not a guarantee of scale.==",
+        ],
+        sectionNumber: "05",
+        variant: "system",
+        callout: {
+          body: [
+            "Controlled-agent guidance recommends approved tools, permissions, thresholds, monitoring and human escalation, while measuring KPIs against the current process. [Trusted](https://trytrusted.com/article/ai-in-transport-and-logistics-the-enterprise-guide-to-routing-fleet-warehouse-and-network-intelligence-) supplies this international implementation guidance.",
+          ],
+          tone: "evidence",
+          title: "What to monitor",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Completion quality",
+              value: "Baseline vs pilot",
+              note: "Compare accepted outcomes with the existing process.",
+            },
+            {
+              label: "Human intervention",
+              value: "Escalation rate",
+              note: "Inspect why the agent needed help.",
+            },
+            {
+              label: "Operational time",
+              value: "Before vs after",
+              note: "Measure the full workflow, not only model response time.",
+            },
+            {
+              label: "Control health",
+              value: "Exceptions logged",
+              note: "Review permission, source and threshold breaches.",
+            },
+          ],
+          title: "First-release measurement panel",
+        },
+      },
+      {
+        heading: "Measure results and decide whether to expand",
+        body: [
+          "Make the scale decision from evidence, not enthusiasm. **A good pilot reduces uncertainty** about value, edge cases and operating ownership. If the agent creates avoidable review work, tighten the scope before adding new actions or teams.",
+          "For an implementation discussion, explore [AI automation consulting](/services/ai-consulting), compare [automation costs](/blog/ai-automation-cost-uk-small), and [book a discovery conversation](/book#booking-calendar). Pricing and return assumptions should be assessed case by case through [/pricing](/pricing).",
+          "Related reading:\n\n- [Workflow automation selection](/blog/workflow-automation-selection-guide)\n- [Integrate AI without replacing software](/blog/integrate-ai-without-replacing-software)",
+        ],
+        sectionNumber: "06",
+        lede:
+          "Expand only when the workflow is useful, controlled and understood in practice.",
+        leadStyle: "drop-cap",
+        variant: "operator",
+        scorecard: {
+          options: ["Expand", "Improve first", "Stop or redesign"],
+          rows: [
+            {
+              cells: ["Consistently accepted", "Mixed or review-heavy", "Unreliable"],
+              criterion: "Outcome quality",
+              weight: "High",
+            },
+            {
+              cells: [
+                "Boundaries hold",
+                "Exceptions need tuning",
+                "Material boundary failures",
+              ],
+              criterion: "Control performance",
+              weight: "High",
+            },
+            {
+              cells: [
+                "Clear baseline improvement",
+                "Value not yet clear",
+                "No useful improvement",
+              ],
+              criterion: "Operational value",
+              weight: "Medium",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "Begin with a short workflow audit that identifies one owned, measurable route. {{chip:action|Start small}}; then decide whether a bespoke build, integration work or simpler automation is the better fit.",
+          ],
+          tone: "recommendation",
+          title: "Practical next step",
+        },
+        keyTakeaways: {
+          items: [
+            "**Choose one bounded workflow** before selecting technology.",
+            "Map trigger, decision, action, evidence and hand-off.",
+            "Restrict data and system access to an explicit allow-list.",
+            "Use human approval for uncertain or consequential cases.",
+            "==Measure against the current process== before expansion.",
+            "{{accent:Scale the proven workflow, not the initial idea.}}",
+          ],
+          title: "The build decision in six lines",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        answer:
+          "Choose a bounded workflow with a clear trigger, known owner, approved systems and measurable baseline, such as triage that recommends routing rather than making an irreversible decision.",
+        question: "What is the best first AI agent for a small business?",
+      },
+      {
+        answer:
+          "Approval is particularly useful for uncertain, exceptional or consequential cases. The appropriate boundary depends on the workflow, permissions and impact of the action.",
+        question: "Do AI agents need human approval?",
+      },
+      {
+        answer:
+          "No. Map the trigger, decisions, permitted actions, data sources and hand-offs first so that the agent has a controlled operating route.",
+        question: "Should I build an agent before mapping the process?",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "Workflow automation selection",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+      {
+        label: "automation costs",
+        href: "/blog/ai-automation-cost-uk-small",
+      },
+      {
+        label: "Integrate AI without replacing software",
+        href: "/blog/integrate-ai-without-replacing-software",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Flowable: Intelligent Business Process & Workflow Automation",
+        url: "https://www.flowable.com",
+        domain: "flowable.com",
+        summary:
+          "##### Banking & Wealth Management Onboarding, lending, EDD onboarding and AML, fully governed. ##### Insurance Claims, underwriting, and fraud triage with a complete trail. ##### Public sector Permits, benefits, and cross-agency cases, transparent end to end. ##### Healthcare Order processing and regulatory workflows, compliant at every touchpoint. ## Insights for Deploying AIYou Can Defend Practical guidance from the teams putting governed agents into production in regulated environments. Discover our Blog ## AI Your Regulators Can Trust Move your AI agents from pilot to production, without compromising on oversight. Every agent bounded, eve",
+        verifiedAt: "2026-08-12T08:00:56.517Z",
+        matchedTerms: ["build", "agent", "what", "workflow", "one", "bounded", "decisions", "early"],
+      },
+      {
+        title: "AI Agent Use Cases: 5 Enterprise Examples That Create ...",
+        url: "https://appian.com/learn/topics/enterprise-ai/ai-agent-use-cases",
+        domain: "appian.com",
+        summary:
+          "AI agents are best suited for workflows where: Inputs are messy, incomplete, or unstructured Context is spread across systems, documents, and teams The decision requires reasoning, not just a rule lookup The agent can take or recommend a next action A human may need to review, approve, or handle exceptions The business needs a record of what the agent did and why ## AI agents vs. deterministic automation Not every task needs an AI agent. Use deterministic automation when the rules are clear, the inputs are structured, and the same decision should be made the same way every time. This is where traditional workflow automation, robotic process a",
+        verifiedAt: "2026-08-12T08:00:56.518Z",
+        matchedTerms: ["how", "agent", "what", "workflow", "use", "case", "data"],
+      },
+      {
+        title: "FINOS AI Governance Framework:",
+        url: "https://air-governance-framework.finos.org/single-page.html",
+        domain: "air-governance-framework.finos.org",
+        summary:
+          "+ Cross-Reference Validation: Where possible, cross-reference critical data with multiple sources to detect discrepancies or manipulation. Data Freshness and Currency: + Timestamp Validation: Verify data timestamps to ensure information is current and hasn’t been replayed from previous sessions. + Data Staleness Detection: Implement mechanisms to detect and handle stale or outdated data from MCP servers. + Real-time Data Verification: For critical data such as market prices or regulatory information, implement real-time verification against authoritative sources. [...] Distinction of Source Types: Where applicable and meaningful, the system m",
+        verifiedAt: "2026-08-12T08:00:56.518Z",
+        matchedTerms: ["agent", "workflow", "data", "system", "approval", "boundaries"],
+      },
+      {
+        title: "Generative AI – the essentials | The Law Society",
+        url:
+          "https://www.lawsociety.org.uk/topics/ai-and-lawtech/generative-ai-the-essentials",
+        domain: "lawsociety.org.uk",
+        summary:
+          "This has implications for those doing business in the EU, particularly for firms with international clients. There are no current plans to introduce legislation on AI in the UK. The UK government is currently adopting a principles-based and context-specific approach to regulation. In January 2025, the Department for Science, Innovation and Technology commissioned and published an independent AI opportunities action plan. This outlines recommendations on how the government can capture the opportunities of AI to enhance growth and productivity and create tangible benefits for UK citizens. The government responded to this plan, integrating its r",
+        verifiedAt: "2026-08-12T08:00:56.518Z",
+        matchedTerms: ["how", "data", "whether"],
+      },
+      {
+        title: "Glossary of Key Terms",
+        url: "https://arxiv.org/html/2604.06148v1",
+        domain: "arxiv.org",
+        summary:
+          "parallel, each requiring distinct access grants to distinct systems, each potentially spawning further sub-agents of their own, producing an access demand profile that is neither predictable at provisioning time nor bounded by any fixed workflow definition. [...] NIST SP 800-207 , the authoritative U.S. zero trust architecture standard, establishes the principle that identity is the primary trust signal in modern enterprise security and explicitly extends zero trust principles to non-human entities, including services, applications, and automated workloads. The IDSA has documented the gap between IAM frameworks designed for human identity gov",
+        verifiedAt: "2026-08-12T08:00:56.518Z",
+        matchedTerms: ["agent", "workflow", "bounded", "data", "boundaries"],
+      },
+      {
+        title: "Agentic AI and consumers - GOV.UK",
+        url:
+          "https://www.gov.uk/government/publications/agentic-ai-and-consumers/agentic-ai-and-consumers",
+        domain: "gov.uk",
+        summary:
+          "### What we are seeing today AI agents that can plan and act with a degree of autonomy are already being deployed by businesses, but primarily in bounded and controlled ways. Deployment is concentrated in domains where scope and oversight can be tightly managed, including customer operations and service, commerce and sales workflows, software and IT operations and internal business process automation. In these settings, agents are used to progress multi step tasks – such as handling customer service requests, processing refunds or coordinating transactions – rather than simply providing information. Consumer facing authority remains limited a",
+        verifiedAt: "2026-08-12T08:00:56.518Z",
+        matchedTerms: ["how", "agent", "what", "bounded", "decisions", "data", "test", "decide"],
+      },
+      {
+        title:
+          "AI in Transport and Logistics: The Enterprise Guide to Routing, Fleet, Warehouse and Network Intelligence",
+        url:
+          "https://trytrusted.com/article/ai-in-transport-and-logistics-the-enterprise-guide-to-routing-fleet-warehouse-and-network-intelligence-",
+        domain: "trytrusted.com",
+        summary:
+          "### Controlled agents Allow agents to prepare or execute bounded tasks only through approved tools, permissions, thresholds, monitoring and human escalation. Use the language model as an interface to trusted intelligence. Calculations, risk scores, optimisation and transactions should come from validated services and systems rather than being improvised in generated text. Measurement ## KPIs and ROI for transport and logistics AI #### Cost Per Shipment Track this measure against the current process and segment it where a portfolio average could hide material deterioration. #### On Time Delivery Track this measure against the current process a",
+        verifiedAt: "2026-08-12T08:00:56.518Z",
+        matchedTerms: ["how", "workflow", "choose", "one", "bounded", "use", "before", "tools"],
+      },
+      {
+        title: "AI Governance: A practical guide for organisations",
+        url:
+          "https://www.twobirds.com/-/media/new-website-content/pdfs/capabilities/artificial-intelligence/ai-governance-guide.pdf",
+        domain: "twobirds.com",
+        summary:
+          "Agentic note: An agent is rarely a single AI system, it is typically a composition of models, tools, data sources and an orchestration layer. Inventories built around discrete “systems” miss the workflow as the unit of governance, leaving the most consequential risks unmapped. The inventory must capture agents at the workflow level, with each constituent component traceable. 15 Policies and controls Current state: Common policy elements include tracking AI laws and regulations, harm identification and internal policies. However, significant gaps exist in supplier oversight, employee training and compliance measurement. Policies are often draf",
+        verifiedAt: "2026-08-12T08:00:56.518Z",
+        matchedTerms: ["agent", "workflow", "tools", "data", "system"],
+      },
+    ],
+    imagePrompt:
+      "1536x864 photoreal premium editorial WebP image of a near-future artificial-intelligence workflow engine made physical: a central liquid-cooled photonic compute core suspended within blackened steel and smoked optical glass architecture, luminous cyan optical interconnects branching into precisely bounded modular system channels, subtle violet and magenta machine-light reflections, a single warm amber status glow, and a distant abstracted silhouette of modern British civic architecture integrated into the structure. Deep near-black charcoal stone, gunmetal and glass materials; low-key gallery-grade product-photography lighting, illuminated almost entirely by electric cyan #00e5ff with electric blue #38bdf8, violet #a78bfa, magenta-pink #ef86bb and mint #7fe9f0 accents. Keep the meaningful compute core centred within a 9:16 crop-safe zone with generous dark negative space. No readable text, logos, dashboards, statistics, generic robots, people, hands, desks, paper, warehouses, shopfronts or meaningless network-node graphics.",
+    ctaPrimary: {
+      label: "Discuss a bespoke workflow",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Step-by-Step Guide",
+      fingerprint: "Step-by-Step Guide|decision-moment|6|implementation-playbook",
+    },
+  },
+// N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
