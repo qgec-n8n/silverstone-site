@@ -28366,6 +28366,555 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Step-by-Step Guide|decision-moment|6|implementation-playbook",
     },
   },
+  {
+    slug: "ai-automation-agency-pricing-uk",
+    title: "AI Automation Agency Pricing: What UK Businesses Should Expect",
+    subtitle:
+      "A practical first-year budgeting framework for UK buyers comparing AI automation agency proposals.",
+    summary: [
+      "Focused workflow builds can start from £2,500, but scope determines the real cost.",
+      "Build a first-year budget covering delivery, technology, internal change, support and contingency.",
+      "Compare proposals on written scope and evidence, not the headline total alone.",
+    ],
+    categoryLabel: "Costs & ROI",
+    categoryKey: "ai-cost-roi",
+    categoryId: "ai-cost-roi",
+    categoryOrder: 22,
+    displayDate: "14 August 2026",
+    publishedIsoDate: "2026-08-14T08:04:38.835Z",
+    updatedIsoDate: "2026-08-14T08:04:38.835Z",
+    readTime: "6 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/ai-automation-agency-pricing-uk-hero.webp",
+    heroImageAlt:
+      "Photoreal futuristic AI compute core with glowing optical connections in a dark British architectural setting",
+    metaTitle: "UK AI Automation Agency Pricing Guide",
+    metaDescription:
+      "Understand UK AI automation agency pricing with a practical first-year budget calculator, cost drivers and proposal comparison checklist.",
+    primaryKeyword: "ai automation agency pricing uk",
+    secondaryKeywords: [
+      "AI automation agency costs UK",
+      "AI automation project budget",
+      "AI automation retainer pricing",
+      "AI automation proposal comparison",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "The direct answer: a focused UK workflow build can start at **£2,500**, while a fuller platform implementation may be **£8,500 or more**. That is only the build quote, however; a decision-ready budget also allows for discovery, integrations, adoption, technology and post-launch care.",
+          "Use a proposal to understand *what is included*, not simply to compare totals. The right agency cost depends on workflow complexity, systems involved, data handling, launch support and the degree of change your team must absorb.",
+          "Silverstone AI publishes the article and is UK-based, serving clients in the UK and internationally. The UK is the primary commercial lens here; the budgeting method generalises internationally, although local tax, employment, data and supplier costs will differ.",
+        ],
+      },
+      {
+        heading:
+          "What businesses are usually paying for when they hire an AI automation agency",
+        body: [
+          "Agency work commonly combines workflow design, automation build, chatbot or agent work, CRM integration and deployment. ==Current UK-facing guidance== describes focused workflow builds and broader platform implementations as distinct scopes, rather than interchangeable packages.",
+          "A sensible proposal should make the commercial boundary visible. {{chip:idea|Scope test}} Ask which activities are agency delivery, which are your internal responsibilities, and which remain third-party technology costs.",
+          "What a buyer is often paying for can be separated into four practical workstreams:",
+        ],
+        sectionNumber: "01",
+        lede: "**You are buying a delivery route, not a piece of software.**",
+        leadStyle: "lead",
+        variant: "signal",
+        grid: [
+          {
+            body:
+              "Process mapping, priorities, success measures and an implementation plan.",
+            title: "Discovery and design",
+          },
+          {
+            body:
+              "Workflow configuration, custom logic and connections to existing systems.",
+            title: "Build and integration",
+          },
+          {
+            body: "Scenario testing, handover, access controls and rollout support.",
+            title: "Testing and launch",
+          },
+          {
+            body:
+              "Monitoring, changes, adoption support and outcome review after go-live.",
+            title: "Optimisation and care",
+          },
+        ],
+        callout: {
+          body: [
+            "Treat the build figure as **one line of a first-year operating budget**. A lower quote may still require substantial internal time, licences or support after launch.",
+          ],
+          tone: "answer",
+          title: "Budget decision",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Focused workflow build",
+              value: "From £2,500",
+              note: "Reported by a UK-facing buyer guide; scope varies.",
+            },
+            {
+              label: "Full platform implementation",
+              value: "£8,500+",
+              note: "Reported by the same guide; not a UK market average.",
+            },
+            {
+              label: "Typical stated delivery",
+              value: "4–8 weeks",
+              note: "From discovery to go-live in the cited guide.",
+            },
+          ],
+          title: "Narrow UK price context",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "The cost drivers that change agency pricing most",
+        body: [
+          "The strongest cost drivers are **integration depth**, bespoke data or logic, compliance-sensitive handling, workflow exceptions and the rollout footprint. International guidance also separates small pilots, department-level engagements and enterprise programmes by scope.",
+          "Use this short diagnostic before asking for a fixed price:",
+          "1. Define one outcome, such as qualifying an enquiry or updating a CRM record.\n2. List every system, data source and approval point it touches.\n3. Identify exceptions that must be escalated to a person.\n4. Agree the evidence that would show the workflow is working.",
+          "A workflow with a clear trigger and limited systems is usually easier to estimate than one spanning records, approvals and several teams. {{accent:Price the operating reality}} rather than an attractive demo.",
+        ],
+        sectionNumber: "02",
+        lede:
+          "The quote changes fastest when the workflow touches more systems, more exceptions and more people.",
+        leadStyle: "drop-cap",
+        variant: "system",
+        bullets: [
+          {
+            body: "State the first workflow, excluded processes and any later phases.",
+            label: "Scope boundary",
+          },
+          {
+            body:
+              "Name each system and confirm who provides credentials, access and technical ownership.",
+            label: "Integration inventory",
+          },
+          {
+            body:
+              "Clarify what information is handled, retained and reviewed; seek appropriate specialist advice where needed.",
+            label: "Data sensitivity",
+          },
+          {
+            body:
+              "Specify approval points, escalation rules and the person accountable for exceptions.",
+            label: "Human control",
+          },
+          {
+            body:
+              "Budget for training, internal communications and time to change the process.",
+            label: "Adoption work",
+          },
+        ],
+        callout: {
+          body: [
+            "No supplied source provides a comprehensive UK-wide rate card. **Do not use the figures above as a guaranteed budget**, and do not assume a pilot price scales linearly to a multi-team programme.",
+          ],
+          tone: "caution",
+          title: "Do not turn estimates into facts",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Pilot",
+              definition:
+                "A limited implementation used to test one defined workflow before wider rollout.",
+            },
+            {
+              term: "Integration",
+              definition:
+                "A connection between systems that passes data or triggers actions.",
+            },
+            {
+              term: "Retainer",
+              definition: "An ongoing service arrangement; minimum terms may apply.",
+            },
+            {
+              term: "Acceptance criteria",
+              definition:
+                "Agreed conditions that show a deliverable has been tested and accepted.",
+            },
+          ],
+          title: "Terms that alter a quote",
+        },
+      },
+      {
+        heading: "What to include in a first-year budget, not just the build quote",
+        body: [
+          "Use the framework below as an *assumption-led planning model*, not a market quotation. It prevents the common mistake of funding build work while leaving no allowance for the work needed to launch, maintain and improve it.",
+          "The calculator is deliberately scenario-based. {{underline:Separate verified supplier prices from internal planning assumptions}} and update each line when a proposal, licence schedule or technical review provides firmer evidence.",
+        ],
+        sectionNumber: "03",
+        lede:
+          "**A first-year budget calculator makes uncertainty visible before it becomes an overrun.**",
+        leadStyle: "lead",
+        variant: "operator",
+        comparisonTable: {
+          columns: ["What to obtain from suppliers", "Planning treatment"],
+          rows: [
+            {
+              cells: [
+                "Workshop scope, deliverables and decision-makers",
+                "Quote separately if it is not included in build",
+              ],
+              label: "Discovery",
+            },
+            {
+              cells: [
+                "Workflow count, integrations, testing and handover",
+                "Use the agency's written scope and exclusions",
+              ],
+              label: "Implementation",
+            },
+            {
+              cells: [
+                "Platform, model, hosting or connector charges",
+                "Verify directly with the relevant provider",
+              ],
+              label: "Technology",
+            },
+            {
+              cells: [
+                "Owner time, training and process documentation",
+                "Estimate internally and review with the process owner",
+              ],
+              label: "Internal change",
+            },
+            {
+              cells: [
+                "Support window, optimisation cadence and retainer terms",
+                "Model as a separate first-year allowance",
+              ],
+              label: "Post-launch support",
+            },
+          ],
+          rowHeader: "Cost model component",
+        },
+        steps: [
+          {
+            body:
+              "Add written discovery and implementation figures, then record what each includes.",
+            title: "Set a base case",
+            label: "A",
+          },
+          {
+            body:
+              "List technology and support costs by month, with contract term and owner.",
+            title: "Add recurring costs",
+            label: "B",
+          },
+          {
+            body:
+              "Estimate implementation, training and review time without claiming it is free.",
+            title: "Add internal capacity",
+            label: "C",
+          },
+          {
+            body:
+              "Use an internal contingency assumption for unclear integrations or requirements; label it clearly.",
+            title: "Create an uncertainty reserve",
+            label: "D",
+          },
+        ],
+        callout: {
+          body: [
+            "A useful planning expression is **first-year budget = delivery + technology + internal change + support + contingency**. The expression is a budgeting structure, not a prediction of ROI or a statement of typical UK totals.",
+          ],
+          tone: "assumption",
+          title: "Calculator rule",
+        },
+        keyTakeaways: {
+          items: [
+            "**Separate one-off and recurring costs** before comparing proposals.",
+            "Record every assumption beside its owner and review date.",
+            "Ask whether support and optimisation are included, optional or unavailable.",
+            "Keep {{accent:commercial confidence}} proportionate to the evidence available.",
+          ],
+          title: "First-year budget checks",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "How a pricing calculator should handle assumptions and uncertainty",
+        body: [
+          "A calculator should distinguish three states: supplier-verified, internally estimated and unknown. This makes **commercial uncertainty** discussable without pretending that every cost can be known before discovery.",
+          "For UK organisations, the model should also prompt a review of data, security and contractual responsibilities. This is general business information, *not legal advice*; obtain appropriate legal, security and procurement advice for your circumstances.",
+        ],
+        sectionNumber: "04",
+        variant: "signal",
+        checklist: {
+          items: [
+            {
+              label: "Mark evidence status",
+              detail: "Use verified, estimated or unknown beside every cost line.",
+            },
+            {
+              label: "Test the integration path",
+              detail:
+                "Confirm access, technical constraints and any dependency on another supplier.",
+            },
+            {
+              label: "Set a change rule",
+              detail: "Agree what triggers a revised quote or a new phase.",
+            },
+            {
+              label: "Define measurement",
+              detail: "Choose a baseline and review point before launch.",
+            },
+            {
+              label: "Check ownership",
+              detail:
+                "Clarify responsibility for workflow assets, access and ongoing administration.",
+            },
+          ],
+          title: "Uncertainty controls before approval",
+        },
+        callout: {
+          body: [
+            "Supplied guidance on implementation evaluation highlights a documented process, a dedicated implementation lead, post-launch optimisation, a support window and success measurement. ==Those are proposal questions, not optional extras.==",
+          ],
+          tone: "evidence",
+          title: "Why support belongs in the model",
+        },
+        versusCard: {
+          left: {
+            title: "Weak estimate",
+            body: "One total with unclear inclusions encourages false precision.",
+            label: "Single number",
+            points: ["No scope boundary", "Recurring costs hidden", "Internal effort omitted"],
+          },
+          right: {
+            title: "Useful estimate",
+            body: "A range of scenarios exposes what must be confirmed.",
+            label: "Evidence-labelled",
+            points: [
+              "Verified and assumed lines separated",
+              "Owners assigned",
+              "Review trigger agreed",
+            ],
+          },
+          eyebrow: "Decision-quality calculator",
+          verdict:
+            "**Choose the evidence-labelled model** when comparing agencies or seeking internal approval.",
+        },
+      },
+      {
+        heading: "What to ask before comparing agency proposals",
+        body: [
+          "Compare proposals against the same brief. **The best proposal is not necessarily the cheapest**; it is the one whose scope, responsibilities, assumptions and post-launch route are clearest for the job you need done.",
+          "Ask each supplier to answer the same questions in writing. If an item is not publicly stated or not included in the proposal, record it as **Not publicly stated** rather than filling the gap with an assumption.",
+          "- Outcome: What business process and measurable result does this phase address?\n- Delivery scope: Which workflows, integrations, tests and handover materials are included?\n- Dependencies: What access, data, decisions and internal time do you need from us?\n- Support route: What happens after launch, and are optimisation or retainers separately priced?\n- Change control: How are new requirements assessed and priced?",
+          "Silverstone AI is a UK-based AI automation agency serving clients in the UK and internationally; its [AI automation services](/services/ai-automation) turn this framework into a practical delivery plan.",
+          "If you need help comparing scope and outcomes before seeking quotes, review [how Silverstone AI works](/how-we-work), explore [costs and ROI](/pricing), or [book a planning conversation](/book#booking-calendar).",
+          "Related reading:\n- [AI automation consulting guide](/blog/ai-automation-consulting-guide)\n- [AI receptionist setup guide](/blog/ai-receptionist-setup-guide)\n- [Ecommerce AI systems guide](/blog/ecommerce-ai-systems-guide)",
+        ],
+        sectionNumber: "05",
+        variant: "system",
+        scorecard: {
+          options: ["Proposal A", "Proposal B", "Proposal C"],
+          rows: [
+            {
+              cells: ["Score 1–5", "Score 1–5", "Score 1–5"],
+              criterion: "Scope clarity",
+              weight: "High",
+            },
+            {
+              cells: ["Score 1–5", "Score 1–5", "Score 1–5"],
+              criterion: "Integration evidence",
+              weight: "High",
+            },
+            {
+              cells: ["Score 1–5", "Score 1–5", "Score 1–5"],
+              criterion: "First-year cost visibility",
+              weight: "High",
+            },
+            {
+              cells: ["Score 1–5", "Score 1–5", "Score 1–5"],
+              criterion: "Support and optimisation",
+              weight: "Medium",
+            },
+            {
+              cells: ["Score 1–5", "Score 1–5", "Score 1–5"],
+              criterion: "Governance and ownership",
+              weight: "Medium",
+            },
+          ],
+        },
+        callout: {
+          body: [
+            "Start with one high-value, bounded workflow and a proposal that exposes its assumptions. {{chip:action|Compare properly}} If you need help shaping the brief before seeking quotes, review how Silverstone AI works or book a planning conversation.",
+          ],
+          tone: "recommendation",
+          title: "Practical next move",
+        },
+      },
+    ],
+    faqs: [
+      {
+        answer:
+          "One supplied UK-facing guide states that focused workflow builds start from £2,500 and fuller platform implementations can be £8,500 or more. Treat these as scope-specific context, not a universal rate card.",
+        question: "How much does an AI automation agency cost in the UK?",
+      },
+      {
+        answer:
+          "They should be visible in the first-year budget, whether they are included in the quote or paid directly to a provider. Ask for recurring charges, terms and ownership to be stated separately.",
+        question: "Should technology costs be included in the agency quote?",
+      },
+      {
+        answer:
+          "Compare scope, integration assumptions, internal dependencies, testing, handover, support, optimisation, change control and how success will be measured.",
+        question: "What should I compare besides price?",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "AI receptionist setup guide",
+        href: "/blog/ai-receptionist-setup-guide",
+      },
+      {
+        label: "AI automation consulting guide",
+        href: "/blog/ai-automation-consulting-guide",
+      },
+      {
+        label: "Ecommerce AI systems guide",
+        href: "/blog/ecommerce-ai-systems-guide",
+      },
+    ],
+    researchSources: [
+      {
+        title:
+          "Discover the Benefits of an AI Automation Agency for Your Business | BoffinBlocks",
+        url:
+          "https://boffinblocks.com/blog/discover-the-benefits-of-an-ai-automation-agency-for-your-business",
+        domain: "boffinblocks.com",
+        summary:
+          "Typical pricing looks like this: | Project type | Typical cost range | Common scope | --- | Small pilot | $2,000–$10,000 | One AI agent, simple chatbot, or basic RPA workflow | | Mid-sized engagement | $10,000–$50,000 | Multiple workflows, several integrations, department-level rollout | | Enterprise program | $50,000+ | Advanced AI systems, compliance, custom data work, multi-department deployment | | Ongoing retainer | A few thousand dollars per month upward | Monitoring, optimization, updates, support, reporting | Some automation companies offer milestone-based or performance-based pricing tied to cost savings, response time, revenue lift,",
+        verifiedAt: "2026-08-14T08:01:07.616Z",
+        matchedTerms: ["automation", "agency", "pricing", "are", "cost", "build", "quote", "how"],
+      },
+      {
+        title: "AI Automation Agencies London & UK 2026: Honest Comparison",
+        url: "https://www.softomatesolutions.com/blog/ai-automation-agencies-london",
+        domain: "softomatesolutions.com",
+        summary:
+          "Top AI Automation Agencies London 2026: Honest Comparison AI automation agencies in London design and build systems that replace manual workflows with AI, GoHighLevel automation, chatbots, voice agents and CRM integrations. London AI automation agencies charge from £2,500 for a focused workflow build to £8,500 or more for a full platform implementation, with delivery typically four to eight weeks from discovery to go-live. Most deliver remotely across the UK, so the shortlist is the same whether you want an AI automation agency in London or UK-wide. Last updated: August 2026. This is a buyer's guide organised around provider archetypes and se",
+        verifiedAt: "2026-08-14T08:01:07.616Z",
+        matchedTerms: ["automation", "agency", "pricing", "are", "cost", "change", "most", "first"],
+      },
+      {
+        title: "AI Automation Services & Agency | Automaly",
+        url: "https://automaly.io/services",
+        domain: "automaly.io",
+        summary:
+          "Is there a minimum term for retainers?+ Where retainers are used, a minimum term may apply to ensure adequate time for assessment, implementation, and measurable outcomes. If a minimum applies to your plan, it will be confirmed during pricing discussions. Are specific technologies required to begin?+ Not necessarily. We work with your current environment and recommend what's needed based on your goals. Where additional tools or platforms are beneficial, we'll explain why and keep decisions aligned with practicality, cost, and long-term feasibility. How do you measure success?+",
+        verifiedAt: "2026-08-14T08:01:07.616Z",
+        matchedTerms: ["automation", "agency", "pricing", "what", "are", "cost", "not", "how"],
+      },
+      {
+        title: "How Much Does AI Development Cost in 2026?",
+        url: "https://helium42.com/blog/ai-development-cost",
+        domain: "helium42.com",
+        summary:
+          "Sources: McKinsey Global AI Survey 2024, Forrester AI Services TEI 2024, DSIT AI Activity in UK Businesses 2025, IDC AI Project Cost Analysis 2024, Deloitte AI Implementation Study 2024, QuantumXL UK Market Analysis 2026, CleverRoad AI Development Pricing 2026, HM Treasury AI Investment Announcement 2026 AI MVP development methodology integration services that connect AI to existing systems custom AI solutions for mid-market businesses generative AI development services AI development lifecycle AI chatbot development AI agent development AI and machine learning development services AI software development AI proof of concept validation hiring",
+        verifiedAt: "2026-08-14T08:01:07.617Z",
+        matchedTerms: ["agency", "pricing", "are", "they", "cost", "budget", "how", "uncertainty"],
+      },
+      {
+        title: "Best AI Automation Agency UK | MQLFlow",
+        url: "https://mqlflow.com",
+        domain: "mqlflow.com",
+        summary:
+          "### What are some examples of AI automation in business? AI automation examples include chatbots for customer support, predictive analytics for sales forecasting, and automated content creation, all of which streamline operations and boost efficiency. ### What services does an AI automation agency provide? An AI automation agency offers services such as strategy development, tool selection, workflow automation, and custom AI integrations to help businesses optimise operations. ### How much does an AI automation agency cost? AI automation agency pricing varies depending on the project scope and specific needs, with options to suit different bu",
+        verifiedAt: "2026-08-14T08:01:07.617Z",
+        matchedTerms: ["automation", "agency", "pricing", "what", "are", "cost", "include", "build"],
+      },
+      {
+        title: "AI Automation Pricing for Small Business: Cost in the UK 2026",
+        url:
+          "https://www.aiworkforce.co.uk/blogs/ai-automation-pricing-uk-small-businesses-2026",
+        domain: "aiworkforce.co.uk",
+        summary:
+          "When you work with an agency, you are paying for speed, expertise, and accountability. A good agency has built the same type of automation dozens of times and will not make the expensive mistakes that come with learning on the job. For anything involving custom AI, complex integrations, or an AI project with significant business impact, the agency route usually delivers faster and more reliably. The AI automation agencies market in the UK has grown substantially — there are now genuine specialists across most industry verticals. [...] Automation agencies bring expertise that can speed delivery and improve ROI, but they raise upfront costs. Sm",
+        verifiedAt: "2026-08-14T08:01:07.617Z",
+        matchedTerms: [
+          "automation",
+          "agency",
+          "pricing",
+          "what",
+          "should",
+          "expect",
+          "are",
+          "usually",
+        ],
+      },
+      {
+        title:
+          "AI Agency Pricing Guide 2026: Models, Costs & Comparison with Digital Agencies",
+        url: "https://digitalagencynetwork.com/ai-agency-pricing",
+        domain: "digitalagencynetwork.com",
+        summary:
+          "### 💡What Does the Data Say? Drawing on data from our agency members across multiple markets, I’ve identified key differences in how AI agencies and traditional digital agencies price and package their services. ## AI Agency Service Pricing by Project Type AI agency service pricing varies significantly by service line. Understanding current market benchmarks enables founders to position offerings effectively and set realistic revenue targets. Let’s see how much AI services cost: ### AI SEO Pricing ### AI Advertising Pricing ### AI Marketing Pricing ### AI Development Pricing ### AI PR Pricing ### AI Automation Pricing ### AI Consulting Prici",
+        verifiedAt: "2026-08-14T08:01:07.617Z",
+        matchedTerms: ["automation", "agency", "pricing", "what", "are", "cost", "first", "budget"],
+      },
+      {
+        title: "AI Automation Agency UK: Best 30 Providers Compared By Experts",
+        url: "https://lotusbrainsstudio.com/ai-automation-agency",
+        domain: "lotusbrainsstudio.com",
+        summary:
+          "### Pricing Models An AI automation agency's pricing models should be varied to allow you to choose options conveniently. They should offer a low-cost pilot, sprint, and retainer agreements. The sprint payment plan lets you pay by development cycle (explain). Retainer agreements allow you to enter long-term partnerships with the agency. You can also request custom pricing solutions tailored to your needs. ### Code IP and Ownerships It is imperative to discuss and establish ownership of the automation scripts, AI agents, integrations, and data models trained using your information. Typically, you should own these assets, as owning them grants",
+        verifiedAt: "2026-08-14T08:01:07.617Z",
+        matchedTerms: ["automation", "agency", "pricing", "what", "should", "are", "when", "they"],
+      },
+      {
+        title: "Top Companies to Perform AI Integration into Your Product",
+        url: "https://artkai.io/blog/ai-integration-companies",
+        domain: "artkai.io",
+        summary:
+          "Another important benefit of collaborating with this partner is access to impactful AI consulting services, such as AI discovery workshops and expert evaluation of the company's or its digital product's AI readiness. This allows businesses to validate ideas, set realistic, efficient AI implementation goals based on the current business landscape and market conditions, and assess how AI can boost ROI and reduce costs. Businesses and industries that they provide AI integration for:",
+        verifiedAt: "2026-08-14T08:01:07.617Z",
+        matchedTerms: ["they", "how"],
+      },
+      {
+        title:
+          "Best AI Automation Agencies for Mid-Market Companies 2026 | Honest Comparison",
+        url: "https://mingma.io/journal/best-ai-automation-agencies-mid-market",
+        domain: "mingma.io",
+        summary:
+          "How to evaluate: Ask who owns the implementation (is it the same team that sold you?) What’s their change management approach? (Many AI projects fail due to poor adoption, not bad tech.) Do they offer post-launch optimization? If so, how does it work? What’s their typical hands-on support window? (3 months? 6 months? Ongoing?) Ask: “How do you measure success after launch?” Red flag: No one on their team has “optimization” or “adoption” in their title. This suggests they hand off the project and move on. What “real implementation capability” means: They have a documented process, they assign a dedicated implementation lead, and they plan for",
+        verifiedAt: "2026-08-14T08:01:07.618Z",
+        matchedTerms: ["automation", "agency", "pricing", "what", "are", "when", "they", "cost"],
+      },
+    ],
+    imagePrompt:
+      "1536x864 editorial WebP, photoreal gallery-grade product photography of a near-future AI automation cost model made physical: a compact liquid-cooled photonic compute core suspended within blackened steel and smoked optical glass, with wafer-scale processors, precision optical interconnects and translucent volumetric light layers arranged as measured concentric budget bands without any readable text or numbers. The setting subtly integrates the dark stone geometry of contemporary British civic architecture, not an office. Near-black charcoal stone, gunmetal and black glass dominate; luminous electric cyan #00e5ff is the main light, with electric blue #38bdf8, violet #a78bfa, magenta-pink #ef86bb and mint #7fe9f0 reflections, plus one restrained warm amber #ffb86c indicator. Low-key deep shadow, machine light only, physically plausible cooling lines and precision mechatronic assemblies, central subject kept inside a central 9:16 crop-safe area with generous dark negative space. No people, hands, robots, logos, readable text, fake statistics, dashboards, tabletop props, paper, meeting rooms or meaningless network graphics.",
+    ctaPrimary: {
+      label: "Review your automation case",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Calculator / Interactive",
+      fingerprint: "Calculator / Interactive|decision-moment|5|calculator",
+    },
+  },
 // N8N_BLOG_POSTS_END
 ];
 
