@@ -28915,7 +28915,560 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Calculator / Interactive|decision-moment|5|calculator",
     },
   },
-// N8N_BLOG_POSTS_END
+  {
+    slug: "route-self-pay-vs-insurance",
+    title: "How UK Physio Clinics Should Route Self-Pay vs Insurance Booking Requests",
+    subtitle:
+      "A practical field guide for UK physio and chiropractic clinics that need cleaner booking routes, fewer front-desk guesses and clearer ownership.",
+    summary: [
+      "Payer type should be captured before a slot is offered because it changes what information the clinic needs.",
+      "Self-pay, insurance and cash-plan requests need different routing rules, with clear stop conditions for exceptions.",
+      "The safest model gives one source of truth, one exception owner and one non-clinical boundary across every channel.",
+    ],
+    categoryLabel: "Physio & Chiropractic",
+    categoryKey: "physio-chiropractic",
+    categoryId: "physios-chiropractors",
+    categoryOrder: 13,
+    displayDate: "18 August 2026",
+    publishedIsoDate: "2026-08-18T14:36:08.997Z",
+    updatedIsoDate: "2026-08-18T14:36:08.997Z",
+    readTime: "7 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/route-self-pay-vs-insurance-hero.webp",
+    heroImageAlt:
+      "Bright editorial illustration of a UK clinic booking workflow routing self-pay, insurance and cash-plan enquiries through controlled automation with human review.",
+    metaTitle: "Physio Self-Pay vs Insurance Booking UK",
+    metaDescription:
+      "How UK physio clinics should route self-pay, insurance and cash-plan booking requests with clearer rules, safer handoffs and less guesswork.",
+    primaryKeyword: "physio self pay vs insurance booking automation UK",
+    secondaryKeywords: [
+      "UK physio booking workflow",
+      "insurance booking automation for clinics",
+      "self-pay vs insurance intake process",
+      "physio clinic admin automation",
+      "chiropractic booking routing UK",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "The phone rings while a practitioner is with a patient. A web form lands moments later. One person wants a **self-pay first appointment**, another mentions **Bupa pre-authorisation**, and a third says their employer cash plan might reimburse part of the fee. If all three enter the same booking flow, reception is forced to improvise.",
+          "The direct answer is simple: **payer type should change the route before any slot is offered**. UK physio clinics need a clear intake rule set for self-pay, insurance and cash-plan requests, with a named human owner for exceptions, a defined source of truth, and an explicit ==stop condition== where automation hands over.",
+          "That is where {{accent:workflow design}} matters more than chatbot novelty. Silverstone AI helps clinics design bounded, non-clinical automation that captures the right details, routes the request to the right queue and keeps the diary aligned with the admin reality of UK private practice.",
+        ],
+      },
+      {
+        heading:
+          "The front-desk moment where payer type changes the whole booking path",
+        body: [
+          "A **self-pay enquiry** usually needs price clarity, appointment availability and standard intake information. An **insured enquiry** may also need insurer name, pre-authorisation status and a claim path that matches how your clinic bills.",
+          "That difference matters before the diary is shown. If your team offers a slot first and checks payment route later, avoidable rework appears fast: callbacks, rescheduling, billing confusion and frustrated staff.",
+          "Use this rule set:\n- If the clinic can confirm the booking with the information already provided, keep the route automated.\n- If missing payer details could create a billing or diary error, pause before slot selection.\n- If the request falls outside the approved rule set, send it to a named human owner.\n- If the enquiry becomes clinical, stop automation and hand over immediately.",
+          "Core principle: **route first, book second**.",
+        ],
+        lede:
+          "If payment route affects admin work, authorisation checks or slot eligibility, capture it first.",
+        leadStyle: "drop-cap",
+        variant: "signal",
+        grid: [
+          {
+            body:
+              "Usually suited to direct online or phone booking where pricing, appointment type and standard intake are already clear.",
+            title: "Self-pay",
+          },
+          {
+            body:
+              "Often needs payer-specific checks before confirmation, especially where pre-authorisation or claim handling affects admin.",
+            title: "Private medical insurance",
+          },
+          {
+            body:
+              "Can look similar to insurance, but reimbursement rules and documents often make it a separate route.",
+            title: "Cash plan or employer-funded",
+          },
+          {
+            body:
+              "Should move to review when the clinic cannot confirm who pays or what paperwork is required.",
+            title: "Referral-led or unclear payer",
+          },
+        ],
+        callout: {
+          body: [
+            "For UK physio and chiropractic clinics, the first branching question should usually be **how the appointment will be paid for**. That choice determines what information must be captured, whether a slot can be offered instantly, and who owns any exception.",
+          ],
+          tone: "answer",
+          title: "Operational answer",
+          label: "Use this as the default rule",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+        sectionNumber: "01",
+      },
+      {
+        heading:
+          "Which details automation should capture before offering any appointment",
+        body: [
+          "Before the system offers a slot, it should capture only the details that affect **routing, ownership and bookability**. The aim is not to collect everything. The aim is to collect the minimum needed to decide the next safe administrative step.",
+          "Many clinics overbuild at this stage. They ask for too much too early, completion drops, and reception still has to call back because the **source of truth** was never defined.",
+          "A lean intake sequence usually works best:\n1. Confirm whether the enquiry is **self-pay, insurance, cash plan or other**.\n2. Capture contact details and preferred location or practitioner if that affects booking.\n3. For insurance or cash-plan requests, ask for provider name and whether authorisation has already been issued.\n4. Ask whether the person is new or returning if that changes your booking rules.\n5. Stop and route to admin review if a required payer field is missing.",
+          "For clinics using separate pathways for self-referral and insurer-led admin, that early branch should mirror the real workflow. [AI automation](/services/ai-automation) is useful here when it follows the clinic's rules rather than pretending every enquiry is identical.",
+        ],
+        lede:
+          "Good routing depends on a small set of high-value fields, not a long form nobody finishes.",
+        variant: "system",
+        bullets: [
+          {
+            body: "Capture only fields that change the route or booking decision.",
+            label: "Keep it lean",
+          },
+          {
+            body:
+              "One person or queue should own insurance exceptions and missing payer data.",
+            label: "Name the owner",
+          },
+          {
+            body:
+              "Shorter intake flows usually outperform long forms that try to replace reception.",
+            label: "Protect completion",
+          },
+        ],
+        definitions: {
+          items: [
+            {
+              term: "Source of truth",
+              definition:
+                "The single record your team trusts for payer status, booking state and next action.",
+              note:
+                "Often your PMS, CRM or booking system rather than a chat transcript.",
+            },
+            {
+              term: "Human-in-the-loop",
+              definition:
+                "An automation design where a staff member reviews or approves exceptions before the booking progresses.",
+            },
+            {
+              term: "Stop condition",
+              definition: "A hard rule that ends automation and triggers handover.",
+              note: "In this category, any clinical discussion is a stop condition.",
+            },
+            {
+              term: "Routing field",
+              definition:
+                "A field collected because it changes the path, queue or ownership of the enquiry.",
+            },
+            {
+              term: "Bookability",
+              definition:
+                "Whether the clinic has enough verified information to offer a slot without creating admin rework.",
+            },
+          ],
+          title: "Booking-routing terms that matter",
+        },
+        sectionNumber: "02",
+      },
+      {
+        heading:
+          "How to route self-pay, insurance and cash-plan requests without guessing",
+        body: [
+          "The practical test is whether the workflow removes **front-desk guesswork**. A clinic should not rely on reception deciding, from memory, whether one payer type can book instantly while another needs verification first.",
+          "A clean route usually looks like this in practice.",
+        ],
+        variant: "operator",
+        keyTakeaways: {
+          items: [
+            "**Self-pay** should usually move fastest.",
+            "**Insurance** often needs route-specific checks before slot confirmation.",
+            "**Cash plans** should not be auto-classed without a deliberate rule.",
+            "Use a human review queue for unclear payer status.",
+          ],
+          title: "Field-guide takeaway",
+        },
+        subsections: [
+          {
+            heading: "Self-pay route",
+            body: [
+              "Use the fastest path here. If your pricing, practitioner availability and new-patient rules are already defined, the system can confirm the next step with minimal friction.",
+              "Typical routing logic:\n- Show the right appointment type.\n- Offer eligible slots.\n- Trigger standard forms or confirmations.\n- Log payer type as self-pay in the source system.",
+            ],
+            variant: "operator",
+            callout: {
+              body: [
+                "Where the admin rules are simple, self-pay should usually be your lowest-friction route. Do not make direct-paying patients complete insurer-style fields they do not need.",
+              ],
+              tone: "recommendation",
+              title: "Recommendation",
+            },
+          },
+          {
+            heading: "Insurance route",
+            body: [
+              "This path should ask for the payer details your admin team actually needs. Many clinics with meaningful insurer revenue need workflows shaped around pre-authorisation, claim handling and insurer-specific admin.",
+              "Use a review-first rule if booking cannot be honoured without the missing detail.",
+            ],
+            variant: "system",
+            checklist: {
+              items: [
+                {
+                  label: "Insurer name",
+                  detail: "The specific provider named by the patient.",
+                },
+                {
+                  label: "Pre-authorisation status",
+                  detail: "Confirm whether it exists, is pending or is unknown.",
+                },
+                {
+                  label: "Member or policy reference",
+                  detail: "Only if your team genuinely needs it before booking.",
+                },
+                {
+                  label: "Appointment type fit",
+                  detail:
+                    "Check whether the requested session type matches your insurer workflow.",
+                },
+                {
+                  label: "Admin review trigger",
+                  detail: "Send to human review if any required field is missing.",
+                },
+              ],
+              title: "Insurance intake checks",
+            },
+          },
+          {
+            heading: "Cash-plan and employer-funded route",
+            body: [
+              "Do not lump these into either self-pay or insurance by default. They often sit in a middle ground where the patient may pay first and reclaim later, or where an employer arrangement changes the paperwork.",
+              "The safe rule is *separate until proven equivalent*. If your team handles them exactly like self-pay, map them there deliberately. If not, create a distinct review queue.",
+            ],
+            variant: "signal",
+            versusCard: {
+              left: {
+                title: "Guess-based routing",
+                body:
+                  "Reception infers the path from free-text messages or half-complete calls.",
+                points: [
+                  "Inconsistent slot offers",
+                  "More callbacks",
+                  "Higher billing confusion",
+                ],
+              },
+              right: {
+                title: "Rule-based routing",
+                body:
+                  "The system branches on payer type and only asks fields that affect booking.",
+                points: ["Cleaner handoffs", "Better diary integrity", "Less avoidable admin"],
+              },
+              eyebrow: "Routing decision",
+              verdict:
+                "Rule-based routing is the safer model for UK clinics because it makes exceptions visible instead of burying them in reception memory.",
+            },
+          },
+        ],
+        sectionNumber: "03",
+      },
+      {
+        heading: "The exceptions that should go to a human before booking",
+        body: [
+          "Not every request should complete online, by message or through an AI receptionist. The right design includes a clear escalation path and a named owner who can resolve edge cases without the patient bouncing between channels.",
+          "Send the enquiry to a human before booking when:\n- the payer type is missing or contradictory\n- the insurer is named but pre-authorisation status is unclear\n- the patient requests a booking method your system cannot validate\n- the diary rules depend on admin information the flow has not captured\n- the conversation turns clinical in any way",
+          "For this category, the human owner is usually a front-desk lead, practice manager or insurance admin owner. The stop condition should be written into the workflow, not left as tribal knowledge.",
+        ],
+        lede:
+          "Automation should handle the ordinary path and expose the messy edge cases early.",
+        leadStyle: "lead",
+        variant: "signal",
+        callout: {
+          body: [
+            "Keep the automation strictly non-clinical. It can collect booking and payer information, but it should not assess urgency, interpret symptoms, suggest treatment suitability or decide anything that belongs to a clinician.",
+          ],
+          tone: "caution",
+          title: "Boundary for physio and chiropractic clinics",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Source of truth",
+              value: "PMS or booking system",
+              note: "Not the chat or call transcript",
+            },
+            {
+              label: "Exception owner",
+              value: "Named admin lead",
+              note: "One person or queue",
+            },
+            {
+              label: "Stop condition",
+              value: "Any clinical discussion",
+              note: "Immediate handover",
+            },
+            {
+              label: "Approval point",
+              value: "Insurance uncertainty",
+              note: "Review before slot offer",
+            },
+          ],
+          title: "Illustrative routing ownership panel",
+        },
+        sectionNumber: "04",
+      },
+      {
+        heading: "What your diary, PMS and team need to stay aligned on",
+        body: [
+          "If you add a voice or message layer, align it with the same rules. A phone workflow should not create a different booking policy from the website form. That is where [AI receptionists](/services/ai-receptionists) and [AI voice agents](/services/ai-voice-agents) need disciplined configuration rather than generic scripting.",
+          "Silverstone AI's role in this kind of build is not to replace your operating model. It is to translate the model into a reliable, observable workflow with {{underline:clear exception ownership}}.",
+          "Three decisions must be fixed before launch:\n- which system is the **source of truth** for payer status and booking state\n- who owns each exception queue and handoff\n- when automation must stop rather than pushing a booking through",
+        ],
+        variant: "system",
+        comparisonTable: {
+          columns: ["What must be defined", "Human owner"],
+          rows: [
+            {
+              cells: [
+                "Which appointment types each payer route can access",
+                "Practice manager or operations lead",
+              ],
+              label: "Diary",
+            },
+            {
+              cells: [
+                "Where payer type, booking status and notes are recorded as the source of truth",
+                "System owner or admin lead",
+              ],
+              label: "PMS or CRM",
+            },
+            {
+              cells: [
+                "What staff say when payer details are missing or unclear",
+                "Front-desk lead",
+              ],
+              label: "Reception scripts",
+            },
+            {
+              cells: [
+                "Which queue handles insurance exceptions and how quickly",
+                "Insurance admin owner",
+              ],
+              label: "Escalations",
+            },
+          ],
+        },
+        timeline: {
+          items: [
+            {
+              title: "Map current paths",
+              body:
+                "List how self-pay, insurance and cash-plan requests are handled today across phone, web and email.",
+              label: "Week 1",
+            },
+            {
+              title: "Define routing rules",
+              body:
+                "Agree mandatory fields, stop conditions, exception queues and source-of-truth fields.",
+              label: "Week 2",
+            },
+            {
+              title: "Configure and test",
+              body:
+                "Run sample enquiries through each route and check diary, PMS and staff outputs match.",
+              label: "Week 3",
+            },
+            {
+              title: "Launch with oversight",
+              body:
+                "Monitor early exceptions daily and tighten rules before scaling volume.",
+              label: "Week 4",
+            },
+          ],
+          title: "A sensible launch sequence",
+        },
+        sectionNumber: "05",
+      },
+      {
+        heading: "What to measure after launch to spot routing errors early",
+        body: [
+          "The first month tells you whether the model works. You do not need inflated dashboards. You need a short review pack that shows whether enquiries are reaching the right path, whether humans are intervening for the right reasons and whether the diary stays clean.",
+          "Track measures like:\n- number of enquiries by payer route\n- percentage sent to human review\n- most common exception reasons\n- bookings reversed because payer details were wrong\n- time from enquiry to resolved next step for insurance cases",
+          "Where external research is helpful, it reinforces the shape of the problem rather than proving your clinic's outcome. UK private-clinic commentary repeatedly points to insurance queries, missed calls and rescheduling friction as common operational load. {{chip:proof|Useful evidence}} The lesson is to watch where your own process creates repeatable admin drag.",
+          "See our work with UK [physio and chiropractic](/industry/physios-chiropractors) practices for how these systems are planned, built and run.",
+        ],
+        lede: "Early monitoring should focus on routing quality, not vanity metrics.",
+        variant: "operator",
+        steps: [
+          {
+            body:
+              "Check whether the route, fields captured and final booking outcome matched the written rules.",
+            title: "Audit five real enquiries each week",
+            label: "Step 1",
+          },
+          {
+            body:
+              "If the same missing field appears repeatedly, fix the form or script rather than blaming staff.",
+            title: "Review exception reasons",
+            label: "Step 2",
+          },
+          {
+            body:
+              "Make sure web, phone and message flows produce the same routing outcome for the same payer type.",
+            title: "Compare channels",
+            label: "Step 3",
+          },
+          {
+            body:
+              "If borderline cases are slipping through, narrow the automation scope and increase human review.",
+            title: "Tighten the stop conditions",
+            label: "Step 4",
+          },
+        ],
+        callout: {
+          body: [
+            "UK software and clinic workflow sources consistently describe separate handling for self-pay, PMI and referral-style pathways, plus added admin where insurer processes are involved. That supports a design choice many clinics already feel instinctively: ==one booking path is rarely enough==.",
+          ],
+          tone: "evidence",
+          title: "Why this matters operationally",
+        },
+        statBand: {
+          items: [
+            {
+              value: "3 routes",
+              label: "Minimum payer paths",
+              detail: "Self-pay, insurance and cash-plan or other",
+              tone: "benchmark",
+            },
+            {
+              value: "1 owner",
+              label: "Per exception queue",
+              detail: "Avoid shared responsibility",
+              tone: "benchmark",
+            },
+            {
+              value: "4 weeks",
+              label: "Initial monitoring window",
+              detail: "Review daily, then weekly",
+              tone: "time",
+            },
+          ],
+          title: "Illustrative review band",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+        sectionNumber: "06",
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "Should UK physio clinics let insured patients book instantly online?",
+        answer:
+          "Sometimes, but only when your clinic already has the payer information needed to honour that booking. If insurer details, pre-authorisation or admin checks affect whether the appointment can proceed, route the request to review before offering a slot.",
+      },
+      {
+        question: "Are cash plans the same as self-pay for booking purposes?",
+        answer:
+          "Not automatically. Some clinics can treat them like self-pay, especially where the patient pays directly and reclaims later. Others need a separate route because paperwork, limits or employer arrangements change the admin process.",
+      },
+      {
+        question: "What should be the source of truth for payer status?",
+        answer:
+          "Use the system your team actually manages operationally, usually the PMS, CRM or booking platform. The chat, email thread or call transcript can support the record, but it should not be the final authority on booking status.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "AI automation",
+        href: "/services/ai-automation",
+      },
+      {
+        label: "AI receptionists",
+        href: "/services/ai-receptionists",
+      },
+      {
+        label: "AI voice agents",
+        href: "/services/ai-voice-agents",
+      },
+      {
+        label: "Silverstone AI",
+        href: "/industry/physios-chiropractors",
+      },
+      {
+        label: "Silverstone AI",
+        href: "/blog/physio-chiropractic-ai-guide",
+      },
+    ],
+    researchSources: [
+      {
+        title: "Physiotherapy Software UK: Built for Your Clinic",
+        url: "https://esremedia.co.uk/industries/physiotherapy-software",
+        date: "",
+        summary:
+          "Online booking and self-referral so patients can request slots without phone calls, with pathways that match how your clinic triages (GP referral, self-pay, PMI, First Contact Practitioner if applicable) Clinical note-taking in SOAP format (Subjective, Objective, Assessment, Plan) with body charts, attachments, and structured outcome measures (MYMOP, PSFS, Oswestry, etc.) Exercise prescription and home programmes with video libraries, print or app delivery, and adherence tracking. Not a bolt-on ",
+        relevance: "Matches: self, pay, insurance, booking, how, plan",
+      },
+      {
+        title: "Best Medical Billing Software UK: 7 Platforms Compared 2026 | Pabau",
+        url: "https://pabau.com/blog/best-medical-billing-software-in-the-uk-2026",
+        date: "",
+        summary:
+          "1. Assess UK private insurance claim volume and complexity. Practices deriving over 30% of revenue from Bupa, AXA PPP, Aviva, or other UK insurers require platforms with native CCSD code libraries and direct insurer API integrations. Pabau’s Healthcode connection automates pre-authorisation, claim submission, and status tracking. US-centric platforms (SimplePractice, AdvancedMD, DrChrono) lack UK insurer integrations, forcing manual claim preparation outside the EHR and increasing administrative",
+        relevance: "Matches: self, pay, insurance, automation, without, your",
+      },
+      {
+        title: "Software for physiotherapists | Fusion Flow | Digital Scientists®",
+        url:
+          "https://www.digital-scientists.co.uk/fusion-flow/software-for-physiotherapists",
+        date: "",
+        summary:
+          "Software for physiotherapists # Business software built for physiotherapy practices and clinics. Fusion Flow gives physiotherapists and physio clinics a Zoho-powered system for managing patient enquiries, appointment scheduling, treatment course tracking, follow-ups and invoicing — reducing admin and improving patient retention. Patient CRMTreatment course trackingRebooking automationDischarge follow-upsInvoice integrationReferral tracking Get a Free DemoSee What's Included Why physiotherapists ",
+        relevance: "Matches: physio, self, pay, insurance, booking, automation",
+      },
+      {
+        title:
+          "Phone Agent for UK Private Clinics: How Mid-Market Practices Scale Access Without Scaling Costs | Motics Blog",
+        url:
+          "https://www.motics.ai/blog/phone-agent-for-uk-private-clinics-how-mid-market-practices-scale",
+        date: "",
+        summary:
+          "Here's how that plays out across UK private healthcare verticals: MSK and physiotherapy Common inbound calls: Appointment availability, rebooking after missed sessions, insurance queries (especially BUPA and AXA pre-authorisation), pricing for self-pay patients. Where clinics lose time: Reschedules and follow-up backlogs. A patient cancels their Tuesday physio session; by the time reception calls to rebook, the slot's been filled and the patient's dropped out of treatment. Where Phone Agent help",
+        relevance: "Matches: physio, self, pay, insurance, booking, automation",
+      },
+      {
+        title: "Ultimate 2026 Guide to Medical Practice Management Software UK",
+        url: "https://thesmartcarehome.com/medical-practice-management-software-uk",
+        date: "",
+        summary:
+          "### The Direct Answer Implementing advanced medical practice management software UK is the only proven method to protect clinical revenue, eliminate the financial devastation of DNAs, and automate complex insurance billing. In a tightening self-pay market, a sophisticated digital infrastructure transforms severe operational inefficiencies into quantifiable profit and guarantees the long-term survival of private healthcare facilities. ## Table of Contents ## Why Are “Did Not Attends” a Financial ",
+        relevance: "Matches: self, pay, insurance, how, clinics, what",
+      },
+      {
+        title:
+          "AI Marketing for Physiotherapists: What Actually Works for Private Clinics",
+        url: "https://aibridgeclub.com/post/ai-marketing-for-physiotherapists",
+        date: "",
+        summary:
+          "3. Will AI marketing work for a small single-physio clinic? Yes — in fact, solo physiotherapy clinics typically see the strongest ROI because the admin burden falls entirely on one person. Missed calls during treatment, out-of-hours enquiries, and no-shows all hit harder when there is no support team. AI automation solves those problems without the cost of hiring a receptionist. 4. Does AI marketing for physiotherapy clinics work alongside Cliniko, TM3 or WriteUpp? Yes. AI Bridge Club integrates",
+        relevance: "Matches: physio, booking, automation, how, clinics, without",
+      },
+    ],
+    imagePrompt:
+      "Create one bright, high-key 16:9 editorial hero image for Silverstone AI showing a non-clinical UK physio or chiropractic booking-routing system. Use a light premium environment with white, off-white and pale stone surfaces, brushed aluminium, optical glass and soft daylight. Main metaphor: a multi-channel reception console routing web, phone and message enquiries into three distinct payer paths: self-pay, insurance and cash-plan, with one visible human review point for exceptions. Show one principal operating surface in the central safe area, with two to five supporting layers such as a simplified diary, intake cards, routing nodes and a PMS record state. Make the direction of movement clear from enquiry intake to route selection to booking or human handoff. Include one calm fictional operator only if needed to show approval ownership; no patient detail, no readable text, no logos, no fake metrics, no clinical content, no diagnosis cues. Keep generous negative space on one side for HTML copy. Palette should stay airy and bright with restrained cyan, electric blue, teal and a touch of violet accents. Avoid dark backgrounds, stock-photo poses, generic AI imagery, robots, holograms, cyberpunk effects and cluttered collages.",
+    ctaPrimary: {
+      label: "Book a discovery call",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+  },
+  // N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
