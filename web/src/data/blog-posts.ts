@@ -30044,6 +30044,498 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Decision Framework|decision-moment|6|decision-guide",
     },
   },
+  {
+    slug: "ai-uk-gdpr-practical-guide-small",
+    title: "AI and UK GDPR: A Practical Guide for Small Businesses",
+    subtitle:
+      "A practical UK-first audit for using AI with personal data before your business goes live.",
+    summary: [
+      "Identify where personal data enters, leaves and influences an AI workflow.",
+      "Use a four-part audit for data, prompts, outputs and vendors before launch.",
+      "Escalate higher-risk automated decisions, document controls and retain meaningful human review.",
+    ],
+    categoryLabel: "Governance & Compliance",
+    categoryKey: "ai-governance",
+    categoryId: "ai-governance",
+    categoryOrder: 24,
+    displayDate: "19 August 2026",
+    publishedIsoDate: "2026-08-19T08:04:50.195Z",
+    updatedIsoDate: "2026-08-19T08:04:50.195Z",
+    readTime: "7 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/ai-uk-gdpr-practical-guide-small-hero.webp",
+    heroImageAlt:
+      "A luminous cyan AI compute core within a dark, futuristic British architectural setting.",
+    metaTitle: "AI and UK GDPR: A Practical Guide for Small Businesses",
+    metaDescription:
+      "A UK-first practical guide to assessing AI and UK GDPR risks, lawful basis, transparency, DPIAs, vendors and human oversight before launch.",
+    primaryKeyword: "AI and UK GDPR: A Practical Guide for Small Businesses",
+    secondaryKeywords: [
+      "UK GDPR AI compliance",
+      "AI DPIA small business",
+      "automated decision-making UK GDPR",
+      "AI data protection risk audit",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "If an AI tool handles customer, employee, prospect or supplier information, **UK GDPR applies to that processing**. The practical question is not whether the tool is clever; it is whether you can explain the data flow, purpose, lawful basis, safeguards and accountable person before launch.",
+          "This guide gives small-business decision-makers a compact risk audit rather than legal advice. Silverstone AI is the publisher and a UK-based AI systems studio serving clients in the UK and internationally. The UK is the primary lens; the underlying data-mapping, transparency and governance disciplines generalise widely.",
+        ],
+      },
+      {
+        heading: "What changes when AI uses personal data in a small business",
+        body: [
+          "An AI use case becomes a data-protection question when people can be identified directly or indirectly from the information used, retained or produced. That can include a support transcript, a CRM record, a voice recording, a prompt containing a name, or an output used to evaluate someone.",
+          "The [ICO guidance on automated decision-making](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/rights-related-to-automated-decision-making-including-profiling) explains that the UK GDPR covers automated individual decision-making and profiling. ==The highest-risk category is a solely automated decision with legal or similarly significant effects.==",
+          "- **Map the use case:** identify the task, people affected and business decision.\n- **Map the data path:** record what enters the tool, where it goes and who can access it.\n- **Map the outcome:** distinguish drafting assistance from a decision that affects an individual.\n- **Name the owner:** assign a person who can stop, amend or escalate the workflow.",
+        ],
+        sectionNumber: "01",
+        lede:
+          "**Treat AI as a processing activity, not a standalone software purchase.**",
+        leadStyle: "lead",
+        variant: "signal",
+        callout: {
+          body: [
+            "You can use AI with personal data, but only where **the processing has a defined purpose and lawful basis**, people receive appropriate information, and risks are assessed before deployment. Do not send personal data into an AI workflow merely because it is operationally convenient.",
+          ],
+          tone: "answer",
+          title: "Direct answer",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Personal data",
+              definition:
+                "Information relating to an identified or identifiable person.",
+            },
+            {
+              term: "Profiling",
+              definition:
+                "Automated processing used to evaluate personal aspects of an individual.",
+            },
+            {
+              term: "Solely automated decision",
+              definition:
+                "A decision made without human involvement; additional protections may apply where effects are legal or similarly significant.",
+            },
+          ],
+          title: "The terms worth separating",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+      {
+        heading: "The UK GDPR principles that matter most for AI use",
+        body: [
+          "Legal commentary from [Laceys Solicitors](https://laceyssolicitors.co.uk/does-gdpr-apply-to-ai-a-guide-for-uk-business-owners) links AI use involving personal data to the UK GDPR principles. For a small business, the useful test is whether each workflow can be defended in plain English to a customer, colleague or regulator.",
+          "Use this decision frame before building an assistant, automation or AI-enabled service. {{chip:idea|Design test}} It is a governance tool, not a substitute for specialist advice.",
+        ],
+        sectionNumber: "02",
+        lede:
+          "The six principles become practical design constraints when data passes through AI.",
+        leadStyle: "drop-cap",
+        variant: "system",
+        grid: [
+          {
+            body:
+              "State why the data is used, choose and record the lawful basis, and make communications understandable to affected people.",
+            title: "Lawfulness, fairness and transparency",
+          },
+          {
+            body:
+              "Use information only for the defined purpose. {{underline:Do not quietly reuse customer data}} for an unrelated model or workflow.",
+            title: "Purpose limitation",
+          },
+          {
+            body:
+              "Send only what the task needs. Remove names, contact details and identifiers where they add no value.",
+            title: "Data minimisation",
+          },
+          {
+            body:
+              "Check AI-generated personal inferences before acting. *Plausible output is not evidence of accuracy.*",
+            title: "Accuracy",
+          },
+          {
+            body:
+              "Set a retention approach for prompts, uploads, outputs and logs rather than retaining them by default.",
+            title: "Storage limitation",
+          },
+          {
+            body:
+              "Keep enough records to show how the decision was made, reviewed and improved.",
+            title: "Accountability",
+          },
+        ],
+        callout: {
+          body: [
+            "The [EDPB small-business guide](https://www.edpb.europa.eu/sme/be-compliant/be-compliant_en) reinforces a practical point that travels beyond the UK: compliance is continuous. A one-off policy cannot replace ongoing checks as data, suppliers and use cases change.",
+          ],
+          tone: "evidence",
+          title: "Evidence-led rule",
+        },
+      },
+      {
+        heading:
+          "How to assess lawful basis, transparency and purpose before deployment",
+        body: [
+          "Start with one narrowly described workflow, such as drafting a reply from an existing support ticket. Then test whether the proposed data, purpose and human action align. This is more reliable than attempting to retrofit governance after a broad rollout.",
+          "1. Define the business purpose and the specific result the AI is meant to support.\n2. Identify every personal-data input, including copied text and connected systems.\n3. Record the **lawful basis for each processing purpose** and test whether the use is fair.\n4. Decide what people need to be told and where that information will appear.\n5. Set the human decision point, exception route and deletion or retention approach.",
+          "For implementation design, connect the assessment to the delivery plan in [how Silverstone AI works](/how-we-work), consider [AI consulting](/services/ai-consulting), and review this [workflow automation selection guide](/blog/workflow-automation-selection-guide). {{accent:Start narrow, document clearly, then expand only after review.}}",
+        ],
+        sectionNumber: "03",
+        lede: "Write the use case down before you configure the tool.",
+        leadStyle: "lead",
+        variant: "operator",
+        versusCard: {
+          left: {
+            title: "Assistive workflow",
+            body:
+              "AI prepares a draft, summary or categorisation for a trained person to check before action.",
+            label: "Lower decision impact",
+            points: [
+              "Human judgement remains real",
+              "Inputs can be minimised",
+              "Errors can be corrected before use",
+            ],
+          },
+          right: {
+            title: "Automated individual decision",
+            body:
+              "AI determines an outcome about a person without meaningful human involvement.",
+            label: "Higher decision impact",
+            points: [
+              "Assess Article 22 implications",
+              "Check for legal or similarly significant effects",
+              "Build challenge and escalation routes",
+            ],
+          },
+          eyebrow: "Purpose test",
+          verdict:
+            "**Meaningful human review** is not a rubber stamp. If the system effectively decides the outcome, treat the use case as higher risk.",
+        },
+      },
+      {
+        heading:
+          "A practical risk audit for training data, prompts, outputs and vendors",
+        body: [
+          "This **four-part AI data risk audit** is the original working tool in this guide. Run it for each AI workflow, not just each supplier. It helps a small team locate risk in the data lifecycle rather than assuming the vendor contract answers every question.",
+          "Where a processor handles data for you, examine the arrangement closely. *A vendor’s public privacy statement may not describe your exact configuration, retention settings or connected data sources.*",
+        ],
+        sectionNumber: "04",
+        leadStyle: "drop-cap",
+        variant: "signal",
+        comparisonTable: {
+          columns: ["Ask before launch", "Evidence to retain", "Escalate when"],
+          rows: [
+            {
+              cells: [
+                "Is personal data included, and is its use compatible with the stated purpose?",
+                "Data inventory and purpose record",
+                "Reuse is unclear or sensitive data is involved",
+              ],
+              label: "Training data",
+            },
+            {
+              cells: [
+                "Can identifiers be removed or masked before submission?",
+                "Prompt rules and access controls",
+                "Staff may paste unnecessary customer or employee details",
+              ],
+              label: "Prompts and uploads",
+            },
+            {
+              cells: [
+                "Could an output be inaccurate, biased or used to decide something about a person?",
+                "Review procedure and sample checks",
+                "The output changes eligibility, price, employment or service access",
+              ],
+              label: "Outputs",
+            },
+            {
+              cells: [
+                "Who processes the data, where does it flow, and what controls apply?",
+                "Contract review and data-flow map",
+                "Terms, sub-processing or retention are not sufficiently clear",
+              ],
+              label: "Vendor and integrations",
+            },
+          ],
+          rowHeader: "Audit point",
+        },
+        checklist: {
+          items: [
+            {
+              label: "Use-case note",
+              detail: "Purpose, affected people and accountable owner.",
+            },
+            {
+              label: "Data-flow map",
+              detail: "Inputs, integrations, access and outputs.",
+            },
+            {
+              label: "Risk record",
+              detail: "Known failure modes, mitigations and escalation route.",
+            },
+            {
+              label: "Supplier record",
+              detail: "Relevant terms, instructions and configuration decisions.",
+            },
+            {
+              label: "Review plan",
+              detail: "Testing cadence, monitoring trigger and named reviewer.",
+            },
+          ],
+          title: "Pre-launch evidence pack",
+        },
+        callout: {
+          body: [
+            "A setting, policy or contract may help, but **documented testing and human controls** still matter. If you cannot explain what happens to personal data at each stage, pause the rollout and investigate.",
+          ],
+          tone: "caution",
+          title: "Do not confuse a feature with a safeguard",
+        },
+      },
+      {
+        heading: "When a DPIA, contracts and human oversight become essential",
+        body: [
+          "[Data Protection People](https://dataprotectionpeople.com/resource-centre/how-to-ensure-gdpr-compliance-when-using-ai) states that a DPIA is required where processing may result in high risk to individuals. The supplied ICO guidance adds important protections for **solely automated decisions with significant effects**.",
+          "A DPIA is not a generic form. It should describe the proposed processing, assess necessity and proportionality, identify risks and set measures to address them. Where your team lacks confidence on the legal analysis, seek appropriate professional advice.",
+        ],
+        sectionNumber: "05",
+        lede:
+          "Escalate before launch when the processing may create high risk for people.",
+        leadStyle: "lead",
+        variant: "system",
+        steps: [
+          {
+            body:
+              "Ask whether the workflow profiles people, uses sensitive information, operates at scale or can materially affect an individual.",
+            title: "Screen the impact",
+            label: "01",
+          },
+          {
+            body:
+              "Define who reviews the result, what information they see and when they can disagree with it.",
+            title: "Test the human role",
+            label: "02",
+          },
+          {
+            body:
+              "Confirm responsibilities, instructions and relevant data-handling terms for the proposed processing.",
+            title: "Review the supplier arrangement",
+            label: "03",
+          },
+          {
+            body:
+              "Proceed, redesign or stop the use case. Keep the rationale and revisit it when the workflow changes.",
+            title: "Decide and record",
+            label: "04",
+          },
+        ],
+        callout: {
+          body: [
+            "For customer-facing or employee-facing AI, make **human oversight, challenge routes and review evidence** part of the operating design, not an afterthought. {{chip:warning|Escalate}} when the tool can materially influence an outcome about a person.",
+          ],
+          tone: "recommendation",
+          title: "Practical governance choice",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "High risk",
+              value: "DPIA",
+              note: "Assess before processing where the use may result in high risk.",
+            },
+            {
+              label: "Significant effect",
+              value: "Article 22",
+              note: "Apply additional care to solely automated individual decisions.",
+            },
+            {
+              label: "Unclear data flow",
+              value: "Pause",
+              note:
+                "Resolve the unknown before connecting systems or uploading records.",
+            },
+          ],
+          title: "Three escalation signals",
+        },
+      },
+      {
+        heading: "What small businesses should document before going live",
+        body: [
+          "Your final pack should allow a competent colleague to understand the workflow without relying on the original project team. The [GOV.UK framework](https://www.gov.uk/government/publications/ethics-transparency-and-accountability-framework-for-automated-decision-making/ethics-transparency-and-accountability-framework-for-automated-decision-making) supports building systems that remain reviewable and future-proof as circumstances change.",
+          "Keep the record proportionate to the risk, but do not omit the essentials. {{accent:Good documentation makes a pause, challenge or redesign possible when it matters.}} For operational build support, see [AI automation services](/services/ai-automation), [AI receptionist setup guidance](/blog/ai-receptionist-setup-guide), [AI voice agent development](/blog/ai-voice-agent-development) and [bespoke app development guidance](/blog/bespoke-app-development-guide).",
+        ],
+        sectionNumber: "06",
+        leadStyle: "drop-cap",
+        variant: "operator",
+        bullets: [
+          {
+            body:
+              "What the AI does, what it must not do, and the people it may affect.",
+            label: "Purpose and scope",
+          },
+          {
+            body:
+              "Data categories, sources, recorded lawful basis and retention decisions.",
+            label: "Data and basis",
+          },
+          {
+            body: "How relevant people receive clear information about the processing.",
+            label: "Transparency route",
+          },
+          {
+            body: "Access, prompt rules, quality checks, human review and escalation.",
+            label: "Control design",
+          },
+          {
+            body:
+              "Who approves a new integration, data source, model setting or material use-case change.",
+            label: "Change control",
+          },
+        ],
+        keyTakeaways: {
+          items: [
+            "**Use AI with personal data only for a defined, documented purpose.**",
+            "Minimise inputs and test outputs before they influence people.",
+            "Use a DPIA where high risk may arise; seek legal advice for uncertain or consequential cases.",
+            "Keep an audit trail that makes accountability visible.",
+            "{{chip:action|Next step}} Book a governance scoping conversation via [the booking calendar](/book#booking-calendar).",
+          ],
+          title: "Go-live decision",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+      },
+    ],
+    faqs: [
+      {
+        answer:
+          "It may apply where the prompts, source material or outputs involve personal data. Assess the actual data flow and purpose rather than relying on the label of the tool or task.",
+        question: "Does UK GDPR apply if we only use AI to draft content?",
+      },
+      {
+        answer:
+          "No supplied source supports that conclusion. A DPIA becomes necessary where the processing may result in high risk to individuals; screen each use case and obtain specialist advice where the assessment is uncertain.",
+        question: "Do all AI projects need a DPIA?",
+      },
+      {
+        answer:
+          "Yes, but the review must be meaningful in practice. Where a decision is solely automated and has legal or similarly significant effects, the ICO describes additional protections under Article 22.",
+        question: "Can a person remain responsible if AI makes a recommendation?",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "workflow automation selection guide",
+        href: "/blog/workflow-automation-selection-guide",
+      },
+      {
+        label: "AI receptionist setup guidance",
+        href: "/blog/ai-receptionist-setup-guide",
+      },
+      {
+        label: "AI voice agent development",
+        href: "/blog/ai-voice-agent-development",
+      },
+      {
+        label: "bespoke app development guidance",
+        href: "/blog/bespoke-app-development-guide",
+      },
+    ],
+    researchSources: [
+      {
+        title: "GDPR and AI: Essential Guide for UK Business Owners",
+        url:
+          "https://laceyssolicitors.co.uk/does-gdpr-apply-to-ai-a-guide-for-uk-business-owners",
+        domain: "laceyssolicitors.co.uk",
+        summary:
+          "Here’s why GDPR applies to AI systems: AI systems often use large datasets that include personal data. Their automated decision-making features are specifically addressed under GDPR rules, like Article 22. GDPR’s main goal is to give people more protection and control over their personal data. For AI applications to comply, businesses must balance innovation with their data protection responsibilities. The GDPR Principles Applied to AI To comply with GDPR while using AI, your organisation must adhere to the regulation’s six main principles when processing personal data. Here’s how they apply in the context of AI: Lawfulness, fairness and tran",
+        verifiedAt: "2026-08-19T08:01:09.999Z",
+        matchedTerms: ["gdpr", "practical", "what", "when", "personal", "data", "principles", "use"],
+      },
+      {
+        title:
+          "The UK’s New Automated Decision-Making Rules – And How they Compare to the EU GDPR – Debevoise Data Blog",
+        url:
+          "https://www.debevoisedatablog.com/2025/11/19/the-uks-new-automated-decision-making-rules-and-how-they-compare-to-the-eu-gdpr",
+        domain: "debevoisedatablog.com",
+        summary:
+          "Debevoise Data Blog # The UK’s New Automated Decision-Making Rules – And How they Compare to the EU GDPR This summer, the UK enacted the long-anticipated Data (Use and Access) Act 2025 (“DUAA”), the first major amendments to the UK’s data protection legislation since Brexit. The changes include substantial reforms to the rules on automated decision-making (“ADM”) involving personal data. While the government has not yet confirmed an implementation date, the new regime is expected to take effect in 2026, subject to secondary legislation and further guidance from the ICO. [...] (c) contest the decision. [See Art.22(3) EU GDPR] When relying on t",
+        verifiedAt: "2026-08-19T08:01:09.999Z",
+        matchedTerms: ["gdpr", "changes", "when", "personal", "data", "most", "use", "how"],
+      },
+      {
+        title: "Rights related to automated decision making including ...",
+        url:
+          "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/rights-related-to-automated-decision-making-including-profiling",
+        domain: "ico.org.uk",
+        summary:
+          "The UK GDPR has provisions on: + automated individual decision-making (making a decision solely by automated means without any human involvement); and + profiling (automated processing of personal data to evaluate certain things about an individual). Profiling can be part of an automated decision-making process. The UK GDPR applies to all automated individual decision-making and profiling. Article 22 of the UK GDPR has additional rules to protect individuals if you are carrying out solely automated decision-making that has legal or similarly significant effects on them. You can only carry out this type of decision-making where the decision is",
+        verifiedAt: "2026-08-19T08:01:10.000Z",
+        matchedTerms: ["gdpr", "when", "uses", "personal", "data", "use", "how", "lawful"],
+      },
+      {
+        title: "How to Ensure GDPR Compliance When Using AI | Data Protection People",
+        url:
+          "https://dataprotectionpeople.com/resource-centre/how-to-ensure-gdpr-compliance-when-using-ai",
+        domain: "dataprotectionpeople.com",
+        summary:
+          "In this blog, we’ll outline the critical considerations for businesses adopting AI and how to maintain GDPR compliance when using it. ## How to Use AI and Personal Data Lawfully ### 1. Assess Business Use of AI Systems You first need to assess how you are (or will be) using AI across your business. Are you using AI to streamline repetitive tasks or to make better decisions? Whatever your reason, you’re still processing personal data, so you must have a lawful basis for doing so. ### 2. Conduct a Data Protection Impact Assessment (DPIA) The UK GDPR requires all businesses to do a DPIA if they process data that may result in high risk to the in",
+        verifiedAt: "2026-08-19T08:01:10.000Z",
+        matchedTerms: ["gdpr", "when", "personal", "data", "use", "how", "assess", "lawful"],
+      },
+      {
+        title:
+          "Be compliant | Data protection guide for small business | European Data Protection Board",
+        url: "https://www.edpb.europa.eu/sme/be-compliant/be-compliant_en",
+        domain: "edpb.europa.eu",
+        summary:
+          "The GDPR certification of a processing operation that your organisation carries out is valid for a maximum of 3 years, but can be renewed or revoked. To keep this certification, your organisation must continuously and consistently put into practice the measures surrounding the data protection operation that was certified. ## Read more Data protection guide for small business logo ## Footer Logo of Linkedin Logo of X ## We use cookies [...] Data protection guide for small business logo ## Main navigation ### Select your language ## Breadcrumb ## On this page # Be compliant An organisation not only has to process personal data according to the",
+        verifiedAt: "2026-08-19T08:01:10.000Z",
+        matchedTerms: ["gdpr", "small", "what", "when", "personal", "data", "use", "how"],
+      },
+      {
+        title:
+          "Ethics, Transparency and Accountability Framework for Automated Decision-Making - GOV.UK",
+        url:
+          "https://www.gov.uk/government/publications/ethics-transparency-and-accountability-framework-for-automated-decision-making/ethics-transparency-and-accountability-framework-for-automated-decision-making",
+        domain: "gov.uk",
+        summary:
+          "### Relevant resources Data Ethics Framework Specific Action 3 Data Ethics Framework: legislation and codes of practice for use of data OECD AI Principles Principle Two ICO Guidance: Rights related to automated decision-making including profiling and What does the GDPR say about automated decision-making and profiling A Guide to using AI in the public sector ‘Ensuring your use of AI is compliant with data protection law’ Review into bias in algorithmic decision-making ‘7.4 Detecting and mitigating bias’ and ‘8.3 Legal Background’ ## 7. Build something that is future proof [...] Decision-makers should not assume that automated or algorithmic d",
+        verifiedAt: "2026-08-19T08:01:10.000Z",
+        matchedTerms: ["gdpr", "practical", "what", "when", "data", "principles", "most", "use"],
+      },
+    ],
+    imagePrompt:
+      "1536x864 photoreal editorial WebP concept for AI governance and UK GDPR: a physically plausible near-future photonic compute core housed within a dark, refined British civic-architecture interior suggested by charcoal stone arches and blackened steel, with smoked optical glass containment layers and precision sensing arrays forming a protected perimeter around the central machine-intelligence structure. Liquid-cooled server channels, wafer-scale processors and optical interconnects glow electric cyan #00e5ff as the dominant hue, with electric blue #38bdf8, violet #a78bfa, magenta-pink #ef86bb and mint #7fe9f0 reflections; one restrained warm amber #ffb86c status light provides contrast. Deep shadow, low-key machine-only illumination, gallery-grade product-photography realism, premium near-black materials, no people, no desks, no paper, no readable text, no logos, no dashboards, no generic robots, no network-node graphics. Keep the compute core and containment architecture centred within a generous 9:16 crop-safe zone, with negative space around the edges.",
+    ctaPrimary: {
+      label: "Plan a governed AI workflow",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+    presentation: {
+      family: "Regulatory Guide",
+      fingerprint: "Regulatory Guide|decision-moment|6|risk-audit",
+    },
+  },
 // N8N_BLOG_POSTS_END
 ];
 
