@@ -2210,11 +2210,19 @@ html[data-js="on"]
     --ss-hv2-stage: calc(
       100svh - var(--ss-layout-header, 0px) - 2 * var(--ss-hv2-secondary-pad)
     );
-    /* svh, not dvh: the contract is "at load", when every mobile browser shows
-       its toolbars, and a dvh box would reflow on every toolbar animation. The
-       plain vh line is a fallback for engines without svh. */
+    /* The box is dvh and --ss-hv2-stage above is svh, on purpose — the same
+       split every other route's hero uses (see the phone block in
+       styles/services-v2/services-v2.css for the full reasoning). dvh so
+       "one screen" means the screen the visitor is actually looking at,
+       including arrivals from an internal link or the nav drawer, where the
+       phone's toolbar is still collapsed from the previous page's scroll and
+       an svh box would fall a toolbar short of the fold. svh for the content
+       budget so the copy is sized for the smallest possible screen and never
+       reflows while that toolbar animates — the spare height is absorbed by
+       the intro's slack and the cue's bottom anchor instead. The plain vh
+       line is a fallback for engines without dvh. */
     height: calc(100vh - var(--ss-layout-header, 0px));
-    height: calc(100svh - var(--ss-layout-header, 0px));
+    height: calc(100dvh - var(--ss-layout-header, 0px));
     overflow: hidden;
   }
 

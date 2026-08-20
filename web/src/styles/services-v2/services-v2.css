@@ -974,15 +974,32 @@ section[data-slot="page-section"]:has(.ss-srv2) {
      * immediately beneath it — on every route and every phone. This is the
      * desktop mechanism (a hard height, not a min-height floor) applied to
      * portrait phones; the stage-driven type above is what lets the content
-     * actually fit inside it rather than being clipped. svh, not dvh: the
-     * contract is "at load", when every mobile browser shows its toolbars, and
-     * a dvh box would reflow the whole hero each time Safari's toolbar
-     * animates. The plain vh line is a fallback for engines without svh.
+     * actually fit inside it rather than being clipped.
+     *
+     * The BOX is dvh and the CONTENT BUDGET above is svh, deliberately, and
+     * they are not the same measurement:
+     *
+     * - dvh for the box, because "one screen" has to mean the screen the
+     *   visitor is actually looking at. A phone browser only shows its
+     *   toolbars at the top of a document; once someone has scrolled, the
+     *   toolbar is collapsed and stays collapsed through an in-app navigation
+     *   (a client-side route change never re-expands it). An svh box on that
+     *   arrival is one toolbar shorter than the window — around 70px on iOS —
+     *   so the cue floats well above the fold and the TrustStrip's first rows
+     *   sit above it. dvh keeps the contract on internal links and the nav
+     *   drawer, not just on a cold load.
+     * - svh for --srv2-mobile-stage, because the type must NOT resize while
+     *   the toolbar animates. Sizing the copy to the smallest possible screen
+     *   means the stack always fits, and the spare height a collapsed toolbar
+     *   hands back is absorbed by the intro's centring and the cue's bottom
+     *   anchor — it moves the composition, never reflows it.
+     *
+     * The plain vh lines are a fallback for engines without dvh.
      */
     height: calc(100vh - var(--srv2-hero-chrome));
-    height: calc(100svh - var(--srv2-hero-chrome));
+    height: calc(100dvh - var(--srv2-hero-chrome));
     min-height: calc(100vh - var(--srv2-hero-chrome));
-    min-height: calc(100svh - var(--srv2-hero-chrome));
+    min-height: calc(100dvh - var(--srv2-hero-chrome));
     overflow: hidden;
   }
 
@@ -1273,6 +1290,16 @@ section[data-slot="page-section"]:has(.ss-srv2) {
     font-size: clamp(0.68rem, calc(0.0103 * var(--srv2-mobile-stage) + 7.66px), 0.9rem);
   }
 
+  /* The action reads as one instruction, so its label stays on one line. A
+     wrapped CTA breaks into two stacked fragments inside the pill and reads
+     as two half-thoughts. The pill's own geometry is untouched — width, height
+     and position all still come from the rules above; the compact row below is
+     where the room to honour this is found. Full-width phones have ~270px of
+     inner width against a longest label of ~164px, so nothing shrinks here. */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn--primary {
+    white-space: nowrap;
+  }
+
   /* One primary action per screen: the ghost quietens (fainter scrim, softer
      ink) so the animated gradient CTA above it carries the row alone. */
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn--ghost {
@@ -1340,13 +1367,70 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {
-    padding-inline: 0.5rem;
+    padding-inline: 0.4rem;
     line-height: 1.2;
   }
 
-  .ss-srv2-hero__scrollcue .ss-hv2-scrollcue__rail {
-    height: 24px;
+  /*
+   * Half a row is ~123px of inner width at 320px, and the arrow glyph plus its
+   * gap claims a fifth of that — the difference between "Book a discovery
+   * call" sitting on one line and breaking across two. It is decoration, and
+   * the ghost beside it already renders without one, so the compact row drops
+   * it and gives the whole pill to the label. Wider phones (which stack the
+   * two actions full-width instead) keep the arrow.
+   */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn--primary svg {
+    display: none;
   }
+
+  /*
+   * Label type in the compact row is capped by the width it actually has, not
+   * by the stage: the row's height decides the *base* size, but the wrap is a
+   * width problem — the two columns split one gutter-inset viewport, so the
+   * inner width is a straight line in vw (measured: column = 0.4526 * vw −
+   * 7.3px, less 0.8rem of padding and two hairlines).
+   *
+   * Divide that width by the label's own worst-case advance and the cap falls
+   * out. Inter Semibold at these sizes runs up to ~0.52em per character across
+   * the CTA copy on the site; the constants below carry that plus 6% headroom
+   * for Safari's slightly wider metrics. `min()` means the cap only ever bites
+   * when the label genuinely needs it — every phone at or above 360px keeps
+   * the full stage-driven size for a 21-character label.
+   *
+   * The buckets come from `primaryCtaLengthBucket` in secondary-hero.tsx.
+   * Beyond 25 characters, shorten the copy rather than adding a fourth step.
+   */
+  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn--primary {
+    /* up to 18 characters */
+    --srv2-cta-cap: calc(4.547vw - 2.22px);
+    font-size: min(
+      clamp(0.68rem, calc(0.0103 * var(--srv2-mobile-stage) + 7.66px), 0.9rem),
+      var(--srv2-cta-cap)
+    );
+  }
+
+  .ss-srv2
+    .ss-srv2-hero
+    .ss-srv2-hero__actions[data-primary-cta-length="long"]
+    .ss-srv2-btn--primary {
+    /* 19 to 21 characters */
+    --srv2-cta-cap: calc(3.897vw - 1.9px);
+  }
+
+  .ss-srv2
+    .ss-srv2-hero
+    .ss-srv2-hero__actions[data-primary-cta-length="xl"]
+    .ss-srv2-btn--primary {
+    /* 22 characters and up */
+    --srv2-cta-cap: calc(3.274vw - 1.6px);
+  }
+
+  /* The cue keeps its full mobile proportions here. It used to drop to a 24px
+     rail on short screens, which made every route's cue read a size smaller
+     than the homepage's (that one never shrank) at the same viewport. The cue
+     band is a fixed --srv2-mobile-chrome-reserve tall and the cue is anchored
+     to its bottom edge, so the rail's height is free: it costs the fold
+     nothing either way. */
 }
 
 /* Ultra-short phones (for example a 320×568 small viewport with browser chrome
@@ -1386,13 +1470,8 @@ section[data-slot="page-section"]:has(.ss-srv2) {
   }
 
   .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn {
-    padding-inline: 0.42rem;
+    padding-inline: 0.36rem;
     line-height: 1.15;
-  }
-
-  .ss-srv2 .ss-srv2-hero .ss-srv2-hero__actions .ss-srv2-btn svg {
-    width: 0.8rem;
-    height: 0.8rem;
   }
 }
 

@@ -78,17 +78,52 @@ function measure() {
     document.querySelector(".ss-srv2-hero__actions") ??
     document.querySelector(".ss-hv2-secondary__actions");
   const trust = document.querySelector(".ss-hv2-trust");
+  // The animated rail is the cue's only variable dimension — the word above it
+  // is a fixed 10px on every route.
+  const rail = document.querySelector(
+    ".ss-srv2-hero__scrollcue .ss-hv2-scrollcue__rail, .ss-hv2-secondary__cue--intro .ss-hv2-scrollcue__rail",
+  );
+  const primaryCta =
+    document.querySelector(".ss-srv2-hero__actions .ss-srv2-btn--primary") ??
+    document.querySelector(".ss-hv2-secondary__actions a");
   const rect = (element: Element | null) => {
     if (!element) return null;
     const box = element.getBoundingClientRect();
     return { top: box.top, bottom: box.bottom, height: box.height };
   };
+  /*
+   * Visual line count for the CTA label. Counting distinct rect tops over a
+   * Range across the label's text nodes only — the trailing arrow is an <svg>,
+   * and an svg's rect would read as its own line and inflate every count.
+   */
+  let ctaLines: number | null = null;
+  let ctaLabel: string | null = null;
+  if (primaryCta) {
+    ctaLabel = primaryCta.textContent.trim();
+    const textNodes = [...primaryCta.childNodes].filter(
+      (node) =>
+        node.nodeType === Node.TEXT_NODE && (node.textContent ?? "").trim() !== "",
+    );
+    if (textNodes.length > 0) {
+      const range = document.createRange();
+      range.setStartBefore(textNodes[0] as Node);
+      range.setEndAfter(textNodes[textNodes.length - 1] as Node);
+      ctaLines = new Set(
+        [...range.getClientRects()]
+          .filter((box) => box.width > 0 && box.height > 0)
+          .map((box) => Math.round(box.top)),
+      ).size;
+    }
+  }
   return {
     viewportHeight: window.innerHeight,
     hero: rect(hero),
     cue: rect(cue),
     actions: rect(actions),
     trust: rect(trust),
+    railHeight: rail ? getComputedStyle(rail).height : null,
+    ctaLines,
+    ctaLabel,
   };
 }
 
@@ -144,9 +179,53 @@ test.describe("mobile secondary hero fold", () => {
             `${label}: CTAs run into the reserved chrome band`,
           ).toBeLessThanOrEqual(cue.top);
         }
+
+        // A wrapped label reads as two stacked fragments inside the pill. The
+        // squeeze is the short-viewport tier, where the two actions share one
+        // row and each button keeps only half of it.
+        expect(
+          m.ctaLines,
+          `${label}: primary CTA "${m.ctaLabel ?? ""}" wraps onto ${String(m.ctaLines)} lines`,
+        ).toBe(1);
       }
     });
   }
+});
+
+/**
+ * The scroll cue is one component, so it is one size. Routes are spread across
+ * parallel workers above, which cannot compare notes, so the cross-route
+ * comparison lives in its own test: one representative route per hero family —
+ * the homepage's own secondary hero, a services-v2 route and a core page — read
+ * back to back at every phone size.
+ *
+ * The regression this catches is a per-family override drifting apart: the
+ * shared hero used to drop its rail to 24px on short screens while the
+ * homepage's stayed at 28px, so the same cue read a size smaller on 24 routes
+ * than on the homepage at the same viewport.
+ */
+test.describe("mobile scroll cue", () => {
+  test.skip(({ isMobile }) => !isMobile, "portrait-phone rule (max-width: 40rem)");
+
+  test("is the same size on every route at a given viewport", async ({ page }) => {
+    test.setTimeout(180_000);
+
+    for (const viewport of VIEWPORTS) {
+      await page.setViewportSize(viewport);
+      const label = `${String(viewport.width)}x${String(viewport.height)}`;
+      const heights: Record<string, string | null> = {};
+
+      for (const path of ["/", "/services/ai-receptionists", "/pricing"]) {
+        await openBody(page, path);
+        heights[path] = (await page.evaluate(measure)).railHeight;
+      }
+
+      const distinct = new Set(
+        Object.values(heights).map((height) => height ?? "none"),
+      );
+      expect([...distinct], `${label}: ${JSON.stringify(heights)}`).toHaveLength(1);
+    }
+  });
 });
 
 /**

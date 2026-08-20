@@ -130,6 +130,32 @@ function inferPointIcon(text: string, index: number): LucideIcon {
   return FALLBACK_POINT_ICONS[index % FALLBACK_POINT_ICONS.length] ?? ShieldCheck;
 }
 
+/**
+ * How tightly the primary CTA's label has to be fitted on a phone.
+ *
+ * On short screens the two hero actions share one row (see the
+ * `max-height: 43.75rem` tier in services-v2.css), which leaves each button
+ * roughly 120px of inner width — narrow enough that a 21-character label wraps
+ * onto a second line inside the pill. The label is content, so the CSS cannot
+ * see how long it is; this hands it the one fact it needs, exactly like the
+ * `data-long` markers on the title and lead below, and the tier answers with a
+ * step down in type. Buckets, not a continuous scale, so the same label always
+ * renders at the same size on every route that uses it.
+ *
+ * The tier's sizing holds a label of up to ~25 characters on one line at
+ * 320px; past that, prefer shorter CTA copy over another step down.
+ */
+function primaryCtaLengthBucket(label: string): "long" | "xl" | undefined {
+  const length = label.replace(/[*`]/g, "").trim().length;
+  if (length > 21) {
+    return "xl";
+  }
+  if (length > 18) {
+    return "long";
+  }
+  return undefined;
+}
+
 function CapabilityPoint({
   point,
   index,
@@ -271,7 +297,10 @@ export function SecondaryHero({
               delayMs={HERO_REVEAL_BASE_DELAY + 750}
               trigger="mount"
             >
-              <div className="ss-srv2-hero__actions">
+              <div
+                className="ss-srv2-hero__actions"
+                data-primary-cta-length={primaryCtaLengthBucket(primaryCtaLabel)}
+              >
                 <ServiceButton href={primaryCtaHref} variant="primary">
                   {primaryCtaLabel}
                 </ServiceButton>

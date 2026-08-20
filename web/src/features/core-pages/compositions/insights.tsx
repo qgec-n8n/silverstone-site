@@ -88,7 +88,7 @@ export function InsightsComposition() {
             text: "Jump-off points into services, pricing and discovery",
           },
         ]}
-        primaryCtaLabel="Open the Insights library"
+        primaryCtaLabel="Browse all Insights"
         primaryCtaHref="/blog#insights-index"
         secondaryCtaLabel="Book a discovery call"
         secondaryCtaHref="/book#booking-calendar"
