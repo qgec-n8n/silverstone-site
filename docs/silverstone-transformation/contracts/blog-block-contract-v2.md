@@ -543,6 +543,35 @@ No renderer truncates strings. The only string transformations are surrounding w
 | subsection `lede`                                                        | ignored                                                     |
 | nested subsection `subsections`                                          | ignored beyond one rendered level                           |
 | `presentation.ctaPlacement`, `presentation.fingerprint`                  | ignored by renderer                                         |
+
+### Two-column rows must receive rich copy as one element
+
+`keyTakeaways` items, `definitions` terms and `versusCard` points render into a
+row that is `display: grid` with `grid-template-columns: auto minmax(0, 1fr)`:
+track one holds the numeral or the check icon, track two holds the copy.
+
+Every direct child of a grid container is a grid item, and CSS wraps bare text
+runs into anonymous grid items too. `ArticleRichText` returns a fragment and
+`RichText` returns a bare array, so rich copy placed directly in one of these
+rows contributes *one grid item per token* — a `**bold**` span, a chip, a
+highlight, a link and each plain-text run between them.
+
+That is a layout bug, not a styling preference. An item such as
+`"**Self-pay** should usually move fastest."` produced three children: the
+numeral took track one, the bold span took track two, and the trailing text
+wrapped onto a second row back in the numeral track, stretching that track to
+the width of the runover. Fourteen items across seven published posts rendered
+that way in the orange Key Takeaways card before it was fixed.
+
+**Rule:** rich copy in these rows is always wrapped in a single element
+(`.ss-blog-article__takeaways-copy`, `.ss-blog-article__definitions-term`,
+`.ss-blog-article__versus-point`), so the row always has exactly two children.
+`tests/unit/search-led-article-blocks.test.tsx` asserts the child count.
+
+Because the renderer accepts any inline markup in these fields, the automations
+need no length or marker restriction on takeaway items — the fix is in the
+renderer, and it covers every post already published as well as every future
+one.
 | `imagePrompt`, `secondaryKeywords`, `faqs`, `researchSources`            | retained, not visibly rendered by `ArticlePage`             |
 
 ## 8. Worked section JSON

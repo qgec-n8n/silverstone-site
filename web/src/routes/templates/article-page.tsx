@@ -301,7 +301,21 @@ function ArticleKeyTakeaways({
         {items.map((item, index) => (
           <li key={`${item}-${String(index)}`}>
             <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-            <ArticleRichText text={item} />
+            {/*
+             * The numeral and the copy are the two tracks of a two-column grid,
+             * so the copy has to arrive as exactly ONE child. ArticleRichText
+             * returns a fragment and RichText returns a bare array, which means
+             * every bold span, chip, highlight, link and plain-text run would
+             * otherwise become its own grid item: an item like
+             * "**Self-pay** should usually move fastest." laid the bold half in
+             * column two and dropped the rest onto a second row inside the
+             * numeral column, stretching that column to the width of the
+             * runover. Any item whose markup does not span the whole line hit
+             * it, which is why the takeaways card looked broken so often.
+             */}
+            <div className="ss-blog-article__takeaways-copy">
+              <ArticleRichText text={item} />
+            </div>
           </li>
         ))}
       </ul>
@@ -394,9 +408,12 @@ function ArticleVersusCard({
                   .filter((point) => point.trim())
                   .slice(0, 4)
                   .map((point, index) => (
+                    // Same two-column grid, same one-child rule.
                     <li key={`${point}-${String(index)}`}>
                       <Check aria-hidden="true" />
-                      <ArticleRichText text={point.trim()} />
+                      <div className="ss-blog-article__versus-point">
+                        <ArticleRichText text={point.trim()} />
+                      </div>
                     </li>
                   ))}
               </ul>
@@ -439,9 +456,12 @@ function ArticleDefinitions({
       <dl>
         {items.map((item, index) => (
           <div key={`${item.term}-${String(index)}`}>
+            {/* Same two-column grid, same one-child rule as the takeaways card. */}
             <dt>
               <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-              <ArticleRichText text={item.term.trim()} />
+              <div className="ss-blog-article__definitions-term">
+                <ArticleRichText text={item.term.trim()} />
+              </div>
             </dt>
             <dd>
               <ArticleRichText text={item.definition.trim()} />

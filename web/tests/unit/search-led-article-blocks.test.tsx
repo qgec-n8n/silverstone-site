@@ -761,4 +761,79 @@ describe("search-led presentation blocks", () => {
     );
     expect(quoteLink?.getAttribute("rel")).toBe("noopener noreferrer nofollow");
   });
+
+  /*
+   * The takeaways, definitions and versus rows are two-column CSS grids whose
+   * first track holds a numeral or an icon. Every direct child of a grid
+   * container is a grid item — bare text runs included — so the copy must
+   * arrive as exactly ONE child. It did not: ArticleRichText returns a fragment
+   * and RichText a bare array, so an item like
+   * "**Self-pay** should usually move fastest." rendered as three children.
+   * The bold half took column two and the remaining text wrapped onto a second
+   * row inside the numeral column, which stretched to the width of the
+   * runover. Fourteen items across seven published posts rendered that way.
+   *
+   * Asserting on child count rather than on appearance is deliberate: jsdom has
+   * no grid layout engine, and the child count is the exact property the grid
+   * depends on.
+   */
+  it("keeps rich copy as a single grid child in every two-column block row", async () => {
+    const mixed = [
+      "**Bold lead** then trailing prose.",
+      "==Highlighted opening== followed by more copy.",
+      "{{chip:action|Next step}} A sentence after the chip.",
+      "Copy wrapped around {{accent:an accent span}} and then some more.",
+      "A [contextual link](/services/ai-automation) inside the sentence.",
+      "Entirely plain copy with no inline markers at all.",
+      "**A marker spanning the entire line.**",
+    ];
+    const post = baselinePost({
+      articleBody: [
+        {
+          heading: "Two column rows",
+          body: ["Body copy."],
+          keyTakeaways: { title: "Takeaways", items: mixed },
+          definitions: {
+            title: "Definitions",
+            items: mixed.slice(0, 4).map((term) => ({
+              term,
+              definition: "A definition for the term.",
+            })),
+          },
+          versusCard: {
+            left: { title: "Left", body: "Left body.", points: mixed.slice(0, 4) },
+            right: { title: "Right", body: "Right body.", points: mixed.slice(0, 4) },
+          },
+        },
+      ],
+    });
+
+    const { container } = renderArticle(post);
+    await waitFor(() => {
+      expect(container.querySelector(".ss-blog-article__takeaways")).not.toBeNull();
+    });
+
+    const rows = [
+      ...container.querySelectorAll(".ss-blog-article__takeaways li"),
+      ...container.querySelectorAll(".ss-blog-article__definitions dt"),
+      ...container.querySelectorAll(".ss-blog-article__versus-grid li"),
+    ];
+    // 7 takeaways + 4 definition terms + 4 + 4 versus points.
+    expect(rows.length).toBe(19);
+    for (const row of rows) {
+      expect(row.childNodes.length).toBe(2);
+    }
+
+    // The copy still renders in full, and its markup still parses.
+    const firstTakeaway = container.querySelector(".ss-blog-article__takeaways li");
+    expect(firstTakeaway?.textContent).toBe("01Bold lead then trailing prose.");
+    expect(firstTakeaway?.querySelector("strong")?.textContent).toBe("Bold lead");
+    // The numeral keeps its own track, so its styling hook is intact.
+    expect(firstTakeaway?.firstElementChild?.tagName).toBe("SPAN");
+    expect(
+      container.querySelector(
+        '.ss-blog-article__takeaways a[href="/services/ai-automation"]',
+      ),
+    ).not.toBeNull();
+  });
 });

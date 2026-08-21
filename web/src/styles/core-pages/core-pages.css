@@ -8695,6 +8695,16 @@ a.ss-insight-card:hover,
   line-height: 1.8;
 }
 
+/* The copy track of the two-column rows in the takeaways, definitions and
+   versus blocks. The wrapper exists so rich copy is ONE grid item however many
+   elements it tokenises into; `min-width: 0` keeps a long unbroken token
+   inside the track rather than widening the row. */
+.ss-blog-article__takeaways-copy,
+.ss-blog-article__definitions-term,
+.ss-blog-article__versus-point {
+  min-width: 0;
+}
+
 .ss-blog-article__wide-block {
   width: min(calc(100vw - 2rem), 70rem);
   max-width: min(calc(100vw - 2rem), 70rem);
