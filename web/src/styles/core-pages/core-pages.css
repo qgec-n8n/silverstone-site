@@ -1783,8 +1783,15 @@
     color var(--ss-motion-duration-fast) var(--ss-motion-easing-standard);
 }
 
+/* Both dimensions, always. Lucide icons ship `width="24" height="24"` as
+   presentation attributes, so a CSS rule that sets only `width` leaves the
+   svg box 24px tall. Inside these `place-items: center` circles the box then
+   overflows, the browser falls back to start alignment to avoid clipping,
+   and the glyph sits low — the tick hung ~4.6px below centre in the 16.8px
+   choice mark. Every icon inside a fixed-size mark below sets height too. */
 .ss-booking-progress__index svg {
   width: 0.78rem;
+  height: 0.78rem;
 }
 
 .ss-booking-progress li[data-state="current"] button {
@@ -2027,6 +2034,7 @@
 
 .ss-booking-choice-mark svg {
   width: 0.68rem;
+  height: 0.68rem;
   color: var(--booking-accent);
 }
 
@@ -2083,6 +2091,7 @@
   top: 50%;
   right: 0.85rem;
   width: 0.85rem;
+  height: 0.85rem;
   color: var(--booking-accent);
   pointer-events: none;
   transform: translateY(-50%);
@@ -2621,6 +2630,7 @@
   top: 50%;
   right: 0.55rem;
   width: 0.8rem;
+  height: 0.8rem;
   color: var(--booking-accent);
   transform: translateY(-50%);
 }
@@ -2957,6 +2967,7 @@
 
 .ss-booking-confirmation__mark svg {
   width: 1.8rem;
+  height: 1.8rem;
 }
 
 .ss-booking-confirmation__mark span {
@@ -3809,6 +3820,7 @@
 
   .ss-booking-mdial__step svg {
     width: 1rem;
+    height: 1rem;
   }
 
   .ss-booking-mdial__step:active {
@@ -4103,6 +4115,7 @@
 
   .ss-core-booking[data-flow="mobile"] .ss-booking-confirmation__mark svg {
     width: 1.4rem;
+    height: 1.4rem;
   }
 
   .ss-core-booking[data-flow="mobile"] .ss-booking-confirmation__facts > div {
@@ -4205,6 +4218,58 @@
   .ss-booking-calendar__day.is-loading:not(.is-available)
     .ss-booking-calendar__day-button::before {
     animation: none;
+  }
+}
+
+/* Phone scroll fix: the enquiry console and the booking console are the two
+   largest glass surfaces on the site — both are roughly viewport-tall
+   (375x716 and 292x619 on a 375x812 phone). `backdrop-filter` makes each one
+   sample and re-blur its backdrop every frame, and that backdrop includes
+   `.ss-hv2-backdrop`, a `position: fixed`, GPU-promoted particle layer. On
+   mobile Safari and Chrome the scroll itself runs on the compositor while
+   that re-blur is rastered behind it, so a surface this large lands frames
+   late: the panel visibly holds still and then snaps, worst while the URL
+   bar is collapsing (a visual-viewport resize mid-scroll). Dropping the
+   filter at phone widths removes the per-frame raster entirely; an opaque
+   panel background stands in for the blur, so the console still reads as a
+   solid dark surface rather than showing sharp particles through 62% glass.
+   Desktop keeps the real blur — there the layer is cheap and scrolling is
+   synchronous. */
+@media (max-width: 44rem) {
+  .ss-core-form,
+  .ss-core-booking {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .ss-core-form {
+    background:
+      radial-gradient(
+        120% 120% at 0% 0%,
+        color-mix(in srgb, var(--srv2-accent) 14%, transparent),
+        transparent 54%
+      ),
+      var(--ss-v2-graphite);
+  }
+
+  .ss-core-booking {
+    background:
+      radial-gradient(
+        120% 130% at 12% -10%,
+        color-mix(in srgb, var(--srv2-accent) 20%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        120% 130% at 100% 120%,
+        color-mix(in srgb, var(--srv2-accent-2) 20%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        70% 60% at 88% -6%,
+        color-mix(in srgb, var(--booking-pink) 9%, transparent),
+        transparent 60%
+      ),
+      var(--ss-v2-graphite-raised);
   }
 }
 
@@ -4707,6 +4772,75 @@
   border-radius: var(--ss-radius-xl);
   text-align: center;
   color: var(--srv2-ink-soft);
+}
+
+/* Paged-out article cards. They stay mounted so /blog's prerendered HTML keeps
+   one crawlable link per published post; `display: none` is what takes them
+   out of the grid, the tab order and the accessibility tree until "Show more
+   articles" raises the visible count. Their `loading="lazy"` covers stay
+   unfetched while hidden, so a long library costs no extra bytes on arrival. */
+.ss-insight-grid__item[data-card-hover-hidden="true"] {
+  display: none;
+}
+
+.ss-insight-board__more {
+  display: flex;
+  justify-content: center;
+}
+
+.ss-insight-board__more-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.72rem 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--srv2-accent) 34%, var(--srv2-hairline));
+  border-radius: var(--ss-radius-pill);
+  background: color-mix(in srgb, var(--ss-v2-void-black) 55%, transparent);
+  color: var(--srv2-ink);
+  font-family: var(--ss-font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    background var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    color var(--ss-motion-duration-base) var(--ss-motion-easing-standard),
+    box-shadow var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-insight-board__more-button:hover {
+  border-color: color-mix(in srgb, var(--srv2-accent) 62%, transparent);
+  background: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--srv2-accent) 16%, transparent),
+    color-mix(in srgb, var(--srv2-accent-2) 12%, transparent)
+  );
+  color: var(--ss-v2-chrome);
+  box-shadow: 0 14px 34px -24px color-mix(in srgb, var(--srv2-accent) 80%, transparent);
+}
+
+.ss-insight-board__more-button:focus-visible {
+  outline: 2px solid var(--srv2-accent);
+  outline-offset: 3px;
+}
+
+.ss-insight-board__more-count {
+  color: var(--srv2-ink-faint);
+  font-family: var(--ss-font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.ss-insight-board__more-button svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--srv2-accent);
+  transition: transform var(--ss-motion-duration-base) var(--ss-motion-easing-standard);
+}
+
+.ss-insight-board__more-button:hover svg {
+  transform: translateY(2px);
 }
 
 .ss-insight-grid {
@@ -8064,12 +8198,18 @@ a.ss-insight-card:hover,
 
 @media (prefers-reduced-motion: reduce) {
   .ss-insight-filters__pill,
+  .ss-insight-board__more-button,
+  .ss-insight-board__more-button svg,
   a.ss-insight-card,
   .ss-blog-article__return,
   .ss-blog-article__return::after,
   .ss-blog-article__return-icon svg,
   .ss-blog-article__related a {
     transition: none;
+  }
+
+  .ss-insight-board__more-button:hover svg {
+    transform: none;
   }
 
   .ss-blog-article__neon-border::after {

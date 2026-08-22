@@ -12,6 +12,14 @@ import { cn } from "~/lib/utils";
 
 export type CardHoverEffectItem = {
   content: ReactNode;
+  /**
+   * Renders the item but takes it out of the visible grid. Callers that page a
+   * long grid use this instead of slicing their array, so every item's markup
+   * — links included — stays in the server-rendered HTML. Styling supplies the
+   * `display: none` (see `[data-card-hover-hidden]`), which also removes the
+   * item from the tab order and the accessibility tree.
+   */
+  hidden?: boolean;
   id: string;
 };
 
@@ -63,7 +71,9 @@ export function CardHoverEffect({
   const lastPointerRef = useRef<PointerPosition | null>(null);
   const surfaceOwnerRef = useRef<"focus" | "pointer">("pointer");
   const resolvedActiveId =
-    activeId && items.some((item) => item.id === activeId) ? activeId : null;
+    activeId && items.some((item) => item.id === activeId && !item.hidden)
+      ? activeId
+      : null;
 
   function handlePointerOver(event: PointerEvent<HTMLDivElement>) {
     if (event.pointerType !== "mouse" && event.pointerType !== "pen") {
@@ -153,6 +163,7 @@ export function CardHoverEffect({
         return (
           <div
             className={cn("ss-card-hover-effect__item", itemClassName)}
+            data-card-hover-hidden={item.hidden ? "true" : undefined}
             data-card-hover-id={item.id}
             data-card-hover-state={active ? "active" : "idle"}
             key={item.id}

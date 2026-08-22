@@ -1,13 +1,22 @@
 /**
- * Insights hub search + category filter + article grid. Client-side only
- * (16 records, no pagination needed) — filters by the 16-category taxonomy
- * (7 services, 9 industries) and a free-text query matched against title and
- * summary bullets.
+ * Insights hub search + category filter + article grid. Client-side only —
+ * filters by the 17-category taxonomy (7 services, 10 industries, plus
+ * editorial topics) and a free-text query matched against title and summary
+ * bullets.
+ *
+ * The grid pages in blocks of twelve (four rows of three on the desktop
+ * three-column layout) behind a "Show more articles" button. Paging is a
+ * *presentation* concern only: every matching card stays mounted with its
+ * real `<a href>` and is hidden with CSS beyond the visible count, so the
+ * prerendered HTML for /blog still carries one crawlable link to every
+ * published post. Slicing the array instead would drop the hub from ~75
+ * outbound links to twelve, and this hub is the primary internal link into
+ * the article set.
  */
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
 
-import { ArrowUpRight, Clock, Search } from "~/components/icons/lucide";
+import { ArrowUpRight, ChevronDown, Clock, Search } from "~/components/icons/lucide";
 import { CardHoverEffect } from "~/components/ui/card-hover-effect";
 
 import {
@@ -18,6 +27,9 @@ import {
 } from "./insights-data";
 
 type FilterId = "all" | (string & {});
+
+/** Four rows of three on the >=68rem three-column grid. */
+const PAGE_SIZE = 12;
 
 /**
  * The search box and the category pills answer the same question, so they read
@@ -142,6 +154,10 @@ function ArticleCard({ article }: { article: InsightArticle }) {
 export function InsightsBoard() {
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterId>("all");
+  /* Paging is keyed to the active search + filter rather than reset from an
+     effect: a new query is a new result set, so it starts at page one without
+     a second render pass writing state back. */
+  const [paging, setPaging] = useState({ key: "", visible: PAGE_SIZE });
 
   const normalizedQuery = normaliseForSearch(query);
   const filtered = useMemo(
@@ -153,6 +169,11 @@ export function InsightsBoard() {
       ).sort(compareArticlesByRecency),
     [activeFilter, normalizedQuery],
   );
+
+  const pagingKey = `${activeFilter}::${normalizedQuery}`;
+  const visibleCount =
+    paging.key === pagingKey ? Math.min(paging.visible, filtered.length) : PAGE_SIZE;
+  const remaining = Math.max(0, filtered.length - visibleCount);
 
   const serviceCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "service");
   const industryCategories = INSIGHT_CATEGORIES.filter((c) => c.group === "industry");
@@ -238,6 +259,7 @@ export function InsightsBoard() {
       </div>
 
       <p className="ss-insight-board__count" role="status" aria-live="polite">
+        {remaining > 0 ? `Showing ${String(visibleCount)} of ` : ""}
         {filtered.length} {filtered.length === 1 ? "topic" : "topics"}
         {activeFilter !== "all"
           ? ` in ${INSIGHT_CATEGORIES.find((c) => c.id === activeFilter)?.label ?? ""}`
@@ -246,15 +268,38 @@ export function InsightsBoard() {
       </p>
 
       {filtered.length > 0 ? (
-        <CardHoverEffect
-          className="ss-insight-grid"
-          itemClassName="ss-insight-grid__item"
-          items={filtered.map((article) => ({
-            id: article.id,
-            content: <ArticleCard article={article} />,
-          }))}
-          layoutId="insight-card-hover-surface"
-        />
+        <>
+          <CardHoverEffect
+            className="ss-insight-grid"
+            itemClassName="ss-insight-grid__item"
+            items={filtered.map((article, index) => ({
+              id: article.id,
+              content: <ArticleCard article={article} />,
+              /* Beyond the current page the card is still mounted and still
+                 crawlable — CSS takes it out of flow, the tab order and the
+                 accessibility tree. */
+              hidden: index >= visibleCount,
+            }))}
+            layoutId="insight-card-hover-surface"
+          />
+          {remaining > 0 ? (
+            <div className="ss-insight-board__more">
+              <button
+                type="button"
+                className="ss-insight-board__more-button"
+                onClick={() => {
+                  setPaging({ key: pagingKey, visible: visibleCount + PAGE_SIZE });
+                }}
+              >
+                Show more articles
+                <span className="ss-insight-board__more-count">
+                  {Math.min(PAGE_SIZE, remaining)} more
+                </span>
+                <ChevronDown aria-hidden="true" />
+              </button>
+            </div>
+          ) : null}
+        </>
       ) : (
         <div className="ss-insight-board__empty">
           <p>

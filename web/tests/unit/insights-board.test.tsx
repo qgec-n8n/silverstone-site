@@ -6,6 +6,7 @@ import { InsightsBoard } from "~/features/core-pages/insights-board";
 import {
   INSIGHT_ARTICLES,
   INSIGHT_CATEGORIES,
+  type InsightArticle,
 } from "~/features/core-pages/insights-data";
 import { MotionProvider } from "~/motion/MotionProvider";
 
@@ -14,6 +15,20 @@ function required<T>(value: T | null | undefined, message: string): T {
     throw new Error(message);
   }
   return value;
+}
+
+function articleMatchesTerm(article: InsightArticle, term: string): boolean {
+  return [
+    article.title,
+    ...article.summary,
+    ...(article.keywords ?? []),
+    INSIGHT_CATEGORIES.find((category) => category.id === article.categoryId)?.label ??
+      "",
+  ]
+    .join(" ")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .includes(term);
 }
 
 function renderBoard() {
@@ -188,6 +203,70 @@ describe("InsightsBoard", () => {
     expect(
       screen.getByRole("link", { name: (name) => name.includes(article.title) }),
     ).toBeInTheDocument();
+  });
+
+  it("pages the grid in twelves while every card stays mounted and crawlable", () => {
+    // /blog is the primary internal link into the article set, so paging is a
+    // presentation concern only: hidden cards keep their real href in the
+    // prerendered HTML instead of being sliced out of the array.
+    const { container } = renderBoard();
+    const total = INSIGHT_ARTICLES.length;
+    expect(total).toBeGreaterThan(12);
+
+    const items = () =>
+      Array.from(container.querySelectorAll<HTMLElement>("[data-card-hover-id]"));
+    const shown = () =>
+      items().filter((item) => item.dataset.cardHoverHidden !== "true").length;
+
+    expect(items()).toHaveLength(total);
+    expect(shown()).toBe(12);
+    expect(container.querySelectorAll('a[href^="/blog/"]')).toHaveLength(
+      INSIGHT_ARTICLES.filter((article) => article.status === "published").length,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: /show more articles/i }));
+
+    expect(items()).toHaveLength(total);
+    expect(shown()).toBe(Math.min(24, total));
+  });
+
+  it("hides the show-more button once the last page is revealed", () => {
+    const { container } = renderBoard();
+    const total = INSIGHT_ARTICLES.length;
+    const clicks = Math.ceil(total / 12) - 1;
+
+    for (let index = 0; index < clicks; index += 1) {
+      fireEvent.click(screen.getByRole("button", { name: /show more articles/i }));
+    }
+
+    expect(screen.queryByRole("button", { name: /show more articles/i })).toBeNull();
+    expect(container.querySelectorAll('[data-card-hover-hidden="true"]')).toHaveLength(
+      0,
+    );
+  });
+
+  it("returns to the first page when the search changes the result set", () => {
+    const { container } = renderBoard();
+    fireEvent.click(screen.getByRole("button", { name: /show more articles/i }));
+
+    const shown = () =>
+      Array.from(
+        container.querySelectorAll<HTMLElement>("[data-card-hover-id]"),
+      ).filter((item) => item.dataset.cardHoverHidden !== "true").length;
+    expect(shown()).toBeGreaterThan(12);
+
+    fireEvent.change(
+      screen.getByRole("searchbox", {
+        name: /search insights by title or topic/i,
+      }),
+      { target: { value: "ai" } },
+    );
+
+    const matched = INSIGHT_ARTICLES.filter((article) =>
+      articleMatchesTerm(article, "ai"),
+    ).length;
+    expect(matched).toBeGreaterThan(12);
+    expect(shown()).toBe(12);
   });
 
   it("keeps the no-results state functional", () => {
