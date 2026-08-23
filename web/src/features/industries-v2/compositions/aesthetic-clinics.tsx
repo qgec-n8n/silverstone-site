@@ -108,7 +108,7 @@ export function AestheticClinicsComposition({
         // not take. The hero says the same thing in 19; the sprint banner and
         // the closing CTA, which have a full-width button, keep the original.
         primaryCtaLabel="Claim a sprint slot"
-        secondaryCtaLabel="See a live clinic build"
+        secondaryCtaLabel="See a live build"
         secondaryCtaHref="/industry/aesthetic-clinics#ind2-demo"
         showcase={
           <ConsultLadder label={art.discipline} metrics={metrics.slice(0, 2)} />

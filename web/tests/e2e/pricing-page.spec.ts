@@ -182,7 +182,7 @@ test.describe("pricing page structure", () => {
       hero.getByRole("link", { name: "Get a custom quote" }),
     ).toHaveAttribute("href", "/contact#contact-form");
     await expect(
-      hero.getByRole("link", { name: "Schedule a consultation" }),
+      hero.getByRole("link", { name: "Book a consultation" }),
     ).toHaveAttribute("href", "/book#booking-calendar");
     await expect(
       page.getByRole("link", { name: "Discuss scope and pricing" }),

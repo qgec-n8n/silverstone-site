@@ -81,7 +81,7 @@ export function PricingComposition() {
         ]}
         primaryCtaLabel="Get a custom quote"
         primaryCtaHref="/contact#contact-form"
-        secondaryCtaLabel="Schedule a consultation"
+        secondaryCtaLabel="Book a consultation"
         secondaryCtaHref="/book#booking-calendar"
         showcase={<PricingModelOverviewSignature />}
       />

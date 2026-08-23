@@ -443,11 +443,13 @@
    Fit contract: the whole console must sit inside the browser viewport on
    both shells. Content is never stretched to fill a frame — instead every
    vertical quantum (paddings, gaps, control heights, the textarea) tracks
-   dvh/svh through bounded clamps so the console compresses continuously on
+   svh through bounded clamps so the console compresses continuously on
    shorter windows, with discrete max-height tiers as the final safety
-   margin. Button/chip/card copy never exceeds two lines: chips are
-   single-line by contract (they wrap as units in their flex deck) and
-   cards balance their text across at most two lines. ------------------- */
+   margin. Those clamps are deliberately svh and never dvh — see the
+   "Stable viewport contract" note in the booking-console block below.
+   Button/chip/card copy never exceeds two lines: chips are single-line by
+   contract (they wrap as units in their flex deck) and cards balance their
+   text across at most two lines. ------------------------------------- */
 
 .ss-enq {
   padding: 0;
@@ -479,8 +481,8 @@
 .ss-enq__rail {
   display: flex;
   flex-direction: column;
-  gap: clamp(1.1rem, 2.6dvh, 1.9rem);
-  padding: clamp(1.1rem, 2.4dvh, 1.9rem) clamp(1.2rem, 0.9rem + 1vw, 1.7rem);
+  gap: clamp(1.1rem, 2.6svh, 1.9rem);
+  padding: clamp(1.1rem, 2.4svh, 1.9rem) clamp(1.2rem, 0.9rem + 1vw, 1.7rem);
   border-right: 1px solid var(--srv2-hairline);
   background:
     linear-gradient(
@@ -504,7 +506,7 @@
 .ss-enq__steps {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.55rem, 1.6dvh, 0.9rem);
+  gap: clamp(0.55rem, 1.6svh, 0.9rem);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -531,8 +533,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(1.5rem, 3.4dvh, 1.7rem);
-  height: clamp(1.5rem, 3.4dvh, 1.7rem);
+  width: clamp(1.5rem, 3.4svh, 1.7rem);
+  height: clamp(1.5rem, 3.4svh, 1.7rem);
   flex: none;
   border: 1px solid var(--srv2-hairline);
   border-radius: 999px;
@@ -581,17 +583,17 @@
 .ss-enq__manifest-block {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.5rem, 1.4dvh, 0.7rem);
+  gap: clamp(0.5rem, 1.4svh, 0.7rem);
   flex: 1 1 auto;
   min-height: 0;
-  padding-top: clamp(0.8rem, 2dvh, 1.4rem);
+  padding-top: clamp(0.8rem, 2svh, 1.4rem);
   border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 75%, transparent);
 }
 
 .ss-enq__manifest {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.35rem, 1dvh, 0.5rem);
+  gap: clamp(0.35rem, 1svh, 0.5rem);
   margin: 0;
 }
 
@@ -666,8 +668,8 @@
 .ss-enq__assure {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.3rem, 1dvh, 0.45rem);
-  padding-top: clamp(0.8rem, 2dvh, 1.4rem);
+  gap: clamp(0.3rem, 1svh, 0.45rem);
+  padding-top: clamp(0.8rem, 2svh, 1.4rem);
   border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 75%, transparent);
   font-size: 0.82rem;
   line-height: 1.5;
@@ -702,9 +704,9 @@
 .ss-enq__stagearea {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.65rem, 1.7dvh, 1.15rem);
+  gap: clamp(0.65rem, 1.7svh, 1.15rem);
   min-width: 0;
-  padding: clamp(1rem, 2.2dvh, 1.7rem) clamp(1.3rem, 1rem + 1.2vw, 2rem);
+  padding: clamp(1rem, 2.2svh, 1.7rem) clamp(1.3rem, 1rem + 1.2vw, 2rem);
 }
 
 .ss-enq__viewport {
@@ -714,13 +716,13 @@
 .ss-enq[data-enq-shell="desktop"] .ss-enq__viewport {
   /* Stages are composed to comparable natural heights; the floor keeps the
      shell steady while the shorter boards breathe. */
-  min-height: clamp(16rem, 42dvh, 24rem);
+  min-height: clamp(16rem, 42svh, 24rem);
 }
 
 .ss-enq__panel {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.65rem, 1.7dvh, 1.15rem);
+  gap: clamp(0.65rem, 1.7svh, 1.15rem);
 }
 
 .ss-enq__stage-head {
@@ -728,7 +730,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  padding-bottom: clamp(0.45rem, 1.2dvh, 0.7rem);
+  padding-bottom: clamp(0.45rem, 1.2svh, 0.7rem);
   background: linear-gradient(
       90deg,
       color-mix(in srgb, var(--srv2-accent) 45%, transparent),
@@ -758,7 +760,7 @@
 .ss-enq__fields {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.6rem, 1.6dvh, 1.05rem);
+  gap: clamp(0.6rem, 1.6svh, 1.05rem);
 }
 
 .ss-enq__hint {
@@ -773,13 +775,13 @@
 .ss-enq__cards-group {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.4rem, 1.1dvh, 0.6rem);
+  gap: clamp(0.4rem, 1.1svh, 0.6rem);
 }
 
 .ss-enq__cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.45rem, 1.2dvh, 0.6rem);
+  gap: clamp(0.45rem, 1.2svh, 0.6rem);
 }
 
 /* Beats the base `.ss-core-form label { display: grid }` rule. */
@@ -801,8 +803,8 @@
   display: flex;
   align-items: center;
   width: 100%;
-  min-height: clamp(2.6rem, 5.6dvh, 3.1rem);
-  padding: clamp(0.45rem, 1.2dvh, 0.6rem) 1.1rem clamp(0.45rem, 1.2dvh, 0.6rem) 0.75rem;
+  min-height: clamp(2.6rem, 5.6svh, 3.1rem);
+  padding: clamp(0.45rem, 1.2svh, 0.6rem) 1.1rem clamp(0.45rem, 1.2svh, 0.6rem) 0.75rem;
   border: 1px solid var(--srv2-hairline);
   border-radius: var(--ss-radius-lg);
   background: color-mix(in srgb, var(--ss-v2-void-black) 55%, transparent);
@@ -881,7 +883,7 @@
   align-items: center;
   column-gap: 1.25rem;
   margin: 0;
-  padding: clamp(0.45rem, 1.3dvh, 0.7rem) 0;
+  padding: clamp(0.45rem, 1.3svh, 0.7rem) 0;
   border: none;
   border-top: 1px solid color-mix(in srgb, var(--srv2-hairline) 65%, transparent);
   min-width: 0;
@@ -920,11 +922,11 @@
 }
 
 .ss-enq__row .ss-core-form__seg-options {
-  gap: clamp(0.3rem, 0.9dvh, 0.45rem);
+  gap: clamp(0.3rem, 0.9svh, 0.45rem);
 }
 
 .ss-enq__row .ss-core-form__seg-option span {
-  padding: clamp(0.34rem, 1dvh, 0.44rem) 0.78rem;
+  padding: clamp(0.34rem, 1svh, 0.44rem) 0.78rem;
   font-size: 0.78rem;
 }
 
@@ -933,12 +935,12 @@
 .ss-enq__idgrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.55rem, 1.5dvh, 0.9rem) 1rem;
+  gap: clamp(0.55rem, 1.5svh, 0.9rem) 1rem;
 }
 
 .ss-enq__field {
   display: grid;
-  gap: clamp(0.28rem, 0.8dvh, 0.42rem);
+  gap: clamp(0.28rem, 0.8svh, 0.42rem);
   color: var(--ss-v2-chrome);
   font-size: 0.92rem;
   font-weight: 600;
@@ -962,7 +964,7 @@
 .ss-enq input,
 .ss-enq select,
 .ss-enq textarea {
-  padding: clamp(0.52rem, 1.5dvh, 0.7rem) 0.85rem;
+  padding: clamp(0.52rem, 1.5svh, 0.7rem) 0.85rem;
 }
 
 .ss-enq input::placeholder,
@@ -974,7 +976,7 @@
 /* The message area is the send stage's tallest instrument — it tracks the
    viewport so the whole stage always fits. */
 .ss-enq [data-enq-message] textarea {
-  height: clamp(5.6rem, 16dvh, 8.5rem);
+  height: clamp(5.6rem, 16svh, 8.5rem);
   min-height: 5.6rem;
   resize: none;
 }
@@ -1109,7 +1111,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 0.85rem;
-  padding-top: clamp(0.1rem, 0.6dvh, 0.25rem);
+  padding-top: clamp(0.1rem, 0.6svh, 0.25rem);
 }
 
 .ss-enq__nav .ss-srv2-btn {
@@ -1372,7 +1374,7 @@
 }
 
 /* ---- Desktop short-window tier ------------------------------------------
-   The dvh clamps above compress continuously; below ~820px of height the
+   The svh clamps above compress continuously; below ~820px of height the
    console also sheds its hint line and tightens the boards so the whole
    instrument stays inside a 1366×768 or 1280×720 laptop viewport. */
 @media (max-height: 51.5rem) {
@@ -1451,7 +1453,26 @@
    clamp), never from stage content, so the console occupies one stable frame
    at any given viewport. Desktop keeps the two-column calendar/times
    composition at every height (a max-height query only compacts it); the
-   distinct mobile composition activates on width alone at ≤44rem. */
+   distinct mobile composition activates on width alone at ≤44rem.
+
+   Stable viewport contract — svh, never dvh: this console and the enquiry
+   console below are the only two surfaces on the site whose entire vertical
+   rhythm (shell height, paddings, gaps, control heights) is a function of the
+   viewport. `dvh` is defined to track the viewport as mobile browser chrome
+   expands and retracts, so on iOS Safari every one of those quanta recomputed
+   on each frame of the URL-bar animation: scrolling the page resized the
+   console under the reader's finger, and the console's own height change moved
+   the document beneath the scroll — the panel appeared to shudder and fight to
+   hold its place while the bar slid. Measured in-browser: a 50px viewport-height
+   delta (exactly one URL bar) moved the enquiry console 618.6px → 592.2px and
+   every field inside it by ~2px.
+
+   `svh` resolves against the *small* viewport — the state with all browser
+   chrome shown — and is stable for the life of the layout, so the console is
+   laid out once and never reflows mid-scroll. It also sizes to the worst case,
+   which is what the fit contract above actually wants. On desktop, where there
+   is no retractable chrome, svh, dvh and lvh are the same length, so this is a
+   no-op there. The `100vh` line below stays as the pre-`svh` fallback. */
 
 .ss-core-booking {
   /* Brand accent family (from the cinematic token set) */
@@ -1503,7 +1524,7 @@
   );
   height: clamp(
     37rem,
-    100dvh - var(--ss-layout-header, 4.5rem) - clamp(2.25rem, 6dvh, 4.5rem),
+    100svh - var(--ss-layout-header, 4.5rem) - clamp(2.25rem, 6svh, 4.5rem),
     51rem
   );
   min-width: 0;
@@ -1591,14 +1612,14 @@
   justify-content: space-between;
   gap: 1.5rem;
   min-width: 0;
-  padding-bottom: clamp(0.8rem, 1.6dvh, 1.2rem);
+  padding-bottom: clamp(0.8rem, 1.6svh, 1.2rem);
 }
 
 .ss-booking-shell__intro {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(0.4rem, 0.9dvh, 0.65rem);
+  gap: clamp(0.4rem, 0.9svh, 0.65rem);
   max-width: 46rem;
   min-width: 0;
 }
@@ -1676,7 +1697,7 @@
 .ss-booking-progress {
   position: relative;
   min-width: 0;
-  padding-block: clamp(0.55rem, 1.2dvh, 0.85rem) clamp(0.65rem, 1.4dvh, 1rem);
+  padding-block: clamp(0.55rem, 1.2svh, 0.85rem) clamp(0.65rem, 1.4svh, 1rem);
   border-block: 1px solid var(--booking-line-soft);
 }
 
@@ -1830,7 +1851,7 @@
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  padding-block: clamp(0.7rem, 1.6dvh, 1.1rem) clamp(0.4rem, 1dvh, 0.7rem);
+  padding-block: clamp(0.7rem, 1.6svh, 1.1rem) clamp(0.4rem, 1svh, 0.7rem);
 }
 
 .ss-booking-shell__stage-frame,
@@ -1844,7 +1865,7 @@
 .ss-booking-stage {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) 1.25rem;
-  gap: clamp(0.55rem, 1.3dvh, 0.9rem);
+  gap: clamp(0.55rem, 1.3svh, 0.9rem);
 }
 
 .ss-booking-stage__heading {
@@ -1942,14 +1963,14 @@
 .ss-booking-service-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.45rem, 1dvh, 0.6rem);
+  gap: clamp(0.45rem, 1svh, 0.6rem);
 }
 
 .ss-booking-service-grid button,
 .ss-booking-segments button {
   position: relative;
   min-width: 0;
-  min-height: clamp(2.6rem, 5dvh, 2.95rem);
+  min-height: clamp(2.6rem, 5svh, 2.95rem);
   border: 1px solid var(--booking-line);
   border-radius: var(--ss-radius-sm);
   color: var(--srv2-ink-soft);
@@ -2041,7 +2062,7 @@
 .ss-booking-qualify__secondary {
   display: grid;
   align-content: center;
-  gap: clamp(0.7rem, 1.6dvh, 1rem);
+  gap: clamp(0.7rem, 1.6svh, 1rem);
   min-width: 0;
 }
 
@@ -2053,7 +2074,7 @@
 .ss-booking-select select,
 .ss-booking-timezone select {
   width: 100%;
-  min-height: clamp(2.6rem, 5dvh, 2.95rem);
+  min-height: clamp(2.6rem, 5svh, 2.95rem);
   appearance: none;
   border: 1px solid var(--booking-line);
   border-radius: var(--ss-radius-sm);
@@ -2099,7 +2120,7 @@
 
 .ss-booking-segments {
   display: grid;
-  gap: clamp(0.4rem, 0.9dvh, 0.55rem);
+  gap: clamp(0.4rem, 0.9svh, 0.55rem);
 }
 
 .ss-booking-segments[data-columns="5"] {
@@ -2193,7 +2214,7 @@
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   place-items: stretch center;
-  padding: clamp(0.55rem, 1.2dvh, 0.85rem) 0.85rem;
+  padding: clamp(0.55rem, 1.2svh, 0.85rem) 0.85rem;
   overflow: hidden;
 }
 
@@ -2225,7 +2246,7 @@
 }
 
 .ss-booking-calendar-skeleton > * {
-  height: clamp(1.9rem, 4.2dvh, 2.5rem);
+  height: clamp(1.9rem, 4.2svh, 2.5rem);
   border-radius: 0.6rem;
 }
 
@@ -2242,7 +2263,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: clamp(2.2rem, 4.4dvh, 2.6rem);
+  height: clamp(2.2rem, 4.4svh, 2.6rem);
 }
 
 .ss-booking-calendar__caption-label {
@@ -2261,15 +2282,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: clamp(2.2rem, 4.4dvh, 2.6rem);
+  height: clamp(2.2rem, 4.4svh, 2.6rem);
   pointer-events: none;
 }
 
 .ss-booking-calendar__nav-button {
   display: grid;
   place-items: center;
-  width: clamp(2.2rem, 4.4dvh, 2.6rem);
-  height: clamp(2.2rem, 4.4dvh, 2.6rem);
+  width: clamp(2.2rem, 4.4svh, 2.6rem);
+  height: clamp(2.2rem, 4.4svh, 2.6rem);
   padding: 0;
   border: 1px solid transparent;
   border-radius: 50%;
@@ -2316,7 +2337,7 @@
 
 .ss-booking-calendar__day {
   position: relative;
-  height: clamp(2rem, 4.3dvh, 2.6rem);
+  height: clamp(2rem, 4.3svh, 2.6rem);
   padding: 0;
   text-align: center;
 }
@@ -2326,7 +2347,7 @@
   display: grid;
   place-items: center;
   width: 100%;
-  height: clamp(2rem, 4.3dvh, 2.6rem);
+  height: clamp(2rem, 4.3svh, 2.6rem);
   padding: 0;
   border: 1px solid transparent;
   border-radius: 0.72rem;
@@ -2346,12 +2367,12 @@
   outline-offset: 1px;
 }
 
-/* Desktop panes have a fixed, shell-derived height while dvh tracks the
+/* Desktop panes have a fixed, shell-derived height while svh tracks the
    viewport, so viewport-tied cell heights overflow the pane on tall
    screens (the calendar then centre-bleeds over the status and legend
    rows). Size the calendar from the pane itself: 100cqh less the status,
    legend, weekday and border-spacing budget, split across caption + six
-   week rows. Mobile keeps the dvh/svh sizing — its panes are
+   week rows. Mobile keeps the svh sizing — its panes are
    content-sized, where a size container would collapse. */
 @media (min-width: 44.0625rem) {
   .ss-booking-calendar-pane {
@@ -2509,7 +2530,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: clamp(3.4rem, 6.5dvh, 4.2rem);
+  min-height: clamp(3.4rem, 6.5svh, 4.2rem);
   padding: 0.7rem 1rem;
   border-bottom: 1px solid var(--booking-line-soft);
 }
@@ -2600,7 +2621,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  min-height: clamp(2.6rem, 5dvh, 2.95rem);
+  min-height: clamp(2.6rem, 5svh, 2.95rem);
   padding: 0.45rem 0.65rem;
   border: 1px solid var(--booking-line);
   border-radius: var(--ss-radius-sm);
@@ -2710,7 +2731,7 @@
 .ss-booking-details__body {
   display: grid;
   align-content: stretch;
-  gap: clamp(0.5rem, 1.1dvh, 0.75rem);
+  gap: clamp(0.5rem, 1.1svh, 0.75rem);
   min-height: 0;
 }
 
@@ -2764,10 +2785,10 @@
   display: grid;
   grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
   align-items: stretch;
-  gap: clamp(0.35rem, 0.9dvh, 0.55rem) clamp(0.8rem, 1.4vw, 1.3rem);
+  gap: clamp(0.35rem, 0.9svh, 0.55rem) clamp(0.8rem, 1.4vw, 1.3rem);
   min-height: 0;
   height: 100%;
-  padding: clamp(0.7rem, 1.4dvh, 1rem);
+  padding: clamp(0.7rem, 1.4svh, 1rem);
   border: 1px solid var(--booking-line-soft);
   border-radius: var(--ss-radius-lg);
   background:
@@ -2783,7 +2804,7 @@
 .ss-booking-details__fields {
   display: grid;
   align-content: center;
-  gap: clamp(0.35rem, 0.9dvh, 0.55rem);
+  gap: clamp(0.35rem, 0.9svh, 0.55rem);
   min-width: 0;
   min-height: 0;
 }
@@ -2791,7 +2812,7 @@
 .ss-booking-details__pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.35rem, 0.9dvh, 0.55rem) 0.8rem;
+  gap: clamp(0.35rem, 0.9svh, 0.55rem) 0.8rem;
   min-width: 0;
 }
 
@@ -2800,7 +2821,7 @@
 .ss-booking-details__aside {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
-  gap: clamp(0.4rem, 1dvh, 0.65rem);
+  gap: clamp(0.4rem, 1svh, 0.65rem);
   min-width: 0;
   min-height: 0;
 }
@@ -2842,7 +2863,7 @@
 
 .ss-booking-details__form input:not([type="checkbox"]),
 .ss-booking-details__form textarea {
-  min-height: clamp(2.4rem, 4.4dvh, 2.75rem);
+  min-height: clamp(2.4rem, 4.4svh, 2.75rem);
   border-color: var(--booking-line);
   color: var(--booking-ink);
   background: var(--booking-field);
@@ -2870,7 +2891,7 @@
 
 .ss-booking-details__form textarea {
   height: 100%;
-  min-height: clamp(3rem, 5.5dvh, 4.4rem);
+  min-height: clamp(3rem, 5.5svh, 4.4rem);
   resize: none;
 }
 
@@ -2956,8 +2977,8 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: clamp(3.4rem, 7dvh, 4rem);
-  height: clamp(3.4rem, 7dvh, 4rem);
+  width: clamp(3.4rem, 7svh, 4rem);
+  height: clamp(3.4rem, 7svh, 4rem);
   border: 1px solid color-mix(in srgb, var(--booking-success) 44%, transparent);
   border-radius: 50%;
   color: color-mix(in srgb, var(--booking-success) 82%, white);
@@ -3094,8 +3115,8 @@
   justify-content: space-between;
   gap: 1rem;
   min-width: 0;
-  min-height: clamp(3.2rem, 5.8dvh, 4.2rem);
-  padding-top: clamp(0.55rem, 1.2dvh, 0.85rem);
+  min-height: clamp(3.2rem, 5.8svh, 4.2rem);
+  padding-top: clamp(0.55rem, 1.2svh, 0.85rem);
   border-top: 1px solid var(--booking-line-soft);
 }
 

@@ -83,7 +83,7 @@ export function GymsFitnessStudiosComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={copy.finalCta.buttonLabel}
-        secondaryCtaLabel="Hear the AI receptionist live"
+        secondaryCtaLabel="Hear the live demo"
         secondaryCtaHref="/services/ai-receptionists#demo-ai-receptionists"
         showcase={<MemberPulse label={art.discipline} metrics={metrics.slice(0, 2)} />}
       />

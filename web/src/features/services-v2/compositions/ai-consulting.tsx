@@ -80,7 +80,7 @@ export function AiConsultingComposition({
         lead={copy.heroSub}
         points={copy.heroPoints}
         primaryCtaLabel={micro.ctaButton}
-        secondaryCtaLabel="See the delivery framework"
+        secondaryCtaLabel="See how we deliver"
         secondaryCtaHref="/how-we-work#hww-route"
         showcase={
           <OpportunityObservatory
