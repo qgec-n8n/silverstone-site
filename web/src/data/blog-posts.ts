@@ -30536,7 +30536,592 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Regulatory Guide|decision-moment|6|risk-audit",
     },
   },
-// N8N_BLOG_POSTS_END
+  {
+    slug: "missed-calls-existing-patients-workflow",
+    title:
+      "Missed Calls from Existing Patients: Why Your Dental Callback Workflow Creates More Reception Work",
+    subtitle:
+      "Existing-patient missed calls usually create extra reception work when callback rules, record ownership and escalation boundaries are left vague.",
+    summary: [
+      "Existing-patient missed calls should start from the **patient record**, not a generic lead-recovery script.",
+      "Most reception overload comes from **duplicate tasks, unclear ownership and poor diary control** rather than callback speed alone.",
+      "The safest design uses a named human owner, a **clinical stop boundary** and selective PMS updates instead of logging every event.",
+    ],
+    categoryLabel: "Dental Practices",
+    categoryKey: "dental-practices",
+    categoryId: "dentists",
+    categoryOrder: 14,
+    displayDate: "23 August 2026",
+    publishedIsoDate: "2026-08-23T14:33:58.309Z",
+    updatedIsoDate: "2026-08-23T14:33:58.309Z",
+    readTime: "8 min read",
+    status: "published",
+    heroImage: "/assets/images/blog/missed-calls-existing-patients-workflow-hero.webp",
+    heroImageAlt:
+      "Bright editorial scene showing a UK dental practice callback workflow with call routing, patient record matching, diary checkpoints and a human escalation step.",
+    metaTitle: "Dental Callback Workflow for Existing Patients",
+    metaDescription:
+      "Why existing-patient missed calls create extra reception work in UK dental practices, and how to fix callback ownership, records and diary control.",
+    primaryKeyword: "dental missed call callback workflow existing patients",
+    secondaryKeywords: [
+      "dental missed calls UK",
+      "dental callback workflow",
+      "existing patient callback process",
+      "dental reception automation",
+      "missed call recovery dental practice",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "Your reception team is busy, the phone log is full, and existing patients keep calling back about the same thing. The direct answer is simple: **most dental missed-call callback workflows create extra work** when the practice treats every missed call as a fresh enquiry instead of a record update with a clear owner.",
+          "For UK dental practices, the problem is rarely the callback itself. It is the **missing structure behind it**: no agreed source of truth, no stop condition, no split between admin and clinical matters, and no rule for when the diary or patient management system should change.",
+          "Silverstone AI helps practices map these operational edges before building automation. If your team feels overloaded after adding call handling, the likely cause is not volume alone. It is a workflow that keeps creating {{accent:new admin tasks}} faster than it closes them.",
+        ],
+      },
+      {
+        heading: "Why missed-call recovery breaks differently for existing patients",
+        body: [
+          "A new caller can often be handled with a standard intake path. An existing patient is different.",
+          "When practices miss this distinction, reception inherits rework.",
+          "Three patterns show up repeatedly in UK practices:",
+          "- The callback happens **without enough context**, so staff ask the patient to repeat details already held elsewhere.",
+          "- The caller is treated as if they need booking help, when they actually need a **status update** on something already in motion.",
+          "- A routine admin issue drifts into *clinical territory*, and reception either oversteps or has to restart the handoff properly.",
+          "That is why the correct design question is not, *How do we return every missed call faster?* It is: **what type of existing-patient event has happened, who owns it, and when should the system stop?**",
+        ],
+        lede:
+          "Existing-patient missed calls are **not lead capture**. They are usually unfinished admin attached to a live record.",
+        leadStyle: "drop-cap",
+        variant: "signal",
+        callout: {
+          body: [
+            "If existing-patient callbacks are creating more work, your workflow is probably classifying missed calls too loosely. **Speed matters, but classification matters first.**",
+            "The human owner should be named before any automation starts: usually reception for routine admin, a treatment coordinator for commercial follow-up, and the practice for clinical, emergency or complaint routes.",
+          ],
+          tone: "answer",
+          title: "Operational diagnosis",
+          label: "Direct answer",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Existing patient",
+              definition:
+                "A caller with a current or historic record in the practice system, whether or not they have a future appointment booked.",
+            },
+            {
+              term: "Source of truth",
+              definition:
+                "The system that holds the authoritative version of a fact, such as appointment status or contact details.",
+              note: "In most practices this is the PMS, not the phone platform.",
+            },
+            {
+              term: "Callback attempt",
+              definition:
+                "One outbound contact action linked to a missed-call event and recorded against the patient or call record.",
+            },
+            {
+              term: "Stop condition",
+              definition:
+                "The rule that ends automated follow-up, such as a successful contact, a booked admin task, or escalation to a human owner.",
+            },
+          ],
+          title: "Terms worth defining before you redesign the flow",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+        sectionNumber: "01",
+      },
+      {
+        heading: "Where callback workflows create duplicate admin and diary confusion",
+        body: [
+          "Most overload comes from the handoff between telephony, messaging and the diary.",
+          "==The practical issue is workflow multiplication==.",
+          "This is especially common when practices bolt on call handling tools without deciding whether the phone system, CRM layer or PMS owns the next action.",
+          "Use this quick teardown to spot duplication:",
+          "1. Check whether the missed call creates a task in more than one system.",
+          "2. Check whether the callback agent or receptionist can see the **next booked appointment**, open treatment plan status or outstanding forms.",
+          "3. Check whether a callback note triggers manual re-entry into the PMS later.",
+          "4. Check whether a patient can receive an SMS and a call for the same event with no suppression rule.",
+          "5. Check whether the diary changes before a human confirms the intended action.",
+          "If you want the wider operating model behind these decisions, [how dental practices should run](/blog/how-dental-practices-should-run) gives a broader view of process ownership.",
+        ],
+        lede:
+          "If reception feels busier after automation, look for duplication before you look for volume.",
+        variant: "system",
+        bullets: [
+          {
+            body:
+              "One missed call should map to one owned action. If it creates several unlinked tasks, reception will feel permanently behind.",
+            label: "Duplicate task creation",
+            icon: "warning",
+          },
+          {
+            body:
+              "When the diary is updated before intent is confirmed, staff spend time correcting entries rather than serving patients.",
+            label: "Diary drift",
+            icon: "warning",
+          },
+          {
+            body:
+              "A callback without appointment, payment or prior-note context almost guarantees a second touch.",
+            label: "Context gap",
+            icon: "idea",
+          },
+        ],
+        comparisonTable: {
+          columns: ["What happens after a missed call", "Reception impact", "Recommended?"],
+          rows: [
+            {
+              cells: [
+                "Staff call back from the missed-call list with little context",
+                "High repeat questions and manual note chasing",
+                "No",
+              ],
+              label: "Phone-log only",
+            },
+            {
+              cells: [
+                "Caller is matched to the patient record before follow-up",
+                "Lower duplicate admin and clearer next action",
+                "Yes, for existing patients",
+              ],
+              label: "PMS-led callback",
+            },
+            {
+              cells: [
+                "System attempts to amend bookings from sparse call signals",
+                "High risk of confusion and rework",
+                "Only in narrow, approved admin cases",
+              ],
+              label: "Fully automatic diary changes",
+            },
+            {
+              cells: [
+                "System gathers context, proposes action, human confirms exceptions",
+                "Best balance of speed and control",
+                "Usually",
+              ],
+              label: "Hybrid with human checkpoint",
+            },
+          ],
+        },
+        sectionNumber: "02",
+      },
+      {
+        heading: "The record fields that should exist before any callback attempt",
+        body: [
+          "Before you automate or standardise callbacks, decide which fields must exist. This is where many dental practices skip ahead.",
+          "For an existing patient, the callback workflow should not proceed unless the minimum record is present and readable.",
+          "A practical minimum dataset looks like this:",
+        ],
+        variant: "operator",
+        grid: [
+          {
+            body:
+              "Patient name, confirmed phone number and a reliable way to match the missed call to the right record.",
+            title: "Identity match",
+          },
+          {
+            body:
+              "Whether the patient is active, lapsed, mid-treatment, awaiting follow-up or only contacting for routine hygiene/admin.",
+            title: "Current relationship",
+          },
+          {
+            body:
+              "Next appointment, recent cancellation, waitlist position or a note that no booking exists.",
+            title: "Diary context",
+          },
+          {
+            body:
+              "A bounded admin category such as booking, payment, forms, directions, records request or general query.",
+            title: "Reason category",
+          },
+          {
+            body:
+              "Named person or team for clinical, complaint, emergency or complex finance issues.",
+            title: "Escalation owner",
+          },
+          {
+            body:
+              "The event that ends the callback path, such as successful contact, message left, or transfer to the practice.",
+            title: "Stop condition",
+          },
+        ],
+        checklist: {
+          items: [
+            {
+              label: "Caller matched",
+              detail:
+                "The missed number is linked to a likely patient record or deliberately marked unmatched.",
+            },
+            {
+              label: "Contact route confirmed",
+              detail:
+                "The practice knows whether callback, SMS or manual review is the next permitted step.",
+            },
+            {
+              label: "Administrative reason category available",
+              detail: "Staff should not free-type every reason from scratch.",
+            },
+            {
+              label: "Clinical stop noted",
+              detail:
+                "Any hint of pain, medication, treatment suitability, post-op concern, emergency or complaint goes to the practice.",
+            },
+            {
+              label: "Owner assigned",
+              detail: "A role, not just a queue, owns the next action.",
+            },
+            {
+              label: "Update destination chosen",
+              detail:
+                "Everyone knows whether the final note lives in the PMS, telephony log or both.",
+            },
+          ],
+          title: "Pre-callback record checklist",
+        },
+        callout: {
+          body: [
+            "For existing patients, the **PMS should usually remain the source of truth** for patient status and diary facts.",
+            "That does not mean every platform must integrate directly. It means your process should make one system authoritative, one person accountable and one escalation path obvious.",
+          ],
+          tone: "recommendation",
+          title: "Design rule",
+          label: "Build around the source of truth",
+        },
+        sectionNumber: "03",
+      },
+      {
+        heading: "Which call outcomes should update the PMS and which should not",
+        body: [
+          "This is where many workflows bloat. Practices either log too little and lose context, or log everything and bury staff in low-value notes.",
+          "Use a simple distinction:",
+          "- Update the PMS when the outcome changes a **patient-facing commitment**, future admin action or legally important contact note.",
+          "- Do not update the PMS when the event is merely a failed contact attempt with no new information.",
+          "That split keeps records useful while reducing clutter.",
+        ],
+        lede: "Not every phone event deserves a permanent record change.",
+        leadStyle: "lead",
+        variant: "signal",
+        versusCard: {
+          left: {
+            title: "Log everything",
+            body: "Feels safe, but creates clutter and slows future handling.",
+            points: [
+              "Harder for staff to find important facts",
+              "More manual cleanup",
+              "Weak separation between attempts and outcomes",
+            ],
+          },
+          right: {
+            title: "Log meaningful outcomes",
+            body:
+              "Preserves a clean record and keeps failed attempts in the workflow layer.",
+            points: [
+              "Better visibility of true next actions",
+              "Less admin duplication",
+              "Clearer audit trail",
+            ],
+          },
+          eyebrow: "Two record strategies",
+          verdict:
+            "**Meaningful outcome logging** is usually the better fit for existing-patient callbacks in UK dental practice operations.",
+        },
+        subsections: [
+          {
+            heading: "Outcomes that usually should update the PMS",
+            body: [
+              "- Appointment booked, moved or cancelled after contact.",
+              "- Contact details confirmed or corrected.",
+              "- Forms or documents sent with a required follow-up.",
+              "- Payment or finance query handed to a named owner.",
+              "- Complaint, urgent concern or clinical query transferred to the practice with timestamp and owner.",
+              "These outcomes create a new fact or a new obligation. They belong in the authoritative record.",
+            ],
+            variant: "system",
+            metricPanel: {
+              items: [
+                {
+                  label: "New fact",
+                  value: "Update",
+                  note: "Something about the patient or booking is now different.",
+                },
+                {
+                  label: "New owner",
+                  value: "Update",
+                  note: "A staff member or team now owes the patient an action.",
+                },
+                {
+                  label: "No contact made",
+                  value: "Usually no PMS update",
+                  note:
+                    "Keep it in the call task layer unless your policy says otherwise.",
+                },
+              ],
+              title: "Update rule of thumb",
+            },
+          },
+          {
+            heading: "Outcomes that usually should stay out of the PMS",
+            body: [
+              "- Ring-out or voicemail left with no response.",
+              "- Duplicate callback attempt on the same day with no new information.",
+              "- Internal staff note about who might try again later, if no patient fact changes.",
+              "These events may matter operationally, but they do not always belong in the long-term patient record.",
+            ],
+            variant: "operator",
+            callout: {
+              body: [
+                "If every failed attempt becomes a permanent patient note, staff lose signal in the noise. **Operational logs and clinical or patient records serve different jobs.** {{chip:warning|Constraint}}",
+              ],
+              tone: "caution",
+              title: "Avoid record pollution",
+              label: "Boundary",
+            },
+          },
+        ],
+        sectionNumber: "04",
+      },
+      {
+        heading: "How to stop routine callbacks turning into clinical conversations",
+        body: [
+          "Dental practices need a hard boundary here. A missed-call recovery path can help with booking, records, directions, forms and routine admin.",
+          "It must not drift into diagnosis, urgency decisions, treatment advice, medication questions or consent discussions.",
+          "The cleanest design is a visible handoff policy with an owner, an escalation route and a stop condition.",
+        ],
+        lede: "Set the boundary before the first callback, not halfway through one.",
+        variant: "system",
+        steps: [
+          {
+            body:
+              "Use a short set of approved categories. If the issue sounds clinical, urgent or complaint-related, stop routine handling.",
+            title: "Classify the reason early",
+            label: "1",
+          },
+          {
+            body:
+              "Reception or automation can explain that the practice team will review and return the call, rather than trying to answer beyond scope.",
+            title: "State the boundary",
+            label: "2",
+          },
+          {
+            body:
+              "Assign the case to the named practice route with timestamp, summary and contact details.",
+            title: "Transfer ownership",
+            label: "3",
+          },
+          {
+            body:
+              "Suppress duplicate callbacks or generic SMS once the case has moved into the clinical or complaint path.",
+            title: "Stop further routine follow-up",
+            label: "4",
+          },
+        ],
+        keyTakeaways: {
+          items: [
+            "Admin automation needs a stop line.",
+            "The human owner for clinical, urgent and complaint routes must be named.",
+            "A transfer should include summary, timestamp and contact details.",
+            "Once escalated, routine follow-up should be suppressed.",
+            "Do not use callback automation as a substitute for clinical judgement or consent.",
+          ],
+          title: "Clinical boundary essentials",
+        },
+        sectionNumber: "05",
+      },
+      {
+        heading: "What to measure if reception still feels overloaded after automation",
+        body: [
+          "If the team still feels stretched, your dashboard may be hiding the real issue. More callbacks completed can look positive while admin effort rises underneath.",
+          "Start with operational questions, not vanity metrics:",
+          "- How many missed calls from existing patients become one-touch resolutions?",
+          "- How many become duplicate tasks across systems?",
+          "- How often does a callback lead to a second inbound call within 24 hours?",
+          "- How many contacts are correctly escalated and then suppressed from routine follow-up?",
+          "- Where is the biggest delay: classification, callback, owner action or record update?",
+          "A workflow worth keeping should reduce touches per issue, reduce diary confusion and make ownership visible.",
+          "See our work with UK [dental practices](/industry/dentists) for how these systems are planned, built and run.",
+        ],
+        lede: "Measure workload shape, not just call volume.",
+        variant: "operator",
+        pullQuote:
+          "The right success metric is not ‘more callbacks sent’. It is fewer touches per patient issue with clearer ownership.",
+        scorecard: {
+          options: [
+            "Current process",
+            "Tighter human-led workflow",
+            "Selective automation with checkpoints",
+          ],
+          rows: [
+            {
+              cells: ["High", "Medium", "Low"],
+              criterion: "Duplicate admin risk",
+              weight: "High",
+            },
+            {
+              cells: ["Weak", "Strong", "Strong"],
+              criterion: "Diary control",
+              weight: "High",
+            },
+            {
+              cells: ["Variable", "Moderate", "Fast"],
+              criterion: "Response speed",
+              weight: "Medium",
+            },
+            {
+              cells: ["Inconsistent", "Strong", "Strong if designed well"],
+              criterion: "Clinical boundary control",
+              weight: "High",
+            },
+          ],
+          totals: ["Lowest fit", "Good interim fix", "Best long-term fit for many practices"],
+        },
+        statBand: {
+          items: [
+            {
+              value: "24 hrs",
+              label: "Repeat-contact check window",
+              detail:
+                "A practical internal audit period for whether the first callback actually resolved the admin issue.",
+              tone: "time",
+            },
+            {
+              value: "1 owner",
+              label: "Target per callback event",
+              detail: "Each event should have one clear accountable owner at a time.",
+              tone: "benchmark",
+            },
+            {
+              value: "0 duplicate diary edits",
+              label: "Ideal for a single resolved issue",
+              detail:
+                "If the same issue keeps changing the diary, the workflow is still producing rework.",
+              tone: "benchmark",
+            },
+          ],
+          title: "Useful measurement bands",
+        },
+        sectionNumber: "06",
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "Should every missed call from an existing dental patient get an automatic callback?",
+        answer:
+          "No. Routine admin calls may suit a callback path, but not every event should trigger one.",
+      },
+      {
+        question:
+          "What should be the source of truth for existing-patient callback handling?",
+        answer:
+          "In most UK dental practices, the PMS should remain the source of truth for patient, appointment and contact facts.",
+      },
+      {
+        question: "Can AI handle missed-call recovery for dental practices safely?",
+        answer:
+          "Yes, within boundaries. It can help identify existing patients, capture context, route routine admin and reduce unnecessary repeat calls.",
+      },
+      {
+        question:
+          "What is the first sign that a callback workflow is making reception busier?",
+        answer:
+          "Look for duplicate touches: repeated callbacks, manual re-entry into the PMS, conflicting diary updates, multiple systems holding slightly different notes, and patients calling again because the first response did not resolve the underlying admin issue.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "how dental practices should run",
+        href: "/blog/how-dental-practices-should-run",
+      },
+      {
+        label: "AI receptionists",
+        href: "/services/ai-receptionists",
+      },
+      {
+        label: "AI automation",
+        href: "/services/ai-automation",
+      },
+      {
+        label: "dental practices",
+        href: "/industry/dentists",
+      },
+    ],
+    researchSources: [
+      {
+        title:
+          "Wildix and RoboReception’s Joint AI Rollout Eliminates Missed Calls, Unlocking £9 Million in New Patient Value Across UK Healthcare | Business Wire",
+        url:
+          "https://via.ritzau.dk/pressemeddelelse/14584013/wildix-and-roboreceptions-joint-ai-rollout-eliminates-missed-calls-unlocking-pound9-million-in-new-patient-value-across-uk-healthcare?publisherId=90456&lang=en",
+        date: "",
+        summary:
+          "About RoboReception RoboReception is one of the UK’s fastest-growing healthcare software companies, founded by dental and healthcare professionals with in-house development teams to solve frontline challenges. Its flagship solution, RoboReception, automates call handling with workflows tailored for dental, medical, legal and financial practices, ensuring every enquiry is captured, tracked and converted. Alongside tools including ChatBot, a Reviews tool to boost Google visibility, LeadTracker and",
+        relevance: "Matches: dental, missed, call, workflow, calls, workflows",
+      },
+      {
+        title: "Missed Call Recovery for Dental Clinics | DentDesk",
+        url: "https://dentdesk.ai/dental-missed-call-recovery",
+        date: "",
+        summary:
+          "DentDesk DentDesk Logo MISSED CALL RECOVERY FOR DENTAL CLINICS # Missed call recovery for dental clinics that lose patients. DentDesk helps dental clinics re-engage missed callers with fast callback workflows, SMS follow-up, caller context, and staff-ready booking handoff. THE RECOVERY WINDOW ## 5 minutes is the difference between a booked patient and a lost one When a patient calls and gets a busy signal, they don't think 'I'll try again later.' They think 'I'll call the next dentist.' And they",
+        relevance: "Matches: dental, missed, call, callback, patients, calls",
+      },
+      {
+        title: "Dental Answering Service UK | Virtual Receptionist | Voco",
+        url: "https://vocohq.co.uk/industries/clinical/dental",
+        date: "",
+        summary:
+          "Identify whether the caller is an existing patient or a new enquiry Take full contact details, spelled back and confirmed Establish what the caller needs, whether that is a routine appointment, a hygiene visit, a treatment enquiry or urgent pain Recognise urgency and follow the escalation route you have set Answer the questions you have told it how to answer, such as opening hours, location, parking, accepted payment methods and whether you are taking on new patients Book into your diary where y",
+        relevance: "Matches: dental, missed, call, existing, patients, calls",
+      },
+      {
+        title:
+          "Missed Calls Cost Dental Clinics More Than Competition | Muhammad Abdullah posted on the topic | LinkedIn",
+        url:
+          "https://www.linkedin.com/posts/muhammad-abdullah-377195247_most-dental-clinics-think-theyre-losing-activity-7476993954891280384-XJiQ",
+        date: "",
+        summary:
+          "↓ ❌ No Callback ↓ 🏥 Patient Books With Another Clinic ↓ 📅 Lost Appointment ↓ 💰 Lost Lifetime Patient Value 💡 One thing I've noticed while studying healthcare operations... Many clinic owners invest in better equipment. Better interiors. Better marketing. But very few redesign what happens after a missed call. Patients rarely wait for one clinic to become available. They usually call the next one. The first clinic to respond often earns the appointment. 🛠️ Here's The Workflow I'd Recommend \ud83d",
+        relevance: "Matches: dental, missed, call, callback, workflow, patients",
+      },
+      {
+        title:
+          "AI boosts UK dental practice revenues by GBP £9 million & cuts missed calls",
+        url:
+          "https://itbrief.co.uk/story/ai-boosts-uk-dental-practice-revenues-by-gbp-9-million-cuts-missed-calls",
+        date: "",
+        summary:
+          "The adoption of this clinician-designed technology has, according to Wildix and RoboReception, led to GBP £9 million in recovered care revenue and returned more than 2,000 staff hours to frontline clinical teams during the first few months of use. These improvements have been attributed to the agentic voice automation that underpins the system's workflow. Missed calls challenge [...] Missed calls challenge Missed calls have long been identified as a challenge in healthcare. Data cited by the com",
+        relevance: "Matches: dental, missed, workflow, patients, calls, more",
+      },
+      {
+        title: "Dentist Lead Generation UK: Get More Booked Patients",
+        url: "https://roundrobinai.com/blog/dentist-lead-generation-uk",
+        date: "",
+        summary:
+          "It works particularly well on high-intent pages such as: Emergency dentist Invisalign / clear aligners Dental implants Fees / finance Contact page (especially on mobile) A good callback prompt is specific, for example: “Request a callback to check availability today.” “Speak to reception about pricing and next steps.” If you want to add instant callbacks and smarter lead-to-call routing to your dental website, you can set up a callback widget here: Get started with RoundRobin AI ## Quick checkli",
+        relevance: "Matches: dental, missed, call, callback, workflow, patients",
+      },
+    ],
+    imagePrompt:
+      "Create one bright, airy 16:9 editorial hero image for a Silverstone AI article about missed calls from existing patients in UK dental practices. Show a premium, high-key operational surface on white, off-white and pale stone materials with brushed aluminium, optical glass and subtle pale wood. The main metaphor is a restrained multi-channel reception console routing a missed call into a patient-record matching layer, then into a diary checkpoint, with one clearly marked human exception path for clinical or complaint escalation. Include two to five supporting layers: call state, matched patient card, admin reason category, diary confirmation state and a stopped escalation branch. Make the movement clear from left to right. Keep generous negative space on one side for real website text. Use sparse cyan, electric blue, teal and a touch of violet accents only. Interfaces must feel plausible but synthetic, with no readable text, logos, fake metrics or real patient data. No dark backgrounds, no robots, no stock call-centre scene, no holograms, no distorted hands or faces. The image should feel precise, calm, premium and human-governed.",
+    ctaPrimary: {
+      label: "Book a discovery call",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+  },
+  // N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
