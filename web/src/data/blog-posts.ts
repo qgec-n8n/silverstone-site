@@ -32839,7 +32839,626 @@ export const BLOG_POSTS: SilverstoneBlogPost[] = [
       fingerprint: "Troubleshooting Flow|operational-symptom|6|diagnostic-teardown",
     },
   },
-// N8N_BLOG_POSTS_END
+  {
+    slug: "fitness-couple-consultation",
+    title:
+      "How Online Fitness Coaches Should Route Couple Enquiries Into One Consultation Workflow",
+    subtitle:
+      "A practical UK workflow for handling two-person fitness coaching enquiries without double booking, missing context or forcing everything into one call.",
+    summary: [
+      "Couple enquiries need one master record, explicit routing rules and a named human owner.",
+      "Collect only booking and context data for both attendees; keep suitability decisions with the coach.",
+      "Review the workflow weekly after launch to catch reminder gaps, wrong-route bookings and unclear handoffs.",
+    ],
+    categoryLabel: "Fitness Coaches",
+    categoryKey: "fitness-coaches",
+    categoryId: "fitness-coaches",
+    categoryOrder: 16,
+    displayDate: "28 August 2026",
+    publishedIsoDate: "2026-08-28T08:33:05.906Z",
+    updatedIsoDate: "2026-08-28T08:33:05.906Z",
+    readTime: "8 minute read",
+    status: "published",
+    heroImage: "/assets/images/blog/fitness-couple-consultation-hero.webp",
+    heroImageAlt:
+      "Bright editorial illustration of a two-person fitness coaching enquiry workflow routing into one consultation booking with human approval and reminder steps.",
+    metaTitle: "Couple Consultation Workflows for Fitness Coaches",
+    metaDescription:
+      "Design a clean UK workflow for couple fitness coaching enquiries, from intake and routing to reminders, handoff rules and launch checks.",
+    primaryKeyword: "couple fitness coaching consultation booking workflow",
+    secondaryKeywords: [
+      "online fitness coach consultation workflow",
+      "couple enquiry booking process",
+      "fitness coach calendar workflow UK",
+      "consultation reminder workflow for two attendees",
+      "fitness coach enquiry automation",
+    ],
+    articleBody: [
+      {
+        heading: "Introduction",
+        body: [
+          "When a couple enquires together, the admin often splits in the wrong place: two names on one form, one person replying by DM, another picking a time later, and a coach trying to reconstruct the context before the call. The fix is **one controlled intake workflow** with clear rules for when to keep the pair together and when to separate them.",
+          "For most UK online fitness coaches, the right setup is simple: capture **minimum booking details** for both people, keep one **source of truth** in your CRM or booking tool, and define a human decision point before any health, suitability or programme discussion. Silverstone AI helps firms design exactly these bounded systems through [AI automation services](/services/ai-automation) and sector-specific workflow work for [fitness coaches](/industry/fitness-coaches).",
+          "The goal is not more forms.",
+        ],
+      },
+      {
+        heading: "Why couple enquiries create double-booking and context gaps",
+        body: [
+          "A solo consultation flow usually assumes one buyer, one attendee and one set of reminders. Couple enquiries break that assumption immediately.",
+          "For an online fitness coach, the operational risk is not clinical; it is commercial and organisational.",
+          "Use this as your default logic:",
+          "1. Treat the first inbound message as a **shared enquiry** until proven otherwise.\n2. Create one master consultation case with two participant fields.\n3. Keep the calendar booking attached to that master case.\n4. Escalate to a human if the pair ask for different goals, different times or private discussion before booking.",
+          "That approach gives you one visible thread from first contact to consultation.",
+        ],
+        lede:
+          "Two-person enquiries look small, but they create **two records, two schedules and one decision problem**.",
+        leadStyle: "lead",
+        variant: "signal",
+        bullets: [
+          {
+            body:
+              "Two separate forms or inbox replies can create **duplicate contact records** before anyone notices which one owns the booking.",
+            label: "Double entry risk",
+            icon: "warning",
+          },
+          {
+            body:
+              "If one partner shares goals and the other only confirms availability, the coach starts with **partial qualification** and has to rebuild the picture live.",
+            label: "Context loss",
+            icon: "idea",
+          },
+          {
+            body:
+              "A single confirmation sent to one attendee often means the second person arrives late, misses the link or never sees the preparation note.",
+            label: "Reminder confusion",
+            icon: "warning",
+          },
+        ],
+        callout: {
+          body: [
+            "For most UK coaches, the best route is **one enquiry record, one booking path and one coach-owned review point** before the consultation is locked in.",
+            "The workflow should only split when the pair need different call formats, different schedules or separate confidential conversations. {{chip:action|Next step}} Build for that exception from the start rather than improvising it later.",
+          ],
+          tone: "answer",
+          title: "Direct answer",
+          label: "Best default",
+        },
+        entityLinks: [
+          {
+            name: "Silverstone AI",
+            url: "/services/ai-automation",
+            kind: "silverstone",
+          },
+        ],
+        sectionNumber: "01",
+      },
+      {
+        heading:
+          "Capture the minimum details for two participants without overreaching",
+        body: [
+          "A good intake for a couple consultation should collect booking and routing data, not a hidden health assessment. Keep the form short and transparent. ==The point is to prepare the conversation, not to judge training suitability automatically.==",
+          "Your minimum fields should cover identity, attendance and practical context. Anything beyond that should be optional or left for the coach.",
+          "- Full name for participant one\n- Full name for participant two\n- Best email for confirmations\n- Mobile number for reminders\n- Preferred consultation format\n- Whether both want to attend the same consultation\n- Main coaching aim in one short sentence each\n- Best general availability window",
+          "This creates the information needed to route the case while staying inside a clear boundary. Avoid collecting injury detail, medication information or anything that looks like healthcare triage.",
+          "If you use AI to summarise free-text answers, define the stop condition: the system may tag themes such as *fat loss*, *strength* or *accountability*, but it must not infer safety, readiness or programme fit.",
+        ],
+        lede: "Ask for enough to route the booking well, and no more.",
+        variant: "system",
+        grid: [
+          {
+            body:
+              "**Booking essentials** such as names, contact details and whether the pair want one joint consultation.",
+            title: "Keep",
+          },
+          {
+            body:
+              "Short goal summaries and preferred times, where they help the coach prepare without overcomplicating the form.",
+            title: "Optional",
+          },
+          {
+            body:
+              "Any deeper discussion about expectations, commitment, suitability or service fit during the live consultation.",
+            title: "Coach only",
+          },
+          {
+            body:
+              "{{underline:Health, injury or programme judgement}}. Those decisions need a human owner and a documented escalation path.",
+            title: "Do not automate",
+          },
+        ],
+        callout: {
+          body: [
+            "Assume that **one person may complete the form for both**. Your workflow should therefore confirm both names and shared attendance before the booking is final.",
+            "That single assumption removes many avoidable follow-up messages.",
+          ],
+          tone: "assumption",
+          title: "Assumption to make explicit",
+        },
+        definitions: {
+          items: [
+            {
+              term: "Source of truth",
+              definition:
+                "The single record that owns the consultation status, attendee details and next action.",
+              note: "Usually your CRM or booking layer.",
+            },
+            {
+              term: "Human-in-the-loop",
+              definition:
+                "A process where the system prepares or routes information, but a person approves decisions that matter.",
+              note: "Essential for suitability and exception handling.",
+            },
+            {
+              term: "Stop condition",
+              definition:
+                "A rule that tells the workflow to stop automating and hand over to a named human owner.",
+              note: "For example, separate goals or a request for private discussion.",
+            },
+          ],
+          title: "Useful workflow definitions",
+        },
+        sectionNumber: "02",
+      },
+      {
+        heading: "Decide when to offer one consultation versus separate calls",
+        body: [
+          "Not every couple enquiry belongs in one consultation. The decision should be based on **attendance practicality, buying intent and coaching context**, not guesswork.",
+          "A joint call works best when the pair are clearly enquiring together, can attend at the same time and expect a shared buying conversation.",
+          "The easiest way to operationalise this is a rules table your team can follow consistently.",
+        ],
+        variant: "operator",
+        comparisonTable: {
+          columns: ["Recommended route", "Why"],
+          rows: [
+            {
+              cells: [
+                "One shared consultation",
+                "**Lowest admin load** and a cleaner sales conversation.",
+              ],
+              label: "Same goals, same availability",
+            },
+            {
+              cells: [
+                "Offer one joint slot first, then separate calls if needed",
+                "Protects efficiency without forcing an impractical booking.",
+              ],
+              label: "Same goals, different availability",
+            },
+            {
+              cells: [
+                "Separate consultations",
+                "Prevents one person’s context obscuring the other’s needs.",
+              ],
+              label: "Different goals or buying motivations",
+            },
+            {
+              cells: [
+                "Separate consultations",
+                "Respects the buyer journey and keeps consent clear.",
+              ],
+              label: "One person wants privacy before committing",
+            },
+            {
+              cells: [
+                "Coach review before booking confirmation",
+                "Avoids hard-coding the wrong route too early.",
+              ],
+              label: "Unclear from the enquiry",
+            },
+          ],
+        },
+        keyTakeaways: {
+          items: [
+            "Make the **coach** the named owner of any split-or-keep decision.",
+            "Do not let the calendar tool decide the route by accident.",
+            "Use the enquiry data to inform a choice, not to automate suitability judgement.",
+            "Record the reason for separate calls inside the source-of-truth record.",
+          ],
+          title: "Decision rules worth documenting",
+        },
+        versusCard: {
+          left: {
+            title: "One shared consultation",
+            body:
+              "The pair are aligned enough that one conversation will move the sale forward.",
+            label: "Use when",
+            points: [
+              "**One calendar event** and one preparation thread",
+              "Lower reminder and reschedule overhead",
+              "Clearer shared decision-making",
+            ],
+          },
+          right: {
+            title: "Separate consultations",
+            body: "A joint call would hide important differences or create friction.",
+            label: "Use when",
+            points: [
+              "Different schedules or commitment levels",
+              "Different goals requiring distinct discovery",
+              "Private concerns raised before booking",
+            ],
+          },
+          eyebrow: "Routing decision",
+          verdict:
+            "Default to one consultation, but split early when **the sales context is meaningfully different**.",
+        },
+        sectionNumber: "03",
+      },
+      {
+        heading: "Set calendar, reminder and confirmation rules for two attendees",
+        body: [
+          "Whether you use a booking platform, CRM or a blended stack, the principle is the same: one booking event should trigger the right confirmations to the right people without spawning parallel admin trails.",
+          "Research on remote consultations in UK primary care noted that SMS was useful for contacting people and sending questionnaires, while teams often chose simpler communication patterns over more complex video-first setups where that reduced friction. ==That is a useful operational lesson for coaches too: keep the route simple, visible and easy to complete.==",
+          "Your confirmation sequence should specify **who receives what, when and from which system**. If you skip that, reminders drift and reschedules become messy.",
+        ],
+        lede: "A workable diary setup is more about rules than software.",
+        leadStyle: "drop-cap",
+        variant: "system",
+        steps: [
+          {
+            body:
+              "Book one consultation event linked to the shared enquiry record, with both attendee names stored against it.",
+            title: "Create the master booking",
+            label: "Step 1",
+          },
+          {
+            body:
+              "Email the booking details, call link and expectations to the nominated main contact.",
+            title: "Send primary confirmation",
+            label: "Step 2",
+          },
+          {
+            body:
+              "Send a shorter confirmation or calendar copy to the second attendee so both people receive the practical details.",
+            title: "Send attendee copy",
+            label: "Step 3",
+          },
+          {
+            body:
+              "Trigger reminders at fixed intervals, with a separate branch if one attendee confirms and the other does not.",
+            title: "Run reminder rules",
+            label: "Step 4",
+          },
+          {
+            body:
+              "If the pair request changes to format, timing or attendance, route to the coach or admin owner rather than letting the workflow rewrite the booking automatically.",
+            title: "Escalate exceptions",
+            label: "Step 5",
+          },
+        ],
+        callout: {
+          body: [
+            "Some tools support multiple attendees natively; others need a workaround through custom fields, CRM logic or manual approval.",
+            "If you are redesigning the wider process, [AI receptionists](/services/ai-receptionists) and [AI automation](/services/ai-automation) can help connect inbound enquiries, routing rules and booked consultations into one operational layer.",
+          ],
+          tone: "caution",
+          title: "Do not assume every platform behaves the same",
+        },
+        metricPanel: {
+          items: [
+            {
+              label: "Attendee count",
+              value: "2",
+              note: "Stored on the booking as an explicit field, not hidden in notes.",
+            },
+            {
+              label: "Primary owner",
+              value: "1",
+              note: "One named coach or admin contact owns exceptions.",
+            },
+            {
+              label: "Stop conditions",
+              value: "3+",
+              note:
+                "For example: split request, availability conflict, private enquiry.",
+            },
+          ],
+          title: "Illustrative workflow signals",
+        },
+        entityLinks: [
+          {
+            name:
+              "Implementation of remote consulting in UK primary care following the COVID-19 pandemic: a mixed-methods longitudinal study | British Journal of General Practice",
+            url: "https://bjgp.org/content/71/704/e166",
+            kind: "source",
+          },
+        ],
+        sectionNumber: "04",
+      },
+      {
+        heading: "Define the handoff points where the coach takes over",
+        body: [
+          "The cleanest workflows make handoffs obvious. Someone should be able to see, at a glance, when the system is still collecting and routing information and when a human must step in.",
+          "For couple consultation workflows, the coach should take over at three moments:",
+          "- When the pair need a route decision between one consultation and two\n- When goals, expectations or buying roles appear misaligned\n- When the enquiry moves from booking logistics into coaching suitability or personal discussion",
+          "That boundary matters commercially as well as ethically. It stops your process from becoming a clumsy pseudo-assessment and keeps responsibility with the right person.",
+        ],
+        lede:
+          "Automation should prepare the consultation, not replace the coach’s judgement.",
+        variant: "operator",
+        pullQuote:
+          "A good automation layer should make the coach earlier, not later, in the decisions that actually matter.",
+        promptBlocks: [
+          {
+            label: "Booking clarification prompt",
+            prompt:
+              "Thanks for your enquiry. Before we confirm the consultation, can you tell me whether you’d both like to attend the same call, and whether you’re aiming for the same type of coaching support?",
+            explanation:
+              "Clear, short and specific. It gathers routing data without drifting into assessment.",
+            tone: "improved",
+          },
+          {
+            label: "Split-route prompt",
+            prompt:
+              "It sounds like separate consultations may suit you better. I can hold one joint slot if that helps, or we can arrange individual calls so each of you has space to discuss your goals properly.",
+            explanation:
+              "Offers a practical next step while keeping the decision human-led.",
+            tone: "improved",
+          },
+          {
+            label: "Weak example to avoid",
+            prompt:
+              "Based on your answers, we think you should book separate consultations because your needs are different and one of you may not be suitable for this approach.",
+            explanation:
+              "This overreaches, implies judgement and risks making a suitability decision before the coach has spoken to them.",
+            tone: "weak",
+          },
+        ],
+        checklist: {
+          items: [
+            {
+              label: "Named human owner",
+              detail: "Assign the coach or operations lead responsible for exceptions.",
+            },
+            {
+              label: "Escalation path",
+              detail:
+                "State where unclear or sensitive enquiries go: inbox, CRM queue or direct task.",
+            },
+            {
+              label: "Visible stop condition",
+              detail:
+                "Document the event that stops the automation, such as a private call request.",
+            },
+            {
+              label: "Approved wording",
+              detail:
+                "Use message templates that stay inside booking and routing scope.",
+            },
+            {
+              label: "Audit trail",
+              detail: "Record why the workflow kept the pair together or split them.",
+            },
+          ],
+          title: "Handoff checklist",
+        },
+        sectionNumber: "05",
+      },
+      {
+        heading: "What to measure after launch to spot friction early",
+        body: [
+          "Once the workflow is live, monitor for operational friction rather than vanity numbers. You are looking for signs that the route is confusing, incomplete or too rigid for real enquiries.",
+          "Silverstone AI typically frames this as a small observation loop: check booking quality, reminder performance and handoff clarity first, then refine forms, rules or templates.",
+          "Start with a weekly review for the first month, then move to a lighter rhythm once the exceptions are predictable.",
+        ],
+        variant: "signal",
+        scorecard: {
+          options: ["Working well", "Needs adjustment", "Escalate redesign"],
+          rows: [
+            {
+              cells: [
+                "Yes, consistently",
+                "Missing in some cases",
+                "Often unclear or duplicated",
+              ],
+              criterion: "Both attendees identified clearly",
+              weight: "High",
+            },
+            {
+              cells: [
+                "Coach can decide quickly",
+                "Rules are ambiguous",
+                "Frequent wrong-route bookings",
+              ],
+              criterion: "Joint versus separate routing",
+              weight: "High",
+            },
+            {
+              cells: [
+                "Both attendees informed",
+                "Occasional gaps",
+                "Regular missed links or late arrivals",
+              ],
+              criterion: "Reminder and confirmation delivery",
+              weight: "Medium",
+            },
+            {
+              cells: [
+                "Context arrives prepared",
+                "Some missing notes",
+                "Coach rebuilding the case live",
+              ],
+              criterion: "Coach handoff quality",
+              weight: "High",
+            },
+          ],
+          totals: [
+            "Keep current setup and monitor monthly",
+            "Refine forms, prompts or routing logic",
+            "Rebuild the workflow before scaling lead volume",
+          ],
+        },
+        callout: {
+          body: [
+            "Good enough is not zero exceptions. It is a workflow where exceptions are visible, owned and easy to resolve.",
+            "If your couple enquiries are arriving through web forms, DMs and missed calls, consolidating them into one route is often the bigger win than adding more messaging.",
+          ],
+          tone: "recommendation",
+          title: "What good looks like",
+        },
+        statBand: {
+          items: [
+            {
+              value: "1",
+              label: "source of truth",
+              detail:
+                "One record should own the consultation from enquiry to attendance.",
+              tone: "benchmark",
+            },
+            {
+              value: "2",
+              label: "attendee confirmations",
+              detail:
+                "Each participant should receive the practical details needed to attend.",
+              tone: "time",
+            },
+            {
+              value: "Weekly",
+              label: "review cadence at launch",
+              detail: "Use a short review loop until exceptions stabilise.",
+              tone: "time",
+            },
+          ],
+          title: "Practical targets",
+        },
+        timeline: {
+          items: [
+            {
+              title: "Check data capture",
+              body:
+                "Are both participant names, attendance preference and availability captured cleanly?",
+              label: "Week 1",
+            },
+            {
+              title: "Check booking outcomes",
+              body:
+                "How many couple enquiries became one consultation, separate calls or manual exceptions?",
+              label: "Week 2",
+            },
+            {
+              title: "Check reminder behaviour",
+              body:
+                "Did both attendees receive and act on confirmations and reminders as expected?",
+              label: "Week 3",
+            },
+            {
+              title: "Refine rules",
+              body:
+                "Tighten wording, stop conditions and ownership where friction keeps appearing.",
+              label: "Week 4",
+            },
+          ],
+          title: "First-month review rhythm",
+        },
+        sectionNumber: "06",
+      },
+    ],
+    faqs: [
+      {
+        question: "Should a couple always book one consultation together?",
+        answer: "No.",
+      },
+      {
+        question:
+          "What information should an online fitness coach collect before the consultation?",
+        answer:
+          "Collect only the details needed to route and prepare the booking: both names, core contact details, whether they want to attend together, brief goal summaries and general availability.",
+      },
+      {
+        question: "Can AI automate the whole couple consultation booking process?",
+        answer:
+          "It can automate parts of it, such as capture, summarising, confirmations and reminders. It should not make unsupervised decisions about coaching suitability, health-related matters or complex exceptions. Those need a named human owner.",
+      },
+      {
+        question: "What is the source of truth in this workflow?",
+        answer:
+          "The source of truth is the single system record that owns consultation status, attendee details, notes and next actions. For most operators, that will be the CRM or the booking layer linked to it.",
+      },
+    ],
+    internalLinks: [
+      {
+        label: "AI automation services",
+        href: "/services/ai-automation",
+      },
+      {
+        label: "fitness coaches",
+        href: "/industry/fitness-coaches",
+      },
+      {
+        label: "AI receptionists",
+        href: "/services/ai-receptionists",
+      },
+      {
+        label: "how fitness coach enquiry automation works",
+        href: "/blog/fitness-coach-enquiry-automation",
+      },
+    ],
+    researchSources: [
+      {
+        title: "GoHighLevel for Personal Trainers and Gyms | UK CRM Setup",
+        url: "https://automatetogrow.com/gohighlevel-for-personal-trainers",
+        date: "",
+        summary:
+          "Every implementation, every migration, every training session, every consultancy call. When you book a strategy session, you speak to the person who will",
+        relevance: "Matches: when",
+      },
+      {
+        title: "Proceedings of the 4th UK Implementation Science Research ...",
+        url: "https://link.springer.com/article/10.1186/s13012-021-01163-7",
+        date: "",
+        summary:
+          "We sought to facilitate the implementation of remote consultations by developing evidence-informed visual guidelines in line with the previous",
+        relevance: "Matches: ",
+      },
+      {
+        title:
+          "Implementation of remote consulting in UK primary care following the COVID-19 pandemic: a mixed-methods longitudinal study | British Journal of General Practice",
+        url: "https://bjgp.org/content/71/704/e166",
+        date: "",
+        summary:
+          "SMS proved useful for fitness-to-work notes, contacting patients about prescriptions, and sending questionnaires to risk-stratify people with long-term conditions. Most GPs preferred a photograph-plus-telephone-consultation to video consultations for static problems that require visual assessment (for example, a rash): ‘Rather than initially setting up a video consultation [it’s better] to ask them to take a picture of it […] because the patient spends time getting a decent photo, and you’re not",
+        relevance: "Matches: fitness, consultation, booking, online, when, set",
+      },
+      {
+        title: "Sports and Fitness Appointment Booking Software | SimplyBook.me",
+        url:
+          "https://simplybook.me/en/scheduling-software-for-fitness--coaches-and-sports-classes/scheduling-software-for-fitness-classes",
+        date: "",
+        summary:
+          "The features above are just a fraction of what we offer fitness studios & gyms for their fitness classes. You can of course also accept online payments, sync your personal calendar to the booking calendar, show your Instagram photos on your booking website, and so much more. Try our fitness and gym booking software out for yourself, it will make your life and your client’s easier! Sign up now Join us and start your 14-day free trial ## CASE STUDY Q: Why did you start looking for a booking softwa",
+        relevance: "Matches: fitness, booking, how, online, why, offer",
+      },
+      {
+        title:
+          "Journal of Medical Internet Research - Real-World Implementation of Video Outpatient Consultations at Macro, Meso, and Micro Levels: Mixed-Method Study",
+        url: "https://www.jmir.org/2018/4/e150",
+        date: "",
+        summary:
+          "Our study has also illustrated, through detailed multilevel analysis, the interdependence of the different domains in the NASSS framework. For example, our national-level interviews identified a reluctance among major technology vendors in the United Kingdom (not just Microsoft) to make major investments in partnerships with the NHS. This meant that, at the time of writing, the technology being used was an off-the-shelf product that had not been specially adapted for use in video consultations a",
+        relevance: "Matches: consultation, booking, why",
+      },
+      {
+        title: "1. The Physique Development System Learn how ...",
+        url: "https://www.instagram.com/p/DT5lxRJDLKy",
+        date: "",
+        summary:
+          "This course is designed for future coaches who want more than surface-level fitness advice. ... Evidence-based coaching skills. Sarcomere Myosin",
+        relevance: "Matches: fitness, coaching, how, coaches",
+      },
+    ],
+    imagePrompt:
+      "Create one bright, high-key 16:9 editorial hero image for Silverstone AI, a UK AI automation agency, themed around a workflow blueprint for online fitness coaches routing couple enquiries into one consultation process. Show one premium central operating surface on white, off-white and pale stone materials with brushed aluminium and optical glass accents. The main metaphor is a clean process lattice: a social/web lead enters, splits into two participant identity cards, then converges into one controlled consultation booking with reminder nodes, a visible source-of-truth CRM record, and one human approval point for exceptions such as separate-call routing. Include two to five supporting layers only: intake form card, calendar module, reminder sequence, CRM case card, and exception handoff. Use abundant daylight or soft high-key studio lighting, airy shadows, elegant technical detail, generous negative space on one side for website text, and restrained cyan, electric blue, teal and slight violet accents. Keep the interfaces synthetic and text-free, with no logos, no fake readable dashboards, no stock-photo people, and no dark backgrounds. The image should feel precise, commercial, modern and clearly human-governed, with a safe responsive crop for blog cards and mobile.",
+    ctaPrimary: {
+      label: "Book a discovery call",
+      href: "/book#booking-calendar",
+    },
+    ctaSecondary: {
+      label: "Back to insights",
+      href: "/blog",
+    },
+  },
+  // N8N_BLOG_POSTS_END
 ];
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS.filter(
