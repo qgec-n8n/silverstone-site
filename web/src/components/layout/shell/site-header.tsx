@@ -37,6 +37,8 @@ import {
   pressableVariants,
 } from "~/motion";
 
+import { CurrencyToggle } from "~/components/ui/currency-toggle";
+
 import { BrandLockup } from "./brand-lockup";
 import {
   INDUSTRIES_MENU,
@@ -933,7 +935,10 @@ export function SiteHeader({ pendingIndicator }: SiteHeaderProps) {
             </ul>
           </nav>
         </LayoutGroup>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-2 lg:gap-3">
+          {/* Display currency: one instrument, persistent on every route, so a
+              US reader who switched on /pricing sees dollars everywhere. */}
+          <CurrencyToggle context="header" />
           <m.div
             className="hidden lg:block"
             initial="rest"

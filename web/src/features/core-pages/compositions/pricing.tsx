@@ -35,6 +35,7 @@ import { PricingValueModel } from "~/features/core-pages/pricing/pricing-value-m
 import { SupportRetainerGrid } from "~/features/core-pages/pricing/support-retainer-grid";
 import { WebsitePricingBento } from "~/features/core-pages/pricing/website-pricing-bento";
 import { VERIFIED_METRICS } from "~/features/core-pages/pricing/pricing-content";
+import { money } from "~/data/currency";
 import { SectionHead } from "~/features/services-v2/components/primitives";
 import { SecondaryHero } from "~/features/services-v2/components/secondary-hero";
 import {
@@ -71,9 +72,9 @@ export function PricingComposition() {
       <SecondaryHero
         eyebrow="Transparent pricing"
         icon={Diamond}
-        title="AI automation pricing for *UK SMEs*"
+        title="AI automation pricing for *small and mid-sized businesses*"
         titleId="core-pricing-title"
-        lead="Straightforward pricing for UK SMEs: focused pilots from £3,000, most full implementations between £10,000 and £25,000, and ongoing support from £350 per month. Start with one workflow, prove the value, then scale."
+        lead={`Published bands for US and UK businesses, in the currency you choose: focused pilots from ${money("£3,000")}, most full implementations between ${money("£10,000")} and ${money("£25,000")}, and ongoing support from ${money("£350")} per month. Start with one workflow, prove the value, then scale.`}
         points={[
           "No hidden implementation costs",
           "ROI modelled before build",

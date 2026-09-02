@@ -111,7 +111,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             // The AppExperienceProvider reconciles these after hydration.
             // Gate-free routes set only data-js and stop there — no loader,
             // no scroll lock, no hero/route-intro lock, ever.
-            __html: `(function(){var d=document.documentElement;d.setAttribute("data-js","on");var p=location.pathname;var free=${gateFreeRoutesJson}.indexOf(p)!==-1||${gateFreeDeepLinksJson}.indexOf(p+location.hash)!==-1;var prefixes=${gateFreeRoutePrefixesJson};for(var i=0;i<prefixes.length;i++){if(p.indexOf(prefixes[i])===0&&p.length>prefixes[i].length){free=true;break;}}if(free){d.setAttribute("data-gate-free","on");return;}d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(p==="/"){d.setAttribute("data-hero-locked","on");d.setAttribute("data-homepage-state","loading");}else{d.setAttribute("data-route-experience-state","loading");}})();`,
+            // The stored display currency (see ~/lib/currency) is applied here
+            // too, before first paint, so a USD reader never sees sterling flash.
+            __html: `(function(){var d=document.documentElement;d.setAttribute("data-js","on");try{var c=localStorage.getItem("ss.currency");if(c==="usd"||c==="gbp"){d.setAttribute("data-currency",c);}}catch(e){}var p=location.pathname;var free=${gateFreeRoutesJson}.indexOf(p)!==-1||${gateFreeDeepLinksJson}.indexOf(p+location.hash)!==-1;var prefixes=${gateFreeRoutePrefixesJson};for(var i=0;i<prefixes.length;i++){if(p.indexOf(prefixes[i])===0&&p.length>prefixes[i].length){free=true;break;}}if(free){d.setAttribute("data-gate-free","on");return;}d.setAttribute("data-loader-active","on");d.setAttribute("data-scroll-lock","on");if(p==="/"){d.setAttribute("data-hero-locked","on");d.setAttribute("data-homepage-state","loading");}else{d.setAttribute("data-route-experience-state","loading");}})();`,
           }}
         />
         <Meta />

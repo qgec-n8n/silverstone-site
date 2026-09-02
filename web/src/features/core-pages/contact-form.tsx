@@ -35,6 +35,8 @@ import {
   Send,
 } from "~/components/icons/lucide";
 import { BorderBeam } from "~/features/services-v2/components/primitives";
+import { BUDGET_BANDS } from "~/data/currency";
+import { useCurrency } from "~/lib/currency";
 
 type Status = "idle" | "submitting" | "sent" | "fallback";
 
@@ -52,8 +54,6 @@ const INTEREST_OPTIONS = [
 ];
 
 const COMPANY_SIZE_OPTIONS = ["Just me", "2–10 people", "11–50 people", "50+ people"];
-
-const BUDGET_OPTIONS = ["Under £1k", "£1k–£3k", "£3k–£10k", "£10k+", "Not sure yet"];
 
 const TIMELINE_OPTIONS = [
   "As soon as possible",
@@ -389,6 +389,8 @@ export function ContactForm() {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
   const [data, setData] = useState<EnquiryData>(INITIAL_DATA);
+  /* Budget bands follow the reader's display currency (see ~/data/currency). */
+  const [currency] = useCurrency();
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [lastFocusedStep, setLastFocusedStep] = useState(0);
@@ -538,7 +540,7 @@ export function ContactForm() {
       legend="Indicative budget"
       hint="optional"
       name="budget"
-      options={BUDGET_OPTIONS}
+      options={BUDGET_BANDS[currency]}
       value={data.budget}
       onChange={(budget) => patch({ budget })}
       disabled={submitting}

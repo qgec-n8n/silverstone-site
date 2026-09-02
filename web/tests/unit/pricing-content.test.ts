@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { plainCurrencyText } from "~/data/currency";
 import { getFutureRouteByPath } from "~/data/future-routes";
 import { PRICING_FAQ } from "~/data/pricing-faq";
 import {
@@ -21,10 +22,14 @@ import { buildRouteSchemaGraph } from "~/seo/schema";
  * /pricing is the only route that publishes prices, so every published figure
  * is pinned here. A commercial change should have to update this file
  * deliberately, not slip through a refactor.
+ *
+ * Figures are authored as currency pairs (`[[£|$]]`, see ~/data/currency);
+ * the sterling side is pinned here and the dollar side in currency.test.ts.
  */
+const gbp = (text: string) => plainCurrencyText(text, "gbp");
 describe("pricing figures", () => {
   it("publishes the approved implementation bands", () => {
-    expect(IMPLEMENTATION_TIERS.map((tier) => tier.price)).toEqual([
+    expect(IMPLEMENTATION_TIERS.map((tier) => gbp(tier.price))).toEqual([
       "£2,000–£10,000",
       "£10,000–£50,000",
       "£50,000+",
@@ -34,15 +39,13 @@ describe("pricing figures", () => {
   });
 
   it("publishes the approved support retainer prices", () => {
-    expect(SUPPORT_TIERS.map((tier) => `${tier.price} ${tier.priceNote}`)).toEqual([
-      "From £350 per month",
-      "From £1,250 per month",
-      "£10,000+ per month",
-    ]);
+    expect(SUPPORT_TIERS.map((tier) => gbp(`${tier.price} ${tier.priceNote}`))).toEqual(
+      ["From £350 per month", "From £1,250 per month", "£10,000+ per month"],
+    );
   });
 
   it("publishes the approved website build tiers, bands and maintenance pairings", () => {
-    expect(WEBSITE_TIERS.map((tier) => tier.price)).toEqual([
+    expect(WEBSITE_TIERS.map((tier) => gbp(tier.price))).toEqual([
       "£1,500",
       "£2,750",
       "£4,750",
@@ -54,13 +57,13 @@ describe("pricing figures", () => {
       "26–50 pages",
       "51–100+ pages",
     ]);
-    expect(WEBSITE_TIERS.map((tier) => tier.maintenance.price)).toEqual([
+    expect(WEBSITE_TIERS.map((tier) => gbp(tier.maintenance.price))).toEqual([
       "£65/month",
       "£125/month",
       "£225/month",
       "Custom quote",
     ]);
-    expect(MAINTENANCE_PLANS.map((plan) => plan.price)).toEqual([
+    expect(MAINTENANCE_PLANS.map((plan) => gbp(plan.price))).toEqual([
       "£65/month",
       "£125/month",
       "£225/month",
@@ -69,7 +72,7 @@ describe("pricing figures", () => {
   });
 
   it("publishes the approved hosting and handover prices", () => {
-    expect(HOSTING_OPTIONS.map((option) => option.price)).toEqual([
+    expect(HOSTING_OPTIONS.map((option) => gbp(option.price))).toEqual([
       "£15/month",
       "£25/month",
       "£350 one-off",
@@ -77,18 +80,18 @@ describe("pricing figures", () => {
   });
 
   it("publishes the senior engineer rate only for explicitly hourly work", () => {
-    expect(BREAKDOWN_INSTRUMENTS.map((instrument) => instrument.value)).toEqual([
+    expect(BREAKDOWN_INSTRUMENTS.map((instrument) => gbp(instrument.value))).toEqual([
       "£150",
       "12 weeks",
       "Measured",
     ]);
     expect(BREAKDOWN_INSTRUMENTS[0]).toEqual({
-      value: "£150",
+      value: "[[£150|$195]]",
       label: "Per hour",
       note: "Senior AI engineer · hourly work only",
     });
-    expect(HOURLY_RATE_NOTE).toBe(
-      "Most projects are scoped and quoted as a defined project fee. The £150 per hour Senior AI engineer rate applies only where specialist work is explicitly priced hourly.",
+    expect(gbp(HOURLY_RATE_NOTE)).toBe(
+      "Most projects are scoped and quoted as a defined project fee. The £150 per hour senior AI engineer rate applies only where specialist work is explicitly priced hourly.",
     );
   });
 
@@ -142,7 +145,7 @@ describe("pricing instruments", () => {
     expect(netValue).toBe(18_300);
     expect(Math.ceil(breakEvenMonths)).toBe(7);
 
-    const model = ROI_MODEL.map((step) => step.body).join(" ");
+    const model = ROI_MODEL.map((step) => gbp(step.body)).join(" ");
     expect(model).toContain("£19,200");
     expect(model).toContain("£37,500");
     expect(model).toContain("£18,300");
@@ -154,7 +157,7 @@ describe("pricing instruments", () => {
 describe("pricing copy conventions", () => {
   it("uses en dashes for ranges, never hyphens", () => {
     const ranges = [
-      ...IMPLEMENTATION_TIERS.map((tier) => tier.price),
+      ...IMPLEMENTATION_TIERS.map((tier) => gbp(tier.price)),
       ...WEBSITE_TIERS.map((tier) => tier.band),
     ];
     for (const range of ranges) {
@@ -177,10 +180,10 @@ describe("pricing copy conventions", () => {
 });
 
 describe("pricing FAQ structured data", () => {
-  it("asks all seven approved questions", () => {
-    expect(PRICING_FAQ).toHaveLength(7);
+  it("asks all eight approved questions", () => {
+    expect(PRICING_FAQ).toHaveLength(8);
     expect(PRICING_FAQ[0]?.question).toBe(
-      "How much does AI automation cost for a UK SME?",
+      "How much does AI automation cost for a small business?",
     );
     expect(PRICING_FAQ.at(-1)?.question).toBe("Are there any hidden costs?");
   });
@@ -203,8 +206,10 @@ describe("pricing FAQ structured data", () => {
     }[];
     expect(questions).toHaveLength(PRICING_FAQ.length);
     for (const [index, question] of questions.entries()) {
-      expect(question.name).toBe(PRICING_FAQ[index]?.question);
-      expect(question.acceptedAnswer.text).toBe(PRICING_FAQ[index]?.answer);
+      expect(question.name).toBe(plainCurrencyText(PRICING_FAQ[index]?.question ?? ""));
+      expect(question.acceptedAnswer.text).toBe(
+        plainCurrencyText(PRICING_FAQ[index]?.answer ?? ""),
+      );
     }
   });
 
@@ -222,8 +227,10 @@ describe("pricing FAQ structured data", () => {
 describe("pricing route metadata", () => {
   it("describes the transparent pricing model", () => {
     const route = getFutureRouteByPath("/pricing");
-    expect(route?.title).toBe("AI Automation & Website Pricing UK | Silverstone AI");
-    expect(route?.h1).toBe("AI automation pricing for UK SMEs");
+    expect(route?.title).toBe(
+      "AI Automation & Website Pricing (GBP and USD) | Silverstone AI",
+    );
+    expect(route?.h1).toBe("AI automation pricing for small and mid-sized businesses");
     expect(route?.headingPlan.h1).toBe(route?.h1);
     expect(route?.canonical).toBe("https://silverstone-ai.com/pricing");
     expect(route?.productionIndexable).toBe(true);

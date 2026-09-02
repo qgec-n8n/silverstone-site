@@ -1,3 +1,5 @@
+import { money } from "~/data/currency";
+
 import {
   INDUSTRY_ATTRIBUTION,
   INDUSTRY_CLARIFICATION,
@@ -38,7 +40,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
   seo: {
     title: "Aesthetic Clinic Automation UK | Silverstone AI",
     description:
-      "Seven-Day Booking Conversion Sprint for UK aesthetic clinics — £1,500, £750 to begin. Turn enquiries into deposit-secured consultations, with clinical judgement kept with your prescriber.",
+      "Seven-Day Booking Conversion Sprint for aesthetic clinics and med spas: £1,500 ($1,950), half to begin. Turn inquiries into deposit-secured consultations, with clinical judgment kept with your prescriber or provider.",
     h1: "Turn interest into booked, deposit-backed consultations",
   },
   eyebrow: "Skin & aesthetic clinic automation",
@@ -71,12 +73,12 @@ export const aestheticClinicsCopy: IndustryCopy = {
     eyebrow: "Seven-day sprint",
     capacity: "One clinic · this week",
     name: "Seven-Day Booking Conversion Sprint",
-    price: "£1,500",
-    priceNote: "£750 to begin · £750 when it launches",
+    price: money("£1,500"),
+    priceNote: `${money("£750")} to begin · ${money("£750")} when it launches`,
     windowNote:
       "This week's intake closes Friday at 23:59. One clinic is taken on per week — the price and the scope do not change when the clock resets.",
     bannerBody:
-      "One clinic, one week. We rebuild the part of your site that decides whether an enquiry becomes a consultation — then answer every new enquiry the moment it lands. **Live in seven business days, or the final £750 is not due until it is.**",
+      "One clinic, one week. We rebuild the part of your site that decides whether an enquiry becomes a consultation — then answer every new enquiry the moment it lands. **Live in seven business days, or the final [[£750|$975]] is not due until it is.**",
     bannerCtaLabel: "Claim this week's sprint",
     bannerDetailLabel: "See what's included",
     section: {
@@ -107,17 +109,17 @@ export const aestheticClinicsCopy: IndustryCopy = {
       },
       {
         title: "Seven business-day delivery",
-        body: "The clock starts when the content and access are in our hands — and if it slips, the final £750 waits until the system is live.",
+        body: "The clock starts when the content and access are in our hands — and if it slips, the final [[£750|$975]] waits until the system is live.",
       },
     ],
     payments: [
       {
-        amount: "£750",
+        amount: money("£750"),
         when: "To begin",
         note: "Books your week and starts the clinic review.",
       },
       {
-        amount: "£750",
+        amount: money("£750"),
         when: "When it launches",
         note: "Due once the agreed system is live, not before.",
       },
@@ -338,8 +340,8 @@ export const aestheticClinicsCopy: IndustryCopy = {
         a: "One journey at a time, typically within weeks. We prove the diary, payment and records integrations before anything reaches a client. The **Seven-Day Booking Conversion Sprint** above is the fastest route in: a fixed scope delivered inside seven business days.",
       },
       {
-        q: "What does the £1,500 seven-day sprint actually include?",
-        a: "Six things: a website conversion redesign, a rebuilt mobile booking journey, immediate response to new website enquiries, a three-message enquiry follow-up sequence, booking and conversion tracking, and delivery inside seven business days. **£750 to begin and £750 when it launches**, with maintenance or wider automation optional afterwards.",
+        q: "What does the [[£1,500|$1,950]] seven-day sprint actually include?",
+        a: "Six things: a website conversion redesign, a rebuilt mobile booking journey, immediate response to new website enquiries, a three-message enquiry follow-up sequence, booking and conversion tracking, and delivery inside seven business days. **[[£750|$975]] to begin and [[£750|$975]] when it launches**, with maintenance or wider automation optional afterwards.",
       },
       {
         q: "What happens if it is not live in seven days?",
@@ -366,7 +368,7 @@ export const aestheticClinicsCopy: IndustryCopy = {
     heading: "One clinic a week. *This week's is still open.*",
     body: "One call covers both: the seven-day sprint on your booking journey, and the wider consultation path behind it — first reply, screening handoff, deposit, follow-up and recall. See [how we deliver](/how-we-work) and [how scope shapes pricing](/pricing).",
     reassurance:
-      "No obligation · £750 to begin, £750 on launch · no platform migration assumed · no clinical advice or prescription-only naming, ever.",
+      "No obligation · [[£750|$975]] to begin, [[£750|$975]] on launch · no platform migration assumed · no clinical advice or prescription-only naming, ever.",
     buttonLabel: "Claim this week's sprint",
   },
   related: [

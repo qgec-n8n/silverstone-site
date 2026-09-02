@@ -33,11 +33,17 @@ const INDUSTRIES = new Set([
   "Fitness coaches",
   "Other",
 ]);
+// Both display currencies — kept in step with BUDGET_BANDS in
+// web/src/data/currency.ts (the booking flow shows one list at a time).
 const BUDGETS = new Set([
   "Under £1k",
   "£1k–£3k",
   "£3k–£10k",
   "£10k+",
+  "Under $1,250",
+  "$1,250–$4,000",
+  "$4,000–$12,500",
+  "$12,500+",
   "Not sure yet",
 ]);
 const URGENCIES = new Set([

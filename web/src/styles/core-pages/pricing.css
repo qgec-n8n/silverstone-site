@@ -369,6 +369,23 @@
   color: var(--ss-v2-chrome);
 }
 
+/* Display-currency instrument inside the pricing hero: toggle + fixed-rate
+   note on one row, wrapping on narrow panels. */
+.ss-pri-model__currency {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-block: 0.9rem 0.2rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--ss-v2-hairline);
+}
+
+.ss-pri-model__currency .ss-pri-model__note {
+  flex: 1 1 12rem;
+  margin: 0;
+}
+
 .ss-pri-model__note {
   margin: 0;
   color: var(--srv2-ink-faint);

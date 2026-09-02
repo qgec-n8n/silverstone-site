@@ -6,6 +6,7 @@
 @import "../styles/motion-reveal.css";
 @import "../styles/experience-gate.css";
 @import "../styles/shell-header.css";
+@import "../styles/currency.css";
 
 @custom-variant dark (&:is(.dark *));
 

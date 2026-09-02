@@ -255,7 +255,9 @@ export function FaqPanel({ items }: { items: FaqItem[] }) {
                   }}
                   type="button"
                 >
-                  <span>{item.question}</span>
+                  <span>
+                    <RichText text={item.question} />
+                  </span>
                   <ChevronDown aria-hidden="true" className="ss-srv2-faq__chevron" />
                 </button>
               </h3>

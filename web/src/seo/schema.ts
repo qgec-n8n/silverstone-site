@@ -1,3 +1,4 @@
+import { plainCurrencyText } from "~/data/currency";
 import { PRICING_FAQ } from "~/data/pricing-faq";
 import type { FutureRouteRecord } from "~/data/route-schema";
 import { industryCopyByRoute } from "~/features/industries-v2/content";
@@ -123,10 +124,13 @@ function buildFaqPageSchema(): SchemaEntry {
     "@type": "FAQPage",
     mainEntity: PRICING_FAQ.map((item) => ({
       "@type": "Question",
-      name: item.question,
+      name: plainCurrencyText(item.question),
       acceptedAnswer: {
         "@type": "Answer",
-        text: item.answer,
+        // Currency pairs reduce to "£3,000 / $3,900" — the exact text a
+        // crawler reads from the rendered accordion (both sides are in the
+        // DOM, divided by a slash; only one is displayed to a browser).
+        text: plainCurrencyText(item.answer),
       },
     })),
   };
@@ -139,7 +143,7 @@ function buildFaqPageSchema(): SchemaEntry {
  * marked-up answer matches the rendered text exactly, as Google requires.
  */
 function plainText(value: string): string {
-  return value
+  return plainCurrencyText(value)
     .replaceAll(/\*\*([^*]+)\*\*/g, "$1")
     .replaceAll(/(?<!\*)\*([^*]+)\*(?!\*)/g, "$1")
     .replaceAll(/`([^`]+)`/g, "$1");

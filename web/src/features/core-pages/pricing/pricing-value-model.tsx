@@ -52,6 +52,7 @@ import {
   VALUE_PROOF_CARDS,
   type PricingCssVars,
 } from "./pricing-content";
+import { Money } from "~/components/ui/money";
 
 export function PricingValueModel() {
   return (
@@ -77,10 +78,14 @@ export function PricingValueModel() {
                 </span>
                 <h4>{step.title}</h4>
                 <p className="ss-pri-roi__figure">
-                  <span className="ss-pri-roi__figure-value">{step.figure}</span>
+                  <span className="ss-pri-roi__figure-value">
+                    <Money text={step.figure} />
+                  </span>
                   <span className="ss-pri-roi__figure-unit">{step.unit}</span>
                 </p>
-                <p className="ss-pri-roi__note">{step.body}</p>
+                <p className="ss-pri-roi__note">
+                  <Money text={step.body} />
+                </p>
               </li>
             ))}
           </ol>

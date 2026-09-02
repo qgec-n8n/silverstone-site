@@ -48,6 +48,7 @@ import {
   ServiceButton,
 } from "~/features/services-v2/components/primitives";
 import type { SprintOffer } from "../content/types";
+import { Money } from "~/components/ui/money";
 
 /** The site's single booking destination, shared with every other page CTA. */
 const BOOKING_HREF = "/book#booking-calendar";
@@ -207,8 +208,12 @@ export function SprintBanner({
 
               <Reveal kind="metric" delayMs={200}>
                 <p className="ss-ind2-sprint__price">
-                  <span className="ss-ind2-sprint__price-figure">{sprint.price}</span>
-                  <span className="ss-ind2-sprint__price-note">{sprint.priceNote}</span>
+                  <span className="ss-ind2-sprint__price-figure">
+                    <Money text={sprint.price} />
+                  </span>
+                  <span className="ss-ind2-sprint__price-note">
+                    <Money text={sprint.priceNote} />
+                  </span>
                 </p>
               </Reveal>
 
@@ -327,7 +332,9 @@ export function SprintPanel({ sprint }: { sprint: SprintOffer }) {
             <PanelReveal className="ss-ind2-sprint-terms">
               <Reveal kind="card">
                 <div className="ss-ind2-sprint-terms__price">
-                  <span className="ss-ind2-sprint-terms__figure">{sprint.price}</span>
+                  <span className="ss-ind2-sprint-terms__figure">
+                    <Money text={sprint.price} />
+                  </span>
                   <span className="ss-ind2-sprint-terms__figure-label">
                     Fixed, for the six deliverables
                   </span>
@@ -343,7 +350,7 @@ export function SprintPanel({ sprint }: { sprint: SprintOffer }) {
                       className="ss-ind2-sprint-terms__rung"
                     >
                       <span className="ss-ind2-sprint-terms__amount">
-                        {payment.amount}
+                        <Money text={payment.amount} />
                       </span>
                       <span className="ss-ind2-sprint-terms__when">{payment.when}</span>
                       <span className="ss-ind2-sprint-terms__note">{payment.note}</span>
@@ -376,7 +383,9 @@ export function SprintPanel({ sprint }: { sprint: SprintOffer }) {
             <ServiceButton href={BOOKING_HREF} variant="primary">
               {sprint.ctaLabel}
             </ServiceButton>
-            <p className="ss-ind2-sprint-close__reassurance">{sprint.reassurance}</p>
+            <p className="ss-ind2-sprint-close__reassurance">
+              <RichText text={sprint.reassurance} />
+            </p>
           </div>
         </Reveal>
       </div>

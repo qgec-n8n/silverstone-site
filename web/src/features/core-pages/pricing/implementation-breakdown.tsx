@@ -23,6 +23,7 @@ import {
   PAYMENT_MILESTONES,
   type PricingCssVars,
 } from "./pricing-content";
+import { Money } from "~/components/ui/money";
 
 const DRIVER_ICONS = [Layers, Gauge, Target, Clock] as const;
 
@@ -150,7 +151,7 @@ export function ImplementationBreakdown() {
               className="ss-pri-instrument__value"
               style={{ "--pri-accent": INSTRUMENT_ACCENTS[index] } as PricingCssVars}
             >
-              {instrument.value}
+              <Money text={instrument.value} />
             </span>
             <span className="ss-pri-instrument__label">{instrument.label}</span>
             <span className="ss-pri-instrument__note">{instrument.note}</span>
@@ -159,7 +160,9 @@ export function ImplementationBreakdown() {
       </RevealGroup>
 
       <Reveal kind="section" delayMs={140}>
-        <p className="ss-pri-footnote">{HOURLY_RATE_NOTE}</p>
+        <p className="ss-pri-footnote">
+          <Money text={HOURLY_RATE_NOTE} />
+        </p>
       </Reveal>
     </div>
   );

@@ -16,6 +16,8 @@ import {
   type Transition,
   type Variants,
 } from "motion/react";
+
+import { MoneyPair } from "~/components/ui/money";
 import * as m from "motion/react-m";
 import {
   createContext,
@@ -582,6 +584,9 @@ function ImageReveal({
  * (`**bold**`, `*italic*`, `` `code` ``, `==mark==`,
  * `{{underline:text}}`, `{{accent:text}}`, and `{{chip:kind|label}}`). No
  * block-level markdown, nesting or raw HTML.
+ * `[[£3,000|$3,900]]` is a currency pair (see ~/data/currency); the reader
+ * sees the side matching their display currency, crawlers see both.
+ *
  * `*italic*` doubles as the site's established gradient-emphasis marker: CSS
  * scoped to hero titles, section headings and CTA titles (see
  * `.ss-srv2-hero__title em` and siblings) renders it as a colour sweep, while
@@ -591,7 +596,7 @@ function ImageReveal({
 export function RichText({ text }: { text: string }): ReactNode {
   const nodes: ReactNode[] = [];
   const pattern =
-    /(\*\*[^*]+\*\*|(?<!\*)\*[^*]+\*(?!\*)|`[^`]+`|(?<!=)==[^=]+==(?![=])|\{\{(?:underline|accent):[^{}]+\}\}|\{\{chip:(?:action|idea|proof|warning)\|[^{}|]+\}\})/g;
+    /(\[\[[^[\]|]+\|[^[\]|]+\]\]|\*\*[^*]+\*\*|(?<!\*)\*[^*]+\*(?!\*)|`[^`]+`|(?<!=)==[^=]+==(?![=])|\{\{(?:underline|accent):[^{}]+\}\}|\{\{chip:(?:action|idea|proof|warning)\|[^{}|]+\}\})/g;
   let lastIndex = 0;
   let key = 0;
   let match: RegExpExecArray | null;
@@ -601,7 +606,12 @@ export function RichText({ text }: { text: string }): ReactNode {
       nodes.push(text.slice(lastIndex, match.index));
     }
     const token = match[0];
-    if (token.startsWith("**")) {
+    if (token.startsWith("[[")) {
+      // `[[£3,000|$3,900]]` — a currency pair from ~/data/currency, shown one
+      // side at a time by the display-currency rules; see MoneyPair.
+      const [gbp = "", usd = ""] = token.slice(2, -2).split("|", 2);
+      nodes.push(<MoneyPair gbp={gbp} key={key++} usd={usd} />);
+    } else if (token.startsWith("**")) {
       nodes.push(<strong key={key++}>{token.slice(2, -2)}</strong>);
     } else if (token.startsWith("`")) {
       nodes.push(<code key={key++}>{token.slice(1, -1)}</code>);

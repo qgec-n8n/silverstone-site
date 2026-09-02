@@ -25,6 +25,10 @@ import {
   SignatureStatusBar,
 } from "~/features/services-v2/signatures/signature-chrome";
 
+import { CurrencyToggle } from "~/components/ui/currency-toggle";
+import { plainCurrencyText } from "~/data/currency";
+import { RichText } from "~/features/services-v2/components/primitives";
+
 import {
   PRICING_MODEL_BEST_STEP,
   PRICING_MODEL_PROOF,
@@ -34,8 +38,9 @@ import {
 /** Clears the hero's own showcase reveal (560ms base + 220ms + settle). */
 const ROW_BASE_DELAY = 1000;
 
-const ROW_ARIA_LABEL =
-  "Pricing model overview. Focused pilot from £3,000. Full implementation £10,000 to £25,000 typical. Support retainer from £350 per month. Best first step: one workflow pilot.";
+const ROW_ARIA_LABEL = plainCurrencyText(
+  `Pricing model overview. ${PRICING_MODEL_ROWS.map((row) => `${row.title}: ${row.prefix ? `${row.prefix} ` : ""}${row.value}${row.suffix ? ` ${row.suffix}` : ""}.`).join(" ")} Best first step: one workflow pilot.`,
+);
 
 export function PricingModelOverviewSignature() {
   const reducedMotion = useReducedMotion() ?? false;
@@ -64,7 +69,9 @@ export function PricingModelOverviewSignature() {
                     {row.prefix ? (
                       <span className="ss-pri-model__prefix">{row.prefix}</span>
                     ) : null}
-                    <span className="ss-pri-model__value">{row.value}</span>
+                    <span className="ss-pri-model__value">
+                      <RichText text={row.value} />
+                    </span>
                     {row.suffix ? (
                       <span className="ss-pri-model__suffix">{row.suffix}</span>
                     ) : null}
@@ -106,6 +113,14 @@ export function PricingModelOverviewSignature() {
           <strong className="ss-pri-model__best-value">
             {PRICING_MODEL_BEST_STEP.value}
           </strong>
+        </div>
+
+        <div className="ss-pri-model__currency">
+          <CurrencyToggle context="pricing" labelled size="instrument" tone="dark" />
+          <p className="ss-pri-model__note">
+            USD at fixed pairs, reviewed quarterly. Quoted and invoiced in the currency
+            agreed.
+          </p>
         </div>
 
         <p className="ss-pri-model__note">

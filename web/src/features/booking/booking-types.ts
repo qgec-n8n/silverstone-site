@@ -1,3 +1,5 @@
+import { ALL_BUDGET_BANDS } from "~/data/currency";
+
 export const BOOKING_DURATION_MINUTES = 30;
 /** Maximum size of one same-origin availability request. */
 export const APPLICATION_WINDOW_DAYS = 42;
@@ -32,13 +34,12 @@ export const INDUSTRY_OPTIONS = [
   "Other",
 ] as const;
 
-export const BUDGET_OPTIONS = [
-  "Under £1k",
-  "£1k–£3k",
-  "£3k–£10k",
-  "£10k+",
-  "Not sure yet",
-] as const;
+/**
+ * Every accepted budget string across both display currencies (the visible
+ * list is per currency — see `BUDGET_BANDS` in ~/data/currency). The Calendly
+ * function validates against the same superset.
+ */
+export const BUDGET_OPTIONS = ALL_BUDGET_BANDS;
 
 export const URGENCY_OPTIONS = [
   "As soon as possible",
@@ -49,7 +50,8 @@ export const URGENCY_OPTIONS = [
 
 export type ServiceId = (typeof SERVICE_OPTIONS)[number]["id"];
 export type Industry = (typeof INDUSTRY_OPTIONS)[number];
-export type Budget = (typeof BUDGET_OPTIONS)[number];
+/** Any accepted band in either currency, or "" while unanswered. */
+export type Budget = string;
 export type Urgency = (typeof URGENCY_OPTIONS)[number];
 export type BookingStage = "qualify" | "schedule" | "details" | "confirmed";
 export type BookingMode = "disabled" | "mock" | "live";
@@ -57,7 +59,7 @@ export type BookingMode = "disabled" | "mock" | "live";
 export type QualificationAnswers = {
   services: ServiceId[];
   industry: Industry | "";
-  budget: Budget | "";
+  budget: Budget;
   urgency: Urgency | "";
 };
 

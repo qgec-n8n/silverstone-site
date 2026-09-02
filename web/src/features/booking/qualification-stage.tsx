@@ -1,6 +1,7 @@
 import { Check, ChevronDown } from "~/components/icons/lucide";
+import { BUDGET_BANDS } from "~/data/currency";
+import { useCurrency } from "~/lib/currency";
 import {
-  BUDGET_OPTIONS,
   INDUSTRY_OPTIONS,
   SERVICE_OPTIONS,
   URGENCY_OPTIONS,
@@ -19,6 +20,7 @@ export function QualificationStage({
   onChange,
   error,
 }: QualificationStageProps) {
+  const [currency] = useCurrency();
   const toggleService = (service: ServiceId) => {
     const selected = value.services.includes(service);
     if (!selected && value.services.length >= 3) return;
@@ -100,7 +102,7 @@ export function QualificationStage({
               Indicative budget <span>Not a quote</span>
             </legend>
             <div className="ss-booking-segments" data-columns="5">
-              {BUDGET_OPTIONS.map((budget) => (
+              {BUDGET_BANDS[currency].map((budget) => (
                 <button
                   key={budget}
                   type="button"
