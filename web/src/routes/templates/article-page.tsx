@@ -73,7 +73,7 @@ import {
 } from "~/features/services-v2/components/primitives";
 import { ScrollCue } from "~/features/services-v2/components/secondary-hero";
 import { RouteExperienceFrame } from "~/routes/templates/route-experience-frame";
-import { serializeJsonLd } from "~/seo/schema";
+import { buildOrganizationNode, ORGANIZATION_ID, serializeJsonLd } from "~/seo/schema";
 
 type ArticlePageProps = {
   post: SilverstoneBlogPost;
@@ -1543,21 +1543,14 @@ function BlogJsonLd({ post }: { post: SilverstoneBlogPost }) {
         datePublished: post.publishedIsoDate,
         dateModified: post.updatedIsoDate,
         mainEntityOfPage: articleUrl,
-        author: {
-          "@type": "Organization",
-          name: "Silverstone AI",
-          url: `${baseUrl}/`,
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "Silverstone AI",
-          url: `${baseUrl}/`,
-          logo: {
-            "@type": "ImageObject",
-            url: `${baseUrl}/brand/silverstone-logo.png`,
-          },
-        },
+        // Both point at the one Organization node below by @id rather than
+        // repeating a thinner copy: an answer engine resolving this article
+        // gets the studio's full entity (address, profiles, both markets
+        // served) from the same document.
+        author: { "@id": ORGANIZATION_ID },
+        publisher: { "@id": ORGANIZATION_ID },
       },
+      buildOrganizationNode(),
       // Mirrors the visible Home → Blog → article trail in the hero and the
       // BreadcrumbList pattern used by every other page template
       // (~/seo/schema.ts) — names and URLs must stay canonical.

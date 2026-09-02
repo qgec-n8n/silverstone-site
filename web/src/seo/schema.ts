@@ -23,7 +23,7 @@ type SchemaEntry = {
   [key: string]: unknown;
 };
 
-const ORGANIZATION_ID = "https://silverstone-ai.com/#organization";
+export const ORGANIZATION_ID = "https://silverstone-ai.com/#organization";
 
 /**
  * Both markets the studio serves, as the schema.org nodes every Service and
@@ -42,7 +42,7 @@ const AREA_SERVED = [
  * same address, contact and profile facts on every route rather than only
  * the homepage. Only facts the site itself shows are asserted here.
  */
-function buildOrganizationNode(): SchemaEntry {
+export function buildOrganizationNode(): SchemaEntry {
   return {
     "@type": "Organization",
     "@id": ORGANIZATION_ID,
